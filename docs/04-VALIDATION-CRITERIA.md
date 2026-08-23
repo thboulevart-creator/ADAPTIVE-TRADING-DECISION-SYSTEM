@@ -613,7 +613,7 @@ requise au §1, au rythme attendu, puis répartir le reste.
 **[NORMATIF] [INTERFACE]**
 
 > **La configuration confirmatoire doit être techniquement reproductible et gelée avant l'ouverture
-de la phase B.**
+> de la phase B.**
 
 `04` fixe le principe et l'interface. **Le détail de la procédure relève du document `05` ou d'un
 document technique dédié.**
@@ -911,7 +911,8 @@ Les conditions de promotion se répartissent en trois catégories.
 
 **[NORMATIF]**
 
-L'appartenance d'une condition à l'une des trois catégories découle de la nature de ce qu'elle garantit.
+L'appartenance d'une condition à l'une des trois catégories découle de la nature de ce qu'elle
+garantit.
 
 | Catégorie | Ce que la condition garantit | Motif du caractère non compensable |
 |---|---|---|
@@ -1141,8 +1142,8 @@ et non déclarée à l'avance **n'est pas recevable**.
 **[NORMATIF]**
 
 > **Une invalidation ne restitue pas une consultation déjà effectuée.** Les données observées lors
-d'un essai invalidé demeurent consultées à l'intensité correspondante au sens du §4.2, et le statut
-probatoire de la période est mis à jour au registre.
+> d'un essai invalidé demeurent consultées à l'intensité correspondante au sens du §4.2, et le statut
+> probatoire de la période est mis à jour au registre.
 
 **Pourquoi :** sans cette règle, invoquer un défaut de code permettrait de récupérer un juge
 contaminé.
@@ -1317,8 +1318,8 @@ qu'une étude de calibration ait été conduite. Tant qu'elle ne l'est pas, la q
 d'heuristique doit être maintenue.
 
 **C — Coût de la politique de consommation.** Le nombre de cycles confirmatoires qu'un historique
-réel autorise avant épuisement n'a pas été mesuré. Détermine si la hiérarchie de preuve du §7 suffit en
-pratique.
+réel autorise avant épuisement n'a pas été mesuré. Détermine si la hiérarchie de preuve du §7 suffit
+en pratique.
 
 **D — Surveillance post-promotion.** `04` ne traite ni les critères de désactivation d'un champion, ni
 la multiplicité créée par les contrôles répétés en suivi réel. Lacune réelle, hors périmètre.
@@ -1335,4 +1336,5 @@ la multiplicité créée par les contrôles répétés en suivi réel. Lacune r�
 | 0.4 | 21/08/2026 | Famille de recherche, indépendance des observations, distinction consultée / consommée, séparation architecture / paramètres |
 | 0.5 | 21/08/2026 | Contre-expertise externe et arbitrage croisé. Corrections F1–F17, implémentations F18–F24, architecture D1–D10. Statuts décisionnels bloquante / renforcement / contextuelle, niveaux de preuve, intensités de consultation, statut probatoire, architecture des phases, gel technique, séparation `N_budget` / `N_famille`, correction factuelle sur Bonferroni |
 | 0.6.1 | 21/08/2026 | **Intégration de trois patches d'audit externe.** M-01 : le statut I1 devient procédural et vérifiable — périmètre informationnel défini, traçabilité exigée, statut plein conditionné (§4.2, §4.2 bis, §4.3). M-02 : un contrôle de voisinage n'échappe à `N_famille` que si son rôle décisionnel est pré-spécifié ; le maintien de la configuration ne suffit plus (§5.5). M-03 : formule de dimensionnement restreinte au test primaire, notation unilatérale et bilatérale explicitée (§1.3). Aucune autre modification |
+| 0.6 | 21/08/2026 | **Arbitrage explicite de deux points d'implémentation.** §5.1 : fondement de la classification des conditions — validité de la preuve, solidité de l'effet, compatibilité de contexte — et règle de classement des conditions futures. §5.3 : justification du caractère bloquant des conditions 3 et 6. §7 : fondement de la hiérarchie — plafond par le statut du juge, position par les conditions de renforcement. Aucune modification de fond ailleurs |
 | 0.6.2 | 23/08/2026 | **Correction chirurgicale CTR-01.** La condition §5.3 c.4 relative aux coûts complets est suspendue tant que le modèle de coûts n'est pas opérationnellement défini ; §8.C et §9 sont mis en cohérence. Aucune autre modification de fond |
