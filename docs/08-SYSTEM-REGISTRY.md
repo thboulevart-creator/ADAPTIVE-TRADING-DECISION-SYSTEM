@@ -1,6 +1,6 @@
 # 08 — SYSTEM REGISTRY
 
-**Version:** 0.1 — FACTUAL REGISTRY / PROVISIONAL
+**Version:** 0.2 — FACTUAL REGISTRY / PROVISIONAL
 **Date:** 23 août 2026
 **Status:** cartographie structurée issue des documents existants ; aucune nouvelle règle normative n'est créée ici.
 **Purpose:** rendre explicites les concepts, propriétaires, producteurs, dépositaires, consommateurs et interfaces déjà observables dans le système.
@@ -13,12 +13,13 @@ Ce registre ne redéfinit aucun concept de `04` ou `05`.
 
 Il distingue obligatoirement :
 
-- **Définiteur** — document autorisé à définir la sémantique du concept.
+- **Définiteur en vigueur** — document actuellement autorisé à définir la sémantique normative du concept.
+- **Source sémantique proposée** — document contenant la définition proposée d'un concept, sans que cette proposition soit pour autant en vigueur.
 - **Producteur** — composant qui calcule ou produit la valeur.
 - **Dépositaire** — emplacement faisant foi pour la valeur ou l'enregistrement.
 - **Consommateur** — composant qui utilise le concept.
 
-**Principe :** produire une donnée ne donne jamais le droit d'en redéfinir la sémantique.
+**Principe :** produire une donnée, ou proposer une définition, ne donne jamais à lui seul le droit de redéfinir la sémantique normative.
 
 ---
 
@@ -31,25 +32,42 @@ Il distingue obligatoirement :
 
 `04` indique explicitement ses interfaces inter-documents au §9. `05` indique explicitement qu'il est soumis à arbitrage et qu'aucune de ses règles n'est actuellement en vigueur.
 
+## 1.1 — Corpus canonique réellement observé
+
+Le dépôt contient actuellement les documents numérotés suivants dans `docs/` :
+
+| ID | Fichier réel | Fonction observée |
+|---|---|---|
+| 00 | `00-MASTER-EXECUTION-CHECKLIST.md` | Pilotage / checklist maître |
+| 01 | `01-SYSTEM-VISION.md` | Vision système |
+| 02 | `02-ASSET-PROFILE-DATABASE.md` | Base de profils d'actifs |
+| 03 | `03-REGIME-EXPERT-RESEARCH-FOUNDATION.md` | Fondation recherche régimes / experts |
+| 04 | `04-VALIDATION-CRITERIA.md` | Critères de validation |
+| 05 | `05-DATA-CONTRACT.md` | Contrat de données |
+
+**Clarification de corpus :** `02-ARCHITECTURE.md` et `03-DECISION-FLOW.md` ne sont pas des fichiers présents dans le dépôt observé au commit audité. Les noms réels sont ceux du tableau ci-dessus. Cette clarification ne constitue pas une substitution normative : elle fixe uniquement l'identité documentaire réellement présente.
+
 ---
 
 # 2. Ownership Registry — concepts
 
-| Concept ID | Concept | Définiteur | Producteur | Dépositaire | Consommateurs | Statut |
-|---|---|---|---|---|---|---|
-| CON-001 | Niveau de preuve N0–N4 | `04 §7` | Validation / promotion | Registre de recherche / journal de décision à définir | Recherche, décision de capital | Défini dans 04 |
-| CON-002 | Statut probatoire du juge | `04 §4.1–4.3` | Procédure de consultation / juge | Registre `04 §4.6` | Promotion / validation | Défini dans 04 |
-| CON-003 | Conditions de validation / promotion | `04 §5.1–5.6` | Contrôles de validation | Registre de recherche | Promotion | Défini dans 04 |
-| CON-004 | `N_budget` | `04 §2.A` | Plan de recherche | Charte / registre de recherche | Tests confirmatoires | Défini dans 04 |
-| CON-005 | `N_famille` | `04 §2.B.1` | Famille de recherche | Registre de famille | Correction de multiplicité | Défini dans 04 |
-| CON-006 | Continuité temporelle | `05 §1` | Contrôle qualité des données | Rapport de couverture / dataset | Moteurs de recherche | Proposition dans 05 |
-| CON-007 | Rapport de couverture | `05 §2` | Pipeline de contrôle qualité | Livrable attaché au résultat | Validation / audit | Proposition dans 05 |
-| CON-008 | Identité d'un jeu de données | `05 §3` | Pipeline de transformation / acquisition | Registry de datasets à créer | Moteurs / recherche | Proposition dans 05 |
-| CON-009 | Parenté d'un dataset | `05 §3.3` | Pipeline de transformation | Registry de datasets à créer | Audit / reproductibilité | Proposition dans 05 |
-| CON-010 | Convention temporelle par instrument | `05 §4` | Asset Profile / gouvernance instrument | Asset Profile | Tous moteurs | Proposition dans 05 |
-| CON-011 | Parité entre implémentations | `05 §5` | Procédure de parité | Rapport de parité | Recherche / validation | Proposition dans 05 |
-| CON-012 | Format canonique de série | `05 §6.1` | Gouvernance technique | Contrat de données | Tous moteurs | Choix encore ouvert |
-| CON-013 | Modèle de coûts par instrument | `05 §7` | Asset Profile / gouvernance instrument | Asset Profile | Recherche / validation / exécution | Proposition dans 05 |
+| Concept ID | Concept | Définiteur en vigueur | Source sémantique proposée | Producteur | Dépositaire | Consommateurs | Statut |
+|---|---|---|---|---|---|---|---|
+| CON-001 | Niveau de preuve N0–N4 | `04 §7` | — | Validation / promotion | Registre de recherche / journal de décision à définir | Recherche, décision de capital | Défini dans 04 |
+| CON-002 | Statut probatoire du juge | `04 §4.1–4.3` | — | Procédure de consultation / juge | Registre `04 §4.6` | Promotion / validation | Défini dans 04 |
+| CON-003 | Conditions de validation / promotion | `04 §5.1–5.6` | — | Contrôles de validation | Registre de recherche | Promotion | Défini dans 04 |
+| CON-004 | `N_budget` | `04 §2.A` | — | Plan de recherche | Charte / registre de recherche | Tests confirmatoires | Défini dans 04 |
+| CON-005 | `N_famille` | `04 §2.B.1` | — | Famille de recherche | Registre de famille | Correction de multiplicité | Défini dans 04 |
+| CON-006 | Continuité temporelle | — | `05 §1` | Contrôle qualité des données | Rapport de couverture / dataset | Moteurs de recherche | Proposition dans 05 |
+| CON-007 | Rapport de couverture | — | `05 §2` | Pipeline de contrôle qualité | Livrable attaché au résultat | Validation / audit | Proposition dans 05 |
+| CON-008 | Identité d'un jeu de données | — | `05 §3` | Pipeline de transformation / acquisition | Registry de datasets à créer | Moteurs / recherche | Proposition dans 05 |
+| CON-009 | Parenté d'un dataset | — | `05 §3.3` | Pipeline de transformation | Registry de datasets à créer | Audit / reproductibilité | Proposition dans 05 |
+| CON-010 | Convention temporelle par instrument | — | `05 §4` | Asset Profile / gouvernance instrument | Asset Profile | Tous moteurs | Proposition dans 05 |
+| CON-011 | Parité entre implémentations | — | `05 §5` | Procédure de parité | Rapport de parité | Recherche / validation | Proposition dans 05 |
+| CON-012 | Format canonique de série | — | `05 §6.1` | Gouvernance technique | Contrat de données | Tous moteurs | Choix encore ouvert |
+| CON-013 | Modèle de coûts par instrument | — | `05 §7` | Asset Profile / gouvernance instrument | Asset Profile | Recherche / validation / exécution | Proposition dans 05 |
+
+**Conséquence :** une proposition de `05` n'est plus enregistrée comme « définiteur » simplement parce qu'elle contient une définition. Elle est enregistrée comme source sémantique proposée tant qu'aucun acte d'adoption ne l'a rendue normative.
 
 ---
 
@@ -165,19 +183,21 @@ Cette classification est enregistrée comme **architecture de gouvernance propos
 
 ---
 
-# 9. Contradictions détectées pendant la cartographie
+# 9. Constats d'interface issus de la cartographie
 
-### C-01 — Gel de `04` vs interfaces externes incomplètes
+### C-01 — `04` et interfaces externes
 
-`04` se présente comme complet sous réserve explicite, tout en laissant plusieurs sujets à des documents externes non encore définis.
+`04` fixe explicitement au §9 les points de raccordement vers `05`, un document technique dédié, un document de risque, un document de régimes et un protocole de gouvernance.
 
-**Action :** ne pas modifier `04` ici. Vérifier les dépendances avant tout gel final.
+**Statut :** dépendances explicites, pas contradiction démontrée.
 
-### C-02 — `04` dépend d'un `05` non validé
+### C-02 — Dépendance `04` → `05` non encore gelée
 
-`04 §9` attribue plusieurs responsabilités à `05`, tandis que `05` est explicitement une proposition non validée.
+`04 §5.3 c.4` fait de la survie aux coûts complets une condition bloquante et `04 §9` identifie le modèle de coûts comme une interface relevant de `05`. `05` est toutefois encore une proposition non validée.
 
-**Action :** interface à formaliser avant de considérer la chaîne complète comme gelée.
+**Statut :** dépendance normative vers une interface non encore gelée. Ce n'est pas, à lui seul, une contradiction entre deux règles.
+
+**Conséquence :** aucune règle de `05` n'est importée rétroactivement dans `04`. Tant que le modèle de coûts applicable n'est pas défini et disponible, la condition correspondante ne peut simplement pas être satisfaite pour une promotion.
 
 ### C-03 — Format canonique encore indéterminé
 
@@ -239,19 +259,12 @@ Ordre de construction recommandé :
 08 SYSTEM REGISTRY                  ← présent document
         ↓
 09 DATASET / PROVENANCE REGISTRY
-        ↓
 10 TEMPORAL / POINT-IN-TIME CONTRACT
-        ↓
 11 CONTRADICTION & ARBITRATION REGISTRY
-        ↓
 12 UPWARD CHALLENGE PROTOCOL
-        ↓
 13 CRITICALITY / AUDIT PROTOCOL
-        ↓
 AUDIT ADVERSARIAL
-        ↓
 ASSET PROFILE
-        ↓
 ASSET MECHANICS
 ```
 
