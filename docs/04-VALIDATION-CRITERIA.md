@@ -1,10 +1,10 @@
 # Critères de validation
 
-**Version :** 0.6.1 — PROPOSITION, CANDIDATE AU GEL
-**Date :** 21 août 2026
-**Remplace :** v0.6 du 21 août 2026
+**Version :** 0.6.2 — PROPOSITION, CANDIDATE AU GEL
+**Date :** 23 août 2026
+**Remplace :** v0.6.1 du 21 août 2026
 **Origine :** contre-expertise externe, arbitrage technique croisé, cahier des charges de réécriture en cinq blocs
-**Modification :** intégration des patches M-01 (statut I1), M-02 (contrôles de voisinage) et M-03 (formule de dimensionnement) issus de l'audit externe de la v0.6
+**Modification :** suspension de la condition de coûts complets c.4 du §5.3, mise en cohérence de §8.C et §9 ; aucune autre modification de fond
 
 ---
 
@@ -613,7 +613,7 @@ requise au §1, au rythme attendu, puis répartir le reste.
 **[NORMATIF] [INTERFACE]**
 
 > **La configuration confirmatoire doit être techniquement reproductible et gelée avant l'ouverture
-> de la phase B.**
+de la phase B.**
 
 `04` fixe le principe et l'interface. **Le détail de la procédure relève du document `05` ou d'un
 document technique dédié.**
@@ -911,8 +911,7 @@ Les conditions de promotion se répartissent en trois catégories.
 
 **[NORMATIF]**
 
-L'appartenance d'une condition à l'une des trois catégories découle de la nature de ce qu'elle
-garantit.
+L'appartenance d'une condition à l'une des trois catégories découle de la nature de ce qu'elle garantit.
 
 | Catégorie | Ce que la condition garantit | Motif du caractère non compensable |
 |---|---|---|
@@ -965,7 +964,7 @@ la promotion multi-critères en second mécanisme de sélection non comptabilis�
 | 1 | Taille effective d'échantillon conforme au §1, dépendance traitée selon le §1.5 | **[BLOQUANTE]** |
 | 2 | Significativité sur la phase B au seuil corrigé du §2.B, test spécifié selon le §1.9 | **[BLOQUANTE]** |
 | 3 | Statut probatoire du juge suffisant pour le niveau de preuve visé (§4.3, §7) | **[BLOQUANTE]** |
-| 4 | Survie aux coûts complets du document `05` | **[BLOQUANTE]** |
+| 4 | Survie aux coûts complets selon un modèle de coûts opérationnellement défini | **[SUSPENDU]** |
 | 5 | Audit des biais sans anomalie critique | **[BLOQUANTE]** |
 | 6 | Gel technique effectif et reproductibilité vérifiée (§3.4) | **[BLOQUANTE]** |
 | 7 | Stabilité paramétrique (§5.5) | **[RENFORCEMENT]** |
@@ -1142,8 +1141,8 @@ et non déclarée à l'avance **n'est pas recevable**.
 **[NORMATIF]**
 
 > **Une invalidation ne restitue pas une consultation déjà effectuée.** Les données observées lors
-> d'un essai invalidé demeurent consultées à l'intensité correspondante au sens du §4.2, et le statut
-> probatoire de la période est mis à jour au registre.
+d'un essai invalidé demeurent consultées à l'intensité correspondante au sens du §4.2, et le statut
+probatoire de la période est mis à jour au registre.
 
 **Pourquoi :** sans cette règle, invoquer un défaut de code permettrait de récupérer un juge
 contaminé.
@@ -1278,9 +1277,9 @@ peut être prononcée** si la charte concernée ne les a pas fixés.
 
 **[NORMATIF]**
 
-Le présent document est complet et applicable **sous une réserve explicite** : la condition 11 du §5.3
-est **suspendue** et ne peut fonder aucune décision tant que les cinq éléments du §5.7 ne sont pas
-définis.
+Le présent document est complet et applicable **sous une réserve explicite** : les conditions 4 et 11 du §5.3
+sont **suspendues** et ne peuvent fonder aucune décision tant que les conditions opérationnelles
+nécessaires à leur activation ne sont pas définies.
 
 Aucune autre condition n'est suspendue. L'absence de valeurs pour les paramètres du §8.B n'affecte pas
 la complétude du document : elle empêche seulement de prononcer une promotion tant qu'une charte ne
@@ -1295,7 +1294,7 @@ les a pas fixés pour la recherche concernée.
 | Sujet | Traité par `04` | Relève de |
 |---|---|---|
 | Contrôles de qualité et de continuité des données | Principe rappelé au §0.1 | `05` |
-| Modèle de coûts complets | Condition bloquante §5.3 c.4 | `05` |
+| Modèle de coûts complets | Condition suspendue §5.3 c.4 ; détail opérationnel non encore validé | `05` |
 | Procédure détaillée du gel technique | Principe et périmètre §3.4 | `05` ou document technique dédié |
 | Capacité, liquidité, impact de marché, exposition factorielle, levier | Non traités | `05` ou document de risque |
 | Taxonomie et classification des régimes | Condition suspendue §5.7 | Document dédié |
@@ -1318,8 +1317,8 @@ qu'une étude de calibration ait été conduite. Tant qu'elle ne l'est pas, la q
 d'heuristique doit être maintenue.
 
 **C — Coût de la politique de consommation.** Le nombre de cycles confirmatoires qu'un historique
-réel autorise avant épuisement n'a pas été mesuré. Détermine si la hiérarchie de preuve du §7 suffit
-en pratique.
+réel autorise avant épuisement n'a pas été mesuré. Détermine si la hiérarchie de preuve du §7 suffit en
+pratique.
 
 **D — Surveillance post-promotion.** `04` ne traite ni les critères de désactivation d'un champion, ni
 la multiplicité créée par les contrôles répétés en suivi réel. Lacune réelle, hors périmètre.
@@ -1336,4 +1335,4 @@ la multiplicité créée par les contrôles répétés en suivi réel. Lacune r�
 | 0.4 | 21/08/2026 | Famille de recherche, indépendance des observations, distinction consultée / consommée, séparation architecture / paramètres |
 | 0.5 | 21/08/2026 | Contre-expertise externe et arbitrage croisé. Corrections F1–F17, implémentations F18–F24, architecture D1–D10. Statuts décisionnels bloquante / renforcement / contextuelle, niveaux de preuve, intensités de consultation, statut probatoire, architecture des phases, gel technique, séparation `N_budget` / `N_famille`, correction factuelle sur Bonferroni |
 | 0.6.1 | 21/08/2026 | **Intégration de trois patches d'audit externe.** M-01 : le statut I1 devient procédural et vérifiable — périmètre informationnel défini, traçabilité exigée, statut plein conditionné (§4.2, §4.2 bis, §4.3). M-02 : un contrôle de voisinage n'échappe à `N_famille` que si son rôle décisionnel est pré-spécifié ; le maintien de la configuration ne suffit plus (§5.5). M-03 : formule de dimensionnement restreinte au test primaire, notation unilatérale et bilatérale explicitée (§1.3). Aucune autre modification |
-| 0.6 | 21/08/2026 | **Arbitrage explicite de deux points d'implémentation.** §5.1 : fondement de la classification des conditions — validité de la preuve, solidité de l'effet, compatibilité de contexte — et règle de classement des conditions futures. §5.3 : justification du caractère bloquant des conditions 3 et 6. §7 : fondement de la hiérarchie — plafond par le statut du juge, position par les conditions de renforcement. Aucune modification de fond ailleurs |
+| 0.6.2 | 23/08/2026 | **Correction chirurgicale CTR-01.** La condition §5.3 c.4 relative aux coûts complets est suspendue tant que le modèle de coûts n'est pas opérationnellement défini ; §8.C et §9 sont mis en cohérence. Aucune autre modification de fond |
