@@ -108,6 +108,44 @@ L'analyse future devra donc considérer au minimum les rendements, les drawdowns
 
 ---
 
+## PTA-007 — Track record : distinguer la preuve initiale de la crédibilité institutionnelle
+
+**Statut : HYPOTHÈSE STRATÉGIQUE À VALIDER**
+
+Un track record doit être évalué simultanément selon sa **durée**, sa **performance**, son **risque réellement pris** et la **stabilité de son comportement**. Une performance isolée sur une courte période ne constitue pas une preuve suffisante de robustesse.
+
+### Niveau initial envisagé
+
+Comme repère de travail, une première cible conceptuelle pourrait être :
+
+- environ **20–30 % de performance annualisée** ;
+- avec un risque explicitement maîtrisé ;
+- et un drawdown historique de l'ordre de **15–19 % maximum**, sous réserve que ces chiffres restent compatibles avec la qualité, la stabilité et la robustesse du processus.
+
+Ces chiffres ne constituent **ni une promesse de rendement ni un seuil universel de qualité**. Ils constituent un repère à tester et à confronter au contexte de marché, au profil de l'algo et à la qualité du track record.
+
+### Niveau visant un intérêt professionnel
+
+Une seconde hypothèse stratégique est qu'un track record capable de démontrer environ **30–50 % annualisés** tout en maintenant un drawdown maximal historique d'environ **10–15 %** pourrait présenter un profil particulièrement attractif pour des investisseurs professionnels, si — et seulement si — cette performance est réelle, robuste, reproductible et obtenue sans prise de risque cachée.
+
+Ce niveau doit être considéré comme une **hypothèse de positionnement**, et non comme une norme imposée aux investisseurs institutionnels. Les critères réellement utilisés par les investisseurs devront être étudiés ultérieurement : durée du track record, volatilité, Sharpe/Sortino, profondeur et durée des drawdowns, liquidité, capacité, corrélation, stabilité des résultats, transparence du processus, risque de modèle et qualité opérationnelle.
+
+### Durée minimale envisagée
+
+Une durée d'au moins **2 années complètes** est retenue à ce stade comme repère minimal pour commencer à constituer un track record suffisamment exploitable pour une démarche visant des capitaux significatifs sous gestion.
+
+Cette durée ne doit toutefois pas être considérée comme une garantie de crédibilité institutionnelle. Un historique plus long et couvrant plusieurs régimes de marché pourra être nécessaire selon l'objectif, le type d'investisseur et la stratégie.
+
+### Principe important
+
+Le système ne doit jamais chercher à atteindre une performance cible en augmentant artificiellement le risque. La question fondamentale doit rester :
+
+> **« Quelle performance avons-nous obtenue pour quel risque, pendant combien de temps et dans quels régimes de marché ? »**
+
+La qualité du track record doit donc être jugée par la relation entre **rendement, risque, durée, robustesse et stabilité**, et non par le rendement brut seul.
+
+---
+
 ## Journal des idées à préserver
 
 Cette section est destinée à recevoir les petites avancées, intuitions et hypothèses qui pourraient devenir importantes plus tard, même si leur place exacte dans l'architecture n'est pas encore connue.
@@ -120,6 +158,15 @@ Le futur système de gestion du portefeuille algo devra pouvoir sélectionner dy
 
 La cible conceptuelle est un portefeuille dans lequel chaque algo possède ses propres points forts et points faibles, tandis que la combinaison cherche à réduire les périodes de drawdown communes et la dépendance à un seul régime de marché.
 
+### Entrée — Architecture de track record
+
+Le futur système devra distinguer au minimum deux objectifs :
+
+1. **Démontrer qu'un algo/portefeuille possède un edge exploitable avec un risque maîtrisé.**
+2. **Démontrer qu'il peut supporter une analyse destinée à des capitaux professionnels significatifs.**
+
+Les métriques et seuils ne devront pas être figés prématurément : ils devront être confrontés aux données, aux régimes de marché et aux exigences réelles des investisseurs ciblés.
+
 ---
 
 ## Principes de prudence
@@ -129,3 +176,5 @@ La cible conceptuelle est un portefeuille dans lequel chaque algo possède ses p
 3. Une amélioration du backtest ne suffit pas à valider un principe si elle peut provenir d'un surajustement.
 4. Les contraintes de risque doivent rester explicites même lorsque le potentiel de rendement est laissé ouvert.
 5. Une hypothèse non démontrée ne doit jamais être présentée comme un invariant.
+6. Un rendement élevé associé à un drawdown faible doit faire l'objet d'une analyse renforcée du risque caché, du surajustement et de la stabilité hors échantillon.
+7. Les critères d'attractivité pour investisseurs professionnels ne doivent pas être déduits d'un seul couple rendement/drawdown.
