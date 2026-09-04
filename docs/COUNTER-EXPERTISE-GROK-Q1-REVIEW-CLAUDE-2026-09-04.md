@@ -8,9 +8,115 @@ Tu interviens comme contre-expert architectural indépendant sur `1.1.2 — DATA
 
 Ton objectif n'est pas de confirmer Claude, ni de confirmer l'analyse déjà produite par l'équipe. Tu dois chercher activement les erreurs de raisonnement, les décisions introduites sans autorisation et les ambiguïtés restantes.
 
-Tu as accès au dépôt GitHub :
+---
 
-`thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
+# 0. CADRE MÉTHODOLOGIQUE DU PROJET — À RESPECTER IMPÉRATIVEMENT
+
+Ce mandat s'inscrit dans une méthode de travail stricte. Elle ne constitue pas une nouvelle décision d'architecture et ne doit pas orienter artificiellement ton verdict.
+
+## 0.1 Chercher la vérité, pas défendre une IA
+
+Ne cherche ni à prouver que Claude a raison, ni à prouver qu'il a tort.
+Ne cherche ni à prouver que l'analyse de l'équipe a raison, ni à prouver qu'elle a tort.
+
+Cherche à déterminer ce qui est démontré, faux ou contradictoire, nécessaire, non démontré, ambigu ou réellement non résolu à partir des preuves disponibles dans le corpus.
+
+Claude et Grok sont des sources d'analyse à auditer, jamais des autorités normatives.
+
+## 0.2 Preuve avant assertion
+
+Aucune conclusion normative ne doit être acceptée parce qu'elle paraît raisonnable, élégante, standard ou techniquement pratique.
+
+Pour toute affirmation importante, demande :
+
+> **Où exactement cette exigence existe-t-elle dans le corpus ?**
+
+Si la preuve normative n'existe pas, ne la transforme pas en exigence.
+
+## 0.3 Ne jamais inventer une décision pour fermer une lacune
+
+Lorsqu'une information manque, ne choisis pas implicitement une architecture pour rendre le système cohérent.
+
+Identifie précisément le niveau auquel le corpus s'arrête.
+
+Une lacune doit rester une `[ABSENCE DE PREUVE]` ou une `[QUESTION NON RÉSOLUE]` selon sa nature.
+
+Une proposition utile mais non imposée doit rester `[ARCHITECTURE PROPOSÉE]` ou `[OPTION]`.
+
+## 0.4 Séparation stricte des niveaux
+
+Ne confonds jamais :
+
+```text
+VIOLATION ACTUELLE
+ARCHITECTURAL EXPOSURE
+ABSENCE DE PREUVE
+CONSÉQUENCE NÉCESSAIRE
+ARCHITECTURE PROPOSÉE
+QUESTION NON RÉSOLUE
+```
+
+Le fait qu'une architecture soit exposée à un risque ne prouve pas qu'elle viole actuellement une norme.
+Le fait qu'une propriété soit souhaitable ne prouve pas qu'elle soit normative.
+Le fait qu'une décision soit nécessaire pour continuer ne signifie pas qu'elle soit déjà prise.
+
+## 0.5 Respect du pipeline de décision
+
+Le processus de référence est :
+
+```text
+QUESTION OUVERTE
+      ↓
+AUDIT / VÉRIFICATION DU CORPUS
+      ↓
+CONTRE-EXPERTISE INDÉPENDANTE
+      ↓
+ADJUDICATION
+      ↓
+DÉCISION EXPLICITE
+      ↓
+CORRECTION DU CONTRAT
+      ↓
+NOUVEL AUDIT ADVERSARIAL
+```
+
+Ne saute aucune de ces étapes.
+
+Si le corpus s'arrête avant une décision, indique le point exact de blocage.
+
+## 0.6 Les contre-experts ne décident pas à la place du projet
+
+Tu peux identifier qu'une décision humaine est nécessaire et formuler précisément la question de décision.
+
+Tu ne dois pas prendre cette décision à la place du propriétaire du projet.
+
+## 0.7 Priorité à la vérité sur l'élégance
+
+Une construction techniquement élégante, simple ou conventionnelle ne doit pas être privilégiée si elle n'est pas démontrée par le corpus.
+
+Le but est de trouver la construction vraie et justifiable, pas la construction la plus pratique.
+
+## 0.8 Principe d'audit adversarial
+
+Traite chaque conclusion comme potentiellement erronée jusqu'à démonstration contraire.
+Cherche activement :
+
+- hypothèses cachées ;
+- glissements de définition ;
+- confusion entre possibilité et nécessité ;
+- confusion entre identité de record et identité d'événement ;
+- confusion entre position et ordre temporel ;
+- exigences ajoutées sans validation ;
+- dépendances circulaires ;
+- propriétés non testables ;
+- incohérences avec le corpus ;
+- conclusions qui reposent uniquement sur des bonnes pratiques.
+
+## 0.9 Ce cadre ne doit pas biaiser le verdict
+
+Ces règles imposent une méthode d'analyse, pas une conclusion.
+
+Tu dois pouvoir conclure que Claude a raison, qu'il a tort, que les deux ont raison à des niveaux différents, ou que la question reste bloquée.
 
 ---
 
