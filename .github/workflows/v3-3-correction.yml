@@ -1,0 +1,57 @@
+name: V3.3 correction gate
+
+on:
+  push:
+    branches:
+      - audit/v3-3-triangulation
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    if: contains(github.event.head_commit.message, '[v3.3-autofix]') == false
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          ref: audit/v3-3-triangulation
+          fetch-depth: 0
+
+      - name: Apply reproducible C01-C04 patch
+        run: .\audit\v3-3-triangulation\PATCH-V3_3-C01-C04.ps1
+
+      - name: Static assertions
+        run: |
+          $p = '.\audit\v3-3-triangulation\source\download_ticks_v3_3.ps1'
+          $t = Get-Content -LiteralPath $p -Raw
+          $checks = [ordered]@{
+            C01 = $t.Contains('if ($Timestamp -lt $PreviousTimestamp)') -and -not $t.Contains('if ($Timestamp -le $PreviousTimestamp)')
+            C02 = $t.Contains('SKIP_RAW_HASH_MISMATCH') -and $t.Contains('Get-FileHash -LiteralPath $RawPath -Algorithm SHA256')
+            C03 = $t.Contains('EMPTY_DOWNLOAD: dukascopy-node returned exit 0 but produced no CSV')
+            C04 = $t.Contains('RAW_REMOVED')
+            H03 = $t.Contains('NODE_RUNTIME_UNAVAILABLE')
+            M01 = -not $t.Contains('$Matches = @(')
+            M03 = $t.Contains('[IO.Path]::GetTempPath()')
+          }
+          $checks.GetEnumerator() | ForEach-Object { Write-Host "$($_.Key)=$($_.Value)" }
+          if ($checks.Values -contains $false) { throw 'STATIC_GATE_FAILED' }
+          $errors = $null
+          [void][System.Management.Automation.Language.Parser]::ParseFile((Resolve-Path $p), [ref]$null, [ref]$errors)
+          if ($errors.Count -gt 0) { throw "POWERSHELL_SYNTAX_FAILED=$($errors.Count)" }
+
+      - name: Commit corrected source
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add audit/v3-3-triangulation/source/download_ticks_v3_3.ps1 audit/v3-3-triangulation/PATCH-V3_3-C01-C04.ps1
+          if (-not (git diff --cached --quiet)) {
+            git commit -m 'Correct V3.3 critical integrity defects [v3.3-autofix]'
+            git push origin audit/v3-3-triangulation
+          } else {
+            Write-Host 'NO_SOURCE_CHANGE'
+          }
