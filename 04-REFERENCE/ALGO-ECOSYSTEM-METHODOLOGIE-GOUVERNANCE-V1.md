@@ -1,6 +1,6 @@
 # ALGO ECOSYSTEM — MÉTHODOLOGIE DE GOUVERNANCE & D'EXÉCUTION
 
-**Version :** 1.0  
+**Version :** 1.1  
 **Date :** 5 septembre 2026  
 **Statut :** RÉFÉRENCE MÉTHODOLOGIQUE — consolidation des règles déjà établies dans les travaux ALGO ECOSYSTEM
 
@@ -209,7 +209,7 @@ Le dépôt GitHub est la source de vérité documentaire du projet.
 
 Le corpus réel doit être vérifié avant toute affirmation sur l'état du projet.
 
-Les noms de fichiers historiques ou supposés ne doivent pas être utilisés comme s'ils existaient encore. `00-CORPUS-INDEX.md` fixe les noms réels du corpus et rappelle cette règle. fileciteturn170file0L2-L2
+Les noms de fichiers historiques ou supposés ne doivent pas être utilisés comme s'ils existaient encore. `00-CORPUS-INDEX.md` fixe les noms réels du corpus et rappelle cette règle.
 
 Une conversation, un résumé, une mémoire ou une hypothèse ne peut pas remplacer la vérification du dépôt lorsqu'une affirmation porte sur l'état matériel du projet.
 
@@ -229,7 +229,7 @@ PRINCIPE DE CONCEPTION
 INVARIANT VALIDÉ
 ```
 
-Le document de référence transversal existant applique déjà cette séparation et sert de mémoire architecturale/méthodologique. fileciteturn158file0L2-L2
+Le document de référence transversal existant applique déjà cette séparation et sert de mémoire architecturale/méthodologique.
 
 ---
 
@@ -243,17 +243,121 @@ Une contradiction entre deux analyses IA n'est pas résolue par moyenne, majorit
 
 Le propriétaire du concept et le processus d'arbitrage déterminent la décision.
 
-Le protocole existant de `11 — CONTRADICTION & ARBITRATION REGISTRY` impose déjà la séparation entre détection, qualification, analyse, arbitrage, décision, raison et version. fileciteturn179file0L2-L2
+Le protocole existant de `11 — CONTRADICTION & ARBITRATION REGISTRY` impose déjà la séparation entre détection, qualification, analyse, arbitrage, décision, raison et version.
+
+---
+
+# 10.1. PROTOCOLE DE DÉCISION HUMAINE ASSISTÉE
+
+Lorsqu'une décision humaine importante peut modifier durablement une architecture, un invariant, un contrat normatif ou la conformité méthodologique du système, la préparation de la décision doit prioriser la compréhension humaine et la contre-expertise indépendante.
+
+Le processus de référence est :
+
+```text
+CONTRE-EXPERTISE 2–3 IA INDÉPENDANTES
+            ↓
+COMPARAISON DES RÉPONSES
+            ↓
+CONVERGENCES / DIVERGENCES / RISQUES
+            ↓
+EXPLICATION HUMAINE SIMPLIFIÉE ET COMPLÈTE
+            ↓
+EXEMPLES CONCRETS
+            ↓
+DÉCISION HUMAINE ÉCLAIRÉE
+```
+
+Cette séquence constitue la méthode préférentielle pour les décisions architecturales importantes, difficilement réversibles ou susceptibles d'affecter plusieurs invariants.
+
+## 10.1.1. Explication préalable
+
+Avant de solliciter la décision humaine, l'assistant doit expliquer clairement :
+
+1. le problème ;
+2. pourquoi il existe ;
+3. ce qui pourrait mal fonctionner ;
+4. les options réellement ouvertes ;
+5. les conséquences de chaque option ;
+6. les risques ;
+7. les points certains ;
+8. les points encore incertains.
+
+Lorsque le sujet est abstrait, des exemples concrets doivent être utilisés pour montrer comment chaque option se comporte dans une situation réelle.
+
+## 10.1.2. Contre-expertise multi-IA
+
+Pour une décision importante, la contre-expertise de 2 à 3 IA indépendantes doit être priorisée lorsqu'elle est disponible et pertinente.
+
+Les analyses doivent être suffisamment indépendantes pour éviter qu'une première réponse ne devienne implicitement l'autorité des suivantes.
+
+Les IA peuvent produire :
+
+- analyses ;
+- contre-exemples ;
+- options ;
+- risques ;
+- conséquences ;
+- objections.
+
+Elles ne prennent pas la décision normative finale.
+
+## 10.1.3. Comparaison
+
+La comparaison doit distinguer explicitement :
+
+```text
+CONVERGENCES
+DIVERGENCES
+HYPOTHÈSES DIFFÉRENTES
+RISQUES IDENTIFIÉS
+POINTS NON DÉTERMINÉS
+```
+
+Une convergence entre plusieurs IA ne constitue pas une preuve normative en elle-même.
+
+Une divergence ne doit pas être supprimée par vote, moyenne ou consensus automatique.
+
+## 10.1.4. Compréhension insuffisante
+
+Si l'utilisateur ne comprend pas suffisamment une décision pour pouvoir l'arbitrer de manière fiable, la décision ne doit pas être forcée.
+
+Le processus doit revenir à :
+
+```text
+EXPLICATION
+      ↓
+EXEMPLES
+      ↓
+CONTRE-EXPERTISE
+      ↓
+SYNTHÈSE
+      ↓
+DÉCISION
+```
+
+Le manque de compréhension humaine est traité comme un besoin d'information supplémentaire, et non comme une permission de choisir arbitrairement.
+
+## 10.1.5. Autorité humaine
+
+La contre-expertise multi-IA augmente la qualité potentielle de la décision mais ne transfère pas l'autorité normative aux IA.
+
+```text
+CONTRE-EXPERTISE
+      ≠
+AUTORITÉ NORMATIVE
+```
+
+La décision architecturale humaine doit rester explicite et traçable.
 
 ---
 
 # 11. CONTRE-EXPERTISE EXTERNE
 
-La contre-expertise de Claude, Grok, Perplexity ou d'une autre source externe n'est pas obligatoire mécaniquement avant chaque décision.
+La contre-expertise externe n'est pas obligatoire mécaniquement pour chaque question triviale.
 
-Elle est utilisée lorsque l'indépendance supplémentaire est susceptible d'augmenter matériellement la robustesse de la décision.
+Pour les décisions importantes, la contre-expertise multi-IA définie au §10.1 doit être priorisée lorsque 2 à 3 analyses indépendantes sont disponibles et pertinentes.
 
-Avant une décision importante, le système doit déterminer quelle méthode de vérification maximise la correction :
+Pour les autres situations, le système doit déterminer quelle méthode de vérification maximise la correction :
 
 - corpus direct ;
 - audit adversarial ;
@@ -277,7 +381,7 @@ Une brique aval peut contester un contrat amont lorsqu'elle possède des preuves
 CONTESTER ≠ MODIFIER ≠ ARBITRER
 ```
 
-Le protocole `12 — UPWARD CHALLENGE` formalise déjà cette séparation. fileciteturn181file0L2-L2
+Le protocole `12 — UPWARD CHALLENGE` formalise déjà cette séparation.
 
 ---
 
@@ -285,7 +389,7 @@ Le protocole `12 — UPWARD CHALLENGE` formalise déjà cette séparation. fi
 
 La profondeur d'audit doit être proportionnelle à l'impact potentiel, pas à la taille du changement documentaire.
 
-Le protocole `13 — CRITICALITY & AUDIT PROTOCOL` définit notamment C0/C1/C2/C3 et impose une escalade lorsque la criticité est incertaine. Il exige également un audit adversarial complet pour les changements C3. fileciteturn190file0L2-L2
+Le protocole `13 — CRITICALITY & AUDIT PROTOCOL` définit notamment C0/C1/C2/C3 et impose une escalade lorsque la criticité est incertaine. Il exige également un audit adversarial complet pour les changements C3.
 
 En cas de doute entre deux niveaux de criticité, le niveau supérieur est retenu provisoirement jusqu'à preuve permettant de réduire la criticité.
 
@@ -319,7 +423,7 @@ ce qui a été découvert ensuite
 ce qui a été décidé ensuite
 ```
 
-Le contrat temporel existant formalise cette distinction au niveau architectural, notamment entre vérité du monde, connaissance, utilisation et temps d'exécution, mais son statut doit être respecté lorsqu'il n'est pas encore normatif. fileciteturn169file0L2-L2
+Le contrat temporel existant formalise cette distinction au niveau architectural, notamment entre vérité du monde, connaissance, utilisation et temps d'exécution, mais son statut doit être respecté lorsqu'il n'est pas encore normatif.
 
 ---
 
@@ -496,7 +600,7 @@ Règles déjà matériellement présentes dans le dépôt :
 - criticité proportionnelle à l'impact ;
 - point-in-time / look-ahead comme préoccupations méthodologiques ;
 - reproductibilité ;
-- principes transversaux et statuts HYPOTHÈSE / PRINCIPE / INVARIANT. fileciteturn196file0L2-L2
+- principes transversaux et statuts HYPOTHÈSE / PRINCIPE / INVARIANT.
 
 Règle ajoutée durablement par cette consolidation :
 
@@ -506,11 +610,15 @@ Règle également consolidée :
 
 > **Une règle importante ne doit pas rester dépendante de la mémoire d'une conversation ; elle doit être matérialisée dans un artefact durable avec son statut et son propriétaire appropriés.**
 
+Nouvelle règle de gouvernance consolidée :
+
+> **DÉCISION HUMAINE ASSISTÉE : pour les décisions architecturales importantes, prioriser 2 à 3 contre-expertises IA indépendantes, comparer leurs convergences, divergences et risques, puis fournir à l'humain une explication simplifiée mais complète avec des exemples avant de solliciter la décision humaine. Si la compréhension humaine est insuffisante, ne pas forcer la décision ; approfondir l'explication et la contre-expertise. Les IA restent des contre-experts et ne possèdent pas l'autorité normative finale.**
+
 ---
 
 # 24. LIMITATION DE CETTE CONSOLIDATION
 
-Cette V1 consolide les règles historiques que les artefacts accessibles, les discussions de projet actuellement récupérables et le corpus Git permettent d'établir avec suffisamment de confiance.
+Cette V1.1 consolide les règles historiques que les artefacts accessibles, les discussions de projet actuellement récupérables et le corpus Git permettent d'établir avec suffisamment de confiance.
 
 Elle ne prétend pas démontrer qu'elle contient littéralement chaque phrase jamais prononcée dans toutes les conversations du dossier ALGO ECOSYSTEM.
 
@@ -530,4 +638,4 @@ et, lorsqu'elle est normative, passer par la gouvernance appropriée avant adopt
 
 ---
 
-## FIN — ALGO ECOSYSTEM MÉTHODOLOGIE V1
+## FIN — ALGO ECOSYSTEM MÉTHODOLOGIE V1.1
