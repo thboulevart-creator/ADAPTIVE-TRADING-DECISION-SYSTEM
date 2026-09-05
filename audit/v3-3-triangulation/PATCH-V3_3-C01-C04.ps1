@@ -9,36 +9,26 @@ if (-not (Test-Path -LiteralPath $Source)) { throw "Source absent: $Source" }
 $Text = [Text.Encoding]::UTF8.GetString([IO.File]::ReadAllBytes($Source))
 $ActualBlob = (git hash-object $Source).Trim()
 if ($ActualBlob -ne $ExpectedOldBlob) { throw "Unexpected source blob. Expected=$ExpectedOldBlob Actual=$ActualBlob" }
-
 $Backup = "$Source.bak_before_C01_C04_$(Get-Date -Format yyyyMMdd_HHmmss)"
 Copy-Item -LiteralPath $Source -Destination $Backup -Force
 
-function Replace-Once {
-    param([string]$Pattern,[string]$Replacement,[string]$Id)
-    $script:Text = [regex]::Replace($script:Text,$Pattern,$Replacement,[System.Text.RegularExpressions.RegexOptions]::Multiline,[TimeSpan]::FromSeconds(5))
-    if ($script:Text -eq $script:BeforeReplacement) { throw "Replacement produced no change: $Id" }
-}
+# C01
+if (-not $Text.Contains('if ($Timestamp -le $PreviousTimestamp)')) { throw 'C01 original guard not found' }
+$Text = $Text.Replace('if ($Timestamp -le $PreviousTimestamp) {','if ($Timestamp -lt $PreviousTimestamp) {')
+$Text = $Text.Replace('Chronologie non strictement croissante','Chronologie décroissante')
 
-# C01: equal millisecond timestamps are valid; only backwards time is invalid.
-$BeforeReplacement = $Text
-Replace-Once 'if \(\$Timestamp -le \$PreviousTimestamp\) \{' 'if ($Timestamp -lt $PreviousTimestamp) {' 'C01_MONOTONICITY'
-if ($Text -match 'Chronologie non strictement croissante') { $Text = $Text.Replace('Chronologie non strictement croissante','Chronologie décroissante') }
+# M01
+$Text = $Text.Replace('$Matches = @(','$MatchingRecords = @(')
+$Text = $Text.Replace('$Matches.Count','$MatchingRecords.Count')
+$Text = $Text.Replace('return $Matches[-1]','return $MatchingRecords[-1]')
 
-# M01: never shadow PowerShell automatic variable $Matches.
-$BeforeReplacement = $Text
-if ($Text.Contains('$Matches = @(')) { $Text = $Text.Replace('$Matches = @(','$MatchingRecords = @(') }
-if ($Text.Contains('$Matches.Count')) { $Text = $Text.Replace('$Matches.Count','$MatchingRecords.Count') }
-if ($Text.Contains('return $Matches[-1]')) { $Text = $Text.Replace('return $Matches[-1]','return $MatchingRecords[-1]') }
-if ($Text -eq $BeforeReplacement) { throw 'M01 replacement produced no change' }
-
-# M03: robust temp root even when $env:TEMP is unavailable.
-$BeforeReplacement = $Text
+# M03
 $TempPattern = '(?ms)\$TempRoot\s*=\s*Join-Path\s+`\s*\$env:TEMP\s+`\s*\("dukascopy_v3_3_" \+ \$RunId \+ "_" \+ \$DateString\)'
 $TempReplacement = '$TempBase = if ([string]::IsNullOrWhiteSpace($env:TEMP)) { [IO.Path]::GetTempPath() } else { $env:TEMP }`n    $TempRoot = Join-Path `n        $TempBase `n        ("dukascopy_v3_3_" + $RunId + "_" + $DateString)'
+if (-not [regex]::IsMatch($Text,$TempPattern)) { throw 'M03 original temp block not found' }
 $Text = [regex]::Replace($Text,$TempPattern,$TempReplacement,1)
-if ($Text -eq $BeforeReplacement) { throw 'M03 replacement produced no change' }
 
-# C02: SKIP is valid only when existing RAW matches the persisted VALID proof.
+# C02
 $SkipPattern = '(?ms)(\s*)Write-Log "\$DateString \| SKIP \| déjà VALID".*?\s*return "SKIP"'
 $SkipReplacement = @'
 $1if ([string]::IsNullOrWhiteSpace([string]$LatestValid.sha256) -or [string]::IsNullOrWhiteSpace([string]$LatestValid.file_size_bytes)) {
@@ -56,11 +46,10 @@ $1Write-Log "$DateString | SKIP | déjà VALID et hash vérifié"
 $1Add-ManifestRecord -Date $Date -Status "SKIP" -File $RawPath -FileSizeBytes $CurrentRawInfo.Length -TickCount $LatestValid.tick_count -Sha256 $CurrentRawHash -FirstTimestamp $LatestValid.first_timestamp -LastTimestamp $LatestValid.last_timestamp -Validation "ALREADY_VALID_HASH_VERIFIED"
 $1return "SKIP"
 '@
-$BeforeReplacement = $Text
+if (-not [regex]::IsMatch($Text,$SkipPattern)) { throw 'C02 original SKIP block not found' }
 $Text = [regex]::Replace($Text,$SkipPattern,$SkipReplacement,1)
-if ($Text -eq $BeforeReplacement) { throw 'C02 replacement produced no change' }
 
-# C04: remove untrusted RAW before every post-copy integrity terminal return.
+# C04
 $PostPattern = '(?ms)(\$PostValidation\.Status -ne "VALID"\).*?Write-Log \(\s*"\$DateString \| INTEGRITY_FAILURE \| " \+\s*"post-copy validation"\s*\)\s*)(return "INTEGRITY_FAILURE")'
 if (-not [regex]::IsMatch($Text,$PostPattern)) { throw 'C04 post-copy block not found' }
 $Text = [regex]::Replace($Text,$PostPattern,'$1Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | post-copy validation | RAW_REMOVED"`n`n            $2',1)
@@ -69,7 +58,7 @@ if ([regex]::IsMatch($Text,$SizePattern)) { $Text = [regex]::Replace($Text,$Size
 $HashPattern = '(?ms)(\$PreValidation\.Sha256 -ne\s*\$PostValidation\.Sha256\).*?Write-Log \(\s*"\$DateString \| INTEGRITY_FAILURE \| SHA256_MISMATCH"\s*\)\s*)(return "INTEGRITY_FAILURE")'
 if ([regex]::IsMatch($Text,$HashPattern)) { $Text = [regex]::Replace($Text,$HashPattern,'$1Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | SHA256_MISMATCH | RAW_REMOVED"`n`n            $2',1) }
 
-# C03: empty successful downloader output is not automatically NO_DATA.
+# C03
 if (-not $Text.Contains('function Test-ExpectedNoDataDate')) {
     $CalendarFunction = @'
 function Test-ExpectedNoDataDate {
@@ -78,6 +67,7 @@ function Test-ExpectedNoDataDate {
 }
 
 '@
+    if (-not $Text.Contains('function Process-Day {')) { throw 'Process-Day function not found' }
     $Text = $Text.Replace('function Process-Day {',$CalendarFunction + 'function Process-Day {')
 }
 $EmptyPattern = '(?ms)        if \(\$CsvFiles\.Count -eq 0\)\s*\{.*?return "NO_DATA"\s*\n        \}'
@@ -91,11 +81,10 @@ $EmptyReplacement = @'
             throw "EMPTY_DOWNLOAD: dukascopy-node returned exit 0 but produced no CSV on a non-expected closed-market day."
         }
 '@
-$BeforeReplacement = $Text
+if (-not [regex]::IsMatch($Text,$EmptyPattern)) { throw 'C03 original empty-output block not found' }
 $Text = [regex]::Replace($Text,$EmptyPattern,$EmptyReplacement,1)
-if ($Text -eq $BeforeReplacement) { throw 'C03 replacement produced no change' }
 
-# H03: explicit node runtime gate.
+# H03
 $NodePattern = '^\$NodeVersion\s*=\s*\(& node --version\)\.Trim\(\)\s*$'
 $NodeReplacement = @'
 $NodeVersion = "UNKNOWN"
@@ -108,18 +97,17 @@ catch {
     exit 1
 }
 '@
-if ([regex]::IsMatch($Text,$NodePattern,[System.Text.RegularExpressions.RegexOptions]::Multiline)) { $Text = [regex]::Replace($Text,$NodePattern,$NodeReplacement,1) }
-else { throw 'H03 node version line not found' }
+if (-not [regex]::IsMatch($Text,$NodePattern,[System.Text.RegularExpressions.RegexOptions]::Multiline)) { throw 'H03 node version line not found' }
+$Text = [regex]::Replace($Text,$NodePattern,$NodeReplacement,1)
 
-# M02: normalize known mojibake and write UTF-8 without BOM.
-$Fixes = @{
-    'journÃ©e'='journée'; 'numÃ©rique'='numérique'; 'violÃ©'='violé'; 'nÃ©gatif'='négatif'; 'Ã©crasement'='écrasement'; 'Aucun Ã©crasement'='Aucun écrasement'; 'dÃ©but'='début'; 'gÃ©nÃ©rique'='générique'; 'SchÃ©ma'='Schéma'
+# M02: repair double-encoded UTF-8 deterministically, then write UTF-8 without BOM.
+if ($Text -match 'Ã') {
+    $Cp1252 = [Text.Encoding]::GetEncoding(1252)
+    $Text = [Text.Encoding]::UTF8.GetString($Cp1252.GetBytes($Text))
 }
-foreach ($kv in $Fixes.GetEnumerator()) { $Text = $Text.Replace($kv.Key,$kv.Value) }
 if ($Text -match 'Ã.') { throw 'M02_MOJIBAKE_REMAINS' }
 [IO.File]::WriteAllText($Source,$Text,(New-Object Text.UTF8Encoding($false)))
 
-# Static structural assertions.
 $NewBlob = (git hash-object $Source).Trim()
 if ($NewBlob -eq $ExpectedOldBlob) { throw 'Patch produced no source change.' }
 $Checks = [ordered]@{
@@ -130,6 +118,7 @@ $Checks = [ordered]@{
     H03 = $Text.Contains('NODE_RUNTIME_UNAVAILABLE')
     M01 = -not $Text.Contains('$Matches = @(')
     M03 = $Text.Contains('[IO.Path]::GetTempPath()')
+    M02 = -not ($Text -match 'Ã.')
 }
 foreach ($k in $Checks.Keys) { if (-not $Checks[$k]) { throw "ASSERTION FAILED: $k" } }
 $Errors = $null
@@ -140,5 +129,5 @@ Write-Host "SOURCE=$Source"
 Write-Host "BACKUP=$Backup"
 Write-Host "OLD_BLOB=$ExpectedOldBlob"
 Write-Host "NEW_BLOB=$NewBlob"
-Write-Host 'C01=C02=C03=C04=H03=M01=M03=PASS'
+Write-Host 'C01=C02=C03=C04=H03=M01=M02=M03=PASS'
 Write-Host 'RUNTIME QUALIFICATION REMAINS BLOCKED UNTIL AUTONOMOUS HARNESS EXECUTION.'
