@@ -1,0 +1,22 @@
+name: System Integrity Gate
+
+on:
+  push:
+    paths:
+      - 'docs/**'
+      - 'tools/validate-system.py'
+      - '.github/workflows/system-integrity.yml'
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'tools/validate-system.py'
+      - '.github/workflows/system-integrity.yml'
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Validate canonical document set
+        run: python tools/validate-system.py
