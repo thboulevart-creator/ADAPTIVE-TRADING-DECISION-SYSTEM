@@ -28,7 +28,7 @@ jobs:
           node --version
           npm --version
           npm install --no-save --no-package-lock dukascopy-node@1.50.0
-          $v = (& npx --no-install dukascopy-node --version).Trim()
+          $v = (& node -p "require('./node_modules/dukascopy-node/package.json').version").Trim()
           Write-Host "DUKASCOPY_NODE_VERSION=$v"
           if ($v -ne '1.50.0') { throw "Unexpected dukascopy-node version: $v" }
 
