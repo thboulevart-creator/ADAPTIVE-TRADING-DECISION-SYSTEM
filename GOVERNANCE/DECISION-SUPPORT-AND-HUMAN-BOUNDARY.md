@@ -33,6 +33,31 @@ Instead, the acting agent MUST, as far as possible:
 
 The human MUST NOT be required to select a technical mechanism without first being given enough explanation to understand what the alternatives mean for the final objective.
 
+## Mandatory adversarial falsification principle
+
+The system MUST NOT optimize primarily for finding or confirming a plausible **correct answer**. For consequential architectural and qualification decisions, the primary analytical objective MUST also be to discover **where the current reasoning could be wrong**.
+
+For every material candidate, recommendation, derived consequence, or proposed rule, the acting agent MUST actively attempt to falsify it before treating it as a viable basis for a decision. The analysis MUST ask, where applicable:
+
+- **Where could we be wrong?**
+- **Under what concrete conditions would this statement be false?**
+- **What assumption, dependency, or interpretation could invalidate it?**
+- **What can fail, break, become ambiguous, non-deterministic, non-reproducible, or semantically divergent?**
+- **What evidence would disprove the current conclusion?**
+- **What edge case or adversarial variant would expose a hidden weakness?**
+- **Are we confusing an implementation convenience with a normative property?**
+- **Are we silently relying on an unvalidated source, parser, ordering rule, identity mechanism, or convention?**
+- **Could two independent implementations legitimately produce different results under the proposed rule?**
+- **Could the proposed solution pass ordinary examples while failing reconstruction, reordering, duplicates, format changes, partitioning, insertion/deletion, restart, or other relevant adversarial conditions?**
+
+A candidate MUST NOT be preferred merely because it works on nominal examples. Its failure modes, falsification conditions, and boundary conditions MUST be considered explicitly.
+
+When a candidate survives adversarial analysis, that means only that the identified attacks did not falsify it; it does **not** by itself establish normative validity. Evidence, applicable contracts, and human decisions remain governed by the normal status discipline.
+
+The same adversarial standard MUST be applied to the reasoning process itself. The acting agent MUST challenge its own conclusions rather than merely challenge alternatives. Claude and Grok responses MUST likewise be examined for possible errors rather than treated as confirmation.
+
+This principle is intended to create progressive convergence toward robust architecture through elimination of incorrect reasoning, not through premature confidence in a supposedly correct answer.
+
 ## Mandatory three-way decision protocol
 
 Whenever a **genuine human normative decision** is reached, the acting agent MUST use the following protocol before requesting the human decision, unless independent counter-expertise is demonstrably unavailable or materially unnecessary for the specific decision.
@@ -55,6 +80,9 @@ The three-way comparison MUST explicitly examine, where applicable:
 - convergence and divergence between the analyses;
 - hidden assumptions and dependencies;
 - possible factual or logical errors;
+- **where each analysis may be wrong and under what conditions**;
+- **what could fail or not work, and why**;
+- concrete falsification conditions and adversarial counterexamples;
 - architectural consequences and failure modes;
 - facts/evidence versus validated rules;
 - derived consequences versus genuinely normative choices;
@@ -115,9 +143,11 @@ REQUIRED PROPERTIES / CONSTRAINTS
     ↓
 ARCHITECTURAL CANDIDATES
     ↓
-ADVERSARIAL ANALYSIS
+ADVERSARIAL FALSIFICATION
     ↓
 INDEPENDENT COUNTER-EXPERTISE (when useful)
+    ↓
+THREE-WAY ADVERSARIAL COMPARISON
     ↓
 COMPARISON AGAINST AUTHORITATIVE CONTRACTS
     ↓
