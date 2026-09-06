@@ -1,3 +1,4 @@
+# Runtime gate: real Dukascopy download, restart/idempotence, and RAW mutation detection.
 name: V3.3 acquisition gate
 
 on:
