@@ -1,6 +1,7 @@
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
+# Repair pass: remove literal escape artifacts and replacement characters left by the prior patch transport.
 $Source = Join-Path (Get-Location) 'audit\v3-3-triangulation\source\download_ticks_v3_3.ps1'
 $ExpectedBlob = '3af21d0e77a496530eb5e4d7a706c7aa448b3377'
 
