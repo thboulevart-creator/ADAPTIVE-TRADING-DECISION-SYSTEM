@@ -505,7 +505,7 @@ function Test-TickFile {
 
             if ($Timestamp -lt $PreviousTimestamp) {
                 throw (
-                    "Chronologie d�croissante : " +
+                    "Chronologie decroissante : " +
                     $PreviousTimestamp +
                     " -> " +
                     $Timestamp
@@ -710,7 +710,7 @@ function Process-Day {
         if ([int64]$CurrentRawInfo.Length -ne [int64]$LatestValid.file_size_bytes -or $CurrentRawHash -ne [string]$LatestValid.sha256) {
 
 
-            Add-ManifestRecord -Date $Date -Status "INTEGRITY_FAILURE" -File $RawPath -FileSizeBytes $CurrentRawInfo.Length -Sha256 $CurrentRawHash -Validation "SKIP_RAW_HASH_MISMATCH" -ErrorMessage "RAW pr�sent mais diff�rent de la preuve VALID persist�e."
+            Add-ManifestRecord -Date $Date -Status "INTEGRITY_FAILURE" -File $RawPath -FileSizeBytes $CurrentRawInfo.Length -Sha256 $CurrentRawHash -Validation "SKIP_RAW_HASH_MISMATCH" -ErrorMessage "RAW present mais different de la preuve VALID persistee."
 
 
             Write-Log "$DateString | INTEGRITY_FAILURE | SKIP_RAW_HASH_MISMATCH"
@@ -722,7 +722,7 @@ function Process-Day {
         }
 
 
-        Write-Log "$DateString | SKIP | d�j� VALID et hash v�rifi�"
+        Write-Log "$DateString | SKIP | deja VALID et hash verifie"
 
 
         Add-ManifestRecord -Date $Date -Status "SKIP" -File $RawPath -FileSizeBytes $CurrentRawInfo.Length -TickCount $LatestValid.tick_count -Sha256 $CurrentRawHash -FirstTimestamp $LatestValid.first_timestamp -LastTimestamp $LatestValid.last_timestamp -Validation "ALREADY_VALID_HASH_VERIFIED"
@@ -762,7 +762,10 @@ function Process-Day {
     # Temporary download workspace.
     # --------------------------------------------------------
 
-    $TempBase = if ([string]::IsNullOrWhiteSpace($env:TEMP)) { [IO.Path]::GetTempPath() } else { $env:TEMP }`n    $TempRoot = Join-Path `n        $TempBase `n        ("dukascopy_v3_3_" + $RunId + "_" + $DateString)
+    $TempBase = if ([string]::IsNullOrWhiteSpace($env:TEMP)) { [IO.Path]::GetTempPath() } else { $env:TEMP }
+    $TempRoot = Join-Path 
+        $TempBase 
+        ("dukascopy_v3_3_" + $RunId + "_" + $DateString)
 
     if (Test-Path -LiteralPath $TempRoot) {
         Remove-Item `
@@ -924,7 +927,11 @@ function Process-Day {
                 "post-copy validation"
             )
 
-            Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | post-copy validation | RAW_REMOVED"`n`n            return "INTEGRITY_FAILURE"
+            Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop
+
+            Write-Log "$DateString | INTEGRITY_FAILURE | post-copy validation | RAW_REMOVED"
+
+            return "INTEGRITY_FAILURE"
         }
 
 
