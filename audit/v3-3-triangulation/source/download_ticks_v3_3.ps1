@@ -1,4 +1,4 @@
-﻿Set-StrictMode -Version Latest
+?Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # ============================================================
@@ -53,7 +53,7 @@ $ManifestPath = Join-Path $ManifestRoot "manifest_v3_3.csv"
 $RunnerPath = $MyInvocation.MyCommand.Path
 
 if ([string]::IsNullOrWhiteSpace($RunnerPath)) {
-    throw "Impossible de dÃ©terminer le chemin du runner."
+    throw "Impossible de déterminer le chemin du runner."
 }
 
 $RunnerResolved = (Resolve-Path $RunnerPath).Path
@@ -168,18 +168,18 @@ function Get-LatestManifestRecord {
 
     $DateString = $Date.ToString("yyyy-MM-dd")
 
-    $Matches = @(
+    $MatchingRecords = @(
         $Records |
         Where-Object {
             $_.date -eq $DateString
         }
     )
 
-    if ($Matches.Count -eq 0) {
+    if ($MatchingRecords.Count -eq 0) {
         return $null
     }
 
-    return $Matches[-1]
+    return $MatchingRecords[-1]
 }
 
 
@@ -394,7 +394,7 @@ function Test-TickFile {
 
     if ($ActualColumns.Count -ne $ExpectedColumns.Count) {
         throw (
-            "SchÃ©ma invalide : nombre de colonnes attendu=" +
+            "Schéma invalide : nombre de colonnes attendu=" +
             $ExpectedColumns.Count +
             ", obtenu=" +
             $ActualColumns.Count
@@ -409,7 +409,7 @@ function Test-TickFile {
             $ExpectedColumns[$ColumnIndex]) {
 
             throw (
-                "SchÃ©ma invalide Ã  la colonne " +
+                "Schéma invalide à la colonne " +
                 $ColumnIndex +
                 " : attendu='" +
                 $ExpectedColumns[$ColumnIndex] +
@@ -437,7 +437,7 @@ function Test-TickFile {
 
         if ($ActualColumns -contains $Forbidden) {
             throw (
-                "Colonne OHLC/volume gÃ©nÃ©rique interdite dÃ©tectÃ©e : " +
+                "Colonne OHLC/volume générique interdite détectée : " +
                 $Forbidden
             )
         }
@@ -486,14 +486,14 @@ function Test-TickFile {
         # Inclusive start, exclusive end.
         if ($Timestamp -lt $Bounds.StartMs) {
             throw (
-                "Timestamp avant le dÃ©but de la journÃ©e : " +
+                "Timestamp avant le début de la journée : " +
                 $Timestamp
             )
         }
 
         if ($Timestamp -ge $Bounds.EndMs) {
             throw (
-                "Timestamp hors limite de la journÃ©e : " +
+                "Timestamp hors limite de la journée : " +
                 $Timestamp
             )
         }
@@ -503,9 +503,9 @@ function Test-TickFile {
         }
         else {
 
-            if ($Timestamp -le $PreviousTimestamp) {
+            if ($Timestamp -lt $PreviousTimestamp) {
                 throw (
-                    "Chronologie non strictement croissante : " +
+                    "Chronologie d�croissante : " +
                     $PreviousTimestamp +
                     " -> " +
                     $Timestamp
@@ -530,7 +530,7 @@ function Test-TickFile {
             [Globalization.CultureInfo]::InvariantCulture,
             [ref]$Ask
         )) {
-            throw "askPrice non numÃ©rique : $($Row.askPrice)"
+            throw "askPrice non numérique : $($Row.askPrice)"
         }
 
         if (-not [double]::TryParse(
@@ -539,7 +539,7 @@ function Test-TickFile {
             [Globalization.CultureInfo]::InvariantCulture,
             [ref]$Bid
         )) {
-            throw "bidPrice non numÃ©rique : $($Row.bidPrice)"
+            throw "bidPrice non numérique : $($Row.bidPrice)"
         }
 
         if ([double]::IsNaN($Ask) -or
@@ -560,7 +560,7 @@ function Test-TickFile {
 
         if ($Ask -lt $Bid) {
             throw (
-                "Invariant ask >= bid violÃ© : ask=$Ask bid=$Bid"
+                "Invariant ask >= bid violé : ask=$Ask bid=$Bid"
             )
         }
 
@@ -583,7 +583,7 @@ function Test-TickFile {
             [Globalization.CultureInfo]::InvariantCulture,
             [ref]$AskVolume
         )) {
-            throw "askVolume non numÃ©rique : $($Row.askVolume)"
+            throw "askVolume non numérique : $($Row.askVolume)"
         }
 
         if (-not [double]::TryParse(
@@ -592,7 +592,7 @@ function Test-TickFile {
             [Globalization.CultureInfo]::InvariantCulture,
             [ref]$BidVolume
         )) {
-            throw "bidVolume non numÃ©rique : $($Row.bidVolume)"
+            throw "bidVolume non numérique : $($Row.bidVolume)"
         }
 
         if ([double]::IsNaN($AskVolume) -or
@@ -607,7 +607,7 @@ function Test-TickFile {
 
         if ($AskVolume -lt 0 -or $BidVolume -lt 0) {
             throw (
-                "Volume nÃ©gatif : askVolume=$AskVolume " +
+                "Volume négatif : askVolume=$AskVolume " +
                 "bidVolume=$BidVolume"
             )
         }
@@ -641,6 +641,10 @@ function Test-TickFile {
 # 9. SINGLE DAY PROCESSOR
 # ============================================================
 
+function Test-ExpectedNoDataDate {
+    param([Parameter(Mandatory = $true)][datetime]$Date)
+    return $Date.DayOfWeek -eq [DayOfWeek]::Saturday -or $Date.DayOfWeek -eq [DayOfWeek]::Sunday
+}
 function Process-Day {
 
     param(
@@ -685,13 +689,44 @@ function Process-Day {
             return "BLOCKED"
         }
 
-        Write-Log "$DateString | SKIP | déjà VALID"
+        if ([string]::IsNullOrWhiteSpace([string]$LatestValid.sha256) -or [string]::IsNullOrWhiteSpace([string]$LatestValid.file_size_bytes)) {
 
-        Add-ManifestRecord `
-            -Date $Date `
-            -Status "SKIP" `
-            -File $RawPath `
-            -Validation "ALREADY_VALID"
+
+            Add-ManifestRecord -Date $Date -Status "BLOCKED" -File $RawPath -Validation "VALID_PROOF_INCOMPLETE" -ErrorMessage "Le record VALID ne contient pas une preuve SHA-256/taille exploitable."
+
+
+            return "BLOCKED"
+
+
+        }
+
+
+        $CurrentRawInfo = Get-Item -LiteralPath $RawPath
+
+
+        $CurrentRawHash = (Get-FileHash -LiteralPath $RawPath -Algorithm SHA256).Hash
+
+
+        if ([int64]$CurrentRawInfo.Length -ne [int64]$LatestValid.file_size_bytes -or $CurrentRawHash -ne [string]$LatestValid.sha256) {
+
+
+            Add-ManifestRecord -Date $Date -Status "INTEGRITY_FAILURE" -File $RawPath -FileSizeBytes $CurrentRawInfo.Length -Sha256 $CurrentRawHash -Validation "SKIP_RAW_HASH_MISMATCH" -ErrorMessage "RAW pr�sent mais diff�rent de la preuve VALID persist�e."
+
+
+            Write-Log "$DateString | INTEGRITY_FAILURE | SKIP_RAW_HASH_MISMATCH"
+
+
+            return "INTEGRITY_FAILURE"
+
+
+        }
+
+
+        Write-Log "$DateString | SKIP | d�j� VALID et hash v�rifi�"
+
+
+        Add-ManifestRecord -Date $Date -Status "SKIP" -File $RawPath -FileSizeBytes $CurrentRawInfo.Length -TickCount $LatestValid.tick_count -Sha256 $CurrentRawHash -FirstTimestamp $LatestValid.first_timestamp -LastTimestamp $LatestValid.last_timestamp -Validation "ALREADY_VALID_HASH_VERIFIED"
+
 
         return "SKIP"
     }
@@ -712,7 +747,7 @@ function Process-Day {
             -Validation "RAW_EXISTS_WITHOUT_VALID" `
             -ErrorMessage (
                 "RAW existe sans preuve VALID correspondante. " +
-                "Aucun Ã©crasement automatique."
+                "Aucun écrasement automatique."
             )
 
         Write-Log (
@@ -727,9 +762,7 @@ function Process-Day {
     # Temporary download workspace.
     # --------------------------------------------------------
 
-    $TempRoot = Join-Path `
-        $env:TEMP `
-        ("dukascopy_v3_3_" + $RunId + "_" + $DateString)
+    $TempBase = if ([string]::IsNullOrWhiteSpace($env:TEMP)) { [IO.Path]::GetTempPath() } else { $env:TEMP }`n    $TempRoot = Join-Path `n        $TempBase `n        ("dukascopy_v3_3_" + $RunId + "_" + $DateString)
 
     if (Test-Path -LiteralPath $TempRoot) {
         Remove-Item `
@@ -793,18 +826,12 @@ function Process-Day {
         )
 
         if ($CsvFiles.Count -eq 0) {
-
-            Write-Log (
-                "$DateString | NO_DATA | aucun CSV"
-            )
-
-            Add-ManifestRecord `
-                -Date $Date `
-                -Status "NO_DATA" `
-                -File "" `
-                -Validation "NO_CSV_OUTPUT"
-
-            return "NO_DATA"
+            if (Test-ExpectedNoDataDate -Date $Date) {
+                Write-Log "$DateString | NO_DATA | aucun CSV | EXPECTED_CLOSED_MARKET_DAY"
+                Add-ManifestRecord -Date $Date -Status "NO_DATA" -File "" -Validation "NO_CSV_OUTPUT_EXPECTED_CLOSED_MARKET_DAY"
+                return "NO_DATA"
+            }
+            throw "EMPTY_DOWNLOAD: dukascopy-node returned exit 0 but produced no CSV on a non-expected closed-market day."
         }
 
         if ($CsvFiles.Count -gt 1) {
@@ -897,7 +924,7 @@ function Process-Day {
                 "post-copy validation"
             )
 
-            return "INTEGRITY_FAILURE"
+            Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | post-copy validation | RAW_REMOVED"`n`n            return "INTEGRITY_FAILURE"
         }
 
 
@@ -1008,7 +1035,15 @@ function Process-Day {
 # 10. PROVENANCE
 # ============================================================
 
-$NodeVersion = (& node --version).Trim()
+$NodeVersion = "UNKNOWN"
+try {
+    $NodeVersion = (& node --version 2>$null).Trim()
+    if ([string]::IsNullOrWhiteSpace($NodeVersion)) { throw "node --version returned empty output" }
+}
+catch {
+    Write-Error "NODE_RUNTIME_UNAVAILABLE: $($_.Exception.Message)"
+    exit 1
+}
 
 $Metadata = [ordered]@{
     run_id                  = $RunId
