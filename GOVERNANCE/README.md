@@ -28,3 +28,11 @@ A governance rule MUST preserve uncertainty. `BLOCKED`, `TO-PROVE`, `UNKNOWN`, o
 ## Repository isolation
 
 Rules and work from another repository MUST NOT be imported merely because the projects are related. Cross-repository reuse requires explicit verification of applicability and provenance.
+
+## Decision-support rule
+
+When an architectural or qualification question becomes sufficiently complex that an uninformed answer could introduce an incorrect normative decision, the acting agent MUST NOT ask the human to guess or improvise the technical answer. The agent MUST first derive requirements from the final objective, investigate viable architectures, use adversarial and independent counter-expertise when useful, and isolate the genuine human normative decision boundary.
+
+The detailed operating rule is defined in [`DECISION-SUPPORT-AND-HUMAN-BOUNDARY.md`](DECISION-SUPPORT-AND-HUMAN-BOUNDARY.md).
+
+The human is responsible for the final objective and for genuine normative choices. The agent is responsible for turning the objective into technically grounded options, exposing consequences and failure modes, and preventing an unqualified technical guess from becoming a normative rule.
