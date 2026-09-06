@@ -1,0 +1,116 @@
+name: V3.3 acquisition gate
+
+on:
+  push:
+    branches:
+      - audit/v3-3-triangulation
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  acquisition-gate:
+    runs-on: windows-2025
+    timeout-minutes: 30
+    steps:
+      - name: Checkout audit branch
+        uses: actions/checkout@v4
+        with:
+          ref: audit/v3-3-triangulation
+          fetch-depth: 1
+
+      - name: Verify Node and install pinned dukascopy-node
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          node --version
+          npm --version
+          npm install --no-save --no-package-lock dukascopy-node@1.50.0
+          $v = (& npx --no-install dukascopy-node --version).Trim()
+          Write-Host "DUKASCOPY_NODE_VERSION=$v"
+          if ($v -ne '1.50.0') { throw "Unexpected dukascopy-node version: $v" }
+
+      - name: Execute one-day real acquisition / restart / integrity gate
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $source = (Resolve-Path '.\audit\v3-3-triangulation\source\download_ticks_v3_3.ps1').Path
+          $original = Get-Content -LiteralPath $source -Raw
+          $originalSha = (Get-FileHash -LiteralPath $source -Algorithm SHA256).Hash
+          $work = Join-Path $env:RUNNER_TEMP 'v3-3-gate'
+          if (Test-Path -LiteralPath $work) { Remove-Item -LiteralPath $work -Recurse -Force }
+          New-Item -ItemType Directory -Path $work -Force | Out-Null
+          $runner = Join-Path $work 'download_ticks_v3_3.ps1'
+          $oneDay = $original.Replace('"2026-01-07"','"2026-01-03"')
+          if ($oneDay -eq $original) { throw 'DATE_WINDOW_PATCH_NOT_APPLIED' }
+          [IO.File]::WriteAllText($runner,$oneDay,(New-Object Text.UTF8Encoding($false)))
+          $runnerSha = (Get-FileHash -LiteralPath $runner -Algorithm SHA256).Hash
+          Write-Host "ORIGINAL_SOURCE_SHA256=$originalSha"
+          Write-Host "ONE_DAY_RUNNER_SHA256=$runnerSha"
+          Write-Host 'ONE_DAY_WINDOW=2026-01-02 inclusive to 2026-01-03 exclusive'
+          $env:PATH = (Join-Path (Get-Location) 'node_modules\.bin') + ';' + $env:PATH
+          Push-Location $work
+          try {
+            Write-Host '=== RUN 1: acquisition ==='
+            & pwsh -NoProfile -File $runner
+            $exit1 = $LASTEXITCODE
+            Write-Host "EXIT1=$exit1"
+            if ($exit1 -ne 0) { throw "RUN1_FAILED=$exit1" }
+
+            $manifest = Join-Path $work 'MANIFEST\manifest_v3_3.csv'
+            $raw = Join-Path $work 'RAW\USATECH.IDX-USD\TICK\2026\01\2026-01-02.csv'
+            if (-not (Test-Path -LiteralPath $raw)) { throw 'RAW_MISSING_AFTER_RUN1' }
+            if (-not (Test-Path -LiteralPath $manifest)) { throw 'MANIFEST_MISSING_AFTER_RUN1' }
+            $valid1 = @(Import-Csv -LiteralPath $manifest | Where-Object { $_.date -eq '2026-01-02' -and $_.status -eq 'VALID' })
+            if ($valid1.Count -ne 1) { throw "VALID_COUNT_AFTER_RUN1=$($valid1.Count)" }
+            $sha1 = (Get-FileHash -LiteralPath $raw -Algorithm SHA256).Hash
+            $bytes1 = (Get-Item -LiteralPath $raw).Length
+            Write-Host "RAW_SHA_AFTER_RUN1=$sha1"
+            Write-Host "RAW_SIZE_AFTER_RUN1=$bytes1"
+            if ($sha1 -ne $valid1[0].sha256) { throw 'MANIFEST_SHA_MISMATCH_AFTER_RUN1' }
+            if ([int64]$valid1[0].file_size_bytes -ne $bytes1) { throw 'MANIFEST_SIZE_MISMATCH_AFTER_RUN1' }
+
+            Write-Host '=== RUN 2: restart/idempotence ==='
+            & pwsh -NoProfile -File $runner
+            $exit2 = $LASTEXITCODE
+            Write-Host "EXIT2=$exit2"
+            if ($exit2 -ne 0) { throw "RUN2_FAILED=$exit2" }
+            $records2 = @(Import-Csv -LiteralPath $manifest | Where-Object { $_.date -eq '2026-01-02' })
+            $valid2 = @($records2 | Where-Object { $_.status -eq 'VALID' })
+            $skip2 = @($records2 | Where-Object { $_.status -eq 'SKIP' })
+            if ($valid2.Count -ne 1 -or $skip2.Count -ne 1) { throw "RESTART_SEQUENCE_INVALID=VALID:$($valid2.Count),SKIP:$($skip2.Count)" }
+            $sha2 = (Get-FileHash -LiteralPath $raw -Algorithm SHA256).Hash
+            if ($sha2 -ne $sha1) { throw 'RAW_CHANGED_DURING_SKIP' }
+
+            Write-Host '=== RUN 3: adversarial RAW mutation ==='
+            $b = [IO.File]::ReadAllBytes($raw)
+            if ($b.Length -lt 2) { throw 'RAW_TOO_SMALL_TO_MUTATE' }
+            $b[$b.Length-1] = if ($b[$b.Length-1] -eq 10) { 11 } else { $b[$b.Length-1] -bxor 1 }
+            [IO.File]::WriteAllBytes($raw,$b)
+            $mutatedSha = (Get-FileHash -LiteralPath $raw -Algorithm SHA256).Hash
+            if ($mutatedSha -eq $sha1) { throw 'MUTATION_DID_NOT_CHANGE_SHA' }
+            & pwsh -NoProfile -File $runner
+            $exit3 = $LASTEXITCODE
+            Write-Host "EXIT3=$exit3"
+            if ($exit3 -eq 0) { throw 'MUTATED_RAW_ACCEPTED_WITH_SUCCESS_EXIT' }
+            $records3 = @(Import-Csv -LiteralPath $manifest | Where-Object { $_.date -eq '2026-01-02' })
+            $integrity3 = @($records3 | Where-Object { $_.status -eq 'INTEGRITY_FAILURE' })
+            if ($integrity3.Count -lt 1) { throw 'NO_INTEGRITY_FAILURE_RECORD_AFTER_MUTATION' }
+            if (-not (Test-Path -LiteralPath $raw)) { throw 'RAW_UNEXPECTEDLY_DELETED_ON_SKIP_HASH_MISMATCH' }
+            Write-Host 'ACQUISITION_GATE=PASS'
+          }
+          finally {
+            Pop-Location
+          }
+
+      - name: Upload acquisition evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-3-acquisition-gate-evidence
+          path: |
+            ${{ runner.temp }}/v3-3-gate/MANIFEST/**
+            ${{ runner.temp }}/v3-3-gate/LOGS/**
+            ${{ runner.temp }}/v3-3-gate/VALIDATION/**
+          if-no-files-found: warn
