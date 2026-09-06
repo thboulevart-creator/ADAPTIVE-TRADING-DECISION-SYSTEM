@@ -53,23 +53,17 @@ $Text = [regex]::Replace($Text,$SkipPattern,$SkipReplacement,1)
 $PostPattern = '(?ms)(\$PostValidation\.Status -ne "VALID"\).*?Write-Log \(\s*"\$DateString \| INTEGRITY_FAILURE \| " \+\s*"post-copy validation"\s*\)\s*)(return "INTEGRITY_FAILURE")'
 if (-not [regex]::IsMatch($Text,$PostPattern)) { throw 'C04 post-copy block not found' }
 $Text = [regex]::Replace($Text,$PostPattern,'$1Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | post-copy validation | RAW_REMOVED"`n`n            $2',1)
-$SizePattern = '(?ms)(\$PreValidation\.FileSizeBytes -ne\s*\$PostValidation\.FileSizeBytes\).*?Write-Log \(\s*"\$DateString \| INTEGRITY_FAILURE \| SIZE_MISMATCH"\s*\)\s*)(return "INTEGRITY_FAILURE")'
-if ([regex]::IsMatch($Text,$SizePattern)) { $Text = [regex]::Replace($Text,$SizePattern,'$1Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | SIZE_MISMATCH | RAW_REMOVED"`n`n            $2',1) }
-$HashPattern = '(?ms)(\$PreValidation\.Sha256 -ne\s*\$PostValidation\.Sha256\).*?Write-Log \(\s*"\$DateString \| INTEGRITY_FAILURE \| SHA256_MISMATCH"\s*\)\s*)(return "INTEGRITY_FAILURE")'
-if ([regex]::IsMatch($Text,$HashPattern)) { $Text = [regex]::Replace($Text,$HashPattern,'$1Remove-Item -LiteralPath $RawPath -Force -ErrorAction Stop`n`n            Write-Log "$DateString | INTEGRITY_FAILURE | SHA256_MISMATCH | RAW_REMOVED"`n`n            $2',1) }
 
 # C03
-if (-not $Text.Contains('function Test-ExpectedNoDataDate')) {
-    $CalendarFunction = @'
+$CalendarFunction = @'
 function Test-ExpectedNoDataDate {
     param([Parameter(Mandatory = $true)][datetime]$Date)
     return $Date.DayOfWeek -eq [DayOfWeek]::Saturday -or $Date.DayOfWeek -eq [DayOfWeek]::Sunday
 }
 
 '@
-    if (-not $Text.Contains('function Process-Day {')) { throw 'Process-Day function not found' }
-    $Text = $Text.Replace('function Process-Day {',$CalendarFunction + 'function Process-Day {')
-}
+if (-not $Text.Contains('function Process-Day {')) { throw 'Process-Day function not found' }
+if (-not $Text.Contains('function Test-ExpectedNoDataDate')) { $Text = $Text.Replace('function Process-Day {',$CalendarFunction + 'function Process-Day {') }
 $EmptyPattern = '(?ms)        if \(\$CsvFiles\.Count -eq 0\)\s*\{.*?return "NO_DATA"\s*\n        \}'
 $EmptyReplacement = @'
         if ($CsvFiles.Count -eq 0) {
@@ -84,9 +78,10 @@ $EmptyReplacement = @'
 if (-not [regex]::IsMatch($Text,$EmptyPattern)) { throw 'C03 original empty-output block not found' }
 $Text = [regex]::Replace($Text,$EmptyPattern,$EmptyReplacement,1)
 
-# H03
-$NodePattern = '^\$NodeVersion\s*=\s*\(& node --version\)\.Trim\(\)\s*$'
-$NodeReplacement = @'
+# H03: use a direct source insertion anchored on the exact original line.
+$OldNodeLine = '$NodeVersion = (& node --version).Trim()'
+if (-not $Text.Contains($OldNodeLine)) { throw 'H03 original node line not found' }
+$NodeBlock = @'
 $NodeVersion = "UNKNOWN"
 try {
     $NodeVersion = (& node --version 2>$null).Trim()
@@ -97,8 +92,7 @@ catch {
     exit 1
 }
 '@
-if (-not [regex]::IsMatch($Text,$NodePattern,[System.Text.RegularExpressions.RegexOptions]::Multiline)) { throw 'H03 node version line not found' }
-$Text = [regex]::Replace($Text,$NodePattern,$NodeReplacement,1)
+$Text = $Text.Replace($OldNodeLine,$NodeBlock.TrimEnd())
 
 # M02
 if ($Text -match 'Ã') {
@@ -115,7 +109,7 @@ $Checks = [ordered]@{
     C02 = $Text.Contains('SKIP_RAW_HASH_MISMATCH') -and $Text.Contains('Get-FileHash -LiteralPath $RawPath -Algorithm SHA256')
     C03 = $Text.Contains('EMPTY_DOWNLOAD: dukascopy-node returned exit 0 but produced no CSV')
     C04 = $Text.Contains('RAW_REMOVED')
-    H03 = ($Text -match 'NODE_RUNTIME_UNAVAILABLE') -and ($Text -match '\$NodeVersion\s*=\s*"UNKNOWN"')
+    H03 = $Text.Contains('NODE_RUNTIME_UNAVAILABLE') -and $Text.Contains('$NodeVersion = "UNKNOWN"')
     M01 = -not $Text.Contains('$Matches = @(')
     M03 = $Text.Contains('[IO.Path]::GetTempPath()')
     M02 = -not ($Text -match 'Ã.')
