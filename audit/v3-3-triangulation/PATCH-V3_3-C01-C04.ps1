@@ -100,7 +100,7 @@ catch {
 if (-not [regex]::IsMatch($Text,$NodePattern,[System.Text.RegularExpressions.RegexOptions]::Multiline)) { throw 'H03 node version line not found' }
 $Text = [regex]::Replace($Text,$NodePattern,$NodeReplacement,1)
 
-# M02: repair double-encoded UTF-8 deterministically, then write UTF-8 without BOM.
+# M02
 if ($Text -match 'Ã') {
     $Cp1252 = [Text.Encoding]::GetEncoding(1252)
     $Text = [Text.Encoding]::UTF8.GetString($Cp1252.GetBytes($Text))
@@ -115,7 +115,7 @@ $Checks = [ordered]@{
     C02 = $Text.Contains('SKIP_RAW_HASH_MISMATCH') -and $Text.Contains('Get-FileHash -LiteralPath $RawPath -Algorithm SHA256')
     C03 = $Text.Contains('EMPTY_DOWNLOAD: dukascopy-node returned exit 0 but produced no CSV')
     C04 = $Text.Contains('RAW_REMOVED')
-    H03 = $Text.Contains('NODE_RUNTIME_UNAVAILABLE')
+    H03 = ($Text -match 'NODE_RUNTIME_UNAVAILABLE') -and ($Text -match '\$NodeVersion\s*=\s*"UNKNOWN"')
     M01 = -not $Text.Contains('$Matches = @(')
     M03 = $Text.Contains('[IO.Path]::GetTempPath()')
     M02 = -not ($Text -match 'Ã.')
