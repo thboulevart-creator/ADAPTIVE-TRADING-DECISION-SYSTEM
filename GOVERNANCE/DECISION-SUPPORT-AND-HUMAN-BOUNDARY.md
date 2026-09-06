@@ -33,6 +33,54 @@ Instead, the acting agent MUST, as far as possible:
 
 The human MUST NOT be required to select a technical mechanism without first being given enough explanation to understand what the alternatives mean for the final objective.
 
+## Mandatory three-way decision protocol
+
+Whenever a **genuine human normative decision** is reached, the acting agent MUST use the following protocol before requesting the human decision, unless independent counter-expertise is demonstrably unavailable or materially unnecessary for the specific decision.
+
+```text
+1. STOP AUTONOMOUS INFERENCE
+2. FORMULATE THE PRECISE DECISION QUESTION
+3. OBTAIN AN INDEPENDENT CLAUDE RESPONSE
+4. OBTAIN AN INDEPENDENT GROK RESPONSE
+5. RETAIN AN INDEPENDENT INTERNAL ANALYSIS
+6. PERFORM A THREE-WAY ADVERSARIAL COMPARISON
+7. PRODUCE A SYNTHESIS / DECISION BRIEF
+8. HUMAN MAKES THE NORMATIVE DECISION
+9. PERSIST DECISION + RATIONALE + SCOPE IN GOVERNANCE
+10. RESUME AUTONOMOUS EXECUTION
+```
+
+The three-way comparison MUST explicitly examine, where applicable:
+
+- convergence and divergence between the analyses;
+- hidden assumptions and dependencies;
+- possible factual or logical errors;
+- architectural consequences and failure modes;
+- facts/evidence versus validated rules;
+- derived consequences versus genuinely normative choices;
+- proposals/hypotheses that must not be silently promoted;
+- remaining trade-offs and reversibility;
+- compatibility with authoritative contracts, adjudications, invariants, and gates.
+
+Claude and Grok are **independent counter-expertise**, not normative authorities. Their recommendations MUST NOT be promoted to repository policy merely because they agree with one another. The acting agent's own analysis MUST remain independent rather than being retrofitted to match either response.
+
+The human MUST receive the synthesized decision boundary and enough explanation of the competing consequences to make an informed normative choice. The acting agent MUST NOT silently select the normative outcome.
+
+After the human decision, the resulting normative rule MUST be recorded with sufficient provenance to identify at least:
+
+- the decision question;
+- the accepted decision;
+- the decision rationale;
+- the applicable repository/scope;
+- the evidence and counter-expertise used;
+- relevant alternatives rejected or left unresolved;
+- the effective contract/version or artifact affected;
+- any residual uncertainty or follow-up condition.
+
+The decision MUST then be treated according to the repository's normal evidence, adjudication, versioning, and audit rules. Recording a decision does not by itself make an implementation conforming; downstream validation remains mandatory.
+
+If independent counter-expertise is unavailable, the absence MUST be recorded rather than simulated. A fabricated or assumed Claude/Grok response MUST NEVER be used as evidence.
+
 ## Decision boundary
 
 A question is a **genuine human normative decision** when the available evidence, contracts, and adversarial analysis do not uniquely determine the required architectural choice and selecting among the remaining alternatives would establish or change a normative rule.
