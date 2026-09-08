@@ -1,189 +1,189 @@
-# Architectural Delta — Initial Baseline
+# Architectural Delta — Source Findings vs Existing Systems
 
-**Status:** WORKING DELTA — NON-NORMATIVE
-**Date:** 2026-09-08
+**Status:** WORKING DELTA — NON-NORMATIVE  
+**Date:** 2026-09-08  
+**Authority:** subordinate to all existing LOCKED/FROZEN contracts and adjudications
 
-This document records what the source changes, if anything, after comparison with the existing architecture.
+## 1. Executive conclusion
 
-## P0 — Connect existing capabilities into a closed feedback loop
+The source does not justify a redesign. It exposes a missing **execution/control layer** around several capabilities that already exist as contracts, governance or partial implementation.
 
-### Problem
-The repositories already contain validation, experimentation, adversarial review, provenance and governance, but these capabilities are not yet proven to form one reusable executable control loop around autonomous agents.
-
-### Target pattern
+The principal delta is:
 
 ```text
-OBJECTIVE / HYPOTHESIS
-        ↓
-PLANNING
-        ↓
-ACTION / GENERATION
-        ↓
-OBSERVATION
-        ↓
-VALIDATION
-        ↓
-CRITIQUE / FAILURE ANALYSIS
-        ↓
-REPAIR / RE-EXECUTION
-        ↓
-VALIDATION AGAIN
-        ↓
-ACCEPT / REJECT / ESCALATE
-        ↓
-EXPERIMENTAL MEMORY
+EXISTING CONTRACTS / DOMAIN RULES
+              ↓
+      EXECUTABLE CONTROL LOOP
+              ↓
+ validation → diagnosis → repair → revalidation
+              ↓
+       provenance + memory closure
 ```
 
-This is a control-loop abstraction, not a mandatory linear business workflow. It must remain compatible with the content system's path-dependent graph principle.
+The content repository already has a frozen `ExperimentRunner` application contract, repository boundaries, domain gates, provenance services and conformance tests. Therefore the source must not be used to invent a second experiment lifecycle or bypass the existing V0.1 boundaries.
 
-## P0 — Executable simulation and fault injection
+## 2. Delta register
 
-### Problem
-Governance documents describe adversarial/failure analysis, but an executable general-purpose simulator/fault-injection layer is not yet established by the inspected baseline.
+| ID | Delta | Current state | Classification | Priority | Integration target | Dependency |
+|---|---|---|---|---|---|---|
+| D-01 | Generic validation harness | Multiple domain-specific gates/tests exist | PARTIAL / NEW CROSS-CUTTING CAPABILITY | P0 | shared application/testing architecture; domain validators remain authoritative | existing contracts + domain gates |
+| D-02 | Fault injection / simulation harness | Failure analysis exists; executable generic fault injection not established | ABSENT/PARTIAL | P0 | trading first; reusable pattern later | failure taxonomy + observability |
+| D-03 | Diagnosis contract | Failure/rejection concepts exist, but diagnosis is not a reusable execution boundary | PARTIAL | P0 | cross-system control layer | validation + failure records |
+| D-04 | Recovery/repair orchestration | Safe-stop/challenge/rollback principles exist; generic repair loop not established | PARTIAL | P0 | application orchestration | diagnosis + policy + gates |
+| D-05 | Re-validation after repair | Tests/gates exist, but generic repair→revalidate lifecycle is not established | PARTIAL | P0 | validation harness | D-01 + D-04 |
+| D-06 | Experiment-to-memory closure | Experimental Memory is reserved; content already persists experiments/provenance | PARTIAL | P0 | memory architecture | provenance + experiment records |
+| D-07 | Execution identity / run envelope | Strong trading provenance; content technical provenance is implemented | STRONG PARTIAL | P1 | shared provenance abstraction | existing provenance stores |
+| D-08 | Agent harness pattern | Application/provider/domain boundaries exist; no reusable harness abstraction proven | PARTIAL | P1 | future control/application layer | D-01, D-03, D-07 |
+| D-09 | Adversarial evaluator orchestration | Principle and governance already exist | EXISTS | P1 | automation only where useful | existing adversarial protocols |
+| D-10 | Cheap reversible POC path | Experimentation exists as principle and application contract | EXISTS/PARTIAL | P1 | experiment runner / research workflow | existing experiment contracts |
 
-### Priority
-Highest for the trading system because market-data, execution and decision behavior must be tested under degraded and pathological conditions.
+## 3. Repository-specific impact
 
-### Candidate capabilities
+### Trading system
 
-- deterministic scenario replay;
-- malformed/duplicate/out-of-order data injection;
-- missing-data/interruption scenarios;
-- latency/slippage/spread perturbation where applicable;
-- regime and volatility perturbation;
-- controlled dependency failure;
-- randomized fault campaigns with reproducible seeds;
-- expected-vs-observed failure records;
-- automatic linkage to failure matrix and experiment memory.
+Highest-value additions:
 
-### Constraint
-Simulation must never be confused with real-market evidence. Simulated results remain simulation evidence with explicit status.
+1. executable scenario/simulation layer;
+2. controlled fault injection;
+3. failure detection and diagnosis records;
+4. recovery/safe-hold orchestration;
+5. re-validation and regression linkage;
+6. closure into experimental memory.
 
-## P0 — Failure lifecycle and safe recovery
+These must integrate with existing research qualification, provenance, adversarial audit and governance rather than replace them.
 
-### Required lifecycle
+### Content system
+
+The source confirms rather than fundamentally changes the current direction. The repository already contains:
+
+- explicit Information Model and graph semantics;
+- explicit experimentation concepts;
+- an ExperimentRunner contract with a frozen persistence boundary;
+- domain gates and policy;
+- technical provenance and provenance conformance tests;
+- database and application tests;
+- a corrected target application architecture.
+
+The remaining relevant delta is therefore primarily **control-loop integration**: validation/failure/recovery/observability and eventual Experimental Memory closure. A new experiment state machine must not be introduced merely because the source describes one informally.
+
+## 4. What must NOT change
+
+The following should not be modified merely because of the source:
+
+- LOCKED semantic/data contracts;
+- existing domain gates and policy authority;
+- provenance semantics that prohibit fabricated ancestry;
+- content-system graph semantics;
+- trading research separation between exploration and confirmation;
+- existing adversarial governance;
+- provider/model choice as an architectural invariant;
+- the content V0.1 ExperimentRunner boundary.
+
+## 5. Target control-loop pattern
+
+The reusable target should be expressed as a capability graph rather than a mandatory business pipeline:
 
 ```text
-FAILURE
-  ↓
-DETECTION
-  ↓
-DIAGNOSIS
-  ↓
-CONTAINMENT / SAFE HOLD
-  ↓
-REPAIR OR ESCALATION
-  ↓
-RE-VALIDATION
-  ↓
-DECISION
-  ↓
-MEMORY
+                 TASK / OBJECTIVE
+                        │
+                        ▼
+                 AGENT / ACTION
+                        │
+                        ▼
+                    OBSERVE
+                        │
+                        ▼
+                   VALIDATE
+                  /         \
+               PASS          FAIL
+                │              │
+                ▼              ▼
+             ACCEPT        DIAGNOSE
+                               │
+                    ┌──────────┴──────────┐
+                    ▼                     ▼
+                  REPAIR               ESCALATE
+                    │                     │
+                    └──────────┬──────────┘
+                               ▼
+                         RE-VALIDATE
+                               │
+                               ▼
+                     DECISION / ACCEPT
+                               │
+                               ▼
+                         PROVENANCE
+                               │
+                               ▼
+                    EXPERIMENTAL MEMORY
 ```
 
-The existing Upward Challenge Protocol already establishes a governed SAFE HOLD concept for critical upstream constraints. The delta is to connect such mechanisms to executable component-level failure handling without allowing autonomous repair to bypass ownership or contracts.
+A domain may omit or branch parts of this graph. No component may bypass applicable domain gates or safety policy.
 
-## P1 — Reusable validation harness
+## 6. Implementation order
 
-The source suggests that the validator, not the generator, becomes the dominant safety boundary. Existing validation artifacts should therefore be exposed through a reusable harness concept.
+### Phase 1 — Contract the control concepts
 
-Minimum conceptual interface:
+Define, without implementation commitment:
+
+1. Validation Result contract;
+2. Failure Record / Failure Taxonomy;
+3. Diagnosis Result contract;
+4. Recovery Attempt record;
+5. Re-validation linkage;
+6. Run/Execution Envelope;
+7. Memory closure linkage.
+
+### Phase 2 — Build the validation harness
+
+Expose existing domain gates/tests through a controlled orchestration boundary. The harness reports evidence and provenance; it does not reimplement domain semantics.
+
+### Phase 3 — Build simulation/fault injection
+
+Start with the trading system. Simulation must use declared fault models, deterministic seeds where possible, bounded resource usage and reproducible run identity.
+
+### Phase 4 — Add diagnosis/recovery orchestration
+
+Only after validation and failure records are stable. Recovery must respect domain policy, safe-stop rules and escalation boundaries. Autonomous repair must never silently promote an unvalidated change.
+
+### Phase 5 — Close the experimental memory loop
+
+Link hypotheses, runs, failures, attempted explanations, repairs, validation outcomes and resulting knowledge. Preserve rejected/inconclusive explanations rather than recording only successful outcomes.
+
+### Phase 6 — Generalize as a reusable architecture pattern
+
+Only after the trading implementation demonstrates the pattern should the abstraction be generalized across autonomous systems. Avoid creating a premature universal framework.
+
+## 7. Decision rule for every future integration
 
 ```text
-candidate
-context
-expected_contracts
-→ validation_report
-→ verdict
-→ failure_records
+SOURCE PRINCIPLE
+      ↓
+EXISTING CONTRACT CHECK
+      ↓
+EXISTING IMPLEMENTATION CHECK
+      ↓
+GAP CONFIRMED?
+   /          \
+ NO           YES
+ │             │
+REJECT      CLASSIFY
+              │
+              ▼
+      MINIMAL INTEGRATION
+              │
+              ▼
+        ADVERSARIAL AUDIT
+              │
+              ▼
+             TEST
+              │
+              ▼
+            FREEZE
 ```
 
-The harness should be able to invoke domain-specific validators without imposing one domain's semantics on another.
+This prevents the source from becoming a feature backlog and preserves architectural minimality.
 
-## P1 — Experiment closure into memory
-
-The Experimental Memory Charter already reserves the required conceptual fields. The delta is an explicit lifecycle link:
-
-```text
-EXPERIMENT
-   ↓
-RESULT
-   ↓
-EVIDENCE / VALIDATION
-   ↓
-EXPLANATION STATUS
-   ↓
-PROMOTION / REJECTION
-   ↓
-EXPERIMENTAL MEMORY RECORD
-```
-
-No unvalidated result should silently become durable system knowledge or alter decision behavior.
-
-## P1 — Generalized provenance anchor
-
-Trading already has a detailed dataset provenance registry. The reusable abstraction should be generalized carefully:
-
-```text
-RUN_ID
-CODE_VERSION
-CONFIGURATION_VERSION
-INPUT_IDENTITIES
-ENVIRONMENT_VERSION
-MODEL/AGENT VERSION
-RESULTS
-VALIDATION EVIDENCE
-```
-
-Domain-specific provenance remains owned by the relevant domain contract.
-
-## P2 — Agent harness as a pattern
-
-Do not create a monolithic framework prematurely. First define the interfaces between:
-
-- agent/reasoner;
-- planner;
-- executor;
-- validator;
-- critic/adversary;
-- safety/governance;
-- memory;
-- observability.
-
-Only implement concrete components when a verified use case requires them.
-
-## Explicitly rejected as architectural requirements
-
-The source does not justify making any of the following system invariants:
-
-- use of Rust;
-- use of Claude, GPT, Gemini, Grok or any specific model;
-- use of a specific coding IDE/orchestrator;
-- replacement of all legacy code;
-- multi-model execution for every task;
-- unlimited autonomous modification;
-- treating tests passing as proof of optimality or safety.
-
-These remain optional implementation choices subject to evidence.
-
-## Dependency order
-
-```text
-1. Freeze / verify current contracts and ownership
-        ↓
-2. Define reusable validation-report interface
-        ↓
-3. Define simulation / fault-injection contract
-        ↓
-4. Define failure detection + diagnosis + recovery interfaces
-        ↓
-5. Connect validation/failure outputs to experimental memory
-        ↓
-6. Implement trading-domain simulator first
-        ↓
-7. Reuse/adapt proven patterns for content and future systems
-```
-
-## Gate before implementation
+## 8. Gate before implementation
 
 No P0/P1 item should be implemented directly from this delta. Each must first receive an impact map, ownership check, contract compatibility check, adversarial review and explicit decision according to the existing governance hierarchy.
