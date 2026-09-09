@@ -12,30 +12,50 @@ $venv = Join-Path (Get-Location) $VenvPath
 
 function Invoke-Python {
     param([string[]]$Arguments)
-    & py @Arguments
+    & $script:PythonCommand @Arguments
     if ($LASTEXITCODE -ne 0) {
-        throw "Python launcher command failed with exit code $LASTEXITCODE."
+        throw "Python command failed with exit code $LASTEXITCODE."
     }
 }
 
 Write-Host "Python environment bootstrap for MT5 source discovery"
 Write-Host "Required baseline: CPython $requiredMajor.$requiredMinor"
 
-$py = Get-Command py -ErrorAction SilentlyContinue
-if (-not $py) {
-    throw "Python Launcher 'py' was not found. Install CPython $requiredMajor.$requiredMinor x64 first."
+$launcher = Get-Command py -ErrorAction SilentlyContinue
+$python = Get-Command python -ErrorAction SilentlyContinue
+
+if ($launcher) {
+    $script:PythonCommand = "py"
+    $version = & py -3.13 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')"
+    if ($LASTEXITCODE -ne 0) {
+        if (-not $python) {
+            throw "CPython $requiredMajor.$requiredMinor is not installed or is not accessible through the Python Launcher."
+        }
+        Write-Host "Python Launcher 'py' does not expose CPython $requiredMajor.$requiredMinor; falling back to 'python'."
+        $script:PythonCommand = "python"
+    }
+} elseif ($python) {
+    $script:PythonCommand = "python"
+    Write-Host "Python Launcher 'py' not found; using 'python' directly."
+} else {
+    throw "Neither Python Launcher 'py' nor 'python' was found. Install CPython $requiredMajor.$requiredMinor x64 first."
 }
 
-$version = & py -3.13 -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')"
+$version = & $script:PythonCommand -c "import sys; print(f'{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}')"
 if ($LASTEXITCODE -ne 0) {
-    throw "CPython $requiredMajor.$requiredMinor is not installed or is not accessible through the Python Launcher."
+    throw "Unable to execute the selected Python interpreter."
+}
+
+$versionParts = $version.Trim().Split('.')
+if ($versionParts.Count -lt 2 -or [int]$versionParts[0] -ne $requiredMajor -or [int]$versionParts[1] -ne $requiredMinor) {
+    throw "Python baseline mismatch: detected $version, required CPython $requiredMajor.$requiredMinor.x."
 }
 
 Write-Host "Detected CPython $version"
 
 if (-not (Test-Path $venv)) {
     Write-Host "Creating isolated environment: $venv"
-    Invoke-Python @("-3.13", "-m", "venv", $venv)
+    Invoke-Python @("-m", "venv", $venv)
 } else {
     Write-Host "Using existing isolated environment: $venv"
 }
