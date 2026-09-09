@@ -4,8 +4,10 @@ param(
     [datetime]$StartDate = [datetime]::Parse("2025-01-01T00:00:00Z").ToUniversalTime(),
     [datetime]$EndDate = [datetime]::Parse("2025-12-31T23:00:00Z").ToUniversalTime(),
     [string]$OutputRoot = "data/raw/dukascopy",
-    [int]$MaxRetries = 3,
+    [int]$MaxRetries = 5,
     [int]$RetryDelaySeconds = 2,
+    [int]$InterRequestDelaySeconds = 5,
+    [int]$ServiceUnavailableBackoffSeconds = 10,
     [switch]$Force
 )
 
@@ -18,9 +20,20 @@ $ErrorActionPreference = "Stop"
 #   deduplication, repair, filtering, resampling, or CSV conversion occurs here.
 # - January is month 00 in the Dukascopy datafeed URL; December is month 11.
 # - The local directory uses normal calendar month numbering (01..12).
+# - Requests are deliberately paced to reduce transient 503 responses.
+# - A 200 response with zero bytes is recorded as EMPTY_200 observation; it is
+#   never promoted to DOWNLOADED and is not treated as a valid tick payload.
 
 if ($EndDate -lt $StartDate) {
     throw "EndDate must be greater than or equal to StartDate."
+}
+
+if ($MaxRetries -lt 1) {
+    throw "MaxRetries must be at least 1."
+}
+
+if ($RetryDelaySeconds -lt 0 -or $InterRequestDelaySeconds -lt 0 -or $ServiceUnavailableBackoffSeconds -lt 0) {
+    throw "Delay parameters must be non-negative."
 }
 
 $StartDate = $StartDate.ToUniversalTime()
@@ -80,7 +93,8 @@ function Get-StatusCodeFromException {
 
 $downloaded = 0
 $skippedExisting = 0
-$emptyOrMissing = 0
+$empty200 = 0
+$missing404 = 0
 $failed = 0
 $totalBytes = [int64]0
 
@@ -92,6 +106,8 @@ Write-Host "Output : $symbolRoot"
 Write-Host "Run ID : $runId"
 Write-Host "Manifest: $manifestPath"
 Write-Host "Log     : $logPath"
+Write-Host "Request delay : $InterRequestDelaySeconds second(s)"
+Write-Host "503 backoff   : $ServiceUnavailableBackoffSeconds second(s) base"
 Write-Host ""
 
 $current = $StartDate.Date.AddHours($StartDate.Hour)
@@ -116,6 +132,9 @@ while ($current -le $last) {
             $skippedExisting++
             $totalBytes += $existingBytes
             Write-Log -Status "SKIPPED_EXISTING" -Url $url -Path $localPath -Bytes $existingBytes -Sha256 $existingHash -Attempts 0 -ErrorMessage "Existing non-empty raw file retained; use -Force only for explicit replacement."
+            if ($InterRequestDelaySeconds -gt 0) {
+                Start-Sleep -Seconds $InterRequestDelaySeconds
+            }
             $current = $current.AddHours(1)
             continue
         }
@@ -141,9 +160,8 @@ while ($current -le $last) {
                 throw "HTTP status $statusCode"
             }
 
-            $content = $response.Content
-            if ($null -eq $content) {
-                throw "HTTP 200 response contained no content object"
+            if ($null -eq $response.RawContentStream) {
+                throw "HTTP 200 response contained no raw content stream"
             }
 
             # Use the response byte stream so the downloaded binary .bi5 payload
@@ -159,7 +177,13 @@ while ($current -le $last) {
 
             $bytes = (Get-Item -LiteralPath $temporaryPath).Length
             if ($bytes -le 0) {
-                throw "HTTP 200 response produced an empty file"
+                # Preserve the source observation. Do not retry or promote it.
+                $empty200++
+                Remove-Item -LiteralPath $temporaryPath -Force -ErrorAction SilentlyContinue
+                Write-Log -Status "EMPTY_200" -Url $url -Path $localPath -Bytes 0 -Sha256 "" -Attempts $attempt -ErrorMessage "HTTP 200 response produced an empty file; no tick payload was stored."
+                Write-Host ("[{0}] EMPTY_200" -f $current.ToString("yyyy-MM-dd HH:mm"))
+                $success = $true
+                break
             }
 
             if (Test-Path -LiteralPath $localPath) {
@@ -179,10 +203,14 @@ while ($current -le $last) {
             $lastError = $_.Exception.Message
             $statusCode = Get-StatusCodeFromException -Exception $_.Exception
 
+            if (Test-Path -LiteralPath $temporaryPath) {
+                Remove-Item -LiteralPath $temporaryPath -Force -ErrorAction SilentlyContinue
+            }
+
             if ($statusCode -eq 404) {
-                # A missing/empty hour is a source observation, not a reason to
+                # A missing hour is a source observation, not a reason to
                 # fabricate data. Record it and continue with the next hour.
-                $emptyOrMissing++
+                $missing404++
                 Write-Log -Status "MISSING_404" -Url $url -Path $localPath -Bytes 0 -Sha256 "" -Attempts $attempt -ErrorMessage $lastError
                 Write-Host ("[{0}] MISSING_404" -f $current.ToString("yyyy-MM-dd HH:mm"))
                 $success = $true
@@ -190,7 +218,16 @@ while ($current -le $last) {
             }
 
             if ($attempt -lt $MaxRetries) {
-                Start-Sleep -Seconds ($RetryDelaySeconds * $attempt)
+                if ($statusCode -eq 503) {
+                    $backoff = $ServiceUnavailableBackoffSeconds * [math]::Pow(2, $attempt - 1)
+                    Write-Host ("[{0}] HTTP 503; backoff {1} second(s) before retry {2}/{3}" -f $current.ToString("yyyy-MM-dd HH:mm"), $backoff, $attempt + 1, $MaxRetries)
+                    if ($backoff -gt 0) {
+                        Start-Sleep -Seconds $backoff
+                    }
+                }
+                elseif ($RetryDelaySeconds -gt 0) {
+                    Start-Sleep -Seconds ($RetryDelaySeconds * $attempt)
+                }
             }
         }
     }
@@ -199,6 +236,10 @@ while ($current -le $last) {
         $failed++
         Write-Log -Status "FAILED" -Url $url -Path $localPath -Bytes 0 -Sha256 "" -Attempts $attempts -ErrorMessage $lastError
         Write-Host ("[{0}] FAILED after {1} attempt(s): {2}" -f $current.ToString("yyyy-MM-dd HH:mm"), $attempts, $lastError)
+    }
+
+    if ($InterRequestDelaySeconds -gt 0) {
+        Start-Sleep -Seconds $InterRequestDelaySeconds
     }
 
     $current = $current.AddHours(1)
@@ -214,13 +255,14 @@ $summary = [ordered]@{
     run_ended_at_utc   = $runEndedAt.ToString("o")
     downloaded         = $downloaded
     skipped_existing   = $skippedExisting
-    missing_404        = $emptyOrMissing
+    empty_200          = $empty200
+    missing_404        = $missing404
     failed             = $failed
     total_bytes        = $totalBytes
     manifest           = $manifestPath
     log                = $logPath
     raw_only           = $true
-    transformed       = $false
+    transformed        = $false
 }
 
 $summaryPath = Join-Path $symbolRoot "download-summary-$runId.json"
