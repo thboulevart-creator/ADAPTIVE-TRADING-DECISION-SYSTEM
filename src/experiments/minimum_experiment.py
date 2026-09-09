@@ -63,15 +63,41 @@ def run(
     failure: FailureRecord | None = None
 
     if status == "COMPLETED":
-        execution = DeterministicExecutor().run(load(path))
-        result = ExperimentResult(
-            run_id=run_id,
-            tick_count=execution.tick_count,
-            first_timestamp=execution.first_timestamp,
-            last_timestamp=execution.last_timestamp,
-            bid_sum=execution.bid_sum,
-            ask_sum=execution.ask_sum,
-        )
+        try:
+            execution = DeterministicExecutor().run(load(path))
+            result = ExperimentResult(
+                run_id=run_id,
+                tick_count=execution.tick_count,
+                first_timestamp=execution.first_timestamp,
+                last_timestamp=execution.last_timestamp,
+                bid_sum=execution.bid_sum,
+                ask_sum=execution.ask_sum,
+            )
+        except Exception as exc:
+            status = "FAILED"
+            validation_status = "FAIL"
+            validation_reason = "execution failed; no silent retry or repair was attempted"
+            failure = FailureRecord(
+                failure_id=f"{run_id}:failure",
+                detected_at=ended_at,
+                detected_by="minimum-experiment-boundary",
+                subject_id=run_id,
+                component="tick-execution",
+                failure_class="EXECUTION_ERROR",
+                severity="HIGH",
+                observed_condition=f"{type(exc).__name__}: {exc}",
+                expected_condition="deterministic execution completes without exception",
+                evidence_refs=(),
+                diagnosis_status="IDENTIFIED",
+                diagnosis_explanation=f"execution raised {type(exc).__name__}",
+                containment_status="SAFE_HOLD",
+                containment_reason="execution failure stops the experiment",
+                resolution_action="NONE",
+                resolution_actor="governance",
+                revalidation_required=True,
+                revalidation_report_id=None,
+                closure_status="OPEN",
+            )
     else:
         observed = validation_reason
         failure = FailureRecord(
