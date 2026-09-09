@@ -220,7 +220,8 @@ while ($current -le $last) {
             if ($attempt -lt $MaxRetries) {
                 if ($statusCode -eq 503) {
                     $backoff = $ServiceUnavailableBackoffSeconds * [math]::Pow(2, $attempt - 1)
-                    Write-Host ("[{0}] HTTP 503; backoff {1} second(s) before retry {2}/{3}" -f $current.ToString("yyyy-MM-dd HH:mm"), $backoff, $attempt + 1, $MaxRetries)
+                    $retryNumber = $attempt + 1
+                    Write-Host ("[{0}] HTTP 503; backoff {1} second(s) before retry {2}/{3}" -f $current.ToString("yyyy-MM-dd HH:mm"), $backoff, $retryNumber, $MaxRetries)
                     if ($backoff -gt 0) {
                         Start-Sleep -Seconds $backoff
                     }
