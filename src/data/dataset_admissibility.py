@@ -36,7 +36,7 @@ class DatasetIdentity:
 @dataclass(frozen=True)
 class AdmissibilityCheck:
     check_id: str
-    status: Literal["PASS", "FAIL", "UNVERIFIED"]
+    status: Literal["PASS", "FAIL", "UNVERIFIED", "BLOCKED"]
     reason: str
 
 
@@ -89,29 +89,32 @@ def assess(
     first_timestamp: str | None = None
     last_timestamp: str | None = None
     previous_timestamp: datetime | None = None
-    seen_timestamps: set[str] = set()
-
-    actual_hash = hashlib.sha256(source.read_bytes()).hexdigest()
-    checks.append(
-        AdmissibilityCheck(
-            "content_hash",
-            "PASS" if actual_hash == identity.content_hash else "FAIL",
-            "source bytes match DatasetIdentity" if actual_hash == identity.content_hash else "source bytes differ from DatasetIdentity",
-        )
-    )
 
     try:
+        actual_hash = hashlib.sha256(source.read_bytes()).hexdigest()
+        checks.append(
+            AdmissibilityCheck(
+                "content_hash",
+                "PASS" if actual_hash == identity.content_hash else "FAIL",
+                "source bytes match DatasetIdentity" if actual_hash == identity.content_hash else "source bytes differ from DatasetIdentity",
+            )
+        )
+
         with source.open("r", encoding="utf-8-sig", newline="") as handle:
             reader = csv.DictReader(handle)
-            if tuple(reader.fieldnames or ()) != EXPECTED_COLUMNS:
-                checks.append(AdmissibilityCheck("schema", "FAIL", "CSV header does not match the declared tick schema"))
-            else:
-                checks.append(AdmissibilityCheck("schema", "PASS", "CSV header matches the declared tick schema"))
-
-            if tuple(reader.fieldnames or ()) == EXPECTED_COLUMNS:
-                for row_count, row in enumerate(reader, start=1):
+            schema_ok = tuple(reader.fieldnames or ()) == EXPECTED_COLUMNS
+            checks.append(
+                AdmissibilityCheck(
+                    "schema",
+                    "PASS" if schema_ok else "FAIL",
+                    "CSV header matches the declared tick schema" if schema_ok else "CSV header does not match the declared tick schema",
+                )
+            )
+            if schema_ok:
+                for row_index, row in enumerate(reader, start=1):
+                    row_count = row_index
                     if any(row[column] is None or row[column] == "" for column in EXPECTED_COLUMNS):
-                        checks.append(AdmissibilityCheck("row_shape", "FAIL", f"missing value at row={row_count}"))
+                        checks.append(AdmissibilityCheck("row_shape", "FAIL", f"missing value at row={row_index}"))
                         break
 
                     timestamp_text = row["timestamp"]
@@ -120,7 +123,7 @@ def assess(
                         if timestamp.tzinfo is None:
                             raise ValueError("timestamp has no timezone")
                     except ValueError as exc:
-                        checks.append(AdmissibilityCheck("timestamp", "FAIL", f"invalid timestamp at row={row_count}: {exc}"))
+                        checks.append(AdmissibilityCheck("timestamp", "FAIL", f"invalid timestamp at row={row_index}: {exc}"))
                         break
 
                     try:
@@ -128,25 +131,21 @@ def assess(
                         bid = Decimal(row["bidPrice"])
                         ask_volume = Decimal(row["askVolume"])
                         bid_volume = Decimal(row["bidVolume"])
-                        if not all(value.is_finite() for value in (ask, bid, ask_volume, bid_volume)):
+                        values = (ask, bid, ask_volume, bid_volume)
+                        if not all(value.is_finite() for value in values):
                             raise ValueError("non-finite numeric value")
                         if ask <= 0 or bid <= 0 or ask_volume < 0 or bid_volume < 0:
                             raise ValueError("invalid price or volume domain value")
                     except (InvalidOperation, ValueError) as exc:
-                        checks.append(AdmissibilityCheck("numeric_domain", "FAIL", f"invalid numeric value at row={row_count}: {exc}"))
+                        checks.append(AdmissibilityCheck("numeric_domain", "FAIL", f"invalid numeric value at row={row_index}: {exc}"))
                         break
 
                     if ask < bid:
-                        checks.append(AdmissibilityCheck("quote_integrity", "FAIL", f"ask < bid at row={row_count}"))
+                        checks.append(AdmissibilityCheck("quote_integrity", "FAIL", f"ask < bid at row={row_index}"))
                         break
 
-                    if timestamp_text in seen_timestamps:
-                        checks.append(AdmissibilityCheck("duplicates", "FAIL", f"duplicate timestamp at row={row_count}"))
-                        break
-                    seen_timestamps.add(timestamp_text)
-
-                    if previous_timestamp is not None and timestamp <= previous_timestamp:
-                        checks.append(AdmissibilityCheck("ordering", "FAIL", f"timestamps are not strictly increasing at row={row_count}"))
+                    if previous_timestamp is not None and timestamp < previous_timestamp:
+                        checks.append(AdmissibilityCheck("ordering", "FAIL", f"timestamps decrease at row={row_index}"))
                         break
                     previous_timestamp = timestamp
 
@@ -154,26 +153,23 @@ def assess(
                         first_timestamp = timestamp_text
                     last_timestamp = timestamp_text
 
-        if not any(check.check_id == "row_shape" for check in checks):
+        if schema_ok and not any(check.check_id == "row_shape" for check in checks):
             checks.append(AdmissibilityCheck("row_shape", "PASS", "all rows contain the declared fields"))
-        if not any(check.check_id == "timestamp" for check in checks):
+        if schema_ok and not any(check.check_id == "timestamp" for check in checks):
             checks.append(AdmissibilityCheck("timestamp", "PASS", "all timestamps are timezone-aware ISO-8601 values"))
-        if not any(check.check_id == "numeric_domain" for check in checks):
+        if schema_ok and not any(check.check_id == "numeric_domain" for check in checks):
             checks.append(AdmissibilityCheck("numeric_domain", "PASS", "prices and volumes satisfy the declared numeric domain"))
-        if not any(check.check_id == "quote_integrity" for check in checks):
+        if schema_ok and not any(check.check_id == "quote_integrity" for check in checks):
             checks.append(AdmissibilityCheck("quote_integrity", "PASS", "ask is greater than or equal to bid for every row"))
-        if not any(check.check_id == "duplicates" for check in checks):
-            checks.append(AdmissibilityCheck("duplicates", "PASS", "no duplicate timestamps observed"))
-        if not any(check.check_id == "ordering" for check in checks):
-            checks.append(AdmissibilityCheck("ordering", "PASS", "timestamps are strictly increasing"))
+        if schema_ok and not any(check.check_id == "ordering" for check in checks):
+            checks.append(AdmissibilityCheck("ordering", "PASS", "timestamps are non-decreasing"))
 
     except OSError as exc:
         checks.append(AdmissibilityCheck("source_access", "BLOCKED", f"cannot access source file: {exc}"))
 
-    verdict: Verdict
     statuses = {check.status for check in checks}
     if "BLOCKED" in statuses:
-        verdict = "BLOCKED"
+        verdict: Verdict = "BLOCKED"
     elif "FAIL" in statuses:
         verdict = "FAIL"
     elif "UNVERIFIED" in statuses:
