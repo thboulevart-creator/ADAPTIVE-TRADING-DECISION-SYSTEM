@@ -1,4 +1,4 @@
-"""V4.3 — Research ↔ Execution data compatibility probe.
+"""V4.3 â€” Research â†” Execution data compatibility probe.
 
 Purpose
 -------
@@ -16,6 +16,9 @@ Supported source formats
     >IIIff, with millisecond offset inside the hour and prices /1000
 * Parquet: timestamp,bid_price,ask_price,bid_volume,ask_volume
     Naive timestamps are BLOCKED unless --naive-timezone is explicitly supplied.
+* MT5_NATIVE_CSV: native MetaTrader 5 tick export
+    timestamp,bid,ask,last,volume,volume_real,flags
+    Bid/ask volumes are not fabricated; volume fields are N/A.
 
 Important methodological guardrails
 -----------------------------------
@@ -104,12 +107,34 @@ def collect_sources(path_text: str) -> list[Path]:
 
 def source_format(path: Path) -> str:
     ext = path.suffix.lower()
+
     if ext == ".bi5":
         return "DUKASCOPY_BI5"
+
     if ext == ".parquet":
         return "PARQUET"
+
     if ext == ".csv":
+        try:
+            with path.open("r", encoding="utf-8-sig", newline="") as f:
+                header = tuple(next(csv.reader(f), []))
+
+            if header == (
+                "timestamp",
+                "bid",
+                "ask",
+                "last",
+                "volume",
+                "volume_real",
+                "flags",
+            ):
+                return "MT5_NATIVE_CSV"
+
+        except Exception:
+            pass
+
         return "CSV"
+
     return "UNSUPPORTED"
 
 
@@ -122,22 +147,57 @@ def empty_stats() -> dict:
     }
 
 
-def record_tick(stats: dict, ts: datetime, ask: float, bid: float, av: float, bv: float, prev: datetime | None) -> datetime:
+def record_tick(
+    stats: dict,
+    ts: datetime,
+    ask: float,
+    bid: float,
+    av: float | None,
+    bv: float | None,
+    prev: datetime | None,
+) -> datetime:
     stats["rows"] += 1
-    if ask <= 0 or bid <= 0 or av < 0 or bv < 0 or not all(math.isfinite(x) for x in (ask, bid, av, bv)):
+
+    quote_values = (ask, bid)
+    volume_values = tuple(
+        x for x in (av, bv)
+        if x is not None
+    )
+
+    if (
+        ask <= 0
+        or bid <= 0
+        or not all(math.isfinite(x) for x in quote_values)
+        or not all(
+            math.isfinite(x) and x >= 0
+            for x in volume_values
+        )
+    ):
         stats["invalid_rows"] += 1
+
     if ask < bid:
         stats["quote_violations"] += 1
+
     if prev is not None and ts < prev:
         stats["ordering_violations"] += 1
+
     mid = (ask + bid) / 2.0
     stats["spreads"].append(ask - bid)
-    hour = ts.replace(minute=0, second=0, microsecond=0)
+
+    hour = ts.replace(
+        minute=0,
+        second=0,
+        microsecond=0,
+    )
+
     stats["hour_mid"][hour] = mid
+
     if stats["first"] is None or ts < stats["first"]:
         stats["first"] = ts
+
     if stats["last"] is None or ts > stats["last"]:
         stats["last"] = ts
+
     return ts
 
 
@@ -219,6 +279,76 @@ def scan_parquet(path: Path, stats: dict, naive_timezone: str | None) -> None:
     stats["timezone_semantics"].add("explicit_zone_for_naive" if naive_timezone else "explicit_utc_or_offset")
 
 
+def scan_mt5_native_csv(path: Path, stats: dict) -> None:
+    stats["formats"]["MT5_NATIVE_CSV"] += 1
+    prev = None
+
+    with path.open(
+        "r",
+        encoding="utf-8-sig",
+        newline=""
+    ) as f:
+        reader = csv.DictReader(f)
+
+        expected = (
+            "timestamp",
+            "bid",
+            "ask",
+            "last",
+            "volume",
+            "volume_real",
+            "flags",
+        )
+
+        if tuple(reader.fieldnames or ()) != expected:
+            raise ValueError(
+                f"unexpected MT5 native CSV schema: "
+                f"{reader.fieldnames!r}"
+            )
+
+        for row in reader:
+            try:
+                ts = parse_aware_timestamp(row["timestamp"])
+                bid = float(Decimal(row["bid"]))
+                ask = float(Decimal(row["ask"]))
+            except (
+                KeyError,
+                InvalidOperation,
+                ValueError,
+                TypeError,
+            ) as exc:
+                stats["invalid_rows"] += 1
+
+                if len(
+                    stats.setdefault(
+                        "sample_errors",
+                        []
+                    )
+                ) < 5:
+                    stats["sample_errors"].append({
+                        "path": str(path),
+                        "error": str(exc),
+                    })
+
+                continue
+
+            # MT5 does not expose separate bid/ask volumes
+            # in this native tick structure.
+            # They are deliberately NOT fabricated.
+            prev = record_tick(
+                stats,
+                ts,
+                ask,
+                bid,
+                None,
+                None,
+                prev,
+            )
+
+    stats["timezone_semantics"].add(
+        "explicit_utc_or_offset"
+    )
+
 def scan(paths: list[Path], naive_timezone: str | None) -> tuple[dict, list[dict]]:
     stats = empty_stats()
     evidence = []
@@ -228,6 +358,7 @@ def scan(paths: list[Path], naive_timezone: str | None) -> tuple[dict, list[dict
         try:
             fmt = rec["format"]
             if fmt == "CSV": scan_csv(path, stats)
+            elif fmt == "MT5_NATIVE_CSV": scan_mt5_native_csv(path, stats)
             elif fmt == "DUKASCOPY_BI5": scan_bi5(path, stats)
             elif fmt == "PARQUET": scan_parquet(path, stats, naive_timezone)
             else: raise ValueError(f"unsupported source format: {path.suffix}")
@@ -318,7 +449,13 @@ def main() -> int:
         tz_check = {"id": "timestamp_semantics", "status": "BLOCKED", "reason": "naive Parquet timestamp semantics are not allowed to be guessed"}
         r_checks.append(tz_check.copy()); e_checks.append(tz_check.copy())
 
-    r_status, e_status = status(r_checks), status(e_checks)
+    r_status = status(r_checks)
+    r_pilot_checks = [
+        check for check in r_checks
+        if check["id"] != "coverage_5y"
+    ]
+    r_pilot_status = status(r_pilot_checks)
+    e_status = status(e_checks)
     common_start = max(research["first"], execution["first"]) if research["first"] and execution["first"] else None
     common_end = min(research["last"], execution["last"]) if research["last"] and execution["last"] else None
     common_years = years_between(common_start, common_end)
@@ -332,11 +469,23 @@ def main() -> int:
         {"id": "equivalence_thresholds", "status": "UNVERIFIED", "reason": "no normative transfer-equivalence thresholds are frozen"},
     ]
     t_status = status(t_checks)
-    overall = status([{"status": r_status}, {"status": e_status}, {"status": t_status}])
+
+    # The global verdict describes the controlled common-window pilot.
+    # Long-term Research corpus admissibility remains a separate verdict.
+    overall = status([
+        {"status": r_pilot_status},
+        {"status": e_status},
+        {"status": t_status},
+    ])
 
     report = {
         "schema": "RESEARCH_EXECUTION_COMPATIBILITY_V4_3", "version": "V4.3", "status": overall,
-        "verdicts": {"RESEARCH_DATA_VALID": r_status, "EXECUTION_DATA_VALID": e_status, "TRANSFER_VALIDATION": t_status},
+        "verdicts": {
+            "RESEARCH_CORPUS_ADMISSIBILITY": r_status,
+            "RESEARCH_PILOT_DATA_VALID": r_pilot_status,
+            "EXECUTION_DATA_VALID": e_status,
+            "TRANSFER_VALIDATION": t_status,
+        },
         "scope": {
             "research_instrument": args.research_instrument, "execution_instrument": args.execution_instrument,
             "research_files": research_files, "execution_files": execution_files,
@@ -348,6 +497,8 @@ def main() -> int:
             "years": years_between(research["first"], research["last"]), "formats": dict(research["formats"]),
             "timezone_semantics": sorted(research["timezone_semantics"]), "invalid_rows": research["invalid_rows"],
             "quote_violations": research["quote_violations"], "ordering_violations": research["ordering_violations"],
+            "corpus_admissibility_status": r_status,
+            "pilot_data_valid_status": r_pilot_status,
             "spread": r_spread, "movement": r_move, "checks": r_checks, "files": research_files,
         },
         "execution": {
@@ -378,7 +529,7 @@ def main() -> int:
         "conclusion": "V4.3 now reads native BI5/Parquet/CSV evidence without forcing conversion. Transfer compatibility remains UNVERIFIED until explicit acceptance criteria are frozen and adversarially tested.",
     }
     output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
-    print("=== V4.3 — RESEARCH ↔ EXECUTION COMPATIBILITY ===")
+    print("=== V4.3 â€” RESEARCH â†” EXECUTION COMPATIBILITY ===")
     print("RESEARCH_FORMATS=", report["research"]["formats"])
     print("EXECUTION_FORMATS=", report["execution"]["formats"])
     print("RESEARCH_FIRST=", report["research"]["first"])
@@ -386,7 +537,8 @@ def main() -> int:
     print("EXECUTION_FIRST=", report["execution"]["first"])
     print("EXECUTION_LAST=", report["execution"]["last"])
     print("COMMON_YEARS=", report["common_period"]["years"])
-    print("RESEARCH_DATA_VALID=", r_status)
+    print("RESEARCH_CORPUS_ADMISSIBILITY=", r_status)
+    print("RESEARCH_PILOT_DATA_VALID=", r_pilot_status)
     print("EXECUTION_DATA_VALID=", e_status)
     print("TRANSFER_VALIDATION=", t_status)
     print("VERDICT=", overall)
