@@ -1,0 +1,9 @@
+{
+  "asset_id": "USATECHIDXUSD",
+  "source": "Dukascopy",
+  "format": "BI5",
+  "record_size": 20,
+  "record_struct": ">IIIff",
+  "timestamp_unit": "milliseconds",
+  "price_scale": 1000
+}
