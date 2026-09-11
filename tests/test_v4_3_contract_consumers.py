@@ -1,6 +1,11 @@
 import ast
+import importlib
+import lzma
+import struct
+import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 
 ROOT = Path(__file__).resolve().parents[1]
 BATCH = ROOT / "tools" / "probe_batch01_structural_qualification_v2.py"
@@ -33,6 +38,23 @@ class ContractConsumerAdversarialTests(unittest.TestCase):
         self.assertIn("BI5_CONTRACT_REQUIRED", text)
         self.assertIn("resolve_contract", text)
         self.assertIn("--contracts-root", text)
+
+    def test_compatibility_decoder_really_consumes_price_scale(self):
+        compat = importlib.import_module("tools.probe_research_execution_compatibility_v4_3")
+        raw_record = struct.Struct(">IIIff").pack(76, 21298102, 21294697, 1.0, 1.0)
+        with tempfile.TemporaryDirectory() as td:
+            path = Path(td) / "2025" / "01" / "27" / "13h_ticks.bi5"
+            path.parent.mkdir(parents=True)
+            path.write_bytes(lzma.compress(raw_record, format=lzma.FORMAT_ALONE))
+            contract_1000 = SimpleNamespace(record_size=20, record_struct=">IIIff", timestamp_unit="milliseconds", price_scale=1000)
+            contract_100000 = SimpleNamespace(record_size=20, record_struct=">IIIff", timestamp_unit="milliseconds", price_scale=100000)
+            stats_1000 = compat.empty_stats()
+            stats_100000 = compat.empty_stats()
+            compat.scan_bi5(path, stats_1000, contract_1000)
+            compat.scan_bi5(path, stats_100000, contract_100000)
+            self.assertNotEqual(stats_1000["spreads"][0], stats_100000["spreads"][0])
+            self.assertAlmostEqual(stats_1000["spreads"][0], 3.405)
+            self.assertAlmostEqual(stats_100000["spreads"][0], 0.03405)
 
 
 if __name__ == "__main__":
