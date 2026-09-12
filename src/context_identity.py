@@ -19,7 +19,7 @@ _IDENTITY_FIELDS = (
 
 
 def context_id(value: Mapping[str, str]) -> str:
-    """Return the deterministic identity of a CONTEXT identity contract."""
+    """Return the deterministic identity of the CONTEXT identity contract."""
     payload = {field: value[field] for field in _IDENTITY_FIELDS}
     canonical = json.dumps(
         payload,
@@ -27,4 +27,4 @@ def context_id(value: Mapping[str, str]) -> str:
         separators=(",", ":"),
         ensure_ascii=False,
     )
-    return "CTX-" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()[:16]
+    return "CTX-" + hashlib.sha256(canonical.encode("utf-8")).hexdigest()
