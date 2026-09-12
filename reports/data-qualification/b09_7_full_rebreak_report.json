@@ -1,0 +1,36 @@
+{
+  "block": "B09.7",
+  "purpose": "FULL_STREAM_ADVERSARIAL_REBREAK_AFTER_IEEE754_CORRECTION",
+  "verdict": "PASS",
+  "corpus": {
+    "files": 495,
+    "ticks": 5130393,
+    "inventory_sha256": "868a21c6a1bedf095b30bc64b6c2ef60b5db9d30146ac53034360254413f8ad7"
+  },
+  "contract_sha256": "49e272534bf5061522eb624afe4e27d6585f730e0271b5284bff2442d5c04b07",
+  "temporal_bounds": {
+    "first": "2025-01-01 23:00:00.700000+00:00",
+    "last": "2025-01-31 21:14:59.984000+00:00"
+  },
+  "hash_collision_rebreak": {
+    "float_equal": false,
+    "old_decimal_equal": true,
+    "ieee754_bytes_equal": false,
+    "ieee754_collision_eliminated": true
+  },
+  "stream_sha256": {
+    "independent": "d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda",
+    "official_run1": "d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda",
+    "official_run2": "d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda"
+  },
+  "determinism": {
+    "independent_vs_official": true,
+    "official_run1_vs_run2": true
+  },
+  "historical_signature_transition": {
+    "b08_stream_sha256": "4768c0e66647a15ba703d2dcdc88c03db84846a625e8eb3f70914428bf11c8d7",
+    "b09_canonical_stream_sha256": "d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda",
+    "reason": "B09.6 changed stream serialization from decimal float formatting to exact IEEE-754 binary64 representation; corpus identity and stream cardinality remained unchanged."
+  },
+  "reason": "HASH_COLLISION_ELIMINATED_AND_FULL_STREAM_DETERMINISTIC"
+}
