@@ -98,3 +98,39 @@ def build_synthetic_chain() -> tuple[SyntheticData, SyntheticContext, SyntheticE
         result_id=result.result_id,
     )
     return data, context, experience, decision, action, result, trace
+
+
+def validate_synthetic_chain(
+    data: SyntheticData,
+    context: SyntheticContext,
+    experience: SyntheticExperience,
+    decision: SyntheticDecision,
+    action: SyntheticAction,
+    result: SyntheticResult,
+    trace: DecisionTrace,
+) -> tuple[str, tuple[str, ...]]:
+    """Validate every synthetic edge, including identity linkage.
+
+    This is intentionally a test harness, not a second production trace model.
+    """
+
+    errors: list[str] = []
+    edges = (
+        ("context.data_id", context.data_id, data.data_id),
+        ("experience.context_id", experience.context_id, context.context_id),
+        ("decision.experience_id", decision.experience_id, experience.research_run_id),
+        ("action.decision_id", action.decision_id, decision.decision_id),
+        ("result.action_id", result.action_id, action.action_id),
+        ("trace.context_id", trace.context_id, context.context_id),
+        ("trace.research_run_id", trace.research_run_id, experience.research_run_id),
+        ("trace.decision_id", trace.decision_id, decision.decision_id),
+        ("trace.action_id", trace.action_id, action.action_id),
+        ("trace.result_id", trace.result_id, result.result_id),
+    )
+    errors.extend(name for name, actual, expected in edges if actual != expected)
+
+    trace_status, missing = trace.validate()
+    if trace_status != "PASS":
+        errors.extend(f"trace.{field}" for field in missing)
+
+    return ("PASS", ()) if not errors else ("FAIL", tuple(errors))
