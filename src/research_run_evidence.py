@@ -33,7 +33,13 @@ def _stable_hash(value: Any) -> str:
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
-def _validate_context_boundary(context: Context, dataset: DatasetIdentity, configuration_version: str) -> None:
+def _validate_context_boundary(
+    context: Context | None,
+    dataset: DatasetIdentity,
+    configuration_version: str,
+) -> None:
+    if context is None:
+        raise ValueError("CONTEXT -> RESEARCH requires a Context")
     if not validate_context(context, dataset):
         raise ValueError("CONTEXT -> RESEARCH identity mismatch")
     if context.configuration_version != configuration_version:
@@ -44,7 +50,7 @@ def from_v43_report(
     report: dict[str, Any],
     *,
     code_version: str,
-    context: Context,
+    context: Context | None,
     dataset: DatasetIdentity,
 ) -> ResearchRunEvidence:
     """Anchor V4.3 evidence only after validating the existing CONTEXT boundary."""
@@ -82,7 +88,7 @@ def decision_trace_from_v43_report(
     report: dict[str, Any],
     *,
     code_version: str,
-    context: Context,
+    context: Context | None,
     dataset: DatasetIdentity,
 ) -> DecisionTrace:
     """Build trace using real V4.3 evidence; downstream fields remain explicit."""
