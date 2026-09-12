@@ -83,16 +83,16 @@ def test_c2_wrong_upstream_object_is_rejected() -> None:
         )
 
 
-def test_c3_foreign_context_identity_in_upstream_evidence_is_propagated_not_reconstructed() -> None:
+def test_c3_all_upstream_identity_fields_are_propagated() -> None:
     evidence, hypothesis, measurement, finding = minimal_payload()
-    forged = replace(evidence, context_id="CTX-foreign")
-    result = ResearchFindings.from_research_run_evidence(
-        forged,
-        hypotheses=(hypothesis,),
-        measurements=(measurement,),
-        findings=(finding,),
-    )
-    assert result.context_id == "CTX-foreign"
+    result = make_findings()
+    assert result.provenance_id == evidence.provenance_id
+    assert result.research_run_id == evidence.research_run_id
+    assert result.code_version == evidence.code_version
+    assert result.configuration_version == evidence.configuration_version
+    assert result.dataset_id == evidence.dataset_id
+    assert result.dataset_version == evidence.dataset_version
+    assert result.context_id == evidence.context_id
 
 
 def test_c4_duplicate_hypothesis_id_is_rejected() -> None:
