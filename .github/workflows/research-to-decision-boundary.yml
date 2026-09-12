@@ -22,3 +22,5 @@ jobs:
         run: python -m pytest tests/test_research_to_decision_boundary.py -q
       - name: Run RESEARCH FINDINGS contract tests
         run: python -m pytest tests/test_research_findings_contract.py -q
+      - name: Run V4.3 research reader adversarial tests
+        run: python -m pytest tests/test_research_reader_adversarial.py -q
