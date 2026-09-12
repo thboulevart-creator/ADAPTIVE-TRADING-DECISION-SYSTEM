@@ -1,0 +1,51 @@
+{
+  "block": "B09",
+  "purpose": "CLOSE_ARCHITECTURAL_EXPOSURE_IN_BI5RESEARCHENGINE_RUN",
+  "verdict": "PASS",
+  "scope": "Determine whether BI5ResearchEngine.run() is an admissible production/research qualification path.",
+  "evidence_basis": {
+    "source_of_truth": "Verified local PR8 test worktree state, because the local worktree contains B08/B09 changes not yet present on the remote PR #8 head.",
+    "remote_pr": "#8",
+    "remote_head_at_report_creation": "153ccc964cb1837611626f93b213200f0563eff2",
+    "local_worktree": "C:\\Users\\Boulevart\\Documents\\ADAPTIVE-TRADING-DECISION-SYSTEM-PR8-TEST"
+  },
+  "official_execution_path": {
+    "entrypoint": "src/research/execution.py::run_qualified_research",
+    "binding": "run_qualified_research() calls bind_execution_input(...) to create the sealed BoundResearchInput capability.",
+    "engine_construction": "run_qualified_research() passes the BoundResearchInput to BI5ResearchEngine(bound_input).",
+    "official_stream_consumption": "_execute_bound_stream() consumes the engine through engine.iter_ticks().",
+    "monotonicity_invariant": "BI5ResearchEngine.iter_ticks() enforces global timestamp monotonicity across the complete stream and raises on regression.",
+    "qualification_evidence": {
+      "files_consumed": 495,
+      "ticks_consumed": 5130393,
+      "first_timestamp": "2025-01-01 23:00:00.700000+00:00",
+      "last_timestamp": "2025-01-31 21:14:59.984000+00:00",
+      "stream_sha256": "d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda"
+    }
+  },
+  "run_path_assessment": {
+    "method": "BI5ResearchEngine.run()",
+    "finding": "The method exists as a generic public class method, but no evidence was found that it is called by the official qualification/research entrypoint.",
+    "official_call_to_run": false,
+    "official_path_uses_iter_ticks": true,
+    "global_monotonicity_check_inside_run": false,
+    "classification": "NON_OFFICIAL_NON_PRODUCTION",
+    "current_violation": false,
+    "architectural_exposure": false,
+    "reason": "The official qualified execution path does not use run(); it uses iter_ticks(), where the global monotonicity invariant is enforced. The existence of a generic run() method without that invariant therefore does not constitute a current violation of the official qualification path."
+  },
+  "generic_vs_official_rule": {
+    "generic_public_path": "BI5ResearchEngine.run() may exist for generic/internal use but is not an admissible qualification entrypoint by itself.",
+    "official_qualification_path": "Only the sealed binding path followed by the official execution flow using BI5ResearchEngine.iter_ticks() is admissible for the qualified research stream.",
+    "entrypoint_gate": "BI5ResearchEngine.run() MUST NOT be treated as an official qualification/research entrypoint unless a future qualification block explicitly audits and qualifies its complete invariants, including global tick-stream monotonicity."
+  },
+  "closure_rule": "Future production/research qualification code MUST enter through the qualified execution boundary. A direct call to BI5ResearchEngine.run() is not evidence of qualified execution and requires a new explicit qualification before it may be admitted as an official path.",
+  "adversarial_disposition": {
+    "run_monotonicity_exposure": "CLOSED_AS_NON_OFFICIAL_NON_PRODUCTION",
+    "no_production_patch_required": true,
+    "no_b02_b08_rerun": true,
+    "no_b09_7_rerun": true
+  },
+  "final_b09_verdict": "PASS",
+  "final_reason": "The only remaining B09 exposure was formally classified and closed. The official qualified execution path is proven to use iter_ticks(), which enforces global monotonicity. BI5ResearchEngine.run() is not an admissible qualification entrypoint without a future explicit qualification."
+}
