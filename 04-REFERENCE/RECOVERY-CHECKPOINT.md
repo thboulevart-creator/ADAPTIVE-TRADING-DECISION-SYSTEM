@@ -9,7 +9,6 @@
 - **Branch:** `feat/v4-3-instrument-contracts`
 - **PR:** #8 — draft, unmerged
 - **Reference baseline:** `ff50b6d5d123969e091b5df18c46d438f7cb8052`
-- **Known remote PR8 head at checkpoint creation:** `761eb1e2bdb12f551cfea2d9db88df26472680ef`
 - **Current qualification block:** B09 — Research Output / Event Integrity
 - **Execution worktree:** local PR8 test worktree; local state may contain changes not yet present on the remote PR8 head.
 
@@ -38,13 +37,13 @@
 
 - B09.0.1 — PASS: real-code state/introspection established.
 - B09.1 — PASS: lexical/real-code audit found no tick sorting, deduplication, repair, or interpolation in the reader; file sorting is authorized and required; global order is checked by `iter_ticks()`.
-- B09.2 — PASS: independent direct-reader stream matched official engine stream for 5,130,393 ticks; SHA-256 matched.
+- B09.2 — PASS: independent direct-reader stream matched official engine stream for 5,130,393 ticks; SHA-256 matched under the then-current serialization.
 - B09.3 — PASS for tick immutability and official sequence integrity; FAIL identified in the decimal hash representation because distinct IEEE-754 float values could serialize identically at 12 decimals; `BI5ResearchEngine.run()` also lacks an explicit global monotonicity check, classified as architectural exposure because the official output path uses `iter_ticks()`.
 - B09.4 — BLOCKED: the instrument contract did not explicitly define output numeric representation/rounding semantics. No semantics were invented.
 - B09.5 — PASS: exact IEEE-754 binary64 representation was proven distinct and round-trippable for the relevant values.
 - B09.6 — PASS: production hash serialization was corrected from decimal formatting to exact `struct.pack(">d", value)` representation.
 - B09.7 synthetic re-break — PASS: prior decimal collision eliminated; IEEE-754 byte representations remained distinct; B08-A regression tests remained 2/2 PASS.
-- B09.7 full-stream re-break — BLOCKED: a temporary probe used an assumed corpus path that does not exist in the active PR8 test worktree. The failure was in the probe assumptions, not evidence of a production defect. The exact B05 corpus must be re-established from verified repository/worktree state before the full-stream re-break is run.
+- B09.7 full-stream re-break — PASS: exact B05-qualified corpus was re-established and the corrected production stream was independently reproduced and matched across two official runs.
 
 ## 3. ÉTAT DES ARTEFACTS
 
@@ -59,23 +58,24 @@
 
 - `tests/test_b08_a_architectural_enforcement.py` — latest observed result: **2 passed** after B09.6 correction.
 
-### Probes
+### Reports
 
-- Historical B09.2/B09.3/B09.5/B09.7 synthetic probes were executed during the session but were not all persisted as files.
-- `tools/probe_batch01_b09_7_full_rebreak.py` was created with an unverified assumed path and produced a BLOCKED execution; it must not be treated as a valid qualification artifact without correction.
-- Do not assume temporary probes from conversation history still exist.
+- `reports/data-qualification/b09_7_full_rebreak_report.json` — B09.7 full-stream adversarial re-break: **PASS**.
 
 ### Data
 
-- The exact B05 qualified corpus is not present in the PR8-TEST worktree path previously assumed by the failed B09.7 probe.
-- Verified `.bi5` files were found elsewhere under the user's Windows environment, but those are not automatically equivalent to the B05 corpus.
+- Exact B05-qualified corpus re-established at:
+  `C:\ALGO-DATA\qualification\v4_3_multi_year_acquisition\candidate_b03_3_repaired\USATECHIDXUSD`
+- Physical corpus identity: 495 files.
+- Full stream cardinality: 5,130,393 ticks.
 
 ### Contract / hashes
 
 - B05 canonical corpus hash: `868a21c6a1bedf095b30bc64b6c2ef60b5db9d30146ac53034360254413f8ad7`
 - B05 contract hash: `49e272534bf5061522eb624afe4e27d6585f730e0271b5284bff2442d5c04b07`
-- Official stream SHA previously qualified: `4768c0e66647a15ba703d2dcdc88c03db84846a625e8eb3f70914428bf11c8d7`
-- Qualified corpus: 495 files / 5,130,393 ticks.
+- Historical B08 stream SHA-256: `4768c0e66647a15ba703d2dcdc88c03db84846a625e8eb3f70914428bf11c8d7`
+- Current canonical B09 stream SHA-256 after IEEE-754 correction: `d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda`
+- The stream signature changed because B09.6 changed only the hash serialization representation; corpus identity and stream cardinality remained unchanged.
 
 ## 4. ERREURS / ÉCHECS À NE PAS RÉPÉTER
 
@@ -89,39 +89,40 @@
 
 ### Methodological correction
 
-Before the next B09 action, first verify the real active worktree and identify the exact B05 corpus using the known B05 identity/hash and repository evidence. Do not rerun B02–B08 merely because the path is currently unknown.
+The exact B05 corpus was verified by its canonical inventory hash before the B09.7 full-stream re-break. B02–B08 were not rerun; their locked PASS results were reused as prior evidence.
 
 ## 5. PREUVES
 
 ### Reproducible/current evidence
 
+- B05 revalidation: 495 files; canonical inventory hash `868a21c6a1bedf095b30bc64b6c2ef60b5db9d30146ac53034360254413f8ad7`; all reproducibility checks PASS.
 - B08-A architectural tests: 2/2 PASS after B09.6.
 - B09.5 exact float representation: PASS.
 - B09.6 IEEE-754 production serialization: PASS.
 - B09.7 synthetic collision re-break: PASS.
+- B09.7 full-stream re-break: PASS; 5,130,393 ticks; independent and two official runs all produced `d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda`.
 
 ### Historical evidence
 
-- B09.2 independent stream comparison: 5,130,393 ticks, identical stream SHA.
+- B09.2 independent stream comparison: 5,130,393 ticks, identical stream SHA under the pre-correction serialization.
 - B09.3 official sequence integrity evidence.
 - B05/B07/B08 qualification results recorded above.
 
-### Missing evidence
+### Remaining evidence / decision
 
-- Full-stream B09.7 re-break against the exact B05-qualified corpus after the IEEE-754 correction.
-- Explicit decision/evidence regarding whether `BI5ResearchEngine.run()` must itself enforce global monotonicity, or whether its non-official status can be formally closed as architectural exposure.
+- `BI5ResearchEngine.run()` still lacks an explicit global monotonicity check, while `iter_ticks()` enforces global monotonicity and is the official output path. This remains an architectural exposure until formally closed or hardened.
 
 ## 6. DERNIER VERDICT
 
 **B09: BLOCKED**
 
-Reason: the final full-stream adversarial re-break cannot yet be executed against the exact qualified B05 corpus from the current verified worktree state. This is an execution-context/evidence gap, not a proven production failure.
+Reason: B09.7 is now fully PASS, but B09 is not yet closed because the remaining architectural exposure in `BI5ResearchEngine.run()` has not received a final evidence-based disposition.
 
 ## 7. PROCHAINE ACTION UNIQUE
 
-**Identify and verify the exact B05-qualified corpus in the active worktree/repository using the recorded corpus identity/hash, without recreating or rerunning already-PASS qualification blocks.**
+**Determine, by direct code-path evidence, whether `BI5ResearchEngine.run()` is an admissible production/research execution path; if it is, harden it with the same global monotonicity invariant, otherwise formally classify and close it as non-official/non-production.**
 
-Only after that single action is complete may B09.7 full-stream re-break resume.
+Do not rerun B02–B08. Do not reopen the already-PASS B09.7 full-stream re-break unless new evidence directly invalidates it.
 
 ## 8. RECOVERY RULE
 
