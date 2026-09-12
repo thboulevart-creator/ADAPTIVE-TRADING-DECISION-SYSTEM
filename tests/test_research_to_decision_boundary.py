@@ -76,43 +76,50 @@ def test_c0_coherent_research_output_produces_decision() -> None:
     assert decision.decision == "HOLD"
 
 
-@pytest.mark.parametrize(
-    "case, mutate",
-    [
-        ("C1", lambda e: replace(e, context_id="CTX-foreign")),
-        ("C2", lambda e: replace(e, research_run_id="RUN-foreign")),
-        ("C3", lambda e: replace(e, research_run_id="")),
-    ],
-)
-def test_c1_to_c3_mutated_research_link_is_rejected(case, mutate) -> None:
+def test_c1_forged_context_id_is_rejected() -> None:
     evidence, context = coherent_inputs()
-    with pytest.raises(ValueError):
-        produce_decision(mutate(evidence), context=context, decision="HOLD")
+    forged = replace(evidence, context_id="CTX-foreign")
+    with pytest.raises(ValueError, match="context mismatch"):
+        produce_decision(forged, context=context, decision="HOLD")
 
 
-def test_c4_absent_research_evidence_is_rejected() -> None:
+def test_c2_empty_research_run_id_is_rejected() -> None:
+    evidence, context = coherent_inputs()
+    missing = replace(evidence, research_run_id="")
+    with pytest.raises(ValueError, match="research_run_id"):
+        produce_decision(missing, context=context, decision="HOLD")
+
+
+def test_c3_absent_research_evidence_is_rejected() -> None:
     _, context = coherent_inputs()
     with pytest.raises(ValueError, match="ResearchRunEvidence"):
         produce_decision(None, context=context, decision="HOLD")
 
 
-def test_c5_context_only_is_rejected_as_research_output() -> None:
+def test_c4_context_only_is_rejected_as_research_output() -> None:
     _, context = coherent_inputs()
     with pytest.raises(ValueError, match="ResearchRunEvidence"):
         produce_decision(context, context=context, decision="HOLD")
 
 
-def test_c6_foreign_context_is_rejected() -> None:
+def test_c5_foreign_context_is_rejected() -> None:
     evidence, context = coherent_inputs()
     foreign_context = replace(context, context_id="CTX-foreign")
     with pytest.raises(ValueError, match="context mismatch"):
         produce_decision(evidence, context=foreign_context, decision="HOLD")
 
 
-def test_c7_empty_decision_is_rejected() -> None:
+def test_c6_empty_decision_is_rejected() -> None:
     evidence, context = coherent_inputs()
     with pytest.raises(ValueError, match="non-empty decision"):
         produce_decision(evidence, context=context, decision="   ")
+
+
+def test_c7_research_run_id_is_propagated_without_reconstruction() -> None:
+    evidence, context = coherent_inputs()
+    decision = produce_decision(evidence, context=context, decision="BUY")
+
+    assert decision.research_run_id == evidence.research_run_id
 
 
 def test_decision_id_is_deterministic_for_same_upstream_evidence_and_payload() -> None:
