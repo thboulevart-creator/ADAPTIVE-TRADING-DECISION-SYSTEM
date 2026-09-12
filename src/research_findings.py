@@ -3,9 +3,9 @@ from __future__ import annotations
 from dataclasses import dataclass
 import hashlib
 import json
-from typing import Iterable, Mapping
+from typing import Iterable
 
-from research_run_evidence import ResearchRunEvidence
+from src.research_run_evidence import ResearchRunEvidence
 
 
 STATUSES = {"SUPPORTED", "REFUTED", "NOT_INTERPRETABLE"}
