@@ -13,7 +13,8 @@ Supported source formats
 * CSV: frozen project tick schema
     timestamp,askPrice,bidPrice,askVolume,bidVolume
 * Dukascopy BI5: native compressed 20-byte tick records
-    >IIIff, with millisecond offset inside the hour and prices /1000
+    >IIIff, with millisecond offset inside the hour and prices resolved from
+    the normative instrument contract.
 * Parquet: timestamp,bid_price,ask_price,bid_volume,ask_volume
     Naive timestamps are BLOCKED unless --naive-timezone is explicitly supplied.
 
@@ -46,6 +47,8 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
+from tools.instrument_contract_v4_3 import resolve_contract
+
 EXPECTED_CSV_COLUMNS = ("timestamp", "askPrice", "bidPrice", "askVolume", "bidVolume")
 EXPECTED_PARQUET_COLUMNS = ("timestamp", "bid_price", "ask_price", "bid_volume", "ask_volume")
 EXECUTION_BOUNDARY_UTC = "2024-12-17T09:38:28+00:00"
@@ -60,6 +63,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--execution", required=True)
     p.add_argument("--research-instrument", default="Dukascopy USATECHIDXUSD")
     p.add_argument("--execution-instrument", default="VT Markets NAS100.s")
+    p.add_argument("--contracts-root", default="docs/04-REFERENCE/INSTRUMENT-CONTRACTS")
     p.add_argument("--naive-timezone", default=None, help="Required to interpret naive Parquet timestamps; never assumed")
     p.add_argument("--output", default="reports/data-qualification/research_execution_compatibility_v4_3.json")
     return p.parse_args()
@@ -175,22 +179,25 @@ def parse_bi5_hour(path: Path) -> datetime:
     raise ValueError("BI5 filename/path does not expose YYYY-MM-DD-HH hour needed for timestamp reconstruction")
 
 
-def scan_bi5(path: Path, stats: dict) -> None:
+def scan_bi5(path: Path, stats: dict, contract) -> None:
     stats["formats"]["DUKASCOPY_BI5"] += 1
+    if (contract.record_size, contract.record_struct, contract.timestamp_unit) != (BI5_RECORD_SIZE, ">IIIff", "milliseconds"):
+        raise ValueError("BI5_CONTRACT_INCOMPATIBLE")
     hour = parse_bi5_hour(path)
     raw = lzma.decompress(path.read_bytes(), format=lzma.FORMAT_ALONE)
     if not raw:
         raise ValueError("ZERO_DECOMPRESSED_BYTES")
-    if len(raw) % BI5_RECORD_SIZE:
-        raise ValueError("DECOMPRESSED_SIZE_NOT_MULTIPLE_OF_20")
+    if len(raw) % contract.record_size:
+        raise ValueError("DECOMPRESSED_SIZE_NOT_MULTIPLE_OF_CONTRACT_RECORD_SIZE")
+    decoder = struct.Struct(contract.record_struct)
     prev = None
-    for offset in range(0, len(raw), BI5_RECORD_SIZE):
-        ms, ask_raw, bid_raw, av, bv = BI5_STRUCT.unpack(raw[offset:offset + BI5_RECORD_SIZE])
+    for offset in range(0, len(raw), contract.record_size):
+        ms, ask_raw, bid_raw, av, bv = decoder.unpack(raw[offset:offset + contract.record_size])
         if ms >= 3600000:
             stats["invalid_rows"] += 1
             continue
         ts = hour + timedelta(milliseconds=ms)
-        prev = record_tick(stats, ts, ask_raw / 1000.0, bid_raw / 1000.0, av, bv, prev)
+        prev = record_tick(stats, ts, ask_raw / contract.price_scale, bid_raw / contract.price_scale, av, bv, prev)
     stats["timezone_semantics"].add("dukascopy_hour_utc")
 
 
@@ -219,7 +226,7 @@ def scan_parquet(path: Path, stats: dict, naive_timezone: str | None) -> None:
     stats["timezone_semantics"].add("explicit_zone_for_naive" if naive_timezone else "explicit_utc_or_offset")
 
 
-def scan(paths: list[Path], naive_timezone: str | None) -> tuple[dict, list[dict]]:
+def scan(paths: list[Path], naive_timezone: str | None, bi5_contract=None) -> tuple[dict, list[dict]]:
     stats = empty_stats()
     evidence = []
     for path in paths:
@@ -227,10 +234,16 @@ def scan(paths: list[Path], naive_timezone: str | None) -> tuple[dict, list[dict
         stats["files"] += 1
         try:
             fmt = rec["format"]
-            if fmt == "CSV": scan_csv(path, stats)
-            elif fmt == "DUKASCOPY_BI5": scan_bi5(path, stats)
-            elif fmt == "PARQUET": scan_parquet(path, stats, naive_timezone)
-            else: raise ValueError(f"unsupported source format: {path.suffix}")
+            if fmt == "CSV":
+                scan_csv(path, stats)
+            elif fmt == "DUKASCOPY_BI5":
+                if bi5_contract is None:
+                    raise ValueError("BI5_CONTRACT_REQUIRED")
+                scan_bi5(path, stats, bi5_contract)
+            elif fmt == "PARQUET":
+                scan_parquet(path, stats, naive_timezone)
+            else:
+                raise ValueError(f"unsupported source format: {path.suffix}")
         except Exception as exc:
             rec["error"] = str(exc)
             stats["file_errors"].append({"path": str(path), "error": str(exc)})
@@ -283,6 +296,15 @@ def status(checks: list[dict]) -> str:
     return "PASS"
 
 
+def resolve_bi5_contract(paths: list[Path], instrument: str, contracts_root: str):
+    if not any(p.suffix.lower() == ".bi5" for p in paths):
+        return None
+    match = re.match(r"^\s*(?P<source>.+?)\s+(?P<asset>\S+)\s*$", instrument)
+    if not match:
+        raise ValueError("BI5_INSTRUMENT_IDENTITY_UNPARSEABLE")
+    return resolve_contract(contracts_root, match.group("asset"), match.group("source"), "BI5")
+
+
 def main() -> int:
     args = parse_args()
     output = Path(args.output)
@@ -299,8 +321,16 @@ def main() -> int:
         output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
         print("VERDICT=BLOCKED"); print("REPORT=", output); return 2
 
-    research, research_files = scan(research_paths, args.naive_timezone)
-    execution, execution_files = scan(execution_paths, args.naive_timezone)
+    try:
+        research_contract = resolve_bi5_contract(research_paths, args.research_instrument, args.contracts_root)
+        execution_contract = resolve_bi5_contract(execution_paths, args.execution_instrument, args.contracts_root)
+    except Exception as exc:
+        report = {"schema": "RESEARCH_EXECUTION_COMPATIBILITY_V4_3", "version": "V4.3", "status": "BLOCKED", "reason": f"instrument contract resolution failed: {exc}"}
+        output.write_text(json.dumps(report, indent=2, ensure_ascii=False), encoding="utf-8")
+        print("VERDICT=BLOCKED"); print("REPORT=", output); return 2
+
+    research, research_files = scan(research_paths, args.naive_timezone, research_contract)
+    execution, execution_files = scan(execution_paths, args.naive_timezone, execution_contract)
 
     r_checks = [
         {"id": "source_access", "status": "FAIL" if research["file_errors"] else "PASS"},
