@@ -106,6 +106,71 @@ def test_c10_absent_context_is_rejected() -> None:
         from_v43_report(report, code_version=CODE_VERSION, context=None, dataset=dataset)
 
 
+def test_bypass_no_fallback_when_context_is_omitted() -> None:
+    report, dataset, _ = coherent_inputs()
+    with pytest.raises(TypeError):
+        from_v43_report(report, code_version=CODE_VERSION, dataset=dataset)
+
+
+def test_bypass_context_id_alone_is_rejected() -> None:
+    report, dataset, context = coherent_inputs()
+
+    class ContextIdOnly:
+        def __init__(self, context_id: str) -> None:
+            self.context_id = context_id
+
+    with pytest.raises(ValueError, match="full Context"):
+        from_v43_report(
+            report,
+            code_version=CODE_VERSION,
+            context=ContextIdOnly(context.context_id),
+            dataset=dataset,
+        )
+
+
+def test_bypass_reconstructed_context_with_wrong_identity_is_rejected() -> None:
+    report, dataset, context = coherent_inputs()
+    reconstructed = replace(context, instrument="reconstructed-foreign-instrument")
+    with pytest.raises(ValueError, match="identity mismatch"):
+        from_v43_report(
+            report,
+            code_version=CODE_VERSION,
+            context=reconstructed,
+            dataset=dataset,
+        )
+
+
+def test_bypass_forged_context_id_cannot_override_identity_validation() -> None:
+    report, dataset, context = coherent_inputs()
+    foreign = replace(context, instrument="foreign-instrument")
+    forged = replace(foreign, context_id=context.context_id)
+    with pytest.raises(ValueError, match="identity mismatch"):
+        from_v43_report(
+            report,
+            code_version=CODE_VERSION,
+            context=forged,
+            dataset=dataset,
+        )
+
+
+def test_bypass_reconstruction_with_report_ids_only_is_rejected() -> None:
+    report, dataset, context = coherent_inputs()
+    report_ids_only = replace(
+        context,
+        dataset_id="DATA-reconstructed",
+        dataset_version="reconstructed-version",
+        content_hash="reconstructed-hash",
+        context_id=context.context_id,
+    )
+    with pytest.raises(ValueError, match="identity mismatch"):
+        from_v43_report(
+            report,
+            code_version=CODE_VERSION,
+            context=report_ids_only,
+            dataset=dataset,
+        )
+
+
 def test_context_identity_contract_is_deterministic_for_the_boundary() -> None:
     report, dataset, context = coherent_inputs()
     expected = context_id(
