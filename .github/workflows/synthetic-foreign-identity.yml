@@ -20,3 +20,4 @@ jobs:
         run: python -m pip install pytest
       - name: Run foreign identity tests
         run: python -m pytest tests/test_synthetic_foreign_identity_links.py -q
+      # Execution-trigger commit; no test logic changed.
