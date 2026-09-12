@@ -1,0 +1,22 @@
+name: Context to research boundary
+
+on:
+  push:
+    branches:
+      - feat/step3-context-research-contract-gate
+  workflow_dispatch:
+
+jobs:
+  context-to-research:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependencies
+        run: python -m pip install pytest
+      - name: Run CONTEXT to RESEARCH boundary tests
+        run: python -m pytest tests/test_context_to_research_boundary.py -q
