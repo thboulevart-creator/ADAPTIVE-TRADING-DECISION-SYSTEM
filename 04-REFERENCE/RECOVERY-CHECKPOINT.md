@@ -130,8 +130,8 @@ Ce PASS valide uniquement la définition formelle. Il ne valide ni rentabilité,
 
 ### Artefacts persistés aujourd'hui
 
-- `docs/03.1.1-MOMENTUM-V1-DEFINITION.md`
-- `reports/research/3_1_1_momentum_v1_adversarial_report.md`
+- `docs/03.1.1-MOMENTUM-V1-DEFINITION.md` — commit `b98f4e547e09b31b3b45efc22705238c15ffdbb7`
+- `reports/research/3_1_1_momentum_v1_adversarial_report.md` — commit `14d6274f8f4ab30fccef6ca41190ffc0894b57c6`
 
 ## 7. AUDIT DE PERSISTENCE DE FIN DE JOURNÉE
 
@@ -142,13 +142,13 @@ Ce PASS valide uniquement la définition formelle. Il ne valide ni rentabilité,
 - rapports B09 persistés :
   - `reports/data-qualification/b09_7_full_rebreak_report.json`
   - `reports/data-qualification/b09_run_exposure_closure_report.json`
-- définition et cassage Momentum 3.1.1 persistés ce soir dans les deux artefacts ci-dessus.
+- définition et cassage Momentum 3.1.1 persistés dans les deux artefacts ci-dessus.
 
 ### Point critique détecté pendant la vérification
 
 La vérification GitHub de ce soir montre que les fichiers de code B08-A/B09 décrits par le checkpoint historique (`src/research/input_binding.py`, `src/research/bi5_reader.py`, `src/research/engine.py`, `src/research/execution.py`) **ne sont pas présents sur la branche GitHub `feat/v4-3-instrument-contracts` au moment de cette sauvegarde**.
 
-Le PR #8 actuellement visible sur GitHub ne contient que 11 fichiers modifiés, principalement le contrat V4.3, les rapports B09 et leurs outils/tests ; les quatre fichiers `src/research/*.py` cités par l'ancien checkpoint ne sont pas retrouvés par GitHub.
+Le PR #8 actuellement visible sur GitHub contient 11 fichiers modifiés, principalement le contrat V4.3, les rapports B09 et leurs outils/tests ; les quatre fichiers `src/research/*.py` cités par l'ancien checkpoint ne sont pas retrouvés par GitHub.
 
 Donc :
 
@@ -158,6 +158,10 @@ Donc :
 - **persistance du code local B08-A/B09 : BLOCKED tant que le worktree local exact n'est pas récupéré et comparé/commité.**
 
 Cette distinction est volontaire : aucun code absent de GitHub n'est déclaré comme sauvegardé.
+
+### Incident de sauvegarde corrigé
+
+Les deux artefacts Momentum ont d'abord été créés par erreur sur `main` faute d'avoir explicité la branche dans l'appel d'écriture. Ils ont immédiatement été supprimés de `main` par commits de correction et recréés sur `feat/v4-3-instrument-contracts`. La branche gouvernée est donc désormais la seule destination de ces artefacts.
 
 ## 8. PROCHAINE ACTION UNIQUE
 
