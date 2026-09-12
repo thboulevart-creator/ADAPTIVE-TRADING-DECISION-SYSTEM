@@ -19,7 +19,7 @@ BASE = {
 
 def independent_context_id(value: dict[str, str]) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
-    return "CTX-" + hashlib.sha256(payload.encode("utf-8")).hexdigest()[:16]
+    return "CTX-" + hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
 
 def test_same_inputs_produce_same_context_id():
