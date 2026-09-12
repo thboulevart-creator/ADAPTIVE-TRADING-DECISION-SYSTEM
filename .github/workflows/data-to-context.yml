@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - feat/step3-system-mapping
+      - feat/step3-context-research-contract-gate
   workflow_dispatch:
 
 jobs:
@@ -20,3 +21,5 @@ jobs:
         run: python -m pip install pytest
       - name: Run DATA to CONTEXT boundary tests
         run: python -m pytest tests/test_data_to_context.py -q
+      - name: Run CONTEXT to RESEARCH boundary tests
+        run: python -m pytest tests/test_context_to_research_boundary.py -q
