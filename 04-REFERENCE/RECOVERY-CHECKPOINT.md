@@ -44,6 +44,7 @@
 - B09.6 — PASS: production hash serialization was corrected from decimal formatting to exact `struct.pack(">d", value)` representation.
 - B09.7 synthetic re-break — PASS: prior decimal collision eliminated; IEEE-754 byte representations remained distinct; B08-A regression tests remained 2/2 PASS.
 - B09.7 full-stream re-break — PASS: exact B05-qualified corpus was re-established and the corrected production stream was independently reproduced and matched across two official runs.
+- B09 run() exposure closure — PASS: direct code-path evidence established that the official qualification path uses `iter_ticks()` and does not admit `BI5ResearchEngine.run()` as an official qualification entrypoint. The remaining exposure was formally closed as non-official/non-production.
 
 ## 3. ÉTAT DES ARTEFACTS
 
@@ -61,6 +62,7 @@
 ### Reports
 
 - `reports/data-qualification/b09_7_full_rebreak_report.json` — B09.7 full-stream adversarial re-break: **PASS**.
+- `reports/data-qualification/b09_run_exposure_closure_report.json` — B09 run() exposure closure: **PASS**.
 
 ### Data
 
@@ -91,6 +93,8 @@
 
 The exact B05 corpus was verified by its canonical inventory hash before the B09.7 full-stream re-break. B02–B08 were not rerun; their locked PASS results were reused as prior evidence.
 
+The `BI5ResearchEngine.run()` exposure was closed without a production patch because direct code-path evidence showed that the official qualified execution path uses `iter_ticks()` and the generic `run()` method is not an admissible qualification entrypoint.
+
 ## 5. PREUVES
 
 ### Reproducible/current evidence
@@ -101,6 +105,7 @@ The exact B05 corpus was verified by its canonical inventory hash before the B09
 - B09.6 IEEE-754 production serialization: PASS.
 - B09.7 synthetic collision re-break: PASS.
 - B09.7 full-stream re-break: PASS; 5,130,393 ticks; independent and two official runs all produced `d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda`.
+- B09 run() exposure closure: PASS; official execution uses `iter_ticks()` and the generic `run()` method is explicitly excluded from qualification use unless separately qualified.
 
 ### Historical evidence
 
@@ -108,21 +113,21 @@ The exact B05 corpus was verified by its canonical inventory hash before the B09
 - B09.3 official sequence integrity evidence.
 - B05/B07/B08 qualification results recorded above.
 
-### Remaining evidence / decision
+### Final B09 decision
 
-- `BI5ResearchEngine.run()` still lacks an explicit global monotonicity check, while `iter_ticks()` enforces global monotonicity and is the official output path. This remains an architectural exposure until formally closed or hardened.
+The former `BI5ResearchEngine.run()` architectural exposure is closed as **NON_OFFICIAL_NON_PRODUCTION**. `iter_ticks()` remains the sole admissible stream-consumption path for the qualified research execution covered by B09. A future attempt to use `run()` as a qualification entrypoint requires a new explicit qualification of its invariants, including global tick-stream monotonicity.
 
 ## 6. DERNIER VERDICT
 
-**B09: BLOCKED**
+**B09: PASS**
 
-Reason: B09.7 is now fully PASS, but B09 is not yet closed because the remaining architectural exposure in `BI5ResearchEngine.run()` has not received a final evidence-based disposition.
+Reason: all identified B09 qualification issues are resolved or formally closed. The IEEE-754 hash collision exposure was corrected and fully re-broken on the exact B05-qualified corpus. The remaining `run()` exposure was dispositioned by direct code-path evidence and closed as non-official/non-production. No earlier qualification block was rerun or reopened.
 
 ## 7. PROCHAINE ACTION UNIQUE
 
-**Determine, by direct code-path evidence, whether `BI5ResearchEngine.run()` is an admissible production/research execution path; if it is, harden it with the same global monotonicity invariant, otherwise formally classify and close it as non-official/non-production.**
+**Consolidate B09 as locked PASS and recover the next qualification block from the governing Recovery Checkpoint before starting any new substantive work.**
 
-Do not rerun B02–B08. Do not reopen the already-PASS B09.7 full-stream re-break unless new evidence directly invalidates it.
+Do not rerun B02–B08. Do not rerun B09.7. Do not treat `BI5ResearchEngine.run()` as a qualified research entrypoint without a new explicit qualification.
 
 ## 8. RECOVERY RULE
 
