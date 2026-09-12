@@ -40,6 +40,8 @@ def _validate_context_boundary(
 ) -> None:
     if context is None:
         raise ValueError("CONTEXT -> RESEARCH requires a Context")
+    if not isinstance(context, Context):
+        raise ValueError("CONTEXT -> RESEARCH requires the full Context object")
     if not validate_context(context, dataset):
         raise ValueError("CONTEXT -> RESEARCH identity mismatch")
     if context.configuration_version != configuration_version:
