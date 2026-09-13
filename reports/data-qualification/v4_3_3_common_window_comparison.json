@@ -1,0 +1,186 @@
+{
+  "schema": "RESEARCH_EXECUTION_COMPATIBILITY_V4_3",
+  "version": "V4.3",
+  "status": "UNVERIFIED",
+  "verdicts": {
+    "RESEARCH_CORPUS_ADMISSIBILITY": "FAIL",
+    "RESEARCH_PILOT_DATA_VALID": "PASS",
+    "EXECUTION_DATA_VALID": "PASS",
+    "TRANSFER_VALIDATION": "UNVERIFIED"
+  },
+  "scope": {
+    "research_instrument": "Dukascopy USATECHIDXUSD",
+    "execution_instrument": "VT Markets NAS100.s",
+    "research_files": [
+      {
+        "path": "data\\dukascopy_research_a\\ticks\\USATECHIDXUSD\\dukascopy_usatechidxusd_2025-08-15_14h_ticks.bi5",
+        "sha256": "5da99f6a8b1624f641720ace3f79c28e557ee76188ae383ec51ab90726556424",
+        "format": "DUKASCOPY_BI5"
+      }
+    ],
+    "execution_files": [
+      {
+        "path": "reports\\data-qualification\\v4_3_execution_probe\\mt5_NAS100s_2025-08-15_14h_ticks.csv",
+        "sha256": "49c5f1f3dde1c27779ad2d88be0c66e7092d869e483139bcdcb9c96f9dc3a0c7",
+        "format": "MT5_NATIVE_CSV"
+      }
+    ],
+    "execution_observable_boundary_v4_2": "2024-12-17T09:38:28+00:00",
+    "minimum_research_years": 5.0,
+    "naive_timezone_argument": null
+  },
+  "research": {
+    "rows": 21327,
+    "first": "2025-08-15T14:00:00.008000+00:00",
+    "last": "2025-08-15T14:59:59.923000+00:00",
+    "years": 0.00011407676508174807,
+    "formats": {
+      "DUKASCOPY_BI5": 1
+    },
+    "timezone_semantics": [
+      "dukascopy_hour_utc"
+    ],
+    "invalid_rows": 0,
+    "quote_violations": 0,
+    "ordering_violations": 0,
+    "corpus_admissibility_status": "FAIL",
+    "pilot_data_valid_status": "PASS",
+    "spread": {
+      "count": 21327,
+      "mean": 1.4279712102030808,
+      "p50": 1.4599999999991269,
+      "p95": 1.5380000000004657,
+      "p99": 1.5689999999995052
+    },
+    "movement": {
+      "hour_buckets": 1,
+      "hourly_return_count": 0,
+      "hourly_abs_return_mean": null,
+      "hourly_abs_return_p50": null,
+      "hourly_abs_return_p95": null,
+      "hourly_return_std": null
+    },
+    "checks": [
+      {
+        "id": "source_access",
+        "status": "PASS"
+      },
+      {
+        "id": "coverage_5y",
+        "status": "FAIL"
+      },
+      {
+        "id": "data_integrity",
+        "status": "PASS"
+      },
+      {
+        "id": "ordering",
+        "status": "PASS"
+      }
+    ],
+    "files": [
+      {
+        "path": "data\\dukascopy_research_a\\ticks\\USATECHIDXUSD\\dukascopy_usatechidxusd_2025-08-15_14h_ticks.bi5",
+        "sha256": "5da99f6a8b1624f641720ace3f79c28e557ee76188ae383ec51ab90726556424",
+        "format": "DUKASCOPY_BI5"
+      }
+    ]
+  },
+  "execution": {
+    "rows": 4329,
+    "first": "2025-08-15T14:00:00.010000+00:00",
+    "last": "2025-08-15T14:59:58.286000+00:00",
+    "years": 0.0001140248272393354,
+    "formats": {
+      "MT5_NATIVE_CSV": 1
+    },
+    "timezone_semantics": [
+      "explicit_utc_or_offset"
+    ],
+    "invalid_rows": 0,
+    "quote_violations": 0,
+    "ordering_violations": 0,
+    "spread": {
+      "count": 4329,
+      "mean": 1.5,
+      "p50": 1.5,
+      "p95": 1.5,
+      "p99": 1.5
+    },
+    "movement": {
+      "hour_buckets": 1,
+      "hourly_return_count": 0,
+      "hourly_abs_return_mean": null,
+      "hourly_abs_return_p50": null,
+      "hourly_abs_return_p95": null,
+      "hourly_return_std": null
+    },
+    "checks": [
+      {
+        "id": "source_access",
+        "status": "PASS"
+      },
+      {
+        "id": "data_integrity",
+        "status": "PASS"
+      },
+      {
+        "id": "ordering",
+        "status": "PASS"
+      },
+      {
+        "id": "execution_boundary",
+        "status": "PASS"
+      }
+    ],
+    "files": [
+      {
+        "path": "reports\\data-qualification\\v4_3_execution_probe\\mt5_NAS100s_2025-08-15_14h_ticks.csv",
+        "sha256": "49c5f1f3dde1c27779ad2d88be0c66e7092d869e483139bcdcb9c96f9dc3a0c7",
+        "format": "MT5_NATIVE_CSV"
+      }
+    ]
+  },
+  "common_period": {
+    "first": "2025-08-15T14:00:00.010000+00:00",
+    "last": "2025-08-15T14:59:58.286000+00:00",
+    "years": 0.0001140248272393354
+  },
+  "transfer_metrics": {
+    "spread_mean_ratio_execution_over_research": 1.050441345933491,
+    "spread_p50_ratio_execution_over_research": 1.027397260274587,
+    "spread_p95_ratio_execution_over_research": 0.9752925877760376,
+    "hourly_abs_return_mean_ratio_execution_over_research": null,
+    "hourly_abs_return_p95_ratio_execution_over_research": null,
+    "hourly_return_std_ratio_execution_over_research": null
+  },
+  "transfer_checks": [
+    {
+      "id": "distinct_feeds",
+      "status": "PASS",
+      "reason": "property-based comparison only"
+    },
+    {
+      "id": "common_period",
+      "status": "PASS"
+    },
+    {
+      "id": "transfer_metrics",
+      "status": "UNVERIFIED"
+    },
+    {
+      "id": "equivalence_thresholds",
+      "status": "UNVERIFIED",
+      "reason": "no normative transfer-equivalence thresholds are frozen"
+    }
+  ],
+  "methodological_guardrails": [
+    "No tick-for-tick equality is required between independent feeds.",
+    "No dataset is merged or spliced.",
+    "No timezone is guessed for naive timestamps.",
+    "No statistical equivalence threshold is invented.",
+    "Research coverage and execution coverage remain separate truths.",
+    "UNVERIFIED and BLOCKED are never promoted to PASS."
+  ],
+  "conclusion": "V4.3 now reads native BI5/Parquet/CSV evidence without forcing conversion. Transfer compatibility remains UNVERIFIED until explicit acceptance criteria are frozen and adversarially tested."
+}
