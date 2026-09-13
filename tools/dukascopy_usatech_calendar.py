@@ -388,23 +388,6 @@ SPECIAL_SESSION_EVIDENCE = {
             "new-years-2020-holiday-schedule-cme-globex-ice-exchange/"
         ),
     },
-    date(2020, 1, 1): {
-        "reason": "SPECIAL_NEW_YEARS_DAY_2020",
-        # This is the second calendar day of the exact Dec 31 2019-Jan 1 2020
-        # New-Year event already evidenced above. The preserved CME Globex
-        # schedule shows Equity Products closed on Jan 1 and reopening at
-        # 17:00 CST = 23:00 UTC. Therefore 00-22 UTC are fully closed and the
-        # 23:00 UTC bucket is tradable again.
-        "fully_closed_hours_utc": frozenset(range(0, 23)),
-        "dukascopy_source": (
-            "https://www.dukascopy.com/swiss/arabic/about/ournews/"
-            "market-closures-on-christmas-and-new-year-dbl201708"
-        ),
-        "cme_schedule_mirror_source": (
-            "https://www.cannontrading.com/tools/support-resistance-levels/"
-            "new-years-2020-holiday-schedule-cme-globex-ice-exchange/"
-        ),
-    },
     date(2020, 2, 17): {
         "reason": "SPECIAL_PRESIDENTS_DAY_2020",
         # Dukascopy: USATECH closes 18:00 GMT and reopens 23:00 GMT.
