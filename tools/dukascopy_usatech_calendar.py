@@ -88,6 +88,10 @@ SPECIAL_SESSION_EVIDENCE = {
             "https://www.dukascopy.com/europe/french/about/ournews/"
             "thanksgiving-holiday-in-us"
         ),
+        # CME's official archived 2018 holiday page confirms a 2018 Globex
+        # holiday calendar existed. The exact historical table is no longer
+        # served there, so the preserved schedule image is transparently
+        # recorded as a mirror rather than mislabelled as a primary-host URL.
         "cme_archive_source": (
             "https://www.cmegroup.com/es/tools-information/us-holidays.html"
         ),
