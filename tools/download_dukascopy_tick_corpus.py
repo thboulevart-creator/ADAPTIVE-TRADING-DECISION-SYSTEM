@@ -17,7 +17,7 @@ BASE_URL = "https://datafeed.dukascopy.com/datafeed"
 RECORD_SIZE = 20
 RECORD_STRUCT = ">IIIff"
 PRICE_SCALE = 1000.0
-USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.1"
+USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.2"
 
 RESOLVED_STATUSES = {"DOWNLOADED_VALID", "SKIPPED_EXISTING_VALID"}
 
@@ -113,7 +113,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Resumable raw Dukascopy BI5 hourly tick corpus downloader with "
-            "targeted multi-pass reconciliation."
+            "targeted pass-based reconciliation."
         )
     )
     parser.add_argument("--start-date", required=True, help="UTC date YYYY-MM-DD")
@@ -135,14 +135,18 @@ def parse_args() -> argparse.Namespace:
             "Reconciliation may revisit those same slots."
         ),
     )
-    parser.add_argument("--timeout", type=int, default=60)
     parser.add_argument(
-        "--retries",
+        "--timeout",
         type=int,
-        default=2,
-        help="Immediate retries inside each pass for one target slot.",
+        default=60,
+        help="Timeout for the single network call allowed per slot per pass.",
     )
-    parser.add_argument("--sleep-seconds", type=float, default=0.25)
+    parser.add_argument(
+        "--sleep-seconds",
+        type=float,
+        default=0.25,
+        help="Polite delay between target slots inside a pass.",
+    )
     parser.add_argument(
         "--reconciliation-passes",
         type=int,
@@ -161,6 +165,12 @@ def parse_args() -> argparse.Namespace:
         default=2.0,
         help="Multiplier applied to the delay between reconciliation passes.",
     )
+    parser.add_argument(
+        "--progress-every",
+        type=int,
+        default=1,
+        help="Print slot progress every N processed slots inside each pass.",
+    )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
 
@@ -173,8 +183,6 @@ def validate_args(args: argparse.Namespace) -> tuple[date, date]:
         raise SystemExit("end-date must be >= start-date")
     if args.hour is not None and not 0 <= args.hour <= 23:
         raise SystemExit("hour must be between 0 and 23")
-    if args.retries < 0:
-        raise SystemExit("retries must be >= 0")
     if args.timeout <= 0:
         raise SystemExit("timeout must be > 0")
     if args.sleep_seconds < 0:
@@ -185,6 +193,8 @@ def validate_args(args: argparse.Namespace) -> tuple[date, date]:
         raise SystemExit("reconciliation-delay-seconds must be >= 0")
     if args.reconciliation_backoff < 1:
         raise SystemExit("reconciliation-backoff must be >= 1")
+    if args.progress_every < 1:
+        raise SystemExit("progress-every must be >= 1")
     if args.max_requests is not None and args.max_requests < 1:
         raise SystemExit("max-requests must be >= 1 when provided")
 
@@ -200,6 +210,12 @@ def attempt_slot(
     log,
     pass_number: int,
 ) -> tuple[dict, int]:
+    """Attempt one slot once for this pass.
+
+    There are deliberately no immediate retries here. A failed slot is returned to
+    the next reconciliation pass so transient failures are spread over time instead
+    of consuming several consecutive timeout windows on the same URL.
+    """
     url = url_for(day, hour)
     destination = output_path(root, day, hour)
     base_record = {
@@ -239,22 +255,8 @@ def attempt_slot(
             },
         )
 
-    network_calls = 0
-    status = None
-    data = b""
-    error = None
-
-    for immediate_attempt in range(1, args.retries + 2):
-        status, data, error = fetch(url, args.timeout)
-        network_calls += 1
-
-        if status == 200 and data:
-            break
-
-        if immediate_attempt <= args.retries:
-            delay = args.sleep_seconds * (2 ** (immediate_attempt - 1))
-            if delay > 0:
-                time.sleep(delay)
+    status, data, error = fetch(url, args.timeout)
+    network_calls = 1
 
     if status != 200:
         state = "TRANSPORT_ERROR" if status is None else f"HTTP_{status}"
@@ -381,6 +383,7 @@ def main() -> int:
             "end_date": end.isoformat(),
             "hour_filter": args.hour,
             "target_slots": len(targets),
+            "single_network_call_per_slot_per_pass": True,
             "reconciliation_passes_configured": args.reconciliation_passes,
             "dry_run": True,
         }
@@ -421,7 +424,14 @@ def main() -> int:
                 flush=True,
             )
 
-            for day, hour in current_pending:
+            for slot_index, (day, hour) in enumerate(current_pending, start=1):
+                print(
+                    f"PASS_{pass_number}_SLOT_START "
+                    f"{slot_index}/{len(current_pending)} "
+                    f"date={day.isoformat()} hour={hour:02d}",
+                    flush=True,
+                )
+
                 record, calls = attempt_slot(
                     day=day,
                     hour=hour,
@@ -435,8 +445,22 @@ def main() -> int:
                 status_counts[status] = status_counts.get(status, 0) + 1
                 pass_counts[status] = pass_counts.get(status, 0) + 1
 
-                if status not in RESOLVED_STATUSES:
+                resolved = status in RESOLVED_STATUSES
+                if not resolved:
                     next_pending.append((day, hour))
+
+                if (
+                    slot_index % args.progress_every == 0
+                    or slot_index == len(current_pending)
+                ):
+                    print(
+                        f"PASS_{pass_number}_SLOT_DONE "
+                        f"{slot_index}/{len(current_pending)} "
+                        f"date={day.isoformat()} hour={hour:02d} "
+                        f"status={status} calls={calls} "
+                        f"pending_next={len(next_pending)}",
+                        flush=True,
+                    )
 
                 if args.sleep_seconds > 0:
                     time.sleep(args.sleep_seconds)
@@ -447,6 +471,8 @@ def main() -> int:
                 "targets": len(current_pending),
                 "resolved_this_pass": len(current_pending) - len(pending),
                 "unresolved_after_pass": len(pending),
+                "network_calls_this_pass": sum(pass_counts.values())
+                - pass_counts.get("SKIPPED_EXISTING_VALID", 0),
                 "status_counts": pass_counts,
             }
             pass_summaries.append(pass_summary)
@@ -494,6 +520,7 @@ def main() -> int:
         "missing_final": missing_final,
         "invalid_final": invalid_final,
         "network_calls": network_calls,
+        "single_network_call_per_slot_per_pass": True,
         "reconciliation_passes_configured": args.reconciliation_passes,
         "reconciliation_passes_executed": len(pass_summaries),
         "status_counts": status_counts,
