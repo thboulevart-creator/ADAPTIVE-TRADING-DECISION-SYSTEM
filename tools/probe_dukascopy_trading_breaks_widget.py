@@ -13,10 +13,10 @@ from dataclasses import dataclass
 from datetime import date, datetime, timezone
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 
-SCHEMA = "DUKASCOPY_TRADING_BREAKS_WIDGET_PROBE_V1"
+SCHEMA = "DUKASCOPY_TRADING_BREAKS_WIDGET_PROBE_V2"
 CORE_JS_URL = "https://freeserv-static.dukascopy.com/2.0/core.js"
 INSTRUMENT_TOKENS = ("USATECH", "US.TECH", "USATECH.IDX", "US.TECH.IDX")
 
@@ -163,7 +163,6 @@ def run_browser(browser: str, target: str, profile: Path, budget_ms: int) -> Bro
         "--disable-gpu",
         "--no-first-run",
         "--no-default-browser-check",
-        "--disable-background-networking",
         "--run-all-compositor-stages-before-draw",
         f"--virtual-time-budget={budget_ms}",
         f"--user-data-dir={profile}",
@@ -181,12 +180,30 @@ def run_browser(browser: str, target: str, profile: Path, budget_ms: int) -> Bro
     return BrowserRun(completed.returncode, completed.stdout, completed.stderr)
 
 
-def extract_iframe_urls(dom: str) -> list[str]:
+def extract_iframe_urls(dom: str, base_url: str | None = None) -> list[str]:
     urls = re.findall(r"<iframe\b[^>]*?\bsrc=[\"']([^\"']+)[\"']", dom, re.I)
     normalized: list[str] = []
     for value in urls:
         candidate = html.unescape(value).strip()
-        if candidate and candidate not in normalized:
+        if not candidate:
+            continue
+        if base_url:
+            candidate = urljoin(base_url, candidate)
+        if candidate not in normalized:
+            normalized.append(candidate)
+    return normalized
+
+
+def extract_script_urls(dom: str, base_url: str | None = None) -> list[str]:
+    urls = re.findall(r"<script\b[^>]*?\bsrc=[\"']([^\"']+)[\"']", dom, re.I)
+    normalized: list[str] = []
+    for value in urls:
+        candidate = html.unescape(value).strip()
+        if not candidate:
+            continue
+        if base_url:
+            candidate = urljoin(base_url, candidate)
+        if candidate not in normalized:
             normalized.append(candidate)
     return normalized
 
@@ -238,23 +255,61 @@ def text_contexts(text: str, radius: int = 300) -> list[str]:
     return contexts[:20]
 
 
-def write_artifacts(output_dir: Path, bootstrap_dom: str, widget_dom: str, text: str) -> None:
+def page_summary(url: str, depth: int, run: BrowserRun) -> dict:
+    rows = parse_rows(run.stdout)
+    text = visible_text(run.stdout)
+    nested = [
+        item
+        for item in extract_iframe_urls(run.stdout, url)
+        if is_allowed_widget_url(item)
+    ]
+    scripts = extract_script_urls(run.stdout, url)
+    return {
+        "url": url,
+        "depth": depth,
+        "returncode": run.returncode,
+        "dom_sha256": sha256_text(run.stdout),
+        "dom_length": len(run.stdout),
+        "visible_text_length": len(text),
+        "visible_text_sample": text[:1200],
+        "table_row_count": len(rows),
+        "matching_rows": matching_rows(rows),
+        "text_contexts": text_contexts(text),
+        "nested_iframe_urls": nested,
+        "script_urls": scripts[:40],
+        "stderr_tail": run.stderr[-3000:],
+    }
+
+
+def write_bootstrap_artifact(output_dir: Path, dom: str) -> None:
     output_dir.mkdir(parents=True, exist_ok=True)
-    (output_dir / "bootstrap_dom.html").write_text(bootstrap_dom, encoding="utf-8")
-    (output_dir / "widget_dom.html").write_text(widget_dom, encoding="utf-8")
-    (output_dir / "widget_visible_text.txt").write_text(text, encoding="utf-8")
+    (output_dir / "bootstrap_dom.html").write_text(dom, encoding="utf-8")
+
+
+def write_page_artifacts(output_dir: Path, index: int, run: BrowserRun) -> None:
+    output_dir.mkdir(parents=True, exist_ok=True)
+    (output_dir / f"widget_{index:02d}_dom.html").write_text(
+        run.stdout, encoding="utf-8"
+    )
+    (output_dir / f"widget_{index:02d}_visible_text.txt").write_text(
+        visible_text(run.stdout), encoding="utf-8"
+    )
+    (output_dir / f"widget_{index:02d}_stderr.txt").write_text(
+        run.stderr, encoding="utf-8"
+    )
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Render Dukascopy's official Trading Breaks widget for one historical "
-            "date using an installed Edge/Chrome browser and extract USATECH evidence."
+            "date using installed Edge/Chrome and recursively inspect Dukascopy iframes."
         )
     )
     parser.add_argument("--date", required=True, help="Historical UTC date YYYY-MM-DD")
     parser.add_argument("--browser", default=None, help="Optional Edge/Chrome executable path")
-    parser.add_argument("--budget-ms", type=int, default=12000)
+    parser.add_argument("--budget-ms", type=int, default=15000)
+    parser.add_argument("--max-depth", type=int, default=3)
     parser.add_argument("--output-dir", default=None)
     return parser.parse_args()
 
@@ -269,6 +324,9 @@ def main() -> int:
 
     if args.budget_ms < 1000:
         print(json.dumps({"schema": SCHEMA, "verdict": "FAIL", "reason": "BUDGET_TOO_SMALL"}, indent=2))
+        return 1
+    if args.max_depth < 1 or args.max_depth > 6:
+        print(json.dumps({"schema": SCHEMA, "verdict": "FAIL", "reason": "INVALID_MAX_DEPTH"}, indent=2))
         return 1
 
     browser = detect_browser(args.browser)
@@ -286,59 +344,96 @@ def main() -> int:
         )
         return 2
 
+    output_dir = Path(args.output_dir) if args.output_dir else None
+
     with tempfile.TemporaryDirectory(prefix="dukascopy-breaks-probe-") as temp_name:
         temp = Path(temp_name)
         page = temp / "bootstrap.html"
         page.write_text(bootstrap_html(day), encoding="utf-8")
 
         first = run_browser(browser, page.resolve().as_uri(), temp / "profile-bootstrap", args.budget_ms)
-        iframe_urls = extract_iframe_urls(first.stdout)
-        allowed_urls = [url for url in iframe_urls if is_allowed_widget_url(url)]
+        bootstrap_iframes = [
+            url
+            for url in extract_iframe_urls(first.stdout)
+            if is_allowed_widget_url(url)
+        ]
 
-        if not allowed_urls:
+        if output_dir:
+            write_bootstrap_artifact(output_dir, first.stdout)
+
+        if not bootstrap_iframes:
             report = {
                 "schema": SCHEMA,
                 "date": day.isoformat(),
                 "browser": browser,
                 "bootstrap_returncode": first.returncode,
                 "bootstrap_dom_sha256": sha256_text(first.stdout),
-                "iframe_urls": iframe_urls,
+                "iframe_urls": extract_iframe_urls(first.stdout),
                 "verdict": "BLOCKED",
                 "reason": "NO_DUKASCOPY_WIDGET_IFRAME_DISCOVERED",
-                "stderr_tail": first.stderr[-2000:],
+                "stderr_tail": first.stderr[-3000:],
             }
             print(json.dumps(report, indent=2, sort_keys=True))
             return 2
 
-        iframe_url = allowed_urls[0]
-        second = run_browser(browser, iframe_url, temp / "profile-widget", args.budget_ms)
-        rows = parse_rows(second.stdout)
-        matches = matching_rows(rows)
-        text = visible_text(second.stdout)
-        contexts = text_contexts(text)
+        queue: list[tuple[str, int]] = [(url, 1) for url in bootstrap_iframes]
+        visited: set[str] = set()
+        pages: list[dict] = []
+        evidence: list[dict] = []
+        page_index = 0
 
-        if args.output_dir:
-            write_artifacts(Path(args.output_dir), first.stdout, second.stdout, text)
+        while queue:
+            url, depth = queue.pop(0)
+            if url in visited or depth > args.max_depth:
+                continue
+            visited.add(url)
+            page_index += 1
 
-        evidence_found = bool(matches or contexts)
+            run = run_browser(
+                browser,
+                url,
+                temp / f"profile-widget-{page_index:02d}",
+                args.budget_ms,
+            )
+            summary = page_summary(url, depth, run)
+            pages.append(summary)
+
+            if output_dir:
+                write_page_artifacts(output_dir, page_index, run)
+
+            if summary["matching_rows"] or summary["text_contexts"]:
+                evidence.append(
+                    {
+                        "url": url,
+                        "depth": depth,
+                        "matching_rows": summary["matching_rows"],
+                        "text_contexts": summary["text_contexts"],
+                    }
+                )
+
+            if depth < args.max_depth:
+                for nested in summary["nested_iframe_urls"]:
+                    if nested not in visited:
+                        queue.append((nested, depth + 1))
+
+        evidence_found = bool(evidence)
         report = {
             "schema": SCHEMA,
             "date": day.isoformat(),
             "browser": browser,
-            "widget_iframe_url": iframe_url,
             "bootstrap_returncode": first.returncode,
-            "widget_returncode": second.returncode,
             "bootstrap_dom_sha256": sha256_text(first.stdout),
-            "widget_dom_sha256": sha256_text(second.stdout),
-            "table_row_count": len(rows),
-            "matching_rows": matches,
-            "text_contexts": contexts,
+            "bootstrap_iframe_urls": bootstrap_iframes,
+            "max_depth": args.max_depth,
+            "pages_visited": len(pages),
+            "pages": pages,
+            "evidence": evidence,
             "artifact_output_dir": args.output_dir,
             "verdict": "PASS" if evidence_found else "BLOCKED",
             "reason": (
                 "USATECH_EVIDENCE_RENDERED_BY_OFFICIAL_WIDGET"
                 if evidence_found
-                else "WIDGET_RENDERED_BUT_USATECH_EVIDENCE_NOT_FOUND"
+                else "USATECH_EVIDENCE_NOT_FOUND_AFTER_RECURSIVE_WIDGET_RENDER"
             ),
         }
         print(json.dumps(report, indent=2, sort_keys=True))
