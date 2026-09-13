@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from src.context import Context, validate_context
@@ -26,6 +26,7 @@ class ResearchRunEvidence:
     dataset_id: str
     dataset_version: str
     context_id: str
+    _factory_validated: bool = field(default=False, init=False, repr=False, compare=False)
 
 
 def _stable_hash(value: Any) -> str:
@@ -75,7 +76,7 @@ def from_v43_report(
     if context.dataset_id != report_dataset_id or context.dataset_version != dataset_version:
         raise ValueError("CONTEXT -> RESEARCH report identity mismatch")
 
-    return ResearchRunEvidence(
+    evidence = ResearchRunEvidence(
         provenance_id=provenance_id,
         research_run_id=research_run_id,
         code_version=code_version,
@@ -84,6 +85,8 @@ def from_v43_report(
         dataset_version=dataset_version,
         context_id=context.context_id,
     )
+    object.__setattr__(evidence, "_factory_validated", True)
+    return evidence
 
 
 def decision_trace_from_v43_report(
