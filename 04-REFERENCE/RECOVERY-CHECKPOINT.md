@@ -4,16 +4,24 @@
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - **Active branch:** `feat/multi-year-dukascopy-acquisition`
-- **Prior checkpoint:** `3a39e86d457095ca99d782b4eb48cc206cbefa2f`
-- **Late-2019 calendar evidence commit:** `6dbe69cc3a4d7a1fe023e7274945bfe147b6aeeb`
-- **Late-2019 supplementary-test commit:** `82ede6465f9fa006cc49868b663d0fd67c9824fc`
-- **2019-07-03 witness-search report commit:** `f0289238eb89cb634fb8c78c520bb2e540deda75`
-- **Witness-search report:** `reports/data-qualification/dukascopy_usatech_2019_07_03_witness_search.md`
-- **Durable session backup commit:** `f4cf5bcf140ceb2446a8c30f29e6629931180501`
-- **Durable session backup:** `99-BACKUP/SESSION-2026-09-13-MULTI-YEAR-DUKASCOPY-CALENDAR.md`
-- **Active block:** complete special-session/calendar qualification for Dukascopy `USATECHIDXUSD` before multi-year native `.bi5` acquisition.
-- **Coverage envelope:** `2018-05-01` → `2026-08-14`.
-- **Execution/backtest window frozen:** no.
+- **Prior checkpoint:** `b8b29ab936dc32058f2d589c46ff33fa46329799`
+- **Coverage envelope:** `2018-05-01` → `2026-08-14`
+- **Execution/backtest window frozen:** no
+- **Massive native `.bi5` acquisition:** forbidden under current gate
+
+New governance artifacts:
+
+- rule: `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
+  - commit `1085a0c5ee71a5c327eb802fe001c9b198dd683a`
+- executable gate: `tools/irreducible_historical_broker_evidence_gap.py`
+  - commit `c749622ac19e055cefc5e464cb8b7de1523976e5`
+- adversarial tests: `tests/test_irreducible_historical_broker_evidence_gap.py`
+  - commit `851612685826bdd4a116306d65173348d667c425`
+- qualification report: `reports/data-qualification/irreducible_historical_broker_evidence_gap_qualification.md`
+  - commit `1caa9227f4a8525320085e70e39098c38c3e5376`
+- `2019-07-03` application report: `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
+  - commit `2566eccf1a8ca1439f6d7296a741f24b4419fc76`
+- durable session backup updated after governance qualification.
 
 ## 2. RECOVERY ORDER
 
@@ -21,61 +29,35 @@
 2. this checkpoint
 3. `99-BACKUP/README.md`
 4. `99-BACKUP/SESSION-2026-09-13-MULTI-YEAR-DUKASCOPY-CALENDAR.md`
-5. `reports/data-qualification/dukascopy_usatech_2019_07_03_witness_search.md`
-6. `tools/dukascopy_usatech_calendar.py`
-7. `tools/dukascopy_usatech_calendar_coverage.py`
-8. `tests/test_dukascopy_usatech_calendar.py`
-9. `tests/test_dukascopy_usatech_calendar_2019_remaining.py`
-10. actual GitHub/worktree state and current execution evidence
+5. `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
+6. `reports/data-qualification/irreducible_historical_broker_evidence_gap_qualification.md`
+7. `reports/data-qualification/dukascopy_usatech_2019_07_03_witness_search.md`
+8. `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
+9. `tools/dukascopy_usatech_calendar.py`
+10. `tools/dukascopy_usatech_calendar_coverage.py`
+11. calendar tests and governance tests
+12. actual GitHub/worktree state and current execution evidence
 
 ## 3. LOCKED UPSTREAM STATE — DO NOT REOPEN
 
-- B02–B09 historical qualification remains locked; do not rerun merely to reconstruct history.
+- B02–B09 historical qualification remains locked.
 - B09 final remains historical PASS.
 - 3.1.1 Momentum V1 definition remains PASS.
 - 3.1.2 baseline protocol remains PASS.
 - 3.1.2 actual execution remains BLOCKED until a verified >=5-year native-tick corpus and realistic execution environment exist.
 - No partial/synthetic/fabricated backtest is authorized.
 
-## 4. ACTIVE CALENDAR CONTRACTS
+## 4. CALENDAR STATE
 
-- `tools/dukascopy_usatech_calendar.py`
-  - `DUKASCOPY_USATECH_SESSION_CALENDAR_V3`
-  - contains **24** date-specific special-session evidence records inside the coverage envelope.
-- `tools/dukascopy_usatech_calendar_coverage.py`
-  - `DUKASCOPY_USATECH_SPECIAL_SESSION_COVERAGE_V1`
-- `tests/test_dukascopy_usatech_calendar.py`
-  - **28** historical/current calendar tests.
-- `tests/test_dukascopy_usatech_calendar_2019_remaining.py`
-  - **6** targeted tests for the newly-qualified late-2019 sessions.
+The calendar still contains **24** date-specific special-session evidence records inside the coverage envelope.
 
-No calendar or test code changed during the dedicated `2019-07-03` witness-search continuation.
+Latest observed calendar execution remains:
 
-## 5. LATEST OBSERVED TEST EXECUTION
+- `28` historical/current calendar tests PASS;
+- `6` late-2019 targeted tests PASS;
+- combined observed calendar execution: `34 passed`.
 
-The latest observed executable state remains:
-
-```text
-............................                                             [100%]
-28 passed in 0.04s
-```
-
-and:
-
-```text
-......                                                                   [100%]
-6 passed in 0.02s
-```
-
-Combined observed execution: **34 passed in 0.04s**.
-
-These tests were not rerun during the witness-only search because no calendar classification or test expectation changed. Do not represent a new run where none occurred.
-
-Execution caveat: the container has no direct network route to GitHub. GitHub state/writes/blob verification were handled through the GitHub connector; Python execution used a local materialisation of the versioned calendar classification/evidence logic and tests. This is not a GitHub Actions run or network checkout.
-
-## 6. LATEST OBSERVED COVERAGE VERDICT
-
-Because no calendar record changed, the latest observed coverage state remains:
+Latest observed coverage remains:
 
 - `candidate_dates`: **111**
 - `resolved_candidate_dates`: **24**
@@ -87,103 +69,120 @@ Because no calendar record changed, the latest observed coverage state remains:
 - `orphan_special_evidence`: `[]`
 - `verdict`: **BLOCKED**
 - `reason`: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
-- coverage script exit code: `2`
 
-This is a clean BLOCKED, not FAIL.
+No calendar/test code changed during the governance block, so the calendar suite/coverage were not rerun merely to create a newer timestamp.
 
-## 7. 2019 RESOLUTION STATE
+## 5. IRREDUCIBLE HISTORICAL BROKER EVIDENCE GAP RULE
 
-Resolved 2019 candidate dates:
+Contract:
 
-- `2019-01-01` New Year's Day
-- `2019-01-21` Martin Luther King Jr. Day
-- `2019-02-18` Presidents Day
-- `2019-04-19` Good Friday
-- `2019-05-27` Memorial Day
-- `2019-07-04` Independence Day
-- `2019-09-02` Labor Day
-- `2019-11-28` Thanksgiving Day
-- `2019-11-29` Thanksgiving Friday
-- `2019-12-24` Christmas Eve
-- `2019-12-25` Christmas Day
-- `2019-12-31` New Year's Eve
+`IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1`
 
-The **only unresolved 2019 candidate** remains:
+Exactly three PASS routes are allowed:
 
-- `2019-07-03` — `INDEPENDENCE_PRE_HOLIDAY_SESSION`
+- `PASS-A`: exact primary broker witness for exact target date/instrument/timing;
+- `PASS-B`: exact archived broker witness with verified provenance;
+- `PASS-C`: exact-date broker event witness explicitly covering the target instrument + explicit official broker special-session mapping contract + exact same-date verified exchange/reference timing.
 
-The first unresolved coverage date therefore remains `2019-07-03`.
+Corroborative evidence cannot be accumulated into PASS. This includes other-year broker schedules, exchange-only timing, current regular hours, missing BI5/ticks, HTTP failures, empty widgets, search non-results, or source-count majority.
 
-## 8. 2019-07-03 — DEDICATED WITNESS SEARCH RESULT
+Missing evidence is BLOCKED. Proven contradictions/malformed identities are FAIL.
 
-A dedicated adversarial search was executed specifically to close the missing broker side of the `2019-07-03` proof.
+## 6. ADVERSARIAL QUALIFICATION OF THE RULE
 
-The search covered:
+A weaker candidate route:
 
-- indexed Dukascopy company-news pages around 1-5 July 2019;
-- exact `USATECH.IDX/USD` + `3 July 2019` / `July 3, 2019`;
-- exact `17:15` + Dukascopy + USATECH + 2019;
-- multilingual Dukascopy pages;
-- exact 2019 publication timestamps;
-- external indexed/archive references and RSS/news-digest style mirrors;
-- official/social-web searches for Dukascopy Independence-Day trading-hours material.
+`same-date broker event + exact exchange timing -> PASS`
 
-The search also verified that Dukascopy content genuinely dated `2019-07-03` is indexed, so the failure is not simply explained by the date being absent from the searchable Dukascopy corpus.
+was broken because the broker may apply broker-specific special hours different from the exchange.
 
-Relevant historical witnesses found:
+Correction: PASS-C requires an explicit official broker special-session mapping contract.
 
-- **2018 official Dukascopy:** exact USATECH July-3 close `17:15 GMT`, reopen `22:00 GMT` — valid for 2018 only.
-- **2017 official Dukascopy:** a July-3 USATECH pre-holiday closure exists, but with a different historical time — valid for 2017 only.
-- **2015 official Dukascopy:** a July-3 USATECH closure exists for that year's observed holiday — valid for 2015 only.
-- **2026 official Dukascopy:** confirms Dukascopy can apply special breaks on a July-3 pre-holiday session in some years — valid for 2026 only.
-- **Current Dukascopy range-of-markets:** establishes regular USATECH summer hours, not the 2019 special session.
+Adversarial execution initially hit a local import/collection failure (`ModuleNotFoundError`) due missing temporary `PYTHONPATH`. No rule code changed.
 
-No materially new, date-specific Dukascopy/USATECH witness for `2019-07-03` was found.
+Re-execution with only the local import environment corrected:
 
-A direct Wayback/CDX request was attempted from the local execution environment but could not execute because that environment has no DNS/network route to `web.archive.org`. That network failure is **not evidence of absence**. Web-index searches for archived copies also produced no qualifying witness.
+```text
+..............                                                           [100%]
+14 passed in 0.03s
+```
 
-Full durable research trace:
+### Governance-rule verdict
 
-`reports/data-qualification/dukascopy_usatech_2019_07_03_witness_search.md`
+**PASS**
 
-### Verdict for the dedicated search
+Reason:
+
+`ALL_ADVERSARIAL_FALSE_PASS_AND_FAIL_PATHS_REJECTED_AS_SPECIFIED`
+
+This PASS certifies the rule only.
+
+## 7. APPLICATION TO 2019-07-03
+
+Target:
+
+`2019-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+
+Evidence classification under V1:
+
+- B0 exact primary broker witness: absent;
+- B1 exact archived broker witness: absent;
+- B2 exact-date broker event witness explicitly covering USATECH: absent;
+- B3 explicit broker special-session mapping contract: absent;
+- exact same-date 2019 exchange timing: present;
+- exchange provenance: treated as verified for strongest favorable application;
+- retrieval exhausted: yes.
+
+Observed executable decision:
+
+```text
+GapDecision(
+    verdict='BLOCKED',
+    reason='IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP',
+    route=None,
+    contract='IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1'
+)
+```
+
+### Date verdict
 
 **BLOCKED**
 
-Reason: `DATE_SPECIFIC_DUKASCOPY_USATECH_2019_07_03_WITNESS_NOT_FOUND`
+Reason:
 
-No special calendar record was created. No test expectation was changed. The exact 2018 July-3 rule remains forbidden as a 2019 substitute. CME-only timing remains insufficient under the locked threshold.
+`IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`
+
+No calendar record was created. No test expectation changed. No coverage PASS was claimed.
+
+## 8. LOCKED DISTINCTION
+
+Do not conflate:
+
+- **Governance rule: PASS**
+- **2019-07-03 historical date: BLOCKED**
+
+The rule successfully determines that the current evidence is insufficient. Qualification of the method is not qualification of the date.
 
 ## 9. EVIDENCE DISCIPLINE
 
-- Only complete UTC hourly BI5 buckets proven closed enter `fully_closed_hours_utc`.
-- A partially tradable hour remains EXPECTED_OPEN.
-- Holiday name alone is not closure evidence.
-- HTTP 403/404/503 or missing BI5 data is not closure evidence.
-- Do not extrapolate one year's special hours to another year.
-- Dukascopy establishes broker special-event context; precise equity-index timing may be supplied by CME evidence when necessary.
-- Preserved third-party historical CME schedules remain explicitly labelled mirror evidence.
-- Exchange-only evidence does not silently become Dukascopy broker truth where broker treatment is materially uncertain.
-- Do not repeat the same `2019-07-03` generic web searches merely to reconstruct this result; consult the versioned witness-search report first.
+- Verdicts only PASS / FAIL / BLOCKED.
+- Missing evidence never becomes PASS.
+- Other-year schedules remain corroborative only.
+- Exchange-only timing never silently becomes broker truth.
+- Regular-hour similarity is not a special-session mapping contract.
+- Missing BI5/ticks and HTTP failures are not closure evidence.
+- Partial tradable hours remain EXPECTED_OPEN at hourly granularity.
+- Do not repeat generic `2019-07-03` searches without materially new evidence.
+- Historical Trading Breaks widget route remains CLOSED unless materially new evidence appears.
 
-## 10. HISTORICAL WIDGET ROUTE — CLOSED
+## 10. MASSIVE ACQUISITION GATE
 
-Do not restart the historical Trading Breaks widget path unless materially new evidence appears.
+Massive `.bi5` acquisition remains forbidden.
 
-The prior route reached the exact historical frame but returned an empty DOM/table after the stale-frame false PASS was detected and corrected. The chosen path remains date-specific archived/primary evidence.
+The current global coverage contract is still BLOCKED because unresolved candidate dates remain, including the irreducible `2019-07-03` gap.
 
-## 11. MULTI-YEAR ACQUISITION GATE
+No OHLC M1, interpolation, synthetic ticks, or substituted ticks are authorized.
 
-Massive acquisition is still forbidden.
+## 11. EXACTLY ONE NEXT GOVERNED ACTION
 
-Before acquisition:
-
-1. calendar coverage must reach zero unresolved candidate dates;
-2. verdict must be PASS;
-3. then freeze the exact >=5-year execution window;
-4. only then download native Dukascopy `.bi5` real ticks with manifest/hash/reconciliation;
-5. no OHLC M1, interpolation, synthetic or substituted ticks.
-
-## 12. EXACTLY ONE NEXT GOVERNED ACTION
-
-**Formalize an `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP` governance rule for cases where exhaustive retrieval fails to recover a date-specific broker witness. Define the admissible evidence hierarchy and explicit conditions for PASS / FAIL / BLOCKED, then adversarially break that rule before applying it to `2019-07-03`. Do not change the `2019-07-03` calendar classification, do not begin 2020 qualification, and do not begin massive `.bi5` acquisition until this governance rule itself has been qualified.**
+**Formalize and adversarially qualify the boundary between global coverage-envelope completeness and admissibility of a future frozen >=5-year execution window when an `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP` exists outside that future window. Determine whether qualification may continue into 2020+ while `2019-07-03` remains explicitly BLOCKED, without marking that date resolved and without authorizing `.bi5` acquisition. Do not begin massive acquisition until this boundary itself receives a verdict.**
