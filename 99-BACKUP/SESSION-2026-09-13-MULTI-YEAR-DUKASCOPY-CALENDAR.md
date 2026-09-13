@@ -4,27 +4,17 @@
 
 - Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - Active branch: `feat/multi-year-dukascopy-acquisition`
-- Starting checkpoint HEAD: `501a090afd09da1bcd30e9111c53147d682c5317`
-- Calendar evidence commit: `2f0a088bc8f6aaafed9db9c1ed6966301271ac75`
-- Calendar test commit: `df668b89b219cee8e72e20a10d5c307439a8046d`
+- Prior authoritative checkpoint: `25545ced686e06188c2e860d9355da478889ab82`
+- Late-2019 calendar evidence commit: `6dbe69cc3a4d7a1fe023e7274945bfe147b6aeeb`
+- Late-2019 supplementary-test commit: `82ede6465f9fa006cc49868b663d0fd67c9824fc`
 - Active objective: qualify the complete Dukascopy USATECH special-session calendar before native `.bi5` acquisition.
 - Instrument: `USATECHIDXUSD` / Dukascopy `USATECH.IDX/USD`.
 - Coverage envelope: `2018-05-01` through `2026-08-14`.
 - Execution/backtest window: NOT frozen yet.
 
-## Recovery and source-of-truth verification
+## Source-of-truth verification
 
-The session started by reading, in governed order:
-
-1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
-2. `04-REFERENCE/RECOVERY-CHECKPOINT.md`
-3. `99-BACKUP/README.md`
-4. this session snapshot
-5. `tools/dukascopy_usatech_calendar.py`
-6. `tools/dukascopy_usatech_calendar_coverage.py`
-7. `tests/test_dukascopy_usatech_calendar.py`
-
-GitHub comparison proved the branch was exactly identical to checkpoint commit `501a090afd09da1bcd30e9111c53147d682c5317` before writes (`ahead_by=0`, `behind_by=0`). No conversational reconstruction was used as technical source of truth.
+At the start of this continuation, GitHub comparison proved `feat/multi-year-dukascopy-acquisition` was exactly identical to checkpoint `25545ced686e06188c2e860d9355da478889ab82` (`ahead_by=0`, `behind_by=0`). Work proceeded from the versioned calendar/checkpoint state, not conversational reconstruction.
 
 ## Locked upstream state preserved
 
@@ -34,82 +24,95 @@ GitHub comparison proved the branch was exactly identical to checkpoint commit `
 - 3.1.2 baseline protocol remains PASS.
 - Actual 3.1.2 execution remains BLOCKED until a verified >=5-year native-tick corpus and realistic execution-cost environment exist.
 - No partial/synthetic/fabricated backtest is authorized.
+- Massive `.bi5` acquisition remains forbidden until calendar coverage reaches zero unresolved dates and verdict PASS.
 
-## 2019 evidence consolidation performed
+## Late-2019 qualification performed
 
-Thirteen unresolved 2019 candidate dates were investigated using the same evidence discipline as 2018. Only six crossed the threshold sufficiently to be versioned:
+The seven unresolved 2019 dates from the prior checkpoint were investigated under the same evidence threshold used for 2018 and the already-qualified 2019 dates.
 
-1. `2019-01-01` — New Year's Day
-   - same exact Dec 31 2018–Jan 1 2019 evidenced holiday window already used for the 2018 New Year's Eve qualification;
-   - whole-hour closure: `00-22 UTC`; reopening `23 UTC`.
-2. `2019-01-21` — Martin Luther King Jr. Day
-   - date-specific Dukascopy special-CFD-break announcement;
-   - preserved CME Globex Control Center summary via AMP mirror: noon CST halt, then normal reopening;
-   - whole-hour closure: `18-22 UTC`.
-3. `2019-02-18` — Presidents Day
-   - date-specific Dukascopy special-CFD-break announcement;
-   - preserved CME Globex Control Center summary via AMP mirror: noon CST halt, then normal reopening;
-   - whole-hour closure: `18-22 UTC`.
-4. `2019-05-27` — Memorial Day
-   - date-specific Dukascopy market-closure context;
-   - preserved CME Globex Control Center summary via AMP mirror: noon Chicago halt, then normal reopening;
-   - Chicago is on CDT, so whole-hour closure: `17-21 UTC`.
-5. `2019-11-28` — Thanksgiving Day
-   - Dukascopy explicitly identifies special closures on Thursday and Friday;
-   - preserved CME Globex Control Center summary via AMP mirror: noon CST halt, then normal reopening;
-   - whole-hour closure: `18-22 UTC`.
-6. `2019-11-29` — Thanksgiving Friday
-   - same Dukascopy date-specific Thanksgiving context;
-   - CME mirror gives 12:15 CST early close;
-   - hour `18 UTC` remains partially tradable;
-   - special whole-hour closures: `19-21 UTC`; `22-23 UTC` remain regular Friday weekly closure.
+Six dates crossed the threshold and were versioned in `SPECIAL_SESSION_EVIDENCE`:
 
-These dates were added to `SPECIAL_SESSION_EVIDENCE` in commit `2f0a088bc8f6aaafed9db9c1ed6966301271ac75`.
+1. `2019-04-19` — Good Friday
+   - date-specific Dukascopy Easter-weekend CFD closure context;
+   - preserved CME Globex 2019 schedule mirror identifies Good Friday as fully closed;
+   - whole UTC day `00-23` classified closed.
+2. `2019-07-04` — Independence Day
+   - date-specific Dukascopy 4 July 2019 special-CFD-break announcement;
+   - preserved 2019 CME-derived ES/NQ/YM schedule gives 12:00 Chicago halt;
+   - Chicago was on CDT, giving fully closed UTC hours `17-21`, reopening `22`.
+3. `2019-09-02` — Labor Day
+   - date-specific Dukascopy announcement states several markets subject to early or total closure Monday 2 September 2019;
+   - preserved CME Globex Equity schedule gives 12:00 CT halt and 17:00 CT resume;
+   - fully closed UTC hours `17-21`.
+4. `2019-12-24` — Christmas Eve
+   - Dukascopy 2019 Christmas/New-Year CFD closure context;
+   - exact 2019 CME Globex schedule mirror gives Equity close at 12:15 CT = 18:15 UTC;
+   - hour `18` remains partially tradable; fully closed whole-hour buckets `19-23`.
+5. `2019-12-25` — Christmas Day
+   - same exact 2019 holiday context and CME schedule;
+   - closed until 17:00 CT = 23:00 UTC reopening;
+   - fully closed UTC hours `00-22`.
+6. `2019-12-31` — New Year's Eve
+   - Dukascopy 2019 Christmas/New-Year CFD closure context;
+   - exact 2019/2020 CME Globex schedule mirror shows normal 16:00 CT = 22:00 UTC close followed by Jan 1 closure;
+   - `21` UTC remains partially tradable; `22` UTC is already the regular Dukascopy daily break; only `23` UTC is an additional special whole-hour closure.
 
-## 2019 dates deliberately NOT promoted
+The calendar commit `6dbe69cc3a4d7a1fe023e7274945bfe147b6aeeb` was adversarially compared against checkpoint `25545ced...`: GitHub reported **98 additions, 0 deletions** in `tools/dukascopy_usatech_calendar.py`, proving no prior evidence record was overwritten by the update.
 
-The following seven dates remain unresolved because available evidence did not meet the same broker/date-specific timing threshold without extrapolation:
+## 2019-07-03 remains BLOCKED
 
-- `2019-04-19` — GOOD_FRIDAY
-- `2019-07-03` — INDEPENDENCE_PRE_HOLIDAY_SESSION
-- `2019-07-04` — INDEPENDENCE_DAY_OBSERVED
-- `2019-09-02` — LABOR_DAY
-- `2019-12-24` — CHRISTMAS_PRE_HOLIDAY_SESSION
-- `2019-12-25` — CHRISTMAS_OBSERVED
-- `2019-12-31` — NEW_YEARS_EVE_CANDIDATE
+`2019-07-03` — `INDEPENDENCE_PRE_HOLIDAY_SESSION` did **not** cross the evidence threshold.
 
-Relevant exchange/mirror evidence exists for several of these dates, but absent sufficiently precise Dukascopy-specific date evidence or complete closure/reopening proof, it was not converted into calendar truth. This is intentional BLOCKED discipline, not missing work disguised as PASS.
+What is proven:
+
+- a preserved exact 2019 CME-derived schedule shows ES/NQ/YM early close at 12:15 Chicago time on Wednesday 3 July 2019;
+- this would correspond to a partially tradable 17 UTC hour and fully closed `18-21 UTC` for the CME equity-index session.
+
+What is NOT proven:
+
+- no sufficiently precise 2019 Dukascopy/USATECH broker-specific witness was found establishing that Dukascopy applied that July 3 early close to `USATECH.IDX/USD`;
+- the Dukascopy 2019 Independence announcement found explicitly refers to special CFD breaks on **4 July 2019**, not 3 July;
+- targeted searches for `USATECH.IDX/USD`, `3 July 2019`, `17:15`, and Dukascopy Trading Breaks produced no qualifying witness.
+
+Therefore the 2018 July-3 rule was NOT extrapolated to 2019 and CME-only evidence was NOT silently promoted to broker truth. `2019-07-03` remains unresolved/BLOCKED.
 
 ## Tests
 
-Six new targeted tests were added in commit `df668b89b219cee8e72e20a10d5c307439a8046d`, bringing the versioned calendar suite from 22 to 28 tests.
-
-Observed local execution after materializing the current GitHub test blob and the current calendar classification/evidence logic:
+The pre-existing 28-test calendar suite was rerun after the calendar update:
 
 ```text
 ............................                                             [100%]
-28 passed in 0.08s
+28 passed in 0.04s
 ```
 
-This is an observed test execution, not an inferred `28/28` claim. There is no repository GitHub Actions workflow available on this branch, and the local container has no direct network route to GitHub; GitHub writes and blob verification were therefore performed through the GitHub connector, while Python execution was performed locally from the versioned logic.
+Six additional targeted tests for the newly-qualified dates were versioned in `tests/test_dukascopy_usatech_calendar_2019_remaining.py` and executed:
+
+```text
+......                                                                   [100%]
+6 passed in 0.02s
+```
+
+Combined execution was also observed as `34 passed in 0.04s`.
+
+Execution note: the container cannot directly reach GitHub. GitHub state/writes and blob verification were performed through the GitHub connector; Python execution used a local materialisation of the versioned calendar classification/evidence logic and versioned tests. Do not misrepresent this as a network checkout or GitHub Actions run.
 
 ## Coverage execution
 
-Observed execution of `tools/dukascopy_usatech_calendar_coverage.py` after the six evidence additions:
+Observed execution of `tools/dukascopy_usatech_calendar_coverage.py` after the six late-2019 evidence additions:
 
 - `candidate_dates`: **111**
-- `resolved_candidate_dates`: **18**
-- `special_session_evidence_dates`: **18**
+- `resolved_candidate_dates`: **24**
+- `special_session_evidence_dates`: **24**
 - `no_special_change_evidence_dates`: **0**
-- `unresolved_candidate_dates`: **93**
+- `unresolved_candidate_dates`: **87**
 - `contradictory_evidence_dates`: `[]`
 - `evidence_shape_errors`: `[]`
 - `orphan_special_evidence`: `[]`
 - `verdict`: **BLOCKED**
 - `reason`: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
-- process exit code: `2` (expected for BLOCKED under this script contract)
+- process exit code: `2`
 
-The first unresolved date is now `2019-04-19`.
+The first unresolved date is now **`2019-07-03`**. If and only if that date is later resolved, the frontier moves to `2020-01-01` (notwithstanding the already-qualified isolated `2020-02-17` Presidents Day record).
 
 ## Evidence discipline preserved
 
@@ -121,9 +124,10 @@ The first unresolved date is now `2019-04-19`.
 - Partial tradable hour remains EXPECTED_OPEN.
 - Only complete UTC hourly buckets proven closed enter `fully_closed_hours_utc`.
 - Historical CME copies remain explicitly mirror evidence.
-- The Dukascopy Trading Breaks historical widget route remains CLOSED unless materially new evidence appears.
-- Massive acquisition remains forbidden until calendar coverage reaches zero unresolved dates and verdict PASS.
+- Dukascopy establishes broker/event context when exchange timing is used to derive exact buckets.
+- The historical Trading Breaks widget route remains CLOSED unless materially new evidence appears.
+- Massive acquisition remains forbidden until coverage reaches zero unresolved dates and verdict PASS.
 
 ## Exactly one next governed action
 
-**Resolve the remaining seven 2019 candidate dates (`2019-04-19`, `2019-07-03`, `2019-07-04`, `2019-09-02`, `2019-12-24`, `2019-12-25`, `2019-12-31`) using date-specific evidence at the same threshold; commit only dates that actually cross the threshold; then rerun the 28-test calendar suite and coverage audit.**
+**Resolve `2019-07-03` only if a new date-specific Dukascopy/USATECH broker witness materially closes the current proof gap; do not extrapolate the 2018 rule. If the witness is found, version the exact whole-hour classification and rerun the 28 historical tests, the 6 late-2019 tests, and coverage. If no such witness exists, retain the explicit BLOCKED and do not begin 2020 or massive `.bi5` acquisition until governance decides how an irreducible historical broker-evidence gap may be handled without weakening the threshold.**
