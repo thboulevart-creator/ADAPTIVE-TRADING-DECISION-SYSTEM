@@ -9,9 +9,15 @@ except ModuleNotFoundError:  # Direct execution: python tools/<script>.py
 CDP_ORIGIN = "http://localhost"
 SCHEMA = "DUKASCOPY_TRADING_BREAKS_OFFICIAL_PAGE_CDP_V2"
 
+# Capture the V1 callables before applying any V2 monkey-patch. Without this,
+# browser_command() would call base.browser_command after that name had already
+# been rebound to browser_command(), causing infinite recursion.
+_original_browser_command = base.browser_command
+_original_connect = base.WebSocketClient.connect
+
 
 def browser_command(browser: str, profile, port: int) -> list[str]:
-    command = list(base.browser_command(browser, profile, port))
+    command = list(_original_browser_command(browser, profile, port))
     allow_arg = f"--remote-allow-origins={CDP_ORIGIN}"
     if allow_arg not in command:
         command.insert(-1, allow_arg)
@@ -19,13 +25,11 @@ def browser_command(browser: str, profile, port: int) -> list[str]:
 
 
 # Keep the WebSocket Origin and Chrome's allowed origin deliberately identical.
-_original_connect = base.WebSocketClient.connect
-
-
 @classmethod
 def _connect(cls, url: str, timeout: float = 10.0):
-    # base.WebSocketClient.connect already sends Origin: http://localhost.
-    # This wrapper exists so V2's launch contract is explicit and testable.
+    # V1 WebSocketClient.connect already sends Origin: http://localhost.
+    # Call the captured original descriptor so V2 cannot recurse through the
+    # monkey-patched class attribute.
     return _original_connect.__func__(cls, url, timeout)
 
 
