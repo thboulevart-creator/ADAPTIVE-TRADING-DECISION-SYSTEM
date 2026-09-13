@@ -9,6 +9,7 @@
 - **Late-2019 supplementary-test commit:** `82ede6465f9fa006cc49868b663d0fd67c9824fc`
 - **2019-07-03 witness-search report commit:** `f0289238eb89cb634fb8c78c520bb2e540deda75`
 - **Witness-search report:** `reports/data-qualification/dukascopy_usatech_2019_07_03_witness_search.md`
+- **Durable session backup commit:** `f4cf5bcf140ceb2446a8c30f29e6629931180501`
 - **Durable session backup:** `99-BACKUP/SESSION-2026-09-13-MULTI-YEAR-DUKASCOPY-CALENDAR.md`
 - **Active block:** complete special-session/calendar qualification for Dukascopy `USATECHIDXUSD` before multi-year native `.bi5` acquisition.
 - **Coverage envelope:** `2018-05-01` → `2026-08-14`.
