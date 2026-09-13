@@ -4,11 +4,12 @@
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - **Active branch:** `feat/multi-year-dukascopy-acquisition`
-- **Prior checkpoint:** `9ed768cdfb07bb099eb966244764d5aab1fac567`
+- **Prior checkpoint:** `92d9de87dc596277034f842bc50850916487f7eb`
 - **Latest durable backup:** `99-BACKUP/SESSION-2026-09-13-2020-CALENDAR.md`
-  - commit `c960d978995f991f9f473d8bc8b0c6c93dfb934d`
-- **2020-01-01 qualification report:** `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
-  - commit `a2c79dd728fa5b886d9cf0e7bdcede36eee92004`
+  - latest update commit `15fa513eecd3fb2279443a12218bf2a2f6d750e4`
+- **2020-01-01 report:** `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
+- **2020-01-20 report:** `reports/data-qualification/dukascopy_usatech_2020_01_20_gap_application.md`
+  - commit `5aba402419cd345247c92b695c14b9e8a0ffb260`
 - **Coverage envelope:** `2018-05-01` → `2026-08-14`
 - **Execution/backtest window frozen:** no
 - **Massive native `.bi5` acquisition:** forbidden
@@ -26,9 +27,10 @@
 6. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
 7. `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
 8. `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
-9. `tools/dukascopy_usatech_calendar.py`
-10. `tools/dukascopy_usatech_calendar_coverage.py`
-11. calendar/governance tests and actual GitHub state
+9. `reports/data-qualification/dukascopy_usatech_2020_01_20_gap_application.md`
+10. `tools/dukascopy_usatech_calendar.py`
+11. `tools/dukascopy_usatech_calendar_coverage.py`
+12. calendar/governance tests and actual GitHub state
 
 ## 3. LOCKED UPSTREAM STATE — DO NOT REOPEN
 
@@ -58,7 +60,7 @@ Exchange-only timing, generic broker holiday context, cross-year analogy, missin
 
 Rule verdict: **PASS**.
 
-Current permission matrix remains:
+Current permission matrix:
 
 - continue later chronological qualification: **PASS**;
 - declare global coverage PASS: **BLOCKED**;
@@ -69,26 +71,20 @@ Later qualification may continue while earlier BLOCKED dates remain explicitly p
 
 ## 5. CALENDAR STATE
 
-The authoritative current calendar blob is again exactly:
+The authoritative calendar remains unchanged from the prior checkpoint and still contains **24** date-specific special-session evidence records.
 
-`971999e86090267464b794b9427f379dddd89060`
+There is no current special-session record for:
 
-It contains **24** date-specific special-session evidence records inside the global coverage envelope.
+- `2020-01-01`;
+- `2020-01-20`.
 
-There is **no current `2020-01-01` special-session record**.
+No calendar or test code changed during the `2020-01-20` qualification.
 
-The transient test `tests/test_dukascopy_usatech_calendar_2020.py` has been removed and is absent from GitHub.
+Therefore calendar tests/coverage were not rerun merely to create a newer timestamp.
 
-Current-state local materialisation after correction:
+Latest observed executable calendar state remains **34 tests PASS**.
 
-```text
-..................................                                       [100%]
-34 passed, 1 deselected in 0.04s
-```
-
-The deselected rejected-candidate test exists only in local scratch materialisation. The current GitHub calendar suite remains the original 34 tests.
-
-Current coverage execution:
+Latest observed global coverage remains:
 
 - `candidate_dates`: **111**
 - `resolved_candidate_dates`: **24**
@@ -100,9 +96,7 @@ Current coverage execution:
 - `orphan_special_evidence`: `[]`
 - `verdict`: **BLOCKED**
 - `reason`: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
-- coverage exit-code semantics: `2`
-
-The first global unresolved remains `2019-07-03`.
+- coverage BLOCKED exit-code semantics: `2`
 
 ## 6. LOCKED HISTORICAL GAPS
 
@@ -110,27 +104,38 @@ The first global unresolved remains `2019-07-03`.
 
 **BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
 
-No new qualifying evidence appeared in this continuation. Do not reopen generic searches without materially new evidence.
+No new qualifying evidence appeared. Do not reopen generic searches without materially new evidence.
 
 ### `2020-01-01 — NEW_YEARS_OBSERVED`
 
 **BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
 
-Recovered evidence:
+The prior false-PASS candidate was broken and fully revoked. No current calendar/test artifact encodes Jan 1 as resolved.
 
-- official Dukascopy 20-Dec-2019 Christmas/New-Year CFD context;
-- exact preserved 2019/2020 CME/Globex New-Year schedule.
+### `2020-01-20 — MARTIN_LUTHER_KING_DAY`
+
+**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+
+Recovered same-date exchange/reference evidence:
+
+- official CME Group MLK 2020 advisory:
+  `https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-mlk-day-advisory.pdf`
+- preserved CME Globex Control Center summary:
+  `https://www.ampfutures.com/news/holiday-trading-schedule-mlk-2020`
+  - records Monday 20 Jan 2020 `Market HALT - Noon Chicago (CST)`.
+
+Targeted Dukascopy retrieval did **not** recover a qualifying 2020 USATECH witness.
 
 Missing PASS-bearing broker evidence:
 
-- no B0 exact primary USATECH witness for `2020-01-01`;
-- no B1 exact archived USATECH witness;
-- no B2 exact-date broker event explicitly naming `USATECH.IDX/USD`;
-- no B3 official special-session mapping contract from Dukascopy USATECH to CME.
+- B0 exact primary Dukascopy USATECH witness: absent;
+- B1 exact archived broker witness with verified provenance: absent;
+- B2 exact-date broker event explicitly naming `USATECH.IDX/USD`: absent;
+- B3 official Dukascopy special-session mapping contract to CME: absent.
 
-Therefore exact exchange timing cannot be promoted to broker truth.
+Official Dukascopy MLK/USATECH schedules from other years are corroborative only and cannot substitute for 2020.
 
-Observed gate decision:
+The gate was applied under the strongest favorable exchange assumption and returned:
 
 ```text
 GapDecision(
@@ -141,51 +146,26 @@ GapDecision(
 )
 ```
 
-## 7. FALSE-PASS CANDIDATE — BROKEN AND REVOKED
+This is an absence-of-proof verdict, not a claim that Dukascopy was open or closed at a particular hour.
 
-A transient candidate initially treated `2020-01-01` as the second day of the exact Dec-31-2019 / Jan-1-2020 event already used for `2019-12-31`.
+## 7. ALREADY-QUALIFIED 2020 DATE — DO NOT REOPEN
 
-That route was broken because:
+`2020-02-17 — PRESIDENTS_DAY` is already versioned as `SPECIAL_PRESIDENTS_DAY_2020` with exact Dukascopy evidence.
 
-- the retrievable Dukascopy announcement is generic to Christmas/New-Year CFD closures and does not explicitly name USATECH for Jan 1;
-- no B3 special-session mapping contract exists;
-- same-event identity does not replace the broker/instrument linkage required by the qualified governance rule.
-
-Transient commits retained only for audit history:
-
-- `9b6160ddf81813fd23b6c3ae8a1c508532fdf67a` — false candidate calendar record;
-- `7d5789c87fd2946b449f8f6428ae2ebb70dd282b` — restoration of four historical comment lines accidentally lost during replacement;
-- `c79a2a7caf0b96e86f9ce94c04fae2581b47062a` — false candidate test.
-
-Correction commits:
-
-- `8170c4b5b638373a5967cd382d3929b89e048d51` — restored calendar to exact authoritative blob `971999e...`;
-- `f3b5974e83e0a6dbedbdbe3bed3e28227f1cb582` — removed false candidate test.
-
-Before adding reports/backups, GitHub comparison against checkpoint `9ed768...` showed no effective file diff, proving the executable baseline was fully restored.
-
-Do not resurrect the rejected route without materially new evidence that satisfies B0/B1/PASS-C.
+It remains locked. Do not rerun or re-research it merely to reconstruct chronology.
 
 ## 8. AUXILIARY BRANCH INCIDENT
 
-An accidental auxiliary branch exists:
-
-`__noop_should_not_exist__`
-
-It was created during the correction workflow. The available connector exposed branch ref movement but no branch-ref deletion operation.
-
-It was aligned to correction commit `f3b5974e83e0a6dbedbdbe3bed3e28227f1cb582`, whose technical calendar/test tree matches the governed baseline. It is not an authorized work branch and MUST NOT be used.
-
-Delete it when a supported branch-deletion route becomes available. Its existence is a tooling cleanup debt, not project architecture.
+The accidental branch `__noop_should_not_exist__` remains a tooling cleanup debt. It is not an authorized work branch and MUST NOT be used. Delete it only when a supported branch-deletion route is available.
 
 ## 9. ACQUISITION / WINDOW STATE
 
 - Global coverage remains BLOCKED.
 - Execution window remains undefined and unfrozen.
-- No window may be chosen merely to evade `2019-07-03` or `2020-01-01`.
+- No window may be selected merely to evade historical gaps.
 - Massive native `.bi5` acquisition remains forbidden.
 - No `.bi5` was downloaded during this continuation.
 
 ## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Continue chronological 2020 calendar qualification with `2020-01-20` — Martin Luther King Jr. Day — using the same date-specific broker evidence threshold. Preserve `2019-07-03` and `2020-01-01` as explicit BLOCKED global-envelope records. Do not freeze an execution window and do not download `.bi5`.**
+**Continue chronological 2020 qualification with `2020-04-10` — Good Friday — under the same date-specific broker evidence threshold. Preserve `2019-07-03`, `2020-01-01`, and `2020-01-20` as explicit BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Do not freeze an execution window and do not download `.bi5`.**
