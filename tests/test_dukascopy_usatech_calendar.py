@@ -157,6 +157,29 @@ def test_2018_christmas_eve_preserves_partial_18h_bucket() -> None:
         assert classification.reason == "SPECIAL_CHRISTMAS_EVE_2018"
 
 
+def test_2018_christmas_day_closed_until_23_utc_reopen() -> None:
+    day = date(2018, 12, 25)
+    for hour in range(0, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_CHRISTMAS_DAY_2018"
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2018_new_years_eve_suppresses_23_utc_reopen_only() -> None:
+    day = date(2018, 12, 31)
+    # Regular winter session remains partially tradable during 21h.
+    assert classify_slot(day, 21).status == EXPECTED_OPEN
+    # 22h is already the ordinary Dukascopy daily break.
+    classification_22 = classify_slot(day, 22)
+    assert classification_22.status == EXPECTED_CLOSED
+    assert classification_22.reason == "DAILY_TRADING_BREAK"
+    # The holiday suppresses the normal 23:00 UTC reopening.
+    classification_23 = classify_slot(day, 23)
+    assert classification_23.status == EXPECTED_CLOSED
+    assert classification_23.reason == "SPECIAL_NEW_YEARS_EVE_2018"
+
+
 def test_2020_presidents_day_closes_18_to_23() -> None:
     day = date(2020, 2, 17)
     assert classify_slot(day, 17).status == EXPECTED_OPEN
