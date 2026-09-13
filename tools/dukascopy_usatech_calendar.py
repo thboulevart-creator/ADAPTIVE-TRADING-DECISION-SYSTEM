@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from calendar import monthrange
 from dataclasses import dataclass
-from datetime import date, timedelta
+from datetime import date
 
 
 EXPECTED_OPEN = "EXPECTED_OPEN"
@@ -15,13 +14,26 @@ CALENDAR_SOURCE_URL = (
     "https://www.dukascopy.com/europe/english/cfd/range-of-markets/"
 )
 
+# Dukascopy explicitly applies the U.S. daylight-saving switch to USATECH.
+# Example 2025 announcement: Summer Trading time applies from Sunday 9 March.
+DUKASCOPY_US_DST_SOURCE_URL = (
+    "https://www.dukascopy.com/europe/english/about/ournews/"
+    "daylight-saving-time-2025-in-the-us"
+)
+
+# U.S. DST rule since 2007: second Sunday in March through the first Sunday
+# in November. The current qualification envelope starts in 2018, so this
+# statutory rule covers the entire intended historical range.
+US_DST_RULE_SOURCE_URL = (
+    "https://www.nist.gov/pml/time-and-frequency-division/popular-links/"
+    "daylight-saving-time-dst"
+)
+
 # Explicit evidence for the January 9, 2025 U.S. National Day of Mourning.
-# Dukascopy announced special U.S. market closures for that date. CME, whose
-# U.S. equity-index futures schedule is the relevant underlying-session evidence,
-# specified an 08:30 CT early close and normal 17:00 CT reopening. In January,
-# CT is UTC-6, so this is 14:30 UTC -> 23:00 UTC. At hourly BI5 granularity,
-# hour 14 remains EXPECTED_OPEN because 14:00-14:30 is tradable; hours 15-22
-# are fully closed; hour 23 is open again.
+# Dukascopy announced special U.S. market closures for that date. CME's
+# U.S. equity-index schedule closed at 08:30 CT = 14:30 UTC and reopened at
+# the regular 17:00 CT = 23:00 UTC. At hourly BI5 granularity, hour 14 remains
+# EXPECTED_OPEN; hours 15-22 are fully closed; hour 23 is open again.
 SPECIAL_SESSION_EVIDENCE = {
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
@@ -31,13 +43,13 @@ SPECIAL_SESSION_EVIDENCE = {
             "us-market-closure-on-9th-of-january-2025"
         ),
         "cme_source": (
-            "https://www.cmegroup.com/media-room/press-releases/2025/12/30/"
-            "cme_group_announcestradinghoursforusnationaldayofmourningtohonor.html"
+            "https://www.cmegroup.com/trading-hours/files/"
+            "day-of-mourning-january-9-2024.pdf"
         ),
     }
 }
 
-CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V2"
+CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"
 
 
 @dataclass(frozen=True)
@@ -47,21 +59,29 @@ class SlotClassification:
     schedule: str
 
 
-def _last_sunday(year: int, month: int) -> date:
-    last_day = date(year, month, monthrange(year, month)[1])
-    days_since_sunday = (last_day.weekday() + 1) % 7
-    return last_day - timedelta(days=days_since_sunday)
+def _nth_sunday(year: int, month: int, occurrence: int) -> date:
+    """Return the Nth Sunday (1-based) of a month."""
+    if occurrence < 1:
+        raise ValueError("occurrence must be >= 1")
+    first = date(year, month, 1)
+    days_to_sunday = (6 - first.weekday()) % 7
+    day_number = 1 + days_to_sunday + 7 * (occurrence - 1)
+    return date(year, month, day_number)
+
+
+def us_dst_bounds(year: int) -> tuple[date, date]:
+    """Return U.S. DST start/end dates for the qualification-era rule."""
+    return _nth_sunday(year, 3, 2), _nth_sunday(year, 11, 1)
 
 
 def is_summer_schedule(day: date) -> bool:
-    """Return whether Dukascopy's summer schedule applies on this date.
+    """Return whether Dukascopy's USATECH summer schedule applies.
 
-    The public instrument table expresses separate Summer Time / Winter Time
-    schedules. We bind the seasonal switch to the European DST convention:
-    last Sunday in March through the day before the last Sunday in October.
+    USATECH follows the U.S. DST transition, not the European transition.
+    For the 2018+ qualification envelope, U.S. DST starts on the second
+    Sunday in March and ends on the first Sunday in November.
     """
-    summer_start = _last_sunday(day.year, 3)
-    winter_start = _last_sunday(day.year, 10)
+    summer_start, winter_start = us_dst_bounds(day.year)
     return summer_start <= day < winter_start
 
 
@@ -72,7 +92,7 @@ def classify_slot(day: date, hour: int) -> SlotClassification:
     trading session. Partial close hours therefore remain EXPECTED_OPEN.
 
     Regular weekly/daily hours are taken from Dukascopy. Explicit special
-    sessions are applied only when they are versioned in SPECIAL_SESSION_EVIDENCE;
+    sessions are applied only when versioned in SPECIAL_SESSION_EVIDENCE;
     no holiday is inferred merely from a date name or an HTTP response.
     """
     if not 0 <= hour <= 23:
