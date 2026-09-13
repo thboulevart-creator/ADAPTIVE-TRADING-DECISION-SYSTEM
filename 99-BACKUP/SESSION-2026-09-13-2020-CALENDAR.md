@@ -5,7 +5,7 @@
 - Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - Active branch: `feat/multi-year-dukascopy-acquisition`
 - Starting checkpoint for 2020 continuation: `9ed768cdfb07bb099eb966244764d5aab1fac567`
-- Checkpoint before MLK qualification: `92d9de87dc596277034f842bc50850916487f7eb`
+- Checkpoint before Good Friday qualification: `95f5954d581aba459d26f7e0721dce87d5586f66`
 - Global coverage envelope: `2018-05-01` through `2026-08-14`
 - Execution/backtest window: NOT frozen
 - Massive native `.bi5` acquisition: FORBIDDEN
@@ -14,9 +14,9 @@
 
 ## Governed permission
 
-The qualified boundary allows chronological qualification to continue into later dates while preserving unresolved historical gaps.
+Chronological qualification may continue while unresolved historical gaps remain durably preserved.
 
-It does NOT authorize:
+This does NOT authorize:
 
 - global coverage PASS;
 - execution-window freeze;
@@ -28,7 +28,7 @@ It does NOT authorize:
 
 **BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
 
-Unchanged in the 2020 continuation.
+Unchanged.
 
 ### `2020-01-01 — NEW_YEARS_OBSERVED`
 
@@ -38,7 +38,7 @@ Durable report:
 
 `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
 
-The initial false-PASS route was broken and fully revoked. Current calendar blob remains the authoritative pre-candidate blob `971999e86090267464b794b9427f379dddd89060`; no Jan-1 record or test remains.
+The initial false-PASS route was broken and fully revoked. No Jan-1 record/test remains.
 
 ### `2020-01-20 — MARTIN_LUTHER_KING_DAY`
 
@@ -48,55 +48,69 @@ Durable report:
 
 `reports/data-qualification/dukascopy_usatech_2020_01_20_gap_application.md`
 
+Exact same-date CME/Globex evidence exists, but no B0/B1/B2/B3 Dukascopy link was recovered.
+
+### `2020-04-10 — GOOD_FRIDAY`
+
+**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+
+Durable report:
+
+`reports/data-qualification/dukascopy_usatech_2020_04_10_gap_application.md`
+
 Report commit:
 
-`5aba402419cd345247c92b695c14b9e8a0ffb260`
+`77a6b38d9a4ac2c83022ce33b30d457a3ca411d9`
 
-## `2020-01-20` evidence recovered
+## `2020-04-10` evidence recovered
 
-Official CME Group holiday advisory:
+Official CME Group Good Friday advisory:
 
-`https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-mlk-day-advisory.pdf`
+`https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-good-friday-advisory.pdf`
 
-The document explicitly identifies Dr. Martin Luther King, Jr. Day as Monday `2020-01-20` and points to CME holiday trading schedules.
+The memorandum explicitly identifies `Good Friday, April 10th, 2020` and the associated CME holiday-processing/trading-calendar reference.
+
+Official CME settlement notice:
+
+`https://www.cmegroup.com/tools-information/holiday-calendar/files/good-friday-holiday-settlement-times-2020.pdf`
+
+It states there are no CME Group settlements on Friday `2020-04-10` due to Good Friday.
 
 Preserved CME Globex Control Center summary:
 
-`https://www.ampfutures.com/news/holiday-trading-schedule-mlk-2020`
+`https://www.ampfutures.com/news/holiday-trading-schedule-good-friday-2020`
 
-The preserved text records the key Monday 20 January 2020 change as:
+The preserved schedule image shows Good Friday `2020-04-10` fully closed across the listed product categories, including equity products.
 
-`Market HALT - Noon Chicago (CST)`
+The exact same-date exchange/reference side is therefore accepted for the strongest favorable gate application.
 
-For the strongest favorable application of the governance gate, the same-date exchange/reference side was treated as present and verified.
-
-## `2020-01-20` missing broker link
+## `2020-04-10` missing broker link
 
 Targeted Dukascopy retrieval covered:
 
-- exact `2020-01-20`, `20 January 2020` and `20th January` formulations;
-- Martin Luther King / MLK page-title variants;
+- exact 10-Apr-2020 date variants;
+- `Good Friday` / `Easter weekend market closures 2020`;
 - exact `USATECH.IDX/USD` queries;
-- Europe and Swiss `about/ournews` trees;
-- multilingual pages;
-- external archive-index / mirror queries.
+- Swiss/Europe `about/ournews` and `full-news` routes;
+- multilingual Easter variants;
+- archive/index-style web searches.
 
-Historical official Dukascopy USATECH MLK schedules were recovered for other years, including 2016, 2017 and 2018. Later generic Dukascopy MLK closure announcements also exist.
+No qualifying 2020 Dukascopy USATECH witness was recovered.
 
-None is admissible as a 2020 substitute.
+Dukascopy Easter/USATECH material was recovered for other years, including 2017, 2019, 2021, 2025 and 2026. These are corroborative-only and cannot substitute for 2020.
 
-Missing PASS-bearing evidence for `2020-01-20`:
+Dukascopy's March 2020 daylight-saving announcement explicitly lists `USATECH.IDX/USD`, proving instrument/schedule context for 2020, but it is not a Good-Friday special-session witness and is not B0/B1/B2/B3 for the target fact.
 
-- B0 exact primary Dukascopy USATECH witness: absent;
+Missing PASS-bearing evidence:
+
+- B0 exact primary broker witness: absent;
 - B1 exact archived broker witness with verified provenance: absent;
-- B2 exact-date broker event explicitly naming `USATECH.IDX/USD`: absent;
-- B3 official special-session mapping contract from Dukascopy USATECH to CME: absent.
+- B2 exact-date broker event explicitly naming target instrument: absent;
+- B3 official broker special-session mapping contract to CME: absent.
 
-Cross-year broker examples remain corroborative-only. Exact CME timing cannot silently become broker truth.
+## `2020-04-10` gate application
 
-## `2020-01-20` gate application
-
-The qualified `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1` gate was applied under the strongest favorable exchange assumption:
+Under the strongest favorable exchange assumption:
 
 ```text
 GapDecision(
@@ -107,21 +121,24 @@ GapDecision(
 )
 ```
 
-This is an absence-of-proof verdict. It does not assert a specific Dukascopy close/reopen schedule for that day.
+This is an absence-of-proof verdict, not a claim about the actual Dukascopy close/reopen time.
 
-No `2020-01-20` calendar record was created and no test expectation changed.
+No `2020-04-10` calendar record was created and no test expectation changed.
+
+## Already-qualified 2020 date — do not reopen
+
+`2020-02-17 — PRESIDENTS_DAY` remains versioned as `SPECIAL_PRESIDENTS_DAY_2020` with exact Dukascopy evidence and stays locked.
 
 ## Current executable state
 
-No executable calendar/test code changed during the MLK qualification.
+No executable calendar/test code changed during the Good Friday qualification.
 
-Therefore the calendar suite and coverage were not rerun merely to generate a newer timestamp.
+Therefore the calendar suite and coverage were not rerun merely to create a newer timestamp.
 
-Latest observed current-state execution remains:
+Latest locked executable state remains:
 
 ```text
-..................................                                       [100%]
-34 passed
+34 calendar tests PASS
 ```
 
 Current global coverage remains:
@@ -136,26 +153,20 @@ Current global coverage remains:
 - orphan special evidence: none
 - verdict: BLOCKED
 - reason: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
-- exit-code semantics: 2 for BLOCKED
 
 First global unresolved remains `2019-07-03`.
 
-## Already-qualified 2020 date — do not reopen
-
-`2020-02-17 — PRESIDENTS_DAY` is already versioned in `SPECIAL_SESSION_EVIDENCE` as `SPECIAL_PRESIDENTS_DAY_2020` with exact Dukascopy evidence.
-
-It remains locked and is not rerun merely to reconstruct chronological history.
-
 ## Auxiliary branch incident
 
-The accidental auxiliary branch `__noop_should_not_exist__` remains a recorded tooling cleanup debt and MUST NOT be used. It was aligned to a corrected technical state. Delete it only when a supported branch-deletion route is available.
+The accidental auxiliary branch `__noop_should_not_exist__` remains a recorded tooling cleanup debt and MUST NOT be used. Delete it only when a supported branch-deletion route is available.
 
 ## Locked consequences
 
 - `2019-07-03`: BLOCKED, unchanged.
 - `2020-01-01`: BLOCKED, unchanged.
-- `2020-01-20`: BLOCKED, irreducible broker-evidence gap.
-- `2020-02-17`: previously qualified, locked; do not reopen.
+- `2020-01-20`: BLOCKED, unchanged.
+- `2020-02-17`: previously qualified, locked.
+- `2020-04-10`: BLOCKED, irreducible broker-evidence gap.
 - global coverage: BLOCKED.
 - execution window: not frozen.
 - massive `.bi5`: forbidden.
@@ -163,4 +174,4 @@ The accidental auxiliary branch `__noop_should_not_exist__` remains a recorded t
 
 ## Exactly one next governed action
 
-**Continue chronological 2020 qualification with `2020-04-10` — Good Friday — under the same date-specific broker evidence threshold. Preserve `2019-07-03`, `2020-01-01`, and `2020-01-20` as explicit BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Do not freeze an execution window and do not download `.bi5`.**
+**Continue chronological 2020 qualification with `2020-05-25` — Memorial Day — under the same date-specific broker evidence threshold. Preserve `2019-07-03`, `2020-01-01`, `2020-01-20`, and `2020-04-10` as explicit BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Do not freeze an execution window and do not download `.bi5`.**
