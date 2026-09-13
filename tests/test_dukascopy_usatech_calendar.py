@@ -99,6 +99,16 @@ def test_2018_independence_day_closes_17_to_22() -> None:
     assert classify_slot(day, 22).status == EXPECTED_OPEN
 
 
+def test_2018_labor_day_closes_17_to_22() -> None:
+    day = date(2018, 9, 3)
+    assert classify_slot(day, 16).status == EXPECTED_OPEN
+    for hour in range(17, 22):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_LABOR_DAY_2018"
+    assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
 def test_2020_presidents_day_closes_18_to_23() -> None:
     day = date(2020, 2, 17)
     assert classify_slot(day, 17).status == EXPECTED_OPEN
