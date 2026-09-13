@@ -4,13 +4,11 @@
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - **Active branch:** `feat/multi-year-dukascopy-acquisition`
-- **Prior checkpoint:** `95f5954d581aba459d26f7e0721dce87d5586f66`
+- **Prior checkpoint:** `c14c84a3e85ebee9ac3de31a3a8bda29676618c2`
 - **Latest durable backup:** `99-BACKUP/SESSION-2026-09-13-2020-CALENDAR.md`
-  - latest update commit `3316f0481dfcf489aa2bf78b92052a55d9dcf753`
-- **2020-01-01 report:** `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
-- **2020-01-20 report:** `reports/data-qualification/dukascopy_usatech_2020_01_20_gap_application.md`
-- **2020-04-10 report:** `reports/data-qualification/dukascopy_usatech_2020_04_10_gap_application.md`
-  - commit `77a6b38d9a4ac2c83022ce33b30d457a3ca411d9`
+  - latest update commit `23ffaf0c3f2ee6ccf1011105a116c0552e5a6c6a`
+- **2020-05-25 report:** `reports/data-qualification/dukascopy_usatech_2020_05_25_gap_application.md`
+  - commit `807f24d11dc4c9702523791c1d719124b30aabc9`
 - **Coverage envelope:** `2018-05-01` → `2026-08-14`
 - **Execution/backtest window frozen:** no
 - **Massive native `.bi5` acquisition:** forbidden
@@ -30,9 +28,10 @@
 8. `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
 9. `reports/data-qualification/dukascopy_usatech_2020_01_20_gap_application.md`
 10. `reports/data-qualification/dukascopy_usatech_2020_04_10_gap_application.md`
-11. `tools/dukascopy_usatech_calendar.py`
-12. `tools/dukascopy_usatech_calendar_coverage.py`
-13. calendar/governance tests and actual GitHub state
+11. `reports/data-qualification/dukascopy_usatech_2020_05_25_gap_application.md`
+12. `tools/dukascopy_usatech_calendar.py`
+13. `tools/dukascopy_usatech_calendar_coverage.py`
+14. calendar/governance tests and actual GitHub state
 
 ## 3. LOCKED UPSTREAM STATE — DO NOT REOPEN
 
@@ -79,11 +78,10 @@ There is no current special-session record for:
 
 - `2020-01-01`;
 - `2020-01-20`;
-- `2020-04-10`.
+- `2020-04-10`;
+- `2020-05-25`.
 
-No calendar or test code changed during the `2020-04-10` qualification.
-
-Therefore calendar tests/coverage were not rerun merely to create a newer timestamp.
+No calendar or test code changed during the `2020-05-25` qualification. Calendar tests/coverage were therefore not rerun merely to create a newer timestamp.
 
 Latest observed executable calendar state remains **34 tests PASS**.
 
@@ -112,7 +110,7 @@ No materially new qualifying evidence appeared. Do not reopen generic searches w
 
 **BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
 
-The prior false-PASS candidate was broken and fully revoked. No current calendar/test artifact encodes Jan 1 as resolved.
+The prior false-PASS candidate was broken and fully revoked.
 
 ### `2020-01-20 — MARTIN_LUTHER_KING_DAY`
 
@@ -124,16 +122,19 @@ Exact same-date CME evidence exists, but no B0/B1/B2/B3 Dukascopy link was recov
 
 **BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
 
-Recovered exchange/reference evidence:
+Exact same-date CME/Globex evidence exists, but no qualifying 2020 Dukascopy USATECH link was recovered.
 
-- official CME Good Friday advisory:
-  `https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-good-friday-advisory.pdf`
-- official CME settlement notice:
-  `https://www.cmegroup.com/tools-information/holiday-calendar/files/good-friday-holiday-settlement-times-2020.pdf`
-- preserved CME Globex Control Center schedule:
-  `https://www.ampfutures.com/news/holiday-trading-schedule-good-friday-2020`
+### `2020-05-25 — MEMORIAL_DAY`
 
-The exchange side establishes the exact 2020 Good-Friday context and preserved Globex schedule, including full closure of the listed equity-product category on Friday `2020-04-10`.
+**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+
+Recovered same-date exchange/reference evidence:
+
+- official CME Memorial Day advisory:
+  `https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-memorial-day-advisory.pdf`
+- preserved CME Globex Control Center summary:
+  `https://www.ampfutures.com/news/holiday-trading-schedule-memorial-day-2020`
+  - Monday `2020-05-25`: early market HALT at noon Chicago, then normal reopening.
 
 Targeted Dukascopy retrieval did **not** recover a qualifying 2020 USATECH witness.
 
@@ -144,7 +145,7 @@ Missing PASS-bearing broker evidence:
 - B2 exact-date broker event explicitly naming `USATECH.IDX/USD`: absent;
 - B3 official Dukascopy special-session mapping contract to CME: absent.
 
-Historical Dukascopy Easter schedules from other years are corroborative-only and cannot substitute for 2020. Dukascopy's March-2020 daylight-saving announcement names USATECH but proves only regular/summer schedule context, not Good-Friday treatment.
+Dukascopy Memorial-Day schedules/notices from 2017, 2018, 2021, 2022, 2024, 2025 and 2026 are corroborative only and cannot substitute for 2020.
 
 Observed gate decision under the strongest favorable exchange assumption:
 
@@ -161,9 +162,7 @@ This is absence of proof, not a claim that Dukascopy was open or closed at a par
 
 ## 7. ALREADY-QUALIFIED 2020 DATE — DO NOT REOPEN
 
-`2020-02-17 — PRESIDENTS_DAY` remains versioned as `SPECIAL_PRESIDENTS_DAY_2020` with exact Dukascopy evidence.
-
-It remains locked. Do not rerun or re-research it merely to reconstruct chronology.
+`2020-02-17 — PRESIDENTS_DAY` remains versioned as `SPECIAL_PRESIDENTS_DAY_2020` with exact Dukascopy evidence and stays locked.
 
 ## 8. AUXILIARY BRANCH INCIDENT
 
@@ -179,4 +178,4 @@ The accidental branch `__noop_should_not_exist__` remains a tooling cleanup debt
 
 ## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Continue chronological 2020 qualification with `2020-05-25` — Memorial Day — under the same date-specific broker evidence threshold. Preserve `2019-07-03`, `2020-01-01`, `2020-01-20`, and `2020-04-10` as explicit BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Do not freeze an execution window and do not download `.bi5`.**
+**Continue chronological 2020 qualification with `2020-07-02` — `INDEPENDENCE_PRE_HOLIDAY_SESSION` — under the same date-specific broker evidence threshold. Preserve all earlier BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Qualify `2020-07-02` independently from `2020-07-03`, do not freeze an execution window, and do not download `.bi5`.**
