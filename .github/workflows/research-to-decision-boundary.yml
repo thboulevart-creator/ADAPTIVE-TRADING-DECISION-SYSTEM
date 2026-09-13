@@ -24,3 +24,5 @@ jobs:
         run: python -m pytest tests/test_research_findings_contract.py -q
       - name: Run V4.3 research reader adversarial tests
         run: python -m pytest tests/test_research_reader_adversarial.py -q
+      - name: Run CONTEXT to RESEARCH alternative-path adversarial tests
+        run: python -m pytest tests/test_context_research_alternative_paths.py -q
