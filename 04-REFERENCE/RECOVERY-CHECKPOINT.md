@@ -1,101 +1,125 @@
-# RECOVERY CHECKPOINT — 13 SEPTEMBRE 2026 — POST-3.1.2 PROTOCOL
+# RECOVERY CHECKPOINT — 13 SEPTEMBRE 2026 — MULTI-YEAR DUKASCOPY CALENDAR COVERAGE
 
-## 1. ÉTAT ACTUEL
+## 1. CURRENT STATE
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
-- **Branch:** `feat/v4-3-instrument-contracts`
-- **PR:** #8 — draft, unmerged
-- **Main baseline:** `ff50b6d5d123969e091b5df18c46d438f7cb8052`
-- **Locked qualification:** B09 — PASS
-- **3.1.1 Momentum V1:** PASS — definition only
-- **3.1.2 baseline protocol:** **PASS**
-- **3.1.2 actual execution:** **BLOCKED** by dataset/execution-environment gate
+- **Active branch:** `feat/multi-year-dukascopy-acquisition`
+- **Evidence-state HEAD before checkpoint persistence:** `e9b8aceba1e5690ea1ff9d71325afac1f3a769cd`
+- **Durable session backup:** `99-BACKUP/SESSION-2026-09-13-MULTI-YEAR-DUKASCOPY-CALENDAR.md`
+- **Backup commit:** `19ea4fe30d063baefe0336509558978f677ea7b9`
+- **Active block:** complete special-session/calendar qualification for Dukascopy `USATECHIDXUSD` before multi-year native `.bi5` acquisition.
+- **Coverage envelope:** `2018-05-01` → `2026-08-14`.
+- **Execution/backtest window frozen:** no.
 
 ## 2. RECOVERY ORDER
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
 3. `99-BACKUP/README.md`
-4. latest `99-BACKUP/SESSION-YYYY-MM-DD.md`
-5. `docs/00-MASTER-EXECUTION-CHECKLIST.md`
-6. referenced reports/artifacts
-7. actual GitHub/worktree state
+4. `99-BACKUP/SESSION-2026-09-13-MULTI-YEAR-DUKASCOPY-CALENDAR.md`
+5. `tools/dukascopy_usatech_calendar.py`
+6. `tools/dukascopy_usatech_calendar_coverage.py`
+7. `tests/test_dukascopy_usatech_calendar.py`
+8. actual GitHub/worktree state and current execution evidence
 
-## 3. LOCKED WORK — DO NOT RERUN
+## 3. LOCKED UPSTREAM STATE — DO NOT REOPEN
 
-B02–B08 and B09.7 remain locked historical qualification results. No rerun is authorized merely to reconstruct memory.
+- B02–B09 historical qualification remains locked; do not rerun merely to reconstruct history.
+- B09 final remains historical PASS.
+- 3.1.1 Momentum V1 definition remains PASS.
+- 3.1.2 baseline protocol remains PASS.
+- 3.1.2 actual execution remains BLOCKED until a verified >=5-year native-tick corpus and realistic execution environment exist.
+- No partial/synthetic/fabricated backtest is authorized.
 
-B09 final remains PASS as historical qualification evidence.
+## 4. ACTIVE CALENDAR CONTRACTS
 
-## 4. DURABLE DATA IDENTITIES
+- `tools/dukascopy_usatech_calendar.py`
+  - `DUKASCOPY_USATECH_SESSION_CALENDAR_V3`
+  - evidence-state blob SHA `2b5a28c5d1eadbf651e784dbfcf5414f12ff7b8f`
+- `tools/dukascopy_usatech_calendar_coverage.py`
+  - `DUKASCOPY_USATECH_SPECIAL_SESSION_COVERAGE_V1`
+  - blob SHA `dceedb8b2b9d27c121b816e5ce0bd36ef572b1bb`
+- `tests/test_dukascopy_usatech_calendar.py`
+  - blob SHA `826e6ece5d558d79b15642c91ac3b7a62b1136b5`
+  - 22 tests versioned; do not claim 22/22 PASS without an observed current run.
 
-- B05 corpus SHA256: `868a21c6a1bedf095b30bc64b6c2ef60b5db9d30146ac53034360254413f8ad7`
-- B05 contract SHA256: `49e272534bf5061522eb624afe4e27d6585f730e0271b5284bff2442d5c04b07`
-- Historical B08 stream SHA256: `4768c0e66647a15ba703d2dcdc88c03db84846a625e8eb3f70914428bf11c8d7`
-- B09 canonical stream SHA256: `d8da494b2a1380ea0db0e0370ece4f609374ecb3e5647b6c1fb290836867abda`
-- B05 corpus: `C:\ALGO-DATA\qualification\v4_3_multi_year_acquisition\candidate_b03_3_repaired\USATECHIDXUSD`
-- B05 files: 495
-- B05 ticks: 5,130,393
+## 5. LATEST OBSERVED COVERAGE VERDICT
 
-## 5. B08-A/B09 PERSISTENCE
+Latest user-supplied execution:
 
-The four historical source files were not recoverable from accessible GitHub history. The exact former Windows worktree is not accessible from the current environment. Per the recovery rule, the source was replaced by a controlled reconstruction explicitly labeled **RECONSTRUCTION ≠ RÉCUPÉRATION**.
+- candidate dates: **111**
+- resolved candidate dates: **12**
+- special-session evidence dates: **12**
+- no-special-change evidence dates: **0**
+- unresolved candidate dates: **99**
+- contradictory evidence dates: `[]`
+- evidence shape errors: `[]`
+- orphan special evidence: `[]`
+- verdict: **BLOCKED**
+- reason: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
 
-Reconstructed files now versioned on the governed branch:
-- `src/research/input_binding.py` — `fad72675f2e7ee44083b0cbc89910d8786829f4c`
-- `src/research/bi5_reader.py` — `74005e2751782d91436d793ca9dc58c224bfe5f5`
-- `src/research/engine.py` — `63d98f1a8e8829143260b2a81fbb14f821c5be66`
-- `src/research/execution.py` — `eca03288338e6142ad5c23c400d18dab7e560e9b`
-- `src/research/__init__.py` — `800aaab8a0e908ae2efbf719545d5ce34d7b53f9`
+This is a clean BLOCKED, not FAIL.
 
-Historical B08-A/B09 PASS results were not rerun and remain historical evidence. The reconstruction itself is not silently upgraded to historical PASS.
+## 6. RESOLVED DATES
 
-## 6. 3.1.1 — MOMENTUM V1
+All 2018 candidate dates inside the envelope are now resolved:
 
-- H1 / Close / horizon 20
-- `M_t = Close_t / Close_{t-20} - 1`
-- positive → LONG; negative → SHORT; zero → NEUTRE
-- insufficient history → UNDEFINED
-- computed after close `t`; usable from `t+1`
-- no regime filter; no optimization
-- directional signal only
+- 2018-05-28 Memorial Day
+- 2018-07-03 Independence pre-holiday
+- 2018-07-04 Independence Day
+- 2018-09-03 Labor Day
+- 2018-11-22 Thanksgiving Day
+- 2018-11-23 Thanksgiving Friday
+- 2018-12-05 GHWB National Day of Mourning
+- 2018-12-24 Christmas Eve
+- 2018-12-25 Christmas Day
+- 2018-12-31 New Year's Eve
 
-**PASS = formal definition only.**
+Other resolved dates:
 
-## 7. 3.1.2 — BASELINE PROTOCOL
+- 2020-02-17 Presidents Day
+- 2025-01-09 Carter National Day of Mourning
 
-Persisted:
-- `docs/03.1.2-MOMENTUM-V1-BASELINE-PROTOCOL.md` — final protocol commit `c9901af955189e3edc78f4f0c20091b3ef2050c4`
-- `reports/research/3_1_2_momentum_v1_baseline_adversarial_report.md` — final report commit `8271e740f6882b3f2038858991457945f0fc29e7`
+Therefore 2018 is complete and the first unresolved frontier is `2019-01-01`.
 
-The protocol was adversarially broken and corrected.
+## 7. EVIDENCE DISCIPLINE
 
-Final frozen harness:
-- signal at close `t`;
-- action only at `t+1`;
-- normalized unit position;
-- LONG → +1;
-- SHORT → -1;
-- NEUTRE → flat;
-- opposite signal → close/reverse at next admissible execution point;
-- no SL/TP/trailing/BE/pyramiding/scaling/discretionary exit;
-- realistic spread/commission/slippage required;
-- minimum five years required for qualification;
-- OOS split fixed before execution;
-- no optimization.
+- Only complete UTC hourly BI5 buckets proven closed enter `fully_closed_hours_utc`.
+- A partially tradable hour remains EXPECTED_OPEN.
+- Holiday name alone is not closure evidence.
+- HTTP 403/404/503 or missing BI5 data is not closure evidence.
+- Do not extrapolate one year's special hours to another year.
+- Dukascopy establishes broker special-event context; exact equity-index timing may be supplied by CME evidence when old Dukascopy pages no longer expose the detailed table.
+- Preserved third-party copies of historical CME tables must remain explicitly labelled mirror evidence and must never be silently relabelled as primary-host CME evidence.
 
-**3.1.2 PROTOCOL — PASS.**
+## 8. HISTORICAL WIDGET ROUTE — CLOSED
 
-## 8. EXECUTION STATUS
+Do not restart the historical Trading Breaks widget path unless materially new evidence appears.
 
-Actual baseline execution is **BLOCKED**.
+Reason:
 
-Reason: the accessible GitHub context does not provide a verified five-year execution dataset plus the execution environment needed to identify the first admissible `t+1` price and realistic transaction costs. The B05 one-month corpus cannot substitute for the five-year gate.
+- direct freeserv headless route returned 403;
+- CDP/official-page route was built and hardened;
+- one stale-frame false PASS showing Labor Day 2026 was detected and invalidated;
+- strict exact-date frame for `2025-01-09` (`currentDate=false`, `date=1736424000000`) rendered empty (`dom_length=333`, visible text 0, table rows 0);
+- repeated strict result remained BLOCKED.
 
-No partial, synthetic, or fabricated backtest was executed.
+The chosen path is now date-specific archived/primary evidence, not widget recovery.
 
-## 9. NEXT ACTION — EXACTLY ONE
+## 9. MULTI-YEAR ACQUISITION GATE
 
-**Rendre accessible le dataset d'exécution multi-années qualifié (≥5 ans) et l'environnement d'exécution permettant de calculer le prix admissible de `t+1` et les coûts réels, puis exécuter le baseline 3.1.2 sans modifier le protocole.**
+Massive acquisition is still forbidden.
 
-No other qualification block is reopened. No B02–B08 rerun. No B09.7 rerun.
+Before acquisition:
+
+1. calendar coverage must reach zero unresolved candidate dates;
+2. verdict must be PASS;
+3. then freeze the exact >=5-year execution window;
+4. only then download native Dukascopy `.bi5` real ticks with manifest/hash/reconciliation;
+5. no OHLC M1, interpolation, synthetic or substituted ticks.
+
+## 10. EXACTLY ONE NEXT GOVERNED ACTION
+
+**Consolidate date-specific evidence for the 13 unresolved 2019 candidate sessions, commit only dates that actually meet the same evidence threshold used for 2018, then rerun `tests/test_dukascopy_usatech_calendar.py` and `tools/dukascopy_usatech_calendar_coverage.py`.**
+
+The objective is to reduce `unresolved_candidate_dates` below 99 without any false PASS. Do not begin massive acquisition before coverage reaches PASS with zero unresolved dates.
