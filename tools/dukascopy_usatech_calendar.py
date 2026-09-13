@@ -88,10 +88,6 @@ SPECIAL_SESSION_EVIDENCE = {
             "https://www.dukascopy.com/europe/french/about/ournews/"
             "thanksgiving-holiday-in-us"
         ),
-        # CME's official archived 2018 holiday page confirms a 2018 Globex
-        # holiday calendar existed. The exact historical table is no longer
-        # served there, so the preserved schedule image is transparently
-        # recorded as a mirror rather than mislabelled as a primary-host URL.
         "cme_archive_source": (
             "https://www.cmegroup.com/es/tools-information/us-holidays.html"
         ),
@@ -379,6 +375,23 @@ SPECIAL_SESSION_EVIDENCE = {
         # is suppressed. Hour 21 remains partially tradable, 22 is the regular
         # break, and only 23 is an additional whole-hour special closure.
         "fully_closed_hours_utc": frozenset({23}),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/arabic/about/ournews/"
+            "market-closures-on-christmas-and-new-year-dbl201708"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "new-years-2020-holiday-schedule-cme-globex-ice-exchange/"
+        ),
+    },
+    date(2020, 1, 1): {
+        "reason": "SPECIAL_NEW_YEARS_DAY_2020",
+        # This is the second calendar day of the exact Dec 31 2019-Jan 1 2020
+        # New-Year event already evidenced above. The preserved CME Globex
+        # schedule shows Equity Products closed on Jan 1 and reopening at
+        # 17:00 CST = 23:00 UTC. Therefore 00-22 UTC are fully closed and the
+        # 23:00 UTC bucket is tradable again.
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
         "dukascopy_source": (
             "https://www.dukascopy.com/swiss/arabic/about/ournews/"
             "market-closures-on-christmas-and-new-year-dbl201708"
