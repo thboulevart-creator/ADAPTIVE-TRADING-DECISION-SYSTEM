@@ -19,9 +19,11 @@ Au début de toute nouvelle discussion ou action substantielle, consulter dans c
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. ce `04-REFERENCE/RECOVERY-CHECKPOINT.md`
-3. `docs/00-MASTER-EXECUTION-CHECKLIST.md`
-4. les artefacts de qualification/recherche référencés ci-dessous
-5. l'état GitHub/worktree réel
+3. `99-BACKUP/README.md`
+4. le dernier `99-BACKUP/SESSION-YYYY-MM-DD.md`
+5. `docs/00-MASTER-EXECUTION-CHECKLIST.md`
+6. les artefacts de qualification/recherche référencés ci-dessous
+7. l'état GitHub/worktree réel
 
 La conversation ne constitue pas une source de vérité suffisante.
 
@@ -79,6 +81,8 @@ Le chantier de la journée a commencé par la qualification du chemin de donnée
 6. Diagnostiquer un échec précis avant toute nouvelle tentative.
 7. Préférer une réécriture propre à une substitution textuelle fragile.
 8. Ne pas rerun B02–B08 ni B09.7 sauf nouvelle preuve invalidante.
+9. Ne pas confondre une description de code dans un checkpoint avec la persistance réelle du code.
+10. Toute session importante doit laisser une trace durable dans `99-BACKUP/`.
 
 ## 6. PHASE 3.1.1 — MOMENTUM V1
 
@@ -138,7 +142,9 @@ Ce PASS valide uniquement la définition formelle. Il ne valide ni rentabilité,
 ### Ce qui est bien persistant sur GitHub
 
 - `04-REFERENCE/AI-OPERATING-MEMORY.md` — protocole durable de récupération et gouvernance.
-- ce `04-REFERENCE/RECOVERY-CHECKPOINT.md` — handoff durable mis à jour ce soir.
+- ce `04-REFERENCE/RECOVERY-CHECKPOINT.md` — handoff durable mis à jour.
+- `99-BACKUP/README.md` — procédure durable de sauvegarde/récupération.
+- `99-BACKUP/SESSION-2026-09-13.md` — snapshot durable de contexte de session.
 - rapports B09 persistés :
   - `reports/data-qualification/b09_7_full_rebreak_report.json`
   - `reports/data-qualification/b09_run_exposure_closure_report.json`
@@ -146,34 +152,50 @@ Ce PASS valide uniquement la définition formelle. Il ne valide ni rentabilité,
 
 ### Point critique détecté pendant la vérification
 
-La vérification GitHub de ce soir montre que les fichiers de code B08-A/B09 décrits par le checkpoint historique (`src/research/input_binding.py`, `src/research/bi5_reader.py`, `src/research/engine.py`, `src/research/execution.py`) **ne sont pas présents sur la branche GitHub `feat/v4-3-instrument-contracts` au moment de cette sauvegarde**.
+La vérification GitHub montre que les fichiers de code B08-A/B09 décrits par le checkpoint historique (`src/research/input_binding.py`, `src/research/bi5_reader.py`, `src/research/engine.py`, `src/research/execution.py`) **ne sont pas présents sur la branche GitHub `feat/v4-3-instrument-contracts`**.
 
-Le PR #8 actuellement visible sur GitHub contient 11 fichiers modifiés, principalement le contrat V4.3, les rapports B09 et leurs outils/tests ; les quatre fichiers `src/research/*.py` cités par l'ancien checkpoint ne sont pas retrouvés par GitHub.
+Le PR #8 actuellement visible sur GitHub contient les artefacts de contrat V4.3, rapports B09, outils et tests, mais pas ces quatre fichiers `src/research/*.py`.
 
 Donc :
 
-- **mémoire / état / résultats B09 : persistés dans le checkpoint ;**
+- **mémoire / état / résultats B09 : persistés ;**
 - **rapports B09 visibles : persistés ;**
 - **Momentum 3.1.1 : définition + cassage + verdict : persistés ;**
+- **couche de sauvegarde durable de contexte : désormais persistée dans `99-BACKUP/`;**
 - **persistance du code local B08-A/B09 : BLOCKED tant que le worktree local exact n'est pas récupéré et comparé/commité.**
 
 Cette distinction est volontaire : aucun code absent de GitHub n'est déclaré comme sauvegardé.
 
 ### Incident de sauvegarde corrigé
 
-Les deux artefacts Momentum ont d'abord été créés par erreur sur `main` faute d'avoir explicité la branche dans l'appel d'écriture. Ils ont immédiatement été supprimés de `main` par commits de correction et recréés sur `feat/v4-3-instrument-contracts`. La branche gouvernée est donc désormais la seule destination de ces artefacts.
+Les deux artefacts Momentum avaient d'abord été créés par erreur sur `main` faute d'avoir explicité la branche dans l'appel d'écriture. Ils ont été supprimés de `main` et recréés sur `feat/v4-3-instrument-contracts`. La branche gouvernée est la destination de ces artefacts.
 
-## 8. PROCHAINE ACTION UNIQUE
+## 8. COUCHE DE SAUVEGARDE DURABLE AJOUTÉE
 
-**Avant de commencer 3.1.2, récupérer et vérifier l'état exact du worktree local B08-A/B09, puis décider sur preuves s'il doit être persisté dans GitHub ou s'il existe déjà ailleurs.**
+Le dossier dédié est désormais :
+
+`99-BACKUP/`
+
+Il contient :
+
+- `99-BACKUP/README.md` — protocole de récupération du matin et règles de contenu.
+- `99-BACKUP/SESSION-2026-09-13.md` — snapshot durable du contexte de la session.
+
+L'AI Operating Memory a été renforcée pour rendre cette couche obligatoire au démarrage et à la clôture des sessions importantes.
+
+Cette couche n'est pas un substitut au code : elle garantit que le contexte de recherche, les décisions, hypothèses, expériences, échecs, corrections, preuves, divergences et prochaine action ne dépendent plus uniquement de la conversation.
+
+## 9. PROCHAINE ACTION UNIQUE
+
+**Récupérer et vérifier l'état exact du worktree local B08-A/B09, puis décider sur preuves s'il doit être persisté dans GitHub ou s'il existe déjà ailleurs.**
 
 Après cette vérification seulement : formaliser le protocole de `3.1.2 — Premier backtest baseline` avant toute implémentation ou exécution de backtest.
 
 Ne pas rerun B02–B08. Ne pas rerun B09.7. Ne pas traiter `BI5ResearchEngine.run()` comme entrée qualifiée.
 
-## 9. RÈGLE DE FIN DE JOURNÉE
+## 10. RÈGLE DE FIN DE JOURNÉE
 
-À chaque fin de journée, mettre à jour ce checkpoint avec :
+À chaque fin de journée, mettre à jour ce checkpoint et créer/mettre à jour le snapshot `99-BACKUP/SESSION-YYYY-MM-DD.md` avec :
 
 - ce qui a réellement été fait ;
 - les verdicts ;
