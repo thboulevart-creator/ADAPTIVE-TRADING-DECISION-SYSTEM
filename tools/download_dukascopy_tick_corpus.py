@@ -21,7 +21,11 @@ USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.0"
 
 
 def url_for(day: date, hour: int) -> str:
-    return f"{BASE_URL}/{INSTRUMENT}/{day:%Y/%m/%d}/{hour:02d}h_ticks.bi5"
+    month_zero_based = day.month - 1
+    return (
+        f"{BASE_URL}/{INSTRUMENT}/{day.year:04d}/{month_zero_based:02d}/"
+        f"{day.day:02d}/{hour:02d}h_ticks.bi5"
+    )
 
 
 def output_path(root: Path, day: date, hour: int) -> Path:
