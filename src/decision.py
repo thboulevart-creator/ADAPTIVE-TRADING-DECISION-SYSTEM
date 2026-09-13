@@ -61,10 +61,22 @@ def produce_decision(
         raise ValueError("RESEARCH -> DECISION requires a Context")
     if not isinstance(context, Context):
         raise ValueError("RESEARCH -> DECISION requires the full Context object")
+    if not evidence._factory_validated:
+        raise ValueError("RESEARCH -> DECISION requires evidence produced by the V4.3 evidence factory")
     if evidence.context_id != context.context_id:
         raise ValueError("RESEARCH -> DECISION context mismatch")
+    if evidence.configuration_version != context.configuration_version:
+        raise ValueError("RESEARCH -> DECISION configuration mismatch")
+    if evidence.dataset_id != context.dataset_id:
+        raise ValueError("RESEARCH -> DECISION dataset mismatch")
+    if evidence.dataset_version != context.dataset_version:
+        raise ValueError("RESEARCH -> DECISION dataset version mismatch")
+    if not evidence.provenance_id.strip():
+        raise ValueError("RESEARCH -> DECISION requires provenance_id")
     if not evidence.research_run_id.strip():
         raise ValueError("RESEARCH -> DECISION requires research_run_id")
+    if not evidence.code_version.strip():
+        raise ValueError("RESEARCH -> DECISION requires code_version")
     if not decision.strip():
         raise ValueError("RESEARCH -> DECISION requires a non-empty decision")
 
