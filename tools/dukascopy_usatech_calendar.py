@@ -76,6 +76,20 @@ SPECIAL_SESSION_EVIDENCE = {
             "2018-labor-day-advisory.pdf"
         ),
     },
+    date(2018, 12, 5): {
+        "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_GHWB_2018",
+        # CME U.S.-based equity products close after overnight trading at
+        # 08:30 CT = 14:30 UTC and reopen at 17:00 CT = 23:00 UTC. Hour 14
+        # remains partially tradable; only 15-22 UTC are fully closed buckets.
+        "fully_closed_hours_utc": frozenset(range(15, 23)),
+        "dukascopy_context_source": (
+            "https://www.dukascopy.com/swiss/english/marketwatch/market-news/"
+            "Trading-Ideas/GBP-USD/109292/"
+        ),
+        "cme_source": (
+            "https://www.cmegroup.com/notices/ser/2018/12/SER-8289.pdf"
+        ),
+    },
     date(2020, 2, 17): {
         "reason": "SPECIAL_PRESIDENTS_DAY_2020",
         # Dukascopy: USATECH closes 18:00 GMT and reopens 23:00 GMT.
