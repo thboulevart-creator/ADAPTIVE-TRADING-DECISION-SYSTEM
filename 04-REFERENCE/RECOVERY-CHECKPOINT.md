@@ -4,39 +4,43 @@
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - **Active branch:** `feat/multi-year-dukascopy-acquisition`
-- **Prior checkpoint:** `b8b29ab936dc32058f2d589c46ff33fa46329799`
+- **Prior checkpoint:** `0e0111cc544adae2791da9cb82bb48a0d08fe785`
 - **Coverage envelope:** `2018-05-01` → `2026-08-14`
 - **Execution/backtest window frozen:** no
-- **Massive native `.bi5` acquisition:** forbidden under current gate
+- **Massive native `.bi5` acquisition:** forbidden
+- **Global coverage verdict:** BLOCKED
+- **Global unresolved candidates:** 87
+- **First unresolved:** `2019-07-03`
 
-New governance artifacts:
+Latest boundary artifacts:
 
-- rule: `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
-  - commit `1085a0c5ee71a5c327eb802fe001c9b198dd683a`
-- executable gate: `tools/irreducible_historical_broker_evidence_gap.py`
-  - commit `c749622ac19e055cefc5e464cb8b7de1523976e5`
-- adversarial tests: `tests/test_irreducible_historical_broker_evidence_gap.py`
-  - commit `851612685826bdd4a116306d65173348d667c425`
-- qualification report: `reports/data-qualification/irreducible_historical_broker_evidence_gap_qualification.md`
-  - commit `1caa9227f4a8525320085e70e39098c38c3e5376`
-- `2019-07-03` application report: `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
-  - commit `2566eccf1a8ca1439f6d7296a741f24b4419fc76`
-- durable session backup updated after governance qualification.
+- rule: `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
+  - commit `39b1647c8f0458a436cfcf2f41f058b05d2927b9`
+- executable gate: `tools/coverage_execution_window_boundary.py`
+  - commit `e0cc3264745809bb455936b297f1974e0471fee1`
+- adversarial tests: `tests/test_coverage_execution_window_boundary.py`
+  - commit `c028f2caa123ef0e2bcae2d0b7eaa40e5ae902e9`
+- qualification report: `reports/data-qualification/coverage_execution_window_boundary_qualification.md`
+  - commit `9b3ada180ff7d84e35cee888a5b0424fd070c63e`
+- current-state application: `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
+  - commit `3b9cf340240ebec6ebc2905462857dd6a1eaa068`
+- durable backup: `99-BACKUP/SESSION-2026-09-13-COVERAGE-EXECUTION-WINDOW-BOUNDARY.md`
+  - commit `f790cd5df363d84281efbf4fa97e8c477e62d157`
 
 ## 2. RECOVERY ORDER
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
 3. `99-BACKUP/README.md`
-4. `99-BACKUP/SESSION-2026-09-13-MULTI-YEAR-DUKASCOPY-CALENDAR.md`
+4. `99-BACKUP/SESSION-2026-09-13-COVERAGE-EXECUTION-WINDOW-BOUNDARY.md`
 5. `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
-6. `reports/data-qualification/irreducible_historical_broker_evidence_gap_qualification.md`
-7. `reports/data-qualification/dukascopy_usatech_2019_07_03_witness_search.md`
-8. `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
-9. `tools/dukascopy_usatech_calendar.py`
-10. `tools/dukascopy_usatech_calendar_coverage.py`
-11. calendar tests and governance tests
-12. actual GitHub/worktree state and current execution evidence
+6. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
+7. `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
+8. `reports/data-qualification/coverage_execution_window_boundary_qualification.md`
+9. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
+10. `tools/dukascopy_usatech_calendar.py`
+11. `tools/dukascopy_usatech_calendar_coverage.py`
+12. boundary/calendar tests and actual GitHub state
 
 ## 3. LOCKED UPSTREAM STATE — DO NOT REOPEN
 
@@ -46,16 +50,19 @@ New governance artifacts:
 - 3.1.2 baseline protocol remains PASS.
 - 3.1.2 actual execution remains BLOCKED until a verified >=5-year native-tick corpus and realistic execution environment exist.
 - No partial/synthetic/fabricated backtest is authorized.
+- No OHLC M1, interpolation, synthetic ticks, or substituted ticks are authorized.
 
 ## 4. CALENDAR STATE
 
-The calendar still contains **24** date-specific special-session evidence records inside the coverage envelope.
+The calendar contains **24** date-specific special-session evidence records inside the global coverage envelope.
 
-Latest observed calendar execution remains:
+Latest observed calendar test state remains:
 
-- `28` historical/current calendar tests PASS;
-- `6` late-2019 targeted tests PASS;
-- combined observed calendar execution: `34 passed`.
+- 28 historical/current tests PASS;
+- 6 late-2019 targeted tests PASS;
+- combined prior observed execution: **34 passed**.
+
+No calendar/test classification changed in the boundary block, so calendar tests/coverage were not rerun merely to generate a newer timestamp.
 
 Latest observed coverage remains:
 
@@ -70,119 +77,151 @@ Latest observed coverage remains:
 - `verdict`: **BLOCKED**
 - `reason`: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
 
-No calendar/test code changed during the governance block, so the calendar suite/coverage were not rerun merely to create a newer timestamp.
+## 5. 2019-07-03 LOCKED STATE
 
-## 5. IRREDUCIBLE HISTORICAL BROKER EVIDENCE GAP RULE
+`2019-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION` remains:
+
+**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+
+The irreducible-gap governance rule itself remains PASS, but the date remains BLOCKED. Do not conflate method qualification with date qualification.
+
+Do not repeat generic witness searches unless materially new evidence appears.
+
+## 6. COVERAGE / EXECUTION-WINDOW BOUNDARY RULE
 
 Contract:
 
-`IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1`
+`COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 
-Exactly three PASS routes are allowed:
+The rule separates four independent actions:
 
-- `PASS-A`: exact primary broker witness for exact target date/instrument/timing;
-- `PASS-B`: exact archived broker witness with verified provenance;
-- `PASS-C`: exact-date broker event witness explicitly covering the target instrument + explicit official broker special-session mapping contract + exact same-date verified exchange/reference timing.
+1. `CONTINUE_LATER_QUALIFICATION`
+2. `DECLARE_GLOBAL_COVERAGE_PASS`
+3. `FREEZE_EXECUTION_WINDOW`
+4. `AUTHORIZE_MASSIVE_ACQUISITION`
 
-Corroborative evidence cannot be accumulated into PASS. This includes other-year broker schedules, exchange-only timing, current regular hours, missing BI5/ticks, HTTP failures, empty widgets, search non-results, or source-count majority.
+PASS for one action does not imply PASS for another.
 
-Missing evidence is BLOCKED. Proven contradictions/malformed identities are FAIL.
+### Global coverage envelope
 
-## 6. ADVERSARIAL QUALIFICATION OF THE RULE
+The global envelope is a research/qualification superset. Historical BLOCKED dates remain visible and unchanged until resolved. Later research cannot silently delete or reclassify them.
 
-A weaker candidate route:
+### Future execution window
 
-`same-date broker event + exact exchange timing -> PASS`
+A future execution window may be narrower than the global envelope, but to be admissible it must:
 
-was broken because the broker may apply broker-specific special hours different from the exchange.
+- be exact and versioned;
+- be contiguous;
+- span at least five calendar years;
+- have a versioned selection rationale independent of known gaps;
+- not be shifted/shortened merely to avoid a known BLOCKED/FAIL date;
+- have every calendar candidate inside it enumerated;
+- have zero unresolved and zero FAIL candidates inside it;
+- preserve outside gaps in global reports.
 
-Correction: PASS-C requires an explicit official broker special-session mapping contract.
+A window selected as `2020+` **because** `2019-07-03` is BLOCKED is FAIL.
 
-Adversarial execution initially hit a local import/collection failure (`ModuleNotFoundError`) due missing temporary `PYTHONPATH`. No rule code changed.
+## 7. ADVERSARIAL QUALIFICATION OF BOUNDARY
 
-Re-execution with only the local import environment corrected:
+Observed local execution of the versioned gate and attacks:
 
 ```text
-..............                                                           [100%]
-14 passed in 0.03s
+..................                                                       [100%]
+18 passed in 0.05s
 ```
 
-### Governance-rule verdict
+Attacks covered:
+
+- false global PASS;
+- hidden/reclassified prior gaps;
+- cherry-picked window boundaries;
+- manual date deletion;
+- sub-five-year windows;
+- unresolved/FAIL inside a proposed window;
+- unversioned/non-independent window rationale;
+- acquisition before freeze;
+- misuse of qualification-continuation PASS as acquisition authorization;
+- eventual acquisition path requiring separate explicit gates.
+
+### Boundary-rule verdict
 
 **PASS**
 
 Reason:
 
-`ALL_ADVERSARIAL_FALSE_PASS_AND_FAIL_PATHS_REJECTED_AS_SPECIFIED`
+`BOUNDARY_ACTIONS_SEPARATED_AND_ADVERSARIAL_BYPASSES_REJECTED`
 
-This PASS certifies the rule only.
+This PASS certifies only the governance boundary.
 
-## 7. APPLICATION TO 2019-07-03
+## 8. APPLICATION TO CURRENT STATE
 
-Target:
+Current action verdicts are:
 
-`2019-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+### `CONTINUE_LATER_QUALIFICATION`
 
-Evidence classification under V1:
+**PASS**
 
-- B0 exact primary broker witness: absent;
-- B1 exact archived broker witness: absent;
-- B2 exact-date broker event witness explicitly covering USATECH: absent;
-- B3 explicit broker special-session mapping contract: absent;
-- exact same-date 2019 exchange timing: present;
-- exchange provenance: treated as verified for strongest favorable application;
-- retrieval exhausted: yes.
+Reason:
 
-Observed executable decision:
+`LATER_QUALIFICATION_MAY_CONTINUE_WITH_PRIOR_GAPS_PRESERVED`
 
-```text
-GapDecision(
-    verdict='BLOCKED',
-    reason='IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP',
-    route=None,
-    contract='IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1'
-)
-```
+Therefore chronological qualification may advance into **2020+** while `2019-07-03` remains explicitly BLOCKED.
 
-### Date verdict
+### `DECLARE_GLOBAL_COVERAGE_PASS`
 
 **BLOCKED**
 
 Reason:
 
-`IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`
+`GLOBAL_COVERAGE_STILL_HAS_UNRESOLVED_DATES`
 
-No calendar record was created. No test expectation changed. No coverage PASS was claimed.
+The global envelope remains BLOCKED with 87 unresolved candidates.
 
-## 8. LOCKED DISTINCTION
+### `FREEZE_EXECUTION_WINDOW`
 
-Do not conflate:
+**BLOCKED**
 
-- **Governance rule: PASS**
-- **2019-07-03 historical date: BLOCKED**
+Reason:
 
-The rule successfully determines that the current evidence is insufficient. Qualification of the method is not qualification of the date.
+`EXECUTION_WINDOW_NOT_DEFINED`
 
-## 9. EVIDENCE DISCIPLINE
+No exact future execution window or independent versioned selection rationale exists yet. Do not invent `2020+` as a frozen window merely because it excludes the 2019 gap.
 
-- Verdicts only PASS / FAIL / BLOCKED.
-- Missing evidence never becomes PASS.
-- Other-year schedules remain corroborative only.
-- Exchange-only timing never silently becomes broker truth.
-- Regular-hour similarity is not a special-session mapping contract.
-- Missing BI5/ticks and HTTP failures are not closure evidence.
-- Partial tradable hours remain EXPECTED_OPEN at hourly granularity.
-- Do not repeat generic `2019-07-03` searches without materially new evidence.
-- Historical Trading Breaks widget route remains CLOSED unless materially new evidence appears.
+### `AUTHORIZE_MASSIVE_ACQUISITION`
 
-## 10. MASSIVE ACQUISITION GATE
+**BLOCKED**
+
+Reason:
+
+`EXECUTION_WINDOW_NOT_FROZEN`
 
 Massive `.bi5` acquisition remains forbidden.
 
-The current global coverage contract is still BLOCKED because unresolved candidate dates remain, including the irreducible `2019-07-03` gap.
+## 9. LOCKED DISTINCTION
 
-No OHLC M1, interpolation, synthetic ticks, or substituted ticks are authorized.
+The current truth is simultaneously:
+
+- **boundary governance rule: PASS**;
+- **permission to continue 2020+ qualification: PASS**;
+- **2019-07-03: BLOCKED**;
+- **global coverage: BLOCKED**;
+- **execution-window freeze: BLOCKED**;
+- **massive acquisition: BLOCKED**.
+
+No one of these verdicts may be substituted for another.
+
+## 10. ANTI-BYPASS INVARIANTS
+
+Do not:
+
+- mark `2019-07-03` resolved without new qualifying evidence;
+- call global coverage PASS while any candidate is unresolved;
+- choose or move a future window merely to avoid a known gap;
+- manually delete dates inside a contiguous window;
+- redefine the global envelope to obtain PASS;
+- infer acquisition permission from permission to continue qualification;
+- begin massive acquisition before a separate future window is frozen and all its mandatory gates are PASS.
 
 ## 11. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Formalize and adversarially qualify the boundary between global coverage-envelope completeness and admissibility of a future frozen >=5-year execution window when an `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP` exists outside that future window. Determine whether qualification may continue into 2020+ while `2019-07-03` remains explicitly BLOCKED, without marking that date resolved and without authorizing `.bi5` acquisition. Do not begin massive acquisition until this boundary itself receives a verdict.**
+**Continue chronological calendar qualification into 2020, beginning with `2020-01-01`, while preserving `2019-07-03` as an explicit BLOCKED global-envelope record. Do not freeze an execution window and do not begin massive `.bi5` acquisition.**
