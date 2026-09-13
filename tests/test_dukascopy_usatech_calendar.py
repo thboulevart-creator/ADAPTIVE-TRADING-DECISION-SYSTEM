@@ -109,6 +109,30 @@ def test_2018_labor_day_closes_17_to_22() -> None:
     assert classify_slot(day, 22).status == EXPECTED_OPEN
 
 
+def test_2018_thanksgiving_day_closes_18_to_23() -> None:
+    day = date(2018, 11, 22)
+    assert classify_slot(day, 17).status == EXPECTED_OPEN
+    for hour in range(18, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_THANKSGIVING_DAY_2018"
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2018_thanksgiving_friday_preserves_partial_18h_bucket() -> None:
+    day = date(2018, 11, 23)
+    assert classify_slot(day, 18).status == EXPECTED_OPEN
+    for hour in range(19, 22):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_THANKSGIVING_FRIDAY_2018"
+    # The regular Friday weekly-close rule already covers 22-23 UTC.
+    for hour in (22, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "WEEKLY_POST_CLOSE"
+
+
 def test_2018_ghwb_mourning_closes_only_full_hour_buckets() -> None:
     day = date(2018, 12, 5)
 
@@ -122,6 +146,15 @@ def test_2018_ghwb_mourning_closes_only_full_hour_buckets() -> None:
 
     # Regular winter reopening is 23:00 UTC for the next trade date.
     assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2018_christmas_eve_preserves_partial_18h_bucket() -> None:
+    day = date(2018, 12, 24)
+    assert classify_slot(day, 18).status == EXPECTED_OPEN
+    for hour in range(19, 24):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_CHRISTMAS_EVE_2018"
 
 
 def test_2020_presidents_day_closes_18_to_23() -> None:
