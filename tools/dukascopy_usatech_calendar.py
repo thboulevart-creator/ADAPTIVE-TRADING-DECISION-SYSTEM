@@ -195,6 +195,101 @@ SPECIAL_SESSION_EVIDENCE = {
             "30353065-d2d3-4ee6-870d-0a9a6b6acfaf.gif"
         ),
     },
+    date(2019, 1, 1): {
+        "reason": "SPECIAL_NEW_YEARS_DAY_2019",
+        # This is the second calendar day of the exact Dec 31 2018-Jan 1 2019
+        # holiday window already evidenced above: CME Globex remains closed on
+        # Jan 1 and reopens at 17:00 CT = 23:00 UTC. Therefore 00-22 UTC are
+        # fully closed and 23:00 UTC is tradable again.
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "market-closures-on-christmas-and-new-year-/"
+        ),
+        "cme_clearing_source": (
+            "https://www.cmegroup.com/tools-information/holiday-calendar/files/"
+            "2019-new-years-advisory.pdf"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://files.constantcontact.com/3dc00ef7001/"
+            "30353065-d2d3-4ee6-870d-0a9a6b6acfaf.gif"
+        ),
+    },
+    date(2019, 1, 21): {
+        "reason": "SPECIAL_MLK_DAY_2019",
+        # Dukascopy announced special CFD trading breaks for this exact date.
+        # The preserved CME Globex Control Center summary records a noon CST
+        # halt followed by normal reopening; in winter this is 18:00-23:00 UTC.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/english/about/ournews/"
+            "market-closures-on-martin-luther-king-jr-day"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.ampfutures.com/news/holiday-trading-schedule-mlk-2019"
+        ),
+    },
+    date(2019, 2, 18): {
+        "reason": "SPECIAL_PRESIDENTS_DAY_2019",
+        # Dukascopy announced special CFD trading breaks for this exact date.
+        # The preserved CME Globex Control Center summary records a noon CST
+        # halt followed by normal reopening; in winter this is 18:00-23:00 UTC.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/english/about/ournews/"
+            "market-closures-on-president-s-day-dbl201333"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.ampfutures.com/news/"
+            "holiday-trading-schedule-us-presidents-day-2019"
+        ),
+    },
+    date(2019, 5, 27): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2019",
+        # Dukascopy identifies Memorial Day market closures on this exact date.
+        # The preserved CME Globex Control Center summary records a noon Chicago
+        # halt followed by normal reopening. Chicago is on CDT here, so the
+        # fully closed hourly buckets are 17:00-22:00 UTC.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/english/about/ournews/"
+            "bank-holidays-in-uk-and-us-on-monday-27-may"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.ampfutures.com/news/"
+            "holiday-trading-schedule-us-memorial-day-2019"
+        ),
+    },
+    date(2019, 11, 28): {
+        "reason": "SPECIAL_THANKSGIVING_DAY_2019",
+        # Dukascopy explicitly points to special closures on both Nov 28 and
+        # Nov 29. The preserved CME Globex Control Center summary gives a noon
+        # CST halt on Thursday followed by normal reopening: 18:00-23:00 UTC.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/chinese/about/ournews/"
+            "thanksgiving-day-in-the-us/"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.ampfutures.com/news/"
+            "holiday-trading-schedule-thanksgiving-2019"
+        ),
+    },
+    date(2019, 11, 29): {
+        "reason": "SPECIAL_THANKSGIVING_FRIDAY_2019",
+        # CME records a 12:15 CST = 18:15 UTC early close. Hour 18 remains
+        # partially tradable; 19-21 UTC are whole-hour special closures, while
+        # 22-23 UTC are already covered by Dukascopy's regular Friday close.
+        "fully_closed_hours_utc": frozenset(range(19, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/chinese/about/ournews/"
+            "thanksgiving-day-in-the-us/"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.ampfutures.com/news/"
+            "holiday-trading-schedule-thanksgiving-2019"
+        ),
+    },
     date(2020, 2, 17): {
         "reason": "SPECIAL_PRESIDENTS_DAY_2020",
         # Dukascopy: USATECH closes 18:00 GMT and reopens 23:00 GMT.
