@@ -76,6 +76,49 @@ SPECIAL_SESSION_EVIDENCE = {
             "2018-labor-day-advisory.pdf"
         ),
     },
+    date(2018, 11, 22): {
+        "reason": "SPECIAL_THANKSGIVING_DAY_2018",
+        # Dukascopy explicitly announced special CFD market closures for both
+        # Thanksgiving Thursday and Friday. The archived CME Globex 2018
+        # Thanksgiving schedule shows Equity Products HALT at 12:00 CT and
+        # reopening at 17:00 CT. In winter, that is 18:00-23:00 UTC, so the
+        # fully closed hourly BI5 buckets are 18-22 UTC.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/french/about/ournews/"
+            "thanksgiving-holiday-in-us"
+        ),
+        # CME's official archived 2018 holiday page confirms a 2018 Globex
+        # holiday calendar existed. The exact historical table is no longer
+        # served there, so the preserved schedule image is transparently
+        # recorded as a mirror rather than mislabelled as a primary-host URL.
+        "cme_archive_source": (
+            "https://www.cmegroup.com/es/tools-information/us-holidays.html"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://files.constantcontact.com/3dc00ef7001/"
+            "d17def76-24ea-44af-a583-f6df03e741da.png"
+        ),
+    },
+    date(2018, 11, 23): {
+        "reason": "SPECIAL_THANKSGIVING_FRIDAY_2018",
+        # The same CME schedule shows Equity Products early close at 12:15 CT
+        # = 18:15 UTC on Friday. Hour 18 remains partially tradable. Hours
+        # 19-21 UTC are additional whole-hour holiday closures; 22-23 UTC are
+        # already closed by the regular Friday weekly-close rule.
+        "fully_closed_hours_utc": frozenset(range(19, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/french/about/ournews/"
+            "thanksgiving-holiday-in-us"
+        ),
+        "cme_archive_source": (
+            "https://www.cmegroup.com/es/tools-information/us-holidays.html"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://files.constantcontact.com/3dc00ef7001/"
+            "d17def76-24ea-44af-a583-f6df03e741da.png"
+        ),
+    },
     date(2018, 12, 5): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_GHWB_2018",
         # CME U.S.-based equity products close after overnight trading at
@@ -88,6 +131,26 @@ SPECIAL_SESSION_EVIDENCE = {
         ),
         "cme_source": (
             "https://www.cmegroup.com/notices/ser/2018/12/SER-8289.pdf"
+        ),
+    },
+    date(2018, 12, 24): {
+        "reason": "SPECIAL_CHRISTMAS_EVE_2018",
+        # Dukascopy announced detailed Christmas/New-Year CFD closures. The
+        # preserved CME Group 2018 Christmas table shows Equity Indices closing
+        # at 12:15 CT = 18:15 UTC on Monday Dec 24 and remaining closed for
+        # Christmas Day. Hour 18 is therefore partially tradable; hours 19-23
+        # on Dec 24 are fully closed.
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "market-closures-on-christmas-and-new-year-/"
+        ),
+        "cme_archive_source": (
+            "https://www.cmegroup.com/es/tools-information/us-holidays.html"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "wp-content/uploads/2018/12/CME-Group-2018-300x182.png"
         ),
     },
     date(2020, 2, 17): {
