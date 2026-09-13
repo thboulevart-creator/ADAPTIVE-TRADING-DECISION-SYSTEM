@@ -1,10 +1,13 @@
 from datetime import date
 
 from tools.probe_dukascopy_trading_breaks_widget import (
+    BrowserRun,
     epoch_ms_for_day,
     extract_iframe_urls,
+    extract_script_urls,
     is_allowed_widget_url,
     matching_rows,
+    page_summary,
     parse_rows,
     text_contexts,
 )
@@ -21,6 +24,20 @@ def test_extract_iframe_urls_decodes_and_deduplicates() -> None:
     """
     assert extract_iframe_urls(dom) == [
         "https://freeserv.dukascopy.com/widget?a=1&b=2"
+    ]
+
+
+def test_extract_iframe_urls_resolves_relative_nested_url() -> None:
+    dom = '<iframe src="/2.0/internal/widget?id=7"></iframe>'
+    assert extract_iframe_urls(dom, "https://freeserv.dukascopy.com/2.0/root") == [
+        "https://freeserv.dukascopy.com/2.0/internal/widget?id=7"
+    ]
+
+
+def test_extract_script_urls_resolves_relative_url() -> None:
+    dom = '<script src="assets/app.js"></script>'
+    assert extract_script_urls(dom, "https://freeserv.dukascopy.com/2.0/root/") == [
+        "https://freeserv.dukascopy.com/2.0/root/assets/app.js"
     ]
 
 
@@ -49,3 +66,22 @@ def test_text_contexts_finds_non_table_usatech_evidence() -> None:
     contexts = text_contexts(text, radius=50)
     assert contexts
     assert "USATECH.IDX/USD" in contexts[0]
+
+
+def test_page_summary_exposes_nested_iframe_scripts_and_evidence() -> None:
+    dom = """
+    <html><body>
+      <script src="/assets/widget.js"></script>
+      <iframe src="/inner"></iframe>
+      <div>USATECH.IDX/USD closes 18:00</div>
+    </body></html>
+    """
+    summary = page_summary(
+        "https://freeserv.dukascopy.com/root",
+        1,
+        BrowserRun(0, dom, "diagnostic stderr"),
+    )
+    assert summary["text_contexts"]
+    assert summary["nested_iframe_urls"] == ["https://freeserv.dukascopy.com/inner"]
+    assert summary["script_urls"] == ["https://freeserv.dukascopy.com/assets/widget.js"]
+    assert summary["stderr_tail"] == "diagnostic stderr"
