@@ -151,3 +151,28 @@ If repositories disagree, do not silently choose one. Surface the conflict and c
 This file establishes the durable operating-memory protocol. It does not itself certify any qualification block or technical result.
 
 The current technical state must be read from the repository's latest Recovery Checkpoint and qualification artifacts.
+
+## 14. DURABLE SESSION BACKUP — MANDATORY
+
+`99-BACKUP/` is the dedicated durable project-memory layer.
+
+At the beginning of every substantive session, after reading this file and the Recovery Checkpoint, the AI MUST read the newest applicable `99-BACKUP/SESSION-YYYY-MM-DD.md` before searching for prior work.
+
+At the end of every material session, the AI MUST preserve a dated session snapshot in `99-BACKUP/` containing the context required to recover the work without relying on conversational memory, including where relevant:
+
+- code and artifact state;
+- decisions and their reasons;
+- hypotheses;
+- experiments and results;
+- failures and corrections;
+- locked verdicts;
+- important identities and hashes;
+- what is on GitHub;
+- what remains local or unpersisted;
+- divergences;
+- prohibited reruns;
+- exactly one next governed action.
+
+The backup layer does not replace source code or evidence. It prevents loss of project context and prevents repeated morning reconstruction of already completed work.
+
+A workstream cannot be considered durably closed merely because its state appears in conversation. Important executable artifacts must be versioned on the governed branch, or their absence must be explicitly recorded as BLOCKED / NON-PERSISTED.
