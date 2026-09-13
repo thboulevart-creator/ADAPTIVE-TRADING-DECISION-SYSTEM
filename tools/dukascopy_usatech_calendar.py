@@ -153,6 +153,48 @@ SPECIAL_SESSION_EVIDENCE = {
             "wp-content/uploads/2018/12/CME-Group-2018-300x182.png"
         ),
     },
+    date(2018, 12, 25): {
+        "reason": "SPECIAL_CHRISTMAS_DAY_2018",
+        # The preserved CME Globex Christmas schedule shows Equity Products
+        # closed for Christmas Day and reopening at the regular 17:00 CT =
+        # 23:00 UTC evening session for the Dec 26 trade date. Therefore every
+        # complete UTC hour 00-22 is closed; 23:00 UTC is tradable again.
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "market-closures-on-christmas-and-new-year-/"
+        ),
+        "cme_archive_source": (
+            "https://www.cmegroup.com/es/tools-information/us-holidays.html"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "wp-content/uploads/2018/12/CME-Group-2018-300x182.png"
+        ),
+    },
+    date(2018, 12, 31): {
+        "reason": "SPECIAL_NEW_YEARS_EVE_2018",
+        # CME's preserved New-Year schedule shows Equity Products taking their
+        # regular 16:00 CT = 22:00 UTC close on Dec 31, followed by Globex
+        # closed for Jan 1. Dukascopy's regular winter session would normally
+        # reopen at 23:00 UTC after its 21:15-23:00 daily break; that reopening
+        # is suppressed by the holiday. Thus 21h remains partially tradable,
+        # 22h is already the regular daily break, and only 23h is an additional
+        # whole-hour special closure on the Dec 31 calendar date.
+        "fully_closed_hours_utc": frozenset({23}),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "market-closures-on-christmas-and-new-year-/"
+        ),
+        "cme_clearing_source": (
+            "https://www.cmegroup.com/tools-information/holiday-calendar/files/"
+            "2019-new-years-advisory.pdf"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://files.constantcontact.com/3dc00ef7001/"
+            "30353065-d2d3-4ee6-870d-0a9a6b6acfaf.gif"
+        ),
+    },
     date(2020, 2, 17): {
         "reason": "SPECIAL_PRESIDENTS_DAY_2020",
         # Dukascopy: USATECH closes 18:00 GMT and reopens 23:00 GMT.
