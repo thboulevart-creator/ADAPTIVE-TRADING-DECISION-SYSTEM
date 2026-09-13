@@ -4,6 +4,8 @@ from tools.dukascopy_usatech_calendar import (
     EXPECTED_CLOSED,
     EXPECTED_OPEN,
     classify_slot,
+    is_summer_schedule,
+    us_dst_bounds,
 )
 
 
@@ -40,6 +42,37 @@ def test_summer_daily_break_is_hour_21_utc() -> None:
     assert classify_slot(day, 20).status == EXPECTED_OPEN
     assert classify_slot(day, 21).status == EXPECTED_CLOSED
     assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
+def test_us_dst_bounds_are_second_march_sunday_first_november_sunday() -> None:
+    assert us_dst_bounds(2025) == (date(2025, 3, 9), date(2025, 11, 2))
+    assert us_dst_bounds(2024) == (date(2024, 3, 10), date(2024, 11, 3))
+    assert us_dst_bounds(2018) == (date(2018, 3, 11), date(2018, 11, 4))
+
+
+def test_us_dst_start_changes_sunday_reopen_immediately() -> None:
+    assert not is_summer_schedule(date(2025, 3, 8))
+    assert is_summer_schedule(date(2025, 3, 9))
+
+    # USATECH switches before Europe: Sunday 22h must already be open.
+    assert classify_slot(date(2025, 3, 9), 22).status == EXPECTED_OPEN
+
+
+def test_us_schedule_stays_summer_after_europe_autumn_switch() -> None:
+    # Europe had already returned to winter time on 26 Oct 2025, but the U.S.
+    # remained on DST until 2 Nov; USATECH must therefore still use SUMMER.
+    day = date(2025, 10, 27)
+    assert is_summer_schedule(day)
+    assert classify_slot(day, 20).status == EXPECTED_OPEN
+    assert classify_slot(day, 21).status == EXPECTED_CLOSED
+    assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
+def test_us_dst_end_changes_sunday_reopen_to_23_utc() -> None:
+    day = date(2025, 11, 2)
+    assert not is_summer_schedule(day)
+    assert classify_slot(day, 22).status == EXPECTED_CLOSED
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
 
 
 def test_jan_9_2025_special_equity_session_closes_only_full_hour_buckets() -> None:
