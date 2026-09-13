@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import time
+from datetime import date, datetime, timezone
 from urllib.parse import parse_qs, urlparse
 
 try:
@@ -11,7 +12,7 @@ except ModuleNotFoundError:  # Direct execution: python tools/<script>.py
 
 
 CDP_ORIGIN = "http://localhost"
-SCHEMA = "DUKASCOPY_TRADING_BREAKS_OFFICIAL_PAGE_CDP_V2_2"
+SCHEMA = "DUKASCOPY_TRADING_BREAKS_OFFICIAL_PAGE_CDP_V2_3"
 PROBE_FRAME_ID = "dukascopy-calendar-probe-frame"
 OFFICIAL_WIDGET_URL = (
     "https://freeserv.dukascopy.com/2.0/?path=trading_breaks/index"
@@ -23,6 +24,11 @@ OFFICIAL_WIDGET_URL = (
 # Capture V1 callables before monkey-patching. This keeps the wrapper acyclic.
 _original_browser_command = base.browser_command
 _original_connect = base.WebSocketClient.connect
+_original_matching_rows = base.matching_rows
+
+# Set when the probe rewrites its dedicated iframe. Evidence filters below fail
+# closed until this value exists.
+_requested_day: date | None = None
 
 
 def browser_command(browser: str, profile, port: int) -> list[str]:
@@ -90,19 +96,40 @@ def wait_for_widget_iframe(cdp, timeout: float) -> str:
 
 
 def rewrite_widget_expression(epoch_ms: int) -> str:
-    """Rewrite only the probe-owned iframe to the requested historical date."""
+    """Rewrite only currentDate/date while preserving the literal path value.
+
+    URLSearchParams serializes the slash in `trading_breaks/index` as `%2F`.
+    The observed historical probe then rendered only a tiny empty shell. This
+    rewrite deliberately leaves the existing `path=trading_breaks/index` text
+    untouched and changes only currentDate/date.
+    """
+    global _requested_day
+    _requested_day = datetime.fromtimestamp(epoch_ms / 1000, tz=timezone.utc).date()
+
     frame_id = json.dumps(PROBE_FRAME_ID)
     return f"""
 (() => {{
   const frame = document.getElementById({frame_id});
   if (!frame) return null;
-  const url = new URL(frame.src);
-  if (url.protocol !== 'https:' || url.hostname !== 'freeserv.dukascopy.com') return null;
-  url.searchParams.set('path', 'trading_breaks/index');
-  url.searchParams.set('currentDate', 'false');
-  url.searchParams.set('date', '{epoch_ms}');
-  frame.src = url.toString();
-  return frame.src;
+
+  let src = frame.getAttribute('src') || frame.src || '';
+  if (!src.startsWith('https://freeserv.dukascopy.com/2.0/')) return null;
+  if (!src.includes('path=trading_breaks/index')) return null;
+
+  const setParam = (input, key, value) => {{
+    const re = new RegExp('([?&])' + key + '=[^&]*');
+    if (re.test(input)) return input.replace(re, '$1' + key + '=' + value);
+    return input + (input.includes('?') ? '&' : '?') + key + '=' + value;
+  }};
+
+  src = setParam(src, 'currentDate', 'false');
+  src = setParam(src, 'date', '{epoch_ms}');
+
+  // Fail closed if the route contract was altered by serialization.
+  if (!src.includes('path=trading_breaks/index')) return null;
+
+  frame.setAttribute('src', src);
+  return frame.getAttribute('src');
 }})()
 """.strip()
 
@@ -160,12 +187,64 @@ def wait_for_frame(cdp, epoch_ms: int, timeout: float) -> dict:
     )
 
 
+def parse_break_datetime(value: str) -> datetime | None:
+    """Parse Dukascopy widget timestamps such as `09-Jan-25 14:29:59`."""
+    try:
+        return datetime.strptime(value.strip(), "%d-%b-%y %H:%M:%S")
+    except (TypeError, ValueError):
+        return None
+
+
+def row_overlaps_day(row: list[str], day: date) -> bool:
+    """Return whether a Trading Break row interval covers the requested day."""
+    if len(row) < 3:
+        return False
+    start = parse_break_datetime(row[1])
+    end = parse_break_datetime(row[2])
+    if start is None or end is None or end < start:
+        return False
+    return start.date() <= day <= end.date()
+
+
+def filter_usatech_rows_for_day(rows: list[list[str]], day: date) -> list[list[str]]:
+    """Keep only USATECH rows whose actual break interval covers `day`."""
+    return [row for row in _original_matching_rows(rows) if row_overlaps_day(row, day)]
+
+
+def matching_rows_for_requested_day(rows: list[list[str]]) -> list[list[str]]:
+    if _requested_day is None:
+        return []
+    return filter_usatech_rows_for_day(rows, _requested_day)
+
+
+def text_contexts_for_requested_day(text: str, radius: int = 300) -> list[str]:
+    """Return only text lines that mention USATECH and the requested date.
+
+    Text contexts remain diagnostic. They are deliberately stricter than the V1
+    token search so an unrelated USATECH holiday in the same month cannot create
+    evidence for the requested day.
+    """
+    if _requested_day is None:
+        return []
+    marker = _requested_day.strftime("%d-%b-%y").upper()
+    contexts: list[str] = []
+    for line in text.splitlines():
+        upper = line.upper()
+        if "USATECH" in upper and marker in upper:
+            cleaned = " ".join(line.split())
+            if cleaned and cleaned not in contexts:
+                contexts.append(cleaned)
+    return contexts[:20]
+
+
 base.SCHEMA = SCHEMA
 base.browser_command = browser_command
 base.WebSocketClient.connect = _connect
 base.wait_for_widget_iframe = wait_for_widget_iframe
 base.rewrite_widget_expression = rewrite_widget_expression
 base.wait_for_frame = wait_for_frame
+base.matching_rows = matching_rows_for_requested_day
+base.text_contexts = text_contexts_for_requested_day
 
 
 if __name__ == "__main__":
