@@ -75,6 +75,38 @@ def test_us_dst_end_changes_sunday_reopen_to_23_utc() -> None:
     assert classify_slot(day, 23).status == EXPECTED_OPEN
 
 
+def test_2018_memorial_day_exact_whole_hour_closure() -> None:
+    day = date(2018, 5, 28)
+    assert classify_slot(day, 16).status == EXPECTED_OPEN
+    for hour in range(17, 22):
+        assert classify_slot(day, hour).status == EXPECTED_CLOSED
+    assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
+def test_2018_independence_eve_preserves_partial_17h_bucket() -> None:
+    day = date(2018, 7, 3)
+    assert classify_slot(day, 17).status == EXPECTED_OPEN
+    for hour in range(18, 22):
+        assert classify_slot(day, hour).status == EXPECTED_CLOSED
+    assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
+def test_2018_independence_day_closes_17_to_22() -> None:
+    day = date(2018, 7, 4)
+    assert classify_slot(day, 16).status == EXPECTED_OPEN
+    for hour in range(17, 22):
+        assert classify_slot(day, hour).status == EXPECTED_CLOSED
+    assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
+def test_2020_presidents_day_closes_18_to_23() -> None:
+    day = date(2020, 2, 17)
+    assert classify_slot(day, 17).status == EXPECTED_OPEN
+    for hour in range(18, 23):
+        assert classify_slot(day, hour).status == EXPECTED_CLOSED
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
 def test_jan_9_2025_special_equity_session_closes_only_full_hour_buckets() -> None:
     day = date(2025, 1, 9)
 
