@@ -1,14 +1,18 @@
-# RECOVERY CHECKPOINT — 13 SEPTEMBRE 2026 — MULTI-YEAR DUKASCOPY CALENDAR COVERAGE
+# RECOVERY CHECKPOINT — 13 SEPTEMBRE 2026 — ANNUAL DUKASCOPY CALENDAR QUALIFICATION
 
 ## 1. CURRENT STATE
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - **Active branch:** `feat/multi-year-dukascopy-acquisition`
-- **Prior checkpoint:** `c14c84a3e85ebee9ac3de31a3a8bda29676618c2`
+- **Prior checkpoint:** `501fed85bc8e41d3bf499c7270821e5c63778b2c`
 - **Latest durable backup:** `99-BACKUP/SESSION-2026-09-13-2020-CALENDAR.md`
-  - latest update commit `23ffaf0c3f2ee6ccf1011105a116c0552e5a6c6a`
-- **2020-05-25 report:** `reports/data-qualification/dukascopy_usatech_2020_05_25_gap_application.md`
-  - commit `807f24d11dc4c9702523791c1d719124b30aabc9`
+  - latest update commit `34a578afbde70ffbdd51bbf9aa6a012437171c1f`
+- **Annual protocol:** `04-REFERENCE/ANNUAL-CALENDAR-QUALIFICATION-PROTOCOL.md`
+  - commit `4dec1dcd83259f219c2f6e1aadb0a2216a7315af`
+- **2020 annual qualification:** `reports/data-qualification/dukascopy_usatech_2020_calendar_qualification.md`
+  - commit `04a51fb509d73ed3ed3748fff539d78e9e54cc95`
+- **2020 annual audit:** `reports/data-qualification/dukascopy_usatech_2020_calendar_audit.md`
+  - commit `a5495e234d45263d98c9b15c6d004bf24b62537d`
 - **Coverage envelope:** `2018-05-01` → `2026-08-14`
 - **Execution/backtest window frozen:** no
 - **Massive native `.bi5` acquisition:** forbidden
@@ -22,28 +26,38 @@
 2. this checkpoint
 3. `99-BACKUP/README.md`
 4. `99-BACKUP/SESSION-2026-09-13-2020-CALENDAR.md`
-5. `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
-6. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
-7. `reports/data-qualification/dukascopy_usatech_2019_07_03_gap_application.md`
-8. `reports/data-qualification/dukascopy_usatech_2020_01_01_gap_application.md`
-9. `reports/data-qualification/dukascopy_usatech_2020_01_20_gap_application.md`
-10. `reports/data-qualification/dukascopy_usatech_2020_04_10_gap_application.md`
-11. `reports/data-qualification/dukascopy_usatech_2020_05_25_gap_application.md`
-12. `tools/dukascopy_usatech_calendar.py`
-13. `tools/dukascopy_usatech_calendar_coverage.py`
-14. calendar/governance tests and actual GitHub state
+5. `04-REFERENCE/ANNUAL-CALENDAR-QUALIFICATION-PROTOCOL.md`
+6. `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
+7. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
+8. `reports/data-qualification/dukascopy_usatech_2020_calendar_qualification.md`
+9. `reports/data-qualification/dukascopy_usatech_2020_calendar_audit.md`
+10. prior date-specific 2020 reports when forensic detail is needed
+11. `tools/dukascopy_usatech_calendar.py`
+12. `tools/dukascopy_usatech_calendar_coverage.py`
+13. calendar/governance tests and actual GitHub state
 
-## 3. LOCKED UPSTREAM STATE — DO NOT REOPEN
+## 3. NEW LOCKED OPERATING METHOD
 
-- B02–B09 historical qualification remains locked.
-- B09 final remains historical PASS.
-- 3.1.1 Momentum V1 definition remains PASS.
-- 3.1.2 baseline protocol remains PASS.
-- 3.1.2 actual execution remains BLOCKED until a verified >=5-year native-tick corpus and realistic execution environment exist.
-- No partial/synthetic/fabricated backtest is authorized.
-- No OHLC M1, interpolation, synthetic ticks, or substituted ticks are authorized.
+Contract:
 
-## 4. GOVERNANCE RULES — QUALIFIED
+`ANNUAL_CALENDAR_QUALIFICATION_PROTOCOL_V1`
+
+From this checkpoint forward:
+
+- **research batch = one full calendar year**;
+- **evidence verdict = one candidate date**;
+- **audit = one calendar year**.
+
+Annual batching is only an efficiency improvement. It MUST NOT weaken the date-specific evidence threshold.
+
+Every candidate date remains independent. No adjacent holiday date, same-year pattern, or other-year schedule may supply another date's broker verdict.
+
+The annual audit is distinct from annual calendar coverage:
+
+- annual audit PASS = complete accounting + evidence discipline;
+- annual calendar coverage PASS = every candidate resolved with admissible evidence and no FAIL.
+
+## 4. GOVERNANCE RULES — LOCKED
 
 ### `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1`
 
@@ -63,119 +77,121 @@ Rule verdict: **PASS**.
 
 Current permission matrix:
 
-- continue later chronological qualification: **PASS**;
+- continue later annual qualification: **PASS**;
 - declare global coverage PASS: **BLOCKED**;
 - freeze execution window: **BLOCKED**;
 - authorize massive acquisition: **BLOCKED**.
 
-Later qualification may continue while earlier BLOCKED dates remain explicitly preserved.
+## 5. 2020 ANNUAL RESULT
 
-## 5. CALENDAR STATE
+Complete 2020 candidate set: **13**.
 
-The authoritative calendar remains unchanged and still contains **24** date-specific special-session evidence records.
+Final date-level verdicts:
 
-There is no current special-session record for:
+- PASS: **1**
+- FAIL: **0**
+- BLOCKED: **12**
 
-- `2020-01-01`;
-- `2020-01-20`;
-- `2020-04-10`;
-- `2020-05-25`.
+The sole PASS remains:
 
-No calendar or test code changed during the `2020-05-25` qualification. Calendar tests/coverage were therefore not rerun merely to create a newer timestamp.
+- `2020-02-17 — PRESIDENTS_DAY` → existing locked `SPECIAL_PRESIDENTS_DAY_2020` exact Dukascopy evidence.
 
-Latest observed executable calendar state remains **34 tests PASS**.
+BLOCKED dates:
 
-Latest observed global coverage remains:
+- `2020-01-01`
+- `2020-01-20`
+- `2020-04-10`
+- `2020-05-25`
+- `2020-07-02`
+- `2020-07-03`
+- `2020-09-07`
+- `2020-11-26`
+- `2020-11-27`
+- `2020-12-24`
+- `2020-12-25`
+- `2020-12-31`
 
-- `candidate_dates`: **111**
-- `resolved_candidate_dates`: **24**
-- `special_session_evidence_dates`: **24**
-- `no_special_change_evidence_dates`: **0**
-- `unresolved_candidate_dates`: **87**
-- `contradictory_evidence_dates`: `[]`
-- `evidence_shape_errors`: `[]`
-- `orphan_special_evidence`: `[]`
-- `verdict`: **BLOCKED**
-- `reason`: `SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE`
+2020 annual calendar coverage verdict:
 
-## 6. LOCKED HISTORICAL GAPS
+**BLOCKED — `2020_HAS_UNRESOLVED_BROKER_SESSION_EVIDENCE_GAPS`**
 
-### `2019-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+## 6. 2020 ANNUAL AUDIT
 
-**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+Audit verdict:
 
-No materially new qualifying evidence appeared. Do not reopen generic searches without a genuinely new witness.
+**PASS**
 
-### `2020-01-01 — NEW_YEARS_OBSERVED`
+Reason:
 
-**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+`ALL_2020_CANDIDATES_ACCOUNTED_FOR_WITH_DATE_LEVEL_VERDICTS_AND_NO_FALSE_PASS_BYPASS`
 
-The prior false-PASS candidate was broken and fully revoked.
+The audit verified:
 
-### `2020-01-20 — MARTIN_LUTHER_KING_DAY`
+- 13/13 candidate completeness;
+- one explicit PASS/FAIL/BLOCKED verdict per date;
+- preservation of earlier locked verdicts;
+- no cross-date inference;
+- no cross-year substitution;
+- no exchange-only promotion to broker truth;
+- no generic holiday notice promoted to exact USATECH hours;
+- no executable calendar record without a date-level PASS;
+- annual audit PASS not misrepresented as calendar coverage PASS.
 
-**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+## 7. 2020 RESEARCH FINDINGS
 
-Exact same-date CME evidence exists, but no B0/B1/B2/B3 Dukascopy link was recovered.
+The annual batch recovered strong exact exchange/reference material for the remaining dates, including CME/Globex Independence Day, Labor Day, Thanksgiving, Christmas and New-Year schedules.
 
-### `2020-04-10 — GOOD_FRIDAY`
+Dukascopy 2020 material recovered included:
 
-**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+- `Change to Daylight Saving Time 2020` explicitly naming `USATECH.IDX/USD` for regular summer-schedule context;
+- `Market closures on Christmas and New Year 2020`, confirming generic CFD holiday closures but delegating exact hours to the Trading Breaks Calendar;
+- `Weekend leverage at Christmas and New Year`, establishing leverage changes on Dec 24/31 but not exact USATECH session hours.
 
-Exact same-date CME/Globex evidence exists, but no qualifying 2020 Dukascopy USATECH link was recovered.
+No new exact/archived 2020 Dukascopy witness explicitly naming `USATECH.IDX/USD` with target holiday hours was recovered for the eight previously unprocessed candidates.
 
-### `2020-05-25 — MEMORIAL_DAY`
+## 8. EXECUTABLE CALENDAR STATE
 
-**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+No new 2020 date earned PASS during the annual batch.
 
-Recovered same-date exchange/reference evidence:
+Therefore:
 
-- official CME Memorial Day advisory:
-  `https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-memorial-day-advisory.pdf`
-- preserved CME Globex Control Center summary:
-  `https://www.ampfutures.com/news/holiday-trading-schedule-memorial-day-2020`
-  - Monday `2020-05-25`: early market HALT at noon Chicago, then normal reopening.
+- `tools/dukascopy_usatech_calendar.py` remains unchanged;
+- calendar tests remain unchanged;
+- latest observed executable calendar state remains **34 tests PASS**;
+- current calendar still contains **24** special-session evidence records globally;
+- global coverage remains **111 candidates / 24 resolved / 87 unresolved / BLOCKED**;
+- no test rerun was performed merely to create a newer timestamp.
 
-Targeted Dukascopy retrieval did **not** recover a qualifying 2020 USATECH witness.
+## 9. HISTORICAL GAPS PRESERVED
 
-Missing PASS-bearing broker evidence:
+`2019-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION` remains explicitly BLOCKED.
 
-- B0 exact primary Dukascopy USATECH witness: absent;
-- B1 exact archived broker witness with verified provenance: absent;
-- B2 exact-date broker event explicitly naming `USATECH.IDX/USD`: absent;
-- B3 official Dukascopy special-session mapping contract to CME: absent.
+All 2020 BLOCKED dates remain visible and must remain part of global-envelope truth.
 
-Dukascopy Memorial-Day schedules/notices from 2017, 2018, 2021, 2022, 2024, 2025 and 2026 are corroborative only and cannot substitute for 2020.
+No gap was hidden, deleted, or reclassified merely to enable annual progression.
 
-Observed gate decision under the strongest favorable exchange assumption:
+## 10. LOCKED UPSTREAM STATE — DO NOT REOPEN
 
-```text
-GapDecision(
-    verdict='BLOCKED',
-    reason='IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP',
-    route=None,
-    contract='IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1'
-)
-```
+- B02–B09 historical qualification remains locked.
+- B09 final remains historical PASS.
+- 3.1.1 Momentum V1 definition remains PASS.
+- 3.1.2 baseline protocol remains PASS.
+- 3.1.2 actual execution remains BLOCKED until a verified >=5-year native-tick corpus and realistic execution environment exist.
+- No partial/synthetic/fabricated backtest is authorized.
+- No OHLC M1, interpolation, synthetic ticks, or substituted ticks are authorized.
 
-This is absence of proof, not a claim that Dukascopy was open or closed at a particular hour.
-
-## 7. ALREADY-QUALIFIED 2020 DATE — DO NOT REOPEN
-
-`2020-02-17 — PRESIDENTS_DAY` remains versioned as `SPECIAL_PRESIDENTS_DAY_2020` with exact Dukascopy evidence and stays locked.
-
-## 8. AUXILIARY BRANCH INCIDENT
+## 11. AUXILIARY BRANCH INCIDENT
 
 The accidental branch `__noop_should_not_exist__` remains a tooling cleanup debt. It is not an authorized work branch and MUST NOT be used. Delete it only when a supported branch-deletion route is available.
 
-## 9. ACQUISITION / WINDOW STATE
+## 12. ACQUISITION / WINDOW STATE
 
 - Global coverage remains BLOCKED.
 - Execution window remains undefined and unfrozen.
 - No window may be selected merely to evade historical gaps.
 - Massive native `.bi5` acquisition remains forbidden.
-- No `.bi5` was downloaded during this continuation.
+- No `.bi5` was downloaded during the 2020 annual batch.
 
-## 10. EXACTLY ONE NEXT GOVERNED ACTION
+## 13. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Continue chronological 2020 qualification with `2020-07-02` — `INDEPENDENCE_PRE_HOLIDAY_SESSION` — under the same date-specific broker evidence threshold. Preserve all earlier BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Qualify `2020-07-02` independently from `2020-07-03`, do not freeze an execution window, and do not download `.bi5`.**
+**Begin the 2021 annual calendar qualification batch: enumerate and freeze the complete 2021 candidate set from `candidate_special_dates()`, preserve every 2020 verdict as locked historical state, research all 2021 candidates together, assign independent date-level PASS/FAIL/BLOCKED verdicts, then perform the 2021 annual audit. Do not freeze an execution window and do not download `.bi5`.**
