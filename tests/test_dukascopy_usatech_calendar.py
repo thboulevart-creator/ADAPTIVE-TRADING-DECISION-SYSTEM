@@ -180,6 +180,68 @@ def test_2018_new_years_eve_suppresses_23_utc_reopen_only() -> None:
     assert classification_23.reason == "SPECIAL_NEW_YEARS_EVE_2018"
 
 
+def test_2019_new_years_day_closed_until_23_utc_reopen() -> None:
+    day = date(2019, 1, 1)
+    for hour in range(0, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_NEW_YEARS_DAY_2019"
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2019_mlk_day_closes_18_to_23() -> None:
+    day = date(2019, 1, 21)
+    assert classify_slot(day, 17).status == EXPECTED_OPEN
+    for hour in range(18, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_MLK_DAY_2019"
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2019_presidents_day_closes_18_to_23() -> None:
+    day = date(2019, 2, 18)
+    assert classify_slot(day, 17).status == EXPECTED_OPEN
+    for hour in range(18, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_PRESIDENTS_DAY_2019"
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2019_memorial_day_closes_17_to_22() -> None:
+    day = date(2019, 5, 27)
+    assert classify_slot(day, 16).status == EXPECTED_OPEN
+    for hour in range(17, 22):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_MEMORIAL_DAY_2019"
+    assert classify_slot(day, 22).status == EXPECTED_OPEN
+
+
+def test_2019_thanksgiving_day_closes_18_to_23() -> None:
+    day = date(2019, 11, 28)
+    assert classify_slot(day, 17).status == EXPECTED_OPEN
+    for hour in range(18, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_THANKSGIVING_DAY_2019"
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
+def test_2019_thanksgiving_friday_preserves_partial_18h_bucket() -> None:
+    day = date(2019, 11, 29)
+    assert classify_slot(day, 18).status == EXPECTED_OPEN
+    for hour in range(19, 22):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_THANKSGIVING_FRIDAY_2019"
+    for hour in (22, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "WEEKLY_POST_CLOSE"
+
+
 def test_2020_presidents_day_closes_18_to_23() -> None:
     day = date(2020, 2, 17)
     assert classify_slot(day, 17).status == EXPECTED_OPEN
