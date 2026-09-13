@@ -244,6 +244,21 @@ SPECIAL_SESSION_EVIDENCE = {
             "holiday-trading-schedule-us-presidents-day-2019"
         ),
     },
+    date(2019, 4, 19): {
+        "reason": "SPECIAL_GOOD_FRIDAY_2019",
+        # Dukascopy announced Easter-weekend CFD closures for this exact
+        # period. The preserved CME Globex schedule states that all Globex
+        # markets were closed for the entire Good Friday session.
+        "fully_closed_hours_utc": frozenset(range(0, 24)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/deutsch/about/ournews/"
+            "easter-weekend-market-closures-dbl201441/"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "good-friday-2019-holiday-schedule-cme-globex-ice-exchange/"
+        ),
+    },
     date(2019, 5, 27): {
         "reason": "SPECIAL_MEMORIAL_DAY_2019",
         # Dukascopy identifies Memorial Day market closures on this exact date.
@@ -258,6 +273,41 @@ SPECIAL_SESSION_EVIDENCE = {
         "cme_schedule_mirror_source": (
             "https://www.ampfutures.com/news/"
             "holiday-trading-schedule-us-memorial-day-2019"
+        ),
+    },
+    date(2019, 7, 4): {
+        "reason": "SPECIAL_INDEPENDENCE_DAY_2019",
+        # Dukascopy announced special CFD trading breaks for 4 July 2019.
+        # The preserved 2019 CME-derived ES/NQ/YM schedule shows a 12:00 CT
+        # halt. Chicago is on CDT, so the full closure is 17:00-22:00 UTC.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/english/about/ournews/"
+            "market-closures-on-independence-day/"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.paragonglobalmarkets.com/wp-content/uploads/2019/06/"
+            "PGM_Independence-Day-Holiday-Schedule_2019.pdf"
+        ),
+        "cme_clearing_source": (
+            "https://www.cmegroup.com/tools-information/holiday-calendar/files/"
+            "2019-4th-of-july-advisory.pdf"
+        ),
+    },
+    date(2019, 9, 2): {
+        "reason": "SPECIAL_LABOR_DAY_2019",
+        # Dukascopy states that several markets are subject to early or total
+        # closure on Monday 2 September 2019. The preserved CME Globex Equity
+        # schedule halts at 12:00 CT and resumes at 17:00 CT; in CDT that is
+        # a fully closed 17:00-22:00 UTC window.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/europe/pl/about/ournews/"
+            "market-closures-on-us-labour-day/"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "labor-day-2019-holiday-schedule-cme-globex-ice-exchange/"
         ),
     },
     date(2019, 11, 28): {
@@ -288,6 +338,54 @@ SPECIAL_SESSION_EVIDENCE = {
         "cme_schedule_mirror_source": (
             "https://www.ampfutures.com/news/"
             "holiday-trading-schedule-thanksgiving-2019"
+        ),
+    },
+    date(2019, 12, 24): {
+        "reason": "SPECIAL_CHRISTMAS_EVE_2019",
+        # Dukascopy announced detailed CFD closures for the 2019 Christmas/
+        # New-Year period. The preserved CME Globex schedule gives an Equity
+        # early close at 12:15 CT = 18:15 UTC. Hour 18 remains tradable in
+        # part; fully closed whole-hour buckets are 19-23 UTC.
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/arabic/about/ournews/"
+            "market-closures-on-christmas-and-new-year-dbl201708"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "christmas-2019-holiday-schedule-cme-globex-ice-exchange/"
+        ),
+    },
+    date(2019, 12, 25): {
+        "reason": "SPECIAL_CHRISTMAS_DAY_2019",
+        # The same exact 2019 CME Globex schedule shows Equity Products closed
+        # for Christmas Day and reopening at 17:00 CT = 23:00 UTC. Therefore
+        # 00-22 UTC are fully closed and the 23:00 UTC bucket is tradable.
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/arabic/about/ournews/"
+            "market-closures-on-christmas-and-new-year-dbl201708"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "christmas-2019-holiday-schedule-cme-globex-ice-exchange/"
+        ),
+    },
+    date(2019, 12, 31): {
+        "reason": "SPECIAL_NEW_YEARS_EVE_2019",
+        # The exact 2019/2020 CME Globex schedule shows a normal 16:00 CT =
+        # 22:00 UTC Dec 31 close followed by a Jan 1 closure. Dukascopy's
+        # winter schedule would normally reopen at 23:00 UTC; that reopening
+        # is suppressed. Hour 21 remains partially tradable, 22 is the regular
+        # break, and only 23 is an additional whole-hour special closure.
+        "fully_closed_hours_utc": frozenset({23}),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/arabic/about/ournews/"
+            "market-closures-on-christmas-and-new-year-dbl201708"
+        ),
+        "cme_schedule_mirror_source": (
+            "https://www.cannontrading.com/tools/support-resistance-levels/"
+            "new-years-2020-holiday-schedule-cme-globex-ice-exchange/"
         ),
     },
     date(2020, 2, 17): {
