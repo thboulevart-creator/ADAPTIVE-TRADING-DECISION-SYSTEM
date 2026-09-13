@@ -61,6 +61,21 @@ SPECIAL_SESSION_EVIDENCE = {
             "us-independence-day-on-wednesday-4th-july"
         ),
     },
+    date(2018, 9, 3): {
+        "reason": "SPECIAL_LABOR_DAY_2018",
+        # Dukascopy: USATECH stops at 17:00 GMT. CME equity-index trading
+        # resumes at 17:00 CT = 22:00 UTC during U.S. DST, so the fully closed
+        # hourly BI5 buckets are 17-21 UTC.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "us-labor-day-holiday-dbl201120/"
+        ),
+        "cme_source": (
+            "https://www.cmegroup.com/tools-information/holiday-calendar/files/"
+            "2018-labor-day-advisory.pdf"
+        ),
+    },
     date(2020, 2, 17): {
         "reason": "SPECIAL_PRESIDENTS_DAY_2020",
         # Dukascopy: USATECH closes 18:00 GMT and reopens 23:00 GMT.
