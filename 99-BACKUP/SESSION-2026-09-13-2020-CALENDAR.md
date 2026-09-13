@@ -5,7 +5,7 @@
 - Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - Active branch: `feat/multi-year-dukascopy-acquisition`
 - Starting checkpoint for 2020 continuation: `9ed768cdfb07bb099eb966244764d5aab1fac567`
-- Checkpoint before Good Friday qualification: `95f5954d581aba459d26f7e0721dce87d5586f66`
+- Checkpoint before Memorial-Day qualification: `c14c84a3e85ebee9ac3de31a3a8bda29676618c2`
 - Global coverage envelope: `2018-05-01` through `2026-08-14`
 - Execution/backtest window: NOT frozen
 - Massive native `.bi5` acquisition: FORBIDDEN
@@ -58,57 +58,73 @@ Durable report:
 
 `reports/data-qualification/dukascopy_usatech_2020_04_10_gap_application.md`
 
+Exact same-date CME/Globex evidence exists, but no qualifying 2020 Dukascopy USATECH link was recovered.
+
+### `2020-05-25 — MEMORIAL_DAY`
+
+**BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
+
+Durable report:
+
+`reports/data-qualification/dukascopy_usatech_2020_05_25_gap_application.md`
+
 Report commit:
 
-`77a6b38d9a4ac2c83022ce33b30d457a3ca411d9`
+`807f24d11dc4c9702523791c1d719124b30aabc9`
 
-## `2020-04-10` evidence recovered
+## `2020-05-25` evidence recovered
 
-Official CME Group Good Friday advisory:
+Official CME Group Memorial Day 2020 advisory:
 
-`https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-good-friday-advisory.pdf`
+`https://www.cmegroup.com/tools-information/holiday-calendar/files/2020-memorial-day-advisory.pdf`
 
-The memorandum explicitly identifies `Good Friday, April 10th, 2020` and the associated CME holiday-processing/trading-calendar reference.
-
-Official CME settlement notice:
-
-`https://www.cmegroup.com/tools-information/holiday-calendar/files/good-friday-holiday-settlement-times-2020.pdf`
-
-It states there are no CME Group settlements on Friday `2020-04-10` due to Good Friday.
+The CME memorandum explicitly identifies `Memorial Day May 25, 2020` and the related holiday-processing/trading-calendar context.
 
 Preserved CME Globex Control Center summary:
 
-`https://www.ampfutures.com/news/holiday-trading-schedule-good-friday-2020`
+`https://www.ampfutures.com/news/holiday-trading-schedule-memorial-day-2020`
 
-The preserved schedule image shows Good Friday `2020-04-10` fully closed across the listed product categories, including equity products.
+It records:
 
-The exact same-date exchange/reference side is therefore accepted for the strongest favorable gate application.
+- Monday `2020-05-25`;
+- early market HALT at noon Chicago;
+- normal reopening thereafter.
 
-## `2020-04-10` missing broker link
+The exact same-date exchange/reference side is accepted for the strongest favorable gate application.
+
+## `2020-05-25` missing broker link
 
 Targeted Dukascopy retrieval covered:
 
-- exact 10-Apr-2020 date variants;
-- `Good Friday` / `Easter weekend market closures 2020`;
-- exact `USATECH.IDX/USD` queries;
-- Swiss/Europe `about/ournews` and `full-news` routes;
-- multilingual Easter variants;
-- archive/index-style web searches.
+- exact May-25-2020 date variants;
+- Memorial Day / market-closure title variants;
+- exact `USATECH.IDX/USD` searches;
+- Swiss/Europe company-news routes;
+- multilingual variants;
+- publication dates immediately preceding the holiday;
+- external indexed/archive-style searches.
 
 No qualifying 2020 Dukascopy USATECH witness was recovered.
 
-Dukascopy Easter/USATECH material was recovered for other years, including 2017, 2019, 2021, 2025 and 2026. These are corroborative-only and cannot substitute for 2020.
+Dukascopy material recovered for other Memorial-Day years includes:
 
-Dukascopy's March 2020 daylight-saving announcement explicitly lists `USATECH.IDX/USD`, proving instrument/schedule context for 2020, but it is not a Good-Friday special-session witness and is not B0/B1/B2/B3 for the target fact.
+- 2017 exact USATECH schedule;
+- 2018 exact USATECH schedule;
+- 2021/2022 Memorial-Day notices;
+- 2024/2025/2026 later Memorial-Day notices.
+
+These remain corroborative only and cannot substitute for 2020.
+
+A currently indexed Dukascopy page titled `MARKET CLOSURES on Monday 25 May` is dated 2026 and therefore cannot be relabelled as a 2020 witness.
 
 Missing PASS-bearing evidence:
 
 - B0 exact primary broker witness: absent;
 - B1 exact archived broker witness with verified provenance: absent;
-- B2 exact-date broker event explicitly naming target instrument: absent;
+- B2 exact-date broker event explicitly naming `USATECH.IDX/USD`: absent;
 - B3 official broker special-session mapping contract to CME: absent.
 
-## `2020-04-10` gate application
+## `2020-05-25` gate application
 
 Under the strongest favorable exchange assumption:
 
@@ -123,7 +139,7 @@ GapDecision(
 
 This is an absence-of-proof verdict, not a claim about the actual Dukascopy close/reopen time.
 
-No `2020-04-10` calendar record was created and no test expectation changed.
+No `2020-05-25` calendar record was created and no test expectation changed.
 
 ## Already-qualified 2020 date — do not reopen
 
@@ -131,9 +147,9 @@ No `2020-04-10` calendar record was created and no test expectation changed.
 
 ## Current executable state
 
-No executable calendar/test code changed during the Good Friday qualification.
+No executable calendar/test code changed during the Memorial-Day qualification.
 
-Therefore the calendar suite and coverage were not rerun merely to create a newer timestamp.
+Therefore the calendar suite and coverage were not rerun merely to generate a newer timestamp.
 
 Latest locked executable state remains:
 
@@ -166,7 +182,8 @@ The accidental auxiliary branch `__noop_should_not_exist__` remains a recorded t
 - `2020-01-01`: BLOCKED, unchanged.
 - `2020-01-20`: BLOCKED, unchanged.
 - `2020-02-17`: previously qualified, locked.
-- `2020-04-10`: BLOCKED, irreducible broker-evidence gap.
+- `2020-04-10`: BLOCKED, unchanged.
+- `2020-05-25`: BLOCKED, irreducible broker-evidence gap.
 - global coverage: BLOCKED.
 - execution window: not frozen.
 - massive `.bi5`: forbidden.
@@ -174,4 +191,4 @@ The accidental auxiliary branch `__noop_should_not_exist__` remains a recorded t
 
 ## Exactly one next governed action
 
-**Continue chronological 2020 qualification with `2020-05-25` — Memorial Day — under the same date-specific broker evidence threshold. Preserve `2019-07-03`, `2020-01-01`, `2020-01-20`, and `2020-04-10` as explicit BLOCKED global-envelope records; keep `2020-02-17` locked as already qualified. Do not freeze an execution window and do not download `.bi5`.**
+**Continue chronological 2020 qualification with `2020-07-02` — `INDEPENDENCE_PRE_HOLIDAY_SESSION` — under the same date-specific broker evidence threshold. Preserve all earlier BLOCKED dates explicitly, keep `2020-02-17` locked as already qualified, do not merge `2020-07-02` with `2020-07-03`, do not freeze an execution window, and do not download `.bi5`.**
