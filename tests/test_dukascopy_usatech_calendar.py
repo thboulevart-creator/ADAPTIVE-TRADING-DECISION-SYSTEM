@@ -109,6 +109,21 @@ def test_2018_labor_day_closes_17_to_22() -> None:
     assert classify_slot(day, 22).status == EXPECTED_OPEN
 
 
+def test_2018_ghwb_mourning_closes_only_full_hour_buckets() -> None:
+    day = date(2018, 12, 5)
+
+    # CME equity-index session closes at 14:30 UTC, so 14h remains partially open.
+    assert classify_slot(day, 14).status == EXPECTED_OPEN
+
+    for hour in range(15, 23):
+        classification = classify_slot(day, hour)
+        assert classification.status == EXPECTED_CLOSED
+        assert classification.reason == "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_GHWB_2018"
+
+    # Regular winter reopening is 23:00 UTC for the next trade date.
+    assert classify_slot(day, 23).status == EXPECTED_OPEN
+
+
 def test_2020_presidents_day_closes_18_to_23() -> None:
     day = date(2020, 2, 17)
     assert classify_slot(day, 17).status == EXPECTED_OPEN
