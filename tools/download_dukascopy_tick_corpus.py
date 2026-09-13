@@ -11,19 +11,26 @@ import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
+from dukascopy_usatech_calendar import (
+    CALENDAR_CONTRACT,
+    CALENDAR_SOURCE_URL,
+    EXPECTED_CLOSED,
+    EXPECTED_OPEN,
+    classify_slot,
+)
+
 
 INSTRUMENT = "USATECHIDXUSD"
 BASE_URL = "https://datafeed.dukascopy.com/datafeed"
 RECORD_SIZE = 20
 RECORD_STRUCT = ">IIIff"
 PRICE_SCALE = 1000.0
-USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.2"
+USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.3"
 
 RESOLVED_STATUSES = {"DOWNLOADED_VALID", "SKIPPED_EXISTING_VALID"}
 
 
 def url_for(day: date, hour: int) -> str:
-    # Dukascopy BI5 paths use zero-based months: January=00 ... December=11.
     month_zero_based = day.month - 1
     return (
         f"{BASE_URL}/{INSTRUMENT}/{day.year:04d}/{month_zero_based:02d}/"
@@ -32,7 +39,6 @@ def url_for(day: date, hour: int) -> str:
 
 
 def output_path(root: Path, day: date, hour: int) -> Path:
-    # Local paths remain normal calendar months (January=01).
     return root / f"{day:%Y/%m/%d}/{hour:02d}h_ticks.bi5"
 
 
@@ -112,8 +118,8 @@ def write_log(log, record: dict) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Resumable raw Dukascopy BI5 hourly tick corpus downloader with "
-            "targeted pass-based reconciliation."
+            "Resumable raw Dukascopy BI5 hourly downloader with pre-network "
+            "calendar classification and targeted pass-based reconciliation."
         )
     )
     parser.add_argument("--start-date", required=True, help="UTC date YYYY-MM-DD")
@@ -122,7 +128,7 @@ def parse_args() -> argparse.Namespace:
         "--hour",
         type=int,
         default=None,
-        help="Optional UTC hour 0-23; when omitted, process all 24 hours.",
+        help="Optional UTC hour 0-23; when omitted, inspect all 24 hours.",
     )
     parser.add_argument("--output", required=True, help="Corpus root")
     parser.add_argument("--manifest", required=True, help="JSONL manifest path")
@@ -131,21 +137,21 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=None,
         help=(
-            "Compatibility pilot limit: cap the initial target-slot list. "
-            "Reconciliation may revisit those same slots."
+            "Compatibility pilot limit: cap enumerated target slots before "
+            "calendar classification. Closed slots never consume requests."
         ),
     )
     parser.add_argument(
         "--timeout",
         type=int,
         default=60,
-        help="Timeout for the single network call allowed per slot per pass.",
+        help="Timeout for the single network call allowed per open slot per pass.",
     )
     parser.add_argument(
         "--sleep-seconds",
         type=float,
         default=0.25,
-        help="Polite delay between target slots inside a pass.",
+        help="Polite delay between expected-open slots inside a pass.",
     )
     parser.add_argument(
         "--reconciliation-passes",
@@ -169,7 +175,7 @@ def parse_args() -> argparse.Namespace:
         "--progress-every",
         type=int,
         default=1,
-        help="Print slot progress every N processed slots inside each pass.",
+        help="Print slot progress every N processed expected-open slots.",
     )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
@@ -178,7 +184,6 @@ def parse_args() -> argparse.Namespace:
 def validate_args(args: argparse.Namespace) -> tuple[date, date]:
     start = date.fromisoformat(args.start_date)
     end = date.fromisoformat(args.end_date)
-
     if end < start:
         raise SystemExit("end-date must be >= start-date")
     if args.hour is not None and not 0 <= args.hour <= 23:
@@ -197,8 +202,34 @@ def validate_args(args: argparse.Namespace) -> tuple[date, date]:
         raise SystemExit("progress-every must be >= 1")
     if args.max_requests is not None and args.max_requests < 1:
         raise SystemExit("max-requests must be >= 1 when provided")
-
     return start, end
+
+
+def classify_targets(
+    targets: list[tuple[date, int]],
+) -> tuple[list[tuple[date, int]], list[dict]]:
+    expected_open: list[tuple[date, int]] = []
+    expected_closed: list[dict] = []
+
+    for day, hour in targets:
+        classification = classify_slot(day, hour)
+        record = {
+            "date": day.isoformat(),
+            "hour": hour,
+            "classification": classification.status,
+            "classification_reason": classification.reason,
+            "schedule": classification.schedule,
+        }
+        if classification.status == EXPECTED_OPEN:
+            expected_open.append((day, hour))
+        elif classification.status == EXPECTED_CLOSED:
+            expected_closed.append(record)
+        else:
+            raise RuntimeError(
+                f"unsupported calendar classification: {classification.status}"
+            )
+
+    return expected_open, expected_closed
 
 
 def attempt_slot(
@@ -210,19 +241,23 @@ def attempt_slot(
     log,
     pass_number: int,
 ) -> tuple[dict, int]:
-    """Attempt one slot once for this pass.
-
-    There are deliberately no immediate retries here. A failed slot is returned to
-    the next reconciliation pass so transient failures are spread over time instead
-    of consuming several consecutive timeout windows on the same URL.
-    """
+    """Attempt one EXPECTED_OPEN slot exactly once for this pass."""
     url = url_for(day, hour)
     destination = output_path(root, day, hour)
+    classification = classify_slot(day, hour)
+    if classification.status != EXPECTED_OPEN:
+        raise RuntimeError(
+            "attempt_slot() received non-open slot; pre-network calendar gate bypassed"
+        )
+
     base_record = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "pass": pass_number,
         "date": day.isoformat(),
         "hour": hour,
+        "classification": classification.status,
+        "classification_reason": classification.reason,
+        "schedule": classification.schedule,
         "url": url,
         "path": str(destination),
     }
@@ -313,7 +348,7 @@ def attempt_slot(
     return record, network_calls
 
 
-def final_local_validation(
+def validate_expected_open_files(
     root: Path,
     targets: list[tuple[date, int]],
 ) -> tuple[list[dict], list[dict]]:
@@ -328,7 +363,7 @@ def final_local_validation(
                     "date": day.isoformat(),
                     "hour": hour,
                     "path": str(destination),
-                    "reason": "MISSING_AFTER_RECONCILIATION",
+                    "reason": "MISSING_EXPECTED_OPEN_AFTER_RECONCILIATION",
                 }
             )
             continue
@@ -341,7 +376,7 @@ def final_local_validation(
                     "date": day.isoformat(),
                     "hour": hour,
                     "path": str(destination),
-                    "reason": "INVALID_AFTER_RECONCILIATION",
+                    "reason": "INVALID_EXPECTED_OPEN_AFTER_RECONCILIATION",
                     "error": error,
                 }
             )
@@ -361,6 +396,26 @@ def final_local_validation(
     return valid_slots, unresolved_slots
 
 
+def inspect_expected_closed_files(root: Path, closed_slots: list[dict]) -> list[dict]:
+    conflicts: list[dict] = []
+    for slot in closed_slots:
+        day = date.fromisoformat(slot["date"])
+        hour = int(slot["hour"])
+        destination = output_path(root, day, hour)
+        if destination.exists():
+            data = destination.read_bytes()
+            conflicts.append(
+                {
+                    **slot,
+                    "path": str(destination),
+                    "reason": "UNEXPECTED_FILE_IN_EXPECTED_CLOSED_SLOT",
+                    "bytes": len(data),
+                    "sha256": sha256_bytes(data),
+                }
+            )
+    return conflicts
+
+
 def main() -> int:
     args = parse_args()
     start, end = validate_args(args)
@@ -372,19 +427,39 @@ def main() -> int:
     if args.max_requests is not None:
         targets = targets[: args.max_requests]
 
+    expected_open, expected_closed = classify_targets(targets)
+
+    print(
+        "CALENDAR_CLASSIFICATION "
+        f"targets={len(targets)} expected_open={len(expected_open)} "
+        f"expected_closed={len(expected_closed)}",
+        flush=True,
+    )
+
     if args.dry_run:
         for day, hour in targets:
-            print(url_for(day, hour))
+            classification = classify_slot(day, hour)
+            item = {
+                "date": day.isoformat(),
+                "hour": hour,
+                "classification": classification.status,
+                "reason": classification.reason,
+                "schedule": classification.schedule,
+                "url": url_for(day, hour)
+                if classification.status == EXPECTED_OPEN
+                else None,
+            }
+            print(json.dumps(item, sort_keys=True))
         summary = {
             "instrument": INSTRUMENT,
             "source": "Dukascopy",
             "format": "BI5",
-            "start_date": start.isoformat(),
-            "end_date": end.isoformat(),
-            "hour_filter": args.hour,
+            "calendar_contract": CALENDAR_CONTRACT,
+            "calendar_source": CALENDAR_SOURCE_URL,
             "target_slots": len(targets),
-            "single_network_call_per_slot_per_pass": True,
-            "reconciliation_passes_configured": args.reconciliation_passes,
+            "expected_open_slots": len(expected_open),
+            "expected_closed_slots": len(expected_closed),
+            "network_calls": 0,
             "dry_run": True,
         }
         print(json.dumps(summary, indent=2))
@@ -393,12 +468,27 @@ def main() -> int:
     root.mkdir(parents=True, exist_ok=True)
     manifest.parent.mkdir(parents=True, exist_ok=True)
 
-    pending = list(targets)
     status_counts: dict[str, int] = {}
     network_calls = 0
     pass_summaries: list[dict] = []
 
     with manifest.open("a", encoding="utf-8") as log:
+        for slot in expected_closed:
+            day = date.fromisoformat(slot["date"])
+            hour = int(slot["hour"])
+            record = {
+                "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+                **slot,
+                "path": str(output_path(root, day, hour)),
+                "status": EXPECTED_CLOSED,
+                "network_calls": 0,
+            }
+            write_log(log, record)
+            status_counts[EXPECTED_CLOSED] = (
+                status_counts.get(EXPECTED_CLOSED, 0) + 1
+            )
+
+        pending = list(expected_open)
         for pass_number in range(1, args.reconciliation_passes + 1):
             if not pending:
                 break
@@ -410,7 +500,7 @@ def main() -> int:
                 if delay > 0:
                     print(
                         f"RECONCILIATION_PASS_{pass_number}: "
-                        f"{len(pending)} unresolved slots; sleeping {delay:.2f}s",
+                        f"{len(pending)} unresolved open slots; sleeping {delay:.2f}s",
                         flush=True,
                     )
                     time.sleep(delay)
@@ -418,6 +508,7 @@ def main() -> int:
             current_pending = list(pending)
             next_pending: list[tuple[date, int]] = []
             pass_counts: dict[str, int] = {}
+            pass_network_calls = 0
 
             print(
                 f"PASS_{pass_number}_START targets={len(current_pending)}",
@@ -441,12 +532,12 @@ def main() -> int:
                     pass_number=pass_number,
                 )
                 network_calls += calls
+                pass_network_calls += calls
                 status = record["status"]
                 status_counts[status] = status_counts.get(status, 0) + 1
                 pass_counts[status] = pass_counts.get(status, 0) + 1
 
-                resolved = status in RESOLVED_STATUSES
-                if not resolved:
+                if status not in RESOLVED_STATUSES:
                     next_pending.append((day, hour))
 
                 if (
@@ -471,40 +562,44 @@ def main() -> int:
                 "targets": len(current_pending),
                 "resolved_this_pass": len(current_pending) - len(pending),
                 "unresolved_after_pass": len(pending),
-                "network_calls_this_pass": sum(pass_counts.values())
-                - pass_counts.get("SKIPPED_EXISTING_VALID", 0),
+                "network_calls_this_pass": pass_network_calls,
                 "status_counts": pass_counts,
             }
             pass_summaries.append(pass_summary)
             print(json.dumps(pass_summary, sort_keys=True), flush=True)
 
-    valid_slots, unresolved_slots = final_local_validation(root, targets)
+    valid_open, unresolved_open = validate_expected_open_files(root, expected_open)
+    closed_conflicts = inspect_expected_closed_files(root, expected_closed)
 
-    invalid_final = sum(
+    invalid_open = sum(
         1
-        for item in unresolved_slots
-        if item["reason"] == "INVALID_AFTER_RECONCILIATION"
+        for item in unresolved_open
+        if item["reason"] == "INVALID_EXPECTED_OPEN_AFTER_RECONCILIATION"
     )
-    missing_final = sum(
+    missing_open = sum(
         1
-        for item in unresolved_slots
-        if item["reason"] == "MISSING_AFTER_RECONCILIATION"
+        for item in unresolved_open
+        if item["reason"] == "MISSING_EXPECTED_OPEN_AFTER_RECONCILIATION"
     )
 
-    if invalid_final:
+    if closed_conflicts:
         verdict = "FAIL"
-        reason = "INVALID_LOCAL_ARTIFACT_REMAINS_AFTER_RECONCILIATION"
+        reason = "UNEXPECTED_DATA_PRESENT_IN_EXPECTED_CLOSED_SLOT"
         exit_code = 1
-    elif unresolved_slots:
+    elif invalid_open:
+        verdict = "FAIL"
+        reason = "INVALID_EXPECTED_OPEN_ARTIFACT_REMAINS_AFTER_RECONCILIATION"
+        exit_code = 1
+    elif unresolved_open:
         verdict = "BLOCKED"
-        reason = (
-            "UNRESOLVED_SLOTS_REMAIN; MARKET_CALENDAR_CLASSIFICATION_REQUIRED_"
-            "BEFORE_CALLING_THEM_EXPECTED_OR_CLOSED"
-        )
+        reason = "EXPECTED_OPEN_SLOTS_REMAIN_UNRESOLVED_AFTER_RECONCILIATION"
         exit_code = 2
     else:
         verdict = "PASS"
-        reason = "ALL_TARGET_SLOTS_PRESENT_AND_VALID"
+        reason = (
+            "ALL_EXPECTED_OPEN_SLOTS_VALID_AND_EXPECTED_CLOSED_SLOTS_SKIPPED_"
+            "WITHOUT_NETWORK"
+        )
         exit_code = 0
 
     summary = {
@@ -514,18 +609,26 @@ def main() -> int:
         "start_date": start.isoformat(),
         "end_date": end.isoformat(),
         "hour_filter": args.hour,
+        "calendar_contract": CALENDAR_CONTRACT,
+        "calendar_source": CALENDAR_SOURCE_URL,
+        "pre_network_calendar_gate": True,
         "target_slots": len(targets),
-        "valid_slots": len(valid_slots),
-        "unresolved_slots": len(unresolved_slots),
-        "missing_final": missing_final,
-        "invalid_final": invalid_final,
+        "expected_open_slots": len(expected_open),
+        "expected_closed_slots": len(expected_closed),
+        "valid_open_slots": len(valid_open),
+        "unresolved_open_slots": len(unresolved_open),
+        "missing_open_final": missing_open,
+        "invalid_open_final": invalid_open,
+        "closed_slot_conflicts": len(closed_conflicts),
         "network_calls": network_calls,
         "single_network_call_per_slot_per_pass": True,
         "reconciliation_passes_configured": args.reconciliation_passes,
         "reconciliation_passes_executed": len(pass_summaries),
         "status_counts": status_counts,
         "passes": pass_summaries,
-        "unresolved": unresolved_slots,
+        "expected_closed": expected_closed,
+        "unresolved_open": unresolved_open,
+        "closed_conflicts": closed_conflicts,
         "verdict": verdict,
         "reason": reason,
         "dry_run": False,
