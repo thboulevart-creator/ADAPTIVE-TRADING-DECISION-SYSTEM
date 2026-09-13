@@ -18,6 +18,10 @@ from dukascopy_usatech_calendar import (
     EXPECTED_OPEN,
     classify_slot,
 )
+from dukascopy_usatech_calendar_coverage import (
+    COVERAGE_CONTRACT,
+    audit_calendar_coverage,
+)
 
 
 INSTRUMENT = "USATECHIDXUSD"
@@ -25,12 +29,13 @@ BASE_URL = "https://datafeed.dukascopy.com/datafeed"
 RECORD_SIZE = 20
 RECORD_STRUCT = ">IIIff"
 PRICE_SCALE = 1000.0
-USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.3"
+USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.4"
 
 RESOLVED_STATUSES = {"DOWNLOADED_VALID", "SKIPPED_EXISTING_VALID"}
 
 
 def url_for(day: date, hour: int) -> str:
+    # Dukascopy BI5 paths use zero-based months: January=00 ... December=11.
     month_zero_based = day.month - 1
     return (
         f"{BASE_URL}/{INSTRUMENT}/{day.year:04d}/{month_zero_based:02d}/"
@@ -39,6 +44,7 @@ def url_for(day: date, hour: int) -> str:
 
 
 def output_path(root: Path, day: date, hour: int) -> Path:
+    # Local paths retain normal calendar months.
     return root / f"{day:%Y/%m/%d}/{hour:02d}h_ticks.bi5"
 
 
@@ -118,8 +124,9 @@ def write_log(log, record: dict) -> None:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Resumable raw Dukascopy BI5 hourly downloader with pre-network "
-            "calendar classification and targeted pass-based reconciliation."
+            "Resumable raw Dukascopy BI5 hourly downloader with fail-closed "
+            "calendar-coverage qualification, pre-network session classification, "
+            "and targeted pass-based reconciliation."
         )
     )
     parser.add_argument("--start-date", required=True, help="UTC date YYYY-MM-DD")
@@ -137,8 +144,8 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=None,
         help=(
-            "Compatibility pilot limit: cap enumerated target slots before "
-            "calendar classification. Closed slots never consume requests."
+            "Pilot limit applied after the date-range calendar coverage gate. "
+            "Closed slots never consume requests."
         ),
     )
     parser.add_argument(
@@ -169,13 +176,22 @@ def parse_args() -> argparse.Namespace:
         "--reconciliation-backoff",
         type=float,
         default=2.0,
-        help="Multiplier applied to the delay between reconciliation passes.",
+        help="Multiplier applied to delay between reconciliation passes.",
     )
     parser.add_argument(
         "--progress-every",
         type=int,
         default=1,
         help="Print slot progress every N processed expected-open slots.",
+    )
+    parser.add_argument(
+        "--calendar-qualification-probe",
+        action="store_true",
+        help=(
+            "Allow controlled acquisition on a range whose special-session "
+            "calendar evidence is incomplete. This never upgrades the run to PASS; "
+            "the final verdict remains BLOCKED until calendar coverage is qualified."
+        ),
     )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
@@ -232,6 +248,34 @@ def classify_targets(
     return expected_open, expected_closed
 
 
+def _coverage_gate_summary(
+    *,
+    start: date,
+    end: date,
+    coverage: dict,
+    probe: bool,
+) -> dict:
+    return {
+        "instrument": INSTRUMENT,
+        "source": "Dukascopy",
+        "format": "BI5",
+        "start_date": start.isoformat(),
+        "end_date": end.isoformat(),
+        "calendar_contract": CALENDAR_CONTRACT,
+        "calendar_coverage_contract": COVERAGE_CONTRACT,
+        "calendar_coverage_verdict": coverage["verdict"],
+        "calendar_coverage_reason": coverage["reason"],
+        "calendar_coverage_candidate_dates": coverage["candidate_dates"],
+        "calendar_coverage_unresolved_dates": coverage["unresolved_candidate_dates"],
+        "calendar_qualification_probe": probe,
+        "pre_network_calendar_coverage_gate": True,
+        "network_calls": 0,
+        "verdict": coverage["verdict"],
+        "reason": coverage["reason"],
+        "unresolved_calendar_dates": coverage["unresolved"],
+    }
+
+
 def attempt_slot(
     *,
     day: date,
@@ -242,14 +286,14 @@ def attempt_slot(
     pass_number: int,
 ) -> tuple[dict, int]:
     """Attempt one EXPECTED_OPEN slot exactly once for this pass."""
-    url = url_for(day, hour)
-    destination = output_path(root, day, hour)
     classification = classify_slot(day, hour)
     if classification.status != EXPECTED_OPEN:
         raise RuntimeError(
             "attempt_slot() received non-open slot; pre-network calendar gate bypassed"
         )
 
+    url = url_for(day, hour)
+    destination = output_path(root, day, hour)
     base_record = {
         "timestamp_utc": datetime.now(timezone.utc).isoformat(),
         "pass": pass_number,
@@ -420,6 +464,49 @@ def main() -> int:
     args = parse_args()
     start, end = validate_args(args)
 
+    # Gate 0: prove that every potentially special session inside the requested
+    # date range has versioned evidence before any target classification or URL
+    # construction can lead to network access.
+    coverage = audit_calendar_coverage(start, end)
+    print(
+        "CALENDAR_COVERAGE_GATE "
+        f"verdict={coverage['verdict']} "
+        f"candidates={coverage['candidate_dates']} "
+        f"unresolved={coverage['unresolved_candidate_dates']} "
+        f"probe={args.calendar_qualification_probe}",
+        flush=True,
+    )
+
+    if coverage["verdict"] == "FAIL":
+        print(
+            json.dumps(
+                _coverage_gate_summary(
+                    start=start,
+                    end=end,
+                    coverage=coverage,
+                    probe=args.calendar_qualification_probe,
+                ),
+                indent=2,
+            ),
+            flush=True,
+        )
+        return 1
+
+    if coverage["verdict"] == "BLOCKED" and not args.calendar_qualification_probe:
+        print(
+            json.dumps(
+                _coverage_gate_summary(
+                    start=start,
+                    end=end,
+                    coverage=coverage,
+                    probe=False,
+                ),
+                indent=2,
+            ),
+            flush=True,
+        )
+        return 2
+
     root = Path(args.output).resolve()
     manifest = Path(args.manifest).resolve()
 
@@ -428,7 +515,6 @@ def main() -> int:
         targets = targets[: args.max_requests]
 
     expected_open, expected_closed = classify_targets(targets)
-
     print(
         "CALENDAR_CLASSIFICATION "
         f"targets={len(targets)} expected_open={len(expected_open)} "
@@ -450,20 +536,35 @@ def main() -> int:
                 else None,
             }
             print(json.dumps(item, sort_keys=True))
+
+        verdict = "PASS" if coverage["verdict"] == "PASS" else "BLOCKED"
+        reason = (
+            "DRY_RUN_CALENDAR_COVERAGE_QUALIFIED"
+            if verdict == "PASS"
+            else "CALENDAR_EVIDENCE_INCOMPLETE_PROBE_ONLY"
+        )
         summary = {
             "instrument": INSTRUMENT,
             "source": "Dukascopy",
             "format": "BI5",
             "calendar_contract": CALENDAR_CONTRACT,
             "calendar_source": CALENDAR_SOURCE_URL,
+            "calendar_coverage_contract": COVERAGE_CONTRACT,
+            "calendar_coverage_verdict": coverage["verdict"],
+            "calendar_coverage_unresolved_dates": coverage[
+                "unresolved_candidate_dates"
+            ],
+            "calendar_qualification_probe": args.calendar_qualification_probe,
             "target_slots": len(targets),
             "expected_open_slots": len(expected_open),
             "expected_closed_slots": len(expected_closed),
             "network_calls": 0,
+            "verdict": verdict,
+            "reason": reason,
             "dry_run": True,
         }
-        print(json.dumps(summary, indent=2))
-        return 0
+        print(json.dumps(summary, indent=2), flush=True)
+        return 0 if verdict == "PASS" else 2
 
     root.mkdir(parents=True, exist_ok=True)
     manifest.parent.mkdir(parents=True, exist_ok=True)
@@ -594,11 +695,17 @@ def main() -> int:
         verdict = "BLOCKED"
         reason = "EXPECTED_OPEN_SLOTS_REMAIN_UNRESOLVED_AFTER_RECONCILIATION"
         exit_code = 2
+    elif coverage["verdict"] != "PASS":
+        # Probe mode may gather evidence, but it can never launder incomplete
+        # calendar evidence into a successful acquisition qualification.
+        verdict = "BLOCKED"
+        reason = "CALENDAR_EVIDENCE_INCOMPLETE_PROBE_ONLY"
+        exit_code = 2
     else:
         verdict = "PASS"
         reason = (
-            "ALL_EXPECTED_OPEN_SLOTS_VALID_AND_EXPECTED_CLOSED_SLOTS_SKIPPED_"
-            "WITHOUT_NETWORK"
+            "CALENDAR_COVERAGE_QUALIFIED_AND_ALL_EXPECTED_OPEN_SLOTS_VALID_"
+            "AND_EXPECTED_CLOSED_SLOTS_SKIPPED_WITHOUT_NETWORK"
         )
         exit_code = 0
 
@@ -611,6 +718,15 @@ def main() -> int:
         "hour_filter": args.hour,
         "calendar_contract": CALENDAR_CONTRACT,
         "calendar_source": CALENDAR_SOURCE_URL,
+        "calendar_coverage_contract": COVERAGE_CONTRACT,
+        "calendar_coverage_verdict": coverage["verdict"],
+        "calendar_coverage_reason": coverage["reason"],
+        "calendar_coverage_candidate_dates": coverage["candidate_dates"],
+        "calendar_coverage_unresolved_dates": coverage[
+            "unresolved_candidate_dates"
+        ],
+        "calendar_qualification_probe": args.calendar_qualification_probe,
+        "pre_network_calendar_coverage_gate": True,
         "pre_network_calendar_gate": True,
         "target_slots": len(targets),
         "expected_open_slots": len(expected_open),
@@ -629,6 +745,7 @@ def main() -> int:
         "expected_closed": expected_closed,
         "unresolved_open": unresolved_open,
         "closed_conflicts": closed_conflicts,
+        "unresolved_calendar_dates": coverage["unresolved"],
         "verdict": verdict,
         "reason": reason,
         "dry_run": False,
