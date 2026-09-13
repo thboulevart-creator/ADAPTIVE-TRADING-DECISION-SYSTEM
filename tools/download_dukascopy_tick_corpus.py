@@ -21,9 +21,7 @@ USER_AGENT = "ALGO-Dukascopy-BI5-Corpus-Downloader/1.0"
 
 
 def url_for(day: date, hour: int) -> str:
-    return (
-        f"{BASE_URL}/{INSTRUMENT}/{day:%Y/%m/%d}/{hour:02d}h_ticks.bi5"
-    )
+    return f"{BASE_URL}/{INSTRUMENT}/{day:%Y/%m/%d}/{hour:02d}h_ticks.bi5"
 
 
 def output_path(root: Path, day: date, hour: int) -> Path:
@@ -69,10 +67,13 @@ def validate_bi5(data: bytes, day: date, hour: int) -> tuple[bool, str | None, i
     return True, None, count
 
 
-def iter_hours(start: date, end: date):
+def iter_hours(start: date, end: date, hour: int | None):
     current = start
     while current <= end:
-        for hour in range(24):
+        if hour is None:
+            for current_hour in range(24):
+                yield current, current_hour
+        else:
             yield current, hour
         current += timedelta(days=1)
 
@@ -101,6 +102,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--start-date", required=True, help="UTC date YYYY-MM-DD")
     parser.add_argument("--end-date", required=True, help="UTC date YYYY-MM-DD")
+    parser.add_argument(
+        "--hour",
+        type=int,
+        default=None,
+        help="Optional UTC hour 0-23; when omitted, process all 24 hours.",
+    )
     parser.add_argument("--output", required=True, help="Corpus root")
     parser.add_argument("--manifest", required=True, help="JSONL manifest path")
     parser.add_argument("--max-requests", type=int, default=None)
@@ -117,6 +124,8 @@ def main() -> int:
     end = date.fromisoformat(args.end_date)
     if end < start:
         raise SystemExit("end-date must be >= start-date")
+    if args.hour is not None and not 0 <= args.hour <= 23:
+        raise SystemExit("hour must be between 0 and 23")
     if args.retries < 0:
         raise SystemExit("retries must be >= 0")
 
@@ -135,7 +144,7 @@ def main() -> int:
     invalid_payloads = 0
 
     with manifest.open("a", encoding="utf-8") if not args.dry_run else open("/dev/null", "w") as log:
-        for day, hour in iter_hours(start, end):
+        for day, hour in iter_hours(start, end, args.hour):
             if args.max_requests is not None and requests_seen >= args.max_requests:
                 break
 
@@ -228,7 +237,8 @@ def main() -> int:
         "format": "BI5",
         "start_date": start.isoformat(),
         "end_date": end.isoformat(),
-        "all_hours_attempted": True,
+        "hour_filter": args.hour,
+        "all_hours_attempted": args.hour is None,
         "downloaded_valid": downloaded_valid,
         "skipped_existing_valid": skipped_existing,
         "empty_payloads": empty_payloads,
