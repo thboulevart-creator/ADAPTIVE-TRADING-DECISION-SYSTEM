@@ -29,14 +29,51 @@ US_DST_RULE_SOURCE_URL = (
     "daylight-saving-time-dst"
 )
 
-# Explicit evidence for the January 9, 2025 U.S. National Day of Mourning.
-# Dukascopy announced special U.S. market closures for that date. CME's
-# U.S. equity-index schedule closed at 08:30 CT = 14:30 UTC and reopened at
-# the regular 17:00 CT = 23:00 UTC. At hourly BI5 granularity, hour 14 remains
-# EXPECTED_OPEN; hours 15-22 are fully closed; hour 23 is open again.
+# Only date-specific sessions supported by sufficiently precise evidence belong
+# here. `fully_closed_hours_utc` contains only whole BI5 hours proven closed.
+# A partially tradable hour MUST remain EXPECTED_OPEN.
 SPECIAL_SESSION_EVIDENCE = {
+    date(2018, 5, 28): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2018",
+        # Dukascopy: USATECH closes 17:00 GMT and reopens 22:00 GMT.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "memorial-day-holiday-monday-28-may"
+        ),
+    },
+    date(2018, 7, 3): {
+        "reason": "SPECIAL_INDEPENDENCE_EVE_2018",
+        # Dukascopy: closes 17:15 GMT and reopens 22:00 GMT. Hour 17 remains
+        # open because its first 15 minutes are tradable.
+        "fully_closed_hours_utc": frozenset(range(18, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "us-independence-day-on-wednesday-4th-july"
+        ),
+    },
+    date(2018, 7, 4): {
+        "reason": "SPECIAL_INDEPENDENCE_DAY_2018",
+        # Dukascopy: closes 17:00 GMT and reopens 22:00 GMT.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/english/about/ournews/"
+            "us-independence-day-on-wednesday-4th-july"
+        ),
+    },
+    date(2020, 2, 17): {
+        "reason": "SPECIAL_PRESIDENTS_DAY_2020",
+        # Dukascopy: USATECH closes 18:00 GMT and reopens 23:00 GMT.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_source": (
+            "https://www.dukascopy.com/swiss/pt/about/ournews/"
+            "market-closures-on-president-s-day-dbl201738/"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
+        # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the
+        # regular 17:00 CT = 23:00 UTC. Hour 14 remains partially tradable.
         "fully_closed_hours_utc": frozenset(range(15, 23)),
         "dukascopy_source": (
             "https://www.dukascopy.com/europe/english/about/ournews/"
@@ -46,7 +83,7 @@ SPECIAL_SESSION_EVIDENCE = {
             "https://www.cmegroup.com/trading-hours/files/"
             "day-of-mourning-january-9-2024.pdf"
         ),
-    }
+    },
 }
 
 CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"
