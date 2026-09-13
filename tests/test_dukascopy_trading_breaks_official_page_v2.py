@@ -3,14 +3,18 @@ from pathlib import Path
 from tools.probe_dukascopy_trading_breaks_official_page_v2 import (
     CDP_ORIGIN,
     OFFICIAL_WIDGET_URL,
+    PROBE_FRAME_ID,
     SCHEMA,
     browser_command,
     ensure_widget_iframe_expression,
+    frame_matches_request,
+    rewrite_widget_expression,
+    strict_find_widget_frame,
 )
 
 
 def test_v2_schema_is_distinct() -> None:
-    assert SCHEMA == "DUKASCOPY_TRADING_BREAKS_OFFICIAL_PAGE_CDP_V2_1"
+    assert SCHEMA == "DUKASCOPY_TRADING_BREAKS_OFFICIAL_PAGE_CDP_V2_2"
 
 
 def test_browser_allows_exact_websocket_origin_only() -> None:
@@ -27,18 +31,71 @@ def test_remote_allow_origin_is_applied_before_target_url() -> None:
     assert command[-1].startswith("https://www.dukascopy.com/")
 
 
-def test_injected_widget_is_restricted_to_dukascopy_trading_breaks() -> None:
+def test_injected_widget_is_probe_owned_and_not_reused() -> None:
+    expression = ensure_widget_iframe_expression()
     assert OFFICIAL_WIDGET_URL.startswith("https://freeserv.dukascopy.com/2.0/")
     assert "path=trading_breaks/index" in OFFICIAL_WIDGET_URL
-    assert "http://" not in OFFICIAL_WIDGET_URL
-
-
-def test_injection_reuses_existing_widget_before_creating_one() -> None:
-    expression = ensure_widget_iframe_expression()
-    assert "querySelectorAll('iframe')" in expression
-    assert "trading_breaks/index" in expression
     assert "document.createElement('iframe')" in expression
-    assert "data-probe-created" in expression
-    assert expression.index("querySelectorAll('iframe')") < expression.index(
-        "document.createElement('iframe')"
+    assert PROBE_FRAME_ID in expression
+    assert "querySelectorAll('iframe')" not in expression
+
+
+def test_rewrite_targets_probe_owned_frame_only() -> None:
+    expression = rewrite_widget_expression(1736424000000)
+    assert PROBE_FRAME_ID in expression
+    assert "querySelectorAll('iframe')" not in expression
+    assert "currentDate" in expression
+    assert "false" in expression
+    assert "1736424000000" in expression
+
+
+def test_frame_match_requires_exact_historical_contract() -> None:
+    good = (
+        "https://freeserv.dukascopy.com/2.0/?path=trading_breaks%2Findex"
+        "&currentDate=false&date=1736424000000"
     )
+    assert frame_matches_request(good, 1736424000000)
+
+    assert not frame_matches_request(
+        "https://freeserv.dukascopy.com/2.0/?path=trading_breaks/index"
+        "&currentDate=true&date=1736424000000",
+        1736424000000,
+    )
+    assert not frame_matches_request(
+        "https://freeserv.dukascopy.com/2.0/?path=trading_breaks/index"
+        "&currentDate=false&date=1528909332431",
+        1736424000000,
+    )
+
+
+def test_strict_frame_search_has_no_stale_fallback() -> None:
+    epoch = 1736424000000
+    tree = {
+        "frame": {"id": "root", "url": "https://www.dukascopy.com/"},
+        "childFrames": [
+            {
+                "frame": {
+                    "id": "stale",
+                    "url": (
+                        "https://freeserv.dukascopy.com/2.0/"
+                        "?path=trading_breaks/index&currentDate=true&date=1528909332431"
+                    ),
+                }
+            }
+        ],
+    }
+    assert strict_find_widget_frame(tree, epoch) is None
+
+    tree["childFrames"].append(
+        {
+            "frame": {
+                "id": "target",
+                "url": (
+                    "https://freeserv.dukascopy.com/2.0/"
+                    "?path=trading_breaks%2Findex&currentDate=false"
+                    f"&date={epoch}"
+                ),
+            }
+        }
+    )
+    assert strict_find_widget_frame(tree, epoch)["id"] == "target"
