@@ -44,7 +44,7 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Execute deterministic Batch 01 in headed Chromium
-        run: xvfb-run -a python tools/trading_breaks_recovery_batch01.py
+        run: xvfb-run -a python -m tools.trading_breaks_recovery_batch01
 
       - name: Print batch capture summary
         if: always()
