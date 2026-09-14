@@ -1,11 +1,6 @@
 name: Trading Breaks Recovery Batch 03
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch03.yml'
   workflow_dispatch:
 
 permissions:
