@@ -15,27 +15,8 @@ TARGET_EPOCH_MS = 1581897600000
 TARGET_INSTRUMENT = "USATECH.IDX/USD"
 EXPECTED_CLOSE_GMT = "18:00"
 EXPECTED_REOPEN_GMT = "23:00"
+OFFICIAL_WIDGET_PAGE = "https://www.dukascopy.com/trading-tools/widgets/calendars/trading_breaks"
 OUT = Path("widget_probe_artifacts")
-
-WIDGET_HTML = f"""<!doctype html>
-<html><head><meta charset=\"utf-8\"><title>Dukascopy Trading Breaks calibration</title></head>
-<body>
-<script type=\"text/javascript\">
-DukascopyApplet = {{"type":"trading_breaks","params":{{
-  "showHeader":true,
-  "showFooter":true,
-  "headerColor":"#0e0e0e",
-  "tableBorderColor":"#D92626",
-  "currentDate":false,
-  "date":{TARGET_EPOCH_MS},
-  "width":"100%",
-  "height":"500",
-  "adv":"popup",
-  "lang":"en"
-}}}};
-</script>
-<script type=\"text/javascript\" src=\"https://freeserv-static.dukascopy.com/2.0/core.js\"></script>
-</body></html>"""
 
 
 def clean_text(value: str) -> str:
@@ -50,17 +31,18 @@ def contains_target_date(url: str, body: str = "") -> bool:
         qs = parse_qs(urlparse(url).query)
     except Exception:
         return False
-    values = [v for items in qs.values() for v in items]
-    return str(TARGET_EPOCH_MS) in values
+    return any(str(TARGET_EPOCH_MS) == v for values in qs.values() for v in values)
+
+
+def is_trading_breaks_document(url: str) -> bool:
+    parsed = urlparse(url)
+    qs = parse_qs(parsed.query)
+    return any(v == "trading_breaks/index" for v in qs.get("path", []))
 
 
 def calibration_match(text: str) -> bool:
     t = clean_text(text)
-    return (
-        TARGET_INSTRUMENT in t
-        and EXPECTED_CLOSE_GMT in t
-        and EXPECTED_REOPEN_GMT in t
-    )
+    return TARGET_INSTRUMENT in t and EXPECTED_CLOSE_GMT in t and EXPECTED_REOPEN_GMT in t
 
 
 async def main() -> int:
@@ -70,10 +52,16 @@ async def main() -> int:
     console: list[dict[str, str]] = []
     runtime_errors: list[str] = []
     frame_dumps: list[dict[str, str]] = []
+    original_iframe_src: str | None = None
+    rewritten_iframe_src: str | None = None
+    official_page_status: int | None = None
 
     async with async_playwright() as p:
         browser = await p.chromium.launch(headless=True)
-        context = await browser.new_context(viewport={"width": 1440, "height": 1200})
+        context = await browser.new_context(
+            viewport={"width": 1440, "height": 1200},
+            locale="en-US",
+        )
         page = await context.new_page()
 
         page.on("console", lambda msg: console.append({"type": msg.type, "text": msg.text}))
@@ -81,11 +69,15 @@ async def main() -> int:
 
         def on_request(req):
             if "dukascopy" in req.url.lower():
+                headers = req.headers
                 requests.append({
                     "url": req.url,
                     "method": req.method,
                     "resource_type": req.resource_type,
                     "post_data": req.post_data,
+                    "referer": headers.get("referer"),
+                    "origin": headers.get("origin"),
+                    "user_agent": headers.get("user-agent"),
                 })
 
         async def on_response(resp):
@@ -101,8 +93,7 @@ async def main() -> int:
             ctype = item["content_type"].lower()
             if any(k in ctype for k in ("json", "text", "javascript", "xml", "html")):
                 try:
-                    body = await resp.text()
-                    item["body"] = body[:1_000_000]
+                    item["body"] = (await resp.text())[:1_000_000]
                 except Exception as exc:
                     item["body_error"] = repr(exc)
             responses.append(item)
@@ -111,10 +102,23 @@ async def main() -> int:
         page.on("response", on_response)
 
         try:
-            await page.set_content(WIDGET_HTML, wait_until="domcontentloaded", timeout=60_000)
+            nav = await page.goto(OFFICIAL_WIDGET_PAGE, wait_until="domcontentloaded", timeout=60_000)
+            official_page_status = nav.status if nav else None
+            await page.wait_for_selector("iframe[src*='trading_breaks/index']", timeout=30_000)
+            original_iframe_src = await page.locator("iframe[src*='trading_breaks/index']").first.get_attribute("src")
+            rewritten_iframe_src = await page.locator("iframe[src*='trading_breaks/index']").first.evaluate(
+                """(el, ms) => {
+                    const u = new URL(el.src, document.baseURI);
+                    u.searchParams.set('currentDate', 'false');
+                    u.searchParams.set('date', String(ms));
+                    el.src = u.toString();
+                    return el.src;
+                }""",
+                TARGET_EPOCH_MS,
+            )
             await page.wait_for_timeout(25_000)
         except Exception as exc:
-            runtime_errors.append(f"page_load: {exc!r}")
+            runtime_errors.append(f"official_page_or_iframe: {exc!r}")
 
         try:
             await page.screenshot(path=str(OUT / "widget.png"), full_page=True)
@@ -139,7 +143,6 @@ async def main() -> int:
 
         await browser.close()
 
-    (OUT / "widget_config.html").write_text(WIDGET_HTML, encoding="utf-8")
     (OUT / "network_requests.json").write_text(json.dumps(requests, indent=2), encoding="utf-8")
     (OUT / "network_responses.json").write_text(json.dumps(responses, indent=2), encoding="utf-8")
     (OUT / "frames.json").write_text(json.dumps(frame_dumps, indent=2), encoding="utf-8")
@@ -154,21 +157,31 @@ async def main() -> int:
             all_text_parts.append(resp["body"])
     all_text = "\n".join(all_text_parts)
 
-    date_honored_requests = [r for r in requests if contains_target_date(r.get("url", ""), r.get("post_data") or "")]
-    date_honored_responses = [r for r in responses if contains_target_date(r.get("url", ""), r.get("body") or "")]
+    target_requests = [
+        r for r in requests
+        if is_trading_breaks_document(r.get("url", "")) and contains_target_date(r.get("url", ""), r.get("post_data") or "")
+    ]
+    target_responses = [
+        r for r in responses
+        if is_trading_breaks_document(r.get("url", "")) and contains_target_date(r.get("url", ""), r.get("body") or "")
+    ]
+    target_statuses = [int(r.get("status", 0)) for r in target_responses]
+    target_success = any(200 <= s < 400 for s in target_statuses)
+    target_http_blocked = bool(target_statuses) and not target_success and all(s >= 400 for s in target_statuses)
+
     instrument_present = TARGET_INSTRUMENT in all_text
     close_present = EXPECTED_CLOSE_GMT in all_text
     reopen_present = EXPECTED_REOPEN_GMT in all_text
     exact_match = calibration_match(all_text)
+    date_honored = bool(target_requests or target_responses)
 
-    successful_dukascopy_responses = [r for r in responses if 200 <= int(r.get("status", 0)) < 400]
-    widget_runtime_reached = bool(successful_dukascopy_responses and (requests or frame_dumps))
-    date_honored = bool(date_honored_requests or date_honored_responses)
-
-    if exact_match and date_honored:
+    if exact_match and target_success and date_honored:
         verdict = "PASS"
         reason = "HISTORICAL_WIDGET_REPRODUCES_LOCKED_2020_02_17_USATECH_WITNESS"
-    elif widget_runtime_reached and date_honored:
+    elif target_http_blocked:
+        verdict = "BLOCKED"
+        reason = "TARGET_WIDGET_DOCUMENT_HTTP_BLOCKED"
+    elif target_success and date_honored:
         verdict = "FAIL"
         reason = "HISTORICAL_WIDGET_DID_NOT_REPRODUCE_LOCKED_2020_02_17_USATECH_WITNESS"
     else:
@@ -179,22 +192,27 @@ async def main() -> int:
         "contract": "HISTORICAL_TRADING_BREAKS_WIDGET_CALIBRATION_V1",
         "read_only": True,
         "market_data_written": False,
+        "official_widget_page": OFFICIAL_WIDGET_PAGE,
+        "official_page_status": official_page_status,
         "target_date": TARGET_DATE,
         "target_epoch_ms": TARGET_EPOCH_MS,
         "target_instrument": TARGET_INSTRUMENT,
         "expected_close_gmt": EXPECTED_CLOSE_GMT,
         "expected_reopen_gmt": EXPECTED_REOPEN_GMT,
-        "widget_runtime_reached": widget_runtime_reached,
+        "original_iframe_src": original_iframe_src,
+        "rewritten_iframe_src": rewritten_iframe_src,
         "date_honored": date_honored,
+        "target_document_statuses": target_statuses,
+        "target_document_success": target_success,
+        "target_document_http_blocked": target_http_blocked,
         "instrument_present": instrument_present,
         "expected_close_present": close_present,
         "expected_reopen_present": reopen_present,
         "exact_calibration_match": exact_match,
         "dukascopy_request_count": len(requests),
         "dukascopy_response_count": len(responses),
-        "successful_dukascopy_response_count": len(successful_dukascopy_responses),
-        "date_honored_request_count": len(date_honored_requests),
-        "date_honored_response_count": len(date_honored_responses),
+        "target_request_count": len(target_requests),
+        "target_response_count": len(target_responses),
         "runtime_errors": runtime_errors,
         "verdict": verdict,
         "reason": reason,
@@ -203,15 +221,15 @@ async def main() -> int:
 
     print("=== DUKASCOPY TRADING BREAKS HISTORICAL WIDGET CALIBRATION ===")
     print(json.dumps(summary, indent=2))
-    print("=== DATE-BEARING REQUESTS ===")
-    for req in date_honored_requests:
+    print("=== TARGET DATE REQUESTS ===")
+    for req in target_requests:
         print(json.dumps(req, ensure_ascii=False))
+    print("=== TARGET DATE RESPONSES ===")
+    for resp in target_responses:
+        print(json.dumps({k: v for k, v in resp.items() if k != "body"}, ensure_ascii=False))
     print("=== FRAME URLS ===")
     for frame in frame_dumps:
         print(frame["url"])
-
-    # A route FAIL is a valid experimental result, not an infrastructure failure.
-    # Only unexpected script exceptions should make CI fail. The JSON verdict is authoritative.
     return 0
 
 
