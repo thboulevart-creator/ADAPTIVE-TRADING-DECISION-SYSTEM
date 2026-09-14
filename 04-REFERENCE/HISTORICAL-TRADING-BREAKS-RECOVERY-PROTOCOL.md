@@ -2,11 +2,22 @@
 
 ## Status
 
-**CANDIDATE — adversarial qualification required before bulk recovery.**
+**PASS — `SYSTEMATIC_TRADING_BREAKS_RECOVERY_PROTOCOL_REJECTS_KNOWN_BYPASSES`.**
 
 Contract:
 
 `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1`
+
+Qualification report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_protocol_qualification.md`
+
+Qualified workflow run:
+
+- run: `34880921889`
+- job: `104099717727`
+- head: `f699de1c9aa7b5726276f07d40c5fc8543bc9392`
+- pytest: `20 passed in 0.05s`
 
 ## 1. Purpose
 
@@ -37,7 +48,7 @@ It is sorted strictly ascending by date.
 
 No manual date exclusion, insertion, reordering, window shift, window shortening, or window extension is permitted because of retrieval outcomes.
 
-At protocol creation time the governed state is:
+At qualification time the governed state is:
 
 - in-window candidates: 68;
 - already resolved: 2;
@@ -193,35 +204,48 @@ The window MUST NOT be moved, shortened, or extended to reduce unresolved count.
 
 ## 13. Downstream boundary
 
-Even after this protocol passes adversarial qualification:
+Even after protocol PASS:
 
-- bulk recovery is not yet evidence by itself;
+- bulk recovery is not evidence by itself;
 - each date still requires independent adjudication;
 - window freeze remains BLOCKED until in-window unresolved = 0 and FAIL = 0;
 - `.bi5` remains forbidden until the separate acquisition gate passes;
 - real backtest remains forbidden until all mandatory upstream gates pass.
 
-## 14. Required adversarial attacks before protocol PASS
+## 14. Adversarial qualification
 
-At minimum the implementation must reject or contain:
+The executable validator:
 
-1. manually reordered candidate scope;
-2. out-of-window date;
-3. already-resolved date reintroduced as unresolved;
-4. requested-date mismatch;
-5. wrong instrument ID;
-6. wrong instrument name;
-7. empty/no-record promoted to PASS;
-8. malformed timestamps;
-9. negative interval (`end < start`);
-10. record from adjacent date;
-11. DOM/payload contradiction;
-12. missing workflow provenance;
-13. missing artifact ID;
-14. malformed artifact SHA-256;
-15. reopen interpreted as `end` instead of `end + 60s`;
-16. partial hour rounded to fully closed;
-17. manual date exclusion;
-18. window moved after outcomes.
+`tools/trading_breaks_recovery_protocol.py`
 
-Only after these attacks are re-broken may the protocol receive PASS.
+was challenged by:
+
+`tests/test_trading_breaks_recovery_protocol.py`
+
+under GitHub Actions workflow:
+
+`.github/workflows/trading-breaks-recovery-protocol.yml`
+
+Observed run:
+
+- workflow run `34880921889`;
+- job `104099717727`;
+- conclusion: `success`;
+- `20 passed in 0.05s`;
+- queue count: `66`;
+- first queue item: `2021-11-25 — THANKSGIVING_DAY`;
+- last queue item: `2026-07-03 — INDEPENDENCE_DAY_OBSERVED`.
+
+The executed attacks cover frozen queue integrity, out-of-window targets, resolved-date reintroduction, date mismatch, instrument mismatch, empty/no-record promotion, missing payload, malformed/negative intervals, adjacent-date records, DOM contradiction, missing provenance, invalid hashes/commit identity, calibrated reopen semantics, and partial-hour rounding.
+
+Final protocol verdict:
+
+**PASS — `SYSTEMATIC_TRADING_BREAKS_RECOVERY_PROTOCOL_REJECTS_KNOWN_BYPASSES`**
+
+## 15. Exactly one next governed action
+
+Apply this qualified protocol to the **first deterministic recovery batch** of unresolved candidates in chronological order.
+
+The batch size must be fixed and versioned before observing outcomes. It MUST NOT be chosen or changed to avoid difficult dates.
+
+No `.bi5`. No real backtest.
