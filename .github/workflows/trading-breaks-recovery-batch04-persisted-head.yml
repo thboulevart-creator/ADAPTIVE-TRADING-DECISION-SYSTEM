@@ -1,14 +1,7 @@
 name: Trading Breaks Recovery Batch 04 Persisted-HEAD Rebreak
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - 'tools/dukascopy_usatech_calendar.py'
-      - 'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json'
-      - 'reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json'
-      - 'reports/data-qualification/historical_trading_breaks_recovery_batch04_integration_qualification.md'
+  workflow_dispatch:
 
 permissions:
   contents: read
