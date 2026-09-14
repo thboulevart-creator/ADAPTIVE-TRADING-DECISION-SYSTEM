@@ -1,0 +1,94 @@
+name: Trading Breaks Recovery Batch 01 Integration
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - 'tools/integrate_trading_breaks_recovery_batch01.py'
+      - '.github/workflows/trading-breaks-recovery-batch01-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate-batch01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout governed branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/multi-year-dukascopy-acquisition
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply deterministic adjudicated integration
+        run: python tools/integrate_trading_breaks_recovery_batch01.py
+
+      - name: Run calendar, boundary, recovery, and frozen-batch regression
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_2019_remaining.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_dukascopy_usatech_calendar_2021_labor_day.py \
+            tests/test_dukascopy_usatech_calendar_2021_batch01.py \
+            tests/test_dukascopy_downloader_calendar_coverage_gate.py \
+            tests/test_coverage_execution_window_boundary.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py
+
+      - name: Assert post-Batch-01 governed accounting
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage, candidate_special_dates
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          report = audit_calendar_coverage()
+          assert report['candidate_dates'] == 111
+          assert report['special_session_evidence_dates'] == 28
+          assert report['resolved_candidate_dates'] == 28
+          assert report['unresolved_candidate_dates'] == 83
+          assert report['orphan_special_evidence'] == []
+          assert report['contradictory_evidence_dates'] == []
+          assert report['evidence_shape_errors'] == []
+          assert report['verdict'] == 'BLOCKED'
+
+          window_start = date(2021, 8, 14)
+          window_end = date(2026, 8, 14)
+          window_candidates = [x for x in candidate_special_dates(window_start, window_end)]
+          resolved = set(SPECIAL_SESSION_EVIDENCE)
+          window_resolved = [x for x in window_candidates if x.day in resolved]
+          window_unresolved = [x for x in window_candidates if x.day not in resolved]
+          assert len(window_candidates) == 68
+          assert len(window_resolved) == 5
+          assert len(window_unresolved) == 63
+          assert recovery_queue()[0] == (date(2021, 12, 24), 'CHRISTMAS_OBSERVED')
+          assert recovery_queue()[-1] == (date(2026, 7, 3), 'INDEPENDENCE_DAY_OBSERVED')
+          PY
+
+      - name: Commit one atomic executable-evidence update
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            tools/dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_downloader_calendar_coverage_gate.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            .github/workflows/trading-breaks-recovery-batch01.yml \
+            .github/workflows/dukascopy-calendar-regression.yml \
+            tests/test_dukascopy_usatech_calendar_2021_batch01.py
+          git diff --cached --check
+          git commit -m 'evidence: integrate adjudicated Trading Breaks Batch 01'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
