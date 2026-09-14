@@ -16,8 +16,8 @@ TARGET = date(2021, 12, 24)
 GOOD_RECORD = {
     "id": "synthetic-test-record",
     "instrument": "9016",
-    "start": "1640368800000",  # 2021-11-25 18:00:00Z
-    "end": "1640386740000",    # 2021-11-25 22:59:00Z
+    "start": "1640368800000",  # 2021-12-24 18:00:00Z
+    "end": "1640386740000",    # 2021-12-24 22:59:00Z
     "reason": "Thanksgiving Day",
 }
 GOOD_DOM = {
@@ -46,10 +46,10 @@ def good_evidence() -> RecoveryEvidence:
     )
 
 
-def test_queue_scope_sorted_and_has_63_unresolved_candidates_after_batch01():
+def test_queue_scope_sorted_and_has_61_unresolved_candidates_after_batch02():
     queue = recovery_queue()
     days = [day for day, _ in queue]
-    assert len(queue) == 63
+    assert len(queue) == 61
     assert days == sorted(days)
     assert days[0] == date(2021, 12, 24)
     assert days[-1] == date(2026, 7, 3)

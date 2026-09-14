@@ -468,6 +468,44 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch01_qualification.md"
         ),
     },
+    date(2022, 1, 17): {
+        "reason": "SPECIAL_MARTIN_LUTHER_KING_DAY_2022",
+        # Broker-native Trading Breaks record 32811 starts at 17:59 UTC and
+        # ends at 22:59 UTC; calibrated reopening is 23:00 UTC. Hour 17 is
+        # partially tradable, therefore only 18-22 are fully closed.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1642377600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34888022168"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch02_qualification.md"
+        ),
+    },
+    date(2022, 2, 21): {
+        "reason": "SPECIAL_PRESIDENTS_DAY_2022",
+        # Broker-native Trading Breaks record 33515 starts at 17:59 UTC and
+        # ends at 22:59 UTC; calibrated reopening is 23:00 UTC. Hour 17 is
+        # partially tradable, therefore only 18-22 are fully closed.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1645401600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34888022168"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch02_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the
