@@ -67,11 +67,21 @@ def test_missing_dom_witness_on_positive_capture_does_not_silently_pass():
     runtime = _runtime()
     runtime["results"][0]["dom_witness_lines"] = []
     report = adjudicate_runtime(runtime)
-    # The protocol permits network-only evidence when DOM is genuinely unavailable,
-    # so the independent adjudicator must not claim a DOM cross-check in that case.
+    # The parent protocol permits network-only evidence when DOM is genuinely unavailable.
     item = report["adjudications"][0]
     assert item["verdict"] == "PASS"
     assert item["dom_witness_present"] is False
+
+
+def test_wrong_dom_instrument_name_is_rejected_before_normalization():
+    runtime = _runtime()
+    runtime["results"][0]["dom_witness_lines"] = [
+        runtime["results"][0]["dom_witness_lines"][0].replace(
+            "USATECH.IDX/USD", "OTHER.INSTRUMENT"
+        )
+    ]
+    with pytest.raises(ValueError, match="DOM_WITNESS_INSTRUMENT_NAME_MISMATCH"):
+        adjudicate_runtime(runtime)
 
 
 def test_dom_network_contradiction_is_fail_closed():
