@@ -2,214 +2,158 @@
 
 Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 
-Global consolidation report:
-
-`reports/data-qualification/dukascopy_usatech_global_calendar_coverage_audit.md`
-
-Window-selection rule:
-
-`04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md`
-
-Rule qualification:
-
-`reports/data-qualification/execution_window_selection_rule_qualification.md`
-
-Window-candidate application:
-
-`reports/data-qualification/execution_window_candidate_v1.md`
-
-Historical broker-evidence route gate:
-
-`04-REFERENCE/HISTORICAL-BROKER-EVIDENCE-ROUTE-QUALIFICATION.md`
-
-Route exploration:
-
-`reports/data-qualification/historical_broker_evidence_route_exploration_v1.md`
-
 ## Current governed state
 
 - Global research envelope: `2018-05-01` → `2026-08-14`
-- Chronological qualification: complete to governed envelope end
-- Global candidate dates: **111**
-- Global resolved candidate dates: **24**
-- Global unresolved candidate dates: **87**
-- Global FAIL dates: **0**
-- Orphan special-evidence dates: **0**
-- Contradictory evidence dates: **0**
-- Evidence-shape errors: **0**
-- Prior gaps preserved: **yes**
-- Prior gaps hidden/reclassified: **no**
-- Execution window frozen: **no**
-- Massive acquisition authorized: **no**
-- Real backtest authorized: **no**
+- Execution-window candidate: `2021-08-14` → `2026-08-14`
+- Window frozen: **NO**
+- Massive native `.bi5` acquisition: **FORBIDDEN**
+- Real backtest: **NOT AUTHORIZED**
 
-## Global accounting audit
+### Global calendar accounting
 
-Decision:
+- candidate dates: **111**
+- resolved candidate dates: **25**
+- unresolved candidate dates: **86**
+- FAIL dates: **0**
+- orphan special evidence: **0**
+- contradictory evidence: **0**
+- evidence-shape errors: **0**
 
-**PASS**
-
-Reason:
-
-`ALL_111_CANDIDATES_RECONCILED_WITH_24_RESOLVED_87_UNRESOLVED_AND_NO_INTEGRITY_DEFECT`
-
-This PASS certifies accounting integrity only. It does not certify coverage completeness.
-
-## Global coverage declaration
-
-Decision:
+Global coverage remains:
 
 **BLOCKED — `GLOBAL_COVERAGE_STILL_HAS_UNRESOLVED_DATES`**
 
-Eighty-seven candidate dates remain unresolved globally.
+### Candidate execution-window accounting
 
-## Window-selection rationale
+The independently selected five-year candidate remains unchanged:
 
-`EXECUTION_WINDOW_SELECTION_RULE_V1` is versioned and adversarially qualified before application.
+`2021-08-14` → `2026-08-14`
 
-Rule verdict:
+Current in-window state:
 
-**PASS — `WINDOW_SELECTION_RATIONALE_IS_VERSIONED_AND_GAP_INDEPENDENT`**
+- candidates: **68**
+- resolved: **2**
+- unresolved: **66**
+- FAIL: **0**
 
-The rule uses only:
+Resolved in-window candidates:
 
-- the already-governed coverage end;
-- the already-locked minimum five-calendar-year research horizon.
+1. `2021-09-06 — LABOR_DAY`
+2. `2025-01-09 — NATIONAL_DAY_OF_MOURNING_CARTER_2025`
 
-It does not use gap locations, gap counts, performance, or sub-period tick availability.
+The window MUST NOT be shifted or shortened because unresolved dates remain.
 
-## Mechanically produced execution-window candidate
+## Historical broker-evidence route
 
-The qualified rule produces:
+Contract:
 
-- `window_start = 2021-08-14`
-- `window_end = 2026-08-14`
-- duration = exactly 5 calendar years
-- contiguous = YES
-- manual exclusions = NO
-- selection rationale versioned = YES
-- selection independent of known gaps = YES
-- shifted to avoid known gap = NO
-- candidate set enumerated = YES
+`HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION_V1`
 
-Candidate-calendar state inside this interval:
+Final route verdict:
 
-- candidates = **68**
-- resolved = **1**
-- unresolved = **67**
-- FAIL = **0**
+**PASS — `CALIBRATED_WIDGET_ROUTE_RESOLVES_IN_WINDOW_USATECH_HISTORICAL_SPECIAL_SESSION`**
 
-The sole resolved in-window candidate is:
+### Gold-standard calibration
 
-`2025-01-09 — NATIONAL_DAY_OF_MOURNING_CARTER_2025`.
+Witness:
 
-All other 67 dates preserve their previously qualified BLOCKED state.
+`2020-02-17 — PRESIDENTS_DAY`
 
-Global gaps outside the candidate window remain visible:
+Report:
 
-`87 - 67 = 20` outside-window unresolved candidates.
+`reports/data-qualification/historical_trading_breaks_widget_calibration_2020_02_17.md`
 
-They are not reclassified or deleted.
+Verdict:
 
-## Historical broker-evidence route exploration
+**PASS — `HISTORICAL_WIDGET_REPRODUCES_LOCKED_2020_02_17_USATECH_WITNESS`**
 
-Overall route-exploration verdict:
+Authoritative runtime evidence:
 
-**BLOCKED — `NO_NEW_HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFIED`**
+- workflow run: `34866241511`
+- artifact ID: `10356927580`
+- artifact SHA-256: `f49fb3aa5b66c22127eda3ac4593a387f6f83d3ab1d1d31eb742d44c49fb6a91`
+- explicit instrument: `USATECH.IDX/USD` / ID `9016`
+- break: `2020-02-17T18:00:00Z` → final closed minute `22:59:00Z`
+- derived reopen: `23:00:00Z`
 
-Candidate mechanisms were evaluated as mechanisms before any systematic reuse across the 67 gaps.
+### First unresolved in-window pilot
 
-### JForex offline-time-domain route
+Pilot:
 
-**FAIL — `OFFLINE_TIME_DOMAIN_DOES_NOT_COVER_WEEKDAY_HOLIDAY_SESSIONS`**
+`2021-09-06 — LABOR_DAY`
 
-Authoritative Dukascopy API support explicitly states that a holiday in the middle of the week is not included by `getOfflineTimeDomains()`. This mechanism must not be promoted from weekend-offline data into holiday evidence.
+Report:
 
-### Official Trading Breaks widget historical-date route
+`reports/data-qualification/historical_trading_breaks_widget_pilot_2021_09_06.md`
 
-**BLOCKED — `HISTORICAL_WIDGET_SEMANTICS_AND_PAYLOAD_NOT_VERIFIED`**
+Verdict:
 
-The official widget exposes a `date` parameter and is therefore a materially new technical route, but historical retrieval semantics, payload retention, exact `USATECH.IDX/USD` identity and historical special-session rows have not yet been captured reproducibly.
+**PASS — `EXACT_PRIMARY_BROKER_USATECH_HISTORICAL_BREAK_WITNESS_RECOVERED`**
 
-### Official Dukascopy Market News archive
+Date-level gate:
 
-**BLOCKED — `OFFICIAL_ARCHIVE_EXISTS_BUT_TARGET_INSTRUMENT_TIMING_NOT_RECOVERED`**
+**PASS-A — exact primary broker date/instrument/timing witness.**
 
-The archive preserves historical broker bulletins and supports historical search/date context. Tested in-window notices still delegate detailed hours to the Trading Breaks Calendar and do not yet provide exact `USATECH.IDX/USD` holiday timing.
+Authoritative runtime evidence:
 
-### Archived Trading Breaks/widget snapshots
+- workflow run: `34866699952`
+- artifact ID: `10357256669`
+- artifact SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
+- break: `2021-09-06T17:00:00Z` → final closed minute `21:59:00Z`
+- derived reopen: `22:00:00Z`
+- governed fully closed UTC hours: `17,18,19,20,21`
 
-**BLOCKED — `NO_VERIFIED_ARCHIVED_TRADING_BREAKS_SNAPSHOT_RECOVERED`**
+The executable calendar now contains exactly this recovered pilot record as `SPECIAL_LABOR_DAY_2021`.
 
-Failure to recover a snapshot is not evidence that no snapshot exists.
+## Regression status after pilot integration
 
-### Direct/archived Dukascopy support witness
+Initial regression workflow run `34867320843` failed because two downloader-gate tests still used `2018-09-03` as an allegedly unresolved witness even though that date was already qualified. This was a stale test fixture, not a calendar regression.
 
-**BLOCKED — `NO_TARGET_DATE_INSTRUMENT_SPECIFIC_SUPPORT_WITNESS_OBTAINED`**
+The fixture was corrected to use genuinely unresolved `2021-11-25 — THANKSGIVING_DAY` without changing gate logic.
 
-No new exact target-date, target-instrument broker response has been collected.
+Corrected regression:
 
-No date-level calendar record changed as a result of this route exploration.
+- commit: `ccb1f9fd6dd7eb5773564ca1759cfc6eb63522b4`
+- workflow run: `34869158505`
+- verdict: **PASS**
+- pytest: **63 passed**
+- governed coverage assertions: **PASS**
+- resulting global counts: `111 / 25 resolved / 86 unresolved`
 
-## Freeze execution window
-
-Decision:
-
-**BLOCKED — `EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`**
-
-The execution-window candidate is defined but cannot be frozen because 67 in-window candidates remain unresolved.
-
-The rule MUST NOT be changed or the boundaries moved merely to reduce this count.
-
-Discovery of a plausible evidence mechanism does not change this verdict until admissible date-level evidence actually resolves the in-window gaps.
-
-## Authorize massive `.bi5` acquisition
-
-Decision:
-
-**BLOCKED — `EXECUTION_WINDOW_NOT_FROZEN`**
-
-Massive native `.bi5` acquisition remains forbidden.
-
-## Start real backtest
-
-Decision:
-
-**BLOCKED — `UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`**
-
-A real backtest remains downstream of:
-
-1. resolving all required in-window calendar evidence;
-2. execution-window freeze PASS;
-3. mandatory window/data gates PASS;
-4. native tick acquisition/reconciliation;
-5. fixed OOS split and execution/cost assumptions.
-
-## Current boundary matrix
+## Current boundary decisions
 
 - `GLOBAL_CROSS_YEAR_ACCOUNTING_AUDIT = PASS`
 - `WINDOW_SELECTION_RULE = PASS`
 - `WINDOW_CANDIDATE_DEFINED = PASS`
-- `HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION = BLOCKED`
+- `HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION = PASS`
 - `DECLARE_GLOBAL_COVERAGE_PASS = BLOCKED`
 - `FREEZE_EXECUTION_WINDOW = BLOCKED — EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`
-- `AUTHORIZE_MASSIVE_ACQUISITION = BLOCKED`
-- `REAL_BACKTEST = BLOCKED`
+- `AUTHORIZE_MASSIVE_ACQUISITION = BLOCKED — EXECUTION_WINDOW_NOT_FROZEN`
+- `REAL_BACKTEST = BLOCKED — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`
+
+## Negative-evidence boundary
+
+The qualified widget route is currently admissible for **positive historical break records**.
+
+An empty/no-record response MUST NOT be promoted to `NO_SPECIAL_CHANGE_EVIDENCE` until a separate completeness/negative-evidence contract is qualified.
+
+## Local runtime evidence archive
+
+Governed workstation location:
+
+`C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\LOCAL-EVIDENCE\dukascopy-trading-breaks-widget\2026-09-14\`
+
+Raw ZIP archives are local-only and ignored by Git. Their filenames/hashes are to be recorded in `manifest-sha256.csv`.
+
+Repository policy:
+
+`LOCAL-EVIDENCE/README.md`
 
 ## Exactly one next governed action
 
-**Technically qualify the official Dukascopy Trading Breaks widget historical-date route against the already-qualified `2020-02-17 — PRESIDENTS_DAY` gold-standard witness before using the route on any unresolved in-window date.**
+**Formalize and qualify a systematic historical Trading Breaks recovery protocol before applying the route across the remaining 66 unresolved in-window candidates.**
 
-Required calibration evidence:
+The protocol must preserve exact-date addressing, explicit broker instrument identity, positive-record evidence capture, calibrated end-time semantics, deterministic provenance, independent date-level verdicts, fixed candidate-window boundaries, and the prohibition on interpreting empty responses as regular-hours proof.
 
-1. execute the official widget in a JavaScript/network-capable environment;
-2. record exact widget configuration;
-3. capture actual endpoint/request path and parameters;
-4. demonstrate historical-date semantics rather than infer them from the presence of a `date` field;
-5. capture response payload or rendered historical row;
-6. verify explicit `USATECH.IDX/USD` identity;
-7. verify exact special-session timing against the locked 2020 witness;
-8. issue PASS/FAIL/BLOCKED for the route;
-9. only if calibration passes, probe one unresolved in-window date before considering systematic use.
-
-Do not repeat generic date-by-date searches. Do not move the window. Do not download `.bi5`. Do not start a real backtest.
+No `.bi5` acquisition. No real backtest.
