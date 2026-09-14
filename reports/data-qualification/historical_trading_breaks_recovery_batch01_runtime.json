@@ -4,9 +4,9 @@
   "verdict": "BLOCKED",
   "reason": "BATCH_SUMMARY_NOT_PRODUCED",
   "provenance": {
-    "workflow_run": 34885608502,
-    "job_id": 104115398281,
-    "probe_commit": "9f231d7cb344adf49df9e6245cb84a30e6c3b1d4",
+    "workflow_run": 34885699748,
+    "job_id": 104115693354,
+    "probe_commit": "64ae1845d318d61c7a4737f8cad952097a8b7fac",
     "artifact_id": null,
     "artifact_url": null,
     "artifact_sha256": null
