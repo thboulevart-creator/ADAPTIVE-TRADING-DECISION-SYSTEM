@@ -9,6 +9,7 @@ from tools.trading_breaks_recovery_protocol import (
     derive_interval,
     recovery_queue,
     validate_positive_recovery,
+    validate_positive_recovery_against_frozen_batch,
 )
 
 
@@ -26,6 +27,7 @@ GOOD_DOM = {
     "end": "1640386740000",
     "reason": "Thanksgiving Day",
 }
+FROZEN_SCOPE = [(TARGET, "CHRISTMAS_OBSERVED")]
 
 
 def good_evidence() -> RecoveryEvidence:
@@ -174,3 +176,52 @@ def test_partial_hour_is_not_rounded_to_closed():
     closed = derive_fully_closed_hours_utc(TARGET, start, reopen)
     assert 18 not in closed
     assert closed == frozenset({19, 20, 21, 22})
+
+
+def test_frozen_batch_replay_accepts_exact_immutable_membership():
+    before = recovery_queue()
+    result = validate_positive_recovery_against_frozen_batch(good_evidence(), FROZEN_SCOPE)
+    assert result["verdict"] == "PASS"
+    assert result["reason"] == "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED"
+    assert recovery_queue() == before
+
+
+def test_frozen_batch_replay_rejects_target_absent_from_scope():
+    scope = [(date(2022, 1, 17), "MARTIN_LUTHER_KING_DAY")]
+    result = validate_positive_recovery_against_frozen_batch(good_evidence(), scope)
+    assert result == {"verdict": "FAIL", "reason": "TARGET_NOT_IN_FROZEN_BATCH_SCOPE"}
+
+
+def test_frozen_batch_replay_rejects_candidate_reason_substitution():
+    e = replace(good_evidence(), candidate_reason="MANUAL_SUBSTITUTION")
+    result = validate_positive_recovery_against_frozen_batch(e, FROZEN_SCOPE)
+    assert result == {"verdict": "FAIL", "reason": "CANDIDATE_REASON_MISMATCH"}
+
+
+def test_frozen_batch_replay_rejects_duplicate_target_identity():
+    scope = [
+        (TARGET, "CHRISTMAS_OBSERVED"),
+        (TARGET, "MANUAL_DUPLICATE"),
+    ]
+    result = validate_positive_recovery_against_frozen_batch(good_evidence(), scope)
+    assert result == {"verdict": "FAIL", "reason": "FROZEN_SCOPE_DUPLICATE_TARGET"}
+
+
+def test_frozen_batch_replay_rejects_non_chronological_scope():
+    scope = [
+        (date(2022, 1, 17), "MARTIN_LUTHER_KING_DAY"),
+        (TARGET, "CHRISTMAS_OBSERVED"),
+    ]
+    result = validate_positive_recovery_against_frozen_batch(good_evidence(), scope)
+    assert result == {"verdict": "FAIL", "reason": "FROZEN_SCOPE_NOT_CHRONOLOGICAL"}
+
+
+def test_frozen_batch_replay_rejects_empty_or_malformed_scope():
+    assert validate_positive_recovery_against_frozen_batch(good_evidence(), []) == {
+        "verdict": "FAIL",
+        "reason": "FROZEN_SCOPE_EMPTY",
+    }
+    assert validate_positive_recovery_against_frozen_batch(
+        good_evidence(),
+        [[TARGET, "CHRISTMAS_OBSERVED"]],  # type: ignore[list-item]
+    ) == {"verdict": "FAIL", "reason": "FROZEN_SCOPE_MALFORMED"}
