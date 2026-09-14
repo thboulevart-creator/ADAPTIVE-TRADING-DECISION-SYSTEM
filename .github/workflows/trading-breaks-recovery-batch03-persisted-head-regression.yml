@@ -1,0 +1,79 @@
+name: Trading Breaks Recovery Batch 03 Persisted HEAD Regression
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch03-persisted-head-regression.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  persisted-head-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout persisted governed branch HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: feat/multi-year-dukascopy-acquisition
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: python -m pip install pytest==8.4.2
+
+      - name: Re-break persisted Batch 03 state
+        run: |
+          python -m pytest -q \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch02.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact persisted accounting
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import date
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          global_report = audit_calendar_coverage()
+          window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          _, _, attempts = load_attempt_ledger()
+          progression = json.load(open('reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json', encoding='utf-8'))
+
+          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 34, 77)
+          assert (window['candidate_dates'], window['resolved_candidate_dates'], window['unresolved_candidate_dates']) == (68, 11, 57)
+          assert global_report['evidence_shape_errors'] == []
+          assert global_report['orphan_special_evidence'] == []
+          assert global_report['contradictory_evidence_dates'] == []
+          assert len(attempts) == 15
+          assert len(recovery_queue()) == 57
+          assert progression['verdict'] == 'PASS'
+          assert progression['calendar_unresolved_count'] == 57
+          assert progression['attempt_ledger_count'] == 15
+          assert progression['registered_material_capability_change_count'] == 0
+          assert progression['attempted_blocked_ineligible_count'] == 4
+          assert progression['eligible_initial_or_retry_count'] == 53
+          assert eligible_recovery_queue()[0] == (date(2022, 11, 24), 'THANKSGIVING_DAY')
+          assert date(2022, 7, 1) in {d for d, _ in recovery_queue()}
+          assert date(2022, 7, 1) not in {d for d, _ in eligible_recovery_queue()}
+          print('PASS: persisted HEAD independently confirms Batch 03 integration state')
+          PY
