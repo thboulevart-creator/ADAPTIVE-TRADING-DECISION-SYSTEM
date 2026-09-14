@@ -2,80 +2,99 @@
 
 Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 
+Global consolidation report:
+
+`reports/data-qualification/dukascopy_usatech_global_calendar_coverage_audit.md`
+
 ## Current governed state
 
 - Global research envelope: `2018-05-01` → `2026-08-14`
-- Global unresolved candidate dates: `87`
-- `2019-07-03`: remains `BLOCKED — IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`
-- Prior gap preserved: yes
-- Prior gap reclassified/hidden: no
-- Execution window frozen: no
-- Massive acquisition authorized: no
+- Chronological qualification: complete to governed envelope end
+- Candidate dates: **111**
+- Resolved candidate dates: **24**
+- Unresolved candidate dates: **87**
+- Global FAIL dates: **0**
+- Orphan special-evidence dates: **0**
+- Contradictory evidence dates: **0**
+- Evidence-shape errors: **0**
+- Prior gaps preserved: **yes**
+- Prior gaps hidden/reclassified: **no**
+- Execution window frozen: **no**
+- Massive acquisition authorized: **no**
+- Real backtest authorized: **no**
 
-## Action 1 — Continue qualification into 2020+
-
-Input state preserves all prior gaps and does not claim global PASS.
-
-Decision:
-
-```text
-PASS
-LATER_QUALIFICATION_MAY_CONTINUE_WITH_PRIOR_GAPS_PRESERVED
-```
-
-Meaning: research/evidence qualification may advance into 2020+ while `2019-07-03` remains explicitly BLOCKED.
-
-This does NOT resolve `2019-07-03`.
-This does NOT change global coverage from BLOCKED.
-This does NOT authorize acquisition.
-
-## Action 2 — Declare global coverage PASS
+## Global accounting audit
 
 Decision:
 
-```text
-BLOCKED
-GLOBAL_COVERAGE_STILL_HAS_UNRESOLVED_DATES
-```
+**PASS**
 
-The global envelope remains BLOCKED with 87 unresolved dates.
+Reason:
 
-## Action 3 — Freeze an execution window
+`ALL_111_CANDIDATES_RECONCILED_WITH_24_RESOLVED_87_UNRESOLVED_AND_NO_INTEGRITY_DEFECT`
 
-No exact execution window or independent versioned selection rationale currently exists.
+This PASS certifies accounting integrity only. It does not certify coverage completeness.
 
-Decision:
-
-```text
-BLOCKED
-EXECUTION_WINDOW_NOT_DEFINED
-```
-
-A hypothetical `2020+` window must NOT be frozen merely because it excludes the 2019 gap. Any eventual window boundaries require an independent research rationale and full in-window calendar qualification.
-
-## Action 4 — Authorize massive `.bi5` acquisition
-
-Execution window is not frozen and mandatory window gates are not yet PASS.
+## Action — Declare global coverage PASS
 
 Decision:
 
-```text
-BLOCKED
-EXECUTION_WINDOW_NOT_FROZEN
-```
+**BLOCKED — `GLOBAL_COVERAGE_STILL_HAS_UNRESOLVED_DATES`**
 
-Massive acquisition remains forbidden.
+Eighty-seven candidate dates remain unresolved.
 
-## Current boundary verdict
+## Action — Execution-window feasibility / freeze
 
-The requested question is answered **YES** only for the narrow action of continuing qualification:
+No exact execution window is currently versioned.
 
-`CONTINUE_LATER_QUALIFICATION = PASS`
+Executable freeze decision:
 
-All stronger claims remain blocked:
+**BLOCKED — `EXECUTION_WINDOW_NOT_DEFINED`**
 
+Cross-year feasibility conclusion:
+
+**BLOCKED — `NO_ADMISSIBLE_FIVE_YEAR_ZERO_UNRESOLVED_WINDOW_UNDER_CURRENT_EVIDENCE`**
+
+Reason:
+
+- first unresolved candidate: `2019-07-03`;
+- envelope start is only `2018-05-01`, so less than five years of resolved history exist before the first gap;
+- every later annual/segment block through `2026-08-14` contains unresolved candidates;
+- therefore every possible contiguous >=5-year window inside the current envelope intersects unresolved evidence.
+
+This is BLOCKED because evidence could in principle be completed. No window is being proposed or cherry-picked.
+
+## Action — Authorize massive `.bi5` acquisition
+
+Decision:
+
+**BLOCKED — `EXECUTION_WINDOW_NOT_FROZEN`**
+
+The acquisition gate cannot be reached until an execution window first receives PASS under the boundary contract and all mandatory window/data gates pass.
+
+Massive `.bi5` acquisition remains forbidden.
+
+## Action — Start real backtest
+
+Decision:
+
+**BLOCKED — `UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`**
+
+A real backtest remains downstream of a valid frozen >=5-year execution window and qualified native tick acquisition/reconciliation.
+
+## Current boundary matrix
+
+- `GLOBAL_CROSS_YEAR_ACCOUNTING_AUDIT = PASS`
 - `DECLARE_GLOBAL_COVERAGE_PASS = BLOCKED`
+- `EXECUTION_WINDOW_FEASIBILITY = BLOCKED`
 - `FREEZE_EXECUTION_WINDOW = BLOCKED`
 - `AUTHORIZE_MASSIVE_ACQUISITION = BLOCKED`
+- `REAL_BACKTEST = BLOCKED`
 
-Therefore the next chronological qualification frontier may move into 2020 without weakening or rewriting the unresolved 2019 record.
+## Exactly one next governed action
+
+**Define and version an execution-window selection rationale independent of known gaps, without freezing a window or acquiring data yet.**
+
+Only after the rationale exists independently may its exact contiguous >=5-year candidate window be enumerated and its unresolved set measured.
+
+Do not choose the window because it avoids a known gap. Do not download `.bi5`. Do not start a real backtest.
