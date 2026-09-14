@@ -1,0 +1,49 @@
+name: Trading Breaks Recovery Protocol
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - 'tools/trading_breaks_recovery_protocol.py'
+      - 'tests/test_trading_breaks_recovery_protocol.py'
+      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md'
+      - '.github/workflows/trading-breaks-recovery-protocol.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  adversarial-protocol:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout governed branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Run adversarial protocol suite
+        run: python -m pytest -q tests/test_trading_breaks_recovery_protocol.py
+
+      - name: Assert frozen queue shape
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          queue = recovery_queue()
+          assert len(queue) == 66
+          assert queue[0][0] == date(2021, 11, 25)
+          assert queue[-1][0] == date(2026, 7, 3)
+          print('queue_count=', len(queue))
+          print('first=', queue[0])
+          print('last=', queue[-1])
+          PY
