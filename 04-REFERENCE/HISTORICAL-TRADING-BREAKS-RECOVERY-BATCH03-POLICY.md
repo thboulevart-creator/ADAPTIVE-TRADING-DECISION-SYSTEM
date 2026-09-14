@@ -12,11 +12,11 @@ Parent adjudication protocol:
 
 `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1`
 
-## Status before adversarial qualification
+## Final status
 
-**CANDIDATE — NOT YET PASS**
+**PASS — `BATCH03_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
 
-This policy freezes Batch 03 membership before any Batch 03 historical observation. No browser execution is authorized until the membership contract has survived adversarial qualification.
+This policy freezes Batch 03 membership before any Batch 03 historical observation. The membership contract survived adversarial qualification without opening Chromium or executing a historical broker probe.
 
 ## 1. Freeze provenance
 
@@ -66,7 +66,7 @@ The mechanically derived five entries are:
 4. `2022-07-04 — INDEPENDENCE_DAY_OBSERVED`
 5. `2022-09-05 — LABOR_DAY`
 
-After this policy is versioned, these five identities and their order are immutable historical Batch 03 membership.
+These five identities and their order are immutable historical Batch 03 membership.
 
 No date may be inserted, skipped, substituted, or reordered after outcomes become known.
 
@@ -82,7 +82,7 @@ Their exclusion from Batch 03 is scheduling only. They remain unresolved and MUS
 
 ## 6. Eligibility-state requirement
 
-At freeze time, every Batch 03 member MUST be:
+At freeze time, every Batch 03 member is proven to be:
 
 - present in the governed unresolved calendar queue;
 - present in `eligible_recovery_queue()`;
@@ -92,7 +92,7 @@ At freeze time, every Batch 03 member MUST be:
 
 ## 7. No outcome-dependent selection
 
-Membership MUST be independent of:
+Membership is independent of:
 
 - expected PASS/BLOCKED/FAIL result;
 - holiday category;
@@ -104,30 +104,37 @@ Membership MUST be independent of:
 
 Only the governed attempt-aware eligibility queue and fixed batch size are admissible inputs.
 
-## 8. Adversarial qualification obligations before Chromium
+## 8. Adversarial qualification result
 
-Before any Batch 03 browser execution, executable tests MUST reject at least:
+Authoritative corrected re-break:
 
-1. batch-size drift;
-2. membership mismatch from the first five governed eligible candidates at freeze time;
-3. use of raw `recovery_queue()[:5]` instead of `eligible_recovery_queue()[:5]`;
-4. reinsertion of any already-attempted BLOCKED/ineligible date;
-5. chronology drift;
-6. duplicate dates;
-7. a Batch 03 member with prior attempt history;
-8. a Batch 03 member whose progression reason is not `INITIAL_ATTEMPT`;
-9. mutable membership returned by caller input or external priority parameters;
-10. manual/expected-outcome selection paths;
-11. mutation of the frozen Batch 03 membership after policy versioning.
+- workflow run: `34891341634`
+- job: `104134524746`
+- trigger commit: `4260fd7c91fe855aeb0ff99c70ceb7458d593993`
+- conclusion: **SUCCESS**
+- adversarial/regression suite: **84 passed in 0.39s**
+- exact frozen membership assertion: **PASS**
+- no-browser/probe execution-path guard: **PASS**
 
-The policy qualification workflow MUST NOT install/open Chromium or call any historical broker endpoint.
+Qualification report:
 
-## 9. Post-qualification boundary
+`reports/data-qualification/historical_trading_breaks_recovery_batch03_policy_qualification.md`
 
-If the adversarial membership suite PASSes, this policy may be promoted to:
+The suite covers batch-size drift, eligible-prefix mismatch, raw-queue substitution, reinsertion of attempted BLOCKED dates, chronology drift, duplicates, prior-attempt contamination, non-initial eligibility, caller/manual selection surfaces, mutable return values and outcome/priority selection surfaces.
 
-**PASS — `BATCH03_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
+The first qualification run `34891254793` already had `84 passed` and exact membership PASS, but its final browser guard produced a false positive because it searched the workflow for a literal string present in its own assertion. The guard was corrected minimally and the full suite was re-run rather than accepting the first run.
 
-Only then may a separate Batch 03 execution workflow be created or run against these exact five dates.
+## 9. Browser boundary
+
+The qualified Batch 03 freeze tool contains membership only and no execution path using:
+
+- Playwright;
+- Chromium;
+- `probe_candidate`;
+- `asyncio`.
+
+Therefore no Batch 03 historical broker observation occurred before this policy PASS.
+
+A separate execution workflow may now be created for these exact five dates, provided the pre-browser gates remain mandatory.
 
 No `.bi5` acquisition and no real backtest are authorized by this policy.
