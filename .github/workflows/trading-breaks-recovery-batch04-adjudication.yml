@@ -1,13 +1,6 @@
 name: Trading Breaks Recovery Batch 04 Independent Adjudication
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - 'tools/trading_breaks_recovery_batch04_adjudication.py'
-      - 'tests/test_trading_breaks_recovery_batch04_adjudication.py'
-      - '.github/workflows/trading-breaks-recovery-batch04-adjudication.yml'
   workflow_dispatch:
 
 permissions:
@@ -47,7 +40,6 @@ jobs:
           python - <<'PY'
           import json
           from pathlib import Path
-
           path = Path('reports/data-qualification/historical_trading_breaks_recovery_batch04_adjudication.json')
           report = json.loads(path.read_text(encoding='utf-8'))
           assert report['verdict'] == 'PASS'
@@ -62,7 +54,6 @@ jobs:
               'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE',
               'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE',
           ]
-          print('PASS: Batch 04 independently adjudicated 3 PASS / 2 BLOCKED / 0 FAIL')
           PY
 
       - name: Prove adjudication consumes persisted frozen evidence only
@@ -73,7 +64,6 @@ jobs:
           for forbidden in ('playwright', 'chromium', 'probe_candidate', 'eligible_recovery_queue'):
               assert forbidden not in source, forbidden
           assert 'batch04_targets()' in source
-          print('PASS: adjudication is browser-free and does not recalculate Batch 04 membership')
           PY
 
       - name: Persist independent Batch 04 adjudication reports
