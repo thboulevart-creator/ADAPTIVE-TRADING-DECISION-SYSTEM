@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 14 SEPTEMBRE 2026 — TRADING BREAKS HISTORICAL ROUTE QUALIFIED
+# RECOVERY CHECKPOINT — 14 SEPTEMBRE 2026 — TRADING BREAKS ROUTE + LOCAL EVIDENCE ARCHIVE COMPLETE
 
 ## 1. CURRENT AUTHORITATIVE STATE
 
@@ -10,10 +10,10 @@
 - **Historical Trading Breaks route:** PASS for positive exact historical break recovery
 - **Global calendar:** `111 candidates / 25 resolved / 86 unresolved / 0 FAIL`
 - **Candidate window:** `68 candidates / 2 resolved / 66 unresolved / 0 FAIL`
+- **Latest verified calendar/boundary regression:** `63 PASS`
+- **Local runtime evidence archive:** COMPLETE and hash-verified
 - **Massive native `.bi5` acquisition:** FORBIDDEN
 - **Real backtest:** NOT authorized
-- **Latest verified calendar/boundary regression:** `63 PASS`
-- **Runtime ZIP archive registry:** 3 retained artifacts identified and hash-verified; workstation placement requires the versioned PowerShell helper.
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -25,20 +25,19 @@ Before substantive continuation:
 4. `04-REFERENCE/HISTORICAL-BROKER-EVIDENCE-ROUTE-QUALIFICATION.md`
 5. `reports/data-qualification/historical_trading_breaks_widget_calibration_2020_02_17.md`
 6. `reports/data-qualification/historical_trading_breaks_widget_pilot_2021_09_06.md`
-7. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
-8. `LOCAL-EVIDENCE/README.md`
-9. `tools/archive_local_trading_breaks_evidence.ps1`
+7. `LOCAL-EVIDENCE/README.md`
+8. `LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
+9. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
 10. `04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md`
 11. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
 12. compare active branch against this checkpoint final HEAD before writing anything.
 
 Do not reconstruct the 2019–2026 annual work from chat history.
-
 Do not repeat generic holiday searches already exhausted.
 
 ## 3. LOCKED WINDOW STATE
 
-Window-selection rule:
+Selection rule:
 
 `EXECUTION_WINDOW_SELECTION_RULE_V1`
 
@@ -74,11 +73,7 @@ Final verdict:
 
 **PASS — `CALIBRATED_WIDGET_ROUTE_RESOLVES_IN_WINDOW_USATECH_HISTORICAL_SPECIAL_SESSION`**
 
-The official Dukascopy Trading Breaks runtime is qualified for **positive historical special-session recovery** when a broker-native exact record exists.
-
 ### Gold-standard calibration
-
-Date:
 
 `2020-02-17 — PRESIDENTS_DAY`
 
@@ -86,7 +81,7 @@ Verdict:
 
 **PASS — `HISTORICAL_WIDGET_REPRODUCES_LOCKED_2020_02_17_USATECH_WITNESS`**
 
-Authoritative execution:
+Authoritative evidence:
 
 - workflow run: `34866241511`
 - artifact ID: `10356927580`
@@ -100,8 +95,6 @@ Calibrated representation rule:
 `reopen = break_end_last_closed_minute + 60 seconds`
 
 ### First unresolved pilot
-
-Date:
 
 `2021-09-06 — LABOR_DAY`
 
@@ -117,44 +110,24 @@ Date-level gate:
 
 **PASS-A**
 
-Authoritative execution:
+Authoritative evidence:
 
 - workflow run: `34866699952`
-- job ID: `104052206522`
 - artifact ID: `10357256669`
 - artifact SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
 - break: `17:00Z` → final closed minute `21:59Z`
 - derived reopen: `22:00Z`
 - fully closed UTC hours: `17,18,19,20,21`
 
-## 5. EXECUTABLE INTEGRATION
+## 5. EXECUTABLE INTEGRATION / REGRESSION
 
-The executable calendar now includes exactly one newly recovered pilot record:
+The executable calendar contains the recovered pilot record:
 
 `2021-09-06 — SPECIAL_LABOR_DAY_2021`
 
 Dedicated regression test:
 
 `tests/test_dukascopy_usatech_calendar_2021_labor_day.py`
-
-No other unresolved date was upgraded merely because the route passed.
-
-## 6. REGRESSION STATUS
-
-Initial post-integration regression:
-
-- run ID: `34867320843`
-- verdict: **FAIL**
-
-Cause:
-
-Two tests used `2018-09-03` as an unresolved witness even though that date was already qualified. This was a stale test fixture, not an executable calendar defect.
-
-Correction:
-
-- fixture changed only to genuinely unresolved `2021-11-25 — THANKSGIVING_DAY`;
-- gate logic unchanged;
-- commit: `ccb1f9fd6dd7eb5773564ca1759cfc6eb63522b4`.
 
 Corrected regression:
 
@@ -167,91 +140,62 @@ Corrected regression:
 - contradictions: 0
 - evidence-shape errors: 0
 
-## 7. LOCAL RUNTIME EVIDENCE ARCHIVE
+## 6. LOCAL RUNTIME EVIDENCE ARCHIVE — COMPLETE
 
-Repository policy:
-
-`LOCAL-EVIDENCE/README.md`
-
-Canonical workstation path:
+Canonical workstation root:
 
 `C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\LOCAL-EVIDENCE\dukascopy-trading-breaks-widget\2026-09-14\`
 
-Raw ZIP destination:
+Raw ZIP location:
 
 `raw-zips\`
 
-Manifest:
+Governed manifest:
 
-`manifest-sha256.csv`
+`LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
 
-Versioned archival helper:
+The local archival helper was executed successfully and all three retained ZIPs were archived. The generated manifest was displayed and each ZIP was independently re-hashed with PowerShell `Get-FileHash -Algorithm SHA256`.
 
-`tools/archive_local_trading_breaks_evidence.ps1`
+Verified local archives:
 
-Helper creation commit:
-
-`f654cadb331b6d69bb4f4d612230690df43cdb62`
-
-`LOCAL-EVIDENCE/README.md` artifact-registry update:
-
-`4f5cb27e2e7f5b049792de4e01757f673de04fc7`
-
-Session-backup archival update:
-
-`92d6ae4b7661d4291f7d04c6cd4a98cb8855b3bb`
-
-### Retained archives
-
-1. `dukascopy-trading-breaks-widget-2020-02-17-authoritative.zip`
-   - artifact ID: `10356927580`
-   - run: `34866241511`
-   - size: `810965` bytes
+1. calibration authoritative
+   - size: `810965`
    - SHA-256: `f49fb3aa5b66c22127eda3ac4593a387f6f83d3ab1d1d31eb742d44c49fb6a91`
-   - authority: authoritative calibration evidence.
+   - artifact `10356927580` / run `34866241511`
 
-2. `dukascopy-trading-breaks-widget-2020-02-17-headed-browser.zip`
-   - artifact ID: `10356971957`
-   - run: `34865846126`
-   - size: `709841` bytes
+2. headed-browser technical trace — non-authoritative
+   - size: `709841`
    - SHA-256: `aaf5341f3d7e10b60cc24622d6f16c2ffa3e3f31d6b108f69f53c6f3a2d48849`
-   - authority: technical trace only; non-authoritative for date promotion.
+   - artifact `10356971957` / run `34865846126`
 
-3. `dukascopy-trading-breaks-widget-pilot-2021-09-06-authoritative.zip`
-   - artifact ID: `10357256669`
-   - run: `34866699952`
-   - size: `797338` bytes
+3. 2021-09-06 authoritative pilot PASS-A
+   - size: `797338`
    - SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
-   - authority: authoritative pilot PASS-A evidence.
+   - artifact `10357256669` / run `34866699952`
 
-The original chat download links expired, but all three underlying GitHub Actions artifacts remained available and were re-downloaded on `2026-09-14`. SHA-256 was recomputed in the assistant runtime and matched the GitHub artifact digest for all three.
+The exact local manifest is versioned in Git. Raw ZIPs remain local and ignored by Git.
 
-Important boundary:
+`tools/archive_local_trading_breaks_evidence.ps1` remains intentionally versioned in GitHub for reproducibility even if the local working-tree copy is removed after successful use.
 
-- GitHub now durably records the identities, hashes and intended local path;
-- this does **not** claim the archives are already present on the user's workstation;
-- local placement becomes complete only when the user downloads the three fresh ZIPs and runs the versioned PowerShell helper;
-- raw ZIP files stay local and remain ignored by Git;
-- `manifest-sha256.csv` must be generated locally after placement.
-
-## 8. CURRENT BOUNDARY MATRIX
+## 7. CURRENT BOUNDARY MATRIX
 
 - `GLOBAL_CROSS_YEAR_ACCOUNTING_AUDIT = PASS`
 - `WINDOW_SELECTION_RULE = PASS`
 - `WINDOW_CANDIDATE_DEFINED = PASS`
 - `HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION = PASS`
+- `LOCAL_RUNTIME_EVIDENCE_ARCHIVE = PASS`
 - `DECLARE_GLOBAL_COVERAGE_PASS = BLOCKED`
 - `FREEZE_EXECUTION_WINDOW = BLOCKED — EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`
 - `AUTHORIZE_MASSIVE_ACQUISITION = BLOCKED — EXECUTION_WINDOW_NOT_FROZEN`
 - `REAL_BACKTEST = BLOCKED — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`
 
-## 9. IMPORTANT NEGATIVE-EVIDENCE BOUNDARY
+## 8. IMPORTANT NEGATIVE-EVIDENCE BOUNDARY
 
 The Trading Breaks route is qualified only for **positive historical break records**.
 
 An empty/no-record response does NOT prove normal trading hours and MUST NOT be promoted to `NO_SPECIAL_CHANGE_EVIDENCE` until a separate completeness/negative-evidence contract is qualified.
 
-## 10. WHAT MUST NOT BE REPEATED
+## 9. WHAT MUST NOT BE REPEATED
 
 - do not reopen all 66 dates manually;
 - do not repeat generic date-by-date searches already exhausted;
@@ -263,7 +207,7 @@ An empty/no-record response does NOT prove normal trading hours and MUST NOT be 
 - do not download `.bi5`;
 - do not start a real backtest.
 
-## 11. EXACTLY ONE NEXT GOVERNED ACTION
+## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
 **Formalize and adversarially qualify a systematic historical Trading Breaks recovery protocol before applying the qualified route across the remaining 66 unresolved in-window candidates.**
 
