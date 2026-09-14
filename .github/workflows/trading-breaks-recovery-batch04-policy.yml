@@ -1,14 +1,6 @@
 name: Trading Breaks Recovery Batch 04 Policy Qualification
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH04-POLICY.md'
-      - 'tools/trading_breaks_recovery_batch04.py'
-      - 'tests/test_trading_breaks_recovery_batch04.py'
-      - '.github/workflows/trading-breaks-recovery-batch04-policy.yml'
   workflow_dispatch:
 
 permissions:
