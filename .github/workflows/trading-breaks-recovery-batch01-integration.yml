@@ -76,7 +76,7 @@ jobs:
           assert recovery_queue()[-1] == (date(2026, 7, 3), 'INDEPENDENCE_DAY_OBSERVED')
           PY
 
-      - name: Commit one atomic executable-evidence update
+      - name: Commit validated executable-evidence update
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -86,8 +86,6 @@ jobs:
             tests/test_trading_breaks_recovery_protocol.py \
             tools/trading_breaks_recovery_batch01.py \
             tests/test_trading_breaks_recovery_batch01.py \
-            .github/workflows/trading-breaks-recovery-batch01.yml \
-            .github/workflows/dukascopy-calendar-regression.yml \
             tests/test_dukascopy_usatech_calendar_2021_batch01.py
           git diff --cached --check
           git commit -m 'evidence: integrate adjudicated Trading Breaks Batch 01'
