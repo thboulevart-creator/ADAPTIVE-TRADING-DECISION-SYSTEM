@@ -1,11 +1,6 @@
 name: Trading Breaks Recovery Batch 03 Persisted HEAD Regression
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch03-persisted-head-regression.yml'
   workflow_dispatch:
 
 permissions:
