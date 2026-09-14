@@ -1,0 +1,80 @@
+name: Trading Breaks Recovery Batch 04 Policy Qualification
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH04-POLICY.md'
+      - 'tools/trading_breaks_recovery_batch04.py'
+      - 'tests/test_trading_breaks_recovery_batch04.py'
+      - '.github/workflows/trading-breaks-recovery-batch04-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  batch04-policy-qualification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout governed branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/multi-year-dukascopy-acquisition
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest only
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarially qualify Batch 04 membership and parent boundaries
+        run: |
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch04.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact mechanically frozen Batch 04 membership
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch04 import BATCH_SIZE, batch04_targets
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue
+
+          expected = [
+              (date(2022, 11, 24), 'THANKSGIVING_DAY'),
+              (date(2022, 11, 25), 'THANKSGIVING_FRIDAY'),
+              (date(2022, 12, 23), 'CHRISTMAS_PRE_HOLIDAY_SESSION'),
+              (date(2022, 12, 26), 'CHRISTMAS_OBSERVED'),
+              (date(2023, 1, 2), 'NEW_YEARS_OBSERVED'),
+          ]
+          assert BATCH_SIZE == 5
+          assert eligible_recovery_queue()[:5] == expected
+          assert batch04_targets() == eligible_recovery_queue()[:5]
+          print('PASS: Batch 04 membership equals governed eligible_recovery_queue()[:5] at freeze')
+          for day, reason in expected:
+              print(day.isoformat(), reason)
+          PY
+
+      - name: Prove Batch 04 freeze contains no browser execution path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('tools/trading_breaks_recovery_batch04.py').read_text(encoding='utf-8').lower()
+          for forbidden in ('playwright', 'chromium', 'probe_candidate', 'asyncio'):
+              assert forbidden not in source, forbidden
+          print('PASS: Batch 04 freeze is membership-only; no browser/probe path exists')
+          PY
