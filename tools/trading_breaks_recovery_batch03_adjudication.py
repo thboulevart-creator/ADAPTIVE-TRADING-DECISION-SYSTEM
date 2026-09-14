@@ -37,15 +37,22 @@ def _epoch_ms(dt: datetime) -> int:
     return int(dt.timestamp() * 1000)
 
 
-def _parse_dom_line(line: str) -> dict[str, Any]:
+def _parse_dom_line(
+    line: str,
+    *,
+    expected_instrument_name: str,
+    expected_instrument_id: str,
+) -> dict[str, Any]:
     parts = [part.strip() for part in line.split("\t")]
     if len(parts) != 4:
         raise ValueError("DOM_WITNESS_SHAPE_INVALID")
-    instrument, start_raw, end_raw, reason = parts
+    instrument_name, start_raw, end_raw, reason = parts
+    if instrument_name != expected_instrument_name:
+        raise ValueError("DOM_WITNESS_INSTRUMENT_NAME_MISMATCH")
     start = datetime.strptime(start_raw, "%d-%b-%y %H:%M:%S").replace(tzinfo=timezone.utc)
     end = datetime.strptime(end_raw, "%d-%b-%y %H:%M:%S").replace(tzinfo=timezone.utc)
     return {
-        "instrument": instrument,
+        "instrument": expected_instrument_id,
         "start": _epoch_ms(start),
         "end": _epoch_ms(end),
         "reason": reason,
@@ -113,6 +120,8 @@ def adjudicate_runtime(runtime: dict[str, Any]) -> dict[str, Any]:
             raise ValueError("RESULT_REQUESTED_DATE_MISMATCH")
         if raw.get("instrument_id_observed") != "9016":
             raise ValueError("RESULT_OBSERVED_INSTRUMENT_MISMATCH")
+        if raw.get("instrument_name") != "USATECH.IDX/USD":
+            raise ValueError("RESULT_INSTRUMENT_NAME_MISMATCH")
         if raw.get("runtime_errors"):
             raise ValueError("RESULT_RUNTIME_ERRORS_PRESENT")
 
@@ -128,7 +137,15 @@ def adjudicate_runtime(runtime: dict[str, Any]) -> dict[str, Any]:
             raise ValueError("DOM_WITNESS_LINES_NOT_LIST")
         if len(dom_lines) > 1:
             raise ValueError("MULTIPLE_DOM_WITNESSES_REQUIRE_SEPARATE_ADJUDICATION")
-        dom_record = _parse_dom_line(dom_lines[0]) if dom_lines else None
+        dom_record = (
+            _parse_dom_line(
+                dom_lines[0],
+                expected_instrument_name=str(raw["instrument_name"]),
+                expected_instrument_id=str(raw["instrument_id_observed"]),
+            )
+            if dom_lines
+            else None
+        )
 
         evidence = RecoveryEvidence(
             target_date=target_day,
