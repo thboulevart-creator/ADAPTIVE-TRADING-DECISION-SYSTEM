@@ -1,6 +1,16 @@
 name: Trading Breaks Recovery Progression Qualification
 
 on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md'
+      - 'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json'
+      - 'reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json'
+      - 'tools/trading_breaks_recovery_progression.py'
+      - 'tests/test_trading_breaks_recovery_progression.py'
+      - '.github/workflows/trading-breaks-recovery-progression.yml'
   workflow_dispatch:
 
 permissions:
@@ -25,7 +35,7 @@ jobs:
       - name: Install pytest
         run: python -m pip install pytest==8.4.2
 
-      - name: Adversarially break progression boundary and parent invariants
+      - name: Adversarially re-break progression boundary and parent invariants
         run: |
           python -m pytest -q \
             tests/test_trading_breaks_recovery_progression.py \
@@ -50,6 +60,7 @@ jobs:
           assert report['verdict'] == 'PASS'
           assert report['calendar_unresolved_count'] == 61
           assert report['attempt_ledger_count'] == 10
+          assert report['registered_material_capability_change_count'] == 0
           assert report['attempted_blocked_ineligible_count'] == 3
           assert report['eligible_initial_or_retry_count'] == 58
           decisions = report['decisions']
@@ -62,6 +73,7 @@ jobs:
               blocked[d]['reason'] == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
               for d in ('2021-12-24', '2021-12-31', '2022-04-15')
           )
+          # Batch 03 is deliberately not sliced or frozen in this workflow.
           PY
 
       - name: Persist progression runtime report
@@ -73,6 +85,6 @@ jobs:
           if git diff --cached --quiet; then
             echo 'No progression runtime report change to persist.'
           else
-            git commit -m 'evidence: persist attempt-aware recovery progression qualification runtime'
+            git commit -m 'evidence: persist corrected attempt-aware progression qualification runtime'
             git push origin HEAD:feat/multi-year-dukascopy-acquisition
           fi
