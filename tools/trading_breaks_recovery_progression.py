@@ -13,10 +13,24 @@ from tools.trading_breaks_recovery_protocol import recovery_queue
 
 CONTRACT = "HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1"
 LEDGER_SCHEMA = "HISTORICAL_TRADING_BREAKS_RECOVERY_ATTEMPT_LEDGER_V1"
-LEDGER_PATH = Path(__file__).resolve().parents[1] / "reports" / "data-qualification" / "historical_trading_breaks_recovery_attempt_ledger.json"
-REPORT_PATH = Path(__file__).resolve().parents[1] / "reports" / "data-qualification" / "historical_trading_breaks_recovery_progression_runtime.json"
+CHANGE_REGISTRY_SCHEMA = "HISTORICAL_TRADING_BREAKS_RECOVERY_CAPABILITY_CHANGE_REGISTRY_V1"
+ROOT = Path(__file__).resolve().parents[1]
+LEDGER_PATH = ROOT / "reports" / "data-qualification" / "historical_trading_breaks_recovery_attempt_ledger.json"
+CHANGE_REGISTRY_PATH = ROOT / "reports" / "data-qualification" / "historical_trading_breaks_recovery_capability_changes.json"
+REPORT_PATH = ROOT / "reports" / "data-qualification" / "historical_trading_breaks_recovery_progression_runtime.json"
 
 _ALLOWED_OUTCOMES = frozenset({"PASS", "BLOCKED", "FAIL"})
+_ALLOWED_CHANGED_DIMENSIONS = frozenset(
+    {
+        "route_contract",
+        "protocol_contract",
+        "capture_implementation",
+        "proof_capabilities",
+    }
+)
+_EXECUTABLE_CAPABILITY_DIMENSIONS = frozenset(
+    {"route_contract", "protocol_contract", "capture_implementation"}
+)
 _SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 _COMMIT_RE = re.compile(r"^[0-9a-f]{40}$")
 
@@ -101,6 +115,8 @@ class MaterialCapabilityChange:
     changed_dimensions: frozenset[str]
     added_proof_capabilities: frozenset[str]
     addresses_blocking_reasons: frozenset[str]
+    qualification_contract: str
+    qualification_commit: str
 
 
 @dataclass(frozen=True)
@@ -138,7 +154,7 @@ def capability_from_payload(payload: dict[str, Any]) -> CapabilityIdentity:
     if len(proof_capabilities) != len(set(proof_capabilities)):
         raise ValueError("duplicate proof capability")
 
-    fields = {}
+    fields: dict[str, str] = {}
     for name in ("route_contract", "protocol_contract", "capture_implementation"):
         value = payload.get(name)
         if not isinstance(value, str) or not value.strip():
@@ -237,12 +253,16 @@ def load_attempt_ledger(path: Path = LEDGER_PATH) -> tuple[dict[str, CapabilityI
             raise ValueError("attempt provenance missing")
         _validate_provenance(provenance)
 
+        target_date_raw = raw.get("target_date")
+        if not isinstance(target_date_raw, str):
+            raise ValueError("attempt target date missing")
+
         attempts.append(
             AttemptRecord(
                 attempt_sequence=sequence,
                 attempt_id=attempt_id,
                 batch_contract=batch_contract,
-                target_date=date.fromisoformat(raw["target_date"]),
+                target_date=date.fromisoformat(target_date_raw),
                 candidate_reason=candidate_reason,
                 outcome=outcome,
                 adjudication_reason=adjudication_reason,
@@ -263,6 +283,71 @@ def load_attempt_ledger(path: Path = LEDGER_PATH) -> tuple[dict[str, CapabilityI
 def current_capability(path: Path = LEDGER_PATH) -> CapabilityIdentity:
     capabilities, current_capability_id, _ = load_attempt_ledger(path)
     return capabilities[current_capability_id]
+
+
+def load_material_capability_changes(
+    path: Path = CHANGE_REGISTRY_PATH,
+) -> list[MaterialCapabilityChange]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("schema") != CHANGE_REGISTRY_SCHEMA:
+        raise ValueError("wrong capability change registry schema")
+    raw_changes = data.get("changes")
+    if not isinstance(raw_changes, list):
+        raise ValueError("capability change registry changes missing")
+
+    seen_ids: set[str] = set()
+    changes: list[MaterialCapabilityChange] = []
+    for raw in raw_changes:
+        if not isinstance(raw, dict):
+            raise ValueError("capability change must be an object")
+        change_id = raw.get("change_id")
+        if not isinstance(change_id, str) or not change_id.strip():
+            raise ValueError("material change id missing")
+        if change_id in seen_ids:
+            raise ValueError("duplicate material change id")
+        seen_ids.add(change_id)
+
+        from_fp = raw.get("from_fingerprint")
+        to_fp = raw.get("to_fingerprint")
+        if not isinstance(from_fp, str) or not _SHA256_RE.fullmatch(from_fp):
+            raise ValueError("invalid material change from fingerprint")
+        if not isinstance(to_fp, str) or not _SHA256_RE.fullmatch(to_fp):
+            raise ValueError("invalid material change to fingerprint")
+
+        raw_dimensions = raw.get("changed_dimensions")
+        raw_added = raw.get("added_proof_capabilities")
+        raw_reasons = raw.get("addresses_blocking_reasons")
+        if not isinstance(raw_dimensions, list) or not raw_dimensions:
+            raise ValueError("material change dimensions missing")
+        if set(raw_dimensions) - _ALLOWED_CHANGED_DIMENSIONS:
+            raise ValueError("unknown material change dimension")
+        if not isinstance(raw_added, list) or not raw_added:
+            raise ValueError("material change added proof capabilities missing")
+        if not isinstance(raw_reasons, list) or not raw_reasons:
+            raise ValueError("material change blocking reasons missing")
+        if any(not isinstance(x, str) or not x.strip() for x in raw_added + raw_reasons):
+            raise ValueError("invalid material change semantic token")
+
+        qualification_contract = raw.get("qualification_contract")
+        qualification_commit = raw.get("qualification_commit")
+        if not isinstance(qualification_contract, str) or not qualification_contract.strip():
+            raise ValueError("material change qualification contract missing")
+        if not isinstance(qualification_commit, str) or not _COMMIT_RE.fullmatch(qualification_commit):
+            raise ValueError("material change qualification commit invalid")
+
+        changes.append(
+            MaterialCapabilityChange(
+                change_id=change_id,
+                from_fingerprint=from_fp,
+                to_fingerprint=to_fp,
+                changed_dimensions=frozenset(raw_dimensions),
+                added_proof_capabilities=frozenset(raw_added),
+                addresses_blocking_reasons=frozenset(raw_reasons),
+                qualification_contract=qualification_contract,
+                qualification_commit=qualification_commit,
+            )
+        )
+    return changes
 
 
 def latest_attempt_for_date(target_date: date, attempts: Sequence[AttemptRecord]) -> AttemptRecord | None:
@@ -304,10 +389,20 @@ def validate_material_capability_change(
     actual_dimensions = actual_changed_dimensions(old, current)
     if not actual_dimensions or change.changed_dimensions != actual_dimensions:
         return False, "DECLARED_CHANGED_DIMENSIONS_MISMATCH"
+    if not (actual_dimensions & _EXECUTABLE_CAPABILITY_DIMENSIONS):
+        return False, "NO_ROUTE_PROTOCOL_OR_RUNTIME_CHANGE"
 
+    removed = old.proof_capabilities - current.proof_capabilities
+    if removed:
+        return False, "PROOF_CAPABILITY_REGRESSION"
     added = current.proof_capabilities - old.proof_capabilities
     if not added or change.added_proof_capabilities != added:
         return False, "NEW_PROOF_CAPABILITY_NOT_PROVEN"
+
+    if not isinstance(change.qualification_contract, str) or not change.qualification_contract.strip():
+        return False, "MATERIAL_CHANGE_QUALIFICATION_CONTRACT_MISSING"
+    if not isinstance(change.qualification_commit, str) or not _COMMIT_RE.fullmatch(change.qualification_commit):
+        return False, "MATERIAL_CHANGE_QUALIFICATION_COMMIT_INVALID"
 
     blocker = previous_attempt.blocking_reason
     required = RETRY_CAPABILITY_REQUIREMENTS.get(blocker)
@@ -323,12 +418,12 @@ def validate_material_capability_change(
     return True, "MATERIAL_CAPABILITY_CHANGE_PROVEN"
 
 
-def eligibility_for_unresolved_candidate(
+def _eligibility_for_unresolved_candidate(
     target_date: date,
     candidate_reason: str,
     attempts: Sequence[AttemptRecord],
     current: CapabilityIdentity,
-    changes: Iterable[MaterialCapabilityChange] = (),
+    changes: Iterable[MaterialCapabilityChange],
 ) -> EligibilityDecision:
     latest = latest_attempt_for_date(target_date, attempts)
     if latest is None:
@@ -404,54 +499,35 @@ def eligibility_for_unresolved_candidate(
     )
 
 
-def progression_decisions(
-    *,
-    attempts: Sequence[AttemptRecord] | None = None,
-    current: CapabilityIdentity | None = None,
-    changes: Iterable[MaterialCapabilityChange] = (),
-) -> list[EligibilityDecision]:
-    if attempts is None or current is None:
-        capabilities, current_capability_id, ledger_attempts = load_attempt_ledger()
-        if attempts is None:
-            attempts = ledger_attempts
-        if current is None:
-            current = capabilities[current_capability_id]
-
-    queue = recovery_queue()
+def progression_decisions() -> list[EligibilityDecision]:
+    capabilities, current_capability_id, attempts = load_attempt_ledger()
+    current = capabilities[current_capability_id]
+    changes = load_material_capability_changes()
     return [
-        eligibility_for_unresolved_candidate(
+        _eligibility_for_unresolved_candidate(
             target_date=target_date,
             candidate_reason=candidate_reason,
             attempts=attempts,
             current=current,
             changes=changes,
         )
-        for target_date, candidate_reason in queue
+        for target_date, candidate_reason in recovery_queue()
     ]
 
 
-def eligible_recovery_queue(
-    *,
-    attempts: Sequence[AttemptRecord] | None = None,
-    current: CapabilityIdentity | None = None,
-    changes: Iterable[MaterialCapabilityChange] = (),
-) -> list[tuple[date, str]]:
-    decisions = progression_decisions(
-        attempts=attempts,
-        current=current,
-        changes=changes,
-    )
+def eligible_recovery_queue() -> list[tuple[date, str]]:
     return [
         (item.target_date, item.candidate_reason)
-        for item in decisions
+        for item in progression_decisions()
         if item.eligible and item.contract_verdict == "PASS"
     ]
 
 
 def build_progression_report() -> dict[str, Any]:
-    capabilities, current_capability_id, attempts = load_attempt_ledger()
-    current = capabilities[current_capability_id]
-    decisions = progression_decisions(attempts=attempts, current=current)
+    _, current_capability_id, attempts = load_attempt_ledger()
+    current = current_capability()
+    changes = load_material_capability_changes()
+    decisions = progression_decisions()
     queue = recovery_queue()
 
     if [(d.target_date, d.candidate_reason) for d in decisions] != queue:
@@ -482,6 +558,7 @@ def build_progression_report() -> dict[str, Any]:
         "reason": "ATTEMPT_AWARE_PROGRESSION_STATE_IS_DETERMINISTIC_AND_NON_STARVING",
         "calendar_unresolved_count": len(queue),
         "attempt_ledger_count": len(attempts),
+        "registered_material_capability_change_count": len(changes),
         "current_capability_id": current_capability_id,
         "current_capability_fingerprint": current.fingerprint(),
         "attempted_blocked_ineligible_count": len(attempted_blocked_ineligible),
