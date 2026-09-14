@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 from datetime import date, datetime, timedelta, timezone
-from typing import Any
+from typing import Any, Sequence
 
 from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
 from tools.dukascopy_usatech_calendar_coverage import (
@@ -106,14 +106,24 @@ def _dom_matches_network(dom: dict[str, Any], network: dict[str, Any]) -> bool:
     return True
 
 
-def validate_positive_recovery(evidence: RecoveryEvidence) -> dict[str, Any]:
-    """Validate one date independently. Empty/no-record outcomes never PASS."""
-    queue_days = {day for day, _ in recovery_queue()}
+def _validate_positive_recovery_in_scope(
+    evidence: RecoveryEvidence,
+    allowed_targets: dict[date, str],
+    *,
+    missing_target_reason: str,
+) -> dict[str, Any]:
+    """Validate evidence against an already-qualified target scope.
 
+    This function validates evidence semantics only. It does not mutate or widen the
+    live recovery queue. Callers are responsible for supplying either the current
+    unresolved queue or an immutable historical batch membership.
+    """
     if not (WINDOW_START <= evidence.target_date <= WINDOW_END):
         return {"verdict": "FAIL", "reason": "TARGET_OUTSIDE_FROZEN_WINDOW"}
-    if evidence.target_date not in queue_days:
-        return {"verdict": "FAIL", "reason": "TARGET_NOT_IN_GOVERNED_RECOVERY_QUEUE"}
+    if evidence.target_date not in allowed_targets:
+        return {"verdict": "FAIL", "reason": missing_target_reason}
+    if evidence.candidate_reason != allowed_targets[evidence.target_date]:
+        return {"verdict": "FAIL", "reason": "CANDIDATE_REASON_MISMATCH"}
     if evidence.requested_date != evidence.target_date:
         return {"verdict": "FAIL", "reason": "REQUESTED_DATE_MISMATCH"}
     if evidence.instrument_id != TARGET_INSTRUMENT_ID:
@@ -177,3 +187,49 @@ def validate_positive_recovery(evidence: RecoveryEvidence) -> dict[str, Any]:
         "artifact_sha256": evidence.artifact_sha256.lower(),
         "probe_commit": evidence.probe_commit.lower(),
     }
+
+
+def validate_positive_recovery(evidence: RecoveryEvidence) -> dict[str, Any]:
+    """Validate one currently-unresolved date. Resolved dates cannot re-enter."""
+    return _validate_positive_recovery_in_scope(
+        evidence,
+        dict(recovery_queue()),
+        missing_target_reason="TARGET_NOT_IN_GOVERNED_RECOVERY_QUEUE",
+    )
+
+
+def validate_positive_recovery_against_frozen_batch(
+    evidence: RecoveryEvidence,
+    frozen_targets: Sequence[tuple[date, str]],
+) -> dict[str, Any]:
+    """Replay evidence against immutable historical batch membership.
+
+    This is an adjudication/reproducibility interface only. It never changes the
+    current recovery queue and does not make a resolved date execution-eligible.
+    """
+    if not frozen_targets:
+        return {"verdict": "FAIL", "reason": "FROZEN_SCOPE_EMPTY"}
+
+    normalized: list[tuple[date, str]] = []
+    for item in frozen_targets:
+        if (
+            not isinstance(item, tuple)
+            or len(item) != 2
+            or not isinstance(item[0], date)
+            or not isinstance(item[1], str)
+            or not item[1].strip()
+        ):
+            return {"verdict": "FAIL", "reason": "FROZEN_SCOPE_MALFORMED"}
+        normalized.append((item[0], item[1]))
+
+    days = [day for day, _ in normalized]
+    if len(days) != len(set(days)):
+        return {"verdict": "FAIL", "reason": "FROZEN_SCOPE_DUPLICATE_TARGET"}
+    if days != sorted(days):
+        return {"verdict": "FAIL", "reason": "FROZEN_SCOPE_NOT_CHRONOLOGICAL"}
+
+    return _validate_positive_recovery_in_scope(
+        evidence,
+        dict(normalized),
+        missing_target_reason="TARGET_NOT_IN_FROZEN_BATCH_SCOPE",
+    )
