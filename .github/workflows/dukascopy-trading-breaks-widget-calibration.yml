@@ -1,0 +1,50 @@
+name: Dukascopy Trading Breaks Widget Calibration
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - 'tools/probe_dukascopy_trading_breaks_widget_2020_02_17.py'
+      - '.github/workflows/dukascopy-trading-breaks-widget-calibration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  calibrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout governed branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Playwright
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Run locked 2020-02-17 calibration probe
+        run: python tools/probe_dukascopy_trading_breaks_widget_2020_02_17.py
+
+      - name: Print authoritative probe result
+        if: always()
+        run: |
+          echo '--- probe_result.json ---'
+          cat widget_probe_artifacts/probe_result.json || true
+
+      - name: Upload runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dukascopy-trading-breaks-widget-2020-02-17
+          path: widget_probe_artifacts/
+          if-no-files-found: error
+          retention-days: 30
