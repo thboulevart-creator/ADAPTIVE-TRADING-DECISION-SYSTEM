@@ -1,6 +1,16 @@
 name: Dukascopy Calendar Regression
 
 on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - 'tools/dukascopy_usatech_calendar.py'
+      - 'tools/dukascopy_usatech_calendar_coverage.py'
+      - 'tests/test_dukascopy_usatech_calendar*.py'
+      - 'tests/test_dukascopy_downloader_calendar_coverage_gate.py'
+      - 'tests/test_coverage_execution_window_boundary.py'
+      - '.github/workflows/dukascopy-calendar-regression.yml'
   workflow_dispatch:
 
 permissions:
@@ -29,10 +39,11 @@ jobs:
             tests/test_dukascopy_usatech_calendar_2019_remaining.py \
             tests/test_dukascopy_usatech_calendar_coverage.py \
             tests/test_dukascopy_usatech_calendar_2021_labor_day.py \
+            tests/test_dukascopy_usatech_calendar_2021_batch01.py \
             tests/test_dukascopy_downloader_calendar_coverage_gate.py \
             tests/test_coverage_execution_window_boundary.py
 
-      - name: Assert governed coverage counts after pilot integration
+      - name: Assert governed coverage counts after Batch 01 integration
         run: |
           python - <<'PY'
           import json
@@ -41,9 +52,9 @@ jobs:
           report = audit_calendar_coverage()
           print(json.dumps(report, indent=2, sort_keys=True))
           assert report['candidate_dates'] == 111
-          assert report['special_session_evidence_dates'] == 25
-          assert report['resolved_candidate_dates'] == 25
-          assert report['unresolved_candidate_dates'] == 86
+          assert report['special_session_evidence_dates'] == 28
+          assert report['resolved_candidate_dates'] == 28
+          assert report['unresolved_candidate_dates'] == 83
           assert report['verdict'] == 'BLOCKED'
           assert report['reason'] == 'SPECIAL_SESSION_EVIDENCE_COVERAGE_INCOMPLETE'
           assert report['orphan_special_evidence'] == []
