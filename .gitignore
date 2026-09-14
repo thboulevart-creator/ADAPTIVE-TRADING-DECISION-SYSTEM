@@ -1,0 +1,4 @@
+# Local-only runtime evidence archives.
+# Raw GitHub Actions ZIPs are retained on the workstation and identified by
+# versioned manifests/hashes rather than committed as opaque binaries.
+LOCAL-EVIDENCE/**/raw-zips/*.zip
