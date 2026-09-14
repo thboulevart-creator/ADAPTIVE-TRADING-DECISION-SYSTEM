@@ -160,9 +160,50 @@ Rules:
 - raw ZIPs remain local;
 - `.gitignore` excludes `LOCAL-EVIDENCE/**/raw-zips/*.zip`;
 - a `manifest-sha256.csv` beside `raw-zips` identifies each local archive by filename, size, timestamp, relative path and SHA-256;
-- `LOCAL-EVIDENCE/README.md` records the policy and the two authoritative known GitHub Actions artifacts.
+- `LOCAL-EVIDENCE/README.md` records the policy and retained artifact identities.
 
 Do not treat presence of a ZIP as evidence by itself. Reports, artifact identities, hashes and governed verdicts remain authoritative.
+
+## Artifact recovery after chat-link expiry — 2026-09-14
+
+The temporary download links previously surfaced in chat expired. The runtime evidence was **not lost** because the underlying GitHub Actions artifacts remained available.
+
+Three archives were re-downloaded directly from GitHub Actions and their SHA-256 values were recomputed locally in the assistant runtime. All three matched the GitHub digests exactly:
+
+1. `dukascopy-trading-breaks-widget-2020-02-17-authoritative.zip`
+   - artifact ID: `10356927580`
+   - run: `34866241511`
+   - size: `810965` bytes
+   - SHA-256: `f49fb3aa5b66c22127eda3ac4593a387f6f83d3ab1d1d31eb742d44c49fb6a91`
+   - status: authoritative calibration evidence archive.
+
+2. `dukascopy-trading-breaks-widget-2020-02-17-headed-browser.zip`
+   - artifact ID: `10356971957`
+   - run: `34865846126`
+   - size: `709841` bytes
+   - SHA-256: `aaf5341f3d7e10b60cc24622d6f16c2ffa3e3f31d6b108f69f53c6f3a2d48849`
+   - status: technical headed-browser predecessor retained for auditability; **non-authoritative** for date promotion.
+
+3. `dukascopy-trading-breaks-widget-pilot-2021-09-06-authoritative.zip`
+   - artifact ID: `10357256669`
+   - run: `34866699952`
+   - size: `797338` bytes
+   - SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
+   - status: authoritative pilot PASS-A evidence archive.
+
+Workstation placement is intentionally a separate local action. It must be performed by the versioned helper:
+
+`tools/archive_local_trading_breaks_evidence.ps1`
+
+The helper:
+
+- reads the three exact filenames from the user's Downloads directory by default;
+- verifies SHA-256 **before** moving anything;
+- refuses mismatched or conflicting files;
+- stores them under the canonical `raw-zips\` path;
+- regenerates `manifest-sha256.csv` with filename, size, relative path, timestamp, SHA-256, role, artifact ID and workflow run.
+
+This preserves a clean separation between Git-tracked governance/provenance and opaque local binary evidence.
 
 ## Boundary matrix
 
