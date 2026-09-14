@@ -1,0 +1,80 @@
+name: Trading Breaks Recovery Batch 03 Independent Adjudication
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch03-adjudication.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  adjudicate-batch03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout governed branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/multi-year-dukascopy-acquisition
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Adversarially break independent adjudication and parent protocol
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_progression.py
+
+      - name: Independently adjudicate the versioned Batch 03 runtime
+        run: python -m tools.trading_breaks_recovery_batch03_adjudication
+
+      - name: Assert exact final Batch 03 verdict
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path('reports/data-qualification/historical_trading_breaks_recovery_batch03_adjudication.json')
+          report = json.loads(path.read_text(encoding='utf-8'))
+          assert report['verdict'] == 'PASS'
+          assert report['attempted'] == 5
+          assert report['pass'] == 4
+          assert report['blocked'] == 1
+          assert report['fail'] == 0
+          assert [x['verdict'] for x in report['adjudications']] == ['PASS', 'PASS', 'BLOCKED', 'PASS', 'PASS']
+          assert report['adjudications'][2]['reason'] == 'NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED'
+          print('PASS: Batch 03 independently adjudicated 4 PASS / 1 BLOCKED / 0 FAIL')
+          PY
+
+      - name: Prove adjudication path is browser-free
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/trading_breaks_recovery_batch03_adjudication.py').read_text(encoding='utf-8').lower()
+          assert 'playwright' not in source
+          assert 'chromium' not in source
+          assert 'probe_candidate' not in source
+          print('PASS: adjudication reuses persisted evidence only; no browser/probe path')
+          PY
+
+      - name: Persist independent adjudication reports
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            reports/data-qualification/historical_trading_breaks_recovery_batch03_adjudication.json \
+            reports/data-qualification/historical_trading_breaks_recovery_batch03_qualification.md
+          git diff --cached --check
+          git commit -m 'evidence: independently adjudicate Trading Breaks Batch 03'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
