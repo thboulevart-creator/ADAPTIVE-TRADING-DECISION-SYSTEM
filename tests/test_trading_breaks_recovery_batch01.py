@@ -25,7 +25,10 @@ def test_batch01_expected_membership_is_version_locked_before_execution():
         (date(2021, 11, 26), "THANKSGIVING_FRIDAY"),
         (date(2021, 12, 23), "CHRISTMAS_PRE_HOLIDAY_SESSION"),
         (date(2021, 12, 24), "CHRISTMAS_OBSERVED"),
-        (date(2021, 12, 31), "NEW_YEARS_EVE_CANDIDATE"),
+        (
+            date(2021, 12, 31),
+            "NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED",
+        ),
     ]
 
 
