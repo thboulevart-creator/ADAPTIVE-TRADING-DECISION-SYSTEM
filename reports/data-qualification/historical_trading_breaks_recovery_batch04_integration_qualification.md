@@ -32,10 +32,34 @@ Proven post-integration accounting:
 - attempted BLOCKED execution-ineligible: `6`;
 - execution-eligible unresolved: `48`.
 
-## Persisted-HEAD verification boundary
+## Independent persisted-HEAD re-break
 
-The integration commit was pushed by GitHub Actions using `GITHUB_TOKEN`; GitHub intentionally does not recursively trigger another workflow from that push. This versioned evidence-only update changes no executable calendar, ledger, capability, or progression state and exists to provoke the separately versioned read-only persisted-HEAD re-break on the resulting repository HEAD.
+Because the atomic integration push was produced by GitHub Actions with `GITHUB_TOKEN`, GitHub correctly suppressed a recursive workflow trigger. A versioned evidence-only commit changed no executable calendar, ledger, capability, or progression state and provoked the separately versioned read-only verifier.
 
-Batch 05 MUST NOT be derived until that read-only re-break is PASS.
+Authoritative persisted-HEAD proof:
+- verified commit: `9ad19ede0052f37ce8aa2ccd30a117cd0525bc10`
+- workflow run: `34897126921`
+- job: `104153918828`
+- conclusion: **SUCCESS**
+- adversarial/regression suite: **`139 passed in 0.73s`**
+- exact calendar / ledger / progression assertion: **PASS**
+- `git diff --exit-code`: **PASS**
+- verifier permissions: repository contents read-only
+
+The independent persisted state proves:
+- only the three exact-target PASS records are executable calendar evidence;
+- the two cross-date overlaps remain unresolved;
+- both new BLOCKED dates are `SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED` under the unchanged capability;
+- the attempt-aware queue is non-starving with `48` currently eligible unresolved dates.
+
+## Workflow closure
+
+After the persisted-HEAD PASS, both completed Batch 04 integration workflows were archived to `workflow_dispatch` only:
+- `.github/workflows/trading-breaks-recovery-batch04-integration.yml`
+- `.github/workflows/trading-breaks-recovery-batch04-persisted-head.yml`
+
+No normal push can silently repeat Batch 04 integration or its fixed-state re-break.
+
+Batch 05 MUST NOT reuse or alter Batch 04 membership history. Any future Batch 05 membership must be separately frozen/versioned from the governed post-Batch04 eligible queue before observation.
 
 This qualification does not authorize massive `.bi5` acquisition or any real backtest.
