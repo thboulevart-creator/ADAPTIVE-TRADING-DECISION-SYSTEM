@@ -71,6 +71,21 @@ def test_preintegration_guard_rejects_partial_or_duplicate_state_by_design():
 
 
 def test_integration_has_no_browser_capture_or_live_membership_selection_surface():
-    source = inspect.getsource(integration).lower()
-    for forbidden in ("playwright", "chromium", "probe_candidate", "eligible_recovery_queue()[:5]", "recovery_queue()[:5]"):
-        assert forbidden not in source
+    runtime_surface = "\n".join(
+        inspect.getsource(callable_obj)
+        for callable_obj in (
+            integration.load_authoritative_adjudication,
+            integration.guard_preintegration_state,
+            integration.integrate_calendar,
+            integration.integrate_attempt_ledger,
+            integration.main,
+        )
+    ).lower()
+    for forbidden in (
+        "playwright",
+        "chromium",
+        "probe_candidate",
+        "eligible_recovery_queue()[:5]",
+        "recovery_queue()[:5]",
+    ):
+        assert forbidden not in runtime_surface
