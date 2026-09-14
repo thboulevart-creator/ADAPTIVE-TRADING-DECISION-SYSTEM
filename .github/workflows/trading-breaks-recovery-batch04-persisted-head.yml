@@ -1,0 +1,98 @@
+name: Trading Breaks Recovery Batch 04 Persisted-HEAD Rebreak
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - 'tools/dukascopy_usatech_calendar.py'
+      - 'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json'
+      - 'reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json'
+      - 'reports/data-qualification/historical_trading_breaks_recovery_batch04_integration_qualification.md'
+
+permissions:
+  contents: read
+
+jobs:
+  persisted-head-rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarially re-break persisted Batch 04 integration state
+        run: |
+          python -m pytest -q \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch02.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch04.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_batch04.py \
+            tests/test_trading_breaks_recovery_batch04_adjudication.py \
+            tests/test_trading_breaks_recovery_batch04_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch04_integration.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact persisted calendar ledger and progression state
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, progression_decisions
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          global_report = audit_calendar_coverage()
+          window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          _, _, attempts = load_attempt_ledger()
+          progression = json.load(open('reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json', encoding='utf-8'))
+          raw_days = {d for d, _ in recovery_queue()}
+          eligible_days = {d for d, _ in eligible_recovery_queue()}
+          decisions = {d.target_date: d for d in progression_decisions()}
+
+          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 37, 74)
+          assert (window['candidate_dates'], window['resolved_candidate_dates'], window['unresolved_candidate_dates']) == (68, 14, 54)
+          assert len(attempts) == 20
+          assert len(recovery_queue()) == 54
+          assert progression['verdict'] == 'PASS'
+          assert progression['calendar_unresolved_count'] == 54
+          assert progression['attempt_ledger_count'] == 20
+          assert progression['attempted_blocked_ineligible_count'] == 6
+          assert progression['eligible_initial_or_retry_count'] == 48
+
+          pass_days = {date(2022, 11, 24), date(2022, 11, 25), date(2022, 12, 23)}
+          blocked_days = {date(2022, 12, 26), date(2023, 1, 2)}
+          assert pass_days <= set(SPECIAL_SESSION_EVIDENCE)
+          assert pass_days.isdisjoint(raw_days)
+          assert blocked_days <= raw_days
+          assert blocked_days.isdisjoint(eligible_days)
+          assert blocked_days.isdisjoint(set(SPECIAL_SESSION_EVIDENCE))
+          for day in blocked_days:
+              assert decisions[day].reason == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
+              assert decisions[day].latest_attempt_outcome == 'BLOCKED'
+              assert decisions[day].contract_verdict == 'PASS'
+          print('PASS: persisted HEAD proves Batch 04 atomic integration; 54 unresolved / 20 attempts / 6 blocked-ineligible / 48 eligible')
+          PY
+
+      - name: Prove re-break is read-only
+        run: git diff --exit-code
