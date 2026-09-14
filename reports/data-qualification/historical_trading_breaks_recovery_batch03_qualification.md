@@ -10,6 +10,7 @@
 - artifact: `10367930592`
 - artifact SHA-256: `994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41`
 - instrument: `USATECH.IDX/USD` / `9016`
+- replay scope: immutable frozen Batch 03 membership (not the current recovery queue)
 
 ## Independent date-level adjudication
 
@@ -77,5 +78,6 @@ This remains unresolved/BLOCKED and MUST NOT populate `NO_SPECIAL_CHANGE_EVIDENC
 
 Only PASS dates are authorized for executable calendar integration.
 BLOCKED dates remain unresolved; absence is not negative evidence.
+The frozen replay interface does not make resolved dates eligible for another recovery execution.
 
 No `.bi5` acquisition and no real backtest are authorized by this qualification.
