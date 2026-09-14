@@ -6,6 +6,14 @@ This directory is the durable recovery layer for the ALGO ECOSYSTEM workstream.
 
 It exists so that a new session can recover the project without reconstructing state from conversational history.
 
+## Latest end-of-day master snapshot
+
+For the next recovery after the 14 September 2026 workday, the authoritative broad-context bridge is:
+
+`99-BACKUP/SESSION-2026-09-14-END-OF-DAY.md`
+
+It links the full 14 September workday from annual calendar qualification through Batch 04 atomic integration and the independent persisted-HEAD re-break. It does not replace the current Recovery Checkpoint; the checkpoint remains the authoritative current-state pointer.
+
 ## Mandatory morning recovery order
 
 Before substantive work, read:
@@ -13,8 +21,10 @@ Before substantive work, read:
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. `04-REFERENCE/RECOVERY-CHECKPOINT.md`
 3. `99-BACKUP/README.md`
-4. the newest dated `99-BACKUP/SESSION-*.md`
+4. the newest applicable end-of-day/session snapshot — currently `99-BACKUP/SESSION-2026-09-14-END-OF-DAY.md`
 5. the artifacts explicitly referenced by the current checkpoint
+
+Never reconstruct the active project state from conversation if GitHub/checkpoint evidence is available.
 
 ## What belongs here
 
@@ -45,6 +55,6 @@ A workstream is not considered durably closed merely because its state is descri
 
 ## Session snapshots
 
-Use one dated `SESSION-YYYY-MM-DD.md` per material workday/session. Update the snapshot before closing the workday whenever the project state materially changes.
+Use dated `SESSION-*.md` snapshots for material milestones and end-of-day recovery state. Before closing a workday, ensure that a master end-of-day snapshot links the material milestone snapshots and states exactly where continuation must resume.
 
-Do not create multiple competing snapshots for the same state. The Recovery Checkpoint remains the authoritative current-state pointer; this directory preserves the broader context needed to understand and recover that state.
+Do not create competing snapshots that claim different current states. The Recovery Checkpoint remains the authoritative current-state pointer; this directory preserves the broader context needed to understand and recover that state.
