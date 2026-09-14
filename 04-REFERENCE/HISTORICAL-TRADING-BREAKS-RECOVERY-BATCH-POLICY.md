@@ -48,7 +48,9 @@ At policy-version time the expected mechanically derived membership is:
 2. `2021-11-26 — THANKSGIVING_FRIDAY`
 3. `2021-12-23 — CHRISTMAS_PRE_HOLIDAY_SESSION`
 4. `2021-12-24 — CHRISTMAS_OBSERVED`
-5. `2021-12-31 — NEW_YEARS_EVE_CANDIDATE`
+5. `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
+
+The combined fifth reason is produced mechanically because `2021-12-31` is both the 2021 New Year's Eve candidate and the observed date for New Year's Day 2022 (Saturday). It is one candidate date, not two batch slots.
 
 These identities are regression assertions, not discretionary target choices.
 
