@@ -1,0 +1,116 @@
+name: Trading Breaks Recovery Batch 03 Atomic Integration
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch03-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate-batch03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout governed branch
+        uses: actions/checkout@v4
+        with:
+          ref: feat/multi-year-dukascopy-acquisition
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verify authoritative independent adjudication before integration
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('reports/data-qualification/historical_trading_breaks_recovery_batch03_adjudication.json').read_text(encoding='utf-8'))
+          assert report['verdict'] == 'PASS'
+          assert (report['attempted'], report['pass'], report['blocked'], report['fail']) == (5, 4, 1, 0)
+          assert [x['verdict'] for x in report['adjudications']] == ['PASS', 'PASS', 'BLOCKED', 'PASS', 'PASS']
+          assert report['adjudications'][2]['reason'] == 'NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED'
+          assert report['provenance']['workflow_run'] == 34892253133
+          assert report['provenance']['job_id'] == 104137558818
+          assert report['provenance']['artifact_id'] == 10367930592
+          assert report['provenance']['artifact_sha256'] == '994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41'
+          assert report['provenance']['probe_commit'] == '9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4'
+          print('PASS: authoritative Batch 03 adjudication locked before integration')
+          PY
+
+      - name: Prepare calendar and attempt ledger atomically
+        run: python -m tools.integrate_trading_breaks_recovery_batch03
+
+      - name: Install pytest
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarial regression after atomic integration
+        run: |
+          python -m pytest -q \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch02.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Regenerate deterministic progression runtime from integrated state
+        run: python -m tools.trading_breaks_recovery_progression
+
+      - name: Assert exact integrated accounting and boundaries
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import date
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          global_report = audit_calendar_coverage()
+          window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          _, _, attempts = load_attempt_ledger()
+          progression = json.load(open('reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json', encoding='utf-8'))
+
+          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 34, 77)
+          assert (window['candidate_dates'], window['resolved_candidate_dates'], window['unresolved_candidate_dates']) == (68, 11, 57)
+          assert len(attempts) == 15
+          assert len(recovery_queue()) == 57
+          assert progression['verdict'] == 'PASS'
+          assert progression['calendar_unresolved_count'] == 57
+          assert progression['attempt_ledger_count'] == 15
+          assert progression['attempted_blocked_ineligible_count'] == 4
+          assert progression['eligible_initial_or_retry_count'] == 53
+          assert eligible_recovery_queue()[0] == (date(2022, 11, 24), 'THANKSGIVING_DAY')
+          assert date(2022, 7, 1) in {d for d, _ in recovery_queue()}
+          assert date(2022, 7, 1) not in {d for d, _ in eligible_recovery_queue()}
+          print('PASS: Batch 03 integrated coherently; 57 unresolved / 15 attempts / 53 eligible')
+          PY
+
+      - name: Persist one atomic Batch 03 integration commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            tools/dukascopy_usatech_calendar.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py
+          git diff --cached --check
+          git commit -m 'evidence: atomically integrate Trading Breaks Batch 03'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
