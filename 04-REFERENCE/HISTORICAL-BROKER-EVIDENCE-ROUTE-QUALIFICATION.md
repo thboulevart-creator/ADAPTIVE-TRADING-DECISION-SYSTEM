@@ -2,7 +2,7 @@
 
 ## Status
 
-**ACTIVE GATE — widget calibration PASS; one unresolved-date pilot still required before final route PASS.**
+**PASS — `CALIBRATED_WIDGET_ROUTE_RESOLVES_IN_WINDOW_USATECH_HISTORICAL_SPECIAL_SESSION`**
 
 Contract:
 
@@ -10,167 +10,204 @@ Contract:
 
 ## 1. Purpose
 
-This gate determines whether a materially new Dukascopy-native historical evidence route can be used to resolve special-session calendar gaps inside the already-selected execution-window candidate.
+This gate determines whether a materially new Dukascopy-native historical evidence route can be used to recover exact historical special-session evidence for `USATECH.IDX/USD` inside the already-selected execution-window candidate.
 
-It does **not** reopen the 67 unresolved dates individually and it does **not** authorize changing the execution-window boundaries.
+The route is now qualified for **positive historical break recovery**.
+
+This PASS does not change the execution-window boundaries and does not by itself resolve any date that has not been individually queried and evidenced.
 
 Current candidate window remains:
 
-`2021-08-14` → `2026-08-14`
+`2021-08-14` → `2026-08-14`.
 
-Current calendar state inside that window remains:
+## 2. Required PASS properties
 
-- candidates: 68;
-- resolved: 1;
-- unresolved: 67;
-- FAIL: 0.
+The qualified route demonstrates all required properties:
 
-## 2. Required PASS properties for a route
+1. **Verified Dukascopy provenance** — PASS
+   - official Dukascopy widget/runtime and broker-native API responses.
+2. **Historical-date addressability** — PASS
+   - `currentDate=false` plus explicit historical epoch was observed in real runtime requests.
+3. **Explicit target-instrument identity** — PASS
+   - broker instrument catalogue maps ID `9016` to `USATECH.IDX/USD`.
+4. **Exact special-session timing** — PASS
+   - broker-native historical break records provide exact start/end timestamps.
+5. **Reproducible retrieval** — PASS
+   - GitHub Actions/Playwright captures request, response, DOM, artifact hash and run identity.
+6. **Gold-standard calibration** — PASS
+   - independently known `2020-02-17 — PRESIDENTS_DAY` reproduced exactly.
+7. **Unresolved-date pilot** — PASS
+   - mechanically selected `2021-09-06 — LABOR_DAY` recovered exact broker evidence.
+8. **No contradiction with locked evidence** — PASS
+   - calibration agrees with the independently locked witness.
 
-A historical broker evidence route may receive final PASS only if all of the following are demonstrated reproducibly:
+## 3. Forbidden interpretations remain forbidden
 
-1. **Verified Dukascopy provenance**
-   - official Dukascopy domain/service/API/widget/archive, or an archived official Dukascopy artifact with verifiable provenance;
-   - third-party summaries are not sufficient.
-
-2. **Historical-date addressability**
-   - the mechanism can request or identify a specific historical date/interval;
-   - a current page containing a stale `date` parameter is not by itself evidence that historical state can be recovered.
-
-3. **Explicit target-instrument identity**
-   - returned evidence explicitly identifies `USATECH.IDX/USD`, or another exact canonical identity already governed as equivalent;
-   - generic `CFD`, `indexes`, `US markets`, or exchange-product context is insufficient.
-
-4. **Exact special-session timing**
-   - evidence provides exact special open/close/break/reopen timing sufficient to construct the governed hourly truth;
-   - a generic statement that trading hours change is insufficient.
-
-5. **Reproducible retrieval**
-   - request path/parameters or retrieval procedure can be recorded and repeated;
-   - returned historical date semantics must be observable rather than inferred.
-
-6. **Calibration against a gold-standard historical witness**
-   - before using the route on an unresolved in-window date, it must reproduce a date already independently qualified from exact Dukascopy evidence.
-
-7. **Unresolved-date pilot**
-   - after calibration, exactly one pre-existing BLOCKED date from the candidate window must be tested without changing the acceptance criteria;
-   - only after that pilot succeeds may the route receive final PASS for systematic application.
-
-8. **No contradiction with locked evidence**
-   - if the route contradicts the gold-standard witness or returns current/regular hours for the historical special date, it cannot receive PASS without separately governed contradiction resolution.
-
-## 3. Immediate FAIL conditions
-
-A candidate route is FAIL for the intended historical-holiday purpose if authoritative evidence establishes that the mechanism does not cover weekday holiday/special-session intervals, or if a technically successful historical calibration contradicts the locked witness.
-
-## 4. BLOCKED conditions
-
-A route remains BLOCKED when it is plausible but one or more required PASS properties cannot yet be demonstrated.
-
-HTTP access failure, missing assets, missing historical snapshots, or an unexecuted date parameter remain BLOCKED conditions, not semantic FAILs.
-
-## 5. Forbidden false-PASS shortcuts
-
-None of the following may qualify a historical broker route:
+Route PASS does not authorize any of the following shortcuts:
 
 - holiday name alone;
 - exchange-only timings;
 - current regular trading hours;
-- other-year Dukascopy holiday schedules;
-- adjacent-date inference;
-- missing BI5/ticks;
-- HTTP 403/404/503;
-- empty search results;
-- inaccessible Wayback/CDX results;
-- generic broker notices without `USATECH.IDX/USD` and exact timing;
-- JForex weekend offline intervals used as holiday intervals without explicit broker support;
-- a widget parameter whose historical behavior was never observed.
+- other-year or adjacent-date inference;
+- missing `.bi5` / ticks;
+- HTTP failures interpreted as market closure;
+- empty widget/API response interpreted as regular hours;
+- generic broker notices without target-instrument timing;
+- JForex weekend offline intervals reused as holiday evidence.
 
-## 6. Qualification sequence
+In particular, **absence of a positive Trading Breaks record is not yet qualified as proof that regular hours applied**. A separate completeness/negative-evidence contract would be required before populating `NO_SPECIAL_CHANGE_EVIDENCE` from empty responses.
 
-For every candidate mechanism:
+## 4. Gold-standard calibration — PASS
 
-`mechanism discovery → provenance check → semantic break → gold-standard calibration → unresolved-date pilot → route verdict`
-
-The route must be qualified before any systematic application to the 67 gaps.
-
-## 7. Trading Breaks widget calibration — PASS
-
-Calibration report:
+Report:
 
 `reports/data-qualification/historical_trading_breaks_widget_calibration_2020_02_17.md`
 
-Final authoritative run:
+Final authoritative calibration run:
 
-- GitHub Actions run: `34866241511`;
+- run ID: `34866241511`;
 - probe head: `231867ae6a78a5db640b84351073ef3835bbb4a3`;
 - artifact ID: `10356927580`;
 - artifact SHA-256: `f49fb3aa5b66c22127eda3ac4593a387f6f83d3ab1d1d31eb742d44c49fb6a91`.
 
-Known witness:
+Locked witness:
 
 `2020-02-17 — PRESIDENTS_DAY`
 
-The official historical widget reproduced:
+Recovered broker truth:
 
-- `USATECH.IDX/USD`;
-- break start `2020-02-17 18:00:00 UTC`;
-- break end / last closed minute `2020-02-17 22:59:00 UTC`;
-- derived reopen `2020-02-17 23:00:00 UTC`;
-- reason `President's Day`.
-
-The rendered DOM and structured broker-native JSONP payload independently agree.
+- instrument: `USATECH.IDX/USD` / ID `9016`;
+- break start: `2020-02-17T18:00:00Z`;
+- break end / final closed minute: `2020-02-17T22:59:00Z`;
+- derived reopen: `2020-02-17T23:00:00Z`;
+- reason: `President's Day`.
 
 Calibration verdict:
 
 **PASS — `HISTORICAL_WIDGET_REPRODUCES_LOCKED_2020_02_17_USATECH_WITNESS`**
 
-Important representation rule learned by calibration:
+Calibrated representation rule:
 
-- the widget's `BREAK END TIME` is the final closed minute;
-- for minute-resolution records, governed reopen instant = `break_end + 60 seconds`;
-- therefore `22:59:00` is consistent with an explicit broker reopen at `23:00:00`.
+- `BREAK START TIME` = first closed minute;
+- `BREAK END TIME` = final closed minute;
+- for these minute-resolution records, reopen instant = `break_end + 60 seconds`.
 
-This is a representation finding calibrated against an independently known witness, not an assumption introduced to rescue a blocked date.
+## 5. Adversarial calibration history
 
-## 8. Earlier widget attempts retained for auditability
+The route was not promoted from the first plausible response:
 
-- headless direct request reached the historical URL but received HTTP `403` → BLOCKED, not FAIL;
-- the current official builder page loaded in HTTP `200` while its relative application assets returned `404` → BLOCKED;
-- first headed run loaded the historical widget and produced the correct raw `18:00 → 22:59` record, but an overly literal comparator expected the string `23:00` and emitted a false negative;
-- the comparator was corrected to structured break semantics and re-run without changing the locked witness or acceptance threshold;
-- corrected re-break = PASS.
+- headless direct historical document returned HTTP `403` → BLOCKED;
+- official builder page returned HTTP `200` but current relative application assets returned `404` → BLOCKED;
+- headed Chromium then returned the historical witness, but the first comparator incorrectly demanded a literal `23:00` string and emitted a false negative;
+- preserved raw evidence showed `18:00 → 22:59`;
+- comparator was corrected to structured interval semantics calibrated against the independently known witness;
+- corrected re-break reproduced both DOM and broker-native payload → PASS.
 
-## 9. Current route verdict
+No acceptance threshold or witness date was moved to obtain PASS.
 
-The widget route has passed its **gold-standard calibration**, but the route-level qualification is not complete until the mandated unresolved-date pilot succeeds.
+## 6. Unresolved-date pilot — PASS
 
-Current route state:
+Report:
 
-**BLOCKED — `UNRESOLVED_DATE_PILOT_NOT_YET_EXECUTED`**
+`reports/data-qualification/historical_trading_breaks_widget_pilot_2021_09_06.md`
 
-This BLOCKED state is procedural, not a failure of calibration.
+Selection rule:
 
-## 10. Exactly one next governed action
+`EARLIEST_UNRESOLVED_IN_FROZEN_EXECUTION_WINDOW_CANDIDATE`
 
-Probe exactly one existing unresolved date inside the candidate window through the now-calibrated widget route.
-
-Selection must not cherry-pick an easy date. Therefore choose mechanically the earliest unresolved candidate in the frozen candidate ordering:
+Pilot date:
 
 `2021-09-06 — LABOR_DAY`
 
-Required evidence chain:
+Authoritative run:
 
-`historical date request → broker runtime/API payload → exact USATECH identity → exact break interval or explicit absence → DOM cross-check → date-level gate → route verdict`
+- run ID: `34866699952`;
+- job ID: `104052206522`;
+- run head: `2c875805ef554e0f65c4021ed5ecedadcce48a6f`;
+- artifact ID: `10357256669`;
+- artifact SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`.
 
-Do not test a second unresolved date unless this pilot first receives a governed verdict.
+Recovered exact broker record:
 
-## 11. Boundary consequences
+```json
+{
+  "id": "28743",
+  "instrument": "9016",
+  "start": "1630947600000",
+  "end": "1630965540000",
+  "reason": "Labor Day"
+}
+```
 
-Calibration PASS does **not** freeze the execution window and does **not** authorize `.bi5` acquisition.
+UTC semantics:
 
-Until the one-date pilot succeeds and all in-window unresolved dates are eventually resolved:
+- break start: `2021-09-06T17:00:00Z`;
+- final closed minute: `2021-09-06T21:59:00Z`;
+- reopen: `2021-09-06T22:00:00Z`;
+- fully closed hourly buckets: `17, 18, 19, 20, 21`.
 
-- `FREEZE_EXECUTION_WINDOW = BLOCKED`;
-- `AUTHORIZE_MASSIVE_ACQUISITION = BLOCKED`;
-- `REAL_BACKTEST = BLOCKED`.
+Rendered DOM independently showed:
+
+`USATECH.IDX/USD    06-Sep-21 17:00:00    06-Sep-21 21:59:00    Labor Day`
+
+Date-level gate:
+
+**PASS-A — exact primary broker date/instrument/timing witness.**
+
+Pilot verdict:
+
+**PASS — `EXACT_PRIMARY_BROKER_USATECH_HISTORICAL_BREAK_WITNESS_RECOVERED`**
+
+## 7. Final route verdict
+
+Both mandatory falsification stages succeeded under unchanged acceptance rules:
+
+`gold-standard calibration PASS → first unresolved pilot PASS`
+
+Final route verdict:
+
+**PASS — `CALIBRATED_WIDGET_ROUTE_RESOLVES_IN_WINDOW_USATECH_HISTORICAL_SPECIAL_SESSION`**
+
+This PASS means the route is admissible for recovering **positive** historical special-session records for individually addressed candidate dates.
+
+It does not mean every remaining candidate necessarily has a break record.
+
+## 8. Executable consequence already authorized
+
+The pilot itself supplies admissible PASS-A evidence for exactly one previously unresolved date:
+
+`2021-09-06 — LABOR_DAY`
+
+Executable record authorized for that date:
+
+- reason: `SPECIAL_LABOR_DAY_2021`;
+- `fully_closed_hours_utc = frozenset(range(17, 22))`.
+
+No other date is authorized merely by route PASS.
+
+## 9. Boundary consequences
+
+Even after the pilot date is incorporated:
+
+- global coverage remains BLOCKED;
+- execution-window freeze remains BLOCKED while any in-window unresolved date exists;
+- massive `.bi5` acquisition remains BLOCKED;
+- real backtest remains BLOCKED.
+
+## 10. Exactly one next governed action after pilot integration
+
+After the pilot record has been added and calendar/coverage tests have passed, formalize a **systematic historical Trading Breaks recovery protocol** before querying the remaining in-window candidates in bulk.
+
+That protocol must preserve at least:
+
+- frozen candidate ordering/scope;
+- exact-date addressing;
+- broker instrument identity mapping;
+- raw payload + DOM or equivalent broker-native evidence capture;
+- calibrated end-time semantics;
+- positive-record date-level PASS independently per date;
+- no inference from empty/no-record responses until negative-evidence completeness is separately qualified;
+- deterministic artifact provenance and auditability;
+- no change to execution-window boundaries based on outcomes.
+
+Do not begin `.bi5` acquisition or real backtesting.
