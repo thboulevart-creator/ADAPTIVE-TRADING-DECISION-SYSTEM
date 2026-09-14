@@ -5,6 +5,7 @@ import json
 import re
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlencode, urlparse
@@ -14,8 +15,10 @@ from playwright.async_api import async_playwright
 TARGET_DATE = "2020-02-17"
 TARGET_EPOCH_MS = 1581897600000
 TARGET_INSTRUMENT = "USATECH.IDX/USD"
-EXPECTED_CLOSE_GMT = "18:00"
-EXPECTED_REOPEN_GMT = "23:00"
+EXPECTED_BREAK_START_MS = 1581962400000  # 2020-02-17 18:00:00Z
+EXPECTED_BREAK_END_MS = 1581980340000    # 2020-02-17 22:59:00Z, last closed minute
+EXPECTED_REOPEN_MS = 1581980400000       # 2020-02-17 23:00:00Z
+EXPECTED_REASON = "President's Day"
 OFFICIAL_WIDGET_PAGE = "https://www.dukascopy.com/trading-tools/widgets/calendars/trading_breaks"
 FREESERV_BASE = "https://freeserv.dukascopy.com/2.0/"
 NORMAL_UA = (
@@ -23,6 +26,10 @@ NORMAL_UA = (
     "(KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36"
 )
 OUT = Path("widget_probe_artifacts")
+
+
+def iso_utc(ms: int) -> str:
+    return datetime.fromtimestamp(ms / 1000, timezone.utc).isoformat()
 
 
 def widget_url(*, current_date: bool, date_ms: int) -> str:
@@ -46,10 +53,6 @@ TARGET_WIDGET_URL = widget_url(current_date=False, date_ms=TARGET_EPOCH_MS)
 CURRENT_CONTROL_URL = widget_url(current_date=True, date_ms=int(time.time() * 1000))
 
 
-def clean_text(value: str) -> str:
-    return re.sub(r"\s+", " ", value or " ").strip()
-
-
 def contains_target_date(url: str, body: str = "") -> bool:
     blob = f"{url} {body}"
     if str(TARGET_EPOCH_MS) in blob:
@@ -69,9 +72,16 @@ def is_trading_breaks_document(url: str) -> bool:
     return any(v == "trading_breaks/index" for v in qs.get("path", []))
 
 
-def calibration_match(text: str) -> bool:
-    t = clean_text(text)
-    return TARGET_INSTRUMENT in t and EXPECTED_CLOSE_GMT in t and EXPECTED_REOPEN_GMT in t
+def parse_jsonp(body: str) -> Any | None:
+    if not body:
+        return None
+    match = re.match(r"^[^(]+\((.*)\)\s*;?$", body.strip(), re.S)
+    if not match:
+        return None
+    try:
+        return json.loads(match.group(1))
+    except json.JSONDecodeError:
+        return None
 
 
 async def main() -> int:
@@ -131,10 +141,6 @@ async def main() -> int:
         page.on("request", on_request)
         page.on("response", on_response)
 
-        # Warm up on the official Dukascopy page so cookies / same-site context
-        # are established before direct freeserv navigation. The builder page is
-        # not itself used as evidence because its current application assets may
-        # be unavailable.
         try:
             nav = await page.goto(OFFICIAL_WIDGET_PAGE, wait_until="domcontentloaded", timeout=60_000)
             official_page_status = nav.status if nav else None
@@ -142,9 +148,6 @@ async def main() -> int:
         except Exception as exc:
             runtime_errors.append(f"official_page: {exc!r}")
 
-        # Current-date control: tests whether freeserv is generally reachable in
-        # the same headed browser context. A failure here is infrastructure/WAF,
-        # never historical evidence.
         try:
             nav = await page.goto(
                 CURRENT_CONTROL_URL,
@@ -164,7 +167,6 @@ async def main() -> int:
         except Exception as exc:
             runtime_errors.append(f"current_control: {exc!r}")
 
-        # Locked historical calibration witness.
         try:
             nav = await page.goto(
                 TARGET_WIDGET_URL,
@@ -206,18 +208,72 @@ async def main() -> int:
     ) or (bool(target_statuses) and not target_success and all(s >= 400 for s in target_statuses))
 
     target_page = next((p for p in pages if p.get("kind") == "historical_target"), {})
-    target_text = "\n".join([
-        target_page.get("body_text", ""),
-        target_page.get("html", ""),
-        *[(r.get("body") or "") for r in target_responses],
-    ])
-    instrument_present = TARGET_INSTRUMENT in target_text
-    close_present = EXPECTED_CLOSE_GMT in target_text
-    reopen_present = EXPECTED_REOPEN_GMT in target_text
-    exact_match = calibration_match(target_text)
+    target_text = target_page.get("body_text", "")
     date_honored = contains_target_date(target_page.get("url", "")) or bool(target_responses)
 
-    if exact_match and target_success and date_honored:
+    dom_witness_line = next(
+        (line.strip() for line in target_text.splitlines() if TARGET_INSTRUMENT in line),
+        None,
+    )
+    dom_match = bool(
+        dom_witness_line
+        and "17-Feb-20 18:00:00" in dom_witness_line
+        and "17-Feb-20 22:59:00" in dom_witness_line
+        and EXPECTED_REASON in dom_witness_line
+    )
+
+    instrument_id: str | None = None
+    break_record: dict[str, Any] | None = None
+    for response in responses:
+        url = response.get("url", "")
+        body = response.get("body") or ""
+        parsed = parse_jsonp(body)
+        if parsed is None:
+            continue
+        if "group=widgets&method=instruments" in url and isinstance(parsed, dict):
+            instruments = parsed.get("instruments", {})
+            if isinstance(instruments, dict):
+                for key, value in instruments.items():
+                    if isinstance(value, dict) and value.get("name") == TARGET_INSTRUMENT:
+                        instrument_id = str(key)
+                        break
+
+    if instrument_id is not None:
+        for response in responses:
+            url = response.get("url", "")
+            body = response.get("body") or ""
+            if "group=trading&method=breaks" not in url or "start=1580515200000" not in url:
+                continue
+            parsed = parse_jsonp(body)
+            if not isinstance(parsed, list):
+                continue
+            for item in parsed:
+                if not isinstance(item, dict):
+                    continue
+                if str(item.get("instrument")) == instrument_id and item.get("reason") == EXPECTED_REASON:
+                    break_record = item
+                    break
+            if break_record is not None:
+                break
+
+    structured_match = False
+    derived_reopen_ms: int | None = None
+    if break_record is not None:
+        try:
+            break_start_ms = int(break_record["start"])
+            break_end_ms = int(break_record["end"])
+            derived_reopen_ms = break_end_ms + 60_000
+            structured_match = (
+                break_start_ms == EXPECTED_BREAK_START_MS
+                and break_end_ms == EXPECTED_BREAK_END_MS
+                and derived_reopen_ms == EXPECTED_REOPEN_MS
+            )
+        except (KeyError, TypeError, ValueError):
+            structured_match = False
+
+    exact_calibration_match = bool(target_success and date_honored and dom_match and structured_match)
+
+    if exact_calibration_match:
         verdict = "PASS"
         reason = "HISTORICAL_WIDGET_REPRODUCES_LOCKED_2020_02_17_USATECH_WITNESS"
     elif target_success and date_honored:
@@ -230,6 +286,16 @@ async def main() -> int:
         verdict = "BLOCKED"
         reason = "WIDGET_RUNTIME_OR_HISTORICAL_DATE_PROPAGATION_NOT_PROVEN"
 
+    structured_witness = None
+    if break_record is not None:
+        structured_witness = {
+            "instrument_id": instrument_id,
+            "break_record": break_record,
+            "break_start_utc": iso_utc(int(break_record["start"])),
+            "break_end_last_closed_minute_utc": iso_utc(int(break_record["end"])),
+            "derived_reopen_utc": iso_utc(derived_reopen_ms) if derived_reopen_ms is not None else None,
+        }
+
     summary = {
         "contract": "HISTORICAL_TRADING_BREAKS_WIDGET_CALIBRATION_V1",
         "read_only": True,
@@ -238,7 +304,6 @@ async def main() -> int:
         "user_agent": NORMAL_UA,
         "official_widget_page": OFFICIAL_WIDGET_PAGE,
         "official_page_status": official_page_status,
-        "current_control_url": CURRENT_CONTROL_URL,
         "current_control_status": control_status,
         "target_widget_url": TARGET_WIDGET_URL,
         "target_date": TARGET_DATE,
@@ -248,13 +313,15 @@ async def main() -> int:
         "target_document_success": target_success,
         "target_document_http_blocked": target_http_blocked,
         "target_instrument": TARGET_INSTRUMENT,
-        "expected_close_gmt": EXPECTED_CLOSE_GMT,
-        "expected_reopen_gmt": EXPECTED_REOPEN_GMT,
+        "expected_break_start_utc": iso_utc(EXPECTED_BREAK_START_MS),
+        "expected_break_end_last_closed_minute_utc": iso_utc(EXPECTED_BREAK_END_MS),
+        "expected_reopen_utc": iso_utc(EXPECTED_REOPEN_MS),
         "date_honored": date_honored,
-        "instrument_present": instrument_present,
-        "expected_close_present": close_present,
-        "expected_reopen_present": reopen_present,
-        "exact_calibration_match": exact_match,
+        "dom_witness_line": dom_witness_line,
+        "dom_match": dom_match,
+        "structured_witness": structured_witness,
+        "structured_match": structured_match,
+        "exact_calibration_match": exact_calibration_match,
         "dukascopy_request_count": len(requests),
         "dukascopy_response_count": len(responses),
         "runtime_errors": runtime_errors,
@@ -265,9 +332,6 @@ async def main() -> int:
 
     print("=== DUKASCOPY TRADING BREAKS HISTORICAL WIDGET CALIBRATION ===")
     print(json.dumps(summary, indent=2))
-    print("=== TARGET RESPONSES ===")
-    for resp in target_responses:
-        print(json.dumps({k: v for k, v in resp.items() if k != "body"}, ensure_ascii=False))
     return 0
 
 
