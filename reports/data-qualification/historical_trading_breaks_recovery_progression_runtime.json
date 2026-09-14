@@ -4,6 +4,7 @@
   "reason": "ATTEMPT_AWARE_PROGRESSION_STATE_IS_DETERMINISTIC_AND_NON_STARVING",
   "calendar_unresolved_count": 61,
   "attempt_ledger_count": 10,
+  "registered_material_capability_change_count": 0,
   "current_capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
   "current_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
   "attempted_blocked_ineligible_count": 3,
