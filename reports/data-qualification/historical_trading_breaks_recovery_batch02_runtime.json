@@ -1,0 +1,267 @@
+{
+  "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH02_POLICY_V1",
+  "parent_protocol": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+  "batch_number": 2,
+  "batch_size": 5,
+  "selection_rule": "FIRST_N_OF_POST_BATCH01_GOVERNED_RECOVERY_QUEUE",
+  "targets": [
+    {
+      "date": "2021-12-24",
+      "reason": "CHRISTMAS_OBSERVED"
+    },
+    {
+      "date": "2021-12-31",
+      "reason": "NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED"
+    },
+    {
+      "date": "2022-01-17",
+      "reason": "MARTIN_LUTHER_KING_DAY"
+    },
+    {
+      "date": "2022-02-21",
+      "reason": "PRESIDENTS_DAY"
+    },
+    {
+      "date": "2022-04-15",
+      "reason": "GOOD_FRIDAY"
+    }
+  ],
+  "workflow_run": "34888022168",
+  "probe_commit": "619a0200a9718827346d3c5458d1c1a290f3e5ce",
+  "read_only": true,
+  "market_data_written": false,
+  "results": [
+    {
+      "target_date": "2021-12-24",
+      "candidate_reason": "CHRISTMAS_OBSERVED",
+      "requested_date": "2021-12-24",
+      "target_epoch_ms": 1640304000000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "31532",
+          "instrument": "9016",
+          "start": "1640294040000",
+          "end": "1640559540000",
+          "reason": "Christmas Day",
+          "start_utc": "2021-12-23T21:14:00Z",
+          "end_last_closed_minute_utc": "2021-12-26T22:59:00Z",
+          "derived_reopen_utc": "2021-12-26T23:00:00Z",
+          "fully_closed_hours_utc": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [],
+      "runtime_errors": [],
+      "capture_verdict": "BLOCKED",
+      "capture_reason": "EXPECTED_DOM_CROSSCHECK_MISSING"
+    },
+    {
+      "target_date": "2021-12-31",
+      "candidate_reason": "NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED",
+      "requested_date": "2021-12-31",
+      "target_epoch_ms": 1640908800000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [],
+      "dom_witness_lines": [],
+      "runtime_errors": [],
+      "capture_verdict": "BLOCKED",
+      "capture_reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED"
+    },
+    {
+      "target_date": "2022-01-17",
+      "candidate_reason": "MARTIN_LUTHER_KING_DAY",
+      "requested_date": "2022-01-17",
+      "target_epoch_ms": 1642377600000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "32811",
+          "instrument": "9016",
+          "start": "1642442340000",
+          "end": "1642460340000",
+          "reason": "Martin Luther King Day",
+          "start_utc": "2022-01-17T17:59:00Z",
+          "end_last_closed_minute_utc": "2022-01-17T22:59:00Z",
+          "derived_reopen_utc": "2022-01-17T23:00:00Z",
+          "fully_closed_hours_utc": [
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t17-Jan-22 17:59:00\t17-Jan-22 22:59:00\tMartin Luther King Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2022-02-21",
+      "candidate_reason": "PRESIDENTS_DAY",
+      "requested_date": "2022-02-21",
+      "target_epoch_ms": 1645401600000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "33515",
+          "instrument": "9016",
+          "start": "1645466340000",
+          "end": "1645484340000",
+          "reason": "Presidents Day and Washington's Birthday",
+          "start_utc": "2022-02-21T17:59:00Z",
+          "end_last_closed_minute_utc": "2022-02-21T22:59:00Z",
+          "derived_reopen_utc": "2022-02-21T23:00:00Z",
+          "fully_closed_hours_utc": [
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t21-Feb-22 17:59:00\t21-Feb-22 22:59:00\tPresidents Day and Washington's Birthday"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2022-04-15",
+      "candidate_reason": "GOOD_FRIDAY",
+      "requested_date": "2022-04-15",
+      "target_epoch_ms": 1649980800000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "34894",
+          "instrument": "9016",
+          "start": "1649967240000",
+          "end": "1650232740000",
+          "reason": "Easter",
+          "start_utc": "2022-04-14T20:14:00Z",
+          "end_last_closed_minute_utc": "2022-04-17T21:59:00Z",
+          "derived_reopen_utc": "2022-04-17T22:00:00Z",
+          "fully_closed_hours_utc": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [],
+      "runtime_errors": [],
+      "capture_verdict": "BLOCKED",
+      "capture_reason": "EXPECTED_DOM_CROSSCHECK_MISSING"
+    }
+  ],
+  "provenance": {
+    "workflow_run": 34888022168,
+    "job_id": 104123381873,
+    "probe_commit": "619a0200a9718827346d3c5458d1c1a290f3e5ce",
+    "artifact_id": 10364984459,
+    "artifact_url": "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34888022168/artifacts/10364984459",
+    "artifact_sha256": "ecd110649b1049d308171357ff0574aee4a8670c0d4f35c018854d7d3771ceab"
+  }
+}
