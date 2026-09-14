@@ -17,7 +17,7 @@ from tools.trading_breaks_recovery_batch03 import (
 from tools.trading_breaks_recovery_protocol import (
     CONTRACT as RECOVERY_PROTOCOL,
     RecoveryEvidence,
-    validate_positive_recovery,
+    validate_positive_recovery_against_frozen_batch,
 )
 
 
@@ -162,7 +162,14 @@ def adjudicate_runtime(runtime: dict[str, Any]) -> dict[str, Any]:
             artifact_sha256=provenance["artifact_sha256"],
             probe_commit=provenance["probe_commit"],
         )
-        verdict = validate_positive_recovery(evidence)
+        # Historical adjudication is bound to the immutable Batch 03 membership,
+        # not to the mutable current unresolved queue. This makes the evidence
+        # replayable after PASS dates are integrated without re-enabling them for
+        # future execution scheduling.
+        verdict = validate_positive_recovery_against_frozen_batch(
+            evidence,
+            expected_targets,
+        )
         verdict["capture_verdict"] = raw.get("capture_verdict")
         verdict["broker_record_id"] = network_record.get("id") if network_record else None
         verdict["broker_reason"] = network_record.get("reason") if network_record else None
@@ -206,6 +213,7 @@ def _render_markdown(report: dict[str, Any]) -> str:
         f"- artifact: `{EXPECTED_ARTIFACT}`",
         f"- artifact SHA-256: `{EXPECTED_ARTIFACT_SHA256}`",
         "- instrument: `USATECH.IDX/USD` / `9016`",
+        "- replay scope: immutable frozen Batch 03 membership (not the current recovery queue)",
         "",
         "## Independent date-level adjudication",
         "",
@@ -244,6 +252,7 @@ def _render_markdown(report: dict[str, Any]) -> str:
         "",
         "Only PASS dates are authorized for executable calendar integration.",
         "BLOCKED dates remain unresolved; absence is not negative evidence.",
+        "The frozen replay interface does not make resolved dates eligible for another recovery execution.",
         "",
         "No `.bi5` acquisition and no real backtest are authorized by this qualification.",
         "",
