@@ -13,6 +13,7 @@
 - **Massive native `.bi5` acquisition:** FORBIDDEN
 - **Real backtest:** NOT authorized
 - **Latest verified calendar/boundary regression:** `63 PASS`
+- **Runtime ZIP archive registry:** 3 retained artifacts identified and hash-verified; workstation placement requires the versioned PowerShell helper.
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -26,9 +27,10 @@ Before substantive continuation:
 6. `reports/data-qualification/historical_trading_breaks_widget_pilot_2021_09_06.md`
 7. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
 8. `LOCAL-EVIDENCE/README.md`
-9. `04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md`
-10. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
-11. compare active branch against this checkpoint final HEAD before writing anything.
+9. `tools/archive_local_trading_breaks_evidence.ps1`
+10. `04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md`
+11. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
+12. compare active branch against this checkpoint final HEAD before writing anything.
 
 Do not reconstruct the 2019–2026 annual work from chat history.
 
@@ -179,12 +181,58 @@ Raw ZIP destination:
 
 `raw-zips\`
 
-Rules:
+Manifest:
 
-- raw ZIP files remain local and are ignored by Git;
-- a `manifest-sha256.csv` beside `raw-zips` records filename, size, relative path, timestamp and SHA-256;
-- known calibration and pilot artifact identities/hashes are recorded in `LOCAL-EVIDENCE/README.md`;
-- any third/local archive must be hashed in the manifest before durable use.
+`manifest-sha256.csv`
+
+Versioned archival helper:
+
+`tools/archive_local_trading_breaks_evidence.ps1`
+
+Helper creation commit:
+
+`f654cadb331b6d69bb4f4d612230690df43cdb62`
+
+`LOCAL-EVIDENCE/README.md` artifact-registry update:
+
+`4f5cb27e2e7f5b049792de4e01757f673de04fc7`
+
+Session-backup archival update:
+
+`92d6ae4b7661d4291f7d04c6cd4a98cb8855b3bb`
+
+### Retained archives
+
+1. `dukascopy-trading-breaks-widget-2020-02-17-authoritative.zip`
+   - artifact ID: `10356927580`
+   - run: `34866241511`
+   - size: `810965` bytes
+   - SHA-256: `f49fb3aa5b66c22127eda3ac4593a387f6f83d3ab1d1d31eb742d44c49fb6a91`
+   - authority: authoritative calibration evidence.
+
+2. `dukascopy-trading-breaks-widget-2020-02-17-headed-browser.zip`
+   - artifact ID: `10356971957`
+   - run: `34865846126`
+   - size: `709841` bytes
+   - SHA-256: `aaf5341f3d7e10b60cc24622d6f16c2ffa3e3f31d6b108f69f53c6f3a2d48849`
+   - authority: technical trace only; non-authoritative for date promotion.
+
+3. `dukascopy-trading-breaks-widget-pilot-2021-09-06-authoritative.zip`
+   - artifact ID: `10357256669`
+   - run: `34866699952`
+   - size: `797338` bytes
+   - SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
+   - authority: authoritative pilot PASS-A evidence.
+
+The original chat download links expired, but all three underlying GitHub Actions artifacts remained available and were re-downloaded on `2026-09-14`. SHA-256 was recomputed in the assistant runtime and matched the GitHub artifact digest for all three.
+
+Important boundary:
+
+- GitHub now durably records the identities, hashes and intended local path;
+- this does **not** claim the archives are already present on the user's workstation;
+- local placement becomes complete only when the user downloads the three fresh ZIPs and runs the versioned PowerShell helper;
+- raw ZIP files stay local and remain ignored by Git;
+- `manifest-sha256.csv` must be generated locally after placement.
 
 ## 8. CURRENT BOUNDARY MATRIX
 
