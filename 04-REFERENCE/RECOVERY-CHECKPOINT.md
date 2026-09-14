@@ -1,17 +1,17 @@
-# RECOVERY CHECKPOINT — 14 SEPTEMBRE 2026 — 2022 ANNUAL DUKASCOPY CALENDAR QUALIFICATION COMPLETE
+# RECOVERY CHECKPOINT — 14 SEPTEMBRE 2026 — 2023 ANNUAL DUKASCOPY CALENDAR QUALIFICATION COMPLETE
 
 ## 1. CURRENT AUTHORITATIVE STATE
 
 - **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 - **Active branch:** `feat/multi-year-dukascopy-acquisition`
-- **Previous checkpoint / session start HEAD:** `93896f7476ae27991b646b4ba2aa15c1f0aa79d9`
-- **2022 durable backup:** `99-BACKUP/SESSION-2026-09-14-2022-CALENDAR.md`
-  - commit `82c4203d57555df95c38299d0fee326337b20513`
-- **2022 annual qualification:** `reports/data-qualification/dukascopy_usatech_2022_calendar_qualification.md`
-  - candidate freeze commit `81a505df146c3bc09f5b68dec5dbef39e4e5caaf`
-  - completed qualification commit `4e2eeec5b37a679b6f8a9f9e0fa064b038d40e81`
-- **2022 annual audit:** `reports/data-qualification/dukascopy_usatech_2022_calendar_audit.md`
-  - commit `b4b20a77dde86b2481d896d7ae5076451b4f6c13`
+- **Previous checkpoint / 2023 session start HEAD:** `ffc82a429e41f437df6894b3dfc2d8d3bde94175`
+- **2023 durable backup:** `99-BACKUP/SESSION-2026-09-14-2023-CALENDAR.md`
+  - commit `89231765605ccd2b5e026ba489de3a2ae431a6e8`
+- **2023 annual qualification:** `reports/data-qualification/dukascopy_usatech_2023_calendar_qualification.md`
+  - candidate freeze commit `c37468b58782b789aea289a6f5bd92813e1e7dcd`
+  - completed qualification commit `295c8c2cfbddbd5bb31689e7623bdce4a8ab2aa0`
+- **2023 annual audit:** `reports/data-qualification/dukascopy_usatech_2023_calendar_audit.md`
+  - commit `48adbc3b2c21f271e879c6fec7563539e13d25da`
 - **Annual protocol:** `04-REFERENCE/ANNUAL-CALENDAR-QUALIFICATION-PROTOCOL.md`
 - **Coverage envelope:** `2018-05-01` → `2026-08-14`
 - **Execution/backtest window frozen:** NO
@@ -27,15 +27,15 @@ Before substantive continuation:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-14-2022-CALENDAR.md`
+3. `99-BACKUP/SESSION-2026-09-14-2023-CALENDAR.md`
 4. `04-REFERENCE/ANNUAL-CALENDAR-QUALIFICATION-PROTOCOL.md`
 5. `04-REFERENCE/IRREDUCIBLE-HISTORICAL-BROKER-EVIDENCE-GAP.md`
 6. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
-7. `reports/data-qualification/dukascopy_usatech_2022_calendar_qualification.md`
-8. `reports/data-qualification/dukascopy_usatech_2022_calendar_audit.md`
+7. `reports/data-qualification/dukascopy_usatech_2023_calendar_qualification.md`
+8. `reports/data-qualification/dukascopy_usatech_2023_calendar_audit.md`
 9. compare active branch against this checkpoint final HEAD before writing anything.
 
-Do not reconstruct 2019, 2020, 2021 or 2022 from conversation history.
+Do not reconstruct 2019–2023 from conversation history.
 
 ## 3. LOCKED OPERATING METHOD
 
@@ -49,7 +49,7 @@ Permanent rule:
 - **evidence verdict = one candidate date**;
 - **audit = one complete calendar year**.
 
-Annual batching is only an efficiency mechanism. It MUST NOT weaken date-specific proof or allow cross-date / cross-year inference.
+Annual batching is an efficiency mechanism only. It MUST NOT weaken date-specific proof or allow cross-date / cross-year inference.
 
 Project-wide qualification discipline remains:
 
@@ -104,47 +104,35 @@ Still the first global unresolved candidate.
 
 ### 2020
 
-Complete candidate set: **13**.
-
-Final matrix:
-
+- candidates: **13**
 - PASS: **1**
 - FAIL: **0**
 - BLOCKED: **12**
-
-Sole PASS:
-
-- `2020-02-17 — PRESIDENTS_DAY`
-
-2020 annual audit:
-
-**PASS — `ALL_2020_CANDIDATES_ACCOUNTED_FOR_WITH_DATE_LEVEL_VERDICTS_AND_NO_FALSE_PASS_BYPASS`**
-
-2020 calendar coverage:
-
-**BLOCKED — `2020_HAS_UNRESOLVED_BROKER_SESSION_EVIDENCE_GAPS`**
+- sole PASS: `2020-02-17 — PRESIDENTS_DAY`
+- annual audit: **PASS**
+- calendar coverage: **BLOCKED**
 
 The transient false-PASS route for `2020-01-01` was adversarially broken and fully revoked. Never resurrect `generic broker context + exact exchange timing + same holiday event = PASS`.
 
 ### 2021
 
-Complete candidate set: **13**.
-
-Final matrix:
-
+- candidates: **13**
 - PASS: **0**
 - FAIL: **0**
 - BLOCKED: **13**
+- annual audit: **PASS**
+- calendar coverage: **BLOCKED**
 
-2021 annual audit:
+### 2022
 
-**PASS — `ALL_2021_CANDIDATES_ACCOUNTED_FOR_WITH_DATE_LEVEL_VERDICTS_AND_NO_FALSE_PASS_BYPASS`**
+- candidates: **12**
+- PASS: **0**
+- FAIL: **0**
+- BLOCKED: **12**
+- annual audit: **PASS**
+- calendar coverage: **BLOCKED**
 
-2021 calendar coverage:
-
-**BLOCKED — `2021_HAS_UNRESOLVED_BROKER_SESSION_EVIDENCE_GAPS`**
-
-## 6. 2022 CANDIDATE SET — FROZEN BEFORE OUTCOME RESEARCH
+## 6. 2023 CANDIDATE SET — FROZEN BEFORE OUTCOME RESEARCH
 
 Candidate generator:
 
@@ -156,88 +144,89 @@ Generator blob:
 
 Freeze commit:
 
-`81a505df146c3bc09f5b68dec5dbef39e4e5caaf`
+`c37468b58782b789aea289a6f5bd92813e1e7dcd`
 
-Exactly **12** candidates were frozen before evidence research:
+Exactly **13** candidates were frozen before evidence research:
 
-1. `2022-01-17 — MARTIN_LUTHER_KING_DAY`
-2. `2022-02-21 — PRESIDENTS_DAY`
-3. `2022-04-15 — GOOD_FRIDAY`
-4. `2022-05-30 — MEMORIAL_DAY`
-5. `2022-06-20 — JUNETEENTH_OBSERVED`
-6. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-7. `2022-07-04 — INDEPENDENCE_DAY_OBSERVED`
-8. `2022-09-05 — LABOR_DAY`
-9. `2022-11-24 — THANKSGIVING_DAY`
-10. `2022-11-25 — THANKSGIVING_FRIDAY`
-11. `2022-12-23 — CHRISTMAS_PRE_HOLIDAY_SESSION`
-12. `2022-12-26 — CHRISTMAS_OBSERVED`
+1. `2023-01-02 — NEW_YEARS_OBSERVED`
+2. `2023-01-16 — MARTIN_LUTHER_KING_DAY`
+3. `2023-02-20 — PRESIDENTS_DAY`
+4. `2023-04-07 — GOOD_FRIDAY`
+5. `2023-05-29 — MEMORIAL_DAY`
+6. `2023-06-19 — JUNETEENTH_OBSERVED`
+7. `2023-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+8. `2023-07-04 — INDEPENDENCE_DAY_OBSERVED`
+9. `2023-09-04 — LABOR_DAY`
+10. `2023-11-23 — THANKSGIVING_DAY`
+11. `2023-11-24 — THANKSGIVING_FRIDAY`
+12. `2023-12-22 — CHRISTMAS_PRE_HOLIDAY_SESSION`
+13. `2023-12-25 — CHRISTMAS_OBSERVED`
 
 Boundary facts:
 
-- Jan 1 2022 is Saturday; observed date `2021-12-31` is outside bounded 2022 batch.
-- Dec 31 2022 is Saturday, so weekday guard excludes New Year's Eve candidate.
-- Juneteenth first appears in current generator in 2022, observed Monday `2022-06-20`.
+- Jan 1 2023 is Sunday; observed date Jan 2.
+- Dec 31 2023 is Sunday; weekday guard excludes New Year's Eve candidate.
+- Juneteenth is Monday Jun 19.
 
-No 2022 date was pre-qualified in current `SPECIAL_SESSION_EVIDENCE`.
+No 2023 date was pre-qualified in current `SPECIAL_SESSION_EVIDENCE`.
 
-## 7. 2022 RESEARCH FINDINGS
+## 7. 2023 RESEARCH FINDINGS
 
-The annual campaign searched exact dates, holiday names, `USATECH` / `USATECH.IDX/USD`, Dukascopy Bank / Dukascopy Europe news routes, multilingual variants, exact-year formulations, CME 2022 holiday material and the linked Dukascopy Trading Breaks route.
+The annual campaign searched exact dates, holiday names, `USATECH` / `USATECH.IDX/USD`, Dukascopy Bank / Europe news routes, multilingual variants, Trading Breaks routes and same-year CME evidence.
 
-Exact-date/period official Dukascopy context recovered included:
+Important official Dukascopy material recovered:
 
-- `2022-01-17 — MLK`: exact broker special-break notice;
-- `2022-05-30 — Memorial Day`: exact broker special-break notice;
-- `2022-06-20 — Juneteenth`: exact broker event and first Juneteenth candidate;
-- `2022-07-04 — Independence Day`: exact broker special-break notice;
-- `2022-12-23 / 2022-12-26 — Christmas period`: exact-period broker notice.
+- 2023 DST notice explicitly naming `USATECH.IDX/USD` for regular/summer schedule context;
+- exact-date Juneteenth notice;
+- exact-date/period Thanksgiving notice;
+- exact-period Christmas/New-Year notice;
+- generic New-Year transition context from end-2022 notice.
 
-The retrievable text for these notices delegates detailed schedules to Dukascopy's Trading Breaks Calendar and does not itself provide the required explicit `USATECH.IDX/USD` exact-hours witness.
+The holiday notices delegate detailed hours to the Trading Breaks Calendar and do not expose retrievable exact target-instrument holiday hours.
 
-The linked Trading Breaks Calendar was followed adversarially. The currently retrievable page identifies itself as the special-holiday schedule but does not expose a retrievable historical 2022 `USATECH.IDX/USD` row or exact-hours witness.
+The Trading Breaks route was followed adversarially. The currently retrievable page/widget identifies the special-holiday schedule function but exposes no auditable historical `2023 + USATECH.IDX/USD + exact target-date hours` record.
 
-This remains absence of proof, not evidence of historical open/closed behavior.
+This is absence of proof, not historical open/closed evidence.
 
-No admissible exact/archived target-instrument witness was recovered for Presidents Day, Good Friday, July 1 pre-holiday, Labor Day, Thanksgiving Thursday or Thanksgiving Friday.
+No admissible exact/archived 2023 USATECH holiday witness was recovered for MLK, Presidents Day, Good Friday, Memorial Day, Independence pre-holiday/day or Labor Day.
 
-Official CME same-year evidence provides strong holiday/reference context for the 2022 calendar, including Juneteenth, Independence, Thanksgiving and Christmas. It was never promoted into broker truth.
+Strong same-year CME material was recovered for several target dates, including Presidents Day, Memorial Day, Juneteenth, Labor Day, Thanksgiving and Christmas. It was not promoted into broker truth.
 
-Under strongest-favorable gate application, even granting exact verified exchange timing cannot complete PASS-C without explicit Dukascopy target instrument + special-session mapping chain.
+Even under strongest-favorable treatment granting exact verified exchange timing, PASS-C remains incomplete because no explicit Dukascopy target-instrument holiday witness + broker special-session mapping contract was recovered.
 
-## 8. FINAL 2022 QUALIFICATION RESULT
+## 8. FINAL 2023 QUALIFICATION RESULT
 
 Annual qualification report:
 
-`reports/data-qualification/dukascopy_usatech_2022_calendar_qualification.md`
+`reports/data-qualification/dukascopy_usatech_2023_calendar_qualification.md`
 
 Completed qualification commit:
 
-`4e2eeec5b37a679b6f8a9f9e0fa064b038d40e81`
+`295c8c2cfbddbd5bb31689e7623bdce4a8ab2aa0`
 
 Final matrix:
 
 - PASS: **0**
 - FAIL: **0**
-- BLOCKED: **12**
+- BLOCKED: **13**
 
-Every 2022 candidate remains:
+Every 2023 candidate remains:
 
 **BLOCKED — `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP`**
 
-2022 annual calendar coverage:
+2023 annual calendar coverage:
 
-**BLOCKED — `2022_HAS_UNRESOLVED_BROKER_SESSION_EVIDENCE_GAPS`**
+**BLOCKED — `2023_HAS_UNRESOLVED_BROKER_SESSION_EVIDENCE_GAPS`**
 
-## 9. 2022 ANNUAL AUDIT
+## 9. 2023 ANNUAL AUDIT
 
 Audit report:
 
-`reports/data-qualification/dukascopy_usatech_2022_calendar_audit.md`
+`reports/data-qualification/dukascopy_usatech_2023_calendar_audit.md`
 
 Audit commit:
 
-`b4b20a77dde86b2481d896d7ae5076451b4f6c13`
+`48adbc3b2c21f271e879c6fec7563539e13d25da`
 
 Audit verdict:
 
@@ -245,16 +234,16 @@ Audit verdict:
 
 Reason:
 
-`ALL_2022_CANDIDATES_ACCOUNTED_FOR_WITH_DATE_LEVEL_VERDICTS_AND_NO_FALSE_PASS_BYPASS`
+`ALL_2023_CANDIDATES_ACCOUNTED_FOR_WITH_DATE_LEVEL_VERDICTS_AND_NO_FALSE_PASS_BYPASS`
 
-The audit verified:
+Audit verified:
 
-- 12/12 candidate completeness;
-- frozen candidate set preserved;
+- 13/13 candidate completeness;
+- frozen set preserved;
 - exactly one verdict per date;
 - no cross-year or adjacent-date substitution;
 - no exchange-only promotion to broker truth;
-- no generic broker notice promoted to exact USATECH timing;
+- no generic broker holiday notice promoted to exact USATECH timing;
 - Trading Breaks historical-route limitation kept as absence of proof;
 - no hidden gaps;
 - no executable record without date-level PASS;
@@ -263,18 +252,18 @@ The audit verified:
 
 Critical distinction:
 
-- `2022_ANNUAL_AUDIT = PASS`
-- `2022_CALENDAR_COVERAGE = BLOCKED`
+- `2023_ANNUAL_AUDIT = PASS`
+- `2023_CALENDAR_COVERAGE = BLOCKED`
 - `GLOBAL_2018_2026_COVERAGE = BLOCKED`
 
 ## 10. EXECUTABLE STATE
 
-No 2022 candidate earned PASS.
+No 2023 candidate earned PASS.
 
 Therefore:
 
 - `tools/dukascopy_usatech_calendar.py` remains unchanged;
-- no 2022 `SPECIAL_SESSION_EVIDENCE` record was added;
+- no 2023 `SPECIAL_SESSION_EVIDENCE` record was added;
 - no calendar test expectation changed;
 - calendar tests were intentionally not rerun merely for timestamp freshness;
 - latest observed calendar suite remains **34 PASS**;
@@ -289,25 +278,25 @@ Therefore:
 - accidental branch `__noop_should_not_exist__` MUST NOT be used;
 - unavailable Wayback/archive routes or HTTP failures are not evidence of session behavior;
 - do not rerun unchanged tests/audits only for freshness;
-- do not reopen locked 2019/2020/2021/2022 dates without materially new evidence;
+- do not reopen locked 2019/2020/2021/2022/2023 dates without materially new evidence;
 - do not select an execution window to evade known gaps.
 
 ## 12. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Begin and complete the 2023 annual calendar qualification batch.**
+**Begin and complete the 2024 annual calendar qualification batch.**
 
 Required sequence:
 
 1. verify branch == this checkpoint final HEAD;
-2. enumerate and freeze the complete 2023 candidate set from `candidate_special_dates()` before outcome research;
-3. identify any already-qualified 2023 executable records and preserve them unless materially new contradictory evidence appears;
-4. research all remaining 2023 candidates together;
+2. enumerate and freeze the complete 2024 candidate set from `candidate_special_dates()` before outcome research;
+3. identify any already-qualified 2024 executable records and preserve them unless materially new contradictory evidence appears;
+4. research all remaining 2024 candidates together;
 5. apply `IRREDUCIBLE_HISTORICAL_BROKER_EVIDENCE_GAP_V1` independently to every date;
 6. assign exactly one PASS / FAIL / BLOCKED verdict per candidate;
 7. modify executable calendar evidence only for admissible PASS dates;
 8. rerun calendar tests/coverage only if executable evidence changes;
-9. create/complete `reports/data-qualification/dukascopy_usatech_2023_calendar_qualification.md`;
-10. create `reports/data-qualification/dukascopy_usatech_2023_calendar_audit.md`;
-11. update backup + Recovery Checkpoint after the 2023 annual batch.
+9. create/complete `reports/data-qualification/dukascopy_usatech_2024_calendar_qualification.md`;
+10. create `reports/data-qualification/dukascopy_usatech_2024_calendar_audit.md`;
+11. update backup + Recovery Checkpoint after the 2024 annual batch.
 
 During this action, do NOT freeze an execution window, download massive `.bi5`, begin a real backtest, or infer broker truth from exchange-only / other-year / adjacent-date evidence.
