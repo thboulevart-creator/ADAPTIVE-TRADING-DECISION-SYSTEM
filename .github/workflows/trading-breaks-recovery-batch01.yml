@@ -1,14 +1,6 @@
 name: Trading Breaks Recovery Batch 01
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH-POLICY.md'
-      - 'tools/trading_breaks_recovery_batch01.py'
-      - 'tests/test_trading_breaks_recovery_batch01.py'
-      - '.github/workflows/trading-breaks-recovery-batch01.yml'
   workflow_dispatch:
 
 permissions:
