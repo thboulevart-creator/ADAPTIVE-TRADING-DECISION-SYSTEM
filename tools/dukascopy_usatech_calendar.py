@@ -506,6 +506,102 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch02_qualification.md"
         ),
     },
+    date(2022, 5, 30): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2022",
+        # Broker-native Trading Breaks record 37019: 16:59-21:59 UTC.
+        # Calibrated reopen is 22:00 UTC; hour 16 is partially tradable, so
+        # only whole UTC hours 17-21 are proven fully closed.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "37019",
+        "broker_reason": "Memorial Day",
+        "artifact_id": 10367930592,
+        "artifact_sha256": "994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41",
+        "probe_commit": "9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1653868800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34892253133"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch03_qualification.md"
+        ),
+    },
+    date(2022, 6, 20): {
+        "reason": "SPECIAL_JUNETEENTH_OBSERVED_2022",
+        # Broker-native Trading Breaks record 38945: 16:59-21:59 UTC.
+        # Calibrated reopen is 22:00 UTC; hour 16 is partially tradable, so
+        # only whole UTC hours 17-21 are proven fully closed.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "38945",
+        "broker_reason": "Juneteenth Holiday",
+        "artifact_id": 10367930592,
+        "artifact_sha256": "994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41",
+        "probe_commit": "9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1655683200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34892253133"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch03_qualification.md"
+        ),
+    },
+    date(2022, 7, 4): {
+        "reason": "SPECIAL_INDEPENDENCE_DAY_2022",
+        # Broker-native Trading Breaks record 41225: 16:59-21:59 UTC.
+        # Calibrated reopen is 22:00 UTC; hour 16 is partially tradable, so
+        # only whole UTC hours 17-21 are proven fully closed.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "41225",
+        "broker_reason": "Independence Day",
+        "artifact_id": 10367930592,
+        "artifact_sha256": "994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41",
+        "probe_commit": "9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1656892800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34892253133"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch03_qualification.md"
+        ),
+    },
+    date(2022, 9, 5): {
+        "reason": "SPECIAL_LABOR_DAY_2022",
+        # Broker-native Trading Breaks record 42569: 16:59-21:59 UTC.
+        # Calibrated reopen is 22:00 UTC; hour 16 is partially tradable, so
+        # only whole UTC hours 17-21 are proven fully closed.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "42569",
+        "broker_reason": "Labor Day",
+        "artifact_id": 10367930592,
+        "artifact_sha256": "994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41",
+        "probe_commit": "9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1662336000000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34892253133"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch03_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the

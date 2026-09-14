@@ -2,13 +2,13 @@
   "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1",
   "verdict": "PASS",
   "reason": "ATTEMPT_AWARE_PROGRESSION_STATE_IS_DETERMINISTIC_AND_NON_STARVING",
-  "calendar_unresolved_count": 61,
-  "attempt_ledger_count": 10,
+  "calendar_unresolved_count": 57,
+  "attempt_ledger_count": 15,
   "registered_material_capability_change_count": 0,
   "current_capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
   "current_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-  "attempted_blocked_ineligible_count": 3,
-  "eligible_initial_or_retry_count": 58,
+  "attempted_blocked_ineligible_count": 4,
+  "eligible_initial_or_retry_count": 53,
   "decisions": [
     {
       "target_date": "2021-12-24",
@@ -44,58 +44,14 @@
       "contract_verdict": "PASS"
     },
     {
-      "target_date": "2022-05-30",
-      "candidate_reason": "MEMORIAL_DAY",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
-      "target_date": "2022-06-20",
-      "candidate_reason": "JUNETEENTH_OBSERVED",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
       "target_date": "2022-07-01",
       "candidate_reason": "INDEPENDENCE_PRE_HOLIDAY_SESSION",
       "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
-      "target_date": "2022-07-04",
-      "candidate_reason": "INDEPENDENCE_DAY_OBSERVED",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
-      "target_date": "2022-09-05",
-      "candidate_reason": "LABOR_DAY",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
+      "latest_attempt_id": "batch03:2022-07-01",
+      "latest_attempt_outcome": "BLOCKED",
+      "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
+      "eligible": false,
+      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
       "contract_verdict": "PASS"
     },
     {

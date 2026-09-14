@@ -93,13 +93,13 @@ def _change(
     )
 
 
-def test_attempt_ledger_preserves_all_ten_historical_attempts_and_duplicate_history():
+def test_attempt_ledger_preserves_all_fifteen_historical_attempts_and_duplicate_history():
     capabilities, current_id, attempts = load_attempt_ledger()
     assert current_id == "TRADING_BREAKS_PRIMARY_WIDGET_V1"
     assert current_id in capabilities
-    assert len(attempts) == 10
-    assert [item.attempt_sequence for item in attempts] == list(range(1, 11))
-    assert len({item.attempt_id for item in attempts}) == 10
+    assert len(attempts) == 15
+    assert [item.attempt_sequence for item in attempts] == list(range(1, 16))
+    assert len({item.attempt_id for item in attempts}) == 15
 
     christmas = [x for x in attempts if x.target_date == date(2021, 12, 24)]
     new_year = [x for x in attempts if x.target_date == date(2021, 12, 31)]
@@ -123,19 +123,20 @@ def test_attempted_blocked_dates_remain_unresolved_calendar_candidates():
     assert date(2021, 12, 24) in queue_days
     assert date(2021, 12, 31) in queue_days
     assert date(2022, 4, 15) in queue_days
+    assert date(2022, 7, 1) in queue_days
 
 
 def test_progression_plan_covers_every_unresolved_candidate_without_hidden_skipping():
     queue = recovery_queue()
     decisions = progression_decisions()
     assert [(d.target_date, d.candidate_reason) for d in decisions] == queue
-    assert len(decisions) == len(queue) == 61
+    assert len(decisions) == len(queue) == 57
     assert all(d.calendar_state == "UNRESOLVED" for d in decisions)
 
 
-def test_unchanged_capability_forbids_third_retry_of_historical_blocked_dates():
+def test_unchanged_capability_forbids_replay_of_historical_blocked_dates():
     decisions = {d.target_date: d for d in progression_decisions()}
-    for target in (date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15)):
+    for target in (date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15), date(2022, 7, 1)):
         decision = decisions[target]
         assert decision.eligible is False
         assert decision.latest_attempt_outcome == "BLOCKED"
@@ -146,12 +147,13 @@ def test_unchanged_capability_forbids_third_retry_of_historical_blocked_dates():
 def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candidates():
     eligible = eligible_recovery_queue()
     assert eligible
-    assert eligible[0] == (date(2022, 5, 30), "MEMORIAL_DAY")
+    assert eligible[0] == (date(2022, 11, 24), "THANKSGIVING_DAY")
     eligible_days = {day for day, _ in eligible}
     assert date(2021, 12, 24) not in eligible_days
     assert date(2021, 12, 31) not in eligible_days
     assert date(2022, 4, 15) not in eligible_days
-    assert date(2022, 5, 30) in eligible_days
+    assert date(2022, 7, 1) not in eligible_days
+    assert date(2022, 11, 24) in eligible_days
 
 
 def test_production_scheduler_has_no_caller_injected_retry_or_priority_inputs():
