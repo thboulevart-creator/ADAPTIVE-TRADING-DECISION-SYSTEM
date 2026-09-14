@@ -1,12 +1,6 @@
 name: Trading Breaks Recovery Batch 02 Integration
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - 'tools/integrate_trading_breaks_recovery_batch02.py'
-      - '.github/workflows/trading-breaks-recovery-batch02-integration.yml'
   workflow_dispatch:
 
 permissions:
