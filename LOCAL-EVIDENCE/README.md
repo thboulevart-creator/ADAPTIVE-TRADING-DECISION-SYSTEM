@@ -14,17 +14,17 @@ Raw ZIP archives belong in:
 
 The ZIP files themselves are ignored by `.gitignore`.
 
-A local manifest must be generated alongside them at:
+The governed manifest is:
 
-`manifest-sha256.csv`
+`LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
 
-The manifest identifies each retained local archive by filename, size, relative path, timestamp and SHA-256.
+It identifies each retained local archive by filename, size, relative path, timestamp, SHA-256, role, GitHub artifact ID and workflow run.
 
 A versioned helper is provided:
 
 `tools/archive_local_trading_breaks_evidence.ps1`
 
-Run it from the repository after downloading the three retained ZIPs. It verifies the expected SHA-256 values before accepting the archives, moves them into the canonical `raw-zips\` directory, and regenerates the manifest.
+It verifies the expected SHA-256 values before accepting the archives, moves them into the canonical `raw-zips\` directory, and regenerates the manifest.
 
 ## Retained GitHub Actions artifacts
 
@@ -59,11 +59,33 @@ Run it from the repository after downloading the three retained ZIPs. It verifie
 - SHA-256: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
 - role: authoritative pilot artifact supporting the locked PASS-A for 2021-09-06.
 
-## Verification performed on 2026-09-14
+## Workstation placement completed — 2026-09-14
 
-The three GitHub artifacts above were re-downloaded after the original chat download links expired. Their locally recomputed SHA-256 values matched the GitHub artifact digests exactly.
+The archival helper was executed locally from:
 
-This verifies artifact identity at re-download time. It does **not** claim that the files have already been placed on the user's workstation; workstation placement is completed only after the PowerShell archival helper is run locally.
+`C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM`
+
+It reported successful archival of all three retained ZIPs into:
+
+`C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\LOCAL-EVIDENCE\dukascopy-trading-breaks-widget\2026-09-14\raw-zips`
+
+The generated local manifest was then displayed and the three ZIPs were independently re-hashed with PowerShell `Get-FileHash -Algorithm SHA256`.
+
+Observed hashes matched the governed expected values for all three files:
+
+- calibration authoritative: `f49fb3aa5b66c22127eda3ac4593a387f6f83d3ab1d1d31eb742d44c49fb6a91`
+- headed-browser technical trace: `aaf5341f3d7e10b60cc24622d6f16c2ffa3e3f31d6b108f69f53c6f3a2d48849`
+- 2021-09-06 authoritative pilot: `8d8b568e17fd0e8d5d8c448742290313f78614ccd95c915aef5b978ed7f90ddc`
+
+The exact generated manifest is now versioned in Git at:
+
+`LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
+
+This closes the previously open workstation-placement step.
+
+## Reproducibility note
+
+The PowerShell archival helper remains versioned in GitHub even if it is removed from a particular local working tree after use. It is part of the reproducibility chain and should not be deleted from repository history merely because the one-time local placement action has completed.
 
 ## Evidence boundary
 
