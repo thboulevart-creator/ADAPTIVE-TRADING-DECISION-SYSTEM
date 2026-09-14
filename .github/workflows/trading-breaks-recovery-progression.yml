@@ -1,15 +1,6 @@
 name: Trading Breaks Recovery Progression Qualification
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md'
-      - 'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json'
-      - 'tools/trading_breaks_recovery_progression.py'
-      - 'tests/test_trading_breaks_recovery_progression.py'
-      - '.github/workflows/trading-breaks-recovery-progression.yml'
   workflow_dispatch:
 
 permissions:
@@ -71,7 +62,6 @@ jobs:
               blocked[d]['reason'] == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
               for d in ('2021-12-24', '2021-12-31', '2022-04-15')
           )
-          # Deliberately do not slice/freeze a Batch 03 here.
           PY
 
       - name: Persist progression runtime report
