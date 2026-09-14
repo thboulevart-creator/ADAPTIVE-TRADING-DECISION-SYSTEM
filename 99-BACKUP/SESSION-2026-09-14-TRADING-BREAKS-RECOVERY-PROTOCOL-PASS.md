@@ -116,6 +116,38 @@ Empty/no-record remains:
 
 No negative-evidence inference is authorized.
 
+## Local workstation archive verification — 2026-09-14
+
+Canonical local root:
+
+`C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\LOCAL-EVIDENCE\dukascopy-trading-breaks-widget\2026-09-14\raw-zips\`
+
+The three retained ZIP artifacts were independently re-hashed on the workstation with PowerShell `Get-FileHash -Algorithm SHA256` after being placed under the canonical local evidence root.
+
+Observed hashes:
+
+- `dukascopy-trading-breaks-widget-2020-02-17-authoritative.zip`
+  - `F49FB3AA5B66C22127EDA3AC4593A387F6F83D3AB1D1D31EB742D44C49FB6A91`
+- `dukascopy-trading-breaks-widget-2020-02-17-headed-browser.zip`
+  - `AAF5341F3D7E10B60CC24622D6F16C2FFA3E3F31D6B108F69F53C6F3A2D48849`
+- `dukascopy-trading-breaks-widget-pilot-2021-09-06-authoritative.zip`
+  - `8D8B568E17FD0E8D5D8C448742290313F78614CCD95C915AEF5B978ED7F90DDC`
+
+These values match `LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv` exactly (case-insensitive hexadecimal representation).
+
+The local helper script had been removed after use, then was restored explicitly from:
+
+`origin/feat/multi-year-dukascopy-acquisition`
+
+Verified local state:
+
+- `Test-Path .\tools\archive_local_trading_breaks_evidence.ps1` → `True`
+- local SHA-256: `F8B5593EBB754A77A80728880B3FEDFD1F3FB750A2FEFAC00B3F4E48C5AF56B7`
+
+This local script hash is recorded as a workstation-file integrity observation; the repository remains authoritative for the versioned script content.
+
+The raw ZIPs remain local and Git-ignored. GitHub stores the governed manifest, documentation, probes, workflows and recovery state — not duplicate binary ZIP payloads.
+
 ## Boundary matrix
 
 - `HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION = PASS`
