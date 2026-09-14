@@ -286,6 +286,96 @@
         "artifact_sha256": "994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41",
         "probe_commit": "9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4"
       }
+    },
+    {
+      "attempt_sequence": 16,
+      "attempt_id": "batch04:2022-11-24",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1",
+      "target_date": "2022-11-24",
+      "candidate_reason": "THANKSGIVING_DAY",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
+    },
+    {
+      "attempt_sequence": 17,
+      "attempt_id": "batch04:2022-11-25",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1",
+      "target_date": "2022-11-25",
+      "candidate_reason": "THANKSGIVING_FRIDAY",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
+    },
+    {
+      "attempt_sequence": 18,
+      "attempt_id": "batch04:2022-12-23",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1",
+      "target_date": "2022-12-23",
+      "candidate_reason": "CHRISTMAS_PRE_HOLIDAY_SESSION",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
+    },
+    {
+      "attempt_sequence": 19,
+      "attempt_id": "batch04:2022-12-26",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1",
+      "target_date": "2022-12-26",
+      "candidate_reason": "CHRISTMAS_OBSERVED",
+      "outcome": "BLOCKED",
+      "adjudication_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "blocking_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
+    },
+    {
+      "attempt_sequence": 20,
+      "attempt_id": "batch04:2023-01-02",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1",
+      "target_date": "2023-01-02",
+      "candidate_reason": "NEW_YEARS_OBSERVED",
+      "outcome": "BLOCKED",
+      "adjudication_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "blocking_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
     }
   ]
 }

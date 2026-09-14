@@ -602,6 +602,81 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch03_qualification.md"
         ),
     },
+    date(2022, 11, 24): {
+        "reason": "SPECIAL_THANKSGIVING_DAY_2022",
+        # Exact broker-native Trading Breaks record 45119.
+        # Start 2022-11-24T17:59:00Z; final closed minute 2022-11-24T22:59:00Z;
+        # calibrated reopen 2022-11-24T23:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "45119",
+        "broker_reason": "Thanksgiving Day",
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1669248000000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34895457466"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch04_qualification.md"
+        ),
+    },
+    date(2022, 11, 25): {
+        "reason": "SPECIAL_THANKSGIVING_FRIDAY_2022",
+        # Exact broker-native Trading Breaks record 45120.
+        # Start 2022-11-25T18:14:00Z; final closed minute 2022-11-27T22:59:00Z;
+        # calibrated reopen 2022-11-27T23:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "broker_record_id": "45120",
+        "broker_reason": "Thanksgiving Day",
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1669334400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34895457466"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch04_qualification.md"
+        ),
+    },
+    date(2022, 12, 23): {
+        "reason": "SPECIAL_CHRISTMAS_PRE_HOLIDAY_2022",
+        # Exact broker-native Trading Breaks record 46756.
+        # Start 2022-12-23T21:14:00Z; final closed minute 2022-12-26T22:59:00Z;
+        # calibrated reopen 2022-12-26T23:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(22, 24)),
+        "broker_record_id": "46756",
+        "broker_reason": "Christmas Day",
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1671753600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34895457466"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch04_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the

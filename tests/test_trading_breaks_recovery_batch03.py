@@ -92,7 +92,6 @@ def test_all_attempted_blocked_dates_remain_unresolved_but_ineligible_same_capab
 def test_batch03_dates_cannot_reenter_execution_projection_after_attempt():
     eligible_days = {day for day, _ in eligible_recovery_queue()}
     assert {day for day, _ in EXPECTED_BATCH03}.isdisjoint(eligible_days)
-    assert eligible_recovery_queue()[0] == (date(2022, 11, 24), "THANKSGIVING_DAY")
 
 
 def test_batch03_target_accessor_cannot_accept_manual_selection_inputs():
