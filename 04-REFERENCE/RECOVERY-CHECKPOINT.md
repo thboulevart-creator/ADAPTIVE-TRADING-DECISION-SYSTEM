@@ -11,7 +11,7 @@
 - **Candidate window:** `68 candidates / 2 resolved / 66 unresolved / 0 FAIL`
 - **Historical Trading Breaks positive-record route:** PASS
 - **Systematic Trading Breaks recovery protocol:** PASS
-- **Local runtime evidence archive:** COMPLETE / hash-verified
+- **Local runtime evidence archive:** COMPLETE / hash-verified on workstation
 - **Latest calendar/boundary regression:** `63 PASS`
 - **Massive native `.bi5` acquisition:** FORBIDDEN
 - **Real backtest:** NOT authorized
@@ -156,11 +156,28 @@ Governed manifest:
 
 `LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
 
-All three retained ZIPs were archived locally and independently re-hashed. Their hashes match the governed values recorded in the manifest.
+All three retained ZIPs were archived locally and independently re-hashed on the workstation after placement under `raw-zips/`.
 
-Raw ZIPs remain local and ignored by Git.
+Observed SHA-256 values:
 
-`tools/archive_local_trading_breaks_evidence.ps1` remains intentionally versioned in GitHub for reproducibility even if the local working-tree copy was removed after use.
+- calibration authoritative: `F49FB3AA5B66C22127EDA3AC4593A387F6F83D3AB1D1D31EB742D44C49FB6A91`
+- headed-browser technical trace: `AAF5341F3D7E10B60CC24622D6F16C2FFA3E3F31D6B108F69F53C6F3A2D48849`
+- 2021-09-06 authoritative pilot: `8D8B568E17FD0E8D5D8C448742290313F78614CCD95C915AEF5B978ED7F90DDC`
+
+All three match the governed manifest.
+
+`tools/archive_local_trading_breaks_evidence.ps1` was restored locally from `origin/feat/multi-year-dukascopy-acquisition` after accidental removal.
+
+Workstation verification:
+
+- `Test-Path` → `True`
+- local SHA-256 → `F8B5593EBB754A77A80728880B3FEDFD1F3FB750A2FEFAC00B3F4E48C5AF56B7`
+
+Detailed local-verification persistence commit:
+
+`b5b61961fcb4a0b8318ccd033601e8420dee843d`
+
+Raw ZIPs remain local and ignored by Git. GitHub stores the governed manifest and reproducible tooling rather than duplicate binary evidence payloads.
 
 ## 8. CURRENT BOUNDARY MATRIX
 
