@@ -1,12 +1,6 @@
 name: Trading Breaks Recovery Batch 04
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - 'tools/trading_breaks_recovery_batch04_execute.py'
-      - '.github/workflows/trading-breaks-recovery-batch04.yml'
   workflow_dispatch:
 
 permissions:
@@ -54,7 +48,6 @@ jobs:
               CURRENT_CAPABILITY_ID,
               batch04_targets,
           )
-
           expected = [
               (date(2022, 11, 24), 'THANKSGIVING_DAY'),
               (date(2022, 11, 25), 'THANKSGIVING_FRIDAY'),
@@ -66,7 +59,6 @@ jobs:
           assert batch04_targets() == expected
           assert CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
           assert CURRENT_CAPABILITY_FINGERPRINT == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
-          print('PASS: exact historically frozen Batch 04 identity locked before Chromium')
           PY
 
       - name: Prove execution module cannot recalculate Batch 04 membership
@@ -77,7 +69,6 @@ jobs:
           assert 'eligible_recovery_queue' not in source
           assert 'recovery_queue' not in source
           assert 'batch04_targets()' in source
-          print('PASS: Batch 04 execution consumes frozen membership only')
           PY
 
       - name: Install Playwright Chromium only after all gates PASS
@@ -90,9 +81,7 @@ jobs:
 
       - name: Print Batch 04 capture summary
         if: always()
-        run: |
-          echo '--- batch_summary.json ---'
-          cat trading_breaks_batch04_artifacts/batch_summary.json || true
+        run: cat trading_breaks_batch04_artifacts/batch_summary.json || true
 
       - name: Upload complete Batch 04 runtime evidence
         if: always()
@@ -115,21 +104,16 @@ jobs:
           JOB_ID="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs" --jq '.jobs[] | select(.name == "batch04") | .id' | head -n 1)"
           export JOB_ID
           python - <<'PY'
-          import json
-          import os
+          import json, os
           from pathlib import Path
-
           src = Path('trading_breaks_batch04_artifacts/batch_summary.json')
           dst = Path('reports/data-qualification/historical_trading_breaks_recovery_batch04_runtime.json')
-          if src.exists():
-              data = json.loads(src.read_text(encoding='utf-8'))
-          else:
-              data = {
-                  'schema': 'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1',
-                  'batch_number': 4,
-                  'verdict': 'BLOCKED',
-                  'reason': 'BATCH_SUMMARY_NOT_PRODUCED',
-              }
+          data = json.loads(src.read_text(encoding='utf-8')) if src.exists() else {
+              'schema': 'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH04_POLICY_V1',
+              'batch_number': 4,
+              'verdict': 'BLOCKED',
+              'reason': 'BATCH_SUMMARY_NOT_PRODUCED',
+          }
           digest = os.environ.get('ARTIFACT_DIGEST') or None
           if digest and digest.startswith('sha256:'):
               digest = digest.split(':', 1)[1]
@@ -143,15 +127,11 @@ jobs:
           }
           dst.parent.mkdir(parents=True, exist_ok=True)
           dst.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
-          print(dst.read_text(encoding='utf-8'))
           PY
-
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add reports/data-qualification/historical_trading_breaks_recovery_batch04_runtime.json
-          if git diff --cached --quiet; then
-            echo 'No Batch 04 runtime report change to persist.'
-          else
+          if ! git diff --cached --quiet; then
             git commit -m 'evidence: persist Trading Breaks recovery Batch 04 runtime'
             git push origin HEAD:feat/multi-year-dukascopy-acquisition
           fi
