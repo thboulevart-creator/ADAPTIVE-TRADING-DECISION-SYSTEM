@@ -411,6 +411,63 @@ SPECIAL_SESSION_EVIDENCE = {
             "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34866699952"
         ),
     },
+    date(2021, 11, 25): {
+        "reason": "SPECIAL_THANKSGIVING_DAY_2021",
+        # Broker-native Trading Breaks record 30449 starts at 17:59 UTC and
+        # ends at 22:59 UTC; calibrated reopening is 23:00 UTC. Hour 17 is
+        # partially tradable, therefore only 18-22 are fully closed.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1637798400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34885895206"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch01_qualification.md"
+        ),
+    },
+    date(2021, 11, 26): {
+        "reason": "SPECIAL_THANKSGIVING_FRIDAY_2021",
+        # Broker-native record 30450 starts at 18:14 UTC. Hour 18 is partially
+        # tradable. Hours 19-21 are additional whole-hour holiday closures;
+        # Friday 22-23 are already governed by the regular weekly close.
+        "fully_closed_hours_utc": frozenset(range(19, 22)),
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1637884800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34885895206"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch01_qualification.md"
+        ),
+    },
+    date(2021, 12, 23): {
+        "reason": "SPECIAL_CHRISTMAS_PRE_HOLIDAY_2021",
+        # Broker-native record 31532 starts at 21:14 UTC and remains closed
+        # through the Christmas/weekend interval. Hour 21 remains partially
+        # tradable; 22-23 are fully closed on this exact target date.
+        "fully_closed_hours_utc": frozenset({22, 23}),
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1640217600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34885895206"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch01_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the

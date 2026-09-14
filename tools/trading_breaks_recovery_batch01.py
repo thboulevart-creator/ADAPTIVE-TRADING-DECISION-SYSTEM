@@ -30,11 +30,18 @@ NORMAL_UA = (
 OUT = Path("trading_breaks_batch01_artifacts")
 
 
+FROZEN_BATCH01_TARGETS: tuple[tuple[date, str], ...] = (
+    (date(2021, 11, 25), "THANKSGIVING_DAY"),
+    (date(2021, 11, 26), "THANKSGIVING_FRIDAY"),
+    (date(2021, 12, 23), "CHRISTMAS_PRE_HOLIDAY_SESSION"),
+    (date(2021, 12, 24), "CHRISTMAS_OBSERVED"),
+    (date(2021, 12, 31), "NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED"),
+)
+
+
 def batch01_targets() -> list[tuple[date, str]]:
-    queue = recovery_queue()
-    if len(queue) < BATCH_SIZE:
-        raise RuntimeError("governed recovery queue shorter than fixed Batch 01 size")
-    return queue[:BATCH_SIZE]
+    """Return the immutable membership versioned before Batch 01 execution."""
+    return list(FROZEN_BATCH01_TARGETS)
 
 
 def widget_url(*, current_date: bool, date_ms: int) -> str:

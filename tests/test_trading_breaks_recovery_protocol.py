@@ -12,18 +12,18 @@ from tools.trading_breaks_recovery_protocol import (
 )
 
 
-TARGET = date(2021, 11, 25)
+TARGET = date(2021, 12, 24)
 GOOD_RECORD = {
     "id": "synthetic-test-record",
     "instrument": "9016",
-    "start": "1637863200000",  # 2021-11-25 18:00:00Z
-    "end": "1637881140000",    # 2021-11-25 22:59:00Z
+    "start": "1640368800000",  # 2021-11-25 18:00:00Z
+    "end": "1640386740000",    # 2021-11-25 22:59:00Z
     "reason": "Thanksgiving Day",
 }
 GOOD_DOM = {
     "instrument": "9016",
-    "start": "1637863200000",
-    "end": "1637881140000",
+    "start": "1640368800000",
+    "end": "1640386740000",
     "reason": "Thanksgiving Day",
 }
 
@@ -31,7 +31,7 @@ GOOD_DOM = {
 def good_evidence() -> RecoveryEvidence:
     return RecoveryEvidence(
         target_date=TARGET,
-        candidate_reason="THANKSGIVING_DAY",
+        candidate_reason="CHRISTMAS_OBSERVED",
         requested_date=TARGET,
         instrument_id="9016",
         instrument_name="USATECH.IDX/USD",
@@ -46,12 +46,12 @@ def good_evidence() -> RecoveryEvidence:
     )
 
 
-def test_queue_is_frozen_scope_sorted_and_has_66_unresolved_candidates():
+def test_queue_scope_sorted_and_has_63_unresolved_candidates_after_batch01():
     queue = recovery_queue()
     days = [day for day, _ in queue]
-    assert len(queue) == 66
+    assert len(queue) == 63
     assert days == sorted(days)
-    assert days[0] == date(2021, 11, 25)
+    assert days[0] == date(2021, 12, 24)
     assert days[-1] == date(2026, 7, 3)
     assert date(2021, 9, 6) not in days
     assert date(2025, 1, 9) not in days
@@ -60,7 +60,7 @@ def test_queue_is_frozen_scope_sorted_and_has_66_unresolved_candidates():
 def test_valid_positive_record_passes_and_uses_calibrated_end_semantics():
     result = validate_positive_recovery(good_evidence())
     assert result["verdict"] == "PASS"
-    assert result["reopen_utc"] == "2021-11-25T23:00:00Z"
+    assert result["reopen_utc"] == "2021-12-24T23:00:00Z"
     assert result["fully_closed_hours_utc"] == [18, 19, 20, 21, 22]
 
 
@@ -168,8 +168,8 @@ def test_bad_probe_commit_is_blocked():
 
 def test_partial_hour_is_not_rounded_to_closed():
     record = dict(GOOD_RECORD)
-    record["start"] = "1637864100000"  # 18:15Z
-    record["end"] = "1637881140000"    # 22:59Z -> reopen 23:00Z
+    record["start"] = "1640369700000"  # 18:15Z
+    record["end"] = "1640386740000"    # 22:59Z -> reopen 23:00Z
     start, _, reopen = derive_interval(record)
     closed = derive_fully_closed_hours_utc(TARGET, start, reopen)
     assert 18 not in closed
