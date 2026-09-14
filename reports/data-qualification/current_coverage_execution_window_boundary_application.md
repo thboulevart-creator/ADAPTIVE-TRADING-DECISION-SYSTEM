@@ -18,6 +18,14 @@ Window-candidate application:
 
 `reports/data-qualification/execution_window_candidate_v1.md`
 
+Historical broker-evidence route gate:
+
+`04-REFERENCE/HISTORICAL-BROKER-EVIDENCE-ROUTE-QUALIFICATION.md`
+
+Route exploration:
+
+`reports/data-qualification/historical_broker_evidence_route_exploration_v1.md`
+
 ## Current governed state
 
 - Global research envelope: `2018-05-01` → `2026-08-14`
@@ -103,27 +111,63 @@ Global gaps outside the candidate window remain visible:
 
 They are not reclassified or deleted.
 
-## Freeze execution window
+## Historical broker-evidence route exploration
 
-Boundary state now has an exact candidate window and known in-window counts.
+Overall route-exploration verdict:
+
+**BLOCKED — `NO_NEW_HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFIED`**
+
+Candidate mechanisms were evaluated as mechanisms before any systematic reuse across the 67 gaps.
+
+### JForex offline-time-domain route
+
+**FAIL — `OFFLINE_TIME_DOMAIN_DOES_NOT_COVER_WEEKDAY_HOLIDAY_SESSIONS`**
+
+Authoritative Dukascopy API support explicitly states that a holiday in the middle of the week is not included by `getOfflineTimeDomains()`. This mechanism must not be promoted from weekend-offline data into holiday evidence.
+
+### Official Trading Breaks widget historical-date route
+
+**BLOCKED — `HISTORICAL_WIDGET_SEMANTICS_AND_PAYLOAD_NOT_VERIFIED`**
+
+The official widget exposes a `date` parameter and is therefore a materially new technical route, but historical retrieval semantics, payload retention, exact `USATECH.IDX/USD` identity and historical special-session rows have not yet been captured reproducibly.
+
+### Official Dukascopy Market News archive
+
+**BLOCKED — `OFFICIAL_ARCHIVE_EXISTS_BUT_TARGET_INSTRUMENT_TIMING_NOT_RECOVERED`**
+
+The archive preserves historical broker bulletins and supports historical search/date context. Tested in-window notices still delegate detailed hours to the Trading Breaks Calendar and do not yet provide exact `USATECH.IDX/USD` holiday timing.
+
+### Archived Trading Breaks/widget snapshots
+
+**BLOCKED — `NO_VERIFIED_ARCHIVED_TRADING_BREAKS_SNAPSHOT_RECOVERED`**
+
+Failure to recover a snapshot is not evidence that no snapshot exists.
+
+### Direct/archived Dukascopy support witness
+
+**BLOCKED — `NO_TARGET_DATE_INSTRUMENT_SPECIFIC_SUPPORT_WITNESS_OBTAINED`**
+
+No new exact target-date, target-instrument broker response has been collected.
+
+No date-level calendar record changed as a result of this route exploration.
+
+## Freeze execution window
 
 Decision:
 
 **BLOCKED — `EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`**
 
-This supersedes the prior temporary reason `EXECUTION_WINDOW_NOT_DEFINED`.
-
-The candidate has now been defined, but it cannot be frozen because 67 in-window candidates remain unresolved.
+The execution-window candidate is defined but cannot be frozen because 67 in-window candidates remain unresolved.
 
 The rule MUST NOT be changed or the boundaries moved merely to reduce this count.
+
+Discovery of a plausible evidence mechanism does not change this verdict until admissible date-level evidence actually resolves the in-window gaps.
 
 ## Authorize massive `.bi5` acquisition
 
 Decision:
 
 **BLOCKED — `EXECUTION_WINDOW_NOT_FROZEN`**
-
-The candidate is defined but has not received freeze PASS.
 
 Massive native `.bi5` acquisition remains forbidden.
 
@@ -146,6 +190,7 @@ A real backtest remains downstream of:
 - `GLOBAL_CROSS_YEAR_ACCOUNTING_AUDIT = PASS`
 - `WINDOW_SELECTION_RULE = PASS`
 - `WINDOW_CANDIDATE_DEFINED = PASS`
+- `HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION = BLOCKED`
 - `DECLARE_GLOBAL_COVERAGE_PASS = BLOCKED`
 - `FREEZE_EXECUTION_WINDOW = BLOCKED — EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`
 - `AUTHORIZE_MASSIVE_ACQUISITION = BLOCKED`
@@ -153,10 +198,18 @@ A real backtest remains downstream of:
 
 ## Exactly one next governed action
 
-**Do not repeat the already-exhausted date-by-date generic holiday searches. Determine whether a materially new admissible broker-evidence route exists that can resolve the 67 in-window BLOCKED candidates without changing the selected boundaries.**
+**Technically qualify the official Dukascopy Trading Breaks widget historical-date route against the already-qualified `2020-02-17 — PRESIDENTS_DAY` gold-standard witness before using the route on any unresolved in-window date.**
 
-The next investigation must target a genuinely new evidence class/route, such as an official historical Dukascopy Trading Breaks dataset/archive/API/export or equivalent broker-origin historical session record.
+Required calibration evidence:
 
-If no materially new route can be demonstrated, the candidate window remains BLOCKED; the selection rule must not be rewritten to escape that result.
+1. execute the official widget in a JavaScript/network-capable environment;
+2. record exact widget configuration;
+3. capture actual endpoint/request path and parameters;
+4. demonstrate historical-date semantics rather than infer them from the presence of a `date` field;
+5. capture response payload or rendered historical row;
+6. verify explicit `USATECH.IDX/USD` identity;
+7. verify exact special-session timing against the locked 2020 witness;
+8. issue PASS/FAIL/BLOCKED for the route;
+9. only if calibration passes, probe one unresolved in-window date before considering systematic use.
 
-Do not download `.bi5`. Do not start a real backtest.
+Do not repeat generic date-by-date searches. Do not move the window. Do not download `.bi5`. Do not start a real backtest.
