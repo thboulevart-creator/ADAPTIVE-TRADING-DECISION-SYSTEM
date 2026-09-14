@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 14 SEPTEMBRE 2026 — ATTEMPT-AWARE TRADING BREAKS PROGRESSION PASS
+# RECOVERY CHECKPOINT — 14 SEPTEMBRE 2026 — TRADING BREAKS BATCH 03 MEMBERSHIP PASS
 
 ## 1. CURRENT AUTHORITATIVE STATE
 
@@ -14,12 +14,13 @@
 - **Recovery Batch 01:** PASS (`3 PASS / 2 BLOCKED / 0 FAIL`)
 - **Recovery Batch 02:** PASS (`2 PASS / 3 BLOCKED / 0 FAIL`)
 - **Attempt-aware recovery progression:** PASS
+- **Batch 03 membership policy:** PASS — frozen before observation
 - **Current semantic capability:** `TRADING_BREAKS_PRIMARY_WIDGET_V1`
 - **Current capability fingerprint:** `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
 - **Historical attempt ledger entries:** `10`
 - **Registered material capability changes:** `0`
 - **Attempted BLOCKED / execution-ineligible:** `3`
-- **Execution-eligible unresolved:** `58`
+- **Execution-eligible unresolved before Batch 03 execution:** `58`
 - **Massive native `.bi5` acquisition:** FORBIDDEN
 - **Real backtest:** NOT authorized
 
@@ -31,21 +32,23 @@ Latest corrected progression-runtime commit:
 
 `b7dcd82f7b6cc7f90773f28a78ac4d300b9adaa2`
 
-Latest progression qualification:
+Batch 03 membership qualification:
 
-- run: `34890560172`
-- job: `104131879994`
-- trigger commit: `c020a5132d053011f517007b9562b5257bbf9aaf`
+- run: `34891341634`
+- job: `104134524746`
+- trigger commit: `4260fd7c91fe855aeb0ff99c70ceb7458d593993`
 - conclusion: **SUCCESS**
-- adversarial/regression suite: **72 passed in 0.51s**
+- suite: **84 passed in 0.39s**
+- exact membership assertion: **PASS**
+- browser/probe execution-path guard: **PASS**
 
 Session backup immediately preceding this checkpoint:
 
-`99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-PROGRESSION-PASS.md`
+`99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-BATCH03-MEMBERSHIP-PASS.md`
 
 Backup commit:
 
-`d55885702539823c6e127c608bf50fa837ec3c06`
+`ed11c54a185038c58506a31b7daa669eb08e99c2`
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -53,28 +56,29 @@ Before substantive continuation:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-PROGRESSION-PASS.md`
+3. `99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-BATCH03-MEMBERSHIP-PASS.md`
 4. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
-5. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-6. `reports/data-qualification/historical_trading_breaks_recovery_progression_qualification.md`
-7. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-8. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-9. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-10. `tools/trading_breaks_recovery_progression.py`
-11. `tests/test_trading_breaks_recovery_progression.py`
-12. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH02-POLICY.md`
-13. `reports/data-qualification/historical_trading_breaks_recovery_batch02_qualification.md`
-14. `reports/data-qualification/historical_trading_breaks_recovery_batch02_runtime.json`
-15. `tools/trading_breaks_recovery_batch02.py`
-16. `tests/test_trading_breaks_recovery_batch02.py`
-17. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
-18. `tools/trading_breaks_recovery_protocol.py`
-19. `tests/test_trading_breaks_recovery_protocol.py`
-20. compare active branch HEAD against the commit containing this checkpoint before any write.
+5. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH03-POLICY.md`
+6. `reports/data-qualification/historical_trading_breaks_recovery_batch03_policy_qualification.md`
+7. `tools/trading_breaks_recovery_batch03.py`
+8. `tests/test_trading_breaks_recovery_batch03.py`
+9. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
+10. `reports/data-qualification/historical_trading_breaks_recovery_progression_qualification.md`
+11. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
+12. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
+13. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
+14. `tools/trading_breaks_recovery_progression.py`
+15. `tests/test_trading_breaks_recovery_progression.py`
+16. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
+17. `tools/trading_breaks_recovery_protocol.py`
+18. `tests/test_trading_breaks_recovery_protocol.py`
+19. `LOCAL-EVIDENCE/README.md`
+20. `LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
+21. compare active branch HEAD against the commit containing this checkpoint before any write.
 
 GitHub/checkpoint is the source of truth. Do not reconstruct this work from conversational memory.
 
-## 3. CALENDAR EVIDENCE STATE — UNCHANGED BY PROGRESSION
+## 3. CALENDAR EVIDENCE STATE — UNCHANGED
 
 The execution-window candidate remains exactly:
 
@@ -87,7 +91,7 @@ Current in-window accounting:
 - unresolved/BLOCKED: **61**
 - FAIL: **0**
 
-Resolved in-window dates:
+Resolved in-window dates remain:
 
 1. `2021-09-06 — LABOR_DAY`
 2. `2021-11-25 — THANKSGIVING_DAY`
@@ -111,21 +115,7 @@ Final verdict:
 
 **PASS — `ATTEMPT_AWARE_RECOVERY_PROGRESSION_REJECTS_RETRY_BYPASSES_AND_PREVENTS_STARVATION`**
 
-The progression layer now separates:
-
-1. calendar evidence state;
-2. immutable attempt history;
-3. execution eligibility.
-
-Authoritative attempt ledger:
-
-`reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-
-Authoritative material-change registry:
-
-`reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-
-Current state:
+Current state before Batch 03 execution:
 
 - unresolved calendar dates: `61`
 - historical attempts: `10`
@@ -133,7 +123,7 @@ Current state:
 - already-attempted BLOCKED / execution-ineligible: `3`
 - execution-eligible unresolved: `58`
 
-The three already-attempted BLOCKED dates remain in calendar unresolved accounting but are not retry-eligible under the unchanged capability:
+The three already-attempted BLOCKED dates remain unresolved but are not retry-eligible under the unchanged capability:
 
 - `2021-12-24 — CHRISTMAS_OBSERVED`
 - `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
@@ -143,68 +133,86 @@ Each is classified:
 
 `SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED`
 
-Later never-attempted unresolved candidates remain eligible, so this prefix no longer causes starvation.
+## 5. BATCH 03 MEMBERSHIP — FROZEN AND PASS
 
-## 5. WHY THE FIRST NOMINAL PASS WAS NOT ACCEPTED
+Contract:
 
-First adversarial run:
+`HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH03_POLICY_V1`
 
-- run: `34890138036`
-- job: `104130467209`
-- suite: `67 passed`
+Verdict:
 
-A second adversarial review found two genuine bypasses after that nominal PASS:
+**PASS — `BATCH03_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
 
-1. a blocker-relevant `proof_capability` token could be added without a real route/protocol/capture change and masquerade as material capability change;
-2. caller-provided attempts/current capability/change objects could inject unversioned retry authorization.
+Frozen size:
 
-The workflow was paused, both boundaries were corrected minimally, and the corrected version was re-broken.
+`BATCH_SIZE = 5`
 
-## 6. FINAL RE-BREAK
+Selection rule at freeze:
 
-Final authoritative run:
+`eligible_recovery_queue()[:5]`
 
-- run: `34890560172`
-- job: `104131879994`
-- trigger commit: `c020a5132d053011f517007b9562b5257bbf9aaf`
+Immutable Batch 03 membership:
+
+1. `2022-05-30 — MEMORIAL_DAY`
+2. `2022-06-20 — JUNETEENTH_OBSERVED`
+3. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+4. `2022-07-04 — INDEPENDENCE_DAY_OBSERVED`
+5. `2022-09-05 — LABOR_DAY`
+
+Every member was proven to be `INITIAL_ATTEMPT`, unresolved, eligible, unattempted, chronological and unique at freeze time.
+
+Raw `recovery_queue()[:5]` is not an admissible Batch 03 selection source.
+
+Freeze provenance:
+
+- pre-freeze checkpoint HEAD: `d4dab0a10ba6bc782186159899f7b8225e7aab59`
+- source progression runtime commit: `b7dcd82f7b6cc7f90773f28a78ac4d300b9adaa2`
+- capability fingerprint: `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
+
+## 6. BATCH 03 QUALIFICATION HISTORY
+
+First run:
+
+- run: `34891254793`
+- job: `104134235510`
+- trigger commit: `3fa23b7027d722ce474d2a7dc9034a79233e5176`
+- suite: `84 passed in 0.59s`
+- exact membership assertion: PASS
+- final browser guard: false positive
+
+The false positive was caused by a self-referential string search: the guard searched for `playwright install` while that literal appeared inside its own assertion. It did not indicate browser execution or membership failure.
+
+The guard was corrected minimally and the full suite was rerun.
+
+Authoritative corrected re-break:
+
+- run: `34891341634`
+- job: `104134524746`
+- trigger commit: `4260fd7c91fe855aeb0ff99c70ceb7458d593993`
 - conclusion: SUCCESS
-- suite: `72 passed in 0.51s`
-- runtime commit: `b7dcd82f7b6cc7f90773f28a78ac4d300b9adaa2`
+- suite: `84 passed in 0.39s`
+- exact frozen membership assertion: PASS
+- no-browser/probe execution-path guard: PASS
 
-The final boundary rejects:
+The Batch 03 freeze tool contains membership only and no Playwright, Chromium, `probe_candidate`, or asyncio execution path.
 
-- identical-capability retries;
-- provenance-only changes masquerading as semantic changes;
-- version-label-only changes;
-- proof-token-only changes;
-- blocker-irrelevant capabilities;
-- wrong fingerprints;
-- false changed dimensions;
-- proof-capability regression;
-- missing/invalid material-change qualification provenance;
-- caller-injected retry/scheduling state;
-- hidden omission of unresolved dates;
-- starvation;
-- PASS/unresolved contradictions;
-- silent retry after FAIL.
+No Batch 03 historical observation has occurred yet.
 
-The progression qualification workflow is archived to `workflow_dispatch` only.
+The Batch 03 policy qualification workflow is archived to `workflow_dispatch` only.
 
-## 7. MATERIAL RETRY RULE — FROZEN
+## 7. LOCAL ZIP EVIDENCE — CONFIRMED PASS
 
-A previously BLOCKED date may become retry-eligible only through a versioned material-capability change that proves all required predicates, including:
+The three retained ZIP archives are correctly governed locally.
 
-- exact old/new capability fingerprints;
-- a real change to route/protocol/capture implementation;
-- a newly added blocker-relevant proof capability;
-- no regression of existing proof capabilities;
-- exact changed dimensions;
-- explicit blocker coverage;
-- qualification contract and exact qualification commit.
+Versioned manifest:
 
-A new run/job/artifact/probe commit under the same semantic capability is not enough.
+`LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
 
-A proof-capability label by itself is not enough.
+`LOCAL-EVIDENCE/README.md` records successful local placement and independent SHA-256 verification of all three archives.
+
+The ZIP binaries themselves remain intentionally ignored by Git. Their names, sizes, roles, artifact IDs, workflow runs and SHA-256 hashes are versioned in the manifest.
+
+No corrective action is required for these three ZIPs.
 
 ## 8. CURRENT BOUNDARY MATRIX
 
@@ -218,6 +226,7 @@ PASS:
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH01`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH02`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION`
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH03_POLICY`
 - `LOCAL_RUNTIME_EVIDENCE_ARCHIVE`
 
 BLOCKED:
@@ -229,24 +238,29 @@ BLOCKED:
 
 ## 9. WHAT MUST NOT BE REPEATED
 
+- do not redefine or recalculate Batch 03 membership after outcomes become known;
+- do not use raw `recovery_queue()[:5]` for Batch 03;
+- do not reinsert the three identical-capability BLOCKED dates;
 - do not convert BLOCKED attempts into resolved calendar state;
-- do not remove BLOCKED dates from `recovery_queue()` merely because they were attempted;
-- do not use raw `recovery_queue()[:5]` for the next batch;
-- do not retry already-BLOCKED dates under unchanged semantic capability;
 - do not treat new run/artifact/probe-commit provenance as material capability change;
-- do not allow caller-injected retry authorization;
 - do not move the execution window;
 - do not acquire massive `.bi5` data;
 - do not start a real backtest.
 
 ## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Freeze and version Batch 03 with `BATCH_SIZE = 5` as exactly the first five entries of the governed `eligible_recovery_queue()`, BEFORE any Batch 03 historical observation.**
+**Execute the already-frozen Batch 03 membership under the qualified Trading Breaks capture/adjudication chain, with all parent/progression/Batch 03 gates passing before Chromium opens.**
 
-Batch 03 membership MUST be derived mechanically from `eligible_recovery_queue()` and locked before browser execution.
+The execution MUST use exactly these five frozen dates and this exact order:
 
-No candidate may be inserted, skipped, substituted, or reordered based on expected outcome, holiday type, apparent ease/difficulty, manual preference, or convenience.
+1. `2022-05-30 — MEMORIAL_DAY`
+2. `2022-06-20 — JUNETEENTH_OBSERVED`
+3. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+4. `2022-07-04 — INDEPENDENCE_DAY_OBSERVED`
+5. `2022-09-05 — LABOR_DAY`
 
-This checkpoint does **not** itself define or freeze Batch 03 membership.
+Membership MUST NOT be recalculated, substituted, expanded, shortened, or reordered according to observed or expected outcomes.
+
+After execution, independently adjudicate all five dates under `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1`, integrate only genuine PASS evidence, preserve BLOCKED as unresolved, append all five factual attempts to the attempt ledger with exact provenance/capability identity, and rerun coverage/progression regressions as required.
 
 No `.bi5`. No real backtest.
