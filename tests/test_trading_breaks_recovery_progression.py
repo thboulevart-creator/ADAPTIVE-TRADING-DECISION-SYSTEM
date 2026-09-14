@@ -8,15 +8,20 @@ from tools.trading_breaks_recovery_progression import (
     AttemptRecord,
     CapabilityIdentity,
     MaterialCapabilityChange,
+    _eligibility_for_unresolved_candidate,
     actual_changed_dimensions,
     current_capability,
     eligible_recovery_queue,
-    eligibility_for_unresolved_candidate,
     load_attempt_ledger,
+    load_material_capability_changes,
     progression_decisions,
     validate_material_capability_change,
 )
 from tools.trading_breaks_recovery_protocol import recovery_queue
+
+
+QUALIFICATION_CONTRACT = "SYNTHETIC_MATERIAL_CAPABILITY_QUALIFICATION_V1"
+QUALIFICATION_COMMIT = "c" * 40
 
 
 def _latest(target: date) -> AttemptRecord:
@@ -27,9 +32,34 @@ def _latest(target: date) -> AttemptRecord:
     )
 
 
-def _capability_with_added(base: CapabilityIdentity, capability: str) -> CapabilityIdentity:
+def _capability_with_added_only(
+    base: CapabilityIdentity,
+    capability: str,
+) -> CapabilityIdentity:
     return replace(
         base,
+        proof_capabilities=base.proof_capabilities | frozenset({capability}),
+    )
+
+
+def _capability_with_route_change(
+    base: CapabilityIdentity,
+    capability: str,
+) -> CapabilityIdentity:
+    return replace(
+        base,
+        route_contract=base.route_contract + "_V2",
+        proof_capabilities=base.proof_capabilities | frozenset({capability}),
+    )
+
+
+def _capability_with_protocol_change(
+    base: CapabilityIdentity,
+    capability: str,
+) -> CapabilityIdentity:
+    return replace(
+        base,
+        protocol_contract=base.protocol_contract + "_V2",
         proof_capabilities=base.proof_capabilities | frozenset({capability}),
     )
 
@@ -43,6 +73,8 @@ def _change(
     changed_dimensions: frozenset[str] | None = None,
     from_fingerprint: str | None = None,
     to_fingerprint: str | None = None,
+    qualification_contract: str = QUALIFICATION_CONTRACT,
+    qualification_commit: str = QUALIFICATION_COMMIT,
 ) -> MaterialCapabilityChange:
     blocker = addresses or previous.blocking_reason
     return MaterialCapabilityChange(
@@ -56,6 +88,8 @@ def _change(
         ),
         added_proof_capabilities=frozenset({added}),
         addresses_blocking_reasons=frozenset({blocker}) if blocker else frozenset(),
+        qualification_contract=qualification_contract,
+        qualification_commit=qualification_commit,
     )
 
 
@@ -78,6 +112,10 @@ def test_attempt_ledger_preserves_all_ten_historical_attempts_and_duplicate_hist
         "batch02:2021-12-31",
     ]
     assert len({x.capability.fingerprint() for x in christmas + new_year}) == 1
+
+
+def test_material_capability_change_registry_is_versioned_and_currently_empty():
+    assert load_material_capability_changes() == []
 
 
 def test_attempted_blocked_dates_remain_unresolved_calendar_candidates():
@@ -116,7 +154,12 @@ def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candida
     assert date(2022, 5, 30) in eligible_days
 
 
-def test_execution_projection_preserves_chronology_and_has_no_manual_priority_input():
+def test_production_scheduler_has_no_caller_injected_retry_or_priority_inputs():
+    assert inspect.signature(progression_decisions).parameters == {}
+    assert inspect.signature(eligible_recovery_queue).parameters == {}
+
+
+def test_execution_projection_preserves_chronology_and_outcome_independence():
     decisions = progression_decisions()
     expected_projection = [
         (d.target_date, d.candidate_reason)
@@ -125,10 +168,6 @@ def test_execution_projection_preserves_chronology_and_has_no_manual_priority_in
     ]
     assert eligible_recovery_queue() == expected_projection
     assert expected_projection == sorted(expected_projection, key=lambda item: item[0])
-    parameters = inspect.signature(eligible_recovery_queue).parameters
-    assert "expected_outcome" not in parameters
-    assert "priority" not in parameters
-    assert "manual_skip" not in parameters
 
 
 def test_new_run_artifact_or_probe_commit_cannot_change_semantic_capability():
@@ -149,11 +188,12 @@ def test_new_run_artifact_or_probe_commit_cannot_change_semantic_capability():
     )
     base = current_capability()
     assert replay.capability.fingerprint() == base.fingerprint()
-    decision = eligibility_for_unresolved_candidate(
+    decision = _eligibility_for_unresolved_candidate(
         replay.target_date,
         replay.candidate_reason,
         [replay],
         base,
+        [],
     )
     assert decision.eligible is False
     assert decision.reason == "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED"
@@ -170,15 +210,27 @@ def test_version_string_only_change_without_new_proof_capability_is_not_material
         changed_dimensions=frozenset({"route_contract"}),
         added_proof_capabilities=frozenset(),
         addresses_blocking_reasons=frozenset({previous.blocking_reason}),
+        qualification_contract=QUALIFICATION_CONTRACT,
+        qualification_commit=QUALIFICATION_COMMIT,
     )
     valid, reason = validate_material_capability_change(previous, renamed, change)
     assert valid is False
     assert reason == "NEW_PROOF_CAPABILITY_NOT_PROVEN"
 
 
+def test_declarative_proof_token_alone_cannot_fake_material_capability_change():
+    previous = _latest(date(2021, 12, 31))
+    added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
+    token_only = _capability_with_added_only(previous.capability, added)
+    change = _change(previous, token_only, added=added)
+    valid, reason = validate_material_capability_change(previous, token_only, change)
+    assert valid is False
+    assert reason == "NO_ROUTE_PROTOCOL_OR_RUNTIME_CHANGE"
+
+
 def test_unrelated_added_capability_cannot_be_claimed_as_retry_justification():
     previous = _latest(date(2021, 12, 31))
-    new = _capability_with_added(previous.capability, "FASTER_SCREENSHOT_CAPTURE")
+    new = _capability_with_route_change(previous.capability, "FASTER_SCREENSHOT_CAPTURE")
     change = _change(previous, new, added="FASTER_SCREENSHOT_CAPTURE")
     valid, reason = validate_material_capability_change(previous, new, change)
     assert valid is False
@@ -188,12 +240,12 @@ def test_unrelated_added_capability_cannot_be_claimed_as_retry_justification():
 def test_declared_changed_dimensions_must_equal_real_semantic_difference():
     previous = _latest(date(2021, 12, 31))
     added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
-    new = _capability_with_added(previous.capability, added)
+    new = _capability_with_route_change(previous.capability, added)
     change = _change(
         previous,
         new,
         added=added,
-        changed_dimensions=frozenset({"route_contract"}),
+        changed_dimensions=frozenset({"proof_capabilities"}),
     )
     valid, reason = validate_material_capability_change(previous, new, change)
     assert valid is False
@@ -203,7 +255,7 @@ def test_declared_changed_dimensions_must_equal_real_semantic_difference():
 def test_wrong_old_or_new_fingerprint_cannot_authorize_retry():
     previous = _latest(date(2021, 12, 31))
     added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
-    new = _capability_with_added(previous.capability, added)
+    new = _capability_with_route_change(previous.capability, added)
 
     wrong_old = _change(
         previous,
@@ -226,16 +278,16 @@ def test_wrong_old_or_new_fingerprint_cannot_authorize_retry():
     assert reason == "CAPABILITY_CHANGE_FINGERPRINT_MISMATCH"
 
 
-def test_relevant_new_route_capability_can_deterministically_reenable_no_record_date():
+def test_relevant_new_route_capability_with_executable_route_change_can_retry_no_record_date():
     previous = _latest(date(2021, 12, 31))
     added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
-    new = _capability_with_added(previous.capability, added)
+    new = _capability_with_route_change(previous.capability, added)
     change = _change(previous, new, added=added)
     valid, reason = validate_material_capability_change(previous, new, change)
     assert valid is True
     assert reason == "MATERIAL_CAPABILITY_CHANGE_PROVEN"
 
-    decision = eligibility_for_unresolved_candidate(
+    decision = _eligibility_for_unresolved_candidate(
         previous.target_date,
         previous.candidate_reason,
         [previous],
@@ -246,18 +298,18 @@ def test_relevant_new_route_capability_can_deterministically_reenable_no_record_
     assert decision.reason == "MATERIAL_CAPABILITY_CHANGE_RETRY"
 
 
-def test_cross_date_blocker_requires_cross_date_or_exact_target_recovery_capability():
+def test_cross_date_blocker_requires_relevant_capability_plus_executable_change():
     previous = _latest(date(2021, 12, 24))
 
     irrelevant = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
-    wrong_new = _capability_with_added(previous.capability, irrelevant)
+    wrong_new = _capability_with_protocol_change(previous.capability, irrelevant)
     wrong_change = _change(previous, wrong_new, added=irrelevant)
     valid, reason = validate_material_capability_change(previous, wrong_new, wrong_change)
     assert valid is False
     assert reason == "ADDED_CAPABILITY_IRRELEVANT_TO_BLOCKER"
 
     relevant = "QUALIFIED_CROSS_DATE_INTERVAL_ATTRIBUTION"
-    right_new = _capability_with_added(previous.capability, relevant)
+    right_new = _capability_with_protocol_change(previous.capability, relevant)
     right_change = _change(previous, right_new, added=relevant)
     valid, reason = validate_material_capability_change(previous, right_new, right_change)
     assert valid is True
@@ -267,7 +319,7 @@ def test_cross_date_blocker_requires_cross_date_or_exact_target_recovery_capabil
 def test_material_change_must_explicitly_name_the_prior_blocking_reason():
     previous = _latest(date(2021, 12, 31))
     added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
-    new = _capability_with_added(previous.capability, added)
+    new = _capability_with_route_change(previous.capability, added)
     change = _change(
         previous,
         new,
@@ -277,6 +329,48 @@ def test_material_change_must_explicitly_name_the_prior_blocking_reason():
     valid, reason = validate_material_capability_change(previous, new, change)
     assert valid is False
     assert reason == "BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED"
+
+
+def test_material_change_requires_versioned_qualification_identity_and_commit():
+    previous = _latest(date(2021, 12, 31))
+    added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
+    new = _capability_with_route_change(previous.capability, added)
+
+    missing_contract = _change(
+        previous,
+        new,
+        added=added,
+        qualification_contract="",
+    )
+    valid, reason = validate_material_capability_change(previous, new, missing_contract)
+    assert valid is False
+    assert reason == "MATERIAL_CHANGE_QUALIFICATION_CONTRACT_MISSING"
+
+    invalid_commit = _change(
+        previous,
+        new,
+        added=added,
+        qualification_commit="not-a-commit",
+    )
+    valid, reason = validate_material_capability_change(previous, new, invalid_commit)
+    assert valid is False
+    assert reason == "MATERIAL_CHANGE_QUALIFICATION_COMMIT_INVALID"
+
+
+def test_proof_capability_regression_cannot_authorize_retry():
+    previous = _latest(date(2021, 12, 31))
+    old = previous.capability
+    removed = next(iter(old.proof_capabilities))
+    added = "ALTERNATE_BROKER_NATIVE_RECORD_ROUTE"
+    new = replace(
+        old,
+        route_contract=old.route_contract + "_V2",
+        proof_capabilities=(old.proof_capabilities - {removed}) | {added},
+    )
+    change = _change(previous, new, added=added)
+    valid, reason = validate_material_capability_change(previous, new, change)
+    assert valid is False
+    assert reason == "PROOF_CAPABILITY_REGRESSION"
 
 
 def test_pass_still_unresolved_is_a_fail_closed_contradiction():
@@ -300,11 +394,12 @@ def test_pass_still_unresolved_is_a_fail_closed_contradiction():
             "probe_commit": "b" * 40,
         },
     )
-    decision = eligibility_for_unresolved_candidate(
+    decision = _eligibility_for_unresolved_candidate(
         synthetic.target_date,
         synthetic.candidate_reason,
         [synthetic],
         base,
+        [],
     )
     assert decision.eligible is False
     assert decision.contract_verdict == "FAIL"
@@ -332,11 +427,12 @@ def test_fail_attempt_is_not_silently_retried_by_progression_contract():
             "probe_commit": "b" * 40,
         },
     )
-    decision = eligibility_for_unresolved_candidate(
+    decision = _eligibility_for_unresolved_candidate(
         synthetic.target_date,
         synthetic.candidate_reason,
         [synthetic],
         base,
+        [],
     )
     assert decision.eligible is False
     assert decision.reason == "PREVIOUS_ATTEMPT_FAIL_REQUIRES_SEPARATE_REMEDIATION"
