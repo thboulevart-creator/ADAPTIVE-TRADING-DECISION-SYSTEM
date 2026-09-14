@@ -397,6 +397,20 @@ SPECIAL_SESSION_EVIDENCE = {
             "market-closures-on-president-s-day-dbl201738/"
         ),
     },
+    date(2021, 9, 6): {
+        "reason": "SPECIAL_LABOR_DAY_2021",
+        # Broker-native Trading Breaks history: USATECH.IDX/USD break starts
+        # 17:00 UTC, final closed minute is 21:59 UTC, reopening at 22:00 UTC.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1630886400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34866699952"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the
