@@ -8,13 +8,23 @@ Parent adjudication boundary:
 
 `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1`
 
-## Status before final re-break
+## Final status
 
-**CANDIDATE — NOT YET PASS**
+**PASS — `ATTEMPT_AWARE_RECOVERY_PROGRESSION_REJECTS_RETRY_BYPASSES_AND_PREVENTS_STARVATION`**
+
+Authoritative qualification report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_progression_qualification.md`
+
+Authoritative final re-break:
+
+- workflow run: `34890560172`
+- job: `104131879994`
+- trigger commit: `c020a5132d053011f517007b9562b5257bbf9aaf`
+- adversarial/regression suite: `72 passed in 0.51s`
+- corrected runtime commit: `b7dcd82f7b6cc7f90773f28a78ac4d300b9adaa2`
 
 This contract prevents unresolved dates already attempted under an unchanged evidence capability from starving later unresolved candidates, without ever converting `BLOCKED` into resolved evidence.
-
-Batch 03 MUST NOT be frozen or observed until this contract survives the final adversarial re-break.
 
 ## 1. Three states that MUST remain separate
 
@@ -45,7 +55,7 @@ Every attempt identity MUST preserve at least:
 
 Historical attempts are facts and MUST NOT be deleted merely because a later attempt supersedes them.
 
-The current ledger is:
+The authoritative attempt ledger is:
 
 `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
 
@@ -77,6 +87,14 @@ The following are **attempt provenance**, not capability identity, and MUST NOT 
 - rerun number.
 
 For historical Batch 01 / Batch 02, the semantic capability is the same because Batch 02 explicitly reuses `tools.trading_breaks_recovery_batch01.probe_candidate` under the same broker-evidence route and parent protocol.
+
+Current capability:
+
+`TRADING_BREAKS_PRIMARY_WIDGET_V1`
+
+Current fingerprint:
+
+`82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
 
 ## 3. Initial-attempt rule
 
@@ -181,11 +199,11 @@ Chronology plus versioned calendar state, attempt ledger, semantic capability id
 
 Batch 01 and Batch 02 predate this progression contract and contain repeated attempts of `2021-12-24` and `2021-12-31` under the same semantic capability.
 
-Those executions remain in the immutable ledger as historical facts. The new contract does not rewrite or retroactively delete them. It governs future eligibility from the latest factual attempt onward and therefore forbids another identical-capability replay.
+Those executions remain in the immutable ledger as historical facts. The contract does not rewrite or retroactively delete them. It governs future eligibility from the latest factual attempt onward and therefore forbids another identical-capability replay.
 
-## 11. Adversarial qualification obligations
+## 11. Adversarial qualification result
 
-Before PASS, the executable contract MUST reject at least:
+The final executable boundary rejects at least:
 
 1. removing attempted BLOCKED dates from calendar unresolved accounting;
 2. treating attempt completion as resolution;
@@ -197,7 +215,7 @@ Before PASS, the executable contract MUST reject at least:
 8. wrong old/new fingerprints;
 9. lying about which semantic dimensions actually changed;
 10. removal/regression of previously qualified proof capabilities;
-11. missing/invalid qualification identity for a material change;
+11. missing/invalid material-change qualification identity;
 12. caller-injected retry authorizations or scheduling state;
 13. hidden skipping where the progression plan omits unresolved dates;
 14. starvation where an ineligible unresolved prefix prevents later initial attempts;
@@ -205,12 +223,28 @@ Before PASS, the executable contract MUST reject at least:
 16. ledger mutation/deletion of historical duplicate attempts;
 17. `PASS`/unresolved contradictions.
 
-The first adversarial run exposed two genuine bypasses after its nominal test PASS: declarative proof-token-only retry and caller-injected change authorization. Those have been minimally corrected and MUST be covered by the final re-break before a final verdict is issued.
+The first nominal adversarial execution passed its then-current suite but a second design review exposed two genuine bypasses: declarative proof-token-only retry and caller-injected change authorization. Those were minimally corrected and the corrected boundary then passed the 72-test re-break.
 
-## 12. Current boundary
+## 12. Current qualified state
 
-The material capability-change registry is currently empty. Therefore no already-BLOCKED date is retry-eligible under a new capability today.
+The material capability-change registry is currently empty.
 
-This contract authorizes **no Batch 03 membership yet**.
+Current progression state:
 
-It authorizes no `.bi5` acquisition and no real backtest.
+- calendar unresolved: `61`
+- historical attempts: `10`
+- registered material capability changes: `0`
+- attempted BLOCKED and execution-ineligible: `3`
+- execution-eligible unresolved initial/retry candidates: `58`
+
+The three BLOCKED dates remain unresolved but are not currently retry-eligible:
+
+- `2021-12-24`
+- `2021-12-31`
+- `2022-04-15`
+
+This contract authorizes the next batch-freezing step to use `eligible_recovery_queue()` rather than raw `recovery_queue()`.
+
+It does **not** itself freeze Batch 03.
+
+No `.bi5` acquisition and no real backtest are authorized by this PASS.
