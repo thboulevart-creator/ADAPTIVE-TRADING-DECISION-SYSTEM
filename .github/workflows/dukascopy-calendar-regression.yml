@@ -1,16 +1,6 @@
 name: Dukascopy Calendar Regression
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - 'tools/dukascopy_usatech_calendar.py'
-      - 'tools/dukascopy_usatech_calendar_coverage.py'
-      - 'tests/test_dukascopy_usatech_calendar*.py'
-      - 'tests/test_dukascopy_downloader_calendar_coverage_gate.py'
-      - 'tests/test_coverage_execution_window_boundary.py'
-      - '.github/workflows/dukascopy-calendar-regression.yml'
   workflow_dispatch:
 
 permissions:
