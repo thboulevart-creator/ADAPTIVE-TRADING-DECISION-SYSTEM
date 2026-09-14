@@ -106,6 +106,7 @@ def update_protocol_tests() -> None:
     text = PROTOCOL_TEST.read_text(encoding="utf-8")
     text = text.replace("TARGET = date(2021, 11, 25)", "TARGET = date(2021, 12, 24)")
     text = text.replace('"1637863200000"', '"1640368800000"')
+    text = text.replace('"1637864100000"', '"1640369700000"')
     text = text.replace('"1637881140000"', '"1640386740000"')
     text = text.replace('candidate_reason="THANKSGIVING_DAY"', 'candidate_reason="CHRISTMAS_OBSERVED"')
     text = text.replace(
