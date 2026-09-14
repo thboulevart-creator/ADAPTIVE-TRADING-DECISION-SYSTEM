@@ -33,13 +33,23 @@ Authoritative independent persisted-state verification commit:
 
 `9ad19ede0052f37ce8aa2ccd30a117cd0525bc10`
 
-Session backup immediately preceding this checkpoint:
+Detailed Batch 04 integration backup:
 
 `99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-BATCH04-INTEGRATION-PASS.md`
 
-Backup commit:
+Detailed backup commit:
 
 `797fcef1f1df92eb8c6b8b7f29aa09d881d90bb5`
+
+Master end-of-day recovery snapshot:
+
+`99-BACKUP/SESSION-2026-09-14-END-OF-DAY.md`
+
+Master snapshot commit:
+
+`be473658b8010a58f93c158bc115886e060f811d`
+
+`99-BACKUP/README.md` was also updated to point morning recovery explicitly to the master end-of-day snapshot.
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -47,40 +57,44 @@ Before substantive continuation:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-BATCH04-INTEGRATION-PASS.md`
-4. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
-5. `reports/data-qualification/historical_trading_breaks_recovery_batch04_integration_qualification.md`
-6. `reports/data-qualification/historical_trading_breaks_recovery_batch04_qualification.md`
-7. `reports/data-qualification/historical_trading_breaks_recovery_batch04_adjudication.json`
-8. `reports/data-qualification/historical_trading_breaks_recovery_batch04_runtime.json`
-9. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH04-POLICY.md`
-10. `tools/trading_breaks_recovery_batch04.py`
-11. `tools/trading_breaks_recovery_batch04_execute.py`
-12. `tools/trading_breaks_recovery_batch04_adjudication.py`
-13. `tools/integrate_trading_breaks_recovery_batch04.py`
-14. `tests/test_trading_breaks_recovery_batch04.py`
-15. `tests/test_trading_breaks_recovery_batch04_adjudication.py`
-16. `tests/test_trading_breaks_recovery_batch04_integration_contract.py`
-17. `tests/test_trading_breaks_recovery_batch04_integration.py`
-18. `tests/test_dukascopy_usatech_calendar_2022_batch04.py`
-19. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-20. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-21. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-22. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-23. `tools/trading_breaks_recovery_progression.py`
-24. `tests/test_trading_breaks_recovery_progression.py`
-25. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
-26. `tools/trading_breaks_recovery_protocol.py`
-27. `tests/test_trading_breaks_recovery_protocol.py`
-28. `tools/dukascopy_usatech_calendar.py`
-29. `tools/dukascopy_usatech_calendar_coverage.py`
-30. `tests/test_dukascopy_usatech_calendar_coverage.py`
-31. `tests/test_coverage_execution_window_boundary.py`
-32. `LOCAL-EVIDENCE/README.md`
-33. `LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
-34. compare active branch HEAD against the commit containing this checkpoint before any write.
+3. `99-BACKUP/README.md`
+4. `99-BACKUP/SESSION-2026-09-14-END-OF-DAY.md`
+5. `99-BACKUP/SESSION-2026-09-14-TRADING-BREAKS-RECOVERY-BATCH04-INTEGRATION-PASS.md`
+6. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
+7. `reports/data-qualification/historical_trading_breaks_recovery_batch04_integration_qualification.md`
+8. `reports/data-qualification/historical_trading_breaks_recovery_batch04_qualification.md`
+9. `reports/data-qualification/historical_trading_breaks_recovery_batch04_adjudication.json`
+10. `reports/data-qualification/historical_trading_breaks_recovery_batch04_runtime.json`
+11. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH04-POLICY.md`
+12. `tools/trading_breaks_recovery_batch04.py`
+13. `tools/trading_breaks_recovery_batch04_execute.py`
+14. `tools/trading_breaks_recovery_batch04_adjudication.py`
+15. `tools/integrate_trading_breaks_recovery_batch04.py`
+16. `tests/test_trading_breaks_recovery_batch04.py`
+17. `tests/test_trading_breaks_recovery_batch04_adjudication.py`
+18. `tests/test_trading_breaks_recovery_batch04_integration_contract.py`
+19. `tests/test_trading_breaks_recovery_batch04_integration.py`
+20. `tests/test_dukascopy_usatech_calendar_2022_batch04.py`
+21. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
+22. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
+23. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
+24. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
+25. `tools/trading_breaks_recovery_progression.py`
+26. `tests/test_trading_breaks_recovery_progression.py`
+27. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
+28. `tools/trading_breaks_recovery_protocol.py`
+29. `tests/test_trading_breaks_recovery_protocol.py`
+30. `tools/dukascopy_usatech_calendar.py`
+31. `tools/dukascopy_usatech_calendar_coverage.py`
+32. `tests/test_dukascopy_usatech_calendar_coverage.py`
+33. `tests/test_coverage_execution_window_boundary.py`
+34. `LOCAL-EVIDENCE/README.md`
+35. `LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
+36. compare active branch HEAD against the commit containing this checkpoint before any write.
 
 GitHub/checkpoint is the source of truth. Do not reconstruct this work from conversational memory.
+
+The end-of-day master snapshot exists specifically so a fresh session can recover the entire 14 September path without relying on this chat.
 
 ## 3. BATCH 04 HISTORICAL MEMBERSHIP REMAINS IMMUTABLE
 
@@ -255,3 +269,15 @@ BLOCKED downstream:
 At that next action, membership must be mechanically derived from the persisted repository state and frozen before any outcome observation. Do not preselect dates from conversational memory. Raw `recovery_queue()`, expected outcomes, source availability, holiday type preference, or manual convenience are inadmissible selection surfaces.
 
 No Chromium belongs to the membership-freeze step. No `.bi5`. No real backtest.
+
+## 12. END-OF-DAY HANDOFF
+
+The 14 September workday is deliberately closed at the Batch 04 persisted-HEAD PASS boundary.
+
+Batch 05 has **not** been frozen, executed, observed or adjudicated.
+
+The complete day chronology, durable artifact map, known failures/corrections, and tomorrow recovery instructions are preserved in:
+
+`99-BACKUP/SESSION-2026-09-14-END-OF-DAY.md`
+
+Tomorrow, a fresh session must recover from GitHub using Section 2 above and then perform Section 11 as the single next governed action. No conversational reconstruction is required or authoritative.
