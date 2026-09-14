@@ -66,14 +66,15 @@ jobs:
               print(day.isoformat(), reason)
           PY
 
-      - name: Prove browser boundary remains closed
+      - name: Prove Batch 03 tool has no browser execution path yet
         run: |
           python - <<'PY'
           from pathlib import Path
 
-          workflow = Path('.github/workflows/trading-breaks-recovery-batch03-policy.yml').read_text(encoding='utf-8').lower()
-          assert 'playwright install' not in workflow
-          assert 'chromium.launch' not in workflow
-          assert 'trading_breaks_recovery_batch03.py' not in workflow.split('assert exact frozen batch 03 membership')[0]
-          print('PASS: no browser installation or historical broker execution in policy qualification')
+          source = Path('tools/trading_breaks_recovery_batch03.py').read_text(encoding='utf-8').lower()
+          assert 'playwright' not in source
+          assert 'probe_candidate' not in source
+          assert 'asyncio' not in source
+          assert 'chromium' not in source
+          print('PASS: Batch 03 freeze tool contains membership only; no browser/probe execution path exists')
           PY
