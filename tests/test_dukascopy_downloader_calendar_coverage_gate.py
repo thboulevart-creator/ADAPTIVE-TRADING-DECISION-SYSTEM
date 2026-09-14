@@ -41,8 +41,8 @@ def _last_json(stdout: str) -> dict:
 
 
 def test_unqualified_special_date_blocks_before_any_network(tmp_path: Path) -> None:
-    # Labor Day 2018 is deliberately still unresolved in the coverage registry.
-    result = _run_dry(tmp_path, "2018-09-03")
+    # Thanksgiving Day 2021 remains unresolved in the current coverage registry.
+    result = _run_dry(tmp_path, "2021-11-25")
     assert result.returncode == 2
     assert "CALENDAR_COVERAGE_GATE verdict=BLOCKED" in result.stdout
 
@@ -57,7 +57,7 @@ def test_probe_can_inspect_unqualified_date_but_cannot_upgrade_to_pass(
 ) -> None:
     result = _run_dry(
         tmp_path,
-        "2018-09-03",
+        "2021-11-25",
         "--calendar-qualification-probe",
     )
     assert result.returncode == 2
