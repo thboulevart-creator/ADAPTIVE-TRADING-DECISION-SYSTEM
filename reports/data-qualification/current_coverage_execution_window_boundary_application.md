@@ -2,85 +2,27 @@
 
 Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 
-## Current governed state
+## Current governed state after Batch 03
 
 - Global research envelope: `2018-05-01` → `2026-08-14`
 - Execution-window candidate: `2021-08-14` → `2026-08-14`
 - Window frozen: **NO**
-- Global calendar: **111 candidates / 30 resolved / 81 unresolved / 0 FAIL**
-- Execution-window candidate: **68 candidates / 7 resolved / 61 unresolved / 0 FAIL**
+- Global calendar: **111 candidates / 34 resolved / 77 unresolved / 0 FAIL**
+- Execution-window candidate: **68 candidates / 11 resolved / 57 unresolved / 0 FAIL**
 - Historical broker-evidence route: **PASS**
 - Systematic Trading Breaks recovery protocol: **PASS**
 - Recovery Batch 01: **PASS — 3 PASS / 2 BLOCKED / 0 FAIL**
 - Recovery Batch 02: **PASS — 2 PASS / 3 BLOCKED / 0 FAIL**
+- Recovery Batch 03: **PASS — 4 PASS / 1 BLOCKED / 0 FAIL**
 - Attempt-aware recovery progression: **PASS**
-- Batch 03 membership policy: **PASS — frozen before observation**
 - Massive native `.bi5` acquisition: **FORBIDDEN**
 - Real backtest: **NOT AUTHORIZED**
 
 The execution-window candidate remains exactly `2021-08-14 → 2026-08-14` and MUST NOT be moved to avoid unresolved dates.
 
-## Calendar evidence state — unchanged
+## Batch 03 authoritative execution
 
-Resolved in-window dates remain:
-
-1. `2021-09-06 — LABOR_DAY`
-2. `2021-11-25 — THANKSGIVING_DAY`
-3. `2021-11-26 — THANKSGIVING_FRIDAY`
-4. `2021-12-23 — CHRISTMAS_PRE_HOLIDAY_SESSION`
-5. `2022-01-17 — MARTIN_LUTHER_KING_DAY`
-6. `2022-02-21 — PRESIDENTS_DAY`
-7. `2025-01-09 — NATIONAL_DAY_OF_MOURNING_CARTER_2025`
-
-Global coverage remains:
-
-**BLOCKED — `GLOBAL_COVERAGE_STILL_HAS_UNRESOLVED_DATES`**
-
-Empty/no-record responses and neighboring-date overlaps still do not prove regular trading and MUST NOT populate `NO_SPECIAL_CHANGE_EVIDENCE`.
-
-## Attempt-aware progression state
-
-Contract:
-
-`HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1`
-
-Verdict:
-
-**PASS — `ATTEMPT_AWARE_RECOVERY_PROGRESSION_REJECTS_RETRY_BYPASSES_AND_PREVENTS_STARVATION`**
-
-Current deterministic state:
-
-- unresolved calendar dates: `61`
-- historical attempts: `10`
-- registered material capability changes: `0`
-- already-attempted BLOCKED / execution-ineligible: `3`
-- execution-eligible unresolved: `58`
-- capability ID: `TRADING_BREAKS_PRIMARY_WIDGET_V1`
-- capability fingerprint: `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
-
-The following remain unresolved but are not eligible for identical-capability replay:
-
-- `2021-12-24 — CHRISTMAS_OBSERVED`
-- `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
-- `2022-04-15 — GOOD_FRIDAY`
-
-They remain in calendar accounting and are excluded only from `eligible_recovery_queue()`.
-
-## Batch 03 membership — frozen and qualified before observation
-
-Contract:
-
-`HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH03_POLICY_V1`
-
-Final verdict:
-
-**PASS — `BATCH03_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
-
-Selection rule:
-
-`eligible_recovery_queue()[:5]`
-
-Frozen `BATCH_SIZE = 5` membership:
+Frozen immutable membership:
 
 1. `2022-05-30 — MEMORIAL_DAY`
 2. `2022-06-20 — JUNETEENTH_OBSERVED`
@@ -88,48 +30,90 @@ Frozen `BATCH_SIZE = 5` membership:
 4. `2022-07-04 — INDEPENDENCE_DAY_OBSERVED`
 5. `2022-09-05 — LABOR_DAY`
 
-Each member was proven at freeze time to be:
+Authoritative runtime:
 
-- unresolved in calendar evidence state;
-- execution-eligible;
-- `INITIAL_ATTEMPT`;
-- absent from the historical attempt ledger;
-- in exact chronological eligible-queue order.
+- workflow run: `34892253133`
+- job: `104137558818`
+- probe commit: `9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4`
+- artifact ID: `10367930592`
+- artifact SHA-256: `994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41`
+- instrument: `USATECH.IDX/USD` / `9016`
+- workflow conclusion: **SUCCESS**
 
-Raw `recovery_queue()[:5]` is explicitly not the Batch 03 source because it contains already-attempted BLOCKED dates.
+Independent adjudication verdict:
 
-Freeze provenance:
+**PASS — `BATCH03_POSITIVE_RECORDS_INDEPENDENTLY_ADJUDICATED_WITH_NO_NEGATIVE_EVIDENCE_PROMOTION`**
 
-- pre-freeze checkpoint HEAD: `d4dab0a10ba6bc782186159899f7b8225e7aab59`
-- source progression runtime commit: `b7dcd82f7b6cc7f90773f28a78ac4d300b9adaa2`
+Date-level outcomes:
 
-Qualification report:
+- `2022-05-30` → **PASS** — broker record `37019`, Memorial Day, reopen `22:00Z`
+- `2022-06-20` → **PASS** — broker record `38945`, Juneteenth Holiday, reopen `22:00Z`
+- `2022-07-01` → **BLOCKED — `NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED`**
+- `2022-07-04` → **PASS** — broker record `41225`, Independence Day, reopen `22:00Z`
+- `2022-09-05` → **PASS** — broker record `42569`, Labor Day, reopen `22:00Z`
 
-`reports/data-qualification/historical_trading_breaks_recovery_batch03_policy_qualification.md`
+Only the four PASS dates were integrated. `2022-07-01` remains unresolved and is not negative evidence.
 
-Corrected authoritative qualification run:
+## Batch 03 integration and persisted-state regression
 
-- run: `34891341634`
-- job: `104134524746`
-- trigger commit: `4260fd7c91fe855aeb0ff99c70ceb7458d593993`
+Atomic integration workflow:
+
+- run: `34893854678`
+- trigger commit: `ea2a6ee39a2ab81eedca54157469c65143d387c6`
+- persisted integration commit: `d85d6102f8b9d9204521dacfbdcc3a0212f8de5e`
 - conclusion: **SUCCESS**
-- adversarial/regression suite: **84 passed in 0.39s**
-- exact frozen membership assertion: **PASS**
-- no-browser/probe execution-path guard: **PASS**
 
-The first run `34891254793` also produced `84 passed` and exact membership PASS, but a self-referential browser guard falsely failed because it searched for a literal string contained in its own assertion. The guard was corrected minimally and the complete suite was re-run.
+Independent persisted-HEAD regression:
 
-No Batch 03 historical broker observation has yet occurred. The Batch 03 freeze tool contains no Playwright, Chromium, `probe_candidate`, or asyncio execution path.
+- run: `34893976903`
+- job: `104143235284`
+- HEAD under test: `30f6d11bb51473211b9576bde92e85b405ed5606`
+- conclusion: **SUCCESS**
+- regression suite: **104 passed in 0.60s**
 
-The Batch 03 policy qualification workflow is archived to `workflow_dispatch` only.
+Exact persisted accounting independently asserted:
 
-## Local retained ZIP evidence
+- global calendar: `111 / 34 / 77`
+- execution window: `68 / 11 / 57`
+- evidence-shape errors: `0`
+- orphan special evidence: `0`
+- contradictory evidence dates: `0`
+- attempt ledger entries: `15`
+- recovery queue unresolved: `57`
+- attempted BLOCKED / execution-ineligible: `4`
+- execution-eligible unresolved: `53`
+- registered material capability changes: `0`
 
-The three previously retained Trading Breaks ZIP archives remain correctly governed by the versioned manifest:
+## Attempt-aware progression after Batch 03
 
-`LOCAL-EVIDENCE/dukascopy-trading-breaks-widget/2026-09-14/manifest-sha256.csv`
+Current progression runtime verdict:
 
-Their local placement and independent SHA-256 verification are recorded in `LOCAL-EVIDENCE/README.md`. The ZIP binaries themselves remain intentionally ignored by Git.
+**PASS — `ATTEMPT_AWARE_PROGRESSION_STATE_IS_DETERMINISTIC_AND_NON_STARVING`**
+
+Current state:
+
+- calendar unresolved: `57`
+- attempt ledger: `15`
+- registered material capability changes: `0`
+- attempted BLOCKED / execution-ineligible: `4`
+- eligible initial/retry unresolved: `53`
+
+Currently ineligible BLOCKED dates under unchanged capability:
+
+- `2021-12-24 — CHRISTMAS_OBSERVED`
+- `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
+- `2022-04-15 — GOOD_FRIDAY`
+- `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+
+Each remains unresolved in calendar accounting and is excluded only from `eligible_recovery_queue()` under the unchanged capability.
+
+First five currently eligible unresolved candidates are:
+
+1. `2022-11-24 — THANKSGIVING_DAY`
+2. `2022-11-25 — THANKSGIVING_FRIDAY`
+3. `2022-12-23 — CHRISTMAS_PRE_HOLIDAY_SESSION`
+4. `2022-12-26 — CHRISTMAS_OBSERVED`
+5. `2023-01-02 — NEW_YEARS_OBSERVED`
 
 ## Current boundary decisions
 
@@ -144,6 +128,7 @@ PASS:
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH02`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH03_POLICY`
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH03`
 - `LOCAL_RUNTIME_EVIDENCE_ARCHIVE`
 
 BLOCKED:
@@ -155,10 +140,8 @@ BLOCKED:
 
 ## Exactly one next governed action
 
-**Execute the already-frozen Batch 03 membership under the qualified Trading Breaks capture/adjudication chain, with all parent and Batch 03 policy gates passing before Chromium opens.**
+**Freeze and version Batch 04 with `BATCH_SIZE = 5` as exactly the first five entries of the governed `eligible_recovery_queue()`, before any Batch 04 historical observation.**
 
-The execution MUST use exactly the five frozen dates above. Membership MUST NOT be recalculated, substituted, expanded, shortened, or reordered according to observed/expected outcomes.
-
-After execution, independently adjudicate all five dates under `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1`, integrate only genuine PASS evidence, preserve BLOCKED as unresolved, update the attempt ledger, then rerun coverage/progression regressions as required.
+Batch 04 membership MUST be derived mechanically from the current governed eligible queue and MUST NOT use raw `recovery_queue()[:5]`, expected outcome, holiday type, apparent ease, manual substitution, or convenience.
 
 No `.bi5` acquisition. No real backtest.
