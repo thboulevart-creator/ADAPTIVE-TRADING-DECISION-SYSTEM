@@ -1,0 +1,271 @@
+{
+  "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH12_POLICY_V1",
+  "parent_protocol": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+  "parent_progression_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1",
+  "batch_number": 12,
+  "batch_size": 5,
+  "selection_rule": "FIRST_N_OF_GOVERNED_ELIGIBLE_RECOVERY_QUEUE_AT_FREEZE",
+  "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+  "capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
+  "targets": [
+    {
+      "target_date": "2025-11-27",
+      "candidate_reason": "THANKSGIVING_DAY"
+    },
+    {
+      "target_date": "2025-11-28",
+      "candidate_reason": "THANKSGIVING_FRIDAY"
+    },
+    {
+      "target_date": "2025-12-24",
+      "candidate_reason": "CHRISTMAS_PRE_HOLIDAY_SESSION"
+    },
+    {
+      "target_date": "2025-12-25",
+      "candidate_reason": "CHRISTMAS_OBSERVED"
+    },
+    {
+      "target_date": "2025-12-31",
+      "candidate_reason": "NEW_YEARS_EVE_CANDIDATE"
+    }
+  ],
+  "workflow_run": 35016454761,
+  "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+  "read_only": true,
+  "market_data_written": false,
+  "results": [
+    {
+      "target_date": "2025-11-27",
+      "candidate_reason": "THANKSGIVING_DAY",
+      "requested_date": "2025-11-27",
+      "target_epoch_ms": 1764201600000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "87363",
+          "instrument": "9016",
+          "start": "1764266399000",
+          "end": "1764284399000",
+          "reason": "Thanksgiving Day",
+          "start_utc": "2025-11-27T17:59:59Z",
+          "end_last_closed_minute_utc": "2025-11-27T22:59:59Z",
+          "derived_reopen_utc": "2025-11-27T23:00:59Z",
+          "fully_closed_hours_utc": [
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t27-Nov-25 17:59:59\t27-Nov-25 22:59:59\tThanksgiving Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2025-11-28",
+      "candidate_reason": "THANKSGIVING_FRIDAY",
+      "requested_date": "2025-11-28",
+      "target_epoch_ms": 1764288000000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "87364",
+          "instrument": "9016",
+          "start": "1764353699000",
+          "end": "1764543599000",
+          "reason": "Thanksgiving Day",
+          "start_utc": "2025-11-28T18:14:59Z",
+          "end_last_closed_minute_utc": "2025-11-30T22:59:59Z",
+          "derived_reopen_utc": "2025-11-30T23:00:59Z",
+          "fully_closed_hours_utc": [
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t28-Nov-25 18:14:59\t30-Nov-25 22:59:59\tThanksgiving Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2025-12-24",
+      "candidate_reason": "CHRISTMAS_PRE_HOLIDAY_SESSION",
+      "requested_date": "2025-12-24",
+      "target_epoch_ms": 1766534400000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "91078",
+          "instrument": "9016",
+          "start": "1766600099000",
+          "end": "1766703599000",
+          "reason": "Christmas Day",
+          "start_utc": "2025-12-24T18:14:59Z",
+          "end_last_closed_minute_utc": "2025-12-25T22:59:59Z",
+          "derived_reopen_utc": "2025-12-25T23:00:59Z",
+          "fully_closed_hours_utc": [
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t24-Dec-25 18:14:59\t25-Dec-25 22:59:59\tChristmas Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2025-12-25",
+      "candidate_reason": "CHRISTMAS_OBSERVED",
+      "requested_date": "2025-12-25",
+      "target_epoch_ms": 1766620800000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "91078",
+          "instrument": "9016",
+          "start": "1766600099000",
+          "end": "1766703599000",
+          "reason": "Christmas Day",
+          "start_utc": "2025-12-24T18:14:59Z",
+          "end_last_closed_minute_utc": "2025-12-25T22:59:59Z",
+          "derived_reopen_utc": "2025-12-25T23:00:59Z",
+          "fully_closed_hours_utc": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t24-Dec-25 18:14:59\t25-Dec-25 22:59:59\tChristmas Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2025-12-31",
+      "candidate_reason": "NEW_YEARS_EVE_CANDIDATE",
+      "requested_date": "2025-12-31",
+      "target_epoch_ms": 1767139200000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "92491",
+          "instrument": "9016",
+          "start": "1767215699000",
+          "end": "1767308399000",
+          "reason": "New Year's Day",
+          "start_utc": "2025-12-31T21:14:59Z",
+          "end_last_closed_minute_utc": "2026-01-01T22:59:59Z",
+          "derived_reopen_utc": "2026-01-01T23:00:59Z",
+          "fully_closed_hours_utc": [
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t31-Dec-25 21:14:59\t01-Jan-26 22:59:59\tNew Year's Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    }
+  ],
+  "provenance": {
+    "workflow_run": 35016454761,
+    "job_id": 104540999314,
+    "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+    "artifact_id": 10416410006,
+    "artifact_url": "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35016454761/artifacts/10416410006",
+    "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d"
+  }
+}
