@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — TRADING BREAKS BATCH 09 FREEZE PASS
+# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — TRADING BREAKS BATCH 09 EXECUTION PASS
 
 ## 1. CURRENT AUTHORITATIVE STATE
 
@@ -13,8 +13,8 @@
 - **Systematic Trading Breaks recovery protocol:** PASS
 - **Attempt-aware recovery progression:** PASS
 - **Recovery Batch 08:** PASS (`4 PASS / 1 BLOCKED / 0 FAIL`) and atomically integrated + persisted-HEAD re-break PASS
-- **Recovery Batch 09 membership:** **FROZEN + ADVERSARIALLY QUALIFIED + INDEPENDENT PERSISTED-MEMBERSHIP RE-BREAK PASS**
-- **Batch 09 execution/observation:** NOT STARTED
+- **Recovery Batch 09 membership:** FROZEN + ADVERSARIALLY QUALIFIED + INDEPENDENT PERSISTED-MEMBERSHIP RE-BREAK PASS
+- **Recovery Batch 09 execution/capture:** **PASS — exact frozen membership executed with complete capture provenance; independent adjudication pending**
 - **Historical attempt ledger entries:** `40`
 - **Registered material capability changes:** `0`
 - **Attempted BLOCKED / execution-ineligible:** `10`
@@ -24,17 +24,19 @@
 - **Massive native `.bi5` acquisition:** FORBIDDEN
 - **Real backtest:** NOT authorized
 
+Important boundary: Batch 09 capture-layer results are not date-level adjudication verdicts. No Batch 09 calendar evidence or ledger outcome has been integrated yet.
+
 Latest durable backup:
 
-`99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH09-FREEZE-PASS.md`
+`99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH09-EXECUTION-PASS.md`
 
 Backup commit:
 
-`4e02b66918857791d1ee97782097d0a2ac26f8df`
+`7715e6cb193c604f2765a9730f844bd43e59dfef`
 
 Current boundary report commit:
 
-`ccfba6c8732b08fe3c31ad8597af3ace4f2545a2`
+`8cc212a27b43125015d98fafe61693fb0b8cd0bc`
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -42,43 +44,44 @@ Before the next substantive write:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH09-FREEZE-PASS.md`
+3. `99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH09-EXECUTION-PASS.md`
 4. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
-5. `reports/data-qualification/historical_trading_breaks_recovery_batch09_policy_qualification.md`
-6. `reports/data-qualification/historical_trading_breaks_recovery_batch09_persisted_membership_qualification.md`
-7. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH09-POLICY.md`
-8. `tools/trading_breaks_recovery_batch09.py`
-9. `tests/test_trading_breaks_recovery_batch09.py`
-10. `tools/freeze_trading_breaks_recovery_batch09.py`
-11. `tests/test_trading_breaks_recovery_batch09_freeze_contract.py`
-12. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-13. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-14. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-15. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-16. `tools/trading_breaks_recovery_progression.py`
-17. `tests/test_trading_breaks_recovery_progression.py`
-18. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
-19. `tools/trading_breaks_recovery_protocol.py`
-20. `tests/test_trading_breaks_recovery_protocol.py`
-21. `tools/dukascopy_usatech_calendar.py`
-22. `tools/dukascopy_usatech_calendar_coverage.py`
-23. `tests/test_dukascopy_usatech_calendar_coverage.py`
-24. `tests/test_coverage_execution_window_boundary.py`
-25. compare active branch HEAD against the commit containing this checkpoint before any write.
+5. `reports/data-qualification/historical_trading_breaks_recovery_batch09_execution_qualification.md`
+6. `reports/data-qualification/historical_trading_breaks_recovery_batch09_runtime.json`
+7. `reports/data-qualification/historical_trading_breaks_recovery_batch09_policy_qualification.md`
+8. `reports/data-qualification/historical_trading_breaks_recovery_batch09_persisted_membership_qualification.md`
+9. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH09-POLICY.md`
+10. `tools/trading_breaks_recovery_batch09.py`
+11. `tests/test_trading_breaks_recovery_batch09.py`
+12. `tools/trading_breaks_recovery_batch09_execute.py`
+13. `tests/test_trading_breaks_recovery_batch09_execution_contract.py`
+14. `tools/freeze_trading_breaks_recovery_batch09.py`
+15. `tests/test_trading_breaks_recovery_batch09_freeze_contract.py`
+16. `tools/trading_breaks_recovery_batch01.py`
+17. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
+18. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
+19. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
+20. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
+21. `tools/trading_breaks_recovery_progression.py`
+22. `tests/test_trading_breaks_recovery_progression.py`
+23. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
+24. `tools/trading_breaks_recovery_protocol.py`
+25. `tests/test_trading_breaks_recovery_protocol.py`
+26. `tools/dukascopy_usatech_calendar.py`
+27. `tools/dukascopy_usatech_calendar_coverage.py`
+28. `tests/test_dukascopy_usatech_calendar_coverage.py`
+29. `tests/test_coverage_execution_window_boundary.py`
+30. compare active branch HEAD against the commit containing this checkpoint before any write.
 
 GitHub/checkpoint is source of truth. Do not reconstruct state from conversation memory.
 
-## 3. BATCH 09 MECHANICALLY FROZEN MEMBERSHIP
+## 3. BATCH 09 IMMUTABLE FROZEN MEMBERSHIP
 
-Selection rule at freeze time:
+Selection rule at freeze time: `eligible_recovery_queue()[:5]`.
 
-`eligible_recovery_queue()[:5]`
+Fixed batch size: `5`.
 
-Fixed batch size:
-
-`5`
-
-Frozen identity, in exact order:
+Frozen identity, exact order:
 
 1. `2024-09-02 — LABOR_DAY`
 2. `2024-11-28 — THANKSGIVING_DAY`
@@ -86,90 +89,108 @@ Frozen identity, in exact order:
 4. `2024-12-24 — CHRISTMAS_PRE_HOLIDAY_SESSION`
 5. `2024-12-25 — CHRISTMAS_OBSERVED`
 
-This membership was generated by `tools/freeze_trading_breaks_recovery_batch09.py` from the persisted governed attempt-aware eligible queue. It was not manually selected.
+Snapshot commit:
 
-The historical identity is now immutable. Future execution MUST consume `batch09_targets()` and MUST NOT recalculate Batch 09 from any live queue.
+`20a2c1722a2bc4798c0e5079ba51aa1f7bb5edb5`
 
-## 4. BATCH 09 FREEZE QUALIFICATION — PASS
+Future adjudication/integration MUST use this immutable identity via `batch09_targets()` and MUST NOT reconstruct Batch 09 from a live queue.
 
-Freeze baseline checkpoint:
+## 4. BATCH 09 FREEZE + PERSISTED MEMBERSHIP QUALIFICATION — PASS
 
-`2e94b8bfa1459d300ee315d0754f84973be2dd1e`
+Freeze:
 
-Authoritative freeze workflow:
+- run/job: `34992224672` / `104459485505`
+- trigger: `e325a6d918daf3022be92a2ead9725e04030f0cc`
+- pre-snapshot suite: `81 passed in 0.30s`
+- post-snapshot regression: `351 passed in 1.52s`
 
-- trigger commit: `e325a6d918daf3022be92a2ead9725e04030f0cc`
-- run: `34992224672`
-- job: `104459485505`
-- pre-snapshot adversarial suite: `81 passed in 0.30s`
-- full post-snapshot governed regression: `351 passed in 1.52s`
-- mechanically frozen snapshot commit: `20a2c1722a2bc4798c0e5079ba51aa1f7bb5edb5`
+Independent persisted-membership re-break:
 
-Pre-freeze governed state proven by the workflow:
-
-- raw unresolved recovery queue: `38`
-- attempt-aware eligible queue: `28`
-- historical attempts: `40`
-- same-capability BLOCKED/ineligible: `10`
-- material capability changes: `0`
-- all five frozen members: unresolved `INITIAL_ATTEMPT`, no prior factual attempt
-
-Adversarial membership attacks rejected before freeze:
-
-- first-member skip;
-- reorder;
-- later eligible substitution;
-- shortening;
-- expansion;
-- duplicate target;
-- same-capability BLOCKED reinsertion;
-- resolved-date reinsertion;
-- prior-attempt contamination.
-
-The generated frozen production module contains no browser/probe/live-selection path.
-
-Before the first workflow run, a potential self-referential source-text guard problem was identified during review and changed to semantic AST/executable-surface inspection. No failed workflow or governed-state mutation occurred from that draft.
-
-## 5. BATCH 09 INDEPENDENT PERSISTED-MEMBERSHIP RE-BREAK — PASS
-
-Independent verifier trigger:
-
-`1a8953d0d589e904bb465f0206bfa97ea05f73b4`
-
-Verifier execution:
-
-- run: `34992441792`
-- job: `104460203391`
+- trigger: `1a8953d0d589e904bb465f0206bfa97ea05f73b4`
+- run/job: `34992441792` / `104460203391`
 - permissions: `contents: read`, `metadata: read`
-- exact persisted snapshot ancestry: PASS
-- governed-state immutability: PASS
-- full governed regression: `351 passed in 1.55s`
-- persisted invariant `batch09_targets() == eligible_recovery_queue()[:5]`: PASS
-- all five frozen members still `INITIAL_ATTEMPT` with no prior attempt: PASS
-- observation-free frozen module: PASS
-- progression regeneration deterministic with no tracked diff: PASS
+- full regression: `351 passed in 1.55s`
+- exact frozen prefix invariant: PASS
+- deterministic progression regeneration: PASS
 - final read-only clean worktree: PASS
 
-Persisted verifier report:
+Membership workflows archived manual-only:
 
-`reports/data-qualification/historical_trading_breaks_recovery_batch09_persisted_membership_qualification.md`
+- freeze archive: `884f03d32d8b08ea10bbfa32ca689deaacef9955`
+- persisted-membership verifier archive: `65ce1af2ea52a3c40fa7597effef2e45b45703c2`
 
-No Chromium/browser observation occurred in the freeze or verifier.
+## 5. BATCH 09 EXECUTION CONTRACT — PASS BEFORE CHROMIUM
 
-## 6. WORKFLOW CLOSURE
+Minimal execution wrapper:
 
-Completed Batch 09 membership workflows are manual-only:
+`tools/trading_breaks_recovery_batch09_execute.py`
 
-- freeze workflow archive commit: `884f03d32d8b08ea10bbfa32ca689deaacef9955`
-- persisted-membership verifier archive commit: `65ce1af2ea52a3c40fa7597effef2e45b45703c2`
+Adversarial execution contract:
 
-Normal pushes cannot silently re-freeze or re-qualify Batch 09 membership.
+`tests/test_trading_breaks_recovery_batch09_execution_contract.py`
 
-## 7. STATE MUTATION BOUNDARY
+The runner obtains membership only from `batch09_targets()` and has no caller-supplied target surface. It rejects shortened, reordered, or duplicate membership before the first probe. A probe exception cannot skip later frozen members.
 
-Batch 09 freeze is scheduling/governance only. No broker observation and no factual Batch 09 attempt has happened yet.
+It reuses exactly the registered semantic capture implementation:
 
-Therefore the persisted executable state remains unchanged from post-Batch08 integration:
+`tools.trading_breaks_recovery_batch01.probe_candidate`
+
+Authoritative pre-browser workflow proof:
+
+- trigger/probe commit: `0b5dedf6028add27040af112d0bceef76be25827`
+- run/job: `34993614373` / `104464228483`
+- checkpoint ancestry + governed frozen-state immutability: PASS
+- full governed + execution regression: `359 passed in 1.31s`
+- exact immutable Batch 09 identity gate: PASS
+- execution no-live-membership AST gate: PASS
+- qualified probe no-membership-selection AST gate: PASS
+
+Playwright/Chromium installation and browser launch occurred only after all those gates passed.
+
+## 6. BATCH 09 AUTHORITATIVE EXECUTION / CAPTURE — PASS
+
+Execution workflow conclusion: `success`.
+
+Provenance:
+
+- run: `34993614373`
+- job: `104464228483`
+- probe commit: `0b5dedf6028add27040af112d0bceef76be25827`
+- runtime persistence commit: `e1dce6a85aed3785c151c0b3e51138219cc50f87`
+- artifact ID: `10406357435`
+- artifact SHA-256: `dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc`
+- artifact size: `3599127` bytes
+- artifact upload contained `31` files
+- runtime: `reports/data-qualification/historical_trading_breaks_recovery_batch09_runtime.json`
+- qualification: `reports/data-qualification/historical_trading_breaks_recovery_batch09_execution_qualification.md`
+
+The five frozen members were executed exactly once in frozen order. No skip, substitution, reorder, expansion, shortening or duplication occurred.
+
+Raw capture outcomes, pending independent adjudication:
+
+1. `2024-09-02` — `CAPTURED` — record `70878` — starts `2024-09-02T16:59:59Z` — broker reason `Labor Day`.
+2. `2024-11-28` — `CAPTURED` — record `72887` — starts `2024-11-28T17:59:59Z` — broker reason `Thanksgiving Day`.
+3. `2024-11-29` — `CAPTURED` — record `72888` — starts `2024-11-29T18:14:59Z` — ends `2024-12-01T22:59:59Z` — broker reason `Thanksgiving Day`.
+4. `2024-12-24` — `CAPTURED` — record `74339` — starts `2024-12-24T18:14:59Z` — ends `2024-12-25T22:59:59Z` — broker reason `Christmas`.
+5. `2024-12-25` — capture returned overlapping record `74339`, whose broker-native start is `2024-12-24T18:14:59Z`.
+
+Every capture retained instrument `USATECH.IDX/USD`, observed instrument ID `9016`, exact requested-date metadata, raw payload, DOM witness and no runtime error.
+
+Critical: capture-layer `CAPTURED` means only `POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION`. It is not automatic date-level PASS. The Dec 25 cross-date record MUST be independently challenged before any promotion.
+
+## 7. EXECUTION WORKFLOW CLOSURE
+
+Completed Batch 09 execution workflow is manual-only:
+
+`785b29fa0e54848d21f02ce88b9e56a51adf8cd3`
+
+Normal pushes cannot silently repeat Batch 09 execution.
+
+## 8. STATE MUTATION BOUNDARY
+
+Batch 09 execution persisted capture evidence only. No independent adjudication or atomic integration has occurred.
+
+Therefore persisted executable state remains:
 
 - global `111 / 53 resolved / 58 unresolved / 0 FAIL`
 - execution window `68 / 30 resolved / 38 unresolved / 0 FAIL`
@@ -179,35 +200,39 @@ Therefore the persisted executable state remains unchanged from post-Batch08 int
 - same-capability attempted BLOCKED/ineligible `10`
 - eligible unresolved `28`
 
-Do not append Batch 09 ledger attempts until factual execution evidence exists and is independently adjudicated under the governed process.
+Do not modify `SPECIAL_SESSION_EVIDENCE`, `NO_SPECIAL_CHANGE_EVIDENCE`, attempt ledger, or progression from Batch 09 capture-layer output alone.
 
-## 8. CURRENT DOWNSTREAM BOUNDARY
+No `.bi5`. No real backtest.
+
+## 9. CURRENT DOWNSTREAM BOUNDARY
 
 PASS now includes:
 
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH08_ATOMIC_INTEGRATION`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH08_PERSISTED_HEAD_REBREAK`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_POLICY`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_PERSISTED_MEMBERSHIP_REBREAK`
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_EXECUTION_CAPTURE`
 
 Still BLOCKED:
 
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_INDEPENDENT_ADJUDICATION`
 - `DECLARE_GLOBAL_COVERAGE_PASS`
 - `FREEZE_EXECUTION_WINDOW — EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`
 - `AUTHORIZE_MASSIVE_ACQUISITION — EXECUTION_WINDOW_NOT_FROZEN`
 - `REAL_BACKTEST — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`
 
-## 9. EXACTLY ONE NEXT GOVERNED ACTION
+## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Execute exactly the already-frozen Batch 09 membership through the qualified Trading Breaks capture chain, only after all pre-browser identity/immutability/protocol gates pass. The execution workflow MUST consume `batch09_targets()` and MUST NOT recalculate, skip, substitute, reorder, expand or shorten membership. Persist raw broker/DOM/provenance evidence for later independent adjudication.**
+**Independently adjudicate the persisted Batch 09 runtime against immutable `batch09_targets()` and exact locked run/job/artifact/hash/probe provenance, with no browser and no live membership recalculation.**
 
-Rules:
+Mandatory attacks include:
 
-- no live `eligible_recovery_queue()` or `recovery_queue()` selection in the execution path;
-- verify exact frozen identity before Chromium installation/opening;
-- preserve exact date, instrument ID `9016`, instrument `USATECH.IDX/USD`, raw payload, DOM/equivalent, run/job/artifact/hash/probe commit;
-- empty/no-record remains BLOCKED and cannot become negative executable evidence;
-- no adjudication shortcut from overlap/adjacent dates;
-- no `.bi5`;
-- no real backtest;
-- same branch; no auxiliary branch proliferation.
+- frozen-membership tampering or result reordering;
+- provenance tampering;
+- wrong date/instrument;
+- DOM/network contradiction;
+- duplicate/multiple records;
+- cross-date promotion, especially `2024-12-25` / record `74339`;
+- partial-hour rounding;
+- treating capture-layer `CAPTURED` as automatic PASS.
+
+Do not integrate calendar evidence or append Batch 09 ledger outcomes before independent adjudication PASS. Same branch; no auxiliary branch. No `.bi5`. No real backtest.
