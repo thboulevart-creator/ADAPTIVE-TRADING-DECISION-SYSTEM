@@ -254,6 +254,8 @@ def rewrite_current_state_tests() -> None:
         "assert len(decisions) == len(queue) == 34": "assert len(decisions) == len(queue) == 31",
         "assert len(recovery_queue()) == len(decisions) == 34": "assert len(recovery_queue()) == len(decisions) == 31",
         "assert len(eligible) == 23": "assert len(eligible) == 18",
+        'sum(not d.eligible and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 11': 'sum(not d.eligible and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 13',
+        'sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 11': 'sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 13',
         "(111, 57, 54)": "(111, 60, 51)",
         "(68, 34, 34)": "(68, 37, 31)",
         'global_report["resolved_candidate_dates"] == 57': 'global_report["resolved_candidate_dates"] == 60',
@@ -265,10 +267,9 @@ def rewrite_current_state_tests() -> None:
         "post_batch09_progression_state": "post_batch10_progression_state",
     }
     for path in sorted((REPO / "tests").glob("test_*.py")):
-        if path.name in {
+        if path.name.endswith("_integration_contract.py") or path.name in {
             "test_trading_breaks_recovery_batch10_adjudication.py",
             "test_trading_breaks_recovery_batch10_execute.py",
-            "test_trading_breaks_recovery_batch10_integration_contract.py",
         }:
             continue
         text = path.read_text(encoding="utf-8")
@@ -284,12 +285,12 @@ def rewrite_current_state_tests() -> None:
         "date(2024, 1, 1), date(2024, 3, 29), date(2024, 12, 25)):",
         "date(2024, 1, 1), date(2024, 3, 29), date(2024, 12, 25), date(2025, 1, 1), date(2025, 4, 18)):",
     )
+    queue_anchor = "    assert date(2024, 12, 25) in queue_days\n"
+    eligible_anchor = "    assert date(2024, 12, 25) not in eligible_days\n"
     for day in ("2025, 1, 1", "2025, 4, 18"):
-        queue_anchor = "    assert date(2024, 12, 25) in queue_days\n"
         line = f"    assert date({day}) in queue_days\n"
         if line not in text:
             text = text.replace(queue_anchor, queue_anchor + line)
-        eligible_anchor = "    assert date(2024, 12, 25) not in eligible_days\n"
         line2 = f"    assert date({day}) not in eligible_days\n"
         if line2 not in text:
             text = text.replace(eligible_anchor, eligible_anchor + line2)
