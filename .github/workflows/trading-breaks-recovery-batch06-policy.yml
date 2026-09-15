@@ -6,6 +6,9 @@ on:
       - feat/multi-year-dukascopy-acquisition
     paths:
       - '.github/workflows/trading-breaks-recovery-batch06-policy.yml'
+      - 'tools/trading_breaks_recovery_batch06.py'
+      - 'tests/test_trading_breaks_recovery_batch06.py'
+      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH06-POLICY.md'
   workflow_dispatch:
 
 permissions:
