@@ -2,7 +2,7 @@
 
 Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 
-## Current governed state after Batch 09 persisted-HEAD re-break PASS
+## Current governed state after Batch 10 membership PASS
 
 - Global research envelope: `2018-05-01` → `2026-08-14`
 - Execution-window candidate: `2021-08-14` → `2026-08-14`
@@ -18,12 +18,9 @@ Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 - Execution-eligible unresolved: **23**
 - Current semantic capability: `TRADING_BREAKS_PRIMARY_WIDGET_V1`
 - Capability fingerprint: `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
-- Batch 09 membership: **FROZEN + ADVERSARIALLY QUALIFIED + PERSISTED-MEMBERSHIP RE-BREAK PASS**
-- Batch 09 execution/capture: **PASS**
-- Batch 09 independent adjudication: **PASS — `4 PASS / 1 BLOCKED / 0 FAIL`**
-- Batch 09 atomic integration: **PASS — `BATCH09_ATOMIC_CALENDAR_ATTEMPT_PROGRESSION_INTEGRATION_COHERENT`**
-- Batch 09 persisted-HEAD re-break: **PASS — `BATCH09_PERSISTED_HEAD_REBREAK_CONFIRMS_ATOMIC_INTEGRATION`**
-- Batch 10 membership: **NOT FROZEN**
+- Batch 09: **FULLY CLOSED THROUGH PERSISTED-HEAD RE-BREAK PASS**
+- Batch 10 membership: **FROZEN + ADVERSARIALLY QUALIFIED + INDEPENDENT PERSISTED-MEMBERSHIP RE-BREAK PASS**
+- Batch 10 execution/capture: **NOT STARTED**
 - Massive native `.bi5` acquisition: **FORBIDDEN**
 - Real backtest: **NOT AUTHORIZED**
 
@@ -31,137 +28,155 @@ The execution-window candidate remains exactly `2021-08-14 → 2026-08-14`. It M
 
 ## Batch 09 final closed state
 
-Immutable membership, exact order:
+- atomic integration commit: `126ff25129728dc9f5c26cfeff701c1e04270843`;
+- persisted-HEAD verifier run/job: `34998844423` / `104481875172`;
+- final verdict: **PASS — `BATCH09_PERSISTED_HEAD_REBREAK_CONFIRMS_ATOMIC_INTEGRATION`**;
+- global state: `111 / 57 / 54 / 0 FAIL`;
+- execution window: `68 / 34 / 34 / 0 FAIL`;
+- ledger: `45`;
+- BLOCKED/ineligible: `11`;
+- eligible unresolved: `23`.
 
-1. `2024-09-02 — LABOR_DAY`
-2. `2024-11-28 — THANKSGIVING_DAY`
-3. `2024-11-29 — THANKSGIVING_FRIDAY`
-4. `2024-12-24 — CHRISTMAS_PRE_HOLIDAY_SESSION`
-5. `2024-12-25 — CHRISTMAS_OBSERVED`
+## Batch 10 mechanical freeze — PASS
 
-Frozen snapshot commit: `20a2c1722a2bc4798c0e5079ba51aa1f7bb5edb5`.
+Selection rule:
 
-Authoritative browser execution:
+`eligible_recovery_queue()[:5]`
 
-- run/job: `34993614373` / `104464228483`
-- probe commit: `0b5dedf6028add27040af112d0bceef76be25827`
-- artifact: `10406357435`
-- artifact SHA-256: `dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc`
+Fixed batch size: `5`.
 
-Independent adjudication:
+Freeze baseline checkpoint:
 
-- run/job: `34995973784` / `104472165374`
-- verdict: **PASS — `BATCH09_POSITIVE_RECORDS_INDEPENDENTLY_ADJUDICATED_WITH_NO_CROSS_DATE_PROMOTION`**
-- result: `4 PASS / 1 BLOCKED / 0 FAIL`
+`7264970e0be56f3eb379f6647f8c353885f6e521`
 
-Atomic integration:
+Freeze trigger:
 
-- run/job: `34997562157` / `104477530292`
-- atomic integration commit: `126ff25129728dc9f5c26cfeff701c1e04270843`
-- full post-mutation governed regression: `399 passed in 1.24s`
-- exact post-state assertion: PASS
+`7ddfeb9c7954abf3057c3cd1a6fa3d36287cd66c`
 
-Exactly four Batch 09 dates resolve through executable calendar evidence:
+Authoritative freeze run/job:
 
-- `2024-09-02` — record `70878` — whole closed UTC hours `[17,18,19,20,21]`;
-- `2024-11-28` — record `72887` — `[18,19,20,21,22]`;
-- `2024-11-29` — record `72888` — `[19,20,21,22,23]`, with hour 18 remaining partial/open;
-- `2024-12-24` — record `74339` — `[19,20,21,22,23]`, with hour 18 remaining partial/open.
+`35003111213` / `104496100100`
 
-`2024-12-25` is absent from both `SPECIAL_SESSION_EVIDENCE` and `NO_SPECIAL_CHANGE_EVIDENCE`.
+Persisted snapshot commit:
 
-The historical ledger contains exactly these Batch 09 entries in frozen order:
+`65b789f310c066f90b39cd9e1ed69d2bd0962b6c`
 
-- `41 — batch09:2024-09-02 — PASS`
-- `42 — batch09:2024-11-28 — PASS`
-- `43 — batch09:2024-11-29 — PASS`
-- `44 — batch09:2024-12-24 — PASS`
-- `45 — batch09:2024-12-25 — BLOCKED — NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE`
+Frozen membership, exact immutable order:
 
-## Batch 09 independent persisted-HEAD re-break — PASS
+1. `2024-12-31 — NEW_YEARS_EVE_CANDIDATE`
+2. `2025-01-01 — NEW_YEARS_OBSERVED`
+3. `2025-01-20 — MARTIN_LUTHER_KING_DAY`
+4. `2025-02-17 — PRESIDENTS_DAY`
+5. `2025-04-18 — GOOD_FRIDAY`
 
-Authoritative verifier:
+Pre-snapshot adversarial qualification:
 
-- pre-rebreak checkpoint: `4a0827a720a086ff084ca1388b1b8ae8b11ad060`;
-- verifier trigger commit: `21965fd00fc92f606665b5db3c20c265b8ad83fe`;
-- workflow run/job: `34998844423` / `104481875172`;
-- permissions: `contents: read`;
-- trigger delta from the checkpoint: exactly `.github/workflows/trading-breaks-recovery-batch09-persisted-head.yml`;
-- full governed + adversarial regression: **`399 passed in 1.82s`**;
-- integrated-commit ancestry: PASS;
-- exact persisted calendar/ledger/progression assertions: PASS;
-- capability changes: `0`;
-- progression regeneration: byte-stable;
+- `76 passed in 0.29s`;
+- exact mechanically derived prefix: PASS;
+- skip: rejected;
+- reorder: rejected;
+- later-member substitution: rejected;
+- cardinality change: rejected;
+- duplication: rejected;
+- raw-queue bypass: rejected;
+- same-capability BLOCKED reinsertion: rejected;
+- resolved-date reinsertion: rejected;
+- observation/outcome-dependent selection surface: absent.
+
+Post-snapshot governed regression:
+
+- `415 passed in 2.05s`;
+- `batch10_targets() == eligible_recovery_queue()[:5]`: PASS;
+- raw unresolved remains `34`;
+- eligible unresolved remains `23`;
+- attempts remain `45`;
+- BLOCKED/ineligible remains `11`;
+- capability changes remain `0`;
+- calendar/ledger/progression mutation: NONE;
+- browser/probe/network observation: NONE.
+
+Qualification report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_batch10_policy_qualification.md`
+
+## Batch 10 independent persisted-membership re-break — PASS
+
+Verifier trigger:
+
+`865e962202c76de266bcdb6f18feb9bfe914e4d6`
+
+Verifier run/job:
+
+`35003238287` / `104496526561`
+
+Verifier permissions:
+
+`contents: read`
+
+Observed result:
+
+- complete governed regression: **`415 passed in 2.15s`**;
+- persisted snapshot ancestry: PASS;
+- verifier-only trigger delta: PASS;
+- persisted frozen membership equals governed `eligible_recovery_queue()[:5]`: PASS;
+- every member remains unresolved + eligible + `INITIAL_ATTEMPT`: PASS;
+- no prior attempt contamination: PASS;
+- no resolving-evidence contamination: PASS;
+- generated snapshot has no live queue/progression-selection/browser/probe surface: PASS;
+- progression regeneration byte-stable: PASS;
 - final `git diff --exit-code`: PASS;
 - final `git status --porcelain`: empty;
-- governed-state mutation by verifier: NONE;
-- verifier report: `reports/data-qualification/historical_trading_breaks_recovery_batch09_persisted_head_rebreak.md`;
-- report commit: `05ae4c5e6835274c0f70201ac397b053044ebb48`;
-- completed verifier workflow archive commit: `225a4d65963f6587d8d71dc33ffb91d998d51c6e`.
+- governed state mutation by verifier: NONE.
 
 Final verifier verdict:
 
-**PASS — `BATCH09_PERSISTED_HEAD_REBREAK_CONFIRMS_ATOMIC_INTEGRATION`**
+**PASS — `BATCH10_PERSISTED_MEMBERSHIP_REBREAK_CONFIRMS_FROZEN_PREFIX`**
 
-The re-break independently recovered the exact persisted post-state:
+Verifier report:
 
-- raw unresolved queue: `34`;
-- attempt ledger: `45`;
-- material capability changes: `0`;
-- same-capability attempted BLOCKED/ineligible: `11`;
-- execution-eligible unresolved: `23`;
-- global accounting: `111 / 57 / 54 / 0 FAIL`;
-- execution-window accounting: `68 / 34 / 34 / 0 FAIL`.
+`reports/data-qualification/historical_trading_breaks_recovery_batch10_persisted_membership_rebreak.md`
 
-For `2024-12-25` specifically:
+Completed freeze workflow archive commit:
 
-- calendar state: `UNRESOLVED`;
-- latest attempt: `batch09:2024-12-25`;
-- latest outcome: `BLOCKED`;
-- eligibility: `false`;
-- reason: `SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED`;
-- contract verdict: `PASS`.
+`a563dd0e29e35a408974651ad7b27f2f431f6bcd`
 
-The first currently execution-eligible unresolved candidate is `2024-12-31 — NEW_YEARS_EVE_CANDIDATE`. This is only a progression fact; it is not itself a Batch 10 freeze.
+Completed persisted-membership verifier archive commit:
+
+`2f2cf4bce1080043957f29b3e7ed9d05fd8c00b2`
+
+Both completed workflows are manual-only with read permissions. Normal pushes cannot silently repeat the completed membership freeze or verifier.
 
 ## Current downstream boundary
 
 PASS now includes:
 
-- `GLOBAL_CROSS_YEAR_ACCOUNTING_AUDIT`
-- `WINDOW_SELECTION_RULE`
-- `WINDOW_CANDIDATE_DEFINED`
-- `HISTORICAL_BROKER_EVIDENCE_ROUTE_QUALIFICATION`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_CONTRACT`
-- all completed Batch 01–08 recovery/integration gates
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_POLICY`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_PERSISTED_MEMBERSHIP_REBREAK`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_EXECUTION_CAPTURE`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_INDEPENDENT_ADJUDICATION`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_ATOMIC_INTEGRATION`
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_PERSISTED_HEAD_REBREAK`
+- all completed Batch 01–09 recovery/integration gates;
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY`;
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_PERSISTED_MEMBERSHIP_REBREAK`.
 
-Still BLOCKED downstream:
+Still pending/BLOCKED:
 
-- `DECLARE_GLOBAL_COVERAGE_PASS — GLOBAL_UNRESOLVED_REMAINS_54`
-- `FREEZE_EXECUTION_WINDOW — EXECUTION_WINDOW_CONTAINS_34_UNRESOLVED_DATES`
-- `AUTHORIZE_MASSIVE_ACQUISITION — EXECUTION_WINDOW_NOT_FROZEN`
-- `REAL_BACKTEST — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_EXECUTION_CAPTURE — NOT STARTED`;
+- `DECLARE_GLOBAL_COVERAGE_PASS — GLOBAL_UNRESOLVED_REMAINS_54`;
+- `FREEZE_EXECUTION_WINDOW — EXECUTION_WINDOW_CONTAINS_34_UNRESOLVED_DATES`;
+- `AUTHORIZE_MASSIVE_ACQUISITION — EXECUTION_WINDOW_NOT_FROZEN`;
+- `REAL_BACKTEST — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`.
 
 No `.bi5` acquisition occurred. No real backtest occurred.
 
 ## Exactly one next governed action
 
-**Freeze Batch 10 membership from the freshly persisted post-Batch09 `eligible_recovery_queue()[:5]`, with fixed batch size `5` and immutable membership versioned before any Batch 10 observation.**
+**Execute exactly the already-frozen Batch 10 through immutable `batch10_targets()`, with all protocol/progression/Batch10 identity and no-live-selection gates PASS before any Chromium/browser observation.**
 
-The freeze must:
+Execution requirements:
 
-- derive membership mechanically from the current attempt-aware eligible queue;
-- fix batch size `5` before observation;
-- prove every member is unresolved, execution-eligible and chronologically selected;
-- reject skip, reorder, later-member substitution, cardinality change, duplication, raw-queue bypass, same-capability BLOCKED reinsertion, resolved-date reinsertion, manual selection and expected-outcome dependence;
-- persist immutable membership before any browser/probe/network observation;
-- not execute Batch 10 in the membership-freeze action;
-- remain on the same branch;
-- perform no `.bi5` acquisition and no real backtest.
+- consume only `batch10_targets()`;
+- do not call `eligible_recovery_queue()` or `recovery_queue()` to select, reorder, shrink, expand or substitute Batch 10;
+- prove exact frozen order and size `5` before browser installation/opening;
+- prove capability ID/fingerprint and parent progression/protocol gates before browser;
+- preserve target identity, network payload, DOM witness and run/job/artifact/hash/probe provenance for every target;
+- execution phase captures evidence only; it must not convert `CAPTURED` into a date-level PASS;
+- no adjudication or calendar/ledger integration in the execution action;
+- same branch only;
+- no `.bi5`;
+- no real backtest.
