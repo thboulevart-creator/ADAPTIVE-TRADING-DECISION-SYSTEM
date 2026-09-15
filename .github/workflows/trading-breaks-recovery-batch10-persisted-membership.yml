@@ -1,134 +1,13 @@
-name: Trading Breaks Recovery Batch 10 Persisted Membership Re-break
+name: Trading Breaks Recovery Batch 10 Persisted Membership Re-break — ARCHIVED
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch10-persisted-membership.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  rebreak-batch10-membership:
+  archived:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
-    env:
-      PYTHONDONTWRITEBYTECODE: '1'
     steps:
-      - name: Checkout exact triggering persisted HEAD
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 0
-
-      - name: Prove persisted snapshot ancestry and verifier-only trigger delta
-        run: |
-          git merge-base --is-ancestor 65b789f HEAD
-          git merge-base --is-ancestor 7264970e0be56f3eb379f6647f8c353885f6e521 HEAD
-          git fetch origin feat/multi-year-dukascopy-acquisition
-          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
-          test "$(git diff --name-only 65b789f HEAD)" = ".github/workflows/trading-breaks-recovery-batch10-persisted-membership.yml"
-          git diff --exit-code 7264970e0be56f3eb379f6647f8c353885f6e521 HEAD -- \
-            tools/dukascopy_usatech_calendar.py \
-            tools/dukascopy_usatech_calendar_coverage.py \
-            tools/trading_breaks_recovery_protocol.py \
-            tools/trading_breaks_recovery_progression.py \
-            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
-            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
-            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Independently re-break complete governed regression
-        run: |
-          python -m pip install pytest==8.4.2
-          python -m pytest -q \
-            tests/test_trading_breaks_recovery_*.py \
-            tests/test_dukascopy_usatech_calendar*.py \
-            tests/test_coverage_execution_window_boundary.py
-
-      - name: Assert persisted Batch 10 identity against governed eligible prefix
-        run: |
-          python - <<'PY'
-          import ast
-          import inspect
-          import tools.trading_breaks_recovery_batch10 as batch10_module
-          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
-          from tools.dukascopy_usatech_calendar_coverage import NO_SPECIAL_CHANGE_EVIDENCE
-          from tools.trading_breaks_recovery_batch10 import batch10_targets
-          from tools.trading_breaks_recovery_progression import (
-              eligible_recovery_queue,
-              load_attempt_ledger,
-              load_material_capability_changes,
-              progression_decisions,
-          )
-          from tools.trading_breaks_recovery_protocol import recovery_queue
-
-          frozen = batch10_targets()
-          eligible = eligible_recovery_queue()
-          decisions = {item.target_date: item for item in progression_decisions()}
-          _, _, attempts = load_attempt_ledger()
-          resolved = set(SPECIAL_SESSION_EVIDENCE) | set(NO_SPECIAL_CHANGE_EVIDENCE)
-          attempted_days = {item.target_date for item in attempts}
-
-          assert len(frozen) == 5
-          assert frozen == eligible[:5]
-          assert [day for day, _ in frozen] == sorted(day for day, _ in frozen)
-          assert len(recovery_queue()) == 34
-          assert len(eligible) == 23
-          assert len(attempts) == 45
-          assert sum(not d.eligible and d.latest_attempt_outcome == 'BLOCKED' for d in decisions.values()) == 11
-          assert load_material_capability_changes() == []
-          assert {day for day, _ in frozen}.isdisjoint(resolved)
-          assert {day for day, _ in frozen}.isdisjoint(attempted_days)
-          for day, reason in frozen:
-              d = decisions[day]
-              assert d.candidate_reason == reason
-              assert d.eligible is True
-              assert d.reason == 'INITIAL_ATTEMPT'
-              assert d.latest_attempt_id is None
-              assert d.latest_attempt_outcome is None
-              assert d.contract_verdict == 'PASS'
-
-          source = inspect.getsource(batch10_module)
-          tree = ast.parse(source)
-          calls = set()
-          imports = set()
-          for node in ast.walk(tree):
-              if isinstance(node, ast.Import):
-                  imports.update(alias.name.lower() for alias in node.names)
-              elif isinstance(node, ast.ImportFrom):
-                  imports.add((node.module or '').lower())
-              elif isinstance(node, ast.Call):
-                  if isinstance(node.func, ast.Name):
-                      calls.add(node.func.id.lower())
-                  elif isinstance(node.func, ast.Attribute):
-                      calls.add(node.func.attr.lower())
-          assert not any(token in module for module in imports for token in ('playwright', 'selenium', 'requests', 'httpx'))
-          for forbidden in ('eligible_recovery_queue', 'recovery_queue', 'progression_decisions', 'probe_candidate', 'goto', 'launch'):
-              assert forbidden not in calls
-
-          print('PASS: persisted Batch 10 snapshot independently matches governed eligible[:5]')
-          for i, (day, reason) in enumerate(frozen, 1):
-              print(f'{i}: {day.isoformat()} — {reason}')
-          PY
-
-      - name: Regenerate progression and prove byte-stable persisted state
-        run: |
-          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
-          python -m tools.trading_breaks_recovery_progression >/tmp/batch10-progression.json
-          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
-          test "$BEFORE" = "$AFTER"
-          git diff --exit-code -- reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
-
-      - name: Prove verifier is strictly read-only and worktree clean
-        run: |
-          git diff --exit-code
-          test -z "$(git status --porcelain)"
-          echo 'PASS: independent Batch 10 persisted-membership verifier remained strictly read-only'
+      - run: echo 'Batch 10 persisted membership re-break is already PASS and archived; do not repeat without explicit governance.'
