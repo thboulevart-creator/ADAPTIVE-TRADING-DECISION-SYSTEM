@@ -8,7 +8,8 @@ from src.research_findings import (
     ResearchHypothesis,
     ResearchMeasurement,
 )
-from tests.test_research_to_decision_boundary import coherent_inputs
+from src.research_run_evidence import is_factory_attested
+from tests.test_research_to_decision_boundary import coherent_inputs, reconstruct
 
 
 def minimal_payload():
@@ -182,3 +183,47 @@ def test_c16_duplicate_finding_id_is_rejected() -> None:
     _, hypothesis, measurement, finding = minimal_payload()
     with pytest.raises(ValueError, match="duplicate finding_id"):
         make_findings(findings=(finding, finding))
+
+
+def test_c17_exact_reconstructed_research_evidence_cannot_seed_findings() -> None:
+    evidence, hypothesis, measurement, finding = minimal_payload()
+    forged = reconstruct(evidence)
+    assert not is_factory_attested(forged)
+
+    with pytest.raises(ValueError, match="factory-attested"):
+        ResearchFindings.from_research_run_evidence(
+            forged,
+            hypotheses=(hypothesis,),
+            measurements=(measurement,),
+            findings=(finding,),
+        )
+
+
+def test_c18_legacy_factory_marker_cannot_seed_findings() -> None:
+    evidence, hypothesis, measurement, finding = minimal_payload()
+    forged = reconstruct(evidence)
+    object.__setattr__(forged, "_factory_validated", True)
+    assert not is_factory_attested(forged)
+
+    with pytest.raises(ValueError, match="factory-attested"):
+        ResearchFindings.from_research_run_evidence(
+            forged,
+            hypotheses=(hypothesis,),
+            measurements=(measurement,),
+            findings=(finding,),
+        )
+
+
+def test_c19_post_factory_identity_mutation_cannot_seed_findings() -> None:
+    evidence, hypothesis, measurement, finding = minimal_payload()
+    assert is_factory_attested(evidence)
+    object.__setattr__(evidence, "provenance_id", "PROV-forged-after-factory")
+    assert not is_factory_attested(evidence)
+
+    with pytest.raises(ValueError, match="factory-attested"):
+        ResearchFindings.from_research_run_evidence(
+            evidence,
+            hypotheses=(hypothesis,),
+            measurements=(measurement,),
+            findings=(finding,),
+        )
