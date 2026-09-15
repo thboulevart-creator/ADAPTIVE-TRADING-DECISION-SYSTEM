@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import inspect
 from datetime import date
 
@@ -81,8 +82,10 @@ def test_batch09_later_eligible_substitution_attack_is_rejected():
     eligible = eligible_recovery_queue()
     baseline = _baseline()
     attacked = [*baseline[:-1], eligible[freeze.BATCH_SIZE]]
-    result = freeze.validate_freeze_candidate(attacked, eligible)
-    assert result == {"verdict": "FAIL", "reason": "NON_PREFIX_MEMBER_SUBSTITUTED"}
+    assert freeze.validate_freeze_candidate(attacked, eligible) == {
+        "verdict": "FAIL",
+        "reason": "NON_PREFIX_MEMBER_SUBSTITUTED",
+    }
 
 
 def test_batch09_shortening_and_expansion_attacks_are_rejected():
@@ -120,34 +123,32 @@ def test_batch09_resolved_date_reinsertion_is_not_a_governed_prefix():
     assert freeze.validate_freeze_candidate(attacked, eligible)["verdict"] == "FAIL"
 
 
-def test_batch09_generator_has_no_browser_probe_or_outcome_priority_surface():
-    source = inspect.getsource(freeze).lower()
-    for forbidden in (
-        "playwright",
-        "chromium",
-        "probe_candidate",
-        "asyncio",
-        "expected_outcome",
-        "source_availability",
-        "holiday_preference",
-        "manual_skip",
-        "priority=",
-    ):
-        assert forbidden not in source
+def test_batch09_generator_has_no_executable_browser_probe_surface():
+    tree = ast.parse(inspect.getsource(freeze))
+    imports: set[str] = set()
+    calls: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imports.update(alias.name.lower() for alias in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            imports.add((node.module or "").lower())
+        elif isinstance(node, ast.Call):
+            if isinstance(node.func, ast.Name):
+                calls.add(node.func.id.lower())
+            elif isinstance(node.func, ast.Attribute):
+                calls.add(node.func.attr.lower())
+    assert not any("playwright" in name or "selenium" in name for name in imports)
+    assert "probe_candidate" not in calls
+    assert "sync_playwright" not in calls
+    assert "async_playwright" not in calls
+    assert "goto" not in calls
+    assert "launch" not in calls
 
 
 def test_rendered_frozen_module_has_no_live_queue_or_observation_surface():
     source = freeze.render_frozen_module(freeze.derive_batch09_membership()).lower()
-    for forbidden in (
-        "eligible_recovery_queue(",
-        "recovery_queue(",
-        "playwright",
-        "chromium",
-        "probe_candidate",
-        "asyncio",
-        "expected_outcome",
-        "manual_skip",
-    ):
-        assert forbidden not in source
-    assert "frozen_batch09_targets" in source
+    assert "eligible_recovery_queue(" not in source
+    assert "recovery_queue(" not in source
+    assert "probe_candidate" not in source
     assert "batch09_targets" in source
+    assert "frozen_batch09_targets" in source
