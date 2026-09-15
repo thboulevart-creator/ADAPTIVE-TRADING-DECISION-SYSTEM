@@ -1494,6 +1494,44 @@ SPECIAL_SESSION_EVIDENCE = {
             "reports/data-qualification/historical_trading_breaks_recovery_batch13_qualification.md"
         ),
     },
+    date(2026, 6, 19): {
+        "reason": "SPECIAL_JUNETEENTH_2026",
+        "fully_closed_hours_utc": frozenset(range(17, 24)),
+        "broker_record_id": "101094",
+        "broker_reason": "Juneteenth Holiday",
+        "artifact_id": 10418961548,
+        "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+        "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1781827200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35023845609"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch14_qualification.md"
+        ),
+    },
+    date(2026, 7, 3): {
+        "reason": "SPECIAL_INDEPENDENCE_DAY_2026",
+        "fully_closed_hours_utc": frozenset(range(17, 24)),
+        "broker_record_id": "101959",
+        "broker_reason": "Independence Day",
+        "artifact_id": 10418961548,
+        "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+        "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1783036800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35023845609"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch14_qualification.md"
+        ),
+    },
 }
 
 CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"

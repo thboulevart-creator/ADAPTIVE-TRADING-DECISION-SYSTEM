@@ -1186,6 +1186,60 @@
         "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8",
         "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73"
       }
+    },
+    {
+      "attempt_sequence": 66,
+      "attempt_id": "batch14:2026-06-19",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH14_TERMINAL_POLICY_V1",
+      "target_date": "2026-06-19",
+      "candidate_reason": "JUNETEENTH_OBSERVED",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35023845609,
+        "job_id": 104565948108,
+        "artifact_id": 10418961548,
+        "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+        "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b"
+      }
+    },
+    {
+      "attempt_sequence": 67,
+      "attempt_id": "batch14:2026-07-02",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH14_TERMINAL_POLICY_V1",
+      "target_date": "2026-07-02",
+      "candidate_reason": "INDEPENDENCE_PRE_HOLIDAY_SESSION",
+      "outcome": "BLOCKED",
+      "adjudication_reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED",
+      "blocking_reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED",
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35023845609,
+        "job_id": 104565948108,
+        "artifact_id": 10418961548,
+        "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+        "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b"
+      }
+    },
+    {
+      "attempt_sequence": 68,
+      "attempt_id": "batch14:2026-07-03",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH14_TERMINAL_POLICY_V1",
+      "target_date": "2026-07-03",
+      "candidate_reason": "INDEPENDENCE_DAY_OBSERVED",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35023845609,
+        "job_id": 104565948108,
+        "artifact_id": 10418961548,
+        "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+        "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b"
+      }
     }
   ]
 }

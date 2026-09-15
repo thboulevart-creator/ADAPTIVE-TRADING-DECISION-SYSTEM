@@ -33,9 +33,9 @@ def test_batch02_history_remains_chronological_and_unique():
 def test_recovery_queue_advances_without_rewriting_batch02_history():
     queue = recovery_queue()
     queue_days = {day for day, _ in queue}
-    assert len(queue) == 19
+    assert len(queue) == 17
     assert queue[0] == (date(2021, 12, 24), "CHRISTMAS_OBSERVED")
-    assert queue[-1] == (date(2026, 7, 3), "INDEPENDENCE_DAY_OBSERVED")
+    assert queue[-1] == (date(2026, 7, 2), "INDEPENDENCE_PRE_HOLIDAY_SESSION")
 
     # Batch 02 PASS dates leave the unresolved queue.
     assert date(2022, 1, 17) not in queue_days

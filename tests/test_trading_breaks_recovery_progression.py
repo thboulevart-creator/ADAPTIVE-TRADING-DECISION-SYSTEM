@@ -97,9 +97,9 @@ def test_attempt_ledger_preserves_all_forty_five_historical_attempts_and_duplica
     capabilities, current_id, attempts = load_attempt_ledger()
     assert current_id == "TRADING_BREAKS_PRIMARY_WIDGET_V1"
     assert current_id in capabilities
-    assert len(attempts) == 65
-    assert [item.attempt_sequence for item in attempts] == list(range(1, 66))
-    assert len({item.attempt_id for item in attempts}) == 65
+    assert len(attempts) == 68
+    assert [item.attempt_sequence for item in attempts] == list(range(1, 69))
+    assert len({item.attempt_id for item in attempts}) == 68
 
     christmas = [x for x in attempts if x.target_date == date(2021, 12, 24)]
     new_year = [x for x in attempts if x.target_date == date(2021, 12, 31)]
@@ -139,7 +139,7 @@ def test_progression_plan_covers_every_unresolved_candidate_without_hidden_skipp
     queue = recovery_queue()
     decisions = progression_decisions()
     assert [(d.target_date, d.candidate_reason) for d in decisions] == queue
-    assert len(decisions) == len(queue) == 19
+    assert len(decisions) == len(queue) == 17
     assert all(d.calendar_state == "UNRESOLVED" for d in decisions)
 
 
@@ -153,11 +153,13 @@ def test_unchanged_capability_forbids_replay_of_historical_blocked_dates():
         assert decision.contract_verdict == "PASS"
 
 
-def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candidates():
+def test_current_capability_is_exhausted_after_terminal_batch():
     eligible = eligible_recovery_queue()
-    assert eligible
-    assert eligible[0] == (date(2026, 6, 19), "JUNETEENTH_OBSERVED")
-    eligible_days = {day for day, _ in eligible}
+    decisions = progression_decisions()
+    assert eligible == []
+    assert len(decisions) == 17
+    assert all((not item.eligible) and item.latest_attempt_outcome == "BLOCKED" for item in decisions)
+    eligible_days = set()
     assert date(2021, 12, 24) not in eligible_days
     assert date(2021, 12, 31) not in eligible_days
     assert date(2022, 4, 15) not in eligible_days
