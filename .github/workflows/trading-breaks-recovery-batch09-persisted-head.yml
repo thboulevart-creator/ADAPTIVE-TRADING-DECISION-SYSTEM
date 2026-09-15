@@ -1,0 +1,180 @@
+name: Trading Breaks Recovery Batch 09 Persisted HEAD Re-break
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch09-persisted-head.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  rebreak-batch09-persisted-head:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering persisted HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove integrated ancestry and verifier-only trigger delta
+        run: |
+          git merge-base --is-ancestor 126ff25129728dc9f5c26cfeff701c1e04270843 HEAD
+          git merge-base --is-ancestor 4a0827a720a086ff084ca1388b1b8ae8b11ad060 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test "$(git diff --name-only 4a0827a720a086ff084ca1388b1b8ae8b11ad060 HEAD)" = ".github/workflows/trading-breaks-recovery-batch09-persisted-head.yml"
+          git diff --exit-code 126ff25129728dc9f5c26cfeff701c1e04270843 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_batch09.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json \
+            reports/data-qualification/historical_trading_breaks_recovery_batch09_adjudication.json \
+            reports/data-qualification/historical_trading_breaks_recovery_batch09_integration_qualification.md
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Independently re-break full governed and adversarial regression
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_*.py \
+            tests/test_dukascopy_usatech_calendar*.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact persisted Batch 09 calendar and ledger state
+        run: |
+          python - <<'PY'
+          from datetime import date
+
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import NO_SPECIAL_CHANGE_EVIDENCE, audit_calendar_coverage
+          from tools.trading_breaks_recovery_batch09 import CURRENT_CAPABILITY_ID, batch09_targets
+          from tools.trading_breaks_recovery_progression import (
+              current_capability,
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          expected_targets = [
+              (date(2024, 9, 2), 'LABOR_DAY'),
+              (date(2024, 11, 28), 'THANKSGIVING_DAY'),
+              (date(2024, 11, 29), 'THANKSGIVING_FRIDAY'),
+              (date(2024, 12, 24), 'CHRISTMAS_PRE_HOLIDAY_SESSION'),
+              (date(2024, 12, 25), 'CHRISTMAS_OBSERVED'),
+          ]
+          assert batch09_targets() == expected_targets
+          target_days = {day for day, _ in expected_targets}
+          pass_days = target_days - {date(2024, 12, 25)}
+          blocked_day = date(2024, 12, 25)
+
+          expected_calendar = {
+              date(2024, 9, 2): ('SPECIAL_LABOR_DAY_2024', '70878', frozenset(range(17, 22))),
+              date(2024, 11, 28): ('SPECIAL_THANKSGIVING_DAY_2024', '72887', frozenset(range(18, 23))),
+              date(2024, 11, 29): ('SPECIAL_THANKSGIVING_FRIDAY_2024', '72888', frozenset(range(19, 24))),
+              date(2024, 12, 24): ('SPECIAL_CHRISTMAS_PRE_HOLIDAY_SESSION_2024', '74339', frozenset(range(19, 24))),
+          }
+          assert target_days & set(SPECIAL_SESSION_EVIDENCE) == pass_days
+          assert target_days.isdisjoint(set(NO_SPECIAL_CHANGE_EVIDENCE))
+          for day, (reason, record_id, closed_hours) in expected_calendar.items():
+              record = SPECIAL_SESSION_EVIDENCE[day]
+              assert record['reason'] == reason
+              assert record['broker_record_id'] == record_id
+              assert record['fully_closed_hours_utc'] == closed_hours
+              assert record['artifact_id'] == 10406357435
+              assert record['artifact_sha256'] == 'dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc'
+              assert record['probe_commit'] == '0b5dedf6028add27040af112d0bceef76be25827'
+          assert blocked_day not in SPECIAL_SESSION_EVIDENCE
+          assert blocked_day not in NO_SPECIAL_CHANGE_EVIDENCE
+
+          capabilities, current_id, attempts = load_attempt_ledger()
+          assert current_id == CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+          assert len(attempts) == 45
+          assert [x.attempt_sequence for x in attempts] == list(range(1, 46))
+          assert len({x.attempt_id for x in attempts}) == 45
+          assert len({x.attempt_sequence for x in attempts}) == 45
+          batch09 = [x for x in attempts if x.attempt_id.startswith('batch09:')]
+          assert [x.attempt_sequence for x in batch09] == [41, 42, 43, 44, 45]
+          assert [(x.target_date, x.candidate_reason) for x in batch09] == expected_targets
+          assert [x.outcome for x in batch09] == ['PASS', 'PASS', 'PASS', 'PASS', 'BLOCKED']
+          assert [x.attempt_id for x in batch09] == [
+              'batch09:2024-09-02',
+              'batch09:2024-11-28',
+              'batch09:2024-11-29',
+              'batch09:2024-12-24',
+              'batch09:2024-12-25',
+          ]
+          assert batch09[-1].blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert all(x.batch_contract == 'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_POLICY_V1' for x in batch09)
+          assert all(x.capability_id == CURRENT_CAPABILITY_ID for x in batch09)
+          assert all(x.provenance['workflow_run'] == 34993614373 for x in batch09)
+          assert all(x.provenance['job_id'] == 104464228483 for x in batch09)
+          assert all(x.provenance['artifact_id'] == 10406357435 for x in batch09)
+          assert all(x.provenance['artifact_sha256'] == 'dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc' for x in batch09)
+          assert all(x.provenance['probe_commit'] == '0b5dedf6028add27040af112d0bceef76be25827' for x in batch09)
+          assert current_capability().fingerprint() == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          assert load_material_capability_changes() == []
+
+          global_report = audit_calendar_coverage()
+          window_report = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 57, 54)
+          assert (window_report['candidate_dates'], window_report['resolved_candidate_dates'], window_report['unresolved_candidate_dates']) == (68, 34, 34)
+          assert global_report['evidence_shape_errors'] == []
+          assert global_report['orphan_special_evidence'] == []
+          assert global_report['contradictory_evidence_dates'] == []
+
+          raw_queue = recovery_queue()
+          raw_days = {day for day, _ in raw_queue}
+          decisions = progression_decisions()
+          decisions_by_day = {item.target_date: item for item in decisions}
+          eligible = eligible_recovery_queue()
+          eligible_days = {day for day, _ in eligible}
+          assert len(raw_queue) == len(decisions) == 34
+          assert blocked_day in raw_days
+          assert blocked_day not in eligible_days
+          dec25 = decisions_by_day[blocked_day]
+          assert dec25.calendar_state == 'UNRESOLVED'
+          assert dec25.latest_attempt_id == 'batch09:2024-12-25'
+          assert dec25.latest_attempt_outcome == 'BLOCKED'
+          assert dec25.latest_capability_fingerprint == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          assert dec25.eligible is False
+          assert dec25.reason == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
+          assert dec25.contract_verdict == 'PASS'
+          assert sum(not item.eligible and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 11
+          assert len(eligible) == 23
+          assert eligible == sorted(eligible, key=lambda item: item[0])
+          assert eligible[0] == (date(2024, 12, 31), 'NEW_YEARS_EVE_CANDIDATE')
+          print('PASS: exact persisted Batch 09 calendar, ledger, progression and coverage state independently re-broken')
+          PY
+
+      - name: Regenerate progression and prove byte-stable persisted determinism
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch09-progression.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code -- reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
+
+      - name: Prove verifier is strictly read-only and worktree remains clean
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
+          echo 'PASS: independent Batch 09 persisted-HEAD verifier remained strictly read-only'
