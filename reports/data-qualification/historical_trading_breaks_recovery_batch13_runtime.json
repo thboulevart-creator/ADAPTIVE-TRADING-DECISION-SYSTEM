@@ -1,0 +1,291 @@
+{
+  "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH13_POLICY_V1",
+  "parent_protocol": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+  "parent_progression_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1",
+  "batch_number": 13,
+  "batch_size": 5,
+  "selection_rule": "FIRST_N_OF_GOVERNED_ELIGIBLE_RECOVERY_QUEUE_AT_FREEZE",
+  "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+  "capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
+  "targets": [
+    {
+      "target_date": "2026-01-01",
+      "candidate_reason": "NEW_YEARS_OBSERVED"
+    },
+    {
+      "target_date": "2026-01-19",
+      "candidate_reason": "MARTIN_LUTHER_KING_DAY"
+    },
+    {
+      "target_date": "2026-02-16",
+      "candidate_reason": "PRESIDENTS_DAY"
+    },
+    {
+      "target_date": "2026-04-03",
+      "candidate_reason": "GOOD_FRIDAY"
+    },
+    {
+      "target_date": "2026-05-25",
+      "candidate_reason": "MEMORIAL_DAY"
+    }
+  ],
+  "workflow_run": 35020650564,
+  "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+  "read_only": true,
+  "market_data_written": false,
+  "results": [
+    {
+      "target_date": "2026-01-01",
+      "candidate_reason": "NEW_YEARS_OBSERVED",
+      "requested_date": "2026-01-01",
+      "target_epoch_ms": 1767225600000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "92491",
+          "instrument": "9016",
+          "start": "1767215699000",
+          "end": "1767308399000",
+          "reason": "New Year's Day",
+          "start_utc": "2025-12-31T21:14:59Z",
+          "end_last_closed_minute_utc": "2026-01-01T22:59:59Z",
+          "derived_reopen_utc": "2026-01-01T23:00:59Z",
+          "fully_closed_hours_utc": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t31-Dec-25 21:14:59\t01-Jan-26 22:59:59\tNew Year's Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2026-01-19",
+      "candidate_reason": "MARTIN_LUTHER_KING_DAY",
+      "requested_date": "2026-01-19",
+      "target_epoch_ms": 1768780800000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "93608",
+          "instrument": "9016",
+          "start": "1768845599000",
+          "end": "1768863599000",
+          "reason": "Martin Luther King Jr. Day",
+          "start_utc": "2026-01-19T17:59:59Z",
+          "end_last_closed_minute_utc": "2026-01-19T22:59:59Z",
+          "derived_reopen_utc": "2026-01-19T23:00:59Z",
+          "fully_closed_hours_utc": [
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t19-Jan-26 17:59:59\t19-Jan-26 22:59:59\tMartin Luther King Jr. Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2026-02-16",
+      "candidate_reason": "PRESIDENTS_DAY",
+      "requested_date": "2026-02-16",
+      "target_epoch_ms": 1771200000000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "94467",
+          "instrument": "9016",
+          "start": "1771264799000",
+          "end": "1771282799000",
+          "reason": "President's Day",
+          "start_utc": "2026-02-16T17:59:59Z",
+          "end_last_closed_minute_utc": "2026-02-16T22:59:59Z",
+          "derived_reopen_utc": "2026-02-16T23:00:59Z",
+          "fully_closed_hours_utc": [
+            18,
+            19,
+            20,
+            21,
+            22
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t16-Feb-26 17:59:59\t16-Feb-26 22:59:59\tPresident's Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2026-04-03",
+      "candidate_reason": "GOOD_FRIDAY",
+      "requested_date": "2026-04-03",
+      "target_epoch_ms": 1775174400000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "98541",
+          "instrument": "9016",
+          "start": "1775160899000",
+          "end": "1775253599000",
+          "reason": "Easter",
+          "start_utc": "2026-04-02T20:14:59Z",
+          "end_last_closed_minute_utc": "2026-04-03T21:59:59Z",
+          "derived_reopen_utc": "2026-04-03T22:00:59Z",
+          "fully_closed_hours_utc": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t02-Apr-26 20:14:59\t03-Apr-26 21:59:59\tEaster"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2026-05-25",
+      "candidate_reason": "MEMORIAL_DAY",
+      "requested_date": "2026-05-25",
+      "target_epoch_ms": 1779667200000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "100253",
+          "instrument": "9016",
+          "start": "1779728399000",
+          "end": "1779746399000",
+          "reason": "Memorial Day",
+          "start_utc": "2026-05-25T16:59:59Z",
+          "end_last_closed_minute_utc": "2026-05-25T21:59:59Z",
+          "derived_reopen_utc": "2026-05-25T22:00:59Z",
+          "fully_closed_hours_utc": [
+            17,
+            18,
+            19,
+            20,
+            21
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t25-May-26 16:59:59\t25-May-26 21:59:59\tMemorial Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    }
+  ],
+  "provenance": {
+    "workflow_run": 35020650564,
+    "job_id": 104555157264,
+    "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+    "artifact_id": 10416898441,
+    "artifact_url": "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35020650564/artifacts/10416898441",
+    "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8"
+  }
+}
