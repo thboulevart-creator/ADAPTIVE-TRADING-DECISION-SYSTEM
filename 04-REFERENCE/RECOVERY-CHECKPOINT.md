@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — BATCH 11 FULLY CLOSED
+# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — BATCH 12 MEMBERSHIP FROZEN AND QUALIFIED
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 Branch: `feat/multi-year-dukascopy-acquisition`
@@ -7,23 +7,23 @@ Branch: `feat/multi-year-dukascopy-acquisition`
 
 - State originally reconstructed against: `6462226b2dae13b20b2dc848b5bae8ce074fc297`.
 - Last functional Batch 11 integration commit: `524a9a235e3af5dc59d455138427c68578b37942` — `data: integrate Trading Breaks recovery Batch 11`.
+- Batch 11 persisted-head closure: PASS.
 - Claude snapshot: `Carte Architecturale Snapshots Claude/adts-carte-architecturale.md`.
 - The Claude snapshot remains an unchanged point-in-time diagnostic artifact, not a normative source.
 
 ## Authoritative state
 
-- Batch 10 persisted-HEAD re-break: **PASS — `BATCH10_PERSISTED_HEAD_REBREAK_CONFIRMS_ATOMIC_INTEGRATION`**.
-- Batch 11 membership/capture/adjudication: **PASS**.
-- Batch 11 atomic integration: **PASS — `524a9a235e3af5dc59d455138427c68578b37942`**.
-- Batch 11 persisted-HEAD re-break: **PASS — `BATCH11_PERSISTED_HEAD_REBREAK_CONFIRMS_ATOMIC_INTEGRATION`**.
-- Batch 11 closure verdict: **FULLY CLOSED**.
+### Batch 11
+
+- membership/capture/adjudication: **PASS**.
+- atomic integration: **PASS — `524a9a235e3af5dc59d455138427c68578b37942`**.
+- persisted-HEAD re-break: **PASS — `BATCH11_PERSISTED_HEAD_REBREAK_CONFIRMS_ATOMIC_INTEGRATION`**.
+- closure verdict: **FULLY CLOSED**.
 
 Persisted-head verifier:
 
 - verifier head: `a39cbddd6eb4ab1920df4fd53481eda9e9f93827`
 - workflow run/job: `35015337992` / `104537234034`
-- conclusion: `success`
-- permissions: `contents: read`
 - governed/adversarial regression: `416 passed in 1.75s`
 - progression regeneration: byte-stable
 - final worktree: clean
@@ -33,35 +33,52 @@ Persisted re-break report:
 
 `reports/data-qualification/historical_trading_breaks_recovery_batch11_persisted_head_rebreak.md`
 
+### Batch 12
+
+- mechanical freeze baseline: `e6dfa007979975a626a464c8132893f71e5f7f4a`
+- freeze qualification head: `e7a6d596921c8ac94cd4306e474a524d846e9abb`
+- freeze qualification workflow run/job: `35015819061` / `104538840373`
+- mechanical freeze qualification: **PASS**.
+- persisted-membership verifier head: `58fe4d542250366dde4e9e085f1040c7602cc79e`
+- persisted-membership workflow run/job: `35015879732` / `104539046887`
+- persisted-membership re-break: **PASS — `BATCH12_PERSISTED_MEMBERSHIP_REBREAK_CONFIRMS_GOVERNED_FREEZE`**.
+- governed/adversarial regression: `417 passed in 1.98s`
+- progression regeneration: byte-stable
+- final worktree: clean
+- verifier permissions: `contents: read`
+- verifier mutation: NONE
+- browser capture: **NOT STARTED**
+- adjudication: **NOT STARTED**
+- integration: **NOT STARTED**
+
+Batch 12 persisted membership report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_batch12_persisted_membership_rebreak.md`
+
 Report persistence commit:
 
-`e9ef1cb823871fa0dc4fd1f091986fc2cb01db7f`
+`1711b3c61ca21e4d46e138a868f48845f40829da`
 
-## Batch 11 exact persisted truth
+## Batch 12 frozen membership — immutable before observation
 
-Frozen/integrated targets:
+1. `2025-11-27 — THANKSGIVING_DAY`
+2. `2025-11-28 — THANKSGIVING_FRIDAY`
+3. `2025-12-24 — CHRISTMAS_PRE_HOLIDAY_SESSION`
+4. `2025-12-25 — CHRISTMAS_OBSERVED`
+5. `2025-12-31 — NEW_YEARS_EVE_CANDIDATE`
 
-1. `2025-05-26 — MEMORIAL_DAY — PASS`
-2. `2025-06-19 — JUNETEENTH_OBSERVED — PASS`
-3. `2025-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION — PASS`
-4. `2025-07-04 — INDEPENDENCE_DAY_OBSERVED — PASS`
-5. `2025-09-01 — LABOR_DAY — PASS`
+Selection contract:
 
-Execution provenance preserved for all five:
+- exact selection rule: `eligible_recovery_queue()[:5]`
+- fixed size: `5`
+- order: immutable
+- membership: immutable
+- all five remained `INITIAL_ATTEMPT` at qualification
+- none had a prior attempt id or outcome
+- no target-specific observation preceded freeze
+- shifted, permuted, substituted, shortened, extended, duplicated, and reversed variants were rejected
 
-- workflow run/job: `35009400933` / `104517277101`
-- artifact: `10412379849`
-- artifact SHA-256: `f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2`
-- probe commit: `7b5bbef03db35bf954c9a96364dba84d11b2fc94`
-
-Attempt ledger:
-
-- total: `55`
-- Batch 11 sequences: exactly `51..55`
-- Batch 11 outcomes: `PASS / PASS / PASS / PASS / PASS`
-- provenance preserved exactly
-
-## Deterministic post-Batch-11 accounting
+## Deterministic state at Batch 12 freeze
 
 - global accounting: `111 candidates / 65 resolved / 46 unresolved / 0 FAIL`
 - execution-window accounting: `68 candidates / 42 resolved / 26 unresolved / 0 FAIL`
@@ -69,8 +86,9 @@ Attempt ledger:
 - attempt ledger: `55`
 - same-capability BLOCKED/ineligible: `13`
 - eligible unresolved: `13`
-- first eligible unresolved: `2025-11-27 — THANKSGIVING_DAY`
-- capability changes: `0`
+- material capability changes: `0`
+- current capability: `TRADING_BREAKS_PRIMARY_WIDGET_V1`
+- capability fingerprint: `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
 - execution window frozen: NO
 - `.bi5`: FORBIDDEN
 - real backtest: NOT AUTHORIZED
@@ -83,12 +101,10 @@ Continue batches sequentially without requesting confirmation. Preserve, for eac
 
 Stop only on a true semantic/data FAIL, a required capability change, an unresolved contradiction needing human judgment, or exhaustion of the current execution-eligible queue.
 
-A successful atomic integration is not sufficient to declare a batch fully closed. The persisted integrated state must independently survive the governed read-only persisted-HEAD re-break.
+A successful freeze is not permission to reselect after observation. Once the persisted membership is independently PASS, execution must use exactly that frozen set and order.
 
 ## Exactly one next governed action
 
-**Freeze Batch 12 mechanically from the freshly persisted `eligible_recovery_queue()[:5]`, fixed size 5 and immutable before observation, then adversarially re-break the persisted membership.**
-
-Do not execute/capture Batch 12 until its persisted membership is independently PASS.
+**Execute Batch 12 browser capture using only the five already frozen targets above, under the existing pre-browser gates and capability fingerprint, without any reselection or membership mutation. Then stop before adjudication unless the capture stage itself is PASS and its artifact/provenance are available for independent offline adjudication.**
 
 No `.bi5`. No real backtest.
