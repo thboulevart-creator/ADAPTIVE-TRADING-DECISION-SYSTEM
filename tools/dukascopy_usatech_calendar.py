@@ -1361,6 +1361,82 @@ SPECIAL_SESSION_EVIDENCE = {
             "reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md"
         ),
     },
+    date(2025, 11, 27): {
+        "reason": "SPECIAL_THANKSGIVING_DAY_2025",
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "87363",
+        "broker_reason": "Thanksgiving Day",
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1764201600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35016454761"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch12_qualification.md"
+        ),
+    },
+    date(2025, 11, 28): {
+        "reason": "SPECIAL_THANKSGIVING_FRIDAY_2025",
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "broker_record_id": "87364",
+        "broker_reason": "Thanksgiving Day",
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1764288000000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35016454761"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch12_qualification.md"
+        ),
+    },
+    date(2025, 12, 24): {
+        "reason": "SPECIAL_CHRISTMAS_PRE_HOLIDAY_SESSION_2025",
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "broker_record_id": "91078",
+        "broker_reason": "Christmas Day",
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1766534400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35016454761"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch12_qualification.md"
+        ),
+    },
+    date(2025, 12, 31): {
+        "reason": "SPECIAL_NEW_YEARS_EVE_2025",
+        "fully_closed_hours_utc": frozenset(range(22, 24)),
+        "broker_record_id": "92491",
+        "broker_reason": "New Year's Day",
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1767139200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35016454761"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch12_qualification.md"
+        ),
+    },
 }
 
 CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"

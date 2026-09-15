@@ -97,9 +97,9 @@ def test_attempt_ledger_preserves_all_forty_five_historical_attempts_and_duplica
     capabilities, current_id, attempts = load_attempt_ledger()
     assert current_id == "TRADING_BREAKS_PRIMARY_WIDGET_V1"
     assert current_id in capabilities
-    assert len(attempts) == 55
-    assert [item.attempt_sequence for item in attempts] == list(range(1, 56))
-    assert len({item.attempt_id for item in attempts}) == 55
+    assert len(attempts) == 60
+    assert [item.attempt_sequence for item in attempts] == list(range(1, 61))
+    assert len({item.attempt_id for item in attempts}) == 60
 
     christmas = [x for x in attempts if x.target_date == date(2021, 12, 24)]
     new_year = [x for x in attempts if x.target_date == date(2021, 12, 31)]
@@ -139,7 +139,7 @@ def test_progression_plan_covers_every_unresolved_candidate_without_hidden_skipp
     queue = recovery_queue()
     decisions = progression_decisions()
     assert [(d.target_date, d.candidate_reason) for d in decisions] == queue
-    assert len(decisions) == len(queue) == 26
+    assert len(decisions) == len(queue) == 22
     assert all(d.calendar_state == "UNRESOLVED" for d in decisions)
 
 
@@ -156,7 +156,7 @@ def test_unchanged_capability_forbids_replay_of_historical_blocked_dates():
 def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candidates():
     eligible = eligible_recovery_queue()
     assert eligible
-    assert eligible[0] == (date(2025, 11, 27), "THANKSGIVING_DAY")
+    assert eligible[0] == (date(2026, 1, 1), "NEW_YEARS_OBSERVED")
     eligible_days = {day for day, _ in eligible}
     assert date(2021, 12, 24) not in eligible_days
     assert date(2021, 12, 31) not in eligible_days

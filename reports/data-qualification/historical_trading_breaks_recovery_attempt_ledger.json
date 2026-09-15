@@ -1006,6 +1006,96 @@
         "artifact_sha256": "f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2",
         "probe_commit": "7b5bbef03db35bf954c9a96364dba84d11b2fc94"
       }
+    },
+    {
+      "attempt_sequence": 56,
+      "attempt_id": "batch12:2025-11-27",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH12_POLICY_V1",
+      "target_date": "2025-11-27",
+      "candidate_reason": "THANKSGIVING_DAY",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35016454761,
+        "job_id": 104540999314,
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8"
+      }
+    },
+    {
+      "attempt_sequence": 57,
+      "attempt_id": "batch12:2025-11-28",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH12_POLICY_V1",
+      "target_date": "2025-11-28",
+      "candidate_reason": "THANKSGIVING_FRIDAY",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35016454761,
+        "job_id": 104540999314,
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8"
+      }
+    },
+    {
+      "attempt_sequence": 58,
+      "attempt_id": "batch12:2025-12-24",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH12_POLICY_V1",
+      "target_date": "2025-12-24",
+      "candidate_reason": "CHRISTMAS_PRE_HOLIDAY_SESSION",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35016454761,
+        "job_id": 104540999314,
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8"
+      }
+    },
+    {
+      "attempt_sequence": 59,
+      "attempt_id": "batch12:2025-12-25",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH12_POLICY_V1",
+      "target_date": "2025-12-25",
+      "candidate_reason": "CHRISTMAS_OBSERVED",
+      "outcome": "BLOCKED",
+      "adjudication_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "blocking_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35016454761,
+        "job_id": 104540999314,
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8"
+      }
+    },
+    {
+      "attempt_sequence": 60,
+      "attempt_id": "batch12:2025-12-31",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH12_POLICY_V1",
+      "target_date": "2025-12-31",
+      "candidate_reason": "NEW_YEARS_EVE_CANDIDATE",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35016454761,
+        "job_id": 104540999314,
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8"
+      }
     }
   ]
 }
