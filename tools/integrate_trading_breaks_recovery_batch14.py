@@ -208,6 +208,8 @@ def rewrite_current_state_tests() -> None:
         'assert len(decisions) == len(queue) == 19': 'assert len(decisions) == len(queue) == 17',
         'assert len(recovery_queue()) == len(decisions) == 19': 'assert len(recovery_queue()) == len(decisions) == 17',
         'assert len(eligible) == 3': 'assert len(eligible) == 0',
+        'assert eligible[0] == (date(2026, 6, 19), "JUNETEENTH_OBSERVED")': 'assert eligible == []',
+        "assert eligible[0] == (date(2026, 6, 19), 'JUNETEENTH_OBSERVED')": 'assert eligible == []',
         'sum((not item.eligible) and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 16': 'sum((not item.eligible) and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 17',
         "sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 16": "sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 17",
         'sum((not d.eligible) and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 16': 'sum((not d.eligible) and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 17',
