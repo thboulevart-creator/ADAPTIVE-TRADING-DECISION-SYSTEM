@@ -363,9 +363,12 @@ def update_batch04_integration_test() -> None:
 def update_batch05_test() -> None:
     text = BATCH05_TEST.read_text(encoding="utf-8")
     text = replace_once(text, "    date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2),\n", "    date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2), date(2023, 7, 4),\n", "Batch05 blocked set")
+    attempt_count = "assert len(attempts) == 25"
+    if text.count(attempt_count) != 2:
+        raise RuntimeError(f"Batch05 total attempts: expected exactly two matches, found {text.count(attempt_count)}")
+    text = text.replace(attempt_count, "assert len(attempts) == 30")
     replacements = [
         ("test_all_six_historical_blocked_dates_remain_unresolved_but_ineligible", "test_all_seven_historical_blocked_dates_remain_unresolved_but_ineligible", "Batch05 blocked test name"),
-        ("assert len(attempts) == 25", "assert len(attempts) == 30", "Batch05 total attempts"),
         ("assert len(recovery_queue()) == len(decisions) == 49", "assert len(recovery_queue()) == len(decisions) == 45", "Batch05 queue"),
         ("== 6", "== 7", "Batch05 blocked count"),
         ("assert len(eligible) == 43", "assert len(eligible) == 38", "Batch05 eligible count"),
