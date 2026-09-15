@@ -210,12 +210,17 @@ def rewrite_current_state_tests() -> None:
         'assert len(eligible) == 3': 'assert len(eligible) == 0',
         'assert eligible[0] == (date(2026, 6, 19), "JUNETEENTH_OBSERVED")': 'assert eligible == []',
         "assert eligible[0] == (date(2026, 6, 19), 'JUNETEENTH_OBSERVED')": 'assert eligible == []',
+        'assert queue[-1] == (date(2026, 7, 3), "INDEPENDENCE_DAY_OBSERVED")': 'assert queue[-1] == (date(2026, 7, 2), "INDEPENDENCE_PRE_HOLIDAY_SESSION")',
+        "assert queue[-1] == (date(2026, 7, 3), 'INDEPENDENCE_DAY_OBSERVED')": "assert queue[-1] == (date(2026, 7, 2), 'INDEPENDENCE_PRE_HOLIDAY_SESSION')",
+        'assert days[-1] == date(2026, 7, 3)': 'assert days[-1] == date(2026, 7, 2)',
         'sum((not item.eligible) and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 16': 'sum((not item.eligible) and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 17',
         "sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 16": "sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 17",
         'sum((not d.eligible) and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 16': 'sum((not d.eligible) and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 17',
         "sum((not d.eligible) and d.latest_attempt_outcome == 'BLOCKED' for d in decisions) == 16": "sum((not d.eligible) and d.latest_attempt_outcome == 'BLOCKED' for d in decisions) == 17",
         'sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 16': 'sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 17',
         "sum(not item.eligible and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 16": "sum(not item.eligible and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 17",
+        'sum(not d.eligible and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 16': 'sum(not d.eligible and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 17',
+        "sum(not d.eligible and d.latest_attempt_outcome == 'BLOCKED' for d in decisions) == 16": "sum(not d.eligible and d.latest_attempt_outcome == 'BLOCKED' for d in decisions) == 17",
         '(111, 72, 39)': '(111, 74, 37)',
         '(68, 49, 19)': '(68, 51, 17)',
         'global_report["resolved_candidate_dates"] == 72': 'global_report["resolved_candidate_dates"] == 74',
@@ -231,11 +236,20 @@ def rewrite_current_state_tests() -> None:
         'test_trading_breaks_recovery_batch14_execution_contract.py',
         'test_trading_breaks_recovery_batch14_integration_contract.py',
     }
+    terminal_progression_prefix = '''def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candidates():\n    eligible = eligible_recovery_queue()\n    assert eligible\n    assert eligible[0] == (date(2026, 6, 19), "JUNETEENTH_OBSERVED")\n    eligible_days = {day for day, _ in eligible}\n'''
+    terminal_progression_replacement = '''def test_current_capability_is_exhausted_after_terminal_batch():\n    eligible = eligible_recovery_queue()\n    decisions = progression_decisions()\n    assert eligible == []\n    assert len(decisions) == 17\n    assert all((not item.eligible) and item.latest_attempt_outcome == "BLOCKED" for item in decisions)\n    eligible_days = set()\n'''
     for path in sorted((REPO / 'tests').glob('test_*.py')):
         if path.name.endswith('_integration_contract.py') or path.name in excluded:
             continue
         text = path.read_text(encoding='utf-8')
         original = text
+        if path.name == 'test_trading_breaks_recovery_progression.py':
+            text = replace_once(
+                text,
+                terminal_progression_prefix,
+                terminal_progression_replacement,
+                'terminal progression exhaustion migration',
+            )
         for old, new in replacements.items():
             text = text.replace(old, new)
         if text != original:
