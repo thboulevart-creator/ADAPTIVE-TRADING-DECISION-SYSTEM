@@ -1,0 +1,169 @@
+name: Trading Breaks Recovery Batch 07
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch07.yml'
+      - 'tools/trading_breaks_recovery_batch07_execute.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  batch07:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove Batch 07 checkpoint ancestry and governed parent-state immutability
+        run: |
+          git merge-base --is-ancestor 4d7330c198da2171a67724204d709c71b5a34955 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --exit-code 4d7330c198da2171a67724204d709c71b5a34955 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_batch07.py \
+            tests/test_trading_breaks_recovery_batch07.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Qualify all pre-browser parent progression and frozen Batch 07 gates
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_batch04.py \
+            tests/test_trading_breaks_recovery_batch04_adjudication.py \
+            tests/test_trading_breaks_recovery_batch04_integration.py \
+            tests/test_trading_breaks_recovery_batch05.py \
+            tests/test_trading_breaks_recovery_batch05_adjudication.py \
+            tests/test_trading_breaks_recovery_batch05_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_trading_breaks_recovery_batch06_adjudication.py \
+            tests/test_trading_breaks_recovery_batch06_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch06_integration.py \
+            tests/test_trading_breaks_recovery_batch07.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch06.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact historically frozen Batch 07 execution identity before Chromium
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch07 import BATCH_SIZE, CURRENT_CAPABILITY_FINGERPRINT, CURRENT_CAPABILITY_ID, batch07_targets
+
+          expected = [
+              (date(2023, 12, 22), 'CHRISTMAS_PRE_HOLIDAY_SESSION'),
+              (date(2023, 12, 25), 'CHRISTMAS_OBSERVED'),
+              (date(2024, 1, 1), 'NEW_YEARS_OBSERVED'),
+              (date(2024, 1, 15), 'MARTIN_LUTHER_KING_DAY'),
+              (date(2024, 2, 19), 'PRESIDENTS_DAY'),
+          ]
+          assert BATCH_SIZE == 5
+          assert batch07_targets() == expected
+          assert CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+          assert CURRENT_CAPABILITY_FINGERPRINT == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          print('PASS: exact immutable Batch 07 execution identity locked before Chromium')
+          PY
+
+      - name: Prove execution module cannot recalculate Batch 07 membership
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/trading_breaks_recovery_batch07_execute.py').read_text(encoding='utf-8').lower()
+          forbidden_calls = [
+              ''.join(('eligible_', 'recovery_queue(')),
+              ''.join(('recovery_', 'queue(')),
+          ]
+          for forbidden in forbidden_calls:
+              assert forbidden not in source, forbidden
+          assert 'batch07_targets()' in source
+          assert 'capture.probe_candidate' in source
+          print('PASS: execution consumes frozen Batch 07 only; no live membership recalculation')
+          PY
+
+      - name: Install Playwright Chromium only after every pre-browser gate PASS
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Execute exact frozen Batch 07 in headed Chromium
+        run: xvfb-run -a python -m tools.trading_breaks_recovery_batch07_execute
+
+      - name: Print Batch 07 capture summary
+        if: always()
+        run: cat trading_breaks_batch07_artifacts/batch_summary.json || true
+
+      - name: Upload complete Batch 07 runtime evidence
+        if: always()
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: dukascopy-trading-breaks-recovery-batch07
+          path: trading_breaks_batch07_artifacts/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Persist compact Batch 07 runtime report with artifact provenance
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          ARTIFACT_DIGEST: ${{ steps.upload.outputs.artifact-digest }}
+        run: |
+          JOB_ID="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs" --jq '.jobs[] | select(.name == "batch07") | .id' | head -n 1)"
+          export JOB_ID
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          src = Path('trading_breaks_batch07_artifacts/batch_summary.json')
+          dst = Path('reports/data-qualification/historical_trading_breaks_recovery_batch07_runtime.json')
+          data = json.loads(src.read_text(encoding='utf-8')) if src.exists() else {'schema':'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH07_POLICY_V1','batch_number':7,'verdict':'BLOCKED','reason':'BATCH_SUMMARY_NOT_PRODUCED'}
+          digest = os.environ.get('ARTIFACT_DIGEST') or None
+          if digest and digest.startswith('sha256:'):
+              digest = digest.split(':', 1)[1]
+          data['provenance'] = {
+              'workflow_run': int(os.environ['GITHUB_RUN_ID']),
+              'job_id': int(os.environ['JOB_ID']) if os.environ.get('JOB_ID') else None,
+              'probe_commit': os.environ['GITHUB_SHA'],
+              'artifact_id': int(os.environ['ARTIFACT_ID']) if os.environ.get('ARTIFACT_ID') else None,
+              'artifact_url': os.environ.get('ARTIFACT_URL') or None,
+              'artifact_sha256': digest,
+          }
+          dst.parent.mkdir(parents=True, exist_ok=True)
+          dst.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/data-qualification/historical_trading_breaks_recovery_batch07_runtime.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence: persist Trading Breaks recovery Batch 07 runtime'
+            git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          fi
