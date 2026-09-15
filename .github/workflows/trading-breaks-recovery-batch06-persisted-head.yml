@@ -1,0 +1,153 @@
+name: Trading Breaks Recovery Batch 06 Persisted-HEAD Rebreak
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch06-persisted-head.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  persisted-head-rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove authoritative atomic integration is persisted and only rebreak metadata followed it
+        run: |
+          git merge-base --is-ancestor a2a59baefd7986f65efb4d625acd2c47c085ae31 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test "$(git diff --name-only a2a59baefd7986f65efb4d625acd2c47c085ae31 HEAD)" = ".github/workflows/trading-breaks-recovery-batch06-persisted-head.yml"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest only
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarially re-break persisted Batch 06 integration state
+        run: |
+          python -m pytest -q \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch02.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch04.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch05.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch06.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_batch04.py \
+            tests/test_trading_breaks_recovery_batch04_adjudication.py \
+            tests/test_trading_breaks_recovery_batch04_integration.py \
+            tests/test_trading_breaks_recovery_batch05.py \
+            tests/test_trading_breaks_recovery_batch05_adjudication.py \
+            tests/test_trading_breaks_recovery_batch05_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_trading_breaks_recovery_batch06_adjudication.py \
+            tests/test_trading_breaks_recovery_batch06_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch06_integration.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact persisted calendar ledger and progression state
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, load_material_capability_changes, progression_decisions
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          global_report = audit_calendar_coverage()
+          window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          _, _, attempts = load_attempt_ledger()
+          progression = json.load(open('reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json', encoding='utf-8'))
+          raw_days = {d for d, _ in recovery_queue()}
+          eligible = eligible_recovery_queue()
+          eligible_days = {d for d, _ in eligible}
+          decisions = {d.target_date: d for d in progression_decisions()}
+
+          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 46, 65)
+          assert global_report['evidence_shape_errors'] == []
+          assert global_report['orphan_special_evidence'] == []
+          assert global_report['contradictory_evidence_dates'] == []
+          assert (window['candidate_dates'], window['resolved_candidate_dates'], window['unresolved_candidate_dates']) == (68, 23, 45)
+
+          assert len(attempts) == 30
+          assert [x.attempt_sequence for x in attempts] == list(range(1, 31))
+          assert len({x.attempt_id for x in attempts}) == 30
+          batch06 = [x for x in attempts if x.attempt_id.startswith('batch06:')]
+          assert [x.attempt_sequence for x in batch06] == [26, 27, 28, 29, 30]
+          assert [x.target_date for x in batch06] == [date(2023, 7, 3), date(2023, 7, 4), date(2023, 9, 4), date(2023, 11, 23), date(2023, 11, 24)]
+          assert [x.outcome for x in batch06] == ['PASS', 'BLOCKED', 'PASS', 'PASS', 'PASS']
+          assert batch06[1].blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert all(x.capability_id == 'TRADING_BREAKS_PRIMARY_WIDGET_V1' for x in batch06)
+          assert load_material_capability_changes() == []
+
+          assert len(recovery_queue()) == 45
+          assert progression['verdict'] == 'PASS'
+          assert progression['calendar_unresolved_count'] == 45
+          assert progression['attempt_ledger_count'] == 30
+          assert progression['registered_material_capability_change_count'] == 0
+          assert progression['attempted_blocked_ineligible_count'] == 7
+          assert progression['eligible_initial_or_retry_count'] == 38
+          assert progression['current_capability_id'] == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+          assert progression['current_capability_fingerprint'] == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+
+          pass_days = {date(2023, 7, 3), date(2023, 9, 4), date(2023, 11, 23), date(2023, 11, 24)}
+          blocked_days = {date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15), date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2), date(2023, 7, 4)}
+          assert pass_days <= set(SPECIAL_SESSION_EVIDENCE)
+          assert pass_days.isdisjoint(raw_days)
+          assert pass_days.isdisjoint(eligible_days)
+          assert blocked_days <= raw_days
+          assert blocked_days.isdisjoint(eligible_days)
+          assert date(2023, 7, 4) not in SPECIAL_SESSION_EVIDENCE
+          for day in blocked_days:
+              assert decisions[day].reason == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
+              assert decisions[day].latest_attempt_outcome == 'BLOCKED'
+              assert decisions[day].contract_verdict == 'PASS'
+
+          assert eligible == sorted(eligible, key=lambda item: item[0])
+          assert len(eligible) == 38
+          assert eligible[0] == (date(2023, 12, 22), 'CHRISTMAS_PRE_HOLIDAY_SESSION')
+          print('PASS: persisted HEAD proves Batch 06 atomic integration; 45 unresolved / 30 attempts / 7 blocked-ineligible / 38 eligible')
+          PY
+
+      - name: Prove re-break contains no browser or capture path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('.github/workflows/trading-breaks-recovery-batch06-persisted-head.yml').read_text(encoding='utf-8').lower()
+          forbidden_tokens = [
+              ''.join(('play', 'wright')),
+              ''.join(('chro', 'mium')),
+              ''.join(('probe_', 'candidate')),
+          ]
+          for forbidden in forbidden_tokens:
+              assert forbidden not in source
+          assert 'pip install pytest==8.4.2' in source
+          print('PASS: persisted-head rebreak has no browser/capture dependency')
+          PY
+
+      - name: Prove persisted re-break is read-only and deterministic
+        run: |
+          python -m tools.trading_breaks_recovery_progression >/dev/null
+          git diff --exit-code
