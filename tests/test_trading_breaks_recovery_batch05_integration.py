@@ -25,8 +25,8 @@ BLOCKED_DAYS = {
 def test_batch05_atomic_integration_global_and_window_accounting_is_exact():
     global_report = audit_calendar_coverage()
     window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
-    assert (global_report["candidate_dates"], global_report["resolved_candidate_dates"], global_report["unresolved_candidate_dates"]) == (111, 49, 62)
-    assert (window["candidate_dates"], window["resolved_candidate_dates"], window["unresolved_candidate_dates"]) == (68, 26, 42)
+    assert (global_report["candidate_dates"], global_report["resolved_candidate_dates"], global_report["unresolved_candidate_dates"]) == (111, 53, 58)
+    assert (window["candidate_dates"], window["resolved_candidate_dates"], window["unresolved_candidate_dates"]) == (68, 30, 38)
     assert global_report["evidence_shape_errors"] == []
     assert global_report["orphan_special_evidence"] == []
     assert global_report["contradictory_evidence_dates"] == []
@@ -35,7 +35,7 @@ def test_batch05_atomic_integration_global_and_window_accounting_is_exact():
 def test_batch05_atomic_integration_records_exactly_five_factual_pass_attempts():
     _, _, attempts = load_attempt_ledger()
     batch05 = [item for item in attempts if item.attempt_id.startswith("batch05:")]
-    assert len(attempts) == 35
+    assert len(attempts) == 40
     assert [item.attempt_sequence for item in batch05] == [21, 22, 23, 24, 25]
     assert [item.outcome for item in batch05] == ["PASS"] * 5
     assert all(item.blocking_reason is None for item in batch05)
@@ -59,8 +59,8 @@ def test_batch05_passes_leave_unresolved_queue_without_disturbing_blocked_semant
 def test_batch05_progression_is_non_starving_after_integration():
     decisions = progression_decisions()
     eligible = eligible_recovery_queue()
-    assert len(recovery_queue()) == len(decisions) == 42
-    assert sum(not d.eligible and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 9
-    assert len(eligible) == 33
+    assert len(recovery_queue()) == len(decisions) == 38
+    assert sum(not d.eligible and d.latest_attempt_outcome == "BLOCKED" for d in decisions) == 10
+    assert len(eligible) == 28
     assert eligible == sorted(eligible, key=lambda item: item[0])
-    assert eligible[0][0] > date(2024, 2, 19)
+    assert eligible[0] == (date(2024, 9, 2), "LABOR_DAY")

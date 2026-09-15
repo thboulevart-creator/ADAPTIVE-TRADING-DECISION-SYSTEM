@@ -37,7 +37,7 @@ PASS_DAYS = {day for day, _ in EXPECTED_BATCH05}
 ATTEMPTED_BLOCKED = {
     date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15),
     date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2), date(2023, 7, 4),
-    date(2023, 12, 25), date(2024, 1, 1),
+    date(2023, 12, 25), date(2024, 1, 1), date(2024, 3, 29),
 }
 
 
@@ -66,7 +66,7 @@ def test_post_integration_calendar_contains_all_five_batch05_pass_dates():
 def test_post_integration_attempt_ledger_records_exactly_five_batch05_pass_attempts():
     _, _, attempts = load_attempt_ledger()
     batch05 = [item for item in attempts if item.attempt_id.startswith("batch05:")]
-    assert len(attempts) == 35
+    assert len(attempts) == 40
     assert [item.attempt_sequence for item in batch05] == [21, 22, 23, 24, 25]
     assert [item.target_date for item in batch05] == [day for day, _ in EXPECTED_BATCH05]
     assert [item.outcome for item in batch05] == ["PASS"] * 5
@@ -74,7 +74,7 @@ def test_post_integration_attempt_ledger_records_exactly_five_batch05_pass_attem
     assert all(item.capability_id == CURRENT_CAPABILITY_ID for item in batch05)
 
 
-def test_all_nine_historical_blocked_dates_remain_unresolved_but_ineligible():
+def test_all_ten_historical_blocked_dates_remain_unresolved_but_ineligible():
     raw_days = {day for day, _ in recovery_queue()}
     eligible_days = {day for day, _ in eligible_recovery_queue()}
     decisions = {item.target_date: item for item in progression_decisions()}
@@ -92,13 +92,13 @@ def test_batch05_postintegration_progression_state_is_exact():
     decisions = progression_decisions()
     eligible = eligible_recovery_queue()
     _, _, attempts = load_attempt_ledger()
-    assert len(recovery_queue()) == len(decisions) == 42
-    assert len(attempts) == 35
+    assert len(recovery_queue()) == len(decisions) == 38
+    assert len(attempts) == 40
     assert load_material_capability_changes() == []
-    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 9
-    assert len(eligible) == 33
+    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 10
+    assert len(eligible) == 28
     assert eligible == sorted(eligible, key=lambda item: item[0])
-    assert eligible[0][0] > date(2024, 2, 19)
+    assert eligible[0] == (date(2024, 9, 2), "LABOR_DAY")
 
 
 def test_batch05_freeze_provenance_remains_historical_truth_after_integration():

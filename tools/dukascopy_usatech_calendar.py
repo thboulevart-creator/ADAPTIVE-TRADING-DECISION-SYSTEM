@@ -977,6 +977,106 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch07_qualification.md"
         ),
     },
+    date(2024, 5, 27): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2024",
+        # Exact broker-native Trading Breaks record 68242.
+        # Start 2024-05-27T16:59:59Z; final closed instant 2024-05-27T21:59:59Z;
+        # protocol-derived reopen 2024-05-27T22:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "68242",
+        "broker_reason": "Memorial Day",
+        "artifact_id": 10402433119,
+        "artifact_sha256": "644e6d6776792dac03e7cb87a3bd63af0be603c6efe951f44c8911ecd9defadd",
+        "probe_commit": "5cc4834af2c75de99f6e3427f31ab07b38b42611",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1716768000000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34984538763"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch08_qualification.md"
+        ),
+    },
+    date(2024, 6, 19): {
+        "reason": "SPECIAL_JUNETEENTH_OBSERVED_2024",
+        # Exact broker-native Trading Breaks record 69037.
+        # Start 2024-06-19T17:00:00Z; final closed instant 2024-06-19T21:59:59Z;
+        # protocol-derived reopen 2024-06-19T22:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "69037",
+        "broker_reason": "Juneteenth Holiday",
+        "artifact_id": 10402433119,
+        "artifact_sha256": "644e6d6776792dac03e7cb87a3bd63af0be603c6efe951f44c8911ecd9defadd",
+        "probe_commit": "5cc4834af2c75de99f6e3427f31ab07b38b42611",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1718755200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34984538763"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch08_qualification.md"
+        ),
+    },
+    date(2024, 7, 3): {
+        "reason": "SPECIAL_INDEPENDENCE_PRE_HOLIDAY_SESSION_2024",
+        # Exact broker-native Trading Breaks record 69819.
+        # Start 2024-07-03T17:14:59Z; final closed instant 2024-07-03T21:59:59Z;
+        # protocol-derived reopen 2024-07-03T22:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 22)),
+        "broker_record_id": "69819",
+        "broker_reason": "Independence Day",
+        "artifact_id": 10402433119,
+        "artifact_sha256": "644e6d6776792dac03e7cb87a3bd63af0be603c6efe951f44c8911ecd9defadd",
+        "probe_commit": "5cc4834af2c75de99f6e3427f31ab07b38b42611",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1719964800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34984538763"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch08_qualification.md"
+        ),
+    },
+    date(2024, 7, 4): {
+        "reason": "SPECIAL_INDEPENDENCE_DAY_OBSERVED_2024",
+        # Exact broker-native Trading Breaks record 69820.
+        # Start 2024-07-04T16:59:59Z; final closed instant 2024-07-04T21:59:59Z;
+        # protocol-derived reopen 2024-07-04T22:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "69820",
+        "broker_reason": "Independence Day",
+        "artifact_id": 10402433119,
+        "artifact_sha256": "644e6d6776792dac03e7cb87a3bd63af0be603c6efe951f44c8911ecd9defadd",
+        "probe_commit": "5cc4834af2c75de99f6e3427f31ab07b38b42611",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1720051200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34984538763"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch08_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the
