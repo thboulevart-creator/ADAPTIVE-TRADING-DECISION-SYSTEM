@@ -1266,6 +1266,101 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch10_qualification.md"
         ),
     },
+    date(2025, 5, 26): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2025",
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "81578",
+        "broker_reason": "Memorial Day",
+        "artifact_id": 10412379849,
+        "artifact_sha256": "f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2",
+        "probe_commit": "7b5bbef03db35bf954c9a96364dba84d11b2fc94",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1748217600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35009400933"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md"
+        ),
+    },
+    date(2025, 6, 19): {
+        "reason": "SPECIAL_JUNETEENTH_OBSERVED_2025",
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "82497",
+        "broker_reason": "Juneteenth Holiday",
+        "artifact_id": 10412379849,
+        "artifact_sha256": "f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2",
+        "probe_commit": "7b5bbef03db35bf954c9a96364dba84d11b2fc94",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1750291200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35009400933"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md"
+        ),
+    },
+    date(2025, 7, 3): {
+        "reason": "SPECIAL_INDEPENDENCE_PRE_HOLIDAY_SESSION_2025",
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "83303",
+        "broker_reason": "Independence Day in the United States",
+        "artifact_id": 10412379849,
+        "artifact_sha256": "f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2",
+        "probe_commit": "7b5bbef03db35bf954c9a96364dba84d11b2fc94",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1751500800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35009400933"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md"
+        ),
+    },
+    date(2025, 7, 4): {
+        "reason": "SPECIAL_INDEPENDENCE_DAY_OBSERVED_2025",
+        "fully_closed_hours_utc": frozenset(range(17, 24)),
+        "broker_record_id": "83304",
+        "broker_reason": "Independence Day in the United States",
+        "artifact_id": 10412379849,
+        "artifact_sha256": "f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2",
+        "probe_commit": "7b5bbef03db35bf954c9a96364dba84d11b2fc94",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1751587200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35009400933"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md"
+        ),
+    },
+    date(2025, 9, 1): {
+        "reason": "SPECIAL_LABOR_DAY_2025",
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "84407",
+        "broker_reason": "Labor Day",
+        "artifact_id": 10412379849,
+        "artifact_sha256": "f5bf2a2ee5cc7e2cb535266cd918cabfeedd1eb04ad59d518912b02c31276ef2",
+        "probe_commit": "7b5bbef03db35bf954c9a96364dba84d11b2fc94",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1756684800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35009400933"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md"
+        ),
+    },
 }
 
 CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"
