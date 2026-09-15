@@ -62,17 +62,6 @@ jobs:
           from pathlib import Path
           path = Path('tools/integrate_trading_breaks_recovery_batch07.py')
           text = path.read_text(encoding='utf-8')
-          corrected = '''    text = replace_all_expected(
-              text,
-              "assert len(attempts) == 30",
-              "assert len(attempts) == 35",
-              2,
-              "Batch05 ledger total",
-          )
-          replacements = [
-          '''
-          if '"Batch05 ledger total",\n          )\n          replacements = [' in text:
-              raise SystemExit('AMBIGUOUS_BATCH05_REWRITE_STATE')
           if '    text = replace_all_expected(\n        text,\n        "assert len(attempts) == 30",\n        "assert len(attempts) == 35",\n        2,\n        "Batch05 ledger total",\n    )\n    replacements = [' in text:
               print('PASS: minimal Batch05 cardinality correction already present')
               raise SystemExit(0)
@@ -80,7 +69,6 @@ jobs:
               )
               replacements = [
           '''
-          # Normalize the exact source indentation as stored in the Python module.
           old = old.replace('        )\n        replacements', '    )\n    replacements')
           new = '''        "Batch05 blocked set",
               )
@@ -98,11 +86,11 @@ jobs:
               raise SystemExit(f'BATCH05_CORRECTION_ANCHOR_COUNT:{text.count(old)}')
           text = text.replace(old, new, 1)
           tuple_line = '        ("assert len(attempts) == 30", "assert len(attempts) == 35", "Batch05 ledger total"),\n'
-          if text.count(tuple_line) != 1:
+          if text.count(tuple_line) != 2:
               raise SystemExit(f'BATCH05_OLD_TUPLE_COUNT:{text.count(tuple_line)}')
-          text = text.replace(tuple_line, '', 1)
+          text = text.replace(tuple_line, '')
           path.write_text(text, encoding='utf-8')
-          print('PASS: corrected Batch05 rewrite cardinality from one match to two exact matches')
+          print('PASS: corrected Batch05 rewrite cardinality from two one-shot rewrites to one exact two-match rewrite')
           PY
 
       - name: Re-break corrected integration source before mutation
