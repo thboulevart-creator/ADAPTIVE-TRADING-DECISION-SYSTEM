@@ -93,13 +93,13 @@ def _change(
     )
 
 
-def test_attempt_ledger_preserves_all_twenty_five_historical_attempts_and_duplicate_history():
+def test_attempt_ledger_preserves_all_thirty_historical_attempts_and_duplicate_history():
     capabilities, current_id, attempts = load_attempt_ledger()
     assert current_id == "TRADING_BREAKS_PRIMARY_WIDGET_V1"
     assert current_id in capabilities
-    assert len(attempts) == 25
-    assert [item.attempt_sequence for item in attempts] == list(range(1, 26))
-    assert len({item.attempt_id for item in attempts}) == 25
+    assert len(attempts) == 30
+    assert [item.attempt_sequence for item in attempts] == list(range(1, 31))
+    assert len({item.attempt_id for item in attempts}) == 30
 
     christmas = [x for x in attempts if x.target_date == date(2021, 12, 24)]
     new_year = [x for x in attempts if x.target_date == date(2021, 12, 31)]
@@ -126,19 +126,20 @@ def test_attempted_blocked_dates_remain_unresolved_calendar_candidates():
     assert date(2022, 7, 1) in queue_days
     assert date(2022, 12, 26) in queue_days
     assert date(2023, 1, 2) in queue_days
+    assert date(2023, 7, 4) in queue_days
 
 
 def test_progression_plan_covers_every_unresolved_candidate_without_hidden_skipping():
     queue = recovery_queue()
     decisions = progression_decisions()
     assert [(d.target_date, d.candidate_reason) for d in decisions] == queue
-    assert len(decisions) == len(queue) == 49
+    assert len(decisions) == len(queue) == 45
     assert all(d.calendar_state == "UNRESOLVED" for d in decisions)
 
 
 def test_unchanged_capability_forbids_replay_of_historical_blocked_dates():
     decisions = {d.target_date: d for d in progression_decisions()}
-    for target in (date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15), date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2)):
+    for target in (date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15), date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2), date(2023, 7, 4)):
         decision = decisions[target]
         assert decision.eligible is False
         assert decision.latest_attempt_outcome == "BLOCKED"
@@ -149,7 +150,7 @@ def test_unchanged_capability_forbids_replay_of_historical_blocked_dates():
 def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candidates():
     eligible = eligible_recovery_queue()
     assert eligible
-    assert eligible[0][0] > date(2023, 6, 19)
+    assert eligible[0][0] > date(2023, 11, 24)
     eligible_days = {day for day, _ in eligible}
     assert date(2021, 12, 24) not in eligible_days
     assert date(2021, 12, 31) not in eligible_days
@@ -157,8 +158,10 @@ def test_ineligible_blocked_prefix_does_not_starve_later_never_attempted_candida
     assert date(2022, 7, 1) not in eligible_days
     assert date(2022, 12, 26) not in eligible_days
     assert date(2023, 1, 2) not in eligible_days
+    assert date(2023, 7, 4) not in eligible_days
     assert all(day not in eligible_days for day, _ in ((date(2022, 11, 24), 'THANKSGIVING_DAY'), (date(2022, 11, 25), 'THANKSGIVING_FRIDAY'), (date(2022, 12, 23), 'CHRISTMAS_PRE_HOLIDAY_SESSION')))
     assert all(day not in eligible_days for day, _ in ((date(2023, 1, 16), 'MARTIN_LUTHER_KING_DAY'), (date(2023, 2, 20), 'PRESIDENTS_DAY'), (date(2023, 4, 7), 'GOOD_FRIDAY'), (date(2023, 5, 29), 'MEMORIAL_DAY'), (date(2023, 6, 19), 'JUNETEENTH_OBSERVED')))
+    assert all(day not in eligible_days for day, _ in ((date(2023, 7, 3), 'INDEPENDENCE_PRE_HOLIDAY_SESSION'), (date(2023, 7, 4), 'INDEPENDENCE_DAY_OBSERVED'), (date(2023, 9, 4), 'LABOR_DAY'), (date(2023, 11, 23), 'THANKSGIVING_DAY'), (date(2023, 11, 24), 'THANKSGIVING_FRIDAY')))
 
 
 def test_production_scheduler_has_no_caller_injected_retry_or_priority_inputs():
