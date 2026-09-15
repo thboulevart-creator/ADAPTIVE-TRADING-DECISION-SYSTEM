@@ -1,0 +1,208 @@
+name: Trading Breaks Recovery Batch 09
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch09.yml'
+      - 'tools/trading_breaks_recovery_batch09_execute.py'
+      - 'tests/test_trading_breaks_recovery_batch09_execution_contract.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  batch09:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove Batch 09 checkpoint ancestry and governed frozen-state immutability
+        run: |
+          git merge-base --is-ancestor f90a9ee7dfb539536a8e3d6506805a81ae08ada1 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --exit-code f90a9ee7dfb539536a8e3d6506805a81ae08ada1 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_batch09.py \
+            tests/test_trading_breaks_recovery_batch09.py \
+            tools/freeze_trading_breaks_recovery_batch09.py \
+            tests/test_trading_breaks_recovery_batch09_freeze_contract.py \
+            04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH09-POLICY.md \
+            reports/data-qualification/historical_trading_breaks_recovery_batch09_policy_qualification.md \
+            reports/data-qualification/historical_trading_breaks_recovery_batch09_persisted_membership_qualification.md \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Qualify every governed and Batch 09 execution gate before Chromium
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_*.py \
+            tests/test_dukascopy_usatech_calendar*.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact immutable Batch 09 identity before Chromium
+        run: |
+          python - <<'PY'
+          from tools.trading_breaks_recovery_batch09 import (
+              BATCH_SIZE,
+              CURRENT_CAPABILITY_FINGERPRINT,
+              CURRENT_CAPABILITY_ID,
+              FROZEN_BATCH09_TARGETS,
+              batch09_targets,
+          )
+          targets = batch09_targets()
+          assert BATCH_SIZE == 5
+          assert isinstance(FROZEN_BATCH09_TARGETS, tuple)
+          assert targets == list(FROZEN_BATCH09_TARGETS)
+          assert len(targets) == BATCH_SIZE
+          assert len({day for day, _ in targets}) == BATCH_SIZE
+          assert [day for day, _ in targets] == sorted(day for day, _ in targets)
+          assert CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+          assert CURRENT_CAPABILITY_FINGERPRINT == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          print('PASS: exact immutable Batch 09 identity locked before Chromium')
+          for index, (day, reason) in enumerate(targets, start=1):
+              print(index, day.isoformat(), reason)
+          PY
+
+      - name: Prove execution path can consume only batch09_targets before Chromium
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          source = Path('tools/trading_breaks_recovery_batch09_execute.py').read_text(encoding='utf-8')
+          tree = ast.parse(source)
+          calls = set()
+          imports = set()
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import):
+                  imports.update(alias.name.lower() for alias in node.names)
+              elif isinstance(node, ast.ImportFrom):
+                  imports.add((node.module or '').lower())
+              elif isinstance(node, ast.Call):
+                  if isinstance(node.func, ast.Name):
+                      calls.add(node.func.id.lower())
+                  elif isinstance(node.func, ast.Attribute):
+                      calls.add(node.func.attr.lower())
+
+          assert 'batch09_targets' in calls
+          assert 'probe_candidate' in calls
+          for forbidden in (
+              'eligible_recovery_queue',
+              'recovery_queue',
+              'progression_decisions',
+              'derive_batch09_membership',
+              'validate_freeze_candidate',
+          ):
+              assert forbidden not in calls, forbidden
+          assert not any('selenium' in name for name in imports)
+          print('PASS: execution path has no live membership selection/recalculation call')
+          PY
+
+      - name: Prove qualified capture probe itself cannot select membership before Chromium
+        run: |
+          python - <<'PY'
+          import ast, inspect
+          from tools import trading_breaks_recovery_batch01 as capture
+
+          tree = ast.parse(inspect.getsource(capture.probe_candidate))
+          calls = set()
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Call):
+                  if isinstance(node.func, ast.Name):
+                      calls.add(node.func.id.lower())
+                  elif isinstance(node.func, ast.Attribute):
+                      calls.add(node.func.attr.lower())
+          assert 'eligible_recovery_queue' not in calls
+          assert 'recovery_queue' not in calls
+          assert 'progression_decisions' not in calls
+          print('PASS: qualified probe is evidence capture only, not a scheduler')
+          PY
+
+      - name: Install Playwright Chromium only after every pre-browser gate PASS
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Execute exact frozen Batch 09 in headed Chromium
+        run: xvfb-run -a python -m tools.trading_breaks_recovery_batch09_execute
+
+      - name: Print Batch 09 capture summary
+        if: always()
+        run: cat trading_breaks_batch09_artifacts/batch_summary.json || true
+
+      - name: Upload complete Batch 09 runtime evidence
+        if: always()
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: dukascopy-trading-breaks-recovery-batch09
+          path: trading_breaks_batch09_artifacts/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Persist compact Batch 09 runtime report with artifact provenance
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          ARTIFACT_DIGEST: ${{ steps.upload.outputs.artifact-digest }}
+        run: |
+          JOB_ID="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs" --jq '.jobs[] | select(.name == "batch09") | .id' | head -n 1)"
+          export JOB_ID
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+
+          src = Path('trading_breaks_batch09_artifacts/batch_summary.json')
+          dst = Path('reports/data-qualification/historical_trading_breaks_recovery_batch09_runtime.json')
+          data = json.loads(src.read_text(encoding='utf-8')) if src.exists() else {
+              'schema': 'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH09_POLICY_V1',
+              'batch_number': 9,
+              'verdict': 'BLOCKED',
+              'reason': 'BATCH_SUMMARY_NOT_PRODUCED',
+          }
+          digest = os.environ.get('ARTIFACT_DIGEST') or None
+          if digest and digest.startswith('sha256:'):
+              digest = digest.split(':', 1)[1]
+          data['provenance'] = {
+              'workflow_run': int(os.environ['GITHUB_RUN_ID']),
+              'job_id': int(os.environ['JOB_ID']) if os.environ.get('JOB_ID') else None,
+              'probe_commit': os.environ['GITHUB_SHA'],
+              'artifact_id': int(os.environ['ARTIFACT_ID']) if os.environ.get('ARTIFACT_ID') else None,
+              'artifact_url': os.environ.get('ARTIFACT_URL') or None,
+              'artifact_sha256': digest,
+          }
+          dst.parent.mkdir(parents=True, exist_ok=True)
+          dst.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/data-qualification/historical_trading_breaks_recovery_batch09_runtime.json
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence: persist Trading Breaks recovery Batch 09 runtime'
+            git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          fi
