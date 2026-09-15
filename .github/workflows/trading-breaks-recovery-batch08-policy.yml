@@ -1,0 +1,130 @@
+name: Trading Breaks Recovery Batch 08 Policy Qualification
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch08-policy.yml'
+      - 'tools/trading_breaks_recovery_batch08.py'
+      - 'tests/test_trading_breaks_recovery_batch08.py'
+      - '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH08-POLICY.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  batch08-policy-qualification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove post-Batch07 freeze baseline ancestry and governed-state immutability
+        run: |
+          git merge-base --is-ancestor 2e9e51cea8342c701eec14d8d86aca215c5b7b62 HEAD
+          git diff --exit-code 2e9e51cea8342c701eec14d8d86aca215c5b7b62 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_protocol.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest only
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarially break Batch 08 membership and all governed regressions
+        run: |
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_*.py \
+            tests/test_dukascopy_usatech_calendar*.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact mechanically frozen Batch 08 membership
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch08 import BATCH_SIZE, batch08_targets
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue
+
+          expected = [
+              (date(2024, 3, 29), 'GOOD_FRIDAY'),
+              (date(2024, 5, 27), 'MEMORIAL_DAY'),
+              (date(2024, 6, 19), 'JUNETEENTH_OBSERVED'),
+              (date(2024, 7, 3), 'INDEPENDENCE_PRE_HOLIDAY_SESSION'),
+              (date(2024, 7, 4), 'INDEPENDENCE_DAY_OBSERVED'),
+          ]
+          eligible = eligible_recovery_queue()
+          assert BATCH_SIZE == 5
+          assert len(eligible) == 33
+          assert eligible[:5] == expected
+          assert batch08_targets() == eligible[:5]
+          print('PASS: Batch 08 equals exact governed eligible_recovery_queue()[:5]')
+          PY
+
+      - name: Prove all frozen members are initial attempts and prior blocked dates stay excluded
+        run: |
+          python - <<'PY'
+          from tools.trading_breaks_recovery_batch08 import batch08_targets
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, progression_decisions
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          frozen = batch08_targets()
+          frozen_days = {d for d, _ in frozen}
+          raw_days = {d for d, _ in recovery_queue()}
+          eligible_days = {d for d, _ in eligible_recovery_queue()}
+          decisions = {x.target_date: x for x in progression_decisions()}
+          _, _, attempts = load_attempt_ledger()
+          attempted_days = {x.target_date for x in attempts}
+
+          assert len(recovery_queue()) == 42
+          assert len(attempts) == 35
+          assert frozen_days <= raw_days
+          assert frozen_days <= eligible_days
+          assert frozen_days.isdisjoint(attempted_days)
+          for day, reason in frozen:
+              d = decisions[day]
+              assert d.candidate_reason == reason
+              assert d.eligible is True
+              assert d.reason == 'INITIAL_ATTEMPT'
+              assert d.latest_attempt_id is None
+              assert d.latest_attempt_outcome is None
+              assert d.contract_verdict == 'PASS'
+          print('PASS: all Batch 08 targets are unresolved INITIAL_ATTEMPT members')
+          PY
+
+      - name: Prove Batch 08 freeze contains no browser probe or live-selection path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/trading_breaks_recovery_batch08.py').read_text(encoding='utf-8').lower()
+          for forbidden in (
+              ''.join(('play', 'wright')),
+              ''.join(('chro', 'mium')),
+              ''.join(('probe_', 'candidate')),
+              'asyncio',
+              'eligible_recovery_queue(',
+              'recovery_queue(',
+              'expected_outcome',
+              'source_availability',
+              'holiday_preference',
+              'manual_skip',
+          ):
+              assert forbidden not in source, forbidden
+          print('PASS: frozen module has no browser/probe/live-selection/manual-priority path')
+          PY
+
+      - name: Prove qualification is read-only
+        run: git diff --exit-code
