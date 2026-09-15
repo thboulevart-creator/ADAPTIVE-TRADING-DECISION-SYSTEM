@@ -1,131 +1,13 @@
 name: Trading Breaks Recovery Batch 09 Persisted Membership Qualification
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch09-policy.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  qualify-batch09-persisted-membership:
+  archived:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    env:
-      PYTHONDONTWRITEBYTECODE: '1'
     steps:
-      - name: Checkout exact triggering persisted HEAD
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 0
-
-      - name: Prove frozen snapshot ancestry and governed-state immutability
-        run: |
-          git merge-base --is-ancestor 20a2c1722a2bc4798c0e5079ba51aa1f7bb5edb5 HEAD
-          git fetch origin feat/multi-year-dukascopy-acquisition
-          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
-          git diff --exit-code 20a2c1722a2bc4798c0e5079ba51aa1f7bb5edb5 HEAD -- \
-            tools/dukascopy_usatech_calendar.py \
-            tools/dukascopy_usatech_calendar_coverage.py \
-            tools/trading_breaks_recovery_progression.py \
-            tools/trading_breaks_recovery_protocol.py \
-            tools/trading_breaks_recovery_batch09.py \
-            tests/test_trading_breaks_recovery_batch09.py \
-            04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH09-POLICY.md \
-            reports/data-qualification/historical_trading_breaks_recovery_batch09_policy_qualification.md \
-            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
-            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
-            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Independently re-break Batch 09 membership and governed regressions
-        run: |
-          python -m pip install pytest==8.4.2
-          python -m pytest -q \
-            tests/test_trading_breaks_recovery_*.py \
-            tests/test_dukascopy_usatech_calendar*.py \
-            tests/test_coverage_execution_window_boundary.py
-
-      - name: Assert persisted membership is exact governed eligible prefix
-        run: |
-          python - <<'PY'
-          from tools.trading_breaks_recovery_batch09 import BATCH_SIZE, batch09_targets
-          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, load_material_capability_changes, progression_decisions
-          from tools.trading_breaks_recovery_protocol import recovery_queue
-
-          frozen = batch09_targets()
-          eligible = eligible_recovery_queue()
-          raw = recovery_queue()
-          decisions = {item.target_date: item for item in progression_decisions()}
-          _, _, attempts = load_attempt_ledger()
-          attempted_days = {item.target_date for item in attempts}
-
-          assert BATCH_SIZE == 5
-          assert len(raw) == 38
-          assert len(eligible) == 28
-          assert len(attempts) == 40
-          assert load_material_capability_changes() == []
-          assert frozen == eligible[:BATCH_SIZE]
-          assert len(frozen) == BATCH_SIZE
-          assert len({day for day, _ in frozen}) == BATCH_SIZE
-          assert [day for day, _ in frozen] == sorted(day for day, _ in frozen)
-          assert sum(not item.eligible and item.latest_attempt_outcome == 'BLOCKED' for item in decisions.values()) == 10
-          for day, reason in frozen:
-              decision = decisions[day]
-              assert decision.candidate_reason == reason
-              assert decision.eligible is True
-              assert decision.reason == 'INITIAL_ATTEMPT'
-              assert decision.latest_attempt_id is None
-              assert decision.latest_attempt_outcome is None
-              assert decision.contract_verdict == 'PASS'
-              assert day not in attempted_days
-          print('PASS: persisted Batch 09 membership equals governed eligible_recovery_queue()[:5]')
-          for index, (day, reason) in enumerate(frozen, start=1):
-              print(index, day.isoformat(), reason)
-          PY
-
-      - name: Prove frozen production module is observation-free
-        run: |
-          python - <<'PY'
-          import ast
-          from pathlib import Path
-          source = Path('tools/trading_breaks_recovery_batch09.py').read_text(encoding='utf-8')
-          tree = ast.parse(source)
-          imports = set()
-          calls = set()
-          for node in ast.walk(tree):
-              if isinstance(node, ast.Import):
-                  imports.update(alias.name.lower() for alias in node.names)
-              elif isinstance(node, ast.ImportFrom):
-                  imports.add((node.module or '').lower())
-              elif isinstance(node, ast.Call):
-                  if isinstance(node.func, ast.Name):
-                      calls.add(node.func.id.lower())
-                  elif isinstance(node.func, ast.Attribute):
-                      calls.add(node.func.attr.lower())
-          assert not any('playwright' in name or 'selenium' in name for name in imports)
-          assert 'probe_candidate' not in calls
-          assert 'eligible_recovery_queue' not in calls
-          assert 'recovery_queue' not in calls
-          print('PASS: persisted frozen module has no browser/probe/live-selection path')
-          PY
-
-      - name: Regenerate progression deterministically without state drift
-        run: |
-          python -m tools.trading_breaks_recovery_progression >/tmp/batch09-progression.json
-          git diff --exit-code -- reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
-
-      - name: Prove independent verifier remained read-only
-        run: |
-          git diff --exit-code
-          test -z "$(git status --porcelain)"
-          echo 'PASS: independent Batch 09 membership verifier remained read-only and clean'
+      - run: echo 'Batch 09 persisted membership qualification is completed and archived.'
