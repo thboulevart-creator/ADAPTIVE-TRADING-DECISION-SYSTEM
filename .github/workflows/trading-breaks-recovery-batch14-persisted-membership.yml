@@ -1,0 +1,111 @@
+name: Trading Breaks Recovery Batch 14 Persisted Membership Re-break
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch14-persisted-membership.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove qualified terminal freeze ancestry and verifier-only delta
+        run: |
+          git merge-base --is-ancestor 3c83e62a24ee6d638079edc0d79cd8bf843b6460 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test "$(git diff --name-only 3c83e62a24ee6d638079edc0d79cd8bf843b6460 HEAD)" = ".github/workflows/trading-breaks-recovery-batch14-persisted-membership.yml"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-break governed and adversarial regression
+        run: |
+          python -m pip install pytest==8.4.2
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' ! -name 'test_trading_breaks_recovery_batch12.py' ! -name 'test_trading_breaks_recovery_batch13.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Assert exact persisted terminal membership and reject adversarial variants
+        run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch14 import (
+              NOMINAL_BATCH_SIZE,
+              TERMINAL_BATCH_SIZE,
+              derive,
+          )
+          from tools.trading_breaks_recovery_batch14 import batch14_targets
+          from tools.trading_breaks_recovery_progression import (
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          frozen = batch14_targets()
+          eligible = eligible_recovery_queue()
+          decisions = progression_decisions()
+          by_day = {item.target_date: item for item in decisions}
+          _, _, attempts = load_attempt_ledger()
+
+          assert NOMINAL_BATCH_SIZE == 5
+          assert TERMINAL_BATCH_SIZE == 3
+          assert frozen == list(derive()) == eligible
+          assert 0 < len(eligible) < NOMINAL_BATCH_SIZE
+          assert len(recovery_queue()) == 19
+          assert len(attempts) == 65
+          assert sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 16
+          assert load_material_capability_changes() == []
+
+          for day, reason in frozen:
+              decision = by_day[day]
+              assert decision.candidate_reason == reason
+              assert decision.eligible
+              assert decision.reason == 'INITIAL_ATTEMPT'
+              assert decision.latest_attempt_id is None
+              assert decision.latest_attempt_outcome is None
+
+          ineligible = [
+              (item.target_date, item.candidate_reason)
+              for item in decisions
+              if not item.eligible
+          ]
+          assert len(ineligible) == 16
+          blocked = ineligible[0]
+          attacks = [
+              frozen[:-1],
+              list(reversed(frozen)),
+              [frozen[1], frozen[0], frozen[2]],
+              [frozen[0], frozen[0], frozen[2]],
+              [frozen[0], frozen[1], blocked],
+              [*frozen, blocked],
+              [blocked, *frozen],
+          ]
+          assert all(attack != frozen for attack in attacks)
+          assert all(item not in frozen for item in ineligible)
+          print('PASS: persisted Batch 14 membership is the complete terminal eligible remainder')
+          PY
+
+      - name: Prove byte-stable progression and read-only clean worktree
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch14-persisted-membership.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
