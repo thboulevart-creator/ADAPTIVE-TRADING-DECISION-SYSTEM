@@ -1,0 +1,62 @@
+name: Trading Breaks Recovery Batch 11 Adjudication
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch11-adjudication.yml'
+      - 'tools/trading_breaks_recovery_batch11_adjudication.py'
+      - 'tests/test_trading_breaks_recovery_batch11_adjudication.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  adjudicate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Prove runtime ancestry and no governed mutation
+        run: |
+          git merge-base --is-ancestor 7b5bbef03db35bf954c9a96364dba84d11b2fc94 HEAD
+          git diff --exit-code 7b5bbef03db35bf954c9a96364dba84d11b2fc94 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_protocol.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+      - name: Run offline adjudication tests
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q tests/test_trading_breaks_recovery_batch11_adjudication.py tests/test_trading_breaks_recovery_batch11.py tests/test_trading_breaks_recovery_batch11_execution_contract.py
+      - name: Produce independent adjudication reports
+        run: python -m tools.trading_breaks_recovery_batch11_adjudication
+      - name: Prove no browser or live scheduler path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('tools/trading_breaks_recovery_batch11_adjudication.py').read_text(encoding='utf-8').lower()
+          for token in ('playwright','selenium','eligible_recovery_queue','recovery_queue()','probe_candidate'):
+              assert token not in s, token
+          print('PASS: Batch 11 adjudication is offline and scheduler-free')
+          PY
+      - name: Persist adjudication evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/data-qualification/historical_trading_breaks_recovery_batch11_adjudication.json reports/data-qualification/historical_trading_breaks_recovery_batch11_qualification.md
+          git diff --cached --check
+          git commit -m 'evidence: adjudicate Trading Breaks recovery Batch 11'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
