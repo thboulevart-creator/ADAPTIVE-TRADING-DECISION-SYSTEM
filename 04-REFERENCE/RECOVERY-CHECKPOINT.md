@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — BATCH 12 CLOSED / BATCH 13 MEMBERSHIP SECURED
+# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — BATCH 12 CLOSED / BATCH 13 MEMBERSHIP SECURED / CLAUDE PRIORITIES CLOSED
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`
 Branch: `feat/multi-year-dukascopy-acquisition`
@@ -121,24 +121,113 @@ Independent persisted-membership re-break:
 Batch 13 browser capture: **NOT STARTED**.
 No target-specific observation occurred before or during the freeze/qualification/re-break sequence.
 
-## Claude architectural snapshot remediation status
+## Claude architectural snapshot — immediate-priority remediation status
 
-Three immediate-priority concerns were identified:
+All three immediate priorities identified from the Claude snapshot are now closed at their actual executable loci.
 
-1. recovery/source-of-truth checkpoint drift: **FIXED**;
-2. `RESEARCH → DECISION` provenance/forgeability weakness: **NEXT — PENDING**;
-3. durable CI coverage too tightly coupled to specific branch names: **PENDING AFTER ITEM 2**.
+### 1. Recovery/source-of-truth checkpoint drift — FIXED
 
-The Trading Breaks workstream is now at a safe deterministic boundary: Batch 12 is fully closed and Batch 13 membership is frozen and independently re-broken before observation. Browser capture is deliberately paused while the two remaining Claude priority defects are addressed.
+- recovery state is explicitly checkpointed on the active acquisition branch;
+- Batch 12 closure, Batch 13 frozen membership and continuation boundaries are persisted here;
+- Claude snapshot remains diagnostic only and cannot override repository evidence.
+
+### 2. `RESEARCH → DECISION` provenance / forgeability — FIXED ON EXECUTABLE BRANCH
+
+The acquisition branch does not contain an executable DECISION component, so this defect was correctly remediated on the existing branch where the boundary actually exists:
+
+`feat/decision-producer-contract`
+
+Pre-remediation state:
+
+- previous HEAD: `6eb2a45c2ca66ea75af0f87abe9248e985341448`
+- workflow run/job: `34745928161` / `103693748664`
+- status: **FAIL**
+- root weakness: trust was carried by `_factory_validated` on `ResearchRunEvidence` itself; reconstruction/mutation semantics were not bound to an external attestation of the original object identity/content.
+
+Remediation:
+
+- self-declared `_factory_validated` trust removed from the evidence contract;
+- factory attestation is now process-local and external to the evidence object;
+- attestation binds the exact object identity plus a fingerprint of all seven upstream identity fields: `provenance_id`, `research_run_id`, `code_version`, `configuration_version`, `dataset_id`, `dataset_version`, `context_id`;
+- exact reconstruction, `copy.copy`, `copy.deepcopy`, legacy marker injection, `object.__setattr__`, direct `__dict__` mutation and altered/stale identity all invalidate admissibility;
+- both `produce_decision()` and `ResearchFindings.from_research_run_evidence()` require the bound attestation;
+- no new RESEARCH architecture or persistent registry was introduced.
+
+Primary post-remediation boundary run:
+
+- remediated functional head: `3406f1a32c5c9609e7deda6bf6be21350d64f116`
+- workflow run: `35019496050`
+- complete executable boundary chain: **PASS**.
+
+Independent persisted-HEAD adversarial re-break:
+
+- first verifier run/job: `35019564948` / `104551584450`
+- verdict: **PASS**
+- reconstruction, legacy self-marker, shallow/deep copy, every identity-field mutation, direct dictionary mutation and forged-evidence Findings seeding rejected;
+- verifier permissions: `contents: read`;
+- worktree: clean;
+- verifier mutation: NONE.
+
+Final cross-remediation verifier:
+
+- final verifier head: `c0116d195063c464d602fb699654ac61adc7290c`
+- workflow run/job: `35019876682` / `104552615501`
+- conclusion: **SUCCESS**.
+
+This remediation intentionally remains on `feat/decision-producer-contract`; it is not copied into the Dukascopy acquisition branch, because that branch has no executable DECISION component to patch.
+
+### 3. Durable CI branch-name coupling — FIXED ON EXECUTABLE BOUNDARY BRANCH
+
+The four durable boundary workflows on `feat/decision-producer-contract` were previously tied to historical feature-branch names. They are now branch-neutral and path-scoped:
+
+- `.github/workflows/data-to-context.yml`
+- `.github/workflows/context-to-research-boundary.yml`
+- `.github/workflows/research-findings-contract.yml`
+- `.github/workflows/research-to-decision-boundary.yml`
+
+Current durable CI contract:
+
+- no `branches:` restriction;
+- no `feat/...` branch identity embedded in these four workflows;
+- `push` coverage on any branch when relevant paths change;
+- `pull_request` coverage when relevant paths change;
+- `workflow_dispatch` retained;
+- `permissions: contents: read`;
+- path-scoped to avoid unrelated/document-only executions;
+- pytest pinned to `8.4.2` in the remediated workflows.
+
+Individual workflow proof after conversion:
+
+- DATA → CONTEXT: run `35019658706` — **SUCCESS**;
+- CONTEXT → RESEARCH: run `35019671227` — **SUCCESS**;
+- Research Findings Contract: run `35019685715` — **SUCCESS**;
+- RESEARCH → DECISION plus durable CI anti-regression gate: run/job `35019747006` / `104552186983` — **SUCCESS**.
+
+A durable anti-regression test now fails if any of these four workflows reintroduces a branch-name restriction or `feat/...` coupling.
+
+Independent final read-only re-break:
+
+- verifier head: `c0116d195063c464d602fb699654ac61adc7290c`
+- run/job: `35019876682` / `104552615501`
+- exact final-remediation ancestry and verifier-only delta: PASS;
+- complete executable boundary + CI contracts: PASS;
+- provenance/forgeability attack matrix: PASS;
+- branch-neutral/path-scoped/PR-covered/read-only workflow assertions: PASS;
+- final worktree: clean;
+- verifier mutation: NONE.
+
+Claude immediate-priority status is therefore:
+
+1. source-of-truth checkpoint drift: **FIXED**;
+2. RESEARCH → DECISION provenance/forgeability: **FIXED AND INDEPENDENTLY RE-BROKEN**;
+3. durable CI branch-name coupling: **FIXED AND INDEPENDENTLY RE-BROKEN**.
 
 ## Governing continuation rule
 
-Do not start Batch 13 browser observation while the architecture-remediation block is active. Batch 13 membership is already immutable and may be resumed later from this checkpoint without reselection.
+The architecture-remediation pause is lifted. Resume Trading Breaks from the already frozen Batch 13 membership. Do not recompute, reselect, reorder, substitute or otherwise mutate its five targets after the now-completed architecture work.
 
 ## Exactly one next governed action
 
-**Audit and remediate the current executable `RESEARCH → DECISION` boundary against the actual repository state. Identify the smallest forgeability/provenance weakness still executable now, fix only that boundary, then adversarially break fallback, silent reconstruction, `context_id`-only acceptance, mismatched/stale research identity and any equivalent bypass. Do not build new RESEARCH architecture.**
-
-Only after this boundary reaches a defensible PASS should the second Claude priority — durable CI branch-coupling coverage — be remediated.
+**Execute Batch 13 browser capture using only the five already frozen targets, under the existing pre-browser gates and unchanged capability fingerprint, with no reselection or membership mutation. Stop before independent adjudication unless the capture stage itself is fully PASS and its artifact/provenance are available.**
 
 No `.bi5`. No real backtest.
