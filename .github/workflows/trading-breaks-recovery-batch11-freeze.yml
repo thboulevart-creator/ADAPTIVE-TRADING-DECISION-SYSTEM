@@ -1,0 +1,31 @@
+name: Batch 11 Freeze Qualification
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths: ['.github/workflows/trading-breaks-recovery-batch11-freeze.yml']
+permissions:
+  contents: read
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch11 import derive
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue
+          e=eligible_recovery_queue(); f=list(derive())
+          assert f == e[:5] and len(f) == 5
+          attacks=[e[1:6],[f[1],f[0],*f[2:]],[*f[:-1],e[5]],f[:-1],[*f,e[5]],[f[0],f[0],*f[2:]]]
+          assert all(a != f for a in attacks)
+          print('PASS: Batch 11 exact governed prefix and selection attacks rejected')
+          for i,(d,r) in enumerate(f,1): print(f'{i}: {d.isoformat()} — {r}')
+          PY
