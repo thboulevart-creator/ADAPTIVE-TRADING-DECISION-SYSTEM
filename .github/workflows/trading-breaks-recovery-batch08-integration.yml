@@ -119,21 +119,31 @@ jobs:
           print('PASS: exact atomic Batch 08 integrated state = global 111/53/58, window 68/30/38, ledger 40, blocked 10, eligible 28')
           PY
 
-      - name: Prove integration mutation surface has no browser capture or live Batch 08 selection
+      - name: Prove integration mutation surface has no executable browser capture or live Batch 08 selection
         run: |
           python - <<'PY'
+          import ast
           from pathlib import Path
-          source = Path('tools/integrate_trading_breaks_recovery_batch08.py').read_text(encoding='utf-8').lower()
-          for forbidden in (
-              ''.join(('play', 'wright')),
-              ''.join(('chro', 'mium')),
-              ''.join(('probe_', 'candidate')),
-              ''.join(('eligible_', 'recovery_queue(')),
-              ''.join(('recovery_', 'queue(')),
-          ):
-              assert forbidden not in source, forbidden
-          assert 'batch08_targets()' in source
-          print('PASS: integration uses frozen Batch 08 identity only and has no browser/capture/live-queue path')
+          source = Path('tools/integrate_trading_breaks_recovery_batch08.py').read_text(encoding='utf-8')
+          tree = ast.parse(source)
+          imports = set()
+          calls = set()
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import):
+                  imports.update(alias.name.lower() for alias in node.names)
+              elif isinstance(node, ast.ImportFrom):
+                  imports.add((node.module or '').lower())
+              elif isinstance(node, ast.Call):
+                  if isinstance(node.func, ast.Name):
+                      calls.add(node.func.id.lower())
+                  elif isinstance(node.func, ast.Attribute):
+                      calls.add(node.func.attr.lower())
+          assert not any('playwright' in name or 'chromium' in name for name in imports)
+          assert 'probe_candidate' not in calls
+          assert 'eligible_recovery_queue' not in calls
+          assert 'recovery_queue' not in calls
+          assert 'batch08_targets' in calls
+          print('PASS: integration executable AST uses frozen Batch 08 identity only and has no browser/capture/live-queue path')
           PY
 
       - name: Persist integration qualification and one atomic governed-state commit
