@@ -1,13 +1,6 @@
 name: Trading Breaks Recovery Batch 06 Independent Adjudication
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch06-adjudication.yml'
-      - 'tools/trading_breaks_recovery_batch06_adjudication.py'
-      - 'tests/test_trading_breaks_recovery_batch06_adjudication.py'
   workflow_dispatch:
 
 permissions:
