@@ -18,6 +18,9 @@ def test_authoritative_batch14_runtime_adjudicates_2_pass_1_blocked_0_fail():
     assert report['verdict'] == 'PASS'
     assert (report['attempted'], report['pass'], report['blocked'], report['fail']) == (3, 2, 1, 0)
     assert [item['verdict'] for item in report['adjudications']] == ['PASS', 'BLOCKED', 'PASS']
+    assert [item['target_date'] for item in report['adjudications']] == [
+        '2026-06-19', '2026-07-02', '2026-07-03'
+    ]
 
 
 def test_exact_terminal_records_pass():
@@ -35,14 +38,20 @@ def test_exact_terminal_records_pass():
         assert item['dom_witness_present'] is True
 
 
-def test_pre_holiday_without_positive_record_remains_blocked():
+def test_pre_holiday_without_positive_record_remains_target_bound_blocked():
     item = adjudicate_runtime(_runtime())['adjudications'][1]
+    assert item['target_date'] == '2026-07-02'
+    assert item['candidate_reason'] == 'INDEPENDENCE_PRE_HOLIDAY_SESSION'
     assert item['capture_verdict'] == 'BLOCKED'
     assert item['capture_reason'] == 'NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED'
     assert item['verdict'] == 'BLOCKED'
     assert item['reason'] == 'NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED'
     assert item['broker_record_id'] is None
     assert item['dom_witness_present'] is False
+    assert item['workflow_run'] == 35023845609
+    assert item['artifact_id'] == 10418961548
+    assert item['artifact_sha256'] == '00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910'
+    assert item['probe_commit'] == '4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b'
 
 
 def test_frozen_membership_tampering_is_rejected():
