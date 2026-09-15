@@ -54,7 +54,14 @@
       "capture_reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED",
       "broker_record_id": null,
       "broker_reason": null,
-      "dom_witness_present": false
+      "dom_witness_present": false,
+      "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+      "target_date": "2026-07-02",
+      "candidate_reason": "INDEPENDENCE_PRE_HOLIDAY_SESSION",
+      "workflow_run": 35023845609,
+      "artifact_id": 10418961548,
+      "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+      "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b"
     },
     {
       "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
