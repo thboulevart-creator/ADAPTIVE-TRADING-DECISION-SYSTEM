@@ -65,7 +65,7 @@ jobs:
           print('PASS: Batch 14 adjudication is offline, immutable-membership, and scheduler-free')
           PY
 
-      - name: Persist adjudication evidence
+      - name: Persist adjudication evidence idempotently
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
@@ -73,5 +73,9 @@ jobs:
             reports/data-qualification/historical_trading_breaks_recovery_batch14_adjudication.json \
             reports/data-qualification/historical_trading_breaks_recovery_batch14_qualification.md
           git diff --cached --check
-          git commit -m 'evidence: persist Trading Breaks recovery Batch 14 adjudication'
-          git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence: persist Trading Breaks recovery Batch 14 adjudication'
+            git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          else
+            echo 'PASS: adjudication evidence already persisted byte-for-byte'
+          fi
