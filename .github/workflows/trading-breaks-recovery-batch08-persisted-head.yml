@@ -11,6 +11,9 @@ on:
 permissions:
   contents: read
 
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
 jobs:
   rebreak-batch08-persisted-head:
     runs-on: ubuntu-latest
