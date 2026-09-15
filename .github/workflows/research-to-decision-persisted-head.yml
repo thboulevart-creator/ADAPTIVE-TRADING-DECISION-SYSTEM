@@ -1,0 +1,144 @@
+name: Research to Decision Persisted HEAD Re-break
+
+on:
+  push:
+    paths:
+      - '.github/workflows/research-to-decision-persisted-head.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove remediated boundary ancestry and verifier-only delta
+        run: |
+          git merge-base --is-ancestor 3406f1a32c5c9609e7deda6bf6be21350d64f116 HEAD
+          test "$(git diff --name-only 3406f1a32c5c9609e7deda6bf6be21350d64f116 HEAD)" = ".github/workflows/research-to-decision-persisted-head.yml"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-run complete executable boundary chain
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_research_to_decision_boundary.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_reader_adversarial.py \
+            tests/test_context_research_alternative_paths.py
+
+      - name: Re-break reconstruction marker copy and every identity field
+        run: |
+          python - <<'PY'
+          import copy
+          from dataclasses import fields
+
+          from src.decision import produce_decision
+          from src.research_findings import (
+              ResearchFinding,
+              ResearchFindings,
+              ResearchHypothesis,
+              ResearchMeasurement,
+          )
+          from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
+          from tests.test_research_to_decision_boundary import coherent_inputs, reconstruct
+
+          evidence, context = coherent_inputs()
+          assert is_factory_attested(evidence)
+          assert produce_decision(evidence, context=context, decision='HOLD').research_run_id == evidence.research_run_id
+
+          forged = reconstruct(evidence)
+          assert forged == evidence and forged is not evidence
+          assert not is_factory_attested(forged)
+          try:
+              produce_decision(forged, context=context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('exact reconstruction bypassed decision boundary')
+
+          object.__setattr__(forged, '_factory_validated', True)
+          assert not is_factory_attested(forged)
+          try:
+              produce_decision(forged, context=context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('legacy self-attestation marker bypassed boundary')
+
+          for copier in (copy.copy, copy.deepcopy):
+              candidate = copier(evidence)
+              assert candidate is not evidence
+              assert not is_factory_attested(candidate)
+              try:
+                  produce_decision(candidate, context=context, decision='HOLD')
+              except ValueError:
+                  pass
+              else:
+                  raise AssertionError(f'{copier.__name__} bypassed boundary')
+
+          identity_fields = [field.name for field in fields(ResearchRunEvidence)]
+          expected_fields = {
+              'provenance_id', 'research_run_id', 'code_version',
+              'configuration_version', 'dataset_id', 'dataset_version', 'context_id'
+          }
+          assert set(identity_fields) == expected_fields
+
+          for field_name in identity_fields:
+              candidate, candidate_context = coherent_inputs()
+              original = getattr(candidate, field_name)
+              object.__setattr__(candidate, field_name, f'{original}-FORGED')
+              assert not is_factory_attested(candidate), field_name
+              try:
+                  produce_decision(candidate, context=candidate_context, decision='HOLD')
+              except ValueError:
+                  pass
+              else:
+                  raise AssertionError(f'identity mutation bypassed decision boundary: {field_name}')
+
+          candidate, candidate_context = coherent_inputs()
+          candidate.__dict__['research_run_id'] = 'RUN-DICT-FORGED'
+          assert not is_factory_attested(candidate)
+          try:
+              produce_decision(candidate, context=candidate_context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('__dict__ mutation bypassed decision boundary')
+
+          hypothesis = ResearchHypothesis('H1', 's', 'p', 'f')
+          measurement = ResearchMeasurement('M1', 'R', 'E', 'metric', 1.0, 1, 'scope')
+          finding = ResearchFinding('F1', 'H1', 's', ('M1',), 'SUPPORTED', 'rule', 'reason')
+          unattested = reconstruct(evidence)
+          try:
+              ResearchFindings.from_research_run_evidence(
+                  unattested,
+                  hypotheses=(hypothesis,),
+                  measurements=(measurement,),
+                  findings=(finding,),
+              )
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('unattested evidence seeded ResearchFindings')
+
+          print('PASS: reconstruction, copied evidence, self-marker, all identity mutations, and findings seeding rejected')
+          PY
+
+      - name: Prove read-only clean worktree
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
