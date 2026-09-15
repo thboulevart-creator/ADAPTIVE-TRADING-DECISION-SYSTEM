@@ -1,0 +1,15 @@
+from datetime import date
+
+BATCH_CONTRACT = 'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH11_POLICY_V1'
+BATCH_SIZE = 5
+FROZEN_BATCH11_TARGETS = (
+    (date(2025, 5, 26), 'MEMORIAL_DAY'),
+    (date(2025, 6, 19), 'JUNETEENTH_OBSERVED'),
+    (date(2025, 7, 3), 'INDEPENDENCE_PRE_HOLIDAY_SESSION'),
+    (date(2025, 7, 4), 'INDEPENDENCE_DAY_OBSERVED'),
+    (date(2025, 9, 1), 'LABOR_DAY'),
+)
+
+
+def batch11_targets():
+    return list(FROZEN_BATCH11_TARGETS)
