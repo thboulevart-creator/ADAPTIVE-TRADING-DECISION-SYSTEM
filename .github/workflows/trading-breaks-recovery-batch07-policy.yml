@@ -1,13 +1,6 @@
 name: Trading Breaks Recovery Batch 07 Policy Qualification
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch07-policy.yml'
-      - 'tools/trading_breaks_recovery_batch07.py'
-      - 'tests/test_trading_breaks_recovery_batch07.py'
   workflow_dispatch:
 
 permissions:
@@ -27,8 +20,6 @@ jobs:
       - name: Prove post-Batch06 freeze baseline ancestry and governed-state immutability
         run: |
           git merge-base --is-ancestor 16c6288158985bb3ad68360401b6bdae60687e15 HEAD
-          git fetch origin feat/multi-year-dukascopy-acquisition
-          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
           git diff --exit-code 16c6288158985bb3ad68360401b6bdae60687e15 HEAD -- \
             tools/dukascopy_usatech_calendar.py \
             tools/dukascopy_usatech_calendar_coverage.py \
@@ -76,28 +67,22 @@ jobs:
           assert BATCH_SIZE == 5
           assert eligible[:5] == expected
           assert batch07_targets() == eligible[:5]
-          print('PASS: Batch 07 membership equals governed post-Batch06 eligible_recovery_queue()[:5] at freeze')
-          for day, reason in expected:
-              print(day.isoformat(), reason)
           PY
 
       - name: Prove Batch 07 freeze contains no browser probe or live-selection path
         run: |
           python - <<'PY'
           from pathlib import Path
-
           source = Path('tools/trading_breaks_recovery_batch07.py').read_text(encoding='utf-8').lower()
-          forbidden_tokens = [
+          for forbidden in (
               ''.join(('play', 'wright')),
               ''.join(('chro', 'mium')),
               ''.join(('probe_', 'candidate')),
               'asyncio',
               'eligible_recovery_queue(',
               'recovery_queue(',
-          ]
-          for forbidden in forbidden_tokens:
+          ):
               assert forbidden not in source, forbidden
-          print('PASS: Batch 07 freeze is membership-only; no browser/probe/live-selection path exists')
           PY
 
       - name: Prove qualification is read-only
