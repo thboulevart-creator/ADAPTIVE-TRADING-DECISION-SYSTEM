@@ -79,6 +79,20 @@ def _validate_runtime_identity(runtime: dict[str, Any]) -> dict[str, Any]:
     return provenance
 
 
+def _bind_target_identity(
+    item: dict[str, Any], target_day, candidate_reason: str, provenance: dict[str, Any]
+) -> dict[str, Any]:
+    bound = dict(item)
+    bound.setdefault('schema', RECOVERY_PROTOCOL)
+    bound.setdefault('target_date', target_day.isoformat())
+    bound.setdefault('candidate_reason', candidate_reason)
+    bound.setdefault('workflow_run', provenance['workflow_run'])
+    bound.setdefault('artifact_id', provenance['artifact_id'])
+    bound.setdefault('artifact_sha256', provenance['artifact_sha256'])
+    bound.setdefault('probe_commit', provenance['probe_commit'])
+    return bound
+
+
 def adjudicate_runtime(runtime: dict[str, Any]) -> dict[str, Any]:
     provenance = _validate_runtime_identity(runtime)
     results = runtime.get('results')
@@ -86,10 +100,11 @@ def adjudicate_runtime(runtime: dict[str, Any]) -> dict[str, Any]:
         raise ValueError('RESULT_COUNT_MISMATCH')
 
     expected_targets = batch14_targets()
-    adjudications = [
-        _adjudicate_one(raw, day, reason, provenance, expected_targets)
-        for raw, (day, reason) in zip(results, expected_targets, strict=True)
-    ]
+    adjudications = []
+    for raw, (day, reason) in zip(results, expected_targets, strict=True):
+        item = _adjudicate_one(raw, day, reason, provenance, expected_targets)
+        adjudications.append(_bind_target_identity(item, day, reason, provenance))
+
     counts = {
         verdict: sum(item.get('verdict') == verdict for item in adjudications)
         for verdict in ('PASS', 'BLOCKED', 'FAIL')
