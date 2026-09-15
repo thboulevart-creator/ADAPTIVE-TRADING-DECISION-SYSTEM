@@ -1,0 +1,76 @@
+name: Batch 12 Freeze Qualification
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths: ['.github/workflows/trading-breaks-recovery-batch12-freeze.yml']
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - name: Prove freeze baseline ancestry and freeze-only delta
+        run: |
+          git merge-base --is-ancestor e6dfa007979975a626a464c8132893f71e5f7f4a HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --name-only e6dfa007979975a626a464c8132893f71e5f7f4a HEAD | sort >/tmp/actual
+          printf '%s\n' \
+            '.github/workflows/trading-breaks-recovery-batch12-freeze.yml' \
+            '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH12-POLICY.md' \
+            'tests/test_trading_breaks_recovery_batch12.py' \
+            'tools/freeze_trading_breaks_recovery_batch12.py' \
+            'tools/trading_breaks_recovery_batch12.py' | sort >/tmp/expected
+          diff -u /tmp/expected /tmp/actual
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run governed and adversarial regression
+        run: |
+          python -m pip install pytest==8.4.2
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+      - name: Prove exact mechanical Batch 12 prefix and reject selection attacks
+        run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch12 import derive
+          from tools.trading_breaks_recovery_batch12 import batch12_targets
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue
+
+          eligible = eligible_recovery_queue()
+          frozen = batch12_targets()
+          derived = list(derive())
+
+          assert len(eligible) == 13
+          assert frozen == derived == eligible[:5]
+          assert len(frozen) == 5
+
+          attacks = [
+              eligible[1:6],
+              [frozen[1], frozen[0], *frozen[2:]],
+              [*frozen[:-1], eligible[5]],
+              frozen[:-1],
+              [*frozen, eligible[5]],
+              [frozen[0], frozen[0], *frozen[2:]],
+          ]
+          assert all(attack != frozen for attack in attacks)
+
+          print('PASS: Batch 12 exact governed prefix and selection attacks rejected')
+          for i, (day, reason) in enumerate(frozen, 1):
+              print(f'{i}: {day.isoformat()} — {reason}')
+          PY
+      - name: Prove qualification is read-only
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
