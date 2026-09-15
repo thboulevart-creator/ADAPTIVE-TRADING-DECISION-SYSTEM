@@ -27,7 +27,7 @@ BLOCKED_DAYS = {date(2024, 3, 29)}
 ALL_BLOCKED = {
     date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15), date(2022, 7, 1),
     date(2022, 12, 26), date(2023, 1, 2), date(2023, 7, 4), date(2023, 12, 25),
-    date(2024, 1, 1), date(2024, 3, 29),
+    date(2024, 1, 1), date(2024, 3, 29), date(2024, 12, 25),
 }
 
 
@@ -61,7 +61,7 @@ def test_batch08_calendar_integrates_only_four_pass_dates():
 def test_batch08_attempt_ledger_records_all_five_factual_attempts():
     _, _, attempts = load_attempt_ledger()
     batch08 = [item for item in attempts if item.attempt_id.startswith("batch08:")]
-    assert len(attempts) == 40
+    assert len(attempts) == 45
     assert [item.attempt_sequence for item in batch08] == [36, 37, 38, 39, 40]
     assert [item.target_date for item in batch08] == [day for day, _ in EXPECTED_BATCH08]
     assert [item.outcome for item in batch08] == ["BLOCKED", "PASS", "PASS", "PASS", "PASS"]
@@ -87,13 +87,13 @@ def test_batch08_postintegration_progression_state_is_exact_and_non_starving():
     decisions = progression_decisions()
     eligible = eligible_recovery_queue()
     _, _, attempts = load_attempt_ledger()
-    assert len(recovery_queue()) == len(decisions) == 38
-    assert len(attempts) == 40
+    assert len(recovery_queue()) == len(decisions) == 34
+    assert len(attempts) == 45
     assert load_material_capability_changes() == []
-    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 10
-    assert len(eligible) == 28
+    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 11
+    assert len(eligible) == 23
     assert eligible == sorted(eligible, key=lambda item: item[0])
-    assert eligible[0] == (date(2024, 9, 2), "LABOR_DAY")
+    assert eligible[0] == (date(2024, 12, 31), "NEW_YEARS_EVE_CANDIDATE")
 
 
 def test_batch08_freeze_provenance_remains_historical_truth_after_integration():

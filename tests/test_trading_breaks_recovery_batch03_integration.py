@@ -10,24 +10,24 @@ from tools.trading_breaks_recovery_progression import (
 from tools.trading_breaks_recovery_protocol import recovery_queue
 
 
-def test_batch03_integrated_evidence_remains_valid_in_post_batch08_state():
+def test_batch03_integrated_evidence_remains_valid_in_post_batch09_state():
     global_report = audit_calendar_coverage()
     window_report = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
     assert global_report["candidate_dates"] == 111
-    assert global_report["resolved_candidate_dates"] == 53
-    assert global_report["unresolved_candidate_dates"] == 58
+    assert global_report["resolved_candidate_dates"] == 57
+    assert global_report["unresolved_candidate_dates"] == 54
     assert global_report["evidence_shape_errors"] == []
     assert global_report["orphan_special_evidence"] == []
     assert global_report["contradictory_evidence_dates"] == []
     assert window_report["candidate_dates"] == 68
-    assert window_report["resolved_candidate_dates"] == 30
-    assert window_report["unresolved_candidate_dates"] == 38
+    assert window_report["resolved_candidate_dates"] == 34
+    assert window_report["unresolved_candidate_dates"] == 34
 
 
-def test_batch03_attempt_history_remains_preserved_post_batch08():
+def test_batch03_attempt_history_remains_preserved_post_batch09():
     _, _, attempts = load_attempt_ledger()
     batch03 = [item for item in attempts if item.attempt_id.startswith("batch03:")]
-    assert len(attempts) == 40
+    assert len(attempts) == 45
     assert [item.attempt_sequence for item in batch03] == [11, 12, 13, 14, 15]
     assert [item.outcome for item in batch03] == ["PASS", "PASS", "BLOCKED", "PASS", "PASS"]
     assert load_material_capability_changes() == []

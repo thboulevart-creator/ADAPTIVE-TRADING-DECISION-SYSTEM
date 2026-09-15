@@ -48,10 +48,10 @@ def good_evidence() -> RecoveryEvidence:
     )
 
 
-def test_queue_scope_sorted_and_has_38_unresolved_candidates_after_batch08():
+def test_queue_scope_sorted_and_has_34_unresolved_candidates_after_batch09():
     queue = recovery_queue()
     days = [day for day, _ in queue]
-    assert len(queue) == 38
+    assert len(queue) == 34
     assert days == sorted(days)
     assert days[0] == date(2021, 12, 24)
     assert days[-1] == date(2026, 7, 3)

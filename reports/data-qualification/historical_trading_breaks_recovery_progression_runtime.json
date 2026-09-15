@@ -2,13 +2,13 @@
   "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1",
   "verdict": "PASS",
   "reason": "ATTEMPT_AWARE_PROGRESSION_STATE_IS_DETERMINISTIC_AND_NON_STARVING",
-  "calendar_unresolved_count": 38,
-  "attempt_ledger_count": 40,
+  "calendar_unresolved_count": 34,
+  "attempt_ledger_count": 45,
   "registered_material_capability_change_count": 0,
   "current_capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
   "current_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-  "attempted_blocked_ineligible_count": 10,
-  "eligible_initial_or_retry_count": 28,
+  "attempted_blocked_ineligible_count": 11,
+  "eligible_initial_or_retry_count": 23,
   "decisions": [
     {
       "target_date": "2021-12-24",
@@ -121,58 +121,14 @@
       "contract_verdict": "PASS"
     },
     {
-      "target_date": "2024-09-02",
-      "candidate_reason": "LABOR_DAY",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
-      "target_date": "2024-11-28",
-      "candidate_reason": "THANKSGIVING_DAY",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
-      "target_date": "2024-11-29",
-      "candidate_reason": "THANKSGIVING_FRIDAY",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
-      "target_date": "2024-12-24",
-      "candidate_reason": "CHRISTMAS_PRE_HOLIDAY_SESSION",
-      "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
-      "contract_verdict": "PASS"
-    },
-    {
       "target_date": "2024-12-25",
       "candidate_reason": "CHRISTMAS_OBSERVED",
       "calendar_state": "UNRESOLVED",
-      "latest_attempt_id": null,
-      "latest_attempt_outcome": null,
-      "latest_capability_fingerprint": null,
-      "eligible": true,
-      "reason": "INITIAL_ATTEMPT",
+      "latest_attempt_id": "batch09:2024-12-25",
+      "latest_attempt_outcome": "BLOCKED",
+      "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
+      "eligible": false,
+      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
       "contract_verdict": "PASS"
     },
     {

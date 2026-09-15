@@ -1077,6 +1077,106 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch08_qualification.md"
         ),
     },
+    date(2024, 9, 2): {
+        "reason": "SPECIAL_LABOR_DAY_2024",
+        # Exact broker-native Trading Breaks record 70878.
+        # Start 2024-09-02T16:59:59Z; final closed instant 2024-09-02T21:59:59Z;
+        # protocol-derived reopen 2024-09-02T22:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "70878",
+        "broker_reason": "Labor Day",
+        "artifact_id": 10406357435,
+        "artifact_sha256": "dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc",
+        "probe_commit": "0b5dedf6028add27040af112d0bceef76be25827",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1725235200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34993614373"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch09_qualification.md"
+        ),
+    },
+    date(2024, 11, 28): {
+        "reason": "SPECIAL_THANKSGIVING_DAY_2024",
+        # Exact broker-native Trading Breaks record 72887.
+        # Start 2024-11-28T17:59:59Z; final closed instant 2024-11-28T22:59:59Z;
+        # protocol-derived reopen 2024-11-28T23:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "72887",
+        "broker_reason": "Thanksgiving Day",
+        "artifact_id": 10406357435,
+        "artifact_sha256": "dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc",
+        "probe_commit": "0b5dedf6028add27040af112d0bceef76be25827",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1732752000000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34993614373"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch09_qualification.md"
+        ),
+    },
+    date(2024, 11, 29): {
+        "reason": "SPECIAL_THANKSGIVING_FRIDAY_2024",
+        # Exact broker-native Trading Breaks record 72888.
+        # Start 2024-11-29T18:14:59Z; final closed instant 2024-12-01T22:59:59Z;
+        # protocol-derived reopen 2024-12-01T23:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "broker_record_id": "72888",
+        "broker_reason": "Thanksgiving Day",
+        "artifact_id": 10406357435,
+        "artifact_sha256": "dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc",
+        "probe_commit": "0b5dedf6028add27040af112d0bceef76be25827",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1732838400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34993614373"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch09_qualification.md"
+        ),
+    },
+    date(2024, 12, 24): {
+        "reason": "SPECIAL_CHRISTMAS_PRE_HOLIDAY_SESSION_2024",
+        # Exact broker-native Trading Breaks record 74339.
+        # Start 2024-12-24T18:14:59Z; final closed instant 2024-12-25T22:59:59Z;
+        # protocol-derived reopen 2024-12-25T23:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(19, 24)),
+        "broker_record_id": "74339",
+        "broker_reason": "Christmas",
+        "artifact_id": 10406357435,
+        "artifact_sha256": "dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc",
+        "probe_commit": "0b5dedf6028add27040af112d0bceef76be25827",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1734998400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34993614373"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch09_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the
