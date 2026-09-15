@@ -15,7 +15,7 @@ import json
 from dataclasses import dataclass
 
 from src.context import Context
-from src.research_run_evidence import ResearchRunEvidence
+from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
 
 
 @dataclass(frozen=True)
@@ -61,8 +61,10 @@ def produce_decision(
         raise ValueError("RESEARCH -> DECISION requires a Context")
     if not isinstance(context, Context):
         raise ValueError("RESEARCH -> DECISION requires the full Context object")
-    if not evidence._factory_validated:
-        raise ValueError("RESEARCH -> DECISION requires evidence produced by the V4.3 evidence factory")
+    if not is_factory_attested(evidence):
+        raise ValueError(
+            "RESEARCH -> DECISION requires factory-attested, identity-bound ResearchRunEvidence"
+        )
     if evidence.context_id != context.context_id:
         raise ValueError("RESEARCH -> DECISION context mismatch")
     if evidence.configuration_version != context.configuration_version:
