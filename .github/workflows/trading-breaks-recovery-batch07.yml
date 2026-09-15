@@ -1,12 +1,6 @@
 name: Trading Breaks Recovery Batch 07
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch07.yml'
-      - 'tools/trading_breaks_recovery_batch07_execute.py'
   workflow_dispatch:
 
 permissions:
@@ -77,7 +71,6 @@ jobs:
           python - <<'PY'
           from datetime import date
           from tools.trading_breaks_recovery_batch07 import BATCH_SIZE, CURRENT_CAPABILITY_FINGERPRINT, CURRENT_CAPABILITY_ID, batch07_targets
-
           expected = [
               (date(2023, 12, 22), 'CHRISTMAS_PRE_HOLIDAY_SESSION'),
               (date(2023, 12, 25), 'CHRISTMAS_OBSERVED'),
@@ -97,11 +90,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           source = Path('tools/trading_breaks_recovery_batch07_execute.py').read_text(encoding='utf-8').lower()
-          forbidden_calls = [
-              ''.join(('eligible_', 'recovery_queue(')),
-              ''.join(('recovery_', 'queue(')),
-          ]
-          for forbidden in forbidden_calls:
+          for forbidden in (''.join(('eligible_', 'recovery_queue(')), ''.join(('recovery_', 'queue('))):
               assert forbidden not in source, forbidden
           assert 'batch07_targets()' in source
           assert 'capture.probe_candidate' in source
