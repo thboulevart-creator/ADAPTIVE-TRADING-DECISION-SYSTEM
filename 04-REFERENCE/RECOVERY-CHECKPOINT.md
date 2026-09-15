@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — TRADING BREAKS BATCH 06 MEMBERSHIP PASS
+# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — TRADING BREAKS BATCH 06 EXECUTION + ADJUDICATION PASS
 
 ## 1. CURRENT AUTHORITATIVE STATE
 
@@ -18,43 +18,36 @@
 - **Recovery Batch 04:** PASS (`3 PASS / 2 BLOCKED / 0 FAIL`) and atomically integrated + persisted-HEAD re-break PASS
 - **Recovery Batch 05:** PASS (`5 PASS / 0 BLOCKED / 0 FAIL`) and atomically integrated + persisted-HEAD re-break PASS
 - **Recovery Batch 06 membership:** PASS — immutable and frozen before observation
-- **Recovery Batch 06 execution/adjudication:** NOT YET PERFORMED
-- **Historical attempt ledger entries:** `25`
+- **Recovery Batch 06 execution/adjudication:** PASS (`4 PASS / 1 BLOCKED / 0 FAIL`)
+- **Recovery Batch 06 integration:** NOT YET APPLIED
+- **Historical attempt ledger entries persisted:** `25` — pre-Batch06 integration
 - **Registered material capability changes:** `0`
-- **Attempted BLOCKED / execution-ineligible:** `6`
-- **Execution-eligible unresolved:** `43`
+- **Persisted attempted BLOCKED / execution-ineligible:** `6` — pre-Batch06 integration
+- **Persisted execution-eligible unresolved:** `43` — **STALE FOR FUTURE SCHEDULING UNTIL BATCH06 INTEGRATION**
 - **Current semantic capability:** `TRADING_BREAKS_PRIMARY_WIDGET_V1`
 - **Capability fingerprint:** `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
 - **Massive native `.bi5` acquisition:** FORBIDDEN
 - **Real backtest:** NOT authorized
 
-Authoritative post-Batch05 atomic integration commit:
+Authoritative Batch 06 execution runtime commit:
 
-`99c2f38842a0c4ea66ba6ff90496380986d02e52`
+`b50529991d9af6e27170090bd45b42eb751d0958`
 
-Authoritative post-Batch05 persisted-HEAD verification commit:
+Authoritative Batch 06 adjudication commit:
 
-`70428e536689793a74420d35c84744b8ad0f2f3d`
-
-Batch 06 pre-freeze checkpoint:
-
-`289d7f4432efba4ad2bc1e97d5b23f14f587019e`
+`874f8fe2c809d1f3c1442ba61aaabb4056a03e3d`
 
 Latest durable backup:
 
-`99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH06-MEMBERSHIP-PASS.md`
+`99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH06-ADJUDICATION-PASS.md`
 
 Backup commit:
 
-`b90b03f83b7f282b2814291b074a28206b3fffd0`
+`c609f837707f6e3822eab56af2384e91cbb7cf4d`
 
 Current boundary report update commit:
 
-`8c7fbb7adf5597894708af0cdb5f08775b11c69c`
-
-Final Batch 06 policy commit:
-
-`ec38cb44d36a579fc8a7d995a2099a3bef337c58`
+`158a3d55841ba2cb5bc8f4cbd00aac0daf6eed83`
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -62,41 +55,39 @@ Before substantive continuation:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH06-MEMBERSHIP-PASS.md`
+3. `99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH06-ADJUDICATION-PASS.md`
 4. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
 5. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH06-POLICY.md`
 6. `reports/data-qualification/historical_trading_breaks_recovery_batch06_policy_qualification.md`
-7. `tools/trading_breaks_recovery_batch06.py`
-8. `tests/test_trading_breaks_recovery_batch06.py`
-9. `reports/data-qualification/historical_trading_breaks_recovery_batch05_integration_qualification.md`
-10. `reports/data-qualification/historical_trading_breaks_recovery_batch05_adjudication.json`
-11. `reports/data-qualification/historical_trading_breaks_recovery_batch05_runtime.json`
-12. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH05-POLICY.md`
-13. `tools/trading_breaks_recovery_batch05.py`
-14. `tools/trading_breaks_recovery_batch05_adjudication.py`
+7. `reports/data-qualification/historical_trading_breaks_recovery_batch06_runtime.json`
+8. `reports/data-qualification/historical_trading_breaks_recovery_batch06_adjudication.json`
+9. `reports/data-qualification/historical_trading_breaks_recovery_batch06_qualification.md`
+10. `tools/trading_breaks_recovery_batch06.py`
+11. `tools/trading_breaks_recovery_batch06_execute.py`
+12. `tools/trading_breaks_recovery_batch06_adjudication.py`
+13. `tests/test_trading_breaks_recovery_batch06.py`
+14. `tests/test_trading_breaks_recovery_batch06_adjudication.py`
 15. `tools/integrate_trading_breaks_recovery_batch05.py`
-16. `tests/test_trading_breaks_recovery_batch05.py`
-17. `tests/test_trading_breaks_recovery_batch05_adjudication.py`
-18. `tests/test_trading_breaks_recovery_batch05_integration_contract.py`
-19. `tests/test_trading_breaks_recovery_batch05_integration.py`
-20. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-21. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-22. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-23. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-24. `tools/trading_breaks_recovery_progression.py`
-25. `tests/test_trading_breaks_recovery_progression.py`
-26. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
-27. `tools/trading_breaks_recovery_protocol.py`
-28. `tests/test_trading_breaks_recovery_protocol.py`
-29. `tools/dukascopy_usatech_calendar.py`
-30. `tools/dukascopy_usatech_calendar_coverage.py`
-31. `tests/test_dukascopy_usatech_calendar_coverage.py`
-32. `tests/test_coverage_execution_window_boundary.py`
-33. compare active branch HEAD against the commit containing this checkpoint before any write.
+16. `tests/test_trading_breaks_recovery_batch05_integration_contract.py`
+17. `tests/test_trading_breaks_recovery_batch05_integration.py`
+18. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
+19. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
+20. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
+21. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
+22. `tools/trading_breaks_recovery_progression.py`
+23. `tests/test_trading_breaks_recovery_progression.py`
+24. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
+25. `tools/trading_breaks_recovery_protocol.py`
+26. `tests/test_trading_breaks_recovery_protocol.py`
+27. `tools/dukascopy_usatech_calendar.py`
+28. `tools/dukascopy_usatech_calendar_coverage.py`
+29. `tests/test_dukascopy_usatech_calendar_coverage.py`
+30. `tests/test_coverage_execution_window_boundary.py`
+31. compare active branch HEAD against the commit containing this checkpoint before any write.
 
 GitHub/checkpoint is the source of truth. Do not reconstruct state from conversation.
 
-## 3. BATCH 06 MEMBERSHIP IS NOW IMMUTABLE
+## 3. BATCH 06 MEMBERSHIP REMAINS IMMUTABLE
 
 Fixed size:
 
@@ -106,10 +97,6 @@ Selection rule:
 
 `FIRST_N_OF_GOVERNED_ELIGIBLE_RECOVERY_QUEUE_AT_FREEZE`
 
-Historical freeze-time assertion:
-
-`batch06_targets() == eligible_recovery_queue()[:5]`
-
 Frozen membership:
 
 1. `2023-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
@@ -118,173 +105,180 @@ Frozen membership:
 4. `2023-11-23 — THANKSGIVING_DAY`
 5. `2023-11-24 — THANKSGIVING_FRIDAY`
 
-These identities and this order MUST NOT be recalculated, substituted, reordered, expanded, shortened or rewritten after outcomes become knowable.
+These identities and this order MUST NOT be recalculated, substituted, reordered, expanded, shortened or rewritten.
 
-At execution time the target set MUST come only from immutable `batch06_targets()` / `FROZEN_BATCH06_TARGETS`, never from a live queue recomputation.
+## 4. BATCH 06 AUTHORITATIVE BROWSER EXECUTION — PASS
 
-## 4. BATCH 06 FREEZE PROVENANCE
+Execution runner:
 
-Freeze module:
+`tools/trading_breaks_recovery_batch06_execute.py`
 
-`tools/trading_breaks_recovery_batch06.py`
+Runner creation commit:
 
-Creation commit:
+`ae98364bfd5f9f3cbecd3de1137a4fbca4dd792b`
 
-`2cfd7d8c82cc12ce5904a60ed0720cd17ec15efd`
+Execution workflow trigger/probe commit:
 
-Policy contract:
+`e968db2be1fbfd4d2c419f9dad717ca479b52edd`
 
-`HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH06_POLICY_V1`
+Authoritative execution:
 
-Pre-freeze checkpoint:
-
-`289d7f4432efba4ad2bc1e97d5b23f14f587019e`
-
-Source post-Batch05 progression/integration state:
-
-`99c2f38842a0c4ea66ba6ff90496380986d02e52`
-
-Source persisted-HEAD proof:
-
-`70428e536689793a74420d35c84744b8ad0f2f3d`
-
-Parent persisted state at freeze:
-
-- recovery queue / unresolved window candidates: `49`;
-- attempt ledger: `25`;
-- material capability changes: `0`;
-- same-capability BLOCKED / execution-ineligible: `6`;
-- execution-eligible unresolved: `43`.
-
-Every Batch 06 member was proven:
-
-- unresolved;
-- execution-eligible;
-- `INITIAL_ATTEMPT`;
-- absent from prior attempt ledger;
-- unique;
-- chronological.
-
-## 5. BATCH 06 ADVERSARIAL MEMBERSHIP QUALIFICATION — PASS
-
-First qualification run:
-
-- run: `34951530594`
-- job: `104323377439`
-- trigger commit: `0aec58ccab9222b0e86c401b156a9cb965e1c974`
-- result: `96 passed / 1 failed`
-
-The single failure was a source-guard false positive, not a membership failure. The guard rejected the bare substring `eligible_recovery_queue`, which occurred only inside the immutable metadata constant:
-
-`FIRST_N_OF_GOVERNED_ELIGIBLE_RECOVERY_QUEUE_AT_FREEZE`
-
-No live `eligible_recovery_queue()` or `recovery_queue()` call existed in the Batch 06 freeze module.
-
-Minimal test-only correction:
-
-`3ce94bb8c586fe4472ccf37d2a849f87bd9c03ef`
-
-Corrected authoritative qualification:
-
-- run: `34951726033`
-- job: `104324020570`
-- trigger commit: `6a85c1c4c7d8c38861626b3eb8367274f015d118`
+- run: `34954308324`
+- job: `104332522379`
 - conclusion: SUCCESS
-- adversarial/regression suite: `97 passed in 0.35s`
-- baseline ancestry and governed-state immutability: PASS
-- exact mechanically frozen membership assertion: PASS
-- no-browser/no-probe path assertion: PASS
-- read-only `git diff --exit-code`: PASS
-- workflow permissions: `contents: read`, `metadata: read`
+- pre-browser parent/progression/Batch06 suite: `170 passed in 0.72s`
+- checkpoint ancestry + governed parent-state immutability: PASS
+- exact immutable Batch 06 identity before Chromium: PASS
+- no live membership recalculation in execution runner: PASS
+- Playwright/Chromium installation occurred only after every pre-browser gate passed.
+
+Runtime evidence artifact:
+
+- artifact ID: `10390926878`
+- SHA-256: `1e21a4fac890059f436c1488407b5f8ca92809dda18aa220e6af41ee6dfa1052`
+- retained files: `31`
+
+Runtime report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_batch06_runtime.json`
+
+Runtime persistence commit:
+
+`b50529991d9af6e27170090bd45b42eb751d0958`
+
+## 5. BATCH 06 INDEPENDENT ADJUDICATION — PASS
+
+Adjudicator:
+
+`tools/trading_breaks_recovery_batch06_adjudication.py`
+
+Adversarial tests:
+
+`tests/test_trading_breaks_recovery_batch06_adjudication.py`
+
+Authoritative independent adjudication:
+
+- run: `34954764562`
+- job: `104334032049`
+- trigger commit: `44bac8e3ebb8c783d02295f052fe17c86c222049`
+- conclusion: SUCCESS
+- adversarial/regression suite: `114 passed in 0.36s`
+- authoritative runtime ancestry/immutability: PASS
+- exact final accounting assertion: PASS
+- no-browser/no-probe/no-live-queue adjudication guard: PASS
 
 Final verdict:
 
-**PASS — `BATCH06_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
+**PASS — `BATCH06_POSITIVE_RECORDS_INDEPENDENTLY_ADJUDICATED_WITH_NO_CROSS_DATE_PROMOTION`**
 
-Qualification report:
+Adjudication persistence commit:
 
-`reports/data-qualification/historical_trading_breaks_recovery_batch06_policy_qualification.md`
+`874f8fe2c809d1f3c1442ba61aaabb4056a03e3d`
 
-The attacks cover at least:
+Reports:
 
-- raw-queue substitution;
-- skip;
-- reorder;
-- substitution with a later candidate;
-- shortening/expansion;
-- reinsertion of attempted BLOCKED dates;
-- re-entry of already-resolved Batch 05 dates;
-- duplicate/chronology defects;
-- prior-attempt contamination;
-- non-initial eligibility;
-- caller mutation/selection surfaces;
-- expected-outcome/manual-priority/manual-skip/holiday/source-availability paths;
-- live queue selection in the frozen module;
-- parent progression/protocol/calendar/boundary regressions.
+- `reports/data-qualification/historical_trading_breaks_recovery_batch06_adjudication.json`
+- `reports/data-qualification/historical_trading_breaks_recovery_batch06_qualification.md`
 
-## 6. BROWSER BOUNDARY — NO OBSERVATION YET
+## 6. DATE-LEVEL FINAL OUTCOMES
 
-No Batch 06 historical broker observation occurred during membership freeze or qualification.
+### 2023-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION
 
-The freeze module contains no:
+**PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
 
-- Playwright;
-- Chromium;
-- `probe_candidate`;
-- asyncio;
-- live `eligible_recovery_queue()` call;
-- live `recovery_queue()` call.
+- record `56233`
+- start `2023-07-03T17:14:00Z`
+- final closed minute `2023-07-04T21:59:00Z`
+- reopen `2023-07-04T22:00:00Z`
+- target-day fully closed hours `18–23 UTC`
+- partial `17h` remains open.
 
-The qualification workflow installed pytest only.
+### 2023-07-04 — INDEPENDENCE_DAY_OBSERVED
 
-Therefore no Batch 06 outcome is known or versioned yet.
+**BLOCKED — `NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE`**
 
-## 7. STATE MUTATION BOUNDARY
+- overlap witness record `56233`
+- record starts `2023-07-03T17:14:00Z`, not on the exact target date
+- cross-date overlap MUST NOT be promoted to PASS.
 
-Batch 06 membership PASS is scheduling/governance only.
+### 2023-09-04 — LABOR_DAY
 
-It did not:
+**PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
 
-- resolve any calendar candidate;
-- modify executable calendar evidence;
-- populate negative evidence;
-- append attempts;
-- change capability identity;
-- register capability changes;
-- alter progression runtime;
-- change global/window coverage counts.
+- record `57462`
+- start `2023-09-04T16:59:00Z`
+- final closed minute `2023-09-04T21:59:00Z`
+- reopen `2023-09-04T22:00:00Z`
+- fully closed hours `17–21 UTC`.
 
-Persisted executable state remains:
+### 2023-11-23 — THANKSGIVING_DAY
+
+**PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
+
+- record `59358`
+- start `2023-11-23T16:59:00Z`
+- final closed minute `2023-11-23T22:59:00Z`
+- reopen `2023-11-23T23:00:00Z`
+- fully closed hours `17–22 UTC`.
+
+### 2023-11-24 — THANKSGIVING_FRIDAY
+
+**PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
+
+- record `59359`
+- start `2023-11-24T17:14:00Z`
+- final closed minute `2023-11-26T22:59:00Z`
+- reopen `2023-11-26T23:00:00Z`
+- target-day fully closed hours `18–23 UTC`
+- partial `17h` remains open; weekend continuation is not promoted to another target date.
+
+Final Batch 06 accounting:
+
+- attempted: `5`
+- PASS: `4`
+- BLOCKED: `1`
+- FAIL: `0`
+
+Only the four PASS records may later modify executable calendar evidence. `2023-07-04` remains unresolved and MUST NOT populate `NO_SPECIAL_CHANGE_EVIDENCE`.
+
+## 7. CRITICAL PRE-INTEGRATION STATE INVARIANT
+
+The five Batch 06 factual attempts have happened, but they are **not yet atomically written** to calendar/attempt-ledger/progression state.
+
+Therefore the currently persisted counts remain pre-integration:
 
 - global `111 / 42 resolved / 69 unresolved / 0 FAIL`;
-- window `68 / 19 resolved / 49 unresolved / 0 FAIL`;
+- execution window `68 / 19 resolved / 49 unresolved / 0 FAIL`;
 - ledger `25`;
 - material changes `0`;
 - attempted BLOCKED/ineligible `6`;
-- eligible unresolved `43`.
+- eligible unresolved `43` — **STALE FOR FUTURE SCHEDULING**.
 
-The six unresolved same-capability BLOCKED dates remain:
+Do NOT:
 
-- `2021-12-24 — CHRISTMAS_OBSERVED`
-- `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
-- `2022-04-15 — GOOD_FRIDAY`
-- `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-- `2022-12-26 — CHRISTMAS_OBSERVED`
-- `2023-01-02 — NEW_YEARS_OBSERVED`
+- freeze Batch 07 from the currently persisted eligible queue;
+- rerun Batch 06 merely because integration is pending;
+- add the four PASS calendar records without also recording all five factual attempts;
+- convert the `2023-07-04` BLOCKED result to resolved evidence;
+- populate `NO_SPECIAL_CHANGE_EVIDENCE` from the July 4 overlap.
 
-Each remains `SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED`.
+The integration must be atomic.
+
+After correct integration, `2023-07-04` must remain unresolved and, under the unchanged capability, become:
+
+`SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED`
 
 ## 8. WORKFLOW CLOSURE
 
-Completed Batch 06 membership qualification workflow is manual-only:
+Batch 06 execution workflow archived to `workflow_dispatch` only:
 
-`.github/workflows/trading-breaks-recovery-batch06-policy.yml`
+`224a4f99daf4fce09f7c07759a8fd89f4aa2b77a`
 
-Archive commit:
+Batch 06 independent adjudication workflow archived to `workflow_dispatch` only:
 
-`ee6dd4c12f07a0212241cd5e3826d14d956207ef`
+`285d94e11a7887d1cc62858390c4c29752ef5588`
 
-No normal push may silently re-freeze or re-qualify historical Batch 06 membership.
+No normal push may silently repeat completed Batch 06 browser execution or adjudication.
 
 ## 9. CURRENT BOUNDARY MATRIX
 
@@ -306,29 +300,32 @@ PASS:
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH05_ATOMIC_INTEGRATION`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH05_PERSISTED_HEAD_REBREAK`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH06_POLICY`
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH06_EXECUTION_ADJUDICATION`
 - `LOCAL_RUNTIME_EVIDENCE_ARCHIVE`
 
-BLOCKED downstream:
+PENDING/BLOCKED downstream:
 
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH06_INTEGRATION — NOT_YET_APPLIED`
 - `DECLARE_GLOBAL_COVERAGE_PASS`
 - `FREEZE_EXECUTION_WINDOW — EXECUTION_WINDOW_CONTAINS_UNRESOLVED_DATES`
 - `AUTHORIZE_MASSIVE_ACQUISITION — EXECUTION_WINDOW_NOT_FROZEN`
 - `REAL_BACKTEST — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`
 
-## 10. WHAT MUST NOT BE REPEATED OR BYPASSED
+## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
-- do not recalculate or rewrite frozen Batch 06 membership;
-- do not substitute, skip, reorder, expand or shorten Batch 06;
-- do not manually select Batch 06 members;
-- do not retry the six same-capability BLOCKED dates without a separately qualified material capability change addressing their blocker;
-- do not move the execution window;
-- do not acquire massive `.bi5` data;
-- do not start a real backtest.
+**Atomically integrate Batch 06: add only the four independently adjudicated PASS records to executable calendar evidence, record all five Batch 06 factual attempts in the immutable attempt ledger, regenerate attempt-aware progression, adversarially rerun and persist calendar/coverage/progression regressions, then perform an independent persisted-HEAD re-break before any Batch 07 freeze.**
 
-## 11. EXACTLY ONE NEXT GOVERNED ACTION
+Required integration semantics:
 
-**Execute exactly the five already-frozen Batch 06 dates under the qualified Trading Breaks capture chain, with parent protocol/progression/Batch06 gates PASS before Chromium opens, then independently adjudicate all five results.**
-
-At execution time membership MUST come only from immutable `batch06_targets()` / `FROZEN_BATCH06_TARGETS`. It MUST NOT be recalculated from live `eligible_recovery_queue()` or raw `recovery_queue()`.
+- integrate PASS only:
+  - `2023-07-03`
+  - `2023-09-04`
+  - `2023-11-23`
+  - `2023-11-24`
+- do NOT resolve `2023-07-04`;
+- record all five Batch 06 factual attempts;
+- `2023-07-04` must remain unresolved and become same-capability execution-ineligible after the attempt write;
+- regenerate progression only after the atomic state mutation;
+- no Batch 07 membership freeze until integration + independent persisted-HEAD re-break are PASS.
 
 No `.bi5`. No real backtest.
