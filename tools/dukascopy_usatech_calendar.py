@@ -1437,6 +1437,63 @@ SPECIAL_SESSION_EVIDENCE = {
             "reports/data-qualification/historical_trading_breaks_recovery_batch12_qualification.md"
         ),
     },
+    date(2026, 1, 19): {
+        "reason": "SPECIAL_MLK_DAY_2026",
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "93608",
+        "broker_reason": "Martin Luther King Jr. Day",
+        "artifact_id": 10416898441,
+        "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8",
+        "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1768780800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35020650564"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch13_qualification.md"
+        ),
+    },
+    date(2026, 2, 16): {
+        "reason": "SPECIAL_PRESIDENTS_DAY_2026",
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "94467",
+        "broker_reason": "President's Day",
+        "artifact_id": 10416898441,
+        "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8",
+        "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1771200000000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35020650564"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch13_qualification.md"
+        ),
+    },
+    date(2026, 5, 25): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2026",
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "100253",
+        "broker_reason": "Memorial Day",
+        "artifact_id": 10416898441,
+        "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8",
+        "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1779667200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35020650564"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/historical_trading_breaks_recovery_batch13_qualification.md"
+        ),
+    },
 }
 
 CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"

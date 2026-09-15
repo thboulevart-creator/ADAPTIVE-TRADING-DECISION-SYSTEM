@@ -66,7 +66,7 @@ def test_post_integration_calendar_contains_all_five_batch05_pass_dates():
 def test_post_integration_attempt_ledger_records_exactly_five_batch05_pass_attempts():
     _, _, attempts = load_attempt_ledger()
     batch05 = [item for item in attempts if item.attempt_id.startswith("batch05:")]
-    assert len(attempts) == 60
+    assert len(attempts) == 65
     assert [item.attempt_sequence for item in batch05] == [21, 22, 23, 24, 25]
     assert [item.target_date for item in batch05] == [day for day, _ in EXPECTED_BATCH05]
     assert [item.outcome for item in batch05] == ["PASS"] * 5
@@ -92,13 +92,13 @@ def test_batch05_postintegration_progression_state_is_exact():
     decisions = progression_decisions()
     eligible = eligible_recovery_queue()
     _, _, attempts = load_attempt_ledger()
-    assert len(recovery_queue()) == len(decisions) == 22
-    assert len(attempts) == 60
+    assert len(recovery_queue()) == len(decisions) == 19
+    assert len(attempts) == 65
     assert load_material_capability_changes() == []
-    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 14
-    assert len(eligible) == 8
+    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 16
+    assert len(eligible) == 3
     assert eligible == sorted(eligible, key=lambda item: item[0])
-    assert eligible[0] == (date(2026, 1, 1), "NEW_YEARS_OBSERVED")
+    assert eligible[0] == (date(2026, 6, 19), "JUNETEENTH_OBSERVED")
 
 
 def test_batch05_freeze_provenance_remains_historical_truth_after_integration():
