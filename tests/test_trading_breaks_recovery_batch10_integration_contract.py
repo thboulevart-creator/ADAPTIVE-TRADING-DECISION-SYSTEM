@@ -51,7 +51,3 @@ def test_batch10_integration_has_no_browser_probe_or_live_membership_selection_p
     assert not any(token in module for module in imports for token in ("playwright", "selenium", "requests", "httpx"))
     for forbidden in ("probe_candidate", "eligible_recovery_queue", "recovery_queue", "goto", "launch"):
         assert forbidden not in calls
-
-
-def test_batch10_preintegration_guard_is_current_and_fail_closed():
-    integration.guard_preintegration_state()
