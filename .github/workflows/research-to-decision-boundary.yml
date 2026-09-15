@@ -2,9 +2,35 @@ name: Research to decision boundary
 
 on:
   push:
-    branches:
-      - feat/decision-producer-contract
+    paths:
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/dataset_admissibility.py'
+      - 'src/decision.py'
+      - 'src/research_run_evidence.py'
+      - 'src/research_findings.py'
+      - 'tests/test_research_to_decision_boundary.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_reader_adversarial.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - '.github/workflows/research-to-decision-boundary.yml'
+  pull_request:
+    paths:
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/dataset_admissibility.py'
+      - 'src/decision.py'
+      - 'src/research_run_evidence.py'
+      - 'src/research_findings.py'
+      - 'tests/test_research_to_decision_boundary.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_reader_adversarial.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - '.github/workflows/research-to-decision-boundary.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   research-to-decision:
@@ -17,7 +43,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install test dependencies
-        run: python -m pip install pytest
+        run: python -m pip install pytest==8.4.2
       - name: Run RESEARCH to DECISION boundary tests
         run: python -m pytest tests/test_research_to_decision_boundary.py -q
       - name: Run RESEARCH FINDINGS contract tests
@@ -26,6 +52,3 @@ jobs:
         run: python -m pytest tests/test_research_reader_adversarial.py -q
       - name: Run CONTEXT to RESEARCH alternative-path adversarial tests
         run: python -m pytest tests/test_context_research_alternative_paths.py -q
-
-# Audit trigger: execute the complete boundary test chain on the target branch.
-# Audit trigger nonce: 2026-09-13-second-observation
