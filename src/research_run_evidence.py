@@ -9,7 +9,8 @@ from __future__ import annotations
 
 import hashlib
 import json
-from dataclasses import dataclass, field
+import weakref
+from dataclasses import dataclass
 from typing import Any
 
 from src.context import Context, validate_context
@@ -26,12 +27,71 @@ class ResearchRunEvidence:
     dataset_id: str
     dataset_version: str
     context_id: str
-    _factory_validated: bool = field(default=False, init=False, repr=False, compare=False)
 
 
 def _stable_hash(value: Any) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
     return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _evidence_identity_fingerprint(evidence: ResearchRunEvidence) -> str:
+    return _stable_hash(
+        {
+            "provenance_id": evidence.provenance_id,
+            "research_run_id": evidence.research_run_id,
+            "code_version": evidence.code_version,
+            "configuration_version": evidence.configuration_version,
+            "dataset_id": evidence.dataset_id,
+            "dataset_version": evidence.dataset_version,
+            "context_id": evidence.context_id,
+        }
+    )
+
+
+def _build_attestation_gate():
+    """Create a process-local factory attestation bound to object identity and content.
+
+    The registry is deliberately kept inside this closure rather than on the
+    evidence object. A caller cannot make a reconstructed dataclass admissible by
+    copying fields or by setting a marker attribute. The stored fingerprint also
+    invalidates an originally attested object if its frozen fields are bypassed
+    with ``object.__setattr__``.
+    """
+
+    registry: dict[int, tuple[weakref.ReferenceType[ResearchRunEvidence], str]] = {}
+
+    def attest(evidence: ResearchRunEvidence) -> ResearchRunEvidence:
+        object_id = id(evidence)
+
+        def cleanup(
+            reference: weakref.ReferenceType[ResearchRunEvidence],
+            *,
+            expected_object_id: int = object_id,
+        ) -> None:
+            current = registry.get(expected_object_id)
+            if current is not None and current[0] is reference:
+                registry.pop(expected_object_id, None)
+
+        reference = weakref.ref(evidence, cleanup)
+        registry[object_id] = (reference, _evidence_identity_fingerprint(evidence))
+        return evidence
+
+    def verify(evidence: object) -> bool:
+        if not isinstance(evidence, ResearchRunEvidence):
+            return False
+        entry = registry.get(id(evidence))
+        if entry is None:
+            return False
+        reference, expected_fingerprint = entry
+        if reference() is not evidence:
+            return False
+        return _evidence_identity_fingerprint(evidence) == expected_fingerprint
+
+    return attest, verify
+
+
+_attest_factory_evidence, is_factory_attested = _build_attestation_gate()
+del _build_attestation_gate
 
 
 def _validate_context_boundary(
@@ -85,8 +145,7 @@ def from_v43_report(
         dataset_version=dataset_version,
         context_id=context.context_id,
     )
-    object.__setattr__(evidence, "_factory_validated", True)
-    return evidence
+    return _attest_factory_evidence(evidence)
 
 
 def decision_trace_from_v43_report(
