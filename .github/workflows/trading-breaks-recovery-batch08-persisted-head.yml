@@ -1,128 +1,13 @@
 name: Trading Breaks Recovery Batch 08 Persisted HEAD Re-break
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch08-persisted-head.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
 
-env:
-  PYTHONDONTWRITEBYTECODE: '1'
-
 jobs:
-  rebreak-batch08-persisted-head:
+  archived:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
-      - name: Checkout exact triggering persisted HEAD
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 0
-
-      - name: Prove integrated commit ancestry and governed state immutability
-        run: |
-          git merge-base --is-ancestor aa85a2ade1fe9d9b1ade78f77b9b56c5310a6e74 HEAD
-          git fetch origin feat/multi-year-dukascopy-acquisition
-          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
-          git diff --exit-code aa85a2ade1fe9d9b1ade78f77b9b56c5310a6e74 HEAD -- \
-            tools/dukascopy_usatech_calendar.py \
-            tools/dukascopy_usatech_calendar_coverage.py \
-            tools/trading_breaks_recovery_protocol.py \
-            tools/trading_breaks_recovery_progression.py \
-            tools/trading_breaks_recovery_batch08.py \
-            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
-            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
-            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json \
-            reports/data-qualification/historical_trading_breaks_recovery_batch08_adjudication.json \
-            reports/data-qualification/historical_trading_breaks_recovery_batch08_integration_qualification.md
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Independently re-break full governed regression
-        run: |
-          python -m pip install pytest==8.4.2
-          python -m pytest -q \
-            tests/test_trading_breaks_recovery_*.py \
-            tests/test_dukascopy_usatech_calendar*.py \
-            tests/test_coverage_execution_window_boundary.py
-
-      - name: Assert exact persisted Batch 08 integrated state
-        run: |
-          python - <<'PY'
-          from datetime import date
-          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
-          from tools.dukascopy_usatech_calendar_coverage import NO_SPECIAL_CHANGE_EVIDENCE, audit_calendar_coverage
-          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, load_material_capability_changes, progression_decisions
-          from tools.trading_breaks_recovery_protocol import recovery_queue
-
-          global_report = audit_calendar_coverage()
-          window_report = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
-          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 53, 58)
-          assert (window_report['candidate_dates'], window_report['resolved_candidate_dates'], window_report['unresolved_candidate_dates']) == (68, 30, 38)
-          assert global_report['evidence_shape_errors'] == []
-          assert global_report['orphan_special_evidence'] == []
-          assert global_report['contradictory_evidence_dates'] == []
-
-          _, _, attempts = load_attempt_ledger()
-          batch08 = [x for x in attempts if x.attempt_id.startswith('batch08:')]
-          assert len(attempts) == 40
-          assert [x.attempt_sequence for x in batch08] == [36, 37, 38, 39, 40]
-          assert [x.target_date for x in batch08] == [
-              date(2024, 3, 29), date(2024, 5, 27), date(2024, 6, 19),
-              date(2024, 7, 3), date(2024, 7, 4),
-          ]
-          assert [x.outcome for x in batch08] == ['BLOCKED', 'PASS', 'PASS', 'PASS', 'PASS']
-          assert batch08[0].blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
-          assert all(x.provenance['workflow_run'] == 34984538763 for x in batch08)
-          assert all(x.provenance['job_id'] == 104433139005 for x in batch08)
-          assert all(x.provenance['artifact_id'] == 10402433119 for x in batch08)
-          assert all(x.provenance['artifact_sha256'] == '644e6d6776792dac03e7cb87a3bd63af0be603c6efe951f44c8911ecd9defadd' for x in batch08)
-          assert all(x.provenance['probe_commit'] == '5cc4834af2c75de99f6e3427f31ab07b38b42611' for x in batch08)
-
-          pass_days = {date(2024, 5, 27), date(2024, 6, 19), date(2024, 7, 3), date(2024, 7, 4)}
-          raw_days = {d for d, _ in recovery_queue()}
-          decisions = {d.target_date: d for d in progression_decisions()}
-          eligible = eligible_recovery_queue()
-          eligible_days = {d for d, _ in eligible}
-          assert pass_days <= set(SPECIAL_SESSION_EVIDENCE)
-          assert pass_days.isdisjoint(raw_days)
-          assert date(2024, 3, 29) not in SPECIAL_SESSION_EVIDENCE
-          assert date(2024, 3, 29) not in NO_SPECIAL_CHANGE_EVIDENCE
-          assert date(2024, 3, 29) in raw_days
-          assert date(2024, 3, 29) not in eligible_days
-          good_friday = decisions[date(2024, 3, 29)]
-          assert good_friday.latest_attempt_id == 'batch08:2024-03-29'
-          assert good_friday.latest_attempt_outcome == 'BLOCKED'
-          assert good_friday.eligible is False
-          assert good_friday.reason == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
-          assert good_friday.contract_verdict == 'PASS'
-
-          assert len(recovery_queue()) == len(decisions) == 38
-          assert sum(not d.eligible and d.latest_attempt_outcome == 'BLOCKED' for d in decisions.values()) == 10
-          assert len(eligible) == 28
-          assert eligible == sorted(eligible, key=lambda item: item[0])
-          assert eligible[0] == (date(2024, 9, 2), 'LABOR_DAY')
-          assert load_material_capability_changes() == []
-          print('PASS: persisted HEAD proves Batch 08 atomic integration exactly')
-          PY
-
-      - name: Regenerate progression and prove persisted determinism
-        run: |
-          python -m tools.trading_breaks_recovery_progression >/tmp/batch08-progression.json
-          git diff --exit-code -- reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
-
-      - name: Prove verifier is read-only and worktree remains clean
-        run: |
-          git diff --exit-code
-          git status --porcelain
-          test -z "$(git status --porcelain)"
-          echo 'PASS: independent persisted-HEAD verifier remained read-only'
+      - run: echo 'Batch 08 persisted-HEAD re-break is completed and archived.'
