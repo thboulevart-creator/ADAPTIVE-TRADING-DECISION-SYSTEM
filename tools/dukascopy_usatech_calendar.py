@@ -1177,6 +1177,31 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch09_qualification.md"
         ),
     },
+    date(2024, 12, 31): {
+        "reason": "SPECIAL_NEW_YEARS_EVE_CANDIDATE_2024",
+        # Exact broker-native Trading Breaks record 75799.
+        # Start 2024-12-31T21:14:59Z; final closed instant 2025-01-01T22:59:59Z;
+        # protocol-derived reopen 2025-01-01T23:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(22, 24)),
+        "broker_record_id": "75799",
+        "broker_reason": "New Year's Day",
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1735603200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35004172846"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch10_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the
@@ -1189,6 +1214,56 @@ SPECIAL_SESSION_EVIDENCE = {
         "cme_source": (
             "https://www.cmegroup.com/trading-hours/files/"
             "day-of-mourning-january-9-2024.pdf"
+        ),
+    },
+    date(2025, 1, 20): {
+        "reason": "SPECIAL_MARTIN_LUTHER_KING_DAY_2025",
+        # Exact broker-native Trading Breaks record 76806.
+        # Start 2025-01-20T17:59:59Z; final closed instant 2025-01-20T22:59:59Z;
+        # protocol-derived reopen 2025-01-20T23:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "76806",
+        "broker_reason": "Martin Luther King Jr. Day",
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1737331200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35004172846"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch10_qualification.md"
+        ),
+    },
+    date(2025, 2, 17): {
+        "reason": "SPECIAL_PRESIDENTS_DAY_2025",
+        # Exact broker-native Trading Breaks record 78513.
+        # Start 2025-02-17T17:59:59Z; final closed instant 2025-02-17T22:59:59Z;
+        # protocol-derived reopen 2025-02-17T23:00:59Z. Only whole target-day UTC
+        # buckets proven closed by the independently adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "78513",
+        "broker_reason": "Presidents's Day",
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1739750400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35004172846"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch10_qualification.md"
         ),
     },
 }

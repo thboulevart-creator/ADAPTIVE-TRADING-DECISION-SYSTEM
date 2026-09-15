@@ -826,6 +826,96 @@
         "artifact_sha256": "dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc",
         "probe_commit": "0b5dedf6028add27040af112d0bceef76be25827"
       }
+    },
+    {
+      "attempt_sequence": 46,
+      "attempt_id": "batch10:2024-12-31",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY_V1",
+      "target_date": "2024-12-31",
+      "candidate_reason": "NEW_YEARS_EVE_CANDIDATE",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35004172846,
+        "job_id": 104499660140,
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e"
+      }
+    },
+    {
+      "attempt_sequence": 47,
+      "attempt_id": "batch10:2025-01-01",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY_V1",
+      "target_date": "2025-01-01",
+      "candidate_reason": "NEW_YEARS_OBSERVED",
+      "outcome": "BLOCKED",
+      "adjudication_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "blocking_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35004172846,
+        "job_id": 104499660140,
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e"
+      }
+    },
+    {
+      "attempt_sequence": 48,
+      "attempt_id": "batch10:2025-01-20",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY_V1",
+      "target_date": "2025-01-20",
+      "candidate_reason": "MARTIN_LUTHER_KING_DAY",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35004172846,
+        "job_id": 104499660140,
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e"
+      }
+    },
+    {
+      "attempt_sequence": 49,
+      "attempt_id": "batch10:2025-02-17",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY_V1",
+      "target_date": "2025-02-17",
+      "candidate_reason": "PRESIDENTS_DAY",
+      "outcome": "PASS",
+      "adjudication_reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35004172846,
+        "job_id": 104499660140,
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e"
+      }
+    },
+    {
+      "attempt_sequence": 50,
+      "attempt_id": "batch10:2025-04-18",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY_V1",
+      "target_date": "2025-04-18",
+      "candidate_reason": "GOOD_FRIDAY",
+      "outcome": "BLOCKED",
+      "adjudication_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "blocking_reason": "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE",
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+      "provenance": {
+        "workflow_run": 35004172846,
+        "job_id": 104499660140,
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e"
+      }
     }
   ]
 }
