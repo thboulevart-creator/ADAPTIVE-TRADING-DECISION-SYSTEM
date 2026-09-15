@@ -1,0 +1,148 @@
+{
+  "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH14_TERMINAL_POLICY_V1",
+  "parent_protocol": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+  "parent_progression_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROGRESSION_V1",
+  "batch_number": 14,
+  "batch_size": 3,
+  "selection_rule": "ENTIRE_GOVERNED_ELIGIBLE_RECOVERY_QUEUE_WHEN_REMAINDER_LT_NOMINAL_BATCH_SIZE",
+  "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
+  "capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
+  "targets": [
+    {
+      "target_date": "2026-06-19",
+      "candidate_reason": "JUNETEENTH_OBSERVED"
+    },
+    {
+      "target_date": "2026-07-02",
+      "candidate_reason": "INDEPENDENCE_PRE_HOLIDAY_SESSION"
+    },
+    {
+      "target_date": "2026-07-03",
+      "candidate_reason": "INDEPENDENCE_DAY_OBSERVED"
+    }
+  ],
+  "workflow_run": 35023845609,
+  "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+  "read_only": true,
+  "market_data_written": false,
+  "results": [
+    {
+      "target_date": "2026-06-19",
+      "candidate_reason": "JUNETEENTH_OBSERVED",
+      "requested_date": "2026-06-19",
+      "target_epoch_ms": 1781827200000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "101094",
+          "instrument": "9016",
+          "start": "1781888399000",
+          "end": "1782079199000",
+          "reason": "Juneteenth Holiday",
+          "start_utc": "2026-06-19T16:59:59Z",
+          "end_last_closed_minute_utc": "2026-06-21T21:59:59Z",
+          "derived_reopen_utc": "2026-06-21T22:00:59Z",
+          "fully_closed_hours_utc": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t19-Jun-26 16:59:59\t21-Jun-26 21:59:59\tJuneteenth Holiday"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    },
+    {
+      "target_date": "2026-07-02",
+      "candidate_reason": "INDEPENDENCE_PRE_HOLIDAY_SESSION",
+      "requested_date": "2026-07-02",
+      "target_epoch_ms": 1782950400000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [],
+      "dom_witness_lines": [],
+      "runtime_errors": [],
+      "capture_verdict": "BLOCKED",
+      "capture_reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED"
+    },
+    {
+      "target_date": "2026-07-03",
+      "candidate_reason": "INDEPENDENCE_DAY_OBSERVED",
+      "requested_date": "2026-07-03",
+      "target_epoch_ms": 1783036800000,
+      "instrument_name": "USATECH.IDX/USD",
+      "instrument_id_expected": "9016",
+      "instrument_id_observed": "9016",
+      "official_page_status": 200,
+      "current_control_status": 200,
+      "target_nav_status": 200,
+      "target_document_statuses": [
+        200
+      ],
+      "date_honored": true,
+      "raw_payload_present": true,
+      "matching_records": [
+        {
+          "id": "101959",
+          "instrument": "9016",
+          "start": "1783097999000",
+          "end": "1783288799000",
+          "reason": "Independence Day",
+          "start_utc": "2026-07-03T16:59:59Z",
+          "end_last_closed_minute_utc": "2026-07-05T21:59:59Z",
+          "derived_reopen_utc": "2026-07-05T22:00:59Z",
+          "fully_closed_hours_utc": [
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ]
+        }
+      ],
+      "dom_witness_lines": [
+        "USATECH.IDX/USD\t03-Jul-26 16:59:59\t05-Jul-26 21:59:59\tIndependence Day"
+      ],
+      "runtime_errors": [],
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION"
+    }
+  ],
+  "provenance": {
+    "workflow_run": 35023845609,
+    "job_id": 104565948108,
+    "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+    "artifact_id": 10418961548,
+    "artifact_url": "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35023845609/artifacts/10418961548",
+    "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910"
+  }
+}
