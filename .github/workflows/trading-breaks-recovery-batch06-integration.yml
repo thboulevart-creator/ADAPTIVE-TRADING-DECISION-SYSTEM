@@ -1,0 +1,212 @@
+name: Trading Breaks Recovery Batch 06 Atomic Integration
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch06-integration.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  integrate-batch06:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove checkpoint ancestry and untouched pre-integration state
+        run: |
+          git merge-base --is-ancestor 40095c52e4564d4d60fe0ae01dab5021513a9ba8 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          python - <<'PY'
+          from tools.integrate_trading_breaks_recovery_batch06 import guard_preintegration_state, load_authoritative_adjudication
+          load_authoritative_adjudication()
+          guard_preintegration_state()
+          print('PASS: Batch 06 adjudication authoritative and executable state still pre-integration')
+          PY
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarially qualify Batch 06 integration contract before mutation
+        run: |
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch06_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch06_adjudication.py \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Prepare calendar ledger and tests atomically in worktree
+        run: python -m tools.integrate_trading_breaks_recovery_batch06
+
+      - name: Regenerate deterministic progression runtime from integrated worktree
+        run: python -m tools.trading_breaks_recovery_progression
+
+      - name: Adversarial regression before atomic commit
+        run: |
+          python -m pytest -q \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch02.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch03.py \
+            tests/test_dukascopy_usatech_calendar_2022_batch04.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch05.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch06.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch01.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_batch03.py \
+            tests/test_trading_breaks_recovery_batch03_adjudication.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_batch04.py \
+            tests/test_trading_breaks_recovery_batch04_adjudication.py \
+            tests/test_trading_breaks_recovery_batch04_integration.py \
+            tests/test_trading_breaks_recovery_batch05.py \
+            tests/test_trading_breaks_recovery_batch05_adjudication.py \
+            tests/test_trading_breaks_recovery_batch05_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_trading_breaks_recovery_batch06_adjudication.py \
+            tests/test_trading_breaks_recovery_batch06_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch06_integration.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact integrated worktree accounting and blocked semantics
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, load_material_capability_changes, progression_decisions
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          global_report = audit_calendar_coverage()
+          window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          _, _, attempts = load_attempt_ledger()
+          progression = json.load(open('reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json', encoding='utf-8'))
+          raw_days = {d for d, _ in recovery_queue()}
+          eligible = eligible_recovery_queue()
+          eligible_days = {d for d, _ in eligible}
+          decisions = {d.target_date: d for d in progression_decisions()}
+
+          assert (global_report['candidate_dates'], global_report['resolved_candidate_dates'], global_report['unresolved_candidate_dates']) == (111, 46, 65)
+          assert (window['candidate_dates'], window['resolved_candidate_dates'], window['unresolved_candidate_dates']) == (68, 23, 45)
+          assert global_report['evidence_shape_errors'] == []
+          assert global_report['orphan_special_evidence'] == []
+          assert global_report['contradictory_evidence_dates'] == []
+          assert len(attempts) == 30
+          batch06 = [x for x in attempts if x.attempt_id.startswith('batch06:')]
+          assert [x.attempt_sequence for x in batch06] == [26, 27, 28, 29, 30]
+          assert [x.outcome for x in batch06] == ['PASS', 'BLOCKED', 'PASS', 'PASS', 'PASS']
+          assert batch06[1].blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert load_material_capability_changes() == []
+          assert len(recovery_queue()) == 45
+          assert progression['verdict'] == 'PASS'
+          assert progression['calendar_unresolved_count'] == 45
+          assert progression['attempt_ledger_count'] == 30
+          assert progression['registered_material_capability_change_count'] == 0
+          assert progression['attempted_blocked_ineligible_count'] == 7
+          assert progression['eligible_initial_or_retry_count'] == 38
+
+          pass_days = {date(2023, 7, 3), date(2023, 9, 4), date(2023, 11, 23), date(2023, 11, 24)}
+          blocked = date(2023, 7, 4)
+          assert pass_days <= set(SPECIAL_SESSION_EVIDENCE)
+          assert pass_days.isdisjoint(raw_days)
+          assert blocked not in SPECIAL_SESSION_EVIDENCE
+          assert blocked in raw_days
+          assert blocked not in eligible_days
+          assert decisions[blocked].reason == 'SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED'
+          assert decisions[blocked].latest_attempt_outcome == 'BLOCKED'
+          assert decisions[blocked].contract_verdict == 'PASS'
+          assert eligible == sorted(eligible, key=lambda item: item[0])
+          assert eligible[0][0] > date(2023, 11, 24)
+          print('PASS: worktree Batch 06 integration coherent; 45 unresolved / 30 attempts / 7 blocked-ineligible / 38 eligible')
+          PY
+
+      - name: Prove no negative-evidence or browser path was introduced
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/integrate_trading_breaks_recovery_batch06.py').read_text(encoding='utf-8').lower()
+          assert 'no_special_change_evidence' not in source
+          for token in (''.join(('play', 'wright')), ''.join(('chro', 'mium')), ''.join(('probe_', 'candidate'))):
+              assert token not in source
+          PY
+
+      - name: Write integration qualification report
+        run: |
+          cat > reports/data-qualification/historical_trading_breaks_recovery_batch06_integration_qualification.md <<EOF
+          # HISTORICAL TRADING BREAKS RECOVERY — BATCH 06 ATOMIC INTEGRATION QUALIFICATION
+
+          **PASS — \`BATCH06_ATOMIC_CALENDAR_ATTEMPT_PROGRESSION_INTEGRATION_COHERENT\`**
+
+          Source adjudication:
+          - browser run: \`34954308324\`
+          - job: \`104332522379\`
+          - artifact: \`10390926878\`
+          - artifact SHA-256: \`1e21a4fac890059f436c1488407b5f8ca92809dda18aa220e6af41ee6dfa1052\`
+          - probe commit: \`e968db2be1fbfd4d2c419f9dad717ca479b52edd\`
+
+          Integration workflow run: \`${GITHUB_RUN_ID}\`
+          Pre-integration execution SHA: \`${GITHUB_SHA}\`
+
+          Atomic mutation authorized and proven:
+          - calendar PASS additions only: \`2023-07-03\`, \`2023-09-04\`, \`2023-11-23\`, \`2023-11-24\`;
+          - \`2023-07-04\` remains unresolved and receives no negative evidence;
+          - all five factual Batch 06 attempts appended as sequences \`26..30\`;
+          - \`2023-07-04\` becomes \`SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED\`;
+          - progression runtime regenerated from the integrated worktree;
+          - no material capability change registered.
+
+          Proven post-integration accounting:
+          - global calendar: \`111 / 46 resolved / 65 unresolved / 0 FAIL\`;
+          - execution-window candidate: \`68 / 23 resolved / 45 unresolved / 0 FAIL\`;
+          - attempt ledger: \`30\`;
+          - attempted BLOCKED execution-ineligible: \`7\`;
+          - execution-eligible unresolved: \`38\`.
+
+          This qualification does not freeze Batch 07 and does not authorize massive \`.bi5\` acquisition or any real backtest.
+          EOF
+
+      - name: Persist one atomic Batch 06 integration commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            tools/dukascopy_usatech_calendar.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_batch06_integration_qualification.md \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_batch02.py \
+            tests/test_trading_breaks_recovery_batch03_integration.py \
+            tests/test_trading_breaks_recovery_batch04_integration.py \
+            tests/test_trading_breaks_recovery_batch05.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch06.py \
+            tests/test_trading_breaks_recovery_batch06_integration.py
+          git diff --cached --check
+          git commit -m 'evidence: atomically integrate Trading Breaks Batch 06'
+          echo "INTEGRATION_COMMIT=$(git rev-parse HEAD)"
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
