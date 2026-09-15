@@ -1,0 +1,147 @@
+name: Trading Breaks Recovery Batch 14 Terminal Freeze
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch14-terminal-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove Batch 13 closure baseline and terminal-freeze-only delta
+        run: |
+          git merge-base --is-ancestor 57bdcea7f417d8bf558e6a59498f1b753bace2f2 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --name-only 57bdcea7f417d8bf558e6a59498f1b753bace2f2 HEAD | sort >/tmp/actual
+          printf '%s\n' \
+            '.github/workflows/trading-breaks-recovery-batch14-terminal-freeze.yml' \
+            '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH14-TERMINAL-POLICY.md' \
+            'tests/test_trading_breaks_recovery_batch14.py' \
+            'tools/freeze_trading_breaks_recovery_batch14.py' \
+            'tools/trading_breaks_recovery_batch14.py' | sort >/tmp/expected
+          diff -u /tmp/expected /tmp/actual
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run governed and adversarial regression
+        run: |
+          python -m pip install pytest==8.4.2
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' ! -name 'test_trading_breaks_recovery_batch12.py' ! -name 'test_trading_breaks_recovery_batch13.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Prove exact terminal remainder and reject selection attacks
+        run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch14 import (
+              NOMINAL_BATCH_SIZE,
+              TERMINAL_BATCH_SIZE,
+              derive,
+          )
+          from tools.trading_breaks_recovery_batch14 import (
+              BATCH_SIZE,
+              CURRENT_CAPABILITY_FINGERPRINT,
+              CURRENT_CAPABILITY_ID,
+              FREEZE_BASELINE_HEAD,
+              FROZEN_BATCH14_TARGETS,
+              batch14_targets,
+          )
+          from tools.trading_breaks_recovery_progression import (
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          eligible = eligible_recovery_queue()
+          frozen = batch14_targets()
+          derived = list(derive())
+          decisions = progression_decisions()
+          by_day = {item.target_date: item for item in decisions}
+          _, _, attempts = load_attempt_ledger()
+
+          assert NOMINAL_BATCH_SIZE == 5
+          assert TERMINAL_BATCH_SIZE == BATCH_SIZE == 3
+          assert 0 < len(eligible) < NOMINAL_BATCH_SIZE
+          assert len(recovery_queue()) == 19
+          assert len(eligible) == 3
+          assert len(attempts) == 65
+          assert sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 16
+          assert load_material_capability_changes() == []
+          assert FREEZE_BASELINE_HEAD == '57bdcea7f417d8bf558e6a59498f1b753bace2f2'
+          assert CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+          assert CURRENT_CAPABILITY_FINGERPRINT == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          assert isinstance(FROZEN_BATCH14_TARGETS, tuple)
+          assert frozen == derived == eligible == list(FROZEN_BATCH14_TARGETS)
+          assert len({day for day, _ in frozen}) == 3
+
+          for day, reason in frozen:
+              decision = by_day[day]
+              assert decision.candidate_reason == reason
+              assert decision.eligible
+              assert decision.reason == 'INITIAL_ATTEMPT'
+              assert decision.latest_attempt_id is None
+              assert decision.latest_attempt_outcome is None
+
+          ineligible = [
+              (item.target_date, item.candidate_reason)
+              for item in decisions
+              if not item.eligible
+          ]
+          assert len(ineligible) == 16
+          blocked = ineligible[0]
+
+          attacks = [
+              frozen[:-1],
+              list(reversed(frozen)),
+              [frozen[1], frozen[0], frozen[2]],
+              [frozen[0], frozen[0], frozen[2]],
+              [frozen[0], frozen[1], blocked],
+              [*frozen, blocked],
+              [blocked, *frozen],
+          ]
+          assert all(attack != frozen for attack in attacks)
+          assert all(item not in frozen for item in ineligible)
+
+          print('PASS: Batch 14 is the complete three-item terminal eligible remainder')
+          for i, (day, reason) in enumerate(frozen, 1):
+              print(f'{i}: {day.isoformat()} — {reason}')
+          PY
+
+      - name: Prove freeze is read-only, pre-observation, and progression byte-stable
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in (
+              'tools/freeze_trading_breaks_recovery_batch14.py',
+              'tools/trading_breaks_recovery_batch14.py',
+          ):
+              source = Path(name).read_text(encoding='utf-8').lower()
+              for token in ('playwright', 'selenium', 'probe_candidate'):
+                  assert token not in source, (name, token)
+          print('PASS: terminal freeze contains no observation path')
+          PY
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch14-terminal-freeze.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
