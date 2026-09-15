@@ -1,0 +1,187 @@
+name: Trading Breaks Recovery Batch 14
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch14.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  batch14:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove persisted membership re-break ancestry and governed parent state unchanged
+        run: |
+          git merge-base --is-ancestor 6beb60438f0a1bdcfc38bbbb5c3b8b0ef146dd07 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --exit-code 6beb60438f0a1bdcfc38bbbb5c3b8b0ef146dd07 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_batch14.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Qualify all gates before Chromium
+        run: |
+          python -m pip install pytest==8.4.2
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' ! -name 'test_trading_breaks_recovery_batch12.py' ! -name 'test_trading_breaks_recovery_batch13.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Assert exact frozen Batch 14 identity before browser installation
+        run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch14 import derive
+          from tools.trading_breaks_recovery_batch14 import (
+              BATCH_SIZE,
+              CURRENT_CAPABILITY_FINGERPRINT,
+              CURRENT_CAPABILITY_ID,
+              FREEZE_BASELINE_HEAD,
+              FROZEN_BATCH14_TARGETS,
+              NOMINAL_BATCH_SIZE,
+              batch14_targets,
+          )
+          from tools.trading_breaks_recovery_progression import (
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          targets = batch14_targets()
+          eligible = eligible_recovery_queue()
+          decisions = progression_decisions()
+          _, _, attempts = load_attempt_ledger()
+
+          assert NOMINAL_BATCH_SIZE == 5
+          assert BATCH_SIZE == 3
+          assert 0 < len(eligible) < NOMINAL_BATCH_SIZE
+          assert targets == list(FROZEN_BATCH14_TARGETS) == list(derive()) == eligible
+          assert len(targets) == 3
+          assert len({day for day, _ in targets}) == 3
+          assert [day for day, _ in targets] == sorted(day for day, _ in targets)
+          assert len(recovery_queue()) == 19
+          assert len(attempts) == 65
+          assert sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 16
+          assert load_material_capability_changes() == []
+          assert FREEZE_BASELINE_HEAD == '57bdcea7f417d8bf558e6a59498f1b753bace2f2'
+          assert CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+          assert CURRENT_CAPABILITY_FINGERPRINT == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          print('PASS: immutable terminal Batch 14 identity locked before Chromium')
+          for i, (day, reason) in enumerate(targets, 1):
+              print(f'{i}: {day.isoformat()} — {reason}')
+          PY
+
+      - name: Install browser only after all pre-browser gates PASS
+        run: |
+          python -m pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+
+      - name: Execute exact frozen terminal Batch 14
+        run: xvfb-run -a python -m tools.trading_breaks_recovery_batch14_execute
+
+      - name: Assert capture identity only
+        if: always()
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from tools.trading_breaks_recovery_batch14 import batch14_targets
+          path = Path('trading_breaks_batch14_artifacts/batch_summary.json')
+          assert path.exists()
+          data = json.loads(path.read_text(encoding='utf-8'))
+          expected = [
+              {'target_date': day.isoformat(), 'candidate_reason': reason}
+              for day, reason in batch14_targets()
+          ]
+          assert data.get('targets') == expected
+          assert data.get('batch_number') == 14
+          assert data.get('batch_size') == 3
+          results = data.get('results')
+          assert isinstance(results, list) and len(results) == 3
+          assert [x.get('target_date') for x in results] == [x['target_date'] for x in expected]
+          assert all(x.get('capture_verdict') in {'CAPTURED', 'BLOCKED', 'FAIL'} for x in results)
+          print('PASS: three frozen terminal Batch 14 targets captured in immutable order')
+          PY
+
+      - name: Print capture summary
+        if: always()
+        run: cat trading_breaks_batch14_artifacts/batch_summary.json || true
+
+      - name: Upload complete runtime evidence
+        if: always()
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: dukascopy-trading-breaks-recovery-batch14
+          path: trading_breaks_batch14_artifacts/
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Persist compact runtime report with exact provenance
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ steps.upload.outputs.artifact-id }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
+          ARTIFACT_DIGEST: ${{ steps.upload.outputs.artifact-digest }}
+        run: |
+          test -n "$ARTIFACT_ID"
+          test -n "$ARTIFACT_URL"
+          test -n "$ARTIFACT_DIGEST"
+          JOB_ID="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs" --jq '.jobs[] | select(.name == "batch14") | .id' | head -n 1)"
+          test -n "$JOB_ID"
+          export JOB_ID
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          src = Path('trading_breaks_batch14_artifacts/batch_summary.json')
+          dst = Path('reports/data-qualification/historical_trading_breaks_recovery_batch14_runtime.json')
+          data = json.loads(src.read_text(encoding='utf-8'))
+          digest = os.environ['ARTIFACT_DIGEST']
+          if digest.startswith('sha256:'):
+              digest = digest.split(':', 1)[1]
+          provenance = {
+              'workflow_run': int(os.environ['GITHUB_RUN_ID']),
+              'job_id': int(os.environ['JOB_ID']),
+              'probe_commit': os.environ['GITHUB_SHA'],
+              'artifact_id': int(os.environ['ARTIFACT_ID']),
+              'artifact_url': os.environ['ARTIFACT_URL'],
+              'artifact_sha256': digest,
+          }
+          assert all(value not in (None, '') for value in provenance.values())
+          assert len(provenance['artifact_sha256']) == 64
+          data['provenance'] = provenance
+          dst.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/data-qualification/historical_trading_breaks_recovery_batch14_runtime.json
+          git diff --cached --check
+          if ! git diff --cached --quiet; then
+            git commit -m 'evidence: persist Trading Breaks recovery Batch 14 runtime'
+            git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          fi
