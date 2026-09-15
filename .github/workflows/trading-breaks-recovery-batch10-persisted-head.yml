@@ -1,4 +1,4 @@
-name: Batch 10 persisted HEAD verifier
+name: Trading Breaks Recovery Batch 10 Persisted HEAD Re-break
 on:
   push:
     branches: [feat/multi-year-dukascopy-acquisition]
@@ -6,12 +6,55 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0
-      - run: echo verify-batch10-persisted-head
+      - name: Prove ancestry and verifier-only delta
+        run: |
+          git merge-base --is-ancestor 6d2f60525fed9a56fd4ebab587ce7ba699cedbda HEAD
+          git merge-base --is-ancestor 7a7dc3f45a96ebbf15dcd816581fd38f8aba7cac HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test "$(git diff --name-only 7a7dc3f45a96ebbf15dcd816581fd38f8aba7cac HEAD)" = ".github/workflows/trading-breaks-recovery-batch10-persisted-head.yml"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Re-break governed regression
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q tests/test_trading_breaks_recovery_*.py tests/test_dukascopy_usatech_calendar*.py tests/test_coverage_execution_window_boundary.py
+      - name: Assert persisted Batch 10 state
+        run: |
+          python -m pytest -q tests/test_trading_breaks_recovery_batch10_integration.py tests/test_dukascopy_usatech_calendar_2024_2025_batch10.py
+          python - <<'PY'
+          from tools.trading_breaks_recovery_progression import load_attempt_ledger, load_material_capability_changes
+          _, _, attempts = load_attempt_ledger()
+          b = [x for x in attempts if x.attempt_id.startswith('batch10:')]
+          assert [x.attempt_sequence for x in b] == [46,47,48,49,50]
+          assert [x.outcome for x in b] == ['PASS','BLOCKED','PASS','PASS','BLOCKED']
+          assert all(x.provenance['workflow_run'] == 35004172846 for x in b)
+          assert all(x.provenance['job_id'] == 104499660140 for x in b)
+          assert all(x.provenance['artifact_id'] == 10411022092 for x in b)
+          assert all(x.provenance['artifact_sha256'] == '1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14' for x in b)
+          assert all(x.provenance['probe_commit'] == '443b3696e4e2740a54354787de231c886f90b26e' for x in b)
+          assert load_material_capability_changes() == []
+          print('PASS: Batch 10 provenance and ledger tail exact')
+          PY
+      - name: Prove byte-stable progression
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/b10.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+      - name: Prove read-only clean worktree
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
