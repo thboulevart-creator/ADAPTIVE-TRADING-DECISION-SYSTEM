@@ -6,6 +6,7 @@ on:
       - feat/multi-year-dukascopy-acquisition
     paths:
       - '.github/workflows/trading-breaks-recovery-batch06-integration.yml'
+      - 'tools/integrate_trading_breaks_recovery_batch06.py'
   workflow_dispatch:
 
 permissions:
