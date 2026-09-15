@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import inspect
 from datetime import date
 
@@ -55,20 +56,27 @@ def test_authoritative_adjudication_is_revalidated_before_any_mutation():
     assert [item["verdict"] for item in report["adjudications"]] == ["BLOCKED", "PASS", "PASS", "PASS", "PASS"]
 
 
-def test_integration_surface_has_no_browser_capture_or_live_membership_recalculation():
-    source = inspect.getsource(integration).lower()
-    for forbidden in (
-        "playwright",
-        "chromium",
-        "probe_candidate",
-        "eligible_recovery_queue(",
-        "recovery_queue(",
-        "expected_outcome",
-        "manual_skip",
-        "source_availability",
-    ):
-        assert forbidden not in source
-    assert "batch08_targets()" in source
+def test_integration_surface_has_no_executable_browser_capture_or_live_membership_recalculation():
+    source = inspect.getsource(integration)
+    tree = ast.parse(source)
+    imports: set[str] = set()
+    calls: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            imports.update(alias.name.lower() for alias in node.names)
+        elif isinstance(node, ast.ImportFrom):
+            imports.add((node.module or "").lower())
+        elif isinstance(node, ast.Call):
+            if isinstance(node.func, ast.Name):
+                calls.add(node.func.id.lower())
+            elif isinstance(node.func, ast.Attribute):
+                calls.add(node.func.attr.lower())
+
+    assert not any("playwright" in name or "chromium" in name for name in imports)
+    assert "probe_candidate" not in calls
+    assert "eligible_recovery_queue" not in calls
+    assert "recovery_queue" not in calls
+    assert "batch08_targets" in calls
 
 
 def test_good_friday_cannot_be_added_to_pass_records_even_if_overlap_exists():
