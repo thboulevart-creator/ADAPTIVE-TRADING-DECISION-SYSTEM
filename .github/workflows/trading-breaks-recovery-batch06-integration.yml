@@ -1,12 +1,6 @@
 name: Trading Breaks Recovery Batch 06 Atomic Integration
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch06-integration.yml'
-      - 'tools/integrate_trading_breaks_recovery_batch06.py'
   workflow_dispatch:
 
 permissions:
