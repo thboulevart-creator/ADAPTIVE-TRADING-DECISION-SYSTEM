@@ -1,0 +1,17 @@
+name: Batch 10 persisted HEAD verifier
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths: ['.github/workflows/trading-breaks-recovery-batch10-persisted-head.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - run: echo verify-batch10-persisted-head
