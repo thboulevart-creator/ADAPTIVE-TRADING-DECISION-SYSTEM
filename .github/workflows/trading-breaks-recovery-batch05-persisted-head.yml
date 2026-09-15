@@ -1,11 +1,6 @@
 name: Trading Breaks Recovery Batch 05 Persisted-HEAD Rebreak
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch05-persisted-head.yml'
   workflow_dispatch:
 
 permissions:
