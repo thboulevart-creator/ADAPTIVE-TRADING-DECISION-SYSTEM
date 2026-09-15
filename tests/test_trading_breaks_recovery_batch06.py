@@ -52,7 +52,7 @@ def test_batch06_calendar_integrates_only_four_pass_dates():
 def test_batch06_attempt_ledger_records_all_five_factual_attempts():
     _, _, attempts = load_attempt_ledger()
     batch06 = [item for item in attempts if item.attempt_id.startswith("batch06:")]
-    assert len(attempts) == 30
+    assert len(attempts) == 35
     assert [item.attempt_sequence for item in batch06] == [26, 27, 28, 29, 30]
     assert [item.target_date for item in batch06] == [day for day, _ in EXPECTED_BATCH06]
     assert [item.outcome for item in batch06] == ["PASS", "BLOCKED", "PASS", "PASS", "PASS"]
@@ -72,17 +72,17 @@ def test_batch06_blocked_july4_remains_unresolved_and_same_capability_ineligible
     assert decision.contract_verdict == "PASS"
 
 
-def test_batch06_postintegration_progression_state_is_exact():
+def test_batch06_remains_valid_in_post_batch07_progression_state():
     decisions = progression_decisions()
     eligible = eligible_recovery_queue()
     _, _, attempts = load_attempt_ledger()
-    assert len(recovery_queue()) == len(decisions) == 45
-    assert len(attempts) == 30
+    assert len(recovery_queue()) == len(decisions) == 42
+    assert len(attempts) == 35
     assert load_material_capability_changes() == []
-    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 7
-    assert len(eligible) == 38
+    assert sum(not item.eligible and item.latest_attempt_outcome == "BLOCKED" for item in decisions) == 9
+    assert len(eligible) == 33
     assert eligible == sorted(eligible, key=lambda item: item[0])
-    assert eligible[0][0] > date(2023, 11, 24)
+    assert eligible[0][0] > date(2024, 2, 19)
 
 
 def test_batch06_freeze_provenance_remains_historical_truth_after_integration():
