@@ -1,0 +1,98 @@
+name: Trading Breaks Recovery Batch 06 Policy Qualification
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch06-policy.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  batch06-policy-qualification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove post-Batch05 freeze baseline ancestry and governed-state immutability
+        run: |
+          git merge-base --is-ancestor 289d7f4432efba4ad2bc1e97d5b23f14f587019e HEAD
+          git diff --exit-code 289d7f4432efba4ad2bc1e97d5b23f14f587019e HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/trading_breaks_recovery_protocol.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install pytest only
+        run: python -m pip install pytest==8.4.2
+
+      - name: Adversarially break Batch 06 membership and parent boundaries
+        run: |
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_batch05.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_dukascopy_usatech_calendar_2023_batch05.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Assert exact mechanically frozen Batch 06 membership
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch06 import BATCH_SIZE, batch06_targets
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue
+
+          expected = [
+              (date(2023, 7, 3), 'INDEPENDENCE_PRE_HOLIDAY_SESSION'),
+              (date(2023, 7, 4), 'INDEPENDENCE_DAY_OBSERVED'),
+              (date(2023, 9, 4), 'LABOR_DAY'),
+              (date(2023, 11, 23), 'THANKSGIVING_DAY'),
+              (date(2023, 11, 24), 'THANKSGIVING_FRIDAY'),
+          ]
+          eligible = eligible_recovery_queue()
+          assert BATCH_SIZE == 5
+          assert eligible[:5] == expected
+          assert batch06_targets() == eligible[:5]
+          print('PASS: Batch 06 membership equals governed post-Batch05 eligible_recovery_queue()[:5] at freeze')
+          for day, reason in expected:
+              print(day.isoformat(), reason)
+          PY
+
+      - name: Prove Batch 06 freeze contains no browser or probe execution path
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          source = Path('tools/trading_breaks_recovery_batch06.py').read_text(encoding='utf-8').lower()
+          forbidden_tokens = [
+              ''.join(('play', 'wright')),
+              ''.join(('chro', 'mium')),
+              ''.join(('probe_', 'candidate')),
+              'asyncio',
+          ]
+          for forbidden in forbidden_tokens:
+              assert forbidden not in source, forbidden
+          print('PASS: Batch 06 freeze is membership-only; no browser/probe path exists')
+          PY
+
+      - name: Prove qualification is read-only
+        run: git diff --exit-code
