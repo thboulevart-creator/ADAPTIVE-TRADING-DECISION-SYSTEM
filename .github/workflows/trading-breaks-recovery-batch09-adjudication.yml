@@ -177,6 +177,11 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          python - <<'PY'
+          from pathlib import Path
+          path = Path('reports/data-qualification/historical_trading_breaks_recovery_batch09_qualification.md')
+          path.write_text(path.read_text(encoding='utf-8').rstrip() + '\n', encoding='utf-8')
+          PY
           git add \
             reports/data-qualification/historical_trading_breaks_recovery_batch09_adjudication.json \
             reports/data-qualification/historical_trading_breaks_recovery_batch09_qualification.md
