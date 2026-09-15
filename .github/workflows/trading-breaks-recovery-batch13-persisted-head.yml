@@ -25,10 +25,10 @@ jobs:
 
       - name: Prove persisted integration ancestry and verifier-only delta
         run: |
-          git merge-base --is-ancestor ed5cc260cd2e1e36da0f4ea0c8bb6918bd26be14 HEAD
+          git merge-base --is-ancestor 52b1978feb0018c1eafc80108e4b411edf0ec982 HEAD
           git fetch origin feat/multi-year-dukascopy-acquisition
           test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
-          test "$(git diff --name-only ed5cc260cd2e1e36da0f4ea0c8bb6918bd26be14 HEAD)" = ".github/workflows/trading-breaks-recovery-batch13-persisted-head.yml"
+          test "$(git diff --name-only 52b1978feb0018c1eafc80108e4b411edf0ec982 HEAD)" = ".github/workflows/trading-breaks-recovery-batch13-persisted-head.yml"
 
       - uses: actions/setup-python@v5
         with:
