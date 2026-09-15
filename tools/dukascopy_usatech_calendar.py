@@ -677,6 +677,131 @@ SPECIAL_SESSION_EVIDENCE = {
             "historical_trading_breaks_recovery_batch04_qualification.md"
         ),
     },
+    date(2023, 1, 16): {
+        "reason": "SPECIAL_MARTIN_LUTHER_KING_DAY_2023",
+        # Exact broker-native Trading Breaks record 49338.
+        # Start 2023-01-16T17:59:00Z; final closed minute 2023-01-16T22:59:00Z;
+        # calibrated reopen 2023-01-16T23:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "49338",
+        "broker_reason": "Martin Luther King Jr. Day",
+        "artifact_id": 10386998786,
+        "artifact_sha256": "ad96e1850ca53910c092abd444f02a04e2a84ea192fa6c0b5189a7e349ea800c",
+        "probe_commit": "33ae476c48372bce64421a411066db2ddea6125c",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1673827200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34947146056"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch05_qualification.md"
+        ),
+    },
+    date(2023, 2, 20): {
+        "reason": "SPECIAL_PRESIDENTS_DAY_2023",
+        # Exact broker-native Trading Breaks record 50456.
+        # Start 2023-02-20T17:59:00Z; final closed minute 2023-02-20T22:59:00Z;
+        # calibrated reopen 2023-02-20T23:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(18, 23)),
+        "broker_record_id": "50456",
+        "broker_reason": "Washington's Birthday",
+        "artifact_id": 10386998786,
+        "artifact_sha256": "ad96e1850ca53910c092abd444f02a04e2a84ea192fa6c0b5189a7e349ea800c",
+        "probe_commit": "33ae476c48372bce64421a411066db2ddea6125c",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1676851200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34947146056"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch05_qualification.md"
+        ),
+    },
+    date(2023, 4, 7): {
+        "reason": "SPECIAL_GOOD_FRIDAY_2023",
+        # Exact broker-native Trading Breaks record 52290.
+        # Start 2023-04-07T14:14:00Z; final closed minute 2023-04-09T21:59:00Z;
+        # calibrated reopen 2023-04-09T22:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(15, 24)),
+        "broker_record_id": "52290",
+        "broker_reason": "Easter",
+        "artifact_id": 10386998786,
+        "artifact_sha256": "ad96e1850ca53910c092abd444f02a04e2a84ea192fa6c0b5189a7e349ea800c",
+        "probe_commit": "33ae476c48372bce64421a411066db2ddea6125c",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1680825600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34947146056"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch05_qualification.md"
+        ),
+    },
+    date(2023, 5, 29): {
+        "reason": "SPECIAL_MEMORIAL_DAY_2023",
+        # Exact broker-native Trading Breaks record 54373.
+        # Start 2023-05-29T16:59:00Z; final closed minute 2023-05-29T21:59:00Z;
+        # calibrated reopen 2023-05-29T22:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "54373",
+        "broker_reason": "Memorial Day",
+        "artifact_id": 10386998786,
+        "artifact_sha256": "ad96e1850ca53910c092abd444f02a04e2a84ea192fa6c0b5189a7e349ea800c",
+        "probe_commit": "33ae476c48372bce64421a411066db2ddea6125c",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1685318400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34947146056"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch05_qualification.md"
+        ),
+    },
+    date(2023, 6, 19): {
+        "reason": "SPECIAL_JUNETEENTH_OBSERVED_2023",
+        # Exact broker-native Trading Breaks record 55281.
+        # Start 2023-06-19T16:59:00Z; final closed minute 2023-06-19T21:59:00Z;
+        # calibrated reopen 2023-06-19T22:00:00Z. Only whole target-day UTC
+        # buckets proven closed by the adjudicated interval are encoded here.
+        "fully_closed_hours_utc": frozenset(range(17, 22)),
+        "broker_record_id": "55281",
+        "broker_reason": "Juneteenth Holiday",
+        "artifact_id": 10386998786,
+        "artifact_sha256": "ad96e1850ca53910c092abd444f02a04e2a84ea192fa6c0b5189a7e349ea800c",
+        "probe_commit": "33ae476c48372bce64421a411066db2ddea6125c",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1687132800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/"
+            "ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34947146056"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/"
+            "historical_trading_breaks_recovery_batch05_qualification.md"
+        ),
+    },
     date(2025, 1, 9): {
         "reason": "SPECIAL_US_NATIONAL_DAY_OF_MOURNING_2025",
         # CME U.S. equities close at 08:30 CT = 14:30 UTC and reopen at the

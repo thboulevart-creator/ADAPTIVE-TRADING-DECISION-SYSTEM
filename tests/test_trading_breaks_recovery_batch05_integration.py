@@ -11,11 +11,17 @@ from tools.trading_breaks_recovery_progression import (
 from tools.trading_breaks_recovery_protocol import recovery_queue
 
 
-PASS_DAYS = {date(2022, 11, 24), date(2022, 11, 25), date(2022, 12, 23)}
-BLOCKED_DAYS = {date(2022, 12, 26), date(2023, 1, 2)}
+PASS_DAYS = {
+    date(2023, 1, 16), date(2023, 2, 20), date(2023, 4, 7),
+    date(2023, 5, 29), date(2023, 6, 19),
+}
+BLOCKED_DAYS = {
+    date(2021, 12, 24), date(2021, 12, 31), date(2022, 4, 15),
+    date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2),
+}
 
 
-def test_batch04_atomic_integration_global_and_window_accounting_is_exact():
+def test_batch05_atomic_integration_global_and_window_accounting_is_exact():
     global_report = audit_calendar_coverage()
     window = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
     assert (global_report["candidate_dates"], global_report["resolved_candidate_dates"], global_report["unresolved_candidate_dates"]) == (111, 42, 69)
@@ -25,16 +31,17 @@ def test_batch04_atomic_integration_global_and_window_accounting_is_exact():
     assert global_report["contradictory_evidence_dates"] == []
 
 
-def test_batch04_atomic_integration_records_exactly_five_factual_attempts():
+def test_batch05_atomic_integration_records_exactly_five_factual_pass_attempts():
     _, _, attempts = load_attempt_ledger()
-    batch04 = [item for item in attempts if item.attempt_id.startswith("batch04:")]
+    batch05 = [item for item in attempts if item.attempt_id.startswith("batch05:")]
     assert len(attempts) == 25
-    assert [item.attempt_sequence for item in batch04] == [16, 17, 18, 19, 20]
-    assert [item.outcome for item in batch04] == ["PASS", "PASS", "PASS", "BLOCKED", "BLOCKED"]
+    assert [item.attempt_sequence for item in batch05] == [21, 22, 23, 24, 25]
+    assert [item.outcome for item in batch05] == ["PASS"] * 5
+    assert all(item.blocking_reason is None for item in batch05)
     assert load_material_capability_changes() == []
 
 
-def test_batch04_passes_leave_unresolved_queue_and_blocked_remain_unresolved_but_ineligible():
+def test_batch05_passes_leave_unresolved_queue_without_disturbing_blocked_semantics():
     raw_days = {day for day, _ in recovery_queue()}
     eligible_days = {day for day, _ in eligible_recovery_queue()}
     decisions = {d.target_date: d for d in progression_decisions()}
@@ -42,14 +49,13 @@ def test_batch04_passes_leave_unresolved_queue_and_blocked_remain_unresolved_but
     assert PASS_DAYS <= set(SPECIAL_SESSION_EVIDENCE)
     assert BLOCKED_DAYS <= raw_days
     assert BLOCKED_DAYS.isdisjoint(eligible_days)
-    assert BLOCKED_DAYS.isdisjoint(set(SPECIAL_SESSION_EVIDENCE))
     for day in BLOCKED_DAYS:
         assert decisions[day].reason == "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED"
         assert decisions[day].latest_attempt_outcome == "BLOCKED"
         assert decisions[day].contract_verdict == "PASS"
 
 
-def test_batch04_progression_is_non_starving_after_integration():
+def test_batch05_progression_is_non_starving_after_integration():
     decisions = progression_decisions()
     eligible = eligible_recovery_queue()
     assert len(recovery_queue()) == len(decisions) == 49
