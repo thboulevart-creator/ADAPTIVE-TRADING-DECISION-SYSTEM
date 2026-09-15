@@ -1,0 +1,110 @@
+name: Trading Breaks Recovery Batch 06 Independent Adjudication
+
+on:
+  push:
+    branches:
+      - feat/multi-year-dukascopy-acquisition
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch06-adjudication.yml'
+      - 'tools/trading_breaks_recovery_batch06_adjudication.py'
+      - 'tests/test_trading_breaks_recovery_batch06_adjudication.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  adjudicate-batch06:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact triggering persisted commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove authoritative Batch 06 runtime ancestry and immutability
+        run: |
+          git merge-base --is-ancestor b50529991d9af6e27170090bd45b42eb751d0958 HEAD
+          git diff --exit-code b50529991d9af6e27170090bd45b42eb751d0958 HEAD -- \
+            reports/data-qualification/historical_trading_breaks_recovery_batch06_runtime.json \
+            tools/trading_breaks_recovery_batch06.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_progression.py \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Adversarially break Batch 06 adjudication and parent boundaries
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch06_adjudication.py \
+            tests/test_trading_breaks_recovery_batch06.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_batch05_adjudication.py \
+            tests/test_trading_breaks_recovery_batch05_integration.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Independently adjudicate persisted Batch 06 runtime
+        run: python -m tools.trading_breaks_recovery_batch06_adjudication
+
+      - name: Assert exact final Batch 06 verdict
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path('reports/data-qualification/historical_trading_breaks_recovery_batch06_adjudication.json')
+          report = json.loads(path.read_text(encoding='utf-8'))
+          assert report['verdict'] == 'PASS'
+          assert report['attempted'] == 5
+          assert report['pass'] == 4
+          assert report['blocked'] == 1
+          assert report['fail'] == 0
+          assert [x['verdict'] for x in report['adjudications']] == [
+              'PASS', 'BLOCKED', 'PASS', 'PASS', 'PASS'
+          ]
+          assert report['adjudications'][1]['reason'] == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert report['adjudications'][1]['overlap_record_id'] == '56233'
+          print('PASS: Batch 06 independently adjudicated 4 PASS / 1 BLOCKED / 0 FAIL')
+          PY
+
+      - name: Prove adjudication consumes persisted frozen evidence only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/trading_breaks_recovery_batch06_adjudication.py').read_text(encoding='utf-8').lower()
+          forbidden_tokens = [
+              ''.join(('play', 'wright')),
+              ''.join(('chro', 'mium')),
+              ''.join(('probe_', 'candidate')),
+              ''.join(('eligible_', 'recovery_queue')),
+              ''.join(('recovery_', 'queue()')),
+          ]
+          for forbidden in forbidden_tokens:
+              assert forbidden not in source, forbidden
+          assert 'batch06_targets()' in source
+          print('PASS: independent adjudication has no browser/probe/live-queue path')
+          PY
+
+      - name: Persist independent Batch 06 adjudication reports
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            reports/data-qualification/historical_trading_breaks_recovery_batch06_adjudication.json \
+            reports/data-qualification/historical_trading_breaks_recovery_batch06_qualification.md
+          git diff --cached --check
+          git commit -m 'evidence: independently adjudicate Trading Breaks Batch 06'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
