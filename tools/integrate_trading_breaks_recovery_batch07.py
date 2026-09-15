@@ -413,6 +413,7 @@ def update_batch05_integration_test() -> None:
     replacements = [
         ("(111, 46, 65)", "(111, 49, 62)", "Batch05 global accounting"),
         ("(68, 23, 45)", "(68, 26, 42)", "Batch05 window accounting"),
+        ("assert len(attempts) == 30", "assert len(attempts) == 35", "Batch05 integration ledger total"),
         ("assert len(recovery_queue()) == len(decisions) == 45", "assert len(recovery_queue()) == len(decisions) == 42", "Batch05 queue"),
         ("== 7", "== 9", "Batch05 blocked count"),
         ("assert len(eligible) == 38", "assert len(eligible) == 33", "Batch05 eligible count"),
