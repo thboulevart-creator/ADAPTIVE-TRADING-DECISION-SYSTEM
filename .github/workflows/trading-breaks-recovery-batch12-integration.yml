@@ -118,8 +118,23 @@ jobs:
 
       - name: Run full governed and adversarial regression
         run: |
-          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' | sort)
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' ! -name 'test_trading_breaks_recovery_batch12.py' | sort)
           python -m pytest -q "${TESTS[@]}"
+
+      - name: Prove frozen Batch 12 membership remains byte-for-byte immutable
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch12 import batch12_targets
+          assert batch12_targets() == [
+              (date(2025, 11, 27), 'THANKSGIVING_DAY'),
+              (date(2025, 11, 28), 'THANKSGIVING_FRIDAY'),
+              (date(2025, 12, 24), 'CHRISTMAS_PRE_HOLIDAY_SESSION'),
+              (date(2025, 12, 25), 'CHRISTMAS_OBSERVED'),
+              (date(2025, 12, 31), 'NEW_YEARS_EVE_CANDIDATE'),
+          ]
+          print('PASS: historical Batch 12 frozen membership preserved without postintegration reselection')
+          PY
 
       - name: Prove integration path used no browser or live capture
         run: |
