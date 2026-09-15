@@ -2,9 +2,27 @@ name: Context to research boundary
 
 on:
   push:
-    branches:
-      - feat/step3-context-research-contract-gate
+    paths:
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/**'
+      - 'src/research_run_evidence.py'
+      - 'tests/test_context_to_research_boundary.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - '.github/workflows/context-to-research-boundary.yml'
+  pull_request:
+    paths:
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/**'
+      - 'src/research_run_evidence.py'
+      - 'tests/test_context_to_research_boundary.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - '.github/workflows/context-to-research-boundary.yml'
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   context-to-research:
@@ -17,6 +35,8 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install test dependencies
-        run: python -m pip install pytest
+        run: python -m pip install pytest==8.4.2
       - name: Run CONTEXT to RESEARCH boundary tests
         run: python -m pytest tests/test_context_to_research_boundary.py -q
+      - name: Run CONTEXT to RESEARCH alternative-path adversarial tests
+        run: python -m pytest tests/test_context_research_alternative_paths.py -q
