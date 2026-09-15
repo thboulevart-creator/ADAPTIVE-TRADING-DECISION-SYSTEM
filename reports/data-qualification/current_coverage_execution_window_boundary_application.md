@@ -2,7 +2,7 @@
 
 Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 
-## Current governed state after Batch 07 atomic integration + persisted-HEAD re-break PASS
+## Current governed state after Batch 08 membership qualification PASS
 
 - Global research envelope: `2018-05-01` → `2026-08-14`
 - Execution-window candidate: `2021-08-14` → `2026-08-14`
@@ -18,6 +18,7 @@ Contract: `COVERAGE_ENVELOPE_EXECUTION_WINDOW_BOUNDARY_V1`
 - Execution-eligible unresolved: **33**
 - Current semantic capability: `TRADING_BREAKS_PRIMARY_WIDGET_V1`
 - Capability fingerprint: `82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f`
+- Batch 08 membership: **FROZEN + ADVERSARIALLY QUALIFIED PASS**
 - Massive native `.bi5` acquisition: **FORBIDDEN**
 - Real backtest: **NOT AUTHORIZED**
 
@@ -96,11 +97,46 @@ Persisted state independently proven:
 - material capability changes: `0`
 - attempted BLOCKED / execution-ineligible: `9`
 - execution-eligible unresolved: `33`
-- first governed eligible unresolved date: `2024-03-29 — GOOD_FRIDAY`
+
+## Batch 08 membership freeze — PASS
+
+Freeze baseline checkpoint:
+
+`2e9e51cea8342c701eec14d8d86aca215c5b7b62`
+
+Mechanically frozen membership:
+
+1. `2024-03-29 — GOOD_FRIDAY`
+2. `2024-05-27 — MEMORIAL_DAY`
+3. `2024-06-19 — JUNETEENTH_OBSERVED`
+4. `2024-07-03 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+5. `2024-07-04 — INDEPENDENCE_DAY_OBSERVED`
+
+Selection rule:
+
+`eligible_recovery_queue()[:5]`
+
+Authoritative qualification:
+
+- workflow run: `34967834638`
+- job: `104376461078`
+- trigger commit: `7e0fc3268d6ec202267ecf71efe69b0e593be4ea`
+- full governed adversarial/regression suite: `307 passed in 1.46s`
+- exact eligible-prefix assertion: PASS
+- all five targets `INITIAL_ATTEMPT`: PASS
+- parent governed-state immutability: PASS
+- no browser/probe/live-selection/manual-priority path: PASS
+- read-only `git diff --exit-code`: PASS
+
+Qualification report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_batch08_policy_qualification.md`
+
+Batch 08 freeze changed no calendar evidence, attempt ledger entry, capability state, progression runtime or coverage count. No historical browser observation occurred.
 
 ## Workflow closure
 
-The Batch 07 integration, corrective resume, and persisted-HEAD verifier workflows are archived to `workflow_dispatch` only. Normal pushes cannot silently replay Batch 07 integration or its verifier.
+The completed Batch 08 membership qualification workflow is archived to `workflow_dispatch` only. Normal pushes cannot silently re-freeze or re-qualify Batch 08 membership.
 
 ## Current boundary decisions
 
@@ -125,6 +161,7 @@ PASS:
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH07_EXECUTION_ADJUDICATION`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH07_ATOMIC_INTEGRATION`
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH07_PERSISTED_HEAD_REBREAK`
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH08_POLICY`
 - `LOCAL_RUNTIME_EVIDENCE_ARCHIVE`
 
 BLOCKED downstream:
@@ -136,6 +173,8 @@ BLOCKED downstream:
 
 ## Exactly one next governed action
 
-**Freeze and version Batch 08 membership mechanically from the governed post-Batch07 `eligible_recovery_queue()`, then adversarially qualify that immutable membership before any browser observation.**
+**Execute exactly the already-frozen Batch 08 membership under the qualified Trading Breaks capture chain, with parent protocol/progression/Batch08 gates PASS before Chromium opens, then independently adjudicate all five results.**
 
-Do not select Batch 08 from raw `recovery_queue()`, conversation memory, expected outcome, source availability, holiday preference, or convenience. No `.bi5`. No real backtest.
+Membership MUST come from `batch08_targets()` / `FROZEN_BATCH08_TARGETS`. It MUST NOT be recalculated from live `eligible_recovery_queue()`, raw `recovery_queue()`, conversation memory, expected outcome, source availability, holiday preference or convenience.
+
+No `.bi5`. No real backtest.
