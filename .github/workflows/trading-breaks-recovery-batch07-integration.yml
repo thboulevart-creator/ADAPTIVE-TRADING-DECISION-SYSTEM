@@ -166,44 +166,38 @@ jobs:
 
       - name: Write integration qualification report
         run: |
-          python - <<'PY'
-          import os
-          from pathlib import Path
+          cat > reports/data-qualification/historical_trading_breaks_recovery_batch07_integration_qualification.md <<EOF
+          # HISTORICAL TRADING BREAKS RECOVERY — BATCH 07 ATOMIC INTEGRATION QUALIFICATION
 
-          report = f'''# HISTORICAL TRADING BREAKS RECOVERY — BATCH 07 ATOMIC INTEGRATION QUALIFICATION
+          **PASS — \`BATCH07_ATOMIC_CALENDAR_ATTEMPT_PROGRESSION_INTEGRATION_COHERENT\`**
 
-**PASS — `BATCH07_ATOMIC_CALENDAR_ATTEMPT_PROGRESSION_INTEGRATION_COHERENT`**
+          Source adjudication:
+          - browser run: \`34958083459\`
+          - job: \`104344855871\`
+          - artifact: \`10392510730\`
+          - artifact SHA-256: \`0df18b4bfcae04c0bf5e3670e789fc1253fde7317a50d108b35e10dd1cc2676a\`
+          - probe commit: \`3d434dda9bd293d48cbe2f35df3d464abd5938a4\`
 
-Source adjudication:
-- browser run: `34958083459`
-- job: `104344855871`
-- artifact: `10392510730`
-- artifact SHA-256: `0df18b4bfcae04c0bf5e3670e789fc1253fde7317a50d108b35e10dd1cc2676a`
-- probe commit: `3d434dda9bd293d48cbe2f35df3d464abd5938a4`
+          Integration workflow run: \`${GITHUB_RUN_ID}\`
+          Pre-integration execution SHA: \`${GITHUB_SHA}\`
 
-Integration workflow run: `{os.environ['GITHUB_RUN_ID']}`
-Pre-integration execution SHA: `{os.environ['GITHUB_SHA']}`
+          Atomic mutation authorized and proven:
+          - calendar PASS additions only: \`2023-12-22\`, \`2024-01-15\`, \`2024-02-19\`;
+          - \`2023-12-25\` and \`2024-01-01\` remain unresolved and receive no negative evidence;
+          - all five factual Batch 07 attempts appended as sequences \`31..35\`;
+          - both BLOCKED dates become \`SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED\`;
+          - progression runtime regenerated from the integrated worktree;
+          - no material capability change registered.
 
-Atomic mutation authorized and proven:
-- calendar PASS additions only: `2023-12-22`, `2024-01-15`, `2024-02-19`;
-- `2023-12-25` and `2024-01-01` remain unresolved and receive no negative evidence;
-- all five factual Batch 07 attempts appended as sequences `31..35`;
-- both BLOCKED dates become `SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED`;
-- progression runtime regenerated from the integrated worktree;
-- no material capability change registered.
+          Proven post-integration accounting:
+          - global calendar: \`111 / 49 resolved / 62 unresolved / 0 FAIL\`;
+          - execution-window candidate: \`68 / 26 resolved / 42 unresolved / 0 FAIL\`;
+          - attempt ledger: \`35\`;
+          - attempted BLOCKED execution-ineligible: \`9\`;
+          - execution-eligible unresolved: \`33\`.
 
-Proven post-integration accounting:
-- global calendar: `111 / 49 resolved / 62 unresolved / 0 FAIL`;
-- execution-window candidate: `68 / 26 resolved / 42 unresolved / 0 FAIL`;
-- attempt ledger: `35`;
-- attempted BLOCKED execution-ineligible: `9`;
-- execution-eligible unresolved: `33`.
-
-This qualification does not freeze Batch 08 and does not authorize massive `.bi5` acquisition or any real backtest.
-'''
-          path = Path('reports/data-qualification/historical_trading_breaks_recovery_batch07_integration_qualification.md')
-          path.write_text(report, encoding='utf-8')
-          PY
+          This qualification does not freeze Batch 08 and does not authorize massive \`.bi5\` acquisition or any real backtest.
+          EOF
 
       - name: Persist one atomic Batch 07 integration commit
         run: |
