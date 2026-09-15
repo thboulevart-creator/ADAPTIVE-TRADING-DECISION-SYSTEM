@@ -609,8 +609,8 @@ def test_2024_exact_target_records_encode_only_proven_whole_hours():
 def create_integration_test() -> None:
     INTEGRATION_TEST.write_text('''from datetime import date
 
-from tools.dukascopy_usatech_calendar import NO_SPECIAL_CHANGE_EVIDENCE, SPECIAL_SESSION_EVIDENCE
-from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+from tools.dukascopy_usatech_calendar_coverage import NO_SPECIAL_CHANGE_EVIDENCE, audit_calendar_coverage
 from tools.trading_breaks_recovery_progression import eligible_recovery_queue, load_attempt_ledger, load_material_capability_changes, progression_decisions
 from tools.trading_breaks_recovery_protocol import recovery_queue
 
