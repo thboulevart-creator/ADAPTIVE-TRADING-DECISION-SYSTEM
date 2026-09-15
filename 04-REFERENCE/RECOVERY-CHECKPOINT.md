@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — TRADING BREAKS BATCH 10 EXECUTION PASS
+# RECOVERY CHECKPOINT — 15 SEPTEMBRE 2026 — TRADING BREAKS BATCH 10 INDEPENDENT ADJUDICATION PASS
 
 ## 1. CURRENT AUTHORITATIVE STATE
 
@@ -13,10 +13,10 @@
 - **Systematic Trading Breaks recovery protocol:** PASS
 - **Attempt-aware recovery progression:** PASS
 - **Recovery Batch 09:** fully closed through persisted-HEAD re-break PASS
-- **Recovery Batch 10 membership freeze:** PASS — `BATCH10_MEMBERSHIP_MECHANICALLY_FROZEN_AND_ADVERSARIALLY_QUALIFIED`
-- **Recovery Batch 10 persisted-membership re-break:** PASS — `BATCH10_PERSISTED_MEMBERSHIP_REBREAK_CONFIRMS_FROZEN_PREFIX`
-- **Recovery Batch 10 execution/capture:** **PASS — `BATCH10_FROZEN_MEMBERSHIP_EXECUTED_WITH_PRE_BROWSER_GATES_AND_CAPTURE_ONLY_BOUNDARY`**
-- **Recovery Batch 10 independent adjudication:** NOT STARTED
+- **Recovery Batch 10 membership:** frozen + adversarially qualified + persisted-membership re-break PASS
+- **Recovery Batch 10 execution/capture:** PASS — capture only
+- **Recovery Batch 10 independent adjudication:** **PASS — `3 PASS / 2 BLOCKED / 0 FAIL`**
+- **Recovery Batch 10 atomic integration:** NOT STARTED
 - **Historical attempt ledger entries:** `45`
 - **Registered material capability changes:** `0`
 - **Attempted BLOCKED / same-capability execution-ineligible:** `11`
@@ -28,15 +28,15 @@
 
 Latest durable backup:
 
-`99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH10-EXECUTION-PASS.md`
+`99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH10-ADJUDICATION-PASS.md`
 
 Backup commit:
 
-`4f3d842c37e7889baceda1c7e3baed2466c861b6`
+`dc1349b7256f70db183cd86939444da5e99aed5f`
 
 Current boundary report commit:
 
-`acea873c517296d3f4d0f7a8fd75d2c16a879607`
+`6412b3640f1654236ce79365dbe0faffd0069539`
 
 ## 2. MANDATORY RECOVERY ORDER
 
@@ -44,33 +44,31 @@ Before the next substantive write:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH10-EXECUTION-PASS.md`
+3. `99-BACKUP/SESSION-2026-09-15-TRADING-BREAKS-RECOVERY-BATCH10-ADJUDICATION-PASS.md`
 4. `reports/data-qualification/current_coverage_execution_window_boundary_application.md`
-5. `reports/data-qualification/historical_trading_breaks_recovery_batch10_execution_qualification.md`
-6. `reports/data-qualification/historical_trading_breaks_recovery_batch10_runtime.json`
-7. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH10-POLICY.md`
-8. `reports/data-qualification/historical_trading_breaks_recovery_batch10_policy_qualification.md`
-9. `reports/data-qualification/historical_trading_breaks_recovery_batch10_persisted_membership_rebreak.md`
-10. `tools/trading_breaks_recovery_batch10.py`
-11. `tests/test_trading_breaks_recovery_batch10.py`
-12. `tools/trading_breaks_recovery_batch10_execute.py`
-13. `tests/test_trading_breaks_recovery_batch10_execution_contract.py`
-14. `tools/freeze_trading_breaks_recovery_batch10.py`
-15. `tests/test_trading_breaks_recovery_batch10_freeze_contract.py`
-16. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-17. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-18. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-19. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-20. `tools/trading_breaks_recovery_progression.py`
-21. `tests/test_trading_breaks_recovery_progression.py`
-22. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
-23. `tools/trading_breaks_recovery_protocol.py`
-24. `tests/test_trading_breaks_recovery_protocol.py`
-25. `tools/dukascopy_usatech_calendar.py`
-26. `tools/dukascopy_usatech_calendar_coverage.py`
-27. `tests/test_dukascopy_usatech_calendar_coverage.py`
-28. `tests/test_coverage_execution_window_boundary.py`
-29. compare active branch HEAD against the commit containing this checkpoint before any write.
+5. `reports/data-qualification/historical_trading_breaks_recovery_batch10_adjudication.json`
+6. `reports/data-qualification/historical_trading_breaks_recovery_batch10_qualification.md`
+7. `tools/trading_breaks_recovery_batch10_adjudication.py`
+8. `tests/test_trading_breaks_recovery_batch10_adjudication.py`
+9. `reports/data-qualification/historical_trading_breaks_recovery_batch10_runtime.json`
+10. `reports/data-qualification/historical_trading_breaks_recovery_batch10_execution_qualification.md`
+11. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH10-POLICY.md`
+12. `tools/trading_breaks_recovery_batch10.py`
+13. `tests/test_trading_breaks_recovery_batch10.py`
+14. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
+15. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
+16. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
+17. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
+18. `tools/trading_breaks_recovery_progression.py`
+19. `tests/test_trading_breaks_recovery_progression.py`
+20. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
+21. `tools/trading_breaks_recovery_protocol.py`
+22. `tests/test_trading_breaks_recovery_protocol.py`
+23. `tools/dukascopy_usatech_calendar.py`
+24. `tools/dukascopy_usatech_calendar_coverage.py`
+25. `tests/test_dukascopy_usatech_calendar_coverage.py`
+26. `tests/test_coverage_execution_window_boundary.py`
+27. compare active branch HEAD against the commit containing this checkpoint before any write.
 
 GitHub/checkpoint is source of truth. Do not reconstruct state from conversation memory.
 
@@ -79,12 +77,6 @@ GitHub/checkpoint is source of truth. Do not reconstruct state from conversation
 Frozen snapshot commit:
 
 `65b789f310c066f90b39cd9e1ed69d2bd0962b6c`
-
-Selection rule:
-
-`eligible_recovery_queue()[:5]`
-
-Fixed size: `5`.
 
 Exact frozen order:
 
@@ -96,167 +88,172 @@ Exact frozen order:
 
 All later Batch 10 work MUST consume immutable `batch10_targets()`. No live queue may reconstruct, reorder, shrink, expand or substitute this membership.
 
-Membership freeze run/job:
+## 4. AUTHORITATIVE BATCH 10 EXECUTION
 
-`35003111213` / `104496100100`
-
-Independent persisted-membership re-break run/job:
-
-`35003238287` / `104496526561`
-
-Persisted-membership regression:
-
-`415 passed in 2.15s`.
-
-## 4. BATCH 10 EXECUTION/CAPTURE — PASS
-
-Final execution verdict:
-
-**PASS — `BATCH10_FROZEN_MEMBERSHIP_EXECUTED_WITH_PRE_BROWSER_GATES_AND_CAPTURE_ONLY_BOUNDARY`**
-
-Execution preparation:
-
-- runner commit: `27621bc25d5188a555622a4c681ef95a37aca3b7`
-- execution-contract test commit: `e92438256a2d9e18efe48aa3207cef1441145d78`
-- workflow trigger / probe commit: `443b3696e4e2740a54354787de231c886f90b26e`
-
-Authoritative execution:
-
-- workflow run/job: `35004172846` / `104499660140`
-- pre-browser full governed/adversarial regression: `423 passed in 1.88s`
-- artifact ID: `10411022092`
+- execution run/job: `35004172846` / `104499660140`
+- probe commit: `443b3696e4e2740a54354787de231c886f90b26e`
+- artifact: `10411022092`
 - artifact SHA-256: `1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14`
-- artifact files: `31`
 - artifact size: `3796617` bytes
 - runtime persistence commit: `1134f96517157647d7663ce1ebaf045267e78bcb`
-- runtime report: `reports/data-qualification/historical_trading_breaks_recovery_batch10_runtime.json`
-- execution qualification report: `reports/data-qualification/historical_trading_breaks_recovery_batch10_execution_qualification.md`
+- runtime: `reports/data-qualification/historical_trading_breaks_recovery_batch10_runtime.json`
+- execution verdict: **PASS — `BATCH10_FROZEN_MEMBERSHIP_EXECUTED_WITH_PRE_BROWSER_GATES_AND_CAPTURE_ONLY_BOUNDARY`**
 
-Before Playwright/Chromium installation/opening, the run proved:
+Execution did not adjudicate or integrate any date.
 
-- checkpoint ancestry and governed frozen-state immutability: PASS;
-- complete governed + adversarial regression: PASS;
-- exact frozen membership identity / size / chronological order: PASS;
-- capability ID/fingerprint: PASS;
-- execution path consumes only `batch10_targets()`: PASS;
-- execution path has no live `eligible_recovery_queue()` / `recovery_queue()` / progression selection: PASS;
-- qualified `probe_candidate` is capture-only and has no membership scheduling: PASS.
+## 5. BATCH 10 INDEPENDENT OFFLINE ADJUDICATION — PASS
 
-Only after those gates passed was Chromium installed and opened.
+Final verdict:
 
-The browser attempted all five frozen members exactly once in frozen order. The post-capture identity gate passed and performed no date-level adjudication.
+**PASS — `BATCH10_POSITIVE_RECORDS_INDEPENDENTLY_ADJUDICATED_WITH_NO_CROSS_DATE_OR_MISSING_DOM_PROMOTION`**
 
-## 5. RAW BATCH 10 CAPTURE FACTS — NOT ADJUDICATION
+Adjudication preparation:
 
-These are runtime observations only. `CAPTURED` is not a date-level PASS.
+- adjudicator commit: `34c154597990f1200ab6f8522bc880f0d88f9a88`
+- adversarial test commit: `79de8930587ff373817d064994e1bb18dfe3175f`
+- workflow trigger: `44081d66127c9c620c2001b15024cc2092a0155f`
+
+Authoritative adjudication:
+
+- workflow run/job: `35005525644` / `104504189641`
+- full governed + adversarial regression: **`459 passed in 2.02s`**
+- persisted adjudication evidence commit: `77964da35adbff0e042061bbd977777df1ece0b8`
+- reports:
+  - `reports/data-qualification/historical_trading_breaks_recovery_batch10_adjudication.json`
+  - `reports/data-qualification/historical_trading_breaks_recovery_batch10_qualification.md`
+- completed workflow archive commit: `e03fd706d094df20dfcb126863d96b1c1b524a7a`
+- workflow after closure: `workflow_dispatch` only, `contents: read`
+
+Before issuing the verdict, the adjudication workflow independently re-verified through GitHub:
+
+- execution run ID and `success` conclusion;
+- execution head SHA / probe commit;
+- execution job ID and `success` conclusion;
+- artifact ID;
+- artifact SHA-256 digest;
+- artifact size;
+- artifact non-expired status.
+
+No Chromium, Playwright, browser navigation, network capture or `probe_candidate` execution occurred during adjudication. No live `eligible_recovery_queue()` or `recovery_queue()` membership selection occurred.
+
+## 6. EXACT DATE-LEVEL OUTCOMES
 
 1. `2024-12-31 — NEW_YEARS_EVE_CANDIDATE`
-   - capture: `CAPTURED`
-   - record: `75799`
-   - broker start: `2024-12-31T21:14:59Z`
-   - broker end: `2025-01-01T22:59:59Z`
-   - DOM witness: present
-   - raw target-day fully-closed hours emitted by capture: `[22,23]`
+   - **PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
+   - record `75799`
+   - start `2024-12-31T21:14:59Z`
+   - final closed minute `2025-01-01T22:59:59Z`
+   - reopen `2025-01-01T23:00:59Z`
+   - fully closed target-day UTC hours `[22,23]`
+   - DOM witness present.
 
 2. `2025-01-01 — NEW_YEARS_OBSERVED`
-   - capture: `CAPTURED`
-   - record: `75799`
-   - broker start: `2024-12-31T21:14:59Z`
-   - broker end: `2025-01-01T22:59:59Z`
-   - DOM witness: present
-   - this is a cross-date observation; it has NOT been promoted
+   - **BLOCKED — `NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE`**
+   - overlap record `75799`
+   - native broker start is `2024-12-31T21:14:59Z`
+   - raw capture token was `CAPTURED`; the `CAPTURED -> PASS` bypass was explicitly rejected.
 
 3. `2025-01-20 — MARTIN_LUTHER_KING_DAY`
-   - capture: `CAPTURED`
-   - record: `76806`
-   - broker start: `2025-01-20T17:59:59Z`
-   - broker end: `2025-01-20T22:59:59Z`
-   - DOM witness: present
-   - raw target-day fully-closed hours: `[18,19,20,21,22]`
+   - **PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
+   - record `76806`
+   - start `2025-01-20T17:59:59Z`
+   - reopen `2025-01-20T23:00:59Z`
+   - fully closed target-day UTC hours `[18,19,20,21,22]`.
 
 4. `2025-02-17 — PRESIDENTS_DAY`
-   - capture: `CAPTURED`
-   - record: `78513`
-   - broker start: `2025-02-17T17:59:59Z`
-   - broker end: `2025-02-17T22:59:59Z`
-   - DOM witness: present
-   - raw target-day fully-closed hours: `[18,19,20,21,22]`
+   - **PASS — `EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED`**
+   - record `78513`
+   - start `2025-02-17T17:59:59Z`
+   - reopen `2025-02-17T23:00:59Z`
+   - fully closed target-day UTC hours `[18,19,20,21,22]`.
 
 5. `2025-04-18 — GOOD_FRIDAY`
-   - capture result: `BLOCKED — EXPECTED_DOM_CROSSCHECK_MISSING`
-   - retained network record: `80057`
-   - broker start: `2025-04-17T20:14:59Z`
-   - broker end: `2025-04-20T21:59:59Z`
-   - DOM witness: absent
-   - this is cross-date and missing required DOM evidence; no promotion occurred
+   - **BLOCKED — `NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE`**
+   - overlap record `80057`
+   - native broker start `2025-04-17T20:14:59Z`
+   - DOM witness absent
+   - capture reason `EXPECTED_DOM_CROSSCHECK_MISSING`
+   - cross-date + missing DOM cannot be promoted.
 
-No independent date-level verdict has been issued for Batch 10.
+Final accounting:
 
-## 6. EXECUTION STATE-MUTATION BOUNDARY
+**`3 PASS / 2 BLOCKED / 0 FAIL`**
 
-Batch 10 execution/capture did NOT mutate:
+## 7. ADVERSARIAL BOUNDARY PROVEN
 
-- `SPECIAL_SESSION_EVIDENCE`;
-- `NO_SPECIAL_CHANGE_EVIDENCE`;
+The adjudication explicitly rejects/detects:
+
+- frozen membership tampering;
+- result reorder and result-count mutation;
+- run/job/artifact/digest/probe/artifact-URL provenance tampering;
+- wrong requested date, target epoch or instrument;
+- duplicate or conflicting network records;
+- duplicate DOM witnesses;
+- DOM/network contradiction;
+- wrong DOM instrument;
+- `CAPTURED -> PASS` shortcut;
+- cross-date promotion of `2025-01-01 / 75799`;
+- cross-date + missing-DOM promotion of `2025-04-18 / 80057`;
+- exact-target promotion without required DOM;
+- forged `capture_verdict=PASS`;
+- start/end/reopen timestamp tampering;
+- fully-closed-hour tampering / silent partial-hour rounding;
+- DOM witness without network evidence;
+- browser/probe/live-membership-selection paths in the adjudicator.
+
+## 8. CURRENT STATE BOUNDARY
+
+Adjudication is evidence-only and did NOT mutate:
+
+- executable calendar evidence;
+- no-special-change evidence;
 - historical attempt ledger;
 - progression runtime;
-- capability-change registry.
+- capability-change registry;
+- Batch 10 runtime.
 
-Persisted governed state remains:
+Persisted state remains:
 
 - global `111 / 57 resolved / 54 unresolved / 0 FAIL`
 - execution window `68 / 34 resolved / 34 unresolved / 0 FAIL`
 - raw unresolved `34`
 - attempt ledger `45`
-- capability changes `0`
 - same-capability attempted BLOCKED/ineligible `11`
 - execution-eligible unresolved `23`
+- capability changes `0`.
 
 No `.bi5`. No real backtest.
 
-## 7. WORKFLOW CLOSURE
+## 9. CURRENT DOWNSTREAM BOUNDARY
 
-Completed Batch 10 execution workflow archive commit:
-
-`c1f63d835a5d5b4475225f929deb3d95a0d33211`
-
-The execution workflow is now `workflow_dispatch` only with `contents: read`. Normal pushes cannot silently repeat completed Batch 10 browser capture.
-
-## 8. CURRENT DOWNSTREAM BOUNDARY
-
-PASS includes:
+PASS now includes:
 
 - all completed Batch 01–09 recovery/integration gates;
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_POLICY`;
 - `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_PERSISTED_MEMBERSHIP_REBREAK`;
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_EXECUTION_CAPTURE`.
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_EXECUTION_CAPTURE`;
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_INDEPENDENT_ADJUDICATION`.
 
 Still pending/BLOCKED:
 
-- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_INDEPENDENT_ADJUDICATION — NOT STARTED`;
+- `HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH10_ATOMIC_INTEGRATION — NOT STARTED`;
 - `DECLARE_GLOBAL_COVERAGE_PASS — GLOBAL_UNRESOLVED_REMAINS_54`;
 - `FREEZE_EXECUTION_WINDOW — EXECUTION_WINDOW_CONTAINS_34_UNRESOLVED_DATES`;
 - `AUTHORIZE_MASSIVE_ACQUISITION — EXECUTION_WINDOW_NOT_FROZEN`;
 - `REAL_BACKTEST — UPSTREAM_WINDOW_ACQUISITION_AND_DATA_QUALIFICATION_NOT_PASS`.
 
-## 9. EXACTLY ONE NEXT GOVERNED ACTION
+## 10. EXACTLY ONE NEXT GOVERNED ACTION
 
-**Independently adjudicate the persisted Batch 10 runtime offline, without browser and without live membership recalculation.**
+**Integrate Batch 10 atomically from the persisted independent adjudication: add only `2024-12-31`, `2025-01-20` and `2025-02-17` to executable calendar evidence; append all five factual attempts in frozen order; keep `2025-01-01` and `2025-04-18` unresolved/BLOCKED and make them same-capability ineligible; regenerate progression; adversarially prove the exact post-state before any Batch 11 work.**
 
-Mandatory requirements:
+Expected deterministic post-integration accounting if no other rule changes:
 
-- consume immutable `batch10_targets()` plus persisted runtime/provenance only;
-- no Chromium, Playwright, browser navigation, network capture or `probe_candidate` execution;
-- no call to `eligible_recovery_queue()` or `recovery_queue()` for membership selection;
-- independently verify workflow run/job/artifact/digest/probe commit provenance;
-- reject any `CAPTURED -> PASS` shortcut;
-- explicitly attack cross-date promotion for `2025-01-01 / 75799`;
-- explicitly attack cross-date and missing-DOM promotion for `2025-04-18 / 80057`;
-- reject target order/membership mutation;
-- reject duplicate/multiple conflicting records;
-- reject DOM/network contradiction and wrong date/instrument;
-- recompute interval/reopen/fully-closed-hour semantics independently and reject tampering or partial-hour rounding;
-- do NOT integrate calendar/ledger/progression in the adjudication action;
-- same branch only;
-- no `.bi5`;
-- no real backtest.
+- global `111 / 60 resolved / 51 unresolved / 0 FAIL`
+- execution window `68 / 37 resolved / 31 unresolved / 0 FAIL`
+- raw unresolved `31`
+- ledger `50`
+- same-capability BLOCKED/ineligible `13`
+- eligible unresolved `18`
+- capability changes `0`.
+
+Do not freeze Batch 11 before Batch 10 integration and its governed verification PASS.
