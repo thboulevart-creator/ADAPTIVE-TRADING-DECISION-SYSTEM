@@ -14,9 +14,24 @@ Parent adjudication protocol:
 
 ## Qualification status
 
-**CANDIDATE — adversarial qualification pending**
+**PASS — `BATCH07_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
 
-Batch 07 membership is frozen here before any Batch 07 historical broker observation. No execution is authorized by this policy candidate until the membership qualification workflow passes.
+Authoritative qualification report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_batch07_policy_qualification.md`
+
+Authoritative qualification:
+
+- workflow run: `34957479365`
+- job: `104342908504`
+- trigger commit: `2b3a2698f385b6c96003da61e1e59737ab48f3f2`
+- adversarial/regression suite: `98 passed in 0.26s`
+- exact governed eligible-prefix assertion: PASS
+- governed parent-state immutability: PASS
+- no-browser/no-probe/no-live-selection assertion: PASS
+- read-only assertion: PASS
+
+Batch 07 membership was mechanically derived from the persisted post-Batch06 attempt-aware execution state and frozen before any historical broker observation.
 
 ## 1. Freeze provenance
 
@@ -46,7 +61,7 @@ Governed progression state at freeze:
 
 `BATCH_SIZE = 5`
 
-The operational batch size is fixed before observation. It MUST NOT be changed based on expected outcome, holiday type, source availability, apparent difficulty or convenience.
+The operational batch size is fixed. It MUST NOT be changed based on expected outcome, holiday type, source availability, apparent difficulty or convenience.
 
 ## 3. Deterministic selection rule
 
@@ -72,9 +87,9 @@ The mechanically derived immutable membership is:
 
 These identities and this order are frozen before any Batch 07 historical observation. They MUST NOT be inserted, skipped, substituted, expanded, shortened or reordered after outcomes become known.
 
-## 5. Required qualification proof
+## 5. Eligibility proof
 
-Qualification must prove that every frozen member:
+Qualification proved that every frozen member:
 
 - equals the corresponding entry of persisted post-Batch06 `eligible_recovery_queue()[:5]`;
 - remains unresolved in calendar evidence state;
@@ -83,7 +98,7 @@ Qualification must prove that every frozen member:
 - has no prior factual attempt in the authoritative attempt ledger;
 - is unique and chronologically ordered.
 
-It must also prove that all seven same-capability attempted BLOCKED dates remain unresolved but excluded from Batch 07 execution membership:
+It also proved that all seven same-capability attempted BLOCKED dates remain unresolved but excluded from Batch 07 execution membership:
 
 - `2021-12-24 — CHRISTMAS_OBSERVED`
 - `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
@@ -95,9 +110,9 @@ It must also prove that all seven same-capability attempted BLOCKED dates remain
 
 Their exclusion is scheduling only. They remain unresolved calendar gaps.
 
-## 6. Adversarial qualification boundary
+## 6. Adversarial qualification
 
-The suite must reject:
+The suite rejects:
 
 - raw `recovery_queue()` substitution;
 - skipping the first eligible member;
@@ -112,9 +127,11 @@ The suite must reject:
 - expected-outcome/manual-priority/holiday/source-availability selection surfaces;
 - parent protocol/progression/calendar/boundary regressions.
 
+The first authoritative adversarial qualification passed all `98` tests; no corrective rerun was required.
+
 ## 7. Browser boundary
 
-The Batch 07 freeze module MUST contain no:
+The Batch 07 freeze module contains no:
 
 - Playwright;
 - Chromium;
@@ -124,11 +141,11 @@ The Batch 07 freeze module MUST contain no:
 - live `recovery_queue()` call;
 - browser/network observation path.
 
-No Batch 07 broker observation is permitted during membership freeze or qualification.
+The qualification workflow installed pytest only. Therefore **no Batch 07 historical broker observation occurred during membership freeze or qualification**.
 
 ## 8. State mutation boundary
 
-This freeze is scheduling/governance only. It MUST NOT:
+This freeze is scheduling/governance only. It did not:
 
 - resolve any calendar candidate;
 - modify executable calendar evidence;
@@ -137,7 +154,7 @@ This freeze is scheduling/governance only. It MUST NOT:
 - alter progression runtime;
 - alter global/window coverage counts.
 
-Persisted accounting must remain:
+Persisted accounting remains:
 
 - global: `111 / 46 resolved / 65 unresolved / 0 FAIL`;
 - execution window: `68 / 23 resolved / 45 unresolved / 0 FAIL`;
@@ -145,8 +162,16 @@ Persisted accounting must remain:
 - attempted BLOCKED / execution-ineligible: `7`;
 - execution-eligible unresolved: `38`.
 
-## 9. Next action after qualification PASS
+## 9. Workflow closure
 
-Only after adversarial membership qualification PASS may a later separately governed action execute exactly `batch07_targets()` through the qualified Trading Breaks capture chain.
+The completed Batch 07 membership qualification workflow is archived to `workflow_dispatch` only after the PASS evidence is persisted.
+
+No normal push may silently re-freeze or re-qualify historical Batch 07 membership.
+
+## 10. Exactly one next governed action
+
+**Execute exactly the already-frozen Batch 07 membership under the qualified Trading Breaks capture chain, with parent protocol/progression/Batch07 gates PASS before Chromium opens, then independently adjudicate all five results.**
+
+At execution time membership MUST come from `batch07_targets()` / the immutable frozen tuple. It MUST NOT be recalculated from live `eligible_recovery_queue()` or raw `recovery_queue()`.
 
 No `.bi5` acquisition. No real backtest.
