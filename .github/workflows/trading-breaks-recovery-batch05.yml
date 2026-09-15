@@ -1,11 +1,6 @@
 name: Trading Breaks Recovery Batch 05
 
 on:
-  push:
-    branches:
-      - feat/multi-year-dukascopy-acquisition
-    paths:
-      - '.github/workflows/trading-breaks-recovery-batch05.yml'
   workflow_dispatch:
 
 permissions:
@@ -50,12 +45,7 @@ jobs:
         run: |
           python - <<'PY'
           from datetime import date
-          from tools.trading_breaks_recovery_batch05 import (
-              BATCH_SIZE,
-              CURRENT_CAPABILITY_FINGERPRINT,
-              CURRENT_CAPABILITY_ID,
-              batch05_targets,
-          )
+          from tools.trading_breaks_recovery_batch05 import BATCH_SIZE, CURRENT_CAPABILITY_FINGERPRINT, CURRENT_CAPABILITY_ID, batch05_targets
           expected = [
               (date(2023, 1, 16), 'MARTIN_LUTHER_KING_DAY'),
               (date(2023, 2, 20), 'PRESIDENTS_DAY'),
@@ -116,23 +106,11 @@ jobs:
           from pathlib import Path
           src = Path('trading_breaks_batch05_artifacts/batch_summary.json')
           dst = Path('reports/data-qualification/historical_trading_breaks_recovery_batch05_runtime.json')
-          data = json.loads(src.read_text(encoding='utf-8')) if src.exists() else {
-              'schema': 'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH05_POLICY_V1',
-              'batch_number': 5,
-              'verdict': 'BLOCKED',
-              'reason': 'BATCH_SUMMARY_NOT_PRODUCED',
-          }
+          data = json.loads(src.read_text(encoding='utf-8')) if src.exists() else {'schema':'HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH05_POLICY_V1','batch_number':5,'verdict':'BLOCKED','reason':'BATCH_SUMMARY_NOT_PRODUCED'}
           digest = os.environ.get('ARTIFACT_DIGEST') or None
           if digest and digest.startswith('sha256:'):
               digest = digest.split(':', 1)[1]
-          data['provenance'] = {
-              'workflow_run': int(os.environ['GITHUB_RUN_ID']),
-              'job_id': int(os.environ['JOB_ID']) if os.environ.get('JOB_ID') else None,
-              'probe_commit': os.environ['GITHUB_SHA'],
-              'artifact_id': int(os.environ['ARTIFACT_ID']) if os.environ.get('ARTIFACT_ID') else None,
-              'artifact_url': os.environ.get('ARTIFACT_URL') or None,
-              'artifact_sha256': digest,
-          }
+          data['provenance'] = {'workflow_run':int(os.environ['GITHUB_RUN_ID']),'job_id':int(os.environ['JOB_ID']) if os.environ.get('JOB_ID') else None,'probe_commit':os.environ['GITHUB_SHA'],'artifact_id':int(os.environ['ARTIFACT_ID']) if os.environ.get('ARTIFACT_ID') else None,'artifact_url':os.environ.get('ARTIFACT_URL') or None,'artifact_sha256':digest}
           dst.parent.mkdir(parents=True, exist_ok=True)
           dst.write_text(json.dumps(data, indent=2) + '\n', encoding='utf-8')
           PY
