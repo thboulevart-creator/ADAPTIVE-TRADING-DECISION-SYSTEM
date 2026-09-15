@@ -383,9 +383,15 @@ def update_batch05_test() -> None:
         "    date(2022, 7, 1), date(2022, 12, 26), date(2023, 1, 2), date(2023, 7, 4),\n    date(2023, 12, 25), date(2024, 1, 1),\n",
         "Batch05 blocked set",
     )
+    text = replace_all_expected(
+        text,
+        "assert len(attempts) == 30",
+        "assert len(attempts) == 35",
+        2,
+        "Batch05 ledger total",
+    )
     replacements = [
         ("test_all_seven_historical_blocked_dates_remain_unresolved_but_ineligible", "test_all_nine_historical_blocked_dates_remain_unresolved_but_ineligible", "Batch05 blocked test name"),
-        ("assert len(attempts) == 30", "assert len(attempts) == 35", "Batch05 ledger total"),
         ("assert len(recovery_queue()) == len(decisions) == 45", "assert len(recovery_queue()) == len(decisions) == 42", "Batch05 queue"),
         ("== 7", "== 9", "Batch05 blocked count"),
         ("assert len(eligible) == 38", "assert len(eligible) == 33", "Batch05 eligible count"),
@@ -407,7 +413,6 @@ def update_batch05_integration_test() -> None:
     replacements = [
         ("(111, 46, 65)", "(111, 49, 62)", "Batch05 global accounting"),
         ("(68, 23, 45)", "(68, 26, 42)", "Batch05 window accounting"),
-        ("assert len(attempts) == 30", "assert len(attempts) == 35", "Batch05 ledger total"),
         ("assert len(recovery_queue()) == len(decisions) == 45", "assert len(recovery_queue()) == len(decisions) == 42", "Batch05 queue"),
         ("== 7", "== 9", "Batch05 blocked count"),
         ("assert len(eligible) == 38", "assert len(eligible) == 33", "Batch05 eligible count"),
