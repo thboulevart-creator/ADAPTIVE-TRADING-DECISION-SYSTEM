@@ -1,0 +1,146 @@
+name: Trading Breaks Recovery Batch 12 Integration
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch12-integration.yml'
+      - 'tools/integrate_trading_breaks_recovery_batch12.py'
+      - 'tests/test_trading_breaks_recovery_batch12_integration_contract.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Prove adjudication ancestry and exact preintegration state
+        run: |
+          git merge-base --is-ancestor ccff8090e87c74e770e190b9b26e69e3aecc0e23 HEAD
+          git merge-base --is-ancestor be270d26d16d23b51f89e897e00b75c65a89c914 HEAD
+          git diff --exit-code ccff8090e87c74e770e190b9b26e69e3aecc0e23 HEAD -- \
+            reports/data-qualification/historical_trading_breaks_recovery_batch12_adjudication.json \
+            reports/data-qualification/historical_trading_breaks_recovery_batch12_runtime.json
+          git diff --exit-code be270d26d16d23b51f89e897e00b75c65a89c914 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch12_integration_contract.py \
+            tests/test_trading_breaks_recovery_batch12_adjudication.py
+
+      - name: Apply Batch 12 worktree integration
+        run: python -m tools.integrate_trading_breaks_recovery_batch12
+
+      - name: Regenerate deterministic progression
+        run: python -m tools.trading_breaks_recovery_progression >/tmp/batch12-progression.json
+
+      - name: Assert exact post-integration state
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import (
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          expected = {
+              date(2025, 11, 27): ('87363', frozenset(range(18, 23))),
+              date(2025, 11, 28): ('87364', frozenset(range(19, 24))),
+              date(2025, 12, 24): ('91078', frozenset(range(19, 24))),
+              date(2025, 12, 31): ('92491', frozenset(range(22, 24))),
+          }
+          for day, (record_id, hours) in expected.items():
+              record = SPECIAL_SESSION_EVIDENCE[day]
+              assert record['broker_record_id'] == record_id
+              assert record['fully_closed_hours_utc'] == hours
+              assert record['artifact_id'] == 10416410006
+              assert record['artifact_sha256'] == '6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d'
+              assert record['probe_commit'] == '2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8'
+          assert date(2025, 12, 25) not in SPECIAL_SESSION_EVIDENCE
+
+          _, _, attempts = load_attempt_ledger()
+          batch12 = [item for item in attempts if item.attempt_id.startswith('batch12:')]
+          assert len(attempts) == 60
+          assert [item.attempt_sequence for item in batch12] == [56, 57, 58, 59, 60]
+          assert [item.outcome for item in batch12] == ['PASS', 'PASS', 'PASS', 'BLOCKED', 'PASS']
+          assert batch12[3].blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert all(item.provenance['workflow_run'] == 35016454761 for item in batch12)
+          assert all(item.provenance['job_id'] == 104540999314 for item in batch12)
+          assert all(item.provenance['artifact_id'] == 10416410006 for item in batch12)
+          assert all(item.provenance['artifact_sha256'] == '6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d' for item in batch12)
+          assert all(item.provenance['probe_commit'] == '2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8' for item in batch12)
+          assert load_material_capability_changes() == []
+
+          global_audit = audit_calendar_coverage()
+          window_audit = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          assert (
+              global_audit['candidate_dates'],
+              global_audit['resolved_candidate_dates'],
+              global_audit['unresolved_candidate_dates'],
+          ) == (111, 69, 42)
+          assert (
+              window_audit['candidate_dates'],
+              window_audit['resolved_candidate_dates'],
+              window_audit['unresolved_candidate_dates'],
+          ) == (68, 46, 22)
+
+          decisions = progression_decisions()
+          eligible = eligible_recovery_queue()
+          assert len(recovery_queue()) == len(decisions) == 22
+          assert sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 14
+          assert len(eligible) == 8
+          assert eligible[0] == (date(2026, 1, 1), 'NEW_YEARS_OBSERVED')
+          print('PASS: exact Batch 12 post-integration state')
+          PY
+
+      - name: Run full governed and adversarial regression
+        run: |
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Prove integration path used no browser or live capture
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/integrate_trading_breaks_recovery_batch12.py').read_text(encoding='utf-8').lower()
+          for token in ('playwright', 'selenium', 'probe_candidate'):
+              assert token not in source, token
+          print('PASS: Batch 12 integration is offline and evidence-only')
+          PY
+
+      - name: Commit atomically only after all gates PASS
+        run: |
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            tools/dukascopy_usatech_calendar.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            tests/
+          git diff --cached --check
+          git commit -m 'data: integrate Trading Breaks recovery Batch 12'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
