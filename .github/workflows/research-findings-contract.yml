@@ -2,11 +2,29 @@ name: Research Findings Contract
 
 on:
   push:
-    branches:
-      - feat/decision-producer-contract
+    paths:
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/dataset_admissibility.py'
+      - 'src/research_run_evidence.py'
+      - 'src/research_findings.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_to_decision_boundary.py'
+      - '.github/workflows/research-findings-contract.yml'
   pull_request:
-    branches:
-      - feat/decision-producer-contract
+    paths:
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/dataset_admissibility.py'
+      - 'src/research_run_evidence.py'
+      - 'src/research_findings.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_to_decision_boundary.py'
+      - '.github/workflows/research-findings-contract.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   research-findings-contract:
@@ -15,6 +33,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-      - run: python -m pip install pytest
+          python-version: '3.12'
+      - run: python -m pip install pytest==8.4.2
       - run: python -m pytest tests/test_research_findings_contract.py -q
