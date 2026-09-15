@@ -22,23 +22,24 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: 0
 
-      - name: Prove remediated boundary ancestry and verifier-only delta
+      - name: Prove final remediation ancestry and verifier-only delta
         run: |
-          git merge-base --is-ancestor 3406f1a32c5c9609e7deda6bf6be21350d64f116 HEAD
-          test "$(git diff --name-only 3406f1a32c5c9609e7deda6bf6be21350d64f116 HEAD)" = ".github/workflows/research-to-decision-persisted-head.yml"
+          git merge-base --is-ancestor e545e39e6bc736d039de79c384be2b082b56a821 HEAD
+          test "$(git diff --name-only e545e39e6bc736d039de79c384be2b082b56a821 HEAD)" = ".github/workflows/research-to-decision-persisted-head.yml"
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Re-run complete executable boundary chain
+      - name: Re-run complete executable boundary and durable CI contracts
         run: |
           python -m pip install pytest==8.4.2
           python -m pytest -q \
             tests/test_research_to_decision_boundary.py \
             tests/test_research_findings_contract.py \
             tests/test_research_reader_adversarial.py \
-            tests/test_context_research_alternative_paths.py
+            tests/test_context_research_alternative_paths.py \
+            tests/test_durable_ci_branch_independence.py
 
       - name: Re-break reconstruction marker copy and every identity field
         run: |
@@ -135,7 +136,27 @@ jobs:
           else:
               raise AssertionError('unattested evidence seeded ResearchFindings')
 
-          print('PASS: reconstruction, copied evidence, self-marker, all identity mutations, and findings seeding rejected')
+          print('PASS: all provenance/forgeability bypasses rejected')
+          PY
+
+      - name: Prove durable boundary workflows remain branch-neutral
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          paths = [
+              Path('.github/workflows/data-to-context.yml'),
+              Path('.github/workflows/context-to-research-boundary.yml'),
+              Path('.github/workflows/research-findings-contract.yml'),
+              Path('.github/workflows/research-to-decision-boundary.yml'),
+          ]
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              assert '\n    branches:' not in text, path
+              assert 'feat/' not in text, path
+              assert '\n  push:' in text and '\n  pull_request:' in text, path
+              assert text.count('\n    paths:') >= 2, path
+              assert '\npermissions:\n  contents: read\n' in text, path
+          print('PASS: durable boundary CI is branch-neutral, path-scoped, PR-covered, and read-only')
           PY
 
       - name: Prove read-only clean worktree
