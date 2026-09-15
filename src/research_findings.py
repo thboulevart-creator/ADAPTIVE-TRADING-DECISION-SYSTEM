@@ -5,7 +5,7 @@ import hashlib
 import json
 from typing import Iterable
 
-from src.research_run_evidence import ResearchRunEvidence
+from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
 
 
 STATUSES = {"SUPPORTED", "REFUTED", "NOT_INTERPRETABLE"}
@@ -68,6 +68,8 @@ class ResearchFindings:
     ) -> "ResearchFindings":
         if not isinstance(evidence, ResearchRunEvidence):
             raise TypeError("ResearchFindings requires ResearchRunEvidence")
+        if not is_factory_attested(evidence):
+            raise ValueError("ResearchFindings requires factory-attested ResearchRunEvidence")
 
         hs = tuple(hypotheses)
         ms = tuple(measurements)
