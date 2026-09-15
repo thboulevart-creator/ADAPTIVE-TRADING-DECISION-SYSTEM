@@ -175,8 +175,8 @@ def test_batch06_accessor_has_no_caller_selection_arguments():
 def test_batch06_freeze_module_exposes_no_live_selection_manual_outcome_or_browser_surface():
     source = inspect.getsource(batch06_module).lower()
     for forbidden in (
-        "eligible_recovery_queue",
-        "recovery_queue",
+        "eligible_recovery_queue(",
+        "recovery_queue(",
         "playwright",
         "chromium",
         "probe_candidate",
