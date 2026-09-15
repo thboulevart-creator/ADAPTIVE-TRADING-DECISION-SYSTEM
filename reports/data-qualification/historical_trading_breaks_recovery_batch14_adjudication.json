@@ -1,0 +1,90 @@
+{
+  "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH14_ADJUDICATION_V1",
+  "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH14_TERMINAL_POLICY_V1",
+  "parent_protocol": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+  "verdict": "PASS",
+  "reason": "BATCH14_TERMINAL_RECORDS_INDEPENDENTLY_ADJUDICATED",
+  "attempted": 3,
+  "pass": 2,
+  "blocked": 1,
+  "fail": 0,
+  "provenance": {
+    "workflow_run": 35023845609,
+    "job_id": 104565948108,
+    "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+    "artifact_id": 10418961548,
+    "artifact_url": "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35023845609/artifacts/10418961548",
+    "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910"
+  },
+  "adjudications": [
+    {
+      "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+      "verdict": "PASS",
+      "reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "target_date": "2026-06-19",
+      "candidate_reason": "JUNETEENTH_OBSERVED",
+      "instrument": "USATECH.IDX/USD",
+      "instrument_id": "9016",
+      "break_start_utc": "2026-06-19T16:59:59Z",
+      "final_closed_minute_utc": "2026-06-21T21:59:59Z",
+      "reopen_utc": "2026-06-21T22:00:59Z",
+      "fully_closed_hours_utc": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "workflow_run": 35023845609,
+      "artifact_id": 10418961548,
+      "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+      "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION",
+      "broker_record_id": "101094",
+      "broker_reason": "Juneteenth Holiday",
+      "dom_witness_present": true
+    },
+    {
+      "verdict": "BLOCKED",
+      "reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED",
+      "capture_verdict": "BLOCKED",
+      "capture_reason": "NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED",
+      "broker_record_id": null,
+      "broker_reason": null,
+      "dom_witness_present": false
+    },
+    {
+      "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1",
+      "verdict": "PASS",
+      "reason": "EXACT_PRIMARY_BROKER_POSITIVE_BREAK_RECORD_VALIDATED",
+      "target_date": "2026-07-03",
+      "candidate_reason": "INDEPENDENCE_DAY_OBSERVED",
+      "instrument": "USATECH.IDX/USD",
+      "instrument_id": "9016",
+      "break_start_utc": "2026-07-03T16:59:59Z",
+      "final_closed_minute_utc": "2026-07-05T21:59:59Z",
+      "reopen_utc": "2026-07-05T22:00:59Z",
+      "fully_closed_hours_utc": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "workflow_run": 35023845609,
+      "artifact_id": 10418961548,
+      "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
+      "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b",
+      "capture_verdict": "CAPTURED",
+      "capture_reason": "POSITIVE_RECORD_CAPTURED_PENDING_ARTIFACT_PROVENANCE_ADJUDICATION",
+      "broker_record_id": "101959",
+      "broker_reason": "Independence Day",
+      "dom_witness_present": true
+    }
+  ]
+}
