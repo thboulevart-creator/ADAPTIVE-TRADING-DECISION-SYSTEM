@@ -1,0 +1,138 @@
+name: Trading Breaks Recovery Batch 12 Persisted HEAD Re-break
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch12-persisted-head.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove persisted integration ancestry and verifier-only delta
+        run: |
+          git merge-base --is-ancestor f16c952ce0695421808b19afbcb6acee38991437 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test "$(git diff --name-only f16c952ce0695421808b19afbcb6acee38991437 HEAD)" = ".github/workflows/trading-breaks-recovery-batch12-persisted-head.yml"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-break governed and adversarial regression
+        run: |
+          python -m pip install pytest==8.4.2
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' ! -name 'test_trading_breaks_recovery_batch12.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Prove historical Batch 12 membership remains frozen
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch12 import batch12_targets
+          assert batch12_targets() == [
+              (date(2025, 11, 27), 'THANKSGIVING_DAY'),
+              (date(2025, 11, 28), 'THANKSGIVING_FRIDAY'),
+              (date(2025, 12, 24), 'CHRISTMAS_PRE_HOLIDAY_SESSION'),
+              (date(2025, 12, 25), 'CHRISTMAS_OBSERVED'),
+              (date(2025, 12, 31), 'NEW_YEARS_EVE_CANDIDATE'),
+          ]
+          print('PASS: Batch 12 membership is unchanged after integration')
+          PY
+
+      - name: Assert exact persisted Batch 12 state and provenance
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import (
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          expected = {
+              date(2025, 11, 27): ('87363', frozenset(range(18, 23))),
+              date(2025, 11, 28): ('87364', frozenset(range(19, 24))),
+              date(2025, 12, 24): ('91078', frozenset(range(19, 24))),
+              date(2025, 12, 31): ('92491', frozenset(range(22, 24))),
+          }
+          assert set(expected).issubset(SPECIAL_SESSION_EVIDENCE)
+          assert date(2025, 12, 25) not in SPECIAL_SESSION_EVIDENCE
+          for day, (record_id, hours) in expected.items():
+              record = SPECIAL_SESSION_EVIDENCE[day]
+              assert record['broker_record_id'] == record_id
+              assert record['fully_closed_hours_utc'] == hours
+              assert record['artifact_id'] == 10416410006
+              assert record['artifact_sha256'] == '6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d'
+              assert record['probe_commit'] == '2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8'
+
+          _, _, attempts = load_attempt_ledger()
+          batch12 = [item for item in attempts if item.attempt_id.startswith('batch12:')]
+          assert len(attempts) == 60
+          assert len(batch12) == 5
+          assert [item.attempt_sequence for item in batch12] == [56, 57, 58, 59, 60]
+          assert [item.target_date.isoformat() for item in batch12] == [
+              '2025-11-27', '2025-11-28', '2025-12-24', '2025-12-25', '2025-12-31'
+          ]
+          assert [item.outcome for item in batch12] == ['PASS', 'PASS', 'PASS', 'BLOCKED', 'PASS']
+          assert batch12[3].adjudication_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert batch12[3].blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+          assert all(item.provenance['workflow_run'] == 35016454761 for item in batch12)
+          assert all(item.provenance['job_id'] == 104540999314 for item in batch12)
+          assert all(item.provenance['artifact_id'] == 10416410006 for item in batch12)
+          assert all(item.provenance['artifact_sha256'] == '6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d' for item in batch12)
+          assert all(item.provenance['probe_commit'] == '2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8' for item in batch12)
+          assert load_material_capability_changes() == []
+
+          global_audit = audit_calendar_coverage()
+          window_audit = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          assert (
+              global_audit['candidate_dates'],
+              global_audit['resolved_candidate_dates'],
+              global_audit['unresolved_candidate_dates'],
+          ) == (111, 69, 42)
+          assert (
+              window_audit['candidate_dates'],
+              window_audit['resolved_candidate_dates'],
+              window_audit['unresolved_candidate_dates'],
+          ) == (68, 46, 22)
+
+          decisions = progression_decisions()
+          eligible = eligible_recovery_queue()
+          assert len(recovery_queue()) == len(decisions) == 22
+          assert sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions) == 14
+          assert len(eligible) == 8
+          assert eligible[0] == (date(2026, 1, 1), 'NEW_YEARS_OBSERVED')
+          print('PASS: exact persisted Batch 12 state and provenance')
+          PY
+
+      - name: Prove byte-stable progression
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch12-persisted.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+
+      - name: Prove read-only clean worktree
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
