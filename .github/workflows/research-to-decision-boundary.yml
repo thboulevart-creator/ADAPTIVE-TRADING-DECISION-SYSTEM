@@ -13,6 +13,10 @@ on:
       - 'tests/test_research_findings_contract.py'
       - 'tests/test_research_reader_adversarial.py'
       - 'tests/test_context_research_alternative_paths.py'
+      - 'tests/test_durable_ci_branch_independence.py'
+      - '.github/workflows/data-to-context.yml'
+      - '.github/workflows/context-to-research-boundary.yml'
+      - '.github/workflows/research-findings-contract.yml'
       - '.github/workflows/research-to-decision-boundary.yml'
   pull_request:
     paths:
@@ -26,6 +30,10 @@ on:
       - 'tests/test_research_findings_contract.py'
       - 'tests/test_research_reader_adversarial.py'
       - 'tests/test_context_research_alternative_paths.py'
+      - 'tests/test_durable_ci_branch_independence.py'
+      - '.github/workflows/data-to-context.yml'
+      - '.github/workflows/context-to-research-boundary.yml'
+      - '.github/workflows/research-findings-contract.yml'
       - '.github/workflows/research-to-decision-boundary.yml'
   workflow_dispatch:
 
@@ -52,3 +60,5 @@ jobs:
         run: python -m pytest tests/test_research_reader_adversarial.py -q
       - name: Run CONTEXT to RESEARCH alternative-path adversarial tests
         run: python -m pytest tests/test_context_research_alternative_paths.py -q
+      - name: Prove durable boundary CI is branch-neutral
+        run: python -m pytest tests/test_durable_ci_branch_independence.py -q
