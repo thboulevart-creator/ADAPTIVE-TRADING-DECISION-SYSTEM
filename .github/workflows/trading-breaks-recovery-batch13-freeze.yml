@@ -1,0 +1,107 @@
+name: Batch 13 Freeze Qualification
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths: ['.github/workflows/trading-breaks-recovery-batch13-freeze.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove Batch 12 closure ancestry and freeze-only delta
+        run: |
+          git merge-base --is-ancestor fa09da05bb80ba0a94cc4a58864f2ba52a6437ec HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --name-only fa09da05bb80ba0a94cc4a58864f2ba52a6437ec HEAD | sort >/tmp/actual
+          printf '%s\n' \
+            '.github/workflows/trading-breaks-recovery-batch13-freeze.yml' \
+            '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH13-POLICY.md' \
+            'tests/test_trading_breaks_recovery_batch13.py' \
+            'tools/freeze_trading_breaks_recovery_batch13.py' \
+            'tools/trading_breaks_recovery_batch13.py' | sort >/tmp/expected
+          diff -u /tmp/expected /tmp/actual
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run governed and adversarial regression
+        run: |
+          python -m pip install pytest==8.4.2
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) ! -name '*_integration_contract.py' ! -name 'test_trading_breaks_recovery_batch12.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Prove exact mechanical Batch 13 prefix and reject selection attacks
+        run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch13 import derive
+          from tools.trading_breaks_recovery_batch13 import batch13_targets
+          from tools.trading_breaks_recovery_progression import (
+              eligible_recovery_queue,
+              progression_decisions,
+              load_attempt_ledger,
+              load_material_capability_changes,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          eligible = eligible_recovery_queue()
+          frozen = batch13_targets()
+          derived = list(derive())
+          decisions = {item.target_date: item for item in progression_decisions()}
+          _, _, attempts = load_attempt_ledger()
+
+          assert len(recovery_queue()) == 22
+          assert len(eligible) == 8
+          assert len(attempts) == 60
+          assert sum((not item.eligible) and item.latest_attempt_outcome == 'BLOCKED' for item in decisions.values()) == 14
+          assert load_material_capability_changes() == []
+          assert frozen == derived == eligible[:5]
+          assert len(frozen) == 5
+
+          for day, reason in frozen:
+              decision = decisions[day]
+              assert decision.candidate_reason == reason
+              assert decision.eligible
+              assert decision.reason == 'INITIAL_ATTEMPT'
+              assert decision.latest_attempt_id is None
+              assert decision.latest_attempt_outcome is None
+
+          attacks = [
+              eligible[1:6],
+              [frozen[1], frozen[0], *frozen[2:]],
+              [*frozen[:-1], eligible[5]],
+              frozen[:-1],
+              [*frozen, eligible[5]],
+              [frozen[0], frozen[0], *frozen[2:]],
+              list(reversed(frozen)),
+          ]
+          assert all(attack != frozen for attack in attacks)
+
+          print('PASS: Batch 13 exact governed prefix and selection attacks rejected')
+          for i, (day, reason) in enumerate(frozen, 1):
+              print(f'{i}: {day.isoformat()} — {reason}')
+          PY
+
+      - name: Prove qualification is read-only and progression byte-stable
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch13-freeze.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
