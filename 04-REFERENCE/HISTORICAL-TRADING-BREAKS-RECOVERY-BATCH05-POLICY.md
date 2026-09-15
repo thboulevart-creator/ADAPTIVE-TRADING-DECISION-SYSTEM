@@ -12,11 +12,11 @@ Parent adjudication protocol:
 
 `HISTORICAL_TRADING_BREAKS_RECOVERY_PROTOCOL_V1`
 
-## Qualification status
+## Final status
 
-**CANDIDATE — adversarial qualification required before any browser observation.**
+**PASS — `BATCH05_MEMBERSHIP_FROZEN_FROM_ATTEMPT_AWARE_ELIGIBLE_QUEUE_BEFORE_OBSERVATION`**
 
-This policy freezes Batch 05 membership from the persisted post-Batch04 attempt-aware execution state. No Batch 05 historical broker observation is authorized until the membership contract passes its dedicated adversarial qualification.
+This policy freezes Batch 05 membership from the persisted post-Batch04 attempt-aware execution state. The membership contract survived adversarial qualification without opening Chromium or executing a historical broker probe.
 
 ## 1. Freeze provenance
 
@@ -66,18 +66,18 @@ The mechanically derived immutable membership is:
 
 These identities and this order are frozen before any Batch 05 historical observation. They MUST NOT be inserted, skipped, substituted, expanded, shortened or reordered after outcomes become known.
 
-## 5. Eligibility properties required for PASS
+## 5. Qualified eligibility proof
 
-The dedicated qualification must prove that each frozen member:
+The authoritative qualification proved that each frozen member:
 
 - equals the corresponding entry of persisted post-Batch04 `eligible_recovery_queue()[:5]`;
 - remains unresolved in calendar evidence state;
 - is execution-eligible;
-- is `ELIGIBLE — INITIAL_ATTEMPT`;
+- is classified `ELIGIBLE — INITIAL_ATTEMPT`;
 - has no prior factual attempt in the authoritative attempt ledger;
 - is unique and chronologically ordered.
 
-It must also prove that all six same-capability attempted BLOCKED dates remain unresolved but excluded from Batch 05 execution membership:
+It also proved that all six same-capability attempted BLOCKED dates remain unresolved but excluded from Batch 05 execution membership:
 
 - `2021-12-24 — CHRISTMAS_OBSERVED`
 - `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
@@ -90,7 +90,7 @@ Their exclusion is scheduling only. They remain unresolved calendar gaps.
 
 ## 6. Forbidden selection inputs
 
-Batch 05 membership MUST remain independent of:
+Batch 05 membership remains independent of:
 
 - expected PASS/BLOCKED/FAIL outcome;
 - expected positive-record probability;
@@ -104,21 +104,59 @@ Batch 05 membership MUST remain independent of:
 
 Only governed chronological execution eligibility plus fixed `BATCH_SIZE = 5` is admissible.
 
-## 7. Browser boundary
+## 7. Adversarial qualification result
 
-The membership-freeze module MUST contain no:
+Authoritative qualification:
+
+- workflow run: `34942590738`
+- job: `104294478304`
+- trigger commit: `71d33ea99b83a03f1ed916f447b95e24b9059b3b`
+- conclusion: **SUCCESS**
+- adversarial/regression suite: **`94 passed in 0.33s`**
+- exact frozen membership assertion against `eligible_recovery_queue()[:5]`: **PASS**
+- no-browser/no-probe execution-path guard: **PASS**
+
+Qualification report:
+
+`reports/data-qualification/historical_trading_breaks_recovery_batch05_policy_qualification.md`
+
+The suite covers batch-size drift, eligible-prefix mismatch, raw-queue substitution, reinsertion of attempted BLOCKED dates, chronology drift, duplicates, prior-attempt contamination, non-initial eligibility, caller/manual selection surfaces, mutation of returned membership, semantic-capability/progression-state drift and outcome/priority/holiday/source-selection surfaces.
+
+## 8. Browser boundary
+
+The qualified Batch 05 freeze module contains no:
 
 - Playwright;
 - Chromium;
 - `probe_candidate`;
 - asyncio.
 
-No browser installation or broker observation belongs to this action.
+The workflow installed only pytest; no Playwright/Chromium dependency was installed or opened.
 
-## 8. Downstream boundary
+Therefore no Batch 05 historical broker observation occurred during policy qualification.
 
-Even after membership qualification PASS, no date is resolved by this policy alone.
+The qualification workflow is archived to `workflow_dispatch` only after PASS.
 
-Only a later separately governed action may execute exactly the frozen five dates under the qualified Trading Breaks capture chain, with parent/progression/Batch05 gates PASS before Chromium opens, followed by independent adjudication.
+## 9. State boundary
+
+This policy PASS changes only scheduling/governance state. It does not resolve any calendar candidate, append an attempt, register a capability change, or alter coverage counts.
+
+Persisted accounting remains:
+
+- global: `111 / 37 resolved / 74 unresolved / 0 FAIL`;
+- execution window: `68 / 14 resolved / 54 unresolved / 0 FAIL`;
+- attempt ledger: `20`;
+- attempted BLOCKED / execution-ineligible: `6`;
+- execution-eligible unresolved: `48`.
+
+## 10. Downstream boundary
+
+This PASS does not resolve any Batch 05 date and does not authorize executable calendar integration by itself.
+
+The next governed action may execute exactly these five frozen dates under the already-qualified Trading Breaks capture/adjudication chain, provided all parent/progression/Batch05 pre-browser gates pass before Chromium opens.
+
+At execution time membership MUST come from `batch05_targets()` / the immutable frozen tuple. It MUST NOT be recalculated from live `eligible_recovery_queue()` or raw `recovery_queue()`.
+
+After observation, all five dates require independent adjudication.
 
 No `.bi5` acquisition. No real backtest.
