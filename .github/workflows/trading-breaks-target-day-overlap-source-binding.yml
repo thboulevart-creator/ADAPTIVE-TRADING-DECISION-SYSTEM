@@ -5,6 +5,8 @@ on:
     branches: [feat/multi-year-dukascopy-acquisition]
     paths:
       - '.github/workflows/trading-breaks-target-day-overlap-source-binding.yml'
+      - 'tools/trading_breaks_target_day_overlap_semantics.py'
+      - 'tests/test_trading_breaks_target_day_overlap_source_binding.py'
   workflow_dispatch:
 
 permissions:
