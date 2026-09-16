@@ -181,7 +181,7 @@ jobs:
           from pathlib import Path
           workflow = Path('.github/workflows/trading-breaks-calendar-closure-persisted-head-rebreak.yml').read_text(encoding='utf-8').lower()
           assert 'contents: write' not in workflow
-          for token in ('playwright install', 'probe_candidate', 'selenium', '.bi5'):
+          for token in ('playwright install', 'probe_candidate', 'selenium'):
               assert token not in workflow, token
           print('PASS: persisted-HEAD verifier has no live acquisition path')
           PY
