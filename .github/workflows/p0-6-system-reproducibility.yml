@@ -16,6 +16,10 @@ on:
       - '.github/workflows/p0-6-system-reproducibility.yml'
       - '04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md'
       - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - '04-REFERENCE/RECOVERY-CHECKPOINT.md'
+      - 'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md'
+      - 'reports/data-qualification/p0_6_system_reproducibility_qualification.md'
+      - '99-BACKUP/SESSION-2026-09-16-P0.6-SYSTEM-REPRODUCIBILITY-PASS.md'
       - 'requirements/qualification.lock.txt'
       - 'tools/qualification_environment.py'
       - 'tests/test_system_reproducibility_tier_a.py'
@@ -46,6 +50,52 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_5_BASE}" HEAD
+
+      - name: Prove documentary closure artifacts are persisted and bounded
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          audit = Path('GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md')
+          report = Path('reports/data-qualification/p0_6_system_reproducibility_qualification.md')
+          checkpoint = Path('04-REFERENCE/RECOVERY-CHECKPOINT.md')
+          backup = Path('99-BACKUP/SESSION-2026-09-16-P0.6-SYSTEM-REPRODUCIBILITY-PASS.md')
+          for path in (audit, report, checkpoint, backup):
+              assert path.is_file(), f'missing P0.6 closure artifact: {path}'
+
+          texts = {path.name: path.read_text(encoding='utf-8') for path in (audit, report, checkpoint, backup)}
+          marker = 'P0_6_SYSTEM_REPRODUCIBILITY_JIT_AUDIT_V1'
+          contract_id = 'SYSTEM_REPRODUCIBILITY_ENVELOPE_V1'
+          lock_id = 'QUALIFICATION_ENVIRONMENT_LOCK_V1'
+          technical_head = 'e96396ab3f807144144ff548dfe771c6a0584b44'
+          requirements_sha = '4ef534add869a64dd4957ea986f7ada98dffd41f89021e1719d02d9c2062a0db'
+
+          assert marker in texts[audit.name]
+          assert 'P0_5_RESEARCH_INTERPROCESS_REATTESTATION_JIT_AUDIT_V1' in texts[audit.name]
+          for path in (report, checkpoint, backup):
+              text = texts[path.name]
+              assert marker in text, path
+              assert contract_id in text, path
+              assert lock_id in text, path
+              assert '35145837748 / 104961521577' in text, path
+              assert '35146586182 / 104964108341' in text, path
+              assert technical_head in text, path
+              assert requirements_sha in text, path
+              assert '220 passed' in text, path
+              assert '13 passed' in text, path
+
+          for path in (audit, report, checkpoint, backup):
+              lowered = texts[path.name].lower()
+              assert 'covered by p0.6' in lowered, path
+              assert 'explicitly not covered by p0.6' in lowered, path
+
+          audit_text = texts[audit.name]
+          assert technical_head in audit_text
+          assert '35146586182 / 104964108341' in audit_text
+          assert '111/91/20' in audit_text.replace(' ', '')
+          assert '68/68/0' in audit_text.replace(' ', '')
+          print('PASS: P0.6 audit, report, checkpoint and backup are persisted with explicit bounded scope')
+          PY
 
       - name: Prove P0.6 surface is bounded and non-acquisitive
         run: |
