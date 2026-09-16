@@ -1254,6 +1254,96 @@
         "artifact_sha256": "00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910",
         "probe_commit": "4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b"
       }
+    },
+    {
+      "attempt_sequence": 69,
+      "attempt_id": "overlap-v2:2021-12-24",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH15_OVERLAP_V2_RETRY_POLICY_V1",
+      "target_date": "2021-12-24",
+      "candidate_reason": "CHRISTMAS_OBSERVED",
+      "outcome": "PASS",
+      "adjudication_reason": "TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+      "provenance": {
+        "workflow_run": 34888022168,
+        "job_id": 104123381873,
+        "artifact_id": 10364984459,
+        "artifact_sha256": "ecd110649b1049d308171357ff0574aee4a8670c0d4f35c018854d7d3771ceab",
+        "probe_commit": "619a0200a9718827346d3c5458d1c1a290f3e5ce"
+      }
+    },
+    {
+      "attempt_sequence": 70,
+      "attempt_id": "overlap-v2:2022-04-15",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH15_OVERLAP_V2_RETRY_POLICY_V1",
+      "target_date": "2022-04-15",
+      "candidate_reason": "GOOD_FRIDAY",
+      "outcome": "PASS",
+      "adjudication_reason": "TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+      "provenance": {
+        "workflow_run": 34888022168,
+        "job_id": 104123381873,
+        "artifact_id": 10364984459,
+        "artifact_sha256": "ecd110649b1049d308171357ff0574aee4a8670c0d4f35c018854d7d3771ceab",
+        "probe_commit": "619a0200a9718827346d3c5458d1c1a290f3e5ce"
+      }
+    },
+    {
+      "attempt_sequence": 71,
+      "attempt_id": "overlap-v2:2022-12-26",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH15_OVERLAP_V2_RETRY_POLICY_V1",
+      "target_date": "2022-12-26",
+      "candidate_reason": "CHRISTMAS_OBSERVED",
+      "outcome": "PASS",
+      "adjudication_reason": "TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
+    },
+    {
+      "attempt_sequence": 72,
+      "attempt_id": "overlap-v2:2023-01-02",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH15_OVERLAP_V2_RETRY_POLICY_V1",
+      "target_date": "2023-01-02",
+      "candidate_reason": "NEW_YEARS_OBSERVED",
+      "outcome": "PASS",
+      "adjudication_reason": "TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+      "provenance": {
+        "workflow_run": 34895457466,
+        "job_id": 104148201341,
+        "artifact_id": 10369230708,
+        "artifact_sha256": "3e6d259f24fce540d39560cdc2714963cdd887f67f362aa9bc90eafa3d4176dc",
+        "probe_commit": "11a81294720898802e49dd1131a64e20e7e7ae3a"
+      }
+    },
+    {
+      "attempt_sequence": 73,
+      "attempt_id": "overlap-v2:2023-07-04",
+      "batch_contract": "HISTORICAL_TRADING_BREAKS_RECOVERY_BATCH15_OVERLAP_V2_RETRY_POLICY_V1",
+      "target_date": "2023-07-04",
+      "candidate_reason": "INDEPENDENCE_DAY_OBSERVED",
+      "outcome": "PASS",
+      "adjudication_reason": "TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED",
+      "blocking_reason": null,
+      "capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+      "provenance": {
+        "workflow_run": 34954308324,
+        "job_id": 104332522379,
+        "artifact_id": 10390926878,
+        "artifact_sha256": "1e21a4fac890059f436c1488407b5f8ca92809dda18aa220e6af41ee6dfa1052",
+        "probe_commit": "e968db2be1fbfd4d2c419f9dad717ca479b52edd"
+      }
     }
   ]
 }
