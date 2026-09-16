@@ -179,11 +179,12 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          workflow = Path('.github/workflows/trading-breaks-calendar-closure-persisted-head-rebreak.yml').read_text(encoding='utf-8')
-          assert 'contents: write' not in workflow
-          uses = [line.strip() for line in workflow.splitlines() if line.strip().startswith('- uses:')]
+          lines = Path('.github/workflows/trading-breaks-calendar-closure-persisted-head-rebreak.yml').read_text(encoding='utf-8').splitlines()
+          permissions_index = lines.index('permissions:')
+          assert lines[permissions_index + 1].strip() == 'contents: read'
+          uses = [line.strip() for line in lines if line.strip().startswith('- uses:')]
           assert uses == ['- uses: actions/checkout@v4', '- uses: actions/setup-python@v5']
-          print('PASS: verifier external action surface is exactly checkout + setup-python under contents:read')
+          print('PASS: verifier permissions and external action surface are structurally read-only')
           PY
           git diff --exit-code
           test -z "$(git status --porcelain)"
