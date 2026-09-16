@@ -7,6 +7,10 @@ on:
     paths:
       - '.github/workflows/p0-5-research-interprocess-reattestation.yml'
       - '04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md'
+      - '04-REFERENCE/RECOVERY-CHECKPOINT.md'
+      - 'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md'
+      - 'reports/data-qualification/p0_5_research_interprocess_reattestation_qualification.md'
+      - '99-BACKUP/SESSION-2026-09-16-P0.5-RESEARCH-INTERPROCESS-REATTESTATION-PASS.md'
       - 'src/research_interprocess.py'
       - 'src/research_run_evidence.py'
       - 'src/research/**'
@@ -46,6 +50,44 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_4_BASE}" HEAD
+
+      - name: Prove documentary closure artifacts are persisted and bounded
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          audit = Path('GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md')
+          report = Path('reports/data-qualification/p0_5_research_interprocess_reattestation_qualification.md')
+          checkpoint = Path('04-REFERENCE/RECOVERY-CHECKPOINT.md')
+          backup = Path('99-BACKUP/SESSION-2026-09-16-P0.5-RESEARCH-INTERPROCESS-REATTESTATION-PASS.md')
+          for path in (audit, report, checkpoint, backup):
+              assert path.is_file(), f'missing P0.5 closure artifact: {path}'
+
+          texts = {path.name: path.read_text(encoding='utf-8') for path in (audit, report, checkpoint, backup)}
+          marker = 'P0_5_RESEARCH_INTERPROCESS_REATTESTATION_JIT_AUDIT_V1'
+          contract_id = 'RESEARCH_INTERPROCESS_REATTESTATION_V1'
+
+          assert marker in texts[audit.name]
+          for path in (report, checkpoint, backup):
+              text = texts[path.name]
+              assert marker in text, path
+              assert contract_id in text, path
+              assert '35143592655 / 104953910890' in text, path
+              assert '35144130840 / 104955745568' in text, path
+              assert '35144258717 / 104956179724' in text, path
+              assert '05b9752fff9f25ad2301c6385feba14848b4bb27' in text, path
+
+          for path in (audit, report, checkpoint, backup):
+              lowered = texts[path.name].lower()
+              assert 'covered by p0.5' in lowered, path
+              assert 'explicitly not covered by p0.5' in lowered, path
+
+          audit_text = texts[audit.name]
+          assert '111/91/20' in audit_text.replace(' ', '')
+          assert '68/68/0' in audit_text.replace(' ', '')
+          assert 'P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1' in audit_text
+          print('PASS: P0.5 audit, report, checkpoint and backup are persisted with explicit bounded scope')
+          PY
 
       - name: Prove bounded replay bridge surface and no acquisition import
         run: |
@@ -93,7 +135,7 @@ jobs:
               if path.startswith(forbidden_prefixes) or path.endswith('.bi5')
           ]
           assert not forbidden_paths, forbidden_paths
-          print('PASS: P0.5 adds only replay-proof governance/code/tests; no acquisition/probe/data/backtest surface')
+          print('PASS: P0.5 adds replay-proof governance/code/tests only; no acquisition/probe/data/backtest surface')
           PY
 
       - uses: actions/setup-python@v5
