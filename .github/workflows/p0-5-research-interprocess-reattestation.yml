@@ -7,10 +7,22 @@ on:
     paths:
       - '.github/workflows/p0-5-research-interprocess-reattestation.yml'
       - '04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md'
+      - 'src/research_interprocess.py'
       - 'src/research_run_evidence.py'
+      - 'src/research/**'
+      - 'src/context.py'
+      - 'src/decision.py'
+      - 'src/research_findings.py'
       - 'tests/research_runtime_fixture.py'
       - 'tests/test_research_interprocess_reattestation_tier_a.py'
       - 'tests/test_research_producer_junction_tier_a.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - 'tests/test_context_to_research_boundary.py'
+      - 'tests/test_data_to_context.py'
+      - 'tests/test_durable_ci_branch_independence.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_reader_adversarial.py'
+      - 'tests/test_research_to_decision_boundary.py'
   workflow_dispatch:
 
 permissions:
@@ -35,29 +47,130 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_4_BASE}" HEAD
 
+      - name: Prove bounded replay bridge surface and no acquisition import
+        run: |
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          contract = Path('04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md')
+          bridge = Path('src/research_interprocess.py')
+          tests = Path('tests/test_research_interprocess_reattestation_tier_a.py')
+          for path in (contract, bridge, tests):
+              assert path.is_file(), path
+
+          contract_text = contract.read_text(encoding='utf-8')
+          bridge_text = bridge.read_text(encoding='utf-8')
+          assert 'RESEARCH_INTERPROCESS_REATTESTATION_V1' in contract_text
+          assert 'persist_research_execution_proof' in bridge_text
+          assert 'reattest_persisted_research_execution' in bridge_text
+          assert 'run_qualified_research' in bridge_text
+          assert 'from_research_execution' in bridge_text
+          for forbidden in ('trust_proof', 'skip_replay', 'accept_digest_only'):
+              assert forbidden not in bridge_text, forbidden
+
+          research_files = set(subprocess.check_output(
+              ['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'src/research'], text=True
+          ).splitlines())
+          assert research_files == {
+              'src/research/__init__.py',
+              'src/research/bi5_reader.py',
+              'src/research/input_binding.py',
+              'src/research/engine.py',
+              'src/research/execution.py',
+          }
+
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', 'aa9551addc0fe554af9cbb8ebdb26314d37e412e', 'HEAD'],
+              text=True,
+          ).splitlines())
+          forbidden_prefixes = (
+              'data/', 'LOCAL-EVIDENCE/', 'tools/download_',
+              'tools/probe_dukascopy', 'tools/qualify_dukascopy',
+          )
+          forbidden_paths = [
+              path for path in changed
+              if path.startswith(forbidden_prefixes) or path.endswith('.bi5')
+          ]
+          assert not forbidden_paths, forbidden_paths
+          print('PASS: P0.5 adds only replay-proof governance/code/tests; no acquisition/probe/data/backtest surface')
+          PY
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Re-prove P0.4 producer junction before P0.5 attacks
+      - name: Run complete repository regression
         run: |
           python -m pip install pytest==8.4.2
-          python -m pytest -q tests/test_research_producer_junction_tier_a.py
+          python -m pytest -q
 
-      - name: Break P0.5 inter-process boundary
+      - name: Re-break P0.5 D0-D14 inter-process attacks
         run: |
           python -m pytest -q tests/test_research_interprocess_reattestation_tier_a.py
 
-      - name: Prove no acquisition or backtest side effect
-        if: always()
+      - name: Re-break P0.4 producer junction C0-C15
+        run: |
+          python -m pytest -q tests/test_research_producer_junction_tier_a.py
+
+      - name: Re-break complete P0.2 decision Tier-A boundary
+        run: |
+          python -m pytest -q \
+            tests/test_data_to_context.py \
+            tests/test_context_to_research_boundary.py \
+            tests/test_context_research_alternative_paths.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_reader_adversarial.py \
+            tests/test_research_to_decision_boundary.py \
+            tests/test_durable_ci_branch_independence.py
+
+      - name: Re-break P0.3 calendar and freeze Tier-A boundary
+        run: |
+          python -m pytest -q \
+            tests/test_coverage_execution_window_boundary.py \
+            tests/test_current_execution_window_boundary_state.py \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_frozen_execution_window.py \
+            tests/test_trading_breaks_post_closure_current_state.py
+
+      - name: Re-prove current global/window truth and blocked acquisition
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.coverage_execution_window_boundary import BLOCKED, DECLARE_GLOBAL_COVERAGE_PASS, evaluate_boundary
+          from tools.current_execution_window_boundary_state import derive_current_boundary_evidence, evaluate_current_freeze
+          from tools.frozen_execution_window import evaluate_acquisition_after_persisted_freeze, evaluate_persisted_execution_window_freeze
+
+          evidence = derive_current_boundary_evidence()
+          state = evidence.state
+          assert state.window_start == date(2021, 8, 14)
+          assert state.window_end == date(2026, 8, 14)
+          assert (evidence.global_candidate_count, evidence.global_resolved_count, state.global_unresolved_count) == (111, 91, 20)
+          assert (evidence.window_candidate_count, evidence.window_resolved_count, state.window_unresolved_count) == (68, 68, 0)
+          assert evaluate_boundary(DECLARE_GLOBAL_COVERAGE_PASS, state).verdict == BLOCKED
+          assert evaluate_current_freeze().decision.verdict == 'PASS'
+          frozen = evaluate_persisted_execution_window_freeze()
+          assert frozen.decision.verdict == 'PASS'
+          assert frozen.evidence.record['massive_acquisition_authorized'] is False
+          assert frozen.evidence.record['real_backtest_authorized'] is False
+          assert evaluate_acquisition_after_persisted_freeze().verdict == BLOCKED
+          print('PASS: global 111/91/20 BLOCKED; selected 68/68/0 and freeze PASS; acquisition BLOCKED')
+          PY
+
+      - name: Prove replay-only security model and read-only gate
         run: |
           python - <<'PY'
           from pathlib import Path
+          import src.research_run_evidence as evidence_module
+
+          assert not hasattr(evidence_module, '_attest_factory_evidence')
           contract = Path('04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md').read_text(encoding='utf-8')
+          assert 'persisted proof is a replay recipe and immutable evidence record' in contract
           assert 'No network access, real `.bi5` acquisition or real backtest is permitted.' in contract
           workflow = Path('.github/workflows/p0-5-research-interprocess-reattestation.yml').read_text(encoding='utf-8')
           assert '\npermissions:\n  contents: read\n' in workflow
-          print('PASS: P0.5 breaker is read-only and non-acquisitive')
+          print('PASS: proof is non-authorizing without replay; raw minter absent; gate read-only')
           PY
 
       - name: Prove clean worktree
