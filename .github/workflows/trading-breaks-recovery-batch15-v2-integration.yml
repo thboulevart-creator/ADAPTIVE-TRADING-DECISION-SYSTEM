@@ -140,9 +140,9 @@ jobs:
           class_b_reason = 'RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED'
           ineligible = [(d.target_date, d.candidate_reason, d.reason) for d in decisions if not d.eligible]
           assert ineligible == [
-              (date(2021, 12, 31), 'NEW_YEARS_EVE_CANDIDATE', class_b_reason),
+              (date(2021, 12, 31), 'NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED', class_b_reason),
               (date(2022, 7, 1), 'INDEPENDENCE_PRE_HOLIDAY_SESSION', class_b_reason),
-              (date(2025, 12, 31), 'NEW_YEARS_EVE_CANDIDATE', class_b_reason),
+              (date(2026, 7, 2), 'INDEPENDENCE_PRE_HOLIDAY_SESSION', class_b_reason),
           ]
           print('PASS: Batch 15 post-state = 111/79/32 global, 68/56/12 window, 73 attempts, 9 eligible')
           PY
