@@ -1,0 +1,231 @@
+name: Trading Breaks Recovery Batch 15 V2 Persisted HEAD Re-break
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch15-v2-persisted-head.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact triggering persisted HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove Batch 15 integration ancestry and verifier-only delta
+        run: |
+          git merge-base --is-ancestor 4dee7e22af1402626341f76611926b108fd1d8c0 HEAD
+          git merge-base --is-ancestor bfafa6966c39a5eb759d62d493ebb58ef2bdad80 4dee7e22af1402626341f76611926b108fd1d8c0
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test "$(git diff --name-only 4dee7e22af1402626341f76611926b108fd1d8c0 HEAD)" = ".github/workflows/trading-breaks-recovery-batch15-v2-persisted-head.yml"
+
+          git diff --name-only bfafa6966c39a5eb759d62d493ebb58ef2bdad80 4dee7e22af1402626341f76611926b108fd1d8c0 | sort >/tmp/integration-actual
+          printf '%s\n' \
+            'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json' \
+            'reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json' \
+            'tools/dukascopy_usatech_calendar.py' | sort >/tmp/integration-expected
+          diff -u /tmp/integration-expected /tmp/integration-actual
+
+          git diff --exit-code 4dee7e22af1402626341f76611926b108fd1d8c0 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_progression.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-break qualified V2 semantics and calendar boundaries
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_source_binding.py \
+            tests/test_trading_breaks_recovery_batch15_v2_adjudication.py \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Prove frozen Batch 15 V2 membership remains immutable
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch15 import batch15_targets
+
+          assert batch15_targets() == [
+              (date(2021, 12, 24), 'CHRISTMAS_OBSERVED'),
+              (date(2022, 4, 15), 'GOOD_FRIDAY'),
+              (date(2022, 12, 26), 'CHRISTMAS_OBSERVED'),
+              (date(2023, 1, 2), 'NEW_YEARS_OBSERVED'),
+              (date(2023, 7, 4), 'INDEPENDENCE_DAY_OBSERVED'),
+          ]
+          print('PASS: Batch 15 V2 membership remains immutable')
+          PY
+
+      - name: Prove historical attempts 1 through 68 were not rewritten
+        run: |
+          git show bfafa6966c39a5eb759d62d493ebb58ef2bdad80:reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json >/tmp/pre_batch15_ledger.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          pre = json.loads(Path('/tmp/pre_batch15_ledger.json').read_text(encoding='utf-8'))
+          cur = json.loads(Path('reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json').read_text(encoding='utf-8'))
+          assert len(pre['attempts']) == 68
+          assert len(cur['attempts']) == 73
+          assert cur['attempts'][:68] == pre['attempts']
+          assert cur['capabilities'] == pre['capabilities']
+          assert cur['current_capability_id'] == pre['current_capability_id'] == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          print('PASS: historical attempts 1..68 and capability definitions are byte-semantic stable')
+          PY
+
+      - name: Assert exact persisted Batch 15 V2 state provenance and progression
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import NO_SPECIAL_CHANGE_EVIDENCE, audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import (
+              current_capability,
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          expected = {
+              date(2021, 12, 24): ('31532', frozenset(range(0, 24)), 'batch02:2021-12-24'),
+              date(2022, 4, 15): ('34894', frozenset(range(0, 24)), 'batch02:2022-04-15'),
+              date(2022, 12, 26): ('46756', frozenset(range(0, 23)), 'batch04:2022-12-26'),
+              date(2023, 1, 2): ('48045', frozenset(range(0, 23)), 'batch04:2023-01-02'),
+              date(2023, 7, 4): ('56233', frozenset(range(0, 22)), 'batch06:2023-07-04'),
+          }
+
+          capabilities, current_id, attempts = load_attempt_ledger()
+          assert current_id == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          assert set(capabilities) == {'TRADING_BREAKS_PRIMARY_WIDGET_V1', current_id}
+          assert current_capability().fingerprint() == 'e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31'
+          assert len(attempts) == 73
+          assert [x.attempt_sequence for x in attempts] == list(range(1, 74))
+          assert len({x.attempt_id for x in attempts}) == 73
+
+          by_id = {x.attempt_id: x for x in attempts}
+          retries = attempts[68:]
+          assert [x.attempt_sequence for x in retries] == [69, 70, 71, 72, 73]
+          assert [x.attempt_id for x in retries] == [
+              'overlap-v2:2021-12-24',
+              'overlap-v2:2022-04-15',
+              'overlap-v2:2022-12-26',
+              'overlap-v2:2023-01-02',
+              'overlap-v2:2023-07-04',
+          ]
+          assert all(x.outcome == 'PASS' for x in retries)
+          assert all(x.blocking_reason is None for x in retries)
+          assert all(x.adjudication_reason == 'TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED' for x in retries)
+          assert all(x.capability_id == current_id for x in retries)
+
+          for retry in retries:
+              record_id, hours, source_attempt_id = expected[retry.target_date]
+              source = by_id[source_attempt_id]
+              assert retry.provenance == source.provenance
+              item = SPECIAL_SESSION_EVIDENCE[retry.target_date]
+              assert item['broker_record_id'] == record_id
+              assert item['fully_closed_hours_utc'] == hours
+              assert item['target_day_overlap_capability'] == current_id
+              assert item['source_attempt_id'] == source_attempt_id
+              assert item['artifact_id'] == retry.provenance['artifact_id']
+              assert item['artifact_sha256'] == retry.provenance['artifact_sha256']
+              assert item['probe_commit'] == retry.provenance['probe_commit']
+              assert item['runtime_evidence_source'].endswith(str(retry.provenance['workflow_run']))
+              assert item['qualification_report_source'].endswith('historical_trading_breaks_recovery_batch15_v2_adjudication.md')
+
+          changes = load_material_capability_changes()
+          assert len(changes) == 1
+          change = changes[0]
+          assert change.change_id == 'TRADING_BREAKS_TARGET_DAY_OVERLAP_ATTRIBUTION_CHANGE_V1'
+          assert change.from_fingerprint == '82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f'
+          assert change.to_fingerprint == 'e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31'
+          assert change.added_proof_capabilities == frozenset({'QUALIFIED_CROSS_DATE_INTERVAL_ATTRIBUTION'})
+          assert change.addresses_blocking_reasons == frozenset({'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'})
+          assert change.qualification_commit == '061e97d90eed2c4c3f1d5f2a261e457fd796413f'
+
+          global_audit = audit_calendar_coverage()
+          window_audit = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          assert (
+              global_audit['candidate_dates'],
+              global_audit['resolved_candidate_dates'],
+              global_audit['unresolved_candidate_dates'],
+          ) == (111, 79, 32)
+          assert (
+              window_audit['candidate_dates'],
+              window_audit['resolved_candidate_dates'],
+              window_audit['unresolved_candidate_dates'],
+          ) == (68, 56, 12)
+          assert global_audit['evidence_shape_errors'] == []
+          assert global_audit['orphan_special_evidence'] == []
+          assert global_audit['contradictory_evidence_dates'] == []
+          assert window_audit['evidence_shape_errors'] == []
+          assert window_audit['orphan_special_evidence'] == []
+          assert window_audit['contradictory_evidence_dates'] == []
+
+          queue = recovery_queue()
+          decisions = progression_decisions()
+          eligible = eligible_recovery_queue()
+          assert len(queue) == len(decisions) == 12
+          assert eligible == [
+              (date(2023, 12, 25), 'CHRISTMAS_OBSERVED'),
+              (date(2024, 1, 1), 'NEW_YEARS_OBSERVED'),
+              (date(2024, 3, 29), 'GOOD_FRIDAY'),
+              (date(2024, 12, 25), 'CHRISTMAS_OBSERVED'),
+              (date(2025, 1, 1), 'NEW_YEARS_OBSERVED'),
+              (date(2025, 4, 18), 'GOOD_FRIDAY'),
+              (date(2025, 12, 25), 'CHRISTMAS_OBSERVED'),
+              (date(2026, 1, 1), 'NEW_YEARS_OBSERVED'),
+              (date(2026, 4, 3), 'GOOD_FRIDAY'),
+          ]
+          class_b_reason = 'RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED'
+          ineligible = [(d.target_date, d.candidate_reason, d.reason) for d in decisions if not d.eligible]
+          assert ineligible == [
+              (date(2021, 12, 31), 'NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED', class_b_reason),
+              (date(2022, 7, 1), 'INDEPENDENCE_PRE_HOLIDAY_SESSION', class_b_reason),
+              (date(2026, 7, 2), 'INDEPENDENCE_PRE_HOLIDAY_SESSION', class_b_reason),
+          ]
+          for day, _, _ in ineligible:
+              assert day not in SPECIAL_SESSION_EVIDENCE
+              assert day not in NO_SPECIAL_CHANGE_EVIDENCE
+
+          print('PASS: exact persisted Batch 15 V2 calendar/ledger/capability/progression state and provenance')
+          PY
+
+      - name: Prove byte-stable deterministic progression
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch15-v2-persisted.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code -- reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
+
+      - name: Prove verifier is strictly read-only and clean
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
+          echo 'PASS: Batch 15 V2 persisted-HEAD verifier remained strictly read-only'
