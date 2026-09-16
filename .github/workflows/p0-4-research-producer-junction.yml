@@ -9,11 +9,14 @@ on:
       - '04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md'
       - 'src/research_run_evidence.py'
       - 'src/research/**'
+      - 'tests/research_runtime_fixture.py'
       - 'tests/test_research_producer_junction_tier_a.py'
       - 'tests/test_context_to_research_boundary.py'
       - 'tests/test_context_research_alternative_paths.py'
       - 'tests/test_research_findings_contract.py'
       - 'tests/test_research_to_decision_boundary.py'
+      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
+      - '.github/workflows/p0-3-multi-year-integration-rebreak.yml'
   workflow_dispatch:
 
 permissions:
@@ -40,33 +43,82 @@ jobs:
           git merge-base --is-ancestor "${P0_3_BASE}" HEAD
           git cat-file -e "${SOURCE_RUNTIME}^{commit}"
 
-      - name: Prove pre-integration candidate has no runtime import
+      - name: Prove controlled five-file runtime import
         run: |
-          if [ -d src/research ]; then
-            echo 'Unexpected runtime research import before observed Tier-A failure' >&2
-            exit 1
-          fi
-          test -f 04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md
-          test -f tests/test_research_producer_junction_tier_a.py
+          python - <<'PY'
+          import subprocess
+          source = 'b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698'
+          expected = {
+              'src/research/__init__.py',
+              'src/research/bi5_reader.py',
+              'src/research/input_binding.py',
+              'src/research/engine.py',
+              'src/research/execution.py',
+          }
+          actual = set(subprocess.check_output(
+              ['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'src/research'], text=True
+          ).splitlines())
+          assert actual == expected, ('unexpected research runtime surface', sorted(actual ^ expected))
+          for path in ('src/research/__init__.py', 'src/research/bi5_reader.py'):
+              source_blob = subprocess.check_output(['git', 'rev-parse', f'{source}:{path}'], text=True).strip()
+              head_blob = subprocess.check_output(['git', 'rev-parse', f'HEAD:{path}'], text=True).strip()
+              assert head_blob == source_blob, ('source-identical runtime drift', path)
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', '49cbf7b7e4191deac3e2935eb18887a9e7c74629', 'HEAD'], text=True
+          ).splitlines())
+          forbidden_prefixes = ('data/', 'LOCAL-EVIDENCE/', 'tools/download_', 'tools/probe_dukascopy', 'tools/qualify_dukascopy')
+          forbidden = [p for p in changed if p.startswith(forbidden_prefixes) or p.endswith('.bi5')]
+          assert not forbidden, forbidden
+          print('PASS: runtime import is exactly five files; no acquisition/probe/data/backtest surface imported')
+          PY
 
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
-      - name: Prove inherited upstream boundaries are green before new attacks
+      - name: Run complete repository regression
         run: |
           python -m pip install pytest==8.4.2
-          python -m pytest -q \
-            tests/test_context_to_research_boundary.py \
-            tests/test_context_research_alternative_paths.py \
-            tests/test_research_findings_contract.py \
-            tests/test_research_to_decision_boundary.py
+          python -m pytest -q
 
-      - name: Break the unqualified producer junction
+      - name: Re-break P0.4 producer junction Tier-A attacks
         run: |
           python -m pytest -q tests/test_research_producer_junction_tier_a.py
 
-      - name: Prove clean worktree even on failure
+      - name: Re-break upstream decision Tier-A boundary
+        run: |
+          python -m pytest -q \
+            tests/test_data_to_context.py \
+            tests/test_context_to_research_boundary.py \
+            tests/test_context_research_alternative_paths.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_to_decision_boundary.py \
+            tests/test_durable_ci_branch_independence.py
+
+      - name: Re-break P0.3 calendar and freeze Tier-A boundary
+        run: |
+          python -m pytest -q \
+            tests/test_coverage_execution_window_boundary.py \
+            tests/test_current_execution_window_boundary_state.py \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_frozen_execution_window.py \
+            tests/test_trading_breaks_post_closure_current_state.py
+
+      - name: Prove no raw evidence minter and acquisition remains outside scope
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import src.research_run_evidence as evidence_module
+          assert not hasattr(evidence_module, '_attest_factory_evidence')
+          workflow = Path('.github/workflows/p0-4-research-producer-junction.yml').read_text(encoding='utf-8')
+          assert '\npermissions:\n  contents: read\n' in workflow
+          contract = Path('04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md').read_text(encoding='utf-8')
+          assert 'Inter-process persistence of attestation is explicitly outside P0.4' in contract
+          print('PASS: P0.4 remains process-local, read-only and non-acquisitive')
+          PY
+
+      - name: Prove clean worktree
         if: always()
         run: |
           git diff --exit-code
