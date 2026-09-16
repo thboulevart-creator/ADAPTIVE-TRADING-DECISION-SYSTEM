@@ -1,0 +1,202 @@
+name: Trading Breaks Calendar Closure Integration
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-calendar-closure-integration.yml'
+      - 'tools/integrate_trading_breaks_calendar_closure.py'
+      - 'tests/test_trading_breaks_calendar_closure_integration_contract.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Prove qualified ancestry and untouched preintegration state
+        run: |
+          git merge-base --is-ancestor 6abae7c94e6e442c2009fcad95869864b0eab739 HEAD
+          git merge-base --is-ancestor adf30edaf9bdc509cf968ac3803003aceeff58a9 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --exit-code 3a413c9f19bcad3c0833f8c4adae40769a1a4bc2 HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Adversarially qualify exact closure contract before mutation
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_calendar_closure_integration_contract.py \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_source_binding.py \
+            tests/test_trading_breaks_negative_evidence_completeness.py
+
+      - name: Fingerprint immutable history and capability registry
+        run: |
+          sha256sum reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json > /tmp/ledger.before
+          sha256sum reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json > /tmp/capability.before
+
+      - name: Apply exact 9A plus 3B calendar closure in worktree
+        run: python -m tools.integrate_trading_breaks_calendar_closure
+
+      - name: Regenerate deterministic progression
+        run: python -m tools.trading_breaks_recovery_progression > /tmp/calendar-closure-progression.json
+
+      - name: Assert exact post-closure persisted-state candidate
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.dukascopy_usatech_calendar import SPECIAL_SESSION_EVIDENCE
+          from tools.dukascopy_usatech_calendar_coverage import NO_SPECIAL_CHANGE_EVIDENCE, audit_calendar_coverage
+          from tools.trading_breaks_recovery_progression import (
+              build_progression_report,
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          expected_a = {
+              date(2023, 12, 25): ('63023', frozenset(range(0, 23)), 'batch07:2023-12-25'),
+              date(2024, 1, 1): ('63024', frozenset(range(0, 23)), 'batch07:2024-01-01'),
+              date(2024, 3, 29): ('66555', frozenset(range(0, 24)), 'batch08:2024-03-29'),
+              date(2024, 12, 25): ('74339', frozenset(range(0, 23)), 'batch09:2024-12-25'),
+              date(2025, 1, 1): ('75799', frozenset(range(0, 23)), 'batch10:2025-01-01'),
+              date(2025, 4, 18): ('80057', frozenset(range(0, 24)), 'batch10:2025-04-18'),
+              date(2025, 12, 25): ('91078', frozenset(range(0, 23)), 'batch12:2025-12-25'),
+              date(2026, 1, 1): ('92491', frozenset(range(0, 23)), 'batch13:2026-01-01'),
+              date(2026, 4, 3): ('98541', frozenset(range(0, 22)), 'batch13:2026-04-03'),
+          }
+          for day, (record_id, hours, source_attempt_id) in expected_a.items():
+              item = SPECIAL_SESSION_EVIDENCE[day]
+              assert item['broker_record_id'] == record_id
+              assert item['fully_closed_hours_utc'] == hours
+              assert item['source_attempt_id'] == source_attempt_id
+              assert item['target_day_overlap_capability'] == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+              assert item['qualification_report_source'].endswith('trading_breaks_target_day_overlap_readjudication.md')
+
+          expected_b = {
+              date(2021, 12, 31): ('batch01:2021-12-31', 'batch02:2021-12-31'),
+              date(2022, 7, 1): ('batch03:2022-07-01',),
+              date(2026, 7, 2): ('batch14:2026-07-02',),
+          }
+          assert set(NO_SPECIAL_CHANGE_EVIDENCE) == set(expected_b)
+          for day, attempt_ids in expected_b.items():
+              item = NO_SPECIAL_CHANGE_EVIDENCE[day]
+              assert item['negative_evidence_contract'] == 'TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1'
+              assert item['negative_evidence_reason'] == 'NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY'
+              assert item['instrument_name'] == 'USATECH.IDX/USD'
+              assert item['instrument_id'] == '9016'
+              assert item['source_attempt_ids'] == attempt_ids
+              assert len(item['source_artifact_ids']) == len(attempt_ids)
+              assert len(item['source_artifact_sha256s']) == len(attempt_ids)
+              assert len(item['source_probe_commits']) == len(attempt_ids)
+              assert len(item['source_workflow_runs']) == len(attempt_ids)
+              assert len(item['runtime_evidence_sources']) == len(attempt_ids)
+              assert item['qualification_report_source'].endswith('trading_breaks_negative_evidence_completeness_qualification.md')
+
+          _, current_id, attempts = load_attempt_ledger()
+          assert current_id == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          assert len(attempts) == 73
+          assert [x.attempt_sequence for x in attempts] == list(range(1, 74))
+          assert len({x.attempt_id for x in attempts}) == 73
+          assert len(load_material_capability_changes()) == 1
+
+          global_audit = audit_calendar_coverage()
+          window_audit = audit_calendar_coverage(date(2021, 8, 14), date(2026, 8, 14))
+          global_counts = (
+              global_audit['candidate_dates'],
+              global_audit['resolved_candidate_dates'],
+              global_audit['unresolved_candidate_dates'],
+          )
+          window_counts = (
+              window_audit['candidate_dates'],
+              window_audit['resolved_candidate_dates'],
+              window_audit['unresolved_candidate_dates'],
+          )
+          print('post-closure global:', global_counts)
+          print('post-closure execution window:', window_counts)
+          assert global_counts == (111, 91, 20)
+          assert window_counts == (68, 68, 0)
+          assert global_audit['verdict'] == 'BLOCKED'
+          assert window_audit['verdict'] == 'PASS'
+          assert global_audit['orphan_special_evidence'] == []
+          assert global_audit['contradictory_evidence_dates'] == []
+          assert global_audit['evidence_shape_errors'] == []
+
+          assert recovery_queue() == []
+          assert progression_decisions() == []
+          assert eligible_recovery_queue() == []
+          progression = build_progression_report()
+          assert progression['verdict'] == 'PASS'
+          assert progression['calendar_unresolved_count'] == 0
+          assert progression['attempt_ledger_count'] == 73
+          assert progression['registered_material_capability_change_count'] == 1
+          assert progression['attempted_blocked_ineligible_count'] == 0
+          assert progression['eligible_initial_or_retry_count'] == 0
+          assert progression['decisions'] == []
+          print('PASS: exact 9A+3B closure reaches 68/68/0 window without new broker attempts')
+          PY
+
+      - name: Run post-closure semantic calendar and boundary regressions
+        run: |
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_source_binding.py \
+            tests/test_trading_breaks_negative_evidence_completeness.py \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_coverage_execution_window_boundary.py
+
+      - name: Prove immutable history exact mutation set and no live acquisition path
+        run: |
+          sha256sum -c /tmp/ledger.before
+          sha256sum -c /tmp/capability.before
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/integrate_trading_breaks_calendar_closure.py').read_text(encoding='utf-8').lower()
+          for token in ('playwright', 'selenium', 'requests.', 'urllib.request', 'probe_candidate'):
+              assert token not in source, token
+          assert 'matching_records' not in source
+          print('PASS: closure integration is qualified-persisted-evidence-only')
+          PY
+          git diff --check
+          git diff --name-only | sort > /tmp/actual
+          printf '%s\n' \
+            'reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json' \
+            'tools/dukascopy_usatech_calendar.py' \
+            'tools/dukascopy_usatech_calendar_coverage.py' | sort > /tmp/expected
+          diff -u /tmp/expected /tmp/actual
+
+      - name: Commit atomically only after all closure gates PASS
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
+          git diff --cached --check
+          git commit -m 'data: close Trading Breaks execution-window calendar evidence'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
