@@ -5,6 +5,14 @@ on:
     branches:
       - integration/system-v1
     paths:
+      - '.github/workflows/data-to-context.yml'
+      - '.github/workflows/context-to-research-boundary.yml'
+      - '.github/workflows/research-findings-contract.yml'
+      - '.github/workflows/research-to-decision-boundary.yml'
+      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
+      - '.github/workflows/p0-3-multi-year-integration-rebreak.yml'
+      - '.github/workflows/p0-4-research-producer-junction.yml'
+      - '.github/workflows/p0-5-research-interprocess-reattestation.yml'
       - '.github/workflows/p0-6-system-reproducibility.yml'
       - '04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md'
       - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
@@ -18,6 +26,10 @@ permissions:
 
 env:
   PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: 'UTC'
+  LANG: 'C.UTF-8'
+  LC_ALL: 'C.UTF-8'
   P0_5_BASE: '7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4'
 
 jobs:
@@ -25,7 +37,7 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0
@@ -35,30 +47,117 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_5_BASE}" HEAD
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Re-prove P0.5 before P0.6 attacks
-        run: |
-          python -m pip install pytest==8.4.2
-          python -m pytest -q tests/test_research_interprocess_reattestation_tier_a.py
-
-      - name: Break pre-P0.6 reproducibility envelope
-        run: |
-          python -m pytest -q tests/test_system_reproducibility_tier_a.py
-
-      - name: Prove no acquisition or backtest side effect
-        if: always()
+      - name: Prove P0.6 surface is bounded and non-acquisitive
         run: |
           python - <<'PY'
+          import subprocess
           from pathlib import Path
+
+          required = {
+              '04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md',
+              '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json',
+              'requirements/qualification.lock.txt',
+              'tools/qualification_environment.py',
+              'tests/test_system_reproducibility_tier_a.py',
+              '.github/workflows/p0-6-system-reproducibility.yml',
+          }
+          for path in required:
+              assert Path(path).is_file(), path
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', '7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4', 'HEAD'],
+              text=True,
+          ).splitlines())
+          forbidden_prefixes = (
+              'data/', 'LOCAL-EVIDENCE/', 'tools/download_',
+              'tools/probe_dukascopy', 'tools/qualify_dukascopy',
+          )
+          forbidden = [p for p in changed if p.startswith(forbidden_prefixes) or p.endswith('.bi5')]
+          assert not forbidden, forbidden
+          print('PASS: P0.6 changes only qualification environment/governance/tests/workflows; no acquisition/data/backtest surface')
+          PY
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact P0.6 qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Break P0.6 E0-E12 environment and workflow attacks
+        run: python -m pytest -q tests/test_system_reproducibility_tier_a.py
+
+      - name: Run complete repository regression
+        run: python -m pytest -q
+
+      - name: E13 re-break P0.5 D0-D14
+        run: python -m pytest -q tests/test_research_interprocess_reattestation_tier_a.py
+
+      - name: E13 re-break P0.4 C0-C15
+        run: python -m pytest -q tests/test_research_producer_junction_tier_a.py
+
+      - name: E13 re-break complete P0.2 decision Tier-A boundary
+        run: |
+          python -m pytest -q \
+            tests/test_data_to_context.py \
+            tests/test_context_to_research_boundary.py \
+            tests/test_context_research_alternative_paths.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_reader_adversarial.py \
+            tests/test_research_to_decision_boundary.py \
+            tests/test_durable_ci_branch_independence.py
+
+      - name: E13 re-break P0.3 calendar and freeze Tier-A boundary
+        run: |
+          python -m pytest -q \
+            tests/test_coverage_execution_window_boundary.py \
+            tests/test_current_execution_window_boundary_state.py \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_frozen_execution_window.py \
+            tests/test_trading_breaks_post_closure_current_state.py
+
+      - name: E14 re-prove current global/window truth and blocked acquisition
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.coverage_execution_window_boundary import BLOCKED, DECLARE_GLOBAL_COVERAGE_PASS, evaluate_boundary
+          from tools.current_execution_window_boundary_state import derive_current_boundary_evidence, evaluate_current_freeze
+          from tools.frozen_execution_window import evaluate_acquisition_after_persisted_freeze, evaluate_persisted_execution_window_freeze
+
+          evidence = derive_current_boundary_evidence()
+          state = evidence.state
+          assert state.window_start == date(2021, 8, 14)
+          assert state.window_end == date(2026, 8, 14)
+          assert (evidence.global_candidate_count, evidence.global_resolved_count, state.global_unresolved_count) == (111, 91, 20)
+          assert (evidence.window_candidate_count, evidence.window_resolved_count, state.window_unresolved_count) == (68, 68, 0)
+          assert evaluate_boundary(DECLARE_GLOBAL_COVERAGE_PASS, state).verdict == BLOCKED
+          assert evaluate_current_freeze().decision.verdict == 'PASS'
+          frozen = evaluate_persisted_execution_window_freeze()
+          assert frozen.decision.verdict == 'PASS'
+          assert frozen.evidence.record['massive_acquisition_authorized'] is False
+          assert frozen.evidence.record['real_backtest_authorized'] is False
+          assert evaluate_acquisition_after_persisted_freeze().verdict == BLOCKED
+          print('PASS: global 111/91/20 BLOCKED; selected 68/68/0 and freeze PASS; acquisition BLOCKED')
+          PY
+
+      - name: E14 prove pyarrow remains outside envelope and gate is read-only
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          lock = json.loads(Path('04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json').read_text(encoding='utf-8'))
+          assert lock['optional_excluded']['pyarrow']['status'] == 'BLOCKED_OUTSIDE_P0_6'
+          assert all(name.lower() != 'pyarrow' for name in lock['requirements']['packages'])
           contract = Path('04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md').read_text(encoding='utf-8')
           assert 'native `.bi5` acquisition or acquisition readiness' in contract
           assert 'real-data backtest' in contract
           workflow = Path('.github/workflows/p0-6-system-reproducibility.yml').read_text(encoding='utf-8')
           assert '\npermissions:\n  contents: read\n' in workflow
-          print('PASS: P0.6 breaker is read-only and non-acquisitive')
+          print('PASS: optional Parquet dependency remains explicitly outside P0.6; no acquisition/backtest authorization')
           PY
 
       - name: Prove clean worktree
