@@ -519,3 +519,47 @@ Il est volontairement interdit de conclure à la couverture des quatre domaines 
 Prochaine séquence obligatoire :
 
 **CARTOGRAPHIER → LIRE → MAPPER LES PREUVES → TESTER LA COUVERTURE → CHERCHER LES BYPASS → CASSER → CORRIGER SI NÉCESSAIRE → RE-CASSER → VERDICT → INTÉGRER SEULEMENT LE MINIMUM JUSTIFIÉ**.
+
+
+---
+
+## 14. Carence obligatoire avant assouplissement de gouvernance
+
+**Contrat : `GOVERNANCE_RELAXATION_COOLING_OFF_V1`**
+
+Une règle de gouvernance peut être durcie immédiatement lorsque le système devient plus restrictif. En revanche, tout **assouplissement** d'une règle, d'un critère de refus, d'un niveau de preuve, d'une frontière ou d'une permission doit respecter une carence minimale de **30 jours** lorsqu'il est envisagé après la découverte d'une perte, d'un incident, d'une opportunité manquée ou d'une contrainte opérationnelle causalement liée à la règle visée.
+
+La carence s'applique uniquement aux changements plus permissifs. Elle n'interdit ni l'analyse, ni l'expérimentation hors production, ni le durcissement immédiat. Elle interdit la promotion normative de l'assouplissement avant l'échéance.
+
+Le dossier d'assouplissement doit conserver au minimum :
+
+- la règle ou permission ciblée ;
+- le sens exact de l'assouplissement ;
+- l'événement déclencheur et sa date ;
+- la relation causale alléguée avec la règle ;
+- la date minimale de fin de carence ;
+- le gap démontré que l'assouplissement cherche à traiter ;
+- la condition observable de révocation ;
+- la preuve que le changement n'est pas présenté comme un durcissement alors qu'il augmente effectivement la permission.
+
+Un nouvel événement de même cause pendant la carence **réinitialise les 30 jours**. Un changement de tier de preuve de `A` vers `B`, ou toute réduction équivalente d'exigence, est un assouplissement et suit la même règle.
+
+Pour une permission ou frontière **Tier A**, l'autorisation d'assouplissement reste `BLOCKED` tant que ne sont pas démontrés :
+
+1. une condition de révocation observable ;
+2. une détection assez rapide pour limiter le dommage ;
+3. une latence de réaction compatible avec le risque ;
+4. un blast radius borné ;
+5. un mécanisme de révocation exécutable ;
+6. un rollback ou état sûr défini ;
+7. l'indépendance suffisante du moniteur par rapport au mécanisme surveillé ;
+8. la falsifiabilité du moniteur par injection d'une condition de révocation ;
+9. un coût de révocation borné et connu.
+
+Ces critères ne transforment jamais automatiquement un assouplissement en `PASS` : ils constituent des préconditions nécessaires. `BLOCKED` n'est jamais `PASS`.
+
+Principe d'asymétrie :
+
+> **Le système peut devenir plus restrictif seul ; il ne peut jamais devenir plus permissif seul.**
+
+Une urgence peut donc déclencher un arrêt, un refus, une réduction d'exposition ou un mode dégradé plus strict immédiatement. Elle ne peut pas servir de justification à un assouplissement immédiat.
