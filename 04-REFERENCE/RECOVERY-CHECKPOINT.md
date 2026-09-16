@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — CLASS-B COMPLETENESS PASS / CALENDAR CLOSURE NEXT
+# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — P0 FULL-SUITE REBASELINE PASS / BOUNDARYSTATE NEXT
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 Branch: `feat/multi-year-dukascopy-acquisition`
@@ -11,213 +11,185 @@ Construction rule remains:
 
 **UNDERSTAND → COMPARE → BREAK → DECIDE.**
 
-A successful prior mechanism is not, by itself, evidence that the same mechanism is the next correct action.
+A prior PASS does not authorize the next gate automatically. `BLOCKED` is never `PASS`.
 
-## Batch 15 V2 — FULLY CLOSED
+## Calendar Trading Breaks — closure evidence complete inside the candidate window
 
-Atomic integration:
+The executable post-closure state is now directly asserted by the current regression corpus.
 
-`4dee7e22af1402626341f76611926b108fd1d8c0`
-
-Independent persisted-HEAD re-break:
-
-- corrected verifier: `4bb7712bcab8b8930c4054e1500302621f881f4f`
-- authoritative run/job: `35085635675 / 104759660665`
-- permissions: `contents: read`
-- post-state-safe regression: `65 passed in 0.25s`
-- progression regeneration: byte-stable
-- final worktree: clean
-- verifier mutation: NONE
-
-Verdict:
-
-**PASS — `BATCH15_V2_PERSISTED_HEAD_REBREAK_CONFIRMS_INTEGRATION`**
-
-Durable report:
-
-`reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_persisted_head_rebreak.md`
-
-## Target-day overlap semantic capability V2 — QUALIFIED
-
-Contract:
-
-`TRADING_BREAKS_TARGET_DAY_OVERLAP_ATTRIBUTION_V1`
-
-Current positive-evidence capability:
-
-`TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2`
-
-Fingerprint:
-
-`e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31`
-
-Qualified facts:
-
-- target-day cross-date interval attribution: PASS;
-- immutable binding to original historical V1 source attempts: PASS;
-- all 14 Class-A cases offline readjudicated: `14 PASS / 0 BLOCKED / 0 FAIL`;
-- first five were integrated as Batch 15;
-- nine Class-A positive V2 PASS decisions remain qualified but not yet integrated;
-- no browser/probe/live recapture was needed for the V2 semantic readjudication.
-
-Authoritative readjudication:
-
-`reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md`
-
-## Negative-evidence completeness V1 — QUALIFIED AND RE-BROKEN
-
-Contract:
-
-`TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1`
-
-Reference:
-
-`04-REFERENCE/TRADING-BREAKS-NEGATIVE-EVIDENCE-COMPLETENESS.md`
-
-Durable qualification report:
-
-`reports/data-qualification/trading_breaks_negative_evidence_completeness_qualification.md`
-
-Initial qualification:
-
-- HEAD: `ddb781da2a06975903b2a1f67950672d0da3d31e`
-- run/job: `35096828077 / 104796142245`
-- conclusion: success
-- adversarial suite: `20 passed in 0.07s`
-
-Persisted-contract re-break:
-
-- HEAD: `6abae7c94e6e442c2009fcad95869864b0eab739`
-- run/job: `35097034040 / 104796843502`
-- conclusion: success
-- adversarial suite: `20 passed in 0.07s`
-- workflow permissions: `contents: read`, `actions: read`
-- final worktree: clean
-
-No browser, broker probe or new capture was used. The workflow downloaded only the four already-persisted GitHub Actions artifacts and revalidated their exact SHA-256 digests against runtime/ledger provenance.
-
-Qualified structural property:
-
-`FULL_RANGE_SINGLE_RESPONSE_RAW_LIST_COMPLETENESS`
-
-This rejects direct `matching_records=[] → PASS` promotion. PASS requires full target-day response scope, one target-range request/response pair, no pagination/continuation, complete untruncated JSONP, exact target-instrument raw/DOM controls, exact provenance, and an independent scan of every raw `9016` interval.
-
-### Class-B results
-
-1. `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
-   - observations: 2
-   - repeated consistency: PASS
-   - date verdict: **PASS — `NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY`**
-2. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-   - observations: 1
-   - date verdict: **PASS — `NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY`**
-3. `2026-07-02 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-   - observations: 1
-   - date verdict: **PASS — `NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY`**
-
-Overall verdict:
-
-**PASS — `ALL_THREE_CLASS_B_DATES_HAVE_COMPLETE_BROKER_NATIVE_NEGATIVE_EVIDENCE`**
-
-This is qualification only. It does not itself write `NO_SPECIAL_CHANGE_EVIDENCE` into the executable calendar and it does not represent a new broker recovery attempt.
-
-## Current persisted executable state — intentionally unchanged by qualification
-
-Global calendar:
+### Global calendar
 
 - candidates: `111`
-- resolved: `79`
-- unresolved: `32`
+- resolved: `91`
+- unresolved: `20`
+- special-session evidence dates: `88`
+- no-special-change evidence dates: `3`
 - FAIL: `0`
+- global coverage verdict: **BLOCKED**
 
-Execution-window candidate `2021-08-14 → 2026-08-14`:
+All `20` unresolved global candidates are before the candidate execution-window start.
+
+### Candidate execution window `2021-08-14 → 2026-08-14`
 
 - candidates: `68`
-- resolved: `56`
-- unresolved: `12`
+- resolved: `68`
+- unresolved: `0`
 - FAIL: `0`
+- coverage verdict: **PASS**
 
-Recovery state:
+This is a coverage fact only. The execution window is **not yet formally frozen**.
+
+### Recovery / progression state
 
 - attempt ledger: `73`
 - registered material capability changes: `1`
 - current positive capability: `TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2`
 - current fingerprint: `e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31`
-- execution window frozen: **NO**
-- `.bi5`: **FORBIDDEN**
+- recovery queue: empty
+- progression decisions: empty
+- eligible recovery queue: empty
+
+### Qualified negative-evidence dates integrated as `NO_SPECIAL_CHANGE_EVIDENCE`
+
+1. `2021-12-31`
+2. `2022-07-01`
+3. `2026-07-02`
+
+Each is bound to `TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1` and the factual verdict `NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY`.
+
+Calendar-closure evidence was previously closed by commit:
+
+`ae875d767b12555b6b904d0bd8e8371d864364c7`
+
+## P0.0 — Full-suite historical/current rebaseline CLOSED
+
+Durable qualification report:
+
+`reports/data-qualification/trading_breaks_p0_full_suite_rebaseline_qualification.md`
+
+### Problem corrected
+
+After calendar closure, `115` tests describing historical pre-integration states were still evaluated as current-state assertions, producing `115 failed / 537 passed`.
+
+The correction does not delete, skip or weaken those tests.
+
+### Historical regression contract
+
+- schema: `HISTORICAL_REGRESSION_BASELINES_V1`
+- historical node IDs: `115`
+- historical files: `42`
+- manifest: `tests/historical_regression_baselines.json`
+- fail-closed replay hook: `tests/conftest.py`
+- manifest commit: `e1f0b16b79297b9ab1b4d3c872a9452a897ad003`
+- replay/current-truth integration commit: `5c9ab2c82d9793f8029d18f2a8cd395624e9a972`
+
+Fail-closed properties:
+
+- missing historical node ID → failure;
+- malformed/unavailable baseline SHA → failure;
+- failed historical file replay → failure;
+- no `skip` / `xfail` / test deletion used to produce green;
+- post-closure truth is asserted separately on current HEAD.
+
+## Governance finalization — CLOSED
+
+Finalizer parent:
+
+`965c031020883d0c6517183b073dddf0e7c2e7dc`
+
+Finalizer output commit:
+
+`102835db477c92d161fb7a4004b287d28dd54010`
+
+It changed exactly three files:
+
+- `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
+- `GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md`
+- `tests/test_governance_relaxation_cooling_off_contract.py`
+
+The persisted governance contract is:
+
+`GOVERNANCE_RELAXATION_COOLING_OFF_V1`
+
+Key rule: permissive governance relaxation causally linked to an incident/loss/missed opportunity/constraint is subject to a minimum `30-day` cooling-off period; same-cause recurrence resets the period. The system may become more restrictive autonomously, but never more permissive autonomously.
+
+### Temporary workflow cleanup
+
+- P0 re-break restored read-only: `5a1dcd4b9030396ff46db6c1e660d0c20a342214`
+- disposable finalizer removed: `77e02094de76a4c02c9face507c4875dec382b12`
+
+The qualified cleaned HEAD is:
+
+`77e02094de76a4c02c9face507c4875dec382b12`
+
+## Authoritative P0.0 final executions
+
+### Full Suite Regression
+
+- run/job: `35120428859 / 104876523965`
+- HEAD: `77e02094de76a4c02c9face507c4875dec382b12`
+- result: **`659 passed in 17.65s`**
+- conclusion: success
+- worktree: clean
+- permissions: `contents: read`, `metadata: read`
+
+### Persisted-HEAD re-break
+
+- run/job: `35120428855 / 104876523450`
+- HEAD: `77e02094de76a4c02c9face507c4875dec382b12`
+- exact persisted-HEAD checkout: PASS
+- baseline manifest `115 / 42`: PASS
+- result: **`659 passed in 14.47s`**
+- conclusion: success
+- worktree: clean
+- permissions: `contents: read`, `metadata: read`
+
+P0.0 verdict:
+
+**PASS — `P0_FULL_SUITE_REBASELINE_PERSISTED_HEAD_REBREAK_CONFIRMS_CURRENT_AND_HISTORICAL_REGRESSION_CORPUS`**
+
+## Explicit current prohibitions / non-verdicts
+
+- `DECLARE_GLOBAL_COVERAGE_PASS`: **BLOCKED** (`111 / 91 / 20` globally)
+- execution-window formally frozen: **NO**
+- evidence-derived `BoundaryState` qualified: **NO**
+- `.bi5` acquisition: **NOT AUTHORIZED**
 - real backtest: **NOT AUTHORIZED**
+- `src/research/ ↔ research_run_evidence` junction: **NOT QUALIFIED BY P0.0**
+- inter-process attestation: **NOT QUALIFIED BY P0.0**
 
-## All 12 in-window unresolved dates now possess qualified decisions
-
-### Remaining Class A — 9 positive V2 PASS decisions
-
-1. `2023-12-25 — CHRISTMAS_OBSERVED`
-2. `2024-01-01 — NEW_YEARS_OBSERVED`
-3. `2024-03-29 — GOOD_FRIDAY`
-4. `2024-12-25 — CHRISTMAS_OBSERVED`
-5. `2025-01-01 — NEW_YEARS_OBSERVED`
-6. `2025-04-18 — GOOD_FRIDAY`
-7. `2025-12-25 — CHRISTMAS_OBSERVED`
-8. `2026-01-01 — NEW_YEARS_OBSERVED`
-9. `2026-04-03 — GOOD_FRIDAY`
-
-These nine belong to the authoritative `14 PASS / 0 BLOCKED / 0 FAIL` V2 readjudication and do not require Batch 16 / Batch 17 re-processing.
-
-### Class B — 3 negative-evidence PASS decisions
-
-1. `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
-2. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-3. `2026-07-02 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-
-These three are now independently qualified by `TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1`.
-
-There is therefore no remaining informational uncertainty inside the selected execution-window candidate. The remaining work is controlled integration of already-qualified decisions.
-
-## Next integration boundary
-
-The next operation is **not** a broker retry and **not** Batch 16.
-
-It is one bounded Trading Breaks **calendar-closure integration** combining all twelve already-qualified unresolved decisions.
-
-The integration must at minimum prove before persistence:
-
-1. membership is exactly the nine remaining Class-A dates plus the three qualified Class-B dates;
-2. every Class-A record is bound to its immutable historical source attempt and V2 readjudication evidence;
-3. every Class-B `NO_SPECIAL_CHANGE_EVIDENCE` entry is bound to the negative-evidence completeness contract/report and original persisted source observations;
-4. no new browser/broker capture is performed;
-5. no new broker attempt is fabricated merely to integrate an offline adjudication;
-6. historical attempt ledger entries remain unchanged unless a separately versioned accounting contract proves a non-broker integration entry is necessary;
-7. the capability-change registry remains unchanged by the integration itself;
-8. calendar coverage regressions show no orphan evidence, contradictions or evidence-shape errors;
-9. execution-window state becomes exactly `68 candidates / 68 resolved / 0 unresolved / 0 FAIL`;
-10. global state becomes exactly `111 candidates / 91 resolved / 20 unresolved`;
-11. deterministic progression is regenerated consistently with zero in-window recovery candidates;
-12. only the minimum governed state surfaces are changed atomically;
-13. an independent persisted-HEAD re-break follows before any execution-window-freeze decision.
-
-The integration may not infer that window freeze or `.bi5` acquisition is automatically authorized merely because unresolved reaches zero; the separate boundary must be evaluated afterward.
+The fact that the candidate window is `68 / 68 / 0` does not itself satisfy `FREEZE_EXECUTION_WINDOW`.
 
 ## Mandatory recovery order before next substantive write
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. latest `99-BACKUP/SESSION-2026-09-16-TRADING-BREAKS-NEGATIVE-EVIDENCE-COMPLETENESS-PASS.md`
-4. `reports/data-qualification/trading_breaks_negative_evidence_completeness_qualification.md`
-5. `04-REFERENCE/TRADING-BREAKS-NEGATIVE-EVIDENCE-COMPLETENESS.md`
-6. `reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_persisted_head_rebreak.md`
-7. `reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md`
-8. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-9. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-10. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
-11. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-12. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
-13. compare active branch HEAD against the commit containing this checkpoint before any governed-state mutation.
+3. `99-BACKUP/SESSION-2026-09-16-TRADING-BREAKS-P0-FULL-SUITE-REBASELINE-PASS.md`
+4. `reports/data-qualification/trading_breaks_p0_full_suite_rebaseline_qualification.md`
+5. `tests/historical_regression_baselines.json`
+6. `tests/conftest.py`
+7. `GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md`
+8. `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
+9. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
+10. current calendar/coverage/recovery/progression tests and reports
+11. compare active branch HEAD against the commit containing this checkpoint before any governed-state mutation.
 
 ## Exactly one next governed action
 
-**Design, adversarially qualify, and only then atomically execute one bounded Trading Breaks calendar-closure integration for the exact 9 Class-A + 3 Class-B already-qualified decisions, followed by an independent persisted-HEAD re-break.**
+**P0.1 — derive `BoundaryState` exclusively from versioned evidence, adversarially break that derivation, correct and re-break if necessary, then and only then evaluate `FREEZE_EXECUTION_WINDOW`.**
 
-Do not create Batch 16 / Batch 17.  
-Do not perform a new browser/broker capture.  
+Required attacks must include at minimum:
+
+- moved or widened window without matching evidence;
+- omitted in-window candidate;
+- unresolved candidate hidden by derivation;
+- external/global gaps incorrectly promoted into an in-window PASS or silently erased;
+- stale coverage report accepted as current;
+- self-declared boolean replacing evidence derivation;
+- mismatch between calendar, coverage and recovery/progression state;
+- provenance or evidence identity mismatch.
+
+Do not freeze by declaration.  
+Do not declare global coverage PASS.  
 Do not acquire `.bi5`.  
 Do not run a real backtest.
