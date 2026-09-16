@@ -20,7 +20,50 @@ COVERAGE_CONTRACT = "DUKASCOPY_USATECH_SPECIAL_SESSION_COVERAGE_V1"
 # 1) SPECIAL_SESSION_EVIDENCE proves exact whole-hour closures; or
 # 2) NO_SPECIAL_CHANGE_EVIDENCE proves that regular USATECH hours apply.
 # Empty by design until a precise primary source is versioned.
-NO_SPECIAL_CHANGE_EVIDENCE: dict[date, dict] = {}
+NO_SPECIAL_CHANGE_EVIDENCE: dict[date, dict] = {
+    date(2021, 12, 31): {
+        "reason": "NO_SPECIAL_CHANGE_EVIDENCE_TRADING_BREAKS_NEGATIVE_COMPLETENESS_V1",
+        "negative_evidence_contract": "TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1",
+        "negative_evidence_reason": "NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY",
+        "instrument_name": "USATECH.IDX/USD",
+        "instrument_id": "9016",
+        "source_attempt_ids": ('batch01:2021-12-31', 'batch02:2021-12-31'),
+        "source_artifact_ids": (10364872726, 10364984459),
+        "source_artifact_sha256s": ('95d6d820393a358a5539f7959ffa06d240b344b1182a57b5b4f13bb43cb74a1f', 'ecd110649b1049d308171357ff0574aee4a8670c0d4f35c018854d7d3771ceab'),
+        "source_probe_commits": ('479900e05eebc6e2c29e0f9f3bddfdfc78e78224', '619a0200a9718827346d3c5458d1c1a290f3e5ce'),
+        "source_workflow_runs": (34885895206, 34888022168),
+        "runtime_evidence_sources": ('reports/data-qualification/historical_trading_breaks_recovery_batch01_runtime.json', 'reports/data-qualification/historical_trading_breaks_recovery_batch02_runtime.json'),
+        "qualification_report_source": "reports/data-qualification/trading_breaks_negative_evidence_completeness_qualification.md",
+    },
+    date(2022, 7, 1): {
+        "reason": "NO_SPECIAL_CHANGE_EVIDENCE_TRADING_BREAKS_NEGATIVE_COMPLETENESS_V1",
+        "negative_evidence_contract": "TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1",
+        "negative_evidence_reason": "NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY",
+        "instrument_name": "USATECH.IDX/USD",
+        "instrument_id": "9016",
+        "source_attempt_ids": ('batch03:2022-07-01',),
+        "source_artifact_ids": (10367930592,),
+        "source_artifact_sha256s": ('994d0f4832400c05bd8fc46e07637e9b68590af1c4b37816ae0cbf650c04bd41',),
+        "source_probe_commits": ('9b8b6342aea83d3ffbafa2ec6aebfe9abfaf4db4',),
+        "source_workflow_runs": (34892253133,),
+        "runtime_evidence_sources": ('reports/data-qualification/historical_trading_breaks_recovery_batch03_runtime.json',),
+        "qualification_report_source": "reports/data-qualification/trading_breaks_negative_evidence_completeness_qualification.md",
+    },
+    date(2026, 7, 2): {
+        "reason": "NO_SPECIAL_CHANGE_EVIDENCE_TRADING_BREAKS_NEGATIVE_COMPLETENESS_V1",
+        "negative_evidence_contract": "TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1",
+        "negative_evidence_reason": "NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY",
+        "instrument_name": "USATECH.IDX/USD",
+        "instrument_id": "9016",
+        "source_attempt_ids": ('batch14:2026-07-02',),
+        "source_artifact_ids": (10418961548,),
+        "source_artifact_sha256s": ('00dd2044a76d926417779d22c7ce08b67318a9d00933b9cac1bc980f2a7c9910',),
+        "source_probe_commits": ('4194108c6c9e2c0308209b31cfa64ba8fb3b9f2b',),
+        "source_workflow_runs": (35023845609,),
+        "runtime_evidence_sources": ('reports/data-qualification/historical_trading_breaks_recovery_batch14_runtime.json',),
+        "qualification_report_source": "reports/data-qualification/trading_breaks_negative_evidence_completeness_qualification.md",
+    },
+}
 
 # Known unscheduled U.S. equity-session disruptions inside the envelope.
 UNSCHEDULED_SPECIAL_DATES = {

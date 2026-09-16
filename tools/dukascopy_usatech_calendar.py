@@ -1637,6 +1637,195 @@ SPECIAL_SESSION_EVIDENCE = {
             "reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_adjudication.md"
         ),
     },
+    date(2023, 12, 25): {
+        "reason": "SPECIAL_CHRISTMAS_OBSERVED_2023_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "broker_record_id": "63023",
+        "broker_reason": 'Christmas Day',
+        "artifact_id": 10392510730,
+        "artifact_sha256": "0df18b4bfcae04c0bf5e3670e789fc1253fde7317a50d108b35e10dd1cc2676a",
+        "probe_commit": "3d434dda9bd293d48cbe2f35df3d464abd5938a4",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch07:2023-12-25",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1703462400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34958083459"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2024, 1, 1): {
+        "reason": "SPECIAL_NEW_YEARS_OBSERVED_2024_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "broker_record_id": "63024",
+        "broker_reason": "New Year's Day",
+        "artifact_id": 10392510730,
+        "artifact_sha256": "0df18b4bfcae04c0bf5e3670e789fc1253fde7317a50d108b35e10dd1cc2676a",
+        "probe_commit": "3d434dda9bd293d48cbe2f35df3d464abd5938a4",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch07:2024-01-01",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1704067200000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34958083459"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2024, 3, 29): {
+        "reason": "SPECIAL_GOOD_FRIDAY_2024_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 24)),
+        "broker_record_id": "66555",
+        "broker_reason": 'Easter',
+        "artifact_id": 10402433119,
+        "artifact_sha256": "644e6d6776792dac03e7cb87a3bd63af0be603c6efe951f44c8911ecd9defadd",
+        "probe_commit": "5cc4834af2c75de99f6e3427f31ab07b38b42611",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch08:2024-03-29",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1711670400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34984538763"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2024, 12, 25): {
+        "reason": "SPECIAL_CHRISTMAS_OBSERVED_2024_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "broker_record_id": "74339",
+        "broker_reason": 'Christmas',
+        "artifact_id": 10406357435,
+        "artifact_sha256": "dc241bac2c214ad562b9efc5ce8f3ad16705d967c82d0bfbd51e5084323220cc",
+        "probe_commit": "0b5dedf6028add27040af112d0bceef76be25827",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch09:2024-12-25",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1735084800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/34993614373"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2025, 1, 1): {
+        "reason": "SPECIAL_NEW_YEARS_OBSERVED_2025_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "broker_record_id": "75799",
+        "broker_reason": "New Year's Day",
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch10:2025-01-01",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1735689600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35004172846"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2025, 4, 18): {
+        "reason": "SPECIAL_GOOD_FRIDAY_2025_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 24)),
+        "broker_record_id": "80057",
+        "broker_reason": 'Easter',
+        "artifact_id": 10411022092,
+        "artifact_sha256": "1572cc5a1c38998f59d32e107b1bcb006a74b288fe32c70ffe019726b3ad5f14",
+        "probe_commit": "443b3696e4e2740a54354787de231c886f90b26e",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch10:2025-04-18",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1744934400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35004172846"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2025, 12, 25): {
+        "reason": "SPECIAL_CHRISTMAS_OBSERVED_2025_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "broker_record_id": "91078",
+        "broker_reason": 'Christmas Day',
+        "artifact_id": 10416410006,
+        "artifact_sha256": "6649d976bb9d586cce591cd9b9a9e0e71ed8e5496a1e47e2e52bbdaa2de0297d",
+        "probe_commit": "2c2fd6e2db2e0ab75a6b978d6cddad679dbda5b8",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch12:2025-12-25",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1766620800000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35016454761"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2026, 1, 1): {
+        "reason": "SPECIAL_NEW_YEARS_OBSERVED_2026_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 23)),
+        "broker_record_id": "92491",
+        "broker_reason": "New Year's Day",
+        "artifact_id": 10416898441,
+        "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8",
+        "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch13:2026-01-01",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1767225600000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35020650564"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
+    date(2026, 4, 3): {
+        "reason": "SPECIAL_GOOD_FRIDAY_2026_OVERLAP_V2",
+        "fully_closed_hours_utc": frozenset(range(0, 22)),
+        "broker_record_id": "98541",
+        "broker_reason": 'Easter',
+        "artifact_id": 10416898441,
+        "artifact_sha256": "59c93ab69bb1484fa0578bb8704aea76f15d67765e9a27ec0416c615d83faec8",
+        "probe_commit": "a974275d06ff45b0a78ad6558a6480e25cfe0f73",
+        "target_day_overlap_capability": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+        "source_attempt_id": "batch13:2026-04-03",
+        "dukascopy_widget_source": (
+            "https://freeserv.dukascopy.com/2.0/"
+            "?path=trading_breaks%2Findex&currentDate=false&date=1775174400000"
+        ),
+        "runtime_evidence_source": (
+            "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/35020650564"
+        ),
+        "qualification_report_source": (
+            "reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md"
+        ),
+    },
 }
 
 CALENDAR_CONTRACT = "DUKASCOPY_USATECH_SESSION_CALENDAR_V3"
