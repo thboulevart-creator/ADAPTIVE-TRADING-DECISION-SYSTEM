@@ -1,0 +1,100 @@
+name: Trading Breaks Recovery Batch 15 V2 Freeze
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch15-v2-freeze.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove qualified V2 baseline and freeze-only delta
+        run: |
+          git merge-base --is-ancestor d6622e8da58e2d4218947ff3f2953fe8e19a2c96 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          git diff --name-only d6622e8da58e2d4218947ff3f2953fe8e19a2c96 HEAD | sort >/tmp/actual
+          printf '%s\n' \
+            '.github/workflows/trading-breaks-recovery-batch15-v2-freeze.yml' \
+            '04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-BATCH15-OVERLAP-V2-POLICY.md' \
+            'tests/test_trading_breaks_recovery_batch15.py' \
+            'tools/freeze_trading_breaks_recovery_batch15.py' \
+            'tools/trading_breaks_recovery_batch15.py' | sort >/tmp/expected
+          diff -u /tmp/expected /tmp/actual
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Batch 15 freeze and V2 semantic regressions
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch15.py \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_capability_activation.py \
+            tests/test_trading_breaks_target_day_overlap_readjudication.py
+
+      - name: Prove exact first-five membership and reject selection attacks
+        run: |
+          python - <<'PY'
+          from tools.freeze_trading_breaks_recovery_batch15 import derive
+          from tools.trading_breaks_recovery_batch15 import FROZEN_BATCH15_TARGETS, batch15_targets
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue
+
+          eligible = eligible_recovery_queue()
+          frozen = batch15_targets()
+          assert len(eligible) == 14
+          assert len(frozen) == 5
+          assert frozen == eligible[:5] == list(derive()) == list(FROZEN_BATCH15_TARGETS)
+          assert len(set(frozen)) == 5
+
+          attacks = [
+              frozen[:-1],
+              [*frozen, eligible[5]],
+              list(reversed(frozen)),
+              [frozen[1], frozen[0], *frozen[2:]],
+              [frozen[0], frozen[0], *frozen[2:]],
+              eligible[1:6],
+              [eligible[5], *frozen[1:]],
+          ]
+          assert all(attack != frozen for attack in attacks)
+          print('PASS: Batch 15 is exactly the first five governed V2-eligible retries')
+          for i, (day, reason) in enumerate(frozen, 1):
+              print(f'{i}: {day.isoformat()} — {reason}')
+          PY
+
+      - name: Prove freeze is read-only, pre-observation, and progression byte-stable
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in (
+              'tools/freeze_trading_breaks_recovery_batch15.py',
+              'tools/trading_breaks_recovery_batch15.py',
+          ):
+              source = Path(name).read_text(encoding='utf-8').lower()
+              for token in ('playwright', 'selenium', 'probe_candidate', 'readjudication.json'):
+                  assert token not in source, (name, token)
+          print('PASS: Batch 15 freeze contains no observation or adjudication path')
+          PY
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch15-v2-freeze.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
