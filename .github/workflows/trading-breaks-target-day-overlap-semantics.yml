@@ -1,122 +1,13 @@
 name: Trading Breaks Target-Day Overlap Semantics
 
 on:
-  push:
-    branches: [feat/multi-year-dukascopy-acquisition]
-    paths:
-      - '.github/workflows/trading-breaks-target-day-overlap-semantics.yml'
-      - 'tools/trading_breaks_target_day_overlap_semantics.py'
-      - 'tests/test_trading_breaks_target_day_overlap_semantics.py'
   workflow_dispatch:
 
 permissions:
   contents: read
 
-env:
-  PYTHONDONTWRITEBYTECODE: '1'
-
 jobs:
-  qualify:
+  archived:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
-      - name: Checkout exact qualification candidate
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.sha }}
-          fetch-depth: 0
-
-      - name: Prove qualification-only delta and immutable governed state
-        run: |
-          git merge-base --is-ancestor 06a66eae817e58f6ea90c9b45594d1c0a8a69089 HEAD
-          git fetch origin feat/multi-year-dukascopy-acquisition
-          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
-          python - <<'PY'
-          import subprocess
-          expected = {
-              '.github/workflows/trading-breaks-target-day-overlap-semantics.yml',
-              'tools/trading_breaks_target_day_overlap_semantics.py',
-              'tests/test_trading_breaks_target_day_overlap_semantics.py',
-          }
-          actual = set(subprocess.check_output([
-              'git', 'diff', '--name-only',
-              '06a66eae817e58f6ea90c9b45594d1c0a8a69089', 'HEAD'
-          ], text=True).splitlines())
-          assert actual == expected, (actual, expected)
-          PY
-          git diff --exit-code 06a66eae817e58f6ea90c9b45594d1c0a8a69089 HEAD -- \
-            tools/dukascopy_usatech_calendar.py \
-            tools/dukascopy_usatech_calendar_coverage.py \
-            tools/trading_breaks_recovery_protocol.py \
-            tools/trading_breaks_recovery_progression.py \
-            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
-            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
-            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-
-      - name: Break overlap attribution contract
-        run: |
-          python -m pip install pytest==8.4.2
-          python -m pytest -q \
-            tests/test_trading_breaks_target_day_overlap_semantics.py \
-            tests/test_trading_breaks_recovery_progression.py \
-            tests/test_trading_breaks_recovery_protocol.py \
-            tests/test_coverage_execution_window_boundary.py
-
-      - name: Qualify all 14 persisted Class-A cases offline
-        run: |
-          python -m tools.trading_breaks_target_day_overlap_semantics > /tmp/overlap-qualification.json
-          python - <<'PY'
-          import json
-          data = json.load(open('/tmp/overlap-qualification.json', encoding='utf-8'))
-          assert data['schema'] == 'TRADING_BREAKS_TARGET_DAY_OVERLAP_ATTRIBUTION_V1'
-          assert data['verdict'] == 'PASS'
-          assert data['class_a_count'] == 14
-          assert data['qualified_proof_capability'] == 'QUALIFIED_CROSS_DATE_INTERVAL_ATTRIBUTION'
-          assert data['addresses_blocking_reason'] == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
-          assert len(data['results']) == 14
-          assert all(item['verdict'] == 'PASS' and item['cross_date'] is True for item in data['results'])
-          print('PASS: all 14 persisted Class-A cases independently support target-day overlap attribution')
-          PY
-
-      - name: Prove contract has no browser probe or live-selection surface
-        run: |
-          python - <<'PY'
-          import ast, inspect
-          import tools.trading_breaks_target_day_overlap_semantics as module
-          tree = ast.parse(inspect.getsource(module))
-          imports = set()
-          calls = set()
-          for node in ast.walk(tree):
-              if isinstance(node, ast.Import):
-                  imports.update(a.name.lower() for a in node.names)
-              elif isinstance(node, ast.ImportFrom):
-                  imports.add((node.module or '').lower())
-              elif isinstance(node, ast.Call):
-                  if isinstance(node.func, ast.Name): calls.add(node.func.id.lower())
-                  elif isinstance(node.func, ast.Attribute): calls.add(node.func.attr.lower())
-          assert not any(token in name for name in imports for token in ('playwright','selenium','requests','httpx'))
-          for forbidden in ('probe_candidate','eligible_recovery_queue','recovery_queue','goto','launch'):
-              assert forbidden not in calls, forbidden
-          print('PASS: semantic qualification is offline and selection-independent')
-          PY
-
-      - name: Re-break current governed regression
-        run: |
-          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \
-            \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_trading_breaks_target_day_overlap_semantics.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) \
-            ! -name '*_integration_contract.py' \
-            ! -name 'test_trading_breaks_recovery_batch12.py' \
-            ! -name 'test_trading_breaks_recovery_batch13.py' \
-            ! -name 'test_trading_breaks_recovery_batch14.py' | sort)
-          python -m pytest -q "${TESTS[@]}"
-
-      - name: Prove qualification is read-only and clean
-        run: |
-          git diff --exit-code
-          test -z "$(git status --porcelain)"
-          echo 'PASS: overlap semantic qualification left governed state unchanged'
+      - run: echo 'Target-day overlap semantics qualification completed and archived; see durable qualification report.'
