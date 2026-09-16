@@ -1,26 +1,27 @@
-name: P0 Historical Baseline Manifest Generator
+name: P0 Full Suite Persisted HEAD Rebreak
 
 on:
   push:
-    branches: [feat/multi-year-dukascopy-acquisition]
-    paths:
-      - '.github/workflows/governance-p0-repair.yml'
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 env:
   PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
-  generate:
+  rebreak:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.sha }}
           fetch-depth: 0
+
+      - name: Prove exact persisted HEAD checkout
+        run: test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
 
       - uses: actions/setup-python@v5
         with:
@@ -29,129 +30,27 @@ jobs:
       - name: Install pinned test dependency
         run: python -m pip install pytest==8.4.2
 
-      - name: Build exact 115-node historical baseline manifest
+      - name: Validate historical baseline manifest
         run: |
-          set +e
-          python -m pytest -q --tb=no > /tmp/current-suite.txt 2>&1
-          rc=$?
-          set -e
-          cat /tmp/current-suite.txt
-          test "$rc" -ne 0
-
           python - <<'PY'
-          from __future__ import annotations
-
           import json
-          import os
           import re
-          import subprocess
-          import sys
           from pathlib import Path
 
-          FILE_COMMITS = {
-            "tests/test_dukascopy_downloader_calendar_coverage_gate.py": "18271cec8c07a96c2ea0fb348ab042d3c72d0c7d",
-            "tests/test_dukascopy_usatech_calendar_2021_batch01.py": "18271cec8c07a96c2ea0fb348ab042d3c72d0c7d",
-            "tests/test_dukascopy_usatech_calendar_2022_batch02.py": "95c7275e1bb7b4abea611a674568441b2a4c52f7",
-            "tests/test_dukascopy_usatech_calendar_2022_batch04.py": "6cafa5337f28c5424cbcc25280c690de702061d9",
-            "tests/test_dukascopy_usatech_calendar_2023_2024_batch07.py": "616643e2bfd0b8a8ae3f21352554dc32fdbb503d",
-            "tests/test_dukascopy_usatech_calendar_2023_batch06.py": "a2a59baefd7986f65efb4d625acd2c47c085ae31",
-            "tests/test_dukascopy_usatech_calendar_2024_2025_batch10.py": "6d2f60525fed9a56fd4ebab587ce7ba699cedbda",
-            "tests/test_dukascopy_usatech_calendar_2024_batch08.py": "aa85a2ade1fe9d9b1ade78f77b9b56c5310a6e74",
-            "tests/test_dukascopy_usatech_calendar_2024_batch09.py": "126ff25129728dc9f5c26cfeff701c1e04270843",
-            "tests/test_trading_breaks_calendar_closure_integration_contract.py": "bc4439df64b689c658e5bbc543456da2f26a4897",
-            "tests/test_trading_breaks_recovery_batch01.py": "18271cec8c07a96c2ea0fb348ab042d3c72d0c7d",
-            "tests/test_trading_breaks_recovery_batch02.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch03.py": "6cafa5337f28c5424cbcc25280c690de702061d9",
-            "tests/test_trading_breaks_recovery_batch03_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch04.py": "6cafa5337f28c5424cbcc25280c690de702061d9",
-            "tests/test_trading_breaks_recovery_batch04_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch05.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch05_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch06.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch06_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch07.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch07_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch08.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch08_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch09.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch09_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch10_integration.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_batch11_integration_contract.py": "1cb984d92a13654cd0266cf857aabe90a357ad0c",
-            "tests/test_trading_breaks_recovery_batch12.py": "ade29f846e7993b35e03bfb13ce50dab877d8250",
-            "tests/test_trading_breaks_recovery_batch12_integration_contract.py": "eb38713a27b9170624dc55a76cf7234c6aaaad52",
-            "tests/test_trading_breaks_recovery_batch13.py": "3633680efe6cde077e01febf78fbf843650c5763",
-            "tests/test_trading_breaks_recovery_batch13_integration_contract.py": "4283933468383cdc04629cb810442c91bf51d09b",
-            "tests/test_trading_breaks_recovery_batch14.py": "60b1152c5981a7b2d0d902415ad154745a7fbcf3",
-            "tests/test_trading_breaks_recovery_batch14_integration_contract.py": "5ed67ae1c07f07e80fb158542b757fad0f797f30",
-            "tests/test_trading_breaks_recovery_batch15.py": "45c8b19b4942a140efd75840c06a1d1af2bd1472",
-            "tests/test_trading_breaks_recovery_batch15_v2_adjudication.py": "1c185c1146b7aa0ae528b56f27fad24d281fd234",
-            "tests/test_trading_breaks_recovery_batch15_v2_integration_contract.py": "a009850c4014fece05bad88c9943a04c3de50507",
-            "tests/test_trading_breaks_recovery_progression.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_recovery_protocol.py": "075b33b79c8de3b2f4f6201a7541c6555585a5e4",
-            "tests/test_trading_breaks_target_day_overlap_capability_activation.py": "48ccf4412fe9288c975ff9bfa3f27ea2cd330fde",
-            "tests/test_trading_breaks_target_day_overlap_readjudication.py": "9309f07554c476779b958af0e140faced6395891",
-            "tests/test_trading_breaks_target_day_overlap_v2_state.py": "31b285a30f5648e1f3979ed8847c5a2c8c7a022c"
-          }
-
-          root = Path.cwd()
-          raw = Path('/tmp/current-suite.txt').read_text(encoding='utf-8', errors='replace')
-          failed = re.findall(r'^FAILED\s+(tests/[^\s]+?::[^\s]+)\s+-\s+', raw, flags=re.MULTILINE)
-          if len(failed) != 115 or len(set(failed)) != 115:
-              raise SystemExit(f'CURRENT_FAILURE_SET_MISMATCH:{len(failed)}/{len(set(failed))}')
-
-          failing_files = sorted({node.split('::', 1)[0] for node in failed})
-          if len(failing_files) != 42:
-              raise SystemExit(f'CURRENT_FAILING_FILE_COUNT_MISMATCH:{len(failing_files)}')
-          if set(failing_files) != set(FILE_COMMITS):
-              missing = sorted(set(failing_files) - set(FILE_COMMITS))
-              extra = sorted(set(FILE_COMMITS) - set(failing_files))
-              raise SystemExit(f'FILE_BASELINE_MAP_MISMATCH:missing={missing}:extra={extra}')
-
-          env = dict(os.environ)
-          env['PYTHONDONTWRITEBYTECODE'] = '1'
-          env['P0_HISTORICAL_REPLAY_CHILD'] = '1'
-          base = root.parent / '_p0_manifest_validation'
-          base.mkdir(exist_ok=True)
-
-          def cmd(args, *, cwd=root, check=True):
-              return subprocess.run(args, cwd=cwd, env=env, text=True,
-                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                                    check=check)
-
-          for path, commit in sorted(FILE_COMMITS.items()):
-              if not re.fullmatch(r'[0-9a-f]{40}', commit):
-                  raise SystemExit(f'INVALID_COMMIT_FORMAT:{path}:{commit}')
-              if cmd(['git', 'cat-file', '-e', f'{commit}^{{commit}}'], check=False).returncode != 0:
-                  raise SystemExit(f'MISSING_HISTORICAL_COMMIT:{path}:{commit}')
-              wt = base / (commit[:12] + '-' + str(abs(hash(path))))
-              cmd(['git', 'worktree', 'add', '--detach', str(wt), commit])
-              probe = cmd([sys.executable, '-m', 'pytest', '-q', path], cwd=wt, check=False)
-              cmd(['git', 'worktree', 'remove', '--force', str(wt)])
-              if probe.returncode != 0:
-                  print(probe.stdout)
-                  raise SystemExit(f'HISTORICAL_FILE_NOT_GREEN:{path}:{commit}')
-              print(f'BASELINE_VALID {path} @ {commit}')
-
-          entries = {node: FILE_COMMITS[node.split('::', 1)[0]] for node in sorted(failed)}
-          manifest = {
-              'schema': 'HISTORICAL_REGRESSION_BASELINES_V1',
-              'purpose': 'Replay state-coupled historical regression tests against the exact historical repository state they describe; never skip, xfail, or rewrite historical truth.',
-              'generated_from_failure_head': os.environ.get('GITHUB_SHA'),
-              'historical_node_count': len(entries),
-              'historical_file_count': len(FILE_COMMITS),
-              'entries': entries,
-          }
-          out = root / 'tests' / 'historical_regression_baselines.json'
-          out.write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
-          print(f'MANIFEST_WRITTEN {out} nodes={len(entries)} files={len(FILE_COMMITS)}')
+          data = json.loads(Path('tests/historical_regression_baselines.json').read_text(encoding='utf-8'))
+          entries = data.get('entries')
+          assert data.get('schema') == 'HISTORICAL_REGRESSION_BASELINES_V1'
+          assert isinstance(entries, dict)
+          assert data.get('historical_node_count') == len(entries) == 115
+          assert data.get('historical_file_count') == len({n.split('::', 1)[0] for n in entries}) == 42
+          assert all(re.fullmatch(r'[0-9a-f]{40}', c) for c in entries.values())
           PY
 
-      - name: Commit only the governed manifest
+      - name: Run complete repository test suite
+        run: python -m pytest -q
+
+      - name: Prove clean worktree
+        if: always()
         run: |
-          test -f tests/historical_regression_baselines.json
-          git add tests/historical_regression_baselines.json
-          test "$(git diff --cached --name-only)" = "tests/historical_regression_baselines.json"
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "test: pin historical regression baselines"
-          git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
