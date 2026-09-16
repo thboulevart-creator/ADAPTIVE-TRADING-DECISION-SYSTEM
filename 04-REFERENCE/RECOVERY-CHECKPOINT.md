@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — P0.2 DECISION BLOCK INTEGRATION PASS / MULTI-YEAR IMPORT NEXT
+# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — P0.3 MULTI-YEAR INTEGRATION PASS / RESEARCH PRODUCER JUNCTION NEXT
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 Active branch: `integration/system-v1`
@@ -7,197 +7,198 @@ Active branch: `integration/system-v1`
 
 GitHub code, persisted qualification reports, tests, workflow evidence and this checkpoint are authoritative. Do not reconstruct project state from conversation memory.
 
-Construction rule remains:
+Construction rule:
 
 **UNDERSTAND → COMPARE → BREAK → DECIDE.**
 
-Allowed verdicts remain `PASS / FAIL / BLOCKED`. `BLOCKED` is never `PASS`.
+Allowed verdicts: `PASS / FAIL / BLOCKED`. `BLOCKED` is never `PASS`.
 
-## Integration branch identity
+## Integration lineage
 
-`integration/system-v1` was created exactly from:
+`integration/system-v1` was created from:
 
 `main@43ec28f3e09856fe508874af3aaf32079761d2d5`
 
-No merge, rebase, reset, force-push or blind history replay was used.
-
-Qualified decision source:
+P0.2 qualified decision source:
 
 `feat/decision-producer-contract@c0116d195063c464d602fb699654ac61adc7290c`
 
-Current-governance source used during controlled import:
+P0.2 closed integration HEAD before P0.3:
+
+`45d9bc8c4bf133eced67ccede7c5f439253869b7`
+
+P0.3 qualified multi-year source:
 
 `feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698`
 
-P0.2 technical integration candidate:
+P0.3 technical integration candidate:
 
-`fa43c44739e75c8d927626a2b3df8eefb185e00f`
+`36e207abf779c02ea99f2d2e66ddf4b6bc7103d2`
 
-## P0.2 — controlled decision-block integration CLOSED
+No blind merge, rebase, reset, force-push or branch-history replay was used.
 
-Verdict:
+## P0.2 — decision-block integration remains CLOSED
+
+Verdict remains:
 
 **PASS — `QUALIFIED_DECISION_BLOCK_CONTROLLED_IMPORT_SURVIVES_INTEGRATION_REBREAK`**
 
+The 24 controlled decision-block artifacts remain byte-identical to their qualified source. The P0.3 verifier re-checks those identities and re-breaks the critical `RESEARCH → DECISION` anti-forgery boundary.
+
+## P0.3 — controlled multi-year freeze-surface integration CLOSED
+
+Verdict:
+
+**PASS — `QUALIFIED_MULTI_YEAR_FREEZE_SURFACE_SURVIVES_COMBINED_INTEGRATION_REBREAK`**
+
 Durable qualification report:
 
-`reports/data-qualification/p0_2_decision_block_integration_qualification.md`
+`reports/data-qualification/p0_3_multi_year_integration_qualification.md`
 
 JIT governance audit:
 
-`GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
+`GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md` — `P0_3_MULTI_YEAR_INTEGRATION_JIT_AUDIT_V1`
 
-Integration-specific persisted-HEAD verifier:
+Combined persisted-HEAD verifier:
 
-`.github/workflows/p0-2-decision-block-integration-rebreak.yml`
+`.github/workflows/p0-3-multi-year-integration-rebreak.yml`
 
-### Controlled source-identical import
+### Exact minimal source-identical surface
 
-The integrated decision block contains exactly the bounded qualified surface required for:
+P0.3 imports exactly 19 source-identical multi-year files required to reproduce current calendar/freeze truth:
 
-`DATA → CONTEXT → RESEARCH FINDINGS / EVIDENCE → DECISION`
+- 4 versioned rule/protocol/freeze artifacts;
+- 7 proof/runtime derivation tools;
+- 2 terminal state registries;
+- 6 current-state / Tier-A tests.
 
-The imported block includes:
+The exact list is recorded in the P0.3 qualification report and enforced executablely by the verifier.
 
-- four durable branch-neutral boundary workflows;
-- six STEP/manifest governance documents from the qualified decision workstream;
-- `docs/RESEARCH-FINDINGS-CONTRACT.md`;
-- six executable source modules;
-- seven executable/adversarial test files.
+### Deliberately excluded from current integration truth
 
-These 24 source files are verified byte-identical to the qualified decision source HEAD.
+Not imported:
 
-The historical source-only verifier `.github/workflows/research-to-decision-persisted-head.yml` was intentionally not imported because its ancestry/delta assertions are specific to the feature branch history. P0.2 uses a new integration verifier instead.
+- `.bi5` files;
+- `data/` or `LOCAL-EVIDENCE/`;
+- Dukascopy downloader/probe/qualification tooling;
+- capability activation / historical recovery integration scripts;
+- `src/research/`;
+- historical pre-closure current-state tests that assert attempt count 68 or non-empty recovery queues;
+- any real backtest execution surface.
 
-### Governance preservation
+## P0.3 candidate execution evidence
 
-All governance files already present on base `main` are preserved.
+Workflow:
 
-Current governed versions were explicitly carried forward for:
+`P0.3 Combined Decision and Multi-Year Persisted HEAD Re-break`
 
-- `04-REFERENCE/AI-OPERATING-MEMORY.md`;
-- `GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md`;
-- `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`.
+Run/job:
 
-The audit register preserves the prior governed content and appends the P0.2 JIT audit only.
+`35132710182 / 104917355632`
 
-No governance deletion from feature-branch history was replayed.
+HEAD:
 
-## P0.2 execution evidence
+`36e207abf779c02ea99f2d2e66ddf4b6bc7103d2`
 
-### Historical source proof
+Conclusion: **SUCCESS**.
 
-At source HEAD `c0116d195063c464d602fb699654ac61adc7290c`:
+Evidence:
 
-- workflow: `Research to Decision Persisted HEAD Re-break`;
-- run/job: `35019876682 / 104552615501`;
-- executable source-boundary suite: `50 passed`;
-- reconstruction/copy/identity/self-attestation bypasses rejected;
-- durable CI branch-neutral and read-only.
-
-### Integration candidate proof
-
-P0.2 persisted-HEAD re-break:
-
-- run/job: `35130280160 / 104909282190`;
-- HEAD: `fa43c44739e75c8d927626a2b3df8eefb185e00f`;
-- exact persisted HEAD checkout: PASS;
-- exact `main` ancestry: PASS;
-- bounded allowlist import: PASS;
-- 24 source-identical file identities: PASS;
+- exact persisted HEAD and P0.2 ancestry: PASS;
+- multi-year allowlist/source identity: PASS;
+- all 24 P0.2 decision identities preserved: PASS;
 - governance deletion check: PASS;
-- repository suite: **`96 passed`**;
-- targeted Tier-A suite: **`83 passed`**;
-- provenance/forgeability attacks: PASS;
-- durable CI branch-neutral/PR-covered/path-scoped/read-only: PASS;
-- no multi-year acquisition/data/backtest surface: PASS;
+- combined repository suite: **176 passed**;
+- decision Tier-A suite: **83 passed**;
+- calendar/freeze Tier-A suite: **80 passed**;
+- decision provenance/forgeability attacks: PASS;
+- durable decision CI branch-neutral/read-only: PASS;
+- no acquisition/probe/recovery-history/backtest execution surface imported: PASS;
 - worktree: clean;
-- permissions: `contents: read`, `metadata: read`.
+- workflow permissions: `contents: read`, `metadata: read`.
 
-Durable boundary workflows on the same integration candidate:
+## Current multi-year truth on integration branch
 
-- DATA → CONTEXT: `35130279937 / 104909281059` — SUCCESS;
-- CONTEXT → RESEARCH: `35130279821 / 104909280516` — SUCCESS;
-- RESEARCH FINDINGS: `35130280001 / 104909281671` — SUCCESS;
-- RESEARCH → DECISION: `35130279993 / 104909281053` — SUCCESS.
+The combined integration state re-derives:
 
-## Covered by P0.2
+- coverage envelope: `2018-05-01 → 2026-08-14`;
+- global candidates/resolved/unresolved: `111 / 91 / 20`;
+- global coverage verdict: **BLOCKED**;
+- all 20 unresolved global dates are before selected-window start;
+- selected window: `2021-08-14 → 2026-08-14`;
+- selected-window candidates/resolved/unresolved: `68 / 68 / 0`;
+- selected-window FAIL count: `0`;
+- recovery ledger attempts: `73`;
+- material capability changes: `1`;
+- current capability: `TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2`;
+- capability fingerprint: `e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31`;
+- recovery queue: `0`;
+- progression decisions: `0`;
+- eligible recovery queue: `0`;
+- current freeze eligibility: **PASS**;
+- persisted execution-window freeze: **PASS**;
+- acquisition after persisted freeze: **BLOCKED — `MANDATORY_WINDOW_GATES_NOT_PASS`**;
+- persisted `massive_acquisition_authorized`: `false`;
+- persisted `real_backtest_authorized`: `false`.
 
-P0.2 closes only the integration validity of the already-qualified decision block on the authoritative integration work branch, including:
+## Covered by P0.3
 
-- branch creation from exact `main`;
-- bounded source-identical transplant;
-- preservation of current governance;
-- re-break of the imported Tier-A boundaries;
-- rejection of tested ResearchRunEvidence reconstruction/identity bypasses;
-- branch-neutral durable CI;
-- absence of accidental multi-year/acquisition/backtest import.
+P0.3 closes only:
 
-## Explicitly NOT covered by P0.2
+- controlled source-identical import of the minimal final multi-year proof surface;
+- coexistence of that surface with the P0.2 decision block;
+- current calendar truth and outside-gap visibility;
+- proof-derived execution-window boundary state;
+- persisted freeze validity;
+- continued rejection of tested decision provenance forgeries;
+- continued absence of acquisition/backtest authorization.
 
-P0.2 does not close or authorize:
+## Explicitly NOT covered by P0.3
 
-- real producer junction `src/research/` → `ResearchRunEvidence`;
+Still open / not authorized:
+
+- `src/research/` → `ResearchRunEvidence` real producer junction;
 - inter-process attestation;
-- complete `DECISION → RISK → ACTION → RESULT → TRACE` chain;
-- complete transverse decision reconstruction through RESULT;
-- resilience/restoration;
-- multi-year Dukascopy / Trading Breaks / frozen execution-window technical import onto this integration branch;
-- exact OOS split;
 - native `.bi5` acquisition protocol/readiness/authorization;
-- market-data acquisition;
+- tick completeness, manifests and reconciliation;
+- exact OOS split;
+- `DECISION → RISK → ACTION → RESULT → TRACE`;
+- complete transverse decision reconstruction;
+- resilience/restoration;
 - real backtest;
 - promotion or live activation.
 
-Historical global governance verdicts therefore remain:
+Historical global governance verdicts therefore remain unchanged where not directly closed by this bounded audit:
 
-- Decision Traceability: **FAIL** at the complete transverse-system level;
+- Decision Traceability: **FAIL** globally;
 - Resilience / Continuity: **FAIL**;
-- Change / Validity: **BLOCKED** where execution proof remains absent;
 - Governance Effectiveness: **BLOCKED** globally despite bounded JIT PASSes.
-
-## Freeze / multi-year truth remains external to integration branch for now
-
-On the qualified multi-year branch, the outer execution window is already durably frozen at:
-
-`2021-08-14 → 2026-08-14`
-
-with:
-
-- selected window: `68 / 68 / 0`, FAIL `0`;
-- global envelope: `111 / 91 / 20`, global coverage still BLOCKED;
-- freeze verdict: PASS;
-- `.bi5` acquisition: NOT AUTHORIZED;
-- real backtest: NOT AUTHORIZED.
-
-Those facts are not yet imported as a technical block into `integration/system-v1`; P0.3 must import them explicitly and re-break them on the combined HEAD.
 
 ## Mandatory recovery order before next substantive write
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-16-P0.2-INTEGRATION-DECISION-BLOCK-PASS.md`
-4. `reports/data-qualification/p0_2_decision_block_integration_qualification.md`
+3. `99-BACKUP/SESSION-2026-09-16-P0.3-INTEGRATION-MULTI-YEAR-PASS.md`
+4. `reports/data-qualification/p0_3_multi_year_integration_qualification.md`
 5. `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
-6. `.github/workflows/p0-2-decision-block-integration-rebreak.yml`
-7. the four durable imported boundary workflows
-8. `src/context.py`, `src/context_identity.py`, `src/research_run_evidence.py`, `src/research_findings.py`, `src/decision.py`, `src/decision_trace.py`
-9. the seven imported adversarial/boundary tests
-10. inspect `feat/multi-year-dukascopy-acquisition` current checkpoint/report before designing P0.3
+6. `.github/workflows/p0-3-multi-year-integration-rebreak.yml`
+7. the four durable P0.2 decision-boundary workflows
+8. the 24 P0.2 controlled decision artifacts
+9. the 19 P0.3 source-identical multi-year artifacts listed in the qualification report
+10. inspect `src/research/` and its relevant tests on verified source revisions before designing P0.4
 11. compare active branch HEAD against this checkpoint before any mutation.
 
 ## Exactly one next governed action
 
-**P0.3 — determine the minimal already-qualified multi-year import surface from `feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698`, import that surface into `integration/system-v1` by explicit allowlist only, then re-break both the already-integrated decision Tier-A boundaries and the imported data/calendar/freeze Tier-A boundaries on the combined integration HEAD.**
+**P0.4 — map the existing `src/research/` runtime producer surface against the integrated `ResearchRunEvidence` contract, formalize the minimal producer-junction boundary, then adversarially qualify that junction before importing or wiring any research runtime into `integration/system-v1`.**
 
-Rules for P0.3:
+Rules for P0.4:
 
 - no blind merge;
-- no replay of feature-branch deletions;
-- preserve all P0.2 decision-block identities unless an observed compatibility defect requires an explicit governed correction;
-- import the smallest proven multi-year surface rather than branch history;
-- preserve the 20 unresolved global Trading Breaks candidates outside the frozen window;
-- do not acquire `.bi5`;
-- do not issue new broker probes merely to repeat already-qualified evidence;
-- do not run a real backtest;
-- any critical compatibility correction must be adversarially re-broken before PASS.
+- do not import all of `src/research/` merely because it exists;
+- preserve all P0.2 and P0.3 qualified identities unless an observed compatibility defect requires a governed correction;
+- treat `src/research/ → ResearchRunEvidence` as a Tier-A boundary if it can authorize downstream decision use;
+- no `.bi5` acquisition;
+- no redundant broker/network probe;
+- no real backtest;
+- any compatibility correction must be adversarially re-broken before PASS.

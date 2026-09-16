@@ -115,3 +115,57 @@ Constats exécutés :
 **Verdict JIT P0.2 : PASS pour le périmètre couvert uniquement.**
 
 Ce PASS ne modifie pas les verdicts globaux historiques `Decision Traceability = FAIL` et `Resilience / Continuity = FAIL` tant que les chaînes transverses correspondantes ne sont pas démontrées de bout en bout.
+
+---
+
+## Audit JIT — P0.3 controlled multi-year integration
+
+**Audit ID : `P0_3_MULTI_YEAR_INTEGRATION_JIT_AUDIT_V1`**  
+**Date :** 16 septembre 2026  
+**Branche auditée :** `integration/system-v1`  
+**Base P0.2 :** `45d9bc8c4bf133eced67ccede7c5f439253869b7`  
+**Source multi-year qualifiée :** `feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698`
+
+### Covered by P0.3
+
+- import explicite par allowlist de la surface minimale courante nécessaire à la dérivation calendrier/fenêtre/freeze ;
+- identité octet-pour-octet des 19 artefacts importés avec le HEAD multi-year qualifié ;
+- préservation intégrale des 24 artefacts qualifiés du bloc décision P0.2 ;
+- dérivation actuelle de la vérité globale `111 / 91 / 20` et de la fenêtre `68 / 68 / 0` ;
+- conservation visible des 20 gaps globaux hors fenêtre, tous antérieurs au `2021-08-14` ;
+- état terminal Trading Breaks : 73 tentatives, 1 changement de capacité, queue/progression/éligibilité vides ;
+- fenêtre gelée `2021-08-14 → 2026-08-14` : PASS ;
+- couverture globale : toujours BLOCKED ;
+- acquisition massive après freeze : toujours BLOCKED ;
+- anti-forgeabilité/provenance `RESEARCH → DECISION` re-cassée avec le bloc multi-year présent ;
+- exclusion explicite des tests d'état historique pré-clôture comme tests de vérité courante ;
+- absence d'import de `.bi5`, de downloader, de probes Dukascopy, d'activateur de capacité, de scripts de récupération historique et de backtest réel.
+
+### Explicitly not covered by P0.3
+
+- jonction de production réelle `src/research/` → `ResearchRunEvidence` ;
+- attestation inter-processus ;
+- protocole natif d'acquisition `.bi5`, readiness des gates d'acquisition, manifeste/exhaustivité/réconciliation des ticks ;
+- exact OOS split ;
+- chaîne `DECISION → RISK → ACTION → RESULT → TRACE` complète ;
+- reconstruction transverse complète d'une décision jusqu'au résultat ;
+- résilience/restauration ;
+- backtest réel ;
+- promotion gate ou activation live.
+
+### Preuves exécutées
+
+- candidat P0.3 : `36e207abf779c02ea99f2d2e66ddf4b6bc7103d2` ;
+- re-break combiné : run/job `35132710182 / 104917355632` — SUCCESS ;
+- suite dépôt combinée : `176 passed` ;
+- suite Tier-A décision : `83 passed` ;
+- suite Tier-A calendar/freeze : `80 passed` ;
+- dérivation `111/91/20`, `68/68/0`, freeze PASS et acquisition BLOCKED : PASS ;
+- anti-forgeabilité décision : PASS ;
+- allowlist/source identity/governance preservation : PASS ;
+- worktree : clean ;
+- permissions : `contents: read`, `metadata: read`.
+
+**Verdict JIT P0.3 : PASS pour le périmètre couvert uniquement, sous réserve du re-break persisted-HEAD du commit de clôture.**
+
+Ce PASS ne transforme ni la couverture globale en PASS, ni l'acquisition `.bi5`, ni le backtest réel en action autorisée.
