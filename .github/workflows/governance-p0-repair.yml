@@ -1,4 +1,4 @@
-name: P0 Governance Repair
+name: P0 Regression Rebaseline Diagnostic
 
 on:
   push:
@@ -7,11 +7,15 @@ on:
       - '.github/workflows/governance-p0-repair.yml'
 
 permissions:
-  contents: write
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
-  repair:
+  diagnose:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -22,151 +26,99 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Apply cooldown rule and record bounded JIT audit
+      - name: Install pinned test dependency
+        run: python -m pip install pytest==8.4.2
+
+      - name: Discover current failures and validate historical baselines
         run: |
+          set +e
+          python -m pytest -q --tb=no > /tmp/current-suite.txt 2>&1
+          rc=$?
+          set -e
+          cat /tmp/current-suite.txt
+          test "$rc" -ne 0
+
           python - <<'PY'
+          from __future__ import annotations
+
+          import json
+          import os
+          import re
+          import subprocess
+          import sys
           from pathlib import Path
 
-          governance = Path('GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md')
-          text = governance.read_text(encoding='utf-8')
-          marker = '## 12. La gouvernance doit elle-même apprendre'
-          if '## 11 bis. Conditions temporelles de modification de la gouvernance' in text:
-              raise SystemExit('cooldown section already present')
-          if marker not in text:
-              raise SystemExit('governance insertion marker missing')
+          raw = Path('/tmp/current-suite.txt').read_text(encoding='utf-8', errors='replace')
+          failed = re.findall(r'^FAILED\s+(tests/[^\s]+?::[^\s]+)\s+-\s+', raw, flags=re.MULTILINE)
+          if len(failed) != 115:
+              raise SystemExit(f'EXPECTED_115_CURRENT_FAILURES_GOT_{len(failed)}')
+          if len(set(failed)) != 115:
+              raise SystemExit('CURRENT_FAILURE_NODEIDS_NOT_UNIQUE')
 
-          section = r'''## 11 bis. Conditions temporelles de modification de la gouvernance
+          failing_files = sorted({node.split('::', 1)[0] for node in failed})
+          env = dict(os.environ)
+          env['PYTHONDONTWRITEBYTECODE'] = '1'
+          root = Path.cwd()
+          worktrees = root.parent / '_p0_historical_worktrees'
+          worktrees.mkdir(exist_ok=True)
+          worktree_for_commit: dict[str, Path] = {}
+          results = []
 
-Le §11 dit **à quelles conditions de fond** une règle peut être modifiée. Cette section dit **à quel moment** la décision peut être prise.
+          def run(*args: str, cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess[str]:
+              return subprocess.run(
+                  list(args), cwd=cwd or root, env=env,
+                  text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                  check=check,
+              )
 
-### 11 bis.1 Règle de carence
+          for test_file in failing_files:
+              commit = run('git', 'log', '-1', '--format=%H', '--', test_file).stdout.strip()
+              if not re.fullmatch(r'[0-9a-f]{40}', commit):
+                  raise SystemExit(f'NO_HISTORICAL_COMMIT_FOR:{test_file}:{commit!r}')
 
-> **Aucun assouplissement de la gouvernance ne peut être décidé dans les trente jours suivant l'identification d'une perte, d'un incident ou d'une opportunité manquée que la règle visée aurait évité, causé ou aggravé.**
+              wt = worktree_for_commit.get(commit)
+              if wt is None:
+                  wt = worktrees / commit[:12]
+                  run('git', 'worktree', 'add', '--detach', str(wt), commit)
+                  worktree_for_commit[commit] = wt
 
-### 11 bis.2 Asymétrie obligatoire
+              probe = run(sys.executable, '-m', 'pytest', '-q', test_file, cwd=wt, check=False)
+              ok = probe.returncode == 0
+              results.append({
+                  'file': test_file,
+                  'historical_commit': commit,
+                  'returncode': probe.returncode,
+                  'historical_file_pass': ok,
+                  'output_tail': '\n'.join(probe.stdout.splitlines()[-20:]),
+              })
+              print(f'HISTORICAL_FILE {"PASS" if ok else "FAIL"} {test_file} @ {commit}')
+              if not ok:
+                  print(probe.stdout)
 
-La carence s'applique **uniquement aux assouplissements**.
-
-- **Assouplissement** — modification qui élargit ce que le système ou l'agent est autorisé à faire sans preuve supplémentaire, supprime un contrôle, abaisse un seuil de preuve ou transfère une décision de l'humain vers l'automate. **Soumis à la carence.**
-- **Durcissement** — modification qui restreint une autorisation, ajoute un contrôle, élève un seuil de preuve ou transfère une décision de l'automate vers l'humain. **Jamais soumis à la carence et applicable immédiatement.**
-
-### 11 bis.3 Départ et remise à zéro
-
-- Le délai court depuis la **date d'identification** consignée de l'événement, pas nécessairement depuis sa date de survenue.
-- Un nouvel événement de même cause remet le délai à zéro.
-- Le délai ne peut être raccourci par accord, urgence ou argument selon lequel l'analyse serait déjà terminée.
-
-### 11 bis.4 Travail permis pendant la carence
-
-La carence porte sur la **décision normative**, pas sur l'étude. Restent permis : formalisation, candidat, cassage adversarial, correction, re-cassage, collecte de preuves et tout durcissement immédiat.
-
-La promotion normative d'un assouplissement reste **BLOCKED** pendant la carence.
-
-### 11 bis.5 Consignation obligatoire
-
-Toute proposition d'assouplissement doit consigner :
-
-| Champ | Contenu exigé |
-|---|---|
-| Règle visée | Document, section et texte exact |
-| Sens | Assouplissement ou durcissement |
-| Événement déclencheur | Perte, incident, opportunité manquée ou « aucun » |
-| Date d'identification | Date et source de consignation |
-| Carence applicable | Oui/non et date d'échéance |
-| Preuve du gap | Test, observation ou exécution démontrant le manque |
-| Condition de révocation | Fait observable annulant automatiquement l'assouplissement |
-
-Une proposition d'assouplissement sans **condition de révocation observable** est rejetée sans examen.
-
-### 11 bis.6 Permissions critiques : révocation réellement protectrice
-
-Pour toute permission dont une défaillance peut engager du capital, provoquer une perte de traçabilité, produire un faux PASS ou autoriser une action externe irréversible, la seule formulabilité d'une condition de révocation ne suffit pas. Il faut aussi démontrer :
-
-1. l'observabilité réelle du signal de révocation ;
-2. une détection suffisamment rapide par rapport au risque ;
-3. un blast radius borné avant détection ;
-4. un rollback réellement exécutable ;
-5. l'indépendance du moniteur lorsque nécessaire ;
-6. la falsifiabilité du moniteur par injection contrôlée ;
-7. un coût de révocation borné et connu.
-
-Si l'un de ces éléments n'est pas démontré, l'autorisation reste humaine ou fail-closed.
-
-### 11 bis.7 Contournements explicitement interdits
-
-- Attendre 31 jours sans preuve nouvelle ne suffit pas : le §11 reste obligatoire.
-- Renommer un assouplissement en « clarification » ne change pas sa nature ; l'effet réel décide.
-- Découper un assouplissement en petites modifications ne contourne pas la carence.
-- L'urgence permet un durcissement immédiat, jamais un assouplissement.
-- En cas de doute sur le lien entre l'événement et la règle, la carence s'applique.
-- Toute future rétrogradation d'un niveau de preuve critique vers un niveau inférieur est un assouplissement et suit cette règle.
-
----
-
-'''
-          governance.write_text(text.replace(marker, section + marker, 1), encoding='utf-8')
-
-          register = Path('GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md')
-          audit = register.read_text(encoding='utf-8')
-          audit_marker = '## Audit JIT — P0.0 post-calendar-closure (16 septembre 2026)'
-          if audit_marker in audit:
-              raise SystemExit('P0.0 audit entry already present')
-          audit += r'''
-
----
-
-## Audit JIT — P0.0 post-calendar-closure (16 septembre 2026)
-
-**Déclencheur :** la clôture fonctionnelle Trading Breaks a laissé la suite complète du dépôt à `115 failed / 537 passed`, révélant que le corpus de régression courant mélangeait état historique et état courant.
-
-**Périmètre couvert dans cet audit borné :**
-
-- présence du corpus de gouvernance requis sur la branche de travail ;
-- règle temporelle d'assouplissement/durcissement et conditions de révocation ;
-- capacité de la suite complète à discriminer une nouvelle régression après la clôture Trading Breaks ;
-- cohérence entre tests historiques versionnés et assertions d'état courant.
-
-**Complément explicitement NON audité ici :**
-
-- efficacité globale de toute la gouvernance ;
-- résilience/restauration de l'ensemble du système ;
-- jonction `src/research/` ↔ `research_run_evidence` ;
-- portée inter-processus de l'attestation ;
-- consolidation de branches ;
-- gate d'acquisition native ;
-- moteur de risque, exécution réelle, attribution et apprentissage autonome.
-
-**Verdict courant : `BLOCKED`** tant que la suite complète n'est pas rebaselinée puis re-cassée intégralement sur un HEAD persisté.
-
-Ce registre applique un audit **just-in-time** : le complément reste visible et ne peut pas être interprété comme implicitement PASS.
-'''
-          register.write_text(audit, encoding='utf-8')
+          manifest = {
+              'schema': 'P0_REGRESSION_HISTORICAL_BASELINE_DIAGNOSTIC_V1',
+              'current_head': run('git', 'rev-parse', 'HEAD').stdout.strip(),
+              'current_failed_nodeids': failed,
+              'current_failure_count': len(failed),
+              'failing_file_count': len(failing_files),
+              'historical_files': results,
+              'all_historical_files_pass': all(r['historical_file_pass'] for r in results),
+          }
+          Path('/tmp/p0-regression-diagnostic.json').write_text(
+              json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8'
+          )
+          print(json.dumps({
+              'failure_count': len(failed),
+              'failing_file_count': len(failing_files),
+              'historical_file_pass_count': sum(r['historical_file_pass'] for r in results),
+              'historical_file_fail_count': sum(not r['historical_file_pass'] for r in results),
+          }, indent=2))
+          if not manifest['all_historical_files_pass']:
+              raise SystemExit('AT_LEAST_ONE_STALE_FILE_NOT_GREEN_AT_LAST_MODIFICATION_COMMIT')
           PY
 
-      - name: Verify exact governance mutation surface
+      - name: Prove diagnostic is read-only
+        if: always()
         run: |
-          for f in \
-            GOVERNANCE/FOUNDATIONAL-WHY-AND-VALUE.md \
-            GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md \
-            GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md \
-            GOVERNANCE/META-GOVERNANCE-AND-SELF-CHALLENGE.md \
-            GOVERNANCE/META-GOVERNANCE-IMPLEMENTATION-CONTRACT.md \
-            GOVERNANCE/TRUSTWORTHY-INTELLIGENT-SYSTEM-MANIFESTO-CANDIDATE.md; do
-            test -f "$f"
-          done
-          grep -F 'Aucun assouplissement de la gouvernance ne peut être décidé dans les trente jours' GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md
-          grep -F 'Audit JIT — P0.0 post-calendar-closure' GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md
-          git diff --check
-          git diff --name-only | sort > /tmp/actual
-          printf '%s\n' \
-            GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md \
-            GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md | sort > /tmp/expected
-          diff -u /tmp/expected /tmp/actual
-
-      - name: Commit bounded governance repair
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md
-          git commit -m 'governance: add cooldown and record bounded P0 audit'
-          git push origin HEAD:feat/multi-year-dukascopy-acquisition
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
