@@ -1,0 +1,401 @@
+name: P0.3 Combined Decision and Multi-Year Persisted HEAD Re-break
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  P0_2_BASE: 45d9bc8c4bf133eced67ccede7c5f439253869b7
+  SOURCE_DECISION: c0116d195063c464d602fb699654ac61adc7290c
+  SOURCE_MULTIYEAR: b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and P0.2 ancestry
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P0_2_BASE}" HEAD
+          git cat-file -e "${SOURCE_DECISION}^{commit}"
+          git cat-file -e "${SOURCE_MULTIYEAR}^{commit}"
+
+      - name: Prove controlled multi-year allowlist and preserve P0.2 decision block
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+
+          base = '45d9bc8c4bf133eced67ccede7c5f439253869b7'
+          decision = 'c0116d195063c464d602fb699654ac61adc7290c'
+          multiyear = 'b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698'
+
+          decision_exact = {
+              '.github/workflows/context-to-research-boundary.yml',
+              '.github/workflows/data-to-context.yml',
+              '.github/workflows/research-findings-contract.yml',
+              '.github/workflows/research-to-decision-boundary.yml',
+              'GOVERNANCE/STEP-1-MANIFESTO-ARBITRATION.md',
+              'GOVERNANCE/STEP-2-MINIMAL-SYSTEM-TARGET.md',
+              'GOVERNANCE/STEP-2-MINIMAL-TARGET-ADVERSARIAL-CHECK.md',
+              'GOVERNANCE/STEP-3-CONTEXT-RESEARCH-CONTRACT-GATE.md',
+              'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md',
+              'GOVERNANCE/TRUSTWORTHY-INTELLIGENT-SYSTEM-MANIFESTO-FINAL-CANDIDATE.md',
+              'docs/RESEARCH-FINDINGS-CONTRACT.md',
+              'src/context.py',
+              'src/context_identity.py',
+              'src/decision.py',
+              'src/decision_trace.py',
+              'src/research_findings.py',
+              'src/research_run_evidence.py',
+              'tests/test_context_research_alternative_paths.py',
+              'tests/test_context_to_research_boundary.py',
+              'tests/test_data_to_context.py',
+              'tests/test_durable_ci_branch_independence.py',
+              'tests/test_research_findings_contract.py',
+              'tests/test_research_reader_adversarial.py',
+              'tests/test_research_to_decision_boundary.py',
+          }
+
+          multiyear_exact = {
+              '04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md',
+              '04-REFERENCE/EXECUTION-WINDOW-FREEZE.json',
+              '04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md',
+              'docs/03.1.2-MOMENTUM-V1-BASELINE-PROTOCOL.md',
+              'tools/coverage_execution_window_boundary.py',
+              'tools/current_execution_window_boundary_state.py',
+              'tools/dukascopy_usatech_calendar.py',
+              'tools/dukascopy_usatech_calendar_coverage.py',
+              'tools/frozen_execution_window.py',
+              'tools/trading_breaks_recovery_progression.py',
+              'tools/trading_breaks_recovery_protocol.py',
+              'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json',
+              'reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json',
+              'tests/test_coverage_execution_window_boundary.py',
+              'tests/test_current_execution_window_boundary_state.py',
+              'tests/test_dukascopy_usatech_calendar.py',
+              'tests/test_dukascopy_usatech_calendar_coverage.py',
+              'tests/test_frozen_execution_window.py',
+              'tests/test_trading_breaks_post_closure_current_state.py',
+          }
+
+          integration_only = {
+              '.github/workflows/p0-3-multi-year-integration-rebreak.yml',
+              '04-REFERENCE/RECOVERY-CHECKPOINT.md',
+              'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md',
+              'reports/data-qualification/p0_3_multi_year_integration_qualification.md',
+              '99-BACKUP/SESSION-2026-09-16-P0.3-INTEGRATION-MULTI-YEAR-PASS.md',
+          }
+
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', base, 'HEAD'], text=True
+          ).splitlines())
+          allowed = multiyear_exact | integration_only
+          unexpected = changed - allowed
+          assert not unexpected, f'unapproved P0.3 paths: {sorted(unexpected)}'
+
+          for path in sorted(decision_exact):
+              source_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'{decision}:{path}'], text=True
+              ).strip()
+              head_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'HEAD:{path}'], text=True
+              ).strip()
+              assert source_blob == head_blob, ('decision block drift', path, source_blob, head_blob)
+
+          for path in sorted(multiyear_exact):
+              source_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'{multiyear}:{path}'], text=True
+              ).strip()
+              head_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'HEAD:{path}'], text=True
+              ).strip()
+              assert source_blob == head_blob, ('multi-year import drift', path, source_blob, head_blob)
+              assert path in changed, f'multi-year path not actually imported relative to P0.2 base: {path}'
+
+          base_governance = set(subprocess.check_output(
+              ['git', 'ls-tree', '-r', '--name-only', base, 'GOVERNANCE'], text=True
+          ).splitlines())
+          head_governance = set(subprocess.check_output(
+              ['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'GOVERNANCE'], text=True
+          ).splitlines())
+          deleted = base_governance - head_governance
+          assert not deleted, f'governance deletion detected: {sorted(deleted)}'
+          changed_existing_gov = {
+              path for path in base_governance
+              if path in head_governance and
+              subprocess.check_output(['git', 'rev-parse', f'{base}:{path}'], text=True).strip()
+              != subprocess.check_output(['git', 'rev-parse', f'HEAD:{path}'], text=True).strip()
+          }
+          assert changed_existing_gov <= {'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md'}, changed_existing_gov
+
+          audit = 'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md'
+          base_audit = subprocess.check_output(['git', 'show', f'{base}:{audit}'], text=True)
+          head_audit = Path(audit).read_text(encoding='utf-8')
+          if audit in changed:
+              assert head_audit.startswith(base_audit), 'P0.2 audit history was rewritten'
+              assert 'P0_3_MULTI_YEAR_INTEGRATION_JIT_AUDIT_V1' in head_audit
+              assert 'Covered by P0.3' in head_audit
+              assert 'Explicitly not covered by P0.3' in head_audit
+          else:
+              assert head_audit == base_audit
+
+          for stable in (
+              '04-REFERENCE/AI-OPERATING-MEMORY.md',
+              'GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md',
+          ):
+              assert subprocess.check_output(['git', 'rev-parse', f'{base}:{stable}'], text=True).strip() == subprocess.check_output(['git', 'rev-parse', f'HEAD:{stable}'], text=True).strip(), stable
+
+          historical_state_tests = {
+              'tests/test_trading_breaks_calendar_closure_integration_contract.py',
+              'tests/test_trading_breaks_target_day_overlap_v2_state.py',
+              'tests/test_trading_breaks_recovery_progression.py',
+          }
+          assert not (historical_state_tests & changed), 'historical pre-closure tests imported as current regression tests'
+          print('PASS: P0.3 import is allowlisted, source-identical, P0.2-preserving, and governance-preserving')
+          PY
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run combined repository and Tier-A suites
+        shell: bash
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q
+          python -m pytest -q \
+            tests/test_data_to_context.py \
+            tests/test_context_to_research_boundary.py \
+            tests/test_context_research_alternative_paths.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_reader_adversarial.py \
+            tests/test_research_to_decision_boundary.py \
+            tests/test_durable_ci_branch_independence.py
+          python -m pytest -q \
+            tests/test_coverage_execution_window_boundary.py \
+            tests/test_current_execution_window_boundary_state.py \
+            tests/test_dukascopy_usatech_calendar.py \
+            tests/test_dukascopy_usatech_calendar_coverage.py \
+            tests/test_frozen_execution_window.py \
+            tests/test_trading_breaks_post_closure_current_state.py
+
+      - name: Re-break current calendar and persisted freeze truth
+        shell: bash
+        run: |
+          python - <<'PY'
+          import inspect
+          from datetime import date
+
+          from tools.coverage_execution_window_boundary import (
+              AUTHORIZE_MASSIVE_ACQUISITION,
+              BLOCKED,
+              DECLARE_GLOBAL_COVERAGE_PASS,
+              FREEZE_EXECUTION_WINDOW,
+              PASS,
+              evaluate_boundary,
+          )
+          from tools.current_execution_window_boundary_state import (
+              derive_current_boundary_evidence,
+              evaluate_current_freeze,
+          )
+          from tools.frozen_execution_window import (
+              evaluate_acquisition_after_persisted_freeze,
+              evaluate_persisted_execution_window_freeze,
+          )
+          from tools.trading_breaks_recovery_progression import (
+              current_capability,
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          assert inspect.signature(derive_current_boundary_evidence).parameters == {}
+          evidence = derive_current_boundary_evidence()
+          state = evidence.state
+          assert state.window_start == date(2021, 8, 14)
+          assert state.window_end == date(2026, 8, 14)
+          assert (evidence.global_candidate_count, evidence.global_resolved_count, state.global_unresolved_count) == (111, 91, 20)
+          assert (evidence.window_candidate_count, evidence.window_resolved_count, state.window_unresolved_count) == (68, 68, 0)
+          assert state.window_fail_count == 0
+          assert len(evidence.outside_window_unresolved_dates) == 20
+          assert all(day < state.window_start for day in evidence.outside_window_unresolved_dates)
+          assert evaluate_boundary(DECLARE_GLOBAL_COVERAGE_PASS, state).verdict == BLOCKED
+
+          current = evaluate_current_freeze()
+          assert current.decision.verdict == PASS
+          assert current.decision.reason == 'EXECUTION_WINDOW_ADMISSIBLE_WITH_OUTSIDE_GAPS_PRESERVED'
+
+          frozen = evaluate_persisted_execution_window_freeze()
+          assert frozen.evidence is not None
+          assert frozen.decision.verdict == PASS
+          assert frozen.decision.reason == 'EXECUTION_WINDOW_DURABLY_FROZEN_FROM_QUALIFIED_EVIDENCE'
+          assert frozen.evidence.record['massive_acquisition_authorized'] is False
+          assert frozen.evidence.record['real_backtest_authorized'] is False
+
+          acquisition = evaluate_acquisition_after_persisted_freeze()
+          assert acquisition.verdict == BLOCKED
+          assert acquisition.reason == 'MANDATORY_WINDOW_GATES_NOT_PASS'
+
+          capabilities, current_id, attempts = load_attempt_ledger()
+          changes = load_material_capability_changes()
+          assert current_id == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          assert current_id in capabilities
+          assert current_capability().fingerprint() == 'e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31'
+          assert len(attempts) == 73
+          assert [item.attempt_sequence for item in attempts] == list(range(1, 74))
+          assert len(changes) == 1
+          assert recovery_queue() == []
+          assert progression_decisions() == []
+          assert eligible_recovery_queue() == []
+          print('PASS: current 111/91/20 and 68/68/0 truth survives; freeze PASS; acquisition remains BLOCKED')
+          PY
+
+      - name: Re-break imported decision provenance boundary
+        shell: bash
+        run: |
+          python - <<'PY'
+          import copy
+          from dataclasses import fields
+
+          from src.decision import produce_decision
+          from src.research_findings import ResearchFinding, ResearchFindings, ResearchHypothesis, ResearchMeasurement
+          from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
+          from tests.test_research_to_decision_boundary import coherent_inputs, reconstruct
+
+          evidence, context = coherent_inputs()
+          assert is_factory_attested(evidence)
+          assert produce_decision(evidence, context=context, decision='HOLD').research_run_id == evidence.research_run_id
+
+          forged = reconstruct(evidence)
+          assert forged == evidence and forged is not evidence
+          assert not is_factory_attested(forged)
+          for candidate in (forged, copy.copy(evidence), copy.deepcopy(evidence)):
+              try:
+                  produce_decision(candidate, context=context, decision='HOLD')
+              except ValueError:
+                  pass
+              else:
+                  raise AssertionError('reconstructed/copied evidence bypassed decision boundary')
+
+          object.__setattr__(forged, '_factory_validated', True)
+          assert not is_factory_attested(forged)
+          try:
+              produce_decision(forged, context=context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('legacy self-attestation bypassed decision boundary')
+
+          for field_name in (field.name for field in fields(ResearchRunEvidence)):
+              candidate, candidate_context = coherent_inputs()
+              original = getattr(candidate, field_name)
+              object.__setattr__(candidate, field_name, f'{original}-FORGED')
+              assert not is_factory_attested(candidate), field_name
+              try:
+                  produce_decision(candidate, context=candidate_context, decision='HOLD')
+              except ValueError:
+                  pass
+              else:
+                  raise AssertionError(f'identity mutation bypassed decision boundary: {field_name}')
+
+          candidate, candidate_context = coherent_inputs()
+          candidate.__dict__['research_run_id'] = 'RUN-DICT-FORGED'
+          assert not is_factory_attested(candidate)
+          try:
+              produce_decision(candidate, context=candidate_context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('__dict__ mutation bypassed decision boundary')
+
+          hypothesis = ResearchHypothesis('H1', 's', 'p', 'f')
+          measurement = ResearchMeasurement('M1', 'R', 'E', 'metric', 1.0, 1, 'scope')
+          finding = ResearchFinding('F1', 'H1', 's', ('M1',), 'SUPPORTED', 'rule', 'reason')
+          try:
+              ResearchFindings.from_research_run_evidence(
+                  reconstruct(evidence), hypotheses=(hypothesis,), measurements=(measurement,), findings=(finding,)
+              )
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('unattested evidence seeded ResearchFindings')
+          print('PASS: decision provenance/forgeability boundary still rejects tested bypasses')
+          PY
+
+      - name: Prove no acquisition probe recovery or real backtest surface was imported
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          base = '45d9bc8c4bf133eced67ccede7c5f439253869b7'
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', base, 'HEAD'], text=True
+          ).splitlines())
+          forbidden_exact = {
+              'tools/activate_trading_breaks_target_day_overlap_capability.py',
+              'tools/trading_breaks_target_day_overlap_semantics.py',
+              'tools/integrate_trading_breaks_calendar_closure.py',
+              'tests/test_trading_breaks_calendar_closure_integration_contract.py',
+              'tests/test_trading_breaks_target_day_overlap_v2_state.py',
+              'tests/test_trading_breaks_recovery_progression.py',
+          }
+          forbidden_prefixes = (
+              'data/',
+              'LOCAL-EVIDENCE/',
+              'src/research/',
+              'tools/download_',
+              'tools/probe_dukascopy',
+              'tools/qualify_dukascopy',
+          )
+          forbidden = [
+              path for path in changed
+              if path in forbidden_exact
+              or path.startswith(forbidden_prefixes)
+              or path.endswith('.bi5')
+          ]
+          assert not forbidden, forbidden
+          print('PASS: no acquisition/probe/recovery-history/backtest execution surface imported')
+          PY
+
+      - name: Prove P0.2 durable decision workflows remain branch-neutral and read-only
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          paths = [
+              Path('.github/workflows/data-to-context.yml'),
+              Path('.github/workflows/context-to-research-boundary.yml'),
+              Path('.github/workflows/research-findings-contract.yml'),
+              Path('.github/workflows/research-to-decision-boundary.yml'),
+          ]
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              assert '\n    branches:' not in text, path
+              assert 'feat/' not in text, path
+              assert '\n  push:' in text and '\n  pull_request:' in text, path
+              assert text.count('\n    paths:') >= 2, path
+              assert '\npermissions:\n  contents: read\n' in text, path
+          print('PASS: decision durable CI remains branch-neutral, PR-covered, path-scoped, and read-only')
+          PY
+
+      - name: Prove read-only clean worktree
+        shell: bash
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
