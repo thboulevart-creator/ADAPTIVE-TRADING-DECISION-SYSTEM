@@ -1,0 +1,66 @@
+name: Trading Breaks Recovery Batch 15 V2 Adjudication
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch15-v2-adjudication.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  adjudicate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove authoritative execution ancestry
+        run: |
+          git merge-base --is-ancestor f73d31e645bdc1ad4081a7cf3c104e3f3bd4848b HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Independently re-adjudicate exact Batch 15 evidence offline
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_recovery_batch15_v2_execution.py \
+            tests/test_trading_breaks_recovery_batch15_v2_adjudication.py \
+            tests/test_trading_breaks_target_day_overlap_semantics.py
+          python -m tools.trading_breaks_recovery_batch15_v2_adjudication > /tmp/batch15-v2-adjudication.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('/tmp/batch15-v2-adjudication.json').read_text(encoding='utf-8'))
+          assert report['verdict'] == 'PASS'
+          assert (report['attempted'], report['pass'], report['blocked'], report['fail']) == (5, 5, 0, 0)
+          assert report['browser_used'] is False
+          assert report['probe_used'] is False
+          assert report['network_used'] is False
+          print('PASS: Batch 15 independently adjudicated 5 PASS / 0 BLOCKED / 0 FAIL')
+          PY
+
+      - name: Prove independent adjudication is read-only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/trading_breaks_recovery_batch15_v2_adjudication.py').read_text(encoding='utf-8').lower()
+          for token in ('playwright', 'selenium', 'requests.', 'urllib.request', 'probe_candidate'):
+              assert token not in source, token
+          print('PASS: Batch 15 adjudication has no browser/probe/network path')
+          PY
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
