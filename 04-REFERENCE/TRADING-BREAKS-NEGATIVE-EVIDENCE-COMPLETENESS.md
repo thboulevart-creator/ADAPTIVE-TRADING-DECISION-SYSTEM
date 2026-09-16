@@ -6,7 +6,17 @@ Contract:
 
 ## Status
 
-**CANDIDATE — requires adversarial qualification before any Class-B promotion.**
+**PASS — `ALL_THREE_CLASS_B_DATES_HAVE_COMPLETE_BROKER_NATIVE_NEGATIVE_EVIDENCE`.**
+
+Initial adversarial qualification:
+
+- qualification HEAD: `ddb781da2a06975903b2a1f67950672d0da3d31e`
+- workflow: `Trading Breaks Negative Evidence Completeness V1`
+- run/job: `35096828077 / 104796142245`
+- permissions: `contents: read`, `actions: read`
+- adversarial suite: `20 passed in 0.07s`
+- browser / broker probe / new capture: `NONE`
+- governed Trading Breaks state mutation: `NONE`
 
 This contract is deliberately narrower than the positive-record route. It determines whether an already-persisted official Dukascopy Trading Breaks response is complete enough to support the negative statement:
 
@@ -21,17 +31,17 @@ Target instrument:
 - `USATECH.IDX/USD`
 - instrument ID `9016`
 
-Current Class-B targets:
+Qualified Class-B targets:
 
 1. `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
 2. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
 3. `2026-07-02 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
 
-Only already-persisted captures may be used. No browser, probe, broker recapture, calendar mutation, attempt-ledger mutation, progression mutation, capability-registry mutation, execution-window mutation, `.bi5`, or backtest is authorized by this contract.
+Only already-persisted captures are admissible. No browser, probe, broker recapture, calendar mutation, attempt-ledger mutation, progression mutation, capability-registry mutation, execution-window mutation, `.bi5`, or backtest is authorized by this contract.
 
-## Qualified completeness property sought
+## Qualified completeness property
 
-A negative decision is admissible only if the raw broker response proves the structural property:
+A negative decision is admissible only if the raw broker response proves:
 
 `FULL_RANGE_SINGLE_RESPONSE_RAW_LIST_COMPLETENESS`
 
@@ -54,6 +64,49 @@ For one persisted observation, all of the following are mandatory:
 
 For a target date with multiple historical observations, all independently valid observations must also agree on the canonical raw target-instrument record set and on the zero-overlap result. Repetition is a consistency check only; it cannot replace structural completeness.
 
+## Qualified observations
+
+### 2021-12-31
+
+Two independently persisted observations passed.
+
+- artifacts: `10364872726`, `10364984459`
+- artifact digests matched the versioned ledger/runtime provenance exactly;
+- raw response: `1075` rows, `115439` bytes in each observation;
+- full response scope includes the complete target day;
+- no pagination/continuation detected;
+- target-instrument raw/DOM control present;
+- raw `9016` control record: `31532 — Christmas Day`, ending before the target day;
+- independent raw overlap count for `2021-12-31`: `0`;
+- normalized matching count: `0`;
+- repeated-observation consistency: PASS.
+
+### 2022-07-01
+
+- artifact: `10367930592`
+- raw response: `789` rows, `87078` bytes;
+- full response scope includes the complete target day;
+- no pagination/continuation detected;
+- target-instrument raw/DOM control present;
+- raw `9016` control record: `41225 — Independence Day`, beginning on `2022-07-04`;
+- independent raw overlap count for `2022-07-01`: `0`;
+- normalized matching count: `0`.
+
+### 2026-07-02
+
+- artifact: `10418961548`
+- raw response: `726` rows, `81478` bytes;
+- full response scope includes the complete target day;
+- no pagination/continuation detected;
+- target-instrument raw/DOM control present;
+- raw `9016` control record: `101959 — Independence Day`, beginning on `2026-07-03`;
+- independent raw overlap count for `2026-07-02`: `0`;
+- normalized matching count: `0`.
+
+All three date-level decisions are therefore:
+
+**PASS — `NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY`.**
+
 ## Decision semantics
 
 ### PASS
@@ -64,7 +117,7 @@ The admissible statement is narrow:
 
 `NO_BROKER_TRADING_BREAK_INTERVAL_OVERLAPS_TARGET_DAY`
 
-Only a separately governed integration may later translate that statement into executable `NO_SPECIAL_CHANGE_EVIDENCE`.
+Only a separately governed integration may translate that statement into executable `NO_SPECIAL_CHANGE_EVIDENCE`.
 
 ### BLOCKED
 
@@ -91,9 +144,17 @@ Use FAIL for contradictions or integrity violations, including:
 - borrowed adjacent/other-year evidence;
 - positive interval presented as negative evidence.
 
-## Mandatory adversarial attacks
+## Adversarial qualification
 
-The executable validator must reject at minimum:
+The executable validator:
+
+`tools/trading_breaks_negative_evidence_completeness.py`
+
+was attacked by:
+
+`tests/test_trading_breaks_negative_evidence_completeness.py`
+
+The qualified suite rejects at minimum:
 
 1. HTTP `200` with missing raw payload;
 2. date fallback / date not honored;
@@ -108,15 +169,25 @@ The executable validator must reject at minimum:
 11. inconsistent repeated observations;
 12. direct `matching_records=[] -> PASS` promotion without the independent structural completeness property.
 
+Observed result:
+
+`20 passed in 0.07s`
+
+The initial qualification workflow then independently downloaded the four pre-existing source artifacts from GitHub Actions, rechecked every persisted SHA-256, extracted the raw request/response/page evidence, and produced:
+
+`3 PASS / 0 BLOCKED / 0 FAIL`.
+
 ## Downstream boundary
 
 Contract qualification and Class-B adjudication do not themselves mutate the calendar.
 
-If all three Class-B dates PASS under this contract, the next governed operation may be one bounded calendar-closure integration combining:
+The three Class-B dates now possess qualified negative-evidence PASS decisions, while the nine remaining Class-A dates already possess qualified positive V2 PASS decisions.
 
-- the nine already-qualified remaining Class-A V2 PASS dates; and
+The next governed operation is therefore one bounded **calendar-closure integration** combining:
+
+- the nine already-qualified remaining Class-A positive V2 PASS dates; and
 - the three Class-B negative-evidence PASS dates.
 
-If completeness is BLOCKED, do not repeat the current browser route. A materially different capability such as `ALTERNATE_BROKER_NATIVE_RECORD_ROUTE` or `BROKER_ARCHIVE_BACKFILL_ACCESS` becomes the justified next path for only the three Class-B dates.
+That later integration must preserve historical attempts, must not fabricate new broker observations, must regenerate progression, and must be followed by an independent persisted-HEAD re-break.
 
 No `.bi5`. No real backtest.
