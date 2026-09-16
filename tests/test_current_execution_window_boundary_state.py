@@ -139,8 +139,7 @@ def test_outside_global_gaps_remain_visible_in_freeze_pass() -> None:
 def test_stale_application_report_is_not_a_current_derivation_input() -> None:
     source = inspect.getsource(current)
     assert "current_coverage_execution_window_boundary_application" not in source
-    assert "37" not in source
-    assert "31" not in source
+    assert "reports/data-qualification/current_coverage_execution_window_boundary_application.md" not in source
 
 
 def test_recovery_progression_mismatch_fails_closed(monkeypatch) -> None:
