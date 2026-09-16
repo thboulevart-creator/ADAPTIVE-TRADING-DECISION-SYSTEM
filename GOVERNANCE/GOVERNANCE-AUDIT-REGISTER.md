@@ -20,7 +20,7 @@ Verdicts : `PASS / FAIL / BLOCKED`.
 
 | Exigence | Existant / preuve | Gap constaté | Risque | Intégration minimale | Verdict |
 |---|---|---|---|---|---|
-| **1. Change / Validity** | `GOVERNANCE/META-GOVERNANCE-AND-SELF-CHALLENGE.md` couvre le drift, les conditions d'invalidation et la question « Est-elle encore vraie ici et maintenant ? ». `docs/09` et `docs/10` définissent provenance, validité/knowledge time et admissibilité point-in-time. | Les contrats `09/10` restent explicitement des propositions et leur exécution n'est pas démontrée. `08` confirme que la bitemporalité n'est pas encore gelée. | Une connaissance peut être correctement conçue mais utilisée comme si sa validité était opérationnelle alors qu'elle n'est pas prouvée. | Ne rien ajouter. Lors de l'intégration, faire passer `09/10` par arbitrage + tests d'admissibilité et de drift. | **BLOCKED** |
+| **1. Change / Validity** | `GOVERNANCE/META-GOVERNANCE-AND-SELF-CHALLENGE.md` couvre le drift, les conditions d'invalidation et la question « Est-elle encore vraie ici et maintenant ? ». `docs/09` et `docs/10` définissent provenance, validité/knowledge time et admissibilité point-in-time. | Les contrats `09/10` restent explicitement des propositions et leur exécution n'est pas démontrée. `08` confirme que la bitemporalité n'est pas encore gelée. | Une connaissance peut avoir été correctement validée dans un contexte donné et devenir invalide ensuite. | Ne rien ajouter. Lors de l'intégration, faire passer `09/10` par arbitrage + tests d'admissibilité et de drift. | **BLOCKED** |
 | **2. Decision Traceability** | `docs/09` impose la chaîne `RESULT → RESEARCH_RUN → CODE_VERSION → CONFIGURATION_VERSION → DATASET_VERSION/HASH → PROVENANCE`. `docs/08` définit propriétaires/producteurs/dépositaires/consommateurs. | La reconstruction complète d'une **décision opérationnelle** (état, informations disponibles, connaissances actives, contraintes, alternatives, incertitude, décision, action, résultat) n'est pas encore démontrée comme un artefact exécutable transverse. | Impossible de garantir aujourd'hui une reconstruction complète et reproductible du « pourquoi cette décision, à cet instant ». | Réutiliser provenance + registry + journal de décision existants/cibles ; ne créer une nouvelle couche que si le test de reconstruction échoue. | **FAIL** |
 | **3. Resilience / Continuity** | Des mécanismes de version, provenance, hashes et reproductibilité existent conceptuellement (`09`, `10`, règles de dépôt). | Aucun dispositif démontré couvrant explicitement restauration, récupération après perte, portabilité, continuité du savoir et test de restauration. `08` ne recense pas de contrat de continuité opérationnel. | Perte d'un composant, d'une donnée ou d'un environnement pouvant rendre le système non reconstructible malgré une bonne gouvernance documentaire. | Ajouter ultérieurement un contrôle de continuité/recovery au niveau de l'exécution et des dépôts, sans créer de nouveau framework si les mécanismes existants suffisent. | **FAIL** |
 | **4. Governance Effectiveness** | `META-GOVERNANCE-AND-SELF-CHALLENGE` impose auto-contestation, adversarial testing, re-test, verdicts et contestation périodique. `11` conserve les contradictions et permet la réouverture. `13` définit l'audit critique. | L'efficacité réelle de ces mécanismes n'est pas encore démontrée par une série d'audits exécutés/reproductibles montrant qu'ils détectent effectivement des problèmes qu'ils étaient censés détecter. | La gouvernance pourrait être correcte sur le papier mais incapable de détecter ses propres angles morts. | Exécuter périodiquement des audits adversariaux réels et conserver leurs résultats dans la mémoire/registre existant. Pas de nouvelle couche tant que ce test n'a pas échoué. | **BLOCKED** |
@@ -243,3 +243,86 @@ La vérité multi-year reste inchangée : global `111/91/20` **BLOCKED**, select
 **Verdict JIT P0.4 : PASS pour le périmètre couvert uniquement**, sous réserve du dernier re-break persisted-HEAD documentaire de l'exact HEAD contenant audit + rapport + checkpoint + backup + verifier final.
 
 Ce PASS borné ne modifie aucun verdict global non couvert et n'autorise ni acquisition native, ni backtest réel, ni promotion/live.
+
+---
+
+## Audit JIT — P0.5 durable RESEARCH inter-process replay re-attestation
+
+**Audit ID : `P0_5_RESEARCH_INTERPROCESS_REATTESTATION_JIT_AUDIT_V1`**  
+**Date :** 16 septembre 2026  
+**Branche auditée :** `integration/system-v1`  
+**Contrat :** `RESEARCH_INTERPROCESS_REATTESTATION_V1`  
+**Base P0.4 :** `aa9551addc0fe554af9cbb8ebdb26314d37e412e`
+
+### Covered by P0.5
+
+- fermeture de la limite process-local identifiée par P0.4 au moyen d'une re-attestation par replay déterministe ;
+- preuve persistée canonique et content-addressed, non autorisante par elle-même ;
+- code version attendu fourni séparément par le consommateur ;
+- chemins corpus/contract fournis séparément et identité basée sur les bytes, pas sur les chemins ;
+- revalidation des bytes source puis réexécution dans le processus consommateur ;
+- comparaison exacte execution/Dataset/Context/ResearchRunEvidence avant toute nouvelle attestation ;
+- rejet d'un digest JSON recalculé après falsification ;
+- rejet de preuve renommée, schéma incomplet/inconnu/dupliqué/substitué, sources modifiées et identités forgées ;
+- rejet des preuves V4.3 report-only et des preuves issues de copies/reconstructions/mutations d'evidence ;
+- acceptation de sources byte-identiques relocalisées ;
+- reconstruction d'une nouvelle autorité P0.4 uniquement après replay ;
+- préservation de P0.2/P0.3/P0.4 et des interdictions acquisition/backtest.
+
+### Explicitly not covered by P0.5
+
+- bearer proof cryptographique non-replay ;
+- génération, garde, rotation ou révocation de clés ;
+- lock global des dépendances et de l'environnement ;
+- fermeture de tout couplage résiduel des workflows d'intégration ;
+- acquisition native `.bi5`, manifestes, exhaustivité et réconciliation ;
+- exact OOS split ;
+- backtest réel ;
+- chaîne `DECISION → RISK → ACTION → RESULT → TRACE` complète ;
+- reconstruction transverse complète de la décision ;
+- résilience/restauration générale ;
+- promotion gate ou activation live.
+
+### Preuve de cassage avant correction
+
+HEAD : `36f97ee715655f6b2470e7836f7c82e6285aa237`  
+Run/job : `35143592655 / 104953910890` — **FAIL attendu**.
+
+- P0.4 C0–C15 : `16 passed` ;
+- P0.5 provisional : `1 failed / 1 passed` ;
+- défaut observé : aucun pont durable writer/re-attestation n'existait ;
+- raw serialized evidence restait non autorisant ;
+- gate read-only, aucun side effect acquisition/backtest ;
+- worktree clean.
+
+### Preuve D0–D14 après correction
+
+HEAD : `7f864b2da4e5590df26ca5a152e84cd67a362d98`  
+Run/job : `35144130840 / 104955745568` — **SUCCESS**.
+
+- P0.5 D0–D14 : `15 passed` ;
+- P0.4 C0–C15 : `16 passed` ;
+- worktree clean.
+
+### Preuve technique combinée
+
+HEAD : `05b9752fff9f25ad2301c6385feba14848b4bb27`  
+Run/job : `35144258717 / 104956179724` — **SUCCESS**.
+
+- suite dépôt : `207 passed` ;
+- P0.5 D0–D14 : `15 passed` ;
+- P0.4 C0–C15 : `16 passed` ;
+- P0.2 décision Tier-A : `83 passed` ;
+- P0.3 calendar/freeze Tier-A : `80 passed` ;
+- global `111/91/20` : BLOCKED ;
+- selected `68/68/0` : PASS ;
+- persisted freeze : PASS ;
+- acquisition : BLOCKED ;
+- `massive_acquisition_authorized = false` ;
+- `real_backtest_authorized = false` ;
+- permissions read-only ;
+- worktree clean.
+
+**Verdict JIT P0.5 : PASS pour le périmètre couvert uniquement**, sous réserve du dernier re-break persisted-HEAD documentaire de l'exact HEAD contenant audit + rapport + checkpoint + backup + verifier final.
+
+Ce PASS ne transforme pas la preuve persistée en credential auto-authentifiant et n'autorise aucune acquisition, aucun backtest réel, aucune promotion ni activation live.
