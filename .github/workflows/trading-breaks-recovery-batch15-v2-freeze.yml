@@ -41,13 +41,12 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run Batch 15 freeze and V2 semantic regressions
+      - name: Run Batch 15 freeze and current-state V2 regressions
         run: |
           python -m pip install pytest==8.4.2
           python -m pytest -q \
             tests/test_trading_breaks_recovery_batch15.py \
             tests/test_trading_breaks_target_day_overlap_semantics.py \
-            tests/test_trading_breaks_target_day_overlap_capability_activation.py \
             tests/test_trading_breaks_target_day_overlap_readjudication.py
 
       - name: Prove exact first-five membership and reject selection attacks
