@@ -7,7 +7,7 @@ from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
-from tools.trading_breaks_recovery_progression import load_attempt_ledger, latest_attempt_for_date
+from tools.trading_breaks_recovery_progression import load_attempt_ledger
 from tools.trading_breaks_recovery_protocol import derive_fully_closed_hours_utc, derive_interval
 
 CONTRACT = "TRADING_BREAKS_TARGET_DAY_OVERLAP_ATTRIBUTION_V1"
@@ -181,9 +181,18 @@ def validate_target_day_overlap_result(
 
 
 def load_class_a_evidence() -> list[tuple[date, str, dict[str, Any], dict[str, Any], int]]:
+    """Load immutable historical Class-A evidence by its exact source attempt.
+
+    This intentionally does not use the latest attempt for a date: after a V2
+    retry is integrated, the source V1 BLOCKED attempt must remain reproducible.
+    """
     loaded: list[tuple[date, str, dict[str, Any], dict[str, Any], int]] = []
     cache: dict[int, dict[str, Any]] = {}
     _, _, attempts = load_attempt_ledger()
+    attempts_by_id = {item.attempt_id: item for item in attempts}
+    if len(attempts_by_id) != len(attempts):
+        raise ValueError("CLASS_A_LEDGER_DUPLICATE_ATTEMPT_ID")
+
     for target_day, reason, batch in CLASS_A_SOURCES:
         runtime = cache.setdefault(batch, json.loads(runtime_path(batch).read_text(encoding="utf-8")))
         matches = [item for item in runtime.get("results", []) if item.get("target_date") == target_day.isoformat()]
@@ -192,18 +201,27 @@ def load_class_a_evidence() -> list[tuple[date, str, dict[str, Any], dict[str, A
         provenance = runtime.get("provenance")
         if not isinstance(provenance, dict):
             raise ValueError(f"CLASS_A_RUNTIME_PROVENANCE_MISSING:{target_day}")
-        latest = latest_attempt_for_date(target_day, attempts)
-        if latest is None or latest.blocking_reason != ADDRESSES_BLOCKER:
-            raise ValueError(f"CLASS_A_LEDGER_BLOCKER_MISMATCH:{target_day}")
+
+        source_attempt_id = f"batch{batch:02d}:{target_day.isoformat()}"
+        source_attempt = attempts_by_id.get(source_attempt_id)
+        if source_attempt is None:
+            raise ValueError(f"CLASS_A_SOURCE_ATTEMPT_MISSING:{target_day}:{source_attempt_id}")
+        if source_attempt.target_date != target_day or source_attempt.candidate_reason != reason:
+            raise ValueError(f"CLASS_A_SOURCE_ATTEMPT_IDENTITY_MISMATCH:{target_day}")
+        if source_attempt.outcome != "BLOCKED" or source_attempt.blocking_reason != ADDRESSES_BLOCKER:
+            raise ValueError(f"CLASS_A_SOURCE_ATTEMPT_BLOCKER_MISMATCH:{target_day}")
+        if source_attempt.capability_id != "TRADING_BREAKS_PRIMARY_WIDGET_V1":
+            raise ValueError(f"CLASS_A_SOURCE_ATTEMPT_CAPABILITY_MISMATCH:{target_day}")
+
         expected_provenance = {
-            "workflow_run": latest.provenance["workflow_run"],
-            "job_id": latest.provenance["job_id"],
-            "artifact_id": latest.provenance["artifact_id"],
-            "artifact_sha256": latest.provenance["artifact_sha256"],
-            "probe_commit": latest.provenance["probe_commit"],
+            "workflow_run": source_attempt.provenance["workflow_run"],
+            "job_id": source_attempt.provenance["job_id"],
+            "artifact_id": source_attempt.provenance["artifact_id"],
+            "artifact_sha256": source_attempt.provenance["artifact_sha256"],
+            "probe_commit": source_attempt.provenance["probe_commit"],
         }
         if any(provenance.get(key) != value for key, value in expected_provenance.items()):
-            raise ValueError(f"CLASS_A_RUNTIME_LEDGER_PROVENANCE_MISMATCH:{target_day}")
+            raise ValueError(f"CLASS_A_RUNTIME_SOURCE_ATTEMPT_PROVENANCE_MISMATCH:{target_day}")
         loaded.append((target_day, reason, deepcopy(matches[0]), deepcopy(provenance), batch))
     return loaded
 
