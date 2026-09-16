@@ -1,0 +1,68 @@
+name: P0.6 System Reproducibility Tier-A
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p0-6-system-reproducibility.yml'
+      - '04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md'
+      - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - 'requirements/qualification.lock.txt'
+      - 'tools/qualification_environment.py'
+      - 'tests/test_system_reproducibility_tier_a.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  P0_5_BASE: '7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4'
+
+jobs:
+  tier-a-break:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and closed P0.5 ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P0_5_BASE}" HEAD
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-prove P0.5 before P0.6 attacks
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q tests/test_research_interprocess_reattestation_tier_a.py
+
+      - name: Break pre-P0.6 reproducibility envelope
+        run: |
+          python -m pytest -q tests/test_system_reproducibility_tier_a.py
+
+      - name: Prove no acquisition or backtest side effect
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          contract = Path('04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md').read_text(encoding='utf-8')
+          assert 'native `.bi5` acquisition or acquisition readiness' in contract
+          assert 'real-data backtest' in contract
+          workflow = Path('.github/workflows/p0-6-system-reproducibility.yml').read_text(encoding='utf-8')
+          assert '\npermissions:\n  contents: read\n' in workflow
+          print('PASS: P0.6 breaker is read-only and non-acquisitive')
+          PY
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
