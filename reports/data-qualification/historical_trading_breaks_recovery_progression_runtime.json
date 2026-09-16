@@ -4,11 +4,11 @@
   "reason": "ATTEMPT_AWARE_PROGRESSION_STATE_IS_DETERMINISTIC_AND_NON_STARVING",
   "calendar_unresolved_count": 17,
   "attempt_ledger_count": 68,
-  "registered_material_capability_change_count": 0,
-  "current_capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_V1",
-  "current_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-  "attempted_blocked_ineligible_count": 17,
-  "eligible_initial_or_retry_count": 0,
+  "registered_material_capability_change_count": 1,
+  "current_capability_id": "TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2",
+  "current_capability_fingerprint": "e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31",
+  "attempted_blocked_ineligible_count": 3,
+  "eligible_initial_or_retry_count": 14,
   "decisions": [
     {
       "target_date": "2021-12-24",
@@ -17,8 +17,8 @@
       "latest_attempt_id": "batch02:2021-12-24",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -29,7 +29,7 @@
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
       "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "reason": "RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED",
       "contract_verdict": "PASS"
     },
     {
@@ -39,8 +39,8 @@
       "latest_attempt_id": "batch02:2022-04-15",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -51,7 +51,7 @@
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
       "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "reason": "RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED",
       "contract_verdict": "PASS"
     },
     {
@@ -61,8 +61,8 @@
       "latest_attempt_id": "batch04:2022-12-26",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -72,8 +72,8 @@
       "latest_attempt_id": "batch04:2023-01-02",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -83,8 +83,8 @@
       "latest_attempt_id": "batch06:2023-07-04",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -94,8 +94,8 @@
       "latest_attempt_id": "batch07:2023-12-25",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -105,8 +105,8 @@
       "latest_attempt_id": "batch07:2024-01-01",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -116,8 +116,8 @@
       "latest_attempt_id": "batch08:2024-03-29",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -127,8 +127,8 @@
       "latest_attempt_id": "batch09:2024-12-25",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -138,8 +138,8 @@
       "latest_attempt_id": "batch10:2025-01-01",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -149,8 +149,8 @@
       "latest_attempt_id": "batch10:2025-04-18",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -160,8 +160,8 @@
       "latest_attempt_id": "batch12:2025-12-25",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -171,8 +171,8 @@
       "latest_attempt_id": "batch13:2026-01-01",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -182,8 +182,8 @@
       "latest_attempt_id": "batch13:2026-04-03",
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
-      "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "eligible": true,
+      "reason": "MATERIAL_CAPABILITY_CHANGE_RETRY",
       "contract_verdict": "PASS"
     },
     {
@@ -194,7 +194,7 @@
       "latest_attempt_outcome": "BLOCKED",
       "latest_capability_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
       "eligible": false,
-      "reason": "SAME_CAPABILITY_BLOCKED_ALREADY_ATTEMPTED",
+      "reason": "RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED",
       "contract_verdict": "PASS"
     }
   ]

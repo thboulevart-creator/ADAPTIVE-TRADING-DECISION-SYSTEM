@@ -1,4 +1,22 @@
 {
   "schema": "HISTORICAL_TRADING_BREAKS_RECOVERY_CAPABILITY_CHANGE_REGISTRY_V1",
-  "changes": []
+  "changes": [
+    {
+      "change_id": "TRADING_BREAKS_TARGET_DAY_OVERLAP_ATTRIBUTION_CHANGE_V1",
+      "from_fingerprint": "82238de6e862e2b31e7a8f4e5faa3f822545ba46251703b06180087a957aaf8f",
+      "to_fingerprint": "e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31",
+      "changed_dimensions": [
+        "proof_capabilities",
+        "protocol_contract"
+      ],
+      "added_proof_capabilities": [
+        "QUALIFIED_CROSS_DATE_INTERVAL_ATTRIBUTION"
+      ],
+      "addresses_blocking_reasons": [
+        "NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE"
+      ],
+      "qualification_contract": "TRADING_BREAKS_TARGET_DAY_OVERLAP_ATTRIBUTION_V1",
+      "qualification_commit": "061e97d90eed2c4c3f1d5f2a261e457fd796413f"
+    }
+  ]
 }
