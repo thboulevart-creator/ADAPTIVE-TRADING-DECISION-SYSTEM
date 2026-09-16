@@ -156,9 +156,12 @@ jobs:
           from pathlib import Path
           text = Path('.github/workflows/p0-3-multi-year-integration-rebreak.yml').read_text(encoding='utf-8')
           assert '\npermissions:\n  contents: read\n' in text
-          assert "src/research/**" not in text
-          assert "04-REFERENCE/RECOVERY-CHECKPOINT.md" not in text
-          assert "git diff --name-only" not in text
+          forbidden = (
+              'src/' + 'research/**',
+              '04-REFERENCE/' + 'RECOVERY-CHECKPOINT.md',
+              'git diff --' + 'name-only',
+          )
+          assert all(token not in text for token in forbidden), forbidden
           print('PASS: P0.3 guard protects its block without constraining later governed blocks')
           PY
 
