@@ -6,6 +6,7 @@
 **P0.2 base:** `45d9bc8c4bf133eced67ccede7c5f439253869b7`  
 **Qualified multi-year source:** `feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698`  
 **Technical integration candidate:** `36e207abf779c02ea99f2d2e66ddf4b6bc7103d2`  
+**Verifier compatibility correction:** `0c25871e86ef1d0caadefe0ec82482af59c2b78c`  
 **Verdict:** **PASS — `QUALIFIED_MULTI_YEAR_FREEZE_SURFACE_SURVIVES_COMBINED_INTEGRATION_REBREAK`**
 
 ## 1. Objective
@@ -78,7 +79,7 @@ Those historical tests encode pre-closure states such as attempt count 68 and no
 
 The combined verifier re-checks all 24 source-identical P0.2 decision-block artifacts against `feat/decision-producer-contract@c0116d195063c464d602fb699654ac61adc7290c`.
 
-No P0.2 functional artifact was modified by the candidate commit. The diff from P0.2 base contains exactly 19 multi-year additions plus the P0.3 verifier.
+No P0.2 functional artifact was modified by the candidate commit. The diff from P0.2 base contains exactly 19 multi-year additions plus the P0.3 verifier, followed only by integration-governance/qualification artifacts and the verifier compatibility correction described below.
 
 ## 6. Candidate persisted-HEAD re-break
 
@@ -127,6 +128,51 @@ The four durable decision workflows remain branch-neutral, PR-covered, path-scop
 
 Worktree after the verifier: clean. GitHub token permissions: `contents: read`, `metadata: read`.
 
+## 6 bis. Verifier lifecycle defect exposed by the closure commit
+
+The first documentary closure commit `c63b3e343417923b34fb9ded258ef24379d1c4f1` exposed a **verifier lifecycle defect**, not a functional regression:
+
+- the P0.3 combined verifier remained green: run/job `35133062328 / 104918538985` — SUCCESS;
+- the old P0.2 verifier failed: run/job `35133062219 / 104918537845` — FAIL;
+- exact failure location: `Prove bounded controlled import and governance preservation`;
+- cause: the P0.2 verifier still compared the whole current integration HEAD against the original `main` and therefore classified the newly authorized P0.3 multi-year paths as `unapproved integration paths`.
+
+The historical P0.2 proof itself was not invalidated: the 24 protected decision artifacts remained source-identical and the decision Tier-A attacks still passed under the combined P0.3 verifier.
+
+### Minimal correction
+
+Commit:
+
+`0c25871e86ef1d0caadefe0ec82482af59c2b78c`
+
+Only the two integration verifier workflows were changed.
+
+The P0.2 verifier was converted from a stage snapshot into a composable regression guard:
+
+- trigger paths are limited to the protected P0.2 decision surface and the verifier itself;
+- generic `GOVERNANCE/**`, checkpoint/report/backup triggers were removed;
+- whole-branch `main → HEAD` allowlist assertions were removed;
+- the obsolete assertion that no multi-year surface may exist on later integration HEADs was removed;
+- source identity of all 24 protected decision artifacts, governance non-deletion, Tier-A tests, anti-forgery attacks, read-only CI and clean worktree remain enforced.
+
+The P0.3 verifier was extended to allow and adversarially inspect this verifier-only compatibility correction.
+
+### Re-cassage after correction
+
+On `0c25871e86ef1d0caadefe0ec82482af59c2b78c`:
+
+- P0.3 combined verifier: run/job `35133507291 / 104920018288` — **SUCCESS**;
+- P0.2 decision regression guard: run/job `35133507299 / 104920018576` — **SUCCESS**;
+- combined repository suite: **`176 passed`**;
+- decision Tier-A suite: **`83 passed`**;
+- calendar/freeze Tier-A suite: **`80 passed`**;
+- calendar/freeze truth and acquisition BLOCKED state: PASS;
+- decision anti-forgery attacks: PASS;
+- P0.2 guard composability assertions: PASS;
+- worktree: clean.
+
+This correction changes no functional P0.2 decision artifact and none of the 19 source-identical P0.3 multi-year artifacts.
+
 ## 7. What P0.3 proves
 
 P0.3 proves that the already-qualified multi-year **final proof state** can coexist with the already-qualified decision block on `integration/system-v1` without mutating either block's critical identities and without importing recovery/acquisition history that is unnecessary for the final proof.
@@ -138,6 +184,8 @@ The combined branch now reproduces both:
 and the governed calendar/freeze truth:
 
 `GLOBAL COVERAGE → SELECTED EXECUTION WINDOW → PROOF-DERIVED BOUNDARY STATE → DURABLE FREEZE`.
+
+It also proves that earlier stage-specific integration verifiers must remain scoped to the block they protect rather than prohibit later explicitly authorized blocks.
 
 ## 8. What P0.3 does NOT prove or authorize
 
@@ -160,7 +208,7 @@ Global coverage therefore remains BLOCKED and acquisition/backtest remain unauth
 
 **PASS — `QUALIFIED_MULTI_YEAR_FREEZE_SURFACE_SURVIVES_COMBINED_INTEGRATION_REBREAK`**
 
-This verdict is bounded to the imported surface and must survive the persisted-HEAD re-break of the closure commit before P0.3 is considered durably closed.
+This verdict is bounded to the imported surface. The final documentary closure HEAD must itself pass the corrected P0.3 persisted-HEAD verifier before P0.3 is considered durably closed.
 
 ## 10. Next governed action
 

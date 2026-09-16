@@ -35,6 +35,10 @@ P0.3 technical integration candidate:
 
 `36e207abf779c02ea99f2d2e66ddf4b6bc7103d2`
 
+P0.3 verifier compatibility correction:
+
+`0c25871e86ef1d0caadefe0ec82482af59c2b78c`
+
 No blind merge, rebase, reset, force-push or branch-history replay was used.
 
 ## P0.2 — decision-block integration remains CLOSED
@@ -44,6 +48,8 @@ Verdict remains:
 **PASS — `QUALIFIED_DECISION_BLOCK_CONTROLLED_IMPORT_SURVIVES_INTEGRATION_REBREAK`**
 
 The 24 controlled decision-block artifacts remain byte-identical to their qualified source. The P0.3 verifier re-checks those identities and re-breaks the critical `RESEARCH → DECISION` anti-forgery boundary.
+
+The P0.2 integration verifier is now a composable regression guard scoped to those protected artifacts. Its original historical P0.2 persisted-HEAD runs remain immutable evidence of the P0.2 stage itself.
 
 ## P0.3 — controlled multi-year freeze-surface integration CLOSED
 
@@ -117,6 +123,49 @@ Evidence:
 - worktree: clean;
 - workflow permissions: `contents: read`, `metadata: read`.
 
+## Verifier lifecycle failure and correction
+
+The first documentary closure commit was:
+
+`c63b3e343417923b34fb9ded258ef24379d1c4f1`
+
+On that HEAD:
+
+- P0.3 combined verifier `35133062328 / 104918538985`: **SUCCESS**;
+- legacy P0.2 integration verifier `35133062219 / 104918537845`: **FAIL** at `Prove bounded controlled import and governance preservation`.
+
+The failure did **not** identify decision-block drift. It identified a verifier lifecycle defect: P0.2 still enforced the historical condition “no multi-year surface imported” against the entire later integration HEAD and treated the explicitly authorized P0.3 paths as unapproved.
+
+Minimal correction commit:
+
+`0c25871e86ef1d0caadefe0ec82482af59c2b78c`
+
+Only the two integration verifier workflows changed.
+
+Correction:
+
+- P0.2 trigger narrowed to its protected decision artifacts plus its own verifier;
+- generic governance/checkpoint/report/backup triggers removed;
+- whole-branch stage allowlist removed from P0.2;
+- obsolete prohibition on later multi-year integration removed from P0.2;
+- source identity of all 24 P0.2 artifacts, governance non-deletion, decision Tier-A tests, anti-forgery attacks, durable CI and clean-worktree checks retained;
+- P0.3 allowlist explicitly permits this verifier-only lifecycle correction and adversarially checks that the P0.2 guard remains scoped/composable.
+
+Re-cassage on correction HEAD:
+
+- P0.3 run/job `35133507291 / 104920018288`: **SUCCESS**;
+- P0.2 run/job `35133507299 / 104920018576`: **SUCCESS**;
+- repository suite: `176 passed`;
+- decision Tier-A: `83 passed`;
+- calendar/freeze Tier-A: `80 passed`;
+- current calendar/freeze truth: PASS;
+- acquisition remains BLOCKED;
+- decision anti-forgery: PASS;
+- P0.2 regression-guard composability: PASS;
+- worktree: clean.
+
+No P0.2 functional artifact and no source-identical P0.3 multi-year artifact changed during this correction.
+
 ## Current multi-year truth on integration branch
 
 The combined integration state re-derives:
@@ -151,7 +200,8 @@ P0.3 closes only:
 - proof-derived execution-window boundary state;
 - persisted freeze validity;
 - continued rejection of tested decision provenance forgeries;
-- continued absence of acquisition/backtest authorization.
+- continued absence of acquisition/backtest authorization;
+- compatibility of the P0.2 regression guard with later explicitly governed integration blocks.
 
 ## Explicitly NOT covered by P0.3
 
@@ -182,11 +232,12 @@ Historical global governance verdicts therefore remain unchanged where not direc
 4. `reports/data-qualification/p0_3_multi_year_integration_qualification.md`
 5. `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
 6. `.github/workflows/p0-3-multi-year-integration-rebreak.yml`
-7. the four durable P0.2 decision-boundary workflows
-8. the 24 P0.2 controlled decision artifacts
-9. the 19 P0.3 source-identical multi-year artifacts listed in the qualification report
-10. inspect `src/research/` and its relevant tests on verified source revisions before designing P0.4
-11. compare active branch HEAD against this checkpoint before any mutation.
+7. `.github/workflows/p0-2-decision-block-integration-rebreak.yml`
+8. the four durable P0.2 decision-boundary workflows
+9. the 24 P0.2 controlled decision artifacts
+10. the 19 P0.3 source-identical multi-year artifacts listed in the qualification report
+11. inspect `src/research/` and its relevant tests on verified source revisions before designing P0.4
+12. compare active branch HEAD against this checkpoint before any mutation.
 
 ## Exactly one next governed action
 
