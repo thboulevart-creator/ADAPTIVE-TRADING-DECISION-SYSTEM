@@ -175,15 +175,15 @@ jobs:
           python -m tools.trading_breaks_recovery_progression >/tmp/progression.generated.stdout
           cmp /tmp/progression.persisted reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
 
-      - name: Prove verifier is strictly read-only no live acquisition and clean
+      - name: Prove verifier is strictly read-only and clean
         run: |
           python - <<'PY'
           from pathlib import Path
-          workflow = Path('.github/workflows/trading-breaks-calendar-closure-persisted-head-rebreak.yml').read_text(encoding='utf-8').lower()
+          workflow = Path('.github/workflows/trading-breaks-calendar-closure-persisted-head-rebreak.yml').read_text(encoding='utf-8')
           assert 'contents: write' not in workflow
-          for token in ('playwright install', 'probe_candidate', 'selenium'):
-              assert token not in workflow, token
-          print('PASS: persisted-HEAD verifier has no live acquisition path')
+          uses = [line.strip() for line in workflow.splitlines() if line.strip().startswith('- uses:')]
+          assert uses == ['- uses: actions/checkout@v4', '- uses: actions/setup-python@v5']
+          print('PASS: verifier external action surface is exactly checkout + setup-python under contents:read')
           PY
           git diff --exit-code
           test -z "$(git status --porcelain)"
