@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — P0.4 RESEARCH PRODUCER JUNCTION PASS / DOCUMENTARY REBREAK PENDING
+# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — P0.5 INTER-PROCESS RE-ATTESTATION PASS / DOCUMENTARY REBREAK PENDING
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 Active branch: `integration/system-v1`
@@ -15,7 +15,7 @@ Allowed verdicts: `PASS / FAIL / BLOCKED`. `BLOCKED` is never `PASS`.
 
 ## Integration lineage
 
-Base integration branch:
+Integration base:
 
 `main@43ec28f3e09856fe508874af3aaf32079761d2d5`
 
@@ -27,216 +27,175 @@ P0.3 qualified multi-year source:
 
 `feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698`
 
+P0.4 final closed base:
+
+`aa9551addc0fe554af9cbb8ebdb26314d37e412e`
+
 No blind merge, rebase, reset, force-push or branch-history replay is authorized by this checkpoint.
 
-## P0.2 — decision block remains CLOSED
+## P0.2 / P0.3 / P0.4 remain CLOSED
 
-Current regression verdict:
+P0.5 combined qualification re-casses the protected predecessors:
 
-**PASS — qualified P0.2 decision invariants survive the governed P0.4 evolution.**
+- P0.2 decision Tier-A: `83 passed`;
+- P0.3 calendar/freeze Tier-A: `80 passed`;
+- P0.4 producer junction C0–C15: `16 passed`.
 
-On combined HEAD:
+No P0.5 operation widens acquisition, backtest or live permissions.
 
-`3b09bd9f6e06fd8833f7bd93d98e839e335000b5`
-
-P0.2 run/job:
-
-`35140401689 / 104943189786` — **SUCCESS**
-
-Evidence:
-
-- 21 protected P0.2 artifacts remain source-identical;
-- 3 authorization-bearing artifacts are explicitly handed to P0.4:
-  - `src/research_run_evidence.py`
-  - `tests/test_context_research_alternative_paths.py`
-  - `tests/test_research_to_decision_boundary.py`
-- decision Tier-A suite: `83 passed`;
-- raw research-evidence minter absent;
-- copy/reconstruction/mutation anti-forgery properties survive;
-- durable decision workflows remain branch-neutral and read-only;
-- worktree clean.
-
-The P0.2 guard is a composable regression guard, not a freeze preventing later governed evolution.
-
-## P0.3 — multi-year freeze surface remains CLOSED
-
-Current verdict:
-
-**PASS — qualified multi-year calendar/freeze truth survives the governed P0.4 integration.**
-
-P0.3 run/job on the same combined HEAD:
-
-`35140401667 / 104943190208` — **SUCCESS**
-
-Evidence:
-
-- 19 protected P0.3 artifacts remain source-identical to the qualified multi-year source;
-- P0.4 downstream handoff is explicit;
-- shared upstream boundary suite: `72 passed`;
-- calendar/freeze Tier-A suite: `80 passed`;
-- current global truth: `111 / 91 / 20`;
-- global coverage verdict: **BLOCKED**;
-- all 20 unresolved dates remain outside and before the frozen selected window;
-- selected window: `2021-08-14 → 2026-08-14`;
-- selected-window truth: `68 / 68 / 0`, FAIL `0`;
-- persisted execution-window freeze: **PASS**;
-- acquisition after persisted freeze: **BLOCKED**;
-- persisted `massive_acquisition_authorized = false`;
-- persisted `real_backtest_authorized = false`;
-- worktree clean.
-
-P0.4 does not widen any P0.3 acquisition or backtest permission.
-
-## P0.4 — real research producer junction qualified
+## P0.5 — RESEARCH inter-process replay re-attestation
 
 Contract:
 
-`04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md`
+`04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md`
 
-Marker:
+Contract ID:
 
-`RESEARCH_PRODUCER_JUNCTION_V1`
+`RESEARCH_INTERPROCESS_REATTESTATION_V1`
 
-Durable qualification report:
+Implementation:
 
-`reports/data-qualification/p0_4_research_producer_junction_qualification.md`
+`src/research_interprocess.py`
 
-JIT governance audit marker:
+Qualification report:
 
-`P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1`
+`reports/data-qualification/p0_5_research_interprocess_reattestation_qualification.md`
+
+JIT audit marker:
+
+`P0_5_RESEARCH_INTERPROCESS_REATTESTATION_JIT_AUDIT_V1`
 
 Session backup:
 
-`99-BACKUP/SESSION-2026-09-16-P0.4-RESEARCH-PRODUCER-JUNCTION-PASS.md`
+`99-BACKUP/SESSION-2026-09-16-P0.5-RESEARCH-INTERPROCESS-REATTESTATION-PASS.md`
 
-### Exact runtime surface
+### Selected trust model
 
-Exactly five `src/research/` files are integrated:
+P0.5 does not promote a JSON checksum into a bearer credential. The durable proof is non-authorizing until a fresh consumer process independently replays the qualified research execution.
 
-1. `src/research/__init__.py`
-2. `src/research/bi5_reader.py`
-3. `src/research/input_binding.py`
-4. `src/research/engine.py`
-5. `src/research/execution.py`
+Admissible path:
 
-`__init__.py` and `bi5_reader.py` remain source-identical to the qualified multi-year source. The authorization-bearing input/execution path was minimally hardened for P0.4.
+`qualified RESEARCH execution → content-addressed persisted proof → fresh process → source-byte validation → deterministic replay → exact claim comparison → fresh P0.4 process-local ResearchRunEvidence attestation → ResearchFindings / DECISION`
 
-No `.bi5` corpus, `data/`, `LOCAL-EVIDENCE/`, acquisition downloader, network probe, historical recovery script or real backtest execution surface was imported.
+The consumer receives the expected code version separately from the proof and supplies local corpus/contract paths independently. A byte-identical source may move filesystem location without changing its governed identity.
 
-### Admissible producer chain
+## Initial Tier-A FAIL
 
-`QualifiedResearchInput → BoundResearchInput → deterministic runtime execution → ResearchExecutionResult → ResearchRunEvidence → ResearchFindings / DECISION`
+Pre-correction HEAD:
 
-Required properties:
-
-- only factory-bound input reaches the engine;
-- bound input is process-locally identity/content attested;
-- execution result is process-locally identity/content attested and bound to its exact input;
-- empty execution is non-authorizing;
-- Dataset and full Context identities must match;
-- corpus and contract hashes must match;
-- observation bounds and code version must match;
-- only `from_research_execution(...)` can produce downstream-attested `ResearchRunEvidence`;
-- legacy `from_v43_report(...)` remains compatibility-only and non-authorizing;
-- raw `_attest_factory_evidence` is absent from module scope.
-
-### Initial Tier-A FAIL
-
-Pre-integration breaker HEAD:
-
-`5619f6d3ae608bf9a3f0871345815b7906a6caba`
+`36f97ee715655f6b2470e7836f7c82e6285aa237`
 
 Run/job:
 
-`35136475040 / 104929994347`
+`35143592655 / 104953910890` — **FAIL expected**.
 
-Observed failures:
+Evidence:
 
-1. report-only V4.3 evidence could authorize downstream use without real runtime execution;
-2. raw evidence-attestation minter was module-visible;
-3. manual evidence could reach that minter.
+- P0.4 C0–C15: `16 passed`;
+- P0.5 provisional breaker: `1 failed / 1 passed`;
+- failure was exactly the absent durable writer/re-attestation bridge;
+- raw serialized evidence was already non-authorizing in a fresh process;
+- no acquisition/backtest side effect;
+- worktree clean.
 
-This state was correctly classified **FAIL**.
+## Corrected D0–D14 attack matrix
 
-### Corrected full C0–C15 qualification
+HEAD:
 
-Corrected code qualification HEAD:
-
-`edb2501a2b09bd142f037a82f6971696c08c1213`
+`7f864b2da4e5590df26ca5a152e84cd67a362d98`
 
 Run/job:
 
-`35137560719 / 104933628790` — **SUCCESS**
+`35144130840 / 104955745568` — **SUCCESS**.
 
-Results:
+- P0.5 D0–D14: `15 passed`;
+- P0.4 C0–C15: `16 passed`;
+- read-only/no-acquisition checks: PASS;
+- worktree clean.
 
-- complete repository: `192 passed`;
-- P0.4 C0 + C1–C15: `16 passed`;
-- upstream decision boundary: `73 passed`;
-- calendar/freeze boundary: `80 passed`;
-- exact five-file runtime surface: PASS;
-- raw minter absent: PASS;
-- no acquisition/probe/data/backtest surface: PASS;
-- worktree clean;
-- read-only workflow permissions.
+Attacks cover fresh-process positive replay, raw serialized non-authority, claim tampering plus recomputed digest, trusted code-version mismatch, corpus/contract substitution, content-address rename, strict schema/duplicate keys, report-only evidence, copied/reconstructed/mutated evidence and filesystem relocation of byte-identical sources.
 
-No further P0.4 defect was observed.
+## Combined technical persisted-HEAD qualification
 
-## Same-SHA combined proof
+HEAD:
 
-All three dedicated P0.2/P0.3/P0.4 regression guards are green on the same persisted SHA:
+`05b9752fff9f25ad2301c6385feba14848b4bb27`
 
-`3b09bd9f6e06fd8833f7bd93d98e839e335000b5`
+Run/job:
 
-- P0.2: `35140401689 / 104943189786` — SUCCESS — `83 passed` Tier-A decision suite;
-- P0.3: `35140401667 / 104943190208` — SUCCESS — `72 passed` shared upstream + `80 passed` calendar/freeze;
-- P0.4: `35140401707 / 104943190275` — SUCCESS — `192 passed` repository + `16 passed` C0–C15 + `73 passed` decision + `80 passed` calendar/freeze.
+`35144258717 / 104956179724` — **SUCCESS**.
 
-All are read-only and clean-worktree qualified.
+Exact results:
 
-## Covered by P0.4
+- complete repository: `207 passed`;
+- P0.5 D0–D14: `15 passed`;
+- P0.4 C0–C15: `16 passed`;
+- P0.2 decision Tier-A: `83 passed`;
+- P0.3 calendar/freeze Tier-A: `80 passed`;
+- proof is non-authorizing without replay: PASS;
+- raw evidence minter absent: PASS;
+- permissions read-only;
+- worktree clean.
 
-P0.4 closes only:
+## Current multi-year safety truth
 
-- the in-process real `src/research/ → ResearchRunEvidence` producer junction;
-- exact five-file runtime integration;
-- factory-bound input/result provenance;
-- tested report-only/manual/copy/reconstruction/mutation/rebinding rejection;
-- downstream use of only runtime-attested research evidence;
-- preservation/composability of P0.2 and P0.3;
-- deterministic synthetic local BI5 qualification.
+Still re-derived unchanged:
 
-## Explicitly NOT covered by P0.4
+- global candidates/resolved/unresolved: `111 / 91 / 20`;
+- global coverage: **BLOCKED**;
+- selected window: `2021-08-14 → 2026-08-14`;
+- selected-window candidates/resolved/unresolved: `68 / 68 / 0`;
+- persisted freeze: **PASS**;
+- acquisition after persisted freeze: **BLOCKED**;
+- persisted `massive_acquisition_authorized = false`;
+- persisted `real_backtest_authorized = false`.
+
+## Covered by P0.5
+
+P0.5 closes only:
+
+- durable content-addressed persistence of qualified research execution proof;
+- consumer-side deterministic replay across a process boundary;
+- exact source/execution/Dataset/Context/evidence revalidation;
+- separately trusted expected code version;
+- fresh local P0.4 attestation before downstream authorization;
+- tested tamper/reconstruction/substitution/schema/content-address attacks;
+- preservation of P0.2/P0.3/P0.4 qualified boundaries.
+
+## Explicitly NOT covered by P0.5
 
 Still open / not authorized:
 
-- inter-process or persisted attestation;
-- native `.bi5` acquisition protocol/readiness/authorization;
-- acquisition manifests, tick completeness/exhaustiveness and reconciliation;
+- non-replay cryptographic bearer attestation;
+- signing-key trust root/lifecycle;
+- repository-wide dependency/environment lock and reproducibility envelope;
+- remaining integration workflow branch coupling where still present;
+- native `.bi5` acquisition/readiness/authorization;
+- acquisition manifests and tick completeness/reconciliation;
 - exact OOS split;
 - real-data backtest;
-- `DECISION → RISK → ACTION → RESULT → TRACE` complete chain;
+- `DECISION → RISK → ACTION → RESULT → TRACE`;
 - complete transverse decision reconstruction;
-- resilience/restoration;
+- general resilience/restoration;
 - promotion gate or live activation.
 
-Historical global governance verdicts remain unchanged outside the bounded P0.4 scope:
+Historical global governance verdicts therefore remain unchanged outside this bounded scope:
 
-- Decision Traceability: **FAIL globally** until the downstream transverse chain is proven;
+- Decision Traceability: **FAIL globally** until the downstream chain is proven;
 - Resilience / Continuity: **FAIL**;
 - Governance Effectiveness: **BLOCKED globally**, despite bounded JIT PASSes.
 
 ## Documentary closure status
 
-The P0.4 code boundary and the same-SHA P0.2/P0.3/P0.4 regression state are qualified **PASS**.
+The P0.5 code boundary is technically qualified PASS.
 
-This checkpoint is part of the documentary closure candidate. P0.4 becomes durably closed only after a final read-only persisted-HEAD P0.4 re-break succeeds on the exact HEAD containing:
+This checkpoint is part of the documentary closure candidate. P0.5 becomes durably CLOSED only after a final read-only persisted-HEAD P0.5 re-break succeeds on the exact HEAD containing:
 
 - this checkpoint;
-- `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md` with `P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1`;
-- `reports/data-qualification/p0_4_research_producer_junction_qualification.md`;
-- `99-BACKUP/SESSION-2026-09-16-P0.4-RESEARCH-PRODUCER-JUNCTION-PASS.md`;
-- the final P0.4 persisted-HEAD workflow.
+- `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md` with `P0_5_RESEARCH_INTERPROCESS_REATTESTATION_JIT_AUDIT_V1`;
+- `reports/data-qualification/p0_5_research_interprocess_reattestation_qualification.md`;
+- `99-BACKUP/SESSION-2026-09-16-P0.5-RESEARCH-INTERPROCESS-REATTESTATION-PASS.md`;
+- the final P0.5 persisted-HEAD workflow.
 
 No substantive write may follow that successful final re-break without reopening qualification.
 
@@ -244,21 +203,19 @@ No substantive write may follow that successful final re-break without reopening
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-16-P0.4-RESEARCH-PRODUCER-JUNCTION-PASS.md`
-4. `reports/data-qualification/p0_4_research_producer_junction_qualification.md`
+3. `99-BACKUP/SESSION-2026-09-16-P0.5-RESEARCH-INTERPROCESS-REATTESTATION-PASS.md`
+4. `reports/data-qualification/p0_5_research_interprocess_reattestation_qualification.md`
 5. `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
-6. `04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md`
-7. `.github/workflows/p0-4-research-producer-junction.yml`
-8. `.github/workflows/p0-2-decision-block-integration-rebreak.yml`
-9. `.github/workflows/p0-3-multi-year-integration-rebreak.yml`
-10. `src/research_run_evidence.py`
-11. the five `src/research/` runtime files
-12. `tests/test_research_producer_junction_tier_a.py`
-13. `tests/research_runtime_fixture.py`
-14. verify branch HEAD and the latest successful final P0.4 persisted-HEAD re-break before any mutation.
+6. `04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md`
+7. `.github/workflows/p0-5-research-interprocess-reattestation.yml`
+8. `src/research_interprocess.py`
+9. `tests/test_research_interprocess_reattestation_tier_a.py`
+10. P0.4 contract/workflow/runtime/evidence source and C0–C15 tests
+11. P0.2 and P0.3 regression guards
+12. verify branch HEAD and latest successful final P0.5 persisted-HEAD re-break before mutation.
 
-## Next governed action after final documentary re-break
+## Exactly one next governed action after final P0.5 documentary re-break
 
-Do not start it until P0.4 documentary closure is proven.
+**P0.6 — close the repository reproducibility envelope before adding new capability: inventory the actual Python/runtime dependencies and workflow assumptions, select the smallest authoritative dependency/environment lock, make qualification workflows reproducible/transportable where required, adversarially break version drift/missing dependency/environment mismatch, and re-break P0.2–P0.5 without authorizing acquisition or backtest.**
 
-The next block must be selected from the remaining explicitly open architecture, not inferred as authorization for acquisition or real backtest. In particular, native acquisition, exact OOS split, inter-process attestation and downstream execution/risk remain separate gates.
+The promotion gate remains the following P1 gate; P0.6 must not silently implement or authorize capability promotion.
