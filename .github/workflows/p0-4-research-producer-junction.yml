@@ -6,7 +6,13 @@ on:
       - integration/system-v1
     paths:
       - '.github/workflows/p0-4-research-producer-junction.yml'
+      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
+      - '.github/workflows/p0-3-multi-year-integration-rebreak.yml'
       - '04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md'
+      - '04-REFERENCE/RECOVERY-CHECKPOINT.md'
+      - 'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md'
+      - 'reports/data-qualification/p0_4_research_producer_junction_qualification.md'
+      - '99-BACKUP/SESSION-2026-09-16-P0.4-RESEARCH-PRODUCER-JUNCTION-PASS.md'
       - 'src/research_run_evidence.py'
       - 'src/research/**'
       - 'tests/research_runtime_fixture.py'
@@ -14,9 +20,8 @@ on:
       - 'tests/test_context_to_research_boundary.py'
       - 'tests/test_context_research_alternative_paths.py'
       - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_reader_adversarial.py'
       - 'tests/test_research_to_decision_boundary.py'
-      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
-      - '.github/workflows/p0-3-multi-year-integration-rebreak.yml'
   workflow_dispatch:
 
 permissions:
@@ -42,6 +47,52 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_3_BASE}" HEAD
           git cat-file -e "${SOURCE_RUNTIME}^{commit}"
+
+      - name: Prove documentary closure artifacts are persisted and bounded
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          audit = Path('GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md')
+          report = Path('reports/data-qualification/p0_4_research_producer_junction_qualification.md')
+          checkpoint = Path('04-REFERENCE/RECOVERY-CHECKPOINT.md')
+          backup = Path('99-BACKUP/SESSION-2026-09-16-P0.4-RESEARCH-PRODUCER-JUNCTION-PASS.md')
+          for path in (audit, report, checkpoint, backup):
+              assert path.is_file(), f'missing P0.4 closure artifact: {path}'
+
+          audit_text = audit.read_text(encoding='utf-8')
+          report_text = report.read_text(encoding='utf-8')
+          checkpoint_text = checkpoint.read_text(encoding='utf-8')
+          backup_text = backup.read_text(encoding='utf-8')
+
+          marker = 'P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1'
+          assert marker in audit_text
+          assert marker in checkpoint_text
+          assert marker in backup_text
+          assert 'RESEARCH_PRODUCER_JUNCTION_V1' in report_text
+          assert 'RESEARCH_PRODUCER_JUNCTION_V1' in checkpoint_text
+          assert 'RESEARCH_PRODUCER_JUNCTION_V1' in backup_text
+
+          for label, text in (
+              ('audit', audit_text),
+              ('report', report_text),
+              ('checkpoint', checkpoint_text),
+              ('backup', backup_text),
+          ):
+              lowered = text.lower()
+              assert 'covered by p0.4' in lowered, label
+              assert 'explicitly not covered by p0.4' in lowered, label
+
+          for text in (report_text, checkpoint_text, backup_text):
+              assert '35140401689 / 104943189786' in text
+              assert '35140401667 / 104943190208' in text
+              assert '35140401707 / 104943190275' in text
+              assert '3b09bd9f6e06fd8833f7bd93d98e839e335000b5' in text
+
+          assert '111/91/20' in audit_text.replace(' ', '') or '111 / 91 / 20' in audit_text
+          assert '68/68/0' in audit_text.replace(' ', '') or '68 / 68 / 0' in audit_text
+          print('PASS: P0.4 audit, report, checkpoint and backup are persisted with explicit bounded scope')
+          PY
 
       - name: Prove controlled five-file runtime import
         run: |
@@ -85,13 +136,14 @@ jobs:
         run: |
           python -m pytest -q tests/test_research_producer_junction_tier_a.py
 
-      - name: Re-break upstream decision Tier-A boundary
+      - name: Re-break complete P0.2 decision Tier-A boundary
         run: |
           python -m pytest -q \
             tests/test_data_to_context.py \
             tests/test_context_to_research_boundary.py \
             tests/test_context_research_alternative_paths.py \
             tests/test_research_findings_contract.py \
+            tests/test_research_reader_adversarial.py \
             tests/test_research_to_decision_boundary.py \
             tests/test_durable_ci_branch_independence.py
 
@@ -105,7 +157,31 @@ jobs:
             tests/test_frozen_execution_window.py \
             tests/test_trading_breaks_post_closure_current_state.py
 
-      - name: Prove no raw evidence minter and acquisition remains outside scope
+      - name: Re-prove current P0.3 global/window truth and blocked acquisition
+        run: |
+          python - <<'PY'
+          from datetime import date
+          from tools.coverage_execution_window_boundary import BLOCKED, DECLARE_GLOBAL_COVERAGE_PASS, evaluate_boundary
+          from tools.current_execution_window_boundary_state import derive_current_boundary_evidence, evaluate_current_freeze
+          from tools.frozen_execution_window import evaluate_acquisition_after_persisted_freeze, evaluate_persisted_execution_window_freeze
+
+          evidence = derive_current_boundary_evidence()
+          state = evidence.state
+          assert state.window_start == date(2021, 8, 14)
+          assert state.window_end == date(2026, 8, 14)
+          assert (evidence.global_candidate_count, evidence.global_resolved_count, state.global_unresolved_count) == (111, 91, 20)
+          assert (evidence.window_candidate_count, evidence.window_resolved_count, state.window_unresolved_count) == (68, 68, 0)
+          assert evaluate_boundary(DECLARE_GLOBAL_COVERAGE_PASS, state).verdict == BLOCKED
+          assert evaluate_current_freeze().decision.verdict == 'PASS'
+          frozen = evaluate_persisted_execution_window_freeze()
+          assert frozen.decision.verdict == 'PASS'
+          assert frozen.evidence.record['massive_acquisition_authorized'] is False
+          assert frozen.evidence.record['real_backtest_authorized'] is False
+          assert evaluate_acquisition_after_persisted_freeze().verdict == BLOCKED
+          print('PASS: global 111/91/20 remains BLOCKED; selected 68/68/0 and freeze remain PASS; acquisition remains BLOCKED')
+          PY
+
+      - name: Prove no raw evidence minter and P0.4 remains process-local
         run: |
           python - <<'PY'
           from pathlib import Path
