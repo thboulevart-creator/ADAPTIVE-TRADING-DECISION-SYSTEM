@@ -1,0 +1,55 @@
+name: Trading Breaks Target-Day Overlap Source Binding
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-target-day-overlap-source-binding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove qualified V2 semantics ancestry and current branch head
+        run: |
+          git merge-base --is-ancestor 061e97d90eed2c4c3f1d5f2a261e457fd796413f HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Break latest-attempt shadowing and source-identity attacks
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_source_binding.py \
+            tests/test_trading_breaks_recovery_batch15_v2_execution.py \
+            tests/test_trading_breaks_recovery_batch15_v2_adjudication.py
+          python - <<'PY'
+          from tools.trading_breaks_target_day_overlap_semantics import load_class_a_evidence, qualify_class_a
+          loaded = load_class_a_evidence()
+          assert len(loaded) == 14
+          assert qualify_class_a()['class_a_count'] == 14
+          print('PASS: immutable historical Class-A source binding survives later-attempt shadow attacks')
+          PY
+
+      - name: Prove qualification is read-only
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
