@@ -1,0 +1,73 @@
+name: P0.4 Research Producer Junction Tier-A
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p0-4-research-producer-junction.yml'
+      - '04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md'
+      - 'src/research_run_evidence.py'
+      - 'src/research/**'
+      - 'tests/test_research_producer_junction_tier_a.py'
+      - 'tests/test_context_to_research_boundary.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_to_decision_boundary.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  P0_3_BASE: '49cbf7b7e4191deac3e2935eb18887a9e7c74629'
+  SOURCE_RUNTIME: 'b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698'
+
+jobs:
+  tier-a-break:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and P0.3 ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P0_3_BASE}" HEAD
+          git cat-file -e "${SOURCE_RUNTIME}^{commit}"
+
+      - name: Prove pre-integration candidate has no runtime import
+        run: |
+          if [ -d src/research ]; then
+            echo 'Unexpected runtime research import before observed Tier-A failure' >&2
+            exit 1
+          fi
+          test -f 04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md
+          test -f tests/test_research_producer_junction_tier_a.py
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Prove inherited upstream boundaries are green before new attacks
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_context_to_research_boundary.py \
+            tests/test_context_research_alternative_paths.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_to_decision_boundary.py
+
+      - name: Break the unqualified producer junction
+        run: |
+          python -m pytest -q tests/test_research_producer_junction_tier_a.py
+
+      - name: Prove clean worktree even on failure
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
