@@ -100,6 +100,9 @@ jobs:
               assert Path(path).is_file(), ('P0.4-evolved P0.2 artifact missing', path)
           contract = Path('04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md').read_text(encoding='utf-8')
           assert 'RESEARCH_PRODUCER_JUNCTION_V1' in contract
+          assert Path('src/research/execution.py').is_file()
+          assert Path('tests/research_runtime_fixture.py').is_file()
+          assert Path('.github/workflows/p0-4-research-producer-junction.yml').is_file()
 
           base_governance = set(subprocess.check_output(
               ['git', 'ls-tree', '-r', '--name-only', base, 'GOVERNANCE'], text=True
@@ -108,7 +111,7 @@ jobs:
               ['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'GOVERNANCE'], text=True
           ).splitlines())
           assert not (base_governance - head_governance), 'governance deletion detected'
-          print('PASS: 21 P0.2 artifacts remain source-identical; 3 artifacts are explicitly handed to P0.4')
+          print('PASS: 21 P0.2 artifacts remain source-identical; 3 artifacts are explicitly handed to qualified P0.4')
           PY
 
       - uses: actions/setup-python@v5
@@ -132,11 +135,13 @@ jobs:
           python - <<'PY'
           import copy
           from dataclasses import fields
+          import src.research_run_evidence as evidence_module
           from src.decision import produce_decision
           from src.research_findings import ResearchFinding, ResearchFindings, ResearchHypothesis, ResearchMeasurement
           from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
           from tests.test_research_to_decision_boundary import coherent_inputs, reconstruct
 
+          assert not hasattr(evidence_module, '_attest_factory_evidence')
           evidence, context = coherent_inputs()
           assert is_factory_attested(evidence)
           assert produce_decision(evidence, context=context, decision='HOLD').research_run_id == evidence.research_run_id
