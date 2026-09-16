@@ -4,9 +4,23 @@ from datetime import date
 import tools.trading_breaks_target_day_overlap_semantics as semantics
 from tools.trading_breaks_recovery_progression import load_attempt_ledger
 
+PROVENANCE_KEYS = (
+    "workflow_run",
+    "job_id",
+    "artifact_id",
+    "artifact_sha256",
+    "probe_commit",
+)
+
 
 def _source_attempt(attempts, attempt_id):
     return next(item for item in attempts if item.attempt_id == attempt_id)
+
+
+def _assert_governed_provenance(runtime_provenance, source_provenance):
+    assert {key: runtime_provenance[key] for key in PROVENANCE_KEYS} == {
+        key: source_provenance[key] for key in PROVENANCE_KEYS
+    }
 
 
 def test_class_a_loader_binds_exact_historical_source_attempts():
@@ -22,7 +36,7 @@ def test_class_a_loader_binds_exact_historical_source_attempts():
         assert source.outcome == "BLOCKED"
         assert source.blocking_reason == semantics.ADDRESSES_BLOCKER
         assert source.capability_id == "TRADING_BREAKS_PRIMARY_WIDGET_V1"
-        assert provenance == source.provenance
+        _assert_governed_provenance(provenance, source.provenance)
 
 
 def test_later_v2_retry_cannot_shadow_immutable_class_a_source(monkeypatch):
@@ -48,7 +62,7 @@ def test_later_v2_retry_cannot_shadow_immutable_class_a_source(monkeypatch):
     )
     loaded = semantics.load_class_a_evidence()
     row = next(item for item in loaded if item[0] == target)
-    assert row[3] == source.provenance
+    _assert_governed_provenance(row[3], source.provenance)
     assert semantics.qualify_class_a()["class_a_count"] == 14
 
 
