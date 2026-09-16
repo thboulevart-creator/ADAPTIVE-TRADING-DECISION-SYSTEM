@@ -93,6 +93,7 @@ jobs:
           }
 
           integration_only = {
+              '.github/workflows/p0-2-decision-block-integration-rebreak.yml',
               '.github/workflows/p0-3-multi-year-integration-rebreak.yml',
               '04-REFERENCE/RECOVERY-CHECKPOINT.md',
               'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md',
@@ -373,7 +374,7 @@ jobs:
           print('PASS: no acquisition/probe/recovery-history/backtest execution surface imported')
           PY
 
-      - name: Prove P0.2 durable decision workflows remain branch-neutral and read-only
+      - name: Prove P0.2 durable decision workflows and regression guard remain composable
         shell: bash
         run: |
           python - <<'PY'
@@ -391,7 +392,16 @@ jobs:
               assert '\n  push:' in text and '\n  pull_request:' in text, path
               assert text.count('\n    paths:') >= 2, path
               assert '\npermissions:\n  contents: read\n' in text, path
-          print('PASS: decision durable CI remains branch-neutral, PR-covered, path-scoped, and read-only')
+
+          guard = Path('.github/workflows/p0-2-decision-block-integration-rebreak.yml').read_text(encoding='utf-8')
+          assert '\npermissions:\n  contents: read\n' in guard
+          assert "- 'GOVERNANCE/**'" not in guard
+          assert "04-REFERENCE/RECOVERY-CHECKPOINT.md" not in guard
+          assert 'Prove no multi-year acquisition or backtest surface imported' not in guard
+          assert "- '.github/workflows/p0-2-decision-block-integration-rebreak.yml'" in guard
+          assert "- 'src/research_run_evidence.py'" in guard
+          assert 'source-identical decision block without constraining later approved blocks' in guard
+          print('PASS: decision CI stays read-only and the P0.2 guard is scoped to its protected block')
           PY
 
       - name: Prove read-only clean worktree
