@@ -47,7 +47,7 @@ def test_later_v2_retry_cannot_shadow_immutable_class_a_source(monkeypatch):
     synthetic_retry = replace(
         source,
         attempt_sequence=999,
-        attempt_id="overlap-v2:2021-12-24",
+        attempt_id="synthetic-overlap-v2:2021-12-24",
         batch_contract="SYNTHETIC_POST_SOURCE_RETRY",
         outcome="PASS",
         adjudication_reason="TARGET_DAY_OVERLAP_PRIMARY_BROKER_INTERVAL_VALIDATED",
