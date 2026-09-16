@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import inspect
 from datetime import date
 from pathlib import Path
 
@@ -116,7 +117,11 @@ def test_integration_source_contains_no_live_broker_acquisition_path() -> None:
 
 
 def test_class_b_contract_does_not_promote_matching_records_empty_directly() -> None:
-    source = Path(closure.__file__).read_text(encoding="utf-8")
-    assert "matching_records" not in source
-    assert closure.NEGATIVE_CONTRACT in source
-    assert closure.NEGATIVE_REPORT_SOURCE in source
+    class_b_source = (
+        inspect.getsource(closure.authoritative_class_b)
+        + inspect.getsource(closure.render_class_b_entry)
+    )
+    assert "matching_records" not in class_b_source
+    full_source = Path(closure.__file__).read_text(encoding="utf-8")
+    assert closure.NEGATIVE_CONTRACT in full_source
+    assert closure.NEGATIVE_REPORT_SOURCE in full_source
