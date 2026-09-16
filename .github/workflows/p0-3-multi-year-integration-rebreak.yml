@@ -6,6 +6,7 @@ on:
       - integration/system-v1
     paths:
       - '.github/workflows/p0-3-multi-year-integration-rebreak.yml'
+      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
       - '04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md'
       - '04-REFERENCE/EXECUTION-WINDOW-FREEZE.json'
       - '04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md'
@@ -30,6 +31,7 @@ on:
       - integration/system-v1
     paths:
       - '.github/workflows/p0-3-multi-year-integration-rebreak.yml'
+      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
       - '04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md'
       - '04-REFERENCE/EXECUTION-WINDOW-FREEZE.json'
       - '04-REFERENCE/EXECUTION-WINDOW-SELECTION-RULE.md'
@@ -104,6 +106,17 @@ jobs:
               actual = subprocess.check_output(['git', 'rev-parse', f'HEAD:{path}'], text=True).strip()
               assert actual == expected, (path, expected, actual)
           print('PASS: P0.3 protected surface remains source-identical')
+          PY
+
+      - name: Prove governed P0.4 downstream handoff remains explicit
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          contract = Path('04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md').read_text(encoding='utf-8')
+          assert 'RESEARCH_PRODUCER_JUNCTION_V1' in contract
+          assert Path('src/research/execution.py').is_file()
+          assert Path('tests/test_research_producer_junction_tier_a.py').is_file()
+          print('PASS: P0.3 preserves its block while accepting the governed P0.4 downstream handoff')
           PY
 
       - uses: actions/setup-python@v5
