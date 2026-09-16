@@ -1,0 +1,65 @@
+name: Trading Breaks Recovery Batch 15 V2 Execution
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch15-v2-execution.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove Batch 15 persisted membership re-break ancestry
+        run: |
+          git merge-base --is-ancestor ab7ac2c4b634a9815dbcf79d013918afa82b5cb2 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Select exact persisted V2 evidence without recapture
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q tests/test_trading_breaks_recovery_batch15_v2_execution.py
+          python -m tools.trading_breaks_recovery_batch15_v2_execution > /tmp/batch15-v2-execution.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          report = json.loads(Path('/tmp/batch15-v2-execution.json').read_text(encoding='utf-8'))
+          assert report['verdict'] == 'PASS'
+          assert report['capture_mode'] == 'PERSISTED_OFFLINE_READJUDICATION_REUSE'
+          assert report['selected_count'] == report['pass_count'] == 5
+          assert report['blocked_count'] == report['fail_count'] == 0
+          assert report['browser_used'] is False
+          assert report['probe_used'] is False
+          assert report['network_used'] is False
+          print('PASS: Batch 15 exact persisted evidence selected with zero recapture')
+          PY
+
+      - name: Prove execution is offline and repository read-only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          source = Path('tools/trading_breaks_recovery_batch15_v2_execution.py').read_text(encoding='utf-8').lower()
+          for token in ('playwright', 'selenium', 'requests.', 'urllib.request', 'probe_candidate'):
+              assert token not in source, token
+          print('PASS: no browser/probe/network implementation in Batch 15 execution selector')
+          PY
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
