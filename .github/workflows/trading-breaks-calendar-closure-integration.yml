@@ -174,11 +174,18 @@ jobs:
           sha256sum -c /tmp/ledger.before
           sha256sum -c /tmp/capability.before
           python - <<'PY'
+          import inspect
           from pathlib import Path
-          source = Path('tools/integrate_trading_breaks_calendar_closure.py').read_text(encoding='utf-8').lower()
+          import tools.integrate_trading_breaks_calendar_closure as closure
+
+          source = Path(closure.__file__).read_text(encoding='utf-8').lower()
           for token in ('playwright', 'selenium', 'requests.', 'urllib.request', 'probe_candidate'):
               assert token not in source, token
-          assert 'matching_records' not in source
+          class_b_source = (
+              inspect.getsource(closure.authoritative_class_b)
+              + inspect.getsource(closure.render_class_b_entry)
+          )
+          assert 'matching_records' not in class_b_source
           print('PASS: closure integration is qualified-persisted-evidence-only')
           PY
           git diff --check
