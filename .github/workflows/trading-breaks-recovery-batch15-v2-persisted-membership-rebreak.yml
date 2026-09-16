@@ -1,0 +1,115 @@
+name: Trading Breaks Recovery Batch 15 V2 Persisted Membership Re-break
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-recovery-batch15-v2-persisted-membership-rebreak.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove qualified freeze ancestry and persisted evidence
+        run: |
+          git merge-base --is-ancestor 8066e82607db1f8de0b406ec36684a6856e0646d HEAD
+          git merge-base --is-ancestor 2c5f830a00659676221c8737877092cb270c98a4 HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          test -f reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_freeze_qualification.md
+          grep -F 'PASS — BATCH15_V2_RETRY_MEMBERSHIP_ADVERSARIALLY_FROZEN' reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_freeze_qualification.md
+          grep -F '35067822465' reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_freeze_qualification.md
+          grep -F '104702050599' reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_freeze_qualification.md
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-break persisted membership independently
+        run: |
+          python -m pip install pytest==8.4.2
+          python - <<'PY'
+          from datetime import date
+          from tools.trading_breaks_recovery_batch15 import (
+              BATCH_SIZE,
+              CURRENT_CAPABILITY_FINGERPRINT,
+              CURRENT_CAPABILITY_ID,
+              FREEZE_BASELINE_HEAD,
+              FROZEN_BATCH15_TARGETS,
+              batch15_targets,
+          )
+          from tools.trading_breaks_recovery_progression import (
+              current_capability,
+              eligible_recovery_queue,
+              load_attempt_ledger,
+              load_material_capability_changes,
+              progression_decisions,
+          )
+          from tools.trading_breaks_recovery_protocol import recovery_queue
+
+          expected = [
+              (date(2021, 12, 24), 'CHRISTMAS_OBSERVED'),
+              (date(2022, 4, 15), 'GOOD_FRIDAY'),
+              (date(2022, 12, 26), 'CHRISTMAS_OBSERVED'),
+              (date(2023, 1, 2), 'NEW_YEARS_OBSERVED'),
+              (date(2023, 7, 4), 'INDEPENDENCE_DAY_OBSERVED'),
+          ]
+          raw = recovery_queue()
+          eligible = eligible_recovery_queue()
+          decisions = progression_decisions()
+          _, current_id, attempts = load_attempt_ledger()
+          changes = load_material_capability_changes()
+
+          assert FREEZE_BASELINE_HEAD == 'd6622e8da58e2d4218947ff3f2953fe8e19a2c96'
+          assert BATCH_SIZE == 5
+          assert len(raw) == 17
+          assert len(eligible) == 14
+          assert len(attempts) == 68
+          assert len(changes) == 1
+          assert current_id == CURRENT_CAPABILITY_ID == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          assert current_capability().fingerprint() == CURRENT_CAPABILITY_FINGERPRINT == 'e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31'
+          assert batch15_targets() == expected == eligible[:5] == list(FROZEN_BATCH15_TARGETS)
+          assert len(set(batch15_targets())) == 5
+
+          by_day = {item.target_date: item for item in decisions}
+          for day, reason in expected:
+              item = by_day[day]
+              assert item.candidate_reason == reason
+              assert item.eligible
+              assert item.reason == 'MATERIAL_CAPABILITY_CHANGE_RETRY'
+              assert item.latest_attempt_outcome == 'BLOCKED'
+
+          attacks = [
+              expected[:-1],
+              list(reversed(expected)),
+              [expected[1], expected[0], *expected[2:]],
+              [expected[0], expected[0], *expected[2:]],
+              eligible[1:6],
+              [*expected, eligible[5]],
+          ]
+          assert all(attack != expected for attack in attacks)
+          print('PASS: persisted Batch 15 membership independently re-broken')
+          PY
+          python -m pytest -q tests/test_trading_breaks_recovery_batch15.py tests/test_trading_breaks_target_day_overlap_readjudication.py
+
+      - name: Prove read-only and byte-stable final state
+        run: |
+          BEFORE="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          python -m tools.trading_breaks_recovery_progression >/tmp/batch15-persisted-membership-rebreak.json
+          AFTER="$(sha256sum reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER"
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
