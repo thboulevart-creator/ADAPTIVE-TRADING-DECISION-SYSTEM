@@ -25,6 +25,7 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
+          import textwrap
 
           protocol = Path('GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md')
           register = Path('GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md')
@@ -88,9 +89,9 @@ jobs:
 
           ## Audit JIT — P0.0 rebaseline post-clôture
 
-          **Audit ID : `P0_FULL_SUITE_REBASELINE_JIT_AUDIT_V1`**  
-          **Date :** 16 septembre 2026  
-          **Périmètre couvert :** cohérence du corpus de régression après clôture Trading Breaks, présence du corpus de gouvernance supprimé sur la branche, et formalisation minimale de la carence avant assouplissement.  
+          **Audit ID : `P0_FULL_SUITE_REBASELINE_JIT_AUDIT_V1`**
+          **Date :** 16 septembre 2026
+          **Périmètre couvert :** cohérence du corpus de régression après clôture Trading Breaks, présence du corpus de gouvernance supprimé sur la branche, et formalisation minimale de la carence avant assouplissement.
           **Complément explicitement non audité :** dérivation probatoire de `BoundaryState`, freeze de fenêtre, jonction `src/research/` ↔ `research_run_evidence`, attestation inter-processus, couplage résiduel des workflows, dépendances/lockfile, promotion gate, acquisition `.bi5` et backtest réel.
 
           Constats exécutés :
@@ -138,7 +139,6 @@ jobs:
               assert 'aucun `skip`, `xfail` ou effacement de test' in text
           '''
 
-          import textwrap
           protocol.write_text(protocol_text + textwrap.dedent(protocol_addition), encoding='utf-8')
           register.write_text(register_text + textwrap.dedent(audit_addition), encoding='utf-8')
           testfile.write_text(textwrap.dedent(test_text), encoding='utf-8')
