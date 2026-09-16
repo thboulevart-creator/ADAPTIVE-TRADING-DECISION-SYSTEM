@@ -1,0 +1,134 @@
+name: Trading Breaks Target-Day Overlap Offline Readjudication
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-target-day-overlap-readjudication.yml'
+      - 'tools/trading_breaks_target_day_overlap_readjudication.py'
+      - 'tests/test_trading_breaks_target_day_overlap_readjudication.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  readjudicate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact readjudication candidate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove V2 persisted verifier ancestry and readjudication-only delta
+        run: |
+          git merge-base --is-ancestor 22c3841efe54e256ed89b75969aba26d4e990bb4 HEAD
+          git merge-base --is-ancestor 31b285a30f5648e1f3979ed8847c5a2c8c7a022c HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          python - <<'PY'
+          import subprocess
+          baseline = '264b4904502c78fbb71429fba5aecf11a55dd3a3'
+          expected = {
+              '.github/workflows/trading-breaks-target-day-overlap-readjudication.yml',
+              'tools/trading_breaks_target_day_overlap_readjudication.py',
+              'tests/test_trading_breaks_target_day_overlap_readjudication.py',
+          }
+          actual = set(subprocess.check_output(['git','diff','--name-only',baseline,'HEAD'], text=True).splitlines())
+          assert actual == expected, (actual, expected)
+          PY
+          git diff --exit-code 31b285a30f5648e1f3979ed8847c5a2c8c7a022c HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Break readjudication boundary
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_readjudication.py \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_v2_state.py
+
+      - name: Readjudicate all 14 persisted Class-A cases offline
+        run: |
+          python -m tools.trading_breaks_target_day_overlap_readjudication > /tmp/readjudication.json
+          python - <<'PY'
+          import json
+          data = json.load(open('/tmp/readjudication.json', encoding='utf-8'))
+          assert data['schema'] == 'TRADING_BREAKS_TARGET_DAY_OVERLAP_READJUDICATION_V1'
+          assert data['verdict'] == 'PASS'
+          assert (data['pass_count'],data['blocked_count'],data['fail_count']) == (14,0,0)
+          assert len(data['results']) == 14
+          assert all(item['verdict'] == 'PASS' for item in data['results'])
+          assert all(item['cross_date'] is True for item in data['results'])
+          print('PASS: 14/14 Class-A dates independently readjudicated offline under V2')
+          PY
+
+      - name: Prove offline/no-probe/no-live-selection boundary
+        run: |
+          python - <<'PY'
+          import ast, inspect
+          import tools.trading_breaks_target_day_overlap_readjudication as module
+          tree = ast.parse(inspect.getsource(module))
+          imports=set(); calls=set()
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import): imports.update(a.name.lower() for a in node.names)
+              elif isinstance(node, ast.ImportFrom): imports.add((node.module or '').lower())
+              elif isinstance(node, ast.Call):
+                  if isinstance(node.func, ast.Name): calls.add(node.func.id.lower())
+                  elif isinstance(node.func, ast.Attribute): calls.add(node.func.attr.lower())
+          assert not any(token in name for name in imports for token in ('playwright','selenium','requests','httpx'))
+          for forbidden in ('probe_candidate','recovery_queue','goto','launch'):
+              assert forbidden not in calls, forbidden
+          print('PASS: readjudication has no browser/probe/network recapture path')
+          PY
+
+      - name: Re-break V2 state before persisting adjudication evidence
+        run: |
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_readjudication.py \
+            tests/test_trading_breaks_target_day_overlap_v2_state.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_coverage_execution_window_boundary.py
+          git diff --exit-code
+
+      - name: Persist adjudication evidence only
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          JOB_ID="$(gh api "repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs" --jq '.jobs[] | select(.name == "readjudicate") | .id' | head -n 1)"
+          export JOB_ID
+          cp /tmp/readjudication.json reports/data-qualification/trading_breaks_target_day_overlap_readjudication.json
+          python - <<'PY'
+          import json, os
+          from pathlib import Path
+          data=json.load(open('/tmp/readjudication.json', encoding='utf-8'))
+          lines=['# TRADING BREAKS TARGET-DAY OVERLAP — OFFLINE READJUDICATION','','**PASS — `ALL_14_CLASS_A_DATES_OFFLINE_READJUDICATED_UNDER_QUALIFIED_V2`**','',f'- workflow run/job: `{os.environ["GITHUB_RUN_ID"]}` / `{os.environ["JOB_ID"]}`',f'- trigger commit: `{os.environ["GITHUB_SHA"]}`','- browser / probe / recapture: `NONE`','- calendar / ledger / progression mutation: `NONE`','- result: `14 PASS / 0 BLOCKED / 0 FAIL`','','## Results','']
+          for item in data['results']:
+              lines.append(f"- `{item['target_date']}` — PASS — record `{item['record_id']}` — hours `{item['fully_closed_hours_utc']}` — source `{item['source_attempt_id']}` — retry `{item['proposed_retry_attempt_id']}`")
+          lines += ['', 'Historical attempts `1..68` remain unchanged. These are adjudication results only; executable calendar evidence and new retry attempts are not integrated by this workflow.', '', 'No `.bi5`. No real backtest.']
+          Path('reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md').write_text('\n'.join(lines)+'\n', encoding='utf-8')
+          PY
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reports/data-qualification/trading_breaks_target_day_overlap_readjudication.json reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md
+          git diff --cached --check
+          test "$(git diff --cached --name-only | wc -l)" -eq 2
+          git commit -m 'evidence: persist Class-A target-day overlap readjudication'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
