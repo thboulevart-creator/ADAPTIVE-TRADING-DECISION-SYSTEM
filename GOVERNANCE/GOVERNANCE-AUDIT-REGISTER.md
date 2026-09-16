@@ -326,3 +326,86 @@ Run/job : `35144258717 / 104956179724` — **SUCCESS**.
 **Verdict JIT P0.5 : PASS pour le périmètre couvert uniquement**, sous réserve du dernier re-break persisted-HEAD documentaire de l'exact HEAD contenant audit + rapport + checkpoint + backup + verifier final.
 
 Ce PASS ne transforme pas la preuve persistée en credential auto-authentifiant et n'autorise aucune acquisition, aucun backtest réel, aucune promotion ni activation live.
+
+---
+
+## Audit JIT — P0.6 systemic qualification reproducibility
+
+**Audit ID : `P0_6_SYSTEM_REPRODUCIBILITY_JIT_AUDIT_V1`**  
+**Date :** 16 septembre 2026  
+**Branche auditée :** `integration/system-v1`  
+**Contrat :** `SYSTEM_REPRODUCIBILITY_ENVELOPE_V1`  
+**Lock :** `QUALIFICATION_ENVIRONMENT_LOCK_V1`  
+**Base P0.5 :** `7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4`
+
+### Covered by P0.6
+
+- inventaire de l'environnement réellement utilisé pour qualifier P0.2–P0.5 ;
+- qualification du chemin fonctionnel courant comme stdlib-only et séparation explicite du chemin optionnel Parquet ;
+- lock exact des cinq paquets de qualification, lié par SHA-256 à l'environment lock ;
+- CPython `3.12.14`, Linux, runner `ubuntu-24.04` et `X64` sous Actions ;
+- références immuables des actions checkout/setup-python ;
+- variables déterministes `PYTHONDONTWRITEBYTECODE`, `PYTHONHASHSEED`, `TZ`, `LANG`, `LC_ALL` ;
+- verifier fail-closed sur schéma, hash, packages, Python, OS, runner et variables ;
+- migration des workflows protégés hors `ubuntu-latest`, tags d'actions mouvants, Python `3.12` flottant et installation pytest directe ;
+- préservation des commandes fonctionnelles des workflows durables ;
+- évolution explicite de l'invariant P0.2 : 17 artefacts fonctionnels restent byte-identiques, les quatre YAML évolués sont désormais prouvés sémantiquement et sous lock ;
+- attaques E0–E12 contre drift de version, dépendance absente, environnement, schéma et bypass workflow ;
+- re-break E13 de P0.2, P0.3, P0.4 et P0.5 sous le lock ;
+- re-break E14 de la vérité multi-year et des interdictions acquisition/backtest.
+
+### Explicitly not covered by P0.6
+
+- qualification/exécution du chemin optionnel `pyarrow` / Parquet ;
+- pinning d'un build interne GitHub-hosted runner non exposé comme cible stable `runs-on` ;
+- bearer proof cryptographique non-replay et lifecycle de clés ;
+- acquisition native `.bi5`, readiness, manifestes, exhaustivité ou réconciliation ;
+- exact OOS split ;
+- backtest réel ;
+- chaîne `DECISION → RISK → ACTION → RESULT → TRACE` complète ;
+- reconstruction transverse complète de la décision ;
+- résilience/restauration générale ;
+- promotion gate ou activation live.
+
+### Preuve de cassage avant correction
+
+HEAD : `96762ef94fa7ec07550c17997c2bd34c8100c9e3`  
+Run/job : `35145837748 / 104961521577` — **FAIL attendu**.
+
+- P0.5 D0–D14 : `15 passed` ;
+- breaker P0.6 : `2 failed` ;
+- lock/verifier absent ;
+- environnement des workflows encore flottant ;
+- aucun side effect acquisition/backtest ;
+- worktree clean.
+
+### Preuve technique combinée sous lock
+
+HEAD : `e96396ab3f807144144ff548dfe771c6a0584b44`  
+Run/job : `35146586182 / 104964108341` — **SUCCESS**.
+
+- verifier `QUALIFICATION_ENVIRONMENT_LOCK_V1` : PASS ;
+- Python : `3.12.14` ;
+- P0.6 E0–E12 : `13 passed` ;
+- suite dépôt : `220 passed` ;
+- P0.5 D0–D14 : `15 passed` ;
+- P0.4 C0–C15 : `16 passed` ;
+- P0.2 décision Tier-A : `83 passed` ;
+- P0.3 calendar/freeze Tier-A : `80 passed` ;
+- global `111/91/20` : BLOCKED ;
+- selected `68/68/0` : PASS ;
+- persisted freeze : PASS ;
+- acquisition : BLOCKED ;
+- `massive_acquisition_authorized = false` ;
+- `real_backtest_authorized = false` ;
+- `pyarrow` : `BLOCKED_OUTSIDE_P0_6` ;
+- permissions read-only ;
+- worktree clean.
+
+Requirements lock SHA-256 :
+
+`4ef534add869a64dd4957ea986f7ada98dffd41f89021e1719d02d9c2062a0db`
+
+**Verdict JIT P0.6 : PASS pour le périmètre couvert uniquement**, sous réserve du dernier re-break persisted-HEAD documentaire de l'exact HEAD contenant audit + rapport + checkpoint + backup + verifier final.
+
+Ce PASS n'autorise aucune acquisition, aucun backtest réel, aucune promotion ou activation live. Les verdicts globaux historiques `Decision Traceability = FAIL`, `Resilience / Continuity = FAIL` et `Governance Effectiveness = BLOCKED` restent inchangés hors de ce périmètre borné.
