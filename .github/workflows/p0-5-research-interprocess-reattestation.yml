@@ -1,0 +1,67 @@
+name: P0.5 Research Inter-Process Re-Attestation Tier-A
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p0-5-research-interprocess-reattestation.yml'
+      - '04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md'
+      - 'src/research_run_evidence.py'
+      - 'tests/research_runtime_fixture.py'
+      - 'tests/test_research_interprocess_reattestation_tier_a.py'
+      - 'tests/test_research_producer_junction_tier_a.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  P0_4_BASE: 'aa9551addc0fe554af9cbb8ebdb26314d37e412e'
+
+jobs:
+  tier-a-break:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and qualified P0.4 ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P0_4_BASE}" HEAD
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Re-prove P0.4 producer junction before P0.5 attacks
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q tests/test_research_producer_junction_tier_a.py
+
+      - name: Break P0.5 inter-process boundary
+        run: |
+          python -m pytest -q tests/test_research_interprocess_reattestation_tier_a.py
+
+      - name: Prove no acquisition or backtest side effect
+        if: always()
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          contract = Path('04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md').read_text(encoding='utf-8')
+          assert 'No network access, real `.bi5` acquisition or real backtest is permitted.' in contract
+          workflow = Path('.github/workflows/p0-5-research-interprocess-reattestation.yml').read_text(encoding='utf-8')
+          assert '\npermissions:\n  contents: read\n' in workflow
+          print('PASS: P0.5 breaker is read-only and non-acquisitive')
+          PY
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
