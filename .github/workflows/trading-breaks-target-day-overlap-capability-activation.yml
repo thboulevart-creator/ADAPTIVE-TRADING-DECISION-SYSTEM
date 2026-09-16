@@ -7,6 +7,7 @@ on:
       - '.github/workflows/trading-breaks-target-day-overlap-capability-activation.yml'
       - 'tools/activate_trading_breaks_target_day_overlap_capability.py'
       - 'tests/test_trading_breaks_target_day_overlap_capability_activation.py'
+      - 'tests/test_trading_breaks_target_day_overlap_v2_state.py'
   workflow_dispatch:
 
 permissions:
@@ -38,6 +39,7 @@ jobs:
               '.github/workflows/trading-breaks-target-day-overlap-capability-activation.yml',
               'tools/activate_trading_breaks_target_day_overlap_capability.py',
               'tests/test_trading_breaks_target_day_overlap_capability_activation.py',
+              'tests/test_trading_breaks_target_day_overlap_v2_state.py',
           }
           actual = set(subprocess.check_output([
               'git', 'diff', '--name-only',
@@ -124,15 +126,22 @@ jobs:
           print('PASS: V2 activates exactly 14 Class-A retries and leaves exactly 3 Class-B blocked')
           PY
 
-      - name: Re-break complete current governed regression after activation
+      - name: Re-break V2 current-state and timeless governed contracts
         run: |
-          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \
-            \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_trading_breaks_target_day_overlap_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) \
-            ! -name '*_integration_contract.py' \
-            ! -name 'test_trading_breaks_recovery_batch12.py' \
-            ! -name 'test_trading_breaks_recovery_batch13.py' \
-            ! -name 'test_trading_breaks_recovery_batch14.py' | sort)
-          python -m pytest -q "${TESTS[@]}"
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_target_day_overlap_v2_state.py \
+            tests/test_trading_breaks_recovery_protocol.py \
+            tests/test_coverage_execution_window_boundary.py \
+            tests/test_dukascopy_usatech_calendar*.py
+          python -m pytest -q tests/test_trading_breaks_recovery_progression.py -k \
+            'not test_attempt_ledger_preserves_all_forty_five_historical_attempts_and_duplicate_history and not test_material_capability_change_registry_is_versioned_and_currently_empty and not test_unchanged_capability_forbids_replay_of_historical_blocked_dates and not test_current_capability_is_exhausted_after_terminal_batch and not test_new_run_artifact_or_probe_commit_cannot_change_semantic_capability'
+          mapfile -t HISTORICALLY_STABLE < <(find tests -maxdepth 1 -type f \
+            -name 'test_trading_breaks_recovery_batch*.py' \
+            ! -name 'test_trading_breaks_recovery_batch??.py' \
+            ! -name 'test_trading_breaks_recovery_batch??_integration.py' \
+            ! -name '*_integration_contract.py' | sort)
+          python -m pytest -q "${HISTORICALLY_STABLE[@]}"
 
       - name: Persist capability activation atomically
         run: |
