@@ -169,3 +169,77 @@ Ce PASS ne modifie pas les verdicts globaux historiques `Decision Traceability =
 **Verdict JIT P0.3 : PASS pour le périmètre couvert uniquement, sous réserve du re-break persisted-HEAD du commit de clôture.**
 
 Ce PASS ne transforme ni la couverture globale en PASS, ni l'acquisition `.bi5`, ni le backtest réel en action autorisée.
+
+---
+
+## Audit JIT — P0.4 real research producer junction
+
+**Audit ID : `P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1`**  
+**Date :** 16 septembre 2026  
+**Branche auditée :** `integration/system-v1`  
+**Contrat :** `RESEARCH_PRODUCER_JUNCTION_V1`
+
+### Covered by P0.4
+
+- cartographie de `src/research/` face au contrat intégré `ResearchRunEvidence` ;
+- intégration bornée à exactement cinq fichiers runtime : `__init__.py`, `bi5_reader.py`, `input_binding.py`, `engine.py`, `execution.py` ;
+- identité source conservée pour `__init__.py` et `bi5_reader.py` depuis `feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698` ;
+- jonction réelle `QualifiedResearchInput → BoundResearchInput → deterministic runtime execution → ResearchExecutionResult → ResearchRunEvidence` ;
+- attestation process-locale liée à l'identité/contenu du bound input et du résultat d'exécution ;
+- rejet d'une exécution vide ;
+- cohérence obligatoire corpus/contract hashes, Dataset, Context, bornes temporelles et code version ;
+- chemin V4.3 report-only conservé comme compatibilité mais rendu non autorisant ;
+- suppression du minter brut `_attest_factory_evidence` de la surface module ;
+- cassage adversarial C0 + C1–C15 : report-only, minter/manual forge, copies/reconstructions, mutations post-binding/post-exécution, mutation des bytes source, rebinding résultat/input, exécution vide, Dataset/Context/code forgés et contournement downstream ;
+- qualification avec fixtures BI5 synthétiques locales uniquement ;
+- préservation/composabilité des frontières P0.2 et P0.3 ;
+- absence d'acquisition `.bi5`, de probe réseau, de données d'acquisition et de backtest réel.
+
+### Explicitly not covered by P0.4
+
+- attestation inter-processus ou persistée ;
+- protocole/readiness/autorisation d'acquisition native `.bi5` ;
+- manifeste d'acquisition, exhaustivité/completude/reconciliation des ticks ;
+- exact OOS split ;
+- backtest réel sur données acquises ;
+- chaîne `DECISION → RISK → ACTION → RESULT → TRACE` complète ;
+- reconstruction transverse complète d'une décision jusqu'au résultat ;
+- résilience/restauration ;
+- promotion gate ou activation live.
+
+### Preuve de cassage avant correction
+
+HEAD : `5619f6d3ae608bf9a3f0871345815b7906a6caba`  
+Run/job : `35136475040 / 104929994347` — **FAIL attendu**.
+
+Les 56 tests hérités étaient verts puis les trois bypasses cartographiés ont échoué : report-only autorisant, minter brut exposé, promotion manuelle possible.
+
+### Preuve de correction C0–C15
+
+HEAD : `edb2501a2b09bd142f037a82f6971696c08c1213`  
+Run/job : `35137560719 / 104933628790` — **SUCCESS**.
+
+- suite dépôt : `192 passed` ;
+- C0–C15 : `16 passed` ;
+- décision Tier-A : `73 passed` ;
+- calendar/freeze Tier-A : `80 passed` ;
+- runtime exactement cinq fichiers : PASS ;
+- raw minter absent : PASS ;
+- worktree clean ;
+- permissions read-only.
+
+### Preuve combinée same-SHA
+
+HEAD commun : `3b09bd9f6e06fd8833f7bd93d98e839e335000b5`.
+
+- P0.2 run/job `35140401689 / 104943189786` — **SUCCESS** — `83 passed` ;
+- P0.3 run/job `35140401667 / 104943190208` — **SUCCESS** — `72 passed` amont + `80 passed` calendar/freeze ;
+- P0.4 run/job `35140401707 / 104943190275` — **SUCCESS** — `192 passed` dépôt + `16 passed` C0–C15 + `73 passed` décision + `80 passed` calendar/freeze.
+
+Les trois gates sont read-only et terminent avec un worktree propre.
+
+La vérité multi-year reste inchangée : global `111/91/20` **BLOCKED**, selected window `68/68/0` PASS, acquisition **BLOCKED**.
+
+**Verdict JIT P0.4 : PASS pour le périmètre couvert uniquement**, sous réserve du dernier re-break persisted-HEAD documentaire de l'exact HEAD contenant audit + rapport + checkpoint + backup + verifier final.
+
+Ce PASS borné ne modifie aucun verdict global non couvert et n'autorise ni acquisition native, ni backtest réel, ni promotion/live.
