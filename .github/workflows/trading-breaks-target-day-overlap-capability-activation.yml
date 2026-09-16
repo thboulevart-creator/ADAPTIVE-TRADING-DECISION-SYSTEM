@@ -1,0 +1,149 @@
+name: Trading Breaks Target-Day Overlap Capability Activation
+
+on:
+  push:
+    branches: [feat/multi-year-dukascopy-acquisition]
+    paths:
+      - '.github/workflows/trading-breaks-target-day-overlap-capability-activation.yml'
+      - 'tools/activate_trading_breaks_target_day_overlap_capability.py'
+      - 'tests/test_trading_breaks_target_day_overlap_capability_activation.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+
+jobs:
+  activate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact activation candidate
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove qualification ancestry and activation-only preparation delta
+        run: |
+          git merge-base --is-ancestor 061e97d90eed2c4c3f1d5f2a261e457fd796413f HEAD
+          git merge-base --is-ancestor 41609695d0a727ced598a093cdff60ef9575bb1d HEAD
+          git fetch origin feat/multi-year-dukascopy-acquisition
+          test "$(git rev-parse origin/feat/multi-year-dukascopy-acquisition)" = "$GITHUB_SHA"
+          python - <<'PY'
+          import subprocess
+          expected = {
+              '.github/workflows/trading-breaks-target-day-overlap-capability-activation.yml',
+              'tools/activate_trading_breaks_target_day_overlap_capability.py',
+              'tests/test_trading_breaks_target_day_overlap_capability_activation.py',
+          }
+          actual = set(subprocess.check_output([
+              'git', 'diff', '--name-only',
+              '41609695d0a727ced598a093cdff60ef9575bb1d', 'HEAD'
+          ], text=True).splitlines())
+          assert actual == expected, (actual, expected)
+          PY
+          git diff --exit-code 41609695d0a727ced598a093cdff60ef9575bb1d HEAD -- \
+            tools/dukascopy_usatech_calendar.py \
+            tools/dukascopy_usatech_calendar_coverage.py \
+            tools/trading_breaks_recovery_protocol.py \
+            tools/trading_breaks_recovery_progression.py \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Break capability activation boundary before mutation
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q \
+            tests/test_trading_breaks_target_day_overlap_capability_activation.py \
+            tests/test_trading_breaks_target_day_overlap_semantics.py \
+            tests/test_trading_breaks_recovery_progression.py \
+            tests/test_trading_breaks_recovery_protocol.py
+
+      - name: Apply capability activation in worktree only
+        run: |
+          python -m tools.activate_trading_breaks_target_day_overlap_capability > /tmp/activation-prestate.json
+          test "$(git diff --name-only | sort)" = "$(printf '%s\n' \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json | sort)"
+
+      - name: Prove historical attempts 1..68 are byte-semantically immutable
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          path = 'reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json'
+          before = json.loads(subprocess.check_output(['git','show',f'HEAD:{path}'], text=True))
+          after = json.load(open(path, encoding='utf-8'))
+          assert before['attempts'] == after['attempts']
+          assert len(after['attempts']) == 68
+          assert [x['attempt_sequence'] for x in after['attempts']] == list(range(1,69))
+          assert set(after['capabilities']) == {
+              'TRADING_BREAKS_PRIMARY_WIDGET_V1',
+              'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2',
+          }
+          assert after['current_capability_id'] == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          print('PASS: historical attempts unchanged; only capability identity advanced')
+          PY
+
+      - name: Regenerate progression under V2 and assert exact retry split
+        run: |
+          python -m tools.trading_breaks_recovery_progression > /tmp/progression-v2.json
+          python - <<'PY'
+          import json
+          from datetime import date
+          from tools.trading_breaks_recovery_progression import eligible_recovery_queue, progression_decisions
+          from tools.trading_breaks_target_day_overlap_semantics import CLASS_A_SOURCES
+          data = json.load(open('/tmp/progression-v2.json', encoding='utf-8'))
+          assert data['verdict'] == 'PASS'
+          assert data['calendar_unresolved_count'] == 17
+          assert data['attempt_ledger_count'] == 68
+          assert data['registered_material_capability_change_count'] == 1
+          assert data['current_capability_id'] == 'TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2'
+          assert data['current_capability_fingerprint'] == 'e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31'
+          assert data['attempted_blocked_ineligible_count'] == 3
+          assert data['eligible_initial_or_retry_count'] == 14
+          expected = sorted((day, reason) for day, reason, _ in CLASS_A_SOURCES)
+          assert eligible_recovery_queue() == expected
+          decisions = {x.target_date: x for x in progression_decisions()}
+          for day, _, _ in CLASS_A_SOURCES:
+              d = decisions[day]
+              assert d.eligible is True
+              assert d.reason == 'MATERIAL_CAPABILITY_CHANGE_RETRY'
+          for day in (date(2021,12,31), date(2022,7,1), date(2026,7,2)):
+              d = decisions[day]
+              assert d.eligible is False
+              assert d.reason == 'RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED'
+          print('PASS: V2 activates exactly 14 Class-A retries and leaves exactly 3 Class-B blocked')
+          PY
+
+      - name: Re-break complete current governed regression after activation
+        run: |
+          mapfile -t TESTS < <(find tests -maxdepth 1 -type f \
+            \( -name 'test_trading_breaks_recovery_*.py' -o -name 'test_trading_breaks_target_day_overlap_*.py' -o -name 'test_dukascopy_usatech_calendar*.py' -o -name 'test_coverage_execution_window_boundary.py' \) \
+            ! -name '*_integration_contract.py' \
+            ! -name 'test_trading_breaks_recovery_batch12.py' \
+            ! -name 'test_trading_breaks_recovery_batch13.py' \
+            ! -name 'test_trading_breaks_recovery_batch14.py' | sort)
+          python -m pytest -q "${TESTS[@]}"
+
+      - name: Persist capability activation atomically
+        run: |
+          git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add \
+            reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json \
+            reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json \
+            reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json
+          git diff --cached --check
+          test "$(git diff --cached --name-only | wc -l)" -eq 3
+          git commit -m 'governance: activate qualified target-day overlap capability V2'
+          git push origin HEAD:feat/multi-year-dukascopy-acquisition
