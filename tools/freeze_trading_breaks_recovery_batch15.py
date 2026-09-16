@@ -40,14 +40,20 @@ def derive():
     assert len({day for day, _ in frozen}) == NOMINAL_BATCH_SIZE
 
     by_day = {item.target_date: item for item in decisions}
+    attempts_by_day = {}
+    for attempt in attempts:
+        attempts_by_day.setdefault(attempt.target_date, []).append(attempt)
+
     for day, reason in frozen:
         decision = by_day[day]
+        history = attempts_by_day[day]
+        latest = max(history, key=lambda item: item.attempt_sequence)
         assert decision.candidate_reason == reason
         assert decision.eligible
         assert decision.reason == 'MATERIAL_CAPABILITY_CHANGE_PROVEN'
         assert decision.latest_attempt_outcome == 'BLOCKED'
-        assert decision.latest_attempt_id is not None
-        assert decision.latest_capability_id == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
-        assert decision.latest_blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
+        assert decision.latest_attempt_id == latest.attempt_id
+        assert latest.capability_id == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
+        assert latest.blocking_reason == 'NO_EXACT_TARGET_DATE_POSITIVE_RECORD_ADMISSIBLE'
 
     return frozen
