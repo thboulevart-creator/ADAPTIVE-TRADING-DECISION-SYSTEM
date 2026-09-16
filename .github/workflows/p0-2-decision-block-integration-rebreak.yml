@@ -61,6 +61,7 @@ jobs:
         run: |
           python - <<'PY'
           import subprocess
+          from pathlib import Path
 
           base = '43ec28f3e09856fe508874af3aaf32079761d2d5'
           decision = 'c0116d195063c464d602fb699654ac61adc7290c'
@@ -92,18 +93,18 @@ jobs:
               'tests/test_research_reader_adversarial.py',
               'tests/test_research_to_decision_boundary.py',
           }
-          governance_exact = {
+          stable_governance_exact = {
               '04-REFERENCE/AI-OPERATING-MEMORY.md',
-              'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md',
               'GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md',
           }
+          audit_register = 'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md'
           integration_only = {
               '.github/workflows/p0-2-decision-block-integration-rebreak.yml',
               '04-REFERENCE/RECOVERY-CHECKPOINT.md',
               'reports/data-qualification/p0_2_decision_block_integration_qualification.md',
               '99-BACKUP/SESSION-2026-09-16-P0.2-INTEGRATION-DECISION-BLOCK-PASS.md',
           }
-          allowed = decision_exact | governance_exact | integration_only
+          allowed = decision_exact | stable_governance_exact | {audit_register} | integration_only
 
           changed = set(subprocess.check_output(
               ['git', 'diff', '--name-only', base, 'HEAD'], text=True
@@ -112,8 +113,9 @@ jobs:
           assert not unexpected, f'unapproved integration paths: {sorted(unexpected)}'
           missing = decision_exact - changed
           assert not missing, f'missing controlled decision import paths: {sorted(missing)}'
-          missing_gov = governance_exact - changed
+          missing_gov = stable_governance_exact - changed
           assert not missing_gov, f'missing current governance preservation paths: {sorted(missing_gov)}'
+          assert audit_register in changed
 
           for path in sorted(decision_exact):
               source_blob = subprocess.check_output(
@@ -124,7 +126,7 @@ jobs:
               ).strip()
               assert source_blob == head_blob, (path, source_blob, head_blob)
 
-          for path in sorted(governance_exact):
+          for path in sorted(stable_governance_exact):
               source_blob = subprocess.check_output(
                   ['git', 'rev-parse', f'{governance}:{path}'], text=True
               ).strip()
@@ -132,6 +134,15 @@ jobs:
                   ['git', 'rev-parse', f'HEAD:{path}'], text=True
               ).strip()
               assert source_blob == head_blob, (path, source_blob, head_blob)
+
+          source_audit = subprocess.check_output(
+              ['git', 'show', f'{governance}:{audit_register}'], text=True
+          )
+          head_audit = Path(audit_register).read_text(encoding='utf-8')
+          assert head_audit.startswith(source_audit), 'prior governed audit register content was rewritten'
+          assert 'P0_2_DECISION_BLOCK_INTEGRATION_JIT_AUDIT_V1' in head_audit
+          assert 'Covered by P0.2' in head_audit
+          assert 'Explicitly not covered by P0.2' in head_audit
 
           base_governance = set(subprocess.check_output(
               ['git', 'ls-tree', '-r', '--name-only', base, 'GOVERNANCE'], text=True

@@ -68,3 +68,50 @@ Constats exécutés :
 - la règle `GOVERNANCE_RELAXATION_COOLING_OFF_V1` est ajoutée au protocole existant au lieu de créer une nouvelle couche documentaire.
 
 **Verdict de cet audit borné : PASS**, sous réserve du re-break persisted-HEAD de la suite complète après cette modification. Ce PASS ne vaut pas audit global de gouvernance et ne ferme aucun élément du complément non audité.
+
+---
+
+## Audit JIT — P0.2 controlled decision-block integration
+
+**Audit ID : `P0_2_DECISION_BLOCK_INTEGRATION_JIT_AUDIT_V1`**  
+**Date :** 16 septembre 2026  
+**Branche auditée :** `integration/system-v1`  
+**Base autorisée :** `main@43ec28f3e09856fe508874af3aaf32079761d2d5`  
+**Source fonctionnelle qualifiée :** `feat/decision-producer-contract@c0116d195063c464d602fb699654ac61adc7290c`
+
+### Covered by P0.2
+
+- création de la branche d'intégration depuis le HEAD exact de `main` ;
+- import contrôlé, borné et source-identique des contrats `DATA → CONTEXT → RESEARCH FINDINGS → DECISION` retenus ;
+- conservation de tous les fichiers de gouvernance déjà présents sur `main` ;
+- remise au niveau courant de `AI-OPERATING-MEMORY`, du protocole d'évolution/audit et du registre d'audit ;
+- absence de blind merge et absence de replay des suppressions de gouvernance de la branche feature ;
+- provenance/identité de `ResearchRunEvidence` et refus des copies, reconstructions, mutations d'identité et auto-attestations forgées à la frontière `RESEARCH → DECISION` ;
+- workflows durables branch-neutral, path-scoped, PR-covered et `contents: read` ;
+- absence d'import du bloc multi-year, de `.bi5`, de données d'acquisition ou de backtest réel.
+
+### Explicitly not covered by P0.2
+
+- fermeture de la jonction de production réelle `src/research/` → `ResearchRunEvidence` ;
+- attestation inter-processus ;
+- chaîne `DECISION → RISK → ACTION → RESULT → TRACE` complète ;
+- reconstruction transverse complète d'une décision opérationnelle jusqu'au résultat ;
+- import du workstream multi-year Dukascopy / Trading Breaks / frozen execution window ;
+- exact OOS split ;
+- acquisition native `.bi5`, manifeste d'acquisition, exhaustivité des ticks et réconciliation ;
+- backtest réel, promotion gate ou activation live.
+
+### Preuves exécutées
+
+- candidat d'intégration : `fa43c44739e75c8d927626a2b3df8eefb185e00f` ;
+- re-break P0.2 : run/job `35130280160 / 104909282190` — SUCCESS ;
+- suite dépôt : `96 passed` ;
+- suite Tier-A ciblée : `83 passed` ;
+- workflows durables individuels DATA→CONTEXT, CONTEXT→RESEARCH, RESEARCH FINDINGS et RESEARCH→DECISION : SUCCESS ;
+- attaques de forgeabilité/provenance : PASS ;
+- worktree : clean ;
+- permissions du re-break : `contents: read`.
+
+**Verdict JIT P0.2 : PASS pour le périmètre couvert uniquement.**
+
+Ce PASS ne modifie pas les verdicts globaux historiques `Decision Traceability = FAIL` et `Resilience / Continuity = FAIL` tant que les chaînes transverses correspondantes ne sont pas démontrées de bout en bout.
