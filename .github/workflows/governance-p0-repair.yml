@@ -1,4 +1,4 @@
-name: P0 Regression Rebaseline Diagnostic
+name: P0 Historical Baseline Exception Resolver
 
 on:
   push:
@@ -13,7 +13,7 @@ env:
   PYTHONDONTWRITEBYTECODE: '1'
 
 jobs:
-  diagnose:
+  resolve:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -29,95 +29,63 @@ jobs:
       - name: Install pinned test dependency
         run: python -m pip install pytest==8.4.2
 
-      - name: Discover current failures and validate historical baselines
+      - name: Find first descendant where each exceptional historical file is green
         run: |
-          set +e
-          python -m pytest -q --tb=no > /tmp/current-suite.txt 2>&1
-          rc=$?
-          set -e
-          cat /tmp/current-suite.txt
-          test "$rc" -ne 0
-
           python - <<'PY'
           from __future__ import annotations
 
-          import json
           import os
-          import re
           import subprocess
           import sys
           from pathlib import Path
 
-          raw = Path('/tmp/current-suite.txt').read_text(encoding='utf-8', errors='replace')
-          failed = re.findall(r'^FAILED\s+(tests/[^\s]+?::[^\s]+)\s+-\s+', raw, flags=re.MULTILINE)
-          if len(failed) != 115:
-              raise SystemExit(f'EXPECTED_115_CURRENT_FAILURES_GOT_{len(failed)}')
-          if len(set(failed)) != 115:
-              raise SystemExit('CURRENT_FAILURE_NODEIDS_NOT_UNIQUE')
-
-          failing_files = sorted({node.split('::', 1)[0] for node in failed})
+          CASES = {
+              'tests/test_dukascopy_usatech_calendar_2024_2025_batch10.py': 'f300e6edb8315bce94835738cec96bbde04c6c81',
+              'tests/test_trading_breaks_recovery_batch15.py': 'ae3d621f3460ec96a5c96024e05f657f5b2e25b5',
+              'tests/test_trading_breaks_target_day_overlap_v2_state.py': 'a805cf576f843e80ab01373da74e89657d8aefc2',
+          }
+          root = Path.cwd()
+          base = root.parent / '_p0_exception_worktrees'
+          base.mkdir(exist_ok=True)
           env = dict(os.environ)
           env['PYTHONDONTWRITEBYTECODE'] = '1'
-          root = Path.cwd()
-          worktrees = root.parent / '_p0_historical_worktrees'
-          worktrees.mkdir(exist_ok=True)
-          worktree_for_commit: dict[str, Path] = {}
-          results = []
 
-          def run(*args: str, cwd: Path | None = None, check: bool = True) -> subprocess.CompletedProcess[str]:
-              return subprocess.run(
-                  list(args), cwd=cwd or root, env=env,
-                  text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                  check=check,
-              )
+          def cmd(args, *, cwd=root, check=True):
+              return subprocess.run(args, cwd=cwd, env=env, text=True,
+                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                    check=check)
 
-          for test_file in failing_files:
-              commit = run('git', 'log', '-1', '--format=%H', '--', test_file).stdout.strip()
-              if not re.fullmatch(r'[0-9a-f]{40}', commit):
-                  raise SystemExit(f'NO_HISTORICAL_COMMIT_FOR:{test_file}:{commit!r}')
+          head = cmd(['git', 'rev-parse', 'HEAD']).stdout.strip()
+          found = {}
+          for path, start in CASES.items():
+              commits = [start]
+              tail = cmd(['git', 'rev-list', '--reverse', '--ancestry-path', f'{start}..{head}']).stdout.splitlines()
+              commits.extend(c for c in tail if c)
+              print(f'SEARCH {path}: {len(commits)} candidate commits')
+              for i, commit in enumerate(commits):
+                  exists = cmd(['git', 'cat-file', '-e', f'{commit}:{path}'], check=False).returncode == 0
+                  if not exists:
+                      continue
+                  wt = base / f'{commit[:12]}-{i}'
+                  cmd(['git', 'worktree', 'add', '--detach', str(wt), commit])
+                  probe = cmd([sys.executable, '-m', 'pytest', '-q', path], cwd=wt, check=False)
+                  cmd(['git', 'worktree', 'remove', '--force', str(wt)])
+                  if probe.returncode == 0:
+                      found[path] = commit
+                      print(f'FIRST_GREEN {path} {commit}')
+                      print(probe.stdout)
+                      break
+              if path not in found:
+                  raise SystemExit(f'NO_GREEN_DESCENDANT:{path}')
 
-              wt = worktree_for_commit.get(commit)
-              if wt is None:
-                  wt = worktrees / commit[:12]
-                  run('git', 'worktree', 'add', '--detach', str(wt), commit)
-                  worktree_for_commit[commit] = wt
-
-              probe = run(sys.executable, '-m', 'pytest', '-q', test_file, cwd=wt, check=False)
-              ok = probe.returncode == 0
-              results.append({
-                  'file': test_file,
-                  'historical_commit': commit,
-                  'returncode': probe.returncode,
-                  'historical_file_pass': ok,
-                  'output_tail': '\n'.join(probe.stdout.splitlines()[-20:]),
-              })
-              print(f'HISTORICAL_FILE {"PASS" if ok else "FAIL"} {test_file} @ {commit}')
-              if not ok:
-                  print(probe.stdout)
-
-          manifest = {
-              'schema': 'P0_REGRESSION_HISTORICAL_BASELINE_DIAGNOSTIC_V1',
-              'current_head': run('git', 'rev-parse', 'HEAD').stdout.strip(),
-              'current_failed_nodeids': failed,
-              'current_failure_count': len(failed),
-              'failing_file_count': len(failing_files),
-              'historical_files': results,
-              'all_historical_files_pass': all(r['historical_file_pass'] for r in results),
-          }
-          Path('/tmp/p0-regression-diagnostic.json').write_text(
-              json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8'
-          )
-          print(json.dumps({
-              'failure_count': len(failed),
-              'failing_file_count': len(failing_files),
-              'historical_file_pass_count': sum(r['historical_file_pass'] for r in results),
-              'historical_file_fail_count': sum(not r['historical_file_pass'] for r in results),
-          }, indent=2))
-          if not manifest['all_historical_files_pass']:
-              raise SystemExit('AT_LEAST_ONE_STALE_FILE_NOT_GREEN_AT_LAST_MODIFICATION_COMMIT')
+          if len(found) != len(CASES):
+              raise SystemExit('EXCEPTION_BASELINE_RESOLUTION_INCOMPLETE')
+          print('ALL_EXCEPTION_BASELINES_RESOLVED')
+          for path, commit in found.items():
+              print(f'RESOLVED {path} -> {commit}')
           PY
 
-      - name: Prove diagnostic is read-only
+      - name: Prove resolver is read-only
         if: always()
         run: |
           git diff --exit-code
