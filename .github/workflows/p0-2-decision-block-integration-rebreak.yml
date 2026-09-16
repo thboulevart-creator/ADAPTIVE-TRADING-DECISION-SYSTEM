@@ -1,0 +1,295 @@
+name: P0.2 Decision Block Integration Persisted HEAD Re-break
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/data-to-context.yml'
+      - '.github/workflows/context-to-research-boundary.yml'
+      - '.github/workflows/research-findings-contract.yml'
+      - '.github/workflows/research-to-decision-boundary.yml'
+      - '.github/workflows/p0-2-decision-block-integration-rebreak.yml'
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/decision.py'
+      - 'src/decision_trace.py'
+      - 'src/research_findings.py'
+      - 'src/research_run_evidence.py'
+      - 'tests/test_context_research_alternative_paths.py'
+      - 'tests/test_context_to_research_boundary.py'
+      - 'tests/test_data_to_context.py'
+      - 'tests/test_durable_ci_branch_independence.py'
+      - 'tests/test_research_findings_contract.py'
+      - 'tests/test_research_reader_adversarial.py'
+      - 'tests/test_research_to_decision_boundary.py'
+      - 'docs/RESEARCH-FINDINGS-CONTRACT.md'
+      - 'GOVERNANCE/**'
+      - '04-REFERENCE/AI-OPERATING-MEMORY.md'
+      - '04-REFERENCE/RECOVERY-CHECKPOINT.md'
+      - 'reports/data-qualification/p0_2_decision_block_integration_qualification.md'
+      - '99-BACKUP/SESSION-2026-09-16-P0.2-INTEGRATION-DECISION-BLOCK-PASS.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  BASE_MAIN: '43ec28f3e09856fe508874af3aaf32079761d2d5'
+  SOURCE_DECISION: 'c0116d195063c464d602fb699654ac61adc7290c'
+  SOURCE_GOVERNANCE: 'b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698'
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and main ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${BASE_MAIN}" HEAD
+          git cat-file -e "${SOURCE_DECISION}^{commit}"
+          git cat-file -e "${SOURCE_GOVERNANCE}^{commit}"
+
+      - name: Prove bounded controlled import and governance preservation
+        run: |
+          python - <<'PY'
+          import subprocess
+
+          base = '43ec28f3e09856fe508874af3aaf32079761d2d5'
+          decision = 'c0116d195063c464d602fb699654ac61adc7290c'
+          governance = 'b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698'
+
+          decision_exact = {
+              '.github/workflows/context-to-research-boundary.yml',
+              '.github/workflows/data-to-context.yml',
+              '.github/workflows/research-findings-contract.yml',
+              '.github/workflows/research-to-decision-boundary.yml',
+              'GOVERNANCE/STEP-1-MANIFESTO-ARBITRATION.md',
+              'GOVERNANCE/STEP-2-MINIMAL-SYSTEM-TARGET.md',
+              'GOVERNANCE/STEP-2-MINIMAL-TARGET-ADVERSARIAL-CHECK.md',
+              'GOVERNANCE/STEP-3-CONTEXT-RESEARCH-CONTRACT-GATE.md',
+              'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md',
+              'GOVERNANCE/TRUSTWORTHY-INTELLIGENT-SYSTEM-MANIFESTO-FINAL-CANDIDATE.md',
+              'docs/RESEARCH-FINDINGS-CONTRACT.md',
+              'src/context.py',
+              'src/context_identity.py',
+              'src/decision.py',
+              'src/decision_trace.py',
+              'src/research_findings.py',
+              'src/research_run_evidence.py',
+              'tests/test_context_research_alternative_paths.py',
+              'tests/test_context_to_research_boundary.py',
+              'tests/test_data_to_context.py',
+              'tests/test_durable_ci_branch_independence.py',
+              'tests/test_research_findings_contract.py',
+              'tests/test_research_reader_adversarial.py',
+              'tests/test_research_to_decision_boundary.py',
+          }
+          governance_exact = {
+              '04-REFERENCE/AI-OPERATING-MEMORY.md',
+              'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md',
+              'GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md',
+          }
+          integration_only = {
+              '.github/workflows/p0-2-decision-block-integration-rebreak.yml',
+              '04-REFERENCE/RECOVERY-CHECKPOINT.md',
+              'reports/data-qualification/p0_2_decision_block_integration_qualification.md',
+              '99-BACKUP/SESSION-2026-09-16-P0.2-INTEGRATION-DECISION-BLOCK-PASS.md',
+          }
+          allowed = decision_exact | governance_exact | integration_only
+
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', base, 'HEAD'], text=True
+          ).splitlines())
+          unexpected = changed - allowed
+          assert not unexpected, f'unapproved integration paths: {sorted(unexpected)}'
+          missing = decision_exact - changed
+          assert not missing, f'missing controlled decision import paths: {sorted(missing)}'
+          missing_gov = governance_exact - changed
+          assert not missing_gov, f'missing current governance preservation paths: {sorted(missing_gov)}'
+
+          for path in sorted(decision_exact):
+              source_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'{decision}:{path}'], text=True
+              ).strip()
+              head_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'HEAD:{path}'], text=True
+              ).strip()
+              assert source_blob == head_blob, (path, source_blob, head_blob)
+
+          for path in sorted(governance_exact):
+              source_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'{governance}:{path}'], text=True
+              ).strip()
+              head_blob = subprocess.check_output(
+                  ['git', 'rev-parse', f'HEAD:{path}'], text=True
+              ).strip()
+              assert source_blob == head_blob, (path, source_blob, head_blob)
+
+          base_governance = set(subprocess.check_output(
+              ['git', 'ls-tree', '-r', '--name-only', base, 'GOVERNANCE'], text=True
+          ).splitlines())
+          head_governance = set(subprocess.check_output(
+              ['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'GOVERNANCE'], text=True
+          ).splitlines())
+          deleted = base_governance - head_governance
+          assert not deleted, f'governance deletion detected: {sorted(deleted)}'
+
+          changed_existing_gov = {
+              path for path in base_governance
+              if path in head_governance and
+              subprocess.check_output(['git', 'rev-parse', f'{base}:{path}'], text=True).strip()
+              != subprocess.check_output(['git', 'rev-parse', f'HEAD:{path}'], text=True).strip()
+          }
+          assert changed_existing_gov == {
+              'GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md',
+              'GOVERNANCE/GOVERNANCE-EVOLUTION-AND-AUDIT-PROTOCOL.md',
+          }, changed_existing_gov
+
+          assert '.github/workflows/research-to-decision-persisted-head.yml' not in changed
+          print('PASS: controlled import is bounded, source-identical, and governance-preserving')
+          PY
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run complete repository suite and imported Tier-A boundary tests
+        run: |
+          python -m pip install pytest==8.4.2
+          python -m pytest -q
+          python -m pytest -q \
+            tests/test_data_to_context.py \
+            tests/test_context_to_research_boundary.py \
+            tests/test_context_research_alternative_paths.py \
+            tests/test_research_findings_contract.py \
+            tests/test_research_reader_adversarial.py \
+            tests/test_research_to_decision_boundary.py \
+            tests/test_durable_ci_branch_independence.py
+
+      - name: Re-break provenance reconstruction and identity bypasses
+        run: |
+          python - <<'PY'
+          import copy
+          from dataclasses import fields
+
+          from src.decision import produce_decision
+          from src.research_findings import ResearchFinding, ResearchFindings, ResearchHypothesis, ResearchMeasurement
+          from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
+          from tests.test_research_to_decision_boundary import coherent_inputs, reconstruct
+
+          evidence, context = coherent_inputs()
+          assert is_factory_attested(evidence)
+          assert produce_decision(evidence, context=context, decision='HOLD').research_run_id == evidence.research_run_id
+
+          forged = reconstruct(evidence)
+          assert forged == evidence and forged is not evidence
+          assert not is_factory_attested(forged)
+          for candidate in (forged, copy.copy(evidence), copy.deepcopy(evidence)):
+              try:
+                  produce_decision(candidate, context=context, decision='HOLD')
+              except ValueError:
+                  pass
+              else:
+                  raise AssertionError('reconstructed/copied evidence bypassed decision boundary')
+
+          object.__setattr__(forged, '_factory_validated', True)
+          assert not is_factory_attested(forged)
+          try:
+              produce_decision(forged, context=context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('legacy self-attestation marker bypassed decision boundary')
+
+          identity_fields = [field.name for field in fields(ResearchRunEvidence)]
+          assert set(identity_fields) == {
+              'provenance_id', 'research_run_id', 'code_version',
+              'configuration_version', 'dataset_id', 'dataset_version', 'context_id'
+          }
+          for field_name in identity_fields:
+              candidate, candidate_context = coherent_inputs()
+              original = getattr(candidate, field_name)
+              object.__setattr__(candidate, field_name, f'{original}-FORGED')
+              assert not is_factory_attested(candidate), field_name
+              try:
+                  produce_decision(candidate, context=candidate_context, decision='HOLD')
+              except ValueError:
+                  pass
+              else:
+                  raise AssertionError(f'identity mutation bypassed decision boundary: {field_name}')
+
+          candidate, candidate_context = coherent_inputs()
+          candidate.__dict__['research_run_id'] = 'RUN-DICT-FORGED'
+          assert not is_factory_attested(candidate)
+          try:
+              produce_decision(candidate, context=candidate_context, decision='HOLD')
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('__dict__ mutation bypassed decision boundary')
+
+          hypothesis = ResearchHypothesis('H1', 's', 'p', 'f')
+          measurement = ResearchMeasurement('M1', 'R', 'E', 'metric', 1.0, 1, 'scope')
+          finding = ResearchFinding('F1', 'H1', 's', ('M1',), 'SUPPORTED', 'rule', 'reason')
+          try:
+              ResearchFindings.from_research_run_evidence(
+                  reconstruct(evidence), hypotheses=(hypothesis,), measurements=(measurement,), findings=(finding,)
+              )
+          except ValueError:
+              pass
+          else:
+              raise AssertionError('unattested evidence seeded ResearchFindings')
+
+          print('PASS: imported Tier-A provenance/forgeability boundary rejects all tested bypasses')
+          PY
+
+      - name: Prove durable boundary workflows remain branch-neutral and read-only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          paths = [
+              Path('.github/workflows/data-to-context.yml'),
+              Path('.github/workflows/context-to-research-boundary.yml'),
+              Path('.github/workflows/research-findings-contract.yml'),
+              Path('.github/workflows/research-to-decision-boundary.yml'),
+          ]
+          for path in paths:
+              text = path.read_text(encoding='utf-8')
+              assert '\n    branches:' not in text, path
+              assert 'feat/' not in text, path
+              assert '\n  push:' in text and '\n  pull_request:' in text, path
+              assert text.count('\n    paths:') >= 2, path
+              assert '\npermissions:\n  contents: read\n' in text, path
+          print('PASS: durable boundary CI is branch-neutral, PR-covered, path-scoped, and read-only')
+          PY
+
+      - name: Prove no multi-year acquisition or backtest surface imported
+        run: |
+          python - <<'PY'
+          import subprocess
+          changed = set(subprocess.check_output(
+              ['git', 'diff', '--name-only', '43ec28f3e09856fe508874af3aaf32079761d2d5', 'HEAD'], text=True
+          ).splitlines())
+          forbidden_prefixes = (
+              'tools/dukascopy_',
+              'reports/data-qualification/historical_trading_breaks_',
+              'LOCAL-EVIDENCE/',
+              'data/',
+          )
+          forbidden = [p for p in changed if p.startswith(forbidden_prefixes) or p.endswith('.bi5')]
+          assert not forbidden, forbidden
+          print('PASS: no multi-year acquisition/data/backtest block imported')
+          PY
+
+      - name: Prove read-only clean worktree
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"

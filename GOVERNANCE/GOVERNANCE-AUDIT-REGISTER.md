@@ -47,3 +47,24 @@ La prochaine phase doit être l'implémentation et le test des mécanismes déj�
 `TRAÇABILITÉ → CONTINUITÉ/RESTAURATION → AUDIT ADVERSARIAL RÉEL → RE-TEST → VERDICT`.
 
 Si ces tests démontrent que les mécanismes existants couvrent les exigences, **on s'arrête là**. Si un test révèle un gap précis, seule la correction minimale correspondante est ajoutée.
+
+
+---
+
+## Audit JIT — P0.0 rebaseline post-clôture
+
+**Audit ID : `P0_FULL_SUITE_REBASELINE_JIT_AUDIT_V1`**
+**Date :** 16 septembre 2026
+**Périmètre couvert :** cohérence du corpus de régression après clôture Trading Breaks, présence du corpus de gouvernance supprimé sur la branche, et formalisation minimale de la carence avant assouplissement.
+**Complément explicitement non audité :** dérivation probatoire de `BoundaryState`, freeze de fenêtre, jonction `src/research/` ↔ `research_run_evidence`, attestation inter-processus, couplage résiduel des workflows, dépendances/lockfile, promotion gate, acquisition `.bi5` et backtest réel.
+
+Constats exécutés :
+
+- le corpus pré-correction produisait `115 failed / 537 passed` parce que des tests historiques étaient exécutés comme s'ils décrivaient l'état courant ;
+- les six documents de gouvernance absents de la branche ont été restaurés depuis `main` sans réécriture de leur contenu ;
+- les 115 node IDs historiques sont conservés et rejoués fail-closed contre 42 états Git historiquement verts ;
+- aucun `skip`, `xfail` ou effacement de test n'est utilisé pour obtenir le vert ;
+- la vérité courante post-clôture est testée séparément ;
+- la règle `GOVERNANCE_RELAXATION_COOLING_OFF_V1` est ajoutée au protocole existant au lieu de créer une nouvelle couche documentaire.
+
+**Verdict de cet audit borné : PASS**, sous réserve du re-break persisted-HEAD de la suite complète après cette modification. Ce PASS ne vaut pas audit global de gouvernance et ne ferme aucun élément du complément non audité.

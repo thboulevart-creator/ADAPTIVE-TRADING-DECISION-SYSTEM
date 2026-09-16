@@ -49,7 +49,12 @@ The objective is to recover the state without repeating validated work and witho
 - Never issue a false PASS.
 - Allowed qualification verdicts: **PASS / FAIL / BLOCKED**.
 - BLOCKED means the control could not be executed or proven; it is not PASS.
-- Distinguish explicitly between current violation, architectural exposure, absence of proof, historical evidence, and reproducible current evidence.
+- Distinguish explicitly between:
+  - current violation;
+  - architectural exposure;
+  - absence of proof;
+  - historical evidence;
+  - reproducible current evidence.
 - Never invent a file, path, probe, contract, dataset, hash, branch, commit, or prior result.
 - Verify actual repository state before modifying anything.
 
@@ -65,7 +70,7 @@ Every important control must be attacked for bypasses, substituted inputs, incom
 
 ## 6. CHANGE DISCIPLINE
 
-- Do not modify `main` casually. A direct main change is permitted only when explicitly justified as governance/documentation or otherwise authorized.
+- Do not modify `main` casually.
 - Do not merge, rebase, reset, force-push, or discard work without explicit state/evidence review.
 - Do not use `git add .` for qualification commits.
 - Do not create parasite artifacts merely to make a test pass.
@@ -77,37 +82,63 @@ Every important control must be attacked for bypasses, substituted inputs, incom
 
 When an execution fails, first diagnose the exact failure.
 
-Do not retry the same command blindly, assume a previously temporary probe still exists, assume a path from another worktree, or recreate a qualification step already proven unless the evidence is genuinely lost or invalidated.
+Do not:
 
-Record material failures and corrections in the Recovery Checkpoint.
+- retry the same command blindly;
+- assume a previously temporary probe still exists;
+- assume a path from another worktree;
+- recreate a qualification step already proven unless the evidence is genuinely lost or invalidated.
+
+Record the failure and correction in the Recovery Checkpoint when it is materially relevant.
 
 ## 8. EXPERIMENTAL MEMORY
 
-The system should progressively preserve not only outcomes but also hypotheses, experiments, tested explanations, results, failures, successful corrections, validated knowledge, and reasons why an approach was rejected.
+The system should progressively preserve not only outcomes but also:
+
+- hypotheses;
+- experiments;
+- tested explanations;
+- results;
+- failures;
+- successful corrections;
+- validated knowledge;
+- reasons why an approach was rejected.
 
 A result without its experimental context is insufficient for reliable recovery.
 
 ## 9. GOVERNANCE ARTIFACT CHAIN
 
-For important work, prefer the durable chain:
+For important qualification work, prefer the durable chain:
 
 **Script → Report → Verdict → Conclusion → Recovery Checkpoint**
 
 Each artifact must be traceable to the state it describes.
 
-## 10. BACKTEST / EXECUTION GATE
+## 10. BACKTEST GATE
 
 No real backtest may begin before all mandatory qualification blocks are PASS.
 
-For the trading research pipeline, preserve the established requirements including minimum five years where applicable, real tick modelling, true spread and transaction costs, out-of-sample validation, robustness testing such as spread widening, and MT5 `Every tick based on real ticks` when using MT5.
+For the trading research pipeline, the backtest methodology must preserve the project requirements including, where applicable:
+
+- minimum five years of data;
+- real tick modelling;
+- true spread and transaction costs;
+- out-of-sample validation;
+- robustness testing such as spread widening;
+- MT5 `Every tick based on real ticks` when using MT5;
+- no substitution of weaker data modelling for required evidence.
 
 ## 11. MINDSET
 
-The AI must not seek to prove that another AI, hypothesis, or prior conclusion is right or wrong. The objective is to determine what is true from evidence.
+The AI must not seek to prove that another AI, hypothesis, or prior conclusion is right or wrong.
 
-Before a verdict, the AI must actively ask:
+The objective is to determine what is true from evidence.
+
+The AI must actively ask:
 
 > **Where could I be wrong?**
+
+and attack its own proposed conclusion before declaring validation.
 
 ## 12. CROSS-REPOSITORY RULE
 
@@ -117,4 +148,31 @@ If repositories disagree, do not silently choose one. Surface the conflict and c
 
 ## 13. CURRENT STATUS
 
-This file establishes the durable operating-memory protocol. It does not itself certify technical results. The current technical state must be read from the latest applicable Recovery Checkpoint and evidence artifacts.
+This file establishes the durable operating-memory protocol. It does not itself certify any qualification block or technical result.
+
+The current technical state must be read from the repository's latest Recovery Checkpoint and qualification artifacts.
+
+## 14. DURABLE SESSION BACKUP — MANDATORY
+
+`99-BACKUP/` is the dedicated durable project-memory layer.
+
+At the beginning of every substantive session, after reading this file and the Recovery Checkpoint, the AI MUST read the newest applicable `99-BACKUP/SESSION-YYYY-MM-DD.md` before searching for prior work.
+
+At the end of every material session, the AI MUST preserve a dated session snapshot in `99-BACKUP/` containing the context required to recover the work without relying on conversational memory, including where relevant:
+
+- code and artifact state;
+- decisions and their reasons;
+- hypotheses;
+- experiments and results;
+- failures and corrections;
+- locked verdicts;
+- important identities and hashes;
+- what is on GitHub;
+- what remains local or unpersisted;
+- divergences;
+- prohibited reruns;
+- exactly one next governed action.
+
+The backup layer does not replace source code or evidence. It prevents loss of project context and prevents repeated morning reconstruction of already completed work.
+
+A workstream cannot be considered durably closed merely because its state appears in conversation. Important executable artifacts must be versioned on the governed branch, or their absence must be explicitly recorded as BLOCKED / NON-PERSISTED.
