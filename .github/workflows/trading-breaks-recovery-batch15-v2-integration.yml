@@ -7,6 +7,7 @@ on:
       - '.github/workflows/trading-breaks-recovery-batch15-v2-integration.yml'
       - 'tools/integrate_trading_breaks_recovery_batch15_v2.py'
       - 'tests/test_trading_breaks_recovery_batch15_v2_integration_contract.py'
+      - 'tests/test_trading_breaks_target_day_overlap_source_binding.py'
   workflow_dispatch:
 
 permissions:
