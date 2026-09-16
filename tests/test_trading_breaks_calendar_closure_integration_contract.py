@@ -123,5 +123,6 @@ def test_class_b_contract_does_not_promote_matching_records_empty_directly() -> 
     )
     assert "matching_records" not in class_b_source
     full_source = Path(closure.__file__).read_text(encoding="utf-8")
-    assert closure.NEGATIVE_CONTRACT in full_source
-    assert closure.NEGATIVE_REPORT_SOURCE in full_source
+    assert "CONTRACT as NEGATIVE_CONTRACT" in full_source
+    assert "NEGATIVE_REPORT_SOURCE" in class_b_source
+    assert closure.NEGATIVE_CONTRACT == "TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1"
