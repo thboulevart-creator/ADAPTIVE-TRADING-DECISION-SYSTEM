@@ -4,6 +4,14 @@ import json
 from dataclasses import dataclass, replace
 from pathlib import Path
 
+from src.promotion_gate import (
+    NATIVE_ACQUISITION_OR_REAL_BACKTEST,
+    NATIVE_BI5_ACQUISITION,
+    PERMISSION_INCREASE,
+    TIER_A,
+    PromotionRequest,
+    evaluate_promotion,
+)
 from tools.coverage_execution_window_boundary import (
     AUTHORIZE_MASSIVE_ACQUISITION,
     BLOCKED,
@@ -167,4 +175,30 @@ def evaluate_acquisition_after_persisted_freeze() -> BoundaryDecision:
             frozen.decision.verdict,
             f"PERSISTED_FREEZE_NOT_PASS:{frozen.decision.reason}",
         )
-    return evaluate_boundary(AUTHORIZE_MASSIVE_ACQUISITION, frozen.evidence.frozen_state)
+
+    # Preserve all pre-existing acquisition requirements first. P1.0 does not
+    # replace or weaken them; it adds a final central permission boundary.
+    acquisition = evaluate_boundary(
+        AUTHORIZE_MASSIVE_ACQUISITION,
+        frozen.evidence.frozen_state,
+    )
+    if acquisition.verdict != PASS:
+        return acquisition
+
+    promotion = evaluate_promotion(
+        PromotionRequest(
+            current_tier=TIER_A,
+            target_tier=TIER_A,
+            consequences=(
+                PERMISSION_INCREASE,
+                NATIVE_ACQUISITION_OR_REAL_BACKTEST,
+            ),
+            current_permissions=frozenset(),
+            target_permissions=frozenset({NATIVE_BI5_ACQUISITION}),
+        )
+    )
+    return BoundaryDecision(
+        AUTHORIZE_MASSIVE_ACQUISITION,
+        promotion.verdict,
+        f"PROMOTION_GATE:{promotion.reason}",
+    )
