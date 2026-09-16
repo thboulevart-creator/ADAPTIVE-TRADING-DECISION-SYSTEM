@@ -1,4 +1,4 @@
-# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — BATCH 15 V2 FULLY CLOSED / CRITICAL PATH MUST BE RE-EVALUATED
+# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — BATCH 15 V2 FULLY CLOSED / CLASS-B COMPLETENESS NEXT
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 Branch: `feat/multi-year-dukascopy-acquisition`
@@ -24,23 +24,6 @@ A successful prior mechanism is not, by itself, evidence that the same mechanism
 Durable report:
 
 `reports/data-qualification/historical_trading_breaks_recovery_batch14_persisted_head_rebreak.md`
-
-## Post-Batch14 critical-path pivot
-
-The 17 unresolved dates were correctly separated into two different problems:
-
-- Class A: 14 positive broker-native records spanning the target day but blocked by the old exact-start-date admissibility rule;
-- Class B: 3 true no-positive-record cases.
-
-Decision record:
-
-`reports/data-qualification/pre_backtest_critical_path_reevaluation_2026-09-15.md`
-
-This rejected:
-
-- continuing under unchanged V1 capability;
-- searching for a new source for all 17 dates;
-- bypassing calendar qualification to start `.bi5` acquisition.
 
 ## Target-day overlap semantic capability V2 — QUALIFIED
 
@@ -72,7 +55,7 @@ Qualified facts:
 - all 14 Class-A cases offline readjudicated: `14 PASS / 0 BLOCKED / 0 FAIL`;
 - no browser/probe/live recapture used for Class-A semantic readjudication.
 
-Authoritative reports include:
+Authoritative reports:
 
 - `reports/data-qualification/trading_breaks_target_day_overlap_semantics_qualification.md`
 - `reports/data-qualification/trading_breaks_target_day_overlap_source_binding_qualification.md`
@@ -93,13 +76,6 @@ Frozen membership:
 4. `2023-01-02 — NEW_YEARS_OBSERVED`
 5. `2023-07-04 — INDEPENDENCE_DAY_OBSERVED`
 
-Freeze chain:
-
-- baseline: `d6622e8da58e2d4218947ff3f2953fe8e19a2c96`
-- qualification HEAD: `8066e82607db1f8de0b406ec36684a6856e0646d`
-- qualification run/job: `35067822465 / 104702050599`
-- persisted-membership re-break run/job: `35067904056 / 104702309977`
-
 Offline execution/adjudication:
 
 - execution selector HEAD: `f73d31e645bdc1ad4081a7cf3c104e3f3bd4848b`
@@ -118,24 +94,18 @@ The integration changed exactly:
 - `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
 - `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
 
-### Independent persisted-HEAD re-break
+Independent persisted-HEAD re-break:
 
-First verifier attempt:
-
-- commit: `3befa42956f9d4013fced5623f283996f75a227e`
-- run/job: `35085516084 / 104759279481`
-- result: FAIL due verifier-scope error: a pre-integration adjudicator requiring exactly 68 attempts was incorrectly replayed against the legitimate 73-attempt post-integration state.
-- this failure did not reveal a governed-state mutation or integration defect.
-
-Corrected verifier:
-
-- commit: `4bb7712bcab8b8930c4054e1500302621f881f4f`
-- run/job: `35085635675 / 104759660665`
+- first verifier: `3befa42956f9d4013fced5623f283996f75a227e`
+- first run/job: `35085516084 / 104759279481`
+- first result: FAIL because a pre-integration adjudicator requiring 68 attempts was incorrectly replayed against the legitimate 73-attempt post-integration state;
+- corrected verifier: `4bb7712bcab8b8930c4054e1500302621f881f4f`
+- authoritative run/job: `35085635675 / 104759660665`
 - permissions: `contents: read`
-- durable post-state regression: `65 passed in 0.25s`
+- post-state-safe regression: `65 passed in 0.25s`
 - integration ancestry and three-file atomic mutation: PASS
 - historical attempts `1..68` immutable: PASS
-- exact retry attempts `69..73`: PASS
+- retry attempts `69..73`: PASS
 - calendar/source-attempt/provenance binding: PASS
 - capability registry: PASS
 - progression regeneration: byte-stable
@@ -155,7 +125,7 @@ Session backup:
 
 `99-BACKUP/SESSION-2026-09-16-TRADING-BREAKS-BATCH15-V2-CLOSED.md`
 
-## Current deterministic state after Batch 15 V2
+## Current deterministic state
 
 Global calendar:
 
@@ -178,13 +148,23 @@ Recovery state:
 - current capability: `TRADING_BREAKS_PRIMARY_WIDGET_TARGET_DAY_OVERLAP_V2`
 - current fingerprint: `e1e0f9402df2da900f34a721a355210a802533823f8d2750a296a1a759e29f31`
 - current unresolved queue: `12`
-- execution-eligible unresolved: `9`
+- execution-eligible unresolved Class A: `9`
 - unresolved/ineligible Class B: `3`
 - execution window frozen: **NO**
 - `.bi5`: **FORBIDDEN**
 - real backtest: **NOT AUTHORIZED**
 
-### Remaining Class A — 9 currently V2-eligible
+## Critical-path reevaluation — 9 Class A + 3 Class B
+
+Decision record:
+
+`reports/data-qualification/pre_backtest_critical_path_reevaluation_2026-09-16.md`
+
+Verdict:
+
+**PASS — `CLASS_B_COMPLETENESS_IS_THE_ONLY_INFORMATIONAL_BLOCKER_WORTH_ATTACKING_NEXT`**
+
+### Remaining Class A — 9 proven PASS but not yet integrated
 
 1. `2023-12-25 — CHRISTMAS_OBSERVED`
 2. `2024-01-01 — NEW_YEARS_OBSERVED`
@@ -196,41 +176,106 @@ Recovery state:
 8. `2026-01-01 — NEW_YEARS_OBSERVED`
 9. `2026-04-03 — GOOD_FRIDAY`
 
-Their current eligibility reason is the already-qualified material V2 capability change.
+These nine already belong to the authoritative `14 PASS / 0 BLOCKED / 0 FAIL` offline V2 readjudication.
 
-### Remaining Class B — 3 unresolved/ineligible
+Their immediate integration is **DEFERRED**, not rejected. Integrating all nine now would only move the execution-window state to `65 resolved / 3 unresolved`; the freeze would remain BLOCKED. No new information would be learned.
 
-- `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
-- `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
-- `2026-07-02 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+**Do not create Batch 16 / Batch 17 merely to re-process already-qualified outcomes.**
 
-Current reason:
+### Class B — 3 actual uncertain blockers
 
-`RETRY_MATERIAL_CHANGE_NOT_PROVEN:BLOCKING_REASON_NOT_EXPLICITLY_ADDRESSED`
+1. `2021-12-31 — NEW_YEARS_EVE_CANDIDATE+NEW_YEARS_OBSERVED`
+2. `2022-07-01 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
+3. `2026-07-02 — INDEPENDENCE_PRE_HOLIDAY_SESSION`
 
-The V2 overlap capability does not address `NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED`; these three must remain separate from Class A.
+Blocking reason:
+
+`NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED`
+
+Persisted captures for all three already establish:
+
+- exact historical date honored;
+- HTTP `200` navigation/document path;
+- exact target instrument `USATECH.IDX/USD` / `9016`;
+- raw payload present;
+- runtime errors empty;
+- `matching_records=[]`;
+- no DOM witness line.
+
+`2021-12-31` also has two independent historical attempts with the same no-positive-record result.
+
+But existing route/protocol qualification explicitly forbids promoting empty/no-record responses into `NO_SPECIAL_CHANGE_EVIDENCE` without a separately qualified negative-evidence/completeness contract.
+
+Therefore Class B — not Class A integration — is the current information bottleneck.
+
+## Selected path
+
+Before building a new browser or alternate broker route, first determine whether the **already persisted broker-native responses** can be qualified as complete negative evidence.
+
+Candidate contract name:
+
+`TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1`
+
+It must be offline/read-only and end in PASS / FAIL / BLOCKED.
+
+It must never implement `matching_records=[] → PASS` directly.
+
+At minimum it must reject:
+
+1. HTTP `200` with missing raw payload;
+2. date fallback / date not honored;
+3. wrong or missing instrument identity;
+4. parser/filter behavior that hides a raw target-instrument record;
+5. raw payload containing a target-day overlapping record while normalized matches are empty;
+6. incomplete/truncated/paginated response whose completeness is not proven;
+7. route response scope that cannot prove the target day was fully represented;
+8. adjacent-date or other-year absence borrowing;
+9. runtime/network/selector errors presented as negative evidence;
+10. provenance mismatch between runtime/artifact/digest/job/probe commit;
+11. inconsistent repeated observations;
+12. empty normalized result promoted without an independently proven completeness property.
+
+If this contract PASSes and independently validates all three persisted Class-B captures, the later closure integration may combine:
+
+- the nine already-qualified Class-A positive PASS dates;
+- the three newly qualified Class-B negative-evidence PASS dates;
+
+with the target state `68 / 68 resolved / 0 unresolved / 0 FAIL`, followed by an independent persisted-HEAD re-break.
+
+If the Class-B completeness contract is BLOCKED, do **not** repeat the current browser capability. The next materially justified work becomes a capability explicitly addressing `NO_POSITIVE_EXACT_BROKER_RECORD_RECOVERED`, such as:
+
+- `ALTERNATE_BROKER_NATIVE_RECORD_ROUTE`, or
+- `BROKER_ARCHIVE_BACKFILL_ACCESS`.
+
+Only the three Class-B dates need that route.
 
 ## Mandatory recovery order before next substantive write
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
 2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-16-TRADING-BREAKS-BATCH15-V2-CLOSED.md`
-4. `reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_persisted_head_rebreak.md`
-5. `reports/data-qualification/pre_backtest_critical_path_reevaluation_2026-09-15.md`
-6. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
-7. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
-8. `reports/data-qualification/historical_trading_breaks_recovery_capability_changes.json`
-9. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
-10. `tools/trading_breaks_recovery_progression.py`
-11. relevant Batch 15 V2 policy/freeze/adjudication/integration files and reports
-12. relevant overlap-semantics/source-binding qualification files
-13. compare active branch HEAD against the commit containing this checkpoint before any mutation.
+3. `99-BACKUP/SESSION-2026-09-16-PRE-BACKTEST-CRITICAL-PATH-9A-3B.md`
+4. `reports/data-qualification/pre_backtest_critical_path_reevaluation_2026-09-16.md`
+5. `reports/data-qualification/historical_trading_breaks_recovery_batch15_v2_persisted_head_rebreak.md`
+6. `reports/data-qualification/trading_breaks_target_day_overlap_readjudication.md`
+7. `reports/data-qualification/historical_trading_breaks_recovery_attempt_ledger.json`
+8. `reports/data-qualification/historical_trading_breaks_recovery_progression_runtime.json`
+9. `reports/data-qualification/historical_trading_breaks_recovery_batch01_runtime.json`
+10. `reports/data-qualification/historical_trading_breaks_recovery_batch02_runtime.json`
+11. `reports/data-qualification/historical_trading_breaks_recovery_batch03_runtime.json`
+12. `reports/data-qualification/historical_trading_breaks_recovery_batch14_runtime.json`
+13. `04-REFERENCE/HISTORICAL-BROKER-EVIDENCE-ROUTE-QUALIFICATION.md`
+14. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROTOCOL.md`
+15. `04-REFERENCE/HISTORICAL-TRADING-BREAKS-RECOVERY-PROGRESSION-CONTRACT.md`
+16. `04-REFERENCE/COVERAGE-ENVELOPE-EXECUTION-WINDOW-BOUNDARY.md`
+17. compare active branch HEAD against the commit containing this checkpoint before any mutation.
 
 ## Exactly one next governed action
 
-**Re-evaluate the pre-backtest critical path from the current `9 Class A eligible + 3 Class B ineligible` state before deciding whether the next action is another bounded V2 integration batch, a Class-B negative-evidence/completeness workstream, or another upstream gate.**
+**Formalize and adversarially qualify an offline `TRADING_BREAKS_NEGATIVE_EVIDENCE_COMPLETENESS_V1` candidate against the three already persisted Class-B captures, without browser access, without new capture, without calendar/ledger mutation, and without changing the current capability registry.**
 
-Do not freeze Batch 16 merely because Batch 15 succeeded.  
-Do not launch a browser capture merely because three Class-B dates remain.  
-Do not acquire `.bi5`.  
-Do not run a real backtest.
+Only after PASS / FAIL / BLOCKED may the system decide whether existing Class-B evidence is sufficient or a materially different broker-native route is required.
+
+No Batch 16 freeze.  
+No new browser capture.  
+No `.bi5`.  
+No real backtest.
