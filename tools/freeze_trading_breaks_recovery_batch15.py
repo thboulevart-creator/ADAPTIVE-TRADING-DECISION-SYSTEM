@@ -50,7 +50,7 @@ def derive():
         latest = max(history, key=lambda item: item.attempt_sequence)
         assert decision.candidate_reason == reason
         assert decision.eligible
-        assert decision.reason == 'MATERIAL_CAPABILITY_CHANGE_PROVEN'
+        assert decision.reason == 'MATERIAL_CAPABILITY_CHANGE_RETRY'
         assert decision.latest_attempt_outcome == 'BLOCKED'
         assert decision.latest_attempt_id == latest.attempt_id
         assert latest.capability_id == 'TRADING_BREAKS_PRIMARY_WIDGET_V1'
