@@ -6,6 +6,7 @@ from datetime import date
 
 import tools.frozen_execution_window as frozen
 from tools.coverage_execution_window_boundary import BLOCKED, FAIL, FREEZE_EXECUTION_WINDOW, PASS
+from tools.current_execution_window_boundary_state import CurrentFreezeEvaluation
 
 
 def test_persisted_execution_window_freeze_is_exact_and_durable() -> None:
@@ -112,7 +113,7 @@ def test_current_boundary_regression_blocks_persisted_freeze(monkeypatch) -> Non
     monkeypatch.setattr(
         frozen,
         "evaluate_current_freeze",
-        lambda: frozen.CurrentFreezeEvaluation(
+        lambda: CurrentFreezeEvaluation(
             evidence=attacked,
             decision=frozen.BoundaryDecision(FREEZE_EXECUTION_WINDOW, BLOCKED, "ATTACK"),
         ),
