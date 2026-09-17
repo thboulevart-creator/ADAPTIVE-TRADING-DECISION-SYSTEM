@@ -41,6 +41,12 @@ class AuthorizationVerdict:
     constraint_id: str | None
     contract: str = CONTRACT
 
+    def __post_init__(self) -> None:
+        # Runtime enforcement matters: typing.Literal alone does not prevent a
+        # caller from constructing an AUTHORIZED-looking value directly.
+        if self.verdict != "BLOCKED":
+            raise ValueError("P1.1 block-only verdict must be BLOCKED")
+
 
 def _stable_hash(value: object) -> str:
     payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
@@ -139,7 +145,7 @@ def _blocked(reason: str, decision: object, constraints: object) -> Authorizatio
         constraints.constraint_id if isinstance(constraints, AuthorizationConstraints) else None
     )
     return AuthorizationVerdict(
-        verdict=BLOCKED,
+        verdict="BLOCKED",
         reason=reason,
         decision_id=decision_id,
         constraint_id=constraint_id,
