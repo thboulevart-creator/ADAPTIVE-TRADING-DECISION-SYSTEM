@@ -387,3 +387,171 @@ Aucun code ne doit être créé simplement pour reproduire le vieux harness synt
 4. de laisser `DecisionTrace` strictement aval et non producteur.
 
 Puis seulement construire le breaker adversarial A0–E5 avant toute correction de candidat.
+
+---
+
+# ADDENDUM GOUVERNÉ — 17 SEPTEMBRE 2026 — P1.3 RESULT → TRACE EVIDENCE BOUNDARY
+
+**Contract ID:** `P1_3_RESULT_TRACE_EVIDENCE_BOUNDARY_V1`  
+**Branche de formalisation:** `integration/system-v1`  
+**Base observée avant écriture:** `8a36198fce100fb41275c778a405a3100e209aab`  
+**Statut de la formalisation:** `FORMALIZED`  
+**Statut de la frontière exécutable:** `BLOCKED`  
+**Règle:** cet addendum qualifie la reconstruction de TRACE ; il ne crée aucun événement amont et n'ouvre aucune permission opérationnelle.
+
+## 18. État P1.2 qui précède P1.3
+
+Le statut `BLOCKED` de l'addendum P1.2 ci-dessus est historique et supersédé pour le harness de qualification.
+
+P1.2 qualification-only est désormais **PASS** sur le HEAD `8a36198fce100fb41275c778a405a3100e209aab` :
+
+- `RESEARCH → DECISION` : 16 tests PASS ;
+- P1.2 A0–E5 + second breaker exact-provenance : 60 tests PASS ;
+- run `35245152286`, attempt 2, job `105283562009` : SUCCESS ;
+- aucune Action opérationnelle, aucun broker, aucun ordre, aucun backtest réel et aucun live ne sont autorisés par ce PASS.
+
+## 19. Question minimale de P1.3
+
+> **DecisionTrace peut-elle reconstruire une histoire seulement à partir d'événements réellement qualifiés, sans qu'un ensemble cohérent de simples IDs ou de métadonnées déclarées puisse fabriquer rétrospectivement une fausse chaîne ?**
+
+Le noyau logique visé est :
+
+`qualified upstream evidence + exact Decision + exact ActionEvidence + exact ResultObservation → DecisionTrace`
+
+TRACE reste strictement aval : elle décrit ce qui a déjà été produit/observé ; elle ne crée, n'atteste, ne répare ni Decision, ni Action, ni Result.
+
+## 20. Constat de minimalité : les trois objets downstream ne suffisent pas au schéma actuel
+
+Le triplet :
+
+`Decision + QualificationActionEvidence + QualificationResultObservation`
+
+est suffisant pour prouver la chaîne downstream qualifiée :
+
+`Decision → Action → Result`.
+
+Il est **insuffisant** pour remplir honnêtement l'actuel `DecisionTrace`, qui exige aussi :
+
+- `provenance_id` ;
+- `research_run_id` ;
+- `code_version` ;
+- `configuration_version` ;
+- `dataset_id` ;
+- `dataset_version` ;
+- `context_id`.
+
+`Decision` ne conserve publiquement que `decision_id`, `research_run_id`, `context_id` et `decision`. Les autres valeurs appartiennent à `ResearchRunEvidence`.
+
+Par conséquent, P1.3 interdit explicitement de remplir ces champs avec :
+
+- constantes ;
+- placeholders ;
+- valeurs déclarées par l'appelant ;
+- reconstruction depuis des IDs seuls ;
+- déduction non prouvée.
+
+Le plus petit candidat truthful devra donc recevoir la preuve amont complète nécessaire à la Trace. À ce stade, l'entrée minimale est :
+
+`ResearchRunEvidence + Decision + QualificationActionEvidence + QualificationResultObservation`.
+
+P1.3 ne décide pas encore si une future évolution devra mémoriser la provenance amont dans l'attestation privée de `Decision`. Cette question ne doit être ouverte que si le breaker démontre qu'une simple liaison par identité/attestation des quatre objets reste contournable.
+
+## 21. Invariants obligatoires P1.3
+
+Une future qualification positive doit satisfaire simultanément :
+
+1. `DecisionTrace` ne peut pas être qualifiée à partir de `decision_id`, `action_id` et `result_id` seuls.
+2. La construction qualifiée exige la `Decision` complète et factory-attested.
+3. La construction qualifiée exige l'`ActionEvidence` complète et encore admissible.
+4. La construction qualifiée exige le `ResultObservation` complet et encore admissible.
+5. La chaîne `Decision → Action → Result` doit être vérifiée avant toute création de Trace.
+6. Les métadonnées RESEARCH/provenance nécessaires au schéma de Trace doivent venir d'un `ResearchRunEvidence` complet et factory-attested, jamais de valeurs caller-supplied libres.
+7. `ResearchRunEvidence.research_run_id` et `context_id` doivent être cohérents avec la Decision fournie.
+8. Les champs de la Trace doivent être copiés depuis les objets qualifiés correspondants ; aucun champ historique obligatoire ne peut être inventé.
+9. Une reconstruction manuelle de `DecisionTrace` avec les mêmes champs ne reproduit pas automatiquement une future admissibilité de Trace qualifiée.
+10. `copy`, `deepcopy`, `replace` ou mutation post-production d'une Trace qualifiée doivent être détectables/rejetables si l'admissibilité de Trace devient une propriété downstream.
+11. Une Trace avec Result étranger, Action étrangère ou Decision étrangère doit échouer fermée, même si certains IDs coïncident.
+12. Une Trace ne peut jamais servir de producteur rétrospectif pour rendre admissible un objet Decision/Action/Result non admissible.
+13. `DecisionTrace.validate() == PASS` structurel ne vaut pas preuve P1.3 d'authenticité ou de provenance.
+14. `reconstruction_chain()` ne doit pas être interprété comme preuve que les événements référencés ont réellement existé.
+15. Une incohérence entre preuve amont et chaîne downstream doit échouer fermée.
+16. L'absence d'une preuve amont nécessaire doit laisser TRACE incomplète/BLOCKED plutôt que créer une métadonnée de remplacement.
+17. TRACE ne doit pas déduire causalité, qualité de Decision, validation de connaissance ou permission opérationnelle à partir du Result.
+18. Aucun mécanisme P1.3 ne peut acquérir de données, lancer un backtest réel, appeler un broker, produire un ordre ou activer le live.
+19. Toute incertitude sur l'origine ou la liaison d'un maillon obligatoire doit échouer fermée.
+
+## 22. Catalogue adversarial minimal P1.3
+
+### A — Faux récit par identifiants
+
+- `A0` chaîne complète issue des objets qualifiés exacts ;
+- `A1` seulement `decision_id/action_id/result_id` ;
+- `A2` `DecisionTrace(...)` construite manuellement avec des IDs cohérents ;
+- `A3` dictionnaire sérialisé reprenant tous les champs de Trace ;
+- `A4` Trace structurellement `PASS` mais sans objets qualifiés amont ;
+- `A5` `reconstruction_chain()` cohérente utilisée comme preuve d'existence.
+
+### B — Substitutions d'objets
+
+- `B0` Decision étrangère ;
+- `B1` Action étrangère ;
+- `B2` Result étranger ;
+- `B3` paire Action/Result étrangère avec IDs superficiellement cohérents ;
+- `B4` objets reconstruits/copied/deepcopied/replaced au lieu des originaux admissibles ;
+- `B5` objet amont muté après qualification.
+
+### C — Provenance RESEARCH et métadonnées de Trace
+
+- `C0` `ResearchRunEvidence` absente ;
+- `C1` mauvais type ;
+- `C2` champs sérialisés ou IDs seuls au lieu de la preuve complète ;
+- `C3` preuve non factory-attested ;
+- `C4` `research_run_id` étranger ;
+- `C5` `context_id` étranger ;
+- `C6` provenance/code/configuration/dataset inventés ou override par l'appelant ;
+- `C7` preuve amont authentique mais incompatible avec la Decision fournie.
+
+### D — Direction de causalité de TRACE
+
+- `D0` Trace utilisée pour mint/attester une Decision ;
+- `D1` Trace utilisée pour mint/attester une Action ;
+- `D2` Trace utilisée pour mint/attester un Result ;
+- `D3` modification de Trace utilisée pour réécrire l'historique amont ;
+- `D4` Result favorable transformé par Trace en validation causale/épistémique ;
+- `D5` Trace incomplète réparée silencieusement par défaut/placeholder.
+
+### E — Bypass opérationnel
+
+- `E0` import ou appel broker/exchange ;
+- `E1` ordre/exécution/sizing/risk policy ;
+- `E2` acquisition `.bi5` ou réseau ;
+- `E3` backtest réel ;
+- `E4` live activation ;
+- `E5` PASS de Trace interprété comme permission opérationnelle.
+
+## 23. Qualification positive autorisée à ce stade
+
+Le futur candidat P1.3 peut démontrer uniquement qu'une Trace de qualification :
+
+- est construite à partir d'une preuve RESEARCH authentique et de la chaîne exacte Decision → Action → Result ;
+- reproduit fidèlement les identités déjà qualifiées ;
+- rejette substitutions, reconstructions et histoires constituées de simples IDs ;
+- reste une projection downstream sans effet secondaire.
+
+Il ne doit pas créer de mémoire expérimentale, d'audit automatique ni de boucle de révision ; ces fonctions restent en aval de TRACE.
+
+## 24. État après formalisation P1.3
+
+**FORMALISATION P1.3 : PASS.**
+
+La frontière exécutable reste :
+
+**RESULT → TRACE : BLOCKED.**
+
+Raison : l'actuel `DecisionTrace` n'est qu'une dataclass publiquement constructible dont `validate()` vérifie la complétude structurelle des chaînes. Aucun producteur qualifié ne lie encore une Trace aux objets exacts qui ont réellement produit Decision, Action et Result.
+
+## 25. Prochaine action gouvernée unique
+
+**Déterminer le plus petit candidat exécutable P1.3 qui réutilise `DecisionTrace` au lieu de créer un second modèle de Trace, puis seulement construire le breaker A0–E5 avant toute correction.**
+
+Le candidat devra rester local, synthétique, sans side effect et ne devra pas modifier P1.2 sauf si un breaker prouve qu'une dépendance de provenance exacte manque réellement.
