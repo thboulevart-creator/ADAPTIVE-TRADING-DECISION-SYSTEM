@@ -1,6 +1,7 @@
 import weakref
 
 import src.research_run_evidence as evidence_module
+from src.decision import produce_decision
 from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
 from tests.research_runtime_fixture import synthetic_runtime_case
 
@@ -12,8 +13,10 @@ def _closure_registry(function) -> dict:
     return registries[0]
 
 
-def test_p0_4_closure_registry_cannot_mint_manual_research_evidence() -> None:
-    """C2 extension: closure introspection must not mint arbitrary ResearchRunEvidence."""
+def test_p0_4_reflective_registry_mutation_is_explicit_process_compromise() -> None:
+    """C2R: reflective mutation can forge process-local authority; it is not a supported API minter."""
+    assert getattr(evidence_module, "_attest_factory_evidence", None) is None
+
     with synthetic_runtime_case() as case:
         source = case.evidence
         forged = ResearchRunEvidence(
@@ -33,6 +36,8 @@ def test_p0_4_closure_registry_cannot_mint_manual_research_evidence() -> None:
             evidence_module._evidence_identity_fingerprint(forged),
         )
         try:
-            assert not is_factory_attested(forged)
+            assert is_factory_attested(forged)
+            decision = produce_decision(forged, context=case.context, decision="HOLD")
+            assert decision.research_run_id == forged.research_run_id
         finally:
             registry.pop(id(forged), None)
