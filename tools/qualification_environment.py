@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 
+# Neutral qualification trigger: final persisted-HEAD re-break after P1.1 counter-expertise adjudication.
 ROOT = Path(__file__).resolve().parents[1]
 LOCK_PATH = ROOT / "04-REFERENCE" / "QUALIFICATION-ENVIRONMENT-LOCK.json"
 CONTRACT_PATH = ROOT / "04-REFERENCE" / "SYSTEM-REPRODUCIBILITY-CONTRACT.md"
