@@ -20,6 +20,7 @@ on:
       - 'src/research/input_binding.py'
       - 'tests/research_runtime_fixture.py'
       - 'tests/test_action_result_evidence_tier_a.py'
+      - 'tests/test_action_result_evidence_exact_provenance.py'
       - 'tests/test_research_to_decision_boundary.py'
   workflow_dispatch:
 
@@ -58,6 +59,7 @@ jobs:
               'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md',
               'src/action_result_evidence.py',
               'tests/test_action_result_evidence_tier_a.py',
+              'tests/test_action_result_evidence_exact_provenance.py',
           }
           for path in required:
               assert Path(path).is_file(), path
@@ -92,8 +94,11 @@ jobs:
       - name: Re-break protected RESEARCH to DECISION boundary
         run: python -m pytest -q tests/test_research_to_decision_boundary.py
 
-      - name: Break P1.2 A0-E5
-        run: python -m pytest -q tests/test_action_result_evidence_tier_a.py
+      - name: Break P1.2 A0-E5 plus exact provenance bypasses
+        run: |
+          python -m pytest -q \
+            tests/test_action_result_evidence_tier_a.py \
+            tests/test_action_result_evidence_exact_provenance.py
 
       - name: Prove clean worktree
         if: always()
