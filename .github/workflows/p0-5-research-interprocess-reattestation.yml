@@ -41,8 +41,8 @@ env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONHASHSEED: '0'
   TZ: 'UTC'
-  LANG: C.UTF-8
-  LC_ALL: C.UTF-8
+  LANG: 'C.UTF-8'
+  LC_ALL: 'C.UTF-8'
   P0_4_BASE: 'aa9551addc0fe554af9cbb8ebdb26314d37e412e'
 
 jobs:
