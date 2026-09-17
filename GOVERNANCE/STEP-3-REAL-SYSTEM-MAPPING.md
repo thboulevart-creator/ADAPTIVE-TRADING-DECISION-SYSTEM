@@ -880,3 +880,302 @@ Aucun nouveau composant MEMORY, stockage, ResearchFindings attestation, timestam
 **Déterminer, à partir des APIs réelles P1.2/P1.3, le plus petit candidat exécutable P1.4 capable de produire/attester localement un épisode observationnel exact depuis `DecisionTrace + QualificationActionEvidence + QualificationResultObservation`, puis construire le breaker A0–G4 avant toute correction.**
 
 Si les APIs actuelles ne permettent pas de vérifier l'admissibilité des exacts Action/Result sans Decision, choisir le plus petit raccord de vérification nécessaire ; ne pas élargir le modèle de mémoire et ne pas introduire ResearchFindings, temporalité ou persistance durable dans ce raccord.
+
+---
+
+# ADDENDUM GOUVERNÉ — 17 SEPTEMBRE 2026 — P1.5 DURABLE MEMORY / INTER-PROCESS WITNESSED RE-ATTESTATION BOUNDARY
+
+**Contract ID:** `P1_5_WITNESSED_DURABLE_MEMORY_REATTESTATION_V1`  
+**Branche de formalisation:** `integration/system-v1`  
+**Base observée avant écriture:** `12936ce44a1ba5dd3ac154fc62c62bf39a9997b5`  
+**Statut de la formalisation:** `FORMALIZED`  
+**Statut de la frontière exécutable:** `BLOCKED`  
+**Règle:** cet addendum formalise uniquement la confiance durable nécessaire pour faire survivre un `ObservationalMemoryEpisode` qualifié au processus qui l'a produit. Il ne choisit ni technologie de signature, ni service de stockage, ni trust root concret, ni format cryptographique, et ne crée aucune connaissance, AUDIT, REVISION ou autorisation opérationnelle.
+
+## 38. État qualifié qui précède P1.5
+
+Le statut `BLOCKED` de l'addendum P1.4 ci-dessus est historique et supersédé pour le harness de qualification.
+
+P1.4 qualification-only est désormais **PASS** au HEAD `12936ce44a1ba5dd3ac154fc62c62bf39a9997b5` :
+
+- l'épisode est produit uniquement depuis la Trace P1.3 exacte et les Action/Result P1.2 exacts historiquement liés à cette Trace ;
+- l'attestation locale repose sur identité d'objet, weakref et fingerprint ;
+- un `episode_id` déterministe identifie le contenu observationnel mais ne constitue pas, seul, une autorité ;
+- JSON, reconstruction same-valued, copie, deepcopy, mutation et paire same-ID issue d'un autre lifecycle restent non autorisants ;
+- le re-break persisted-HEAD P1.4 est PASS sur ce même SHA.
+
+Cette qualification est volontairement **process-local** : lorsque le processus producteur disparaît, son registre d'attestation disparaît également. Les octets de l'épisode peuvent être copiés ou persistés, mais leur autorité P1.4 ne survit pas automatiquement.
+
+## 39. Question minimale de P1.5
+
+> **Peut-on faire survivre un épisode P1.4 à la disparition de son processus producteur en prouvant dans un processus ultérieur que des octets exacts ont été capturés pendant que l'épisode possédait encore son attestation P1.4, sans transformer le fichier persisté, son hash ou son propre identifiant en autorité, et sans prétendre rejouer l'événement historique ?**
+
+Le noyau logique visé est :
+
+`exact locally-attested ObservationalMemoryEpisode → trusted capture/witness → canonical durable record + authority-bound receipt → fresh process + independently supplied trust expectation → verification → fresh local historical-memory re-attestation`
+
+Le terme **re-attestation** ne signifie pas résurrection de l'objet Python initial. Il signifie création d'une nouvelle attestation locale portant sur un record historique dont la capture a été qualifiée.
+
+## 40. Séparations obligatoires de confiance durable
+
+### 40.1 `DURABLE RECORD ≠ AUTHORITY`
+
+Un record persistant est une représentation canonique de l'épisode. Sa présence sur disque, dans Git, dans une base, dans un objet storage ou dans tout autre support ne prouve pas à elle seule qu'il a été produit depuis un épisode P1.4 authentique.
+
+### 40.2 `CONTENT INTEGRITY ≠ PROVENANCE / AUTHENTICITY`
+
+Un hash, checksum, `episode_id`, nom content-addressed ou comparaison byte-for-byte peut établir l'identité/intégrité d'un contenu. Il ne prouve pas qui l'a capturé ni qu'une attestation P1.4 était valide au moment de cette capture.
+
+### 40.3 `CAPTURE AUTHORITY ≠ CAPTURED ARTIFACT`
+
+L'artefact ne peut jamais sélectionner lui-même l'autorité qui le rend fiable. Le processus consommateur doit recevoir la ou les autorités admissibles depuis une source de confiance extérieure au record et à son receipt.
+
+Un champ `authority_id` auto-déclaré dans le JSON n'est donc pas une racine de confiance.
+
+### 40.4 `RECEIPT ≠ HISTORICAL EVENT`
+
+Un receipt qualifié atteste au maximum qu'une autorité de capture admissible a accepté des octets exacts alors que le producteur démontrait l'admissibilité P1.4 exigée. Il ne transforme pas cette attestation de capture en preuve causale, vérité du monde, connaissance validée ou preuve d'indépendance expérimentale.
+
+### 40.5 `CONTENT IDENTITY ≠ OCCURRENCE / REGISTRATION IDENTITY`
+
+L'actuel `episode_id` P1.4 est dérivé du contenu de l'épisode. Deux épisodes same-valued peuvent donc partager cette identité de contenu.
+
+P1.5 doit distinguer au minimum :
+
+- l'identité du contenu observationnel ;
+- l'identité d'une opération durable de capture/registration.
+
+Une future `registration_id`/identité de receipt identifie une capture durable ; elle ne prouve pas automatiquement l'existence de deux événements historiques ou de deux expériences statistiquement indépendantes.
+
+P1.5 ne prétend pas encore disposer d'un identifiant global qualifié de l'**occurrence historique** elle-même. Si une telle identité devient nécessaire, elle devra être dérivée d'une future source d'événement qualifiée, pas inventée par MEMORY.
+
+### 40.6 `REPLAY ≠ HISTORICAL VERIFICATION`
+
+Rejouer RESEARCH peut reproduire un calcul déterministe. Rejouer une Action ou recréer un Result produit un **nouvel événement**, pas une vérification de l'ancien.
+
+Par conséquent, aucune re-exécution de `Decision → Action → Result`, même avec les mêmes champs, IDs ou résultats, ne peut servir de preuve P1.5 que l'événement P1.4 historique s'est produit.
+
+### 40.7 `FRESH-PROCESS RE-ATTESTATION ≠ ORIGINAL OBJECT RESURRECTION`
+
+Le processus consommateur peut, après vérification qualifiée de la chaîne durable, mint une nouvelle autorité process-local sur le record historique accepté. Cette nouvelle attestation n'est ni l'objet P1.4 original, ni une ré-attestation par égalité de valeurs.
+
+## 41. Composants sémantiques minimaux du contrat
+
+P1.5 ne fige pas encore classes, modules ni stockage. Il distingue toutefois six responsabilités qui ne peuvent pas être confondues.
+
+### 41.1 Source qualifiée : `ObservationalMemoryEpisode`
+
+La capture durable ne peut commencer que depuis l'objet P1.4 exact, encore factory-attested dans son processus producteur. Une dataclass reconstruite, un dictionnaire, un JSON ou un épisode same-valued ne peut pas initier une capture qualifiée.
+
+### 41.2 Durable record
+
+Le durable record préserve canoniquement :
+
+- le contrat/schema qui décrit le record ;
+- la projection complète de l'épisode P1.4 ;
+- l'identité de contenu correspondante ;
+- toute information strictement nécessaire à une future vérification de schema et d'intégrité.
+
+Il ne porte aucune autorité autonome. Sa localisation physique n'est pas une preuve d'origine.
+
+### 41.3 Capture authority
+
+La capture authority est l'acteur ou mécanisme auquel la gouvernance accorde le droit de témoigner qu'un épisode actuellement P1.4-attesté a été capturé sous forme de record exact.
+
+P1.5 ne choisit pas sa technologie. Il exige seulement que son identité/admissibilité puisse être fournie et vérifiée indépendamment de l'artefact capturé.
+
+### 41.4 Receipt
+
+Le receipt est l'attestation durable émise par la capture authority. Il doit être lié sans ambiguïté au contenu exact du durable record et à l'identité de registration/capture qu'il prétend représenter.
+
+Le mécanisme futur de vérification peut varier, mais il ne doit jamais se réduire à « le record contient un hash de lui-même ».
+
+### 41.5 Fresh-process trust expectation
+
+Le consommateur doit recevoir séparément ce qu'il est autorisé à croire : identité/admissibilité de capture authority, version de contrat attendue et autres paramètres de trust strictement nécessaires au mécanisme retenu.
+
+Ni le durable record ni le receipt ne peuvent s'auto-déclarer comme trust root accepté.
+
+### 41.6 Fresh local historical-memory attestation
+
+Après vérification réussie, un nouveau processus peut mint une attestation locale qui signifie uniquement :
+
+> « ce contenu historique exact possède une chaîne de capture durable vérifiée selon P1.5 ».
+
+Cette attestation ne recrée pas les anciennes weakrefs Action/Result et ne prétend pas que les objets Python amont existent encore.
+
+## 42. Confrontation explicite avec P0.5
+
+P0.5 constitue un précédent **partiellement réutilisable**.
+
+### 42.1 Principes P0.5 réutilisables
+
+P1.5 reprend les principes suivants :
+
+- un artefact sérialisé n'est jamais autorité par lui-même ;
+- un hash/content-address établit l'intégrité, pas l'identité de l'autorité ;
+- les attentes de trust doivent être fournies séparément de l'artefact ;
+- schema inconnu, champ manquant, substitution ou incohérence doivent échouer fermés ;
+- la validation dans un nouveau processus doit aboutir à une **nouvelle attestation locale**, pas à une confiance brute dans les champs désérialisés ;
+- aucun bypass de type `trust_record=True`, `accept_digest_only`, `skip_verification` ou équivalent n'est admissible.
+
+### 42.2 Mécanisme P0.5 non transposable
+
+P0.5 peut reconstruire l'autorité RESEARCH par :
+
+`source bytes → deterministic replay → exact claim comparison → fresh ResearchRunEvidence`.
+
+P1.5 ne peut pas utiliser :
+
+`stored episode → replay Action/Result → same values → historical authority`.
+
+Ce chemin est invalide parce qu'une nouvelle Action/Result, même authentique et same-valued, constitue une nouvelle occurrence. Le breaker P1.4 same-ID a précisément démontré que l'égalité d'identifiants/valeurs entre lifecycles ne remplace pas la provenance historique exacte.
+
+P1.5 doit donc utiliser une **witness/capture re-attestation**, pas une **replay re-attestation**.
+
+## 43. Invariants obligatoires P1.5
+
+Une future qualification positive doit satisfaire simultanément :
+
+1. La capture persistante ne peut être initiée que depuis un `ObservationalMemoryEpisode` exact encore P1.4-attesté.
+2. Une reconstruction same-valued de l'épisode ne peut pas produire un receipt qualifié.
+3. Le durable record doit représenter exactement l'épisode accepté ; le producteur ne peut pas modifier `behavior`, `outcome`, provenance ou identités pendant la capture.
+4. Le durable record, son chemin, son nom, son hash, son `episode_id` ou son content-address ne constituent jamais une autorité durable suffisante.
+5. Toute modification des octets du record doit invalider tout receipt qui prétendait attester les octets antérieurs.
+6. Un receipt ne peut pas être rebondi vers un autre record, même same-valued partiellement ou doté d'identifiants compatibles.
+7. L'identité/admissibilité de la capture authority doit venir d'une trust expectation extérieure au record et au receipt.
+8. Le record ou receipt ne peut jamais sélectionner seul l'autorité que le consommateur doit croire.
+9. En l'absence d'une capture authority qualifiée ou d'un mécanisme permettant de vérifier son receipt, le consommateur doit échouer fermé ; il ne doit pas se rabattre sur un checksum-only PASS.
+10. Le processus frais ne peut pas re-attester depuis un JSON/record seul.
+11. Le processus frais doit vérifier schema, intégrité de contenu, liaison receipt ↔ record, admissibilité de l'autorité attendue et cohérence des claims avant de mint une nouvelle attestation locale.
+12. La re-attestation fraîche représente un record historique witnessed ; elle n'est pas l'objet original ressuscité.
+13. Aucune re-exécution de l'Action/Result ne peut servir de preuve que l'ancienne occurrence s'est produite.
+14. Une nouvelle paire Action/Result authentique possédant les mêmes IDs ou valeurs que l'ancienne reste une nouvelle paire et ne peut pas réparer la chaîne historique.
+15. `episode_id` doit rester traité comme identité de contenu et non comme preuve d'une occurrence historique globalement unique.
+16. Chaque capture durable acceptée doit posséder une identité de registration/receipt distincte du content identity ; le mécanisme exact de génération n'est pas figé par cet addendum.
+17. Plusieurs registrations ou receipts portant sur le même contenu ne constituent pas automatiquement plusieurs preuves indépendantes ni plusieurs occurrences historiques.
+18. Une identité de registration ne peut pas être promue en causalité, confiance, répétition indépendante ou connaissance.
+19. Si un ordre ou timestamp de registration est représenté, il doit provenir de la capture authority selon un futur mécanisme qualifié ; une valeur temporelle fournie uniquement par le record n'est pas une preuve temporelle.
+20. `registration_at` éventuel ne doit pas être silencieusement assimilé à `known_from`, `valid_from`, `decision_at` ou à l'heure réelle de l'Action/Result.
+21. Le déplacement d'un record vers un autre chemin/storage ne crée jamais une nouvelle autorité ; inversement, la localisation physique ne doit pas remplacer la vérification de la chaîne de trust.
+22. Perte, corruption, receipt absent, autorité inconnue ou contradiction de claims doivent échouer fermés ; aucune reconstruction depuis des valeurs similaires ne doit réparer silencieusement le record.
+23. P1.5 ne peut pas ajouter `ResearchFindings`, causalité, confiance, statut épistémique, connaissance ou règle opérationnelle au record qualifié.
+24. Un receipt P1.5 ne peut pas servir de bearer token vers DECISION, ACTION, `AUTHORIZED`, broker, backtest ou live.
+25. Un mécanisme de persistance P1.5 ne peut pas modifier, réparer ou ré-attester rétroactivement Trace/Action/Result.
+
+## 44. Catalogue adversarial minimal P1.5
+
+### A — Capture depuis une source non qualifiée
+
+- `A0` exact MemoryEpisode P1.4 attesté au moment de la capture ;
+- `A1` épisode manuel same-valued ;
+- `A2` copy / deepcopy / replace ;
+- `A3` JSON/dictionnaire de l'épisode ;
+- `A4` épisode muté dont l'attestation P1.4 est devenue invalide ;
+- `A5` `episode_id` seul utilisé pour demander une capture qualifiée.
+
+### B — Durable record auto-autorisant
+
+- `B0` record canonique intègre mais sans receipt ;
+- `B1` contenu modifié puis hash/nom recomputé ;
+- `B2` record contenant son propre `authority_id` et demandant qu'il soit cru ;
+- `B3` chemin Git/storage considéré comme provenance suffisante ;
+- `B4` schema inconnu, champ manquant, champ inconnu ou clé dupliquée ;
+- `B5` content identity/filename incohérents.
+
+### C — Receipt / capture authority
+
+- `C0` receipt valide lié au record exact sous une authority attendue extérieurement ;
+- `C1` receipt d'un autre record rebondi vers le record courant ;
+- `C2` record modifié mais ancien receipt conservé ;
+- `C3` receipt forgé ou émis par une authority non attendue ;
+- `C4` record/receipt imposant lui-même le trust root au consommateur ;
+- `C5` absence d'autorité qualifiée remplacée par `accept_digest_only`/`trust_me` ;
+- `C6` copie d'un receipt utilisée pour prétendre créer une nouvelle occurrence indépendante.
+
+### D — Faux replay historique
+
+- `D0` replay/reconstruction Action→Result utilisé pour prétendre vérifier l'événement original ;
+- `D1` nouveau lifecycle P1.2 produisant les mêmes IDs/valeurs présenté comme l'ancien événement ;
+- `D2` nouvel épisode P1.4 same-valued présenté comme résurrection du précédent ;
+- `D3` résultat de RESEARCH rejoué utilisé pour inventer les anciennes identités Action/Result qui ne sont plus vérifiables.
+
+### E — Occurrence / registration / duplication
+
+- `E0` même `episode_id` enregistré deux fois et présenté comme deux expériences indépendantes ;
+- `E1` deux `registration_id` du même contenu présentés comme deux occurrences historiques prouvées ;
+- `E2` duplication physique du même record présentée comme nouvelle evidence ;
+- `E3` collision ou incohérence d'identité de registration traitée comme simple warning plutôt que fail closed ;
+- `E4` registration identity utilisée comme preuve de causalité, confiance ou répétition.
+
+### F — Temporalité et look-ahead
+
+- `F0` timestamp de registration librement fourni par le record et traité comme trusted ;
+- `F1` `registration_at` interprété comme `known_from` ou disponibilité à une Decision antérieure ;
+- `F2` receipt créé plus tard mais utilisé pour prétendre que MEMORY était disponible avant sa capture ;
+- `F3` absence de temps/ordre qualifié masquée par un timestamp caller-supplied.
+
+### G — Autorité inverse / promotion interdite
+
+- `G0` durable Memory record ou receipt utilisé pour mint/repair Trace, Action ou Result ;
+- `G1` record ré-attesté utilisé directement comme `ResearchRunEvidence` ou `ResearchFindings` ;
+- `G2` receipt interprété comme connaissance validée ;
+- `G3` receipt interprété comme autorisation P1.1 ;
+- `G4` persistance ouvrant broker/order/sizing/acquisition/backtest/live.
+
+## 45. Décisions explicitement différées
+
+P1.5 ne choisit pas encore :
+
+- algorithme ou format de signature ;
+- clé symétrique/asymétrique, certificat ou identité cryptographique ;
+- custody, rotation, révocation ou récupération de clés ;
+- service append-only, base de données, filesystem, object storage ou Git comme support ;
+- trusted timestamp authority ou horloge matérielle ;
+- quorum/multi-authority ;
+- hardware attestation ;
+- chiffrement/confidentialité du record ;
+- politique complète de rétention, backup et disaster recovery ;
+- ResearchFindings, connaissance, AUDIT ou REVISION.
+
+Ces choix ne peuvent être introduits qu'après sélection et cassage du plus petit trust model capable de satisfaire le contrat. Une primitive technique ne peut pas être choisie uniquement parce qu'elle produit un hash ou une signature.
+
+## 46. Qualification positive autorisée à P1.5
+
+Un futur PASS P1.5 pourra signifier uniquement :
+
+- un épisode P1.4 exact et encore attesté a été capturé sous forme d'un record canonique exact ;
+- une capture authority qualifiée a produit un receipt lié sans ambiguïté à ce record et à une registration identifiable ;
+- un nouveau processus, disposant indépendamment de l'autorité qu'il est autorisé à croire, a vérifié le record + receipt ;
+- ce nouveau processus a mint une nouvelle attestation locale attestant la chaîne de custody du snapshot historique ;
+- l'artefact persisté n'a jamais été utilisé comme sa propre autorité.
+
+Un PASS P1.5 ne signifiera pas :
+
+- replay ou reproduction de l'événement historique ;
+- vérité causale ;
+- Decision correcte ;
+- hypothèse testée ;
+- `ResearchFindings` attachés ;
+- connaissance validée ;
+- plusieurs occurrences indépendantes ;
+- mémoire exhaustive/non biaisée ;
+- point-in-time knowledge admissibility complète ;
+- autorisation de Decision/Action ;
+- capacité opérationnelle.
+
+## 47. État après formalisation P1.5
+
+**FORMALISATION P1.5 : PASS.**
+
+La frontière exécutable reste :
+
+**LOCAL MEMORY EPISODE → DURABLE WITNESSED MEMORY → FRESH-PROCESS RE-ATTESTATION : BLOCKED.**
+
+Raison : le dépôt ne possède actuellement aucun capture-authority trust root qualifié ni mécanisme qualifié permettant à un processus frais de vérifier un receipt sans faire confiance à l'artefact lui-même. P0.5 fournit le principe négatif et la discipline de fresh-process verification, mais son replay déterministe ne peut pas fermer cette frontière historique.
+
+Aucun stockage, signer, secret, clé, certificat ou service durable ne doit être créé simplement pour obtenir un artefact persistant. Le prochain travail doit d'abord déterminer **quelle autorité de capture minimale est réellement admissible et comment son trust est fourni indépendamment au consommateur**.
+
+## 48. Prochaine action gouvernée unique
+
+**Déterminer, en lecture seule et par comparaison adversariale, le plus petit modèle de `capture authority + external trust expectation` capable de rendre un receipt P1.5 vérifiable dans un nouveau processus sans auto-autorisation de l'artefact ; éliminer les modèles qui ne ferment pas cette frontière, puis seulement figer le modèle retenu et construire le breaker A0–G4 avant toute implémentation.**
