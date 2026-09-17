@@ -213,6 +213,16 @@ def _build_qualification_evidence_api():
         _attest_result(produced)
         return produced
 
+    def verify_qualification_observation_pair(action: object, result: object) -> bool:
+        """Verify exact current Action/Result admissibility without reintroducing Decision."""
+        if not _is_attested_action(action):
+            return False
+        if not _is_attested_result(result):
+            return False
+        assert isinstance(action, QualificationActionEvidence)
+        assert isinstance(result, QualificationResultObservation)
+        return result.action_id == action.action_id
+
     def verify_qualification_chain(
         decision: object,
         action: object,
@@ -223,23 +233,19 @@ def _build_qualification_evidence_api():
             return False
         if not is_factory_attested_decision(decision):
             return False
-        if not _is_attested_action(action):
-            return False
-        if not _is_attested_result(result):
+        if not verify_qualification_observation_pair(action, result):
             return False
         assert isinstance(action, QualificationActionEvidence)
-        assert isinstance(result, QualificationResultObservation)
         if action.decision_id != decision.decision_id:
             return False
         if not _is_action_bound_to_exact_decision(action, decision):
-            return False
-        if result.action_id != action.action_id:
             return False
         return True
 
     return (
         engage_qualification_action,
         observe_qualification_result,
+        verify_qualification_observation_pair,
         verify_qualification_chain,
     )
 
@@ -247,6 +253,7 @@ def _build_qualification_evidence_api():
 (
     engage_qualification_action,
     observe_qualification_result,
+    verify_qualification_observation_pair,
     verify_qualification_chain,
 ) = _build_qualification_evidence_api()
 del _build_qualification_evidence_api
