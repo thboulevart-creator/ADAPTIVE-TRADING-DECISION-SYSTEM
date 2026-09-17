@@ -265,3 +265,79 @@ Current end-of-day verdicts:
 - P0.5: **CLOSED / PASS**
 - P0.6: **CLOSED / PASS**
 - P1.0: **WIP / UNQUALIFIED — PAUSED SAFELY**
+
+---
+
+# SUPERSEDING CHECKPOINT UPDATE — 17 SEPTEMBRE 2026 — P1.0 CLOSURE CANDIDATE
+
+This section supersedes the older P1.0 WIP / UNQUALIFIED wording above. Historical text is intentionally retained for recovery traceability.
+
+## Current branch state
+
+Technical qualification HEAD:
+
+`2b7f31c5baca718e84ed90bd240dce38047271a0`
+
+Technical qualification evidence:
+
+- P1.0 run/job `35197201298 / 105123138906` — **SUCCESS**;
+- P0.3 regression guard run/job `35197201285 / 105123138752` — **SUCCESS**;
+- prior P0.4/P0.5/P0.6 documentary-composability runs on `0d654ca14639979c0e3cf51e283ca392b66e7fe2` — **SUCCESS**.
+
+Real adversarial red evidence preserved:
+
+- HEAD `2ec769a47c53a3238b2fbfa27095919156ae94f8`;
+- run/job `35148892189 / 104971854140`;
+- conclusion **FAIL**.
+
+Corrective commit:
+
+`4a26ec16544abb05a67263654b5caaa5fd6825d4`
+
+Closed-block CI composability correction:
+
+`0d654ca14639979c0e3cf51e283ca392b66e7fe2`
+
+## P1.0 authority now resolved
+
+- sole normative authority: `04-REFERENCE/PROMOTION-GATE-CONTRACT.md` (`PROMOTION_GATE_FAIL_CLOSED_V1`);
+- tiering document: non-normative qualification companion;
+- unknown/empty consequence sets: fail-closed BLOCKED;
+- no permissive promotion path exists;
+- acquisition binding is explicitly tested through the promotion gate;
+- evaluator contains no acquisition/backtest/live side effects.
+
+## Safety truth remains unchanged
+
+- global `111 / 91 / 20` → **BLOCKED**;
+- selected window `2021-08-14 → 2026-08-14`;
+- selected `68 / 68 / 0` → **PASS**;
+- persisted freeze → **PASS**;
+- acquisition → **BLOCKED**;
+- `massive_acquisition_authorized = false`;
+- `real_backtest_authorized = false`;
+- live activation unauthorized.
+
+## Persisted closure artifacts
+
+Qualification report:
+
+`reports/data-qualification/p1_0_promotion_gate_qualification.md`
+
+Session backup:
+
+`99-BACKUP/SESSION-2026-09-17-P1.0-PROMOTION-GATE-QUALIFICATION.md`
+
+The JIT audit is intentionally embedded in the qualification report rather than creating a new governance layer.
+
+## Final closure condition
+
+Current P1.0 state at this documentary checkpoint is:
+
+**QUALIFIED CANDIDATE / FINAL PERSISTED-HEAD REBREAK PENDING.**
+
+P1.0 becomes **CLOSED / PASS** only when the final read-only P1.0 workflow succeeds on the persisted documentary HEAD or on its immediate descendant differing only by a semantically neutral CI-trigger comment.
+
+A successful final run satisfies the closure condition directly. No additional documentary mutation is required afterward; otherwise every documentary write would create a new HEAD and recursively require another closure run.
+
+No acquisition, real backtest, downstream execution or live activation becomes authorized by P1.0 closure.
