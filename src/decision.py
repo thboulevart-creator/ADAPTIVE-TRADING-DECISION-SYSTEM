@@ -5,8 +5,10 @@ CONTEXT that was used to obtain it. This module deliberately does not invent
 trading logic: the decision payload must come from the future decision policy.
 
 P1.1 additionally makes a producer-created Decision downstream-authenticatable
-without exposing a raw attestation/minter capability. ACTION/RESULT/TRACE remain
-downstream and are intentionally absent.
+without exposing a raw attestation/minter capability. P1.3 retains the exact
+upstream ResearchRunEvidence origin in private attestation metadata so a future
+Trace cannot substitute a same-valued foreign evidence object. ACTION/RESULT
+remain downstream and are intentionally absent.
 """
 
 from __future__ import annotations
@@ -61,6 +63,7 @@ def _decision_identity_fingerprint(value: Decision) -> str:
 
 def _build_decision_api():
     registry: dict[int, tuple[weakref.ReferenceType[Decision], str]] = {}
+    origin_registry: dict[int, weakref.ReferenceType[ResearchRunEvidence]] = {}
 
     def produce(
         evidence: ResearchRunEvidence | None,
@@ -110,9 +113,11 @@ def _build_decision_api():
             current = registry.get(expected_object_id)
             if current is not None and current[0] is reference:
                 registry.pop(expected_object_id, None)
+                origin_registry.pop(expected_object_id, None)
 
         reference = weakref.ref(produced, cleanup)
         registry[object_id] = (reference, _decision_identity_fingerprint(produced))
+        origin_registry[object_id] = weakref.ref(evidence)
         return produced
 
     def verify(value: object) -> bool:
@@ -132,8 +137,30 @@ def _build_decision_api():
             value.decision,
         )
 
-    return produce, verify
+    def verify_exact_research_origin(value: object, evidence: object) -> bool:
+        """Verify the exact factory-attested ResearchRunEvidence that produced Decision."""
+        if not verify(value):
+            return False
+        if not isinstance(value, Decision):
+            return False
+        if not isinstance(evidence, ResearchRunEvidence):
+            return False
+        if not is_factory_attested(evidence):
+            return False
+        origin_reference = origin_registry.get(id(value))
+        if origin_reference is None or origin_reference() is not evidence:
+            return False
+        return (
+            evidence.research_run_id == value.research_run_id
+            and evidence.context_id == value.context_id
+        )
+
+    return produce, verify, verify_exact_research_origin
 
 
-produce_decision, is_factory_attested_decision = _build_decision_api()
+(
+    produce_decision,
+    is_factory_attested_decision,
+    is_decision_bound_to_exact_research_evidence,
+) = _build_decision_api()
 del _build_decision_api

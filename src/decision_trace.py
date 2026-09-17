@@ -122,7 +122,11 @@ def _build_trace_api():
             QualificationResultObservation,
             verify_qualification_chain,
         )
-        from src.decision import Decision, is_factory_attested_decision
+        from src.decision import (
+            Decision,
+            is_decision_bound_to_exact_research_evidence,
+            is_factory_attested_decision,
+        )
         from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
 
         if not isinstance(evidence, ResearchRunEvidence):
@@ -133,6 +137,8 @@ def _build_trace_api():
             raise ValueError("P1.3 Trace requires full Decision")
         if not is_factory_attested_decision(decision):
             raise ValueError("P1.3 Trace requires factory-attested Decision")
+        if not is_decision_bound_to_exact_research_evidence(decision, evidence):
+            raise ValueError("P1.3 Trace requires exact ResearchRunEvidence -> Decision provenance")
         if not isinstance(action, QualificationActionEvidence):
             raise ValueError("P1.3 Trace requires full QualificationActionEvidence")
         if not isinstance(result, QualificationResultObservation):
