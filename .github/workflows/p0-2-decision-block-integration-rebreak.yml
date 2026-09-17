@@ -77,12 +77,10 @@ jobs:
               'GOVERNANCE/STEP-2-MINIMAL-SYSTEM-TARGET.md',
               'GOVERNANCE/STEP-2-MINIMAL-TARGET-ADVERSARIAL-CHECK.md',
               'GOVERNANCE/STEP-3-CONTEXT-RESEARCH-CONTRACT-GATE.md',
-              'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md',
               'GOVERNANCE/TRUSTWORTHY-INTELLIGENT-SYSTEM-MANIFESTO-FINAL-CANDIDATE.md',
               'docs/RESEARCH-FINDINGS-CONTRACT.md',
               'src/context.py',
               'src/context_identity.py',
-              'src/decision_trace.py',
               'src/research_findings.py',
               'tests/test_context_to_research_boundary.py',
               'tests/test_data_to_context.py',
@@ -98,6 +96,10 @@ jobs:
           evolved_by_p11 = {
               'src/decision.py',
           }
+          evolved_by_p12_p14 = {
+              'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md',
+              'src/decision_trace.py',
+          }
           environment_evolved_by_p06 = {
               '.github/workflows/context-to-research-boundary.yml',
               '.github/workflows/data-to-context.yml',
@@ -112,6 +114,8 @@ jobs:
               assert Path(path).is_file(), ('P0.4-evolved P0.2 artifact missing', path)
           for path in evolved_by_p11:
               assert Path(path).is_file(), ('P1.1-evolved P0.2 artifact missing', path)
+          for path in evolved_by_p12_p14:
+              assert Path(path).is_file(), ('P1.2-P1.4 evolved P0.2 artifact missing', path)
           for path in environment_evolved_by_p06:
               assert Path(path).is_file(), ('P0.6-evolved durable workflow missing', path)
 
@@ -120,6 +124,15 @@ jobs:
           assert 'produce_decision' in decision_source
           assert Path('04-REFERENCE/DECISION-ACTION-AUTHORIZATION-BOUNDARY-CONTRACT.md').is_file()
           assert Path('.github/workflows/p1-1-decision-action-authorization.yml').is_file()
+
+          mapping = Path('GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md').read_text(encoding='utf-8')
+          assert 'P1_2_ACTION_RESULT_EVIDENCE_BOUNDARY_V1' in mapping
+          assert 'P1_3_RESULT_TRACE_EVIDENCE_BOUNDARY_V1' in mapping
+          assert 'P1_4_TRACE_MEMORY_EPISODE_BOUNDARY_V1' in mapping
+          trace_source = Path('src/decision_trace.py').read_text(encoding='utf-8')
+          assert 'produce_decision_trace' in trace_source
+          assert 'is_factory_attested_decision_trace' in trace_source
+          assert 'is_trace_bound_to_exact_observation_pair' in trace_source
 
           contract = Path('04-REFERENCE/RESEARCH-PRODUCER-JUNCTION-CONTRACT.md').read_text(encoding='utf-8')
           assert 'RESEARCH_PRODUCER_JUNCTION_V1' in contract
@@ -137,7 +150,7 @@ jobs:
               ['git', 'ls-tree', '-r', '--name-only', 'HEAD', 'GOVERNANCE'], text=True
           ).splitlines())
           assert not (base_governance - head_governance), 'governance deletion detected'
-          print('PASS: 16 P0.2 artifacts remain source-identical; P0.4/P0.6/P1.1 handoffs are explicit')
+          print('PASS: P0.2 source-identical core preserved; governed P0.4/P0.6/P1.1/P1.2-P1.4 evolution explicit')
           PY
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
