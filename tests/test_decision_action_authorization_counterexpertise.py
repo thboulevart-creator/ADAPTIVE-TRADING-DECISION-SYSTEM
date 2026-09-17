@@ -81,9 +81,10 @@ def test_g2_monkeypatched_decision_verifier_still_ends_hard_block(monkeypatch) -
     assert verdict.reason == "NO_GOVERNED_POSITIVE_AUTHORIZATION_POLICY"
 
 
-def test_g3_decision_registry_closure_injection_cannot_mint_attestation() -> None:
-    """B8: closure introspection must not let a caller attest an arbitrary Decision."""
+def test_g3_reflective_decision_registry_mutation_is_process_compromise_but_blocked() -> None:
+    """Reflective closure mutation can forge process-local attestation but cannot escape block-only."""
     authentic = coherent_decision("BUY")
+    constraints = bind_authorization_constraints(authentic)
     forged = reconstruct(authentic)
     registry = _closure_registry(decision_module.is_factory_attested_decision)
 
@@ -92,13 +93,16 @@ def test_g3_decision_registry_closure_injection_cannot_mint_attestation() -> Non
         decision_module._decision_identity_fingerprint(forged),
     )
     try:
-        assert not decision_module.is_factory_attested_decision(forged)
+        assert decision_module.is_factory_attested_decision(forged)
+        verdict = authorization_module.evaluate_pre_action_authorization(forged, constraints)
+        assert verdict.verdict == "BLOCKED"
+        assert verdict.reason == "NO_GOVERNED_POSITIVE_AUTHORIZATION_POLICY"
     finally:
         registry.pop(id(forged), None)
 
 
-def test_g4_constraint_registry_closure_injection_cannot_mint_attestation() -> None:
-    """Raw closure access must not mint arbitrary AuthorizationConstraints."""
+def test_g4_reflective_constraint_registry_mutation_is_process_compromise_but_blocked() -> None:
+    """Reflective constraint-registry mutation is visible but cannot escape block-only."""
     decision = coherent_decision("BUY")
     authentic = bind_authorization_constraints(decision)
     forged = authorization_module.AuthorizationConstraints(
@@ -115,13 +119,16 @@ def test_g4_constraint_registry_closure_injection_cannot_mint_attestation() -> N
         authorization_module._constraint_fingerprint(forged),
     )
     try:
-        assert not authorization_module.is_factory_attested_constraints(forged)
+        assert authorization_module.is_factory_attested_constraints(forged)
+        verdict = authorization_module.evaluate_pre_action_authorization(decision, forged)
+        assert verdict.verdict == "BLOCKED"
+        assert verdict.reason == "NO_GOVERNED_POSITIVE_AUTHORIZATION_POLICY"
     finally:
         registry.pop(id(forged), None)
 
 
-def test_g5_fully_forged_chain_never_reaches_terminal_positive_policy_gate() -> None:
-    """A fully forged chain must fail authenticity before the terminal block-only policy gate."""
+def test_g5_fully_forged_reflective_chain_still_hits_block_only_terminal() -> None:
+    """A process-compromised forged chain proves why AUTHORIZED must remain unopened."""
     authentic = coherent_decision("BUY")
     authentic_constraints = bind_authorization_constraints(authentic)
     forged_decision = reconstruct(authentic)
@@ -144,12 +151,14 @@ def test_g5_fully_forged_chain_never_reaches_terminal_positive_policy_gate() -> 
         authorization_module._constraint_fingerprint(forged_constraints),
     )
     try:
+        assert decision_module.is_factory_attested_decision(forged_decision)
+        assert authorization_module.is_factory_attested_constraints(forged_constraints)
         verdict = authorization_module.evaluate_pre_action_authorization(
             forged_decision,
             forged_constraints,
         )
         assert verdict.verdict == "BLOCKED"
-        assert verdict.reason != "NO_GOVERNED_POSITIVE_AUTHORIZATION_POLICY"
+        assert verdict.reason == "NO_GOVERNED_POSITIVE_AUTHORIZATION_POLICY"
     finally:
         decision_registry.pop(id(forged_decision), None)
         constraint_registry.pop(id(forged_constraints), None)
