@@ -1,0 +1,102 @@
+name: P1.2 Action-Result Evidence Tier-A
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p1-2-action-result-evidence.yml'
+      - 'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md'
+      - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - 'requirements/qualification.lock.txt'
+      - 'tools/qualification_environment.py'
+      - 'src/action_result_evidence.py'
+      - 'src/decision.py'
+      - 'src/research_run_evidence.py'
+      - 'src/context.py'
+      - 'src/context_identity.py'
+      - 'src/data/dataset_admissibility.py'
+      - 'src/research/execution.py'
+      - 'src/research/input_binding.py'
+      - 'tests/research_runtime_fixture.py'
+      - 'tests/test_action_result_evidence_tier_a.py'
+      - 'tests/test_research_to_decision_boundary.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: 'UTC'
+  LANG: 'C.UTF-8'
+  LC_ALL: 'C.UTF-8'
+  P0_6_BASE: '8061127c148f06454dac6e7977a8d0cb921276f8'
+
+jobs:
+  tier-a-break:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and closed P0.6 ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P0_6_BASE}" HEAD
+
+      - name: Prove P1.2 candidate is qualification-only and side-effect free
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          required = {
+              'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md',
+              'src/action_result_evidence.py',
+              'tests/test_action_result_evidence_tier_a.py',
+          }
+          for path in required:
+              assert Path(path).is_file(), path
+
+          source = Path('src/action_result_evidence.py').read_text(encoding='utf-8')
+          forbidden = (
+              'MetaTrader5', 'mt5.', 'order_send', 'requests.', 'urllib.request',
+              '.bi5', 'create_order(', 'submit_order(', 'execute_action(',
+              'lot_size', 'position_size', 'stop_loss', 'take_profit',
+              'from src.decision_trace', 'import src.decision_trace',
+          )
+          hits = [token for token in forbidden if token in source]
+          assert not hits, hits
+          assert 'QualificationActionEvidence' in source
+          assert 'QualificationResultObservation' in source
+          assert 'engage_qualification_action' in source
+          assert 'observe_qualification_result' in source
+          assert 'verify_qualification_chain' in source
+          print('PASS: P1.2 candidate is qualification-only and contains no operational ACTION/RESULT side-effect surface')
+          PY
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact P0.6 qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Re-break protected RESEARCH to DECISION boundary
+        run: python -m pytest -q tests/test_research_to_decision_boundary.py
+
+      - name: Break P1.2 A0-E5
+        run: python -m pytest -q tests/test_action_result_evidence_tier_a.py
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
