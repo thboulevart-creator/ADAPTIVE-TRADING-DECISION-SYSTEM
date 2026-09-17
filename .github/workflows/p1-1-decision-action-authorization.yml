@@ -9,7 +9,15 @@ on:
       - '04-REFERENCE/DECISION-ACTION-AUTHORIZATION-BOUNDARY-CONTRACT.md'
       - 'src/decision.py'
       - 'src/decision_action_authorization.py'
+      - 'src/research_run_evidence.py'
+      - 'src/context.py'
+      - 'src/decision_trace.py'
+      - 'src/data/dataset_admissibility.py'
+      - 'src/research/execution.py'
+      - 'src/research/input_binding.py'
+      - 'tests/research_runtime_fixture.py'
       - 'tests/test_decision_action_authorization_tier_a.py'
+      - 'tests/test_decision_action_authorization_counterexpertise.py'
       - 'tests/test_research_to_decision_boundary.py'
   workflow_dispatch:
 
@@ -49,6 +57,7 @@ jobs:
               'src/decision.py',
               'src/decision_action_authorization.py',
               'tests/test_decision_action_authorization_tier_a.py',
+              'tests/test_decision_action_authorization_counterexpertise.py',
           }
           for path in required:
               assert Path(path).is_file(), path
@@ -78,8 +87,11 @@ jobs:
       - name: Re-break protected RESEARCH to DECISION boundary
         run: python -m pytest -q tests/test_research_to_decision_boundary.py
 
-      - name: Break P1.1 A0-F5
-        run: python -m pytest -q tests/test_decision_action_authorization_tier_a.py
+      - name: Break P1.1 A0-F5 plus external counter-expertise attacks
+        run: |
+          python -m pytest -q \
+            tests/test_decision_action_authorization_tier_a.py \
+            tests/test_decision_action_authorization_counterexpertise.py
 
       - name: Prove clean worktree
         if: always()
