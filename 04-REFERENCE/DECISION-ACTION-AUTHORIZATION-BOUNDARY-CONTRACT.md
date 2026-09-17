@@ -65,9 +65,9 @@ A future positive P1.1 authorization verdict MUST satisfy all of the following:
 3. Exact field reconstruction of a Decision cannot reproduce downstream admissibility merely because values are equal.
 4. `copy.copy`, `copy.deepcopy`, dataclass replacement or equivalent silent reconstruction cannot preserve admissibility unless a future explicitly qualified persistence/reattestation protocol says otherwise.
 5. Post-production mutation of `decision_id`, `research_run_id`, `context_id` or decision payload invalidates admissibility.
-6. `decision_id` must remain cryptographically/content bound to the exact upstream identities and decision payload from which it was derived.
+6. `decision_id` must remain content-bound to the exact upstream identities and decision payload from which it was derived.
 7. The boundary cannot accept a caller-supplied boolean, marker, tier, flag or self-declared `validated/authorized` field as proof of Decision authenticity.
-8. No module-level raw attestation/minter capability may let callers mark arbitrary Decision instances as downstream-admissible.
+8. No supported or module-level raw attestation/minter API may let normal callers mark arbitrary Decision instances as downstream-admissible.
 9. `research_run_id` and `context_id` substitution must fail closed even when the substituted identifiers are individually well-formed.
 10. Unknown, absent, malformed or incomplete authorization constraints must produce `BLOCKED`, never an implicit authorization.
 11. A more permissive authorization state cannot be inferred from the mere existence of P1.0 or P1.1 code/contracts/tests.
@@ -75,6 +75,29 @@ A future positive P1.1 authorization verdict MUST satisfy all of the following:
 13. `AUTHORIZED` means only "admissible to the next governed ACTION boundary". It does not mean "execute".
 14. `BLOCKED` must be safe and side-effect free.
 15. No acquisition, `.bi5` download, real backtest, broker call or live activation is permitted by P1.1.
+
+### 5.1 Process-local trust model
+
+The current attestation mechanism is a **process-local integrity mechanism**, not a sandbox against arbitrary code execution inside the same CPython interpreter.
+
+For the current block-only candidate, the trusted computing boundary assumes that code executing inside the verifier process does not deliberately mutate verifier internals through reflective capabilities such as `__closure__`, closure-cell replacement, `__globals__`, monkeypatching or equivalent interpreter-level state manipulation.
+
+Hostile or reflective mutation of verifier internals is classified as **process compromise**, not as an ordinary untrusted input crossing the P1.1 API.
+
+This clarification does not convert process compromise into authorization. The current candidate MUST remain hard-blocked even when such reflective mutation is demonstrated.
+
+**No positive `AUTHORIZED` path may be introduced while its security depends only on mutable process-local Python state exposed to potentially untrusted code.** Before any positive path exists, the authorization authority must either:
+
+- execute inside an explicitly qualified isolated trust boundary with narrow inputs; or
+- use another separately qualified attestation mechanism providing equivalent resistance to the caller threat model.
+
+The current process-local registries therefore remain acceptable only for the block-only qualification and trusted-process object-integrity use case. They are not a future security token.
+
+### 5.2 Identifier-security posture
+
+The current `decision_id` and `constraint_id` use truncated SHA-256 identifiers for deterministic identity, not as standalone authorization proofs.
+
+Their current 16-hex form MUST be requalified before any positive `AUTHORIZED`, persisted authorization token, cross-process authorization decision or adversarial external-input use. A positive path may require a larger collision-resistance budget.
 
 ## 6. Authorization-constraint rule
 
@@ -108,7 +131,7 @@ P1.1 qualification must at minimum attack the following cases.
 - `B5` `copy.copy` reconstruction;
 - `B6` `copy.deepcopy` reconstruction;
 - `B7` caller-added/self-declared validation or factory marker;
-- `B8` attempted access to any raw Decision attestation/minter capability.
+- `B8` attempted access to any supported/module-level raw Decision attestation/minter API.
 
 ### C — Post-production mutation
 
@@ -148,6 +171,19 @@ P1.1 qualification must at minimum attack the following cases.
 - `F4` attempt to infer acquisition, backtest or live permission from P1.1 state;
 - `F5` any rejected Decision/constraint path followed by downstream ACTION construction must remain impossible in the P1.1 qualification harness.
 
+### G — Reflective process-compromise probes
+
+These attacks are diagnostic probes against the process-integrity assumption, not evidence that pure-Python reflection is a supported P1.1 API.
+
+- `G0` rebinding a module-level `BLOCKED` symbol must never produce an `AUTHORIZED`-looking verdict;
+- `G1` direct manual construction of `AuthorizationVerdict(verdict="AUTHORIZED", ...)` must fail at runtime;
+- `G2` monkeypatching the imported Decision verifier must still terminate in the block-only hard stop;
+- `G3` reflective mutation of the Decision attestation registry must be demonstrable as process compromise and must never escape the block-only hard stop;
+- `G4` reflective mutation of the constraint attestation registry must be demonstrable as process compromise and must never escape the block-only hard stop;
+- `G5` a fully forged Decision + constraints chain created only through reflective process compromise must still terminate `BLOCKED / NO_GOVERNED_POSITIVE_AUTHORIZATION_POLICY` while the candidate remains block-only.
+
+A future positive path must **change this expectation**: G3–G5 become hard blockers until the positive authorization authority is isolated or otherwise qualified against the caller threat model.
+
 ## 8. Positive-path boundary
 
 The positive-path test fixture, when implemented, must be synthetic, local and side-effect free.
@@ -159,7 +195,9 @@ It may prove only that:
 - the resulting verdict is structurally bound to the exact Decision and exact constraints;
 - no ACTION is created or executed.
 
-A successful P1.1 test MUST NOT be interpreted as authorization to trade.
+A successful P1.1 block-only test MUST NOT be interpreted as authorization to trade.
+
+**The positive path itself remains BLOCKED until the process-compromise and identifier-security requirements in §5.1–5.2 are separately qualified.**
 
 ## 9. Explicitly out of scope
 
@@ -185,18 +223,18 @@ These require later separately governed boundaries.
 
 ## 10. Fail expectation before implementation
 
-At the current baseline the boundary is expected to be **BLOCKED / not yet executable**, because:
+At the original baseline the boundary was expected to be **BLOCKED / not yet executable**, because:
 
-- Decision downstream attestation is absent;
-- no P1.1 authorization evaluator exists;
-- no governed authorization-constraint object/protocol exists;
-- no P1.1 adversarial qualification harness exists.
+- Decision downstream attestation was absent;
+- no P1.1 authorization evaluator existed;
+- no governed authorization-constraint object/protocol existed;
+- no P1.1 adversarial qualification harness existed.
 
 This is not a defect in the closed upstream blocks. It is the intentionally unopened downstream boundary.
 
 ## 11. Qualification rule
 
-P1.1 can become PASS only after:
+The **block-only P1.1 candidate** can become PASS only after:
 
 `formalisation → candidate implementation → adversarial break → correction → re-break → protected upstream regression → persisted-HEAD re-break → verdict`
 
@@ -204,13 +242,14 @@ The candidate must remain fail-closed throughout qualification.
 
 No green normal path, document existence or synthetic `AUTHORIZED` value is sufficient by itself.
 
+A PASS of the block-only candidate does **not** qualify a positive authorization path. Positive `AUTHORIZED` remains separately BLOCKED until §5.1 and §5.2 have been satisfied.
+
 ## 12. Next governed action
 
-Determine and implement the **smallest candidate** that can satisfy this contract without constructing ACTION or a general risk engine.
+For the current block-only phase:
 
-The candidate design must first resolve two minimal responsibilities:
+1. preserve runtime-enforced `BLOCKED` semantics;
+2. keep reflective process-compromise attacks G3–G5 visible as explicit limitations;
+3. keep any future positive `AUTHORIZED` path blocked pending an isolated/equivalently strong authorization trust boundary and identifier requalification.
 
-1. how a downstream consumer proves that a Decision is an authentic, unmodified output of the qualified producer;
-2. what smallest explicit authorization-constraint representation is sufficient to prevent default-allow behavior while remaining independent of quantitative trading-risk policy.
-
-Only after that candidate exists may A0–F5 be executed adversarially.
+Only after those future prerequisites are separately governed may P1.1 be extended beyond block-only behavior.
