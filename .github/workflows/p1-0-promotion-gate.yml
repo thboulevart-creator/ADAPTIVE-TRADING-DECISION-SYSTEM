@@ -1,4 +1,5 @@
 name: P1.0 Promotion Gate Tier-A
+# Qualification trigger: semantically neutral push used to re-break the persisted HEAD via path-scoped CI.
 
 on:
   push:
