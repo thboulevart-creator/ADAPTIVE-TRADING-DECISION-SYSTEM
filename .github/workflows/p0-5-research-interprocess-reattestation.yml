@@ -24,6 +24,7 @@ on:
       - 'tests/research_runtime_fixture.py'
       - 'tests/test_research_interprocess_reattestation_tier_a.py'
       - 'tests/test_research_producer_junction_tier_a.py'
+      - 'tests/test_research_producer_junction_counterexpertise.py'
       - 'tests/test_context_research_alternative_paths.py'
       - 'tests/test_context_to_research_boundary.py'
       - 'tests/test_data_to_context.py'
@@ -40,8 +41,8 @@ env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONHASHSEED: '0'
   TZ: 'UTC'
-  LANG: 'C.UTF-8'
-  LC_ALL: 'C.UTF-8'
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
   P0_4_BASE: 'aa9551addc0fe554af9cbb8ebdb26314d37e412e'
 
 jobs:
@@ -165,8 +166,11 @@ jobs:
       - name: Re-break P0.5 D0-D14 inter-process attacks
         run: python -m pytest -q tests/test_research_interprocess_reattestation_tier_a.py
 
-      - name: Re-break P0.4 producer junction C0-C15
-        run: python -m pytest -q tests/test_research_producer_junction_tier_a.py
+      - name: Re-break P0.4 producer junction C0-C15 plus process-integrity probe
+        run: |
+          python -m pytest -q \
+            tests/test_research_producer_junction_tier_a.py \
+            tests/test_research_producer_junction_counterexpertise.py
 
       - name: Re-break complete P0.2 decision Tier-A boundary
         run: |
