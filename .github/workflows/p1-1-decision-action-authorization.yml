@@ -7,6 +7,9 @@ on:
     paths:
       - '.github/workflows/p1-1-decision-action-authorization.yml'
       - '04-REFERENCE/DECISION-ACTION-AUTHORIZATION-BOUNDARY-CONTRACT.md'
+      - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - 'requirements/qualification.lock.txt'
+      - 'tools/qualification_environment.py'
       - 'src/decision.py'
       - 'src/decision_action_authorization.py'
       - 'src/research_run_evidence.py'
