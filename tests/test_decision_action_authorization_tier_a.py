@@ -23,12 +23,12 @@ def coherent_decision(payload: str = "HOLD") -> Decision:
     return produce_decision(evidence, context=context, decision=payload)
 
 
-def reconstruct(decision: Decision, **changes) -> Decision:
+def reconstruct(source: Decision, **changes) -> Decision:
     values = {
-        "decision_id": decision.decision_id,
-        "research_run_id": decision.research_run_id,
-        "context_id": decision.context_id,
-        "decision": decision.decision,
+        "decision_id": source.decision_id,
+        "research_run_id": source.research_run_id,
+        "context_id": source.context_id,
+        "decision": source.decision,
     }
     values.update(changes)
     return Decision(**values)
