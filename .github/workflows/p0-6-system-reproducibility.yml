@@ -22,6 +22,7 @@ on:
       - '99-BACKUP/SESSION-2026-09-16-P0.6-SYSTEM-REPRODUCIBILITY-PASS.md'
       - 'requirements/qualification.lock.txt'
       - 'tools/qualification_environment.py'
+      - 'tests/**'
       - 'tests/test_system_reproducibility_tier_a.py'
   workflow_dispatch:
 
