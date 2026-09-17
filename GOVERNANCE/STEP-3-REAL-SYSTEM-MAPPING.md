@@ -555,3 +555,328 @@ Raison : l'actuel `DecisionTrace` n'est qu'une dataclass publiquement constructi
 **Déterminer le plus petit candidat exécutable P1.3 qui réutilise `DecisionTrace` au lieu de créer un second modèle de Trace, puis seulement construire le breaker A0–E5 avant toute correction.**
 
 Le candidat devra rester local, synthétique, sans side effect et ne devra pas modifier P1.2 sauf si un breaker prouve qu'une dépendance de provenance exacte manque réellement.
+
+---
+
+# ADDENDUM GOUVERNÉ — 17 SEPTEMBRE 2026 — P1.4 TRACE → MEMORY EPISODE BOUNDARY
+
+**Contract ID:** `P1_4_TRACE_MEMORY_EPISODE_BOUNDARY_V1`  
+**Branche de formalisation:** `integration/system-v1`  
+**Base observée avant écriture:** `a1f5b86c74e64ee128753afdcc66d150dd7c645c`  
+**Statut de la formalisation:** `FORMALIZED`  
+**Statut de la frontière exécutable:** `BLOCKED`  
+**Règle:** cet addendum formalise uniquement la création d'un épisode observationnel de mémoire à partir d'objets déjà qualifiés. Il ne crée pas de stockage durable, de connaissance, d'interprétation expérimentale, d'audit, de révision ni d'autorisation opérationnelle.
+
+L'état historique P1.3 ci-dessus est conservé. Au HEAD observé avant cette écriture, P1.3 qualification-only est désormais PASS : une `DecisionTrace` factory-attested reste un snapshot downstream autonome après collecte ou mutation des objets amont. Ce PASS ne signifie toutefois pas que la Trace contient le contenu complet de l'Action ou du Result : elle ne conserve que `action_id` et `result_id`, pas `behavior` ni `outcome`.
+
+## 26. Question minimale de P1.4
+
+> **Peut-on préserver un épisode observationnel réutilisable uniquement à partir d'une Trace P1.3 exacte et qualifiée, de l'ActionEvidence exacte encore admissible et du ResultObservation exact encore admissible, sans transformer l'observation en interprétation, l'expérience en connaissance ou la mémoire en autorisation ?**
+
+Le noyau logique est :
+
+`exact qualified DecisionTrace + exact admissible ActionEvidence + exact admissible ResultObservation → observational MemoryEpisode`
+
+P1.4 ne qualifie pas encore une « expérience interprétée » au sens hypothèse → test → conclusion. Il qualifie seulement la conservation fidèle d'un épisode factuel relié à la chaîne déjà prouvée.
+
+## 27. Quatre séparations obligatoires
+
+P1.4 verrouille explicitement quatre frontières sémantiques :
+
+### 27.1 `EVENT ≠ EXPERIENCE`
+
+Une Action et un Result, même authentiques, ne constituent pas à eux seuls une expérience réutilisable. L'épisode doit les relier à la Trace exacte qui porte la provenance, le contexte, la Decision et les identités de reconstruction déjà qualifiées.
+
+### 27.2 `OBSERVATION ≠ INTERPRETATION`
+
+`behavior` et `outcome` décrivent ce qui a été engagé et observé. Ils ne prouvent pas :
+
+- que l'Action a causé le Result ;
+- que la Decision était correcte ;
+- qu'une hypothèse a été testée ;
+- qu'une explication est soutenue, réfutée ou ininterprétable ;
+- qu'un résultat favorable a une signification générale.
+
+P1.4 doit préserver l'observation sans lui ajouter de sens épistémique non prouvé.
+
+### 27.3 `EXPERIENCE ≠ KNOWLEDGE`
+
+Un MemoryEpisode P1.4 n'est pas une connaissance validée. La répétition, la similarité, le succès, l'échec ou l'existence de plusieurs épisodes ne constituent pas automatiquement une promotion vers KNOWLEDGE.
+
+Toute promotion épistémique reste BLOCKED en aval et devra passer par des mécanismes futurs d'AUDIT / CONTESTATION / REVISION / nouvelle preuve.
+
+### 27.4 `KNOWLEDGE ≠ OPERATIONAL AUTHORIZATION`
+
+Même une future connaissance validée ne constituera pas à elle seule un droit d'agir. La frontière P1.1 reste l'autorité séparée sur DECISION → ACTION et son chemin positif `AUTHORIZED` demeure hors de P1.4.
+
+Aucun MemoryEpisode ne peut être utilisé comme bearer token, permission ou contournement vers DECISION/ACTION.
+
+## 28. Entrée minimale P1.4
+
+L'entrée sémantique minimale est exactement :
+
+1. une `DecisionTrace` P1.3 factory-attested et non mutée ;
+2. une `QualificationActionEvidence` exacte encore admissible ;
+3. un `QualificationResultObservation` exact encore admissible.
+
+P1.4 n'accepte pas comme substituts :
+
+- `decision_id`, `action_id`, `result_id` seuls ;
+- dictionnaires/champs sérialisés ;
+- objets reconstruits, copied, deepcopied ou replaced ;
+- une Trace seulement structurellement `PASS` ;
+- une Action ou un Result devenu inadmissible après mutation ;
+- une paire Action/Result provenant d'une autre chaîne même si des valeurs coïncident.
+
+La cohérence minimale doit inclure au moins :
+
+- `trace.decision_id == action.decision_id` ;
+- `trace.action_id == action.action_id` ;
+- `trace.result_id == result.result_id` ;
+- `result.action_id == action.action_id` ;
+- admissibilité réelle de l'Action et du Result selon la frontière P1.2, pas seulement égalité de champs.
+
+Si l'API publique existante ne permet pas encore de démontrer cette admissibilité sans réintroduire la Decision amont, la frontière exécutable reste BLOCKED : le futur candidat devra identifier le plus petit hook de vérification nécessaire, sans élargir silencieusement le contrat.
+
+## 29. Conséquence de durée de vie des objets
+
+P1.3 a volontairement qualifié la propriété suivante : une Trace déjà produite reste factory-attested même après collecte des objets amont.
+
+P1.4 en déduit une limite différente :
+
+> **une Trace survivante ne peut pas recréer `behavior` ou `outcome` si l'ActionEvidence ou le ResultObservation exacts ne sont plus disponibles/admissibles.**
+
+Par conséquent :
+
+- la Trace seule ne permet jamais de fabriquer rétrospectivement un MemoryEpisode complet ;
+- P1.4 doit être créé pendant que l'Action et le Result exacts nécessaires sont encore vérifiables ;
+- la perte de ces objets avant création de l'épisode doit laisser la frontière BLOCKED, jamais déclencher une reconstruction depuis les IDs ou des valeurs déclarées.
+
+Cette règle ne remet pas en cause l'autonomie historique de la Trace P1.3 ; elle reconnaît simplement que la Trace n'a jamais prétendu conserver le contenu complet de l'Action/Result.
+
+## 30. Noyau informationnel minimal de l'épisode
+
+P1.4 ne fige pas encore une classe, un module, une base ni un format de stockage. Tout candidat devra toutefois préserver sans perte :
+
+### 30.1 Projection de reconstruction déjà qualifiée
+
+Au minimum les informations de la Trace :
+
+- `decision_id` ;
+- `provenance_id` ;
+- `research_run_id` ;
+- `code_version` ;
+- `configuration_version` ;
+- `dataset_id` ;
+- `dataset_version` ;
+- `context_id` ;
+- `decision` ;
+- `action_id` ;
+- `result_id`.
+
+Le candidat pourra conserver l'objet Trace exact ou copier fidèlement sa projection dans l'épisode ; ce choix d'implémentation ne doit pas changer la sémantique ni créer une nouvelle autorité.
+
+### 30.2 Contenu observationnel absent de la Trace
+
+- `behavior` provenant de l'ActionEvidence exacte ;
+- `outcome` provenant du ResultObservation exact.
+
+Aucune valeur observationnelle ne peut être réécrite à partir d'une interprétation.
+
+### 30.3 Identité d'épisode
+
+Un futur candidat devra rendre l'épisode identifiable sans permettre qu'un nouvel identifiant suffise à prouver son authenticité. Le mécanisme exact d'identité/attestation n'est pas figé ici ; il doit être dérivé des entrées qualifiées et cassé adversarialement avant PASS.
+
+## 31. Ce que P1.4 interdit de stocker comme vérité qualifiée
+
+Le premier MemoryEpisode P1.4 n'a pas d'autorité pour qualifier :
+
+- `hypothesis` ;
+- `prediction` ;
+- `falsification_rule` ;
+- `ResearchFinding.status` ;
+- `SUPPORTED`, `REFUTED` ou `NOT_INTERPRETABLE` ;
+- candidate explanation ;
+- tested explanation ;
+- causal relation ;
+- decision correctness ;
+- confidence score ;
+- knowledge status ;
+- operational rule ;
+- authorization state.
+
+Ces informations peuvent exister ailleurs dans le dépôt mais elles ne sont pas des entrées P1.4 qualifiées à ce stade.
+
+L'absence de `ResearchFindings` dans P1.4 ne doit surtout pas être traduite en `NOT_INTERPRETABLE` : `NOT_INTERPRETABLE` est un statut précis d'un `ResearchFinding`, pas un synonyme d'absence d'interprétation.
+
+## 32. Invariants obligatoires P1.4
+
+Une future qualification positive doit satisfaire simultanément :
+
+1. Une Trace seulement structurale ou reconstruite ne peut pas produire un MemoryEpisode qualifié.
+2. Une Trace qualifiée ne suffit jamais seule à produire l'épisode, car elle ne porte ni `behavior` ni `outcome`.
+3. L'ActionEvidence exacte est obligatoire et doit rester admissible au moment de la création de l'épisode.
+4. Le ResultObservation exact est obligatoire et doit rester admissible au moment de la création de l'épisode.
+5. Les identités Trace ↔ Action ↔ Result doivent être cohérentes et la cohérence de valeurs ne remplace jamais l'admissibilité des objets.
+6. Le contenu `behavior` doit provenir exclusivement de l'Action exacte.
+7. Le contenu `outcome` doit provenir exclusivement du Result exact.
+8. Un MemoryEpisode ne peut pas modifier, réparer, mint ou ré-attester la Trace, l'Action ou le Result.
+9. Un MemoryEpisode ne peut pas inférer que l'Action a causé le Result.
+10. Un MemoryEpisode ne peut pas inférer que la Decision était correcte ou incorrecte à partir du seul Result.
+11. Un MemoryEpisode ne peut pas produire ou promouvoir une hypothèse, un Finding, un statut épistémique ou une connaissance validée.
+12. `SUPPORTED`, `REFUTED` et `NOT_INTERPRETABLE` ne peuvent pas être ajoutés comme statut de l'épisode P1.4 sans future frontière qualifiée distincte.
+13. Un MemoryEpisode ne peut pas devenir une règle de décision, une permission ou une autorisation d'Action.
+14. Une reconstruction manuelle, sérialisation, copie, deepcopy, replace ou objet same-valued ne doit pas reproduire automatiquement l'admissibilité d'un épisode qualifié.
+15. Un hash, checksum, `episode_id` ou JSON cohérent ne constitue jamais à lui seul une preuve que l'épisode s'est produit.
+16. P1.4 ne peut pas prétendre que la mémoire est exhaustive, non biaisée ou exempte de survivorship bias à partir de la validité d'un épisode individuel.
+17. P1.4 ne peut pas déclarer qu'une hypothèse était disponible avant une Decision : aucun invariant temporel de cette nature n'est actuellement prouvé par les objets d'entrée.
+18. Toute contradiction temporelle explicitement représentée doit échouer fermée, mais P1.4 n'introduit pas encore d'horloge universelle ni de `known_from`.
+19. Aucun mécanisme P1.4 ne peut acquérir des données, lancer un backtest réel, appeler un broker, créer un ordre, faire du sizing/risk ou activer le live.
+20. Toute incertitude sur l'origine, l'admissibilité ou la liaison des trois entrées obligatoires doit échouer fermée.
+
+## 33. Catalogue adversarial minimal P1.4
+
+### A — Substitution / faux TRACE
+
+- `A0` exact `DecisionTrace` P1.3 factory-attested ;
+- `A1` Trace manuelle same-valued ;
+- `A2` Trace structurale `validate() == PASS` mais non attestée ;
+- `A3` dictionnaire/JSON de Trace ;
+- `A4` copy / deepcopy / replace de Trace ;
+- `A5` Trace mutée post-production.
+
+### B — Substitution Action / Result
+
+- `B0` exact Action + exact Result encore admissibles ;
+- `B1` Action reconstruite avec mêmes champs ;
+- `B2` Result reconstruit avec mêmes champs ;
+- `B3` copy / deepcopy / replace ;
+- `B4` Action ou Result muté après production ;
+- `B5` Action étrangère ;
+- `B6` Result étranger ;
+- `B7` paire authentique Action/Result d'une autre chaîne ;
+- `B8` perte/GC de l'Action ou du Result suivie d'une tentative de reconstruction depuis la Trace.
+
+### C — Cohérence de la chaîne
+
+- `C0` `trace.action_id` différent de `action.action_id` ;
+- `C1` `trace.result_id` différent de `result.result_id` ;
+- `C2` `trace.decision_id` différent de `action.decision_id` ;
+- `C3` `result.action_id` différent de `action.action_id` ;
+- `C4` IDs cohérents mais objets non admissibles ;
+- `C5` contenu `behavior` ou `outcome` override par l'appelant.
+
+### D — Contamination observation → interprétation
+
+- `D0` `Action followed by Result → Action caused Result` ;
+- `D1` Result favorable → Decision correcte ;
+- `D2` Result défavorable → Decision incorrecte ;
+- `D3` ajout caller-supplied d'une hypothesis/explanation au MemoryEpisode ;
+- `D4` ajout d'un score de confiance comme vérité qualifiée ;
+- `D5` réécriture du `behavior` ou `outcome` avec une classification/interprétation aval.
+
+### E — Promotion épistémique interdite
+
+- `E0` Result favorable → `SUPPORTED` ;
+- `E1` épisode → connaissance validée ;
+- `E2` répétition d'épisodes → vérité/règle sans AUDIT ;
+- `E3` absence de Findings → `NOT_INTERPRETABLE` ;
+- `E4` MemoryEpisode utilisé comme evidence de préexistence d'une hypothèse ;
+- `E5` MemoryEpisode utilisé pour créer/réparer un `ResearchFindings`.
+
+### F — Autorité inverse / bypass opérationnel
+
+- `F0` MemoryEpisode mint/atteste/répare Trace ;
+- `F1` MemoryEpisode mint/atteste/répare Action ou Result ;
+- `F2` MemoryEpisode → Decision sans frontière gouvernée ;
+- `F3` MemoryEpisode → Action / `AUTHORIZED` ;
+- `F4` broker/order/sizing/risk/backtest réel/live activé depuis P1.4 ;
+- `F5` PASS P1.4 interprété comme permission opérationnelle.
+
+### G — Sérialisation, durabilité et complétude hors périmètre
+
+- `G0` JSON/hash/`episode_id` utilisé comme autorité après désérialisation ;
+- `G1` épisode process-local sérialisé puis présenté comme ré-attesté sans mécanisme qualifié ;
+- `G2` même épisode dupliqué et compté comme preuves indépendantes ;
+- `G3` mémoire ne conservant que les succès mais prétendant être exhaustive/non biaisée ;
+- `G4` interprétation ultérieure réécrivant silencieusement l'observation d'origine.
+
+G0–G4 doivent être reconnus par le contrat, mais P1.4 ne prétend pas fermer toute la politique de persistance, de déduplication, de capture exhaustive ou de révision. Leur présence empêche seulement un faux PASS plus large que la frontière réellement qualifiée.
+
+## 34. Surfaces explicitement BLOCKED après P1.4
+
+### 34.1 Attachement de `ResearchFindings`
+
+BLOCKED.
+
+`ResearchFindings` porte hypothèses, mesures et statuts utiles, mais P1.4 ne possède pas encore de preuve qualifiée que :
+
+- l'objet Findings exact est l'autorité aval légitime à attacher à cet épisode ;
+- l'hypothèse ou l'interprétation existait avant la Decision ou avant l'observation concernée ;
+- le statut peut être attaché sans réécriture post-hoc.
+
+Ajouter seulement une égalité de `research_run_id/context_id` ou un hash ne suffit pas. Ajouter seulement une attestation d'objet exact ne résoudrait pas non plus, à elle seule, la question temporelle de préexistence de l'hypothèse.
+
+### 34.2 Promotion `EXPERIENCE → KNOWLEDGE`
+
+BLOCKED.
+
+P1.4 ne définit ni confiance, ni réplication, ni agrégation, ni causalité, ni critères de validation/promotion. Ces questions appartiennent à la future boucle MEMORY → AUDIT → REVISION → nouvelle preuve.
+
+### 34.3 Persistance durable / inter-process MEMORY
+
+BLOCKED.
+
+P1.4 peut être qualifié d'abord localement comme frontière sémantique, à l'image des étapes précédentes. Aucun JSON, checksum ou fichier persisté ne doit être considéré comme autorité durable simplement parce qu'il contient un épisode P1.4.
+
+Le précédent P0.5 reste pertinent comme principe négatif — **sérialisation/hash ≠ autorité** — mais son replay déterministe ne peut pas être transposé automatiquement à un événement historique non rejouable. La stratégie de persistance/revalidation MEMORY devra être formalisée séparément.
+
+### 34.4 Temporalité de connaissance / look-ahead
+
+BLOCKED au-delà de la règle négative minimale.
+
+P1.4 interdit de prétendre qu'une connaissance ou hypothèse était disponible avant une Decision sans preuve temporelle qualifiée. Il n'adopte pas silencieusement le contrat `TEMPORAL / POINT-IN-TIME` non normatif et n'introduit pas encore `known_from`, `usable_from` ou un timestamp universel.
+
+### 34.5 Exhaustivité / survivorship bias / indépendance statistique
+
+BLOCKED.
+
+La qualification d'un épisode individuel ne prouve pas que tous les épisodes pertinents ont été capturés, ni que la sélection est non biaisée, ni que plusieurs épisodes sont indépendants. Ces propriétés exigent une future politique de capture/registre et/ou AUDIT.
+
+## 35. Qualification positive autorisée à ce stade
+
+Un futur PASS P1.4 pourra signifier uniquement :
+
+- une Trace P1.3 exacte et qualifiée a été associée aux Action/Result exacts encore admissibles qui correspondent à ses identités ;
+- le contenu observationnel `behavior` et `outcome` a été préservé sans réinterprétation ;
+- un épisode identifiable peut être produit localement sans permettre aux IDs, copies ou sérialisations de fabriquer une fausse expérience ;
+- l'épisode reste strictement non causal, non épistémique et non autorisant.
+
+Il ne signifiera pas :
+
+- connaissance validée ;
+- hypothèse préexistante prouvée ;
+- ResearchFindings authentiquement attachés ;
+- confiance ;
+- mémoire exhaustive ;
+- persistance durable ;
+- permission de Decision/Action ;
+- capacité opérationnelle.
+
+## 36. État après formalisation P1.4
+
+**FORMALISATION P1.4 : PASS.**
+
+La frontière exécutable reste :
+
+**TRACE → MEMORY EPISODE : BLOCKED.**
+
+Raison : aucun producteur/attesteur de MemoryEpisode n'existe encore et la surface publique P1.2 doit être confrontée à l'exigence exacte `Trace + Action + Result` pour vérifier si l'admissibilité Action/Result peut être prouvée sans réintroduire inutilement la Decision.
+
+Aucun nouveau composant MEMORY, stockage, ResearchFindings attestation, timestamp, AUDIT ou REVISION n'est justifié par la seule formalisation.
+
+## 37. Prochaine action gouvernée unique
+
+**Déterminer, à partir des APIs réelles P1.2/P1.3, le plus petit candidat exécutable P1.4 capable de produire/attester localement un épisode observationnel exact depuis `DecisionTrace + QualificationActionEvidence + QualificationResultObservation`, puis construire le breaker A0–G4 avant toute correction.**
+
+Si les APIs actuelles ne permettent pas de vérifier l'admissibilité des exacts Action/Result sans Decision, choisir le plus petit raccord de vérification nécessaire ; ne pas élargir le modèle de mémoire et ne pas introduire ResearchFindings, temporalité ou persistance durable dans ce raccord.
