@@ -3,32 +3,43 @@
 **Statut :** EXTERNAL COUNTER-EXPERTISE REQUIRED — READ-ONLY  
 **Repository :** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 **Branche gouvernée :** `integration/system-v1`  
-**HEAD À AUDITER :** `304bf0c370c422b6cb8ea9159cbaf1c282ec01f9`  
+**CANDIDAT CODE À AUDITER :** `2777025fefb1a7edcd5f9017c5e8b6dff13972bf`  
 **Base de formalisation P1.1 :** `8ed66310937fac6bf7305081ba6d230459cff5d2`
 
 ## 1. Rôle de Claude
 
 Tu interviens comme **contre-expert code indépendant**, pas comme auteur de la prochaine architecture.
 
-Ta mission est de chercher ce que l'audit interne et le catalogue A0–F5 ont pu manquer dans le candidat P1.1 actuel.
+Ta mission est de chercher ce que le contrat et les cassages existants ont pu manquer dans le candidat P1.1 corrigé.
 
-**Ne modifie aucun fichier du dépôt. Ne commit rien. Ne pousse rien. Ne propose aucune correction avant d'avoir produit ton diagnostic adversarial.**
+**Ne modifie aucun fichier. Ne commit rien. Ne pousse rien. Ne propose aucune correction avant d'avoir produit ton diagnostic adversarial.**
 
-Le dépôt et le commit exact ci-dessus sont la source de vérité. Ne reconstruis pas l'état depuis un résumé conversationnel.
+Le commit cible ci-dessus est la source de vérité pour le code candidat. Ne reconstruis pas l'état depuis un résumé conversationnel.
+
+### Règle d'indépendance importante
+
+Le dépôt contient désormais une contre-expertise Grok et une adjudication interne postérieures au candidat.
+
+**Pour ta première passe, ne lis pas ces deux documents :**
+
+- `docs/COUNTER-EXPERTISE-GROK-P1-1-DECISION-ACTION-AUTHORIZATION-2026-09-17.md`
+- `docs/ADJUDICATION-P1-1-GROK-COUNTER-EXPERTISE-2026-09-17.md`
+
+Produis d'abord tes propres findings depuis le code/contrat/tests. Tu pourras ensuite, seulement après avoir figé tes findings indépendants, comparer si nécessaire avec les attaques G0–G4 présentes dans le test de contre-expertise.
 
 ## 2. Question centrale
 
-Le candidat P1.1 prétend garantir ceci :
+Le candidat P1.1 prétend garantir :
 
 `qualified producer-created Decision → identity/content verification → authorization constraints → BLOCKED`
 
-Le candidat est volontairement **block-only** : aucun chemin `AUTHORIZED` n'existe encore.
+Il est volontairement **block-only** : aucun chemin positif `AUTHORIZED` n'est gouverné.
 
-La question à casser est :
+Question à casser :
 
-> **Existe-t-il une manière réaliste, dans le modèle Python et dans les frontières actuelles du dépôt, de faire reconnaître comme downstream-admissible une Decision ou des AuthorizationConstraints qui ne devraient pas l'être, de préserver abusivement une attestation, de contourner le fail-closed, ou de préparer un futur bypass qui deviendrait critique dès l'ouverture d'un chemin AUTHORIZED ?**
+> **Existe-t-il une manière réaliste de faire reconnaître comme admissible une Decision/AuthorizationConstraints non qualifiée, d'émettre ou forger un verdict positif, de préserver abusivement une attestation, de contourner le fail-closed, ou de préparer un bypass qui deviendrait critique dès l'ouverture d'un chemin AUTHORIZED ?**
 
-## 3. Corpus exact à lire au commit `304bf0c...`
+## 3. Corpus exact à lire au commit `2777025f...`
 
 Lire intégralement :
 
@@ -36,148 +47,131 @@ Lire intégralement :
 2. `src/decision.py`
 3. `src/decision_action_authorization.py`
 4. `tests/test_decision_action_authorization_tier_a.py`
-5. `.github/workflows/p1-1-decision-action-authorization.yml`
-6. `src/research_run_evidence.py`
-7. `tests/test_research_to_decision_boundary.py`
-8. `src/decision_trace.py`
-9. `src/promotion_gate.py`
+5. `tests/test_decision_action_authorization_counterexpertise.py`
+6. `.github/workflows/p1-1-decision-action-authorization.yml`
+7. `src/research_run_evidence.py`
+8. `tests/test_research_to_decision_boundary.py`
+9. `src/context.py`
+10. `src/decision_trace.py`
+11. `src/promotion_gate.py`
 
 Comparer aussi :
 
-`8ed66310937fac6bf7305081ba6d230459cff5d2...304bf0c370c422b6cb8ea9159cbaf1c282ec01f9`
+`8ed66310937fac6bf7305081ba6d230459cff5d2...2777025fefb1a7edcd5f9017c5e8b6dff13972bf`
 
-L'objectif est d'auditer **uniquement le candidat P1.1 et ses dépendances de confiance immédiates**, pas de réauditer toute l'architecture.
+N'élargis pas l'audit à toute l'architecture.
 
-## 4. État de preuve déjà obtenu
+## 4. État de preuve à ne pas prendre comme autorité
 
-### Premier cassage
+Le candidat corrigé a un re-break vert :
 
-HEAD : `a53e97e76e03a029cc7feace4f3875b826ea0662`  
-Workflow : `P1.1 Decision-Action Authorization Tier-A`  
-Run/job : `35199357246 / 105130119698`  
-Résultat : **FAIL**
+- HEAD : `2777025fefb1a7edcd5f9017c5e8b6dff13972bf`
+- workflow : `P1.1 Decision-Action Authorization Tier-A`
+- run/job : `35201771267 / 105137965680`
+- résultat : `SUCCESS`
 
-Le FAIL observé venait du harness : deux tests D2/D3 utilisaient un helper `reconstruct(decision, ...)` dont le nom du premier paramètre entrait en collision avec le champ `decision="SELL"`.
+Ce run couvre :
 
-Il ne constituait pas un défaut fonctionnel du candidat.
-
-### Re-cassage propre
-
-HEAD : `304bf0c370c422b6cb8ea9159cbaf1c282ec01f9`  
-Workflow : `P1.1 Decision-Action Authorization Tier-A`  
-Run/job : `35199458494 / 105130448050`  
-Résultat : **SUCCESS**
-
-Éléments verts :
-
-- exact persisted HEAD / ancestry ;
-- candidate bounded and side-effect free ;
-- environnement P0.6 verrouillé ;
-- `RESEARCH → DECISION` protégé ;
-- attaques A0–F5 ;
+- persisted HEAD / P0.6 ancestry ;
+- bounded / side-effect-free surface ;
+- environnement P0.6 ;
+- protected `RESEARCH → DECISION` ;
+- A0–F5 ;
+- attaques externes G0–G4 ;
 - worktree propre.
 
-Ce vert ne vaut pas autorité sur ta contre-expertise.
+**Ce vert ne vaut pas autorité sur ta contre-expertise.** Cherche à produire un nouveau rouge justifié.
 
-## 5. Points à attaquer explicitement
+## 5. Axes obligatoires
 
-Tu dois au minimum examiner les familles suivantes.
+### A. Attestation Decision / constraints
 
-### A. Registres d'attestation weakref / identité Python
+Examiner :
 
-- réutilisation éventuelle de `id(...)` ;
-- GC / destruction / timing de cleanup ;
-- référence faible devenue morte ;
-- collisions d'identité d'objet ;
-- comportement après `importlib.reload` ;
-- duplication de module sous un autre chemin d'import ;
-- sous-interpréteurs / process séparés ;
-- pickle / unpickle ;
-- multiprocessing ;
-- copie via mécanismes autres que `copy.copy/deepcopy` ;
-- possibilité de récupérer ou influencer l'état fermé du registry via introspection Python.
+- `id(...)` + weakref registry ;
+- GC / cleanup / id reuse ;
+- copy / replace / pickle / unpickle ;
+- reload / module duplication ;
+- process/sub-interpreter boundary ;
+- closure/cell introspection ;
+- capacité à altérer le registry ;
+- mismatch entre preuve d'origine et simple preuve d'identité en mémoire.
 
-Distingue soigneusement :
+Distinguer explicitement :
 
-1. bypass positif réel ;
-2. simple faux négatif / perte d'attestation ;
-3. limitation volontaire in-process ;
-4. problème futur à traiter avant persistence/inter-process.
+1. `CURRENT_BYPASS` ;
+2. `FALSE_NEGATIVE_ONLY` ;
+3. `IN_PROCESS_LIMIT` ;
+4. `FUTURE_AUTHORIZED_RISK`.
 
-### B. `Decision` et binding cryptographique
+### B. Verdict d'autorisation
 
-Vérifier si :
+Auditer particulièrement :
 
-- `decision_id` est réellement lié à tous les champs qui devraient conditionner l'admissibilité downstream ;
-- la troncature SHA-256 à 16 hex est acceptable pour cette frontière ou constitue un risque évitable ;
-- une mutation/reconstruction peut conserver un couple `decision_id` / contenu accepté ;
-- le lien vers `ResearchRunEvidence` est suffisant ou perd une provenance critique ;
-- un objet produit avant un reload/version drift peut être mal interprété après changement de code.
+- `AuthorizationVerdict` ;
+- validation runtime du statut ;
+- reconstruction/copie ;
+- monkeypatch de constantes/classes/helpers ;
+- possibilité de fabriquer un objet ressemblant à un verdict positif ;
+- provenance/non-forgeabilité nécessaire pour un futur consommateur ACTION ;
+- confusion entre valeur textuelle `AUTHORIZED` et autorisation gouvernée.
 
-### C. `AuthorizationConstraints`
+### C. Binding cryptographique / identité
 
-Auditer :
+Vérifier :
 
-- le `constraint_id` et son contenu exact ;
-- la logique de `is_factory_attested_constraints()` ;
-- toute redondance ou condition qui paraît correcte uniquement parce que le candidat est block-only ;
-- la reconstruction interne d'un `Decision(..., decision="__binding_only__")` ;
-- l'absence du payload `decision` dans `_constraint_id()` autrement que via `decision_id` ;
-- possibilités de stale constraints / replay / rebinding ;
-- module reload et registry reset ;
-- possibilité qu'un futur chemin `AUTHORIZED` transforme un détail actuellement bénin en fail-open.
+- contenu exact de `decision_id` ;
+- contenu exact de `constraint_id` ;
+- troncature SHA-256 ;
+- binding au payload ;
+- replay / stale constraints ;
+- version drift ;
+- pertinence du chemin `__binding_only__` et de tout fallback/redondance.
 
-### D. Surface publique / monkeypatch / introspection
+### D. Monkeypatch / runtime mutation
 
-Examiner notamment :
+Tester conceptuellement et, si utile, reproduire :
 
-- monkeypatch de `is_factory_attested_decision` importé dans `decision_action_authorization.py` ;
-- monkeypatch de fonctions publiques ou constantes ;
-- `__globals__`, closures, `__closure__`, cellules de closure, introspection de fonction ;
-- possibilité de récupérer ou modifier le dictionnaire `registry` depuis une closure ;
-- altération de `CONSTRAINT_POLICY`, `BLOCKED`, `AUTHORIZED`, `_stable_hash`, `_constraint_id` après import ;
-- classe `Decision` / `AuthorizationConstraints` remplacée ou monkeypatchée.
+- verifier importé ;
+- `BLOCKED`, `AUTHORIZED`, `CONSTRAINT_POLICY`, `CONTRACT` ;
+- `_blocked`, `_stable_hash`, `_constraint_id` ;
+- `Decision`, `AuthorizationConstraints`, `AuthorizationVerdict` ;
+- `__globals__`, `__closure__`, cells.
 
-Ne considère pas automatiquement toute capacité d'introspection Python comme un bug : définis d'abord le **threat model** nécessaire. Mais tout bypass possible sous le threat model actuel doit être signalé.
+Ne classe pas automatiquement toute introspection Python comme bug : explicite le threat model qui rend le scénario pertinent.
 
-### E. Contrat vs code vs tests
+### E. Contrat / code / tests / workflow
 
 Chercher :
 
-- invariants contractuels non testés ;
-- tests qui prouvent seulement un détail d'implémentation ;
-- attaques A0–F5 qui peuvent passer sans prouver la propriété annoncée ;
-- chemins refusés pour la mauvaise raison ;
-- propriétés non couvertes par le workflow ;
-- fichier critique absent des `paths:` du workflow ;
-- dépendance de confiance modifiable sans déclencher P1.1.
+- invariant contractuel non testé ;
+- test qui prouve seulement l'implémentation ;
+- rejet pour mauvaise raison ;
+- dépendance de confiance non surveillée ;
+- path CI manquant ;
+- possibilité de changement silencieux d'une dépendance ;
+- surface critique non incluse dans le re-break.
 
-### F. Futur chemin `AUTHORIZED`
+### F. Avant tout futur `AUTHORIZED`
 
-Sans le concevoir ni l'implémenter, identifier précisément ce qui **doit impérativement être corrigé ou requalifié avant qu'un seul `AUTHORIZED` puisse exister**.
+Sans concevoir la politique positive, produire la liste fermée de ce qui doit être corrigé/qualifié **avant qu'un seul verdict positif puisse être consommé par ACTION**.
 
-Cette partie est importante : un mécanisme peut être acceptable en block-only mais dangereux dès qu'il devient autorisant.
-
-## 6. Contraintes de contre-expertise
-
-Interdictions :
+## 6. Interdictions
 
 - ne pas construire ACTION ;
-- ne pas introduire un moteur RISK autonome ;
-- ne pas proposer sizing / levier / SL / TP ;
-- ne pas ouvrir acquisition native USATECH ;
+- ne pas ajouter moteur RISK ;
+- ne pas coder sizing/levier/SL/TP ;
+- ne pas ouvrir acquisition USATECH ;
 - ne pas autoriser backtest réel ;
 - ne pas autoriser live ;
-- ne pas déclarer P1.1 PASS simplement parce que les tests existants sont verts ;
-- ne pas modifier le code pendant cette phase.
+- ne pas modifier le dépôt ;
+- ne pas déclarer PASS uniquement parce que CI est verte.
 
-## 7. Format de restitution obligatoire
-
-Rends une réponse structurée avec exactement ces sections :
+## 7. Format obligatoire
 
 ### 1. VERDICT
 
-Un seul parmi :
+Un seul :
 
 - `PASS — no material bypass found in current block-only scope`
 - `FAIL — material bypass found`
@@ -190,45 +184,30 @@ Pour chaque finding :
 - ID : `CLAUDE-P1.1-XX`
 - sévérité : `CRITICAL / HIGH / MEDIUM / LOW / NOTE`
 - catégorie : `CURRENT_BYPASS / FUTURE_AUTHORIZED_RISK / FALSE_NEGATIVE_ONLY / IN_PROCESS_LIMIT / TEST_GAP / WORKFLOW_GAP / CONTRACT_GAP`
-- fichier + symbole précis ;
+- fichier + symbole ;
 - mécanisme ;
 - scénario reproductible ;
-- impact exact ;
-- déjà couvert par A0–F5 : `YES / PARTIAL / NO`.
+- impact ;
+- couvert par A0–F5/G0–G4 : `YES / PARTIAL / NO`.
 
 ### 3. ADDITIONAL ATTACKS REQUIRED
 
-Proposer seulement les attaques réellement justifiées qui manquent au catalogue actuel.
-
-Pour chaque attaque :
-
-- précondition ;
-- manipulation ;
-- comportement attendu fail-closed ;
-- test minimal proposé.
+Pour chaque attaque : précondition, manipulation, comportement fail-closed attendu, test minimal.
 
 ### 4. MUST-FIX BEFORE ANY AUTHORIZED PATH
 
-Liste fermée des défauts qui doivent être corrigés **avant** toute future émission de `AUTHORIZED`.
+Liste fermée.
 
 ### 5. SAFE TO DEFER
 
-Éléments réellement hors P1.1 actuel ou acceptables tant que le candidat reste block-only.
+Éléments réellement hors scope block-only.
 
 ### 6. MINIMAL CORRECTION ORDER
 
-Si correction requise, donner l'ordre minimal de correction. Ne fournis pas encore de patch complet sauf si indispensable pour expliquer un finding.
+Ordre minimal, sans patch complet sauf nécessité pour démontrer le finding.
 
-## 8. Règle d'indépendance
-
-Ne cherche pas à confirmer le design existant. Cherche à le casser.
-
-Ne traite pas les tests actuels comme une spécification suffisante : le contrat est la norme, le code est le candidat, les tests sont seulement une tentative de cassage.
-
-Si tu trouves une faiblesse qui ne devient exploitable qu'après ouverture d'un chemin positif, classe-la explicitement `FUTURE_AUTHORIZED_RISK` au lieu de la présenter comme bypass actuel.
-
-## 9. Fin de tâche
+## 8. Fin
 
 Arrête-toi après le rapport adversarial. **Ne modifie rien.**
 
-Le rapport sera ensuite confronté au code réel et adjudiqué avant toute correction ou extension de P1.1.
+Le rapport sera ensuite vérifié, comparé aux preuves exécutables, puis adjudiqué avant toute extension de P1.1.
