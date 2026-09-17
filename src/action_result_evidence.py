@@ -69,7 +69,11 @@ def _result_fingerprint(value: QualificationResultObservation) -> str:
 def _build_qualification_evidence_api():
     action_registry: dict[
         int,
-        tuple[weakref.ReferenceType[QualificationActionEvidence], str],
+        tuple[
+            weakref.ReferenceType[QualificationActionEvidence],
+            str,
+            weakref.ReferenceType[Decision],
+        ],
     ] = {}
     result_registry: dict[
         int,
@@ -100,7 +104,7 @@ def _build_qualification_evidence_api():
             }
         )[:32]
 
-    def _attest_action(produced: QualificationActionEvidence) -> None:
+    def _attest_action(produced: QualificationActionEvidence, decision: Decision) -> None:
         object_id = id(produced)
 
         def cleanup(reference, *, expected_object_id: int = object_id) -> None:
@@ -109,7 +113,11 @@ def _build_qualification_evidence_api():
                 action_registry.pop(expected_object_id, None)
 
         reference = weakref.ref(produced, cleanup)
-        action_registry[object_id] = (reference, _action_fingerprint(produced))
+        action_registry[object_id] = (
+            reference,
+            _action_fingerprint(produced),
+            weakref.ref(decision),
+        )
 
     def _attest_result(produced: QualificationResultObservation) -> None:
         object_id = id(produced)
@@ -128,10 +136,22 @@ def _build_qualification_evidence_api():
         entry = action_registry.get(id(value))
         if entry is None:
             return False
-        reference, expected_fingerprint = entry
+        reference, expected_fingerprint, _ = entry
         if reference() is not value:
             return False
         return _action_fingerprint(value) == expected_fingerprint
+
+    def _is_action_bound_to_exact_decision(
+        value: QualificationActionEvidence,
+        decision: Decision,
+    ) -> bool:
+        entry = action_registry.get(id(value))
+        if entry is None:
+            return False
+        reference, _, origin_decision_reference = entry
+        if reference() is not value:
+            return False
+        return origin_decision_reference() is decision
 
     def _is_attested_result(value: object) -> bool:
         if not isinstance(value, QualificationResultObservation):
@@ -162,7 +182,7 @@ def _build_qualification_evidence_api():
             decision_id=decision.decision_id,
             behavior=behavior,
         )
-        _attest_action(produced)
+        _attest_action(produced, decision)
         return produced
 
     def observe_qualification_result(
@@ -203,6 +223,8 @@ def _build_qualification_evidence_api():
         assert isinstance(action, QualificationActionEvidence)
         assert isinstance(result, QualificationResultObservation)
         if action.decision_id != decision.decision_id:
+            return False
+        if not _is_action_bound_to_exact_decision(action, decision):
             return False
         if result.action_id != action.action_id:
             return False
