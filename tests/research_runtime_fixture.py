@@ -24,6 +24,7 @@ from src.research_run_evidence import (
 )
 
 
+# Neutral trigger: re-run trust-boundary suites after closure-introspection attacks were added.
 CODE_VERSION = "963f02e93db63bef36c25d58c3634096a2247e6a"
 FIRST_TS = "2026-01-02T00:00:00.001000+00:00"
 LAST_TS = "2026-01-02T00:00:00.002000+00:00"
