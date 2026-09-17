@@ -7,15 +7,23 @@ provenance -> research run -> code -> configuration -> dataset -> context
 -> decision -> action -> result
 
 A missing link is a FAIL, never an implicit PASS.
+
+P1.3 adds a qualification-only producer for DecisionTrace. Structural
+``DecisionTrace.validate()`` remains a legacy completeness check and is not an
+authenticity or provenance authority.
 """
 
 from __future__ import annotations
 
+import hashlib
+import json
+import weakref
 from dataclasses import dataclass
 from typing import Literal
 
 
 Status = Literal["PASS", "FAIL", "BLOCKED"]
+CONTRACT = "P1_3_RESULT_TRACE_EVIDENCE_BOUNDARY_V1"
 
 
 @dataclass(frozen=True)
@@ -72,3 +80,113 @@ class DecisionTrace:
             self.action_id,
             self.result_id,
         )
+
+
+def _stable_hash(value: object) -> str:
+    payload = json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def _trace_fingerprint(value: DecisionTrace) -> str:
+    return _stable_hash(
+        {
+            "decision_id": value.decision_id,
+            "provenance_id": value.provenance_id,
+            "research_run_id": value.research_run_id,
+            "code_version": value.code_version,
+            "configuration_version": value.configuration_version,
+            "dataset_id": value.dataset_id,
+            "dataset_version": value.dataset_version,
+            "context_id": value.context_id,
+            "decision": value.decision,
+            "action_id": value.action_id,
+            "result_id": value.result_id,
+        }
+    )
+
+
+def _build_trace_api():
+    registry: dict[int, tuple[weakref.ReferenceType[DecisionTrace], str]] = {}
+
+    def produce(
+        evidence: object,
+        decision: object,
+        action: object,
+        result: object,
+    ) -> DecisionTrace:
+        """Produce one qualification-only Trace from already qualified evidence."""
+        # Local imports avoid a module cycle because research_run_evidence keeps
+        # a legacy adapter that imports DecisionTrace.
+        from src.action_result_evidence import (
+            QualificationActionEvidence,
+            QualificationResultObservation,
+            verify_qualification_chain,
+        )
+        from src.decision import Decision, is_factory_attested_decision
+        from src.research_run_evidence import ResearchRunEvidence, is_factory_attested
+
+        if not isinstance(evidence, ResearchRunEvidence):
+            raise ValueError("P1.3 Trace requires full ResearchRunEvidence")
+        if not is_factory_attested(evidence):
+            raise ValueError("P1.3 Trace requires factory-attested ResearchRunEvidence")
+        if not isinstance(decision, Decision):
+            raise ValueError("P1.3 Trace requires full Decision")
+        if not is_factory_attested_decision(decision):
+            raise ValueError("P1.3 Trace requires factory-attested Decision")
+        if not isinstance(action, QualificationActionEvidence):
+            raise ValueError("P1.3 Trace requires full QualificationActionEvidence")
+        if not isinstance(result, QualificationResultObservation):
+            raise ValueError("P1.3 Trace requires full QualificationResultObservation")
+        if not verify_qualification_chain(decision, action, result):
+            raise ValueError("P1.3 Trace requires exact qualified Decision -> Action -> Result chain")
+        if evidence.research_run_id != decision.research_run_id:
+            raise ValueError("P1.3 Trace research_run mismatch")
+        if evidence.context_id != decision.context_id:
+            raise ValueError("P1.3 Trace context mismatch")
+
+        produced = DecisionTrace(
+            decision_id=decision.decision_id,
+            provenance_id=evidence.provenance_id,
+            research_run_id=evidence.research_run_id,
+            code_version=evidence.code_version,
+            configuration_version=evidence.configuration_version,
+            dataset_id=evidence.dataset_id,
+            dataset_version=evidence.dataset_version,
+            context_id=evidence.context_id,
+            decision=decision.decision,
+            action_id=action.action_id,
+            result_id=result.result_id,
+        )
+        status, missing = produced.validate()
+        if status != "PASS":
+            raise ValueError(f"P1.3 produced incomplete Trace: {', '.join(missing)}")
+
+        object_id = id(produced)
+
+        def cleanup(reference, *, expected_object_id: int = object_id) -> None:
+            current = registry.get(expected_object_id)
+            if current is not None and current[0] is reference:
+                registry.pop(expected_object_id, None)
+
+        reference = weakref.ref(produced, cleanup)
+        registry[object_id] = (reference, _trace_fingerprint(produced))
+        return produced
+
+    def verify(value: object) -> bool:
+        if not isinstance(value, DecisionTrace):
+            return False
+        entry = registry.get(id(value))
+        if entry is None:
+            return False
+        reference, expected_fingerprint = entry
+        if reference() is not value:
+            return False
+        if _trace_fingerprint(value) != expected_fingerprint:
+            return False
+        return value.validate()[0] == "PASS"
+
+    return produce, verify
+
+
+produce_decision_trace, is_factory_attested_decision_trace = _build_trace_api()
+del _build_trace_api
