@@ -1,88 +1,45 @@
-# P1.0 — PROMOTION GATE + EXECUTABLE TIERING CONTRACT
+# P1.0 — PROMOTION GATE TIERING / ADVERSARIAL COMPANION
 
-**Contract ID:** `PROMOTION_GATE_TIERING_V1`  
-**Tier:** A  
-**Initial mode:** `REJECT_ALL`
+**Status:** `NON_NORMATIVE_QUALIFICATION_COMPANION`  
+**Canonical authority:** `04-REFERENCE/PROMOTION-GATE-CONTRACT.md`  
+**Canonical contract ID:** `PROMOTION_GATE_FAIL_CLOSED_V1`  
+**Historical superseded ID:** `PROMOTION_GATE_TIERING_V1`
 
 ## Purpose
 
-No transition may increase system permission, reduce required evidence, lower a proof tier, enable acquisition/backtest/live capability, or relax governance without passing one explicit promotion gate.
+This file is retained only as a qualification companion for P1.0. It does not define a second promotion contract.
 
-Normative chain:
+All permission semantics, verdict semantics, tier ordering, consequence classification, relaxation rules, evidence requirements, cooling-off rules and authorization invariants are owned exclusively by `PROMOTION-GATE-CONTRACT.md`.
 
-`REQUESTED TRANSITION → CONSEQUENCE → TIER → BOUNDARY INHERITANCE → PERMISSION DELTA → RELAXATION? → EVIDENCE/REVOCATION CONDITIONS → GATE → PASS / FAIL / BLOCKED`
+If this companion is inconsistent with the canonical contract, the inconsistency is a qualification defect; this file never overrides the canonical contract.
 
-## Fail-closed rules
+## Qualification map derived from the canonical contract
 
-1. Unknown capability, consequence, tier, transition, evidence state or permission state is `BLOCKED`.
-2. Absence of an explicit gate is `BLOCKED`.
-3. A system may become more restrictive without a permissive promotion.
-4. Any increase in effective permission is a promotion and requires an explicit gate.
-5. Any reduction in evidence strength, refusal criteria or boundary tier is a governance relaxation.
-6. `A → B` is always a relaxation.
-7. Boundary tier is the maximum tier implied by the consequences protected by that boundary.
-8. Caller-declared tier never overrides consequence-derived tier.
-9. P1.0 has no allowlist of permissive transitions: every permission-increasing or relaxation request is denied by default.
-10. P1.0 must not authorize native `.bi5` acquisition, real backtest, live execution or any equivalent capability.
+The implementation and tests must demonstrate the canonical chain:
 
-## Consequence-derived tiers
+`REQUESTED TRANSITION → CONSEQUENCES → REQUEST VALIDITY → DERIVED TIER → BOUNDARY MAX-TIER → PERMISSION DELTA → RELAXATION ? → EVIDENCE / REVOCATION CONDITIONS → PROMOTION GATE → PASS / FAIL / BLOCKED`
 
-The evaluator must derive tier from consequences, not from component labels.
-
-- `A`: a failure could increase external/financial/operational permission, violate a critical trust boundary, corrupt authoritative evidence/provenance, bypass a safety gate, or make an irreversible/high-impact action possible.
-- `B`: failure is bounded to deterministic internal computation/research state and cannot itself increase operational permission or corrupt a Tier-A authority.
-- `C`: hypothesis/research-only state that cannot become operational authority without a later Tier-A gate.
-
-If multiple consequences apply, the effective tier is the maximum severity: `A > B > C`.
-
-## Relaxation controls
-
-Governance relaxation follows existing `GOVERNANCE_RELAXATION_COOLING_OFF_V1`.
-
-A relaxation causally linked to a loss, incident, missed opportunity or operational constraint is subject to the existing minimum 30-day cooling-off period. Same-cause recurrence resets the period.
-
-For Tier A, permissive relaxation remains `BLOCKED` unless all existing governance conditions are evidenced:
-
-- observable revocation condition;
-- timely detection;
-- reaction latency compatible with risk;
-- bounded blast radius;
-- executable revocation;
-- rollback/safe state;
-- sufficient monitor independence;
-- monitor falsifiability by injected revocation condition;
-- bounded and known revocation cost.
-
-These conditions are necessary but **not sufficient** in P1.0 because the initial gate is reject-all.
-
-## Initial P1.0 verdict semantics
-
-- Restrictive/no-permission-increase transition: `PASS` only as a non-promotion classification; it grants no new capability.
-- Permission increase or governance relaxation: `BLOCKED` with reject-all reason, even if supporting conditions are present.
-- Invalid/unknown/incomplete request: `BLOCKED`.
-- No path in P1.0 returns an authorization for acquisition, real backtest or live execution.
-
-## Required adversarial attacks
-
-At minimum:
+The qualification surface must explicitly exercise at least these adversarial classes:
 
 - caller lies about tier;
 - mixed consequences where one is Tier A;
-- unknown consequence;
+- unknown consequence: conservative Tier-A derivation plus evaluator `BLOCKED`;
+- empty consequence set: conservative Tier-A derivation plus evaluator `BLOCKED`;
 - permission increase disguised as neutral transition;
 - evidence requirement reduced without permission flag;
 - A→B downgrade;
-- missing explicit gate;
-- direct capability boolean bypass;
-- self-declared PASS/evidence boolean;
+- unknown tier or permission state;
+- direct capability bypass;
+- self-declared PASS/evidence bypass;
 - cooling-off bypass;
 - incomplete Tier-A revocation package;
 - monitor non-independence;
 - non-falsifiable monitor;
-- unbounded blast radius/revocation cost;
-- acquisition/backtest/live requests;
-- restrictive transition remains possible without granting a higher permission.
+- unbounded blast radius or revocation cost;
+- native acquisition, real-backtest and live requests;
+- restrictive/non-promotional transitions remain possible without granting a higher permission;
+- forced legacy acquisition `PASS` remains externally `BLOCKED` by the canonical promotion gate.
 
 ## Scope boundary
 
-P1.0 builds and qualifies the reject-all promotion/tiering mechanism only. It does not define the first permissive promotion policy and does not authorize acquisition, real backtest or live execution.
+This companion adds no capability and grants no authorization. P1.0 remains `REJECT_ALL_PROMOTION`; native `.bi5` acquisition, real-data backtest and live execution remain unauthorized.

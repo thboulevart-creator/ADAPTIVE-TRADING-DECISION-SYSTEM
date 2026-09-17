@@ -106,12 +106,23 @@ def test_f4_permission_increase_consequence_derives_tier_a() -> None:
     assert derive_consequence_tier((PERMISSION_INCREASE,)) == TIER_A
 
 
-def test_f5_unknown_consequence_fails_closed_to_tier_a() -> None:
-    assert derive_consequence_tier(("UNRECOGNIZED_CONSEQUENCE",)) == TIER_A
+def test_f5_unknown_consequence_fails_closed_to_tier_a_and_blocks_evaluation() -> None:
+    consequences = ("UNRECOGNIZED_CONSEQUENCE",)
+    assert derive_consequence_tier(consequences) == TIER_A
+    decision = evaluate_promotion(request(consequences=consequences))
+    assert decision.verdict == BLOCKED
+    assert decision.reason == "UNKNOWN_CONSEQUENCE:UNRECOGNIZED_CONSEQUENCE"
+    assert decision.consequence_tier == TIER_A
+    assert decision.effective_tier == TIER_A
 
 
-def test_f6_empty_consequence_set_fails_closed_to_tier_a() -> None:
+def test_f6_empty_consequence_set_fails_closed_to_tier_a_and_blocks_evaluation() -> None:
     assert derive_consequence_tier(()) == TIER_A
+    decision = evaluate_promotion(request(consequences=()))
+    assert decision.verdict == BLOCKED
+    assert decision.reason == "CONSEQUENCES_INCOMPLETE"
+    assert decision.consequence_tier == TIER_A
+    assert decision.effective_tier == TIER_A
 
 
 def test_f7_mixed_consequences_inherit_strongest_tier() -> None:

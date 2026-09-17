@@ -166,6 +166,15 @@ def _validate_permissions(current: frozenset[str], target: frozenset[str]) -> st
     return None
 
 
+def _validate_consequences(consequences: tuple[str, ...]) -> str | None:
+    if not consequences:
+        return "CONSEQUENCES_INCOMPLETE"
+    unknown = frozenset(consequences) - KNOWN_CONSEQUENCES
+    if unknown:
+        return "UNKNOWN_CONSEQUENCE:" + ",".join(sorted(unknown))
+    return None
+
+
 def _cooling_off_block(evidence: RelaxationEvidence | None) -> str | None:
     if evidence is None:
         return None
@@ -199,6 +208,14 @@ def evaluate_promotion(request: PromotionRequest) -> PromotionDecision:
 
     consequence_tier = derive_consequence_tier(request.consequences)
     effective_tier = inherit_boundary_tier(*declared_tiers, consequence_tier)
+    consequence_error = _validate_consequences(request.consequences)
+    if consequence_error is not None:
+        return _decision(
+            BLOCKED,
+            consequence_error,
+            effective_tier=effective_tier,
+            consequence_tier=consequence_tier,
+        )
 
     added = request.target_permissions - request.current_permissions
     removed = request.current_permissions - request.target_permissions

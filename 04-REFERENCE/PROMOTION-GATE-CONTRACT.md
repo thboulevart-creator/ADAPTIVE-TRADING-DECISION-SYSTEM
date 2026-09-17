@@ -4,6 +4,12 @@
 **Tier:** A  
 **Initial mode:** `REJECT_ALL_PROMOTION`
 
+## Authority
+
+This file is the **single normative P1.0 promotion/tiering contract**.
+
+`04-REFERENCE/PROMOTION-GATE-TIERING-CONTRACT.md` is a non-normative qualification companion only. It may index tiering examples and adversarial attacks, but it MUST NOT define an independent permission, verdict, tiering, or authorization rule. If the two files ever appear to disagree, this contract controls and the disagreement is a qualification defect.
+
 ## Purpose
 
 No transition may increase operational permission, reduce a proof/tier requirement, or otherwise relax governance without passing one explicit promotion gate.
@@ -18,7 +24,7 @@ Normative sources already versioned in this repository:
 
 ## Canonical decision chain
 
-`REQUESTED TRANSITION → CONSEQUENCES → DERIVED TIER → BOUNDARY TIER INHERITANCE → PERMISSION DELTA → RELAXATION? → RELAXATION READINESS → PROMOTION GATE → PASS / FAIL / BLOCKED`
+`REQUESTED TRANSITION → CONSEQUENCES → REQUEST VALIDITY → DERIVED TIER → BOUNDARY TIER INHERITANCE → PERMISSION DELTA → RELAXATION? → RELAXATION READINESS → PROMOTION GATE → PASS / FAIL / BLOCKED`
 
 ## Tier order
 
@@ -42,6 +48,8 @@ Any of the following derives Tier A:
 - `TRUST_BOUNDARY_CHANGE`
 - any unknown or ambiguous consequence
 - an empty consequence set, because consequence completeness is then unproven
+
+Unknown/ambiguous or empty consequence input is classified as Tier A **for conservative tier derivation only**. It is not a valid non-promotional request: the evaluator must return `BLOCKED` before any `NO_PROMOTION`, `RESTRICTION_ALLOWED`, or `TIER_HARDENING_ALLOWED` PASS can be produced.
 
 ### Tier B consequence
 
@@ -110,13 +118,13 @@ P1.0 is deliberately `REJECT_ALL_PROMOTION`:
 - supplying every Tier-A readiness field still cannot return PASS;
 - acquisition/backtest/live permissions remain absent.
 
-The only PASS outcomes allowed in P1.0 are non-promotional outcomes:
+The only PASS outcomes allowed in P1.0 are valid, fully classified, non-promotional outcomes:
 
 - no permission/tier relaxation (`NO_PROMOTION`);
 - a strictly more restrictive permission set (`RESTRICTION_ALLOWED`);
 - a stricter tier with no permission increase (`TIER_HARDENING_ALLOWED`).
 
-Malformed or unknown permission state returns FAIL. Missing/insufficient proof for a requested relaxation returns BLOCKED. A fully evidenced requested promotion still returns BLOCKED with the reject-all reason.
+Unknown or empty consequences return BLOCKED even though their conservative derived tier is A. Unknown tier or permission state is invalid and returns FAIL. Missing/insufficient proof for a requested relaxation returns BLOCKED. A fully evidenced requested promotion still returns BLOCKED with the reject-all reason.
 
 ## Existing acquisition boundary
 
@@ -135,4 +143,4 @@ The P1.0 evaluator is pure/read-only:
 
 ## Qualification protocol
 
-`formalisation → pre-correction FAIL → minimal implementation → F0–F20 adversarial break → P0.2–P0.6 re-break → persisted-HEAD verdict`
+`formalisation → pre-correction FAIL → minimal implementation → F0–F20 adversarial break → acquisition-binding bypass attack → P0.2–P0.6 re-break → persisted-HEAD verdict`
