@@ -341,3 +341,121 @@ P1.0 becomes **CLOSED / PASS** only when the final read-only P1.0 workflow succe
 A successful final run satisfies the closure condition directly. No additional documentary mutation is required afterward; otherwise every documentary write would create a new HEAD and recursively require another closure run.
 
 No acquisition, real backtest, downstream execution or live activation becomes authorized by P1.0 closure.
+
+---
+
+# SUPERSEDING CHECKPOINT UPDATE — 17 SEPTEMBRE 2026 — P1.1 BLOCK-ONLY CLOSURE CANDIDATE
+
+This section supersedes any inference that work stops at P1.0. Historical checkpoint text is retained for recovery traceability.
+
+## Current P1.1 scope
+
+Normative contract:
+
+`04-REFERENCE/DECISION-ACTION-AUTHORIZATION-BOUNDARY-CONTRACT.md`
+
+Contract ID:
+
+`P1_1_DECISION_ACTION_AUTHORIZATION_BOUNDARY_V1`
+
+P1.1 qualifies only:
+
+`qualified Decision → verification → authorization constraints → BLOCKED`
+
+It does not create ACTION and it does not authorize any positive `AUTHORIZED` path.
+
+## Adversarial history retained
+
+Verdict-forgery red:
+
+- HEAD `48f7af3f8445330d559355448b17ca899525f124`;
+- run/job `35201673212 / 105137643728`;
+- conclusion **FAIL**;
+- defects: mutable `BLOCKED` symbol and runtime-unenforced `AuthorizationVerdict`.
+
+Closure-introspection red:
+
+- HEAD `adf1558e46bbe27d1ab7c697d921f94b082b37b9`;
+- P1.1 run/job `35233644836 / 105243882059` — **FAIL**;
+- P0.4 run/job `35233644848 / 105243882076` — **FAIL**.
+
+The closure finding was independently reproduced after external review and generalized upstream. It is now governed as a process-integrity limitation: arbitrary same-interpreter reflective mutation is process compromise, not an ordinary untrusted-input/API capability.
+
+No future positive `AUTHORIZED` path may rely only on mutable process-local Python state if untrusted code can execute in that interpreter.
+
+## Technical common qualification state
+
+Common technical qualification HEAD:
+
+`5a4c9f94cb330ad04b1c00cb8ebed86dfab746d5`
+
+SUCCESS on that exact SHA:
+
+- P0.2 `35235197049 / 105249191301`;
+- P0.3 `35235197091`;
+- P0.4 `35235197054 / 105249191568`;
+- P0.5 `35235197038 / 105249191096`;
+- P0.6 `35235197003 / 105249191263`;
+- P1.1 `35235197002 / 105249190934`;
+- DATA → CONTEXT `35235197017`;
+- CONTEXT → RESEARCH `35235197013`;
+- RESEARCH FINDINGS `35235197055`;
+- RESEARCH → DECISION `35235197007`.
+
+P1.1 A0–F5 plus G0–G5 passed on the common technical HEAD. Protected upstream boundaries and the reproducibility envelope also passed.
+
+## Persisted P1.1 closure artifacts
+
+Qualification report:
+
+`reports/data-qualification/p1_1_decision_action_authorization_qualification.md`
+
+Session backup:
+
+`99-BACKUP/SESSION-2026-09-17-P1.1-DECISION-ACTION-AUTHORIZATION-QUALIFICATION.md`
+
+No new governance layer was created.
+
+## Safety truth remains unchanged
+
+- global `111 / 91 / 20` → **BLOCKED**;
+- selected window `2021-08-14 → 2026-08-14`;
+- selected `68 / 68 / 0` → **PASS**;
+- persisted freeze → **PASS**;
+- acquisition → **BLOCKED**;
+- `massive_acquisition_authorized = false`;
+- `real_backtest_authorized = false`;
+- live activation unauthorized.
+
+## Positive authorization remains separately BLOCKED
+
+A future positive `AUTHORIZED` path requires, before implementation/qualification:
+
+1. an isolated or equivalently strong authorization trust boundary appropriate to the future caller threat model; and
+2. requalification of the current truncated identifier collision-resistance posture for positive/persisted/cross-process authorization use.
+
+P1.1 block-only PASS must never be read as permission to execute ACTION.
+
+## PRE-P1.2 state
+
+Read-only `ACTION → RESULT` discovery is already complete:
+
+- no integrated `Action` or `Result` component currently exists;
+- `DecisionTrace` carries `action_id` and `result_id` structurally but cannot prove those events existed;
+- ACTION means behavior actually engaged after Decision, including controlled no-action;
+- RESULT means what was actually observed after Action and does not itself prove causality;
+- current `ACTION → RESULT` boundary is **BLOCKED**.
+
+## Final P1.1 closure condition
+
+Current P1.1 state at this documentary checkpoint is:
+
+**QUALIFIED CANDIDATE / FINAL DOCUMENTARY PERSISTED-HEAD REBREAK PENDING.**
+
+P1.1 block-only becomes **CLOSED / PASS** only when one final read-only common qualification re-break succeeds on this persisted documentary HEAD or on its immediate descendant differing only by a semantically neutral CI-trigger comment.
+
+A successful final run satisfies the closure condition directly. No additional documentary mutation is required afterward.
+
+## Exactly one next governed action after successful P1.1 closure
+
+**Resume from the completed PRE-P1.2 mapping and formalize the smallest adversarial `ACTION → RESULT` contract, without creating real execution, broker integration, quantitative risk logic, acquisition, real backtest or live behavior.**
