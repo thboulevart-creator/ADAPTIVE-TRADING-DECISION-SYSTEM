@@ -75,31 +75,30 @@ jobs:
 
           marker = 'P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1'
           assert marker in audit_text
-          assert marker in checkpoint_text
           assert marker in backup_text
           assert 'RESEARCH_PRODUCER_JUNCTION_V1' in report_text
-          assert 'RESEARCH_PRODUCER_JUNCTION_V1' in checkpoint_text
           assert 'RESEARCH_PRODUCER_JUNCTION_V1' in backup_text
 
           for label, text in (
               ('audit', audit_text),
               ('report', report_text),
-              ('checkpoint', checkpoint_text),
               ('backup', backup_text),
           ):
               lowered = text.lower()
               assert 'covered by p0.4' in lowered, label
               assert 'explicitly not covered by p0.4' in lowered, label
 
-          for text in (report_text, checkpoint_text, backup_text):
+          for text in (report_text, backup_text):
               assert '35140401689 / 104943189786' in text
               assert '35140401667 / 104943190208' in text
               assert '35140401707 / 104943190275' in text
               assert '3b09bd9f6e06fd8833f7bd93d98e839e335000b5' in text
 
+          assert 'aa9551addc0fe554af9cbb8ebdb26314d37e412e' in checkpoint_text
+          assert '- P0.4: **CLOSED / PASS**' in checkpoint_text
           assert '111/91/20' in audit_text.replace(' ', '') or '111 / 91 / 20' in audit_text
           assert '68/68/0' in audit_text.replace(' ', '') or '68 / 68 / 0' in audit_text
-          print('PASS: P0.4 audit, report, checkpoint and backup are persisted with explicit bounded scope')
+          print('PASS: immutable P0.4 closure evidence is preserved; current checkpoint still attests P0.4 CLOSED / PASS')
           PY
 
       - name: Prove controlled five-file runtime import

@@ -76,7 +76,7 @@ jobs:
           contract_id = 'RESEARCH_INTERPROCESS_REATTESTATION_V1'
 
           assert marker in texts[audit.name]
-          for path in (report, checkpoint, backup):
+          for path in (report, backup):
               text = texts[path.name]
               assert marker in text, path
               assert contract_id in text, path
@@ -85,16 +85,20 @@ jobs:
               assert '35144258717 / 104956179724' in text, path
               assert '05b9752fff9f25ad2301c6385feba14848b4bb27' in text, path
 
-          for path in (audit, report, checkpoint, backup):
+          for path in (audit, report, backup):
               lowered = texts[path.name].lower()
               assert 'covered by p0.5' in lowered, path
               assert 'explicitly not covered by p0.5' in lowered, path
+
+          checkpoint_text = texts[checkpoint.name]
+          assert '7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4' in checkpoint_text
+          assert '- P0.5: **CLOSED / PASS**' in checkpoint_text
 
           audit_text = texts[audit.name]
           assert '111/91/20' in audit_text.replace(' ', '')
           assert '68/68/0' in audit_text.replace(' ', '')
           assert 'P0_4_RESEARCH_PRODUCER_JUNCTION_JIT_AUDIT_V1' in audit_text
-          print('PASS: P0.5 audit, report, checkpoint and backup are persisted with explicit bounded scope')
+          print('PASS: immutable P0.5 closure evidence is preserved; current checkpoint still attests P0.5 CLOSED / PASS')
           PY
 
       - name: Prove bounded replay bridge surface and no acquisition import
