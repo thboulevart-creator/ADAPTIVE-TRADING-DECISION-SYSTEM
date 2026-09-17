@@ -1,5 +1,5 @@
 name: P1.0 Promotion Gate Tier-A
-# Final persisted-head qualification trigger: semantically neutral push after documentary closure candidate v2.
+# Final persisted-head qualification trigger: semantically neutral push after documentary closure candidate v3.
 
 on:
   push:
