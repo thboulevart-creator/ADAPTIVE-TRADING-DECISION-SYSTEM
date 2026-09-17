@@ -136,10 +136,17 @@ def _build_qualification_evidence_api():
         entry = action_registry.get(id(value))
         if entry is None:
             return False
-        reference, expected_fingerprint, _ = entry
+        reference, expected_fingerprint, origin_decision_reference = entry
         if reference() is not value:
             return False
-        return _action_fingerprint(value) == expected_fingerprint
+        if _action_fingerprint(value) != expected_fingerprint:
+            return False
+        origin_decision = origin_decision_reference()
+        if origin_decision is None:
+            return False
+        if not is_factory_attested_decision(origin_decision):
+            return False
+        return value.decision_id == origin_decision.decision_id
 
     def _is_action_bound_to_exact_decision(
         value: QualificationActionEvidence,
