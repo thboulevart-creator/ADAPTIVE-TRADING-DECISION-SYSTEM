@@ -1,461 +1,661 @@
-# RECOVERY CHECKPOINT — 16 SEPTEMBRE 2026 — P0.6 CLOSED / P1.0 WIP PAUSED SAFELY
+# RECOVERY CHECKPOINT — 17 SEPTEMBRE 2026 — P1.4 CLOSED / P1.5 TEST-FIRST RED
 
 Repository: `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 Active branch: `integration/system-v1`
 
-## Source of truth
+## 1. Source of truth
 
-GitHub code, persisted qualification reports, workflow evidence, the end-of-day backup and this checkpoint are authoritative. Do not reconstruct governed state from conversation memory.
+For tomorrow's recovery, use this hierarchy:
+
+1. current GitHub branch state;
+2. `04-REFERENCE/AI-OPERATING-MEMORY.md`;
+3. this checkpoint;
+4. newest applicable session backup;
+5. executable workflow evidence / qualification reports;
+6. conversation only as a last-resort convenience.
+
+Do not reconstruct governed state from conversational memory.
 
 Construction rule:
 
-**UNDERSTAND → COMPARE → BREAK → DECIDE.**
+**UNDERSTAND → COMPARE → BREAK → DECIDE**
+
+Qualification sequence:
+
+**formalisation → candidate → adversarial break → correction → re-break → verdict**
 
 Allowed verdicts: `PASS / FAIL / BLOCKED`. `BLOCKED` is never `PASS`.
 
-## Closed integration lineage
+Historical versions of this checkpoint remain available in Git history and earlier `99-BACKUP/` session snapshots. The present file intentionally replaces the previously accumulated P1.0/P1.1 historical wording with the current recovery state.
 
-Integration base:
+---
 
-`main@43ec28f3e09856fe508874af3aaf32079761d2d5`
+## 2. Mandatory end-of-day backup
 
-P0.2 qualified decision source:
+Current complete session snapshot:
 
-`feat/decision-producer-contract@c0116d195063c464d602fb699654ac61adc7290c`
+`99-BACKUP/SESSION-2026-09-17-END-OF-DAY-P1.2-P1.5-MEMORY-BOUNDARIES.md`
 
-P0.3 qualified multi-year source:
+Backup creation commit:
 
-`feat/multi-year-dukascopy-acquisition@b7d13bb3492fb6e1f0d4dcab64079bf1a8f55698`
+`31be335aeace3f303c092323c589151856204005`
 
-P0.4 final closed base:
+That backup contains the detailed path traversed today, all relevant commits/runs, real FAILs, corrections, adjudications and semantic decisions from P1.2 through the current P1.5 test-first boundary.
 
-`aa9551addc0fe554af9cbb8ebdb26314d37e412e`
+Read it before modifying P1.5 tomorrow.
 
-P0.5 final closed HEAD:
+---
 
-`7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4`
+## 3. Exact execution / breaker anchor before documentary save
 
-P0.6 final closed HEAD:
+The last non-documentary implementation/breaker HEAD before this EOD backup/checkpoint sequence is:
+
+`6a0d33ac08f4825d554ad1d87805b64017b9720f`
+
+Commit message:
+
+`ci: add P1.5 durable memory preimplementation breaker`
+
+This HEAD contains:
+
+- all qualified P1.2/P1.3/P1.4 runtime/test state reached today;
+- P1.5 contract/trust-model selection;
+- P1.5 pre-implementation breaker;
+- P1.5 workflow;
+- **no** `src/memory_interprocess.py` runtime candidate.
+
+Documentary descendants created after this anchor must not be mistaken for a new runtime qualification state.
+
+Before any substantive mutation tomorrow, verify the real branch HEAD and compare it with:
+
+- execution/breaker anchor `6a0d33ac08f4825d554ad1d87805b64017b9720f`;
+- backup commit `31be335aeace3f303c092323c589151856204005`;
+- the commit containing this checkpoint.
+
+No blind merge, rebase, reset, force-push or history replay is authorized.
+
+---
+
+## 4. Protected reproducibility / safety baseline
+
+P0.6 remains the qualified reproducibility baseline:
 
 `8061127c148f06454dac6e7977a8d0cb921276f8`
 
-No blind merge, rebase, reset, force-push or branch-history replay is authorized by this checkpoint.
-
-## P0.6 — DURABLY CLOSED
-
-Contract:
-
-`04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md`
-
-Environment lock:
-
-`04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json`
-
-Requirements lock:
-
-`requirements/qualification.lock.txt`
-
-Requirements SHA-256:
-
-`4ef534add869a64dd4957ea986f7ada98dffd41f89021e1719d02d9c2062a0db`
-
-Final P0.6 documentary persisted-HEAD re-break:
-
-- HEAD: `8061127c148f06454dac6e7977a8d0cb921276f8`
-- run/job: `35147651568 / 104967695069`
-- conclusion: **SUCCESS**.
-
-The previous checkpoint wording `FINAL DOCUMENTARY REBREAK PENDING` is superseded. P0.6 is now **CLOSED / PASS**.
-
-Qualified locked envelope:
+Qualified environment remains:
 
 - CPython `3.12.14`;
-- Linux / `ubuntu-24.04`;
-- X64 in GitHub Actions;
-- immutable checkout action `11d5960a326750d5838078e36cf38b85af677262`;
-- immutable setup-python action `a26af69be951a213d495a4c3e4e4022e16d87065`;
+- `ubuntu-24.04`;
+- checkout action `11d5960a326750d5838078e36cf38b85af677262`;
+- setup-python action `a26af69be951a213d495a4c3e4e4022e16d87065`;
 - `PYTHONDONTWRITEBYTECODE=1`;
 - `PYTHONHASHSEED=0`;
 - `TZ=UTC`;
 - `LANG=C.UTF-8`;
 - `LC_ALL=C.UTF-8`;
-- exact packages `iniconfig==2.3.0`, `packaging==26.3`, `pluggy==1.6.0`, `Pygments==2.21.0`, `pytest==8.4.2`.
+- exact packages from `requirements/qualification.lock.txt`.
 
-Final qualification evidence preserved:
+Safety truth remains unchanged:
 
-- P0.6 E0–E12: `13 passed`;
-- complete repository technical qualification: `220 passed`;
-- P0.5 D0–D14: `15 passed`;
-- P0.4 C0–C15: `16 passed`;
-- P0.2 decision Tier-A: `83 passed`;
-- P0.3 calendar/freeze Tier-A: `80 passed`;
-- worktree clean;
-- final persisted-head documentary gate: SUCCESS.
+- global unresolved historical coverage remains BLOCKED where previously qualified;
+- acquisition remains BLOCKED;
+- `massive_acquisition_authorized = false`;
+- `real_backtest_authorized = false`;
+- no native `.bi5` acquisition is authorized;
+- no real-data backtest is authorized;
+- live activation is unauthorized.
 
-`pyarrow` remains outside the qualified envelope.
+P1.1 remains block-only. No positive `AUTHORIZED` path exists.
 
-## Last qualified safety truth
+---
 
-At the closed P0.6 baseline:
+## 5. Current verdict matrix
 
-- global candidates/resolved/unresolved: `111 / 91 / 20`;
-- global coverage: **BLOCKED**;
-- selected execution window: `2021-08-14 → 2026-08-14`;
-- selected-window candidates/resolved/unresolved: `68 / 68 / 0`;
-- persisted freeze: **PASS**;
-- acquisition after persisted freeze: **BLOCKED**;
-- persisted `massive_acquisition_authorized = false`;
-- persisted `real_backtest_authorized = false`;
-- no native `.bi5` acquisition authorized;
-- no real-data backtest authorized;
-- no live activation authorized.
+- P0.2: **PASS / protected baseline**
+- P0.3: **PASS / protected baseline**
+- P0.4: **PASS / protected baseline**
+- P0.5: **PASS / protected baseline**
+- P0.6: **PASS / protected reproducibility envelope**
+- P1.0: **qualified fail-closed promotion boundary; no permissive path opened**
+- P1.1: **PASS block-only; positive authorization remains BLOCKED**
+- P1.2 ACTION → RESULT: **PASS — qualification-only**
+- P1.3 RESULT → TRACE: **PASS — qualification-only**
+- P1.4 TRACE → MEMORY EPISODE: **PASS — qualification-only**
+- P1.5 durable MEMORY contract formalization: **PASS**
+- P1.5 trust-model comparison/selection: **PASS**
+- P1.5 executable runtime: **BLOCKED / not implemented**
+- P1.5 first breaker: **real expected FAIL observed**
 
-## P1.0 — WIP PAUSED, NOT QUALIFIED
+No positive operational authorization was created today.
 
-A UI timeout occurred while P1.0 was being started. GitHub writes nevertheless reached the repository.
+---
 
-Exact P1.0 implementation anchor before the end-of-day documentary save:
+## 6. P1.2 — ACTION → RESULT state
 
-`c0eef01a505688488a9720d58bad4907ef3d2a18`
+Contract:
+
+`P1_2_ACTION_RESULT_EVIDENCE_BOUNDARY_V1`
+
+Runtime:
+
+`src/action_result_evidence.py`
+
+Core types:
+
+- `QualificationActionEvidence(action_id, decision_id, behavior)`;
+- `QualificationResultObservation(result_id, action_id, outcome)`.
+
+Important semantic rules:
+
+- ACTION is actual engaged behavior, not necessarily an order;
+- controlled no-action can be an Action;
+- RESULT is an actual observation tied to exact Action;
+- RESULT does not prove causality or Decision correctness;
+- IDs/same-valued reconstruction are not authority.
+
+Final persisted-head evidence:
+
+- HEAD `8a36198fce100fb41275c778a405a3100e209aab`;
+- run `35245152286`, attempt 2;
+- job `105283562009`;
+- RESEARCH→DECISION `16/16 PASS`;
+- P1.2 `60/60 PASS`;
+- clean worktree.
+
+Verdict:
+
+**P1.2 PASS — qualification-only.**
+
+---
+
+## 7. P1.3 — RESULT → TRACE state
+
+Contract:
+
+`P1_3_RESULT_TRACE_EVIDENCE_BOUNDARY_V1`
+
+Runtime:
+
+`src/decision_trace.py`
+
+Qualified chain:
+
+`exact ResearchRunEvidence → exact Decision → exact ActionEvidence → exact ResultObservation → factory-attested DecisionTrace`
+
+Important facts:
+
+- `DecisionTrace.validate()` is structural only;
+- same-valued/manual Trace is not automatically attested;
+- exact ResearchRunEvidence provenance is privately bound to Decision;
+- Trace remains a downstream snapshot and cannot mint/repair upstream objects;
+- Trace can survive upstream GC, but it does not contain `behavior`/`outcome`.
+
+Correction commit for exact research provenance:
+
+`16ecbcaab3bfc477f2a7de6c2a5d3a7f75adaf94`
+
+Second breaker / closure commit:
+
+`a1f5b86c74e64ee128753afdcc66d150dd7c645c`
+
+Final run:
+
+- run `35246726515`;
+- attempt 2;
+- job `105289153528`;
+- RESEARCH→DECISION `16 PASS`;
+- P1.2 `60 PASS`;
+- P1.3 `41 PASS`.
+
+Verdict:
+
+**P1.3 PASS — qualification-only.**
+
+---
+
+## 8. P1.4 — TRACE → MEMORY EPISODE state
+
+Contract:
+
+`P1_4_TRACE_MEMORY_EPISODE_BOUNDARY_V1`
+
+Formalization commit:
+
+`da3361a41dada47114cafa518a48412afa1b39a8`
+
+Runtime candidate commit:
+
+`ec3487ea3ed74c374a273466bfac977d3553b166`
+
+Runtime:
+
+`src/memory_episode.py`
+
+Minimal input:
+
+`exact attested DecisionTrace + exact admissible QualificationActionEvidence + exact admissible QualificationResultObservation → ObservationalMemoryEpisode`
+
+Four required separations:
+
+`EVENT ≠ EXPERIENCE`
+
+`OBSERVATION ≠ INTERPRETATION`
+
+`EXPERIENCE ≠ KNOWLEDGE`
+
+`KNOWLEDGE ≠ OPERATIONAL AUTHORIZATION`
+
+P1.4 does not accept `ResearchFindings` as an authority/input yet.
+
+It preserves factual observation only:
+
+- Trace projection/provenance;
+- exact Action `behavior`;
+- exact Result `outcome`.
+
+It does not qualify:
+
+- hypothesis;
+- causal relation;
+- Decision correctness;
+- confidence;
+- `SUPPORTED/REFUTED/NOT_INTERPRETABLE`;
+- knowledge;
+- operational permission.
+
+### First breaker
+
+Commit:
+
+`f7278000cdbd5d427db8a9b67d3698f98a5466bd`
+
+Run:
+
+`35263365734 / job 105344333468`
+
+Result:
+
+- RESEARCH→DECISION `16/16 PASS`;
+- P1.2 `60/60 PASS`;
+- P1.3 `41/41 PASS`;
+- P1.4 A0–G4 `49/49 PASS`.
+
+No fake correction was created because the first breaker was genuinely green.
+
+### Second breaker — genuine H8 defect
+
+Breaker commit:
+
+`68301d80163a24511e880f856c07ed9e4d646013`
+
+Real defect:
+
+After a P1.2 lifecycle/registry reset, a newly authentic Action/Result pair could collide on the same IDs as an older pair and be recombined with an old Trace.
+
+Key invariant learned:
+
+`same IDs + both authentic ≠ same historical pair`
+
+Minimal correction commit:
+
+`4d1622055f141208e34d717024f2b882934d91a3`
+
+P1.3 now retains private exact historical Action/Result provenance for downstream verification while preserving Trace survival after GC.
+
+### CI/test-isolation corrections discovered during closure
+
+P0.2 stale evolving-document guard correction:
+
+`03e1f8c48442568ef5cc0a717fde4714c8d4eef1`
+
+H8 reload attack moved to subprocess to avoid polluting later pytest class/registry identity:
+
+`64dcfa331736dc8624556a1ac160d56748dd5fab`
+
+P0.4/P0.6 full-suite workflows were corrected to listen to `tests/**` because they run `pytest -q` over the whole repository.
+
+### Final persisted-head P1.4 qualification
+
+HEAD:
+
+`12936ce44a1ba5dd3ac154fc62c62bf39a9997b5`
+
+Evidence on that same SHA:
+
+- P0.4 run `35265181355` — SUCCESS — full repository `452 passed`;
+- P0.6 run `35265181428` — SUCCESS;
+- P1.4 run `35265181318`, attempt 2, job `105350666230` — SUCCESS;
+- RESEARCH→DECISION `16/16`;
+- P1.2 `60/60`;
+- P1.3 `41/41`;
+- P1.4 A0–G4 `49/49`;
+- second breaker H0–H8 `9/9`;
+- worktree clean.
+
+Verdict:
+
+**P1.4 PASS — qualification-only.**
+
+---
+
+## 9. PRE-P1.5 — durable MEMORY discovery
+
+The discovery was read-only.
+
+Central conclusion:
+
+P0.5 deterministic replay cannot be copied to historical MEMORY.
+
+`REPLAY(ACTION → RESULT) ≠ PROOF(original ACTION → RESULT)`
+
+Replaying an Action/Result creates a new event.
+
+Therefore the required durable pattern is witness/capture re-attestation:
+
+`P1.4-attested episode → canonical durable record → trusted capture/witness → receipt → fresh process + external trust expectation → verification → fresh local historical-memory re-attestation`
+
+Key separations:
+
+- durable record ≠ authority;
+- content integrity ≠ provenance/authenticity;
+- capture authority ≠ captured artifact;
+- receipt ≠ historical event;
+- content identity ≠ registration/occurrence identity;
+- replay ≠ historical verification;
+- fresh-process re-attestation ≠ original-object resurrection.
+
+`episode_id` remains content identity, not globally unique historical occurrence identity.
+
+Verdict:
+
+**PRE-P1.5 discovery PASS.**
+
+---
+
+## 10. P1.5 contract formalization
+
+Contract:
+
+`P1_5_WITNESSED_DURABLE_MEMORY_REATTESTATION_V1`
+
+Formalization commit:
+
+`3474e7dc3a6f422ae21b75dfccfbc4342d09b793`
 
 Commit message:
 
-`p1.0: formalize fail-closed promotion and tiering contract`
+`governance: formalize P1.5 durable memory re-attestation boundary`
 
-This anchor is 9 commits ahead of the closed P0.6 baseline and modifies/adds exactly these eight P1-related integration surfaces:
+Formalization location:
 
-1. `.github/workflows/p0-3-multi-year-integration-rebreak.yml`
-2. `.github/workflows/p1-0-promotion-gate.yml`
-3. `04-REFERENCE/PROMOTION-GATE-CONTRACT.md`
-4. `04-REFERENCE/PROMOTION-GATE-TIERING-CONTRACT.md`
-5. `src/promotion_gate.py`
-6. `tests/test_promotion_gate_acquisition_binding.py`
-7. `tests/test_promotion_gate_tier_a.py`
-8. `tools/frozen_execution_window.py`
+`GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md`
 
-End-of-day recovery backup created immediately after that implementation anchor:
+No signature/key/storage/service technology was selected at this point.
 
-`99-BACKUP/SESSION-2026-09-16-END-OF-DAY-P0.6-CLOSED-P1.0-WIP.md`
+P1.5 preserved P0.5's reusable negative principles:
 
-Backup creation commit:
+- serialization/hash is not authority;
+- trust expectation must come from outside the artifact;
+- unknown schema/substitution/missing trust fails closed;
+- fresh process mints a new local attestation only after verification;
+- no `accept_digest_only`, `trust_record=True`, `skip_verification` bypass.
 
-`2682baa8d5e9d7a0984518dfa09dbe41278f4411`
+But replay of the historical event is forbidden.
 
-The current branch HEAD after this checkpoint update is a documentary pause state on top of the same P1.0 implementation. It MUST NOT be interpreted as a qualified P1.0 HEAD.
+---
 
-## Current P1.0 intended model
+## 11. P1.5 selected trust model
 
-P1.0 is intended to enforce:
+Selected model:
 
-`REQUESTED TRANSITION → CONSEQUENCE → DERIVED TIER → BOUNDARY MAX-TIER → PERMISSION DELTA → RELAXATION CHECK → EVIDENCE → GATE → BLOCKED / FAIL`
+`P1_5_EXTERNAL_RECEIPT_PIN_TRUST_MODEL_V1`
 
-Current WIP intent:
+Selection commit:
 
-- fail-closed / reject-all by default;
-- no P1.0 `PASS` promotion path;
-- explicit permission ordering;
-- tier derived from consequences rather than caller preference;
-- boundary inherits maximum relevant tier;
-- caller cannot lower a derived tier;
-- Tier `A → B` is a governance relaxation;
-- permission increase is a relaxation;
-- Tier-A relaxation evidence must cover observability, timely detection, bounded blast radius, executable revocation, rollback/safe state, monitor independence, falsifiability and bounded/known revocation cost;
-- 30-day governance-relaxation cooling-off remains applicable;
-- more restrictive transitions may be handled without creating a more permissive state;
-- acquisition path is intended to be bound to the promotion gate;
-- no acquisition/backtest/live side-effect surface belongs in the promotion evaluator.
+`38595b56fcf1a7e9e53f29dd30d2802ab6e9be40`
 
-## P1.0 qualification status — DO NOT MISREAD
+Commit message:
 
-**P1.0 verdict: WIP / UNQUALIFIED.**
+`governance: select P1.5 external receipt pin trust model`
 
-There is no workflow run associated with exact implementation anchor:
+### External trust expectation
 
-`c0eef01a505688488a9720d58bad4907ef3d2a18`
+For each registration, the fresh verifier receives separately from the record/receipt bundle:
 
-Therefore:
+- `expected_contract`;
+- `expected_authority_id`;
+- `expected_receipt_sha256`.
 
-- no P1.0 PASS exists;
-- the current P1.0 implementation is not yet governed-qualified;
-- no permission has been promoted;
-- acquisition, backtest and live remain unauthorized;
-- do not infer safety qualification merely from the presence of code/tests/contracts.
+The record/receipt cannot choose these expected values itself.
 
-## Known P1.0 gaps to resolve first tomorrow
+### Why this model was selected first
 
-### Contract authority duplication
+Rejected / deferred alternatives:
 
-Two materially overlapping documents currently exist:
+- hash/content-address only: integrity, not authority;
+- self-declared `authority_id`: self-authorization;
+- Git/GitHub path/commit as implicit trust: not qualified as capture authority;
+- HMAC/shared secret: verifier also gains minting power;
+- asymmetric signature: potentially valid but introduces signer isolation/key custody/rotation/revocation before needed;
+- trusted append-only service: potentially valid but introduces a new persistent authority/service before needed.
 
-- `04-REFERENCE/PROMOTION-GATE-CONTRACT.md` — `PROMOTION_GATE_FAIL_CLOSED_V1`;
-- `04-REFERENCE/PROMOTION-GATE-TIERING-CONTRACT.md` — `PROMOTION_GATE_TIERING_V1`.
+The external per-registration receipt pin gives the verifier no minting secret and creates no service/PKI yet.
 
-They must be reconciled deliberately into one authoritative contract or an explicit non-duplicative split. Do not add a third layer.
+Tradeoff accepted: an external pin must be provisioned per registration. If this later becomes operationally unacceptable, that will be evidence for a broader signature/service model.
 
-### Workflow trigger gap
+### Registration identity refinement
 
-At implementation anchor `c0eef...`, `.github/workflows/p1-0-promotion-gate.yml` does not path-trigger on:
+The breaker design established that `registration_id` must be bound to the registration content.
 
-- `04-REFERENCE/PROMOTION-GATE-TIERING-CONTRACT.md`;
-- `tests/test_promotion_gate_acquisition_binding.py`.
+A capture nonce may distinguish registrations without claiming trusted wall-clock time.
 
-This is one reason the exact anchor had no P1.0 run. Close this gap before relying on CI.
+Registration identity must not be interpreted as proof of independent experiment occurrence.
 
-### Targeted acquisition-binding visibility
+---
 
-`tests/test_promotion_gate_acquisition_binding.py` must be made explicitly visible in the targeted Tier-A P1.0 qualification, not only incidentally collected through the full repository suite.
+## 12. P1.5 pre-implementation breaker state
 
-### Existing integration edits must be audited, not trusted by existence
+Breaker:
 
-Before further modification read:
+`breakers/p1_5_external_receipt_pin_breaker.py`
 
-- `tools/frozen_execution_window.py`;
-- `.github/workflows/p0-3-multi-year-integration-rebreak.yml`.
+Breaker commit:
 
-Confirm that the acquisition binding and regression-guard evolution are minimal and preserve prior qualified semantics.
+`e8ea512cbacf98d954c4d87316365733805d501b`
 
-### Adversarial history
+Workflow:
 
-Inspect intermediate P1.0 commits and workflow runs. Preserve a real expected FAIL if one exists. If no clean pre-correction FAIL exists, deliberately create the smallest legitimate red breaker before final qualification. Never invent an unobserved FAIL.
+`.github/workflows/p1-5-durable-memory-reattestation.yml`
 
-## Mandatory recovery order tomorrow
+Workflow / execution anchor:
+
+`6a0d33ac08f4825d554ad1d87805b64017b9720f`
+
+At this anchor there is intentionally **no**:
+
+`src/memory_interprocess.py`
+
+### First P1.5 run
+
+Run:
+
+`35271832061`
+
+Job:
+
+`105372835362`
+
+Conclusion:
+
+**FAIL — expected pre-implementation red.**
+
+Before the P1.5 breaker failed, the workflow proved:
+
+- exact persisted HEAD / P0.6 ancestry: PASS;
+- test-first condition / no runtime candidate: PASS;
+- qualification environment: PASS;
+- RESEARCH→DECISION: `16 passed`;
+- P1.2: `60 passed`;
+- P1.3: `41 passed`;
+- P1.4 combined: `58 passed`;
+- clean worktree: PASS.
+
+P1.5 breaker result:
+
+`37 failed`
+
+Every failure is the same intentional baseline:
+
+`P1.5 candidate absent — expected pre-implementation FAIL: src.memory_interprocess does not exist`
+
+This is genuine red evidence. It is not a regression and must be preserved.
+
+---
+
+## 13. P1.5 breaker scope frozen before implementation
+
+The breaker already covers:
+
+### A — capture source
+
+- exact P1.4 episode positive source;
+- manual/same-valued/copy/deepcopy/replace/JSON/mutated source rejection.
+
+### B — durable bundle integrity / non-self-authority
+
+- record without receipt;
+- receipt without record;
+- internally coherent bundle without external pin;
+- rehashed tamper against original external pin;
+- storage path/location not authority.
+
+### C — external trust expectation
+
+- exact expected contract/authority/receipt digest;
+- wrong receipt pin;
+- wrong authority;
+- wrong contract;
+- bundle cannot supply its own expected trust values.
+
+### D — fresh-process semantics
+
+- fresh local historical-memory attestation;
+- raw deserialized episode remains unattested;
+- no Action/Result replay inputs;
+- same-content new episode gets a new registration;
+- fresh object is not original P1.4 object resurrected.
+
+### E — registration / duplication
+
+- registration identity distinct from content identity;
+- same-content registrations are not independent experiments;
+- physical bundle copy is not a new registration;
+- registration identity is content-bound / rebinding fails closed;
+- a pin for one registration cannot authorize another.
+
+### F — time/look-ahead
+
+- no caller-supplied trusted timestamp required;
+- bundle timestamp is not part of minimal trusted receipt;
+- registration ≠ `known_from`;
+- receipt does not claim prior availability;
+- local clock cannot silently repair missing qualified time.
+
+### G — reverse authority / operational bypass
+
+- historical memory cannot mint/repair upstream objects;
+- historical memory is not ResearchRunEvidence/ResearchFindings;
+- no knowledge status;
+- no `AUTHORIZED`;
+- no broker/order/sizing/acquisition/backtest/live surface.
+
+Do not weaken or rewrite this breaker before the first runtime candidate unless a defect in the breaker itself is demonstrated.
+
+---
+
+## 14. Explicitly still BLOCKED / deferred
+
+The following are not qualified by P1.5 selection/breaker:
+
+- concrete storage backend;
+- cryptographic signature/PKI;
+- symmetric secret/HMAC;
+- key custody, rotation, revocation, recovery;
+- append-only network/service authority;
+- trusted timestamping;
+- global historical occurrence identity;
+- `ResearchFindings` attachment;
+- EXPERIENCE→KNOWLEDGE promotion;
+- causal inference;
+- confidence aggregation;
+- memory exhaustiveness / survivorship-bias proof;
+- AUDIT / REVISION;
+- positive operational authorization.
+
+Do not add these just because implementation begins.
+
+---
+
+## 15. Mandatory recovery order tomorrow
+
+Read in this order:
 
 1. `04-REFERENCE/AI-OPERATING-MEMORY.md`
-2. this checkpoint
-3. `99-BACKUP/SESSION-2026-09-16-END-OF-DAY-P0.6-CLOSED-P1.0-WIP.md`
-4. `99-BACKUP/SESSION-2026-09-16-P0.6-SYSTEM-REPRODUCIBILITY-PASS.md`
-5. `reports/data-qualification/p0_6_system_reproducibility_qualification.md`
-6. `GOVERNANCE/GOVERNANCE-AUDIT-REGISTER.md`
-7. `04-REFERENCE/SYSTEM-REPRODUCIBILITY-CONTRACT.md`
-8. `04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json`
-9. `requirements/qualification.lock.txt`
-10. `04-REFERENCE/PROMOTION-GATE-CONTRACT.md`
-11. `04-REFERENCE/PROMOTION-GATE-TIERING-CONTRACT.md`
-12. `src/promotion_gate.py`
-13. `tools/frozen_execution_window.py`
-14. `tests/test_promotion_gate_tier_a.py`
-15. `tests/test_promotion_gate_acquisition_binding.py`
-16. `.github/workflows/p1-0-promotion-gate.yml`
-17. `.github/workflows/p0-3-multi-year-integration-rebreak.yml`
-18. verify branch HEAD and compare current documentary pause HEAD with implementation anchor `c0eef01a505688488a9720d58bad4907ef3d2a18` before substantive mutation.
+2. this `04-REFERENCE/RECOVERY-CHECKPOINT.md`
+3. `99-BACKUP/SESSION-2026-09-17-END-OF-DAY-P1.2-P1.5-MEMORY-BOUNDARIES.md`
+4. `GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md`
+5. `src/memory_episode.py`
+6. `src/decision_trace.py`
+7. `src/action_result_evidence.py`
+8. `breakers/p1_5_external_receipt_pin_breaker.py`
+9. `.github/workflows/p1-5-durable-memory-reattestation.yml`
+10. `04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md`
+11. `04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json`
+12. `requirements/qualification.lock.txt`
+13. verify the current branch HEAD and compare it to `6a0d33ac08f4825d554ad1d87805b64017b9720f` plus the documentary descendants before writing runtime code.
 
-## Exactly one next governed action tomorrow
-
-**Resume P1.0 by reconciling the overlapping promotion/tiering contracts and closing the P1.0 workflow-trigger plus targeted acquisition-binding test gap; then execute the adversarial locked qualification and correct only observed defects.**
-
-After that, and only if technically green:
-
-- re-break P0.2 through P0.6 on the combined HEAD;
-- re-prove global `111/91/20` BLOCKED;
-- re-prove selected `68/68/0` PASS and freeze PASS;
-- re-prove acquisition BLOCKED;
-- persist P1.0 JIT audit/report/checkpoint/backup;
-- run final read-only persisted-HEAD re-break;
-- only then declare P1.0 PASS.
-
-## End-of-day stop rule
-
-Tonight, stop here. Do not start P1.1, acquisition, real backtest, downstream risk/action execution or live activation.
-
-Current end-of-day verdicts:
-
-- P0.2: **CLOSED / PASS**
-- P0.3: **CLOSED / PASS**
-- P0.4: **CLOSED / PASS**
-- P0.5: **CLOSED / PASS**
-- P0.6: **CLOSED / PASS**
-- P1.0: **WIP / UNQUALIFIED — PAUSED SAFELY**
+If GitHub disagrees with this checkpoint, GitHub wins and the discrepancy must be diagnosed before mutation.
 
 ---
 
-# SUPERSEDING CHECKPOINT UPDATE — 17 SEPTEMBRE 2026 — P1.0 CLOSURE CANDIDATE
+## 16. Do not repeat tomorrow
 
-This section supersedes the older P1.0 WIP / UNQUALIFIED wording above. Historical text is intentionally retained for recovery traceability.
+Do not redo PRE-P1.4 discovery without a relevant repository change.
 
-## Current branch state
+Do not rerun the large Claude six-chunk audit protocol. Its useful findings were adjudicated and incorporated where supported by GitHub.
 
-Technical qualification HEAD:
+Do not move `ResearchFindings` into P1.4/P1.5 merely because it contains hypotheses/statuses.
 
-`2b7f31c5baca718e84ed90bd240dce38047271a0`
+Do not replace the selected external receipt pin model with signatures/HMAC/Git trust/service infrastructure without new evidence that the selected minimal model fails for a reason not already represented by the breaker.
 
-Technical qualification evidence:
+Do not interpret run `35271832061` as a regression: it is the intended test-first red baseline.
 
-- P1.0 run/job `35197201298 / 105123138906` — **SUCCESS**;
-- P0.3 regression guard run/job `35197201285 / 105123138752` — **SUCCESS**;
-- prior P0.4/P0.5/P0.6 documentary-composability runs on `0d654ca14639979c0e3cf51e283ca392b66e7fe2` — **SUCCESS**.
-
-Real adversarial red evidence preserved:
-
-- HEAD `2ec769a47c53a3238b2fbfa27095919156ae94f8`;
-- run/job `35148892189 / 104971854140`;
-- conclusion **FAIL**.
-
-Corrective commit:
-
-`4a26ec16544abb05a67263654b5caaa5fd6825d4`
-
-Closed-block CI composability correction:
-
-`0d654ca14639979c0e3cf51e283ca392b66e7fe2`
-
-## P1.0 authority now resolved
-
-- sole normative authority: `04-REFERENCE/PROMOTION-GATE-CONTRACT.md` (`PROMOTION_GATE_FAIL_CLOSED_V1`);
-- tiering document: non-normative qualification companion;
-- unknown/empty consequence sets: fail-closed BLOCKED;
-- no permissive promotion path exists;
-- acquisition binding is explicitly tested through the promotion gate;
-- evaluator contains no acquisition/backtest/live side effects.
-
-## Safety truth remains unchanged
-
-- global `111 / 91 / 20` → **BLOCKED**;
-- selected window `2021-08-14 → 2026-08-14`;
-- selected `68 / 68 / 0` → **PASS**;
-- persisted freeze → **PASS**;
-- acquisition → **BLOCKED**;
-- `massive_acquisition_authorized = false`;
-- `real_backtest_authorized = false`;
-- live activation unauthorized.
-
-## Persisted closure artifacts
-
-Qualification report:
-
-`reports/data-qualification/p1_0_promotion_gate_qualification.md`
-
-Session backup:
-
-`99-BACKUP/SESSION-2026-09-17-P1.0-PROMOTION-GATE-QUALIFICATION.md`
-
-The JIT audit is intentionally embedded in the qualification report rather than creating a new governance layer.
-
-## Final closure condition
-
-Current P1.0 state at this documentary checkpoint is:
-
-**QUALIFIED CANDIDATE / FINAL PERSISTED-HEAD REBREAK PENDING.**
-
-P1.0 becomes **CLOSED / PASS** only when the final read-only P1.0 workflow succeeds on the persisted documentary HEAD or on its immediate descendant differing only by a semantically neutral CI-trigger comment.
-
-A successful final run satisfies the closure condition directly. No additional documentary mutation is required afterward; otherwise every documentary write would create a new HEAD and recursively require another closure run.
-
-No acquisition, real backtest, downstream execution or live activation becomes authorized by P1.0 closure.
+Do not jump directly to persisted-head PASS after implementing the first candidate. Preserve real observed failures, correct minimally, second-break if warranted, then do a final persisted-head re-break.
 
 ---
 
-# SUPERSEDING CHECKPOINT UPDATE — 17 SEPTEMBRE 2026 — P1.1 BLOCK-ONLY CLOSURE CANDIDATE
+## 17. Exactly one next governed action
 
-This section supersedes any inference that work stops at P1.0. Historical checkpoint text is retained for recovery traceability.
+**Implement the smallest possible `src/memory_interprocess.py` candidate satisfying only `P1_5_EXTERNAL_RECEIPT_PIN_TRUST_MODEL_V1`, without changing the existing breaker first; execute the P1.5 A0–G4 breaker, inspect the actual violations, and correct only defects demonstrated by that breaker.**
 
-## Current P1.1 scope
+The first candidate is allowed only these responsibilities:
 
-Normative contract:
+- accept capture only from exact currently P1.4-attested `ObservationalMemoryEpisode`;
+- produce canonical durable record bytes;
+- produce a canonical receipt bound to exact record and content-bound registration identity;
+- use a capture nonce if needed for registration distinction, without claiming trusted time;
+- verify in a fresh process using separately supplied `expected_contract`, `expected_authority_id`, `expected_receipt_sha256`;
+- mint a fresh local historical-memory attestation after successful verification;
+- never replay Action/Result as historical proof;
+- never self-select its trust root;
+- never promote to ResearchFindings, knowledge, authorization or operations.
 
-`04-REFERENCE/DECISION-ACTION-AUTHORIZATION-BOUNDARY-CONTRACT.md`
+---
 
-Contract ID:
+## 18. End-of-day stop rule
 
-`P1_1_DECISION_ACTION_AUTHORIZATION_BOUNDARY_V1`
+Stop here for 17 September 2026.
 
-P1.1 qualifies only:
+Do not implement P1.5 after this checkpoint tonight.
 
-`qualified Decision → verification → authorization constraints → BLOCKED`
-
-It does not create ACTION and it does not authorize any positive `AUTHORIZED` path.
-
-## Adversarial history retained
-
-Verdict-forgery red:
-
-- HEAD `48f7af3f8445330d559355448b17ca899525f124`;
-- run/job `35201673212 / 105137643728`;
-- conclusion **FAIL**;
-- defects: mutable `BLOCKED` symbol and runtime-unenforced `AuthorizationVerdict`.
-
-Closure-introspection red:
-
-- HEAD `adf1558e46bbe27d1ab7c697d921f94b082b37b9`;
-- P1.1 run/job `35233644836 / 105243882059` — **FAIL**;
-- P0.4 run/job `35233644848 / 105243882076` — **FAIL**.
-
-The closure finding was independently reproduced after external review and generalized upstream. It is now governed as a process-integrity limitation: arbitrary same-interpreter reflective mutation is process compromise, not an ordinary untrusted-input/API capability.
-
-No future positive `AUTHORIZED` path may rely only on mutable process-local Python state if untrusted code can execute in that interpreter.
-
-## Technical common qualification state
-
-Common technical qualification HEAD:
-
-`5a4c9f94cb330ad04b1c00cb8ebed86dfab746d5`
-
-SUCCESS on that exact SHA:
-
-- P0.2 `35235197049 / 105249191301`;
-- P0.3 `35235197091`;
-- P0.4 `35235197054 / 105249191568`;
-- P0.5 `35235197038 / 105249191096`;
-- P0.6 `35235197003 / 105249191263`;
-- P1.1 `35235197002 / 105249190934`;
-- DATA → CONTEXT `35235197017`;
-- CONTEXT → RESEARCH `35235197013`;
-- RESEARCH FINDINGS `35235197055`;
-- RESEARCH → DECISION `35235197007`.
-
-P1.1 A0–F5 plus G0–G5 passed on the common technical HEAD. Protected upstream boundaries and the reproducibility envelope also passed.
-
-## Persisted P1.1 closure artifacts
-
-Qualification report:
-
-`reports/data-qualification/p1_1_decision_action_authorization_qualification.md`
-
-Session backup:
-
-`99-BACKUP/SESSION-2026-09-17-P1.1-DECISION-ACTION-AUTHORIZATION-QUALIFICATION.md`
-
-No new governance layer was created.
-
-## Safety truth remains unchanged
-
-- global `111 / 91 / 20` → **BLOCKED**;
-- selected window `2021-08-14 → 2026-08-14`;
-- selected `68 / 68 / 0` → **PASS**;
-- persisted freeze → **PASS**;
-- acquisition → **BLOCKED**;
-- `massive_acquisition_authorized = false`;
-- `real_backtest_authorized = false`;
-- live activation unauthorized.
-
-## Positive authorization remains separately BLOCKED
-
-A future positive `AUTHORIZED` path requires, before implementation/qualification:
-
-1. an isolated or equivalently strong authorization trust boundary appropriate to the future caller threat model; and
-2. requalification of the current truncated identifier collision-resistance posture for positive/persisted/cross-process authorization use.
-
-P1.1 block-only PASS must never be read as permission to execute ACTION.
-
-## PRE-P1.2 state
-
-Read-only `ACTION → RESULT` discovery is already complete:
-
-- no integrated `Action` or `Result` component currently exists;
-- `DecisionTrace` carries `action_id` and `result_id` structurally but cannot prove those events existed;
-- ACTION means behavior actually engaged after Decision, including controlled no-action;
-- RESULT means what was actually observed after Action and does not itself prove causality;
-- current `ACTION → RESULT` boundary is **BLOCKED**.
-
-## Final P1.1 closure condition
-
-Current P1.1 state at this documentary checkpoint is:
-
-**QUALIFIED CANDIDATE / FINAL DOCUMENTARY PERSISTED-HEAD REBREAK PENDING.**
-
-P1.1 block-only becomes **CLOSED / PASS** only when one final read-only common qualification re-break succeeds on this persisted documentary HEAD or on its immediate descendant differing only by a semantically neutral CI-trigger comment.
-
-A successful final run satisfies the closure condition directly. No additional documentary mutation is required afterward.
-
-## Exactly one next governed action after successful P1.1 closure
-
-**Resume from the completed PRE-P1.2 mapping and formalize the smallest adversarial `ACTION → RESULT` contract, without creating real execution, broker integration, quantitative risk logic, acquisition, real backtest or live behavior.**
+Tomorrow resume from GitHub and the artifacts above, not from chat memory.
