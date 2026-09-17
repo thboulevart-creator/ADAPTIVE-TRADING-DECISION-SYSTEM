@@ -11,6 +11,7 @@ on:
       - 'src/decision_action_authorization.py'
       - 'src/research_run_evidence.py'
       - 'src/context.py'
+      - 'src/context_identity.py'
       - 'src/decision_trace.py'
       - 'src/data/dataset_admissibility.py'
       - 'src/research/execution.py'
