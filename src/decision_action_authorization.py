@@ -76,6 +76,17 @@ def _constraint_fingerprint(constraints: AuthorizationConstraints) -> str:
     )
 
 
+def _expected_constraint_id(constraints: AuthorizationConstraints) -> str:
+    return "AUTHC-" + _stable_hash(
+        {
+            "decision_id": constraints.decision_id,
+            "research_run_id": constraints.research_run_id,
+            "context_id": constraints.context_id,
+            "policy_version": constraints.policy_version,
+        }
+    )[:16]
+
+
 def _build_constraint_api():
     registry: dict[int, tuple[weakref.ReferenceType[AuthorizationConstraints], str]] = {}
 
@@ -115,22 +126,7 @@ def _build_constraint_api():
             return False
         if value.policy_version != CONSTRAINT_POLICY:
             return False
-        return value.constraint_id == _constraint_id(
-            Decision(
-                decision_id=value.decision_id,
-                research_run_id=value.research_run_id,
-                context_id=value.context_id,
-                decision="__binding_only__",
-            ),
-            value.policy_version,
-        ) or value.constraint_id == "AUTHC-" + _stable_hash(
-            {
-                "decision_id": value.decision_id,
-                "research_run_id": value.research_run_id,
-                "context_id": value.context_id,
-                "policy_version": value.policy_version,
-            }
-        )[:16]
+        return value.constraint_id == _expected_constraint_id(value)
 
     return bind, verify
 
