@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 
-# Neutral qualification trigger: final common persisted-HEAD re-break after composability fixes.
+# Neutral qualification trigger: final P1.1 documentary persisted-HEAD common re-break.
 ROOT = Path(__file__).resolve().parents[1]
 LOCK_PATH = ROOT / "04-REFERENCE" / "QUALIFICATION-ENVIRONMENT-LOCK.json"
 CONTRACT_PATH = ROOT / "04-REFERENCE" / "SYSTEM-REPRODUCIBILITY-CONTRACT.md"
