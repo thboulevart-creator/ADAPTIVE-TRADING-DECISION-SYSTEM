@@ -106,7 +106,15 @@ def _trace_fingerprint(value: DecisionTrace) -> str:
 
 
 def _build_trace_api():
-    registry: dict[int, tuple[weakref.ReferenceType[DecisionTrace], str]] = {}
+    registry: dict[
+        int,
+        tuple[
+            weakref.ReferenceType[DecisionTrace],
+            str,
+            weakref.ReferenceType[object],
+            weakref.ReferenceType[object],
+        ],
+    ] = {}
 
     def produce(
         evidence: object,
@@ -175,7 +183,12 @@ def _build_trace_api():
                 registry.pop(expected_object_id, None)
 
         reference = weakref.ref(produced, cleanup)
-        registry[object_id] = (reference, _trace_fingerprint(produced))
+        registry[object_id] = (
+            reference,
+            _trace_fingerprint(produced),
+            weakref.ref(action),
+            weakref.ref(result),
+        )
         return produced
 
     def verify(value: object) -> bool:
@@ -184,15 +197,32 @@ def _build_trace_api():
         entry = registry.get(id(value))
         if entry is None:
             return False
-        reference, expected_fingerprint = entry
+        reference, expected_fingerprint, _, _ = entry
         if reference() is not value:
             return False
         if _trace_fingerprint(value) != expected_fingerprint:
             return False
         return value.validate()[0] == "PASS"
 
-    return produce, verify
+    def verify_exact_observation_pair(trace: object, action: object, result: object) -> bool:
+        """Verify that this Trace was produced from these exact Action/Result objects."""
+        if not verify(trace):
+            return False
+        assert isinstance(trace, DecisionTrace)
+        entry = registry.get(id(trace))
+        if entry is None:
+            return False
+        reference, _, origin_action_reference, origin_result_reference = entry
+        if reference() is not trace:
+            return False
+        return origin_action_reference() is action and origin_result_reference() is result
+
+    return produce, verify, verify_exact_observation_pair
 
 
-produce_decision_trace, is_factory_attested_decision_trace = _build_trace_api()
+(
+    produce_decision_trace,
+    is_factory_attested_decision_trace,
+    is_trace_bound_to_exact_observation_pair,
+) = _build_trace_api()
 del _build_trace_api

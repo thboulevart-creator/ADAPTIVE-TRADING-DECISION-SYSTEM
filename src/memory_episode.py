@@ -17,7 +17,11 @@ from src.action_result_evidence import (
     QualificationResultObservation,
     verify_qualification_observation_pair,
 )
-from src.decision_trace import DecisionTrace, is_factory_attested_decision_trace
+from src.decision_trace import (
+    DecisionTrace,
+    is_factory_attested_decision_trace,
+    is_trace_bound_to_exact_observation_pair,
+)
 
 
 CONTRACT = "P1_4_TRACE_MEMORY_EPISODE_BOUNDARY_V1"
@@ -97,6 +101,8 @@ def _build_memory_episode_api():
             raise ValueError("P1.4 MemoryEpisode requires full QualificationResultObservation")
         if not verify_qualification_observation_pair(action, result):
             raise ValueError("P1.4 MemoryEpisode requires exact admissible Action -> Result pair")
+        if not is_trace_bound_to_exact_observation_pair(trace, action, result):
+            raise ValueError("P1.4 MemoryEpisode requires exact Trace -> Action/Result provenance")
         if trace.decision_id != action.decision_id:
             raise ValueError("P1.4 MemoryEpisode decision mismatch")
         if trace.action_id != action.action_id:
