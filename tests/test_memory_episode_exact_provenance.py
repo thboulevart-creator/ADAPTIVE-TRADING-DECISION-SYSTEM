@@ -1,3 +1,5 @@
+# Persisted-HEAD qualification trigger: H0-H8 must remain isolated under full-suite guards.
+
 import gc
 import subprocess
 import sys
