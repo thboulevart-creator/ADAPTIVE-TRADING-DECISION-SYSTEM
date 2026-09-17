@@ -27,6 +27,7 @@ on:
       - 'tests/test_result_trace_evidence_tier_a.py'
       - 'tests/test_result_trace_evidence_exact_provenance.py'
       - 'tests/test_memory_episode_tier_a.py'
+      - 'tests/test_memory_episode_exact_provenance.py'
   workflow_dispatch:
 
 permissions:
@@ -71,6 +72,7 @@ jobs:
               'src/decision_trace.py',
               'src/action_result_evidence.py',
               'tests/test_memory_episode_tier_a.py',
+              'tests/test_memory_episode_exact_provenance.py',
           }
           for path in required:
               assert Path(path).is_file(), path
@@ -127,6 +129,9 @@ jobs:
 
       - name: Break P1.4 A0-G4
         run: python -m pytest -q tests/test_memory_episode_tier_a.py
+
+      - name: Re-break P1.4 exact provenance and lifecycle bypasses
+        run: python -m pytest -q tests/test_memory_episode_exact_provenance.py
 
       - name: Prove clean worktree
         if: always()
