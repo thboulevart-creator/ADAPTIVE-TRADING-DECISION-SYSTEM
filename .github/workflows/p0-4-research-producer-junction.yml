@@ -19,6 +19,7 @@ on:
       - '99-BACKUP/SESSION-2026-09-16-P0.4-RESEARCH-PRODUCER-JUNCTION-PASS.md'
       - 'src/research_run_evidence.py'
       - 'src/research/**'
+      - 'tests/**'
       - 'tests/research_runtime_fixture.py'
       - 'tests/test_research_producer_junction_tier_a.py'
       - 'tests/test_research_producer_junction_counterexpertise.py'
