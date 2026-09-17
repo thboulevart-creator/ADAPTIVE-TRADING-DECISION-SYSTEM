@@ -288,7 +288,7 @@ Une future qualification positive de la frontière ACTION → RESULT devra satis
 
 ### B — Existence et origine du Result
 
-- `B0` Result cohérent issu du futur mécanisme d'observation qualifié pour l'Action exacte ;
+- `B0` Result cohérent issue du futur mécanisme d'observation qualifié pour l'Action exacte ;
 - `B1` Result absent ;
 - `B2` mauvais type ;
 - `B3` `result_id` seul ;
@@ -1179,3 +1179,151 @@ Aucun stockage, signer, secret, clé, certificat ou service durable ne doit êtr
 ## 48. Prochaine action gouvernée unique
 
 **Déterminer, en lecture seule et par comparaison adversariale, le plus petit modèle de `capture authority + external trust expectation` capable de rendre un receipt P1.5 vérifiable dans un nouveau processus sans auto-autorisation de l'artefact ; éliminer les modèles qui ne ferment pas cette frontière, puis seulement figer le modèle retenu et construire le breaker A0–G4 avant toute implémentation.**
+
+---
+
+# SÉLECTION GOUVERNÉE — 17 SEPTEMBRE 2026 — P1.5 CAPTURE AUTHORITY / EXTERNAL TRUST MODEL
+
+**Selection ID:** `P1_5_EXTERNAL_RECEIPT_PIN_TRUST_MODEL_V1`  
+**Base observée avant sélection:** `3474e7dc3a6f422ae21b75dfccfbc4342d09b793`  
+**Statut:** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`  
+**Portée:** qualification durable de MEMORY uniquement ; aucun effet sur KNOWLEDGE, AUDIT, REVISION ou autorisation opérationnelle.
+
+## 49. Comparaison adversariale des modèles
+
+### 49.1 Hash/content-address contenu uniquement dans l'artefact — REJETÉ
+
+Un auteur capable de modifier le record peut recalculer tous ses hashes. Sans attente extérieure, le record reste auto-autorisant. Ce modèle ne ferme pas B0/B1/C4/C5.
+
+### 49.2 `authority_id` auto-déclaré + hash — REJETÉ
+
+Un label d'autorité présent uniquement dans le receipt ne prouve pas que cette autorité est admissible. Il déplace l'auto-autorisation dans un champ supplémentaire sans créer de trust root.
+
+### 49.3 Git/GitHub comme autorité implicite — REJETÉ au HEAD observé
+
+La branche `integration/system-v1` n'est pas protégée et les commits observés ne fournissent pas une attestation cryptographique qualifiée de capture MEMORY. Un commit SHA établit une identité de contenu Git ; il n'est pas, à lui seul, le témoin P1.5 d'un épisode localement attesté.
+
+### 49.4 Secret symétrique / HMAC partagé entre capture et vérificateur — REJETÉ pour le modèle minimal
+
+Un MAC peut authentifier des bytes, mais tout vérificateur possédant le secret possède aussi le pouvoir de fabriquer de nouveaux receipts. Cela fusionne inutilement `capture authority` et `consumer verifier` et agrandit le trust boundary. Cette propriété n'est pas nécessaire pour fermer P1.5.
+
+### 49.5 Signature asymétrique avec clé publique épinglée — ADMISSIBLE MAIS DIFFÉRÉE
+
+Ce modèle fermerait la frontière tout en séparant mint et verify. Il exige toutefois déjà choix d'algorithme, dépendance cryptographique, génération/custody/rotation/révocation de clé et qualification d'un signer. Aucun de ces coûts n'est nécessaire pour le premier trust model P1.5.
+
+### 49.6 Service/registre append-only de confiance — ADMISSIBLE MAIS DIFFÉRÉ
+
+Un service peut jouer le rôle d'autorité, mais ajoute identité de service, stockage d'autorité, disponibilité, recovery, transport authentifié et politique opérationnelle. Il est plus large que nécessaire pour la première qualification.
+
+### 49.7 Pin externe exact par registration — RETENU
+
+Le plus petit modèle qui ferme l'auto-autorisation sans nouveau secret, signer ou service consiste à faire sortir, au moment de la capture qualifiée, l'identité cryptographique exacte du receipt vers un trust channel extérieur au bundle persisté.
+
+Le processus frais reçoit ensuite cette attente depuis l'extérieur et ne fait confiance au record/receipt que s'ils correspondent exactement à cette attente.
+
+## 50. Modèle retenu : `EXTERNAL_RECEIPT_PIN_V1`
+
+Le chemin minimal retenu est :
+
+`exact P1.4-attested MemoryEpisode → trusted in-process capture → canonical record + canonical receipt → external receipt pin provisioning → process exit → fresh process + external expected pin → exact verification → fresh local historical-memory attestation`
+
+La **capture authority** est le contexte gouverné qui :
+
+1. voit l'objet P1.4 exact pendant que son attestation process-local est encore valide ;
+2. produit record + receipt canoniques ;
+3. transmet séparément au trust channel le pin exact de ce receipt.
+
+Le **trust channel** n'est pas le record, le receipt, leur répertoire ni leur nom de fichier. Son mécanisme de persistance/provisionnement reste hors périmètre de cette sélection ; il doit seulement être indépendant du bundle que le consommateur est en train de vérifier.
+
+## 51. External trust expectation minimale
+
+Pour une registration donnée, le processus frais doit recevoir séparément au minimum :
+
+- `expected_contract_id` ;
+- `expected_authority_id` ;
+- `expected_receipt_sha256`.
+
+Le receipt doit lier canoniquement au minimum :
+
+- le contrat/schema de receipt ;
+- `authority_id` ;
+- `registration_id` ;
+- `episode_id` ;
+- l'identité cryptographique exacte du durable record.
+
+Le pin externe porte sur les **bytes canoniques complets du receipt**. Ainsi une modification du record, du `registration_id`, de l'`authority_id`, de l'`episode_id` ou de la liaison record↔receipt nécessite un nouveau receipt et donc un nouveau pin externe.
+
+`expected_receipt_sha256` n'est pas un « checksum auto-autorisant » : il n'est admissible que parce qu'il est fourni au consommateur depuis un canal de trust extérieur au bundle vérifié. Si cette valeur est lue depuis le receipt ou un fichier compagnon non indépendamment trusted, la frontière doit échouer fermée.
+
+## 52. Limites assumées du modèle retenu
+
+Ce modèle est volontairement **par registration**. Il ne prétend pas être la solution la plus scalable : chaque receipt accepté nécessite une attente extérieure exacte.
+
+Cette contrainte est un avantage pour la première qualification :
+
+- aucun secret n'est distribué au vérificateur ;
+- le vérificateur ne gagne aucun pouvoir de mint ;
+- aucune PKI n'est créée ;
+- aucun service de trust n'est présupposé ;
+- le blast radius d'un pin compromis est borné à la registration concernée.
+
+Si le coût de provisioning par registration devient réellement bloquant, ce sera une preuve exécutable justifiant une évolution vers un modèle de signature ou de registre d'autorité. Cette évolution ne doit pas être anticipée.
+
+Le modèle ne qualifie pas la résistance à un compromis arbitraire du processus producteur P1.4 lui-même. Il conserve le trust boundary déjà assumé par les attestations process-locales P1.2–P1.4. Une future exposition à du code non fiable dans ce processus nécessitera une isolation séparément qualifiée.
+
+## 53. Breaker à construire avant toute implémentation
+
+Le breaker P1.5 doit être écrit **avant** tout `src/memory_interprocess.py` ou mécanisme équivalent. Il doit utiliser un transport local synthétique uniquement et casser au minimum A0–G4 :
+
+### A — Source de capture
+- `A0` exact MemoryEpisode P1.4 encore attesté : seul chemin positif admissible ;
+- `A1` épisode manuel same-valued rejeté ;
+- `A2` copy/deepcopy/replace rejetés ;
+- `A3` dictionnaire/JSON rejeté ;
+- `A4` épisode muté/inattesté rejeté.
+
+### B — Record / receipt non autorisants
+- `B0` record seul rejeté ;
+- `B1` receipt seul rejeté ;
+- `B2` record + receipt avec hashes internes cohérents mais sans external pin rejetés ;
+- `B3` modification + recomputation de tous les hashes internes rejetée contre le pin externe ;
+- `B4` chemin Git/storage/filename non traité comme trust root.
+
+### C — External trust expectation
+- `C0` exact `(contract, authority_id, receipt_sha256)` fourni hors bundle permet la vérification ;
+- `C1` mauvais receipt pin rejeté ;
+- `C2` mauvais authority attendu rejeté ;
+- `C3` mauvais contract attendu rejeté ;
+- `C4` receipt/record tentant de fournir lui-même les valeurs `expected_*` rejeté.
+
+### D — Fresh-process re-attestation / anti-replay
+- `D0` processus frais + pin externe exact → nouvelle attestation locale historique ;
+- `D1` désérialisation brute du record reste non attestée ;
+- `D2` replay Action/Result ne reconstitue pas l'autorité historique ;
+- `D3` nouvel épisode same-valued ne récupère pas l'ancienne registration ;
+- `D4` nouvelle attestation locale n'est pas l'objet P1.4 original ressuscité.
+
+### E — Registration / duplication
+- `E0` `registration_id ≠ episode_id` ;
+- `E1` deux registrations du même contenu ne valent pas deux expériences indépendantes ;
+- `E2` copie physique record/receipt ne crée pas de registration ;
+- `E3` collision/incohérence de registration échoue fermée ;
+- `E4` pin d'une registration ne peut autoriser une autre registration.
+
+### F — Temporalité minimale
+- `F0` aucun timestamp caller-supplied n'est nécessaire au PASS ;
+- `F1` timestamp contenu dans le bundle ne devient pas trusted par le pin ;
+- `F2` registration ne devient pas `known_from` ;
+- `F3` receipt tardif ne prouve pas disponibilité antérieure ;
+- `F4` absence de temps qualifié ne peut être réparée par défaut/horloge locale silencieuse.
+
+### G — Direction / non-promotion
+- `G0` record/receipt ne mint ni ne répare Trace/Action/Result ;
+- `G1` re-attested historical memory n'est pas `ResearchRunEvidence`/`ResearchFindings` ;
+- `G2` receipt ne produit ni connaissance ni `SUPPORTED` ;
+- `G3` receipt/re-attestation ne produit jamais `AUTHORIZED` ;
+- `G4` aucun broker/order/sizing/acquisition/backtest/live n'est ouvert.
+
+**État après sélection : modèle de trust = SELECTED ; runtime P1.5 = BLOCKED.**
+
+La prochaine mutation autorisée est uniquement l'ajout du breaker + workflow P1.5. Aucun runtime P1.5 ne doit exister avant l'observation de son FAIL initial.
