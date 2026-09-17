@@ -1,11 +1,10 @@
 import gc
-import importlib
+import subprocess
+import sys
 import weakref
 
 import pytest
 
-import src.action_result_evidence as action_result_module
-import src.memory_episode as memory_module
 from src.action_result_evidence import (
     engage_qualification_action,
     observe_qualification_result,
@@ -151,32 +150,49 @@ def test_h7_same_valued_authentic_decisions_do_not_make_their_actions_cross_admi
 
 
 def test_h8_reinitialized_p12_registry_cannot_rebind_old_trace_to_new_authentic_same_id_pair() -> None:
-    # Reset P1.2 once before producing the original chain so sequence-derived IDs
-    # start from a known state independent of earlier tests in this process.
-    ar_first = importlib.reload(action_result_module)
-    mem_first = importlib.reload(memory_module)
+    # Module reloads deliberately model a fresh P1.2 producer lifecycle. They
+    # must run outside this pytest interpreter or they replace module class
+    # identities/registries already imported by other collected test modules.
+    script = r'''
+import importlib
 
-    evidence, context = coherent_runtime_inputs()
-    decision = produce_decision(evidence, context=context, decision="HOLD")
-    action_a = ar_first.engage_qualification_action(decision, behavior="NO_ACTION")
-    result_a = ar_first.observe_qualification_result(action_a, outcome="OBSERVED")
-    trace_a = produce_decision_trace(evidence, decision, action_a, result_a)
+import src.action_result_evidence as action_result_module
+import src.memory_episode as memory_module
+from src.decision import produce_decision
+from src.decision_trace import produce_decision_trace
+from tests.research_runtime_fixture import coherent_runtime_inputs
 
-    # Simulate a fresh P1.2 producer lifecycle while retaining the already
-    # qualified P1.3 Trace. Sequence counters restart, so a new authentic pair
-    # can collide by value/ID with the historical pair.
-    ar_second = importlib.reload(action_result_module)
-    mem_second = importlib.reload(memory_module)
-    action_b = ar_second.engage_qualification_action(decision, behavior="NO_ACTION")
-    result_b = ar_second.observe_qualification_result(action_b, outcome="OBSERVED")
+ar_first = importlib.reload(action_result_module)
+importlib.reload(memory_module)
 
-    assert action_b is not action_a
-    assert result_b is not result_a
-    assert action_b.action_id == action_a.action_id == trace_a.action_id
-    assert result_b.result_id == result_a.result_id == trace_a.result_id
-    assert ar_second.verify_qualification_observation_pair(action_b, result_b)
+evidence, context = coherent_runtime_inputs()
+decision = produce_decision(evidence, context=context, decision="HOLD")
+action_a = ar_first.engage_qualification_action(decision, behavior="NO_ACTION")
+result_a = ar_first.observe_qualification_result(action_a, outcome="OBSERVED")
+trace_a = produce_decision_trace(evidence, decision, action_a, result_a)
 
-    # Exact provenance means the old Trace may only bind to the exact historical
-    # Action/Result that produced it, not a later authentic same-ID collision.
-    with pytest.raises(ValueError):
-        mem_second.produce_observational_memory_episode(trace_a, action_b, result_b)
+ar_second = importlib.reload(action_result_module)
+mem_second = importlib.reload(memory_module)
+action_b = ar_second.engage_qualification_action(decision, behavior="NO_ACTION")
+result_b = ar_second.observe_qualification_result(action_b, outcome="OBSERVED")
+
+assert action_b is not action_a
+assert result_b is not result_a
+assert action_b.action_id == action_a.action_id == trace_a.action_id
+assert result_b.result_id == result_a.result_id == trace_a.result_id
+assert ar_second.verify_qualification_observation_pair(action_b, result_b)
+
+try:
+    mem_second.produce_observational_memory_episode(trace_a, action_b, result_b)
+except ValueError:
+    pass
+else:
+    raise AssertionError("old Trace rebound to new authentic same-ID pair")
+'''
+    completed = subprocess.run(
+        [sys.executable, "-c", script],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert completed.returncode == 0, completed.stdout + completed.stderr
