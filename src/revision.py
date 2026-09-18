@@ -109,11 +109,18 @@ def _build_revision_attestation_api():
     def verify(value: object) -> bool:
         if not isinstance(value, RevisionDecision):
             return False
-        entry = registry.get(id(value))
+        object_id = id(value)
+        entry = registry.get(object_id)
         if entry is None:
             return False
         reference, expected_fingerprint = entry
-        return reference() is value and _revision_fingerprint(value) == expected_fingerprint
+        if reference() is not value:
+            registry.pop(object_id, None)
+            return False
+        if _revision_fingerprint(value) != expected_fingerprint:
+            registry.pop(object_id, None)
+            return False
+        return True
 
     return attest, verify
 
