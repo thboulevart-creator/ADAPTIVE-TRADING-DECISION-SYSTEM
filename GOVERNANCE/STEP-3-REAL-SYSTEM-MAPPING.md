@@ -5551,3 +5551,13 @@ La prochaine mutation autorisée est limitée à :
 - `.github/workflows/p1-9b-experiment-specification.yml`.
 
 Aucun `src/evidence_submission.py` et aucun `src/experiment_specification.py` ne doivent exister avant observation des FAIL pré-implémentation.
+
+
+# P1.9 — POST-IMPLEMENTATION RE-BREAK CHECKPOINT
+
+Runtime candidates now exist at the persisted branch state:
+
+- `src/evidence_submission.py`
+- `src/experiment_specification.py`
+
+The original P1.9A/P1.9B breakers remain unchanged. Qualification is **PENDING persisted-HEAD re-break**; this checkpoint grants no PASS, no execution authority, and no operational authorization.
