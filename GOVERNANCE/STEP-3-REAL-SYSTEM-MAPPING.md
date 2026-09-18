@@ -7411,3 +7411,248 @@ LinkedExperimentExecutionResult
 ```
 
 P1.1 positive `AUTHORIZED` remains separately BLOCKED.
+
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.13 POST-P1.12 REVIEW / EXPERIMENT EVALUATION SUBMISSIONS
+
+**Contracts candidats :**
+- `P1_13A_EVIDENCE_SEMANTIC_COMPLETENESS_REVIEW_SUBMISSION_BOUNDARY_V1`
+- `P1_13B_EXPERIMENT_EVALUATION_SUBMISSION_BOUNDARY_V1`
+
+**Base qualifiée reconnue :** `96c76e99c0cb961ecba384ec0a8dc87b666a84b1`  
+**Statut :** `FORMALIZED — DIRECT PROMOTIONS BROKEN — NO RUNTIME`.
+
+## 279. Rupture evidence observée
+
+Le raccord naïf suivant est rejeté :
+
+```text
+DeclaredEvidenceCriteriaAssessment
+→ request fulfillment
+```
+
+**Verdict conceptuel : FAIL.**
+
+P1.12A peut prouver la satisfaction ou l'échec des critères structurels déclarés, mais :
+
+- les exigences sémantiques restent éventuellement `BLOCKED`;
+- la complétude des critères vis-à-vis de `FollowUpRequest.specification` n'est pas prouvée;
+- aucune autorité d'évaluation sémantique n'est actuellement qualifiée.
+
+Un futur évaluateur peut donc seulement **soumettre un review traçable**. Sa soumission n'est pas, par elle-même, une autorité de fulfillment.
+
+## 280. P1.13A — direction minimale
+
+```text
+exact factory-attested EvidenceAssessmentCriteria
++
+exact factory-attested DeclaredEvidenceCriteriaAssessment
++
+exact tuple[BoundEvidenceMaterial, ...]
++
+explicit reviewer submission
+↓
+EvidenceSemanticCompletenessReview
+```
+
+Le review doit être lié exactement au même request/revision/audit/scope et aux mêmes `material_binding_ids`.
+
+Il ne peut pas remplacer les résultats structurels P1.12A.
+
+## 281. P1.13A — review sémantique
+
+Chaque exigence sémantique P1.11A doit être couverte exactement une fois par un record :
+
+```text
+SemanticRequirementReview
+- requirement
+- status            # PASS | FAIL | BLOCKED
+- rationale
+- material_binding_ids
+```
+
+Règles :
+
+- `requirement` doit correspondre exactement à une exigence déclarée;
+- aucun doublon;
+- couverture complète de `criteria.semantic_requirements`;
+- `material_binding_ids` exact tuple non vide, sous-ensemble des matériaux évalués;
+- aucun autre requirement ne peut être injecté;
+- texte conservé verbatim;
+- aucun contenu n'est interprété par la frontière elle-même.
+
+Si `criteria.semantic_requirements == ()`, `semantic_reviews` doit être exactement `()`.
+
+## 282. P1.13A — complétude des critères
+
+Le reviewer peut soumettre :
+
+- `reviewed_criteria_completeness_status` : PASS | FAIL | BLOCKED;
+- `criteria_completeness_rationale` : exact nonempty str.
+
+Le statut P1.11A d'origine reste distinct :
+
+```text
+declared_criteria_completeness_status = BLOCKED
+```
+
+Il n'est jamais réécrit rétroactivement.
+
+## 283. P1.13A — verdict limité
+
+Un `review_verdict` peut être calculé mécaniquement à partir :
+
+1. des quatre statuts structurels P1.12A;
+2. des semantic review statuses;
+3. du reviewed criteria completeness status.
+
+Règle :
+
+- FAIL si une dimension est FAIL;
+- sinon BLOCKED si une dimension est BLOCKED;
+- sinon PASS.
+
+Mais deux verrous restent obligatoires en V1 :
+
+```text
+review_authority_status = BLOCKED
+request_fulfillment_status = BLOCKED
+```
+
+car aucun contrat actuel ne qualifie le reviewer ou sa méthode comme autorité de vérité/fulfillment.
+
+Donc :
+
+```text
+review_verdict PASS
+≠ request fulfillment
+```
+
+## 284. Rupture experiment observée
+
+Le raccord naïf suivant est rejeté :
+
+```text
+LinkedExperimentExecutionResult
+→ hypothesis supported/refuted
+→ ResearchFinding
+```
+
+**Verdict conceptuel : FAIL.**
+
+P1.12B conserve :
+
+- la spécification textuelle;
+- l'identité de l'exécution;
+- les métriques génériques d'exécution;
+- le hash du stream.
+
+Mais il ne contient aucune mesure expérimentale qualifiée démontrant que :
+
+- `measurement_plan` a été appliqué;
+- une mesure dérive effectivement du stream;
+- `prediction` a été évaluée;
+- `falsification_rule` a été appliquée.
+
+L'actuel `ResearchFindings.from_research_run_evidence(...)` accepte des mesures/findings fournis par l'appelant après une `ResearchRunEvidence`; il ne constitue donc pas une preuve de dérivation expérimentale P1.12B et ne doit pas être raccordé directement.
+
+## 285. P1.13B — direction minimale
+
+```text
+exact factory-attested LinkedExperimentExecutionResult
++
+explicit evaluator submission
+↓
+ExperimentEvaluationSubmission
+```
+
+La soumission peut enregistrer des claims de mesure et des statuts d'évaluation, mais ne peut pas les promouvoir en finding ou preuve.
+
+## 286. P1.13B — mesure déclarée
+
+Chaque mesure soumise est un record :
+
+```text
+ExperimentMeasurementClaim
+- measurement_id
+- metric
+- observed_value
+- unit
+- sample_size
+- scope
+- rationale
+```
+
+Règles :
+
+- tous les champs texte sont exact built-in str, nonempty après strip, conservés verbatim;
+- `sample_size` exact int > 0, bool rejeté;
+- `measurement_id` unique;
+- tuple exact non vide.
+
+La frontière P1.13B **ne prétend pas** que ces mesures dérivent du stream P1.12B.
+
+Donc :
+
+```text
+measurement_provenance_status = BLOCKED
+```
+
+toujours en V1.
+
+## 287. P1.13B — évaluation déclarée
+
+L'évaluateur soumet explicitement :
+
+- `prediction_status` : SUPPORTED | NOT_SUPPORTED | BLOCKED;
+- `falsification_status` : FALSIFIED | NOT_FALSIFIED | BLOCKED;
+- `evaluation_rationale` : exact nonempty str;
+- `evaluator_id` : exact nonempty str;
+- `method_ref` : exact nonempty str.
+
+Ces champs sont enregistrés comme claims, non comme vérité qualifiée.
+
+Donc :
+
+```text
+evaluation_authority_status = BLOCKED
+```
+
+toujours en V1.
+
+P1.13B ne produit aucun `ResearchFinding`, `ResearchFindings` ou `ResearchRunEvidence`.
+
+## 288. Séparation normative
+
+```text
+execution result
+≠ measurement claim
+≠ evaluation submission
+≠ finding
+≠ evidence
+≠ knowledge
+≠ authorization
+```
+
+et :
+
+```text
+semantic review submission
+≠ semantic truth
+≠ criteria completeness authority
+≠ fulfillment
+```
+
+## 289. État après formalisation
+
+**FORMALISATION P1.13A : PASS.**
+
+**FORMALISATION P1.13B : PASS.**
+
+Les promotions directes vers fulfillment/finding sont cassées.
+
+Les runtimes P1.13A/P1.13B restent :
+
+**BLOCKED / NOT IMPLEMENTED.**
