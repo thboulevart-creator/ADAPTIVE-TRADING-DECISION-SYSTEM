@@ -4096,3 +4096,909 @@ La prochaine mutation autorisée est limitée à :
 - `.github/workflows/p1-8-revision-followup-request.yml`.
 
 Aucun `src/follow_up_request.py` ne doit exister avant l'observation du FAIL pré-implémentation.
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.9 FOLLOW-UP REQUEST BRANCHING
+
+**Contracts:**
+- `P1_9A_EVIDENCE_SUBMISSION_BOUNDARY_V1`
+- `P1_9B_EXPERIMENT_SPECIFICATION_BOUNDARY_V1`
+
+**Base observée avant formalisation:** `654a54b88c7bf4aec3ee54bd475a5cedda0dbf80`  
+**Statut:** `FORMALIZED — QUALIFICATION-ONLY, NOT IMPLEMENTED`  
+**Portée:** séparation stricte des branches `EVIDENCE` et `EXPERIMENT` issues de P1.8, sans promotion directe vers preuve admissible, fulfillment, input exécutable, exécution ou autorisation.
+
+## 152. État amont reconnu
+
+Depuis les sections historiques P1.8 plus haut dans ce document, la frontière :
+
+```text
+P1.7 REVISION
+↓
+P1.8 FOLLOW-UP REQUEST
+```
+
+a été implémentée et qualifiée dans son périmètre `qualification-only`.
+
+P1.8 produit désormais un `FollowUpRequest` factory-attested, content-bound, non exécutable, avec exactement deux `request_kind` :
+
+```text
+EVIDENCE
+EXPERIMENT
+```
+
+P1.9 ne doit pas recombiner ces deux branches en une seule sémantique générique.
+
+## 153. Séparation obligatoire des branches
+
+La chaîne devient :
+
+```text
+FollowUpRequest(EVIDENCE)
+↓
+P1.9A EvidenceSubmission
+↓
+future evidence qualification / fulfillment assessment
+↓
+future admissible evidence
+```
+
+et séparément :
+
+```text
+FollowUpRequest(EXPERIMENT)
+↓
+P1.9B ExperimentSpecification
+↓
+future execution-input binding
+↓
+future execution qualification / authorization
+↓
+future execution
+↓
+future result / evidence
+```
+
+Les deux branches sont mutuellement exclusives.
+
+Il est interdit de définir une seule factory permissive du type :
+
+```text
+fulfill_follow_up_request(request, mode=...)
+```
+
+qui laisserait le caller choisir ou transformer la nature du request.
+
+## 154. Invariant central P1.9
+
+P1.9 doit préserver :
+
+```text
+EVIDENCE MATERIAL RECEIVED ≠ EVIDENCE ADMISSIBLE
+EVIDENCE MATERIAL RECEIVED ≠ REQUEST FULFILLED
+EVIDENCE MATERIAL RECEIVED ≠ EVIDENCE SUFFICIENT
+
+EXPERIMENT SPECIFICATION ≠ QUALIFIED RESEARCH INPUT
+EXPERIMENT SPECIFICATION ≠ EXECUTION
+EXPERIMENT SPECIFICATION ≠ RESULT
+EXPERIMENT SPECIFICATION ≠ AUTHORIZATION
+```
+
+Et, pour les deux branches :
+
+```text
+P1.9 OUTPUT ≠ ResearchRunEvidence
+P1.9 OUTPUT ≠ ResearchFindings
+P1.9 OUTPUT ≠ QualifiedResearchInput
+P1.9 OUTPUT ≠ ResearchExecutionResult
+P1.9 OUTPUT ≠ AUTHORIZATION
+```
+
+---
+
+# P1.9A — EVIDENCE SUBMISSION
+
+## 155. Question minimale P1.9A
+
+P1.9A répond uniquement à :
+
+> **Un matériau exact a-t-il été explicitement soumis pour répondre à un FollowUpRequest(EVIDENCE) exact et attesté, et peut-on enregistrer cette soumission de manière content-bound sans prétendre qu'elle satisfait la demande ni qu'elle constitue une preuve admissible ?**
+
+La frontière minimale est :
+
+```text
+exact factory-attested FollowUpRequest(request_kind = EVIDENCE)
++
+exact externally supplied evidence material
+↓
+factory-attested EvidenceSubmission
+```
+
+P1.9A enregistre une **soumission**, pas un verdict de fulfillment.
+
+## 156. Pourquoi P1.9A n'est pas encore un fulfillment
+
+`FollowUpRequest.specification` est actuellement du texte externe libre.
+
+Il ne définit pas nécessairement de manière machine-checkable :
+
+- combien de matériaux sont requis ;
+- quelles sources sont recevables ;
+- quelle période doit être couverte ;
+- quel niveau d'indépendance est requis ;
+- quels critères de suffisance doivent être satisfaits ;
+- quelles contradictions sont admissibles ;
+- quelles propriétés rendent la demande complète.
+
+Par conséquent :
+
+```text
+MATERIAL RECEIVED
+≠ REQUEST FULFILLED
+```
+
+et :
+
+```text
+NO MISSING ERROR OBSERVED
+≠ PROOF OF SUFFICIENT EVIDENCE
+```
+
+La future frontière `EvidenceSubmission(s) → fulfillment/admissibility assessment` reste séparée et BLOCKED.
+
+## 157. Entrée request P1.9A
+
+P1.9A exige le `FollowUpRequest` complet et exact.
+
+Conditions minimales :
+
+- type exact `FollowUpRequest` ;
+- `is_factory_attested_follow_up_request(request) == True` ;
+- `request.request_kind == "EVIDENCE"`.
+
+Doivent être rejetés :
+
+- `request_id` seul ;
+- dict/JSON ;
+- manual same-valued ;
+- copy/deepcopy/replace ;
+- request muté ;
+- request invalidé puis restauré ;
+- `FollowUpRequest(EXPERIMENT)`.
+
+P1.9A ne peut reconstituer ou réparer l'autorité P1.8.
+
+## 158. Matériau exact
+
+Le matériau de preuve doit être fourni extérieurement comme contenu exact.
+
+Le contrat conceptuel minimal distingue :
+
+```text
+source_ref
+media_type
+content
+```
+
+où :
+
+- `source_ref` identifie descriptivement l'origine déclarée du matériau ;
+- `media_type` décrit son format déclaré ;
+- `content` contient les octets exacts soumis.
+
+Le futur runtime doit calculer lui-même l'identité de contenu à partir des octets.
+
+Le caller ne doit pas pouvoir remplacer les octets par un hash non vérifié et obtenir le même niveau d'autorité.
+
+Ainsi :
+
+```text
+content_sha256 = SHA256(content)
+content_size = len(content)
+```
+
+sont dérivés, pas déclarés.
+
+## 159. Factory conceptuelle P1.9A
+
+La future surface minimale est équivalente à :
+
+```text
+submit_evidence(
+    request,
+    *,
+    source_ref,
+    media_type,
+    content,
+)
+```
+
+La factory ne reçoit aucun :
+
+- `fulfilled` ;
+- `admissible` ;
+- `sufficient` ;
+- `supported` ;
+- `confidence` ;
+- `evidence_id` externe ;
+- `research_run_id` ;
+- `authorized`.
+
+Elle ne fait aucune acquisition réseau ou filesystem autonome.
+
+## 160. Modèle conceptuel minimal EvidenceSubmission
+
+Le modèle minimal retenu est :
+
+```text
+EvidenceSubmission
+- submission_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- source_ref
+- media_type
+- content_sha256
+- content_size
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Le contenu brut n'est pas nécessairement conservé dans l'objet runtime minimal si l'identité de contenu et la soumission exacte sont établies au moment de la factory.
+
+Cette décision de stockage est distincte de la sémantique d'autorité.
+
+## 161. Sémantique exacte de EvidenceSubmission
+
+`EvidenceSubmission` signifie uniquement :
+
+> **Ces octets exacts, déclarés sous ce source_ref et ce media_type, ont été soumis pour ce FollowUpRequest(EVIDENCE).**
+
+Cela ne signifie jamais :
+
+- preuve authentique ;
+- source fiable ;
+- preuve indépendante ;
+- preuve pertinente ;
+- preuve suffisante ;
+- preuve complète ;
+- demande satisfaite ;
+- hypothèse supportée/refutée ;
+- connaissance validée.
+
+## 162. Multiplicité des soumissions
+
+Une même demande EVIDENCE peut recevoir plusieurs soumissions distinctes.
+
+P1.9A ne transforme pas automatiquement plusieurs soumissions en collection exhaustive.
+
+Ainsi :
+
+```text
+MANY SUBMISSIONS ≠ COMPLETE EVIDENCE SET
+MANY SUBMISSIONS ≠ INDEPENDENT SOURCES
+MANY SUBMISSIONS ≠ FULFILLMENT
+```
+
+La collection, la déduplication, la suffisance et l'admissibilité éventuelles appartiennent à une frontière future.
+
+## 163. Identité de contenu P1.9A
+
+`submission_id` doit être content-bound au minimum à :
+
+```text
+contract
+request_id
+revision_id
+audit_id
+scope_id
+source_ref
+media_type
+content_sha256
+content_size
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe candidat possible :
+
+`EVS-`
+
+`submission_id` n'est ni un `evidence_id` qualifié ni une preuve d'admissibilité.
+
+## 164. Préservation des statuts source P1.9A
+
+La sortie copie sans transformation :
+
+```text
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+depuis le request.
+
+En particulier :
+
+```text
+BLOCKED
+→ EvidenceSubmission
+→ BLOCKED
+```
+
+La présence d'un nouveau matériau ne résout pas automatiquement une propriété BLOCKED.
+
+## 165. Attestation P1.9A
+
+Le futur `EvidenceSubmission` doit être factory-attested exact-object.
+
+Dès le premier candidat :
+
+- manual same-valued → non attesté ;
+- copy/deepcopy/replace → non attesté ;
+- mutation observée → invalidation ;
+- invalidation sticky ;
+- restauration des anciennes valeurs → attestation toujours invalide.
+
+L'attestation prouve seulement la production par la factory P1.9A avec ce contenu, pas la qualité épistémique du matériau.
+
+## 166. Non-fulfillment et non-promotion P1.9A
+
+Le runtime P1.9A ne doit produire ni appeler directement :
+
+- `ResearchRunEvidence` ;
+- `ResearchFindings` ;
+- `ResearchFinding` ;
+- `QualifiedResearchInput` ;
+- `ResearchExecutionResult` ;
+- `run_qualified_research` ;
+- `SUPPORTED` / `REFUTED` ;
+- autorisation opérationnelle.
+
+Les mots présents dans le contenu ou `source_ref` n'ont aucun pouvoir d'autorité.
+
+---
+
+# P1.9B — EXPERIMENT SPECIFICATION
+
+## 167. Question minimale P1.9B
+
+P1.9B répond uniquement à :
+
+> **Un FollowUpRequest(EXPERIMENT) exact et attesté peut-il être transformé en une spécification expérimentale falsifiable et non exécutable, sans sélectionner implicitement dataset/corpus, sans créer QualifiedResearchInput et sans lancer l'expérience ?**
+
+La frontière minimale est :
+
+```text
+exact factory-attested FollowUpRequest(request_kind = EXPERIMENT)
++
+externally declared:
+  hypothesis_statement
+  prediction
+  falsification_rule
+  protocol
+  measurement_plan
+↓
+factory-attested ExperimentSpecification
+```
+
+## 168. Entrée request P1.9B
+
+P1.9B exige :
+
+- type exact `FollowUpRequest` ;
+- attestation P1.8 exacte ;
+- `request.request_kind == "EXPERIMENT"`.
+
+Doivent être rejetés :
+
+- ID seul ;
+- dict/JSON ;
+- manual same-valued ;
+- copy/deepcopy/replace ;
+- request muté/inattesté ;
+- request invalidé puis restauré ;
+- `FollowUpRequest(EVIDENCE)`.
+
+## 169. Design expérimental externe minimal
+
+P1.9B reçoit exactement cinq éléments de design externes :
+
+```text
+hypothesis_statement
+prediction
+falsification_rule
+protocol
+measurement_plan
+```
+
+Tous doivent être explicites et non vides.
+
+Leur rôle minimal est :
+
+- `hypothesis_statement` — proposition testée ;
+- `prediction` — observation attendue si la proposition tient dans le cadre spécifié ;
+- `falsification_rule` — condition observable capable de contredire la proposition ;
+- `protocol` — conditions, procédure et contrôles envisagés ;
+- `measurement_plan` — mesures/observations prévues et leur usage de test.
+
+P1.9B ne décide pas automatiquement ces cinq éléments à partir du texte libre du request.
+
+Ils sont déclarés extérieurement puis liés au request.
+
+## 170. Objectif dérivé du request
+
+La future sortie conserve :
+
+```text
+objective = request.specification
+```
+
+exactement.
+
+Le caller ne fournit pas un autre objectif pouvant remplacer silencieusement la demande originale.
+
+Ainsi le design expérimental reste traçable à la demande P1.8 qui l'a motivé.
+
+## 171. Factory conceptuelle P1.9B
+
+La future surface minimale est équivalente à :
+
+```text
+specify_experiment(
+    request,
+    *,
+    hypothesis_statement,
+    prediction,
+    falsification_rule,
+    protocol,
+    measurement_plan,
+)
+```
+
+Elle ne reçoit aucun :
+
+- `corpus_root` ;
+- `contract_path` ;
+- `dataset_id` ;
+- `dataset_version` ;
+- `expected_corpus_hash` ;
+- `expected_contract_hash` ;
+- `QualifiedResearchInput` ;
+- `execute` ;
+- `authorized` ;
+- `broker` ;
+- `backtest` ;
+- `live`.
+
+## 172. Modèle conceptuel minimal ExperimentSpecification
+
+Le modèle minimal retenu est :
+
+```text
+ExperimentSpecification
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- objective
+- hypothesis_statement
+- prediction
+- falsification_rule
+- protocol
+- measurement_plan
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Le champ est volontairement :
+
+`experiment_spec_id`
+
+et non `experiment_id`.
+
+Une spécification ne prouve pas qu'une expérience a été créée ou exécutée.
+
+## 173. Compatibilité conceptuelle avec ResearchHypothesis
+
+Le dépôt possède déjà, en aval, une structure :
+
+```text
+ResearchHypothesis
+- hypothesis_id
+- statement
+- prediction
+- falsification_rule
+```
+
+P1.9B ne doit pas dépendre directement de cette classe post-exécution.
+
+Cependant, les champs :
+
+```text
+hypothesis_statement
+prediction
+falsification_rule
+```
+
+sont volontairement compatibles conceptuellement afin de préserver une future traçabilité entre :
+
+```text
+pre-execution experiment specification
+↓
+future execution
+↓
+future ResearchFindings
+```
+
+sans inverser les dépendances de couche.
+
+## 174. Ce que protocol ne signifie pas
+
+Le champ `protocol` est déclaratif.
+
+Il peut décrire :
+
+- population ou corpus souhaité ;
+- conditions de contrôle ;
+- séquence prévue ;
+- comparaisons ;
+- contraintes ;
+- conditions de répétition.
+
+Mais P1.9B ne convertit pas ce texte en :
+
+- `BoundResearchInput` ;
+- `QualifiedResearchInput` ;
+- dataset qualifié ;
+- chemin filesystem ;
+- corpus hash ;
+- contrat hash ;
+- commande d'exécution.
+
+Donc :
+
+```text
+PROTOCOL TEXT ≠ EXECUTION INPUT
+```
+
+## 175. Ce que measurement_plan ne signifie pas
+
+`measurement_plan` définit ce qui devra être observé ou mesuré.
+
+Il ne crée aucune :
+
+- `ResearchMeasurement` ;
+- valeur observée ;
+- sample size réel ;
+- métrique réalisée ;
+- finding.
+
+Ainsi :
+
+```text
+MEASUREMENT PLAN ≠ MEASUREMENT
+```
+
+## 176. Identité de contenu P1.9B
+
+`experiment_spec_id` doit être content-bound au minimum à :
+
+```text
+contract
+request_id
+revision_id
+audit_id
+scope_id
+objective
+hypothesis_statement
+prediction
+falsification_rule
+protocol
+measurement_plan
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe candidat possible :
+
+`EXS-`
+
+Changer un élément matériel du design doit changer l'identité.
+
+## 177. Préservation des statuts source P1.9B
+
+Comme toutes les frontières précédentes :
+
+```text
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+sont conservés exactement.
+
+Ainsi :
+
+```text
+BLOCKED
+→ ExperimentSpecification
+→ BLOCKED
+```
+
+Une meilleure spécification ne répare pas automatiquement un manque de preuve ou d'indépendance amont.
+
+## 178. Attestation P1.9B
+
+Le futur `ExperimentSpecification` doit être factory-attested exact-object avec invalidation sticky.
+
+L'attestation signifie seulement :
+
+> **Cette spécification exacte a été produite par la factory qualifiée P1.9B à partir de ce request exact et de ce design externe.**
+
+Elle ne signifie pas :
+
+- expérience correcte ;
+- expérience suffisante ;
+- expérience autorisée ;
+- dataset disponible ;
+- exécution possible ;
+- hypothèse plausible ;
+- résultat favorable.
+
+## 179. Non-exécution P1.9B
+
+P1.9B ne doit ni appeler ni produire directement :
+
+- `bind_execution_input` ;
+- `QualifiedResearchInput` ;
+- `run_qualified_research` ;
+- `ResearchExecutionResult` ;
+- `ResearchRunEvidence` ;
+- `ResearchFindings`.
+
+Il ne doit faire :
+
+- aucune lecture de corpus ;
+- aucune acquisition réseau ;
+- aucun backtest ;
+- aucun broker call ;
+- aucun ordre ;
+- aucune activation live.
+
+## 180. Interdiction d'autorisation P1.9B
+
+Même une specification contenant :
+
+```text
+"execute immediately"
+"AUTHORIZED"
+"run the real backtest"
+"send live orders"
+```
+
+reste du texte déclaratif.
+
+Elle ne donne aucune permission.
+
+Donc :
+
+```text
+EXPERIMENT SPECIFICATION ≠ EXECUTION AUTHORIZATION
+```
+
+---
+
+# RÈGLES COMMUNES P1.9A / P1.9B
+
+## 181. Rejet croisé obligatoire
+
+P1.9A doit refuser :
+
+`FollowUpRequest(request_kind = EXPERIMENT)`.
+
+P1.9B doit refuser :
+
+`FollowUpRequest(request_kind = EVIDENCE)`.
+
+Aucun paramètre caller-side ne peut modifier ce routing.
+
+La règle est :
+
+```text
+request_kind is upstream authority for branch selection
+```
+
+dans le périmètre P1.9 uniquement.
+
+## 182. Pas de promotion entre branches
+
+Sont interdits :
+
+```text
+EvidenceSubmission → ExperimentSpecification
+ExperimentSpecification → EvidenceSubmission
+```
+
+comme promotion implicite.
+
+Un matériau soumis peut éventuellement devenir input ou preuve d'une expérience future seulement après une frontière explicitement qualifiée.
+
+Une spécification expérimentale peut éventuellement produire des résultats futurs seulement après des frontières d'input, d'autorisation et d'exécution distinctes.
+
+## 183. Direction de l'autorité
+
+Directions autorisées :
+
+```text
+exact FollowUpRequest(EVIDENCE)
++ exact external material
+↓
+EvidenceSubmission
+```
+
+```text
+exact FollowUpRequest(EXPERIMENT)
++ external experimental design
+↓
+ExperimentSpecification
+```
+
+Directions interdites :
+
+```text
+EvidenceSubmission → repair FollowUpRequest
+ExperimentSpecification → repair FollowUpRequest
+
+EvidenceSubmission → ResearchRunEvidence
+ExperimentSpecification → QualifiedResearchInput
+
+EvidenceSubmission → fulfillment PASS
+ExperimentSpecification → execution
+
+either P1.9 output → authorization
+either P1.9 output → rule/knowledge mutation
+```
+
+## 184. Temporalité
+
+P1.9 V1 n'invente aucune horloge autoritative.
+
+Sont exclus des modèles minimaux :
+
+- `submitted_at` autoritatif ;
+- `specified_at` autoritatif ;
+- `known_from` ;
+- `valid_from` ;
+- `executed_at`.
+
+Si une future frontière requiert une temporalité normative, elle devra être qualifiée séparément.
+
+## 185. Catalogues adversariaux futurs
+
+### P1.9A — familles minimales
+- exact EVIDENCE request positif ;
+- EXPERIMENT request rejeté ;
+- request ID seul/manual/copy/mutation rejetés ;
+- bytes exacts → hash et size dérivés ;
+- source_ref/media_type vides rejetés ;
+- contenu vide : décision à fixer dans sélection minimale, pas implicitement accepté ;
+- hash caller-side non accepté comme substitut des octets ;
+- même contenu/métadonnées → identité déterministe ;
+- contenu différent → identité différente ;
+- multiple submissions ≠ fulfillment ;
+- BLOCKED conservé ;
+- aucun ResearchRunEvidence/Findings ;
+- aucune IO/acquisition autonome ;
+- attestation exact-object + sticky invalidation ;
+- GC/snapshot upstream ;
+- reverse authority.
+
+### P1.9B — familles minimales
+- exact EXPERIMENT request positif ;
+- EVIDENCE request rejeté ;
+- request ID seul/manual/copy/mutation rejetés ;
+- cinq champs design obligatoires non vides ;
+- objective exactement dérivé du request ;
+- aucun override d'objectif/request kind ;
+- protocole/measurement plan restent texte déclaratif ;
+- aucune conversion en QualifiedResearchInput ;
+- aucun run_qualified_research ;
+- BLOCKED conservé ;
+- identité déterministe ;
+- changement d'un champ design → identité différente ;
+- attestation exact-object + sticky invalidation ;
+- GC/snapshot upstream ;
+- reverse authority ;
+- aucun broker/backtest/live/authorization.
+
+## 186. Qualification positive autorisée P1.9A
+
+Un futur PASS P1.9A pourra signifier uniquement :
+
+- un exact `FollowUpRequest(EVIDENCE)` attesté a été reçu ;
+- un matériau exact a été fourni ;
+- son hash et sa taille ont été dérivés ;
+- la soumission a été liée au request exact ;
+- les statuts source ont été conservés ;
+- la sortie est une `EvidenceSubmission` factory-attested content-bound.
+
+Il ne signifiera pas :
+
+- request fulfilled ;
+- evidence admissible ;
+- source trustworthy ;
+- evidence sufficient ;
+- hypothesis supported/refuted ;
+- knowledge validated.
+
+## 187. Qualification positive autorisée P1.9B
+
+Un futur PASS P1.9B pourra signifier uniquement :
+
+- un exact `FollowUpRequest(EXPERIMENT)` attesté a été reçu ;
+- un design expérimental externe explicite a été fourni ;
+- objective reste lié à la demande ;
+- hypothèse, prediction, falsification rule, protocol et measurement plan sont présents ;
+- les statuts source sont conservés ;
+- la sortie est une `ExperimentSpecification` factory-attested content-bound.
+
+Il ne signifiera pas :
+
+- input exécutable prêt ;
+- dataset qualifié ;
+- expérience autorisée ;
+- expérience exécutée ;
+- résultat disponible ;
+- hypothèse supportée/refutée.
+
+## 188. État après formalisation P1.9
+
+**FORMALISATION P1.9A : PASS.**
+
+**FORMALISATION P1.9B : PASS.**
+
+Les frontières exécutables restent :
+
+```text
+P1.8 EVIDENCE FollowUpRequest
+→ P1.9A EvidenceSubmission
+= BLOCKED / NOT IMPLEMENTED
+```
+
+```text
+P1.8 EXPERIMENT FollowUpRequest
+→ P1.9B ExperimentSpecification
+= BLOCKED / NOT IMPLEMENTED
+```
+
+Les frontières suivantes restent séparément bloquées :
+
+```text
+EvidenceSubmission(s)
+→ fulfillment/admissibility assessment
+= BLOCKED / NOT FORMALIZED
+
+ExperimentSpecification
+→ QualifiedResearchInput / execution-input binding
+= BLOCKED / NOT FORMALIZED
+
+ExperimentSpecification
+→ execution
+= BLOCKED
+
+either branch
+→ authorization
+= BLOCKED
+```
+
+## 189. Prochaine action gouvernée unique
+
+**Déterminer, à partir des APIs P1.8 réelles et sans implémenter encore P1.9, les deux plus petits modèles exécutables `EvidenceSubmission` et `ExperimentSpecification`, fixer les signatures minimales de leurs factories, résoudre explicitement les derniers détails de représentation nécessaires (notamment contenu vide P1.9A et type exact des cinq champs P1.9B), puis construire les breakers test-first P1.9A et P1.9B avant toute implémentation runtime.**
