@@ -8108,3 +8108,196 @@ ExperimentEvaluationSubmission
 ```
 
 P1.1 positive `AUTHORIZED` remains separately BLOCKED.
+
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.14 EXTERNAL AUTHORITY / WITNESSED MEASUREMENT PROVENANCE
+
+**Contracts candidats :**
+- `P1_14A_REVIEWER_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1`
+- `P1_14B_WITNESSED_MEASUREMENT_PROVENANCE_REATTESTATION_BOUNDARY_V1`
+
+**Base qualifiée reconnue :** `51abe3cc3f556384b9ab3d89d79a375f8b7e8245`  
+**Statut :** `FORMALIZED — DIRECT PROMOTIONS BROKEN — NO RUNTIME`.
+
+## 306. Rupture evidence observée
+
+Le raccord naïf suivant est rejeté :
+
+```text
+EvidenceSemanticCompletenessReview(review_verdict=PASS)
+→ reviewer authority PASS
+→ request fulfillment
+```
+
+**Verdict conceptuel : FAIL.**
+
+P1.13A prouve seulement qu'un review explicitement soumis est structurellement cohérent et calcule son verdict déclaré. Les champs `reviewer_id` et `method_ref` restent des chaînes fournies par l'appelant.
+
+Ils ne peuvent donc pas s'auto-qualifier.
+
+## 307. P1.14A — trust model retenu
+
+Réutilisation du principe P1.5 `EXTERNAL_RECEIPT_PIN` :
+
+```text
+exact factory-attested P1.13A review
++
+canonical external authority record
++
+canonical external receipt
++
+externally supplied expected_authority_id
++
+externally supplied expected_receipt_sha256
+↓
+ReviewerMethodAuthorityQualification
+```
+
+La frontière ne crée pas elle-même l'autorité externe.
+
+Elle vérifie seulement qu'un artefact externe immuable et son receipt épinglé lient exactement :
+
+- `review_id`;
+- `reviewer_id`;
+- `method_ref`;
+- `request_id`;
+- le contract P1.13A attendu;
+- l'autorité externe attendue.
+
+## 308. P1.14A — sémantique limitée de PASS
+
+Si toutes les liaisons et le pin externe correspondent exactement :
+
+```text
+review_authority_status = PASS
+```
+
+signifie uniquement :
+
+> une autorité externe explicitement épinglée atteste ce reviewer + cette méthode pour ce review exact.
+
+Cela ne signifie pas :
+
+- vérité sémantique;
+- admissibilité des preuves;
+- correction intrinsèque de la méthode;
+- request fulfillment;
+- knowledge;
+- operational authorization.
+
+Donc toujours :
+
+```text
+request_fulfillment_status = BLOCKED
+```
+
+en P1.14A.
+
+## 309. Rupture experiment observée
+
+Le raccord naïf suivant est rejeté :
+
+```text
+ExperimentEvaluationSubmission.measurements
+→ measurement_provenance_status = PASS
+```
+
+**Verdict conceptuel : FAIL.**
+
+P1.13B conserve les claims exacts, mais leur présence ne prouve pas qu'ils ont été dérivés du stream exécuté.
+
+De plus, `measurement_plan` est actuellement du texte libre : la frontière ne possède aucun langage de mesure exécutable qualifié permettant de recalculer arbitrairement `mean_return`, `drawdown`, ou toute autre métrique.
+
+## 310. P1.14B — direction retenue
+
+La première provenance réelle possible sans inventer un moteur de métriques consiste à exiger un **witness externe de dérivation**, lui-même épinglé :
+
+```text
+exact factory-attested LinkedExperimentExecutionResult
++
+exact factory-attested ExperimentEvaluationSubmission
++
+canonical measurement derivation record
++
+canonical external receipt
++
+externally supplied expected_authority_id
++
+externally supplied expected_receipt_sha256
+↓
+WitnessedMeasurementProvenance
+```
+
+Le record doit lier exactement :
+
+- `evaluation_submission_id`;
+- `experiment_execution_result_id`;
+- `stream_sha256`;
+- `method_ref`;
+- tous les measurement claims P1.13B, dans le même ordre;
+- pour chaque claim, un `procedure_ref` non vide;
+- pour chaque claim, un `procedure_sha256` exact SHA-256;
+- l'autorité de dérivation.
+
+## 311. P1.14B — ce que la frontière prouve
+
+Si le receipt externe épinglé et le record canonique correspondent exactement :
+
+```text
+measurement_provenance_status = PASS
+```
+
+signifie :
+
+> les claims P1.13B sont liés par un witness externe immuable au stream P1.12B exact et à des procédures identifiées par hash.
+
+Cela ne signifie pas encore :
+
+- que la procédure produit mathématiquement la bonne métrique;
+- que `measurement_plan` a une sémantique exécutable complète;
+- que l'évaluateur P1.13B est une autorité qualifiée;
+- que prediction/falsification sont vraies;
+- qu'un ResearchFinding existe;
+- qu'un ResearchRunEvidence existe;
+- qu'une action est autorisée.
+
+Donc P1.14B conserve :
+
+```text
+evaluation_authority_status = BLOCKED
+finding_status = BLOCKED
+```
+
+## 312. Séparation normative P1.14
+
+```text
+external authority witness
+≠ semantic truth
+≠ fulfillment
+```
+
+et :
+
+```text
+witnessed measurement provenance
+≠ measurement correctness
+≠ evaluator authority
+≠ experimental finding
+≠ evidence
+≠ knowledge
+≠ authorization
+```
+
+## 313. État après formalisation
+
+**FORMALISATION P1.14A : PASS.**
+
+**FORMALISATION P1.14B : PASS.**
+
+Les promotions directes vers fulfillment/finding sont cassées.
+
+Les runtimes P1.14A/P1.14B restent :
+
+**BLOCKED / NOT IMPLEMENTED.**
