@@ -5775,3 +5775,354 @@ Les frontières exécutables P1.10A/P1.10B restent :
 **BLOCKED / NOT IMPLEMENTED.**
 
 La prochaine action gouvernée est de sélectionner les modèles exécutables minimaux exacts de `BoundEvidenceMaterial` et `ExperimentExecutionBinding`, puis de construire leurs breakers test-first avant tout runtime.
+
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.10 MINIMAL BINDING MODELS
+
+**Selection IDs :**
+- `P1_10A_MINIMAL_BOUND_EVIDENCE_MATERIAL_MODEL_V1`
+- `P1_10B_MINIMAL_EXPERIMENT_EXECUTION_BINDING_MODEL_V1`
+
+**Base observée avant sélection :** `651d74e5a99a911fe1a8d8cc1b04c0081b9cc85e`  
+**Statut :** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`.
+
+## 218. P1.10A — surface minimale
+
+Module candidat futur :
+
+`src/evidence_material_binding.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_10A_EVIDENCE_MATERIAL_BINDING_BOUNDARY_V1"
+
+BoundEvidenceMaterial
+
+bind_evidence_material(
+    submission,
+    *,
+    content,
+)
+
+is_factory_attested_bound_evidence_material(value)
+```
+
+Entrées :
+
+- `submission` : exact `EvidenceSubmission` P1.9A encore factory-attested;
+- `content` : exact `bytes`, keyword-only, obligatoire.
+
+Aucun `source_ref`, `media_type`, hash, size, verdict, fulfillment ou admissibility override n'est accepté.
+
+## 219. P1.10A — validation exacte
+
+Le runtime devra vérifier :
+
+```text
+sha256(content).hexdigest() == submission.content_sha256
+len(content) == submission.content_size
+```
+
+Un mismatch de hash **ou** de taille échoue fermé.
+
+`content=b""` reste valide uniquement si la soumission amont représente exactement le contenu vide.
+
+Les types permissifs `str`, `bytearray`, `memoryview` et sous-classe custom de `bytes` sont rejetés.
+
+## 220. P1.10A — modèle exact
+
+```text
+BoundEvidenceMaterial
+- evidence_binding_id
+- submission_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- source_ref
+- media_type
+- content_sha256
+- content_size
+- content
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+`content` est conservé comme exact `bytes` afin que la prochaine frontière d'inspection n'ait pas à deviner ou reconstruire le matériau.
+
+Préfixe d'identité :
+
+`EBM-`
+
+L'identité est content-bound à la provenance de soumission et à l'identité exacte du contenu.
+
+## 221. P1.10A — sémantique
+
+`BoundEvidenceMaterial` signifie uniquement :
+
+> les octets présents dans cet objet sont exactement les octets identifiés par cette EvidenceSubmission P1.9A.
+
+Il ne signifie pas :
+
+- source authentique;
+- contenu vrai;
+- preuve pertinente;
+- preuve admissible;
+- preuve suffisante;
+- demande satisfaite;
+- ResearchRunEvidence;
+- connaissance.
+
+## 222. P1.10A — attestation
+
+Exact-object process-local avec sticky invalidation dès V1 :
+
+- factory → attesté;
+- manual/copy/deepcopy/replace → non attesté;
+- mutation observée → retrait du registre;
+- restauration ultérieure → non ré-attestée.
+
+La sortie est autonome par snapshot : la collecte de l'objet `EvidenceSubmission` amont ne doit pas invalider un binding déjà produit.
+
+## 223. P1.10A — breaker A0–H minimal
+
+### A — submission authority
+- exact P1.9A positif;
+- submission ID seul/dict/manual/copy/deepcopy/replace rejetés;
+- submission mutée/sticky-invalidated rejetée;
+- objet P1.9B rejeté.
+
+### B — signature/type
+- signature exacte `submission, *, content`;
+- exact bytes uniquement;
+- aucun metadata/hash/status override.
+
+### C — content rebinding
+- hash exact positif;
+- size exact positif;
+- zéro-octet positif si amont zéro-octet;
+- bytes différents rejetés;
+- mismatch size/hash rejeté;
+- Unicode/string jamais converti implicitement.
+
+### D — snapshot
+- IDs, source_ref, media_type, hash, size et statuts copiés exactement;
+- content exact conservé;
+- BLOCKED reste BLOCKED.
+
+### E — non-admissibility
+- aucun `admissible`, `fulfilled`, `sufficient`, `supported`, `confidence`;
+- ≠ ResearchRunEvidence / ResearchFindings.
+
+### F — identity
+- exact fields;
+- mêmes inputs → même ID, objets distincts attestés;
+- autre content valide → autre ID;
+- manual/copy/replace non attestés;
+- sticky invalidation.
+
+### G — lifetime
+- upstream submission peut être collectée;
+- binding reste attesté;
+- `evidence_binding_id` seul n'est pas autorité.
+
+### H — reverse authority
+- binding ne répare pas submission;
+- binding ne crée pas evidence qualifiée;
+- aucune acquisition réseau/filesystem autonome;
+- aucune exécution/backtest/broker/live/authorization.
+
+## 224. P1.10B — surface minimale
+
+Module candidat futur :
+
+`src/experiment_execution_binding.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_10B_EXPERIMENT_EXECUTION_BINDING_BOUNDARY_V1"
+
+ExperimentExecutionBinding
+
+bind_experiment_execution(
+    specification,
+    bound_input,
+)
+
+is_factory_attested_experiment_execution_binding(value)
+```
+
+Entrées :
+
+- `specification` : exact `ExperimentSpecification` P1.9B encore factory-attested;
+- `bound_input` : exact `BoundResearchInput` produit par `bind_execution_input` et encore valide avec revalidation des sources.
+
+P1.10B réutilise la surface P0.4 existante. Il ne crée pas une seconde logique de hash/corpus/contract.
+
+## 225. P1.10B — rejet de QualifiedResearchInput direct
+
+`QualifiedResearchInput` n'est pas une entrée P1.10B valide.
+
+Raison : sa validité d'exécution ne prouve pas son association à cette spécification P1.9B.
+
+Le seul objet de ressource accepté à P1.10B est le `BoundResearchInput` factory-bound existant.
+
+## 226. P1.10B — modèle exact
+
+```text
+ExperimentExecutionBinding
+- execution_binding_id
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- objective
+- hypothesis_statement
+- prediction
+- falsification_rule
+- protocol
+- measurement_plan
+- corpus_root
+- contract_path
+- expected_corpus_hash
+- expected_contract_hash
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+`corpus_root` et `contract_path` sont des chaînes absolues dérivées de `Path.resolve()` du `BoundResearchInput`.
+
+Les deux hashes sont copiés exactement depuis le bound input revalidé.
+
+Préfixe d'identité :
+
+`EEB-`
+
+L'identité est content-bound au design expérimental exact et à l'identité de ressources validée.
+
+## 227. P1.10B — sémantique
+
+`ExperimentExecutionBinding` signifie uniquement :
+
+> cette spécification expérimentale exacte a été associée à cette identité exacte de corpus/contrat actuellement revalidée.
+
+Il ne signifie pas :
+
+- QualifiedResearchInput produit;
+- corpus scientifiquement approprié;
+- protocole effectivement implémenté par le runtime;
+- expérience exécutable;
+- expérience autorisée;
+- expérience exécutée;
+- résultat;
+- ResearchRunEvidence.
+
+La conformité sémantique entre le texte libre `protocol/measurement_plan` et les ressources liées reste future et BLOCKED.
+
+## 228. P1.10B — revalidation
+
+Au moment du binding :
+
+```text
+is_bound_research_input(bound_input, revalidate_sources=True) == True
+```
+
+est obligatoire.
+
+Ainsi :
+
+- source supprimée;
+- contract modifié;
+- corpus modifié;
+- objet bound_input muté;
+- objet reconstruit/copié;
+
+doivent échouer.
+
+P1.10B peut relire les ressources pour cette revalidation d'identité; il ne les acquiert pas et ne les exécute pas.
+
+## 229. P1.10B — attestation
+
+Exact-object process-local + sticky invalidation dès V1.
+
+La sortie est un snapshot autonome : l'objet `ExperimentSpecification` ou `BoundResearchInput` amont peut être collecté après production sans invalider le binding.
+
+Cette autonomie n'autorise pas l'exécution; une future frontière devra revalider les ressources avant de dériver/consommer un input exécutable.
+
+## 230. P1.10B — breaker A0–H minimal
+
+### A — specification authority
+- exact P1.9B positif;
+- ID/dict/manual/copy/deepcopy/replace rejetés;
+- spec mutée/sticky-invalidated rejetée;
+- EvidenceSubmission rejetée.
+
+### B — bound input authority
+- exact factory-bound positif;
+- `QualifiedResearchInput` rejeté;
+- manual/copy/deepcopy/replace `BoundResearchInput` rejetés;
+- bound input muté rejeté;
+- source contract/corpus modifiée après binding rejetée.
+
+### C — signature/binding
+- signature exacte deux arguments sans overrides;
+- aucune sélection implicite de corpus;
+- paths absolus dérivés;
+- hashes exacts conservés.
+
+### D — spec snapshot
+- experiment_spec_id et provenance amont conservés;
+- objective + cinq champs design conservés verbatim;
+- BLOCKED reste BLOCKED.
+
+### E — non-execution
+- ≠ QualifiedResearchInput;
+- ≠ ResearchExecutionResult;
+- ≠ ResearchRunEvidence;
+- aucun `run_qualified_research`;
+- aucune création de `QualifiedResearchInput`.
+
+### F — semantic restraint
+- valid resource binding ≠ protocole implémenté;
+- texte `AUTHORIZED/RUN_BACKTEST/SEND_LIVE_ORDER` reste texte;
+- aucun knowledge/finding/measurement/result.
+
+### G — identity/attestation
+- exact fields;
+- mêmes inputs → même ID, objets distincts attestés;
+- changement de spec ou de ressources validées → autre ID;
+- manual/copy/replace non attestés;
+- sticky invalidation;
+- lifetime upstream indépendant après snapshot.
+
+### H — reverse authority
+- binding ne répare ni spec ni bound input;
+- ne mint pas ResearchRunEvidence;
+- ne lance aucune acquisition/backtest/order/live;
+- ne donne aucune autorisation.
+
+## 231. État après sélection
+
+**P1.10A MINIMAL MODEL : SELECTED.**
+
+**P1.10B MINIMAL MODEL : SELECTED.**
+
+**RUNTIME P1.10A : BLOCKED / NOT IMPLEMENTED.**
+
+**RUNTIME P1.10B : BLOCKED / NOT IMPLEMENTED.**
+
+Prochaine mutation autorisée :
+
+- ajouter le breaker test-first P1.10A;
+- ajouter le workflow pré-implémentation P1.10A;
+- ajouter le breaker test-first P1.10B;
+- ajouter le workflow pré-implémentation P1.10B.
+
+Aucun `src/evidence_material_binding.py` ni `src/experiment_execution_binding.py` ne doit exister avant observation des FAIL pré-implémentation.
