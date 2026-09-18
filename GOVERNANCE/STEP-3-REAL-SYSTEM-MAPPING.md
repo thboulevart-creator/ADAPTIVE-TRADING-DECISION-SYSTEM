@@ -7364,3 +7364,50 @@ This record supersedes only the earlier statement that the P1.12B breaker remain
 `55a9f445e79e84fac25f2224468bd9d1f8f308ea`
 
 P1.12A and P1.12B qualification remain pending a common-HEAD re-break and then a persisted qualification-HEAD final re-break.
+
+
+---
+
+# P1.12 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Common-HEAD qualification base:** `cfdfc2dece8e43cd34e93922eba3395701c92d7e`
+
+Observed common-HEAD runs:
+
+- P1.12A run `35382613522`, job `105722092105`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A `33 passed`; clean worktree PASS.
+- P1.12B run `35382613635`, job `105722092810`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12B `18 passed`; clean worktree PASS.
+
+Breaker identities at this candidate:
+
+- P1.12A: `55a9f445e79e84fac25f2224468bd9d1f8f308ea`;
+- P1.12B corrected lifetime fixture: `a226fd1aac9a3472682386ab9f3d6eb3d23feeba`.
+
+Candidate verdicts:
+
+```text
+P1_12A_DECLARED_EVIDENCE_CRITERIA_ASSESSMENT_BOUNDARY_V1
+→ PASS CANDIDATE
+
+P1_12B_LINKED_EXPERIMENT_EXECUTION_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+These are not final until both P1.12 workflows re-break this persisted qualification state itself.
+
+Qualification remains strictly limited:
+
+```text
+DeclaredEvidenceCriteriaAssessment
+≠ admissible evidence
+≠ sufficient evidence
+≠ request fulfillment
+≠ knowledge
+
+LinkedExperimentExecutionResult
+≠ ResearchRunEvidence
+≠ experimental finding
+≠ hypothesis confirmation/falsification
+≠ operational authorization
+```
+
+P1.1 positive `AUTHORIZED` remains separately BLOCKED.
