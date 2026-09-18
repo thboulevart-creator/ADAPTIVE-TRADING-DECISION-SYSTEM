@@ -8012,3 +8012,46 @@ The finalized P1.13A/P1.13B breakers remain unchanged after runtime implementati
 Qualification is **PENDING common-HEAD re-break**.
 
 This checkpoint grants no semantic truth authority, no request fulfillment, no measurement provenance, no experimental finding, no ResearchRunEvidence, no knowledge promotion, and no operational authorization.
+
+
+---
+
+# P1.13B — BREAKER HELPER CORRECTION AND COMMON-HEAD RE-BREAK GATE
+
+The first post-implementation P1.13B re-break on `3ad338455b768f9d744d1f157f619340d95bee8d` produced:
+
+- protected chain through P1.12A+B: PASS;
+- P1.13B: `48 passed, 1 failed`;
+- sole failure: `test_c0_measurements_require_exact_nonempty_tuple`.
+
+The failure was demonstrated to originate in the breaker helper, not in the runtime:
+
+```text
+_submit(..., measurements=None)
+→ helper replaced None with a valid default measurement tuple
+→ submit_experiment_evaluation(...) never received None
+```
+
+The correction distinguishes omitted `measurements` from explicit `None` with a private sentinel. Positive tests that omit the argument retain their default valid measurement; explicit `None` now reaches the unchanged runtime and is rejected by its exact-tuple validation.
+
+No assertion was removed or weakened. `None` remains in the adversarial input set. No runtime was modified by this correction.
+
+Corrected P1.13B breaker blob:
+
+`aea742767512c0f318744ab8eeade6f4155c2840`
+
+The P1.13B workflow breaker hash lock was updated to this exact blob.
+
+Targeted re-break of the unchanged P1.13B runtime on `b39a283fdeb9be2c46132b01bdcdc34f7076199e`:
+
+- protected chain through P1.12A+B: PASS;
+- P1.13B: `49 passed`;
+- clean worktree: PASS;
+- workflow run: `35385420951`;
+- job: `105731073561`.
+
+P1.13A breaker remains unchanged at:
+
+`840be30d17a31c8da8c8c57bc8902073de462b58`
+
+P1.13A and P1.13B qualification remain pending a common-HEAD re-break and then a persisted qualification-HEAD final re-break.
