@@ -90,8 +90,7 @@ def _qualified_case(tmp_path: Path, *, protocol: str = "Protocol"):
             case.execution_input.expected_contract_hash,
         )
         binding = bind_experiment_execution(specification, bound)
-        qualified = qualify_experiment_execution_input(binding)
-        yield qualified, case
+        yield qualify_experiment_execution_input(binding), case
 
 
 def _p112b():
