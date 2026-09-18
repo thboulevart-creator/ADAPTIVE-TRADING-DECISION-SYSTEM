@@ -2675,3 +2675,341 @@ La cartographie historique R9 plus haut dans ce document reste conservée comme 
 ## 97. Prochaine action gouvernée unique
 
 **Déterminer, à partir des APIs P1.6 réelles et sans implémenter encore REVISION, le plus petit `RevisionDecision` exécutable et la plus petite fonction de production capables de lier exact assessment + matching scope + external disposition/detail, puis construire le breaker A0–H P1.7 avant toute implémentation.**
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.7 MINIMAL EXECUTABLE REVISION MODEL
+
+**Selection ID:** `P1_7_MINIMAL_REVISION_DECISION_MODEL_V1`  
+**Base observée avant sélection:** `560afe1180ccd9e80c30891409ea390ad03960c7`  
+**Statut:** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`  
+**Portée:** plus petite surface exécutable AUDIT → REVISION compatible avec `P1_7_AUDIT_REVISION_BOUNDARY_V1`.
+
+## 98. Décision de minimalité
+
+Aucun objet `RevisionRequest` séparé n'est nécessaire en P1.7 V1.
+
+La disposition et son détail restent des entrées explicites de la fonction de production.
+
+La future surface minimale est donc équivalente à :
+
+```text
+CONTRACT = "P1_7_AUDIT_REVISION_BOUNDARY_V1"
+
+RevisionDecision
+
+produce_revision_decision(
+    assessment,
+    scope,
+    disposition,
+    detail,
+)
+
+is_factory_attested_revision_decision(value)
+```
+
+Le module candidat attendu est :
+
+`src/revision.py`
+
+Aucune autre API de mutation, exécution, promotion ou autorisation n'appartient à P1.7 V1.
+
+## 99. Entrées exactes de la fonction
+
+La fonction de production doit recevoir exactement quatre entrées obligatoires, sans fallback ni valeur par défaut :
+
+1. `assessment` — exact `MemoryCollectionAuditAssessment` P1.6 encore factory-attested ;
+2. `scope` — `AuditScope` content-bound correspondant ;
+3. `disposition` — chaîne explicitement fournie de l'extérieur ;
+4. `detail` — chaîne explicitement fournie de l'extérieur.
+
+La signature ne doit pas accepter :
+
+- `audit_id` à la place de l'assessment ;
+- `scope_id` à la place du scope ;
+- `verdict` comme raccourci de disposition ;
+- `force`, `override`, `ignore_blocked`, `authorized` ou équivalent.
+
+## 100. Validation minimale de l'assessment
+
+P1.7 doit vérifier :
+
+- type exact compatible `MemoryCollectionAuditAssessment` ;
+- `is_factory_attested_memory_collection_audit(assessment) == True`.
+
+Un assessment manuel, same-valued, copié, remplacé, sérialisé ou muté échoue fermé.
+
+P1.7 ne doit pas appeler une fonction capable de reconstituer ou ré-attester l'assessment.
+
+## 101. Validation minimale du scope
+
+P1.7 ne dépend pas d'une fonction privée P1.6.
+
+La validation du scope doit être reconstructible à partir de l'API publique P1.6 :
+
+```text
+canonical_scope = create_audit_scope(
+    question=scope.question,
+    expected_registration_ids=scope.expected_registration_ids,
+    context_fields=scope.context_fields,
+)
+```
+
+Puis P1.7 exige :
+
+```text
+canonical_scope == scope
+scope.scope_id == assessment.scope_id
+```
+
+Conséquences :
+
+- un scope manuel strictement same-valued reste admissible ;
+- un scope stale/forgé est rejeté ;
+- un scope étranger est rejeté ;
+- P1.7 n'introduit pas une seconde autorité process-locale pour `AuditScope`.
+
+## 102. Dispositions exactes
+
+L'ensemble autorisé est exactement :
+
+```text
+KEEP_CURRENT_STATE
+REQUEST_NEW_EVIDENCE
+REQUEST_NEW_EXPERIMENT
+REFORMULATE_QUESTION
+```
+
+Les comparaisons sont exactes et sensibles à la casse.
+
+Aucun alias n'est admis.
+
+Aucune disposition n'est dérivée depuis :
+
+- `assessment.verdict` ;
+- `assessment.completeness_status` ;
+- `assessment.independence_status` ;
+- les anomalies ;
+- le nombre de membres ;
+- les contradictions.
+
+## 103. Detail minimal
+
+`detail` doit être une chaîne dont `detail.strip()` n'est pas vide.
+
+Le contenu exact fourni est conservé dans le `RevisionDecision` et participe à son identité.
+
+P1.7 V1 n'interprète pas automatiquement le contenu du detail comme preuve, protocole expérimental, règle ou autorisation.
+
+Pour `REFORMULATE_QUESTION`, une contrainte supplémentaire s'applique :
+
+```text
+detail.strip() != scope.question.strip()
+```
+
+Une différence composée uniquement d'espaces ne constitue pas une reformulation.
+
+## 104. Modèle minimal `RevisionDecision`
+
+Le modèle exécutable retenu est exactement :
+
+```text
+RevisionDecision
+- revision_id
+- audit_id
+- scope_id
+- disposition
+- detail
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Aucun champ supplémentaire n'est nécessaire pour le premier candidat.
+
+Sont notamment exclus :
+
+- `supported` ;
+- `refuted` ;
+- `knowledge` ;
+- `confidence` ;
+- `causal` ;
+- `rule` ;
+- `recommended_rule` ;
+- `experiment_id` ;
+- `evidence_id` ;
+- `authorized` ;
+- `known_from` ;
+- `revision_at`.
+
+## 105. Snapshot exact des statuts source
+
+La production copie sans transformation :
+
+```text
+source_verdict = assessment.verdict
+source_completeness_status = assessment.completeness_status
+source_independence_status = assessment.independence_status
+```
+
+P1.7 ne possède aucune logique qui puisse transformer ces valeurs.
+
+En particulier, `BLOCKED` reste `BLOCKED`.
+
+## 106. Identité de contenu de la révision
+
+`revision_id` est déterministe et content-bound à :
+
+```text
+contract
+audit_id
+scope_id
+disposition
+detail
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe candidat :
+
+`REV-`
+
+Deux productions avec exactement le même contenu peuvent avoir le même `revision_id` tout en étant des objets locaux distincts.
+
+Modifier la disposition, le detail, l'audit ou le scope doit modifier l'identité.
+
+`revision_id` n'est jamais une permission.
+
+## 107. Attestation de la sortie
+
+`RevisionDecision` suit le modèle process-local exact-object déjà qualifié en amont :
+
+- production par la factory → attestation locale ;
+- objet manuel same-valued → non attesté ;
+- copy/deepcopy/replace → non attesté ;
+- mutation post-production → attestation invalide ;
+- deux productions same-valued peuvent être deux objets distincts tous deux attestés.
+
+L'attestation P1.7 ne confère aucune autorité à l'assessment ou au scope en sens inverse.
+
+## 108. Absence volontaire de matrice verdict → disposition
+
+Le premier runtime doit permettre à chacune des quatre dispositions d'être explicitement proposée avec un audit `PASS`, `FAIL` ou `BLOCKED`, sous réserve des autres validations.
+
+Ainsi, le runtime ne contient pas de table décisionnelle implicite.
+
+Cette permissivité de **choix de disposition** n'est pas une permission opérationnelle : elle signifie seulement que P1.7 enregistre une orientation externe au lieu de l'inventer.
+
+## 109. Sémantique non-promotrice
+
+Le modèle doit rester descriptif et gouverné :
+
+```text
+KEEP_CURRENT_STATE
+→ no governed mutation performed
+
+REQUEST_NEW_EVIDENCE
+→ evidence requested, not obtained
+
+REQUEST_NEW_EXPERIMENT
+→ experiment requested, not created/executed
+
+REFORMULATE_QUESTION
+→ alternative wording recorded, not validated
+```
+
+Aucun `RevisionDecision` ne peut constituer :
+
+- preuve ;
+- connaissance ;
+- hypothèse validée ;
+- correction de règle ;
+- expérience ;
+- autorisation d'action.
+
+## 110. Breaker A0–H retenu avant runtime
+
+Le breaker test-first doit au minimum couvrir :
+
+### A — Assessment exact
+- exact P1.6 assessment positif ;
+- `audit_id` seul ;
+- dict/JSON ;
+- manuel same-valued ;
+- copy/deepcopy/replace ;
+- assessment muté ;
+- absence d'assessment.
+
+### B — Scope matching
+- exact scope positif ;
+- scope manuel same-valued positif ;
+- scope absent ;
+- scope étranger ;
+- question + stale ID ;
+- membership + stale ID ;
+- context fields + stale ID ;
+- `scope_id` seul.
+
+### C — Disposition externe
+- chacune des quatre dispositions ;
+- None/vide ;
+- casse différente ;
+- alias ;
+- disposition inconnue ;
+- dispositions de mutation/autorisation rejetées ;
+- signature exacte sans défauts/fallback ;
+- même verdict source compatible avec plusieurs dispositions explicites.
+
+### D — Detail
+- non vide positif ;
+- None/vide/whitespace ;
+- reformulation identique ;
+- reformulation whitespace-equivalente ;
+- reformulation réellement différente positive ;
+- detail conservé comme texte, sans preuve/expérience implicite.
+
+### E — Préservation source
+- `PASS` conservé ;
+- `FAIL` conservé ;
+- `BLOCKED` conservé ;
+- completeness `BLOCKED` conservé ;
+- independence `BLOCKED` conservé ;
+- aucun paramètre d'override.
+
+### F — Non-promotion sémantique
+- KEEP ≠ validation ;
+- evidence request ≠ evidence ;
+- experiment request ≠ experiment ;
+- reformulation ≠ hypothesis ;
+- absence de knowledge/confidence/causality/rule/authorization.
+
+### G — Identité / attestation
+- production positive ;
+- same inputs → même ID, objets distincts attestés ;
+- manual/copy/deepcopy/replace non attestés ;
+- mutation invalide ;
+- changement disposition/detail → autre ID ;
+- `revision_id` seul n'est pas autorité.
+
+### H — Reverse authority / bypass
+- ne répare pas assessment ;
+- ne crée pas AuditScope ;
+- ne mint pas MEMORY/AUDIT/ResearchFindings/ResearchRunEvidence ;
+- aucun timestamp implicite ;
+- aucune horloge locale ;
+- aucune acquisition/backtest/order/live ;
+- aucune surface de changement de comportement.
+
+## 111. État après sélection
+
+**MODÈLE MINIMAL P1.7 : SELECTED.**
+
+**RUNTIME P1.7 : BLOCKED / NOT IMPLEMENTED.**
+
+La prochaine mutation autorisée est limitée à :
+
+- `breakers/p1_7_audit_revision_breaker.py` ;
+- `.github/workflows/p1-7-audit-revision.yml`.
+
+Aucun `src/revision.py` ne doit exister avant l'observation du FAIL pré-implémentation.
