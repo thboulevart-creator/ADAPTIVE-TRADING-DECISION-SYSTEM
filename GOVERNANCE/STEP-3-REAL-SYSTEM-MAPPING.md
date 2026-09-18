@@ -5002,3 +5002,552 @@ either branch
 ## 189. Prochaine action gouvernée unique
 
 **Déterminer, à partir des APIs P1.8 réelles et sans implémenter encore P1.9, les deux plus petits modèles exécutables `EvidenceSubmission` et `ExperimentSpecification`, fixer les signatures minimales de leurs factories, résoudre explicitement les derniers détails de représentation nécessaires (notamment contenu vide P1.9A et type exact des cinq champs P1.9B), puis construire les breakers test-first P1.9A et P1.9B avant toute implémentation runtime.**
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.9 MINIMAL EXECUTABLE MODELS
+
+**Selection IDs:**
+- `P1_9A_MINIMAL_EVIDENCE_SUBMISSION_MODEL_V1`
+- `P1_9B_MINIMAL_EXPERIMENT_SPECIFICATION_MODEL_V1`
+
+**Base observée avant sélection:** `c1ba6315849490bca19f9dfa1f613ed7eece253d`  
+**Statut:** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`
+
+## 190. P1.9A — surface minimale exécutable
+
+Le futur module candidat P1.9A est limité à :
+
+```text
+CONTRACT = "P1_9A_EVIDENCE_SUBMISSION_BOUNDARY_V1"
+
+EvidenceSubmission
+
+submit_evidence(
+    request,
+    *,
+    source_ref,
+    media_type,
+    content,
+)
+
+is_factory_attested_evidence_submission(value)
+```
+
+Module candidat attendu :
+
+`src/evidence_submission.py`
+
+Aucune API de fulfillment, d'admissibilité ou de promotion épistémique n'appartient à P1.9A V1.
+
+## 191. P1.9A — signature exacte
+
+La signature minimale est exactement :
+
+```text
+submit_evidence(
+    request,
+    *,
+    source_ref,
+    media_type,
+    content,
+)
+```
+
+Les trois paramètres après `request` sont keyword-only, obligatoires et sans défaut.
+
+Aucun paramètre caller-side n'est admis pour :
+
+- `submission_id` ;
+- `content_sha256` ;
+- `content_size` ;
+- `fulfilled` ;
+- `admissible` ;
+- `sufficient` ;
+- `supported` ;
+- `confidence` ;
+- `authorized`.
+
+## 192. P1.9A — types exacts
+
+P1.9A V1 choisit les types d'entrée suivants :
+
+```text
+request    : exact FollowUpRequest
+source_ref : exact str
+media_type : exact str
+content    : exact bytes
+```
+
+Le futur runtime doit rejeter les substituts permissifs :
+
+- `bytearray` ;
+- `memoryview` ;
+- `str` à la place des bytes ;
+- objets bytes-like arbitraires ;
+- sous-types custom destinés à modifier le comportement de comparaison/sérialisation.
+
+Le choix `bytes` rend le matériau fourni immutable et hashable de manière déterministe au moment de la factory.
+
+## 193. P1.9A — contraintes source_ref et media_type
+
+`source_ref` et `media_type` doivent être :
+
+- exact `str` ;
+- non vides après `.strip()`.
+
+Ils sont conservés verbatim dans la sortie et dans son identité.
+
+P1.9A V1 n'impose pas de syntaxe URI à `source_ref` et n'impose pas de grammaire MIME à `media_type`.
+
+Cette absence de normalisation est intentionnelle : ces champs sont des déclarations descriptives, pas des attestations de source ou de format.
+
+Ainsi :
+
+```text
+source_ref declaration ≠ source authenticity
+media_type declaration ≠ parser qualification
+```
+
+## 194. P1.9A — décision sur contenu vide
+
+`content=b""` est **accepté** lorsqu'il est fourni explicitement.
+
+Raison :
+
+P1.9A enregistre une soumission exacte ; il ne décide pas si cette soumission est utile, admissible ou suffisante.
+
+Donc :
+
+```text
+explicit zero-byte submission
+→ valid EvidenceSubmission
+→ content_size = 0
+→ SHA256(empty bytes)
+```
+
+mais :
+
+```text
+zero-byte submission ≠ sufficient evidence
+zero-byte submission ≠ fulfillment
+```
+
+En revanche :
+
+- `content=None` est rejeté ;
+- absence de l'argument `content` est rejetée par signature ;
+- tout type autre que exact `bytes` est rejeté.
+
+Cette séparation empêche P1.9A d'introduire prématurément un jugement épistémique.
+
+## 195. P1.9A — dérivations obligatoires
+
+Le caller fournit les octets exacts.
+
+Le runtime dérive :
+
+```text
+content_sha256 = sha256(content).hexdigest()
+content_size = len(content)
+```
+
+Le caller ne fournitit ni hash ni taille.
+
+Le runtime ne lit aucun fichier, aucune URL et aucune ressource externe pour recalculer le contenu.
+
+## 196. P1.9A — modèle exact retenu
+
+```text
+EvidenceSubmission
+- submission_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- source_ref
+- media_type
+- content_sha256
+- content_size
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Types de sortie minimaux :
+
+```text
+all identity/status/reference fields : str
+content_sha256                      : str
+content_size                        : int >= 0
+```
+
+Le contenu brut n'est pas stocké dans l'objet minimal P1.9A.
+
+Une future frontière qui doit inspecter les octets devra les recevoir/retrouver séparément et les rebinder à `content_sha256`; P1.9A n'invente pas ce mécanisme aujourd'hui.
+
+## 197. P1.9A — identité
+
+`submission_id` est content-bound à :
+
+```text
+contract
+request_id
+revision_id
+audit_id
+scope_id
+source_ref
+media_type
+content_sha256
+content_size
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe retenu :
+
+`EVS-`
+
+Même contenu exact + mêmes métadonnées + même request → même identité de contenu.
+
+Changer les bytes, source_ref, media_type ou request doit changer l'identité si le payload P1.9A change.
+
+## 198. P1.9A — attestation
+
+`EvidenceSubmission` utilise une attestation exact-object process-locale avec sticky invalidation dès V1.
+
+Manual/copy/deepcopy/replace ne sont pas attestés.
+
+Mutation observée invalide définitivement l'objet, même après restauration de ses anciennes valeurs.
+
+## 199. P1.9A — breaker minimal retenu
+
+Le breaker test-first P1.9A doit couvrir au minimum :
+
+### A — Request source
+- exact EVIDENCE request positif ;
+- EXPERIMENT request rejeté ;
+- request_id seul/dict/manual/copy/replace rejetés ;
+- mutation et sticky-invalidated request rejetées.
+
+### B — Signature/types
+- signature exacte avec request positional + trois keyword-only ;
+- source_ref/media_type exact str ;
+- content exact bytes ;
+- None/bytearray/memoryview/str rejetés ;
+- aucun hash/taille caller-side.
+
+### C — Empty/exact content
+- b"" accepté ;
+- taille 0 ;
+- SHA-256 vide exact ;
+- contenu non vide hashé exactement ;
+- bytes différents → hash/ID différents.
+
+### D — Metadata binding
+- source_ref/media_type non vides après strip ;
+- valeurs conservées verbatim ;
+- aucune normalisation Unicode/whitespace ;
+- changement metadata → autre identity.
+
+### E — Source snapshots/BLOCKED
+- request/revision/audit/scope IDs conservés ;
+- PASS/FAIL/BLOCKED conservés ;
+- completeness/independence BLOCKED conservés.
+
+### F — Non-fulfillment
+- aucun champ fulfilled/admissible/sufficient/supported/confidence ;
+- EvidenceSubmission ≠ ResearchRunEvidence/ResearchFindings ;
+- multiple submissions ne deviennent pas fulfillment.
+
+### G — Identity/attestation
+- output exact fields ;
+- same content → same ID, distinct attested objects ;
+- manual/copy/replace non attestés ;
+- sticky invalidation ;
+- rebinding ID rejeté ;
+- GC/snapshot upstream.
+
+### H — No IO/reverse authority
+- pas de filesystem/network acquisition ;
+- pas de run_qualified_research ;
+- pas d'autorisation ;
+- request non réparé ;
+- submission ne peut remplacer FollowUpRequest.
+
+---
+
+## 200. P1.9B — surface minimale exécutable
+
+Le futur module candidat P1.9B est limité à :
+
+```text
+CONTRACT = "P1_9B_EXPERIMENT_SPECIFICATION_BOUNDARY_V1"
+
+ExperimentSpecification
+
+specify_experiment(
+    request,
+    *,
+    hypothesis_statement,
+    prediction,
+    falsification_rule,
+    protocol,
+    measurement_plan,
+)
+
+is_factory_attested_experiment_specification(value)
+```
+
+Module candidat attendu :
+
+`src/experiment_specification.py`
+
+Aucune API d'input binding, exécution, mesure réalisée, finding ou autorisation n'appartient à P1.9B V1.
+
+## 201. P1.9B — signature exacte
+
+La signature minimale est exactement :
+
+```text
+specify_experiment(
+    request,
+    *,
+    hypothesis_statement,
+    prediction,
+    falsification_rule,
+    protocol,
+    measurement_plan,
+)
+```
+
+Les cinq champs de design sont keyword-only, obligatoires et sans défaut.
+
+Aucun paramètre caller-side n'est admis pour :
+
+- `objective` ;
+- `experiment_spec_id` ;
+- `request_kind` ;
+- dataset/corpus/paths/hashes ;
+- `execute` ;
+- `authorized` ;
+- `backtest` ;
+- `live`.
+
+## 202. P1.9B — types exacts des cinq champs
+
+P1.9B V1 choisit :
+
+```text
+hypothesis_statement : exact str
+prediction           : exact str
+falsification_rule   : exact str
+protocol             : exact str
+measurement_plan     : exact str
+```
+
+Chaque champ doit être non vide après `.strip()`.
+
+Le runtime conserve chaque valeur verbatim.
+
+Il ne normalise pas :
+
+- whitespace ;
+- Unicode ;
+- casse ;
+- ponctuation ;
+- format markdown/texte.
+
+Cette règle donne une identité de contenu exacte sans prétendre comprendre ou valider sémantiquement le design.
+
+## 203. P1.9B — contrainte de falsifiabilité minimale
+
+P1.9B V1 ne tente pas de prouver automatiquement qu'une hypothèse est scientifiquement bonne.
+
+La contrainte minimale exécutable est seulement :
+
+```text
+hypothesis_statement.strip() != ""
+prediction.strip() != ""
+falsification_rule.strip() != ""
+protocol.strip() != ""
+measurement_plan.strip() != ""
+```
+
+La présence d'un `falsification_rule` non vide empêche au moins l'absence totale de condition de réfutation.
+
+Mais :
+
+```text
+non-empty falsification_rule ≠ actually falsifiable hypothesis
+```
+
+Une qualification sémantique plus forte serait une frontière future.
+
+## 204. P1.9B — objectif
+
+`objective` est dérivé exclusivement :
+
+```text
+objective = request.specification
+```
+
+exactement.
+
+Le caller ne peut le modifier.
+
+P1.9B ne réinterprète pas le texte de l'objectif pour choisir dataset, protocole, exécution ou permission.
+
+## 205. P1.9B — modèle exact retenu
+
+```text
+ExperimentSpecification
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- objective
+- hypothesis_statement
+- prediction
+- falsification_rule
+- protocol
+- measurement_plan
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Tous les champs sont des `str`.
+
+Aucun :
+
+- `experiment_id` ;
+- dataset id/version ;
+- corpus/path/hash ;
+- execution id/result ;
+- measurement value ;
+- finding ;
+- authorization field.
+
+## 206. P1.9B — identité
+
+`experiment_spec_id` est content-bound à :
+
+```text
+contract
+request_id
+revision_id
+audit_id
+scope_id
+objective
+hypothesis_statement
+prediction
+falsification_rule
+protocol
+measurement_plan
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe retenu :
+
+`EXS-`
+
+Chaque modification d'un des cinq champs ou du request doit changer l'identité si le payload P1.9B change.
+
+## 207. P1.9B — attestation
+
+`ExperimentSpecification` utilise l'attestation exact-object process-locale et sticky invalidation dès V1.
+
+Manual/copy/deepcopy/replace ne sont pas attestés.
+
+Mutation observée invalide définitivement l'objet.
+
+## 208. P1.9B — compatibilité sans dépendance inverse
+
+P1.9B ne dépend pas de `ResearchHypothesis` dans `research_findings.py`.
+
+Il conserve seulement une compatibilité conceptuelle :
+
+```text
+hypothesis_statement ↔ future ResearchHypothesis.statement
+prediction           ↔ future ResearchHypothesis.prediction
+falsification_rule   ↔ future ResearchHypothesis.falsification_rule
+```
+
+Aucune conversion automatique n'est qualifiée par P1.9B.
+
+## 209. P1.9B — breaker minimal retenu
+
+Le breaker test-first P1.9B doit couvrir au minimum :
+
+### A — Request source
+- exact EXPERIMENT request positif ;
+- EVIDENCE request rejeté ;
+- ID/dict/manual/copy/replace/mutated/sticky-invalidated rejetés.
+
+### B — Signature
+- exactement request + cinq keyword-only obligatoires ;
+- aucun objective/dataset/hash/execute/authorization caller-side.
+
+### C — Types/emptiness
+- chaque champ exact str ;
+- None/non-str rejetés ;
+- vide/whitespace-only rejetés ;
+- valeurs conservées verbatim ;
+- Unicode/multiline conservés.
+
+### D — Binding/objective
+- objective == request.specification exact ;
+- caller ne peut override ;
+- autre request → autre identity si payload change ;
+- request_kind reste EXPERIMENT.
+
+### E — Source snapshots/BLOCKED
+- request/revision/audit/scope IDs conservés ;
+- PASS/FAIL/BLOCKED conservés ;
+- completeness/independence BLOCKED conservés.
+
+### F — Non-execution
+- ≠ QualifiedResearchInput/ResearchExecutionResult/ResearchRunEvidence/ResearchFindings ;
+- aucun corpus/path/hash dataset ;
+- pas de bind_execution_input ;
+- pas de run_qualified_research ;
+- protocol dangereux reste texte.
+
+### G — Identity/attestation
+- exact output fields ;
+- mêmes inputs → même ID, objets distincts attestés ;
+- changement de chacun des cinq champs → autre ID ;
+- manual/copy/replace non attestés ;
+- sticky invalidation ;
+- GC/snapshot upstream.
+
+### H — Reverse authority
+- specification ne répare pas request ;
+- ne devient pas EvidenceSubmission ;
+- ne crée pas mesure/finding ;
+- aucune horloge locale ;
+- aucune autorisation/backtest/broker/live.
+
+## 210. État après sélection
+
+**P1.9A MINIMAL MODEL : SELECTED.**
+
+**P1.9B MINIMAL MODEL : SELECTED.**
+
+**RUNTIME P1.9A : BLOCKED / NOT IMPLEMENTED.**
+
+**RUNTIME P1.9B : BLOCKED / NOT IMPLEMENTED.**
+
+La prochaine mutation autorisée est limitée à :
+
+- `breakers/p1_9a_evidence_submission_breaker.py` ;
+- `.github/workflows/p1-9a-evidence-submission.yml` ;
+- `breakers/p1_9b_experiment_specification_breaker.py` ;
+- `.github/workflows/p1-9b-experiment-specification.yml`.
+
+Aucun `src/evidence_submission.py` et aucun `src/experiment_specification.py` ne doivent exister avant observation des FAIL pré-implémentation.
