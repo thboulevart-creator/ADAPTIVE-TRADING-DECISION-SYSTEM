@@ -195,7 +195,6 @@ def _assessment_content(
     anomalies: tuple[str, ...],
 ) -> dict[str, object]:
     return {
-        "contract": CONTRACT,
         "scope_id": scope_id,
         "verdict": verdict,
         "completeness_status": completeness_status,
@@ -213,7 +212,7 @@ def _assessment_content(
 
 
 def _audit_id(**content: object) -> str:
-    return "MAU-" + _stable_hash(content)[:32]
+    return "MAU-" + _stable_hash({"contract": CONTRACT, "assessment": content})[:32]
 
 
 def _assessment_fingerprint(value: MemoryCollectionAuditAssessment) -> str:
