@@ -1327,3 +1327,438 @@ Le breaker P1.5 doit être écrit **avant** tout `src/memory_interprocess.py` ou
 **État après sélection : modèle de trust = SELECTED ; runtime P1.5 = BLOCKED.**
 
 La prochaine mutation autorisée est uniquement l'ajout du breaker + workflow P1.5. Aucun runtime P1.5 ne doit exister avant l'observation de son FAIL initial.
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.6 MEMORY COLLECTION → AUDIT
+
+**Contract ID:** `P1_6_MEMORY_COLLECTION_AUDIT_BOUNDARY_V1`  
+**Base observée avant formalisation:** `ddbbcb5cc8644d62d22ebd69e2ca9cb3efee06b3`  
+**Statut:** `FORMALIZED — QUALIFICATION-ONLY, NOT IMPLEMENTED`  
+**Portée:** audit de collection de mémoires historiques P1.5 uniquement ; aucune promotion épistémique, aucune révision automatique, aucune autorisation opérationnelle.
+
+## 54. Question de frontière
+
+P1.6 répond uniquement à la question :
+
+> **Une collection déclarée de mémoires historiques P1.5 est-elle constituée, reliée, dédupliquée, contextualisée et contestée correctement relativement à un scope d'audit déclaré extérieurement ?**
+
+P1.6 ne répond pas à :
+
+> « Cette collection prouve-t-elle qu'une hypothèse est vraie, qu'une stratégie fonctionne ou qu'une règle doit être changée ? »
+
+Cette seconde question appartient à une future qualification épistémique/expérimentale qui reste **BLOCKED**.
+
+Le premier P1.6 doit donc conserver la séparation :
+
+`COLLECTION INTEGRITY / CONTESTABILITY AUDIT ≠ EPISTEMIC / KNOWLEDGE AUDIT`
+
+## 55. Entrée minimale
+
+L'entrée conceptuelle minimale est :
+
+```text
+externally declared AuditScope / AuditQuestion
++
+1..N exact factory-attested HistoricalMemoryEpisode P1.5
+↓
+MemoryCollectionAuditAssessment
+```
+
+### 55.1 AuditScope / AuditQuestion externe
+
+Le scope ne doit pas être inféré depuis la collection qu'il audite.
+
+Il doit être fourni extérieurement à la collection et décrire au minimum, selon ce qui est réellement démontrable :
+
+- une identité de scope/audit ;
+- la question ou l'objet exact de l'audit ;
+- la règle d'inclusion ;
+- la règle d'exclusion ;
+- l'univers ou population bornée attendue lorsque cet univers est connaissable ;
+- les dimensions de contexte pertinentes pour comparer ou séparer les épisodes.
+
+Le scope ne constitue pas une hypothèse scientifique validée. Il décrit uniquement **ce que l'audit prétend avoir reçu et examiné**.
+
+Une collection ne peut jamais être considérée complète ou représentative simplement parce que ses propres membres disent l'être.
+
+### 55.2 Collection P1.5
+
+Chaque entrée utilisée comme preuve de collection doit être un `HistoricalMemoryEpisode` exact encore reconnu par l'attestation locale P1.5.
+
+Ne constituent pas des entrées qualifiées :
+
+- un `registration_id` seul ;
+- un `episode_id` seul ;
+- un record/receipt brut non re-attesté ;
+- un dictionnaire/JSON ;
+- une copie, reconstruction same-valued, `replace` ou objet manuel non attesté ;
+- un épisode P1.4 brut présenté à la place de sa mémoire historique P1.5.
+
+AUDIT peut consommer une attestation P1.5 ; il ne peut pas la créer, réparer ou reconstruire.
+
+## 56. Sortie minimale
+
+La sortie P1.6 doit rester un **constat d'audit de collection**.
+
+Elle peut représenter conceptuellement :
+
+- identité de l'audit ;
+- identité du scope/question audité ;
+- registrations effectivement examinées ;
+- `episode_id` uniques observés ;
+- groupes de registrations portant sur le même contenu ;
+- duplications/incohérences de membership ;
+- groupes ou différences de contexte pertinentes ;
+- contradictions factuelles détectables ;
+- état de complétude relativement au scope : démontrée / non démontrable / violée ;
+- limites d'indépendance expérimentale ;
+- limites temporelles ou de provenance pertinentes ;
+- anomalies ;
+- preuves/références utilisées ;
+- verdict `PASS / FAIL / BLOCKED`.
+
+Elle ne doit pas contenir ou produire automatiquement :
+
+- `SUPPORTED` ;
+- `REFUTED` ;
+- `NOT_INTERPRETABLE` comme substitut à une absence de preuve d'audit ;
+- connaissance validée ;
+- vérité ;
+- causalité ;
+- niveau de confiance ;
+- probabilité de vérité ;
+- recommandation de règle ;
+- recommandation de trading ;
+- décision de révision ;
+- `AUTHORIZED`.
+
+## 57. Sémantique stricte des verdicts P1.6
+
+### PASS
+
+`PASS` signifie uniquement :
+
+> **pour le scope déclaré et les preuves disponibles, la collection fournie satisfait les contrôles P1.6 exécutables de provenance, membership, déduplication, grouping, contextualisation, contradiction et complétude lorsque cette complétude est effectivement démontrable.**
+
+Un `PASS` P1.6 n'est jamais un PASS scientifique ou épistémique sur l'efficacité du comportement observé.
+
+### FAIL
+
+`FAIL` signifie qu'une violation démontrée du contrat de collection existe, par exemple :
+
+- entrée non P1.5-attestée présentée comme preuve ;
+- membership incohérent ;
+- duplication comptée comme occurrence supplémentaire ;
+- registration rebondie/substituée ;
+- contexte incompatible agrégé silencieusement ;
+- contradiction supprimée ou masquée ;
+- prétention de complétude contredite par les preuves ;
+- promotion interdite vers connaissance/causalité/révision.
+
+### BLOCKED
+
+`BLOCKED` signifie qu'une propriété nécessaire ne peut pas être démontrée.
+
+Exemples :
+
+- univers attendu inconnu ;
+- aucune preuve d'exhaustivité ;
+- identité d'occurrence expérimentale indépendante absente ;
+- temporalité requise mais non qualifiée ;
+- règle de sélection insuffisante ;
+- contradiction impossible à arbitrer dans le périmètre disponible.
+
+`BLOCKED` n'est jamais converti en `PASS` par absence d'anomalie observable.
+
+## 58. Membership, duplication et identité
+
+P1.6 doit distinguer au minimum :
+
+```text
+physical copy
+≠ registration
+≠ episode content identity
+≠ independent experimental occurrence
+```
+
+Règles obligatoires :
+
+1. deux copies physiques du même bundle ne constituent qu'une même registration ;
+2. le même `registration_id` rencontré plusieurs fois ne peut jamais augmenter le nombre d'éléments probatoires ;
+3. plusieurs `registration_id` portant le même `episode_id` sont plusieurs captures du même contenu, pas plusieurs expériences indépendantes ;
+4. plusieurs `episode_id` différents ne prouvent pas, à eux seuls, plusieurs occurrences expérimentales indépendantes ;
+5. P1.6 ne peut pas fabriquer une identité d'occurrence globale absente de P1.5 ;
+6. une future preuve d'indépendance expérimentale devra être qualifiée séparément.
+
+Le système peut produire des **comptages descriptifs** de registrations ou contenus. Ces comptages ne doivent jamais être renommés silencieusement en réplications indépendantes.
+
+## 59. Contextes et comparabilité
+
+Les dimensions déjà présentes dans les épisodes historiques — notamment provenance, research run, versions de code/configuration/dataset, `context_id`, Decision, Action/behavior et Result/outcome — doivent rester visibles à l'audit.
+
+P1.6 doit :
+
+- détecter les contextes différents ;
+- conserver les différences plutôt que les écraser ;
+- grouper uniquement selon une règle déclarée ;
+- refuser de traiter automatiquement des contextes différents comme homogènes ;
+- signaler en anomalie ou `BLOCKED` toute comparabilité nécessaire mais non démontrée.
+
+Une similarité de résultat ne prouve pas une similarité de conditions.
+
+## 60. Contradictions
+
+P1.6 doit conserver les contradictions observables.
+
+Une contradiction ne doit pas être :
+
+- supprimée ;
+- filtrée silencieusement ;
+- masquée par moyenne/agrégation ;
+- transformée en simple succès majoritaire ;
+- réparée en modifiant rétroactivement les épisodes.
+
+L'audit peut constater :
+
+- résultats incompatibles ;
+- comportements identiques suivis d'outcomes différents ;
+- contextes apparemment semblables avec résultats divergents ;
+- claims de scope incompatibles avec les membres fournis.
+
+La présence d'une contradiction ne donne pas automatiquement son explication ni sa cause.
+
+P1.6 peut émettre un constat/anomalie ou `BLOCKED`; l'arbitrage sémantique détaillé reste une capacité séparée.
+
+## 61. Complétude et survivorship bias
+
+La complétude doit être relative à un scope externe borné.
+
+Deux cas doivent être distingués :
+
+### 61.1 Univers démontrable
+
+Si le scope fournit un univers attendu vérifiable et une règle de membership testable, P1.6 peut comparer membres attendus et membres observés.
+
+Une différence démontrée peut produire `FAIL`.
+
+Une concordance démontrée peut permettre un `PASS` **de complétude de collection uniquement**.
+
+### 61.2 Univers non démontrable
+
+Si l'univers attendu, la règle de capture ou les absences ne sont pas vérifiables, la complétude doit être `BLOCKED`.
+
+Une collection de résultats tous favorables ne prouve jamais qu'aucun résultat défavorable n'a été omis.
+
+Ainsi :
+
+`ALL PROVIDED EPISODES ARE VALID ≠ ALL RELEVANT EPISODES WERE PROVIDED`
+
+et :
+
+`NO OBSERVED MISSING MEMBER ≠ PROOF OF NO MISSING MEMBER`.
+
+## 62. Indépendance expérimentale
+
+P1.6 doit explicitement conserver :
+
+**INDEPENDENCE STATUS = BLOCKED**
+
+tant qu'aucune preuve qualifiée d'identité/conditions d'occurrence expérimentale indépendante n'existe.
+
+Le contrat P1.6 ne peut pas déduire l'indépendance à partir de :
+
+- `registration_id` différents ;
+- `episode_id` différents ;
+- `research_run_id` différents ;
+- timestamps ou ordre local non qualifiés ;
+- résultats différents ;
+- répétition du même behavior ;
+- nombre total de membres.
+
+L'absence de preuve d'indépendance n'empêche pas un audit descriptif de collection. Elle interdit seulement de transformer ce descriptif en preuve de réplication.
+
+## 63. Observation, fréquence, succès et connaissance
+
+Les séparations antérieures restent obligatoires et sont étendues à la collection :
+
+```text
+ONE OBSERVATION ≠ KNOWLEDGE
+MANY OBSERVATIONS ≠ KNOWLEDGE
+MANY REGISTRATIONS ≠ REPLICATIONS
+MANY SUCCESSFUL OUTCOMES ≠ SUPPORTED HYPOTHESIS
+TEMPORAL SUCCESSION ≠ CAUSALITY
+AUDIT PASS ≠ KNOWLEDGE PASS
+AUDIT PASS ≠ REVISION
+AUDIT PASS ≠ AUTHORIZATION
+```
+
+P1.6 peut décrire :
+
+> « N registrations examinées contiennent tel outcome sous tels contextes ».
+
+P1.6 ne peut pas convertir cette phrase en :
+
+> « N expériences indépendantes confirment que le behavior cause cet outcome ».
+
+La charte `ResearchFindings` et ses statuts ne doivent pas être importés dans P1.6 comme raccourci.
+
+## 64. Temporalité
+
+P1.6 n'invente aucun nouveau temps de connaissance.
+
+Une mémoire P1.5 auditée aujourd'hui ne devient pas, de ce seul fait :
+
+- connue à l'heure d'une Decision passée ;
+- disponible avant sa capture ;
+- admissible dans un ancien research run ;
+- valide depuis l'instant du résultat.
+
+Si la question d'audit exige une disponibilité historique ou un ordre temporel qualifié qui n'est pas démontré, le verdict pertinent doit être `BLOCKED`.
+
+P1.6 ne rend pas normatif le contrat temporel encore non qualifié par simple besoin de l'audit.
+
+## 65. Direction de l'autorité
+
+La direction autorisée est :
+
+```text
+P1.5 HISTORICAL MEMORY
+        ↓
+P1.6 COLLECTION AUDIT
+        ↓
+constat / verdict / anomalies
+```
+
+Sont interdits :
+
+```text
+AUDIT → réparation de MEMORY
+AUDIT → mint Trace/Action/Result
+AUDIT → ResearchFindings
+AUDIT → KNOWLEDGE
+AUDIT → REVISION automatique
+AUDIT → Decision/Action AUTHORIZED
+AUDIT → broker/backtest/live
+```
+
+Un audit peut demander un retest, signaler une contradiction, constater une preuve insuffisante ou recommander conceptuellement qu'une question soit examinée par la future fonction REVISION. Il ne réalise jamais lui-même cette révision.
+
+## 66. Relation avec REVISION
+
+P1.6 ne ferme pas R9 `AUDIT → REVISION`.
+
+La sortie P1.6 peut seulement fournir une base contestée à une future fonction REVISION.
+
+Une future REVISION devra rester capable de conclure :
+
+- maintenir l'état ;
+- ne rien changer ;
+- demander une nouvelle expérience ;
+- demander une preuve supplémentaire ;
+- reformuler une hypothèse/question ;
+- suspendre une proposition de changement.
+
+Même une révision ultérieure ne pourra pas modifier le comportement opérationnel sans repasser par nouvelle expérience/preuve et autorisation contrôlée lorsque requises.
+
+## 67. Invariants adversariaux minimaux P1.6
+
+La future qualification P1.6 devra au minimum casser les familles suivantes avant tout PASS :
+
+### A — Scope / question auto-sélectionnés
+- collection choisissant elle-même son scope ;
+- scope absent ou vide ;
+- inclusion/exclusion modifiées après observation des outcomes ;
+- scope prétendant une population qu'il ne peut identifier.
+
+### B — Entrées non qualifiées
+- objet manuel same-valued ;
+- copy/deepcopy/replace ;
+- JSON/dict ;
+- raw record/receipt ;
+- simple `registration_id` / `episode_id` ;
+- `HistoricalMemoryEpisode` muté/inattesté.
+
+### C — Duplication / inflation
+- même registration répétée N fois ;
+- copies physiques traitées comme nouveaux membres ;
+- plusieurs registrations du même `episode_id` comptées comme réplications ;
+- nouveaux `episode_id` comptés automatiquement comme indépendants.
+
+### D — Membership / complétude / survivorship
+- membre hors scope accepté silencieusement ;
+- membre attendu manquant ;
+- population inconnue mais verdict de complétude PASS ;
+- collection favorable sélectionnée après coup ;
+- absence de membre défavorable interprétée comme preuve qu'il n'en existe pas.
+
+### E — Contexte
+- versions/configurations/datasets/contextes incompatibles agrégés silencieusement ;
+- grouping modifié pour améliorer le résultat ;
+- différences de contexte supprimées de la sortie d'audit.
+
+### F — Contradictions
+- outcome contradictoire supprimé ;
+- contradiction transformée en moyenne sans trace ;
+- majorité utilisée pour effacer la minorité ;
+- contradiction interprétée automatiquement comme causalité ou erreur d'un membre.
+
+### G — Promotion interdite
+- fréquence → réplication ;
+- répétition → `SUPPORTED` ;
+- succès → connaissance ;
+- succession → causalité ;
+- PASS d'audit → recommandation de règle ;
+- PASS d'audit → REVISION ;
+- PASS d'audit → `AUTHORIZED` / opérationnel.
+
+### H — Temporalité / provenance
+- audit tardif présenté comme connaissance antérieure ;
+- local clock réparant une temporalité absente ;
+- membership reconstruit depuis IDs sans preuve ;
+- audit réparant ou re-attestant un membre amont.
+
+## 68. Qualification positive autorisée à P1.6
+
+Un futur PASS P1.6 pourra signifier uniquement :
+
+- le scope/question d'audit a été fourni séparément de la collection ;
+- toutes les entrées utilisées comme membres qualifiés sont des `HistoricalMemoryEpisode` P1.5 exacts et attestés ;
+- membership et duplications ont été vérifiés ;
+- les registrations same-content ont été regroupées sans être promues en réplications ;
+- les différences de contexte pertinentes ont été conservées ;
+- les contradictions détectables ont été conservées et signalées ;
+- la complétude a été qualifiée uniquement lorsqu'elle était démontrable relativement au scope ;
+- l'indépendance expérimentale non démontrée reste explicitement `BLOCKED` ;
+- le résultat est limité à constat/verdict/anomalies `PASS / FAIL / BLOCKED`.
+
+Un PASS P1.6 ne signifiera pas :
+
+- hypothèse `SUPPORTED` ou `REFUTED` ;
+- connaissance validée ;
+- causalité ;
+- confiance suffisante ;
+- réplication indépendante démontrée ;
+- efficacité d'une stratégie ;
+- recommandation de règle ;
+- décision de révision ;
+- modification de comportement ;
+- autorisation opérationnelle.
+
+## 69. État après formalisation P1.6
+
+**FORMALISATION P1.6 : PASS.**
+
+La frontière exécutable reste :
+
+**P1.5 HISTORICAL MEMORY COLLECTION → P1.6 COLLECTION AUDIT : BLOCKED / NOT IMPLEMENTED.**
+
+La frontière suivante reste également :
+
+**P1.6 AUDIT → REVISION : BLOCKED / NOT FORMALIZED AS EXECUTABLE BOUNDARY.**
+
+La cartographie historique R7/R8/R9 plus haut dans ce document est conservée comme état observé au moment de sa rédaction. Les addenda P1.4/P1.5 ont depuis fermé TRACE→MEMORY dans leur périmètre qualifié ; le présent addendum formalise désormais R8 sans prétendre qu'il est exécutable.
+
+## 70. Prochaine action gouvernée unique
+
+**Déterminer, à partir des APIs P1.5 réelles et sans implémenter encore AUDIT, le plus petit `AuditScope` et le plus petit `MemoryCollectionAuditAssessment` exécutables capables de représenter exactement scope externe, membership, déduplication, content-groups, context-groups, contradictions, complétude `PASS/FAIL/BLOCKED` et indépendance `BLOCKED`, puis construire le breaker A0–H avant toute implémentation.**
