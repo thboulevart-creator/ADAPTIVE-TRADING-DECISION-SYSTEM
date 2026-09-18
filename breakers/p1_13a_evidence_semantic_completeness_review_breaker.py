@@ -152,13 +152,26 @@ def _submit(
     completeness="PASS",
     completeness_rationale="Criteria cover the declared request.",
 ):
+    module = _p113a()
     if semantic_reviews is None:
-        ids = tuple(m.evidence_binding_id for m in materials)
-        semantic_reviews = tuple(
-            _semantic_review(requirement, ids)
-            for requirement in criteria.semantic_requirements
-        )
-    return _p113a().submit_evidence_semantic_completeness_review(
+        if (
+            type(criteria) is EvidenceAssessmentCriteria
+            and type(materials) is tuple
+            and all(type(material) is BoundEvidenceMaterial for material in materials)
+        ):
+            ids = tuple(material.evidence_binding_id for material in materials)
+            semantic_reviews = tuple(
+                module.SemanticRequirementReview(
+                    requirement=requirement,
+                    status="PASS",
+                    rationale="Reviewed",
+                    material_binding_ids=ids,
+                )
+                for requirement in criteria.semantic_requirements
+            )
+        else:
+            semantic_reviews = ()
+    return module.submit_evidence_semantic_completeness_review(
         assessment,
         criteria,
         materials,
