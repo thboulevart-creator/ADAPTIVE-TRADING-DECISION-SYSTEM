@@ -281,8 +281,9 @@ def test_b4_raw_p14_episode_is_rejected(tmp_path: Path) -> None:
 @pytest.mark.parametrize("selector", ["registration_id", "episode_id"])
 def test_b5_ids_alone_are_rejected_as_members(tmp_path: Path, selector: str) -> None:
     memory = _historical(tmp_path / "one")
+    value = memory.registration_id if selector == "registration_id" else memory.episode.episode_id
     with pytest.raises((TypeError, ValueError)):
-        _audit(_scope((memory,)), (getattr(memory, selector),))
+        _audit(_scope((memory,)), (value,))
 
 
 def test_b6_mutated_now_unattested_historical_memory_is_rejected(tmp_path: Path) -> None:
