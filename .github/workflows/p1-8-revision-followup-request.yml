@@ -67,15 +67,15 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.8 is test-first with no runtime candidate
+      - name: Prove P1.8 candidate exists and breaker remains frozen
         run: |
           test -f breakers/p1_8_revision_followup_request_breaker.py
-          test ! -e src/follow_up_request.py
+          test -f src/follow_up_request.py
           grep -Fq 'P1_8_REVISION_FOLLOWUP_REQUEST_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_8_MINIMAL_FOLLOWUP_REQUEST_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          grep -Fq 'SELECTED — TEST-FIRST, NOT IMPLEMENTED' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
+          grep -Fq 'P1_8_REVISION_FOLLOWUP_REQUEST_BOUNDARY_V1' src/follow_up_request.py
           test "$(git hash-object breakers/p1_8_revision_followup_request_breaker.py)" = "d512a3f5549f1deea696a1b1c55a24f1a30f9b20"
-          echo 'PASS: P1.8 model and breaker exist before runtime implementation'
+          echo 'PASS: P1.8 candidate present; frozen breaker unchanged'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -126,7 +126,7 @@ jobs:
             breakers/p1_7_audit_revision_breaker.py \
             breakers/p1_7_audit_revision_second_breaker.py
 
-      - name: Break P1.8 A0-H before implementation
+      - name: Break P1.8 A0-H candidate
         run: python -m pytest -q breakers/p1_8_revision_followup_request_breaker.py
 
       - name: Prove clean worktree
