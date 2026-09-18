@@ -6126,3 +6126,19 @@ Prochaine mutation autorisée :
 - ajouter le workflow pré-implémentation P1.10B.
 
 Aucun `src/evidence_material_binding.py` ni `src/experiment_execution_binding.py` ne doit exister avant observation des FAIL pré-implémentation.
+
+
+---
+
+# P1.10 — POST-IMPLEMENTATION RE-BREAK CHECKPOINT
+
+Runtime candidates now exist at the persisted branch state:
+
+- `src/evidence_material_binding.py`
+- `src/experiment_execution_binding.py`
+
+The original P1.10A/P1.10B breakers remain unchanged.
+
+Qualification is **PENDING persisted-HEAD re-break**.
+
+This checkpoint grants no evidence admissibility, no fulfillment, no QualifiedResearchInput, no execution, no result, no ResearchRunEvidence, and no operational authorization.
