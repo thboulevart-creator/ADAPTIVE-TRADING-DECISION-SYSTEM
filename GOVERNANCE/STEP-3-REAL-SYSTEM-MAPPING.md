@@ -2151,3 +2151,527 @@ Ajouter uniquement :
 - le workflow de cassage P1.6.
 
 Aucun `src/memory_audit.py` ou runtime équivalent ne doit exister avant l'observation du FAIL initial du breaker.
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.7 AUDIT → REVISION
+
+**Contract ID:** `P1_7_AUDIT_REVISION_BOUNDARY_V1`  
+**Base observée avant formalisation:** `e98ee16ec907dc3263c8d9bd5ce74ce122d2415b`  
+**Statut:** `FORMALIZED — QUALIFICATION-ONLY, NOT IMPLEMENTED`  
+**Portée:** décision de révision gouvernée issue d'un audit P1.6 exact ; aucune connaissance, règle, expérience, autorisation ou modification de comportement n'est créée par P1.7.
+
+## 79. État amont reconnu
+
+Depuis les sections historiques P1.6 plus haut dans ce document, la frontière :
+
+```text
+P1.5 HISTORICAL MEMORY COLLECTION
+↓
+P1.6 MEMORY COLLECTION AUDIT
+```
+
+a été implémentée et qualifiée dans son périmètre `qualification-only`.
+
+P1.6 produit désormais un `MemoryCollectionAuditAssessment` factory-attested, limité à l'intégrité/contestabilité de collection.
+
+Cette évolution ne ferme pas automatiquement R9.
+
+La frontière suivante reste :
+
+```text
+P1.6 AUDIT
+↓
+P1.7 REVISION
+```
+
+**BLOCKED / NOT IMPLEMENTED** au moment de cette formalisation.
+
+## 80. Question minimale de P1.7
+
+P1.7 répond uniquement à la question :
+
+> **Peut-on enregistrer de manière contrôlée une orientation de révision explicitement proposée à partir d'un audit P1.6 exact, sans laisser le verdict d'audit inventer automatiquement la révision et sans transformer cette révision en connaissance, preuve, règle, expérience ou permission opérationnelle ?**
+
+Le noyau minimal est :
+
+```text
+exact factory-attested MemoryCollectionAuditAssessment
++
+matching content-bound AuditScope
++
+externally declared disposition
++
+externally declared detail
+↓
+factory-attested RevisionDecision
+```
+
+P1.7 ne choisit pas la disposition à partir de `PASS / FAIL / BLOCKED`.
+
+## 81. Séparations sémantiques obligatoires
+
+P1.7 doit préserver simultanément :
+
+```text
+AUDIT ≠ REVISION
+AUDIT VERDICT ≠ REVISION DISPOSITION
+REVISION DECISION ≠ KNOWLEDGE
+REVISION DECISION ≠ EVIDENCE
+REQUEST_NEW_EVIDENCE ≠ EVIDENCE OBTAINED
+REQUEST_NEW_EXPERIMENT ≠ EXPERIMENT CREATED OR EXECUTED
+REFORMULATED QUESTION ≠ VALIDATED HYPOTHESIS
+KEEP_CURRENT_STATE ≠ VALIDATION OF CURRENT STATE
+REVISION ≠ AUTHORIZATION
+REVISION ≠ BEHAVIOR CHANGE
+```
+
+Et, de manière particulièrement stricte :
+
+```text
+SOURCE BLOCKED
+→ REVISION
+→ SOURCE BLOCKED REMAINS VISIBLE
+```
+
+Une révision ne « répare » jamais un `BLOCKED` amont.
+
+## 82. Entrée P1.7 — assessment exact
+
+L'entrée d'audit doit être l'objet complet :
+
+`MemoryCollectionAuditAssessment`
+
+produit et toujours reconnu par l'attestation locale P1.6.
+
+Ne constituent pas une preuve P1.7 :
+
+- `audit_id` seul ;
+- dictionnaire/JSON ;
+- dataclass reconstruite manuellement ;
+- copy/deepcopy/replace same-valued ;
+- assessment muté ;
+- assessment structurellement plausible mais non factory-attested.
+
+P1.7 consomme l'autorité P1.6 ; il ne peut ni créer, ni réparer, ni re-attester un audit amont.
+
+## 83. Entrée P1.7 — AuditScope correspondant
+
+Le `AuditScope` correspondant doit également être fourni.
+
+P1.7 doit vérifier au minimum :
+
+1. que le scope est structurellement valide selon le contrat P1.6 ;
+2. que son identité content-bound est recomputable ;
+3. que `scope.scope_id == assessment.scope_id`.
+
+Le `AuditScope` reste une **déclaration content-bound**, pas une autorité process-locale.
+
+Une reconstruction strictement same-valued est donc admissible si son identité recalculée correspond exactement.
+
+En revanche, doivent échouer :
+
+- question modifiée avec ancien `scope_id` ;
+- membership attendu modifié avec ancien `scope_id` ;
+- `context_fields` modifiés avec ancien `scope_id` ;
+- scope étranger ;
+- `scope_id` simplement copié d'un autre audit.
+
+L'assessment seul ne suffit pas à comprendre la question source, car P1.6 conserve `scope_id` mais pas nécessairement le texte complet de la question dans sa sortie.
+
+## 84. Dispositions P1.7 autorisées
+
+La V1 autorise exactement quatre dispositions :
+
+```text
+KEEP_CURRENT_STATE
+REQUEST_NEW_EVIDENCE
+REQUEST_NEW_EXPERIMENT
+REFORMULATE_QUESTION
+```
+
+Toute autre disposition doit échouer fermée.
+
+Sont notamment hors P1.7 V1 :
+
+- `CHANGE_RULE` ;
+- `UPDATE_KNOWLEDGE` ;
+- `SET_CONFIDENCE` ;
+- `AUTHORIZE_ACTION` ;
+- `CHANGE_POSITION_SIZE` ;
+- `RUN_BACKTEST` ;
+- `SEND_ORDER` ;
+- `ACTIVATE_LIVE`.
+
+## 85. Disposition externe, jamais dérivée automatiquement
+
+La disposition doit être explicitement fournie à P1.7.
+
+Le runtime futur ne doit contenir aucune table implicite du type :
+
+```text
+PASS    → KEEP_CURRENT_STATE
+FAIL    → REQUEST_NEW_EXPERIMENT
+BLOCKED → REQUEST_NEW_EVIDENCE
+```
+
+Ces correspondances sont interdites.
+
+Exemples :
+
+- un `FAIL` de membership peut appeler une meilleure collecte, pas nécessairement une expérience ;
+- un `BLOCKED` de complétude peut nécessiter davantage de preuves documentaires ;
+- un `PASS` de collection peut encore contenir des contradictions ou une indépendance `BLOCKED`.
+
+Ainsi :
+
+`AUDIT VERDICT ≠ REVISION DISPOSITION`.
+
+## 86. `detail` externe minimal
+
+Chaque disposition doit recevoir un `detail` non vide fourni extérieurement.
+
+Le `detail` documente ce qui est demandé ou la raison de l'orientation ; il ne devient pas une preuve.
+
+### 86.1 KEEP_CURRENT_STATE
+
+Le detail explique pourquoi aucune modification gouvernée n'est demandée à ce stade.
+
+Cette disposition signifie uniquement :
+
+> **conserver l'état existant pour l'instant.**
+
+Elle ne signifie jamais :
+
+- état valide ;
+- règle correcte ;
+- connaissance vraie ;
+- audit résolu ;
+- risque absent.
+
+### 86.2 REQUEST_NEW_EVIDENCE
+
+Le detail décrit la preuve supplémentaire demandée.
+
+Cette disposition ne crée pas cette preuve et ne permet pas de prétendre qu'elle existe.
+
+### 86.3 REQUEST_NEW_EXPERIMENT
+
+Le detail décrit l'expérience supplémentaire demandée à un niveau suffisant pour la distinguer d'une simple intention vide.
+
+P1.7 :
+
+- ne crée pas l'expérience ;
+- ne la lance pas ;
+- ne la qualifie pas ;
+- n'autorise aucune acquisition, backtest, broker ou live.
+
+### 86.4 REFORMULATE_QUESTION
+
+Pour cette disposition, le detail doit représenter une nouvelle formulation non vide de la question d'audit.
+
+Cette formulation doit différer de `scope.question`.
+
+Elle ne devient pas :
+
+- nouvelle hypothèse validée ;
+- nouveau `AuditScope` qualifié ;
+- nouvelle connaissance ;
+- nouvelle règle.
+
+Une future étape devra explicitement créer/qualifier le nouvel objet nécessaire.
+
+## 87. Compatibilité disposition ↔ verdict
+
+P1.7 V1 n'impose pas de matrice automatique disposition/verdict.
+
+Les quatre dispositions peuvent être proposées face à `PASS`, `FAIL` ou `BLOCKED`, sous réserve que :
+
+- le detail soit explicite ;
+- le verdict source reste conservé ;
+- aucune propriété `BLOCKED` ne soit promue ;
+- aucune disposition ne soit interprétée comme preuve de vérité ou permission.
+
+Cette absence de matrice est intentionnelle : la sémantique exacte de la réponse dépend de l'objet audité et de la justification, pas uniquement du mot `PASS/FAIL/BLOCKED`.
+
+## 88. Sortie minimale — `RevisionDecision`
+
+Le plus petit objet de sortie candidat est :
+
+```text
+RevisionDecision
+- revision_id
+- audit_id
+- scope_id
+- disposition
+- detail
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+### 88.1 `revision_id`
+
+`revision_id` doit être une identité content-bound dérivée au minimum de :
+
+- contract P1.7 ;
+- `audit_id` ;
+- `scope_id` ;
+- disposition ;
+- detail ;
+- snapshots des statuts source conservés.
+
+Une décision identique peut donc avoir la même identité de contenu.
+
+`revision_id` n'est pas une autorisation ni une identité d'expérience.
+
+### 88.2 Snapshot des statuts source
+
+La sortie doit conserver explicitement :
+
+- `source_verdict` ;
+- `source_completeness_status` ;
+- `source_independence_status`.
+
+Objectif :
+
+> empêcher une étape downstream de masquer qu'une orientation a été prise à partir d'un audit `FAIL`, `BLOCKED` ou avec indépendance `BLOCKED`.
+
+P1.7 ne transforme jamais ces snapshots en un nouveau verdict épistémique.
+
+## 89. Préservation obligatoire de BLOCKED
+
+Les statuts `BLOCKED` amont doivent rester littéralement visibles dans le `RevisionDecision`.
+
+Exemples obligatoires :
+
+```text
+assessment.verdict = BLOCKED
+→ RevisionDecision.source_verdict = BLOCKED
+```
+
+```text
+assessment.completeness_status = BLOCKED
+→ RevisionDecision.source_completeness_status = BLOCKED
+```
+
+```text
+assessment.independence_status = BLOCKED
+→ RevisionDecision.source_independence_status = BLOCKED
+```
+
+Aucune disposition ne peut produire :
+
+```text
+BLOCKED → PASS
+BLOCKED → RESOLVED
+BLOCKED → SUPPORTED
+BLOCKED → AUTHORIZED
+```
+
+Le futur runtime ne doit posséder aucun paramètre comme :
+
+- `assume_resolved=True` ;
+- `ignore_blocked=True` ;
+- `override_audit=True` ;
+- `force_revision=True`.
+
+## 90. Attestation locale de RevisionDecision
+
+Le futur `RevisionDecision` doit être factory-attested exact-object.
+
+Seul l'objet produit par la future fonction P1.7 qualifiée pourra être considéré comme décision de révision admissible.
+
+Ne récupèrent pas cette attestation :
+
+- objet manuel same-valued ;
+- copy ;
+- deepcopy ;
+- replace ;
+- reconstruction JSON/dict ;
+- mutation post-production.
+
+Cette attestation sert uniquement à la future chaîne downstream.
+
+Elle ne donne aucune autorité rétroactive sur AUDIT, MEMORY ou les objets plus amont.
+
+## 91. Direction de l'autorité
+
+Direction autorisée :
+
+```text
+matching AuditScope
++
+exact P1.6 MemoryCollectionAuditAssessment
++
+external disposition/detail
+↓
+P1.7 RevisionDecision
+```
+
+Directions interdites :
+
+```text
+REVISION → réparer AUDIT
+REVISION → modifier MEMORY
+REVISION → créer ResearchFindings
+REVISION → créer connaissance validée
+REVISION → changer une règle
+REVISION → créer/exécuter une expérience
+REVISION → autoriser une Action
+REVISION → acquisition/backtest/broker/live
+```
+
+P1.7 est une décision gouvernée sur **ce qu'il faut examiner/conserver/demander ensuite**, pas une exécution de ce changement.
+
+## 92. Relation avec nouvelle preuve / expérience
+
+Le chemin reste :
+
+```text
+P1.6 AUDIT
+↓
+P1.7 REVISION
+↓
+future NEW EVIDENCE / EXPERIENCE
+↓
+future qualification
+↓
+CONTROLLED AUTHORIZATION when applicable
+↓
+future behavior change
+```
+
+Donc :
+
+```text
+REQUEST_NEW_EVIDENCE ≠ NEW EVIDENCE
+REQUEST_NEW_EXPERIMENT ≠ NEW EXPERIMENT
+```
+
+La frontière exacte P1.7 → nouvelle preuve/expérience reste **BLOCKED / non formalisée comme frontière exécutable**.
+
+## 93. Pas de temporalité inventée
+
+P1.7 V1 n'ajoute aucun :
+
+- `known_from` ;
+- `valid_from` ;
+- `revision_at` ;
+- `registered_at` ;
+- horodatage local faisant autorité.
+
+Une décision de révision produite aujourd'hui ne réécrit pas la connaissance disponible au moment d'une Decision historique.
+
+Si une future révision exige une temporalité normative, celle-ci devra être qualifiée séparément.
+
+## 94. Catalogue adversarial minimal P1.7
+
+La future qualification devra au minimum casser les familles suivantes.
+
+### A — Assessment source
+- exact P1.6 assessment positif ;
+- `audit_id` seul ;
+- manuel same-valued ;
+- copy/deepcopy/replace ;
+- dict/JSON ;
+- assessment muté/inattesté ;
+- assessment étranger présenté sous un `audit_id` attendu.
+
+### B — Scope matching
+- exact/value-equivalent content-bound scope positif ;
+- scope absent ;
+- scope étranger ;
+- question modifiée + stale `scope_id` ;
+- membership attendu modifié + stale `scope_id` ;
+- context fields modifiés + stale `scope_id` ;
+- `scope_id` seul utilisé à la place du scope.
+
+### C — Disposition
+- chacune des quatre dispositions positives ;
+- disposition absente/vide ;
+- disposition inconnue ;
+- casse/alias permissif non prévu ;
+- `CHANGE_RULE`, `AUTHORIZED`, `RUN_BACKTEST`, etc. rejetés ;
+- verdict source utilisé pour sélectionner silencieusement la disposition.
+
+### D — Detail
+- detail non vide positif ;
+- detail absent/vide/whitespace ;
+- `REFORMULATE_QUESTION` avec question identique ;
+- reformulation vide ;
+- detail traité comme preuve obtenue ;
+- detail traité comme expérience exécutée.
+
+### E — Préservation des statuts source
+- source `PASS` conservé ;
+- source `FAIL` conservé ;
+- source `BLOCKED` conservé ;
+- completeness `BLOCKED` conservé ;
+- independence `BLOCKED` conservé ;
+- tentative de mutation/promotion des snapshots rejetée.
+
+### F — Sémantique des dispositions
+- KEEP ≠ validation ;
+- REQUEST_NEW_EVIDENCE ≠ evidence ;
+- REQUEST_NEW_EXPERIMENT ≠ experiment ;
+- REFORMULATE ≠ hypothesis ;
+- aucune disposition ne crée knowledge/confidence/causality.
+
+### G — RevisionDecision identity
+- production positive factory-attested ;
+- manual same-valued non attesté ;
+- copy/deepcopy/replace non attesté ;
+- mutation invalide l'attestation ;
+- identité content-bound ;
+- changement de disposition/detail change `revision_id`.
+
+### H — Reverse authority / bypass
+- REVISION ne répare pas assessment ;
+- REVISION ne répare pas scope ;
+- REVISION ne mint pas MEMORY/AUDIT/ResearchFindings ;
+- aucune règle comportementale ;
+- aucune autorisation ;
+- aucune acquisition/backtest/order/live ;
+- aucune horloge locale donnant une autorité temporelle.
+
+## 95. Qualification positive autorisée à P1.7
+
+Un futur PASS P1.7 pourra signifier uniquement :
+
+- un assessment P1.6 exact et attesté a été reçu ;
+- son `AuditScope` correspondant a été vérifié par identité content-bound ;
+- une disposition explicitement externe parmi les quatre autorisées a été reçue ;
+- un detail non vide et cohérent avec cette disposition a été reçu ;
+- la décision de révision conserve exactement les statuts source ;
+- les `BLOCKED` restent visibles ;
+- la sortie est une `RevisionDecision` factory-attested et content-bound ;
+- aucune mutation de connaissance, règle, expérience ou comportement n'a été effectuée.
+
+Un PASS P1.7 ne signifiera pas :
+
+- connaissance validée ;
+- hypothèse soutenue/refutée ;
+- nouvelle preuve acquise ;
+- nouvelle expérience exécutée ;
+- règle corrigée ;
+- changement de comportement approuvé ;
+- autorisation opérationnelle.
+
+## 96. État après formalisation P1.7
+
+**FORMALISATION P1.7 : PASS.**
+
+La frontière exécutable reste :
+
+**P1.6 AUDIT → P1.7 REVISION : BLOCKED / NOT IMPLEMENTED.**
+
+La frontière suivante reste :
+
+**P1.7 REVISION → NEW EVIDENCE / EXPERIENCE : BLOCKED / NOT FORMALIZED AS EXECUTABLE BOUNDARY.**
+
+La cartographie historique R9 plus haut dans ce document reste conservée comme preuve de l'état observé au moment de sa rédaction ; le présent addendum formalise désormais R9 sans prétendre qu'il est exécutable.
+
+## 97. Prochaine action gouvernée unique
+
+**Déterminer, à partir des APIs P1.6 réelles et sans implémenter encore REVISION, le plus petit `RevisionDecision` exécutable et la plus petite fonction de production capables de lier exact assessment + matching scope + external disposition/detail, puis construire le breaker A0–H P1.7 avant toute implémentation.**
