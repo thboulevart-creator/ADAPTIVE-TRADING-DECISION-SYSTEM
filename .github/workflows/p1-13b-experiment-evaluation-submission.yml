@@ -1,0 +1,150 @@
+name: P1.13B Experiment Evaluation Submission Tier-A
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p1-13b-experiment-evaluation-submission.yml'
+      - 'GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md'
+      - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - 'requirements/qualification.lock.txt'
+      - 'tools/qualification_environment.py'
+      - 'src/evidence_semantic_completeness_review.py'
+      - 'src/experiment_evaluation_submission.py'
+      - 'src/declared_evidence_criteria_assessment.py'
+      - 'src/linked_experiment_execution.py'
+      - 'src/evidence_assessment_criteria.py'
+      - 'src/qualified_experiment_execution_input.py'
+      - 'src/evidence_material_binding.py'
+      - 'src/experiment_execution_binding.py'
+      - 'src/evidence_submission.py'
+      - 'src/experiment_specification.py'
+      - 'src/follow_up_request.py'
+      - 'src/revision.py'
+      - 'src/memory_audit.py'
+      - 'src/memory_interprocess.py'
+      - 'src/memory_episode.py'
+      - 'src/decision_trace.py'
+      - 'src/action_result_evidence.py'
+      - 'src/decision.py'
+      - 'src/research_run_evidence.py'
+      - 'src/research_findings.py'
+      - 'src/research/execution.py'
+      - 'src/research/input_binding.py'
+      - 'tests/research_runtime_fixture.py'
+      - 'tests/test_research_to_decision_boundary.py'
+      - 'tests/test_action_result_evidence_tier_a.py'
+      - 'tests/test_action_result_evidence_exact_provenance.py'
+      - 'tests/test_result_trace_evidence_tier_a.py'
+      - 'tests/test_result_trace_evidence_exact_provenance.py'
+      - 'tests/test_memory_episode_tier_a.py'
+      - 'tests/test_memory_episode_exact_provenance.py'
+      - 'breakers/p1_5_external_receipt_pin_breaker.py'
+      - 'breakers/p1_5_external_receipt_pin_second_breaker.py'
+      - 'breakers/p1_6_memory_collection_audit_breaker.py'
+      - 'breakers/p1_6_memory_collection_audit_second_breaker.py'
+      - 'breakers/p1_7_audit_revision_breaker.py'
+      - 'breakers/p1_7_audit_revision_second_breaker.py'
+      - 'breakers/p1_8_revision_followup_request_breaker.py'
+      - 'breakers/p1_8_revision_followup_request_second_breaker.py'
+      - 'breakers/p1_9a_evidence_submission_breaker.py'
+      - 'breakers/p1_9b_experiment_specification_breaker.py'
+      - 'breakers/p1_10a_evidence_material_binding_breaker.py'
+      - 'breakers/p1_10b_experiment_execution_binding_breaker.py'
+      - 'breakers/p1_11a_evidence_assessment_criteria_breaker.py'
+      - 'breakers/p1_11b_qualified_experiment_execution_input_breaker.py'
+      - 'breakers/p1_12a_declared_evidence_criteria_assessment_breaker.py'
+      - 'breakers/p1_12b_linked_experiment_execution_breaker.py'
+      - 'breakers/p1_13b_experiment_evaluation_submission_breaker.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: 0
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  P0_6_BASE: '8061127c148f06454dac6e7977a8d0cb921276f8'
+
+jobs:
+  tier-a-break:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and closed P0.6 ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P0_6_BASE}" HEAD
+
+      - name: Prove P1.13B is test-first with no runtime candidate
+        run: |
+          test -f breakers/p1_13b_experiment_evaluation_submission_breaker.py
+          test ! -e src/experiment_evaluation_submission.py
+          grep -Fq 'P1_13B_EXPERIMENT_EVALUATION_SUBMISSION_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
+          grep -Fq 'P1_13B_MINIMAL_EXPERIMENT_EVALUATION_SUBMISSION_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
+          test "$(git hash-object breakers/p1_13b_experiment_evaluation_submission_breaker.py)" = "9516319830a7bd5a88368b898cd4247490a0ee99"
+          echo 'PASS: P1.13B model and immutable breaker exist before runtime implementation'
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact P0.6 qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Re-break protected RESEARCH to DECISION boundary
+        run: python -m pytest -q tests/test_research_to_decision_boundary.py
+
+      - name: Re-break protected P1.2 ACTION to RESULT boundary
+        run: python -m pytest -q tests/test_action_result_evidence_tier_a.py tests/test_action_result_evidence_exact_provenance.py
+
+      - name: Re-break protected P1.3 RESULT to TRACE boundary
+        run: python -m pytest -q tests/test_result_trace_evidence_tier_a.py tests/test_result_trace_evidence_exact_provenance.py
+
+      - name: Re-break protected P1.4 TRACE to MEMORY episode boundary
+        run: python -m pytest -q tests/test_memory_episode_tier_a.py tests/test_memory_episode_exact_provenance.py
+
+      - name: Re-break protected P1.5 durable MEMORY boundary
+        run: python -m pytest -q breakers/p1_5_external_receipt_pin_breaker.py breakers/p1_5_external_receipt_pin_second_breaker.py
+
+      - name: Re-break protected P1.6 MEMORY to AUDIT boundary
+        run: python -m pytest -q breakers/p1_6_memory_collection_audit_breaker.py breakers/p1_6_memory_collection_audit_second_breaker.py
+
+      - name: Re-break protected P1.7 AUDIT to REVISION boundary
+        run: python -m pytest -q breakers/p1_7_audit_revision_breaker.py breakers/p1_7_audit_revision_second_breaker.py
+
+      - name: Re-break protected P1.8 REVISION to FOLLOW-UP REQUEST boundary
+        run: python -m pytest -q breakers/p1_8_revision_followup_request_breaker.py breakers/p1_8_revision_followup_request_second_breaker.py
+
+      - name: Re-break protected P1.9A and P1.9B boundaries
+        run: python -m pytest -q breakers/p1_9a_evidence_submission_breaker.py breakers/p1_9b_experiment_specification_breaker.py
+
+      - name: Re-break protected P1.10A and P1.10B boundaries
+        run: python -m pytest -q breakers/p1_10a_evidence_material_binding_breaker.py breakers/p1_10b_experiment_execution_binding_breaker.py
+
+      - name: Re-break protected P1.11A and P1.11B boundaries
+        run: python -m pytest -q breakers/p1_11a_evidence_assessment_criteria_breaker.py breakers/p1_11b_qualified_experiment_execution_input_breaker.py
+
+      - name: Re-break protected P1.12A and P1.12B boundaries
+        run: python -m pytest -q breakers/p1_12a_declared_evidence_criteria_assessment_breaker.py breakers/p1_12b_linked_experiment_execution_breaker.py
+
+      - name: Break P1.13B before implementation
+        run: python -m pytest -q breakers/p1_13b_experiment_evaluation_submission_breaker.py
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
