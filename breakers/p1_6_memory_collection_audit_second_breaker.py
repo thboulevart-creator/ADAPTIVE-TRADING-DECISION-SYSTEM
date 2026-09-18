@@ -278,14 +278,16 @@ def test_k2_same_content_multiple_registrations_plus_duplicate_tracks_both_dimen
 
 
 def test_l0_code_version_dimension_separates_otherwise_similar_memories(tmp_path: Path) -> None:
-    first = _historical(tmp_path / "first", code_version="CODE-A")
-    second = _historical(tmp_path / "second", code_version="CODE-B")
+    code_a = "a" * 40
+    code_b = "b" * 40
+    first = _historical(tmp_path / "first", code_version=code_a)
+    second = _historical(tmp_path / "second", code_version=code_b)
     scope = _scope((first, second), context_fields=("code_version",))
     assessment = audit_memory_collection(scope, (first, second))
     keys = {key for key, _ in assessment.context_groups}
     assert keys == {
-        (("code_version", "CODE-A"),),
-        (("code_version", "CODE-B"),),
+        (("code_version", code_a),),
+        (("code_version", code_b),),
     }
 
 
