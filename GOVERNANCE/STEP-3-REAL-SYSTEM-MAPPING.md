@@ -6182,3 +6182,237 @@ ExperimentExecutionBinding
 ≠ ResearchRunEvidence
 ≠ authorization
 ```
+
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.11 POST-P1.10 PREREQUISITES
+
+**Contracts candidats :**
+- `P1_11A_EVIDENCE_ASSESSMENT_CRITERIA_BOUNDARY_V1`
+- `P1_11B_QUALIFIED_EXPERIMENT_EXECUTION_INPUT_BOUNDARY_V1`
+
+**Base qualifiée reconnue :** `dbe090e038843c3ace7d6d0f3147a1803865b4b8`  
+**Statut :** `FORMALIZED — DIRECT DOWNSTREAM CANDIDATES BROKEN — NO RUNTIME`.
+
+## 232. État amont reconnu
+
+Au HEAD qualifié `dbe090e038843c3ace7d6d0f3147a1803865b4b8` :
+
+- P1.10A `BoundEvidenceMaterial` prouve seulement que des octets exacts correspondent à une `EvidenceSubmission` P1.9A exacte;
+- P1.10B `ExperimentExecutionBinding` lie une `ExperimentSpecification` P1.9B exacte à une identité de corpus/contrat P0.4 revalidée;
+- aucune de ces frontières ne produit admissibilité, fulfillment, `QualifiedResearchInput`, exécution, résultat, `ResearchRunEvidence` ou autorisation.
+
+P1.11 ne modifie aucune frontière P1.9/P1.10.
+
+## 233. P1.11A — raccord direct cassé
+
+Le raccord naïf suivant est rejeté :
+
+```text
+BoundEvidenceMaterial(s)
+→ admissible / fulfilled
+```
+
+**Verdict conceptuel : FAIL.**
+
+Raison : les matériaux liés exposent des faits observables — provenance de soumission, source_ref déclaré, media_type déclaré, hash, taille et octets — mais aucune règle qualifiée ne dit encore :
+
+- combien de matériaux sont requis;
+- si le contenu vide est acceptable pour cette demande;
+- quels media types sont acceptables;
+- quelles sources déclarées sont acceptables;
+- quelles propriétés sémantiques doivent être démontrées;
+- quelles conditions rendent la collection complète;
+- quelles conditions rendent une source authentique, pertinente ou indépendante.
+
+`FollowUpRequest.specification` reste du texte libre. Le runtime ne peut donc pas l'inventer en règles machine-checkables.
+
+Ainsi :
+
+```text
+EXACT BYTES ≠ ADMISSIBILITY
+EXACT BYTES ≠ SUFFICIENCY
+EXACT BYTES ≠ REQUEST FULFILLMENT
+```
+
+La frontière minimale nécessaire avant tout assessment est une **déclaration de critères explicite**.
+
+## 234. P1.11A — question minimale
+
+P1.11A répond uniquement à :
+
+> Peut-on enregistrer un ensemble explicite de critères d'évaluation pour un `FollowUpRequest(EVIDENCE)` exact, sans les dériver du matériau observé et sans prétendre que ces critères sont eux-mêmes complets, vrais ou déjà satisfaits ?
+
+Direction autorisée :
+
+```text
+exact factory-attested FollowUpRequest(EVIDENCE)
++
+external criteria declaration
+↓
+EvidenceAssessmentCriteria
+```
+
+P1.11A ne consomme encore aucun `BoundEvidenceMaterial`.
+
+Cette séparation empêche un assessment d'inventer silencieusement ses propres critères à partir des éléments qu'il est censé juger.
+
+## 235. P1.11A — portée des critères
+
+La V1 distingue :
+
+### Critères structurels machine-checkables
+- nombre minimal de matériaux distincts;
+- exigence ou non de contenu non vide;
+- liste optionnelle de `media_type` déclarés autorisés;
+- liste optionnelle de `source_ref` déclarés autorisés.
+
+### Exigences sémantiques non évaluées
+Une liste de textes externes peut enregistrer des exigences telles que :
+
+- authenticité;
+- pertinence;
+- indépendance;
+- période couverte;
+- qualité documentaire;
+- corroboration.
+
+P1.11A **enregistre** ces exigences mais ne les évalue pas.
+
+Leur présence doit rester visible downstream.
+
+## 236. P1.11A — limite de complétude
+
+P1.11A ne possède aucune preuve que la déclaration de critères capture exhaustivement toute la sémantique de `request.specification`.
+
+Donc la sortie doit conserver explicitement :
+
+```text
+criteria_completeness_status = BLOCKED
+```
+
+en V1.
+
+Aucun paramètre caller-side ne peut transformer ce statut en PASS.
+
+Ainsi, même une future collection satisfaisant tous les critères structurels déclarés ne pourra pas être appelée « fulfillment complet du request » tant qu'une frontière distincte n'aura pas qualifié la complétude des critères ou fourni une autorité équivalente.
+
+## 237. P1.11B — raccord direct cassé
+
+Le raccord naïf suivant est rejeté :
+
+```text
+ExperimentExecutionBinding
+→ existing QualifiedResearchInput
+→ existing ResearchExecutionResult
+→ existing ResearchRunEvidence
+```
+
+**Verdict conceptuel : FAIL.**
+
+Les trois types existants `QualifiedResearchInput`, `ResearchExecutionResult` et `ResearchRunEvidence` ne transportent ni :
+
+- `execution_binding_id`;
+- `experiment_spec_id`.
+
+Une simple projection vers `QualifiedResearchInput` ferait donc disparaître l'identité expérimentale avant l'exécution.
+
+Ainsi :
+
+```text
+valid existing execution result
+≠ result proven to belong to this ExperimentSpecification
+```
+
+## 238. P1.11B — question minimale
+
+P1.11B répond uniquement à :
+
+> Peut-on produire un input d'exécution expérimental exact qui conserve la provenance complète P1.9B/P1.10B et revalide les ressources, sans exécuter encore l'expérience ?
+
+Direction autorisée :
+
+```text
+exact factory-attested ExperimentExecutionBinding
++
+source identity revalidation
+↓
+QualifiedExperimentExecutionInput
+```
+
+Ce nouvel objet devient la seule entrée admissible d'une future fonction d'exécution expérimentale liée.
+
+## 239. P1.11B — séparation d'avec l'exécution
+
+`QualifiedExperimentExecutionInput` n'est pas l'actuel `QualifiedResearchInput`.
+
+Il contient suffisamment d'information pour qu'une future frontière puisse :
+
+1. reconstruire/projeter l'entrée technique existante;
+2. appeler l'exécution existante;
+3. envelopper le résultat avec `execution_binding_id` et `experiment_spec_id`;
+4. propager ensuite cette provenance jusqu'à une future evidence de run expérimental.
+
+Mais P1.11B V1 ne fait aucune de ces quatre opérations d'exécution.
+
+Donc :
+
+```text
+QUALIFIED EXPERIMENT EXECUTION INPUT
+≠ EXECUTION
+≠ RESULT
+≠ ResearchRunEvidence
+≠ AUTHORIZATION
+```
+
+## 240. Revalidation des ressources P1.11B
+
+P1.10B est un snapshot. Entre sa création et P1.11B, les ressources peuvent changer.
+
+P1.11B doit donc revalider l'identité courante des ressources en réutilisant la capacité P0.4 existante sur :
+
+- `corpus_root`;
+- `contract_path`;
+- `expected_corpus_hash`;
+- `expected_contract_hash`.
+
+Une source supprimée ou modifiée doit échouer fermée.
+
+Cette revalidation est une vérification d'identité, pas une exécution de recherche.
+
+## 241. Direction d'autorité commune
+
+Directions interdites :
+
+```text
+P1.11A criteria → admissible evidence
+P1.11A criteria → fulfillment PASS
+P1.11A criteria → knowledge
+
+P1.11B input → execution result
+P1.11B input → ResearchRunEvidence
+P1.11B input → authorization
+P1.11B input → broker/backtest/live
+```
+
+## 242. État après formalisation
+
+**FORMALISATION P1.11A : PASS.**
+
+**FORMALISATION P1.11B : PASS.**
+
+Les raccords directs :
+
+```text
+BoundEvidenceMaterial(s) → admissibility / fulfillment
+ExperimentExecutionBinding → existing QualifiedResearchInput → execution
+```
+
+sont rejetés.
+
+Les frontières exécutables P1.11A/P1.11B restent :
+
+**BLOCKED / NOT IMPLEMENTED.**
+
+La prochaine action gouvernée est de sélectionner les deux modèles exécutables minimaux et leurs breakers test-first avant tout runtime.
