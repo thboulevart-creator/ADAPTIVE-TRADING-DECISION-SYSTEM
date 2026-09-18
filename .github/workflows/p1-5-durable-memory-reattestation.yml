@@ -98,8 +98,11 @@ jobs:
             tests/test_memory_episode_tier_a.py \
             tests/test_memory_episode_exact_provenance.py
 
-      - name: Break P1.5 A0-G4 before implementation
+      - name: Re-break P1.5 A0-G4
         run: python -m pytest -q breakers/p1_5_external_receipt_pin_breaker.py
+
+      - name: Break P1.5 second-order H0-M4
+        run: python -m pytest -q breakers/p1_5_external_receipt_pin_second_breaker.py
 
       - name: Prove clean worktree
         if: always()
