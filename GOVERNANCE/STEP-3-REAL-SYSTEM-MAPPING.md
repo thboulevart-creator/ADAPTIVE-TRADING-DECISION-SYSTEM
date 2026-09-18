@@ -8301,3 +8301,361 @@ Les promotions directes vers fulfillment/finding sont cassées.
 Les runtimes P1.14A/P1.14B restent :
 
 **BLOCKED / NOT IMPLEMENTED.**
+
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.14 MINIMAL EXTERNAL-WITNESS MODELS
+
+**Selection IDs :**
+- `P1_14A_MINIMAL_REVIEWER_METHOD_AUTHORITY_REATTESTATION_MODEL_V1`
+- `P1_14B_MINIMAL_WITNESSED_MEASUREMENT_PROVENANCE_MODEL_V1`
+
+**Base observée avant sélection :** `e47406e58ab96353266e1c012123e8de3af448a3`  
+**Statut :** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`.
+
+## 314. P1.14A — surface minimale
+
+Module candidat futur :
+
+`src/reviewer_method_authority.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_14A_REVIEWER_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1"
+RECORD_SCHEMA = "P1_14A_REVIEWER_METHOD_AUTHORITY_RECORD_V1"
+RECEIPT_SCHEMA = "P1_14A_REVIEWER_METHOD_AUTHORITY_RECEIPT_V1"
+
+ReviewerMethodAuthorityQualification
+
+reattest_reviewer_method_authority(
+    review,
+    record_path,
+    receipt_path,
+    *,
+    expected_authority_id,
+    expected_receipt_sha256,
+)
+
+is_factory_attested_reviewer_method_authority_qualification(value)
+```
+
+Aucun producteur d'autorité externe n'appartient à cette frontière.
+
+## 315. P1.14A — authority record canonique
+
+Record exact :
+
+```text
+schema
+contract_id
+review_contract_id
+review_id
+assessment_id
+criteria_id
+request_id
+revision_id
+audit_id
+scope_id
+reviewer_id
+method_ref
+```
+
+Il doit correspondre exactement au snapshot P1.13A.
+
+## 316. P1.14A — receipt canonique
+
+Receipt exact :
+
+```text
+schema
+contract_id
+authority_id
+qualification_nonce
+review_id
+reviewer_id
+method_ref
+record_sha256
+qualification_id
+```
+
+Règles :
+
+- JSON canonique strict UTF-8;
+- aucun duplicate key;
+- `record_sha256` / external pin exact lowercase SHA-256;
+- `qualification_nonce` hex nonempty >= 32 caractères;
+- `authority_id` exact nonempty str;
+- receipt hash exact `expected_receipt_sha256`;
+- receipt/record/review doivent correspondre exactement;
+- `qualification_id` content-bound au contract, authority, nonce, review_id, reviewer_id, method_ref et record hash.
+
+## 317. P1.14A — modèle exact
+
+```text
+ReviewerMethodAuthorityQualification
+- qualification_id
+- review_id
+- assessment_id
+- criteria_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- reviewer_id
+- method_ref
+- authority_id
+- record_sha256
+- receipt_sha256
+- review_verdict
+- review_authority_status
+- request_fulfillment_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Toujours :
+
+```text
+review_authority_status = PASS
+request_fulfillment_status = BLOCKED
+```
+
+## 318. P1.14A — attestation / interdictions
+
+Préfixe `RMAQ-`.
+
+Exact-object process-local attestation + sticky invalidation.
+
+Snapshot indépendant après collecte du P1.13A amont.
+
+Interdictions :
+
+- aucune création de receipt/record d'autorité;
+- aucun réseau/subprocess/LLM;
+- aucun parsing de bytes evidence;
+- aucun fulfillment PASS;
+- aucune knowledge promotion;
+- aucune autorisation opérationnelle.
+
+## 319. P1.14B — surface minimale
+
+Module candidat futur :
+
+`src/experiment_measurement_provenance.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_14B_WITNESSED_MEASUREMENT_PROVENANCE_REATTESTATION_BOUNDARY_V1"
+RECORD_SCHEMA = "P1_14B_MEASUREMENT_DERIVATION_RECORD_V1"
+RECEIPT_SCHEMA = "P1_14B_MEASUREMENT_DERIVATION_RECEIPT_V1"
+
+WitnessedMeasurementDerivation
+WitnessedMeasurementProvenance
+
+reattest_measurement_provenance(
+    execution_result,
+    evaluation_submission,
+    record_path,
+    receipt_path,
+    *,
+    expected_authority_id,
+    expected_receipt_sha256,
+)
+
+is_factory_attested_witnessed_measurement_provenance(value)
+```
+
+Aucun producteur de witness externe n'appartient à cette frontière.
+
+## 320. P1.14B — derivation record canonique
+
+Record exact :
+
+```text
+schema
+contract_id
+evaluation_submission_id
+experiment_execution_result_id
+experiment_spec_id
+stream_sha256
+method_ref
+derivations
+```
+
+Chaque `derivations[i]` contient exactement :
+
+```text
+measurement_id
+metric
+observed_value
+unit
+sample_size
+scope
+rationale
+procedure_ref
+procedure_sha256
+input_stream_sha256
+```
+
+Les sept premiers champs doivent correspondre exactement à `evaluation_submission.measurements[i]`.
+
+Règles supplémentaires :
+
+- ordre identique aux claims P1.13B;
+- aucun claim manquant/extra/dupliqué;
+- `procedure_ref` exact nonempty str;
+- `procedure_sha256` exact lowercase SHA-256;
+- `input_stream_sha256 == execution_result.stream_sha256` pour chaque dérivation;
+- `method_ref == evaluation_submission.method_ref`;
+- exact P1.12B/P1.13B provenance coherence.
+
+## 321. P1.14B — receipt canonique
+
+Receipt exact :
+
+```text
+schema
+contract_id
+authority_id
+derivation_nonce
+evaluation_submission_id
+experiment_execution_result_id
+stream_sha256
+record_sha256
+provenance_qualification_id
+```
+
+Même politique que P1.14A :
+
+- JSON canonique strict;
+- external receipt pin exact;
+- authority exacte;
+- nonce hex >= 32;
+- record hash exact;
+- IDs content-bound.
+
+## 322. P1.14B — modèles exacts
+
+```text
+WitnessedMeasurementDerivation
+- measurement_id
+- metric
+- observed_value
+- unit
+- sample_size
+- scope
+- rationale
+- procedure_ref
+- procedure_sha256
+- input_stream_sha256
+```
+
+```text
+WitnessedMeasurementProvenance
+- provenance_qualification_id
+- evaluation_submission_id
+- experiment_execution_result_id
+- experiment_execution_input_id
+- execution_binding_id
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- stream_sha256
+- method_ref
+- derivations
+- authority_id
+- record_sha256
+- receipt_sha256
+- measurement_provenance_status
+- evaluation_authority_status
+- finding_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Toujours :
+
+```text
+measurement_provenance_status = PASS
+evaluation_authority_status = BLOCKED
+finding_status = BLOCKED
+```
+
+## 323. P1.14B — sémantique du PASS
+
+Le PASS signifie seulement :
+
+- exact claims P1.13B;
+- exact stream P1.12B;
+- exact procedure refs/hashes;
+- witness externe immuable;
+- receipt externe épinglé.
+
+Il ne signifie pas que la procédure est correcte ni que la métrique est scientifiquement valide.
+
+## 324. P1.14B — attestation / interdictions
+
+Préfixe `WMP-`.
+
+Exact-object process-local attestation + sticky invalidation.
+
+Snapshot indépendant après collecte P1.12B/P1.13B.
+
+Interdictions :
+
+- aucune exécution de procedure;
+- aucun recalcul de métrique;
+- aucun ResearchFinding / ResearchFindings;
+- aucun ResearchRunEvidence;
+- aucun backtest/broker/live;
+- aucune autorisation.
+
+## 325. Breakers test-first attendus
+
+P1.14A :
+
+A. exact P1.13A authority;
+B. exact signature;
+C. canonical strict record/receipt;
+D. external pin/authority enforcement;
+E. exact reviewer+method+review binding;
+F. tamper/hash/nonce/id rejection;
+G. PASS authority but fulfillment BLOCKED;
+H. identity/attestation/lifetime/no producer.
+
+P1.14B :
+
+A. exact P1.12B + P1.13B authorities;
+B. exact signature;
+C. canonical strict derivation record/receipt;
+D. exact ordered claim matching;
+E. stream/method/procedure hash binding;
+F. external pin/authority/tamper rejection;
+G. provenance PASS but evaluator/finding BLOCKED;
+H. identity/attestation/lifetime/no execution/promotion.
+
+## 326. État après sélection
+
+**P1.14A MINIMAL MODEL : SELECTED.**
+
+**P1.14B MINIMAL MODEL : SELECTED.**
+
+**RUNTIME P1.14A : BLOCKED / NOT IMPLEMENTED.**
+
+**RUNTIME P1.14B : BLOCKED / NOT IMPLEMENTED.**
+
+Prochaine mutation autorisée uniquement :
+
+- `breakers/p1_14a_reviewer_method_authority_breaker.py`;
+- `.github/workflows/p1-14a-reviewer-method-authority.yml`;
+- `breakers/p1_14b_measurement_provenance_breaker.py`;
+- `.github/workflows/p1-14b-measurement-provenance.yml`.
+
+Aucun runtime P1.14 ne doit exister avant observation des FAIL pré-implémentation.
