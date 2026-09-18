@@ -6764,3 +6764,45 @@ The original P1.11A/P1.11B breakers remain unchanged.
 Qualification is **PENDING persisted-HEAD re-break**.
 
 This checkpoint grants no evidence admissibility, no request fulfillment, no execution result, no ResearchRunEvidence, no knowledge promotion, and no operational authorization.
+
+
+---
+
+# P1.11 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Candidate qualification base:** `7defbaee44001c514ef5fadf4d16907703ca0cf2`
+
+Observed post-implementation runs:
+
+- P1.11A run `35378985128`, job `105710379147`: protected upstream chain PASS; P1.9A+B combined `127 passed`; P1.10A+B combined `56 passed`; P1.11A `68 passed`; clean worktree PASS.
+- P1.11B run `35378985349`, job `105710379392`: protected upstream chain PASS; P1.9A+B combined `127 passed`; P1.10A+B combined `56 passed`; P1.11B `21 passed`; clean worktree PASS.
+
+Candidate verdicts:
+
+```text
+P1.11A_EVIDENCE_ASSESSMENT_CRITERIA_BOUNDARY_V1
+→ PASS CANDIDATE
+
+P1.11B_QUALIFIED_EXPERIMENT_EXECUTION_INPUT_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+These are not final until both P1.11 workflows re-break this persisted qualification state itself.
+
+The qualification remains strictly limited:
+
+```text
+EvidenceAssessmentCriteria
+≠ evidence assessment
+≠ admissibility
+≠ sufficiency
+≠ request fulfillment
+≠ knowledge
+
+QualifiedExperimentExecutionInput
+≠ existing QualifiedResearchInput
+≠ execution
+≠ result
+≠ ResearchRunEvidence
+≠ authorization
+```
