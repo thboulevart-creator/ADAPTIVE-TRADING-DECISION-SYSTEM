@@ -39,6 +39,7 @@ on:
       - 'breakers/p1_7_audit_revision_breaker.py'
       - 'breakers/p1_7_audit_revision_second_breaker.py'
       - 'breakers/p1_8_revision_followup_request_breaker.py'
+      - 'breakers/p1_8_revision_followup_request_second_breaker.py'
   workflow_dispatch:
 
 permissions:
@@ -126,8 +127,11 @@ jobs:
             breakers/p1_7_audit_revision_breaker.py \
             breakers/p1_7_audit_revision_second_breaker.py
 
-      - name: Break P1.8 A0-H candidate
+      - name: Re-break P1.8 A0-H
         run: python -m pytest -q breakers/p1_8_revision_followup_request_breaker.py
+
+      - name: Break P1.8 second-order I0-P3
+        run: python -m pytest -q breakers/p1_8_revision_followup_request_second_breaker.py
 
       - name: Prove clean worktree
         if: always()
