@@ -1762,3 +1762,392 @@ La cartographie historique R7/R8/R9 plus haut dans ce document est conservée co
 ## 70. Prochaine action gouvernée unique
 
 **Déterminer, à partir des APIs P1.5 réelles et sans implémenter encore AUDIT, le plus petit `AuditScope` et le plus petit `MemoryCollectionAuditAssessment` exécutables capables de représenter exactement scope externe, membership, déduplication, content-groups, context-groups, contradictions, complétude `PASS/FAIL/BLOCKED` et indépendance `BLOCKED`, puis construire le breaker A0–H avant toute implémentation.**
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.6 MINIMAL EXECUTABLE AUDIT MODEL
+
+**Selection ID:** `P1_6_MINIMAL_COLLECTION_AUDIT_MODEL_V1`  
+**Base observée avant sélection:** `a03204624be47136736d82531a7449226d4388f6`  
+**Statut:** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`  
+**Portée:** définition du plus petit modèle exécutable P1.6 ; aucun runtime AUDIT ne doit exister avant le breaker initial.
+
+## 71. Surface exécutable minimale retenue
+
+Le futur module candidat est borné à une surface équivalente à :
+
+```text
+CONTRACT = "P1_6_MEMORY_COLLECTION_AUDIT_BOUNDARY_V1"
+
+AuditScope
+MemoryCollectionAuditAssessment
+
+create_audit_scope(...)
+audit_memory_collection(scope, memories)
+is_factory_attested_memory_collection_audit(value)
+```
+
+Aucune API de connaissance, promotion, révision ou autorisation n'appartient à P1.6.
+
+## 72. Modèle minimal `AuditScope`
+
+Le scope exécutable minimal retenu est :
+
+```text
+AuditScope
+- scope_id
+- question
+- expected_registration_ids : tuple[str, ...] | None
+- context_fields : tuple[str, ...]
+```
+
+### 72.1 `scope_id`
+
+`scope_id` doit être content-bound à la déclaration canonique du scope.
+
+Deux déclarations identiques peuvent produire le même `scope_id`.
+
+Une modification de la question, de l'univers attendu ou des dimensions de contexte doit produire une autre identité.
+
+Le `scope_id` n'est pas une autorité et ne prouve aucune vérité sur la population réelle. Il identifie seulement la déclaration d'audit.
+
+### 72.2 `question`
+
+La question doit être non vide et descriptive.
+
+Elle ne devient pas une hypothèse scientifique, un claim `SUPPORTED` ou un objectif d'optimisation.
+
+### 72.3 `expected_registration_ids`
+
+Deux modes seulement sont nécessaires :
+
+#### Univers borné déclaré
+
+```text
+expected_registration_ids = tuple exact de registration_id attendus
+```
+
+Ce tuple constitue l'univers de membership déclaré pour **cet audit**.
+
+P1.6 peut alors comparer :
+
+- attendus ;
+- observés ;
+- manquants ;
+- inattendus.
+
+Un matching exact permet seulement `completeness_status = PASS` relativement à cette déclaration.
+
+Il ne prouve pas que cette déclaration représente toute la réalité historique au-delà du scope fourni.
+
+#### Univers non démontrable
+
+```text
+expected_registration_ids = None
+```
+
+Alors :
+
+```text
+completeness_status = BLOCKED
+```
+
+obligatoirement, sauf violation plus forte produisant `FAIL`.
+
+Aucun champ `complete=True`, `trust_scope=True`, `assume_exhaustive=True` ou équivalent ne doit exister.
+
+### 72.4 `context_fields`
+
+Le grouping de contexte doit être déclaré avant l'audit via un tuple non vide de champs autorisés.
+
+Le premier modèle autorise seulement des dimensions descriptives déjà présentes dans l'épisode P1.4 et pertinentes au contexte/comportement :
+
+```text
+provenance_id
+research_run_id
+code_version
+configuration_version
+dataset_id
+dataset_version
+context_id
+decision
+behavior
+```
+
+Sont explicitement interdits comme dimensions de contexte :
+
+- `outcome` ;
+- `result_id` ;
+- `action_id` ;
+- `decision_id` ;
+- `episode_id` ;
+- `registration_id` ;
+- tout champ inconnu.
+
+Cette restriction évite notamment de créer des groupes après coup en fonction du résultat observé.
+
+Le scope doit être immuable ; ses listes logiques sont représentées par des tuples.
+
+## 73. Modèle minimal `MemoryCollectionAuditAssessment`
+
+Le plus petit assessment retenu doit représenter exactement :
+
+```text
+MemoryCollectionAuditAssessment
+- audit_id
+- scope_id
+- verdict
+- completeness_status
+- independence_status
+- examined_registration_ids
+- missing_registration_ids
+- unexpected_registration_ids
+- duplicate_registration_ids
+- unique_episode_ids
+- content_groups
+- context_groups
+- contradiction_groups
+- anomalies
+```
+
+Tous les ensembles/listes logiques doivent être exposés sous forme immuable et déterministe.
+
+### 73.1 `audit_id`
+
+`audit_id` est une identité de contenu d'audit, dérivée au minimum de :
+
+- `scope_id` ;
+- membres P1.5 effectivement examinés ;
+- résultat structuré de l'audit.
+
+Il n'est ni une autorité ni une identité d'expérience.
+
+### 73.2 Membership
+
+`examined_registration_ids` contient les registrations uniques effectivement admises comme membres P1.5 exacts.
+
+`duplicate_registration_ids` signale toute répétition du même `registration_id` dans l'entrée, y compris deux re-attestations locales distinctes de la même registration.
+
+Les duplicates ne sont jamais comptés deux fois dans `examined_registration_ids`.
+
+### 73.3 Missing / unexpected
+
+Quand l'univers attendu est borné :
+
+```text
+missing = expected - examined
+unexpected = examined - expected
+```
+
+Toute différence produit `completeness_status = FAIL`.
+
+Quand l'univers est `None` :
+
+- `missing_registration_ids` reste vide ;
+- `unexpected_registration_ids` reste vide ;
+- `completeness_status = BLOCKED`.
+
+### 73.4 Content groups
+
+`content_groups` groupe déterministiquement les registrations uniques par `episode_id`.
+
+Forme minimale conceptuelle :
+
+```text
+(
+  (episode_id, (registration_id, ...)),
+  ...
+)
+```
+
+Deux registrations dans le même groupe sont plusieurs captures du même contenu, jamais plusieurs réplications.
+
+### 73.5 Context groups
+
+`context_groups` groupe les registrations uniques selon **exactement** les `context_fields` du scope.
+
+Forme minimale conceptuelle :
+
+```text
+(
+  (
+    ((field_name, field_value), ...),
+    (registration_id, ...)
+  ),
+  ...
+)
+```
+
+L'ordre doit être déterministe.
+
+Aucun champ non déclaré dans `context_fields` ne peut modifier le grouping.
+
+### 73.6 Contradiction groups
+
+Une contradiction factuelle minimale P1.6 est détectable lorsque, dans un même context-group déclaré :
+
+- la même valeur `decision` ;
+- le même `behavior` ;
+
+sont associés à au moins deux `outcome` différents.
+
+`contradiction_groups` conserve les registration IDs concernés.
+
+La contradiction ne dit pas quelle observation est correcte et ne prouve aucune causalité.
+
+Des outcomes différents dans des context-groups différents ne constituent pas automatiquement une contradiction P1.6.
+
+## 74. Règles de verdict retenues
+
+### 74.1 Violations d'entrée
+
+Un membre non P1.5-attesté n'est pas converti en assessment permissif.
+
+L'audit doit refuser l'entrée par exception fail-closed.
+
+### 74.2 Overall `FAIL`
+
+Le verdict global est `FAIL` si au moins une violation démontrée de collection existe, notamment :
+
+- registration dupliquée dans l'entrée ;
+- membre attendu manquant ;
+- membre inattendu dans un univers borné ;
+- incohérence structurelle démontrée.
+
+La simple présence d'une contradiction correctement conservée n'est pas, à elle seule, une défaillance du mécanisme d'audit.
+
+### 74.3 Overall `BLOCKED`
+
+Si aucune violation `FAIL` n'existe mais que `expected_registration_ids is None` :
+
+`verdict = BLOCKED`
+
+car la complétude n'est pas démontrable.
+
+### 74.4 Overall `PASS`
+
+`verdict = PASS` est permis uniquement si :
+
+- toutes les entrées sont des P1.5 exacts attestés ;
+- aucune duplication de registration n'existe ;
+- un univers borné a été déclaré ;
+- aucun attendu ne manque ;
+- aucun inattendu n'est présent ;
+- grouping/context/contradictions ont été conservés correctement.
+
+Même dans ce cas :
+
+```text
+independence_status = BLOCKED
+```
+
+obligatoirement dans P1.6 V1.
+
+Ainsi un P1.6 `PASS` peut coexister avec une indépendance expérimentale `BLOCKED` : le PASS porte sur l'intégrité de la collection, pas sur sa force épistémique.
+
+## 75. Attestation locale de l'assessment
+
+Le futur assessment P1.6 doit suivre la même discipline d'identité locale que les frontières précédentes :
+
+- seul l'objet produit par `audit_memory_collection` est factory-attested ;
+- manuel same-valued, copy, deepcopy, replace ou reconstruction ne récupèrent pas l'attestation ;
+- mutation après production invalide l'attestation ;
+- cette attestation ne donne aucune autorité sur MEMORY, KNOWLEDGE ou REVISION.
+
+Cette propriété est requise pour qu'une future frontière AUDIT → REVISION puisse distinguer un constat réellement produit par P1.6 d'un objet forgé same-valued.
+
+## 76. Non-modèle explicite
+
+P1.6 V1 ne contient volontairement aucun champ :
+
+- `supported` ;
+- `refuted` ;
+- `knowledge` ;
+- `confidence` ;
+- `probability` ;
+- `causal` ;
+- `recommended_rule` ;
+- `revision` ;
+- `authorized` ;
+- `known_from` ;
+- `registered_at` ;
+- `independent_count`.
+
+Il n'existe pas non plus de compteur de « réplications ».
+
+Les comptages autorisés sont descriptifs uniquement : registrations uniques, contenus uniques, groupes.
+
+## 77. Breaker A0–H à construire avant runtime
+
+Le breaker test-first doit cibler au minimum :
+
+### A — Scope externe / identité
+- scope positif borné ;
+- scope absent ;
+- question vide ;
+- duplicate expected registration IDs ;
+- champ de contexte inconnu/interdit, notamment `outcome` ;
+- identité de scope content-bound ;
+- immutabilité ;
+- aucune dérivation de scope depuis la collection.
+
+### B — Membres P1.5 exacts
+- exact historical memory positif ;
+- manuel same-valued ;
+- copy/deepcopy/replace ;
+- dict/JSON ;
+- P1.4 brut ;
+- IDs seuls ;
+- historique muté/inattesté.
+
+### C — Duplication / content groups
+- même object répété ;
+- deux re-attestations locales de la même registration ;
+- deux registrations du même `episode_id` ;
+- différents `episode_id` sans promotion à indépendance ;
+- déterminisme indépendant de l'ordre d'entrée.
+
+### D — Membership / complétude
+- univers borné exact → PASS de complétude ;
+- membre attendu manquant → FAIL ;
+- inattendu → FAIL ;
+- univers `None` → BLOCKED ;
+- collection favorable + univers inconnu reste BLOCKED.
+
+### E — Context groups
+- contextes différents séparés ;
+- grouping suit seulement `context_fields` ;
+- ordre déterministe ;
+- outcome ne peut pas servir de dimension de grouping.
+
+### F — Contradictions
+- même contexte + même decision/behavior + outcomes différents conservés ;
+- majorité ne supprime pas la minorité ;
+- outcomes différents dans contextes différents non fusionnés en contradiction ;
+- contradiction ne produit pas cause/connaissance.
+
+### G — Promotion interdite
+- aucun statut `SUPPORTED/REFUTED` ;
+- aucun knowledge/confidence/causality ;
+- aucune recommendation/revision ;
+- aucune autorisation/opération ;
+- indépendance toujours `BLOCKED`.
+
+### H — Provenance / temporalité / assessment identity
+- aucun timestamp implicite ;
+- pas d'horloge locale ;
+- manual/copy/replace assessment non attesté ;
+- mutation invalide l'attestation ;
+- AUDIT ne répare ni ne re-atteste un membre P1.5 ;
+- pas de reconstruction de membership depuis des IDs seuls.
+
+**État après sélection : modèle P1.6 = SELECTED ; runtime P1.6 = BLOCKED / NOT IMPLEMENTED.**
+
+## 78. Prochaine mutation autorisée
+
+Ajouter uniquement :
+
+- le breaker P1.6 A0–H ;
+- le workflow de cassage P1.6.
+
+Aucun `src/memory_audit.py` ou runtime équivalent ne doit exister avant l'observation du FAIL initial du breaker.
