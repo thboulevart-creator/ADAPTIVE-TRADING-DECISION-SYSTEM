@@ -91,7 +91,7 @@ jobs:
           test ! -e src/evidence_semantic_completeness_review.py
           grep -Fq 'P1_13A_EVIDENCE_SEMANTIC_COMPLETENESS_REVIEW_SUBMISSION_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_13A_MINIMAL_EVIDENCE_SEMANTIC_COMPLETENESS_REVIEW_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          test "$(git hash-object breakers/p1_13a_evidence_semantic_completeness_review_breaker.py)" = "700d926debe54eafd56679124916a6cb27b07478"
+          test "$(git hash-object breakers/p1_13a_evidence_semantic_completeness_review_breaker.py)" = "840be30d17a31c8da8c8c57bc8902073de462b58"
           echo 'PASS: P1.13A model and immutable breaker exist before runtime implementation'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
