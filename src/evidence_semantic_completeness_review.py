@@ -81,7 +81,11 @@ def _stable_hash(value: object) -> str:
 
 
 def _review_id(**values: object) -> str:
-    return "ESR-" + _stable_hash({"contract": CONTRACT, **values})[:32]
+    identity = dict(values)
+    semantic_reviews = identity.get("semantic_reviews")
+    if type(semantic_reviews) is tuple:
+        identity["semantic_reviews"] = [asdict(review) for review in semantic_reviews]
+    return "ESR-" + _stable_hash({"contract": CONTRACT, **identity})[:32]
 
 
 def _fingerprint(value: EvidenceSemanticCompletenessReview) -> str:
