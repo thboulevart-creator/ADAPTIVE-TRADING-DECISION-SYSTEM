@@ -68,14 +68,14 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.9A is test-first with no runtime candidate
+      - name: Prove P1.9A runtime candidate is present after test-first baseline
         run: |
           test -f breakers/p1_9a_evidence_submission_breaker.py
-          test ! -e src/evidence_submission.py
+          test -f src/evidence_submission.py
           grep -Fq 'P1_9A_EVIDENCE_SUBMISSION_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_9A_MINIMAL_EVIDENCE_SUBMISSION_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           test "$(git hash-object breakers/p1_9a_evidence_submission_breaker.py)" = "88f4a440fb9975be1f0641eed06e2b1cdb2d8493"
-          echo 'PASS: P1.9A model and breaker exist before runtime implementation'
+          echo 'PASS: P1.9A model, immutable breaker, and runtime candidate are present'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -132,7 +132,7 @@ jobs:
             breakers/p1_8_revision_followup_request_breaker.py \
             breakers/p1_8_revision_followup_request_second_breaker.py
 
-      - name: Break P1.9A before implementation
+      - name: Re-break P1.9A after implementation
         run: python -m pytest -q breakers/p1_9a_evidence_submission_breaker.py
 
       - name: Prove clean worktree
