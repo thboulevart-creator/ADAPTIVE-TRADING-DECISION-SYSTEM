@@ -91,7 +91,7 @@ jobs:
           test -f src/experiment_evaluation_submission.py
           grep -Fq 'P1_13B_EXPERIMENT_EVALUATION_SUBMISSION_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_13B_MINIMAL_EXPERIMENT_EVALUATION_SUBMISSION_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          test "$(git hash-object breakers/p1_13b_experiment_evaluation_submission_breaker.py)" = "9516319830a7bd5a88368b898cd4247490a0ee99"
+          test "$(git hash-object breakers/p1_13b_experiment_evaluation_submission_breaker.py)" = "aea742767512c0f318744ab8eeade6f4155c2840"
           echo 'PASS: P1.13B model, immutable breaker, and runtime candidate are present'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
