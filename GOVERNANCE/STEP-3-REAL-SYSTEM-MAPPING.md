@@ -5561,3 +5561,217 @@ Runtime candidates now exist at the persisted branch state:
 - `src/experiment_specification.py`
 
 The original P1.9A/P1.9B breakers remain unchanged. Qualification is **PENDING persisted-HEAD re-break**; this checkpoint grants no PASS, no execution authority, and no operational authorization.
+
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.10 POST-P1.9 BINDING PREREQUISITES
+
+**Contracts candidats :**
+- `P1_10A_EVIDENCE_MATERIAL_BINDING_BOUNDARY_V1`
+- `P1_10B_EXPERIMENT_EXECUTION_BINDING_BOUNDARY_V1`
+
+**Base qualifiée reconnue :** `c9d0ece7906841858db064eb66c5eb154ef5221b`  
+**Statut :** `FORMALIZED — DIRECT DOWNSTREAM CANDIDATES BROKEN — NO RUNTIME`  
+**Portée :** préserver la provenance exacte immédiatement après P1.9 sans déclarer fulfillment, admissibilité, suffisance, input exécutable, exécution ou autorisation.
+
+## 211. État amont reconnu
+
+Au HEAD `c9d0ece7906841858db064eb66c5eb154ef5221b` :
+
+- P1.9A est qualifié PASS par le run `35371569841`, job `105686535725`, avec `54 passed`;
+- P1.9B est qualifié PASS par le run `35371569886`, job `105686536533`, avec `73 passed`;
+- les suites protégées RESEARCH→DECISION et P1.2→P1.8 rejouées dans ces jobs sont vertes;
+- le worktree final est propre;
+- P1.1 `AUTHORIZED` reste séparément BLOCKED.
+
+P1.10 ne modifie ni les runtimes ni les breakers P1.9.
+
+## 212. Candidat direct P1.10A cassé
+
+La frontière historiquement envisagée était :
+
+```text
+EvidenceSubmission(s)
+→ fulfillment/admissibility assessment
+```
+
+Ce raccord direct est **FAIL conceptuellement** pour V1.
+
+`EvidenceSubmission` conserve :
+
+- l'identité de soumission;
+- la provenance de request;
+- `source_ref`;
+- `media_type`;
+- `content_sha256`;
+- `content_size`;
+
+mais ne conserve pas les octets bruts.
+
+Par conséquent, un assessment downstream qui ne recevrait que `EvidenceSubmission` ne peut pas démontrer :
+
+- que les octets inspectés sont ceux de la soumission;
+- que le contenu est parseable;
+- que le matériau est pertinent;
+- que la source est authentique;
+- que la preuve est admissible;
+- que la demande est satisfaite ou suffisante.
+
+De plus, `FollowUpRequest.specification` reste du texte libre et ne fournit pas encore des critères machine-checkables de fulfillment.
+
+Donc :
+
+```text
+EvidenceSubmission metadata/hash
+≠ bound evidence bytes
+≠ admissibility
+≠ fulfillment
+```
+
+La plus petite frontière nécessaire avant tout assessment sémantique est un **rebinding exact du contenu**.
+
+## 213. Candidat direct P1.10B cassé
+
+La frontière historiquement envisagée était :
+
+```text
+ExperimentSpecification
+→ QualifiedResearchInput / execution-input binding
+```
+
+Le raccord direct vers l'actuel `QualifiedResearchInput` est **FAIL conceptuellement**.
+
+Raisons :
+
+1. `ExperimentSpecification` ne contient aucun corpus, path, dataset ou hash d'entrée.
+2. `QualifiedResearchInput` ne contient aucun `experiment_spec_id`.
+3. `ResearchExecutionResult` ne contient aucun `experiment_spec_id`.
+4. l'actuel `ResearchRunEvidence` ne contient aucun `experiment_spec_id`.
+5. Produire directement un `QualifiedResearchInput` ferait donc disparaître la provenance de la spécification avant l'exécution.
+6. Un caller pourrait choisir un corpus valide sans qu'un objet qualifié ne conserve explicitement la liaison entre ce corpus et la spécification P1.9B.
+
+Donc :
+
+```text
+valid QualifiedResearchInput
+≠ input bound to this ExperimentSpecification
+```
+
+et :
+
+```text
+execution from valid input
+≠ execution of the requested/specifed experiment
+```
+
+P1.10B doit préserver cette liaison avant toute exécution.
+
+## 214. Décision P1.10
+
+Deux frontières sœurs sont retenues.
+
+### P1.10A
+
+```text
+exact factory-attested EvidenceSubmission
++
+exact bytes re-supplied by caller
+↓
+factory-attested BoundEvidenceMaterial
+```
+
+P1.10A vérifie uniquement :
+
+```text
+sha256(content) == submission.content_sha256
+len(content) == submission.content_size
+```
+
+et conserve les octets exacts.
+
+Il ne qualifie ni authenticité, ni pertinence, ni admissibilité, ni suffisance, ni fulfillment.
+
+### P1.10B
+
+```text
+exact factory-attested ExperimentSpecification
++
+exact factory-bound and source-revalidated BoundResearchInput
+↓
+factory-attested ExperimentExecutionBinding
+```
+
+P1.10B lie une spécification exacte à une identité de ressources déjà validée par la surface P0.4 existante.
+
+Il ne produit pas encore `QualifiedResearchInput`, ne lance pas `run_qualified_research`, et ne prétend pas que l'expérience est exécutable ou autorisée.
+
+## 215. Séparations obligatoires
+
+```text
+BOUND EVIDENCE MATERIAL ≠ ADMISSIBLE EVIDENCE
+BOUND EVIDENCE MATERIAL ≠ FULFILLMENT
+BOUND EVIDENCE MATERIAL ≠ ResearchRunEvidence
+
+EXPERIMENT EXECUTION BINDING ≠ QualifiedResearchInput
+EXPERIMENT EXECUTION BINDING ≠ EXECUTION
+EXPERIMENT EXECUTION BINDING ≠ RESULT
+EXPERIMENT EXECUTION BINDING ≠ AUTHORIZATION
+```
+
+Et pour les deux branches :
+
+```text
+BINDING ≠ KNOWLEDGE
+BINDING ≠ BEHAVIOR CHANGE
+BINDING ≠ OPERATIONAL AUTHORITY
+```
+
+## 216. Direction d'autorité
+
+Directions autorisées :
+
+```text
+P1.9A EvidenceSubmission + exact matching bytes
+→ P1.10A BoundEvidenceMaterial
+```
+
+```text
+P1.9B ExperimentSpecification + exact BoundResearchInput
+→ P1.10B ExperimentExecutionBinding
+```
+
+Directions interdites :
+
+```text
+BoundEvidenceMaterial → admissibility/fulfillment PASS
+BoundEvidenceMaterial → ResearchRunEvidence
+
+ExperimentExecutionBinding → run_qualified_research
+ExperimentExecutionBinding → ResearchExecutionResult
+ExperimentExecutionBinding → ResearchRunEvidence
+
+either binding → AUTHORIZED
+either binding → repair P1.9 object
+```
+
+## 217. Statut après formalisation
+
+**FORMALISATION P1.10A : PASS.**
+
+**FORMALISATION P1.10B : PASS.**
+
+Les candidats directs :
+
+```text
+EvidenceSubmission → admissibility/fulfillment
+ExperimentSpecification → QualifiedResearchInput
+```
+
+sont rejetés pour perte de preuve/provenance.
+
+Les frontières exécutables P1.10A/P1.10B restent :
+
+**BLOCKED / NOT IMPLEMENTED.**
+
+La prochaine action gouvernée est de sélectionner les modèles exécutables minimaux exacts de `BoundEvidenceMaterial` et `ExperimentExecutionBinding`, puis de construire leurs breakers test-first avant tout runtime.
