@@ -7297,3 +7297,22 @@ Prochaine mutation autorisée uniquement :
 - `.github/workflows/p1-12b-linked-experiment-execution.yml`.
 
 Aucun `src/declared_evidence_criteria_assessment.py` ni `src/linked_experiment_execution.py` ne doit exister avant observation des FAIL pré-implémentation.
+
+
+---
+
+# P1.12 — POST-IMPLEMENTATION RE-BREAK CHECKPOINT
+
+Runtime candidates now exist at the persisted branch state:
+
+- `src/declared_evidence_criteria_assessment.py`
+- `src/linked_experiment_execution.py`
+
+The original P1.12A/P1.12B breakers remain unchanged:
+
+- P1.12A breaker blob: `55a9f445e79e84fac25f2224468bd9d1f8f308ea`
+- P1.12B breaker blob: `720d32eb382b4dba0678c905add3c44ea52c6a2e`
+
+Qualification is **PENDING persisted-HEAD re-break**.
+
+This checkpoint grants no evidence admissibility, no request fulfillment, no knowledge promotion, no ResearchRunEvidence, no experimental finding, no hypothesis verdict, and no operational authorization.
