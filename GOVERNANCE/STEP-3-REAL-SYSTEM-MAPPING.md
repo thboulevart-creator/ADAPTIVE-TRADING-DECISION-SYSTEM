@@ -6416,3 +6416,335 @@ Les frontières exécutables P1.11A/P1.11B restent :
 **BLOCKED / NOT IMPLEMENTED.**
 
 La prochaine action gouvernée est de sélectionner les deux modèles exécutables minimaux et leurs breakers test-first avant tout runtime.
+
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.11 MINIMAL EXECUTABLE MODELS
+
+**Selection IDs :**
+- `P1_11A_MINIMAL_EVIDENCE_ASSESSMENT_CRITERIA_MODEL_V1`
+- `P1_11B_MINIMAL_QUALIFIED_EXPERIMENT_EXECUTION_INPUT_MODEL_V1`
+
+**Base observée avant sélection :** `b8ca9e9832ebf2695e43d3cffe2316cc1f9b498c`  
+**Statut :** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`.
+
+## 243. P1.11A — surface minimale
+
+Module candidat futur :
+
+`src/evidence_assessment_criteria.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_11A_EVIDENCE_ASSESSMENT_CRITERIA_BOUNDARY_V1"
+
+EvidenceAssessmentCriteria
+
+declare_evidence_assessment_criteria(
+    request,
+    *,
+    minimum_distinct_materials,
+    require_nonempty_content,
+    allowed_media_types,
+    allowed_source_refs,
+    semantic_requirements,
+)
+
+is_factory_attested_evidence_assessment_criteria(value)
+```
+
+P1.11A ne prend aucun matériau P1.10A en entrée.
+
+## 244. P1.11A — types et contraintes
+
+Entrées exactes :
+
+```text
+request                     : exact FollowUpRequest(EVIDENCE)
+minimum_distinct_materials  : exact int >= 1, bool rejeté
+require_nonempty_content    : exact bool
+allowed_media_types         : None | exact tuple[str, ...]
+allowed_source_refs         : None | exact tuple[str, ...]
+semantic_requirements       : exact tuple[str, ...]
+```
+
+Pour les tuples de chaînes :
+
+- chaque élément est exact `str`;
+- chaque élément doit être non vide après `.strip()`;
+- les doublons exacts sont rejetés;
+- les valeurs sont conservées verbatim;
+- `None` signifie « aucune restriction structurée déclarée »;
+- un tuple vide pour `allowed_media_types` ou `allowed_source_refs` est rejeté afin de ne pas confondre « aucune restriction » avec « aucun élément possible »;
+- `semantic_requirements=()` est valide et signifie qu'aucune exigence sémantique supplémentaire n'est enregistrée dans cet objet.
+
+## 245. P1.11A — modèle exact
+
+```text
+EvidenceAssessmentCriteria
+- criteria_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- specification
+- minimum_distinct_materials
+- require_nonempty_content
+- allowed_media_types
+- allowed_source_refs
+- semantic_requirements
+- criteria_completeness_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+`criteria_completeness_status` vaut obligatoirement :
+
+`BLOCKED`
+
+en V1.
+
+Aucun paramètre caller-side ne peut le fournir ou le modifier.
+
+## 246. P1.11A — identité et attestation
+
+Préfixe :
+
+`EAC-`
+
+`criteria_id` est content-bound à :
+
+- contract;
+- provenance exacte du request;
+- specification;
+- cinq dimensions de critères;
+- `criteria_completeness_status = BLOCKED`;
+- statuts source.
+
+Exact-object attestation + sticky invalidation dès V1.
+
+Manual/copy/deepcopy/replace ne sont pas attestés.
+
+## 247. P1.11A — non-assessment
+
+Le module P1.11A ne doit exposer aucune factory :
+
+- `assess_evidence`;
+- `mark_admissible`;
+- `mark_fulfilled`;
+- `promote_evidence`;
+- `create_research_run_evidence`.
+
+La présence de critères ne prouve pas qu'ils sont satisfaits.
+
+## 248. P1.11A — breaker A0–H
+
+### A — request authority
+- exact EVIDENCE request positif;
+- EXPERIMENT request rejeté;
+- ID/dict/manual/copy/deepcopy/replace/mutated/sticky-invalidated rejetés.
+
+### B — signature
+- request + cinq keyword-only obligatoires sans défaut;
+- aucun champ de verdict/admissibility/fulfillment caller-side.
+
+### C — scalar types
+- minimum exact int >=1;
+- bool/float/str/0/négatif rejetés;
+- require_nonempty_content exact bool.
+
+### D — tuple criteria
+- None positif pour allowed lists;
+- tuple non vide positif;
+- liste/set/string rejetés;
+- élément non-str/vide rejeté;
+- doublons rejetés;
+- valeurs verbatim.
+
+### E — semantic requirements
+- tuple vide positif;
+- tuple non vide positif;
+- types/vides/doublons rejetés;
+- texte dangereux reste texte.
+
+### F — source snapshot / BLOCKED
+- request/revision/audit/scope/specification conservés;
+- PASS/FAIL/BLOCKED source conservés;
+- `criteria_completeness_status == BLOCKED` toujours.
+
+### G — identity / attestation
+- exact fields;
+- mêmes inputs → même ID, objets distincts attestés;
+- changement d'un critère → autre ID;
+- manual/copy/replace non attestés;
+- sticky invalidation;
+- upstream request peut être collecté.
+
+### H — no assessment / reverse authority
+- aucun BoundEvidenceMaterial requis;
+- aucun verdict admissible/fulfilled;
+- aucun ResearchRunEvidence/ResearchFindings;
+- aucune IO/acquisition/exécution/autorisation.
+
+## 249. P1.11B — surface minimale
+
+Module candidat futur :
+
+`src/qualified_experiment_execution_input.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_11B_QUALIFIED_EXPERIMENT_EXECUTION_INPUT_BOUNDARY_V1"
+
+QualifiedExperimentExecutionInput
+
+qualify_experiment_execution_input(binding)
+
+is_factory_attested_qualified_experiment_execution_input(value)
+```
+
+La factory prend exactement un `ExperimentExecutionBinding` P1.10B.
+
+## 250. P1.11B — revalidation obligatoire
+
+La factory exige :
+
+- type exact `ExperimentExecutionBinding`;
+- attestation P1.10B exacte encore valide;
+- revalidation courante du corpus et du contrat via la capacité P0.4 existante.
+
+La revalidation doit échouer si :
+
+- corpus absent/modifié;
+- contrat absent/modifié;
+- hash attendu incompatible;
+- binding muté/inattesté.
+
+Aucun nouvel algorithme de hashing n'est inventé par P1.11B.
+
+## 251. P1.11B — modèle exact
+
+```text
+QualifiedExperimentExecutionInput
+- experiment_execution_input_id
+- execution_binding_id
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- objective
+- hypothesis_statement
+- prediction
+- falsification_rule
+- protocol
+- measurement_plan
+- corpus_root
+- contract_path
+- expected_corpus_hash
+- expected_contract_hash
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Les paths sont les chaînes absolues déjà portées par P1.10B.
+
+## 252. P1.11B — identité et attestation
+
+Préfixe :
+
+`QEI-`
+
+L'identité est content-bound à tous les champs du modèle et au contract P1.11B.
+
+Exact-object attestation + sticky invalidation dès V1.
+
+L'objet est un snapshot autonome après production; la collecte de l'objet P1.10B amont ne doit pas retirer son attestation.
+
+## 253. P1.11B — non-exécution absolue
+
+P1.11B ne doit ni importer pour usage ni appeler :
+
+- `run_qualified_research`;
+- `ResearchExecutionResult`;
+- `from_research_execution`;
+- `ResearchRunEvidence`.
+
+Il ne crée pas non plus l'ancien `QualifiedResearchInput`.
+
+La seule interaction P0.4 autorisée est la revalidation/binding d'identité des ressources.
+
+## 254. P1.11B — breaker A0–H
+
+### A — binding authority
+- exact P1.10B positif;
+- ID/dict/manual/copy/deepcopy/replace rejetés;
+- mutation/sticky invalidation rejetées;
+- objet P1.10A rejeté.
+
+### B — revalidation
+- ressources intactes positif;
+- corpus modifié rejeté;
+- contrat modifié rejeté;
+- source supprimée rejetée.
+
+### C — signature
+- un seul argument obligatoire;
+- aucun path/hash/spec/status override.
+
+### D — snapshot
+- execution_binding_id et experiment_spec_id conservés;
+- provenance request/revision/audit/scope conservée;
+- objective + cinq champs design conservés;
+- paths/hashes conservés;
+- statuts source conservés.
+
+### E — non-execution
+- output ≠ existing QualifiedResearchInput;
+- output ≠ ResearchExecutionResult;
+- output ≠ ResearchRunEvidence;
+- aucune fonction d'exécution.
+
+### F — dangerous text
+- protocole contenant RUN_BACKTEST/AUTHORIZED/SEND_LIVE_ORDER reste texte;
+- aucune permission ou action.
+
+### G — identity / attestation
+- exact fields;
+- mêmes inputs → même ID, objets distincts attestés;
+- changement binding → autre ID;
+- manual/copy/replace non attestés;
+- sticky invalidation;
+- upstream binding peut être collecté.
+
+### H — reverse authority
+- input ne répare pas binding;
+- ne mint pas result/evidence/findings;
+- pas d'horloge autoritative;
+- pas d'acquisition;
+- pas de broker/backtest/live;
+- pas d'autorisation.
+
+## 255. État après sélection
+
+**P1.11A MINIMAL MODEL : SELECTED.**
+
+**P1.11B MINIMAL MODEL : SELECTED.**
+
+**RUNTIME P1.11A : BLOCKED / NOT IMPLEMENTED.**
+
+**RUNTIME P1.11B : BLOCKED / NOT IMPLEMENTED.**
+
+Prochaine mutation autorisée uniquement :
+
+- `breakers/p1_11a_evidence_assessment_criteria_breaker.py`;
+- `.github/workflows/p1-11a-evidence-assessment-criteria.yml`;
+- `breakers/p1_11b_qualified_experiment_execution_input_breaker.py`;
+- `.github/workflows/p1-11b-qualified-experiment-execution-input.yml`.
+
+Aucun `src/evidence_assessment_criteria.py` ni `src/qualified_experiment_execution_input.py` ne doit exister avant observation des FAIL pré-implémentation.
