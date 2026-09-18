@@ -3741,3 +3741,358 @@ REFORMULATE_QUESTION
 ## 136. Prochaine action gouvernée unique
 
 **Déterminer, à partir des APIs P1.7 réelles et sans implémenter encore P1.8, le plus petit `FollowUpRequest` exécutable et la plus petite factory `produce_follow_up_request(revision)`, puis construire le breaker A0–H P1.8 avant toute implémentation.**
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.8 MINIMAL EXECUTABLE FOLLOW-UP REQUEST MODEL
+
+**Selection ID:** `P1_8_MINIMAL_FOLLOWUP_REQUEST_MODEL_V1`  
+**Base observée avant sélection:** `86a57b4acbbaecdf32a16e08e37d12da70fd0d4f`  
+**Statut:** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`  
+**Portée:** plus petite surface exécutable REVISION → FOLLOW-UP REQUEST compatible avec `P1_8_REVISION_FOLLOWUP_REQUEST_BOUNDARY_V1`.
+
+## 137. Surface minimale retenue
+
+Le futur module candidat est limité à :
+
+```text
+CONTRACT = "P1_8_REVISION_FOLLOWUP_REQUEST_BOUNDARY_V1"
+
+FollowUpRequest
+
+produce_follow_up_request(revision)
+
+is_factory_attested_follow_up_request(value)
+```
+
+Module candidat attendu :
+
+`src/follow_up_request.py`
+
+Aucune autre API de fulfillment, spécification expérimentale, exécution, collecte ou autorisation n'appartient à P1.8 V1.
+
+## 138. Entrée unique
+
+La factory prend exactement un argument obligatoire :
+
+```text
+produce_follow_up_request(revision)
+```
+
+Elle ne reçoit aucun :
+
+- `request_kind` ;
+- `specification` ;
+- `audit_id` ;
+- `scope_id` ;
+- `revision_id` ;
+- `force` ;
+- `override` ;
+- `execute` ;
+- `authorized`.
+
+Cette signature évite tout rebinding par le caller.
+
+## 139. Validation de la RevisionDecision
+
+La factory exige :
+
+- type `RevisionDecision` ;
+- `is_factory_attested_revision_decision(revision) == True`.
+
+Sont rejetés :
+
+- `revision_id` seul ;
+- dict/JSON ;
+- objet manuel same-valued ;
+- copy/deepcopy/replace ;
+- objet muté ;
+- objet invalidé puis restauré après sticky invalidation.
+
+P1.8 ne reconstitue, ne répare et ne re-atteste jamais la RevisionDecision.
+
+## 140. Routing exact
+
+Deux dispositions seulement sont routables :
+
+```text
+REQUEST_NEW_EVIDENCE   → EVIDENCE
+REQUEST_NEW_EXPERIMENT → EXPERIMENT
+```
+
+Le mapping est exact et sensible à la casse.
+
+Les deux dispositions suivantes sont explicitement rejetées :
+
+```text
+KEEP_CURRENT_STATE
+REFORMULATE_QUESTION
+```
+
+Elles ne produisent ni `None`, ni request vide, ni `NOOP_REQUEST`.
+
+## 141. Specification exacte
+
+La sortie doit porter :
+
+```text
+specification = revision.detail
+```
+
+strictement.
+
+Aucune normalisation n'est appliquée :
+
+- whitespace conservé ;
+- Unicode conservé ;
+- retours ligne conservés ;
+- mots tels que `AUTHORIZED`, `SUPPORTED`, `RUN_BACKTEST` restent du texte sans effet.
+
+Le caller ne peut substituer une autre specification.
+
+## 142. Modèle minimal FollowUpRequest
+
+Le modèle exécutable retenu est exactement :
+
+```text
+FollowUpRequest
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- request_kind
+- specification
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Aucun champ supplémentaire n'est nécessaire pour P1.8 V1.
+
+Sont notamment exclus :
+
+- `evidence_id` ;
+- `finding_id` ;
+- `research_run_id` ;
+- `experiment_id` ;
+- `dataset_id` ;
+- `qualified_input` ;
+- `execution_result` ;
+- `evidence_obtained` ;
+- `experiment_completed` ;
+- `execution_allowed` ;
+- `authorized` ;
+- `supported` ;
+- `confidence` ;
+- `requested_at`.
+
+## 143. Snapshot exact de la source
+
+La factory copie sans transformation :
+
+```text
+revision_id = revision.revision_id
+audit_id = revision.audit_id
+scope_id = revision.scope_id
+source_verdict = revision.source_verdict
+source_completeness_status = revision.source_completeness_status
+source_independence_status = revision.source_independence_status
+```
+
+Aucun snapshot source ne peut être fourni ou corrigé par le caller.
+
+## 144. Identité de contenu
+
+`request_id` est déterministe et content-bound à :
+
+```text
+contract
+revision_id
+audit_id
+scope_id
+request_kind
+specification
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe candidat :
+
+`FUR-`
+
+Deux productions same-valued peuvent avoir le même `request_id` tout en étant des objets locaux distincts.
+
+Changer la RevisionDecision, sa disposition, son detail ou ses snapshots source doit changer l'identité de request lorsque le contenu P1.8 change.
+
+`request_id` n'est ni preuve, ni expérience, ni permission.
+
+## 145. Préservation de BLOCKED
+
+Les valeurs source sont littéralement préservées.
+
+En particulier :
+
+```text
+source_verdict = BLOCKED
+→ request.source_verdict = BLOCKED
+
+source_completeness_status = BLOCKED
+→ request.source_completeness_status = BLOCKED
+
+source_independence_status = BLOCKED
+→ request.source_independence_status = BLOCKED
+```
+
+Créer un request ne résout aucun blocage.
+
+## 146. Attestation locale et invalidation sticky
+
+`FollowUpRequest` doit être factory-attested exact-object.
+
+Dès le premier candidat :
+
+- manual same-valued → non attesté ;
+- copy/deepcopy/replace → non attesté ;
+- mutation observée → invalidation ;
+- mismatch de weakref → invalidation ;
+- invalidation → retrait du registre ;
+- restauration des anciennes valeurs → ne réactive jamais l'attestation.
+
+Cette propriété est obligatoire dès P1.8 V1.
+
+## 147. Non-fulfillment
+
+Un FollowUpRequest n'est pas :
+
+- `ResearchRunEvidence` ;
+- `ResearchFindings` ;
+- `QualifiedResearchInput` ;
+- `ResearchExecutionResult` ;
+- une hypothèse ;
+- une mesure ;
+- un résultat ;
+- une preuve obtenue.
+
+P1.8 n'a pas de factory ou adaptateur produisant ces objets.
+
+## 148. Non-exécution
+
+Le module P1.8 ne doit pas :
+
+- importer/appeler `run_qualified_research` pour exécuter une demande ;
+- appeler `bind_execution_input` comme fulfillment ;
+- lire/acquérir un corpus ;
+- lancer un backtest ;
+- faire du réseau ;
+- appeler un broker ;
+- créer un ordre ;
+- activer du live ;
+- accorder une autorisation.
+
+Le request est uniquement une trace gouvernée de travail futur demandé.
+
+## 149. Direction d'autorité
+
+Direction autorisée :
+
+```text
+exact P1.7 RevisionDecision
+↓
+P1.8 FollowUpRequest
+```
+
+Directions interdites :
+
+```text
+FollowUpRequest → RevisionDecision authority
+FollowUpRequest → Audit authority
+FollowUpRequest → HistoricalMemory authority
+FollowUpRequest → ResearchRunEvidence
+FollowUpRequest → QualifiedResearchInput
+FollowUpRequest → experiment execution
+FollowUpRequest → authorization
+```
+
+## 150. Breaker A0–H retenu avant runtime
+
+Le breaker test-first doit au minimum couvrir :
+
+### A — Revision source
+- exact routable P1.7 revision positif ;
+- `revision_id` seul ;
+- dict/JSON ;
+- manual same-valued ;
+- copy/deepcopy/replace ;
+- revision mutée ;
+- revision invalidée puis restaurée.
+
+### B — Routing
+- REQUEST_NEW_EVIDENCE → EVIDENCE ;
+- REQUEST_NEW_EXPERIMENT → EXPERIMENT ;
+- KEEP_CURRENT_STATE rejeté ;
+- REFORMULATE_QUESTION rejeté ;
+- aucun `NOOP`/None ;
+- factory à un seul argument sans défaut.
+
+### C — Binding
+- specification = detail exacte ;
+- whitespace conservé ;
+- Unicode conservé ;
+- multiline conservé ;
+- aucune API d'override ;
+- autre revision → autre identité si contenu différent ;
+- kind non fourni par caller.
+
+### D — Source snapshots
+- revision_id conservé ;
+- audit_id conservé ;
+- scope_id conservé ;
+- PASS conservé ;
+- FAIL conservé ;
+- BLOCKED conservé ;
+- completeness BLOCKED conservé ;
+- independence BLOCKED conservé.
+
+### E — Non-fulfillment
+- request ≠ ResearchRunEvidence ;
+- request ≠ ResearchFindings ;
+- request ≠ QualifiedResearchInput ;
+- request ≠ ResearchExecutionResult ;
+- aucun champ de fulfillment/execution.
+
+### F — Non-execution
+- pas de run_qualified_research ;
+- pas de bind_execution_input comme fulfillment ;
+- pas de filesystem/network/backtest/broker/live ;
+- texte dangereux dans specification sans effet ;
+- pas de permission.
+
+### G — Identity / attestation
+- production positive ;
+- mêmes inputs → même ID, objets distincts attestés ;
+- manual/copy/deepcopy/replace non attestés ;
+- mutation invalide ;
+- sticky invalidation ;
+- changement de revision/detail/kind/source snapshot change l'identité ;
+- request_id seul n'est pas autorité.
+
+### H — Reverse authority
+- request ne répare pas revision ;
+- request ne mint pas audit/memory/research evidence ;
+- request ne peut être passé comme RevisionDecision ;
+- aucune horloge locale ;
+- aucune mutation silencieuse upstream/downstream.
+
+## 151. État après sélection
+
+**MODÈLE MINIMAL P1.8 : SELECTED.**
+
+**RUNTIME P1.8 : BLOCKED / NOT IMPLEMENTED.**
+
+La prochaine mutation autorisée est limitée à :
+
+- `breakers/p1_8_revision_followup_request_breaker.py` ;
+- `.github/workflows/p1-8-revision-followup-request.yml`.
+
+Aucun `src/follow_up_request.py` ne doit exister avant l'observation du FAIL pré-implémentation.
