@@ -140,17 +140,20 @@ def _measurement(
     )
 
 
+_DEFAULT_MEASUREMENTS = object()
+
+
 def _submit(
     execution_result,
     *,
-    measurements=None,
+    measurements=_DEFAULT_MEASUREMENTS,
     evaluator_id="evaluator:test",
     method_ref="method:test",
     prediction_status="SUPPORTED",
     falsification_status="NOT_FALSIFIED",
     evaluation_rationale="Evaluation submitted without promotion.",
 ):
-    if measurements is None:
+    if measurements is _DEFAULT_MEASUREMENTS:
         measurements = (_measurement(),)
     return _p113b().submit_experiment_evaluation(
         execution_result,
