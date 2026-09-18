@@ -73,14 +73,14 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.10B is test-first with no runtime candidate
+      - name: Prove P1.10B runtime candidate is present after test-first baseline
         run: |
           test -f breakers/p1_10b_experiment_execution_binding_breaker.py
-          test ! -e src/experiment_execution_binding.py
+          test -f src/experiment_execution_binding.py
           grep -Fq 'P1_10B_EXPERIMENT_EXECUTION_BINDING_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_10B_MINIMAL_EXPERIMENT_EXECUTION_BINDING_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           test "$(git hash-object breakers/p1_10b_experiment_execution_binding_breaker.py)" = "9b104a30b1d896573a76125aa47e1d7e33533a08"
-          echo 'PASS: P1.10B model and immutable breaker exist before runtime implementation'
+          echo 'PASS: P1.10B model, immutable breaker, and runtime candidate are present'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -127,7 +127,7 @@ jobs:
         run: |
           python -m pytest -q breakers/p1_9a_evidence_submission_breaker.py breakers/p1_9b_experiment_specification_breaker.py
 
-      - name: Break P1.10B before implementation
+      - name: Re-break P1.10B after implementation
         run: python -m pytest -q breakers/p1_10b_experiment_execution_binding_breaker.py
 
       - name: Prove clean worktree
