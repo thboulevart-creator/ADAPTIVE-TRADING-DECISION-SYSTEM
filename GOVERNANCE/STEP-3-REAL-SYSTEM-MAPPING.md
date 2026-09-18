@@ -7001,3 +7001,299 @@ sont rejetés.
 Les frontières exécutables P1.12A/P1.12B restent :
 
 **BLOCKED / NOT IMPLEMENTED.**
+
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.12 MINIMAL EXECUTABLE MODELS
+
+**Selection IDs :**
+- `P1_12A_MINIMAL_DECLARED_EVIDENCE_CRITERIA_ASSESSMENT_MODEL_V1`
+- `P1_12B_MINIMAL_LINKED_EXPERIMENT_EXECUTION_MODEL_V1`
+
+**Base observée avant sélection :** `efcc27b4abaaf6c96a3e3cb4a9ce3489e09a162e`  
+**Statut :** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`.
+
+## 266. P1.12A — surface minimale
+
+Module candidat futur :
+
+`src/declared_evidence_criteria_assessment.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_12A_DECLARED_EVIDENCE_CRITERIA_ASSESSMENT_BOUNDARY_V1"
+
+DeclaredEvidenceCriteriaAssessment
+
+assess_declared_evidence_criteria(criteria, materials)
+
+is_factory_attested_declared_evidence_criteria_assessment(value)
+```
+
+Entrées :
+
+- `criteria` : exact `EvidenceAssessmentCriteria` P1.11A attesté;
+- `materials` : exact tuple non vide d'exacts `BoundEvidenceMaterial` P1.10A attestés.
+
+## 267. P1.12A — cohérence de provenance
+
+Chaque matériau doit avoir exactement les mêmes :
+
+- request_id;
+- revision_id;
+- audit_id;
+- scope_id;
+- source_verdict;
+- source_completeness_status;
+- source_independence_status
+
+que les critères.
+
+Tout mélange cross-request/cross-revision/cross-audit/cross-scope est rejeté.
+
+Deux matériaux avec le même `evidence_binding_id` sont rejetés.
+
+## 268. P1.12A — modèle exact
+
+```text
+DeclaredEvidenceCriteriaAssessment
+- assessment_id
+- criteria_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- material_binding_ids
+- distinct_material_count
+- minimum_distinct_materials_status
+- nonempty_content_status
+- media_type_status
+- source_ref_status
+- semantic_requirements_status
+- unresolved_semantic_requirements
+- declared_criteria_verdict
+- criteria_completeness_status
+- request_fulfillment_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+`material_binding_ids` conserve l'ordre exact d'entrée après rejet des doublons.
+
+## 269. P1.12A — calcul normatif
+
+`minimum_distinct_materials_status` :
+- PASS si `len(materials) >= criteria.minimum_distinct_materials`;
+- FAIL sinon.
+
+`nonempty_content_status` :
+- PASS si `require_nonempty_content == False`;
+- sinon PASS uniquement si chaque `content_size > 0`;
+- FAIL sinon.
+
+`media_type_status` :
+- PASS si `allowed_media_types is None`;
+- sinon PASS uniquement si chaque `material.media_type` appartient exactement au tuple déclaré;
+- FAIL sinon.
+
+`source_ref_status` :
+- PASS si `allowed_source_refs is None`;
+- sinon PASS uniquement si chaque `material.source_ref` appartient exactement au tuple déclaré;
+- FAIL sinon.
+
+`semantic_requirements_status` :
+- PASS si `semantic_requirements == ()`;
+- BLOCKED sinon.
+
+`unresolved_semantic_requirements` :
+- `()` si aucune exigence;
+- sinon copie verbatim de `criteria.semantic_requirements`.
+
+`declared_criteria_verdict` :
+- FAIL si un statut structurel est FAIL;
+- sinon BLOCKED si semantic_requirements_status = BLOCKED;
+- sinon PASS.
+
+`criteria_completeness_status` est copié de P1.11A et doit rester `BLOCKED`.
+
+`request_fulfillment_status` vaut toujours `BLOCKED` en V1.
+
+## 270. P1.12A — identité / attestation
+
+Préfixe :
+
+`DEA-`
+
+L'identité est content-bound à tous les champs du modèle et au contract P1.12A.
+
+Exact-object attestation + sticky invalidation.
+
+Même inputs → même ID mais objets distincts attestés.
+
+Le snapshot reste attesté après collecte des critères et matériaux amont.
+
+## 271. P1.12A — interdictions
+
+Aucun :
+
+- parsing/interprétation du contenu;
+- modèle/LLM;
+- appel réseau;
+- jugement d'authenticité;
+- promotion en evidence admissible;
+- fulfillment PASS;
+- knowledge;
+- ResearchRunEvidence;
+- autorisation.
+
+## 272. P1.12B — surface minimale
+
+Module candidat futur :
+
+`src/linked_experiment_execution.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_12B_LINKED_EXPERIMENT_EXECUTION_BOUNDARY_V1"
+
+LinkedExperimentExecutionResult
+
+run_linked_experiment(execution_input)
+
+is_factory_attested_linked_experiment_execution_result(value)
+```
+
+Entrée exacte :
+
+`QualifiedExperimentExecutionInput` P1.11B attesté.
+
+## 273. P1.12B — projection technique
+
+La factory peut construire un `QualifiedResearchInput` technique uniquement à partir de :
+
+- corpus_root;
+- contract_path;
+- expected_corpus_hash;
+- expected_contract_hash.
+
+Puis elle appelle exactement le moteur existant `run_qualified_research`.
+
+Le `ResearchExecutionResult` retourné doit être vérifié par `is_qualified_execution_result(result, technical_input)` avant encapsulation.
+
+Aucune autre exécution n'est autorisée.
+
+## 274. P1.12B — modèle exact
+
+```text
+LinkedExperimentExecutionResult
+- experiment_execution_result_id
+- experiment_execution_input_id
+- execution_binding_id
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- objective
+- hypothesis_statement
+- prediction
+- falsification_rule
+- protocol
+- measurement_plan
+- corpus_root
+- contract_path
+- expected_corpus_hash
+- expected_contract_hash
+- files_consumed
+- ticks_consumed
+- first_timestamp
+- last_timestamp
+- stream_sha256
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Les champs design sont conservés pour permettre à une future frontière d'évaluer le résultat sans perdre la spécification après collecte de l'input amont.
+
+## 275. P1.12B — identité / attestation
+
+Préfixe :
+
+`LER-`
+
+L'identité est content-bound à :
+
+- contract P1.12B;
+- toutes les identités P1.11B;
+- texte expérimental;
+- identité des ressources;
+- métriques et stream_sha256 du résultat P0.4;
+- timestamps ISO;
+- statuts source.
+
+Exact-object attestation + sticky invalidation.
+
+Le snapshot reste attesté après collecte du QEI amont.
+
+## 276. P1.12B — frontières interdites
+
+P1.12B ne crée aucun :
+
+- `ResearchRunEvidence`;
+- `ResearchFindings`;
+- verdict de confirmation/falsification;
+- changement de mémoire;
+- backtest de stratégie;
+- ordre broker;
+- live;
+- autorisation.
+
+Le texte `AUTHORIZED`, `RUN_BACKTEST` ou `SEND_LIVE_ORDER` dans le protocole reste du texte.
+
+## 277. Breakers test-first attendus
+
+P1.12A couvre au minimum :
+
+A. authority criteria/materials;
+B. signature exacte;
+C. provenance cross-object;
+D. calcul des quatre critères structurels;
+E. sémantique BLOCKED;
+F. verdict limité et fulfillment toujours BLOCKED;
+G. identité/attestation/lifetime;
+H. absence de parsing, IO, promotion et autorisation.
+
+P1.12B couvre au minimum :
+
+A. authority QEI;
+B. signature exacte;
+C. projection technique exacte;
+D. résultat lié et snapshot complet;
+E. rejet ressource modifiée;
+F. dangerous text sans effet;
+G. identité/attestation/lifetime;
+H. absence ResearchRunEvidence/findings/backtest/broker/live/autorisation.
+
+## 278. État après sélection
+
+**P1.12A MINIMAL MODEL : SELECTED.**
+
+**P1.12B MINIMAL MODEL : SELECTED.**
+
+**RUNTIME P1.12A : BLOCKED / NOT IMPLEMENTED.**
+
+**RUNTIME P1.12B : BLOCKED / NOT IMPLEMENTED.**
+
+Prochaine mutation autorisée uniquement :
+
+- `breakers/p1_12a_declared_evidence_criteria_assessment_breaker.py`;
+- `.github/workflows/p1-12a-declared-evidence-criteria-assessment.yml`;
+- `breakers/p1_12b_linked_experiment_execution_breaker.py`;
+- `.github/workflows/p1-12b-linked-experiment-execution.yml`.
+
+Aucun `src/declared_evidence_criteria_assessment.py` ni `src/linked_experiment_execution.py` ne doit exister avant observation des FAIL pré-implémentation.
