@@ -61,14 +61,15 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.6 is test-first with no runtime candidate
+      - name: Prove P1.6 candidate exists and breaker remains frozen
         run: |
           test -f breakers/p1_6_memory_collection_audit_breaker.py
-          test ! -e src/memory_audit.py
+          test -f src/memory_audit.py
           grep -Fq 'P1_6_MEMORY_COLLECTION_AUDIT_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_6_MINIMAL_COLLECTION_AUDIT_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          grep -Fq 'SELECTED — TEST-FIRST, NOT IMPLEMENTED' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          echo 'PASS: P1.6 model and breaker exist before runtime implementation'
+          grep -Fq 'P1_6_MEMORY_COLLECTION_AUDIT_BOUNDARY_V1' src/memory_audit.py
+          git diff --exit-code 874f4b4c05aebf107dea40f985826ca8c884db56 HEAD -- breakers/p1_6_memory_collection_audit_breaker.py
+          echo 'PASS: P1.6 candidate present; frozen breaker unchanged'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -107,7 +108,7 @@ jobs:
             breakers/p1_5_external_receipt_pin_breaker.py \
             breakers/p1_5_external_receipt_pin_second_breaker.py
 
-      - name: Break P1.6 A0-H before implementation
+      - name: Break P1.6 A0-H candidate
         run: python -m pytest -q breakers/p1_6_memory_collection_audit_breaker.py
 
       - name: Prove clean worktree
