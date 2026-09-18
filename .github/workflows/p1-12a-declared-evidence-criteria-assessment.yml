@@ -81,14 +81,14 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.12A is test-first with no runtime candidate
+      - name: Prove P1.12A runtime candidate is present after test-first baseline
         run: |
           test -f breakers/p1_12a_declared_evidence_criteria_assessment_breaker.py
-          test ! -e src/declared_evidence_criteria_assessment.py
+          test -f src/declared_evidence_criteria_assessment.py
           grep -Fq 'P1_12A_DECLARED_EVIDENCE_CRITERIA_ASSESSMENT_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_12A_MINIMAL_DECLARED_EVIDENCE_CRITERIA_ASSESSMENT_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           test "$(git hash-object breakers/p1_12a_declared_evidence_criteria_assessment_breaker.py)" = "55a9f445e79e84fac25f2224468bd9d1f8f308ea"
-          echo 'PASS: P1.12A model and immutable breaker exist before runtime implementation'
+          echo 'PASS: P1.12A model, immutable breaker, and runtime candidate are present'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -133,7 +133,7 @@ jobs:
       - name: Re-break protected P1.11A and P1.11B boundaries
         run: python -m pytest -q breakers/p1_11a_evidence_assessment_criteria_breaker.py breakers/p1_11b_qualified_experiment_execution_input_breaker.py
 
-      - name: Break P1.12A before implementation
+      - name: Re-break P1.12A after implementation
         run: python -m pytest -q breakers/p1_12a_declared_evidence_criteria_assessment_breaker.py
 
       - name: Prove clean worktree
