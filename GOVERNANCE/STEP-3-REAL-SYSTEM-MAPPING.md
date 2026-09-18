@@ -8659,3 +8659,22 @@ Prochaine mutation autorisée uniquement :
 - `.github/workflows/p1-14b-measurement-provenance.yml`.
 
 Aucun runtime P1.14 ne doit exister avant observation des FAIL pré-implémentation.
+
+
+---
+
+# P1.14 — POST-IMPLEMENTATION COMMON-HEAD RE-BREAK CHECKPOINT
+
+Runtime candidates are now persisted:
+
+- `src/reviewer_method_authority.py`
+- `src/experiment_measurement_provenance.py`
+
+Immutable breaker identities remain:
+
+- P1.14A: `f63f24cee1667839edd457f4bd76632fba063544`
+- P1.14B: `24d8dcd980ec421c75207930174a42cbd62a3b46`
+
+Qualification remains **PENDING common-HEAD re-break**.
+
+No request fulfillment, experimental finding, ResearchRunEvidence, knowledge promotion, or operational authorization is granted by this checkpoint.
