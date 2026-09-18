@@ -58,13 +58,14 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.5 is still test-first with no runtime candidate
+      - name: Prove P1.5 candidate exists and breaker remains frozen
         run: |
           test -f breakers/p1_5_external_receipt_pin_breaker.py
-          test ! -e src/memory_interprocess.py
+          test -f src/memory_interprocess.py
           grep -Fq 'P1_5_EXTERNAL_RECEIPT_PIN_TRUST_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          grep -Fq 'SELECTED — TEST-FIRST, NOT IMPLEMENTED' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          echo 'PASS: P1.5 breaker exists before runtime implementation'
+          grep -Fq 'P1_5_WITNESSED_DURABLE_MEMORY_REATTESTATION_V1' src/memory_interprocess.py
+          git diff --exit-code e8ea512cbacf98d954c4d87316365733805d501b HEAD -- breakers/p1_5_external_receipt_pin_breaker.py
+          echo 'PASS: P1.5 candidate present; frozen breaker unchanged'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
