@@ -8055,3 +8055,56 @@ P1.13A breaker remains unchanged at:
 `840be30d17a31c8da8c8c57bc8902073de462b58`
 
 P1.13A and P1.13B qualification remain pending a common-HEAD re-break and then a persisted qualification-HEAD final re-break.
+
+
+---
+
+# P1.13 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Common-HEAD qualification base:** `768c68b19d2dfcf75ac7dc84aae528751104ccaa`
+
+Observed common-HEAD runs:
+
+- P1.13A run `35385486859`, job `105731290588`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A+B `51 passed`; P1.13A `43 passed`; clean worktree PASS.
+- P1.13B run `35385486781`, job `105731297427`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A+B `51 passed`; P1.13B `49 passed`; clean worktree PASS.
+
+Breaker identities at this candidate:
+
+- P1.13A: `840be30d17a31c8da8c8c57bc8902073de462b58`;
+- P1.13B corrected explicit-None helper: `aea742767512c0f318744ab8eeade6f4155c2840`.
+
+Runtime identities at this candidate:
+
+- P1.13A: `d22f7964223810623fa2bca927a253359aad17c6`;
+- P1.13B: `968ef47d0fc4e066374b7471110c71d0eaf28865`.
+
+Candidate verdicts:
+
+```text
+P1_13A_EVIDENCE_SEMANTIC_COMPLETENESS_REVIEW_SUBMISSION_BOUNDARY_V1
+→ PASS CANDIDATE
+
+P1_13B_EXPERIMENT_EVALUATION_SUBMISSION_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+These are not final until both P1.13 workflows re-break this persisted qualification state itself.
+
+Qualification remains strictly limited:
+
+```text
+EvidenceSemanticCompletenessReview
+≠ semantic truth
+≠ reviewer authority
+≠ request fulfillment
+≠ knowledge
+
+ExperimentEvaluationSubmission
+≠ measurement provenance
+≠ ResearchFinding
+≠ ResearchRunEvidence
+≠ evidence
+≠ operational authorization
+```
+
+P1.1 positive `AUTHORIZED` remains separately BLOCKED.
