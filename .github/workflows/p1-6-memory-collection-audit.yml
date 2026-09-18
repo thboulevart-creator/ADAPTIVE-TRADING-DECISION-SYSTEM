@@ -33,6 +33,7 @@ on:
       - 'breakers/p1_5_external_receipt_pin_breaker.py'
       - 'breakers/p1_5_external_receipt_pin_second_breaker.py'
       - 'breakers/p1_6_memory_collection_audit_breaker.py'
+      - 'breakers/p1_6_memory_collection_audit_second_breaker.py'
   workflow_dispatch:
 
 permissions:
@@ -108,8 +109,11 @@ jobs:
             breakers/p1_5_external_receipt_pin_breaker.py \
             breakers/p1_5_external_receipt_pin_second_breaker.py
 
-      - name: Break P1.6 A0-H candidate
+      - name: Re-break P1.6 A0-H
         run: python -m pytest -q breakers/p1_6_memory_collection_audit_breaker.py
+
+      - name: Break P1.6 second-order I0-P2
+        run: python -m pytest -q breakers/p1_6_memory_collection_audit_second_breaker.py
 
       - name: Prove clean worktree
         if: always()
