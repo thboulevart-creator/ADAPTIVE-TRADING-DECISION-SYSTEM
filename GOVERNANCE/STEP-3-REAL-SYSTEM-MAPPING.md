@@ -6142,3 +6142,43 @@ The original P1.10A/P1.10B breakers remain unchanged.
 Qualification is **PENDING persisted-HEAD re-break**.
 
 This checkpoint grants no evidence admissibility, no fulfillment, no QualifiedResearchInput, no execution, no result, no ResearchRunEvidence, and no operational authorization.
+
+
+---
+
+# P1.10 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Candidate qualification base:** `cd8f0a739b66c7f9446c54d4426b8a61096b6dd7`
+
+Observed post-implementation runs:
+
+- P1.10A run `35374287883`, job `105695240879`: upstream protected chain PASS, P1.9A+B combined `127 passed`, P1.10A `28 passed`, clean worktree PASS.
+- P1.10B run `35374287915`, job `105695203627`: upstream protected chain PASS, P1.9A+B combined `127 passed`, P1.10B `28 passed`, clean worktree PASS.
+
+Candidate verdicts:
+
+```text
+P1.10A_EVIDENCE_MATERIAL_BINDING_BOUNDARY_V1
+→ PASS CANDIDATE
+
+P1.10B_EXPERIMENT_EXECUTION_BINDING_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+These are not final until both workflows re-break this persisted qualification state itself.
+
+The qualification remains strictly limited:
+
+```text
+BoundEvidenceMaterial
+≠ admissible evidence
+≠ fulfillment
+≠ sufficient evidence
+
+ExperimentExecutionBinding
+≠ QualifiedResearchInput
+≠ execution
+≠ result
+≠ ResearchRunEvidence
+≠ authorization
+```
