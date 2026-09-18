@@ -6806,3 +6806,198 @@ QualifiedExperimentExecutionInput
 ≠ ResearchRunEvidence
 ≠ authorization
 ```
+
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.12 POST-P1.11 ASSESSMENT / LINKED EXECUTION
+
+**Contracts candidats :**
+- `P1_12A_DECLARED_EVIDENCE_CRITERIA_ASSESSMENT_BOUNDARY_V1`
+- `P1_12B_LINKED_EXPERIMENT_EXECUTION_BOUNDARY_V1`
+
+**Base qualifiée reconnue :** `c28242963b00d62ae5f7963a282189f0a88fa157`  
+**Statut :** `FORMALIZED — DIRECT DOWNSTREAM CANDIDATES BROKEN — NO RUNTIME`.
+
+## 256. État amont reconnu
+
+Au HEAD qualifié :
+
+- P1.11A produit `EvidenceAssessmentCriteria` avec critères structurels explicites, exigences sémantiques enregistrées et `criteria_completeness_status = BLOCKED`;
+- P1.10A produit des `BoundEvidenceMaterial` dont les octets sont liés exactement à leur soumission;
+- P1.11B produit un `QualifiedExperimentExecutionInput` conservant `experiment_execution_input_id`, `execution_binding_id`, `experiment_spec_id` et l'identité des ressources;
+- l'exécution P0.4 existante produit un `ResearchExecutionResult` attesté mais dépourvu d'identité expérimentale.
+
+P1.12 ne modifie aucune frontière P1.10/P1.11.
+
+## 257. P1.12A — raccord direct cassé
+
+Le raccord naïf suivant est rejeté :
+
+```text
+EvidenceAssessmentCriteria
++ BoundEvidenceMaterial(s)
+→ admissible / fulfilled
+```
+
+**Verdict conceptuel : FAIL.**
+
+Même si tous les critères structurels déclarés sont satisfaits :
+
+- les exigences sémantiques peuvent rester non évaluées;
+- `criteria_completeness_status` reste `BLOCKED`;
+- aucune autorité n'a encore prouvé que les critères déclarés couvrent exhaustivement `FollowUpRequest.specification`.
+
+Donc :
+
+```text
+declared criteria PASS
+≠ admissibility
+≠ sufficiency
+≠ request fulfillment
+```
+
+## 258. P1.12A — question minimale
+
+P1.12A répond uniquement à :
+
+> Les matériaux exacts fournis satisfont-ils les critères explicitement déclarés que P1.12A sait objectivement vérifier, et quelles dimensions restent bloquées ?
+
+Direction autorisée :
+
+```text
+exact factory-attested EvidenceAssessmentCriteria
++
+exact tuple[BoundEvidenceMaterial, ...]
+↓
+DeclaredEvidenceCriteriaAssessment
+```
+
+## 259. P1.12A — règles vérifiables
+
+P1.12A peut calculer sans interprétation :
+
+1. `distinct_material_count` à partir des `evidence_binding_id` distincts;
+2. `minimum_distinct_materials_status` = PASS/FAIL;
+3. `nonempty_content_status` = PASS/FAIL selon `require_nonempty_content`;
+4. `media_type_status` = PASS/FAIL, ou PASS si aucune restriction n'est déclarée;
+5. `source_ref_status` = PASS/FAIL, ou PASS si aucune restriction n'est déclarée.
+
+Tous les matériaux doivent appartenir au même request/revision/audit/scope que les critères.
+
+Les doublons de `evidence_binding_id` sont rejetés plutôt que comptés plusieurs fois.
+
+## 260. P1.12A — exigences sémantiques
+
+P1.12A ne lit ni n'interprète le contenu.
+
+Donc :
+
+```text
+semantic_requirements == ()
+→ semantic_requirements_status = PASS
+
+semantic_requirements != ()
+→ semantic_requirements_status = BLOCKED
+```
+
+Le texte dangereux ou impératif reste du texte.
+
+## 261. P1.12A — verdict limité
+
+`declared_criteria_verdict` suit exactement :
+
+- FAIL si au moins un critère structurel vérifiable échoue;
+- BLOCKED si tous les critères structurels passent mais qu'au moins une exigence sémantique reste à évaluer;
+- PASS si tous les critères structurels passent et `semantic_requirements == ()`.
+
+Mais :
+
+```text
+request_fulfillment_status = BLOCKED
+```
+
+obligatoirement en V1, car `criteria_completeness_status = BLOCKED`.
+
+Aucun caller-side override n'est autorisé.
+
+## 262. P1.12B — raccord direct cassé
+
+Le raccord naïf suivant est rejeté :
+
+```text
+QualifiedExperimentExecutionInput
+→ ResearchExecutionResult
+```
+
+**Verdict conceptuel : FAIL.**
+
+Un `ResearchExecutionResult` P0.4 nu contient :
+
+- files_consumed;
+- ticks_consumed;
+- first_timestamp;
+- last_timestamp;
+- stream_sha256;
+
+mais pas :
+
+- `experiment_execution_input_id`;
+- `execution_binding_id`;
+- `experiment_spec_id`.
+
+Un résultat P0.4 valide n'est donc pas, à lui seul, une preuve de rattachement à l'expérience P1.11B.
+
+## 263. P1.12B — question minimale
+
+P1.12B répond uniquement à :
+
+> Peut-on exécuter exactement l'input expérimental qualifié via le moteur P0.4 existant et produire immédiatement un résultat attesté qui conserve la provenance expérimentale ?
+
+Direction autorisée :
+
+```text
+exact factory-attested QualifiedExperimentExecutionInput
+↓
+project exact technical QualifiedResearchInput
+↓
+existing run_qualified_research(...)
+↓
+verify exact P0.4 ResearchExecutionResult
+↓
+LinkedExperimentExecutionResult
+```
+
+Le `ResearchExecutionResult` intermédiaire n'est pas une sortie d'autorité P1.12B.
+
+## 264. P1.12B — limite d'autorité
+
+P1.12B exécute uniquement la recherche déterministe déjà gouvernée par P0.4 sur les ressources exactes du QEI.
+
+Il ne :
+
+- crée pas de `ResearchRunEvidence`;
+- n'interprète pas le résultat;
+- ne décide pas si la prédiction est confirmée ou falsifiée;
+- ne produit pas de finding;
+- ne déclenche pas de backtest de stratégie, broker, ordre ou live;
+- ne confère aucune autorisation opérationnelle.
+
+## 265. État après formalisation
+
+**FORMALISATION P1.12A : PASS.**
+
+**FORMALISATION P1.12B : PASS.**
+
+Les raccords directs :
+
+```text
+criteria + materials → admissible/fulfilled
+QEI → raw ResearchExecutionResult as experiment result
+```
+
+sont rejetés.
+
+Les frontières exécutables P1.12A/P1.12B restent :
+
+**BLOCKED / NOT IMPLEMENTED.**
