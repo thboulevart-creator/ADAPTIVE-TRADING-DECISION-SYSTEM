@@ -7993,3 +7993,22 @@ Prochaine mutation autorisée uniquement :
 - `.github/workflows/p1-13b-experiment-evaluation-submission.yml`.
 
 Aucun runtime P1.13 ne doit exister avant observation des FAIL pré-implémentation.
+
+
+---
+
+# P1.13 — POST-IMPLEMENTATION RE-BREAK CHECKPOINT
+
+Runtime candidates now exist at the persisted branch state:
+
+- `src/evidence_semantic_completeness_review.py`
+- `src/experiment_evaluation_submission.py`
+
+The finalized P1.13A/P1.13B breakers remain unchanged after runtime implementation:
+
+- P1.13A breaker blob: `840be30d17a31c8da8c8c57bc8902073de462b58`
+- P1.13B breaker blob: `9516319830a7bd5a88368b898cd4247490a0ee99`
+
+Qualification is **PENDING common-HEAD re-break**.
+
+This checkpoint grants no semantic truth authority, no request fulfillment, no measurement provenance, no experimental finding, no ResearchRunEvidence, no knowledge promotion, and no operational authorization.
