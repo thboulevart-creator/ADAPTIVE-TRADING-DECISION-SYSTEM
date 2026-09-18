@@ -7656,3 +7656,340 @@ Les promotions directes vers fulfillment/finding sont cassées.
 Les runtimes P1.13A/P1.13B restent :
 
 **BLOCKED / NOT IMPLEMENTED.**
+
+
+---
+
+# SÉLECTION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.13 MINIMAL REVIEW SUBMISSION MODELS
+
+**Selection IDs :**
+- `P1_13A_MINIMAL_EVIDENCE_SEMANTIC_COMPLETENESS_REVIEW_MODEL_V1`
+- `P1_13B_MINIMAL_EXPERIMENT_EVALUATION_SUBMISSION_MODEL_V1`
+
+**Base observée avant sélection :** `2c4aa9df1532060ddb05cacd856f294205b20c9e`  
+**Statut :** `SELECTED — TEST-FIRST, NOT IMPLEMENTED`.
+
+## 290. P1.13A — surface minimale
+
+Module candidat futur :
+
+`src/evidence_semantic_completeness_review.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_13A_EVIDENCE_SEMANTIC_COMPLETENESS_REVIEW_SUBMISSION_BOUNDARY_V1"
+
+SemanticRequirementReview
+EvidenceSemanticCompletenessReview
+
+submit_evidence_semantic_completeness_review(
+    assessment,
+    criteria,
+    materials,
+    *,
+    reviewer_id,
+    method_ref,
+    semantic_reviews,
+    reviewed_criteria_completeness_status,
+    criteria_completeness_rationale,
+)
+
+is_factory_attested_evidence_semantic_completeness_review(value)
+```
+
+## 291. P1.13A — autorités d'entrée
+
+- `assessment` : exact factory-attested `DeclaredEvidenceCriteriaAssessment`;
+- `criteria` : exact factory-attested `EvidenceAssessmentCriteria`;
+- `materials` : exact nonempty tuple d'exacts factory-attested `BoundEvidenceMaterial`.
+
+Les identités suivantes doivent être cohérentes sur les trois surfaces :
+
+- criteria_id;
+- request_id;
+- revision_id;
+- audit_id;
+- scope_id;
+- material_binding_ids;
+- source_verdict;
+- source_completeness_status;
+- source_independence_status.
+
+Les `material_binding_ids` du tuple doivent correspondre exactement, dans le même ordre, à ceux de P1.12A.
+
+## 292. P1.13A — SemanticRequirementReview exact
+
+```text
+SemanticRequirementReview
+- requirement
+- status
+- rationale
+- material_binding_ids
+```
+
+Validation :
+
+- exact dataclass type;
+- `requirement` exact str nonempty;
+- `status` ∈ {PASS, FAIL, BLOCKED};
+- `rationale` exact str nonempty;
+- `material_binding_ids` exact tuple nonempty d'exacts str;
+- IDs uniques dans un record;
+- chaque ID doit exister dans les matériaux P1.12A;
+- aucun extra requirement;
+- chaque requirement P1.11A couvert exactement une fois;
+- ordre des reviews identique à `criteria.semantic_requirements`.
+
+Si aucun semantic requirement n'existe, seul `()` est accepté.
+
+## 293. P1.13A — paramètres review
+
+- `reviewer_id` : exact built-in str nonempty après strip, conservé verbatim;
+- `method_ref` : exact built-in str nonempty après strip, conservé verbatim;
+- `semantic_reviews` : exact tuple;
+- `reviewed_criteria_completeness_status` ∈ {PASS, FAIL, BLOCKED};
+- `criteria_completeness_rationale` : exact built-in str nonempty après strip, conservé verbatim.
+
+Aucun paramètre caller-side ne peut modifier :
+
+- les statuts structurels P1.12A;
+- `declared_criteria_completeness_status`;
+- `review_authority_status`;
+- `request_fulfillment_status`.
+
+## 294. P1.13A — modèle exact
+
+```text
+EvidenceSemanticCompletenessReview
+- review_id
+- assessment_id
+- criteria_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- material_binding_ids
+- minimum_distinct_materials_status
+- nonempty_content_status
+- media_type_status
+- source_ref_status
+- semantic_reviews
+- reviewed_criteria_completeness_status
+- criteria_completeness_rationale
+- review_verdict
+- declared_criteria_completeness_status
+- review_authority_status
+- request_fulfillment_status
+- reviewer_id
+- method_ref
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+## 295. P1.13A — verdict
+
+Dimensions structurelles = les quatre statuts P1.12A.
+
+Dimensions sémantiques = tous les `SemanticRequirementReview.status`.
+
+Dimension complétude = `reviewed_criteria_completeness_status`.
+
+`review_verdict` :
+
+- FAIL si au moins une dimension vaut FAIL;
+- sinon BLOCKED si au moins une dimension vaut BLOCKED;
+- sinon PASS.
+
+Toujours :
+
+```text
+declared_criteria_completeness_status = assessment.criteria_completeness_status
+review_authority_status = BLOCKED
+request_fulfillment_status = BLOCKED
+```
+
+## 296. P1.13A — identité / attestation
+
+Préfixe `ESR-`.
+
+ID content-bound au contract, snapshot amont complet utile au modèle, reviewer/method et reviews.
+
+Exact-object process-local attestation + sticky invalidation.
+
+Le snapshot doit rester attesté après collecte des objets amont.
+
+## 297. P1.13A — interdictions
+
+Aucun parsing/décodage des bytes, réseau, subprocess, LLM/model call, promotion admissible, fulfillment PASS, knowledge, ResearchRunEvidence ou autorisation.
+
+## 298. P1.13B — surface minimale
+
+Module candidat futur :
+
+`src/experiment_evaluation_submission.py`
+
+Surface exacte :
+
+```text
+CONTRACT = "P1_13B_EXPERIMENT_EVALUATION_SUBMISSION_BOUNDARY_V1"
+
+ExperimentMeasurementClaim
+ExperimentEvaluationSubmission
+
+submit_experiment_evaluation(
+    execution_result,
+    *,
+    evaluator_id,
+    method_ref,
+    measurements,
+    prediction_status,
+    falsification_status,
+    evaluation_rationale,
+)
+
+is_factory_attested_experiment_evaluation_submission(value)
+```
+
+## 299. P1.13B — autorité d'entrée
+
+`execution_result` doit être l'exact `LinkedExperimentExecutionResult` P1.12B actuellement attesté.
+
+Aucune string ID, dict, copie, deepcopy, replace ou reconstruction manuelle ne confère d'autorité.
+
+## 300. P1.13B — ExperimentMeasurementClaim exact
+
+```text
+ExperimentMeasurementClaim
+- measurement_id
+- metric
+- observed_value
+- unit
+- sample_size
+- scope
+- rationale
+```
+
+Validation :
+
+- exact dataclass type;
+- tous les champs texte exact built-in str, nonempty après strip, verbatim;
+- `sample_size` exact int > 0, bool rejeté;
+- `measurement_id` unique dans la soumission;
+- `measurements` exact tuple non vide.
+
+Aucune vérification de dérivation du stream n'est prétendue en V1.
+
+## 301. P1.13B — paramètres évaluation
+
+- `evaluator_id` exact built-in str nonempty;
+- `method_ref` exact built-in str nonempty;
+- `prediction_status` ∈ {SUPPORTED, NOT_SUPPORTED, BLOCKED};
+- `falsification_status` ∈ {FALSIFIED, NOT_FALSIFIED, BLOCKED};
+- `evaluation_rationale` exact built-in str nonempty.
+
+Les textes dangereux restent inertes.
+
+## 302. P1.13B — modèle exact
+
+```text
+ExperimentEvaluationSubmission
+- evaluation_submission_id
+- experiment_execution_result_id
+- experiment_execution_input_id
+- execution_binding_id
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- objective
+- hypothesis_statement
+- prediction
+- falsification_rule
+- protocol
+- measurement_plan
+- corpus_root
+- contract_path
+- expected_corpus_hash
+- expected_contract_hash
+- files_consumed
+- ticks_consumed
+- first_timestamp
+- last_timestamp
+- stream_sha256
+- measurements
+- prediction_status
+- falsification_status
+- evaluation_rationale
+- evaluator_id
+- method_ref
+- measurement_provenance_status
+- evaluation_authority_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Toujours en V1 :
+
+```text
+measurement_provenance_status = BLOCKED
+evaluation_authority_status = BLOCKED
+```
+
+Aucun champ `finding`, `hypothesis_verdict`, `supported`, `authorized` ou `research_run_evidence` n'est créé comme autorité.
+
+## 303. P1.13B — identité / attestation
+
+Préfixe `EES-`.
+
+ID content-bound à tout le snapshot P1.12B, aux measurement claims, statuts soumis, rationale, evaluator/method et statuts BLOCKED.
+
+Exact-object process-local attestation + sticky invalidation.
+
+Le snapshot reste attesté après collecte du P1.12B amont.
+
+## 304. Breakers test-first attendus
+
+P1.13A :
+
+A. exact upstream authority;
+B. exact signature/no overrides;
+C. provenance/ordered materials;
+D. semantic coverage exact;
+E. completeness submission exact;
+F. deterministic review verdict + authority/fulfillment blocked;
+G. identity/attestation/lifetime;
+H. no parsing/promotion/execution/authorization.
+
+P1.13B :
+
+A. exact P1.12B authority;
+B. exact signature/no overrides;
+C. measurement claim exactness/uniqueness;
+D. snapshot provenance completeness;
+E. status domains;
+F. dangerous text inert + provenance/authority blocked;
+G. identity/attestation/lifetime;
+H. no ResearchFinding/ResearchFindings/ResearchRunEvidence/backtest/broker/live/authorization.
+
+## 305. État après sélection
+
+**P1.13A MINIMAL MODEL : SELECTED.**
+
+**P1.13B MINIMAL MODEL : SELECTED.**
+
+**RUNTIME P1.13A : BLOCKED / NOT IMPLEMENTED.**
+
+**RUNTIME P1.13B : BLOCKED / NOT IMPLEMENTED.**
+
+Prochaine mutation autorisée uniquement :
+
+- `breakers/p1_13a_evidence_semantic_completeness_review_breaker.py`;
+- `.github/workflows/p1-13a-evidence-semantic-completeness-review.yml`;
+- `breakers/p1_13b_experiment_evaluation_submission_breaker.py`;
+- `.github/workflows/p1-13b-experiment-evaluation-submission.yml`.
+
+Aucun runtime P1.13 ne doit exister avant observation des FAIL pré-implémentation.
