@@ -7316,3 +7316,51 @@ The original P1.12A/P1.12B breakers remain unchanged:
 Qualification is **PENDING persisted-HEAD re-break**.
 
 This checkpoint grants no evidence admissibility, no request fulfillment, no knowledge promotion, no ResearchRunEvidence, no experimental finding, no hypothesis verdict, and no operational authorization.
+
+
+---
+
+# P1.12B — BREAKER FIXTURE LIFETIME CORRECTION AND COMMON-HEAD RE-BREAK GATE
+
+The first post-implementation P1.12B run on `c3c155ae40a7ac765f54280fe48320a0a5b1544c` produced:
+
+- protected chain through P1.11: PASS;
+- P1.12B: `17 passed, 1 failed`;
+- sole failure: `test_g4_upstream_qei_can_be_collected`.
+
+The failure was demonstrated to originate in the breaker fixture itself: the generator-based `_qualified_case()` retained a strong local reference named `qualified` across the `yield`, making collection impossible while still inside the context manager.
+
+The correction changed only the fixture lifetime mechanics:
+
+```text
+qualified = qualify_experiment_execution_input(binding)
+yield qualified, case
+```
+
+became:
+
+```text
+yield qualify_experiment_execution_input(binding), case
+```
+
+No assertion was removed or weakened. No other attack was changed. No P1.12 runtime was modified by this correction.
+
+Corrected P1.12B breaker blob:
+
+`a226fd1aac9a3472682386ab9f3d6eb3d23feeba`
+
+The workflow breaker hash lock was updated to that exact blob.
+
+Re-break of the unchanged P1.12B runtime on `39466775b8ac9e2e88c2a8752b5a53fecef28efc`:
+
+- protected chain through P1.11: PASS;
+- P1.12B: `18 passed`;
+- clean worktree: PASS;
+- workflow run: `35382538731`;
+- job: `105721847395`.
+
+This record supersedes only the earlier statement that the P1.12B breaker remained byte-for-byte unchanged. P1.12A breaker remains unchanged at:
+
+`55a9f445e79e84fac25f2224468bd9d1f8f308ea`
+
+P1.12A and P1.12B qualification remain pending a common-HEAD re-break and then a persisted qualification-HEAD final re-break.
