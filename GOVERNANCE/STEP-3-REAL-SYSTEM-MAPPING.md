@@ -6748,3 +6748,19 @@ Prochaine mutation autorisée uniquement :
 - `.github/workflows/p1-11b-qualified-experiment-execution-input.yml`.
 
 Aucun `src/evidence_assessment_criteria.py` ni `src/qualified_experiment_execution_input.py` ne doit exister avant observation des FAIL pré-implémentation.
+
+
+---
+
+# P1.11 — POST-IMPLEMENTATION RE-BREAK CHECKPOINT
+
+Runtime candidates now exist at the persisted branch state:
+
+- `src/evidence_assessment_criteria.py`
+- `src/qualified_experiment_execution_input.py`
+
+The original P1.11A/P1.11B breakers remain unchanged.
+
+Qualification is **PENDING persisted-HEAD re-break**.
+
+This checkpoint grants no evidence admissibility, no request fulfillment, no execution result, no ResearchRunEvidence, no knowledge promotion, and no operational authorization.
