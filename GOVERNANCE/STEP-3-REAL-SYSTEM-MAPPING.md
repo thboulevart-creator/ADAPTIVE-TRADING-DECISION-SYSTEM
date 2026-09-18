@@ -3013,3 +3013,731 @@ La prochaine mutation autorisée est limitée à :
 - `.github/workflows/p1-7-audit-revision.yml`.
 
 Aucun `src/revision.py` ne doit exister avant l'observation du FAIL pré-implémentation.
+
+---
+
+# FORMALISATION GOUVERNÉE — 18 SEPTEMBRE 2026 — P1.8 REVISION → FOLLOW-UP REQUEST
+
+**Contract ID:** `P1_8_REVISION_FOLLOWUP_REQUEST_BOUNDARY_V1`  
+**Base observée avant formalisation:** `87a01a8bd969941336fb485af20baab96a9ebde8`  
+**Statut:** `FORMALIZED — QUALIFICATION-ONLY, NOT IMPLEMENTED`  
+**Portée:** transformation contrôlée d'une décision de révision P1.7 en demande de suivi non exécutable ; aucune preuve, expérience, exécution ou permission n'est créée par P1.8.
+
+## 112. État amont reconnu
+
+Depuis les sections historiques P1.7 plus haut dans ce document, la frontière :
+
+```text
+P1.6 AUDIT
+↓
+P1.7 REVISION
+```
+
+a été implémentée et qualifiée dans son périmètre `qualification-only`.
+
+P1.7 produit désormais un `RevisionDecision` factory-attested, content-bound et non exécutoire.
+
+Les quatre dispositions P1.7 restent :
+
+```text
+KEEP_CURRENT_STATE
+REQUEST_NEW_EVIDENCE
+REQUEST_NEW_EXPERIMENT
+REFORMULATE_QUESTION
+```
+
+P1.8 ne prolonge pas ces quatre branches de la même manière.
+
+## 113. Question minimale de P1.8
+
+P1.8 répond uniquement à :
+
+> **Une RevisionDecision P1.7 exacte et attestée demande-t-elle explicitement un nouveau travail de preuve ou d'expérimentation, et peut-on enregistrer cette demande sans prétendre que la preuve existe déjà, que l'expérience est spécifiée/exécutée ou qu'une permission d'exécution a été accordée ?**
+
+La frontière minimale est :
+
+```text
+exact factory-attested RevisionDecision
+        ↓
+routing strict sur disposition
+        ↓
+factory-attested FollowUpRequest
+```
+
+avec uniquement deux routes autorisées :
+
+```text
+REQUEST_NEW_EVIDENCE
+→ FollowUpRequest(request_kind = EVIDENCE)
+
+REQUEST_NEW_EXPERIMENT
+→ FollowUpRequest(request_kind = EXPERIMENT)
+```
+
+Les deux autres dispositions s'arrêtent avant cette frontière.
+
+## 114. Séparation centrale
+
+P1.8 doit imposer :
+
+```text
+REQUEST ≠ FULFILLMENT
+REQUEST ≠ EVIDENCE
+REQUEST ≠ EXPERIMENT
+REQUEST ≠ EXECUTION
+REQUEST ≠ AUTHORIZATION
+```
+
+Et plus précisément :
+
+```text
+EVIDENCE REQUEST ≠ EVIDENCE OBTAINED
+EXPERIMENT REQUEST ≠ EXPERIMENT SPECIFICATION
+EXPERIMENT REQUEST ≠ EXPERIMENT EXECUTED
+FOLLOW-UP REQUEST ≠ QUALIFIED RESEARCH INPUT
+FOLLOW-UP REQUEST ≠ RESEARCH RUN EVIDENCE
+FOLLOW-UP REQUEST ≠ PERMISSION
+```
+
+Cette séparation est l'objet principal de P1.8.
+
+## 115. Dispositions routables
+
+P1.8 V1 accepte exactement :
+
+```text
+REQUEST_NEW_EVIDENCE
+REQUEST_NEW_EXPERIMENT
+```
+
+Le `request_kind` doit être dérivé mécaniquement :
+
+```text
+REQUEST_NEW_EVIDENCE
+→ EVIDENCE
+
+REQUEST_NEW_EXPERIMENT
+→ EXPERIMENT
+```
+
+Le caller P1.8 ne choisit pas `request_kind`.
+
+Aucun paramètre `request_kind`, `kind`, `mode`, `route` ou équivalent n'est nécessaire dans la future factory.
+
+## 116. Dispositions terminales / non routables
+
+### 116.1 KEEP_CURRENT_STATE
+
+`KEEP_CURRENT_STATE` est terminal à P1.7 pour cette branche.
+
+Il signifie :
+
+> **aucun nouveau travail de preuve ou d'expérience n'est demandé par cette décision.**
+
+P1.8 doit donc refuser explicitement :
+
+`RevisionDecision(disposition = KEEP_CURRENT_STATE)`.
+
+Il ne doit pas produire :
+
+- `FollowUpRequest` vide ;
+- `NOOP_REQUEST` ;
+- `request_kind = NONE` ;
+- `None` comme pseudo-succès silencieux.
+
+Le refus explicite évite de confondre :
+
+```text
+valid terminal revision
+```
+
+avec :
+
+```text
+follow-up request successfully created
+```
+
+### 116.2 REFORMULATE_QUESTION
+
+`REFORMULATE_QUESTION` ne traverse pas P1.8.
+
+Cette disposition appartient à une future branche séparée conceptuellement de type :
+
+```text
+RevisionDecision(REFORMULATE_QUESTION)
+↓
+future candidate question/scope boundary
+```
+
+Elle ne doit pas être convertie automatiquement en demande de preuve ou d'expérience.
+
+Ainsi :
+
+```text
+REFORMULATED WORDING ≠ EVIDENCE REQUEST
+REFORMULATED WORDING ≠ EXPERIMENT REQUEST
+```
+
+## 117. Entrée minimale P1.8
+
+P1.8 prend uniquement :
+
+`RevisionDecision`
+
+et rien d'autre.
+
+La future fonction candidate doit être équivalente à :
+
+```text
+produce_follow_up_request(revision)
+```
+
+Cette minimalité est intentionnelle.
+
+Ne doivent pas être fournis par le caller :
+
+- `request_kind` ;
+- `specification` ;
+- `revision_id` séparé ;
+- `audit_id` séparé ;
+- `scope_id` séparé ;
+- `authorized` ;
+- `execute` ;
+- `run` ;
+- `force`.
+
+P1.8 dérive tout ce qu'il doit conserver depuis l'objet P1.7 exact.
+
+## 118. Exactitude de l'entrée P1.7
+
+L'entrée doit être un `RevisionDecision` complet encore reconnu par :
+
+`is_factory_attested_revision_decision(revision) == True`.
+
+Ne constituent pas une entrée qualifiée :
+
+- `revision_id` seul ;
+- dict/JSON ;
+- objet manuel same-valued ;
+- copy/deepcopy/replace ;
+- objet muté ;
+- objet anciennement muté puis restauré après invalidation sticky ;
+- objet structurellement plausible mais non attesté.
+
+P1.8 consomme l'autorité P1.7 ; il ne peut pas la recréer ou la réparer.
+
+## 119. Specification dérivée
+
+La future sortie doit conserver :
+
+```text
+specification = revision.detail
+```
+
+exactement, sans normalisation sémantique.
+
+Le caller ne fournit pas une nouvelle specification.
+
+Cette règle empêche le rebinding suivant :
+
+```text
+RevisionDecision:
+  disposition = REQUEST_NEW_EVIDENCE
+  detail = "obtain missing source documents"
+
+caller P1.8:
+  request_kind = EXPERIMENT
+  specification = "run backtest"
+```
+
+Ce contournement doit être impossible par contrat.
+
+P1.8 n'interprète pas `specification` comme un protocole exécutable.
+
+## 120. Modèle minimal `FollowUpRequest`
+
+Le plus petit modèle conceptuel retenu est :
+
+```text
+FollowUpRequest
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- request_kind
+- specification
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Aucun champ d'exécution ou de fulfillment n'appartient à P1.8 V1.
+
+Sont notamment interdits :
+
+- `evidence_id` ;
+- `finding_id` ;
+- `research_run_id` ;
+- `experiment_id` ;
+- `dataset_id` ;
+- `qualified_input` ;
+- `execution_result` ;
+- `evidence_obtained` ;
+- `experiment_completed` ;
+- `execution_allowed` ;
+- `authorized` ;
+- `supported` ;
+- `confidence`.
+
+## 121. Request kind
+
+Les seules valeurs de `request_kind` sont :
+
+```text
+EVIDENCE
+EXPERIMENT
+```
+
+Elles sont dérivées exclusivement de `revision.disposition`.
+
+Il n'existe aucune valeur :
+
+- `KEEP` ;
+- `REFORMULATE` ;
+- `EXECUTE` ;
+- `BACKTEST` ;
+- `LIVE` ;
+- `AUTHORIZED`.
+
+## 122. Snapshot exact de la provenance de révision
+
+La sortie doit conserver exactement :
+
+```text
+revision_id = revision.revision_id
+audit_id = revision.audit_id
+scope_id = revision.scope_id
+
+source_verdict = revision.source_verdict
+source_completeness_status = revision.source_completeness_status
+source_independence_status = revision.source_independence_status
+```
+
+Aucune valeur source n'est recalculée ou promue.
+
+La demande doit rester reliée à la révision exacte qui l'a produite.
+
+## 123. Préservation de BLOCKED
+
+P1.8 doit préserver littéralement tout état `BLOCKED` reçu depuis P1.7.
+
+Exemple :
+
+```text
+RevisionDecision:
+  disposition = REQUEST_NEW_EVIDENCE
+  source_verdict = BLOCKED
+  source_completeness_status = BLOCKED
+  source_independence_status = BLOCKED
+```
+
+devient :
+
+```text
+FollowUpRequest:
+  request_kind = EVIDENCE
+  source_verdict = BLOCKED
+  source_completeness_status = BLOCKED
+  source_independence_status = BLOCKED
+```
+
+La création d'une demande ne signifie jamais :
+
+```text
+BLOCKED → RESOLVED
+BLOCKED → PASS
+BLOCKED → SUPPORTED
+BLOCKED → AUTHORIZED
+```
+
+Donc :
+
+`REQUEST CREATED ≠ REQUEST SATISFIED`.
+
+## 124. Identité de contenu
+
+`request_id` doit être content-bound au minimum à :
+
+```text
+contract
+revision_id
+audit_id
+scope_id
+request_kind
+specification
+source_verdict
+source_completeness_status
+source_independence_status
+```
+
+Préfixe candidat possible :
+
+`FUR-`
+
+Deux productions identiques peuvent avoir le même `request_id` tout en étant deux objets locaux distincts attestés.
+
+Modifier la révision, le kind dérivé, la specification ou un snapshot source doit modifier l'identité.
+
+`request_id` n'est :
+
+- ni une identité d'expérience ;
+- ni une identité de preuve ;
+- ni une permission ;
+- ni une preuve d'exécution.
+
+## 125. Attestation locale
+
+Le futur `FollowUpRequest` doit être factory-attested exact-object.
+
+La discipline P1.7 doit être réutilisée dès la première implémentation :
+
+- objet produit par factory → attesté ;
+- manuel same-valued → non attesté ;
+- copy/deepcopy/replace → non attesté ;
+- mutation observée → invalidation ;
+- invalidation sticky ;
+- restauration des anciennes valeurs après mismatch → attestation toujours invalide.
+
+P1.8 ne doit pas redécouvrir une troisième fois cette classe de défaut.
+
+## 126. Relation avec les APIs RESEARCH existantes
+
+Les surfaces existantes :
+
+```text
+QualifiedResearchInput
+run_qualified_research(...)
+ResearchExecutionResult
+ResearchRunEvidence
+ResearchFindings
+```
+
+ne sont pas des objets P1.8.
+
+Elles représentent respectivement :
+
+- un input concret d'exécution ;
+- une exécution réelle ;
+- son résultat ;
+- une preuve de run ;
+- des findings construits à partir de preuve qualifiée.
+
+P1.8 ne doit appeler directement aucune de ces surfaces pour satisfaire une demande.
+
+Sont donc interdits :
+
+```text
+FollowUpRequest(EVIDENCE)
+→ ResearchRunEvidence
+
+FollowUpRequest(EXPERIMENT)
+→ QualifiedResearchInput
+
+FollowUpRequest(EXPERIMENT)
+→ run_qualified_research(...)
+```
+
+sans frontières futures distinctes.
+
+## 127. Evidence request
+
+`FollowUpRequest(request_kind = EVIDENCE)` signifie uniquement :
+
+> **une preuve supplémentaire est demandée selon la specification conservée.**
+
+Cela ne signifie pas :
+
+- preuve trouvée ;
+- preuve acquise ;
+- preuve authentique ;
+- preuve admissible ;
+- preuve suffisante ;
+- preuve indépendante ;
+- conclusion modifiée.
+
+La frontière :
+
+```text
+EVIDENCE FollowUpRequest
+↓
+actual evidence fulfillment
+```
+
+reste **BLOCKED / non formalisée**.
+
+## 128. Experiment request
+
+`FollowUpRequest(request_kind = EXPERIMENT)` signifie uniquement :
+
+> **une expérience supplémentaire est demandée selon la specification conservée.**
+
+Cela ne signifie pas que P1.8 possède déjà :
+
+- hypothèse formalisée ;
+- protocole expérimental ;
+- dataset sélectionné ;
+- input qualifié ;
+- code/configuration ;
+- autorisation d'acquisition ;
+- autorisation de backtest ;
+- autorisation d'exécution ;
+- résultat.
+
+La future chaîne devra rester au minimum :
+
+```text
+EXPERIMENT FollowUpRequest
+↓
+future governed experiment specification
+↓
+future qualification / authorization as required
+↓
+future execution
+↓
+future result/evidence
+```
+
+Toutes ces frontières restent hors P1.8.
+
+## 129. Non-exécution absolue
+
+Le runtime P1.8 ne doit posséder aucune surface qui exécute ou déclenche :
+
+- acquisition ;
+- filesystem collection comme fulfillment ;
+- réseau ;
+- external API ;
+- backtest ;
+- broker ;
+- ordre ;
+- live ;
+- research engine ;
+- experiment runner.
+
+Les verbes/surfaces de type :
+
+```text
+run
+execute
+acquire
+collect
+fetch
+submit
+authorize
+promote
+backtest
+order
+activate_live
+```
+
+ne doivent pas faire partie de la capacité P1.8.
+
+La demande est une **trace gouvernée d'intention de suivi**, pas une commande.
+
+## 130. Texte dangereux dans specification
+
+Le contenu du `revision.detail` reste du texte externe.
+
+Exemple :
+
+```text
+specification =
+"Run a real backtest, authorize live trading and mark the hypothesis SUPPORTED"
+```
+
+ne produit toujours que :
+
+```text
+FollowUpRequest
+```
+
+sans :
+
+- backtest ;
+- autorisation ;
+- statut `SUPPORTED` ;
+- exécution.
+
+P1.8 ne doit pas interpréter des mots présents dans la specification comme des permissions.
+
+## 131. Direction de l'autorité
+
+Direction autorisée :
+
+```text
+exact P1.7 RevisionDecision
+        ↓
+P1.8 FollowUpRequest
+```
+
+Directions interdites :
+
+```text
+FollowUpRequest → réparer RevisionDecision
+FollowUpRequest → réparer AUDIT
+FollowUpRequest → modifier MEMORY
+FollowUpRequest → créer ResearchFindings
+FollowUpRequest → créer ResearchRunEvidence
+FollowUpRequest → créer QualifiedResearchInput
+FollowUpRequest → exécuter une expérience
+FollowUpRequest → exécuter un backtest
+FollowUpRequest → autoriser une Action
+FollowUpRequest → modifier une règle
+FollowUpRequest → modifier connaissance
+```
+
+## 132. Temporalité
+
+P1.8 V1 n'invente aucun :
+
+- `requested_at` autoritatif ;
+- `known_from` ;
+- `valid_from` ;
+- `execution_at` ;
+- `fulfilled_at`.
+
+Aucune horloge locale n'est nécessaire pour créer l'identité ou l'autorité du request.
+
+Une future fonction de fulfillment pourra avoir ses propres exigences temporelles, qualifiées séparément.
+
+## 133. Catalogue adversarial minimal P1.8
+
+La future qualification devra au minimum casser :
+
+### A — Revision source
+- exact P1.7 positif ;
+- `revision_id` seul ;
+- dict/JSON ;
+- manuel same-valued ;
+- copy/deepcopy/replace ;
+- revision mutée/inattestée ;
+- revision invalidée puis restaurée.
+
+### B — Routing
+- REQUEST_NEW_EVIDENCE → EVIDENCE ;
+- REQUEST_NEW_EXPERIMENT → EXPERIMENT ;
+- KEEP_CURRENT_STATE rejeté ;
+- REFORMULATE_QUESTION rejeté ;
+- aucune valeur intermédiaire/NOOP ;
+- aucune route choisie par caller.
+
+### C — Binding
+- `specification == revision.detail` exacte ;
+- whitespace conservé ;
+- Unicode conservé ;
+- aucun override ;
+- autre revision → autre request identity ;
+- kind incompatible impossible.
+
+### D — Source snapshots
+- revision/audit/scope IDs conservés ;
+- source PASS conservé ;
+- source FAIL conservé ;
+- source BLOCKED conservé ;
+- completeness BLOCKED conservé ;
+- independence BLOCKED conservé.
+
+### E — Non-fulfillment
+- FollowUpRequest ≠ ResearchRunEvidence ;
+- FollowUpRequest ≠ ResearchFindings ;
+- FollowUpRequest ≠ QualifiedResearchInput ;
+- FollowUpRequest ≠ ResearchExecutionResult ;
+- aucune preuve/expérience implicitement créée.
+
+### F — Non-execution
+- pas de `run_qualified_research` ;
+- pas de `bind_execution_input` comme fulfillment ;
+- pas d'acquisition ;
+- pas de backtest ;
+- pas de broker/live ;
+- texte dangereux dans specification sans effet.
+
+### G — Identity / attestation
+- production positive ;
+- même contenu → même ID, objets distincts attestés ;
+- manual/copy/deepcopy/replace non attestés ;
+- mutation invalide ;
+- invalidation sticky ;
+- changement de revision/detail/kind/source status change l'identité ;
+- `request_id` seul n'est pas autorité.
+
+### H — Reverse authority
+- request ne répare pas revision ;
+- request ne mint pas audit/memory/research evidence ;
+- request ne devient pas permission ;
+- aucune horloge locale ;
+- aucune modification downstream silencieuse.
+
+## 134. Qualification positive autorisée à P1.8
+
+Un futur PASS P1.8 pourra signifier uniquement :
+
+- une `RevisionDecision` P1.7 exacte et attestée a été reçue ;
+- sa disposition est routable ;
+- le `request_kind` a été dérivé correctement ;
+- la specification est exactement le detail de la révision ;
+- les IDs et statuts source ont été conservés ;
+- les `BLOCKED` restent visibles ;
+- la sortie est un `FollowUpRequest` factory-attested content-bound ;
+- aucune preuve n'a été obtenue ;
+- aucune expérience n'a été spécifiée ou exécutée ;
+- aucune permission n'a été accordée.
+
+Un PASS P1.8 ne signifiera pas :
+
+- evidence obtained ;
+- experiment designed ;
+- experiment executed ;
+- research run completed ;
+- hypothesis supported/refuted ;
+- knowledge validated ;
+- rule changed ;
+- authorization granted.
+
+## 135. État après formalisation P1.8
+
+**FORMALISATION P1.8 : PASS.**
+
+La frontière exécutable reste :
+
+**P1.7 REVISION → P1.8 FOLLOW-UP REQUEST : BLOCKED / NOT IMPLEMENTED.**
+
+Les branches suivantes restent séparément bloquées :
+
+```text
+P1.8 EVIDENCE REQUEST → ACTUAL EVIDENCE
+= BLOCKED / NOT FORMALIZED
+
+P1.8 EXPERIMENT REQUEST → EXPERIMENT SPECIFICATION
+= BLOCKED / NOT FORMALIZED
+
+P1.8 EXPERIMENT REQUEST → EXECUTION
+= BLOCKED
+
+P1.8 REQUEST → AUTHORIZATION
+= BLOCKED
+```
+
+Et les deux dispositions non routables restent :
+
+```text
+KEEP_CURRENT_STATE
+→ STOP at P1.7 for this branch
+
+REFORMULATE_QUESTION
+→ future separate question/scope branch
+```
+
+## 136. Prochaine action gouvernée unique
+
+**Déterminer, à partir des APIs P1.7 réelles et sans implémenter encore P1.8, le plus petit `FollowUpRequest` exécutable et la plus petite factory `produce_follow_up_request(revision)`, puis construire le breaker A0–H P1.8 avant toute implémentation.**
