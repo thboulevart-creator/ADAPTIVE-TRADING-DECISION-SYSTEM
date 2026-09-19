@@ -30,7 +30,7 @@ Always verify the live branch HEAD before writing. The checkpoint/backup commits
 
 Current block:
 
-`P1.14 — EXTERNAL REVIEW AUTHORITY / WITNESSED MEASUREMENT PROVENANCE`
+`P1.15 — EVIDENCE FULFILLMENT PROMOTION / EXPERIMENT EVALUATOR AUTHORITY`
 
 ---
 
@@ -566,3 +566,181 @@ Stop here for 18 September 2026.
 Do not correct the P1.14A breaker tonight after this checkpoint save.
 
 Tomorrow resume from GitHub, this checkpoint, and the dated backup — not from conversational memory.
+
+
+---
+
+## 17. P1.14 final qualification closure
+
+P1.14 is now fully qualified.
+
+Qualified persisted HEAD:
+
+`bbd4e382f5ce744438079015eb11826aff64be74`
+
+Final P1.14A:
+
+- run `35429884389`;
+- job `105862447839`;
+- `34 passed`;
+- clean worktree.
+
+Final P1.14B:
+
+- run `35429884347`;
+- job `105862447690`;
+- `38 passed`;
+- clean worktree.
+
+Final identities:
+
+- P1.14A breaker `ff8de568b3ed8b1e887b604a8db9d173bdbbd66b`;
+- P1.14B breaker `24d8dcd980ec421c75207930174a42cbd62a3b46`;
+- P1.14A runtime `d56374ab05b07b8a05eafbbba9dde2875ef4f507`;
+- P1.14B runtime `4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5`.
+
+Verdict:
+
+```text
+P1.14A PASS
+P1.14B PASS
+```
+
+---
+
+## 18. P1.15 conceptual formalisation state
+
+Governance formalisation commit:
+
+`483227c09ad10e8be11f95b609a6420443a11b34`
+
+No P1.15 runtime exists.
+
+No P1.15 executable breaker exists.
+
+### P1.15A selected minimal boundary
+
+Contract candidate:
+
+`P1_15A_EVIDENCE_REQUEST_FULFILLMENT_DECISION_BOUNDARY_V1`
+
+Purpose:
+
+```text
+exact ReviewerMethodAuthorityQualification
+→ explicit EvidenceRequestFulfillmentDecision
+```
+
+Deterministic promotion:
+
+```text
+review_verdict PASS    → request_fulfillment_status PASS
+review_verdict FAIL    → request_fulfillment_status FAIL
+review_verdict BLOCKED → request_fulfillment_status BLOCKED
+```
+
+Only an exact P1.14A authority qualification is admissible.
+
+Fulfillment does not mean knowledge or operational authorization.
+
+### P1.15B selected minimal boundary
+
+Contract candidate:
+
+`P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1`
+
+Purpose:
+
+```text
+exact ExperimentEvaluationSubmission
++
+exact WitnessedMeasurementProvenance
++
+external evaluator/method/procedure authority
+→ QualifiedExperimentEvaluationAuthority
+```
+
+Expected positive status:
+
+```text
+evaluation_authority_status = PASS
+finding_status = BLOCKED
+```
+
+P1.15B does NOT create a finding.
+
+The actual experimental finding promotion is deferred because a governed mapping from:
+
+- prediction status;
+- falsification status;
+- qualified evaluation authority;
+- witnessed measurements;
+
+to:
+
+- SUPPORTED;
+- REFUTED;
+- NOT_INTERPRETABLE;
+
+still needs its own explicit policy boundary.
+
+---
+
+## 19. P1.15 conceptual break verdicts
+
+### P1.15A naive promotion
+
+```text
+ReviewerMethodAuthorityQualification
+→ implicit fulfillment
+```
+
+Verdict:
+
+`FAIL`
+
+Reason:
+
+reviewer authority is necessary but cannot silently mutate request-level state. An explicit promotion gate is required.
+
+### P1.15B naive promotion
+
+```text
+WitnessedMeasurementProvenance
+→ qualified experimental finding
+```
+
+Verdict:
+
+`FAIL`
+
+Reasons:
+
+- provenance is not evaluator authority;
+- provenance is not method authority;
+- procedure hashes are identity, not correctness;
+- P1.14B lacks complete finding interpretation policy;
+- current `ResearchFindings` structural factory does not prove this authority chain.
+
+---
+
+## 20. Exactly one next governed action
+
+Create only the P1.15 test-first executable breakers and their workflows, with no P1.15 runtime implementation yet:
+
+- `breakers/p1_15a_evidence_request_fulfillment_breaker.py`;
+- `.github/workflows/p1-15a-evidence-request-fulfillment.yml`;
+- `breakers/p1_15b_experiment_evaluator_authority_breaker.py`;
+- `.github/workflows/p1-15b-experiment-evaluator-authority.yml`.
+
+The breakers must encode the conceptual attack sets already frozen in governance.
+
+Then run pre-implementation qualification and require:
+
+- protected chain through P1.14A+B PASS;
+- P1.15A FAIL only because its runtime candidate is absent;
+- P1.15B FAIL only because its runtime candidate is absent;
+- clean worktrees.
+
+Do not implement either P1.15 runtime before those expected red baselines exist.
+
