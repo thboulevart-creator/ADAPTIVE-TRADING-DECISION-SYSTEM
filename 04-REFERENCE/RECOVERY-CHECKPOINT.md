@@ -2089,3 +2089,215 @@ no backtest
 ```
 
 Only after that expected red baseline is persisted may production I_A/I_B implementation begin.
+
+
+---
+
+## 45. Native BI5 I_A/I_B test-first RED baseline — qualified
+
+The executable test-first breaker/harness layer for future native-BI5 `I_A + I_B` implementations has been created, adversarially broken, corrected through three minimal correction rounds and final persisted-head re-broken.
+
+### Final breaker identities
+
+```text
+I_A breaker
+breakers/native_bi5_ia_reference_qualifier_breaker.py
+blob = 64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd
+
+I_B breaker
+breakers/native_bi5_ib_independent_qualifier_breaker.py
+blob = d1a305e3b9ae813e891b34522e3a12bb6bc8ac34
+```
+
+### Final preimplementation workflows
+
+```text
+I_A workflow
+.github/workflows/native-bi5-ia-reference-qualifier-preimplementation.yml
+blob = c3325de6f65be5c99f8df5aab19404d1cd627a9a
+
+I_B workflow
+.github/workflows/native-bi5-ib-independent-qualifier-preimplementation.yml
+blob = 02151244113b5654647c529899b11997c8762c66
+```
+
+### Breaker/harness defects demonstrated and corrected
+
+```text
+IAB-TF-F01 — SELF_ATTESTED_INDEPENDENCE_EVIDENCE
+IAB-TF-F02 — SELF_REPORTED_ISOLATION_EVIDENCE
+IAB-TF-F03 — STATIC_ONLY_SHARED_SEMANTIC_DEPENDENCY_DETECTION
+
+IAB-TF-R01 — UNRESOLVED_EVIDENCE_REFERENCE_TRUST
+IAB-TF-R02 — ENVIRONMENT_CHANNEL_NOT_OBSERVED
+IAB-TF-R03 — IMPORT_TIME_DYNAMIC_DEPENDENCY_GAP
+IAB-TF-R04 — IMPORT_TIME_ENVIRONMENT_LEAK_GAP
+IAB-TF-R05 — CACHED_OPPOSITE_MODULE_RUNTIME_AUDIT_BLIND_SPOT
+```
+
+Final corrected breaker candidate HEAD:
+
+`331f48ad4080daf1b41f69dddb559e6820cbcff0`
+
+Final persisted-head adversarial re-break evidence commit:
+
+`5873767377f7374566a7c8319f22211965fe096a`
+
+Final adversarial artifact:
+
+`reports/data-qualification/iab_native_bi5_testfirst_harness_adversarial_break_2026-09-19.md`
+
+Final adversarial artifact blob:
+
+`13737aef3b3b8fd7e7257c0e731719965e2e3a23`
+
+No additional internal breaker/harness defect was demonstrated after the third correction.
+
+### Final RED executions
+
+I_A:
+
+```text
+run = 35441702806
+job = 105893512667
+23 errors
+sole cause = missing src.native_bi5_reference_qualifier
+```
+
+I_B:
+
+```text
+run = 35441702856
+job = 105893512796
+23 errors
+sole cause = missing src.native_bi5_independent_qualifier
+```
+
+For both workflows:
+
+```text
+exact persisted HEAD / hash locks        PASS
+expected runtime absence                 PASS
+locked qualification environment         PASS
+breaker execution                        EXPECTED RED
+clean worktree                           PASS
+```
+
+### Test-first layer verdict
+
+```text
+I_A/I_B TEST-FIRST BREAKER / HARNESS LAYER = PASS
+```
+
+This PASS applies only to the executable qualification harness and its persisted RED baseline.
+
+Official concrete implementation gates remain:
+
+```text
+I_A = BLOCKED
+I_B = BLOCKED
+```
+
+No production I_A or I_B module exists.
+
+The global concrete gate remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No real acquisition, BI5 processing or backtest authorization is created.
+
+---
+
+## 46. Durable I_A/I_B test-first baseline state
+
+Durable baseline artifact:
+
+`reports/data-qualification/iab_native_bi5_preimplementation_red_baseline_2026-09-19.md`
+
+Baseline commit:
+
+`cd543e463593a182d6bdb3e69860080b6c7500af`
+
+Baseline blob:
+
+`18393a03b39a54433ad85e0236c217e41fdcfd6e`
+
+Global reconciliation audit update commit:
+
+`f49062965a3269a0440d6b3e25f1484019cb8551`
+
+Global reconciliation audit blob:
+
+`06ae81c3715b11ae9a3c7dbf30c3942054e53b90`
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-IAB-TESTFIRST-RED.md`
+
+Backup commit:
+
+`05b432e3c23ea6587038d2a3a989ec20b7028b25`
+
+Backup blob:
+
+`e31fa1d36ef9e839c0051b05017260c1cddb66bb`
+
+No production semantic implementation, real data, acquisition or backtest occurred before this checkpoint.
+
+---
+
+## 47. Exactly one next governed action
+
+Open only:
+
+```text
+I_A — reference implementation candidate
+```
+
+Create only:
+
+`src/native_bi5_reference_qualifier.py`
+
+using:
+
+- the pinned D/R/M/B/A/Q/F candidate contracts;
+- the corrected I_A/I_B implementation-boundary contract;
+- the frozen I_A breaker:
+  `breakers/native_bi5_ia_reference_qualifier_breaker.py`.
+
+Do **not** create I_B yet.
+
+The I_A implementation block must follow:
+
+```text
+fresh HEAD verification
+→ minimal I_A candidate implementation
+→ persisted candidate
+→ execute frozen I_A breaker
+→ adversarial diagnosis
+→ minimal corrections only
+→ persisted-head I_A re-break
+→ PASS / FAIL / BLOCKED
+→ global audit update
+→ durable backup
+→ Recovery Checkpoint update
+```
+
+I_A must be implemented from the pinned normative contracts, not from implementation convenience or an existing parser as authority.
+
+I_B remains separately BLOCKED and must later be independently derived from the pinned contracts and its required derivation evidence, not copied or wrapped from I_A.
+
+The I_A block remains synthetic/in-memory only.
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
