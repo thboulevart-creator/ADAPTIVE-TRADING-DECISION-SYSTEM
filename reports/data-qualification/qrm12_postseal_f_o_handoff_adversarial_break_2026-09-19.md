@@ -283,3 +283,34 @@ correct QRM12-F01..F06 only
 ```
 
 No production code is authorized.
+
+
+## 10. QRM12-F07 — SHARED PRE-SEAL F VALIDATOR CAN BECOME COMMON SEMANTIC AUTHORITY
+
+The candidate requires each path to perform "path-private F validation" before sealing, but it does not explicitly forbid both paths from calling the same project-owned semantic F validator at that pre-seal stage.
+
+A common pre-seal validator can itself encode the same F acceptance/rejection defect for both paths and therefore act as shared semantic authority before independent sealing.
+
+### Attack
+
+Let I_A and I_B independently construct different internal F candidates, but route both through one shared project-owned pre-seal F semantic validator/normalizer that silently accepts or rewrites the same defect.
+
+The pair can then become artificially homogeneous before O.
+
+### Verdict
+
+```text
+QRM12-F07 = FAIL
+```
+
+### Minimal correction
+
+Pre-seal F construction **and pre-seal F semantic validation** must remain path-private/independently implemented.
+
+The existing shared F validator is permitted only at the post-seal Q-RM-12 ingress, where it validates already-sealed artifacts and cannot feed semantic decisions back into either implementation path.
+
+Updated authorized correction set:
+
+```text
+QRM12-F01..F07 only
+```
