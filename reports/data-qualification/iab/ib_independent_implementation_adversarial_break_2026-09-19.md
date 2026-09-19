@@ -385,3 +385,175 @@ Minimal correction:
 4. continue rejecting unknown determinant keys or malformed claimed digests from sealed result validation.
 
 No evidence semantics, frozen breaker or I_A source may be changed.
+
+
+---
+
+## Final persisted-head I_B re-break and verdict
+
+Second minimal correction source commit:
+
+`a988da503651451df7801ddec6dec26cc04d5801`
+
+Final I_B source Git blob:
+
+`25fadd36761616e89a21964201b3bfa3c7349ea4`
+
+Final I_B raw-source SHA-256:
+
+`a2b155d23a3a66968ba5bc35586bc7a9b9318655053121066676d6db1d7addb9`
+
+Final post-code evidence binding/workflow transition commit:
+
+`2d9ad088bb9ada9a289f63307df2e2c0ab7a0182`
+
+Final bound evidence blobs:
+
+```text
+provenance
+f78025f5e8ad9bf9a66f8ceef3995eddecdc0cf3
+
+no-copy
+b62df24e695c925ab440b826b5100c84e9072468
+
+stage inventory
+b822f48bbdca3c9580374a7170b493f7f684e1b0
+```
+
+The qualified evidence breaker remained unchanged:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+The frozen I_B breaker remained unchanged:
+
+`d1a305e3b9ae813e891b34522e3a12bb6bc8ac34`
+
+Final supplemental adversarial breaker blob:
+
+`e0fd8b6c8b946945ad91d772fc0505edbc7f79f5`
+
+### Final same-HEAD re-break
+
+Persisted code/evidence/harness HEAD:
+
+`5f79f77951c8563d7a4cc193e1fdca9b8aa7a09a`
+
+Workflow:
+
+`Native BI5 I_B Independent Qualifier Persisted-HEAD Rebreak`
+
+Run:
+
+```text
+run = 35444927844
+job = 105902106261
+```
+
+Results:
+
+```text
+qualified derivation evidence breaker = 11 passed
+frozen I_B breaker                    = 23 passed
+supplemental adversarial breaker      = 7 passed
+```
+
+All exact source/evidence/breaker blob locks, raw source SHA-256 lock, qualification-environment checks and clean-worktree checks passed.
+
+### Defect closure
+
+```text
+IB-F01 — RESEALED_MANIFEST_DIGEST_SUBSTITUTION_ACCEPTED
+→ SURVIVES CORRECTION
+
+IB-F02 — RESEALED_INCOMPLETE_DETERMINANT_BINDING_ACCEPTED
+→ SURVIVES CORRECTION
+
+IB-F03 — MALFORMED_EXECUTION_CONTEXT_ESCAPES_STATUS_MODEL
+→ SURVIVES CORRECTION
+
+IB-R01 — BLOCKED_MISSING_DETERMINANT_RESULT_LOSES_PRESENT_INPUT_BINDINGS
+→ SURVIVES CORRECTION
+```
+
+No additional internal I_B implementation defect was demonstrated after the second minimal correction and final same-HEAD re-break.
+
+### Independence / pair evidence that also passed
+
+The frozen I_B breaker additionally demonstrated on the qualified synthetic fixture:
+
+- I_B source and I_A source are not identical;
+- structural clone detector remains below its forbidden threshold;
+- no I_A import/shared semantic shortcut is admitted by the checked source/dependency surface;
+- cold-import and runtime channel audits remain closed;
+- I_B source digests match all three bound independent-derivation evidence artifacts;
+- I_A and I_B independently sealed semantic projections agree on the same immutable synthetic input;
+- I_A-only semantic mutation is detected;
+- I_B-only semantic mutation is detected;
+- result-byte/seal inequality is not mistaken for semantic inequality;
+- strict duplicates, zero/crossed prices, finite negative volume and timestamp regression remain preserved;
+- local A09 rejection/accounting remains exact;
+- late semantic blocking emits no partial qualified universe;
+- missing normative input fails closed.
+
+The I_A source was not used as a derivation input for I_B. It is touched only by the already-qualified external pair breaker after independently sealed I_B execution, as permitted by the boundary.
+
+### Known scope limitation retained
+
+Positive A08 constructive-completeness proof validation remains unavailable because its independent verifier/schema is not qualified.
+
+I_B therefore deliberately remains fail-closed:
+
+```text
+unverified claimed constructive-completeness proof
+→ no A08 promotion
+→ A07
+→ QUALIFICATION_BLOCKED
+```
+
+This does not authorize real-data B/A closure.
+
+## Final implementation-layer verdict
+
+```text
+I_B INDEPENDENT IMPLEMENTATION CANDIDATE
+PASS
+```
+
+Scope of this PASS:
+
+- independent I_B source exists;
+- source digest is bound to the already-qualified derivation evidence package;
+- no frozen evidence semantics changed after source creation;
+- qualified evidence breaker remains unchanged and passes;
+- frozen I_B breaker remains unchanged and passes;
+- demonstrated implementation defects are encoded in the supplemental breaker and pass;
+- pair semantic agreement and one-sided mutant detection pass on synthetic/in-memory fixtures;
+- final qualification is from one persisted HEAD.
+
+This PASS does **not** imply:
+
+```text
+D = PASS
+R = PASS
+M = PASS
+B = PASS
+A = PASS
+Q = PASS
+F = PASS
+O = PASS
+I_B global executable gate = PASS
+real BI5 acquisition authorized
+real BI5 processing authorized
+real backtest authorized
+```
+
+The correct two-level state is:
+
+```text
+I_B implementation candidate qualification = PASS
+I_B global executable gate                  = BLOCKED
+```
+
+because the complete concrete D/R/M/B/A/Q/F/O chain remains officially BLOCKED and has not been materially instantiated against real acquisition evidence.
+
+No permission increase is created.
