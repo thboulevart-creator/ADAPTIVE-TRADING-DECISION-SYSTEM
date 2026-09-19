@@ -238,3 +238,63 @@ encode O-F01..O-F03 in a supplemental adversarial breaker
 The frozen O breaker and all F assets must remain byte-identical.
 
 No real BI5 data, acquisition, backtest, paper/broker/live action is authorized.
+
+
+---
+
+## 6. Executable supplemental break
+
+Supplemental breaker:
+
+`breakers/native_bi5_o_semantic_comparator_adversarial.py`
+
+Initial supplemental breaker blob:
+
+`89fb272b133800ecf4366c6b117a18c0acafcef2`
+
+Workflow:
+
+`Native BI5 O Semantic Comparator Adversarial`
+
+Run:
+
+```text
+run = 35463977481
+job = 105952715015
+```
+
+Results:
+
+```text
+frozen O breaker       = 77 passed
+supplemental adversary = 3 failed
+```
+
+Observed failures map exactly to the demonstrated defects:
+
+```text
+O-F01
+expected NORMATIVE_VERSION_INTEGRITY_CONFLICT
+observed DISTINCT_QUALIFICATION_STATE
+
+O-F02
+expected SEMANTIC_EQUAL
+observed BLOCKED
+
+O-F03
+expected SEMANTIC_EQUAL
+observed BLOCKED
+```
+
+All exact O/F source and breaker locks, contract locks, qualification-environment checks and clean-worktree checks passed.
+
+Current state:
+
+```text
+O frozen breaker = PASS
+O supplemental breaker = FAIL
+O implementation candidate = FAIL
+O global gate = BLOCKED
+```
+
+Only O-F01..O-F03 are authorized for correction.
