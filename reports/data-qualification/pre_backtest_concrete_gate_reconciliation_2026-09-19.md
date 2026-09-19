@@ -2761,3 +2761,129 @@ Q-RM-12 executable run = BLOCKED
 ```
 
 No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+
+---
+
+# Q-RM-12 post-seal I_A/I_B → F/O handoff formalization — 2026-09-19
+
+The previously exposed post-O integration gap has now completed a governed documentary formalization cycle.
+
+Formalization candidate:
+
+`reports/data-qualification/qrm12_postseal_f_o_handoff_formalization_candidate_2026-09-19.md`
+
+Qualified candidate blob re-broken:
+
+`a1f1c0edf6f45fd96620e3f2274cc9da0214e3f7`
+
+Adversarial break record:
+
+`reports/data-qualification/qrm12_postseal_f_o_handoff_adversarial_break_2026-09-19.md`
+
+Persisted-head final re-break:
+
+`reports/data-qualification/qrm12_postseal_f_o_handoff_persisted_head_rebreak_2026-09-19.md`
+
+Exact candidate HEAD re-broken:
+
+`886567839e13f7b53109b337c411acd1d1c91ec3`
+
+Formalization qualification commit:
+
+`ba4f654c1915772af665ff27b2b564df1ab86efd`
+
+## Demonstrated and corrected formalization defects
+
+```text
+QRM12-F01 — COMMON_INPUT_PRECOMPUTES_B_DERIVED_F_FIELDS
+QRM12-F02 — IMPLEMENTATION_VERSION_CAN_REMAIN_V0_1_WHILE_OUTPUT_CONTRACT_CHANGES
+QRM12-F03 — RESULT_PRODUCER_IDENTITY_IS_SELF_ASSERTED
+QRM12-F04 — SAME_STATE_CONFLICT_PRECEDENCE_IS_UNDERSPECIFIED
+QRM12-F05 — RESULT_SEAL_NORMAL_FORM_IS_NOT_FIXED
+QRM12-F06 — QUALIFIED_FREEZE_CONSTRUCTION_AND_TERMINAL_HANDLING_ARE_AMBIGUOUS
+QRM12-F07 — SHARED_PRESEAL_F_VALIDATOR_CAN_BECOME_COMMON_SEMANTIC_AUTHORITY
+QRM12-F08 — EXECUTION_EVIDENCE_DOES_NOT_BIND_THE_EXACT_SEALED_OUTPUT
+```
+
+## Qualified handoff model
+
+The formalization now requires:
+
+```text
+same immutable common input
+        ↓                         ↓
+independent version-forward I_A   independent version-forward I_B
+        ↓                         ↓
+independent B/A/Q/F semantics     independent B/A/Q/F semantics
+        ↓                         ↓
+path-private F_A build/validation path-private F_B build/validation
+        ↓                         ↓
+embed exact F_A before seal       embed exact F_B before seal
+        ↓                         ↓
+run-bound sealed result A         run-bound sealed result B
+        \                         /
+         Q-RM-12 post-seal ingress
+                   ↓
+external producer/run/output pinning
++ strict result-seal validation
++ post-seal shared F validation
++ result/F cross-binding
+                   ↓
+             extract F_A/F_B
+                   ↓
+        existing O comparator unchanged
+```
+
+Critical invariants:
+
+- current V0.1 I_A/I_B result schema is insufficient for Q-RM-12;
+- both implementation versions/manifests must version-forward for the future compatibility surface;
+- common inputs may not precompute B-derived complete-slot/terminal-fragment answers;
+- pre-seal F construction and F semantic validation remain independently implemented per path;
+- shared F validation is allowed only after both results are sealed;
+- exact F artifact is embedded in the qualified result before result sealing;
+- result seal is strict canonical-JSON integrity, not producer authentication;
+- external execution/sealing evidence binds the exact emitted result seal to the qualified source/manifests and isolated run;
+- same-id/same-version reference/integrity conflicts have precedence over legitimate distinct-version classification;
+- terminal states never synthesize a qualified F artifact and never create qualified-universe equality PASS;
+- O still receives only exact validated F artifacts and remains unchanged;
+- no source witness, traversal order, serialization order, artifact hash or shared bridge becomes semantic authority.
+
+Persisted-head re-break matrix:
+
+`28/28 documentary attacks = PASS`
+
+## Formalization verdict
+
+```text
+Q-RM-12 POST-SEAL I_A/I_B → F/O HANDOFF FORMALIZATION = PASS
+```
+
+This is a formalization-layer PASS only.
+
+## Executable/global state remains unchanged
+
+```text
+I_A V0.1 implementation candidate qualification = PASS
+I_B V0.1 implementation candidate qualification = PASS
+I_A Q-RM-12 compatibility                       = BLOCKED
+I_B Q-RM-12 compatibility                       = BLOCKED
+
+Q-RM-12 executable runtime = ABSENT
+Q-RM-12 executable run     = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization was created.
+
