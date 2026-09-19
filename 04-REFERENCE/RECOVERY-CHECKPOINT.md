@@ -2540,3 +2540,206 @@ Only after this evidence package survives may a new governed block create:
 `src/native_bi5_independent_qualifier.py`
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 51. Native BI5 I_B independent derivation evidence package — qualified
+
+A pre-code independent-derivation evidence package for the future native-BI5 I_B implementation now exists and has completed its governed adversarial qualification cycle.
+
+Final evidence artifacts:
+
+```text
+reports/data-qualification/iab/ib_semantic_source_provenance.json
+blob = a4040370458b1a8d22ec2411178cc023cf96155b
+
+reports/data-qualification/iab/ib_no_copy_declaration.json
+blob = 2d983605d1d19a1e644a49e88ab9ee2429b8a185
+
+reports/data-qualification/iab/ib_independent_stage_test_inventory.json
+blob = c3a4e6564a67c572f313c30d177433ee6a22764b
+```
+
+Final frozen semantic payload SHA-256 values:
+
+```text
+provenance
+e7362dfe76e4c722e4d5ec7512907691e486cdba15a4a42999cd9ce0d24fb99a
+
+no-copy
+b3b70f3858a46d112cf9cb5e1d9c9ab7940cf963fb6f9d2f459e1cb8f1a585eb
+
+inventory
+a27dcaa62b6f693c6a545bb22e344707762d5d9ed06e813959efc0b80b95b36d
+```
+
+Qualified evidence breaker:
+
+`breakers/native_bi5_ib_derivation_evidence_breaker.py`
+
+Breaker blob:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+Adversarial record:
+
+`reports/data-qualification/iab/ib_derivation_evidence_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`83c6b5552d34f0b1bae77b1ed40081694555c40f`
+
+### Demonstrated evidence defects
+
+```text
+IBE-F01 — FROZEN_PAYLOAD_FINGERPRINT_MISMATCH
+IBE-F02 — FUTURE_BREAKER_SHAPE_MISMATCH
+IBE-F03 — ANOMALY_TEST_INVENTORY_TOO_COARSE
+IBE-F04 — CROSS_ARTIFACT_PACKAGE_BINDING_MISSING
+
+IBE-R01 — POSITIVE_A08_TEST_WITHOUT_QUALIFIED_PROOF_VERIFIER
+IBE-R02 — CROSS_CUTTING_BOUNDARY_TEST_INVENTORY_GAPS
+IBE-R03 — EXACT_SIBLING_PAYLOAD_BINDING_NOT_CLOSED
+IBE-R04 — PRECODE_ONLY_BREAKER_CANNOT_VALIDATE_POST_CODE_BINDING
+IBE-R05 — COORDINATED_FROZEN_PAYLOAD_REWRITE_NOT_EXTERNALLY_ANCHORED
+```
+
+All demonstrated defects were minimally corrected.
+
+### Final persisted-head re-break
+
+Final corrected evidence HEAD:
+
+`86641b5d419c4fd2c4388bf786ce964c5fcb260b`
+
+Final run:
+
+```text
+run = 35443769476
+job = 105899075997
+11 passed
+```
+
+All exact evidence/breaker locks, I_B-source-absence proof, qualification-environment checks and clean-worktree checks passed.
+
+No additional internal evidence-package defect was demonstrated.
+
+### Final evidence-package verdict
+
+```text
+I_B INDEPENDENT DERIVATION EVIDENCE PACKAGE = PASS
+```
+
+Current I_B state remains:
+
+```text
+I_B derivation evidence package = PASS
+I_B implementation source       = ABSENT
+I_B source binding              = PENDING_IMPLEMENTATION_SOURCE
+I_B executable/global gate      = BLOCKED
+```
+
+The source-binding transition is already frozen.
+
+Future allowed source path:
+
+`src/native_bi5_independent_qualifier.py`
+
+Future required bound state:
+
+```text
+source_binding_state = BOUND_TO_IMPLEMENTATION_SOURCE
+
+source_digests = {
+  "src/native_bi5_independent_qualifier.py":
+  SHA256_RAW_SOURCE_BYTES(actual source)
+}
+```
+
+Only `source_digests` and `source_binding_state` may change in the three evidence artifacts after I_B source creation.
+
+The frozen semantic payloads and their payload hashes may not change.
+
+The already-qualified evidence breaker hard-binds those hashes and must remain unchanged.
+
+Positive A08 proof validation remains unavailable until a separately governed constructive-completeness proof verifier/schema is qualified. I_B must fail closed rather than invent that authority.
+
+The I_A source remains a forbidden derivation input for I_B.
+
+No acquisition, BI5 processing, backtest or execution authorization is created.
+
+---
+
+## 52. Durable I_B derivation evidence backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-IB-DERIVATION-EVIDENCE.md`
+
+Backup commit:
+
+`440146bf636473218bc7370f5fc22e84d157886c`
+
+Backup blob:
+
+`0718cf9964528e451bfbb9cf1d5db1b31ce59a12`
+
+Global reconciliation audit update commit:
+
+`cc18661c21f3cd18bdb82ec36a868ab91f982e0d`
+
+Global reconciliation audit blob:
+
+`c0a73fa75a2daeef3910c113480fad7a7d7971ce`
+
+No I_B source, real BI5 acquisition, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 53. Exactly one next governed action
+
+Open only:
+
+```text
+I_B — independent implementation candidate
+```
+
+Create only:
+
+`src/native_bi5_independent_qualifier.py`
+
+The source must be independently derived from:
+
+- the qualified I_B derivation evidence package;
+- the pinned D/R/M/B/A/Q/F normative candidate artifacts referenced by that package;
+- the corrected I_A/I_B implementation boundary;
+- the frozen I_B breaker requirements.
+
+The following remains a forbidden derivation input:
+
+`src/native_bi5_reference_qualifier.py`
+
+Do not read, copy, port, mechanically transform, wrap or generate I_B from I_A source or I_A semantic outputs.
+
+After independently persisting the first I_B source candidate:
+
+1. compute SHA-256 over the raw I_B source bytes;
+2. update only `source_digests` in all three evidence JSON files;
+3. update only `source_binding_state` to `BOUND_TO_IMPLEMENTATION_SOURCE`;
+4. do not modify any `frozen_semantic_payload`;
+5. run the already-qualified evidence breaker **unchanged**;
+6. run the frozen I_B executable breaker;
+7. adversarially break I_B;
+8. correct only demonstrated defects;
+9. whenever I_B source bytes change, update source digests accordingly without touching frozen evidence semantics;
+10. perform final persisted-head re-break;
+11. only then issue PASS / FAIL / BLOCKED.
+
+Qualified evidence breaker blob that must remain unchanged:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+The implementation block remains synthetic/in-memory only.
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
