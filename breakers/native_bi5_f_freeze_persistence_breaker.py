@@ -217,6 +217,7 @@ def _qualified_input() -> dict[str, Any]:
             "components": [_component_snapshot()],
         },
         "source_accounting": accounting,
+        "b_candidate_occurrences": copy.deepcopy(occurrences),
         "anomaly_outcomes": [],
         "retained_occurrences": occurrences,
         "rejection_diagnostics": [],
@@ -226,6 +227,7 @@ def _qualified_input() -> dict[str, Any]:
 def _qualified_with_local_reject() -> dict[str, Any]:
     data = _qualified_input()
     data["retained_occurrences"] = data["retained_occurrences"][:2]
+    data["b_candidate_occurrences"] = copy.deepcopy(data["retained_occurrences"])
     data["source_accounting"][2] = {
         "component_manifest_entry_id": "SYNTH-F-COMP-001",
         "component_local_slot_index": 2,
@@ -249,10 +251,157 @@ def _qualified_with_local_reject() -> dict[str, Any]:
     return data
 
 
+def _qualified_two_component_input() -> dict[str, Any]:
+    data = _qualified_input()
+    second_component = {
+        "component_manifest_entry_id": "SYNTH-F-COMP-002",
+        "declared_role": "HOURLY_NATIVE_BI5_TICKS",
+        "instrument_source_identity": "DUKASCOPY/USATECHIDXUSD",
+        "declared_hour_bucket_utc": "2026-01-02T11:00:00Z",
+        "immutable_payload_reference": "synthetic://payload/component-002",
+        "payload_integrity_reference": _digest("c"),
+        "materialization_status": "MATERIALIZED",
+        "complete_slot_count": 1,
+        "terminal_fragment": None,
+    }
+    payload = _logical_payload(
+        "2026-01-02T11:00:00.500Z",
+        100_500,
+        100_400,
+        (1, 0),
+        (3, -1),
+    )
+    occurrence = {
+        "logical_payload": payload,
+        "source_witness": {
+            "component_manifest_entry_id": "SYNTH-F-COMP-002",
+            "component_local_slot_index": 0,
+        },
+    }
+    data["acquisition_snapshot"]["components"].append(second_component)
+    data["source_accounting"].append(
+        {
+            "component_manifest_entry_id": "SYNTH-F-COMP-002",
+            "component_local_slot_index": 0,
+            "disposition": "CANDIDATE_RETAINED",
+            "anomaly_class_id": None,
+        }
+    )
+    data["b_candidate_occurrences"].append(copy.deepcopy(occurrence))
+    data["retained_occurrences"].append(occurrence)
+    return data
+
+
+def _qualified_with_two_local_rejects() -> dict[str, Any]:
+    data = _qualified_input()
+    component = data["acquisition_snapshot"]["components"][0]
+    component["complete_slot_count"] = 4
+
+    retained0 = copy.deepcopy(data["retained_occurrences"][0])
+    retained3 = _occurrence(
+        3,
+        _logical_payload(
+            "2026-01-02T10:00:03.000Z",
+            100_300,
+            100_200,
+            (1, 0),
+            (1, 0),
+        ),
+    )
+    data["retained_occurrences"] = [retained0, retained3]
+    data["b_candidate_occurrences"] = copy.deepcopy(data["retained_occurrences"])
+    data["source_accounting"] = [
+        {
+            "component_manifest_entry_id": "SYNTH-F-COMP-001",
+            "component_local_slot_index": 0,
+            "disposition": "CANDIDATE_RETAINED",
+            "anomaly_class_id": None,
+        },
+        {
+            "component_manifest_entry_id": "SYNTH-F-COMP-001",
+            "component_local_slot_index": 1,
+            "disposition": "REJECT_RECORD",
+            "anomaly_class_id": "BI5-A09",
+        },
+        {
+            "component_manifest_entry_id": "SYNTH-F-COMP-001",
+            "component_local_slot_index": 2,
+            "disposition": "REJECT_RECORD",
+            "anomaly_class_id": "BI5-A10",
+        },
+        {
+            "component_manifest_entry_id": "SYNTH-F-COMP-001",
+            "component_local_slot_index": 3,
+            "disposition": "CANDIDATE_RETAINED",
+            "anomaly_class_id": None,
+        },
+    ]
+    data["anomaly_outcomes"] = [
+        {
+            "anomaly_class_id": "BI5-A09",
+            "anomaly_matrix_version": "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE",
+            "target": {
+                "target_scope": "COMPLETE_SLOT",
+                "component_manifest_entry_id": "SYNTH-F-COMP-001",
+                "component_local_slot_index": 1,
+            },
+            "mandatory_outcome": "REJECT_RECORD",
+            "acquisition_fatal": False,
+            "qualification_evidence_bindings": [],
+            "diagnostic_path": "synthetic://diagnostic/a09",
+        },
+        {
+            "anomaly_class_id": "BI5-A10",
+            "anomaly_matrix_version": "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE",
+            "target": {
+                "target_scope": "COMPLETE_SLOT",
+                "component_manifest_entry_id": "SYNTH-F-COMP-001",
+                "component_local_slot_index": 2,
+            },
+            "mandatory_outcome": "REJECT_RECORD",
+            "acquisition_fatal": False,
+            "qualification_evidence_bindings": [],
+            "diagnostic_path": "synthetic://diagnostic/a10",
+        },
+    ]
+    return data
+
+
+def _a08_without_evidence_input() -> dict[str, Any]:
+    data = _qualified_input()
+    component = data["acquisition_snapshot"]["components"][0]
+    component["complete_slot_count"] = 2
+    component["terminal_fragment"] = {
+        "terminal_fragment_start_offset": 40,
+        "terminal_fragment_length": 7,
+        "remainder_reference": "synthetic://fragment/a08",
+    }
+    data["retained_occurrences"] = data["retained_occurrences"][:2]
+    data["b_candidate_occurrences"] = copy.deepcopy(data["retained_occurrences"])
+    data["source_accounting"] = data["source_accounting"][:2]
+    data["anomaly_outcomes"] = [
+        {
+            "anomaly_class_id": "BI5-A08",
+            "anomaly_matrix_version": "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE",
+            "target": {
+                "target_scope": "TERMINAL_FRAGMENT",
+                "component_manifest_entry_id": "SYNTH-F-COMP-001",
+                "terminal_fragment_start_offset": 40,
+                "terminal_fragment_length": 7,
+            },
+            "mandatory_outcome": "REJECT_RECORD",
+            "acquisition_fatal": False,
+            "qualification_evidence_bindings": [],
+        }
+    ]
+    return data
+
+
 def _terminal_input(outcome: str) -> dict[str, Any]:
     data = _qualified_input()
     data["qualification_outcome"] = outcome
     data["retained_occurrences"] = []
+    data["b_candidate_occurrences"] = []
     data["source_accounting"] = []
     data["anomaly_outcomes"] = [
         {
@@ -437,28 +586,15 @@ def test_b5_anomaly_relation_cannot_be_dropped() -> None:
 
 
 def test_b6_a08_without_exact_evidence_binding_cannot_freeze() -> None:
-    data = _qualified_with_local_reject()
-    data["source_accounting"][2]["anomaly_class_id"] = "BI5-A08"
-    data["anomaly_outcomes"][0] = {
-        "anomaly_class_id": "BI5-A08",
-        "anomaly_matrix_version": "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE",
-        "target": {
-            "target_scope": "TERMINAL_FRAGMENT",
-            "component_manifest_entry_id": "SYNTH-F-COMP-001",
-            "terminal_fragment_start_offset": 60,
-            "terminal_fragment_length": 7,
-        },
-        "mandatory_outcome": "REJECT_RECORD",
-        "acquisition_fatal": False,
-        "qualification_evidence_bindings": [],
-    }
+    data = _a08_without_evidence_input()
     artifact = _build(data)
     assert artifact["freeze_state"] == "NOT_CREATED"
     assert artifact["qualified_universe"] is None
 
 
 def test_c0_every_retained_occurrence_persisted_exactly_once() -> None:
-    artifact = _build(_qualified_input())
+    source = _qualified_input()
+    artifact = _build(source)
     universe = artifact["qualified_universe"]
     assert len(universe["retained_occurrences"]) == 3
     witnesses = [
@@ -469,6 +605,21 @@ def test_c0_every_retained_occurrence_persisted_exactly_once() -> None:
         for item in universe["retained_occurrences"]
     ]
     assert len(witnesses) == len(set(witnesses)) == 3
+    expected = {
+        (
+            item["source_witness"]["component_manifest_entry_id"],
+            item["source_witness"]["component_local_slot_index"],
+        ): item["logical_payload"]
+        for item in source["b_candidate_occurrences"]
+    }
+    frozen = {
+        (
+            item["source_witness"]["component_manifest_entry_id"],
+            item["source_witness"]["component_local_slot_index"],
+        ): item["logical_payload"]
+        for item in universe["retained_occurrences"]
+    }
+    assert frozen == expected
 
 
 def test_c1_strict_duplicate_multiplicity_survives_freeze() -> None:
@@ -499,15 +650,14 @@ def test_c3_signed_zero_source_bits_do_not_create_distinct_logical_zero() -> Non
 
 
 def test_c4_source_to_logical_corruption_cannot_hide_behind_equal_payload_bag() -> None:
-    artifact = _build(_qualified_input())
-    corrupted = copy.deepcopy(artifact)
-    occurrences = corrupted["qualified_universe"]["retained_occurrences"]
-    occurrences[0]["source_witness"], occurrences[1]["source_witness"] = (
-        occurrences[1]["source_witness"],
-        occurrences[0]["source_witness"],
+    data = _qualified_input()
+    data["retained_occurrences"][0]["source_witness"], data["retained_occurrences"][1]["source_witness"] = (
+        data["retained_occurrences"][1]["source_witness"],
+        data["retained_occurrences"][0]["source_witness"],
     )
-    with pytest.raises((TypeError, ValueError)):
-        _f().validate_freeze_artifact(corrupted)
+    artifact = _build(data)
+    assert artifact["freeze_state"] == "NOT_CREATED"
+    assert artifact["qualified_universe"] is None
 
 
 def test_c5_source_witness_is_not_promoted_to_canonical_occurrence_identity() -> None:
@@ -521,16 +671,28 @@ def test_c5_source_witness_is_not_promoted_to_canonical_occurrence_identity() ->
     }
     for occurrence in artifact["qualified_universe"]["retained_occurrences"]:
         assert forbidden.isdisjoint(occurrence)
+        assert set(occurrence).issubset(
+            {"logical_payload", "source_witness", "source_provenance"}
+        )
 
 
-def test_d0_array_order_is_nonsemantic_for_validation() -> None:
-    artifact = _build(_qualified_with_local_reject())
+def test_d0_component_accounting_and_occurrence_array_order_is_nonsemantic() -> None:
+    artifact = _build(_qualified_two_component_input())
     reordered = copy.deepcopy(artifact)
     universe = reordered["qualified_universe"]
     universe["components"].reverse()
     universe["source_accounting"].reverse()
-    universe["anomaly_outcomes"].reverse()
     universe["retained_occurrences"].reverse()
+    _f().validate_freeze_artifact(reordered)
+
+
+def test_d0b_anomaly_array_order_and_diagnostic_path_are_nonsemantic() -> None:
+    artifact = _build(_qualified_with_two_local_rejects())
+    reordered = copy.deepcopy(artifact)
+    anomalies = reordered["qualified_universe"]["anomaly_outcomes"]
+    anomalies.reverse()
+    for index, item in enumerate(anomalies):
+        item["diagnostic_path"] = f"synthetic://different-path/{index}"
     _f().validate_freeze_artifact(reordered)
 
 
@@ -549,15 +711,17 @@ def test_d1_json_whitespace_and_key_order_do_not_define_semantic_identity() -> N
     assert decoded_compact == decoded_pretty == artifact
 
 
-def test_d2_timestamp_regression_does_not_create_temporal_authority() -> None:
+def test_d2_timestamp_array_order_does_not_create_temporal_authority() -> None:
     artifact = _build(_qualified_input())
     assert artifact["freeze_state"] == "FROZEN"
-    timestamps = [
-        item["logical_payload"]["market_timestamp_utc"]
-        for item in artifact["qualified_universe"]["retained_occurrences"]
-    ]
-    assert timestamps[0] > timestamps[1]
-    for item in artifact["qualified_universe"]["retained_occurrences"]:
+    reordered = copy.deepcopy(artifact)
+    occurrences = reordered["qualified_universe"]["retained_occurrences"]
+    occurrences.sort(
+        key=lambda item: item["logical_payload"]["market_timestamp_utc"],
+        reverse=True,
+    )
+    _f().validate_freeze_artifact(reordered)
+    for item in occurrences:
         assert "temporal_rank" not in item
         assert "sequence_position" not in item
 
@@ -568,6 +732,30 @@ def test_d3_byte_hash_is_integrity_only_not_semantic_identity() -> None:
     pretty = _f().serialize_freeze_artifact(artifact, pretty=True)
     assert hashlib.sha256(compact).digest() != hashlib.sha256(pretty).digest()
     assert _f().deserialize_freeze_artifact(compact) == _f().deserialize_freeze_artifact(pretty)
+
+
+def test_d4_missing_d_completeness_evidence_prevents_freeze() -> None:
+    data = _qualified_input()
+    del data["acquisition_snapshot"]["completeness_evidence"]
+    artifact = _build(data)
+    assert artifact["freeze_state"] == "NOT_CREATED"
+    assert artifact["qualified_universe"] is None
+
+
+def test_d5_nonmaterialized_declared_component_prevents_freeze() -> None:
+    data = _qualified_input()
+    data["acquisition_snapshot"]["components"][0]["materialization_status"] = "MISSING"
+    artifact = _build(data)
+    assert artifact["freeze_state"] == "NOT_CREATED"
+    assert artifact["qualified_universe"] is None
+
+
+def test_d6_missing_qualification_parameters_prevents_freeze() -> None:
+    data = _qualified_input()
+    del data["qualification_parameters"]
+    artifact = _build(data)
+    assert artifact["freeze_state"] == "NOT_CREATED"
+    assert artifact["qualified_universe"] is None
 
 
 def test_e0_changed_determinant_content_cannot_reuse_old_reconstruction_binding() -> None:

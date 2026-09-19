@@ -24,7 +24,7 @@ env:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
   FO_CONTRACT_BLOB: 'fe62da06e63a51c336f9a447e7f1e0f3d89cad3b'
-  F_BREAKER_BLOB: '612139be940c6bebd56f69e1d3bb1042e42bebba'
+  F_BREAKER_BLOB: 'e5898e1358908541d0603413d282b42302a667f7'
 
 jobs:
   preimplementation-red:
@@ -58,6 +58,9 @@ jobs:
 
       - name: Verify exact qualification environment
         run: python tools/qualification_environment.py verify
+
+      - name: Prove F breaker collection is valid before expected RED
+        run: python -m pytest --collect-only -q breakers/native_bi5_f_freeze_persistence_breaker.py
 
       - name: Execute F test-first breaker — expected RED only because runtime is absent
         run: python -m pytest -q breakers/native_bi5_f_freeze_persistence_breaker.py
