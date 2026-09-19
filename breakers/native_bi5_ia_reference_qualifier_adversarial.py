@@ -223,3 +223,82 @@ def test_ia_f04_resealed_status_contradiction_is_not_valid_sealed_result() -> No
     assert not ia.is_sealed_implementation_result(contradictory)
     with pytest.raises(ValueError):
         ia.validate_implementation_result(contradictory)
+
+
+def _anomaly_projection(result):
+    return {
+        (
+            item["anomaly_class_id"],
+            json.dumps(item["target"], sort_keys=True, separators=(",", ":")),
+            item["mandatory_outcome"],
+        )
+        for item in result.anomaly_outcomes
+    }
+
+
+def test_ia_f05_blocked_anomaly_relation_is_traversal_independent() -> None:
+    empty = _component("SYNTH-EMPTY", "2026-01-02T10:00:00Z", b"")
+    missing_hour = _component(
+        "SYNTH-NOHOUR",
+        "2026-01-02T11:00:00Z",
+        _slot(1_000, 100_000, 99_900, 1.0, 2.0),
+    )
+    missing_hour.pop("declared_hour_bucket_utc")
+
+    package_a = _base()
+    package_a["components"] = (empty, missing_hour)
+    package_b = _base()
+    package_b["components"] = (missing_hour, empty)
+
+    result_a = ia.qualify_native_bi5(package_a, execution_context=_context())
+    result_b = ia.qualify_native_bi5(package_b, execution_context=_context())
+
+    assert result_a.semantic_status == result_b.semantic_status == "QUALIFICATION_BLOCKED"
+    assert result_a.qualified_occurrences is result_b.qualified_occurrences is None
+    assert _anomaly_projection(result_a) == _anomaly_projection(result_b)
+    assert {item["anomaly_class_id"] for item in result_a.anomaly_outcomes} == {
+        "BI5-A04",
+        "BI5-A06",
+    }
+
+
+def test_ia_f05_duplicate_component_preflight_does_not_choose_delivery_winner() -> None:
+    package = _base()
+    package["components"] = (
+        _component(
+            "SYNTH-DUP",
+            "2026-01-02T10:00:00Z",
+            _slot(1_000, 100_000, 99_900, 1.0, 2.0),
+        ),
+        _component(
+            "SYNTH-DUP",
+            "2026-01-02T10:00:00Z",
+            _slot(2_000, 101_000, 100_900, 1.0, 2.0),
+        ),
+    )
+
+    result = ia.qualify_native_bi5(package, execution_context=_context())
+
+    assert result.semantic_status == "QUALIFICATION_BLOCKED"
+    assert result.qualified_occurrences is None
+    assert result.source_accounting is None
+    assert {item["anomaly_class_id"] for item in result.anomaly_outcomes} == {"BI5-A03"}
+    diagnostic = result.terminal_evidence["execution_diagnostics"]
+    assert diagnostic["non_normative_source_accounting"] == ()
+
+
+@pytest.mark.parametrize("workspace_identity", ("", "   ", 123))
+def test_ia_f06_workspace_isolation_identity_must_be_nonempty_string(
+    workspace_identity,
+) -> None:
+    context = _context()
+    context["workspace_isolation_identity"] = workspace_identity
+
+    result = ia.qualify_native_bi5(_qualified_package(), execution_context=context)
+
+    assert result.execution_status == "ENVIRONMENT_BLOCKED"
+    assert result.semantic_status == "NOT_REACHED"
+    assert result.freeze_status == "NOT_REACHED"
+    assert result.qualified_occurrences is None
+    assert result.source_accounting is None
+    assert ia.is_sealed_implementation_result(result)

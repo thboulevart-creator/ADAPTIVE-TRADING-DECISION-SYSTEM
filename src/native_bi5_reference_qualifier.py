@@ -693,31 +693,43 @@ def _qualify_components(
     acquisition_id = str(input_package["acquisition_domain_id"])
     evidence_bindings = input_package.get("qualification_evidence_bindings", ())
 
-    component_ids: set[str] = set()
-    all_occurrences: list[Mapping[str, Any]] = []
-    all_accounting: list[Mapping[str, Any]] = []
-    all_anomalies: list[Mapping[str, Any]] = []
-
+    id_counts: dict[str, int] = {}
     for component in components:
         if isinstance(component, Mapping):
             component_id = component.get("component_manifest_entry_id")
             if isinstance(component_id, str) and component_id:
-                if component_id in component_ids:
-                    anomaly = _anomaly(
-                        "BI5-A03",
-                        "QUALIFICATION_BLOCKED",
-                        "COMPONENT",
-                        component_id=component_id,
-                    )
-                    all_anomalies.append(anomaly)
-                    return _blocked_result(
-                        input_package,
-                        execution_context,
-                        "REPEATED_OR_CONFLICTING_COMPONENT_DELIVERY",
-                        tuple(all_anomalies),
-                        tuple(all_accounting),
-                    )
-                component_ids.add(component_id)
+                id_counts[component_id] = id_counts.get(component_id, 0) + 1
+
+    duplicate_ids = {
+        component_id
+        for component_id, count in id_counts.items()
+        if count > 1
+    }
+
+    all_occurrences: list[Mapping[str, Any]] = []
+    all_accounting: list[Mapping[str, Any]] = []
+    all_anomalies: list[Mapping[str, Any]] = []
+    blocked = False
+
+    for component_id in sorted(duplicate_ids):
+        all_anomalies.append(
+            _anomaly(
+                "BI5-A03",
+                "QUALIFICATION_BLOCKED",
+                "COMPONENT",
+                component_id=component_id,
+            )
+        )
+        blocked = True
+
+    for component in components:
+        component_id = (
+            component.get("component_manifest_entry_id")
+            if isinstance(component, Mapping)
+            else None
+        )
+        if isinstance(component_id, str) and component_id in duplicate_ids:
+            continue
 
         component_ok, occurrences, accounting, anomalies = _interpret_component(
             component,
@@ -732,13 +744,16 @@ def _qualify_components(
             item["mandatory_outcome"] == "QUALIFICATION_BLOCKED"
             for item in anomalies
         ):
-            return _blocked_result(
-                input_package,
-                execution_context,
-                "QUALIFICATION_BLOCKED_ANOMALY",
-                tuple(all_anomalies),
-                tuple(all_accounting),
-            )
+            blocked = True
+
+    if blocked:
+        return _blocked_result(
+            input_package,
+            execution_context,
+            "QUALIFICATION_BLOCKED_ANOMALY",
+            tuple(all_anomalies),
+            tuple(all_accounting),
+        )
 
     candidate_sources = {
         (
@@ -824,8 +839,10 @@ def qualify_native_bi5(
         )
 
     isolation = _isolation_evidence(execution_context)
+    workspace_identity = isolation["workspace_isolation_identity"]
     if (
-        isolation["workspace_isolation_identity"] is None
+        not isinstance(workspace_identity, str)
+        or not workspace_identity.strip()
         or frozenset(isolation["preseal_input_allowlist"]) != _REQUIRED_PRESEAL_INPUTS
         or frozenset(isolation["environment_variable_allowlist"])
         != _REQUIRED_ENVIRONMENT_VARIABLES
