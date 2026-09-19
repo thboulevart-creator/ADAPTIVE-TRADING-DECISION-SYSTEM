@@ -911,3 +911,186 @@ B + A
 ```
 
 No downstream block has yet been started.
+
+
+---
+
+# B/A formalization progress — 2026-09-19
+
+The first concrete native-BI5 `B + A` candidate has now been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/ba_native_bi5_binding_anomaly_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`f2a0ae0e038bc3014a2e24a05e55b914783f37b6`
+
+Initial adversarial artifact:
+
+`reports/data-qualification/ba_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`5a48fb531d26323a5b22e52568c318161443ae14`
+
+Initial candidate verdict:
+
+`FAIL`
+
+Demonstrated layering defects:
+
+```text
+BA-F01 — MARKET_SEMANTIC_VALIDITY_LEAK_INTO_BINDING
+BA-F02 — PHYSICAL_SLOT_ORDER_USED_AS_TEMPORAL_AUTHORITY
+BA-F03 — SAME_HOUR_COMPONENT_CARDINALITY_LEAKS_D_OWNERSHIP
+```
+
+Minimal correction commit:
+
+`678a8052c5b73fad8247d6a3f92173171c09111e`
+
+Corrected candidate blob:
+
+`25400abcc3a2a24438954ff27b970bd934313ae3`
+
+Final persisted-head adversarial re-break commit:
+
+`e95583dab2a87d6ef1a19b57599f5f01118a19f1`
+
+Final adversarial artifact blob:
+
+`484860e09305a3088edb6b8b914803b8717a5627`
+
+No additional internal candidate defect was demonstrated after correction.
+
+## Current B candidate semantics
+
+```text
+format_binding_id =
+B_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD
+
+format_binding_version =
+B_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE
+```
+
+The candidate binds an explicitly declared component envelope rather than a bare path:
+
+```text
+acquisition_domain_id
+component_manifest_entry_id
+instrument_id = USATECHIDXUSD
+declared_hour_bucket_utc
+compressed_payload_bytes
+content_hash / provenance reference
+```
+
+Filename/path syntax is not normative time authority.
+
+Candidate physical semantics:
+
+```text
+one LZMA-Alone stream
+→ decompressed bytes
+→ byte-zero framing
+→ fixed 20-byte slots
+→ >IIIff
+→ uint32 ms offset
+→ uint32 ask raw
+→ uint32 bid raw
+→ binary32 ask volume
+→ binary32 bid volume
+```
+
+Candidate logical decoding:
+
+```text
+timestamp = declared UTC hour + ms offset
+ask = ask_raw / 1000
+bid = bid_raw / 1000
+volumes = exact finite source binary32 values, no scaling
+```
+
+Physical slot locator:
+
+```text
+(component_manifest_entry_id, component_local_slot_index)
+```
+
+is provenance/occurrence-individuation evidence only.
+
+It is not canonical position, temporal authority or cross-acquisition identity.
+
+B does not decide market-quality predicates such as:
+
+```text
+price > 0
+ask >= bid
+finite negative volume admissibility
+chronological ordering of source slots
+```
+
+Those remain Q/temporal concerns.
+
+D remains owner of component membership/multiplicity.
+
+## Current A candidate semantics
+
+Concrete anomaly classes now include at minimum:
+
+```text
+missing declared component
+undeclared offered component
+repeated/conflicting component delivery
+missing/ambiguous hour provenance
+decompression/envelope failure
+zero decompressed bytes
+terminal partial slot without completeness proof
+terminal partial slot with constructive completeness proof
+millisecond offset outside hour
+NaN / ±Infinity volume
+ambiguous component role/provenance
+representation/binding identity mismatch
+unknown anomaly class
+```
+
+Q-RM-10 outcomes are explicitly bound:
+
+```text
+constructively local INVALID
+→ REJECT RECORD
+
+non-local / ambiguous / unknown scope
+→ QUALIFICATION BLOCKED
+```
+
+No acquisition-fatal anomaly class has been introduced by default.
+
+No silent repair is permitted.
+
+## Remaining B/A evidence blocker
+
+The following provider-sensitive candidate facts are currently supported inside the repository only by the existing V4.3 implementation surface:
+
+```text
+LZMA-Alone
+20-byte width
+>IIIff
+field order
+price /1000
+binary32 volume fields
+```
+
+Therefore:
+
+```text
+B = BLOCKED
+A = BLOCKED
+```
+
+The corrected B/A candidate is internally stable enough to become input to Q formalization, but it is not yet qualified provider truth.
+
+No real data was acquired or processed.
+
+No downstream Q work was started before this persisted closure.
