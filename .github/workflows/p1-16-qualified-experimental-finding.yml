@@ -96,15 +96,15 @@ jobs:
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           git merge-base --is-ancestor "${P0_6_BASE}" HEAD
 
-      - name: Prove P1.16 is test-first with no runtime candidate
+      - name: Prove P1.16 runtime candidate is present after test-first baseline
         run: |
           test -f breakers/p1_16_qualified_experimental_finding_breaker.py
-          test ! -e src/qualified_experimental_finding.py
+          test -f src/qualified_experimental_finding.py
           grep -Fq 'P1_16_QUALIFIED_EXPERIMENTAL_FINDING_INTERPRETATION_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1.16 MINIMAL MODEL: SELECTED' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_16_FINDING_INTERPRETATION_POLICY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           test "$(git hash-object breakers/p1_16_qualified_experimental_finding_breaker.py)" = "afbb1442f5c2335e2bcaedb7f65f6ecb9249910a"
-          echo 'PASS: P1.16 policy, immutable breaker, and runtime absence are proven'
+          echo 'PASS: P1.16 policy, immutable breaker, and runtime candidate are present'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -161,7 +161,7 @@ jobs:
       - name: Re-break protected P1.15A and P1.15B boundaries
         run: python -m pytest -q breakers/p1_15a_evidence_request_fulfillment_breaker.py breakers/p1_15b_experiment_evaluator_authority_breaker.py
 
-      - name: Break P1.16 before implementation
+      - name: Re-break P1.16 after implementation
         run: python -m pytest -q breakers/p1_16_qualified_experimental_finding_breaker.py
 
       - name: Prove clean worktree
