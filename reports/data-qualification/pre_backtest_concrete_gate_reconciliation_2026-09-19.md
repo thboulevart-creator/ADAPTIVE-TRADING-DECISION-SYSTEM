@@ -494,4 +494,66 @@ The valid execution-window freeze remains preserved and must not be repurposed a
 
 ---
 
-**Next governed action:** reconcile `O — deterministic semantic comparison oracle` against the current repository.
+# O — Deterministic semantic comparison oracle
+
+## Requirement
+
+Q-RM-12 requires an independently reviewable deterministic oracle defining semantic equality of two qualified logical occurrence universes.
+
+The oracle must compare at least:
+
+- acquisition-domain membership;
+- logical record boundaries;
+- logical cardinality;
+- non-observation exclusion;
+- anomaly classification/outcome;
+- qualification membership;
+- occurrence individuality;
+- freeze reconstruction tuple.
+
+It must not reduce equality to physical ordering or an arbitrary file/container hash.
+
+## Current repository evidence inspected
+
+Q-RM-12 defines the required comparison semantics and adversarial variants, but it explicitly states the executable determinism run remains BLOCKED.
+
+Repository search finds no dedicated current executable semantic-universe oracle.
+
+Existing mechanisms serve different scopes:
+
+- corpus/file hashes prove exact-byte or inventory identity;
+- compatibility probes compare transfer-relevant feed properties;
+- pytest equality/assertions verify specific component contracts;
+- no artifact currently defines semantic equality of complete Q-RM qualified logical occurrences.
+
+## Adjudication
+
+```text
+Q-RM-12 oracle specification
+≠ executable comparison oracle
+
+content/inventory hash equality
+≠ semantic logical-occurrence equality
+
+feed-compatibility metrics
+≠ Universe(A) = Universe(B)
+```
+
+## Verdict
+
+```text
+O — Deterministic semantic comparison oracle
+BLOCKED
+```
+
+Classification:
+
+`ORACLE SEMANTICS SPECIFIED; EXECUTABLE INDEPENDENT ORACLE ABSENT`
+
+## Closure evidence required
+
+Implement and adversarially qualify a deterministic semantic comparison oracle after M/B/A/Q/F define the semantic object being compared. It must preserve strict duplicate individuality and reject physical-order shortcuts.
+
+---
+
+**Next governed action:** reconcile `I_A — reference implementation` against the current repository.
