@@ -387,6 +387,21 @@ Neither digest is used as semantic equality.
 
 The result seal is a non-secret integrity checksum, **not producer authentication**. Producer identity must be established from separately pinned qualification/execution evidence.
 
+For each path, the qualification harness must additionally produce external execution/sealing evidence binding the **exact emitted result** to that isolated run. At minimum that evidence binds:
+
+```text
+run identity
+implementation id/version
+qualified implementation manifest digest
+qualified source/blob digest
+workspace/isolation identity
+exact emitted result_seal
+```
+
+Q-RM-12 must reject a presented result if its `result_seal` differs from the seal bound by that run evidence.
+
+This external receipt is provenance evidence only. It does not define semantic equality.
+
 No separate post-seal envelope hash is allowed to become a substitute root of authority.
 
 ## 9. Q-RM-12 post-seal ingress
@@ -398,13 +413,14 @@ For each side separately, ingress must:
 1. verify the expected **new** Q-RM-12-compatible implementation identity/version;
 2. verify that `implementation_manifest_digest` equals an externally pinned qualified manifest digest for that side;
 3. verify external execution evidence that the invoked source/blob digest matches the qualified source identity bound by that manifest;
-4. verify the complete result schema;
-5. verify structural status invariants;
-6. verify strict result-seal integrity;
-7. verify the complete D/R/M/B/A/Q/F/O determinant-binding set;
-8. verify isolation-evidence presence/closure required by the implementation boundary;
-9. if qualified, validate `bound_f_artifact` with the existing shared F validator **only now, post-seal**;
-10. if qualified, cross-bind result and F without reconstructing semantics.
+4. verify that the same external run evidence binds the exact presented `result_seal`;
+5. verify the complete result schema;
+6. verify structural status invariants;
+7. verify strict result-seal integrity;
+8. verify the complete D/R/M/B/A/Q/F/O determinant-binding set;
+9. verify isolation-evidence presence/closure required by the implementation boundary and consistency with the run receipt;
+10. if qualified, validate `bound_f_artifact` with the existing shared F validator **only now, post-seal**;
+11. if qualified, cross-bind result and F without reconstructing semantics.
 
 The manifest digest written inside the result is not itself the external pin and cannot establish its own producer identity.
 
