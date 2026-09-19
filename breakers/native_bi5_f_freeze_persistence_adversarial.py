@@ -131,3 +131,70 @@ def test_adv_price_numerator_must_remain_uint32(numerator: int) -> None:
         {"numerator": numerator, "denominator": 1000},
     )
     _assert_not_frozen(data)
+
+
+def test_adv_extra_local_anomaly_cannot_target_retained_slot() -> None:
+    data = _qualified_input()
+    data["anomaly_outcomes"].append(
+        {
+            "anomaly_class_id": "BI5-A09",
+            "anomaly_matrix_version": (
+                "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE"
+            ),
+            "target": {
+                "target_scope": "COMPLETE_SLOT",
+                "component_manifest_entry_id": "SYNTH-F-COMP-001",
+                "component_local_slot_index": 0,
+            },
+            "mandatory_outcome": "REJECT_RECORD",
+            "acquisition_fatal": False,
+            "qualification_evidence_bindings": [],
+        }
+    )
+    _assert_not_frozen(data)
+
+
+def test_adv_duplicate_local_anomaly_relation_is_rejected() -> None:
+    data = _qualified_with_local_reject()
+    data["anomaly_outcomes"].append(copy.deepcopy(data["anomaly_outcomes"][0]))
+    _assert_not_frozen(data)
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    (
+        ("declared_role", "WRONG_ROLE"),
+        ("instrument_source_identity", "OTHER/INSTRUMENT"),
+        ("declared_hour_bucket_utc", "2026-99-99T99:00:00Z"),
+    ),
+)
+def test_adv_component_snapshot_is_concrete_domain_bound(field, value) -> None:
+    data = _qualified_input()
+    data["acquisition_snapshot"]["components"][0][field] = value
+    _assert_not_frozen(data)
+
+
+def test_adv_zero_complete_slots_without_fragment_is_a06_not_qualified_zero() -> None:
+    data = _qualified_input()
+    data["acquisition_snapshot"]["components"][0]["complete_slot_count"] = 0
+    data["acquisition_snapshot"]["components"][0]["terminal_fragment"] = None
+    data["source_accounting"] = []
+    data["b_candidate_occurrences"] = []
+    data["retained_occurrences"] = []
+    data["anomaly_outcomes"] = []
+    _assert_not_frozen(data)
+
+
+def test_adv_duplicate_json_object_key_is_rejected() -> None:
+    artifact = f.build_freeze_artifact(_qualified_input())
+    payload = f.serialize_freeze_artifact(artifact, pretty=False)
+    text = payload.decode("utf-8")
+    duplicate = ('{"schema":"WRONG_DUPLICATE",' + text[1:]).encode("utf-8")
+    with pytest.raises(ValueError):
+        f.deserialize_freeze_artifact(duplicate)
+
+
+def test_adv_nan_cannot_enter_strict_json_freeze() -> None:
+    data = _qualified_input()
+    data["qualification_parameters"]["nonstandard_number"] = float("nan")
+    _assert_not_frozen(data)
