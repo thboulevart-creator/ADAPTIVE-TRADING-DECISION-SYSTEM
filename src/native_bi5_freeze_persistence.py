@@ -5,7 +5,7 @@ import hashlib
 import json
 import re
 from collections.abc import Mapping, Sequence
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Any
 
 
@@ -343,6 +343,7 @@ def _validate_logical_payload(value: Any) -> None:
 def _validate_occurrences(
     value: Any,
     component_counts: Mapping[str, int],
+    component_hours: Mapping[str, datetime],
 ) -> tuple[list[dict[str, Any]], dict[tuple[str, int], Any]]:
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
         raise _ConstructionError("occurrence relation missing")
@@ -372,6 +373,19 @@ def _validate_occurrences(
             raise _ConstructionError("occurrence witness repeated")
 
         _validate_logical_payload(occurrence["logical_payload"])
+        timestamp = datetime.strptime(
+            occurrence["logical_payload"]["market_timestamp_utc"],
+            "%Y-%m-%dT%H:%M:%S.%fZ",
+        )
+        declared_hour = component_hours[source[0]]
+        if not (
+            declared_hour
+            <= timestamp
+            < declared_hour + timedelta(hours=1)
+        ):
+            raise _ConstructionError(
+                "retained timestamp outside declared component hour"
+            )
         if "source_provenance" in occurrence and not isinstance(
             occurrence["source_provenance"], Mapping
         ):
@@ -632,6 +646,13 @@ def _validate_qualified_input(
         item["component_manifest_entry_id"]: item
         for item in components
     }
+    component_hours = {
+        item["component_manifest_entry_id"]: datetime.strptime(
+            item["declared_hour_bucket_utc"],
+            "%Y-%m-%dT%H:%M:%SZ",
+        )
+        for item in components
+    }
 
     accounting, accounting_map = _validate_accounting(
         freeze_input.get("source_accounting"),
@@ -640,10 +661,12 @@ def _validate_qualified_input(
     b_occurrences, b_relation = _validate_occurrences(
         freeze_input.get("b_candidate_occurrences"),
         component_counts,
+        component_hours,
     )
     retained_occurrences, retained_relation = _validate_occurrences(
         freeze_input.get("retained_occurrences"),
         component_counts,
+        component_hours,
     )
 
     if b_relation != retained_relation:
