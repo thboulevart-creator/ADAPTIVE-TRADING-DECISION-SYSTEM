@@ -9741,3 +9741,72 @@ The interpretation policy is explicit, total, immutable at contract version V1, 
 **P1.16 RUNTIME: NOT IMPLEMENTED.**
 
 **P1.16 BREAKER: NOT IMPLEMENTED.**
+
+
+---
+
+# P1.16 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Post-implementation qualification base:** `3ecedd6e54cf65619d9eac55949b1c8bbbd10250`
+
+Observed run:
+
+- P1.16 run `35434063530`, job `105873634768`;
+- protected chain through P1.15A+B: PASS;
+- P1.9A+B `127 passed`;
+- P1.10A+B `56 passed`;
+- P1.11A+B `89 passed`;
+- P1.12A+B `51 passed`;
+- P1.13A+B `92 passed`;
+- P1.14A+B `72 passed`;
+- P1.15A+B `57 passed`;
+- P1.16 `37 passed`;
+- clean worktree PASS.
+
+Immutable breaker identity:
+
+- P1.16: `afbb1442f5c2335e2bcaedb7f65f6ecb9249910a`.
+
+Runtime identity:
+
+- P1.16: `a5c6b820df5ea5e89fd61c84feb42cb42e923a5f`.
+
+Candidate verdict:
+
+```text
+P1_16_QUALIFIED_EXPERIMENTAL_FINDING_INTERPRETATION_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+The interpretation policy remains exactly:
+
+```text
+SUPPORTED + NOT_FALSIFIED
+→ SUPPORTED
+
+NOT_SUPPORTED + FALSIFIED
+→ REFUTED
+
+SUPPORTED + FALSIFIED
+→ NOT_INTERPRETABLE / CONTRADICTORY_EVALUATION_STATUSES
+
+NOT_SUPPORTED + NOT_FALSIFIED
+→ NOT_INTERPRETABLE / NON_DECISIVE_EVALUATION_STATUSES
+
+any valid pair containing BLOCKED
+→ NOT_INTERPRETABLE / BLOCKED_EVALUATION_STATUS
+```
+
+This candidate is not final until the persisted qualification state itself is re-broken.
+
+Qualification remains limited:
+
+```text
+QualifiedExperimentalFinding
+≠ ResearchFinding container membership
+≠ ResearchFindings
+≠ ResearchRunEvidence
+≠ durable knowledge
+≠ decision authority
+≠ operational authorization
+```
