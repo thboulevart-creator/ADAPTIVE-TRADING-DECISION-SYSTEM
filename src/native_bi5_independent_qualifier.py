@@ -168,6 +168,19 @@ def _validate_shape(result: ImplementationQualificationResult) -> None:
         raise ValueError("unexpected implementation id")
     if result.implementation_version != IMPLEMENTATION_VERSION:
         raise ValueError("unexpected implementation version")
+    if result.implementation_manifest_digest != _manifest_sha256():
+        raise ValueError("implementation manifest digest mismatch")
+    if not isinstance(result.input_determinant_digests, Mapping):
+        raise ValueError("input determinant bindings must be a mapping")
+    if set(result.input_determinant_digests) != _REQUIRED_DETERMINANTS:
+        raise ValueError("incomplete input determinant bindings")
+    for digest in result.input_determinant_digests.values():
+        if not isinstance(digest, str) or len(digest) != 64:
+            raise ValueError("invalid input determinant digest")
+        try:
+            int(digest, 16)
+        except ValueError as exc:
+            raise ValueError("invalid input determinant digest") from exc
     if result.execution_status not in _VALID_EXECUTION:
         raise ValueError("invalid execution status")
     if result.semantic_status not in _VALID_SEMANTIC:
@@ -234,7 +247,7 @@ class IndependentQualificationEngine:
         execution_context: Mapping[str, Any],
     ) -> None:
         self.package = input_package
-        self.context = execution_context
+        self.context = execution_context if isinstance(execution_context, Mapping) else {}
         self.acquisition_id = ""
         self.determinants: dict[str, str] = {}
         self.occurrences: list[Mapping[str, Any]] = []
