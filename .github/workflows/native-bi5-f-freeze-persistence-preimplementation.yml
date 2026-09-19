@@ -24,7 +24,7 @@ env:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
   FO_CONTRACT_BLOB: 'fe62da06e63a51c336f9a447e7f1e0f3d89cad3b'
-  F_BREAKER_BLOB: '9ef3fe902403b06dbc96bddc94c51c32a9da1462'
+  F_BREAKER_BLOB: '3d9eb75c2f4e988c984da67af0af344d3dc24148'
 
 jobs:
   preimplementation-red:

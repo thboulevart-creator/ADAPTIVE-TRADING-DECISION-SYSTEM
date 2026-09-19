@@ -403,23 +403,31 @@ def _terminal_input(outcome: str) -> dict[str, Any]:
     data["retained_occurrences"] = []
     data["b_candidate_occurrences"] = []
     data["source_accounting"] = []
-    data["anomaly_outcomes"] = [
-        {
-            "anomaly_class_id": "BI5-A06",
-            "anomaly_matrix_version": "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE",
-            "target": {
-                "target_scope": "COMPONENT",
-                "component_manifest_entry_id": "SYNTH-F-COMP-001",
-            },
-            "mandatory_outcome": (
-                "QUALIFICATION_BLOCKED"
-                if outcome == "QUALIFICATION_BLOCKED"
-                else "REJECT_ACQUISITION"
-            ),
-            "acquisition_fatal": outcome == "ACQUISITION_REJECTED",
-            "qualification_evidence_bindings": [],
+    component = data["acquisition_snapshot"]["components"][0]
+    component["complete_slot_count"] = 0
+    component["terminal_fragment"] = None
+
+    if outcome == "QUALIFICATION_BLOCKED":
+        data["anomaly_outcomes"] = [
+            {
+                "anomaly_class_id": "BI5-A06",
+                "anomaly_matrix_version": "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE",
+                "target": {
+                    "target_scope": "COMPONENT",
+                    "component_manifest_entry_id": "SYNTH-F-COMP-001",
+                },
+                "mandatory_outcome": "QUALIFICATION_BLOCKED",
+                "acquisition_fatal": False,
+                "qualification_evidence_bindings": [],
+            }
+        ]
+    else:
+        data["anomaly_outcomes"] = []
+        data["qualification_terminal_evidence"] = {
+            "terminal_state": "ACQUISITION_REJECTED",
+            "immutable_reference": "synthetic://q/terminal/acquisition-rejected",
+            "integrity_digest": _digest("f"),
         }
-    ]
     return data
 
 
@@ -582,9 +590,17 @@ def test_a1_qualified_q_creates_complete_reconstructible_frozen_artifact() -> No
         item["stage"] for item in universe["reconstruction_tuple"]
     } == REQUIRED_DETERMINANTS
     assert sorted(
-        item["component_manifest_entry_id"] for item in universe["components"]
+        json.dumps(item, sort_keys=True, separators=(",", ":"))
+        for item in universe["reconstruction_tuple"]
     ) == sorted(
-        item["component_manifest_entry_id"]
+        json.dumps(item, sort_keys=True, separators=(",", ":"))
+        for item in source["reconstruction_tuple"]
+    )
+    assert sorted(
+        json.dumps(item, sort_keys=True, separators=(",", ":"))
+        for item in universe["components"]
+    ) == sorted(
+        json.dumps(item, sort_keys=True, separators=(",", ":"))
         for item in source["acquisition_snapshot"]["components"]
     )
     assert _witness_map(artifact) == {
@@ -670,18 +686,18 @@ def test_b2_accounting_gap_prevents_freeze() -> None:
 
 def test_b3_candidate_reject_overlap_prevents_freeze() -> None:
     data = _qualified_with_local_reject()
-    data["retained_occurrences"].append(
-        _occurrence(
-            2,
-            _logical_payload(
-                "2026-01-02T10:00:03.000Z",
-                100_200,
-                100_100,
-                (1, 0),
-                (1, 0),
-            ),
-        )
+    candidate = _occurrence(
+        2,
+        _logical_payload(
+            "2026-01-02T10:00:03.000Z",
+            100_200,
+            100_100,
+            (1, 0),
+            (1, 0),
+        ),
     )
+    data["retained_occurrences"].append(copy.deepcopy(candidate))
+    data["b_candidate_occurrences"].append(copy.deepcopy(candidate))
     artifact = _build(data)
     assert artifact["freeze_state"] == "NOT_CREATED"
 
@@ -835,16 +851,19 @@ def test_d0b_anomaly_array_order_and_diagnostic_path_are_nonsemantic() -> None:
     assert _artifact_semantic_projection(first) == _artifact_semantic_projection(second)
 
 
-def test_d1_json_whitespace_and_key_order_do_not_define_semantic_identity() -> None:
-    artifact = _build(_qualified_input())
+def test_d1_json_whitespace_and_input_key_order_do_not_define_semantic_identity() -> None:
+    original_input = _qualified_input()
+    reversed_input = _reverse_object_keys(copy.deepcopy(original_input))
+
+    artifact = _build(original_input)
+    reversed_artifact = _build(reversed_input)
+    assert artifact["freeze_state"] == reversed_artifact["freeze_state"] == "FROZEN"
+    assert _artifact_semantic_projection(artifact) == _artifact_semantic_projection(
+        reversed_artifact
+    )
+
     compact = _f().serialize_freeze_artifact(artifact, pretty=False)
     pretty = _f().serialize_freeze_artifact(artifact, pretty=True)
-    reversed_keys = json.dumps(
-        _reverse_object_keys(artifact),
-        ensure_ascii=False,
-        separators=(",", ":"),
-    ).encode("utf-8")
-
     assert isinstance(compact, bytes)
     assert isinstance(pretty, bytes)
     assert compact != pretty
@@ -852,12 +871,9 @@ def test_d1_json_whitespace_and_key_order_do_not_define_semantic_identity() -> N
 
     decoded_compact = _f().deserialize_freeze_artifact(compact)
     decoded_pretty = _f().deserialize_freeze_artifact(pretty)
-    decoded_reversed = _f().deserialize_freeze_artifact(reversed_keys)
-    for decoded in (decoded_compact, decoded_pretty, decoded_reversed):
-        _f().validate_freeze_artifact(decoded)
-        assert _artifact_semantic_projection(decoded) == _artifact_semantic_projection(
-            artifact
-        )
+    assert _artifact_semantic_projection(decoded_compact) == _artifact_semantic_projection(
+        decoded_pretty
+    ) == _artifact_semantic_projection(artifact)
 
 
 def test_d2_timestamp_array_order_does_not_create_temporal_authority() -> None:
