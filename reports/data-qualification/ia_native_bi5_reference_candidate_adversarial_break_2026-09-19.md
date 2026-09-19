@@ -370,3 +370,119 @@ Then:
 I_B remains absent.
 
 No real BI5 acquisition, processing or backtest is authorized.
+
+
+---
+
+## 10. Residual re-break defects after first correction
+
+First correction commit:
+
+`4d6f978b42099953331994de4a74218a21a3d049`
+
+Corrected source blob:
+
+`9ac0e27b1104fae972124946c876f2170300a9d7`
+
+Frozen-breaker rerun:
+
+```text
+run = 35442531060
+job = 105895733587
+23 passed
+```
+
+First persisted-head combined re-break:
+
+```text
+run = 35442599260
+job = 105895914603
+frozen breaker = 23 passed
+supplemental adversarial breaker = 8 passed
+```
+
+The first four defects were successfully closed.
+
+Further adversarial inspection nevertheless demonstrated two residual implementation defects.
+
+### IA-F05 — BLOCKED_RESULT_TRAVERSAL_DEPENDENCE
+
+Current `_qualify_components(...)` returns immediately on the first component-level blocking anomaly.
+
+Attack:
+
+```text
+component A → BI5-A06 ZERO_DECOMPRESSED_BYTES
+component B → BI5-A04 MISSING_HOUR_PROVENANCE
+```
+
+Traversal:
+
+```text
+[A, B]
+→ anomaly relation contains A06 only
+
+[B, A]
+→ anomaly relation contains A04 only
+```
+
+The acquisition terminal status is blocked in both cases, but the semantic anomaly relation depends on component traversal order.
+
+The implementation-boundary contract explicitly permits different traversal orders and requires them not to change semantic output.
+
+Verdict:
+
+```text
+IA-F05 = FAIL
+```
+
+Minimal correction:
+
+- preflight duplicate component identities before semantic interpretation;
+- do not choose a winner among repeated/conflicting deliveries;
+- continue deterministic classification of all other independently interpretable components after a blocking anomaly;
+- emit one terminal blocked result only after the full declared synthetic package has been classified;
+- preserve any prefix/source accounting only as non-normative terminal diagnostics.
+
+### IA-F06 — EMPTY_WORKSPACE_ISOLATION_ID_ACCEPTED
+
+Current isolation gate rejects only:
+
+`workspace_isolation_identity is None`.
+
+Attack:
+
+```text
+workspace_isolation_identity = ""
+```
+
+or a non-string value while all other isolation fields are acceptable.
+
+The current candidate can proceed with semantic qualification even though no meaningful workspace isolation identity exists.
+
+Verdict:
+
+```text
+IA-F06 = FAIL
+```
+
+Minimal correction:
+
+Require a non-empty string workspace isolation identity before semantic execution.
+
+---
+
+## 11. Second authorized correction
+
+Correct only IA-F05 and IA-F06.
+
+Then:
+
+1. extend the supplemental adversarial breaker with the demonstrated traversal and workspace attacks;
+2. update only source/test hash locks in the persisted-head re-break runner;
+3. execute the unchanged frozen breaker plus the supplemental breaker;
+4. perform a fresh full persisted-head re-break before any PASS.
+
+I_B remains absent.
+
+No real BI5 acquisition, processing or backtest is authorized.
