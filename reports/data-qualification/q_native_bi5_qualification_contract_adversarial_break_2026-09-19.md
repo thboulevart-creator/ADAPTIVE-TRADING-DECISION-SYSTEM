@@ -393,3 +393,241 @@ Correct only Q:
 6. preserve no-partial-universe behavior.
 
 Then persist and re-break the corrected Q candidate before any F/O work.
+
+
+---
+
+# 11. Persisted-head re-break after minimal correction
+
+**Corrected candidate HEAD:** `dbf8b5a0012d6cea45ac3e1dc237c311889f12f9`  
+**Corrected candidate blob:** `9e15cfb86716894131485a15a180cc170a230287`
+
+The branch was verified identical to that HEAD before re-break.
+
+The attack set was re-applied without changing the candidate during the attack.
+
+## 11.1 Re-break Q-F01
+
+Original defect:
+
+`ANOMALY_TARGET_BINDING_UNDERSPECIFIED`
+
+Corrected Q now requires exact target forms:
+
+```text
+COMPLETE_SLOT
+→ component_manifest_entry_id
+ + component_local_slot_index
+
+TERMINAL_FRAGMENT
+→ component_manifest_entry_id
+ + terminal_fragment_start_offset
+ + terminal_fragment_length
+
+COMPONENT
+→ component_manifest_entry_id
+
+ACQUISITION
+→ acquisition_domain_id
+```
+
+The target must match the exact B/D interpretation domain.
+
+The following cannot act as normative target identity:
+
+```text
+filename/path
+parser row number
+worker-local index
+traversal order
+free-text diagnostic
+diagnostic list order
+content hash alone
+```
+
+Attack:
+
+Two implementations receive the same A outcome but attempt to associate it with different complete slots.
+
+Result:
+
+Only the outcome whose exact target locator matches the normative A/B evidence is admissible. Ambiguous or out-of-range target → `QUALIFICATION BLOCKED`.
+
+The locator remains provenance/anomaly evidence only.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 11.2 Re-break Q-F02
+
+Original defect:
+
+`PHYSICAL_SLOT_ACCOUNTING_NOT_TOTAL`
+
+Corrected Q requires for every deterministically framed non-blocked component:
+
+```text
+S_all
+=
+{0 ... complete_slot_count-1}
+
+S_candidate ∩ S_rejected = ∅
+
+S_candidate ∪ S_rejected = S_all
+```
+
+Attack:
+
+100 complete slots exist, but implementation reports:
+
+```text
+98 candidates
+1 rejected slot
+1 silently omitted slot
+```
+
+Result:
+
+```text
+|S_candidate ∪ S_rejected| = 99
+!=
+|S_all| = 100
+→ QUALIFICATION BLOCKED
+```
+
+Attack:
+
+same slot appears once as candidate and once as rejected.
+
+Result:
+
+intersection non-empty → `QUALIFICATION BLOCKED`.
+
+Attack:
+
+same slot candidate emitted twice.
+
+Result:
+
+duplicate source-slot conformance key → `QUALIFICATION BLOCKED`.
+
+Attack:
+
+terminal partial fragment is inserted as a complete slot.
+
+Result:
+
+target shape/accounting contradiction → `QUALIFICATION BLOCKED`.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 11.3 Full adversarial re-break
+
+```text
+late A QUALIFICATION BLOCKED after valid prefix       NO PARTIAL U / SURVIVES
+future explicit acquisition-fatal A outcome          ACQUISITION_REJECTED / SURVIVES
+missing D component                                  BLOCKED / SURVIVES
+undeclared offered component                         BLOCKED / SURVIVES
+
+local REJECT RECORD with no B candidate              DIAGNOSTIC ONLY / SURVIVES
+strict duplicate payloads, different source slots    BOTH RETAINED / SURVIVES
+same source slot emitted twice                       BLOCKED / SURVIVES
+same source slot candidate + rejected                BLOCKED / SURVIVES
+
+ambiguous A target                                   BLOCKED / SURVIVES
+out-of-range A slot target                           BLOCKED / SURVIVES
+filename/free-text target                            NON-NORMATIVE / BLOCKED
+terminal fragment exact target                       SEPARATE ACCOUNTING / SURVIVES
+
+silent complete-slot omission                        BLOCKED / SURVIVES
+candidate/reject overlap                             BLOCKED / SURVIVES
+candidate/reject non-exhaustive union                BLOCKED / SURVIVES
+duplicate candidate slot index                       BLOCKED / SURVIVES
+duplicate rejected slot index                        BLOCKED / SURVIVES
+
+zero/crossed price hidden rejection                  FORBIDDEN / SURVIVES
+finite negative volume hidden rejection              FORBIDDEN / SURVIVES
+timestamp regression hidden rejection/sort           FORBIDDEN / SURVIVES
+warmup occurrence silently dropped                   FORBIDDEN / SURVIVES
+evaluation interval silently changed                 FORBIDDEN / SURVIVES
+
+traversal-order-dependent membership                 FORBIDDEN / SURVIVES
+content-hash duplicate collapse                      FORBIDDEN / SURVIVES
+Q invents canonical identity                         FORBIDDEN / SURVIVES
+Q overrides A outcome                                FORBIDDEN / SURVIVES
+Q repairs B value                                    FORBIDDEN / SURVIVES
+upstream version mismatch                            BLOCKED / SURVIVES
+blocked acquisition emits partial qualified U        FORBIDDEN / SURVIVES
+acquisition/backtest permission inference            FORBIDDEN / SURVIVES
+```
+
+No additional internal Q candidate defect was demonstrated.
+
+## 11.4 Important non-decision preserved
+
+Q V0.1 candidate still does not introduce a market-quality membership filter.
+
+Therefore the following remain deterministic B-decoded candidate values and are retained if no other qualification blocker exists:
+
+```text
+zero price
+crossed quote
+finite negative source volume
+same timestamp duplicates
+timestamp decrease relative to physical traversal
+```
+
+This is not a claim that those values are economically desirable for execution.
+
+It means only that the current qualified-logical-universe contract has no authoritative basis to erase them silently.
+
+A later consumer eligibility contract or new Q version may govern their usability, but must do so explicitly.
+
+## 11.5 Final Q candidate state
+
+```text
+Q candidate formalization
+= PERSISTED
+= ADVERSARIALLY BROKEN
+= CORRECTED
+= PERSISTED-HEAD RE-BROKEN
+= NO NEW INTERNAL DEFECT DEMONSTRATED
+```
+
+Official gate remains:
+
+```text
+Q = BLOCKED
+```
+
+because:
+
+1. no materialized D acquisition/manifest/completeness evidence exists;
+2. B/A provider-sensitive facts are still officially BLOCKED;
+3. no executable Q implementation has been qualified;
+4. no F snapshot/persistence mechanism exists.
+
+The current Q contract is now stable enough to serve as candidate input for F/O formalization.
+
+No acquisition or real backtest authorization is created.
+
+## 11.6 Boundary for next work
+
+The next block may formalize only:
+
+```text
+F — concrete qualification-freeze artifact/persistence
++
+O — deterministic semantic comparison oracle
+```
+
+F/O must consume the current Q semantics without:
+
+- adding market-value filters;
+- changing D membership;
+- changing B decoding;
+- reinterpreting A outcomes;
+- using physical slot provenance as canonical identity;
+- introducing temporal order;
+- authorizing acquisition/backtest.
+
+If F/O cannot represent/compare the qualified universe without inventing identity/order semantics, F/O must FAIL/BLOCK rather than mutate Q silently.
