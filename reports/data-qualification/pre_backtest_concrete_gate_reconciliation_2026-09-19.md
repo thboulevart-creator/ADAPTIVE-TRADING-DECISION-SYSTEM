@@ -2468,3 +2468,106 @@ I_B BLOCKED   # implementation candidate PASS
 ```
 
 No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+
+---
+
+# O semantic-comparator test-first RED baseline — 2026-09-19
+
+A dedicated synthetic/in-memory O semantic-comparator test-first breaker/harness now exists and has completed its governed adversarial qualification cycle.
+
+Breaker:
+
+`breakers/native_bi5_o_semantic_comparator_breaker.py`
+
+Final breaker blob:
+
+`9e1d897329a15f8b26172558b6579d61d9ba3820`
+
+Workflow:
+
+`.github/workflows/native-bi5-o-semantic-comparator-preimplementation.yml`
+
+Final workflow blob:
+
+`1d9203993f0ebbc83f67bdcea3449a886db13335`
+
+RED baseline:
+
+`reports/data-qualification/o_native_bi5_preimplementation_red_baseline_2026-09-19.md`
+
+Adversarial record:
+
+`reports/data-qualification/o_native_bi5_testfirst_harness_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`1a4b3f683a752f25d973079ba8ee39fceb247d5f`
+
+Final persisted-head execution:
+
+```text
+run = 35457461057
+job = 105935180122
+pytest collection = 77 tests / PASS
+O breaker execution = RED only because O runtime is absent
+```
+
+During the full O test-first block, the following remained exact and unchanged:
+
+```text
+F source
+= 199b07929fe8ec40d719b001b0321d1f26c8faab
+
+F test-first breaker
+= 3d9eb75c2f4e988c984da67af0af344d3dc24148
+
+F adversarial breaker
+= c4c499d5e76e15a8fdcaeb91dde80beadad6487a
+```
+
+The O harness was adversarially failed and corrected across:
+
+```text
+OTF-F01..OTF-F08
+OTF-R01..OTF-R14
+```
+
+before final qualification.
+
+Final harness-layer verdict:
+
+```text
+O TEST-FIRST SEMANTIC-COMPARATOR BREAKER / HARNESS = PASS
+```
+
+This does not qualify O production behavior.
+
+Current state:
+
+```text
+O test-first harness          = PASS
+O production implementation  = ABSENT
+O global executable gate      = BLOCKED
+
+F test-first harness          = PASS
+F implementation candidate   = PASS
+F global executable gate      = BLOCKED
+```
+
+The global concrete state remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED   # test-first harness PASS; production comparator absent
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
