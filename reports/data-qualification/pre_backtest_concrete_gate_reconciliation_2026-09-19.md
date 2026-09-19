@@ -814,3 +814,100 @@ The formalisation must distinguish:
 No real component manifest can be claimed before acquisition evidence exists. Therefore the first D step may select and freeze the **declaration contract / expected membership rule** while the actual acquired-manifest completion remains BLOCKED until an explicitly authorized acquisition later exists.
 
 No real acquisition is authorized by this next action.
+
+
+---
+
+# D/R/M formalization progress — 2026-09-19
+
+The first concrete D/R/M candidate has now been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/drm_first_concrete_candidate_formalization_2026-09-19.md`
+
+Corrected candidate persisted HEAD:
+
+`45b0db9a1b73ca233c6d966cfe409bb72c4cce63`
+
+Corrected candidate blob:
+
+`2249bea6dbf6b5a8e0d49b99a93bf16248f9c0e9`
+
+Adversarial artifact:
+
+`reports/data-qualification/drm_first_candidate_adversarial_break_2026-09-19.md`
+
+Final adversarial re-break commit:
+
+`276611060aaa390dc1304152bad75f03dcb3385c`
+
+Final adversarial artifact blob:
+
+`8e29d132d8a2eaf28bd9901f2bed33392cccfc79`
+
+First persisted candidate verdict:
+
+`FAIL`
+
+Demonstrated defects:
+
+```text
+DRM-F01 — WARMUP_DOMAIN_MEMBERSHIP_UNDERSPECIFIED
+DRM-F02 — RECORD_MODEL_RETAINED_CANDIDATE_WORDING_LEAK
+```
+
+Both were corrected without changing R or any runtime.
+
+The corrected persisted candidate survived the full re-break with no additional demonstrated defect.
+
+Current selected candidate semantics:
+
+```text
+D candidate
+=
+bounded Dukascopy USATECHIDXUSD research acquisition declaration family
+with mandatory deterministic 20-H1 warmup prefix
++
+frozen five-year evaluation window
+
+R candidate
+=
+DUKASCOPY_NATIVE_BI5_HOURLY_TICKS_V1_CANDIDATE
+with explicit declared UTC-hour provenance
+and no filename/path authority
+
+M candidate
+=
+PRIMARY_MARKET_TICK_LOGICAL_RECORD_MODEL_V1_CANDIDATE
+format-neutral
+occurrence-based
+strict-duplicate preserving
+pre-Q
+non-temporal
+non-canonical
+```
+
+Official gate verdicts remain unchanged:
+
+```text
+D = BLOCKED
+R = BLOCKED
+M = BLOCKED
+```
+
+Reasons:
+
+- D has no actual acquisition instance, component manifest or completeness evidence;
+- R still requires qualified concrete BI5 B semantics;
+- M still requires qualified B/Q semantics before concrete freeze.
+
+This progress does not authorize acquisition or real backtesting.
+
+The D/R/M candidate is now permitted only as candidate input to the next specification block:
+
+```text
+B + A
+```
+
+No downstream block has yet been started.
