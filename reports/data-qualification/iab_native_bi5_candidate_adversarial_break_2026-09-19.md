@@ -431,3 +431,266 @@ Correct only the I_A/I_B boundary candidate:
 6. preserve all upstream semantics and permissions.
 
 Then persist the corrected candidate and re-break the complete attack set from a freshly verified HEAD.
+
+
+---
+
+# 10. Persisted-head re-break after minimal correction
+
+**Corrected candidate HEAD:** `00b87a1a817046ad0f1510420ef098d117a39559`  
+**Corrected candidate blob:** `fac8d143a836b0c02538c607ac5ab71357824537`
+
+The branch was freshly verified identical to that HEAD before re-break.
+
+The corrected candidate blob was re-read from GitHub and matched the expected blob before the attack set was reapplied.
+
+No candidate mutation occurred during this re-break.
+
+## 10.1 Re-break IAB-F01
+
+Original defect:
+
+`TERMINAL_STATUS_DOMAIN_UNDERSPECIFIED`
+
+Corrected candidate now exposes three closed axes:
+
+```text
+execution_status
+= COMPLETED
+| ENVIRONMENT_BLOCKED
+| IMPLEMENTATION_ERROR
+
+semantic_status
+= QUALIFIED
+| QUALIFICATION_BLOCKED
+| ACQUISITION_REJECTED
+| NOT_REACHED
+
+freeze_status
+= FROZEN
+| NOT_CREATED
+| NOT_REACHED
+```
+
+Attack:
+
+I_A reaches semantic `QUALIFICATION_BLOCKED`; I_B cannot load a required runtime dependency.
+
+Result:
+
+```text
+I_A:
+COMPLETED
+QUALIFICATION_BLOCKED
+NOT_CREATED
+
+I_B:
+ENVIRONMENT_BLOCKED
+NOT_REACHED
+NOT_REACHED
+```
+
+The two states cannot be collapsed into generic BLOCKED agreement.
+
+Attack:
+
+I_B throws an unhandled exception after partial interpretation.
+
+Result:
+
+```text
+IMPLEMENTATION_ERROR
+NOT_REACHED
+NOT_REACHED
+```
+
+No semantic qualification outcome may be synthesized from the partial execution.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 10.2 Re-break IAB-F02
+
+Original defect:
+
+`INDEPENDENT_DERIVATION_EVIDENCE_UNDERSPECIFIED`
+
+Corrected candidate now requires:
+
+```text
+independent_derivation_attestation
+semantic_source_provenance
+no_copy_or_generated_from_other_path declaration
+source_similarity_review_result
+independent_stage_level_test_inventory
+```
+
+for project-owned semantic stages.
+
+Attack:
+
+I_A semantic implementation is copied into I_B and identifiers are mechanically renamed.
+
+Result:
+
+The path cannot satisfy the declared no-copy/independent-derivation provenance, and substantial semantic source similarity must be surfaced by review.
+
+Unresolved provenance keeps I_B BLOCKED.
+
+Attack:
+
+Both paths contain the same normative constant such as `20`, `>IIIff`, anomaly IDs, or contract version strings.
+
+Result:
+
+This does not itself violate independence; the similarity review is required to distinguish common mandated literals from copied semantic control flow.
+
+Attack:
+
+Both teams independently derive the same simple branch from the same explicit contract rule.
+
+Result:
+
+Semantic equivalence alone is not treated as evidence of copying.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 10.3 Re-break IAB-F03
+
+Original defect:
+
+`CROSS_PATH_INFORMATION_FLOW_PROOF_UNDERSPECIFIED`
+
+Corrected candidate requires pre-seal isolated execution domains with explicit input/read boundaries.
+
+Attack:
+
+I_A writes `/tmp/reference_result.json`; I_B tries to read it.
+
+Result:
+
+The file is outside I_B's pre-seal common-input allowlist/private workspace and violates the isolation contract.
+
+Attack:
+
+I_A leaks expected retained count through an environment variable.
+
+Result:
+
+The variable is outside the explicit environment allowlist and violates the pre-seal boundary.
+
+Attack:
+
+I_B reaches I_A through IPC/network/shared cache.
+
+Result:
+
+The network/IPC/cache policy must deny or surface the channel before a valid isolation proof can exist.
+
+Only after both result seals are created may both semantic results become visible to O.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 10.4 Full attack-set re-break
+
+```text
+I_B imports I_A semantic helper directly             FORBIDDEN / SURVIVES
+same project BI5 semantic decoder shared              FORBIDDEN / SURVIVES
+same precomputed B candidates shared                  FORBIDDEN / SURVIVES
+same precomputed A decisions shared                   FORBIDDEN / SURVIVES
+same precomputed Q membership shared                  FORBIDDEN / SURVIVES
+I_B consumes I_A F artifact                           FORBIDDEN / SURVIVES
+
+separate files but copied semantic implementation     DERIVATION BLOCKED / SURVIVES
+mechanical rename / generated port from I_A           DERIVATION BLOCKED / SURVIVES
+common normative literals                             PERMITTED / SURVIVES
+independent same contract-derived simple rule         PERMITTED / SURVIVES
+
+I_A temp semantic file readable by I_B                ISOLATION VIOLATION / SURVIVES
+semantic result leaked through environment            ISOLATION VIOLATION / SURVIVES
+semantic result leaked through shared cache           ISOLATION VIOLATION / SURVIVES
+semantic result leaked through IPC/network            ISOLATION VIOLATION / SURVIVES
+other-path output visible before both seals            ISOLATION VIOLATION / SURVIVES
+
+shared generic byte reader                            PERMITTED / SURVIVES
+shared SHA-256 primitive                              PERMITTED / SURVIVES
+shared JSON library                                   PERMITTED / SURVIVES
+shared generic LZMA bytes→bytes primitive             PERMITTED / SURVIVES
+shared semantic B/A/Q/F builder                       FORBIDDEN / SURVIVES
+
+O called during construction                          FORBIDDEN / SURVIVES
+same semantic result compared through two wrappers    FORBIDDEN + ISOLATED / SURVIVES
+O receives both only after seals                      REQUIRED / SURVIVES
+
+semantic Q BLOCKED vs environment BLOCKED             DISTINCT AXES / SURVIVES
+implementation exception normalized to Q BLOCKED      FORBIDDEN / SURVIVES
+both semantic Q BLOCKED                               TERMINAL AGREEMENT ONLY / SURVIVES
+both environment BLOCKED                              NO SEMANTIC PASS / SURVIVES
+QUALIFIED + implementation error                      EXECUTABLE FAILURE / SURVIVES
+
+different traversal order                             NON-SEMANTIC / SURVIVES
+parallel vs sequential                                NON-SEMANTIC / SURVIVES
+cache hit vs cold parse                               NON-SEMANTIC IF VALIDATED / SURVIVES
+stale cache under different determinants              FORBIDDEN / SURVIVES
+
+hidden market-value filter in one path                DIVERGENCE/NON-CONFORMING / SURVIVES
+timestamp sort as normative behavior                  FORBIDDEN / SURVIVES
+strict duplicate collapse                             DIVERGENCE/NON-CONFORMING / SURVIVES
+source→logical mapping mutation                       O DIVERGENCE / SURVIVES
+
+one-sided I_A semantic mutant                         MUST BE DETECTED / SURVIVES
+one-sided I_B semantic mutant                         MUST BE DETECTED / SURVIVES
+fault injection affecting both paths                  NOT VALID ONE-SIDED EVIDENCE / SURVIVES
+
+dynamic/import dependency omitted from manifest       QUALIFICATION BLOCKED / SURVIVES
+executed source differs from manifest                 QUALIFICATION BLOCKED / SURVIVES
+runtime read trace/isolation proof missing            QUALIFICATION BLOCKED / SURVIVES
+independent derivation provenance missing             I_B BLOCKED / SURVIVES
+
+implementation default supplies missing B/Q fact      FORBIDDEN / SURVIVES
+filename supplies missing hour provenance             FORBIDDEN / SURVIVES
+missing D component silently removed                  FORBIDDEN / SURVIVES
+
+acquisition permission inferred                       FORBIDDEN / SURVIVES
+real BI5 processing permission inferred               FORBIDDEN / SURVIVES
+real backtest permission inferred                     FORBIDDEN / SURVIVES
+```
+
+No additional internal I_A/I_B boundary defect was demonstrated.
+
+## 10.5 Final candidate state
+
+```text
+I_A/I_B implementation boundary
+= PERSISTED
+= ADVERSARIALLY BROKEN
+= FAIL ON IAB-F01..IAB-F03
+= MINIMALLY CORRECTED
+= PERSISTED-HEAD RE-BROKEN
+= NO NEW INTERNAL DEFECT DEMONSTRATED
+```
+
+Official gates remain:
+
+```text
+I_A = BLOCKED
+I_B = BLOCKED
+```
+
+because no implementation code has been created or qualified, and the upstream concrete execution prerequisites remain BLOCKED.
+
+The corrected boundary is internally stable enough to govern a future implementation block.
+
+## 10.6 Important authorization boundary
+
+This re-break does **not** authorize I_A/I_B implementation in this work block because the governed action was formalization only.
+
+Before implementation begins, this formalization block must be durably closed through:
+
+1. persisted re-break;
+2. global reconciliation audit update;
+3. durable backup;
+4. Recovery Checkpoint update.
+
+The next checkpoint must explicitly name the next governed action.
+
+No acquisition, BI5 download, real BI5 processing or real backtest is authorized.
