@@ -556,4 +556,61 @@ Implement and adversarially qualify a deterministic semantic comparison oracle a
 
 ---
 
-**Next governed action:** reconcile `I_A — reference implementation` against the current repository.
+# I_A — Reference implementation
+
+## Requirement
+
+I_A must be an executable reference implementation conforming to the complete concrete semantics:
+
+```text
+D + R + M + B + A + Q + F + O
+```
+
+and capable of producing the qualified logical occurrence universe without inventing missing semantics.
+
+## Current repository evidence inspected
+
+Executable candidate surfaces exist:
+
+- `src/data/tick_reader.py`;
+- `src/data/dataset_admissibility.py`;
+- `tools/probe_research_execution_compatibility_v4_3.py`;
+- calendar/freeze tooling;
+- research input binding.
+
+These are useful building blocks, but none is currently a complete implementation of the Q-RM qualification chain.
+
+They do not jointly establish one current executable that consumes the concrete D/R/M/B/A/Q tuple, produces the Q-RM-11 F artifact, and exposes its result for comparison through O.
+
+Moreover, D/R/M/B/A/Q/F/O are presently BLOCKED, so conformance to those concrete inputs cannot yet be demonstrated.
+
+## Adjudication
+
+```text
+existing parser / admissibility / compatibility code
+≠ Q-RM reference implementation
+
+useful implementation building blocks
+≠ I_A PASS
+```
+
+## Verdict
+
+```text
+I_A — Reference implementation
+BLOCKED
+```
+
+Classification:
+
+`PARTIAL IMPLEMENTATION SURFACES EXIST; COMPLETE CONFORMING REFERENCE PATH ABSENT / NOT QUALIFIABLE YET`
+
+## Closure evidence required
+
+After D/R/M/B/A/Q/F/O are concretely closed, implement or deliberately compose one reference path and adversarially prove that it conforms to those exact versions without fallback to parser defaults or ambient state.
+
+Existing components should be reused where they already satisfy the final contracts; this audit does not require rewriting them merely because I_A is currently BLOCKED.
+
+---
+
+**Next governed action:** reconcile `I_B — independent comparison implementation` against the current repository.
