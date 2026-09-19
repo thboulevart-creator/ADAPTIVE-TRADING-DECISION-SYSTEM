@@ -341,3 +341,137 @@ Correction:
 ## 12. Third authorized correction
 
 Correct only FTF-R06..FTF-R09, keep F and O production implementations absent, then perform the final persisted-head collection/RED re-break.
+
+---
+
+## 13. Final persisted-head RED re-break and verdict
+
+Final corrected breaker/workflow HEAD:
+
+55e465a90612267fe483ac305b03e77611fcb549
+
+Final breaker blob:
+
+3d9eb75c2f4e988c984da67af0af344d3dc24148
+
+Final workflow blob:
+
+f041e5ca5ce5887b67ebb0721b7d49d6ea75b442
+
+Final workflow:
+
+Native BI5 F Freeze Persistence Preimplementation RED
+
+Run:
+
+~~~text
+run = 35453498165
+job = 105924621170
+~~~
+
+Final controls:
+
+~~~text
+exact persisted HEAD / contract / breaker locks = PASS
+F production runtime absent                   = PASS
+O production implementation absent            = PASS
+qualification environment                     = PASS
+pytest collection                             = 36 tests collected / PASS
+breaker execution                             = RED
+clean worktree                                = PASS
+~~~
+
+Every executed test stops at the same governed preimplementation boundary:
+
+~~~text
+F runtime absent — expected pre-implementation RED:
+src.native_bi5_freeze_persistence does not exist
+~~~
+
+No FAILED test body, syntax error, collection error or unrelated import error was observed.
+
+Repository search on the final HEAD confirms no F runtime implementation and no executable O semantic comparator.
+
+### Defect closure
+
+~~~text
+FTF-F01 — SOURCE_TO_LOGICAL_CORRUPTION_ATTACK_NOT_INDEPENDENTLY_FALSIFIABLE      SURVIVES CORRECTION
+FTF-F02 — A08_ATTACK_CONFLATES_TWO_DIFFERENT_VIOLATIONS                         SURVIVES CORRECTION
+FTF-F03 — ORDER_TEMPORAL_ATTACKS_OVERCONSTRAINED_AND_UNDERCOVERED               SURVIVES CORRECTION
+FTF-F04 — MATERIALIZATION_COMPLETENESS_Q_PARAMETER_GAPS                         SURVIVES CORRECTION
+FTF-F05 — NO_INDEPENDENT_COLLECTION_PROOF                                       SURVIVES CORRECTION
+FTF-R01 — POST_CONSTRUCTION_ORDER_MUTATION_CONFLATES_SEMANTICS_AND_INTEGRITY    SURVIVES CORRECTION
+FTF-R02 — POSITIVE_RECONSTRUCTIBILITY_UNDERASSERTED                             SURVIVES CORRECTION
+FTF-R03 — OBJECT_KEY_ORDER_NOT_ACTUALLY_VARIED                                  SURVIVES CORRECTION
+FTF-R04 — B_CANDIDATE_RELATION_MAY_BE_DEFAULTED_FROM_Q_OUTPUT                   SURVIVES CORRECTION
+FTF-R05 — TERMINAL_NONFREEZE_EVIDENCE_NOT_REQUIRED                              SURVIVES CORRECTION
+FTF-R06 — CANDIDATE_REJECT_OVERLAP_HAS_SECOND_FAILURE_CAUSE                     SURVIVES CORRECTION
+FTF-R07 — POSITIVE_RECONSTRUCTION_SNAPSHOT_NOT_EXACT                            SURVIVES CORRECTION
+FTF-R08 — BLOCKED_A06_FIXTURE_HAS_CONTRADICTORY_FRAMING_METADATA                SURVIVES CORRECTION
+FTF-R09 — OUTPUT_KEY_ORDER_TEST_CONFLATES_SEMANTICS_AND_PHYSICAL_INTEGRITY      SURVIVES CORRECTION
+~~~
+
+No additional internal harness defect was demonstrated after the third correction.
+
+### Final covered attack surface
+
+The frozen test-first breaker now attacks at minimum:
+
+- qualified Q -> QUALIFIED_UNIVERSE_FREEZE / FROZEN;
+- blocked/rejected Q -> QUALIFICATION_TERMINAL_EVIDENCE / NOT_CREATED;
+- non-qualified prefix/partial universe leakage;
+- missing D/R/M/B/A/Q/F reconstruction determinant;
+- same stage/id/version with conflicting determinant content;
+- missing independent B candidate relation;
+- incomplete source-slot accounting;
+- candidate/reject overlap on the same exact B source slot;
+- terminal fragment inserted into complete-slot accounting;
+- anomaly semantic relation loss;
+- A08 without exact qualification-evidence binding;
+- retained occurrence omission/duplication;
+- strict duplicate multiplicity collapse;
+- non-unique binary32 normalization;
+- signed-zero logical-value divergence;
+- source-to-logical relation corruption hidden by equal payload bag;
+- source witness promoted to canonical occurrence identity;
+- component/accounting/occurrence order treated as semantic;
+- anomaly order and diagnostic path treated as semantic;
+- JSON whitespace and input object-key order treated as semantic;
+- timestamp array order promoted to temporal authority;
+- artifact byte hash treated as semantic identity;
+- missing D completeness evidence;
+- non-materialized declared component;
+- missing qualification parameters;
+- freeze reuse across determinant-content change;
+- malformed F construction validating as frozen;
+- permission leakage / acquisition / backtest / trading surfaces.
+
+### Final harness verdict
+
+~~~text
+F TEST-FIRST FREEZE-PERSISTENCE BREAKER / HARNESS = PASS
+~~~
+
+Scope of PASS:
+
+~~~text
+test-first breaker semantics = QUALIFIED
+collection = QUALIFIED
+expected RED boundary = QUALIFIED
+F production runtime = ABSENT
+O production implementation = ABSENT
+~~~
+
+This PASS does not qualify F itself.
+
+Current state:
+
+~~~text
+F test-first breaker/harness = PASS
+F production implementation = ABSENT
+F global executable gate    = BLOCKED
+O implementation           = ABSENT
+O global gate               = BLOCKED
+~~~
+
+No real BI5 download, real-data processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is created.
