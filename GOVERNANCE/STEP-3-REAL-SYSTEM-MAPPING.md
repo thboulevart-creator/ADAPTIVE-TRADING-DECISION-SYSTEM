@@ -8722,3 +8722,58 @@ P1.14B breaker remains unchanged at:
 `24d8dcd980ec421c75207930174a42cbd62a3b46`
 
 P1.14A and P1.14B qualification remain pending a common-HEAD re-break and then a persisted qualification-HEAD final re-break.
+
+
+---
+
+# P1.14 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Common-HEAD qualification base:** `2a81ebb5c32e0dddbc5759a3e3270f581eeb92b2`
+
+Observed common-HEAD runs:
+
+- P1.14A run `35429844565`, job `105862344989`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A+B `51 passed`; P1.13A+B `92 passed`; P1.14A `34 passed`; clean worktree PASS.
+- P1.14B run `35429844559`, job `105862344746`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A+B `51 passed`; P1.13A+B `92 passed`; P1.14B `38 passed`; clean worktree PASS.
+
+Breaker identities at this candidate:
+
+- P1.14A corrected explicit-None helper: `ff8de568b3ed8b1e887b604a8db9d173bdbbd66b`;
+- P1.14B: `24d8dcd980ec421c75207930174a42cbd62a3b46`.
+
+Runtime identities at this candidate:
+
+- P1.14A: `d56374ab05b07b8a05eafbbba9dde2875ef4f507`;
+- P1.14B: `4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5`.
+
+Candidate verdicts:
+
+```text
+P1_14A_REVIEWER_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1
+→ PASS CANDIDATE
+
+P1_14B_WITNESSED_MEASUREMENT_PROVENANCE_REATTESTATION_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+These are not final until both P1.14 workflows re-break this persisted qualification state itself.
+
+Qualification remains strictly limited:
+
+```text
+ReviewerMethodAuthorityQualification
+≠ semantic truth
+≠ request fulfillment
+≠ knowledge
+≠ operational authorization
+
+WitnessedMeasurementProvenance
+≠ measurement correctness
+≠ evaluator authority
+≠ qualified experimental finding
+≠ ResearchRunEvidence
+≠ evidence
+≠ knowledge
+≠ operational authorization
+```
+
+P1.1 positive `AUTHORIZED` remains separately BLOCKED.
