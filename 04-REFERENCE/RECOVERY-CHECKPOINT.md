@@ -1087,3 +1087,168 @@ candidate design
 The actual component manifest remains BLOCKED until a separately authorized acquisition later produces real acquisition evidence.
 
 Do not start B/A/Q/F/O/I_A/I_B implementation before D/R/M formalisation has been adversarially broken and adjudicated.
+
+
+---
+
+## 30. First concrete D/R/M candidate formalization — persisted
+
+The first concrete pre-backtest `D + R + M` candidate block has been formalized, broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/drm_first_concrete_candidate_formalization_2026-09-19.md`
+
+Initial candidate commit:
+
+`ed1a55047df1d3402fa35ef19f3a662070d590db`
+
+Initial adversarial break:
+
+`reports/data-qualification/drm_first_candidate_adversarial_break_2026-09-19.md`
+
+Break commit:
+
+`43d18ec3838a381c814761bc2cf3ff8726e38d90`
+
+Initial candidate verdict:
+
+`FAIL`
+
+Demonstrated defects:
+
+```text
+DRM-F01 — WARMUP_DOMAIN_MEMBERSHIP_UNDERSPECIFIED
+DRM-F02 — RECORD_MODEL_RETAINED_CANDIDATE_WORDING_LEAK
+```
+
+Minimal correction commit:
+
+`45b0db9a1b73ca233c6d966cfe409bb72c4cce63`
+
+Corrected candidate blob:
+
+`2249bea6dbf6b5a8e0d49b99a93bf16248f9c0e9`
+
+Final persisted-head re-break commit:
+
+`276611060aaa390dc1304152bad75f03dcb3385c`
+
+Final adversarial artifact blob:
+
+`8e29d132d8a2eaf28bd9901f2bed33392cccfc79`
+
+No additional candidate defect was demonstrated after correction.
+
+### Current candidate D semantics
+
+```text
+candidate contract =
+D_DUKASCOPY_USATECHIDXUSD_BOUNDED_RESEARCH_ACQUISITION_DECLARATION_V0_1
+```
+
+The future declared acquisition domain must include:
+
+```text
+mandatory deterministic warmup prefix
++
+frozen five-year evaluation window
+```
+
+The warmup prefix satisfies the frozen `20 completed H1 bars` requirement under the governed session-calendar contract.
+
+No actual acquisition-domain instance ID, component manifest or completeness evidence has been fabricated.
+
+### Current candidate R semantics
+
+```text
+representation_id =
+DUKASCOPY_NATIVE_BI5_HOURLY_TICKS
+
+representation_version =
+DUKASCOPY_NATIVE_BI5_HOURLY_TICKS_V1_CANDIDATE
+```
+
+Native BI5 is selected as the first-path candidate because it preserves provider-native source material without mandatory pre-qualification conversion.
+
+Parser support is not normative authority.
+
+Filename/path syntax is not normative UTC-hour provenance.
+
+### Current candidate M semantics
+
+```text
+record_model_version =
+PRIMARY_MARKET_TICK_LOGICAL_RECORD_MODEL_V1_CANDIDATE
+```
+
+M is:
+
+- format-neutral;
+- occurrence-based;
+- strict-duplicate preserving;
+- pre-Q;
+- non-canonical;
+- non-temporal;
+- acquisition-scope compatible.
+
+B owns physical BI5 segmentation/scaling/framing.
+
+Q owns retained qualification membership.
+
+### Official gate verdicts remain
+
+```text
+D = BLOCKED
+R = BLOCKED
+M = BLOCKED
+```
+
+This is deliberate.
+
+The corrected candidate is stable enough to become input to the next specification block, but it is not qualified concrete data.
+
+---
+
+## 31. Durable D/R/M backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-FIRST-CONCRETE-DRM-FORMALIZATION.md`
+
+Backup commit:
+
+`5b01f2d60a91858785dcbe5ec8c0468df780e118`
+
+Global reconciliation audit update commit:
+
+`67b49d18fd6ef6612dff3edb36ebe3a5cc497d23`
+
+No B/A implementation or data acquisition occurred before this checkpoint.
+
+---
+
+## 32. Exactly one next governed action
+
+Formalize only:
+
+```text
+B — concrete native BI5 format binding
++
+A — concrete BI5 anomaly matrix
+```
+
+using the corrected D/R/M candidate as immutable candidate input.
+
+Requirements:
+
+- no acquisition;
+- no real BI5 processing;
+- no real backtest;
+- no permission increase;
+- do not make filenames/path patterns normative;
+- do not let the existing V4.3 parser become binding authority by implication;
+- distinguish physical BI5 framing/field/scaling semantics from M;
+- bind concrete BI5 anomaly classes to Q-RM-10 outcomes;
+- adversarially break B/A before any implementation;
+- if B/A would require changing D/R/M semantics, stop with FAIL/BLOCKED rather than mutating D/R/M silently.
