@@ -4055,3 +4055,245 @@ fresh HEAD verification
 No production Q-RM-12 integration code may be created before this formalization passes.
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 70. Q-RM-12 post-seal I_A/I_B → F/O handoff formalization — qualified
+
+The previously exposed post-O handoff gap has completed its governed formalization cycle.
+
+Qualified formalization candidate:
+
+`reports/data-qualification/qrm12_postseal_f_o_handoff_formalization_candidate_2026-09-19.md`
+
+Qualified candidate blob:
+
+`a1f1c0edf6f45fd96620e3f2274cc9da0214e3f7`
+
+Adversarial break record:
+
+`reports/data-qualification/qrm12_postseal_f_o_handoff_adversarial_break_2026-09-19.md`
+
+Adversarial record blob:
+
+`15f62494dae54cef106cca89f69d0f86cfc305ea`
+
+Persisted-head final re-break:
+
+`reports/data-qualification/qrm12_postseal_f_o_handoff_persisted_head_rebreak_2026-09-19.md`
+
+Re-break artifact blob:
+
+`408074e0480ba101368ba219ad50624567ab28e5`
+
+Exact corrected candidate HEAD re-broken:
+
+`886567839e13f7b53109b337c411acd1d1c91ec3`
+
+Formalization qualification commit:
+
+`ba4f654c1915772af665ff27b2b564df1ab86efd`
+
+Global audit update commit:
+
+`19bc440ee7d660c374417326918084d8b806d066`
+
+Updated global audit blob:
+
+`3aefb364680025479070ddb41eae35da80254736`
+
+Documentary re-break:
+
+```text
+28/28 attacks = PASS
+```
+
+Final formalization verdict:
+
+```text
+Q-RM-12 POST-SEAL I_A/I_B → F/O HANDOFF FORMALIZATION = PASS
+```
+
+This PASS is formalization-layer only.
+
+---
+
+## 71. Demonstrated Q-RM-12 formalization defects and selected model
+
+Demonstrated then minimally corrected:
+
+```text
+QRM12-F01 — COMMON_INPUT_PRECOMPUTES_B_DERIVED_F_FIELDS
+QRM12-F02 — IMPLEMENTATION_VERSION_CAN_REMAIN_V0_1_WHILE_OUTPUT_CONTRACT_CHANGES
+QRM12-F03 — RESULT_PRODUCER_IDENTITY_IS_SELF_ASSERTED
+QRM12-F04 — SAME_STATE_CONFLICT_PRECEDENCE_IS_UNDERSPECIFIED
+QRM12-F05 — RESULT_SEAL_NORMAL_FORM_IS_NOT_FIXED
+QRM12-F06 — QUALIFIED_FREEZE_CONSTRUCTION_AND_TERMINAL_HANDLING_ARE_AMBIGUOUS
+QRM12-F07 — SHARED_PRESEAL_F_VALIDATOR_CAN_BECOME_COMMON_SEMANTIC_AUTHORITY
+QRM12-F08 — EXECUTION_EVIDENCE_DOES_NOT_BIND_THE_EXACT_SEALED_OUTPUT
+```
+
+Qualified model:
+
+```text
+same immutable common input
+        ↓                         ↓
+version-forward I_A           version-forward I_B
+        ↓                         ↓
+independent B/A/Q/F           independent B/A/Q/F
+        ↓                         ↓
+path-private F_A build        path-private F_B build
+path-private F_A validate     path-private F_B validate
+        ↓                         ↓
+embed exact F_A pre-seal      embed exact F_B pre-seal
+        ↓                         ↓
+sealed result A               sealed result B
+run receipt binds seal A      run receipt binds seal B
+        \                         /
+         Q-RM-12 post-seal ingress
+                   ↓
+pinned producer/source/run/output validation
++ strict result-seal validation
++ shared F validation only post-seal
++ exact result/F cross-binding
+                   ↓
+             extract F_A/F_B
+                   ↓
+          existing O unchanged
+```
+
+Key consequences:
+
+- current V0.1 I_A/I_B result schema is insufficient for Q-RM-12;
+- existing I_A/I_B V0.1 scoped implementation PASS remains valid only at its current scope;
+- future Q-RM-12 compatibility requires new implementation versions/manifests, a version-forward result schema and version-forward common input-package boundary;
+- common inputs may not provide B-derived slot-count/terminal-fragment answers as semantic authority;
+- pre-seal F builder and F semantic validator must remain independently implemented per path;
+- existing shared F validator is allowed only after both results seal;
+- QUALIFIED/FROZEN embeds exact F before result sealing;
+- terminal/non-reached states carry no qualified F artifact;
+- result seal uses strict canonical JSON and is integrity only;
+- external run/sealing evidence binds the exact emitted result seal;
+- same-version reference/integrity conflict has precedence over legitimate different-version state;
+- Q-RM-12 ingress validates/extracts only and never reconstructs semantics;
+- O still receives only exact F_A/F_B and remains unchanged.
+
+---
+
+## 72. Current executable/global state after formalization PASS
+
+```text
+F test-first breaker/harness qualification = PASS
+F implementation candidate qualification   = PASS
+F global executable gate                    = BLOCKED
+
+O test-first breaker/harness qualification = PASS
+O implementation candidate qualification   = PASS
+O global executable gate                    = BLOCKED
+
+I_A V0.1 implementation candidate qualification = PASS
+I_B V0.1 implementation candidate qualification = PASS
+
+I_A Q-RM-12 compatibility = BLOCKED
+I_B Q-RM-12 compatibility = BLOCKED
+
+Q-RM-12 formalization      = PASS
+Q-RM-12 executable runtime = ABSENT
+Q-RM-12 executable run     = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No global executable PASS is created.
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization has been created.
+
+---
+
+## 73. Durable Q-RM-12 formalization backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-QRM12-HANDOFF-FORMALIZATION.md`
+
+Backup persistence commit:
+
+`29a891369874ba3696d5785e7b56196249053d23`
+
+Backup blob:
+
+`04823f9cf3d1dfe7403c75f17e1436dbfd68e5ed`
+
+Pre-checkpoint branch HEAD:
+
+`29a891369874ba3696d5785e7b56196249053d23`
+
+---
+
+## 74. Exactly one next governed action
+
+Open only:
+
+```text
+Q-RM-12 — test-first executable compatibility breaker / harness
+```
+
+Do **not** create a Q-RM-12 production runtime yet.
+
+Do **not** create Q-RM-12-compatible I_A/I_B V0.2 production implementations yet.
+
+Create only a synthetic/in-memory test-first breaker/harness and workflow that freeze the qualified Q-RM-12 formalization as executable RED requirements while keeping the existing V0.1 I_A/I_B sources and qualified F/O sources unchanged.
+
+The test-first contract must attack at minimum:
+
+- reuse of V0.1 implementation identity for changed compatibility behavior;
+- incomplete or duplicate D/R/M/B/A/Q/F/O bindings;
+- digest-only determinant attribution;
+- common precomputed B slot-count/terminal-fragment authority;
+- shared pre-seal F builder;
+- shared pre-seal F semantic validator/normalizer;
+- missing exact embedded F on QUALIFIED/FROZEN;
+- synthetic F on terminal/non-reached states;
+- permissive/non-strict result seal;
+- self-asserted manifest/source identity;
+- execution receipt not binding exact emitted result seal;
+- stale-F substitution;
+- F_A/F_B mix-and-match;
+- result/F acquisition mismatch;
+- result/F reconstruction-tuple mismatch;
+- distinct-version masking same-version integrity conflict;
+- O determinant mismatch;
+- post-seal semantic reconstruction/repair;
+- I_A-only mutant hidden;
+- I_B-only mutant hidden;
+- artifact hash/source witness/traversal order promoted to semantic authority;
+- pre-seal opposite-path information flow;
+- permission leakage.
+
+Expected initial state:
+
+```text
+Q-RM-12 test-first breaker/harness persisted
+Q-RM-12-compatible V0.2 production surfaces absent
+Q-RM-12 production handoff runtime absent
+RED only because the required future compatibility/runtime surfaces are absent
+existing V0.1 I_A/I_B unchanged
+F unchanged
+O unchanged
+no real BI5
+no acquisition
+no backtest
+```
+
+Only after that RED baseline is persisted, adversarially diagnosed and itself qualified may any Q-RM-12-compatible production implementation candidate be created.
+
