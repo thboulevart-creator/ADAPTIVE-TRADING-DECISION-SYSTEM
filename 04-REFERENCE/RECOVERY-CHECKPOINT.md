@@ -1451,3 +1451,188 @@ Q must:
 Q must not promote the provider-sensitive B candidate facts to PASS merely because one current parser implements them.
 
 No acquisition or real backtest is authorized.
+
+
+---
+
+## 36. First concrete native BI5 Q formalization — persisted
+
+The first concrete native-BI5 `Q` qualification-contract candidate has been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/q_native_bi5_qualification_contract_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`02d329bb2fa419b2fa48635787596d4bce73a9e3`
+
+Initial adversarial artifact:
+
+`reports/data-qualification/q_native_bi5_qualification_contract_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`6fa0e84d2ed65616fb2ae88cfaa670095c144c8c`
+
+Initial candidate verdict:
+
+`FAIL`
+
+Demonstrated defects:
+
+```text
+Q-F01 — ANOMALY_TARGET_BINDING_UNDERSPECIFIED
+Q-F02 — PHYSICAL_SLOT_ACCOUNTING_NOT_TOTAL
+```
+
+Minimal correction commit:
+
+`dbf8b5a0012d6cea45ac3e1dc237c311889f12f9`
+
+Corrected candidate blob:
+
+`9e15cfb86716894131485a15a180cc170a230287`
+
+Final persisted-head adversarial re-break commit:
+
+`6976e781c7a8a9ff248edfce570ef77b47b17810`
+
+Final adversarial artifact blob:
+
+`bda8565210b6ddc9231e7aebad59e323f6b8d62c`
+
+No additional internal Q candidate defect was demonstrated after correction.
+
+### Current Q identity
+
+```text
+qualification_contract_id =
+Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP
+
+qualification_contract_version =
+Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP_V0_1_CANDIDATE
+```
+
+### Acquisition outcome
+
+```text
+QUALIFIED
+QUALIFICATION_BLOCKED
+ACQUISITION_REJECTED
+```
+
+No blocked/rejected acquisition may emit a normative partial qualified universe.
+
+### Exact A-target binding
+
+Complete slot target:
+
+```text
+component_manifest_entry_id
++
+component_local_slot_index
+```
+
+Terminal fragment target:
+
+```text
+component_manifest_entry_id
++
+terminal_fragment_start_offset
++
+terminal_fragment_length
+```
+
+Component/acquisition anomalies use explicit component/acquisition scope.
+
+Filename/path, parser row number, traversal order, free text and content hash alone are not normative targets.
+
+### Exact slot accounting
+
+For every deterministically framed non-blocked component:
+
+```text
+S_all
+=
+{0 .. complete_slot_count-1}
+
+S_candidate ∩ S_rejected = ∅
+
+S_candidate ∪ S_rejected = S_all
+```
+
+Every complete physical slot must therefore be accounted exactly once before Q may be `QUALIFIED`.
+
+### Membership semantics
+
+Q V0.1 introduces no hidden market-value filters.
+
+Deterministic finite decoded values such as zero price, crossed quotes, finite negative source volume and timestamp regressions relative to physical traversal are not silently deleted.
+
+Strict duplicates remain distinct.
+
+Warmup D-member occurrences remain in the qualified universe.
+
+Q creates no temporal order or canonical enumeration.
+
+### Official verdict
+
+```text
+Q = BLOCKED
+```
+
+Reasons:
+
+- no materialized D acquisition exists;
+- B/A provider-sensitive semantics remain officially BLOCKED;
+- no executable Q implementation has been qualified;
+- no F persistence artifact exists.
+
+The corrected Q candidate is stable enough to become input to F/O formalization.
+
+---
+
+## 37. Durable Q backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-Q-FORMALIZATION.md`
+
+Backup commit:
+
+`bb2b13dccb5b47fcc1723afab7f5193ed51c130e`
+
+Global reconciliation audit update commit:
+
+`048f93b87a39b0f1647d9e376a81cc698dbfc04e`
+
+No F/O implementation, acquisition, BI5 download, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 38. Exactly one next governed action
+
+Formalize only:
+
+```text
+F — concrete qualification-freeze artifact/persistence
++
+O — deterministic semantic comparison oracle
+```
+
+using the corrected/re-broken D/R/M/B/A/Q candidate package as immutable candidate input.
+
+F/O must:
+
+- preserve Q membership exactly;
+- preserve strict duplicate individuality;
+- represent blocked/rejected qualification without a fake partial universe;
+- persist enough normative reconstruction state for D/R/M/B/A/Q;
+- define semantic universe equality independent of traversal/serialization order;
+- avoid promoting physical slot provenance into canonical identity;
+- avoid introducing temporal ordering;
+- avoid adding market-value filters;
+- avoid granting acquisition or backtest authorization.
+
+If F/O cannot persist or compare the qualified universe without inventing unresolved identity/order semantics, F/O must FAIL/BLOCK rather than mutate upstream contracts.
