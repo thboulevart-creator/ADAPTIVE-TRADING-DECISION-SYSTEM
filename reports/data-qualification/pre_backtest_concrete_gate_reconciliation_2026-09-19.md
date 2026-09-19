@@ -666,3 +666,151 @@ After the concrete semantic package and I_A exist, implement an independent comp
 ---
 
 **Next governed action:** persist the complete reconciliation conclusion and derive the smallest concrete closure program before any acquisition or real backtest.
+
+
+---
+
+# Complete reconciliation conclusion
+
+## Final matrix
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No historical BLOCKED entry can truthfully be promoted to PASS from the current repository state.
+
+This result is a reconciliation result, not a regression of the qualified P0/P1 chain.
+
+## What is already reusable and must not be rebuilt
+
+The current repository already provides valuable qualified or executable foundations:
+
+1. P0.6 reproducible qualification environment.
+2. Qualified calendar / selected execution-window surface:
+   `USATECHIDXUSD`, `2021-08-14 → 2026-08-14`, selected-window `68 / 68 / 0`.
+3. Persisted execution-window freeze with explicit no-acquisition/no-real-backtest state.
+4. Qualified Momentum V1 first-baseline protocol.
+5. Existing CSV tick reader / admissibility checks.
+6. Existing native Dukascopy BI5 decoding knowledge in the V4.3 compatibility probe.
+7. Existing Parquet compatibility path.
+8. Q-RM-01..12 universal semantic/falsifiability architecture.
+9. P1.2..P1.16 governed experiment/evidence/result interpretation chain.
+10. P1.16 qualified experimental finding boundary.
+
+None of these should be reimplemented merely because the concrete executable data gate is still BLOCKED.
+
+## Exact gap now exposed
+
+The missing object is not "a backtester" in the abstract.
+
+The missing object is a **concrete, versioned, executable data-qualification package for the first real research acquisition**, capable of instantiating the already-defined universal Q-RM semantics.
+
+Conceptually:
+
+```text
+concrete D + R + M
+        ↓
+concrete B + A
+        ↓
+concrete Q
+        ↓
+concrete F + O
+        ↓
+I_A + independent I_B
+        ↓
+Q-RM-12 real determinism execution
+        ↓
+Universe(A) = Universe(B)
++
+mandatory adversarial variants conform
+        ↓
+FINAL EXECUTABLE DATA GATE = PASS
+```
+
+Only after that data gate is PASS may a separate bounded acquisition/backtest permission be considered.
+
+## Important distinction
+
+The already-qualified Momentum V1 protocol solves much of the **experiment definition** side of the first backtest.
+
+It does not solve the concrete data gate.
+
+Likewise:
+
+```text
+P1.16 qualified finding semantics
+≠ acquisition authorization
+≠ data qualification
+≠ real backtest authorization
+```
+
+## Current safety state
+
+```text
+real data acquisition       = NOT AUTHORIZED
+massive acquisition         = false / NOT AUTHORIZED
+real backtest               = false / NOT AUTHORIZED
+positive P1.1 AUTHORIZED    = BLOCKED
+broker / paper / live       = NOT AUTHORIZED
+```
+
+No network acquisition, BI5 download, real dataset processing or backtest was executed during this reconciliation.
+
+## Smallest governed closure program
+
+The dependency order for the next work is:
+
+```text
+BLOCK 1 — concrete declaration/model selection
+D + R + M
+
+BLOCK 2 — physical interpretation and failures
+B + A
+
+BLOCK 3 — qualification semantics
+Q
+
+BLOCK 4 — frozen evidence and semantic comparison
+F + O
+
+BLOCK 5 — executable determinism
+I_A + I_B + Q-RM-12
+```
+
+Each block must follow:
+
+```text
+formalisation
+→ candidate
+→ adversarial break
+→ correction
+→ persisted-HEAD re-break
+→ PASS / FAIL / BLOCKED
+```
+
+No block may inherit PASS merely because adjacent code already exists.
+
+## Exactly one next governed action
+
+Formalize **without acquiring data and without authorizing execution** the first concrete `D + R + M` candidate package for the bounded Dukascopy `USATECHIDXUSD` research acquisition associated with the already-frozen execution window.
+
+The formalisation must distinguish:
+
+- acquisition declaration rules from an actual acquired component manifest;
+- representation selection from parser implementation;
+- record-model version from format-specific binding;
+- candidate design from qualification PASS.
+
+No real component manifest can be claimed before acquisition evidence exists. Therefore the first D step may select and freeze the **declaration contract / expected membership rule** while the actual acquired-manifest completion remains BLOCKED until an explicitly authorized acquisition later exists.
+
+No real acquisition is authorized by this next action.
