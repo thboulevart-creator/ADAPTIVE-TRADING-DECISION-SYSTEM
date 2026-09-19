@@ -2058,3 +2058,166 @@ I_B BLOCKED   # evidence package PASS; implementation absent
 ```
 
 No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+
+---
+
+# I_B independent implementation candidate qualification — 2026-09-19
+
+A concrete independently derived I_B implementation candidate now exists:
+
+`src/native_bi5_independent_qualifier.py`
+
+Final qualified source Git blob:
+
+`25fadd36761616e89a21964201b3bfa3c7349ea4`
+
+Final raw-source SHA-256:
+
+`a2b155d23a3a66968ba5bc35586bc7a9b9318655053121066676d6db1d7addb9`
+
+The I_B source was derived from the qualified frozen derivation package and pinned D/R/M/B/A/Q/F contracts. The I_A source was not used as a derivation input.
+
+Final bound derivation evidence blobs:
+
+```text
+provenance
+f78025f5e8ad9bf9a66f8ceef3995eddecdc0cf3
+
+no-copy
+b62df24e695c925ab440b826b5100c84e9072468
+
+independent stage inventory
+b822f48bbdca3c9580374a7170b493f7f684e1b0
+```
+
+The frozen semantic evidence payload hashes remained unchanged after source creation.
+
+Qualified evidence breaker remained unchanged:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+Frozen I_B breaker remained unchanged:
+
+`d1a305e3b9ae813e891b34522e3a12bb6bc8ac34`
+
+Supplemental I_B adversarial breaker:
+
+`breakers/native_bi5_ib_independent_qualifier_adversarial.py`
+
+Final supplemental breaker blob:
+
+`e0fd8b6c8b946945ad91d772fc0505edbc7f79f5`
+
+Adversarial record:
+
+`reports/data-qualification/iab/ib_independent_implementation_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`c7a9a68290811842db154e7175dc6a95a2503914`
+
+## Demonstrated I_B implementation defects
+
+The first green frozen-breaker run was not accepted as PASS.
+
+The implementation was adversarially failed on:
+
+```text
+IB-F01 — RESEALED_MANIFEST_DIGEST_SUBSTITUTION_ACCEPTED
+IB-F02 — RESEALED_INCOMPLETE_DETERMINANT_BINDING_ACCEPTED
+IB-F03 — MALFORMED_EXECUTION_CONTEXT_ESCAPES_STATUS_MODEL
+IB-R01 — BLOCKED_MISSING_DETERMINANT_RESULT_LOSES_PRESENT_INPUT_BINDINGS
+```
+
+All demonstrated defects were minimally corrected without changing the qualified evidence breaker, frozen I_B breaker, frozen evidence semantics or upstream D/R/M/B/A/Q/F contracts.
+
+## Final persisted-head I_B qualification
+
+Final same-HEAD re-break commit:
+
+`5f79f77951c8563d7a4cc193e1fdca9b8aa7a09a`
+
+Final workflow:
+
+`Native BI5 I_B Independent Qualifier Persisted-HEAD Rebreak`
+
+Run:
+
+```text
+run = 35444927844
+job = 105902106261
+```
+
+Results:
+
+```text
+qualified derivation evidence breaker = 11 passed
+frozen I_B breaker                    = 23 passed
+supplemental adversarial breaker      = 7 passed
+```
+
+All exact source/evidence/breaker locks, raw source SHA-256 lock, qualification-environment checks and clean-worktree checks passed.
+
+The frozen pair breaker additionally verified on synthetic/in-memory fixtures:
+
+- independently sealed I_A and I_B semantic projections agree for the same immutable input;
+- I_A-only semantic mutation is detected;
+- I_B-only semantic mutation is detected;
+- source/result byte hashes are not substituted for semantic equality;
+- strict duplicates remain distinct;
+- no hidden timestamp sorting or market-value filtering occurs;
+- local rejection accounting is preserved;
+- pre-seal I_A information channels remain closed.
+
+Positive A08 constructive-completeness proof validation remains deliberately unavailable while its independent verifier/schema is unqualified. I_B therefore fails closed to A07 / QUALIFICATION_BLOCKED for an unverified claim.
+
+## Implementation-layer verdict
+
+```text
+I_B INDEPENDENT IMPLEMENTATION CANDIDATE = PASS
+```
+
+The global executable gate remains:
+
+```text
+I_B — Independent comparison implementation
+BLOCKED
+```
+
+because conformance against a materially complete concrete D/R/M/B/A/Q/F/O state cannot yet be demonstrated.
+
+Therefore:
+
+```text
+I_B implementation candidate qualification = PASS
+I_B global executable gate                  = BLOCKED
+```
+
+Together with the already-qualified I_A implementation candidate:
+
+```text
+I_A implementation candidate qualification = PASS
+I_B implementation candidate qualification = PASS
+synthetic independent pair comparison       = PASS CANDIDATE EVIDENCE
+
+I_A global executable gate = BLOCKED
+I_B global executable gate = BLOCKED
+```
+
+The global concrete reconciliation remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED   # global gate; implementation candidate PASS
+I_B BLOCKED   # global gate; independent implementation candidate PASS
+```
+
+No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
