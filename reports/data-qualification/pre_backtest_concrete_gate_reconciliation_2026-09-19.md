@@ -425,4 +425,73 @@ The already-qualified Momentum protocol remains valid and does not need to be re
 
 ---
 
-**Next governed action:** reconcile `F — freeze artifact + persistence` against the current repository.
+# F — Freeze artifact + persistence
+
+## Requirement
+
+Q-RM-11 requires a concrete immutable serialized artifact capable of reconstructing exactly the qualified logical occurrence universe from the complete normative tuple:
+
+```text
+D + R + M + B + Q
+```
+
+plus explicit qualification status, membership, occurrence individuality, anomaly summary and freeze state.
+
+## Current repository evidence inspected
+
+The repository does contain a real persisted freeze:
+
+`04-REFERENCE/EXECUTION-WINDOW-FREEZE.json`
+
+and executable verification in `tools/frozen_execution_window.py`.
+
+That artifact validly freezes the selected execution-window/calendar boundary and preserves:
+
+- `2021-08-14 → 2026-08-14`;
+- calendar-resolution counts;
+- warmup policy;
+- source qualification evidence;
+- explicit `massive_acquisition_authorized=false`;
+- explicit `real_backtest_authorized=false`.
+
+However, this is not the Q-RM-11 logical-universe freeze. It contains no concrete D/R/M/B/Q reconstruction tuple and no serialized qualified occurrence membership/individuality result.
+
+Q-RM-11 itself states:
+
+```text
+SEMANTIC FREEZE CONTRACT        = PASS
+CONCRETE PERSISTENCE / SNAPSHOT = BLOCKED
+```
+
+The process-local `BoundResearchInput` attestation also does not satisfy Q-RM-11 persistence: it binds an existing corpus/contract in one process and does not serialize the qualified logical occurrence universe.
+
+## Adjudication
+
+```text
+execution-window freeze
+≠ logical-occurrence-universe freeze
+
+corpus hash binding
+≠ Q-RM-11 frozen qualification artifact
+```
+
+## Verdict
+
+```text
+F — Freeze artifact + persistence
+BLOCKED
+```
+
+Classification:
+
+`A DIFFERENT FREEZE EXISTS; REQUIRED LOGICAL-UNIVERSE SNAPSHOT DOES NOT`
+
+## Closure evidence required
+
+After D/R/M/B/A/Q are closed and qualification executes, persist one immutable Q-RM-11 artifact schema and concrete frozen artifact that can be independently reconstructed without relying on runtime traversal or ambient state.
+
+The valid execution-window freeze remains preserved and must not be repurposed as a different semantic artifact.
+
+---
+
+**Next governed action:** reconcile `O — deterministic semantic comparison oracle` against the current repository.
