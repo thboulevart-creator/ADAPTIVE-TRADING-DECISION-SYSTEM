@@ -172,8 +172,9 @@ def _validate_shape(result: ImplementationQualificationResult) -> None:
         raise ValueError("implementation manifest digest mismatch")
     if not isinstance(result.input_determinant_digests, Mapping):
         raise ValueError("input determinant bindings must be a mapping")
-    if set(result.input_determinant_digests) != _REQUIRED_DETERMINANTS:
-        raise ValueError("incomplete input determinant bindings")
+    determinant_keys = set(result.input_determinant_digests)
+    if not determinant_keys.issubset(_REQUIRED_DETERMINANTS):
+        raise ValueError("unknown input determinant binding")
     for digest in result.input_determinant_digests.values():
         if not isinstance(digest, str) or len(digest) != 64:
             raise ValueError("invalid input determinant digest")
@@ -193,6 +194,8 @@ def _validate_shape(result: ImplementationQualificationResult) -> None:
         and result.semantic_status == "QUALIFIED"
         and result.freeze_status == "FROZEN"
     )
+    if qualified and determinant_keys != _REQUIRED_DETERMINANTS:
+        raise ValueError("qualified result requires complete determinant bindings")
 
     if result.execution_status != "COMPLETED":
         if result.semantic_status != "NOT_REACHED":
@@ -403,11 +406,17 @@ class IndependentQualificationEngine:
         determinants = self.package.get("determinant_digests")
         if not isinstance(determinants, Mapping):
             return False, "MISSING_DETERMINANT_DIGESTS"
+
+        self.determinants = {
+            str(key): str(value)
+            for key, value in determinants.items()
+            if str(key) in _REQUIRED_DETERMINANTS and self.digest_like(value)
+        }
+
         if set(determinants) != _REQUIRED_DETERMINANTS:
             return False, "INCOMPLETE_DETERMINANT_SET"
         if any(not self.digest_like(value) for value in determinants.values()):
             return False, "INVALID_DETERMINANT_DIGEST"
-        self.determinants = {str(key): str(value) for key, value in determinants.items()}
 
         components = self.package.get("components")
         if not isinstance(components, (tuple, list)) or not components:
