@@ -2743,3 +2743,288 @@ Qualified evidence breaker blob that must remain unchanged:
 The implementation block remains synthetic/in-memory only.
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 54. Native BI5 I_B independent implementation candidate — qualified
+
+A concrete independently derived native-BI5 I_B implementation candidate now exists and has completed its governed implementation-layer qualification cycle.
+
+Source:
+
+`src/native_bi5_independent_qualifier.py`
+
+Final qualified source Git blob:
+
+`25fadd36761616e89a21964201b3bfa3c7349ea4`
+
+Final governed raw-source SHA-256:
+
+`a2b155d23a3a66968ba5bc35586bc7a9b9318655053121066676d6db1d7addb9`
+
+The source was independently derived from the qualified I_B derivation evidence package and pinned D/R/M/B/A/Q/F contracts.
+
+The I_A source was not a derivation input.
+
+### Final bound derivation evidence
+
+```text
+provenance
+f78025f5e8ad9bf9a66f8ceef3995eddecdc0cf3
+
+no-copy
+b62df24e695c925ab440b826b5100c84e9072468
+
+independent stage inventory
+b822f48bbdca3c9580374a7170b493f7f684e1b0
+```
+
+The three frozen semantic evidence payload hashes remain the same qualified pre-code hashes:
+
+```text
+provenance
+e7362dfe76e4c722e4d5ec7512907691e486cdba15a4a42999cd9ce0d24fb99a
+
+no-copy
+b3b70f3858a46d112cf9cb5e1d9c9ab7940cf963fb6f9d2f459e1cb8f1a585eb
+
+inventory
+a27dcaa62b6f693c6a545bb22e344707762d5d9ed06e813959efc0b80b95b36d
+```
+
+Qualified evidence breaker remained unchanged:
+
+`breakers/native_bi5_ib_derivation_evidence_breaker.py`
+
+blob:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+Frozen I_B breaker remained unchanged:
+
+`breakers/native_bi5_ib_independent_qualifier_breaker.py`
+
+blob:
+
+`d1a305e3b9ae813e891b34522e3a12bb6bc8ac34`
+
+Supplemental I_B adversarial breaker final blob:
+
+`e0fd8b6c8b946945ad91d772fc0505edbc7f79f5`
+
+### Demonstrated implementation defects
+
+```text
+IB-F01 — RESEALED_MANIFEST_DIGEST_SUBSTITUTION_ACCEPTED
+IB-F02 — RESEALED_INCOMPLETE_DETERMINANT_BINDING_ACCEPTED
+IB-F03 — MALFORMED_EXECUTION_CONTEXT_ESCAPES_STATUS_MODEL
+IB-R01 — BLOCKED_MISSING_DETERMINANT_RESULT_LOSES_PRESENT_INPUT_BINDINGS
+```
+
+All demonstrated defects were minimally corrected without changing:
+
+- the qualified evidence breaker;
+- the frozen I_B breaker;
+- frozen derivation evidence semantics;
+- upstream D/R/M/B/A/Q/F contracts;
+- or using I_A source as a correction input.
+
+### Final persisted-head re-break
+
+Final persisted source/evidence/harness HEAD:
+
+`5f79f77951c8563d7a4cc193e1fdca9b8aa7a09a`
+
+Workflow:
+
+`Native BI5 I_B Independent Qualifier Persisted-HEAD Rebreak`
+
+Run:
+
+```text
+run = 35444927844
+job = 105902106261
+```
+
+Results:
+
+```text
+qualified derivation evidence breaker = 11 passed
+frozen I_B breaker                    = 23 passed
+supplemental adversarial breaker      = 7 passed
+```
+
+All exact source/evidence/breaker locks, source SHA-256 lock, qualification-environment checks and clean-worktree checks passed.
+
+No additional internal I_B implementation defect was demonstrated.
+
+The frozen pair breaker also proved on synthetic/in-memory fixtures:
+
+- independently sealed I_A/I_B semantic projections agree;
+- one-sided I_A mutant is detected;
+- one-sided I_B mutant is detected;
+- I_B source is not a structural clone under the qualified threshold;
+- no shared project semantic shortcut is admitted;
+- pre-seal I_A output channels remain closed;
+- strict duplicate multiplicity remains;
+- no hidden timestamp sorting or market-value filtering occurs;
+- local rejected-slot accounting remains exact.
+
+### Known fail-closed limitation
+
+The independent constructive-completeness proof verifier for positive A08 remains unqualified.
+
+Therefore:
+
+```text
+unverified claimed constructive-completeness proof
+→ no A08 promotion
+→ A07
+→ QUALIFICATION_BLOCKED
+```
+
+This is deliberate and does not establish real-data B/A closure.
+
+### I_B implementation-layer verdict
+
+```text
+I_B INDEPENDENT IMPLEMENTATION CANDIDATE = PASS
+```
+
+### Global I_B gate verdict
+
+```text
+I_B = BLOCKED
+```
+
+The complete concrete D/R/M/B/A/Q/F/O state remains materially unclosed.
+
+Therefore:
+
+```text
+I_A implementation candidate qualification = PASS
+I_B implementation candidate qualification = PASS
+
+I_A global executable gate = BLOCKED
+I_B global executable gate = BLOCKED
+```
+
+The global concrete matrix remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No acquisition, BI5 processing, backtest or execution authorization is created.
+
+---
+
+## 55. Durable I_B independent implementation backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-IB-INDEPENDENT-IMPLEMENTATION.md`
+
+Backup commit:
+
+`c52a1ab667ceb6dfb28f6ec73c6848a3fca1de78`
+
+Backup blob:
+
+`566d285d1250bcdf923b812b53164bdcdd91836e`
+
+Global reconciliation audit update commit:
+
+`d76300a984d267810372dcb34d9ab294354cdf07`
+
+Updated global audit blob:
+
+`609d5532b8f65e9778e095fb0d5898b67938c6cd`
+
+No real BI5 acquisition, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 56. Exactly one next governed action
+
+Open only:
+
+```text
+F — test-first executable freeze-persistence breaker / harness
+```
+
+Do **not** create a production F persistence implementation yet.
+
+Repository search confirms that:
+
+- the corrected F contract candidate exists;
+- no executable native-BI5 F persistence implementation is qualified;
+- no dedicated F test-first breaker/harness exists;
+- no executable O semantic comparator exists;
+- Q-RM-12 requires F before O/real determinism execution.
+
+The next block must therefore create only a synthetic/in-memory executable breaker and workflow for the already-qualified F candidate semantics.
+
+The breaker must attack at minimum:
+
+```text
+qualified Q
+→ QUALIFIED_UNIVERSE_FREEZE
+→ FROZEN
+
+blocked/rejected Q
+→ QUALIFICATION_TERMINAL_EVIDENCE
+→ NOT_CREATED
+
+non-qualified state emits partial/prefix universe
+missing D/R/M/B/A/Q/F reconstruction determinant
+same id/version with conflicting determinant content
+incomplete source-slot accounting
+candidate/reject overlap
+candidate/reject accounting gap
+terminal fragment inserted into complete-slot set
+anomaly semantic relation loss
+A08 without exact independently valid qualification-evidence binding
+retained occurrence omitted/duplicated
+strict duplicate collapse
+same payload / different multiplicity collapse
+binary32 normalization non-unique
+signed-zero treated as distinct logical value
+source→logical relation corruption hidden by equal payload bag
+source witness promoted to canonical occurrence identity
+array/list order treated as semantic
+JSON whitespace/key order treated as semantic
+timestamp sorting/temporal authority leakage
+artifact byte hash used as semantic identity
+freeze reused after determinant-content change
+malformed/incomplete F construction emits FROZEN
+permission leakage
+```
+
+Expected test-first baseline:
+
+```text
+F executable breaker/harness persisted
+F production persistence runtime absent
+breaker RED only because F runtime candidate is absent
+O production implementation absent
+no real BI5 data
+no acquisition
+no backtest
+```
+
+Only after that RED baseline is persisted, diagnosed and adversarially qualified may a production F persistence implementation candidate be created.
+
+The executable O comparator remains downstream of F and must not be implemented in the F test-first block.
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
