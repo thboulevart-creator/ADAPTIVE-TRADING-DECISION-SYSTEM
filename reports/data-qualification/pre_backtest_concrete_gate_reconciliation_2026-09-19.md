@@ -1776,3 +1776,157 @@ I_B BLOCKED
 ```
 
 No real acquisition, BI5 processing or backtest authorization was created.
+
+
+---
+
+# I_A reference implementation candidate qualification — 2026-09-19
+
+A concrete executable reference implementation candidate now exists:
+
+`src/native_bi5_reference_qualifier.py`
+
+Final qualified source blob:
+
+`098040812de654a9c5e4f9961f4a26b2ba959adf`
+
+Initial implementation commit:
+
+`065511e25ad986ff1252da4924e23129fffdda6f`
+
+Frozen breaker remained unchanged:
+
+`breakers/native_bi5_ia_reference_qualifier_breaker.py`
+
+Frozen breaker blob:
+
+`64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd`
+
+Supplemental adversarial breaker:
+
+`breakers/native_bi5_ia_reference_qualifier_adversarial.py`
+
+Final supplemental breaker blob:
+
+`13e8a2aa01ca311f0094a6ea6a4e73b3501741f7`
+
+Adversarial record:
+
+`reports/data-qualification/ia_native_bi5_reference_candidate_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`c46246dd67f4e15d91fe4c0cfe9803def890bfa0`
+
+## First executable candidate result
+
+Initial candidate workflow:
+
+```text
+run = 35442358489
+job = 105895260543
+frozen breaker = 23 passed
+```
+
+This green result was not treated as sufficient for PASS.
+
+## Demonstrated implementation defects
+
+The candidate was adversarially failed on:
+
+```text
+IA-F01 — UNVERIFIED_A08_PROOF_PROMOTION
+IA-F02 — NONQUALIFIED_PARTIAL_SEMANTIC_LEAK
+IA-F03 — PRESEAL_ALLOWLIST_NOT_ENFORCED
+IA-F04 — SEAL_INTEGRITY_WITHOUT_SEMANTIC_VALIDITY
+IA-F05 — BLOCKED_RESULT_TRAVERSAL_DEPENDENCE
+IA-F06 — EMPTY_WORKSPACE_ISOLATION_ID_ACCEPTED
+```
+
+All six defects were corrected without changing the frozen breaker or upstream D/R/M/B/A/Q/F semantics.
+
+Key corrections include:
+
+- unverified A08 evidence now fails closed as A07/BLOCKED;
+- blocked/noncompleted states expose no normative qualified/source-accounting universe;
+- pre-seal input and environment allowlists are closed and exact;
+- a sealed-result predicate now requires both structural semantic validity and digest integrity;
+- blocking anomalies are classified across the independently interpretable declared synthetic package rather than stopping at the first traversal hit;
+- repeated component identities are preflighted without choosing a delivery winner;
+- workspace isolation identity must be a non-empty string.
+
+## Final persisted-head qualification
+
+Final code/harness HEAD re-broken:
+
+`e246aa9107146d4b5ae115815260189468c4cffb`
+
+Candidate workflow:
+
+```text
+run = 35442761280
+job = 105896344658
+frozen breaker = 23 passed
+```
+
+Combined persisted-head re-break:
+
+```text
+run = 35442761255
+job = 105896344433
+frozen breaker = 23 passed
+supplemental adversarial breaker = 13 passed
+```
+
+All hash locks, environment checks, I_B-absence checks and clean-worktree checks passed.
+
+No new internal implementation defect was demonstrated.
+
+## Implementation-layer verdict
+
+```text
+I_A REFERENCE IMPLEMENTATION CANDIDATE = PASS
+```
+
+This is an implementation-candidate qualification only.
+
+The global executable gate remains:
+
+```text
+I_A — Reference implementation
+BLOCKED
+```
+
+because the complete concrete D/R/M/B/A/Q/F/O chain is still officially BLOCKED and has not been materially instantiated against real acquisition evidence.
+
+Therefore:
+
+```text
+I_A implementation candidate qualification = PASS
+I_A global executable gate                  = BLOCKED
+```
+
+I_B remains:
+
+```text
+I_B = BLOCKED
+```
+
+and no I_B implementation exists.
+
+The global reconciliation remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED   # global gate; candidate implementation itself PASS
+I_B BLOCKED
+```
+
+No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
