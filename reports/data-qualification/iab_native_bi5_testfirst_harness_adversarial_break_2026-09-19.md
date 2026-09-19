@@ -424,3 +424,144 @@ Correct only:
 Then re-run both preimplementation RED workflows.
 
 No production implementation is authorized.
+
+
+---
+
+## 12. Third correction — final persisted-head re-break
+
+Third correction persisted HEAD:
+
+`331f48ad4080daf1b41f69dddb559e6820cbcff0`
+
+Final breaker/workflow blobs:
+
+```text
+I_A breaker
+64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd
+
+I_B breaker
+d1a305e3b9ae813e891b34522e3a12bb6bc8ac34
+
+I_A preimplementation workflow
+c3325de6f65be5c99f8df5aab19404d1cd627a9a
+
+I_B preimplementation workflow
+02151244113b5654647c529899b11997c8762c66
+```
+
+The branch was freshly verified identical to that HEAD before final re-break.
+
+The third correction closed:
+
+- import-time environment canary coverage;
+- opposite-module `sys.modules` cache eviction during audited execution;
+- explicit candidate-import proof that the opposite implementation was not preloaded;
+- candidate-global origin checks.
+
+### Final persisted RED executions
+
+I_A:
+
+```text
+run = 35441702806
+job = 105893512667
+result = FAILURE / EXPECTED RED
+errors = 23
+sole cause = src.native_bi5_reference_qualifier absent
+```
+
+I_B:
+
+```text
+run = 35441702856
+job = 105893512796
+result = FAILURE / EXPECTED RED
+errors = 23
+sole cause = src.native_bi5_independent_qualifier absent
+```
+
+For both workflows:
+
+- exact persisted HEAD/hash-lock step: PASS;
+- expected production-runtime absence step: PASS;
+- locked Python environment installation: PASS;
+- qualification-environment verification: PASS;
+- only breaker execution step: FAILURE as expected;
+- clean worktree: PASS.
+
+No syntax, collection, environment, hash-lock, workflow or worktree defect was observed.
+
+### Final attack matrix
+
+```text
+self-attested independence PASS label                 REJECTED / SURVIVES
+unresolved evidence reference                        EXTERNAL RESOLUTION REQUIRED / SURVIVES
+copied semantic source with simple renaming          SIMILARITY + PROVENANCE CHECK / SURVIVES
+shared project semantic module                       FORBIDDEN / SURVIVES
+dynamic opposite-path import during module import    COLD-IMPORT AUDIT / SURVIVES
+dynamic opposite-path import during execution        CACHE EVICTION + RUNTIME AUDIT / SURVIVES
+opposite-path object hidden in module globals        GLOBAL ORIGIN CHECK / SURVIVES
+
+self-reported isolation only                         INSUFFICIENT / SURVIVES
+other-path temp-file read                            BREAKER AUDIT/TRAP BOUNDARY / SURVIVES
+other-path environment canary read at import         TRACKED / SURVIVES
+other-path environment canary read at runtime        TRACKED / SURVIVES
+network/socket semantic leak                         AUDITED/FORBIDDEN / SURVIVES
+subprocess semantic leak                             AUDITED/FORBIDDEN / SURVIVES
+cached opposite module hiding import                 EVICTED BEFORE AUDIT / SURVIVES
+
+status-axis collapse                                 FORBIDDEN / SURVIVES
+semantic BLOCKED emits partial universe              FORBIDDEN / SURVIVES
+strict duplicate collapse                            BREAKER ATTACKED / SURVIVES
+timestamp regression silently sorted/rejected        BREAKER ATTACKED / SURVIVES
+zero/crossed price hidden filter                     BREAKER ATTACKED / SURVIVES
+finite negative volume hidden filter                 BREAKER ATTACKED / SURVIVES
+local REJECT RECORD accounting loss                  BREAKER ATTACKED / SURVIVES
+source→logical mapping mutation                      BREAKER ATTACKED / SURVIVES
+missing determinant filled by default                FORBIDDEN / SURVIVES
+filename used for missing hour provenance            FORBIDDEN / SURVIVES
+
+invalid result seal                                  DETECTED / SURVIVES
+I_A-only semantic mutant                             PAIR BREAKER DETECTION ENCODED / SURVIVES
+I_B-only semantic mutant                             PAIR BREAKER DETECTION ENCODED / SURVIVES
+result byte hash used as semantic equality           FORBIDDEN / SURVIVES
+O/other result used as construction input            INPUT SURFACE FORBIDDEN / SURVIVES
+
+download/acquisition surface                         FORBIDDEN / SURVIVES
+real backtest surface                                FORBIDDEN / SURVIVES
+broker/live authorization                            FORBIDDEN / SURVIVES
+```
+
+No additional internal breaker/harness defect was demonstrated.
+
+The boundary still does not claim a mathematical proof that two independently authored implementations can never share a conceptual mistake. The test-first layer closes the demonstrated execution/provenance shortcuts and preserves the governed requirement for independent derivation + adversarial semantic comparison.
+
+## 13. Final verdict
+
+```text
+I_A/I_B TEST-FIRST BREAKER / HARNESS LAYER
+PASS
+```
+
+This PASS is strictly limited to the persisted test-first qualification layer.
+
+It does **not** promote:
+
+```text
+I_A = PASS
+I_B = PASS
+F/O = PASS
+FINAL EXECUTABLE GATE = PASS
+```
+
+Official implementation gates remain:
+
+```text
+I_A = BLOCKED
+I_B = BLOCKED
+```
+
+because the production implementation candidates and I_B derivation evidence artifacts do not yet exist.
+
+No real acquisition, BI5 processing or backtest is authorized.
