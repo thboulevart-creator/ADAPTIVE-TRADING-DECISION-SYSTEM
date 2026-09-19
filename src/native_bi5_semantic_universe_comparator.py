@@ -69,23 +69,31 @@ def _determinant_gate(
 ) -> dict[str, str] | None:
     left = _bindings(left_u)
     right = _bindings(right_u)
+    stages = ("D", "R", "M", "B", "A", "Q", "F")
 
-    for stage in ("D", "R", "M", "B", "A", "Q", "F"):
+    for stage in stages:
+        l_item = left[stage]
+        r_item = right[stage]
+        same_identity_version = (
+            l_item["normative_id"] == r_item["normative_id"]
+            and l_item["normative_version"] == r_item["normative_version"]
+        )
+        if same_identity_version and (
+            l_item["immutable_reference"] != r_item["immutable_reference"]
+            or l_item["integrity_digest"] != r_item["integrity_digest"]
+        ):
+            return _blocked(
+                "NORMATIVE_VERSION_INTEGRITY_CONFLICT",
+                "NORMATIVE_VERSION_INTEGRITY_CONFLICT",
+            )
+
+    for stage in stages:
         l_item = left[stage]
         r_item = right[stage]
         if (
-            l_item["normative_id"] == r_item["normative_id"]
-            and l_item["normative_version"] == r_item["normative_version"]
+            l_item["normative_id"] != r_item["normative_id"]
+            or l_item["normative_version"] != r_item["normative_version"]
         ):
-            if (
-                l_item["immutable_reference"] != r_item["immutable_reference"]
-                or l_item["integrity_digest"] != r_item["integrity_digest"]
-            ):
-                return _blocked(
-                    "NORMATIVE_VERSION_INTEGRITY_CONFLICT",
-                    "NORMATIVE_VERSION_INTEGRITY_CONFLICT",
-                )
-        else:
             return _blocked(
                 "DISTINCT_QUALIFICATION_STATE",
                 "DISTINCT_QUALIFICATION_STATE",
@@ -100,8 +108,46 @@ def _determinant_gate(
     return None
 
 
+def _component_semantics(item: Mapping[str, Any]) -> dict[str, Any]:
+    fragment = item.get("terminal_fragment")
+    fragment_semantics = None
+    if isinstance(fragment, Mapping):
+        fragment_semantics = {
+            key: fragment[key]
+            for key in (
+                "terminal_fragment_start_offset",
+                "terminal_fragment_length",
+                "remainder_reference",
+            )
+            if key in fragment
+        }
+
+    return {
+        "component_manifest_entry_id": item["component_manifest_entry_id"],
+        "declared_role": item["declared_role"],
+        "instrument_source_identity": item["instrument_source_identity"],
+        "declared_hour_bucket_utc": item["declared_hour_bucket_utc"],
+        "immutable_payload_reference": item["immutable_payload_reference"],
+        "payload_integrity_reference": item["payload_integrity_reference"],
+        "materialization_status": item["materialization_status"],
+        "complete_slot_count": item["complete_slot_count"],
+        "terminal_fragment": fragment_semantics,
+    }
+
+
 def _component_relation(universe: Mapping[str, Any]) -> Counter[str]:
-    return Counter(_canonical(item) for item in universe["components"])
+    return Counter(
+        _canonical(_component_semantics(item))
+        for item in universe["components"]
+    )
+
+
+def _completeness_binding(universe: Mapping[str, Any]) -> dict[str, Any]:
+    evidence = universe["completeness_evidence"]
+    return {
+        "immutable_reference": evidence["immutable_reference"],
+        "integrity_digest": evidence["integrity_digest"],
+    }
 
 
 def _materialized_acquisition_equal(
@@ -115,7 +161,7 @@ def _materialized_acquisition_equal(
         != right_u["acquisition_declaration_version"]
     ):
         return False
-    if left_u["completeness_evidence"] != right_u["completeness_evidence"]:
+    if _completeness_binding(left_u) != _completeness_binding(right_u):
         return False
     if _component_relation(left_u) != _component_relation(right_u):
         return False
