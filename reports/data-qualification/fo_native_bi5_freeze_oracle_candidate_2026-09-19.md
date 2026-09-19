@@ -309,7 +309,27 @@ anomaly_matrix_version
 exact normative target shape
 mandatory outcome
 acquisition_fatal flag where declared
+qualification_evidence_bindings where classification/localisability/outcome depends on evidence
 ```
+
+For every evidence-dependent anomaly decision, F MUST freeze enough immutable evidence binding to independently revalidate the decision:
+
+```text
+qualification_evidence_bindings[]
+- evidence_role
+- immutable_reference
+- integrity_digest_or_reference
+- exact_anomaly_target_binding
+```
+
+In particular:
+
+```text
+BI5-A08 TERMINAL_PARTIAL_SLOT_WITH_CONSTRUCTIVE_COMPLETENESS_PROOF
+→ exact constructive completeness-proof binding is mandatory
+```
+
+A decision label without its required qualification evidence is not reconstructibly frozen.
 
 Permitted target shapes remain exactly those frozen by Q:
 
@@ -370,6 +390,23 @@ bid_volume
   = same exact finite numeric normal form
 ```
 
+The binary32 numeric normal form MUST be unique.
+
+For every finite non-zero value:
+
+```text
+value = integer_coefficient * 2^exponent2
+
+integer_coefficient
+= signed odd integer
+
+exponent2
+= integer
+
+all removable factors of two
+= factored into exponent2
+```
+
 For finite binary32 zero:
 
 ```text
@@ -377,7 +414,16 @@ integer_coefficient = 0
 exponent2 = 0
 ```
 
-so textual/container differences and signed-zero representation do not create two logical numeric values.
+Therefore forms such as:
+
+```text
+1 * 2^0
+2 * 2^-1
+```
+
+cannot both be emitted for the same non-zero logical value; only the unique odd-coefficient form is conforming.
+
+Textual/container differences and signed-zero source representation do not create two logical numeric values.
 
 The artifact may additionally preserve raw source bits as provenance, but raw bit patterns are not substituted for the M logical numeric value.
 
@@ -552,18 +598,38 @@ For a Q-RM-12 same-state determinism comparison, both F artifacts must bind the 
 
 ```text
 D/R/M/B/A/Q/F semantic versions + parameters
++
+the same immutable determinant-content bindings
 ```
 
 and the same materialized acquisition identity/input state.
 
-If a qualification-relevant determinant differs:
+For every normative determinant, O MUST compare:
 
 ```text
-comparison_scope = DISTINCT_QUALIFICATION_STATE
-qualified_universe_comparison = BLOCKED
+normative_id
+normative_version
+bound immutable content/integrity reference
 ```
 
-This is not a semantic divergence between two conforming implementations of the same state.
+Rules:
+
+```text
+different legitimate qualification-relevant version
+→ comparison_scope = DISTINCT_QUALIFICATION_STATE
+→ qualified_universe_comparison = BLOCKED
+
+same normative_id + same normative_version
+but different bound determinant content/integrity digest
+→ oracle_result = BLOCKED
+→ reason = NORMATIVE_VERSION_INTEGRITY_CONFLICT
+```
+
+The second case is not a legitimate distinct state under the same version and must never be treated as semantically comparable.
+
+A semantic contract change requires a new version.
+
+This determinant-integrity rule is separate from the byte digest of the produced freeze artifact itself.
 
 ---
 
@@ -674,7 +740,7 @@ cache layout
 temporary path
 artifact filename
 Git blob identity
-artifact byte SHA-256
+freeze-output artifact byte SHA-256
 pretty-printing
 ```
 
