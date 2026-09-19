@@ -9230,3 +9230,36 @@ P1.14B provenance
 The experimental finding promotion remains a later boundary because it still requires an explicit deterministic interpretation policy.
 
 No P1.15 runtime or executable breaker has been created by this formalisation.
+
+
+---
+
+# P1.15 — POST-IMPLEMENTATION COMMON-HEAD RE-BREAK CHECKPOINT
+
+Runtime candidates are now persisted:
+
+- `src/evidence_request_fulfillment.py`;
+- `src/experiment_evaluator_authority.py`.
+
+Immutable breaker identities remain:
+
+- P1.15A: `bc057806d1a31072258caafb26a3e4c6de8d7448`;
+- P1.15B: `b077c7e81e60066aed712f8c9212378e3b08916c`.
+
+Qualification remains **PENDING common-HEAD re-break**.
+
+No knowledge promotion, experimental finding, ResearchRunEvidence, or operational authorization is granted by this checkpoint.
+
+Strict separation remains:
+
+```text
+EvidenceRequestFulfillmentDecision
+≠ knowledge
+≠ authorization
+
+QualifiedExperimentEvaluationAuthority
+≠ experimental finding
+≠ ResearchRunEvidence
+≠ knowledge
+≠ authorization
+```
