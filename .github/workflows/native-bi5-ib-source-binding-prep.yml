@@ -1,0 +1,48 @@
+name: Native BI5 I_B Source Binding Prep
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/native-bi5-ib-source-binding-prep.yml'
+      - 'src/native_bi5_independent_qualifier.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  IB_SOURCE_GIT_BLOB: '1b3fbcd4ac084eedc27a008c959025c02b71a95a'
+  EVIDENCE_BREAKER_GIT_BLOB: '231f9daa343f95baa4b747ec2b89166833255958'
+
+jobs:
+  source-binding-prep:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted source and frozen evidence breaker
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          test "$(git hash-object src/native_bi5_independent_qualifier.py)" = "${IB_SOURCE_GIT_BLOB}"
+          test "$(git hash-object breakers/native_bi5_ib_derivation_evidence_breaker.py)" = "${EVIDENCE_BREAKER_GIT_BLOB}"
+
+      - name: Emit governed raw-source SHA256
+        run: |
+          printf 'IB_SOURCE_SHA256='
+          sha256sum src/native_bi5_independent_qualifier.py | awk '{print $1}'
+
+      - name: Prove frozen semantic payloads still pre-code qualified
+        run: |
+          python -m pytest -q breakers/native_bi5_ib_derivation_evidence_breaker.py || true
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
