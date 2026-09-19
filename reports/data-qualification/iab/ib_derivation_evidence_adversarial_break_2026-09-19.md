@@ -404,3 +404,108 @@ Correct only IBE-R01..R03:
 6. perform a fresh persisted-head re-break.
 
 No I_B production code is authorized during this correction.
+
+
+---
+
+## Second residual transition re-break
+
+Second correction commit:
+
+`496ab2f793b3f0a90eacc45a8f5e975be619ee34`
+
+Persisted-head executable result:
+
+```text
+run = 35443653280
+job = 105898766355
+11 passed
+```
+
+The pre-code package now survives all currently encoded attacks.
+
+A transition attack against the **future source-binding step itself** nevertheless exposes two remaining governance defects.
+
+### IBE-R04 — PRECODE_ONLY_BREAKER_CANNOT_VALIDATE_POST_CODE_BINDING
+
+The current evidence breaker requires:
+
+```text
+source_binding_state = PENDING_IMPLEMENTATION_SOURCE
+source_digests = {}
+I_B source absent
+```
+
+That is correct now, but the same evidence package is designed to be finalized later by changing only:
+
+```text
+source_binding_state
+source_digests
+```
+
+After future independent I_B implementation, the current breaker would necessarily fail unless the breaker itself were modified.
+
+That would destroy the value of freezing the evidence qualification layer before source creation.
+
+Verdict:
+
+```text
+IBE-R04 = FAIL
+```
+
+Required correction:
+
+the breaker must be frozen now with two explicit states:
+
+```text
+PRE-CODE
+source absent
+state = PENDING_IMPLEMENTATION_SOURCE
+source_digests = {}
+
+POST-CODE
+source present
+state = BOUND_TO_IMPLEMENTATION_SOURCE
+source_digests = exact SHA-256 of the permitted I_B source file
+```
+
+The evidence semantics remain frozen in both states.
+
+### IBE-R05 — COORDINATED_FROZEN_PAYLOAD_REWRITE_NOT_EXTERNALLY_ANCHORED
+
+The current breaker verifies that each declared payload fingerprint matches its current payload and that the three sibling fingerprints agree.
+
+Attack:
+
+after I_B source creation, rewrite all three frozen semantic payloads together, recompute all three hashes, and update the shared `frozen_payload_set`.
+
+The current breaker would see a new internally consistent trio.
+
+That violates the promise that only `source_digests` and `source_binding_state` may change after pre-code qualification.
+
+Verdict:
+
+```text
+IBE-R05 = FAIL
+```
+
+Required correction:
+
+the evidence breaker itself must hard-bind the final pre-code qualified frozen payload hashes and continue requiring those exact hashes in both pre-code and post-code states.
+
+Then a future source-binding update can modify only the explicitly allowed top-level source fields while any semantic payload rewrite fails the already-frozen breaker.
+
+---
+
+## Third authorized correction
+
+Correct only IBE-R04 and IBE-R05:
+
+1. define exact post-code source-binding state and digest algorithm inside the frozen source-binding protocol;
+2. make the same evidence breaker support both pre-code and post-code states;
+3. hard-bind the final pre-code frozen payload hashes inside that breaker;
+4. keep the current workflow's separate proof that I_B source is absent for this block;
+5. update all hashes and workflow locks;
+6. run final persisted-head re-break.
+
+No I_B production code may be created during this correction.
