@@ -390,3 +390,181 @@ correct OTF-F01..OTF-F08 only
 ```
 
 No production O implementation is authorized.
+
+
+---
+
+## 11. Residual re-break after first correction
+
+First correction commit:
+
+`f3c21a173e07ca712309b9e446d46e9e36cdf432`
+
+Corrected breaker blob:
+
+`ae5f8ce6f2fbec0331dbfe82a7addeeb09ca710a`
+
+Corrected workflow blob:
+
+`40e87cf7469ad122739557bfa4f2f69a07a2659b`
+
+Executable RED:
+
+```text
+run = 35457076905
+job = 105934161225
+collection = 33 tests / PASS
+execution = RED only because O runtime is absent
+```
+
+F source and both qualified F breakers remained exactly hash-locked.
+
+OTF-F01..OTF-F08 are materially corrected.
+
+Further adversarial review demonstrates the following residual harness defects.
+
+### OTF-R01 — DETERMINANT_CONFLICT_COVERAGE_ONLY_EXERCISES_D
+
+The contract requires O to compare all normative determinant bindings:
+
+```text
+D / R / M / B / A / Q / F
+```
+
+The corrected harness still tests changed integrity/reference only on D.
+
+A defective O implementation that verifies D but ignores R/M/B/A/Q/F could pass.
+
+Verdict:
+
+```text
+OTF-R01 = FAIL
+```
+
+Correction:
+
+parameterize same-id/same-version integrity-digest and immutable-reference conflicts across every stage D/R/M/B/A/Q/F.
+
+### OTF-R02 — POSITIVE_DISTINCT_VERSION_BRANCH_IS_EXECUTABLE_AFTER_ALL
+
+The first attack record concluded that no honest second-version fixture could be constructed.
+
+Fresh review of the qualified F runtime shows that D's acquisition materialization version is intentionally supplied by:
+
+`acquisition_declaration_version`
+
+and the D reconstruction binding must match it.
+
+Therefore the breaker can construct two individually F-valid artifacts:
+
+```text
+left:
+D normative_version = D_MATERIALIZATION_V0_1_SYNTHETIC
+
+right:
+D normative_version = D_MATERIALIZATION_V0_2_SYNTHETIC
+acquisition_declaration_version = D_MATERIALIZATION_V0_2_SYNTHETIC
+```
+
+without inventing a fake R/M/B/A/Q/F contract version or bypassing F validation.
+
+This is sufficient to exercise the positive:
+
+```text
+DISTINCT_QUALIFICATION_STATE
+→ BLOCKED
+```
+
+branch.
+
+Verdict:
+
+```text
+OTF-R02 = FAIL
+```
+
+Correction:
+
+add this exact F-valid D-version distinction test while retaining the unqualified synthetic Q-v2 mutation as INVALID_F_INPUT.
+
+### OTF-R03 — INVALID_AND_TERMINAL_INPUT_SIDE_ASYMMETRY
+
+The harness currently places malformed/terminal input primarily on the right-hand side.
+
+A comparator could validate only the right artifact and pass most tests.
+
+Verdict:
+
+```text
+OTF-R03 = FAIL
+```
+
+Correction:
+
+attack terminal and malformed artifacts independently on both left and right.
+
+### OTF-R04 — ACQUISITION_DOMAIN_IDENTITY_GATE_UNTESTED
+
+Same-state comparison requires the same materialized acquisition identity/input state.
+
+The harness attacks component membership but does not independently change:
+
+`acquisition_domain_id`
+
+while keeping each F artifact individually valid.
+
+Verdict:
+
+```text
+OTF-R04 = FAIL
+```
+
+Correction:
+
+construct a second F-valid artifact with both top-level and acquisition-snapshot domain ID changed, while determinant bindings remain otherwise unchanged, and require:
+
+```text
+BLOCKED
+NONCOMPARABLE_ACQUISITION_STATE
+```
+
+not `SEMANTIC_DIFFERENT`.
+
+### OTF-R05 — TEMPORAL/CANONICAL_RESULT_KEY_SCAN_CAN_BE_EVADED_BY_NEAR-SYNONYMS
+
+The recursive scan is now structurally correct but its forbidden vocabulary remains too narrow.
+
+A comparator could expose semantic authority under names such as:
+
+```text
+ordered_occurrences
+sorted_occurrences
+sequence_position
+source_sequence
+chronological_rank
+```
+
+Verdict:
+
+```text
+OTF-R05 = FAIL
+```
+
+Correction:
+
+extend the recursive forbidden-key vocabulary to these direct authority aliases.
+
+---
+
+## 12. Second authorized correction
+
+Correct only OTF-R01..OTF-R05.
+
+Keep:
+
+- O runtime absent;
+- F source byte-identical;
+- both qualified F breakers byte-identical;
+- no real BI5 data/acquisition/backtest.
+
+Then perform another persisted collection + RED execution and re-break the harness.
