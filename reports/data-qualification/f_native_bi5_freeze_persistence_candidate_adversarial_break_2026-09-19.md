@@ -163,3 +163,161 @@ fresh HEAD
 ```
 
 No real BI5 data/acquisition/backtest is authorized.
+
+
+---
+
+## 4. Supplemental adversarial break
+
+Supplemental breaker:
+
+`breakers/native_bi5_f_freeze_persistence_adversarial.py`
+
+Initial supplemental breaker blob:
+
+`ebbaa838a86e52066d40265a3d86fa57175077ec`
+
+Workflow:
+
+`Native BI5 F Freeze Persistence Adversarial`
+
+Run:
+
+```text
+run = 35455081310
+job = 105928820762
+```
+
+Results:
+
+```text
+frozen F breaker       = 36 passed
+supplemental adversary = 22 failed
+```
+
+All exact source/breaker locks, O-absence proof, qualification-environment checks and clean-worktree checks passed.
+
+The supplemental failures demonstrate the following additional implementation defects.
+
+### F-F02 — UNQUALIFIED_A08_PROOF_ACCEPTANCE
+
+A self-described A08 evidence object with the right field names and target binding is accepted as if constructive completeness had been independently qualified.
+
+Current behavior:
+
+```text
+shape-valid self-described proof
+→ BI5-A08 accepted
+→ QUALIFIED_UNIVERSE_FREEZE
+```
+
+Required current behavior:
+
+```text
+A08 constructive-proof verifier not qualified
+→ positive A08 path unavailable
+→ NOT_CREATED
+```
+
+This preserves the already-governed fail-closed limitation shared by I_A/I_B.
+
+### F-F03 — QUALIFIED_STATE_ACCEPTS_BLOCKING_OR_INVALID_ANOMALY
+
+A `QUALIFIED` input can currently freeze while containing:
+
+- BI5-A06 with `QUALIFICATION_BLOCKED`;
+- BI5-A13 recast as `REJECT_RECORD`.
+
+F therefore does not prove that the anomaly relation is compatible with the claimed Q outcome.
+
+For the current candidate and current A08 limitation, a qualified freeze may contain local record rejections only for the exact locally rejectable classes already authorized by A/Q.
+
+### F-F04 — NORMATIVE_DETERMINANT_ID_VERSION_NOT_BOUND
+
+The reconstruction tuple currently validates:
+
+- exact stage set;
+- non-empty strings;
+- exact F identity/version;
+
+but D/R/M/B/A/Q identities can otherwise be replaced by arbitrary non-empty values.
+
+Demonstrated attacks include wrong normative IDs for D/R/M/B/A/Q, wrong versions for R/M/B/A/Q, and a D binding version inconsistent with `acquisition_declaration_version`.
+
+This violates reconstruction of the exact concrete qualification state.
+
+### F-F05 — ANOMALY_MATRIX_VERSION_NOT_BOUND
+
+A local A09 rejection can be frozen with an arbitrary `anomaly_matrix_version`.
+
+The anomaly relation must bind the exact A determinant version already frozen in the reconstruction tuple.
+
+### F-F06 — RFC3339_SHAPE_WITHOUT_CALENDAR_VALIDITY
+
+The timestamp validator currently accepts strings that match the textual pattern but do not denote a real UTC instant, for example:
+
+`2026-99-99T99:99:99.999Z`
+
+F must preserve an exact valid RFC3339 UTC timestamp, not merely its visual shape.
+
+### F-F07 — BINARY32_NORMAL_FORM_NOT_PROVEN_REPRESENTABLE
+
+The candidate checks:
+
+- integer coefficient/exponent;
+- odd non-zero coefficient;
+- canonical zero.
+
+It does not prove that the pair is representable by a finite binary32 source value.
+
+Demonstrated invalid accepted examples include:
+
+```text
+16777217 * 2^0
+1 * 2^128
+1 * 2^-150
+```
+
+The exact finite binary32 normal form must remain inside the representable binary32 domain.
+
+### F-F08 — PRICE_NUMERATOR_UINT32_DOMAIN_NOT_ENFORCED
+
+The current price-rational validator accepts arbitrary Python integers with denominator 1000.
+
+But B defines ask/bid raw prices from unsigned 32-bit integers before division by 1000.
+
+Demonstrated accepted invalid values:
+
+```text
+-1
+4294967296
+```
+
+F must reject any numerator outside:
+
+```text
+0 <= numerator <= 4294967295
+```
+
+## 5. Corrected candidate status before next mutation
+
+```text
+frozen F breaker = PASS
+supplemental adversarial breaker = FAIL
+F implementation candidate = FAIL
+F global gate = BLOCKED
+O implementation = ABSENT
+```
+
+Exactly authorized next correction:
+
+```text
+correct F-F02..F-F08 only
+→ keep frozen F breaker unchanged
+→ keep supplemental attacks unchanged
+→ update source hash locks only
+→ run frozen + supplemental breakers on persisted HEAD
+→ adversarial re-break
+```
+
+No production O implementation, real BI5 input, acquisition or backtest is authorized.
