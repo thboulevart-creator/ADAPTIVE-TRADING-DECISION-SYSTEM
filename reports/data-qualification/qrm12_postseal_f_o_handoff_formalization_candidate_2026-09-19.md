@@ -122,6 +122,10 @@ A future Q-RM-12-compatible implementation path must emit a successor result sch
 
 `NATIVE_BI5_IMPLEMENTATION_QUALIFICATION_RESULT_V0_2_CANDIDATE`
 
+Because emitting that schema requires changed implementation behavior, **both implementation identities must version-forward independently**. The already-qualified I_A/I_B V0.1 implementation versions may not emit V0.2 results.
+
+A future executable candidate must therefore use new I_A and I_B implementation versions/manifests and requalify them at the Q-RM-12-compatibility scope. The existing V0.1 scoped PASS remains historical and is not reused as authority for changed code.
+
 The exact future executable schema remains to be test-first qualified, but this formalization fixes the minimum semantic contract.
 
 Minimum fields:
@@ -179,15 +183,25 @@ For a path to build its own exact F artifact before sealing, the common immutabl
 
 - acquisition-domain identity;
 - acquisition declaration version;
-- complete D materialization snapshot in the exact information domain required by F;
+- D-declared component membership;
 - D completeness evidence binding;
-- component identities/roles/source/hour bindings;
+- component identities/declared roles/source/hour bindings;
 - immutable component payload references and payload integrity references;
-- component materialization state;
-- complete-slot counts and terminal-fragment state;
+- raw declared component payloads;
 - explicit Q qualification parameters;
 - complete D/R/M/B/A/Q/F/O determinant bindings;
-- raw declared component payloads and qualification-relevant evidence bindings.
+- qualification-relevant evidence bindings.
+
+The common package **must not supply B/A-derived semantic answers as trusted authority**, including precomputed complete-slot counts or terminal-fragment interpretation.
+
+Each implementation must independently derive from the raw declared payload:
+
+- decompressed physical length;
+- complete 20-byte slot count;
+- terminal-fragment presence/start/length;
+- all B/A consequences later represented in its own F artifact.
+
+The F artifact may contain those derived fields, but they must be populated independently by each path.
 
 This extension is structural input availability, not a shared semantic derivation.
 
@@ -203,17 +217,26 @@ Neither path may obtain these values from:
 
 ## 5. Exact timing of F construction
 
-For both I_A and I_B:
+For both I_A and I_B, the branch is exact:
 
 ```text
-semantic derivation
-→ path-private F construction
-→ path-private F validation
+Q = QUALIFIED
+→ independent semantic derivation
+→ path-private qualified F construction
+→ path-private F semantic validation
 → result construction including exact F artifact
+→ result seal
+
+Q = QUALIFICATION_BLOCKED or ACQUISITION_REJECTED
+→ no qualified F freeze construction
+→ bound_f_artifact = null
+→ path-local terminal evidence
 → result seal
 ```
 
-F construction must occur **before result sealing**.
+For ENVIRONMENT_BLOCKED / IMPLEMENTATION_ERROR, F is NOT_REACHED and `bound_f_artifact = null`.
+
+Qualified F construction must occur **before result sealing**.
 
 Reason:
 
@@ -235,7 +258,11 @@ The exact F schema and F contract are common normative specifications.
 
 The semantic code that populates F_A and F_B must remain independently owned by each path.
 
-The two paths may not both call the same project-owned semantic F builder before sealing.
+The two paths may not both call the same project-owned semantic F builder **or the same project-owned semantic F validator/normalizer before sealing**.
+
+Pre-seal F construction and pre-seal F semantic validation must both remain path-private and independently implemented.
+
+The existing shared F validator is allowed only at the post-seal Q-RM-12 ingress, after both results are sealed, where it can validate already-produced artifacts but cannot feed semantic decisions back into either implementation path.
 
 Allowed shared primitives remain non-semantic, for example:
 
@@ -277,6 +304,7 @@ execution_status = COMPLETED
 semantic_status  = QUALIFIED
 freeze_status    = FROZEN
 → bound_f_artifact MUST exist
+→ terminal_evidence = null
 → bound_f_artifact MUST validate as exact F
 → artifact_class = QUALIFIED_UNIVERSE_FREEZE
 → freeze_state = FROZEN
@@ -335,6 +363,16 @@ The result seal covers the complete result payload except the seal field itself,
 - the complete embedded F artifact;
 - isolation evidence.
 
+The seal normal form is strict canonical JSON:
+
+- UTF-8;
+- object keys sorted;
+- compact separators;
+- non-finite numbers rejected;
+- JSON type distinctions preserved;
+- duplicate object keys rejected at serialized ingress;
+- `result_seal` excluded from its own digest.
+
 The embedded F artifact independently carries its own F `artifact_integrity_digest`.
 
 Required checks are therefore two-layered:
@@ -347,6 +385,8 @@ F artifact integrity/validity
 
 Neither digest is used as semantic equality.
 
+The result seal is a non-secret integrity checksum, **not producer authentication**. Producer identity must be established from separately pinned qualification/execution evidence.
+
 No separate post-seal envelope hash is allowed to become a substitute root of authority.
 
 ## 9. Q-RM-12 post-seal ingress
@@ -355,14 +395,18 @@ Q-RM-12 may run only after both paths have independently sealed.
 
 For each side separately, ingress must:
 
-1. verify the expected implementation identity/version;
-2. verify the complete result schema;
-3. verify structural status invariants;
-4. verify result-seal integrity;
-5. verify the complete D/R/M/B/A/Q/F/O determinant-binding set;
-6. verify isolation-evidence presence/closure required by the implementation boundary;
-7. if qualified, validate `bound_f_artifact` with the existing F validator;
-8. if qualified, cross-bind result and F without reconstructing semantics.
+1. verify the expected **new** Q-RM-12-compatible implementation identity/version;
+2. verify that `implementation_manifest_digest` equals an externally pinned qualified manifest digest for that side;
+3. verify external execution evidence that the invoked source/blob digest matches the qualified source identity bound by that manifest;
+4. verify the complete result schema;
+5. verify structural status invariants;
+6. verify strict result-seal integrity;
+7. verify the complete D/R/M/B/A/Q/F/O determinant-binding set;
+8. verify isolation-evidence presence/closure required by the implementation boundary;
+9. if qualified, validate `bound_f_artifact` with the existing shared F validator **only now, post-seal**;
+10. if qualified, cross-bind result and F without reconstructing semantics.
+
+The manifest digest written inside the result is not itself the external pin and cannot establish its own producer identity.
 
 For a qualified side, cross-binding must at minimum prove:
 
@@ -388,18 +432,21 @@ Before calling O, Q-RM-12 must verify that both sealed results claim the same co
 
 At minimum:
 
-- same D/R/M/B/A/Q/F/O normative IDs and versions;
-- no same-ID/version integrity/reference conflict;
 - same intended materialized acquisition identity;
-- both results are independently valid and sealed.
+- both results are independently valid and sealed;
+- complete D/R/M/B/A/Q/F/O bindings are present on both sides.
+
+Conflict precedence is exact:
+
+1. scan **all** D/R/M/B/A/Q/F/O stage pairs whose normative id/version are equal;
+2. if any such pair has different immutable reference or integrity digest, block as an integrity conflict;
+3. only after that full conflict scan is clean may any legitimate normative id/version difference classify the pair as a distinct/non-same-state run.
+
+This prevents an early distinct-version observation from masking a later same-version integrity conflict.
 
 This gate must not duplicate O semantic equality logic.
 
 It only prevents calling O with an invalid or different contract state.
-
-If a same-ID/version binding has different immutable content/reference/integrity, Q-RM-12 blocks before O.
-
-A legitimate different normative version means the pair is not a same-state Q-RM-12 determinism run.
 
 ## 11. O invocation
 
