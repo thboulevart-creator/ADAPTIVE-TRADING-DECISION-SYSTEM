@@ -1636,3 +1636,213 @@ F/O must:
 - avoid granting acquisition or backtest authorization.
 
 If F/O cannot persist or compare the qualified universe without inventing unresolved identity/order semantics, F/O must FAIL/BLOCK rather than mutate upstream contracts.
+
+
+---
+
+## 39. First concrete native BI5 F/O formalization — persisted
+
+The first concrete native-BI5 `F + O` candidate block has been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`3424aefb491f502cade6dd703d9b93a380ca7039`
+
+Initial candidate blob:
+
+`dad8850746f21eb69010c5cfbe8ed9fbd46e2054`
+
+Initial adversarial artifact:
+
+`reports/data-qualification/fo_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`b261fc8e07b7f97f86695c10eb203292fefe1fad`
+
+Initial candidate verdict:
+
+```text
+FAIL
+```
+
+Demonstrated defects:
+
+```text
+FO-F01 — BINARY32_NUMERIC_NORMAL_FORM_UNDERSPECIFIED
+FO-F02 — QUALIFICATION_RELEVANT_ANOMALY_EVIDENCE_NOT_FROZEN
+FO-F03 — NORMATIVE_VERSION_COLLISION_DIGEST_CONFLICT_UNRESOLVED
+```
+
+Minimal correction commit:
+
+`d79f9008cb71f5b1fface9e87320c77bb8be253d`
+
+Corrected candidate blob:
+
+`fe62da06e63a51c336f9a447e7f1e0f3d89cad3b`
+
+Final persisted-head adversarial re-break commit:
+
+`cd772467fa3ad9f9caba5bd6a3c237b363cfa7bd`
+
+Final adversarial artifact blob:
+
+`68b23850de5f644566b576cedd494b2aed583d87`
+
+No additional internal F/O candidate defect was demonstrated after correction.
+
+### Current F identity
+
+```text
+freeze_contract_id =
+F_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_QUALIFIED_UNIVERSE_FREEZE
+
+freeze_contract_version =
+F_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_QUALIFIED_UNIVERSE_FREEZE_V0_1_CANDIDATE
+```
+
+Core F semantics:
+
+```text
+Q = QUALIFIED
+→ QUALIFIED_UNIVERSE_FREEZE
+→ FROZEN
+
+Q = QUALIFICATION_BLOCKED / ACQUISITION_REJECTED
+→ QUALIFICATION_TERMINAL_EVIDENCE
+→ NOT_CREATED
+→ no normative partial universe
+```
+
+F preserves:
+
+- exact D/R/M/B/A/Q/F reconstruction determinants;
+- exact materialized D/component state;
+- complete Q slot accounting;
+- complete anomaly semantic outcomes;
+- qualification-relevant evidence bindings when anomaly decisions depend on evidence;
+- strict duplicate occurrence multiplicity;
+- source→logical conformance relation without making physical locators canonical identity;
+- a unique exact finite-binary32 logical numeric normal form;
+- semantic independence from JSON/container order.
+
+Same normative ID/version with different bound determinant content is:
+
+```text
+BLOCKED
+NORMATIVE_VERSION_INTEGRITY_CONFLICT
+```
+
+not a valid same-state comparison.
+
+Freeze-output byte hashes remain physical artifact integrity only.
+
+### Current O identity
+
+```text
+oracle_id =
+O_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_SEMANTIC_UNIVERSE_COMPARATOR
+
+oracle_version =
+O_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_SEMANTIC_UNIVERSE_COMPARATOR_V0_1_CANDIDATE
+```
+
+O compares semantic projections rather than serialization bytes/order.
+
+For same-state qualified inputs, O compares:
+
+- reconstruction determinant binding;
+- acquisition membership;
+- exact source→logical accounting relation;
+- anomaly semantic relation;
+- unordered retained logical occurrence multiset;
+- multiplicity / occurrence individuality.
+
+The physical source witness remains provenance/conformance evidence only.
+
+O introduces no temporal order and no ungoverned physical-repartition equivalence.
+
+### Official verdicts remain
+
+```text
+F = BLOCKED
+O = BLOCKED
+```
+
+Reasons include:
+
+1. no materialized D acquisition/manifest/completeness evidence;
+2. B/A provider-sensitive facts remain officially BLOCKED;
+3. no executable Q implementation has been qualified;
+4. no concrete qualified run exists from which a real F artifact can be emitted;
+5. no executable F persistence implementation is qualified;
+6. no executable O semantic comparator is qualified;
+7. no independent I_A / I_B determinism run exists.
+
+The corrected F/O candidate is internally stable enough to become candidate input to the next implementation-boundary block.
+
+No acquisition or real backtest authorization is created.
+
+---
+
+## 40. Durable F/O backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-FO-FORMALIZATION.md`
+
+Backup commit:
+
+`9a0027d586efd47f8a1db4e99c31c7c38b536fa5`
+
+Backup blob:
+
+`f51f59aff8b4eb31fc537b397168dfc068457603`
+
+Global reconciliation audit update commit:
+
+`f74da90c110c022eb8964b4ebb67a88ca433c600`
+
+Global reconciliation audit blob:
+
+`dd1d08d824bd67806328815171b63cb03eb1dd16`
+
+No I_A/I_B implementation, acquisition, BI5 download, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 41. Exactly one next governed action
+
+Formalize only:
+
+```text
+I_A — concrete reference implementation boundary
++
+I_B — independent comparison implementation boundary
+```
+
+using the corrected/re-broken D/R/M/B/A/Q/F/O candidate package as immutable candidate input.
+
+The next formalization must define before code:
+
+- exact I_A responsibilities;
+- exact I_B responsibilities;
+- which low-level utilities may be shared without destroying independence;
+- which semantic decisions must be implemented independently;
+- how common-mode defects are prevented/detected;
+- how both paths consume the exact same normative D/R/M/B/A/Q/F tuple;
+- how I_A produces the candidate qualified result/F artifact;
+- how I_B independently reconstructs/checks the same semantics;
+- how O adjudicates their semantic outputs;
+- how BLOCKED/FAIL propagate without a fake partial universe;
+- how traversal/parallelism/cache differences remain non-semantic;
+- how parser defaults and implementation convenience are prevented from becoming authority.
+
+Do not write I_A/I_B implementation code before this boundary is formalized, persisted and adversarially broken.
+
+No acquisition, real BI5 processing, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted by this next block.
