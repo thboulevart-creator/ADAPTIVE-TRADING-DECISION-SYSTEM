@@ -21,9 +21,10 @@ env:
   TZ: UTC
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
-  PROVENANCE_BLOB: '8c9a6406275b653baa130127d8668ddae4b08581'
-  NO_COPY_BLOB: '8fc59ab9232e778abd08471e18a5ce5c98ede6af'
-  INVENTORY_BLOB: '35aa65ab3a9646b897e2ad7f8e2a065de07f0ee2'
+  PROVENANCE_BLOB: '446de56a83d442861d130d7cab2054790dd3c6a3'
+  NO_COPY_BLOB: '2540a86155a2806543f62a039661c28ed5c77eda'
+  INVENTORY_BLOB: 'bbcba195b2b47600d11b7badf4b30482cef99030'
+  EVIDENCE_BREAKER_BLOB: '9461bcfbc2b81b688c03d6084c5911ddff4a460a'
 
 jobs:
   break-evidence:
@@ -41,6 +42,7 @@ jobs:
           test "$(git hash-object reports/data-qualification/iab/ib_semantic_source_provenance.json)" = "${PROVENANCE_BLOB}"
           test "$(git hash-object reports/data-qualification/iab/ib_no_copy_declaration.json)" = "${NO_COPY_BLOB}"
           test "$(git hash-object reports/data-qualification/iab/ib_independent_stage_test_inventory.json)" = "${INVENTORY_BLOB}"
+          test "$(git hash-object breakers/native_bi5_ib_derivation_evidence_breaker.py)" = "${EVIDENCE_BREAKER_BLOB}"
 
       - name: Prove I_B source still does not exist
         run: test ! -e src/native_bi5_independent_qualifier.py

@@ -2,6 +2,9 @@
   "schema": "IB_INDEPENDENT_STAGE_TEST_INVENTORY_V0_1_CANDIDATE",
   "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER",
   "implementation_version": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE",
+  "evidence_package_id": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+  "evidence_package_version": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+  "normative_source_set_sha256": "efd63709f8911a73eef7cee8714c71e2afac7b47eb7d45f99c4779d6dcd92b03",
   "evidence_phase": "PRE_IMPLEMENTATION_DERIVATION",
   "semantic_stages": [
     "D_PREFLIGHT",
@@ -26,25 +29,39 @@
       "assertion": "fail closed; no filesystem discovery or domain shrink"
     },
     {
+      "test_id": "IB-D-02",
+      "stage": "D_PREFLIGHT",
+      "basis": "D",
+      "fixture": "repeated/conflicting declared component identity",
+      "assertion": "A03 blocks; no winner selection or content deduplication"
+    },
+    {
       "test_id": "IB-R-01",
       "stage": "R_COMPATIBILITY",
       "basis": "R",
       "fixture": "representation/version mismatch",
-      "assertion": "QUALIFICATION_BLOCKED; no nearest-version fallback"
+      "assertion": "A12 / QUALIFICATION_BLOCKED; no nearest-version fallback"
     },
     {
       "test_id": "IB-BE-01",
       "stage": "B_ENVELOPE",
-      "basis": "B",
-      "fixture": "invalid/trailing/concatenated LZMA-Alone envelope",
+      "basis": "B/A",
+      "fixture": "A05 invalid/trailing/concatenated LZMA-Alone envelope",
       "assertion": "component blocks; no fallback codec"
     },
     {
       "test_id": "IB-BF-01",
       "stage": "B_FRAMING",
-      "basis": "B",
-      "fixture": "20-byte slots plus terminal remainder",
-      "assertion": "fixed byte-zero framing; remainder cannot silently pad/join"
+      "basis": "B/A",
+      "fixture": "A07 terminal partial without constructive completeness proof",
+      "assertion": "fixed byte-zero 20-byte framing; QUALIFICATION_BLOCKED; no padding/join"
+    },
+    {
+      "test_id": "IB-BF-02",
+      "stage": "B_FRAMING",
+      "basis": "B/A/F",
+      "fixture": "A08 terminal partial with independently valid constructive completeness proof",
+      "assertion": "reject only targeted terminal fragment; preceding complete slots remain accountable"
     },
     {
       "test_id": "IB-BD-01",
@@ -56,36 +73,120 @@
     {
       "test_id": "IB-BT-01",
       "stage": "B_TIMESTAMP",
-      "basis": "B",
-      "fixture": "same timestamp and physical timestamp regression",
-      "assertion": "hour+ms exact; no sorting; A09 only for ms>=3600000"
+      "basis": "B/A",
+      "fixture": "A09 ms>=3600000 plus same timestamp and physical timestamp regression",
+      "assertion": "hour+ms exact; A09 rejects targeted slot; no sorting"
     },
     {
       "test_id": "IB-BP-01",
       "stage": "B_PRICE",
-      "basis": "B",
+      "basis": "B/Q",
       "fixture": "zero and crossed synthetic prices",
-      "assertion": "raw integer /1000 semantics; no market filter"
+      "assertion": "raw integer /1000 semantics; no hidden market-value filter"
     },
     {
       "test_id": "IB-BV-01",
       "stage": "B_VOLUME",
-      "basis": "B/F",
-      "fixture": "finite negative, signed zero, subnormal, NaN/Infinity",
-      "assertion": "finite binary32 exact normal form; non-finite rejected; negative retained"
+      "basis": "B/A/F",
+      "fixture": "A10 NaN/Infinity plus finite negative, signed zero and subnormal",
+      "assertion": "finite binary32 exact normal form; A10 rejects non-finite only; negative retained"
     },
     {
-      "test_id": "IB-A-01",
+      "test_id": "IB-A01",
       "stage": "A_CLASSIFICATION",
       "basis": "A",
-      "fixture": "A01-A13 targeted anomaly matrix",
-      "assertion": "exact mandatory outcome and target scope; unknown anomaly blocks"
+      "fixture": "A01 missing declared component",
+      "assertion": "QUALIFICATION_BLOCKED at acquisition membership scope"
+    },
+    {
+      "test_id": "IB-A02",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A02 undeclared component present",
+      "assertion": "QUALIFICATION_BLOCKED; no silent admission/deletion"
+    },
+    {
+      "test_id": "IB-A03",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A03 repeated or conflicting component delivery",
+      "assertion": "QUALIFICATION_BLOCKED; no winner selection"
+    },
+    {
+      "test_id": "IB-A04",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A04 missing/ambiguous declared hour provenance",
+      "assertion": "QUALIFICATION_BLOCKED; filename/path cannot repair"
+    },
+    {
+      "test_id": "IB-A05",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A05 decompression failure or unsupported envelope",
+      "assertion": "QUALIFICATION_BLOCKED; no alternate codec"
+    },
+    {
+      "test_id": "IB-A06",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A06 zero decompressed bytes",
+      "assertion": "QUALIFICATION_BLOCKED; not valid cardinality zero"
+    },
+    {
+      "test_id": "IB-A07",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A07 terminal partial without constructive completeness proof",
+      "assertion": "QUALIFICATION_BLOCKED"
+    },
+    {
+      "test_id": "IB-A08",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A/F",
+      "fixture": "A08 terminal partial with constructive completeness proof bound to exact fragment",
+      "assertion": "REJECT_RECORD only when proof independently validates locality/completeness"
+    },
+    {
+      "test_id": "IB-A09",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A09 millisecond offset out of range",
+      "assertion": "REJECT_RECORD targeted complete slot"
+    },
+    {
+      "test_id": "IB-A10",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A10 non-finite source volume",
+      "assertion": "REJECT_RECORD targeted complete slot; finite negative is not A10"
+    },
+    {
+      "test_id": "IB-A11",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A11 ambiguous component role/provenance",
+      "assertion": "QUALIFICATION_BLOCKED; no merge/concatenate/winner"
+    },
+    {
+      "test_id": "IB-A12",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A12 representation or binding identity mismatch",
+      "assertion": "QUALIFICATION_BLOCKED; no nearest-version fallback"
+    },
+    {
+      "test_id": "IB-A13",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A13 unknown anomaly class",
+      "assertion": "QUALIFICATION_BLOCKED; no silent drop/repair"
     },
     {
       "test_id": "IB-M-01",
       "stage": "M_OCCURRENCE",
       "basis": "M",
-      "fixture": "two source slots with identical payload",
+      "fixture": "two source slots with identical payload strict duplicate",
       "assertion": "distinct candidate occurrences; no content deduplication"
     },
     {
@@ -93,7 +194,7 @@
       "stage": "Q_MEMBERSHIP",
       "basis": "Q",
       "fixture": "candidate/reject partition with local A09",
-      "assertion": "total slot accounting, disjoint union, local reject only"
+      "assertion": "total source slot accounting, disjoint union, local reject only"
     },
     {
       "test_id": "IB-Q-02",
@@ -107,7 +208,7 @@
       "stage": "F_FREEZE",
       "basis": "F",
       "fixture": "qualified synthetic universe with strict duplicates",
-      "assertion": "freeze complete bag plus source relation; no canonical enumeration"
+      "assertion": "freeze complete unordered bag plus source relation; no canonical enumeration"
     },
     {
       "test_id": "IB-F-02",
@@ -120,18 +221,23 @@
       "test_id": "IB-X-01",
       "stage": "D_PREFLIGHT",
       "basis": "I_B_BOUNDARY",
-      "fixture": "I_A/O expected-answer channel present",
-      "assertion": "construction input rejected/absent before seal"
+      "fixture": "I_A/O expected-answer channel present before seal",
+      "assertion": "construction input rejected or absent before seal"
     },
     {
       "test_id": "IB-X-02",
       "stage": "F_FREEZE",
       "basis": "I_B_BOUNDARY",
       "fixture": "one-sided I_B semantic mutant after implementation",
-      "assertion": "breaker/O detects divergence or I_B blocks/fails"
+      "assertion": "external breaker/O detects divergence or I_B blocks/fails"
     }
   ],
   "frozen_semantic_payload": {
+    "package_binding": {
+      "evidence_package_id": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+      "evidence_package_version": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+      "normative_source_set_sha256": "efd63709f8911a73eef7cee8714c71e2afac7b47eb7d45f99c4779d6dcd92b03"
+    },
     "semantic_stages": [
       "D_PREFLIGHT",
       "R_COMPATIBILITY",
@@ -155,25 +261,39 @@
         "assertion": "fail closed; no filesystem discovery or domain shrink"
       },
       {
+        "test_id": "IB-D-02",
+        "stage": "D_PREFLIGHT",
+        "basis": "D",
+        "fixture": "repeated/conflicting declared component identity",
+        "assertion": "A03 blocks; no winner selection or content deduplication"
+      },
+      {
         "test_id": "IB-R-01",
         "stage": "R_COMPATIBILITY",
         "basis": "R",
         "fixture": "representation/version mismatch",
-        "assertion": "QUALIFICATION_BLOCKED; no nearest-version fallback"
+        "assertion": "A12 / QUALIFICATION_BLOCKED; no nearest-version fallback"
       },
       {
         "test_id": "IB-BE-01",
         "stage": "B_ENVELOPE",
-        "basis": "B",
-        "fixture": "invalid/trailing/concatenated LZMA-Alone envelope",
+        "basis": "B/A",
+        "fixture": "A05 invalid/trailing/concatenated LZMA-Alone envelope",
         "assertion": "component blocks; no fallback codec"
       },
       {
         "test_id": "IB-BF-01",
         "stage": "B_FRAMING",
-        "basis": "B",
-        "fixture": "20-byte slots plus terminal remainder",
-        "assertion": "fixed byte-zero framing; remainder cannot silently pad/join"
+        "basis": "B/A",
+        "fixture": "A07 terminal partial without constructive completeness proof",
+        "assertion": "fixed byte-zero 20-byte framing; QUALIFICATION_BLOCKED; no padding/join"
+      },
+      {
+        "test_id": "IB-BF-02",
+        "stage": "B_FRAMING",
+        "basis": "B/A/F",
+        "fixture": "A08 terminal partial with independently valid constructive completeness proof",
+        "assertion": "reject only targeted terminal fragment; preceding complete slots remain accountable"
       },
       {
         "test_id": "IB-BD-01",
@@ -185,36 +305,120 @@
       {
         "test_id": "IB-BT-01",
         "stage": "B_TIMESTAMP",
-        "basis": "B",
-        "fixture": "same timestamp and physical timestamp regression",
-        "assertion": "hour+ms exact; no sorting; A09 only for ms>=3600000"
+        "basis": "B/A",
+        "fixture": "A09 ms>=3600000 plus same timestamp and physical timestamp regression",
+        "assertion": "hour+ms exact; A09 rejects targeted slot; no sorting"
       },
       {
         "test_id": "IB-BP-01",
         "stage": "B_PRICE",
-        "basis": "B",
+        "basis": "B/Q",
         "fixture": "zero and crossed synthetic prices",
-        "assertion": "raw integer /1000 semantics; no market filter"
+        "assertion": "raw integer /1000 semantics; no hidden market-value filter"
       },
       {
         "test_id": "IB-BV-01",
         "stage": "B_VOLUME",
-        "basis": "B/F",
-        "fixture": "finite negative, signed zero, subnormal, NaN/Infinity",
-        "assertion": "finite binary32 exact normal form; non-finite rejected; negative retained"
+        "basis": "B/A/F",
+        "fixture": "A10 NaN/Infinity plus finite negative, signed zero and subnormal",
+        "assertion": "finite binary32 exact normal form; A10 rejects non-finite only; negative retained"
       },
       {
-        "test_id": "IB-A-01",
+        "test_id": "IB-A01",
         "stage": "A_CLASSIFICATION",
         "basis": "A",
-        "fixture": "A01-A13 targeted anomaly matrix",
-        "assertion": "exact mandatory outcome and target scope; unknown anomaly blocks"
+        "fixture": "A01 missing declared component",
+        "assertion": "QUALIFICATION_BLOCKED at acquisition membership scope"
+      },
+      {
+        "test_id": "IB-A02",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A02 undeclared component present",
+        "assertion": "QUALIFICATION_BLOCKED; no silent admission/deletion"
+      },
+      {
+        "test_id": "IB-A03",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A03 repeated or conflicting component delivery",
+        "assertion": "QUALIFICATION_BLOCKED; no winner selection"
+      },
+      {
+        "test_id": "IB-A04",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A04 missing/ambiguous declared hour provenance",
+        "assertion": "QUALIFICATION_BLOCKED; filename/path cannot repair"
+      },
+      {
+        "test_id": "IB-A05",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A05 decompression failure or unsupported envelope",
+        "assertion": "QUALIFICATION_BLOCKED; no alternate codec"
+      },
+      {
+        "test_id": "IB-A06",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A06 zero decompressed bytes",
+        "assertion": "QUALIFICATION_BLOCKED; not valid cardinality zero"
+      },
+      {
+        "test_id": "IB-A07",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A07 terminal partial without constructive completeness proof",
+        "assertion": "QUALIFICATION_BLOCKED"
+      },
+      {
+        "test_id": "IB-A08",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A/F",
+        "fixture": "A08 terminal partial with constructive completeness proof bound to exact fragment",
+        "assertion": "REJECT_RECORD only when proof independently validates locality/completeness"
+      },
+      {
+        "test_id": "IB-A09",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A09 millisecond offset out of range",
+        "assertion": "REJECT_RECORD targeted complete slot"
+      },
+      {
+        "test_id": "IB-A10",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A10 non-finite source volume",
+        "assertion": "REJECT_RECORD targeted complete slot; finite negative is not A10"
+      },
+      {
+        "test_id": "IB-A11",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A11 ambiguous component role/provenance",
+        "assertion": "QUALIFICATION_BLOCKED; no merge/concatenate/winner"
+      },
+      {
+        "test_id": "IB-A12",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A12 representation or binding identity mismatch",
+        "assertion": "QUALIFICATION_BLOCKED; no nearest-version fallback"
+      },
+      {
+        "test_id": "IB-A13",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A13 unknown anomaly class",
+        "assertion": "QUALIFICATION_BLOCKED; no silent drop/repair"
       },
       {
         "test_id": "IB-M-01",
         "stage": "M_OCCURRENCE",
         "basis": "M",
-        "fixture": "two source slots with identical payload",
+        "fixture": "two source slots with identical payload strict duplicate",
         "assertion": "distinct candidate occurrences; no content deduplication"
       },
       {
@@ -222,7 +426,7 @@
         "stage": "Q_MEMBERSHIP",
         "basis": "Q",
         "fixture": "candidate/reject partition with local A09",
-        "assertion": "total slot accounting, disjoint union, local reject only"
+        "assertion": "total source slot accounting, disjoint union, local reject only"
       },
       {
         "test_id": "IB-Q-02",
@@ -236,7 +440,7 @@
         "stage": "F_FREEZE",
         "basis": "F",
         "fixture": "qualified synthetic universe with strict duplicates",
-        "assertion": "freeze complete bag plus source relation; no canonical enumeration"
+        "assertion": "freeze complete unordered bag plus source relation; no canonical enumeration"
       },
       {
         "test_id": "IB-F-02",
@@ -249,19 +453,20 @@
         "test_id": "IB-X-01",
         "stage": "D_PREFLIGHT",
         "basis": "I_B_BOUNDARY",
-        "fixture": "I_A/O expected-answer channel present",
-        "assertion": "construction input rejected/absent before seal"
+        "fixture": "I_A/O expected-answer channel present before seal",
+        "assertion": "construction input rejected or absent before seal"
       },
       {
         "test_id": "IB-X-02",
         "stage": "F_FREEZE",
         "basis": "I_B_BOUNDARY",
         "fixture": "one-sided I_B semantic mutant after implementation",
-        "assertion": "breaker/O detects divergence or I_B blocks/fails"
+        "assertion": "external breaker/O detects divergence or I_B blocks/fails"
       }
     ],
     "inventory_rules": [
       "every REQUIRED_STAGES member has at least one independently specified normative test",
+      "A01 through A13 are explicitly inventoried rather than collapsed into one generic matrix test",
       "tests are derived from contracts and synthetic fixtures, not from I_A expected answers",
       "I_A and O outputs are forbidden construction inputs before I_B result seal",
       "stage tests may reuse generic fixture-building primitives but not project semantic builders",
@@ -281,7 +486,7 @@
       "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
     }
   },
-  "frozen_semantic_payload_sha256": "98016fb44f745d8f35ef6c938a39bb1ab0f2ca60edc8f0479782e9a74b126669",
+  "frozen_semantic_payload_sha256": "7e8ae306a0ad17f89eb05fc69b4102a573188de4fc1fc5e7a3fcb8da021a1f6c",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
   "source_digests": {}
 }

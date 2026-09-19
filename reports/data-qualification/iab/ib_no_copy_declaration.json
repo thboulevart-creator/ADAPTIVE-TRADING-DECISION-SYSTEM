@@ -2,9 +2,17 @@
   "schema": "IB_NO_COPY_DECLARATION_V0_1_CANDIDATE",
   "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER",
   "implementation_version": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE",
+  "evidence_package_id": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+  "evidence_package_version": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+  "normative_source_set_sha256": "efd63709f8911a73eef7cee8714c71e2afac7b47eb7d45f99c4779d6dcd92b03",
   "evidence_phase": "PRE_IMPLEMENTATION_DERIVATION",
   "statement": "INDEPENDENTLY_DERIVED_NOT_COPIED_OR_GENERATED_FROM_I_A",
   "frozen_semantic_payload": {
+    "package_binding": {
+      "evidence_package_id": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+      "evidence_package_version": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+      "normative_source_set_sha256": "efd63709f8911a73eef7cee8714c71e2afac7b47eb7d45f99c4779d6dcd92b03"
+    },
     "statement": "INDEPENDENTLY_DERIVED_NOT_COPIED_OR_GENERATED_FROM_I_A",
     "scope": "all project-owned D/R/M/B/A/Q/F semantic implementation logic and semantic control flow",
     "forbidden_derivation_methods": [
@@ -33,6 +41,10 @@
       "one-sided mutant detection"
     ],
     "self_attestation_is_not_pass_evidence": true,
+    "non_claims": [
+      "this declaration alone does not prove conceptual independence",
+      "future executable qualification must externally inspect source similarity, dependencies, runtime reads, and one-sided mutants"
+    ],
     "source_binding_protocol": {
       "pre_code_state": "PENDING_IMPLEMENTATION_SOURCE",
       "target_source_files": [
@@ -47,7 +59,7 @@
       "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
     }
   },
-  "frozen_semantic_payload_sha256": "ff8ecad1f3b1522466727c0f2aab898bfb21577497487138b8753f5f63d944c6",
+  "frozen_semantic_payload_sha256": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
   "source_digests": {}
 }

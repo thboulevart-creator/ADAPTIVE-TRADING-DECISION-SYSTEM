@@ -2,8 +2,17 @@
   "schema": "IB_SEMANTIC_SOURCE_PROVENANCE_V0_1_CANDIDATE",
   "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER",
   "implementation_version": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE",
+  "evidence_package_id": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+  "evidence_package_version": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+  "normative_source_set_sha256": "efd63709f8911a73eef7cee8714c71e2afac7b47eb7d45f99c4779d6dcd92b03",
   "evidence_phase": "PRE_IMPLEMENTATION_DERIVATION",
+  "derivation_basis": "PINNED_NORMATIVE_CONTRACTS",
   "frozen_semantic_payload": {
+    "package_binding": {
+      "evidence_package_id": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+      "evidence_package_version": "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+      "normative_source_set_sha256": "efd63709f8911a73eef7cee8714c71e2afac7b47eb7d45f99c4779d6dcd92b03"
+    },
     "derivation_basis": "PINNED_NORMATIVE_CONTRACTS",
     "allowed_derivation_inputs": [
       {
@@ -139,7 +148,7 @@
       "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
     }
   },
-  "frozen_semantic_payload_sha256": "98931a4ac06b57968c67a0d2c9019d4a97628c7eb76338c2743975ae6c65e27d",
+  "frozen_semantic_payload_sha256": "b50c08fd37c7e41f0358745764376a34b0eaca2d44020a03d6baa1aea86a2f4a",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
   "source_digests": {}
 }

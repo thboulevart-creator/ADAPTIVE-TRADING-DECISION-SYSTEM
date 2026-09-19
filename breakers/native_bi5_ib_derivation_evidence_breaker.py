@@ -122,6 +122,30 @@ def test_e3_provenance_is_future_breaker_compatible_and_normative_only(evidence)
 
 
 def test_e4_source_binding_protocol_is_non_circular_and_freezes_semantics(evidence) -> None:
+    package_ids = {
+        (artifact["evidence_package_id"], artifact["evidence_package_version"])
+        for artifact in evidence
+    }
+    assert package_ids == {
+        (
+            "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE",
+            "IB_DUKASCOPY_USATECHIDXUSD_INDEPENDENT_DERIVATION_EVIDENCE_V0_1_CANDIDATE",
+        )
+    }
+
+    normative_hashes = {artifact["normative_source_set_sha256"] for artifact in evidence}
+    assert normative_hashes == {
+        _canonical_sha256(
+            evidence[0]["frozen_semantic_payload"]["allowed_derivation_inputs"]
+        )
+    }
+
+    for artifact in evidence:
+        binding = artifact["frozen_semantic_payload"]["package_binding"]
+        assert binding["evidence_package_id"] == artifact["evidence_package_id"]
+        assert binding["evidence_package_version"] == artifact["evidence_package_version"]
+        assert binding["normative_source_set_sha256"] == artifact["normative_source_set_sha256"]
+
     protocols = [
         artifact["frozen_semantic_payload"]["source_binding_protocol"]
         for artifact in evidence
@@ -161,7 +185,7 @@ def test_e5_no_copy_declaration_is_explicit_but_not_self_adjudicating(evidence) 
         "wrapping or delegating to i_a",
         "expected answers",
         "o comparison output",
-        "shared project-owned semantic helpers",
+        "project-owned semantic helpers",
     ):
         assert token in methods
 
