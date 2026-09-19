@@ -367,4 +367,62 @@ No existing runtime check is promoted to normative matrix authority by this audi
 
 ---
 
-**Next governed action:** reconcile `Q — qualification contract + parameters` against the current repository.
+# Q — Qualification contract + parameters
+
+## Requirement
+
+The global executable gate requires an immutable qualification contract containing:
+
+- qualification identity/version;
+- exact parameters;
+- acceptance/rejection rules;
+- relationship to D/R/M/B/A;
+- mandatory adversarial variants;
+- enough information for two conforming implementations to derive the same qualified logical universe.
+
+## Current repository evidence inspected
+
+Several qualified artifacts exist, but they solve different problems:
+
+- `04-REFERENCE/EXECUTION-WINDOW-FREEZE.json` freezes the selected five-year execution window and explicitly records `real_backtest_authorized=false`;
+- P0.3 qualifies the calendar/freeze surface while explicitly excluding native BI5 acquisition, tick completeness/manifests/reconciliation and real backtesting;
+- `docs/03.1.2-MOMENTUM-V1-BASELINE-PROTOCOL.md` is a PASS protocol for the first baseline experiment;
+- Q-RM-12 defines the generic determinism test protocol.
+
+None of these artifacts instantiates the missing concrete logical-data qualification tuple with an exact `qualification_contract_id` / `qualification_contract_version` bound to D/R/M/B/A.
+
+The unrelated root `R01-MINIMUM-DATA-SPEC-V0.6.md` concerns another MDS/reclassification domain and is not evidence for trading-data qualification.
+
+## Adjudication
+
+```text
+execution-window freeze
+≠ logical-data qualification contract
+
+Momentum backtest protocol
+≠ D/R/M/B/A qualification contract
+
+Q-RM-12 generic test protocol
+≠ concrete Q instance
+```
+
+## Verdict
+
+```text
+Q — Qualification contract + parameters
+BLOCKED
+```
+
+Classification:
+
+`EXPERIMENT PROTOCOL EXISTS; CONCRETE DATA-QUALIFICATION CONTRACT INSTANCE ABSENT`
+
+## Closure evidence required
+
+After D/R/M/B/A are concretized, persist one exact Q contract/version with all parameters and acceptance/rejection/adversarial rules needed to establish qualified logical membership for the first real acquisition.
+
+The already-qualified Momentum protocol remains valid and does not need to be rebuilt merely to close Q.
+
+---
+
+**Next governed action:** reconcile `F — freeze artifact + persistence` against the current repository.
