@@ -2303,3 +2303,168 @@ I_B BLOCKED   # global gate; implementation candidate PASS
 ~~~
 
 No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+
+---
+
+# F freeze-persistence production implementation candidate — 2026-09-19
+
+A concrete executable F freeze-persistence implementation candidate now exists:
+
+`src/native_bi5_freeze_persistence.py`
+
+Final qualified source blob:
+
+`199b07929fe8ec40d719b001b0321d1f26c8faab`
+
+Frozen test-first breaker remained unchanged:
+
+`breakers/native_bi5_f_freeze_persistence_breaker.py`
+
+Frozen breaker blob:
+
+`3d9eb75c2f4e988c984da67af0af344d3dc24148`
+
+Supplemental adversarial breaker final blob:
+
+`c4c499d5e76e15a8fdcaeb91dde80beadad6487a`
+
+Adversarial record:
+
+`reports/data-qualification/f_native_bi5_freeze_persistence_candidate_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`1635fda1dddf8792910cc0830b5e3ec8ca6d7184`
+
+## Executable qualification history
+
+Initial executable candidate:
+
+```text
+run = 35454862558
+frozen breaker = 24 passed / 12 failed
+```
+
+After F-F01 correction:
+
+```text
+run = 35454936629
+frozen breaker = 36 passed
+```
+
+Supplemental implementation attack:
+
+```text
+run = 35455081310
+frozen breaker       = 36 passed
+supplemental breaker = 22 failed
+```
+
+After F-F02..F-F08:
+
+```text
+run = 35455182381
+frozen breaker       = 36 passed
+supplemental breaker = 22 passed
+```
+
+Residual attack:
+
+```text
+run = 35455338472
+frozen breaker       = 36 passed
+supplemental breaker = 8 failed / 22 passed
+```
+
+After F-R01..F-R05:
+
+```text
+run = 35455420790
+frozen breaker       = 36 passed
+supplemental breaker = 30 passed
+```
+
+Final source-hour attack:
+
+```text
+run = 35455558390
+frozen breaker       = 36 passed
+supplemental breaker = 1 failed / 30 passed
+```
+
+Final persisted-head re-break on:
+
+`a74f073565af8a5d5f2003ef18b85f7e5b9d6a59`
+
+```text
+candidate run = 35455630196
+frozen breaker = 36 passed
+
+adversarial run = 35455630202
+frozen breaker       = 36 passed
+supplemental breaker = 31 passed
+```
+
+All exact source/breaker locks, O-absence checks, qualification-environment checks and clean-worktree checks passed.
+
+## Demonstrated implementation defects
+
+```text
+F-F01 — ACCOUNTING_WITNESS_SHAPE_OVERRESTRICTION
+F-F02 — UNQUALIFIED_A08_PROOF_ACCEPTANCE
+F-F03 — QUALIFIED_STATE_ACCEPTS_BLOCKING_OR_INVALID_ANOMALY
+F-F04 — NORMATIVE_DETERMINANT_ID_VERSION_NOT_BOUND
+F-F05 — ANOMALY_MATRIX_VERSION_NOT_BOUND
+F-F06 — RFC3339_SHAPE_WITHOUT_CALENDAR_VALIDITY
+F-F07 — BINARY32_NORMAL_FORM_NOT_PROVEN_REPRESENTABLE
+F-F08 — PRICE_NUMERATOR_UINT32_DOMAIN_NOT_ENFORCED
+F-R01 — ANOMALY_RELATION_IS_NOT_EXACTLY_EQUAL_TO_REJECT_ACCOUNTING
+F-R02 — COMPONENT_SNAPSHOT_CONCRETE_DOMAIN_NOT_ENFORCED
+F-R03 — ZERO_SLOT_NO_FRAGMENT_QUALIFIED_COMPONENT_BYPASSES_A06
+F-R04 — JSON_DUPLICATE_KEY_AMBIGUITY_ACCEPTED
+F-R05 — NONFINITE_OR_NONSTRICT_JSON_VALUE_CAN_ESCAPE_PERSISTENCE_BOUNDARY
+F-R06 — SOURCE_TIMESTAMP_OUTSIDE_DECLARED_HOUR_ACCEPTED
+```
+
+All demonstrated defects were minimally corrected without changing the frozen F breaker or creating O.
+
+## Implementation-layer verdict
+
+```text
+F FREEZE-PERSISTENCE PRODUCTION IMPLEMENTATION CANDIDATE = PASS
+```
+
+This is not a global F-gate PASS.
+
+The global F gate remains:
+
+```text
+F = BLOCKED
+```
+
+because no real materialized qualified D/Q execution has produced a concrete freeze artifact and the upstream D/R/M/B/A/Q state remains materially unclosed.
+
+O remains:
+
+```text
+implementation = ABSENT
+global gate    = BLOCKED
+```
+
+The global concrete state therefore remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED   # test-first + implementation candidate PASS
+O   BLOCKED   # implementation absent
+I_A BLOCKED   # implementation candidate PASS
+I_B BLOCKED   # implementation candidate PASS
+```
+
+No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
