@@ -94,7 +94,7 @@ jobs:
           test -f src/reviewer_method_authority.py
           grep -Fq 'P1_14A_REVIEWER_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
           grep -Fq 'P1_14A_MINIMAL_REVIEWER_METHOD_AUTHORITY_REATTESTATION_MODEL_V1' GOVERNANCE/STEP-3-REAL-SYSTEM-MAPPING.md
-          test "$(git hash-object breakers/p1_14a_reviewer_method_authority_breaker.py)" = "f63f24cee1667839edd457f4bd76632fba063544"
+          test "$(git hash-object breakers/p1_14a_reviewer_method_authority_breaker.py)" = "ff8de568b3ed8b1e887b604a8db9d173bdbbd66b"
           echo 'PASS: P1.14A model, immutable breaker, and runtime candidate are present'
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
