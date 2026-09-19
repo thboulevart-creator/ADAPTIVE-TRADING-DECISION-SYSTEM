@@ -298,3 +298,92 @@ O global gate = BLOCKED
 ```
 
 Only O-F01..O-F03 are authorized for correction.
+
+
+---
+
+## 7. Residual re-break after O-F01..O-F03
+
+Correction commit:
+
+`03eb0a972775f9fba5982ac5525094e1b3bfe7ff`
+
+Corrected source blob:
+
+`482fdb3e609d2d7f8a4028754be04367b71a2c18`
+
+Executable results:
+
+```text
+candidate run = 35464054174
+job = 105952914637
+frozen O breaker = 77 passed
+
+adversarial run = 35464054185
+job = 105952914640
+frozen O breaker       = 77 passed
+supplemental adversary = 3 passed
+```
+
+O-F01..O-F03 are materially corrected.
+
+### O-R01 — PYTHON_NUMERIC_EQUALITY_COLLAPSES_DISTINCT_JSON_PARAMETER_TYPES
+
+The same-state gate currently compares:
+
+`qualification_parameters`
+
+using Python mapping equality.
+
+Python defines:
+
+```text
+True == 1
+```
+
+while JSON preserves these as different semantic types:
+
+```json
+true
+1
+```
+
+F can persist both parameter values as strict JSON.
+
+Thus two otherwise identical valid F artifacts can bind:
+
+```text
+left parameter  = true
+right parameter = 1
+```
+
+and the current O candidate can treat the parameter sets as equal, then return `SEMANTIC_EQUAL`.
+
+Qualification parameters are qualification-relevant state and must be compared with strict persisted JSON semantics, not Python numeric coercion semantics.
+
+### Verdict
+
+```text
+O-R01 = FAIL
+```
+
+### Minimal correction
+
+Compare qualification parameters through the same strict canonical JSON representation used for semantic projections.
+
+This must preserve:
+
+- object-key order non-authority;
+- nested object-key order non-authority;
+- JSON type distinctions such as boolean versus number.
+
+Exactly authorized next action:
+
+```text
+encode O-R01 in supplemental breaker
+→ demonstrate RED
+→ correct O-R01 only
+→ persisted-head frozen + supplemental re-break
+```
+
+F and the frozen O breaker remain unchanged.
