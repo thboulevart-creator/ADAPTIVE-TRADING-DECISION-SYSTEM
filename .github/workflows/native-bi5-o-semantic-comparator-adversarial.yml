@@ -1,0 +1,79 @@
+name: Native BI5 O Semantic Comparator Adversarial
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/native-bi5-o-semantic-comparator-adversarial.yml'
+      - 'src/native_bi5_semantic_universe_comparator.py'
+      - 'breakers/native_bi5_o_semantic_comparator_breaker.py'
+      - 'breakers/native_bi5_o_semantic_comparator_adversarial.py'
+      - 'src/native_bi5_freeze_persistence.py'
+      - 'breakers/native_bi5_f_freeze_persistence_breaker.py'
+      - 'breakers/native_bi5_f_freeze_persistence_adversarial.py'
+      - 'reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md'
+      - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - 'requirements/qualification.lock.txt'
+      - 'tools/qualification_environment.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: 0
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  O_SOURCE_BLOB: '837ff71dd54e0068047604c327ab53db71e32fb1'
+  O_FROZEN_BREAKER_BLOB: '9e1d897329a15f8b26172558b6579d61d9ba3820'
+  O_ADVERSARIAL_BREAKER_BLOB: '89fb272b133800ecf4366c6b117a18c0acafcef2'
+  F_SOURCE_BLOB: '199b07929fe8ec40d719b001b0321d1f26c8faab'
+  F_TESTFIRST_BREAKER_BLOB: '3d9eb75c2f4e988c984da67af0af344d3dc24148'
+  F_ADVERSARIAL_BREAKER_BLOB: 'c4c499d5e76e15a8fdcaeb91dde80beadad6487a'
+  FO_CONTRACT_BLOB: 'fe62da06e63a51c336f9a447e7f1e0f3d89cad3b'
+
+jobs:
+  adversarial-o:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted O candidate and frozen F/O surfaces
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          test "$(git hash-object src/native_bi5_semantic_universe_comparator.py)" = "${O_SOURCE_BLOB}"
+          test "$(git hash-object breakers/native_bi5_o_semantic_comparator_breaker.py)" = "${O_FROZEN_BREAKER_BLOB}"
+          test "$(git hash-object breakers/native_bi5_o_semantic_comparator_adversarial.py)" = "${O_ADVERSARIAL_BREAKER_BLOB}"
+          test "$(git hash-object src/native_bi5_freeze_persistence.py)" = "${F_SOURCE_BLOB}"
+          test "$(git hash-object breakers/native_bi5_f_freeze_persistence_breaker.py)" = "${F_TESTFIRST_BREAKER_BLOB}"
+          test "$(git hash-object breakers/native_bi5_f_freeze_persistence_adversarial.py)" = "${F_ADVERSARIAL_BREAKER_BLOB}"
+          test "$(git hash-object reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md)" = "${FO_CONTRACT_BLOB}"
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Re-run frozen O breaker
+        run: python -m pytest -q breakers/native_bi5_o_semantic_comparator_breaker.py
+
+      - name: Execute supplemental O adversarial breaker
+        run: python -m pytest -q breakers/native_bi5_o_semantic_comparator_adversarial.py
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
