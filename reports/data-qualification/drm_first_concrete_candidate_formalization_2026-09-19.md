@@ -194,11 +194,53 @@ The following are explicitly insufficient by themselves:
 - filesystem traversal;
 - presence on disk.
 
-The exact expected component set is not enumerated in this artifact.
+The exact expected physical component set is not enumerated in this artifact.
 
 In particular, this formalization does not infer from the execution-window calendar that one file must exist for every wall-clock hour or every open slot.
 
-Any rule translating the frozen temporal boundary and warmup requirement into an exact expected component set remains a later concrete D/B/Q obligation.
+### Deterministic warmup-domain rule
+
+The declared research acquisition domain is not limited to the five-year evaluation interval alone.
+
+For the first Momentum V1 baseline path it contains:
+
+```text
+A. evaluation domain
+   = the already-frozen contiguous execution window
+
+PLUS
+
+B. warmup prefix
+   = the minimal immediately preceding market-open source interval
+     required to construct exactly 20 completed H1 bars
+     before the first evaluation-dependent Momentum value,
+     under the already-governed Dukascopy USATECH session-calendar contract.
+```
+
+This rule fixes the semantic temporal membership of the acquisition domain without fabricating physical files.
+
+The warmup prefix:
+
+- is mandatory for this first baseline acquisition declaration;
+- is not part of the evaluated five-year performance interval;
+- may not be lengthened or shortened by data availability, download convenience, or observed strategy results;
+- must be derived deterministically from the frozen `warmup_h1_bars=20` requirement and the governed session calendar;
+- must later be translated by D/B/Q into exact expected physical components before completeness can be claimed.
+
+Therefore:
+
+```text
+five-year evaluation window
+≠ complete acquisition domain by itself
+
+complete candidate acquisition temporal domain
+=
+mandatory warmup prefix
++
+five-year evaluation window
+```
+
+The physical file/object enumeration remains a later concrete D/B/Q obligation.
 
 ## 2.5 Manifest state
 
@@ -340,9 +382,11 @@ Status:
 
 A candidate primary logical record occurrence is:
 
-> one individually retained candidate primary market-tick observation produced by deterministic interpretation of the declared representation under the applicable versioned binding, before canonical enumeration.
+> one individual candidate primary market-tick observation produced by deterministic interpretation of the declared representation under the applicable versioned binding, before qualification membership and before canonical enumeration.
 
 M does not define the physical byte boundary that produces the occurrence.
+
+Q alone later determines whether a candidate occurrence becomes part of the retained qualified logical universe.
 
 ## 4.3 Candidate logical payload
 
@@ -548,3 +592,36 @@ The break must attack at minimum:
 - cross-acquisition identity leakage.
 
 No data acquisition is permitted during the break.
+
+
+---
+
+# 9. Correction record after first adversarial break
+
+Adversarial break artifact:
+
+`reports/data-qualification/drm_first_candidate_adversarial_break_2026-09-19.md`
+
+The first persisted candidate failed on exactly two demonstrated defects:
+
+```text
+DRM-F01 — WARMUP_DOMAIN_MEMBERSHIP_UNDERSPECIFIED
+DRM-F02 — RECORD_MODEL_RETAINED_CANDIDATE_WORDING_LEAK
+```
+
+Corrections applied:
+
+1. D now defines the mandatory warmup prefix as part of the semantic acquisition domain using the frozen 20-H1 requirement and the governed session-calendar contract, while still refusing to fabricate physical components.
+2. M now defines only a pre-Q candidate logical occurrence; retention is explicitly owned by Q.
+
+No R semantics were changed.
+
+Official gate verdicts remain:
+
+```text
+D = BLOCKED
+R = BLOCKED
+M = BLOCKED
+```
+
+The corrected candidate requires a persisted-head adversarial re-break before any further work.
