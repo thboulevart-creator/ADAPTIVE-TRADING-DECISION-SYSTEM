@@ -9263,3 +9263,53 @@ QualifiedExperimentEvaluationAuthority
 ≠ knowledge
 ≠ authorization
 ```
+
+
+---
+
+# P1.15 — QUALIFICATION CANDIDATE PERSISTED FOR FINAL RE-BREAK
+
+**Common-HEAD qualification base:** `aa293b04d039e788fd308ed5a3b2e8e4d28461e6`
+
+Observed common-HEAD runs:
+
+- P1.15A run `35433246855`, job `105871455652`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A+B `51 passed`; P1.13A+B `92 passed`; P1.14A+B `72 passed`; P1.15A `19 passed`; clean worktree PASS.
+- P1.15B run `35433246943`, job `105871455964`: protected chain PASS; P1.9A+B `127 passed`; P1.10A+B `56 passed`; P1.11A+B `89 passed`; P1.12A+B `51 passed`; P1.13A+B `92 passed`; P1.14A+B `72 passed`; P1.15B `38 passed`; clean worktree PASS.
+
+Breaker identities at this candidate:
+
+- P1.15A: `bc057806d1a31072258caafb26a3e4c6de8d7448`;
+- P1.15B: `b077c7e81e60066aed712f8c9212378e3b08916c`.
+
+Runtime identities at this candidate:
+
+- P1.15A: `a13ec4b3a5ceb44266b214e69c4e596519966050`;
+- P1.15B: `bfab3c421263434d5e3e3066720f95abb521b09c`.
+
+Candidate verdicts:
+
+```text
+P1_15A_EVIDENCE_REQUEST_FULFILLMENT_DECISION_BOUNDARY_V1
+→ PASS CANDIDATE
+
+P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1
+→ PASS CANDIDATE
+```
+
+These are not final until both P1.15 workflows re-break this persisted qualification state itself.
+
+Qualification remains strictly limited:
+
+```text
+EvidenceRequestFulfillmentDecision
+≠ knowledge
+≠ operational authorization
+
+QualifiedExperimentEvaluationAuthority
+≠ experimental finding
+≠ ResearchRunEvidence
+≠ knowledge
+≠ operational authorization
+```
+
+P1.1 positive `AUTHORIZED` remains separately BLOCKED.
