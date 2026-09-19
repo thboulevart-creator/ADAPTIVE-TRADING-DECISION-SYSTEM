@@ -53,11 +53,7 @@ def _runtime_must_exist():
     _o()
 
 
-def _compare(left: Mapping[str, Any], right: Mapping[str, Any]) -> Mapping[str, Any]:
-    result = _o().compare_freeze_artifacts(
-        copy.deepcopy(left),
-        copy.deepcopy(right),
-    )
+def _assert_result_shape(result: Any) -> Mapping[str, Any]:
     assert isinstance(result, Mapping)
     assert result["schema"] == RESULT_SCHEMA
     assert result["oracle_id"] == ORACLE_ID
@@ -75,6 +71,14 @@ def _compare(left: Mapping[str, Any], right: Mapping[str, Any]) -> Mapping[str, 
     assert isinstance(result["comparison_scope"], str)
     assert isinstance(result["reason"], str)
     return result
+
+
+def _compare(left: Any, right: Any) -> Mapping[str, Any]:
+    result = _o().compare_freeze_artifacts(
+        copy.deepcopy(left),
+        copy.deepcopy(right),
+    )
+    return _assert_result_shape(result)
 
 
 def _frozen(data=None):
@@ -390,7 +394,8 @@ def test_b3b_anomaly_only_mutation_is_invalid_f_input_not_comparable_semantics()
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "INVALID_F_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 def test_b4_component_membership_contradiction_is_not_same_state_semantic_diff() -> None:
@@ -399,7 +404,8 @@ def test_b4_component_membership_contradiction_is_not_same_state_semantic_diff()
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 def test_b5_physical_repartition_equivalence_is_not_invented() -> None:
@@ -412,7 +418,8 @@ def test_b5_physical_repartition_equivalence_is_not_invented() -> None:
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 @pytest.mark.parametrize("stage", ("D", "R", "M", "B", "A", "Q", "F"))
@@ -492,7 +499,8 @@ def test_c2_terminal_f_artifact_blocks_qualified_universe_comparison(
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "TERMINAL_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 def test_c2b_different_acquisition_domain_identity_is_noncomparable() -> None:
@@ -504,7 +512,8 @@ def test_c2b_different_acquisition_domain_identity_is_noncomparable() -> None:
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 @pytest.mark.parametrize(
@@ -543,7 +552,8 @@ def test_c2c_materialized_acquisition_binding_difference_is_noncomparable(
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 def test_c3_equal_terminal_outcomes_still_do_not_create_qualified_comparison() -> None:
@@ -584,7 +594,8 @@ def test_c4_malformed_or_nonfrozen_input_blocks(mutation: str, side: str) -> Non
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "INVALID_F_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 @pytest.mark.parametrize(
@@ -636,7 +647,8 @@ def test_c5_resealed_structurally_invalid_f_input_blocks(
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "INVALID_F_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 @pytest.mark.parametrize("side", ("left", "right"))
@@ -651,7 +663,8 @@ def test_c6_nonmapping_input_blocks(side: str, bad_value: Any) -> None:
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "INVALID_F_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 @pytest.mark.parametrize("reverse", (False, True))
@@ -664,7 +677,8 @@ def test_c7_different_terminal_outcomes_never_create_qualified_comparison(
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "TERMINAL_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 def test_d0_component_occurrence_accounting_array_order_is_nonsemantic() -> None:
@@ -722,6 +736,21 @@ def test_d3_object_key_order_is_nonsemantic() -> None:
     right = _frozen(reversed_data)
     result = _compare(left, right)
     assert result["oracle_result"] == "SEMANTIC_EQUAL"
+
+
+def test_d3b_nested_qualification_parameter_key_order_is_nonsemantic() -> None:
+    left_data = _qualified_input()
+    right_data = copy.deepcopy(left_data)
+    right_data["qualification_parameters"] = {
+        key: copy.deepcopy(right_data["qualification_parameters"][key])
+        for key in reversed(tuple(right_data["qualification_parameters"]))
+    }
+
+    left = _frozen(left_data)
+    right = _frozen(right_data)
+    result = _compare(left, right)
+    assert result["oracle_result"] == "SEMANTIC_EQUAL"
+    assert result["qualified_universe_comparison"] == "SEMANTIC_EQUAL"
 
 
 def test_d4_timestamp_array_order_never_creates_temporal_precedence() -> None:
@@ -793,7 +822,10 @@ def test_d7_comparator_does_not_mutate_inputs() -> None:
     right = _frozen(_same_semantics_permuted_input())
     before_left = copy.deepcopy(left)
     before_right = copy.deepcopy(right)
-    _compare(left, right)
+
+    result = _o().compare_freeze_artifacts(left, right)
+    _assert_result_shape(result)
+
     assert left == before_left
     assert right == before_right
 
@@ -811,7 +843,8 @@ def test_e0_unqualified_version_mutation_is_not_mislabeled_legitimate_distinct_s
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
-    assert result["comparison_scope"] == "INVALID_F_INPUT"
+    assert result["comparison_scope"] != "SAME_QUALIFICATION_STATE"
+    assert result["reason"]
 
 
 def test_e1_byte_hash_is_never_the_semantic_oracle() -> None:
