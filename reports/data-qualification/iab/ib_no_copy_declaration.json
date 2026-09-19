@@ -56,15 +56,19 @@
       ],
       "post_code_forbidden_mutation": "all fields inside frozen_semantic_payload",
       "final_binding_requirement": "source_digests must exactly equal the future I_B implementation manifest source_digests",
-      "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
+      "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation",
+      "post_code_bound_state": "BOUND_TO_IMPLEMENTATION_SOURCE",
+      "source_digest_algorithm": "SHA256_RAW_SOURCE_BYTES",
+      "source_digest_path_policy": "EXACT_TARGET_SOURCE_FILES_ONLY",
+      "post_code_mutation_guard": "frozen semantic payload hashes must remain exactly equal to the pre-code breaker constants"
     }
   },
-  "frozen_semantic_payload_sha256": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
+  "frozen_semantic_payload_sha256": "b3b70f3858a46d112cf9cb5e1d9c9ab7940cf963fb6f9d2f459e1cb8f1a585eb",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
   "source_digests": {},
   "frozen_payload_set": {
-    "reports/data-qualification/iab/ib_semantic_source_provenance.json": "a64f22de5508275f1cdad6ee1e2145e66d27f1427a10041b1f5a49cda54c5d3a",
-    "reports/data-qualification/iab/ib_no_copy_declaration.json": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
-    "reports/data-qualification/iab/ib_independent_stage_test_inventory.json": "593f630c04bcb783ca161e3f0aa53e9948dd11b9e84d43019414b6e3488de2d5"
+    "reports/data-qualification/iab/ib_semantic_source_provenance.json": "e7362dfe76e4c722e4d5ec7512907691e486cdba15a4a42999cd9ce0d24fb99a",
+    "reports/data-qualification/iab/ib_no_copy_declaration.json": "b3b70f3858a46d112cf9cb5e1d9c9ab7940cf963fb6f9d2f459e1cb8f1a585eb",
+    "reports/data-qualification/iab/ib_independent_stage_test_inventory.json": "a27dcaa62b6f693c6a545bb22e344707762d5d9ed06e813959efc0b80b95b36d"
   }
 }

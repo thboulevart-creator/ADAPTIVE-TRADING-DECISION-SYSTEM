@@ -72,24 +72,39 @@ def evidence():
     return _load(PROVENANCE), _load(NO_COPY), _load(INVENTORY)
 
 
-def test_e0_exact_three_evidence_artifacts_exist_and_ib_source_is_absent() -> None:
+def test_e0_exact_three_evidence_artifacts_exist() -> None:
     assert PROVENANCE.is_file()
     assert NO_COPY.is_file()
     assert INVENTORY.is_file()
-    assert not IB_SOURCE.exists()
 
 
-def test_e1_identity_and_phase_are_exact(evidence) -> None:
+def test_e1_identity_and_source_binding_phase_are_exact(evidence) -> None:
     for artifact in evidence:
         assert artifact["implementation_id"] == IB_ID
         assert artifact["implementation_version"] == IB_VERSION
         assert artifact["evidence_phase"] == "PRE_IMPLEMENTATION_DERIVATION"
-        assert artifact["source_binding_state"] == "PENDING_IMPLEMENTATION_SOURCE"
-        assert artifact["source_digests"] == {}
+
+    if not IB_SOURCE.exists():
+        for artifact in evidence:
+            assert artifact["source_binding_state"] == "PENDING_IMPLEMENTATION_SOURCE"
+            assert artifact["source_digests"] == {}
+    else:
+        expected = {
+            str(IB_SOURCE): hashlib.sha256(IB_SOURCE.read_bytes()).hexdigest(),
+        }
+        for artifact in evidence:
+            assert artifact["source_binding_state"] == "BOUND_TO_IMPLEMENTATION_SOURCE"
+            assert artifact["source_digests"] == expected
 
 
-def test_e2_frozen_semantic_payload_integrity_is_self_consistent(evidence) -> None:
-    for artifact in evidence:
+def test_e2_frozen_semantic_payload_integrity_is_self_consistent_and_precode_anchored(evidence) -> None:
+    expected = {
+        str(PROVENANCE): "e7362dfe76e4c722e4d5ec7512907691e486cdba15a4a42999cd9ce0d24fb99a",
+        str(NO_COPY): "b3b70f3858a46d112cf9cb5e1d9c9ab7940cf963fb6f9d2f459e1cb8f1a585eb",
+        str(INVENTORY): "a27dcaa62b6f693c6a545bb22e344707762d5d9ed06e813959efc0b80b95b36d",
+    }
+    for path, artifact in zip((PROVENANCE, NO_COPY, INVENTORY), evidence):
+        assert artifact["frozen_semantic_payload_sha256"] == expected[str(path)]
         assert artifact["frozen_semantic_payload_sha256"] == _canonical_sha256(
             artifact["frozen_semantic_payload"]
         )
@@ -167,6 +182,10 @@ def test_e4_source_binding_protocol_is_non_circular_and_freezes_semantics(eviden
     assert protocol["post_code_forbidden_mutation"] == (
         "all fields inside frozen_semantic_payload"
     )
+    assert protocol["post_code_bound_state"] == "BOUND_TO_IMPLEMENTATION_SOURCE"
+    assert protocol["source_digest_algorithm"] == "SHA256_RAW_SOURCE_BYTES"
+    assert protocol["source_digest_path_policy"] == "EXACT_TARGET_SOURCE_FILES_ONLY"
+    assert "pre-code breaker constants" in protocol["post_code_mutation_guard"]
     assert "future I_B implementation manifest source_digests" in protocol[
         "final_binding_requirement"
     ]
