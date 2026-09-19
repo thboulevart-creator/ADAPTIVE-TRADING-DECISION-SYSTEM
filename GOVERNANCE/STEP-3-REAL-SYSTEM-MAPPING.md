@@ -9313,3 +9313,431 @@ QualifiedExperimentEvaluationAuthority
 ```
 
 P1.1 positive `AUTHORIZED` remains separately BLOCKED.
+
+
+---
+
+# P1.15 — FINAL PERSISTED-HEAD QUALIFICATION
+
+**Qualified persisted HEAD:** `e61381813c0539c1339aec6e01310d4046f9dbe3`
+
+Final persisted-head runs:
+
+- P1.15A run `35433285721`, job `105871556471`: protected chain PASS; P1.15A `19 passed`; clean worktree PASS.
+- P1.15B run `35433285730`, job `105871556484`: protected chain PASS; P1.15B `38 passed`; clean worktree PASS.
+
+Final identities:
+
+- P1.15A breaker: `bc057806d1a31072258caafb26a3e4c6de8d7448`;
+- P1.15B breaker: `b077c7e81e60066aed712f8c9212378e3b08916c`;
+- P1.15A runtime: `a13ec4b3a5ceb44266b214e69c4e596519966050`;
+- P1.15B runtime: `bfab3c421263434d5e3e3066720f95abb521b09c`.
+
+Final verdicts:
+
+```text
+P1_15A_EVIDENCE_REQUEST_FULFILLMENT_DECISION_BOUNDARY_V1
+PASS
+
+P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1
+PASS
+```
+
+Qualification remains limited:
+
+```text
+EvidenceRequestFulfillmentDecision
+≠ knowledge
+≠ operational authorization
+
+QualifiedExperimentEvaluationAuthority
+≠ experimental finding
+≠ ResearchRunEvidence
+≠ knowledge
+≠ operational authorization
+```
+
+---
+
+# FORMALISATION GOUVERNÉE — 19 SEPTEMBRE 2026 — P1.16 EXPERIMENTAL FINDING INTERPRETATION POLICY
+
+**Qualified base:** `e61381813c0539c1339aec6e01310d4046f9dbe3`
+
+**Mode:** policy formalisation + conceptual adversarial break only — NO runtime code, NO breaker code.
+
+Selected candidate contract:
+
+`P1_16_QUALIFIED_EXPERIMENTAL_FINDING_INTERPRETATION_BOUNDARY_V1`
+
+## 342. Rupture observée
+
+The naive promotion:
+
+```text
+QualifiedExperimentEvaluationAuthority
+→ ResearchFinding / finding status chosen by producer
+```
+
+is rejected.
+
+**Conceptual verdict: FAIL.**
+
+P1.15B now qualifies:
+
+- measurement provenance;
+- evaluator authority;
+- method/procedure-set authority;
+- exact prediction status;
+- exact falsification status.
+
+But it deliberately leaves:
+
+`finding_status = BLOCKED`.
+
+The missing fact is no longer provenance or authority. It is an explicit governed **interpretation policy**.
+
+## 343. Input status domains
+
+The authoritative P1.13B/P1.15B domains are:
+
+```text
+prediction_status:
+- SUPPORTED
+- NOT_SUPPORTED
+- BLOCKED
+
+falsification_status:
+- FALSIFIED
+- NOT_FALSIFIED
+- BLOCKED
+```
+
+There are exactly 9 possible status pairs.
+
+A finding producer must not contain hidden discretionary logic for these pairs.
+
+## 344. P1.16 — selected finding taxonomy
+
+Reuse the already-existing research finding taxonomy:
+
+```text
+SUPPORTED
+REFUTED
+NOT_INTERPRETABLE
+```
+
+No additional positive finding class is introduced at P1.16.
+
+The existing `src/research_findings.py` taxonomy is reused only as a vocabulary.
+
+P1.16 does NOT construct `ResearchFinding` or `ResearchFindings`, because those objects are tied to a separate `ResearchRunEvidence` chain not yet bridged to P1.15B.
+
+## 345. P1.16 — total deterministic interpretation table
+
+The policy is intentionally conservative.
+
+| prediction_status | falsification_status | qualified finding status | interpretation code |
+|---|---|---|---|
+| SUPPORTED | NOT_FALSIFIED | SUPPORTED | PREDICTION_SUPPORTED_AND_NOT_FALSIFIED |
+| NOT_SUPPORTED | FALSIFIED | REFUTED | PREDICTION_NOT_SUPPORTED_AND_FALSIFIED |
+| SUPPORTED | FALSIFIED | NOT_INTERPRETABLE | CONTRADICTORY_EVALUATION_STATUSES |
+| NOT_SUPPORTED | NOT_FALSIFIED | NOT_INTERPRETABLE | NON_DECISIVE_EVALUATION_STATUSES |
+| SUPPORTED | BLOCKED | NOT_INTERPRETABLE | BLOCKED_EVALUATION_STATUS |
+| NOT_SUPPORTED | BLOCKED | NOT_INTERPRETABLE | BLOCKED_EVALUATION_STATUS |
+| BLOCKED | FALSIFIED | NOT_INTERPRETABLE | BLOCKED_EVALUATION_STATUS |
+| BLOCKED | NOT_FALSIFIED | NOT_INTERPRETABLE | BLOCKED_EVALUATION_STATUS |
+| BLOCKED | BLOCKED | NOT_INTERPRETABLE | BLOCKED_EVALUATION_STATUS |
+
+This table is total: every valid pair has exactly one result.
+
+## 346. Why only two pairs are decisive
+
+### SUPPORTED + NOT_FALSIFIED → SUPPORTED
+
+Both evaluation dimensions are directionally consistent with support:
+
+- the declared prediction was supported;
+- the declared falsification condition was not triggered.
+
+Given already-qualified evaluator/method/procedure authority, P1.16 may promote this exact pair to a qualified `SUPPORTED` finding.
+
+### NOT_SUPPORTED + FALSIFIED → REFUTED
+
+Both evaluation dimensions are directionally consistent with refutation:
+
+- the declared prediction was not supported;
+- the declared falsification condition was triggered.
+
+P1.16 may promote this exact pair to a qualified `REFUTED` finding.
+
+## 347. Why mixed pairs are not silently resolved
+
+### SUPPORTED + FALSIFIED
+
+This pair is contradictory.
+
+A producer must not decide whether prediction support or falsification dominates.
+
+Therefore:
+
+`NOT_INTERPRETABLE / CONTRADICTORY_EVALUATION_STATUSES`.
+
+### NOT_SUPPORTED + NOT_FALSIFIED
+
+This pair is non-decisive.
+
+The prediction lacks support, but the explicit falsification rule was not triggered.
+
+Treating it as REFUTED would overclaim; treating it as SUPPORTED would also overclaim.
+
+Therefore:
+
+`NOT_INTERPRETABLE / NON_DECISIVE_EVALUATION_STATUSES`.
+
+### Any BLOCKED component
+
+A blocked evaluation dimension means the pair is incomplete for decisive promotion.
+
+Therefore:
+
+`NOT_INTERPRETABLE / BLOCKED_EVALUATION_STATUS`.
+
+## 348. P1.16 — smallest sufficient upstreams
+
+The candidate finding boundary must consume:
+
+- exact factory-attested `ExperimentEvaluationSubmission`;
+- exact factory-attested `QualifiedExperimentEvaluationAuthority`.
+
+It does NOT need a third direct input for `WitnessedMeasurementProvenance`.
+
+Reason:
+
+P1.15B already binds and snapshots:
+
+- `provenance_qualification_id`;
+- `measurement_provenance_status = PASS`;
+- exact ordered measurement IDs;
+- exact ordered procedure bindings;
+- exact evaluation submission ID;
+- exact prediction/falsification statuses;
+- exact evaluator/method authority.
+
+The P1.13B evaluation remains necessary because P1.15B intentionally does not snapshot:
+
+- `hypothesis_statement`;
+- `prediction`;
+- `falsification_rule`;
+- full measurement claims.
+
+Those are required to construct a meaningful qualified finding snapshot.
+
+## 349. P1.16 — upstream coherence requirements
+
+The boundary must reject unless:
+
+```text
+authority.evaluation_submission_id
+== evaluation.evaluation_submission_id
+
+authority.experiment_execution_result_id
+== evaluation.experiment_execution_result_id
+
+authority.experiment_spec_id
+== evaluation.experiment_spec_id
+
+authority.request_id
+== evaluation.request_id
+
+authority.revision_id
+== evaluation.revision_id
+
+authority.audit_id
+== evaluation.audit_id
+
+authority.scope_id
+== evaluation.scope_id
+
+authority.evaluator_id
+== evaluation.evaluator_id
+
+authority.method_ref
+== evaluation.method_ref
+
+authority.prediction_status
+== evaluation.prediction_status
+
+authority.falsification_status
+== evaluation.falsification_status
+
+authority.measurement_ids
+== tuple(m.measurement_id for m in evaluation.measurements)
+
+authority.measurement_provenance_status == PASS
+
+authority.evaluation_authority_status == PASS
+
+authority.finding_status == BLOCKED
+```
+
+No cross-evaluation substitution is allowed.
+
+## 350. P1.16 — selected output model
+
+Candidate output:
+
+`QualifiedExperimentalFinding`
+
+Future module candidate:
+
+`src/qualified_experimental_finding.py`
+
+Proposed surface:
+
+```text
+CONTRACT = "P1_16_QUALIFIED_EXPERIMENTAL_FINDING_INTERPRETATION_BOUNDARY_V1"
+POLICY = "P1_16_FINDING_INTERPRETATION_POLICY_V1"
+
+QualifiedExperimentalFinding
+
+interpret_qualified_experimental_finding(
+    evaluation_submission,
+    evaluation_authority,
+)
+
+is_factory_attested_qualified_experimental_finding(value)
+```
+
+No caller-supplied finding status, interpretation code, reason, rule reference, or supporting measurement IDs.
+
+## 351. P1.16 — exact candidate fields
+
+```text
+QualifiedExperimentalFinding
+- finding_id
+- evaluation_submission_id
+- evaluation_authority_qualification_id
+- provenance_qualification_id
+- experiment_execution_result_id
+- experiment_spec_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- hypothesis_statement
+- prediction
+- falsification_rule
+- supporting_measurement_ids
+- prediction_status
+- falsification_status
+- finding_status
+- interpretation_code
+- policy_reference
+- evaluator_id
+- method_ref
+- evaluation_rationale
+- measurement_provenance_status
+- evaluation_authority_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Prefix candidate:
+
+`QXF-`
+
+`policy_reference` must be the fixed `POLICY` constant.
+
+`supporting_measurement_ids` must be the exact ordered measurement IDs from the authoritative evaluation/authority chain.
+
+## 352. P1.16 — semantics of finding status
+
+A P1.16 `SUPPORTED` finding means only:
+
+> under the qualified evaluator/method/procedure authority and P1.16 interpretation policy, the exact evaluation reported prediction SUPPORTED and falsification NOT_FALSIFIED.
+
+A P1.16 `REFUTED` finding means only:
+
+> under the same qualified chain and policy, the exact evaluation reported prediction NOT_SUPPORTED and falsification FALSIFIED.
+
+A P1.16 `NOT_INTERPRETABLE` finding means:
+
+> the exact evaluation status pair does not permit a decisive supported/refuted promotion under P1.16.
+
+None of these statuses means universal scientific truth.
+
+## 353. P1.16 — conceptual adversarial break set
+
+The future executable breaker must attack at least:
+
+A. ID-only / manual / copy / deepcopy / replace P1.13B evaluation;
+B. ID-only / manual / copy / deepcopy / replace P1.15B authority;
+C. cross-evaluation authority substitution;
+D. mutated or sticky-invalidated upstreams;
+E. all 9 status pairs exactly;
+F. any attempt to override finding status;
+G. any attempt to override interpretation code;
+H. any attempt to override policy reference;
+I. any attempt to override supporting measurement IDs;
+J. contradictory pair incorrectly promoted to SUPPORTED/REFUTED;
+K. non-decisive pair incorrectly promoted;
+L. any BLOCKED component incorrectly promoted;
+M. measurement order/membership mismatch;
+N. evaluator/method mismatch;
+O. source provenance mutation;
+P. stable content-bound finding identity;
+Q. manual/copy/replace result not attested;
+R. mutation-then-restore sticky invalidation;
+S. upstream lifetime independence;
+T. no `ResearchFinding`, `ResearchFindings`, or `ResearchRunEvidence` construction;
+U. no knowledge promotion;
+V. no operational authorization.
+
+## 354. Explicit non-goals
+
+P1.16 does NOT:
+
+- decide whether the underlying hypothesis is universally true;
+- execute or recompute measurements;
+- reevaluate the falsification rule;
+- modify the evaluator's claims;
+- create `ResearchRunEvidence`;
+- insert the finding into `ResearchFindings`;
+- promote the finding to durable knowledge;
+- authorize any action.
+
+Therefore:
+
+```text
+QualifiedExperimentalFinding
+≠ ResearchFinding container membership
+≠ ResearchRunEvidence
+≠ durable knowledge
+≠ decision authority
+≠ operational authorization
+```
+
+## 355. Architectural decision
+
+The smallest correct next experimental boundary is:
+
+```text
+ExperimentEvaluationSubmission
++
+QualifiedExperimentEvaluationAuthority
++
+fixed P1.16 interpretation table
+↓
+QualifiedExperimentalFinding
+```
+
+The interpretation policy is explicit, total, immutable at contract version V1, and not hidden in caller input or producer discretion.
+
+**P1.16 FORMALISATION: PASS.**
+
+**P1.16 MINIMAL MODEL: SELECTED.**
+
+**P1.16 RUNTIME: NOT IMPLEMENTED.**
+
+**P1.16 BREAKER: NOT IMPLEMENTED.**
