@@ -433,3 +433,156 @@ DISTINCT_QUALIFICATION_STATE
 All O/F locks, environment checks and clean-worktree checks passed.
 
 Only O-R01 is authorized for correction.
+
+
+---
+
+## 9. Final persisted-head re-break and verdict
+
+Final corrected implementation HEAD:
+
+`a73c4c337a1a592cc4b35782f583cffe189af826`
+
+Final O source:
+
+`src/native_bi5_semantic_universe_comparator.py`
+
+Final source blob:
+
+`219b22bc92855c24eef3a7abb08e177644d05c76`
+
+Frozen O test-first breaker remained unchanged:
+
+`breakers/native_bi5_o_semantic_comparator_breaker.py`
+
+Frozen breaker blob:
+
+`9e1d897329a15f8b26172558b6579d61d9ba3820`
+
+Final supplemental adversarial breaker:
+
+`breakers/native_bi5_o_semantic_comparator_adversarial.py`
+
+Final supplemental breaker blob:
+
+`255ff9f02d206815638b5e63e92546e647e826e4`
+
+Final candidate workflow:
+
+`.github/workflows/native-bi5-o-semantic-comparator-candidate.yml`
+
+Final candidate workflow blob:
+
+`c9e2f3467314c316963d145090aa3ebbdb48350d`
+
+Final adversarial workflow:
+
+`.github/workflows/native-bi5-o-semantic-comparator-adversarial.yml`
+
+Final adversarial workflow blob:
+
+`3f600cbc2a0f3f0bffa95345905563c0b87e7aae`
+
+Candidate qualification:
+
+```text
+run = 35464235136
+job = 105953397756
+frozen O breaker = 77 passed
+```
+
+Combined adversarial qualification:
+
+```text
+run = 35464235250
+job = 105953398221
+frozen O breaker       = 77 passed
+supplemental adversary = 4 passed
+```
+
+For both final runs:
+
+```text
+exact persisted O source / breaker locks = PASS
+F source unchanged                       = PASS
+both qualified F breakers unchanged      = PASS
+F/O contract lock                        = PASS
+qualification environment                = PASS
+clean worktree                           = PASS
+```
+
+### Demonstrated implementation defects
+
+```text
+O-F01 — DISTINCT_VERSION_CAN_MASK_SAME_VERSION_INTEGRITY_CONFLICT
+O-F02 — COMPONENT_DIAGNOSTIC_METADATA_IS_TREATED_AS_MATERIALIZED_IDENTITY
+O-F03 — COMPLETENESS_DIAGNOSTIC_METADATA_IS_TREATED_AS_MATERIALIZED_IDENTITY
+O-R01 — PYTHON_NUMERIC_EQUALITY_COLLAPSES_DISTINCT_JSON_PARAMETER_TYPES
+```
+
+All demonstrated defects were minimally corrected without modifying:
+
+- the frozen O test-first breaker;
+- F source;
+- either qualified F breaker.
+
+No additional internal O implementation defect was demonstrated after O-R01 correction.
+
+### Final qualified O behavior
+
+The candidate now proves on synthetic/in-memory F artifacts:
+
+- independent F validity gate on both inputs;
+- terminal/non-frozen/malformed F inputs block qualified-universe comparison;
+- same-id/same-version determinant content/reference conflict has precedence over unrelated distinct-version state;
+- legitimate version or qualification-parameter difference blocks as `DISTINCT_QUALIFICATION_STATE`;
+- qualification parameters use strict canonical JSON semantics, preserving JSON type distinctions;
+- acquisition-domain/completeness/component materialization mismatch is non-comparable;
+- explicitly non-semantic component/completeness execution metadata is ignored;
+- current B physical repartition equivalence is never invented;
+- logical payload difference is semantic difference;
+- strict duplicate multiplicity is normative;
+- source→logical retained relation is normative;
+- rejected-source A09/A10 semantics are normative;
+- anomaly diagnostic metadata/order is non-semantic;
+- raw source-provenance metadata is non-semantic;
+- component/accounting/occurrence/list/key order is non-semantic where governed as such;
+- pretty/compact serialization and freeze-output byte hash are non-semantic;
+- comparator verdict is symmetric;
+- inputs are not mutated;
+- no canonical occurrence identity or temporal precedence is emitted;
+- no acquisition/backtest/broker/trading surface is exposed.
+
+### Final implementation-layer verdict
+
+```text
+O SEMANTIC-COMPARATOR PRODUCTION IMPLEMENTATION CANDIDATE = PASS
+```
+
+### Global O gate verdict
+
+```text
+O = BLOCKED
+```
+
+The implementation PASS is synthetic/in-memory.
+
+No real materialized acquisition has produced the pair of independently qualified F artifacts required by the final executable data gate.
+
+Therefore:
+
+```text
+O test-first breaker/harness qualification = PASS
+O implementation candidate qualification   = PASS
+O global executable gate                    = BLOCKED
+```
+
+F remains:
+
+```text
+F test-first breaker/harness qualification = PASS
+F implementation candidate qualification   = PASS
+F global executable gate                    = BLOCKED
+```
+
+No native BI5 download, real-data processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is created.
