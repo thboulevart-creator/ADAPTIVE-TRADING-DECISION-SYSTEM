@@ -201,3 +201,122 @@ clean worktrees
 ```
 
 No I_A/I_B production code may be created during this correction.
+
+
+---
+
+## 8. First correction and residual persisted-head re-break
+
+First correction commit:
+
+`f3df1cdaae1ed55e852df37444ba69ed55a7e069`
+
+Corrected breaker blobs:
+
+```text
+I_A
+5509474aed15aad452d38333fa66a3b86224b0f4
+
+I_B
+e8f6d3b41a1ecd8acdfb01090d7499cb24d93dea
+```
+
+The first correction:
+
+- moved I_B manifest expectations from self-authored PASS labels to evidence references;
+- added breaker-owned AST-structure similarity review;
+- added breaker-owned Python audit hooks for runtime import/open/socket/subprocess events;
+- updated workflow hash locks atomically.
+
+Re-run evidence on that exact persisted HEAD:
+
+```text
+I_A run 35441467755
+job 105892871250
+21 errors
+all due only to absent src.native_bi5_reference_qualifier
+
+I_B run 35441467767
+job 105892871359
+21 errors
+all due only to absent src.native_bi5_independent_qualifier
+```
+
+All pre-breaker workflow steps and clean-worktree checks passed.
+
+The RED baseline therefore remained clean.
+
+However, adversarial re-break of the corrected harness still found residual proof gaps.
+
+### IAB-TF-R01 — UNRESOLVED_EVIDENCE_REFERENCE_TRUST
+
+The corrected I_B breaker requires non-empty immutable evidence-reference strings, but does not yet resolve those references or bind them to the actual implementation source digests.
+
+Attack:
+
+I_B returns plausible-looking nonexistent evidence paths.
+
+Current result:
+
+the manifest surface test can still pass.
+
+Verdict:
+
+`FAIL / residual TF-F01`.
+
+Required correction:
+
+hard-bind the expected evidence paths in the breaker, require the files to exist once I_B exists, parse them externally, and require their implementation/source bindings to match the runtime manifest.
+
+### IAB-TF-R02 — ENVIRONMENT_CHANNEL_NOT_OBSERVED
+
+The Python audit hook observes import/open/socket/subprocess events but ordinary environment-variable reads are not reliably represented by those audit events.
+
+Attack:
+
+I_B reads an I_A semantic hint from an environment variable and fabricates clean self-reported isolation evidence.
+
+Current result:
+
+the breaker-owned audit may miss the read.
+
+Verdict:
+
+`FAIL / residual TF-F02`.
+
+Required correction:
+
+add a breaker-owned environment canary/tracker and forbid ambient-environment semantic reads.
+
+### IAB-TF-R03 — IMPORT_TIME_DYNAMIC_DEPENDENCY_GAP
+
+The runtime audit hook is installed when qualification executes, after the candidate module has already been imported by the breaker fixture.
+
+Attack:
+
+I_B dynamically imports I_A at module-import time, stores the module/function under an alias, and never imports it again during qualification.
+
+A literal source scan may miss a dynamically constructed module name, and the runtime hook is installed too late.
+
+Verdict:
+
+`FAIL / residual TF-F03`.
+
+Required correction:
+
+breaker-owned inspection of candidate module globals must reject any object/module/function/class whose origin is the opposite implementation path, independently of the implementation-reported dependency manifest.
+
+---
+
+## 9. Second authorized minimal correction
+
+Correct only these residual proof gaps:
+
+1. hard-bind and externally validate future I_B derivation-evidence files against implementation identity/version and source digests;
+2. add breaker-owned environment canary/tracking for ambient semantic leakage;
+3. inspect imported candidate globals for opposite-path module/function/class origins;
+4. preserve the existing source-similarity and runtime-audit controls;
+5. update breaker hash locks atomically;
+6. re-run both RED workflows.
+
+No production I_A/I_B implementation is authorized during this correction.
