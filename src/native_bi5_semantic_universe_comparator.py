@@ -99,7 +99,10 @@ def _determinant_gate(
                 "DISTINCT_QUALIFICATION_STATE",
             )
 
-    if left_u["qualification_parameters"] != right_u["qualification_parameters"]:
+    if (
+        _canonical(left_u["qualification_parameters"])
+        != _canonical(right_u["qualification_parameters"])
+    ):
         return _blocked(
             "DISTINCT_QUALIFICATION_STATE",
             "DISTINCT_QUALIFICATION_STATE",
