@@ -4297,3 +4297,70 @@ no backtest
 
 Only after that RED baseline is persisted, adversarially diagnosed and itself qualified may any Q-RM-12-compatible production implementation candidate be created.
 
+
+
+---
+
+## 75. END-OF-DAY FREEZE — 2026-09-19
+
+The 2026-09-19 session is deliberately stopped after the qualified Q-RM-12 handoff formalization.
+
+Dedicated end-of-day recovery snapshot:
+
+`99-BACKUP/SESSION-2026-09-19-EOD-QRM12-FORMALIZATION-PASS.md`
+
+Snapshot blob:
+
+`1ea0995796221d818e2801e207b80980a601dc9e`
+
+Snapshot persistence commit:
+
+`11688ef2f7a6f34c26a575dc0e77200b15606563`
+
+The snapshot contains:
+
+- exact qualified/blocked status matrix;
+- exact I_A/I_B/F/O source and breaker blobs;
+- Q-RM-12 formalization candidate/adversarial/re-break blobs;
+- all QRM12-F01..F08 defects demonstrated and closed;
+- the qualified post-seal handoff model;
+- hard safety prohibitions;
+- the exact next governed action;
+- the no-search recovery shortcut.
+
+### Recovery order next session
+
+Do not reconstruct from conversation and do not begin with broad repository search.
+
+Use exactly:
+
+```text
+fresh live integration/system-v1 HEAD verification
+→ 04-REFERENCE/AI-OPERATING-MEMORY.md
+→ 04-REFERENCE/RECOVERY-CHECKPOINT.md
+→ 99-BACKUP/SESSION-2026-09-19-EOD-QRM12-FORMALIZATION-PASS.md
+→ execute section 74 only
+```
+
+If GitHub disagrees with the snapshot, GitHub wins and the discrepancy must be diagnosed before mutation.
+
+### Session stop state
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first executable compatibility breaker/harness = NOT STARTED
+Q-RM-12-compatible V0.2 production implementations = ABSENT
+Q-RM-12 production handoff runtime = ABSENT
+Q-RM-12 executable run = BLOCKED
+```
+
+No production code should be created tonight.
+
+### Exactly one next governed action remains unchanged
+
+```text
+Q-RM-12 — test-first executable compatibility breaker / harness
+```
+
+Section 74 is the authoritative specification of that next action.
+
