@@ -473,3 +473,48 @@ Extend the supplemental adversarial breaker only to encode these newly demonstra
 O remains absent.
 
 No real BI5 data/acquisition/backtest is authorized.
+
+
+---
+
+## 8. Executable residual break
+
+Extended supplemental breaker blob:
+
+`78dd9b8d35214fe5723986b51d44ff574257353b`
+
+Workflow run:
+
+```text
+run = 35455338472
+job = 105929494462
+```
+
+Results:
+
+```text
+frozen F breaker = 36 passed
+extended supplemental breaker = 8 failed / 22 passed
+```
+
+The eight failures map exactly to the previously identified residual defect set:
+
+```text
+F-R01 — extra/duplicate local anomaly relation accepted
+F-R02 — wrong role/source/hour accepted
+F-R03 — qualified zero-slot/no-fragment component accepted
+F-R04 — duplicate JSON object key accepted
+F-R05 — NaN accepted into nominal JSON freeze
+```
+
+All source/breaker hash locks, O-absence checks, qualification-environment checks and clean-worktree checks passed.
+
+The implementation remains:
+
+```text
+F candidate = FAIL
+F global gate = BLOCKED
+O implementation = ABSENT
+```
+
+Only F-R01..F-R05 are authorized for correction.
