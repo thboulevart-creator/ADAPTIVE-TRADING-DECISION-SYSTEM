@@ -320,13 +320,18 @@ Logical price unit:
 
 `USATECHIDXUSD quote-price unit with 1/1000 raw integer scale`.
 
-Required basic validity:
+At B level, every uint32 raw price value has one deterministic decoded numeric value, including zero.
+
+B does not decide market-quality predicates such as:
 
 ```text
-ask_price_raw > 0
-bid_price_raw > 0
-ask_price >= bid_price
+price > 0
+ask >= bid
+plausible price range
+crossed / locked quote admissibility
 ```
+
+Those predicates may later be imposed by Q or another explicitly governed market-quality contract, but they may not be smuggled into the format binding.
 
 A future provider/source evidence review may falsify the candidate scale or field order. If so, B must FAIL and version/change explicitly; an implementation may not silently adapt.
 
@@ -358,15 +363,20 @@ This unit means:
 
 It does not claim lots, contracts, shares, currency or exchange volume.
 
-Validity:
+Interpretation-domain rule:
 
 ```text
-finite
-and
->= 0
+finite binary32
+→ deterministic finite logical source-volume value
+
+NaN or ±Infinity
+→ no ordinary finite real-valued logical volume can be constructed
+→ A anomaly
 ```
 
-NaN, ±Infinity and negative volume are invalid.
+A finite negative source value is still deterministically decodable by B and is preserved exactly.
+
+Whether negative volume is market-valid belongs to Q/quality semantics, not B.
 
 A later unit reinterpretation capable of changing logical payload meaning requires a new B version.
 
@@ -433,39 +443,38 @@ Each component is decompressed/framed independently.
 
 A trailing partial fragment in component A cannot be combined with leading bytes from component B.
 
-D owns which components belong to the acquisition.
+D owns which components belong to the acquisition, including whether more than one declared component may legitimately refer to the same instrument/hour.
 
-B owns how each declared component is physically interpreted.
+B owns how each individually declared component is physically interpreted.
 
-The selected candidate representation does not support multiple normative components for the same instrument/hour unless D later supplies an explicit non-ambiguous role under a compatible representation/binding revision.
+B therefore imposes no one-component-per-hour acquisition-membership rule.
 
-Unexplained same-hour component multiplicity is an A anomaly.
+If D presents multiple components, each is interpreted independently under B so long as its manifest identity and provenance are unambiguous.
+
+If the role/provenance of components is ambiguous or conflicting, A blocks qualification; B does not choose a winner or silently merge them.
 
 ---
 
 # 14. Ordering semantics
 
-B preserves component-local slot index as provenance but does not silently sort records.
+B preserves component-local slot index as physical provenance and decodes every record timestamp independently.
 
-Same timestamp:
+B does not silently sort records.
 
-`allowed`.
+B also does not declare physical slot order to be chronological authority.
 
-Strict timestamp regression inside one declared hourly component:
+Therefore all of the following are physically decodable by B:
 
 ```text
-timestamp[i] < timestamp[i-1]
+same timestamp in adjacent slots
+timestamp increase
+timestamp equality
+timestamp decrease relative to previous physical slot
 ```
 
-is treated as a qualification-relevant anomaly because the current project has no normative permission to repair/reorder the provider-native sequence before qualification.
+A timestamp decrease is not, by itself, a B/A anomaly under this candidate because no upstream contract has established provider-native slot sequence as normative temporal order.
 
-This does not make physical slot order universal temporal authority.
-
-It means only:
-
-> the binding refuses to silently repair a native component whose represented timestamps regress relative to its own source sequence.
-
-The later temporal contract remains the authority for final ordered research structures.
+The later Q/temporal contract may impose chronological/continuity constraints, but it must do so explicitly and without silently mutating B output.
 
 ---
 
@@ -719,36 +728,17 @@ Outcome:
 
 ---
 
-## BI5-A10 — INVALID_PRICE
-
-Trigger on one complete slot:
-
-- `ask_price_raw == 0`;
-- `bid_price_raw == 0`;
-- after exact /1000 mapping, `ask_price < bid_price`.
-
-Localisable:
-
-YES.
-
-Outcome:
-
-`REJECT RECORD`.
-
-No clipping, inversion, carry-forward or repair.
-
----
-
-## BI5-A11 — INVALID_VOLUME
+## BI5-A10 — NON_FINITE_VOLUME_ENCODING
 
 Trigger:
 
-decoded ask/bid source binary32 volume is:
+decoded ask or bid source binary32 volume is:
 
 - NaN;
 - +Infinity;
-- -Infinity;
-- negative.
+- -Infinity.
+
+The 20-byte boundary remains independently known, but B cannot construct the candidate's ordinary finite real-valued source-volume field for that slot.
 
 Localisable:
 
@@ -758,51 +748,25 @@ Outcome:
 
 `REJECT RECORD`.
 
-Zero is permitted.
+Finite negative volume is not included in this anomaly.
 
 ---
 
-## BI5-A12 — NATIVE_COMPONENT_TIMESTAMP_REGRESSION
+## BI5-A11 — AMBIGUOUS_COMPONENT_ROLE_OR_PROVENANCE
 
 Trigger:
 
-for adjacent complete valid slots in source sequence:
+two or more D-declared components have identities/provenance whose roles cannot be uniquely distinguished under the declared acquisition, or authoritative component provenance conflicts.
 
-```text
-timestamp[i] < timestamp[i-1]
-```
-
-Same timestamps are not an anomaly.
+This class does not forbid D from explicitly declaring multiple components for the same instrument/hour.
 
 Scope:
 
-source sequence / temporal interpretation.
+acquisition membership / provenance interpretation.
 
 Localisable:
 
-NO under the current candidate because silent sorting could change within-component sequence semantics and later execution behavior.
-
-Outcome:
-
-`QUALIFICATION BLOCKED`.
-
-No sort/reorder repair.
-
----
-
-## BI5-A13 — UNEXPLAINED_MULTIPLE_COMPONENTS_FOR_SAME_HOUR
-
-Trigger:
-
-D materialization presents more than one normative native-BI5 component for the same acquisition/instrument/UTC hour without an explicit disjoint role defined by the representation/binding contract.
-
-Scope:
-
-acquisition membership and occurrence multiplicity.
-
-Localisable:
-
-NO.
+NO while the role conflict is unresolved.
 
 Outcome:
 
@@ -812,7 +776,7 @@ No merge, concatenate, winner-selection or content deduplication.
 
 ---
 
-## BI5-A14 — REPRESENTATION_OR_BINDING_IDENTITY_MISMATCH
+## BI5-A12 — REPRESENTATION_OR_BINDING_IDENTITY_MISMATCH
 
 Trigger:
 
@@ -834,11 +798,11 @@ No nearest-version fallback.
 
 ---
 
-## BI5-A15 — UNKNOWN_ANOMALY_CLASS
+## BI5-A13 — UNKNOWN_ANOMALY_CLASS
 
 Trigger:
 
-physical or semantic condition affects framing, field interpretation, cardinality, provenance or membership but is not captured by the versioned A matrix.
+physical or semantic condition affects framing, field interpretation, cardinality, provenance or acquisition membership but is not captured by the versioned A matrix.
 
 Scope:
 
@@ -862,8 +826,13 @@ The following are not anomalies under this candidate solely by themselves:
 two distinct slots with byte-identical payload
 two distinct decoded ticks with identical logical payload
 same millisecond timestamp on multiple occurrences
+zero ask price or zero bid price as a decoded B value
+ask price lower than bid price as a decoded B value
 zero ask volume
 zero bid volume
+finite negative ask/bid volume as a decoded B value
+timestamp decrease relative to previous physical slot
+multiple same-hour components when D roles/provenance are explicit and non-ambiguous
 different runtime traversal order across components
 different implementation/library producing semantically identical output
 ```
@@ -884,8 +853,8 @@ The binding/anomaly candidate forbids:
 - field-order guessing;
 - price-scale guessing;
 - NaN/Infinity coercion;
-- negative-volume absolute value;
-- bid/ask swapping;
+- finite-value coercion such as negative-volume absolute value;
+- bid/ask swapping to manufacture market-quality compliance;
 - timestamp clipping;
 - timestamp sorting;
 - duplicate removal;
@@ -908,7 +877,7 @@ A new B version is mandatory if any change can alter:
 - cross-component rules;
 - occurrence provenance/individuation;
 - anomaly localisability or failure scope;
-- qualification-relevant ordering treatment.
+- any newly introduced source-sequence chronology semantics.
 
 A parser/library refactor with proven semantic equivalence need not change B.
 
@@ -983,3 +952,39 @@ Attack at minimum:
 - acquisition/backtest permission leakage.
 
 No data acquisition is permitted during the break.
+
+
+---
+
+# 23. Correction record after first adversarial break
+
+Adversarial artifact:
+
+`reports/data-qualification/ba_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+The first persisted B/A candidate failed on exactly three demonstrated layering defects:
+
+```text
+BA-F01 — MARKET_SEMANTIC_VALIDITY_LEAK_INTO_BINDING
+BA-F02 — PHYSICAL_SLOT_ORDER_USED_AS_TEMPORAL_AUTHORITY
+BA-F03 — SAME_HOUR_COMPONENT_CARDINALITY_LEAKS_D_OWNERSHIP
+```
+
+Corrections applied:
+
+1. B now deterministically decodes raw price values, including zero/crossed values, without making market-quality decisions. Q owns those predicates.
+2. B preserves finite negative volume exactly; only NaN/±Infinity remain a B/A field-interpretation anomaly.
+3. Physical slot order is preserved as provenance but no longer treated as chronological authority; timestamp regression is deferred to Q/temporal semantics.
+4. B no longer limits D to one component per instrument/hour. Multiple D-declared components are accepted when their identities/roles/provenance are explicit and non-ambiguous.
+5. A now blocks only ambiguous/conflicting component role/provenance rather than same-hour multiplicity itself.
+
+No D/R/M semantics were changed.
+
+Official gate verdicts remain:
+
+```text
+B = BLOCKED
+A = BLOCKED
+```
+
+The corrected candidate requires persisted-head adversarial re-break before Q work may begin.
