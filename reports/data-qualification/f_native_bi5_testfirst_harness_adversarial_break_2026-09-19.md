@@ -173,3 +173,97 @@ FTF-F05 — NO_INDEPENDENT_COLLECTION_PROOF
 Exactly authorized next correction: correct FTF-F01..FTF-F05 only, keep F runtime absent, keep O absent, rerun the persisted RED baseline, then adversarially re-break the harness.
 
 No production F/O implementation is authorized.
+
+---
+
+## 9. Residual re-break after first correction
+
+First correction commit:
+
+f57e64e22e353682d97defe76ecc42a771433b25
+
+Corrected breaker blob:
+
+e5898e1358908541d0603413d282b42302a667f7
+
+Corrected workflow blob:
+
+bbc951abc5557d5e64c862ce65e323a3886b47c2
+
+Executable result:
+
+~~~text
+run = 35453243248
+job = 105923939847
+collection = 35 tests collected / PASS
+execution  = RED
+all test setups = expected missing F runtime
+~~~
+
+FTF-F01..FTF-F05 are materially corrected.
+
+Further attack of the harness itself demonstrates the following residuals.
+
+### FTF-R01 — ORDER TESTS MUTATE A POST-CONSTRUCTION ARTIFACT
+
+The current component/anomaly/timestamp-order tests reorder arrays after build and then call validate_freeze_artifact.
+
+If the future F artifact carries legitimate physical immutability/integrity evidence, any post-construction mutation may be rejected even when the changed array order is semantically irrelevant.
+
+This conflates:
+
+~~~text
+semantic order non-authority
+with
+physical persisted-artifact mutation
+~~~
+
+Verdict: FTF-R01 = FAIL.
+
+Correction: create independently built artifacts from permuted but semantically equivalent input packages, then compare breaker-owned semantic projections. Do not require an already-built artifact to remain integrity-valid after mutation.
+
+### FTF-R02 — POSITIVE RECONSTRUCTIBILITY IS NOT EXPLICITLY ASSERTED
+
+The harness attacks missing completeness evidence and missing Q parameters, but a runtime could validate those inputs and then omit them from the frozen qualified universe.
+
+F requires the persisted state to bind enough information to reconstruct the exact qualification state.
+
+Verdict: FTF-R02 = FAIL.
+
+Correction: the positive qualified test must assert persistence of the complete D/R/M/B/A/Q/F reconstruction tuple, acquisition-domain identity, D completeness evidence, component snapshot, qualification parameters, source accounting, anomaly relation and retained occurrence relation.
+
+### FTF-R03 — OBJECT-KEY ORDER IS NOT ACTUALLY VARIED
+
+Compact versus pretty JSON changes whitespace but does not necessarily change object-key insertion order.
+
+Verdict: FTF-R03 = FAIL.
+
+Correction: independently reserialize an equivalent artifact with recursively reversed object-key insertion order and require deserialize/validation to preserve the same breaker-owned semantic projection.
+
+### FTF-R04 — B-CANDIDATE RELATION MAY STILL BE DEFAULTED FROM Q RETAINED OUTPUT
+
+The corrected fixture now provides b_candidate_occurrences, but there is no attack removing that input entirely.
+
+A future runtime could silently substitute retained_occurrences when the B candidate relation is missing, defeating the purpose of FTF-F01.
+
+Verdict: FTF-R04 = FAIL.
+
+Correction: missing b_candidate_occurrences on QUALIFIED input must produce NOT_CREATED.
+
+### FTF-R05 — TERMINAL NON-FREEZE EVIDENCE IS NOT REQUIRED POSITIVELY
+
+The terminal tests assert class/state/null-universe, but do not require a non-null terminal evidence payload binding the reason/outcome.
+
+Verdict: FTF-R05 = FAIL.
+
+Correction: require terminal_evidence to exist for QUALIFICATION_BLOCKED and ACQUISITION_REJECTED while remaining clearly non-freeze.
+
+---
+
+## 10. Second authorized correction
+
+Correct only FTF-R01..FTF-R05.
+
+Keep F runtime absent and O absent.
+
+Then perform a fresh persisted-head collection + RED execution and a final adversarial re-break before any harness PASS.
