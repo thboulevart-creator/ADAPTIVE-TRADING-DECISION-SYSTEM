@@ -387,3 +387,49 @@ encode O-R01 in supplemental breaker
 ```
 
 F and the frozen O breaker remain unchanged.
+
+
+---
+
+## 8. Executable O-R01 break
+
+Extended supplemental breaker blob:
+
+`255ff9f02d206815638b5e63e92546e647e826e4`
+
+Workflow run:
+
+```text
+run = 35464180340
+job = 105953244422
+```
+
+Results:
+
+```text
+frozen O breaker       = 77 passed
+supplemental adversary = 3 passed / 1 failed
+```
+
+The sole failure is:
+
+`test_adv_json_parameter_type_distinction_is_qualification_state`
+
+Observed:
+
+```text
+left typed_parameter  = true
+right typed_parameter = 1
+→ SEMANTIC_EQUAL
+```
+
+Required:
+
+```text
+DISTINCT_QUALIFICATION_STATE
+→ BLOCKED
+```
+
+All O/F locks, environment checks and clean-worktree checks passed.
+
+Only O-R01 is authorized for correction.
