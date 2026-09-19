@@ -2571,3 +2571,193 @@ I_B BLOCKED
 ```
 
 No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+
+---
+
+# O semantic-comparator production implementation candidate — 2026-09-19
+
+A concrete pure O semantic-comparator implementation candidate now exists:
+
+`src/native_bi5_semantic_universe_comparator.py`
+
+Final qualified source blob:
+
+`219b22bc92855c24eef3a7abb08e177644d05c76`
+
+Frozen O test-first breaker remained unchanged:
+
+`breakers/native_bi5_o_semantic_comparator_breaker.py`
+
+Frozen breaker blob:
+
+`9e1d897329a15f8b26172558b6579d61d9ba3820`
+
+Final supplemental adversarial breaker:
+
+`breakers/native_bi5_o_semantic_comparator_adversarial.py`
+
+Final supplemental breaker blob:
+
+`255ff9f02d206815638b5e63e92546e647e826e4`
+
+Adversarial record:
+
+`reports/data-qualification/o_native_bi5_semantic_comparator_candidate_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`b6b7006ca2a8652a7cea90bf0ce6d95348abb85a`
+
+## Executable qualification history
+
+Initial frozen-breaker qualification:
+
+```text
+run = 35463859646
+job = 105952401656
+frozen O breaker = 77 passed
+```
+
+Initial supplemental break:
+
+```text
+run = 35463977481
+job = 105952715015
+frozen O breaker       = 77 passed
+supplemental adversary = 3 failed
+```
+
+After O-F01..O-F03:
+
+```text
+candidate run 35464054174
+job = 105952914637
+frozen O breaker = 77 passed
+
+adversarial run 35464054185
+job = 105952914640
+frozen O breaker       = 77 passed
+supplemental adversary = 3 passed
+```
+
+Residual JSON-type attack:
+
+```text
+run = 35464180340
+job = 105953244422
+frozen O breaker       = 77 passed
+supplemental adversary = 3 passed / 1 failed
+```
+
+Final persisted-head re-break on:
+
+`a73c4c337a1a592cc4b35782f583cffe189af826`
+
+```text
+candidate run = 35464235136
+job = 105953397756
+frozen O breaker = 77 passed
+
+adversarial run = 35464235250
+job = 105953398221
+frozen O breaker       = 77 passed
+supplemental adversary = 4 passed
+```
+
+All exact O/F source and breaker locks, contract locks, qualification-environment checks and clean-worktree checks passed.
+
+## Demonstrated O implementation defects
+
+```text
+O-F01 — DISTINCT_VERSION_CAN_MASK_SAME_VERSION_INTEGRITY_CONFLICT
+O-F02 — COMPONENT_DIAGNOSTIC_METADATA_IS_TREATED_AS_MATERIALIZED_IDENTITY
+O-F03 — COMPLETENESS_DIAGNOSTIC_METADATA_IS_TREATED_AS_MATERIALIZED_IDENTITY
+O-R01 — PYTHON_NUMERIC_EQUALITY_COLLAPSES_DISTINCT_JSON_PARAMETER_TYPES
+```
+
+All demonstrated defects were minimally corrected without changing F or the frozen O breaker.
+
+## Implementation-layer verdict
+
+```text
+O SEMANTIC-COMPARATOR PRODUCTION IMPLEMENTATION CANDIDATE = PASS
+```
+
+This is not a global O-gate PASS.
+
+The global O gate remains:
+
+```text
+O = BLOCKED
+```
+
+because no real materialized acquisition has produced two independently qualified F artifacts for a real Q-RM-12 determinism execution.
+
+## Newly exposed integration boundary
+
+The current qualified O production surface is:
+
+```text
+compare_freeze_artifacts(left_artifact, right_artifact)
+```
+
+It consumes validated F artifacts.
+
+However both current I_A and I_B implementations produce sealed:
+
+`ImplementationQualificationResult`
+
+objects containing:
+
+```text
+implementation identity/version
+input determinant digests
+materialized acquisition id
+execution_status
+semantic_status
+freeze_status
+qualified_occurrences
+source_accounting
+anomaly_outcomes
+terminal_evidence
+isolation evidence
+result seal
+```
+
+The existing I_A/I_B boundary says:
+
+```text
+I_A result + I_B result
+→ O semantic comparison
+```
+
+but no qualified executable handoff currently proves how each sealed implementation result yields the exact validated F artifact/input required by O without:
+
+- introducing a shared semantic adapter;
+- reconstructing missing F semantics after sealing;
+- using one path's output as authority for the other;
+- bypassing result seals;
+- weakening determinant or materialized-acquisition binding.
+
+This is a distinct Q-RM-12 integration-boundary gap, not an O implementation defect.
+
+Therefore the next safe work must formalize this post-seal handoff before any Q-RM-12 runtime or real acquisition execution is created.
+
+## Current global state
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED   # test-first + implementation candidate PASS
+O   BLOCKED   # test-first + implementation candidate PASS
+I_A BLOCKED   # implementation candidate PASS
+I_B BLOCKED   # implementation candidate PASS
+Q-RM-12 executable run = BLOCKED
+```
+
+No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is created.
