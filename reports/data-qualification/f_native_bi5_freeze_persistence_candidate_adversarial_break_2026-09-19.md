@@ -622,3 +622,52 @@ encode F-R06 in supplemental breaker
 ```
 
 O remains absent and no real data is authorized.
+
+
+---
+
+## 10. Executable F-R06 break
+
+Supplemental breaker blob:
+
+`c4c499d5e76e15a8fdcaeb91dde80beadad6487a`
+
+Workflow run:
+
+```text
+run = 35455558390
+job = 105930081594
+```
+
+Results:
+
+```text
+frozen F breaker = 36 passed
+supplemental breaker = 1 failed / 30 passed
+```
+
+The sole failure is:
+
+`test_adv_retained_timestamp_must_stay_inside_declared_component_hour`
+
+Observed current behavior:
+
+```text
+source component hour = 2026-01-02T10:00:00Z
+retained logical timestamp = 2026-01-02T11:00:02.000Z
+same corrupted value supplied in B-candidate + Q-retained relations
+→ QUALIFIED_UNIVERSE_FREEZE
+```
+
+Required behavior:
+
+```text
+source/logical hour mismatch
+→ F construction incomplete
+→ QUALIFICATION_TERMINAL_EVIDENCE
+→ NOT_CREATED
+```
+
+All source/breaker hash locks, O-absence checks, qualification-environment checks and clean-worktree checks passed.
+
+Only F-R06 is authorized for correction.
