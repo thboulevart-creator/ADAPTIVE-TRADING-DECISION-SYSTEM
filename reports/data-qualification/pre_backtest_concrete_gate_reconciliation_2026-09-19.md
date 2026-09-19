@@ -229,4 +229,72 @@ No record-model freeze is performed by this audit.
 
 ---
 
-**Next governed action:** reconcile `B — concrete format binding(s)` against the current repository.
+# B — Concrete format binding(s)
+
+## Requirement
+
+For each admitted representation/version, the binding must explicitly and versionedly determine:
+
+- record framing / boundaries;
+- logical segmentation;
+- physical→logical cardinality;
+- non-observation classification;
+- logical field mapping / units;
+- occurrence individuation;
+- malformed / ambiguous classes;
+- failure scope and acquisition interaction;
+- cross-component framing;
+- all qualification-relevant semantic dependencies.
+
+## Current repository evidence inspected
+
+The repository has executable parsing behavior for:
+
+- CSV ticks;
+- Dukascopy BI5 (including 20-byte records, `>IIIff`, UTC hour reconstruction, price scaling);
+- Parquet in the V4.3 compatibility probe.
+
+It also has data-admissibility checks for CSV.
+
+However, Q-RM-09 explicitly states:
+
+```text
+CONTRACT SCHEMA = PASS
+CONCRETE FORMAT BINDINGS = BLOCKED
+```
+
+The parser/probe code does not by itself constitute the versioned normative binding required by B. In particular, implementation behavior cannot silently become authority for framing, anomaly scope, individuation or acquisition interaction.
+
+## Adjudication
+
+```text
+parser implementation
+≠ normative format binding
+
+BI5 struct knowledge
+≠ complete Q-RM-09 binding
+
+compatibility probe
+≠ binding authority
+```
+
+## Verdict
+
+```text
+B — Concrete format binding(s)
+BLOCKED
+```
+
+Classification:
+
+`EXECUTABLE PARSERS EXIST; NORMATIVE CONCRETE BINDING ARTIFACT ABSENT`
+
+## Closure evidence required
+
+At least the representation selected by R for the first real acquisition must receive one concrete versioned binding satisfying every Q-RM-09 field and adversarial property. If raw Dukascopy BI5 is selected, its binding must explicitly freeze all BI5 semantics used for qualification rather than inherit them from probe code.
+
+No parser is promoted to normative authority by this audit.
+
+---
+
+**Next governed action:** reconcile `A — concrete anomaly matrix` against the current repository.
