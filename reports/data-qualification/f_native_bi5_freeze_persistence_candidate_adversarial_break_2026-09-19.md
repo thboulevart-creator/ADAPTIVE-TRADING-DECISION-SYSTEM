@@ -321,3 +321,155 @@ correct F-F02..F-F08 only
 ```
 
 No production O implementation, real BI5 input, acquisition or backtest is authorized.
+
+
+---
+
+## 6. Residual adversarial re-break after F-F02..F-F08
+
+Correction commit:
+
+`a2a1c57a5a3d412a49bc9d2e43cb9e74b7f1c672`
+
+Corrected source blob:
+
+`631a17f60a58112819529294db2c35546a2edfd7`
+
+Executable results:
+
+```text
+candidate run = 35455182386
+frozen F breaker = 36 passed
+
+adversarial run = 35455182381
+frozen F breaker       = 36 passed
+supplemental adversary = 22 passed
+```
+
+All exact source/breaker locks, O-absence checks, qualification-environment checks and clean-worktree checks passed.
+
+F-F02..F-F08 are materially corrected.
+
+A fresh adversarial review nevertheless demonstrates additional residual defects.
+
+### F-R01 — ANOMALY_RELATION_IS_NOT_EXACTLY_EQUAL_TO_REJECT_ACCOUNTING
+
+The implementation proves:
+
+```text
+every rejected accounting slot
+has a matching anomaly relation
+```
+
+but it does not prove the converse.
+
+Therefore a `QUALIFIED` state may include an extra BI5-A09/A10 anomaly targeting a source slot that accounting still marks `CANDIDATE_RETAINED`.
+
+It may also preserve duplicate local anomaly entries for one rejected source.
+
+F requires the exact physical→logical accounting/anomaly relation, not a superset.
+
+Verdict:
+
+```text
+F-R01 = FAIL
+```
+
+Required correction:
+
+the normalized local anomaly relation must be duplicate-free and exactly equal to the rejected-slot accounting relation.
+
+### F-R02 — COMPONENT_SNAPSHOT_CONCRETE_DOMAIN_NOT_ENFORCED
+
+Component reconstruction currently requires non-empty:
+
+- `declared_role`;
+- `instrument_source_identity`;
+- `declared_hour_bucket_utc`.
+
+It does not enforce the concrete F candidate domain:
+
+```text
+declared_role = HOURLY_NATIVE_BI5_TICKS
+instrument/source = DUKASCOPY/USATECHIDXUSD
+declared hour = valid exact UTC hour bucket
+```
+
+Arbitrary non-empty replacements can therefore be frozen.
+
+Verdict:
+
+```text
+F-R02 = FAIL
+```
+
+### F-R03 — ZERO_SLOT_NO_FRAGMENT_QUALIFIED_COMPONENT_BYPASSES_A06
+
+For this fixed 20-byte framing:
+
+```text
+complete_slot_count = 0
+terminal_fragment = null
+```
+
+represents no decompressed framed bytes.
+
+Under the frozen A matrix that is the A06 zero-decompressed-bytes blocking condition, not a valid qualified zero-cardinality component.
+
+The current F validator accepts it in a `QUALIFIED` construction.
+
+Verdict:
+
+```text
+F-R03 = FAIL
+```
+
+### F-R04 — JSON_DUPLICATE_KEY_AMBIGUITY_ACCEPTED
+
+`deserialize_freeze_artifact` currently delegates to the default JSON object parser.
+
+Duplicate object keys are therefore resolved by parser behavior rather than rejected as ambiguous persistence input.
+
+That violates the no-parser-default authority boundary.
+
+Verdict:
+
+```text
+F-R04 = FAIL
+```
+
+Required correction:
+
+reject duplicate JSON object keys during deserialization.
+
+### F-R05 — NONFINITE_OR_NONSTRICT_JSON_VALUE_CAN_ESCAPE_PERSISTENCE_BOUNDARY
+
+Python JSON defaults permit non-standard `NaN` serialization/parsing.
+
+A non-finite value placed in a persisted non-semantic field such as qualification parameters can therefore produce a nominal F artifact that is not strict interoperable JSON.
+
+The selected persistence envelope is UTF-8 JSON; F must fail closed on non-strict JSON values.
+
+Verdict:
+
+```text
+F-R05 = FAIL
+```
+
+Required correction:
+
+- use strict JSON encoding with `allow_nan=False`;
+- reject `NaN`, `Infinity`, and `-Infinity` on deserialize;
+- if a qualified construction cannot be represented as strict JSON, emit terminal `NOT_CREATED` rather than escape with an exception or non-standard artifact.
+
+## 7. Second authorized implementation correction
+
+Correct only F-R01..F-R05.
+
+The frozen F breaker remains unchanged.
+
+Extend the supplemental adversarial breaker only to encode these newly demonstrated residual attacks.
+
+O remains absent.
+
+No real BI5 data/acquisition/backtest is authorized.
