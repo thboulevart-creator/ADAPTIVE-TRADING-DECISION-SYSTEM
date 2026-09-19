@@ -760,3 +760,119 @@ Keep:
 - no real BI5 input/acquisition/backtest.
 
 Then perform a fresh persisted-head collection + RED execution and final harness re-break.
+
+
+---
+
+## 15. Last harness residuals
+
+Final-correction candidate HEAD:
+
+`5b7122c3824efa7dd1256e2bc779c86bcd27f28a`
+
+Breaker blob:
+
+`064895008551bd410dd649faf7fa8e65fbaa5afe`
+
+Workflow blob:
+
+`4070fb1f79c12df660bc5e8599c8dbb223015d1c`
+
+Executable RED:
+
+```text
+run = 35457345274
+job = 105934869578
+collection = 76 tests / PASS
+execution = RED only because O runtime is absent
+```
+
+No unexpected syntax/import/collection failure was observed.
+
+### OTF-R12 — INPUT_IMMUTABILITY_TEST_IS_FALSE_PROOF
+
+The helper `_compare()` deep-copies both artifacts before invoking the future comparator.
+
+The current immutability test calls that helper and then asserts the original artifacts are unchanged.
+
+Therefore the test would pass even if O mutates the actual objects it receives.
+
+Verdict:
+
+```text
+OTF-R12 = FAIL
+```
+
+Correction:
+
+invoke `compare_freeze_artifacts(left, right)` directly on the original test objects, validate the result shape separately, then assert both objects remain byte-for-byte/object-equal to their pre-call copies.
+
+### OTF-R13 — UNSPECIFIED_ERROR_SCOPE_IS_OVERCONSTRAINED
+
+The normative O contract explicitly names:
+
+- `DISTINCT_QUALIFICATION_STATE`;
+- `NORMATIVE_VERSION_INTEGRITY_CONFLICT`.
+
+It does **not** prescribe exact `comparison_scope` vocabulary for:
+
+- malformed F input;
+- terminal input;
+- contradictory acquisition snapshots;
+- unsupported physical repartition.
+
+The breaker currently invents exact labels such as:
+
+```text
+INVALID_F_INPUT
+TERMINAL_INPUT
+NONCOMPARABLE_ACQUISITION_STATE
+```
+
+and would reject a semantically conforming O implementation using another clear BLOCKED scope.
+
+Verdict:
+
+```text
+OTF-R13 = FAIL
+```
+
+Correction:
+
+for these unspecified blocked classes require only:
+
+```text
+oracle_result = BLOCKED
+qualified_universe_comparison = BLOCKED
+comparison_scope != SAME_QUALIFICATION_STATE
+reason is non-empty
+```
+
+Keep exact scope/reason assertions only where the normative contract explicitly names them.
+
+### OTF-R14 — NESTED_QUALIFICATION_PARAMETER_KEY_ORDER_UNTESTED
+
+The harness changes top-level input object order, but not key insertion order inside the qualification-parameter object itself.
+
+A defective O implementation comparing serialized parameter objects instead of their semantic mapping could therefore pass.
+
+Verdict:
+
+```text
+OTF-R14 = FAIL
+```
+
+Correction:
+
+build two F-valid same-state artifacts whose qualification-parameter mappings contain the exact same pairs in opposite insertion order and require `SEMANTIC_EQUAL`.
+
+---
+
+## 16. Final correction authorized
+
+Correct only OTF-R12..OTF-R14.
+
+Then execute one fresh persisted-head collection + intentional RED and perform the final adversarial harness verdict.
+
+O production runtime must remain absent.
+F and both F breakers must remain byte-identical.
