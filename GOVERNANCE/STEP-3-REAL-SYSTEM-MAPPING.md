@@ -8678,3 +8678,47 @@ Immutable breaker identities remain:
 Qualification remains **PENDING common-HEAD re-break**.
 
 No request fulfillment, experimental finding, ResearchRunEvidence, knowledge promotion, or operational authorization is granted by this checkpoint.
+
+
+---
+
+# P1.14A — BREAKER HELPER CORRECTION AND COMMON-HEAD RE-BREAK GATE
+
+The first post-implementation P1.14A re-break on `3046293373c41de101008bea8f1f861b1db9081d` produced:
+
+- protected chain through P1.13A+B: PASS;
+- P1.14A: `33 passed, 1 failed`;
+- sole failure: `test_c1_external_pin_exact_sha256[None]`.
+
+The failure was demonstrated to originate in the breaker helper, not in the runtime:
+
+```text
+_reattest(..., pin=None)
+→ helper treated explicit None as omitted argument
+→ helper replaced None with valid receipt_sha256
+→ reattest_reviewer_method_authority(...) never received None
+```
+
+The correction distinguishes omitted `pin` from explicit `None` with a private sentinel.
+
+No assertion was removed or weakened. `None` remains in the adversarial input set. The other 33 attacks are unchanged. Neither P1.14 runtime was modified.
+
+Corrected P1.14A breaker blob:
+
+`ff8de568b3ed8b1e887b604a8db9d173bdbbd66b`
+
+The P1.14A workflow breaker hash lock was updated to this exact blob.
+
+Targeted re-break of the unchanged P1.14A runtime on `24c936bc42152d30b9c4e54d5434f44937cae5e4`:
+
+- protected chain through P1.13A+B: PASS;
+- P1.14A: `34 passed`;
+- clean worktree: PASS;
+- workflow run: `35429811900`;
+- job: `105862255603`.
+
+P1.14B breaker remains unchanged at:
+
+`24d8dcd980ec421c75207930174a42cbd62a3b46`
+
+P1.14A and P1.14B qualification remain pending a common-HEAD re-break and then a persisted qualification-HEAD final re-break.
