@@ -454,3 +454,184 @@ Correct only the B/A candidate:
 5. replace A13 with ambiguity/conflicting-role blocking that respects explicit D membership.
 
 Then persist and re-break the corrected candidate before opening Q.
+
+
+---
+
+# 9. Persisted-head re-break after minimal correction
+
+**Corrected candidate HEAD:** `678a8052c5b73fad8247d6a3f92173171c09111e`  
+**Corrected candidate blob:** `25400abcc3a2a24438954ff27b970bd934313ae3`
+
+The branch was verified identical to that HEAD before re-break.
+
+The same attack set was re-applied without changing the candidate during the attack.
+
+## 9.1 Re-break BA-F01
+
+Original defect:
+
+`MARKET_SEMANTIC_VALIDITY_LEAK_INTO_BINDING`
+
+Corrected candidate now separates deterministic decoding from later market-quality policy.
+
+At B level:
+
+```text
+raw uint32 zero price
+→ deterministic decoded price value
+
+ask < bid
+→ deterministic decoded pair
+
+finite negative binary32 volume
+→ deterministic decoded source-volume value
+```
+
+No record is rejected merely because of those market-quality properties.
+
+Q or another later explicit market-quality contract may classify them.
+
+NaN/±Infinity remain a B/A field-interpretation anomaly only because the current candidate logical volume is an ordinary finite real-valued quantity; no finite market-quality predicate is imported.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 9.2 Re-break BA-F02
+
+Original defect:
+
+`PHYSICAL_SLOT_ORDER_USED_AS_TEMPORAL_AUTHORITY`
+
+Corrected B preserves:
+
+```text
+component_local_slot_index
+decoded market timestamp
+```
+
+without sorting and without declaring source slot order chronological.
+
+Therefore:
+
+```text
+timestamp[i] < timestamp[i-1]
+```
+
+is physically decodable and no longer an A anomaly by itself.
+
+Any chronological/continuity rule must be introduced later by Q/temporal authority.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 9.3 Re-break BA-F03
+
+Original defect:
+
+`SAME_HOUR_COMPONENT_CARDINALITY_LEAKS_D_OWNERSHIP`
+
+Corrected B now states:
+
+```text
+D owns component membership and multiplicity
+B interprets each D-declared component independently
+```
+
+Multiple same-hour components are not rejected merely for multiplicity.
+
+A now blocks only:
+
+`AMBIGUOUS_COMPONENT_ROLE_OR_PROVENANCE`
+
+where D/provenance cannot uniquely distinguish the declared roles.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 9.4 Full adversarial re-break
+
+```text
+filename/path as hour authority                         REJECTED / SURVIVES
+missing/conflicting declared hour provenance            BLOCKED / SURVIVES
+alternate codec fallback                                REJECTED / SURVIVES
+concatenated/trailing undeclared compression            BLOCKED / SURVIVES
+zero decompressed bytes                                 BLOCKED / SURVIVES
+shifted framing origin                                  REJECTED / SURVIVES
+terminal partial without completeness proof             BLOCKED / SURVIVES
+terminal partial with constructive completeness proof   REJECT RECORD / SURVIVES
+little-endian/signed/reordered fields                    NON-CONFORMING / SURVIVES
+price scale substitution                                NON-CONFORMING / SURVIVES
+ms = 3_599_999                                          VALID B OFFSET / SURVIVES
+ms = 3_600_000                                          LOCAL REJECT RECORD / SURVIVES
+NaN / ±Infinity volume                                  LOCAL REJECT RECORD / SURVIVES
+finite negative volume                                  DECODED; Q DEFERRED / SURVIVES
+zero price                                              DECODED; Q DEFERRED / SURVIVES
+ask < bid                                               DECODED; Q DEFERRED / SURVIVES
+strict duplicate slots                                  DISTINCT OCCURRENCES / SURVIVES
+same-ms distinct slots                                  DISTINCT OCCURRENCES / SURVIVES
+timestamp regression in physical slot sequence          DECODED; TEMPORAL Q DEFERRED / SURVIVES
+missing declared component                              BLOCKED / SURVIVES
+undeclared offered component                            BLOCKED / SURVIVES
+repeated/conflicting manifest entry                     BLOCKED / SURVIVES
+multiple same-hour components with clear D roles        ALLOWED BY B / SURVIVES
+ambiguous component roles/provenance                    BLOCKED / SURVIVES
+cross-component fragment joining                        FORBIDDEN / SURVIVES
+unknown anomaly                                         BLOCKED / SURVIVES
+physical slot index promoted to canonical identity      FORBIDDEN / SURVIVES
+physical slot index promoted to temporal authority      FORBIDDEN / SURVIVES
+parser/library disagreement                             CONFORMANCE FAILURE / SURVIVES
+acquisition/backtest permission inference               FORBIDDEN / SURVIVES
+```
+
+No additional internal candidate defect was demonstrated.
+
+## 9.5 Remaining evidence blocker
+
+The candidate is now structurally precise enough to serve as the governed B/A candidate input to the next block.
+
+However, the repository currently has only implementation-derived evidence for these provider-sensitive facts:
+
+```text
+LZMA-Alone envelope
+20-byte decompressed slot width
+>IIIff big-endian layout
+field order
+price raw / 1000
+source binary32 volume fields
+```
+
+Therefore the result is deliberately:
+
+```text
+B/A candidate formalization
+= PERSISTED + CORRECTED + RE-BROKEN
+= NO NEW INTERNAL DEFECT DEMONSTRATED
+
+B official gate
+= BLOCKED
+
+A official gate
+= BLOCKED
+```
+
+The remaining B/A BLOCKED state is not caused by an unresolved internal contradiction in the current candidate.
+
+It is caused by insufficient independent/provider-sensitive qualification evidence plus the still-unmaterialized D acquisition.
+
+No factual BI5 claim is upgraded to PASS by repetition of the V4.3 implementation.
+
+## 9.6 Boundary for next work
+
+The corrected B/A candidate may be consumed as candidate input for:
+
+```text
+Q — concrete qualification contract + parameters
+```
+
+but Q must not:
+
+- silently validate provider-sensitive B facts;
+- redefine B decoding semantics;
+- make physical slot order temporal authority;
+- introduce D membership rules;
+- authorize acquisition or backtesting.
+
+If Q requires a semantic change to D/R/M/B/A, Q must FAIL/BLOCK rather than mutate upstream contracts silently.
