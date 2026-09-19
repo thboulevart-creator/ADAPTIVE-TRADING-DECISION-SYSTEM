@@ -217,6 +217,24 @@ def _repartitioned_same_payload_bag():
     return data
 
 
+def _reseal_for_breaker(artifact: Mapping[str, Any]) -> dict[str, Any]:
+    value = copy.deepcopy(dict(artifact))
+    unsigned = {
+        key: child
+        for key, child in value.items()
+        if key != "artifact_integrity_digest"
+    }
+    payload = json.dumps(
+        unsigned,
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+        allow_nan=False,
+    ).encode("utf-8")
+    value["artifact_integrity_digest"] = hashlib.sha256(payload).hexdigest()
+    return value
+
+
 def _recursive_keys(value: Any) -> set[str]:
     keys: set[str] = set()
     if isinstance(value, Mapping):
@@ -489,6 +507,45 @@ def test_c2b_different_acquisition_domain_identity_is_noncomparable() -> None:
     assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
 
 
+@pytest.mark.parametrize(
+    "field",
+    (
+        "completeness_reference",
+        "completeness_digest",
+        "component_payload_reference",
+        "component_payload_digest",
+    ),
+)
+def test_c2c_materialized_acquisition_binding_difference_is_noncomparable(
+    field: str,
+) -> None:
+    left = _frozen()
+    data = _qualified_input()
+
+    if field == "completeness_reference":
+        data["acquisition_snapshot"]["completeness_evidence"][
+            "immutable_reference"
+        ] = "synthetic://d/completeness-other"
+    elif field == "completeness_digest":
+        data["acquisition_snapshot"]["completeness_evidence"][
+            "integrity_digest"
+        ] = "9" * 64
+    elif field == "component_payload_reference":
+        data["acquisition_snapshot"]["components"][0][
+            "immutable_payload_reference"
+        ] = "synthetic://payload/component-001-other"
+    else:
+        data["acquisition_snapshot"]["components"][0][
+            "payload_integrity_reference"
+        ] = "8" * 64
+
+    right = _frozen(data)
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
+
+
 def test_c3_equal_terminal_outcomes_still_do_not_create_qualified_comparison() -> None:
     left = _terminal("QUALIFICATION_BLOCKED")
     right = _terminal("QUALIFICATION_BLOCKED")
@@ -530,6 +587,86 @@ def test_c4_malformed_or_nonfrozen_input_blocks(mutation: str, side: str) -> Non
     assert result["comparison_scope"] == "INVALID_F_INPUT"
 
 
+@pytest.mark.parametrize(
+    "mutation",
+    (
+        "count",
+        "missing_determinant",
+        "anomaly_accounting",
+        "terminal_partial_universe",
+    ),
+)
+@pytest.mark.parametrize("side", ("left", "right"))
+def test_c5_resealed_structurally_invalid_f_input_blocks(
+    mutation: str,
+    side: str,
+) -> None:
+    valid = _frozen()
+    malformed = copy.deepcopy(valid)
+
+    if mutation == "count":
+        malformed["qualified_occurrence_count"] += 1
+    elif mutation == "missing_determinant":
+        malformed["qualified_universe"]["reconstruction_tuple"] = [
+            item
+            for item in malformed["qualified_universe"]["reconstruction_tuple"]
+            if item["stage"] != "Q"
+        ]
+    elif mutation == "anomaly_accounting":
+        data = _qualified_with_local_reject()
+        malformed = _frozen(data)
+        malformed["qualified_universe"]["anomaly_outcomes"][0][
+            "anomaly_class_id"
+        ] = "BI5-A10"
+    else:
+        malformed = _terminal("QUALIFICATION_BLOCKED")
+        malformed["qualified_universe"] = {
+            "retained_occurrences": [
+                copy.deepcopy(valid["qualified_universe"]["retained_occurrences"][0])
+            ]
+        }
+        malformed["qualified_occurrence_count"] = 1
+
+    malformed = _reseal_for_breaker(malformed)
+    left, right = (
+        (malformed, valid)
+        if side == "left"
+        else (valid, malformed)
+    )
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "INVALID_F_INPUT"
+
+
+@pytest.mark.parametrize("side", ("left", "right"))
+@pytest.mark.parametrize("bad_value", (None, [], 7, "not-an-artifact"))
+def test_c6_nonmapping_input_blocks(side: str, bad_value: Any) -> None:
+    valid = _frozen()
+    left, right = (
+        (bad_value, valid)
+        if side == "left"
+        else (valid, bad_value)
+    )
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "INVALID_F_INPUT"
+
+
+@pytest.mark.parametrize("reverse", (False, True))
+def test_c7_different_terminal_outcomes_never_create_qualified_comparison(
+    reverse: bool,
+) -> None:
+    blocked = _terminal("QUALIFICATION_BLOCKED")
+    rejected = _terminal("ACQUISITION_REJECTED")
+    left, right = (rejected, blocked) if reverse else (blocked, rejected)
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "TERMINAL_INPUT"
+
+
 def test_d0_component_occurrence_accounting_array_order_is_nonsemantic() -> None:
     left = _frozen(_qualified_two_component_input())
     right = _frozen(_same_semantics_permuted_input())
@@ -543,6 +680,25 @@ def test_d1_anomaly_diagnostic_order_path_and_worker_are_nonsemantic() -> None:
     right = _frozen(right_data)
     result = _compare(left, right)
     assert result["oracle_result"] == "SEMANTIC_EQUAL"
+
+
+def test_d1b_raw_source_provenance_difference_is_nonsemantic() -> None:
+    left_data = _qualified_input()
+    right_data = copy.deepcopy(left_data)
+    for relation_name in ("b_candidate_occurrences", "retained_occurrences"):
+        right_data[relation_name][1]["source_provenance"] = {
+            "ask_volume_raw_bits": "80000000"
+        }
+
+    left = _frozen(left_data)
+    right = _frozen(right_data)
+    assert (
+        left["qualified_universe"]["retained_occurrences"][1]["logical_payload"]
+        == right["qualified_universe"]["retained_occurrences"][1]["logical_payload"]
+    )
+    result = _compare(left, right)
+    assert result["oracle_result"] == "SEMANTIC_EQUAL"
+    assert result["qualified_universe_comparison"] == "SEMANTIC_EQUAL"
 
 
 def test_d2_pretty_compact_byte_hash_difference_is_nonsemantic() -> None:
@@ -651,8 +807,10 @@ def test_e0_unqualified_version_mutation_is_not_mislabeled_legitimate_distinct_s
         if item["stage"] == "Q"
     )
     q["normative_version"] = "UNQUALIFIED_SYNTHETIC_Q_V2"
+    right = _reseal_for_breaker(right)
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
     assert result["comparison_scope"] == "INVALID_F_INPUT"
 
 
