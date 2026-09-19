@@ -1273,3 +1273,167 @@ The Q candidate is internally stable enough to become input to F/O formalization
 No real data was acquired or processed.
 
 No F/O work was started before this persisted closure.
+
+
+---
+
+# F/O candidate formalization update — 2026-09-19
+
+The historical F/O gate verdicts remain `BLOCKED`, but the missing concrete contract semantics have now been materially narrowed by a governed candidate block.
+
+Candidate artifact:
+
+`reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`3424aefb491f502cade6dd703d9b93a380ca7039`
+
+Initial candidate blob:
+
+`dad8850746f21eb69010c5cfbe8ed9fbd46e2054`
+
+Adversarial artifact:
+
+`reports/data-qualification/fo_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`b261fc8e07b7f97f86695c10eb203292fefe1fad`
+
+Initial verdict:
+
+```text
+F/O FIRST NATIVE-BI5 FREEZE / ORACLE CANDIDATE
+FAIL
+```
+
+Demonstrated defects:
+
+```text
+FO-F01 — BINARY32_NUMERIC_NORMAL_FORM_UNDERSPECIFIED
+FO-F02 — QUALIFICATION_RELEVANT_ANOMALY_EVIDENCE_NOT_FROZEN
+FO-F03 — NORMATIVE_VERSION_COLLISION_DIGEST_CONFLICT_UNRESOLVED
+```
+
+Minimal correction commit:
+
+`d79f9008cb71f5b1fface9e87320c77bb8be253d`
+
+Corrected candidate blob:
+
+`fe62da06e63a51c336f9a447e7f1e0f3d89cad3b`
+
+Final persisted-head re-break commit:
+
+`cd772467fa3ad9f9caba5bd6a3c237b363cfa7bd`
+
+Final adversarial artifact blob:
+
+`68b23850de5f644566b576cedd494b2aed583d87`
+
+No additional internal F/O candidate defect was demonstrated after correction.
+
+## Current F candidate semantics
+
+Candidate identity:
+
+```text
+F_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_QUALIFIED_UNIVERSE_FREEZE
+F_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_QUALIFIED_UNIVERSE_FREEZE_V0_1_CANDIDATE
+```
+
+The candidate now distinguishes:
+
+```text
+QUALIFIED
+→ QUALIFIED_UNIVERSE_FREEZE
+→ freeze_state = FROZEN
+
+QUALIFICATION_BLOCKED / ACQUISITION_REJECTED
+→ QUALIFICATION_TERMINAL_EVIDENCE
+→ freeze_state = NOT_CREATED
+→ no normative partial universe
+```
+
+F preserves:
+
+- exact D/R/M/B/A/Q/F reconstruction determinants;
+- exact materialized D/component membership binding;
+- complete slot accounting;
+- complete anomaly semantic outcomes;
+- qualification-relevant evidence bindings where required;
+- every retained logical occurrence exactly once;
+- strict duplicate multiplicity;
+- source→logical conformance witnesses without promoting them to canonical identity;
+- exact finite binary32 numeric semantics via unique signed-odd-coefficient × power-of-two normal form;
+- serialization-order independence.
+
+Freeze-output byte hashes remain physical integrity evidence only.
+
+A same ID/version with different bound normative determinant content is a blocking integrity conflict, not a valid comparable state.
+
+## Current O candidate semantics
+
+Candidate identity:
+
+```text
+O_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_SEMANTIC_UNIVERSE_COMPARATOR
+O_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_SEMANTIC_UNIVERSE_COMPARATOR_V0_1_CANDIDATE
+```
+
+O compares semantic projections, not bytes or list order.
+
+For same-state qualified artifacts it compares:
+
+- reconstruction determinants;
+- D acquisition membership;
+- complete source→logical accounting relation;
+- anomaly semantic relation;
+- unordered retained logical-occurrence multiset;
+- multiplicity / occurrence individuality.
+
+It explicitly ignores non-semantic differences such as JSON whitespace/order, worker order, traversal order, diagnostic ordering and freeze-output byte hash.
+
+It refuses to invent physical-repartition equivalence that the current B binding does not declare.
+
+## Official F/O verdict
+
+```text
+F = BLOCKED
+O = BLOCKED
+```
+
+Reasons:
+
+1. no materialized D acquisition/manifest/completeness evidence;
+2. B/A provider-sensitive facts remain officially BLOCKED;
+3. no executable Q implementation has been qualified;
+4. no concrete qualified run exists from which a real F artifact can be emitted;
+5. no executable F persistence implementation is qualified;
+6. no executable O semantic comparator is qualified;
+7. no independent I_A / I_B determinism run exists.
+
+Therefore:
+
+```text
+internally stable F/O candidate
+≠ concrete F/O PASS
+≠ acquisition authorization
+≠ real backtest authorization
+```
+
+Updated reconciliation state remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
