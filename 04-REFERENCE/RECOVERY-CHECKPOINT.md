@@ -2301,3 +2301,242 @@ I_B remains separately BLOCKED and must later be independently derived from the 
 The I_A block remains synthetic/in-memory only.
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 48. Native BI5 I_A reference implementation candidate — qualified
+
+A concrete native-BI5 I_A reference implementation candidate now exists and has completed its governed implementation-layer qualification cycle.
+
+Source:
+
+`src/native_bi5_reference_qualifier.py`
+
+Final qualified source blob:
+
+`098040812de654a9c5e4f9961f4a26b2ba959adf`
+
+Initial implementation commit:
+
+`065511e25ad986ff1252da4924e23129fffdda6f`
+
+Frozen I_A breaker remained unchanged:
+
+`breakers/native_bi5_ia_reference_qualifier_breaker.py`
+
+Frozen breaker blob:
+
+`64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd`
+
+Supplemental adversarial breaker:
+
+`breakers/native_bi5_ia_reference_qualifier_adversarial.py`
+
+Final supplemental breaker blob:
+
+`13e8a2aa01ca311f0094a6ea6a4e73b3501741f7`
+
+Adversarial record:
+
+`reports/data-qualification/ia_native_bi5_reference_candidate_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`c46246dd67f4e15d91fe4c0cfe9803def890bfa0`
+
+### Demonstrated defects
+
+The first green frozen-breaker result was not accepted as PASS.
+
+The implementation was adversarially failed on:
+
+```text
+IA-F01 — UNVERIFIED_A08_PROOF_PROMOTION
+IA-F02 — NONQUALIFIED_PARTIAL_SEMANTIC_LEAK
+IA-F03 — PRESEAL_ALLOWLIST_NOT_ENFORCED
+IA-F04 — SEAL_INTEGRITY_WITHOUT_SEMANTIC_VALIDITY
+IA-F05 — BLOCKED_RESULT_TRAVERSAL_DEPENDENCE
+IA-F06 — EMPTY_WORKSPACE_ISOLATION_ID_ACCEPTED
+```
+
+All six defects were minimally corrected without changing the frozen breaker or upstream candidate semantics.
+
+### Final persisted-head execution evidence
+
+Final code/harness HEAD:
+
+`e246aa9107146d4b5ae115815260189468c4cffb`
+
+Candidate qualification:
+
+```text
+run = 35442761280
+job = 105896344658
+frozen I_A breaker = 23 passed
+```
+
+Combined persisted-head re-break:
+
+```text
+run = 35442761255
+job = 105896344433
+frozen I_A breaker = 23 passed
+supplemental adversarial breaker = 13 passed
+```
+
+All exact hash locks, qualification-environment checks, I_B-absence checks and clean-worktree checks passed.
+
+No additional internal I_A implementation defect was demonstrated.
+
+### Important A08 fail-closed boundary
+
+The implementation deliberately refuses to promote a terminal partial fragment to A08 from an unresolved self-described proof reference.
+
+Until an independently qualified constructive-completeness verifier exists:
+
+```text
+terminal remainder
+→ BI5-A07
+→ QUALIFICATION_BLOCKED
+```
+
+This prevents false qualification and does not create real-data B/A closure.
+
+### I_A implementation-layer verdict
+
+```text
+I_A REFERENCE IMPLEMENTATION CANDIDATE = PASS
+```
+
+### Global I_A gate verdict
+
+The historical/global gate requires conformance against a materially closed concrete:
+
+`D + R + M + B + A + Q + F + O`
+
+state.
+
+Those gates remain officially BLOCKED.
+
+Therefore the correct state is:
+
+```text
+I_A implementation candidate qualification = PASS
+I_A global executable gate                  = BLOCKED
+```
+
+Do not collapse those two verdicts.
+
+I_B remains absent and globally BLOCKED.
+
+The global concrete state remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED   # global gate; implementation candidate PASS
+I_B BLOCKED
+```
+
+No acquisition, BI5 processing, backtest or execution authorization is created.
+
+---
+
+## 49. Durable I_A implementation backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-IA-REFERENCE-IMPLEMENTATION.md`
+
+Backup commit:
+
+`207d26afdb65398b463162905e5c564c9601fcff`
+
+Backup blob:
+
+`eadfc418d0acdc6ca944ebf3271ec7ab2214986f`
+
+Global reconciliation audit update commit:
+
+`02fa36f78bd505d072280bb0c1fb8c1326b160f1`
+
+Global reconciliation audit blob:
+
+`b2525790569a95c14ac22cda7923cd6f39c17e6e`
+
+No I_B implementation, real BI5 acquisition, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 50. Exactly one next governed action
+
+Open only:
+
+```text
+I_B — independent derivation evidence package
+```
+
+**Do not create `src/native_bi5_independent_qualifier.py` yet.**
+
+Before any I_B production code exists, create and persist exactly the breaker-required derivation evidence artifacts:
+
+```text
+reports/data-qualification/iab/ib_semantic_source_provenance.json
+reports/data-qualification/iab/ib_no_copy_declaration.json
+reports/data-qualification/iab/ib_independent_stage_test_inventory.json
+```
+
+The evidence package must be derived only from:
+
+- the pinned D/R/M/B/A/Q/F candidate contracts;
+- the corrected I_A/I_B implementation-boundary contract;
+- the frozen I_B breaker requirements.
+
+The I_A source file:
+
+`src/native_bi5_reference_qualifier.py`
+
+is a **forbidden derivation input** for I_B.
+
+It may later be used only by breaker/oracle comparison after I_B's own semantic result is independently sealed.
+
+The derivation-evidence block must follow:
+
+```text
+fresh HEAD verification
+→ evidence package formalization
+→ persist candidate evidence artifacts
+→ adversarial break for circularity/fake provenance/copy leakage
+→ minimal correction only
+→ persisted-head re-break
+→ PASS / FAIL / BLOCKED
+→ audit
+→ backup
+→ Recovery Checkpoint
+```
+
+Attack at minimum:
+
+- evidence authored from I_A source;
+- copied/ported/generated-from-I_A declaration disguised as independence;
+- provenance references that do not resolve;
+- source-digest bindings that are not implementation-specific;
+- semantic-stage inventory missing D/R/M/B/A/Q/F stages;
+- tests that merely compare I_B to an expected I_A answer;
+- tests that allow O/I_A output as construction input;
+- incomplete no-copy declaration;
+- circular self-attestation;
+- evidence that can be fabricated by the future I_B implementation itself.
+
+Only after this evidence package survives may a new governed block create:
+
+`src/native_bi5_independent_qualifier.py`
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
