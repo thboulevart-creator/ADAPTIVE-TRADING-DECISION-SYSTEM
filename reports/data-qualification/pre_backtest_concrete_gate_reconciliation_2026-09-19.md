@@ -2221,3 +2221,85 @@ I_B BLOCKED   # global gate; independent implementation candidate PASS
 ```
 
 No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+---
+
+# F freeze-persistence test-first RED baseline — 2026-09-19
+
+A dedicated synthetic/in-memory test-first executable breaker/harness now exists for the F freeze-persistence candidate.
+
+Breaker:
+
+breakers/native_bi5_f_freeze_persistence_breaker.py
+
+Final breaker blob:
+
+3d9eb75c2f4e988c984da67af0af344d3dc24148
+
+Workflow:
+
+.github/workflows/native-bi5-f-freeze-persistence-preimplementation.yml
+
+Final workflow blob:
+
+f041e5ca5ce5887b67ebb0721b7d49d6ea75b442
+
+RED baseline:
+
+reports/data-qualification/f_native_bi5_preimplementation_red_baseline_2026-09-19.md
+
+Adversarial record:
+
+reports/data-qualification/f_native_bi5_testfirst_harness_adversarial_break_2026-09-19.md
+
+Final adversarial record blob:
+
+ca0d67187fb7511fb7aea3b16cfe25c22d4dc224
+
+Final persisted-head execution:
+
+~~~text
+run = 35453498165
+job = 105924621170
+pytest collection = 36 tests / PASS
+breaker execution = RED only because F runtime is absent
+~~~
+
+All exact HEAD/contract/breaker locks, F/O absence checks, qualification-environment checks and clean-worktree checks passed.
+
+The harness was adversarially failed and corrected on FTF-F01..FTF-F05 and FTF-R01..FTF-R09 before final qualification.
+
+Final harness-layer verdict:
+
+~~~text
+F test-first freeze-persistence breaker/harness = PASS
+~~~
+
+This does not qualify F production behavior.
+
+Current state:
+
+~~~text
+F test-first harness          = PASS
+F production runtime         = ABSENT
+F global executable gate     = BLOCKED
+O production implementation = ABSENT
+O global executable gate     = BLOCKED
+~~~
+
+The global concrete matrix therefore remains:
+
+~~~text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED   # test-first harness PASS; production runtime absent
+O   BLOCKED   # implementation absent
+I_A BLOCKED   # global gate; implementation candidate PASS
+I_B BLOCKED   # global gate; implementation candidate PASS
+~~~
+
+No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
