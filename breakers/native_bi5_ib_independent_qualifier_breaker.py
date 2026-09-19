@@ -1,12 +1,15 @@
 from __future__ import annotations
 
+import ast
 import copy
+import difflib
 import hashlib
 import importlib
 import inspect
 import json
 import lzma
 import struct
+import sys
 from collections import Counter
 from dataclasses import fields, replace
 from typing import Any
@@ -226,6 +229,21 @@ def _run_ib(package: dict[str, Any]):
     return _ib().qualify_native_bi5(package, execution_context=_context())
 
 
+def _audited_run_ib(package: dict[str, Any]):
+    observed: list[tuple[str, str]] = []
+
+    def hook(event: str, args: tuple[Any, ...]) -> None:
+        if event == "import":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event == "open":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event.startswith("socket.") or event.startswith("subprocess.") or event == "os.system":
+            observed.append((event, repr(args[:2])))
+
+    sys.addaudithook(hook)
+    return _run_ib(package), tuple(observed)
+
+
 def _run_ia(package: dict[str, Any]):
     return _ia_for_pair().qualify_native_bi5(package, execution_context=_ia_context())
 
@@ -293,6 +311,45 @@ def _logical_payloads(result) -> Counter:
     )
 
 
+def _semantic_structure(source: str) -> str:
+    tree = ast.parse(source)
+
+    class Normalizer(ast.NodeTransformer):
+        def visit_Name(self, node: ast.Name):
+            return ast.copy_location(ast.Name(id="NAME", ctx=node.ctx), node)
+
+        def visit_arg(self, node: ast.arg):
+            return ast.copy_location(ast.arg(arg="ARG", annotation=None, type_comment=None), node)
+
+        def visit_Attribute(self, node: ast.Attribute):
+            node = self.generic_visit(node)
+            node.attr = "ATTR"
+            return node
+
+        def visit_Constant(self, node: ast.Constant):
+            marker = type(node.value).__name__
+            return ast.copy_location(ast.Constant(value=f"<{marker}>"), node)
+
+        def visit_FunctionDef(self, node: ast.FunctionDef):
+            node = self.generic_visit(node)
+            node.name = "FUNCTION"
+            return node
+
+        def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef):
+            node = self.generic_visit(node)
+            node.name = "ASYNC_FUNCTION"
+            return node
+
+        def visit_ClassDef(self, node: ast.ClassDef):
+            node = self.generic_visit(node)
+            node.name = "CLASS"
+            return node
+
+    normalized = Normalizer().visit(tree)
+    ast.fix_missing_locations(normalized)
+    return ast.dump(normalized, annotate_fields=False, include_attributes=False)
+
+
 def test_a0_surface_signature_and_result_schema_exact() -> None:
     module = _ib()
     sig = inspect.signature(module.qualify_native_bi5)
@@ -302,19 +359,26 @@ def test_a0_surface_signature_and_result_schema_exact() -> None:
     assert tuple(field.name for field in fields(module.ImplementationQualificationResult)) == EXPECTED_RESULT_FIELDS
 
 
-def test_a1_independent_manifest_evidence_surface_exact() -> None:
+def test_a1_independent_manifest_exposes_provenance_refs_not_self_adjudicated_pass() -> None:
     manifest = _ib().build_implementation_manifest()
     assert manifest["implementation_id"] == IB_ID
     assert manifest["implementation_version"] == IB_VERSION
     assert set(manifest["semantic_stage_ownership"]) == REQUIRED_STAGES
     assert manifest["source_files"]
     assert manifest["source_digests"]
-    evidence = manifest["independent_derivation_evidence"]
-    assert evidence["independent_derivation_attestation"] == "PASS"
-    assert evidence["no_copy_or_generated_from_other_path"] is True
-    assert evidence["semantic_source_provenance"]
-    assert evidence["source_similarity_review_result"] == "PASS"
-    assert evidence["independent_stage_level_test_inventory"]
+    refs = manifest["independent_derivation_evidence_refs"]
+    assert set(refs) == {
+        "semantic_source_provenance_ref",
+        "no_copy_declaration_ref",
+        "independent_stage_test_inventory_ref",
+    }
+    assert all(isinstance(value, str) and value.strip() for value in refs.values())
+    forbidden_self_adjudication = {
+        "independent_derivation_attestation",
+        "source_similarity_review_result",
+        "independence_status",
+    }
+    assert forbidden_self_adjudication.isdisjoint(manifest)
 
 
 def test_a2_independent_source_has_no_reference_path_or_test_semantic_imports() -> None:
@@ -338,6 +402,16 @@ def test_a3_shared_semantic_shortcut_not_declared_as_dependency() -> None:
         "native_bi5_shared_qualifier",
     )
     assert all(not any(token in dep for token in forbidden) for dep in deps)
+
+
+def test_a4_breaker_owned_source_similarity_review_rejects_structural_clone() -> None:
+    ia_source = inspect.getsource(_ia_for_pair())
+    ib_source = inspect.getsource(_ib())
+    ia_structure = _semantic_structure(ia_source)
+    ib_structure = _semantic_structure(ib_source)
+    ratio = difflib.SequenceMatcher(None, ia_structure, ib_structure).ratio()
+    assert ia_structure != ib_structure
+    assert ratio < 0.985
 
 
 def test_b0_status_axes_are_exact_and_contradictions_rejected() -> None:
@@ -448,6 +522,23 @@ def test_c2_result_is_sealed_and_semantic_mutation_breaks_seal() -> None:
     occurrences.pop()
     object.__setattr__(mutated, "qualified_occurrences", tuple(occurrences))
     assert not module.is_sealed_implementation_result(mutated)
+
+
+def test_c3_breaker_owned_runtime_audit_detects_dynamic_cross_path_and_external_channels() -> None:
+    result, observed = _audited_run_ib(_qualified_package())
+    assert result.semantic_status == "QUALIFIED"
+    forbidden_text = (
+        "native_bi5_reference_qualifier",
+        "reference_result",
+        "ia_result",
+        "other_path_output",
+    )
+    for event, detail in observed:
+        lowered = detail.lower()
+        assert all(token.lower() not in lowered for token in forbidden_text)
+        assert not event.startswith("socket.")
+        assert not event.startswith("subprocess.")
+        assert event != "os.system"
 
 
 def test_d0_pair_same_input_semantic_projection_equal_only_after_both_sealed() -> None:

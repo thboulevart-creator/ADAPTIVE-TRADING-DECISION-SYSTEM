@@ -7,6 +7,7 @@ import inspect
 import json
 import lzma
 import struct
+import sys
 from collections import Counter
 from dataclasses import fields, replace
 from typing import Any
@@ -195,6 +196,21 @@ def _context() -> dict[str, Any]:
 
 def _run(package: dict[str, Any]):
     return _ia().qualify_native_bi5(package, execution_context=_context())
+
+
+def _audited_run(package: dict[str, Any]):
+    observed: list[tuple[str, str]] = []
+
+    def hook(event: str, args: tuple[Any, ...]) -> None:
+        if event == "import":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event == "open":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event.startswith("socket.") or event.startswith("subprocess.") or event == "os.system":
+            observed.append((event, repr(args[:2])))
+
+    sys.addaudithook(hook)
+    return _run(package), tuple(observed)
 
 
 def _occurrence_witnesses(result) -> list[tuple[str, int]]:
@@ -418,6 +434,23 @@ def test_e1_no_o_or_other_path_result_is_input_surface() -> None:
         "expected_anomalies",
     }
     assert forbidden.isdisjoint(sig.parameters)
+
+
+def test_e2_breaker_owned_runtime_audit_detects_forbidden_cross_path_or_external_channels() -> None:
+    result, observed = _audited_run(_qualified_package())
+    assert result.semantic_status == "QUALIFIED"
+    forbidden_text = (
+        "native_bi5_independent_qualifier",
+        "ib_result",
+        "other_path_output",
+        "independent_result",
+    )
+    for event, detail in observed:
+        lowered = detail.lower()
+        assert all(token.lower() not in lowered for token in forbidden_text)
+        assert not event.startswith("socket.")
+        assert not event.startswith("subprocess.")
+        assert event != "os.system"
 
 
 def test_f0_semantic_result_mutant_is_detected_by_seal() -> None:
