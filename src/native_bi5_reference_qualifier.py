@@ -50,6 +50,12 @@ _SEMANTIC_STATUSES = frozenset(
     ("QUALIFIED", "QUALIFICATION_BLOCKED", "ACQUISITION_REJECTED", "NOT_REACHED")
 )
 _FREEZE_STATUSES = frozenset(("FROZEN", "NOT_CREATED", "NOT_REACHED"))
+_REQUIRED_PRESEAL_INPUTS = frozenset(
+    ("common_immutable_input_package", "own_implementation_runtime", "python_stdlib")
+)
+_REQUIRED_ENVIRONMENT_VARIABLES = frozenset(
+    ("PYTHONHASHSEED", "TZ", "LANG", "LC_ALL")
+)
 _SLOT = struct.Struct(">IIIff")
 _SLOT_WIDTH = 20
 _HOUR_MILLISECONDS = 3_600_000
@@ -203,18 +209,7 @@ def _seal(result: ImplementationQualificationResult) -> ImplementationQualificat
     return replace(result, result_seal=_compute_result_seal(result))
 
 
-def is_sealed_implementation_result(value: object) -> bool:
-    if not isinstance(value, ImplementationQualificationResult):
-        return False
-    try:
-        return bool(value.result_seal) and value.result_seal == _compute_result_seal(value)
-    except (TypeError, ValueError):
-        return False
-
-
-def validate_implementation_result(
-    result: ImplementationQualificationResult,
-) -> ImplementationQualificationResult:
+def _validate_result_structure(result: ImplementationQualificationResult) -> None:
     if not isinstance(result, ImplementationQualificationResult):
         raise TypeError("result must be ImplementationQualificationResult")
     if result.schema != RESULT_SCHEMA:
@@ -230,25 +225,51 @@ def validate_implementation_result(
     if result.freeze_status not in _FREEZE_STATUSES:
         raise ValueError("invalid freeze status")
 
+    qualified_state = (
+        result.execution_status == "COMPLETED"
+        and result.semantic_status == "QUALIFIED"
+        and result.freeze_status == "FROZEN"
+    )
+
+    if not qualified_state:
+        if result.qualified_occurrences is not None:
+            raise ValueError("non-qualified state cannot expose a qualified universe")
+        if result.source_accounting is not None:
+            raise ValueError("non-qualified state cannot expose normative source accounting")
+
     if result.execution_status != "COMPLETED":
         if result.semantic_status != "NOT_REACHED" or result.freeze_status != "NOT_REACHED":
             raise ValueError("non-completed execution cannot claim semantic terminal state")
     elif result.semantic_status == "QUALIFIED":
         if result.freeze_status != "FROZEN":
             raise ValueError("qualified result must be frozen")
-        if result.qualified_occurrences is None:
-            raise ValueError("qualified result requires complete occurrence universe")
+        if result.qualified_occurrences is None or result.source_accounting is None:
+            raise ValueError("qualified result requires complete universe and accounting")
     elif result.semantic_status in ("QUALIFICATION_BLOCKED", "ACQUISITION_REJECTED"):
         if result.freeze_status != "NOT_CREATED":
             raise ValueError("non-qualified semantic result cannot create freeze")
-        if result.qualified_occurrences is not None:
-            raise ValueError("non-qualified semantic result cannot expose partial universe")
     elif result.semantic_status == "NOT_REACHED":
         raise ValueError("completed execution must reach a semantic terminal state")
 
     if result.freeze_status == "FROZEN" and result.semantic_status != "QUALIFIED":
         raise ValueError("frozen result must be qualified")
-    if not is_sealed_implementation_result(result):
+
+
+def is_sealed_implementation_result(value: object) -> bool:
+    if not isinstance(value, ImplementationQualificationResult):
+        return False
+    try:
+        _validate_result_structure(value)
+        return bool(value.result_seal) and value.result_seal == _compute_result_seal(value)
+    except (TypeError, ValueError):
+        return False
+
+
+def validate_implementation_result(
+    result: ImplementationQualificationResult,
+) -> ImplementationQualificationResult:
+    _validate_result_structure(result)
+    if not result.result_seal or result.result_seal != _compute_result_seal(result):
         raise ValueError("result seal mismatch")
     return result
 
@@ -350,34 +371,6 @@ def _decompress_exact_single_stream(payload: bytes) -> bytes | None:
     if decoder.unused_data:
         return None
     return output
-
-
-def _matching_terminal_completeness_proof(
-    bindings: Any,
-    component_id: str,
-    start: int,
-    length: int,
-) -> tuple[Mapping[str, Any], ...]:
-    if not isinstance(bindings, (list, tuple)):
-        return ()
-    matched: list[Mapping[str, Any]] = []
-    for binding in bindings:
-        if not isinstance(binding, Mapping):
-            continue
-        target = binding.get("exact_anomaly_target_binding")
-        if not isinstance(target, Mapping):
-            continue
-        if (
-            target.get("target_scope") == "TERMINAL_FRAGMENT"
-            and target.get("component_manifest_entry_id") == component_id
-            and target.get("terminal_fragment_start_offset") == start
-            and target.get("terminal_fragment_length") == length
-            and binding.get("evidence_role") == "CONSTRUCTIVE_COMPLETENESS_PROOF"
-            and binding.get("immutable_reference")
-            and binding.get("integrity_digest_or_reference")
-        ):
-            matched.append(dict(binding))
-    return tuple(matched)
 
 
 def _validate_package_identity(input_package: Any) -> tuple[bool, str]:
@@ -604,36 +597,17 @@ def _interpret_component(
 
     if remainder:
         start = complete_slot_count * _SLOT_WIDTH
-        proof = _matching_terminal_completeness_proof(
-            qualification_evidence_bindings,
-            component_id,
-            start,
-            remainder,
+        anomalies.append(
+            _anomaly(
+                "BI5-A07",
+                "QUALIFICATION_BLOCKED",
+                "TERMINAL_FRAGMENT",
+                component_id=component_id,
+                fragment_start=start,
+                fragment_length=remainder,
+            )
         )
-        if proof:
-            anomalies.append(
-                _anomaly(
-                    "BI5-A08",
-                    "REJECT_RECORD",
-                    "TERMINAL_FRAGMENT",
-                    component_id=component_id,
-                    fragment_start=start,
-                    fragment_length=remainder,
-                    evidence_bindings=proof,
-                )
-            )
-        else:
-            anomalies.append(
-                _anomaly(
-                    "BI5-A07",
-                    "QUALIFICATION_BLOCKED",
-                    "TERMINAL_FRAGMENT",
-                    component_id=component_id,
-                    fragment_start=start,
-                    fragment_length=remainder,
-                )
-            )
-            return False, occurrences, accounting, anomalies
+        return False, occurrences, accounting, anomalies
 
     return True, occurrences, accounting, anomalies
 
@@ -665,7 +639,7 @@ def _blocked_result(
         semantic_status="QUALIFICATION_BLOCKED",
         freeze_status="NOT_CREATED",
         qualified_occurrences=None,
-        source_accounting=source_accounting,
+        source_accounting=None,
         anomaly_outcomes=anomalies,
         terminal_evidence={
             "artifact_class": "QUALIFICATION_TERMINAL_EVIDENCE",
@@ -673,6 +647,9 @@ def _blocked_result(
             "qualified_universe": None,
             "qualified_occurrence_count": None,
             "reason": reason,
+            "execution_diagnostics": {
+                "non_normative_source_accounting": source_accounting,
+            },
         },
         isolation_evidence=_isolation_evidence(execution_context),
         result_seal="",
@@ -849,10 +826,14 @@ def qualify_native_bi5(
     isolation = _isolation_evidence(execution_context)
     if (
         isolation["workspace_isolation_identity"] is None
+        or frozenset(isolation["preseal_input_allowlist"]) != _REQUIRED_PRESEAL_INPUTS
+        or frozenset(isolation["environment_variable_allowlist"])
+        != _REQUIRED_ENVIRONMENT_VARIABLES
         or isolation["other_path_output_readable"] is not False
         or isolation["network_policy"] != "DENY"
         or isolation["ipc_policy"] != "DENY"
         or isolation["cache_policy"] != "PRIVATE_ONLY"
+        or frozenset(isolation["runtime_read_set"]) != _REQUIRED_PRESEAL_INPUTS
     ):
         result = ImplementationQualificationResult(
             schema=RESULT_SCHEMA,
