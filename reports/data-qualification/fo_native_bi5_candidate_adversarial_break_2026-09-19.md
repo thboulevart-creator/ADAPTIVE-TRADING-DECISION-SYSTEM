@@ -559,3 +559,233 @@ Do not change:
 - acquisition/backtest permissions.
 
 After correction, persist the candidate and re-break the complete attack set from a freshly verified HEAD.
+
+
+---
+
+# 16. Persisted-head re-break after minimal correction
+
+**Corrected candidate HEAD:** `d79f9008cb71f5b1fface9e87320c77bb8be253d`  
+**Corrected candidate blob:** `fe62da06e63a51c336f9a447e7f1e0f3d89cad3b`
+
+The branch was freshly verified identical to that HEAD before re-break.
+
+The candidate blob was also re-read from GitHub and matched the expected corrected blob before the attack set was reapplied.
+
+No candidate mutation occurred during this re-break.
+
+## 16.1 Re-break FO-F01
+
+Original defect:
+
+`BINARY32_NUMERIC_NORMAL_FORM_UNDERSPECIFIED`
+
+Corrected rule now requires:
+
+```text
+non-zero finite value
+=
+signed odd integer_coefficient * 2^exponent2
+
+zero
+=
+0 * 2^0
+```
+
+Attack:
+
+```text
+1 * 2^0
+vs
+2 * 2^-1
+```
+
+Result:
+
+The second representation is non-conforming because coefficient 2 is even and still contains a removable factor of two.
+
+Attack:
+
+negative/subnormal finite binary32 values.
+
+Result:
+
+Every non-zero dyadic rational still has one unique signed-odd-coefficient / integer-exponent representation.
+
+Raw source bits remain separately admissible as provenance and do not replace the logical numeric normal form.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 16.2 Re-break FO-F02
+
+Original defect:
+
+`QUALIFICATION_RELEVANT_ANOMALY_EVIDENCE_NOT_FROZEN`
+
+Corrected F now requires immutable `qualification_evidence_bindings` whenever anomaly classification/localisability/outcome depends on evidence.
+
+Attack:
+
+A terminal remainder is labelled A08 / `REJECT RECORD` but no constructive completeness-proof binding is present.
+
+Result:
+
+The F artifact cannot validate the anomaly decision and therefore cannot reach `FROZEN`.
+
+Attack:
+
+A complete A08 proof is bound to the exact terminal-fragment target.
+
+Result:
+
+F may preserve the decision and proof binding.
+
+Alternative valid proof bytes/locations do not become occurrence identity merely because their physical digests differ; O validates sufficiency before universe comparison.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 16.3 Re-break FO-F03
+
+Original defect:
+
+`NORMATIVE_VERSION_COLLISION_DIGEST_CONFLICT_UNRESOLVED`
+
+Corrected same-state gate requires the same immutable determinant-content binding.
+
+Attack:
+
+```text
+same B id
+same B version
+digest X != digest Y
+```
+
+Result:
+
+```text
+oracle_result = BLOCKED
+reason = NORMATIVE_VERSION_INTEGRITY_CONFLICT
+```
+
+No universe equality verdict is emitted.
+
+Attack:
+
+legitimate new B version.
+
+Result:
+
+```text
+comparison_scope = DISTINCT_QUALIFICATION_STATE
+qualified_universe_comparison = BLOCKED
+```
+
+Attack:
+
+same determinant content but different freeze-output JSON whitespace/order causing a different freeze-output artifact digest.
+
+Result:
+
+This does not change semantic equality. Freeze-output byte digest remains physical artifact integrity only.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 16.4 Full attack-set re-break
+
+```text
+late Q BLOCKED after valid prefix                     NO FREEZE / SURVIVES
+Q ACQUISITION_REJECTED                               NO FREEZE / SURVIVES
+F self-check incomplete                              NO FREEZE / SURVIVES
+partial/prefix U presented as normative              FORBIDDEN / SURVIVES
+blocked/rejected count represented as valid zero U   FORBIDDEN / SURVIVES
+
+missing reconstruction determinant                   BLOCKED / SURVIVES
+determinant version changed                          DISTINCT STATE / SURVIVES
+same id+version, different determinant content       INTEGRITY CONFLICT BLOCKED / SURVIVES
+freeze-output byte hash differs                      NON-SEMANTIC / SURVIVES
+byte hash used as semantic oracle                    FORBIDDEN / SURVIVES
+
+strict duplicate payloads                            MULTIPLICITY PRESERVED / SURVIVES
+same payload, different multiplicity                 DIFFERENT / SURVIVES
+content-hash deduplication                           FORBIDDEN / SURVIVES
+occurrence array reorder                             EQUAL / SURVIVES
+component array reorder                              EQUAL / SURVIVES
+anomaly diagnostic reorder/path change               NON-SEMANTIC IF VALID / SURVIVES
+
+source slot→payload swap with same payload bag       DIFFERENT RELATION / SURVIVES
+source witness promoted to canonical identity        FORBIDDEN / SURVIVES
+array index promoted to occurrence identity          FORBIDDEN / SURVIVES
+physical slot order promoted to temporal authority   FORBIDDEN / SURVIVES
+hidden timestamp sort                                FORBIDDEN / SURVIVES
+
+binary32 equivalent non-unique expression            NON-CONFORMING / SURVIVES
+finite binary32 negative/subnormal values            UNIQUE NORMAL FORM / SURVIVES
++0 vs -0 source representation                       SAME LOGICAL ZERO / SURVIVES
+raw source bits substituted for logical value        FORBIDDEN / SURVIVES
+
+A08 without completeness proof                       F BLOCKED / SURVIVES
+evidence-dependent A decision without evidence bind  F BLOCKED / SURVIVES
+alternative valid evidence provenance                NOT OCCURRENCE ID / SURVIVES
+
+terminal fragment inserted as complete slot          BLOCKED / SURVIVES
+candidate/reject overlap                             BLOCKED / SURVIVES
+silent complete-slot omission                        BLOCKED / SURVIVES
+unknown anomaly                                      BLOCKED UPSTREAM / SURVIVES
+
+late upstream non-conformance rewrites old freeze    FORBIDDEN / SURVIVES
+old freeze silently updated after contract change    FORBIDDEN / SURVIVES
+physical repartition equivalence invented            FORBIDDEN / SURVIVES
+different B/Q version compared as same state         BLOCKED / SURVIVES
+
+acquisition permission inferred                      FORBIDDEN / SURVIVES
+real BI5 processing inferred                         FORBIDDEN / SURVIVES
+real backtest permission inferred                    FORBIDDEN / SURVIVES
+```
+
+No additional internal F/O candidate defect was demonstrated.
+
+## 16.5 Final F/O candidate state
+
+```text
+F/O candidate formalization
+= PERSISTED
+= ADVERSARIALLY BROKEN
+= FAIL ON FO-F01..FO-F03
+= MINIMALLY CORRECTED
+= PERSISTED-HEAD RE-BROKEN
+= NO NEW INTERNAL DEFECT DEMONSTRATED
+```
+
+Official gates remain:
+
+```text
+F = BLOCKED
+O = BLOCKED
+```
+
+because:
+
+1. no materialized D acquisition/manifest/completeness evidence exists;
+2. B/A provider-sensitive facts remain officially BLOCKED;
+3. no executable Q implementation has been qualified;
+4. no concrete qualified run exists from which a real F artifact can be emitted;
+5. no executable F persistence implementation has been qualified;
+6. no executable O semantic comparator has been qualified;
+7. no independent I_A / I_B determinism run exists.
+
+The corrected F/O contract is internally stable enough to become candidate input to the next concrete implementation-boundary block.
+
+No acquisition or real backtest authorization is created.
+
+## 16.6 Boundary for next work
+
+Do not implement or acquire data merely because F/O survived formalization.
+
+Before any next block:
+
+1. persist this re-break;
+2. update the global pre-backtest reconciliation audit;
+3. create a durable session backup;
+4. update the Recovery Checkpoint.
+
+Only after those durable steps may the repository advance to the next governed concrete gate.
