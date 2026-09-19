@@ -292,6 +292,36 @@ Neither I_A nor I_B may call O during semantic construction to obtain:
 
 O receives both already-sealed results.
 
+## 6.4 Independent derivation requirement
+
+Separate files/import graphs are necessary but not sufficient.
+
+For every project-owned semantic stage, I_B must be independently derived from the pinned normative contracts rather than copied, generated, mechanically transformed or ported from I_A semantic source.
+
+Required future derivation evidence:
+
+```text
+independent_derivation_attestation
+semantic_source_provenance
+no_copy_or_generated_from_other_path declaration
+source_similarity_review_result
+independent_stage_level_test_inventory
+```
+
+The source-similarity review is a detection control, not a proof of conceptual independence.
+
+It MUST tolerate unavoidable common normative literals such as:
+
+- contract IDs/versions;
+- field names;
+- exact constants mandated by B/Q/F;
+- anomaly class IDs;
+- status enum literals.
+
+It MUST specifically look for substantial shared semantic control flow or whole-function/module copying disguised by renaming.
+
+Unresolved semantic derivation provenance keeps I_B BLOCKED.
+
 ---
 
 # 7. Independent implementation manifests
@@ -307,6 +337,8 @@ source content digests
 project dependency/import inventory
 external dependency versions
 semantic-stage ownership map
+semantic source provenance
+independent-derivation evidence reference
 build/runtime environment identity
 ```
 
@@ -348,16 +380,16 @@ A generic external primitive may appear in both dependency graphs, but it must n
 
 ---
 
-# 9. Result sealing
+# 9. Result sealing and pre-seal runtime isolation
 
-Each implementation result must be sealed before the other implementation's semantic result becomes readable by that process/run.
+Each implementation result must be sealed before the other implementation's semantic result becomes readable by that execution domain.
 
 Conceptual sequence:
 
 ```text
 same immutable input package
       ↓                    ↓
-     I_A                  I_B
+isolated I_A domain    isolated I_B domain
       ↓                    ↓
 semantic result A      semantic result B
       ↓                    ↓
@@ -367,15 +399,57 @@ seal A                 seal B
          → O comparison ←
 ```
 
+Before both seals exist, each execution domain may receive only:
+
+```text
+common immutable input package
+its own implementation/runtime files
+explicitly allowed non-semantic external dependencies
+its own private writable workspace
+```
+
+Pre-seal forbidden cross-path channels include:
+
+```text
+other implementation workspace/output
+shared semantic cache
+temporary semantic files
+shared mutable database
+IPC carrying semantic results
+network endpoint carrying semantic results
+shared memory carrying semantic results
+environment variables carrying semantic results
+pre-existing semantic artifact produced by the other path
+```
+
+The final harness must enforce or evidence this boundary through an explicit pre-seal input/read allowlist and isolated workspaces/execution domains.
+
+Required future isolation evidence includes:
+
+```text
+preseal_input_allowlist
+workspace_isolation_identity
+network_and_IPC_policy
+environment_variable_allowlist
+cache_policy
+runtime_read_or_dependency_trace_or_equivalent_sandbox_proof
+seal timestamp/order evidence
+```
+
+Only after both seals exist may the harness expose both semantic results to O or to cross-path debugging.
+
 The seal binds:
 
 ```text
 implementation manifest digest
 input determinant digests
 materialized D identity
-semantic outcome
+execution_status
+semantic_status
+freeze_status
 F semantic result or terminal non-freeze state
 execution evidence
+isolation evidence reference
 ```
 
 The seal is execution provenance/integrity only.
@@ -384,37 +458,105 @@ It is not occurrence identity.
 
 ---
 
-# 10. Blocked/rejected propagation
+# 10. Exact terminal status model
 
-Both implementations must independently preserve Q/F terminal behavior.
+I_A and I_B MUST expose three disjoint status axes.
 
-If either path derives:
+## 10.1 Execution status
+
+Closed enum:
 
 ```text
+execution_status =
+COMPLETED
+ENVIRONMENT_BLOCKED
+IMPLEMENTATION_ERROR
+```
+
+Meaning:
+
+- `COMPLETED`: the implementation executed the governed semantic path to a normative terminal semantic state;
+- `ENVIRONMENT_BLOCKED`: a required executable resource/environment was unavailable before a governed semantic terminal state could be reached;
+- `IMPLEMENTATION_ERROR`: implementation non-conformance, unhandled exception, invariant breach or other implementation failure prevented legitimate semantic completion.
+
+## 10.2 Semantic status
+
+Closed enum:
+
+```text
+semantic_status =
+QUALIFIED
 QUALIFICATION_BLOCKED
 ACQUISITION_REJECTED
-F NOT_CREATED
+NOT_REACHED
 ```
 
-it MUST NOT emit a partial qualified universe.
+## 10.3 Freeze status
 
-For a same-state comparison:
+Closed enum:
 
 ```text
-A QUALIFIED + B BLOCKED
-→ semantic determinism FAIL or implementation non-conformance,
-  provided all required inputs/environment for B were available
-
-A BLOCKED + B BLOCKED
-→ no qualified-universe equality PASS
-→ executable gate remains BLOCKED unless the block itself is the expected adversarial result
-
-A REJECTED + B REJECTED
-→ no qualified universe exists
-→ compare terminal semantics, not diagnostic prefixes
+freeze_status =
+FROZEN
+NOT_CREATED
+NOT_REACHED
 ```
 
-The final test harness must distinguish expected adversarial BLOCKED outcomes from missing-environment BLOCKED states.
+## 10.4 Mandatory invariants
+
+```text
+execution_status != COMPLETED
+→ semantic_status = NOT_REACHED
+→ freeze_status = NOT_REACHED
+
+semantic_status = QUALIFIED
+→ execution_status = COMPLETED
+→ freeze_status = FROZEN
+
+semantic_status = QUALIFICATION_BLOCKED
+→ execution_status = COMPLETED
+→ freeze_status = NOT_CREATED
+
+semantic_status = ACQUISITION_REJECTED
+→ execution_status = COMPLETED
+→ freeze_status = NOT_CREATED
+
+freeze_status = FROZEN
+→ semantic_status = QUALIFIED
+```
+
+An `IMPLEMENTATION_ERROR` or `ENVIRONMENT_BLOCKED` outcome MUST NOT be normalized into semantic `QUALIFICATION_BLOCKED`.
+
+A partial qualified universe is forbidden for every status other than legitimate `COMPLETED + QUALIFIED + FROZEN`.
+
+## 10.5 Same-state comparison implications
+
+Examples:
+
+```text
+A: COMPLETED + QUALIFIED
+B: IMPLEMENTATION_ERROR + NOT_REACHED
+→ implementation non-conformance / executable test FAIL
+  if B was expected to execute in the qualified environment
+
+A: COMPLETED + QUALIFICATION_BLOCKED
+B: ENVIRONMENT_BLOCKED + NOT_REACHED
+→ not semantic agreement
+→ executable test BLOCKED/FAIL according to whether the environment absence
+  is itself an unresolved prerequisite or an implementation-side defect
+
+A: COMPLETED + QUALIFICATION_BLOCKED
+B: COMPLETED + QUALIFICATION_BLOCKED
+→ terminal semantic agreement may be checked
+→ no qualified-universe equality PASS exists
+
+A: COMPLETED + ACQUISITION_REJECTED
+B: COMPLETED + ACQUISITION_REJECTED
+→ compare terminal semantics
+→ no qualified universe exists
+```
+
+The final harness must preserve these axes independently and must never collapse them into one generic `BLOCKED` label.
 
 ---
 
@@ -539,6 +681,11 @@ I_B implementation manifest
 dependency/import graph evidence
 source digest evidence
 forbidden-semantic-sharing scan/result
+independent-derivation attestation/provenance
+source-similarity review result
+independent stage-level test inventories
+pre-seal runtime-isolation evidence
+closed pre-seal input/read allowlists
 result-sealing evidence
 one-sided semantic fault-injection evidence
 Q-RM-12 adversarial execution evidence
