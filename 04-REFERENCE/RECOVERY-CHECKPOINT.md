@@ -1846,3 +1846,246 @@ The next formalization must define before code:
 Do not write I_A/I_B implementation code before this boundary is formalized, persisted and adversarially broken.
 
 No acquisition, real BI5 processing, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted by this next block.
+
+
+---
+
+## 42. First concrete native BI5 I_A/I_B implementation boundary — persisted
+
+The first concrete native-BI5 `I_A + I_B` implementation-boundary candidate has been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/iab_native_bi5_implementation_boundary_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`90e81819434f559e17568660bebb0f72c4e945b6`
+
+Initial candidate blob:
+
+`f2bdf83f4cfe4dbfa7b275bc620a33eea0460c07`
+
+Initial adversarial artifact:
+
+`reports/data-qualification/iab_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`48407dd7af42e7882a2fce63d3b4a0733ada801f`
+
+Initial candidate verdict:
+
+```text
+FAIL
+```
+
+Demonstrated defects:
+
+```text
+IAB-F01 — TERMINAL_STATUS_DOMAIN_UNDERSPECIFIED
+IAB-F02 — INDEPENDENT_DERIVATION_EVIDENCE_UNDERSPECIFIED
+IAB-F03 — CROSS_PATH_INFORMATION_FLOW_PROOF_UNDERSPECIFIED
+```
+
+Minimal correction commit:
+
+`00b87a1a817046ad0f1510420ef098d117a39559`
+
+Corrected candidate blob:
+
+`fac8d143a836b0c02538c607ac5ab71357824537`
+
+Final persisted-head adversarial re-break commit:
+
+`a3972b8415bffee041a51aca61c0dc6ad7976690`
+
+Final adversarial artifact blob:
+
+`6653953562ffaa5f7d8ff23578356ab794f37827`
+
+No additional internal I_A/I_B boundary defect was demonstrated after correction.
+
+### Current I_A identity
+
+```text
+implementation_id =
+I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER
+
+implementation_version =
+I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_V0_1_CANDIDATE
+```
+
+### Current I_B identity
+
+```text
+implementation_id =
+I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER
+
+implementation_version =
+I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE
+```
+
+### Corrected independence boundary
+
+Both paths must independently derive:
+
+```text
+D → R → B → A → M → Q → F
+```
+
+from the same immutable raw/normative input package.
+
+I_B may not consume I_A semantic outputs before both result seals exist.
+
+Project semantic helpers for D/R/M/B/A/Q/F may not be shared.
+
+Generic non-semantic primitives may be shared.
+
+I_B qualification additionally requires independent-derivation evidence:
+
+```text
+independent_derivation_attestation
+semantic_source_provenance
+no_copy_or_generated_from_other_path declaration
+source_similarity_review_result
+independent_stage_level_test_inventory
+```
+
+### Corrected pre-seal isolation boundary
+
+Before sealing, each implementation receives only:
+
+```text
+common immutable input package
+its own implementation/runtime
+allowed non-semantic dependencies
+private writable workspace
+```
+
+Cross-path semantic flow via temp files, cache, environment, IPC, network, shared memory or pre-existing other-path artifacts is forbidden.
+
+Future qualification requires runtime isolation evidence and closed read/input allowlists.
+
+### Corrected terminal status model
+
+```text
+execution_status =
+COMPLETED
+ENVIRONMENT_BLOCKED
+IMPLEMENTATION_ERROR
+
+semantic_status =
+QUALIFIED
+QUALIFICATION_BLOCKED
+ACQUISITION_REJECTED
+NOT_REACHED
+
+freeze_status =
+FROZEN
+NOT_CREATED
+NOT_REACHED
+```
+
+Key separation:
+
+```text
+semantic QUALIFICATION_BLOCKED
+≠ ENVIRONMENT_BLOCKED
+≠ IMPLEMENTATION_ERROR
+```
+
+An execution/environment failure cannot be normalized into a semantic qualification BLOCKED.
+
+### Official verdicts remain
+
+```text
+I_A = BLOCKED
+I_B = BLOCKED
+```
+
+because:
+
+1. no I_A implementation exists or is qualified;
+2. no I_B implementation exists or is qualified;
+3. no implementation manifests exist;
+4. no independent-derivation evidence exists;
+5. no pre-seal isolation execution evidence exists;
+6. no sealed I_A/I_B result pair exists;
+7. no one-sided mutant execution exists;
+8. upstream concrete D/R/M/B/A/Q/F/O gates remain BLOCKED.
+
+The corrected implementation boundary is internally stable enough to govern future test-first implementation work.
+
+No acquisition or real backtest authorization is created.
+
+---
+
+## 43. Durable I_A/I_B boundary backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-IAB-BOUNDARY-FORMALIZATION.md`
+
+Backup commit:
+
+`60a0d6d212fcbc7897dac40fb6fe4af8752482c4`
+
+Backup blob:
+
+`5027e365a9d2091d7462e8468cf1ea0ac57f0604`
+
+Global reconciliation audit update commit:
+
+`213b7dfca47275050f54e3a19a3d355b1ab551c9`
+
+Global reconciliation audit blob:
+
+`029b01c39b871bdc9d1c210f62f885eb03c2e45d`
+
+No I_A/I_B production implementation, acquisition, BI5 download, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 44. Exactly one next governed action
+
+Create only the **test-first executable I_A/I_B qualification harness/breaker layer** using synthetic/in-memory fixtures.
+
+Do not create production I_A/I_B semantic implementation yet.
+
+The harness must encode at minimum:
+
+- exact execution/semantic/freeze status-axis invariants;
+- semantic BLOCKED/REJECTED no-partial-universe behavior;
+- strict duplicate preservation;
+- no hidden timestamp sorting;
+- no hidden market-value filtering;
+- exact source→logical relation;
+- implementation manifest/source integrity;
+- forbidden shared semantic import/dependency checks;
+- independent-derivation evidence surface;
+- pre-seal input/read isolation evidence;
+- result sealing;
+- O post-seal-only consumption;
+- I_A-only semantic mutant detection;
+- I_B-only semantic mutant detection;
+- missing normative-input fail-closed behavior;
+- permission closure.
+
+The expected preimplementation run must be RED only because the future I_A/I_B implementation candidates are absent.
+
+Required state after the test-first block:
+
+```text
+protected governed contracts unchanged
+I_A executable breaker/harness persisted
+I_B executable breaker/harness persisted
+preimplementation failures diagnosed as missing implementations only
+no production I_A semantic implementation
+no production I_B semantic implementation
+no real BI5 data
+no acquisition
+no backtest
+```
+
+Only after that expected red baseline is persisted may production I_A/I_B implementation begin.
