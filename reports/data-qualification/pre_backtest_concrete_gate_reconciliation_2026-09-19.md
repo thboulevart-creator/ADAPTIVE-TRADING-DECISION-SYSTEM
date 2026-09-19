@@ -116,4 +116,58 @@ I_A NOT YET RECONCILED
 I_B NOT YET RECONCILED
 ```
 
-**Next governed action:** reconcile `R — representation identity/version` against the current repository.
+# R — Representation identity/version
+
+## Requirement
+
+The global executable gate requires an explicit project decision identifying the concrete supported qualification representation and its version. Parser capability, filename extension, or a runtime default is not sufficient.
+
+## Current repository evidence inspected
+
+The repository currently contains technical support or references for multiple physical representations:
+
+- CSV tick reader and admissibility code;
+- a CSV schema default such as `tick-csv-v1`;
+- Dukascopy BI5 parsing logic in the compatibility probe;
+- Parquet support in the compatibility probe;
+- Q-RM-06/Q-RM-09 universal binding/versioning contracts.
+
+However, the current Q-RM-06/Q-RM-09 adjudications explicitly leave concrete CSV/JSON/binary/vendor bindings unresolved.
+
+No current project-specific normative artifact selects one exact representation identity/version as the concrete representation for the intended real acquisition/backtest gate.
+
+## Adjudication
+
+```text
+technical parser support
+≠ normative supported representation selection
+
+runtime schema default
+≠ project decision
+
+BI5 compatibility probe
+≠ qualified representation/version
+```
+
+Because D is not yet instantiated, there is also no acquisition declaration binding a concrete `representation_id` / `representation_version`.
+
+## Verdict
+
+```text
+R — Representation identity/version
+BLOCKED
+```
+
+Classification:
+
+`ABSENCE OF EXPLICIT PROJECT-SPECIFIC NORMATIVE SELECTION`
+
+## Closure evidence required
+
+A versioned project decision must select the concrete representation(s) admitted by the first real acquisition gate, including exact identity/version and relationship to D/B.
+
+No representation is promoted to normative status by this audit.
+
+---
+
+**Next governed action:** reconcile `M — record-model version` against the current repository.
