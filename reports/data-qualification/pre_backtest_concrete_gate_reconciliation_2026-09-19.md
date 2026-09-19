@@ -1930,3 +1930,131 @@ I_B BLOCKED
 ```
 
 No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
+
+
+---
+
+# I_B independent derivation evidence package — 2026-09-19
+
+A pre-code independent-derivation evidence package for future I_B now exists and has completed its governed adversarial qualification cycle.
+
+Artifacts:
+
+```text
+reports/data-qualification/iab/ib_semantic_source_provenance.json
+blob = a4040370458b1a8d22ec2411178cc023cf96155b
+
+reports/data-qualification/iab/ib_no_copy_declaration.json
+blob = 2d983605d1d19a1e644a49e88ab9ee2429b8a185
+
+reports/data-qualification/iab/ib_independent_stage_test_inventory.json
+blob = c3a4e6564a67c572f313c30d177433ee6a22764b
+```
+
+Evidence breaker:
+
+`breakers/native_bi5_ib_derivation_evidence_breaker.py`
+
+Final breaker blob:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+Adversarial record:
+
+`reports/data-qualification/iab/ib_derivation_evidence_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`83c6b5552d34f0b1bae77b1ed40081694555c40f`
+
+### Demonstrated defects
+
+The initial evidence candidate failed on:
+
+```text
+IBE-F01 — FROZEN_PAYLOAD_FINGERPRINT_MISMATCH
+IBE-F02 — FUTURE_BREAKER_SHAPE_MISMATCH
+IBE-F03 — ANOMALY_TEST_INVENTORY_TOO_COARSE
+IBE-F04 — CROSS_ARTIFACT_PACKAGE_BINDING_MISSING
+```
+
+Persisted-head residual attacks then exposed:
+
+```text
+IBE-R01 — POSITIVE_A08_TEST_WITHOUT_QUALIFIED_PROOF_VERIFIER
+IBE-R02 — CROSS_CUTTING_BOUNDARY_TEST_INVENTORY_GAPS
+IBE-R03 — EXACT_SIBLING_PAYLOAD_BINDING_NOT_CLOSED
+IBE-R04 — PRECODE_ONLY_BREAKER_CANNOT_VALIDATE_POST_CODE_BINDING
+IBE-R05 — COORDINATED_FROZEN_PAYLOAD_REWRITE_NOT_EXTERNALLY_ANCHORED
+```
+
+All demonstrated defects were minimally corrected.
+
+### Final persisted-head re-break
+
+Final corrected pre-code evidence HEAD:
+
+`86641b5d419c4fd2c4388bf786ce964c5fcb260b`
+
+Workflow:
+
+```text
+run = 35443769476
+job = 105899075997
+11 passed
+```
+
+All exact evidence/breaker hash locks, I_B-source-absence proof, environment verification and clean-worktree checks passed.
+
+### Final evidence-package verdict
+
+```text
+I_B INDEPENDENT DERIVATION EVIDENCE PACKAGE = PASS
+```
+
+The PASS covers only:
+
+- pinned normative derivation provenance;
+- no-copy / no-generation / no-wrapper constraints;
+- exact package/sibling fingerprint binding;
+- independent stage-test inventory;
+- fail-closed A08 treatment while its constructive-proof verifier is unqualified;
+- pre-code to post-code source-binding transition contract.
+
+Current source-binding state:
+
+```text
+source_binding_state = PENDING_IMPLEMENTATION_SOURCE
+source_digests = {}
+src/native_bi5_independent_qualifier.py = ABSENT
+```
+
+The same qualified evidence breaker is frozen to accept a future source binding only when the only permitted source path exists and the evidence `source_digests` exactly equal SHA-256 over its raw source bytes.
+
+Frozen semantic payload hashes are hard-bound inside that breaker and may not change after source creation.
+
+Therefore the current I_B state is:
+
+```text
+I_B derivation evidence package = PASS
+I_B implementation source       = ABSENT
+I_B source binding              = PENDING
+I_B executable/global gate      = BLOCKED
+```
+
+The global concrete reconciliation remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED   # global gate; I_A implementation candidate PASS
+I_B BLOCKED   # evidence package PASS; implementation absent
+```
+
+No real acquisition, BI5 processing, backtest, paper/broker/live execution or positive P1.1 authorization is created.
