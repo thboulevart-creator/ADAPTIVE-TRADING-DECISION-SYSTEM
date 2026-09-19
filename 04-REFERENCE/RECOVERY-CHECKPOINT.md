@@ -3518,3 +3518,265 @@ Only after that RED baseline is persisted, diagnosed and adversarially qualified
 F source and its qualified breakers must remain unchanged during the O test-first block.
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 63. Native BI5 O semantic-comparator test-first RED baseline — qualified
+
+A dedicated synthetic/in-memory test-first breaker/harness for the O semantic-comparator candidate now exists and has completed its governed adversarial qualification cycle.
+
+Final breaker:
+
+`breakers/native_bi5_o_semantic_comparator_breaker.py`
+
+Final breaker blob:
+
+`9e1d897329a15f8b26172558b6579d61d9ba3820`
+
+Final workflow:
+
+`.github/workflows/native-bi5-o-semantic-comparator-preimplementation.yml`
+
+Final workflow blob:
+
+`1d9203993f0ebbc83f67bdcea3449a886db13335`
+
+RED baseline artifact:
+
+`reports/data-qualification/o_native_bi5_preimplementation_red_baseline_2026-09-19.md`
+
+RED baseline blob:
+
+`cc5363aa7b7ca916b2f1ae505e88d1b92178ee8d`
+
+Adversarial record:
+
+`reports/data-qualification/o_native_bi5_testfirst_harness_adversarial_break_2026-09-19.md`
+
+Final adversarial record blob:
+
+`1a4b3f683a752f25d973079ba8ee39fceb247d5f`
+
+### Preserved F boundary
+
+The full O test-first block kept these exact assets byte-identical:
+
+```text
+src/native_bi5_freeze_persistence.py
+= 199b07929fe8ec40d719b001b0321d1f26c8faab
+
+breakers/native_bi5_f_freeze_persistence_breaker.py
+= 3d9eb75c2f4e988c984da67af0af344d3dc24148
+
+breakers/native_bi5_f_freeze_persistence_adversarial.py
+= c4c499d5e76e15a8fdcaeb91dde80beadad6487a
+```
+
+No F behavior was changed.
+
+### Demonstrated O-harness defects
+
+```text
+OTF-F01..OTF-F08
+OTF-R01..OTF-R14
+```
+
+All demonstrated defects were minimally corrected before final qualification.
+
+The final breaker now attacks:
+
+- same-state semantic equality;
+- semantic payload difference;
+- duplicate multiplicity;
+- source→logical relation difference;
+- rejected-source A09/A10 relation difference;
+- invalid anomaly-only mutation;
+- all D/R/M/B/A/Q/F determinant digest/reference conflicts;
+- legitimate distinct D materialization version;
+- distinct qualification parameters;
+- terminal/nonmapping/malformed inputs on both sides;
+- resealed structurally invalid F artifacts;
+- acquisition identity/materialization conflicts;
+- physical repartition non-authority;
+- non-semantic raw source provenance;
+- array/key/diagnostic order;
+- pretty/compact byte-hash difference;
+- temporal/canonical output authority;
+- comparator symmetry;
+- actual input immutability;
+- permission closure.
+
+### Final persisted-head RED re-break
+
+Final corrected test-first HEAD:
+
+`17faff7b06e337fe9e2fe4a92fdc0ef688f4d742`
+
+Final workflow run:
+
+```text
+run = 35457461057
+job = 105935180122
+```
+
+Results:
+
+```text
+exact persisted HEAD / O breaker / F-O contract locks = PASS
+F source unchanged                                    = PASS
+both qualified F breakers unchanged                   = PASS
+O production runtime absent                           = PASS
+qualification environment                             = PASS
+pytest collection                                     = 77 tests / PASS
+O breaker execution                                   = RED
+clean worktree                                        = PASS
+```
+
+Every executed test stopped only at:
+
+```text
+O runtime absent — expected pre-implementation RED:
+src.native_bi5_semantic_universe_comparator does not exist
+```
+
+No syntax, import, collection, environment, hash-lock, workflow or unrelated test-body defect was observed.
+
+### Final O test-first verdict
+
+```text
+O TEST-FIRST SEMANTIC-COMPARATOR BREAKER / HARNESS = PASS
+```
+
+This is a harness-layer PASS only.
+
+Current exact state:
+
+```text
+O test-first breaker/harness = PASS
+O production implementation = ABSENT
+O global executable gate    = BLOCKED
+```
+
+F remains:
+
+```text
+F test-first breaker/harness qualification = PASS
+F implementation candidate qualification   = PASS
+F global executable gate                    = BLOCKED
+```
+
+The global concrete state remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED   # test-first harness PASS; implementation absent
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No acquisition, BI5 processing, backtest or execution authorization is created.
+
+---
+
+## 64. Durable O test-first backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-O-TESTFIRST-RED.md`
+
+Backup commit:
+
+`d2c11fc3e792acf472325ffe64fecb7d066221d0`
+
+Backup blob:
+
+`08721ad6812d42f136add776886b633db488de81`
+
+Global reconciliation audit update commit:
+
+`215b0f1ac7f63560cda194c7d9176ccb80d222f6`
+
+Updated global audit blob:
+
+`3b8a7ce3f3386f1d2cbf167d52f16b3d0327ce30`
+
+No executable O implementation, real BI5 acquisition, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 65. Exactly one next governed action
+
+Open only:
+
+```text
+O — semantic-comparator production implementation candidate
+```
+
+Create only:
+
+`src/native_bi5_semantic_universe_comparator.py`
+
+Use the now-frozen O test-first breaker as the executable contract.
+
+Qualified breaker blob that must remain unchanged during the initial O implementation candidate:
+
+`9e1d897329a15f8b26172558b6579d61d9ba3820`
+
+Required future O surface:
+
+```text
+ORACLE_ID
+ORACLE_VERSION
+RESULT_SCHEMA
+
+compare_freeze_artifacts(left_artifact, right_artifact)
+```
+
+Required result minimum:
+
+```text
+schema
+oracle_id
+oracle_version
+oracle_result
+qualified_universe_comparison
+comparison_scope
+reason
+```
+
+Allowed oracle results:
+
+```text
+SEMANTIC_EQUAL
+SEMANTIC_DIFFERENT
+BLOCKED
+```
+
+Governed sequence:
+
+```text
+fresh HEAD verification
+→ create minimal pure O comparator only
+→ persist candidate
+→ execute frozen O breaker
+→ adversarial diagnosis
+→ minimal corrections only
+→ persisted-head O re-break
+→ PASS / FAIL / BLOCKED
+→ global audit
+→ durable backup
+→ Recovery Checkpoint
+```
+
+Keep F source and both qualified F breakers unchanged throughout the initial O production-candidate block.
+
+Do not add persistence, acquisition, backtest, broker or trading actions to O.
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
