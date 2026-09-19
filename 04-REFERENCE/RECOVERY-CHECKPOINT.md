@@ -30,7 +30,7 @@ Always verify the live branch HEAD before writing. The checkpoint/backup commits
 
 Current block:
 
-`P1.15 — EVIDENCE FULFILLMENT PROMOTION / EXPERIMENT EVALUATOR AUTHORITY`
+`P1.16 — QUALIFIED EXPERIMENTAL FINDING INTERPRETATION POLICY`
 
 ---
 
@@ -743,4 +743,140 @@ Then run pre-implementation qualification and require:
 - clean worktrees.
 
 Do not implement either P1.15 runtime before those expected red baselines exist.
+
+
+
+---
+
+## 21. P1.15 final qualification closure
+
+P1.15 is fully qualified.
+
+Qualified persisted HEAD:
+
+`e61381813c0539c1339aec6e01310d4046f9dbe3`
+
+Final P1.15A:
+
+- run `35433285721`;
+- job `105871556471`;
+- `19 passed`;
+- clean worktree.
+
+Final P1.15B:
+
+- run `35433285730`;
+- job `105871556484`;
+- `38 passed`;
+- clean worktree.
+
+Final identities:
+
+- P1.15A breaker `bc057806d1a31072258caafb26a3e4c6de8d7448`;
+- P1.15B breaker `b077c7e81e60066aed712f8c9212378e3b08916c`;
+- P1.15A runtime `a13ec4b3a5ceb44266b214e69c4e596519966050`;
+- P1.15B runtime `bfab3c421263434d5e3e3066720f95abb521b09c`.
+
+Verdict:
+
+```text
+P1.15A PASS
+P1.15B PASS
+```
+
+---
+
+## 22. P1.16 selected experimental finding policy
+
+Governance formalisation commit:
+
+`00061b577c5f4212000b9343cbe35bd6781128bb`
+
+Contract candidate:
+
+`P1_16_QUALIFIED_EXPERIMENTAL_FINDING_INTERPRETATION_BOUNDARY_V1`
+
+Policy constant candidate:
+
+`P1_16_FINDING_INTERPRETATION_POLICY_V1`
+
+Future runtime:
+
+`src/qualified_experimental_finding.py`
+
+No P1.16 runtime exists yet.
+
+No P1.16 executable breaker exists yet.
+
+### Total interpretation table
+
+```text
+SUPPORTED     + NOT_FALSIFIED → SUPPORTED
+NOT_SUPPORTED + FALSIFIED     → REFUTED
+
+SUPPORTED     + FALSIFIED     → NOT_INTERPRETABLE
+NOT_SUPPORTED + NOT_FALSIFIED → NOT_INTERPRETABLE
+
+any pair containing BLOCKED    → NOT_INTERPRETABLE
+```
+
+Interpretation codes:
+
+- `PREDICTION_SUPPORTED_AND_NOT_FALSIFIED`;
+- `PREDICTION_NOT_SUPPORTED_AND_FALSIFIED`;
+- `CONTRADICTORY_EVALUATION_STATUSES`;
+- `NON_DECISIVE_EVALUATION_STATUSES`;
+- `BLOCKED_EVALUATION_STATUS`.
+
+The table is total over all 9 valid status pairs.
+
+### Minimal authoritative inputs
+
+- exact factory-attested `ExperimentEvaluationSubmission`;
+- exact factory-attested `QualifiedExperimentEvaluationAuthority`.
+
+No caller may supply:
+
+- finding status;
+- interpretation code;
+- policy reference;
+- supporting measurement IDs.
+
+### Candidate output
+
+`QualifiedExperimentalFinding`
+
+This remains distinct from:
+
+- `ResearchFinding`;
+- `ResearchFindings`;
+- `ResearchRunEvidence`;
+- durable knowledge;
+- operational authorization.
+
+---
+
+## 23. Exactly one next governed action
+
+Create only the P1.16 test-first breaker and workflow:
+
+- `breakers/p1_16_qualified_experimental_finding_breaker.py`;
+- `.github/workflows/p1-16-qualified-experimental-finding.yml`.
+
+Do not create `src/qualified_experimental_finding.py` yet.
+
+The breaker must exercise all 9 status pairs and prove:
+
+- only the two decisive pairs promote to SUPPORTED / REFUTED;
+- contradictory, non-decisive and BLOCKED pairs become NOT_INTERPRETABLE;
+- no caller override surface exists;
+- exact P1.13B/P1.15B authority chain is required;
+- no ResearchFinding/ResearchFindings/ResearchRunEvidence production occurs;
+- no knowledge or operational authorization occurs.
+
+Then require:
+
+- protected chain through P1.15A+B PASS;
+- P1.16 FAIL only because runtime candidate is absent;
+- clean worktree.
 
