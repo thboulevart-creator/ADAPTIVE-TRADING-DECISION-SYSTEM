@@ -251,3 +251,156 @@ IBE-F04 — CROSS_ARTIFACT_PACKAGE_BINDING_MISSING
 No I_B code is authorized until these defects are minimally corrected and the corrected evidence package survives persisted-head re-break.
 
 No real BI5 acquisition, processing or backtest is authorized.
+
+
+---
+
+## Residual persisted-head re-break after first correction
+
+First correction commit:
+
+`506e0b17c537250059e27b8ebad82ef31a1a250e`
+
+Corrected evidence blobs:
+
+```text
+provenance
+446de56a83d442861d130d7cab2054790dd3c6a3
+
+no-copy
+2540a86155a2806543f62a039661c28ed5c77eda
+
+test inventory
+bbcba195b2b47600d11b7badf4b30482cef99030
+```
+
+Corrected evidence breaker blob:
+
+`9461bcfbc2b81b688c03d6084c5911ddff4a460a`
+
+Executable re-break:
+
+```text
+run = 35443500490
+job = 105898365713
+9 passed
+```
+
+All persisted-blob locks, I_B-source-absence proof, qualification-environment checks and clean-worktree checks passed.
+
+The four initial defects are materially improved, but full adversarial inspection still demonstrates the following residuals.
+
+### IBE-R01 — POSITIVE_A08_TEST_WITHOUT_QUALIFIED_PROOF_VERIFIER
+
+The inventory now explicitly lists A08, but it currently promises a positive test:
+
+```text
+terminal partial with independently valid constructive completeness proof
+→ REJECT_RECORD
+```
+
+No independently qualified constructive-completeness proof verifier/schema currently exists in the pinned allowed derivation inputs.
+
+Therefore future I_B code cannot implement the positive A08 branch without either:
+
+- inventing proof-validation semantics;
+- trusting a self-described proof reference;
+- or importing an unqualified external authority.
+
+All three violate the fail-closed boundary.
+
+Current I_A independently reached the same architectural limitation and fails closed, but I_A source is not used as derivation authority here.
+
+Verdict:
+
+```text
+IBE-R01 = FAIL
+```
+
+Required correction:
+
+the pre-code inventory must mark positive A08 execution as an unresolved dependency and test the currently implementable fail-closed rule:
+
+```text
+claimed/unverified constructive proof
+→ do not promote A08
+→ A07 / QUALIFICATION_BLOCKED
+```
+
+A future separately qualified verifier may reopen positive A08 semantics.
+
+### IBE-R02 — CROSS_CUTTING_BOUNDARY_TEST_INVENTORY_GAPS
+
+The stage inventory now covers D/R/M/B/A/Q/F and A01-A13, but it still lacks explicit independent tests for several cross-cutting I_A/I_B-boundary invariants:
+
+- component traversal-order invariance;
+- exact execution/semantic/freeze status-axis contradictions;
+- result-seal mutation/integrity;
+- pre-seal environment/read/network/IPC isolation;
+- missing normative input/default prohibition as a cross-cutting invariant;
+- source→logical relation corruption.
+
+These are not implementation details; they are explicit boundary obligations.
+
+Verdict:
+
+```text
+IBE-R02 = FAIL
+```
+
+Required correction:
+
+add independent inventory entries for those boundary attacks without using I_A or O expected answers.
+
+### IBE-R03 — EXACT_SIBLING_PAYLOAD_BINDING_NOT_CLOSED
+
+The first correction added a common package ID/version and a common normative-source-set digest.
+
+That prevents many mix-and-match attacks, but it does not bind the exact three frozen semantic payload revisions to one another.
+
+Attack:
+
+combine two individually valid artifacts produced under different corrected revisions that share:
+
+```text
+same evidence_package_id
+same evidence_package_version
+same normative_source_set_sha256
+```
+
+Each artifact can pass its local fingerprint while the trio did not exist as one exact reviewed package.
+
+Verdict:
+
+```text
+IBE-R03 = FAIL
+```
+
+Required correction:
+
+all three artifacts must carry the same top-level exact sibling map:
+
+```text
+frozen_payload_set = {
+  provenance path: exact provenance frozen_semantic_payload_sha256,
+  no-copy path: exact no-copy frozen_semantic_payload_sha256,
+  inventory path: exact inventory frozen_semantic_payload_sha256
+}
+```
+
+This binding must remain outside the payloads themselves to avoid a hash cycle, and the external breaker must verify it against the three actual frozen payload fingerprints.
+
+---
+
+## Second authorized correction
+
+Correct only IBE-R01..R03:
+
+1. mark positive A08 proof validation as unresolved/fail-closed in the pre-code evidence semantics;
+2. add the missing cross-cutting boundary test inventory entries;
+3. bind the exact three frozen payload fingerprints together;
+4. extend the evidence breaker to validate these exact conditions;
+5. update workflow hash locks;
+6. perform a fresh persisted-head re-break.
+
+No I_B production code is authorized during this correction.
