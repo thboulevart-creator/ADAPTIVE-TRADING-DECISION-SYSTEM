@@ -23,7 +23,7 @@ env:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
   IA_BREAKER_BLOB: '64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd'
-  IA_SOURCE_BLOB: '93601fc155af73f6006af9efeb3705d1254ed386'
+  IA_SOURCE_BLOB: '9ac0e27b1104fae972124946c876f2170300a9d7'
 
 jobs:
   qualify-ia-candidate:
