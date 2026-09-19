@@ -1437,3 +1437,211 @@ O   BLOCKED
 I_A BLOCKED
 I_B BLOCKED
 ```
+
+
+---
+
+# I_A/I_B implementation-boundary formalization update — 2026-09-19
+
+The historical I_A/I_B gate verdicts remain `BLOCKED`, but the concrete implementation-independence boundary has now been formalized and adversarially closed at candidate-contract level.
+
+Candidate artifact:
+
+`reports/data-qualification/iab_native_bi5_implementation_boundary_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`90e81819434f559e17568660bebb0f72c4e945b6`
+
+Initial candidate blob:
+
+`f2bdf83f4cfe4dbfa7b275bc620a33eea0460c07`
+
+Adversarial artifact:
+
+`reports/data-qualification/iab_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`48407dd7af42e7882a2fce63d3b4a0733ada801f`
+
+Initial verdict:
+
+```text
+I_A/I_B FIRST NATIVE-BI5 IMPLEMENTATION BOUNDARY CANDIDATE
+FAIL
+```
+
+Demonstrated defects:
+
+```text
+IAB-F01 — TERMINAL_STATUS_DOMAIN_UNDERSPECIFIED
+IAB-F02 — INDEPENDENT_DERIVATION_EVIDENCE_UNDERSPECIFIED
+IAB-F03 — CROSS_PATH_INFORMATION_FLOW_PROOF_UNDERSPECIFIED
+```
+
+Minimal correction commit:
+
+`00b87a1a817046ad0f1510420ef098d117a39559`
+
+Corrected candidate blob:
+
+`fac8d143a836b0c02538c607ac5ab71357824537`
+
+Final persisted-head re-break commit:
+
+`a3972b8415bffee041a51aca61c0dc6ad7976690`
+
+Final adversarial artifact blob:
+
+`6653953562ffaa5f7d8ff23578356ab794f37827`
+
+No additional internal implementation-boundary defect was demonstrated after correction.
+
+## Current I_A candidate boundary
+
+Candidate identity:
+
+```text
+I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER
+I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_V0_1_CANDIDATE
+```
+
+I_A must independently derive the full semantic chain from the exact common immutable input package:
+
+```text
+D
+→ R
+→ B
+→ A
+→ M
+→ Q
+→ F
+```
+
+It may not use I_B or O as semantic authority.
+
+## Current I_B candidate boundary
+
+Candidate identity:
+
+```text
+I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER
+I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE
+```
+
+I_B must independently derive the same governed semantics from the same raw/common immutable inputs.
+
+It may not consume pre-seal I_A:
+
+- decoded records;
+- B candidates;
+- A decisions;
+- Q membership;
+- F state;
+- counts/fingerprints;
+- serialized freeze output.
+
+## Independence closure now required
+
+The corrected boundary requires all of:
+
+```text
+separate project semantic implementation units
++
+no shared project semantic module
++
+independent derivation provenance
++
+source-similarity review for copied semantic control flow
++
+independent stage-level tests
++
+pre-seal isolated execution domains
++
+closed input/read allowlists
++
+runtime isolation/read evidence
++
+sealed outputs
++
+post-seal O comparison only
++
+one-sided semantic mutant detection
+```
+
+Generic non-semantic primitives may still be shared.
+
+## Terminal status closure
+
+The corrected boundary separates:
+
+```text
+execution_status:
+COMPLETED
+ENVIRONMENT_BLOCKED
+IMPLEMENTATION_ERROR
+
+semantic_status:
+QUALIFIED
+QUALIFICATION_BLOCKED
+ACQUISITION_REJECTED
+NOT_REACHED
+
+freeze_status:
+FROZEN
+NOT_CREATED
+NOT_REACHED
+```
+
+Thus:
+
+```text
+semantic QUALIFICATION_BLOCKED
+≠ environment blocked
+≠ implementation error
+```
+
+No generic BLOCKED-agreement shortcut is permitted.
+
+## Official I_A/I_B verdict
+
+```text
+I_A = BLOCKED
+I_B = BLOCKED
+```
+
+Reasons:
+
+1. no I_A implementation exists or is qualified;
+2. no I_B implementation exists or is qualified;
+3. no implementation manifests/derivation evidence/isolation evidence exist;
+4. no executable one-sided mutant evidence exists;
+5. upstream concrete D/R/M/B/A/Q/F/O gates remain BLOCKED;
+6. no real two-implementation Q-RM-12 execution exists.
+
+Therefore:
+
+```text
+internally stable I_A/I_B boundary candidate
+≠ I_A PASS
+≠ I_B PASS
+≠ final executable gate PASS
+```
+
+Updated reconciliation state remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No acquisition, real BI5 processing or real backtest authorization is created.
