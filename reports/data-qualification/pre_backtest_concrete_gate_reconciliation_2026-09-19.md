@@ -297,4 +297,74 @@ No parser is promoted to normative authority by this audit.
 
 ---
 
-**Next governed action:** reconcile `A — concrete anomaly matrix` against the current repository.
+# A — Concrete anomaly matrix
+
+## Requirement
+
+For every supported binding, the concrete anomaly registry must versionedly define at least:
+
+- anomaly class ID;
+- trigger condition and evidence;
+- affected physical scope;
+- localisability test;
+- possible interpretations;
+- mandatory outcome;
+- acquisition-fatal flag;
+- impact on qualification membership;
+- required diagnostic artifact;
+- binding version.
+
+## Current repository evidence inspected
+
+Q-RM-10 establishes and adversarially constrains the universal failure policy:
+
+```text
+INVALID + constructively LOCALISABLE
+→ REJECT RECORD
+
+otherwise
+→ QUALIFICATION BLOCKED
+
+REJECT ACQUISITION
+→ only when explicitly declared acquisition-fatal
+```
+
+But Q-RM-10 itself explicitly records:
+
+```text
+UNIVERSAL FAILURE POLICY = PASS
+CONCRETE ANOMALY MATRIX  = BLOCKED
+```
+
+Executable CSV/BI5 checks currently detect some concrete errors, but there is no validated versioned anomaly registry tied to one admitted B representation that maps the complete declared anomaly classes to Q-RM-10 outcomes.
+
+## Adjudication
+
+```text
+error checks in code
+≠ concrete normative anomaly matrix
+
+universal failure policy
+≠ format-specific anomaly registry
+```
+
+## Verdict
+
+```text
+A — Concrete anomaly matrix
+BLOCKED
+```
+
+Classification:
+
+`UNIVERSAL POLICY CLOSED; FORMAT-SPECIFIC MATRIX ABSENT`
+
+## Closure evidence required
+
+After R/B are selected, publish and adversarially qualify a concrete anomaly matrix for the selected binding/version. Unknown/unregistered anomalies must remain fail-closed.
+
+No existing runtime check is promoted to normative matrix authority by this audit.
+
+---
+
+**Next governed action:** reconcile `Q — qualification contract + parameters` against the current repository.
