@@ -220,14 +220,17 @@ def _authority_files(
     return record_path, receipt_path, _sha256(receipt_bytes)
 
 
-def _reattest(review, paths, *, authority_id=REVIEW_AUTHORITY, pin=None):
+_DEFAULT_PIN = object()
+
+
+def _reattest(review, paths, *, authority_id=REVIEW_AUTHORITY, pin=_DEFAULT_PIN):
     record_path, receipt_path, receipt_sha256 = paths
     return _p114a().reattest_reviewer_method_authority(
         review,
         record_path,
         receipt_path,
         expected_authority_id=authority_id,
-        expected_receipt_sha256=receipt_sha256 if pin is None else pin,
+        expected_receipt_sha256=receipt_sha256 if pin is _DEFAULT_PIN else pin,
     )
 
 
