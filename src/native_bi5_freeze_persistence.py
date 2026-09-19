@@ -339,7 +339,21 @@ def _validate_accounting(
         if not isinstance(raw, Mapping):
             raise _ConstructionError("source accounting malformed")
         item = copy.deepcopy(dict(raw))
-        source = _witness(item)
+        allowed_keys = {
+            "component_manifest_entry_id",
+            "component_local_slot_index",
+            "disposition",
+            "anomaly_class_id",
+        }
+        if set(item) != allowed_keys:
+            raise _ConstructionError("source accounting shape invalid")
+        component_id = item.get("component_manifest_entry_id")
+        slot = item.get("component_local_slot_index")
+        if not _is_nonempty_string(component_id):
+            raise _ConstructionError("source accounting component invalid")
+        if isinstance(slot, bool) or not isinstance(slot, int) or slot < 0:
+            raise _ConstructionError("source accounting slot invalid")
+        source = (component_id, slot)
         if source not in expected or source in relation:
             raise _ConstructionError("source accounting witness invalid")
         disposition = item.get("disposition")
@@ -373,8 +387,13 @@ def _semantic_anomaly_target(target: Any) -> tuple[str, tuple[Any, ...]]:
             "component_local_slot_index",
         }:
             raise _ConstructionError("complete-slot anomaly target shape invalid")
-        source = _witness(target)
-        return scope, source
+        component_id = target.get("component_manifest_entry_id")
+        slot = target.get("component_local_slot_index")
+        if not _is_nonempty_string(component_id):
+            raise _ConstructionError("complete-slot anomaly component invalid")
+        if isinstance(slot, bool) or not isinstance(slot, int) or slot < 0:
+            raise _ConstructionError("complete-slot anomaly slot invalid")
+        return scope, (component_id, slot)
 
     if scope == "TERMINAL_FRAGMENT":
         if set(target) != {
