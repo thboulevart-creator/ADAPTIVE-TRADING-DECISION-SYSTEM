@@ -21,10 +21,12 @@ env:
   TZ: UTC
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
-  PROVENANCE_BLOB: 'a4040370458b1a8d22ec2411178cc023cf96155b'
-  NO_COPY_BLOB: '2d983605d1d19a1e644a49e88ab9ee2429b8a185'
-  INVENTORY_BLOB: 'c3a4e6564a67c572f313c30d177433ee6a22764b'
+  PROVENANCE_BLOB: 'f78025f5e8ad9bf9a66f8ceef3995eddecdc0cf3'
+  NO_COPY_BLOB: 'b62df24e695c925ab440b826b5100c84e9072468'
+  INVENTORY_BLOB: 'b822f48bbdca3c9580374a7170b493f7f684e1b0'
   EVIDENCE_BREAKER_BLOB: '231f9daa343f95baa4b747ec2b89166833255958'
+  IB_SOURCE_GIT_BLOB: '25fadd36761616e89a21964201b3bfa3c7349ea4'
+  IB_SOURCE_SHA256: 'a2b155d23a3a66968ba5bc35586bc7a9b9318655053121066676d6db1d7addb9'
 
 jobs:
   break-evidence:
@@ -44,8 +46,11 @@ jobs:
           test "$(git hash-object reports/data-qualification/iab/ib_independent_stage_test_inventory.json)" = "${INVENTORY_BLOB}"
           test "$(git hash-object breakers/native_bi5_ib_derivation_evidence_breaker.py)" = "${EVIDENCE_BREAKER_BLOB}"
 
-      - name: Prove I_B source still does not exist
-        run: test ! -e src/native_bi5_independent_qualifier.py
+      - name: Prove bound I_B source exists and matches
+        run: |
+          test -f src/native_bi5_independent_qualifier.py
+          test "$(git hash-object src/native_bi5_independent_qualifier.py)" = "${IB_SOURCE_GIT_BLOB}"
+          test "$(sha256sum src/native_bi5_independent_qualifier.py | awk '{print $1}')" = "${IB_SOURCE_SHA256}"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
