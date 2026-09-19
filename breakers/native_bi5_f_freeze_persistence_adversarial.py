@@ -198,3 +198,13 @@ def test_adv_nan_cannot_enter_strict_json_freeze() -> None:
     data = _qualified_input()
     data["qualification_parameters"]["nonstandard_number"] = float("nan")
     _assert_not_frozen(data)
+
+
+def test_adv_retained_timestamp_must_stay_inside_declared_component_hour() -> None:
+    data = _qualified_input()
+    _set_slot0_field(
+        data,
+        "market_timestamp_utc",
+        "2026-01-02T11:00:02.000Z",
+    )
+    _assert_not_frozen(data)
