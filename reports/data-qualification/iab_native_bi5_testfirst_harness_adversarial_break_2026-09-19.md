@@ -320,3 +320,107 @@ Correct only these residual proof gaps:
 6. re-run both RED workflows.
 
 No production I_A/I_B implementation is authorized during this correction.
+
+
+---
+
+## 10. Second correction and residual re-break
+
+Second correction commit:
+
+`f495bcb61abff6741ccee23e2dfbd67c4e4300fd`
+
+Breaker blobs:
+
+```text
+I_A
+8fd8d141d961a73904215236812c224d5e8af355
+
+I_B
+b3c342ecfbbf3c2b68c109762e2b936215a316f2
+```
+
+The second correction added:
+
+- hard-bound future I_B derivation-evidence paths and external JSON validation;
+- exact implementation/version/source-digest bindings for those evidence artifacts;
+- breaker-owned environment canaries during qualification;
+- breaker-owned cold-import audit;
+- candidate-global origin inspection for opposite-path objects/functions/modules.
+
+Re-run evidence:
+
+```text
+I_A run 35441590246
+job 105893220295
+23 errors
+all due only to absent src.native_bi5_reference_qualifier
+
+I_B run 35441590283
+job 105893220419
+23 errors
+all due only to absent src.native_bi5_independent_qualifier
+```
+
+All pre-breaker workflow controls and clean-worktree checks passed.
+
+The RED baseline remains valid.
+
+### IAB-TF-R04 — IMPORT_TIME_ENVIRONMENT_LEAK_GAP
+
+The environment canary currently wraps qualification execution, not the candidate module's cold import.
+
+Attack:
+
+candidate module reads an opposite-path semantic hint from ambient environment during module import and stores the derived value.
+
+Result:
+
+runtime canary may be too late.
+
+Verdict:
+
+`FAIL / residual TF-F02`.
+
+Required correction:
+
+cold-import audit must install its own environment tracker/canary before candidate import and prove that the forbidden canary was not accessed.
+
+### IAB-TF-R05 — CACHED_OPPOSITE_MODULE_RUNTIME_AUDIT_BLIND_SPOT
+
+In the I_B breaker, source-similarity review legitimately imports I_A before later runtime-audit tests execute.
+
+Attack:
+
+I_B dynamically calls `importlib.import_module(IA_MODULE)` during qualification.
+
+If I_A is already present in `sys.modules`, Python may return it without a new import audit event.
+
+Result:
+
+runtime audit can miss the dynamic dependency.
+
+Verdict:
+
+`FAIL / residual TF-F03`.
+
+Required correction:
+
+before audited semantic execution, temporarily remove the opposite implementation module from `sys.modules`, then restore it after the run.
+
+The cold-import test must also prove the opposite module was not already loaded as a side effect of candidate import.
+
+---
+
+## 11. Third authorized minimal correction
+
+Correct only:
+
+1. cold-import environment canary/tracking;
+2. opposite-module `sys.modules` eviction around audited semantic execution;
+3. explicit proof that candidate import did not preload the opposite implementation;
+4. workflow breaker hash locks.
+
+Then re-run both preimplementation RED workflows.
+
+No production implementation is authorized.
