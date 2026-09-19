@@ -286,3 +286,102 @@ After source bytes change:
 9. perform final persisted-head re-break before any PASS.
 
 No real BI5 acquisition, processing or backtest is authorized.
+
+---
+
+## Residual persisted-head re-break — IB-R01
+
+First minimal correction source commit:
+
+`36d916a02951736c0122d62b79e27295db0834f2`
+
+Corrected source Git blob:
+
+`051acc40a6368d9159de720eacbd1e6e778a9776`
+
+Corrected raw-source SHA-256:
+
+`06461c72e4a5dd96f7c0dd6758759d3a5d60faaaeb447d5ea635d027a467a429`
+
+Rebinding commit:
+
+`721adb43a01e3f6ecd5a084771b029b65ea94ce1`
+
+Post-correction results:
+
+```text
+candidate workflow
+run = 35444604586
+evidence breaker = 11 passed
+frozen I_B breaker = 23 passed
+
+supplemental adversarial workflow
+run = 35444604463
+6 passed
+```
+
+The initial IB-F01..IB-F03 attacks survive the first correction.
+
+A new persisted-head attack was then added.
+
+Run:
+
+```text
+run = 35444686972
+job = 105901479082
+1 failed
+6 passed
+```
+
+### IB-R01 — BLOCKED_MISSING_DETERMINANT_RESULT_LOSES_PRESENT_INPUT_BINDINGS
+
+Attack:
+
+Remove only determinant `Q` from an otherwise valid input package.
+
+Expected governed outcome:
+
+```text
+execution_status = COMPLETED
+semantic_status = QUALIFICATION_BLOCKED
+freeze_status = NOT_CREATED
+```
+
+The result should remain a valid sealed terminal result and should bind the seven determinant digests that were actually supplied.
+
+Observed current behavior:
+
+```text
+semantic status is correctly blocked
+but
+input_determinant_digests = {}
+```
+
+The implementation copies determinant bindings only after exact-set validation succeeds.
+
+The first correction also made exact determinant completeness a universal sealed-result invariant, so the blocked result cannot be recognized as validly sealed.
+
+This conflates:
+
+```text
+qualified result
+→ must bind complete D/R/M/B/A/Q/F/O set
+
+blocked due missing determinant
+→ must accurately bind the provided valid subset
+```
+
+### Verdict
+
+```text
+IB-R01 = FAIL
+```
+
+Minimal correction:
+
+1. preserve every provided determinant binding that is structurally a valid required-key/64-hex pair before completeness adjudication;
+2. for a `QUALIFIED` result, require the exact complete determinant set;
+3. for a non-qualified terminal result, allow a valid subset of required determinant bindings so the result can faithfully bind the incomplete input state that caused blocking;
+4. continue rejecting unknown determinant keys or malformed claimed digests from sealed result validation.
+
+No evidence semantics, frozen breaker or I_A source may be changed.
