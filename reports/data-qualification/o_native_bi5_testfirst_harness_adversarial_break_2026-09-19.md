@@ -568,3 +568,195 @@ Keep:
 - no real BI5 data/acquisition/backtest.
 
 Then perform another persisted collection + RED execution and re-break the harness.
+
+
+---
+
+## 13. Final residual re-break
+
+Second correction commit:
+
+`cb725bd2e25de66ae27d627bdc954605f6c11fc5`
+
+Breaker blob:
+
+`8b8f27239df1a297553fe5e3f1e083d37be87169`
+
+Workflow blob:
+
+`97b5b9e2d7d6bcfa290e3d8966473582797bdc2d`
+
+Executable RED:
+
+```text
+run = 35457224607
+job = 105934556311
+collection = 53 tests / PASS
+execution = RED only because O runtime is absent
+```
+
+F source and both qualified F breakers remain byte-identical.
+
+OTF-R01..OTF-R05 are materially corrected.
+
+The final adversarial review demonstrates these remaining harness defects.
+
+### OTF-R06 — MALFORMED_F_GATE_CAN_BE_PASSED_BY_HASH_ONLY_VALIDATOR
+
+Current malformed-input attacks mutate a valid F artifact after sealing.
+
+That necessarily invalidates:
+
+`artifact_integrity_digest`
+
+A defective O implementation that only checks the artifact hash, but never executes the full F schema/invariant validator, would still return `INVALID_F_INPUT` and pass.
+
+This does not prove O's required pre-comparison F validity gate.
+
+Verdict:
+
+```text
+OTF-R06 = FAIL
+```
+
+Correction:
+
+add breaker-owned resealing for synthetic attacks, then create artifacts with a **correct recomputed artifact digest** but invalid internal F semantics, including:
+
+- mismatched qualified occurrence count;
+- missing reconstruction determinant;
+- anomaly/accounting inconsistency;
+- terminal artifact carrying a partial qualified universe.
+
+O must still return `INVALID_F_INPUT / BLOCKED`.
+
+The breaker reseal is test-only and does not create a production F artifact authority.
+
+### OTF-R07 — UNQUALIFIED_VERSION_MUTATION_ONLY_FAILS_INTEGRITY_HASH
+
+The Q-version mutation test also mutates after sealing without recomputing the artifact digest.
+
+Therefore it proves only integrity failure, not that O rejects an internally resealed but unqualified normative version through F validation.
+
+Verdict:
+
+```text
+OTF-R07 = FAIL
+```
+
+Correction:
+
+recompute the synthetic artifact integrity digest after the version mutation and still require `INVALID_F_INPUT`.
+
+### OTF-R08 — RAW_SOURCE_PROVENANCE_NONSEMANTICS_UNTESTED
+
+F explicitly separates:
+
+```text
+logical semantic payload
+from
+source/conformance provenance
+```
+
+and signed-zero raw source bits do not create distinct logical values.
+
+The O harness does not yet compare two valid artifacts that differ only in a retained occurrence's non-semantic raw source-provenance metadata.
+
+Verdict:
+
+```text
+OTF-R08 = FAIL
+```
+
+Correction:
+
+change only `source_provenance.ask_volume_raw_bits` while leaving the normalized logical payload and source witness unchanged.
+
+Require `SEMANTIC_EQUAL`.
+
+### OTF-R09 — D_COMPLETENESS_AND_COMPONENT_PAYLOAD_BINDING_CONFLICTS_UNTESTED
+
+Same-state comparability requires the same materialized D input state.
+
+The harness now tests acquisition ID and component membership, but not:
+
+- D completeness evidence reference/digest;
+- component immutable payload reference;
+- component payload integrity reference.
+
+A comparator that ignores these materialization bindings could still pass.
+
+Verdict:
+
+```text
+OTF-R09 = FAIL
+```
+
+Correction:
+
+construct individually F-valid artifacts with one of those fields changed while the same D determinant identity/version binding is claimed.
+
+Require fail-closed:
+
+```text
+BLOCKED
+NONCOMPARABLE_ACQUISITION_STATE
+```
+
+### OTF-R10 — NONMAPPING_INPUTS_UNTESTED
+
+The O contract says malformed inputs block comparison.
+
+The harness only supplies mapping-like artifacts.
+
+A future comparator could raise on `None`, list or scalar input rather than returning the governed BLOCKED result.
+
+Verdict:
+
+```text
+OTF-R10 = FAIL
+```
+
+Correction:
+
+attack non-mapping input on both sides and require:
+
+```text
+oracle_result = BLOCKED
+qualified_universe_comparison = BLOCKED
+comparison_scope = INVALID_F_INPUT
+```
+
+### OTF-R11 — DIFFERENT_TERMINAL_OUTCOMES_NOT_EXPLICITLY_ATTACKED
+
+Equal terminal outcomes are tested and qualified-vs-terminal is tested.
+
+Two terminal artifacts with different outcomes are not.
+
+O must never promote terminal-outcome comparison into a qualified-universe semantic result.
+
+Verdict:
+
+```text
+OTF-R11 = FAIL
+```
+
+Correction:
+
+compare `QUALIFICATION_BLOCKED` vs `ACQUISITION_REJECTED` in both directions and require `BLOCKED`.
+
+---
+
+## 14. Final authorized harness correction
+
+Correct only OTF-R06..OTF-R11.
+
+Keep:
+
+- O production runtime absent;
+- F source unchanged;
+- F test-first breaker unchanged;
+- F adversarial breaker unchanged;
+- no real BI5 input/acquisition/backtest.
+
+Then perform a fresh persisted-head collection + RED execution and final harness re-break.
