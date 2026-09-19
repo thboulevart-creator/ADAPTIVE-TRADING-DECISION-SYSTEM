@@ -486,3 +486,155 @@ Then:
 I_B remains absent.
 
 No real BI5 acquisition, processing or backtest is authorized.
+
+
+---
+
+## 12. Final persisted-HEAD I_A re-break
+
+Final code/harness HEAD re-broken:
+
+`e246aa9107146d4b5ae115815260189468c4cffb`
+
+Final I_A source blob:
+
+`098040812de654a9c5e4f9961f4a26b2ba959adf`
+
+Frozen breaker blob remained unchanged:
+
+`64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd`
+
+Supplemental adversarial breaker blob:
+
+`13e8a2aa01ca311f0094a6ea6a4e73b3501741f7`
+
+Candidate qualification runner blob:
+
+`238e469f72b9a691ef3221849064e7728c67bd4c`
+
+Persisted-head re-break runner blob:
+
+`1fb86dd2bb32752d0caedfdcf2717ac59171beee`
+
+The branch was freshly verified identical to the final code/harness HEAD before the final run.
+
+I_B remained absent.
+
+### 12.1 Final candidate workflow
+
+```text
+run = 35442761280
+job = 105896344658
+
+exact HEAD / source / frozen-breaker locks = PASS
+I_A present / I_B absent                  = PASS
+qualification environment                 = PASS
+frozen I_A breaker                        = 23 passed
+clean worktree                            = PASS
+```
+
+### 12.2 Final persisted-head combined re-break
+
+```text
+run = 35442761255
+job = 105896344433
+
+exact HEAD / source / breaker locks       = PASS
+I_B absent                                = PASS
+qualification environment                 = PASS
+frozen I_A breaker                        = 23 passed
+supplemental adversarial breaker          = 13 passed
+clean worktree                            = PASS
+```
+
+### 12.3 Defect closure
+
+```text
+IA-F01 — UNVERIFIED_A08_PROOF_PROMOTION                 SURVIVES CORRECTION
+IA-F02 — NONQUALIFIED_PARTIAL_SEMANTIC_LEAK             SURVIVES CORRECTION
+IA-F03 — PRESEAL_ALLOWLIST_NOT_ENFORCED                 SURVIVES CORRECTION
+IA-F04 — SEAL_INTEGRITY_WITHOUT_SEMANTIC_VALIDITY       SURVIVES CORRECTION
+IA-F05 — BLOCKED_RESULT_TRAVERSAL_DEPENDENCE             SURVIVES CORRECTION
+IA-F06 — EMPTY_WORKSPACE_ISOLATION_ID_ACCEPTED           SURVIVES CORRECTION
+```
+
+Full frozen attack coverage also remained green for:
+
+- exact surface/schema;
+- strict duplicate preservation;
+- no hidden timestamp sorting;
+- no hidden market-value filtering;
+- exact source→logical accounting;
+- local A09 rejection;
+- finite/non-finite volume behavior;
+- missing determinant fail-closed behavior;
+- filename non-authority;
+- manifest/source integrity;
+- result sealing;
+- pre-seal channel closure;
+- external acquisition/trading permission closure.
+
+No new internal I_A implementation defect was demonstrated.
+
+### 12.4 Deliberate fail-closed limitation
+
+I_A does not promote a terminal partial fragment to A08 merely because an unverified evidence binding claims constructive completeness.
+
+Until an independently qualified verifier for that evidence exists:
+
+```text
+terminal remainder
+→ BI5-A07
+→ QUALIFICATION_BLOCKED
+```
+
+This is a deliberate fail-closed limitation, not silent repair.
+
+It does not create permission to claim full real-data B/A closure.
+
+---
+
+## 13. Final implementation-layer verdict
+
+```text
+I_A REFERENCE IMPLEMENTATION CANDIDATE
+PASS
+```
+
+Scope of this PASS:
+
+- source implementation exists;
+- source blob is pinned;
+- frozen I_A breaker is unchanged and passes;
+- demonstrated adversarial defects are encoded in a supplemental breaker and pass;
+- final qualification executed on persisted HEAD;
+- I_B remains absent;
+- only synthetic/in-memory fixtures were used.
+
+This implementation-layer PASS does **not** imply:
+
+```text
+D = PASS
+R = PASS
+M = PASS
+B = PASS
+A = PASS
+Q = PASS
+F = PASS
+O = PASS
+global I_A executable gate = PASS
+real acquisition authorized
+real BI5 processing authorized
+real backtest authorized
+```
+
+The official global I_A gate remains BLOCKED because conformance against a materially complete, independently closed concrete D/R/M/B/A/Q/F/O state cannot yet be demonstrated.
+
+Therefore the correct two-level state is:
+
+```text
+I_A implementation candidate qualification = PASS
+I_A global executable gate                  = BLOCKED
+```
+
+No permission increase is created.
