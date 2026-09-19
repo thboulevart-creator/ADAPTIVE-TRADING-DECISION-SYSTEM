@@ -68,3 +68,5 @@ jobs:
         run: |
           git diff --exit-code
           test -z "$(git status --porcelain)"
+
+# persisted-head-final-trigger
