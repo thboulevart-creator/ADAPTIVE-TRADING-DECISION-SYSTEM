@@ -419,3 +419,161 @@ After correction:
 - re-break the same attacks;
 - keep official D/R/M gate verdicts BLOCKED;
 - do not start B until the corrected formalization survives the persisted-head re-break.
+
+
+---
+
+# 8. Persisted-head re-break after minimal correction
+
+**Corrected candidate HEAD:** `45b0db9a1b73ca233c6d966cfe409bb72c4cce63`  
+**Corrected candidate blob:** `2249bea6dbf6b5a8e0d49b99a93bf16248f9c0e9`
+
+The branch was verified identical to that HEAD before re-break.
+
+The same attack set was re-applied without changing the candidate during the attack.
+
+## 8.1 Re-break of DRM-F01
+
+Original defect:
+
+`WARMUP_DOMAIN_MEMBERSHIP_UNDERSPECIFIED`
+
+Corrected rule now states that the semantic acquisition domain contains:
+
+```text
+mandatory warmup prefix
++
+frozen five-year evaluation window
+```
+
+where the warmup prefix is the minimal immediately preceding market-open source interval required to construct the frozen `20 completed H1 bars` requirement under the governed session-calendar contract.
+
+Repository re-check confirms the current authoritative surfaces establish:
+
+```text
+warmup_h1_bars = 20
+
+Momentum horizon = 20 completed H1 bars
+M_t = Close_t / Close_{t-20} - 1
+signal usable only from t+1
+```
+
+The repository does not yet define the concrete raw-BI5 component translation of that warmup.
+
+That does not re-break D because the corrected candidate does not claim that translation exists. It explicitly leaves physical component enumeration/completeness to later D/B/Q materialization.
+
+Adversarial variant:
+
+Two implementations choose different physical BI5 file prefixes while claiming the same completed-H1 warmup semantics.
+
+Result:
+
+```text
+not both conforming yet
+→ B/Q must later derive one deterministic physical translation
+→ until then actual D materialization remains BLOCKED
+```
+
+The semantic D candidate no longer allows omission of the warmup obligation itself.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 8.2 Re-break of DRM-F02
+
+Original defect:
+
+`RECORD_MODEL_RETAINED_CANDIDATE_WORDING_LEAK`
+
+Corrected M definition now states:
+
+> one individual candidate primary market-tick observation produced by deterministic interpretation of the declared representation under the applicable versioned binding, before qualification membership and before canonical enumeration.
+
+and separately:
+
+> Q alone later determines whether a candidate occurrence becomes part of the retained qualified logical universe.
+
+The attack:
+
+```text
+B produces candidate occurrence
+Q rejects candidate
+```
+
+no longer changes the M interpretation.
+
+**RE-BREAK RESULT: SURVIVES.**
+
+## 8.3 Full attack-set re-break
+
+```text
+D-A01 disk presence                    SURVIVES
+D-A02 filename/provider continuity     SURVIVES
+D-A03 missing/extra/repeated           SURVIVES
+D-A04 warmup-domain ambiguity          SURVIVES AFTER CORRECTION
+D-A05 reacquisition identity           SURVIVES
+D-A06 worker/traversal order           SURVIVES
+
+R-A01 parser-convenience selection     SURVIVES
+R-A02 filename hour authority          SURVIVES
+R-A03 conflicting hour provenance      SURVIVES CONDITIONALLY / B+A REQUIRED
+R-A04 CSV/Parquet equivalence          SURVIVES
+R-A05 BI5 binding leakage into R       SURVIVES
+
+M-A01 20-byte leakage into M           SURVIVES
+M-A02 strict duplicate collapse        SURVIVES
+M-A03 parser failure = C0              SURVIVES
+M-A04 qualification/membership leak    SURVIVES AFTER CORRECTION
+M-A05 canonical/temporal leakage       SURVIVES
+M-A06 cross-acquisition identity       SURVIVES
+
+X-A01 D defines B                      SURVIVES
+X-A02 R defines B                      SURVIVES
+X-A03 M defines B                      SURVIVES
+X-A04 M defines Q                      SURVIVES AFTER CORRECTION
+X-A05 implicit permission increase     SURVIVES
+```
+
+No additional candidate defect was demonstrated.
+
+## 8.4 Final D/R/M block state
+
+The formalization is adversarially stable enough to become the governed input to the next specification block.
+
+This does **not** convert the concrete gates to PASS.
+
+```text
+D gate = BLOCKED
+  reason: no actual acquisition instance, component manifest or completeness evidence
+
+R gate = BLOCKED
+  reason: selected candidate representation still lacks qualified concrete B semantics
+
+M gate = BLOCKED
+  reason: selected candidate model still depends on qualified B/Q semantics before concrete freeze
+
+D/R/M candidate formalization
+= PERSISTED + CORRECTED + RE-BROKEN
+= NO NEW DEFECT DEMONSTRATED
+```
+
+No acquisition authorization is created.
+
+No real backtest authorization is created.
+
+## 8.5 Boundary for next work
+
+The D/R/M candidate may now be consumed only as candidate input for:
+
+```text
+B — concrete native BI5 format binding
++
+A — concrete anomaly matrix
+```
+
+The next block must not reinterpret:
+
+- the acquisition-domain warmup obligation;
+- native BI5 as the selected first-path representation candidate;
+- the format-neutral occurrence-based M semantics.
+
+If B/A cannot make those candidate semantics deterministic, B/A must FAIL or remain BLOCKED rather than mutating D/R/M silently.
