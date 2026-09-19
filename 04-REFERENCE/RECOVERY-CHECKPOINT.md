@@ -3028,3 +3028,218 @@ Only after that RED baseline is persisted, diagnosed and adversarially qualified
 The executable O comparator remains downstream of F and must not be implemented in the F test-first block.
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+---
+
+## 57. Native BI5 F freeze-persistence test-first RED baseline — qualified
+
+A dedicated synthetic/in-memory test-first breaker/harness for the F freeze-persistence candidate now exists and has completed its governed adversarial qualification cycle.
+
+Final breaker:
+
+breakers/native_bi5_f_freeze_persistence_breaker.py
+
+Final breaker blob:
+
+3d9eb75c2f4e988c984da67af0af344d3dc24148
+
+Final workflow:
+
+.github/workflows/native-bi5-f-freeze-persistence-preimplementation.yml
+
+Final workflow blob:
+
+f041e5ca5ce5887b67ebb0721b7d49d6ea75b442
+
+RED baseline artifact:
+
+reports/data-qualification/f_native_bi5_preimplementation_red_baseline_2026-09-19.md
+
+RED baseline blob:
+
+2c130f7e0c6455404785e2d941f2af07fba8b4d1
+
+Adversarial record:
+
+reports/data-qualification/f_native_bi5_testfirst_harness_adversarial_break_2026-09-19.md
+
+Final adversarial record blob:
+
+ca0d67187fb7511fb7aea3b16cfe25c22d4dc224
+
+### Demonstrated harness defects
+
+~~~text
+FTF-F01..FTF-F05
+FTF-R01..FTF-R09
+~~~
+
+All demonstrated defects were minimally corrected before final qualification.
+
+Key corrections include:
+
+- independent synthetic B-candidate source→logical authority;
+- isolated A08 missing-evidence attack;
+- order invariance tested through independent constructions rather than post-persistence mutation;
+- two-component and multi-anomaly permutation attacks;
+- exact positive reconstruction tuple/component snapshot persistence;
+- D completeness, component materialization and Q-parameter attacks;
+- missing B-candidate relation fail-closed attack;
+- terminal non-freeze evidence requirement;
+- candidate/reject overlap isolated on the same exact B source slot;
+- object-key-order attack separated from physical persisted-artifact integrity;
+- independent pytest collection proof before intentional RED execution.
+
+### Final persisted-head RED re-break
+
+Final corrected breaker/workflow HEAD:
+
+55e465a90612267fe483ac305b03e77611fcb549
+
+Final workflow run:
+
+~~~text
+run = 35453498165
+job = 105924621170
+~~~
+
+Results:
+
+~~~text
+exact persisted HEAD / F-contract / breaker locks = PASS
+F production runtime absent                       = PASS
+O production implementation absent                = PASS
+qualification environment                         = PASS
+pytest collection                                 = 36 tests / PASS
+breaker execution                                 = RED
+clean worktree                                    = PASS
+~~~
+
+Every executed test stopped only at:
+
+~~~text
+F runtime absent — expected pre-implementation RED:
+src.native_bi5_freeze_persistence does not exist
+~~~
+
+No syntax, collection, environment, workflow, hash-lock or unrelated import defect was observed.
+
+Repository search also confirmed no F runtime and no executable O semantic comparator.
+
+### Final test-first verdict
+
+~~~text
+F TEST-FIRST FREEZE-PERSISTENCE BREAKER / HARNESS = PASS
+~~~
+
+This is a harness-layer PASS only.
+
+Current exact state:
+
+~~~text
+F test-first breaker/harness = PASS
+F production implementation = ABSENT
+F global executable gate    = BLOCKED
+O production implementation = ABSENT
+O global executable gate    = BLOCKED
+~~~
+
+The global concrete matrix remains:
+
+~~~text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+~~~
+
+I_A and I_B implementation candidates remain qualified at their implementation layers; their global gates remain BLOCKED.
+
+No acquisition, BI5 processing, backtest or execution authorization is created.
+
+---
+
+## 58. Durable F test-first backup
+
+Latest dedicated backup:
+
+99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-F-TESTFIRST-RED.md
+
+Backup commit:
+
+690ac1e858bc451ffa92f064abc6a4c9c8575618
+
+Backup blob:
+
+c5939551f42b57d1243b87bc88ca277b6a2516ab
+
+Global reconciliation audit update commit:
+
+313af72abbd462e2cdaff69198f6aec35082bd66
+
+Updated global audit blob:
+
+6f62d82dbe29acfbedc6d9694d91e4268924f76b
+
+No production F/O implementation, real BI5 acquisition, real-data processing or backtest occurred before this checkpoint.
+
+---
+
+## 59. Exactly one next governed action
+
+Open only:
+
+~~~text
+F — freeze-persistence production implementation candidate
+~~~
+
+Create only:
+
+src/native_bi5_freeze_persistence.py
+
+Use the frozen test-first breaker as the executable contract.
+
+Qualified breaker blob that must remain unchanged during the initial F implementation candidate:
+
+3d9eb75c2f4e988c984da67af0af344d3dc24148
+
+Required future F surface:
+
+~~~text
+FREEZE_CONTRACT_ID
+FREEZE_CONTRACT_VERSION
+ARTIFACT_SCHEMA
+
+build_freeze_artifact(freeze_input)
+validate_freeze_artifact(artifact)
+serialize_freeze_artifact(artifact, *, pretty=False)
+deserialize_freeze_artifact(payload)
+~~~
+
+The F module must not expose O semantic-comparison APIs.
+
+Governed sequence:
+
+~~~text
+fresh HEAD verification
+→ create minimal F runtime candidate only
+→ persist candidate
+→ execute frozen F breaker
+→ adversarial diagnosis
+→ minimal corrections only
+→ persisted-head F re-break
+→ PASS / FAIL / BLOCKED
+→ global audit
+→ durable backup
+→ Recovery Checkpoint
+~~~
+
+Do not create the executable O semantic comparator during the F production block.
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
