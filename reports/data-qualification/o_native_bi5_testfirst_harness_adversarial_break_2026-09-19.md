@@ -876,3 +876,177 @@ Then execute one fresh persisted-head collection + intentional RED and perform t
 
 O production runtime must remain absent.
 F and both F breakers must remain byte-identical.
+
+
+---
+
+## 17. Final persisted-head RED re-break and verdict
+
+Final corrected test-first HEAD:
+
+`17faff7b06e337fe9e2fe4a92fdc0ef688f4d742`
+
+Final O breaker:
+
+`breakers/native_bi5_o_semantic_comparator_breaker.py`
+
+Final breaker blob:
+
+`9e1d897329a15f8b26172558b6579d61d9ba3820`
+
+Final preimplementation workflow:
+
+`.github/workflows/native-bi5-o-semantic-comparator-preimplementation.yml`
+
+Final workflow blob:
+
+`1d9203993f0ebbc83f67bdcea3449a886db13335`
+
+Final workflow run:
+
+```text
+run = 35457461057
+job = 105935180122
+```
+
+Final controls:
+
+```text
+exact persisted HEAD                             = PASS
+F source lock 199b07929fe8...                    = PASS
+F test-first breaker lock 3d9eb75c2f4e...        = PASS
+F adversarial breaker lock c4c499d5e76e...       = PASS
+F/O contract lock fe62da06e63a...                = PASS
+O production runtime absent                      = PASS
+qualification environment                        = PASS
+pytest collection                                = 77 tests / PASS
+O breaker execution                              = RED
+clean worktree                                   = PASS
+```
+
+Every executed test stops only at:
+
+```text
+O runtime absent — expected pre-implementation RED:
+src.native_bi5_semantic_universe_comparator does not exist
+```
+
+No syntax, import, collection, environment, hash-lock, workflow or unrelated test-body defect was observed.
+
+Repository search on the final HEAD confirms:
+
+```text
+src/native_bi5_semantic_universe_comparator.py = ABSENT
+```
+
+F source and both qualified F breakers remained byte-identical throughout the O test-first block.
+
+### Defect closure
+
+The harness was not accepted merely because it was RED.
+
+Demonstrated and corrected defects:
+
+```text
+OTF-F01 — COMPONENT_MEMBERSHIP_DIFFERENCE_EXPECTATION_VIOLATES_COMPARABILITY_GATE
+OTF-F02 — REPARTITION_TEST_INVENTS_A_COMPARABLE_STATE
+OTF-F03 — ANOMALY_RELATION_ATTACK_NOT_INDEPENDENTLY_IDENTIFIABLE
+OTF-F04 — SECOND_LEGITIMATE_VERSION_BRANCH_CANNOT_BE_FABRICATED
+OTF-F05 — FROZEN_F_HARNESS_DEPENDENCIES_NOT_FULLY_HASH_LOCKED
+OTF-F06 — RESULT_NONAUTHORITY_CHECKS_ARE_ONLY_TOP_LEVEL
+OTF-F07 — COMPARATOR_SYMMETRY_AND_INPUT_IMMUTABILITY_UNTESTED
+OTF-F08 — DETERMINANT_REFERENCE_CONFLICT_UNTESTED
+
+OTF-R01 — DETERMINANT_CONFLICT_COVERAGE_ONLY_EXERCISES_D
+OTF-R02 — POSITIVE_DISTINCT_VERSION_BRANCH_IS_EXECUTABLE_AFTER_ALL
+OTF-R03 — INVALID_AND_TERMINAL_INPUT_SIDE_ASYMMETRY
+OTF-R04 — ACQUISITION_DOMAIN_IDENTITY_GATE_UNTESTED
+OTF-R05 — TEMPORAL_CANONICAL_RESULT_KEY_SCAN_CAN_BE_EVADED_BY_NEAR_SYNONYMS
+OTF-R06 — MALFORMED_F_GATE_CAN_BE_PASSED_BY_HASH_ONLY_VALIDATOR
+OTF-R07 — UNQUALIFIED_VERSION_MUTATION_ONLY_FAILS_INTEGRITY_HASH
+OTF-R08 — RAW_SOURCE_PROVENANCE_NONSEMANTICS_UNTESTED
+OTF-R09 — D_COMPLETENESS_AND_COMPONENT_PAYLOAD_BINDING_CONFLICTS_UNTESTED
+OTF-R10 — NONMAPPING_INPUTS_UNTESTED
+OTF-R11 — DIFFERENT_TERMINAL_OUTCOMES_NOT_EXPLICITLY_ATTACKED
+OTF-R12 — INPUT_IMMUTABILITY_TEST_IS_FALSE_PROOF
+OTF-R13 — UNSPECIFIED_ERROR_SCOPE_IS_OVERCONSTRAINED
+OTF-R14 — NESTED_QUALIFICATION_PARAMETER_KEY_ORDER_UNTESTED
+```
+
+All demonstrated harness defects were minimally corrected.
+
+No additional internal O test-first harness defect was demonstrated after the final correction.
+
+### Final covered attack surface
+
+The final breaker now exercises at minimum:
+
+- valid same-state qualified F artifacts → future `SEMANTIC_EQUAL`;
+- independently built same semantics with different array order and byte hash;
+- logical payload difference;
+- strict duplicate multiplicity change;
+- source→logical relation change with equal payload bag;
+- rejected-source A09↔A10 semantic relation difference;
+- anomaly-only malformed mutation caught by F validity gate;
+- contradictory component membership blocked before same-state comparison;
+- invented physical repartition equivalence blocked;
+- same-id/same-version integrity-digest conflict across D/R/M/B/A/Q/F;
+- same-id/same-version immutable-reference conflict across D/R/M/B/A/Q/F;
+- qualification-parameter difference → `DISTINCT_QUALIFICATION_STATE`;
+- F-valid D materialization-version difference → `DISTINCT_QUALIFICATION_STATE`;
+- unqualified Q-version mutation resealed but still invalid F input;
+- terminal F artifacts on either comparator side;
+- equal and different terminal outcomes never create qualified-universe equality;
+- malformed artifacts on either side;
+- resealed structurally invalid artifacts, defeating hash-only validation;
+- non-mapping inputs on either side;
+- acquisition-domain mismatch;
+- D completeness-evidence binding mismatch;
+- component immutable payload/integrity binding mismatch;
+- component/accounting/occurrence/reconstruction array-order nonauthority;
+- anomaly diagnostic path/order/worker metadata nonauthority;
+- raw source-provenance difference nonauthority;
+- pretty/compact serialization hash difference nonauthority;
+- object-key order nonauthority;
+- nested Q-parameter key-order nonauthority;
+- timestamp array order nonauthority;
+- recursive canonical/temporal-authority result-key rejection;
+- semantic-verdict symmetry;
+- real comparator-input immutability;
+- byte hash never used as semantic equality oracle;
+- permission closure / no acquisition/backtest/trading/F-construction surface in O.
+
+### Final test-first verdict
+
+```text
+O TEST-FIRST SEMANTIC-COMPARATOR BREAKER / HARNESS = PASS
+```
+
+Scope of PASS:
+
+```text
+O test-first breaker semantics = QUALIFIED
+collection                     = QUALIFIED
+expected RED boundary          = QUALIFIED
+O production runtime           = ABSENT
+```
+
+This PASS does **not** qualify O itself.
+
+Current state:
+
+```text
+O test-first breaker/harness = PASS
+O production implementation = ABSENT
+O global executable gate    = BLOCKED
+```
+
+F remains unchanged:
+
+```text
+F test-first breaker/harness qualification = PASS
+F implementation candidate qualification   = PASS
+F global executable gate                    = BLOCKED
+```
+
+No real BI5 download, real-data processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is created.
