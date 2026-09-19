@@ -6,6 +6,7 @@ import importlib
 import inspect
 import json
 import lzma
+import os
 import struct
 import sys
 from collections import Counter
@@ -213,6 +214,47 @@ def _audited_run(package: dict[str, Any]):
     return _run(package), tuple(observed)
 
 
+def _cold_import_audit(module_name: str):
+    observed: list[tuple[str, str]] = []
+    previous = sys.modules.pop(module_name, None)
+
+    def hook(event: str, args: tuple[Any, ...]) -> None:
+        if event == "import":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event == "open":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event.startswith("socket.") or event.startswith("subprocess.") or event == "os.system":
+            observed.append((event, repr(args[:2])))
+
+    sys.addaudithook(hook)
+    try:
+        fresh = importlib.import_module(module_name)
+    finally:
+        sys.modules.pop(module_name, None)
+        if previous is not None:
+            sys.modules[module_name] = previous
+    return fresh, tuple(observed)
+
+
+def _value_originates_from(value: object, module_name: str) -> bool:
+    candidates = [value]
+    if inspect.isfunction(value):
+        candidates.extend(value.__defaults__ or ())
+        candidates.extend((value.__kwdefaults__ or {}).values())
+        if value.__closure__:
+            for cell in value.__closure__:
+                try:
+                    candidates.append(cell.cell_contents)
+                except ValueError:
+                    pass
+    for candidate in candidates:
+        if inspect.ismodule(candidate) and getattr(candidate, "__name__", None) == module_name:
+            return True
+        if getattr(candidate, "__module__", None) == module_name:
+            return True
+    return False
+
+
 def _occurrence_witnesses(result) -> list[tuple[str, int]]:
     if result.qualified_occurrences is None:
         return []
@@ -392,8 +434,27 @@ def test_d1_reference_path_does_not_import_independent_semantic_path() -> None:
         "src.native_bi5_independent_qualifier",
         "breakers.",
         "tests.",
+        "os.environ",
+        "os.getenv",
+        "from os import environ",
+        "from os import getenv",
     )
     assert all(token not in source for token in forbidden)
+
+
+def test_d1b_breaker_owned_cold_import_audit_and_global_origin_check() -> None:
+    fresh, observed = _cold_import_audit("src.native_bi5_reference_qualifier")
+    assert fresh.IMPLEMENTATION_ID == IA_ID
+    for event, detail in observed:
+        lowered = detail.lower()
+        assert "native_bi5_independent_qualifier" not in lowered
+        assert not event.startswith("socket.")
+        assert not event.startswith("subprocess.")
+        assert event != "os.system"
+    assert not any(
+        _value_originates_from(value, "src.native_bi5_independent_qualifier")
+        for value in vars(fresh).values()
+    )
 
 
 def test_d2_result_seal_is_exact_and_mutation_invalidates() -> None:
@@ -451,6 +512,26 @@ def test_e2_breaker_owned_runtime_audit_detects_forbidden_cross_path_or_external
         assert not event.startswith("socket.")
         assert not event.startswith("subprocess.")
         assert event != "os.system"
+
+
+def test_e3_breaker_owned_environment_canary_is_not_read(monkeypatch) -> None:
+    accessed: set[str] = set()
+
+    class TrackingEnviron(dict):
+        def __getitem__(self, key):
+            accessed.add(str(key))
+            return super().__getitem__(key)
+
+        def get(self, key, default=None):
+            accessed.add(str(key))
+            return super().get(key, default)
+
+    tracked = TrackingEnviron(dict(os.environ))
+    tracked["IAB_FORBIDDEN_IB_RESULT"] = "CANARY-DO-NOT-READ"
+    monkeypatch.setattr(os, "environ", tracked)
+    result = _run(_qualified_package())
+    assert result.semantic_status == "QUALIFIED"
+    assert "IAB_FORBIDDEN_IB_RESULT" not in accessed
 
 
 def test_f0_semantic_result_mutant_is_detected_by_seal() -> None:

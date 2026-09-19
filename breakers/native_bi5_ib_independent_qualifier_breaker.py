@@ -8,8 +8,10 @@ import importlib
 import inspect
 import json
 import lzma
+import os
 import struct
 import sys
+from pathlib import Path
 from collections import Counter
 from dataclasses import fields, replace
 from typing import Any
@@ -67,6 +69,18 @@ DETERMINANT_DIGESTS = {
     "Q": "5" * 64,
     "F": "6" * 64,
     "O": "7" * 64,
+}
+
+IB_EVIDENCE_PATHS = {
+    "semantic_source_provenance_ref": Path(
+        "reports/data-qualification/iab/ib_semantic_source_provenance.json"
+    ),
+    "no_copy_declaration_ref": Path(
+        "reports/data-qualification/iab/ib_no_copy_declaration.json"
+    ),
+    "independent_stage_test_inventory_ref": Path(
+        "reports/data-qualification/iab/ib_independent_stage_test_inventory.json"
+    ),
 }
 
 
@@ -244,6 +258,47 @@ def _audited_run_ib(package: dict[str, Any]):
     return _run_ib(package), tuple(observed)
 
 
+def _cold_import_audit(module_name: str):
+    observed: list[tuple[str, str]] = []
+    previous = sys.modules.pop(module_name, None)
+
+    def hook(event: str, args: tuple[Any, ...]) -> None:
+        if event == "import":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event == "open":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event.startswith("socket.") or event.startswith("subprocess.") or event == "os.system":
+            observed.append((event, repr(args[:2])))
+
+    sys.addaudithook(hook)
+    try:
+        fresh = importlib.import_module(module_name)
+    finally:
+        sys.modules.pop(module_name, None)
+        if previous is not None:
+            sys.modules[module_name] = previous
+    return fresh, tuple(observed)
+
+
+def _value_originates_from(value: object, module_name: str) -> bool:
+    candidates = [value]
+    if inspect.isfunction(value):
+        candidates.extend(value.__defaults__ or ())
+        candidates.extend((value.__kwdefaults__ or {}).values())
+        if value.__closure__:
+            for cell in value.__closure__:
+                try:
+                    candidates.append(cell.cell_contents)
+                except ValueError:
+                    pass
+    for candidate in candidates:
+        if inspect.ismodule(candidate) and getattr(candidate, "__name__", None) == module_name:
+            return True
+        if getattr(candidate, "__module__", None) == module_name:
+            return True
+    return False
+
+
 def _run_ia(package: dict[str, Any]):
     return _ia_for_pair().qualify_native_bi5(package, execution_context=_ia_context())
 
@@ -359,20 +414,36 @@ def test_a0_surface_signature_and_result_schema_exact() -> None:
     assert tuple(field.name for field in fields(module.ImplementationQualificationResult)) == EXPECTED_RESULT_FIELDS
 
 
-def test_a1_independent_manifest_exposes_provenance_refs_not_self_adjudicated_pass() -> None:
+def test_a1_independent_manifest_evidence_refs_resolve_and_bind_exact_source() -> None:
     manifest = _ib().build_implementation_manifest()
     assert manifest["implementation_id"] == IB_ID
     assert manifest["implementation_version"] == IB_VERSION
     assert set(manifest["semantic_stage_ownership"]) == REQUIRED_STAGES
     assert manifest["source_files"]
     assert manifest["source_digests"]
+
     refs = manifest["independent_derivation_evidence_refs"]
-    assert set(refs) == {
-        "semantic_source_provenance_ref",
-        "no_copy_declaration_ref",
-        "independent_stage_test_inventory_ref",
-    }
-    assert all(isinstance(value, str) and value.strip() for value in refs.values())
+    assert refs == {key: str(path) for key, path in IB_EVIDENCE_PATHS.items()}
+
+    loaded = {}
+    for key, path in IB_EVIDENCE_PATHS.items():
+        assert path.is_file(), f"missing external I_B derivation evidence: {path}"
+        loaded[key] = json.loads(path.read_text("utf-8"))
+        assert loaded[key]["implementation_id"] == IB_ID
+        assert loaded[key]["implementation_version"] == IB_VERSION
+
+    provenance = loaded["semantic_source_provenance_ref"]
+    assert provenance["derivation_basis"] == "PINNED_NORMATIVE_CONTRACTS"
+    assert provenance["source_digests"] == manifest["source_digests"]
+
+    declaration = loaded["no_copy_declaration_ref"]
+    assert declaration["statement"] == "INDEPENDENTLY_DERIVED_NOT_COPIED_OR_GENERATED_FROM_I_A"
+    assert declaration["source_digests"] == manifest["source_digests"]
+
+    inventory = loaded["independent_stage_test_inventory_ref"]
+    assert inventory["tests"]
+    assert set(inventory["semantic_stages"]) == REQUIRED_STAGES
+
     forbidden_self_adjudication = {
         "independent_derivation_attestation",
         "source_similarity_review_result",
@@ -388,8 +459,27 @@ def test_a2_independent_source_has_no_reference_path_or_test_semantic_imports() 
         "breakers.",
         "tests.",
         "reference_result.json",
+        "os.environ",
+        "os.getenv",
+        "from os import environ",
+        "from os import getenv",
     )
     assert all(token not in source for token in forbidden)
+
+
+def test_a2b_breaker_owned_cold_import_audit_and_global_origin_check() -> None:
+    fresh, observed = _cold_import_audit(IB_MODULE)
+    assert fresh.IMPLEMENTATION_ID == IB_ID
+    for event, detail in observed:
+        lowered = detail.lower()
+        assert "native_bi5_reference_qualifier" not in lowered
+        assert not event.startswith("socket.")
+        assert not event.startswith("subprocess.")
+        assert event != "os.system"
+    assert not any(
+        _value_originates_from(value, IA_MODULE)
+        for value in vars(fresh).values()
+    )
 
 
 def test_a3_shared_semantic_shortcut_not_declared_as_dependency() -> None:
@@ -539,6 +629,26 @@ def test_c3_breaker_owned_runtime_audit_detects_dynamic_cross_path_and_external_
         assert not event.startswith("socket.")
         assert not event.startswith("subprocess.")
         assert event != "os.system"
+
+
+def test_c4_breaker_owned_environment_canary_is_not_read(monkeypatch) -> None:
+    accessed: set[str] = set()
+
+    class TrackingEnviron(dict):
+        def __getitem__(self, key):
+            accessed.add(str(key))
+            return super().__getitem__(key)
+
+        def get(self, key, default=None):
+            accessed.add(str(key))
+            return super().get(key, default)
+
+    tracked = TrackingEnviron(dict(os.environ))
+    tracked["IAB_FORBIDDEN_IA_RESULT"] = "CANARY-DO-NOT-READ"
+    monkeypatch.setattr(os, "environ", tracked)
+    result = _run_ib(_qualified_package())
+    assert result.semantic_status == "QUALIFIED"
+    assert "IAB_FORBIDDEN_IA_RESULT" not in accessed
 
 
 def test_d0_pair_same_input_semantic_projection_equal_only_after_both_sealed() -> None:
