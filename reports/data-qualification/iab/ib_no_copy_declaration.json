@@ -1,0 +1,53 @@
+{
+  "schema": "IB_NO_COPY_DECLARATION_V0_1_CANDIDATE",
+  "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER",
+  "implementation_version": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE",
+  "evidence_phase": "PRE_IMPLEMENTATION_DERIVATION",
+  "statement": "INDEPENDENTLY_DERIVED_NOT_COPIED_OR_GENERATED_FROM_I_A",
+  "frozen_semantic_payload": {
+    "statement": "INDEPENDENTLY_DERIVED_NOT_COPIED_OR_GENERATED_FROM_I_A",
+    "scope": "all project-owned D/R/M/B/A/Q/F semantic implementation logic and semantic control flow",
+    "forbidden_derivation_methods": [
+      "copying I_A source text or AST",
+      "mechanical renaming or formatting of I_A source",
+      "porting I_A functions line-by-line",
+      "generating I_B from I_A source, AST, bytecode, execution traces, or semantic outputs",
+      "wrapping or delegating to I_A",
+      "using I_A outputs as expected answers during construction",
+      "using O comparison output to iteratively construct I_B semantics",
+      "sharing project-owned semantic helpers for D/R/M/B/A/Q/F decisions"
+    ],
+    "permitted_common_material": [
+      "normative identifiers and versions",
+      "field names and exact constants mandated by D/R/M/B/A/Q/F",
+      "anomaly class identifiers",
+      "closed status literals",
+      "generic standard-library primitives",
+      "abstract result schema fields"
+    ],
+    "external_adjudication_required": [
+      "breaker-owned source similarity review",
+      "dependency/import graph inspection",
+      "cold-import and runtime audit",
+      "pre-seal isolation evidence",
+      "one-sided mutant detection"
+    ],
+    "self_attestation_is_not_pass_evidence": true,
+    "source_binding_protocol": {
+      "pre_code_state": "PENDING_IMPLEMENTATION_SOURCE",
+      "target_source_files": [
+        "src/native_bi5_independent_qualifier.py"
+      ],
+      "post_code_allowed_mutation": [
+        "source_digests",
+        "source_binding_state"
+      ],
+      "post_code_forbidden_mutation": "all fields inside frozen_semantic_payload",
+      "final_binding_requirement": "source_digests must exactly equal the future I_B implementation manifest source_digests",
+      "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
+    }
+  },
+  "frozen_semantic_payload_sha256": "ff8ecad1f3b1522466727c0f2aab898bfb21577497487138b8753f5f63d944c6",
+  "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
+  "source_digests": {}
+}

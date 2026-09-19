@@ -1,0 +1,145 @@
+{
+  "schema": "IB_SEMANTIC_SOURCE_PROVENANCE_V0_1_CANDIDATE",
+  "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER",
+  "implementation_version": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE",
+  "evidence_phase": "PRE_IMPLEMENTATION_DERIVATION",
+  "frozen_semantic_payload": {
+    "derivation_basis": "PINNED_NORMATIVE_CONTRACTS",
+    "allowed_derivation_inputs": [
+      {
+        "path": "reports/data-qualification/drm_first_concrete_candidate_formalization_2026-09-19.md",
+        "blob": "2249bea6dbf6b5a8e0d49b99a93bf16248f9c0e9",
+        "scope": [
+          "D",
+          "R",
+          "M"
+        ],
+        "role": "normative_candidate_semantics"
+      },
+      {
+        "path": "reports/data-qualification/ba_native_bi5_binding_anomaly_candidate_2026-09-19.md",
+        "blob": "25400abcc3a2a24438954ff27b970bd934313ae3",
+        "scope": [
+          "B",
+          "A"
+        ],
+        "role": "normative_candidate_semantics"
+      },
+      {
+        "path": "reports/data-qualification/q_native_bi5_qualification_contract_candidate_2026-09-19.md",
+        "blob": "9e15cfb86716894131485a15a180cc170a230287",
+        "scope": [
+          "Q"
+        ],
+        "role": "normative_candidate_semantics"
+      },
+      {
+        "path": "reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md",
+        "blob": "fe62da06e63a51c336f9a447e7f1e0f3d89cad3b",
+        "scope": [
+          "F_ONLY"
+        ],
+        "forbidden_scope": [
+          "O_CONSTRUCTION_LOGIC"
+        ],
+        "role": "normative_candidate_semantics"
+      },
+      {
+        "path": "reports/data-qualification/iab_native_bi5_implementation_boundary_candidate_2026-09-19.md",
+        "blob": "fac8d143a836b0c02538c607ac5ab71357824537",
+        "scope": [
+          "I_B_BOUNDARY",
+          "INDEPENDENCE",
+          "ISOLATION",
+          "STATUS",
+          "SEALING"
+        ],
+        "role": "implementation_boundary"
+      },
+      {
+        "path": "breakers/native_bi5_ib_independent_qualifier_breaker.py",
+        "blob": "d1a305e3b9ae813e891b34522e3a12bb6bc8ac34",
+        "scope": [
+          "EXTERNAL_QUALIFICATION_REQUIREMENTS",
+          "FIXTURE_SHAPE_ONLY"
+        ],
+        "role": "qualification_breaker_contract"
+      }
+    ],
+    "forbidden_derivation_inputs": [
+      "src/native_bi5_reference_qualifier.py",
+      "any I_A decoded records",
+      "any I_A candidate occurrences",
+      "any I_A anomaly classifications",
+      "any I_A Q membership decisions",
+      "any I_A retained/rejected slot sets",
+      "any I_A F semantic state or serialized freeze artifact",
+      "any I_A semantic fingerprints",
+      "any O-normalized I_A projection or expected counts",
+      "any precomputed semantic artifact produced by I_A"
+    ],
+    "semantic_stage_contract_sources": {
+      "D_PREFLIGHT": [
+        "D"
+      ],
+      "R_COMPATIBILITY": [
+        "R"
+      ],
+      "B_ENVELOPE": [
+        "B"
+      ],
+      "B_FRAMING": [
+        "B"
+      ],
+      "B_BINARY_DECODE": [
+        "B"
+      ],
+      "B_TIMESTAMP": [
+        "B"
+      ],
+      "B_PRICE": [
+        "B"
+      ],
+      "B_VOLUME": [
+        "B"
+      ],
+      "A_CLASSIFICATION": [
+        "A"
+      ],
+      "M_OCCURRENCE": [
+        "M"
+      ],
+      "Q_MEMBERSHIP": [
+        "Q"
+      ],
+      "F_FREEZE": [
+        "F"
+      ]
+    },
+    "construction_rules": [
+      "derive every semantic decision directly from the pinned normative candidate contracts",
+      "implement each project-owned semantic stage in I_B-owned code",
+      "do not use I_A source, I_A output, O output, expected-answer counts, or shared project semantic helpers as construction input",
+      "generic non-semantic standard-library primitives may be used where allowed by the boundary",
+      "missing or contradictory normative input must fail closed rather than use implementation defaults",
+      "physical traversal order, serialization order, cache order, and worker partition are non-semantic",
+      "strict duplicate multiplicity and source-to-logical conformance must be preserved"
+    ],
+    "source_binding_protocol": {
+      "pre_code_state": "PENDING_IMPLEMENTATION_SOURCE",
+      "target_source_files": [
+        "src/native_bi5_independent_qualifier.py"
+      ],
+      "post_code_allowed_mutation": [
+        "source_digests",
+        "source_binding_state"
+      ],
+      "post_code_forbidden_mutation": "all fields inside frozen_semantic_payload",
+      "final_binding_requirement": "source_digests must exactly equal the future I_B implementation manifest source_digests",
+      "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
+    }
+  },
+  "frozen_semantic_payload_sha256": "98931a4ac06b57968c67a0d2c9019d4a97628c7eb76338c2743975ae6c65e27d",
+  "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
+  "source_digests": {}
+}

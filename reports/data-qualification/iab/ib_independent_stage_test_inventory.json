@@ -1,0 +1,287 @@
+{
+  "schema": "IB_INDEPENDENT_STAGE_TEST_INVENTORY_V0_1_CANDIDATE",
+  "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER",
+  "implementation_version": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_V0_1_CANDIDATE",
+  "evidence_phase": "PRE_IMPLEMENTATION_DERIVATION",
+  "semantic_stages": [
+    "D_PREFLIGHT",
+    "R_COMPATIBILITY",
+    "B_ENVELOPE",
+    "B_FRAMING",
+    "B_BINARY_DECODE",
+    "B_TIMESTAMP",
+    "B_PRICE",
+    "B_VOLUME",
+    "A_CLASSIFICATION",
+    "M_OCCURRENCE",
+    "Q_MEMBERSHIP",
+    "F_FREEZE"
+  ],
+  "tests": [
+    {
+      "test_id": "IB-D-01",
+      "stage": "D_PREFLIGHT",
+      "basis": "D",
+      "fixture": "missing determinant / incomplete materialization",
+      "assertion": "fail closed; no filesystem discovery or domain shrink"
+    },
+    {
+      "test_id": "IB-R-01",
+      "stage": "R_COMPATIBILITY",
+      "basis": "R",
+      "fixture": "representation/version mismatch",
+      "assertion": "QUALIFICATION_BLOCKED; no nearest-version fallback"
+    },
+    {
+      "test_id": "IB-BE-01",
+      "stage": "B_ENVELOPE",
+      "basis": "B",
+      "fixture": "invalid/trailing/concatenated LZMA-Alone envelope",
+      "assertion": "component blocks; no fallback codec"
+    },
+    {
+      "test_id": "IB-BF-01",
+      "stage": "B_FRAMING",
+      "basis": "B",
+      "fixture": "20-byte slots plus terminal remainder",
+      "assertion": "fixed byte-zero framing; remainder cannot silently pad/join"
+    },
+    {
+      "test_id": "IB-BD-01",
+      "stage": "B_BINARY_DECODE",
+      "basis": "B",
+      "fixture": "known >IIIff synthetic slot",
+      "assertion": "big-endian exact field mapping"
+    },
+    {
+      "test_id": "IB-BT-01",
+      "stage": "B_TIMESTAMP",
+      "basis": "B",
+      "fixture": "same timestamp and physical timestamp regression",
+      "assertion": "hour+ms exact; no sorting; A09 only for ms>=3600000"
+    },
+    {
+      "test_id": "IB-BP-01",
+      "stage": "B_PRICE",
+      "basis": "B",
+      "fixture": "zero and crossed synthetic prices",
+      "assertion": "raw integer /1000 semantics; no market filter"
+    },
+    {
+      "test_id": "IB-BV-01",
+      "stage": "B_VOLUME",
+      "basis": "B/F",
+      "fixture": "finite negative, signed zero, subnormal, NaN/Infinity",
+      "assertion": "finite binary32 exact normal form; non-finite rejected; negative retained"
+    },
+    {
+      "test_id": "IB-A-01",
+      "stage": "A_CLASSIFICATION",
+      "basis": "A",
+      "fixture": "A01-A13 targeted anomaly matrix",
+      "assertion": "exact mandatory outcome and target scope; unknown anomaly blocks"
+    },
+    {
+      "test_id": "IB-M-01",
+      "stage": "M_OCCURRENCE",
+      "basis": "M",
+      "fixture": "two source slots with identical payload",
+      "assertion": "distinct candidate occurrences; no content deduplication"
+    },
+    {
+      "test_id": "IB-Q-01",
+      "stage": "Q_MEMBERSHIP",
+      "basis": "Q",
+      "fixture": "candidate/reject partition with local A09",
+      "assertion": "total slot accounting, disjoint union, local reject only"
+    },
+    {
+      "test_id": "IB-Q-02",
+      "stage": "Q_MEMBERSHIP",
+      "basis": "Q",
+      "fixture": "late blocking component after valid prefix",
+      "assertion": "no partial qualified universe"
+    },
+    {
+      "test_id": "IB-F-01",
+      "stage": "F_FREEZE",
+      "basis": "F",
+      "fixture": "qualified synthetic universe with strict duplicates",
+      "assertion": "freeze complete bag plus source relation; no canonical enumeration"
+    },
+    {
+      "test_id": "IB-F-02",
+      "stage": "F_FREEZE",
+      "basis": "F",
+      "fixture": "blocked/rejected terminal state",
+      "assertion": "NOT_CREATED and no qualified occurrence count/universe"
+    },
+    {
+      "test_id": "IB-X-01",
+      "stage": "D_PREFLIGHT",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "I_A/O expected-answer channel present",
+      "assertion": "construction input rejected/absent before seal"
+    },
+    {
+      "test_id": "IB-X-02",
+      "stage": "F_FREEZE",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "one-sided I_B semantic mutant after implementation",
+      "assertion": "breaker/O detects divergence or I_B blocks/fails"
+    }
+  ],
+  "frozen_semantic_payload": {
+    "semantic_stages": [
+      "D_PREFLIGHT",
+      "R_COMPATIBILITY",
+      "B_ENVELOPE",
+      "B_FRAMING",
+      "B_BINARY_DECODE",
+      "B_TIMESTAMP",
+      "B_PRICE",
+      "B_VOLUME",
+      "A_CLASSIFICATION",
+      "M_OCCURRENCE",
+      "Q_MEMBERSHIP",
+      "F_FREEZE"
+    ],
+    "tests": [
+      {
+        "test_id": "IB-D-01",
+        "stage": "D_PREFLIGHT",
+        "basis": "D",
+        "fixture": "missing determinant / incomplete materialization",
+        "assertion": "fail closed; no filesystem discovery or domain shrink"
+      },
+      {
+        "test_id": "IB-R-01",
+        "stage": "R_COMPATIBILITY",
+        "basis": "R",
+        "fixture": "representation/version mismatch",
+        "assertion": "QUALIFICATION_BLOCKED; no nearest-version fallback"
+      },
+      {
+        "test_id": "IB-BE-01",
+        "stage": "B_ENVELOPE",
+        "basis": "B",
+        "fixture": "invalid/trailing/concatenated LZMA-Alone envelope",
+        "assertion": "component blocks; no fallback codec"
+      },
+      {
+        "test_id": "IB-BF-01",
+        "stage": "B_FRAMING",
+        "basis": "B",
+        "fixture": "20-byte slots plus terminal remainder",
+        "assertion": "fixed byte-zero framing; remainder cannot silently pad/join"
+      },
+      {
+        "test_id": "IB-BD-01",
+        "stage": "B_BINARY_DECODE",
+        "basis": "B",
+        "fixture": "known >IIIff synthetic slot",
+        "assertion": "big-endian exact field mapping"
+      },
+      {
+        "test_id": "IB-BT-01",
+        "stage": "B_TIMESTAMP",
+        "basis": "B",
+        "fixture": "same timestamp and physical timestamp regression",
+        "assertion": "hour+ms exact; no sorting; A09 only for ms>=3600000"
+      },
+      {
+        "test_id": "IB-BP-01",
+        "stage": "B_PRICE",
+        "basis": "B",
+        "fixture": "zero and crossed synthetic prices",
+        "assertion": "raw integer /1000 semantics; no market filter"
+      },
+      {
+        "test_id": "IB-BV-01",
+        "stage": "B_VOLUME",
+        "basis": "B/F",
+        "fixture": "finite negative, signed zero, subnormal, NaN/Infinity",
+        "assertion": "finite binary32 exact normal form; non-finite rejected; negative retained"
+      },
+      {
+        "test_id": "IB-A-01",
+        "stage": "A_CLASSIFICATION",
+        "basis": "A",
+        "fixture": "A01-A13 targeted anomaly matrix",
+        "assertion": "exact mandatory outcome and target scope; unknown anomaly blocks"
+      },
+      {
+        "test_id": "IB-M-01",
+        "stage": "M_OCCURRENCE",
+        "basis": "M",
+        "fixture": "two source slots with identical payload",
+        "assertion": "distinct candidate occurrences; no content deduplication"
+      },
+      {
+        "test_id": "IB-Q-01",
+        "stage": "Q_MEMBERSHIP",
+        "basis": "Q",
+        "fixture": "candidate/reject partition with local A09",
+        "assertion": "total slot accounting, disjoint union, local reject only"
+      },
+      {
+        "test_id": "IB-Q-02",
+        "stage": "Q_MEMBERSHIP",
+        "basis": "Q",
+        "fixture": "late blocking component after valid prefix",
+        "assertion": "no partial qualified universe"
+      },
+      {
+        "test_id": "IB-F-01",
+        "stage": "F_FREEZE",
+        "basis": "F",
+        "fixture": "qualified synthetic universe with strict duplicates",
+        "assertion": "freeze complete bag plus source relation; no canonical enumeration"
+      },
+      {
+        "test_id": "IB-F-02",
+        "stage": "F_FREEZE",
+        "basis": "F",
+        "fixture": "blocked/rejected terminal state",
+        "assertion": "NOT_CREATED and no qualified occurrence count/universe"
+      },
+      {
+        "test_id": "IB-X-01",
+        "stage": "D_PREFLIGHT",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "I_A/O expected-answer channel present",
+        "assertion": "construction input rejected/absent before seal"
+      },
+      {
+        "test_id": "IB-X-02",
+        "stage": "F_FREEZE",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "one-sided I_B semantic mutant after implementation",
+        "assertion": "breaker/O detects divergence or I_B blocks/fails"
+      }
+    ],
+    "inventory_rules": [
+      "every REQUIRED_STAGES member has at least one independently specified normative test",
+      "tests are derived from contracts and synthetic fixtures, not from I_A expected answers",
+      "I_A and O outputs are forbidden construction inputs before I_B result seal",
+      "stage tests may reuse generic fixture-building primitives but not project semantic builders",
+      "future executable tests must bind to the final I_B source digest after independent implementation"
+    ],
+    "source_binding_protocol": {
+      "pre_code_state": "PENDING_IMPLEMENTATION_SOURCE",
+      "target_source_files": [
+        "src/native_bi5_independent_qualifier.py"
+      ],
+      "post_code_allowed_mutation": [
+        "source_digests",
+        "source_binding_state"
+      ],
+      "post_code_forbidden_mutation": "all fields inside frozen_semantic_payload",
+      "final_binding_requirement": "source_digests must exactly equal the future I_B implementation manifest source_digests",
+      "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
+    }
+  },
+  "frozen_semantic_payload_sha256": "98016fb44f745d8f35ef6c938a39bb1ab0f2ca60edc8f0479782e9a74b126669",
+  "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
+  "source_digests": {}
+}
