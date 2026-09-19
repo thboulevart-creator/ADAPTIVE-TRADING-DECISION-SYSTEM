@@ -64,3 +64,19 @@ def test_adv_completeness_execution_metadata_is_nonsemantic() -> None:
     assert result["oracle_result"] == "SEMANTIC_EQUAL"
     assert result["qualified_universe_comparison"] == "SEMANTIC_EQUAL"
     assert result["comparison_scope"] == "SAME_QUALIFICATION_STATE"
+
+
+def test_adv_json_parameter_type_distinction_is_qualification_state() -> None:
+    left_data = _qualified_input()
+    right_data = copy.deepcopy(left_data)
+
+    left_data["qualification_parameters"]["typed_parameter"] = True
+    right_data["qualification_parameters"]["typed_parameter"] = 1
+
+    left = _frozen(left_data)
+    right = _frozen(right_data)
+    result = _compare(left, right)
+
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "DISTINCT_QUALIFICATION_STATE"
