@@ -509,3 +509,159 @@ Correct only IBE-R04 and IBE-R05:
 6. run final persisted-head re-break.
 
 No I_B production code may be created during this correction.
+
+
+---
+
+## Final persisted-head re-break and verdict
+
+Final corrected pre-code evidence HEAD:
+
+`86641b5d419c4fd2c4388bf786ce964c5fcb260b`
+
+Final evidence blobs:
+
+```text
+ib_semantic_source_provenance.json
+a4040370458b1a8d22ec2411178cc023cf96155b
+
+ib_no_copy_declaration.json
+2d983605d1d19a1e644a49e88ab9ee2429b8a185
+
+ib_independent_stage_test_inventory.json
+c3a4e6564a67c572f313c30d177433ee6a22764b
+```
+
+Final evidence breaker blob:
+
+`231f9daa343f95baa4b747ec2b89166833255958`
+
+Final workflow blob:
+
+`67e1822c506f3d2202b60177aa50bd471af48680`
+
+Final executable re-break:
+
+```text
+run = 35443769476
+job = 105899075997
+11 passed in 0.06s
+```
+
+For the final run:
+
+```text
+exact persisted evidence/breaker blob locks = PASS
+I_B production source absent                = PASS
+qualification environment                   = PASS
+evidence adversarial breaker                = 11 passed
+clean worktree                              = PASS
+```
+
+### Defect closure
+
+```text
+IBE-F01 — FROZEN_PAYLOAD_FINGERPRINT_MISMATCH             SURVIVES CORRECTION
+IBE-F02 — FUTURE_BREAKER_SHAPE_MISMATCH                    SURVIVES CORRECTION
+IBE-F03 — ANOMALY_TEST_INVENTORY_TOO_COARSE                SURVIVES CORRECTION
+IBE-F04 — CROSS_ARTIFACT_PACKAGE_BINDING_MISSING           SURVIVES CORRECTION
+IBE-R01 — POSITIVE_A08_TEST_WITHOUT_QUALIFIED_PROOF_VERIFIER SURVIVES CORRECTION
+IBE-R02 — CROSS_CUTTING_BOUNDARY_TEST_INVENTORY_GAPS       SURVIVES CORRECTION
+IBE-R03 — EXACT_SIBLING_PAYLOAD_BINDING_NOT_CLOSED         SURVIVES CORRECTION
+IBE-R04 — PRECODE_ONLY_BREAKER_CANNOT_VALIDATE_POST_CODE_BINDING SURVIVES CORRECTION
+IBE-R05 — COORDINATED_FROZEN_PAYLOAD_REWRITE_NOT_EXTERNALLY_ANCHORED SURVIVES CORRECTION
+```
+
+No additional internal derivation-evidence defect was demonstrated after the third correction.
+
+### Final attack matrix
+
+The corrected package now enforces:
+
+- exact pinned normative input blobs for D/R/M/B/A/Q/F;
+- I_A source explicitly forbidden as derivation input;
+- O construction logic excluded;
+- exact implementation identity/version;
+- exact shared evidence-package identity/version;
+- exact normative-source-set digest;
+- exact sibling frozen-payload set;
+- canonical payload fingerprints;
+- breaker-hardcoded pre-code payload fingerprints;
+- no-copy declaration explicitly non-self-adjudicating;
+- external future similarity/dependency/runtime/mutant adjudication required;
+- A01 through A13 explicit test inventory;
+- positive A08 path blocked until a separately qualified constructive-proof verifier exists;
+- traversal invariance;
+- status-axis contradictions;
+- result-seal mutation;
+- pre-seal isolation/channel attacks;
+- missing-input/default prohibition;
+- source→logical corruption detection;
+- I_A/O expected answers forbidden as construction inputs;
+- one-sided I_B mutant detection requirement.
+
+### Two-phase source binding is now frozen
+
+Current pre-code state:
+
+```text
+source_binding_state = PENDING_IMPLEMENTATION_SOURCE
+source_digests = {}
+I_B source = ABSENT
+```
+
+The same already-qualified evidence breaker is frozen to accept the future transition only when:
+
+```text
+source_binding_state = BOUND_TO_IMPLEMENTATION_SOURCE
+
+source_digests = {
+  "src/native_bi5_independent_qualifier.py":
+  SHA256_RAW_SOURCE_BYTES(actual independently authored I_B source)
+}
+```
+
+No frozen semantic payload may change during that transition.
+
+The evidence breaker itself contains the exact expected pre-code frozen payload hashes, so coordinated rewriting/re-hashing of all three evidence artifacts will fail.
+
+### Final verdict
+
+```text
+I_B INDEPENDENT DERIVATION EVIDENCE PACKAGE
+PASS
+```
+
+Scope of PASS:
+
+```text
+pre-code semantic derivation provenance     = QUALIFIED
+no-copy / independence constraints          = QUALIFIED AS GOVERNED INPUT
+independent stage-test inventory            = QUALIFIED
+future source-binding transition contract   = QUALIFIED
+```
+
+This PASS does NOT mean:
+
+```text
+I_B source exists
+I_B source digest is bound
+I_B executable implementation is qualified
+I_B global gate is PASS
+I_A/I_B semantic equality is proven
+O executable comparison has run
+real data is authorized
+```
+
+Current I_B states remain:
+
+```text
+I_B derivation evidence package = PASS
+I_B implementation source       = ABSENT
+I_B source binding              = PENDING
+I_B executable/global gate      = BLOCKED
+```
+
+No I_B production code was created during this evidence block.
+
+No native BI5 download, real-data processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is created.
