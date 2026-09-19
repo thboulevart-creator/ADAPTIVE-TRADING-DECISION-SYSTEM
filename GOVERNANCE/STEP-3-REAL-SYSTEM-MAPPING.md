@@ -8777,3 +8777,456 @@ WitnessedMeasurementProvenance
 ```
 
 P1.1 positive `AUTHORIZED` remains separately BLOCKED.
+
+
+---
+
+# P1.14 — FINAL PERSISTED-HEAD QUALIFICATION
+
+**Qualified persisted HEAD:** `bbd4e382f5ce744438079015eb11826aff64be74`
+
+Final persisted-head runs:
+
+- P1.14A run `35429884389`, job `105862447839`: protected chain PASS; P1.14A `34 passed`; clean worktree PASS.
+- P1.14B run `35429884347`, job `105862447690`: protected chain PASS; P1.14B `38 passed`; clean worktree PASS.
+
+Final identities:
+
+- P1.14A breaker: `ff8de568b3ed8b1e887b604a8db9d173bdbbd66b`;
+- P1.14B breaker: `24d8dcd980ec421c75207930174a42cbd62a3b46`;
+- P1.14A runtime: `d56374ab05b07b8a05eafbbba9dde2875ef4f507`;
+- P1.14B runtime: `4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5`.
+
+Final verdicts:
+
+```text
+P1_14A_REVIEWER_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1
+PASS
+
+P1_14B_WITNESSED_MEASUREMENT_PROVENANCE_REATTESTATION_BOUNDARY_V1
+PASS
+```
+
+Qualification remains limited:
+
+```text
+qualified reviewer authority
+≠ request fulfillment
+
+witnessed measurement provenance
+≠ qualified experimental finding
+```
+
+---
+
+# FORMALISATION GOUVERNÉE — 19 SEPTEMBRE 2026 — P1.15 PROMOTION FRONTIERS
+
+**Qualified base:** `bbd4e382f5ce744438079015eb11826aff64be74`
+
+**Mode:** conceptual adversarial break only — NO runtime code, NO breaker code.
+
+Candidate contracts selected by this analysis:
+
+- `P1_15A_EVIDENCE_REQUEST_FULFILLMENT_DECISION_BOUNDARY_V1`
+- `P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1`
+
+The two branches are intentionally asymmetric.
+
+## 327. P1.15A — direct promotion attack
+
+Naive promotion:
+
+```text
+ReviewerMethodAuthorityQualification(review_authority_status=PASS)
+→ request_fulfillment_status=PASS
+```
+
+**Conceptual verdict: FAIL as an implicit promotion.**
+
+Why:
+
+P1.14A proves only that an externally pinned authority attests the exact reviewer + method + review binding. It deliberately leaves `request_fulfillment_status=BLOCKED`.
+
+Authority is therefore necessary, but fulfillment still requires an explicit policy decision that consumes the already-qualified review verdict.
+
+The missing boundary is not another semantic reviewer. It is a distinct promotion gate.
+
+## 328. P1.15A — smallest sufficient boundary
+
+Selected candidate:
+
+`P1_15A_EVIDENCE_REQUEST_FULFILLMENT_DECISION_BOUNDARY_V1`
+
+Minimal authoritative input:
+
+- exact factory-attested `ReviewerMethodAuthorityQualification`.
+
+No new external reviewer/receipt is required in P1.15A.
+
+Reason:
+
+P1.14A already re-attested the exact P1.13A review and snapshots:
+
+- `review_id`;
+- `request_id`;
+- `criteria_id`;
+- `review_verdict`;
+- `review_authority_status=PASS`;
+- exact reviewer/method authority identity;
+- source provenance.
+
+Requiring the full evidence material chain again would duplicate already-qualified authority rather than add a missing fact.
+
+## 329. P1.15A — deterministic promotion rule
+
+Candidate output:
+
+`EvidenceRequestFulfillmentDecision`
+
+Deterministic mapping:
+
+```text
+review_authority_status != PASS
+→ reject input / no decision
+
+review_verdict == PASS
+→ request_fulfillment_status = PASS
+
+review_verdict == FAIL
+→ request_fulfillment_status = FAIL
+
+review_verdict == BLOCKED
+→ request_fulfillment_status = BLOCKED
+```
+
+This boundary does not reinterpret evidence content.
+
+It only promotes the exact authoritative review verdict into a request-level fulfillment decision.
+
+## 330. P1.15A — semantics of fulfillment PASS
+
+`request_fulfillment_status=PASS` means only:
+
+> the exact evidence follow-up request is fulfilled according to the exact reviewed criteria and the reviewer/method authority qualified by P1.14A.
+
+It does NOT mean:
+
+- objective semantic truth;
+- universal admissibility;
+- scientific truth;
+- knowledge promotion;
+- correctness of any future decision;
+- operational authorization.
+
+Therefore:
+
+```text
+request fulfillment
+≠ knowledge
+≠ authorization
+```
+
+## 331. P1.15A — minimal model candidate
+
+Future module candidate:
+
+`src/evidence_request_fulfillment.py`
+
+Proposed surface:
+
+```text
+CONTRACT = "P1_15A_EVIDENCE_REQUEST_FULFILLMENT_DECISION_BOUNDARY_V1"
+
+EvidenceRequestFulfillmentDecision
+
+decide_evidence_request_fulfillment(authority_qualification)
+
+is_factory_attested_evidence_request_fulfillment_decision(value)
+```
+
+Proposed exact model:
+
+```text
+EvidenceRequestFulfillmentDecision
+- fulfillment_decision_id
+- qualification_id
+- review_id
+- request_id
+- revision_id
+- audit_id
+- scope_id
+- criteria_id
+- reviewer_id
+- method_ref
+- authority_id
+- review_verdict
+- review_authority_status
+- request_fulfillment_status
+- source_verdict
+- source_completeness_status
+- source_independence_status
+```
+
+Prefix candidate:
+
+`ERF-`
+
+Exact-object process-local attestation + sticky invalidation.
+
+No user-supplied override for fulfillment status.
+
+## 332. P1.15A — conceptual adversarial break set
+
+The future executable breaker must attack at least:
+
+A. ID-only authority qualification;
+B. manual/same-valued/copy/deepcopy/replace qualification;
+C. mutated or invalidated P1.14A qualification;
+D. attempt to override fulfillment status;
+E. PASS review → anything other than PASS;
+F. FAIL review → anything other than FAIL;
+G. BLOCKED review → anything other than BLOCKED;
+H. authority status other than exact PASS;
+I. source provenance mutation;
+J. reverse promotion to knowledge/authorization;
+K. snapshot/attestation/lifetime bypass.
+
+**P1.15A FORMALISATION: PASS.**
+
+**P1.15A MINIMAL MODEL: SELECTED.**
+
+**P1.15A RUNTIME: NOT IMPLEMENTED.**
+
+---
+
+## 333. P1.15B — direct finding promotion attack
+
+Naive promotion:
+
+```text
+WitnessedMeasurementProvenance(measurement_provenance_status=PASS)
+→ QualifiedExperimentalFinding
+```
+
+**Conceptual verdict: FAIL.**
+
+P1.14B proves lineage only.
+
+It does not prove:
+
+- evaluator authority;
+- authority of the interpretation method;
+- authority of the hashed procedures;
+- that prediction/falsification claims are entitled to become a finding.
+
+The P1.14B object also does not itself contain the full hypothesis/evaluation claims needed to construct a finding.
+
+## 334. Existing ResearchFindings surface is not sufficient authority
+
+Current `src/research_findings.py` requires factory-attested `ResearchRunEvidence`, but the caller supplies:
+
+- hypotheses;
+- measurements;
+- findings.
+
+It validates structural references and status domains, but it does not prove that the supplied finding status was derived from:
+
+- the exact P1.13B evaluation;
+- the exact P1.14B witnessed measurements;
+- a qualified evaluator;
+- a qualified interpretation method.
+
+Therefore:
+
+```text
+ResearchFindings.from_research_run_evidence(...)
+≠ P1.15 experimental finding authority
+```
+
+No direct reuse is authorized for this promotion.
+
+## 335. P1.15B — smallest missing authority
+
+The smallest missing boundary is NOT yet a finding producer.
+
+Selected candidate:
+
+`P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1`
+
+It must qualify the authority of the exact evaluator/method/procedure set used by one exact P1.13B evaluation whose measurement lineage is already qualified by P1.14B.
+
+Minimal upstreams:
+
+- exact factory-attested `ExperimentEvaluationSubmission`;
+- exact factory-attested `WitnessedMeasurementProvenance`;
+- canonical external evaluation-authority record;
+- canonical external receipt;
+- externally supplied `expected_authority_id`;
+- externally supplied `expected_receipt_sha256`.
+
+## 336. P1.15B — authority record must bind
+
+The future external authority record must bind exactly:
+
+- `evaluation_submission_id`;
+- `provenance_qualification_id`;
+- `experiment_execution_result_id`;
+- `experiment_spec_id`;
+- `request_id`;
+- `evaluator_id`;
+- `method_ref`;
+- `prediction_status`;
+- `falsification_status`;
+- `evaluation_rationale`;
+- ordered measurement IDs;
+- ordered `procedure_ref` / `procedure_sha256` pairs from P1.14B.
+
+This prevents an evaluator authority for one method/procedure set from being replayed over another evaluation.
+
+## 337. P1.15B — meaning of PASS
+
+Candidate output:
+
+`QualifiedExperimentEvaluationAuthority`
+
+If the external pin and exact bindings validate:
+
+```text
+evaluation_authority_status = PASS
+finding_status = BLOCKED
+```
+
+PASS means only:
+
+> an externally pinned authority attests the exact evaluator + interpretation method + procedure identities for this exact evaluation and witnessed provenance.
+
+It does NOT mean:
+
+- prediction is objectively true;
+- falsification is objectively correct;
+- procedures are mathematically correct in the abstract;
+- the hypothesis is scientifically established;
+- a ResearchFinding already exists;
+- knowledge exists;
+- operational authorization exists.
+
+## 338. P1.15B — why finding remains deferred
+
+A qualified experimental finding needs a separate explicit promotion rule that combines:
+
+- exact evaluation claims;
+- witnessed measurement provenance PASS;
+- evaluator/method authority PASS;
+- a deterministic interpretation policy for inconsistent combinations.
+
+Example unresolved combinations:
+
+```text
+prediction_status = SUPPORTED
+falsification_status = FALSIFIED
+```
+
+or:
+
+```text
+prediction_status = BLOCKED
+falsification_status = NOT_FALSIFIED
+```
+
+Without a governed mapping, creating `SUPPORTED / REFUTED / NOT_INTERPRETABLE` would hide an interpretation policy inside the producer.
+
+Therefore the actual finding producer is deferred to the next boundary, not P1.15B.
+
+## 339. P1.15B — minimal model candidate
+
+Future module candidate:
+
+`src/experiment_evaluator_authority.py`
+
+Proposed surface:
+
+```text
+CONTRACT = "P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_REATTESTATION_BOUNDARY_V1"
+RECORD_SCHEMA = "P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_RECORD_V1"
+RECEIPT_SCHEMA = "P1_15B_EXPERIMENT_EVALUATOR_METHOD_AUTHORITY_RECEIPT_V1"
+
+QualifiedExperimentEvaluationAuthority
+
+reattest_experiment_evaluator_authority(
+    evaluation_submission,
+    measurement_provenance,
+    record_path,
+    receipt_path,
+    *,
+    expected_authority_id,
+    expected_receipt_sha256,
+)
+
+is_factory_attested_qualified_experiment_evaluation_authority(value)
+```
+
+Candidate prefix:
+
+`QEA-`
+
+## 340. P1.15B — conceptual adversarial break set
+
+The future executable breaker must attack at least:
+
+A. ID-only / manual / copy / replaced P1.13B evaluation;
+B. ID-only / manual / copy / replaced P1.14B provenance;
+C. cross-evaluation provenance substitution;
+D. evaluator mismatch;
+E. method mismatch;
+F. prediction/falsification claim mismatch;
+G. procedure-ref/hash reordering or substitution;
+H. external authority mismatch;
+I. wrong-but-well-formed receipt pin;
+J. canonical record/receipt tampering;
+K. receipt self-selecting authority;
+L. qualification ID rebinding;
+M. evaluation authority PASS while finding remains BLOCKED;
+N. no ResearchFinding/ResearchFindings/ResearchRunEvidence production;
+O. no procedure execution/recomputation;
+P. no knowledge or operational authorization.
+
+**P1.15B FORMALISATION: PASS.**
+
+**P1.15B MINIMAL MODEL: SELECTED.**
+
+**P1.15B RUNTIME: NOT IMPLEMENTED.**
+
+---
+
+## 341. P1.15 architectural conclusion
+
+The smallest correct next boundaries are:
+
+```text
+P1.15A
+ReviewerMethodAuthorityQualification
+→ explicit EvidenceRequestFulfillmentDecision
+```
+
+and:
+
+```text
+P1.15B
+ExperimentEvaluationSubmission
++
+WitnessedMeasurementProvenance
++
+external evaluator/method/procedure authority
+→ QualifiedExperimentEvaluationAuthority
+```
+
+Not:
+
+```text
+P1.14B provenance
+→ finding
+```
+
+The experimental finding promotion remains a later boundary because it still requires an explicit deterministic interpretation policy.
+
+No P1.15 runtime or executable breaker has been created by this formalisation.
