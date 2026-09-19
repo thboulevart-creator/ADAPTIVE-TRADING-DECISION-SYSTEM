@@ -30,7 +30,7 @@ env:
   F_TESTFIRST_BREAKER_BLOB: '3d9eb75c2f4e988c984da67af0af344d3dc24148'
   F_ADVERSARIAL_BREAKER_BLOB: 'c4c499d5e76e15a8fdcaeb91dde80beadad6487a'
   FO_CONTRACT_BLOB: 'fe62da06e63a51c336f9a447e7f1e0f3d89cad3b'
-  O_BREAKER_BLOB: 'ae5f8ce6f2fbec0331dbfe82a7addeeb09ca710a'
+  O_BREAKER_BLOB: '8b8f27239df1a297553fe5e3f1e083d37be87169'
 
 jobs:
   preimplementation-red:

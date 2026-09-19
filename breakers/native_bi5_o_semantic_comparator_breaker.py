@@ -397,11 +397,14 @@ def test_b5_physical_repartition_equivalence_is_not_invented() -> None:
     assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
 
 
-def test_c0_same_id_version_different_bound_content_is_integrity_conflict() -> None:
+@pytest.mark.parametrize("stage", ("D", "R", "M", "B", "A", "Q", "F"))
+def test_c0_same_id_version_different_bound_content_is_integrity_conflict(stage: str) -> None:
     left = _frozen()
     data = _qualified_input()
-    d = next(item for item in data["reconstruction_tuple"] if item["stage"] == "D")
-    d["integrity_digest"] = "e" * 64
+    binding = next(
+        item for item in data["reconstruction_tuple"] if item["stage"] == stage
+    )
+    binding["integrity_digest"] = "e" * 64
     right = _frozen(data)
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
@@ -410,11 +413,16 @@ def test_c0_same_id_version_different_bound_content_is_integrity_conflict() -> N
     assert result["reason"] == "NORMATIVE_VERSION_INTEGRITY_CONFLICT"
 
 
-def test_c0b_same_id_version_different_immutable_reference_is_integrity_conflict() -> None:
+@pytest.mark.parametrize("stage", ("D", "R", "M", "B", "A", "Q", "F"))
+def test_c0b_same_id_version_different_immutable_reference_is_integrity_conflict(
+    stage: str,
+) -> None:
     left = _frozen()
     data = _qualified_input()
-    d = next(item for item in data["reconstruction_tuple"] if item["stage"] == "D")
-    d["immutable_reference"] = "synthetic://d/other-content-binding"
+    binding = next(
+        item for item in data["reconstruction_tuple"] if item["stage"] == stage
+    )
+    binding["immutable_reference"] = f"synthetic://{stage.lower()}/other-content-binding"
     right = _frozen(data)
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
@@ -434,16 +442,51 @@ def test_c1_different_qualification_parameters_are_distinct_state() -> None:
     assert result["comparison_scope"] == "DISTINCT_QUALIFICATION_STATE"
 
 
+def test_c1b_different_valid_d_materialization_version_is_distinct_state() -> None:
+    left = _frozen()
+    data = _qualified_input()
+    data["acquisition_declaration_version"] = "D_MATERIALIZATION_V0_2_SYNTHETIC"
+    d = next(item for item in data["reconstruction_tuple"] if item["stage"] == "D")
+    d["normative_version"] = "D_MATERIALIZATION_V0_2_SYNTHETIC"
+    right = _frozen(data)
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "DISTINCT_QUALIFICATION_STATE"
+
+
 @pytest.mark.parametrize(
     "outcome",
     ("QUALIFICATION_BLOCKED", "ACQUISITION_REJECTED"),
 )
-def test_c2_terminal_f_artifact_blocks_qualified_universe_comparison(outcome: str) -> None:
+@pytest.mark.parametrize("side", ("left", "right"))
+def test_c2_terminal_f_artifact_blocks_qualified_universe_comparison(
+    outcome: str,
+    side: str,
+) -> None:
     terminal = _terminal(outcome)
-    result = _compare(_frozen(), terminal)
+    qualified = _frozen()
+    left, right = (
+        (terminal, qualified)
+        if side == "left"
+        else (qualified, terminal)
+    )
+    result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
     assert result["comparison_scope"] == "TERMINAL_INPUT"
+
+
+def test_c2b_different_acquisition_domain_identity_is_noncomparable() -> None:
+    left = _frozen()
+    data = _qualified_input()
+    data["acquisition_domain_id"] = "SYNTH-F-ACQ-002"
+    data["acquisition_snapshot"]["acquisition_domain_id"] = "SYNTH-F-ACQ-002"
+    right = _frozen(data)
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
 
 
 def test_c3_equal_terminal_outcomes_still_do_not_create_qualified_comparison() -> None:
@@ -463,18 +506,24 @@ def test_c3_equal_terminal_outcomes_still_do_not_create_qualified_comparison() -
         "freeze_state",
     ),
 )
-def test_c4_malformed_or_nonfrozen_input_blocks(mutation: str) -> None:
-    left = _frozen()
-    right = copy.deepcopy(left)
+@pytest.mark.parametrize("side", ("left", "right"))
+def test_c4_malformed_or_nonfrozen_input_blocks(mutation: str, side: str) -> None:
+    valid = _frozen()
+    malformed = copy.deepcopy(valid)
     if mutation == "count":
-        right["qualified_occurrence_count"] += 1
+        malformed["qualified_occurrence_count"] += 1
     elif mutation == "integrity":
-        right["artifact_integrity_digest"] = "0" * 64
+        malformed["artifact_integrity_digest"] = "0" * 64
     elif mutation == "class":
-        right["artifact_class"] = "QUALIFICATION_TERMINAL_EVIDENCE"
+        malformed["artifact_class"] = "QUALIFICATION_TERMINAL_EVIDENCE"
     else:
-        right["freeze_state"] = "NOT_CREATED"
+        malformed["freeze_state"] = "NOT_CREATED"
 
+    left, right = (
+        (malformed, valid)
+        if side == "left"
+        else (valid, malformed)
+    )
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
     assert result["qualified_universe_comparison"] == "BLOCKED"
@@ -544,6 +593,11 @@ def test_d5_source_witness_is_not_reported_as_canonical_identity() -> None:
         "canonical_sequence",
         "temporal_order",
         "source_witness_identity",
+        "ordered_occurrences",
+        "sorted_occurrences",
+        "sequence_position",
+        "source_sequence",
+        "chronological_rank",
     }
     assert forbidden.isdisjoint(_recursive_keys(result))
 
