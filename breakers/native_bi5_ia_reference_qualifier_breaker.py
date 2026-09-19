@@ -16,6 +16,8 @@ from typing import Any
 import pytest
 
 
+IB_MODULE = "src.native_bi5_independent_qualifier"
+
 IA_ID = "I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER"
 IA_VERSION = "I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_V0_1_CANDIDATE"
 RESULT_SCHEMA = "NATIVE_BI5_IMPLEMENTATION_QUALIFICATION_RESULT_V0_1_CANDIDATE"
@@ -201,6 +203,7 @@ def _run(package: dict[str, Any]):
 
 def _audited_run(package: dict[str, Any]):
     observed: list[tuple[str, str]] = []
+    opposite = sys.modules.pop(IB_MODULE, None)
 
     def hook(event: str, args: tuple[Any, ...]) -> None:
         if event == "import":
@@ -211,12 +214,32 @@ def _audited_run(package: dict[str, Any]):
             observed.append((event, repr(args[:2])))
 
     sys.addaudithook(hook)
-    return _run(package), tuple(observed)
+    try:
+        result = _run(package)
+    finally:
+        if opposite is not None:
+            sys.modules[IB_MODULE] = opposite
+    return result, tuple(observed)
 
 
-def _cold_import_audit(module_name: str):
+def _cold_import_audit(module_name: str, forbidden_env_key: str):
     observed: list[tuple[str, str]] = []
+    accessed_env: set[str] = set()
     previous = sys.modules.pop(module_name, None)
+    original_environ = os.environ
+
+    class TrackingEnviron(dict):
+        def __getitem__(self, key):
+            accessed_env.add(str(key))
+            return super().__getitem__(key)
+
+        def get(self, key, default=None):
+            accessed_env.add(str(key))
+            return super().get(key, default)
+
+    tracked = TrackingEnviron(dict(original_environ))
+    tracked[forbidden_env_key] = "CANARY-DO-NOT-READ"
+    os.environ = tracked
 
     def hook(event: str, args: tuple[Any, ...]) -> None:
         if event == "import":
@@ -230,10 +253,11 @@ def _cold_import_audit(module_name: str):
     try:
         fresh = importlib.import_module(module_name)
     finally:
+        os.environ = original_environ
         sys.modules.pop(module_name, None)
         if previous is not None:
             sys.modules[module_name] = previous
-    return fresh, tuple(observed)
+    return fresh, tuple(observed), frozenset(accessed_env)
 
 
 def _value_originates_from(value: object, module_name: str) -> bool:
@@ -443,8 +467,13 @@ def test_d1_reference_path_does_not_import_independent_semantic_path() -> None:
 
 
 def test_d1b_breaker_owned_cold_import_audit_and_global_origin_check() -> None:
-    fresh, observed = _cold_import_audit("src.native_bi5_reference_qualifier")
+    assert IB_MODULE not in sys.modules
+    fresh, observed, accessed_env = _cold_import_audit(
+        "src.native_bi5_reference_qualifier",
+        "IAB_FORBIDDEN_IB_RESULT",
+    )
     assert fresh.IMPLEMENTATION_ID == IA_ID
+    assert "IAB_FORBIDDEN_IB_RESULT" not in accessed_env
     for event, detail in observed:
         lowered = detail.lower()
         assert "native_bi5_independent_qualifier" not in lowered
@@ -452,7 +481,7 @@ def test_d1b_breaker_owned_cold_import_audit_and_global_origin_check() -> None:
         assert not event.startswith("subprocess.")
         assert event != "os.system"
     assert not any(
-        _value_originates_from(value, "src.native_bi5_independent_qualifier")
+        _value_originates_from(value, IB_MODULE)
         for value in vars(fresh).values()
     )
 
