@@ -518,3 +518,107 @@ O implementation = ABSENT
 ```
 
 Only F-R01..F-R05 are authorized for correction.
+
+
+---
+
+## 9. Final manual residual after green F-R01..F-R05 re-break
+
+Corrected HEAD:
+
+`9f905fa59556dc132dc190f4abd4766809504af4`
+
+Green execution:
+
+```text
+candidate run = 35455420818
+frozen F breaker = 36 passed
+
+adversarial run = 35455420790
+frozen F breaker       = 36 passed
+supplemental adversary = 30 passed
+```
+
+A final source→logical reconstruction attack demonstrates one further defect.
+
+### F-R06 — SOURCE_TIMESTAMP_OUTSIDE_DECLARED_HOUR_ACCEPTED
+
+F persists both:
+
+```text
+component.declared_hour_bucket_utc
++
+retained occurrence source witness
++
+logical market_timestamp_utc
+```
+
+For the current B contract, the retained logical timestamp is reconstructed from:
+
+```text
+declared UTC hour + millisecond offset in [0, 3_600_000)
+```
+
+Therefore a retained source slot cannot legitimately map to a logical timestamp outside its component's declared hour.
+
+The current runtime validates:
+
+- component hour syntax;
+- occurrence timestamp syntax;
+- source witness component/slot;
+- B-candidate/Q-retained equality;
+
+but does not connect the timestamp back to the declared hour.
+
+Attack:
+
+change the same retained occurrence in both B-candidate and Q-retained relations from:
+
+```text
+2026-01-02T10:00:02.000Z
+```
+
+to:
+
+```text
+2026-01-02T11:00:02.000Z
+```
+
+while keeping its source witness bound to the component declared as:
+
+```text
+2026-01-02T10:00:00Z
+```
+
+The two upstream relations still agree with each other, but the frozen physical→logical relation violates B.
+
+Verdict:
+
+```text
+F-R06 = FAIL
+```
+
+Required correction:
+
+for every B-candidate/retained occurrence, prove:
+
+```text
+declared_hour_bucket_utc
+<= market_timestamp_utc
+< declared_hour_bucket_utc + 1 hour
+```
+
+without sorting or creating temporal precedence.
+
+This is a local conformance check only.
+
+Exactly authorized next action:
+
+```text
+encode F-R06 in supplemental breaker
+→ demonstrate RED
+→ correct F-R06 only
+→ final persisted-head re-break
+```
+
+O remains absent and no real data is authorized.
