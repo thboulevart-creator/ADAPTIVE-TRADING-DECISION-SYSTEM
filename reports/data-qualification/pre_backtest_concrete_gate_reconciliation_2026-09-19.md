@@ -1645,3 +1645,134 @@ I_B BLOCKED
 ```
 
 No acquisition, real BI5 processing or real backtest authorization is created.
+
+
+---
+
+# I_A/I_B test-first executable RED baseline — 2026-09-19
+
+The I_A/I_B implementation-boundary contract remains the current governed source for implementation independence.
+
+A complete test-first executable breaker/harness layer has now been created, adversarially broken, corrected and final persisted-head re-broken.
+
+Final artifacts:
+
+```text
+I_A breaker
+breakers/native_bi5_ia_reference_qualifier_breaker.py
+blob = 64d3a391e1b5cb5aecfdf926551acd3ee5f0d7dd
+
+I_B breaker
+breakers/native_bi5_ib_independent_qualifier_breaker.py
+blob = d1a305e3b9ae813e891b34522e3a12bb6bc8ac34
+
+I_A preimplementation workflow
+.github/workflows/native-bi5-ia-reference-qualifier-preimplementation.yml
+blob = c3325de6f65be5c99f8df5aab19404d1cd627a9a
+
+I_B preimplementation workflow
+.github/workflows/native-bi5-ib-independent-qualifier-preimplementation.yml
+blob = 02151244113b5654647c529899b11997c8762c66
+```
+
+Harness adversarial artifact:
+
+`reports/data-qualification/iab_native_bi5_testfirst_harness_adversarial_break_2026-09-19.md`
+
+Final adversarial artifact blob:
+
+`13737aef3b3b8fd7e7257c0e731719965e2e3a23`
+
+Final harness re-break evidence commit:
+
+`5873767377f7374566a7c8319f22211965fe096a`
+
+Durable RED baseline artifact:
+
+`reports/data-qualification/iab_native_bi5_preimplementation_red_baseline_2026-09-19.md`
+
+Baseline commit:
+
+`cd543e463593a182d6bdb3e69860080b6c7500af`
+
+### Harness adversarial history
+
+Initial breaker-layer defects:
+
+```text
+IAB-TF-F01 — SELF_ATTESTED_INDEPENDENCE_EVIDENCE
+IAB-TF-F02 — SELF_REPORTED_ISOLATION_EVIDENCE
+IAB-TF-F03 — STATIC_ONLY_SHARED_SEMANTIC_DEPENDENCY_DETECTION
+```
+
+Residuals exposed by persisted-head re-breaks and corrected:
+
+```text
+IAB-TF-R01 — UNRESOLVED_EVIDENCE_REFERENCE_TRUST
+IAB-TF-R02 — ENVIRONMENT_CHANNEL_NOT_OBSERVED
+IAB-TF-R03 — IMPORT_TIME_DYNAMIC_DEPENDENCY_GAP
+IAB-TF-R04 — IMPORT_TIME_ENVIRONMENT_LEAK_GAP
+IAB-TF-R05 — CACHED_OPPOSITE_MODULE_RUNTIME_AUDIT_BLIND_SPOT
+```
+
+No additional internal harness defect was demonstrated after the third minimal correction.
+
+### Final preimplementation RED runs
+
+```text
+I_A
+run = 35441702806
+job = 105893512667
+23 errors
+sole cause = missing src.native_bi5_reference_qualifier
+
+I_B
+run = 35441702856
+job = 105893512796
+23 errors
+sole cause = missing src.native_bi5_independent_qualifier
+```
+
+For both runs:
+
+```text
+exact persisted HEAD / hash locks        PASS
+expected runtime absence                 PASS
+qualification environment                PASS
+breaker                                  EXPECTED RED
+clean worktree                           PASS
+```
+
+### Test-first harness verdict
+
+```text
+I_A/I_B TEST-FIRST BREAKER / HARNESS LAYER = PASS
+```
+
+This PASS is restricted to the breaker/harness layer.
+
+It does not alter the executable-gate entries:
+
+```text
+I_A = BLOCKED
+I_B = BLOCKED
+```
+
+because neither production implementation exists or has been qualified.
+
+The global reconciliation therefore remains:
+
+```text
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No real acquisition, BI5 processing or backtest authorization was created.
