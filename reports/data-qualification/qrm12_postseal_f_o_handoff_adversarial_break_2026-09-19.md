@@ -314,3 +314,67 @@ Updated authorized correction set:
 ```text
 QRM12-F01..F07 only
 ```
+
+
+## 11. Persisted corrected-candidate re-break — residual defect
+
+Corrected candidate HEAD:
+
+`09b43d688528d10dda68172d9b7347a96433e1b4`
+
+Corrected candidate blob:
+
+`e0031e076805781a12b543cc3a8999d491276717`
+
+Re-break confirms QRM12-F01..F07 are materially addressed.
+
+One residual integrity defect remains.
+
+## 12. QRM12-F08 — EXECUTION EVIDENCE DOES NOT BIND THE EXACT SEALED OUTPUT
+
+The corrected candidate requires external evidence that the invoked source/blob digest matches the qualified source identity.
+
+That proves which code was invoked, but it does not yet prove that the particular sealed result presented to Q-RM-12 is the exact result emitted by that isolated execution.
+
+Because `result_seal` is intentionally a non-secret checksum, a coordinator or later actor can construct another structurally valid result, copy the pinned implementation identity/manifest values, embed another valid F artifact and recompute the seal.
+
+The current external evidence can still say the correct source executed without binding the exact output object to that run.
+
+### Attack
+
+1. execute the qualified I_A source and obtain sealed result `R1`;
+2. retain the valid execution/source evidence;
+3. replace `R1` with a different structurally valid `R2`;
+4. recompute `R2.result_seal`;
+5. present `R2` plus the original execution/source evidence to Q-RM-12.
+
+Without an external run receipt binding the exact emitted `result_seal` (or exact output digest) to that execution, the substitution is not excluded by the formalization.
+
+### Verdict
+
+```text
+QRM12-F08 = FAIL
+```
+
+### Minimal correction
+
+For each path, Q-RM-12 ingress must require external execution/sealing evidence produced by the qualification harness that binds at minimum:
+
+```text
+run identity
+implementation id/version
+qualified manifest digest
+qualified source/blob digest
+workspace/isolation identity
+exact emitted result_seal
+```
+
+The receipt/evidence itself is provenance evidence, not semantic authority.
+
+Q-RM-12 must reject any presented sealed result whose `result_seal` does not exactly equal the value bound by that execution receipt.
+
+Updated authorized correction set:
+
+```text
+QRM12-F08 only
+```
