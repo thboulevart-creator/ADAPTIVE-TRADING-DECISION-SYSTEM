@@ -5,6 +5,7 @@ import hashlib
 import json
 import re
 from collections.abc import Mapping, Sequence
+from datetime import datetime
 from typing import Any
 
 
@@ -13,6 +14,18 @@ FREEZE_CONTRACT_VERSION = (
     "F_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_QUALIFIED_UNIVERSE_FREEZE_V0_1_CANDIDATE"
 )
 ARTIFACT_SCHEMA = "QUALIFICATION_FREEZE_ARTIFACT_V0_1_CANDIDATE"
+
+_D_ID = "D_DUKASCOPY_USATECHIDXUSD_BOUNDED_RESEARCH_ACQUISITION_DECLARATION_V0_1"
+_R_ID = "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS"
+_R_VERSION = "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS_V1_CANDIDATE"
+_M_ID = "PRIMARY_MARKET_TICK_LOGICAL_RECORD_MODEL"
+_M_VERSION = "PRIMARY_MARKET_TICK_LOGICAL_RECORD_MODEL_V1_CANDIDATE"
+_B_ID = "B_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD"
+_B_VERSION = "B_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE"
+_A_ID = "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD"
+_A_VERSION = "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE"
+_Q_ID = "Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP"
+_Q_VERSION = "Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP_V0_1_CANDIDATE"
 
 _REQUIRED_STAGES = frozenset(("D", "R", "M", "B", "A", "Q", "F"))
 _ALLOWED_Q_OUTCOMES = frozenset(
@@ -117,7 +130,10 @@ def _validate_binding(binding: Any) -> dict[str, Any]:
     return copy.deepcopy(dict(binding))
 
 
-def _validate_reconstruction_tuple(value: Any) -> list[dict[str, Any]]:
+def _validate_reconstruction_tuple(
+    value: Any,
+    acquisition_declaration_version: str,
+) -> list[dict[str, Any]]:
     if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
         raise _ConstructionError("reconstruction tuple missing")
 
@@ -126,12 +142,25 @@ def _validate_reconstruction_tuple(value: Any) -> list[dict[str, Any]]:
     if set(stages) != _REQUIRED_STAGES or len(stages) != len(_REQUIRED_STAGES):
         raise _ConstructionError("reconstruction tuple is not exact")
 
-    f_binding = next(item for item in bindings if item["stage"] == "F")
-    if (
-        f_binding["normative_id"] != FREEZE_CONTRACT_ID
-        or f_binding["normative_version"] != FREEZE_CONTRACT_VERSION
-    ):
-        raise _ConstructionError("F determinant identity mismatch")
+    by_stage = {item["stage"]: item for item in bindings}
+    expected = {
+        "D": (_D_ID, acquisition_declaration_version),
+        "R": (_R_ID, _R_VERSION),
+        "M": (_M_ID, _M_VERSION),
+        "B": (_B_ID, _B_VERSION),
+        "A": (_A_ID, _A_VERSION),
+        "Q": (_Q_ID, _Q_VERSION),
+        "F": (FREEZE_CONTRACT_ID, FREEZE_CONTRACT_VERSION),
+    }
+    for stage, (expected_id, expected_version) in expected.items():
+        binding = by_stage[stage]
+        if (
+            binding["normative_id"] != expected_id
+            or binding["normative_version"] != expected_version
+        ):
+            raise _ConstructionError(
+                f"{stage} determinant identity/version mismatch"
+            )
 
     return bindings
 
@@ -239,8 +268,18 @@ def _validate_volume(value: Any) -> None:
     if coefficient == 0:
         if exponent != 0:
             raise _ConstructionError("zero binary32 normal form not unique")
-    elif coefficient % 2 == 0:
+        return
+
+    if coefficient % 2 == 0:
         raise _ConstructionError("binary32 coefficient must be odd")
+
+    magnitude_bits = abs(coefficient).bit_length()
+    if magnitude_bits > 24:
+        raise _ConstructionError("binary32 coefficient exceeds significand domain")
+    if exponent < -149:
+        raise _ConstructionError("binary32 exponent below representable domain")
+    if exponent + magnitude_bits - 1 > 127:
+        raise _ConstructionError("binary32 value exceeds finite representable domain")
 
 
 def _validate_price(value: Any) -> None:
@@ -252,6 +291,8 @@ def _validate_price(value: Any) -> None:
     denominator = value["denominator"]
     if isinstance(numerator, bool) or not isinstance(numerator, int):
         raise _ConstructionError("price numerator invalid")
+    if numerator < 0 or numerator > 0xFFFFFFFF:
+        raise _ConstructionError("price numerator outside uint32 domain")
     if denominator != 1000:
         raise _ConstructionError("price denominator invalid")
 
@@ -271,6 +312,10 @@ def _validate_logical_payload(value: Any) -> None:
     timestamp = value["market_timestamp_utc"]
     if not isinstance(timestamp, str) or _TIMESTAMP.fullmatch(timestamp) is None:
         raise _ConstructionError("timestamp normal form invalid")
+    try:
+        datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
+    except ValueError as exc:
+        raise _ConstructionError("timestamp is not a valid UTC instant") from exc
     _validate_price(value["ask_price"])
     _validate_price(value["bid_price"])
     _validate_volume(value["ask_volume"])
@@ -490,8 +535,8 @@ def _validate_anomalies(
                 raise _ConstructionError("anomaly relation incomplete")
         if not _is_nonempty_string(item["anomaly_class_id"]):
             raise _ConstructionError("anomaly class invalid")
-        if not _is_nonempty_string(item["anomaly_matrix_version"]):
-            raise _ConstructionError("anomaly matrix version invalid")
+        if item["anomaly_matrix_version"] != _A_VERSION:
+            raise _ConstructionError("anomaly matrix version mismatch")
         if not _is_nonempty_string(item["mandatory_outcome"]):
             raise _ConstructionError("anomaly outcome invalid")
         if not isinstance(item["acquisition_fatal"], bool):
@@ -510,19 +555,23 @@ def _validate_anomalies(
         ):
             raise _ConstructionError("qualification evidence bindings malformed")
 
-        if item["anomaly_class_id"] == "BI5-A08":
-            if scope != "TERMINAL_FRAGMENT":
-                raise _ConstructionError("A08 target must be terminal fragment")
-            component = component_map[locator[0]]
-            fragment = component.get("terminal_fragment")
-            if fragment is None:
-                raise _ConstructionError("A08 terminal fragment missing")
-            if (
-                fragment.get("terminal_fragment_start_offset") != locator[1]
-                or fragment.get("terminal_fragment_length") != locator[2]
-            ):
-                raise _ConstructionError("A08 target does not bind exact fragment")
-            _validate_a08_evidence(bindings, item["target"])
+        class_id = item["anomaly_class_id"]
+        if class_id == "BI5-A08":
+            raise _ConstructionError(
+                "A08 constructive-completeness verifier is not qualified"
+            )
+        if class_id not in {"BI5-A09", "BI5-A10"}:
+            raise _ConstructionError(
+                "qualified state contains non-local anomaly class"
+            )
+        if scope != "COMPLETE_SLOT":
+            raise _ConstructionError("local reject anomaly target must be complete slot")
+        if item["mandatory_outcome"] != "REJECT_RECORD":
+            raise _ConstructionError("local reject anomaly outcome mismatch")
+        if item["acquisition_fatal"] is not False:
+            raise _ConstructionError("local reject cannot be acquisition fatal")
+        if len(bindings) != 0:
+            raise _ConstructionError("A09/A10 must not invent evidence authority")
 
         result.append(item)
 
@@ -542,7 +591,8 @@ def _validate_qualified_input(
         raise _ConstructionError("acquisition declaration version missing")
 
     reconstruction = _validate_reconstruction_tuple(
-        freeze_input.get("reconstruction_tuple")
+        freeze_input.get("reconstruction_tuple"),
+        acquisition_declaration_version,
     )
 
     parameters = freeze_input.get("qualification_parameters")
