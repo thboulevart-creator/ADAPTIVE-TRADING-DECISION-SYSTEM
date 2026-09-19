@@ -170,4 +170,63 @@ No representation is promoted to normative status by this audit.
 
 ---
 
-**Next governed action:** reconcile `M — record-model version` against the current repository.
+# M — Record-model version
+
+## Requirement
+
+The global executable gate requires an explicit reference to the exact frozen record-model version used by the concrete qualification run.
+
+## Current repository evidence inspected
+
+The repository contains substantial normative/candidate work on logical record semantics, including:
+
+- `docs/ADJUDICATION-NORMATIVE-LOGICAL-RECORD-MODEL-AUDIT-V1-2026-09-05.md`;
+- Q-RM-01 through Q-RM-07 adjudications;
+- acquisition-scoped occurrence identity semantics;
+- occurrence-based rather than content-based individuality;
+- qualification-before-enumeration;
+- versioning requirements.
+
+However, the record-model audit itself currently states:
+
+```text
+NORMATIVE LOGICAL RECORD MODEL = CANDIDATE DEFINED
+RECORD MODEL FREEZE            = BLOCKED
+```
+
+and lists unresolved concrete dependencies including exact record-boundary semantics, physical→logical mapping, multi-file acquisition semantics, malformed/ambiguous handling and format binding/version matrix.
+
+No concrete acquisition artifact currently references one exact frozen `record_model_version`.
+
+## Adjudication
+
+The existence of a `V1` adjudication document does not by itself constitute the concrete record-model version required by M.
+
+```text
+candidate semantic model
+≠ frozen record-model version
+
+document version/date
+≠ concrete qualification reference
+```
+
+## Verdict
+
+```text
+M — Record-model version
+BLOCKED
+```
+
+Classification:
+
+`MODEL FAMILY DEFINED; CONCRETE FREEZE / VERSION REFERENCE ABSENT`
+
+## Closure evidence required
+
+A specific record-model contract/version must be frozen after its concrete representation dependencies are closed and then referenced exactly by the first acquisition/qualification tuple.
+
+No record-model freeze is performed by this audit.
+
+---
+
+**Next governed action:** reconcile `B — concrete format binding(s)` against the current repository.
