@@ -14,6 +14,7 @@ from breakers.native_bi5_f_freeze_persistence_breaker import (
     _occurrence,
     _qualified_input,
     _qualified_two_component_input,
+    _qualified_with_local_reject,
     _qualified_with_two_local_rejects,
     _terminal_input,
 )
@@ -216,6 +217,26 @@ def _repartitioned_same_payload_bag():
     return data
 
 
+def _recursive_keys(value: Any) -> set[str]:
+    keys: set[str] = set()
+    if isinstance(value, Mapping):
+        for key, child in value.items():
+            keys.add(str(key))
+            keys.update(_recursive_keys(child))
+    elif isinstance(value, (list, tuple)):
+        for child in value:
+            keys.update(_recursive_keys(child))
+    return keys
+
+
+def _semantic_verdict_tuple(result: Mapping[str, Any]) -> tuple[str, str, str]:
+    return (
+        result["oracle_result"],
+        result["qualified_universe_comparison"],
+        result["comparison_scope"],
+    )
+
+
 def _semantic_projection_for_breaker(artifact: Mapping[str, Any]) -> Mapping[str, Any]:
     universe = artifact["qualified_universe"]
     payload_bag = sorted(
@@ -312,18 +333,55 @@ def test_b2_source_to_logical_relation_change_with_equal_payload_bag_is_differen
     assert result["oracle_result"] == "SEMANTIC_DIFFERENT"
 
 
-def test_b3_anomaly_semantic_relation_difference_is_different() -> None:
-    left = _frozen(_qualified_input())
+def test_b3_rejected_source_semantic_relation_difference_is_different() -> None:
+    left = _frozen(_qualified_with_local_reject())
     right = _frozen(_local_anomaly_variant())
+
+    left_u = left["qualified_universe"]
+    right_u = right["qualified_universe"]
+    assert left["qualified_occurrence_count"] == right["qualified_occurrence_count"] == 2
+
+    left_rejected = [
+        item
+        for item in left_u["source_accounting"]
+        if item["disposition"] == "REJECT_RECORD"
+    ]
+    right_rejected = [
+        item
+        for item in right_u["source_accounting"]
+        if item["disposition"] == "REJECT_RECORD"
+    ]
+    assert [
+        (item["component_manifest_entry_id"], item["component_local_slot_index"])
+        for item in left_rejected
+    ] == [
+        (item["component_manifest_entry_id"], item["component_local_slot_index"])
+        for item in right_rejected
+    ]
+    assert left_rejected[0]["anomaly_class_id"] == "BI5-A09"
+    assert right_rejected[0]["anomaly_class_id"] == "BI5-A10"
+
     result = _compare(left, right)
     assert result["oracle_result"] == "SEMANTIC_DIFFERENT"
 
 
-def test_b4_component_membership_difference_is_semantic_different() -> None:
+def test_b3b_anomaly_only_mutation_is_invalid_f_input_not_comparable_semantics() -> None:
+    left = _frozen(_qualified_with_local_reject())
+    right = copy.deepcopy(left)
+    right["qualified_universe"]["anomaly_outcomes"][0]["anomaly_class_id"] = "BI5-A10"
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "INVALID_F_INPUT"
+
+
+def test_b4_component_membership_contradiction_is_not_same_state_semantic_diff() -> None:
     left = _frozen()
     right = _frozen(_qualified_two_component_input())
     result = _compare(left, right)
-    assert result["oracle_result"] == "SEMANTIC_DIFFERENT"
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
 
 
 def test_b5_physical_repartition_equivalence_is_not_invented() -> None:
@@ -334,7 +392,9 @@ def test_b5_physical_repartition_equivalence_is_not_invented() -> None:
         == _semantic_projection_for_breaker(right)["payload_bag"]
     )
     result = _compare(left, right)
-    assert result["oracle_result"] == "SEMANTIC_DIFFERENT"
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "NONCOMPARABLE_ACQUISITION_STATE"
 
 
 def test_c0_same_id_version_different_bound_content_is_integrity_conflict() -> None:
@@ -342,6 +402,19 @@ def test_c0_same_id_version_different_bound_content_is_integrity_conflict() -> N
     data = _qualified_input()
     d = next(item for item in data["reconstruction_tuple"] if item["stage"] == "D")
     d["integrity_digest"] = "e" * 64
+    right = _frozen(data)
+    result = _compare(left, right)
+    assert result["oracle_result"] == "BLOCKED"
+    assert result["qualified_universe_comparison"] == "BLOCKED"
+    assert result["comparison_scope"] == "NORMATIVE_VERSION_INTEGRITY_CONFLICT"
+    assert result["reason"] == "NORMATIVE_VERSION_INTEGRITY_CONFLICT"
+
+
+def test_c0b_same_id_version_different_immutable_reference_is_integrity_conflict() -> None:
+    left = _frozen()
+    data = _qualified_input()
+    d = next(item for item in data["reconstruction_tuple"] if item["stage"] == "D")
+    d["immutable_reference"] = "synthetic://d/other-content-binding"
     right = _frozen(data)
     result = _compare(left, right)
     assert result["oracle_result"] == "BLOCKED"
@@ -468,8 +541,51 @@ def test_d5_source_witness_is_not_reported_as_canonical_identity() -> None:
         "canonical_record_position",
         "global_row_id",
         "temporal_rank",
+        "canonical_sequence",
+        "temporal_order",
+        "source_witness_identity",
     }
-    assert forbidden.isdisjoint(result)
+    assert forbidden.isdisjoint(_recursive_keys(result))
+
+
+@pytest.mark.parametrize(
+    "case",
+    ("equal", "different", "conflict"),
+)
+def test_d6_comparison_semantic_verdict_is_symmetric(case: str) -> None:
+    if case == "equal":
+        left = _frozen(_qualified_two_component_input())
+        right = _frozen(_same_semantics_permuted_input())
+    elif case == "different":
+        left = _frozen()
+        data = _qualified_input()
+        _set_payload_field(
+            data,
+            0,
+            "ask_price",
+            {"numerator": 100_001, "denominator": 1000},
+        )
+        right = _frozen(data)
+    else:
+        left = _frozen()
+        data = _qualified_input()
+        d = next(item for item in data["reconstruction_tuple"] if item["stage"] == "D")
+        d["integrity_digest"] = "e" * 64
+        right = _frozen(data)
+
+    forward = _compare(left, right)
+    reverse = _compare(right, left)
+    assert _semantic_verdict_tuple(forward) == _semantic_verdict_tuple(reverse)
+
+
+def test_d7_comparator_does_not_mutate_inputs() -> None:
+    left = _frozen(_qualified_two_component_input())
+    right = _frozen(_same_semantics_permuted_input())
+    before_left = copy.deepcopy(left)
+    before_right = copy.deepcopy(right)
+    _compare(left, right)
+    assert left == before_left
+    assert right == before_right
 
 
 def test_e0_unqualified_version_mutation_is_not_mislabeled_legitimate_distinct_state() -> None:

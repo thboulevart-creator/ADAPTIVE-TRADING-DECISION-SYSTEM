@@ -9,6 +9,8 @@ on:
       - 'breakers/native_bi5_o_semantic_comparator_breaker.py'
       - 'src/native_bi5_semantic_universe_comparator.py'
       - 'src/native_bi5_freeze_persistence.py'
+      - 'breakers/native_bi5_f_freeze_persistence_breaker.py'
+      - 'breakers/native_bi5_f_freeze_persistence_adversarial.py'
       - 'reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md'
       - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
       - 'requirements/qualification.lock.txt'
@@ -25,8 +27,10 @@ env:
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
   F_SOURCE_BLOB: '199b07929fe8ec40d719b001b0321d1f26c8faab'
+  F_TESTFIRST_BREAKER_BLOB: '3d9eb75c2f4e988c984da67af0af344d3dc24148'
+  F_ADVERSARIAL_BREAKER_BLOB: 'c4c499d5e76e15a8fdcaeb91dde80beadad6487a'
   FO_CONTRACT_BLOB: 'fe62da06e63a51c336f9a447e7f1e0f3d89cad3b'
-  O_BREAKER_BLOB: '8fad392da525f46641c60a194b33c1040da3a9b0'
+  O_BREAKER_BLOB: 'ae5f8ce6f2fbec0331dbfe82a7addeeb09ca710a'
 
 jobs:
   preimplementation-red:
@@ -42,6 +46,8 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
           test "$(git hash-object src/native_bi5_freeze_persistence.py)" = "${F_SOURCE_BLOB}"
+          test "$(git hash-object breakers/native_bi5_f_freeze_persistence_breaker.py)" = "${F_TESTFIRST_BREAKER_BLOB}"
+          test "$(git hash-object breakers/native_bi5_f_freeze_persistence_adversarial.py)" = "${F_ADVERSARIAL_BREAKER_BLOB}"
           test "$(git hash-object reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md)" = "${FO_CONTRACT_BLOB}"
           test "$(git hash-object breakers/native_bi5_o_semantic_comparator_breaker.py)" = "${O_BREAKER_BLOB}"
 
