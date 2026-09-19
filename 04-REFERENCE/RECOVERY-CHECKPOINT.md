@@ -30,7 +30,7 @@ Always verify the live branch HEAD before writing. The checkpoint/backup commits
 
 Current block:
 
-`P1.16 — QUALIFIED EXPERIMENTAL FINDING INTERPRETATION POLICY`
+`PRE-BACKTEST — CONCRETE EXECUTABLE DATA GATE CLOSURE`
 
 ---
 
@@ -880,3 +880,210 @@ Then require:
 - P1.16 FAIL only because runtime candidate is absent;
 - clean worktree.
 
+
+
+---
+
+## 24. P1.16 final qualification closure
+
+P1.16 is fully qualified.
+
+Qualified persisted HEAD:
+
+`224e33187730739c49a0bf5dd3c6343023db7120`
+
+Final P1.16:
+
+- contract `P1_16_QUALIFIED_EXPERIMENTAL_FINDING_INTERPRETATION_BOUNDARY_V1`;
+- breaker `afbb1442f5c2335e2bcaedb7f65f6ecb9249910a`;
+- runtime `a5c6b820df5ea5e89fd61c84feb42cb42e923a5f`;
+- workflow `7feaf435efe72d77bf7a0a87b710fd9cf87f929f`;
+- run `35434110314`;
+- job `105873759979`;
+- `37 passed`;
+- protected chain through P1.15A+B PASS;
+- clean worktree.
+
+Verdict:
+
+```text
+P1.16 PASS
+```
+
+Strict separation remains:
+
+```text
+QualifiedExperimentalFinding
+≠ ResearchFinding
+≠ ResearchFindings
+≠ ResearchRunEvidence
+≠ durable knowledge
+≠ decision authority
+≠ operational authorization
+```
+
+---
+
+## 25. Pre-backtest concrete executable gate reconciliation
+
+Durable audit:
+
+`reports/data-qualification/pre_backtest_concrete_gate_reconciliation_2026-09-19.md`
+
+Audit closure commit:
+
+`c8dbaeecf86f5092ded9fddf2f863f5e903f5d89`
+
+Latest session backup:
+
+`99-BACKUP/SESSION-2026-09-19-PRE-BACKTEST-CONCRETE-GATE-RECONCILIATION.md`
+
+Backup commit:
+
+`b13ac860c7580219ac5f281ff53e630980de94a0`
+
+The historical ten-input register was reconciled item-by-item against the live repository, with each verdict persisted before opening the next item.
+
+Final current matrix:
+
+```text
+D   Acquisition declaration + complete component manifest   BLOCKED
+R   Representation identity/version                         BLOCKED
+M   Record-model version                                    BLOCKED
+B   Concrete format binding(s)                              BLOCKED
+A   Concrete anomaly matrix                                 BLOCKED
+Q   Qualification contract + parameters                     BLOCKED
+F   Freeze artifact + persistence                           BLOCKED
+O   Deterministic semantic comparison oracle                BLOCKED
+I_A Reference implementation                                BLOCKED
+I_B Independent comparison implementation                   BLOCKED
+```
+
+These are current evidence verdicts, not inherited historical labels.
+
+No item was promoted to PASS merely because adjacent code exists.
+
+### D
+
+BLOCKED because Q-RM-08 schema exists but no project-specific immutable Dukascopy acquisition declaration + actual complete component manifest exists.
+
+### R
+
+BLOCKED because CSV/BI5/Parquet parser support exists but no concrete normative representation identity/version has been selected for this gate.
+
+### M
+
+BLOCKED because the semantic record-model family is defined but the record-model freeze/version remains unresolved.
+
+### B
+
+BLOCKED because parsing implementations exist, including native BI5 decoding knowledge, but the Q-RM-09 concrete versioned binding artifact does not.
+
+### A
+
+BLOCKED because the universal Q-RM-10 failure policy is PASS but no concrete binding-specific anomaly registry exists.
+
+### Q
+
+BLOCKED because the execution-window freeze and Momentum V1 baseline protocol solve different scopes; no concrete data-qualification contract binds D/R/M/B/A.
+
+### F
+
+BLOCKED because the persisted execution-window freeze is not the Q-RM-11 qualified logical-occurrence-universe snapshot.
+
+### O
+
+BLOCKED because Q-RM-12 specifies oracle semantics but no executable semantic Universe(A)=Universe(B) oracle exists.
+
+### I_A
+
+BLOCKED because useful implementation building blocks exist, but no complete conforming reference path currently consumes the concrete semantic tuple and produces F for O.
+
+### I_B
+
+BLOCKED because no independently implemented second qualification path exists.
+
+---
+
+## 26. Existing foundations that remain valid
+
+Do not rebuild merely because the concrete data gate is BLOCKED:
+
+- P0.6 reproducible qualification environment;
+- selected `USATECHIDXUSD` window `2021-08-14 → 2026-08-14`;
+- selected-window calendar `68 / 68 / 0`;
+- persisted execution-window freeze;
+- Momentum V1 first baseline protocol PASS;
+- CSV reader/admissibility code;
+- native Dukascopy BI5 decoding knowledge in V4.3;
+- Parquet compatibility path;
+- Q-RM-01..12 universal semantic/falsifiability architecture;
+- P1.2..P1.16 qualified evidence/experiment/result chain.
+
+The missing object is the concrete executable data-qualification package, not a replacement for these qualified foundations.
+
+---
+
+## 27. Current real-execution safety truth
+
+```text
+real data acquisition       = NOT AUTHORIZED
+massive acquisition         = false / NOT AUTHORIZED
+real backtest               = false / NOT AUTHORIZED
+positive P1.1 AUTHORIZED    = BLOCKED
+paper / broker / live       = NOT AUTHORIZED
+```
+
+No real data acquisition, BI5 download, real dataset qualification run, real backtest or broker/live action occurred during the reconciliation.
+
+---
+
+## 28. Required closure dependency order
+
+```text
+D + R + M
+    ↓
+B + A
+    ↓
+Q
+    ↓
+F + O
+    ↓
+I_A + I_B
+    ↓
+Q-RM-12 real determinism execution
+    ↓
+Universe(A) = Universe(B)
++
+mandatory adversarial variants conform
+    ↓
+FINAL EXECUTABLE DATA GATE = PASS
+```
+
+A bounded real acquisition/backtest permission remains a later, separate governed promotion.
+
+---
+
+## 29. Exactly one next governed action
+
+Formalize only, without acquiring data and without granting any execution permission, the first concrete `D + R + M` candidate package for the bounded Dukascopy `USATECHIDXUSD` research acquisition associated with the already-frozen execution window.
+
+The formalisation must preserve:
+
+```text
+acquisition declaration contract / expected membership rule
+≠ actual acquired component manifest
+
+representation selection
+≠ parser implementation
+
+record-model version
+≠ format-specific binding
+
+candidate design
+≠ qualification PASS
+```
+
+The actual component manifest remains BLOCKED until a separately authorized acquisition later produces real acquisition evidence.
+
+Do not start B/A/Q/F/O/I_A/I_B implementation before D/R/M formalisation has been adversarially broken and adjudicated.
