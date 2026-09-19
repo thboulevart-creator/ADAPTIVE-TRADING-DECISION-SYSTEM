@@ -163,3 +163,18 @@ def test_unverified_constructive_proof_claim_remains_fail_closed_a07() -> None:
     assert result.qualified_occurrences is None
     assert "BI5-A07" in {item["anomaly_class_id"] for item in result.anomaly_outcomes}
     assert "BI5-A08" not in {item["anomaly_class_id"] for item in result.anomaly_outcomes}
+
+
+def test_ib_r01_missing_determinant_blocked_result_remains_sealed_and_binds_present_inputs() -> None:
+    package = _package()
+    package["determinant_digests"].pop("Q")
+
+    result = ib.qualify_native_bi5(package, execution_context=_context())
+
+    assert result.execution_status == "COMPLETED"
+    assert result.semantic_status == "QUALIFICATION_BLOCKED"
+    assert result.freeze_status == "NOT_CREATED"
+    assert result.qualified_occurrences is None
+    assert set(result.input_determinant_digests) == set(DETERMINANTS) - {"Q"}
+    assert ib.is_sealed_implementation_result(result)
+    assert ib.validate_implementation_result(result) is result
