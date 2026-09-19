@@ -26,6 +26,8 @@ _A_ID = "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD"
 _A_VERSION = "A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE"
 _Q_ID = "Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP"
 _Q_VERSION = "Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP_V0_1_CANDIDATE"
+_EXPECTED_COMPONENT_ROLE = "HOURLY_NATIVE_BI5_TICKS"
+_EXPECTED_COMPONENT_SOURCE = "DUKASCOPY/USATECHIDXUSD"
 
 _REQUIRED_STAGES = frozenset(("D", "R", "M", "B", "A", "Q", "F"))
 _ALLOWED_Q_OUTCOMES = frozenset(
@@ -61,6 +63,7 @@ def _canonical_bytes(value: Any) -> bytes:
         sort_keys=True,
         separators=(",", ":"),
         ensure_ascii=False,
+        allow_nan=False,
     ).encode("utf-8")
 
 
@@ -216,6 +219,19 @@ def _validate_components(value: Any) -> tuple[list[dict[str, Any]], dict[str, in
         )
         if any(not _is_nonempty_string(component.get(key)) for key in required_strings):
             raise _ConstructionError("component reconstruction field missing")
+        if component["declared_role"] != _EXPECTED_COMPONENT_ROLE:
+            raise _ConstructionError("component role outside concrete F domain")
+        if component["instrument_source_identity"] != _EXPECTED_COMPONENT_SOURCE:
+            raise _ConstructionError("component source identity outside concrete F domain")
+        try:
+            hour = datetime.strptime(
+                component["declared_hour_bucket_utc"],
+                "%Y-%m-%dT%H:%M:%SZ",
+            )
+        except ValueError as exc:
+            raise _ConstructionError("declared hour bucket invalid") from exc
+        if hour.minute != 0 or hour.second != 0 or hour.microsecond != 0:
+            raise _ConstructionError("declared hour bucket is not hour aligned")
         if not _is_digest(component.get("payload_integrity_reference")):
             raise _ConstructionError("component payload integrity invalid")
         if component.get("materialization_status") != "MATERIALIZED":
@@ -227,6 +243,8 @@ def _validate_components(value: Any) -> tuple[list[dict[str, Any]], dict[str, in
         component["terminal_fragment"] = _validate_terminal_fragment(
             component.get("terminal_fragment")
         )
+        if count == 0 and component["terminal_fragment"] is None:
+            raise _ConstructionError("zero-byte component cannot be qualified")
 
         result.append(component)
         counts[component_id] = count
@@ -663,11 +681,22 @@ def _validate_qualified_input(
         elif anomaly["anomaly_class_id"] == "BI5-A08":
             terminal_a08.add((locator[0], locator[1], locator[2]))
 
+    expected_local_anomalies = {
+        (source[0], source[1], accounting_map[source]["anomaly_class_id"])
+        for source in rejected_sources
+    }
+    local_anomaly_rows = [
+        (item["target"]["component_manifest_entry_id"],
+         item["target"]["component_local_slot_index"],
+         item["anomaly_class_id"])
+        for item in anomalies
+    ]
+    if len(local_anomaly_rows) != len(set(local_anomaly_rows)):
+        raise _ConstructionError("duplicate local anomaly relation")
+    if set(local_anomaly_rows) != expected_local_anomalies:
+        raise _ConstructionError("local anomaly relation does not equal reject accounting")
+
     for source in rejected_sources:
-        item = accounting_map[source]
-        relation = (source[0], source[1], item["anomaly_class_id"])
-        if relation not in anomaly_complete_slot_relation:
-            raise _ConstructionError("rejected source lacks exact anomaly relation")
         if source in b_relation:
             raise _ConstructionError("rejected source also appears as B candidate")
 
@@ -742,7 +771,13 @@ def build_freeze_artifact(freeze_input):
         "qualified_occurrence_count": len(qualified["retained_occurrences"]),
         "terminal_evidence": None,
     }
-    return _seal_artifact(artifact)
+    try:
+        return _seal_artifact(artifact)
+    except (TypeError, ValueError):
+        return _terminal_artifact(
+            "QUALIFIED",
+            "F_CONSTRUCTION_BLOCKED:STRICT_JSON_PERSISTENCE_FAILURE",
+        )
 
 
 def _validate_integrity(artifact: Mapping[str, Any]) -> None:
@@ -859,6 +894,7 @@ def serialize_freeze_artifact(artifact, *, pretty=False):
             artifact,
             sort_keys=True,
             ensure_ascii=False,
+            allow_nan=False,
             indent=2,
         )
     else:
@@ -866,17 +902,35 @@ def serialize_freeze_artifact(artifact, *, pretty=False):
             artifact,
             sort_keys=True,
             ensure_ascii=False,
+            allow_nan=False,
             separators=(",", ":"),
         )
     return (text + "\n").encode("utf-8")
+
+
+def _strict_object_pairs(pairs):
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON object key")
+        result[key] = value
+    return result
+
+
+def _reject_nonfinite_json_constant(value):
+    raise ValueError(f"non-standard JSON numeric constant: {value}")
 
 
 def deserialize_freeze_artifact(payload):
     if not isinstance(payload, (bytes, bytearray)):
         raise TypeError("freeze payload must be bytes")
     try:
-        value = json.loads(bytes(payload).decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
-        raise ValueError("freeze payload is not valid UTF-8 JSON") from exc
+        value = json.loads(
+            bytes(payload).decode("utf-8"),
+            object_pairs_hook=_strict_object_pairs,
+            parse_constant=_reject_nonfinite_json_constant,
+        )
+    except (UnicodeDecodeError, json.JSONDecodeError, ValueError) as exc:
+        raise ValueError("freeze payload is not strict UTF-8 JSON") from exc
     validate_freeze_artifact(value)
     return value
