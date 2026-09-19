@@ -450,6 +450,94 @@ def _witness_map(artifact: Mapping[str, Any]) -> dict[tuple[str, int], str]:
     }
 
 
+def _semantic_anomaly(item: Mapping[str, Any]) -> str:
+    semantic = {
+        "anomaly_class_id": item["anomaly_class_id"],
+        "anomaly_matrix_version": item["anomaly_matrix_version"],
+        "target": item["target"],
+        "mandatory_outcome": item["mandatory_outcome"],
+        "acquisition_fatal": item["acquisition_fatal"],
+        "qualification_evidence_bindings": item.get(
+            "qualification_evidence_bindings", []
+        ),
+    }
+    return json.dumps(semantic, sort_keys=True, separators=(",", ":"))
+
+
+def _artifact_semantic_projection(artifact: Mapping[str, Any]) -> dict[str, Any]:
+    assert artifact["artifact_class"] == "QUALIFIED_UNIVERSE_FREEZE"
+    universe = artifact["qualified_universe"]
+
+    reconstruction = sorted(
+        (
+            item["stage"],
+            item["normative_id"],
+            item["normative_version"],
+            item["immutable_reference"],
+            item["integrity_digest"],
+        )
+        for item in universe["reconstruction_tuple"]
+    )
+    components = sorted(
+        json.dumps(item, sort_keys=True, separators=(",", ":"))
+        for item in universe["components"]
+    )
+    accounting = sorted(
+        (
+            item["component_manifest_entry_id"],
+            item["component_local_slot_index"],
+            item["disposition"],
+            item.get("anomaly_class_id"),
+        )
+        for item in universe["source_accounting"]
+    )
+    anomalies = sorted(
+        _semantic_anomaly(item)
+        for item in universe["anomaly_outcomes"]
+    )
+    retained_relation = sorted(
+        (
+            item["source_witness"]["component_manifest_entry_id"],
+            item["source_witness"]["component_local_slot_index"],
+            json.dumps(
+                item["logical_payload"],
+                sort_keys=True,
+                separators=(",", ":"),
+            ),
+        )
+        for item in universe["retained_occurrences"]
+    )
+    payload_bag = sorted(_payload_counter(artifact).items())
+
+    return {
+        "freeze_contract_id": artifact["freeze_contract_id"],
+        "freeze_contract_version": artifact["freeze_contract_version"],
+        "qualification_outcome": artifact["qualification_outcome"],
+        "qualified_occurrence_count": artifact["qualified_occurrence_count"],
+        "acquisition_domain_id": universe["acquisition_domain_id"],
+        "acquisition_declaration_version": universe["acquisition_declaration_version"],
+        "qualification_parameters": universe["qualification_parameters"],
+        "completeness_evidence": universe["completeness_evidence"],
+        "reconstruction_tuple": reconstruction,
+        "components": components,
+        "source_accounting": accounting,
+        "anomaly_outcomes": anomalies,
+        "retained_relation": retained_relation,
+        "payload_bag": payload_bag,
+    }
+
+
+def _reverse_object_keys(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {
+            key: _reverse_object_keys(value[key])
+            for key in reversed(tuple(value))
+        }
+    if isinstance(value, list):
+        return [_reverse_object_keys(item) for item in value]
+    return value
+
+
 def test_a0_surface_is_f_only_and_no_oracle_api() -> None:
     module = _f()
     assert inspect.signature(module.build_freeze_artifact).parameters.keys() == {
@@ -467,8 +555,9 @@ def test_a0_surface_is_f_only_and_no_oracle_api() -> None:
     assert all(not hasattr(module, name) for name in forbidden)
 
 
-def test_a1_qualified_q_creates_only_qualified_frozen_artifact() -> None:
-    artifact = _build(_qualified_input())
+def test_a1_qualified_q_creates_complete_reconstructible_frozen_artifact() -> None:
+    source = _qualified_input()
+    artifact = _build(source)
     assert artifact["schema"] == ARTIFACT_SCHEMA
     assert artifact["freeze_contract_id"] == F_ID
     assert artifact["freeze_contract_version"] == F_VERSION
@@ -477,6 +566,39 @@ def test_a1_qualified_q_creates_only_qualified_frozen_artifact() -> None:
     assert artifact["qualification_outcome"] == "QUALIFIED"
     assert artifact["qualified_universe"] is not None
     assert artifact["qualified_occurrence_count"] == 3
+
+    universe = artifact["qualified_universe"]
+    assert universe["acquisition_domain_id"] == source["acquisition_domain_id"]
+    assert (
+        universe["acquisition_declaration_version"]
+        == source["acquisition_declaration_version"]
+    )
+    assert universe["qualification_parameters"] == source["qualification_parameters"]
+    assert (
+        universe["completeness_evidence"]
+        == source["acquisition_snapshot"]["completeness_evidence"]
+    )
+    assert {
+        item["stage"] for item in universe["reconstruction_tuple"]
+    } == REQUIRED_DETERMINANTS
+    assert sorted(
+        item["component_manifest_entry_id"] for item in universe["components"]
+    ) == sorted(
+        item["component_manifest_entry_id"]
+        for item in source["acquisition_snapshot"]["components"]
+    )
+    assert _witness_map(artifact) == {
+        (
+            item["component_manifest_entry_id"],
+            item["component_local_slot_index"],
+        ): item["disposition"]
+        for item in source["source_accounting"]
+    }
+    assert sorted(
+        _semantic_anomaly(item) for item in universe["anomaly_outcomes"]
+    ) == sorted(
+        _semantic_anomaly(item) for item in source["anomaly_outcomes"]
+    )
     _f().validate_freeze_artifact(artifact)
 
 
@@ -492,6 +614,8 @@ def test_a2_nonqualified_q_emits_terminal_nonfreeze_only(outcome: str) -> None:
     assert artifact["qualified_universe"] is None
     assert artifact["qualified_occurrence_count"] is None
     assert not artifact.get("freeze_id")
+    assert artifact.get("terminal_evidence") is not None
+    assert artifact["terminal_evidence"]["qualification_outcome"] == outcome
     _f().validate_freeze_artifact(artifact)
 
 
@@ -514,6 +638,14 @@ def test_b0_missing_reconstruction_determinant_prevents_freeze(stage: str) -> No
     artifact = _build(data)
     assert artifact["freeze_state"] == "NOT_CREATED"
     assert artifact["artifact_class"] == "QUALIFICATION_TERMINAL_EVIDENCE"
+    assert artifact["qualified_universe"] is None
+
+
+def test_b0b_missing_b_candidate_relation_prevents_freeze() -> None:
+    data = _qualified_input()
+    del data["b_candidate_occurrences"]
+    artifact = _build(data)
+    assert artifact["freeze_state"] == "NOT_CREATED"
     assert artifact["qualified_universe"] is None
 
 
@@ -677,53 +809,75 @@ def test_c5_source_witness_is_not_promoted_to_canonical_occurrence_identity() ->
 
 
 def test_d0_component_accounting_and_occurrence_array_order_is_nonsemantic() -> None:
-    artifact = _build(_qualified_two_component_input())
-    reordered = copy.deepcopy(artifact)
-    universe = reordered["qualified_universe"]
-    universe["components"].reverse()
-    universe["source_accounting"].reverse()
-    universe["retained_occurrences"].reverse()
-    _f().validate_freeze_artifact(reordered)
+    original_input = _qualified_two_component_input()
+    permuted_input = copy.deepcopy(original_input)
+    permuted_input["acquisition_snapshot"]["components"].reverse()
+    permuted_input["source_accounting"].reverse()
+    permuted_input["b_candidate_occurrences"].reverse()
+    permuted_input["retained_occurrences"].reverse()
+
+    first = _build(original_input)
+    second = _build(permuted_input)
+    assert first["freeze_state"] == second["freeze_state"] == "FROZEN"
+    assert _artifact_semantic_projection(first) == _artifact_semantic_projection(second)
 
 
 def test_d0b_anomaly_array_order_and_diagnostic_path_are_nonsemantic() -> None:
-    artifact = _build(_qualified_with_two_local_rejects())
-    reordered = copy.deepcopy(artifact)
-    anomalies = reordered["qualified_universe"]["anomaly_outcomes"]
-    anomalies.reverse()
-    for index, item in enumerate(anomalies):
+    original_input = _qualified_with_two_local_rejects()
+    permuted_input = copy.deepcopy(original_input)
+    permuted_input["anomaly_outcomes"].reverse()
+    for index, item in enumerate(permuted_input["anomaly_outcomes"]):
         item["diagnostic_path"] = f"synthetic://different-path/{index}"
-    _f().validate_freeze_artifact(reordered)
+
+    first = _build(original_input)
+    second = _build(permuted_input)
+    assert first["freeze_state"] == second["freeze_state"] == "FROZEN"
+    assert _artifact_semantic_projection(first) == _artifact_semantic_projection(second)
 
 
 def test_d1_json_whitespace_and_key_order_do_not_define_semantic_identity() -> None:
     artifact = _build(_qualified_input())
     compact = _f().serialize_freeze_artifact(artifact, pretty=False)
     pretty = _f().serialize_freeze_artifact(artifact, pretty=True)
+    reversed_keys = json.dumps(
+        _reverse_object_keys(artifact),
+        ensure_ascii=False,
+        separators=(",", ":"),
+    ).encode("utf-8")
+
     assert isinstance(compact, bytes)
     assert isinstance(pretty, bytes)
     assert compact != pretty
     assert hashlib.sha256(compact).hexdigest() != hashlib.sha256(pretty).hexdigest()
+
     decoded_compact = _f().deserialize_freeze_artifact(compact)
     decoded_pretty = _f().deserialize_freeze_artifact(pretty)
-    _f().validate_freeze_artifact(decoded_compact)
-    _f().validate_freeze_artifact(decoded_pretty)
-    assert decoded_compact == decoded_pretty == artifact
+    decoded_reversed = _f().deserialize_freeze_artifact(reversed_keys)
+    for decoded in (decoded_compact, decoded_pretty, decoded_reversed):
+        _f().validate_freeze_artifact(decoded)
+        assert _artifact_semantic_projection(decoded) == _artifact_semantic_projection(
+            artifact
+        )
 
 
 def test_d2_timestamp_array_order_does_not_create_temporal_authority() -> None:
-    artifact = _build(_qualified_input())
-    assert artifact["freeze_state"] == "FROZEN"
-    reordered = copy.deepcopy(artifact)
-    occurrences = reordered["qualified_universe"]["retained_occurrences"]
-    occurrences.sort(
+    original_input = _qualified_input()
+    permuted_input = copy.deepcopy(original_input)
+    permuted_input["retained_occurrences"].sort(
         key=lambda item: item["logical_payload"]["market_timestamp_utc"],
-        reverse=True,
     )
-    _f().validate_freeze_artifact(reordered)
-    for item in occurrences:
-        assert "temporal_rank" not in item
-        assert "sequence_position" not in item
+    permuted_input["b_candidate_occurrences"].sort(
+        key=lambda item: item["logical_payload"]["market_timestamp_utc"],
+    )
+
+    first = _build(original_input)
+    second = _build(permuted_input)
+    assert first["freeze_state"] == second["freeze_state"] == "FROZEN"
+    assert _artifact_semantic_projection(first) == _artifact_semantic_projection(second)
+    for artifact in (first, second):
+        for item in artifact["qualified_universe"]["retained_occurrences"]:
+            assert "temporal_rank" not in item
+            assert "sequence_position" not in item
 
 
 def test_d3_byte_hash_is_integrity_only_not_semantic_identity() -> None:
