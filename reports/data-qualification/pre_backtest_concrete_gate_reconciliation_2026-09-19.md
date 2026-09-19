@@ -1094,3 +1094,182 @@ The corrected B/A candidate is internally stable enough to become input to Q for
 No real data was acquired or processed.
 
 No downstream Q work was started before this persisted closure.
+
+
+---
+
+# Q formalization progress — 2026-09-19
+
+The first concrete native-BI5 qualification contract candidate has now been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/q_native_bi5_qualification_contract_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`02d329bb2fa419b2fa48635787596d4bce73a9e3`
+
+Initial adversarial artifact:
+
+`reports/data-qualification/q_native_bi5_qualification_contract_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`6fa0e84d2ed65616fb2ae88cfaa670095c144c8c`
+
+Initial candidate verdict:
+
+`FAIL`
+
+Demonstrated defects:
+
+```text
+Q-F01 — ANOMALY_TARGET_BINDING_UNDERSPECIFIED
+Q-F02 — PHYSICAL_SLOT_ACCOUNTING_NOT_TOTAL
+```
+
+Minimal correction commit:
+
+`dbf8b5a0012d6cea45ac3e1dc237c311889f12f9`
+
+Corrected candidate blob:
+
+`9e15cfb86716894131485a15a180cc170a230287`
+
+Final persisted-head adversarial re-break commit:
+
+`6976e781c7a8a9ff248edfce570ef77b47b17810`
+
+Final adversarial artifact blob:
+
+`bda8565210b6ddc9231e7aebad59e323f6b8d62c`
+
+No additional internal Q candidate defect was demonstrated after correction.
+
+## Current Q candidate identity
+
+```text
+qualification_contract_id =
+Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP
+
+qualification_contract_version =
+Q_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_STRUCTURAL_MEMBERSHIP_V0_1_CANDIDATE
+```
+
+## Current candidate outcome semantics
+
+Acquisition outcome:
+
+```text
+QUALIFIED
+QUALIFICATION_BLOCKED
+ACQUISITION_REJECTED
+```
+
+Precedence:
+
+```text
+explicit acquisition-fatal A outcome
+→ ACQUISITION_REJECTED
+
+else any A QUALIFICATION BLOCKED
+→ QUALIFICATION_BLOCKED
+
+else incomplete/contradictory D/B/A package
+→ QUALIFICATION_BLOCKED
+
+else
+→ QUALIFIED
+```
+
+No blocked/rejected acquisition may emit a normative partial qualified universe.
+
+## Current A-target binding
+
+Record-level A outcomes are bound exactly to B/D provenance.
+
+Complete slot:
+
+```text
+component_manifest_entry_id
++
+component_local_slot_index
+```
+
+Terminal fragment:
+
+```text
+component_manifest_entry_id
++
+terminal_fragment_start_offset
++
+terminal_fragment_length
+```
+
+Component and acquisition anomalies use explicit component/acquisition scope.
+
+Filename/path, parser row number, traversal order, free text and content hash alone are not normative targets.
+
+These locators are conformance/provenance evidence, not canonical observation identity.
+
+## Current physical-accounting invariant
+
+For every deterministically framed non-blocked component:
+
+```text
+S_all
+=
+{0 .. complete_slot_count-1}
+
+S_candidate ∩ S_rejected = ∅
+
+S_candidate ∪ S_rejected = S_all
+```
+
+Every complete physical slot must therefore be accounted exactly once before Q may become `QUALIFIED`.
+
+No slot may silently disappear.
+
+Terminal fragments are accounted separately.
+
+## Current membership policy
+
+Q V0.1 introduces no hidden market-value filter.
+
+Therefore deterministic finite B values such as:
+
+```text
+zero price
+crossed quote
+finite negative source volume
+same-timestamp duplicate
+timestamp decrease relative to physical traversal
+```
+
+are not silently rejected by Q.
+
+Strict duplicates from distinct source slots remain distinct retained occurrences.
+
+Warmup D-member occurrences remain part of the qualified universe.
+
+Q does not create temporal order or canonical enumeration.
+
+## Official verdict
+
+```text
+Q = BLOCKED
+```
+
+Reasons:
+
+- no materialized D acquisition exists;
+- B/A provider-sensitive facts remain officially BLOCKED;
+- no executable Q implementation exists;
+- no F persistence artifact exists.
+
+The Q candidate is internally stable enough to become input to F/O formalization.
+
+No real data was acquired or processed.
+
+No F/O work was started before this persisted closure.
