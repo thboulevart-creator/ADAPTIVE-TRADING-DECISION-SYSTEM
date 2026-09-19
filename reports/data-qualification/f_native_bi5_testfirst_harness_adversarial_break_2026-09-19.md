@@ -267,3 +267,77 @@ Correct only FTF-R01..FTF-R05.
 Keep F runtime absent and O absent.
 
 Then perform a fresh persisted-head collection + RED execution and a final adversarial re-break before any harness PASS.
+
+---
+
+## 11. Residual re-break after second correction
+
+Second correction commit:
+
+1a944616eb73f7d1c0a52dc656386f5f18f780e3
+
+Breaker blob:
+
+9ef3fe902403b06dbc96bddc94c51c32a9da1462
+
+Workflow blob:
+
+236fc37f1b6ec53600142fc90b91deb368f65116
+
+Executable result:
+
+~~~text
+run = 35453372575
+job = 105924284280
+collection = 36 tests / PASS
+execution  = expected RED only because F runtime is absent
+~~~
+
+### FTF-R06 — CANDIDATE/REJECT OVERLAP ATTACK STILL HAS A SECOND FAILURE CAUSE
+
+The overlap attack adds slot 2 to retained_occurrences but does not add the same slot to the independently specified b_candidate_occurrences relation.
+
+A runtime can therefore reject only because the retained mapping lacks B authority, while ignoring the intended contradiction that one B candidate slot is simultaneously targeted by REJECT_RECORD.
+
+Verdict: FTF-R06 = FAIL.
+
+Correction: add the exact slot-2 candidate to both B candidate occurrences and Q retained occurrences while source accounting/anomaly still reject the same slot.
+
+### FTF-R07 — POSITIVE RECONSTRUCTION SNAPSHOT IS NOT YET EXACT ENOUGH
+
+The positive qualified test proves stage presence and component IDs, but not exact preservation of every determinant immutable reference/integrity digest and every component snapshot field.
+
+A runtime could validate those inputs, then persist a lossy reconstruction and still satisfy the current assertions.
+
+Verdict: FTF-R07 = FAIL.
+
+Correction: compare the complete reconstruction tuple and complete component snapshot as unordered exact relations.
+
+### FTF-R08 — BLOCKED A06 FIXTURE HAS CONTRADICTORY FRAMING METADATA
+
+The QUALIFICATION_BLOCKED terminal fixture declares BI5-A06 ZERO_DECOMPRESSED_BYTES but leaves complete_slot_count=3 in the component snapshot.
+
+A correct runtime may terminalize because of that contradiction rather than because it correctly persists the blocked Q outcome.
+
+Verdict: FTF-R08 = FAIL.
+
+Correction: for the blocked A06 fixture set complete_slot_count=0 and no terminal fragment.
+
+### FTF-R09 — OUTPUT KEY-ORDER TEST CAN CONFLATE SEMANTICS WITH PHYSICAL INTEGRITY
+
+The current test manually reserializes an already-built artifact with reversed object keys and then requires full validation.
+
+If a future persisted artifact carries legitimate physical-instance integrity evidence, such manual byte mutation may invalidate that physical instance even though object-key order remains semantically irrelevant.
+
+Verdict: FTF-R09 = FAIL.
+
+Correction:
+- test key-order non-authority by building from an input mapping whose key insertion order is recursively reversed and compare breaker-owned semantic projections;
+- keep pretty/compact serialization as evidence that byte hashes can differ;
+- do not require arbitrary post-persistence byte mutation to remain physical-integrity valid.
+
+---
+
+## 12. Third authorized correction
+
+Correct only FTF-R06..FTF-R09, keep F and O production implementations absent, then perform the final persisted-head collection/RED re-break.
