@@ -140,11 +140,17 @@ def test_e4_source_binding_protocol_is_non_circular_and_freezes_semantics(eviden
         )
     }
 
+    expected_payload_set = {
+        str(PROVENANCE): evidence[0]["frozen_semantic_payload_sha256"],
+        str(NO_COPY): evidence[1]["frozen_semantic_payload_sha256"],
+        str(INVENTORY): evidence[2]["frozen_semantic_payload_sha256"],
+    }
     for artifact in evidence:
         binding = artifact["frozen_semantic_payload"]["package_binding"]
         assert binding["evidence_package_id"] == artifact["evidence_package_id"]
         assert binding["evidence_package_version"] == artifact["evidence_package_version"]
         assert binding["normative_source_set_sha256"] == artifact["normative_source_set_sha256"]
+        assert artifact["frozen_payload_set"] == expected_payload_set
 
     protocols = [
         artifact["frozen_semantic_payload"]["source_binding_protocol"]
@@ -230,6 +236,51 @@ def test_e8_inventory_contains_independence_critical_semantic_attacks(evidence) 
         "no partial qualified universe",
         "source",
         "one-sided i_b semantic mutant",
+    )
+    for token in required:
+        assert token in joined
+
+
+def test_e9_positive_a08_path_is_not_invented_without_qualified_verifier(evidence) -> None:
+    provenance, _, inventory = evidence
+    deps = provenance["frozen_semantic_payload"]["known_unresolved_semantic_dependencies"]
+    assert deps == [
+        {
+            "dependency_id": "A08_CONSTRUCTIVE_COMPLETENESS_PROOF_VERIFIER",
+            "status": "NOT_QUALIFIED",
+            "current_required_behavior": (
+                "fail closed; an unverified claimed proof cannot promote A07 to A08"
+            ),
+            "positive_path_reopening_rule": (
+                "requires separately governed verifier/schema qualification"
+            ),
+        }
+    ]
+
+    blocked = inventory["frozen_semantic_payload"]["blocked_semantic_dependencies"]
+    assert blocked[0]["dependency_id"] == "A08_CONSTRUCTIVE_COMPLETENESS_PROOF_VERIFIER"
+    assert blocked[0]["status"] == "NOT_QUALIFIED"
+
+    a08_tests = [
+        item for item in inventory["tests"]
+        if "A08" in (item["fixture"] + " " + item["assertion"])
+    ]
+    assert a08_tests
+    joined = json.dumps(a08_tests, sort_keys=True).lower()
+    assert "fail closed" in joined or "positive a08 path is blocked" in joined
+    assert "independently valid constructive completeness proof" not in joined
+
+
+def test_e10_cross_cutting_boundary_attacks_are_explicitly_inventoried(evidence) -> None:
+    _, _, inventory = evidence
+    joined = json.dumps(inventory["tests"], sort_keys=True).lower()
+    required = (
+        "traversal-order invariant",
+        "status-axis",
+        "result seal",
+        "environment/read/network/ipc",
+        "implementation default is never authority",
+        "source-to-logical relation",
     )
     for token in required:
         assert token in joined

@@ -60,8 +60,8 @@
       "test_id": "IB-BF-02",
       "stage": "B_FRAMING",
       "basis": "B/A/F",
-      "fixture": "A08 terminal partial with independently valid constructive completeness proof",
-      "assertion": "reject only targeted terminal fragment; preceding complete slots remain accountable"
+      "fixture": "claimed A08 constructive-completeness proof reference while verifier is unqualified",
+      "assertion": "do not promote A08; fail closed as A07 / QUALIFICATION_BLOCKED until verifier is separately qualified"
     },
     {
       "test_id": "IB-BD-01",
@@ -144,8 +144,8 @@
       "test_id": "IB-A08",
       "stage": "A_CLASSIFICATION",
       "basis": "A/F",
-      "fixture": "A08 terminal partial with constructive completeness proof bound to exact fragment",
-      "assertion": "REJECT_RECORD only when proof independently validates locality/completeness"
+      "fixture": "A08 claimed constructive completeness proof while independent verifier is unqualified",
+      "assertion": "positive A08 path is blocked; unverified claim remains A07 / QUALIFICATION_BLOCKED"
     },
     {
       "test_id": "IB-A09",
@@ -230,6 +230,48 @@
       "basis": "I_B_BOUNDARY",
       "fixture": "one-sided I_B semantic mutant after implementation",
       "assertion": "external breaker/O detects divergence or I_B blocks/fails"
+    },
+    {
+      "test_id": "IB-X-03",
+      "stage": "Q_MEMBERSHIP",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "same declared components traversed in different component orders",
+      "assertion": "semantic anomaly/membership projection is traversal-order invariant"
+    },
+    {
+      "test_id": "IB-X-04",
+      "stage": "F_FREEZE",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "contradictory execution/semantic/freeze status combinations",
+      "assertion": "status-axis validation rejects contradictions"
+    },
+    {
+      "test_id": "IB-X-05",
+      "stage": "F_FREEZE",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "sealed result with one semantic field mutated after sealing",
+      "assertion": "result seal becomes invalid; integrity does not replace semantic validity"
+    },
+    {
+      "test_id": "IB-X-06",
+      "stage": "D_PREFLIGHT",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "pre-seal environment/read/network/IPC side channel available",
+      "assertion": "semantic execution is blocked or breaker detects forbidden channel"
+    },
+    {
+      "test_id": "IB-X-07",
+      "stage": "D_PREFLIGHT",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "required normative input missing while implementation default exists",
+      "assertion": "QUALIFICATION_BLOCKED; implementation default is never authority"
+    },
+    {
+      "test_id": "IB-X-08",
+      "stage": "Q_MEMBERSHIP",
+      "basis": "I_B_BOUNDARY",
+      "fixture": "source-to-logical relation mutated without changing logical payload",
+      "assertion": "conformance corruption is detected; payload equality cannot mask source relation error"
     }
   ],
   "frozen_semantic_payload": {
@@ -292,8 +334,8 @@
         "test_id": "IB-BF-02",
         "stage": "B_FRAMING",
         "basis": "B/A/F",
-        "fixture": "A08 terminal partial with independently valid constructive completeness proof",
-        "assertion": "reject only targeted terminal fragment; preceding complete slots remain accountable"
+        "fixture": "claimed A08 constructive-completeness proof reference while verifier is unqualified",
+        "assertion": "do not promote A08; fail closed as A07 / QUALIFICATION_BLOCKED until verifier is separately qualified"
       },
       {
         "test_id": "IB-BD-01",
@@ -376,8 +418,8 @@
         "test_id": "IB-A08",
         "stage": "A_CLASSIFICATION",
         "basis": "A/F",
-        "fixture": "A08 terminal partial with constructive completeness proof bound to exact fragment",
-        "assertion": "REJECT_RECORD only when proof independently validates locality/completeness"
+        "fixture": "A08 claimed constructive completeness proof while independent verifier is unqualified",
+        "assertion": "positive A08 path is blocked; unverified claim remains A07 / QUALIFICATION_BLOCKED"
       },
       {
         "test_id": "IB-A09",
@@ -462,6 +504,48 @@
         "basis": "I_B_BOUNDARY",
         "fixture": "one-sided I_B semantic mutant after implementation",
         "assertion": "external breaker/O detects divergence or I_B blocks/fails"
+      },
+      {
+        "test_id": "IB-X-03",
+        "stage": "Q_MEMBERSHIP",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "same declared components traversed in different component orders",
+        "assertion": "semantic anomaly/membership projection is traversal-order invariant"
+      },
+      {
+        "test_id": "IB-X-04",
+        "stage": "F_FREEZE",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "contradictory execution/semantic/freeze status combinations",
+        "assertion": "status-axis validation rejects contradictions"
+      },
+      {
+        "test_id": "IB-X-05",
+        "stage": "F_FREEZE",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "sealed result with one semantic field mutated after sealing",
+        "assertion": "result seal becomes invalid; integrity does not replace semantic validity"
+      },
+      {
+        "test_id": "IB-X-06",
+        "stage": "D_PREFLIGHT",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "pre-seal environment/read/network/IPC side channel available",
+        "assertion": "semantic execution is blocked or breaker detects forbidden channel"
+      },
+      {
+        "test_id": "IB-X-07",
+        "stage": "D_PREFLIGHT",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "required normative input missing while implementation default exists",
+        "assertion": "QUALIFICATION_BLOCKED; implementation default is never authority"
+      },
+      {
+        "test_id": "IB-X-08",
+        "stage": "Q_MEMBERSHIP",
+        "basis": "I_B_BOUNDARY",
+        "fixture": "source-to-logical relation mutated without changing logical payload",
+        "assertion": "conformance corruption is detected; payload equality cannot mask source relation error"
       }
     ],
     "inventory_rules": [
@@ -470,6 +554,7 @@
       "tests are derived from contracts and synthetic fixtures, not from I_A expected answers",
       "I_A and O outputs are forbidden construction inputs before I_B result seal",
       "stage tests may reuse generic fixture-building primitives but not project semantic builders",
+      "cross-cutting boundary tests cover traversal invariance, status axes, sealing, isolation, missing-input defaults and source-to-logical corruption",
       "future executable tests must bind to the final I_B source digest after independent implementation"
     ],
     "source_binding_protocol": {
@@ -484,9 +569,21 @@
       "post_code_forbidden_mutation": "all fields inside frozen_semantic_payload",
       "final_binding_requirement": "source_digests must exactly equal the future I_B implementation manifest source_digests",
       "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
-    }
+    },
+    "blocked_semantic_dependencies": [
+      {
+        "dependency_id": "A08_CONSTRUCTIVE_COMPLETENESS_PROOF_VERIFIER",
+        "status": "NOT_QUALIFIED",
+        "required_test_behavior": "unverified claimed proof must not promote A08; fail closed as A07 / QUALIFICATION_BLOCKED"
+      }
+    ]
   },
-  "frozen_semantic_payload_sha256": "7e8ae306a0ad17f89eb05fc69b4102a573188de4fc1fc5e7a3fcb8da021a1f6c",
+  "frozen_semantic_payload_sha256": "593f630c04bcb783ca161e3f0aa53e9948dd11b9e84d43019414b6e3488de2d5",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
-  "source_digests": {}
+  "source_digests": {},
+  "frozen_payload_set": {
+    "reports/data-qualification/iab/ib_semantic_source_provenance.json": "a64f22de5508275f1cdad6ee1e2145e66d27f1427a10041b1f5a49cda54c5d3a",
+    "reports/data-qualification/iab/ib_no_copy_declaration.json": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
+    "reports/data-qualification/iab/ib_independent_stage_test_inventory.json": "593f630c04bcb783ca161e3f0aa53e9948dd11b9e84d43019414b6e3488de2d5"
+  }
 }

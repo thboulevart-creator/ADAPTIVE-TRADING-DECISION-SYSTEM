@@ -132,7 +132,8 @@
       "generic non-semantic standard-library primitives may be used where allowed by the boundary",
       "missing or contradictory normative input must fail closed rather than use implementation defaults",
       "physical traversal order, serialization order, cache order, and worker partition are non-semantic",
-      "strict duplicate multiplicity and source-to-logical conformance must be preserved"
+      "strict duplicate multiplicity and source-to-logical conformance must be preserved",
+      "do not invent positive A08 proof-validation semantics while its verifier dependency is unqualified"
     ],
     "source_binding_protocol": {
       "pre_code_state": "PENDING_IMPLEMENTATION_SOURCE",
@@ -146,9 +147,22 @@
       "post_code_forbidden_mutation": "all fields inside frozen_semantic_payload",
       "final_binding_requirement": "source_digests must exactly equal the future I_B implementation manifest source_digests",
       "adjudication_rule": "pre-code evidence qualification does not by itself qualify I_B executable implementation"
-    }
+    },
+    "known_unresolved_semantic_dependencies": [
+      {
+        "dependency_id": "A08_CONSTRUCTIVE_COMPLETENESS_PROOF_VERIFIER",
+        "status": "NOT_QUALIFIED",
+        "current_required_behavior": "fail closed; an unverified claimed proof cannot promote A07 to A08",
+        "positive_path_reopening_rule": "requires separately governed verifier/schema qualification"
+      }
+    ]
   },
-  "frozen_semantic_payload_sha256": "b50c08fd37c7e41f0358745764376a34b0eaca2d44020a03d6baa1aea86a2f4a",
+  "frozen_semantic_payload_sha256": "a64f22de5508275f1cdad6ee1e2145e66d27f1427a10041b1f5a49cda54c5d3a",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
-  "source_digests": {}
+  "source_digests": {},
+  "frozen_payload_set": {
+    "reports/data-qualification/iab/ib_semantic_source_provenance.json": "a64f22de5508275f1cdad6ee1e2145e66d27f1427a10041b1f5a49cda54c5d3a",
+    "reports/data-qualification/iab/ib_no_copy_declaration.json": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
+    "reports/data-qualification/iab/ib_independent_stage_test_inventory.json": "593f630c04bcb783ca161e3f0aa53e9948dd11b9e84d43019414b6e3488de2d5"
+  }
 }

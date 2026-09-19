@@ -61,5 +61,10 @@
   },
   "frozen_semantic_payload_sha256": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
   "source_binding_state": "PENDING_IMPLEMENTATION_SOURCE",
-  "source_digests": {}
+  "source_digests": {},
+  "frozen_payload_set": {
+    "reports/data-qualification/iab/ib_semantic_source_provenance.json": "a64f22de5508275f1cdad6ee1e2145e66d27f1427a10041b1f5a49cda54c5d3a",
+    "reports/data-qualification/iab/ib_no_copy_declaration.json": "335805907d13204c9ca69abf2bc2cb7436d574537990736141ca34fb09c70956",
+    "reports/data-qualification/iab/ib_independent_stage_test_inventory.json": "593f630c04bcb783ca161e3f0aa53e9948dd11b9e84d43019414b6e3488de2d5"
+  }
 }
