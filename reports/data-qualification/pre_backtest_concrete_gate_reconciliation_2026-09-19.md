@@ -613,4 +613,56 @@ Existing components should be reused where they already satisfy the final contra
 
 ---
 
-**Next governed action:** reconcile `I_B — independent comparison implementation` against the current repository.
+# I_B — Independent comparison implementation
+
+## Requirement
+
+I_B must be an independently implemented qualification path operating from the same concrete D/R/M/B/A/Q/F semantics as I_A, without sharing a semantic shortcut capable of reproducing the same defect.
+
+Q-RM-12 explicitly permits different parser libraries and traversal implementations, but requires the resulting qualified logical universe to be semantically identical under O.
+
+## Current repository evidence inspected
+
+The repository contains:
+
+- several parsers/probes and data utilities;
+- independent conceptual counter-expertise artifacts;
+- Q-RM-12's two-implementation test protocol.
+
+No current executable artifact is identified as an independently implemented second qualification path conforming to the full concrete D/R/M/B/A/Q/F/O tuple.
+
+External conceptual audits do not satisfy I_B because they are not executable producers of a qualified logical occurrence universe.
+
+Likewise, the existence of CSV/BI5/Parquet readers does not create an independent qualification implementation; those paths do not currently consume the same frozen concrete semantic tuple and produce a Q-RM-11 artifact for oracle comparison.
+
+## Adjudication
+
+```text
+second parser / probe
+≠ independent Q-RM qualification implementation
+
+independent conceptual review
+≠ executable I_B
+
+shared incomplete semantics
+≠ independent determinism evidence
+```
+
+## Verdict
+
+```text
+I_B — Independent comparison implementation
+BLOCKED
+```
+
+Classification:
+
+`NO QUALIFIED INDEPENDENT SECOND IMPLEMENTATION FOUND`
+
+## Closure evidence required
+
+After the concrete semantic package and I_A exist, implement an independent comparison path with no shared semantic shortcut that could mask the same defect, then compare I_A/I_B through O under all mandatory Q-RM-12 variants.
+
+---
+
+**Next governed action:** persist the complete reconciliation conclusion and derive the smallest concrete closure program before any acquisition or real backtest.
