@@ -1252,3 +1252,202 @@ Requirements:
 - bind concrete BI5 anomaly classes to Q-RM-10 outcomes;
 - adversarially break B/A before any implementation;
 - if B/A would require changing D/R/M semantics, stop with FAIL/BLOCKED rather than mutating D/R/M silently.
+
+
+---
+
+## 33. First concrete native BI5 B/A formalization — persisted
+
+The first concrete native-BI5 `B + A` candidate block has been formalized, adversarially broken, minimally corrected and re-broken.
+
+Candidate artifact:
+
+`reports/data-qualification/ba_native_bi5_binding_anomaly_candidate_2026-09-19.md`
+
+Initial candidate commit:
+
+`f2a0ae0e038bc3014a2e24a05e55b914783f37b6`
+
+Initial adversarial artifact:
+
+`reports/data-qualification/ba_native_bi5_candidate_adversarial_break_2026-09-19.md`
+
+Initial break commit:
+
+`5a48fb531d26323a5b22e52568c318161443ae14`
+
+Initial candidate verdict:
+
+`FAIL`
+
+Demonstrated layering defects:
+
+```text
+BA-F01 — MARKET_SEMANTIC_VALIDITY_LEAK_INTO_BINDING
+BA-F02 — PHYSICAL_SLOT_ORDER_USED_AS_TEMPORAL_AUTHORITY
+BA-F03 — SAME_HOUR_COMPONENT_CARDINALITY_LEAKS_D_OWNERSHIP
+```
+
+Minimal correction commit:
+
+`678a8052c5b73fad8247d6a3f92173171c09111e`
+
+Corrected candidate blob:
+
+`25400abcc3a2a24438954ff27b970bd934313ae3`
+
+Final persisted-head adversarial re-break commit:
+
+`e95583dab2a87d6ef1a19b57599f5f01118a19f1`
+
+Final adversarial artifact blob:
+
+`484860e09305a3088edb6b8b914803b8717a5627`
+
+No additional internal candidate defect was demonstrated after correction.
+
+### Current candidate B identity
+
+```text
+format_binding_id =
+B_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD
+
+format_binding_version =
+B_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE
+```
+
+B consumes a declared component envelope, not a bare file path.
+
+Candidate physical semantics:
+
+```text
+one LZMA-Alone stream
+→ decompressed byte-zero framing
+→ fixed 20-byte slots
+→ >IIIff big-endian fields
+→ declared UTC hour + millisecond offset
+→ ask/bid raw / 1000
+→ source binary32 volumes
+```
+
+Physical locator:
+
+```text
+(component_manifest_entry_id, component_local_slot_index)
+```
+
+is provenance/individuation evidence only.
+
+It is not canonical position or temporal authority.
+
+B does not decide market-quality predicates.
+
+Q owns retained qualification policy.
+
+D owns component membership/multiplicity.
+
+### Current candidate A identity
+
+```text
+anomaly_matrix_id =
+A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD
+
+anomaly_matrix_version =
+A_DUKASCOPY_NATIVE_BI5_USATECHIDXUSD_V0_1_CANDIDATE
+```
+
+Current classes include:
+
+```text
+BI5-A01 MISSING_DECLARED_COMPONENT
+BI5-A02 UNDECLARED_COMPONENT_PRESENT
+BI5-A03 REPEATED_OR_CONFLICTING_COMPONENT_DELIVERY
+BI5-A04 AMBIGUOUS_OR_MISSING_HOUR_PROVENANCE
+BI5-A05 DECOMPRESSION_FAILURE_OR_UNSUPPORTED_ENVELOPE
+BI5-A06 ZERO_DECOMPRESSED_BYTES
+BI5-A07 TERMINAL_PARTIAL_SLOT_WITHOUT_COMPLETENESS_PROOF
+BI5-A08 TERMINAL_PARTIAL_SLOT_WITH_CONSTRUCTIVE_COMPLETENESS_PROOF
+BI5-A09 MILLISECOND_OFFSET_OUT_OF_RANGE
+BI5-A10 NON_FINITE_VOLUME_ENCODING
+BI5-A11 AMBIGUOUS_COMPONENT_ROLE_OR_PROVENANCE
+BI5-A12 REPRESENTATION_OR_BINDING_IDENTITY_MISMATCH
+BI5-A13 UNKNOWN_ANOMALY_CLASS
+```
+
+Q-RM-10 remains:
+
+```text
+constructively local INVALID
+→ REJECT RECORD
+
+non-local / ambiguous / unknown scope
+→ QUALIFICATION BLOCKED
+```
+
+No default acquisition-fatal class was introduced.
+
+### Remaining evidence blocker
+
+The following provider-sensitive B facts currently have only implementation-derived evidence inside the repository:
+
+```text
+LZMA-Alone
+20-byte width
+>IIIff
+field order
+price /1000
+binary32 volume fields
+```
+
+Therefore official verdicts remain:
+
+```text
+B = BLOCKED
+A = BLOCKED
+```
+
+The candidate is internally stable enough to become input to Q formalization but is not provider-semantic PASS.
+
+---
+
+## 34. Durable B/A backup
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-19-NATIVE-BI5-BA-FORMALIZATION.md`
+
+Backup commit:
+
+`93f847fe9aedf97017ad1c415a6095c2924d9a0f`
+
+Global reconciliation audit update commit:
+
+`367472d4239db8cb3fc9242dd8d7bb266e1b0f1e`
+
+No Q implementation, acquisition, BI5 download, real BI5 processing or backtest occurred before this checkpoint.
+
+---
+
+## 35. Exactly one next governed action
+
+Formalize only:
+
+```text
+Q — concrete qualification contract + parameters
+```
+
+using the corrected/re-broken D/R/M/B/A candidate package as immutable candidate input.
+
+Q must:
+
+- define exact candidate→retained membership semantics;
+- consume A outcomes without silent repair;
+- separate market-quality policy from B decoding;
+- avoid physical-slot temporal authority;
+- preserve strict duplicates;
+- define deterministic acceptance/rejection semantics;
+- remain independent of acquisition/backtest authorization.
+
+Q must not promote the provider-sensitive B candidate facts to PASS merely because one current parser implements them.
+
+No acquisition or real backtest is authorized.
