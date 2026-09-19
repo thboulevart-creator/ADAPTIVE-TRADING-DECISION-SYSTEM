@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 env:
-  IB_SOURCE_GIT_BLOB: '1b3fbcd4ac084eedc27a008c959025c02b71a95a'
+  IB_SOURCE_GIT_BLOB: '051acc40a6368d9159de720eacbd1e6e778a9776'
   EVIDENCE_BREAKER_GIT_BLOB: '231f9daa343f95baa4b747ec2b89166833255958'
 
 jobs:
