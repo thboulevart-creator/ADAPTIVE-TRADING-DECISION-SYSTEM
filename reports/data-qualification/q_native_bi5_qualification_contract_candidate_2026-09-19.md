@@ -264,7 +264,137 @@ No successfully parsed prefix may survive as the normative qualified universe wh
 
 ---
 
-# 7. A outcome consumption
+# 7. Exact A-target binding
+
+Q accepts an A outcome only when its target is normatively bound to the B/D framing domain.
+
+Permitted target forms are:
+
+## 7.1 Complete fixed-width slot target
+
+```text
+target_scope = COMPLETE_SLOT
+
+component_manifest_entry_id
+component_local_slot_index
+```
+
+The index must satisfy:
+
+```text
+0 <= component_local_slot_index < complete_slot_count
+```
+
+for that exact component/B interpretation report.
+
+## 7.2 Terminal fragment target
+
+```text
+target_scope = TERMINAL_FRAGMENT
+
+component_manifest_entry_id
+terminal_fragment_start_offset
+terminal_fragment_length
+```
+
+For B V0.1 candidate:
+
+```text
+terminal_fragment_start_offset = 20 * complete_slot_count
+terminal_fragment_length       = decompressed_length mod 20
+```
+
+A terminal fragment is not a complete slot and receives no candidate logical occurrence.
+
+## 7.3 Whole-component target
+
+```text
+target_scope = COMPONENT
+
+component_manifest_entry_id
+```
+
+Used only for anomalies whose normative scope is the entire declared component.
+
+## 7.4 Acquisition-scope target
+
+```text
+target_scope = ACQUISITION
+
+acquisition_domain_id
+```
+
+Used for acquisition-membership/completeness anomalies where no narrower target is normative.
+
+The following are never sufficient normative targets:
+
+- filename/path;
+- traversal index;
+- worker-local index;
+- parser row number;
+- free-text diagnostic;
+- diagnostic list order;
+- content equality/hash alone.
+
+Target locators are provenance/anomaly evidence only.
+
+They are not promoted to canonical observation identity or temporal authority.
+
+If an A outcome target is absent, ambiguous, out of range, contradictory, or incompatible with its declared scope:
+
+`QUALIFICATION BLOCKED`.
+
+---
+
+# 8. Per-component physical accounting invariant
+
+For every D-declared component whose B framing is deterministically available and whose component-level semantics are not already globally blocked, Q requires exhaustive accounting of every complete B slot.
+
+For B V0.1 candidate, define:
+
+```text
+S_all
+=
+{0, 1, ..., complete_slot_count - 1}
+
+S_candidate
+=
+slot indices that produced valid B candidate occurrences
+
+S_rejected
+=
+slot indices targeted by A outcome REJECT RECORD
+```
+
+Before acquisition outcome may become `QUALIFIED`, Q requires:
+
+```text
+S_candidate ∩ S_rejected = ∅
+
+S_candidate ∪ S_rejected = S_all
+```
+
+and additionally:
+
+- every index occurs at most once in `S_candidate`;
+- every index occurs at most once in `S_rejected`;
+- no index lies outside `S_all`;
+- every candidate occurrence references exactly one member of `S_candidate`;
+- every slot-level `REJECT RECORD` outcome references exactly one member of `S_rejected`;
+- terminal partial fragments are accounted separately and never inserted into `S_all`;
+- component/acquisition blocking outcomes prevent qualification and therefore prevent a normative partial accounting result from becoming U.
+
+This is a conservation/conformance rule over B/A output.
+
+It does not redefine B framing.
+
+If one complete slot is omitted from both sides, appears in both sides, appears twice, or is targeted inconsistently:
+
+`QUALIFICATION BLOCKED`.
+
+---
+
+# 9. A outcome consumption
 
 Current A outcomes are consumed exactly as follows.
 
@@ -324,11 +454,11 @@ Q cannot invent acquisition-fatality.
 
 ---
 
-# 8. Candidate occurrence consistency checks
+# 10. Candidate occurrence consistency checks
 
 Before retention, Q verifies conformance relationships without redefining B.
 
-## 8.1 Exact upstream tuple
+## 10.1 Exact upstream tuple
 
 Every candidate and diagnostic must refer to the exact D/R/M/B/A versions selected by this Q contract.
 
@@ -336,7 +466,7 @@ Mismatch:
 
 `QUALIFICATION BLOCKED`.
 
-## 8.2 Declared component provenance
+## 10.2 Declared component provenance
 
 Every B candidate occurrence must trace to one D-declared `component_manifest_entry_id`.
 
@@ -344,7 +474,7 @@ Undeclared provenance:
 
 `QUALIFICATION BLOCKED`.
 
-## 8.3 One B slot source cannot appear twice by execution duplication
+## 10.3 One B slot source cannot appear twice by execution duplication
 
 A B candidate occurrence carries physical provenance sufficient to identify its source slot inside its declared component:
 
@@ -360,7 +490,7 @@ If the exact same source slot is emitted twice by the qualification implementati
 
 This does not make the tuple the final normative observation identity.
 
-## 8.4 Strict logical duplicates remain distinct
+## 10.4 Strict logical duplicates remain distinct
 
 If two different source slots produce identical logical payloads:
 
@@ -373,7 +503,7 @@ then both are retained when acquisition qualification succeeds.
 
 No content deduplication.
 
-## 8.5 Candidate/rejection contradiction
+## 10.5 Candidate/rejection contradiction
 
 If the same physical source slot is simultaneously presented as:
 
@@ -390,7 +520,7 @@ Q does not choose one interpretation.
 
 ---
 
-# 9. Q V0.1 market-value policy
+# 11. Q V0.1 market-value policy
 
 Q V0.1 intentionally introduces **no additional market-value membership filter**.
 
@@ -423,7 +553,7 @@ No hidden threshold or parser default is permitted.
 
 ---
 
-# 10. Warmup and evaluation-window semantics
+# 12. Warmup and evaluation-window semantics
 
 The D candidate acquisition domain contains:
 
@@ -454,7 +584,7 @@ Q membership does not silently redefine the research evaluation interval.
 
 ---
 
-# 11. Temporal non-authority
+# 13. Temporal non-authority
 
 Q V0.1 does not establish chronology.
 
@@ -480,7 +610,7 @@ Q retained membership
 
 ---
 
-# 12. No canonical enumeration / identity invention
+# 14. No canonical enumeration / identity invention
 
 Q decides membership and preserves candidate individuality.
 
@@ -499,7 +629,7 @@ It is not silently promoted to canonical observation identity.
 
 ---
 
-# 13. Determinism requirements
+# 15. Determinism requirements
 
 Given the same complete normative input tuple:
 
@@ -527,7 +657,7 @@ provided semantic membership/individuality is unchanged.
 
 ---
 
-# 14. Q output concept
+# 16. Q output concept
 
 A future executable Q implementation must produce enough structured result to support F/O without introducing canonical enumeration.
 
@@ -560,7 +690,7 @@ Exact F serialization is deliberately not selected here.
 
 ---
 
-# 15. Version-change triggers
+# 17. Version-change triggers
 
 A new Q version is mandatory if a change can alter:
 
@@ -578,7 +708,7 @@ A reporting-only change proven not to affect membership may retain Q version.
 
 ---
 
-# 16. Evidence limitations / current blocked state
+# 18. Evidence limitations / current blocked state
 
 Even if this Q candidate is internally coherent, real Q execution currently remains impossible because:
 
@@ -599,7 +729,7 @@ Q official gate
 
 ---
 
-# 17. Pre-break verdict state
+# 19. Pre-break verdict state
 
 ```text
 Q candidate
@@ -620,7 +750,7 @@ real backtest
 
 ---
 
-# 18. Next governed action
+# 20. Next governed action
 
 Adversarially break this exact persisted Q candidate before any F/O work.
 
@@ -649,3 +779,41 @@ Attack at minimum:
 - permission leakage.
 
 No data acquisition is permitted during the break.
+
+
+---
+
+# 21. Correction record after first adversarial break
+
+Adversarial artifact:
+
+`reports/data-qualification/q_native_bi5_qualification_contract_adversarial_break_2026-09-19.md`
+
+The first persisted Q candidate failed on exactly two demonstrated completeness defects:
+
+```text
+Q-F01 — ANOMALY_TARGET_BINDING_UNDERSPECIFIED
+Q-F02 — PHYSICAL_SLOT_ACCOUNTING_NOT_TOTAL
+```
+
+Corrections applied:
+
+1. every A outcome now requires an exact normative target scope;
+2. complete-slot targets use exact `component_manifest_entry_id + component_local_slot_index`;
+3. terminal fragments use exact component + start offset + length;
+4. component/acquisition anomalies use explicit component/acquisition targets;
+5. filename/path/free-text/runtime-order targeting is forbidden;
+6. every deterministically framed complete slot must be accounted exactly once as B candidate or A `REJECT RECORD`;
+7. candidate and rejected slot sets must be disjoint and exhaustive;
+8. terminal fragments remain outside complete-slot accounting;
+9. any accounting contradiction or omission blocks qualification.
+
+No D/R/M/B/A semantics were changed.
+
+Official gate verdict remains:
+
+```text
+Q = BLOCKED
+```
+
+The corrected candidate requires persisted-head adversarial re-break before any F/O work.
