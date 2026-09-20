@@ -6188,3 +6188,148 @@ positive P1.1 authorization
 ```
 
 A later bounded empirical execution requires a separate explicit authorization.
+
+
+---
+
+## 121. B-ERD-01 bounded empirical representation-discrimination contract — PASS
+
+B-ERD-01 was formalized only; no real BI5 request occurred.
+
+Final corrected contract:
+
+reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md
+
+blob:
+
+ac83ff40c080913de29ba74c3b7423a8f858c2fd
+
+Adversarial defects closed:
+
+~~~text
+BERD01-F01 — PROBE_COMPARISON_WINDOW_NOT_NORMATIVELY_FIXED
+BERD01-F02 — REPRESENTATION_ABSENCE / MARKET_ABSENCE / TRANSPORT_FAILURE NOT CLOSED
+BERD01-F03 — HTTP METHOD / RETRY POLICY DEFERRED
+BERD01-F04 — MULTI-HYPOTHESIS OVERALL PROBE_REFUTED IS AMBIGUOUS
+BERD01-F05 — H_UNKNOWN TRIGGER OVERCLAIMS UNOBSERVABLE UNKNOWN FAMILY
+BERD01-F06 — STRUCTURED SEAL CANONICALIZATION NOT BOUND
+BERD01-F07 — FULL D WARMUP REPRESENTATION COVERAGE NOT EXPLICIT
+
+BERD01-R01 — OVERALL TARGET PROPOSITION IS META-DISCRIMINATION, NOT THE PROJECT PREMISE
+BERD01-R02 — HTTP BODY HASH DOMAIN / REQUEST POLICY NOT BYTE-DETERMINISTIC
+~~~
+
+Final persisted-head re-break demonstrated no further defect.
+
+Final verdict:
+
+~~~text
+B-ERD-01 BOUNDED EMPIRICAL REPRESENTATION-DISCRIMINATION CONTRACT = PASS
+~~~
+
+## 122. Qualified B-ERD-01 semantics
+
+Overall target proposition:
+
+~~~text
+T_HOURLY =
+K1 legacy-hourly representation is empirically compatible
+with every required bounded probe window
+~~~
+
+Probe windows:
+
+~~~text
+PW = warmup-prefix final governed H1
+P0-P7 = stratified governed H1 probes through evaluation window
+W_probe = exact PT1H
+~~~
+
+Transport:
+
+~~~text
+sealed TransportPolicy
+GET
+automatic_retry_count = 0
+automatic_content_decoding = false
+Accept-Encoding: identity
+exact request headers
+presealed redirects/timeouts
+exact raw-body SHA-256
+~~~
+
+Fail-closed:
+
+~~~text
+FAMILY_NOT_OBSERVED = zero refutation weight
+UNKNOWN_REPRESENTATION_EVIDENCED requires positive evidence
+KNOWN_CANDIDATES_INSUFFICIENT = BLOCKED
+~~~
+
+Anti-extrapolation:
+
+~~~text
+PROBE_SUPPORTED ≠ FULL_INTERVAL_QUALIFIED
+~~~
+
+Future D representation qualification must cover:
+
+~~~text
+mandatory deterministic 20-H1 warmup prefix
++
+frozen evaluation interval
+~~~
+
+## 123. Current state
+
+~~~text
+B-PE-05 = NOT EXECUTED
+Dukascopy contacted = NO
+real BI5 download = NO
+real BI5 processing = NO
+real acquisition = NO
+
+C08-D4 = BLOCKED
+C08-D5 = BLOCKED
+BPE-C08 = BLOCKED
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+~~~
+
+## 124. Exactly one next possible governed action
+
+~~~text
+B-ERD-02 — bounded empirical representation-discrimination execution
+~~~
+
+This is a real-data action and requires explicit user authorization.
+
+If explicitly authorized:
+
+~~~text
+fresh HEAD
+→ read B-ERD-01 PASS
+→ materialize + seal LocatorManifest
+→ resolve + seal PW/P0-P7 ProbePlan
+→ materialize + seal TransportPolicy
+→ persisted pre-request integrity check
+→ issue only presealed bounded GET requests
+→ exact TransportCapture for every attempt
+→ independent diagnostic paths
+→ cross-family comparison
+→ sealed ExecutionResult
+→ PROBE_SUPPORTED / PROBE_REFUTED / BLOCKED
+→ audit + backup + checkpoint
+→ STOP
+~~~
+
+Still prohibited inside B-ERD-02:
+
+~~~text
+full project acquisition
+D materialization
+real Q/F/Q-RM-12 full execution
+backtest
+paper/broker/live
+positive P1.1 authorization
+~~~

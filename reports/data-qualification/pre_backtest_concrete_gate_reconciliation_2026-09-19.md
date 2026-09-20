@@ -3772,3 +3772,62 @@ No sample may be extrapolated to five-year continuity.
 B-PE-01 remains unchanged; C08-D4/D5 and global B remain BLOCKED.
 
 No provider contact or real data action occurred.
+
+
+---
+
+# B-ERD-01 bounded empirical representation-discrimination contract — 2026-09-20
+
+B-ERD-01 formalized and adversarially qualified a bounded future empirical discriminator for USATECHIDXUSD representation.
+
+Final corrected candidate:
+
+~~~text
+reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md
+blob ac83ff40c080913de29ba74c3b7423a8f858c2fd
+~~~
+
+Initial defects closed:
+
+~~~text
+F01 common H1 comparison window
+F02 absence/refutation closure
+F03 GET/retry policy
+F04 multi-hypothesis verdict semantics
+F05 unknown-family evidence trigger
+F06 seal canonicalization
+F07 warmup representation coverage
+~~~
+
+Residuals closed:
+
+~~~text
+R01 overall verdict now targets current K1 hourly premise
+R02 TransportPolicy closes HTTP byte/hash domain
+~~~
+
+Key invariants:
+
+~~~text
+PROBE_SUPPORTED ≠ FULL_INTERVAL_QUALIFIED
+FAMILY_NOT_OBSERVED has zero refutation weight
+UNKNOWN_REPRESENTATION_EVIDENCED requires positive evidence
+KNOWN_CANDIDATES_INSUFFICIENT → BLOCKED
+FULL_D_REPRESENTATION_DOMAIN includes 20-H1 warmup + evaluation interval
+~~~
+
+Final verdict:
+
+~~~text
+B-ERD-01 = PASS
+~~~
+
+No BI5 object was requested, downloaded or processed.
+
+Next possible action:
+
+~~~text
+B-ERD-02 — bounded empirical representation-discrimination execution
+~~~
+
+requires explicit authorization.
