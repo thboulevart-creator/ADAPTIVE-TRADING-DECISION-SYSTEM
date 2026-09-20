@@ -16,12 +16,12 @@ import tempfile
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-LOCATOR_PATH = ROOT / "evidence/berd02/locator_manifest_v0_2.json"
-PROBE_PATH = ROOT / "evidence/berd02/probe_plan_v0_2.json"
-POLICY_PATH = ROOT / "evidence/berd02/gha_transport_policy_v0_2.json"
+LOCATOR_PATH = ROOT / "evidence/berd02/locator_manifest_v0_1.json"
+PROBE_PATH = ROOT / "evidence/berd02/probe_plan_v0_1.json"
+POLICY_PATH = ROOT / "evidence/berd02/gha_transport_policy_v0_3.json"
 
-EXPECTED_LOCATOR_SEAL = "56c07f4b474469e6b5cdb342cb7739a310ea4198d4a26a68f33e2b0172266b2b"
-EXPECTED_PROBE_SEAL = "7e130fab1ec293a7dbaf42a9ee0eded248f86cce1b7624b08cffff47e4c1d743"
+EXPECTED_LOCATOR_SEAL = "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7"
+EXPECTED_PROBE_SEAL = "af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce"
 
 def canonical_bytes(v):
     return json.dumps(v, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
@@ -47,91 +47,97 @@ def verify_seal(obj, field, expected=None):
 def render_k1(start_iso):
     t = dt.datetime.fromisoformat(start_iso.replace("Z", "+00:00"))
     return (
-        "http://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/"
+        "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/"
         f"{t.year}/{t.month - 1:02d}/{t.day:02d}/{t.hour:02d}h_ticks.bi5"
     )
 
 def raw_https_get(url, policy, body_path):
     parts = urlsplit(url)
-    if parts.scheme not in ("http","https") or parts.query or parts.fragment:
-        raise RuntimeError("invalid sealed K1 locator")
-    headers = dict(policy["k1"]["request_headers"])
-    headers["Host"] = parts.hostname
+    if parts.scheme != "https" or parts.query or parts.fragment:
+        raise RuntimeError("invalid sealed K1 HTTPS locator")
+    body_path.parent.mkdir(parents=True, exist_ok=True)
+    hdr_path = body_path.with_suffix(".headers.txt")
+    verbose_path = body_path.with_suffix(".verbose.txt")
+    cmd = [
+        "curl", "--ipv4", "--http1.1", "--silent", "--show-error", "--verbose",
+        "--connect-timeout", str(policy["k1"]["connect_timeout_seconds"]),
+        "--max-time", str(policy["k1"]["total_timeout_seconds"]),
+        "--retry", "0", "--max-redirs", "0",
+        "--dump-header", str(hdr_path),
+        "--output", str(body_path),
+        "--write-out", "%{http_code}",
+    ]
+    for k, v in policy["k1"]["request_headers"].items():
+        cmd += ["--header", f"{k}: {v}"]
+    cmd.append(url)
+    started = dt.datetime.now(dt.timezone.utc).isoformat()
+    cp = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False)
+    received = dt.datetime.now(dt.timezone.utc).isoformat()
+    verbose_path.write_bytes(cp.stderr)
+    status_text = cp.stdout.decode("ascii", "replace").strip()
+    status = int(status_text) if status_text.isdigit() and status_text != "000" else None
+    body = body_path.read_bytes() if body_path.exists() else b""
+    headers_text = hdr_path.read_text(encoding="iso-8859-1") if hdr_path.exists() else ""
+    response_headers = []
+    for line in headers_text.splitlines():
+        if ":" in line and not line.startswith("HTTP/"):
+            k, v = line.split(":", 1)
+            response_headers.append({"name": k.strip(), "value": v.strip()})
+    request_header_trace = []
+    for line in cp.stderr.decode("utf-8", "replace").splitlines():
+        if line.startswith("> "):
+            request_header_trace.append(line[2:])
     cap = {
         "request_method": "GET",
         "requested_locator": url,
-        "request_headers": headers,
-        "request_started_at_utc": dt.datetime.now(dt.timezone.utc).isoformat(),
-        "response_received_at_utc": None,
-        "http_status": None,
-        "response_headers": [],
-        "raw_response_byte_length": None,
-        "raw_response_sha256": None,
-        "body_artifact": None,
+        "request_headers": dict(policy["k1"]["request_headers"]),
+        "request_header_trace": request_header_trace,
+        "request_started_at_utc": started,
+        "response_received_at_utc": received,
+        "http_status": status,
+        "response_headers": response_headers,
+        "raw_response_byte_length": len(body),
+        "raw_response_sha256": sha256_bytes(body) if body_path.exists() else None,
+        "body_artifact": str(body_path) if body_path.exists() else None,
+        "verbose_artifact": str(verbose_path),
+        "curl_exit_code": cp.returncode,
         "transport_disposition": None,
         "family_disposition": None,
         "error": None,
     }
-    conn_cls = http.client.HTTPConnection if parts.scheme == "http" else http.client.HTTPSConnection
-    default_port = 80 if parts.scheme == "http" else 443
-    conn = conn_cls(parts.hostname, port=parts.port or default_port, timeout=policy["k1"]["connect_timeout_seconds"])
-    try:
-        conn.connect()
-        if conn.sock is not None:
-            conn.sock.settimeout(policy["k1"]["read_timeout_seconds"])
-        conn.putrequest("GET", parts.path, skip_host=True, skip_accept_encoding=True)
-        for k, v in headers.items():
-            conn.putheader(k, v)
-        conn.endheaders()
-        resp = conn.getresponse()
-        cap["response_received_at_utc"] = dt.datetime.now(dt.timezone.utc).isoformat()
-        cap["http_status"] = resp.status
-        cap["response_headers"] = [{"name": k, "value": v} for k, v in resp.getheaders()]
-        max_bytes = int(policy["k1"]["max_body_bytes"])
-        body = resp.read(max_bytes + 1)
-        if len(body) > max_bytes:
-            cap["transport_disposition"] = "TRANSPORT_AMBIGUOUS"
-            cap["family_disposition"] = "BLOCKED"
-            cap["error"] = "sealed body cap exceeded"
-            return cap
-        body_path.parent.mkdir(parents=True, exist_ok=True)
-        body_path.write_bytes(body)
-        cap["raw_response_byte_length"] = len(body)
-        cap["raw_response_sha256"] = sha256_bytes(body)
-        cap["body_artifact"] = str(body_path)
-        if resp.status == 200:
-            cap["transport_disposition"] = "OBJECT_BYTES_OBTAINED"
-            cap["family_disposition"] = "FAMILY_OBSERVED" if body else "FAMILY_NOT_OBSERVED"
-        elif resp.status == 404:
-            cap["transport_disposition"] = "OBJECT_ABSENT_SIGNAL"
-            cap["family_disposition"] = "FAMILY_NOT_OBSERVED"
-        elif resp.status in (301,302,303,307,308):
-            cap["transport_disposition"] = "REDIRECTED_TO_UNKNOWN"
-            cap["family_disposition"] = "BLOCKED"
-        elif resp.status in (401,403):
-            cap["transport_disposition"] = "AUTH_OR_POLICY_BLOCK"
-            cap["family_disposition"] = "BLOCKED"
-        elif resp.status == 429:
-            cap["transport_disposition"] = "RATE_LIMITED"
-            cap["family_disposition"] = "BLOCKED"
-        elif 500 <= resp.status <= 599:
-            cap["transport_disposition"] = "TRANSIENT_SERVER_FAILURE"
-            cap["family_disposition"] = "BLOCKED"
-        else:
-            cap["transport_disposition"] = "TRANSPORT_AMBIGUOUS"
-            cap["family_disposition"] = "BLOCKED"
-        return cap
-    except Exception as exc:
-        cap["response_received_at_utc"] = dt.datetime.now(dt.timezone.utc).isoformat()
+    if len(body) > int(policy["k1"]["max_body_bytes"]):
         cap["transport_disposition"] = "TRANSPORT_AMBIGUOUS"
         cap["family_disposition"] = "BLOCKED"
-        cap["error"] = f"{type(exc).__name__}: {exc}"
+        cap["error"] = "sealed body cap exceeded"
         return cap
-    finally:
-        try:
-            conn.close()
-        except Exception:
-            pass
+    if cp.returncode != 0 and status is None:
+        cap["transport_disposition"] = "TRANSPORT_AMBIGUOUS"
+        cap["family_disposition"] = "BLOCKED"
+        cap["error"] = cp.stderr.decode("utf-8", "replace")[-4000:]
+        return cap
+    if status == 200:
+        cap["transport_disposition"] = "OBJECT_BYTES_OBTAINED"
+        cap["family_disposition"] = "FAMILY_OBSERVED" if body else "FAMILY_NOT_OBSERVED"
+    elif status == 404:
+        cap["transport_disposition"] = "OBJECT_ABSENT_SIGNAL"
+        cap["family_disposition"] = "FAMILY_NOT_OBSERVED"
+    elif status in (301, 302, 303, 307, 308):
+        cap["transport_disposition"] = "REDIRECTED_TO_UNKNOWN"
+        cap["family_disposition"] = "BLOCKED"
+    elif status in (401, 403):
+        cap["transport_disposition"] = "AUTH_OR_POLICY_BLOCK"
+        cap["family_disposition"] = "BLOCKED"
+    elif status == 429:
+        cap["transport_disposition"] = "RATE_LIMITED"
+        cap["family_disposition"] = "BLOCKED"
+    elif status is not None and 500 <= status <= 599:
+        cap["transport_disposition"] = "TRANSIENT_SERVER_FAILURE"
+        cap["family_disposition"] = "BLOCKED"
+    else:
+        cap["transport_disposition"] = "TRANSPORT_AMBIGUOUS"
+        cap["family_disposition"] = "BLOCKED"
+    return cap
+
 
 def validate_and_fingerprint(raw):
     if len(raw) % 20:
