@@ -1,0 +1,103 @@
+{
+  "schema": "B_ERD_01_PROBE_PLAN_V0_1",
+  "probe_plan_id": "BERD02-PROBES-USATECH-V0_1",
+  "contract_id": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR",
+  "contract_version": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR_V0_2_CORRECTED",
+  "target_instrument": "USATECHIDXUSD",
+  "target_research_interval": {
+    "start": "2021-08-14",
+    "end": "2026-08-14"
+  },
+  "session_calendar_identity": {
+    "contract": "DUKASCOPY_USATECH_SESSION_CALENDAR_V3",
+    "path": "tools/dukascopy_usatech_calendar.py",
+    "git_blob": "fab634aab7b8c299b0139c3c43bf5b89a2aa03d0"
+  },
+  "execution_window_freeze_identity": {
+    "path": "04-REFERENCE/EXECUTION-WINDOW-FREEZE.json",
+    "git_blob": "bf7c43e9d90d952dfa3715c28575fdf6cf379a89",
+    "first_included_open_slot_utc": "2021-08-15T22:00:00+00:00",
+    "last_included_open_slot_utc": "2026-08-14T20:00:00+00:00",
+    "warmup_h1_bars": 20
+  },
+  "resolved_probes": [
+    {
+      "probe_id": "PW",
+      "anchor_rule_id": "FINAL_WARMUP_H1",
+      "market_interval_start_utc": "2021-08-13T20:00:00Z",
+      "market_interval_end_utc": "2021-08-13T21:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "SUMMER Friday partial-close H1; final governed open H1 before P0"
+    },
+    {
+      "probe_id": "P0",
+      "anchor_rule_id": "TARGET_START",
+      "market_interval_start_utc": "2021-08-15T22:00:00Z",
+      "market_interval_end_utc": "2021-08-15T23:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "Frozen first_included_open_slot_utc"
+    },
+    {
+      "probe_id": "P1",
+      "anchor_rule_id": "ANNUAL_2022",
+      "market_interval_start_utc": "2022-08-14T22:00:00Z",
+      "market_interval_end_utc": "2022-08-14T23:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "First governed open H1 on/after 2022-08-14"
+    },
+    {
+      "probe_id": "P2",
+      "anchor_rule_id": "ANNUAL_2023",
+      "market_interval_start_utc": "2023-08-14T00:00:00Z",
+      "market_interval_end_utc": "2023-08-14T01:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "First governed open H1 on/after 2023-08-14"
+    },
+    {
+      "probe_id": "P3",
+      "anchor_rule_id": "ANNUAL_2024",
+      "market_interval_start_utc": "2024-08-14T00:00:00Z",
+      "market_interval_end_utc": "2024-08-14T01:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "First governed open H1 on/after 2024-08-14"
+    },
+    {
+      "probe_id": "P4",
+      "anchor_rule_id": "ANNUAL_2025",
+      "market_interval_start_utc": "2025-08-14T00:00:00Z",
+      "market_interval_end_utc": "2025-08-14T01:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "First governed open H1 on/after 2025-08-14"
+    },
+    {
+      "probe_id": "P5",
+      "anchor_rule_id": "PRE_JETTA_CONTEXT",
+      "market_interval_start_utc": "2026-03-02T23:00:00Z",
+      "market_interval_end_utc": "2026-03-03T00:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "Last governed open H1 strictly before 2026-03-03T00:00:00Z"
+    },
+    {
+      "probe_id": "P6",
+      "anchor_rule_id": "POST_JETTA_CONTEXT",
+      "market_interval_start_utc": "2026-03-04T00:00:00Z",
+      "market_interval_end_utc": "2026-03-04T01:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "First governed open H1 strictly after 2026-03-03T23:59:59Z"
+    },
+    {
+      "probe_id": "P7",
+      "anchor_rule_id": "TARGET_END",
+      "market_interval_start_utc": "2026-08-14T20:00:00Z",
+      "market_interval_end_utc": "2026-08-14T21:00:00Z",
+      "comparison_window_duration": "PT1H",
+      "expected_market_open_basis": "Frozen last_included_open_slot_utc"
+    }
+  ],
+  "candidate_locator_manifest_id": "BERD02-LOCATORS-USATECH-V0_1",
+  "candidate_locator_manifest_seal": "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7",
+  "transport_policy_id": "BERD02-TRANSPORT-V0_1",
+  "transport_policy_seal": "136b5a0fecd6387bf5054cd13dc8cb090e7d5e991bd9971d040b0f9c07099b44",
+  "created_at_utc": "2026-09-20T19:15:00Z",
+  "probe_plan_seal": "af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce"
+}

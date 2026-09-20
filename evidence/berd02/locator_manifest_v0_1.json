@@ -1,0 +1,51 @@
+{
+  "schema": "B_ERD_01_LOCATOR_MANIFEST_V0_1",
+  "locator_manifest_id": "BERD02-LOCATORS-USATECH-V0_1",
+  "contract_id": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR",
+  "contract_version": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR_V0_2_CORRECTED",
+  "provider_host": [
+    "datafeed.dukascopy.com",
+    "cfg-public-proper-wallaby.s3.eu-west-1.amazonaws.com"
+  ],
+  "instrument_id": "USATECHIDXUSD",
+  "source_snapshot_path": "evidence/berd02/locator_source_snapshot_v0_1.json",
+  "candidate_families": [
+    {
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "source_evidence_ids": [
+        "BERD02-LS-K1-PROVIDER-HISTORICAL",
+        "BERD02-LS-K1-I2-DUKA-DATA",
+        "BERD02-LS-K1-I2-LEOCLC"
+      ],
+      "source_anchor_ids": [
+        "provider-hourly-object",
+        "duka-data-lines-11-12-225-228",
+        "leoclc-lines-15-34"
+      ],
+      "rendering_rule": "https://datafeed.dukascopy.com/datafeed/{INSTRUMENT}/{YYYY}/{MONTH_ZERO_INDEXED_2D}/{DD}/{HH}h_ticks.bi5",
+      "month_date_encoding_rule": "MONTH_ZERO_INDEXED_2D; DD_2D; UTC H1 start date/hour",
+      "hour_rule": "HH_2D from W_probe start UTC hour",
+      "exact_example_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2025/07/14/00h_ticks.bi5",
+      "authority_limitations": "Historical provider family existence is qualified; target-epoch USATECH applicability remains empirically under test."
+    },
+    {
+      "candidate_id": "K2_CURRENT_DAILY_TICK_BI5",
+      "source_evidence_ids": [
+        "BERD02-LS-K2-DUKASCOPY-CURRENT",
+        "BERD02-LS-K2-AWS-TRANSPORT"
+      ],
+      "source_anchor_ids": [
+        "dukascopy-current-s3-bucket-daily-path",
+        "aws-virtual-hosted-requester-pays"
+      ],
+      "rendering_rule": "https://cfg-public-proper-wallaby.s3.eu-west-1.amazonaws.com/{INSTRUMENT}/{YYYY}/{MONTH_ZERO_INDEXED_2D}/{DD}_ticks.bi5",
+      "month_date_encoding_rule": "MONTH_ZERO_INDEXED_2D; DD_2D; key derived from W_probe UTC market date",
+      "hour_rule": null,
+      "exact_example_locator": "https://cfg-public-proper-wallaby.s3.eu-west-1.amazonaws.com/USATECHIDXUSD/2025/07/14_ticks.bi5",
+      "authority_limitations": "Requester Pays requires authenticated AWS request; absence of credentials must be AUTH_OR_POLICY_BLOCK, never object absence."
+    }
+  ],
+  "open_world_rule": "K1/K2 are not exhaustive; positive unregistered-family evidence => UNKNOWN_REPRESENTATION_EVIDENCED; known candidates merely unusable => KNOWN_CANDIDATES_INSUFFICIENT/BLOCKED.",
+  "manifest_created_at_utc": "2026-09-20T19:15:00Z",
+  "manifest_seal": "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7"
+}

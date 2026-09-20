@@ -1,0 +1,58 @@
+{
+  "schema": "B_ERD_02_LOCATOR_SOURCE_SNAPSHOT_V0_1",
+  "captured_at_utc": "2026-09-20T19:15:00Z",
+  "sources": [
+    {
+      "source_id": "BERD02-LS-K1-PROVIDER-HISTORICAL",
+      "kind": "PROJECT_PERSISTED_PROVIDER_EVIDENCE",
+      "locator": "evidence/bpe03/provider_snapshots/dukascopy_api_support_2013_hourly_history.json",
+      "git_blob": "e976738d06245effdd21a76f73df2cd8f2e42a16",
+      "anchors": [
+        "earliest history http file server",
+        "/2013/10/05/14h_ticks.bi5"
+      ]
+    },
+    {
+      "source_id": "BERD02-LS-K1-I2-DUKA-DATA",
+      "kind": "PINNED_INDEPENDENT_SOURCE",
+      "locator": "saleem-latif/duka-data@2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c:download.py",
+      "git_blob": "bcb871b3a4a15ab6b5f4622c1fc93fefbcbd3170",
+      "anchors": [
+        "line 11 URL: http://datafeed.dukascopy.com/datafeed/{PAIR}/{year}/{month_0idx:02d}/{day:02d}/{hour:02d}h_ticks.bi5",
+        "line 12 Month is 0-indexed",
+        "lines 225-228 rendering rule"
+      ]
+    },
+    {
+      "source_id": "BERD02-LS-K1-I2-LEOCLC",
+      "kind": "PINNED_INDEPENDENT_SOURCE",
+      "locator": "leoclc/dukascopy-tick@989987db0808e215962e136ce043797992d1a1a2:src/url-generator/index.ts",
+      "git_blob": "c52394e12f523607f8a8ac5bbeeb382afd92ed72",
+      "anchors": [
+        "line 15 URL_ROOT=https://datafeed.dukascopy.com/datafeed",
+        "line 34 HHh_ticks.bi5"
+      ]
+    },
+    {
+      "source_id": "BERD02-LS-K2-DUKASCOPY-CURRENT",
+      "kind": "LIVE_PROVIDER_DOCUMENTATION_ANCHOR",
+      "locator": "https://www.dukascopy.com/wiki/en/development/data-export/",
+      "retrieved_at_utc": "2026-09-20T19:15:00Z",
+      "anchors": [
+        "lines 443-445 S3 bucket cfg-public-proper-wallaby eu-west-1 requester pays",
+        "lines 463-467 requester-pays access",
+        "lines 979-989 daily path SYMBOL/YEAR/MONTH/DAY_ticks.bi5 and zero-indexed month"
+      ]
+    },
+    {
+      "source_id": "BERD02-LS-K2-AWS-TRANSPORT",
+      "kind": "TRANSPORT_AUTHORITY",
+      "locator": "AWS S3 virtual-hosted REST and Requester Pays documentation",
+      "retrieved_at_utc": "2026-09-20T19:15:00Z",
+      "anchors": [
+        "virtual-hosted URL https://bucket-name.s3.region-code.amazonaws.com/key-name",
+        "Requester Pays GET requires authentication and x-amz-request-payer: requester"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "schema": "B_ERD_02_PRE_REQUEST_INTEGRITY_V0_1",
+  "created_at_utc": "2026-09-20T19:15:00Z",
+  "starting_head": "58b566a7f2fcc04fb24b272e66472cb069053f9a",
+  "berd01_final_report_blob": "dbd4770b1fd46029e57a353a6827751d671abaaa",
+  "locator_manifest_seal": "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7",
+  "probe_plan_seal": "af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce",
+  "transport_policy_seal": "136b5a0fecd6387bf5054cd13dc8cb090e7d5e991bd9971d040b0f9c07099b44",
+  "checks": {
+    "contract_version_exact": true,
+    "locator_manifest_seal_recomputes": true,
+    "probe_plan_seal_recomputes": true,
+    "transport_policy_seal_recomputes": true,
+    "probe_count": 9,
+    "every_probe_pt1h": true,
+    "warmup_probe_present": true,
+    "no_probe_result_observed_before_seal": true,
+    "request_method_get": true,
+    "retry_zero": true,
+    "automatic_content_decoding_false": true,
+    "accept_encoding_identity": true,
+    "redirects_disabled": true,
+    "current_B_gate_blocked": true
+  },
+  "verdict": "PASS_PRE_REQUEST",
+  "precheck_seal": "126aa98d7b95d1ca7bdd70db09de0a8d06e6429482e92873f31007ffe0b0dbac"
+}
