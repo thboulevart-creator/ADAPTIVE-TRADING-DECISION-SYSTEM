@@ -1,0 +1,35 @@
+{
+  "schema": "B_ERD_02_GITHUB_ACTIONS_TRANSPORT_POLICY_V0_1",
+  "policy_id": "BERD02-GHA-TRANSPORT-V0_1",
+  "parent_contract_version": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR_V0_2_CORRECTED",
+  "execution_id_rule": "BERD02-GHA-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}",
+  "k1": {
+    "method": "GET",
+    "automatic_retry_count": 0,
+    "automatic_content_decoding": false,
+    "request_headers": {
+      "Accept": "*/*",
+      "Accept-Encoding": "identity",
+      "User-Agent": "ATDS-BERD02-GHA/1.0"
+    },
+    "redirect_policy": "NO_AUTOMATIC_FOLLOW",
+    "max_redirect_hops": 0,
+    "connect_timeout_seconds": 10,
+    "read_timeout_seconds": 30,
+    "max_body_bytes": 52428800,
+    "preserve_exact_response_body": true,
+    "preserve_all_response_headers": true
+  },
+  "k2": {
+    "locator_family": "S3_REQUESTER_PAYS_DAILY",
+    "provider_requirement": "authenticated AWS S3 Requester Pays",
+    "execution_policy": "SECURITY_CAPTURE_POLICY_BLOCK",
+    "reason": "Exact AWS SigV4 Authorization values are credential-bearing; this runtime will not emit or persist them. K2 remains BLOCKED until a separately qualified secret-safe signed-request evidence policy exists."
+  },
+  "diagnostic_a": "Python lzma FORMAT_ALONE + struct >IIIff",
+  "diagnostic_b": "xz --format=lzma -dc + independent manual integer parse",
+  "no_full_acquisition": true,
+  "no_backtest": true,
+  "created_at_utc": "2026-09-20T19:30:00Z",
+  "policy_seal": "ca65df852988b544fcd07d86c8aa5c93207b5371aea08e9c1520a4d49ea123b4"
+}

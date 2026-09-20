@@ -1,0 +1,49 @@
+name: B-ERD-02 transport runtime
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/berd02-transport-runtime.yml"
+      - "tools/berd02_transport_runner.py"
+      - "evidence/berd02/gha_transport_policy_v0_1.json"
+      - "reports/data-qualification/berd02_transport_runtime_reentry_review_2026-09-20.md"
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact pushed HEAD
+        uses: actions/checkout@v4
+
+      - name: Verify runtime prerequisites
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 --version
+          xz --version
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+
+      - name: Execute bounded K1 transport and independent diagnostics
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p runtime-output
+          python3 tools/berd02_transport_runner.py \
+            --execution-id "BERD02-GHA-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" \
+            --output runtime-output | tee runtime-output/summary.log
+          cat runtime-output/execution_result.json
+
+      - name: Upload exact bounded evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: berd02-gha-${{ github.run_id }}-${{ github.run_attempt }}
+          path: runtime-output/
+          if-no-files-found: error
+          retention-days: 7
