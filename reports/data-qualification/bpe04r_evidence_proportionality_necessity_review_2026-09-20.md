@@ -216,17 +216,41 @@ Required properties of that future discriminator:
 A. bounded real-data scope only
 B. exact provider locator/status/headers/bytes/hash capture
 C. no prior assumption that hourly is authoritative
-D. probe all plausible provider object families allowed by evidence
-E. explicit USATECHIDXUSD binding
-F. dates stratified across the target interval
-G. representation classification from observed material
-H. detect simultaneous/coexisting locator families
-I. compare coverage/cardinality across competing successful representations
-J. fail closed if more than one materially different representation remains plausible
-K. independently validate decoded time/price semantics
-L. no backtest
-M. no silent promotion to full D
+D. test every currently evidenced candidate representation without assuming the list is exhaustive
+E. explicit UNKNOWN_REPRESENTATION state
+F. explicit USATECHIDXUSD binding
+G. dates stratified across the target interval
+H. representation classification from observed material
+I. detect simultaneous/coexisting locator families
+J. compare coverage/cardinality across competing successful representations
+K. fail closed if more than one materially different representation remains plausible
+L. fail closed if no known representation explains provider material
+M. independently validate decoded time/price semantics
+N. no backtest
+O. no silent promotion to full D
 ```
+
+Mandatory outcome separation:
+
+```text
+PROBE_SUPPORTED
+≠
+FULL_INTERVAL_QUALIFIED
+```
+
+A bounded probe may falsify assumptions, identify candidate regimes, or establish behavior for observed dates only.
+
+It may not certify representation continuity over the complete 2021-08-14 → 2026-08-14 interval.
+
+Before a full D manifest may rely on the result, every manifest-relevant interval must be covered by one of:
+
+```text
+exhaustive locator/membership evidence
+deterministic qualified transition-boundary evidence
+another explicitly qualified full-interval method
+```
+
+No sample extrapolation is permitted.
 
 This new discriminator is logically prior to D materialization.
 
@@ -287,6 +311,18 @@ candidate decoders/independent semantic checks disagree or plausibility invarian
 instrument-specific observed representation wins over generic inference
 ```
 
+### E7 — unknown third representation
+
+```text
+provider material exists
++
+does not match any known qualified hourly/daily signature
+→ UNKNOWN_REPRESENTATION
+→ BLOCKED
+```
+
+No fallback to the closest known format.
+
 ---
 
 ## 7. Information-cost comparison
@@ -328,6 +364,8 @@ Weakness:
 ```text
 does not prove historical provider policy
 bounded sample can miss epoch-local transitions
+cannot prove full-period continuity by sampling alone
+must remain open to unknown representation families
 requires carefully stratified probe design
 requires future explicit real-data authorization
 ```
@@ -406,12 +444,15 @@ Scope:
 ```text
 fresh HEAD
 → define exact empirical hypotheses
-→ define minimal stratified USATECH target-date sample
-→ define candidate hourly/daily locator families without choosing a winner
+→ define bounded stratified USATECH probe dates
+→ define known hourly/daily candidate families without closed-world assumption
+→ define UNKNOWN_REPRESENTATION = BLOCKED
 → define exact raw response/provenance capture
 → define representation/coverage comparison
 → define independent semantic plausibility checks
-→ define PASS / FAIL / BLOCKED
+→ define PROBE_SUPPORTED / PROBE_REFUTED / BLOCKED
+→ explicitly forbid sample→full-interval promotion
+→ define what later evidence can establish FULL_INTERVAL_QUALIFIED
 → adversarially break the contract
 → persisted-HEAD re-break
 → audit + backup + checkpoint
@@ -433,10 +474,29 @@ A later bounded empirical execution would require its own explicit authorization
 
 ---
 
-## 11. Candidate status
+## 11. Correction record
+
+Adversarial break demonstrated:
 
 ```text
-B-PE-04R = CANDIDATE / NOT YET ADVERSARIALLY RE-BROKEN
+BPE04R-F01 — BOUNDED_SAMPLE_TO_FULL_INTERVAL_PROMOTION_NOT_CLOSED
+BPE04R-F02 — CLOSED_WORLD_HOURLY_DAILY_LOCATOR_ASSUMPTION
+```
+
+Corrections:
+
+```text
+PROBE_SUPPORTED ≠ FULL_INTERVAL_QUALIFIED
+no sample extrapolation
+full D requires full-interval representation evidence
+UNKNOWN_REPRESENTATION = BLOCKED
+known candidate representations are not treated as exhaustive
+```
+
+## 12. Corrected candidate status
+
+```text
+B-PE-04R = CORRECTED CANDIDATE / FINAL RE-BREAK REQUIRED
 B-PE-05 = NOT EXECUTED
 C08-D4 = BLOCKED
 C08-D5 = BLOCKED
