@@ -3449,3 +3449,89 @@ Dedicated reconciliation record:
 `reports/data-qualification/pre_backtest_global_gate_rereconciliation_after_qrm12_2026-09-20.md`
 
 No BI5 download, real-data processing, acquisition or backtest occurred.
+
+
+---
+
+# B-PE-01 native BI5 provider-sensitive physical semantics evidence contract — 2026-09-20
+
+The evidence-adjudication contract for the provider-sensitive native BI5 premises has completed a full documentary qualification cycle.
+
+Initial candidate:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_candidate_2026-09-20.md`
+
+Initial candidate blob:
+
+`d21ce35fe9acdcdc1b3b0828bb2525f75c15054a`
+
+Initial adversarial break:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_adversarial_break_2026-09-20.md`
+
+Initial adversarial blob:
+
+`a8bdb682b7d00eae4ca3c6b7c3fd839903117879`
+
+Initial defects:
+
+```text
+BPE-F01 — SINGLE_PROVIDER_ESCAPE_UNDERCUTS_INDEPENDENCE_REQUIREMENT
+BPE-F02 — CLAIM_SUPPORT_CAN_BE_SELF_ASSERTED_WITHOUT_EXACT_SOURCE_ANCHOR
+BPE-F03 — LINEAGE_INDEPENDENCE_IS_SELF_ASSERTED
+BPE-F04 — TARGET_PROVIDER_SCOPE_VERSION_BINDING_NOT_CONCRETE_ENOUGH
+BPE-F05 — C07_MIXES_PROVIDER_FACT_WITH_PROJECT_DECODER_BEHAVIOR
+BPE-F06 — BROAD_CLAIM_CAN_PASS_WITH_UNPROVEN_REQUIRED_DIMENSION
+BPE-F07 — NO_CLOSED_PERSISTED_ADJUDICATION_OUTPUT_EVIDENCE_SET_BINDING
+BPE-F08 — POST_PASS_CONFLICT_SUPERSESSION_SEMANTICS_INCOMPLETE
+```
+
+First corrected candidate re-break:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_persisted_head_rebreak_2026-09-20.md`
+
+Residual defects:
+
+```text
+BPE-R01 — INTEGRITY_DIGEST_AND_SEAL_CANONICALIZATION_DEFERRED
+BPE-R02 — SOURCE_ADMISSIBILITY_IS_NOT_A_PERSISTED_DECISION
+BPE-R03 — REOPEN_REQUIRED_EVENT_HAS_NO_CLOSED_SCHEMA_CURRENT_AUTHORITY_RULE
+```
+
+Final corrected candidate blob:
+
+`278a691b17cdd4b37e9c0e739f0fe9b56f014b29`
+
+Final persisted-head re-break:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_final_rebreak_2026-09-20.md`
+
+Final result:
+
+```text
+B-PE-01 EVIDENCE CONTRACT = PASS
+```
+
+Qualified contract properties include:
+
+- C01-C08 exact claim register with mandatory dimensions;
+- provider-target scope signature distinct from source version;
+- immutable source records + exact claim anchors;
+- persisted source admissibility decision;
+- lineage-based independence;
+- no project-circular evidence;
+- provider-primary + distinct corroborating lineage per dimension;
+- PASS/FAIL/BLOCKED per dimension/claim;
+- fixed SHA-256/canonical JSON sealing;
+- persisted evidence-set/adjudication binding;
+- conflict, stale evidence, reopen and supersession semantics;
+- separation of representation-wide proof from real-acquisition proof.
+
+Provider truth itself remains unadjudicated:
+
+```text
+C01-C08 = NOT ADJUDICATED
+B global executable gate = BLOCKED
+```
+
+No provider evidence collection, BI5 download, real processing, acquisition or backtest occurred.

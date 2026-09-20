@@ -5530,3 +5530,160 @@ broker execution
 live execution
 positive P1.1 authorization
 ```
+
+
+---
+
+## 104. B-PE-01 provider-sensitive physical semantics evidence contract — qualified
+
+Starting HEAD:
+
+`a6e2206426b1229eb454dd224858b5934383d0e3`
+
+Initial candidate:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_candidate_2026-09-20.md`
+
+Initial candidate blob:
+
+`d21ce35fe9acdcdc1b3b0828bb2525f75c15054a`
+
+Initial adversarial record:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_adversarial_break_2026-09-20.md`
+
+Initial defects:
+
+```text
+BPE-F01 — SINGLE_PROVIDER_ESCAPE_UNDERCUTS_INDEPENDENCE_REQUIREMENT
+BPE-F02 — CLAIM_SUPPORT_CAN_BE_SELF_ASSERTED_WITHOUT_EXACT_SOURCE_ANCHOR
+BPE-F03 — LINEAGE_INDEPENDENCE_IS_SELF_ASSERTED
+BPE-F04 — TARGET_PROVIDER_SCOPE_VERSION_BINDING_NOT_CONCRETE_ENOUGH
+BPE-F05 — C07_MIXES_PROVIDER_FACT_WITH_PROJECT_DECODER_BEHAVIOR
+BPE-F06 — BROAD_CLAIM_CAN_PASS_WITH_UNPROVEN_REQUIRED_DIMENSION
+BPE-F07 — NO_CLOSED_PERSISTED_ADJUDICATION_OUTPUT_EVIDENCE_SET_BINDING
+BPE-F08 — POST_PASS_CONFLICT_SUPERSESSION_SEMANTICS_INCOMPLETE
+```
+
+First corrected candidate re-break demonstrated:
+
+```text
+BPE-R01 — INTEGRITY_DIGEST_AND_SEAL_CANONICALIZATION_DEFERRED
+BPE-R02 — SOURCE_ADMISSIBILITY_IS_NOT_A_PERSISTED_DECISION
+BPE-R03 — REOPEN_REQUIRED_EVENT_HAS_NO_CLOSED_SCHEMA_CURRENT_AUTHORITY_RULE
+```
+
+Final corrected candidate commit:
+
+`2dc7c9fff14efc9597797775cf8ed92878ed6456`
+
+Final candidate blob:
+
+`278a691b17cdd4b37e9c0e739f0fe9b56f014b29`
+
+Final persisted-head re-break:
+
+`reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_final_rebreak_2026-09-20.md`
+
+No additional defect was demonstrated.
+
+Final verdict:
+
+```text
+B-PE-01 NATIVE BI5 PROVIDER-SENSITIVE PHYSICAL SEMANTICS
+EVIDENCE CONTRACT = PASS
+```
+
+## 105. Qualified B-PE-01 semantics
+
+The contract now requires:
+
+```text
+C01-C08 exact provider-sensitive claim register
++
+mandatory claim dimensions
++
+closed target representation scope
++
+immutable source evidence records
++
+source ADMISSIBLE/REJECTED/BLOCKED decision
++
+exact per-claim anchors
++
+auditable lineage resolution
++
+provider-primary lineage
++
+distinct corroborating lineage
++
+dimension PASS/FAIL/BLOCKED
++
+claim PASS/FAIL/BLOCKED
++
+fixed SHA-256 / canonical JSON integrity
++
+sealed adjudication
++
+sealed reopen/supersession semantics
++
+current-authority predicate
+```
+
+Project V4.3 / I_A / I_B / F / O / handoff remain inadmissible as independent provider truth.
+
+Representation-wide evidence remains separate from later project-acquisition evidence.
+
+## 106. Current global state
+
+B-PE-01 contract PASS does not adjudicate provider truth.
+
+```text
+BPE-C01 = NOT ADJUDICATED
+BPE-C02 = NOT ADJUDICATED
+BPE-C03 = NOT ADJUDICATED
+BPE-C04 = NOT ADJUDICATED
+BPE-C05 = NOT ADJUDICATED
+BPE-C06 = NOT ADJUDICATED
+BPE-C07 = NOT ADJUDICATED
+BPE-C08 = NOT ADJUDICATED
+
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+No BI5 download, real processing, project acquisition, real Q/F/Q-RM-12 run or backtest occurred.
+
+## 107. Exactly one next governed action
+
+Open only:
+
+```text
+B-PE-02 — native BI5 provider/reference evidence collection and C01-C08 adjudication
+```
+
+Allowed scope:
+
+- collect documentary/provider/reference evidence under B-PE-01;
+- do not use V4.3/I_A/I_B/project tests as independent support;
+- persist immutable evidence source records;
+- persist exact claim/dimension anchors;
+- persist evidence admissibility decisions;
+- resolve lineage/independence;
+- adjudicate C01-C08 claim dimensions and claims;
+- produce PASS / FAIL / BLOCKED for each claim and overall provider-evidence status.
+
+Still prohibited:
+
+```text
+native BI5 project-data download
+real BI5 project payload processing
+real project acquisition
+D materialization
+real Q execution
+real F emission
+real Q-RM-12 execution
+real backtest
+paper/broker/live execution
+positive P1.1 authorization
+```
