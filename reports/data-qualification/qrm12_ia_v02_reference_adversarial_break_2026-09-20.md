@@ -259,3 +259,68 @@ Q-RM-12 I_A V0.2 REFERENCE COMPATIBILITY CANDIDATE = FAIL
 ```
 
 Only IA2-R01..IA2-R05 are authorized for the next correction.
+
+
+---
+
+## 9. Final correction and closure
+
+Residual correction commit:
+
+`fadeeec322f92062cacc9b998ff4a5d30eb603bf`
+
+Final qualified I_A V0.2 source blob:
+
+`cab85272bc5a2e229f56f1e02e624d68dc84ce29`
+
+Final extended adversarial breaker blob:
+
+`cde59a15e678c3e60a5cee0621a6596d9d244588`
+
+Residual defects IA2-R01..IA2-R05 were corrected only in the I_A V0.2 source plus workflow hash locks.
+
+Final dedicated persisted-HEAD re-break workflow commit:
+
+`9253320a5d1c87b048a35cc6b7499f96fb598cfa`
+
+Final run:
+
+`35497994387`
+
+Final job:
+
+`106044495302`
+
+Observed:
+
+```text
+frozen I_A-relevant Q-RM-12 contract = 9 passed
+extended I_A V0.2 adversarial breaker = 12 passed
+exact persisted source/breaker locks = PASS
+I_B V0.2 absent = PASS
+Q-RM-12 handoff absent = PASS
+qualification environment = PASS
+clean worktree = PASS
+```
+
+No residual demonstrated I_A V0.2 defect remains within the tested scope.
+
+## 10. Final verdict
+
+```text
+Q-RM-12 I_A V0.2 REFERENCE COMPATIBILITY IMPLEMENTATION CANDIDATE = PASS
+```
+
+Scope is strictly the I_A V0.2 reference-path implementation candidate.
+
+This does not create or qualify:
+
+```text
+I_B V0.2
+Q-RM-12 post-seal handoff runtime
+full Q-RM-12 executable comparison
+real BI5
+real acquisition
+real backtest
+paper/broker/live execution
+```
