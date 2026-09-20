@@ -57,7 +57,7 @@ contract_id =
 B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR
 
 contract_version =
-B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR_V0_1_CANDIDATE
+B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR_V0_2_CORRECTED
 ~~~
 
 Target:
@@ -267,35 +267,61 @@ resolved_probes[]
   comparison_window_duration = PT1H
   expected_market_open_basis
 candidate_locator_manifest_id
+transport_policy_id
+transport_policy_seal
 created_at_utc
 probe_plan_seal
 ~~~
 
 No mutation after the first provider object request.
 
-## 8. Exact raw transport capture
+## 8. TransportPolicy and exact raw transport capture
 
-Every future attempted candidate locator must produce one immutable TransportCapture.
-
-For BI5 object probes the transport protocol is fixed:
+Future execution requires one sealed TransportPolicy before the first object request:
 
 ~~~text
-request_method = GET
+schema = B_ERD_01_TRANSPORT_POLICY_V0_2
+
+transport_policy_id
+contract_id
+contract_version
+method = GET
 automatic_retry_count = 0
+automatic_content_decoding = false
+request_headers
+redirect_policy
+max_redirect_hops
+connect_timeout_seconds
+read_timeout_seconds
+policy_created_at_utc
+policy_seal
 ~~~
 
-Any timeout, client transport exception, 429, 5xx, auth/policy failure, truncated/incomplete transfer or other transport ambiguity is fail-closed for that candidate/probe.
-
-A later rerun is a new execution_id and new capture set; it never overwrites or replaces the earlier failed capture.
+Mandatory request header:
 
 ~~~text
-schema = B_ERD_01_TRANSPORT_CAPTURE_V0_1
+Accept-Encoding: identity
+~~~
+
+All exact request headers are persisted and reused for every candidate request in one execution.
+
+Redirects are captured hop-by-hop according to the sealed redirect_policy.
+
+Any transport-policy change requires a new execution_id and never rewrites prior evidence.
+
+Every future attempted candidate locator must produce one immutable TransportCapture:
+
+~~~text
+schema = B_ERD_01_TRANSPORT_CAPTURE_V0_2
 
 capture_id
 probe_plan_id
+transport_policy_id
+transport_policy_seal
 probe_id
 candidate_id
 request_method
+request_headers
 requested_locator
 request_started_at_utc
 response_received_at_utc
@@ -310,6 +336,18 @@ transport_disposition
 capture_created_at_utc
 capture_seal
 ~~~
+
+raw_response_sha256 is defined exactly as:
+
+~~~text
+SHA256(exact response body bytes exposed with HTTP automatic content decoding disabled)
+~~~
+
+Accept-Encoding: identity is mandatory to prevent transparent HTTP content-coding transformation from changing the hash domain.
+
+Any timeout, client transport exception, 429, 5xx, auth/policy failure, truncated/incomplete transfer or other transport ambiguity is fail-closed for that candidate/probe.
+
+A later rerun is a new execution_id and new capture set; it never overwrites or replaces the earlier failed capture.
 
 Selected headers include when present:
 
@@ -529,12 +567,11 @@ NON_DISCRIMINATING
 BLOCKED
 ~~~
 
-Predeclared top-level proposition:
+Predeclared top-level proposition is the current project representation premise:
 
 ~~~text
-T0 =
-"the bounded probe set can discriminate the observed representation state
-without unresolved transport, locator, unknown-family or semantic competition"
+T_HOURLY =
+"K1 legacy-hourly representation is empirically compatible with every required bounded probe window"
 ~~~
 
 Overall verdict remains exactly:
@@ -545,14 +582,29 @@ PROBE_REFUTED
 BLOCKED
 ~~~
 
-Rules:
+Verdict precedence:
 
-- PROBE_SUPPORTED iff every required probe is DISCRIMINATED and T0 holds;
-- PROBE_REFUTED iff valid non-transport evidence demonstrates T0 is false for at least one required probe;
-- BLOCKED iff evidence is insufficient to decide T0 because of transport, locator, unknown-family, integrity or semantic ambiguity;
-- refuting K1 while supporting K2 does not make the execution overall PROBE_REFUTED if the probe is successfully discriminated;
-- transport ambiguity never refutes;
-- no majority vote.
+1. if any required probe has K1 = REFUTED on valid non-transport evidence:
+   overall = PROBE_REFUTED;
+
+2. else if any required probe is BLOCKED, or K1 is NOT_OBSERVED without sufficient support/refutation:
+   overall = BLOCKED;
+
+3. else if every required probe has K1 = SUPPORTED:
+   overall = PROBE_SUPPORTED;
+
+4. otherwise:
+   overall = BLOCKED.
+
+K2, coexistence, transition-pattern and unknown-family results are always persisted as diagnostics/alternatives and never erased by the overall K1 verdict.
+
+Thus K1 refuted + K2 supported at one probe yields overall PROBE_REFUTED.
+
+Transport ambiguity never refutes.
+
+No majority vote.
+
+PROBE_SUPPORTED remains bounded and does not imply full-interval qualification.
 
 ## 16. Cross-probe synthesis
 
@@ -637,6 +689,9 @@ SHA256(canonical_json(locator_manifest_without_manifest_seal))
 ProbePlan.probe_plan_seal =
 SHA256(canonical_json(probe_plan_without_probe_plan_seal))
 
+TransportPolicy.policy_seal =
+SHA256(canonical_json(transport_policy_without_policy_seal))
+
 TransportCapture.capture_seal =
 SHA256(canonical_json(transport_capture_without_capture_seal))
 
@@ -661,6 +716,7 @@ execution_id
 contract_id/version
 locator_manifest_id/seal
 probe_plan_id/seal
+transport_policy_id/seal
 transport_capture_ids/seals
 diagnostic_path_ids/versions
 per_probe_candidate_results
@@ -730,10 +786,30 @@ BERD01-F07 — FULL D WARMUP REPRESENTATION COVERAGE NOT EXPLICIT
 
 Only those demonstrated defects were corrected.
 
+Persisted-head residual break later demonstrated:
+
+~~~text
+BERD01-R01 — OVERALL TARGET PROPOSITION IS META-DISCRIMINATION, NOT THE PROJECT PREMISE
+BERD01-R02 — HTTP BODY HASH DOMAIN / REQUEST POLICY NOT BYTE-DETERMINISTIC
+~~~
+
+Corrections:
+
+~~~text
+T_HOURLY now binds overall verdict to the current K1 project premise
+PROBE_REFUTED has explicit precedence on any valid K1 refutation
+TransportPolicy V0.2 is sealed before requests
+GET + zero retry + automatic content decoding disabled
+Accept-Encoding: identity mandatory
+exact request headers persisted
+redirect/timeouts presealed
+raw_response_sha256 byte domain closed
+~~~
+
 ## 24. Corrected candidate verdict
 
 ~~~text
-B-ERD-01 CONTRACT = CORRECTED PERSISTED CANDIDATE / FINAL RE-BREAK REQUIRED
+B-ERD-01 CONTRACT = V0.2 CORRECTED PERSISTED CANDIDATE / FINAL RE-BREAK REQUIRED
 
 B-PE-05 = NOT EXECUTED
 C08-D4 = BLOCKED
