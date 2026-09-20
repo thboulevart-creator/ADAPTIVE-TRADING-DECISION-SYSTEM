@@ -1,0 +1,75 @@
+name: Native BI5 Q-RM-12 I_B V0.2 Final Re-break
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/native-bi5-qrm12-ib-v02-final-rebreak.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: 0
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+  IB_V02_SOURCE_BLOB: '6d14704548861c13dfc809adad6ae7a21e31c2ca'
+  IB_V02_ADVERSARIAL_BLOB: '8fa78ae3110dcd04e3b3ba67cc6d641a9b48fdee'
+  IA_V02_SOURCE_BLOB: 'cab85272bc5a2e229f56f1e02e624d68dc84ce29'
+  QRM12_BREAKER_BLOB: '967ab86d517cc8736344bb27154641eb9bac7996'
+
+jobs:
+  final-rebreak:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted technical identities
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          test "$(git hash-object src/native_bi5_independent_qualifier_qrm12.py)" = "${IB_V02_SOURCE_BLOB}"
+          test "$(git hash-object breakers/native_bi5_qrm12_ib_v02_adversarial.py)" = "${IB_V02_ADVERSARIAL_BLOB}"
+          test "$(git hash-object src/native_bi5_reference_qualifier_qrm12.py)" = "${IA_V02_SOURCE_BLOB}"
+          test "$(git hash-object breakers/native_bi5_qrm12_compatibility_breaker.py)" = "${QRM12_BREAKER_BLOB}"
+          test ! -e src/native_bi5_qrm12_handoff.py
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Execute frozen I_B-relevant Q-RM-12 contract
+        run: |
+          python -m pytest -q \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_a2_qualified_result_shape_and_strict_seal[IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_a3_manifest_and_source_are_externally_pinnable[IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_b0_complete_unique_full_determinant_bindings_required[missing-IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_b0_complete_unique_full_determinant_bindings_required[duplicate-IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_b0_complete_unique_full_determinant_bindings_required[digest_only-IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_b1_common_package_cannot_supply_precomputed_b_semantics[complete_slot_count-IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_b1_common_package_cannot_supply_precomputed_b_semantics[terminal_fragment-IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_c5g_real_environment_blocked_result_has_no_f[IB]' \
+            'breakers/native_bi5_qrm12_compatibility_breaker.py::test_e4_breaker_owned_runtime_audit_closes_dynamic_preseal_channels[IB]'
+
+      - name: Execute I_B V0.2 adversarial breaker
+        run: python -m pytest -q breakers/native_bi5_qrm12_ib_v02_adversarial.py
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
