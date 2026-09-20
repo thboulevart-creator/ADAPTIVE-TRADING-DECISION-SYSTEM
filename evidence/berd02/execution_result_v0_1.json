@@ -1,0 +1,388 @@
+{
+  "schema": "B_ERD_01_EXECUTION_RESULT_V0_1",
+  "execution_id": "BERD02-EXEC-2026-09-20-V0_1",
+  "contract_id": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR",
+  "contract_version": "B_ERD_01_DUKASCOPY_USATECHIDXUSD_BOUNDED_REPRESENTATION_DISCRIMINATOR_V0_2_CORRECTED",
+  "locator_manifest_id": "BERD02-LOCATORS-USATECH-V0_1",
+  "locator_manifest_seal": "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7",
+  "probe_plan_id": "BERD02-PROBES-USATECH-V0_1",
+  "probe_plan_seal": "af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce",
+  "transport_policy_id": "BERD02-TRANSPORT-V0_1",
+  "transport_policy_seal": "136b5a0fecd6387bf5054cd13dc8cb090e7d5e991bd9971d040b0f9c07099b44",
+  "transport_capture_ids": [
+    "BERD02-PW-K1-CAPTURE",
+    "BERD02-PW-K2-CAPTURE",
+    "BERD02-P0-K1-CAPTURE",
+    "BERD02-P0-K2-CAPTURE",
+    "BERD02-P1-K1-CAPTURE",
+    "BERD02-P1-K2-CAPTURE",
+    "BERD02-P2-K1-CAPTURE",
+    "BERD02-P2-K2-CAPTURE",
+    "BERD02-P3-K1-CAPTURE",
+    "BERD02-P3-K2-CAPTURE",
+    "BERD02-P4-K1-CAPTURE",
+    "BERD02-P4-K2-CAPTURE",
+    "BERD02-P5-K1-CAPTURE",
+    "BERD02-P5-K2-CAPTURE",
+    "BERD02-P6-K1-CAPTURE",
+    "BERD02-P6-K2-CAPTURE",
+    "BERD02-P7-K1-CAPTURE",
+    "BERD02-P7-K2-CAPTURE"
+  ],
+  "transport_capture_seals": [
+    "c41a8b83f47bafca8bb0ac342a11e6add6410bbb7c7a487bbbeae2bfc33ef4cf",
+    "61308a382e3f29db25c4c23a34922bb8e0f13f14b0920d604eccbf49a2830777",
+    "87d70ba90d1a56f14c3583574c9b4bbe5115778dd3862d1c1367fd79e8e431f5",
+    "1435d2e28971f0c3025a21d9f9e80d3ad6f9450d3268d9c38726438cb24f38b1",
+    "2ca495b9075093f8d060d14676a60d9753f0479a1d300a640065d2124dfb1d93",
+    "755d03e335eab66d292d560a58abaa2154b5a4dc72b68f95a4371c0d3e2e0bf1",
+    "a96f8bcd537dc553ff5da8419da2ecbea15018e3d05fe63b32d4678974011b61",
+    "393a7cd7f68c3814ddafba6307a2c7f58ba07cd73c33cc08c20757e78afe2331",
+    "bb47cda8d50c6e606054a154ef7ff083c3d5fe6183f5a319e19f410cd08f56ec",
+    "b9f44eacd6e688fa12bd5d6e5a48f87e103972e4129e95e70b94a5fcba5cdc5c",
+    "c486a857e5c46d6c569ce1c2879d6b1b3174abe35707b571a4f66c49233b02e3",
+    "504abd8350486e40cc6042c6974324a80b3949aeecbb160c7dda3f973be98c40",
+    "1586f1f93b8284a1c6d61e66c6f6da422839a8e33f3e1e6ec86a1f006df6a598",
+    "d8777af48504aeebcf2499e0e113f4b2a888ba4acf3cf7e1dd203d0e7093651f",
+    "0d727a68f53660503fbd217c490698598522f080839fc13444cafeecd5219892",
+    "8af6e0ebfc08888974e7b2a0867dcdd8ac36a651d8b341eeca70abaa440faff8",
+    "c06d51bc3c83a82d768b34e420661ad5ecc4b70df0ae9fc8b44d8896df46cc98",
+    "2080c2266ebf5f9a267bf5b7685a12627b5129d69702b3b6f2b9d0ca3321b73c"
+  ],
+  "diagnostic_path_ids": [],
+  "diagnostic_path_versions": [],
+  "diagnostic_execution_status": "NOT_REACHED_DUE_TO_TRANSPORT_BLOCK",
+  "per_probe_candidate_results": [
+    {
+      "probe_id": "PW",
+      "comparison_window": {
+        "start": "2021-08-13T20:00:00Z",
+        "end": "2021-08-13T21:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P0",
+      "comparison_window": {
+        "start": "2021-08-15T22:00:00Z",
+        "end": "2021-08-15T23:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P1",
+      "comparison_window": {
+        "start": "2022-08-14T22:00:00Z",
+        "end": "2022-08-14T23:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P2",
+      "comparison_window": {
+        "start": "2023-08-14T00:00:00Z",
+        "end": "2023-08-14T01:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P3",
+      "comparison_window": {
+        "start": "2024-08-14T00:00:00Z",
+        "end": "2024-08-14T01:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P4",
+      "comparison_window": {
+        "start": "2025-08-14T00:00:00Z",
+        "end": "2025-08-14T01:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P5",
+      "comparison_window": {
+        "start": "2026-03-02T23:00:00Z",
+        "end": "2026-03-03T00:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P6",
+      "comparison_window": {
+        "start": "2026-03-04T00:00:00Z",
+        "end": "2026-03-04T01:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    },
+    {
+      "probe_id": "P7",
+      "comparison_window": {
+        "start": "2026-08-14T20:00:00Z",
+        "end": "2026-08-14T21:00:00Z"
+      },
+      "candidates": {
+        "K1_LEGACY_HOURLY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY"
+          ]
+        },
+        "K2_CURRENT_DAILY_TICK_BI5": {
+          "disposition": "BLOCKED",
+          "reason_codes": [
+            "FAMILY_TRANSPORT_BLOCKED",
+            "NO_HTTP_STATUS_HEADERS_OR_BODY",
+            "REQUESTER_PAYS_AUTHENTICATION_NOT_EXECUTABLE_IN_AVAILABLE_TRANSPORT"
+          ]
+        }
+      },
+      "per_probe_disposition": "BLOCKED",
+      "cross_family_relation": "COMPARISON_BLOCKED",
+      "diagnostic_paths": "NOT_REACHED_NO_BYTES"
+    }
+  ],
+  "per_probe_hypothesis_dispositions": [
+    {
+      "probe_id": "PW",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P0",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P1",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P2",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P3",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P4",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P5",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P6",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    },
+    {
+      "probe_id": "P7",
+      "T_HOURLY": "BLOCKED",
+      "K2": "BLOCKED",
+      "H_COEXISTENCE": "BLOCKED",
+      "H_UNKNOWN": "NOT_EVIDENCED"
+    }
+  ],
+  "cross_probe_summary": {
+    "required_probe_count": 9,
+    "discriminated_probe_count": 0,
+    "blocked_probe_count": 9,
+    "K1_supported_count": 0,
+    "K1_refuted_count": 0,
+    "K1_not_observed_count": 0,
+    "K1_blocked_count": 9
+  },
+  "unknown_representation_events": [],
+  "limitations": [
+    "Available web transport refused direct access to binary .bi5 object URLs and exposed no HTTP status, headers, or body bytes.",
+    "No raw provider bytes were available, so independent diagnostic decoding and cross-family semantic comparison were not reachable.",
+    "This execution does not establish absence, support, refutation, or unknown representation for any provider family."
+  ],
+  "overall_probe_verdict": "BLOCKED",
+  "overall_reason_codes": [
+    "ALL_REQUIRED_PROBES_TRANSPORT_BLOCKED",
+    "NO_RAW_BYTES",
+    "T_HOURLY_UNDECIDABLE"
+  ],
+  "created_at_utc": "2026-09-20T19:20:00Z",
+  "result_seal": "29d1f2512ea0e0344b8bd2c6b55fe77ed8f0bf65914cfbd2d02f91a1c95c1b69"
+}
