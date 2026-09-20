@@ -320,3 +320,108 @@ correct QTF-F01..QTF-F11 only
 ```
 
 No production code is authorized.
+
+
+---
+
+## 14. Persisted corrected-harness re-break — residual defects
+
+Corrected breaker/workflow atomic commit:
+
+`11e3cbdebea84588c56a3892d0c7210681548a48`
+
+Corrected breaker blob:
+
+`0879576a4dfad6aa76da295fc8f040a602752a08`
+
+Corrected workflow blob:
+
+`d47ef244386bf8ac3c1eb82cdeb18c791cf25e07`
+
+RED re-break:
+
+```text
+run = 35496936912
+job = 106041529157
+collection = 57 tests / PASS
+locks = PASS
+future surfaces absent = PASS
+environment = PASS
+breaker = RED
+clean worktree = PASS
+```
+
+The RED failures are now surface-specific rather than one autouse gate.
+
+The corrected persisted harness materially closes QTF-F01..QTF-F11, but a residual adversarial review demonstrates the following additional weaknesses.
+
+### QTF-R01 — TWO SIDE-SPECIFIC RESULT TESTS STILL REQUIRE BOTH PATHS
+
+`test_a2_qualified_result_shape_and_strict_seal[IB]` and
+`test_a3_manifest_and_source_are_externally_pinnable[IB]`
+still call `_qualify_pair()`.
+
+Therefore an absent/broken I_A can still mask an otherwise independently testable I_B result/manifest defect.
+
+#### Minimal correction
+
+For those side-parametrized tests, load and execute only the selected side.
+
+### QTF-R02 — ISOLATION CLOSURE ATTACKS ONLY WORKSPACE / OTHER-PATH FLAG
+
+The corrected harness checks:
+
+- workspace mismatch;
+- `other_path_output_readable = true`.
+
+It does not independently attack:
+
+- `network_policy != DENY`;
+- `ipc_policy != DENY`;
+- `cache_policy != PRIVATE_ONLY`;
+- runtime read set escaping the pre-seal allowlist.
+
+A handoff that validates only part of isolation evidence could pass.
+
+#### Minimal correction
+
+Parametrize forged sealed isolation evidence over each closure field and require pre-O BLOCKED.
+
+### QTF-R03 — SOURCE + MANIFEST CHECK CAN BOTH MISS DYNAMIC RUNTIME IMPORT
+
+The corrected harness checks source strings and manifest dependency inventory.
+
+A malicious/defective implementation can still:
+
+- omit a dynamic dependency from the manifest;
+- construct/import its module name dynamically so the forbidden literal does not appear in source;
+- consume the forbidden module at import or execution time.
+
+#### Minimal correction
+
+Add breaker-owned cold-import/runtime audit evidence that records import/open/network/subprocess events and rejects any observed opposite-path, handoff, current shared F/O semantic module or external channel before sealing.
+
+### QTF-R04 — RUN ID PRESENCE IS BOUND BUT NOT VALIDATED
+
+The receipt model contains `run_id`, but no attack proves it must be present and non-empty.
+
+A receipt can therefore satisfy all currently tested fields while failing to bind an actual run identity.
+
+#### Minimal correction
+
+Reject missing/empty/non-string run identity in receipt validation.
+
+## 15. Updated corrective scope
+
+Correct only:
+
+```text
+QTF-R01
+QTF-R02
+QTF-R03
+QTF-R04
+```
+
+Then atomically persist breaker + workflow lock and execute the final persisted-HEAD RED re-break.
+
+No production code is authorized.
