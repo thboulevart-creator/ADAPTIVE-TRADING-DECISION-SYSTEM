@@ -9,6 +9,7 @@ import json
 import lzma
 import math
 import struct
+import sys
 from dataclasses import fields, replace
 from pathlib import Path
 from typing import Any, Mapping
@@ -141,6 +142,59 @@ def _handoff():
 
 def _surface_modules():
     return _ia2(), _ib2(), _handoff()
+
+
+def _audited_fresh_qualify(side: str):
+    module_name = IA2_MODULE if side == "IA" else IB2_MODULE
+    opposite = IB2_MODULE if side == "IA" else IA2_MODULE
+    opposite_v1 = (
+        "src.native_bi5_independent_qualifier"
+        if side == "IA"
+        else "src.native_bi5_reference_qualifier"
+    )
+    forbidden_modules = (
+        opposite,
+        opposite_v1,
+        HANDOFF_MODULE,
+        "src.native_bi5_freeze_persistence",
+        "src.native_bi5_semantic_universe_comparator",
+    )
+
+    observed: list[tuple[str, str]] = []
+    held: dict[str, object] = {}
+    for name in (module_name, *forbidden_modules):
+        existing = sys.modules.pop(name, None)
+        if existing is not None:
+            held[name] = existing
+
+    def hook(event: str, args: tuple[Any, ...]) -> None:
+        if event == "import":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event == "open":
+            observed.append((event, str(args[0]) if args else ""))
+        elif event.startswith("socket.") or event.startswith("subprocess.") or event == "os.system":
+            observed.append((event, repr(args[:2])))
+
+    sys.addaudithook(hook)
+    try:
+        module = importlib.import_module(module_name)
+        module = _validate_impl_surface(
+            module,
+            expected_id=IA2_ID if side == "IA" else IB2_ID,
+            expected_version=IA2_VERSION if side == "IA" else IB2_VERSION,
+        )
+        result = module.qualify_native_bi5_v2(
+            copy.deepcopy(_package()),
+            execution_context=_context(side),
+        )
+    finally:
+        sys.modules.pop(module_name, None)
+        for name in forbidden_modules:
+            sys.modules.pop(name, None)
+        for name, value in held.items():
+            sys.modules[name] = value
+
+    return module, result, tuple(observed), forbidden_modules
 
 
 def _sha256(raw: bytes) -> str:
@@ -550,8 +604,11 @@ def test_a1_v1_identity_cannot_be_reused_for_v2_compatibility() -> None:
 
 @pytest.mark.parametrize("side", ("IA", "IB"))
 def test_a2_qualified_result_shape_and_strict_seal(side: str) -> None:
-    ia, ib, left, right = _qualify_pair()
-    module, result = (ia, left) if side == "IA" else (ib, right)
+    module = _ia2() if side == "IA" else _ib2()
+    result = module.qualify_native_bi5_v2(
+        copy.deepcopy(_package()),
+        execution_context=_context(side),
+    )
     _assert_v2_result(module, result)
     assert result.execution_status == "COMPLETED"
     assert result.semantic_status == "QUALIFIED"
@@ -563,8 +620,11 @@ def test_a2_qualified_result_shape_and_strict_seal(side: str) -> None:
 
 @pytest.mark.parametrize("side", ("IA", "IB"))
 def test_a3_manifest_and_source_are_externally_pinnable(side: str) -> None:
-    ia, ib, left, right = _qualify_pair()
-    module, result = (ia, left) if side == "IA" else (ib, right)
+    module = _ia2() if side == "IA" else _ib2()
+    result = module.qualify_native_bi5_v2(
+        copy.deepcopy(_package()),
+        execution_context=_context(side),
+    )
     manifest = module.build_implementation_manifest()
     assert result.implementation_manifest_digest == _sha256(_canonical_bytes(manifest))
     assert _source_digest(module)
@@ -783,6 +843,20 @@ def test_c5c_receipt_schema_is_closed() -> None:
     _assert_pre_o_blocked(result)
 
 
+@pytest.mark.parametrize("mutation", ("missing", "empty", "non_string"))
+def test_c5c2_receipt_run_id_must_be_nonempty_string(mutation: str) -> None:
+    ia, _, left, right = _qualify_pair()
+    receipt = _receipt(ia, left, run_id="A-RUN-ID", workspace="QRM12-IA-PRIVATE")
+    if mutation == "missing":
+        receipt.pop("run_id")
+    elif mutation == "empty":
+        receipt["run_id"] = ""
+    else:
+        receipt["run_id"] = 123
+    result = _run_handoff(left, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
 def test_c5d_receipt_workspace_must_match_sealed_isolation_evidence() -> None:
     ia, _, left, right = _qualify_pair()
     receipt = _receipt(ia, left, run_id="A-WORKSPACE", workspace="QRM12-OTHER-WORKSPACE")
@@ -797,6 +871,41 @@ def test_c5e_cross_path_readable_isolation_evidence_is_rejected() -> None:
     forged = _reseal_result(replace(left, isolation_evidence=evidence))
     receipt = _receipt(ia, forged, run_id="A-ISOLATION", workspace="QRM12-IA-PRIVATE")
     result = _run_handoff(forged, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
+@pytest.mark.parametrize("side", ("left", "right"))
+@pytest.mark.parametrize(
+    "field,value",
+    (
+        ("network_policy", "ALLOW"),
+        ("ipc_policy", "ALLOW"),
+        ("cache_policy", "SHARED"),
+        ("runtime_read_set", ("common_immutable_input_package", "forbidden_other_path_output")),
+    ),
+)
+def test_c5e2_all_isolation_closure_fields_are_enforced(
+    side: str,
+    field: str,
+    value: Any,
+) -> None:
+    ia, ib, left, right = _qualify_pair()
+    target = left if side == "left" else right
+    module = ia if side == "left" else ib
+    evidence = copy.deepcopy(dict(target.isolation_evidence))
+    evidence[field] = copy.deepcopy(value)
+    forged = _reseal_result(replace(target, isolation_evidence=evidence))
+    receipt = _receipt(
+        module,
+        forged,
+        run_id=f"{side}-ISOLATION-{field}",
+        workspace="QRM12-IA-PRIVATE" if side == "left" else "QRM12-IB-PRIVATE",
+    )
+    result = (
+        _run_handoff(forged, right, left_receipt=receipt)
+        if side == "left"
+        else _run_handoff(left, forged, right_receipt=receipt)
+    )
     _assert_pre_o_blocked(result)
 
 
@@ -1036,6 +1145,21 @@ def test_e3_preseal_cross_path_information_flow_is_forbidden() -> None:
     assert all(IB2_MODULE not in item for item in left_dependencies)
     assert all(IA2_MODULE not in item for item in right_dependencies)
     assert all(HANDOFF_MODULE not in item for item in left_dependencies + right_dependencies)
+
+
+@pytest.mark.parametrize("side", ("IA", "IB"))
+def test_e4_breaker_owned_runtime_audit_closes_dynamic_preseal_channels(side: str) -> None:
+    _, result, observed, forbidden_modules = _audited_fresh_qualify(side)
+    assert result.execution_status in _EXECUTION
+    forbidden_fragments = tuple(
+        item.replace(".", "/") for item in forbidden_modules
+    ) + forbidden_modules
+    for event, detail in observed:
+        normalized = detail.replace("\\", "/")
+        assert all(fragment not in normalized for fragment in forbidden_fragments)
+        assert not event.startswith("socket.")
+        assert not event.startswith("subprocess.")
+        assert event != "os.system"
 
 
 def test_f0_permission_closure() -> None:
