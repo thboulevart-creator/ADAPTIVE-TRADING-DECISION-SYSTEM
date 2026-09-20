@@ -5814,3 +5814,117 @@ real backtest
 paper/broker/live
 positive P1.1 authorization
 ```
+
+
+---
+
+## 112. B-PE-03 legacy-hourly provider-primary scope/version continuity — BLOCKED
+
+B-PE-03 searched provider-owned/versioned/archived Dukascopy evidence only.
+
+Provider snapshots:
+
+```text
+evidence/bpe03/provider_snapshots/dukascopy_api_support_2013_hourly_history.json
+evidence/bpe03/provider_snapshots/dukascopy_maven_dds2_timeline.json
+evidence/bpe03/provider_snapshots/dukascopy_jforex_4_8_0_release.json
+```
+
+Corrected evidence bundle:
+
+`evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json`
+
+blob:
+
+`f934df8ea93018ee0c22b2d69575f15fc8f2c72f`
+
+Adjudication seal:
+
+`90c240c2aea78fed5fd1509daecf390fd439b38376e3c3a4fc4368d19d6af2be`
+
+Adversarial defects corrected:
+
+```text
+BPE03-F01 — FREE_TEXT_CORROBORATION_BYPASSES_EVIDENCE_BINDING
+BPE03-F02 — JETTA_BACKEND_CHANGE_MISCLASSIFIED_AS_CONTRADICTION
+```
+
+Final persisted-head re-break:
+
+```text
+decision seals = exact
+lineage digest = exact
+evidence-set digest = exact
+assertion-set digest = exact
+adjudication seal = exact
+no new semantic defect
+```
+
+## 113. B-PE-03 evidence result
+
+Provider-primary evidence plus BPE02 independent corroboration now establishes:
+
+```text
+C08-D1 provider identity applicability = PASS
+C08-D2 legacy hourly BI5 family existence = PASS
+C08-D3 historical tick file-object family binding = PASS
+```
+
+Still unresolved:
+
+```text
+C08-D4 USATECH legacy-hourly applicability = BLOCKED
+C08-D5 target temporal/version continuity 2021–2026 = BLOCKED
+```
+
+Therefore:
+
+```text
+BPE-C08 = BLOCKED
+B-PE-03 = BLOCKED
+overall_provider_evidence_status = BLOCKED
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+No C01-C07 dimension was reopened.
+
+Important boundary:
+
+```text
+JForex 4.8.0 on 2026-03-03 introduced JETTA historical data
+≠ proven public BI5 hourly→daily transition date
+```
+
+The official Maven release timeline through 2025 likewise proves client-version continuity, not unchanged BI5 transport format.
+
+## 114. Exactly one next governed action
+
+Open only:
+
+```text
+B-PE-04 — provider-authoritative hourly→daily transition clarification package
+```
+
+Goal:
+
+create a minimal exact provider-facing clarification package seeking a durable Dukascopy-authored answer for:
+
+1. exact public historical tick hourly→daily BI5 transition date/version;
+2. whether legacy `HHh_ticks.bi5` applied during 2021-08-14 → transition;
+3. whether USATECHIDXUSD belonged to that legacy hourly representation during the target interval.
+
+Do not silently broaden to implementation evidence and do not lower B-PE-01's provider-primary requirement.
+
+Still prohibited:
+
+```text
+native BI5 project-data download
+real BI5 project payload processing
+real project acquisition
+D materialization
+real Q/F/Q-RM-12 execution
+real backtest
+paper/broker/live
+positive P1.1 authorization
+```

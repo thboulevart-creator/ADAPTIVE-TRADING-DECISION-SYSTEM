@@ -3604,3 +3604,71 @@ B global executable gate = BLOCKED
 Dominant next evidence gap: immutable/versioned provider-primary legacy-hourly scope/version continuity to the 2021–2026 target epoch.
 
 No project BI5 download, processing, acquisition or backtest occurred.
+
+
+---
+
+# B-PE-03 legacy-hourly provider-primary scope/version continuity — 2026-09-20
+
+B-PE-03 searched provider-owned/versioned/archived Dukascopy evidence only.
+
+Provider evidence persisted:
+
+```text
+Dukascopy API Support 2013
+→ historical tick file server + hour-addressed h_ticks.bi5
+
+Dukascopy Maven DDS2/JForex index
+→ provider client releases across 2021–2025
+
+JForex 4.8.0 release note, 2026-03-03
+→ historical price data from JETTA
+```
+
+Provider source snapshots:
+
+`evidence/bpe03/provider_snapshots/`
+
+Corrected evidence bundle:
+
+`evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json`
+
+blob:
+
+`f934df8ea93018ee0c22b2d69575f15fc8f2c72f`
+
+Adversarial defects corrected:
+
+```text
+BPE03-F01 — FREE_TEXT_CORROBORATION_BYPASSES_EVIDENCE_BINDING
+BPE03-F02 — JETTA_BACKEND_CHANGE_MISCLASSIFIED_AS_CONTRADICTION
+```
+
+Final re-adjudication:
+
+```text
+C08-D1 PASS
+C08-D2 PASS
+C08-D3 PASS
+C08-D4 BLOCKED
+C08-D5 BLOCKED
+
+BPE-C08 BLOCKED
+```
+
+No C01-C07 dimension was reopened.
+
+Final verdict:
+
+```text
+B-PE-03 = BLOCKED
+B global executable gate = BLOCKED
+```
+
+The searched provider corpus establishes historical legacy-hourly existence but not the exact hourly→daily transition boundary, target 2021–2026 continuity, or USATECH-specific legacy applicability.
+
+Next route:
+
+`B-PE-04 — provider-authoritative hourly→daily transition clarification package`
+
+No project BI5 or real execution occurred.
