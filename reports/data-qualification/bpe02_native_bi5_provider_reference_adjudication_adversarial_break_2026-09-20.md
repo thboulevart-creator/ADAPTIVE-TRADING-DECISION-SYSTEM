@@ -91,3 +91,61 @@ B-PE-02 INITIAL ADJUDICATION CANDIDATE = FAIL
 ```
 
 Only BPE02-F01 and BPE02-F02 are authorized for correction.
+
+
+---
+
+## Residual adversarial findings before correction
+
+### BPE02-F03 — CLAIM_ASSERTION_SCHEMA_NOT_CLOSED
+
+The candidate bundle stores claim anchors as multi-dimension objects:
+
+```text
+{id, evidence_id, anchor, proposition, dims:[...]}
+```
+
+B-PE-01 requires one closed assertion containing:
+
+```text
+assertion_id
+evidence_id
+claim_id
+dimension_id
+stance
+anchor_type
+anchor_locator
+anchor_integrity_digest
+normalized_proposition
+scope_mapping
+scope_mapping_rationale
+adjudicator_identity
+assertion_created_at_utc
+```
+
+A multi-dimension shortcut can silently assign one proposition to dimensions it does not actually entail and makes the required assertion-set digest projection impossible to reproduce.
+
+Verdict: demonstrated defect.
+
+Correction: one exact assertion per source × dimension × stance, using the closed B-PE-01 schema.
+
+### BPE02-F04 — MULTI_FILE_SOURCE_DIGEST_PROJECTION_NOT SELF-DESCRIBING
+
+E03/E04/E05 use one `content_integrity_digest` representing a hand-built bundle of several GitHub files.
+
+The EvidenceSourceRecord does not persist the exact bundle-member projection/algorithm, so a future auditor cannot reconstruct that digest from the record alone.
+
+Verdict: demonstrated defect.
+
+Correction: persist each GitHub file used as evidence as its own EvidenceSourceRecord with its own exact SHA-256 bytes digest and exact commit/path locator; group them only through lineage resolution, never through an undocumented bundle digest.
+
+## Updated authorized correction scope
+
+Correct only:
+
+```text
+BPE02-F01 — canonical seal generation
+BPE02-F02 — live provider snapshot immutability/admissibility
+BPE02-F03 — assertion schema closure
+BPE02-F04 — self-describing source digest projection
+```
