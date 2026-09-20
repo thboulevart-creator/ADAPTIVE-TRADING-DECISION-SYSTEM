@@ -3672,3 +3672,51 @@ Next route:
 `B-PE-04 — provider-authoritative hourly→daily transition clarification package`
 
 No project BI5 or real execution occurred.
+
+
+---
+
+# B-PE-04 provider-authoritative transition clarification package — 2026-09-20
+
+B-PE-04 formalized and adversarially qualified the exact provider-facing request/capture protocol needed to close C08-D4/D5.
+
+Qualified artifacts:
+
+```text
+evidence/bpe04/canonical_provider_request_template_v0_3.txt
+SHA-256 8931b8304ce0e2d0c6fd7502fe50a772b5b1f4e936b12eba8989e64ecf27a52a
+
+evidence/bpe04/question_manifest_v0_4.json
+seal 269fd3d2c062e110fec54c04b3c0ca174d2e14585887641c367cbad2d0e9c5ea
+```
+
+Defects closed:
+
+```text
+F01 data-time/retrieval-time conflation
+F02 bucket/layout conflation
+F03 daily tick ambiguity
+F04 boundary precision
+F05 channel authenticity
+F06 atomic answer schema
+R01 Q4 minimality breach
+R02 relative today
+R03 answer/question binding
+R04 question byte-boundary determinism
+```
+
+Final persisted-head re-break found no further defect.
+
+Verdict:
+
+```text
+B-PE-04 CLARIFICATION PACKAGE = PASS
+```
+
+No provider contact occurred.
+
+C08-D4/D5 and BPE-C08 remain BLOCKED.
+
+Next external-state action, requiring explicit user authorization:
+
+`B-PE-05 — governed provider clarification dispatch`.

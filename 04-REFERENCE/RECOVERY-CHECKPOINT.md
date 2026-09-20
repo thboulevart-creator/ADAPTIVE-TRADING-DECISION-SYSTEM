@@ -5928,3 +5928,131 @@ real backtest
 paper/broker/live
 positive P1.1 authorization
 ```
+
+
+---
+
+## 115. B-PE-04 provider-authoritative clarification package — PASS
+
+B-PE-04 qualified the minimal provider-facing request and future response capture/admissibility protocol.
+
+Canonical request:
+
+`evidence/bpe04/canonical_provider_request_template_v0_3.txt`
+
+blob:
+
+`c5789a6022aad951dec5ff665945f9c69ee08a90`
+
+SHA-256:
+
+`8931b8304ce0e2d0c6fd7502fe50a772b5b1f4e936b12eba8989e64ecf27a52a`
+
+Question manifest:
+
+`evidence/bpe04/question_manifest_v0_4.json`
+
+blob:
+
+`46666cd9f110f24189dfe3a541287d5a12356f8c`
+
+seal:
+
+`269fd3d2c062e110fec54c04b3c0ca174d2e14585887641c367cbad2d0e9c5ea`
+
+Final package blob:
+
+`6309a2e3053dd3d7fc76e4e71e724dd7f7af33d1`
+
+Adversarial defects closed:
+
+```text
+BPE04-F01 — DATA_TIMESTAMP_VS_RETRIEVAL_TIME_CONFLATION
+BPE04-F02 — OBJECT_BUCKETING_AND_PHYSICAL_LAYOUT_AXES_CONFLATED
+BPE04-F03 — DAILY_TICK_OBJECT_NOT_EXACTLY_IDENTIFIED
+BPE04-F04 — TRANSITION_BOUNDARY_PRECISION_UNDERSPECIFIED
+BPE04-F05 — CHANNEL_AUTHENTICITY_RULES_NOT_FAIL_CLOSED_ENOUGH
+BPE04-F06 — NO_ATOMIC_ANSWER_TO_DIMENSION_RESPONSE_SCHEMA
+
+BPE04-R01 — OPTIONAL_Q4_BREAKS_MINIMALITY
+BPE04-R02 — RELATIVE_TODAY_RETRIEVAL_TIME_IS_AMBIGUOUS
+BPE04-R03 — ANSWER_RECORD_NOT_BOUND_TO_EXACT_QUESTION_TEXT
+BPE04-R04 — QUESTION_HASH_BYTE_BOUNDARY_UNDEFINED
+```
+
+Final persisted-head re-break:
+
+```text
+canonical request hash = exact
+question manifest seal = exact
+Q1 hash = exact
+Q2 hash = exact
+Q3 hash = exact
+Q4 absent
+single send-time placeholder
+no relative today
+no new defect
+```
+
+Verdict:
+
+```text
+B-PE-04 PROVIDER-AUTHORITATIVE TRANSITION CLARIFICATION PACKAGE = PASS
+```
+
+## 116. Current evidence/gate state
+
+B-PE-04 PASS is package-only.
+
+```text
+Dukascopy contacted = NO
+provider response received = NO
+
+C08-D4 = BLOCKED
+C08-D5 = BLOCKED
+BPE-C08 = BLOCKED
+
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+No BI5 project-data download, real BI5 processing, acquisition, Q/F/Q-RM-12 real execution, backtest or paper/broker/live execution occurred.
+
+## 117. Exactly one next possible governed action
+
+```text
+B-PE-05 — governed provider clarification dispatch
+```
+
+This is an external-state action and **must not run without explicit user authorization**.
+
+If authorized, only:
+
+```text
+fresh HEAD
+→ read B-PE-04 PASS package
+→ materialize REQUEST_SENT_AT_UTC
+→ persist exact sent request
+→ compute sent-request SHA-256
+→ recompute Q1/Q2/Q3 sent-question hashes
+→ choose one authenticated Dukascopy channel
+→ dispatch exactly the qualified request
+→ persist channel/ticket/message identity
+→ audit + backup + checkpoint
+→ STOP
+```
+
+No response adjudication until a response exists.
+
+Still prohibited:
+
+```text
+native BI5 project-data download
+real BI5 project payload processing
+real project acquisition
+D materialization
+real Q/F/Q-RM-12 execution
+real backtest
+paper/broker/live
+positive P1.1 authorization
+```
