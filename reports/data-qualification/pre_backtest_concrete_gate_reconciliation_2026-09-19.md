@@ -3041,3 +3041,96 @@ I_B BLOCKED
 ```
 
 No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization was created.
+
+
+---
+
+# Q-RM-12 I_A V0.2 reference compatibility implementation — 2026-09-20
+
+The first Q-RM-12-compatible production path has completed its governed implementation qualification cycle.
+
+Final source:
+
+`src/native_bi5_reference_qualifier_qrm12.py`
+
+Final source blob:
+
+`cab85272bc5a2e229f56f1e02e624d68dc84ce29`
+
+Frozen Q-RM-12 breaker remained unchanged:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Dedicated I_A adversarial breaker:
+
+`breakers/native_bi5_qrm12_ia_v02_adversarial.py`
+
+final blob:
+
+`cde59a15e678c3e60a5cee0621a6596d9d244588`
+
+Adversarial record:
+
+`reports/data-qualification/qrm12_ia_v02_reference_adversarial_break_2026-09-20.md`
+
+Final persisted-head re-break:
+
+`reports/data-qualification/qrm12_ia_v02_reference_persisted_head_rebreak_2026-09-20.md`
+
+Final technical re-break HEAD:
+
+`9253320a5d1c87b048a35cc6b7499f96fb598cfa`
+
+Final execution evidence:
+
+```text
+run = 35497994387
+job = 106044495302
+
+frozen I_A-relevant Q-RM-12 contract = 9 passed
+extended I_A V0.2 adversarial breaker = 12 passed
+exact persisted identities = PASS
+I_B V0.2 absent = PASS
+Q-RM-12 handoff absent = PASS
+qualification environment = PASS
+clean worktree = PASS
+```
+
+Demonstrated and corrected defects:
+
+```text
+IA2-F01 — RESULT_ACQUISITION_NOT_CROSS_BOUND_TO_EMBEDDED_F
+IA2-F02 — RESULT_BINDINGS_NOT_CROSS_BOUND_TO_EMBEDDED_F
+IA2-F03 — EMBEDDED_F_RECONSTRUCTION_CAN_DIVERGE_FROM_RESULT_BINDINGS
+IA2-F04 — PRIVATE_F_VALIDATOR_ACCEPTS_EMPTY_QUALIFIED_COMPONENT_UNIVERSE
+IA2-F05 — MALFORMED_NONJSON_BINDING_ESCAPES_FAIL_CLOSED_PATH
+IA2-F06 — NONFINITE_QUALIFICATION_PARAMETER_MISCLASSIFIED_AS_IMPLEMENTATION_ERROR
+
+IA2-R01 — NONJSON_ISOLATION_CONTEXT_ESCAPES_ENVIRONMENT_FAIL_CLOSED
+IA2-R02 — NONJSON_D_COMPLETENESS_MISCLASSIFIED_AS_IMPLEMENTATION_ERROR
+IA2-R03 — RESEALED_OPEN_ISOLATION_EVIDENCE_IS_LOCALLY_ACCEPTED
+IA2-R04 — PRIVATE_F_VALIDATOR_ACCEPTS_BOOLEAN_SLOT_INDEX
+IA2-R05 — PRIVATE_F_VALIDATOR_ACCEPTS_NONCANONICAL_TIMESTAMP_WIDTH
+```
+
+Final verdict:
+
+```text
+Q-RM-12 I_A V0.2 REFERENCE COMPATIBILITY IMPLEMENTATION CANDIDATE = PASS
+```
+
+Current state:
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first harness = PASS
+I_A V0.2 reference compatibility implementation = PASS
+
+I_B V0.2 compatibility implementation = ABSENT
+Q-RM-12 post-seal handoff runtime = ABSENT
+Q-RM-12 executable run = BLOCKED
+```
+
+Protected existing I_A V0.1, I_B V0.1, F and O source identities remained unchanged.
+
+No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization was created.
