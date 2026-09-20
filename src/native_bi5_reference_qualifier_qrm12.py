@@ -193,7 +193,12 @@ def _safe_bindings(input_package: Any) -> tuple[Mapping[str, Any], ...]:
     result: list[Mapping[str, Any]] = []
     for raw in value:
         if isinstance(raw, Mapping):
-            result.append(copy.deepcopy(dict(raw)))
+            candidate = copy.deepcopy(dict(raw))
+            try:
+                _canonical_bytes(candidate)
+            except (TypeError, ValueError):
+                continue
+            result.append(candidate)
     return tuple(result)
 
 
@@ -324,7 +329,28 @@ def _validate_result_structure(result: ImplementationQualificationResultV2) -> N
             or result.terminal_evidence is not None
         ):
             raise ValueError("qualified result state contradiction")
-        _ia_validate_freeze_artifact(result.bound_f_artifact)
+        artifact = _ia_validate_freeze_artifact(result.bound_f_artifact)
+        universe = artifact["qualified_universe"]
+        if result.materialized_acquisition_id != universe["acquisition_domain_id"]:
+            raise ValueError("result/F acquisition identity mismatch")
+
+        result_bindings = _validate_determinant_bindings(
+            result.input_determinant_bindings,
+            universe["acquisition_declaration_version"],
+        )
+        result_by_stage = {
+            item["stage"]: item
+            for item in result_bindings
+        }
+        freeze_by_stage = {
+            item["stage"]: item
+            for item in universe["reconstruction_tuple"]
+        }
+        if set(freeze_by_stage) != set(_F_STAGES):
+            raise ValueError("result/F reconstruction stage mismatch")
+        for stage in _F_STAGES:
+            if result_by_stage[stage] != freeze_by_stage[stage]:
+                raise ValueError("result/F reconstruction binding mismatch")
         return
 
     if result.semantic_status in ("QUALIFICATION_BLOCKED", "ACQUISITION_REJECTED"):
@@ -434,6 +460,10 @@ def _validate_common_input(
     parameters = input_package.get("qualification_parameters")
     if not isinstance(parameters, Mapping) or not parameters:
         raise ValueError("qualification parameters missing")
+    try:
+        _canonical_bytes(dict(parameters))
+    except (TypeError, ValueError) as exc:
+        raise ValueError("qualification parameters are not strict JSON") from exc
 
     completeness = input_package.get("d_completeness_evidence")
     if (
@@ -887,6 +917,8 @@ def _ia_validate_freeze_artifact(artifact: Any) -> Mapping[str, Any]:
         for value in (components, accounting, anomalies, retained, b_candidates)
     ):
         raise ValueError("freeze relations invalid")
+    if not components:
+        raise ValueError("qualified freeze component universe empty")
 
     component_counts: dict[str, int] = {}
     component_hours: dict[str, datetime] = {}
