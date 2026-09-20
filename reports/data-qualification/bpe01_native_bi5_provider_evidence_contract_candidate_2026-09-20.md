@@ -285,6 +285,60 @@ Rules:
 - exact commit/release preferred where available;
 - source record contains no claim verdict and no `claim_ids_supported` shortcut.
 
+### 4.1 Fixed integrity primitive
+
+All contract integrity digests use:
+
+```text
+algorithm = SHA-256
+encoding  = lowercase 64-character hexadecimal
+```
+
+For raw source/snapshot/anchor bytes:
+
+```text
+digest = SHA256(exact_bytes)
+```
+
+No text normalization, newline rewriting, decompression, Unicode normalization, or content transformation occurs before a raw-byte digest unless that transformed representation is itself separately persisted and identified.
+
+### 4.2 EvidenceAdmissibilityDecision
+
+Every source record must have exactly one persisted source-level admissibility decision:
+
+```text
+schema =
+B_PE_01_EVIDENCE_ADMISSIBILITY_DECISION_V0_1_CANDIDATE
+
+decision_id
+evidence_id
+evidence_content_integrity_digest
+evidence_contract_id
+evidence_contract_version
+target_scope_signature
+evidence_class
+immutability_status
+provenance_status
+scope_status
+project_origin_status
+lineage_precheck_status
+decision_status = ADMISSIBLE | REJECTED | BLOCKED
+reason_codes
+reviewer_identity
+created_at_utc
+decision_seal
+```
+
+Rules:
+
+- `ADMISSIBLE` only when evidence bytes are pinned, provenance is sufficient, target-scope mapping is possible, and no project-origin disqualification is present;
+- `REJECTED` when the source is positively inadmissible for this contract;
+- `BLOCKED` when admissibility cannot yet be resolved;
+- only `ADMISSIBLE` sources may contribute SUPPORT/CONTRADICT assertions to dimension PASS/FAIL;
+- REJECTED/BLOCKED sources remain auditable but have zero positive evidentiary weight.
+
+The admissibility decision is sealed under Section 12 canonicalization rules.
+
 ---
 
 ## 5. Claim evidence assertion — separate adjudicator-owned schema
@@ -516,6 +570,7 @@ evidence_contract_id
 evidence_contract_version
 target_scope_signature
 evidence_records
+evidence_admissibility_decisions
 evidence_set_digest
 claim_assertions
 assertion_set_digest
@@ -533,15 +588,70 @@ adjudication_seal
 
 `evidence_records` binds exact `evidence_id + content_integrity_digest` tuples.
 
+`evidence_admissibility_decisions` binds each evidence ID to exactly one sealed ADMISSIBLE/REJECTED/BLOCKED source decision.
+
 `dimension_adjudications` contain exact supporting/contradicting assertion IDs and one of:
 
 `PASS | FAIL | BLOCKED`.
 
 `claim_adjudications` are derived from mandatory dimensions.
 
-`overall_provider_evidence_status = PASS` only when C01-C08 are all PASS.
+`overall_provider_evidence_status` is exactly:
 
-Canonical sealing rules for the future record must be explicitly fixed before implementation; until then no ad-hoc JSON hash may be presented as the final adjudication seal.
+```text
+PASS
+FAIL
+BLOCKED
+```
+
+and may be PASS only when C01-C08 are all PASS.
+
+### 12.1 Canonical JSON normalization
+
+All structured integrity objects in B-PE-01 use the same canonical JSON byte rule:
+
+```text
+UTF-8
+sorted object keys
+compact separators "," and ":"
+ensure_ascii = false
+allow_nan = false
+JSON types preserved exactly
+duplicate object keys rejected at serialized ingress
+```
+
+Arrays are semantically ordered unless the schema explicitly defines a set projection.
+
+Where a field is semantically a set, the contract defines the hashed projection as the lexicographically sorted array of each member's own canonical JSON bytes.
+
+### 12.2 Digest domains
+
+```text
+evidence_set_digest =
+SHA256(canonical_json(sorted [
+  {evidence_id, content_integrity_digest, admissibility_decision_id, admissibility_decision_seal}
+]))
+
+assertion_set_digest =
+SHA256(canonical_json(sorted [
+  {assertion_id, evidence_id, claim_id, dimension_id, stance, anchor_integrity_digest}
+]))
+
+lineage_resolution_integrity_digest =
+SHA256(canonical_json(lineage_resolution_payload_without_its_digest))
+
+decision_seal =
+SHA256(canonical_json(admissibility_decision_payload_without_decision_seal))
+
+adjudication_seal =
+SHA256(canonical_json(adjudication_payload_without_adjudication_seal))
+```
+
+Sorting for set projections is by canonical JSON byte sequence, not insertion/traversal order.
+
+All seal/digest fields use the SHA-256/lowercase-hex primitive from Section 4.1.
+
+A record whose recomputed seal differs from the persisted seal is invalid and cannot contribute authority.
 
 ---
 
@@ -551,23 +661,74 @@ Historical adjudications are immutable.
 
 New evidence never mutates an old sealed record.
 
-If a newly admitted exact-scope evidence item materially contradicts a current PASS:
+### 13.1 ProviderEvidenceReopenEvent — closed schema
+
+A material post-PASS trigger is persisted as:
 
 ```text
-create REOPEN_REQUIRED event
-→ previous PASS remains historical evidence
-→ previous adjudication becomes NON_AUTHORITATIVE_FOR_NEW_PROMOTION
-→ current provider-evidence authority = BLOCKED
-→ produce new adjudication that explicitly supersedes the old one
+schema =
+B_PE_01_PROVIDER_EVIDENCE_REOPEN_EVENT_V0_1_CANDIDATE
+
+reopen_event_id
+evidence_contract_id
+evidence_contract_version
+target_scope_signature
+prior_adjudication_id
+prior_adjudication_seal
+trigger_evidence_ids
+trigger_admissibility_decision_ids
+affected_claim_ids
+affected_dimension_ids
+trigger_reason_codes
+event_status = OPEN | CLOSED
+opened_at_utc
+closed_by_adjudication_id
+reviewer_identity
+reopen_event_seal
 ```
 
-Downstream B promotion must pin an exact adjudication that is:
+Seal:
 
-- PASS;
-- not superseded;
-- not subject to an unresolved REOPEN_REQUIRED event.
+```text
+reopen_event_seal =
+SHA256(canonical_json(reopen_event_payload_without_reopen_event_seal))
+```
 
-Thus a stale historical PASS cannot silently remain current authority.
+An OPEN event must have `closed_by_adjudication_id = null`.
+
+A CLOSED event must bind the exact superseding adjudication that resolved it.
+
+### 13.2 Trigger rule
+
+If newly admitted target-scope evidence materially contradicts a current PASS:
+
+```text
+persist OPEN ProviderEvidenceReopenEvent
+→ previous PASS remains immutable historical evidence
+→ previous adjudication becomes NON_AUTHORITATIVE_FOR_NEW_PROMOTION
+→ current provider-evidence authority = BLOCKED
+→ produce a new adjudication
+→ new adjudication explicitly supersedes the old one
+→ only that new adjudication may close the event
+```
+
+### 13.3 Current-authority predicate
+
+A B-PE-01 adjudication is current provider-evidence authority iff all are true:
+
+```text
+adjudication seal valid
+adjudication_status = PASS
+overall_provider_evidence_status = PASS
+target_scope_signature exact
+not superseded by a later valid adjudication
+no OPEN reopen event binds its adjudication_id/seal
+all bound evidence admissibility decisions remain exact and sealed
+```
+
+Downstream B promotion must pin the exact adjudication ID + seal and prove the current-authority predicate at promotion time.
+
+Thus a historical PASS cannot silently remain current authority after a material conflict.
 
 ---
 
@@ -636,7 +797,7 @@ positive P1.1 authorization
 
 ## 17. Correction record
 
-Adversarial break demonstrated:
+Initial adversarial break demonstrated:
 
 ```text
 BPE-F01 — SINGLE_PROVIDER_ESCAPE_UNDERCUTS_INDEPENDENCE_REQUIREMENT
@@ -649,7 +810,15 @@ BPE-F07 — NO_CLOSED_PERSISTED_ADJUDICATION_OUTPUT_EVIDENCE_SET_BINDING
 BPE-F08 — POST_PASS_CONFLICT_SUPERSESSION_SEMANTICS_INCOMPLETE
 ```
 
-Corrections are limited to those eight defects.
+First persisted-head re-break demonstrated residuals:
+
+```text
+BPE-R01 — INTEGRITY_DIGEST_AND_SEAL_CANONICALIZATION_DEFERRED
+BPE-R02 — SOURCE_ADMISSIBILITY_IS_NOT_A_PERSISTED_DECISION
+BPE-R03 — REOPEN_REQUIRED_EVENT_HAS_NO_CLOSED_SCHEMA_CURRENT_AUTHORITY_RULE
+```
+
+Corrections are limited to F01-F08 and R01-R03.
 
 ---
 
