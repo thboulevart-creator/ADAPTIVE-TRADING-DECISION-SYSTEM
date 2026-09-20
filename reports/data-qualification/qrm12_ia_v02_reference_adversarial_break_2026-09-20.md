@@ -153,3 +153,109 @@ real acquisition
 real backtest
 paper/broker/live
 ```
+
+
+---
+
+## 6. Second adversarial re-break after IA2-F01..F06 correction
+
+Corrected source commit:
+
+`86ad991a28f4012ccbb8f0a98c20080546175b0f`
+
+Corrected source blob:
+
+`bba5c38a8e49103bb041f61805888a51009d56c4`
+
+Targeted frozen-contract evidence:
+
+```text
+run = 35497770165
+job = 106043878724
+9 tests collected
+9 passed
+```
+
+Initial adversarial suite after correction:
+
+```text
+run = 35497770201
+job = 106043879182
+7 tests collected
+7 passed
+```
+
+The adversarial breaker was then extended without modifying the frozen Q-RM-12 breaker.
+
+Extended adversarial breaker blob:
+
+`cde59a15e678c3e60a5cee0621a6596d9d244588`
+
+Extended re-break commit:
+
+`c707469658e4f66e9e2ed6bf3393ba1689865e46`
+
+Extended re-break:
+
+```text
+run = 35497850364
+job = 106044108167
+
+12 tests collected
+7 passed
+5 failed
+locks / environment / clean worktree = PASS
+```
+
+## 7. Residual demonstrated defects
+
+### IA2-R01 — NONJSON_ISOLATION_CONTEXT_ESCAPES_ENVIRONMENT_FAIL_CLOSED
+
+A non-string value inside the pre-seal allowlist correctly made the environment invalid, but the same raw bytes were copied into `isolation_evidence` and result sealing crashed.
+
+Required correction:
+
+- isolation evidence must remain strict-JSON serializable even when the supplied execution context is malformed;
+- malformed context must still yield `ENVIRONMENT_BLOCKED / NOT_REACHED / NOT_REACHED`.
+
+### IA2-R02 — NONJSON_D_COMPLETENESS_MISCLASSIFIED_AS_IMPLEMENTATION_ERROR
+
+D completeness evidence with valid required fields plus an opaque bytes value passed common-input validation and failed only while constructing/sealing F.
+
+Required correction:
+
+- validate persisted D completeness evidence for strict JSON during common-input validation;
+- reject as `COMPLETED / QUALIFICATION_BLOCKED / NOT_CREATED`.
+
+### IA2-R03 — RESEALED_OPEN_ISOLATION_EVIDENCE_IS_LOCALLY_ACCEPTED
+
+A qualified result with `network_policy = ALLOW`, resealed after the mutation, remained valid under `is_sealed_implementation_result_v2`.
+
+Required correction:
+
+- locally valid completed/qualified results must carry closed isolation evidence;
+- environment-blocked evidence remains intentionally non-closed.
+
+### IA2-R04 — PRIVATE_F_VALIDATOR_ACCEPTS_BOOLEAN_SLOT_INDEX
+
+Because Python bool is an int subtype and `False == 0`, a forged F artifact could use `False` as slot index in accounting and occurrence witnesses and still pass the private validator.
+
+Required correction:
+
+- explicitly reject bool for source-accounting and occurrence-witness slot indexes.
+
+### IA2-R05 — PRIVATE_F_VALIDATOR_ACCEPTS_NONCANONICAL_TIMESTAMP_WIDTH
+
+The private F validator accepted `.0Z` fractional seconds although the qualified F normal form requires exactly millisecond-width `.mmmZ`.
+
+Required correction:
+
+- require exact `YYYY-MM-DDTHH:MM:SS.mmmZ` syntax before datetime parsing.
+
+## 8. Updated verdict before residual correction
+
+```text
+Q-RM-12 I_A V0.2 REFERENCE COMPATIBILITY CANDIDATE = FAIL
+```
+
+Only IA2-R01..IA2-R05 are authorized for the next correction.
