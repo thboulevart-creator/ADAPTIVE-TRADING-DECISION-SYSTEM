@@ -1,0 +1,121 @@
+{
+  "records": [
+    {
+      "decompressed_byte_length": 60960,
+      "decompressed_sha256": "cc41d0fa4a204f06cc6687ffa9fbc4494d9687c0348a5f084c75a4d68589cc48",
+      "diagnostic_seal": "afa07c2bc341d35e2771f55e0202677fc78e08b72ce169be44fcfdef621539d8",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "PW",
+      "projection_sha256": "30562521b5d52c9008989649681b221ff3891ed673284e34285c9d6b657166ff",
+      "raw_response_sha256": "8698d78a705b61e8da22e4577736c80975ff9600cb43d73151acf5e69d045aa7",
+      "record_count": 3048,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 75840,
+      "decompressed_sha256": "881ce76f6c0f4da3d9c14724172c4fe1e831b9a52919cc2130d397fbf2ff2957",
+      "diagnostic_seal": "c8ec14852b72eb3cca193757127041c09667594721c58554836226cfe9652dae",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P0",
+      "projection_sha256": "f33e56c5d22d96803448f6a5719c5847e17e70679aaef9078083e040885e87bc",
+      "raw_response_sha256": "d2a5ee662d3669f477b7c621080c5c302644ffa213e9a88319fb7fb7e5668b41",
+      "record_count": 3792,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 86960,
+      "decompressed_sha256": "06d37aa2f5e031ddd3b32a275c2e0817f56bec3bbe1e54f158c73df95385ecce",
+      "diagnostic_seal": "39fd54950845e44657aec5d2e26aa44218b2a495cae0e704cb3134df8432ced6",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P1",
+      "projection_sha256": "f10ae6078b63cc7867f5810a21571805092792e737fab940df7475031cd3eab3",
+      "raw_response_sha256": "3e822be146df9a0a841806ebf56b34fde628faef37c8cc2d246c9f3550a83a27",
+      "record_count": 4348,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 185640,
+      "decompressed_sha256": "53c22fbcd876b58c448b673f5daa6e2cf3876a5bbbdeef10a2630a3246397cc9",
+      "diagnostic_seal": "9e36274359460ad2d63a0b0c996554802c418261db8ee343430522dbb3f19748",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P2",
+      "projection_sha256": "fe426ec3cda70736a1a906ad7261fa97cbbb18e4279a9b964c97348b3dd7e7d2",
+      "raw_response_sha256": "00b9651b22a8d38c0f6cd7f4ce5921c7a31c213d7c587a05bc1df5a550f23f6a",
+      "record_count": 9282,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 157500,
+      "decompressed_sha256": "5dd7e0a1375e25465c5dd64c302592019d512f62e75520b5ee31106877f8a28d",
+      "diagnostic_seal": "541c4cf6ecf207b9279a592b7e8d0370dad9570bc822bb1d3c202ad6b627bcb9",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P3",
+      "projection_sha256": "914167a218d327f62a62d251d481ef5ce3a229207b26e8bdc9b450dd0d8bbbed",
+      "raw_response_sha256": "1fdd059df242e5d8a947319d981a187df208d0771204a249a92d2eadc8c0f639",
+      "record_count": 7875,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 139340,
+      "decompressed_sha256": "9b0c2e6d96eefe22cd6175c75469aca364de015c9d4efddf5a277d861cfb4079",
+      "diagnostic_seal": "674d33207ece73c433f0b0d8a28f21ae4027180a2757682cb2d26fe02a5baf78",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P4",
+      "projection_sha256": "381b096df6dde671f75d216b7d4a504228b9219e133299d03459c0cc5f99fbb1",
+      "raw_response_sha256": "2c05aa59e85e8f50377f5504b445e78e9e08f07283329eb054dd229b51a5176d",
+      "record_count": 6967,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 212180,
+      "decompressed_sha256": "a82aa3a749fca09984a3b20d90c244bd1c3276ec160f819f9fe71d1c446b59ff",
+      "diagnostic_seal": "e6a1a2fc4c7762cef468c101ebba02c67f837c21714b90279842a8e0afb1764a",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P5",
+      "projection_sha256": "c500ed4a28c88bcca557f7d3f3f7c4ef8fd50a3e03ebc0c2393aff76237217d6",
+      "raw_response_sha256": "1db10b7adfff4fb9e2e3056e585b29a84784836ece574c4f3579bae34a05a9bc",
+      "record_count": 10609,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 405180,
+      "decompressed_sha256": "3eb3797a5fa8b419e3b9977188f01e06436e8b113c79d53fe9a6a0c83601dc7f",
+      "diagnostic_seal": "2414270a9e724c5c65eeb7401ab148b94fd74e14d7daa373104869b881c34707",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P6",
+      "projection_sha256": "001f71ccc015121e9a12eb2d444ee9be6e0f4c63699a33f17d48e8b3af6498cf",
+      "raw_response_sha256": "29a5865bc6b1f3ec13111f51fc499a780efb6896f69db44180714f61a1d3ef87",
+      "record_count": 20259,
+      "success": true
+    },
+    {
+      "decompressed_byte_length": 73000,
+      "decompressed_sha256": "683dfa3b235e9c8ab55a69113b41ccf6dc56bfa2b8a93fd142fddddc0e11ab3d",
+      "diagnostic_seal": "fad682b38cd5c1df5461cc14571400e19d0f82b73565d2482d56061bd89523c1",
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "path_id": "B_XZ_MANUAL_PARSE",
+      "plausibility_errors": [],
+      "probe_id": "P7",
+      "projection_sha256": "b80085814cc25f85f6a8148205f32b0cf337f4fbfa41b8af4fec1f7295b0612a",
+      "raw_response_sha256": "f4f6f3c529d8454dd661a52116b7533fe3a266a7f45dcd0fde0536367d90041e",
+      "record_count": 3650,
+      "success": true
+    }
+  ]
+}

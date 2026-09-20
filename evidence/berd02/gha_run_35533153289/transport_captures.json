@@ -1,0 +1,800 @@
+{
+  "capture_count": 9,
+  "capture_set_seal": "cd989e127a43145dad52aee53f3f6bbdc466b1242f0f039a9a898ace973e6336",
+  "captures": [
+    {
+      "body_artifact": "runtime-output/bodies/PW_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "c61c69bf912748528d798e9a613c545f69798dda8b9d252d6c1e615306fe1999",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "PW",
+      "raw_response_byte_length": 14931,
+      "raw_response_sha256": "8698d78a705b61e8da22e4577736c80975ff9600cb43d73151acf5e69d045aa7",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2021/07/13/20h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:42:06.542627+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2021/07/13/20h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:42:14 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "14931"
+        },
+        {
+          "name": "last-modified",
+          "value": "Fri, 13 Aug 2021 21:01:11 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"6116dd97-3a53\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH2"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:42:14.350600+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/PW_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P0_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "ffc6cc270bed5c90ac1b07308e8142ecd1efcec46ff1f8d031d7c8bea284e5b7",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P0",
+      "raw_response_byte_length": 19224,
+      "raw_response_sha256": "d2a5ee662d3669f477b7c621080c5c302644ffa213e9a88319fb7fb7e5668b41",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2021/07/15/22h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:42:14.366617+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2021/07/15/22h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:42:21 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "19224"
+        },
+        {
+          "name": "last-modified",
+          "value": "Sun, 15 Aug 2021 23:01:00 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"61199cac-4b18\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH2"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:42:21.615815+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P0_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P1_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "691a6b17da2fe3e2dff4e1ef30ee89b4708ad5ae17112eca9940db4469e017a7",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P1",
+      "raw_response_byte_length": 21365,
+      "raw_response_sha256": "3e822be146df9a0a841806ebf56b34fde628faef37c8cc2d246c9f3550a83a27",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2022/07/14/22h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:42:21.634083+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2022/07/14/22h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:42:34 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "21365"
+        },
+        {
+          "name": "last-modified",
+          "value": "Sun, 14 Aug 2022 23:00:57 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"62f97ea9-5375\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH2"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:42:34.420009+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P1_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P2_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "b5bb87387693ac92d25edf74319d062b5629ab6cef15232e3ce73ea1824ff072",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P2",
+      "raw_response_byte_length": 45739,
+      "raw_response_sha256": "00b9651b22a8d38c0f6cd7f4ce5921c7a31c213d7c587a05bc1df5a550f23f6a",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2023/07/14/00h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:42:34.440665+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2023/07/14/00h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:42:43 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "45739"
+        },
+        {
+          "name": "last-modified",
+          "value": "Mon, 14 Aug 2023 01:00:36 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"64d97cb4-b2ab\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH3"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:42:43.541227+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P2_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P3_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "4a30c5d6b2a37a45437b7fcfe50fc7584da9b822d821192b0fae8bbc0ff223d3",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P3",
+      "raw_response_byte_length": 41480,
+      "raw_response_sha256": "1fdd059df242e5d8a947319d981a187df208d0771204a249a92d2eadc8c0f639",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2024/07/14/00h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:42:43.582914+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2024/07/14/00h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:42:51 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "41480"
+        },
+        {
+          "name": "last-modified",
+          "value": "Wed, 14 Aug 2024 01:02:53 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"66bc023d-a208\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH3"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:42:51.876069+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P3_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P4_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "43e8ed4feca29f90ead18170ce4293cde8f58e1d4148315d928e0e38b4f1d0be",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P4",
+      "raw_response_byte_length": 34789,
+      "raw_response_sha256": "2c05aa59e85e8f50377f5504b445e78e9e08f07283329eb054dd229b51a5176d",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2025/07/14/00h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:42:51.912422+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2025/07/14/00h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:43:08 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "34789"
+        },
+        {
+          "name": "last-modified",
+          "value": "Thu, 14 Aug 2025 01:02:46 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"689d35b6-87e5\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH3"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:43:08.255274+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P4_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P5_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "842e89b043e2385e69fd414ec6564c3a5ab13f33a06d2b37b79e1cf2a91a5877",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P5",
+      "raw_response_byte_length": 54305,
+      "raw_response_sha256": "1db10b7adfff4fb9e2e3056e585b29a84784836ece574c4f3579bae34a05a9bc",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2026/02/02/23h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:43:08.287183+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2026/02/02/23h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:43:17 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "54305"
+        },
+        {
+          "name": "last-modified",
+          "value": "Tue, 03 Mar 2026 00:35:46 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"69a62ce2-d421\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH2"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:43:17.872685+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P5_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P6_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "610c832ac92c3712b3d668740bca453eaea478210b3787bbb8100895ca32da8e",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P6",
+      "raw_response_byte_length": 104246,
+      "raw_response_sha256": "29a5865bc6b1f3ec13111f51fc499a780efb6896f69db44180714f61a1d3ef87",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2026/02/04/00h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:43:17.919227+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2026/02/04/00h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:43:29 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "104246"
+        },
+        {
+          "name": "last-modified",
+          "value": "Wed, 04 Mar 2026 01:09:19 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"69a7863f-19736\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH3"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:43:30.362754+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P6_K1.verbose.txt"
+    },
+    {
+      "body_artifact": "runtime-output/bodies/P7_K1.bi5",
+      "candidate_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "capture_seal": "1e09d4ce58a6a0f9fc6a0ec0444c42865d0ab52e0fed3b706721e086d822469b",
+      "curl_exit_code": 0,
+      "error": null,
+      "execution_id": "BERD02-GHA-35533153289-1",
+      "family_disposition": "FAMILY_OBSERVED",
+      "http_status": 200,
+      "probe_id": "P7",
+      "raw_response_byte_length": 17831,
+      "raw_response_sha256": "f4f6f3c529d8454dd661a52116b7533fe3a266a7f45dcd0fde0536367d90041e",
+      "request_header_trace": [
+        "GET /datafeed/USATECHIDXUSD/2026/07/14/20h_ticks.bi5 HTTP/1.1",
+        "Host: datafeed.dukascopy.com",
+        "Accept: */*",
+        "Accept-Encoding: identity",
+        "User-Agent: ATDS-BERD02-GHA/3.0",
+        ""
+      ],
+      "request_headers": {
+        "Accept": "*/*",
+        "Accept-Encoding": "identity",
+        "User-Agent": "ATDS-BERD02-GHA/3.0"
+      },
+      "request_method": "GET",
+      "request_started_at_utc": "2026-09-20T19:43:30.449617+00:00",
+      "requested_locator": "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/2026/07/14/20h_ticks.bi5",
+      "response_headers": [
+        {
+          "name": "date",
+          "value": "Sun, 20 Sep 2026 19:43:44 GMT"
+        },
+        {
+          "name": "content-type",
+          "value": "application/octet-stream"
+        },
+        {
+          "name": "content-length",
+          "value": "17831"
+        },
+        {
+          "name": "last-modified",
+          "value": "Fri, 14 Aug 2026 21:02:46 GMT"
+        },
+        {
+          "name": "etag",
+          "value": "\"6a7f8276-45a7\""
+        },
+        {
+          "name": "cache-control",
+          "value": "public"
+        },
+        {
+          "name": "pragma",
+          "value": "public"
+        },
+        {
+          "name": "access-control-allow-origin",
+          "value": "https://freeserv.dukascopy.com"
+        },
+        {
+          "name": "accept-ranges",
+          "value": "bytes"
+        },
+        {
+          "name": "strict-transport-security",
+          "value": "max-age=63072000; includeSubDomains"
+        },
+        {
+          "name": "server",
+          "value": "YANDA"
+        },
+        {
+          "name": "x-duk-fes",
+          "value": "AH3"
+        },
+        {
+          "name": "x-duk-bes",
+          "value": "x"
+        }
+      ],
+      "response_received_at_utc": "2026-09-20T19:43:45.111499+00:00",
+      "retry_performed": false,
+      "schema": "B_ERD_02_GHA_TRANSPORT_CAPTURE_V0_1",
+      "transport_disposition": "OBJECT_BYTES_OBTAINED",
+      "verbose_artifact": "runtime-output/bodies/P7_K1.verbose.txt"
+    }
+  ],
+  "execution_id": "BERD02-GHA-35533153289-1",
+  "schema": "B_ERD_02_GHA_CAPTURE_SET_V0_1"
+}

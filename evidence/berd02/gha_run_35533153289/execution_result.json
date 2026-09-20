@@ -1,0 +1,195 @@
+{
+  "K1_blocked_count": 0,
+  "K1_not_observed_count": 0,
+  "K1_refuted_count": 0,
+  "K1_supported_count": 9,
+  "K2_execution_status": "SECURITY_CAPTURE_POLICY_BLOCK",
+  "anti_extrapolation": "PROBE_SUPPORTED_NE_FULL_INTERVAL_QUALIFIED",
+  "backtest_performed": false,
+  "created_at_utc": "2026-09-20T19:43:45.129295+00:00",
+  "execution_id": "BERD02-GHA-35533153289-1",
+  "full_acquisition_performed": false,
+  "locator_manifest_id": "BERD02-LOCATORS-USATECH-V0_1",
+  "locator_manifest_seal": "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7",
+  "overall_probe_verdict": "PROBE_SUPPORTED",
+  "per_probe_results": [
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "PW",
+      "window_end_utc": "2021-08-13T21:00:00Z",
+      "window_start_utc": "2021-08-13T20:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P0",
+      "window_end_utc": "2021-08-15T23:00:00Z",
+      "window_start_utc": "2021-08-15T22:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P1",
+      "window_end_utc": "2022-08-14T23:00:00Z",
+      "window_start_utc": "2022-08-14T22:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P2",
+      "window_end_utc": "2023-08-14T01:00:00Z",
+      "window_start_utc": "2023-08-14T00:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P3",
+      "window_end_utc": "2024-08-14T01:00:00Z",
+      "window_start_utc": "2024-08-14T00:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P4",
+      "window_end_utc": "2025-08-14T01:00:00Z",
+      "window_start_utc": "2025-08-14T00:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P5",
+      "window_end_utc": "2026-03-03T00:00:00Z",
+      "window_start_utc": "2026-03-02T23:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P6",
+      "window_end_utc": "2026-03-04T01:00:00Z",
+      "window_start_utc": "2026-03-04T00:00:00Z"
+    },
+    {
+      "K1": {
+        "disposition": "SUPPORTED",
+        "reason_codes": [
+          "TWO_INDEPENDENT_DIAGNOSTICS_AGREE"
+        ]
+      },
+      "K2": {
+        "disposition": "BLOCKED",
+        "reason_codes": [
+          "SECURITY_CAPTURE_POLICY_BLOCK"
+        ],
+        "request_sent": false
+      },
+      "cross_family_relation": "COMPARISON_BLOCKED_K2_NOT_EXECUTED",
+      "probe_id": "P7",
+      "window_end_utc": "2026-08-14T21:00:00Z",
+      "window_start_utc": "2026-08-14T20:00:00Z"
+    }
+  ],
+  "probe_plan_id": "BERD02-PROBES-USATECH-V0_1",
+  "probe_plan_seal": "af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce",
+  "result_seal": "ab5c5bdf97ce3dcfa773ed555afa842443ef21b7a155057ab0e9517bb573f5ef",
+  "runtime_policy_id": "BERD02-GHA-TRANSPORT-V0_3-CURL-IPV4",
+  "runtime_policy_seal": "527348be332523f669b51912f3f76dd5309e720b6e186eef04c12b455f455e20",
+  "schema": "B_ERD_02_GHA_EXECUTION_RESULT_V0_1",
+  "source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501"
+}

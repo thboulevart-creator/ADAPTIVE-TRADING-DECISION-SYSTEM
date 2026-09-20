@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+date: Sun, 20 Sep 2026 19:42:21 GMT
+content-type: application/octet-stream
+content-length: 19224
+last-modified: Sun, 15 Aug 2021 23:01:00 GMT
+etag: "61199cac-4b18"
+cache-control: public
+pragma: public
+access-control-allow-origin: https://freeserv.dukascopy.com
+accept-ranges: bytes
+strict-transport-security: max-age=63072000; includeSubDomains
+server: YANDA
+x-duk-fes: AH2
+x-duk-bes: x
+

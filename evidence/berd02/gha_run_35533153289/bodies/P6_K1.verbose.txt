@@ -1,0 +1,70 @@
+* Host datafeed.dukascopy.com:443 was resolved.
+* IPv6: (none)
+* IPv4: 16.62.187.25, 16.62.244.190
+*   Trying 16.62.187.25:443...
+* Connected to datafeed.dukascopy.com (16.62.187.25) port 443
+* ALPN: curl offers http/1.1
+} [5 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Client hello (1):
+} [512 bytes data]
+*  CAfile: /etc/ssl/certs/ca-certificates.crt
+*  CApath: /etc/ssl/certs
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Server hello (2):
+{ [122 bytes data]
+* TLSv1.3 (IN), TLS handshake, Encrypted Extensions (8):
+{ [25 bytes data]
+* TLSv1.3 (IN), TLS handshake, Certificate (11):
+{ [2604 bytes data]
+* TLSv1.3 (IN), TLS handshake, CERT verify (15):
+{ [79 bytes data]
+* TLSv1.3 (IN), TLS handshake, Finished (20):
+{ [52 bytes data]
+* TLSv1.3 (OUT), TLS change cipher, Change cipher spec (1):
+} [1 bytes data]
+* TLSv1.3 (OUT), TLS handshake, Finished (20):
+} [52 bytes data]
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384 / X25519 / id-ecPublicKey
+* ALPN: server accepted http/1.1
+* Server certificate:
+*  subject: CN=dukascopy.com
+*  start date: Jul 27 00:00:00 2026 GMT
+*  expire date: Oct 25 23:59:59 2026 GMT
+*  subjectAltName: host "datafeed.dukascopy.com" matched cert's "*.dukascopy.com"
+*  issuer: C=AT; O=ZeroSSL GmbH; CN=ZeroSSL ECC DV SSL CA 2
+*  SSL certificate verify ok.
+*   Certificate level 0: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA256
+*   Certificate level 1: Public key type EC/prime256v1 (256/128 Bits/secBits), signed using ecdsa-with-SHA384
+*   Certificate level 2: Public key type EC/secp384r1 (384/192 Bits/secBits), signed using ecdsa-with-SHA384
+* using HTTP/1.x
+} [5 bytes data]
+> GET /datafeed/USATECHIDXUSD/2026/02/04/00h_ticks.bi5 HTTP/1.1
+> Host: datafeed.dukascopy.com
+> Accept: */*
+> Accept-Encoding: identity
+> User-Agent: ATDS-BERD02-GHA/3.0
+> 
+{ [5 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [57 bytes data]
+* TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+{ [57 bytes data]
+* old SSL session ID is stale, removing
+{ [5 bytes data]
+< HTTP/1.1 200 OK
+< date: Sun, 20 Sep 2026 19:43:29 GMT
+< content-type: application/octet-stream
+< content-length: 104246
+< last-modified: Wed, 04 Mar 2026 01:09:19 GMT
+< etag: "69a7863f-19736"
+< cache-control: public
+< pragma: public
+< access-control-allow-origin: https://freeserv.dukascopy.com
+< accept-ranges: bytes
+< strict-transport-security: max-age=63072000; includeSubDomains
+< server: YANDA
+< x-duk-fes: AH3
+< x-duk-bes: x
+< 
+{ [14906 bytes data]
+* Connection #0 to host datafeed.dukascopy.com left intact

@@ -1,0 +1,15 @@
+{
+  "schema": "B_ERD_02_GHA_RUN_PROVENANCE_V0_1",
+  "workflow_run_id": 35533153289,
+  "workflow_job_id": 106137359561,
+  "artifact_id": 10612217020,
+  "artifact_name": "berd02-gha-35533153289-1",
+  "artifact_digest": "sha256:ec36b42f01116374ce017d1d00544a2862b83845d0066110d5d01c7d3bb62f61",
+  "source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+  "execution_id": "BERD02-GHA-35533153289-1",
+  "overall_probe_verdict": "PROBE_SUPPORTED",
+  "result_seal": "ab5c5bdf97ce3dcfa773ed555afa842443ef21b7a155057ab0e9517bb573f5ef",
+  "k1_supported_count": 9,
+  "k2_status": "SECURITY_CAPTURE_POLICY_BLOCK",
+  "anti_extrapolation": "PROBE_SUPPORTED_NE_FULL_INTERVAL_QUALIFIED"
+}
