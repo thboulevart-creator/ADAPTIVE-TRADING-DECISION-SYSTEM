@@ -155,3 +155,83 @@ def test_b1_nonfinite_qualification_parameter_is_common_input_rejection() -> Non
     assert result.freeze_status == "NOT_CREATED"
     assert result.bound_f_artifact is None
     assert ia.is_sealed_implementation_result_v2(result)
+
+
+def test_c0_nonjson_isolation_context_fails_closed_as_environment_blocked() -> None:
+    context = qrm._context("IA")
+    context["preseal_input_allowlist"] = (
+        "common_immutable_input_package",
+        "own_implementation_runtime",
+        "python_stdlib",
+        b"not-json",
+    )
+    result = ia.qualify_native_bi5_v2(
+        copy.deepcopy(qrm._package()),
+        execution_context=context,
+    )
+    assert result.execution_status == "ENVIRONMENT_BLOCKED"
+    assert result.semantic_status == "NOT_REACHED"
+    assert result.freeze_status == "NOT_REACHED"
+    assert result.bound_f_artifact is None
+    assert ia.is_sealed_implementation_result_v2(result)
+
+
+def test_c1_nonjson_completeness_evidence_is_common_input_rejection() -> None:
+    package = qrm._package()
+    package["d_completeness_evidence"] = {
+        "immutable_reference": "synthetic://qrm12/d/completeness",
+        "integrity_digest": "8" * 64,
+        "opaque": b"not-json",
+    }
+    result = ia.qualify_native_bi5_v2(
+        package,
+        execution_context=qrm._context("IA"),
+    )
+    assert result.execution_status == "COMPLETED"
+    assert result.semantic_status == "QUALIFICATION_BLOCKED"
+    assert result.freeze_status == "NOT_CREATED"
+    assert result.bound_f_artifact is None
+    assert ia.is_sealed_implementation_result_v2(result)
+
+
+def test_c2_resealed_open_isolation_evidence_is_not_locally_valid() -> None:
+    result = _valid_result()
+    evidence = copy.deepcopy(dict(result.isolation_evidence))
+    evidence["network_policy"] = "ALLOW"
+    forged = _reseal_result(replace(result, isolation_evidence=evidence))
+    assert not ia.is_sealed_implementation_result_v2(forged)
+    with pytest.raises((TypeError, ValueError)):
+        ia.validate_implementation_result_v2(forged)
+
+
+def test_c3_private_f_validator_rejects_boolean_source_slot() -> None:
+    result = _valid_result()
+    artifact = copy.deepcopy(dict(result.bound_f_artifact))
+    artifact["qualified_universe"]["source_accounting"][0][
+        "component_local_slot_index"
+    ] = False
+    artifact["qualified_universe"]["retained_occurrences"][0][
+        "source_witness"
+    ]["component_local_slot_index"] = False
+    artifact["qualified_universe"]["b_candidate_occurrences"][0][
+        "source_witness"
+    ]["component_local_slot_index"] = False
+    artifact = _reseal_f(artifact)
+    with pytest.raises((TypeError, ValueError)):
+        ia._ia_validate_freeze_artifact(artifact)
+
+
+def test_c4_private_f_validator_rejects_noncanonical_timestamp_width() -> None:
+    result = _valid_result()
+    artifact = copy.deepcopy(dict(result.bound_f_artifact))
+    for relation in ("retained_occurrences", "b_candidate_occurrences"):
+        timestamp = artifact["qualified_universe"][relation][0]["logical_payload"][
+            "market_timestamp_utc"
+        ]
+        assert timestamp.endswith(".000Z")
+        artifact["qualified_universe"][relation][0]["logical_payload"][
+            "market_timestamp_utc"
+        ] = timestamp.replace(".000Z", ".0Z")
+    artifact = _reseal_f(artifact)
+    with pytest.raises((TypeError, ValueError)):
+        ia._ia_validate_freeze_artifact(artifact)
