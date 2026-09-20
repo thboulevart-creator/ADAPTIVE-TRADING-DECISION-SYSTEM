@@ -17,6 +17,15 @@ RESULT_SCHEMA = "NATIVE_BI5_QRM12_HANDOFF_RESULT_V0_1_CANDIDATE"
 IMPLEMENTATION_RESULT_SCHEMA = "NATIVE_BI5_IMPLEMENTATION_QUALIFICATION_RESULT_V0_2_CANDIDATE"
 RECEIPT_SCHEMA = "NATIVE_BI5_QRM12_EXECUTION_RECEIPT_V0_1_CANDIDATE"
 
+IA_EXPECTED_ID = "I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_QRM12"
+IA_EXPECTED_VERSION = (
+    "I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_QRM12_V0_2_CANDIDATE"
+)
+IB_EXPECTED_ID = "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_QRM12"
+IB_EXPECTED_VERSION = (
+    "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_QRM12_V0_2_CANDIDATE"
+)
+
 _STAGES = ("D", "R", "M", "B", "A", "Q", "F", "O")
 _F_STAGES = ("D", "R", "M", "B", "A", "Q", "F")
 _RESULT_FIELDS = (
@@ -56,6 +65,15 @@ _BINDING_FIELDS = {
     "normative_version",
     "immutable_reference",
     "integrity_digest",
+}
+_ORACLE_FIELDS = {
+    "schema",
+    "oracle_id",
+    "oracle_version",
+    "oracle_result",
+    "qualified_universe_comparison",
+    "comparison_scope",
+    "reason",
 }
 _ALLOWED_PRESEAL = frozenset(
     ("common_immutable_input_package", "own_implementation_runtime", "python_stdlib")
@@ -305,6 +323,30 @@ def _validate_result_against_pin(
     return bindings, artifact
 
 
+def _validate_oracle_output(value: Any) -> Mapping[str, Any]:
+    if not isinstance(value, Mapping) or set(value) != _ORACLE_FIELDS:
+        raise _Blocked("ORACLE_OUTPUT_SCHEMA_INVALID")
+    if value.get("schema") != oracle.RESULT_SCHEMA:
+        raise _Blocked("ORACLE_OUTPUT_SCHEMA_INVALID")
+    if value.get("oracle_id") != oracle.ORACLE_ID:
+        raise _Blocked("ORACLE_OUTPUT_IDENTITY_INVALID")
+    if value.get("oracle_version") != oracle.ORACLE_VERSION:
+        raise _Blocked("ORACLE_OUTPUT_VERSION_INVALID")
+    oracle_result = value.get("oracle_result")
+    comparison = value.get("qualified_universe_comparison")
+    if oracle_result not in ("SEMANTIC_EQUAL", "SEMANTIC_DIFFERENT", "BLOCKED"):
+        raise _Blocked("ORACLE_OUTPUT_RESULT_INVALID")
+    if comparison not in ("SEMANTIC_EQUAL", "SEMANTIC_DIFFERENT", "BLOCKED"):
+        raise _Blocked("ORACLE_OUTPUT_COMPARISON_INVALID")
+    if oracle_result != comparison:
+        raise _Blocked("ORACLE_OUTPUT_RESULT_COMPARISON_MISMATCH")
+    if not isinstance(value.get("comparison_scope"), str):
+        raise _Blocked("ORACLE_OUTPUT_SCOPE_INVALID")
+    if not isinstance(value.get("reason"), str):
+        raise _Blocked("ORACLE_OUTPUT_REASON_INVALID")
+    return value
+
+
 def _pair_gate(
     left_bindings: tuple[dict[str, Any], ...],
     right_bindings: tuple[dict[str, Any], ...],
@@ -355,34 +397,58 @@ def compare_sealed_results(
         left_pin = _validate_pin(expected_left)
         right_pin = _validate_pin(expected_right)
 
+        if (
+            left_pin["implementation_id"] != IA_EXPECTED_ID
+            or left_pin["implementation_version"] != IA_EXPECTED_VERSION
+        ):
+            raise _Blocked("LEFT_IMPLEMENTATION_ROLE_INVALID")
+        if (
+            right_pin["implementation_id"] != IB_EXPECTED_ID
+            or right_pin["implementation_version"] != IB_EXPECTED_VERSION
+        ):
+            raise _Blocked("RIGHT_IMPLEMENTATION_ROLE_INVALID")
+
         left_bindings, left_f = _validate_result_against_pin(left_result, left_pin)
         right_bindings, right_f = _validate_result_against_pin(right_result, right_pin)
 
         _validate_receipt(left_receipt, left_pin, left_result)
         _validate_receipt(right_receipt, right_pin, right_result)
 
+        if (
+            left_receipt["workspace_isolation_identity"]
+            == right_receipt["workspace_isolation_identity"]
+        ):
+            raise _Blocked("PATH_WORKSPACE_COLLISION")
+
         gate = _pair_gate(left_bindings, right_bindings)
         if gate is not None:
             return gate
 
-        oracle_value = oracle.compare_freeze_artifacts(left_f, right_f)
-        if not isinstance(oracle_value, Mapping):
-            return _blocked("ORACLE_OUTPUT_INVALID", "ORACLE")
-        oracle_result = oracle_value.get("oracle_result")
-        if oracle_result not in ("SEMANTIC_EQUAL", "SEMANTIC_DIFFERENT", "BLOCKED"):
-            return _blocked("ORACLE_OUTPUT_INVALID", "ORACLE")
+        left_by_stage = {item["stage"]: item for item in left_bindings}
+        right_by_stage = {item["stage"]: item for item in right_bindings}
+        for o_binding in (left_by_stage["O"], right_by_stage["O"]):
+            if (
+                o_binding["normative_id"] != oracle.ORACLE_ID
+                or o_binding["normative_version"] != oracle.ORACLE_VERSION
+            ):
+                return _blocked("O_DETERMINANT_IMPLEMENTATION_MISMATCH", "O_DETERMINANT_GATE")
+
+        oracle_value = _validate_oracle_output(
+            oracle.compare_freeze_artifacts(left_f, right_f)
+        )
+        oracle_result = oracle_value["oracle_result"]
         if oracle_result == "BLOCKED":
             return _handoff_result(
                 "BLOCKED",
                 "BLOCKED",
-                str(oracle_value.get("comparison_scope", "ORACLE")),
-                str(oracle_value.get("reason", "ORACLE_BLOCKED")),
+                oracle_value["comparison_scope"],
+                oracle_value["reason"],
             )
         return _handoff_result(
             oracle_result,
             oracle_result,
-            str(oracle_value.get("comparison_scope", "QUALIFIED_UNIVERSE")),
-            str(oracle_value.get("reason", oracle_result)),
+            oracle_value["comparison_scope"],
+            oracle_value["reason"],
         )
     except (_Blocked, TypeError, ValueError, KeyError, AttributeError) as exc:
         reason = exc.reason if isinstance(exc, _Blocked) else "POSTSEAL_VALIDATION_ERROR"
