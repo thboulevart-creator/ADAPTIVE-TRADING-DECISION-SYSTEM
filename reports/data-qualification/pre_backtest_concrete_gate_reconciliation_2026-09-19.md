@@ -3874,3 +3874,53 @@ seal:
 The experiment must be rerun only under a new execution identity in a runtime capable of raw binary HTTP capture and authenticated S3 Requester Pays for K2.
 
 No full acquisition or backtest occurred.
+
+
+---
+
+# B-ERD-02 supported bounded empirical execution — 2026-09-20
+
+After the initial chat/web transport block, a transport-capable GitHub Actions runtime was introduced under new execution identities.
+
+Final successful bounded run:
+
+~~~text
+workflow run 35533153289
+source HEAD 2eb8350fb24c3043017c91475d202b5e0d6bb501
+execution_id BERD02-GHA-35533153289-1
+overall = PROBE_SUPPORTED
+~~~
+
+All nine K1 probes returned HTTP 200 with exact binary bodies.
+
+Two independent diagnostic paths agreed exactly on:
+
+- decompressed SHA-256;
+- candidate projection SHA-256;
+- record count;
+
+with zero candidate plausibility violations.
+
+Final K1 disposition:
+
+~~~text
+PW/P0/P1/P2/P3/P4/P5/P6/P7 = SUPPORTED
+~~~
+
+Exact evidence was persisted permanently at:
+
+`evidence/berd02/gha_run_35533153289/`
+
+Result seal:
+
+`ab5c5bdf97ce3dcfa773ed555afa842443ef21b7a155057ab0e9517bb573f5ef`
+
+K2 remained `SECURITY_CAPTURE_POLICY_BLOCK` and was not requested.
+
+Hard invariant remains:
+
+~~~text
+PROBE_SUPPORTED != FULL_INTERVAL_QUALIFIED
+~~~
+
+No global B/D/backtest gate was promoted.

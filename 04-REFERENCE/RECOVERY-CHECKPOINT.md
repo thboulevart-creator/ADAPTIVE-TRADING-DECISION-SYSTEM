@@ -6471,3 +6471,173 @@ For K2, the runtime must additionally support authenticated AWS S3 Requester Pay
 The presealed LocatorManifest/ProbePlan may be reused only after fresh governance confirms they remain applicable.
 
 STOP.
+
+
+---
+
+## 129. B-ERD-02 bounded empirical execution — PROBE_SUPPORTED
+
+A transport-capable GitHub Actions runtime was installed after the original chat/web execution was transport-blocked.
+
+Transport evolution:
+
+~~~text
+run 35532656928
+Python HTTPS
+→ TLS/connection timeout
+→ BLOCKED
+
+run 35532946835
+HTTP
+→ 301 on 9/9
+→ exact Location = registered HTTPS K1 locator
+→ BLOCKED
+
+run 35533153289
+curl + IPv4 + HTTPS
+→ HTTP 200 on 9/9
+→ exact BI5 bodies captured
+→ independent diagnostics PASS
+→ PROBE_SUPPORTED
+~~~
+
+Final execution identity:
+
+`BERD02-GHA-35533153289-1`
+
+Source HEAD:
+
+`2eb8350fb24c3043017c91475d202b5e0d6bb501`
+
+Exact durable evidence:
+
+`evidence/berd02/gha_run_35533153289/`
+
+Result seal:
+
+`ab5c5bdf97ce3dcfa773ed555afa842443ef21b7a155057ab0e9517bb573f5ef`
+
+Artifact digest:
+
+`sha256:ec36b42f01116374ce017d1d00544a2862b83845d0066110d5d01c7d3bb62f61`
+
+## 130. K1 empirical state
+
+All bounded probes:
+
+~~~text
+PW = SUPPORTED
+P0 = SUPPORTED
+P1 = SUPPORTED
+P2 = SUPPORTED
+P3 = SUPPORTED
+P4 = SUPPORTED
+P5 = SUPPORTED
+P6 = SUPPORTED
+P7 = SUPPORTED
+~~~
+
+Every probe satisfied:
+
+~~~text
+HTTP 200
+non-empty exact body
+LZMA-Alone decompression path A PASS
+xz/lzma decompression path B PASS
+A/B decompressed SHA equal
+A/B projection SHA equal
+A/B record count equal
+candidate hourly timestamp domain PASS
+zero plausibility violations
+~~~
+
+Final bounded proposition:
+
+~~~text
+T_HOURLY =
+SUPPORTED ON EVERY REQUIRED BOUNDED PROBE
+~~~
+
+## 131. K2 state
+
+K2 remains:
+
+~~~text
+SECURITY_CAPTURE_POLICY_BLOCK
+request_sent = false
+~~~
+
+Reason:
+
+an exact signed AWS SigV4 Authorization header is credential-bearing and cannot be persisted under the current exact-request-header evidence rule without a separately qualified secret-safe policy.
+
+No K2 availability conclusion is inferred.
+
+## 132. Anti-extrapolation / global gates
+
+Hard boundary remains:
+
+~~~text
+PROBE_SUPPORTED
+!=
+FULL_INTERVAL_QUALIFIED
+~~~
+
+Therefore current truth/gates remain:
+
+~~~text
+C08-D4 documentary = BLOCKED
+C08-D5 documentary = BLOCKED
+BPE-C08 = BLOCKED
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+~~~
+
+No full acquisition.
+No D materialization.
+No real backtest.
+No paper/broker/live.
+
+## 133. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-01R —
+empirical evidence sufficiency / provider-primary supersession review
+~~~
+
+Purpose:
+
+~~~text
+determine prospectively whether and under what exact conditions
+FULL_INTERVAL_QUALIFIED direct empirical representation evidence
+may satisfy the operational C08-D4/D5 burden
+without provider support correspondence,
+while preserving any provider-primary requirement
+that remains materially necessary
+~~~
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ read B-PE-01 V0.1
+→ read B-PE-04R PASS/SIMPLIFY
+→ read B-ERD-01 PASS
+→ read B-ERD-02 PROBE_SUPPORTED evidence
+→ identify which C08-D4/D5 truth claims are documentary vs operational
+→ define candidate supersession rule
+→ attack false empirical equivalence / sample extrapolation / common-premise risks
+→ decide:
+   KEEP_PROVIDER_PRIMARY
+   or
+   VERSIONED_EMPIRICAL_SUPERSESSION
+   or
+   BLOCKED
+→ persisted-head re-break
+→ audit + backup + checkpoint
+→ STOP
+~~~
+
+Do not begin exhaustive full-interval empirical qualification before this rule decision.
