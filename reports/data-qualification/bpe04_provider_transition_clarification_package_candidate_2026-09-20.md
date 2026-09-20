@@ -1,328 +1,225 @@
-# B-PE-04 — PROVIDER-AUTHORITATIVE HOURLY→DAILY TRANSITION CLARIFICATION PACKAGE — CORRECTED CANDIDATE
+# B-PE-04 — PROVIDER-AUTHORITATIVE HOURLY→DAILY TRANSITION CLARIFICATION PACKAGE — FINAL CORRECTED CANDIDATE
 
 **Date:** 2026-09-20  
 **Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
 **Branch:** `integration/system-v1`  
 **Initial candidate commit:** `f5316e3fbffc66343dbaea1f13a2b7c445bbd060`  
-**Initial candidate blob:** `9491cc90fa256b540dce44a615c924c1a2a2207b`  
-**Adversarial break commit:** `b0dee3943d06a039db43f1d93997877f9a8e551b`  
-**Status:** CORRECTED PERSISTED CANDIDATE — NOT YET QUALIFIED  
-**Scope:** request/admissibility/capture protocol only. No provider contact, BI5 download, acquisition, backtest or trading execution.
+**Initial adversarial break commit:** `b0dee3943d06a039db43f1d93997877f9a8e551b`  
+**First corrected commit:** `d9d76fdeb49cfa449bb013b8eb8a79094a6e893e`  
+**Persisted-head re-break commit:** `b388ba54af075f45921fbe43896affc06db92a82`  
+**Status:** FINAL CORRECTED CANDIDATE — NOT YET QUALIFIED  
+**Scope:** request/admissibility/capture protocol only. No provider contact and no data execution.
 
 ---
 
-## 0. Purpose
-
-B-PE-03 qualified:
-
-```text
-C08-D1 provider identity applicability            = PASS
-C08-D2 legacy hourly BI5 family existence         = PASS
-C08-D3 historical tick file-object family binding = PASS
-```
-
-and left:
-
-```text
-C08-D4 USATECH legacy-hourly applicability = BLOCKED
-C08-D5 target temporal/version continuity  = BLOCKED
-```
-
-B-PE-04 defines one provider-facing clarification package that can later obtain a Dukascopy-authored answer without conflating:
-
-```text
-market-data timestamp
-≠ retrieval/deployment date
-
-object path/bucket granularity
-≠ physical payload semantics
-
-tick BI5
-≠ candle BI5
-```
-
-B-PE-04 itself does not send the request.
-
----
-
-## 1. Package identity
+## 0. Package identity
 
 ```text
 clarification_package_id =
 B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION
 
 clarification_package_version =
-B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION_V0_2_CORRECTED
+B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION_V0_3_FINAL_CANDIDATE
 ```
 
-Target:
+B-PE-03 remains:
 
 ```text
-provider = Dukascopy
-instrument = USATECHIDXUSD / USATECH.IDX/USD
-market-data timestamp interval = 2021-08-14T00:00:00Z through 2026-08-14T23:59:59.999Z
-legacy tick path family = .../<instrument>/<YYYY>/<MM>/<DD>/<HH>h_ticks.bi5
-current provider documentation locator =
-https://www.dukascopy.com/wiki/en/development/data-export/
-out-of-scope candle example = *_candles_day_1.bi5
+C08-D1 = PASS
+C08-D2 = PASS
+C08-D3 = PASS
+C08-D4 = BLOCKED
+C08-D5 = BLOCKED
+BPE-C08 = BLOCKED
 ```
 
-The clarification concerns **public historical tick objects**, not OHLC/candle files.
+B-PE-04 seeks only the minimum provider clarification needed for D4/D5.
 
 ---
 
-## 2. Provider-facing canonical request
+## 1. Canonical provider request artifact
 
-### Subject
+Authoritative request template:
+
+`evidence/bpe04/canonical_provider_request_template_v0_3.txt`
+
+Raw UTF-8 SHA-256:
+
+`8931b8304ce0e2d0c6fd7502fe50a772b5b1f4e936b12eba8989e64ecf27a52a`
+
+The template contains exactly three questions:
 
 ```text
-Technical clarification: Dukascopy public historical tick BI5 hourly/daily representation
+Q1 — historical hourly/daily/coexistence boundary
+Q2 — retrieval rule as of exact request timestamp versus market-data-date rule
+Q3 — USATECHIDXUSD applicability
 ```
 
-### Message
+No C01-C07 physical-format question is solicited in B-PE-04.
 
-```text
-Hello Dukascopy Support,
-
-I am documenting the public Dukascopy historical tick-data representation
-served through datafeed.dukascopy.com.
-
-I need an authoritative clarification for historical TICK data only.
-This request does NOT concern candle/OHLC BI5 files such as
-*_candles_day_1.bi5.
-
-Instrument:
-USATECH.IDX/USD
-datafeed symbol: USATECHIDXUSD
-
-Target market-data timestamp interval:
-2021-08-14T00:00:00Z through 2026-08-14T23:59:59.999Z.
-
-Legacy public tick object family:
-.../<instrument>/<YYYY>/<MM>/<DD>/<HH>h_ticks.bi5
-
-By "daily tick representation" below, I mean the daily historical TICK
-representation described by Dukascopy's current Historical Price Data /
-data-export documentation, not daily candles.
-
-Please answer Q1-Q4 separately.
-
-Q1 — Public tick-object addressing / bucket boundary
-
-For records whose MARKET-DATA timestamps fall in the target interval,
-was the authoritative public historical tick object family hour-addressed
-(<HH>h_ticks.bi5), day-addressed, or did both forms coexist / depend on
-instrument, endpoint, or period?
-
-Please do not assume that a single transition occurred.
-
-Please answer one of:
-- HOURLY ONLY
-- DAILY ONLY
-- TRANSITIONED
-- COEXISTED
-- DEPENDED
-- CANNOT CONFIRM
-
-If TRANSITIONED / COEXISTED / DEPENDED, please provide:
-a) exact old object/path form;
-b) exact new object/path form;
-c) boundary timezone;
-d) last MARKET-DATA timestamp/date governed by the old form;
-e) first MARKET-DATA timestamp/date governed by the new form;
-f) whether that boundary is a market-data-date boundary or merely a
-   server deployment/retrieval date.
-
-Q2 — Current retrieval versus historical market-date representation
-
-If I request today historical tick records whose MARKET-DATA timestamps
-fall between 2021-08-14 and 2026-08-14, are those records still retrieved
-through the same object/bucket form that applied to those market dates,
-or has Dukascopy retroactively rebucketed/repackaged older history?
-
-Please identify any current-retrieval rule separately from the historical
-market-date rule.
-
-Q3 — USATECH.IDX/USD applicability
-
-For USATECH.IDX/USD / USATECHIDXUSD specifically, which public historical
-TICK object/path form applied to records in the target market-data interval?
-
-Please answer:
-- same rule as the generic tick history;
-- different rule;
-- period dependent;
-- cannot confirm.
-
-If different or period dependent, please provide exact UTC date/timestamp
-ranges and object/path forms.
-
-Q4 — Physical payload/record semantics, separately from bucket/path changes
-
-Independently of Q1-Q3, did any change in hourly/day object addressing also
-change the physical tick payload semantics?
-
-If known, please identify separate effective boundaries for:
-- compression/envelope;
-- decompressed record width/framing;
-- field order and primitive types/signedness;
-- timestamp offset unit/reference point;
-- USATECHIDXUSD raw price scale/divisor;
-- volume primitive representation or representation-level scaling.
-
-If the physical record semantics did NOT change when object bucketization
-changed, please state that explicitly.
-
-If any point is not documented or cannot be confirmed, please state
-"CANNOT CONFIRM" rather than infer.
-
-For reproducibility, please include the documentation name/version,
-release/build number, archive reference, technical-team confirmation,
-or other provider basis for the answer where available.
-
-Thank you.
-```
+If Dukascopy volunteers additional physical-format information, it may be captured exactly but is outside B-PE-04's requested scope and cannot be adjudicated until separately governed.
 
 ---
 
-## 3. Non-leading response domain
+## 2. Send-time materialization rule
 
-The provider is explicitly free to establish any of:
+The canonical template contains:
 
 ```text
-no transition
-hourly only
-daily only
-one transition
-multiple transitions
-coexistence
-instrument-specific behavior
-endpoint-specific behavior
-retroactive rebucketing
-unchanged physical semantics despite bucket change
-physical semantics changed independently of bucket change
-cannot confirm
+REQUEST_SENT_AT_UTC = <MATERIALIZE_EXACT_UTC_TIMESTAMP_BEFORE_SEND>
 ```
 
-No provider answer is rewritten to fit the project's current hypothesis.
+Before any future send action:
+
+1. copy the canonical template;
+2. replace the placeholder exactly once with an RFC3339 UTC timestamp;
+3. persist the exact sent-request bytes;
+4. compute `sent_request_sha256 = SHA256(exact sent bytes)`;
+5. verify no other text differs from the canonical template;
+6. only then may an externally authorized send occur.
+
+A request containing the unresolved placeholder is invalid and must not be sent.
+
+"Today", "currently" or equivalent unbound relative-time wording must not replace the materialized timestamp.
 
 ---
 
-## 4. Exact evidence targets
+## 3. Exact evidence targets
 
-### C08-D4 — USATECH target applicability
+### C08-D4 — USATECH applicability
 
-An answer can contribute to C08-D4 only if it binds:
+Positive/negative provider evidence must bind:
 
 ```text
 USATECH.IDX/USD or USATECHIDXUSD
 +
 public historical TICK data
 +
-exact object/path representation
+exact object/path rule
 +
-market-data timestamp/date range intersecting target interval
+market-data timestamp/date scope intersecting target interval
 ```
-
-Generic index support is insufficient.
 
 ### C08-D5 — temporal/version continuity
 
-An answer can contribute to C08-D5 only if it binds:
+Provider evidence must distinguish:
 
 ```text
-public historical TICK object/path state
-+
-market-data timestamp/date range or exact boundary
-+
-timezone/boundary semantics
-+
-distinction from retrieval/deployment date
-+
-target interval applicability
+market-data timestamp/date rule
+from
+retrieval/deployment date rule
 ```
 
-A software release date alone is insufficient.
+and establish:
 
-### C01-C07 — optional physical semantics
+```text
+hourly/daily/coexistence/depended state
++
+object/path form
++
+boundary timezone
++
+old-last/new-first market-data boundary when a transition exists
++
+applicability to 2021-08-14 → 2026-08-14
+```
 
-Q4 answers are separately mapped.
+A JForex/client release date alone is insufficient.
 
-An object/bucket transition date does not automatically become a physical-format transition date.
+---
+
+## 4. Non-leading answer domain
+
+The provider may validly answer:
+
+```text
+HOURLY ONLY
+DAILY ONLY
+TRANSITIONED
+COEXISTED
+DEPENDED
+DIFFERENT FOR USATECH
+RETROACTIVELY REBUCKETED
+NO RETROACTIVE REBUCKETING
+CANNOT CONFIRM
+```
+
+A response disproving the project's current assumption is valid evidence.
+
+No transition is presumed.
 
 ---
 
 ## 5. Channel-specific provider authenticity
 
-A future provider answer is not ADMISSIBLE until its channel-specific authenticity requirements are met.
+A future response is not ADMISSIBLE unless its channel requirements pass.
 
-### 5.1 Authenticated Dukascopy support ticket
+### Authenticated Dukascopy support ticket
 
 Required:
 
 ```text
 stable ticket/thread ID
 authenticated portal/account context
-full thread export or equivalent provider-rendered record
+full relevant thread export/provider-rendered record
 provider author/support identity
 exact timestamps
-exact request + response content
+exact sent request
+exact response
 ```
 
-A copied ticket paragraph without ticket provenance is BLOCKED.
-
-### 5.2 Provider email
+### Provider email
 
 Required:
 
 ```text
-raw .eml or equivalent original-message export
+raw .eml or equivalent original export
 complete headers
-From/To/Date/Message-ID
+From / To / Date / Message-ID
 Received chain where available
 DKIM/SPF/DMARC Authentication-Results where available
-exact body bytes
+body bytes
 attachments
 ```
 
-A copied email body or screenshot of an email alone is BLOCKED.
+Copied body/screenshot alone = BLOCKED.
 
-### 5.3 Dukascopy official support/forum post
+### Official provider forum/support post
 
 Required:
 
 ```text
-exact post URL/thread ID
+exact URL/thread/post ID
 provider author/account identity
 provider-role evidence
-post timestamp
-full relevant thread context
+timestamp
+full relevant context
 persisted page/export snapshot
 ```
 
-### 5.4 Versioned/archived provider documentation
+### Versioned/archived provider document
 
 Required:
 
 ```text
 exact provider locator
 document/version/release/archive identity
-exact relevant bytes/snapshot
+exact persisted source bytes/snapshot
 exact anchors
-publication/effective date where available
+effective/publication date where available
 ```
 
-If channel authenticity cannot be sealed, response admissibility = BLOCKED.
+Unverifiable provider origin = BLOCKED.
 
 ---
 
-## 6. Response capture package
+## 6. Capture package
 
-A future capture must persist:
+Persist:
 
 ```text
 request/
-  canonical_request.txt
+  canonical_request_template.bin
   sent_request_exact.bin
 
 response/
@@ -336,7 +233,13 @@ metadata/
   answer_records.json
 ```
 
-No screenshot substitutes for raw/original export where that export exists.
+Raw artifacts:
+
+```text
+SHA256(exact bytes)
+```
+
+Structured records use B-PE-01 canonical JSON.
 
 ---
 
@@ -344,11 +247,13 @@ No screenshot substitutes for raw/original export where that export exists.
 
 ```text
 schema =
-B_PE_04_PROVIDER_CLARIFICATION_CAPTURE_V0_2
+B_PE_04_PROVIDER_CLARIFICATION_CAPTURE_V0_3
 
 capture_id
 clarification_package_id
 clarification_package_version
+canonical_request_template_sha256
+sent_request_sha256
 channel_type
 provider_channel_locator
 ticket_or_message_id
@@ -357,7 +262,6 @@ response_received_at_utc
 provider_sender_identity
 provider_sender_domain_or_account
 provider_authenticity_artifact_ids
-request_exact_sha256
 response_original_sha256
 thread_context_sha256
 attachment_records
@@ -366,21 +270,15 @@ capture_created_at_utc
 capture_seal
 ```
 
-Attachment record:
+Rules:
+
+- `canonical_request_template_sha256` must equal `8931b8304ce0e2d0c6fd7502fe50a772b5b1f4e936b12eba8989e64ecf27a52a`;
+- `request_sent_at_utc` must exactly equal the materialized timestamp in the sent request;
+- `sent_request_sha256` binds the exact transmitted bytes.
+
+Seal:
 
 ```text
-artifact_id
-filename
-media_type
-byte_length
-sha256
-provider_locator_or_attachment_id
-```
-
-Integrity:
-
-```text
-raw artifact = SHA256(exact bytes)
 capture_seal =
 SHA256(B-PE-01 canonical_json(capture_record_without_capture_seal))
 ```
@@ -389,16 +287,18 @@ SHA256(B-PE-01 canonical_json(capture_record_without_capture_seal))
 
 ## 8. ProviderClarificationAnswerRecord — closed atomic schema
 
-Exactly one answer record exists per question/sub-question that is evaluated.
+Exactly one record per evaluated question/sub-question:
 
 ```text
 schema =
-B_PE_04_PROVIDER_CLARIFICATION_ANSWER_V0_2
+B_PE_04_PROVIDER_CLARIFICATION_ANSWER_V0_3
 
 answer_record_id
 capture_id
 question_id
 subquestion_id
+question_text_sha256
+sent_request_sha256
 answer_status =
   ANSWERED |
   NO_ANSWER |
@@ -414,19 +314,20 @@ market_data_time_scope
 retrieval_time_scope
 instrument_scope
 object_path_scope
-physical_semantics_scope
 candidate_dimension_ids
 adjudicator_identity
 created_at_utc
 answer_record_seal
 ```
 
-Rules:
+Mandatory rules:
 
-- `normalized_proposition` cannot contain a fact absent from the exact provider anchor;
-- thread-level authority never implies that every question was answered;
-- each dimension assertion must cite one or more exact `answer_record_id`;
-- NO_ANSWER / AMBIGUOUS / CANNOT_CONFIRM carry zero positive evidentiary weight;
+- `question_text_sha256` hashes the exact materialized question/sub-question text from `sent_request_exact.bin`;
+- `sent_request_sha256` must equal the parent CaptureRecord;
+- an AnswerRecord whose question hash does not match the sent request is invalid;
+- `normalized_proposition` may contain no fact absent from the provider anchor;
+- thread-level authority never implies all questions were answered;
+- NO_ANSWER / AMBIGUOUS / CANNOT_CONFIRM have zero positive evidentiary weight;
 - CONTRADICTORY_INTERNAL forces BLOCKED until resolved.
 
 Seal:
@@ -438,19 +339,20 @@ SHA256(B-PE-01 canonical_json(answer_record_without_answer_record_seal))
 
 ---
 
-## 9. Provider response admissibility decision
+## 9. Provider response admissibility
 
-A captured response package is eligible for EC-P1 review only when all hold:
+A future response package can become ADMISSIBLE only when all hold:
 
-1. channel-specific authenticity requirements pass;
-2. exact sent request is preserved;
-3. exact original response is preserved;
-4. full relevant thread context is preserved;
-5. exact timestamps/IDs are preserved;
-6. attachments/basis documents are preserved or immutably pinned;
-7. source bytes and structured records rehash correctly;
-8. each used proposition has a closed atomic AnswerRecord;
-9. scope can be mapped without inference beyond provider text.
+1. channel-specific authenticity passes;
+2. canonical template identity matches;
+3. exact materialized sent request is preserved;
+4. exact original response is preserved;
+5. full relevant thread context is preserved;
+6. exact IDs/timestamps are preserved;
+7. referenced provider attachments/basis documents are preserved or immutably pinned;
+8. every used proposition has a valid atomic AnswerRecord;
+9. all hashes/seals recompute;
+10. scope maps without inference beyond provider wording.
 
 Disposition:
 
@@ -460,76 +362,87 @@ REJECTED
 BLOCKED
 ```
 
-No weaker "probably provider-authored" state can contribute positive weight.
+No weaker authenticity state contributes positive evidence.
 
 ---
 
-## 10. Partial-answer semantics
-
-Examples:
+## 10. Partial/ambiguous answer semantics
 
 ```text
-Q1 precise, Q2 omitted, Q3 precise
-→ Q1/Q3 AnswerRecords may be used; Q2 = NO_ANSWER
+Q1 exact, Q2 missing, Q3 exact
+→ Q1/Q3 may be used; Q2 = NO_ANSWER
 
-"hourly files were used until 2025"
-without market-data-vs-retrieval distinction
+"hourly until 2025"
+without market-date vs retrieval-date distinction
 → AMBIGUOUS
 
-"change was 2025-01-01"
-without old-last/new-first/timezone
-→ AMBIGUOUS for exact boundary
+"changed on 2025-01-01"
+without timezone and old-last/new-first market boundary
+→ AMBIGUOUS for exact transition
 
-"USATECH is supported"
-without historical tick/path/date scope
+"USATECH supported"
+without tick/path/date binding
 → insufficient for C08-D4
 
-"we cannot confirm historical file format"
-→ CANNOT_CONFIRM, not negative evidence
+"CANNOT CONFIRM"
+→ zero positive weight, not contradiction
 ```
 
-Silence is not confirmation.
+Silence is never confirmation.
 
 ---
 
-## 11. Conflict and supersession
+## 11. Unsolicited physical-format information
 
-A future provider clarification never mutates B-PE-02/B-PE-03 evidence.
+B-PE-04 does not solicit C01-C07.
 
-If it conflicts:
+If Dukascopy volunteers such information:
 
 ```text
-persist new provider response
+capture exact bytes
+preserve authenticity
+do not adjudicate C01-C07 in B-PE-04
+open a later explicitly governed evidence action if needed
+```
+
+This keeps the provider request minimal without discarding potentially useful provider evidence.
+
+---
+
+## 12. Conflict handling
+
+Future response evidence never mutates B-PE-02/B-PE-03.
+
+If a valid provider clarification conflicts:
+
+```text
+persist exact answer
 → exact AnswerRecords
-→ exact SUPPORT/CONTRADICT ClaimEvidenceAssertions
-→ B-PE-01 conflict semantics
-→ PASS / FAIL / BLOCKED dimension adjudication
+→ exact ClaimEvidenceAssertions
+→ apply B-PE-01 conflict semantics
+→ PASS / FAIL / BLOCKED
 ```
-
-Provider authority does not bypass exact scope/version matching.
 
 ---
 
-## 12. External-state boundary
+## 13. External-state boundary
 
-B-PE-04 qualification does **not** authorize contacting Dukascopy.
+B-PE-04 qualification does not send anything.
 
-Sending the request is a separate external-state action.
-
-Until separately authorized:
+Until a separate governed external-state action:
 
 ```text
-no ticket opened
-no email sent
+no ticket
+no email
 no forum post
 no provider contact
 ```
 
 ---
 
-## 13. Correction record
+## 14. Correction record
 
-Adversarial break demonstrated:
+Initial defects closed:
 
 ```text
 BPE04-F01 — DATA_TIMESTAMP_VS_RETRIEVAL_TIME_CONFLATION
@@ -540,15 +453,21 @@ BPE04-F05 — CHANNEL_AUTHENTICITY_RULES_NOT_FAIL_CLOSED_ENOUGH
 BPE04-F06 — NO_ATOMIC_ANSWER_TO_DIMENSION_RESPONSE_SCHEMA
 ```
 
-Corrections are limited to those six defects.
+Residual defects closed:
+
+```text
+BPE04-R01 — OPTIONAL_Q4_BREAKS_MINIMALITY
+BPE04-R02 — RELATIVE_TODAY_RETRIEVAL_TIME_IS_AMBIGUOUS
+BPE04-R03 — ANSWER_RECORD_NOT_BOUND_TO_EXACT_QUESTION_TEXT
+```
 
 ---
 
-## 14. Corrected candidate verdict
+## 15. Final corrected pre-rebreak verdict
 
 ```text
 B-PE-04 CLARIFICATION PACKAGE =
-CORRECTED PERSISTED CANDIDATE / NOT YET QUALIFIED
+FINAL CORRECTED CANDIDATE / NOT YET QUALIFIED
 
 C08-D4 = BLOCKED
 C08-D5 = BLOCKED
@@ -558,6 +477,4 @@ B global executable gate = BLOCKED
 
 Next:
 
-```text
-persisted-HEAD adversarial re-break of this corrected package
-```
+`persisted-HEAD final adversarial re-break`.

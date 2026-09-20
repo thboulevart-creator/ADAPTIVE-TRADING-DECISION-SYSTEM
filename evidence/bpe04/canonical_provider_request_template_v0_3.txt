@@ -1,0 +1,65 @@
+Subject: Technical clarification — Dukascopy public historical tick BI5 hourly/daily representation
+
+REQUEST_SENT_AT_UTC = <MATERIALIZE_EXACT_UTC_TIMESTAMP_BEFORE_SEND>
+
+Hello Dukascopy Support,
+
+I am documenting the public Dukascopy historical TICK-data representation served through datafeed.dukascopy.com.
+
+This request concerns historical TICK data only. It does NOT concern candle/OHLC BI5 files such as *_candles_day_1.bi5.
+
+Instrument:
+USATECH.IDX/USD
+datafeed symbol: USATECHIDXUSD
+
+Target MARKET-DATA timestamp interval:
+2021-08-14T00:00:00Z through 2026-08-14T23:59:59.999Z
+
+Legacy public tick object family:
+.../<instrument>/<YYYY>/<MM>/<DD>/<HH>h_ticks.bi5
+
+By "daily tick representation" below, I mean the daily historical TICK representation described by Dukascopy's current Historical Price Data / data-export documentation, not daily candles.
+
+Please answer Q1, Q2 and Q3 separately. If a point cannot be confirmed, please state CANNOT CONFIRM rather than infer.
+
+Q1 — Historical tick-object addressing / boundary
+
+For records whose MARKET-DATA timestamps fall inside the target interval, was the authoritative public historical tick object family:
+- HOURLY ONLY
+- DAILY ONLY
+- TRANSITIONED
+- COEXISTED
+- DEPENDED on instrument / endpoint / period
+- CANNOT CONFIRM
+
+Please do not assume that a single transition occurred.
+
+If TRANSITIONED / COEXISTED / DEPENDED, please provide:
+a) exact old object/path form;
+b) exact new object/path form;
+c) boundary timezone;
+d) last MARKET-DATA timestamp/date governed by the old form;
+e) first MARKET-DATA timestamp/date governed by the new form;
+f) whether the boundary is a MARKET-DATA date boundary or only a server deployment/retrieval-date boundary.
+
+Q2 — Retrieval as of the request timestamp
+
+As of REQUEST_SENT_AT_UTC above, if I request historical tick records whose MARKET-DATA timestamps fall between 2021-08-14 and 2026-08-14, are those records retrieved through the same object/bucket form that applied to those market dates, or has older history been retroactively rebucketed/repackaged?
+
+Please identify the current retrieval rule separately from the historical market-date rule, including exact object/path form where possible.
+
+Q3 — USATECH.IDX/USD applicability
+
+For USATECH.IDX/USD / USATECHIDXUSD specifically, which public historical TICK object/path form applied to records in the target MARKET-DATA interval?
+
+Please answer:
+- SAME RULE AS GENERIC TICK HISTORY
+- DIFFERENT RULE
+- PERIOD DEPENDENT
+- CANNOT CONFIRM
+
+If DIFFERENT or PERIOD DEPENDENT, please provide exact UTC date/timestamp ranges and object/path forms.
+
+For reproducibility, please include the documentation name/version, release/build number, archive reference, technical-team confirmation, or other Dukascopy basis for the answer where available.
+
+Thank you.
