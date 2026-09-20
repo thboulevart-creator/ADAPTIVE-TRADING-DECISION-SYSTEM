@@ -1,105 +1,59 @@
-# B-PE-02 — NATIVE BI5 PROVIDER / REFERENCE EVIDENCE ADJUDICATION — CANDIDATE
+# B-PE-02 — PROVIDER / REFERENCE EVIDENCE ADJUDICATION — CORRECTED CANDIDATE
 
 **Date:** 2026-09-20
-**Starting HEAD:** `67c8de7a80a3ecd3f8688663344b7dd5dc2e3ebf`
-**B-PE-01 contract blob:** `278a691b17cdd4b37e9c0e739f0fe9b56f014b29`
-**Scope:** documentary/reference evidence only. No project BI5 downloaded or processed.
+**Initial candidate commit:** `428ac771e238ea1988c8fe2d8cad2d7e7b83adf9`
+**Adversarial record:** `reports/data-qualification/bpe02_native_bi5_provider_reference_adjudication_adversarial_break_2026-09-20.md`
+**Scope:** documentary/reference evidence only.
 
-## Evidence set
+## Corrections
 
-Persisted structured evidence bundle:
-
-`evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json`
-
-Sources:
-
-1. `BPE02-E01` — Dukascopy provider-primary Historical Price Data page — ADMISSIBLE, but current-daily scope with only a warning about legacy hourly.
-2. `BPE02-E02` — Dukascopy provider-primary USATECH CFD metadata — ADMISSIBLE for instrument/current quote metadata, not raw BI5 divisor.
-3. `BPE02-E03` — saleem-latif/duka-data exact commit — ADMISSIBLE EC-I2.
-4. `BPE02-E04` — ninety47/dukascopy exact commit — ADMISSIBLE EC-I2.
-5. `BPE02-E05` — leoclc/dukascopy-tick exact commit — ADMISSIBLE EC-I2.
-6. `BPE02-E06` — project V4.3 — REJECTED as EC-PROJECT independent support.
-
-No project implementation contributes evidentiary weight.
-
-## Critical observed scope conflict
-
-Provider-primary current documentation establishes a current daily BI5 layout and explicitly warns that legacy hourly files can use a different timestamp basis.
-
-It does not state the transition date and does not bind the legacy-hourly physical semantics to the project's intended 2021–2026 hourly acquisition representation.
-
-Therefore:
+Closed only the demonstrated defects:
 
 ```text
-current provider BI5 documentation
-≠ target legacy-hourly provider-version continuity proof
+BPE02-F01 — recursive canonical seals/digests
+BPE02-F02 — live provider pages demoted to source-level BLOCKED
+BPE02-F03 — one closed ClaimEvidenceAssertion per exact dimension
+BPE02-F04 — one exact GitHub file per EvidenceSourceRecord
 ```
 
-This is the dominant B-PE-02 blocker.
-
-## Independent corroboration
-
-Three independently hosted non-project implementations strongly corroborate legacy hourly behavior:
-
-- hourly `h_ticks.bi5` path family;
-- LZMA decompression;
-- 20-byte records;
-- big-endian field layout;
-- ms offset added to an hourly start;
-- ask/bid followed by ask/bid volumes;
-- USATECH divisor/decimalFactor 1000 in two modern implementations.
-
-However, B-PE-01 requires provider-primary + distinct corroboration on the **exact target scope**.
-
-Independent corroboration cannot substitute for missing provider-primary target-version continuity.
-
-A material independent disagreement is also preserved:
+## Provider source status
 
 ```text
-ninety47 → unsigned integer decoding
-duka-data / leoclc → signed integer decoding
+E01 Dukascopy Historical Price Data = BLOCKED
+E02 Dukascopy USATECH CFD page      = BLOCKED
 ```
 
-No majority vote is permitted.
+Reason:
 
-## Claim verdicts
+the pages are live, have no immutable provider version, and the exact captured provider source snapshot bytes are not durably materialized under the B-PE-01 source rule.
+
+Their observations remain contextual diagnostics only and contribute zero PASS/FAIL evidentiary weight.
+
+## Independent source status
+
+Exact pinned GitHub files from duka-data, ninety47 and leoclc are ADMISSIBLE EC-I2.
+
+Project V4.3 is REJECTED as EC-PROJECT.
+
+Pairwise independence among the three third-party semantic lineages remains conservatively UNRESOLVED; it is not used to manufacture multiple corroborating votes.
+
+## Corrected dimension adjudication
+
+Because B-PE-01 requires at least one **ADMISSIBLE provider-primary lineage** for each dimension, and E01/E02 are source-level BLOCKED:
 
 ```text
-BPE-C01 compression / envelope = BLOCKED
-BPE-C02 physical framing       = BLOCKED
-BPE-C03 primitive layout       = BLOCKED
-BPE-C04 timestamp semantics    = BLOCKED
-BPE-C05 ask/bid raw roles      = BLOCKED
-BPE-C06 USATECH price scaling  = BLOCKED
-BPE-C07 volume semantics       = BLOCKED
-BPE-C08 target applicability   = BLOCKED
+every mandatory C01-C08 dimension = BLOCKED
+every C01-C08 claim = BLOCKED
 ```
 
-C08 contains two dimension-level PASS states:
+Additional preserved diagnostics:
 
-```text
-C08-D1 provider identity = PASS
-C08-D2 existence of legacy hourly BI5 family = PASS
-```
+- independent legacy hourly implementations strongly corroborate many physical facts;
+- C03-D3/C05-D2 retain signed-vs-unsigned disagreement across independent implementations;
+- C06-D2 retains independent USATECH divisor 1000 corroboration but no admissible provider-primary raw scale source;
+- C08-D5 retains the missing legacy-hourly → target 2021–2026 provider continuity gap.
 
-but C08-D3/D4/D5 remain BLOCKED, especially:
-
-```text
-C08-D5 target temporal/version continuity = BLOCKED
-```
-
-## Specific unresolved points
-
-- C01: provider current page says raw LZMA; target candidate says LZMA-Alone. Exact legacy-hourly envelope semantics are not provider-bound.
-- C02: 20-byte records are strongly corroborated, but target-epoch framing/header/residual semantics are not provider-primary closed.
-- C03: target signedness is unresolved; independent implementations disagree and current provider uint32 is for current daily format.
-- C04: provider says legacy files **may** use ms since hour; no exact target-epoch binding/range.
-- C05: ask/bid roles strongly corroborated, but exact legacy target provider binding remains absent.
-- C06: USATECH /1000 is independently corroborated; provider current CFD 0.01 point value does not prove raw BI5 divisor and provider historical-data guide says indices vary.
-- C07: volume roles/float32 strongly corroborated; target legacy transform/scale semantics are not provider-primary closed.
-- C08: decisive provider transition/continuity evidence is absent.
-
-## Candidate adjudication verdict
+## Corrected verdict
 
 ```text
 B-PE-02 PROVIDER / REFERENCE EVIDENCE ADJUDICATION = BLOCKED
@@ -107,8 +61,6 @@ overall_provider_evidence_status = BLOCKED
 B global executable gate = BLOCKED
 ```
 
-No claim is FAIL because no exact-target provider-primary evidence positively disproves the candidate. The correct result is lack of target-scope proof, not contradiction.
+No C01-C08 claim is FAIL.
 
-## Next inside this block
-
-Adversarially break this exact persisted adjudication before accepting the BLOCKED classification as governed closure.
+Next inside current block: persisted-HEAD integrity + adversarial re-break of this corrected adjudication.
