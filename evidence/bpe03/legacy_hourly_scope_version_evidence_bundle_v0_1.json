@@ -1,5 +1,5 @@
 {
-  "schema": "B_PE_03_PROVIDER_PRIMARY_SCOPE_VERSION_EVIDENCE_BUNDLE_V0_1",
+  "schema": "B_PE_03_PROVIDER_PRIMARY_SCOPE_VERSION_EVIDENCE_BUNDLE_V0_2_CORRECTED",
   "contract": {
     "id": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE",
     "version": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE_V0_1_CANDIDATE"
@@ -69,6 +69,40 @@
       "evidence_lineage_candidate_id": "LINEAGE-DUKASCOPY-OFFICIAL",
       "project_origin_check": "NOT_PROJECT",
       "notes_non_authoritative": "Provider versioned release note; does not equate JETTA migration with public BI5 bucket-format transition."
+    },
+    {
+      "evidence_id": "BPE02-E03",
+      "evidence_class": "EC-I2",
+      "publisher_identity": "saleem-latif",
+      "source_title_or_repository": "duka-data/download.py",
+      "source_locator": "https://github.com/saleem-latif/duka-data/blob/2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c/download.py",
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "publication_or_commit_time": null,
+      "retrieved_at_utc": "2026-09-20T09:26:00Z",
+      "content_integrity_digest": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_BI5",
+      "declared_instrument_scope": "INCLUDES_USATECHIDXUSD",
+      "declared_temporal_scope": "IMPLEMENTATION_2026",
+      "evidence_lineage_candidate_id": "LINEAGE-DUKA-DATA",
+      "project_origin_check": "NO_PROJECT_ORIGIN_OBSERVED",
+      "notes_non_authoritative": "Exact UTF-8 file hash."
+    },
+    {
+      "evidence_id": "BPE02-E09",
+      "evidence_class": "EC-I2",
+      "publisher_identity": "leoclc",
+      "source_title_or_repository": "dukascopy-tick/src/url-generator/index.ts",
+      "source_locator": "https://github.com/leoclc/dukascopy-tick/blob/989987db0808e215962e136ce043797992d1a1a2/src/url-generator/index.ts",
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "publication_or_commit_time": null,
+      "retrieved_at_utc": "2026-09-20T09:26:00Z",
+      "content_integrity_digest": "2f6c88b204e19217fb18746b8aa069e78cbc5d1d2c3fa44fa5da499bedbe861e",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_URL_FAMILY",
+      "declared_instrument_scope": "GENERIC",
+      "declared_temporal_scope": "IMPLEMENTATION_2025",
+      "evidence_lineage_candidate_id": "LINEAGE-LEOCLC",
+      "project_origin_check": "NO_PROJECT_ORIGIN_OBSERVED",
+      "notes_non_authoritative": "Exact UTF-8 file hash."
     }
   ],
   "admissibility_decisions": [
@@ -165,34 +199,109 @@
       "reviewer_identity": "B-PE-03_GOVERNED_ADJUDICATION",
       "created_at_utc": "2026-09-20T09:26:00Z",
       "decision_seal": "c4909f6844bd4752dfd1b07c2ccc46f750457271da01db618ca02819a305af2e"
+    },
+    {
+      "schema": "B_PE_01_EVIDENCE_ADMISSIBILITY_DECISION_V0_1_CANDIDATE",
+      "decision_id": "ADM-BPE02-E03",
+      "evidence_id": "BPE02-E03",
+      "evidence_content_integrity_digest": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_contract_id": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE",
+      "evidence_contract_version": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE_V0_1_CANDIDATE",
+      "target_scope_signature": {
+        "provider_identity": "DUKASCOPY",
+        "representation_family": "NATIVE_HOURLY_TICK_BI5",
+        "native_object_family": "HOURLY_TICK_PAYLOAD",
+        "project_representation_id": "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS",
+        "project_representation_version": "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS_V1_CANDIDATE",
+        "instrument_scope": "USATECHIDXUSD_WHEN_CLAIM_SPECIFIC",
+        "intended_temporal_applicability": "MANDATORY_20_H1_WARMUP_PLUS_2021-08-14_TO_2026-08-14_EVALUATION"
+      },
+      "evidence_class": "EC-I2",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "provenance_status": "IDENTIFIED",
+      "scope_status": "LEGACY_REFERENCE_CORROBORATION",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "lineage_precheck_status": "SEE_LINEAGE_RESOLUTION",
+      "decision_status": "ADMISSIBLE",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-02_GOVERNED_ADJUDICATION",
+      "created_at_utc": "2026-09-20T09:26:00Z",
+      "decision_seal": "c0bd0b98084ad2a11407ef981738fa2181650701d4dd79ede453548b2772cfd8"
+    },
+    {
+      "schema": "B_PE_01_EVIDENCE_ADMISSIBILITY_DECISION_V0_1_CANDIDATE",
+      "decision_id": "ADM-BPE02-E09",
+      "evidence_id": "BPE02-E09",
+      "evidence_content_integrity_digest": "2f6c88b204e19217fb18746b8aa069e78cbc5d1d2c3fa44fa5da499bedbe861e",
+      "evidence_contract_id": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE",
+      "evidence_contract_version": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE_V0_1_CANDIDATE",
+      "target_scope_signature": {
+        "provider_identity": "DUKASCOPY",
+        "representation_family": "NATIVE_HOURLY_TICK_BI5",
+        "native_object_family": "HOURLY_TICK_PAYLOAD",
+        "project_representation_id": "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS",
+        "project_representation_version": "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS_V1_CANDIDATE",
+        "instrument_scope": "USATECHIDXUSD_WHEN_CLAIM_SPECIFIC",
+        "intended_temporal_applicability": "MANDATORY_20_H1_WARMUP_PLUS_2021-08-14_TO_2026-08-14_EVALUATION"
+      },
+      "evidence_class": "EC-I2",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "provenance_status": "IDENTIFIED",
+      "scope_status": "LEGACY_REFERENCE_CORROBORATION",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "lineage_precheck_status": "SEE_LINEAGE_RESOLUTION",
+      "decision_status": "ADMISSIBLE",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-02_GOVERNED_ADJUDICATION",
+      "created_at_utc": "2026-09-20T09:26:00Z",
+      "decision_seal": "6e79b86d94296438af50b5a2dffb1381b90771dfe6a70c92f2f574ceb19ed6c6"
     }
   ],
   "lineage_resolution": {
-    "lineage_resolution_id": "BPE03-LINEAGE-V0_1",
+    "lineage_resolution_id": "BPE03-LINEAGE-V0_2",
     "evidence_ids": [
       "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
       "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
-      "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE"
+      "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "BPE02-E03",
+      "BPE02-E09"
     ],
     "lineage_groups": {
       "LINEAGE-DUKASCOPY-OFFICIAL": [
         "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
         "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
         "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE"
+      ],
+      "LINEAGE-DUKA-DATA": [
+        "BPE02-E03"
+      ],
+      "LINEAGE-LEOCLC": [
+        "BPE02-E09"
       ]
     },
     "relationship_basis_refs": [
-      "All BPE03 sources are provider-owned Dukascopy surfaces and intentionally count as one provider-primary lineage."
+      "BPE03 provider sources are all Dukascopy-owned and count as one provider lineage.",
+      "BPE02 sealed lineage resolution established provider::DUKA-DATA and provider::LEOCLC as independent.",
+      "No independence between DUKA-DATA and LEOCLC is required for any BPE03 PASS dimension."
     ],
-    "relationship_basis_rationale": "BPE03 does not double-count multiple provider pages as independent provider lineages. Independent corroboration, where required, comes only from already-admissible BPE02 EC-I2 records.",
-    "project_origin_checks": "No BPE03 source originates from project runtime/tests.",
+    "relationship_basis_rationale": "Every PASS dimension uses one Dukascopy provider-primary source plus exactly one imported independent BPE02 EC-I2 source.",
+    "project_origin_checks": "No imported EC-I2 source is project-origin; no project runtime is used.",
     "independence_status_per_pair": {
-      "BPE03_PROVIDER_SOURCES": "COMMON_LINEAGE",
-      "BPE03_PROVIDER::BPE02_INDEPENDENT_REFERENCES": "INDEPENDENT_WHERE_BPE02_LINEAGE_STATUS_ALLOWS"
+      "DUKASCOPY::DUKA-DATA": "INDEPENDENT",
+      "DUKASCOPY::LEOCLC": "INDEPENDENT",
+      "DUKA-DATA::LEOCLC": "UNRESOLVED_NOT_NEEDED"
     },
+    "imported_prior_lineage_resolution_id": "BPE02-LINEAGE-V0_2",
+    "imported_prior_lineage_resolution_integrity_digest": "890e4637c5a18cc2f62a7ec11658ffd8b9b0797e43f6808e6dbdfbb2da991dba",
     "reviewer_identity": "B-PE-03_GOVERNED_ADJUDICATION",
     "created_at_utc": "2026-09-20T09:26:00Z",
-    "lineage_resolution_integrity_digest": "72ef4f872e18643611f20d1ffd1a9023eb1ed37b9c952a7eda156a3e52138fd8"
+    "lineage_resolution_integrity_digest": "39df9898f8eebfe029a07317f8d7281990c8e1ebd50f40db91f86a4f89bd20dd"
   },
   "claim_evidence_assertions": [
     {
@@ -202,11 +311,26 @@
       "dimension_id": "C08-D1",
       "stance": "SUPPORT",
       "anchor_type": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
-      "anchor_locator": "forum snapshot exact_anchor_lines=31-38",
+      "anchor_locator": "forum snapshot lines 31-38",
       "anchor_integrity_digest": "ac92a240fd3f961269dbaf3b7375c14213fb2a2b544358aff486dea90016edc7",
-      "normalized_proposition": "The historical hourly tick file service was operated by Dukascopy.",
+      "normalized_proposition": "Dukascopy operated the historical hourly tick file service.",
       "scope_mapping": "DUKASCOPY_PROVIDER_IDENTITY",
-      "scope_mapping_rationale": "Official API Support statement on Dukascopy-owned support board.",
+      "scope_mapping_rationale": "Official Dukascopy API Support response.",
+      "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
+      "assertion_created_at_utc": "2026-09-20T09:26:00Z"
+    },
+    {
+      "assertion_id": "AST-BPE03-BPE02E03-C08-D1-SUPPORT",
+      "evidence_id": "BPE02-E03",
+      "claim_id": "BPE-C08",
+      "dimension_id": "C08-D1",
+      "stance": "SUPPORT",
+      "anchor_type": "PINNED_GITHUB_FILE_LINE_RANGE",
+      "anchor_locator": "download.py line 60 BASE_URL = datafeed.dukascopy.com/datafeed",
+      "anchor_integrity_digest": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "normalized_proposition": "Independent implementation targets Dukascopy's datafeed host.",
+      "scope_mapping": "DUKASCOPY_PROVIDER_IDENTITY",
+      "scope_mapping_rationale": "Distinct non-project lineage explicitly names Dukascopy datafeed.",
       "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
       "assertion_created_at_utc": "2026-09-20T09:26:00Z"
     },
@@ -217,11 +341,26 @@
       "dimension_id": "C08-D2",
       "stance": "SUPPORT",
       "anchor_type": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
-      "anchor_locator": "forum snapshot exact_fragments",
+      "anchor_locator": "forum snapshot exact hourly h_ticks.bi5 fragment",
       "anchor_integrity_digest": "ac92a240fd3f961269dbaf3b7375c14213fb2a2b544358aff486dea90016edc7",
-      "normalized_proposition": "Dukascopy's historical tick service used hour-addressed h_ticks.bi5 objects.",
+      "normalized_proposition": "Dukascopy historical ticks used hour-addressed h_ticks.bi5 objects.",
       "scope_mapping": "LEGACY_HOURLY_TICK_BI5_FAMILY",
-      "scope_mapping_rationale": "Provider support explicitly names an hour-addressed h_ticks.bi5 history object.",
+      "scope_mapping_rationale": "Official provider response references the hourly object.",
+      "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
+      "assertion_created_at_utc": "2026-09-20T09:26:00Z"
+    },
+    {
+      "assertion_id": "AST-BPE03-BPE02E09-C08-D2-SUPPORT",
+      "evidence_id": "BPE02-E09",
+      "claim_id": "BPE-C08",
+      "dimension_id": "C08-D2",
+      "stance": "SUPPORT",
+      "anchor_type": "PINNED_GITHUB_FILE_LINE_RANGE",
+      "anchor_locator": "url-generator/index.ts lines 15,33-34",
+      "anchor_integrity_digest": "2f6c88b204e19217fb18746b8aa069e78cbc5d1d2c3fa44fa5da499bedbe861e",
+      "normalized_proposition": "Independent implementation maps hour range to datafeed.dukascopy.com ... HHh_ticks.bi5.",
+      "scope_mapping": "LEGACY_HOURLY_TICK_BI5_FAMILY",
+      "scope_mapping_rationale": "Distinct independent lineage corroborates the same hourly family.",
       "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
       "assertion_created_at_utc": "2026-09-20T09:26:00Z"
     },
@@ -232,11 +371,26 @@
       "dimension_id": "C08-D3",
       "stance": "SUPPORT",
       "anchor_type": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
-      "anchor_locator": "forum snapshot history server + hourly object",
+      "anchor_locator": "forum snapshot history file-server + hourly object",
       "anchor_integrity_digest": "ac92a240fd3f961269dbaf3b7375c14213fb2a2b544358aff486dea90016edc7",
-      "normalized_proposition": "The legacy hourly BI5 object belonged to Dukascopy's historical tick file-server object family.",
-      "scope_mapping": "LEGACY_NATIVE_HISTORY_OBJECT_FAMILY",
-      "scope_mapping_rationale": "Provider statement connects tick history, HTTP file server, and h_ticks.bi5 object.",
+      "normalized_proposition": "The hourly BI5 object belonged to Dukascopy's historical tick HTTP file-server family.",
+      "scope_mapping": "NATIVE_HISTORY_OBJECT_FAMILY",
+      "scope_mapping_rationale": "Provider statement links tick history, file server and hourly BI5 object.",
+      "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
+      "assertion_created_at_utc": "2026-09-20T09:26:00Z"
+    },
+    {
+      "assertion_id": "AST-BPE03-BPE02E03-C08-D3-SUPPORT",
+      "evidence_id": "BPE02-E03",
+      "claim_id": "BPE-C08",
+      "dimension_id": "C08-D3",
+      "stance": "SUPPORT",
+      "anchor_type": "PINNED_GITHUB_FILE_LINE_RANGE",
+      "anchor_locator": "download.py lines 11 and 60",
+      "anchor_integrity_digest": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "normalized_proposition": "Independent implementation treats Dukascopy's hourly h_ticks.bi5 URLs as provider-native tick objects.",
+      "scope_mapping": "NATIVE_HISTORY_OBJECT_FAMILY",
+      "scope_mapping_rationale": "Distinct non-project implementation corroborates the provider object family.",
       "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
       "assertion_created_at_utc": "2026-09-20T09:26:00Z"
     },
@@ -247,26 +401,11 @@
       "dimension_id": "C08-D5",
       "stance": "SUPPORT",
       "anchor_type": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
-      "anchor_locator": "maven version entries 2021-2025",
+      "anchor_locator": "provider Maven version entries 2021-2025",
       "anchor_integrity_digest": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
       "normalized_proposition": "Dukascopy published JForex client artifacts throughout 2021-2025.",
-      "scope_mapping": "PROVIDER_CLIENT_TIMELINE_ONLY",
-      "scope_mapping_rationale": "Artifact-release continuity is not proof of unchanged BI5 file format.",
-      "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
-      "assertion_created_at_utc": "2026-09-20T09:26:00Z"
-    },
-    {
-      "assertion_id": "AST-BPE03-E03-C08-D5-CONTRADICT",
-      "evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
-      "claim_id": "BPE-C08",
-      "dimension_id": "C08-D5",
-      "stance": "CONTRADICT",
-      "anchor_type": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
-      "anchor_locator": "JForex 4.8.0 release note",
-      "anchor_integrity_digest": "aaa26415a11f8582b0897ca5c051cfda0cbab4933618cf03880681a79b69be8e",
-      "normalized_proposition": "A provider history-backend change occurred on 2026-03-03, so unchanged continuity through 2026 cannot be assumed.",
-      "scope_mapping": "2026_HISTORY_BACKEND_CHANGE",
-      "scope_mapping_rationale": "JETTA migration is a boundary signal, not proof of public BI5 layout transition.",
+      "scope_mapping": "PROVIDER_CLIENT_RELEASE_TIMELINE_ONLY",
+      "scope_mapping_rationale": "This does not entail unchanged BI5 transport semantics.",
       "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
       "assertion_created_at_utc": "2026-09-20T09:26:00Z"
     }
@@ -276,12 +415,12 @@
       "dimension_id": "C08-D1",
       "status": "PASS",
       "reason_codes": [
-        "ADMISSIBLE_PROVIDER_PRIMARY_DUKASCOPY_IDENTITY",
-        "DISTINCT_BPE02_INDEPENDENT_CORROBORATION"
+        "PROVIDER_PRIMARY_DUKASCOPY_IDENTITY",
+        "DISTINCT_IMPORTED_BPE02_EC_I2_CORROBORATION"
       ],
       "support_assertion_ids": [
         "AST-BPE03-E01-C08-D1-SUPPORT",
-        "BPE02-E03 BASE_URL/provider identity (admissible EC-I2)"
+        "AST-BPE03-BPE02E03-C08-D1-SUPPORT"
       ],
       "contradict_assertion_ids": []
     },
@@ -289,13 +428,12 @@
       "dimension_id": "C08-D2",
       "status": "PASS",
       "reason_codes": [
-        "ADMISSIBLE_PROVIDER_PRIMARY_LEGACY_HOURLY_BI5_EXISTENCE",
-        "DISTINCT_BPE02_INDEPENDENT_CORROBORATION"
+        "PROVIDER_PRIMARY_LEGACY_HOURLY_BI5_EXISTENCE",
+        "DISTINCT_IMPORTED_BPE02_EC_I2_CORROBORATION"
       ],
       "support_assertion_ids": [
         "AST-BPE03-E01-C08-D2-SUPPORT",
-        "AST-BPE02-E05-C08-D2-SUPPORT",
-        "AST-BPE02-E09-C08-D2-SUPPORT"
+        "AST-BPE03-BPE02E09-C08-D2-SUPPORT"
       ],
       "contradict_assertion_ids": []
     },
@@ -303,12 +441,12 @@
       "dimension_id": "C08-D3",
       "status": "PASS",
       "reason_codes": [
-        "ADMISSIBLE_PROVIDER_PRIMARY_HISTORY_FILE_OBJECT_FAMILY",
-        "DISTINCT_BPE02_INDEPENDENT_CORROBORATION"
+        "PROVIDER_PRIMARY_HISTORY_OBJECT_FAMILY",
+        "DISTINCT_IMPORTED_BPE02_EC_I2_CORROBORATION"
       ],
       "support_assertion_ids": [
         "AST-BPE03-E01-C08-D3-SUPPORT",
-        "BPE02-E09 hourly URL family + BPE02-E03 legacy hourly downloader semantics"
+        "AST-BPE03-BPE02E03-C08-D3-SUPPORT"
       ],
       "contradict_assertion_ids": []
     },
@@ -326,20 +464,19 @@
       "status": "BLOCKED",
       "reason_codes": [
         "PROVIDER_CLIENT_RELEASES_DO_NOT_PROVE_FILE_FORMAT_CONTINUITY",
-        "2026_JETTA_BACKEND_CHANGE_PREVENTS_UNCHANGED_CONTINUITY_INFERENCE",
-        "NO_PROVIDER_TRANSITION_DATE_FOR_HOURLY_TO_DAILY_BI5"
+        "JFOREX_4_8_0_JETTA_CHANGE_IS_CONTEXT_NOT_FORMAT_TRANSITION_PROOF",
+        "NO_PROVIDER_TRANSITION_DATE_FOR_HOURLY_TO_DAILY_BI5",
+        "NO_PROVIDER_PROOF_LEGACY_HOURLY_UNCHANGED_THROUGH_2021_2026"
       ],
       "support_assertion_ids": [
         "AST-BPE03-E02-C08-D5-SUPPORT"
       ],
-      "contradict_assertion_ids": [
-        "AST-BPE03-E03-C08-D5-CONTRADICT"
-      ]
+      "contradict_assertion_ids": []
     }
   ],
   "adjudication": {
-    "adjudication_schema": "B_PE_03_SCOPE_VERSION_CONTINUITY_ADJUDICATION_V0_1_CANDIDATE",
-    "adjudication_id": "BPE03-ADJ-2026-09-20-V0_1",
+    "adjudication_schema": "B_PE_03_SCOPE_VERSION_CONTINUITY_ADJUDICATION_V0_2_CORRECTED",
+    "adjudication_id": "BPE03-ADJ-2026-09-20-V0_2",
     "evidence_contract_id": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE",
     "evidence_contract_version": "B_PE_01_DUKASCOPY_NATIVE_BI5_PROVIDER_SENSITIVE_PHYSICAL_SEMANTICS_EVIDENCE_V0_1_CANDIDATE",
     "target_scope_signature": {
@@ -363,6 +500,14 @@
       {
         "evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
         "content_integrity_digest": "aaa26415a11f8582b0897ca5c051cfda0cbab4933618cf03880681a79b69be8e"
+      },
+      {
+        "evidence_id": "BPE02-E03",
+        "content_integrity_digest": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b"
+      },
+      {
+        "evidence_id": "BPE02-E09",
+        "content_integrity_digest": "2f6c88b204e19217fb18746b8aa069e78cbc5d1d2c3fa44fa5da499bedbe861e"
       }
     ],
     "evidence_admissibility_decisions": [
@@ -380,30 +525,42 @@
         "decision_id": "ADM-BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
         "decision_status": "ADMISSIBLE",
         "decision_seal": "c4909f6844bd4752dfd1b07c2ccc46f750457271da01db618ca02819a305af2e"
+      },
+      {
+        "decision_id": "ADM-BPE02-E03",
+        "decision_status": "ADMISSIBLE",
+        "decision_seal": "c0bd0b98084ad2a11407ef981738fa2181650701d4dd79ede453548b2772cfd8"
+      },
+      {
+        "decision_id": "ADM-BPE02-E09",
+        "decision_status": "ADMISSIBLE",
+        "decision_seal": "6e79b86d94296438af50b5a2dffb1381b90771dfe6a70c92f2f574ceb19ed6c6"
       }
     ],
-    "evidence_set_digest": "c0102ebdd6bf392d86498b35d1ba4f5e568036ff170875a4d8389c0e58ad2cb8",
+    "evidence_set_digest": "5cdf41debc110d5b5de0cedd552643300e75b2a03b305cfb9220f18c62fdf30c",
     "claim_assertions": [
       "AST-BPE03-E01-C08-D1-SUPPORT",
+      "AST-BPE03-BPE02E03-C08-D1-SUPPORT",
       "AST-BPE03-E01-C08-D2-SUPPORT",
+      "AST-BPE03-BPE02E09-C08-D2-SUPPORT",
       "AST-BPE03-E01-C08-D3-SUPPORT",
-      "AST-BPE03-E02-C08-D5-SUPPORT",
-      "AST-BPE03-E03-C08-D5-CONTRADICT"
+      "AST-BPE03-BPE02E03-C08-D3-SUPPORT",
+      "AST-BPE03-E02-C08-D5-SUPPORT"
     ],
-    "assertion_set_digest": "6f783604c653f84ac92ac4352541fddf474bc14ce1f2ce848fc0d2152dd5ff65",
-    "lineage_resolution_id": "BPE03-LINEAGE-V0_1",
-    "lineage_resolution_integrity_digest": "72ef4f872e18643611f20d1ffd1a9023eb1ed37b9c952a7eda156a3e52138fd8",
+    "assertion_set_digest": "42761bf85b04b43710770c069f965ac314e7baa9714c6ff81c554c1295f62d3b",
+    "lineage_resolution_id": "BPE03-LINEAGE-V0_2",
+    "lineage_resolution_integrity_digest": "39df9898f8eebfe029a07317f8d7281990c8e1ebd50f40db91f86a4f89bd20dd",
     "dimension_adjudications": [
       {
         "dimension_id": "C08-D1",
         "status": "PASS",
         "reason_codes": [
-          "ADMISSIBLE_PROVIDER_PRIMARY_DUKASCOPY_IDENTITY",
-          "DISTINCT_BPE02_INDEPENDENT_CORROBORATION"
+          "PROVIDER_PRIMARY_DUKASCOPY_IDENTITY",
+          "DISTINCT_IMPORTED_BPE02_EC_I2_CORROBORATION"
         ],
         "support_assertion_ids": [
           "AST-BPE03-E01-C08-D1-SUPPORT",
-          "BPE02-E03 BASE_URL/provider identity (admissible EC-I2)"
+          "AST-BPE03-BPE02E03-C08-D1-SUPPORT"
         ],
         "contradict_assertion_ids": []
       },
@@ -411,13 +568,12 @@
         "dimension_id": "C08-D2",
         "status": "PASS",
         "reason_codes": [
-          "ADMISSIBLE_PROVIDER_PRIMARY_LEGACY_HOURLY_BI5_EXISTENCE",
-          "DISTINCT_BPE02_INDEPENDENT_CORROBORATION"
+          "PROVIDER_PRIMARY_LEGACY_HOURLY_BI5_EXISTENCE",
+          "DISTINCT_IMPORTED_BPE02_EC_I2_CORROBORATION"
         ],
         "support_assertion_ids": [
           "AST-BPE03-E01-C08-D2-SUPPORT",
-          "AST-BPE02-E05-C08-D2-SUPPORT",
-          "AST-BPE02-E09-C08-D2-SUPPORT"
+          "AST-BPE03-BPE02E09-C08-D2-SUPPORT"
         ],
         "contradict_assertion_ids": []
       },
@@ -425,12 +581,12 @@
         "dimension_id": "C08-D3",
         "status": "PASS",
         "reason_codes": [
-          "ADMISSIBLE_PROVIDER_PRIMARY_HISTORY_FILE_OBJECT_FAMILY",
-          "DISTINCT_BPE02_INDEPENDENT_CORROBORATION"
+          "PROVIDER_PRIMARY_HISTORY_OBJECT_FAMILY",
+          "DISTINCT_IMPORTED_BPE02_EC_I2_CORROBORATION"
         ],
         "support_assertion_ids": [
           "AST-BPE03-E01-C08-D3-SUPPORT",
-          "BPE02-E09 hourly URL family + BPE02-E03 legacy hourly downloader semantics"
+          "AST-BPE03-BPE02E03-C08-D3-SUPPORT"
         ],
         "contradict_assertion_ids": []
       },
@@ -448,15 +604,14 @@
         "status": "BLOCKED",
         "reason_codes": [
           "PROVIDER_CLIENT_RELEASES_DO_NOT_PROVE_FILE_FORMAT_CONTINUITY",
-          "2026_JETTA_BACKEND_CHANGE_PREVENTS_UNCHANGED_CONTINUITY_INFERENCE",
-          "NO_PROVIDER_TRANSITION_DATE_FOR_HOURLY_TO_DAILY_BI5"
+          "JFOREX_4_8_0_JETTA_CHANGE_IS_CONTEXT_NOT_FORMAT_TRANSITION_PROOF",
+          "NO_PROVIDER_TRANSITION_DATE_FOR_HOURLY_TO_DAILY_BI5",
+          "NO_PROVIDER_PROOF_LEGACY_HOURLY_UNCHANGED_THROUGH_2021_2026"
         ],
         "support_assertion_ids": [
           "AST-BPE03-E02-C08-D5-SUPPORT"
         ],
-        "contradict_assertion_ids": [
-          "AST-BPE03-E03-C08-D5-CONTRADICT"
-        ]
+        "contradict_assertion_ids": []
       }
     ],
     "claim_adjudications": [
@@ -473,10 +628,15 @@
       }
     ],
     "overall_provider_evidence_status": "BLOCKED",
-    "supersedes_adjudication_id": "BPE02-ADJ-2026-09-20-V0_2",
+    "supersedes_adjudication_id": "BPE03-ADJ-2026-09-20-V0_1",
     "adjudication_status": "BLOCKED",
     "adjudicator_identity": "B-PE-03_GOVERNED_ADJUDICATION",
     "created_at_utc": "2026-09-20T09:26:00Z",
-    "adjudication_seal": "ccee8601e37c52060f96fb19ce35836ea7afd3b8d4c7bd8d427bd2b901db5e6b"
-  }
+    "adjudication_seal": "90c240c2aea78fed5fd1509daecf390fd439b38376e3c3a4fc4368d19d6af2be"
+  },
+  "imported_bpe02_evidence_ids": [
+    "BPE02-E03",
+    "BPE02-E09"
+  ],
+  "imported_bpe02_adjudication_seal": "d27771bc8c2023571b4fbbe66238dbc28b29ca69949a1db114480346f1c90a76"
 }

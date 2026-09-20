@@ -1,61 +1,58 @@
-# B-PE-03 — LEGACY-HOURLY BI5 PROVIDER-PRIMARY SCOPE / VERSION CONTINUITY — CANDIDATE
+# B-PE-03 — LEGACY-HOURLY PROVIDER SCOPE / CONTINUITY — CORRECTED CANDIDATE
 
-**Date:** 2026-09-20
-**Starting HEAD:** `e7d844e4ad823526c0e92232b1fd2c9ce06b5a03`
-**Scope:** provider-owned/versioned/archived evidence only; no BI5 project data.
+**Date:** 2026-09-20  
+**Initial candidate commit:** `3a116ab4c6b8766fb27360b346421ba91ccd1e98`  
+**Adversarial break:** `reports/data-qualification/bpe03_legacy_hourly_provider_scope_continuity_adversarial_break_2026-09-20.md`
 
-## Provider evidence collected
+## Corrections
 
-1. Dukascopy API Support, dated 2013:
-   establishes the historical tick file-server family and an hour-addressed `h_ticks.bi5` object.
-2. Dukascopy provider Maven index:
-   immutable/versioned JForex client artifact timeline from 2021 through 2025.
-3. Dukascopy JForex 4.8.0 release note:
-   on 2026-03-03, JForex introduced a new historical-price-data source named JETTA.
-
-All three provider extracts are persisted as immutable project evidence snapshots with SHA-256 binding and exact source anchors.
-
-## What is established
-
-The re-adjudication promotes only:
+Closed only:
 
 ```text
-C08-D1 provider identity applicability             = PASS
-C08-D2 legacy native hourly BI5 family existence   = PASS
-C08-D3 historical tick file-object family binding  = PASS
+BPE03-F01 — free-text BPE02 corroboration removed;
+             exact BPE02-E03/E09 source records + sealed admissibility decisions imported
+             and exact closed BPE03 assertions created.
+
+BPE03-F02 — JETTA release removed from claim stance;
+             retained as contextual provider evidence only.
 ```
 
-These PASS dimensions are supported by one provider-primary lineage plus distinct B-PE-02 independent corroboration.
-
-## What is NOT established
+## Corrected C08 dimension state
 
 ```text
-C08-D4 USATECH legacy-hourly applicability = BLOCKED
-C08-D5 temporal/version continuity 2021–2026 = BLOCKED
+C08-D1 provider identity applicability            = PASS
+C08-D2 legacy hourly BI5 family existence         = PASS
+C08-D3 historical tick file-object family binding = PASS
+C08-D4 USATECH legacy-hourly applicability        = BLOCKED
+C08-D5 target temporal/version continuity          = BLOCKED
 ```
 
-Why C08-D5 remains BLOCKED:
+Every PASS dimension now binds:
 
-- provider Maven releases prove client release continuity, not unchanged historical file format;
-- provider release notes prove a history backend change to JETTA on 2026-03-03;
-- no provider-owned artifact found states the public hourly→daily BI5 transition date;
-- no provider-owned artifact found states that the legacy hourly physical format remained unchanged through the target 2021–2026 epoch.
+```text
+one exact provider-primary BPE03 assertion
++
+one exact imported BPE02 EC-I2 source/decision/assertion
+```
 
-The JETTA release cannot be silently equated to the public BI5 bucket transition.
+No free-text evidence dependency remains.
 
-## Claim result
+## Continuity conclusion
+
+Provider evidence establishes the legacy hourly family historically and a provider client release timeline through 2025.
+
+It does not establish that the same hourly BI5 representation/physical semantics applied to USATECHIDXUSD throughout 2021-08-14 → 2026-08-14.
+
+JForex 4.8.0 / JETTA is retained only as evidence that a history-source change occurred on 2026-03-03; it is not treated as the public BI5 format transition date.
+
+## Corrected verdict
 
 ```text
 BPE-C08 = BLOCKED
-```
-
-No C01-C07 dimension is reopened because B-PE-03 found no provider-primary exact legacy-hourly byte-layout specification.
-
-Therefore:
-
-```text
-overall_provider_evidence_status = BLOCKED
+B-PE-03 overall provider evidence = BLOCKED
 B global executable gate = BLOCKED
 ```
 
-Next inside B-PE-03: adversarially break this exact persisted scope/continuity adjudication.
+No C01-C07 dimension is reopened.
+
+Next: persisted-HEAD integrity and semantic adversarial re-break.
