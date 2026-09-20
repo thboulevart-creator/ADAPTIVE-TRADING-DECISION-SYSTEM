@@ -146,6 +146,16 @@ def _surface_modules():
 
 def _audited_fresh_qualify(side: str):
     module_name = IA2_MODULE if side == "IA" else IB2_MODULE
+    if importlib.util.find_spec(module_name) is None:
+        pytest.fail(
+            (
+                "Q-RM-12 I_A V0.2 surface absent — expected pre-implementation RED: "
+                if side == "IA"
+                else "Q-RM-12 I_B V0.2 surface absent — expected pre-implementation RED: "
+            )
+            + module_name,
+            pytrace=False,
+        )
     opposite = IB2_MODULE if side == "IA" else IA2_MODULE
     opposite_v1 = (
         "src.native_bi5_independent_qualifier"
