@@ -6056,3 +6056,135 @@ real backtest
 paper/broker/live
 positive P1.1 authorization
 ```
+
+
+---
+
+## 118. B-PE-04R evidence proportionality / necessity review — PASS
+
+The previously proposed external-state action:
+
+```text
+B-PE-05 — governed provider clarification dispatch
+```
+
+was not executed.
+
+A proportionality review was opened instead.
+
+Review artifact:
+
+`reports/data-qualification/bpe04r_evidence_proportionality_necessity_review_2026-09-20.md`
+
+Corrected review blob:
+
+`33dd9d41342902d4e0efd17f3bdd2b1e603f1a4a`
+
+Adversarial break demonstrated:
+
+```text
+BPE04R-F01 — BOUNDED_SAMPLE_TO_FULL_INTERVAL_PROMOTION_NOT_CLOSED
+BPE04R-F02 — CLOSED_WORLD_HOURLY_DAILY_LOCATOR_ASSUMPTION
+```
+
+Both were corrected.
+
+Final review result:
+
+```text
+B-PE-04R EVIDENCE PROPORTIONALITY / NECESSITY REVIEW = PASS
+DECISION = SIMPLIFY
+```
+
+## 119. Meaning of SIMPLIFY
+
+The remaining C08-D4/D5 uncertainty protects a real risk:
+
+```text
+wrong external representation premise
+→ wrong component universe
+→ potentially incomplete but internally consistent dataset
+```
+
+Existing controls do not fully replace this evidence:
+
+```text
+D = partial
+B/A/Q = partial
+I_A/I_B/O = cannot falsify a shared external premise
+```
+
+But direct Dukascopy contact is not the proportional immediate next control.
+
+Therefore:
+
+```text
+B-PE-05 = DO NOT EXECUTE NOW
+```
+
+and provider clarification becomes optional fallback.
+
+No project truth claim was promoted:
+
+```text
+C08-D4 = BLOCKED
+C08-D5 = BLOCKED
+BPE-C08 = BLOCKED
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+B-PE-01 remains unchanged.
+
+Mandatory empirical safeguards:
+
+```text
+PROBE_SUPPORTED ≠ FULL_INTERVAL_QUALIFIED
+UNKNOWN_REPRESENTATION = BLOCKED
+no sample extrapolation
+no closed-world hourly/daily assumption
+```
+
+## 120. Exactly one next governed action
+
+Open only:
+
+```text
+B-ERD-01 — bounded empirical representation-discrimination contract
+```
+
+Formalization only:
+
+```text
+fresh HEAD
+→ define exact empirical hypotheses
+→ define bounded stratified USATECH probe dates
+→ define known candidate representation/locator families without closed-world assumption
+→ define UNKNOWN_REPRESENTATION = BLOCKED
+→ define exact raw response/provenance capture
+→ define cross-family representation/coverage comparison
+→ define independent semantic plausibility checks
+→ define PROBE_SUPPORTED / PROBE_REFUTED / BLOCKED
+→ explicitly forbid sample→full-interval promotion
+→ define what later evidence can establish FULL_INTERVAL_QUALIFIED
+→ adversarial break
+→ persisted-HEAD re-break
+→ audit + backup + checkpoint
+→ STOP
+```
+
+Still prohibited during B-ERD-01:
+
+```text
+provider contact
+native BI5 project-data download
+real BI5 processing
+real project acquisition
+D materialization
+real Q/F/Q-RM-12 execution
+real backtest
+paper/broker/live
+positive P1.1 authorization
+```
+
+A later bounded empirical execution requires a separate explicit authorization.

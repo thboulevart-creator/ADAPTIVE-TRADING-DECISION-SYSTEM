@@ -3720,3 +3720,55 @@ C08-D4/D5 and BPE-C08 remain BLOCKED.
 Next external-state action, requiring explicit user authorization:
 
 `B-PE-05 — governed provider clarification dispatch`.
+
+
+---
+
+# B-PE-04R evidence proportionality / necessity review — 2026-09-20
+
+The previous immediate-next-action path:
+
+```text
+B-PE-05 — governed provider clarification dispatch
+```
+
+was reviewed for proportionality before execution.
+
+Result:
+
+```text
+B-PE-04R = PASS
+DECISION = SIMPLIFY
+B-PE-05 = DO NOT EXECUTE NOW
+```
+
+The review confirmed C08-D4/D5 protect a real external-representation risk, but existing D/Q/I_A/I_B controls only partially cover it:
+
+```text
+D completeness can be complete relative to a wrong manifest premise
+Q can conserve structurally valid wrong-scope material
+I_A/I_B can agree on a shared false external premise
+```
+
+Therefore the risk cannot simply be ignored.
+
+However, direct provider dispatch is not the proportional immediate control because it provides documentary authority rather than direct evidence about the exact material the project will acquire, creates an external dependency, and would not by itself close C01-C07.
+
+Selected replacement path:
+
+```text
+B-ERD-01 — bounded empirical representation-discrimination contract
+```
+
+with two mandatory safeguards established by adversarial review:
+
+```text
+PROBE_SUPPORTED ≠ FULL_INTERVAL_QUALIFIED
+UNKNOWN_REPRESENTATION = BLOCKED
+```
+
+No sample may be extrapolated to five-year continuity.
+
+B-PE-01 remains unchanged; C08-D4/D5 and global B remain BLOCKED.
+
+No provider contact or real data action occurred.
