@@ -5413,3 +5413,120 @@ fresh HEAD
 ```
 
 No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 100. PRE-BACKTEST global executable gate re-reconciliation — PASS
+
+Starting HEAD:
+
+`1fc15ed046c1d5497fa5e4a340d45f00113f2fdd`
+
+The now-qualified Q-RM-12 compatibility chain was reconciled against every global executable gate.
+
+Current global matrix:
+
+```text
+D   BLOCKED — actual acquisition/materialization absent
+R   BLOCKED — exact selection exists; global closure depends on B/D
+M   BLOCKED — exact candidate implemented; no real qualified tuple
+B   BLOCKED — provider-sensitive BI5 physical truth lacks independent/provider evidence
+A   BLOCKED — binding-specific anomaly triggers depend on B
+Q   BLOCKED — no materially complete D + globally qualified B/A
+F   BLOCKED — no real qualified universe to persist
+O   BLOCKED — no pair of real qualified F artifacts
+I_A BLOCKED — compatibility implementation PASS; no real globally qualified input/run
+I_B BLOCKED — compatibility implementation PASS; no real globally qualified input/run
+
+Q-RM-12 compatibility chain = PASS
+Q-RM-12 real executable run = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+The reconciliation itself survives adversarial selection challenge.
+
+Verdict:
+
+```text
+PRE-BACKTEST GLOBAL EXECUTABLE GATE RE-RECONCILIATION = PASS
+```
+
+## 101. Single smallest remaining blocker
+
+Selected:
+
+```text
+B-PE-01 —
+DUKASCOPY NATIVE BI5 PROVIDER-SENSITIVE PHYSICAL SEMANTICS EVIDENCE
+```
+
+Unresolved provider-sensitive claim family:
+
+```text
+LZMA-Alone envelope
+20-byte slot width
+>IIIff layout/order
+millisecond offset semantics
+uint32 ask/bid raw interpretation
+price /1000
+binary32 source-volume fields/semantics
+```
+
+The current repository has internally consistent B semantics and two independent compatible implementations.
+
+That is not external/provider truth.
+
+Neither deterministic I_A/I_B agreement nor the V4.3 implementation may become normative provider authority.
+
+D materialization was rejected as the smallest **pre-acquisition** blocker because it requires real acquisition and would otherwise inherit unqualified B assumptions.
+
+## 102. Durable evidence
+
+Dedicated reconciliation:
+
+`reports/data-qualification/pre_backtest_global_gate_rereconciliation_after_qrm12_2026-09-20.md`
+
+Latest backup:
+
+`99-BACKUP/SESSION-2026-09-20-PRE-BACKTEST-GLOBAL-RERECONCILIATION-PASS.md`
+
+Global audit:
+
+`reports/data-qualification/pre_backtest_concrete_gate_reconciliation_2026-09-19.md`
+
+## 103. Exactly one next governed action
+
+Open only:
+
+```text
+B-PE-01 — native BI5 provider-sensitive physical semantics evidence contract
+```
+
+Scope is formalization only.
+
+Define before gathering evidence:
+
+1. exact provider-sensitive claims to be qualified;
+2. admissible evidence classes;
+3. independence requirements from V4.3 / I_A / I_B;
+4. provenance and version binding;
+5. conflict and stale-evidence handling;
+6. claim-level PASS / FAIL / BLOCKED rules;
+7. what representation-wide evidence can establish without downloading project BI5;
+8. what must remain deferred to later bounded real-acquisition evidence.
+
+Then adversarially break that exact evidence contract before using it.
+
+Still prohibited:
+
+```text
+native BI5 download
+real BI5 processing
+real acquisition
+real backtest
+paper execution
+broker execution
+live execution
+positive P1.1 authorization
+```

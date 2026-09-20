@@ -3374,3 +3374,78 @@ I_B BLOCKED
 ```
 
 No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization was created.
+
+
+---
+
+# PRE-BACKTEST global executable gate re-reconciliation after Q-RM-12 compatibility closure — 2026-09-20
+
+The Q-RM-12 compatibility chain is now fully qualified at synthetic/no-real-data scope:
+
+```text
+formalization = PASS
+compatibility breaker/harness = PASS
+I_A V0.2 = PASS
+I_B V0.2 = PASS
+post-seal handoff = PASS
+full compatibility = 70/70 PASS
+handoff adversarial = 8/8 PASS
+```
+
+The global gate was re-reconciled term by term.
+
+Current result:
+
+```text
+D   BLOCKED — no materialized acquisition/manifest/completeness
+R   BLOCKED — selected; depends on provider-qualified B + materialized D
+M   BLOCKED — candidate semantics implemented; no real qualified tuple
+B   BLOCKED — provider-sensitive native BI5 physical facts lack independent/provider evidence
+A   BLOCKED — binding-specific triggers depend on B
+Q   BLOCKED — no materially complete D and globally qualified B/A
+F   BLOCKED — no real qualified universe
+O   BLOCKED — no real F_A/F_B pair
+I_A BLOCKED — compatibility PASS, no real globally qualified input/run
+I_B BLOCKED — compatibility PASS, no real globally qualified input/run
+```
+
+The single smallest remaining blocker that is both logically prior and closable without real acquisition is:
+
+```text
+B-PE-01 —
+DUKASCOPY NATIVE BI5 PROVIDER-SENSITIVE PHYSICAL SEMANTICS EVIDENCE
+```
+
+Provider-sensitive claim family includes:
+
+- LZMA-Alone envelope;
+- 20-byte framing;
+- `>IIIff` field layout/order;
+- millisecond offset semantics;
+- ask/bid raw integer interpretation;
+- price scaling `/1000`;
+- binary32 source-volume fields/semantics.
+
+Adversarial challenge rejected D-first, R-first, M-first, A-first and downstream Q/F/O/I_A/I_B alternatives.
+
+Key reason:
+
+```text
+I_A/I_B deterministic agreement
+≠ proof that their shared external-provider premise is true
+```
+
+The existing V4.3 implementation also cannot become normative authority for the contract it implements.
+
+Reconciliation verdict:
+
+```text
+PRE-BACKTEST GLOBAL EXECUTABLE GATE RE-RECONCILIATION = PASS
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+Dedicated reconciliation record:
+
+`reports/data-qualification/pre_backtest_global_gate_rereconciliation_after_qrm12_2026-09-20.md`
+
+No BI5 download, real-data processing, acquisition or backtest occurred.
