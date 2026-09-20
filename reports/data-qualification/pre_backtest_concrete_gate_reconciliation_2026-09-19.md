@@ -3535,3 +3535,72 @@ B global executable gate = BLOCKED
 ```
 
 No provider evidence collection, BI5 download, real processing, acquisition or backtest occurred.
+
+
+---
+
+# B-PE-02 provider/reference evidence collection and C01-C08 adjudication — 2026-09-20
+
+B-PE-02 collected provider-primary web documentation plus three independent exact-revision non-project implementations without downloading any project BI5.
+
+Structured evidence bundle:
+
+`evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json`
+
+Final corrected bundle blob:
+
+`df22332709377591d73571a4940c1fda39565867`
+
+Adversarial record:
+
+`reports/data-qualification/bpe02_native_bi5_provider_reference_adjudication_adversarial_break_2026-09-20.md`
+
+Final re-break:
+
+`reports/data-qualification/bpe02_native_bi5_provider_reference_adjudication_final_rebreak_2026-09-20.md`
+
+Adjudication defects demonstrated and corrected:
+
+```text
+BPE02-F01 — NONRECURSIVE_CANONICAL_SEAL_GENERATION
+BPE02-F02 — LIVE_PROVIDER_PAGE_SNAPSHOT_NOT_DURABLY_MATERIALIZED
+BPE02-F03 — CLAIM_ASSERTION_SCHEMA_NOT_CLOSED
+BPE02-F04 — MULTI_FILE_SOURCE_DIGEST_PROJECTION_NOT_SELF_DESCRIBING
+```
+
+Final provider source status:
+
+```text
+Dukascopy current Historical Price Data page = BLOCKED source
+Dukascopy current USATECH CFD page           = BLOCKED source
+```
+
+Reason: live pages are provider-primary but no immutable provider version / exact source snapshot is durably materialized under B-PE-01.
+
+Independent GitHub reference files are ADMISSIBLE EC-I2 but cannot replace the mandatory provider-primary exact-target lineage.
+
+Final claims:
+
+```text
+C01 BLOCKED
+C02 BLOCKED
+C03 BLOCKED
+C04 BLOCKED
+C05 BLOCKED
+C06 BLOCKED
+C07 BLOCKED
+C08 BLOCKED
+```
+
+No claim FAIL.
+
+Final verdict:
+
+```text
+B-PE-02 PROVIDER / REFERENCE EVIDENCE ADJUDICATION = BLOCKED
+B global executable gate = BLOCKED
+```
+
+Dominant next evidence gap: immutable/versioned provider-primary legacy-hourly scope/version continuity to the 2021–2026 target epoch.
+
+No project BI5 download, processing, acquisition or backtest occurred.

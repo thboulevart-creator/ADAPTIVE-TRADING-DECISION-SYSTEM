@@ -5687,3 +5687,130 @@ real backtest
 paper/broker/live execution
 positive P1.1 authorization
 ```
+
+
+---
+
+## 108. B-PE-02 provider/reference evidence adjudication — BLOCKED
+
+B-PE-02 collected documentary/reference evidence under the qualified B-PE-01 contract.
+
+Final corrected evidence bundle:
+
+`evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json`
+
+blob:
+
+`df22332709377591d73571a4940c1fda39565867`
+
+Final adjudication seal:
+
+`d27771bc8c2023571b4fbbe66238dbc28b29ca69949a1db114480346f1c90a76`
+
+Adversarial defects corrected:
+
+```text
+BPE02-F01 — NONRECURSIVE_CANONICAL_SEAL_GENERATION
+BPE02-F02 — LIVE_PROVIDER_PAGE_SNAPSHOT_NOT_DURABLY_MATERIALIZED
+BPE02-F03 — CLAIM_ASSERTION_SCHEMA_NOT_CLOSED
+BPE02-F04 — MULTI_FILE_SOURCE_DIGEST_PROJECTION_NOT_SELF_DESCRIBING
+```
+
+Persisted-head integrity re-break:
+
+```text
+decision seals = exact
+lineage digest = exact
+evidence-set digest = exact
+assertion-set digest = exact
+adjudication seal = exact
+```
+
+Provider-primary source status:
+
+```text
+E01 Dukascopy Historical Price Data = BLOCKED
+E02 Dukascopy USATECH CFD metadata  = BLOCKED
+```
+
+Reason:
+
+provider-owned but live/unversioned; exact provider snapshot bytes are not durably materialized under B-PE-01.
+
+Independent reference files remain ADMISSIBLE EC-I2 and strongly corroborate several legacy-hourly facts, but cannot substitute for the mandatory provider-primary exact-target lineage.
+
+## 109. C01-C08 current provider-truth state
+
+```text
+BPE-C01 = BLOCKED
+BPE-C02 = BLOCKED
+BPE-C03 = BLOCKED
+BPE-C04 = BLOCKED
+BPE-C05 = BLOCKED
+BPE-C06 = BLOCKED
+BPE-C07 = BLOCKED
+BPE-C08 = BLOCKED
+```
+
+No claim FAIL.
+
+Important observed independent conflict:
+
+```text
+ninety47 legacy decoder → unsigned integer fields
+duka-data / leoclc      → signed integer fields
+```
+
+No majority vote is authorized.
+
+Important USATECH scaling state:
+
+```text
+independent /1000 corroboration = strong
+provider-primary raw-BI5 /1000 proof = absent
+current CFD point value 0.01 ≠ raw BI5 divisor proof
+```
+
+## 110. Final B-PE-02 verdict
+
+```text
+B-PE-02 PROVIDER / REFERENCE EVIDENCE ADJUDICATION = BLOCKED
+overall_provider_evidence_status = BLOCKED
+
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+No project BI5 download, processing, real acquisition, Q/F/Q-RM-12 real execution, backtest or paper/broker/live execution occurred.
+
+## 111. Exactly one next governed action
+
+Open only:
+
+```text
+B-PE-03 — legacy-hourly BI5 provider-primary immutable scope/version continuity evidence
+```
+
+Scope:
+
+- search provider-owned/versioned/archived sources only for the legacy hourly BI5 representation;
+- establish or fail to establish the transition/applicability boundary into the target 2021–2026 hourly representation;
+- preserve B-PE-01 source immutability requirements;
+- do not relax provider-primary requirement;
+- do not use project V4.3/I_A/I_B as support;
+- no project BI5 download or processing.
+
+If provider-primary immutable evidence is absent, persist the absence as BLOCKED and only then determine the smallest admissible alternative evidence route.
+
+Still prohibited:
+
+```text
+native BI5 project-data download
+real BI5 project payload processing
+real project acquisition
+D materialization
+real Q/F/Q-RM-12 execution
+real backtest
+paper/broker/live
+positive P1.1 authorization
+```
