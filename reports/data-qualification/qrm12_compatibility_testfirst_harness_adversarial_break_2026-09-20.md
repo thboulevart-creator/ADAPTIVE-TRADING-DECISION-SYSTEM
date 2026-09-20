@@ -425,3 +425,44 @@ QTF-R04
 Then atomically persist breaker + workflow lock and execute the final persisted-HEAD RED re-break.
 
 No production code is authorized.
+
+
+### QTF-R05 — BREAKER-OWNED RUNTIME AUDIT EMITS UNGOVERNED MODULE-NOT-FOUND RED
+
+Final candidate RED run on commit `a0a01d40699b95ff098aaca564b9e161c08b2c44`:
+
+```text
+run = 35497084675
+job = 106041941665
+collection = 70 tests / PASS
+70 failed
+```
+
+68 failures used the governed expected-RED message for the missing future surface.
+
+Two failures:
+
+```text
+test_e4_breaker_owned_runtime_audit_closes_dynamic_preseal_channels[IA]
+test_e4_breaker_owned_runtime_audit_closes_dynamic_preseal_channels[IB]
+```
+
+escaped as raw `ModuleNotFoundError`.
+
+This is still caused by future surface absence, but it violates the requirement that the final RED be attributable through the breaker-controlled expected-absence boundary rather than an uncontrolled import exception.
+
+#### Minimal correction
+
+In `_audited_fresh_qualify`, detect absent selected future surface before the fresh-import audit and fail with the same governed preimplementation RED classification used by `_ia2()` / `_ib2()`.
+
+Do not weaken the runtime audit once the future surface exists.
+
+## 16. Updated final corrective scope
+
+Correct only:
+
+```text
+QTF-R05
+```
+
+Then repeat persisted-HEAD RED re-break and require **zero unexpected failure causes**.
