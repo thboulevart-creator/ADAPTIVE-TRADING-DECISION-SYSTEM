@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import ast
 import copy
 import hashlib
 import importlib
@@ -1130,25 +1131,57 @@ def test_e2_source_witness_is_not_promoted_to_new_canonical_identity() -> None:
     assert "temporal_precedence" not in json.dumps(result, sort_keys=True)
 
 
+def _assert_no_preseal_cross_path_source_flow(
+    source: str,
+    *,
+    forbidden_module: str,
+    forbidden_result_name: str,
+) -> None:
+    tree = ast.parse(source)
+    forbidden_module_leaf = forbidden_module.rsplit(".", 1)[-1]
+    forbidden_identifiers = {
+        "other_path_output",
+        forbidden_result_name,
+        "expected_other_result",
+    }
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Name):
+            assert node.id not in forbidden_identifiers
+            assert node.id != forbidden_module_leaf
+        elif isinstance(node, ast.arg):
+            assert node.arg not in forbidden_identifiers
+            assert node.arg != forbidden_module_leaf
+        elif isinstance(node, ast.Attribute):
+            assert node.attr not in forbidden_identifiers
+            assert node.attr != forbidden_module_leaf
+        elif isinstance(node, ast.alias):
+            assert node.name != forbidden_module
+            assert node.name != forbidden_module_leaf
+            assert node.asname not in forbidden_identifiers
+            assert node.asname != forbidden_module_leaf
+        elif isinstance(node, ast.Constant) and isinstance(node.value, str):
+            assert forbidden_module not in node.value
+            assert node.value != forbidden_module_leaf
+            assert node.value not in forbidden_identifiers
+
+
 def test_e3_preseal_cross_path_information_flow_is_forbidden() -> None:
     ia = _ia2()
     ib = _ib2()
     left_source = inspect.getsource(ia)
     right_source = inspect.getsource(ib)
-    forbidden_left = (
-        "native_bi5_independent_qualifier_qrm12",
-        "other_path_output",
-        "ib_result",
-        "expected_other_result",
+
+    _assert_no_preseal_cross_path_source_flow(
+        left_source,
+        forbidden_module=IB2_MODULE,
+        forbidden_result_name="ib_result",
     )
-    forbidden_right = (
-        "native_bi5_reference_qualifier_qrm12",
-        "other_path_output",
-        "ia_result",
-        "expected_other_result",
+    _assert_no_preseal_cross_path_source_flow(
+        right_source,
+        forbidden_module=IA2_MODULE,
+        forbidden_result_name="ia_result",
     )
-    assert all(token not in left_source for token in forbidden_left)
-    assert all(token not in right_source for token in forbidden_right)
 
     left_dependencies = tuple(ia.build_implementation_manifest()["project_dependency_imports"])
     right_dependencies = tuple(ib.build_implementation_manifest()["project_dependency_imports"])
