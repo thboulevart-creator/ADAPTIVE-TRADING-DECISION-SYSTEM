@@ -3831,3 +3831,46 @@ B-ERD-02 — bounded empirical representation-discrimination execution
 ~~~
 
 requires explicit authorization.
+
+
+---
+
+# B-ERD-02 bounded empirical representation-discrimination execution — 2026-09-20
+
+User explicitly authorized the bounded real-data probe.
+
+Pre-request inputs were sealed at commit:
+
+`ab219e54daa05b88cc7ef69e2f68fb43bec82750`
+
+Eighteen predeclared locator attempts were made:
+
+```text
+9 PT1H probes × K1/K2
+```
+
+All attempts were blocked by the available runtime before usable HTTP status, response headers or BI5 body bytes were exposed.
+
+Therefore:
+
+```text
+K1 supported = 0
+K1 refuted = 0
+all required probes = BLOCKED
+diagnostics = NOT_REACHED
+overall B-ERD-02 = BLOCKED
+```
+
+No absence claim was inferred from transport failure.
+
+Persisted result:
+
+`evidence/berd02/execution_result_v0_1.json`
+
+seal:
+
+`29d1f2512ea0e0344b8bd2c6b55fe77ed8f0bf65914cfbd2d02f91a1c95c1b69`
+
+The experiment must be rerun only under a new execution identity in a runtime capable of raw binary HTTP capture and authenticated S3 Requester Pays for K2.
+
+No full acquisition or backtest occurred.

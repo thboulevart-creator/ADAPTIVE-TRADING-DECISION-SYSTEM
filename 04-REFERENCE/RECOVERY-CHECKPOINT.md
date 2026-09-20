@@ -6333,3 +6333,141 @@ backtest
 paper/broker/live
 positive P1.1 authorization
 ~~~
+
+
+---
+
+## 125. B-ERD-02 bounded empirical representation-discrimination execution — BLOCKED
+
+The user explicitly authorized B-ERD-02.
+
+Pre-request execution inputs were materialized and sealed before any provider-object observation.
+
+Pre-request commit:
+
+`ab219e54daa05b88cc7ef69e2f68fb43bec82750`
+
+Qualified input seals:
+
+```text
+LocatorManifest
+a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7
+
+ProbePlan
+af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce
+
+TransportPolicy
+136b5a0fecd6387bf5054cd13dc8cb090e7d5e991bd9971d040b0f9c07099b44
+```
+
+Nine PT1H probes were resolved:
+
+```text
+PW 2021-08-13T20:00Z
+P0 2021-08-15T22:00Z
+P1 2022-08-14T22:00Z
+P2 2023-08-14T00:00Z
+P3 2024-08-14T00:00Z
+P4 2025-08-14T00:00Z
+P5 2026-03-02T23:00Z
+P6 2026-03-04T00:00Z
+P7 2026-08-14T20:00Z
+```
+
+K1 and K2 produced 18 predeclared attempts.
+
+## 126. Actual B-ERD-02 observation
+
+All 18 attempts were blocked by the available runtime before usable binary HTTP response evidence was exposed.
+
+For all captures:
+
+```text
+http_status = unavailable
+headers = unavailable
+raw BI5 body = unavailable
+retry = false
+transport = TRANSPORT_AMBIGUOUS
+family = FAMILY_TRANSPORT_BLOCKED
+```
+
+No HTTP response code is fabricated.
+
+No object absence is inferred.
+
+No K1/K2 provider availability conclusion is made.
+
+No unknown representation is inferred.
+
+Independent diagnostics and cross-family semantic comparison were not reached.
+
+Persisted capture set:
+
+`evidence/berd02/transport_captures_v0_1.json`
+
+seal:
+
+`7c99f8cbe977ad80efe11b3a9bb5be11fa988389eed337a21454fd5666bdedca`
+
+Persisted execution result:
+
+`evidence/berd02/execution_result_v0_1.json`
+
+seal:
+
+`29d1f2512ea0e0344b8bd2c6b55fe77ed8f0bf65914cfbd2d02f91a1c95c1b69`
+
+## 127. Final B-ERD-02 verdict
+
+```text
+B-ERD-02 = BLOCKED
+
+PROBE_SUPPORTED = NO
+PROBE_REFUTED = NO
+T_HOURLY = UNDECIDABLE
+```
+
+Reason:
+
+```text
+ALL_REQUIRED_PROBES_TRANSPORT_BLOCKED
+NO_RAW_BYTES
+AVAILABLE_RUNTIME_CANNOT_EXPOSE_BINARY_PROVIDER_OBJECTS
+```
+
+This BLOCKED verdict is about the current execution transport only.
+
+It is not evidence against either Dukascopy representation candidate.
+
+Current gates remain:
+
+```text
+C08-D4 = BLOCKED
+C08-D5 = BLOCKED
+BPE-C08 = BLOCKED
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+No full acquisition, D materialization, backtest or paper/broker/live execution occurred.
+
+## 128. Future retry boundary
+
+The current execution identity is closed and must not be retried.
+
+Any future empirical rerun requires:
+
+```text
+new execution_id
+fresh governed HEAD review
+transport runtime capable of raw binary GET capture
+exact body/header preservation
+no automatic content decoding
+new explicit user authorization
+```
+
+For K2, the runtime must additionally support authenticated AWS S3 Requester Pays.
+
+The presealed LocatorManifest/ProbePlan may be reused only after fresh governance confirms they remain applicable.
+
+STOP.
