@@ -2887,3 +2887,157 @@ I_B BLOCKED
 
 No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization was created.
 
+
+
+---
+
+# Q-RM-12 test-first executable compatibility breaker / harness — 2026-09-20
+
+The qualified Q-RM-12 post-seal handoff formalization has now been converted into a synthetic/in-memory executable test-first contract and adversarially qualified.
+
+Final breaker:
+
+`breakers/native_bi5_qrm12_compatibility_breaker.py`
+
+Final breaker blob:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Final workflow:
+
+`.github/workflows/native-bi5-qrm12-compatibility-preimplementation.yml`
+
+Final workflow blob:
+
+`76bfe3ccaf7cf2fbb359e33d9b5a737709ea22da`
+
+Initial RED baseline:
+
+`reports/data-qualification/qrm12_compatibility_preimplementation_red_baseline_2026-09-20.md`
+
+Harness adversarial record:
+
+`reports/data-qualification/qrm12_compatibility_testfirst_harness_adversarial_break_2026-09-20.md`
+
+Final persisted-head re-break:
+
+`reports/data-qualification/qrm12_compatibility_testfirst_persisted_head_rebreak_2026-09-20.md`
+
+Final qualified breaker HEAD:
+
+`5733f7d3c213eb73056c8b8b8f3addd95a25a584`
+
+Final workflow evidence:
+
+```text
+run = 35497152042
+job = 106042122886
+
+persisted HEAD / governed hash locks = PASS
+future V0.2 production surfaces absent = PASS
+qualification environment = PASS
+pytest collection = 70 tests / PASS
+breaker execution = 70 expected RED
+unexpected failure causes = 0
+clean worktree = PASS
+```
+
+## Demonstrated and corrected harness defects
+
+Initial adversarial defects:
+
+```text
+QTF-F01 — GLOBAL_AUTOUSE_SURFACE_GATE_MASKS_PARTIAL_IMPLEMENTATION_DEFECTS
+QTF-F02 — STALE_F_ATTACK_CAN_BE_A_NO_OP_WHEN_F_A_EQUALS_F_B
+QTF-F03 — MIX_AND_MATCH_ATTACK_CAN_BE_EQUIVALENT
+QTF-F04 — PRESEAL_INDEPENDENCE_CHECK_FALSE_POSITIVELY_FORBIDS_LOCAL_FUNCTION_NAMES
+QTF-F05 — POSTSEAL_HANDOFF_SOURCE_SCAN_USES_OVERBROAD_REPAIR_TOKEN
+QTF-F06 — EXECUTION_RECEIPT_ISOLATION_CROSS_BINDING_NOT_ATTACKED
+QTF-F07 — PRODUCER_PIN_ATTACK_INCOMPLETE
+QTF-F08 — TERMINAL_NON_REACHED_COVERAGE_INCOMPLETE
+QTF-F09 — HANDOFF_OUTPUT_SCHEMA_O_NOT_INVOKED_UNDERSPECIFIED
+QTF-F10 — PRESEAL_CROSS_PATH_CHECK_TOO_TEXTUAL
+QTF-F11 — MUTABILITY_TEST_COVERS_ONLY_RESULTS
+```
+
+Residual re-break defects:
+
+```text
+QTF-R01 — SIDE_SPECIFIC_RESULT_TESTS_STILL_REQUIRE_BOTH_PATHS
+QTF-R02 — ISOLATION_CLOSURE_ATTACKS_INCOMPLETE
+QTF-R03 — SOURCE_AND_MANIFEST_CAN_MISS_DYNAMIC_RUNTIME_IMPORT
+QTF-R04 — RUN_ID_PRESENCE_NOT_VALIDATED
+QTF-R05 — RUNTIME_AUDIT_EMITS_UNGOVERNED_MODULE_NOT_FOUND_RED
+```
+
+All demonstrated harness defects were minimally corrected before the final persisted-head RED re-break.
+
+## Final executable contract coverage
+
+The breaker now covers at minimum:
+
+- independently loadable I_A V0.2 / I_B V0.2 / handoff surfaces;
+- mandatory version-forward implementation identity;
+- complete unique D/R/M/B/A/Q/F/O bindings;
+- no digest-only determinant attribution;
+- no common precomputed B slot/fragment authority;
+- independent pre-seal F construction/validation ownership;
+- forbidden shared project semantic F/O dependencies;
+- closed V0.2 result shape;
+- strict canonical result sealing;
+- externally pinned producer id/version/manifest/source;
+- closed receipt schema and non-empty run identity;
+- exact run receipt → emitted result seal binding;
+- full isolation binding for workspace/network/IPC/cache/runtime read set;
+- breaker-owned fresh-import/runtime audit for dynamic forbidden channels;
+- exact F presence only on QUALIFIED/FROZEN;
+- no qualified F on blocked/rejected/not-reached states;
+- stale-F substitution;
+- foreign/mix-and-match F;
+- result/F acquisition and reconstruction binding;
+- integrity-conflict precedence;
+- O determinant gating;
+- closed handoff result schema with pre-O `NOT_INVOKED`;
+- no post-seal semantic reconstruction;
+- one-sided mutant visibility;
+- F hash/order/source witness non-authority;
+- input/receipt/pin immutability;
+- permission closure.
+
+## Final test-first verdict
+
+```text
+Q-RM-12 TEST-FIRST EXECUTABLE COMPATIBILITY BREAKER / HARNESS = PASS
+```
+
+This is a harness-layer PASS only.
+
+Current global/executable state remains:
+
+```text
+I_A V0.1 implementation candidate qualification = PASS
+I_B V0.1 implementation candidate qualification = PASS
+F implementation candidate qualification = PASS
+O implementation candidate qualification = PASS
+
+I_A Q-RM-12 V0.2 production surface = ABSENT
+I_B Q-RM-12 V0.2 production surface = ABSENT
+Q-RM-12 post-seal handoff runtime = ABSENT
+
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first harness = PASS
+Q-RM-12 executable run = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization was created.
