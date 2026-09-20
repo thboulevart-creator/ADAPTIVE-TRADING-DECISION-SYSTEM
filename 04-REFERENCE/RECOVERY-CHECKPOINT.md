@@ -4621,3 +4621,229 @@ fresh HEAD verification
 I_B V0.2 and Q-RM-12 handoff remain absent throughout this next block.
 
 No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 81. Q-RM-12 I_A V0.2 reference compatibility implementation — qualified
+
+The first Q-RM-12-compatible production path has completed its full governed implementation qualification cycle.
+
+Final source:
+
+`src/native_bi5_reference_qualifier_qrm12.py`
+
+Final source blob:
+
+`cab85272bc5a2e229f56f1e02e624d68dc84ce29`
+
+Frozen Q-RM-12 compatibility breaker remained unchanged:
+
+`breakers/native_bi5_qrm12_compatibility_breaker.py`
+
+Frozen breaker blob:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Dedicated I_A V0.2 adversarial breaker:
+
+`breakers/native_bi5_qrm12_ia_v02_adversarial.py`
+
+Final adversarial breaker blob:
+
+`cde59a15e678c3e60a5cee0621a6596d9d244588`
+
+Final persisted-head re-break workflow:
+
+`.github/workflows/native-bi5-qrm12-ia-v02-final-rebreak.yml`
+
+Technical re-break HEAD:
+
+`9253320a5d1c87b048a35cc6b7499f96fb598cfa`
+
+Final workflow evidence:
+
+```text
+run = 35497994387
+job = 106044495302
+
+exact persisted identities = PASS
+qualification environment = PASS
+frozen I_A-relevant Q-RM-12 contract = 9 passed
+extended I_A V0.2 adversarial breaker = 12 passed
+I_B V0.2 absent = PASS
+Q-RM-12 handoff absent = PASS
+clean worktree = PASS
+```
+
+Final verdict:
+
+```text
+Q-RM-12 I_A V0.2 REFERENCE COMPATIBILITY IMPLEMENTATION CANDIDATE = PASS
+```
+
+This PASS is scoped only to the I_A V0.2 reference compatibility path.
+
+---
+
+## 82. Demonstrated I_A V0.2 defects closed
+
+Initial adversarial defects:
+
+```text
+IA2-F01 — RESULT_ACQUISITION_NOT_CROSS_BOUND_TO_EMBEDDED_F
+IA2-F02 — RESULT_BINDINGS_NOT_CROSS_BOUND_TO_EMBEDDED_F
+IA2-F03 — EMBEDDED_F_RECONSTRUCTION_CAN_DIVERGE_FROM_RESULT_BINDINGS
+IA2-F04 — PRIVATE_F_VALIDATOR_ACCEPTS_EMPTY_QUALIFIED_COMPONENT_UNIVERSE
+IA2-F05 — MALFORMED_NONJSON_BINDING_ESCAPES_FAIL_CLOSED_PATH
+IA2-F06 — NONFINITE_QUALIFICATION_PARAMETER_MISCLASSIFIED_AS_IMPLEMENTATION_ERROR
+```
+
+Residual adversarial defects:
+
+```text
+IA2-R01 — NONJSON_ISOLATION_CONTEXT_ESCAPES_ENVIRONMENT_FAIL_CLOSED
+IA2-R02 — NONJSON_D_COMPLETENESS_MISCLASSIFIED_AS_IMPLEMENTATION_ERROR
+IA2-R03 — RESEALED_OPEN_ISOLATION_EVIDENCE_IS_LOCALLY_ACCEPTED
+IA2-R04 — PRIVATE_F_VALIDATOR_ACCEPTS_BOOLEAN_SLOT_INDEX
+IA2-R05 — PRIVATE_F_VALIDATOR_ACCEPTS_NONCANONICAL_TIMESTAMP_WIDTH
+```
+
+All demonstrated defects were minimally corrected before the final persisted-head re-break.
+
+No residual demonstrated I_A V0.2 defect remains within the qualified scope.
+
+---
+
+## 83. Current Q-RM-12 compatibility state
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first harness = PASS
+
+I_A V0.1 implementation candidate qualification = PASS
+I_B V0.1 implementation candidate qualification = PASS
+
+I_A Q-RM-12 V0.2 reference compatibility implementation = PASS
+I_B Q-RM-12 V0.2 independent compatibility implementation = ABSENT
+Q-RM-12 post-seal handoff runtime = ABSENT
+
+F test-first breaker/harness qualification = PASS
+F implementation candidate qualification = PASS
+F global executable gate = BLOCKED
+
+O test-first breaker/harness qualification = PASS
+O implementation candidate qualification = PASS
+O global executable gate = BLOCKED
+
+Q-RM-12 executable run = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No native BI5 download, real BI5 processing, real acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization has been created.
+
+---
+
+## 84. Durable I_A V0.2 backup and evidence
+
+Adversarial record:
+
+`reports/data-qualification/qrm12_ia_v02_reference_adversarial_break_2026-09-20.md`
+
+blob:
+
+`674632ebe862f77dc3d6ef11ef9799e506988cac`
+
+Persisted-head final re-break:
+
+`reports/data-qualification/qrm12_ia_v02_reference_persisted_head_rebreak_2026-09-20.md`
+
+blob:
+
+`d9c51d7455092a90621dc76564c337d57c7c9c0b`
+
+Global audit:
+
+`reports/data-qualification/pre_backtest_concrete_gate_reconciliation_2026-09-19.md`
+
+updated blob:
+
+`645f8a0b8a550e6e51eb4c5cda1f46ee3dbf555e`
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-20-QRM12-IA-V02-REFERENCE-PASS.md`
+
+backup blob:
+
+`bff5d30a51cf9abce63ab115a13a32c1782dff5d`
+
+Pre-checkpoint HEAD:
+
+`485f153f7b0ae860e7ba1aed17f7525c2e21311d`
+
+---
+
+## 85. Exactly one next governed action
+
+Open only:
+
+```text
+Q-RM-12 — I_B V0.2 independent compatibility implementation candidate
+```
+
+Create only:
+
+`src/native_bi5_independent_qualifier_qrm12.py`
+
+Do **not** create yet:
+
+`src/native_bi5_qrm12_handoff.py`
+
+Keep frozen:
+
+```text
+Q-RM-12 breaker
+967ab86d517cc8736344bb27154641eb9bac7996
+
+I_A V0.2 source
+cab85272bc5a2e229f56f1e02e624d68dc84ce29
+```
+
+I_B V0.2 must independently implement its own D/R/M/B/A/Q/F semantics and private F construction/validation without importing or consulting pre-seal:
+
+- I_A V0.2;
+- I_A V0.1;
+- shared F production implementation;
+- O comparator;
+- Q-RM-12 handoff.
+
+Compact governed sequence:
+
+```text
+fresh HEAD
+→ create only I_B V0.2 independent compatibility candidate
+→ persist candidate + targeted workflow atomically
+→ execute I_B-relevant frozen Q-RM-12 contract
+→ adversarially break I_B V0.2
+→ correct only demonstrated I_B defects
+→ final persisted-HEAD combined re-break
+→ PASS / FAIL / BLOCKED
+→ compact closeout: audit + backup + checkpoint
+```
+
+The compact sequence reduces redundant GitHub round-trips but does not remove any qualification barrier.
+
+Do not begin Q-RM-12 handoff implementation until I_B V0.2 has its own qualified PASS.
+
+No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
