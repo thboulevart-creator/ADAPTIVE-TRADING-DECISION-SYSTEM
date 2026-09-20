@@ -4,6 +4,7 @@ import copy
 import hashlib
 import json
 import lzma
+import re
 import struct
 import sys
 from dataclasses import dataclass, fields, replace
@@ -68,6 +69,7 @@ _FREEZE_STATUSES = frozenset(("FROZEN", "NOT_CREATED", "NOT_REACHED"))
 _SLOT = struct.Struct(">IIIff")
 _SLOT_WIDTH = 20
 _HOUR_MILLISECONDS = 3_600_000
+_TIMESTAMP = re.compile(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$")
 
 
 @dataclass(frozen=True)
@@ -202,6 +204,15 @@ def _safe_bindings(input_package: Any) -> tuple[Mapping[str, Any], ...]:
     return tuple(result)
 
 
+def _safe_string_sequence(value: Any) -> tuple[str, ...]:
+    if not isinstance(value, Sequence) or isinstance(value, (str, bytes, bytearray)):
+        return ()
+    result: list[str] = []
+    for item in value:
+        result.append(item if isinstance(item, str) else "__INVALID_NONSTRING__")
+    return tuple(result)
+
+
 def _isolation_evidence(execution_context: Any) -> dict[str, Any]:
     if not isinstance(execution_context, Mapping):
         return {
@@ -215,7 +226,12 @@ def _isolation_evidence(execution_context: Any) -> dict[str, Any]:
             "runtime_read_set": (),
         }
 
-    allowlist = tuple(execution_context.get("preseal_input_allowlist", ()))
+    allowlist = _safe_string_sequence(
+        execution_context.get("preseal_input_allowlist", ())
+    )
+    environment_allowlist = _safe_string_sequence(
+        execution_context.get("environment_variable_allowlist", ())
+    )
     runtime_read_set = tuple(
         item
         for item in (
@@ -225,19 +241,20 @@ def _isolation_evidence(execution_context: Any) -> dict[str, Any]:
         )
         if item in allowlist
     )
+    workspace = execution_context.get("workspace_isolation_identity")
+    network_policy = execution_context.get("network_policy")
+    ipc_policy = execution_context.get("ipc_policy")
+    cache_policy = execution_context.get("cache_policy")
+    other_readable = execution_context.get("other_path_output_readable")
     return {
-        "workspace_isolation_identity": execution_context.get(
-            "workspace_isolation_identity"
-        ),
+        "workspace_isolation_identity": workspace if isinstance(workspace, str) else None,
         "preseal_input_allowlist": allowlist,
-        "network_policy": execution_context.get("network_policy"),
-        "ipc_policy": execution_context.get("ipc_policy"),
-        "environment_variable_allowlist": tuple(
-            execution_context.get("environment_variable_allowlist", ())
-        ),
-        "cache_policy": execution_context.get("cache_policy"),
-        "other_path_output_readable": execution_context.get(
-            "other_path_output_readable"
+        "network_policy": network_policy if isinstance(network_policy, str) else None,
+        "ipc_policy": ipc_policy if isinstance(ipc_policy, str) else None,
+        "environment_variable_allowlist": environment_allowlist,
+        "cache_policy": cache_policy if isinstance(cache_policy, str) else None,
+        "other_path_output_readable": (
+            other_readable if isinstance(other_readable, bool) else None
         ),
         "runtime_read_set": runtime_read_set,
     }
@@ -312,6 +329,8 @@ def _validate_result_structure(result: ImplementationQualificationResultV2) -> N
     if result.freeze_status not in _FREEZE_STATUSES:
         raise ValueError("invalid freeze status")
 
+    isolation_closed = _isolation_closed(result.isolation_evidence)
+
     if result.execution_status != "COMPLETED":
         if (
             result.semantic_status != "NOT_REACHED"
@@ -320,7 +339,15 @@ def _validate_result_structure(result: ImplementationQualificationResultV2) -> N
             or result.terminal_evidence is None
         ):
             raise ValueError("non-completed execution state contradiction")
+        if result.execution_status == "ENVIRONMENT_BLOCKED":
+            if isolation_closed:
+                raise ValueError("environment-blocked result claims closed isolation")
+        elif not isolation_closed:
+            raise ValueError("implementation error result lacks closed isolation evidence")
         return
+
+    if not isolation_closed:
+        raise ValueError("completed result lacks closed isolation evidence")
 
     if result.semantic_status == "QUALIFIED":
         if (
@@ -472,6 +499,10 @@ def _validate_common_input(
         or not _is_digest(completeness.get("integrity_digest"))
     ):
         raise ValueError("D completeness evidence invalid")
+    try:
+        _canonical_bytes(dict(completeness))
+    except (TypeError, ValueError) as exc:
+        raise ValueError("D completeness evidence is not strict JSON") from exc
 
     components = input_package.get("components")
     if not isinstance(components, Sequence) or isinstance(
@@ -813,7 +844,10 @@ def _validate_payload(payload: Any) -> None:
     }:
         raise ValueError("logical payload shape invalid")
     timestamp = payload["market_timestamp_utc"]
-    if not isinstance(timestamp, str):
+    if (
+        not isinstance(timestamp, str)
+        or _TIMESTAMP.fullmatch(timestamp) is None
+    ):
         raise ValueError("timestamp invalid")
     try:
         datetime.strptime(timestamp, "%Y-%m-%dT%H:%M:%S.%fZ")
@@ -961,10 +995,16 @@ def _ia_validate_freeze_artifact(artifact: Any) -> Mapping[str, Any]:
             "anomaly_class_id",
         }:
             raise ValueError("freeze accounting invalid")
-        source = (
-            item.get("component_manifest_entry_id"),
-            item.get("component_local_slot_index"),
-        )
+        component_id = item.get("component_manifest_entry_id")
+        slot_index = item.get("component_local_slot_index")
+        if (
+            not _is_nonempty_string(component_id)
+            or isinstance(slot_index, bool)
+            or not isinstance(slot_index, int)
+            or slot_index < 0
+        ):
+            raise ValueError("freeze accounting source type invalid")
+        source = (component_id, slot_index)
         if (
             source not in expected_sources
             or source in accounting_map
@@ -996,10 +1036,16 @@ def _ia_validate_freeze_artifact(artifact: Any) -> Mapping[str, Any]:
                 "component_local_slot_index",
             }:
                 raise ValueError("freeze witness invalid")
-            source = (
-                witness.get("component_manifest_entry_id"),
-                witness.get("component_local_slot_index"),
-            )
+            component_id = witness.get("component_manifest_entry_id")
+            slot_index = witness.get("component_local_slot_index")
+            if (
+                not _is_nonempty_string(component_id)
+                or isinstance(slot_index, bool)
+                or not isinstance(slot_index, int)
+                or slot_index < 0
+            ):
+                raise ValueError("freeze occurrence witness type invalid")
+            source = (component_id, slot_index)
             if source not in expected_sources or source in relation:
                 raise ValueError("freeze occurrence witness invalid")
             _validate_payload(occurrence.get("logical_payload"))
