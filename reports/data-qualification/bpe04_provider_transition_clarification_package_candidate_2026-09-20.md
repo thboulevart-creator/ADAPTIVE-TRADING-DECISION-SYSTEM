@@ -19,7 +19,7 @@ clarification_package_id =
 B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION
 
 clarification_package_version =
-B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION_V0_3_FINAL_CANDIDATE
+B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION_V0_4_FINAL
 ```
 
 B-PE-03 remains:
@@ -285,9 +285,30 @@ SHA256(B-PE-01 canonical_json(capture_record_without_capture_seal))
 
 ---
 
-## 8. ProviderClarificationAnswerRecord — closed atomic schema
+## 8. QuestionManifest + ProviderClarificationAnswerRecord
 
-Exactly one record per evaluated question/sub-question:
+Authoritative question-boundary manifest:
+
+`evidence/bpe04/question_manifest_v0_4.json`
+
+Question-manifest seal:
+
+`269fd3d2c062e110fec54c04b3c0ca174d2e14585887641c367cbad2d0e9c5ea`
+
+The manifest binds the exact canonical request template SHA-256 and defines deterministic inclusive/exclusive UTF-8 extraction markers for Q1/Q2/Q3.
+
+At send time:
+
+```text
+materialize REQUEST_SENT_AT_UTC
+→ persist sent_request_exact.bin
+→ require each start/end marker exactly once
+→ extract exact UTF-8 question slices
+→ compute sent_question_sha256 per question
+→ reject capture if any extraction is non-unique or missing
+```
+
+Exactly one AnswerRecord exists per evaluated question/sub-question:
 
 ```text
 schema =
@@ -297,6 +318,7 @@ answer_record_id
 capture_id
 question_id
 subquestion_id
+question_manifest_seal
 question_text_sha256
 sent_request_sha256
 answer_status =
@@ -322,8 +344,10 @@ answer_record_seal
 
 Mandatory rules:
 
-- `question_text_sha256` hashes the exact materialized question/sub-question text from `sent_request_exact.bin`;
+- `question_manifest_seal` must equal `269fd3d2c062e110fec54c04b3c0ca174d2e14585887641c367cbad2d0e9c5ea`;
+- `question_text_sha256` is computed only by the manifest's deterministic marker extraction rule against `sent_request_exact.bin`;
 - `sent_request_sha256` must equal the parent CaptureRecord;
+- any missing, duplicate, reordered or non-unique question marker makes the capture invalid;
 - an AnswerRecord whose question hash does not match the sent request is invalid;
 - `normalized_proposition` may contain no fact absent from the provider anchor;
 - thread-level authority never implies all questions were answered;
@@ -459,6 +483,17 @@ Residual defects closed:
 BPE04-R01 — OPTIONAL_Q4_BREAKS_MINIMALITY
 BPE04-R02 — RELATIVE_TODAY_RETRIEVAL_TIME_IS_AMBIGUOUS
 BPE04-R03 — ANSWER_RECORD_NOT_BOUND_TO_EXACT_QUESTION_TEXT
+BPE04-R04 — QUESTION_HASH_BYTE_BOUNDARY_UNDEFINED
+```
+
+R04 correction:
+
+```text
+persisted QuestionManifest V0.4
++ exact inclusive/exclusive UTF-8 markers
++ exact template question SHA-256 values
++ sealed manifest
++ fail-closed send-time re-extraction
 ```
 
 ---
@@ -467,7 +502,7 @@ BPE04-R03 — ANSWER_RECORD_NOT_BOUND_TO_EXACT_QUESTION_TEXT
 
 ```text
 B-PE-04 CLARIFICATION PACKAGE =
-FINAL CORRECTED CANDIDATE / NOT YET QUALIFIED
+V0.4 FINAL CANDIDATE / NOT YET QUALIFIED
 
 C08-D4 = BLOCKED
 C08-D5 = BLOCKED

@@ -1,0 +1,39 @@
+{
+  "schema": "B_PE_04_QUESTION_MANIFEST_V0_4",
+  "clarification_package_id": "B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION",
+  "clarification_package_version": "B_PE_04_DUKASCOPY_HISTORICAL_TICK_REPRESENTATION_CLARIFICATION_V0_4_FINAL",
+  "canonical_request_template_path": "evidence/bpe04/canonical_provider_request_template_v0_3.txt",
+  "canonical_request_template_sha256": "8931b8304ce0e2d0c6fd7502fe50a772b5b1f4e936b12eba8989e64ecf27a52a",
+  "extraction_rule": {
+    "encoding": "UTF-8",
+    "start_marker": "inclusive",
+    "end_marker": "exclusive",
+    "marker_cardinality_requirement": "exactly_one_each",
+    "extraction_failure_disposition": "INVALID_CAPTURE",
+    "send_time_rule": "after REQUEST_SENT_AT_UTC placeholder materialization, re-run the same marker extraction against sent_request_exact.bin and persist sent_question_sha256"
+  },
+  "questions": [
+    {
+      "question_id": "Q1",
+      "start_marker_inclusive": "Q1 — Historical tick-object addressing / boundary\n",
+      "end_marker_exclusive": "Q2 — Retrieval as of the request timestamp\n",
+      "template_question_sha256": "eb20a2fc2addfae78710da4178bc80cca35497684b9c0c14b471435addcc4705",
+      "template_question_utf8_byte_length": 733
+    },
+    {
+      "question_id": "Q2",
+      "start_marker_inclusive": "Q2 — Retrieval as of the request timestamp\n",
+      "end_marker_exclusive": "Q3 — USATECH.IDX/USD applicability\n",
+      "template_question_sha256": "0c8e23e9bab1abe128cee564847afa901a212cf722c9a64febe7ef590a904787",
+      "template_question_utf8_byte_length": 491
+    },
+    {
+      "question_id": "Q3",
+      "start_marker_inclusive": "Q3 — USATECH.IDX/USD applicability\n",
+      "end_marker_exclusive": "For reproducibility, please include the documentation name/version",
+      "template_question_sha256": "814534404fa8d46579f3de4f506d87eff4b4896ea5bf5c7542952b6a3154b259",
+      "template_question_utf8_byte_length": 400
+    }
+  ],
+  "question_manifest_seal": "269fd3d2c062e110fec54c04b3c0ca174d2e14585887641c367cbad2d0e9c5ea"
+}
