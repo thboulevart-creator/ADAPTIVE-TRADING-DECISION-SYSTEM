@@ -61,6 +61,16 @@ EXPECTED_RESULT_FIELDS = (
     "result_seal",
 )
 
+EXPECTED_HANDOFF_FIELDS = {
+    "schema",
+    "handoff_id",
+    "handoff_version",
+    "handoff_result",
+    "oracle_result",
+    "comparison_scope",
+    "reason",
+}
+
 STAGES = ("D", "R", "M", "B", "A", "Q", "F", "O")
 
 _EXECUTION = {"COMPLETED", "ENVIRONMENT_BLOCKED", "IMPLEMENTATION_ERROR"}
@@ -70,53 +80,67 @@ _FREEZE = {"FROZEN", "NOT_CREATED", "NOT_REACHED"}
 _SLOT = struct.Struct(">IIIff")
 
 
-def _surface_modules():
-    missing = [
-        name
-        for name in (IA2_MODULE, IB2_MODULE, HANDOFF_MODULE)
-        if importlib.util.find_spec(name) is None
-    ]
-    if missing:
+def _validate_impl_surface(module, *, expected_id: str, expected_version: str):
+    assert getattr(module, "IMPLEMENTATION_ID", None) == expected_id
+    assert getattr(module, "IMPLEMENTATION_VERSION", None) == expected_version
+    assert getattr(module, "RESULT_SCHEMA", None) == RESULT_SCHEMA
+    assert getattr(module, "INPUT_SCHEMA", None) == INPUT_SCHEMA
+    for name in (
+        "ImplementationQualificationResultV2",
+        "qualify_native_bi5_v2",
+        "build_implementation_manifest",
+        "validate_implementation_result_v2",
+        "is_sealed_implementation_result_v2",
+    ):
+        assert hasattr(module, name), f"{module.__name__} missing {name}"
+    return module
+
+
+def _ia2():
+    if importlib.util.find_spec(IA2_MODULE) is None:
         pytest.fail(
-            "Q-RM-12 future compatibility surfaces absent — expected "
-            "pre-implementation RED: " + ", ".join(missing),
+            "Q-RM-12 I_A V0.2 surface absent — expected pre-implementation RED: "
+            + IA2_MODULE,
             pytrace=False,
         )
-
-    ia = importlib.import_module(IA2_MODULE)
-    ib = importlib.import_module(IB2_MODULE)
-    handoff = importlib.import_module(HANDOFF_MODULE)
-
-    assert getattr(ia, "IMPLEMENTATION_ID", None) == IA2_ID
-    assert getattr(ia, "IMPLEMENTATION_VERSION", None) == IA2_VERSION
-    assert getattr(ib, "IMPLEMENTATION_ID", None) == IB2_ID
-    assert getattr(ib, "IMPLEMENTATION_VERSION", None) == IB2_VERSION
-    assert getattr(ia, "RESULT_SCHEMA", None) == RESULT_SCHEMA
-    assert getattr(ib, "RESULT_SCHEMA", None) == RESULT_SCHEMA
-    assert getattr(ia, "INPUT_SCHEMA", None) == INPUT_SCHEMA
-    assert getattr(ib, "INPUT_SCHEMA", None) == INPUT_SCHEMA
-
-    for module in (ia, ib):
-        for name in (
-            "ImplementationQualificationResultV2",
-            "qualify_native_bi5_v2",
-            "build_implementation_manifest",
-            "validate_implementation_result_v2",
-            "is_sealed_implementation_result_v2",
-        ):
-            assert hasattr(module, name), f"{module.__name__} missing {name}"
-
-    assert getattr(handoff, "HANDOFF_ID", None) == HANDOFF_ID
-    assert getattr(handoff, "HANDOFF_VERSION", None) == HANDOFF_VERSION
-    assert getattr(handoff, "RESULT_SCHEMA", None) == HANDOFF_RESULT_SCHEMA
-    assert hasattr(handoff, "compare_sealed_results")
-
-    return ia, ib, handoff
+    return _validate_impl_surface(
+        importlib.import_module(IA2_MODULE),
+        expected_id=IA2_ID,
+        expected_version=IA2_VERSION,
+    )
 
 
-@pytest.fixture(autouse=True)
-def _future_surfaces_must_exist():
-    _surface_modules()
+def _ib2():
+    if importlib.util.find_spec(IB2_MODULE) is None:
+        pytest.fail(
+            "Q-RM-12 I_B V0.2 surface absent — expected pre-implementation RED: "
+            + IB2_MODULE,
+            pytrace=False,
+        )
+    return _validate_impl_surface(
+        importlib.import_module(IB2_MODULE),
+        expected_id=IB2_ID,
+        expected_version=IB2_VERSION,
+    )
+
+
+def _handoff():
+    if importlib.util.find_spec(HANDOFF_MODULE) is None:
+        pytest.fail(
+            "Q-RM-12 handoff surface absent — expected pre-implementation RED: "
+            + HANDOFF_MODULE,
+            pytrace=False,
+        )
+    module = importlib.import_module(HANDOFF_MODULE)
+    assert getattr(module, "HANDOFF_ID", None) == HANDOFF_ID
+    assert getattr(module, "HANDOFF_VERSION", None) == HANDOFF_VERSION
+    assert getattr(module, "RESULT_SCHEMA", None) == HANDOFF_RESULT_SCHEMA
+    assert hasattr(module, "compare_sealed_results")
+    return module
+
+
+def _surface_modules():
+    return _ia2(), _ib2(), _handoff()
 
 
 def _sha256(raw: bytes) -> str:
@@ -342,7 +366,8 @@ def _package() -> dict[str, Any]:
 
 
 def _qualify_pair():
-    ia, ib, _ = _surface_modules()
+    ia = _ia2()
+    ib = _ib2()
     left = ia.qualify_native_bi5_v2(
         copy.deepcopy(_package()),
         execution_context=_context("IA"),
@@ -379,7 +404,9 @@ def _run_handoff(
     left_pin=None,
     right_pin=None,
 ):
-    ia, ib, handoff = _surface_modules()
+    ia = _ia2()
+    ib = _ib2()
+    handoff = _handoff()
     left_module = ia if left_module is None else left_module
     right_module = ib if right_module is None else right_module
     left_receipt = (
@@ -404,12 +431,25 @@ def _run_handoff(
         expected_right=right_pin,
     )
     assert isinstance(result, Mapping)
+    assert set(result) == EXPECTED_HANDOFF_FIELDS
     assert result["schema"] == HANDOFF_RESULT_SCHEMA
     assert result["handoff_id"] == HANDOFF_ID
     assert result["handoff_version"] == HANDOFF_VERSION
     assert result["handoff_result"] in {"SEMANTIC_EQUAL", "SEMANTIC_DIFFERENT", "BLOCKED"}
+    assert result["oracle_result"] in {
+        "SEMANTIC_EQUAL",
+        "SEMANTIC_DIFFERENT",
+        "BLOCKED",
+        "NOT_INVOKED",
+    }
+    assert isinstance(result["comparison_scope"], str)
     assert isinstance(result["reason"], str)
     return result
+
+
+def _assert_pre_o_blocked(result: Mapping[str, Any]) -> None:
+    assert result["handoff_result"] == "BLOCKED"
+    assert result["oracle_result"] == "NOT_INVOKED"
 
 
 def _replace_binding(
@@ -460,6 +500,24 @@ def _semantic_mutant(artifact: Mapping[str, Any]) -> dict[str, Any]:
             "numerator": 100_001,
             "denominator": 1000,
         }
+    return _reseal_f(out)
+
+
+def _permuted_f(artifact: Mapping[str, Any]) -> dict[str, Any]:
+    out = copy.deepcopy(dict(artifact))
+    universe = out["qualified_universe"]
+    universe["reconstruction_tuple"].reverse()
+    universe["source_accounting"].reverse()
+    universe["b_candidate_occurrences"].reverse()
+    universe["retained_occurrences"].reverse()
+    value = _reseal_f(out)
+    assert value["artifact_integrity_digest"] != artifact["artifact_integrity_digest"]
+    return value
+
+
+def _different_acquisition_f(artifact: Mapping[str, Any]) -> dict[str, Any]:
+    out = copy.deepcopy(dict(artifact))
+    out["qualified_universe"]["acquisition_domain_id"] = "SYNTH-QRM12-FOREIGN-ACQ"
     return _reseal_f(out)
 
 
@@ -518,8 +576,7 @@ def test_a3_manifest_and_source_are_externally_pinnable(side: str) -> None:
 @pytest.mark.parametrize("side", ("IA", "IB"))
 @pytest.mark.parametrize("mutation", ("missing", "duplicate", "digest_only"))
 def test_b0_complete_unique_full_determinant_bindings_required(side: str, mutation: str) -> None:
-    ia, ib, _, _ = _qualify_pair()
-    module = ia if side == "IA" else ib
+    module = _ia2() if side == "IA" else _ib2()
     package = _package()
     bindings = [copy.deepcopy(dict(item)) for item in package["determinant_bindings"]]
     if mutation == "missing":
@@ -541,8 +598,7 @@ def test_b0_complete_unique_full_determinant_bindings_required(side: str, mutati
 @pytest.mark.parametrize("side", ("IA", "IB"))
 @pytest.mark.parametrize("field", ("complete_slot_count", "terminal_fragment"))
 def test_b1_common_package_cannot_supply_precomputed_b_semantics(side: str, field: str) -> None:
-    ia, ib, _, _ = _qualify_pair()
-    module = ia if side == "IA" else ib
+    module = _ia2() if side == "IA" else _ib2()
     package = _package()
     component = dict(package["components"][0])
     component[field] = 999 if field == "complete_slot_count" else {
@@ -556,28 +612,40 @@ def test_b1_common_package_cannot_supply_precomputed_b_semantics(side: str, fiel
 
 
 def test_b2_preseal_semantic_f_builder_and_validator_are_not_shared() -> None:
-    ia, ib, _ = _surface_modules()
+    ia = _ia2()
+    ib = _ib2()
     left_source = inspect.getsource(ia)
     right_source = inspect.getsource(ib)
+
     forbidden_left = (
         IB2_MODULE,
         HANDOFF_MODULE,
         "src.native_bi5_freeze_persistence",
-        "build_freeze_artifact(",
-        "validate_freeze_artifact(",
+        "src.native_bi5_semantic_universe_comparator",
+        "src.native_bi5_independent_qualifier",
     )
     forbidden_right = (
         IA2_MODULE,
         HANDOFF_MODULE,
         "src.native_bi5_freeze_persistence",
-        "build_freeze_artifact(",
-        "validate_freeze_artifact(",
+        "src.native_bi5_semantic_universe_comparator",
+        "src.native_bi5_reference_qualifier",
     )
     assert all(token not in left_source for token in forbidden_left)
     assert all(token not in right_source for token in forbidden_right)
 
     left_manifest = ia.build_implementation_manifest()
     right_manifest = ib.build_implementation_manifest()
+    for manifest, forbidden in (
+        (left_manifest, forbidden_left),
+        (right_manifest, forbidden_right),
+    ):
+        dependencies = tuple(manifest["project_dependency_imports"])
+        assert all(
+            all(token not in dependency for token in forbidden)
+            for dependency in dependencies
+        )
+
     assert left_manifest["semantic_stage_ownership"]["F_FREEZE"]
     assert right_manifest["semantic_stage_ownership"]["F_FREEZE"]
     assert (
@@ -587,12 +655,15 @@ def test_b2_preseal_semantic_f_builder_and_validator_are_not_shared() -> None:
 
 
 def test_b3_shared_structural_schema_cannot_hide_semantic_builder() -> None:
-    ia, ib, _ = _surface_modules()
+    ia = _ia2()
+    ib = _ib2()
     for module in (ia, ib):
-        source = inspect.getsource(module)
-        assert "semantic_defaults" not in source
-        assert "shared_semantic_builder" not in source
-        assert "shared_f_builder" not in source
+        forbidden_exports = (
+            "shared_semantic_builder",
+            "shared_f_builder",
+            "semantic_defaults",
+        )
+        assert all(not hasattr(module, name) for name in forbidden_exports)
 
 
 def test_c0_exact_equal_pair_reaches_o_and_is_equal() -> None:
@@ -687,27 +758,117 @@ def test_c5_run_receipt_must_bind_exact_emitted_result_seal(side: str) -> None:
     assert result["handoff_result"] == "BLOCKED"
 
 
+@pytest.mark.parametrize(
+    "field,value",
+    (
+        ("implementation_id", "FORGED_IMPLEMENTATION"),
+        ("implementation_version", "FORGED_VERSION"),
+        ("implementation_manifest_digest", "e" * 64),
+        ("implementation_source_digest", "e" * 64),
+    ),
+)
+def test_c5b_receipt_producer_fields_must_match_external_pin(field: str, value: str) -> None:
+    ia, ib, left, right = _qualify_pair()
+    receipt = _receipt(ia, left, run_id="A-PROVENANCE", workspace="QRM12-IA-PRIVATE")
+    receipt[field] = value
+    result = _run_handoff(left, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
+def test_c5c_receipt_schema_is_closed() -> None:
+    ia, _, left, right = _qualify_pair()
+    receipt = _receipt(ia, left, run_id="A-SCHEMA", workspace="QRM12-IA-PRIVATE")
+    receipt["schema"] = "FORGED_RECEIPT_SCHEMA"
+    result = _run_handoff(left, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
+def test_c5d_receipt_workspace_must_match_sealed_isolation_evidence() -> None:
+    ia, _, left, right = _qualify_pair()
+    receipt = _receipt(ia, left, run_id="A-WORKSPACE", workspace="QRM12-OTHER-WORKSPACE")
+    result = _run_handoff(left, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
+def test_c5e_cross_path_readable_isolation_evidence_is_rejected() -> None:
+    ia, _, left, right = _qualify_pair()
+    evidence = copy.deepcopy(dict(left.isolation_evidence))
+    evidence["other_path_output_readable"] = True
+    forged = _reseal_result(replace(left, isolation_evidence=evidence))
+    receipt = _receipt(ia, forged, run_id="A-ISOLATION", workspace="QRM12-IA-PRIVATE")
+    result = _run_handoff(forged, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
+@pytest.mark.parametrize(
+    "execution_status,semantic_status,freeze_status",
+    (
+        ("COMPLETED", "QUALIFICATION_BLOCKED", "NOT_CREATED"),
+        ("COMPLETED", "ACQUISITION_REJECTED", "NOT_CREATED"),
+        ("ENVIRONMENT_BLOCKED", "NOT_REACHED", "NOT_REACHED"),
+        ("IMPLEMENTATION_ERROR", "NOT_REACHED", "NOT_REACHED"),
+    ),
+)
+def test_c5f_terminal_or_nonreached_result_cannot_carry_qualified_f(
+    execution_status: str,
+    semantic_status: str,
+    freeze_status: str,
+) -> None:
+    ia, _, left, right = _qualify_pair()
+    forged = _reseal_result(
+        replace(
+            left,
+            execution_status=execution_status,
+            semantic_status=semantic_status,
+            freeze_status=freeze_status,
+            terminal_evidence={"reason": "SYNTHETIC_TERMINAL"},
+            bound_f_artifact=copy.deepcopy(left.bound_f_artifact),
+        )
+    )
+    receipt = _receipt(ia, forged, run_id="A-TERMINAL", workspace="QRM12-IA-PRIVATE")
+    result = _run_handoff(forged, right, left_receipt=receipt)
+    _assert_pre_o_blocked(result)
+
+
+@pytest.mark.parametrize("side", ("IA", "IB"))
+def test_c5g_real_environment_blocked_result_has_no_f(side: str) -> None:
+    module = _ia2() if side == "IA" else _ib2()
+    context = _context(side)
+    context["other_path_output_readable"] = True
+    result = module.qualify_native_bi5_v2(
+        copy.deepcopy(_package()),
+        execution_context=context,
+    )
+    assert result.execution_status == "ENVIRONMENT_BLOCKED"
+    assert result.semantic_status == "NOT_REACHED"
+    assert result.freeze_status == "NOT_REACHED"
+    assert result.bound_f_artifact is None
+
+
 @pytest.mark.parametrize("side", ("left", "right"))
 def test_c6_stale_f_substitution_is_rejected_by_run_bound_result(side: str) -> None:
     ia, ib, left, right = _qualify_pair()
-    stale = copy.deepcopy(right.bound_f_artifact if side == "left" else left.bound_f_artifact)
     target = left if side == "left" else right
+    stale = _permuted_f(target.bound_f_artifact)
     forged = _reseal_result(replace(target, bound_f_artifact=stale))
+    assert forged.result_seal != target.result_seal
+
     if side == "left":
         original_receipt = _receipt(ia, left, run_id="A", workspace="QRM12-IA-PRIVATE")
         result = _run_handoff(forged, right, left_receipt=original_receipt)
     else:
         original_receipt = _receipt(ib, right, run_id="B", workspace="QRM12-IB-PRIVATE")
         result = _run_handoff(left, forged, right_receipt=original_receipt)
-    assert result["handoff_result"] == "BLOCKED"
+    _assert_pre_o_blocked(result)
 
 
 def test_c7_f_a_f_b_mix_and_match_is_rejected() -> None:
     ia, ib, left, right = _qualify_pair()
-    left_mixed = _reseal_result(replace(left, bound_f_artifact=copy.deepcopy(right.bound_f_artifact)))
+    foreign_f = _different_acquisition_f(right.bound_f_artifact)
+    left_mixed = _reseal_result(replace(left, bound_f_artifact=foreign_f))
     receipt = _receipt(ia, left_mixed, run_id="A-MIX", workspace="QRM12-IA-PRIVATE")
     result = _run_handoff(left_mixed, right, left_receipt=receipt)
-    assert result["handoff_result"] == "BLOCKED"
+    _assert_pre_o_blocked(result)
 
 
 @pytest.mark.parametrize("side", ("left", "right"))
@@ -799,21 +960,21 @@ def test_d3_o_determinant_mismatch_blocks_before_o() -> None:
 
 
 def test_d4_handoff_is_validation_extraction_only_no_postseal_builder() -> None:
-    _, _, handoff = _surface_modules()
-    source = inspect.getsource(handoff)
-    forbidden = (
-        "build_freeze_artifact",
-        "qualification_parameters =",
-        "reconstruction_tuple =",
-        "acquisition_snapshot =",
-        "retained_occurrences =",
-        "b_candidate_occurrences =",
-        "repair",
-        "normalize_freeze",
+    handoff = _handoff()
+    sig = inspect.signature(handoff.compare_sealed_results)
+    assert tuple(sig.parameters) == (
+        "left_result",
+        "left_receipt",
+        "right_result",
+        "right_receipt",
+        "expected_left",
+        "expected_right",
     )
-    assert all(token not in source for token in forbidden)
-    assert "validate_freeze_artifact" in source
-    assert "compare_freeze_artifacts" in source
+    assert "input_package" not in sig.parameters
+    assert "common_input" not in sig.parameters
+    assert not hasattr(handoff, "build_freeze_artifact")
+    assert not hasattr(handoff, "reconstruct_freeze_artifact")
+    assert not hasattr(handoff, "repair_freeze_artifact")
 
 
 @pytest.mark.parametrize("side", ("IA", "IB"))
@@ -835,14 +996,7 @@ def test_e0_one_sided_semantic_mutant_remains_observable(side: str) -> None:
 
 def test_e1_f_artifact_hash_and_order_are_not_semantic_oracle() -> None:
     ia, ib, left, right = _qualify_pair()
-    permuted = copy.deepcopy(right.bound_f_artifact)
-    universe = permuted["qualified_universe"]
-    universe["reconstruction_tuple"].reverse()
-    universe["source_accounting"].reverse()
-    universe["b_candidate_occurrences"].reverse()
-    universe["retained_occurrences"].reverse()
-    permuted = _reseal_f(permuted)
-    assert permuted["artifact_integrity_digest"] != right.bound_f_artifact["artifact_integrity_digest"]
+    permuted = _permuted_f(right.bound_f_artifact)
     right2 = _reseal_result(replace(right, bound_f_artifact=permuted))
     receipt = _receipt(ib, right2, run_id="B-PERMUTED", workspace="QRM12-IB-PRIVATE")
     result = _run_handoff(left, right2, right_receipt=receipt)
@@ -858,7 +1012,8 @@ def test_e2_source_witness_is_not_promoted_to_new_canonical_identity() -> None:
 
 
 def test_e3_preseal_cross_path_information_flow_is_forbidden() -> None:
-    ia, ib, _ = _surface_modules()
+    ia = _ia2()
+    ib = _ib2()
     left_source = inspect.getsource(ia)
     right_source = inspect.getsource(ib)
     forbidden_left = (
@@ -875,6 +1030,12 @@ def test_e3_preseal_cross_path_information_flow_is_forbidden() -> None:
     )
     assert all(token not in left_source for token in forbidden_left)
     assert all(token not in right_source for token in forbidden_right)
+
+    left_dependencies = tuple(ia.build_implementation_manifest()["project_dependency_imports"])
+    right_dependencies = tuple(ib.build_implementation_manifest()["project_dependency_imports"])
+    assert all(IB2_MODULE not in item for item in left_dependencies)
+    assert all(IA2_MODULE not in item for item in right_dependencies)
+    assert all(HANDOFF_MODULE not in item for item in left_dependencies + right_dependencies)
 
 
 def test_f0_permission_closure() -> None:
@@ -903,9 +1064,30 @@ def test_f0_permission_closure() -> None:
 
 
 def test_f1_handoff_does_not_mutate_inputs() -> None:
-    _, _, left, right = _qualify_pair()
-    left_before = copy.deepcopy(left)
-    right_before = copy.deepcopy(right)
-    _run_handoff(left, right)
-    assert left == left_before
-    assert right == right_before
+    ia, ib, left, right = _qualify_pair()
+    handoff = _handoff()
+    left_receipt = _receipt(ia, left, run_id="A", workspace="QRM12-IA-PRIVATE")
+    right_receipt = _receipt(ib, right, run_id="B", workspace="QRM12-IB-PRIVATE")
+    left_pin = _pin(ia)
+    right_pin = _pin(ib)
+
+    before = (
+        copy.deepcopy(left),
+        copy.deepcopy(left_receipt),
+        copy.deepcopy(right),
+        copy.deepcopy(right_receipt),
+        copy.deepcopy(left_pin),
+        copy.deepcopy(right_pin),
+    )
+
+    handoff.compare_sealed_results(
+        left,
+        left_receipt,
+        right,
+        right_receipt,
+        expected_left=left_pin,
+        expected_right=right_pin,
+    )
+
+    after = (left, left_receipt, right, right_receipt, left_pin, right_pin)
+    assert after == before
