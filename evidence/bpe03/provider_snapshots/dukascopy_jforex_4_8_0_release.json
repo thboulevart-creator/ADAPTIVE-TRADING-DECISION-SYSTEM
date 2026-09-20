@@ -1,0 +1,16 @@
+{
+  "schema": "BPE03_PROVIDER_SOURCE_SNAPSHOT_V0_1",
+  "source_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+  "provider": "Dukascopy Bank SA",
+  "source_url": "https://www.dukascopy.com/wiki/en/manuals/jforex4-desktop/release-notes/",
+  "source_version": "JForex 4.8.0",
+  "available_since": "2026-03-03",
+  "captured_at_utc": "2026-09-20T09:26:00Z",
+  "capture_kind": "PROVIDER_VERSIONED_RELEASE_NOTE_EXTRACT",
+  "exact_anchor_lines": "721-727",
+  "exact_fragment": "Get historical price data from JETTA",
+  "normalized_facts": [
+    "JForex 4.8.0 introduced a new historical-price-data source named JETTA on 2026-03-03.",
+    "The release note does not state that this is the transition date of the public BI5 hourly-to-daily object layout."
+  ]
+}
