@@ -3134,3 +3134,98 @@ Q-RM-12 executable run = BLOCKED
 Protected existing I_A V0.1, I_B V0.1, F and O source identities remained unchanged.
 
 No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization was created.
+
+
+---
+
+# Q-RM-12 I_B V0.2 independent compatibility implementation — 2026-09-20
+
+The second Q-RM-12-compatible production path has completed its governed implementation qualification cycle.
+
+Final source:
+
+`src/native_bi5_independent_qualifier_qrm12.py`
+
+Final source blob:
+
+`6d14704548861c13dfc809adad6ae7a21e31c2ca`
+
+Frozen Q-RM-12 breaker remained unchanged:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Protected I_A V0.2 source remained unchanged:
+
+`cab85272bc5a2e229f56f1e02e624d68dc84ce29`
+
+Dedicated I_B adversarial breaker:
+
+`breakers/native_bi5_qrm12_ib_v02_adversarial.py`
+
+blob:
+
+`8fa78ae3110dcd04e3b3ba67cc6d641a9b48fdee`
+
+Initial candidate run:
+
+```text
+run = 35499462583
+job = 106048501748
+I_B-relevant frozen Q-RM-12 contract = 9 passed
+```
+
+Dedicated adversarial run:
+
+```text
+run = 35499556132
+job = 106048750941
+16 passed
+demonstrated production defects = NONE
+```
+
+Final persisted-head re-break:
+
+```text
+technical HEAD = 49871881826dac06de52437cba7eef7589344538
+run = 35499591177
+job = 106048845458
+
+frozen I_B-relevant Q-RM-12 contract = 9 passed
+I_B V0.2 adversarial breaker = 16 passed
+exact persisted locks = PASS
+handoff absent = PASS
+qualification environment = PASS
+clean worktree = PASS
+```
+
+Final verdict:
+
+```text
+Q-RM-12 I_B V0.2 INDEPENDENT COMPATIBILITY IMPLEMENTATION CANDIDATE = PASS
+```
+
+Current compatibility state:
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first harness = PASS
+I_A V0.2 = PASS
+I_B V0.2 = PASS
+Q-RM-12 post-seal handoff runtime = ABSENT
+Q-RM-12 executable run = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+The I_A/I_B implementation-layer PASS states do not promote the global D/R/M/B/A/Q/F/O/I_A/I_B gates.
+
+No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization was created.

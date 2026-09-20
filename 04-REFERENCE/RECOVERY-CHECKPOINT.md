@@ -4847,3 +4847,185 @@ The compact sequence reduces redundant GitHub round-trips but does not remove an
 Do not begin Q-RM-12 handoff implementation until I_B V0.2 has its own qualified PASS.
 
 No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 86. Q-RM-12 I_B V0.2 independent compatibility implementation — qualified
+
+Final source:
+
+`src/native_bi5_independent_qualifier_qrm12.py`
+
+Final source blob:
+
+`6d14704548861c13dfc809adad6ae7a21e31c2ca`
+
+Frozen Q-RM-12 breaker remained unchanged:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Protected I_A V0.2 source remained unchanged:
+
+`cab85272bc5a2e229f56f1e02e624d68dc84ce29`
+
+Dedicated I_B V0.2 adversarial breaker:
+
+`breakers/native_bi5_qrm12_ib_v02_adversarial.py`
+
+blob:
+
+`8fa78ae3110dcd04e3b3ba67cc6d641a9b48fdee`
+
+Candidate baseline:
+
+```text
+commit = 2f86ec9a48196535d33f5afaf40f9740df99ed5c
+run = 35499462583
+job = 106048501748
+frozen I_B-relevant Q-RM-12 contract = 9 passed
+```
+
+Adversarial qualification:
+
+```text
+commit = 0d279b47d87f7b4ce071f940e5cf850b65833c45
+run = 35499556132
+job = 106048750941
+16 passed
+demonstrated production defects = NONE
+```
+
+Final persisted-head re-break:
+
+```text
+technical HEAD = 49871881826dac06de52437cba7eef7589344538
+run = 35499591177
+job = 106048845458
+
+exact persisted technical identities = PASS
+qualification environment = PASS
+frozen I_B-relevant Q-RM-12 contract = 9 passed
+I_B V0.2 adversarial breaker = 16 passed
+Q-RM-12 handoff absent = PASS
+clean worktree = PASS
+```
+
+Final verdict:
+
+```text
+Q-RM-12 I_B V0.2 INDEPENDENT COMPATIBILITY IMPLEMENTATION CANDIDATE = PASS
+```
+
+No correction was made to the production source after its initial candidate because no I_B production defect was demonstrated.
+
+---
+
+## 87. Current Q-RM-12 compatibility state
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first harness = PASS
+
+I_A V0.1 implementation candidate qualification = PASS
+I_B V0.1 implementation candidate qualification = PASS
+
+I_A Q-RM-12 V0.2 reference compatibility implementation = PASS
+I_B Q-RM-12 V0.2 independent compatibility implementation = PASS
+
+Q-RM-12 post-seal handoff runtime = ABSENT
+Q-RM-12 executable run = BLOCKED
+
+F test-first breaker/harness qualification = PASS
+F implementation candidate qualification = PASS
+F global executable gate = BLOCKED
+
+O test-first breaker/harness qualification = PASS
+O implementation candidate qualification = PASS
+O global executable gate = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+Implementation-layer compatibility PASS does not promote the global executable gates.
+
+No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization has been created.
+
+---
+
+## 88. Durable I_B V0.2 evidence
+
+Adversarial record:
+
+`reports/data-qualification/qrm12_ib_v02_independent_adversarial_break_2026-09-20.md`
+
+Persisted-head final re-break:
+
+`reports/data-qualification/qrm12_ib_v02_independent_persisted_head_rebreak_2026-09-20.md`
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-20-QRM12-IB-V02-INDEPENDENT-PASS.md`
+
+Global audit:
+
+`reports/data-qualification/pre_backtest_concrete_gate_reconciliation_2026-09-19.md`
+
+Pre-closeout technical HEAD:
+
+`49871881826dac06de52437cba7eef7589344538`
+
+---
+
+## 89. Exactly one next governed action
+
+Open only:
+
+```text
+Q-RM-12 — post-seal handoff runtime implementation candidate
+```
+
+Create only:
+
+`src/native_bi5_qrm12_handoff.py`
+
+Keep frozen during the initial handoff candidate:
+
+```text
+Q-RM-12 compatibility breaker
+967ab86d517cc8736344bb27154641eb9bac7996
+
+I_A V0.2 source
+cab85272bc5a2e229f56f1e02e624d68dc84ce29
+
+I_B V0.2 source
+6d14704548861c13dfc809adad6ae7a21e31c2ca
+```
+
+The handoff is strictly post-seal. It may validate sealed results, execution receipts, external producer pins and exact embedded F artifacts, then call the existing O comparator. It may not reconstruct, repair or derive pre-seal B/A/Q/F semantics.
+
+Compact governed sequence:
+
+```text
+fresh HEAD
+→ create only src/native_bi5_qrm12_handoff.py + targeted workflow atomically
+→ execute applicable frozen Q-RM-12 compatibility contract
+→ adversarially break handoff
+→ correct demonstrated handoff defects only
+→ persisted-HEAD final full compatibility re-break
+→ PASS / FAIL / BLOCKED
+→ compact audit + backup + checkpoint
+```
+
+If the full frozen compatibility contract demonstrates a defect outside the handoff itself, do not silently modify a previously qualified path; record the demonstrated failure and re-open only the minimum affected scope explicitly.
+
+No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
