@@ -1,4 +1,4 @@
-name: B-ERD-02 transport runtime
+name: B-ERD-02 transport runtime HTTP
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     paths:
       - ".github/workflows/berd02-transport-runtime.yml"
       - "tools/berd02_transport_runner.py"
-      - "evidence/berd02/gha_transport_policy_v0_1.json"
+      - "evidence/berd02/gha_transport_policy_v0_2.json"
       - "reports/data-qualification/berd02_transport_runtime_reentry_review_2026-09-20.md"
 
 permissions:

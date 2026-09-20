@@ -16,12 +16,12 @@ import tempfile
 from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
-LOCATOR_PATH = ROOT / "evidence/berd02/locator_manifest_v0_1.json"
-PROBE_PATH = ROOT / "evidence/berd02/probe_plan_v0_1.json"
-POLICY_PATH = ROOT / "evidence/berd02/gha_transport_policy_v0_1.json"
+LOCATOR_PATH = ROOT / "evidence/berd02/locator_manifest_v0_2.json"
+PROBE_PATH = ROOT / "evidence/berd02/probe_plan_v0_2.json"
+POLICY_PATH = ROOT / "evidence/berd02/gha_transport_policy_v0_2.json"
 
-EXPECTED_LOCATOR_SEAL = "a9fc7115af925fcb5e848e76fb98da7c51053ad136dfb2f6adbd239c004b4db7"
-EXPECTED_PROBE_SEAL = "af5b70ffef6125a0ab6b146c3bb917089182a5abb3adc260a9092e8d584b44ce"
+EXPECTED_LOCATOR_SEAL = "56c07f4b474469e6b5cdb342cb7739a310ea4198d4a26a68f33e2b0172266b2b"
+EXPECTED_PROBE_SEAL = "7e130fab1ec293a7dbaf42a9ee0eded248f86cce1b7624b08cffff47e4c1d743"
 
 def canonical_bytes(v):
     return json.dumps(v, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
@@ -47,13 +47,13 @@ def verify_seal(obj, field, expected=None):
 def render_k1(start_iso):
     t = dt.datetime.fromisoformat(start_iso.replace("Z", "+00:00"))
     return (
-        "https://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/"
+        "http://datafeed.dukascopy.com/datafeed/USATECHIDXUSD/"
         f"{t.year}/{t.month - 1:02d}/{t.day:02d}/{t.hour:02d}h_ticks.bi5"
     )
 
 def raw_https_get(url, policy, body_path):
     parts = urlsplit(url)
-    if parts.scheme != "https" or parts.query or parts.fragment:
+    if parts.scheme not in ("http","https") or parts.query or parts.fragment:
         raise RuntimeError("invalid sealed K1 locator")
     headers = dict(policy["k1"]["request_headers"])
     headers["Host"] = parts.hostname
@@ -72,7 +72,9 @@ def raw_https_get(url, policy, body_path):
         "family_disposition": None,
         "error": None,
     }
-    conn = http.client.HTTPSConnection(parts.hostname, port=parts.port or 443, timeout=policy["k1"]["connect_timeout_seconds"])
+    conn_cls = http.client.HTTPConnection if parts.scheme == "http" else http.client.HTTPSConnection
+    default_port = 80 if parts.scheme == "http" else 443
+    conn = conn_cls(parts.hostname, port=parts.port or default_port, timeout=policy["k1"]["connect_timeout_seconds"])
     try:
         conn.connect()
         if conn.sock is not None:
