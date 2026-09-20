@@ -466,3 +466,135 @@ QTF-R05
 ```
 
 Then repeat persisted-HEAD RED re-break and require **zero unexpected failure causes**.
+
+
+---
+
+## 17. Final persisted-head RED re-break
+
+Final corrected breaker/workflow HEAD:
+
+`5733f7d3c213eb73056c8b8b8f3addd95a25a584`
+
+Final breaker:
+
+`breakers/native_bi5_qrm12_compatibility_breaker.py`
+
+Final breaker blob:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Final workflow:
+
+`.github/workflows/native-bi5-qrm12-compatibility-preimplementation.yml`
+
+Final workflow blob:
+
+`76bfe3ccaf7cf2fbb359e33d9b5a737709ea22da`
+
+Workflow run:
+
+`35497152042`
+
+Job:
+
+`106042122886`
+
+Results:
+
+```text
+exact persisted HEAD / governed blob locks = PASS
+future Q-RM-12 production surfaces absent  = PASS
+qualification environment                  = PASS
+pytest collection                           = 70 tests / PASS
+Q-RM-12 breaker execution                   = 70 expected RED
+unexpected RED causes                       = 0
+clean worktree                              = PASS
+```
+
+Every executed failure is explicitly classified as one of:
+
+```text
+Q-RM-12 I_A V0.2 surface absent — expected pre-implementation RED
+Q-RM-12 I_B V0.2 surface absent — expected pre-implementation RED
+Q-RM-12 handoff surface absent — expected pre-implementation RED
+```
+
+No raw `ModuleNotFoundError`, collection defect, environment defect, hash-lock defect, syntax defect or unrelated test-body failure remains.
+
+## 18. Final corrected harness properties
+
+The final persisted breaker proves/attacks:
+
+- lazy independent loading of I_A V0.2, I_B V0.2 and handoff surfaces;
+- V0.1 implementation identities cannot silently become V0.2 compatibility authority;
+- complete unique D/R/M/B/A/Q/F/O identity/reference/integrity bindings;
+- no digest-only determinant attribution;
+- no common precomputed B slot-count / terminal-fragment authority;
+- independent pre-seal F construction and semantic validation ownership;
+- no shared pre-seal F/O semantic module dependency;
+- closed V0.2 result shape and strict canonical result seal;
+- exact embedded F only on QUALIFIED/FROZEN;
+- no qualified F on blocked/rejected/not-reached axes;
+- externally pinned producer id/version/manifest/source;
+- closed execution-receipt schema;
+- non-empty run identity;
+- run receipt ↔ exact emitted result seal binding;
+- receipt workspace ↔ sealed isolation evidence binding;
+- network / IPC / cache / runtime-read-set isolation closure;
+- breaker-owned fresh-import/runtime audit against dynamic forbidden channels;
+- stale-F substitution with a materially distinct valid F artifact;
+- foreign/mix-and-match F rejection through exact result/F binding;
+- acquisition and reconstruction-tuple cross-binding;
+- same-version integrity-conflict precedence over distinct-version classification;
+- O determinant gate before O invocation;
+- exact handoff result schema with `NOT_INVOKED` for pre-O blocks;
+- no post-seal semantic reconstruction surface;
+- I_A-only and I_B-only mutant observability;
+- F artifact hash/order non-authority;
+- no new canonical occurrence/temporal identity;
+- input, receipt and expected-pin immutability;
+- permission closure.
+
+The static persisted-breaker re-review also confirms:
+
+```text
+global autouse all-surface gate = ABSENT
+separate _ia2/_ib2/_handoff loaders = PRESENT
+breaker-owned runtime audit = PRESENT
+stale-F distinct mutation = PRESENT
+foreign acquisition F attack = PRESENT
+all isolation fields attacked = PRESENT
+receipt run-id attack = PRESENT
+permission closure = PRESENT
+```
+
+No additional internal harness defect was demonstrated after QTF-R05 correction.
+
+## 19. Final test-first verdict
+
+```text
+Q-RM-12 TEST-FIRST EXECUTABLE COMPATIBILITY BREAKER / HARNESS = PASS
+```
+
+This is a test-first/harness-layer PASS only.
+
+It means:
+
+- the executable contract is persisted;
+- its RED state is qualified;
+- it is adversarially hardened;
+- the RED is caused only by the intentional absence of the future production surfaces.
+
+It does **not** mean any Q-RM-12-compatible production implementation exists or passes.
+
+Current executable state remains:
+
+```text
+I_A Q-RM-12 V0.2 production surface = ABSENT
+I_B Q-RM-12 V0.2 production surface = ABSENT
+Q-RM-12 post-seal handoff runtime    = ABSENT
+Q-RM-12 executable run               = BLOCKED
+```
+
+No real BI5 acquisition, processing, backtest, paper/broker/live execution or positive P1.1 authorization was created.
