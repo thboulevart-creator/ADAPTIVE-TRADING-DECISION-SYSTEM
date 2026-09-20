@@ -3229,3 +3229,77 @@ I_B BLOCKED
 The I_A/I_B implementation-layer PASS states do not promote the global D/R/M/B/A/Q/F/O/I_A/I_B gates.
 
 No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization was created.
+
+
+---
+
+# Q-RM-12 post-seal handoff implementation candidate — BLOCKED — 2026-09-20
+
+A concrete post-seal handoff runtime now exists:
+
+`src/native_bi5_qrm12_handoff.py`
+
+Final corrected source blob:
+
+`95d5fcf0a70757abcb2509363b7b03fdea785c71`
+
+Dedicated handoff adversarial breaker:
+
+`59c6f976e72f112c8450de6ac4ba23cff159ba78`
+
+The initial handoff adversarial run demonstrated five runtime defects:
+
+```text
+H-F01 — LEFT_RIGHT_IMPLEMENTATION_ROLES_INTERCHANGEABLE
+H-F02 — BOTH_RESULTS_CAN_REBIND_TO_SAME_FORGED_O_VERSION
+H-F03 — PATH_WORKSPACE_COLLISION_NOT_REJECTED
+H-F04 — ORACLE_OUTPUT_IDENTITY_AND_SCHEMA_NOT_VALIDATED
+H-F05 — ORACLE_OUTPUT_KEYSET_NOT_CLOSED
+```
+
+Those five defects were minimally corrected.
+
+Corrected dedicated adversarial run:
+
+```text
+run = 35500849184
+job = 106052227263
+8 passed
+```
+
+Final persisted-head combined re-break:
+
+```text
+HEAD = d65f9002c9cec4331d9c8d9de07749dd247ef73d
+run = 35500910315
+job = 106052387816
+
+frozen compatibility contract = 69 passed / 1 failed
+handoff adversarial breaker    = 8 passed
+clean worktree                 = PASS
+```
+
+The sole frozen-contract failure is:
+
+`test_e3_preseal_cross_path_information_flow_is_forbidden`
+
+The failure is caused by the qualified I_A source containing the required isolation-evidence field name:
+
+`other_path_output_readable`
+
+while E3 forbids the broader substring:
+
+`other_path_output`
+
+No actual cross-path output information flow was demonstrated.
+
+Therefore:
+
+```text
+handoff dedicated qualification evidence = GREEN
+Q-RM-12 handoff final verdict             = BLOCKED
+```
+
+The blocker belongs to the frozen compatibility breaker E3 rule and must be re-opened explicitly before any full Q-RM-12 PASS can exist.
+
+Global executable gates remain BLOCKED. No real acquisition/backtest/trading execution is authorized.

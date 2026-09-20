@@ -5029,3 +5029,194 @@ fresh HEAD
 If the full frozen compatibility contract demonstrates a defect outside the handoff itself, do not silently modify a previously qualified path; record the demonstrated failure and re-open only the minimum affected scope explicitly.
 
 No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.
+
+
+---
+
+## 90. Q-RM-12 post-seal handoff runtime implementation — BLOCKED
+
+A concrete handoff runtime now exists:
+
+`src/native_bi5_qrm12_handoff.py`
+
+Final corrected source blob:
+
+`95d5fcf0a70757abcb2509363b7b03fdea785c71`
+
+Initial candidate commit:
+
+`be77fe792ee8302ada771200d44c7572ed2ca69f`
+
+Correction commit:
+
+`06480a2e9f16aac96b8ce2d5b14a52891fdc368a`
+
+Dedicated handoff adversarial breaker:
+
+`breakers/native_bi5_qrm12_handoff_adversarial.py`
+
+blob:
+
+`59c6f976e72f112c8450de6ac4ba23cff159ba78`
+
+Final technical re-break HEAD:
+
+`d65f9002c9cec4331d9c8d9de07749dd247ef73d`
+
+## 91. Demonstrated handoff defects closed
+
+Initial dedicated adversarial run:
+
+```text
+run = 35500785870
+job = 106052057807
+3 passed / 5 failed
+```
+
+Demonstrated and corrected:
+
+```text
+H-F01 — LEFT_RIGHT_IMPLEMENTATION_ROLES_INTERCHANGEABLE
+H-F02 — BOTH_RESULTS_CAN_REBIND_TO_SAME_FORGED_O_VERSION
+H-F03 — PATH_WORKSPACE_COLLISION_NOT_REJECTED
+H-F04 — ORACLE_OUTPUT_IDENTITY_AND_SCHEMA_NOT_VALIDATED
+H-F05 — ORACLE_OUTPUT_KEYSET_NOT_CLOSED
+```
+
+Corrected adversarial run:
+
+```text
+run = 35500849184
+job = 106052227263
+8 passed
+```
+
+No additional handoff defect was demonstrated by the dedicated adversarial suite.
+
+## 92. Persisted-head final re-break and blocker
+
+Final workflow:
+
+`.github/workflows/native-bi5-qrm12-handoff-final-rebreak.yml`
+
+blob:
+
+`04bb9dd2aa2ff696e13e7b0e3339dafd239371ec`
+
+Run:
+
+`35500910315`
+
+Job:
+
+`106052387816`
+
+Observed:
+
+```text
+exact persisted identities = PASS
+qualification environment = PASS
+frozen Q-RM-12 compatibility breaker = 69 passed / 1 failed
+handoff adversarial breaker = 8 passed
+clean worktree = PASS
+```
+
+Sole frozen-breaker failure:
+
+`test_e3_preseal_cross_path_information_flow_is_forbidden`
+
+The failure is a demonstrated false positive in the frozen breaker:
+
+- E3 forbids substring `other_path_output`;
+- qualified I_A uses only the required field `other_path_output_readable`;
+- its four occurrences represent/check sealed isolation evidence;
+- no opposite-path result or output is consumed;
+- no I_B module or handoff pre-seal dependency was demonstrated.
+
+Therefore:
+
+```text
+Q-RM-12 POST-SEAL HANDOFF RUNTIME IMPLEMENTATION CANDIDATE = BLOCKED
+```
+
+This is BLOCKED, not FAIL, because the required final proof is prevented by a demonstrated breaker defect outside the handoff runtime.
+
+## 93. Current state
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 test-first harness = REOPEN REQUIRED — E3 false positive demonstrated
+
+I_A V0.2 = PASS / protected
+I_B V0.2 = PASS / protected
+
+handoff runtime = BLOCKED
+handoff dedicated adversarial suite = 8/8 green
+
+Q-RM-12 executable run = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No real BI5, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization has been created.
+
+## 94. Exactly one next governed action
+
+Open only:
+
+```text
+Q-RM-12 — compatibility breaker E3 false-positive repair / requalification
+```
+
+Allowed mutation scope:
+
+- `breakers/native_bi5_qrm12_compatibility_breaker.py`;
+- strictly necessary workflow breaker-hash locks;
+- dedicated adversarial qualification evidence for the breaker correction;
+- final reports/audit/backup/checkpoint.
+
+Do not modify:
+
+```text
+I_A V0.2 source
+cab85272bc5a2e229f56f1e02e624d68dc84ce29
+
+I_B V0.2 source
+6d14704548861c13dfc809adad6ae7a21e31c2ca
+
+handoff source
+95d5fcf0a70757abcb2509363b7b03fdea785c71
+
+F source
+199b07929fe8ec40d719b001b0321d1f26c8faab
+
+O source
+219b22bc92855c24eef3a7abb08e177644d05c76
+```
+
+The repaired E3 must still forbid actual pre-seal cross-path information flow but must distinguish that from the mandatory isolation declaration `other_path_output_readable=False`.
+
+Compact governed sequence:
+
+```text
+fresh HEAD
+→ formalize only the demonstrated E3 false positive
+→ minimal breaker candidate correction
+→ adversarially break the corrected E3 control
+→ correction only if demonstrated
+→ persisted-HEAD full 70-test compatibility re-break
+→ handoff 8-test adversarial re-break
+→ PASS / FAIL / BLOCKED
+→ compact audit + backup + checkpoint
+```
+
+Only after both suites are fully green may the handoff verdict be reconsidered for PASS.
