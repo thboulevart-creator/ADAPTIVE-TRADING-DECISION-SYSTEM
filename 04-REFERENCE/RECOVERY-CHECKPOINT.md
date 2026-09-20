@@ -5220,3 +5220,196 @@ fresh HEAD
 ```
 
 Only after both suites are fully green may the handoff verdict be reconsidered for PASS.
+
+
+---
+
+## 95. Q-RM-12 compatibility breaker E3 — requalified
+
+The demonstrated false positive in E3 has been repaired without modifying any production source.
+
+Previous compatibility breaker blob:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Current requalified breaker blob:
+
+`3026262d6bab60a0d142db227bc73e6e9b71821d`
+
+Dedicated E3 adversarial breaker:
+
+`breakers/native_bi5_qrm12_e3_adversarial.py`
+
+blob:
+
+`da6c59759f733d48c3db1477aeb4327ad59ab415`
+
+Correction commit:
+
+`46066c112380569a020c9acab21e982d36dc3e19`
+
+Dedicated requalification:
+
+```text
+run = 35501386570
+job = 106053642696
+
+repaired E3 control = 1 passed
+E3 adversarial suite = 10 passed
+exact identities = PASS
+qualification environment = PASS
+clean worktree = PASS
+```
+
+E3 now distinguishes:
+
+```text
+required isolation evidence:
+other_path_output_readable
+```
+
+from actual forbidden pre-seal cross-path information channels.
+
+Historical workflows retaining the old breaker hash remain unchanged as historical evidence. Their automatic red hash-lock runs on the E3 correction commit are non-governing for current qualification.
+
+---
+
+## 96. Q-RM-12 post-seal handoff — final PASS
+
+Protected production identities:
+
+```text
+I_A V0.2
+cab85272bc5a2e229f56f1e02e624d68dc84ce29
+
+I_B V0.2
+6d14704548861c13dfc809adad6ae7a21e31c2ca
+
+handoff
+95d5fcf0a70757abcb2509363b7b03fdea785c71
+
+F
+199b07929fe8ec40d719b001b0321d1f26c8faab
+
+O
+219b22bc92855c24eef3a7abb08e177644d05c76
+```
+
+Final requalification workflow:
+
+`.github/workflows/native-bi5-qrm12-e3-final-requalification.yml`
+
+blob:
+
+`88e6f1a799e268215bab5f3591f2806e119bdf4a`
+
+Technical final HEAD:
+
+`f3bf82fb7eefbedbf8b941a05e3ac30d8ee596cc`
+
+Run:
+
+`35501423825`
+
+Job:
+
+`106053742411`
+
+Observed:
+
+```text
+full Q-RM-12 compatibility contract = 70 passed
+handoff adversarial breaker = 8 passed
+exact persisted technical identities = PASS
+qualification environment = PASS
+clean worktree = PASS
+```
+
+Final verdicts:
+
+```text
+Q-RM-12 COMPATIBILITY BREAKER/HARNESS = PASS
+Q-RM-12 POST-SEAL HANDOFF RUNTIME IMPLEMENTATION CANDIDATE = PASS
+```
+
+---
+
+## 97. Current Q-RM-12 compatibility state
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 compatibility breaker/harness = PASS
+
+I_A V0.2 reference compatibility implementation = PASS
+I_B V0.2 independent compatibility implementation = PASS
+Q-RM-12 post-seal handoff runtime = PASS
+
+Q-RM-12 compatibility chain = PASS
+Q-RM-12 real executable run = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+The compatibility-chain PASS is a synthetic/no-real-data qualification only. It does not promote the global executable gates and does not authorize real Q-RM-12 execution.
+
+No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization has been created.
+
+---
+
+## 98. Durable E3 + handoff closure evidence
+
+E3 requalification report:
+
+`reports/data-qualification/qrm12_e3_requalification_2026-09-20.md`
+
+Final handoff PASS report:
+
+`reports/data-qualification/qrm12_handoff_final_pass_after_e3_requalification_2026-09-20.md`
+
+Latest dedicated backup:
+
+`99-BACKUP/SESSION-2026-09-20-QRM12-E3-HANDOFF-PASS.md`
+
+Pre-closeout technical HEAD:
+
+`f3bf82fb7eefbedbf8b941a05e3ac30d8ee596cc`
+
+---
+
+## 99. Exactly one next governed action
+
+Open only:
+
+```text
+PRE-BACKTEST — global executable gate re-reconciliation after Q-RM-12 compatibility closure
+```
+
+Purpose:
+
+- re-read the current D/R/M/B/A/Q/F/O/I_A/I_B gate matrix;
+- account for the now-qualified Q-RM-12 compatibility chain;
+- determine the single smallest remaining blocker before any real-data execution could be considered;
+- do not authorize or perform real-data execution during this reconciliation.
+
+Governed sequence:
+
+```text
+fresh HEAD
+→ read current global audit + checkpoint
+→ reconcile each global gate against the qualified Q-RM-12 compatibility chain
+→ identify exactly one smallest remaining blocker
+→ adversarially challenge that selection
+→ PASS / FAIL / BLOCKED for the reconciliation itself
+→ persist audit + backup + checkpoint
+```
+
+No native BI5 download, real BI5 processing, acquisition, backtest, paper/broker/live execution or positive P1.1 authorization is permitted.

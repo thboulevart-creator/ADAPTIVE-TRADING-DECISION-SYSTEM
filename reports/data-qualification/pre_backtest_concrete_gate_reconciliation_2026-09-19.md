@@ -3303,3 +3303,74 @@ Q-RM-12 handoff final verdict             = BLOCKED
 The blocker belongs to the frozen compatibility breaker E3 rule and must be re-opened explicitly before any full Q-RM-12 PASS can exist.
 
 Global executable gates remain BLOCKED. No real acquisition/backtest/trading execution is authorized.
+
+
+---
+
+# Q-RM-12 E3 requalification + post-seal handoff final PASS — 2026-09-20
+
+The demonstrated E3 false positive in the compatibility breaker has been minimally repaired.
+
+Previous breaker:
+
+`967ab86d517cc8736344bb27154641eb9bac7996`
+
+Current requalified breaker:
+
+`3026262d6bab60a0d142db227bc73e6e9b71821d`
+
+Dedicated E3 requalification:
+
+```text
+run = 35501386570
+job = 106053642696
+
+repaired E3 = 1 passed
+E3 adversarial = 10 passed
+clean worktree = PASS
+```
+
+Final persisted-head full requalification:
+
+```text
+HEAD = f3bf82fb7eefbedbf8b941a05e3ac30d8ee596cc
+run = 35501423825
+job = 106053742411
+
+full Q-RM-12 compatibility contract = 70 passed
+handoff adversarial breaker = 8 passed
+exact identities = PASS
+qualification environment = PASS
+clean worktree = PASS
+```
+
+Final scoped verdicts:
+
+```text
+Q-RM-12 formalization = PASS
+Q-RM-12 compatibility breaker/harness = PASS
+I_A V0.2 = PASS
+I_B V0.2 = PASS
+Q-RM-12 post-seal handoff = PASS
+```
+
+The compatibility layer is now closed at the governed synthetic/no-real-data scope.
+
+Global executable state remains:
+
+```text
+Q-RM-12 real executable run = BLOCKED
+
+D   BLOCKED
+R   BLOCKED
+M   BLOCKED
+B   BLOCKED
+A   BLOCKED
+Q   BLOCKED
+F   BLOCKED
+O   BLOCKED
+I_A BLOCKED
+I_B BLOCKED
+```
+
+No native BI5 download, real BI5 processing, acquisition, real backtest, paper/broker/live execution or positive P1.1 authorization was created.
