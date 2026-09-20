@@ -1,0 +1,110 @@
+name: Persist B-ERD-02 run 35533153289
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/berd02-persist-run-35533153289.yml"
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  persist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Download exact bounded artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/berd02
+          mkdir -p /tmp/berd02
+          gh run download 35533153289 \
+            --repo "$GITHUB_REPOSITORY" \
+            --name berd02-gha-35533153289-1 \
+            --dir /tmp/berd02
+          test -f /tmp/berd02/execution_result.json
+          test -f /tmp/berd02/transport_captures.json
+
+      - name: Verify persisted evidence before commit
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+          base=Path("/tmp/berd02")
+          def canon(v):
+              return json.dumps(v,sort_keys=True,separators=(",",":"),ensure_ascii=False,allow_nan=False).encode()
+          res=json.loads((base/"execution_result.json").read_text())
+          x=dict(res); x.pop("result_seal",None)
+          got=hashlib.sha256(canon(x)).hexdigest()
+          assert got==res["result_seal"]=="ab5c5bdf97ce3dcfa773ed555afa842443ef21b7a155057ab0e9517bb573f5ef"
+          caps=json.loads((base/"transport_captures.json").read_text())
+          assert caps["capture_count"]==9
+          for c in caps["captures"]:
+              x=dict(c); x.pop("capture_seal",None)
+              assert hashlib.sha256(canon(x)).hexdigest()==c["capture_seal"]
+              rel=c["body_artifact"].replace("runtime-output/","")
+              p=base/rel
+              body=p.read_bytes()
+              assert len(body)==c["raw_response_byte_length"]
+              assert hashlib.sha256(body).hexdigest()==c["raw_response_sha256"]
+          for fn in ("diagnostic_a.json","diagnostic_b.json"):
+              d=json.loads((base/fn).read_text())
+              assert len(d["records"])==9
+              for r in d["records"]:
+                  x=dict(r); x.pop("diagnostic_seal",None)
+                  assert hashlib.sha256(canon(x)).hexdigest()==r["diagnostic_seal"]
+          assert res["overall_probe_verdict"]=="PROBE_SUPPORTED"
+          assert res["K1_supported_count"]==9
+          assert res["K1_refuted_count"]==0
+          print("persisted-evidence verification PASS")
+          PY
+
+      - name: Copy exact evidence and provenance
+        shell: bash
+        run: |
+          set -euo pipefail
+          dest="evidence/berd02/gha_run_35533153289"
+          rm -rf "$dest"
+          mkdir -p "$dest"
+          cp -a /tmp/berd02/. "$dest/"
+          cat > "$dest/PROVENANCE.json" <<'JSON'
+          {
+            "schema": "B_ERD_02_GHA_RUN_PROVENANCE_V0_1",
+            "workflow_run_id": 35533153289,
+            "workflow_job_id": 106137359561,
+            "artifact_id": 10612217020,
+            "artifact_name": "berd02-gha-35533153289-1",
+            "artifact_digest": "sha256:ec36b42f01116374ce017d1d00544a2862b83845d0066110d5d01c7d3bb62f61",
+            "source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+            "execution_id": "BERD02-GHA-35533153289-1",
+            "overall_probe_verdict": "PROBE_SUPPORTED",
+            "result_seal": "ab5c5bdf97ce3dcfa773ed555afa842443ef21b7a155057ab0e9517bb573f5ef",
+            "k1_supported_count": 9,
+            "k2_status": "SECURITY_CAPTURE_POLICY_BLOCK",
+            "anti_extrapolation": "PROBE_SUPPORTED_NE_FULL_INTERVAL_QUALIFIED"
+          }
+          JSON
+
+      - name: Commit exact evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/berd02/gha_run_35533153289
+          git commit -m "evidence: persist B-ERD-02 PROBE_SUPPORTED run 35533153289"
+          git push origin HEAD:integration/system-v1
