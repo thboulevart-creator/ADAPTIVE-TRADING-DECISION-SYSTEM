@@ -1,0 +1,86 @@
+name: B-FIQ-02 final persisted-head re-break
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - "breakers/bfiq02_preexecution_package_final_rebreak.py"
+      - ".github/workflows/bfiq02-final-rebreak.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  final-rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Verify exact package HEAD lineage
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f evidence/bfiq02/preexecution_package_v0_1.json
+          python3 - <<'PY'
+          import json
+          p=json.load(open("evidence/bfiq02/preexecution_package_v0_1.json"))
+          assert p["schema"]=="B_FIQ_02_PREEXECUTION_PACKAGE_V0_2"
+          assert p["package_seal"]=="b09bd27498c54a153d4863f009089c51539cc378bbe890a17a021e919cfc918f"
+          assert p["interval_inventory_root"]=="26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8"
+          assert p["request_manifest_root"]=="e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e"
+          print("PACKAGE_IDENTITY_PASS")
+          PY
+
+      - name: Run final re-break
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 breakers/bfiq02_preexecution_package_final_rebreak.py | tee /tmp/bfiq02-final-rebreak.json
+
+      - name: Require no package defect and preserved upstream block
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          x=json.load(open("/tmp/bfiq02-final-rebreak.json"))
+          assert x["structural_errors"] == [], x
+          assert x["demonstrated"] == [], x
+          assert x["verdict"] == "BLOCKED", x
+          print("FINAL_REBREAK_EXPECTED_BLOCKED_PASS")
+          PY
+
+      - name: Assert no provider network execution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          p=Path("breakers/bfiq02_preexecution_package_final_rebreak.py")
+          tree=ast.parse(p.read_text())
+          forbidden={"requests","urllib","http","socket","aiohttp"}
+          bad=[]
+          for n in ast.walk(tree):
+              if isinstance(n, ast.Import):
+                  bad += [a.name for a in n.names if a.name.split(".")[0] in forbidden]
+              elif isinstance(n, ast.ImportFrom) and (n.module or "").split(".")[0] in forbidden:
+                  bad.append(n.module)
+          assert not bad, bad
+          print("NO_PROVIDER_NETWORK_PATH_PASS")
+          PY
+
+      - name: Commit final re-break report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/data-qualification/bfiq02_preexecution_package_final_rebreak_2026-09-21.md
+          git commit -m "evidence: final re-break B-FIQ-02 pre-execution package"
+          git push origin HEAD:integration/system-v1
