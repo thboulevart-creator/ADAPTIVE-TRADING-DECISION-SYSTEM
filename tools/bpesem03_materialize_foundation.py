@@ -49,7 +49,7 @@ def git(*args: str) -> str:
     return subprocess.check_output(["git", *args], cwd=ROOT, text=True).strip()
 
 def git_blob_sha1(data: bytes) -> str:
-    hdr = ("blob %d\\0" % len(data)).encode()
+    hdr = ("blob %d\0" % len(data)).encode()
     return hashlib.sha1(hdr + data).hexdigest()
 
 def source_identity(rel: str) -> dict[str, Any]:
@@ -59,14 +59,14 @@ def source_identity(rel: str) -> dict[str, Any]:
 def write_json(name: str, obj: dict[str, Any]) -> dict[str, Any]:
     OUT.mkdir(parents=True, exist_ok=True)
     p = OUT / name
-    p.write_text(json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False) + "\\n", encoding="utf-8")
+    p.write_text(json.dumps(obj, indent=2, sort_keys=True, ensure_ascii=False) + "\n", encoding="utf-8")
     return source_identity(str(p.relative_to(ROOT)))
 
 def ls_tree(head: str) -> dict[str, dict[str, Any]]:
     raw = subprocess.check_output(["git", "ls-tree", "-r", "-l", head], cwd=ROOT)
     out = {}
     for line in raw.decode("utf-8").splitlines():
-        left, path = line.split("\\t", 1)
+        left, path = line.split("\t", 1)
         mode, typ, blob, size = left.split()
         if typ == "blob":
             out[path] = {"mode": mode, "git_blob": blob, "size": int(size)}
@@ -296,18 +296,18 @@ package["package_seal"]=seal(package,"package_seal")
 write_json("foundation_package_v0_1.json",package)
 
 REPORT.parent.mkdir(parents=True,exist_ok=True)
-REPORT.write_text("# B-PE-SEM-03 — PART 1/3 FOUNDATION MATERIALIZATION\\n\\n"
-                  f"Starting HEAD: {HEAD}\\n\\nStarting tree: {TREE}\\n\\n"
-                  "Materialized baseline, claim/dimension register, authority-basis register, exact scope, signedness rule and execution obligations.\\n\\n"
-                  f"Direct discovered blobs: {len(direct)}\\n\\n"
-                  f"Reference-closure members: {len(discovered)}\\n\\n"
-                  f"Baseline digest: {baseline['baseline_digest']}\\n\\n"
-                  f"Claim register digest: {claim_reg['register_digest']}\\n\\n"
-                  f"Basis register digest: {basis_reg['basis_register_digest']}\\n\\n"
-                  f"Scope digest: {scope['scope_signature_digest']}\\n\\n"
-                  f"Obligation digest: {obligation_digest}\\n\\n"
-                  f"Foundation package seal: {package['package_seal']}\\n\\n"
-                  "No provider contact, BI5 GET, semantic execution, FULL_INTERVAL, D or backtest occurred.\\n\\nSTOP PART 1.\\n",
+REPORT.write_text("# B-PE-SEM-03 — PART 1/3 FOUNDATION MATERIALIZATION\n\n"
+                  f"Starting HEAD: {HEAD}\n\nStarting tree: {TREE}\n\n"
+                  "Materialized baseline, claim/dimension register, authority-basis register, exact scope, signedness rule and execution obligations.\n\n"
+                  f"Direct discovered blobs: {len(direct)}\n\n"
+                  f"Reference-closure members: {len(discovered)}\n\n"
+                  f"Baseline digest: {baseline['baseline_digest']}\n\n"
+                  f"Claim register digest: {claim_reg['register_digest']}\n\n"
+                  f"Basis register digest: {basis_reg['basis_register_digest']}\n\n"
+                  f"Scope digest: {scope['scope_signature_digest']}\n\n"
+                  f"Obligation digest: {obligation_digest}\n\n"
+                  f"Foundation package seal: {package['package_seal']}\n\n"
+                  "No provider contact, BI5 GET, semantic execution, FULL_INTERVAL, D or backtest occurred.\n\nSTOP PART 1.\n",
                   encoding="utf-8")
 
 print(json.dumps({"starting_head":HEAD,"starting_tree":TREE,"direct_discovered_count":len(direct),"baseline_member_count":len(records),"baseline_digest":baseline["baseline_digest"],"claim_register_digest":claim_reg["register_digest"],"basis_register_digest":basis_reg["basis_register_digest"],"scope_signature_digest":scope["scope_signature_digest"],"obligation_set_digest":obligation_digest,"package_seal":package["package_seal"]},indent=2,sort_keys=True))
