@@ -1,0 +1,46 @@
+name: B-FIQ-02 materialize pre-execution package
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - "tools/bfiq02_materialize_package.py"
+      - ".github/workflows/bfiq02-materialize-package.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Materialize sealed package without provider access
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bfiq02_materialize_package.py | tee /tmp/bfiq02-summary.json
+          test -f evidence/bfiq02/preexecution_package_v0_1.json
+
+      - name: Assert no provider client in materializer
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -E "requests\.|urllib\.request|http\.client|curl|wget|socket\.create_connection|subprocess.*curl" tools/bfiq02_materialize_package.py
+
+      - name: Commit materialized artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/bfiq02 reports/data-qualification/bfiq02_preexecution_package_candidate_2026-09-21.md
+          git commit -m "evidence: materialize B-FIQ-02 pre-execution package"
+          git push origin HEAD:integration/system-v1
