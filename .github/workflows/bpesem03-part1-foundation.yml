@@ -1,4 +1,4 @@
-name: B-PE-SEM-03 Part 1 foundation
+name: B-PE-SEM-03 Part 1 foundation\n# rerun-after-escaping-fix
 
 on:
   push:
