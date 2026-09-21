@@ -4015,3 +4015,78 @@ The contract now requires:
 No provider request or full-domain execution occurred.
 
 Next governed action is B-FIQ-02 pre-execution package materialization/sealing, non-network only.
+
+
+---
+
+# B-FIQ-02 pre-execution package materialization / sealing — 2026-09-21
+
+Final two-axis verdict:
+
+~~~text
+PACKAGE MATERIALIZATION / INTEGRITY = PASS
+PRE-EXECUTION ELIGIBILITY = BLOCKED
+B-FIQ-02 OVERALL = BLOCKED
+~~~
+
+Materialized exact domain:
+
+~~~text
+full first H1 = 2021-08-13T01:00:00Z
+last H1 = 2026-08-14T20:00:00Z
+
+wall-clock H1 = 43868
+EXPECTED_OPEN = 29543
+EXPECTED_CLOSED = 14325
+warmup open H1 = 20
+evaluation open H1 = 29523
+~~~
+
+Roots:
+
+~~~text
+IntervalInventory =
+26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8
+
+RequestManifest =
+e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e
+~~~
+
+Planned provider requests:
+
+~~~text
+29543
+~~~
+
+Shards:
+
+~~~text
+58
+~~~
+
+Adversarial defects F01-F04 were corrected:
+
+- exact diagnostic manifest fields;
+- shared generic LZMA stage no longer overclaimed as independently implemented;
+- durable GitHub Release storage described as hash-verifiable/mutation-detectable, not intrinsically immutable;
+- authority scope digest domain explicitly closed.
+
+Final re-break run:
+
+~~~text
+35619055652 = PASS
+structural errors = 0
+new package defects = 0
+breaker verdict = BLOCKED
+~~~
+
+Sole governing blocker:
+
+~~~text
+C01_C07_CURRENT_AUTHORITY_NOT_PASS
+~~~
+
+No provider GET or FULL_INTERVAL execution occurred.
+
+Next governed action:
+B-PE-SEM-01 — C01-C07 provider-semantic authority necessity / closure-route review.

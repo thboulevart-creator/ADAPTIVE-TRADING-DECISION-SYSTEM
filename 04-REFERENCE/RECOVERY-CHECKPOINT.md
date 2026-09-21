@@ -7018,3 +7018,230 @@ paper/broker/live
 ~~~
 
 The later exhaustive execution requires separate explicit user authorization.
+
+
+---
+
+## 145. B-FIQ-02 pre-execution package — MATERIALIZED / BLOCKED
+
+B-FIQ-02 materialized the complete pre-request package without contacting the provider.
+
+Domain:
+
+~~~text
+full first H1 = 2021-08-13T01:00:00Z
+last H1 = 2026-08-14T20:00:00Z
+
+wall-clock intervals = 43868
+EXPECTED_OPEN = 29543
+EXPECTED_CLOSED = 14325
+warmup open H1 = 20
+evaluation open H1 = 29523
+~~~
+
+Stable roots:
+
+~~~text
+IntervalInventory root =
+26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8
+
+RequestManifest root =
+e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e
+~~~
+
+RequestBudget:
+
+~~~text
+planned requests = 29543
+maximum actual requests = 29543
+automatic retry = 0
+max parallel = 4
+request starts <= 2/sec
+~~~
+
+ExecutionShardPlan:
+
+~~~text
+58 shards
+all 29543 REQUIRED intervals exactly once
+no overlap
+~~~
+
+No provider request was sent.
+
+## 146. B-FIQ-02 adversarial correction
+
+Initial materialized-package break demonstrated:
+
+~~~text
+BFIQ02-F01 — diagnostic manifest schema underspecified
+BFIQ02-F02 — shared generic decompressor overclaimed as independent
+BFIQ02-F03 — durable Release storage overclaimed as immutable
+BFIQ02-F04 — authority scope digest domain implicit
+~~~
+
+All four package defects were corrected.
+
+Corrected DiagnosticIndependenceManifest:
+
+~~~text
+BFIQ02-DIAGNOSTIC-INDEPENDENCE-V0_2
+seal =
+291debb5a8e8e2a4991b7f0fa43c8fb57aab2406afb721ff1156c69e758c6ff7
+~~~
+
+Corrected DurableEvidencePolicy:
+
+~~~text
+BFIQ02-DURABLE-EVIDENCE-V0_2
+seal =
+fef211b37e4b9e0aeaae91714010a235d0f97dad2b7771559080a5fc16eaf592
+~~~
+
+Corrected provisional authority scope:
+
+~~~text
+digest =
+f1b2c799a71db55385b8271ad5fc473c6f48242edba772e5085c38a9798f7f57
+
+seal =
+1302c7b33a0c2151649902c4eab81ad260b1575855f144af43c57bf15dda4100
+~~~
+
+Corrected preexecution package:
+
+~~~text
+schema =
+B_FIQ_02_PREEXECUTION_PACKAGE_V0_2
+
+seal =
+b09bd27498c54a153d4863f009089c51539cc378bbe890a17a021e919cfc918f
+~~~
+
+## 147. B-FIQ-02 final persisted-head re-break
+
+Workflow run:
+
+~~~text
+35619055652
+~~~
+
+Final report:
+
+~~~text
+reports/data-qualification/
+bfiq02_preexecution_package_final_rebreak_2026-09-21.md
+
+blob =
+806bc101b8c24ba121e04c66ed159f80477f300f
+~~~
+
+Observed:
+
+~~~text
+structural verification errors = 0
+demonstrated package defects = 0
+final breaker verdict = BLOCKED
+~~~
+
+The package itself is structurally/integrity qualified.
+
+The BLOCKED verdict comes from one upstream authority condition:
+
+~~~text
+C01_C07_CURRENT_AUTHORITY_NOT_PASS
+~~~
+
+SemanticInvariantManifest correctly has:
+
+~~~text
+decisive_invariants = []
+overall_semantic_authority_status = BLOCKED
+execution_eligibility = BLOCKED
+~~~
+
+## 148. Final B-FIQ-02 verdict
+
+~~~text
+B-FIQ-02 PACKAGE MATERIALIZATION / INTEGRITY = PASS
+B-FIQ-02 PRE-EXECUTION ELIGIBILITY = BLOCKED
+B-FIQ-02 OVERALL = BLOCKED
+~~~
+
+Therefore:
+
+~~~text
+FULL_INTERVAL execution = NOT AUTHORIZED / NOT RUN
+FULL_INTERVAL_QUALIFIED = NOT YET PASS
+
+C08-D4-OP = NOT YET PASS
+C08-D5-OP = NOT YET PASS
+BPE-C08-OP-V0.2 = NOT YET PASS
+
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+
+D materialization = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+No provider GET occurred in B-FIQ-02.
+
+## 149. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-01 —
+C01-C07 provider-semantic authority
+necessity / closure-route review
+~~~
+
+Formalization/review only.
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ read B-PE-01 V0.1
+→ read B-PE-02 BLOCKED
+→ read B-PE-01R PASS
+→ read B-FIQ-01 PASS
+→ read B-FIQ-02 SemanticInvariantManifest / final BLOCKED
+
+→ enumerate exact C01-C07 dimensions
+   actually required as decisive invariants
+
+→ separate:
+   provider normative meaning
+   empirically observable compatibility
+   dimensions not necessary for operational FULL_INTERVAL qualification
+
+→ compare:
+   KEEP_PROVIDER_PRIMARY
+   narrow/removal of non-required operational dimensions
+   separately versioned successor only if justified
+   remain BLOCKED
+
+→ adversarial break circularity/common-premise/semantic-overclaim
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ audit + backup + checkpoint
+→ STOP
+~~~
+
+B-PE-SEM-01 may not silently reuse the C08-only supersession to weaken C01-C07.
+
+Still prohibited:
+
+~~~text
+provider contact
+provider BI5 GET
+FULL_INTERVAL execution
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP.
