@@ -3,13 +3,14 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 from pathlib import Path
 from typing import Any
 
 ROOT=Path(__file__).resolve().parents[1]
 E=ROOT/"evidence"/"bpesem03"
-REPORT=ROOT/"reports"/"data-qualification"/"bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md"
+REPORT=Path(os.environ.get("BPESEM03_BREAK_REPORT", str(ROOT/"reports"/"data-qualification"/"bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md")))
 
 def canon(v:Any)->bytes:
     return json.dumps(v,sort_keys=True,separators=(",",":"),ensure_ascii=False,allow_nan=False).encode("utf-8")
