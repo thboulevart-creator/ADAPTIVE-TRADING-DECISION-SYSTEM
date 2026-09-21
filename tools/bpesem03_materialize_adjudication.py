@@ -434,6 +434,13 @@ for dim in all_dims:
     ru["review_universe_digest"]=seal(ru,"review_universe_digest")
     review_universes.append(ru)
 
+    # Bind the visibility/positive projections to the exact review universe they derive from.
+    vu["semantic_evidence_review_universe_id"]=ru["review_universe_id"]
+    vu["semantic_evidence_review_universe_digest"]=ru["review_universe_digest"]
+    vu["visibility_universe_digest"]=seal(vu,"visibility_universe_digest")
+    pu["visibility_universe_digest"]=vu["visibility_universe_digest"]
+    pu["positive_authority_universe_digest"]=seal(pu,"positive_authority_universe_digest")
+
     kr={
         "schema":"B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
         "registry_id":"BPESEM03-KNOWN-ALT-"+dim,
