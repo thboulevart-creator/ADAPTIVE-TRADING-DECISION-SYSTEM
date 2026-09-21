@@ -1,0 +1,119 @@
+name: B-PE-SEM-03 Part 1 foundation
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem03-part1-foundation.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert no provider-network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          p=Path("tools/bpesem03_materialize_foundation.py")
+          tree=ast.parse(p.read_text(encoding="utf-8"))
+          forbidden={"requests","urllib","http","socket","aiohttp"}
+          bad=[]
+          for node in ast.walk(tree):
+              if isinstance(node,ast.Import):
+                  for a in node.names:
+                      if a.name.split(".")[0] in forbidden:
+                          bad.append((node.lineno,a.name))
+              elif isinstance(node,ast.ImportFrom):
+                  root=(node.module or "").split(".")[0]
+                  if root in forbidden:
+                      bad.append((node.lineno,node.module))
+          assert not bad,bad
+          print("NO_PROVIDER_NETWORK_IMPORTS_PASS")
+          PY
+
+      - name: Materialize foundation from exact checkout
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem03_materialize_foundation.py | tee /tmp/bpesem03-part1.json
+          test -f evidence/bpesem03/foundation_package_v0_1.json
+
+      - name: Persist foundation candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/bpesem03 reports/data-qualification/bpesem03_part1_foundation_materialization_2026-09-21.md
+          git commit -m "evidence: materialize B-PE-SEM-03 foundation"
+          git push origin HEAD:integration/system-v1
+          echo "FIRST_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Bind baseline persistence commit without self-reference
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib,json,os,subprocess
+          from pathlib import Path
+          root=Path(".")
+          def canon(v):
+              return json.dumps(v,sort_keys=True,separators=(",",":"),ensure_ascii=False,allow_nan=False).encode()
+          def sha(v):
+              return hashlib.sha256(canon(v)).hexdigest()
+          def seal(o,f):
+              x=dict(o); x.pop(f,None); return sha(x)
+          def blob(data):
+              return hashlib.sha1(("blob %d\0"%len(data)).encode()+data).hexdigest()
+          c1=os.environ["FIRST_COMMIT"]
+          basep=root/"evidence/bpesem03/governed_semantic_evidence_baseline_v0_1.json"
+          base=json.loads(basep.read_text())
+          parent=base["baseline_materialization_parent_head"]
+          parents=subprocess.check_output(["git","show","-s","--format=%P",c1],text=True).strip().split()
+          if parent not in parents:
+              raise SystemExit("BASELINE_PARENT_RELATION_INVALID")
+          base["baseline_materialization_commit_binding"]=c1
+          base["parent_relation_status"]="PASS"
+          base["baseline_digest"]=seal(base,"baseline_digest")
+          basep.write_text(json.dumps(base,indent=2,sort_keys=True,ensure_ascii=False)+"\n")
+          raw=basep.read_bytes()
+          pkgp=root/"evidence/bpesem03/foundation_package_v0_1.json"
+          pkg=json.loads(pkgp.read_text())
+          pkg["artifacts"]["baseline"]={
+              "path":"evidence/bpesem03/governed_semantic_evidence_baseline_v0_1.json",
+              "git_blob":blob(raw),
+              "sha256_raw_bytes":hashlib.sha256(raw).hexdigest(),
+              "byte_length":len(raw),
+          }
+          pkg["baseline_digest"]=base["baseline_digest"]
+          pkg["package_seal"]=seal(pkg,"package_seal")
+          pkgp.write_text(json.dumps(pkg,indent=2,sort_keys=True,ensure_ascii=False)+"\n")
+          rec={
+              "schema":"B_PE_SEM_03_BASELINE_PERSISTENCE_RECORD_V0_1",
+              "baseline_id":base["baseline_id"],
+              "baseline_digest":base["baseline_digest"],
+              "baseline_materialization_parent_head":parent,
+              "baseline_materialization_commit":c1,
+              "parent_relation_status":"PASS",
+          }
+          rec["record_seal"]=seal(rec,"record_seal")
+          (root/"evidence/bpesem03/baseline_persistence_record_v0_1.json").write_text(json.dumps(rec,indent=2,sort_keys=True)+"\n")
+          print(json.dumps(rec,indent=2))
+          PY
+          git add evidence/bpesem03
+          git commit -m "evidence: bind B-PE-SEM-03 baseline persistence"
+          git push origin HEAD:integration/system-v1
