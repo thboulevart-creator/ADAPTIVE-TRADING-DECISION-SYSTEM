@@ -1,0 +1,61 @@
+{
+  "applicable_C01_C07_adjudications": [
+    {
+      "adjudication_id": "BPE02-ADJ-2026-09-20-V0_2",
+      "adjudication_seal": "d27771bc8c2023571b4fbbe66238dbc28b29ca69949a1db114480346f1c90a76",
+      "current_authority_required": true,
+      "current_authority_status": "BLOCKED"
+    }
+  ],
+  "authority_scope_tuple_digest": "7a2e1aa7cfefe61d7526c2622dac846a13817fd9066e706b00370b08b9dbc88e",
+  "blocking_reason_codes": [
+    "C01_C07_CURRENT_AUTHORITY_NOT_PASS",
+    "QUALIFIED_EMPTY_RULE_ABSENT_IF_ANY_OPEN_OBJECT_IS_NONQUALIFIABLE"
+  ],
+  "diagnostic_independence_manifest_id": "BFIQ02-DIAGNOSTIC-INDEPENDENCE-V0_1",
+  "diagnostic_independence_manifest_seal": "c1d633104592b99ea6c81a33f302ab4a86e67716d3646fe5f1b80d3829c3d8cf",
+  "durable_evidence_policy_id": "BFIQ02-DURABLE-EVIDENCE-V0_1",
+  "durable_evidence_policy_seal": "93763db63414f929f8251285d433d330c2288c38096fc08c45d7e04774c6d00c",
+  "evidence_set_digest": null,
+  "execution_shard_plan_id": "BFIQ02-USATECH-SHARD-PLAN-V0_1",
+  "execution_shard_plan_seal": "95243fca245b73e310dbb1db7f6eed2ee50fb411657d67f8f89249ec143ba050",
+  "execution_window_freeze_identity": "bf7c43e9d90d952dfa3715c28575fdf6cf379a89",
+  "full_d_representation_domain_identity": {
+    "first_h1": "2021-08-13T01:00:00Z",
+    "interval_inventory_root": "26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8",
+    "last_h1": "2026-08-14T20:00:00Z"
+  },
+  "instrument_identity": "USATECHIDXUSD",
+  "interval_inventory_root": "26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8",
+  "locator_regime_manifest_id": "BFIQ02-USATECH-K1-REGIME-MANIFEST-V0_1",
+  "locator_regime_manifest_seal": "368659c30c480673fea57030e63389d1d3950bb544de684d41120794389c90d5",
+  "pre_execution_eligibility": "BLOCKED",
+  "provider_delivery_identity_policy_id": "BFIQ02-DUKASCOPY-PROVIDER-DELIVERY-V0_1",
+  "provider_delivery_identity_policy_seal": "302b3abe97a495cf173ae3561077fe59bbd8b71c3517220c115edcc82bf8387a",
+  "provider_identity": "DUKASCOPY",
+  "qualification_capture_set_root_sha256": null,
+  "qualification_execution_result_id": null,
+  "qualification_execution_result_seal": null,
+  "qualified_empty_rule_id": null,
+  "qualified_empty_rule_seal": null,
+  "representation_rule_identity": "K1_LEGACY_HOURLY_TICK_BI5",
+  "request_budget_id": "BFIQ02-USATECH-REQUEST-BUDGET-V0_1",
+  "request_budget_seal": "4408b3bd0f472e9242a3150873292036035ad0e0f5fb070aed0b5bdfbb700fc2",
+  "request_manifest_id": "BFIQ02-USATECH-REQUEST-MANIFEST-V0_1",
+  "request_manifest_root": "e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e",
+  "request_manifest_seal": "2e7cdfb0873039a5e231442399b3c6085a24dc8a68004f9ecb2296fb263a0529",
+  "schema": "B_FIQ_02_PROVISIONAL_AUTHORITY_SCOPE_TUPLE_V0_1",
+  "scope_seal": "187e5d5b02aae5869cbfbe8b31ff1b483d447d6d17ec1f3521342e8fe6bb3b3b",
+  "semantic_invariant_manifest_id": "BFIQ02-SEMANTIC-INVARIANTS-V0_1",
+  "semantic_invariant_manifest_seal": "e0181475e7b0213eba625182b3556c39b2a4790b5491173de3dec92e60ca9f6b",
+  "session_calendar_identity": {
+    "contract": "DUKASCOPY_USATECH_SESSION_CALENDAR_V3",
+    "git_blob": "fab634aab7b8c299b0139c3c43bf5b89a2aa03d0"
+  },
+  "status": "PROVISIONAL_PRE_EXECUTION_BLOCKED",
+  "successor_contract_id": "BPE-C08-OP-V0.2",
+  "successor_contract_version": "B_PE_01R_OPERATIONAL_EMPIRICAL_SUPERSESSION_V0_2_CORRECTED",
+  "transport_policy_id": "BFIQ02-K1-CURL-IPV4-HTTPS-V0_1",
+  "transport_policy_seal": "a750e8d744a831c8c31e05c9e18773095fa7b9003f3c0fc0075eef3c919edd23",
+  "warmup_rule_identity": "FINAL_20_EXPECTED_OPEN_H1_STRICTLY_BEFORE_FIRST_INCLUDED_OPEN_V0_1"
+}

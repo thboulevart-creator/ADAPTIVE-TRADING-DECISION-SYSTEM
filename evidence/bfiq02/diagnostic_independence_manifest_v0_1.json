@@ -1,0 +1,82 @@
+{
+  "allowed_shared_artifacts": [
+    {
+      "artifact_hash": null,
+      "artifact_identity": "exact_raw_body_bytes",
+      "justification": "common immutable input"
+    },
+    {
+      "artifact_hash": null,
+      "artifact_identity": "qualified normative contracts",
+      "justification": "shared authority, not shared implementation"
+    },
+    {
+      "artifact_hash": null,
+      "artifact_identity": "python standard-library generic primitives",
+      "justification": "generic non-project semantic primitives allowed by prior qualification"
+    }
+  ],
+  "contract_id": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION",
+  "contract_version": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION_V0_2_CORRECTED",
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "diagnostic_A": {
+    "decompressor_identity": "python-stdlib-lzma",
+    "implementation_id": "I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_QRM12",
+    "invariant_evaluator_identity": "I_A_PRIVATE_QUALIFICATION_LOGIC",
+    "invariant_evaluator_source_blob_sha1": "cab85272bc5a2e229f56f1e02e624d68dc84ce29",
+    "parser_identity": "I_A_PRIVATE_BINARY_DECODER",
+    "parser_source_blob_sha1": "cab85272bc5a2e229f56f1e02e624d68dc84ce29",
+    "projection_identity": "I_A_PRIVATE_SEMANTIC_PROJECTION",
+    "projection_source_blob_sha1": "cab85272bc5a2e229f56f1e02e624d68dc84ce29",
+    "source_identity": {
+      "byte_length": 49471,
+      "git_blob_sha1": "cab85272bc5a2e229f56f1e02e624d68dc84ce29",
+      "path": "src/native_bi5_reference_qualifier_qrm12.py",
+      "sha256_raw_bytes": "7838db050dfe6600874094cc8c4515d00d3d993003610073c153c3050d42ce45"
+    }
+  },
+  "diagnostic_B": {
+    "decompressor_identity": "INDEPENDENT_PATH_PRIVATE_IMPLEMENTATION_AS_QUALIFIED",
+    "implementation_id": "I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_QRM12",
+    "invariant_evaluator_identity": "I_B_PRIVATE_QUALIFICATION_LOGIC",
+    "invariant_evaluator_source_blob_sha1": "6d14704548861c13dfc809adad6ae7a21e31c2ca",
+    "parser_identity": "I_B_PRIVATE_BINARY_DECODER",
+    "parser_source_blob_sha1": "6d14704548861c13dfc809adad6ae7a21e31c2ca",
+    "projection_identity": "I_B_PRIVATE_SEMANTIC_PROJECTION",
+    "projection_source_blob_sha1": "6d14704548861c13dfc809adad6ae7a21e31c2ca",
+    "source_identity": {
+      "byte_length": 51727,
+      "git_blob_sha1": "6d14704548861c13dfc809adad6ae7a21e31c2ca",
+      "path": "src/native_bi5_independent_qualifier_qrm12.py",
+      "sha256_raw_bytes": "9924c6bff7035fb90640011523ab9f0d7d4411bf87c41b6dddaf0cf3502c41a0"
+    }
+  },
+  "forbidden_shared_semantic_helpers": [
+    "shared project parser helper",
+    "shared project projection helper",
+    "shared project invariant evaluator",
+    "I_A output as I_B input",
+    "O-normalized expected answer as pre-seal input"
+  ],
+  "manifest_id": "BFIQ02-DIAGNOSTIC-INDEPENDENCE-V0_1",
+  "manifest_seal": "c1d633104592b99ea6c81a33f302ab4a86e67716d3646fe5f1b80d3829c3d8cf",
+  "overall_independence_verdict": "PASS",
+  "raw_input_interface_identity": "EXACT_COMPRESSED_PROVIDER_BODY_SHA256",
+  "relationship_analysis": {
+    "ia_final_rebreak_report_blob": "d9c51d7455092a90621dc76564c337d57c7c9c0b",
+    "ib_final_rebreak_report_blob": "d1b248cb98251f84a48619a63e34ef1e39395e3f",
+    "ib_qualified_properties": [
+      "independent raw-payload decoding and anomaly/membership derivation",
+      "independent path-private F construction and validation",
+      "no pre-seal dependency on I_A/shared F/O/handoff"
+    ]
+  },
+  "schema": "B_FIQ_01_DIAGNOSTIC_INDEPENDENCE_MANIFEST_V0_2",
+  "stage_independence_verdicts": {
+    "decisive_invariant_evaluation": "PASS",
+    "decompression": "PASS",
+    "physical_framing": "PASS",
+    "primitive_parsing": "PASS",
+    "semantic_projection": "PASS"
+  }
+}

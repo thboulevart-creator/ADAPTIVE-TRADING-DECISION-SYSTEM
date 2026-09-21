@@ -1,0 +1,22 @@
+{
+  "access_control_requirement": "governed repository credentials; no body authority from inaccessible object",
+  "allowed_storage_classes": [
+    "GITHUB_RELEASE_ASSET_IMMUTABLE_VERSION_BINDING"
+  ],
+  "audit_recovery_requirement": "every PASS-bound body must remain retrievable and rehashable",
+  "body_persistence_deadline_rule": "before QualificationExecutionResult may close PASS-candidate",
+  "content_addressing_rule": "SHA256_EXACT_BODY_BYTES",
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "credential_non_persistence_rule": "never persist tokens, signed authorization headers or secret query parameters",
+  "failure_if_persistence_deadline_missed": "BLOCKED_INTEGRITY",
+  "immutable_versioning_rule": "RELEASE_ID_PLUS_ASSET_ID_PLUS_SHA256; replacement creates new evidence object identity",
+  "object_reference_encoding_rule": "github-release://{repository}/release/{release_id}/asset/{asset_id}#sha256={digest}",
+  "policy_id": "BFIQ02-DURABLE-EVIDENCE-V0_1",
+  "policy_seal": "93763db63414f929f8251285d433d330c2288c38096fc08c45d7e04774c6d00c",
+  "policy_version": "V0_1",
+  "repository_binding_requirement": "repository persists release_id, asset_id, asset_name, byte_length, sha256, upload timestamp and evidence-object seal",
+  "retention_requirement": "retain through all dependent qualification/backtest audit lifetimes; deletion opens CAPTURE_INTEGRITY_FAILURE",
+  "retrieval_verification_method": "download exact asset bytes and SHA256 compare",
+  "schema": "B_FIQ_01_DURABLE_EVIDENCE_POLICY_V0_2",
+  "temporary_staging_policy": "GitHub Actions artifacts are temporary staging only and have zero final authority"
+}

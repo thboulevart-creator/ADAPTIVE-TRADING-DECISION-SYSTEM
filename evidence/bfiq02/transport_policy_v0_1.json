@@ -1,0 +1,31 @@
+{
+  "aggregate_request_start_rate_per_second": 2,
+  "automatic_content_decoding": false,
+  "automatic_redirect_follow": false,
+  "automatic_retry_count": 0,
+  "connect_timeout_seconds": 10,
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "force_ipv4": true,
+  "http_version": "1.1",
+  "implementation": "curl",
+  "max_parallel_requests": 4,
+  "max_redirects": 0,
+  "max_response_body_bytes": 52428800,
+  "method": "GET",
+  "per_request_total_timeout_seconds": 30,
+  "preserve_exact_response_body": true,
+  "preserve_request_header_trace": true,
+  "preserve_response_headers": true,
+  "request_headers": {
+    "Accept": "*/*",
+    "Accept-Encoding": "identity",
+    "User-Agent": "ATDS-BFIQ/1.0"
+  },
+  "schema": "B_FIQ_02_TRANSPORT_POLICY_V0_1",
+  "source_demonstration": {
+    "execution_id": "BERD02-GHA-35533153289-1",
+    "workflow_run_id": 35533153289
+  },
+  "transport_policy_id": "BFIQ02-K1-CURL-IPV4-HTTPS-V0_1",
+  "transport_policy_seal": "a750e8d744a831c8c31e05c9e18773095fa7b9003f3c0fc0075eef3c919edd23"
+}

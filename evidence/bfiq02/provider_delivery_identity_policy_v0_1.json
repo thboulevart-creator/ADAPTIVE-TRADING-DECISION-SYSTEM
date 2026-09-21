@@ -1,0 +1,22 @@
+{
+  "allowed_delivery_endpoints": [
+    {
+      "endpoint_role": "K1_LEGACY_HOURLY_TICK_OBJECT_CANONICAL",
+      "hostname": "datafeed.dukascopy.com",
+      "port": 443,
+      "scheme": "https"
+    }
+  ],
+  "allowed_redirect_edges": [],
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "http_version_policy": "HTTP_1_1",
+  "policy_id": "BFIQ02-DUKASCOPY-PROVIDER-DELIVERY-V0_1",
+  "policy_seal": "302b3abe97a495cf173ae3561077fe59bbd8b71c3517220c115edcc82bf8387a",
+  "provider_identity": "DUKASCOPY",
+  "provider_identity_evidence_refs": [
+    "evidence/bpe03/provider_snapshots/dukascopy_api_support_2013_hourly_history.json",
+    "evidence/berd02/gha_run_35533153289/PROVENANCE.json"
+  ],
+  "schema": "B_FIQ_01_PROVIDER_DELIVERY_IDENTITY_POLICY_V0_1",
+  "tls_policy": "SYSTEM_TRUST_STORE_FAIL_CLOSED"
+}

@@ -1,0 +1,15 @@
+{
+  "aggregate_request_start_rate_per_second": 2,
+  "budget_seal": "4408b3bd0f472e9242a3150873292036035ad0e0f5fb070aed0b5bdfbb700fc2",
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "interval_inventory_root": "26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8",
+  "max_parallel_requests": 4,
+  "maximum_actual_request_count": 29543,
+  "planned_request_count": 29543,
+  "regime_manifest_seal": "368659c30c480673fea57030e63389d1d3950bb544de684d41120794389c90d5",
+  "request_budget_id": "BFIQ02-USATECH-REQUEST-BUDGET-V0_1",
+  "request_manifest_root": "e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e",
+  "schema": "B_FIQ_02_REQUEST_BUDGET_V0_1",
+  "transport_policy_id": "BFIQ02-K1-CURL-IPV4-HTTPS-V0_1",
+  "transport_policy_seal": "a750e8d744a831c8c31e05c9e18773095fa7b9003f3c0fc0075eef3c919edd23"
+}

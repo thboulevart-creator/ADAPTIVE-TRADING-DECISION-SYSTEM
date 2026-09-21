@@ -1,0 +1,222 @@
+{
+  "applicable_claim_scope": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07"
+  ],
+  "candidate_non_decisive_checks": [
+    "decompression succeeds under candidate LZMA-Alone premise",
+    "decompressed byte length divisible by candidate 20-byte framing",
+    "candidate timestamp offset in [0,3600000)",
+    "candidate ask/bid raw values nonzero",
+    "candidate ask_raw >= bid_raw",
+    "candidate volumes finite"
+  ],
+  "contract_id": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION",
+  "contract_version": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION_V0_2_CORRECTED",
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "decisive_invariants": [],
+  "dimension_statuses": [
+    {
+      "dimension_id": "C01-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C01-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C01-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C01-D4",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D4",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT",
+        "INDEPENDENT_SIGNEDNESS_CONFLICT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D4",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D4",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C05-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C05-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT",
+        "INDEPENDENT_SIGNEDNESS_CONFLICT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C05-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT",
+        "INDEPENDENT_USATECH_DIVISOR_1000_CORROBORATED_BUT_PROVIDER_RAW_SCALE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D4",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D1",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D2",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D3",
+      "reason_codes": [
+        "ADMISSIBLE_PROVIDER_PRIMARY_EXACT_TARGET_EVIDENCE_ABSENT"
+      ],
+      "status": "BLOCKED"
+    }
+  ],
+  "execution_eligibility": "BLOCKED",
+  "manifest_id": "BFIQ02-SEMANTIC-INVARIANTS-V0_1",
+  "manifest_seal": "e0181475e7b0213eba625182b3556c39b2a4790b5491173de3dec92e60ca9f6b",
+  "overall_semantic_authority_status": "BLOCKED",
+  "provider_semantic_adjudication_id": "BPE02-ADJ-2026-09-20-V0_2",
+  "provider_semantic_adjudication_seal": "d27771bc8c2023571b4fbbe66238dbc28b29ca69949a1db114480346f1c90a76",
+  "provider_semantic_evidence_set_digest": "d2c9cd9a62c7f000f6821a3b04898400dbb28a363c161c0c398228aa79b6ba98",
+  "reason_codes": [
+    "C01_C07_CURRENT_AUTHORITY_NOT_PASS",
+    "DECISIVE_INVARIANTS_CANNOT_BE_AUTHORIZED"
+  ],
+  "schema": "B_FIQ_02_SEMANTIC_INVARIANT_MANIFEST_V0_1"
+}

@@ -1,0 +1,87 @@
+{
+  "artifacts": {
+    "diagnostic_independence_manifest_v0_1.json": {
+      "byte_length": 3811,
+      "git_blob_sha1": "49922d246a8cc10fc90039dc2ae72c6e06294728",
+      "path": "evidence/bfiq02/diagnostic_independence_manifest_v0_1.json",
+      "sha256_raw_bytes": "9e240f5fbe154ae187c57ed9d8d7fcd1def9449c04994ab9c82bdb6a132241e6"
+    },
+    "durable_evidence_policy_v0_1.json": {
+      "byte_length": 1634,
+      "git_blob_sha1": "fd0dd887e22ea88a9bdaff430be7c64e1a15e6af",
+      "path": "evidence/bfiq02/durable_evidence_policy_v0_1.json",
+      "sha256_raw_bytes": "9f60fc221f2bc8da5773d654411793f754d3fa0bd4628727e31f8c51a9f6ba5d"
+    },
+    "execution_shard_plan_v0_1.json": {
+      "byte_length": 2261671,
+      "git_blob_sha1": "2d19cce1fd60d65468a07ac98af9725eb3c55392",
+      "path": "evidence/bfiq02/execution_shard_plan_v0_1.json",
+      "sha256_raw_bytes": "c292a57669c8f0fd974e4c60977f7c954b1d914569e77df00b7d3b3ba174ac9b"
+    },
+    "interval_inventory_v0_1.json": {
+      "byte_length": 22826236,
+      "git_blob_sha1": "8c02972228941d8b6f1aacaf9ac6bf75fb0f2029",
+      "path": "evidence/bfiq02/interval_inventory_v0_1.json",
+      "sha256_raw_bytes": "7f55d600d9bfcab804283d668a9f74b555e55cc6c98a99919e0012c08f038f5d"
+    },
+    "provider_delivery_identity_policy_v0_1.json": {
+      "byte_length": 801,
+      "git_blob_sha1": "ff100339efd94eee5f98d0bdfae8731a9880b6ff",
+      "path": "evidence/bfiq02/provider_delivery_identity_policy_v0_1.json",
+      "sha256_raw_bytes": "67613ff1f0e2b6657afc56626640170594edfbf1fb1ddfa43237a46fb1750cdd"
+    },
+    "provisional_authority_scope_tuple_v0_1.json": {
+      "byte_length": 3595,
+      "git_blob_sha1": "03979d0f90e849654135ce6cd831a26b0127758e",
+      "path": "evidence/bfiq02/provisional_authority_scope_tuple_v0_1.json",
+      "sha256_raw_bytes": "4eab9839b4fb900f867702d80921f16de8a390d1f24426861e8beb0f8afd610b"
+    },
+    "representation_regime_manifest_v0_1.json": {
+      "byte_length": 1593,
+      "git_blob_sha1": "f7fa8c3729c320db96f04be48964d411cb2ef2c3",
+      "path": "evidence/bfiq02/representation_regime_manifest_v0_1.json",
+      "sha256_raw_bytes": "a009f2e6759e10b8556bf61fb887cd7aea8429ae43474f54a6803e2ac4120493"
+    },
+    "request_budget_v0_1.json": {
+      "byte_length": 830,
+      "git_blob_sha1": "446ca16564003adbba7a50903ff11e7fab1d8175",
+      "path": "evidence/bfiq02/request_budget_v0_1.json",
+      "sha256_raw_bytes": "6750cbf9c03fe2f3e67e43411461c42413b8a4b3918a10d58859180d2531d14e"
+    },
+    "request_manifest_v0_1.json": {
+      "byte_length": 21912358,
+      "git_blob_sha1": "b90d0ec658868c7027c1a1b1b9b60169a0b05cd0",
+      "path": "evidence/bfiq02/request_manifest_v0_1.json",
+      "sha256_raw_bytes": "158a92132553d40e5f85dfc58f877514665f80b09b202fef0288102360046c85"
+    },
+    "semantic_invariant_manifest_v0_1.json": {
+      "byte_length": 6060,
+      "git_blob_sha1": "9ce3b711da6568fb412cdad116284c9300920223",
+      "path": "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+      "sha256_raw_bytes": "abca6f9ffc78783f7105420daa3e6a7961621730c27f61cd1bbdba96614f0b16"
+    },
+    "transport_policy_v0_1.json": {
+      "byte_length": 1015,
+      "git_blob_sha1": "f81443b307d5d735e240d83ff50b81ee5ea8940e",
+      "path": "evidence/bfiq02/transport_policy_v0_1.json",
+      "sha256_raw_bytes": "a04674a63a7f5835bd45a808257752a6711600aa0f7dd72000317167ffc968ee"
+    }
+  },
+  "blocking_reason_codes": [
+    "C01_C07_CURRENT_AUTHORITY_NOT_PASS"
+  ],
+  "contract_id": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION",
+  "contract_version": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION_V0_2_CORRECTED",
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "diagnostic_independence_status": "PASS",
+  "interval_inventory_root": "26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8",
+  "package_id": "BFIQ02-USATECH-PREEXECUTION-PACKAGE-V0_1",
+  "package_seal": "79fb2ea96128efcb0d0ae5ba9ee1e8586638844aa1affed226afa90e0b99a512",
+  "planned_request_count": 29543,
+  "pre_execution_eligibility": "BLOCKED",
+  "provider_network_requests_performed": false,
+  "request_manifest_root": "e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e",
+  "schema": "B_FIQ_02_PREEXECUTION_PACKAGE_V0_1",
+  "semantic_authority_status": "BLOCKED",
+  "shard_count": 58
+}

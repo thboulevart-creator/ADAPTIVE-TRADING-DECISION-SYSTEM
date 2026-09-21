@@ -1,0 +1,28 @@
+{
+  "contract_id": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION",
+  "contract_version": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION_V0_2_CORRECTED",
+  "created_at_utc": "2026-09-21T15:00:00Z",
+  "manifest_id": "BFIQ02-USATECH-K1-REGIME-MANIFEST-V0_1",
+  "manifest_seal": "368659c30c480673fea57030e63389d1d3950bb544de684d41120794389c90d5",
+  "open_world_rule": "POSITIVE_MATERIAL_UNKNOWN_OR_COMPETING_REPRESENTATION_EVIDENCE_BLOCKS_CURRENT_LINEAGE",
+  "provider_delivery_identity_policy_id": "BFIQ02-DUKASCOPY-PROVIDER-DELIVERY-V0_1",
+  "provider_delivery_identity_policy_seal": "302b3abe97a495cf173ae3561077fe59bbd8b71c3517220c115edcc82bf8387a",
+  "regimes": [
+    {
+      "applicability_rule": "ALL_INTERVALS_WITH_EXPECTED_MARKET_STATUS_EXPECTED_OPEN_IN_SEALED_INVENTORY",
+      "interval_domain_rule": "ONE_PROVIDER_OBJECT_PER_EXPECTED_OPEN_UTC_H1",
+      "locator_rendering_rule": "https://datafeed.dukascopy.com/datafeed/{INSTRUMENT}/{YYYY}/{MONTH_ZERO_INDEXED_2D}/{DD}/{HH}h_ticks.bi5",
+      "locator_source_evidence_refs": [
+        "evidence/berd02/locator_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json"
+      ],
+      "regime_id": "K1_LEGACY_HOURLY_TICK_BI5",
+      "representation_identity": "DUKASCOPY_NATIVE_BI5_HOURLY_TICKS",
+      "representation_semantic_authority_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json"
+      ],
+      "transition_boundary_evidence_refs_if_any": []
+    }
+  ],
+  "schema": "B_FIQ_01_REPRESENTATION_REGIME_MANIFEST_V0_1"
+}
