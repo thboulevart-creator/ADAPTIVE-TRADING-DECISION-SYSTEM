@@ -6698,3 +6698,168 @@ Recovery backup:
 `99-BACKUP/SESSION-2026-09-20-END-OF-DAY-RECOVERY.md`
 
 STOP.
+
+
+---
+
+## 136. B-PE-01R empirical evidence sufficiency / provider-primary supersession — PASS
+
+B-PE-01R was opened from fresh HEAD after B-ERD-02 PROBE_SUPPORTED.
+
+Parent candidate:
+
+`reports/data-qualification/bpe01r_empirical_evidence_sufficiency_supersession_candidate_2026-09-21.md`
+
+blob:
+
+`0a9ed4c6bcb921910f287da4646d5870061b9a31`
+
+Adversarial break demonstrated:
+
+```text
+BPE01R-F01 — SEQUENTIAL_CAPTURE_ROOT_OVERCLAIMED_AS_PROVIDER_ARCHIVE_SNAPSHOT
+BPE01R-F02 — SUCCESSOR CURRENT-AUTHORITY / REOPEN PREDICATE NOT CLOSED
+BPE01R-F03 — DOWNSTREAM AUTHORITY SCOPE TUPLE NOT NORMATIVELY PINNED
+```
+
+Correction:
+
+`reports/data-qualification/bpe01r_empirical_evidence_sufficiency_correction_v0_2_2026-09-21.md`
+
+blob:
+
+`a0d873184d058e4c05c3108f6a2374bf2d4ce8de`
+
+Final decision:
+
+```text
+B-PE-01R = PASS
+DECISION = VERSIONED_EMPIRICAL_SUPERSESSION
+```
+
+## 137. Qualified supersession semantics
+
+Historical B-PE-01 V0.1 remains unchanged.
+
+Documentary dimensions:
+
+```text
+C08-D4-DOC
+C08-D5-DOC
+```
+
+continue to require provider-primary documentary evidence.
+
+Prospective operational claim:
+
+```text
+BPE-C08-OP-V0.2
+```
+
+may satisfy the C08 prerequisite for the operational historical-backtest pipeline only when FULL_INTERVAL_QUALIFIED evidence exists.
+
+New evidence class:
+
+```text
+EC-P3 — provider-direct empirical representation evidence
+```
+
+is admissible only for the operational applicability/continuity burden.
+
+It cannot prove C01-C07 semantics.
+
+## 138. FULL_INTERVAL_QUALIFIED hard conditions
+
+The successor path requires, at minimum:
+
+```text
+complete presealed FULL_D interval inventory
+exact USATECHIDXUSD binding
+closed disposition for every interval
+no unresolved transport/locator/unknown state
+qualified empty semantics where applicable
+exact provider response hashes/provenance
+two independent representation-compatibility diagnostics
+current-authority C01-C07 semantics
+complete deterministic transition rules if needed
+positive contradiction fail-closed
+qualification_capture_set_root_sha256
+D exact-byte/hash binding
+durable evidence
+no adaptive repair
+OperationalApplicabilityAdjudication
+reopen/supersession/current-authority state machine
+exact authority_scope_tuple digest match
+```
+
+Sequential capture sets are not claimed to be provider-atomic snapshots.
+
+## 139. Current state after B-PE-01R
+
+Existing evidence:
+
+```text
+B-ERD-02 = PROBE_SUPPORTED
+K1 = 9/9 supported
+```
+
+but:
+
+```text
+PROBE_SUPPORTED != FULL_INTERVAL_QUALIFIED
+
+C08-D4-DOC = BLOCKED
+C08-D5-DOC = BLOCKED
+
+C08-D4-OP = NOT YET PASS
+C08-D5-OP = NOT YET PASS
+BPE-C08-OP-V0.2 = NOT YET PASS
+
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+```
+
+No new BI5 request, exhaustive qualification, D materialization or backtest occurred in B-PE-01R.
+
+## 140. Exactly one next governed action
+
+Open only:
+
+```text
+B-FIQ-01 —
+FULL_INTERVAL_QUALIFIED empirical representation-qualification contract
+```
+
+Formalization only:
+
+```text
+fresh HEAD
+→ read B-PE-01R PASS
+→ formalize exact complete interval inventory
+→ formalize provider locator/delivery/transport constraints
+→ formalize every-interval dispositions
+→ formalize qualified-empty handling
+→ formalize dual independent diagnostics
+→ formalize regime transitions
+→ formalize capture-set root and durable evidence
+→ formalize operational adjudication/current authority
+→ formalize exact downstream scope tuple
+→ define PASS / FAIL / BLOCKED
+→ adversarial break
+→ persisted-head re-break
+→ audit + backup + checkpoint
+→ STOP
+```
+
+Still prohibited:
+
+```text
+full-domain BI5 download
+exhaustive five-year qualification execution
+D materialization
+real Q/F/Q-RM-12 full execution
+backtest
+paper/broker/live
+```
+
+The eventual B-FIQ execution requires separate explicit authorization.

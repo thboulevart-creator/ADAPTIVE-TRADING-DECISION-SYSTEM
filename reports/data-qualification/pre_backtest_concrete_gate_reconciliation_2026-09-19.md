@@ -3924,3 +3924,43 @@ PROBE_SUPPORTED != FULL_INTERVAL_QUALIFIED
 ~~~
 
 No global B/D/backtest gate was promoted.
+
+
+---
+
+# B-PE-01R empirical evidence sufficiency / provider-primary supersession review — 2026-09-21
+
+Final decision:
+
+```text
+B-PE-01R = PASS
+DECISION = VERSIONED_EMPIRICAL_SUPERSESSION
+```
+
+B-PE-01 V0.1 remains unchanged for documentary truth.
+
+A new operational successor path is qualified prospectively:
+
+```text
+BPE-C08-OP-V0.2
+```
+
+It may satisfy the operational C08 prerequisite for the governed historical-backtest pipeline only after FULL_INTERVAL_QUALIFIED evidence exists and the exact authority-scope/current-authority predicates pass.
+
+Key separation:
+
+```text
+C08-D4/D5 documentary
+!=
+C08-D4/D5 operational
+```
+
+EC-P3 provider-direct empirical evidence may satisfy only the operational applicability/continuity burden.
+
+It cannot bootstrap C01-C07 semantics.
+
+B-ERD-02 9/9 support remains bounded and does not satisfy FULL_INTERVAL_QUALIFIED.
+
+Global executable gates remain BLOCKED.
+
+Next action: B-FIQ-01 formalization only.
