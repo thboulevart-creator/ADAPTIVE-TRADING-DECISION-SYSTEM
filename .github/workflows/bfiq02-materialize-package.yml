@@ -29,11 +29,36 @@ jobs:
           python3 tools/bfiq02_materialize_package.py | tee /tmp/bfiq02-summary.json
           test -f evidence/bfiq02/preexecution_package_v0_1.json
 
-      - name: Assert no provider client in materializer
+      - name: Assert materializer has no provider-network code path
         shell: bash
         run: |
           set -euo pipefail
-          ! grep -E "requests\.|urllib\.request|http\.client|curl|wget|socket\.create_connection|subprocess.*curl" tools/bfiq02_materialize_package.py
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+
+          tree = ast.parse(Path("tools/bfiq02_materialize_package.py").read_text(encoding="utf-8"))
+          forbidden_import_roots = {"requests", "urllib", "http", "socket", "aiohttp"}
+          bad = []
+
+          for node in ast.walk(tree):
+              if isinstance(node, ast.Import):
+                  for alias in node.names:
+                      if alias.name.split(".")[0] in forbidden_import_roots:
+                          bad.append(("import", alias.name, node.lineno))
+              elif isinstance(node, ast.ImportFrom):
+                  root = (node.module or "").split(".")[0]
+                  if root in forbidden_import_roots:
+                      bad.append(("from", node.module, node.lineno))
+              elif isinstance(node, ast.Call):
+                  fn = node.func
+                  if isinstance(fn, ast.Attribute) and isinstance(fn.value, ast.Name):
+                      if fn.value.id == "subprocess" and fn.attr in {"run","Popen","call","check_call","check_output"}:
+                          bad.append(("subprocess-call", fn.attr, node.lineno))
+
+          assert not bad, bad
+          print("NO_PROVIDER_NETWORK_CODE_PATH_PASS")
+          PY
 
       - name: Commit materialized artifacts
         shell: bash
