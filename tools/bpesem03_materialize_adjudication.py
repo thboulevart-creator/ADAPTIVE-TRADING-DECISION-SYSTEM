@@ -43,7 +43,7 @@ def write_json(name:str,obj:dict[str,Any])->dict[str,Any]:
 def readj(rel:str)->dict[str,Any]:
     return json.loads((ROOT/rel).read_text(encoding="utf-8"))
 
-REF_RE=re.compile(rb"(?<![A-Za-z0-9_.-])(?:evidence|reports|04-REFERENCE|src|tools|breakers|\\.github)/[A-Za-z0-9_.\\-/]+")
+REF_RE=re.compile(rb"(?<![A-Za-z0-9_.-])(?:evidence|reports|04-REFERENCE|src|tools|breakers|[.]github)/[A-Za-z0-9_./-]+")
 
 def ls_tree(head:str)->dict[str,dict[str,Any]]:
     raw=subprocess.check_output(["git","ls-tree","-r","-l",head],cwd=ROOT)
