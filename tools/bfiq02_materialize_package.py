@@ -3,6 +3,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import lzma
+import _lzma
+import _struct
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sys
@@ -63,6 +66,15 @@ def source_identity(rel):
     return {
         "path": rel,
         "git_blob_sha1": git_blob_sha1(data),
+        "sha256_raw_bytes": hashlib.sha256(data).hexdigest(),
+        "byte_length": len(data),
+    }
+
+def runtime_binary_identity(path):
+    p=Path(path)
+    data=p.read_bytes()
+    return {
+        "path": str(p),
         "sha256_raw_bytes": hashlib.sha256(data).hexdigest(),
         "byte_length": len(data),
     }
@@ -326,38 +338,74 @@ shard_plan["shard_plan_seal"]=seal(shard_plan,"shard_plan_seal")
 
 ia_src=source_identity("src/native_bi5_reference_qualifier_qrm12.py")
 ib_src=source_identity("src/native_bi5_independent_qualifier_qrm12.py")
+lzma_bin=runtime_binary_identity(_lzma.__file__)
+struct_bin=runtime_binary_identity(_struct.__file__)
+python_runtime_version=".".join(str(x) for x in sys.version_info[:3])
+
 independence={
     "schema":"B_FIQ_01_DIAGNOSTIC_INDEPENDENCE_MANIFEST_V0_2",
-    "manifest_id":"BFIQ02-DIAGNOSTIC-INDEPENDENCE-V0_1",
+    "manifest_id":"BFIQ02-DIAGNOSTIC-INDEPENDENCE-V0_2",
     "contract_id":CONTRACT_ID,
     "contract_version":CONTRACT_VERSION,
     "raw_input_interface_identity":"EXACT_COMPRESSED_PROVIDER_BODY_SHA256",
     "diagnostic_A":{
         "implementation_id":"I_A_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_REFERENCE_QUALIFIER_QRM12",
         "source_identity":ia_src,
-        "decompressor_identity":"python-stdlib-lzma",
+        "decompressor_identity":"CPYTHON_STDLIB_LZMA_EXTENSION",
+        "decompressor_version":python_runtime_version,
+        "decompressor_binary_or_source_sha256":lzma_bin["sha256_raw_bytes"],
         "parser_identity":"I_A_PRIVATE_BINARY_DECODER",
-        "parser_source_blob_sha1":ia_src["git_blob_sha1"],
+        "parser_source_blob_sha256":ia_src["sha256_raw_bytes"],
         "projection_identity":"I_A_PRIVATE_SEMANTIC_PROJECTION",
-        "projection_source_blob_sha1":ia_src["git_blob_sha1"],
+        "projection_source_blob_sha256":ia_src["sha256_raw_bytes"],
         "invariant_evaluator_identity":"I_A_PRIVATE_QUALIFICATION_LOGIC",
-        "invariant_evaluator_source_blob_sha1":ia_src["git_blob_sha1"],
+        "invariant_evaluator_source_blob_sha256":ia_src["sha256_raw_bytes"],
     },
     "diagnostic_B":{
         "implementation_id":"I_B_DUKASCOPY_USATECHIDXUSD_NATIVE_BI5_INDEPENDENT_QUALIFIER_QRM12",
         "source_identity":ib_src,
-        "decompressor_identity":"INDEPENDENT_PATH_PRIVATE_IMPLEMENTATION_AS_QUALIFIED",
+        "decompressor_identity":"CPYTHON_STDLIB_LZMA_EXTENSION",
+        "decompressor_version":python_runtime_version,
+        "decompressor_binary_or_source_sha256":lzma_bin["sha256_raw_bytes"],
         "parser_identity":"I_B_PRIVATE_BINARY_DECODER",
-        "parser_source_blob_sha1":ib_src["git_blob_sha1"],
+        "parser_source_blob_sha256":ib_src["sha256_raw_bytes"],
         "projection_identity":"I_B_PRIVATE_SEMANTIC_PROJECTION",
-        "projection_source_blob_sha1":ib_src["git_blob_sha1"],
+        "projection_source_blob_sha256":ib_src["sha256_raw_bytes"],
         "invariant_evaluator_identity":"I_B_PRIVATE_QUALIFICATION_LOGIC",
-        "invariant_evaluator_source_blob_sha1":ib_src["git_blob_sha1"],
+        "invariant_evaluator_source_blob_sha256":ib_src["sha256_raw_bytes"],
+    },
+    "shared_generic_runtime_primitives":{
+        "python_runtime_version":python_runtime_version,
+        "lzma_extension":lzma_bin,
+        "struct_extension":struct_bin,
+        "shared_stage_rule":"DECOMPRESSION_PRIMITIVE_SHARED_GENERIC_NON_PROJECT_SEMANTIC_EXCEPTION",
+        "execution_runtime_match_required":True,
     },
     "allowed_shared_artifacts":[
-        {"artifact_identity":"exact_raw_body_bytes","artifact_hash":None,"justification":"common immutable input"},
-        {"artifact_identity":"qualified normative contracts","artifact_hash":None,"justification":"shared authority, not shared implementation"},
-        {"artifact_identity":"python standard-library generic primitives","artifact_hash":None,"justification":"generic non-project semantic primitives allowed by prior qualification"},
+        {
+            "artifact_identity":"exact_raw_body_bytes",
+            "artifact_hash":None,
+            "justification":"common immutable input",
+            "source_semantic_adjudication_id_or_null":None,
+        },
+        {
+            "artifact_identity":"qualified normative contracts",
+            "artifact_hash":None,
+            "justification":"shared authority, not shared implementation",
+            "source_semantic_adjudication_id_or_null":"QRM12_QUALIFIED_INDEPENDENCE_BOUNDARY",
+        },
+        {
+            "artifact_identity":"CPython stdlib lzma/_lzma generic primitive",
+            "artifact_hash":lzma_bin["sha256_raw_bytes"],
+            "justification":"shared generic non-project semantic primitive already tolerated by qualified Q-RM-12 I_B independence boundary; decompression-stage independence is explicitly not claimed",
+            "source_semantic_adjudication_id_or_null":"QRM12_IB_V0_2_INDEPENDENT_COMPATIBILITY_PASS",
+        },
+        {
+            "artifact_identity":"CPython stdlib struct/_struct generic primitive",
+            "artifact_hash":struct_bin["sha256_raw_bytes"],
+            "justification":"shared generic binary primitive; project parser/projection/invariant code lineages remain distinct",
+            "source_semantic_adjudication_id_or_null":"QRM12_IB_V0_2_INDEPENDENT_COMPATIBILITY_PASS",
+        },
     ],
     "forbidden_shared_semantic_helpers":[
         "shared project parser helper","shared project projection helper","shared project invariant evaluator",
@@ -366,6 +414,10 @@ independence={
     "relationship_analysis":{
         "ia_final_rebreak_report_blob":IA_REPORT_BLOB,
         "ib_final_rebreak_report_blob":IB_REPORT_BLOB,
+        "ib_semantic_source_provenance_blob":"f78025f5e8ad9bf9a66f8ceef3995eddecdc0cf3",
+        "ib_no_copy_declaration_blob":"b62df24e695c925ab440b826b5100c84e9072468",
+        "ib_independent_stage_test_inventory_blob":"b822f48bbdca3c9580374a7170b493f7f684e1b0",
+        "shared_decompression_exception_authority":"qualified Q-RM-12 I_B independence boundary permits generic non-semantic standard-library primitives; B-FIQ decompression stage is excluded from independent-stage claim and runtime primitive identity is exact-pinned",
         "ib_qualified_properties":[
             "independent raw-payload decoding and anomaly/membership derivation",
             "independent path-private F construction and validation",
@@ -373,14 +425,14 @@ independence={
         ],
     },
     "stage_independence_verdicts":{
-        "decompression":"PASS",
-        "physical_framing":"PASS",
-        "primitive_parsing":"PASS",
-        "semantic_projection":"PASS",
-        "decisive_invariant_evaluation":"PASS",
+        "decompression":"SHARED_GENERIC_PRIMITIVE_EXEMPTED_NOT_CLAIMED_INDEPENDENT",
+        "physical_framing":"PASS_DISTINCT_PROJECT_IMPLEMENTATION_LINEAGE",
+        "primitive_parsing":"PASS_DISTINCT_PROJECT_IMPLEMENTATION_LINEAGE",
+        "semantic_projection":"PASS_DISTINCT_PROJECT_IMPLEMENTATION_LINEAGE",
+        "decisive_invariant_evaluation":"PASS_DISTINCT_PROJECT_IMPLEMENTATION_LINEAGE_BUT_SEMANTIC_AUTHORITY_CURRENTLY_BLOCKED",
     },
     "overall_independence_verdict":"PASS",
-    "created_at_utc":"2026-09-21T15:00:00Z",
+    "created_at_utc":"2026-09-21T15:25:00Z",
 }
 independence["manifest_seal"]=seal(independence,"manifest_seal")
 
@@ -416,24 +468,26 @@ semantic_manifest["manifest_seal"]=seal(semantic_manifest,"manifest_seal")
 
 durable={
     "schema":"B_FIQ_01_DURABLE_EVIDENCE_POLICY_V0_2",
-    "policy_id":"BFIQ02-DURABLE-EVIDENCE-V0_1",
-    "policy_version":"V0_1",
+    "policy_id":"BFIQ02-DURABLE-EVIDENCE-V0_2",
+    "policy_version":"V0_2",
     "allowed_storage_classes":[
-        "GITHUB_RELEASE_ASSET_IMMUTABLE_VERSION_BINDING"
+        "GITHUB_RELEASE_ASSET_ID_PLUS_SHA256_MUTATION_DETECTABLE"
     ],
-    "content_addressing_rule":"SHA256_EXACT_BODY_BYTES",
-    "immutable_versioning_rule":"RELEASE_ID_PLUS_ASSET_ID_PLUS_SHA256; replacement creates new evidence object identity",
-    "retention_requirement":"retain through all dependent qualification/backtest audit lifetimes; deletion opens CAPTURE_INTEGRITY_FAILURE",
-    "retrieval_verification_method":"download exact asset bytes and SHA256 compare",
+    "intrinsic_immutability_guarantee":False,
+    "content_addressing_rule":"LOGICAL_CONTENT_IDENTITY_IS_SHA256_EXACT_BODY_BYTES; physical release asset is only a retrieval locator",
+    "immutable_versioning_rule":"NO_INTRINSIC_IMMUTABILITY_CLAIM; authoritative evidence identity is release_id + asset_id + exact SHA256 + byte_length; any deletion/replacement/mismatch is integrity failure",
+    "retention_requirement":"retain through all dependent qualification/backtest audit lifetimes; deletion or inaccessibility opens CAPTURE_INTEGRITY_FAILURE",
+    "retrieval_verification_method":"download exact asset bytes by persisted release_id/asset_id and require byte_length + SHA256 equality",
     "repository_binding_requirement":"repository persists release_id, asset_id, asset_name, byte_length, sha256, upload timestamp and evidence-object seal",
+    "asset_naming_rule":"sha256-{digest}.bi5",
     "access_control_requirement":"governed repository credentials; no body authority from inaccessible object",
     "audit_recovery_requirement":"every PASS-bound body must remain retrievable and rehashable",
-    "object_reference_encoding_rule":"github-release://{repository}/release/{release_id}/asset/{asset_id}#sha256={digest}",
+    "object_reference_encoding_rule":"github-release://{repository}/release/{release_id}/asset/{asset_id}/{asset_name}#sha256={digest}",
     "credential_non_persistence_rule":"never persist tokens, signed authorization headers or secret query parameters",
     "body_persistence_deadline_rule":"before QualificationExecutionResult may close PASS-candidate",
     "temporary_staging_policy":"GitHub Actions artifacts are temporary staging only and have zero final authority",
     "failure_if_persistence_deadline_missed":"BLOCKED_INTEGRITY",
-    "created_at_utc":"2026-09-21T15:00:00Z",
+    "created_at_utc":"2026-09-21T15:25:00Z",
 }
 durable["policy_seal"]=seal(durable,"policy_seal")
 
@@ -487,8 +541,15 @@ scope={
     "successor_contract_version":"B_PE_01R_OPERATIONAL_EMPIRICAL_SUPERSESSION_V0_2_CORRECTED",
     "pre_execution_eligibility":"BLOCKED",
     "blocking_reason_codes":["C01_C07_CURRENT_AUTHORITY_NOT_PASS","QUALIFIED_EMPTY_RULE_ABSENT_IF_ANY_OPEN_OBJECT_IS_NONQUALIFIABLE"],
+    "authority_scope_tuple_digest_domain":{
+        "canonicalization":"STRICT_SORTED_JSON_UTF8",
+        "excluded_fields":["authority_scope_tuple_digest","scope_seal"],
+    },
 }
-scope["authority_scope_tuple_digest"]=sha(scope)
+scope_digest_payload=dict(scope)
+scope_digest_payload.pop("authority_scope_tuple_digest",None)
+scope_digest_payload.pop("scope_seal",None)
+scope["authority_scope_tuple_digest"]=sha(scope_digest_payload)
 scope["scope_seal"]=seal(scope,"scope_seal")
 
 OUT.mkdir(parents=True, exist_ok=True)
@@ -509,8 +570,8 @@ for name,obj in [
     identities[name]=write_json(name,obj)
 
 package={
-    "schema":"B_FIQ_02_PREEXECUTION_PACKAGE_V0_1",
-    "package_id":"BFIQ02-USATECH-PREEXECUTION-PACKAGE-V0_1",
+    "schema":"B_FIQ_02_PREEXECUTION_PACKAGE_V0_2",
+    "package_id":"BFIQ02-USATECH-PREEXECUTION-PACKAGE-V0_2",
     "contract_id":CONTRACT_ID,
     "contract_version":CONTRACT_VERSION,
     "artifacts":identities,
@@ -523,7 +584,7 @@ package={
     "pre_execution_eligibility":"BLOCKED",
     "blocking_reason_codes":["C01_C07_CURRENT_AUTHORITY_NOT_PASS"],
     "provider_network_requests_performed":False,
-    "created_at_utc":"2026-09-21T15:00:00Z",
+    "created_at_utc":"2026-09-21T15:25:00Z",
 }
 package["package_seal"]=seal(package,"package_seal")
 identities["preexecution_package_v0_1.json"]=write_json("preexecution_package_v0_1.json",package)
