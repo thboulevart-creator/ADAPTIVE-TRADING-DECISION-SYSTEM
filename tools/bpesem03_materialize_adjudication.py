@@ -43,6 +43,54 @@ def write_json(name:str,obj:dict[str,Any])->dict[str,Any]:
 def readj(rel:str)->dict[str,Any]:
     return json.loads((ROOT/rel).read_text(encoding="utf-8"))
 
+REF_RE=re.compile(rb"(?<![A-Za-z0-9_.-])(?:evidence|reports|04-REFERENCE|src|tools|breakers|\\.github)/[A-Za-z0-9_.\\-/]+")
+
+def ls_tree(head:str)->dict[str,dict[str,Any]]:
+    raw=subprocess.check_output(["git","ls-tree","-r","-l",head],cwd=ROOT)
+    out={}
+    for line in raw.decode("utf-8").splitlines():
+        left,path=line.split("\t",1)
+        mode,typ,blob,size=left.split()
+        if typ=="blob":
+            out[path]={"git_blob":blob,"size":int(size)}
+    return out
+
+def read_refs(path:str,tree:dict[str,dict[str,Any]])->set[str]:
+    raw=(ROOT/path).read_bytes()
+    if bytes([0]) in raw[:8192]:
+        return set()
+    try:
+        raw.decode("utf-8")
+    except UnicodeDecodeError:
+        return set()
+    out=set()
+    for m in REF_RE.finditer(raw):
+        p=m.group(0).decode("utf-8").rstrip(".,;:)]}'\\\"")
+        if p in tree:
+            out.add(p)
+    return out
+
+def current_discovery(head:str,direct_prefixes:list[str])->list[dict[str,Any]]:
+    tree=ls_tree(head)
+    direct=sorted(p for p in tree if any(p.startswith(x) for x in direct_prefixes))
+    seen=set(direct); q=list(direct); origins={p:{"DIRECT_PREFIX"} for p in direct}
+    while q:
+        p=q.pop(0)
+        for r in read_refs(p,tree):
+            origins.setdefault(r,set()).add("REF:"+p)
+            if r not in seen:
+                seen.add(r); q.append(r)
+    rows=[]
+    for p in sorted(seen):
+        if p.startswith("evidence/bpe") or p.startswith("evidence/berd"):
+            rel="MATERIAL_VISIBLE"
+        elif p.startswith("evidence/bfiq") and any(k in p for k in ("semantic_invariant","representation_regime","provider_delivery_identity","interval_inventory")):
+            rel="MATERIAL_VISIBLE"
+        else:
+            rel="GOVERNANCE_VISIBLE"
+        rows.append({"path":p,"git_blob":tree[p]["git_blob"],"relevance_disposition":rel,"discovery_origin":sorted(origins.get(p,{"REFERENCE_CLOSURE"}))})
+    return rows
+
 HEAD=git("rev-parse","HEAD")
 TREE=git("rev-parse",HEAD+"^{tree}")
 
@@ -278,6 +326,7 @@ pos=[]
 anchors=[]
 known_regs=[]
 hyp_sets=[]
+review_universes=[]
 
 def old_dim(newdim:str)->str:
     return newdim.replace("-OP","")
@@ -354,15 +403,46 @@ for dim in all_dims:
             {"candidate_id":"SIGNED_INT32","normalized_interpretation":"Affected 32-bit field interpreted signed","material_effect_if_true":"DIFFERS_WHEN_HIGH_BIT_ONE","evidence_refs":["AST-BPE02-E03-C03-D3-CONTRADICT","AST-BPE02-E06-C03-D3-CONTRADICT"],"disposition":"INCLUDED_MATERIAL_HYPOTHESIS","disposition_rationale":"Existing independent references use signed integers."},
             {"candidate_id":"UNSIGNED_UINT32","normalized_interpretation":"Affected 32-bit field interpreted unsigned","material_effect_if_true":"DIFFERS_WHEN_HIGH_BIT_ONE","evidence_refs":["AST-BPE02-E04-C03-D3-SUPPORT"],"disposition":"INCLUDED_MATERIAL_HYPOTHESIS","disposition_rationale":"Existing independent reference uses unsigned integers."},
         ]
+    reviewed_ids=sorted(set(it["evidence_id"] for it in visible if it.get("evidence_id")))
+    contradiction_ids=sorted(set(it["evidence_id"] for it in visible if it.get("evidence_id") and it["visibility_disposition"] in {"MATERIAL_ALTERNATIVE","MATERIAL_CONTRADICTION"}))
+    mandatory_refs=[
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+    ]
+    if basisreg and next(x for x in basisreg["dimension_bases"] if x["dimension_id"]==dim)["primary_authority_class"]=="PHYSICAL_HYPOTHESIS":
+        mandatory_refs += [
+            "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+            "evidence/berd02/gha_run_35533153289/execution_result.json",
+        ]
+    ru={
+        "schema":"B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+        "review_universe_id":"BPESEM03-REVIEW-"+dim,
+        "target_dimension_id":dim,
+        "cutoff_head":HEAD,
+        "cutoff_time":"2026-09-21T20:30:00Z",
+        "governed_semantic_evidence_baseline_id":baseline["baseline_id"],
+        "governed_semantic_evidence_baseline_digest":baseline["baseline_digest"],
+        "mandatory_inherited_evidence_refs":mandatory_refs,
+        "current_adjudication_evidence_ids":reviewed_ids,
+        "reopen_or_contradiction_evidence_ids":contradiction_ids,
+        "exclusion_decisions":[],
+        "effective_review_evidence_ids":reviewed_ids,
+    }
+    ru["review_universe_digest"]=seal(ru,"review_universe_digest")
+    review_universes.append(ru)
+
     kr={
         "schema":"B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
         "registry_id":"BPESEM03-KNOWN-ALT-"+dim,
         "target_dimension_id":dim,
-        "semantic_evidence_review_universe_id":"BPESEM03-BASELINE-PROJECTION-"+dim,
-        "semantic_evidence_review_universe_digest":baseline["baseline_digest"],
+        "semantic_evidence_review_universe_id":ru["review_universe_id"],
+        "semantic_evidence_review_universe_digest":ru["review_universe_digest"],
         "evidence_review_cutoff_head":HEAD,
         "evidence_review_cutoff_time":"2026-09-21T20:30:00Z",
-        "reviewed_evidence_ids":sorted(set(it["evidence_id"] for it in visible if it.get("evidence_id"))),
+        "reviewed_evidence_ids":reviewed_ids,
         "candidate_interpretations":candidates,
         "included_hypothesis_ids":[x["candidate_id"] for x in candidates],
         "unresolved_candidate_ids":[],
@@ -522,7 +602,15 @@ hist_set_digest=digest(sorted([
 ],key=lambda x:canon(x)))
 lineage_set_digest=digest([{"lineage_resolution_id":lineage["lineage_resolution_id"],"lineage_resolution_digest":lineage["lineage_resolution_digest"]}])
 
-# Evidence horizon at candidate materialization parent.
+# Evidence horizon at candidate materialization parent: rescan the actual candidate parent HEAD.
+current_horizon_rows=current_discovery(HEAD,[
+    "evidence/bpe",
+    "reports/data-qualification/bpe",
+    "evidence/berd",
+    "reports/data-qualification/berd",
+    "evidence/bfiq",
+    "reports/data-qualification/bfiq",
+])
 horizon={
     "schema":"B_PE_SEM_02_SEMANTIC_EVIDENCE_HORIZON_V0_1",
     "horizon_id":"BPESEM03-EVIDENCE-HORIZON-V0_1",
@@ -533,7 +621,7 @@ horizon={
     "discovery_policy_digest":baseline["discovery_policy_digest"],
     "governed_baseline_id":baseline["baseline_id"],
     "governed_baseline_digest":baseline["baseline_digest"],
-    "discovered_semantic_artifact_refs":baseline["baseline_member_refs"],
+    "discovered_semantic_artifact_refs":[{"path":x["path"],"git_blob":x["git_blob"],"relevance_disposition":x["relevance_disposition"]} for x in current_horizon_rows],
 }
 horizon["horizon_digest"]=seal(horizon,"horizon_digest")
 
@@ -550,6 +638,15 @@ adjudication={
     "scope_signature_digest":scope["scope_signature_digest"],
     "governed_semantic_evidence_baseline_id":baseline["baseline_id"],
     "governed_semantic_evidence_baseline_digest":baseline["baseline_digest"],
+    "discovery_policy_id":baseline["discovery_policy_id"],
+    "discovery_policy_digest":baseline["discovery_policy_digest"],
+    "discovery_result_digest":baseline["discovery_result_digest"],
+    "semantic_evidence_review_universe_ids":[x["review_universe_id"] for x in review_universes],
+    "semantic_evidence_review_universe_digests":[x["review_universe_digest"] for x in review_universes],
+    "visibility_universe_ids":[x["visibility_universe_id"] for x in vis],
+    "visibility_universe_digests":[x["visibility_universe_digest"] for x in vis],
+    "positive_authority_universe_ids":[x["positive_authority_universe_id"] for x in pos],
+    "positive_authority_universe_digests":[x["positive_authority_universe_digest"] for x in pos],
     "evidence_records":evidence_records,
     "evidence_admissibility_decisions":op_decisions,
     "semantic_anchor_manifests":anchors,
@@ -585,6 +682,7 @@ write_json("operational_evidence_records_and_admissibility_v0_1.json",{"evidence
 write_json("semantic_lineage_resolution_v0_1.json",lineage)
 write_json("historical_observation_eligibility_v0_1.json",{"records":hist_records,"historical_eligibility_set_digest":hist_set_digest})
 write_json("semantic_rule_scope_applicability_v0_1.json",{"decisions":scope_decisions,"scope_applicability_set_digest":scope_set_digest})
+write_json("semantic_evidence_review_universes_v0_1.json",{"universes":review_universes})
 write_json("visibility_universes_v0_1.json",{"universes":vis})
 write_json("positive_authority_universes_v0_1.json",{"universes":pos})
 write_json("known_material_alternative_registries_v0_1.json",{"registries":known_regs})
