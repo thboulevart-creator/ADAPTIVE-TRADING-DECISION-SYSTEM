@@ -1,0 +1,9 @@
+{
+  "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+  "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+  "baseline_materialization_commit": "aa7075c3ef53e0c18f6420edc1e142d4150ebbe5",
+  "baseline_materialization_parent_head": "52bdaf2bbeb1bf99b8643c0040c0621ad7e4ee5c",
+  "parent_relation_status": "PASS",
+  "record_seal": "cf8939af82e50b01db38239bd2482ab3510ad1fc5bd6da9d80abe6c16b258088",
+  "schema": "B_PE_SEM_03_BASELINE_PERSISTENCE_RECORD_V0_1"
+}

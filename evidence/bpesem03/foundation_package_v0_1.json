@@ -1,10 +1,10 @@
 {
   "artifacts": {
     "baseline": {
-      "byte_length": 90026,
-      "git_blob": "7bfa3f107b3f1b16e50c414ed6c8cef836377c62",
+      "byte_length": 89998,
+      "git_blob": "b7d5795051cefeff32e4ba620bff821c88bdf808",
       "path": "evidence/bpesem03/governed_semantic_evidence_baseline_v0_1.json",
-      "sha256_raw_bytes": "cd2c0d6977e8474d09fa789dfd919833c61e1303fe6280ab3decb3d05f368d78"
+      "sha256_raw_bytes": "0d04ed8f4bc71c655dc39bf31b6a89b37dfaa954cae5c72b848c6ab9796903e6"
     },
     "claim_dimension_register": {
       "byte_length": 10149,
@@ -37,7 +37,7 @@
       "sha256_raw_bytes": "cfc384e2c5fda934c11ebc325baecdfed259cb4590d0e3a2eeba783bf4308707"
     }
   },
-  "baseline_digest": "8aadbe6ea5f86a8996bce5bb59a8a6dff49bac5a142e3062ce3399379e060664",
+  "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
   "claim_dimension_register_digest": "938b69e91cd70f8e5ff9e54fb4bdd7362bb1e7fb0d2c789bd52285dbf0669b0f",
   "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
   "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
@@ -45,7 +45,7 @@
   "dimension_authority_basis_register_digest": "24df1773d3818a02a083e83f91101bc635e5317d05237ecfd8f0f72a17245a30",
   "obligation_set_digest": "93f46bde9aae069723b1dc9b6dc4606edbaf4126240723337438878c74ade09d",
   "package_id": "BPESEM03-FOUNDATION-PACKAGE-V0_1",
-  "package_seal": "fcfd1d307485b87804fc0f89dc3443d64a5eb537b5437ebe202d856d8e3ca8d7",
+  "package_seal": "416e1056ce58dae595ae6f222246d6ccf0e81e42ef1187bda5f8ebfa53a6991e",
   "provider_network_requests_performed": false,
   "rule_set_digest": "09487715f542fe0b24f9775b7ef1bfcf1b3a2b06cce0287aa9bbd5d798b6a563",
   "schema": "B_PE_SEM_03_FOUNDATION_PACKAGE_V0_1",
