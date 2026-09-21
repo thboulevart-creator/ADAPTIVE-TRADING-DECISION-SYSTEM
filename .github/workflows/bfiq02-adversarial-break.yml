@@ -1,0 +1,38 @@
+name: B-FIQ-02 adversarial break
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - "breakers/bfiq02_preexecution_package_breaker.py"
+      - ".github/workflows/bfiq02-adversarial-break.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  break-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Run package breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 breakers/bfiq02_preexecution_package_breaker.py | tee /tmp/bfiq02-break.json
+
+      - name: Commit adversarial report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/data-qualification/bfiq02_preexecution_package_adversarial_break_2026-09-21.md
+          git commit -m "evidence: adversarially break B-FIQ-02 pre-execution package"
+          git push origin HEAD:integration/system-v1
