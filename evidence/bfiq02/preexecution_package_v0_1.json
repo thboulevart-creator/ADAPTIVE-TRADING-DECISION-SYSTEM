@@ -1,16 +1,16 @@
 {
   "artifacts": {
     "diagnostic_independence_manifest_v0_1.json": {
-      "byte_length": 3811,
-      "git_blob_sha1": "49922d246a8cc10fc90039dc2ae72c6e06294728",
+      "byte_length": 6508,
+      "git_blob_sha1": "affe97edb8638bc8d0733c87241629cc2ef3eaae",
       "path": "evidence/bfiq02/diagnostic_independence_manifest_v0_1.json",
-      "sha256_raw_bytes": "9e240f5fbe154ae187c57ed9d8d7fcd1def9449c04994ab9c82bdb6a132241e6"
+      "sha256_raw_bytes": "d7965669f4fa4065921e24a4e3a87284311ddc1a5fd200ac21051f8c10192297"
     },
     "durable_evidence_policy_v0_1.json": {
-      "byte_length": 1634,
-      "git_blob_sha1": "fd0dd887e22ea88a9bdaff430be7c64e1a15e6af",
+      "byte_length": 1990,
+      "git_blob_sha1": "4e84014955d5f4575ddc432be4711e6ca7bb8590",
       "path": "evidence/bfiq02/durable_evidence_policy_v0_1.json",
-      "sha256_raw_bytes": "9f60fc221f2bc8da5773d654411793f754d3fa0bd4628727e31f8c51a9f6ba5d"
+      "sha256_raw_bytes": "2a6d7fa7092c0c383ea3a9e26a0ee32166f18c3870a88f5a1a0e1a91f220aec5"
     },
     "execution_shard_plan_v0_1.json": {
       "byte_length": 2261671,
@@ -31,10 +31,10 @@
       "sha256_raw_bytes": "67613ff1f0e2b6657afc56626640170594edfbf1fb1ddfa43237a46fb1750cdd"
     },
     "provisional_authority_scope_tuple_v0_1.json": {
-      "byte_length": 3595,
-      "git_blob_sha1": "03979d0f90e849654135ce6cd831a26b0127758e",
+      "byte_length": 3782,
+      "git_blob_sha1": "ee3527fc24b866ad9bef0cae357cfd3d88ca2a19",
       "path": "evidence/bfiq02/provisional_authority_scope_tuple_v0_1.json",
-      "sha256_raw_bytes": "4eab9839b4fb900f867702d80921f16de8a390d1f24426861e8beb0f8afd610b"
+      "sha256_raw_bytes": "52d59acbf6badf212df2daea3f954bc41372410d66a2615f58aafa81980093c0"
     },
     "representation_regime_manifest_v0_1.json": {
       "byte_length": 1593,
@@ -72,16 +72,16 @@
   ],
   "contract_id": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION",
   "contract_version": "B_FIQ_01_USATECH_FULL_INTERVAL_EMPIRICAL_REPRESENTATION_QUALIFICATION_V0_2_CORRECTED",
-  "created_at_utc": "2026-09-21T15:00:00Z",
+  "created_at_utc": "2026-09-21T15:25:00Z",
   "diagnostic_independence_status": "PASS",
   "interval_inventory_root": "26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8",
-  "package_id": "BFIQ02-USATECH-PREEXECUTION-PACKAGE-V0_1",
-  "package_seal": "79fb2ea96128efcb0d0ae5ba9ee1e8586638844aa1affed226afa90e0b99a512",
+  "package_id": "BFIQ02-USATECH-PREEXECUTION-PACKAGE-V0_2",
+  "package_seal": "b09bd27498c54a153d4863f009089c51539cc378bbe890a17a021e919cfc918f",
   "planned_request_count": 29543,
   "pre_execution_eligibility": "BLOCKED",
   "provider_network_requests_performed": false,
   "request_manifest_root": "e6cae63cae1b1fb5bfb6957bb72bbba1fb78bae789b3b1ebff625f66705e3a8e",
-  "schema": "B_FIQ_02_PREEXECUTION_PACKAGE_V0_1",
+  "schema": "B_FIQ_02_PREEXECUTION_PACKAGE_V0_2",
   "semantic_authority_status": "BLOCKED",
   "shard_count": 58
 }

@@ -1,22 +1,24 @@
 {
   "access_control_requirement": "governed repository credentials; no body authority from inaccessible object",
   "allowed_storage_classes": [
-    "GITHUB_RELEASE_ASSET_IMMUTABLE_VERSION_BINDING"
+    "GITHUB_RELEASE_ASSET_ID_PLUS_SHA256_MUTATION_DETECTABLE"
   ],
+  "asset_naming_rule": "sha256-{digest}.bi5",
   "audit_recovery_requirement": "every PASS-bound body must remain retrievable and rehashable",
   "body_persistence_deadline_rule": "before QualificationExecutionResult may close PASS-candidate",
-  "content_addressing_rule": "SHA256_EXACT_BODY_BYTES",
-  "created_at_utc": "2026-09-21T15:00:00Z",
+  "content_addressing_rule": "LOGICAL_CONTENT_IDENTITY_IS_SHA256_EXACT_BODY_BYTES; physical release asset is only a retrieval locator",
+  "created_at_utc": "2026-09-21T15:25:00Z",
   "credential_non_persistence_rule": "never persist tokens, signed authorization headers or secret query parameters",
   "failure_if_persistence_deadline_missed": "BLOCKED_INTEGRITY",
-  "immutable_versioning_rule": "RELEASE_ID_PLUS_ASSET_ID_PLUS_SHA256; replacement creates new evidence object identity",
-  "object_reference_encoding_rule": "github-release://{repository}/release/{release_id}/asset/{asset_id}#sha256={digest}",
-  "policy_id": "BFIQ02-DURABLE-EVIDENCE-V0_1",
-  "policy_seal": "93763db63414f929f8251285d433d330c2288c38096fc08c45d7e04774c6d00c",
-  "policy_version": "V0_1",
+  "immutable_versioning_rule": "NO_INTRINSIC_IMMUTABILITY_CLAIM; authoritative evidence identity is release_id + asset_id + exact SHA256 + byte_length; any deletion/replacement/mismatch is integrity failure",
+  "intrinsic_immutability_guarantee": false,
+  "object_reference_encoding_rule": "github-release://{repository}/release/{release_id}/asset/{asset_id}/{asset_name}#sha256={digest}",
+  "policy_id": "BFIQ02-DURABLE-EVIDENCE-V0_2",
+  "policy_seal": "fef211b37e4b9e0aeaae91714010a235d0f97dad2b7771559080a5fc16eaf592",
+  "policy_version": "V0_2",
   "repository_binding_requirement": "repository persists release_id, asset_id, asset_name, byte_length, sha256, upload timestamp and evidence-object seal",
-  "retention_requirement": "retain through all dependent qualification/backtest audit lifetimes; deletion opens CAPTURE_INTEGRITY_FAILURE",
-  "retrieval_verification_method": "download exact asset bytes and SHA256 compare",
+  "retention_requirement": "retain through all dependent qualification/backtest audit lifetimes; deletion or inaccessibility opens CAPTURE_INTEGRITY_FAILURE",
+  "retrieval_verification_method": "download exact asset bytes by persisted release_id/asset_id and require byte_length + SHA256 equality",
   "schema": "B_FIQ_01_DURABLE_EVIDENCE_POLICY_V0_2",
   "temporary_staging_policy": "GitHub Actions artifacts are temporary staging only and have zero final authority"
 }
