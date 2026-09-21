@@ -1,0 +1,839 @@
+{
+  "universes": [
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "6516a135c7ab187d5013512c6796e3d744e626f42d6e7e60e2d3b71c9e807d48",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D1-OP",
+      "target_dimension_id": "C01-D1-OP",
+      "visibility_universe_digest": "e049c0c57fdaa230b65c5c62de86f30c4354bfd833f349e81f38b1511e2d6f9b",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E01"
+          ],
+          "evidence_id": "BPE02-E01",
+          "evidence_or_assertion_ref": "AST-BPE02-E01-C01-D1-SUPPORT",
+          "exact_content_identity": "385e7c86f3c825b1924d1b549532122071a249d3de316aec459f3cfc85517d19",
+          "normalized_interpretation_if_any": "Current provider documentation identifies BI5 as LZMA-compressed.",
+          "visibility_disposition": "WRONG_SCOPE_PROVEN",
+          "visible_item_id": "VIS-AST-BPE02-E01-C01-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C01-D1-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Independent hourly implementation uses LZMA decompression.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C01-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E04"
+          ],
+          "evidence_id": "BPE02-E04",
+          "evidence_or_assertion_ref": "AST-BPE02-E04-C01-D1-SUPPORT",
+          "exact_content_identity": "0eb44b369b77c47306f7bf5d440d96aa177b7f9535772e95f83f2963a56f2dbd",
+          "normalized_interpretation_if_any": "Historical decoder detects and decompresses LZMA BI5.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E04-C01-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E07"
+          ],
+          "evidence_id": "BPE02-E07",
+          "evidence_or_assertion_ref": "AST-BPE02-E07-C01-D1-SUPPORT",
+          "exact_content_identity": "2e88f793e9f615a43c44ad344416f917540c007f5460ddf92c4e2fafe057208a",
+          "normalized_interpretation_if_any": "Implementation uses LZMA decompression.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E07-C01-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C01-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "99c44695191f234f9e082874ecd16847201095e2aa65f8a4190d3a890e5453e0",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D2-OP",
+      "target_dimension_id": "C01-D2-OP",
+      "visibility_universe_digest": "a845cd117437d4c3385d69ed862753658c120fd7a3dcb6741104e7876df92d17",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D2-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E01"
+          ],
+          "evidence_id": "BPE02-E01",
+          "evidence_or_assertion_ref": "AST-BPE02-E01-C01-D2-CONTRADICT",
+          "exact_content_identity": "385e7c86f3c825b1924d1b549532122071a249d3de316aec459f3cfc85517d19",
+          "normalized_interpretation_if_any": "Current provider documentation describes raw LZMA/no container headers, not a proven legacy-hourly LZMA-Alone binding.",
+          "visibility_disposition": "WRONG_SCOPE_PROVEN",
+          "visible_item_id": "VIS-AST-BPE02-E01-C01-D2-CONTRADICT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C01-D2-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "745a89e8b727cb8aaf274a7007e4dfa525261037e11c453a1f4fce1fbe9dc2b8",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D3-OP",
+      "target_dimension_id": "C01-D3-OP",
+      "visibility_universe_digest": "87db015dec8f86fb15d357186876b3d39b2f03cb76e14934a361f403fc43ff10",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C01-D3-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "5e2aadc4c92627b944771824097078d13f72b1547218aab47bcc95bcc1ac7fff",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D4-OP",
+      "target_dimension_id": "C01-D4-OP",
+      "visibility_universe_digest": "b63ce6ada612e189d93295521af0367dcc521c8374705ab5097e890d6182118d",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D4-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C01-D4-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "d2269b6ef07bb0fd34606794b2e671ab2456a911136aa1dae40a145a1172f26e",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D1-OP",
+      "target_dimension_id": "C02-D1-OP",
+      "visibility_universe_digest": "121902f297538dd583b4de5556f730a523f66491f8d137bcb901b8cfd93f0478",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C02-D1-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Independent hourly implementation uses 20-byte tick records.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C02-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C02-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "d982b4e8f22e02063155d9ed747dd2c9e3480abc29c55e0f7d3baea557889a8c",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D2-OP",
+      "target_dimension_id": "C02-D2-OP",
+      "visibility_universe_digest": "5996d1033795982e2f1856a39225d1b353a9e0304df1e4f8bf3c45af674b7366",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D2-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C02-D2-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "4c515defd8ce9b110c1442f1d5efd13feae8677cc128c33309eb4f55d099ca39",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D3-OP",
+      "target_dimension_id": "C02-D3-OP",
+      "visibility_universe_digest": "c1a1686e70226818b88e64199cd2e7bf452d2b67c5590b8e40d7fc2c8b16ca79",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C02-D3-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "b959345532094746a1244ca8b5972a7737490312104f922d7709b3247dfba0f1",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D4-OP",
+      "target_dimension_id": "C02-D4-OP",
+      "visibility_universe_digest": "21106ff9d4bdbb307ffc674181c5ba39457f81a69062b34f0894288fde829972",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D4-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C02-D4-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "608d909ef898fb6c5e2c974deb91cf90c6f92bb1d3b134672d52872739f24c07",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D1-OP",
+      "target_dimension_id": "C03-D1-OP",
+      "visibility_universe_digest": "3a65dcdadb89aac71347bacb1cddf8420dd5d258464c6e6ab4eca353fbdab89a",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C03-D1-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Independent dtype is big-endian.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C03-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E04"
+          ],
+          "evidence_id": "BPE02-E04",
+          "evidence_or_assertion_ref": "AST-BPE02-E04-C03-D1-SUPPORT",
+          "exact_content_identity": "0eb44b369b77c47306f7bf5d440d96aa177b7f9535772e95f83f2963a56f2dbd",
+          "normalized_interpretation_if_any": "Historical decoder uses big-endian conversion.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E04-C03-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C03-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "eec1b9acf98b454f1e47641cada62cf2456eb8dd26f1ff3e4a7d9f4a687a4310",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D2-OP",
+      "target_dimension_id": "C03-D2-OP",
+      "visibility_universe_digest": "e29e567f44efd4c7a249c8854bbe3661f043f10a0f812416959babe5c173650a",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D2-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E06"
+          ],
+          "evidence_id": "BPE02-E06",
+          "evidence_or_assertion_ref": "AST-BPE02-E06-C03-D2-SUPPORT",
+          "exact_content_identity": "a7979e5154a52e8e886771a4526769ab5b29e54248cdd52b9a43d67f7fb355fa",
+          "normalized_interpretation_if_any": "Tick struct is five primitives >3i2f.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E06-C03-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C03-D2-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "219abc4cfe1c612722842941c8de422a708476b09e997c2c1cfac37c37d1cbdd",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D3-OP",
+      "target_dimension_id": "C03-D3-OP",
+      "visibility_universe_digest": "9382d66f9b89031f625dd2c4846a61b71dbd2cf266719eb5bcca7e9c8a24225d",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E01"
+          ],
+          "evidence_id": "BPE02-E01",
+          "evidence_or_assertion_ref": "AST-BPE02-E01-C03-D3-SUPPORT",
+          "exact_content_identity": "385e7c86f3c825b1924d1b549532122071a249d3de316aec459f3cfc85517d19",
+          "normalized_interpretation_if_any": "Current daily layout names first three fields uint32.",
+          "visibility_disposition": "WRONG_SCOPE_PROVEN",
+          "visible_item_id": "VIS-AST-BPE02-E01-C03-D3-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C03-D3-CONTRADICT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Independent dtype uses signed int32 for ms/ask/bid.",
+          "visibility_disposition": "MATERIAL_ALTERNATIVE",
+          "visible_item_id": "VIS-AST-BPE02-E03-C03-D3-CONTRADICT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E04"
+          ],
+          "evidence_id": "BPE02-E04",
+          "evidence_or_assertion_ref": "AST-BPE02-E04-C03-D3-SUPPORT",
+          "exact_content_identity": "0eb44b369b77c47306f7bf5d440d96aa177b7f9535772e95f83f2963a56f2dbd",
+          "normalized_interpretation_if_any": "Historical decoder uses unsigned integer timestamp/ask/bid.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E04-C03-D3-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E06"
+          ],
+          "evidence_id": "BPE02-E06",
+          "evidence_or_assertion_ref": "AST-BPE02-E06-C03-D3-CONTRADICT",
+          "exact_content_identity": "a7979e5154a52e8e886771a4526769ab5b29e54248cdd52b9a43d67f7fb355fa",
+          "normalized_interpretation_if_any": "Tick struct uses signed integers.",
+          "visibility_disposition": "MATERIAL_ALTERNATIVE",
+          "visible_item_id": "VIS-AST-BPE02-E06-C03-D3-CONTRADICT"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "90192ffa1b0eef80a955705950e433f1a8d75a6b65cf96c4831b1dd5be65618c",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D4-OP",
+      "target_dimension_id": "C03-D4-OP",
+      "visibility_universe_digest": "bdd6e3e3987ccfd62ddf035e5319dda05553178a056053a665dcb52998af88a7",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D4-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C03-D4-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Independent dtype uses float32 ask/bid volumes.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C03-D4-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E04"
+          ],
+          "evidence_id": "BPE02-E04",
+          "evidence_or_assertion_ref": "AST-BPE02-E04-C03-D4-SUPPORT",
+          "exact_content_identity": "0eb44b369b77c47306f7bf5d440d96aa177b7f9535772e95f83f2963a56f2dbd",
+          "normalized_interpretation_if_any": "Historical decoder uses float for ask/bid volumes.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E04-C03-D4-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E06"
+          ],
+          "evidence_id": "BPE02-E06",
+          "evidence_or_assertion_ref": "AST-BPE02-E06-C03-D4-SUPPORT",
+          "exact_content_identity": "a7979e5154a52e8e886771a4526769ab5b29e54248cdd52b9a43d67f7fb355fa",
+          "normalized_interpretation_if_any": "Tick struct uses two float fields.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E06-C03-D4-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C03-D4-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "2c696361d990fdc46a5514932efa9a35aaac91a5ed664b7bffa698b28b2eb3d3",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D1-OP",
+      "target_dimension_id": "C04-D1-OP",
+      "visibility_universe_digest": "ab01b6c2ced1ed0e9ffd8362d0d219ee27f0adc2e22517cc15b48a87a787e88e",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C04-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "695ac32adfebd522c217f343aa228ede4f887d55da30421faa511f60fa257dfd",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D2-OP",
+      "target_dimension_id": "C04-D2-OP",
+      "visibility_universe_digest": "13b612e4d89789f6d29ee6d2c058247c17c280a3a265cf2cc681e893c34d7552",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D2-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E01"
+          ],
+          "evidence_id": "BPE02-E01",
+          "evidence_or_assertion_ref": "AST-BPE02-E01-C04-D2-SUPPORT",
+          "exact_content_identity": "385e7c86f3c825b1924d1b549532122071a249d3de316aec459f3cfc85517d19",
+          "normalized_interpretation_if_any": "Provider warns older hourly files may use milliseconds since start of hour.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E01-C04-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C04-D2-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Timestamp is reconstructed as hour_start plus millisecond offset.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C04-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E08"
+          ],
+          "evidence_id": "BPE02-E08",
+          "evidence_or_assertion_ref": "AST-BPE02-E08-C04-D2-SUPPORT",
+          "exact_content_identity": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+          "normalized_interpretation_if_any": "Tick timestamp is ms plus source startTs.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E08-C04-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C04-D2-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "99e6b75a873dcfd7f1914f6a2e990b68f3908a07cd4a71090491be9aa558b352",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D3-OP",
+      "target_dimension_id": "C04-D3-OP",
+      "visibility_universe_digest": "9b19013ac789a22afbd4e9e498e3a7713e2b4e38e9da047367e8c57daacd35dc",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C04-D3-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "a1f2c6ace83dc117c2bcde656d171a65f19a9ff1ed26b2eba7121195995f1547",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D4-OP",
+      "target_dimension_id": "C04-D4-OP",
+      "visibility_universe_digest": "64bc487c9d48f5ee4c3995c925799e1e82062f9e904ef4cb3b02b1b849345a2f",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D4-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C04-D4-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "157917772b53622ebd41f54ca7c5c248b098c2ad9eb6bc4e141cafeef8da204c",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C05-D1-OP",
+      "target_dimension_id": "C05-D1-OP",
+      "visibility_universe_digest": "af7a282e62ce1f4c0d7a6168aa723ff284d169b721cdcd17f8fd4d278c7ce738",
+      "visibility_universe_id": "BPESEM03-VIS-C05-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C05-D1-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Fields are ask raw then bid raw.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C05-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E08"
+          ],
+          "evidence_id": "BPE02-E08",
+          "evidence_or_assertion_ref": "AST-BPE02-E08-C05-D1-SUPPORT",
+          "exact_content_identity": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+          "normalized_interpretation_if_any": "Tick values are ms, ask, bid, askVolume, bidVolume.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E08-C05-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C05-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "7e477dd72e642b3d744849d9f616d502a3c687b4e195f02f314406ac02a4e956",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C05-D2-OP",
+      "target_dimension_id": "C05-D2-OP",
+      "visibility_universe_digest": "5db5491f98d3c18b618a5ebe9fe17252cca645e6608b218f775ab9f31e4937c0",
+      "visibility_universe_id": "BPESEM03-VIS-C05-D2-OP",
+      "visible_items": []
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "3293ed8ed30e17eba00d90f3a9413660bfe8ad625a5c2d0cf703bfad31614069",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C05-D3-OP",
+      "target_dimension_id": "C05-D3-OP",
+      "visibility_universe_digest": "faf74e0d80fc0143060a7873f98f30d4ac6559e6d4b09f6dd0eb956b5d358d46",
+      "visibility_universe_id": "BPESEM03-VIS-C05-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C05-D3-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "1fcdbd46cd4c8f5009fc4a58f5f2aafcbe8e02cbe20de17dbc74ca4c6d5405d4",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D1-OP",
+      "target_dimension_id": "C06-D1-OP",
+      "visibility_universe_digest": "a8631fd1817a79258adfaef18301483e34a3e837e3360b52ebab3dd6d447d0e6",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E02"
+          ],
+          "evidence_id": "BPE02-E02",
+          "evidence_or_assertion_ref": "AST-BPE02-E02-C06-D1-SUPPORT",
+          "exact_content_identity": "d5c0c236997fb908d80c2352372cf4d9d786fadb7eacf19cd296d633e7d7caba",
+          "normalized_interpretation_if_any": "Provider identifies USATECH.IDX/USD as US 100 Tech Index.",
+          "visibility_disposition": "WRONG_SCOPE_PROVEN",
+          "visible_item_id": "VIS-AST-BPE02-E02-C06-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C06-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "226c6fd73216103507bdacd9fac46ec29ef94a187c4a74a0264e37bff1bcd8aa",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D2-OP",
+      "target_dimension_id": "C06-D2-OP",
+      "visibility_universe_digest": "9f9ecd8420a05fc71de46c4b860c3397820fa952d9c6f3ddc0549a113fb0f324",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D2-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E02"
+          ],
+          "evidence_id": "BPE02-E02",
+          "evidence_or_assertion_ref": "AST-BPE02-E02-C06-D2-SUPPORT",
+          "exact_content_identity": "d5c0c236997fb908d80c2352372cf4d9d786fadb7eacf19cd296d633e7d7caba",
+          "normalized_interpretation_if_any": "Provider current CFD table gives a 0.01 point value.",
+          "visibility_disposition": "WRONG_SCOPE_PROVEN",
+          "visible_item_id": "VIS-AST-BPE02-E02-C06-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C06-D2-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "USATECHIDXUSD is assigned divisor 1000.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C06-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E10"
+          ],
+          "evidence_id": "BPE02-E10",
+          "evidence_or_assertion_ref": "AST-BPE02-E10-C06-D2-SUPPORT",
+          "exact_content_identity": "8b380d2a33e6ecfa44e5cb94752e6f01b1ed2e2b8f2257f0d8a7e1491dbf8e50",
+          "normalized_interpretation_if_any": "USATECHIDXUSD decimalFactor is 1000.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E10-C06-D2-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C06-D2-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "a7efeeee5fb5950feaddb3c36567cbb1b00955700f5d668f0edc3c9dbbe85f18",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D3-OP",
+      "target_dimension_id": "C06-D3-OP",
+      "visibility_universe_digest": "97d09eae4455c4c1b4f1cefabd1b075259f78d899a0f7756e139011330df7104",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C06-D3-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "0746f1aea94f1cc06feefb2625cc1dd4a632103c0098ef6936547e10c219354e",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D4-OP",
+      "target_dimension_id": "C06-D4-OP",
+      "visibility_universe_digest": "4f42ca06e133ff50dbf4fa40d188436eb06e820114887f02a2d9a9749d6ffff9",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D4-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C06-D4-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "672e2e48fc24cee8f27054e735e816b46626ad85f4043ef563127fbbbdbf08f3",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C07-D1-OP",
+      "target_dimension_id": "C07-D1-OP",
+      "visibility_universe_digest": "11eff2e0750f21a9b233fe4e8c323d6c4cca32983f901386b38398b3fef14ccd",
+      "visibility_universe_id": "BPESEM03-VIS-C07-D1-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "BPESEM03-ADM-BPE02-E03"
+          ],
+          "evidence_id": "BPE02-E03",
+          "evidence_or_assertion_ref": "AST-BPE02-E03-C07-D1-SUPPORT",
+          "exact_content_identity": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+          "normalized_interpretation_if_any": "Fields are ask volume then bid volume.",
+          "visibility_disposition": "SUPPORTING_SAME_PROPOSITION",
+          "visible_item_id": "VIS-AST-BPE02-E03-C07-D1-SUPPORT"
+        },
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C07-D1-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "34838415c7e64b6ffa9d51e31876369191f612973e738253765372df8cd5da7f",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C07-D2-OP",
+      "target_dimension_id": "C07-D2-OP",
+      "visibility_universe_digest": "ddb9e20b125779f512ba302a162539e988b08e162c909a6eea2378ac0a1e86ab",
+      "visibility_universe_id": "BPESEM03-VIS-C07-D2-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C07-D2-OP"
+        }
+      ]
+    },
+    {
+      "baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "semantic_evidence_review_universe_digest": "4e02ccc53fd1db23ba8762122732cd6b17a2bede5149f612d2a052f1a23d3e1b",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C07-D3-OP",
+      "target_dimension_id": "C07-D3-OP",
+      "visibility_universe_digest": "ac36cb354311333abe3eadb0ce41e0b8b7dea041407274015a468a2211e0ec58",
+      "visibility_universe_id": "BPESEM03-VIS-C07-D3-OP",
+      "visible_items": [
+        {
+          "controlling_decision_refs": [
+            "ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+          ],
+          "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "evidence_or_assertion_ref": "BPE03-C08-D5-BLOCKED-CONTINUITY-LIMITATION",
+          "exact_content_identity": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+          "normalized_interpretation_if_any": "Provider client releases do not prove legacy-hourly BI5 semantic continuity through 2021-2026.",
+          "visibility_disposition": "GOVERNANCE_CONSTRAINT",
+          "visible_item_id": "VIS-BPE03-CONTINUITY-C07-D3-OP"
+        }
+      ]
+    }
+  ]
+}

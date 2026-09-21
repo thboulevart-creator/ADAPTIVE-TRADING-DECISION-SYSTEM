@@ -1,0 +1,3730 @@
+{
+  "adjudication_id": "BPESEM03-OPERATIONAL-SEMANTIC-ADJUDICATION-V0_1",
+  "adjudication_seal": "62e5d0aa410669372c3cfb3726bbedafa57faaccd25d74456d5c308825dc2a77",
+  "adjudication_status": "BLOCKED",
+  "adjudicator_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+  "anchor_set_digest": "412817c56d3d11bf0c72c3ad0132907c839893659877a5f23985901a93160826",
+  "claim_adjudications": [
+    {
+      "claim_id": "BPE-SEM-C01-OP",
+      "mandatory_dimension_ids": [
+        "C01-D1-OP",
+        "C01-D2-OP",
+        "C01-D3-OP",
+        "C01-D4-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "BPE-SEM-C02-OP",
+      "mandatory_dimension_ids": [
+        "C02-D1-OP",
+        "C02-D2-OP",
+        "C02-D3-OP",
+        "C02-D4-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "BPE-SEM-C03-OP",
+      "mandatory_dimension_ids": [
+        "C03-D1-OP",
+        "C03-D2-OP",
+        "C03-D3-OP",
+        "C03-D4-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "BPE-SEM-C04-OP",
+      "mandatory_dimension_ids": [
+        "C04-D1-OP",
+        "C04-D2-OP",
+        "C04-D3-OP",
+        "C04-D4-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "BPE-SEM-C05-OP",
+      "mandatory_dimension_ids": [
+        "C05-D1-OP",
+        "C05-D2-OP",
+        "C05-D3-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "BPE-SEM-C06-OP",
+      "mandatory_dimension_ids": [
+        "C06-D1-OP",
+        "C06-D2-OP",
+        "C06-D3-OP",
+        "C06-D4-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "claim_id": "BPE-SEM-C07-OP",
+      "mandatory_dimension_ids": [
+        "C07-D1-OP",
+        "C07-D2-OP",
+        "C07-D3-OP"
+      ],
+      "reason_codes": [
+        "ONE_OR_MORE_MANDATORY_DIMENSIONS_NOT_PASS"
+      ],
+      "status": "BLOCKED"
+    }
+  ],
+  "claim_dimension_register_digest": "938b69e91cd70f8e5ff9e54fb4bdd7362bb1e7fb0d2c789bd52285dbf0669b0f",
+  "claim_dimension_register_id": "BPESEM03-C01-C07-CLAIM-DIMENSION-REGISTER-V0_1",
+  "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+  "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+  "created_at_utc": "2026-09-21T20:30:00Z",
+  "dimension_adjudications": [
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C01-D1-OP",
+      "evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E07",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C01-D1-OP"
+      ],
+      "proposition": "compression family = LZMA",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C01-D2-OP",
+      "evidence_ids": [
+        "BPE02-E01",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C01-D2-OP"
+      ],
+      "proposition": "exact envelope/container mode for target K1",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C01-D3-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C01-D3-OP"
+      ],
+      "proposition": "exact stream/wrapper admission rule",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C01-D4-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "decompressed output role = physical slot byte stream",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D4-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C02-D1-OP",
+      "evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C02-D1-OP"
+      ],
+      "proposition": "complete record width = 20 bytes",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C02-D2-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C02-D2-OP"
+      ],
+      "proposition": "frame origin = byte zero",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C02-D3-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C02-D3-OP"
+      ],
+      "proposition": "terminal residual/trailing-byte disposition",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C02-D4-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C02-D4-OP"
+      ],
+      "proposition": "per-record header/delimiter presence and semantics",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D4-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C03-D1-OP",
+      "evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C03-D1-OP"
+      ],
+      "proposition": "byte order = big-endian",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C03-D2-OP",
+      "evidence_ids": [
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C03-D2-OP"
+      ],
+      "proposition": "exact five-field physical order",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "SIGNEDNESS_CONDITIONALIZED",
+      "dimension_class": "CONDITIONAL_RULE",
+      "dimension_id": "C03-D3-OP",
+      "evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06"
+      ],
+      "execution_obligations": [
+        {
+          "affected_field_set": [
+            "timestamp_offset_raw",
+            "ask_price_raw",
+            "bid_price_raw"
+          ],
+          "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+          "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+          "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+          "nonwaivable": true,
+          "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C03-D3-OP",
+          "on_blocked": "BLOCKED",
+          "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+          "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+          "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+          "source_claim_id": "BPE-SEM-C03-OP",
+          "source_dimension_id": "C03-D3-OP"
+        }
+      ],
+      "hypothesis_set_ids": [],
+      "proposition": "first three fields obey SIGNEDNESS_EQUIVALENCE_RULE_V0_1 or exact signedness authority",
+      "reason_codes": [
+        "SIGNEDNESS_EQUIVALENCE_RULE_V0_1_CURRENT",
+        "NONWAIVABLE_HIGH_BIT_ZERO_EXECUTION_OBLIGATION_BOUND",
+        "MATHEMATICAL_RULE_SCOPE_PASS"
+      ],
+      "rule_ids": [
+        "SIGNEDNESS_EQUIVALENCE_RULE_V0_1"
+      ],
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "PASS"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C03-D4-OP",
+      "evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C03-D4-OP"
+      ],
+      "proposition": "final two fields = IEEE-754 binary32",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D4-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C04-D1-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "timestamp offset unit = millisecond",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [
+        "ANCHOR-AST-BPE02-E03-C04-D2-SUPPORT",
+        "ANCHOR-AST-BPE02-E08-C04-D2-SUPPORT"
+      ],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C04-D2-OP",
+      "evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "reference origin = represented provider H1 object hour",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_ANCHORS_NONCURRENT_FOR_TARGET_EPOCH"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C04-D3-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "hour/time basis = UTC or exact provider-equivalent mapping",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C04-D4-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "valid offset domain = exact authorized domain for one H1",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D4-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [
+        "ANCHOR-AST-BPE02-E03-C05-D1-SUPPORT",
+        "ANCHOR-AST-BPE02-E08-C05-D1-SUPPORT"
+      ],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C05-D1-OP",
+      "evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "field roles/order = ask_raw then bid_raw",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_ANCHORS_NONCURRENT_FOR_TARGET_EPOCH"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "SIGNEDNESS_CONDITIONALIZED",
+      "dimension_class": "CONDITIONAL_RULE",
+      "dimension_id": "C05-D2-OP",
+      "evidence_ids": [],
+      "execution_obligations": [
+        {
+          "affected_field_set": [
+            "ask_price_raw",
+            "bid_price_raw"
+          ],
+          "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+          "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+          "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+          "nonwaivable": true,
+          "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C05-D2-OP",
+          "on_blocked": "BLOCKED",
+          "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+          "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+          "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+          "source_claim_id": "BPE-SEM-C05-OP",
+          "source_dimension_id": "C05-D2-OP"
+        }
+      ],
+      "hypothesis_set_ids": [],
+      "proposition": "raw price integers obey SIGNEDNESS_EQUIVALENCE_RULE_V0_1 or exact signedness authority",
+      "reason_codes": [
+        "SIGNEDNESS_EQUIVALENCE_RULE_V0_1_CURRENT",
+        "NONWAIVABLE_HIGH_BIT_ZERO_EXECUTION_OBLIGATION_BOUND",
+        "MATHEMATICAL_RULE_SCOPE_PASS"
+      ],
+      "rule_ids": [
+        "SIGNEDNESS_EQUIVALENCE_RULE_V0_1"
+      ],
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "PASS"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PREREQUISITE_CLOSURE",
+      "dimension_id": "C05-D3-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "no unresolved prerequisite semantic state between raw ask/bid and logical price conversion",
+      "reason_codes": [
+        "PREREQUISITE_AUTHORITY_NOT_ALL_PASS",
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C06-D1-OP",
+      "evidence_ids": [
+        "BPE02-E02",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "exact applicability to USATECHIDXUSD and target K1 representation",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [
+        "ANCHOR-AST-BPE02-E03-C06-D2-SUPPORT",
+        "ANCHOR-AST-BPE02-E10-C06-D2-SUPPORT"
+      ],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C06-D2-OP",
+      "evidence_ids": [
+        "BPE02-E02",
+        "BPE02-E03",
+        "BPE02-E10",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "numeric divisor = 1000",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_ANCHORS_NONCURRENT_FOR_TARGET_EPOCH"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PREREQUISITE_CLOSURE",
+      "dimension_id": "C06-D3-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "scale authority is non-circular, identity-bound, scope-bound and contradiction-sensitive",
+      "reason_codes": [
+        "PREREQUISITE_AUTHORITY_NOT_ALL_PASS",
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NONCIRCULAR_USATECH_SCALE_AUTHORITY_NOT_CURRENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C06-D4-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "temporal/version applicability covers intended semantic epoch conditionally on K1 classification",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D4-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [
+        "ANCHOR-AST-BPE02-E03-C07-D1-SUPPORT"
+      ],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C07-D1-OP",
+      "evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "field roles/order = ask_volume_raw then bid_volume_raw",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_ANCHORS_NONCURRENT_FOR_TARGET_EPOCH"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D1-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "PHYSICAL_HYPOTHESIS",
+      "dimension_id": "C07-D2-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [
+        "BPESEM03-HYP-C07-D2-OP"
+      ],
+      "proposition": "primitive encoding = IEEE-754 binary32",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "NO_DECISIVE_PREOBSERVATION_PHYSICAL_HYPOTHESIS_DISCRIMINATION"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D2-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    },
+    {
+      "anchor_ids": [],
+      "contradiction_state": "NO_AUTHORITATIVE_FAIL_CONTRADICTION",
+      "dimension_class": "SEMANTIC_ANCHOR",
+      "dimension_id": "C07-D3-OP",
+      "evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "execution_obligations": [],
+      "hypothesis_set_ids": [],
+      "proposition": "exact representation-level transform/scale including explicit no-additional-scale when applicable",
+      "reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "ADMISSIBLE_CURRENT_SEMANTIC_ANCHOR_ABSENT"
+      ],
+      "rule_ids": [],
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D3-OP",
+      "scope_mapping": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "status": "BLOCKED"
+    }
+  ],
+  "dimension_authority_basis_register_digest": "24df1773d3818a02a083e83f91101bc635e5317d05237ecfd8f0f72a17245a30",
+  "dimension_authority_basis_register_id": "BPESEM03-DIMENSION-AUTHORITY-BASIS-REGISTER-V0_1",
+  "discovery_policy_digest": "a06fea76ea42cd30b6b9ab84a890f84578ab367a2ba230c4701b659bf4134fa2",
+  "discovery_policy_id": "BPESEM02-GOVERNED-SEMANTIC-DISCOVERY-V0_6",
+  "discovery_result_digest": "392889fb0afe6a743535c06080c834a7ac6b61558d1ef0d93bfc37eb03f6d361",
+  "evidence_admissibility_decisions": [
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E01",
+      "decision_seal": "e602c4da735ccf7277817856c39ff1248630418549436d91baefc18a39cefe1f",
+      "decision_status": "BLOCKED",
+      "declared_scope_status": "CURRENT_DAILY_PLUS_LEGACY_HOURLY_WARNING",
+      "evidence_class": "OS-E-P1",
+      "evidence_exact_content_sha256": "385e7c86f3c825b1924d1b549532122071a249d3de316aec459f3cfc85517d19",
+      "evidence_id": "BPE02-E01",
+      "immutability_status": "IMMUTABLE_SOURCE_SNAPSHOT_NOT_DURABLY_MATERIALIZED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "LIVE_PROVIDER_PAGE_NO_DURABLE_IMMUTABLE_SNAPSHOT",
+        "PROVIDER_VERSION_NOT_PINNED"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E02",
+      "decision_seal": "704e2631adc62014b36bc61884c3d79ce70e9c9d5414e8dd2289424286689ffa",
+      "decision_status": "BLOCKED",
+      "declared_scope_status": "CURRENT_CFD_METADATA",
+      "evidence_class": "OS-E-P1",
+      "evidence_exact_content_sha256": "d5c0c236997fb908d80c2352372cf4d9d786fadb7eacf19cd296d633e7d7caba",
+      "evidence_id": "BPE02-E02",
+      "immutability_status": "IMMUTABLE_SOURCE_SNAPSHOT_NOT_DURABLY_MATERIALIZED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "LIVE_PROVIDER_PAGE_NO_DURABLE_IMMUTABLE_SNAPSHOT",
+        "PROVIDER_VERSION_NOT_PINNED"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E03",
+      "decision_seal": "3ce8da4ad7e7733959508065df99a6269f0019018be28510da95f7e062677975",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_HOURLY_TICK_BI5",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E04",
+      "decision_seal": "f2a999a565fdb6d93b787d48b60fddd6cc7d213c3fc0c34644814a7e5922e54d",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_BI5_DECODER",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "0eb44b369b77c47306f7bf5d440d96aa177b7f9535772e95f83f2963a56f2dbd",
+      "evidence_id": "BPE02-E04",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E05",
+      "decision_seal": "b30160943a1f570c8b9a3c96c8dba779b6e98a240390ac299059b06421d623ec",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_HOURLY_BI5_DESCRIPTION",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "9fa5aaf0c78106f8a8ef8dd8aaf944870a48c8b74444ac826a16789475e317b2",
+      "evidence_id": "BPE02-E05",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E06",
+      "decision_seal": "681d012cedf8be24d7ffafc4a3ea07af4f8d82059b9fb9164b5c4ad348800f0d",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_HOURLY_TICK_BI5",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "a7979e5154a52e8e886771a4526769ab5b29e54248cdd52b9a43d67f7fb355fa",
+      "evidence_id": "BPE02-E06",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E07",
+      "decision_seal": "776bced0abbc8abeb7e1e1304724fb70f375deec72480083d19d239daadd6eeb",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_HOURLY_TICK_BI5",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "2e88f793e9f615a43c44ad344416f917540c007f5460ddf92c4e2fafe057208a",
+      "evidence_id": "BPE02-E07",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E08",
+      "decision_seal": "a0b8f95849147235c6d1732d85e31da553f52fa81ba9b8de98fd742df8444e0b",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_HOURLY_TICK_NORMALISATION",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+      "evidence_id": "BPE02-E08",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E09",
+      "decision_seal": "27c0abf619e16ff5c7594ad41e9ecd480f121d134ebb4f67dad8c6404366ce26",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "LEGACY_HOURLY_TICK_URL_FAMILY",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "2f6c88b204e19217fb18746b8aa069e78cbc5d1d2c3fa44fa5da499bedbe861e",
+      "evidence_id": "BPE02-E09",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E10",
+      "decision_seal": "27a6817b27cf5ec53b49959cf489c37e10a8b4af4affc8517466cda593a9514a",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "INSTRUMENT_METADATA",
+      "evidence_class": "OS-E-I2",
+      "evidence_exact_content_sha256": "8b380d2a33e6ecfa44e5cb94752e6f01b1ed2e2b8f2257f0d8a7e1491dbf8e50",
+      "evidence_id": "BPE02-E10",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY_OBSERVED",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EXACT_GITHUB_COMMIT_AND_FILE_SHA256",
+        "NON_PROJECT_REFERENCE_IMPLEMENTATION"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE02-E11",
+      "decision_seal": "9e06be3fec9f9e981a806a80df2637f0e06dde9fef40f5197b6b6869c59de316",
+      "decision_status": "REJECTED",
+      "declared_scope_status": "PROJECT_IMPLEMENTATION",
+      "evidence_class": "OS-E-PROJECT",
+      "evidence_exact_content_sha256": "13c114c7f353943e128de8958ff82d5443dc11bd7eaa5449c35313de762d5339",
+      "evidence_id": "BPE02-E11",
+      "immutability_status": "EXACT_FILE_BYTES_HASHED",
+      "project_origin_status": "DISQUALIFIED_PROJECT",
+      "provenance_status": "IDENTIFIED",
+      "reason_codes": [
+        "EC_PROJECT_INADMISSIBLE_AS_INDEPENDENT_SUPPORT"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "SEE_LINEAGE_RESOLUTION"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+      "decision_seal": "b1f8b6a3f70028384e18776664938d8fab4cf60b3599d2a9ee63924c6c7b2ed1",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "PROVIDER_LEGACY_HOURLY_TICK_FILE_SERVER_EXISTENCE",
+      "evidence_class": "OS-E-P1",
+      "evidence_exact_content_sha256": "ac92a240fd3f961269dbaf3b7375c14213fb2a2b544358aff486dea90016edc7",
+      "evidence_id": "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+      "immutability_status": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY",
+      "provenance_status": "PROVIDER_HOSTED_AND_LINE_ANCHORED",
+      "reason_codes": [
+        "PROVIDER_AUTHORED_SUPPORT",
+        "DATED_ARCHIVED_PROVIDER_PAGE",
+        "PERSISTED_EXACT_EXTRACT_SNAPSHOT"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "PROVIDER_PRIMARY_LINEAGE"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+      "decision_seal": "574a9c5c3b16cc5e9f926a87cfd5800081761f681f5224aa46e83ace87f96944",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "PROVIDER_CLIENT_RELEASE_TIMELINE",
+      "evidence_class": "OS-E-P1",
+      "evidence_exact_content_sha256": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+      "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+      "immutability_status": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY",
+      "provenance_status": "PROVIDER_HOSTED_AND_LINE_ANCHORED",
+      "reason_codes": [
+        "PROVIDER_VERSIONED_MAVEN_INDEX",
+        "PERSISTED_EXACT_VERSION_TIMELINE_SNAPSHOT"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "PROVIDER_PRIMARY_LINEAGE"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "decision_seal": "3ed354f0c0c4c70a28feedc4e52dd88ebfc4304dc9d9b753646c5020d958f391",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "JFOREX_HISTORICAL_DATA_BACKEND_CHANGE",
+      "evidence_class": "OS-E-P1",
+      "evidence_exact_content_sha256": "aaa26415a11f8582b0897ca5c051cfda0cbab4933618cf03880681a79b69be8e",
+      "evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "immutability_status": "PERSISTED_PROVIDER_EXTRACT_SNAPSHOT",
+      "project_origin_status": "NO_PROJECT_CIRCULARITY",
+      "provenance_status": "PROVIDER_HOSTED_AND_LINE_ANCHORED",
+      "reason_codes": [
+        "PROVIDER_VERSIONED_RELEASE_NOTE",
+        "PERSISTED_EXACT_RELEASE_EXTRACT"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "PROVIDER_PRIMARY_LINEAGE"
+    },
+    {
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "decision_id": "BPESEM03-ADM-BPESEM03-E-BERD02-K1-BOUNDED",
+      "decision_seal": "37c37b85a54416358b1855151388d3dc231f54d85aa82a3cd04720d31b8e8abb",
+      "decision_status": "ADMISSIBLE",
+      "declared_scope_status": "BOUNDED_K1_PROVIDER_DIRECT_PHYSICAL_COMPATIBILITY",
+      "evidence_class": "OS-E-P3",
+      "evidence_exact_content_sha256": "ec36b42f01116374ce017d1d00544a2862b83845d0066110d5d01c7d3bb62f61",
+      "evidence_id": "BPESEM03-E-BERD02-K1-BOUNDED",
+      "immutability_status": "EXACT_ARTIFACT_DIGEST_AND_RESULT_SEAL",
+      "project_origin_status": "PROJECT_CAPTURE_NOT_PROJECT_SEMANTIC_SOURCE",
+      "provenance_status": "PASS",
+      "reason_codes": [
+        "EXACT_PROVIDER_DIRECT_BOUNDED_BYTES_AND_RESULT_SEALED",
+        "BOUNDED_COMPATIBILITY_ONLY"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_EVIDENCE_ADMISSIBILITY_DECISION_V0_2",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "semantic_source_lineage_status": "PROVIDER_DIRECT_BYTES"
+    }
+  ],
+  "evidence_records": [
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "CURRENT_DAILY_PLUS_LEGACY_HOURLY_WARNING",
+      "declared_temporal_scope": "CURRENT; LEGACY_TRANSITION_UNSPECIFIED",
+      "evidence_class": "OS-E-P1",
+      "evidence_id": "BPE02-E01",
+      "exact_content_sha256": "385e7c86f3c825b1924d1b549532122071a249d3de316aec459f3cfc85517d19",
+      "exact_locator": "https://www.dukascopy.com/wiki/en/development/data-export/ ; live anchors 976-1010,1164-1169,1464-1468",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "Dukascopy",
+      "semantic_source_lineage_id": "LINEAGE-DUKASCOPY",
+      "source_version_or_commit": "LIVE_PAGE_NO_IMMUTABLE_PROVIDER_VERSION",
+      "title_or_repository": "Historical Price Data"
+    },
+    {
+      "declared_instrument_scope": "USATECH.IDX/USD",
+      "declared_representation_scope": "CURRENT_CFD_METADATA",
+      "declared_temporal_scope": "CURRENT",
+      "evidence_class": "OS-E-P1",
+      "evidence_id": "BPE02-E02",
+      "exact_content_sha256": "d5c0c236997fb908d80c2352372cf4d9d786fadb7eacf19cd296d633e7d7caba",
+      "exact_locator": "https://www.dukascopy.com/europe/french/cfd/range-of-markets/?c=6657611e7cd08 ; live anchors 261,266-279",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "Dukascopy Europe",
+      "semantic_source_lineage_id": "LINEAGE-DUKASCOPY",
+      "source_version_or_commit": "LIVE_PAGE_NO_IMMUTABLE_PROVIDER_VERSION",
+      "title_or_repository": "USATECH CFD range"
+    },
+    {
+      "declared_instrument_scope": "INCLUDES_USATECHIDXUSD",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_BI5",
+      "declared_temporal_scope": "IMPLEMENTATION_2026",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E03",
+      "exact_content_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "exact_locator": "https://github.com/saleem-latif/duka-data/blob/2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c/download.py",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "saleem-latif",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "title_or_repository": "duka-data/download.py"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "LEGACY_BI5_DECODER",
+      "declared_temporal_scope": "HISTORICAL_IMPLEMENTATION",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E04",
+      "exact_content_sha256": "0eb44b369b77c47306f7bf5d440d96aa177b7f9535772e95f83f2963a56f2dbd",
+      "exact_locator": "https://github.com/ninety47/dukascopy/blob/8654ad197bdf55579544cf71735369f0d227569f/src/dukascopy.cpp",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "ninety47",
+      "semantic_source_lineage_id": "LINEAGE-NINETY47",
+      "source_version_or_commit": "8654ad197bdf55579544cf71735369f0d227569f",
+      "title_or_repository": "dukascopy/src/dukascopy.cpp"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "LEGACY_HOURLY_BI5_DESCRIPTION",
+      "declared_temporal_scope": "2012_2013_EXAMPLES",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E05",
+      "exact_content_sha256": "9fa5aaf0c78106f8a8ef8dd8aaf944870a48c8b74444ac826a16789475e317b2",
+      "exact_locator": "https://github.com/ninety47/dukascopy/blob/8654ad197bdf55579544cf71735369f0d227569f/README.md",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "ninety47",
+      "semantic_source_lineage_id": "LINEAGE-NINETY47",
+      "source_version_or_commit": "8654ad197bdf55579544cf71735369f0d227569f",
+      "title_or_repository": "dukascopy/README.md"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_BI5",
+      "declared_temporal_scope": "IMPLEMENTATION_2025",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E06",
+      "exact_content_sha256": "a7979e5154a52e8e886771a4526769ab5b29e54248cdd52b9a43d67f7fb355fa",
+      "exact_locator": "https://github.com/leoclc/dukascopy-tick/blob/989987db0808e215962e136ce043797992d1a1a2/src/decompressor/types.ts",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "leoclc",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "title_or_repository": "dukascopy-tick/src/decompressor/types.ts"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_BI5",
+      "declared_temporal_scope": "IMPLEMENTATION_2025",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E07",
+      "exact_content_sha256": "2e88f793e9f615a43c44ad344416f917540c007f5460ddf92c4e2fafe057208a",
+      "exact_locator": "https://github.com/leoclc/dukascopy-tick/blob/989987db0808e215962e136ce043797992d1a1a2/src/decompressor/index.ts",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "leoclc",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "title_or_repository": "dukascopy-tick/src/decompressor/index.ts"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_NORMALISATION",
+      "declared_temporal_scope": "IMPLEMENTATION_2025",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E08",
+      "exact_content_sha256": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+      "exact_locator": "https://github.com/leoclc/dukascopy-tick/blob/989987db0808e215962e136ce043797992d1a1a2/src/data-normaliser/index.ts",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "leoclc",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "title_or_repository": "dukascopy-tick/src/data-normaliser/index.ts"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "LEGACY_HOURLY_TICK_URL_FAMILY",
+      "declared_temporal_scope": "IMPLEMENTATION_2025",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E09",
+      "exact_content_sha256": "2f6c88b204e19217fb18746b8aa069e78cbc5d1d2c3fa44fa5da499bedbe861e",
+      "exact_locator": "https://github.com/leoclc/dukascopy-tick/blob/989987db0808e215962e136ce043797992d1a1a2/src/url-generator/index.ts",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "leoclc",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "title_or_repository": "dukascopy-tick/src/url-generator/index.ts"
+    },
+    {
+      "declared_instrument_scope": "USATECHIDXUSD",
+      "declared_representation_scope": "INSTRUMENT_METADATA",
+      "declared_temporal_scope": "IMPLEMENTATION_2025",
+      "evidence_class": "OS-E-I2",
+      "evidence_id": "BPE02-E10",
+      "exact_content_sha256": "8b380d2a33e6ecfa44e5cb94752e6f01b1ed2e2b8f2257f0d8a7e1491dbf8e50",
+      "exact_locator": "https://github.com/leoclc/dukascopy-tick/blob/989987db0808e215962e136ce043797992d1a1a2/src/utils/instrument-meta-data/generated/instrument-meta-data.json",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "NO_PROJECT_ORIGIN_OBSERVED",
+      "publisher_or_origin_identity": "leoclc",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "title_or_repository": "dukascopy-tick/instrument-meta-data.json"
+    },
+    {
+      "declared_instrument_scope": "PROJECT",
+      "declared_representation_scope": "PROJECT_IMPLEMENTATION",
+      "declared_temporal_scope": "PROJECT",
+      "evidence_class": "OS-E-PROJECT",
+      "evidence_id": "BPE02-E11",
+      "exact_content_sha256": "13c114c7f353943e128de8958ff82d5443dc11bd7eaa5449c35313de762d5339",
+      "exact_locator": "ADAPTIVE-TRADING-DECISION-SYSTEM/tools/probe_research_execution_compatibility_v4_3.py",
+      "origin_bundle": "BPE02",
+      "project_origin_status": "PROJECT_CIRCULAR",
+      "publisher_or_origin_identity": "PROJECT",
+      "semantic_source_lineage_id": "LINEAGE-PROJECT",
+      "source_version_or_commit": "67c8de7a80a3ecd3f8688663344b7dd5dc2e3ebf",
+      "title_or_repository": "V4.3 compatibility probe"
+    },
+    {
+      "declared_instrument_scope": "GENERIC_EURUSD_EXAMPLE",
+      "declared_representation_scope": "PROVIDER_LEGACY_HOURLY_TICK_FILE_SERVER_EXISTENCE",
+      "declared_temporal_scope": "2013_PROVIDER_HISTORY_SERVICE",
+      "evidence_class": "OS-E-P1",
+      "evidence_id": "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+      "exact_content_sha256": "ac92a240fd3f961269dbaf3b7375c14213fb2a2b544358aff486dea90016edc7",
+      "exact_locator": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewtopic.php?f=65&t=50326",
+      "origin_bundle": "BPE03",
+      "project_origin_status": "NOT_PROJECT",
+      "publisher_or_origin_identity": "Dukascopy Bank SA / API Support",
+      "semantic_source_lineage_id": "LINEAGE-DUKASCOPY-OFFICIAL",
+      "source_version_or_commit": "DATED_PROVIDER_SUPPORT_POST_2013-11-07",
+      "title_or_repository": "Dukascopy Support Board — CurvesJsonProtocolHandler - WARN"
+    },
+    {
+      "declared_instrument_scope": "NOT_INSTRUMENT_SPECIFIC",
+      "declared_representation_scope": "PROVIDER_CLIENT_RELEASE_TIMELINE",
+      "declared_temporal_scope": "2021-01-25_THROUGH_2025-10-17",
+      "evidence_class": "OS-E-P1",
+      "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+      "exact_content_sha256": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+      "exact_locator": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/",
+      "origin_bundle": "BPE03",
+      "project_origin_status": "NOT_PROJECT",
+      "publisher_or_origin_identity": "Dukascopy Bank SA",
+      "semantic_source_lineage_id": "LINEAGE-DUKASCOPY-OFFICIAL",
+      "source_version_or_commit": "VERSIONED_PROVIDER_MAVEN_INDEX_CAPTURE",
+      "title_or_repository": "Dukascopy Maven DDS2-jClient-JForex index"
+    },
+    {
+      "declared_instrument_scope": "GENERIC",
+      "declared_representation_scope": "JFOREX_HISTORICAL_DATA_BACKEND_CHANGE",
+      "declared_temporal_scope": "FROM_2026-03-03",
+      "evidence_class": "OS-E-P1",
+      "evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "exact_content_sha256": "aaa26415a11f8582b0897ca5c051cfda0cbab4933618cf03880681a79b69be8e",
+      "exact_locator": "https://www.dukascopy.com/wiki/en/manuals/jforex4-desktop/release-notes/",
+      "origin_bundle": "BPE03",
+      "project_origin_status": "NOT_PROJECT",
+      "publisher_or_origin_identity": "Dukascopy Bank SA",
+      "semantic_source_lineage_id": "LINEAGE-DUKASCOPY-OFFICIAL",
+      "source_version_or_commit": "JFOREX_4.8.0",
+      "title_or_repository": "JForex Desktop Release Notes 4.8.0"
+    },
+    {
+      "declared_instrument_scope": "USATECHIDXUSD",
+      "declared_representation_scope": "BOUNDED_K1_PROVIDER_DIRECT_PHYSICAL_COMPATIBILITY",
+      "declared_temporal_scope": "PW_PLUS_P0_P7_ONLY",
+      "evidence_class": "OS-E-P3",
+      "evidence_id": "BPESEM03-E-BERD02-K1-BOUNDED",
+      "exact_content_sha256": "ec36b42f01116374ce017d1d00544a2862b83845d0066110d5d01c7d3bb62f61",
+      "exact_locator": "evidence/berd02/gha_run_35533153289/",
+      "origin_bundle": "BERD02",
+      "project_origin_status": "PROVIDER_BYTES_PROJECT_CAPTURE_METADATA",
+      "publisher_or_origin_identity": "DUKASCOPY_PROVIDER_DIRECT_BYTES_CAPTURED_BY_PROJECT",
+      "semantic_source_lineage_id": "LINEAGE-DUKASCOPY-PROVIDER-BYTES",
+      "source_version_or_commit": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "title_or_repository": "BERD02-GHA-35533153289-1 bounded K1 provider bytes"
+    }
+  ],
+  "evidence_set_digest": "4f083ccc1e5ddecaaec9b1f0d9fd9a48a94c15c95f2f7232fee2df2d2de0a26a",
+  "execution_obligation_set": [
+    {
+      "affected_field_set": [
+        "timestamp_offset_raw",
+        "ask_price_raw",
+        "bid_price_raw"
+      ],
+      "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+      "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+      "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+      "nonwaivable": true,
+      "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C03-D3-OP",
+      "on_blocked": "BLOCKED",
+      "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+      "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+      "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+      "source_claim_id": "BPE-SEM-C03-OP",
+      "source_dimension_id": "C03-D3-OP"
+    },
+    {
+      "affected_field_set": [
+        "ask_price_raw",
+        "bid_price_raw"
+      ],
+      "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+      "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+      "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+      "nonwaivable": true,
+      "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C05-D2-OP",
+      "on_blocked": "BLOCKED",
+      "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+      "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+      "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+      "source_claim_id": "BPE-SEM-C05-OP",
+      "source_dimension_id": "C05-D2-OP"
+    }
+  ],
+  "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+  "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+  "historical_eligibility_set_digest": "34dd2ef1d50fe21ec62f93d80fdb252d7d5166e6984ced0acf0fcec2d0bb1191",
+  "historical_observation_eligibility_records": [
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C01-D1-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "7a16ffbe699a6146c280170ce73ce1269ad889fa46e4872daa4f8c4e3f201ed4",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C01-D1-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C01-D1-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C01-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "92cfbfba4c50c203c261be1a8b35d9c7cc7fdfe9ad0e39056c335192feaeb5e5",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C01-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C01-D2-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C01-D3-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "2bdf840f6029f7a8d1e671afba065070886aa6e420cbfccf8460107c3323f7ac",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C01-D3-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C01-D3-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D1-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "66cfd25083d9c4bc639b1399a1d0c3abdd24de6976aa7c1a700927fdf7712ee8",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D1-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D1-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "030dfac978f564d5ad1916d68ffe44a5c98acd408bc752e9d6acc8ba0ac558da",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D2-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D3-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "4e71068540e00e4b7f954887a293da87721b25075c783ae861f9f35b638f0ca7",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D3-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D3-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D4-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "b68148481e149cfd48a697316dad8f696964f9f8790bcfcfb0d45a7fc033123a",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D4-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D4-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C03-D1-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "099edcbde7fb83b17b035c34e209a6e198802efa0c3936134a14ae50d60ee805",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C03-D1-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C03-D1-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C03-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "2c4249984d6e57c15ad58a2bed0bfe8b6ea9f582bdd02bb7ab8be4bcbc4eb8d1",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C03-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C03-D2-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C03-D4-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "3c69a649885c52c88374bee0efe36c90cfa425e46bb2414df873059d832b8a14",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C03-D4-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C03-D4-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C07-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "76422822d4d53163b9908e0ad40d8749473c3893278f87fa1b3fc36eb0ecd170",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C07-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C07-D2-OP"
+    }
+  ],
+  "hypothesis_set_digest": "af8f8ec990f6afac2c370b26dbe2c791b214d22a68ca48d6b3b2a5542965382d",
+  "known_material_alternative_registries": [
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "0bf93bea5da952c28fdd55ed003c242e5a4579321748fd596110a830fa758dc5",
+      "registry_id": "BPESEM03-KNOWN-ALT-C01-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E07",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "6516a135c7ab187d5013512c6796e3d744e626f42d6e7e60e2d3b71c9e807d48",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D1-OP",
+      "target_dimension_id": "C01-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "9c6ec9f6660b325b623d521b876dd92f01179bbd974b87c4ec39d5569a3dc5f6",
+      "registry_id": "BPESEM03-KNOWN-ALT-C01-D2-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E01",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "99c44695191f234f9e082874ecd16847201095e2aa65f8a4190d3a890e5453e0",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D2-OP",
+      "target_dimension_id": "C01-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "c11f7556f281885d968bca2724ddc065f6ba4dc6ae339ce7ae61d85e390e9a2e",
+      "registry_id": "BPESEM03-KNOWN-ALT-C01-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "745a89e8b727cb8aaf274a7007e4dfa525261037e11c453a1f4fce1fbe9dc2b8",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D3-OP",
+      "target_dimension_id": "C01-D3-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "48d9a32f26294c5f62ca69e222b568cb4972a8be2629ea8c26dc3d94487d60a9",
+      "registry_id": "BPESEM03-KNOWN-ALT-C01-D4-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "5e2aadc4c92627b944771824097078d13f72b1547218aab47bcc95bcc1ac7fff",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C01-D4-OP",
+      "target_dimension_id": "C01-D4-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "f16c3126aef68b2d697f670a177704325940806976616f6aedf1b90f0c442349",
+      "registry_id": "BPESEM03-KNOWN-ALT-C02-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "d2269b6ef07bb0fd34606794b2e671ab2456a911136aa1dae40a145a1172f26e",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D1-OP",
+      "target_dimension_id": "C02-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "271c557d61cc2e0735a8fe96a2c659a96e9bb164a544dbfeaf1682250aa73657",
+      "registry_id": "BPESEM03-KNOWN-ALT-C02-D2-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "d982b4e8f22e02063155d9ed747dd2c9e3480abc29c55e0f7d3baea557889a8c",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D2-OP",
+      "target_dimension_id": "C02-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "8b1c924f2f36c9fdc521767b8a6ba84b725f5946a15a7818e2155e8c0aba04e5",
+      "registry_id": "BPESEM03-KNOWN-ALT-C02-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "4c515defd8ce9b110c1442f1d5efd13feae8677cc128c33309eb4f55d099ca39",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D3-OP",
+      "target_dimension_id": "C02-D3-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "f07f9bdc506fbee22eae5ae2a43bf6e7f6be34692be2778dd810cc403055d262",
+      "registry_id": "BPESEM03-KNOWN-ALT-C02-D4-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "b959345532094746a1244ca8b5972a7737490312104f922d7709b3247dfba0f1",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C02-D4-OP",
+      "target_dimension_id": "C02-D4-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "2b7d3d5e51780c6f55c00dbf2a92b4cd443c2179fb3a11d7df9aeac6484bb994",
+      "registry_id": "BPESEM03-KNOWN-ALT-C03-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "608d909ef898fb6c5e2c974deb91cf90c6f92bb1d3b134672d52872739f24c07",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D1-OP",
+      "target_dimension_id": "C03-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "c64bb9fd9108cc7cd6dfed0d1ac56c0b8fd3215c33e73271365f759af8c05270",
+      "registry_id": "BPESEM03-KNOWN-ALT-C03-D2-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "eec1b9acf98b454f1e47641cada62cf2456eb8dd26f1ff3e4a7d9f4a687a4310",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D2-OP",
+      "target_dimension_id": "C03-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [
+        {
+          "candidate_id": "SIGNED_INT32",
+          "disposition": "INCLUDED_MATERIAL_HYPOTHESIS",
+          "disposition_rationale": "Existing independent references use signed integers.",
+          "evidence_refs": [
+            "AST-BPE02-E03-C03-D3-CONTRADICT",
+            "AST-BPE02-E06-C03-D3-CONTRADICT"
+          ],
+          "material_effect_if_true": "DIFFERS_WHEN_HIGH_BIT_ONE",
+          "normalized_interpretation": "Affected 32-bit field interpreted signed"
+        },
+        {
+          "candidate_id": "UNSIGNED_UINT32",
+          "disposition": "INCLUDED_MATERIAL_HYPOTHESIS",
+          "disposition_rationale": "Existing independent reference uses unsigned integers.",
+          "evidence_refs": [
+            "AST-BPE02-E04-C03-D3-SUPPORT"
+          ],
+          "material_effect_if_true": "DIFFERS_WHEN_HIGH_BIT_ONE",
+          "normalized_interpretation": "Affected 32-bit field interpreted unsigned"
+        }
+      ],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [
+        "SIGNED_INT32",
+        "UNSIGNED_UINT32"
+      ],
+      "registry_digest": "becffe580b0fd49631b008924508c2762c166e5d63e60c205f5c605ec802432a",
+      "registry_id": "BPESEM03-KNOWN-ALT-C03-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "219abc4cfe1c612722842941c8de422a708476b09e997c2c1cfac37c37d1cbdd",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D3-OP",
+      "target_dimension_id": "C03-D3-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "f0b00e7a7239854e66eddcb870ca766971bcf22b3e1a97220668e7d7677e2a61",
+      "registry_id": "BPESEM03-KNOWN-ALT-C03-D4-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "90192ffa1b0eef80a955705950e433f1a8d75a6b65cf96c4831b1dd5be65618c",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C03-D4-OP",
+      "target_dimension_id": "C03-D4-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "038490ac786ce7af95618df8671110b5640def029b1bda5466438a84f10cd4ce",
+      "registry_id": "BPESEM03-KNOWN-ALT-C04-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "2c696361d990fdc46a5514932efa9a35aaac91a5ed664b7bffa698b28b2eb3d3",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D1-OP",
+      "target_dimension_id": "C04-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "2cb3fba66efde80a664be301769584757d88b002f97e6d31b7c49bcd0024d53d",
+      "registry_id": "BPESEM03-KNOWN-ALT-C04-D2-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "695ac32adfebd522c217f343aa228ede4f887d55da30421faa511f60fa257dfd",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D2-OP",
+      "target_dimension_id": "C04-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "9361bb7ae0d1b81f8a80b60f9c1d3eb1c7cee8b060e38b93e1bd5116ec152351",
+      "registry_id": "BPESEM03-KNOWN-ALT-C04-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "99e6b75a873dcfd7f1914f6a2e990b68f3908a07cd4a71090491be9aa558b352",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D3-OP",
+      "target_dimension_id": "C04-D3-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "62deec59ecb3bd571577f3d57a41ed39955d6ada3a9159806dce7e7a0dbc2ac3",
+      "registry_id": "BPESEM03-KNOWN-ALT-C04-D4-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "a1f2c6ace83dc117c2bcde656d171a65f19a9ff1ed26b2eba7121195995f1547",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C04-D4-OP",
+      "target_dimension_id": "C04-D4-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "a3ada25ea509a64b74feef422a7792172d580c85322f9979a3de079ea0b35326",
+      "registry_id": "BPESEM03-KNOWN-ALT-C05-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "157917772b53622ebd41f54ca7c5c248b098c2ad9eb6bc4e141cafeef8da204c",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C05-D1-OP",
+      "target_dimension_id": "C05-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [
+        {
+          "candidate_id": "SIGNED_INT32",
+          "disposition": "INCLUDED_MATERIAL_HYPOTHESIS",
+          "disposition_rationale": "Existing independent references use signed integers.",
+          "evidence_refs": [
+            "AST-BPE02-E03-C03-D3-CONTRADICT",
+            "AST-BPE02-E06-C03-D3-CONTRADICT"
+          ],
+          "material_effect_if_true": "DIFFERS_WHEN_HIGH_BIT_ONE",
+          "normalized_interpretation": "Affected 32-bit field interpreted signed"
+        },
+        {
+          "candidate_id": "UNSIGNED_UINT32",
+          "disposition": "INCLUDED_MATERIAL_HYPOTHESIS",
+          "disposition_rationale": "Existing independent reference uses unsigned integers.",
+          "evidence_refs": [
+            "AST-BPE02-E04-C03-D3-SUPPORT"
+          ],
+          "material_effect_if_true": "DIFFERS_WHEN_HIGH_BIT_ONE",
+          "normalized_interpretation": "Affected 32-bit field interpreted unsigned"
+        }
+      ],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [
+        "SIGNED_INT32",
+        "UNSIGNED_UINT32"
+      ],
+      "registry_digest": "56490119738bbb816d4934be0af4f2675470c56ed54c4f0fc6bb08b2983114bb",
+      "registry_id": "BPESEM03-KNOWN-ALT-C05-D2-OP",
+      "reviewed_evidence_ids": [],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "7e477dd72e642b3d744849d9f616d502a3c687b4e195f02f314406ac02a4e956",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C05-D2-OP",
+      "target_dimension_id": "C05-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "576c3d6018e04ddd9e7859bda93e232e291452c94095d54a44955dfcf82c380c",
+      "registry_id": "BPESEM03-KNOWN-ALT-C05-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "3293ed8ed30e17eba00d90f3a9413660bfe8ad625a5c2d0cf703bfad31614069",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C05-D3-OP",
+      "target_dimension_id": "C05-D3-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "e3766273998c8c931a3ae42f7cdb574861009bf5e3200b739f458781356e2de5",
+      "registry_id": "BPESEM03-KNOWN-ALT-C06-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E02",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "1fcdbd46cd4c8f5009fc4a58f5f2aafcbe8e02cbe20de17dbc74ca4c6d5405d4",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D1-OP",
+      "target_dimension_id": "C06-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "a3e4ae7e25bd691c83e37d4f298a5b0b7ae4a7921decb5907c42694464662786",
+      "registry_id": "BPESEM03-KNOWN-ALT-C06-D2-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E02",
+        "BPE02-E03",
+        "BPE02-E10",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "226c6fd73216103507bdacd9fac46ec29ef94a187c4a74a0264e37bff1bcd8aa",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D2-OP",
+      "target_dimension_id": "C06-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "85f489e3b0983a8710a65be186f7c5b707c55aa9557033767c8191f011c9e08f",
+      "registry_id": "BPESEM03-KNOWN-ALT-C06-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "a7efeeee5fb5950feaddb3c36567cbb1b00955700f5d668f0edc3c9dbbe85f18",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D3-OP",
+      "target_dimension_id": "C06-D3-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "625283ca40f47efba99bea7b4b4f30b468eab97b2d3ab7780624dd85c62674ac",
+      "registry_id": "BPESEM03-KNOWN-ALT-C06-D4-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "0746f1aea94f1cc06feefb2625cc1dd4a632103c0098ef6936547e10c219354e",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C06-D4-OP",
+      "target_dimension_id": "C06-D4-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "8cb9e12748b46a3ced04a5007b54f0447d0ed2e63bd455bd58f3c7eebec71654",
+      "registry_id": "BPESEM03-KNOWN-ALT-C07-D1-OP",
+      "reviewed_evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "672e2e48fc24cee8f27054e735e816b46626ad85f4043ef563127fbbbdbf08f3",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C07-D1-OP",
+      "target_dimension_id": "C07-D1-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "00f3db6c28cee9469ee07b6bfbc8d345880250c7e1712e8969039f6ce654ee1e",
+      "registry_id": "BPESEM03-KNOWN-ALT-C07-D2-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "34838415c7e64b6ffa9d51e31876369191f612973e738253765372df8cd5da7f",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C07-D2-OP",
+      "target_dimension_id": "C07-D2-OP",
+      "unresolved_candidate_ids": []
+    },
+    {
+      "candidate_interpretations": [],
+      "evidence_review_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "evidence_review_cutoff_time": "2026-09-21T20:30:00Z",
+      "included_hypothesis_ids": [],
+      "registry_digest": "2d349362a8dbae30c4a523005e68760c8ba56537bb09031f5e8a720fd31660f5",
+      "registry_id": "BPESEM03-KNOWN-ALT-C07-D3-OP",
+      "reviewed_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "schema": "B_PE_SEM_02_KNOWN_MATERIAL_ALTERNATIVES_V0_2",
+      "semantic_evidence_review_universe_digest": "4e02ccc53fd1db23ba8762122732cd6b17a2bede5149f612d2a052f1a23d3e1b",
+      "semantic_evidence_review_universe_id": "BPESEM03-REVIEW-C07-D3-OP",
+      "target_dimension_id": "C07-D3-OP",
+      "unresolved_candidate_ids": []
+    }
+  ],
+  "lineage_resolution_records": [
+    {
+      "covered_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E02",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E05",
+        "BPE02-E06",
+        "BPE02-E07",
+        "BPE02-E08",
+        "BPE02-E09",
+        "BPE02-E10",
+        "BPE02-E11",
+        "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+        "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "covered_semantic_source_ids": [
+        "LINEAGE-DUKA-DATA",
+        "LINEAGE-DUKASCOPY",
+        "LINEAGE-DUKASCOPY-OFFICIAL",
+        "LINEAGE-DUKASCOPY-PROVIDER-BYTES",
+        "LINEAGE-LEOCLC",
+        "LINEAGE-NINETY47",
+        "LINEAGE-PROJECT"
+      ],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "lineage_groups": {
+        "LINEAGE-DUKA-DATA": [
+          "BPE02-E03"
+        ],
+        "LINEAGE-DUKASCOPY": [
+          "BPE02-E01",
+          "BPE02-E02",
+          "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+          "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+          "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+          "BPESEM03-E-BERD02-K1-BOUNDED"
+        ],
+        "LINEAGE-LEOCLC": [
+          "BPE02-E06",
+          "BPE02-E07",
+          "BPE02-E08",
+          "BPE02-E09",
+          "BPE02-E10"
+        ],
+        "LINEAGE-NINETY47": [
+          "BPE02-E04",
+          "BPE02-E05"
+        ],
+        "LINEAGE-PROJECT": [
+          "BPE02-E11"
+        ]
+      },
+      "lineage_resolution_digest": "132366b7de324b304cbab8189f332c4e534c64f3966b20e960c5f1581980ecec",
+      "lineage_resolution_id": "BPESEM03-SEMANTIC-LINEAGE-V0_1",
+      "pairwise_relationships": {
+        "DUKA-DATA::LEOCLC": "UNRESOLVED",
+        "DUKA-DATA::NINETY47": "UNRESOLVED",
+        "DUKASCOPY::DUKA-DATA": "INDEPENDENT",
+        "DUKASCOPY::LEOCLC": "INDEPENDENT",
+        "DUKASCOPY::NINETY47": "INDEPENDENT",
+        "NINETY47::LEOCLC": "UNRESOLVED",
+        "PROJECT::*": "DISQUALIFIED"
+      },
+      "project_origin_checks": [
+        "BPE02-E11 rejected as project circular",
+        "E03-E10 non-project exact-revision sources"
+      ],
+      "relationship_proof_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json"
+      ],
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION"
+    }
+  ],
+  "lineage_resolution_set_digest": "17c2f38cfe924796a2f0705144ed3bef9f23a3425d4cac0fe844c62e8064f37c",
+  "obligation_set_digest": "93f46bde9aae069723b1dc9b6dc4606edbaf4126240723337438878c74ade09d",
+  "overall_operational_semantic_status": "BLOCKED",
+  "positive_authority_universe_digests": [
+    "4752c478d2b09fd7e2cd03d6e0db5b87e79845a3116c9a0945757f314ad06f9e",
+    "28839c6f894cdc251baff6b1327a0ccb6d1c997dcd8d8a76d589c2087bb53337",
+    "77da802d6c05f495757e50779f14e098a0e37a11b6c6901790a4c60b9add2377",
+    "dba29a1a4601374adac1cb385cd22b0b467193bbe925860cf37a5c93e0b692e6",
+    "1de641865f0b9b5987895855ec1044b23e9d113e7910fc163562e318a2998bb4",
+    "da61bf43232daf8588f86307508f38fdac1c7d2b713165cced59f9d9ade7a073",
+    "4d2d3349cab76d82b9079382895cf9db501c1f341c49fc0567ea9dc0809e45ee",
+    "21cf5789f27f64f6cd0176a0fe7bc8a8e7010bd60546b9141a09aaddaf1eff0b",
+    "afe053d95b664215f2e1be36c037dfe20c35538f742a37dccf5ec908b338f8ca",
+    "2e51e9178bb13a5b963c406c111b43a67aed0096391e80d22d6bba483b177a6a",
+    "378aefb79e53e6d70bed297e3a041205759f388edf8afe4f4ecbd7c7cc4b0b7a",
+    "7216bd75751511654a7e07d7d0c6770be864d98468f2826d86faf8be009939bb",
+    "878e390817ca40438417ce2089f8408e16f09e3d43148385b8a9cde321c18c77",
+    "c9b616f209fe43eb00ff0012d1cd1ce9ed0894883a9b06e2d6b41b8b1d37f310",
+    "833bb44bb645d079a9ccaf6f5feb4477bb985cc5729b17dae33f320870a335f8",
+    "2c8acec18b01e78d493f142014fa39b9280da78549f62a040f659592a23bf8a1",
+    "dc39e5c203c057a604d9533238dc38612a56907caeb10484e7cb543b08dfc647",
+    "81fc957cbd7aa70f8c1f0a3a8e732291e021920912924e0cd4ef46462c03989d",
+    "0f1c89728058a0d88c6a3677454cb901ef7c0479cc6fe02cadccab31b2259523",
+    "74490e10dccffe15cf068411e6974da724ad3d929c4df6ae003afa28404b1cb4",
+    "921476559e7b87297f96ab6a024efb01990b27ad560419ab36f4c5888f4f7305",
+    "a608e0cf41865bd03512d22dfd8361b3173c8a7df99e4c8c49c73058b862e2d4",
+    "d1d306863e13c7808c53fa7b500f1b5b9f05e1a1397238a2995581707e32ab47",
+    "899a6e2ec66b4e33f8f9bb81e00cdd2dcef0b5401863da5bd1ff318f335c3bcc",
+    "b54b31d02cf1e6f99a0d83bac9d6f150d90f88fe28db217e562f0a1ef6d184c1",
+    "ff4a47ea7b618a2a67cb118a3465f22e3ad296e9b8226154c79faacf757aab0b"
+  ],
+  "positive_authority_universe_ids": [
+    "BPESEM03-POS-C01-D1-OP",
+    "BPESEM03-POS-C01-D2-OP",
+    "BPESEM03-POS-C01-D3-OP",
+    "BPESEM03-POS-C01-D4-OP",
+    "BPESEM03-POS-C02-D1-OP",
+    "BPESEM03-POS-C02-D2-OP",
+    "BPESEM03-POS-C02-D3-OP",
+    "BPESEM03-POS-C02-D4-OP",
+    "BPESEM03-POS-C03-D1-OP",
+    "BPESEM03-POS-C03-D2-OP",
+    "BPESEM03-POS-C03-D3-OP",
+    "BPESEM03-POS-C03-D4-OP",
+    "BPESEM03-POS-C04-D1-OP",
+    "BPESEM03-POS-C04-D2-OP",
+    "BPESEM03-POS-C04-D3-OP",
+    "BPESEM03-POS-C04-D4-OP",
+    "BPESEM03-POS-C05-D1-OP",
+    "BPESEM03-POS-C05-D2-OP",
+    "BPESEM03-POS-C05-D3-OP",
+    "BPESEM03-POS-C06-D1-OP",
+    "BPESEM03-POS-C06-D2-OP",
+    "BPESEM03-POS-C06-D3-OP",
+    "BPESEM03-POS-C06-D4-OP",
+    "BPESEM03-POS-C07-D1-OP",
+    "BPESEM03-POS-C07-D2-OP",
+    "BPESEM03-POS-C07-D3-OP"
+  ],
+  "rule_records": [
+    {
+      "affected_field_set": [
+        "timestamp_offset_raw",
+        "ask_price_raw",
+        "bid_price_raw"
+      ],
+      "created_at_utc": "2026-09-21T20:00:00Z",
+      "exact_condition": "high_bit == 0",
+      "exact_proposition": "For an exact 32-bit bit pattern, signed_int32 equals unsigned_uint32 iff high_bit == 0; if high_bit == 1 their numeric interpretations differ.",
+      "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+      "rule_seal": "2aea71fd69a25df1098f0865525dd9b69378c4b66edb5f1082904c1db2743390",
+      "rule_type": "CONDITIONAL_MATHEMATICAL_EQUIVALENCE",
+      "schema": "B_PE_SEM_02_RULE_RECORD_V0_1",
+      "target_dimension_ids": [
+        "C03-D3-OP",
+        "C05-D2-OP"
+      ],
+      "violation_disposition": "BLOCKED_UNLESS_EXACT_SIGNEDNESS_HAS_SEPARATE_CURRENT_AUTHORITY"
+    }
+  ],
+  "rule_set_digest": "09487715f542fe0b24f9775b7ef1bfcf1b3a2b06cce0287aa9bbd5d798b6a563",
+  "schema": "B_PE_SEM_02_OPERATIONAL_SEMANTIC_RULE_ADJUDICATION_V0_1",
+  "scope_applicability_set_digest": "ef340b64c7bd26c1399a858f9bb3bc1e1f09ffd480b33857edecb23a268a96a9",
+  "scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+  "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+  "semantic_anchor_manifests": [
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C04-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C04-D2-OP-1",
+      "anchor_manifest_seal": "0011c63ff1c17c24de4924633943396f6ecdc30777051837d9e17e161c6b6563",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Timestamp is reconstructed as hour_start plus millisecond offset.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C04-OP",
+      "target_dimension_id": "C04-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E08-C04-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C04-D2-OP-2",
+      "anchor_manifest_seal": "c0cc30dced6a29eb50faffa3248a3af8d3bca0004c23ded071c777a73cd315eb",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+      "evidence_id": "BPE02-E08",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Tick timestamp is ms plus source startTs.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "target_claim_id": "BPE-SEM-C04-OP",
+      "target_dimension_id": "C04-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C05-D1-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C05-D1-OP-1",
+      "anchor_manifest_seal": "20d29b025010721315ade1bd24277e47d5d8e4f0caea205bbe8fc01f14d5e379",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Fields are ask raw then bid raw.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C05-OP",
+      "target_dimension_id": "C05-D1-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E08-C05-D1-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C05-D1-OP-2",
+      "anchor_manifest_seal": "a92412be56198ce3abdcb7055da8de3285793d5b461bba71a68c6d568d0ee9d6",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+      "evidence_id": "BPE02-E08",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Tick values are ms, ask, bid, askVolume, bidVolume.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "target_claim_id": "BPE-SEM-C05-OP",
+      "target_dimension_id": "C05-D1-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C06-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C06-D2-OP-1",
+      "anchor_manifest_seal": "b91fc3b9e43bcb6795b257d99d35580ac7ec061d9fbeb78f8aecb19041f4707a",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "USATECHIDXUSD is assigned divisor 1000.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C06-OP",
+      "target_dimension_id": "C06-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E10-C06-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C06-D2-OP-2",
+      "anchor_manifest_seal": "17adca97ddaf8f03e79be7792aba71b28ac990eff0f49c8ce01fab9a9901fe7b",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "8b380d2a33e6ecfa44e5cb94752e6f01b1ed2e2b8f2257f0d8a7e1491dbf8e50",
+      "evidence_id": "BPE02-E10",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "USATECHIDXUSD decimalFactor is 1000.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "target_claim_id": "BPE-SEM-C06-OP",
+      "target_dimension_id": "C06-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C07-D1-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C07-D1-OP-1",
+      "anchor_manifest_seal": "4aad6c96986ef898258f6a484975ca88b097d80c35bb72079c22ccd8e75559b0",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Fields are ask volume then bid volume.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C07-OP",
+      "target_dimension_id": "C07-D1-OP"
+    }
+  ],
+  "semantic_evidence_horizon_digest": "4361ec9a9824a7095b0bdcd34729a6d60e72f91eba25fb7cab825c269a4b70b6",
+  "semantic_evidence_horizon_id": "BPESEM03-EVIDENCE-HORIZON-V0_1",
+  "semantic_evidence_review_universe_digests": [
+    "6516a135c7ab187d5013512c6796e3d744e626f42d6e7e60e2d3b71c9e807d48",
+    "99c44695191f234f9e082874ecd16847201095e2aa65f8a4190d3a890e5453e0",
+    "745a89e8b727cb8aaf274a7007e4dfa525261037e11c453a1f4fce1fbe9dc2b8",
+    "5e2aadc4c92627b944771824097078d13f72b1547218aab47bcc95bcc1ac7fff",
+    "d2269b6ef07bb0fd34606794b2e671ab2456a911136aa1dae40a145a1172f26e",
+    "d982b4e8f22e02063155d9ed747dd2c9e3480abc29c55e0f7d3baea557889a8c",
+    "4c515defd8ce9b110c1442f1d5efd13feae8677cc128c33309eb4f55d099ca39",
+    "b959345532094746a1244ca8b5972a7737490312104f922d7709b3247dfba0f1",
+    "608d909ef898fb6c5e2c974deb91cf90c6f92bb1d3b134672d52872739f24c07",
+    "eec1b9acf98b454f1e47641cada62cf2456eb8dd26f1ff3e4a7d9f4a687a4310",
+    "219abc4cfe1c612722842941c8de422a708476b09e997c2c1cfac37c37d1cbdd",
+    "90192ffa1b0eef80a955705950e433f1a8d75a6b65cf96c4831b1dd5be65618c",
+    "2c696361d990fdc46a5514932efa9a35aaac91a5ed664b7bffa698b28b2eb3d3",
+    "695ac32adfebd522c217f343aa228ede4f887d55da30421faa511f60fa257dfd",
+    "99e6b75a873dcfd7f1914f6a2e990b68f3908a07cd4a71090491be9aa558b352",
+    "a1f2c6ace83dc117c2bcde656d171a65f19a9ff1ed26b2eba7121195995f1547",
+    "157917772b53622ebd41f54ca7c5c248b098c2ad9eb6bc4e141cafeef8da204c",
+    "7e477dd72e642b3d744849d9f616d502a3c687b4e195f02f314406ac02a4e956",
+    "3293ed8ed30e17eba00d90f3a9413660bfe8ad625a5c2d0cf703bfad31614069",
+    "1fcdbd46cd4c8f5009fc4a58f5f2aafcbe8e02cbe20de17dbc74ca4c6d5405d4",
+    "226c6fd73216103507bdacd9fac46ec29ef94a187c4a74a0264e37bff1bcd8aa",
+    "a7efeeee5fb5950feaddb3c36567cbb1b00955700f5d668f0edc3c9dbbe85f18",
+    "0746f1aea94f1cc06feefb2625cc1dd4a632103c0098ef6936547e10c219354e",
+    "672e2e48fc24cee8f27054e735e816b46626ad85f4043ef563127fbbbdbf08f3",
+    "34838415c7e64b6ffa9d51e31876369191f612973e738253765372df8cd5da7f",
+    "4e02ccc53fd1db23ba8762122732cd6b17a2bede5149f612d2a052f1a23d3e1b"
+  ],
+  "semantic_evidence_review_universe_ids": [
+    "BPESEM03-REVIEW-C01-D1-OP",
+    "BPESEM03-REVIEW-C01-D2-OP",
+    "BPESEM03-REVIEW-C01-D3-OP",
+    "BPESEM03-REVIEW-C01-D4-OP",
+    "BPESEM03-REVIEW-C02-D1-OP",
+    "BPESEM03-REVIEW-C02-D2-OP",
+    "BPESEM03-REVIEW-C02-D3-OP",
+    "BPESEM03-REVIEW-C02-D4-OP",
+    "BPESEM03-REVIEW-C03-D1-OP",
+    "BPESEM03-REVIEW-C03-D2-OP",
+    "BPESEM03-REVIEW-C03-D3-OP",
+    "BPESEM03-REVIEW-C03-D4-OP",
+    "BPESEM03-REVIEW-C04-D1-OP",
+    "BPESEM03-REVIEW-C04-D2-OP",
+    "BPESEM03-REVIEW-C04-D3-OP",
+    "BPESEM03-REVIEW-C04-D4-OP",
+    "BPESEM03-REVIEW-C05-D1-OP",
+    "BPESEM03-REVIEW-C05-D2-OP",
+    "BPESEM03-REVIEW-C05-D3-OP",
+    "BPESEM03-REVIEW-C06-D1-OP",
+    "BPESEM03-REVIEW-C06-D2-OP",
+    "BPESEM03-REVIEW-C06-D3-OP",
+    "BPESEM03-REVIEW-C06-D4-OP",
+    "BPESEM03-REVIEW-C07-D1-OP",
+    "BPESEM03-REVIEW-C07-D2-OP",
+    "BPESEM03-REVIEW-C07-D3-OP"
+  ],
+  "semantic_hypothesis_sets": [
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "compression family = LZMA",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C01-D1-OP",
+      "hypothesis_set_seal": "cfa0da7ae8e6b28050394ad1dd7ae84fe07dc635fbca4f6ca7b2bc0a1b0c2dbf",
+      "known_material_alternative_registry_digest": "0bf93bea5da952c28fdd55ed003c242e5a4579321748fd596110a830fa758dc5",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C01-D1-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C01-OP",
+      "target_dimension_id": "C01-D1-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "exact envelope/container mode for target K1",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C01-D2-OP",
+      "hypothesis_set_seal": "3477ecabbbb6d170d6e95cf82ec14e9f11aa36fd9cabb3bdcd7f4e3a7fb376ee",
+      "known_material_alternative_registry_digest": "9c6ec9f6660b325b623d521b876dd92f01179bbd974b87c4ec39d5569a3dc5f6",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C01-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C01-OP",
+      "target_dimension_id": "C01-D2-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "exact stream/wrapper admission rule",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C01-D3-OP",
+      "hypothesis_set_seal": "7bbb996a47641f5bb470415d70b511be2083c491d77281d4fd0e447a27e2f0ab",
+      "known_material_alternative_registry_digest": "c11f7556f281885d968bca2724ddc065f6ba4dc6ae339ce7ae61d85e390e9a2e",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C01-D3-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C01-OP",
+      "target_dimension_id": "C01-D3-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "complete record width = 20 bytes",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D1-OP",
+      "hypothesis_set_seal": "5378bd07dfcd1ef45871a1b21577785cd342d82e6c550bbbbf356304da04374e",
+      "known_material_alternative_registry_digest": "f16c3126aef68b2d697f670a177704325940806976616f6aedf1b90f0c442349",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D1-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D1-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "frame origin = byte zero",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D2-OP",
+      "hypothesis_set_seal": "d08e5db698d9a28b5c390fcbdbbee6e85238cc14644ecc280e25e939bfc7b58c",
+      "known_material_alternative_registry_digest": "271c557d61cc2e0735a8fe96a2c659a96e9bb164a544dbfeaf1682250aa73657",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D2-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "terminal residual/trailing-byte disposition",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D3-OP",
+      "hypothesis_set_seal": "6d20cec8ca32d538ebbc4f1f6fa104c3f7e86cd3484ffddb6ba772615bef1849",
+      "known_material_alternative_registry_digest": "8b1c924f2f36c9fdc521767b8a6ba84b725f5946a15a7818e2155e8c0aba04e5",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D3-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D3-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "per-record header/delimiter presence and semantics",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D4-OP",
+      "hypothesis_set_seal": "0ee7b74d66566d369b18acf05c0e2b3c398999e3e7a0f4a5bd62dc79bd518314",
+      "known_material_alternative_registry_digest": "f07f9bdc506fbee22eae5ae2a43bf6e7f6be34692be2778dd810cc403055d262",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D4-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D4-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "byte order = big-endian",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C03-D1-OP",
+      "hypothesis_set_seal": "e283fcbf6ff91941550a0ef9be62433ccefed82d960c939b1639a7e763815e23",
+      "known_material_alternative_registry_digest": "2b7d3d5e51780c6f55c00dbf2a92b4cd443c2179fb3a11d7df9aeac6484bb994",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C03-D1-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C03-OP",
+      "target_dimension_id": "C03-D1-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "exact five-field physical order",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C03-D2-OP",
+      "hypothesis_set_seal": "3f1b30fea6146f83b59708bdcdd9f781b25e716f6ec88bfcc6c3bf51e014888f",
+      "known_material_alternative_registry_digest": "c64bb9fd9108cc7cd6dfed0d1ac56c0b8fd3215c33e73271365f759af8c05270",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C03-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C03-OP",
+      "target_dimension_id": "C03-D2-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "final two fields = IEEE-754 binary32",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C03-D4-OP",
+      "hypothesis_set_seal": "a7ae9b441e04d0b141857aee18a14a53d4b5c6ffb7c5df7ee78a2eb77653b94a",
+      "known_material_alternative_registry_digest": "f0b00e7a7239854e66eddcb870ca766971bcf22b3e1a97220668e7d7677e2a61",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C03-D4-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C03-OP",
+      "target_dimension_id": "C03-D4-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "primitive encoding = IEEE-754 binary32",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C07-D2-OP",
+      "hypothesis_set_seal": "cccc8bd31b89b39cca9af7d7cac085f13cabc5d27954d1374bc35aff5ba945a5",
+      "known_material_alternative_registry_digest": "00f3db6c28cee9469ee07b6bfbc8d345880250c7e1712e8969039f6ce654ee1e",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C07-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C07-OP",
+      "target_dimension_id": "C07-D2-OP"
+    }
+  ],
+  "semantic_scope_applicability_decisions": [
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D1-OP",
+      "scope_decision_seal": "7a9a1239dac335b49b85e610bb5026a239c73153900a70b9f8687421a09a1f92",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D2-OP",
+      "scope_decision_seal": "dfeab76fddbc6010fbbd7676147000a16498144167123fa17f3832ccd6696168",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D3-OP",
+      "scope_decision_seal": "cb44287795d86e1497cdf68350e704a7c1e82bed50f85a0bc406a5156b73bbb5",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D4-OP",
+      "scope_decision_seal": "96d34adc5b58d0f77e2af131c4f93c73f455cdd1d45c28b38b9ddbba75b4c769",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D1-OP",
+      "scope_decision_seal": "fc3e6ea48f694790a1ecd25bbc3335423c6fa39a64cdc536fa3c3878cb25b4bd",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D2-OP",
+      "scope_decision_seal": "acd6e12bdb252f7cc85f9a5a6864ac197eb48ce2f165dd9bb9cc6fbb6db2f5cd",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D3-OP",
+      "scope_decision_seal": "5baedce0ad8a4e0db26a6bdfda5d995c15b49b48bd6a15de1a37bf0fa9c2efc9",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D4-OP",
+      "scope_decision_seal": "88004ecfb7660233de7956f04a87eec7d779b2d4bec26b5dc9d381455b451325",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D1-OP",
+      "scope_decision_seal": "1f2e70b5614fd0e123e94db7525b544c71ca8db30920cf91e9f85fa86d4ad28b",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D2-OP",
+      "scope_decision_seal": "227b9e3d47d41a48277bb96cc95f8bcb6222c38177501597d8ea9a7dddec7723",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D3-OP",
+      "reason_codes": [
+        "UNIVERSAL_32BIT_MATHEMATICAL_EQUIVALENCE_RULE",
+        "REPRESENTATION_PRESENCE_NOT_REQUIRED_FOR_RULE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D3-OP",
+      "scope_decision_seal": "258d9de27af2b40ad6f1b1d5be10353352f147bcdff63925c0e517add8bb3282",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "PASS",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": []
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D4-OP",
+      "scope_decision_seal": "a3acae4e1abe92ffeaf0480d67d5e0d1574a1df7c159a4122a86eeb7a5680e51",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D1-OP",
+      "scope_decision_seal": "f86e508d321c758e9d598f6717786aa38d1c0e6395061ca9aa1605025f279b5b",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D2-OP",
+      "scope_decision_seal": "bc4a303139602288ae63b81db57764c3020eb6608a4c4bd2b1f93875497257bf",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D3-OP",
+      "scope_decision_seal": "b9e6f1094e7307766ac8b5da95635d079213fd9d454342a43321f00f01c21421",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D4-OP",
+      "scope_decision_seal": "6c43c466beeba1b589a99bd95eb03761f09d7da766fd4a37456ce4cdf3468f14",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C05-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D1-OP",
+      "scope_decision_seal": "b886829a3038f03dbda056f7fc36086dc7f01dcc0d3853313845137e0e37bb94",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C05-D2-OP",
+      "reason_codes": [
+        "UNIVERSAL_32BIT_MATHEMATICAL_EQUIVALENCE_RULE",
+        "REPRESENTATION_PRESENCE_NOT_REQUIRED_FOR_RULE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D2-OP",
+      "scope_decision_seal": "4eb69c743327676e23ac147688597872a902f36c13abb0884459ab8bcd935b47",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "PASS",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": []
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C05-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D3-OP",
+      "scope_decision_seal": "725f38ffdecb411ff3218ec01854f4513a775098e6e48f3bf70d0a466ee343ab",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D1-OP",
+      "scope_decision_seal": "54270e657c058135f56d6363ef3b3e3248d451fd819fec24c42e414377ceb023",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D2-OP",
+      "scope_decision_seal": "545fa9571690c671641ea1985306c7c0559753132e47f58e51c2280271beb78e",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D3-OP",
+      "scope_decision_seal": "d6ebbb175e8eb00e6efab96450dca3ef0f09eb72608c93a75205ae544c368c31",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D4-OP",
+      "scope_decision_seal": "1c61256f8ba64fe029cb340b442d8e26ce21274a891985f1050b4a69a41134f6",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C07-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D1-OP",
+      "scope_decision_seal": "810e914cfc0dbbe8335827f21e5152883b1bb6445c79d864939342a243dd8350",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C07-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D2-OP",
+      "scope_decision_seal": "632e22264e9a7557608e1cc6349a3a30c68a5183d1665f08a687ef9c77c69e21",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C07-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D3-OP",
+      "scope_decision_seal": "d56525f2f70d47b1bab5363f56313dfbae205955cfd83a32088c03070a7454f3",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    }
+  ],
+  "supersedes_adjudication_id": null,
+  "visibility_universe_digests": [
+    "e049c0c57fdaa230b65c5c62de86f30c4354bfd833f349e81f38b1511e2d6f9b",
+    "a845cd117437d4c3385d69ed862753658c120fd7a3dcb6741104e7876df92d17",
+    "87db015dec8f86fb15d357186876b3d39b2f03cb76e14934a361f403fc43ff10",
+    "b63ce6ada612e189d93295521af0367dcc521c8374705ab5097e890d6182118d",
+    "121902f297538dd583b4de5556f730a523f66491f8d137bcb901b8cfd93f0478",
+    "5996d1033795982e2f1856a39225d1b353a9e0304df1e4f8bf3c45af674b7366",
+    "c1a1686e70226818b88e64199cd2e7bf452d2b67c5590b8e40d7fc2c8b16ca79",
+    "21106ff9d4bdbb307ffc674181c5ba39457f81a69062b34f0894288fde829972",
+    "3a65dcdadb89aac71347bacb1cddf8420dd5d258464c6e6ab4eca353fbdab89a",
+    "e29e567f44efd4c7a249c8854bbe3661f043f10a0f812416959babe5c173650a",
+    "9382d66f9b89031f625dd2c4846a61b71dbd2cf266719eb5bcca7e9c8a24225d",
+    "bdd6e3e3987ccfd62ddf035e5319dda05553178a056053a665dcb52998af88a7",
+    "ab01b6c2ced1ed0e9ffd8362d0d219ee27f0adc2e22517cc15b48a87a787e88e",
+    "13b612e4d89789f6d29ee6d2c058247c17c280a3a265cf2cc681e893c34d7552",
+    "9b19013ac789a22afbd4e9e498e3a7713e2b4e38e9da047367e8c57daacd35dc",
+    "64bc487c9d48f5ee4c3995c925799e1e82062f9e904ef4cb3b02b1b849345a2f",
+    "af7a282e62ce1f4c0d7a6168aa723ff284d169b721cdcd17f8fd4d278c7ce738",
+    "5db5491f98d3c18b618a5ebe9fe17252cca645e6608b218f775ab9f31e4937c0",
+    "faf74e0d80fc0143060a7873f98f30d4ac6559e6d4b09f6dd0eb956b5d358d46",
+    "a8631fd1817a79258adfaef18301483e34a3e837e3360b52ebab3dd6d447d0e6",
+    "9f9ecd8420a05fc71de46c4b860c3397820fa952d9c6f3ddc0549a113fb0f324",
+    "97d09eae4455c4c1b4f1cefabd1b075259f78d899a0f7756e139011330df7104",
+    "4f42ca06e133ff50dbf4fa40d188436eb06e820114887f02a2d9a9749d6ffff9",
+    "11eff2e0750f21a9b233fe4e8c323d6c4cca32983f901386b38398b3fef14ccd",
+    "ddb9e20b125779f512ba302a162539e988b08e162c909a6eea2378ac0a1e86ab",
+    "ac36cb354311333abe3eadb0ce41e0b8b7dea041407274015a468a2211e0ec58"
+  ],
+  "visibility_universe_ids": [
+    "BPESEM03-VIS-C01-D1-OP",
+    "BPESEM03-VIS-C01-D2-OP",
+    "BPESEM03-VIS-C01-D3-OP",
+    "BPESEM03-VIS-C01-D4-OP",
+    "BPESEM03-VIS-C02-D1-OP",
+    "BPESEM03-VIS-C02-D2-OP",
+    "BPESEM03-VIS-C02-D3-OP",
+    "BPESEM03-VIS-C02-D4-OP",
+    "BPESEM03-VIS-C03-D1-OP",
+    "BPESEM03-VIS-C03-D2-OP",
+    "BPESEM03-VIS-C03-D3-OP",
+    "BPESEM03-VIS-C03-D4-OP",
+    "BPESEM03-VIS-C04-D1-OP",
+    "BPESEM03-VIS-C04-D2-OP",
+    "BPESEM03-VIS-C04-D3-OP",
+    "BPESEM03-VIS-C04-D4-OP",
+    "BPESEM03-VIS-C05-D1-OP",
+    "BPESEM03-VIS-C05-D2-OP",
+    "BPESEM03-VIS-C05-D3-OP",
+    "BPESEM03-VIS-C06-D1-OP",
+    "BPESEM03-VIS-C06-D2-OP",
+    "BPESEM03-VIS-C06-D3-OP",
+    "BPESEM03-VIS-C06-D4-OP",
+    "BPESEM03-VIS-C07-D1-OP",
+    "BPESEM03-VIS-C07-D2-OP",
+    "BPESEM03-VIS-C07-D3-OP"
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "historical_eligibility_set_digest": "34dd2ef1d50fe21ec62f93d80fdb252d7d5166e6984ced0acf0fcec2d0bb1191",
+  "records": [
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C01-D1-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "7a16ffbe699a6146c280170ce73ce1269ad889fa46e4872daa4f8c4e3f201ed4",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C01-D1-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C01-D1-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C01-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "92cfbfba4c50c203c261be1a8b35d9c7cc7fdfe9ad0e39056c335192feaeb5e5",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C01-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C01-D2-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C01-D3-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "2bdf840f6029f7a8d1e671afba065070886aa6e420cbfccf8460107c3323f7ac",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C01-D3-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C01-D3-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D1-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "66cfd25083d9c4bc639b1399a1d0c3abdd24de6976aa7c1a700927fdf7712ee8",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D1-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D1-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "030dfac978f564d5ad1916d68ffe44a5c98acd408bc752e9d6acc8ba0ac558da",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D2-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D3-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "4e71068540e00e4b7f954887a293da87721b25075c783ae861f9f35b638f0ca7",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D3-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D3-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C02-D4-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "b68148481e149cfd48a697316dad8f696964f9f8790bcfcfb0d45a7fc033123a",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C02-D4-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C02-D4-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C03-D1-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "099edcbde7fb83b17b035c34e209a6e198802efa0c3936134a14ae50d60ee805",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C03-D1-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C03-D1-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C03-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "2c4249984d6e57c15ad58a2bed0bfe8b6ea9f582bdd02bb7ab8be4bcbc4eb8d1",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C03-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C03-D2-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C03-D4-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "3c69a649885c52c88374bee0efe36c90cfa425e46bb2414df873059d832b8a14",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C03-D4-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C03-D4-OP"
+    },
+    {
+      "decisive_discrimination_eligible": false,
+      "eligibility_id": "BPESEM03-HIST-BERD02-C07-D2-OP",
+      "eligibility_role": "NONDECISIVE_COMPATIBILITY",
+      "eligibility_seal": "76422822d4d53163b9908e0ad40d8749473c3893278f87fa1b3fc36eb0ecd170",
+      "equivalence_mapping_rationale": "B-ERD-01 precommitted K1 representation-family discrimination and diagnostics, but not the exact later B-PE-SEM-02 per-dimension semantic hypothesis set.",
+      "historical_evidence_ids": [
+        "BPESEM03-E-BERD02-K1-BOUNDED"
+      ],
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observed_at_utc": "2026-09-20T19:43:45.129295+00:00",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "post_hoc_broadening_check": "EXACT_C01_C07_HYPOTHESIS_IDENTITY_NOT_PRECOMMITTED",
+      "pre_observation_artifact_hashes": [
+        "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+        "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+        "e10a0c47ec6e9b28f480c958baf18141287187cb"
+      ],
+      "pre_observation_artifact_refs": [
+        "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+        "evidence/berd02/probe_plan_v0_1.json",
+        "tools/berd02_transport_runner.py"
+      ],
+      "pre_observation_commit_or_time": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "proposed_discriminator_ids": [
+        "BERD02-DIAGNOSTIC-A",
+        "BERD02-DIAGNOSTIC-B"
+      ],
+      "proposed_hypothesis_set_id": "BPESEM03-HYP-C07-D2-OP",
+      "reason_codes": [
+        "BOUNDED_COMPATIBILITY_REUSE_ALLOWED",
+        "DECISIVE_SEMANTIC_DISCRIMINATION_NOT_PRECOMMITTED"
+      ],
+      "schema": "B_PE_SEM_02_HISTORICAL_OBSERVATION_ELIGIBILITY_V0_2",
+      "status": "PASS",
+      "target_dimension_id": "C07-D2-OP"
+    }
+  ]
+}

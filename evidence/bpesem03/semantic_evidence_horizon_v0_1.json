@@ -1,0 +1,769 @@
+{
+  "adjudication_id": "BPESEM03-OPERATIONAL-SEMANTIC-ADJUDICATION-V0_1",
+  "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+  "cutoff_tree_sha": "d6d02afc7b3f5b574043ed6a3311f2231f2e7fa7",
+  "discovered_semantic_artifact_refs": [
+    {
+      "git_blob": "bf7c43e9d90d952dfa3715c28575fdf6cf379a89",
+      "path": "04-REFERENCE/EXECUTION-WINDOW-FREEZE.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "d1a305e3b9ae813e891b34522e3a12bb6bc8ac34",
+      "path": "breakers/native_bi5_ib_independent_qualifier_breaker.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "a89e48b8886467750ed8a29e11c8530227b9368e",
+      "path": "evidence/berd02/execution_result_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "dff6f3d3e82d21df484173320fea09ada9203f7c",
+      "path": "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "41e920ea52504ee4ac750b8154a340c886b4b6d9",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P0_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "d3392e10d75ad5d9739e733953a3f6bf24015f63",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P0_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "24ec168176292316ceb84b6719ec259f7fdad017",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P0_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "7cd65bb49d07da40163b873afdf4ab68e48f8cbd",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P1_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "c5f5a5c1fd291e3406da7a48984c2f9ff956962e",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P1_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "7ab268c45a4aa30c8a5ed3a70bef37ef8aa2173e",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P1_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "972713d160192768fa4139c773720ce449bffedd",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P2_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "e7335a2cec92edf6f517671830f8d842891f874a",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P2_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "36da95b2c3dfd07c2170b893fb25228a4a65aa8f",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P2_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "cd068363d4fc4bd7bb9672891c14008753d701b6",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P3_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "99c558e1267aad5e03ca41a69f5ba982af77e9fe",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P3_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "d58029be8112456327c96476f134adceddb712a0",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P3_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "22cf017eb14e6702ceb5de81967d833a23eb7d15",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P4_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "f9a5ea1140ab4946e508e30bc82141d433592fbd",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P4_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "10b8dddd6793c630b9a44d172bff6cdece6e53fd",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P4_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "605ab8a7044c4a2c026681ba91aab1d4e4ca0a26",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P5_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "ecfb6be98e7e4ccc2de4b8583113e0c9992d4fb3",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P5_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "cd7a9ed4d8c1aa28a1bedcde276ba2fa621936f0",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P5_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "1b98f39b08da904b2eccc4e9f4f0f2ddcf920feb",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P6_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "df1db827beae4d08d81e131b84606ff9084dec27",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P6_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "56d5221356d8c338e2abb1bcaaf65c90a12b507d",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P6_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "c10e3805620a95a9ce682713ed8b0c5a3daf42a3",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P7_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "e4fb8a2d0874a82f60021cfbeba1bac69a6722b4",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P7_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "e47f49f129303861e4eff144308c6d27d5a456d9",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/P7_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "e3ba9a40f62318c71444bd6a905d89310498f5b9",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/PW_K1.bi5",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "7ad9e029e312100057adcf6a9ae5d3c6cc088a8a",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/PW_K1.headers.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "daa9fd2eb03a1db10b9dd603fdc0f4cd7aea9cd0",
+      "path": "evidence/berd02/gha_run_35533153289/bodies/PW_K1.verbose.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "77c5b216e92bd04e9c3bb121e7b2759bf38a66b7",
+      "path": "evidence/berd02/gha_run_35533153289/diagnostic_a.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "6322cc44bdedb89a377f9e7c401446c36a4407d7",
+      "path": "evidence/berd02/gha_run_35533153289/diagnostic_b.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "c4d994a9c39cb2addae492a4f55556c7f799d091",
+      "path": "evidence/berd02/gha_run_35533153289/execution_result.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "39518a8f2e4ccd8b4af90dc3cb2f74d0df88945e",
+      "path": "evidence/berd02/gha_run_35533153289/summary.log",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "7048fd421e934382dfbbe830e23fd3f6161540e3",
+      "path": "evidence/berd02/gha_run_35533153289/transport_captures.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "7b04230e8feaac6b264ecefb6a29806644ba86a6",
+      "path": "evidence/berd02/gha_transport_policy_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "1b3a247bdafd02b66745334ef4cf98e450345cd6",
+      "path": "evidence/berd02/gha_transport_policy_v0_2.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "989d14c5cd798afe790b4b1d1ea494c08a8c235d",
+      "path": "evidence/berd02/gha_transport_policy_v0_3.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "8be14cd68636e40fc9ae556ccd21058785b2d7b2",
+      "path": "evidence/berd02/locator_manifest_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "5c66295183c40840760ce0eb8ce0b9fcbdd28494",
+      "path": "evidence/berd02/locator_manifest_v0_2.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "bb03e704f949177da4d453435261ac1770d40197",
+      "path": "evidence/berd02/locator_source_snapshot_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "4aae1736f0bb165dbcdd171b8ce8613f51295413",
+      "path": "evidence/berd02/probe_plan_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "05c85d7c53bc55301e2e73b1b921ec57ea4639b3",
+      "path": "evidence/berd02/probe_plan_v0_2.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "0d9e8f487ebd56ee41506715f6961fb02ab0c9bf",
+      "path": "evidence/berd02/transport_captures_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "2ebcd2a513daed54ad0ce2396a03f5ee515f8a51",
+      "path": "evidence/berd02/transport_policy_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "affe97edb8638bc8d0733c87241629cc2ef3eaae",
+      "path": "evidence/bfiq02/diagnostic_independence_manifest_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "4e84014955d5f4575ddc432be4711e6ca7bb8590",
+      "path": "evidence/bfiq02/durable_evidence_policy_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "2d19cce1fd60d65468a07ac98af9725eb3c55392",
+      "path": "evidence/bfiq02/execution_shard_plan_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "8c02972228941d8b6f1aacaf9ac6bf75fb0f2029",
+      "path": "evidence/bfiq02/interval_inventory_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "1f472b1a7433c3e885377bc92045d86756ebdaf8",
+      "path": "evidence/bfiq02/preexecution_package_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "ff100339efd94eee5f98d0bdfae8731a9880b6ff",
+      "path": "evidence/bfiq02/provider_delivery_identity_policy_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "ee3527fc24b866ad9bef0cae357cfd3d88ca2a19",
+      "path": "evidence/bfiq02/provisional_authority_scope_tuple_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "f7fa8c3729c320db96f04be48964d411cb2ef2c3",
+      "path": "evidence/bfiq02/representation_regime_manifest_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "446ca16564003adbba7a50903ff11e7fab1d8175",
+      "path": "evidence/bfiq02/request_budget_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "b90d0ec658868c7027c1a1b1b9b60169a0b05cd0",
+      "path": "evidence/bfiq02/request_manifest_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "9ce3b711da6568fb412cdad116284c9300920223",
+      "path": "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "f81443b307d5d735e240d83ff50b81ee5ea8940e",
+      "path": "evidence/bfiq02/transport_policy_v0_1.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "df22332709377591d73571a4940c1fda39565867",
+      "path": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "f934df8ea93018ee0c22b2d69575f15fc8f2c72f",
+      "path": "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "e976738d06245effdd21a76f73df2cd8f2e42a16",
+      "path": "evidence/bpe03/provider_snapshots/dukascopy_api_support_2013_hourly_history.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "d6ec2632553ceab54ee581c1606c55d88702b319",
+      "path": "evidence/bpe03/provider_snapshots/dukascopy_jforex_4_8_0_release.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "24aeae44616ddf34b878e5b0476d25020b7d6e84",
+      "path": "evidence/bpe03/provider_snapshots/dukascopy_maven_dds2_timeline.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "c5789a6022aad951dec5ff665945f9c69ee08a90",
+      "path": "evidence/bpe04/canonical_provider_request_template_v0_3.txt",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "46666cd9f110f24189dfe3a541287d5a12356f8c",
+      "path": "evidence/bpe04/question_manifest_v0_4.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "accad4c9590d830d7ce66b7ace1c238b80272f1f",
+      "path": "evidence/bpesem03/baseline_persistence_record_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "76ef450a82db70c06fdb58b3f313ef45be3acf05",
+      "path": "evidence/bpesem03/claim_dimension_register_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "b67abaf9468689855b7f362264a1fd801f9f12a8",
+      "path": "evidence/bpesem03/dimension_authority_basis_register_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "00826562955c56b00324e420be1e24f0352a7ada",
+      "path": "evidence/bpesem03/execution_obligation_set_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "d0e5f4ea8ac548ec74811d63b9de57d97147d5b6",
+      "path": "evidence/bpesem03/foundation_package_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "b7d5795051cefeff32e4ba620bff821c88bdf808",
+      "path": "evidence/bpesem03/governed_semantic_evidence_baseline_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "80c47551707b8d36c04fd8b3f4003e93dfecaf37",
+      "path": "evidence/bpesem03/operational_semantic_scope_signature_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "659b63865319dcadf89b6d6342f7298200e0577b",
+      "path": "evidence/bpesem03/signedness_equivalence_rule_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "25400abcc3a2a24438954ff27b970bd934313ae3",
+      "path": "reports/data-qualification/ba_native_bi5_binding_anomaly_candidate_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "484860e09305a3088edb6b8b914803b8717a5627",
+      "path": "reports/data-qualification/ba_native_bi5_candidate_adversarial_break_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "c46436bba2787281f283e9f6e6ffd572eddbe0f1",
+      "path": "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_adversarial_break_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "ac83ff40c080913de29ba74c3b7423a8f858c2fd",
+      "path": "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_candidate_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "dbd4770b1fd46029e57a353a6827751d671abaaa",
+      "path": "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_final_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "c9f1b5b95197222943ff0bad00b7ca32e277e3d8",
+      "path": "reports/data-qualification/berd01_bounded_empirical_representation_discrimination_contract_persisted_head_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "c31cbcdc5a2e495536008fdad9c1bc5538907e9d",
+      "path": "reports/data-qualification/berd02_bounded_empirical_representation_discrimination_execution_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "d301d3a6c230c7ea030631f546f8fef98948ec5a",
+      "path": "reports/data-qualification/berd02_bounded_empirical_representation_discrimination_final_closeout_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "4dfb100cab95403bff82457e49cd2b3ee3668d6e",
+      "path": "reports/data-qualification/berd02_bounded_empirical_representation_discrimination_supported_closeout_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "223af506779ac7c99aac519a2e345cabaa30096f",
+      "path": "reports/data-qualification/berd02_curl_ipv4_transport_correction_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "288115357ac71722867681c3ca8b60bd2a0b6452",
+      "path": "reports/data-qualification/berd02_http_locator_correction_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "34567f4816bca50665ee6cf50638697aa20da4fe",
+      "path": "reports/data-qualification/berd02_pre_request_integrity_2026-09-20.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "db3d951c0d7d5ca0d3777896ab8d226373309765",
+      "path": "reports/data-qualification/berd02_transport_runtime_reentry_review_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "44d7fc608ef99fcd3a0f0d6032107ade5371a93d",
+      "path": "reports/data-qualification/bfiq01_full_interval_contract_adversarial_break_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "d4ba5eef1ce6f94a17af796b5a34bad244750df3",
+      "path": "reports/data-qualification/bfiq01_full_interval_contract_correction_v0_2_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "171caf891e6943d27cd8b612cf01acc5ffb34d43",
+      "path": "reports/data-qualification/bfiq01_full_interval_empirical_representation_qualification_contract_candidate_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "b2c012bef495032670522d9fe1dfb9fcfa133d4f",
+      "path": "reports/data-qualification/bfiq01_full_interval_empirical_representation_qualification_contract_final_rebreak_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "abb9035bf6f6fff90cc2cb39c67249be47351cd8",
+      "path": "reports/data-qualification/bfiq02_preexecution_package_adversarial_break_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "20f3bf032e4fb3e81b6fd495048d94a0f2771e83",
+      "path": "reports/data-qualification/bfiq02_preexecution_package_candidate_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "23f17d9e6aaa95a6c99d3b6dbd2ef4e1bbfbad5c",
+      "path": "reports/data-qualification/bfiq02_preexecution_package_correction_v0_2_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "3940fd82f704e171798801f78cb63fc0c32d45ea",
+      "path": "reports/data-qualification/bfiq02_preexecution_package_final_closeout_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "806bc101b8c24ba121e04c66ed159f80477f300f",
+      "path": "reports/data-qualification/bfiq02_preexecution_package_final_rebreak_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "a8bdb682b7d00eae4ca3c6b7c3fd839903117879",
+      "path": "reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_adversarial_break_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "278a691b17cdd4b37e9c0e739f0fe9b56f014b29",
+      "path": "reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_candidate_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "3e3c5b7788bdd90d170c8497ee6b9e95ca89181c",
+      "path": "reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_final_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "6fa8b9efdaadaa25fd9b10ab41622780e34601d4",
+      "path": "reports/data-qualification/bpe01_native_bi5_provider_evidence_contract_persisted_head_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "6435acc3f87bacea8f8aeabbf704f5d626cdd1f2",
+      "path": "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_adversarial_break_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "a0d873184d058e4c05c3108f6a2374bf2d4ce8de",
+      "path": "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_correction_v0_2_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "291841d22c6b6fabcd3c008ea67731552a5f560a",
+      "path": "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "0a9ed4c6bcb921910f287da4646d5870061b9a31",
+      "path": "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_supersession_candidate_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "a5d4386701b7c09e662931d0c4708185c2bc98c7",
+      "path": "reports/data-qualification/bpe02_native_bi5_provider_reference_adjudication_adversarial_break_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "d9076187ad4db01d2b781fa04ad750b5267af6e8",
+      "path": "reports/data-qualification/bpe02_native_bi5_provider_reference_adjudication_candidate_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "862ff1e4e03e260c96bd43729dc0fe5d8e15810f",
+      "path": "reports/data-qualification/bpe02_native_bi5_provider_reference_adjudication_final_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "7ac4d48377787f4878c290ace61d2160314db42a",
+      "path": "reports/data-qualification/bpe03_legacy_hourly_provider_scope_continuity_adversarial_break_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "f0970e50746993343590cb4ef252727c0457935e",
+      "path": "reports/data-qualification/bpe03_legacy_hourly_provider_scope_continuity_candidate_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "6a160a2cc85819240064a68f89b47f9205a69bd9",
+      "path": "reports/data-qualification/bpe03_legacy_hourly_provider_scope_continuity_final_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "8e0adf229c7a6236f6287d62efab558fc79a5750",
+      "path": "reports/data-qualification/bpe04_provider_transition_clarification_package_adversarial_break_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "6309a2e3053dd3d7fc76e4e71e724dd7f7af33d1",
+      "path": "reports/data-qualification/bpe04_provider_transition_clarification_package_candidate_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "9f49b6f44b1a9b24942c97174a84549d6c1aac7a",
+      "path": "reports/data-qualification/bpe04_provider_transition_clarification_package_final_candidate_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "f671eb71279bec2dabbc18c8dadad5bc3e4df9dc",
+      "path": "reports/data-qualification/bpe04_provider_transition_clarification_package_final_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "088c53deac092922fa18cd0a857e49ea357a6c60",
+      "path": "reports/data-qualification/bpe04_provider_transition_clarification_package_persisted_head_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "e67eac0cb7649b0c1fb1163558564024818b3a37",
+      "path": "reports/data-qualification/bpe04r_evidence_proportionality_adversarial_break_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "8ff60c6ee2605f806f6b56c27321e6326c98706f",
+      "path": "reports/data-qualification/bpe04r_evidence_proportionality_final_rebreak_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "33dd9d41342902d4e0efd17f3bdd2b1e603f1a4a",
+      "path": "reports/data-qualification/bpe04r_evidence_proportionality_necessity_review_2026-09-20.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "da888021276851c872f4b175ec6021d51c3efa70",
+      "path": "reports/data-qualification/bpesem01_c01_c07_semantic_authority_route_review_candidate_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "56eaee208f8ce8a0a8fc1f1af4836699a48c7001",
+      "path": "reports/data-qualification/bpesem01_semantic_authority_route_review_adversarial_break_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "b86175363ef300caaadb686d943c2fd9e5218538",
+      "path": "reports/data-qualification/bpesem01_semantic_authority_route_review_correction_v0_2_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "6352f4c773301300db759b5e8c9ba34e2902aec1",
+      "path": "reports/data-qualification/bpesem01_semantic_authority_route_review_final_closeout_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "dd14e843cd03e7e8fc41803a325e5a0a7636d686",
+      "path": "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "092aae41821afb69d7fb84da095d1c8c0bfacb3d",
+      "path": "reports/data-qualification/bpesem02_operational_native_bi5_semantic_authority_contract_candidate_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "f18a6bad6cb17e75800dbd58d69d5f721280d8cd",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_adversarial_break_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "09f13707a51b4957cf28e4ae48b2e52e90e96343",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_correction_v0_2_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "1181bdf09a4310d514e3a096f76843cfc2a7bf97",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_correction_v0_3_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "18fc707e9616da4abfb58a4d6fec425c27235467",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_correction_v0_4_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "79c2fdffc2407518b61bbb723e16be0af6b910ef",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_correction_v0_5_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "73f3629e9425c5fa47fb919851d5a574fd6e6848",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_correction_v0_6_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "500ab233248f8b51a72114fed1b7b3738fc1eb52",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_final_closeout_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "1a43e524cdcc59cff57a8024bfbf40077699a00a",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_final_rebreak_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "22f74e37b109759da7889d51fa3f995a555e547d",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_final_rebreak_v0_3_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "77b8d475ea4a01c56ef4395ccb40b7a587f66e96",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_final_rebreak_v0_4_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "d3503589f7c887599a592a40ca6362db454fe8b4",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_final_rebreak_v0_5_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "26517003233b48d7c7ff35a5458b6749add516e9",
+      "path": "reports/data-qualification/bpesem02_operational_semantic_authority_contract_persisted_head_rebreak_v0_2_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "e4aeb7544655262e0e4d91f77675ce1fac8edc04",
+      "path": "reports/data-qualification/bpesem03_part1_foundation_materialization_2026-09-21.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "8e29d132d8a2eaf28bd9901f2bed33392cccfc79",
+      "path": "reports/data-qualification/drm_first_candidate_adversarial_break_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "2249bea6dbf6b5a8e0d49b99a93bf16248f9c0e9",
+      "path": "reports/data-qualification/drm_first_concrete_candidate_formalization_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "fe62da06e63a51c336f9a447e7f1e0f3d89cad3b",
+      "path": "reports/data-qualification/fo_native_bi5_freeze_oracle_candidate_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "b822f48bbdca3c9580374a7170b493f7f684e1b0",
+      "path": "reports/data-qualification/iab/ib_independent_stage_test_inventory.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "b62df24e695c925ab440b826b5100c84e9072468",
+      "path": "reports/data-qualification/iab/ib_no_copy_declaration.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "f78025f5e8ad9bf9a66f8ceef3995eddecdc0cf3",
+      "path": "reports/data-qualification/iab/ib_semantic_source_provenance.json",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "fac8d143a836b0c02538c607ac5ab71357824537",
+      "path": "reports/data-qualification/iab_native_bi5_implementation_boundary_candidate_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "bda8565210b6ddc9231e7aebad59e323f6b8d62c",
+      "path": "reports/data-qualification/q_native_bi5_qualification_contract_adversarial_break_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "9e15cfb86716894131485a15a180cc170a230287",
+      "path": "reports/data-qualification/q_native_bi5_qualification_contract_candidate_2026-09-19.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "25fadd36761616e89a21964201b3bfa3c7349ea4",
+      "path": "src/native_bi5_independent_qualifier.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "6d14704548861c13dfc809adad6ae7a21e31c2ca",
+      "path": "src/native_bi5_independent_qualifier_qrm12.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "098040812de654a9c5e4f9961f4a26b2ba959adf",
+      "path": "src/native_bi5_reference_qualifier.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "cab85272bc5a2e229f56f1e02e624d68dc84ce29",
+      "path": "src/native_bi5_reference_qualifier_qrm12.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "fab634aab7b8c299b0139c3c43bf5b89a2aa03d0",
+      "path": "tools/dukascopy_usatech_calendar.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
+      "git_blob": "963f02e93db63bef36c25d58c3634096a2247e6a",
+      "path": "tools/probe_research_execution_compatibility_v4_3.py",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    }
+  ],
+  "discovery_policy_digest": "a06fea76ea42cd30b6b9ab84a890f84578ab367a2ba230c4701b659bf4134fa2",
+  "discovery_policy_id": "BPESEM02-GOVERNED-SEMANTIC-DISCOVERY-V0_6",
+  "governed_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+  "governed_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+  "horizon_digest": "4361ec9a9824a7095b0bdcd34729a6d60e72f91eba25fb7cab825c269a4b70b6",
+  "horizon_id": "BPESEM03-EVIDENCE-HORIZON-V0_1",
+  "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_HORIZON_V0_1"
+}

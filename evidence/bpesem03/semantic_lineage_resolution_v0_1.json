@@ -1,0 +1,76 @@
+{
+  "covered_evidence_ids": [
+    "BPE02-E01",
+    "BPE02-E02",
+    "BPE02-E03",
+    "BPE02-E04",
+    "BPE02-E05",
+    "BPE02-E06",
+    "BPE02-E07",
+    "BPE02-E08",
+    "BPE02-E09",
+    "BPE02-E10",
+    "BPE02-E11",
+    "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+    "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+    "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+    "BPESEM03-E-BERD02-K1-BOUNDED"
+  ],
+  "covered_semantic_source_ids": [
+    "LINEAGE-DUKA-DATA",
+    "LINEAGE-DUKASCOPY",
+    "LINEAGE-DUKASCOPY-OFFICIAL",
+    "LINEAGE-DUKASCOPY-PROVIDER-BYTES",
+    "LINEAGE-LEOCLC",
+    "LINEAGE-NINETY47",
+    "LINEAGE-PROJECT"
+  ],
+  "created_at_utc": "2026-09-21T20:30:00Z",
+  "lineage_groups": {
+    "LINEAGE-DUKA-DATA": [
+      "BPE02-E03"
+    ],
+    "LINEAGE-DUKASCOPY": [
+      "BPE02-E01",
+      "BPE02-E02",
+      "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+      "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+      "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "BPESEM03-E-BERD02-K1-BOUNDED"
+    ],
+    "LINEAGE-LEOCLC": [
+      "BPE02-E06",
+      "BPE02-E07",
+      "BPE02-E08",
+      "BPE02-E09",
+      "BPE02-E10"
+    ],
+    "LINEAGE-NINETY47": [
+      "BPE02-E04",
+      "BPE02-E05"
+    ],
+    "LINEAGE-PROJECT": [
+      "BPE02-E11"
+    ]
+  },
+  "lineage_resolution_digest": "132366b7de324b304cbab8189f332c4e534c64f3966b20e960c5f1581980ecec",
+  "lineage_resolution_id": "BPESEM03-SEMANTIC-LINEAGE-V0_1",
+  "pairwise_relationships": {
+    "DUKA-DATA::LEOCLC": "UNRESOLVED",
+    "DUKA-DATA::NINETY47": "UNRESOLVED",
+    "DUKASCOPY::DUKA-DATA": "INDEPENDENT",
+    "DUKASCOPY::LEOCLC": "INDEPENDENT",
+    "DUKASCOPY::NINETY47": "INDEPENDENT",
+    "NINETY47::LEOCLC": "UNRESOLVED",
+    "PROJECT::*": "DISQUALIFIED"
+  },
+  "project_origin_checks": [
+    "BPE02-E11 rejected as project circular",
+    "E03-E10 non-project exact-revision sources"
+  ],
+  "relationship_proof_refs": [
+    "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+    "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json"
+  ],
+  "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION"
+}

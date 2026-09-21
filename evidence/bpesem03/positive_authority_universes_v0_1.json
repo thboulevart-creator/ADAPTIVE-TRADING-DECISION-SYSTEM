@@ -1,0 +1,212 @@
+{
+  "universes": [
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "4752c478d2b09fd7e2cd03d6e0db5b87e79845a3116c9a0945757f314ad06f9e",
+      "positive_authority_universe_id": "BPESEM03-POS-C01-D1-OP",
+      "target_dimension_id": "C01-D1-OP",
+      "visibility_universe_digest": "e049c0c57fdaa230b65c5c62de86f30c4354bfd833f349e81f38b1511e2d6f9b",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "28839c6f894cdc251baff6b1327a0ccb6d1c997dcd8d8a76d589c2087bb53337",
+      "positive_authority_universe_id": "BPESEM03-POS-C01-D2-OP",
+      "target_dimension_id": "C01-D2-OP",
+      "visibility_universe_digest": "a845cd117437d4c3385d69ed862753658c120fd7a3dcb6741104e7876df92d17",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "77da802d6c05f495757e50779f14e098a0e37a11b6c6901790a4c60b9add2377",
+      "positive_authority_universe_id": "BPESEM03-POS-C01-D3-OP",
+      "target_dimension_id": "C01-D3-OP",
+      "visibility_universe_digest": "87db015dec8f86fb15d357186876b3d39b2f03cb76e14934a361f403fc43ff10",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D3-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "dba29a1a4601374adac1cb385cd22b0b467193bbe925860cf37a5c93e0b692e6",
+      "positive_authority_universe_id": "BPESEM03-POS-C01-D4-OP",
+      "target_dimension_id": "C01-D4-OP",
+      "visibility_universe_digest": "b63ce6ada612e189d93295521af0367dcc521c8374705ab5097e890d6182118d",
+      "visibility_universe_id": "BPESEM03-VIS-C01-D4-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "1de641865f0b9b5987895855ec1044b23e9d113e7910fc163562e318a2998bb4",
+      "positive_authority_universe_id": "BPESEM03-POS-C02-D1-OP",
+      "target_dimension_id": "C02-D1-OP",
+      "visibility_universe_digest": "121902f297538dd583b4de5556f730a523f66491f8d137bcb901b8cfd93f0478",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "da61bf43232daf8588f86307508f38fdac1c7d2b713165cced59f9d9ade7a073",
+      "positive_authority_universe_id": "BPESEM03-POS-C02-D2-OP",
+      "target_dimension_id": "C02-D2-OP",
+      "visibility_universe_digest": "5996d1033795982e2f1856a39225d1b353a9e0304df1e4f8bf3c45af674b7366",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "4d2d3349cab76d82b9079382895cf9db501c1f341c49fc0567ea9dc0809e45ee",
+      "positive_authority_universe_id": "BPESEM03-POS-C02-D3-OP",
+      "target_dimension_id": "C02-D3-OP",
+      "visibility_universe_digest": "c1a1686e70226818b88e64199cd2e7bf452d2b67c5590b8e40d7fc2c8b16ca79",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D3-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "21cf5789f27f64f6cd0176a0fe7bc8a8e7010bd60546b9141a09aaddaf1eff0b",
+      "positive_authority_universe_id": "BPESEM03-POS-C02-D4-OP",
+      "target_dimension_id": "C02-D4-OP",
+      "visibility_universe_digest": "21106ff9d4bdbb307ffc674181c5ba39457f81a69062b34f0894288fde829972",
+      "visibility_universe_id": "BPESEM03-VIS-C02-D4-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "afe053d95b664215f2e1be36c037dfe20c35538f742a37dccf5ec908b338f8ca",
+      "positive_authority_universe_id": "BPESEM03-POS-C03-D1-OP",
+      "target_dimension_id": "C03-D1-OP",
+      "visibility_universe_digest": "3a65dcdadb89aac71347bacb1cddf8420dd5d258464c6e6ab4eca353fbdab89a",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "2e51e9178bb13a5b963c406c111b43a67aed0096391e80d22d6bba483b177a6a",
+      "positive_authority_universe_id": "BPESEM03-POS-C03-D2-OP",
+      "target_dimension_id": "C03-D2-OP",
+      "visibility_universe_digest": "e29e567f44efd4c7a249c8854bbe3661f043f10a0f812416959babe5c173650a",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "378aefb79e53e6d70bed297e3a041205759f388edf8afe4f4ecbd7c7cc4b0b7a",
+      "positive_authority_universe_id": "BPESEM03-POS-C03-D3-OP",
+      "target_dimension_id": "C03-D3-OP",
+      "visibility_universe_digest": "9382d66f9b89031f625dd2c4846a61b71dbd2cf266719eb5bcca7e9c8a24225d",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D3-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "7216bd75751511654a7e07d7d0c6770be864d98468f2826d86faf8be009939bb",
+      "positive_authority_universe_id": "BPESEM03-POS-C03-D4-OP",
+      "target_dimension_id": "C03-D4-OP",
+      "visibility_universe_digest": "bdd6e3e3987ccfd62ddf035e5319dda05553178a056053a665dcb52998af88a7",
+      "visibility_universe_id": "BPESEM03-VIS-C03-D4-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "878e390817ca40438417ce2089f8408e16f09e3d43148385b8a9cde321c18c77",
+      "positive_authority_universe_id": "BPESEM03-POS-C04-D1-OP",
+      "target_dimension_id": "C04-D1-OP",
+      "visibility_universe_digest": "ab01b6c2ced1ed0e9ffd8362d0d219ee27f0adc2e22517cc15b48a87a787e88e",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "c9b616f209fe43eb00ff0012d1cd1ce9ed0894883a9b06e2d6b41b8b1d37f310",
+      "positive_authority_universe_id": "BPESEM03-POS-C04-D2-OP",
+      "target_dimension_id": "C04-D2-OP",
+      "visibility_universe_digest": "13b612e4d89789f6d29ee6d2c058247c17c280a3a265cf2cc681e893c34d7552",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "833bb44bb645d079a9ccaf6f5feb4477bb985cc5729b17dae33f320870a335f8",
+      "positive_authority_universe_id": "BPESEM03-POS-C04-D3-OP",
+      "target_dimension_id": "C04-D3-OP",
+      "visibility_universe_digest": "9b19013ac789a22afbd4e9e498e3a7713e2b4e38e9da047367e8c57daacd35dc",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D3-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "2c8acec18b01e78d493f142014fa39b9280da78549f62a040f659592a23bf8a1",
+      "positive_authority_universe_id": "BPESEM03-POS-C04-D4-OP",
+      "target_dimension_id": "C04-D4-OP",
+      "visibility_universe_digest": "64bc487c9d48f5ee4c3995c925799e1e82062f9e904ef4cb3b02b1b849345a2f",
+      "visibility_universe_id": "BPESEM03-VIS-C04-D4-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "dc39e5c203c057a604d9533238dc38612a56907caeb10484e7cb543b08dfc647",
+      "positive_authority_universe_id": "BPESEM03-POS-C05-D1-OP",
+      "target_dimension_id": "C05-D1-OP",
+      "visibility_universe_digest": "af7a282e62ce1f4c0d7a6168aa723ff284d169b721cdcd17f8fd4d278c7ce738",
+      "visibility_universe_id": "BPESEM03-VIS-C05-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "81fc957cbd7aa70f8c1f0a3a8e732291e021920912924e0cd4ef46462c03989d",
+      "positive_authority_universe_id": "BPESEM03-POS-C05-D2-OP",
+      "target_dimension_id": "C05-D2-OP",
+      "visibility_universe_digest": "5db5491f98d3c18b618a5ebe9fe17252cca645e6608b218f775ab9f31e4937c0",
+      "visibility_universe_id": "BPESEM03-VIS-C05-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "0f1c89728058a0d88c6a3677454cb901ef7c0479cc6fe02cadccab31b2259523",
+      "positive_authority_universe_id": "BPESEM03-POS-C05-D3-OP",
+      "target_dimension_id": "C05-D3-OP",
+      "visibility_universe_digest": "faf74e0d80fc0143060a7873f98f30d4ac6559e6d4b09f6dd0eb956b5d358d46",
+      "visibility_universe_id": "BPESEM03-VIS-C05-D3-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "74490e10dccffe15cf068411e6974da724ad3d929c4df6ae003afa28404b1cb4",
+      "positive_authority_universe_id": "BPESEM03-POS-C06-D1-OP",
+      "target_dimension_id": "C06-D1-OP",
+      "visibility_universe_digest": "a8631fd1817a79258adfaef18301483e34a3e837e3360b52ebab3dd6d447d0e6",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "921476559e7b87297f96ab6a024efb01990b27ad560419ab36f4c5888f4f7305",
+      "positive_authority_universe_id": "BPESEM03-POS-C06-D2-OP",
+      "target_dimension_id": "C06-D2-OP",
+      "visibility_universe_digest": "9f9ecd8420a05fc71de46c4b860c3397820fa952d9c6f3ddc0549a113fb0f324",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "a608e0cf41865bd03512d22dfd8361b3173c8a7df99e4c8c49c73058b862e2d4",
+      "positive_authority_universe_id": "BPESEM03-POS-C06-D3-OP",
+      "target_dimension_id": "C06-D3-OP",
+      "visibility_universe_digest": "97d09eae4455c4c1b4f1cefabd1b075259f78d899a0f7756e139011330df7104",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D3-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "d1d306863e13c7808c53fa7b500f1b5b9f05e1a1397238a2995581707e32ab47",
+      "positive_authority_universe_id": "BPESEM03-POS-C06-D4-OP",
+      "target_dimension_id": "C06-D4-OP",
+      "visibility_universe_digest": "4f42ca06e133ff50dbf4fa40d188436eb06e820114887f02a2d9a9749d6ffff9",
+      "visibility_universe_id": "BPESEM03-VIS-C06-D4-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "899a6e2ec66b4e33f8f9bb81e00cdd2dcef0b5401863da5bd1ff318f335c3bcc",
+      "positive_authority_universe_id": "BPESEM03-POS-C07-D1-OP",
+      "target_dimension_id": "C07-D1-OP",
+      "visibility_universe_digest": "11eff2e0750f21a9b233fe4e8c323d6c4cca32983f901386b38398b3fef14ccd",
+      "visibility_universe_id": "BPESEM03-VIS-C07-D1-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "b54b31d02cf1e6f99a0d83bac9d6f150d90f88fe28db217e562f0a1ef6d184c1",
+      "positive_authority_universe_id": "BPESEM03-POS-C07-D2-OP",
+      "target_dimension_id": "C07-D2-OP",
+      "visibility_universe_digest": "ddb9e20b125779f512ba302a162539e988b08e162c909a6eea2378ac0a1e86ab",
+      "visibility_universe_id": "BPESEM03-VIS-C07-D2-OP"
+    },
+    {
+      "positive_authority_items": [],
+      "positive_authority_universe_digest": "ff4a47ea7b618a2a67cb118a3465f22e3ad296e9b8226154c79faacf757aab0b",
+      "positive_authority_universe_id": "BPESEM03-POS-C07-D3-OP",
+      "target_dimension_id": "C07-D3-OP",
+      "visibility_universe_digest": "ac36cb354311333abe3eadb0ce41e0b8b7dea041407274015a468a2211e0ec58",
+      "visibility_universe_id": "BPESEM03-VIS-C07-D3-OP"
+    }
+  ]
+}

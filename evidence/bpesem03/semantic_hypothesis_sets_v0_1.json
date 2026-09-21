@@ -1,0 +1,335 @@
+{
+  "hypothesis_set_digest": "af8f8ec990f6afac2c370b26dbe2c791b214d22a68ca48d6b3b2a5542965382d",
+  "hypothesis_sets": [
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "compression family = LZMA",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C01-D1-OP",
+      "hypothesis_set_seal": "cfa0da7ae8e6b28050394ad1dd7ae84fe07dc635fbca4f6ca7b2bc0a1b0c2dbf",
+      "known_material_alternative_registry_digest": "0bf93bea5da952c28fdd55ed003c242e5a4579321748fd596110a830fa758dc5",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C01-D1-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C01-OP",
+      "target_dimension_id": "C01-D1-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "exact envelope/container mode for target K1",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C01-D2-OP",
+      "hypothesis_set_seal": "3477ecabbbb6d170d6e95cf82ec14e9f11aa36fd9cabb3bdcd7f4e3a7fb376ee",
+      "known_material_alternative_registry_digest": "9c6ec9f6660b325b623d521b876dd92f01179bbd974b87c4ec39d5569a3dc5f6",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C01-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C01-OP",
+      "target_dimension_id": "C01-D2-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "exact stream/wrapper admission rule",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C01-D3-OP",
+      "hypothesis_set_seal": "7bbb996a47641f5bb470415d70b511be2083c491d77281d4fd0e447a27e2f0ab",
+      "known_material_alternative_registry_digest": "c11f7556f281885d968bca2724ddc065f6ba4dc6ae339ce7ae61d85e390e9a2e",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C01-D3-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C01-OP",
+      "target_dimension_id": "C01-D3-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "complete record width = 20 bytes",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D1-OP",
+      "hypothesis_set_seal": "5378bd07dfcd1ef45871a1b21577785cd342d82e6c550bbbbf356304da04374e",
+      "known_material_alternative_registry_digest": "f16c3126aef68b2d697f670a177704325940806976616f6aedf1b90f0c442349",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D1-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D1-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "frame origin = byte zero",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D2-OP",
+      "hypothesis_set_seal": "d08e5db698d9a28b5c390fcbdbbee6e85238cc14644ecc280e25e939bfc7b58c",
+      "known_material_alternative_registry_digest": "271c557d61cc2e0735a8fe96a2c659a96e9bb164a544dbfeaf1682250aa73657",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D2-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "terminal residual/trailing-byte disposition",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D3-OP",
+      "hypothesis_set_seal": "6d20cec8ca32d538ebbc4f1f6fa104c3f7e86cd3484ffddb6ba772615bef1849",
+      "known_material_alternative_registry_digest": "8b1c924f2f36c9fdc521767b8a6ba84b725f5946a15a7818e2155e8c0aba04e5",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D3-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D3-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "per-record header/delimiter presence and semantics",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C02-D4-OP",
+      "hypothesis_set_seal": "0ee7b74d66566d369b18acf05c0e2b3c398999e3e7a0f4a5bd62dc79bd518314",
+      "known_material_alternative_registry_digest": "f07f9bdc506fbee22eae5ae2a43bf6e7f6be34692be2778dd810cc403055d262",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C02-D4-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C02-OP",
+      "target_dimension_id": "C02-D4-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "byte order = big-endian",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C03-D1-OP",
+      "hypothesis_set_seal": "e283fcbf6ff91941550a0ef9be62433ccefed82d960c939b1639a7e763815e23",
+      "known_material_alternative_registry_digest": "2b7d3d5e51780c6f55c00dbf2a92b4cd443c2179fb3a11d7df9aeac6484bb994",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C03-D1-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C03-OP",
+      "target_dimension_id": "C03-D1-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "exact five-field physical order",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C03-D2-OP",
+      "hypothesis_set_seal": "3f1b30fea6146f83b59708bdcdd9f781b25e716f6ec88bfcc6c3bf51e014888f",
+      "known_material_alternative_registry_digest": "c64bb9fd9108cc7cd6dfed0d1ac56c0b8fd3215c33e73271365f759af8c05270",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C03-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C03-OP",
+      "target_dimension_id": "C03-D2-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "final two fields = IEEE-754 binary32",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C03-D4-OP",
+      "hypothesis_set_seal": "a7ae9b441e04d0b141857aee18a14a53d4b5c6ffb7c5df7ee78a2eb77653b94a",
+      "known_material_alternative_registry_digest": "f0b00e7a7239854e66eddcb870ca766971bcf22b3e1a97220668e7d7677e2a61",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C03-D4-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C03-OP",
+      "target_dimension_id": "C03-D4-OP"
+    },
+    {
+      "completeness_rationale": "All currently visible governed material alternatives are retained; open-world reopen remains active.",
+      "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+      "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "current_discrimination_status": "BLOCKED_NO_DECISIVE_PREOBSERVATION_TARGET_HYPOTHESIS_DISCRIMINATION",
+      "decision_rule": "EXACTLY_ONE_SURVIVING_MATERIAL_HYPOTHESIS_REQUIRED_FOR_PASS",
+      "hypothesis_records": [
+        {
+          "contradiction_condition": "ADMISSIBLE_TARGET_SCOPE_EVIDENCE_ESTABLISHES_DISTINCT_PHYSICAL_RULE",
+          "discriminator_ids": [
+            "EXISTING_REFERENCE_IMPLEMENTATIONS",
+            "BERD02_BOUNDED_NONDECISIVE_COMPATIBILITY"
+          ],
+          "exact_interpretation": "primitive encoding = IEEE-754 binary32",
+          "hypothesis_id": "REGISTERED_PROPOSITION",
+          "material_effect_if_true": "GOVERNS_PHYSICAL_DECODING",
+          "required_anchor_ids": []
+        }
+      ],
+      "hypothesis_set_id": "BPESEM03-HYP-C07-D2-OP",
+      "hypothesis_set_seal": "cccc8bd31b89b39cca9af7d7cac085f13cabc5d27954d1374bc35aff5ba945a5",
+      "known_material_alternative_registry_digest": "00f3db6c28cee9469ee07b6bfbc8d345880250c7e1712e8969039f6ce654ee1e",
+      "known_material_alternative_registry_id": "BPESEM03-KNOWN-ALT-C07-D2-OP",
+      "open_world_rule": "NEW_MATERIAL_INTERPRETATION_OPENS_REOPEN_AND_BLOCKS_CURRENT_AUTHORITY",
+      "schema": "B_PE_SEM_02_SEMANTIC_HYPOTHESIS_SET_V0_1",
+      "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_claim_id": "BPE-SEM-C07-OP",
+      "target_dimension_id": "C07-D2-OP"
+    }
+  ]
+}

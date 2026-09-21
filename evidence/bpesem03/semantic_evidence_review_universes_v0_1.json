@@ -1,0 +1,725 @@
+{
+  "universes": [
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E07",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E07",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "6516a135c7ab187d5013512c6796e3d744e626f42d6e7e60e2d3b71c9e807d48",
+      "review_universe_id": "BPESEM03-REVIEW-C01-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C01-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E01",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E01",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "99c44695191f234f9e082874ecd16847201095e2aa65f8a4190d3a890e5453e0",
+      "review_universe_id": "BPESEM03-REVIEW-C01-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C01-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "745a89e8b727cb8aaf274a7007e4dfa525261037e11c453a1f4fce1fbe9dc2b8",
+      "review_universe_id": "BPESEM03-REVIEW-C01-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C01-D3-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "5e2aadc4c92627b944771824097078d13f72b1547218aab47bcc95bcc1ac7fff",
+      "review_universe_id": "BPESEM03-REVIEW-C01-D4-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C01-D4-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "d2269b6ef07bb0fd34606794b2e671ab2456a911136aa1dae40a145a1172f26e",
+      "review_universe_id": "BPESEM03-REVIEW-C02-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C02-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "d982b4e8f22e02063155d9ed747dd2c9e3480abc29c55e0f7d3baea557889a8c",
+      "review_universe_id": "BPESEM03-REVIEW-C02-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C02-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "4c515defd8ce9b110c1442f1d5efd13feae8677cc128c33309eb4f55d099ca39",
+      "review_universe_id": "BPESEM03-REVIEW-C02-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C02-D3-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "b959345532094746a1244ca8b5972a7737490312104f922d7709b3247dfba0f1",
+      "review_universe_id": "BPESEM03-REVIEW-C02-D4-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C02-D4-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "608d909ef898fb6c5e2c974deb91cf90c6f92bb1d3b134672d52872739f24c07",
+      "review_universe_id": "BPESEM03-REVIEW-C03-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C03-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "eec1b9acf98b454f1e47641cada62cf2456eb8dd26f1ff3e4a7d9f4a687a4310",
+      "review_universe_id": "BPESEM03-REVIEW-C03-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C03-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E06"
+      ],
+      "review_universe_digest": "219abc4cfe1c612722842941c8de422a708476b09e997c2c1cfac37c37d1cbdd",
+      "review_universe_id": "BPESEM03-REVIEW-C03-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C03-D3-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E04",
+        "BPE02-E06",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "90192ffa1b0eef80a955705950e433f1a8d75a6b65cf96c4831b1dd5be65618c",
+      "review_universe_id": "BPESEM03-REVIEW-C03-D4-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C03-D4-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "2c696361d990fdc46a5514932efa9a35aaac91a5ed664b7bffa698b28b2eb3d3",
+      "review_universe_id": "BPESEM03-REVIEW-C04-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C04-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E01",
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "695ac32adfebd522c217f343aa228ede4f887d55da30421faa511f60fa257dfd",
+      "review_universe_id": "BPESEM03-REVIEW-C04-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C04-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "99e6b75a873dcfd7f1914f6a2e990b68f3908a07cd4a71090491be9aa558b352",
+      "review_universe_id": "BPESEM03-REVIEW-C04-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C04-D3-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "a1f2c6ace83dc117c2bcde656d171a65f19a9ff1ed26b2eba7121195995f1547",
+      "review_universe_id": "BPESEM03-REVIEW-C04-D4-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C04-D4-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E03",
+        "BPE02-E08",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "157917772b53622ebd41f54ca7c5c248b098c2ad9eb6bc4e141cafeef8da204c",
+      "review_universe_id": "BPESEM03-REVIEW-C05-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C05-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "7e477dd72e642b3d744849d9f616d502a3c687b4e195f02f314406ac02a4e956",
+      "review_universe_id": "BPESEM03-REVIEW-C05-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C05-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "3293ed8ed30e17eba00d90f3a9413660bfe8ad625a5c2d0cf703bfad31614069",
+      "review_universe_id": "BPESEM03-REVIEW-C05-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C05-D3-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E02",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E02",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "1fcdbd46cd4c8f5009fc4a58f5f2aafcbe8e02cbe20de17dbc74ca4c6d5405d4",
+      "review_universe_id": "BPESEM03-REVIEW-C06-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C06-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E02",
+        "BPE02-E03",
+        "BPE02-E10",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E02",
+        "BPE02-E03",
+        "BPE02-E10",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "226c6fd73216103507bdacd9fac46ec29ef94a187c4a74a0264e37bff1bcd8aa",
+      "review_universe_id": "BPESEM03-REVIEW-C06-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C06-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "a7efeeee5fb5950feaddb3c36567cbb1b00955700f5d668f0edc3c9dbbe85f18",
+      "review_universe_id": "BPESEM03-REVIEW-C06-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C06-D3-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "0746f1aea94f1cc06feefb2625cc1dd4a632103c0098ef6936547e10c219354e",
+      "review_universe_id": "BPESEM03-REVIEW-C06-D4-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C06-D4-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE02-E03",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "672e2e48fc24cee8f27054e735e816b46626ad85f4043ef563127fbbbdbf08f3",
+      "review_universe_id": "BPESEM03-REVIEW-C07-D1-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C07-D1-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json",
+        "evidence/berd02/gha_run_35533153289/PROVENANCE.json",
+        "evidence/berd02/gha_run_35533153289/execution_result.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "34838415c7e64b6ffa9d51e31876369191f612973e738253765372df8cd5da7f",
+      "review_universe_id": "BPESEM03-REVIEW-C07-D2-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C07-D2-OP"
+    },
+    {
+      "current_adjudication_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+      "cutoff_time": "2026-09-21T20:30:00Z",
+      "effective_review_evidence_ids": [
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE"
+      ],
+      "exclusion_decisions": [],
+      "governed_semantic_evidence_baseline_digest": "1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140",
+      "governed_semantic_evidence_baseline_id": "BPESEM03-GOVERNED-EVIDENCE-BASELINE-V0_1",
+      "mandatory_inherited_evidence_refs": [
+        "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+        "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json",
+        "reports/data-qualification/bpe01r_empirical_evidence_sufficiency_final_rebreak_2026-09-21.md",
+        "reports/data-qualification/bpesem01_semantic_authority_route_review_final_rebreak_2026-09-21.md",
+        "evidence/bfiq02/semantic_invariant_manifest_v0_1.json"
+      ],
+      "reopen_or_contradiction_evidence_ids": [],
+      "review_universe_digest": "4e02ccc53fd1db23ba8762122732cd6b17a2bede5149f612d2a052f1a23d3e1b",
+      "review_universe_id": "BPESEM03-REVIEW-C07-D3-OP",
+      "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REVIEW_UNIVERSE_V0_3",
+      "target_dimension_id": "C07-D3-OP"
+    }
+  ]
+}

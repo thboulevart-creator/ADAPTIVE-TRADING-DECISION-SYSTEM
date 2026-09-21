@@ -1,0 +1,651 @@
+{
+  "decisions": [
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D1-OP",
+      "scope_decision_seal": "7a9a1239dac335b49b85e610bb5026a239c73153900a70b9f8687421a09a1f92",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D2-OP",
+      "scope_decision_seal": "dfeab76fddbc6010fbbd7676147000a16498144167123fa17f3832ccd6696168",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D3-OP",
+      "scope_decision_seal": "cb44287795d86e1497cdf68350e704a7c1e82bed50f85a0bc406a5156b73bbb5",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C01-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C01-D4-OP",
+      "scope_decision_seal": "96d34adc5b58d0f77e2af131c4f93c73f455cdd1d45c28b38b9ddbba75b4c769",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D1-OP",
+      "scope_decision_seal": "fc3e6ea48f694790a1ecd25bbc3335423c6fa39a64cdc536fa3c3878cb25b4bd",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D2-OP",
+      "scope_decision_seal": "acd6e12bdb252f7cc85f9a5a6864ac197eb48ce2f165dd9bb9cc6fbb6db2f5cd",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D3-OP",
+      "scope_decision_seal": "5baedce0ad8a4e0db26a6bdfda5d995c15b49b48bd6a15de1a37bf0fa9c2efc9",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C02-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C02-D4-OP",
+      "scope_decision_seal": "88004ecfb7660233de7956f04a87eec7d779b2d4bec26b5dc9d381455b451325",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D1-OP",
+      "scope_decision_seal": "1f2e70b5614fd0e123e94db7525b544c71ca8db30920cf91e9f85fa86d4ad28b",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D2-OP",
+      "scope_decision_seal": "227b9e3d47d41a48277bb96cc95f8bcb6222c38177501597d8ea9a7dddec7723",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D3-OP",
+      "reason_codes": [
+        "UNIVERSAL_32BIT_MATHEMATICAL_EQUIVALENCE_RULE",
+        "REPRESENTATION_PRESENCE_NOT_REQUIRED_FOR_RULE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D3-OP",
+      "scope_decision_seal": "258d9de27af2b40ad6f1b1d5be10353352f147bcdff63925c0e517add8bb3282",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "PASS",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": []
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C03-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C03-D4-OP",
+      "scope_decision_seal": "a3acae4e1abe92ffeaf0480d67d5e0d1574a1df7c159a4122a86eeb7a5680e51",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D1-OP",
+      "scope_decision_seal": "f86e508d321c758e9d598f6717786aa38d1c0e6395061ca9aa1605025f279b5b",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D2-OP",
+      "scope_decision_seal": "bc4a303139602288ae63b81db57764c3020eb6608a4c4bd2b1f93875497257bf",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D3-OP",
+      "scope_decision_seal": "b9e6f1094e7307766ac8b5da95635d079213fd9d454342a43321f00f01c21421",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C04-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C04-D4-OP",
+      "scope_decision_seal": "6c43c466beeba1b589a99bd95eb03761f09d7da766fd4a37456ce4cdf3468f14",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C05-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D1-OP",
+      "scope_decision_seal": "b886829a3038f03dbda056f7fc36086dc7f01dcc0d3853313845137e0e37bb94",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C05-D2-OP",
+      "reason_codes": [
+        "UNIVERSAL_32BIT_MATHEMATICAL_EQUIVALENCE_RULE",
+        "REPRESENTATION_PRESENCE_NOT_REQUIRED_FOR_RULE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D2-OP",
+      "scope_decision_seal": "4eb69c743327676e23ac147688597872a902f36c13abb0884459ab8bcd935b47",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "PASS",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": []
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C05-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C05-D3-OP",
+      "scope_decision_seal": "725f38ffdecb411ff3218ec01854f4513a775098e6e48f3bf70d0a466ee343ab",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D1-OP",
+      "scope_decision_seal": "54270e657c058135f56d6363ef3b3e3248d451fd819fec24c42e414377ceb023",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D2-OP",
+      "scope_decision_seal": "545fa9571690c671641ea1985306c7c0559753132e47f58e51c2280271beb78e",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D3-OP",
+      "scope_decision_seal": "d6ebbb175e8eb00e6efab96450dca3ef0f09eb72608c93a75205ae544c368c31",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C06-D4-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C06-D4-OP",
+      "scope_decision_seal": "1c61256f8ba64fe029cb340b442d8e26ce21274a891985f1050b4a69a41134f6",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C07-D1-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D1-OP",
+      "scope_decision_seal": "810e914cfc0dbbe8335827f21e5152883b1bb6445c79d864939342a243dd8350",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C07-D2-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D2-OP",
+      "scope_decision_seal": "632e22264e9a7557608e1cc6349a3a30c68a5183d1665f08a687ef9c77c69e21",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    },
+    {
+      "c08_authority_effect": "NONE",
+      "continuity_or_equivalence_proof_refs": [],
+      "contradictory_scope_evidence_ids": [],
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "dimension_id": "C07-D3-OP",
+      "reason_codes": [
+        "TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED",
+        "BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY"
+      ],
+      "representation_presence_authority": "NOT_ADJUDICATED_IN_B_PE_SEM_03",
+      "reviewer_identity": "B-PE-SEM-03_GOVERNED_ADJUDICATION",
+      "schema": "B_PE_SEM_02_SEMANTIC_RULE_SCOPE_APPLICABILITY_DECISION_V0_1",
+      "scope_decision_id": "BPESEM03-SCOPE-C07-D3-OP",
+      "scope_decision_seal": "d56525f2f70d47b1bab5363f56313dfbae205955cfd83a32088c03070a7454f3",
+      "source_instrument_scope": "USATECHIDXUSD_WHERE_AVAILABLE",
+      "source_representation_scope": "EXISTING_GOVERNED_EVIDENCE_ONLY",
+      "source_temporal_scope": "BOUNDED_OR_IMPLEMENTATION_EPOCHS; NO COMPLETE 2021_2026 SEMANTIC CONTINUITY PROOF",
+      "status": "BLOCKED",
+      "target_scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+      "target_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "uncovered_scope_segments": [
+        "UNPROVEN_COMPLETE_TARGET_EPOCH_SEMANTIC_RULE_CONTINUITY"
+      ]
+    }
+  ],
+  "scope_applicability_set_digest": "ef340b64c7bd26c1399a858f9bb3bc1e1f09ffd480b33857edecb23a268a96a9"
+}

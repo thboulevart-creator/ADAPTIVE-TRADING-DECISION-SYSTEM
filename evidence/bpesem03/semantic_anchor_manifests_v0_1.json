@@ -1,0 +1,229 @@
+{
+  "anchor_set_digest": "412817c56d3d11bf0c72c3ad0132907c839893659877a5f23985901a93160826",
+  "anchors": [
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C04-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C04-D2-OP-1",
+      "anchor_manifest_seal": "0011c63ff1c17c24de4924633943396f6ecdc30777051837d9e17e161c6b6563",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Timestamp is reconstructed as hour_start plus millisecond offset.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C04-OP",
+      "target_dimension_id": "C04-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E08-C04-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C04-D2-OP-2",
+      "anchor_manifest_seal": "c0cc30dced6a29eb50faffa3248a3af8d3bca0004c23ded071c777a73cd315eb",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+      "evidence_id": "BPE02-E08",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Tick timestamp is ms plus source startTs.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "target_claim_id": "BPE-SEM-C04-OP",
+      "target_dimension_id": "C04-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C05-D1-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C05-D1-OP-1",
+      "anchor_manifest_seal": "20d29b025010721315ade1bd24277e47d5d8e4f0caea205bbe8fc01f14d5e379",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Fields are ask raw then bid raw.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C05-OP",
+      "target_dimension_id": "C05-D1-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E08-C05-D1-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C05-D1-OP-2",
+      "anchor_manifest_seal": "a92412be56198ce3abdcb7055da8de3285793d5b461bba71a68c6d568d0ee9d6",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "3270e2a2c14d8fe67baefc83776422b423a4485430640e42ae3f80fdf1619b3e",
+      "evidence_id": "BPE02-E08",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Tick values are ms, ask, bid, askVolume, bidVolume.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "target_claim_id": "BPE-SEM-C05-OP",
+      "target_dimension_id": "C05-D1-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C06-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C06-D2-OP-1",
+      "anchor_manifest_seal": "b91fc3b9e43bcb6795b257d99d35580ac7ec061d9fbeb78f8aecb19041f4707a",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "USATECHIDXUSD is assigned divisor 1000.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C06-OP",
+      "target_dimension_id": "C06-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E10-C06-D2-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C06-D2-OP-2",
+      "anchor_manifest_seal": "17adca97ddaf8f03e79be7792aba71b28ac990eff0f49c8ce01fab9a9901fe7b",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "8b380d2a33e6ecfa44e5cb94752e6f01b1ed2e2b8f2257f0d8a7e1491dbf8e50",
+      "evidence_id": "BPE02-E10",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "USATECHIDXUSD decimalFactor is 1000.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-LEOCLC",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "989987db0808e215962e136ce043797992d1a1a2",
+      "target_claim_id": "BPE-SEM-C06-OP",
+      "target_dimension_id": "C06-D2-OP"
+    },
+    {
+      "admissibility_reason_codes": [
+        "SEMANTIC_RULE_SCOPE_APPLICABILITY_BLOCKED",
+        "REFERENCE_IMPLEMENTATION_NOT_SUFFICIENT_AS_SOLE_CURRENT_SEMANTIC_AUTHORITY"
+      ],
+      "admissibility_status": "BLOCKED",
+      "ambiguity_condition": "TARGET_EPOCH_SCOPE_OR_SEMANTIC_SOURCE_AUTHORITY_UNRESOLVED",
+      "anchor_class": "INDEPENDENT_NONPROJECT_REFERENCE_IMPLEMENTATION",
+      "anchor_id": "ANCHOR-AST-BPE02-E03-C07-D1-SUPPORT",
+      "anchor_manifest_id": "BPESEM03-ANCHOR-C07-D1-OP-1",
+      "anchor_manifest_seal": "4aad6c96986ef898258f6a484975ca88b097d80c35bb72079c22ccd8e75559b0",
+      "contradiction_condition": "MATERIAL_TARGET_SCOPE_CONFLICT",
+      "created_at_utc": "2026-09-21T20:30:00Z",
+      "evidence_exact_sha256": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "expected_discriminator": "EXPLICIT_IMPLEMENTATION_SEMANTICS",
+      "failure_disposition": "BLOCKED",
+      "hypothesis_set_id_if_applicable": null,
+      "immutable_materialization_ref": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json",
+      "normalized_semantic_proposition": "Fields are ask volume then bid volume.",
+      "project_origin_status": "NON_PROJECT",
+      "provenance_status": "PASS",
+      "schema": "B_PE_SEM_02_SEMANTIC_ANCHOR_MANIFEST_V0_1",
+      "semantic_source_identity": "REFERENCE_IMPLEMENTATION_EXPLICIT_BEHAVIOR",
+      "semantic_source_lineage_id": "LINEAGE-DUKA-DATA",
+      "semantic_source_relationship_proof_refs": [
+        "BPE02-LINEAGE-V0_2"
+      ],
+      "source_version_or_commit": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "target_claim_id": "BPE-SEM-C07-OP",
+      "target_dimension_id": "C07-D1-OP"
+    }
+  ]
+}
