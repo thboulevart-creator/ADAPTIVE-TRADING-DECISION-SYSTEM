@@ -7829,3 +7829,299 @@ paper/broker/live
 ```
 
 STOP.
+
+
+---
+
+## 161. B-PE-SEM-03 paused before final persisted-head re-break
+
+Current block remains:
+
+~~~text
+B-PE-SEM-03 —
+OPERATIONAL C01-C07 SEMANTIC AUTHORITY
+PACKAGE MATERIALIZATION / ADJUDICATION
+~~~
+
+This block is NOT CLOSED.
+
+Pause-point HEAD before durable backup:
+
+~~~text
+7a85e059b6cf88ec219eb53570efd509f0a510bc
+add B-PE-SEM-03 final persisted-head re-break
+~~~
+
+Pause-point tree:
+
+~~~text
+ca948c00b9a49afaff2a2f8261e35c8f3f1cde18
+~~~
+
+Durable pause backup:
+
+~~~text
+99-BACKUP/
+SESSION-2026-09-21-BPESEM03-PAUSE-BEFORE-FINAL-REBREAK.md
+
+commit =
+732489139c23ee3ff23dcd754920f229ef3bd1c4
+
+blob =
+dfefca0fe92fe4e344ec5d8d5c8a03994e51594d
+~~~
+
+### Part 1/3 — DONE
+
+Materialized and persisted:
+
+~~~text
+GovernedSemanticEvidenceBaseline
+ClaimDimensionRegister
+DimensionAuthorityBasisRegister
+OperationalSemanticScopeSignature
+SIGNEDNESS_EQUIVALENCE_RULE_V0_1
+ExecutionObligationSet
+FoundationPackage
+~~~
+
+Baseline:
+
+~~~text
+direct discovered blobs = 123
+baseline members = 142
+reference-closure members = 19
+
+baseline digest =
+1e65c987622d8340418c7fec84f950c3adf7a36f727ad19c6d65944aa8eaa140
+
+parent_relation_status =
+PASS
+~~~
+
+Key Part-1 blobs:
+
+~~~text
+Part-1 report =
+e4aeb7544655262e0e4d91f77675ce1fac8edc04
+
+baseline =
+b7d5795051cefeff32e4ba620bff821c88bdf808
+
+baseline persistence record =
+accad4c9590d830d7ce66b7ace1c238b80272f1f
+
+foundation package =
+d0e5f4ea8ac548ec74811d63b9de57d97147d5b6
+~~~
+
+Foundation package seal:
+
+~~~text
+416e1056ce58dae595ae6f222246d6ccf0e81e42ef1187bda5f8ebfa53a6991e
+~~~
+
+### Part 2/3 — DONE
+
+OperationalSemanticRuleAdjudication:
+
+~~~text
+evidence/bpesem03/
+operational_semantic_rule_adjudication_v0_1.json
+
+blob =
+3da0aebd8bcf3c10fa9545c4d091c4c047f99bd4
+~~~
+
+Candidate report:
+
+~~~text
+reports/data-qualification/
+bpesem03_operational_semantic_adjudication_candidate_2026-09-21.md
+
+blob =
+ce0159029b100c4e766eae44ae805fb1c5977915
+
+candidate parent HEAD =
+e66f80347c354df408ab63e5f9f1eca5b90a896a
+~~~
+
+Candidate semantic result:
+
+~~~text
+26 dimensions total
+PASS = 2
+BLOCKED = 24
+FAIL = 0
+
+PASS:
+C03-D3-OP
+C05-D2-OP
+
+BPE-SEM-C01-OP = BLOCKED
+BPE-SEM-C02-OP = BLOCKED
+BPE-SEM-C03-OP = BLOCKED
+BPE-SEM-C04-OP = BLOCKED
+BPE-SEM-C05-OP = BLOCKED
+BPE-SEM-C06-OP = BLOCKED
+BPE-SEM-C07-OP = BLOCKED
+
+candidate overall operational semantic status = BLOCKED
+~~~
+
+The two PASS dimensions are conditional mathematical signedness rules only.
+
+They bind non-waivable future high-bit-zero obligations and do not prove that future target data satisfy high_bit == 0.
+
+Candidate SemanticEvidenceHorizon:
+
+~~~text
+blob =
+52cbc43f2a08f2c992ee978c368696127cbdc210
+
+cutoff HEAD =
+e66f80347c354df408ab63e5f9f1eca5b90a896a
+
+cutoff tree =
+d6d02afc7b3f5b574043ed6a3311f2231f2e7fa7
+
+artifact count =
+151
+
+horizon digest =
+4361ec9a9824a7095b0bdcd34729a6d60e72f91eba25fb7cab825c269a4b70b6
+~~~
+
+Initial adversarial break:
+
+~~~text
+reports/data-qualification/
+bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md
+
+blob =
+507ad73018d963b5bd43ab276c95f53f1924fc18
+
+persisted candidate HEAD attacked =
+02ba520e7dffae9435859df76bcb94546f841aca
+
+attack count = 25
+candidate adversarial verdict = PASS
+demonstrated candidate defects = 0
+~~~
+
+### Part 3/3 — PREPARED BUT NOT EXECUTED
+
+Final persisted-head re-break source:
+
+~~~text
+breakers/
+bpesem03_final_persisted_head_rebreak.py
+
+commit =
+7a85e059b6cf88ec219eb53570efd509f0a510bc
+
+blob =
+26f1f4e78f29395372d563f01f4a4c9729aaa30d
+~~~
+
+Current exact state:
+
+~~~text
+final breaker source persisted = YES
+final breaker executed = NO
+
+CurrentAuthorityEvidenceDeltaReview = NOT YET PERSISTED
+final re-break report = NOT YET PERSISTED
+final B-PE-SEM-03 governed verdict = NOT YET AUTHORIZED
+
+final closeout = NO
+final B-PE-SEM-03 closure backup = NO
+post-B-PE-SEM-03 checkpoint = NO
+~~~
+
+Therefore the candidate expectation:
+
+~~~text
+integrity ≈ PASS
+semantic authority ≈ BLOCKED
+overall B-PE-SEM-03 ≈ BLOCKED
+~~~
+
+must NOT be promoted to an authoritative final verdict before the pending persisted-head final re-break.
+
+B-FIQ-02R remains NOT AUTHORIZED.
+
+Still not executed:
+
+~~~text
+provider contact
+provider BI5 GET
+new provider-object acquisition
+new semantic-discrimination execution
+FULL_INTERVAL execution
+D materialization
+backtest
+paper/broker/live
+~~~
+
+## 162. Exactly one next governed action
+
+Resume only the unfinished Part 3/3 of B-PE-SEM-03:
+
+~~~text
+fresh live HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ latest backup:
+   SESSION-2026-09-21-BPESEM03-PAUSE-BEFORE-FINAL-REBREAK.md
+
+→ verify ancestry from pause-point 7a85e059...
+→ verify candidate blobs unchanged:
+   adjudication =
+   3da0aebd8bcf3c10fa9545c4d091c4c047f99bd4
+
+   candidate report =
+   ce0159029b100c4e766eae44ae805fb1c5977915
+
+   initial adversarial break =
+   507ad73018d963b5bd43ab276c95f53f1924fc18
+
+   semantic evidence horizon =
+   52cbc43f2a08f2c992ee978c368696127cbdc210
+
+→ execute:
+   breakers/bpesem03_final_persisted_head_rebreak.py
+
+→ persist:
+   evidence/bpesem03/
+   current_authority_evidence_delta_review_v0_1.json
+
+   reports/data-qualification/
+   bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md
+
+→ inspect actual final result
+
+→ if final integrity re-break PASS:
+   preserve actual semantic authority result
+   even if it is BLOCKED
+
+→ final audit / closeout
+→ durable final B-PE-SEM-03 backup
+→ checkpoint
+→ STOP
+~~~
+
+Do NOT:
+
+~~~text
+rematerialize Part 1 without a demonstrated reason
+replace the Part-2 candidate before a demonstrated defect
+treat initial adversarial PASS as final persisted-head PASS
+declare B-PE-SEM-03 closed before final re-break
+open B-FIQ-02R
+run FULL_INTERVAL
+start D
+start a backtest
+~~~
+
+STOP — RESUME FROM B-PE-SEM-03 PART 3/3 FINAL PERSISTED-HEAD RE-BREAK.
