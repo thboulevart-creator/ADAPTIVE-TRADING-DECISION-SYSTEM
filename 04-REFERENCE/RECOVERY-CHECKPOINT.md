@@ -6863,3 +6863,158 @@ paper/broker/live
 ```
 
 The eventual B-FIQ execution requires separate explicit authorization.
+
+
+---
+
+## 141. B-FIQ-01 FULL_INTERVAL qualification contract — PASS
+
+B-FIQ-01 was opened from fresh HEAD after B-PE-01R PASS.
+
+Candidate:
+
+reports/data-qualification/bfiq01_full_interval_empirical_representation_qualification_contract_candidate_2026-09-21.md
+
+blob:
+
+171caf891e6943d27cd8b612cf01acc5ffb34d43
+
+Adversarial break demonstrated:
+
+~~~text
+BFIQ01-F01 — EXACT REQUEST MEMBERSHIP IS DERIVED AT RUNTIME, NOT SEALED
+BFIQ01-F02 — DIAGNOSTIC INDEPENDENCE IS ASSERTED, NOT EVIDENTIALLY CLOSED
+BFIQ01-F03 — DURABLE STORAGE POLICY HAS NO CLOSED IDENTITY OR SCOPE BINDING
+BFIQ01-F04 — NO CLOSED EXECUTION EVIDENCE-SET MEMBERSHIP OBJECT
+~~~
+
+Correction:
+
+reports/data-qualification/bfiq01_full_interval_contract_correction_v0_2_2026-09-21.md
+
+blob:
+
+d4ba5eef1ce6f94a17af796b5a34bad244750df3
+
+Final persisted-head re-break demonstrated no further material defect.
+
+Final verdict:
+
+~~~text
+B-FIQ-01 =
+PASS
+~~~
+
+## 142. Qualified B-FIQ-01 semantics
+
+FULL_D_REPRESENTATION_DOMAIN is a complete wall-clock H1 inventory from the derived 20-open-H1 warmup start through frozen last included open H1.
+
+Every H1 is explicit:
+
+~~~text
+EXPECTED_OPEN
+→ REQUIRED provider component
+
+EXPECTED_CLOSED
+→ CALENDAR_CLOSED_NO_COMPONENT
+→ no provider request
+~~~
+
+Future exhaustive execution requires presealed:
+
+~~~text
+IntervalInventory
+ProviderDeliveryIdentityPolicy
+RepresentationRegimeManifest
+RequestManifest
+TransportPolicy
+RequestBudget
+ExecutionShardPlan
+DiagnosticIndependenceManifest
+SemanticInvariantManifest
+DurableEvidencePolicy
+qualified-empty rule if used
+~~~
+
+FULL_INTERVAL PASS additionally requires:
+
+~~~text
+closed QualificationExecutionResult
+complete evidence registries
+evidence_set_digest
+qualification_capture_set_root_sha256
+CompletenessProof
+durable evidence integrity
+current-authority C01-C07 semantics
+no unresolved material contradiction
+~~~
+
+## 143. Current state after B-FIQ-01
+
+~~~text
+B-PE-01R = PASS
+VERSIONED_EMPIRICAL_SUPERSESSION = QUALIFIED
+
+B-FIQ-01 contract = PASS
+
+IntervalInventory = NOT MATERIALIZED
+RequestManifest = NOT MATERIALIZED
+FULL_INTERVAL execution = NOT RUN
+FULL_INTERVAL_QUALIFIED = NOT YET PASS
+
+C08-D4-OP = NOT YET PASS
+C08-D5-OP = NOT YET PASS
+BPE-C08-OP-V0.2 = NOT YET PASS
+
+B global executable gate = BLOCKED
+FINAL EXECUTABLE DATA GATE = BLOCKED
+
+D materialization = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+No provider request occurred in B-FIQ-01.
+
+## 144. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-FIQ-02 —
+FULL_INTERVAL pre-execution package materialization and sealing
+~~~
+
+Non-network preparation only:
+
+~~~text
+fresh HEAD
+→ read B-FIQ-01 PASS
+→ materialize + seal IntervalInventory
+→ materialize + seal ProviderDeliveryIdentityPolicy
+→ materialize + seal RepresentationRegimeManifest
+→ materialize + seal exact RequestManifest
+→ materialize + seal TransportPolicy
+→ materialize + seal RequestBudget
+→ materialize + seal ExecutionShardPlan
+→ materialize + prove DiagnosticIndependenceManifest
+→ materialize + seal SemanticInvariantManifest
+→ materialize + seal DurableEvidencePolicy
+→ construct provisional pre-execution authority scope tuple
+→ adversarial break
+→ persisted-head re-break
+→ audit + backup + checkpoint
+→ STOP
+~~~
+
+Still prohibited inside B-FIQ-02:
+
+~~~text
+provider BI5 GET
+FULL_INTERVAL execution
+D materialization
+backtest
+paper/broker/live
+~~~
+
+The later exhaustive execution requires separate explicit user authorization.

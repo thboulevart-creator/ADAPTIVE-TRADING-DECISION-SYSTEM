@@ -3964,3 +3964,54 @@ B-ERD-02 9/9 support remains bounded and does not satisfy FULL_INTERVAL_QUALIFIE
 Global executable gates remain BLOCKED.
 
 Next action: B-FIQ-01 formalization only.
+
+
+---
+
+# B-FIQ-01 full-interval empirical representation-qualification contract — 2026-09-21
+
+Final verdict:
+
+~~~text
+B-FIQ-01 = PASS
+~~~
+
+Normative composite:
+
+~~~text
+candidate blob
+171caf891e6943d27cd8b612cf01acc5ffb34d43
+
+correction blob
+d4ba5eef1ce6f94a17af796b5a34bad244750df3
+~~~
+
+Initial adversarial defects closed:
+
+~~~text
+F01 exact RequestManifest absent
+F02 diagnostic independence not evidentially closed
+F03 durable evidence policy not scope-bound
+F04 exhaustive execution evidence-set membership not closed
+~~~
+
+The contract now requires:
+
+- every wall-clock H1 explicitly inventoried;
+- deterministic open/closed calendar classification;
+- exact pre-rendered request membership;
+- request-rate/concurrency/count ceilings;
+- deterministic sharding;
+- fail-closed empty semantics;
+- two code-lineage-independent diagnostic paths;
+- no adaptive regime repair;
+- durable content-addressed evidence;
+- closed execution evidence registries and evidence-set digest;
+- qualification capture-set root;
+- CompletenessProof;
+- operational adjudication/current-authority/scope-tuple binding;
+- exact-byte/hash downstream D binding.
+
+No provider request or full-domain execution occurred.
+
+Next governed action is B-FIQ-02 pre-execution package materialization/sealing, non-network only.
