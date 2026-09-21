@@ -1,0 +1,19 @@
+{
+  "affected_field_set": [
+    "timestamp_offset_raw",
+    "ask_price_raw",
+    "bid_price_raw"
+  ],
+  "created_at_utc": "2026-09-21T20:00:00Z",
+  "exact_condition": "high_bit == 0",
+  "exact_proposition": "For an exact 32-bit bit pattern, signed_int32 equals unsigned_uint32 iff high_bit == 0; if high_bit == 1 their numeric interpretations differ.",
+  "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+  "rule_seal": "2aea71fd69a25df1098f0865525dd9b69378c4b66edb5f1082904c1db2743390",
+  "rule_type": "CONDITIONAL_MATHEMATICAL_EQUIVALENCE",
+  "schema": "B_PE_SEM_02_RULE_RECORD_V0_1",
+  "target_dimension_ids": [
+    "C03-D3-OP",
+    "C05-D2-OP"
+  ],
+  "violation_disposition": "BLOCKED_UNLESS_EXACT_SIGNEDNESS_HAS_SEPARATE_CURRENT_AUTHORITY"
+}

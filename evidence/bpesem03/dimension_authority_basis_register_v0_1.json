@@ -1,0 +1,427 @@
+{
+  "basis_register_digest": "24df1773d3818a02a083e83f91101bc635e5317d05237ecfd8f0f72a17245a30",
+  "basis_register_id": "BPESEM03-DIMENSION-AUTHORITY-BASIS-REGISTER-V0_1",
+  "claim_dimension_register_digest": "938b69e91cd70f8e5ff9e54fb4bdd7362bb1e7fb0d2c789bd52285dbf0669b0f",
+  "claim_dimension_register_id": "BPESEM03-C01-C07-CLAIM-DIMENSION-REGISTER-V0_1",
+  "created_at_utc": "2026-09-21T20:00:00Z",
+  "dimension_bases": [
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C01-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C01-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C01-D3-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C01-D4-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C02-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C02-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C02-D3-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C02-D4-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C03-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C03-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [
+        "SIGNEDNESS_EQUIVALENCE_RULE_V0_1"
+      ],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY",
+        "CONDITIONAL_SEMANTIC_SIGNEDNESS"
+      ],
+      "dimension_id": "C03-D3-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "CONDITIONAL_RULE",
+      "required_authority_roles": [
+        "SEALED_RULE_RECORD",
+        "EXACT_AFFECTED_FIELD_SET",
+        "NONWAIVABLE_EXECUTION_OBLIGATION",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C03-D4-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C04-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C04-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C04-D3-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C04-D4-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C05-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [
+        "SIGNEDNESS_EQUIVALENCE_RULE_V0_1"
+      ],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY",
+        "CONDITIONAL_SEMANTIC_SIGNEDNESS"
+      ],
+      "dimension_id": "C05-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "CONDITIONAL_RULE",
+      "required_authority_roles": [
+        "SEALED_RULE_RECORD",
+        "EXACT_AFFECTED_FIELD_SET",
+        "NONWAIVABLE_EXECUTION_OBLIGATION",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C05-D3-OP",
+      "exact_prerequisite_dimension_ids": [
+        "C05-D1-OP",
+        "C05-D2-OP",
+        "C06-D1-OP",
+        "C06-D2-OP",
+        "C06-D3-OP",
+        "C06-D4-OP"
+      ],
+      "primary_authority_class": "PREREQUISITE_CLOSURE",
+      "required_authority_roles": [
+        "EXACT_PREREQUISITE_CLOSURE",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C06-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C06-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C06-D3-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PREREQUISITE_CLOSURE",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_SEMANTIC_EVIDENCE",
+        "SEALED_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS",
+        "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C06-D4-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C07-D1-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C07-D2-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "PHYSICAL_HYPOTHESIS",
+      "required_authority_roles": [
+        "ADMISSIBLE_EXACT_PHYSICAL_EVIDENCE",
+        "SEALED_HYPOTHESIS_SET",
+        "KNOWN_MATERIAL_ALTERNATIVES_CLOSED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    },
+    {
+      "allowed_conditional_semantic_rule_ids": [],
+      "allowed_obligation_modes": [
+        "CONFORMANCE_ONLY"
+      ],
+      "dimension_id": "C07-D3-OP",
+      "exact_prerequisite_dimension_ids": [],
+      "primary_authority_class": "SEMANTIC_ANCHOR",
+      "required_authority_roles": [
+        "ADMISSIBLE_SEMANTIC_ANCHOR",
+        "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+        "SCOPE_APPLICABILITY_PASS"
+      ],
+      "required_scope_applicability": true
+    }
+  ],
+  "schema": "B_PE_SEM_02_DIMENSION_AUTHORITY_BASIS_REGISTER_V0_3"
+}

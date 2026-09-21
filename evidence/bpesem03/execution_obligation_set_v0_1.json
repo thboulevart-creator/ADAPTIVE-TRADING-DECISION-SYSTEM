@@ -1,0 +1,41 @@
+{
+  "obligation_set_digest": "93f46bde9aae069723b1dc9b6dc4606edbaf4126240723337438878c74ade09d",
+  "obligations": [
+    {
+      "affected_field_set": [
+        "timestamp_offset_raw",
+        "ask_price_raw",
+        "bid_price_raw"
+      ],
+      "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+      "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+      "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+      "nonwaivable": true,
+      "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C03-D3-OP",
+      "on_blocked": "BLOCKED",
+      "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+      "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+      "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+      "source_claim_id": "BPE-SEM-C03-OP",
+      "source_dimension_id": "C03-D3-OP"
+    },
+    {
+      "affected_field_set": [
+        "ask_price_raw",
+        "bid_price_raw"
+      ],
+      "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+      "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+      "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+      "nonwaivable": true,
+      "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C05-D2-OP",
+      "on_blocked": "BLOCKED",
+      "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+      "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+      "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+      "source_claim_id": "BPE-SEM-C05-OP",
+      "source_dimension_id": "C05-D2-OP"
+    }
+  ],
+  "schema": "B_PE_SEM_03_EXECUTION_OBLIGATION_SET_V0_1"
+}

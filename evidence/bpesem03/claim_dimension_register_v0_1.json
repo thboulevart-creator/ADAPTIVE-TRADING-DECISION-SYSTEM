@@ -1,0 +1,241 @@
+{
+  "claims": [
+    {
+      "claim_id": "BPE-SEM-C01-OP",
+      "exact_claim_proposition": "Target K1 bytes use the authorized LZMA-family envelope and successful decoding yields the physical slot byte stream.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C01-D1-OP",
+          "exact_dimension_proposition": "compression family = LZMA",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C01-D2-OP",
+          "exact_dimension_proposition": "exact envelope/container mode for target K1",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C01-D3-OP",
+          "exact_dimension_proposition": "exact stream/wrapper admission rule",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C01-D4-OP",
+          "exact_dimension_proposition": "decompressed output role = physical slot byte stream",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        }
+      ]
+    },
+    {
+      "claim_id": "BPE-SEM-C02-OP",
+      "exact_claim_proposition": "Decompressed bytes are framed from byte zero into fixed complete records under exact residual/header rules.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C02-D1-OP",
+          "exact_dimension_proposition": "complete record width = 20 bytes",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C02-D2-OP",
+          "exact_dimension_proposition": "frame origin = byte zero",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C02-D3-OP",
+          "exact_dimension_proposition": "terminal residual/trailing-byte disposition",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C02-D4-OP",
+          "exact_dimension_proposition": "per-record header/delimiter presence and semantics",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        }
+      ]
+    },
+    {
+      "claim_id": "BPE-SEM-C03-OP",
+      "exact_claim_proposition": "Each complete record has the authorized five-field big-endian integer/float physical layout.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C03-D1-OP",
+          "exact_dimension_proposition": "byte order = big-endian",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C03-D2-OP",
+          "exact_dimension_proposition": "exact five-field physical order",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "CONDITIONAL_RULE",
+          "dimension_id": "C03-D3-OP",
+          "exact_dimension_proposition": "first three fields obey SIGNEDNESS_EQUIVALENCE_RULE_V0_1 or exact signedness authority",
+          "future_execution_obligation_allowed": true,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C03-D4-OP",
+          "exact_dimension_proposition": "final two fields = IEEE-754 binary32",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        }
+      ]
+    },
+    {
+      "claim_id": "BPE-SEM-C04-OP",
+      "exact_claim_proposition": "First physical integer field denotes a millisecond offset from the represented UTC H1 origin.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C04-D1-OP",
+          "exact_dimension_proposition": "timestamp offset unit = millisecond",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C04-D2-OP",
+          "exact_dimension_proposition": "reference origin = represented provider H1 object hour",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C04-D3-OP",
+          "exact_dimension_proposition": "hour/time basis = UTC or exact provider-equivalent mapping",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C04-D4-OP",
+          "exact_dimension_proposition": "valid offset domain = exact authorized domain for one H1",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        }
+      ]
+    },
+    {
+      "claim_id": "BPE-SEM-C05-OP",
+      "exact_claim_proposition": "Second and third integer fields are raw ask then raw bid and price-conversion prerequisites are closed.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C05-D1-OP",
+          "exact_dimension_proposition": "field roles/order = ask_raw then bid_raw",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "CONDITIONAL_RULE",
+          "dimension_id": "C05-D2-OP",
+          "exact_dimension_proposition": "raw price integers obey SIGNEDNESS_EQUIVALENCE_RULE_V0_1 or exact signedness authority",
+          "future_execution_obligation_allowed": true,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PREREQUISITE_CLOSURE",
+          "dimension_id": "C05-D3-OP",
+          "exact_dimension_proposition": "no unresolved prerequisite semantic state between raw ask/bid and logical price conversion",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": [
+            "C05-D1-OP",
+            "C05-D2-OP",
+            "C06-D1-OP",
+            "C06-D2-OP",
+            "C06-D3-OP",
+            "C06-D4-OP"
+          ]
+        }
+      ]
+    },
+    {
+      "claim_id": "BPE-SEM-C06-OP",
+      "exact_claim_proposition": "For USATECHIDXUSD target K1, logical ask/bid price = raw integer / 1000.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C06-D1-OP",
+          "exact_dimension_proposition": "exact applicability to USATECHIDXUSD and target K1 representation",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C06-D2-OP",
+          "exact_dimension_proposition": "numeric divisor = 1000",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PREREQUISITE_CLOSURE",
+          "dimension_id": "C06-D3-OP",
+          "exact_dimension_proposition": "scale authority is non-circular, identity-bound, scope-bound and contradiction-sensitive",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C06-D4-OP",
+          "exact_dimension_proposition": "temporal/version applicability covers intended semantic epoch conditionally on K1 classification",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        }
+      ]
+    },
+    {
+      "claim_id": "BPE-SEM-C07-OP",
+      "exact_claim_proposition": "Fourth and fifth fields are provider-native ask-volume then bid-volume binary32 values with exact authorized transform.",
+      "mandatory_dimensions": [
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C07-D1-OP",
+          "exact_dimension_proposition": "field roles/order = ask_volume_raw then bid_volume_raw",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "PHYSICAL_HYPOTHESIS",
+          "dimension_id": "C07-D2-OP",
+          "exact_dimension_proposition": "primitive encoding = IEEE-754 binary32",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        },
+        {
+          "dimension_class": "SEMANTIC_ANCHOR",
+          "dimension_id": "C07-D3-OP",
+          "exact_dimension_proposition": "exact representation-level transform/scale including explicit no-additional-scale when applicable",
+          "future_execution_obligation_allowed": false,
+          "prerequisite_dimension_ids": []
+        }
+      ]
+    }
+  ],
+  "contract_id": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY",
+  "contract_version": "B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED",
+  "created_at_utc": "2026-09-21T20:00:00Z",
+  "register_digest": "938b69e91cd70f8e5ff9e54fb4bdd7362bb1e7fb0d2c789bd52285dbf0669b0f",
+  "register_id": "BPESEM03-C01-C07-CLAIM-DIMENSION-REGISTER-V0_1",
+  "schema": "B_PE_SEM_02_CLAIM_DIMENSION_REGISTER_V0_2"
+}
