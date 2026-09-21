@@ -5,7 +5,7 @@ import hashlib
 import json
 import lzma
 import _lzma
-import _struct
+import struct
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 import sys
@@ -339,7 +339,7 @@ shard_plan["shard_plan_seal"]=seal(shard_plan,"shard_plan_seal")
 ia_src=source_identity("src/native_bi5_reference_qualifier_qrm12.py")
 ib_src=source_identity("src/native_bi5_independent_qualifier_qrm12.py")
 lzma_bin=runtime_binary_identity(_lzma.__file__)
-struct_bin=runtime_binary_identity(_struct.__file__)
+struct_bin=runtime_binary_identity(struct.__file__)
 python_runtime_version=".".join(str(x) for x in sys.version_info[:3])
 
 independence={
