@@ -7520,3 +7520,312 @@ paper/broker/live
 ```
 
 STOP.
+
+
+---
+
+## 157. B-PE-SEM-02 operational semantic-authority contract — PASS
+
+B-PE-SEM-02 was opened from fresh governed HEAD after B-PE-SEM-01 PASS.
+
+Starting governed HEAD:
+
+```text
+7c493bc8c095211cfeb7db9aadb1825407a5bb76
+checkpoint: close B-PE-SEM-01 route review
+```
+
+The block formalized only the operational C01-C07 semantic-authority contract.
+
+No provider contact, provider BI5 GET, semantic-discrimination execution, FULL_INTERVAL execution, D materialization or backtest was authorized or executed.
+
+Initial candidate:
+
+```text
+reports/data-qualification/
+bpesem02_operational_native_bi5_semantic_authority_contract_candidate_2026-09-21.md
+
+commit =
+b24b85740ed1d2a060ec3a9a2a254dbe332edccc
+
+blob =
+092aae41821afb69d7fb84da095d1c8c0bfacb3d
+```
+
+The candidate was not promoted directly. Multiple persisted adversarial cycles were required.
+
+## 158. B-PE-SEM-02 adversarial progression
+
+Initial demonstrated defects:
+
+```text
+F01 claim/dimension register not cryptographically closed
+F02 source admissibility / evidence sufficiency under-specified
+F03 temporal/regime applicability not closed for every dimension
+F04 B-ERD-02 reuse vulnerable to retrospective hypothesis leakage
+F05 known material alternatives omittable
+F06 digest/seal domains incomplete
+F07 execution obligations droppable before B-FIQ handoff
+```
+
+Subsequent persisted-head re-breaks demonstrated and corrected:
+
+```text
+R01 authority-basis register mutable
+R02 exact warmup/full-domain identity incomplete
+R03 review evidence universe shrinkable
+R04 scope/lineage digest domains incomplete
+
+R05 governed evidence baseline self-declared
+R06 material alternatives erasable through exclusion
+R07 stale PASS could survive absent reopen event
+R08 C01-C07 semantic scope conflated with C08 presence/continuity
+
+R09 stale baseline ancestor possible
+R10 discovery semantics non-canonical
+R11 NONMATERIAL_PROVEN subjective
+R12 delta review incomplete / consumer race
+
+R13 discovery policy not forward-closed to future BPE/B-FIQ generations
+```
+
+Persisted correction/re-break lineage:
+
+```text
+V0.2 correction
+d6e35d6f5fb56c4a082e79d98f23c2afe356cc40
+
+V0.2 re-break
+c3c27c5cf24bd749d595da61cc2b66de9ee416e4
+
+V0.3 correction
+5c0eaf700cb2b550ed9b4efbb0b4e42b743af4ef
+
+V0.3 re-break
+e6983a6bfa9504280107ea8884d9bdd5198cf5bf
+
+V0.4 correction
+15ffd1da84d41cd3c2b2346d8da7e296d1948192
+
+V0.4 re-break
+f0202c00728d640c2808be3fb3b1d3b414363d6a
+
+V0.5 correction
+da809cc02526f4ef1a61483220f94629fdcc968a
+
+V0.5 re-break
+859a9fb70d9248a57a495bdc95dd48f889800ca2
+
+V0.6 correction
+fcd0b4c1f72f8d75faff1a3c2a06744e11a489ab
+```
+
+Qualified composite:
+
+```text
+B_PE_SEM_02_OPERATIONAL_NATIVE_BI5_SEMANTIC_AUTHORITY_V0_6_CORRECTED
+```
+
+Final persisted-head re-break:
+
+```text
+reports/data-qualification/
+bpesem02_operational_semantic_authority_contract_final_rebreak_2026-09-21.md
+
+commit =
+d77cc6bace8ae38f4ac6d6acfbde0df0a0363873
+
+blob =
+1a43e524cdcc59cff57a8024bfbf40077699a00a
+
+demonstrated residual prior defects = 0
+demonstrated new material contract defects = 0
+```
+
+Final verdict:
+
+```text
+B-PE-SEM-02 = PASS
+```
+
+## 159. Qualified B-PE-SEM-02 semantics and current state
+
+The PASS qualifies only the contract architecture.
+
+Qualified mechanisms include:
+
+```text
+ClaimDimensionRegister
+DimensionAuthorityBasisRegister
+OperationalSemanticEvidenceAdmissibilityDecision
+SemanticAnchorManifest
+SemanticHypothesisSet
+KnownMaterialAlternativeRegistry
+VisibilityUniverse
+PositiveAuthorityUniverse
+GovernedSemanticEvidenceBaseline
+SemanticEvidenceRegistry
+OperationalSemanticScopeSignature
+SemanticRuleScopeApplicabilityDecision
+HistoricalObservationEligibilityRecord
+SIGNEDNESS_EQUIVALENCE_RULE_V0_1
+ExecutionObligationRecord
+OperationalSemanticLineageResolution
+OperationalSemanticReopenEvent
+SemanticEvidenceHorizon
+CurrentAuthorityEvidenceDeltaReview
+ConsumerStartFreshnessCheck
+B-FIQ-02R handoff contract
+```
+
+Critical firewall:
+
+```text
+SEMANTIC_RULE_SCOPE_APPLICABILITY
+!=
+REPRESENTATION_PRESENCE_CONTINUITY
+```
+
+Therefore:
+
+```text
+B-PE-SEM-02 PASS
+!= BPE-SEM-C01-OP..C07-OP PASS
+
+C01-C07 operational semantic authority
+!= C08-D4-OP/C08-D5-OP representation-presence continuity
+
+B-PE-01R C08 empirical supersession
+!= C01-C07 semantic authority
+```
+
+Current authoritative state:
+
+```text
+B-PE-SEM-01 = PASS
+B-PE-SEM-02 contract = PASS
+
+OperationalSemanticRuleAdjudication = ABSENT
+BPE-SEM-C01-OP..C07-OP = NOT YET ADJUDICATED
+
+BPE-C01..C07 documentary = BLOCKED
+
+B-FIQ-02 package materialization / integrity = PASS
+B-FIQ-02 pre-execution eligibility = BLOCKED
+B-FIQ-02 overall = BLOCKED
+
+FULL_INTERVAL execution = NOT AUTHORIZED / NOT RUN
+FULL_INTERVAL_QUALIFIED = NOT YET PASS
+
+C08-D4-OP = NOT YET PASS
+C08-D5-OP = NOT YET PASS
+BPE-C08-OP-V0.2 = NOT YET PASS
+
+D materialization = NO
+backtest = NO
+paper/broker/live = NO
+```
+
+Final closeout:
+
+```text
+reports/data-qualification/
+bpesem02_operational_semantic_authority_contract_final_closeout_2026-09-21.md
+
+commit =
+0fc25614b1a9a2b645f9e6cf502f8abec3514747
+
+blob =
+500ab233248f8b51a72114fed1b7b3738fc1eb52
+```
+
+Durable session backup:
+
+```text
+99-BACKUP/
+SESSION-2026-09-21-BPESEM02-SEMANTIC-AUTHORITY-CONTRACT.md
+
+commit =
+b0c36ad23ae0db7d4d3221633a5dccf1a3ceed27
+
+blob =
+adec5b1e00509f256445c8d9192f94f103d18351
+```
+
+During B-PE-SEM-02:
+
+```text
+provider contact = NO
+provider BI5 GET = NO
+new provider-object acquisition = NO
+new semantic-discrimination execution = NO
+FULL_INTERVAL execution = NO
+D materialization = NO
+real Q/F/Q-RM-12 full execution = NO
+backtest = NO
+paper/broker/live = NO
+```
+
+## 160. Exactly one next governed action
+
+Open only:
+
+```text
+B-PE-SEM-03 —
+OPERATIONAL C01-C07 SEMANTIC AUTHORITY
+PACKAGE MATERIALIZATION / ADJUDICATION
+```
+
+Purpose:
+
+```text
+materialize the qualified B-PE-SEM-02 V0.6 contract objects
+against the existing governed evidence only
+and determine the actual PASS / FAIL / BLOCKED state
+of BPE-SEM-C01-OP..C07-OP
+```
+
+Required sequence:
+
+```text
+fresh HEAD
+→ read AI-OPERATING-MEMORY
+→ read RECOVERY-CHECKPOINT
+→ read latest applicable backup
+→ read B-PE-SEM-02 final re-break / closeout
+
+→ materialize qualified V0.6 contract objects
+→ build fresh GovernedSemanticEvidenceBaseline
+→ build exact ClaimDimensionRegister
+→ build exact DimensionAuthorityBasisRegister
+→ adjudicate existing evidence admissibility
+→ materialize VisibilityUniverse / PositiveAuthorityUniverse
+→ materialize anchors / hypotheses / scope decisions / lineage records
+→ materialize execution obligations
+→ materialize OperationalSemanticRuleAdjudication
+→ derive actual BPE-SEM-C01-OP..C07-OP PASS / FAIL / BLOCKED
+
+→ adversarial break
+→ minimal corrections only on demonstrated defects
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ audit
+→ backup
+→ checkpoint
+→ STOP
+```
+
+Still prohibited unless separately authorized:
+
+```text
+provider contact
+provider BI5 GET
+new provider-object acquisition
+new semantic-discrimination execution
+FULL_INTERVAL execution
+D materialization
+backtest
+paper/broker/live
+```
+
+STOP.
