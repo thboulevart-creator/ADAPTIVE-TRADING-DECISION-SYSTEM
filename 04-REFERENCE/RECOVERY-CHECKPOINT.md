@@ -9644,3 +9644,241 @@ paper/broker/live
 ~~~
 
 STOP — B-PE-SEM-04 CLOSED / PASS.
+
+
+---
+
+## 174. Post-B-PE-SEM-04 consumer route selection — PASS
+
+Decision record:
+
+~~~text
+reports/data-qualification/
+post_bpesem04_qualified_contract_consumer_route_selection_2026-09-22.md
+
+commit =
+adfd3137f0d76a7683091cebe01d995487cb19ec
+
+blob =
+a37f84337c45387ff363b9c7bf8f17cb2d98b0fb
+~~~
+
+Starting authority:
+
+~~~text
+B-PE-SEM-04 = CLOSED / PASS
+
+qualified contract blob =
+fe0ca12e12624371be28ea8c09340691466a37ce
+
+contract seal =
+d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414
+
+qualification blob =
+680194efc3968c2c44c36dd731762d70ef270f55
+
+qualification seal =
+210c5ff5b94f3e9c8626cdea6861dbb90f65dd756121155b376f07ad92981f27
+~~~
+
+Current semantic state remains:
+
+~~~text
+C01-C07 operational semantic authority = BLOCKED
+
+26 dimensions
+PASS = 2
+BLOCKED = 24
+FAIL = 0
+~~~
+
+The qualified contract imposes the order:
+
+~~~text
+Lane S evidence + immutable sealing
+→ SemanticEpochManifest sealed
+→ deterministic Lane P sampling
+→ RequestManifest sealed
+→ only then may a later block observe provider objects
+~~~
+
+Selected minimum consumer chain:
+
+~~~text
+S → P0 → P1 → C
+~~~
+
+Meaning:
+
+~~~text
+S
+= Lane S semantic evidence acquisition / sealing / adjudication
+
+P0
+= Lane P pre-observation freeze
+  SemanticEpochManifest → deterministic RequestManifest
+  + independent P-DIAG-A / P-DIAG-B implementation and seals
+  NO provider-object observation
+
+P1
+= bounded prospective provider-object acquisition
+  exact sealed RequestManifest only
+  + frozen physical discrimination
+
+C
+= combined C01-C07 authority adjudication
+  + Lane C derived prerequisite closure
+~~~
+
+Rejected immediate routes:
+
+~~~text
+Lane P first
+diagnostics-first
+Lane S + RequestManifest in one block
+RequestManifest + first provider-object observation in one block
+FULL_INTERVAL
+~~~
+
+Reason:
+
+~~~text
+each would weaken or violate the qualified pre-observation ordering
+~~~
+
+Selected immediate successor:
+
+~~~text
+B-PE-SEM-05 —
+LANE-S SEMANTIC-AUTHORITY
+EVIDENCE ACQUISITION / SEALING / ADJUDICATION
+~~~
+
+B-PE-SEM-05 is NOT opened by this decision record.
+
+When separately opened, it may fill only the six frozen Lane S slots:
+
+~~~text
+BPESEM04-S-E01-PROVIDER-FORMAT-SEMANTICS
+BPESEM04-S-E02-PROVIDER-INSTRUMENT-SCALE
+BPESEM04-S-E03-PROVIDER-EPOCH-CONTINUITY
+BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A
+BPESEM04-S-E05-INDEPENDENT-CORROBORATION-B
+BPESEM04-S-E06-CONTRADICTION-SWEEP
+~~~
+
+It must produce at minimum:
+
+~~~text
+LaneSEvidenceRegistry
+SourceLineageResolution
+ProviderPrimarySemanticAnchorSet
+ProviderInstrumentScaleAuthority
+ProviderSemanticChangePointInventory
+SemanticEpochManifest
+IndependentCorroborationRegister
+ContradictionSweepResult
+LaneSScopeApplicabilityDecision
+LaneSSemanticAuthorityResult
+CurrentEvidenceHorizon
+~~~
+
+SemanticEpochManifest target interval:
+
+~~~text
+2021-08-13T01:00:00Z
+→
+2026-08-14T20:00:00Z
+~~~
+
+Fail closed:
+
+~~~text
+missing provider-primary authority
+mutable/unversioned evidence without immutable snapshot
+unresolved lineage
+incomplete target-epoch coverage
+unresolved material contradiction
+ambiguous instrument/K1 scope
+circular scale authority
+unresolved semantic change point
+reference implementation as sole provider authority
+representation presence used as semantic-continuity proof
+
+→ BLOCKED
+~~~
+
+No provider BI5 object may be observed in B-PE-SEM-05.
+
+Downstream sequencing labels selected but NOT opened:
+
+~~~text
+B-PE-SEM-06
+= Lane P pre-observation freeze / NO GET
+
+B-PE-SEM-07
+= bounded prospective provider-object acquisition / physical discrimination
+
+B-PE-SEM-08
+= combined C01-C07 adjudication + Lane C closure
+~~~
+
+## 175. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-05 —
+LANE-S SEMANTIC-AUTHORITY
+EVIDENCE ACQUISITION / SEALING / ADJUDICATION
+~~~
+
+Required opening sequence:
+
+~~~text
+fresh HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ B-PE-SEM-04 qualified contract
+→ B-PE-SEM-04 qualification
+→ post-B-PE-SEM-04 consumer route-selection record
+
+→ acquire only Lane S documentary/source evidence
+→ materialize immutable/versioned source identities
+→ resolve source lineage
+→ fill the six frozen Lane S evidence slots
+→ contradiction sweep
+→ provider semantic change-point inventory
+→ SemanticEpochManifest
+→ target-epoch scope adjudication
+→ Lane S semantic authority adjudication
+
+→ adversarial break
+→ minimal corrections only on demonstrated defects
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ closeout
+→ backup
+→ checkpoint
+→ STOP
+~~~
+
+During B-PE-SEM-05:
+
+~~~text
+provider documentary/source acquisition =
+ONLY IF EXPLICITLY OPENED BY USER
+
+provider BI5 GET = FORBIDDEN
+new provider-object acquisition = FORBIDDEN
+Lane P RequestManifest materialization = FORBIDDEN
+P-DIAG implementation = FORBIDDEN
+new physical semantic-discrimination execution = FORBIDDEN
+B-FIQ-02R = FORBIDDEN
+FULL_INTERVAL = FORBIDDEN
+D materialization = FORBIDDEN
+backtest = FORBIDDEN
+paper/broker/live = FORBIDDEN
+~~~
+
+STOP — ROUTE SELECTED; B-PE-SEM-05 NOT YET OPENED.
