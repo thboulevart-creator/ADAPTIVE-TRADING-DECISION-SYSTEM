@@ -1,0 +1,84 @@
+name: B-PE-SEM-04 contract
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem04-contract.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert formalization-only / no network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          forbidden={"requests","urllib","http","socket","aiohttp","ftplib"}
+          for name in [
+              "tools/bpesem04_materialize_contract.py",
+              "breakers/bpesem04_contract_breaker.py",
+          ]:
+              tree=ast.parse(Path(name).read_text(encoding="utf-8"))
+              bad=[]
+              for node in ast.walk(tree):
+                  if isinstance(node,ast.Import):
+                      for a in node.names:
+                          if a.name.split(".")[0] in forbidden:
+                              bad.append((node.lineno,a.name))
+                  elif isinstance(node,ast.ImportFrom):
+                      root=(node.module or "").split(".")[0]
+                      if root in forbidden:
+                          bad.append((node.lineno,node.module))
+              assert not bad,(name,bad)
+          print("FORMALIZATION_ONLY_NO_NETWORK_IMPORTS_PASS")
+          PY
+
+      - name: Materialize B-PE-SEM-04 candidate contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem04_materialize_contract.py | tee /tmp/bpesem04-candidate.json
+          test -f evidence/bpesem04/prospective_semantic_authority_closure_contract_v0_1.json
+          test -f reports/data-qualification/bpesem04_prospective_semantic_authority_closure_contract_candidate_2026-09-22.md
+
+      - name: Persist contract candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem04/prospective_semantic_authority_closure_contract_v0_1.json             reports/data-qualification/bpesem04_prospective_semantic_authority_closure_contract_candidate_2026-09-22.md
+          git commit -m "evidence: materialize B-PE-SEM-04 contract candidate"
+          git push origin HEAD:integration/system-v1
+          echo "CANDIDATE_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Adversarial break persisted candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_COMMIT"
+          python3 breakers/bpesem04_contract_breaker.py | tee /tmp/bpesem04-break.json
+          test -f reports/data-qualification/bpesem04_prospective_semantic_authority_contract_adversarial_break_2026-09-22.md
+
+      - name: Persist adversarial break
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/data-qualification/bpesem04_prospective_semantic_authority_contract_adversarial_break_2026-09-22.md
+          git commit -m "audit: break B-PE-SEM-04 contract candidate"
+          git push origin HEAD:integration/system-v1
