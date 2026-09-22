@@ -1,0 +1,166 @@
+{
+  "schema": "BPESEM05R01_PROVIDER_ARTIFACT_ACQUISITION_PLAN_V0_1",
+  "block": "B-PE-SEM-05R-01",
+  "provider_origin_allowlist": [
+    "https://www.dukascopy.com/client/jforexlib/publicrepo/"
+  ],
+  "frozen_before_first_artifact_fetch": true,
+  "acquisition_scope": "PROVIDER_VERSIONED_SOFTWARE_AND_DOCUMENTARY_ARTIFACTS_ONLY",
+  "forbidden": [
+    "historical BI5 market-data objects",
+    "provider hourly/daily market-data payloads",
+    "Lane P RequestManifest",
+    "P-DIAG implementation",
+    "physical semantic discrimination"
+  ],
+  "versions_rationale": {
+    "3.6.34": "last listed DDS2 client release before governed target start",
+    "3.6.37": "first listed DDS2 client release after governed target start",
+    "3.6.48": "next listed release after 3.6.37",
+    "3.6.49": "2024 listed release",
+    "3.6.51": "latest listed 2025 DDS2 release",
+    "2.13.98": "provider API sources artifact available in official Maven repository",
+    "2.13.99": "latest listed provider API sources artifact"
+  },
+  "target_interval": {
+    "start": "2021-08-13T01:00:00Z",
+    "end": "2026-08-14T20:00:00Z"
+  },
+  "artifacts": [
+    {
+      "artifact_id": "DDS2-JCLIENT-3.6.34-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.34",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.34/DDS2-jClient-JForex-3.6.34.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.34/DDS2-jClient-JForex-3.6.34.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.34/DDS2-jClient-JForex-3.6.34.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.34/DDS2-jClient-JForex-3.6.34.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-JCLIENT-3.6.37-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.37",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.37/DDS2-jClient-JForex-3.6.37.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.37/DDS2-jClient-JForex-3.6.37.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.37/DDS2-jClient-JForex-3.6.37.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.37/DDS2-jClient-JForex-3.6.37.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-JCLIENT-3.6.48-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.48",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.48/DDS2-jClient-JForex-3.6.48.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.48/DDS2-jClient-JForex-3.6.48.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.48/DDS2-jClient-JForex-3.6.48.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.48/DDS2-jClient-JForex-3.6.48.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-JCLIENT-3.6.49-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.49",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.49/DDS2-jClient-JForex-3.6.49.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.49/DDS2-jClient-JForex-3.6.49.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.49/DDS2-jClient-JForex-3.6.49.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.49/DDS2-jClient-JForex-3.6.49.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-JCLIENT-3.6.51-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.51",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.51/DDS2-jClient-JForex-3.6.51.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.51/DDS2-jClient-JForex-3.6.51.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.51/DDS2-jClient-JForex-3.6.51.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/3.6.51/DDS2-jClient-JForex-3.6.51.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "JFOREX-API-2.13.98-SOURCES",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.api:JForex-API:2.13.98:sources",
+      "artifact_type": "sources.jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.98/JForex-API-2.13.98-sources.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.98/JForex-API-2.13.98-sources.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.98/JForex-API-2.13.98.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.98/JForex-API-2.13.98.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "JFOREX-API-2.13.99-SOURCES",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.api:JForex-API:2.13.99:sources",
+      "artifact_type": "sources.jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.99/JForex-API-2.13.99-sources.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.99/JForex-API-2.13.99-sources.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.99/JForex-API-2.13.99.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/api/JForex-API/2.13.99/JForex-API-2.13.99.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    }
+  ],
+  "inspection_terms": [
+    "bi5",
+    "history",
+    "historical",
+    "tick",
+    "instrument",
+    "usatech",
+    "decimal",
+    "scale",
+    "factor",
+    "jetta",
+    "cache",
+    "feed",
+    "data"
+  ],
+  "identity_requirements": [
+    "official coordinate",
+    "artifact bytes SHA-256",
+    "official SHA-1 sidecar verification",
+    "POM bytes SHA-256",
+    "official POM SHA-1 verification"
+  ],
+  "created_at_utc": "2026-09-22T16:52:00Z"
+}
