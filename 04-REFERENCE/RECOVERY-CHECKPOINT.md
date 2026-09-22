@@ -9246,3 +9246,401 @@ paper/broker/live
 ~~~
 
 STOP — ROUTE SELECTED; B-PE-SEM-04 NOT YET EXECUTED.
+
+
+---
+
+## 172. B-PE-SEM-04 final closeout — PASS
+
+Closed block:
+
+~~~text
+B-PE-SEM-04 —
+PROSPECTIVE C01-C07 SEMANTIC-AUTHORITY
+CLOSURE EVIDENCE CONTRACT
+~~~
+
+Final governed result:
+
+~~~text
+B-PE-SEM-04 CONTRACT QUALIFICATION = PASS
+
+C01-C07 operational semantic authority =
+BLOCKED / UNCHANGED
+
+execution authorization effect =
+NONE
+~~~
+
+Qualified contract:
+
+~~~text
+evidence/bpesem04/
+prospective_semantic_authority_closure_contract_v0_1.json
+
+candidate commit =
+7507e6603c711e8a8b33ec361fa871e7d0428a6b
+
+blob =
+fe0ca12e12624371be28ea8c09340691466a37ce
+
+contract seal =
+d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414
+~~~
+
+The contract freezes prospectively:
+
+~~~text
+Lane S — semantic authority / target-epoch scope
+Lane P — prospective physical discrimination
+Lane C — derived prerequisite closure
+~~~
+
+Dimension population preserved:
+
+~~~text
+26 total
+PASS = 2
+BLOCKED = 24
+FAIL = 0
+
+11 blocked PHYSICAL_HYPOTHESIS
+11 blocked SEMANTIC_ANCHOR
+2 blocked PREREQUISITE_CLOSURE
+~~~
+
+Existing PASS dimensions preserved:
+
+~~~text
+C03-D3-OP
+C05-D2-OP
+~~~
+
+with exact prior signedness obligations.
+
+### Lane S
+
+Six pre-registered evidence slots are frozen for:
+
+~~~text
+provider format semantics
+provider instrument / scale
+provider epoch continuity
+independent corroboration A
+independent corroboration B
+contradiction sweep
+~~~
+
+Primary semantic authority requires provider-authored immutable/versioned evidence.
+
+Reference implementations cannot be sole provider authority.
+
+Target interval:
+
+~~~text
+2021-08-13T01:00:00Z
+→
+2026-08-14T20:00:00Z
+~~~
+
+Partial epoch coverage:
+
+~~~text
+BLOCKED
+~~~
+
+Unproved forward/backward semantic extrapolation:
+
+~~~text
+FORBIDDEN
+~~~
+
+### Lane P
+
+Exact frozen target dimensions:
+
+~~~text
+C01-D1-OP
+C01-D2-OP
+C01-D3-OP
+
+C02-D1-OP
+C02-D2-OP
+C02-D3-OP
+C02-D4-OP
+
+C03-D1-OP
+C03-D2-OP
+C03-D4-OP
+
+C07-D2-OP
+~~~
+
+Each has:
+
+~~~text
+registered proposition
+material alternatives
+predeclared discriminators
+OTHER/UNKNOWN fail-closed rule
+reopen rule
+~~~
+
+Discriminator count:
+
+~~~text
+16
+~~~
+
+B-ERD-02 remains:
+
+~~~text
+NONDECISIVE_COMPATIBILITY
+~~~
+
+### Deterministic sampling freeze
+
+Sampling source:
+
+~~~text
+evidence/bfiq02/interval_inventory_v0_1.json
+
+blob =
+8c02972228941d8b6f1aacaf9ac6bf75fb0f2029
+
+inventory root =
+26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8
+~~~
+
+Prospective order:
+
+~~~text
+Lane S evidence
+→ seal SemanticEpochManifest
+→ deterministic quarter 10/50/90% samples
+→ first/last governed slot
+→ before/after each semantic change point
+→ deduplicate + sort
+→ seal RequestManifest
+→ only a later separately authorized block may perform GET
+~~~
+
+No silent sample substitution.
+
+### Lane C
+
+C05-D3-OP is derived only from:
+
+~~~text
+C05-D1-OP
+C05-D2-OP
+C06-D1-OP
+C06-D2-OP
+C06-D3-OP
+C06-D4-OP
+~~~
+
+No independent evidence acquisition solely for C05-D3-OP.
+
+C06-D3-OP requires noncircular provider-authored scale authority.
+
+### Adversarial qualification
+
+Initial adversarial break demonstrated:
+
+~~~text
+A29_C08_FIREWALL
+~~~
+
+This was a breaker-only defect.
+
+The contract candidate remained byte-identical.
+
+Minimal breaker correction:
+
+~~~text
+allow C08 textual references only inside anti-circularity safeguards
+while forbidding every C08 authority target
+~~~
+
+Corrected adversarial report:
+
+~~~text
+reports/data-qualification/
+bpesem04_prospective_semantic_authority_contract_adversarial_break_2026-09-22.md
+
+blob =
+da5da7309a440393de2a66205774e4374beb7475
+
+verdict =
+PASS
+
+attack count =
+30
+
+demonstrated defects =
+0
+~~~
+
+### Final persisted-head re-break
+
+Final workflow:
+
+~~~text
+B-PE-SEM-04 final rebreak
+
+run =
+35722912773
+
+job =
+106729706403
+~~~
+
+Final outputs persisted at:
+
+~~~text
+17d4908981295144a44dfbdd98ba053586585a1e
+audit: final re-break B-PE-SEM-04 contract
+~~~
+
+Qualification record:
+
+~~~text
+evidence/bpesem04/
+contract_qualification_v0_1.json
+
+blob =
+680194efc3968c2c44c36dd731762d70ef270f55
+
+qualification status =
+PASS
+
+qualification seal =
+210c5ff5b94f3e9c8626cdea6861dbb90f65dd756121155b376f07ad92981f27
+~~~
+
+Final re-break report:
+
+~~~text
+reports/data-qualification/
+bpesem04_final_persisted_head_rebreak_2026-09-22.md
+
+blob =
+55dc883a38ff1df55fc492918072fd9300605c0d
+~~~
+
+Final persisted-head checks:
+
+~~~text
+full breaker verdict = PASS
+attack count = 30
+defects = 0
+
+candidate ancestor = PASS
+post-candidate changed paths reviewed = 5
+unresolved changed paths = 0
+
+final demonstrated defects = 0
+~~~
+
+### Final closeout / backup
+
+Closeout:
+
+~~~text
+reports/data-qualification/
+bpesem04_final_closeout_2026-09-22.md
+
+commit =
+f5dad4750b2e1c0935cb405e20ba28143806cf68
+
+blob =
+09605d5eea36ebdc4149658e97ad32af4be69b05
+~~~
+
+Durable backup:
+
+~~~text
+99-BACKUP/
+SESSION-2026-09-22-BPESEM04-FINAL-CLOSEOUT.md
+
+commit =
+c917d41700db1a76fe04fb1187e49096c105ee65
+
+blob =
+fc84edc4ab04d59c25ede950aaddb075f0ffe978
+~~~
+
+B-PE-SEM-04 is CLOSED.
+
+Current high-level state:
+
+~~~text
+B-PE-SEM-01 = PASS
+B-PE-SEM-02 = PASS
+B-PE-SEM-03 = CLOSED / FAIL
+B-PE-SEM-03R = CLOSED / PASS_WITH_BLOCKED_SEMANTIC_AUTHORITY
+B-PE-SEM-04 = CLOSED / PASS
+
+C01-C07 operational semantic authority = BLOCKED
+
+B-FIQ-02R = NOT AUTHORIZED
+FULL_INTERVAL = NOT AUTHORIZED
+D = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+No provider/network acquisition or semantic observation occurred in B-PE-SEM-04.
+
+## 173. Exactly one next governed action
+
+B-PE-SEM-04 PASS does NOT self-authorize acquisition.
+
+No technical evidence-consumer block is opened yet.
+
+The next governed action is only:
+
+~~~text
+POST-B-PE-SEM-04
+QUALIFIED-CONTRACT CONSUMER ROUTE SELECTION
+— DECISION / FORMALIZATION ONLY
+~~~
+
+Purpose:
+
+~~~text
+read the qualified B-PE-SEM-04 contract
+→ choose the minimum consumer sequencing for:
+   Lane S evidence acquisition/sealing
+   semantic epoch manifest freeze
+   Lane P deterministic RequestManifest freeze
+   prospective diagnostic implementation/sealing
+   later provider-object acquisition
+   Lane C derived closure
+
+→ preserve the rule:
+   Lane S evidence/epoch seal must precede Lane P RequestManifest
+   and RequestManifest must precede first provider-object GET
+
+→ decide exactly which future block is allowed to perform which observation
+
+→ do not execute any observation during route selection
+~~~
+
+Still prohibited until a separately opened governed consumer block explicitly authorizes them:
+
+~~~text
+provider contact
+provider documentation/network acquisition
+provider BI5 GET
+new provider-object acquisition
+new semantic-discrimination execution
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — B-PE-SEM-04 CLOSED / PASS.
