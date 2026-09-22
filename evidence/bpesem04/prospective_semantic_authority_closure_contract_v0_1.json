@@ -1,0 +1,975 @@
+{
+  "candidate_parent_head": "28e47aec895dfe0fe26a1c004ec52057aa5b0f04",
+  "candidate_parent_tree": "8c33c9e6abaffad74942f1c93d3e5f00de3e344b",
+  "consumer_handoff": {
+    "handoff_does_not_imply_authorization": true,
+    "required_outputs_before_any_evidence_consumer_can_adjudicate": [
+      "Lane S result manifest",
+      "Lane P result manifest",
+      "Lane C derived closure manifest",
+      "current evidence horizon",
+      "scope applicability decisions",
+      "contradiction sweep result"
+    ]
+  },
+  "contract_id": "B_PE_SEM_04_PROSPECTIVE_C01_C07_SEMANTIC_AUTHORITY_CLOSURE_EVIDENCE_CONTRACT",
+  "contract_seal": "d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414",
+  "contract_version": "B_PE_SEM_04_V0_1_CANDIDATE",
+  "created_at_utc": "2026-09-22T11:25:00Z",
+  "dimension_authority_basis": {
+    "basis_register_digest": "24df1773d3818a02a083e83f91101bc635e5317d05237ecfd8f0f72a17245a30",
+    "basis_register_id": "BPESEM03-DIMENSION-AUTHORITY-BASIS-REGISTER-V0_1",
+    "git_blob": "b67abaf9468689855b7f362264a1fd801f9f12a8",
+    "path": "evidence/bpesem03/dimension_authority_basis_register_v0_1.json"
+  },
+  "dimension_population": {
+    "already_pass": [
+      "C03-D3-OP",
+      "C05-D2-OP"
+    ],
+    "blocked_physical_hypothesis": [
+      "C01-D1-OP",
+      "C01-D2-OP",
+      "C01-D3-OP",
+      "C02-D1-OP",
+      "C02-D2-OP",
+      "C02-D3-OP",
+      "C02-D4-OP",
+      "C03-D1-OP",
+      "C03-D2-OP",
+      "C03-D4-OP",
+      "C07-D2-OP"
+    ],
+    "blocked_prerequisite_closure": [
+      "C05-D3-OP",
+      "C06-D3-OP"
+    ],
+    "blocked_semantic_anchor": [
+      "C01-D4-OP",
+      "C04-D1-OP",
+      "C04-D2-OP",
+      "C04-D3-OP",
+      "C04-D4-OP",
+      "C05-D1-OP",
+      "C06-D1-OP",
+      "C06-D2-OP",
+      "C06-D4-OP",
+      "C07-D1-OP",
+      "C07-D3-OP"
+    ]
+  },
+  "discriminator_set_digest": "95a090696b6bdce56337fea4dc898be82ca80136255c18e6b54fad5d5934daae",
+  "evidence_identity_policy": {
+    "allocation_rule": "All fixed slot IDs are frozen by this contract. Object IDs are deterministically allocated from the sealed pre-GET RequestManifest and raw response hash; no ad-hoc IDs after observation.",
+    "lane_c_result_manifest_id": "BPESEM04-C-DERIVED-CLOSURE-RESULT-V0_1",
+    "lane_p_object_evidence_id_template": "BPESEM04-P-OBJ::{UTC_H1_ISO}::{RAW_RESPONSE_SHA256}",
+    "lane_p_request_manifest_id": "BPESEM04-P-REQUEST-MANIFEST-V0_1",
+    "lane_p_result_manifest_id": "BPESEM04-P-PHYSICAL-DISCRIMINATION-RESULT-V0_1",
+    "lane_s_result_manifest_id": "BPESEM04-S-SEMANTIC-AUTHORITY-RESULT-V0_1",
+    "semantic_epoch_manifest_id": "BPESEM04-S-SEMANTIC-EPOCH-MANIFEST-V0_1",
+    "semantic_slot_ids": [
+      "BPESEM04-S-E01-PROVIDER-FORMAT-SEMANTICS",
+      "BPESEM04-S-E02-PROVIDER-INSTRUMENT-SCALE",
+      "BPESEM04-S-E03-PROVIDER-EPOCH-CONTINUITY",
+      "BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A",
+      "BPESEM04-S-E05-INDEPENDENT-CORROBORATION-B",
+      "BPESEM04-S-E06-CONTRADICTION-SWEEP"
+    ]
+  },
+  "execution_boundary": {
+    "post_contract_consumer_if_qualified": "A later explicitly opened acquisition/execution block may consume this contract; no network execution is self-authorized by contract PASS.",
+    "this_contract_authorizes_backtest": false,
+    "this_contract_authorizes_bfiq02r": false,
+    "this_contract_authorizes_d_materialization": false,
+    "this_contract_authorizes_full_interval": false,
+    "this_contract_authorizes_new_provider_object_acquisition": false,
+    "this_contract_authorizes_new_semantic_discrimination_execution": false,
+    "this_contract_authorizes_paper_broker_live": false,
+    "this_contract_authorizes_provider_bi5_get": false,
+    "this_contract_authorizes_provider_contact": false
+  },
+  "governed_branch": "integration/system-v1",
+  "lane_c": {
+    "derived_closure_only": true,
+    "lane_id": "C",
+    "rules": [
+      {
+        "dimension_id": "C05-D3-OP",
+        "exact_prerequisites": [
+          "C05-D1-OP",
+          "C05-D2-OP",
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D3-OP",
+          "C06-D4-OP"
+        ],
+        "independent_evidence_acquisition_allowed": false,
+        "pass_rule": "PASS iff every exact prerequisite is current PASS under same scope signature and no newer reopen event exists."
+      },
+      {
+        "additional_requirements": [
+          "PROVIDER_PRIMARY_SCALE_AUTHORITY",
+          "NONCIRCULAR_SCALE_PROOF",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ],
+        "dimension_id": "C06-D3-OP",
+        "exact_prerequisites": [
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D4-OP"
+        ],
+        "independent_provider_object_acquisition_allowed": false,
+        "noncircularity_rule": "Neither expected market price, spread plausibility, project decoder output, nor agreement with /1000 implementation may serve as the authority that establishes the divisor.",
+        "pass_rule": "PASS only when exact provider-authored scale semantics and target K1 applicability are independently bound and contradiction sweep is clear."
+      }
+    ]
+  },
+  "lane_c_digest": "033372c9b3926555ad4c1cce5f4f0924f514ec3703006bf26639525139a901fa",
+  "lane_p": {
+    "diagnostic_independence": {
+      "fake_independence_disposition": "BLOCKED",
+      "required_diagnostics": [
+        "P-DIAG-A",
+        "P-DIAG-B"
+      ],
+      "requirements": [
+        "separate implementation files and code hashes sealed before observation",
+        "no function/code copy across diagnostics beyond primitive standard-library calls",
+        "independent decode path for envelope/framing/primitive interpretation",
+        "raw response bytes shared only as immutable input identity",
+        "outputs compared only after each diagnostic result is sealed"
+      ]
+    },
+    "discriminators": [
+      {
+        "discriminator_id": "P-D01-CODEC-FAMILY-MATRIX",
+        "rule": "Attempt only predeclared codec families against raw response bytes; exact raw input hash fixed first. Record success/failure and decoded bytes hash for every codec.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D02-DECOMPRESSED-BYTE-IDENTITY",
+        "rule": "Independent diagnostics must yield byte-identical decompressed output for any surviving codec hypothesis.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D03-ENVELOPE-PARSER-MATRIX",
+        "rule": "Test exact LZMA-Alone/raw-LZMA1/XZ/other predeclared envelope parsers without auto-detection fallback.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D04-WHOLE-OBJECT-STREAM-CONSUMPTION",
+        "rule": "Record exact consumed byte count, unused bytes, concatenated stream count and terminal state.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D05-PREFIX-SUFFIX-AND-CONCATENATION-SWEEP",
+        "rule": "Detect non-stream prefix/suffix and concatenated stream requirements without stripping bytes silently.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D06-DECOMPRESSED-LENGTH-MODULUS",
+        "rule": "Evaluate exact decompressed length against 20 and all registered fixed-width alternatives; no row dropping.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D07-CANDIDATE-WIDTH-CONSISTENCY",
+        "rule": "For each registered width hypothesis, require consistent complete framing across every acquired object in applicable segment.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D08-FRAME-OFFSET-SWEEP",
+        "rule": "Evaluate byte-zero and every registered nonzero origin candidate; no preferred origin chosen from semantic plausibility alone.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D09-TERMINAL-RESIDUAL-EXACTNESS",
+        "rule": "Preserve and hash all residual bytes; any undeclared residual blocks PASS until adjudicated.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D10-PER-RECORD-STRUCTURAL-SWEEP",
+        "rule": "Test registered header/delimiter layouts without deleting candidate bytes; unknown recurring structure is a reopen trigger.",
+        "type": "PHYSICAL"
+      },
+      {
+        "discriminator_id": "P-D11-ENDIAN-DUAL-DECODE",
+        "rule": "Execute big/little/mixed registered decodes independently; physical survival alone is insufficient without Lane S semantic crosscheck where meanings are required.",
+        "type": "PHYSICAL_PLUS_SEMANTIC_CROSSCHECK"
+      },
+      {
+        "discriminator_id": "P-D12-FIELD-ORDER-CANDIDATE-MATRIX",
+        "rule": "Evaluate target order and all registered material order classes; spread sign or market plausibility alone cannot select a winner.",
+        "type": "PHYSICAL_PLUS_SEMANTIC_CROSSCHECK"
+      },
+      {
+        "discriminator_id": "P-D13-PRIMITIVE-BIT-INTERPRETATION-MATRIX",
+        "rule": "Compare exact 4-byte bit interpretations under registered primitive encodings; decodability alone cannot establish semantic meaning.",
+        "type": "PHYSICAL_PLUS_SEMANTIC_CROSSCHECK"
+      },
+      {
+        "discriminator_id": "P-D14-VOLUME-PRIMITIVE-MATRIX",
+        "rule": "Evaluate volume primitive hypotheses on unchanged bits; realistic-looking values are not authority.",
+        "type": "PHYSICAL_PLUS_SEMANTIC_CROSSCHECK"
+      },
+      {
+        "discriminator_id": "P-D15-SIGNEDNESS-OBLIGATION-CHECK",
+        "rule": "For affected first-three fields, evaluate high_bit == 0 on every accepted target-domain instance unless separate exact signedness authority is current PASS.",
+        "type": "EXECUTION_OBLIGATION"
+      },
+      {
+        "discriminator_id": "P-D16-SEMANTIC-CROSSCHECK-REQUIRED",
+        "rule": "Any physical discriminator needing field meaning must consume Lane S qualified semantic anchors; raw plausibility cannot replace semantic authority.",
+        "type": "FIREWALL"
+      }
+    ],
+    "hypothesis_sets": {
+      "C01-D1-OP": {
+        "alternatives": [
+          "LZMA_FAMILY",
+          "NON_LZMA_COMPRESSED",
+          "UNCOMPRESSED_OR_OTHER"
+        ],
+        "discriminators": [
+          "P-D01-CODEC-FAMILY-MATRIX",
+          "P-D02-DECOMPRESSED-BYTE-IDENTITY"
+        ],
+        "registered_proposition": "compression family = LZMA"
+      },
+      "C01-D2-OP": {
+        "alternatives": [
+          "LZMA_ALONE",
+          "RAW_LZMA1",
+          "XZ_CONTAINER",
+          "OTHER_CONTAINER_OR_WRAPPER"
+        ],
+        "discriminators": [
+          "P-D03-ENVELOPE-PARSER-MATRIX",
+          "P-D04-WHOLE-OBJECT-STREAM-CONSUMPTION"
+        ],
+        "registered_proposition": "exact envelope/container mode for target K1"
+      },
+      "C01-D3-OP": {
+        "alternatives": [
+          "SINGLE_WHOLE_OBJECT_STREAM",
+          "CONCATENATED_STREAMS",
+          "PREFIX_SUFFIX_WRAPPER",
+          "OTHER_ADMISSION_RULE"
+        ],
+        "discriminators": [
+          "P-D04-WHOLE-OBJECT-STREAM-CONSUMPTION",
+          "P-D05-PREFIX-SUFFIX-AND-CONCATENATION-SWEEP"
+        ],
+        "registered_proposition": "exact stream/wrapper admission rule"
+      },
+      "C02-D1-OP": {
+        "alternatives": [
+          "FIXED_20_BYTES",
+          "OTHER_FIXED_WIDTH",
+          "VARIABLE_WIDTH"
+        ],
+        "discriminators": [
+          "P-D06-DECOMPRESSED-LENGTH-MODULUS",
+          "P-D07-CANDIDATE-WIDTH-CONSISTENCY"
+        ],
+        "registered_proposition": "complete record width = 20 bytes"
+      },
+      "C02-D2-OP": {
+        "alternatives": [
+          "ORIGIN_BYTE_ZERO",
+          "NONZERO_FIXED_ORIGIN",
+          "VARIABLE_ORIGIN"
+        ],
+        "discriminators": [
+          "P-D08-FRAME-OFFSET-SWEEP"
+        ],
+        "registered_proposition": "frame origin = byte zero"
+      },
+      "C02-D3-OP": {
+        "alternatives": [
+          "NO_TRAILING_RESIDUAL",
+          "FIXED_TRAILER",
+          "VARIABLE_RESIDUAL_OR_TRAILER"
+        ],
+        "discriminators": [
+          "P-D09-TERMINAL-RESIDUAL-EXACTNESS"
+        ],
+        "registered_proposition": "terminal residual/trailing-byte disposition"
+      },
+      "C02-D4-OP": {
+        "alternatives": [
+          "NO_PER_RECORD_HEADER_OR_DELIMITER",
+          "FIXED_PER_RECORD_HEADER",
+          "DELIMITER_BASED_OR_VARIABLE_HEADER"
+        ],
+        "discriminators": [
+          "P-D10-PER-RECORD-STRUCTURAL-SWEEP"
+        ],
+        "registered_proposition": "per-record header/delimiter presence and semantics"
+      },
+      "C03-D1-OP": {
+        "alternatives": [
+          "BIG_ENDIAN",
+          "LITTLE_ENDIAN",
+          "MIXED_ENDIAN_OR_OTHER"
+        ],
+        "discriminators": [
+          "P-D11-ENDIAN-DUAL-DECODE",
+          "P-D16-SEMANTIC-CROSSCHECK-REQUIRED"
+        ],
+        "registered_proposition": "byte order = big-endian"
+      },
+      "C03-D2-OP": {
+        "alternatives": [
+          "TARGET_ORDER_MS_ASK_BID_ASKVOL_BIDVOL",
+          "MATERIAL_PERMUTATION",
+          "MIXED_OR_OTHER_LAYOUT"
+        ],
+        "discriminators": [
+          "P-D12-FIELD-ORDER-CANDIDATE-MATRIX",
+          "P-D16-SEMANTIC-CROSSCHECK-REQUIRED"
+        ],
+        "registered_proposition": "exact five-field physical order"
+      },
+      "C03-D4-OP": {
+        "alternatives": [
+          "IEEE754_BINARY32",
+          "INTEGER32",
+          "BINARY64_OR_OTHER_ENCODING"
+        ],
+        "discriminators": [
+          "P-D13-PRIMITIVE-BIT-INTERPRETATION-MATRIX",
+          "P-D16-SEMANTIC-CROSSCHECK-REQUIRED"
+        ],
+        "registered_proposition": "final two fields = IEEE-754 binary32"
+      },
+      "C07-D2-OP": {
+        "alternatives": [
+          "IEEE754_BINARY32",
+          "INTEGER32_OR_FIXED_POINT",
+          "BINARY64_OR_OTHER_ENCODING"
+        ],
+        "discriminators": [
+          "P-D14-VOLUME-PRIMITIVE-MATRIX",
+          "P-D16-SEMANTIC-CROSSCHECK-REQUIRED"
+        ],
+        "registered_proposition": "primitive encoding = IEEE-754 binary32"
+      }
+    },
+    "known_material_alternative_policy": {
+      "enumerated_sets_are_preobservation_closed": true,
+      "new_material_alternative_after_seal": "REOPEN_AFFECTED_HYPOTHESIS_SET_AND_INVALIDATE_ANY_DEPENDENT_PASS",
+      "other_category_is_not_a_winner": "Any observation classified only as OTHER/UNKNOWN causes BLOCKED + REOPEN before adjudication.",
+      "silent_alternative_collapse_forbidden": true
+    },
+    "known_prior_observation_role": "B-ERD-02 remains NONDECISIVE_COMPATIBILITY only",
+    "lane_id": "P",
+    "pre_observation_freeze_required": true,
+    "purpose": "Prospective decisive discrimination for exact 11 physical hypotheses.",
+    "sampling_policy": {
+      "anti_extrapolation": "PHYSICAL_PASS_APPLIES_ONLY_TO_SEMANTIC_EPOCHS_WITH_REQUIRED_SAMPLE_COVERAGE_AND_LANE_S_SCOPE_PASS",
+      "evaluation_first_open_slot_utc": "2021-08-15T22:00:00+00:00",
+      "evaluation_last_open_slot_utc": "2026-08-14T20:00:00+00:00",
+      "policy_id": "BPESEM04-P-SAMPLING-V0_1",
+      "selection_mutability_after_first_provider_object_get": "FORBIDDEN",
+      "selection_sequence": [
+        "Lane S evidence acquisition and immutable sealing occurs first.",
+        "Lane S semantic change-point inventory is sealed as SemanticEpochManifest before any Lane P provider-object GET.",
+        "Use canonical open-slot sequence from sealed interval inventory only.",
+        "Partition evaluation open slots by UTC calendar quarter.",
+        "For every non-empty quarter select deterministic ranks floor((n-1)*0.10), floor((n-1)*0.50), floor((n-1)*0.90).",
+        "Add first and last open slot of full governed domain.",
+        "For every sealed semantic change point inside target domain add nearest open slot strictly before and nearest open slot at-or-after the change point.",
+        "Deduplicate exact H1 timestamps and sort ascending.",
+        "Materialize and seal RequestManifest containing every selected H1 before the first provider-object GET."
+      ],
+      "source_interval_inventory_git_blob": "8c02972228941d8b6f1aacaf9ac6bf75fb0f2029",
+      "source_interval_inventory_path": "evidence/bfiq02/interval_inventory_v0_1.json",
+      "source_interval_inventory_root": "26d86a34a00e6697208a6481867f6338f21c1deae26e5be74b52cc8ba83eced8",
+      "source_scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+      "target_full_domain_first_h1": "2021-08-13T01:00:00Z",
+      "target_full_domain_last_h1": "2026-08-14T20:00:00Z",
+      "unexpected_closed_or_missing_selected_slot_disposition": "BLOCKED_AND_REOPEN_SAMPLE_MANIFEST; NO_SILENT_SUBSTITUTION"
+    },
+    "target_dimension_ids": [
+      "C01-D1-OP",
+      "C01-D2-OP",
+      "C01-D3-OP",
+      "C02-D1-OP",
+      "C02-D2-OP",
+      "C02-D3-OP",
+      "C02-D4-OP",
+      "C03-D1-OP",
+      "C03-D2-OP",
+      "C03-D4-OP",
+      "C07-D2-OP"
+    ]
+  },
+  "lane_s": {
+    "epoch_coverage_policy": {
+      "change_point_discovery_rule": "Review all admissible provider-authored version/release/source-change evidence material to K1 semantic meaning. Every material change point splits the semantic epoch.",
+      "coverage_rule": "Union of qualified semantic-authority intervals must cover the entire target interval with no uncovered time and no unresolved semantic change point.",
+      "forward_or_backward_extrapolation_without_explicit_continuity_proof": "FORBIDDEN",
+      "new_change_point_after_seal": "REOPEN",
+      "partial_coverage_disposition": "BLOCKED",
+      "policy_id": "BPESEM04-S-EPOCH-COVERAGE-V0_1",
+      "representation_presence_is_semantic_continuity": "FALSE",
+      "target_interval_end": "2026-08-14T20:00:00Z",
+      "target_interval_start": "2021-08-13T01:00:00Z"
+    },
+    "evidence_slots": [
+      {
+        "authority_role": "PRIMARY_SEMANTIC_AUTHORITY",
+        "evidence_slot_id": "BPESEM04-S-E01-PROVIDER-FORMAT-SEMANTICS",
+        "lane": "S",
+        "minimum_materialization_requirements": [
+          "immutable_snapshot_or_exact_version",
+          "publisher_identity",
+          "exact_locator",
+          "raw_sha256",
+          "semantic_extract_sha256",
+          "retrieval_time",
+          "scope_statement"
+        ],
+        "purpose": "Exact native hourly BI5 semantic format meanings: decompressed payload role, timestamp offset semantics, ask/bid roles, volume roles/transform where provider-authoritative.",
+        "required_source_class": "PROVIDER_AUTHORED_IMMUTABLE_OR_VERSIONED",
+        "sole_reference_implementation_allowed": false,
+        "status_before_observation": "UNFILLED_PRE_REGISTERED_SLOT",
+        "target_dimension_ids": [
+          "C01-D4-OP",
+          "C04-D1-OP",
+          "C04-D2-OP",
+          "C04-D3-OP",
+          "C04-D4-OP",
+          "C05-D1-OP",
+          "C07-D1-OP",
+          "C07-D3-OP"
+        ]
+      },
+      {
+        "authority_role": "PRIMARY_SCALE_AND_INSTRUMENT_AUTHORITY",
+        "evidence_slot_id": "BPESEM04-S-E02-PROVIDER-INSTRUMENT-SCALE",
+        "lane": "S",
+        "minimum_materialization_requirements": [
+          "immutable_snapshot_or_exact_version",
+          "publisher_identity",
+          "exact_instrument_identity",
+          "exact_scale_statement",
+          "raw_sha256",
+          "retrieval_time",
+          "scope_statement"
+        ],
+        "price_plausibility_inference_allowed": false,
+        "purpose": "USATECHIDXUSD identity, K1 applicability, decimal/price scale authority, and exact noncircular /1000 or alternative mapping.",
+        "required_source_class": "PROVIDER_AUTHORED_IMMUTABLE_OR_VERSIONED",
+        "status_before_observation": "UNFILLED_PRE_REGISTERED_SLOT",
+        "target_dimension_ids": [
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D3-OP",
+          "C06-D4-OP"
+        ]
+      },
+      {
+        "authority_role": "TARGET_EPOCH_SCOPE_AUTHORITY",
+        "evidence_slot_id": "BPESEM04-S-E03-PROVIDER-EPOCH-CONTINUITY",
+        "lane": "S",
+        "minimum_materialization_requirements": [
+          "version_or_date_boundaries",
+          "immutable_snapshot_or_exact_version",
+          "raw_sha256",
+          "complete_change_point_review",
+          "coverage_ledger"
+        ],
+        "purpose": "Provider semantic change-point inventory and continuity/epoch coverage across the exact target interval.",
+        "required_source_class": "PROVIDER_AUTHORED_VERSIONED_CHANGE_HISTORY",
+        "status_before_observation": "UNFILLED_PRE_REGISTERED_SLOT",
+        "target_dimension_ids": [
+          "C01-D1-OP",
+          "C01-D2-OP",
+          "C01-D3-OP",
+          "C02-D1-OP",
+          "C02-D2-OP",
+          "C02-D3-OP",
+          "C02-D4-OP",
+          "C03-D1-OP",
+          "C03-D2-OP",
+          "C03-D4-OP",
+          "C07-D2-OP",
+          "C01-D4-OP",
+          "C04-D1-OP",
+          "C04-D2-OP",
+          "C04-D3-OP",
+          "C04-D4-OP",
+          "C05-D1-OP",
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D4-OP",
+          "C07-D1-OP",
+          "C07-D3-OP",
+          "C05-D3-OP",
+          "C06-D3-OP"
+        ]
+      },
+      {
+        "authority_role": "CORROBORATION_ONLY",
+        "evidence_slot_id": "BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A",
+        "lane": "S",
+        "lineage_independence_required": true,
+        "purpose": "Independent corroboration for candidate semantic meanings; never sole provider authority.",
+        "required_source_class": "VERSIONED_NONPROJECT_REFERENCE_IMPLEMENTATION_OR_SPEC",
+        "sole_positive_authority_allowed": false,
+        "status_before_observation": "UNFILLED_PRE_REGISTERED_SLOT",
+        "target_dimension_ids": [
+          "C01-D4-OP",
+          "C04-D1-OP",
+          "C04-D2-OP",
+          "C04-D3-OP",
+          "C04-D4-OP",
+          "C05-D1-OP",
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D4-OP",
+          "C07-D1-OP",
+          "C07-D3-OP"
+        ]
+      },
+      {
+        "authority_role": "CORROBORATION_ONLY",
+        "evidence_slot_id": "BPESEM04-S-E05-INDEPENDENT-CORROBORATION-B",
+        "lane": "S",
+        "lineage_independence_required": true,
+        "must_be_independent_from_slot": "BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A",
+        "purpose": "Second independent corroboration lineage where available; cannot substitute for missing provider primary authority.",
+        "required_source_class": "VERSIONED_NONPROJECT_REFERENCE_IMPLEMENTATION_OR_SPEC",
+        "sole_positive_authority_allowed": false,
+        "status_before_observation": "UNFILLED_PRE_REGISTERED_SLOT",
+        "target_dimension_ids": [
+          "C01-D4-OP",
+          "C04-D1-OP",
+          "C04-D2-OP",
+          "C04-D3-OP",
+          "C04-D4-OP",
+          "C05-D1-OP",
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D4-OP",
+          "C07-D1-OP",
+          "C07-D3-OP"
+        ]
+      },
+      {
+        "authority_role": "CONTRADICTION_CONTROL",
+        "evidence_slot_id": "BPESEM04-S-E06-CONTRADICTION-SWEEP",
+        "lane": "S",
+        "must_cover_all_registered_and_newly_discovered_material_sources": true,
+        "purpose": "Explicit contradiction and alternative interpretation sweep before any semantic PASS.",
+        "required_source_class": "GOVERNED_MULTI_SOURCE_REVIEW",
+        "status_before_observation": "UNFILLED_PRE_REGISTERED_SLOT",
+        "target_dimension_ids": [
+          "C01-D4-OP",
+          "C04-D1-OP",
+          "C04-D2-OP",
+          "C04-D3-OP",
+          "C04-D4-OP",
+          "C05-D1-OP",
+          "C06-D1-OP",
+          "C06-D2-OP",
+          "C06-D4-OP",
+          "C07-D1-OP",
+          "C07-D3-OP",
+          "C06-D3-OP"
+        ]
+      }
+    ],
+    "lane_id": "S",
+    "purpose": "Prospective semantic authority and target-epoch scope closure.",
+    "scale_noncircularity": {
+      "dimension_id": "C06-D3-OP",
+      "prohibited_authority_inputs": [
+        "expected market price",
+        "spread plausibility",
+        "project decoder result",
+        "agreement with /1000 reference implementation"
+      ],
+      "required_primary_source": "provider-authored exact scale/instrument semantic authority"
+    },
+    "semantic_authority_rules": [
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C01-D4-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C04-D1-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C04-D2-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C04-D3-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C04-D4-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C05-D1-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C06-D1-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C06-D2-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C06-D4-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C07-D1-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      },
+      {
+        "blocked_conditions": [
+          "PROVIDER_PRIMARY_ABSENT",
+          "SOURCE_NOT_IMMUTABLE_OR_VERSIONED",
+          "LINEAGE_UNRESOLVED",
+          "TARGET_EPOCH_GAP",
+          "MATERIAL_CONTRADICTION_UNRESOLVED"
+        ],
+        "corroboration_requirement": "AT_LEAST_ONE_INDEPENDENT_NONPROJECT_CORROBORATION_WHERE_MATERIAL_SOURCE_EXISTS; ABSENCE_DOES_NOT_REPLACE_PROVIDER_PRIMARY",
+        "dimension_id": "C07-D3-OP",
+        "fail_condition": "ADMISSIBLE_EXACT_TARGET_SCOPE_PRIMARY_AUTHORITY_ESTABLISHES_REGISTERED_PROPOSITION_FALSE",
+        "pass_requires": [
+          "EXACT_PROVIDER_PRIMARY_SEMANTIC_ANCHOR",
+          "SEMANTIC_SOURCE_LINEAGE_RESOLVED",
+          "TARGET_EPOCH_SCOPE_APPLICABILITY_PASS",
+          "NO_UNRESOLVED_MATERIAL_CONTRADICTION"
+        ]
+      }
+    ],
+    "source_lineage_rules": {
+      "duplicate_lineage_cannot_satisfy_multi_source_requirement": true,
+      "fork_copy_or_shared_upstream_counts_as_same_lineage": true,
+      "independence_requires": [
+        "distinct semantic source origin",
+        "no fork/copy derivation",
+        "documented provenance relationship",
+        "exact version/commit identity where applicable"
+      ],
+      "project_origin_never_independent_semantic_authority": true,
+      "same_publisher_multiple_pages_not_automatically_independent": true,
+      "unresolved_lineage_disposition": "BLOCKED"
+    }
+  },
+  "mandatory_safeguards": [
+    "S01_NO_SEMANTIC_AUTHORITY_FROM_RAW_PHYSICAL_COMPATIBILITY",
+    "S02_NO_PHYSICAL_PASS_FROM_DOCUMENTATION_ALONE",
+    "S03_NO_POST_HOC_HYPOTHESES_AFTER_NEW_BI5_OBSERVATION",
+    "S04_NO_LIVE_UNVERSIONED_PROVIDER_PAGE_AS_DURABLE_AUTHORITY",
+    "S05_NO_REFERENCE_IMPLEMENTATION_AS_SOLE_PROVIDER_AUTHORITY",
+    "S06_NO_2026_SEMANTICS_BACKWARD_EXTRAPOLATION_WITHOUT_PROOF",
+    "S07_NO_HISTORICAL_SEMANTICS_FORWARD_EXTRAPOLATION_WITHOUT_PROOF",
+    "S08_NO_REPRESENTATION_PRESENCE_SEMANTIC_CONTINUITY_CONFLATION",
+    "S09_NO_C08_TO_C01_C07_SELF_AUTHORIZATION",
+    "S10_NO_C01_C07_TO_C08_PREAUTHORIZATION",
+    "S11_NO_CIRCULAR_PRICE_SCALE_PLAUSIBILITY_AUTHORITY",
+    "S12_NO_ASK_BID_ROLE_FROM_SPREAD_SIGN_ONLY",
+    "S13_NO_TIMESTAMP_SEMANTICS_FROM_PLAUSIBLE_RANGE_ONLY",
+    "S14_NO_VOLUME_SEMANTICS_FROM_BINARY32_DECODABILITY_ONLY",
+    "S15_NO_PROJECT_IMPLEMENTATION_AS_INDEPENDENT_AUTHORITY",
+    "S16_NO_BERD02_PROMOTION_BEYOND_NONDECISIVE_COMPATIBILITY",
+    "S17_NO_PARTIAL_EPOCH_COVERAGE_AS_FULL_CONTINUITY",
+    "S18_NO_DUPLICATE_LINEAGE_COUNTED_AS_INDEPENDENCE",
+    "S19_NO_C05_D3_INDEPENDENT_EVIDENCE_LAUNDERING",
+    "S20_NO_PROVIDER_OR_NETWORK_ACQUISITION_BEFORE_CONTRACT_QUALIFICATION"
+  ],
+  "outcome_rules": {
+    "claim_projection": "FAIL if any mandatory dimension FAIL; PASS only if all mandatory dimensions PASS; otherwise BLOCKED.",
+    "contract_qualification_pass": "This B-PE-SEM-04 contract passes only if its formalization, breaker and persisted-head final re-break pass. Contract PASS does not imply any C01-C07 evidence PASS.",
+    "dimension_blocked": "Evidence absent, inadmissible, non-immutable, scope-incomplete, lineage-unresolved, multiple material hypotheses survive, contradiction unresolved, sampling/diagnostic obligation violated, or required prerequisite not PASS.",
+    "dimension_fail": "Admissible exact target-scope authority positively establishes the registered proposition false, or a prospectively registered competing physical hypothesis uniquely survives and registered proposition is eliminated.",
+    "dimension_pass": "All authority roles required by DimensionAuthorityBasis are satisfied under the same exact scope; all mandatory lane-specific conditions PASS; no unresolved material contradiction/reopen event.",
+    "overall_c01_c07_pass": "All seven claims PASS under one current evidence horizon and scope authority."
+  },
+  "physical_hypothesis_set_digest": "5de065be53514640a465fd0d7fff2646eb2ec59f3bb35a1050b02dae04b331c9",
+  "preserved_existing_authority": {
+    "conditional_rule_ids": [
+      "SIGNEDNESS_EQUIVALENCE_RULE_V0_1"
+    ],
+    "dimension_ids": [
+      "C03-D3-OP",
+      "C05-D2-OP"
+    ],
+    "execution_obligation_set": [
+      {
+        "affected_field_set": [
+          "timestamp_offset_raw",
+          "ask_price_raw",
+          "bid_price_raw"
+        ],
+        "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+        "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+        "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+        "nonwaivable": true,
+        "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C03-D3-OP",
+        "on_blocked": "BLOCKED",
+        "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+        "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+        "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+        "source_claim_id": "BPE-SEM-C03-OP",
+        "source_dimension_id": "C03-D3-OP"
+      },
+      {
+        "affected_field_set": [
+          "ask_price_raw",
+          "bid_price_raw"
+        ],
+        "evaluation_cardinality": "EVERY_ACCEPTED_AFFECTED_FIELD_INSTANCE",
+        "evaluation_scope": "EVERY_ACCEPTED_TARGET_DOMAIN_RECORD",
+        "exact_predicate": "high_bit == 0 for every affected target-domain field instance unless exact signedness authority is separately current PASS",
+        "nonwaivable": true,
+        "obligation_id": "SIGNEDNESS_HIGH_BIT_ZERO_REQUIRED::C05-D2-OP",
+        "on_blocked": "BLOCKED",
+        "on_fail": "BLOCKED — SIGNEDNESS_SEMANTIC_AMBIGUITY",
+        "on_pass": "CONDITIONAL_SIGNEDNESS_EQUIVALENCE_SATISFIED",
+        "rule_id": "SIGNEDNESS_EQUIVALENCE_RULE_V0_1",
+        "source_claim_id": "BPE-SEM-C05-OP",
+        "source_dimension_id": "C05-D2-OP"
+      }
+    ],
+    "obligation_set_digest": "93f46bde9aae069723b1dc9b6dc4606edbaf4126240723337438878c74ade09d",
+    "preservation_rule": "These PASS dimensions and nonwaivable obligations remain current unless an explicit governed reopen invalidates them; Lane P must evaluate the signedness obligation on every accepted affected field instance."
+  },
+  "prior_bpesem03r": {
+    "adjudication_blob": "d26655e3806b36305252fda186ccf4d08e38084b",
+    "adjudication_path": "evidence/bpesem03r/operational_semantic_rule_adjudication_v0_1.json",
+    "closeout_blob": "acd90221fc97d816bec8d30e5c421aa89947e994",
+    "closeout_path": "reports/data-qualification/bpesem03r_final_closeout_2026-09-22.md",
+    "semantic_authority": "BLOCKED"
+  },
+  "reopen_rules": [
+    {
+      "effect": "REOPEN_AFFECTED_DIMENSIONS_AND_DEPENDENTS",
+      "trigger": "new material semantic interpretation or physical hypothesis"
+    },
+    {
+      "effect": "REOPEN_SCOPE_APPLICABILITY_AND_RESAMPLE_BOUNDARY_OBJECTS_BEFORE_NEW_GET",
+      "trigger": "new provider semantic change point"
+    },
+    {
+      "effect": "INVALIDATE_DEPENDENT_AUTHORITY",
+      "trigger": "source bytes/version/provenance mutation"
+    },
+    {
+      "effect": "BLOCK_AFFECTED_PASS_UNTIL_RESOLVED",
+      "trigger": "new contradiction"
+    },
+    {
+      "effect": "INVALIDATE_PROSPECTIVE_DISCRIMINATION_AND_REQUIRE_NEW_PREOBSERVATION_FREEZE",
+      "trigger": "diagnostic code changes after pre-observation seal"
+    },
+    {
+      "effect": "INVALIDATE_LANE_P_EXECUTION",
+      "trigger": "sample manifest changes after first GET"
+    },
+    {
+      "effect": "BLOCK_AND_ADD_MATERIAL_ALTERNATIVE_BEFORE_ANY_CONTINUATION",
+      "trigger": "unexpected response wrapper/residual/layout"
+    }
+  ],
+  "safeguard_set_digest": "5b05aa20b0a628db00c6d2ab08c0cf6c3bac65d459850123b202690928886564",
+  "sampling_policy_digest": "7e7b0e84c5861171bb4ebf224aac188e5943c047ffe4dd800c4fd98c54188118",
+  "schema": "B_PE_SEM_04_PROSPECTIVE_CLOSURE_EVIDENCE_CONTRACT_V0_1",
+  "scope_signature": {
+    "git_blob": "80c47551707b8d36c04fd8b3f4003e93dfecaf37",
+    "instrument_id": "USATECHIDXUSD",
+    "path": "evidence/bpesem03/operational_semantic_scope_signature_v0_1.json",
+    "provider_identity": "DUKASCOPY",
+    "representation_regime_id": "K1_LEGACY_HOURLY_TICK_BI5",
+    "scope_signature_digest": "8bbac7d24d7ab18ece81dfa3e5118dee3e829bced31c20a94a57bd67c8bbd306",
+    "scope_signature_id": "BPESEM03-USATECH-K1-SEMANTIC-SCOPE-V0_1",
+    "target_end": "2026-08-14T20:00:00Z",
+    "target_start": "2021-08-13T01:00:00Z"
+  },
+  "sealing_policy": {
+    "canonical_json": "UTF-8, sorted keys, compact separators, allow_nan=false",
+    "hash": "SHA-256",
+    "lane_p_post_observation_seals": [
+      "raw_response_sha256",
+      "transport_metadata_digest",
+      "decompressed_bytes_sha256_if_any",
+      "diagnostic_result_seals",
+      "object_adjudication_seal"
+    ],
+    "lane_p_pre_observation_seals": [
+      "contract_seal",
+      "semantic_epoch_manifest_seal",
+      "request_manifest_seal",
+      "diagnostic_code_hashes",
+      "hypothesis_set_digest",
+      "sampling_policy_digest"
+    ],
+    "mutation_after_seal": "FORBIDDEN; NEW_VERSION_REQUIRED",
+    "semantic_source_seal_requires": [
+      "raw_bytes_sha256",
+      "exact_locator",
+      "publisher_identity",
+      "version_or_snapshot_identity",
+      "retrieval_time",
+      "scope_statement"
+    ]
+  },
+  "selected_route_record": {
+    "git_blob": "ba8687735cd48f81bb654d33117d957447707783",
+    "path": "reports/data-qualification/post_bpesem03r_semantic_authority_closure_route_selection_2026-09-22.md"
+  },
+  "semantic_slot_set_digest": "abffb1f822f1f9e174f8c808c9a7b3aef84445f0f2623e2f40bce295d464d139"
+}
