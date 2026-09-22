@@ -433,6 +433,13 @@ contract={
     "scope_signature":{"path":SCOPE_PATH,"git_blob":SCOPE_BLOB,"scope_signature_id":scope["scope_signature_id"],"scope_signature_digest":scope["scope_signature_digest"],"provider_identity":scope["provider_identity"],"instrument_id":scope["instrument_id"],"representation_regime_id":scope["representation_regime_id"],"target_start":scope["full_domain_first_h1"],"target_end":scope["full_domain_last_h1"]},
     "dimension_authority_basis":{"path":BASIS_PATH,"git_blob":BASIS_BLOB,"basis_register_id":basis["basis_register_id"],"basis_register_digest":basis["basis_register_digest"]},
     "dimension_population":{"already_pass":PASS_DIMS,"blocked_physical_hypothesis":PHYSICAL_DIMS,"blocked_semantic_anchor":SEMANTIC_DIMS,"blocked_prerequisite_closure":PREREQ_DIMS},
+    "preserved_existing_authority":{
+        "dimension_ids":PASS_DIMS,
+        "conditional_rule_ids":["SIGNEDNESS_EQUIVALENCE_RULE_V0_1"],
+        "execution_obligation_set":prior["execution_obligation_set"],
+        "obligation_set_digest":prior["obligation_set_digest"],
+        "preservation_rule":"These PASS dimensions and nonwaivable obligations remain current unless an explicit governed reopen invalidates them; Lane P must evaluate the signedness obligation on every accepted affected field instance."
+    },
     "lane_s":{
         "lane_id":"S",
         "purpose":"Prospective semantic authority and target-epoch scope closure.",
@@ -450,6 +457,12 @@ contract={
         "discriminators":discriminators,
         "sampling_policy":sampling_policy,
         "diagnostic_independence":diagnostic_independence,
+        "known_material_alternative_policy":{
+            "enumerated_sets_are_preobservation_closed":True,
+            "other_category_is_not_a_winner":"Any observation classified only as OTHER/UNKNOWN causes BLOCKED + REOPEN before adjudication.",
+            "new_material_alternative_after_seal":"REOPEN_AFFECTED_HYPOTHESIS_SET_AND_INVALIDATE_ANY_DEPENDENT_PASS",
+            "silent_alternative_collapse_forbidden":True
+        },
         "known_prior_observation_role":"B-ERD-02 remains NONDECISIVE_COMPATIBILITY only",
         "pre_observation_freeze_required":True,
     },
