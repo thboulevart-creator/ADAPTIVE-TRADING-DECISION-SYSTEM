@@ -11270,3 +11270,407 @@ paper/broker/live
 ~~~
 
 STOP — ESCALATION ROUTE SELECTED; B-PE-SEM-05R-02 NOT YET OPENED.
+
+
+---
+
+## 184. B-PE-SEM-05R-02 final closeout — PASS
+
+Closed block:
+
+~~~text
+B-PE-SEM-05R-02 —
+PROVIDER PRIMARY AUTHORITY INQUIRY CONTRACT
+PRE-CONTACT FORMALIZATION ONLY
+~~~
+
+Final governed result:
+
+~~~text
+package integrity = PASS
+
+inquiry contract qualification = PASS
+
+A preserved = AMBIGUOUS
+B preserved = NOT_FOUND
+C preserved = INCOMPLETE_VERSION_COVERAGE
+
+provider contact authorized = NO
+provider contact performed = NO
+provider inquiry sent = NO
+
+Lane S authority effect = NONE
+Lane P authority effect = NONE
+
+B-PE-SEM-05R-02 = CLOSED / PASS
+
+demonstrated final defects = 0
+~~~
+
+Qualified contract:
+
+~~~text
+evidence/bpesem05r02/
+provider_primary_authority_inquiry_contract_v0_1.json
+
+blob =
+3eeb079b834102a2c8983563bd21088ad50796ed
+
+contract seal =
+39b3cd8ad0c3bd68a3326f31ec2e27ae1cd7d34d6d1fb0c9eebe9b49c2e1f0a2
+~~~
+
+Target binding:
+
+~~~text
+provider =
+Dukascopy Bank SA
+
+representation =
+K1 / historical hourly tick .bi5 legacy family
+
+instrument =
+USATECHIDXUSD / USATECH.IDX/USD
+
+target interval =
+2021-08-13T01:00:00Z
+→
+2026-08-14T20:00:00Z
+~~~
+
+Frozen question groups:
+
+~~~text
+A = 7
+B = 3
+C = 3
+JETTA = 2
+~~~
+
+Question firewall:
+
+~~~text
+A:
+no LZMA / 20-byte / big-endian / five-field / hour-relative assumption asserted as fact
+
+B:
+no 1000 / /1000 / decimalFactor=1000 disclosed as expected answer
+
+C:
+silence / missing release note != continuity
+
+JETTA:
+neither semantic change nor semantic stability is presumed
+~~~
+
+Contact-channel policy:
+
+~~~text
+allowed:
+official Dukascopy-controlled support/contact channel
+official/verifiable Dukascopy-domain email
+provider-owned support/forum only with independently verifiable official responder
+
+forbidden as provider-primary:
+anonymous community
+third-party forum/social response
+unverified personal email
+LLM/search summary
+project-only interpretation
+~~~
+
+Responder identity:
+
+~~~text
+provider identity must be verified
+or exact provider-owned ticket origin independently verified
+
+partial/unresolved identity
+→ BLOCKED for provider-primary authority
+~~~
+
+Raw response preservation requirements:
+
+~~~text
+exact sent question text
+exact complete response
+original attachments where available
+channel identity
+responder/sender identity
+thread/ticket/message id where available
+sent/received timestamps
+provider references
+
+SHA-256 each raw capture
++
+SHA-256 canonical evidence manifest
+~~~
+
+Future outcome taxonomy:
+
+~~~text
+RECOVERED_PROVIDER_PRIMARY
+PARTIALLY_RECOVERED
+AMBIGUOUS
+NOT_ANSWERED
+PROVIDER_CANNOT_CONFIRM
+CONTRADICTED
+INADMISSIBLE
+BLOCKED
+~~~
+
+No response:
+
+~~~text
+zero positive authority
+~~~
+
+Provider-cited reference:
+
+~~~text
+new evidence lead only
+→ requires later governed acquisition/sealing
+~~~
+
+Future recovered evidence:
+
+~~~text
+cannot authorize Lane P directly
+→ must return through separate governed Lane S re-adjudication
+~~~
+
+Retry rules:
+
+~~~text
+initial contact count = 1
+automatic retry = NO
+question mutation after send = FORBIDDEN
+new wording = new governed contract version
+~~~
+
+Candidate:
+
+~~~text
+commit =
+c5c39707c07ca60b0fb6a7475ab3d0426d6e45a7
+
+candidate report blob =
+4c4115556bdf513f87d2d7c4633841ac51c472b5
+~~~
+
+Adversarial break:
+
+~~~text
+workflow run =
+35763230539
+
+job =
+106866219537
+
+report blob =
+94d190231d46f5849a106efdae908ed4f7d1c471
+
+verdict =
+PASS
+
+attack count =
+36
+
+demonstrated defects =
+0
+~~~
+
+No candidate correction was justified.
+
+Final persisted-head re-break:
+
+~~~text
+workflow run =
+35763432564
+
+job =
+106866875065
+
+output commit =
+ce0586499b6dec1db976f30fec00b222ad541c62
+~~~
+
+Qualification:
+
+~~~text
+evidence/bpesem05r02/
+inquiry_contract_qualification_v0_1.json
+
+blob =
+87971297e47bfe78e030dadf0a61c03e94b4957a
+
+package integrity =
+PASS
+
+contract qualification =
+PASS
+
+provider contact authorized =
+false
+
+provider inquiry sent =
+false
+
+qualification seal =
+2501061249854339f3bfb8b7ec1acb15f6dc9701c14f17f306e5d04d8d7e162a
+~~~
+
+Final re-break report:
+
+~~~text
+reports/data-qualification/
+bpesem05r02_final_persisted_head_rebreak_2026-09-22.md
+
+blob =
+b05721240d8cf6556aec3b7e2c3ca291fb0fb7f9
+~~~
+
+Final closeout:
+
+~~~text
+reports/data-qualification/
+bpesem05r02_final_closeout_2026-09-22.md
+
+commit =
+8648da9cad2c7370eadc05cf1d4e95223604eec0
+
+blob =
+d69741d86d6bcac0a413e5e08f1ca889f612b14e
+~~~
+
+Durable backup:
+
+~~~text
+99-BACKUP/
+SESSION-2026-09-22-BPESEM05R02-FINAL-CLOSEOUT.md
+
+commit =
+4f6c0545d7eb1a40bde92f52295304f44b8751c4
+
+blob =
+225f5d8fd4e38d0493b5d6d0bd2969e7f928a841
+~~~
+
+Execution boundary preserved:
+
+~~~text
+provider contact = NO
+provider inquiry sending = NO
+new documentary acquisition = NO
+provider BI5 GET = NO
+historical market-data object acquisition = NO
+Lane S re-adjudication = NO
+Lane P RequestManifest = NO
+P-DIAG = NO
+physical semantic discrimination = NO
+B-PE-SEM-06 = NO
+B-FIQ-02R = NO
+FULL_INTERVAL = NO
+D materialization = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+## 185. Exactly one next governed action
+
+The inquiry contract is now qualified, but no consumer/execution path has been authorized.
+
+The next governed action is only:
+
+~~~text
+POST-B-PE-SEM-05R-02
+QUALIFIED INQUIRY CONTRACT
+CONSUMER / CONTACT-EXECUTION ROUTE SELECTION
+— DECISION / FORMALIZATION ONLY
+~~~
+
+Purpose:
+
+~~~text
+fresh HEAD
+→ read B-PE-SEM-05R-02 contract / qualification / closeout / backup
+
+→ preserve:
+   A = AMBIGUOUS
+   B = NOT_FOUND
+   C = INCOMPLETE_VERSION_COVERAGE
+
+→ preserve exact qualified question bytes / semantics
+→ preserve one-initial-contact rule
+→ preserve no automatic retry
+
+→ compare bounded consumer paths:
+
+   1. direct send immediately
+      without an independently persisted pre-send package
+
+   2. exact provider channel binding
+      + exact outbound message/package materialization
+      + immutable pre-send seal
+      + later separate send/capture execution
+
+   3. user-manual send path
+      with governed capture requirements
+
+   4. connected email/support execution path
+      if an exact official provider destination
+      and permitted tool are available
+
+→ decide the minimum path preserving:
+   question immutability
+   provider-channel identity
+   pre-send evidence identity
+   sent-message evidence
+   response provenance
+
+→ if CONTINUE:
+   select exactly one next bounded consumer block
+   before any message is sent
+
+→ do not contact provider during route selection
+→ STOP
+~~~
+
+The route-selection review must specifically decide whether:
+
+~~~text
+channel resolution
+outbound-package freeze
+send execution
+response capture
+~~~
+
+must be separate governed stages.
+
+Until that route decision is persisted:
+
+~~~text
+provider contact = NOT AUTHORIZED
+provider inquiry sending = NOT AUTHORIZED
+new documentary acquisition = NOT AUTHORIZED
+Lane S re-adjudication = NOT AUTHORIZED
+Lane P = NOT AUTHORIZED
+~~~
+
+Still prohibited:
+
+~~~text
+provider BI5 GET
+historical market-data object acquisition
+Lane P RequestManifest
+P-DIAG implementation
+physical semantic discrimination
+B-PE-SEM-06
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — B-PE-SEM-05R-02 CLOSED / PASS; CONTACT STILL CLOSED.
