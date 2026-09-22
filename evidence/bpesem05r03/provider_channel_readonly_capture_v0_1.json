@@ -1,0 +1,775 @@
+{
+  "method_used": "GET_ONLY",
+  "no_email_sent": true,
+  "no_form_submission": true,
+  "no_inquiry_sent": true,
+  "no_market_data_object_requested": true,
+  "no_ticket_created": true,
+  "plan_blob": "83f82b27898c1a6fbe0a31ef04196317e2f972ff",
+  "records": [
+    {
+      "channel_id": "DUKASCOPY_SWISS_GENERAL_CONTACT_PAGE",
+      "content_type": "text/html; charset=UTF-8",
+      "declared_class": "official provider contact landing page",
+      "final_url": "https://www.dukascopy.com/swiss/english/about/contact/",
+      "forms": [
+        {
+          "action": "https://www.dukascopy.com/swiss/english/about/contact/",
+          "controls": [
+            {
+              "id": "demo-phone-code-number",
+              "name": null,
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "phone",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": false
+            },
+            {
+              "id": "demo-gmt",
+              "name": "gmt",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "demo-lang",
+              "name": "lang",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "demo-firstName",
+              "name": "firstName",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "demo-lastName",
+              "name": "lastName",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "demo-email",
+              "name": "email",
+              "required": false,
+              "tag": "input",
+              "type": "email",
+              "value_present": false
+            },
+            {
+              "id": "demo-country",
+              "name": "country",
+              "required": false,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "demo-phone",
+              "name": null,
+              "required": false,
+              "tag": "input",
+              "type": "tel",
+              "value_present": false
+            },
+            {
+              "id": "demo-jforex",
+              "name": "traderAccount",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-mt5",
+              "name": "mt5Account",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-mt4",
+              "name": "mt4Account",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-bo",
+              "name": "binaryAccount",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-captcha-id",
+              "name": "captchaUid",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "demo-captchaPhrase",
+              "name": "captchaPhrase",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "demo-submit",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "submit",
+              "value_present": false
+            },
+            {
+              "id": null,
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "button",
+              "value_present": false
+            }
+          ],
+          "method": "POST"
+        },
+        {
+          "action": "https://www.dukascopy.com/swiss/english/search/",
+          "controls": [
+            {
+              "id": "footer-search-request",
+              "name": "qs",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": true
+            },
+            {
+              "id": "footerSearchFormSubmitButton",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "submit",
+              "value_present": false
+            }
+          ],
+          "method": "GET"
+        }
+      ],
+      "html_title": "Contact Us",
+      "http_status": 200,
+      "raw_response_sha256": "23bf26cec1f71c901859853d5fb4013fa1cda0fedfd97c1287ae51a932bfd49c",
+      "requested_url": "https://www.dukascopy.com/swiss/english/about/contact/",
+      "selected_nonsecret_text_markers": [
+        "Send us a message",
+        "Dukascopy Bank SA"
+      ],
+      "signals": {
+        "cannot_post_new_topics": false,
+        "contact_form_required_login_marker": false,
+        "copyright_dukascopy_marker": true,
+        "dukascopy_bank_marker": true,
+        "issue_report_marker": true,
+        "login_marker": true,
+        "message_not_sent_marker": false,
+        "programming_questions_only": false,
+        "send_us_message_marker": true
+      },
+      "size_bytes": 149713
+    },
+    {
+      "channel_id": "DUKASCOPY_SWISS_CONTACT_FORM",
+      "content_type": "text/html; charset=UTF-8",
+      "declared_class": "official provider contact form",
+      "final_url": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+      "forms": [
+        {
+          "action": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+          "controls": [
+            {
+              "id": null,
+              "name": "clear_rawData",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_url",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "clear_mode",
+              "name": "clear_mode",
+              "required": true,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": null,
+              "name": "clear_login",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_firstname",
+              "required": true,
+              "tag": "input",
+              "type": "text",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_lastname",
+              "required": true,
+              "tag": "input",
+              "type": "text",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_email",
+              "required": true,
+              "tag": "input",
+              "type": "email",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_phone",
+              "required": false,
+              "tag": "input",
+              "type": "tel",
+              "value_present": true
+            },
+            {
+              "id": "f5",
+              "name": "clear_details",
+              "required": true,
+              "tag": "textarea",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "submit-btn",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "button",
+              "value_present": false
+            }
+          ],
+          "method": "POST"
+        }
+      ],
+      "html_title": "Callback form",
+      "http_status": 200,
+      "raw_response_sha256": "2a3b051ca4bd1a33ac0ddc17387a988792ddbf9525b85e140a6eb67253adb682",
+      "requested_url": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+      "selected_nonsecret_text_markers": [
+        "Send us a message",
+        "Message has not been sent"
+      ],
+      "signals": {
+        "cannot_post_new_topics": false,
+        "contact_form_required_login_marker": false,
+        "copyright_dukascopy_marker": false,
+        "dukascopy_bank_marker": false,
+        "issue_report_marker": false,
+        "login_marker": true,
+        "message_not_sent_marker": true,
+        "programming_questions_only": false,
+        "send_us_message_marker": true
+      },
+      "size_bytes": 13297
+    },
+    {
+      "channel_id": "DUKASCOPY_SWISS_REPORT_ISSUE",
+      "content_type": "text/html; charset=UTF-8",
+      "declared_class": "official provider issue-report form",
+      "final_url": "https://www.dukascopy.com/swiss/english/about/issues/",
+      "forms": [
+        {
+          "action": "https://www.dukascopy.com/swiss/english/about/issues/",
+          "controls": [
+            {
+              "id": "demo-phone-code-number",
+              "name": null,
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "phone",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": false
+            },
+            {
+              "id": "demo-gmt",
+              "name": "gmt",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "demo-lang",
+              "name": "lang",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "demo-firstName",
+              "name": "firstName",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "demo-lastName",
+              "name": "lastName",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "demo-email",
+              "name": "email",
+              "required": false,
+              "tag": "input",
+              "type": "email",
+              "value_present": false
+            },
+            {
+              "id": "demo-country",
+              "name": "country",
+              "required": false,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "demo-phone",
+              "name": null,
+              "required": false,
+              "tag": "input",
+              "type": "tel",
+              "value_present": false
+            },
+            {
+              "id": "demo-jforex",
+              "name": "traderAccount",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-mt5",
+              "name": "mt5Account",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-mt4",
+              "name": "mt4Account",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-bo",
+              "name": "binaryAccount",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "demo-captcha-id",
+              "name": "captchaUid",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "demo-captchaPhrase",
+              "name": "captchaPhrase",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "demo-submit",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "submit",
+              "value_present": false
+            },
+            {
+              "id": null,
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "button",
+              "value_present": false
+            }
+          ],
+          "method": "POST"
+        },
+        {
+          "action": "https://www.dukascopy.com/swiss/english/about/issues/",
+          "controls": [
+            {
+              "id": null,
+              "name": "clear_branch",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_User_Lang",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": null,
+              "name": "clear_User_Country",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "fieldSS1",
+              "name": "clear_Screen_Shot",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "chooseTypeId",
+              "name": "clear_Type_of_complaint",
+              "required": true,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "inlineRadio1",
+              "name": "clear_Account_type",
+              "required": false,
+              "tag": "input",
+              "type": "radio",
+              "value_present": true
+            },
+            {
+              "id": "inlineRadio2",
+              "name": "clear_Account_type",
+              "required": false,
+              "tag": "input",
+              "type": "radio",
+              "value_present": true
+            },
+            {
+              "id": "inputLogin",
+              "name": "clear_Login_name",
+              "required": true,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "inputName1",
+              "name": "clear_Name",
+              "required": true,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "inputName2",
+              "name": "clear_Surname",
+              "required": true,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": "inputEmail3",
+              "name": "clear_Email",
+              "required": true,
+              "tag": "input",
+              "type": "email",
+              "value_present": false
+            },
+            {
+              "id": "inputPassword3",
+              "name": "clear_Phone",
+              "required": false,
+              "tag": "input",
+              "type": "tel",
+              "value_present": false
+            },
+            {
+              "id": "inputDecr",
+              "name": "clear_Description",
+              "required": true,
+              "tag": "textarea",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "removeScreenShotBtn",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "captchaId1",
+              "name": "clear_captchaId",
+              "required": false,
+              "tag": "input",
+              "type": "hidden",
+              "value_present": true
+            },
+            {
+              "id": "verification1",
+              "name": "clear_verification",
+              "required": true,
+              "tag": "input",
+              "type": "text",
+              "value_present": false
+            },
+            {
+              "id": null,
+              "name": "clear_Send_confirmation",
+              "required": false,
+              "tag": "input",
+              "type": "checkbox",
+              "value_present": true
+            },
+            {
+              "id": "submit-btn",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "submit",
+              "value_present": false
+            }
+          ],
+          "method": "GET"
+        },
+        {
+          "action": "https://www.dukascopy.com/swiss/english/search/",
+          "controls": [
+            {
+              "id": "footer-search-request",
+              "name": "qs",
+              "required": false,
+              "tag": "input",
+              "type": "text",
+              "value_present": true
+            },
+            {
+              "id": "footerSearchFormSubmitButton",
+              "name": null,
+              "required": false,
+              "tag": "button",
+              "type": "submit",
+              "value_present": false
+            }
+          ],
+          "method": "GET"
+        }
+      ],
+      "html_title": "Report an Issue :: Dukascopy Bank SA",
+      "http_status": 200,
+      "raw_response_sha256": "2841bb536108f2a5adc1db9fd5d9915f7875686669a79f32011dace3109089d3",
+      "requested_url": "https://www.dukascopy.com/swiss/english/about/issues/",
+      "selected_nonsecret_text_markers": [
+        "Send us a message",
+        "Dukascopy Bank SA"
+      ],
+      "signals": {
+        "cannot_post_new_topics": false,
+        "contact_form_required_login_marker": true,
+        "copyright_dukascopy_marker": true,
+        "dukascopy_bank_marker": true,
+        "issue_report_marker": true,
+        "login_marker": true,
+        "message_not_sent_marker": false,
+        "programming_questions_only": false,
+        "send_us_message_marker": true
+      },
+      "size_bytes": 147573
+    },
+    {
+      "channel_id": "DUKASCOPY_JFOREX_FORUM_INDEX",
+      "content_type": "text/html; charset=UTF-8",
+      "declared_class": "official provider support forum",
+      "final_url": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/",
+      "forms": [],
+      "html_title": "Dukascopy Support Board • Index page",
+      "http_status": 200,
+      "raw_response_sha256": "0394c20776a8f5c300f63950459976725a620b6a9b45215422606928ed960c7c",
+      "requested_url": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/",
+      "selected_nonsecret_text_markers": [
+        "Dukascopy Bank SA"
+      ],
+      "signals": {
+        "cannot_post_new_topics": false,
+        "contact_form_required_login_marker": false,
+        "copyright_dukascopy_marker": true,
+        "dukascopy_bank_marker": true,
+        "issue_report_marker": false,
+        "login_marker": true,
+        "message_not_sent_marker": false,
+        "programming_questions_only": false,
+        "send_us_message_marker": false
+      },
+      "size_bytes": 38058
+    },
+    {
+      "channel_id": "DUKASCOPY_JFOREX_KNOWLEDGE_BASE",
+      "content_type": "text/html; charset=UTF-8",
+      "declared_class": "official provider automated-trading knowledge-base forum",
+      "final_url": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewforum.php?f=65",
+      "forms": [
+        {
+          "action": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewforum.php?f=65&start=0&sid=4672ecd13fda57cc4b27fab66e2d495c",
+          "controls": [
+            {
+              "id": "st",
+              "name": "st",
+              "required": false,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "sk",
+              "name": "sk",
+              "required": false,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": "sd",
+              "name": "sd",
+              "required": false,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": null,
+              "name": "sort",
+              "required": false,
+              "tag": "input",
+              "type": "submit",
+              "value_present": true
+            }
+          ],
+          "method": "POST"
+        },
+        {
+          "action": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewforum.php?sid=4672ecd13fda57cc4b27fab66e2d495c",
+          "controls": [
+            {
+              "id": null,
+              "name": "f",
+              "required": false,
+              "tag": "select",
+              "type": null,
+              "value_present": false
+            },
+            {
+              "id": null,
+              "name": null,
+              "required": false,
+              "tag": "input",
+              "type": "submit",
+              "value_present": true
+            }
+          ],
+          "method": "POST"
+        }
+      ],
+      "html_title": "Dukascopy Support Board • View forum - Knowledge Base",
+      "http_status": 200,
+      "raw_response_sha256": "f71fa27653178b82912c4d10d1ca73bc7bc0f6f65ebdec5b243a4c285d620436",
+      "requested_url": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewforum.php?f=65",
+      "selected_nonsecret_text_markers": [
+        "Submit programming questions in this forum only.",
+        "You cannot post new topics in this forum",
+        "Dukascopy Bank SA"
+      ],
+      "signals": {
+        "cannot_post_new_topics": true,
+        "contact_form_required_login_marker": false,
+        "copyright_dukascopy_marker": true,
+        "dukascopy_bank_marker": true,
+        "issue_report_marker": false,
+        "login_marker": true,
+        "message_not_sent_marker": false,
+        "programming_questions_only": true,
+        "send_us_message_marker": false
+      },
+      "size_bytes": 60761
+    }
+  ],
+  "schema": "BPESEM05R03_PROVIDER_CHANNEL_READONLY_CAPTURE_V0_1"
+}
