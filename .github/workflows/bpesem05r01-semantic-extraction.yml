@@ -1,0 +1,56 @@
+name: B-PE-SEM-05R-01 semantic extraction
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem05r01-semantic-extraction.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  semantic-extraction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert semantic extraction plan identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object evidence/bpesem05r01/provider_artifact_semantic_extraction_plan_v0_1.json)" = "b5dd1bfc3cbd217b7294407adf74855b2127a486"
+          echo "SEMANTIC_EXTRACTION_PLAN_PASS"
+
+      - name: Run pinned provider semantic extraction
+        shell: bash
+        run: |
+          set -euo pipefail
+          command -v javap
+          python3 tools/bpesem05r01_semantic_extract.py | tee /tmp/bpesem05r01-semantic-extraction.json
+          test -f evidence/bpesem05r01/semantic_extraction_identity_registry_v0_1.json
+          test -f evidence/bpesem05r01/pinned_greed_bytecode_extraction_v0_1.json
+          test -f evidence/bpesem05r01/msg_semantic_inventory_v0_1.json
+
+      - name: Assert no market-data payload acquisition
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -RniE '(datafeed/[^"]+\.bi5|\.bi5\?[^"]+)' evidence/bpesem05r01/semantic_extraction_identity_registry_v0_1.json
+          echo "NO_MARKET_DATA_PAYLOAD_PASS"
+
+      - name: Persist semantic extraction evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem05r01/semantic_extraction_identity_registry_v0_1.json             evidence/bpesem05r01/pinned_greed_bytecode_extraction_v0_1.json             evidence/bpesem05r01/msg_semantic_inventory_v0_1.json
+          git commit -m "evidence: extract B-PE-SEM-05R-01 provider semantics"
+          git push origin HEAD:integration/system-v1
