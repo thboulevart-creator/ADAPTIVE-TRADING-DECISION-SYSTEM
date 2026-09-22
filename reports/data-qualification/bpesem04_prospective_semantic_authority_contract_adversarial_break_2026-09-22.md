@@ -1,8 +1,8 @@
 # B-PE-SEM-04 — PROSPECTIVE CLOSURE CONTRACT — ADVERSARIAL BREAK
 
-Persisted candidate HEAD attacked: 7507e6603c711e8a8b33ec361fa871e7d0428a6b
+Persisted candidate HEAD attacked: 335110e3f91b19b05d113fb5873e58756efa3a62
 
-Candidate adversarial verdict: FAIL
+Candidate adversarial verdict: PASS
 
 ## A01_INPUT_HISTORY_IMMUTABLE
 
@@ -118,7 +118,7 @@ PASS — contract qualification cannot self-authorize provider/network/FULL_INTE
 
 ## A29_C08_FIREWALL
 
-FAIL — B-PE-SEM-04 contains no C08 authority path
+PASS — C08 may appear only as an explicit anti-circularity safeguard, never as an authority target
 
 ## A30_DIGESTS_RECOMPUTE
 
@@ -128,8 +128,8 @@ PASS — all component digests recompute exactly
 
 ~~~text
 attack count = 30
-demonstrated defects = 1
-A29_C08_FIREWALL
+demonstrated defects = 0
+NONE
 ~~~
 
 No provider contact, BI5 GET, new provider-object acquisition, semantic-discrimination execution, FULL_INTERVAL, D materialization or backtest occurred.
