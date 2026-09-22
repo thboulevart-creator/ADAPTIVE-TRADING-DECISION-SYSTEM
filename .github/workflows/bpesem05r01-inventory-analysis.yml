@@ -1,0 +1,39 @@
+name: B-PE-SEM-05R-01 inventory analysis
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem05r01-inventory-analysis.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Analyze persisted provider artifact inventory offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem05r01_analyze_inventory.py | tee /tmp/bpesem05r01-analysis.json
+          test -f evidence/bpesem05r01/provider_artifact_inventory_analysis_v0_1.json
+
+      - name: Persist compact analysis
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add evidence/bpesem05r01/provider_artifact_inventory_analysis_v0_1.json
+          git commit -m "evidence: analyze B-PE-SEM-05R-01 provider artifact inventory"
+          git push origin HEAD:integration/system-v1
