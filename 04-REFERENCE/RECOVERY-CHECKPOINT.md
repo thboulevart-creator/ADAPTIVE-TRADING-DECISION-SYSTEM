@@ -10567,3 +10567,466 @@ paper/broker/live
 ~~~
 
 STOP — RECOVERY ROUTE SELECTED; B-PE-SEM-05R-01 NOT YET OPENED.
+
+
+---
+
+## 180. B-PE-SEM-05R-01 final closeout — BLOCKED
+
+Closed block:
+
+~~~text
+B-PE-SEM-05R-01 —
+PROVIDER-VERSIONED ARTIFACT
+DOCUMENTARY RECOVERY
+~~~
+
+Final governed result:
+
+~~~text
+package integrity = PASS
+
+Recovery A = AMBIGUOUS
+Recovery B = NOT_FOUND
+Recovery C = INCOMPLETE_VERSION_COVERAGE
+
+any full recovery = NO
+
+Lane S re-adjudication sufficient new authority = NO
+
+Lane P authorized = NO
+
+B-PE-SEM-05R-01 = CLOSED / BLOCKED
+
+demonstrated final defects = 0
+~~~
+
+This is a substantive recovery BLOCKED, not a technical package failure.
+
+Starting checkpoint:
+
+~~~text
+18803a7463a9b9338e2fcee8dc4435447d90a113
+checkpoint: select B-PE-SEM-05R-01 provider artifact recovery
+~~~
+
+Provider recovery channel:
+
+~~~text
+Dukascopy official Maven/public distribution
+~~~
+
+Provider families acquired/inspected:
+
+~~~text
+DDS2-jClient-JForex
+JForex-API sources
+DDS2-Charts
+greed-common
+msg
+~~~
+
+Unique provider coordinates:
+
+~~~text
+19
+~~~
+
+Provider artifact inventory:
+
+~~~text
+evidence/bpesem05r01/
+provider_artifact_inventory_v0_1.json
+
+blob =
+a022e1c16b363477cec4de71a830dd1255992471
+
+inventory seal =
+5ea792ebbe779c6ae75627055404c6841bb85a7709749bbd2c3cd6fff8190ed5
+~~~
+
+All provider artifacts were bound by exact coordinates, official SHA-1 sidecar verification and computed SHA-256 identities.
+
+Artifact lineage:
+
+~~~text
+LINEAGE-DUKASCOPY-OFFICIAL-MAVEN-DISTRIBUTION
+
+DDS2-jClient-JForex
+→ DDS2-Charts
+→ greed-common
+→ msg
+~~~
+
+No provider dependency was counted as independent evidence.
+
+### Recovery A
+
+Recovered exact provider facts:
+
+~~~text
+DataCacheUtils:
+VERSION_5_CACHE_FILE_EXTENSION = bi5
+
+DataCacheUtils$4:
+recognizes _ticks.bi5
+recognizes _ticks.bin
+~~~
+
+Relevant provider cache classes remained byte-identical across the five inspected greed-common versions.
+
+But exact provider authority was NOT recovered for:
+
+~~~text
+compression/wrapper
+20-byte native record width
+five-field primitive layout
+field roles
+hour-relative timestamp semantics for target K1
+native raw price divisor
+volume encoding/roles
+~~~
+
+Therefore:
+
+~~~text
+Recovery A = AMBIGUOUS
+~~~
+
+Finding:
+
+~~~text
+evidence/bpesem05r01/
+legacy_hourly_semantic_artifact_finding_v0_1.json
+
+blob =
+43f6b95945b71e7beb70b2cd86a242e8a2e5a0cd
+~~~
+
+### Recovery B
+
+Recovered provider facts:
+
+~~~text
+Instrument.USATECHIDXUSD exists
+provider API exposes pip/tick scale interfaces
+InstrumentSettings exposes priceScale / pricePipValue
+AbstractCurrencyConverter references USATECHIDXUSD
+~~~
+
+No exact provider static native BI5 raw divisor binding was found.
+
+Runtime/API scale was not laundered into native raw BI5 divisor authority.
+
+Third-party decimalFactor 1000 was not promoted to provider-primary evidence.
+
+Therefore:
+
+~~~text
+Recovery B = NOT_FOUND
+~~~
+
+Finding:
+
+~~~text
+evidence/bpesem05r01/
+usatech_raw_scale_artifact_finding_v0_1.json
+
+blob =
+fff29d789223dca2690d01b0918ee1527156e253
+~~~
+
+### Recovery C
+
+Cross-version sample:
+
+~~~text
+DDS2 3.6.34 / greed-common 318.4.115 / msg 1.1.98.2-JForex3
+DDS2 3.6.37 / greed-common 318.4.118 / msg 1.1.98.2-JForex3
+DDS2 3.6.48 / greed-common 318.4.125 / msg 1.1.98.4-JForex3
+DDS2 3.6.49 / greed-common 318.4.127 / msg 1.1.98.4-JForex3
+DDS2 3.6.51 / greed-common 318.4.128 / msg 1.1.98.4-JForex3
+~~~
+
+Partial client/cache/history/tick stability was recovered.
+
+But:
+
+~~~text
+inspected public DDS2 lineage ends in 2025
+target ends 2026-08-14
+
+2026-03-03 JETTA has no matching inspected public DDS2 client artifact
+
+client-side bytecode stability
+!=
+server/public raw-object semantic continuity
+~~~
+
+Therefore:
+
+~~~text
+Recovery C = INCOMPLETE_VERSION_COVERAGE
+~~~
+
+Cross-version ledger:
+
+~~~text
+evidence/bpesem05r01/
+cross_version_semantic_change_ledger_v0_1.json
+
+blob =
+9d1638b8391e259796e798c7fcfbfde4292ebc81
+~~~
+
+JETTA finding:
+
+~~~text
+evidence/bpesem05r01/
+jetta_change_impact_finding_v0_1.json
+
+blob =
+b83bb700ba9a4381dbc3d9b0a9253135d3f59ca7
+
+native K1 wire semantic effect =
+UNRESOLVED
+~~~
+
+Explicitly not inferred:
+
+~~~text
+NO_CHANGE_TO_K1
+CHANGE_TO_K1
+LEGACY_HOURLY_TO_DAILY_TRANSITION_DATE
+~~~
+
+Documentary horizon:
+
+~~~text
+evidence/bpesem05r01/
+documentary_evidence_horizon_v0_1.json
+
+blob =
+b9fb63bb9ecb729223fe4c40789d01ba321d62b1
+
+overall status =
+BLOCKED
+~~~
+
+Provider artifact families exhausted in this block:
+
+~~~text
+DDS2-jClient-JForex
+JForex-API sources
+DDS2-Charts
+greed-common
+msg
+~~~
+
+Remaining authority gaps:
+
+~~~text
+exact provider legacy-hourly K1 raw-payload semantic binding
+
+exact provider USATECH native BI5 raw integer divisor
+
+2026/JETTA and server-side/public-object semantic continuity through target end
+~~~
+
+Candidate recovery commit:
+
+~~~text
+b98a011e21f539c10d3064b30513efc9817bedf4
+~~~
+
+Adversarial break:
+
+~~~text
+workflow run =
+35759526546
+
+job =
+106853755887
+
+report blob =
+dce384f248153f4a7407bc1a3239f5e0f5d4e442
+
+verdict =
+PASS
+
+attack count =
+30
+
+demonstrated defects =
+0
+~~~
+
+No candidate correction was justified.
+
+Final persisted-head re-break:
+
+~~~text
+workflow run =
+35760024624
+
+job =
+106855452169
+
+output commit =
+43fe21eb58a349a6a4e8ee66750307b1f8f79e87
+~~~
+
+Qualification:
+
+~~~text
+evidence/bpesem05r01/
+recovery_qualification_v0_1.json
+
+blob =
+cd260eb27ac31c0fc68dea4449923ac484544307
+
+package integrity =
+PASS
+
+A =
+AMBIGUOUS
+
+B =
+NOT_FOUND
+
+C =
+INCOMPLETE_VERSION_COVERAGE
+
+overall governed result =
+BLOCKED
+
+qualification seal =
+7ecc77a75c4bcf333edce03ec2a6504a8f0ded39fc49789d0556d7bd54f3866a
+~~~
+
+Final re-break report:
+
+~~~text
+reports/data-qualification/
+bpesem05r01_final_persisted_head_rebreak_2026-09-22.md
+
+blob =
+6f987953fdc275fddc241bd9ffb051c4024dff62
+~~~
+
+Final closeout:
+
+~~~text
+reports/data-qualification/
+bpesem05r01_final_closeout_2026-09-22.md
+
+commit =
+9fea4447e3b181ea1d8b30b9496e846bfbb63349
+
+blob =
+6a755acb75569a4f402b8c62c335cbaabed0f5d3
+~~~
+
+Durable backup:
+
+~~~text
+99-BACKUP/
+SESSION-2026-09-22-BPESEM05R01-FINAL-CLOSEOUT.md
+
+commit =
+a8604aec69eca1cc324c5eb9fe4b4fbe8cc55a12
+
+blob =
+a5b2feb9d1d1d999ec01e33073c9dc18c4afca3b
+~~~
+
+Execution boundary:
+
+~~~text
+provider software/documentary artifact acquisition = YES
+
+provider BI5 market-data GET = NO
+historical market-data object acquisition = NO
+Lane P RequestManifest = NO
+P-DIAG implementation = NO
+physical semantic discrimination = NO
+B-PE-SEM-06 = NO
+B-FIQ-02R = NO
+FULL_INTERVAL = NO
+D materialization = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+## 181. Exactly one next governed action
+
+The Maven/provider-distribution recovery channel used by B-PE-SEM-05R-01 did not recover authority sufficient to reopen Lane S adjudication.
+
+No Lane P technical block may open.
+
+The next governed action is only:
+
+~~~text
+POST-B-PE-SEM-05R-01
+BLOCKED AUTHORITY RECOVERY ESCALATION ROUTE SELECTION
+— DECISION / FORMALIZATION ONLY
+~~~
+
+Purpose:
+
+~~~text
+fresh HEAD
+→ read B-PE-SEM-05R-01 qualification / closeout / backup
+→ preserve:
+   A = AMBIGUOUS
+   B = NOT_FOUND
+   C = INCOMPLETE_VERSION_COVERAGE
+
+→ identify remaining credible authority channels without reusing exhausted Maven families as if new evidence
+
+→ compare at minimum:
+   provider contact/support inquiry
+   provider-owned archived/versioned documentation or distribution channel not yet inspected
+   formally justified contract simplification/redefinition
+   STOP / accept externally unprovable authority
+
+→ distinguish for A/B/C:
+   remaining recoverable route
+   vs externally unprovable under available public channels
+   vs requirement that should be reformulated
+
+→ decide:
+   CONTINUE
+   / SIMPLIFY
+   / STOP
+
+→ if CONTINUE:
+   select exactly one bounded next evidence channel
+   before any new acquisition/contact
+
+→ if SIMPLIFY:
+   require a new governed contract-review block
+   before changing any authority requirement
+
+→ do not re-adjudicate Lane S here
+→ do not open Lane P
+→ STOP
+~~~
+
+Still prohibited:
+
+~~~text
+provider BI5 GET
+historical market-data object acquisition
+Lane P RequestManifest
+P-DIAG implementation
+physical semantic discrimination
+B-PE-SEM-06
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — B-PE-SEM-05R-01 CLOSED / BLOCKED.
