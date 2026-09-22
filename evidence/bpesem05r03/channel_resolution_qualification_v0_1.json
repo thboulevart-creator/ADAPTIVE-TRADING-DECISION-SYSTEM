@@ -1,0 +1,64 @@
+{
+  "candidate_ancestry": "PASS",
+  "candidate_commit": "8c048e1317190827e4275852c9f35da73193b2e2",
+  "channel_resolution_status": "PASS",
+  "created_at_utc": "2026-09-22T19:24:00Z",
+  "demonstrated_final_defects": [],
+  "full_adversarial_break": {
+    "attack_count": 34,
+    "defects": [],
+    "head": "d1f44abeebee6748dbc2e4af6fd9dda154d510e4",
+    "verdict": "PASS"
+  },
+  "lane_p_authority_effect": "NONE",
+  "lane_s_authority_effect": "NONE",
+  "outbound_package_materialization_authorized_next": true,
+  "package_integrity_status": "PASS",
+  "post_candidate_changes": [
+    {
+      "disposition": "FINAL_REBREAK_WORKFLOW",
+      "path": ".github/workflows/bpesem05r03-final-rebreak.yml",
+      "status": "A"
+    },
+    {
+      "disposition": "FINAL_REBREAK_GOVERNANCE",
+      "path": "breakers/bpesem05r03_final_persisted_head_rebreak.py",
+      "status": "A"
+    },
+    {
+      "disposition": "PROTECTED_EXPECTED_IDENTITY",
+      "path": "reports/data-qualification/bpesem05r03_channel_resolution_adversarial_break_2026-09-22.md",
+      "status": "A"
+    }
+  ],
+  "protected_candidate_blobs": {
+    "evidence/bpesem05r03/channel_authentication_requirement_v0_1.json": "68ece14c16817e47b82d144b34fff2708811a78a",
+    "evidence/bpesem05r03/channel_constraint_manifest_v0_1.json": "990efdac538c73401385df11d30c29c47b4b36d7",
+    "evidence/bpesem05r03/channel_resolution_decision_v0_1.json": "cb8156fb5ec979e8e70a6176cd17f3a5c58e8145",
+    "evidence/bpesem05r03/current_channel_evidence_horizon_v0_1.json": "1dbaaa2306240e36b58eaecce5fe0d80e8fa6b90",
+    "evidence/bpesem05r03/no_contact_execution_attestation_v0_1.json": "2724e1bf69feb921024a8c185785ee30d4b84548",
+    "evidence/bpesem05r03/outbound_capability_constraints_v0_1.json": "6e357c11d99bfe0ef1142a7bf6211e40e7237803",
+    "evidence/bpesem05r03/provider_channel_identity_binding_v0_1.json": "cb8156fb5ec979e8e70a6176cd17f3a5c58e8145",
+    "evidence/bpesem05r03/provider_channel_ownership_evidence_v0_1.json": "31a14ba369bd2997612ebf2c633fa88a90f8ede4",
+    "evidence/bpesem05r03/provider_contact_channel_inventory_v0_1.json": "d74a27b21bce53cb03e3013f53232da6932bea0f",
+    "reports/data-qualification/bpesem05r03_channel_resolution_adversarial_break_2026-09-22.md": "e6f7c3af33b2c80fa32706f3366f13fbf7672337",
+    "reports/data-qualification/bpesem05r03_channel_resolution_candidate_2026-09-22.md": "2ba43ad3bd08df83592eead72be61aff15719d93"
+  },
+  "provider_contact_authorized": false,
+  "provider_contact_performed": false,
+  "provider_inquiry_sent": false,
+  "qualification_seal": "5a81aeeb25a42b8e38a69c5f24a39d0dd2e48448a2809fc9b9dd97dc688e0e6b",
+  "reviewed_persisted_head": "d1f44abeebee6748dbc2e4af6fd9dda154d510e4",
+  "reviewed_persisted_tree": "96b50f829d7eb2c1eea4cf91f2439ec08286f534",
+  "schema": "BPESEM05R03_CHANNEL_RESOLUTION_QUALIFICATION_V0_1",
+  "selected_channel": {
+    "channel_class": "official_provider_contact_form",
+    "channel_id": "GENERAL_CONTACT_FORM",
+    "endpoint": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+    "method_for_future_submission": "POST",
+    "provider": "Dukascopy Bank SA",
+    "topic_label": "Live trading support. Technical support",
+    "topic_value": "3"
+  },
+  "unresolved_post_candidate_paths": []
+}
