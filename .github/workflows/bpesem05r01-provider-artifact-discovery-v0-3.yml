@@ -1,0 +1,55 @@
+name: B-PE-SEM-05R-01 provider artifact discovery v0.3
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem05r01-provider-artifact-discovery-v0-3.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  discovery-v03:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert exact v0.3 plan identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object evidence/bpesem05r01/provider_artifact_acquisition_plan_v0_3.json)" = "93067b75ecd2d5167b2efe4ebe39042fd3ba7bd8"
+          echo "V03_PLAN_IDENTITY_PASS"
+
+      - name: Acquire greed-common provider artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem05r01_acquire_inventory_v0_3.py | tee /tmp/bpesem05r01-v03.json
+          test -f evidence/bpesem05r01/provider_artifact_identity_registry_v0_3.json
+          test -f evidence/bpesem05r01/relevant_class_resource_inventory_v0_3.json
+          test -f evidence/bpesem05r01/provider_pom_snapshot_set_v0_3.json
+
+      - name: Assert no market-data artifact names
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -RniE '(datafeed/|\.bi5)' evidence/bpesem05r01/provider_artifact_identity_registry_v0_3.json
+          echo "NO_MARKET_DATA_OBJECT_PASS"
+
+      - name: Persist v0.3 discovery evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem05r01/provider_artifact_identity_registry_v0_3.json             evidence/bpesem05r01/relevant_class_resource_inventory_v0_3.json             evidence/bpesem05r01/provider_pom_snapshot_set_v0_3.json
+          git commit -m "evidence: inventory B-PE-SEM-05R-01 greed-common artifacts"
+          git push origin HEAD:integration/system-v1
