@@ -10305,3 +10305,265 @@ paper/broker/live
 ~~~
 
 STOP — B-PE-SEM-05 CLOSED / BLOCKED.
+
+
+---
+
+## 178. Post-B-PE-SEM-05 authority recovery route selection — PASS
+
+Decision record:
+
+~~~text
+reports/data-qualification/
+post_bpesem05_lane_s_blocked_authority_recovery_route_selection_2026-09-22.md
+
+commit =
+ad2b27ce39ee9da129c681c7c310e557d46165a3
+
+blob =
+3a15319721970983fc49e5388f09ef97170108fe
+~~~
+
+Starting state:
+
+~~~text
+B-PE-SEM-05 = CLOSED / BLOCKED
+
+package integrity = PASS
+Lane S semantic authority = BLOCKED
+target epoch = BLOCKED_UNRESOLVED_TARGET_EPOCH
+scope = BLOCKED
+~~~
+
+Three unresolved authority classes remain:
+
+~~~text
+A =
+exact immutable/provider-versioned
+legacy-hourly K1 semantic authority
+
+B =
+exact provider-primary native BI5
+USATECH raw scale/divisor authority
+
+C =
+exhaustive target-epoch
+semantic change-point / continuity authority
+~~~
+
+Classification:
+
+~~~text
+A:
+existing governed evidence = insufficient
+new provider-versioned artifact recovery = credible
+externally unprovable = NOT YET ESTABLISHED
+
+B:
+existing governed evidence = insufficient
+new provider-versioned artifact recovery = credible
+externally unprovable = NOT YET ESTABLISHED
+
+C:
+existing governed evidence = insufficient
+new provider-versioned artifact recovery + cross-version comparison = required
+externally unprovable = NOT YET ESTABLISHED
+risk of eventual unprovability = HIGHEST
+~~~
+
+Routes considered:
+
+~~~text
+STOP now
+= REJECTED AS PREMATURE
+
+SIMPLIFY by lowering provider-primary requirements
+= REJECTED
+
+broad mutable web search
+= REJECTED
+
+direct provider contact/support inquiry
+= NOT SELECTED YET
+
+targeted provider-versioned artifact archaeology
+= SELECTED
+~~~
+
+Decision:
+
+~~~text
+CONTINUE
+~~~
+
+Selected next bounded block:
+
+~~~text
+B-PE-SEM-05R-01 —
+PROVIDER-VERSIONED ARTIFACT
+DOCUMENTARY RECOVERY
+~~~
+
+The block is evidence recovery only.
+
+It must NOT re-adjudicate Lane S dimensions.
+
+Allowed source families when separately opened:
+
+~~~text
+Dukascopy official Maven/public repository
+
+exact provider DDS2/JForex binary artifacts
+
+matching provider source JARs if published
+
+matching provider Javadoc JARs if published
+
+provider-owned embedded instrument metadata/resources
+
+provider-owned embedded historical-data/parser classes/resources
+
+provider versioned release/change records
+
+exact provider archive/snapshot material directly bound to those artifacts
+~~~
+
+Exact recovery targets:
+
+~~~text
+Recovery A:
+provider-owned exact artifact binding
+legacy-hourly K1 semantic format meaning
+
+Recovery B:
+provider-owned exact artifact binding
+USATECH native BI5 raw scale/divisor noncircularly
+
+Recovery C:
+provider-artifact cross-version ledger sufficient to determine
+semantic continuity or exact epoch splits across target interval
+~~~
+
+Required outputs:
+
+~~~text
+ProviderArtifactInventory
+ProviderArtifactIdentityRegistry
+RelevantClassResourceInventory
+LegacyHourlySemanticArtifactFinding
+USATECHRawScaleArtifactFinding
+CrossVersionSemanticChangeLedger
+JETTAChangeImpactFinding
+RecoveryAResult
+RecoveryBResult
+RecoveryCResult
+ArtifactLineageResolution
+DocumentaryEvidenceHorizon
+NoMarketDataObservationAttestation
+~~~
+
+Recovery result taxonomy:
+
+~~~text
+A/B:
+RECOVERED
+NOT_FOUND
+AMBIGUOUS
+BLOCKED
+
+C:
+RECOVERED_CONTINUITY
+RECOVERED_EPOCH_SPLITS
+INCOMPLETE_VERSION_COVERAGE
+SEMANTICS_NOT_EXPOSED
+BLOCKED
+~~~
+
+Important:
+
+~~~text
+B-PE-SEM-05R-01 does NOT promote any Lane S dimension to PASS.
+~~~
+
+If recovery succeeds, a later separately governed Lane S re-adjudication is required.
+
+If provider-versioned artifact channels are exhausted without sufficient authority:
+
+~~~text
+return BLOCKED
+distinguish:
+NOT_FOUND
+SEMANTICS_NOT_EXPOSED
+INCOMPLETE_VERSION_COVERAGE
+do not proceed to Lane P
+~~~
+
+No new documentary acquisition occurred during this route-selection step.
+
+## 179. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-05R-01 —
+PROVIDER-VERSIONED ARTIFACT
+DOCUMENTARY RECOVERY
+~~~
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ B-PE-SEM-05 qualification
+→ B-PE-SEM-05 closeout / backup
+→ recovery route-selection record
+
+→ define exact provider artifact coordinates/version inventory
+before fetching artifact bytes where possible
+
+→ acquire only provider documentary/software distribution artifacts
+within the authorized source families
+
+→ hash and identify every artifact exactly
+
+→ inventory relevant classes/resources
+
+→ inspect provider-owned implementation/metadata
+for Recovery A / B
+
+→ build cross-version semantic change ledger
+for Recovery C
+
+→ explicitly analyze 2026-03-03 JETTA impact
+
+→ produce A / B / C recovery results
+
+→ adversarial break recovery package
+→ minimal corrections only on demonstrated defects
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ closeout
+→ backup
+→ checkpoint
+→ STOP
+~~~
+
+Still prohibited:
+
+~~~text
+provider BI5 GET
+historical market-data object acquisition
+Lane P RequestManifest
+P-DIAG implementation
+physical semantic discrimination
+B-PE-SEM-06
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — RECOVERY ROUTE SELECTED; B-PE-SEM-05R-01 NOT YET OPENED.
