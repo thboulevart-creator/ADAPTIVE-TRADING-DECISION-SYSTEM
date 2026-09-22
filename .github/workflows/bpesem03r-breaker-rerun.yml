@@ -1,0 +1,63 @@
+name: B-PE-SEM-03R breaker rerun
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem03r-breaker-rerun.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  breaker-rerun:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert no provider-network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          p=Path("breakers/bpesem03r_lineage_registration_breaker.py")
+          tree=ast.parse(p.read_text(encoding="utf-8"))
+          forbidden={"requests","urllib","http","socket","aiohttp"}
+          bad=[]
+          for node in ast.walk(tree):
+              if isinstance(node,ast.Import):
+                  for a in node.names:
+                      if a.name.split(".")[0] in forbidden:
+                          bad.append((node.lineno,a.name))
+              elif isinstance(node,ast.ImportFrom):
+                  root=(node.module or "").split(".")[0]
+                  if root in forbidden:
+                      bad.append((node.lineno,node.module))
+          assert not bad,bad
+          print("NO_PROVIDER_NETWORK_IMPORTS_PASS")
+          PY
+
+      - name: Re-run adversarial breaker on unchanged candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 breakers/bpesem03r_lineage_registration_breaker.py | tee /tmp/bpesem03r-break-rerun.json
+          test -f reports/data-qualification/bpesem03r_lineage_registration_adversarial_break_2026-09-22.md
+
+      - name: Persist corrected adversarial break report
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/data-qualification/bpesem03r_lineage_registration_adversarial_break_2026-09-22.md
+          git commit -m "audit: re-break B-PE-SEM-03R candidate"
+          git push origin HEAD:integration/system-v1
