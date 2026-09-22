@@ -1,0 +1,51 @@
+{
+  "candidate_ancestry": "PASS",
+  "candidate_commit": "c5c39707c07ca60b0fb6a7475ab3d0426d6e45a7",
+  "contract_qualification_status": "PASS",
+  "created_at_utc": "2026-09-22T17:54:00Z",
+  "demonstrated_final_defects": [],
+  "full_adversarial_break": {
+    "attack_count": 36,
+    "defects": [],
+    "head": "bd171f63c386cf0fc9ef9fd213671e6a21c089cb",
+    "verdict": "PASS"
+  },
+  "lane_p_authority_effect": "NONE",
+  "lane_s_authority_effect": "NONE",
+  "package_integrity_status": "PASS",
+  "post_candidate_changes": [
+    {
+      "disposition": "FINAL_REBREAK_WORKFLOW",
+      "path": ".github/workflows/bpesem05r02-final-rebreak.yml",
+      "status": "A"
+    },
+    {
+      "disposition": "FINAL_REBREAK_GOVERNANCE",
+      "path": "breakers/bpesem05r02_final_persisted_head_rebreak.py",
+      "status": "A"
+    },
+    {
+      "disposition": "PROTECTED_EXPECTED_IDENTITY",
+      "path": "reports/data-qualification/bpesem05r02_inquiry_contract_adversarial_break_2026-09-22.md",
+      "status": "A"
+    }
+  ],
+  "preserved_recovery_state": {
+    "A": "AMBIGUOUS",
+    "B": "NOT_FOUND",
+    "C": "INCOMPLETE_VERSION_COVERAGE"
+  },
+  "protected_candidate_blobs": {
+    "evidence/bpesem05r02/provider_primary_authority_inquiry_contract_v0_1.json": "3eeb079b834102a2c8983563bd21088ad50796ed",
+    "reports/data-qualification/bpesem05r02_inquiry_contract_adversarial_break_2026-09-22.md": "94d190231d46f5849a106efdae908ed4f7d1c471",
+    "reports/data-qualification/bpesem05r02_inquiry_contract_candidate_2026-09-22.md": "4c4115556bdf513f87d2d7c4633841ac51c472b5"
+  },
+  "provider_contact_authorized": false,
+  "provider_contact_performed": false,
+  "provider_inquiry_sent": false,
+  "qualification_seal": "2501061249854339f3bfb8b7ec1acb15f6dc9701c14f17f306e5d04d8d7e162a",
+  "reviewed_persisted_head": "bd171f63c386cf0fc9ef9fd213671e6a21c089cb",
+  "reviewed_persisted_tree": "6f171ffc4a7f8ac5f19f8e774789c612f94e47a1",
+  "schema": "BPESEM05R02_INQUIRY_CONTRACT_QUALIFICATION_V0_1",
+  "unresolved_post_candidate_paths": []
+}
