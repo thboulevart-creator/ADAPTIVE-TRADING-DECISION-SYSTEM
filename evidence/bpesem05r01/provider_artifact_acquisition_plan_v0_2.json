@@ -1,0 +1,131 @@
+{
+  "schema": "BPESEM05R01_PROVIDER_ARTIFACT_ACQUISITION_PLAN_V0_2",
+  "block": "B-PE-SEM-05R-01",
+  "predecessor_plan_blob": "e6e3c2a671ade38ec34f2dad03c02e2e20d06adc",
+  "discovery_basis": {
+    "identity_registry_blob": "ff0e950eef72dee5497e6db480cd8ce9e16fc31a",
+    "inventory_analysis_blob": "ad451efdaf6ff0a190f198357a9faac9de75cbf1",
+    "demonstrated_dependency": "DDS2-jClient-JForex POMs bind DDS2-Charts versions 6.24.113/116/123/124/125 across selected releases"
+  },
+  "provider_origin_allowlist": [
+    "https://www.dukascopy.com/client/jforexlib/publicrepo/"
+  ],
+  "frozen_before_first_v0_2_artifact_fetch": true,
+  "acquisition_scope": "PROVIDER_VERSIONED_SOFTWARE_AND_DOCUMENTARY_ARTIFACTS_ONLY",
+  "forbidden": [
+    "historical BI5 market-data objects",
+    "provider hourly/daily market-data payloads",
+    "Lane P RequestManifest",
+    "P-DIAG implementation",
+    "physical semantic discrimination"
+  ],
+  "target_interval": {
+    "start": "2021-08-13T01:00:00Z",
+    "end": "2026-08-14T20:00:00Z"
+  },
+  "artifacts": [
+    {
+      "artifact_id": "DDS2-CHARTS-6.24.113-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-Charts:6.24.113",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.113/DDS2-Charts-6.24.113.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.113/DDS2-Charts-6.24.113.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.113/DDS2-Charts-6.24.113.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.113/DDS2-Charts-6.24.113.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-CHARTS-6.24.116-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-Charts:6.24.116",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.116/DDS2-Charts-6.24.116.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.116/DDS2-Charts-6.24.116.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.116/DDS2-Charts-6.24.116.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.116/DDS2-Charts-6.24.116.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-CHARTS-6.24.123-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-Charts:6.24.123",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.123/DDS2-Charts-6.24.123.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.123/DDS2-Charts-6.24.123.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.123/DDS2-Charts-6.24.123.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.123/DDS2-Charts-6.24.123.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-CHARTS-6.24.124-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-Charts:6.24.124",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.124/DDS2-Charts-6.24.124.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.124/DDS2-Charts-6.24.124.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.124/DDS2-Charts-6.24.124.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.124/DDS2-Charts-6.24.124.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    },
+    {
+      "artifact_id": "DDS2-CHARTS-6.24.125-JAR",
+      "provider": "Dukascopy Bank SA",
+      "coordinate": "com.dukascopy.dds2:DDS2-Charts:6.24.125",
+      "artifact_type": "jar",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.125/DDS2-Charts-6.24.125.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.125/DDS2-Charts-6.24.125.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.125/DDS2-Charts-6.24.125.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-Charts/6.24.125/DDS2-Charts-6.24.125.pom.sha1",
+      "purpose": [
+        "RecoveryA",
+        "RecoveryB",
+        "RecoveryC"
+      ],
+      "market_data_object": false
+    }
+  ],
+  "inspection_terms": [
+    "bi5",
+    "history",
+    "historical",
+    "tick",
+    "instrument",
+    "usatech",
+    "decimal",
+    "scale",
+    "factor",
+    "jetta",
+    "cache",
+    "feed",
+    "data"
+  ],
+  "identity_requirements": [
+    "official coordinate",
+    "artifact bytes SHA-256",
+    "official SHA-1 sidecar verification",
+    "POM bytes SHA-256",
+    "official POM SHA-1 verification"
+  ],
+  "created_at_utc": "2026-09-22T17:00:00Z"
+}
