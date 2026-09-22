@@ -1,0 +1,16 @@
+{
+  "attachments_observed": false,
+  "capability_seal": "cae56d2786219f6d6a63f25bb93c3cd8ce22a6498b49786fa4c882ba9916cdd6",
+  "execution_mechanism_not_selected": true,
+  "final_outbound_package_not_materialized": true,
+  "requires_user_identity_values_before_stage_p_completion": true,
+  "schema": "BPESEM05R03_OUTBOUND_CAPABILITY_CONSTRAINTS_V0_1",
+  "selected_channel_id": "GENERAL_CONTACT_FORM",
+  "single_free_text_body_field": "clear_details",
+  "subject_supported": false,
+  "topic_binding": {
+    "label": "Live trading support. Technical support",
+    "value": "3"
+  },
+  "topic_field": "clear_mode"
+}

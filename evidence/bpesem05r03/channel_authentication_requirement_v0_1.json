@@ -1,0 +1,18 @@
+{
+  "account_login_required_by_observed_html": false,
+  "authentication_seal": "4772eb1e1b4dd03b560446aabb862ac36fc7c1a1a3c85ea9e2252587be4328a7",
+  "authentication_status": "NO_ACCOUNT_AUTHENTICATION_REQUIRED_BY_CAPTURED_FORM_CONSTRAINTS",
+  "login_field_present": true,
+  "login_field_required": false,
+  "optional_identity_fields": [
+    "clear_login",
+    "clear_phone"
+  ],
+  "required_identity_fields": [
+    "clear_firstname",
+    "clear_lastname",
+    "clear_email"
+  ],
+  "schema": "BPESEM05R03_CHANNEL_AUTHENTICATION_REQUIREMENT_V0_1",
+  "selected_channel_id": "GENERAL_CONTACT_FORM"
+}

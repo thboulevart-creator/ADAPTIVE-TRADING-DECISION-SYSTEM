@@ -1,0 +1,80 @@
+{
+  "available_mode_options": [
+    {
+      "disabled": false,
+      "selected": false,
+      "text": "Please choose a topic related to*:",
+      "value": ""
+    },
+    {
+      "disabled": false,
+      "selected": false,
+      "text": "Multi-currency Account (MCA)",
+      "value": "1"
+    },
+    {
+      "disabled": false,
+      "selected": false,
+      "text": "Trading account (general information)",
+      "value": "2"
+    },
+    {
+      "disabled": false,
+      "selected": false,
+      "text": "Live trading support. Technical support",
+      "value": "3"
+    },
+    {
+      "disabled": false,
+      "selected": false,
+      "text": "Fraud/Scam",
+      "value": "5"
+    },
+    {
+      "disabled": false,
+      "selected": false,
+      "text": "Other",
+      "value": "4"
+    }
+  ],
+  "constraint_seal": "30f609090977075dc5c1d6eea3db60bfc81bc6a257dec13398eaa3cb50717fa0",
+  "endpoint": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+  "form_method": "POST",
+  "observed_capabilities": {
+    "attachment_field_observed": false,
+    "captcha_field_observed": false,
+    "explicit_login_required": false,
+    "free_text_details_field_observed": true,
+    "subject_field_observed": false
+  },
+  "optional_fields": {
+    "clear_login": {
+      "required": false
+    },
+    "clear_phone": {
+      "required": false
+    }
+  },
+  "package_materialization_effect": "Stage P must bind mode=3 plus user identity fields and exact sealed inquiry body; no package is materialized in Stage R.",
+  "required_fields": {
+    "clear_details": {
+      "required": true
+    },
+    "clear_email": {
+      "required": true
+    },
+    "clear_firstname": {
+      "required": true
+    },
+    "clear_lastname": {
+      "required": true
+    },
+    "clear_mode": {
+      "required": true,
+      "selected_option_label": "Live trading support. Technical support",
+      "selected_option_value": "3"
+    }
+  },
+  "schema": "BPESEM05R03_CHANNEL_CONSTRAINT_MANIFEST_V0_1",
+  "selected_channel_id": "GENERAL_CONTACT_FORM"
+}

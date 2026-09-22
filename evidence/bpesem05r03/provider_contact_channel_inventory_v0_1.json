@@ -1,0 +1,36 @@
+{
+  "candidate_parent_head": "27ba0d673990a499bbe4670e998284303801ebb3",
+  "channels": [
+    {
+      "candidate_status": "ELIGIBLE",
+      "channel_class": "official_provider_contact_form",
+      "channel_id": "GENERAL_CONTACT_FORM",
+      "endpoint": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+      "http_status": 200,
+      "raw_capture_sha256": "2a3b051ca4bd1a33ac0ddc17387a988792ddbf9525b85e140a6eb67253adb682",
+      "source_id": "DUKASCOPY_SWISS_CONTACT_FORM"
+    },
+    {
+      "candidate_status": "NOT_SELECTED",
+      "channel_class": "official_provider_issue_report_form",
+      "channel_id": "REPORT_ISSUE",
+      "endpoint": "https://www.dukascopy.com/swiss/english/about/issues/",
+      "http_status": 200,
+      "raw_capture_sha256": "2841bb536108f2a5adc1db9fd5d9915f7875686669a79f32011dace3109089d3",
+      "source_id": "DUKASCOPY_SWISS_REPORT_ISSUE"
+    },
+    {
+      "candidate_status": "NOT_SELECTED",
+      "channel_class": "official_provider_public_support_forum",
+      "channel_id": "JFOREX_KNOWLEDGE_BASE",
+      "endpoint": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewforum.php?f=65",
+      "http_status": 200,
+      "raw_capture_sha256": "f71fa27653178b82912c4d10d1ca73bc7bc0f6f65ebdec5b243a4c285d620436",
+      "source_id": "DUKASCOPY_JFOREX_KNOWLEDGE_BASE"
+    }
+  ],
+  "inventory_seal": "daf9ec792fbe44e7d343995dda7d637563e89a4ab1aae671f80e1d511a2d40ee",
+  "no_contact_performed": true,
+  "schema": "BPESEM05R03_PROVIDER_CONTACT_CHANNEL_INVENTORY_V0_1",
+  "source_capture_blob": "6e02a39d728c001ac5e6c80ce4689ea5b2622737"
+}

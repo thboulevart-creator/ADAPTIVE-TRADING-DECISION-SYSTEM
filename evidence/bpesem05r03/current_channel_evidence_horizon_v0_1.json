@@ -1,0 +1,11 @@
+{
+  "captured_channel_pages": 5,
+  "contact_form_options_blob": "8d541369f7512da015f1da171cafc90f4712444a",
+  "horizon_seal": "7a1e6bbe62e9b4af52d3f82aef77d6965393785ada3e61f0796e54122ca3a07c",
+  "known_mutability": "Provider web forms are live mutable surfaces; Stage P must bind this exact Stage R evidence and fail/reopen if material channel constraints change before send.",
+  "overall_status": "OFFICIAL_PROVIDER_CHANNEL_BOUND",
+  "schema": "BPESEM05R03_CURRENT_CHANNEL_EVIDENCE_HORIZON_V0_1",
+  "selected_channel_constraints_sufficient_for_stage_p": true,
+  "selected_channel_current_raw_sha256": "2a3b051ca4bd1a33ac0ddc17387a988792ddbf9525b85e140a6eb67253adb682",
+  "source_capture_blob": "6e02a39d728c001ac5e6c80ce4689ea5b2622737"
+}
