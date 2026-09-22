@@ -1,8 +1,8 @@
 # B-PE-SEM-03R — LINEAGE REGISTRATION / FRESH HORIZON — ADVERSARIAL BREAK
 
-Persisted candidate HEAD attacked: 43d2c8385dc59392dfcfdfae3d8c7e8b3139e863
+Persisted candidate HEAD attacked: 5032046f38130f40ec1f1943fa62cdb2c2d62f65
 
-Candidate adversarial verdict: FAIL
+Candidate adversarial verdict: PASS
 
 ## R01_EXACT_PATH_BLOB
 
@@ -26,7 +26,7 @@ PASS — registry binds exact historical source HEAD and execution
 
 ## R06_PREOBSERVATION_ORDER
 
-FAIL — runner identity/source commit predates observed execution
+PASS — runner identity/source commit predates observed execution
 
 ## R07_EXACT_DIMENSION_SCOPE
 
@@ -84,8 +84,8 @@ PASS — runner cannot become positive authority
 
 ~~~text
 attack count = 19
-demonstrated defects = 1
-R06_PREOBSERVATION_ORDER
+demonstrated defects = 0
+NONE
 ~~~
 
 No provider contact, BI5 GET, FULL_INTERVAL, D materialization or backtest occurred.
