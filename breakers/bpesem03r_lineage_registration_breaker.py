@@ -75,7 +75,7 @@ check("R01_EXACT_PATH_BLOB",
       len(items)==1 and item.get("artifact_path")==RUNNER_PATH and item.get("artifact_git_blob")==RUNNER_BLOB and blob(RUNNER_PATH)==RUNNER_BLOB,
       "registry binds exact current runner path/blob")
 
-tree_has=subprocess.check_output(["git","cat-file","-e",HIST_SOURCE_HEAD+":"+RUNNER_PATH],cwd=ROOT).returncode==0
+tree_has=subprocess.run(["git","cat-file","-e",HIST_SOURCE_HEAD+":"+RUNNER_PATH],cwd=ROOT,check=False).returncode==0
 source_blob=git("rev-parse",HIST_SOURCE_HEAD+":"+RUNNER_PATH) if tree_has else ""
 check("R02_GOVERNED_HEAD_AND_HISTORICAL_BLOB",
       source_blob==RUNNER_BLOB,
