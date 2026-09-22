@@ -11674,3 +11674,294 @@ paper/broker/live
 ~~~
 
 STOP — B-PE-SEM-05R-02 CLOSED / PASS; CONTACT STILL CLOSED.
+
+
+---
+
+## 186. Post-B-PE-SEM-05R-02 inquiry consumer route selection — PASS
+
+Decision record:
+
+~~~text
+reports/data-qualification/
+post_bpesem05r02_qualified_inquiry_contract_consumer_route_selection_2026-09-22.md
+
+commit =
+4bac435633624486c805f441ecf61fd80384f694
+
+blob =
+b05b6b1e0afd2d1ea02a57f8fd123b72187c0501
+~~~
+
+Starting state:
+
+~~~text
+B-PE-SEM-05R-02 = CLOSED / PASS
+
+inquiry contract qualification = PASS
+
+A = AMBIGUOUS
+B = NOT_FOUND
+C = INCOMPLETE_VERSION_COVERAGE
+
+provider contact = NOT AUTHORIZED
+provider inquiry sent = NO
+~~~
+
+Qualified contract preserved:
+
+~~~text
+contract blob =
+3eeb079b834102a2c8983563bd21088ad50796ed
+
+contract seal =
+39b3cd8ad0c3bd68a3326f31ec2e27ae1cd7d34d6d1fb0c9eebe9b49c2e1f0a2
+
+qualification blob =
+87971297e47bfe78e030dadf0a61c03e94b4957a
+
+qualification seal =
+2501061249854339f3bfb8b7ec1acb15f6dc9701c14f17f306e5d04d8d7e162a
+~~~
+
+Execution-path review:
+
+~~~text
+1. immediate direct send
+= REJECTED
+
+2. provider channel binding
+   + outbound package freeze
+   + later send/capture
+= SELECTED ARCHITECTURE
+  BUT DECOMPOSED INTO SEPARATE GOVERNED STAGES
+
+3. user-manual send
+= VALID FALLBACK
+  NOT SELECTED AS IMMEDIATE PATH
+
+4. connected email/support execution
+= POTENTIALLY PREFERRED FOR SEND STAGE
+  NOT SELECTED YET
+~~~
+
+Current connector capability:
+
+~~~text
+Gmail connector = available but not connected
+Outlook Email connector = available but not connected
+~~~
+
+No execution connector is selected now because the exact official provider channel/destination is not yet bound.
+
+Required stage separation:
+
+~~~text
+R
+= official provider channel resolution / identity binding
+
+P
+= outbound package materialization / immutable pre-send seal
+
+S
+= exactly one initial send / sent-state capture
+
+C
+= provider response capture / evidence intake
+~~~
+
+Selected architecture:
+
+~~~text
+R → P → S → C
+~~~
+
+Why R and P are separate:
+
+~~~text
+the exact outbound package depends on resolved channel properties:
+
+destination identity
+channel type
+required fields
+subject support
+message length/format
+attachments
+authentication
+ticket/message receipt semantics
+
+therefore:
+channel identity must be sealed before package materialization
+~~~
+
+Why S and C are separate:
+
+~~~text
+send state is project-origin execution evidence
+
+provider response is a later provider-origin event
+
+mixing them would weaken:
+received timestamp
+responder identity
+raw response provenance
+terminal no-response handling
+~~~
+
+Selected immediate successor:
+
+~~~text
+B-PE-SEM-05R-03 —
+OFFICIAL PROVIDER CONTACT CHANNEL RESOLUTION
+AND IDENTITY BINDING
+~~~
+
+B-PE-SEM-05R-03 scope when separately opened:
+
+~~~text
+inspect official Dukascopy contact/support pages
+inspect provider-owned support portal metadata
+identify exact technical-support/contact endpoints
+identify official provider-domain email destination if published
+identify form fields and submission constraints without submission
+identify authentication requirements
+bind provider ownership evidence
+bind exact URLs/endpoints/destination identities
+seal channel evidence where technically possible
+~~~
+
+B-PE-SEM-05R-03 must NOT:
+
+~~~text
+submit a form
+send an email
+create a support ticket
+send the qualified inquiry
+mutate qualified questions
+materialize final outbound inquiry package
+select final send connector/mechanism
+~~~
+
+Required outputs:
+
+~~~text
+ProviderContactChannelInventory
+ProviderChannelOwnershipEvidence
+ProviderChannelIdentityBinding
+ChannelConstraintManifest
+ChannelAuthenticationRequirement
+OutboundCapabilityConstraints
+ChannelResolutionDecision
+CurrentChannelEvidenceHorizon
+NoContactExecutionAttestation
+~~~
+
+Allowed Stage R result taxonomy:
+
+~~~text
+OFFICIAL_PROVIDER_CHANNEL_BOUND
+MULTIPLE_OFFICIAL_CHANNELS_REQUIRE_SELECTION
+CHANNEL_IDENTITY_AMBIGUOUS
+NO_SUITABLE_OFFICIAL_CHANNEL_FOUND
+BLOCKED
+~~~
+
+Stage R PASS requires exactly one provider-owned channel selected with:
+
+~~~text
+exact channel class
+exact destination/endpoint identity
+verified provider ownership
+known constraints sufficient for deterministic package materialization
+no contact action performed
+~~~
+
+Downstream sequencing labels selected but NOT opened:
+
+~~~text
+B-PE-SEM-05R-04
+= outbound inquiry package materialization / pre-send seal
+
+B-PE-SEM-05R-05
+= single provider inquiry send / sent-state capture
+
+B-PE-SEM-05R-06
+= provider response capture / evidence intake
+~~~
+
+Manual vs connected execution is deferred to Stage S.
+
+No provider contact occurred during this route-selection step.
+
+No inquiry was sent.
+
+## 187. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-05R-03 —
+OFFICIAL PROVIDER CONTACT CHANNEL RESOLUTION
+AND IDENTITY BINDING
+~~~
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ B-PE-SEM-05R-02 contract
+→ B-PE-SEM-05R-02 qualification
+→ B-PE-SEM-05R-02 closeout / backup
+→ inquiry consumer route-selection record
+
+→ acquire only official provider channel information
+→ inventory official Dukascopy contact/support channels
+→ verify provider ownership
+→ identify exact destination/endpoint identities
+→ identify channel constraints
+→ identify authentication requirements
+→ compare official channels under the qualified contract
+→ select exactly one initial provider channel
+   or return BLOCKED if selection cannot be justified
+
+→ seal channel identity / evidence
+→ adversarial break channel-resolution package
+→ minimal corrections only on demonstrated defects
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ closeout
+→ backup
+→ checkpoint
+→ STOP
+~~~
+
+Still prohibited during B-PE-SEM-05R-03:
+
+~~~text
+provider contact
+provider inquiry sending
+support ticket creation
+form submission
+email sending
+
+final outbound inquiry package materialization
+
+provider BI5 GET
+historical market-data object acquisition
+
+Lane S re-adjudication
+Lane P RequestManifest
+P-DIAG implementation
+physical semantic discrimination
+
+B-PE-SEM-06
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — CONSUMER ROUTE SELECTED; B-PE-SEM-05R-03 NOT YET OPENED.
