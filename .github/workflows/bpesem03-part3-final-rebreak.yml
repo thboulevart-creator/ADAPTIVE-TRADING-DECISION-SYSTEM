@@ -1,0 +1,68 @@
+name: B-PE-SEM-03 Part 3 final rebreak
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem03-part3-final-rebreak.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  final-rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert no provider-network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          forbidden={"requests","urllib","http","socket","aiohttp"}
+          targets=[
+              "breakers/bpesem03_final_persisted_head_rebreak.py",
+              "breakers/bpesem03_operational_semantic_adjudication_breaker.py",
+          ]
+          bad=[]
+          for name in targets:
+              tree=ast.parse(Path(name).read_text(encoding="utf-8"))
+              for node in ast.walk(tree):
+                  if isinstance(node,ast.Import):
+                      for a in node.names:
+                          if a.name.split(".")[0] in forbidden:
+                              bad.append((name,node.lineno,a.name))
+                  elif isinstance(node,ast.ImportFrom):
+                      root=(node.module or "").split(".")[0]
+                      if root in forbidden:
+                          bad.append((name,node.lineno,node.module))
+          assert not bad,bad
+          print("NO_PROVIDER_NETWORK_IMPORTS_PASS")
+          PY
+
+      - name: Execute final persisted-head re-break
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 breakers/bpesem03_final_persisted_head_rebreak.py | tee /tmp/bpesem03-final-rebreak.json
+          test -f evidence/bpesem03/current_authority_evidence_delta_review_v0_1.json
+          test -f reports/data-qualification/bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md
+
+      - name: Persist final re-break artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem03/current_authority_evidence_delta_review_v0_1.json             reports/data-qualification/bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md
+          git commit -m "audit: final re-break B-PE-SEM-03 adjudication"
+          git push origin HEAD:integration/system-v1
