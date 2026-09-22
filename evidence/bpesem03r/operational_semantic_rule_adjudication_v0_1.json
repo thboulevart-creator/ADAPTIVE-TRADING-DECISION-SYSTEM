@@ -1,6 +1,6 @@
 {
   "adjudication_id": "BPESEM03R-OPERATIONAL-SEMANTIC-ADJUDICATION-V0_1",
-  "adjudication_seal": "9a90296b94bbd04490b1acab62c9b31f0ba424749144afe135ea05f41a89fb42",
+  "adjudication_seal": "b510bd00700380cf45f8d6407e446db7fd8c4fe915332d9f50e983f414e9c476",
   "adjudication_status": "BLOCKED",
   "adjudicator_identity": "B-PE-SEM-03R_GOVERNED_READJUDICATION",
   "anchor_set_digest": "412817c56d3d11bf0c72c3ad0132907c839893659877a5f23985901a93160826",
@@ -1339,7 +1339,7 @@
       "source_dimension_id": "C05-D2-OP"
     }
   ],
-  "governed_semantic_evidence_baseline_digest": "677214d51eb8a4c673699e98cb22152475e98bc916aa82d08c8f2065cc928053",
+  "governed_semantic_evidence_baseline_digest": "6d02026cce1f294ce2a7d11d08ac3140989d3a5b2f11cda63e372771ddf5b2a0",
   "governed_semantic_evidence_baseline_id": "BPESEM03R-GOVERNED-EVIDENCE-BASELINE-V0_1",
   "historical_eligibility_set_digest": "34dd2ef1d50fe21ec62f93d80fdb252d7d5166e6984ced0acf0fcec2d0bb1191",
   "historical_observation_eligibility_records": [
@@ -2676,7 +2676,7 @@
       "target_dimension_id": "C07-D1-OP"
     }
   ],
-  "semantic_evidence_horizon_digest": "7a2de0c902454f0aac610f0a7939293f01eae1002130db97f3147e9b1c6585af",
+  "semantic_evidence_horizon_digest": "8b0b0d5d1b9fb6bc0167d85187f4c1ffbf99cd51051e4b5cbb882f36b08ccff7",
   "semantic_evidence_horizon_id": "BPESEM03R-EVIDENCE-HORIZON-V0_1",
   "semantic_evidence_review_universe_digests": [
     "6516a135c7ab187d5013512c6796e3d744e626f42d6e7e60e2d3b71c9e807d48",

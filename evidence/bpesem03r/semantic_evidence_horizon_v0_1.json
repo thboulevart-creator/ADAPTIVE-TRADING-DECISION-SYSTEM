@@ -1,7 +1,7 @@
 {
   "adjudication_id": "BPESEM03R-OPERATIONAL-SEMANTIC-ADJUDICATION-V0_1",
-  "cutoff_head": "8f43a5da55d772fec7635318e004cb0d4ebffc6f",
-  "cutoff_tree_sha": "4564d6caac134f21e599ebae896c5836175454b6",
+  "cutoff_head": "53b48ed6a5ee5e8a472232e58ea65c77fb9ee36c",
+  "cutoff_tree_sha": "966c450bc03c4d2e76911d3de166ae249e0c9c9d",
   "discovered_semantic_artifact_refs": [
     {
       "git_blob": "bf7c43e9d90d952dfa3715c28575fdf6cf379a89",
@@ -439,6 +439,26 @@
       "relevance_disposition": "MATERIAL_VISIBLE"
     },
     {
+      "git_blob": "4daf3935cadb78faa5dbcd989fb0ac16d0940af2",
+      "path": "evidence/bpesem03r/current_authority_evidence_delta_review_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "9025ab5d221c70d72e79bae0702f56c2591bb131",
+      "path": "evidence/bpesem03r/governed_semantic_evidence_baseline_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "308f8ed6d09f3602313c7942537324ac25afc2d3",
+      "path": "evidence/bpesem03r/operational_semantic_rule_adjudication_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
+      "git_blob": "83b14ce31963cde7311f84d07e2df924f59685a9",
+      "path": "evidence/bpesem03r/semantic_evidence_horizon_v0_1.json",
+      "relevance_disposition": "MATERIAL_VISIBLE"
+    },
+    {
       "git_blob": "25400abcc3a2a24438954ff27b970bd934313ae3",
       "path": "reports/data-qualification/ba_native_bi5_binding_anomaly_candidate_2026-09-19.md",
       "relevance_disposition": "GOVERNANCE_VISIBLE"
@@ -774,6 +794,11 @@
       "relevance_disposition": "GOVERNANCE_VISIBLE"
     },
     {
+      "git_blob": "09cc7184daad2ec1229c16a799fcf2d0ca550839",
+      "path": "reports/data-qualification/bpesem03r_fresh_horizon_readjudication_candidate_2026-09-22.md",
+      "relevance_disposition": "GOVERNANCE_VISIBLE"
+    },
+    {
       "git_blob": "5a03359b087d3ea91b6bf66815dabf20386df442",
       "path": "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md",
       "relevance_disposition": "GOVERNANCE_VISIBLE"
@@ -861,9 +886,9 @@
   ],
   "discovery_policy_digest": "a06fea76ea42cd30b6b9ab84a890f84578ab367a2ba230c4701b659bf4134fa2",
   "discovery_policy_id": "BPESEM02-GOVERNED-SEMANTIC-DISCOVERY-V0_6",
-  "governed_baseline_digest": "677214d51eb8a4c673699e98cb22152475e98bc916aa82d08c8f2065cc928053",
+  "governed_baseline_digest": "6d02026cce1f294ce2a7d11d08ac3140989d3a5b2f11cda63e372771ddf5b2a0",
   "governed_baseline_id": "BPESEM03R-GOVERNED-EVIDENCE-BASELINE-V0_1",
-  "horizon_digest": "7a2de0c902454f0aac610f0a7939293f01eae1002130db97f3147e9b1c6585af",
+  "horizon_digest": "8b0b0d5d1b9fb6bc0167d85187f4c1ffbf99cd51051e4b5cbb882f36b08ccff7",
   "horizon_id": "BPESEM03R-EVIDENCE-HORIZON-V0_1",
   "registered_lineage_evidence": [
     {

@@ -1,18 +1,18 @@
 # B-PE-SEM-03R — FRESH HORIZON RE-ADJUDICATION CANDIDATE
 
-Candidate parent HEAD: 8f43a5da55d772fec7635318e004cb0d4ebffc6f
+Candidate parent HEAD: 53b48ed6a5ee5e8a472232e58ea65c77fb9ee36c
 
 ~~~text
 registry role = LINEAGE_EVIDENCE
 runner positive authority = false
 runner historical role = NONDECISIVE_COMPATIBILITY
 runner decisive semantic discrimination = false
-baseline members = 171
-delta added = 20
+baseline members = 176
+delta added = 25
 delta deleted = 0
 delta modified = 0
-delta unresolved = 1
-delta status = BLOCKED
+delta unresolved = 0
+delta status = PASS
 semantic dimension statuses changed = NO
 semantic claim statuses changed = NO
 overall semantic authority = BLOCKED

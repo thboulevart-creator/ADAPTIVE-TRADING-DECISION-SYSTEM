@@ -57,6 +57,22 @@
       "path": "evidence/bpesem03/visibility_universes_v0_1.json"
     },
     {
+      "current_git_blob": "4daf3935cadb78faa5dbcd989fb0ac16d0940af2",
+      "path": "evidence/bpesem03r/current_authority_evidence_delta_review_v0_1.json"
+    },
+    {
+      "current_git_blob": "9025ab5d221c70d72e79bae0702f56c2591bb131",
+      "path": "evidence/bpesem03r/governed_semantic_evidence_baseline_v0_1.json"
+    },
+    {
+      "current_git_blob": "308f8ed6d09f3602313c7942537324ac25afc2d3",
+      "path": "evidence/bpesem03r/operational_semantic_rule_adjudication_v0_1.json"
+    },
+    {
+      "current_git_blob": "83b14ce31963cde7311f84d07e2df924f59685a9",
+      "path": "evidence/bpesem03r/semantic_evidence_horizon_v0_1.json"
+    },
+    {
       "current_git_blob": "507ad73018d963b5bd43ab276c95f53f1924fc18",
       "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md"
     },
@@ -73,6 +89,10 @@
       "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md"
     },
     {
+      "current_git_blob": "09cc7184daad2ec1229c16a799fcf2d0ca550839",
+      "path": "reports/data-qualification/bpesem03r_fresh_horizon_readjudication_candidate_2026-09-22.md"
+    },
+    {
       "current_git_blob": "5a03359b087d3ea91b6bf66815dabf20386df442",
       "path": "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md"
     },
@@ -82,11 +102,11 @@
     }
   ],
   "created_at_utc": "2026-09-22T09:25:00Z",
-  "current_horizon_digest": "7a2de0c902454f0aac610f0a7939293f01eae1002130db97f3147e9b1c6585af",
+  "current_horizon_digest": "8b0b0d5d1b9fb6bc0167d85187f4c1ffbf99cd51051e4b5cbb882f36b08ccff7",
   "current_horizon_id": "BPESEM03R-EVIDENCE-HORIZON-V0_1",
   "deleted_items": [],
   "delta_review_id": "BPESEM03R-CURRENT-AUTHORITY-DELTA-V0_1",
-  "delta_review_seal": "713e02b62ad7b724ac0b6898a0293f1b6a66a8e378be98f9ac8cb58b686013f7",
+  "delta_review_seal": "a6d8c29c01ed239a094461aeff600c65b0cc8cc482ef940682a4c61bcd20f377",
   "descendant_relation_status": "DESCENDANT",
   "modified_items": [],
   "per_delta_item_dispositions": [
@@ -232,6 +252,46 @@
     },
     {
       "change_type": "ADDED",
+      "current_git_blob": "4daf3935cadb78faa5dbcd989fb0ac16d0940af2",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03r/current_authority_evidence_delta_review_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "9025ab5d221c70d72e79bae0702f56c2591bb131",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03r/governed_semantic_evidence_baseline_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "308f8ed6d09f3602313c7942537324ac25afc2d3",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03r/operational_semantic_rule_adjudication_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "83b14ce31963cde7311f84d07e2df924f59685a9",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03r/semantic_evidence_horizon_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
       "current_git_blob": "507ad73018d963b5bd43ab276c95f53f1924fc18",
       "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
       "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md",
@@ -272,12 +332,22 @@
     },
     {
       "change_type": "ADDED",
+      "current_git_blob": "09cc7184daad2ec1229c16a799fcf2d0ca550839",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "reports/data-qualification/bpesem03r_fresh_horizon_readjudication_candidate_2026-09-22.md",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
       "current_git_blob": "5a03359b087d3ea91b6bf66815dabf20386df442",
-      "disposition": "BLOCKED_UNRESOLVED",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
       "path": "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md",
       "prior_git_blob": null,
       "reason_codes": [
-        "NEW_DISCOVERED_ARTIFACT_REQUIRES_REVIEW"
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
       ]
     },
     {
@@ -296,11 +366,9 @@
   "prior_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
   "prior_horizon_digest": "4361ec9a9824a7095b0bdcd34729a6d60e72f91eba25fb7cab825c269a4b70b6",
   "prior_horizon_id": "BPESEM03-EVIDENCE-HORIZON-V0_1",
-  "reviewed_consumer_parent_head": "8f43a5da55d772fec7635318e004cb0d4ebffc6f",
-  "reviewed_consumer_parent_tree_sha": "4564d6caac134f21e599ebae896c5836175454b6",
+  "reviewed_consumer_parent_head": "53b48ed6a5ee5e8a472232e58ea65c77fb9ee36c",
+  "reviewed_consumer_parent_tree_sha": "966c450bc03c4d2e76911d3de166ae249e0c9c9d",
   "schema": "B_PE_SEM_02_CURRENT_AUTHORITY_EVIDENCE_DELTA_REVIEW_V0_1",
-  "status": "BLOCKED",
-  "unresolved_paths": [
-    "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md"
-  ]
+  "status": "PASS",
+  "unresolved_paths": []
 }
