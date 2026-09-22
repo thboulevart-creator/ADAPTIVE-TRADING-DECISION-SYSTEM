@@ -1,0 +1,40 @@
+{
+  "change_point_inventory_seal": "0329cfd8d3a314586d5e4ceaec7253358dc331034d5146901a0a780842675076",
+  "events": [
+    {
+      "event_id": "CP-HIST-2013-LEGACY-HOURLY",
+      "evidence_id": "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+      "meaning": "legacy hourly provider file family existed",
+      "relation": "BEFORE_TARGET",
+      "semantic_effect": "CONTEXT_ONLY",
+      "time": "2013-11-07T14:08:00Z"
+    },
+    {
+      "event_id": "CP-2026-03-03-JETTA",
+      "evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "meaning": "historical price data retrieval moved/added to JETTA",
+      "relation": "INSIDE_TARGET",
+      "semantic_effect": "UNRESOLVED_FOR_NATIVE_K1",
+      "time": "2026-03-03T00:00:00Z"
+    },
+    {
+      "event_id": "CP-UNKNOWN-LEGACY-HOURLY-TO-DAILY",
+      "evidence_id": "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+      "meaning": "current provider documentation describes daily files and warns legacy hourly files may use hour-relative time",
+      "relation": "UNKNOWN_WITH_RESPECT_TO_TARGET",
+      "semantic_effect": "MATERIAL_TRANSITION_EXISTS_OR_MAY_EXIST_BUT_DATE_AND_EXACT_RULES_UNRESOLVED",
+      "time": null
+    }
+  ],
+  "exhaustive_wire_semantic_changelog_proven": false,
+  "overall_status": "BLOCKED",
+  "provider_release_timeline_evidence": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+  "reason_codes": [
+    "CHANGE_POINT_COVERAGE_NOT_EXHAUSTIVE",
+    "UNKNOWN_LEGACY_HOURLY_TO_DAILY_TRANSITION_BOUNDARY",
+    "JETTA_K1_SEMANTIC_EFFECT_UNRESOLVED"
+  ],
+  "schema": "BPESEM05_PROVIDER_SEMANTIC_CHANGE_POINT_INVENTORY_V0_1",
+  "target_end": "2026-08-14T20:00:00Z",
+  "target_start": "2021-08-13T01:00:00Z"
+}

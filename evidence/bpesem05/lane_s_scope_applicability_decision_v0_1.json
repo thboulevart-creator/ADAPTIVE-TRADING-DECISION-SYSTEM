@@ -1,0 +1,228 @@
+{
+  "blocked_count": 24,
+  "decisions": [
+    {
+      "dimension_id": "C01-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C01-D2-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C01-D3-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D2-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D3-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C02-D4-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D2-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C03-D4-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D2-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C01-D4-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D2-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D3-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D4-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C05-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D2-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D4-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D1-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D3-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C05-D3-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D3-OP",
+      "reason_codes": [
+        "TARGET_EPOCH_PROVIDER_PRIMARY_SEMANTIC_COVERAGE_INCOMPLETE",
+        "UNRESOLVED_SEMANTIC_CHANGE_POINT",
+        "NO_FORWARD_OR_BACKWARD_EXTRAPOLATION_ALLOWED"
+      ],
+      "status": "BLOCKED"
+    }
+  ],
+  "fail_count": 0,
+  "overall_status": "BLOCKED",
+  "pass_count": 0,
+  "schema": "BPESEM05_LANE_S_SCOPE_APPLICABILITY_DECISION_V0_1",
+  "scope_decision_seal": "d4000dd6e79f3395575ab296c625266aa123f9ae7bb9d23db5e317e86c5ca76c",
+  "target_end": "2026-08-14T20:00:00Z",
+  "target_start": "2021-08-13T01:00:00Z"
+}

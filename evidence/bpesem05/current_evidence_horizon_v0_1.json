@@ -1,0 +1,44 @@
+{
+  "cutoff_head": "a9c0305544f67af49c18766061c5d8952a504c9d",
+  "evidence_horizon_seal": "19517b2dfef0e252a85552aa83631b52ed646844b6789d8b1b30c14623fbab92",
+  "governed_inputs": [
+    {
+      "blob": "fe0ca12e12624371be28ea8c09340691466a37ce",
+      "path": "evidence/bpesem04/prospective_semantic_authority_closure_contract_v0_1.json"
+    },
+    {
+      "blob": "680194efc3968c2c44c36dd731762d70ef270f55",
+      "path": "evidence/bpesem04/contract_qualification_v0_1.json"
+    },
+    {
+      "blob": "a37f84337c45387ff363b9c7bf8f17cb2d98b0fb",
+      "path": "reports/data-qualification/post_bpesem04_qualified_contract_consumer_route_selection_2026-09-22.md"
+    },
+    {
+      "blob": "df22332709377591d73571a4940c1fda39565867",
+      "path": "evidence/bpe02/native_bi5_provider_reference_evidence_bundle_v0_1.json"
+    },
+    {
+      "blob": "f934df8ea93018ee0c22b2d69575f15fc8f2c72f",
+      "path": "evidence/bpe03/legacy_hourly_scope_version_evidence_bundle_v0_1.json"
+    }
+  ],
+  "lane_s_evidence_ids": [
+    "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+    "BPESEM05-E02-DUKASCOPY-USATECH-CFD-CURRENT",
+    "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+    "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+    "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+    "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+    "BPE02-E03",
+    "BPE02-E08+BPE02-E10",
+    "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+  ],
+  "overall_status": "BLOCKED",
+  "schema": "BPESEM05_CURRENT_EVIDENCE_HORIZON_V0_1",
+  "unresolved_required_authority": [
+    "immutable/provider-versioned exact legacy-hourly K1 semantic format authority across target epoch",
+    "provider-primary exact native BI5 USATECH raw scale/divisor authority",
+    "exhaustive target-epoch semantic change-point/continuity authority"
+  ]
+}

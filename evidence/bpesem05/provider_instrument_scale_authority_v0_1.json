@@ -1,0 +1,19 @@
+{
+  "forbidden_inference_applied": "0.01_USD_MARKET_POINT_VALUE_NOT_CONVERTED_INTO_RAW_BI5_DIVISOR",
+  "instrument": "USATECHIDXUSD",
+  "noncircularity_check": "PASS",
+  "overall_status": "BLOCKED",
+  "provider_current_identity_observation": "USATECH.IDX/USD / US 100 Tech Index",
+  "provider_current_market_point_value_observation": "0.01 USD",
+  "provider_native_bi5_raw_divisor_authority": null,
+  "reason_codes": [
+    "NO_IMMUTABLE_PROVIDER_PRIMARY_NATIVE_BI5_RAW_SCALE_AUTHORITY"
+  ],
+  "scale_authority_seal": "8034dbf621ec25416480f058f0f2e7951533775832bcb4e3521f8f657c4660d5",
+  "schema": "BPESEM05_PROVIDER_INSTRUMENT_SCALE_AUTHORITY_V0_1",
+  "third_party_corroborated_decimal_factor": 1000,
+  "third_party_evidence": [
+    "BPE02-E08+BPE02-E10",
+    "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+  ]
+}

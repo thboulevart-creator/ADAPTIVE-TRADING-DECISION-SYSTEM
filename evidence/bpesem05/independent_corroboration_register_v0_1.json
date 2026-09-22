@@ -1,0 +1,33 @@
+{
+  "corroboration_register_seal": "2d05cef1afd4e53e632ca5bb1d659aa94d417d99c3e8bb4f5aa0abee79734e6c",
+  "entries": [
+    {
+      "evidence_ids": [
+        "BPE02-E03"
+      ],
+      "lineage_id": "LINEAGE-DUKA-DATA",
+      "slot_id": "BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A",
+      "status": "PASS_CORROBORATION_ONLY"
+    },
+    {
+      "evidence_ids": [
+        "BPE02-E08+BPE02-E10"
+      ],
+      "lineage_id": "LINEAGE-LEOCLC",
+      "slot_id": "BPESEM04-S-E05-INDEPENDENT-CORROBORATION-B",
+      "status": "PASS_CORROBORATION_ONLY"
+    },
+    {
+      "evidence_ids": [
+        "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+      ],
+      "lineage_id": "LINEAGE-THENINTHSKY-HISTORICAL-MARKET-DATA",
+      "slot_id": "ADDITIONAL",
+      "status": "PASS_ADDITIONAL_CORROBORATION_ONLY"
+    }
+  ],
+  "pair_independence_status": "PASS",
+  "provider_primary_substitution_allowed": false,
+  "required_pair_independent": true,
+  "schema": "BPESEM05_INDEPENDENT_CORROBORATION_REGISTER_V0_1"
+}

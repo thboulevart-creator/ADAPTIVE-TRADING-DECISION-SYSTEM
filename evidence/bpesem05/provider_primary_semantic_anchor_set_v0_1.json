@@ -1,0 +1,28 @@
+{
+  "anchor_set_seal": "9e85ed56e06efcdcd3f8d2b3f2aac4c930a6c91f8e0c39968be93d5c354f55d9",
+  "candidate_anchors": [
+    {
+      "evidence_id": "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+      "reason": "CURRENT_DAILY_FORMAT_WITH_ONLY_NONEXACT_LEGACY_WARNING",
+      "status": "REJECTED_AS_TARGET_PRIMARY"
+    },
+    {
+      "evidence_id": "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+      "reason": "LOGICAL_API_SEMANTICS_NOT_NATIVE_WIRE_BINDING",
+      "status": "CORROBORATION_ONLY"
+    }
+  ],
+  "overall_status": "BLOCKED",
+  "qualified_target_primary_anchor_ids": [],
+  "reason_codes": [
+    "NO_EXACT_IMMUTABLE_PROVIDER_PRIMARY_ANCHOR_FOR_LEGACY_HOURLY_K1_ACROSS_TARGET_EPOCH"
+  ],
+  "schema": "BPESEM05_PROVIDER_PRIMARY_SEMANTIC_ANCHOR_SET_V0_1",
+  "target_scope": {
+    "end": "2026-08-14T20:00:00Z",
+    "instrument": "USATECHIDXUSD",
+    "provider": "DUKASCOPY",
+    "representation": "K1_LEGACY_HOURLY_TICK_BI5",
+    "start": "2021-08-13T01:00:00Z"
+  }
+}

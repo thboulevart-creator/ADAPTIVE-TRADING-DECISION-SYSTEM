@@ -1,0 +1,188 @@
+{
+  "candidate_parent_head": "a9c0305544f67af49c18766061c5d8952a504c9d",
+  "contract_id": "B_PE_SEM_04_PROSPECTIVE_C01_C07_SEMANTIC_AUTHORITY_CLOSURE_EVIDENCE_CONTRACT",
+  "contract_seal": "d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414",
+  "no_bi5_get_performed": true,
+  "no_provider_object_bytes_observed": true,
+  "observations": [
+    {
+      "admissibility": "BLOCKED_FOR_PRIMARY_AUTHORITY",
+      "claims": [
+        "Current documented BI5 tick file is one full day per file.",
+        "Current documented tick record is fixed 20 bytes, big-endian: uint32 time, uint32 ask, uint32 bid, float32 ask volume, float32 bid volume.",
+        "Current documented time field is milliseconds since start of day UTC.",
+        "Provider warns that older legacy hourly files may use milliseconds since start of hour instead.",
+        "Provider states index/commodity price scaling varies by instrument and should be verified per instrument."
+      ],
+      "evidence_id": "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+      "immutability_status": "LIVE_OBSERVATION_NO_RAW_IMMUTABLE_PROVIDER_SNAPSHOT",
+      "immutable_version_identity": null,
+      "locator": "https://www.dukascopy.com/wiki/en/development/data-export/",
+      "publisher_identity": "Dukascopy Bank SA",
+      "raw_provider_bytes_sha256": null,
+      "reason_codes": [
+        "LIVE_SOURCE_NOT_IMMUTABLY_SNAPSHOTTED",
+        "CURRENT_DAILY_SCOPE_NE_TARGET_LEGACY_HOURLY_K1",
+        "LEGACY_HOURLY_WORDING_NONEXACT_MAY_USE_HOUR_BASE"
+      ],
+      "retrieved_at_utc": "2026-09-22T15:20:00Z",
+      "scope_relation": "CURRENT_DAILY_BI5_PLUS_LEGACY_HOURLY_WARNING; NOT_EXACT_TARGET_K1_CONTINUITY",
+      "source_class": "PROVIDER_AUTHORED_LIVE_DOCUMENTATION",
+      "target_role": "PRIMARY_SEMANTIC_AUTHORITY_CANDIDATE"
+    },
+    {
+      "admissibility": "BLOCKED_FOR_RAW_SCALE_AUTHORITY",
+      "claims": [
+        "USATECH.IDX/USD is listed by provider as US 100 Tech Index.",
+        "Current CFD market table quotes point value 0.01 USD."
+      ],
+      "evidence_id": "BPESEM05-E02-DUKASCOPY-USATECH-CFD-CURRENT",
+      "immutability_status": "LIVE_OBSERVATION_NO_RAW_IMMUTABLE_PROVIDER_SNAPSHOT",
+      "immutable_version_identity": null,
+      "locator": "https://www.dukascopy.com/europe/french/cfd/range-of-markets/",
+      "publisher_identity": "Dukascopy Bank SA",
+      "raw_provider_bytes_sha256": null,
+      "reason_codes": [
+        "LIVE_SOURCE_NOT_IMMUTABLY_SNAPSHOTTED",
+        "CFD_MARKET_POINT_VALUE_NE_NATIVE_BI5_RAW_DIVISOR_AUTHORITY"
+      ],
+      "retrieved_at_utc": "2026-09-22T15:20:00Z",
+      "scope_relation": "CURRENT_MARKET_METADATA_ONLY; DOES_NOT_BIND_NATIVE_BI5_RAW_INTEGER_DIVISOR",
+      "source_class": "PROVIDER_AUTHORED_LIVE_INSTRUMENT_PAGE",
+      "target_role": "PRIMARY_SCALE_AND_INSTRUMENT_AUTHORITY_CANDIDATE"
+    },
+    {
+      "admissibility": "CORROBORATION_ONLY",
+      "claims": [
+        "ITick exposes best ask, best bid, ask volume and bid volume semantic roles."
+      ],
+      "evidence_id": "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+      "immutability_status": "LIVE_OBSERVATION_WITHOUT_EXACT_ARTIFACT_HASH",
+      "immutable_version_identity": "JAVADOC3_CURRENT_COPYRIGHT_2025_OBSERVED",
+      "locator": "https://www.dukascopy.com/client/javadoc3/com/dukascopy/api/ITick.html",
+      "publisher_identity": "Dukascopy Bank SA",
+      "raw_provider_bytes_sha256": null,
+      "reason_codes": [
+        "NO_EXACT_JAVADOC_ARTIFACT_HASH",
+        "LOGICAL_API_NE_NATIVE_WIRE_BINDING"
+      ],
+      "retrieved_at_utc": "2026-09-22T15:20:00Z",
+      "scope_relation": "API_LOGICAL_TICK_SEMANTICS; NOT_NATIVE_BI5_FIELD_BINDING",
+      "source_class": "PROVIDER_AUTHORED_LIVE_JAVADOC",
+      "target_role": "LOGICAL_TICK_SEMANTIC_CORROBORATION"
+    },
+    {
+      "admissibility": "ADMISSIBLE_CONTEXT_ONLY",
+      "claims": [
+        "Provider client release timeline spans multiple versions across target-era years."
+      ],
+      "content_integrity_digest": "ff2547ca714a34a8c30780ee4dcf345451f1fa211c225326391e69445576abc4",
+      "evidence_id": "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+      "immutability_status": "GOVERNED_EXISTING_VERSIONED_PROVIDER_EVIDENCE",
+      "immutable_version_identity": "VERSIONED_PROVIDER_MAVEN_INDEX_CAPTURE",
+      "locator": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/DDS2-jClient-JForex/",
+      "publisher_identity": "Dukascopy Bank SA",
+      "reason_codes": [
+        "VERSIONED_PROVIDER_SOURCE",
+        "NO_EXACT_K1_SEMANTIC_CONTINUITY_STATEMENT"
+      ],
+      "scope_relation": "CLIENT_RELEASE_TIMELINE_NOT_EXHAUSTIVE_K1_WIRE_SEMANTIC_CHANGELOG",
+      "source_class": "PROVIDER_AUTHORED_VERSIONED_CHANGE_HISTORY",
+      "target_role": "EPOCH_CHANGE_HISTORY_CONTEXT"
+    },
+    {
+      "admissibility": "ADMISSIBLE_CHANGE_POINT_CONTEXT",
+      "claims": [
+        "JForex 4.8.0 release notes include historical price data retrieval from JETTA."
+      ],
+      "content_integrity_digest": "aaa26415a11f8582b0897ca5c051cfda0cbab4933618cf03880681a79b69be8e",
+      "evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+      "immutability_status": "GOVERNED_EXISTING_VERSIONED_PROVIDER_EVIDENCE",
+      "immutable_version_identity": "JFOREX_4.8.0",
+      "locator": "https://www.dukascopy.com/wiki/en/manuals/jforex4-desktop/release-notes/",
+      "publication_time": "2026-03-03T00:00:00Z",
+      "publisher_identity": "Dukascopy Bank SA",
+      "reason_codes": [
+        "VERSIONED_PROVIDER_RELEASE_NOTE",
+        "SEMANTIC_EFFECT_ON_K1_UNRESOLVED"
+      ],
+      "scope_relation": "HISTORICAL_DATA_BACKEND_CHANGE; NO_PROOF_OF_NATIVE_BI5_WIRE_CHANGE_OR_NONCHANGE",
+      "source_class": "PROVIDER_AUTHORED_VERSIONED_CHANGE_HISTORY",
+      "target_role": "MATERIAL_CHANGE_POINT_CANDIDATE"
+    },
+    {
+      "admissibility": "ADMISSIBLE_CONTEXT_ONLY",
+      "claims": [
+        "Provider historical service used legacy hourly tick file family."
+      ],
+      "content_integrity_digest": "ac92a240fd3f961269dbaf3b7375c14213fb2a2b544358aff486dea90016edc7",
+      "evidence_id": "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+      "immutability_status": "GOVERNED_EXISTING_DATED_PROVIDER_EVIDENCE",
+      "immutable_version_identity": "DATED_PROVIDER_SUPPORT_POST_2013-11-07",
+      "locator": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewtopic.php?f=65&t=50326",
+      "publication_time": "2013-11-07T14:08:00Z",
+      "publisher_identity": "Dukascopy Bank SA / API Support",
+      "reason_codes": [
+        "DATED_PROVIDER_SOURCE",
+        "NO_TARGET_EPOCH_CONTINUITY_PROOF"
+      ],
+      "scope_relation": "PRE_TARGET_HISTORICAL_EXISTENCE_ONLY",
+      "source_class": "PROVIDER_AUTHORED_DATED_SUPPORT",
+      "target_role": "HISTORICAL_LEGACY_HOURLY_EXISTENCE"
+    },
+    {
+      "admissibility": "ADMISSIBLE_CORROBORATION_ONLY",
+      "claims": [
+        "Legacy hourly BI5 reference implementation corroborates LZMA/20-byte/big-endian/hour+ms/ask-bid//1000/volume interpretation."
+      ],
+      "content_integrity_digest": "42e7ada6a7c841ab2a92387954e30e0dfeb21ddc50b8b31ddef8b9851506a24b",
+      "evidence_id": "BPE02-E03",
+      "immutability_status": "EXACT_GITHUB_COMMIT_AND_FILE_HASH",
+      "immutable_version_identity": "2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c",
+      "lineage_id": "LINEAGE-DUKA-DATA",
+      "locator": "https://github.com/saleem-latif/duka-data/blob/2220708e7d0be9d2b6feaf6efe4d3f89c6bb040c/download.py",
+      "publisher_identity": "saleem-latif/duka-data",
+      "source_class": "VERSIONED_NONPROJECT_REFERENCE_IMPLEMENTATION_OR_SPEC",
+      "target_role": "CORROBORATION_A_ONLY"
+    },
+    {
+      "admissibility": "ADMISSIBLE_CORROBORATION_ONLY",
+      "claims": [
+        "Independent legacy-hourly normalizer corroborates startTs+ms and ask/bid/askVolume/bidVolume roles; instrument metadata corroborates USATECH decimalFactor 1000."
+      ],
+      "evidence_id": "BPE02-E08+BPE02-E10",
+      "immutability_status": "EXACT_GITHUB_COMMIT_AND_COMPONENT_HASHES",
+      "immutable_version_identity": "989987db0808e215962e136ce043797992d1a1a2",
+      "lineage_id": "LINEAGE-LEOCLC",
+      "locator": "https://github.com/leoclc/dukascopy-tick/tree/989987db0808e215962e136ce043797992d1a1a2",
+      "publisher_identity": "leoclc/dukascopy-tick",
+      "source_class": "VERSIONED_NONPROJECT_REFERENCE_IMPLEMENTATION_OR_SPEC",
+      "target_role": "CORROBORATION_B_ONLY"
+    },
+    {
+      "admissibility": "ADMISSIBLE_CORROBORATION_ONLY",
+      "claims": [
+        "USATECH.IDX/USD metadata sets decimalFactor 1000."
+      ],
+      "evidence_id": "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH",
+      "git_blob": "2ba6f322346f0dd9110646a673f6f3c4b23db756",
+      "immutability_status": "EXACT_GITHUB_COMMIT_AND_BLOB",
+      "immutable_version_identity": "be4db659bda379b8c3d78fc7ef225e3566925376",
+      "lineage_id": "LINEAGE-THENINTHSKY-HISTORICAL-MARKET-DATA",
+      "locator": "https://github.com/theninthsky/historical-market-data/blob/be4db659bda379b8c3d78fc7ef225e3566925376/src/instruments.js",
+      "publisher_identity": "theninthsky/historical-market-data",
+      "source_class": "VERSIONED_NONPROJECT_REFERENCE_IMPLEMENTATION_OR_SPEC",
+      "target_role": "ADDITIONAL_SCALE_CORROBORATION_ONLY"
+    }
+  ],
+  "registry_seal": "f57da74694138053e5372ee95d62308f23b3dca029afd6e2d11c7b0e0097b6e7",
+  "schema": "BPESEM05_LANE_S_EVIDENCE_REGISTRY_V0_1",
+  "slot_population": [
+    "BPESEM04-S-E01-PROVIDER-FORMAT-SEMANTICS",
+    "BPESEM04-S-E02-PROVIDER-INSTRUMENT-SCALE",
+    "BPESEM04-S-E03-PROVIDER-EPOCH-CONTINUITY",
+    "BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A",
+    "BPESEM04-S-E05-INDEPENDENT-CORROBORATION-B",
+    "BPESEM04-S-E06-CONTRADICTION-SWEEP"
+  ]
+}

@@ -1,0 +1,214 @@
+{
+  "c06_d3_lane_s_prerequisite_status": "BLOCKED",
+  "dimension_promotions_to_pass": [],
+  "existing_pass_dimensions_preserved": [
+    "C03-D3-OP",
+    "C05-D2-OP"
+  ],
+  "lane_p_request_manifest_authorized": false,
+  "lane_s_overall_status": "BLOCKED",
+  "lane_s_result_seal": "3390df34b87ecdd78c54f5a7554f72a23ea55d83343d8f2d28975fcbd16917a0",
+  "physical_hypothesis_dimensions_not_adjudicated_here": [
+    "C01-D1-OP",
+    "C01-D2-OP",
+    "C01-D3-OP",
+    "C02-D1-OP",
+    "C02-D2-OP",
+    "C02-D3-OP",
+    "C02-D4-OP",
+    "C03-D1-OP",
+    "C03-D2-OP",
+    "C03-D4-OP",
+    "C07-D2-OP"
+  ],
+  "reason_codes": [
+    "NO_EXACT_PROVIDER_PRIMARY_LEGACY_HOURLY_K1_AUTHORITY",
+    "TARGET_EPOCH_CONTINUITY_UNRESOLVED",
+    "NATIVE_USATECH_RAW_SCALE_AUTHORITY_UNRESOLVED"
+  ],
+  "registered_target_proposition_failures": [],
+  "schema": "BPESEM05_LANE_S_SEMANTIC_AUTHORITY_RESULT_V0_1",
+  "semantic_anchor_dimension_results": [
+    {
+      "dimension_id": "C01-D4-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D1-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D2-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D3-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C04-D4-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C05-D1-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D1-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D2-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C06-D4-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D1-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    },
+    {
+      "dimension_id": "C07-D3-OP",
+      "reason_codes": [
+        "LANE_S_SCOPE_APPLICABILITY_BLOCKED",
+        "PROVIDER_PRIMARY_TARGET_K1_AUTHORITY_INSUFFICIENT"
+      ],
+      "status": "BLOCKED"
+    }
+  ],
+  "slot_results": [
+    {
+      "evidence_ids": [
+        "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+        "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+        "BPE03-E01-DUKASCOPY-API-SUPPORT-2013"
+      ],
+      "reason_codes": [
+        "CURRENT_PROVIDER_FORMAT_DOC_IS_DAILY_NOT_EXACT_TARGET_K1",
+        "LIVE_CURRENT_PROVIDER_DOC_NOT_DURABLY_IMMUTABLE",
+        "LEGACY_HOURLY_WARNING_NONEXACT",
+        "NO_PROVIDER_PRIMARY_EXACT_TARGET_K1_SEMANTIC_BINDING"
+      ],
+      "slot_id": "BPESEM04-S-E01-PROVIDER-FORMAT-SEMANTICS",
+      "status": "BLOCKED"
+    },
+    {
+      "evidence_ids": [
+        "BPESEM05-E02-DUKASCOPY-USATECH-CFD-CURRENT",
+        "BPE02-E08+BPE02-E10",
+        "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+      ],
+      "reason_codes": [
+        "CURRENT_PROVIDER_INSTRUMENT_IDENTITY_OBSERVED",
+        "PROVIDER_CFD_POINT_VALUE_NE_NATIVE_BI5_RAW_DIVISOR_AUTHORITY",
+        "NO_IMMUTABLE_PROVIDER_PRIMARY_RAW_SCALE_AUTHORITY",
+        "THIRD_PARTY_DECIMAL_FACTOR_1000_CORROBORATION_ONLY"
+      ],
+      "slot_id": "BPESEM04-S-E02-PROVIDER-INSTRUMENT-SCALE",
+      "status": "BLOCKED"
+    },
+    {
+      "evidence_ids": [
+        "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+        "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+        "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT"
+      ],
+      "reason_codes": [
+        "TARGET_EPOCH_CHANGE_HISTORY_NOT_EXHAUSTIVE",
+        "LEGACY_HOURLY_TO_CURRENT_DAILY_TRANSITION_DATE_UNRESOLVED",
+        "JETTA_2026_CHANGE_POINT_SEMANTIC_EFFECT_UNRESOLVED",
+        "FULL_2021_2026_CONTINUITY_NOT_ESTABLISHED"
+      ],
+      "slot_id": "BPESEM04-S-E03-PROVIDER-EPOCH-CONTINUITY",
+      "status": "BLOCKED"
+    },
+    {
+      "evidence_ids": [
+        "BPE02-E03"
+      ],
+      "reason_codes": [
+        "EXACT_VERSIONED_NONPROJECT_LINEAGE",
+        "NOT_PROVIDER_PRIMARY_AUTHORITY"
+      ],
+      "slot_id": "BPESEM04-S-E04-INDEPENDENT-CORROBORATION-A",
+      "status": "FILLED_CORROBORATION_ONLY"
+    },
+    {
+      "evidence_ids": [
+        "BPE02-E08+BPE02-E10"
+      ],
+      "reason_codes": [
+        "EXACT_VERSIONED_NONPROJECT_LINEAGE",
+        "INDEPENDENT_FROM_DUKA_DATA",
+        "NOT_PROVIDER_PRIMARY_AUTHORITY"
+      ],
+      "slot_id": "BPESEM04-S-E05-INDEPENDENT-CORROBORATION-B",
+      "status": "FILLED_CORROBORATION_ONLY"
+    },
+    {
+      "evidence_ids": [
+        "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+        "BPESEM05-E02-DUKASCOPY-USATECH-CFD-CURRENT",
+        "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+        "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+        "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+        "BPE02-E03",
+        "BPE02-E08+BPE02-E10",
+        "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+      ],
+      "reason_codes": [
+        "MATERIAL_SOURCES_REVIEWED",
+        "CURRENT_DAILY_VS_LEGACY_HOURLY_SCOPE_DIFFERENCE_FOUND",
+        "RAW_SCALE_PRIMARY_AUTHORITY_ABSENT",
+        "TARGET_EPOCH_CONTINUITY_UNRESOLVED",
+        "NO_POSITIVE_CONTRADICTION_ESTABLISHING_REGISTERED_TARGET_PROPOSITION_FALSE"
+      ],
+      "slot_id": "BPESEM04-S-E06-CONTRADICTION-SWEEP",
+      "status": "PASS_AS_CONTROL_WITH_BLOCKING_FINDINGS"
+    }
+  ]
+}

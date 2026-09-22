@@ -1,0 +1,39 @@
+{
+  "contradiction_sweep_seal": "bf7c31dabe5cf97fc3b00a985fa1f16cec842dfd3b98134a490b97682648091a",
+  "material_findings": [
+    {
+      "disposition": "BLOCK_TARGET_SCOPE_PROMOTION",
+      "finding": "Current provider documentation is daily-object/day-relative while target is legacy-hourly K1; provider itself warns old hourly files may use hour-relative timestamps.",
+      "finding_id": "F01",
+      "type": "REGIME_SCOPE_DIFFERENCE"
+    },
+    {
+      "disposition": "BLOCK_C06_SCALE_AUTHORITY",
+      "finding": "Independent sources corroborate decimalFactor 1000, but no immutable provider-primary native BI5 raw divisor authority was obtained.",
+      "finding_id": "F02",
+      "type": "SCALE_AUTHORITY_GAP"
+    },
+    {
+      "disposition": "BLOCK_TARGET_EPOCH_CONTINUITY",
+      "finding": "2026-03-03 JETTA historical-data backend change is versioned provider evidence but its K1 wire-semantic effect is unresolved.",
+      "finding_id": "F03",
+      "type": "CHANGE_POINT_UNCERTAINTY"
+    }
+  ],
+  "positive_exact_target_scope_contradictions": [],
+  "registered_proposition_failures_established": [],
+  "reviewed_evidence_ids": [
+    "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+    "BPESEM05-E02-DUKASCOPY-USATECH-CFD-CURRENT",
+    "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+    "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+    "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+    "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+    "BPE02-E03",
+    "BPE02-E08+BPE02-E10",
+    "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+  ],
+  "schema": "BPESEM05_CONTRADICTION_SWEEP_RESULT_V0_1",
+  "substantive_authority_status": "BLOCKED",
+  "sweep_completeness_status": "PASS_FOR_DISCOVERED_MATERIAL_SOURCES"
+}

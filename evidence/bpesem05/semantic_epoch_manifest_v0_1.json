@@ -1,0 +1,36 @@
+{
+  "epochs": [
+    {
+      "authority_status": "BLOCKED",
+      "end": "2026-03-03T00:00:00Z",
+      "epoch_id": "TARGET-PRE-JETTA",
+      "reason": "NO_EXACT_PROVIDER_PRIMARY_LEGACY_HOURLY_K1_SEMANTIC_CONTINUITY_PROOF",
+      "start": "2021-08-13T01:00:00Z"
+    },
+    {
+      "authority_status": "BLOCKED",
+      "end": "2026-08-14T20:00:00Z",
+      "epoch_id": "TARGET-POST-JETTA",
+      "reason": "JETTA_HISTORICAL_BACKEND_SEMANTIC_EFFECT_ON_TARGET_K1_UNRESOLVED",
+      "start": "2026-03-03T00:00:00Z"
+    }
+  ],
+  "full_authoritative_coverage": false,
+  "overall_status": "BLOCKED_UNRESOLVED_TARGET_EPOCH",
+  "policy_id": "BPESEM04-S-EPOCH-COVERAGE-V0_1",
+  "request_manifest_derivation_authorized": false,
+  "schema": "BPESEM05_SEMANTIC_EPOCH_MANIFEST_V0_1",
+  "semantic_epoch_manifest_seal": "5aa7c47e220e9ca77f7e8b3b1bcaada3d00b88645735f3ad00c409a907dfea23",
+  "target_end": "2026-08-14T20:00:00Z",
+  "target_start": "2021-08-13T01:00:00Z",
+  "uncovered_authoritative_intervals": [
+    [
+      "2021-08-13T01:00:00Z",
+      "2026-08-14T20:00:00Z"
+    ]
+  ],
+  "unresolved_change_points": [
+    "CP-2026-03-03-JETTA",
+    "CP-UNKNOWN-LEGACY-HOURLY-TO-DAILY"
+  ]
+}

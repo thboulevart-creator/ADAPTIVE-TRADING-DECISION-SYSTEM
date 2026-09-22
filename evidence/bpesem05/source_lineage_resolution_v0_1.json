@@ -1,0 +1,43 @@
+{
+  "contract_seal": "d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414",
+  "duplicate_provider_pages_count_as_multiple_independent_sources": false,
+  "lineage_resolution_seal": "c3f9db60321c7130081800b252a3ee796e1a6f1f99a6528f869e34d6fa1671a6",
+  "lineages": [
+    {
+      "independence_role": "ONE_PROVIDER_LINEAGE",
+      "lineage_id": "LINEAGE-DUKASCOPY-OFFICIAL",
+      "members": [
+        "BPESEM05-E01-DUKASCOPY-HISTORICAL-PRICE-DATA-CURRENT",
+        "BPESEM05-E02-DUKASCOPY-USATECH-CFD-CURRENT",
+        "BPESEM05-E03-DUKASCOPY-ITICK-CURRENT",
+        "BPE03-E01-DUKASCOPY-API-SUPPORT-2013",
+        "BPE03-E02-DUKASCOPY-MAVEN-DDS2-TIMELINE",
+        "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE"
+      ]
+    },
+    {
+      "independence_role": "NONPROJECT_CORROBORATION_A",
+      "lineage_id": "LINEAGE-DUKA-DATA",
+      "members": [
+        "BPE02-E03"
+      ]
+    },
+    {
+      "independence_role": "NONPROJECT_CORROBORATION_B",
+      "lineage_id": "LINEAGE-LEOCLC",
+      "members": [
+        "BPE02-E08+BPE02-E10"
+      ]
+    },
+    {
+      "independence_role": "ADDITIONAL_NONPROJECT_CORROBORATION",
+      "lineage_id": "LINEAGE-THENINTHSKY-HISTORICAL-MARKET-DATA",
+      "members": [
+        "BPESEM05-E09-HISTORICAL-MARKET-DATA-USATECH"
+      ]
+    }
+  ],
+  "project_origin_used_as_independent_authority": false,
+  "schema": "BPESEM05_SOURCE_LINEAGE_RESOLUTION_V0_1",
+  "unresolved_lineage_ids": []
+}
