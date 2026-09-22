@@ -1,0 +1,47 @@
+{
+  "no_market_data_object_acquired": true,
+  "plan_blob": "b5dd1bfc3cbd217b7294407adf74855b2127a486",
+  "records": [
+    {
+      "artifact_id": "GREED-COMMON-318.4.115-REINSPECTION",
+      "computed_sha256": "29ab58c8a10a2814aa828270e6dbc6cce566725c233edcde1aa2b0592cba1522",
+      "expected_sha256": "29ab58c8a10a2814aa828270e6dbc6cce566725c233edcde1aa2b0592cba1522",
+      "expected_sha256_verification": "PASS",
+      "size_bytes": 4596220,
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/greed-common/318.4.115/greed-common-318.4.115.jar"
+    },
+    {
+      "artifact_id": "GREED-COMMON-318.4.128-REINSPECTION",
+      "computed_sha256": "33c20f5580f6ed22fe8b0cb20487c056c11e330f10b643ba2a7ca4ba7f5fbb81",
+      "expected_sha256": "33c20f5580f6ed22fe8b0cb20487c056c11e330f10b643ba2a7ca4ba7f5fbb81",
+      "expected_sha256_verification": "PASS",
+      "size_bytes": 4598289,
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/greed-common/318.4.128/greed-common-318.4.128.jar"
+    },
+    {
+      "artifact_id": "MSG-1.1.98.2-JFOREX3",
+      "computed_sha1": "5179c315ad7e507e4ee6bcd5250a45dffcabc56b",
+      "computed_sha256": "d53f86fe88fa060aa940f6f2cb49967a74312ae56c22c9b35376685431d354c4",
+      "official_sha1": "5179c315ad7e507e4ee6bcd5250a45dffcabc56b",
+      "pom_official_sha1": "b688c177f08d39acba080b99587e89dd327af232",
+      "pom_sha1_verification": "PASS",
+      "pom_sha256": "281e6032ae3d979044c1c9521b9039e7f444c833d25bd0e3182ee3409ac23c77",
+      "sha1_verification": "PASS",
+      "size_bytes": 3741598,
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.2-JForex3/msg-1.1.98.2-JForex3.jar"
+    },
+    {
+      "artifact_id": "MSG-1.1.98.4-JFOREX3",
+      "computed_sha1": "0cd7acf1571ae6e843a8a5589a8c5b398149b100",
+      "computed_sha256": "2fb370600c55e84da4f9a8bd0b3fc1c327426ff2d5ed387ab391586127df54f6",
+      "official_sha1": "0cd7acf1571ae6e843a8a5589a8c5b398149b100",
+      "pom_official_sha1": "19c4795301f28994146f2689a1c1e081984976d7",
+      "pom_sha1_verification": "PASS",
+      "pom_sha256": "de5713b3dbce70a97d9ff08fe7d3bc7776a03a7b6527efcbbb72fc5c04e96e92",
+      "sha1_verification": "PASS",
+      "size_bytes": 3743643,
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.4-JForex3/msg-1.1.98.4-JForex3.jar"
+    }
+  ],
+  "schema": "BPESEM05R01_SEMANTIC_EXTRACTION_IDENTITY_REGISTRY_V0_1"
+}
