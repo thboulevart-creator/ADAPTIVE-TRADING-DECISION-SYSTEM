@@ -9039,3 +9039,210 @@ paper/broker/live
 ~~~
 
 STOP — B-PE-SEM-03R CLOSED.
+
+
+---
+
+## 170. Post-B-PE-SEM-03R semantic-authority closure route selection — PASS
+
+Decision record:
+
+~~~text
+reports/data-qualification/
+post_bpesem03r_semantic_authority_closure_route_selection_2026-09-22.md
+
+commit =
+f1c1847688ab44f15c9cc5fb53f27e2d079ba2f3
+
+blob =
+ba8687735cd48f81bb654d33117d957447707783
+~~~
+
+Authoritative starting state:
+
+~~~text
+B-PE-SEM-01 = PASS
+B-PE-SEM-02 = PASS
+B-PE-SEM-03 = CLOSED / FAIL
+B-PE-SEM-03R = CLOSED / PASS_WITH_BLOCKED_SEMANTIC_AUTHORITY
+
+C01-C07 operational semantic authority = BLOCKED
+~~~
+
+Remaining operational dimensions:
+
+~~~text
+26 total
+PASS = 2
+BLOCKED = 24
+FAIL = 0
+~~~
+
+Already PASS:
+
+~~~text
+C03-D3-OP
+C05-D2-OP
+~~~
+
+The 24 BLOCKED dimensions are grouped as:
+
+~~~text
+11 PHYSICAL_HYPOTHESIS
+11 SEMANTIC_ANCHOR
+2 PREREQUISITE_CLOSURE
+~~~
+
+Common blocker across all 24:
+
+~~~text
+TARGET_K1_SEMANTIC_RULE_CONTINUITY_2021_2026_NOT_ESTABLISHED
+
+BOUNDED_COMPATIBILITY_NE_FULL_SEMANTIC_SCOPE_AUTHORITY
+~~~
+
+Existing governed evidence cannot close the 24 dimensions by itself.
+
+B-ERD-02 remains:
+
+~~~text
+NONDECISIVE_COMPATIBILITY
+~~~
+
+and cannot be retroactively promoted into decisive exact C01-C07 physical discrimination.
+
+Existing non-project reference implementations remain useful but insufficient as sole current provider semantic authority.
+
+The selected closure architecture is:
+
+~~~text
+Lane S — semantic-authority / scope evidence
+Lane P — prospective physical discrimination
+Lane C — derived prerequisite closure
+~~~
+
+Rejected routes include:
+
+~~~text
+re-adjudicate unchanged evidence
+open B-FIQ-02R now
+run FULL_INTERVAL now
+physical probe only
+semantic documentation only
+authorize acquisition before a new contract
+~~~
+
+Selected successor:
+
+~~~text
+B-PE-SEM-04 —
+PROSPECTIVE C01-C07 SEMANTIC-AUTHORITY
+CLOSURE EVIDENCE CONTRACT
+~~~
+
+B-PE-SEM-04 is a formalization / contract block only.
+
+No evidence acquisition or execution occurred during this route-selection step.
+
+## 171. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-04 —
+PROSPECTIVE C01-C07 SEMANTIC-AUTHORITY
+CLOSURE EVIDENCE CONTRACT
+~~~
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ B-PE-SEM-03R final closeout / backup
+→ post-B-PE-SEM-03R route-selection record
+
+→ formalize Lane S:
+   semantic-source admissibility
+   immutable/versioned evidence requirements
+   exact semantic propositions
+   target instrument / K1 binding
+   semantic epoch segmentation / continuity proof rules
+   contradiction rules
+   C06 scale noncircularity
+
+→ formalize Lane P:
+   exact 11 physical hypotheses
+   complete material alternatives
+   exact prospective discriminators
+   probe/object sampling policy
+   temporal coverage
+   diagnostic independence
+   observation sealing
+   accept/reject/BLOCKED rules
+   anti-extrapolation
+
+→ formalize Lane C:
+   exact prerequisite closure graph
+   derived closure conditions
+   no independent evidence laundering
+
+→ define before any observation:
+   evidence IDs
+   source-lineage rules
+   scope signature
+   execution obligations
+   evidence horizon policy
+   failure/reopen rules
+   consumer handoff
+
+→ persist candidate contract
+→ adversarial break
+→ minimal corrections only on demonstrated defects
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ closeout
+→ backup
+→ checkpoint
+→ STOP
+~~~
+
+Mandatory contract safeguards include at minimum:
+
+~~~text
+no semantic authority from raw physical compatibility
+no physical PASS from documentation alone
+no post-hoc hypotheses
+no live unversioned page as durable authority
+no reference implementation as sole provider authority
+no unproved temporal extrapolation
+no representation-presence / semantic-continuity conflation
+no C01-C07 / C08 circularity
+no circular /1000 plausibility inference
+no ask/bid inference only from spread sign
+no timestamp inference only from plausible ranges
+no volume semantics from binary32 decodability alone
+no project self-authority
+no B-ERD-02 promotion beyond NONDECISIVE_COMPATIBILITY
+no partial epoch coverage treated as full continuity
+no lineage duplication treated as independence
+no C05-D3 independent evidence laundering
+no provider/network acquisition before contract qualification
+~~~
+
+Still prohibited:
+
+~~~text
+provider contact
+provider BI5 GET
+new provider-object acquisition
+new semantic-discrimination execution
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — ROUTE SELECTED; B-PE-SEM-04 NOT YET EXECUTED.
