@@ -1,0 +1,58 @@
+{
+  "candidate_ancestry": "PASS",
+  "candidate_commit": "b98ce80cd1a19940e24880dd3a8836bfb5ea83d8",
+  "created_at_utc": "2026-09-22T15:45:00Z",
+  "demonstrated_final_defects": [],
+  "dimension_promotions": [],
+  "full_breaker_regression": {
+    "attack_count": 30,
+    "defects": [],
+    "head": "ab455de201dae8feb17ce90db43d6b0ad2ff10ce",
+    "verdict": "PASS"
+  },
+  "lane_p_request_manifest_authorized": false,
+  "lane_s_semantic_authority_status": "BLOCKED",
+  "overall_governed_result": "BLOCKED",
+  "package_integrity_status": "PASS",
+  "post_candidate_changes": [
+    {
+      "disposition": "FINAL_REBREAK_WORKFLOW",
+      "path": ".github/workflows/bpesem05-final-rebreak.yml",
+      "status": "A"
+    },
+    {
+      "disposition": "FINAL_REBREAK_GOVERNANCE",
+      "path": "breakers/bpesem05_final_persisted_head_rebreak.py",
+      "status": "A"
+    },
+    {
+      "disposition": "PROTECTED_EXPECTED_IDENTITY",
+      "path": "reports/data-qualification/bpesem05_lane_s_adversarial_break_2026-09-22.md",
+      "status": "A"
+    }
+  ],
+  "protected_artifact_blobs": {
+    "evidence/bpesem05/contradiction_sweep_result_v0_1.json": "02d1bcd3ee56e5057db07e2b66d69f9445385ff7",
+    "evidence/bpesem05/current_evidence_horizon_v0_1.json": "961868bfacfef6891af07e56b83ce54d953574a7",
+    "evidence/bpesem05/independent_corroboration_register_v0_1.json": "cb8c4cf17f5c74e37876a1da648b98db05666164",
+    "evidence/bpesem05/lane_s_evidence_registry_v0_1.json": "8251c744cd9f0c3758be8f49979bd2ba42b69ca1",
+    "evidence/bpesem05/lane_s_scope_applicability_decision_v0_1.json": "7251a267620b3e66edc950832dfa5b728d27bfb5",
+    "evidence/bpesem05/lane_s_semantic_authority_result_v0_1.json": "2d4d73a929310615f0860486d8a4e0095abc536d",
+    "evidence/bpesem05/provider_instrument_scale_authority_v0_1.json": "14c02cd77503915d70e4090735e733dbe2c14e7e",
+    "evidence/bpesem05/provider_primary_semantic_anchor_set_v0_1.json": "bac24b40519c16f050e01e619fed60dff261ccfd",
+    "evidence/bpesem05/provider_semantic_change_point_inventory_v0_1.json": "0cb9b2ddd6911dd09920fb66ec1d5d91a9f51327",
+    "evidence/bpesem05/semantic_epoch_manifest_v0_1.json": "e463a44e1bd142fb0a0ba0ca5dfab98b47a2ff77",
+    "evidence/bpesem05/source_lineage_resolution_v0_1.json": "e19a76fe02e7546dcf15857b1a50bccdaa4efa44",
+    "reports/data-qualification/bpesem05_lane_s_adversarial_break_2026-09-22.md": "2f1968cfb4a3832c746d4b553c7c3ccf9bfa2d6d",
+    "reports/data-qualification/bpesem05_lane_s_candidate_2026-09-22.md": "2e80980ddad60d9c35b7cc8cc42bcf9e0badf60d"
+  },
+  "provider_object_observation_performed": false,
+  "qualification_seal": "9ccf2e2b0456790ac1ed63184854e2fc93e497bfe0fe86f648b886b280134a07",
+  "registered_target_proposition_failures": [],
+  "reviewed_persisted_head": "ab455de201dae8feb17ce90db43d6b0ad2ff10ce",
+  "reviewed_persisted_tree": "65cb84a004a673d97627237127331d86d2af7bf0",
+  "schema": "BPESEM05_LANE_S_QUALIFICATION_V0_1",
+  "scope_status": "BLOCKED",
+  "target_epoch_status": "BLOCKED_UNRESOLVED_TARGET_EPOCH",
+  "unresolved_post_candidate_paths": []
+}
