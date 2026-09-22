@@ -9882,3 +9882,426 @@ paper/broker/live = FORBIDDEN
 ~~~
 
 STOP — ROUTE SELECTED; B-PE-SEM-05 NOT YET OPENED.
+
+
+---
+
+## 176. B-PE-SEM-05 final closeout — BLOCKED
+
+Closed block:
+
+~~~text
+B-PE-SEM-05 —
+LANE-S SEMANTIC-AUTHORITY
+EVIDENCE ACQUISITION / SEALING / ADJUDICATION
+~~~
+
+Final governed result:
+
+~~~text
+package materialization/adjudication integrity = PASS
+
+Lane S semantic authority = BLOCKED
+
+target epoch =
+BLOCKED_UNRESOLVED_TARGET_EPOCH
+
+scope = BLOCKED
+
+B-PE-SEM-05 = CLOSED / BLOCKED
+
+demonstrated final defects = 0
+~~~
+
+This is a substantive authority BLOCKED, not a technical package failure.
+
+Qualified B-PE-SEM-04 input preserved:
+
+~~~text
+contract blob =
+fe0ca12e12624371be28ea8c09340691466a37ce
+
+contract seal =
+d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414
+
+qualification blob =
+680194efc3968c2c44c36dd731762d70ef270f55
+
+qualification seal =
+210c5ff5b94f3e9c8626cdea6861dbb90f65dd756121155b376f07ad92981f27
+~~~
+
+Lane S slot outcomes:
+
+~~~text
+S-E01 provider format semantics
+= BLOCKED
+
+S-E02 provider instrument / scale
+= BLOCKED
+
+S-E03 provider epoch continuity
+= BLOCKED
+
+S-E04 independent corroboration A
+= FILLED_CORROBORATION_ONLY
+
+S-E05 independent corroboration B
+= FILLED_CORROBORATION_ONLY
+
+S-E06 contradiction sweep
+= PASS_AS_CONTROL_WITH_BLOCKING_FINDINGS
+~~~
+
+Main blocking facts:
+
+~~~text
+1. Current provider BI5 documentation describes a daily-object/day-relative regime
+   and cannot be promoted to exact target legacy-hourly K1 authority.
+
+2. Provider legacy-hourly wording remains non-exact and does not establish
+   exact K1 semantics through the complete target epoch.
+
+3. Current provider USATECH market metadata does not establish
+   native BI5 raw integer scale/divisor authority.
+
+4. Provider release/change evidence is not an exhaustive
+   K1 wire-semantic change history.
+
+5. 2026-03-03 JETTA historical-data backend change remains
+   a material unresolved change point.
+
+6. Exact legacy-hourly → current-daily transition boundary/rules remain unresolved.
+~~~
+
+Provider-primary semantic anchors:
+
+~~~text
+qualified target primary anchor count = 0
+
+provider_primary_semantic_anchor_set blob =
+bac24b40519c16f050e01e619fed60dff261ccfd
+~~~
+
+USATECH scale authority:
+
+~~~text
+provider native BI5 raw divisor authority =
+ABSENT
+
+third-party decimalFactor corroboration =
+1000
+
+provider_instrument_scale_authority blob =
+14c02cd77503915d70e4090735e733dbe2c14e7e
+~~~
+
+The firewall remains:
+
+~~~text
+current CFD market point value
+!=
+native BI5 raw integer divisor authority
+~~~
+
+Provider change-point inventory:
+
+~~~text
+blob =
+0cb9b2ddd6911dd09920fb66ec1d5d91a9f51327
+~~~
+
+SemanticEpochManifest:
+
+~~~text
+path =
+evidence/bpesem05/semantic_epoch_manifest_v0_1.json
+
+blob =
+e463a44e1bd142fb0a0ba0ca5dfab98b47a2ff77
+
+target =
+2021-08-13T01:00:00Z
+→
+2026-08-14T20:00:00Z
+
+full authoritative coverage =
+false
+
+unresolved change points =
+CP-2026-03-03-JETTA
+CP-UNKNOWN-LEGACY-HOURLY-TO-DAILY
+
+overall status =
+BLOCKED_UNRESOLVED_TARGET_EPOCH
+
+RequestManifest derivation authorized =
+false
+~~~
+
+Independent corroboration:
+
+~~~text
+A =
+LINEAGE-DUKA-DATA
+
+B =
+LINEAGE-LEOCLC
+
+pair independence =
+PASS
+
+provider-primary substitution =
+FORBIDDEN
+~~~
+
+Contradiction sweep:
+
+~~~text
+blob =
+02d1bcd3ee56e5057db07e2b66d69f9445385ff7
+
+material findings =
+current daily vs target legacy-hourly regime difference
+provider-primary raw-scale authority gap
+unresolved 2026 JETTA semantic effect
+
+exact target-scope registered proposition failures =
+0
+~~~
+
+Scope adjudication:
+
+~~~text
+PASS = 0
+BLOCKED = 24
+FAIL = 0
+
+blob =
+7251a267620b3e66edc950832dfa5b728d27bfb5
+~~~
+
+Lane S semantic authority result:
+
+~~~text
+blob =
+2d4d73a929310615f0860486d8a4e0095abc536d
+
+Lane S = BLOCKED
+dimension promotions = 0
+registered target proposition failures = 0
+Lane P RequestManifest authorized = false
+~~~
+
+The two existing conditional signedness PASS dimensions remain preserved:
+
+~~~text
+C03-D3-OP
+C05-D2-OP
+~~~
+
+The 11 PHYSICAL_HYPOTHESIS dimensions remain unadjudicated.
+
+Candidate:
+
+~~~text
+commit =
+b98ce80cd1a19940e24880dd3a8836bfb5ea83d8
+
+candidate report blob =
+2e80980ddad60d9c35b7cc8cc42bcf9e0badf60d
+~~~
+
+Adversarial break:
+
+~~~text
+blob =
+2f1968cfb4a3832c746d4b553c7c3ccf9bfa2d6d
+
+verdict =
+PASS
+
+attack count =
+30
+
+demonstrated defects =
+0
+~~~
+
+No candidate correction was justified.
+
+Final persisted-head re-break:
+
+~~~text
+workflow run =
+35749336399
+
+job =
+106819057618
+
+output commit =
+c72cef0cc78322804e552bc8aa243dbf951ef644
+~~~
+
+Qualification:
+
+~~~text
+evidence/bpesem05/
+lane_s_qualification_v0_1.json
+
+blob =
+b5223228e02818a6d00b3e5d4d329af5abe74578
+
+package integrity =
+PASS
+
+Lane S semantic authority =
+BLOCKED
+
+overall governed result =
+BLOCKED
+
+qualification seal =
+9ccf2e2b0456790ac1ed63184854e2fc93e497bfe0fe86f648b886b280134a07
+~~~
+
+Final re-break report:
+
+~~~text
+reports/data-qualification/
+bpesem05_final_persisted_head_rebreak_2026-09-22.md
+
+blob =
+2a1cf8d3ffb37752a96eef38c2d63ba00f824ee3
+~~~
+
+Final re-break checks:
+
+~~~text
+candidate ancestor = PASS
+breaker verdict = PASS
+breaker attacks = 30
+breaker defects = 0
+
+post-candidate changed paths = 3
+unresolved changed paths = 0
+
+demonstrated final defects = 0
+~~~
+
+Final closeout:
+
+~~~text
+reports/data-qualification/
+bpesem05_final_closeout_2026-09-22.md
+
+commit =
+4b0487d690d0eeeec28a7c7b0826cba2a72871ac
+
+blob =
+adff96d9497e4be491ff9fa26a63cc2d40a9dcb2
+~~~
+
+Durable backup:
+
+~~~text
+99-BACKUP/
+SESSION-2026-09-22-BPESEM05-FINAL-CLOSEOUT.md
+
+commit =
+c7451a4c396174b6ddcf07affa81dd82e7aaa521
+
+blob =
+ebd7f5eee3f135d5d4f8253516266292d5265f34
+~~~
+
+Execution boundary preserved:
+
+~~~text
+documentary/source evidence acquisition = YES
+
+provider BI5 GET = NO
+provider-object acquisition = NO
+Lane P RequestManifest = NO
+P-DIAG implementation = NO
+physical semantic-discrimination execution = NO
+B-FIQ-02R = NO
+FULL_INTERVAL = NO
+D materialization = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+Because Lane S is BLOCKED:
+
+~~~text
+B-PE-SEM-06 = NOT AUTHORIZED
+~~~
+
+## 177. Exactly one next governed action
+
+No Lane P technical stage may open from the current BLOCKED state.
+
+The next governed action is only:
+
+~~~text
+POST-B-PE-SEM-05
+LANE-S BLOCKED AUTHORITY RECOVERY ROUTE SELECTION
+— DECISION / FORMALIZATION ONLY
+~~~
+
+Purpose:
+
+~~~text
+fresh HEAD
+→ read B-PE-SEM-05 qualification / closeout / backup
+→ inspect the three unresolved authority classes:
+
+   A. exact immutable/provider-versioned legacy-hourly K1 semantic authority
+
+   B. exact provider-primary native BI5 USATECH raw scale/divisor authority
+
+   C. exhaustive target-epoch semantic change-point / continuity authority
+
+→ classify each as:
+   recoverable with existing governed sources
+   vs
+   requiring a new documentary acquisition route
+   vs
+   unavailable / externally unprovable under current evidence channels
+
+→ compare the minimum credible recovery routes
+
+→ decide:
+   CONTINUE
+   / SIMPLIFY
+   / STOP
+   for Lane S authority recovery
+
+→ if continuation:
+   select exactly one bounded next evidence block
+   and define its authority boundary before any new acquisition
+
+→ do not open B-PE-SEM-06
+→ do not perform provider BI5 GET
+→ do not perform Lane P discrimination
+→ STOP
+~~~
+
+Still prohibited:
+
+~~~text
+B-PE-SEM-06
+Lane P RequestManifest
+P-DIAG implementation
+provider BI5 GET
+new provider-object acquisition
+new physical semantic-discrimination execution
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — B-PE-SEM-05 CLOSED / BLOCKED.
