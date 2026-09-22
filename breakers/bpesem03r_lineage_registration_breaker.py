@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import datetime as dt
 import hashlib
 import json
 import os
@@ -95,8 +96,10 @@ check("R05_HISTORICAL_IDENTITY",
 
 source_time=git("show","-s","--format=%cI",HIST_SOURCE_HEAD)
 obs_time=exec_result["created_at_utc"]
+source_dt=dt.datetime.fromisoformat(source_time.replace("Z","+00:00"))
+obs_dt=dt.datetime.fromisoformat(obs_time.replace("Z","+00:00"))
 check("R06_PREOBSERVATION_ORDER",
-      source_time < obs_time and exec_result["source_head"]==HIST_SOURCE_HEAD,
+      source_dt < obs_dt and exec_result["source_head"]==HIST_SOURCE_HEAD,
       "runner identity/source commit predates observed execution")
 
 check("R07_EXACT_DIMENSION_SCOPE",
