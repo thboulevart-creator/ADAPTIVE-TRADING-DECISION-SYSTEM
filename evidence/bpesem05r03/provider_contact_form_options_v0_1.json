@@ -1,0 +1,51 @@
+{
+  "channel_id": "DUKASCOPY_SWISS_CONTACT_FORM",
+  "final_url": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+  "method_used": "GET_ONLY",
+  "no_contact": true,
+  "no_form_submission": true,
+  "plan_blob": "83f82b27898c1a6fbe0a31ef04196317e2f972ff",
+  "raw_response_sha256": "2a3b051ca4bd1a33ac0ddc17387a988792ddbf9525b85e140a6eb67253adb682",
+  "requested_url": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+  "schema": "BPESEM05R03_PROVIDER_CONTACT_FORM_OPTIONS_V0_1",
+  "select_options": {
+    "clear_mode": [
+      {
+        "disabled": false,
+        "selected": false,
+        "text": "Please choose a topic related to*:",
+        "value": ""
+      },
+      {
+        "disabled": false,
+        "selected": false,
+        "text": "Multi-currency Account (MCA)",
+        "value": "1"
+      },
+      {
+        "disabled": false,
+        "selected": false,
+        "text": "Trading account (general information)",
+        "value": "2"
+      },
+      {
+        "disabled": false,
+        "selected": false,
+        "text": "Live trading support. Technical support",
+        "value": "3"
+      },
+      {
+        "disabled": false,
+        "selected": false,
+        "text": "Fraud/Scam",
+        "value": "5"
+      },
+      {
+        "disabled": false,
+        "selected": false,
+        "text": "Other",
+        "value": "4"
+      }
+    ]
+  }
+}
