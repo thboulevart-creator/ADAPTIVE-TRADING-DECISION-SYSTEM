@@ -1,0 +1,44 @@
+{
+  "created_at_utc": "2026-09-22T09:20:00Z",
+  "governed_branch": "integration/system-v1",
+  "registered_items": [
+    {
+      "artifact_git_blob": "e10a0c47ec6e9b28f480c958baf18141287187cb",
+      "artifact_path": "tools/berd02_transport_runner.py",
+      "artifact_role": "LINEAGE_EVIDENCE",
+      "decisive_semantic_discrimination_eligible": false,
+      "historical_execution_id": "BERD02-GHA-35533153289-1",
+      "historical_observation_role": "NONDECISIVE_COMPATIBILITY",
+      "historical_source_head": "2eb8350fb24c3043017c91475d202b5e0d6bb501",
+      "independent_semantic_source": false,
+      "positive_authority_eligible": false,
+      "post_hoc_semantic_discrimination_eligible": false,
+      "project_origin_status": "PROJECT_ORIGIN_EXECUTION_MECHANISM",
+      "registration_reason": "Exact project-origin pre-observation execution mechanism for BERD02-GHA-35533153289-1; required for historical provenance/lineage closure only. It is not independent semantic authority and remains NONDECISIVE_COMPATIBILITY.",
+      "registry_item_id": "BPESEM03R-LINEAGE-BERD02-TRANSPORT-RUNNER",
+      "target_claim_ids": [
+        "BPE-SEM-C01-OP",
+        "BPE-SEM-C02-OP",
+        "BPE-SEM-C03-OP",
+        "BPE-SEM-C07-OP"
+      ],
+      "target_dimension_ids": [
+        "C01-D1-OP",
+        "C01-D2-OP",
+        "C01-D3-OP",
+        "C02-D1-OP",
+        "C02-D2-OP",
+        "C02-D3-OP",
+        "C02-D4-OP",
+        "C03-D1-OP",
+        "C03-D2-OP",
+        "C03-D4-OP",
+        "C07-D2-OP"
+      ]
+    }
+  ],
+  "registry_digest": "c6fdc8d6235bca9b06e0598e246511022a0131783274500db99f8bfe53d7367c",
+  "registry_id": "BPESEM03R-BERD02-LINEAGE-REGISTRY-V0_1",
+  "registry_parent_id": null,
+  "schema": "B_PE_SEM_02_SEMANTIC_EVIDENCE_REGISTRY_V0_6"
+}
