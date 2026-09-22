@@ -268,10 +268,22 @@ check("A28_NO_EXECUTION_AUTHORIZATION",
       and "no network execution is self-authorized" in boundary["post_contract_consumer_if_qualified"],
       "contract qualification cannot self-authorize provider/network/FULL_INTERVAL/D/backtest/live")
 
-serialized=json.dumps(contract,sort_keys=True)
+target_ids=[]
+target_ids += contract["dimension_population"]["already_pass"]
+target_ids += contract["dimension_population"]["blocked_physical_hypothesis"]
+target_ids += contract["dimension_population"]["blocked_semantic_anchor"]
+target_ids += contract["dimension_population"]["blocked_prerequisite_closure"]
+for s in contract["lane_s"]["evidence_slots"]:
+    target_ids += s.get("target_dimension_ids",[])
+for r in contract["lane_s"]["semantic_authority_rules"]:
+    target_ids.append(r["dimension_id"])
+target_ids += contract["lane_p"]["target_dimension_ids"]
+target_ids += list(contract["lane_p"]["hypothesis_sets"].keys())
+target_ids += [r["dimension_id"] for r in contract["lane_c"]["rules"]]
 check("A29_C08_FIREWALL",
-      "C08" not in serialized,
-      "B-PE-SEM-04 contains no C08 authority path")
+      all("C08" not in x for x in target_ids)
+      and any("C08" in x for x in contract["mandatory_safeguards"]),
+      "C08 may appear only as an explicit anti-circularity safeguard, never as an authority target")
 
 check("A30_DIGESTS_RECOMPUTE",
       contract["semantic_slot_set_digest"]==digest(sorted(slots,key=lambda x:x["evidence_slot_id"]))
