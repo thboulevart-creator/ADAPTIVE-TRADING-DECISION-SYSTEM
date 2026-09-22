@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import copy, hashlib, json, os, subprocess, urllib.parse
+import copy, hashlib, json, os, subprocess
 from pathlib import Path
 from typing import Any
 
@@ -66,7 +66,7 @@ check("R11_EXACT_THREE_ACTIONABLE_CHANNELS",len(inventory["channels"])==3,"gener
 sel=decision["selected_channel"]
 check("R12_EXACT_SELECTED_ENDPOINT",
       sel["endpoint"]=="https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0"
-      and urllib.parse.urlparse(sel["endpoint"]).hostname=="www.dukascopy.com",
+      and sel["endpoint"].startswith("https://www.dukascopy.com/"),
       "exact provider-controlled endpoint bound")
 
 check("R13_PROVIDER_OWNERSHIP_VERIFIED",
