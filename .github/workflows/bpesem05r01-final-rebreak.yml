@@ -1,0 +1,67 @@
+name: B-PE-SEM-05R-01 final rebreak
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem05r01-final-rebreak.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  final-rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert final stage has no network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          forbidden={"requests","urllib","http","socket","aiohttp","ftplib"}
+          for name in [
+              "breakers/bpesem05r01_recovery_breaker.py",
+              "breakers/bpesem05r01_final_persisted_head_rebreak.py",
+          ]:
+              tree=ast.parse(Path(name).read_text(encoding="utf-8"))
+              bad=[]
+              for node in ast.walk(tree):
+                  if isinstance(node,ast.Import):
+                      for a in node.names:
+                          if a.name.split(".")[0] in forbidden:
+                              bad.append((node.lineno,a.name))
+                  elif isinstance(node,ast.ImportFrom):
+                      root=(node.module or "").split(".")[0]
+                      if root in forbidden:
+                          bad.append((node.lineno,node.module))
+              assert not bad,(name,bad)
+          print("FINAL_REBREAK_OFFLINE_PASS")
+          PY
+
+      - name: Execute final persisted-head re-break
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 breakers/bpesem05r01_final_persisted_head_rebreak.py | tee /tmp/bpesem05r01-final.json
+          test -f evidence/bpesem05r01/recovery_qualification_v0_1.json
+          test -f reports/data-qualification/bpesem05r01_final_persisted_head_rebreak_2026-09-22.md
+
+      - name: Persist final recovery qualification
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem05r01/recovery_qualification_v0_1.json             reports/data-qualification/bpesem05r01_final_persisted_head_rebreak_2026-09-22.md
+          git commit -m "audit: final re-break B-PE-SEM-05R-01 recovery"
+          git push origin HEAD:integration/system-v1
