@@ -1,0 +1,118 @@
+{
+  "continuity_conclusion": "PARTIAL_CLIENT_ARTIFACT_STABILITY_ONLY",
+  "coverage_limitations": [
+    "Selected public Maven client lineage ends at DDS2-jClient-JForex 3.6.51 / 2025-10 in the governed inventory.",
+    "Target interval continues through 2026-08-14.",
+    "2026-03-03 JETTA release-note change has no matching inspected public Maven client artifact in this recovery package.",
+    "Byte-identical client/cache/message classes do not prove server-side or public raw-object semantic continuity."
+  ],
+  "full_target_semantic_continuity_proven": false,
+  "ledger_seal": "69bf529101e74b639a00c9eac463216050d87b69bf19e9f919cc288da91de34b",
+  "observed_msg_version_transition": {
+    "from": "1.1.98.2-JForex3",
+    "selected_critical_history_tick_classes_changed": false,
+    "to": "1.1.98.4-JForex3"
+  },
+  "provider_release_samples": [
+    {
+      "client": "3.6.34",
+      "greed_common": "318.4.115",
+      "msg": "1.1.98.2-JForex3",
+      "relation": "PRE_TARGET_NEAR_BOUNDARY"
+    },
+    {
+      "client": "3.6.37",
+      "greed_common": "318.4.118",
+      "msg": "1.1.98.2-JForex3",
+      "relation": "POST_TARGET_START"
+    },
+    {
+      "client": "3.6.48",
+      "greed_common": "318.4.125",
+      "msg": "1.1.98.4-JForex3",
+      "relation": "TARGET_2023"
+    },
+    {
+      "client": "3.6.49",
+      "greed_common": "318.4.127",
+      "msg": "1.1.98.4-JForex3",
+      "relation": "TARGET_2024"
+    },
+    {
+      "client": "3.6.51",
+      "greed_common": "318.4.128",
+      "msg": "1.1.98.4-JForex3",
+      "relation": "TARGET_2025"
+    }
+  ],
+  "schema": "BPESEM05R01_CROSS_VERSION_SEMANTIC_CHANGE_LEDGER_V0_1",
+  "stable_provider_classes": [
+    {
+      "entry": "DataCacheUtils.class",
+      "sha256": "337761c442e7d129095f69bbc1ac6cd71c18dc1ecf2a271f3a9169cd1bed951a",
+      "versions": 5
+    },
+    {
+      "entry": "DataCacheUtils$4.class",
+      "sha256": "013df7da4ef48abd90d6366953c309df1b6f589f9d035a734e7887b158f55d07",
+      "versions": 5
+    },
+    {
+      "entry": "AbstractCurrencyConverter.class",
+      "sha256": "2495e958ac7597302f088e34ea43eb6582e8fd365f70efda277107b5e56439c9",
+      "versions": 5
+    },
+    {
+      "entry_path": "com/dukascopy/dds3/transport/msg/dfs/CandleHistoryGroupMessage.class",
+      "sha256": "9f20fd8195ba3927fef3be3593253e90f713d488cfbe32253852b6b74abb59b8",
+      "versions": [
+        "MSG-1.1.98.2-JFOREX3",
+        "MSG-1.1.98.4-JFOREX3"
+      ]
+    },
+    {
+      "entry_path": "com/dukascopy/dds3/transport/msg/dfs/DFHistoryStartRequestMessage.class",
+      "sha256": "c766487063aa2657d5167c7e8e921afdc1aa4751171ad8a81e5e26c3799da1e0",
+      "versions": [
+        "MSG-1.1.98.2-JFOREX3",
+        "MSG-1.1.98.4-JFOREX3"
+      ]
+    },
+    {
+      "entry_path": "com/dukascopy/dds3/transport/msg/dfw/TickCacheDataRequestMessage.class",
+      "sha256": "250f4a140df72afdebcc0aa7fd7076681a2317be2d70e40d6b4886a51a0aba9e",
+      "versions": [
+        "MSG-1.1.98.2-JFOREX3",
+        "MSG-1.1.98.4-JFOREX3"
+      ]
+    },
+    {
+      "entry_path": "com/dukascopy/dds3/transport/msg/dfw/TickCacheDataResponseMessage.class",
+      "sha256": "ab142c7f3cb5edd2717702799a69482f6aa84e7824ef281a9a14f4c865fc6064",
+      "versions": [
+        "MSG-1.1.98.2-JFOREX3",
+        "MSG-1.1.98.4-JFOREX3"
+      ]
+    },
+    {
+      "entry_path": "com/dukascopy/dds3/transport/msg/dfw/TickMessage.class",
+      "sha256": "13cccc1ac682d0a290cdc63d7f99148d2223b8bf4159b4a140032bd0f1144722",
+      "versions": [
+        "MSG-1.1.98.2-JFOREX3",
+        "MSG-1.1.98.4-JFOREX3"
+      ]
+    },
+    {
+      "entry_path": "com/dukascopy/dds3/transport/msg/settings/InstrumentSettings.class",
+      "sha256": "297d1f06acce7f74917a3c063fa9c4ba3d7eedd88d1ea72e5fe471c7da09845d",
+      "versions": [
+        "MSG-1.1.98.2-JFOREX3",
+        "MSG-1.1.98.4-JFOREX3"
+      ]
+    }
+  ],
+  "target_interval": {
+    "end": "2026-08-14T20:00:00Z",
+    "start": "2021-08-13T01:00:00Z"
+  }
+}

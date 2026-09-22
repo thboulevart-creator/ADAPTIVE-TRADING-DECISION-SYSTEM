@@ -1,0 +1,16 @@
+{
+  "finding_seal": "96b52892ab32849d1adf93f0f432f542099b8d39ff39d6347125874e42f39a7b",
+  "forbidden_inference_preserved": "API pip/tick scale or runtime InstrumentSettings.priceScale is not treated as native BI5 raw integer divisor without an exact provider binding.",
+  "msg_instrument_settings_sha256": "297d1f06acce7f74917a3c063fa9c4ba3d7eedd88d1ea72e5fe471c7da09845d",
+  "provider_artifact_facts": [
+    "Provider DDS2 distributions expose Instrument.USATECHIDXUSD and API pip/tick scale interfaces.",
+    "Provider msg InstrumentSettings schema exposes priceScale and pricePipValue fields.",
+    "AbstractCurrencyConverter is byte-identical across all five inspected greed-common versions and references USATECHIDXUSD as an instrument conversion dependency."
+  ],
+  "raw_divisor_value": null,
+  "recovery_target": "B",
+  "schema": "BPESEM05R01_USATECH_RAW_SCALE_ARTIFACT_FINDING_V0_1",
+  "status": "NOT_FOUND",
+  "third_party_1000_not_used_as_provider_primary": true,
+  "usatech_static_native_bi5_raw_divisor_found": false
+}

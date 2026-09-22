@@ -1,0 +1,16 @@
+{
+  "any_full_recovery": false,
+  "block": "B-PE-SEM-05R-01",
+  "candidate_parent_head": "8734e9f1b76bceb5214c73b32bded8675a6a93cf",
+  "candidate_parent_tree": "a6390459113187fbbffb23cde423bad3bdd39d7e",
+  "lane_p_authorized": false,
+  "lane_s_readjudication_authorized_by_this_block": false,
+  "overall_substantive_result": "BLOCKED",
+  "package_integrity_candidate_status": "READY_FOR_ADVERSARIAL_BREAK",
+  "package_result_seal": "3412e1644a88a6bd117de74031f570a36ddbd5cd281b9522595ece92feebc83a",
+  "reason": "Provider-versioned Maven archaeology recovered material BI5/cache/history evidence and partial cross-version stability, but did not recover all provider-primary authority required by A/B/C.",
+  "recovery_a": "AMBIGUOUS",
+  "recovery_b": "NOT_FOUND",
+  "recovery_c": "INCOMPLETE_VERSION_COVERAGE",
+  "schema": "BPESEM05R01_RECOVERY_PACKAGE_RESULT_V0_1"
+}

@@ -1,0 +1,31 @@
+{
+  "cross_version_fact": "Both critical classes are byte-identical across greed-common 318.4.115, 318.4.118, 318.4.125, 318.4.127 and 318.4.128.",
+  "exact_native_layout_semantics_found": false,
+  "finding_seal": "28c957975431075e3f6e2583468b089ce0f5351d0f5ab240ebf5a949740975cd",
+  "interpretation": "Provider-versioned artifacts recover an exact BI5 cache-format identity/usage trace, but do not bind the exact legacy-hourly native payload semantics required by Recovery A.",
+  "not_recovered": [
+    "compression/wrapper authority",
+    "20-byte record width authority",
+    "five-field primitive layout authority",
+    "field role authority",
+    "hour-relative timestamp authority for target K1",
+    "native raw price divisor authority",
+    "volume encoding/role authority"
+  ],
+  "observed_exact_layout_markers": [],
+  "provider_evidence": [
+    {
+      "class": "com.dukascopy.charts.data.datacache.DataCacheUtils",
+      "class_sha256": "337761c442e7d129095f69bbc1ac6cd71c18dc1ecf2a271f3a9169cd1bed951a",
+      "finding": "Provider client code defines VERSION_5_CACHE_FILE_EXTENSION = bi5."
+    },
+    {
+      "class": "com.dukascopy.charts.data.datacache.DataCacheUtils$4",
+      "class_sha256": "013df7da4ef48abd90d6366953c309df1b6f589f9d035a734e7887b158f55d07",
+      "finding": "Provider client code explicitly recognizes _ticks.bi5 and _ticks.bin intra-period tick files."
+    }
+  ],
+  "recovery_target": "A",
+  "schema": "BPESEM05R01_LEGACY_HOURLY_SEMANTIC_ARTIFACT_FINDING_V0_1",
+  "status": "AMBIGUOUS"
+}

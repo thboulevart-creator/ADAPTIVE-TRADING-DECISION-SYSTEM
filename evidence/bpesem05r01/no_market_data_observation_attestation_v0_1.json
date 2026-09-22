@@ -1,0 +1,18 @@
+{
+  "attestation_seal": "84163db88003c760a7ec6634e4a60bb448695320e258297cb143cafaf50f6326",
+  "backtest_executed": false,
+  "d_materialized": false,
+  "evidence": [
+    "All acquisition plans reject .bi5/datafeed market-data URLs.",
+    "All persisted provider artifact registries attest no market-data object acquired."
+  ],
+  "full_interval_executed": false,
+  "historical_market_data_object_acquired": false,
+  "lane_p_request_manifest_created": false,
+  "p_diag_implemented": false,
+  "physical_semantic_discrimination_executed": false,
+  "provider_bi5_market_data_get_performed": false,
+  "provider_software_documentary_artifact_acquisition_performed": true,
+  "schema": "BPESEM05R01_NO_MARKET_DATA_OBSERVATION_ATTESTATION_V0_1",
+  "status": "PASS"
+}

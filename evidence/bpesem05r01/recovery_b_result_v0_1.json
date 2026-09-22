@@ -1,0 +1,17 @@
+{
+  "evidence_recovered": [
+    "USATECH provider API identity",
+    "Instrument pip/tick scale interfaces",
+    "InstrumentSettings priceScale schema"
+  ],
+  "reason_codes": [
+    "NO_STATIC_USATECH_NATIVE_BI5_RAW_DIVISOR_IN_INSPECTED_PROVIDER_ARTIFACTS",
+    "RUNTIME_PRICE_SCALE_SCHEMA_NE_RAW_BI5_DIVISOR",
+    "NO_CIRCULAR_INFERENCE"
+  ],
+  "required_native_raw_divisor_recovered": false,
+  "result": "NOT_FOUND",
+  "result_seal": "b083e3d7f33457dc7b5a23887e108cd7ae7220cf833741d32421bc8d916f0a34",
+  "schema": "BPESEM05R01_RECOVERY_B_RESULT_V0_1",
+  "target": "exact provider-primary native BI5 USATECH raw scale/divisor authority"
+}

@@ -1,0 +1,17 @@
+{
+  "evidence_recovered": [
+    "provider V5 cache extension = bi5",
+    "provider _ticks.bi5 recognition",
+    "cross-version byte identity of DataCacheUtils/DataCacheUtils$4"
+  ],
+  "reason_codes": [
+    "PROVIDER_BI5_USAGE_IDENTITY_RECOVERED",
+    "EXACT_NATIVE_PAYLOAD_SEMANTICS_NOT_EXPOSED",
+    "CACHE_FILE_SEMANTICS_NE_PUBLIC_RAW_OBJECT_SEMANTICS"
+  ],
+  "required_exact_semantics_recovered": false,
+  "result": "AMBIGUOUS",
+  "result_seal": "b9f6da94d50dc07cfee219a65c2249fd7d0f34973bd0920e7ba00445500a6b57",
+  "schema": "BPESEM05R01_RECOVERY_A_RESULT_V0_1",
+  "target": "exact immutable/provider-versioned legacy-hourly K1 semantic authority"
+}

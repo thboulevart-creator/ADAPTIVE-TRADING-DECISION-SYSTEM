@@ -1,0 +1,15 @@
+{
+  "full_target_coverage_recovered": false,
+  "partial_stability_recovered": true,
+  "reason_codes": [
+    "CLIENT_CACHE_CLASSES_STABLE_ACROSS_SELECTED_2021_2025_ARTIFACTS",
+    "SELECTED_MSG_HISTORY_TICK_SCHEMAS_STABLE_ACROSS_MSG_VERSIONS",
+    "NO_INSPECTED_2026_PUBLIC_MAVEN_CLIENT_ARTIFACT",
+    "JETTA_2026_K1_IMPACT_UNRESOLVED",
+    "CLIENT_STABILITY_NE_SERVER_RAW_OBJECT_SEMANTIC_CONTINUITY"
+  ],
+  "result": "INCOMPLETE_VERSION_COVERAGE",
+  "result_seal": "7847b327040fbcdd8e61af60a8da83993b778684237b60ec361266415fcceea4",
+  "schema": "BPESEM05R01_RECOVERY_C_RESULT_V0_1",
+  "target": "exhaustive target-epoch semantic change-point / continuity authority"
+}

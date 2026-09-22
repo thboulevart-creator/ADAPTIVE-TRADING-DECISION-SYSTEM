@@ -1,0 +1,17 @@
+{
+  "cannot_infer": [
+    "NO_CHANGE_TO_K1",
+    "CHANGE_TO_K1",
+    "LEGACY_HOURLY_TO_DAILY_TRANSITION_DATE"
+  ],
+  "event_time": "2026-03-03T00:00:00Z",
+  "finding_seal": "415d167d51ad48d4218337684a5150945d1fae686600a48a5335d854489d1707",
+  "governed_source_bundle_blob": "f934df8ea93018ee0c22b2d69575f15fc8f2c72f",
+  "jetta_string_found_in_acquired_maven_artifacts": false,
+  "matching_2026_public_dds2_client_artifact_inspected": false,
+  "native_k1_wire_semantic_effect": "UNRESOLVED",
+  "provider_evidence_id": "BPE03-E03-DUKASCOPY-JFOREX-4-8-0-RELEASE",
+  "provider_statement_scope": "JForex 4.8.0 historical price data retrieval from JETTA.",
+  "schema": "BPESEM05R01_JETTA_CHANGE_IMPACT_FINDING_V0_1",
+  "status": "BLOCKED_UNRESOLVED_IMPACT"
+}

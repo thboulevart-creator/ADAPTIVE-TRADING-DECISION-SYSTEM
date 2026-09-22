@@ -1,0 +1,25 @@
+{
+  "all_exact_identity_checks": "PASS",
+  "duplicate_reinspection_rule": "Pinned greed-common reinspections are identity verification, not additional independent evidence.",
+  "identity_registry_seal": "02faefcc5b17a3cc8a68696e48de0a052036f29e64aa88aeb330e31338bb6e81",
+  "no_market_data_object_acquired": true,
+  "schema": "BPESEM05R01_PROVIDER_ARTIFACT_IDENTITY_REGISTRY_COMPOSITE_V0_1",
+  "source_registries": [
+    {
+      "blob": "ff0e950eef72dee5497e6db480cd8ce9e16fc31a",
+      "path": "evidence/bpesem05r01/provider_artifact_identity_registry_v0_1.json"
+    },
+    {
+      "blob": "6869b00772048097d87afc40a8775baf61669f14",
+      "path": "evidence/bpesem05r01/provider_artifact_identity_registry_v0_2.json"
+    },
+    {
+      "blob": "95502f7a0600e34eda34ffa78665db7ee8b81046",
+      "path": "evidence/bpesem05r01/provider_artifact_identity_registry_v0_3.json"
+    },
+    {
+      "blob": "aee550bd1b05abea92105ed66018918fb2f7b30b",
+      "path": "evidence/bpesem05r01/semantic_extraction_identity_registry_v0_1.json"
+    }
+  ]
+}

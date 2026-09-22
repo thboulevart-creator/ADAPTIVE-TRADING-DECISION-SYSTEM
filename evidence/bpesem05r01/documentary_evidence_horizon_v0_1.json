@@ -1,0 +1,28 @@
+{
+  "candidate_parent_head": "8734e9f1b76bceb5214c73b32bded8675a6a93cf",
+  "families_exhausted_in_this_block": [
+    "DDS2-jClient-JForex",
+    "JForex-API sources",
+    "DDS2-Charts",
+    "greed-common",
+    "msg"
+  ],
+  "horizon_seal": "345457550b54213afb938323d679730e77a3ef9fbb40cb1c09683f7e35585183",
+  "lane_p_authorization_effect": "NONE",
+  "lane_s_readjudication_sufficient_new_authority": false,
+  "not_followed_generic_dependency": "system-msg 1.0.32 was not followed because msg inspection exposed no specific A/B/C semantic dependency requiring it.",
+  "overall_status": "BLOCKED",
+  "provider_artifact_channel": "Dukascopy official Maven/public distribution chain",
+  "recovery_results": {
+    "A": "AMBIGUOUS",
+    "B": "NOT_FOUND",
+    "C": "INCOMPLETE_VERSION_COVERAGE"
+  },
+  "remaining_authority_gaps": [
+    "Exact provider binding of legacy-hourly K1 raw payload semantics.",
+    "Exact provider binding of USATECH native BI5 raw integer divisor.",
+    "2026/JETTA and server-side/public-object semantic continuity through target end."
+  ],
+  "schema": "BPESEM05R01_DOCUMENTARY_EVIDENCE_HORIZON_V0_1",
+  "specific_dependency_following_rule": "Only dependencies directly demonstrated by persisted provider POMs were followed."
+}

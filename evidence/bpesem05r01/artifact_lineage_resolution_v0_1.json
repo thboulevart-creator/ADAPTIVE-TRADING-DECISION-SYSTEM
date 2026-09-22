@@ -1,0 +1,14 @@
+{
+  "all_acquired_artifacts_single_provider_lineage": true,
+  "dependency_chain": [
+    "DDS2-jClient-JForex -> DDS2-Charts",
+    "DDS2-Charts -> greed-common",
+    "greed-common -> msg"
+  ],
+  "independence_claim": "NONE_WITHIN_PROVIDER_CHAIN",
+  "lineage_resolution_seal": "f85eb50dfe31678be82da5b00d695d38acbdc57ea6a1cb8a97ca8d16196b091e",
+  "provider_lineage_id": "LINEAGE-DUKASCOPY-OFFICIAL-MAVEN-DISTRIBUTION",
+  "reinspection_deduplicated": true,
+  "schema": "BPESEM05R01_ARTIFACT_LINEAGE_RESOLUTION_V0_1",
+  "status": "RESOLVED"
+}
