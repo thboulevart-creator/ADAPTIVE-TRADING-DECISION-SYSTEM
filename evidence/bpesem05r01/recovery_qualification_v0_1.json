@@ -1,0 +1,61 @@
+{
+  "any_full_recovery": false,
+  "candidate_ancestry": "PASS",
+  "candidate_commit": "b98a011e21f539c10d3064b30513efc9817bedf4",
+  "created_at_utc": "2026-09-22T17:20:00Z",
+  "demonstrated_final_defects": [],
+  "full_adversarial_break": {
+    "attack_count": 30,
+    "defects": [],
+    "head": "6c8af197013e97bfcaf1e88a8d24ba66ea54d5c1",
+    "verdict": "PASS"
+  },
+  "lane_p_authorized": false,
+  "lane_s_readjudication_sufficient_new_authority": false,
+  "overall_governed_result": "BLOCKED",
+  "package_integrity_status": "PASS",
+  "post_candidate_changes": [
+    {
+      "disposition": "FINAL_REBREAK_WORKFLOW",
+      "path": ".github/workflows/bpesem05r01-final-rebreak.yml",
+      "status": "A"
+    },
+    {
+      "disposition": "FINAL_REBREAK_GOVERNANCE",
+      "path": "breakers/bpesem05r01_final_persisted_head_rebreak.py",
+      "status": "A"
+    },
+    {
+      "disposition": "PROTECTED_EXPECTED_IDENTITY",
+      "path": "reports/data-qualification/bpesem05r01_recovery_adversarial_break_2026-09-22.md",
+      "status": "A"
+    }
+  ],
+  "protected_candidate_blobs": {
+    "evidence/bpesem05r01/artifact_lineage_resolution_v0_1.json": "6c6285c2c37f643b2078a4e592e4603651fe829c",
+    "evidence/bpesem05r01/cross_version_semantic_change_ledger_v0_1.json": "9d1638b8391e259796e798c7fcfbfde4292ebc81",
+    "evidence/bpesem05r01/documentary_evidence_horizon_v0_1.json": "b9fb63bb9ecb729223fe4c40789d01ba321d62b1",
+    "evidence/bpesem05r01/jetta_change_impact_finding_v0_1.json": "b83bb700ba9a4381dbc3d9b0a9253135d3f59ca7",
+    "evidence/bpesem05r01/legacy_hourly_semantic_artifact_finding_v0_1.json": "43f6b95945b71e7beb70b2cd86a242e8a2e5a0cd",
+    "evidence/bpesem05r01/no_market_data_observation_attestation_v0_1.json": "49430b7ae0994068988b842ac2583ab949e53321",
+    "evidence/bpesem05r01/provider_artifact_identity_registry_composite_v0_1.json": "aacc0b10e9f06d18119e318d4048a59caa53f77e",
+    "evidence/bpesem05r01/provider_artifact_inventory_v0_1.json": "a022e1c16b363477cec4de71a830dd1255992471",
+    "evidence/bpesem05r01/recovery_a_result_v0_1.json": "945873c2d0f7504eb866ad524d4dc03995b41c84",
+    "evidence/bpesem05r01/recovery_b_result_v0_1.json": "d5e4d05090ca684775457b363ed0b0de5fbed48d",
+    "evidence/bpesem05r01/recovery_c_result_v0_1.json": "c1db014e9f7e4fafa80a9db3142d6e02c7659357",
+    "evidence/bpesem05r01/recovery_package_result_v0_1.json": "ab3ccfb4bdd7da1d93511b0d0523b70f974f2908",
+    "evidence/bpesem05r01/relevant_class_resource_inventory_composite_v0_1.json": "c8916f5fd3dfcc0a33f2ab6313d9119d85a47076",
+    "evidence/bpesem05r01/usatech_raw_scale_artifact_finding_v0_1.json": "fff29d789223dca2690d01b0918ee1527156e253",
+    "reports/data-qualification/bpesem05r01_recovery_adversarial_break_2026-09-22.md": "dce384f248153f4a7407bc1a3239f5e0f5d4e442",
+    "reports/data-qualification/bpesem05r01_recovery_candidate_2026-09-22.md": "4567f710b7af4b116e35e76569c01a4fb1c7ca08"
+  },
+  "provider_market_data_observation_performed": false,
+  "qualification_seal": "7ecc77a75c4bcf333edce03ec2a6504a8f0ded39fc49789d0556d7bd54f3866a",
+  "recovery_a_result": "AMBIGUOUS",
+  "recovery_b_result": "NOT_FOUND",
+  "recovery_c_result": "INCOMPLETE_VERSION_COVERAGE",
+  "reviewed_persisted_head": "6c8af197013e97bfcaf1e88a8d24ba66ea54d5c1",
+  "reviewed_persisted_tree": "d9c5cd882711055999d4d9f22eca9d4c6ba4a107",
+  "schema": "BPESEM05R01_RECOVERY_QUALIFICATION_V0_1",
+  "unresolved_post_candidate_paths": []
+}
