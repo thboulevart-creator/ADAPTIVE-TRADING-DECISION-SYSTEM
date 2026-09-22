@@ -1,0 +1,83 @@
+name: B-PE-SEM-03R correction rebreak
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem03r-correction-rebreak.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  correction-rebreak:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert no provider-network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          forbidden={"requests","urllib","http","socket","aiohttp"}
+          for name in [
+              "tools/bpesem03r_materialize.py",
+              "breakers/bpesem03r_lineage_registration_breaker.py",
+          ]:
+              tree=ast.parse(Path(name).read_text(encoding="utf-8"))
+              bad=[]
+              for node in ast.walk(tree):
+                  if isinstance(node,ast.Import):
+                      for a in node.names:
+                          if a.name.split(".")[0] in forbidden:
+                              bad.append((node.lineno,a.name))
+                  elif isinstance(node,ast.ImportFrom):
+                      root=(node.module or "").split(".")[0]
+                      if root in forbidden:
+                          bad.append((node.lineno,node.module))
+              assert not bad,(name,bad)
+          print("NO_PROVIDER_NETWORK_IMPORTS_PASS")
+          PY
+
+      - name: Rematerialize corrected fresh horizon candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem03r_materialize.py --mode candidate | tee /tmp/bpesem03r-candidate-corrected.json
+          test -f evidence/bpesem03r/current_authority_evidence_delta_review_v0_1.json
+
+      - name: Persist corrected candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem03r             reports/data-qualification/bpesem03r_fresh_horizon_readjudication_candidate_2026-09-22.md
+          git commit -m "evidence: correct B-PE-SEM-03R fresh horizon candidate"
+          git push origin HEAD:integration/system-v1
+          echo "CANDIDATE_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Adversarial break corrected persisted candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_COMMIT"
+          python3 breakers/bpesem03r_lineage_registration_breaker.py | tee /tmp/bpesem03r-break-corrected.json
+          test -f reports/data-qualification/bpesem03r_lineage_registration_adversarial_break_2026-09-22.md
+
+      - name: Persist adversarial break
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/data-qualification/bpesem03r_lineage_registration_adversarial_break_2026-09-22.md
+          git commit -m "audit: break corrected B-PE-SEM-03R candidate"
+          git push origin HEAD:integration/system-v1
