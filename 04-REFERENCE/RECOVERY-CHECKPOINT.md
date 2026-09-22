@@ -8450,3 +8450,252 @@ paper/broker/live
 ~~~
 
 STOP — B-PE-SEM-03 CLOSED WITH FINAL GOVERNED FAIL.
+
+
+---
+
+## 166. Post-B-PE-SEM-03 failure route selection — PASS
+
+The governed decision-only step after B-PE-SEM-03 final FAIL is complete.
+
+Decision record:
+
+~~~text
+reports/data-qualification/
+post_bpesem03_failure_route_selection_2026-09-22.md
+
+commit =
+d5f4940f4f24b89ddbf94a6d4c5521928c9e0c1f
+
+blob =
+d796f10fc7d4e6ac64e022fa336e7cb4804e7870
+~~~
+
+Authoritative starting state preserved:
+
+~~~text
+B-PE-SEM-01 = PASS
+B-PE-SEM-02 contract = PASS
+B-PE-SEM-03 = CLOSED / FAIL
+
+C01-C07 operational semantic authority = BLOCKED
+~~~
+
+Exact unresolved artifact reviewed:
+
+~~~text
+tools/berd02_transport_runner.py
+
+git blob =
+e10a0c47ec6e9b28f480c958baf18141287187cb
+~~~
+
+The artifact is the project-origin B-ERD-02 execution runner.
+
+It materially controls or can affect:
+
+~~~text
+LZMA decompression
+20-byte framing
+big-endian decoding
+signedness interpretation
+timestamp plausibility
+ask/bid interpretation
+volume decoding
+anomaly classification
+~~~
+
+Therefore:
+
+~~~text
+NONMATERIAL_PROVEN route = REJECTED
+~~~
+
+The artifact existed with the exact same blob at the historical B-ERD-02 source HEAD:
+
+~~~text
+source HEAD =
+2eb8350fb24c3043017c91475d202b5e0d6bb501
+
+source commit time =
+2026-09-20T19:41:46Z
+
+runner blob at source HEAD =
+e10a0c47ec6e9b28f480c958baf18141287187cb
+~~~
+
+B-ERD-02 execution:
+
+~~~text
+execution_id =
+BERD02-GHA-35533153289-1
+
+created_at_utc =
+2026-09-20T19:43:45.129295+00:00
+
+overall_probe_verdict =
+PROBE_SUPPORTED
+
+anti_extrapolation =
+PROBE_SUPPORTED_NE_FULL_INTERVAL_QUALIFIED
+~~~
+
+Thus runner identity was frozen pre-observation.
+
+B-PE-SEM-03 HistoricalObservationEligibility already binds the exact runner as a pre-observation artifact for 11 physical-hypothesis dimensions while preserving:
+
+~~~text
+eligibility_role =
+NONDECISIVE_COMPATIBILITY
+
+decisive_discrimination_eligible =
+false
+~~~
+
+The V0.6-compatible role is therefore:
+
+~~~text
+artifact_role =
+LINEAGE_EVIDENCE
+~~~
+
+Required firewall:
+
+~~~text
+project-origin execution mechanism = YES
+positive semantic authority = FORBIDDEN
+independent semantic source = NO
+post-hoc decisive discrimination = FORBIDDEN
+historical compatibility role = NONDECISIVE_COMPATIBILITY
+~~~
+
+Routes rejected:
+
+~~~text
+silent exclusion
+NONMATERIAL_PROVEN
+positive-authority promotion
+horizon rebuild without registration
+move/copy runner to a discovered evidence path
+~~~
+
+Selected route:
+
+~~~text
+register exact runner identity as LINEAGE_EVIDENCE
++
+fresh semantic-horizon re-adjudication
+~~~
+
+POST-B-PE-SEM-03 FAILURE ROUTE SELECTION result:
+
+~~~text
+PASS
+~~~
+
+## 167. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-03R —
+BERD02 PRE-OBSERVATION LINEAGE REGISTRATION
+AND FRESH SEMANTIC-HORIZON RE-ADJUDICATION
+~~~
+
+B-PE-SEM-03R is selected but NOT YET EXECUTED.
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ B-PE-SEM-03 final FAIL closeout / backup
+→ post-B-PE-SEM-03 route-selection record
+
+→ preserve B-PE-SEM-03 final FAIL unchanged
+
+→ create V0.6 SemanticEvidenceRegistry entry for exact:
+   tools/berd02_transport_runner.py
+   blob e10a0c47ec6e9b28f480c958baf18141287187cb
+
+→ artifact_role = LINEAGE_EVIDENCE
+
+→ bind target claims:
+   BPE-SEM-C01-OP
+   BPE-SEM-C02-OP
+   BPE-SEM-C03-OP
+   BPE-SEM-C07-OP
+
+→ bind exact 11 target dimensions:
+   C01-D1-OP
+   C01-D2-OP
+   C01-D3-OP
+   C02-D1-OP
+   C02-D2-OP
+   C02-D3-OP
+   C02-D4-OP
+   C03-D1-OP
+   C03-D2-OP
+   C03-D4-OP
+   C07-D2-OP
+
+→ bind historical source HEAD:
+   2eb8350fb24c3043017c91475d202b5e0d6bb501
+
+→ bind historical execution:
+   BERD02-GHA-35533153289-1
+
+→ preserve:
+   NONDECISIVE_COMPATIBILITY
+   decisive_discrimination_eligible = false
+   project-origin self-authority prohibition
+
+→ refresh governed baseline / SemanticEvidenceHorizon
+   using unchanged V0.6 discovery policy
+
+→ materialize successor current-authority adjudication
+   without changing semantic proposition status merely because registry succeeds
+
+→ exact delta review
+→ adversarial break
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ closeout
+→ backup
+→ checkpoint
+→ STOP
+~~~
+
+Mandatory adversarial attacks include:
+
+~~~text
+wrong path/blob registration
+blob not present at governed HEAD
+LINEAGE_EVIDENCE → POSITIVE_EVIDENCE escalation
+project self-authority
+historical source-HEAD mismatch
+observation-before-runner identity
+dimension overscope beyond 11 records
+NONDECISIVE_COMPATIBILITY escalation
+post-hoc C01-C07 discrimination leakage
+registry/horizon omission
+reference-closure new unresolved artifact
+old B-PE-SEM-03 FAIL rewrite
+semantic claim promotion solely from registration
+C01-C07/C08 leakage
+~~~
+
+Still prohibited before B-PE-SEM-03R explicitly opens and qualifies:
+
+~~~text
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+provider BI5 GET
+paper/broker/live
+~~~
+
+STOP — ROUTE SELECTED; B-PE-SEM-03R NOT YET EXECUTED.
