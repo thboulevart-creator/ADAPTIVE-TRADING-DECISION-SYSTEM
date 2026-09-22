@@ -1,0 +1,306 @@
+{
+  "added_items": [
+    {
+      "current_git_blob": "b3309a73df0f336e1fe47196baf684fc0889db78",
+      "path": "evidence/bpesem/registry/bpesem03r_berd02_lineage_registry_v0_1.json"
+    },
+    {
+      "current_git_blob": "d324695e38bec3d0bc178beba6db4182f9c6b8f3",
+      "path": "evidence/bpesem03/current_authority_evidence_delta_review_v0_1.json"
+    },
+    {
+      "current_git_blob": "10d068dd54860ee76b7eccec1532fd9adce5c5a6",
+      "path": "evidence/bpesem03/historical_observation_eligibility_v0_1.json"
+    },
+    {
+      "current_git_blob": "40ba5229a337e7da1eb546cf5b5d0fe5a53e679e",
+      "path": "evidence/bpesem03/known_material_alternative_registries_v0_1.json"
+    },
+    {
+      "current_git_blob": "92e89e91eedd3040d5b21b66edf2d20e36ae2343",
+      "path": "evidence/bpesem03/operational_evidence_records_and_admissibility_v0_1.json"
+    },
+    {
+      "current_git_blob": "3da0aebd8bcf3c10fa9545c4d091c4c047f99bd4",
+      "path": "evidence/bpesem03/operational_semantic_rule_adjudication_v0_1.json"
+    },
+    {
+      "current_git_blob": "c7acd91fd3bca1878fd38d1b4ab9b1b8a51822ad",
+      "path": "evidence/bpesem03/positive_authority_universes_v0_1.json"
+    },
+    {
+      "current_git_blob": "53908ba8e990a58b3e812db68dfcf64aaf46cd6a",
+      "path": "evidence/bpesem03/semantic_anchor_manifests_v0_1.json"
+    },
+    {
+      "current_git_blob": "52cbc43f2a08f2c992ee978c368696127cbdc210",
+      "path": "evidence/bpesem03/semantic_evidence_horizon_v0_1.json"
+    },
+    {
+      "current_git_blob": "1800296179559a7c04d7e3eb29738eeec55dd1df",
+      "path": "evidence/bpesem03/semantic_evidence_review_universes_v0_1.json"
+    },
+    {
+      "current_git_blob": "54dd5c7fc265e2f61ffcae9f8d77601d6833dd8d",
+      "path": "evidence/bpesem03/semantic_hypothesis_sets_v0_1.json"
+    },
+    {
+      "current_git_blob": "ca697e5965b17fecd1241d74f4660f244754c41a",
+      "path": "evidence/bpesem03/semantic_lineage_resolution_v0_1.json"
+    },
+    {
+      "current_git_blob": "10fcda627f89bf015b2545ae39f2b47838337324",
+      "path": "evidence/bpesem03/semantic_rule_scope_applicability_v0_1.json"
+    },
+    {
+      "current_git_blob": "f64f587b7126e4b10f2be39f007e3e1523e054bc",
+      "path": "evidence/bpesem03/visibility_universes_v0_1.json"
+    },
+    {
+      "current_git_blob": "507ad73018d963b5bd43ab276c95f53f1924fc18",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md"
+    },
+    {
+      "current_git_blob": "ce0159029b100c4e766eae44ae805fb1c5977915",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_candidate_2026-09-21.md"
+    },
+    {
+      "current_git_blob": "fc76953aeb5571efb2676e3a8df3b1b93503b2dd",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_final_closeout_2026-09-22.md"
+    },
+    {
+      "current_git_blob": "cc2679fccee0470d40c5c2d6ace26797664d6e73",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md"
+    },
+    {
+      "current_git_blob": "5a03359b087d3ea91b6bf66815dabf20386df442",
+      "path": "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md"
+    },
+    {
+      "current_git_blob": "e10a0c47ec6e9b28f480c958baf18141287187cb",
+      "path": "tools/berd02_transport_runner.py"
+    }
+  ],
+  "created_at_utc": "2026-09-22T09:25:00Z",
+  "current_horizon_digest": "7a2de0c902454f0aac610f0a7939293f01eae1002130db97f3147e9b1c6585af",
+  "current_horizon_id": "BPESEM03R-EVIDENCE-HORIZON-V0_1",
+  "deleted_items": [],
+  "delta_review_id": "BPESEM03R-CURRENT-AUTHORITY-DELTA-V0_1",
+  "delta_review_seal": "713e02b62ad7b724ac0b6898a0293f1b6a66a8e378be98f9ac8cb58b686013f7",
+  "descendant_relation_status": "DESCENDANT",
+  "modified_items": [],
+  "per_delta_item_dispositions": [
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "b3309a73df0f336e1fe47196baf684fc0889db78",
+      "disposition": "GOVERNANCE_CONSTRAINT",
+      "path": "evidence/bpesem/registry/bpesem03r_berd02_lineage_registry_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "V0_6_SEMANTIC_EVIDENCE_REGISTRY"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "d324695e38bec3d0bc178beba6db4182f9c6b8f3",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/current_authority_evidence_delta_review_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "10d068dd54860ee76b7eccec1532fd9adce5c5a6",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/historical_observation_eligibility_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "40ba5229a337e7da1eb546cf5b5d0fe5a53e679e",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/known_material_alternative_registries_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "92e89e91eedd3040d5b21b66edf2d20e36ae2343",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/operational_evidence_records_and_admissibility_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "3da0aebd8bcf3c10fa9545c4d091c4c047f99bd4",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/operational_semantic_rule_adjudication_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "c7acd91fd3bca1878fd38d1b4ab9b1b8a51822ad",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/positive_authority_universes_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "53908ba8e990a58b3e812db68dfcf64aaf46cd6a",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/semantic_anchor_manifests_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "52cbc43f2a08f2c992ee978c368696127cbdc210",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/semantic_evidence_horizon_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "1800296179559a7c04d7e3eb29738eeec55dd1df",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/semantic_evidence_review_universes_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "54dd5c7fc265e2f61ffcae9f8d77601d6833dd8d",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/semantic_hypothesis_sets_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "ca697e5965b17fecd1241d74f4660f244754c41a",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/semantic_lineage_resolution_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "10fcda627f89bf015b2545ae39f2b47838337324",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/semantic_rule_scope_applicability_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "f64f587b7126e4b10f2be39f007e3e1523e054bc",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "evidence/bpesem03/visibility_universes_v0_1.json",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "507ad73018d963b5bd43ab276c95f53f1924fc18",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_adversarial_break_2026-09-21.md",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "ce0159029b100c4e766eae44ae805fb1c5977915",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_candidate_2026-09-21.md",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "fc76953aeb5571efb2676e3a8df3b1b93503b2dd",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_final_closeout_2026-09-22.md",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "cc2679fccee0470d40c5c2d6ace26797664d6e73",
+      "disposition": "CORROBORATING_NO_AUTHORITY_CHANGE",
+      "path": "reports/data-qualification/bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "5a03359b087d3ea91b6bf66815dabf20386df442",
+      "disposition": "BLOCKED_UNRESOLVED",
+      "path": "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "NEW_DISCOVERED_ARTIFACT_REQUIRES_REVIEW"
+      ]
+    },
+    {
+      "change_type": "ADDED",
+      "current_git_blob": "e10a0c47ec6e9b28f480c958baf18141287187cb",
+      "disposition": "REGISTERED_LINEAGE_EVIDENCE",
+      "path": "tools/berd02_transport_runner.py",
+      "prior_git_blob": null,
+      "reason_codes": [
+        "V0_6_REGISTRY_EXACT_PATH_BLOB",
+        "PROJECT_ORIGIN_NONDECISIVE_COMPATIBILITY",
+        "NO_POSITIVE_AUTHORITY"
+      ]
+    }
+  ],
+  "prior_cutoff_head": "e66f80347c354df408ab63e5f9f1eca5b90a896a",
+  "prior_horizon_digest": "4361ec9a9824a7095b0bdcd34729a6d60e72f91eba25fb7cab825c269a4b70b6",
+  "prior_horizon_id": "BPESEM03-EVIDENCE-HORIZON-V0_1",
+  "reviewed_consumer_parent_head": "8f43a5da55d772fec7635318e004cb0d4ebffc6f",
+  "reviewed_consumer_parent_tree_sha": "4564d6caac134f21e599ebae896c5836175454b6",
+  "schema": "B_PE_SEM_02_CURRENT_AUTHORITY_EVIDENCE_DELTA_REVIEW_V0_1",
+  "status": "BLOCKED",
+  "unresolved_paths": [
+    "reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md"
+  ]
+}
