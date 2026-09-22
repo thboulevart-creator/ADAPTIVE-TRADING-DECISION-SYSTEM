@@ -1,0 +1,104 @@
+name: B-PE-SEM-03R materialize and break
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem03r-materialize-and-break.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  bpesem03r:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert no provider-network imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import ast
+          from pathlib import Path
+          forbidden={"requests","urllib","http","socket","aiohttp"}
+          targets=[
+              "tools/bpesem03r_materialize.py",
+              "breakers/bpesem03r_lineage_registration_breaker.py",
+          ]
+          bad=[]
+          for name in targets:
+              tree=ast.parse(Path(name).read_text(encoding="utf-8"))
+              for node in ast.walk(tree):
+                  if isinstance(node,ast.Import):
+                      for a in node.names:
+                          if a.name.split(".")[0] in forbidden:
+                              bad.append((name,node.lineno,a.name))
+                  elif isinstance(node,ast.ImportFrom):
+                      root=(node.module or "").split(".")[0]
+                      if root in forbidden:
+                          bad.append((name,node.lineno,node.module))
+          assert not bad,bad
+          print("NO_PROVIDER_NETWORK_IMPORTS_PASS")
+          PY
+
+      - name: Materialize exact lineage registry
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem03r_materialize.py --mode registry | tee /tmp/bpesem03r-registry.json
+          test -f evidence/bpesem/registry/bpesem03r_berd02_lineage_registry_v0_1.json
+
+      - name: Persist registry first
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem/registry/bpesem03r_berd02_lineage_registry_v0_1.json             reports/data-qualification/bpesem03r_lineage_registry_candidate_2026-09-22.md
+          git commit -m "evidence: register BERD02 runner lineage for B-PE-SEM-03R"
+          git push origin HEAD:integration/system-v1
+          echo "REGISTRY_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Materialize fresh horizon successor adjudication
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$REGISTRY_COMMIT"
+          python3 tools/bpesem03r_materialize.py --mode candidate | tee /tmp/bpesem03r-candidate.json
+          test -f evidence/bpesem03r/governed_semantic_evidence_baseline_v0_1.json
+          test -f evidence/bpesem03r/semantic_evidence_horizon_v0_1.json
+          test -f evidence/bpesem03r/operational_semantic_rule_adjudication_v0_1.json
+          test -f evidence/bpesem03r/current_authority_evidence_delta_review_v0_1.json
+
+      - name: Persist successor candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add             evidence/bpesem03r             reports/data-qualification/bpesem03r_fresh_horizon_readjudication_candidate_2026-09-22.md
+          git commit -m "evidence: materialize B-PE-SEM-03R fresh horizon candidate"
+          git push origin HEAD:integration/system-v1
+          echo "CANDIDATE_COMMIT=$(git rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Adversarial break persisted candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$CANDIDATE_COMMIT"
+          python3 breakers/bpesem03r_lineage_registration_breaker.py | tee /tmp/bpesem03r-break.json
+          test -f reports/data-qualification/bpesem03r_lineage_registration_adversarial_break_2026-09-22.md
+
+      - name: Persist adversarial break
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add reports/data-qualification/bpesem03r_lineage_registration_adversarial_break_2026-09-22.md
+          git commit -m "audit: break B-PE-SEM-03R lineage registration candidate"
+          git push origin HEAD:integration/system-v1
