@@ -1,0 +1,55 @@
+name: B-PE-SEM-05R-01 provider artifact discovery
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - ".github/workflows/bpesem05r01-provider-artifact-discovery.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  discovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/system-v1
+          fetch-depth: 0
+
+      - name: Assert exact acquisition plan identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object evidence/bpesem05r01/provider_artifact_acquisition_plan_v0_1.json)" = "e6e3c2a671ade38ec34f2dad03c02e2e20d06adc"
+          echo "ACQUISITION_PLAN_IDENTITY_PASS"
+
+      - name: Acquire official versioned provider artifacts and inventory
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 tools/bpesem05r01_acquire_inventory.py | tee /tmp/bpesem05r01-discovery.json
+          test -f evidence/bpesem05r01/provider_artifact_identity_registry_v0_1.json
+          test -f evidence/bpesem05r01/relevant_class_resource_inventory_v0_1.json
+          test -f evidence/bpesem05r01/provider_pom_snapshot_set_v0_1.json
+
+      - name: Assert no market-data artifact names
+        shell: bash
+        run: |
+          set -euo pipefail
+          ! grep -RniE '(datafeed/|\.bi5)' evidence/bpesem05r01/provider_artifact_identity_registry_v0_1.json
+          echo "NO_MARKET_DATA_OBJECT_PASS"
+
+      - name: Persist provider artifact discovery evidence
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add             evidence/bpesem05r01/provider_artifact_identity_registry_v0_1.json             evidence/bpesem05r01/relevant_class_resource_inventory_v0_1.json             evidence/bpesem05r01/provider_pom_snapshot_set_v0_1.json
+          git commit -m "evidence: inventory B-PE-SEM-05R-01 provider artifacts"
+          git push origin HEAD:integration/system-v1
