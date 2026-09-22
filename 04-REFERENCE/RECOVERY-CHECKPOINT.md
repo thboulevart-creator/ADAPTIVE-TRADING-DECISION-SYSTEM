@@ -8125,3 +8125,328 @@ start a backtest
 ~~~
 
 STOP — RESUME FROM B-PE-SEM-03 PART 3/3 FINAL PERSISTED-HEAD RE-BREAK.
+
+
+---
+
+## 163. B-PE-SEM-03 final persisted-head re-break — FAIL
+
+B-PE-SEM-03 has now completed its final persisted-head re-break.
+
+Resume HEAD before final execution:
+
+~~~text
+29882658859d7119479c21a53f1ab73b861763ba
+checkpoint: pause B-PE-SEM-03 before final re-break
+~~~
+
+Pause-point ancestor:
+
+~~~text
+7a85e059b6cf88ec219eb53570efd509f0a510bc
+add B-PE-SEM-03 final persisted-head re-break
+~~~
+
+Ancestry verification:
+
+~~~text
+status = ahead
+ahead_by = 2
+behind_by = 0
+~~~
+
+Exact candidate blobs remained unchanged:
+
+~~~text
+OperationalSemanticRuleAdjudication =
+3da0aebd8bcf3c10fa9545c4d091c4c047f99bd4
+
+candidate report =
+ce0159029b100c4e766eae44ae805fb1c5977915
+
+initial adversarial break =
+507ad73018d963b5bd43ab276c95f53f1924fc18
+
+SemanticEvidenceHorizon =
+52cbc43f2a08f2c992ee978c368696127cbdc210
+~~~
+
+Final-rebreak workflow:
+
+~~~text
+workflow run = 35708455236
+job = 106682967034
+workflow execution conclusion = success
+~~~
+
+The workflow success means execution/persistence succeeded only.
+
+It does NOT mean governed integrity PASS.
+
+Final-rebreak artifacts were persisted by:
+
+~~~text
+ea81b6aec024b0505a876a12ffb495b1bb775abd
+audit: final re-break B-PE-SEM-03 adjudication
+~~~
+
+CurrentAuthorityEvidenceDeltaReview:
+
+~~~text
+evidence/bpesem03/
+current_authority_evidence_delta_review_v0_1.json
+
+blob =
+d324695e38bec3d0bc178beba6db4182f9c6b8f3
+
+seal =
+938f93a52c6c5b7c3e913b7b3d9cd9396c0538c95c5cf457fbf902441fb90993
+
+status =
+BLOCKED
+~~~
+
+Final persisted-head re-break report:
+
+~~~text
+reports/data-qualification/
+bpesem03_operational_semantic_adjudication_final_rebreak_2026-09-21.md
+
+blob =
+cc2679fccee0470d40c5c2d6ace26797664d6e73
+~~~
+
+### Exact final delta
+
+~~~text
+prior SemanticEvidenceHorizon cutoff HEAD =
+e66f80347c354df408ab63e5f9f1eca5b90a896a
+
+final-rebreak reviewed parent HEAD =
+9892b5ce5f1da19c5b600c2ec0cde9cdac8afbd7
+
+ancestry =
+DESCENDANT
+
+added discovered artifacts = 15
+deleted = 0
+modified = 0
+~~~
+
+Fourteen added-to-discovery items were same-lineage B-PE-SEM-03 self-materialized artifacts and were classified:
+
+~~~text
+CORROBORATING_NO_AUTHORITY_CHANGE
+~~~
+
+One item remained unresolved:
+
+~~~text
+tools/berd02_transport_runner.py
+
+git blob =
+e10a0c47ec6e9b28f480c958baf18141287187cb
+
+disposition =
+BLOCKED_UNRESOLVED
+
+reason =
+NEW_DISCOVERED_GOVERNED_SEMANTIC_ARTIFACT_OUTSIDE_CURRENT_LINEAGE
+~~~
+
+Important:
+
+~~~text
+ADDED means newly added to the semantic discovery universe
+relative to the candidate horizon.
+
+It does NOT mean the file was newly created in Git.
+~~~
+
+The file became transitively visible because the persisted B-PE-SEM-03 historical-observation eligibility material references it as pre-observation evidence material.
+
+The final breaker did not silently classify that out-of-lineage artifact as non-material.
+
+Demonstrated final defects:
+
+~~~text
+F11_DELTA_NO_UNRESOLVED
+F12_DELTA_PASS
+~~~
+
+The full Part-2 breaker was also re-executed:
+
+~~~text
+Part-2 breaker verdict = PASS
+Part-2 demonstrated defects = 0
+~~~
+
+Therefore the candidate adjudication itself did not regress.
+
+The final integrity failure is specifically the unresolved current-authority evidence-horizon delta.
+
+### Final semantic state
+
+~~~text
+26 dimensions
+
+PASS = 2
+BLOCKED = 24
+FAIL = 0
+~~~
+
+PASS dimensions only:
+
+~~~text
+C03-D3-OP
+C05-D2-OP
+~~~
+
+These remain conditional mathematical signedness-rule PASS dimensions only.
+
+All operational claims remain:
+
+~~~text
+BPE-SEM-C01-OP = BLOCKED
+BPE-SEM-C02-OP = BLOCKED
+BPE-SEM-C03-OP = BLOCKED
+BPE-SEM-C04-OP = BLOCKED
+BPE-SEM-C05-OP = BLOCKED
+BPE-SEM-C06-OP = BLOCKED
+BPE-SEM-C07-OP = BLOCKED
+~~~
+
+Authoritative final B-PE-SEM-03 verdict:
+
+~~~text
+B-PE-SEM-03 PACKAGE MATERIALIZATION / ADJUDICATION INTEGRITY = FAIL
+
+B-PE-SEM-03 OPERATIONAL C01-C07 SEMANTIC AUTHORITY = BLOCKED
+
+B-PE-SEM-03 OVERALL GOVERNED VERDICT = FAIL
+~~~
+
+This FAIL does not invalidate B-PE-SEM-02.
+
+This FAIL does not establish any C01-C07 proposition false.
+
+It is a fail-closed current-authority/evidence-horizon result.
+
+## 164. B-PE-SEM-03 final closeout and durable backup
+
+Final closeout:
+
+~~~text
+reports/data-qualification/
+bpesem03_operational_semantic_adjudication_final_closeout_2026-09-22.md
+
+commit =
+a25ef91b58ae840b7fbe6b61f94e1fa865798bd7
+
+blob =
+fc76953aeb5571efb2676e3a8df3b1b93503b2dd
+~~~
+
+Durable final backup:
+
+~~~text
+99-BACKUP/
+SESSION-2026-09-22-BPESEM03-FINAL-FAIL-CLOSEOUT.md
+
+commit =
+63b56bd5e066184559a9fdeccc6781026baaeb0a
+
+blob =
+e8f47032897bee50d3bca888ef456fb6968e509b
+~~~
+
+B-PE-SEM-03 is CLOSED.
+
+No corrective mutation was performed after the final FAIL.
+
+Still NOT authorized:
+
+~~~text
+B-FIQ-02R
+FULL_INTERVAL execution
+D materialization
+backtest
+paper/broker/live
+~~~
+
+Still not executed during this block:
+
+~~~text
+provider contact
+provider BI5 GET
+new provider-object acquisition
+new semantic-discrimination execution
+FULL_INTERVAL execution
+D materialization
+backtest
+paper/broker/live
+~~~
+
+Current high-level state:
+
+~~~text
+B-PE-SEM-01 = PASS
+B-PE-SEM-02 contract = PASS
+
+B-PE-SEM-03 = CLOSED / FAIL
+
+C01-C07 operational semantic authority = BLOCKED
+
+B-FIQ-02 pre-execution eligibility = BLOCKED
+B-FIQ-02 overall = BLOCKED
+
+FULL_INTERVAL_QUALIFIED = NOT YET PASS
+D = NO
+backtest = NO
+paper/broker/live = NO
+~~~
+
+## 165. Exactly one next governed action
+
+No technical successor block is authorized yet.
+
+The next governed action is only:
+
+~~~text
+POST-B-PE-SEM-03 FAILURE ROUTE SELECTION
+— DECISION / FORMALIZATION ONLY
+~~~
+
+Purpose:
+
+~~~text
+review the authoritative final FAIL
+→ analyze the exact governance status of:
+   tools/berd02_transport_runner.py
+   blob e10a0c47ec6e9b28f480c958baf18141287187cb
+
+→ determine prospectively whether the correct route is:
+   - admit/bind it through existing evidence lineage,
+   - classify it as non-authoritative/non-material with a contract-valid proof,
+   - reopen/rebuild the semantic evidence horizon,
+   - or take another governed correction route demonstrated by the contract
+
+→ choose exactly one successor block
+→ do not execute that successor until explicitly opened
+~~~
+
+Prohibited at this decision point:
+
+~~~text
+retroactively weakening the final re-break
+editing the final FAIL into PASS
+silently excluding tools/berd02_transport_runner.py
+opening B-FIQ-02R
+running FULL_INTERVAL
+starting D
+starting a backtest
+provider BI5 GET
+paper/broker/live
+~~~
+
+STOP — B-PE-SEM-03 CLOSED WITH FINAL GOVERNED FAIL.
