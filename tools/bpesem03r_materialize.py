@@ -358,7 +358,7 @@ def materialize_candidate():
         if p==RUNNER_PATH:
             disp="REGISTERED_LINEAGE_EVIDENCE"
             reasons=["V0_6_REGISTRY_EXACT_PATH_BLOB","PROJECT_ORIGIN_NONDECISIVE_COMPATIBILITY","NO_POSITIVE_AUTHORITY"]
-        elif p.startswith("evidence/bpesem03/") or p.startswith("reports/data-qualification/bpesem03_"):
+        elif p.startswith("evidence/bpesem03/") or p.startswith("reports/data-qualification/bpesem03_") or p.startswith("evidence/bpesem03r/") or p.startswith("reports/data-qualification/bpesem03r_"):
             disp="CORROBORATING_NO_AUTHORITY_CHANGE"
             reasons=["CLOSED_BPESEM03_SAME_HISTORICAL_LINEAGE"]
         elif p.startswith("evidence/bpesem/registry/"):
