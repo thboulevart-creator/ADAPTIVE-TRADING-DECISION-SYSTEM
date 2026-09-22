@@ -1,0 +1,51 @@
+{
+  "candidate_ancestor_status": "PASS",
+  "candidate_commit": "7507e6603c711e8a8b33ec361fa871e7d0428a6b",
+  "contract_git_blob": "fe0ca12e12624371be28ea8c09340691466a37ce",
+  "contract_id": "B_PE_SEM_04_PROSPECTIVE_C01_C07_SEMANTIC_AUTHORITY_CLOSURE_EVIDENCE_CONTRACT",
+  "contract_path": "evidence/bpesem04/prospective_semantic_authority_closure_contract_v0_1.json",
+  "contract_seal": "d70e5804bdc276e119cef952508d635ea21e7f6e0daef7d59fc8c6e390b22414",
+  "contract_version": "B_PE_SEM_04_V0_1_CANDIDATE",
+  "created_at_utc": "2026-09-22T11:45:00Z",
+  "demonstrated_final_defects": [],
+  "execution_authorization_effect": "NONE",
+  "full_adversarial_break": {
+    "attack_count": 30,
+    "defects": [],
+    "verdict": "PASS"
+  },
+  "post_candidate_changes": [
+    {
+      "disposition": "BPESEM04_WORKFLOW_GOVERNANCE",
+      "path": ".github/workflows/bpesem04-breaker-rerun.yml",
+      "status": "A"
+    },
+    {
+      "disposition": "BPESEM04_WORKFLOW_GOVERNANCE",
+      "path": ".github/workflows/bpesem04-final-rebreak.yml",
+      "status": "A"
+    },
+    {
+      "disposition": "BPESEM04_BREAKER_GOVERNANCE",
+      "path": "breakers/bpesem04_contract_breaker.py",
+      "status": "M"
+    },
+    {
+      "disposition": "BPESEM04_BREAKER_GOVERNANCE",
+      "path": "breakers/bpesem04_final_persisted_head_rebreak.py",
+      "status": "A"
+    },
+    {
+      "disposition": "ADVERSARIAL_REPORT_ONLY",
+      "path": "reports/data-qualification/bpesem04_prospective_semantic_authority_contract_adversarial_break_2026-09-22.md",
+      "status": "A"
+    }
+  ],
+  "qualification_seal": "210c5ff5b94f3e9c8626cdea6861dbb90f65dd756121155b376f07ad92981f27",
+  "qualification_status": "PASS",
+  "reviewed_persisted_head": "1f90d397d12d84619fb7078d6ac9f9c3bdc442f1",
+  "reviewed_persisted_tree": "37a734628d3ab16c0350cc8f30e924253870f3f6",
+  "schema": "B_PE_SEM_04_CONTRACT_QUALIFICATION_V0_1",
+  "semantic_authority_effect": "NONE; C01-C07 remains BLOCKED pending future qualified evidence",
+  "unresolved_post_candidate_paths": []
+}
