@@ -1,0 +1,68 @@
+{
+  "schema": "BPESEM05R01_PROVIDER_ARTIFACT_SEMANTIC_EXTRACTION_PLAN_V0_1",
+  "block": "B-PE-SEM-05R-01",
+  "frozen_before_fetch": true,
+  "source_evidence": {
+    "greed_identity_registry_blob": "95502f7a0600e34eda34ffa78665db7ee8b81046",
+    "greed_inventory_blob": "e77c87a54da46394dae457f36c8f70ccd1043b79",
+    "msg_index_basis": "official Maven index"
+  },
+  "fetches": [
+    {
+      "artifact_id": "GREED-COMMON-318.4.115-REINSPECTION",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/greed-common/318.4.115/greed-common-318.4.115.jar",
+      "expected_sha256": "29ab58c8a10a2814aa828270e6dbc6cce566725c233edcde1aa2b0592cba1522",
+      "purpose": "bytecode extraction baseline"
+    },
+    {
+      "artifact_id": "GREED-COMMON-318.4.128-REINSPECTION",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/greed-common/318.4.128/greed-common-318.4.128.jar",
+      "expected_sha256": "33c20f5580f6ed22fe8b0cb20487c056c11e330f10b643ba2a7ca4ba7f5fbb81",
+      "purpose": "bytecode extraction latest public Maven version"
+    },
+    {
+      "artifact_id": "MSG-1.1.98.2-JFOREX3",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.2-JForex3/msg-1.1.98.2-JForex3.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.2-JForex3/msg-1.1.98.2-JForex3.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.2-JForex3/msg-1.1.98.2-JForex3.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.2-JForex3/msg-1.1.98.2-JForex3.pom.sha1",
+      "purpose": "transport/message schema baseline"
+    },
+    {
+      "artifact_id": "MSG-1.1.98.4-JFOREX3",
+      "url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.4-JForex3/msg-1.1.98.4-JForex3.jar",
+      "sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.4-JForex3/msg-1.1.98.4-JForex3.jar.sha1",
+      "pom_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.4-JForex3/msg-1.1.98.4-JForex3.pom",
+      "pom_sha1_url": "https://www.dukascopy.com/client/jforexlib/publicrepo/com/dukascopy/dds2/msg/1.1.98.4-JForex3/msg-1.1.98.4-JForex3.pom.sha1",
+      "purpose": "transport/message schema later target-era version"
+    }
+  ],
+  "javap_targets": [
+    "com.dukascopy.charts.data.datacache.DataCacheUtils",
+    "com.dukascopy.charts.data.datacache.DataCacheUtils$4",
+    "com.dukascopy.dds2.greed.util.AbstractCurrencyConverter"
+  ],
+  "msg_search_terms": [
+    "bi5",
+    "usatech",
+    "jetta",
+    "history",
+    "historical",
+    "tick",
+    "instrument",
+    "scale",
+    "factor",
+    "decimal",
+    "datafeed",
+    "price"
+  ],
+  "stopping_rule": "After this exact msg frontier and pinned greed-common bytecode extraction, no further provider dependency is fetched unless a persisted POM/class finding identifies a specific artifact as necessary for A/B/C.",
+  "forbidden": [
+    "historical BI5 market-data objects",
+    "provider hourly/daily market-data payloads",
+    "Lane P RequestManifest",
+    "P-DIAG implementation",
+    "physical semantic discrimination"
+  ],
+  "created_at_utc": "2026-09-22T17:08:00Z"
+}
