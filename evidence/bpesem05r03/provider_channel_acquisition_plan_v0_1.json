@@ -1,0 +1,70 @@
+{
+  "schema": "BPESEM05R03_PROVIDER_CHANNEL_ACQUISITION_PLAN_V0_1",
+  "block": "B-PE-SEM-05R-03",
+  "purpose": "READ_ONLY_OFFICIAL_PROVIDER_CHANNEL_RESOLUTION",
+  "frozen_before_network_capture": true,
+  "provider": "Dukascopy Bank SA",
+  "allowed_methods": [
+    "GET"
+  ],
+  "forbidden_methods": [
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE"
+  ],
+  "candidates": [
+    {
+      "channel_id": "DUKASCOPY_SWISS_GENERAL_CONTACT_PAGE",
+      "class": "official provider contact landing page",
+      "url": "https://www.dukascopy.com/swiss/english/about/contact/",
+      "expected_role": "ownership and routing evidence"
+    },
+    {
+      "channel_id": "DUKASCOPY_SWISS_CONTACT_FORM",
+      "class": "official provider contact form",
+      "url": "https://www.dukascopy.com/plugins/contactForm/?b=swiss&id=contact&lang=en&mob=0",
+      "expected_role": "general inquiry submission channel candidate"
+    },
+    {
+      "channel_id": "DUKASCOPY_SWISS_REPORT_ISSUE",
+      "class": "official provider issue-report form",
+      "url": "https://www.dukascopy.com/swiss/english/about/issues/",
+      "expected_role": "technical/service issue channel candidate"
+    },
+    {
+      "channel_id": "DUKASCOPY_JFOREX_FORUM_INDEX",
+      "class": "official provider support forum",
+      "url": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/",
+      "expected_role": "provider technical support forum ownership evidence"
+    },
+    {
+      "channel_id": "DUKASCOPY_JFOREX_KNOWLEDGE_BASE",
+      "class": "official provider automated-trading knowledge-base forum",
+      "url": "https://www.dukascopy.com/swiss/english/forex/jforex/forum/viewforum.php?f=65",
+      "expected_role": "programming-question forum candidate"
+    }
+  ],
+  "extraction_requirements": [
+    "HTTP final URL",
+    "HTTP status",
+    "content-type",
+    "raw response SHA-256",
+    "HTML title",
+    "all form action URLs",
+    "all form methods",
+    "input/select/textarea names and required flags",
+    "login/authentication indicators",
+    "posting/submission prohibition indicators",
+    "provider copyright/ownership markers"
+  ],
+  "prohibitions": [
+    "no form submission",
+    "no email sending",
+    "no support ticket creation",
+    "no provider inquiry sending",
+    "no final outbound inquiry package materialization",
+    "no BI5 market-data request"
+  ],
+  "created_at_utc": "2026-09-22T18:50:00Z"
+}
