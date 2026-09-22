@@ -11030,3 +11030,243 @@ paper/broker/live
 ~~~
 
 STOP — B-PE-SEM-05R-01 CLOSED / BLOCKED.
+
+
+---
+
+## 182. Post-B-PE-SEM-05R-01 recovery escalation route selection — PASS
+
+Decision record:
+
+~~~text
+reports/data-qualification/
+post_bpesem05r01_blocked_authority_recovery_escalation_route_selection_2026-09-22.md
+
+commit =
+17c1d16856ff1d56b5e1f6dc810417c5fb7e83bd
+
+blob =
+6a3afce89da39638e1960a9a57a66eb1a8fb2bf4
+~~~
+
+Starting state preserved:
+
+~~~text
+B-PE-SEM-05R-01 = CLOSED / BLOCKED
+
+package integrity = PASS
+
+A = AMBIGUOUS
+B = NOT_FOUND
+C = INCOMPLETE_VERSION_COVERAGE
+
+Lane S re-adjudication sufficient new authority = NO
+Lane P authorized = NO
+~~~
+
+Exhausted provider-distribution channel that must not be recycled as new evidence:
+
+~~~text
+DDS2-jClient-JForex
+JForex-API sources
+DDS2-Charts
+greed-common
+msg
+~~~
+
+Route comparison:
+
+~~~text
+another broad provider-owned archive/version search
+= NOT SELECTED
+
+direct provider inquiry without frozen contract
+= REJECTED
+
+direct provider inquiry preceded by frozen inquiry contract
+= SELECTED
+
+SIMPLIFY current authority requirements
+= REJECTED AT THIS STAGE
+
+STOP / externally unprovable
+= REJECTED AS PREMATURE
+~~~
+
+Decision:
+
+~~~text
+CONTINUE
+~~~
+
+Selected evidence channel:
+
+~~~text
+DIRECT PROVIDER PRIMARY TECHNICAL CLARIFICATION
+~~~
+
+Exactly one immediate successor selected:
+
+~~~text
+B-PE-SEM-05R-02 —
+PROVIDER PRIMARY AUTHORITY INQUIRY CONTRACT
+PRE-CONTACT FORMALIZATION ONLY
+~~~
+
+B-PE-SEM-05R-02 must freeze before any provider contact:
+
+~~~text
+exact provider contact-channel class
+exact responder identity requirements
+
+exact A question set
+exact B question set
+exact C question set
+exact 2026-03-03 JETTA question set
+
+target interval
+representation K1
+instrument USATECHIDXUSD
+
+forbidden leading assumptions
+
+acceptable response forms
+inadmissible response forms
+
+provenance preservation
+immutable capture / sealing procedure
+
+partial-answer rule
+no-response rule
+contradiction rule
+reopen rule
+
+later inquiry-consumer outcome taxonomy
+~~~
+
+Question firewall:
+
+~~~text
+A:
+do not state legacy-hourly layout assumptions as facts in the question
+
+B:
+do not suggest /1000 as expected answer
+
+C:
+do not infer continuity from silence / absence of documented change
+
+JETTA:
+do not ask in a way that assumes either K1 changed or did not change
+~~~
+
+Minimum response provenance expected by the contract:
+
+~~~text
+provider-owned communication channel
+or independently verifiable Dukascopy identity
+
+responder / official support identity
+
+exact timestamp
+
+exact complete response bytes/text
+
+exact question text sent
+
+thread/ticket identity where available
+
+cryptographic hash
+
+provider statement separated from project interpretation
+~~~
+
+Anonymous community responses cannot be provider-primary authority.
+
+Possible later per-question dispositions:
+
+~~~text
+RECOVERED_PROVIDER_PRIMARY
+PARTIALLY_RECOVERED
+AMBIGUOUS
+NOT_ANSWERED
+PROVIDER_CANNOT_CONFIRM
+CONTRADICTED
+INADMISSIBLE
+BLOCKED
+~~~
+
+B-PE-SEM-05R-02 itself:
+
+~~~text
+does NOT contact provider
+does NOT recover A/B/C
+does NOT re-adjudicate Lane S
+does NOT authorize Lane P
+~~~
+
+No provider contact occurred during this route selection.
+
+No new documentary evidence was acquired.
+
+## 183. Exactly one next governed action
+
+Open only:
+
+~~~text
+B-PE-SEM-05R-02 —
+PROVIDER PRIMARY AUTHORITY INQUIRY CONTRACT
+PRE-CONTACT FORMALIZATION ONLY
+~~~
+
+Required sequence:
+
+~~~text
+fresh HEAD
+→ AI-OPERATING-MEMORY
+→ RECOVERY-CHECKPOINT
+→ B-PE-SEM-05R-01 qualification
+→ B-PE-SEM-05R-01 closeout / backup
+→ recovery-escalation route-selection record
+
+→ freeze provider-contact channel policy
+→ freeze responder-identity policy
+→ freeze exact A/B/C/JETTA questions
+→ freeze non-leading wording requirements
+→ freeze target representation/instrument/epoch bindings
+→ freeze provenance / capture / hash requirements
+→ freeze admissibility / rejection rules
+→ freeze partial / no-response / contradiction outcomes
+→ freeze reopen rules
+
+→ adversarial break inquiry contract
+→ minimal corrections only on demonstrated defects
+→ persisted-head final re-break
+→ PASS / FAIL / BLOCKED
+→ closeout
+→ backup
+→ checkpoint
+→ STOP
+~~~
+
+Still prohibited during B-PE-SEM-05R-02:
+
+~~~text
+provider contact
+provider inquiry sending
+new documentary acquisition
+provider BI5 GET
+historical market-data object acquisition
+Lane S re-adjudication
+Lane P RequestManifest
+P-DIAG implementation
+physical semantic discrimination
+B-PE-SEM-06
+B-FIQ-02R
+FULL_INTERVAL
+D materialization
+backtest
+paper/broker/live
+~~~
+
+STOP — ESCALATION ROUTE SELECTED; B-PE-SEM-05R-02 NOT YET OPENED.
