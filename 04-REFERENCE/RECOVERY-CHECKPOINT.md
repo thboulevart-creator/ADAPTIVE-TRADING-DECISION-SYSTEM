@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ ; EXPLORATORY OFFLINE RESEARCH V0 PASS DOCUMENTAIRE LIMITÉ.** La section 193 supplante la prochaine action de §192. Prochaine action : désigner et autoriser explicitement un corpus existant pour inventaire E0 borné en lecture seule. Aucun E0 encore exécuté ; E1 par run séparément autorisé ; confirmatoire, paper/broker/live, contact Dukascopy fermés.
+> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ ; E0 GITHUB ARCHIVE ÉCHANTILLONNÉE INVENTORIÉE.** Les sections 191–193 restent historiques ; la section 194 fixe l'état courant. Intégrité des neuf archives existantes vérifiée ; aucun corpus continu pour le portefeuille n'est établi. Prochaine action unique : accès autorisé au corpus Parquet local existant `data/research_source_b_ustech/parquet/`, puis préflight chiffré et inventaire E0 réel ; sinon BLOCKED. E1/confirmatoire/paper/broker/live fermés.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12725,5 +12725,36 @@ R01–R07 relus sur ce HEAD : satisfaits. Les attaques A01–A12 et corrections 
 - Backtest confirmatoire, OOS probatoire, paper/broker/live, capital réel, nouvelle acquisition de données de marché, FULL_INTERVAL, D materialization et contact Dukascopy restent fermés. A=AMBIGUOUS, B=NOT_FOUND, C=INCOMPLETE_VERSION_COVERAGE et qualification BI5 native globale BLOCKED inchangés. B-PE-SEM-05R-03 CLOSED/PASS reste historique.
 
 **Prochaine action gouvernée unique :** désigner et autoriser explicitement un environnement/emplacement de corpus historiques existants ; réaliser ensuite un **E0 inventaire réel, en lecture seule et ressources bornées**, et persister identité/hashes, schéma, période, trous, limites et intensité des consultations. Si corpus/droits manquent : E0 BLOCKED. Ne pas ouvrir E1 ni implémenter Momentum dans ce mouvement.
+
+STOP.
+
+---
+
+## 194. E0 exécuté en lecture seule — archive GitHub échantillonnée, non corpus continu — 2026-09-23
+
+Dépôt/branche exacts et HEAD pré-E0 vérifiés :
+`thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM` / `integration/system-v1`
+`19f8b363e45f070ccbce9a5d0322f005579b4f08`.
+
+Premier périmètre de lecture réellement accessible, sans aucune requête au fournisseur :
+`evidence/berd02/gha_run_35533153289/bodies/`, neuf blobs K1 existants versionnés et quatre fichiers JSON de provenance/diagnostics.
+
+Rapport de constat E0 :
+`reports/data-qualification/e0_github_existing_bounded_market_archive_inventory_2026-09-23.md`
+blob vérifié : `298cb62753ff7a6c187859c3994c7d1e77d834e2`
+commit du rapport : `bbe72c7c0394385c0eeb153eabd4124e2fdc25f3`.
+
+**Résultat constaté et portée :**
+- neuf fichiers, 353 910 octets comprimés ; SHA-256 **recalculés et conformes 9/9** à la capture et aux diagnostics archivés ;
+- en-tête LZMA compatible sur neuf fichiers ; schéma `>IIIff` de 20 octets et 69 830 ticks **uniquement d'après les diagnostics A/B historiques**, non recomptés dans cet E0 ;
+- neuf fenêtres nominales d'une heure entre 2021-08-13 et 2026-08-14, avec huit intervalles non couverts totalisant 43 840 heures : **aucune continuité pluriannuelle prouvée** ;
+- aucune preuve nouvelle de licence de redistribution, de prix d'exécution, de coûts ou de profondeur continue ; **BLOCKED pour Momentum V1 et recherche portefeuille** ;
+- aucun fichier .parquet ni .csv dans l'arbre GitHub complet de ce HEAD.
+
+Incident méthodologique enregistré sans faux verdict fournisseur : premier décodeur base64 du vérificateur incorrect, sorties rejetées ; passage corrigé, SHA-256 auto-testée et neuf empreintes corroborées. Périmètre lu restreint à neuf fichiers et quatre JSON, aucun nouveau GET fournisseur ; **plafond cumulatif chiffré non persisté avant la première lecture**. Ne pas classer cette limitation du préflight comme un PASS documentaire complet. La prochaine lecture E0 doit figer son budget avant tout accès au corpus.
+
+Les résultats antérieurs B-ERD-02 = PROBE_SUPPORTED restent bornés ; A=AMBIGUOUS, B=NOT_FOUND, C=INCOMPLETE_VERSION_COVERAGE et gate natif BI5 global BLOCKED restent inchangés. Aucune autorisation E1 ou autre niveau accordée.
+
+**Prochaine action gouvernée unique : E0-SOURCE-B** : rendre effectivement accessible, dans un périmètre autorisé et en lecture seule, le corpus local antérieurement mentionné `data/research_source_b_ustech/parquet/` (présence actuelle non vérifiée). Définir/préenregistrer un budget d'accès chiffré puis inventaire des fichiers réellement présents : SHA-256, schéma, horizons réellement couverts, fuseau et sessions, trous, champs bid/ask, licence/provenance, limites par usage. Si inaccessible : BLOCKED sans nouveau téléchargement, sans retour au contact Dukascopy. Ne pas démarrer E1, moteur de backtest, paper/broker/live.
 
 STOP.
