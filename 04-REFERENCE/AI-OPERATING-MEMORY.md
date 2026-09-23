@@ -114,19 +114,24 @@ For important qualification work, prefer the durable chain:
 
 Each artifact must be traceable to the state it describes.
 
-## 10. BACKTEST GATE
+## 10. BACKTEST GATE — EXPLORATORY OFFLINE V0 EXCEPTION
 
-No real backtest may begin before all mandatory qualification blocks are PASS.
+**Qualification / confirmatoire.** Aucun backtest confirmatoire, aucun résultat destiné à valider une stratégie pour exploitation et aucune promotion probatoire ne peuvent commencer avant que les blocs de qualification **applicables au test et à la source** soient PASS. Le corpus, l'usage visé et les exigences applicables doivent être explicitement désignés ; un gate BI5 global non résolu ne devient pas PASS par l'usage d'une autre source.
 
-For the trading research pipeline, the backtest methodology must preserve the project requirements including, where applicable:
+**E0 — inventaire seulement.** Après adoption documentaire de la frontière `EXPLORATORY OFFLINE RESEARCH V0`, un inventaire en lecture seule de données historiques déjà existantes peut être ouvert **uniquement dans un environnement/emplacement autorisé par le propriétaire** et sous préflight de ressources. E0 n'est pas un backtest et ne calcule aucun signal de stratégie, trade, position, fill ou PnL. L'accès technique n'est pas une autorisation.
 
-- minimum five years of data;
-- real tick modelling;
-- true spread and transaction costs;
-- out-of-sample validation;
-- robustness testing such as spread widening;
-- MT5 `Every tick based on real ticks` when using MT5;
-- no substitution of weaker data modelling for required evidence.
+**E1 — exception exploratoire étroite.** Après adoption documentaire de cette même frontière, une simulation historique **offline, bornée, de statut exclusivement N0** peut être envisagée sans exiger le PASS de tous les blocs destinés à la qualification confirmatoire. Elle reste **interdite tant qu'une autorisation spécifique du propriétaire pour le run, un corpus identifié/admissible pour la question, les droits et l'environnement d'accès, les contrôles temporels/continuité pertinents, un protocole et un modèle de coûts/scénarios honnêtement étiquetés, des plafonds de ressources et une fiche de préflight acceptée ne sont pas réunis**. Le dossier de référence est le candidat V0 et sa revue/adjudication versionnés dans `reports/program/`. L'adoption de V0 n'autorise à elle seule aucune exécution E1.
+
+Pour la **qualification de recherche** et selon le test concerné, maintenir les exigences applicables, dont :
+- minimum cinq ans lorsque requis par le protocole de qualification, notamment la baseline Momentum V1 ;
+- modélisation en vrais ticks lorsque la question ou le moteur d'exécution l'exige ;
+- spread et coûts de transaction réalistes attestés ;
+- validation hors échantillon à statut probatoire déclaré ;
+- robustesse, notamment élargissement de spread lorsque pertinent ;
+- MT5 `Every tick based on real ticks` lorsque le protocole de qualification MT5 l'exige ;
+- aucune substitution silencieuse d'une modélisation faible à la preuve requise.
+
+Aucune sonde E1 plus courte, en barres seules, brute ou sous coûts hypothétiques ne peut être rebaptisée « backtest de qualification PASS », « Momentum V1 baseline PASS » ou « OOS vierge » par ce seul fait. Les périodes réellement consultées doivent être tracées. Confirmatoire, paper, broker/live, capital réel, acquisition de nouveaux objets de marché, FULL_INTERVAL, D materialization et contact Dukascopy ne sont pas ouverts par E0/E1.
 
 ## 11. MINDSET
 
