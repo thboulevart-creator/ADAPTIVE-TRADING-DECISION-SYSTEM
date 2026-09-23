@@ -52,7 +52,7 @@ Modifier **uniquement §10** de `04-REFERENCE/AI-OPERATING-MEMORY.md` pour :
 - préserver les exigences cinq ans, vrais ticks et coûts réalistes lorsqu'elles sont nécessaires à la *qualification visée*, notamment Momentum V1 selon son protocole ;
 - n'accorder aucun droit d'exécution du seul fait du PASS documentaire de V0.
 
-La présente revue reste **en cours** tant que l'amendement §10 n'est pas persisté et que sa cohérence avec le candidat et les 12 contre-exemples n'est pas revérifiée sur HEAD persisté.
+L'amendement ciblé du §10 a été persisté au commit `47bb3defb030878cbd7412bd010da1470185eb6a`, blob `70170b666c101777ff922b90c5091f2dc0976245`. La revue documentaire interne a ensuite été reprise sur ce HEAD. Ce changement est limité au §10 ; les autres sections de la mémoire opératoire sont conservées.
 
 ## 5. Conditions de relecture finale pré-enregistrées
 
@@ -64,4 +64,20 @@ La présente revue reste **en cours** tant que l'amendement §10 n'est pas persi
 - R06 : un seul prochain mouvement : **E0 inventaire effectif borné, seulement après désignation et autorisation de l'emplacement**, pas E1 automatique.
 - R07 : nouvelles mutations limitées au présent rapport, §10, checkpoint et sauvegarde ; aucune autre modification.
 
-Verdict final **NON ENCORE PRONONCÉ**. Cette section sera complétée après persisted-HEAD relecture. STOP sur toute exécution de marché.
+## 6. Relecture contradictoire du §10 persisté et décision documentaire
+
+HEAD de la vérification ciblée : `47bb3defb030878cbd7412bd010da1470185eb6a`.
+
+Contrôles R01–R07 : identité dépôt/branche/candidat, présence §191–§192, distinction E0 non backtest et E1 N0, gate confirmatoire inchangé dans sa fonction, dispositions A01–A12 examinées, autorisation **spécifique par run E1**, accès E0 expressément limité, conservation des statuts historiques et bornage des chemins modifiés. Les vérifications de texte/structure R01–R03 et R05–R07 ont réussi. R04 a d'abord donné un faux négatif **du contrôle lui-même** (prédicat de recherche sensible à la casse « approbation » avant vérification de l'expression correcte « Approbation ») ; un contrôle R04 corrigé, portant sur les trois phrases opposables réellement présentes, a réussi. Aucune modification du contrat n'a été justifiée par cette erreur du contrôle.
+
+Analyse contradictoire interne : les trois défauts initiaux A01/A02/A07 sont fermés par §3 de ce rapport + §10 amendé. Les neuf autres attaques A03–A12 sont couvertes par les dispositions textuelles spécifiques, sans prétention de preuve logicielle ou de qualité d'un corpus encore inconnu. Le candidat d'origine reste historiquement immuable ; il est **adopté uniquement conjointement avec les corrections opposables §3 du présent rapport et le §10 amendé**. Une lecture isolée du candidat initial n'autorise rien.
+
+**VERDICT : PASS DOCUMENTAIRE LIMITÉ — FRONTIÈRE EXPLORATORY OFFLINE RESEARCH V0.**
+
+Sens exact de PASS : cohérence normative et non-contournement documentaire interne aux attaques A01–A12 et R01–R07, sous la seule portée E0/E1 précisée ici. Ne prouve ni couverture exhaustive de tous les contre-exemples, ni audit indépendant, ni gate runtime, ni accès à un dataset, ni exactitude de simulation, ni rentabilité. Une vérification finale après checkpoint et sauvegarde devra confirmer que les seules mutations sont §10, ce rapport, le checkpoint et la sauvegarde ; sinon le verdict de clôture doit être réexaminé.
+
+**Capacité nouvellement ouverte sur le plan documentaire :** un inventaire E0 peut être autorisé par un mouvement distinct visant un emplacement et des ressources explicitement approuvés. **Aucune exécution E0 n'a lieu dans cette revue.** E1 demeure interdit tant qu'une expérience précise n'a pas reçu l'autorisation explicite du propriétaire et satisfait son préflight. Confirmation/paper/broker/live, nouvelle acquisition, FULL_INTERVAL, D materialization et contact Dukascopy restent fermés.
+
+**Prochaine action gouvernée unique après clôture :** désigner et autoriser un périmètre E0 réel, puis effectuer un inventaire read-only borné des corpus historiques déjà disponibles ; ne pas ouvrir E1 automatiquement.
+
+STOP.
