@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ.** La section 191 supplante R-04/R-05/R-06 ; la section 192 ci-dessous enregistre la formalisation **candidate** d'EXPLORATORY OFFLINE RESEARCH V0. Prochaine action unique : revue contradictoire/adjudication de V0 et harmonisation explicite avec AI-OPERATING-MEMORY §10, sans backtest ni implémentation. Aucun contact fournisseur.
+> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ ; EXPLORATORY OFFLINE RESEARCH V0 PASS DOCUMENTAIRE LIMITÉ.** La section 193 supplante la prochaine action de §192. Prochaine action : désigner et autoriser explicitement un corpus existant pour inventaire E0 borné en lecture seule. Aucun E0 encore exécuté ; E1 par run séparément autorisé ; confirmatoire, paper/broker/live, contact Dukascopy fermés.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12707,3 +12707,23 @@ Preserver les qualifications existantes : B-PE-SEM-05R-03 CLOSED/PASS historique
 
 Aucun code, aucun nouveau moteur de stratégie, aucune acquisition, aucun backtest, aucun paper/broker/live lors de cette formalisation.
 
+---
+
+## 193. Revue/adjudication contradictoire interne d'EXPLORATORY OFFLINE RESEARCH V0 — 2026-09-23
+
+**Verdict : PASS DOCUMENTAIRE LIMITÉ** après correction textuelle ciblée du §10 de l'AI-OPERATING-MEMORY. Ce PASS porte seulement sur la cohérence de la frontière candidate **lue avec le rapport d'adjudication** et le §10 amendé. Aucun audit externe indépendant, test de code, dataset, backtest ou gate runtime n'a été effectué/qualifié.
+
+Candidat conservé : `reports/program/2026-09-23-EXPLORATORY-OFFLINE-RESEARCH-V0-CANDIDAT.md`; blob `63654614e74e71507a91de6412ddcba354a9be7a`.
+Revue et corrections opposables : `reports/program/2026-09-23-EXPLORATORY-OFFLINE-RESEARCH-V0-REVUE-ADJUDICATION.md`; blob `5d9958228695bfd2b0aed7aff78b13e99958501c`.
+Mémoire §10 amendée : blob `70170b666c101777ff922b90c5091f2dc0976245`.
+HEAD du recontrôle documentaire après persistance de la revue : `56c1b401299c18791a2f8741e74a5d6597ce9966`.
+R01–R07 relus sur ce HEAD : satisfaits. Les attaques A01–A12 et corrections figurent dans la revue. Le premier contrôle automatisé textuel R04 a eu un faux négatif dû à un prédicat sensible à la casse ; la vérification corrigée a satisfait les trois conditions exactes. Ne pas assimiler cette revue interne à une preuve d'indépendance.
+
+**Frontières actives documentaires :**
+- E0 : inventaire et contrôle qualité de corpus historiques **déjà existants**, en accès expressément autorisé, sous préflight ressources, lecture seule, sans calcul de signaux/trades/PNL. Ne pas présumer l'accès à un corpus local.
+- E1 : uniquement capacité future de simulation historique exploratoire offline N0 ; **aucun run autorisé par V0**. Chaque run nécessite autorisation propriétaire spécifique, dataset adapté et préflight démontré.
+- Backtest confirmatoire, OOS probatoire, paper/broker/live, capital réel, nouvelle acquisition de données de marché, FULL_INTERVAL, D materialization et contact Dukascopy restent fermés. A=AMBIGUOUS, B=NOT_FOUND, C=INCOMPLETE_VERSION_COVERAGE et qualification BI5 native globale BLOCKED inchangés. B-PE-SEM-05R-03 CLOSED/PASS reste historique.
+
+**Prochaine action gouvernée unique :** désigner et autoriser explicitement un environnement/emplacement de corpus historiques existants ; réaliser ensuite un **E0 inventaire réel, en lecture seule et ressources bornées**, et persister identité/hashes, schéma, période, trous, limites et intensité des consultations. Si corpus/droits manquent : E0 BLOCKED. Ne pas ouvrir E1 ni implémenter Momentum dans ce mouvement.
+
+STOP.
