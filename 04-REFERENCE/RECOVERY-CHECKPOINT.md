@@ -1,3 +1,5 @@
+> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ.** La section 191 ci-dessous prévaut sur toute ancienne instruction R-04/R-05/R-06 ou tout arrêt bloquant le portefeuille dans l'attente d'une réponse fournisseur. Les anciens rapports B-PE-SEM-05R-02/R-03 sont uniquement historiques. Prochaine action unique : **RECADRAGE EXPÉRIMENTAL PORTEFEUILLE V0**, sans contact Dukascopy. Voir `reports/program/2026-09-23-ARRET-CONTACT-DUKASCOPY-REORIENTATION-PORTFOLIO.md`.
+
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
 > Current governed recovery state for `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`.
@@ -12633,3 +12635,43 @@ paper/broker/live
 ~~~
 
 SAFE STOP FOR THE DAY.
+
+
+---
+
+## 191. Annulation de la voie contact Dukascopy et retour à l’objectif portefeuille — 2026-09-23
+
+**Décision utilisateur explicite.** La voie contact direct Dukascopy est abandonnée. Il est interdit de créer le message, de solliciter un représentant Dukascopy, d'envoyer un formulaire ou un email, d'ouvrir un ticket ou d'organiser une relance dans ce programme. Ne plus demander de valeurs personnelles pour le formulaire.
+
+**Les sections 189 et 190 sont SUPPLANTÉES sur la prochaine action.** Leurs constats historiques R-03 PASS et leurs hashes restent valables uniquement pour leur périmètre passé ; leur recommandation R-04 n'est plus opérationnelle.
+
+Décision durable :
+
+`reports/program/2026-09-23-ARRET-CONTACT-DUKASCOPY-REORIENTATION-PORTFOLIO.md`
+
+blob : `b19537e2720a64945fa481e4ab526d87df6a3d6c`
+
+Workflows GitHub de contact/enquête R-02/R-03 retirés de la branche actuelle :
+- bpesem05r02-inquiry-contract.yml
+- bpesem05r02-final-rebreak.yml
+- bpesem05r03-channel-capture.yml
+- bpesem05r03-contact-form-options.yml
+- bpesem05r03-channel-resolution.yml
+- bpesem05r03-final-rebreak.yml
+
+**État conservé mais non bloquant universellement :**
+- B-PE-SEM-05R-03 : CLOSED / PASS historique uniquement pour résolution de canal.
+- A : AMBIGUOUS ; B : NOT_FOUND ; C : INCOMPLETE_VERSION_COVERAGE.
+- Qualification de la représentation BI5 native globale : toujours BLOCKED pour son périmètre ; interdiction de convertir ses hypothèses en vérité.
+- Aucun contact ni message envoyé, aucun backtest réel ni paper/broker/live autorisé par cette décision.
+
+**Nouvel objectif opérationnel prioritaire :** concevoir, tester et sélectionner des stratégies puis mesurer leur intérêt en portefeuille, avec expériences reproductibles, données adaptées à chaque hypothèse, témoins, frais, séparation temporelle et risque agrégé. Aucun rendement n'est garanti. On conserve les protections anti-fuite, les limitations réelles des données et les acquis expérimentaux sans imposer le contact fournisseur comme condition préalable à toute recherche.
+
+**Une seule prochaine action gouvernée :**
+
+`POST-ARRET-CONTACT-DUKASCOPY — RECADRAGE EXPÉRIMENTAL PORTEFEUILLE V0 — AUDIT / DÉCISION UNIQUEMENT`
+
+Séquence : fresh HEAD → relire AI-OPERATING-MEMORY, ce checkpoint et la décision du 2026-09-23 → inventaire des jeux de données réellement accessibles et de leurs lacunes → inventaire des composants recherche/stratégie/backtest existants → définir la première expérience bornée Momentum V1 et témoins sur données réellement admissibles pour cette expérience, ou la voie de récupération de données nécessaire → figer protocole hors échantillon, coûts et critères de rejet → décider un seul prochain bloc expérimental → STOP.
+
+Ne pas ouvrir R-04/R-05/R-06, ne pas réintroduire le contact Dukascopy sans nouvelle instruction explicite de l'utilisateur.
+
