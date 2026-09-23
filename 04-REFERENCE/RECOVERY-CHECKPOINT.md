@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ.** La section 191 ci-dessous prévaut sur toute ancienne instruction R-04/R-05/R-06 ou tout arrêt bloquant le portefeuille dans l'attente d'une réponse fournisseur. Les anciens rapports B-PE-SEM-05R-02/R-03 sont uniquement historiques. Prochaine action unique : **RECADRAGE EXPÉRIMENTAL PORTEFEUILLE V0**, sans contact Dukascopy. Voir `reports/program/2026-09-23-ARRET-CONTACT-DUKASCOPY-REORIENTATION-PORTFOLIO.md`.
+> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ.** La section 191 supplante R-04/R-05/R-06 ; la section 192 ci-dessous enregistre la formalisation **candidate** d'EXPLORATORY OFFLINE RESEARCH V0. Prochaine action unique : revue contradictoire/adjudication de V0 et harmonisation explicite avec AI-OPERATING-MEMORY §10, sans backtest ni implémentation. Aucun contact fournisseur.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12674,4 +12674,36 @@ Workflows GitHub de contact/enquête R-02/R-03 retirés de la branche actuelle :
 Séquence : fresh HEAD → relire AI-OPERATING-MEMORY, ce checkpoint et la décision du 2026-09-23 → inventaire des jeux de données réellement accessibles et de leurs lacunes → inventaire des composants recherche/stratégie/backtest existants → définir la première expérience bornée Momentum V1 et témoins sur données réellement admissibles pour cette expérience, ou la voie de récupération de données nécessaire → figer protocole hors échantillon, coûts et critères de rejet → décider un seul prochain bloc expérimental → STOP.
 
 Ne pas ouvrir R-04/R-05/R-06, ne pas réintroduire le contact Dukascopy sans nouvelle instruction explicite de l'utilisateur.
+
+
+---
+
+## 192. Formalisation seule — EXPLORATORY OFFLINE RESEARCH V0 — 2026-09-23
+
+Instruction explicite du propriétaire : formaliser une seule frontière permettant **après son adoption** l'inventaire/lecture E0 des corpus historiques existants et de futures simulations exploratoires E1 hors ligne et bornées. STOP avant implémentation ou exécution.
+
+HEAD lu juste avant la création du document :
+`fc2e634bdbb89f57b67c2dabd45cd96c60d76f9f`
+
+Document candidat persisté :
+`reports/program/2026-09-23-EXPLORATORY-OFFLINE-RESEARCH-V0-CANDIDAT.md`
+
+Commit de création :
+`13b015c3998aecef3a65360e50d886b8e886d86c`
+
+Blob GitHub du candidat :
+`63654614e74e71507a91de6412ddcba354a9be7a`
+
+**Statut : CANDIDAT DOCUMENTAIRE, NON QUALIFIÉ.** Vérification de présence et relecture du document effectuées ; aucun adversarial break de V0 ni persisted-HEAD final re-break n'a été exécuté. Aucun PASS V0, aucun dataset reconnu comme accessible et aucun backtest autorisé par la simple création.
+
+Périmètre proposé, sans activation actuelle :
+- E0 : inventaire/lecture seule de corpus historiques existants **uniquement dans un environnement expressément désigné et autorisé**, sans acquisition fournisseur, mutation source ni divulgation ;
+- E1 : simulation historique exploratoire offline limitée au niveau N0, sur données adaptées à la question et fiche d'expérience acceptée, **uniquement après** résolution expresse de la contradiction avec §10 d'AI-OPERATING-MEMORY et autorisation du run précis ;
+- confirmation, paper, broker/live, capital réel, FULL_INTERVAL, D materialization et contact Dukascopy : non ouverts.
+
+Preserver les qualifications existantes : B-PE-SEM-05R-03 CLOSED/PASS historique uniquement ; A=AMBIGUOUS, B=NOT_FOUND, C=INCOMPLETE_VERSION_COVERAGE ; gate BI5 natif global BLOCKED pour son périmètre.
+
+**Prochaine action gouvernée unique :** revue contradictoire/adjudication de ce document V0 et, seulement si justifié et autorisé, amendement textuel minimal de §10 d'AI-OPERATING-MEMORY permettant E1 sous préflight tout en maintenant le gate des backtests confirmatoires. Ne pas ouvrir automatiquement E0/E1 pendant cette revue. Décider PASS / FAIL / BLOCKED pour **la seule frontière documentaire**, puis STOP.
+
+Aucun code, aucun nouveau moteur de stratégie, aucune acquisition, aucun backtest, aucun paper/broker/live lors de cette formalisation.
 
