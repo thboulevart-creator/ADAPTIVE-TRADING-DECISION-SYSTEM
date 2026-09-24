@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B MANIFEST LOCAL GÉNÉRÉ, JSON ENCORE À INGÉRER.** La section 197 fixe l'état courant. Le bridge versionné a été exécuté localement avec `MANIFEST_COMPLETE`, 212 fichiers Parquet et 3 936 721 231 octets, donc à l'intérieur du budget gelé. Le JSON exact n'est pas encore accessible dans cette session. Prochaine action unique : rendre `ATDS-E0-SOURCE-B-MANIFEST.json` accessible puis l'adjuger. E1/confirmatoire/paper/broker/live restent fermés.
+> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B MANIFEST EXACT ADJUGÉ, FOOTER CENSUS PROCHAIN.** La section 198 fixe l'état courant. Le manifest exact joint a été parsé intégralement : 212/212 fichiers cohérents, 3 936 721 231 octets, SHA-256 PASS, PAR1 PASS, snapshot stable, partitions nominales 2021-05→2026-05 sans mois manquant. Cela ne prouve pas encore schéma logique, bornes temporelles réelles ni trous. Prochaine action unique : E0-SOURCE-B-F0, census read-only des footers sous plafond 128 MiB. Aucun scan de colonne, E1, backtest, paper/broker/live.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12901,6 +12901,58 @@ Reste **TO-PROVE dans la session** :
 Le helper ne démontre pas encore le schéma logique, les colonnes temporelles, la période, les trous, les sessions, la licence ou l'admissibilité Momentum/portefeuille.
 
 **Prochaine action gouvernée unique :** rendre `C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-MANIFEST.json` accessible à la session. Puis fresh HEAD, ingestion/adjudication du JSON exact et sélection minimale des footers/octets nécessaires à la suite E0.
+
+E1, confirmatoire, paper/broker/live, capital réel et contact Dukascopy restent fermés.
+
+STOP.
+
+---
+
+## 198. E0-SOURCE-B — manifest exact ingéré et adjugé — 2026-09-24
+
+Fresh HEAD avant adjudication :
+`6215836c2d12c39d945cfb63d86f3ba8aeecf823`.
+
+Manifest exact joint à la session :
+- taille : **86 752 octets** ;
+- SHA-256 : `c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5` ;
+- schéma : `ATDS_E0_SOURCE_B_ACCESS_MANIFEST_V0_1` ;
+- statut : `MANIFEST_COMPLETE`.
+
+Rapport :
+`reports/data-qualification/e0_source_b_manifest_adjudication_2026-09-24.md`
+blob `29429cb1e1a3bf1e823b59f0e9744e84225ecb9d`
+commit `18aef6e39afd1d121fc16eaa3ce291b91ff5b3c5`.
+
+Validation intégrale du JSON :
+- 212 entrées fichiers = `parquet_files=212` ;
+- `total_entries=279` ;
+- somme tailles = `total_parquet_bytes=3 936 721 231` ;
+- `sha256_read_bytes=3 936 721 231` ;
+- 212/212 SHA-256 status PASS et syntaxe hex 64 valide ;
+- 212 chemins uniques ; 212 hashes distincts ;
+- 212/212 magic head/tail `PAR1`, status PASS ;
+- `parquet_magic_checked=true` ;
+- `sha256_complete=true` ;
+- `snapshot_stable=true` ;
+- `magic_read_bytes=1696=212×8`;
+- toutes les bornes du préflight respectées.
+
+Digest canonique `path<TAB>size<TAB>sha256` :
+`c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54`.
+
+Partitions nominales :
+- 61 mois consécutifs dans les noms, 2021-05 → 2026-05 ;
+- aucun mois nominal absent ;
+- `partNNNN` commence à 0000 et reste continu dans chaque mois.
+
+**Verdict borné : PASS — identité/inventaire byte-level du snapshot tels qu'établis par le helper et son manifest exact.**
+
+Ce PASS ne qualifie pas le schéma logique, les row counts, les timestamps, timezone, bornes réelles, ordre, trous, bid/ask/spread, provenance/licence, Momentum, portefeuille ou E1.
+
+**Prochaine action gouvernée unique : E0-SOURCE-B-F0** — census read-only des footers des 212 Parquet, lié au manifest scellé. Lire d'abord seulement 8 octets de fin par fichier pour obtenir `footer_len`, sommer les footers et bloquer si >128 MiB ; sinon lire uniquement les footers. Objectifs : schéma, row counts/groups, timestamp logical type/timezone, champs bid/ask/spread, statistiques min/max row-group si disponibles. STOP avant tout scan des colonnes.
+
+Si F0 ne suffit pas pour prouver les trous internes, F1 sera une décision séparée et ne pourra lire que la colonne temporelle identifiée.
 
 E1, confirmatoire, paper/broker/live, capital réel et contact Dukascopy restent fermés.
 
