@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B PRÉFLIGHT PERSISTÉ, ACCÈS AU CORPUS PARQUET LOCAL BLOCKED.** La section 195 fixe l'état courant. Le chemin `data/research_source_b_ustech/parquet/` n'est pas accessible dans l'environnement de cette session ; aucun octet Parquet n'a été lu. Prochaine action unique : rendre ce corpus existant ou une copie/manifest fidèle accessible en lecture seule, puis reprendre E0 sous le budget déjà préenregistré. E1/confirmatoire/paper/broker/live restent fermés.
+> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B ACCESS BRIDGE READY, CORPUS ENCORE NON MONTÉ.** La section 196 fixe l'état courant. Le helper Python read-only permettant de produire un manifest exact sous le budget E0 est versionné et testé sur corpus synthétique. Le corpus Source-B réel n'est toujours pas visible dans cette session. Prochaine action unique : exécuter le helper sur le clone local contenant `data/research_source_b_ustech/parquet/` et rendre le JSON généré accessible à la session. E1/confirmatoire/paper/broker/live restent fermés.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12803,5 +12803,60 @@ Ce verdict ne signifie pas que le corpus n'existe pas sur le PC de l'utilisateur
 Aucun octet Parquet n'a été lu ; le budget de contenu reste non consommé. Aucune acquisition fournisseur, aucun contact Dukascopy, aucun E1, aucun backtest, aucune modification de stratégie.
 
 **Prochaine action gouvernée unique : E0-SOURCE-B-ACCESS** — rendre le chemin exact, une copie read-only du corpus existant, ou un manifest fidèle accompagné d'accès aux octets nécessaires disponible dans cette session. Refaire fresh HEAD puis reprendre l'inventaire sous **le même budget préenregistré**, sauf nouvelle décision explicite.
+
+STOP.
+
+---
+
+## 196. E0-SOURCE-B-ACCESS — bridge local manifest ready, corpus session toujours inaccessible — 2026-09-24
+
+Fresh HEAD au début du mouvement :
+`a0f2dfe250f17a7cc89497363c74aa8e06ba665a`.
+
+État de départ §195 :
+- budget E0 préenregistré et non consommé sur Source-B ;
+- corpus local non monté/inaccessible depuis la session ;
+- aucune donnée Parquet lue.
+
+Un bridge local minimal a été matérialisé pour permettre au propriétaire de rendre **l'identité exacte** du corpus accessible sans transfert aveugle de plusieurs gigaoctets :
+
+`tools/e0_source_b_access_manifest.py`
+blob `892ceca1d7f64572f16de9a8a874fe8c3cacec44`.
+
+Rapport de handoff :
+`reports/data-qualification/e0_source_b_access_bridge_2026-09-24.md`
+blob `72b5fd167663d7cf38bf74242244736c4e61b7c0`
+commit `a699b677fdd0ba411e42f1cab62fd208df9855a1`.
+
+Le helper applique les bornes déjà figées :
+- 1 000 entrées ;
+- 500 fichiers Parquet ;
+- 16 GiB de lecture cumulée pour hashing ;
+- 128 MiB de métadonnées ;
+- 8 GiB maximum par fichier pour lecture intégrale ;
+- aucun suivi de symlink/reparse-style ;
+- aucune écriture dans le corpus ;
+- aucun signal/trade/PNL/backtest.
+
+Il vérifie l'encadrement `PAR1`, calcule SHA-256 si le budget le permet, restat les fichiers après hash et refait un snapshot metadata afin de bloquer si le corpus change durant l'inventaire. Sortie par défaut : `%TEMP%\ATDS-E0-SOURCE-B-MANIFEST.json`.
+
+Un brouillon PowerShell a été créé puis **supprimé avant activation** après relecture statique (compatibilité API de chemin relatif + traversée non bornée avant contrôle). Il ne constitue pas une voie opérationnelle.
+
+Le helper Python a été testé avant versionnement :
+- `python -m py_compile` : PASS ;
+- corpus synthétique temporaire de deux fichiers encadrés `PAR1` : `MANIFEST_COMPLETE` ;
+- deux SHA-256 calculés, magic PASS, snapshot stable.
+Ce test est uniquement un test du bridge ; aucune propriété de Source-B n'est inférée.
+
+**Statut actuel :**
+- `ACCESS BRIDGE = READY`;
+- `CORPUS ACCESS IN CHAT = BLOCKED` tant que le manifest généré ou le corpus/copie read-only n'est pas effectivement attaché/monté ;
+- aucun octet Source-B réel lu ;
+- aucun ancien chiffre de lignes/fichiers/couverture promu en observation actuelle ;
+- E1/confirmatoire/paper/broker/live/contact Dukascopy restent fermés.
+
+**Prochaine action gouvernée unique :** depuis la racine du clone ATDS qui contient réellement le corpus, exécuter :
+`python tools/e0_source_b_access_manifest.py`
+puis rendre `ATDS-E0-SOURCE-B-MANIFEST.json` accessible à cette session. Si le script retourne `BLOCKED_*`, joindre quand même le JSON et ne pas contourner le verdict. Une fois le manifest accessible : fresh HEAD puis adjudication E0 du manifest et sélection des octets/footers strictement nécessaires.
 
 STOP.
