@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B ACCESS BRIDGE READY, CORPUS ENCORE NON MONTÉ.** La section 196 fixe l'état courant. Le helper Python read-only permettant de produire un manifest exact sous le budget E0 est versionné et testé sur corpus synthétique. Le corpus Source-B réel n'est toujours pas visible dans cette session. Prochaine action unique : exécuter le helper sur le clone local contenant `data/research_source_b_ustech/parquet/` et rendre le JSON généré accessible à la session. E1/confirmatoire/paper/broker/live restent fermés.
+> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B MANIFEST LOCAL GÉNÉRÉ, JSON ENCORE À INGÉRER.** La section 197 fixe l'état courant. Le bridge versionné a été exécuté localement avec `MANIFEST_COMPLETE`, 212 fichiers Parquet et 3 936 721 231 octets, donc à l'intérieur du budget gelé. Le JSON exact n'est pas encore accessible dans cette session. Prochaine action unique : rendre `ATDS-E0-SOURCE-B-MANIFEST.json` accessible puis l'adjuger. E1/confirmatoire/paper/broker/live restent fermés.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12858,5 +12858,50 @@ Ce test est uniquement un test du bridge ; aucune propriété de Source-B n'est 
 **Prochaine action gouvernée unique :** depuis la racine du clone ATDS qui contient réellement le corpus, exécuter :
 `python tools/e0_source_b_access_manifest.py`
 puis rendre `ATDS-E0-SOURCE-B-MANIFEST.json` accessible à cette session. Si le script retourne `BLOCKED_*`, joindre quand même le JSON et ne pas contourner le verdict. Une fois le manifest accessible : fresh HEAD puis adjudication E0 du manifest et sélection des octets/footers strictement nécessaires.
+
+STOP.
+
+---
+
+## 197. E0-SOURCE-B — bridge exécuté avec MANIFEST_COMPLETE, JSON exact encore externe — 2026-09-24
+
+Fresh HEAD avant persistance :
+`d1201d4be4a78acacb2a271899ab739ff9b704e0`.
+
+Sortie terminale fournie par le propriétaire après exécution locale du helper qualifié :
+
+```text
+MANIFEST_COMPLETE
+Parquet files: 212
+Parquet bytes: 3936721231
+Manifest: C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-MANIFEST.json
+```
+
+Rapport :
+`reports/data-qualification/e0_source_b_manifest_execution_observed_2026-09-24.md`
+blob `a8bc416a039fc3133f7155ac121a51a1bb86e83a`
+commit `dc2f5cb79626ccabf346071b1bc0d6330b4f5d88`.
+
+Confrontation au budget :
+- 212 < 500 fichiers Parquet : dans la borne ;
+- 3 936 721 231 octets < 16 GiB : dans la borne ;
+- `MANIFEST_COMPLETE` implique que le helper a atteint sa terminaison sans breaker bloquant.
+
+Portée du PASS :
+**PASS — accès local au corpus + exécution complète du bridge, selon la sortie terminale fournie par le propriétaire.**
+
+Reste **TO-PROVE dans la session** :
+- contenu exact du JSON ;
+- 212 hashes individuels ;
+- magic `PAR1` par fichier ;
+- `snapshot_stable` ;
+- `sha256_complete`;
+- détails de l'inventaire.
+
+Le helper ne démontre pas encore le schéma logique, les colonnes temporelles, la période, les trous, les sessions, la licence ou l'admissibilité Momentum/portefeuille.
+
+**Prochaine action gouvernée unique :** rendre `C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-MANIFEST.json` accessible à la session. Puis fresh HEAD, ingestion/adjudication du JSON exact et sélection minimale des footers/octets nécessaires à la suite E0.
+
+E1, confirmatoire, paper/broker/live, capital réel et contact Dukascopy restent fermés.
 
 STOP.
