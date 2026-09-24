@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-23 : CONTACT DUKASCOPY ABANDONNÉ ; E0 GITHUB ARCHIVE ÉCHANTILLONNÉE INVENTORIÉE.** Les sections 191–193 restent historiques ; la section 194 fixe l'état courant. Intégrité des neuf archives existantes vérifiée ; aucun corpus continu pour le portefeuille n'est établi. Prochaine action unique : accès autorisé au corpus Parquet local existant `data/research_source_b_ustech/parquet/`, puis préflight chiffré et inventaire E0 réel ; sinon BLOCKED. E1/confirmatoire/paper/broker/live fermés.
+> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B PRÉFLIGHT PERSISTÉ, ACCÈS AU CORPUS PARQUET LOCAL BLOCKED.** La section 195 fixe l'état courant. Le chemin `data/research_source_b_ustech/parquet/` n'est pas accessible dans l'environnement de cette session ; aucun octet Parquet n'a été lu. Prochaine action unique : rendre ce corpus existant ou une copie/manifest fidèle accessible en lecture seule, puis reprendre E0 sous le budget déjà préenregistré. E1/confirmatoire/paper/broker/live restent fermés.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12756,5 +12756,52 @@ Incident méthodologique enregistré sans faux verdict fournisseur : premier dé
 Les résultats antérieurs B-ERD-02 = PROBE_SUPPORTED restent bornés ; A=AMBIGUOUS, B=NOT_FOUND, C=INCOMPLETE_VERSION_COVERAGE et gate natif BI5 global BLOCKED restent inchangés. Aucune autorisation E1 ou autre niveau accordée.
 
 **Prochaine action gouvernée unique : E0-SOURCE-B** : rendre effectivement accessible, dans un périmètre autorisé et en lecture seule, le corpus local antérieurement mentionné `data/research_source_b_ustech/parquet/` (présence actuelle non vérifiée). Définir/préenregistrer un budget d'accès chiffré puis inventaire des fichiers réellement présents : SHA-256, schéma, horizons réellement couverts, fuseau et sessions, trous, champs bid/ask, licence/provenance, limites par usage. Si inaccessible : BLOCKED sans nouveau téléchargement, sans retour au contact Dukascopy. Ne pas démarrer E1, moteur de backtest, paper/broker/live.
+
+STOP.
+
+---
+
+## 195. E0-SOURCE-B — préflight chiffré persisté, corpus local inaccessible — 2026-09-24
+
+Fresh HEAD initial :
+`652ef8bdfe4f99d5ac336ff509d8bfef5b47ebaf`.
+
+Préflight **persisté avant toute lecture de Parquet** :
+`reports/data-qualification/e0_source_b_preflight_2026-09-24.md`
+commit `057bf66f7af8a9ec80da2dd9ce6f0d4e086f1d99`.
+
+Budget :
+- 1 000 entrées filesystem maximum ;
+- 500 fichiers Parquet maximum ;
+- 16 GiB de lecture cumulée d'octets ;
+- 128 MiB de footers/métadonnées ;
+- pas de lecture intégrale d'un fichier > 8 GiB ;
+- aucun suivi de symlink hors périmètre ;
+- aucune écriture corpus ;
+- aucune stratégie/position/trade/PnL/backtest.
+
+Périmètre exact autorisé :
+`data/research_source_b_ustech/parquet/`.
+
+Constat d'accès :
+- absent depuis le répertoire courant de l'environnement d'exécution ;
+- absent sous `/mnt/data` ;
+- aucune occurrence trouvée par recherche de métadonnées bornée sous `/home`, `/mnt`, `/workspace`, `/workspaces`, `/tmp` jusqu'à profondeur 8 ;
+- aucun clone local ATDS observé dans ces emplacements ;
+- aucun fichier conversation attaché ;
+- aucune copie récupérable trouvée par recherches Library ciblées `research_source_b_ustech/parquet/USTECH`.
+
+Rapport :
+`reports/data-qualification/e0_source_b_local_parquet_access_blocked_2026-09-24.md`
+blob `1833b723036276adac86167863a4f3b44250d29f`
+commit `968a545cc0a08b332c461d933c53fd0228ab1d61`.
+
+**VERDICT E0-SOURCE-B : BLOCKED — CORPUS LOCAL NON ACCESSIBLE DANS L'ENVIRONNEMENT D'EXÉCUTION COURANT.**
+
+Ce verdict ne signifie pas que le corpus n'existe pas sur le PC de l'utilisateur. Il signifie uniquement qu'aucun montage/copie accessible de ce chemin n'est présent ici. Les nombres historiques de fichiers/lignes/couverture évoqués ailleurs sont **NON VÉRIFIÉS** dans ce mouvement et ne doivent pas être réutilisés comme constat actuel.
+
+Aucun octet Parquet n'a été lu ; le budget de contenu reste non consommé. Aucune acquisition fournisseur, aucun contact Dukascopy, aucun E1, aucun backtest, aucune modification de stratégie.
+
+**Prochaine action gouvernée unique : E0-SOURCE-B-ACCESS** — rendre le chemin exact, une copie read-only du corpus existant, ou un manifest fidèle accompagné d'accès aux octets nécessaires disponible dans cette session. Refaire fresh HEAD puis reprendre l'inventaire sous **le même budget préenregistré**, sauf nouvelle décision explicite.
 
 STOP.
