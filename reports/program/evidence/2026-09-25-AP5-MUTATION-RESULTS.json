@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_AP5_MUTATION_RESULTS_V0_1",
+  "status": "PASS",
+  "helper_commit": "715c3e4affa44778785d6c222782eda257ed19e7",
+  "helper_blob": "21de65a7fbf8277dd2eb0afc99f4c2b80912af06",
+  "helper_sha256": "fdb929f54d5c816cd12fb03130545b3714a38cb2261d3b23433fb1cd4b0f7671",
+  "test_count": 12,
+  "tests_passed": 12,
+  "mutant_count": 7,
+  "mutants_killed": 7,
+  "mutants": [
+    "UNWEIGHTED_SPREAD",
+    "CROSS_GAP_RETURN",
+    "RANGE_CLOSE_DENOM",
+    "CASH_1600_INCLUDED",
+    "QUINTILE_LEFT",
+    "PATH_CHAIN_BYPASS",
+    "MANIFEST_MEMBER_CHAIN_BYPASS"
+  ],
+  "same_assistant_audit": true,
+  "independent_audit": false,
+  "corpus_executed": false
+}

@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP4 EXACT PASS ; AP5 PREFLIGHT PASS, HELPER CANDIDAT À MATÉRIALISER.** AP5 V0.1 reste minute-core, strategy-agnostic et sans volume source ; la microstructure sub-minute n'est pas revendiquée. Prochaine action : helper + tests synthétiques + mutation breakers, puis revue adversariale avant run local.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 HELPER CORRIGÉ RE-BREAK PASS ; EXÉCUTION LOCALE AP5 REQUISE.** Helper figé au commit 715c3e4affa44778785d6c222782eda257ed19e7, 12/12 tests PASS, 7/7 mutants détectés. AP5 corpus reste BLOCKED avant JSON exact. Aucun AP6/backtest/MT5/PnL/stratégie.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14288,3 +14288,52 @@ Verdict :
 ### Prochaine action gouvernée unique
 
 Matérialiser `tools/ap5_microstructure_price_core.py`, tests synthétiques et mutation breakers ; exécuter break/correction/re-break avant toute tentative corpus.
+
+
+---
+
+## 218. AP5 HELPER RE-BREAK PASS → LOCAL EXECUTION — 2026-09-25
+
+Fresh HEAD avant persistance de la revue :
+`715c3e4affa44778785d6c222782eda257ed19e7`.
+
+Preflight :
+`reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-PREFLIGHT.md`.
+
+Helper exact :
+- commit `715c3e4affa44778785d6c222782eda257ed19e7` ;
+- blob `21de65a7fbf8277dd2eb0afc99f4c2b80912af06` ;
+- SHA-256 `fdb929f54d5c816cd12fb03130545b3714a38cb2261d3b23433fb1cd4b0f7671`.
+
+Tests exacts :
+- blob `f0b732b66e258fff416cdf643c1de6fa4c373baa` ;
+- SHA-256 `ca6d836b7eafccd765a3716186dd05c08b036db69a44deac6476300399473375` ;
+- 12/12 PASS.
+
+Mutation runner :
+- blob `3bf31bfd14d5fdd3a3663fef2bc1e26468aab243` ;
+- SHA-256 `4b9ab0f46a508a7f41258dd01385048ae718b037443352d820b27a642b0c2c91` ;
+- 7/7 mutants détectés.
+
+Deux failles de sûreté de chemin ont été découvertes puis corrigées avant autorisation corpus :
+1. résolution précoce des arguments ;
+2. résolution précoce des membres AP0 du manifest.
+
+Revue :
+`reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-HELPER-ADVERSARIAL-REVIEW.md`.
+
+Handoff :
+`reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-LOCAL-HANDOFF.md`.
+
+Verdict :
+**PASS — helper pour tentative locale.**
+**BLOCKED — AP5 corpus en attente d'exécution et adjudication du JSON exact.**
+
+Même assistant producteur/auditeur : aucune indépendance revendiquée.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter AP5 figé.**
+
+À réception de `AP5_COMPLETE` + JSON exact :
+fresh HEAD → hash exact → contrôles/reconciliations → adjudication AP5 → observations comportementales → AP6 seulement si PASS.
