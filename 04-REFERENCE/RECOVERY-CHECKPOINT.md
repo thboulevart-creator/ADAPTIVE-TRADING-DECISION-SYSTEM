@@ -13007,16 +13007,17 @@ Manifest Source-B scellé :
 
 Helper F0 :
 `tools/e0_source_b_footer_census.py`
-blob `fee98c19b880a4d886c0b8cbd208858426de08dc`.
+blob `bc409c8ae921f2822ed46f511a68303c21e2ca9c`.
 
 Revue adversariale :
 `reports/data-qualification/e0_source_b_f0_footer_census_adversarial_review_2026-09-25.md`
-blob `e5becf81b172e4fe62cb1969cd0a221704a49dc8`.
+blob `15adb0cecfd579c5faa001640d0ae0954c699f60`.
 
 Le candidat initial a été corrigé avant handoff pour :
 1. empêcher toute écriture de rapport dans le corpus même lors d’un échec précoce ;
 2. compter le probe initial de 8 octets/fichier dans le budget metadata cumulatif ;
-3. éliminer un risque de signature de schéma non déterministe via `repr()`.
+3. éliminer un risque de signature de schéma non déterministe via `repr()` ;
+4. convertir l'absence du manifest en `BLOCKED_MANIFEST_NOT_FOUND` récupérable au lieu d'une exception pré-rapport.
 
 Re-break interne :
 **PASS — helper F0 suffisamment borné pour tentative locale read-only**, avec limitations explicites :
