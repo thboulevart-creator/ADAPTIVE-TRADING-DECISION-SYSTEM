@@ -241,7 +241,7 @@ def main() -> int:
     args = parser.parse_args()
 
     repo_root = Path(args.repo_root).expanduser().resolve(strict=False)
-    manifest_path = Path(args.manifest).expanduser().resolve(strict=True)
+    manifest_path = Path(args.manifest).expanduser().resolve(strict=False)
     output = Path(args.output).expanduser().resolve(strict=False)
     corpus = (repo_root / "data" / "research_source_b_ustech" / "parquet").resolve(strict=False)
 
@@ -281,6 +281,8 @@ def main() -> int:
         "files": [],
     }
 
+    if not manifest_path.is_file():
+        blocked(output, report, "BLOCKED_MANIFEST_NOT_FOUND", f"Manifest file missing: {manifest_path}")
     if not corpus.is_dir():
         blocked(output, report, "BLOCKED_CORPUS_NOT_FOUND", f"Corpus directory missing: {corpus}")
     if is_reparse_or_symlink(corpus):
