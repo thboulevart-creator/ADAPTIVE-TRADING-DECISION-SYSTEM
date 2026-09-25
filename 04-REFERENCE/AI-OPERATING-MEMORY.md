@@ -181,3 +181,24 @@ At the end of every material session, the AI MUST preserve a dated session snaps
 The backup layer does not replace source code or evidence. It prevents loss of project context and prevents repeated morning reconstruction of already completed work.
 
 A workstream cannot be considered durably closed merely because its state appears in conversation. Important executable artifacts must be versioned on the governed branch, or their absence must be explicitly recorded as BLOCKED / NON-PERSISTED.
+
+## 15. CONTINUOUS AUTONOMOUS EXECUTION — TURN RESILIENCE
+
+The default project operating mode is governed by:
+`docs/ALGO-ECOSYSTEM-AUTONOMOUS-EXECUTION-PROTOCOL.md`.
+
+Within a user turn, the AI MUST continue through every mechanically determined, already-authorized and executable next action rather than stopping after each sub-step for confirmation.
+
+Long work should emit concise progress heartbeats without asking for approval, then continue immediately.
+
+The AI stops only at a real boundary defined by the autonomous-execution protocol, including:
+- local user action/file transfer/command required;
+- unavailable external execution or independent counter-expertise required;
+- genuine human normative authority required;
+- missing evidence/capability creating a true blocker;
+- destructive/irreversible/live-capital action;
+- materially non-equivalent ambiguity not resolved by existing governance.
+
+If a platform/runtime boundary forces the turn to end, durable state MUST already permit exact recovery from GitHub/checkpoint/backup. A later user message `continue` is sufficient to resume; do not ask the user to reconstruct prior state.
+
+A progress message is not a stop point.
