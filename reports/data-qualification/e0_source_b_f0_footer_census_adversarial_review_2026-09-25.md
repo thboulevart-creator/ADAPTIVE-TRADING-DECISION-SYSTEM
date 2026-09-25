@@ -15,7 +15,7 @@ Cette revue ne constitue pas une contre-expertise indépendante. Elle vise à em
 
 Le helper refuse tout manifest autre que :
 - SHA-256 JSON : `c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5`;
-- digest canonique path/size/hash : `c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54`;
+- digest canonique path/size/hash : `5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf`;
 - 212 fichiers ;
 - 3 936 721 231 octets ;
 - `MANIFEST_COMPLETE`;
@@ -67,6 +67,20 @@ les valeurs non JSON natives sont converties par `item()` si disponible, sinon `
 
 **Résultat : PASS.**
 Le SHA-256 exact du JSON et le digest canonique de l'inventaire doivent tous deux correspondre.
+
+### A4bis — digest canonique dérivé erroné dans l'adjudication précédente
+
+**Attaque réelle :** l'exécution locale F0 sur le manifest dont le SHA-256 JSON exact est pourtant conforme a recalculé `5cf0fe2c...` alors que le helper attendait `c6baf5c4...`.
+
+**Résultat : FAIL du binding auxiliaire, breaker correctement déclenché.**
+
+**Diagnostic :**
+le manifest exact est inchangé (`c341fb5e...`). Deux recalculs indépendants de la formule publiée `relative_path<TAB>size_bytes<TAB>sha256<LF>` donnent tous deux `5cf0fe2c...`. La valeur `c6baf5c4...` provenait d'une erreur d'adjudication et non du corpus.
+
+**Correction :**
+le helper est désormais lié à `5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf` tout en conservant le SHA-256 exact du JSON comme ancre primaire.
+
+**Re-break : PASS.**
 
 ### A5 — path escape / symlink / reparse point
 
