@@ -23,6 +23,8 @@ EXPECTED_ROW_GROUPS = 488
 EXPECTED_TIMESTAMP_FIELD = "timestamp"
 EXPECTED_TIMESTAMP_TYPE = "timestamp[ms]"
 EXPECTED_SCHEMA_SIGNATURE = "c770f02e90917154da1a32e668d59e030581e6159fa272496eac45d88bdda98d"
+EXPECTED_F0_MIN_MS = 1_621_900_800_309
+EXPECTED_F0_MAX_MS = 1_779_667_199_963
 
 MAX_CUMULATIVE_PARQUET_LOGICAL_READ_BYTES = 16 * 1024**3
 MANIFEST_HASH_READ_BYTES = EXPECTED_TOTAL_PARQUET_BYTES
@@ -310,6 +312,8 @@ def main() -> int:
     backward_records_truncated = False
     largest_heap: list[tuple[int, int, dict[str, Any]]] = []
     serial = 0
+    global_largest_positive_gap_ms = 0
+    null_induced_segment_breaks = 0
 
     def register_transition(
         prev_ms: int,
@@ -319,6 +323,7 @@ def main() -> int:
     ) -> None:
         nonlocal total_equal_adjacent, total_backward, total_positive
         nonlocal gap_records_truncated, backward_records_truncated, serial
+        nonlocal global_largest_positive_gap_ms
 
         diff = int(curr_ms) - int(prev_ms)
         if diff == 0:
@@ -341,6 +346,7 @@ def main() -> int:
             return
 
         total_positive += 1
+        global_largest_positive_gap_ms = max(global_largest_positive_gap_ms, diff)
         for name, threshold in GAP_THRESHOLDS_MS.items():
             if diff > threshold:
                 report["gap_threshold_counts"][name] += 1
@@ -484,6 +490,7 @@ def main() -> int:
             # Process contiguous valid segments only. Never bridge across nulls.
             segment_starts = [0]
             discontinuities = np.flatnonzero(np.diff(valid_idx) != 1)
+            null_induced_segment_breaks += int(discontinuities.size)
             segment_starts.extend((discontinuities + 1).tolist())
             segment_ends = discontinuities.tolist()
             segment_ends.append(valid_count - 1)
@@ -501,6 +508,11 @@ def main() -> int:
                 total_equal_adjacent += eq_count
                 total_backward += bw_count
                 total_positive += pos_count
+                if pos_count:
+                    global_largest_positive_gap_ms = max(
+                        global_largest_positive_gap_ms,
+                        int(diffs[diffs > 0].max()),
+                    )
                 file_equal += eq_count
                 file_backward += bw_count
                 file_positive += pos_count
@@ -542,7 +554,10 @@ def main() -> int:
                         gap_records_truncated = True
 
                 backwards = np.flatnonzero(diffs < 0)
-                for j in backwards[: max(0, MAX_RECORDED_BACKWARDS - len(report["recorded_backwards"]))]:
+                backward_capacity = max(
+                    0, MAX_RECORDED_BACKWARDS - len(report["recorded_backwards"])
+                )
+                for j in backwards[:backward_capacity]:
                     j = int(j)
                     prev_v = int(seg[j])
                     curr_v = int(seg[j + 1])
@@ -563,7 +578,7 @@ def main() -> int:
                             "row_index_in_group": int(seg_idx[j + 1]),
                         },
                     })
-                if len(backwards) > max(0, MAX_RECORDED_BACKWARDS - len(report["recorded_backwards"])):
+                if len(backwards) > backward_capacity:
                     backward_records_truncated = True
 
             # Preserve only a boundary if the row group's last physical row is valid.
@@ -608,6 +623,16 @@ def main() -> int:
 
     if total_rows_read != EXPECTED_ROWS:
         blocked(output, report, "BLOCKED_TOTAL_ROWS_READ_MISMATCH", f"{total_rows_read} != {EXPECTED_ROWS}")
+    if global_min != EXPECTED_F0_MIN_MS or global_max != EXPECTED_F0_MAX_MS:
+        blocked(
+            output,
+            report,
+            "BLOCKED_F1_F0_TEMPORAL_BOUND_MISMATCH",
+            (
+                f"scan min/max {global_min}/{global_max} != "
+                f"F0 min/max {EXPECTED_F0_MIN_MS}/{EXPECTED_F0_MAX_MS}"
+            ),
+        )
 
     report["largest_gaps"] = [
         item[2] for item in sorted(largest_heap, key=lambda x: (-x[0], x[1]))
@@ -625,11 +650,15 @@ def main() -> int:
         "positive_transitions": total_positive,
         "boundaries_evaluated": boundaries_evaluated,
         "boundaries_broken_by_null": boundaries_broken_by_null,
+        "null_induced_segment_breaks": null_induced_segment_breaks,
         "recorded_gaps_gt_60s": len(report["recorded_gaps_gt_60s"]),
         "gap_records_truncated": gap_records_truncated,
         "recorded_backwards": len(report["recorded_backwards"]),
         "backward_records_truncated": backward_records_truncated,
-        "largest_gap_ms": (
+        "largest_positive_gap_ms": (
+            global_largest_positive_gap_ms if global_largest_positive_gap_ms > 0 else None
+        ),
+        "largest_recorded_gap_gt_60s_ms": (
             max((x[0] for x in largest_heap), default=None)
         ),
         "timezone_qualified": False,
@@ -653,7 +682,7 @@ def main() -> int:
     print(f"Backward transitions: {total_backward}")
     print(f"Equal adjacent timestamps: {total_equal_adjacent}")
     print(f"Gaps >60s: {report['gap_threshold_counts']['gt_60s']}")
-    print(f"Largest gap ms: {report['summary']['largest_gap_ms']}")
+    print(f"Largest positive gap ms: {report['summary']['largest_positive_gap_ms']}")
     print(f"Report: {output}")
     return 0
 
