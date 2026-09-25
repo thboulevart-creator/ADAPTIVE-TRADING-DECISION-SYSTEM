@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : E0-SOURCE-B-F0 COMPLETE EN LOCAL ; JSON EXACT À INGÉRER.** La section 201 fixe l’état courant. F0 a traité 212 fichiers, 448 636 octets d’enveloppes footer, 376 003 618 lignes, 488 row groups, 1 signature de schéma et un candidat temporel `timestamp`. Le JSON exact F0 n’est pas encore accessible dans la session. Prochaine action unique : joindre `ATDS-E0-SOURCE-B-F0-FOOTER-CENSUS.json`, puis adjudication intégrale avant toute décision F1.
+> **DIRECTIVE ACTIVE — 2026-09-25 : F0 EXACT ADJUGÉ ; F1 TIMESTAMP-ONLY PRÊT POUR EXÉCUTION LOCALE.** La section 202 fixe l’état courant. F0 qualifie le schéma unique des 212 Parquet : timestamp[ms], bid/ask prix et volumes, 376 003 618 lignes, 488 row groups, bornes metadata 2021-05-25→2026-05-24. Le timezone reste non qualifié (`isAdjustedToUTC=false`). Les footers ne prouvent pas la continuité intrarow-group ; F1 est donc requis et son helper timestamp-only a été adversarialement borné. Prochaine action réelle : exécuter F1 localement et joindre le JSON.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13174,3 +13174,94 @@ Puis fresh HEAD, ingestion/adjudication F0 et décision séparée sur la nécess
 Aucun F1, E1, backtest, MT5, paper/broker/live.
 
 STOP.
+
+---
+
+## 202. E0-SOURCE-B — F0 exact PASS, F1 timestamp-only ready — 2026-09-25
+
+F0 exact joint à la session :
+- taille : **84 426 octets** ;
+- SHA-256 : `5bbe977688ec65ba6196115b3c0a7cfcd3a70ed4b8ff5afe9b6a96d470fcfa9b` ;
+- schema : `ATDS_E0_SOURCE_B_F0_FOOTER_CENSUS_V0_1` ;
+- status : `F0_COMPLETE`.
+
+Rapport d'adjudication :
+`reports/data-qualification/e0_source_b_f0_footer_census_adjudication_2026-09-25.md`
+blob `11029782139e05fb1418e75950824149b2ad64d2`.
+
+### F0 qualifié
+
+Recalcul intégral :
+- 212 fichiers uniques ;
+- 3 936 721 231 octets ;
+- 376 003 618 lignes ;
+- 488 row groups ;
+- 448 636 octets d'enveloppes footer ;
+- 1 signature schéma sur 212/212.
+
+Schéma :
+- `timestamp: timestamp[ms]`, nullable ;
+- `bid_price: double`, nullable ;
+- `ask_price: double`, nullable ;
+- `bid_volume: double`, nullable ;
+- `ask_volume: double`, nullable.
+
+Timestamp Parquet :
+- physical `INT64` ;
+- logical `Timestamp(isAdjustedToUTC=false, timeUnit=milliseconds,...)`.
+
+Aucune timezone n'est qualifiée par le schéma.
+
+Statistiques timestamp :
+- 488/488 row groups avec min/max ;
+- min metadata = `2021-05-25T00:00:00.309000` ;
+- max metadata = `2026-05-24T23:59:59.963000`.
+
+**Verdict F0 : PASS — footer/metadata uniquement.**
+
+Les footers ne prouvent pas ordre tick-level, nulls, retours temporels ou gaps intrarow-group.
+
+### Décision F1
+
+**F1 nécessaire.**
+
+Portée :
+- lire seulement `timestamp` ;
+- row-group streaming ;
+- aucun prix/volume ;
+- aucun signal/retour/trade/PnL ;
+- mesurer raw nulls, equal-adjacent, backward transitions et gaps ;
+- aucun timezone/session/gap-abnormality claim automatique.
+
+Budget logique planifié :
+- manifest hashing : 3 936 721 231 octets ;
+- F0 metadata logique : 450 332 octets ;
+- timestamp decoded : 3 008 028 944 octets ;
+- total = **6 945 200 507 octets < 16 GiB**.
+
+Helper :
+`tools/e0_source_b_timestamp_continuity_scan.py`
+blob `dbcf05f8701bd434e75a08beeddce8fde08a8266`.
+
+Revue adversariale :
+`reports/data-qualification/e0_source_b_f1_timestamp_scan_adversarial_review_2026-09-25.md`
+blob `a52c1982941205279e7c834fd44a45cffb0ad90d`.
+
+Verdict helper :
+**PASS — suffisamment borné pour tentative locale F1 timestamp-only.**
+
+Limitations :
+- pas de re-hash 3,9 GiB pendant F1 ;
+- octets physiques OS/PyArrow non mesurés ;
+- aucune classification session/timezone à ce stade.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter F1 avec le manifest exact et le JSON F0 exact.**
+
+Si `F1_COMPLETE` : joindre `%TEMP%\ATDS-E0-SOURCE-B-F1-TIMESTAMP-SCAN.json`.
+Si `BLOCKED_*` : joindre le JSON sans contourner.
+
+STOP avant toute lecture bid/ask/volume.
+
+Aucun E1, backtest, MT5, paper/broker/live.
