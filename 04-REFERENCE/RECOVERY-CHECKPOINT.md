@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP6 SEASONALITY/STABILITY PREFLIGHT REGISTERED.** AP6 will measure hour/weekday/month/year/calendar-quarter seasonality and temporal distribution drift; primary stability reference is complete UTC years 2022–2025, while 2021/2026 remain partial context. No stable/unstable threshold is allowed. Next action: materialize AP6 helper + synthetic/adversarial breakers before corpus execution. No strategy/PnL/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-25 SESSION CLOSE : AP5 PASS; AP6 PREFLIGHT PASS; AP6 HELPER CANDIDATE NOT YET PERSISTED/QUALIFIED.** Tomorrow resume with fresh HEAD → read AI memory/checkpoint/session backup → persist exact AP6 helper/tests/mutation runner → persisted-HEAD py_compile + 19-test synthetic suite + 18-mutant re-break → only then authorize AP6 corpus. No strategy/PnL/MT5/edge claim.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14603,3 +14603,47 @@ Verdict:
 
 Next action:
 materialize helper/tests/mutation breakers and perform adversarial break/re-break before any corpus run.
+
+
+---
+
+## 227. SESSION CLOSE — AP5 PASS / AP6 PREFLIGHT — 2026-09-25
+
+Fresh HEAD before close persistence:
+`6b396b52ebfa4f8ccd27a834ca1fd5ca1fedbfa7`.
+
+Durable backup:
+`99-BACKUP/SESSION-2026-09-25-AP5-PASS-AP6-PREFLIGHT-CLOSE.md`.
+
+### Qualified state
+
+- AP0 PASS.
+- AP1 PASS.
+- AP2 PASS.
+- AP3 PASS.
+- AP4 PASS.
+- AP5 PASS.
+- AP6 preflight PASS only.
+
+AP5 exact qualified evidence:
+- SHA-256 `21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406`;
+- 39,460 bytes;
+- 1,709,180 minutes;
+- 376,003,618 source ticks;
+- 1,606 segments;
+- exact canonical helper/AP4 R4 provenance.
+
+AP6:
+- preflight registered at `dff216afd0a6f93cc6a3a0a1d1175529cd549d22`;
+- endpoint attribution clarification at `6b396b52ebfa4f8ccd27a834ca1fd5ca1fedbfa7`;
+- in-session candidate reached 19/19 synthetic PASS and 18/18 mutants killed after breaker strengthening;
+- candidate helper/tests/mutation runner are **not yet persisted and therefore not qualified**.
+
+### Resume guard
+
+Next action tomorrow:
+**persist exact AP6 candidate artifacts and re-break the persisted HEAD before any AP6 corpus execution.**
+
+Do not infer AP6 PASS from in-session candidate tests.
+Do not execute AP6 corpus until persisted-HEAD qualification.
+Do not reopen AP0–AP5 absent demonstrated contradiction.
