@@ -1,0 +1,5 @@
+{
+  "reason": "AP4 evidence missing, escaped repo-root, or SHA mismatch",
+  "schema": "ATDS_AP5_BLOCKED_V0_1",
+  "status": "BLOCKED_AP5_AP4_BINDING"
+}

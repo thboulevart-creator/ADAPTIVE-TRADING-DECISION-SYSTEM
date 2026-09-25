@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 FIRST LOCAL RUN BLOCKED DIAGNOSED AS LF→CRLF SNAPSHOT NORMALIZATION.** Canonical AP4 is intact at SHA-256 c66a2e...e3baad. Local staged AP4 was 16,132 bytes / SHA 7019e7... due exactly +644 CR bytes over 644 canonical LF lines. AP5 helper correctly failed closed. Next action: raw-binary AP4 materialization + new AP5 output path; AP6 remains closed.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R2 REPEATED THE SAME AP4-BINDING BLOCK.** R2 JSON is byte-identical to R1 (151 bytes, SHA-256 89bb73dd...1860). The attempted raw-blob repair failed its own size/SHA checks, so no third AP5 run is authorized yet. Next action: read-only comparison of local git-cat-file blob bytes vs staged AP4 bytes. AP6 remains closed.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14373,3 +14373,30 @@ Diagnosis:
 
 Next action:
 raw Git-blob materialization of AP4 bytes, canonical hash check, then retry AP5 to a new output file. Keep first BLOCKED evidence intact. AP6 remains closed.
+
+
+---
+
+## 220. AP5 R2 REPEATS AP4 BINDING BLOCK — 2026-09-25
+
+Fresh HEAD before persistence:
+`afb1d07ed24375072397df8161a539d4f71dea46`.
+
+R2:
+- exit code 2;
+- JSON 151 bytes;
+- SHA-256 `89bb73dd6008ae66a55306f73a29edb25b586496067d050557f8b258dcaa1860`;
+- `BLOCKED_AP5_AP4_BINDING`;
+- byte-identical to R1 BLOCKED evidence.
+
+The attempted AP4 raw repair did not pass its own required checks:
+- repaired length != 15,488;
+- repaired SHA != `c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad`.
+
+Therefore R2 is not evidence about the AP0 corpus. It is a repeated pre-corpus binding failure.
+
+Evidence:
+`reports/program/evidence/2026-09-25-AP5-LOCAL-R2-BLOCKED-AP4-BINDING.json`.
+
+Next action:
+read-only diagnostic of local raw Git blob bytes and current staged AP4 bytes. No AP5 R3 until canonical raw bytes are demonstrated.
