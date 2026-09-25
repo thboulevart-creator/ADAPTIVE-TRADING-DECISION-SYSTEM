@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 MICROSTRUCTURE PRICE-CORE PASS.** Qualified R4 evidence SHA-256 21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406, exact canonical helper/AP4 provenance, 61 AP0 files rehashed, 1,709,180 minutes / 376,003,618 source ticks, registered reconciliations and partition conservation PASS. AP6 seasonality/stability is now the sole active frontier. No strategy/edge/PnL/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP6 SEASONALITY/STABILITY PREFLIGHT REGISTERED.** AP6 will measure hour/weekday/month/year/calendar-quarter seasonality and temporal distribution drift; primary stability reference is complete UTC years 2022–2025, while 2021/2026 remain partial context. No stable/unstable threshold is allowed. Next action: materialize AP6 helper + synthetic/adversarial breakers before corpus execution. No strategy/PnL/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14576,3 +14576,30 @@ Same assistant producer/auditor; no independence claimed.
 AP6 seasonality/stability preflight:
 hour, weekday, month, year, sub-periods and temporal distribution stability.
 No strategy, PnL, optimization, MT5 or edge claim.
+
+
+---
+
+## 226. AP6 SEASONALITY / STABILITY PREFLIGHT — 2026-09-25
+
+Fresh HEAD before persistence:
+`7904177b6ddd121aaba6fd00ea7ede01cc1db87e`.
+
+Preflight:
+`reports/program/2026-09-25-AP6-SEASONALITY-STABILITY-PREFLIGHT.md`.
+
+Core design:
+- temporal dimensions: NY hour, NY weekday, NY month, UTC year, UTC calendar quarter;
+- complete-year stability reference: 2022..2025;
+- partial 2021/2026 excluded from primary coefficients;
+- canonical metrics: range, abs-return 1m, RV15, RV60, efficiency15, efficiency60, spread_mean, tick_count;
+- AP4 directional persistence/reversal by year/quarter;
+- distribution drift = frozen-reference decile CDF distance;
+- seasonal-pattern stability = pairwise Spearman across complete-year category means + category-level CV;
+- no arbitrary stable/unstable threshold.
+
+Verdict:
+**PASS — AP6 preflight only.**
+
+Next action:
+materialize helper/tests/mutation breakers and perform adversarial break/re-break before any corpus run.
