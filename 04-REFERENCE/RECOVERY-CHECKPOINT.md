@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : F0 PREMIÈRE TENTATIVE BLOCKED PAR DIGEST AUXILIAIRE ERRONÉ ; BINDING CORRIGÉ ET RE-BREAKÉ.** La section 200 fixe l’état courant. Le manifest exact n’a pas changé : son SHA-256 JSON reste `c341fb5e...`. La valeur historique `c6baf5...` était erronée pour la formule publiée ; deux recalculs indépendants donnent `5cf0fe2c...`. Helper F0 corrigé et re-break PASS. Prochaine action réelle : relancer localement F0 avec le nouveau helper puis joindre le JSON. Aucun F1/E1/backtest/MT5/paper/broker/live.
+> **DIRECTIVE ACTIVE — 2026-09-25 : E0-SOURCE-B-F0 COMPLETE EN LOCAL ; JSON EXACT À INGÉRER.** La section 201 fixe l’état courant. F0 a traité 212 fichiers, 448 636 octets d’enveloppes footer, 376 003 618 lignes, 488 row groups, 1 signature de schéma et un candidat temporel `timestamp`. Le JSON exact F0 n’est pas encore accessible dans la session. Prochaine action unique : joindre `ATDS-E0-SOURCE-B-F0-FOOTER-CENSUS.json`, puis adjudication intégrale avant toute décision F1.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13124,3 +13124,53 @@ Si `BLOCKED_*` : joindre le même JSON sans contourner.
 STOP à cette frontière locale.
 
 Aucun F1, E1, backtest, MT5, paper/broker/live ou capital réel.
+
+---
+
+## 201. E0-SOURCE-B-F0 — exécution locale complète, JSON exact en attente — 2026-09-25
+
+Fresh HEAD avant persistance du résultat terminal :
+`2d084d8e8116748d42cf95dc5bb63043bb21ec1d`.
+
+Sortie locale fournie :
+```text
+F0_COMPLETE
+Files: 212
+Footer envelope bytes: 448636
+Rows: 376003618
+Row groups: 488
+Schema signatures: 1
+Temporal candidates: timestamp
+Report: C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-F0-FOOTER-CENSUS.json
+```
+
+Rapport :
+`reports/data-qualification/e0_source_b_f0_footer_census_execution_observed_2026-09-25.md`
+blob `91c95cd0ec41752a67709a6363e40f889b5a803b`
+commit `bdaef2f0747868b5a42103dcf00721b2149eacaf`.
+
+Budget logique :
+- probe initial = 1 696 octets ;
+- enveloppes footer = 448 636 octets ;
+- cumul = 450 332 octets ;
+- plafond = 134 217 728 octets.
+
+**Verdict borné : PASS — exécution locale F0 complète selon la sortie terminale fournie.**
+
+Reste TO-PROVE dans la session tant que le JSON exact n'est pas ingéré :
+- schéma détaillé ;
+- colonnes et types ;
+- bid/ask/spread ;
+- statistiques timestamp min/max ;
+- row groups avec/sans stats ;
+- cohérence détaillée des 212 entrées ;
+- identité du rapport F0.
+
+**Prochaine action gouvernée unique :**
+joindre `C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-F0-FOOTER-CENSUS.json`.
+
+Puis fresh HEAD, ingestion/adjudication F0 et décision séparée sur la nécessité de F1.
+
+Aucun F1, E1, backtest, MT5, paper/broker/live.
+
+STOP.
