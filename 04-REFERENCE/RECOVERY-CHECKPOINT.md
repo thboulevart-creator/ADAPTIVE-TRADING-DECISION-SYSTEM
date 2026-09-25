@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : F0 EXACT ADJUGÉ ; F1 TIMESTAMP-ONLY PRÊT POUR EXÉCUTION LOCALE.** La section 202 fixe l’état courant. F0 qualifie le schéma unique des 212 Parquet : timestamp[ms], bid/ask prix et volumes, 376 003 618 lignes, 488 row groups, bornes metadata 2021-05-25→2026-05-24. Le timezone reste non qualifié (`isAdjustedToUTC=false`). Les footers ne prouvent pas la continuité intrarow-group ; F1 est donc requis et son helper timestamp-only a été adversarialement borné. Prochaine action réelle : exécuter F1 localement et joindre le JSON.
+> **DIRECTIVE ACTIVE — 2026-09-25 : F1 COMPLETE ; RÉCUPÉRER LE GAP-FORENSICS HISTORIQUE AVANT TOUTE RECLASSIFICATION.** La section 203 fixe l’état courant. F1 reproduit 376 003 618 lignes, 0 null, 0 backward, 0 equal-adjacent, 1 605 gaps >60 s et un max 265 872 098 ms. Ces chiffres correspondent au scan historique déjà approfondi. Les anciens scripts/résultats gap-forensics semblent être restés non suivis dans le clone local `feat/min-experiment-gaps-batch-v1`. Prochaine action : joindre le JSON F1 exact et inventorier/récupérer les artefacts locaux historiques. Ne pas refaire calendriers/événements tant que cette récupération n’est pas terminée.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13265,3 +13265,67 @@ Si `BLOCKED_*` : joindre le JSON sans contourner.
 STOP avant toute lecture bid/ask/volume.
 
 Aucun E1, backtest, MT5, paper/broker/live.
+
+---
+
+## 203. E0-SOURCE-B-F1 — F1 COMPLETE, récupération prioritaire du gap-forensics historique — 2026-09-25
+
+Fresh HEAD avant persistance du résultat terminal :
+`aa457f5a4e8a517557137d349b885c7648b0e98a`.
+
+Sortie locale fournie :
+```text
+F1_COMPLETE
+Rows read: 376003618
+Null timestamps: 0
+Backward transitions: 0
+Equal adjacent timestamps: 0
+Gaps >60s: 1605
+Largest positive gap ms: 265872098
+Report: C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-F1-TIMESTAMP-SCAN.json
+```
+
+Rapport :
+`reports/data-qualification/e0_source_b_f1_execution_and_gap_forensics_recovery_2026-09-25.md`
+blob `3365e07797bcceb9f0239c4385b484ff27c8fdd8`
+commit `540b84b4aa44dc9c37004a36ffae02f6ccdb2ebb`.
+
+**Verdict borné : PASS — terminaison locale F1 selon sortie terminale.**
+
+Le JSON exact reste à ingérer avant adjudication détaillée.
+
+### Convergence historique
+
+Les chiffres F1 reproduisent exactement le scan Source-B historique :
+- 376 003 618 lignes/ticks ;
+- 1 605 gaps >60 s ;
+- max ~265 872,098 s.
+
+Le travail historique avait ensuite isolé un sous-ensemble de 22 `TRUE_OPEN_SESSION_GAP` sur 6 fichiers, puis une discrimination d'origine/source avait établi 13 pertes d'acquisition démontrées et 9 gaps restant inconnus. Ces éléments doivent être récupérés comme preuves historiques et confrontés au snapshot actuel avant toute répétition de calendrier/événements.
+
+### Local-only evidence
+
+Branche distante :
+`feat/min-experiment-gaps-batch-v1`
+HEAD :
+`2951345d8f0b47400b8b2d52885615f01f11556b`.
+
+Son arbre Git distant ne contient aucun des scripts gap-forensics recherchés. Le `git status` local historique les montrait non suivis. Ils peuvent donc exister uniquement dans le clone Windows.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED** :
+1. rendre accessible `ATDS-E0-SOURCE-B-F1-TIMESTAMP-SCAN.json` ;
+2. produire un inventaire borné des anciens artefacts locaux gap-forensics sous `tools`, `reports`, `LOCAL-EVIDENCE`, `audit`.
+
+Ensuite :
+- récupérer les résultats historiques ;
+- vérifier leur binding au corpus actuel ;
+- réutiliser si compatible ;
+- ne refaire que les preuves manquantes/incompatibles.
+
+Aucune nouvelle classification calendrier/session/événement avant cette récupération.
+
+Aucun E1/backtest/MT5/paper/broker/live.
+
+STOP.
