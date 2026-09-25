@@ -53,7 +53,7 @@ PASS :
 
 ### Session / gaps
 
-PASS_WITH_LIMITATION :
+PASS — portée session régulière uniquement, avec limites explicites :
 - raw clock supportée GMT/UTC pour la session régulière ;
 - publisher public déclare timestamp UTC ;
 - 1 290 gaps = frontières de session régulière ;
