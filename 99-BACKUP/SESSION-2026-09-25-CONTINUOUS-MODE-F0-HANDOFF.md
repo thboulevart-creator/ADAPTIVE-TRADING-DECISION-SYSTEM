@@ -49,16 +49,17 @@ Manifest exact :
 
 Helper :
 `tools/e0_source_b_footer_census.py`
-blob : `fee98c19b880a4d886c0b8cbd208858426de08dc`.
+blob : `bc409c8ae921f2822ed46f511a68303c21e2ca9c`.
 
 Revue adversariale :
 `reports/data-qualification/e0_source_b_f0_footer_census_adversarial_review_2026-09-25.md`
-blob : `e5becf81b172e4fe62cb1969cd0a221704a49dc8`.
+blob : `15adb0cecfd579c5faa001640d0ae0954c699f60`.
 
 Défauts du candidat initial corrigés :
 1. possible écriture de rapport dans le corpus lors d'un échec précoce ;
 2. sous-comptage du budget metadata en oubliant les 8 octets de probe initial ;
-3. risque de signature schéma non déterministe via `repr()`.
+3. risque de signature schéma non déterministe via `repr()` ;
+4. absence de manifest transformée en `BLOCKED_MANIFEST_NOT_FOUND` récupérable.
 
 Verdict de re-break interne :
 **PASS — tentative locale F0 read-only autorisée**, avec limitations explicites documentées.
