@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : F1 COMPLETE ; RÉCUPÉRER LE GAP-FORENSICS HISTORIQUE AVANT TOUTE RECLASSIFICATION.** La section 203 fixe l’état courant. F1 reproduit 376 003 618 lignes, 0 null, 0 backward, 0 equal-adjacent, 1 605 gaps >60 s et un max 265 872 098 ms. Ces chiffres correspondent au scan historique déjà approfondi. Les anciens scripts/résultats gap-forensics semblent être restés non suivis dans le clone local `feat/min-experiment-gaps-batch-v1`. Prochaine action : joindre le JSON F1 exact et inventorier/récupérer les artefacts locaux historiques. Ne pas refaire calendriers/événements tant que cette récupération n’est pas terminée.
+> **DIRECTIVE ACTIVE — 2026-09-25 : F1 EXACT PASS ; GAP-FORENSICS HISTORIQUE LOCAL RETROUVÉ ; BUNDLE DE RÉCUPÉRATION PRÊT.** La section 204 fixe l’état courant. Le F1 exact confirme 376 003 618 timestamps strictement croissants, 0 null, 0 backward, 0 égalité adjacente et 1 605 gaps >60 s. L’inventaire local retrouve 53 artefacts historiques (~5,8 MiB), dont toute la chaîne session/open-gap/origin/source/loss/repairability. Un bundler read-only lié aux 53 chemins exacts est re-break PASS. Prochaine action réelle : exécuter le bundler localement et joindre le ZIP ; ne pas refaire calendriers/événements avant ingestion.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13325,6 +13325,98 @@ Ensuite :
 - ne refaire que les preuves manquantes/incompatibles.
 
 Aucune nouvelle classification calendrier/session/événement avant cette récupération.
+
+Aucun E1/backtest/MT5/paper/broker/live.
+
+STOP.
+
+---
+
+## 204. E0-SOURCE-B — F1 exact adjudgé, récupération du gap-forensics historique prête — 2026-09-25
+
+### F1 exact
+
+JSON F1 :
+- taille : **1 954 830 octets** ;
+- SHA-256 : `2b95780b053e7c83bdb48e10eb6702828e3d80ebf38e1a68eb811890a9523067` ;
+- status : `F1_COMPLETE`.
+
+Adjudication :
+`reports/data-qualification/e0_source_b_f1_timestamp_scan_adjudication_2026-09-25.md`
+blob `04c850de5034bf5ca33fe5a74ac5095663fb4387`.
+
+Résultats qualifiés :
+- 212 fichiers ;
+- 376 003 618 lignes/timestamps valides ;
+- 0 null ;
+- 0 backward transition ;
+- 0 equal-adjacent timestamp ;
+- 376 003 617 positive transitions ;
+- 1 605 gaps >60 s ;
+- registre 1 605/1 605 non tronqué ;
+- max brut = 265 872 098 ms ;
+- min = 2021-05-25T00:00:00.309 ;
+- max = 2026-05-24T23:59:59.963 ;
+- aucun calendrier de session appliqué ;
+- timezone non qualifié.
+
+**Verdict : PASS — inventaire temporel brut timestamp-only.**
+
+### Inventaire historique local
+
+CSV inventaire :
+- taille : 9 968 octets ;
+- SHA-256 : `a9a3fa3719c87a64526b1ef8f33e10611a11f1f752a4b06c562afd26a8ee8871` ;
+- 53 artefacts ;
+- 28 reports = 5 186 327 octets ;
+- 25 tools = 588 160 octets ;
+- total = 5 774 487 octets.
+
+Rapport :
+`reports/data-qualification/e0_source_b_historical_gap_forensics_local_inventory_2026-09-25.md`
+blob `64bd32b733a8ca06dfbb1885e1907b6ef5602867`.
+
+La chaîne historique existe localement :
+session continuity → open gap forensics → origin discrimination → source crosscheck → loss quantification → repairability → reconciliation, plus timestamp/timezone/provenance et full qualification.
+
+### Bundler de récupération
+
+Helper :
+`tools/e0_source_b_recover_gap_forensics_bundle.py`
+blob `bcdd55c512257afa4e94feab869f7a986f8dc68c`.
+
+Revue :
+`reports/data-qualification/e0_source_b_gap_forensics_bundle_adversarial_review_2026-09-25.md`
+blob `e1476ceea6170340fc6b02dee1e5ba44ef7f992b`.
+
+Protections :
+- exact 53-file path set ;
+- aucun `data/` ;
+- output hors repo ;
+- symlink/reparse rejeté ;
+- max 100 fichiers / 16 MiB ;
+- SHA-256 de chaque source ;
+- manifest interne ;
+- relecture et re-hash de chaque entrée ZIP après écriture.
+
+Verdict helper :
+**PASS — récupération locale read-only autorisée.**
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter le bundler et joindre le ZIP** :
+`ATDS-SOURCE-B-GAP-FORENSICS-HISTORICAL.zip`.
+
+Après ingestion :
+1. vérifier manifest/hash ZIP ;
+2. parser les rapports historiques ;
+3. reconstruire la chaîne de preuve exacte ;
+4. vérifier les nombres 22 / 13 / 9 depuis les artefacts, pas depuis mémoire ;
+5. comparer leur binding au Source-B courant ;
+6. réutiliser ce qui reste valide ;
+7. ne refaire que le minimum réellement manquant.
+
+Aucune nouvelle recherche calendrier/session/événement avant cette récupération.
 
 Aucun E1/backtest/MT5/paper/broker/live.
 
