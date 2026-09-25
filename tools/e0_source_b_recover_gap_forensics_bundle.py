@@ -198,12 +198,13 @@ def main() -> int:
         )
 
     if output.exists():
+        if not output.is_file():
+            return die(f"Existing output is not a regular file: {output}")
         output.unlink()
 
     manifest = {
         "schema": "ATDS_E0_SOURCE_B_GAP_FORENSICS_RECOVERY_BUNDLE_V0_1",
         "generated_at_utc": utc_now(),
-        "repo_root_recorded_as": str(root),
         "selection_contract": {
             "report_glob": str(REPORT_DIR / REPORT_GLOB).replace("\\", "/"),
             "tool_glob": str(TOOLS_DIR / TOOL_GLOB).replace("\\", "/"),
@@ -232,13 +233,25 @@ def main() -> int:
             # ZIP names are repository-relative only; no absolute paths.
             zf.write(p, arcname=rec["relative_path"])
 
-    # Verify archive inventory after writing.
+    # Verify archive inventory and every archived byte stream after writing.
     with zipfile.ZipFile(output, "r") as zf:
         names = zf.namelist()
         expected_names = ["BUNDLE-MANIFEST.json"] + [r["relative_path"] for r in records]
         if names != expected_names:
             output.unlink(missing_ok=True)
             return die("ZIP inventory differs from planned inventory.")
+        archived_manifest = json.loads(zf.read("BUNDLE-MANIFEST.json").decode("utf-8"))
+        if archived_manifest != manifest:
+            output.unlink(missing_ok=True)
+            return die("Archived manifest differs from planned manifest.")
+        for rec in records:
+            archived = zf.read(rec["relative_path"])
+            archived_sha = hashlib.sha256(archived).hexdigest()
+            if len(archived) != rec["size_bytes"] or archived_sha != rec["sha256"]:
+                output.unlink(missing_ok=True)
+                return die(
+                    f"Archived bytes mismatch source hash/size: {rec['relative_path']}"
+                )
 
     zip_sha = sha256_path(output)
     sidecar = output.with_suffix(output.suffix + ".sha256.txt")
