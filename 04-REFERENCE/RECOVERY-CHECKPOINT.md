@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 HELPER CORRIGÉ RE-BREAK PASS ; EXÉCUTION LOCALE AP5 REQUISE.** Helper figé au commit 715c3e4affa44778785d6c222782eda257ed19e7, 12/12 tests PASS, 7/7 mutants détectés. AP5 corpus reste BLOCKED avant JSON exact. Aucun AP6/backtest/MT5/PnL/stratégie.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 FIRST LOCAL RUN BLOCKED DIAGNOSED AS LF→CRLF SNAPSHOT NORMALIZATION.** Canonical AP4 is intact at SHA-256 c66a2e...e3baad. Local staged AP4 was 16,132 bytes / SHA 7019e7... due exactly +644 CR bytes over 644 canonical LF lines. AP5 helper correctly failed closed. Next action: raw-binary AP4 materialization + new AP5 output path; AP6 remains closed.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14337,3 +14337,39 @@ Même assistant producteur/auditeur : aucune indépendance revendiquée.
 
 À réception de `AP5_COMPLETE` + JSON exact :
 fresh HEAD → hash exact → contrôles/reconciliations → adjudication AP5 → observations comportementales → AP6 seulement si PASS.
+
+
+---
+
+## 219. AP5 LOCAL BLOCKED DIAGNOSED — CRLF NORMALIZATION — 2026-09-25
+
+Fresh HEAD before persistence:
+`ab67856d25c8e7cd714c342fffa9578dc58cbe1a`.
+
+First local AP5 evidence:
+- 151 bytes;
+- SHA-256 `89bb73dd6008ae66a55306f73a29edb25b586496067d050557f8b258dcaa1860`;
+- `BLOCKED_AP5_AP4_BINDING`.
+
+Canonical GitHub AP4 at helper commit:
+- 15,488 bytes;
+- SHA-256 `c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad`;
+- 644 LF;
+- 0 CRLF.
+
+Local staged AP4:
+- inside stage = true;
+- 16,132 bytes;
+- SHA-256 `7019e769da721d757bc8f0cf9fc1203e96bfd1923acc92b1cd3e332d5a96e78e`.
+
+Delta = 644 bytes, exactly equal to the canonical LF count.
+
+Adjudication:
+**BLOCKED attempt explained by full LF→CRLF conversion of the staged AP4 JSON.**
+No contradiction of AP4 or AP0.
+
+Diagnosis:
+`reports/program/2026-09-25-AP5-LOCAL-BLOCKED-AP4-BINDING-DIAGNOSIS.md`.
+
+Next action:
+raw Git-blob materialization of AP4 bytes, canonical hash check, then retry AP5 to a new output file. Keep first BLOCKED evidence intact. AP6 remains closed.
