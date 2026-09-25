@@ -150,7 +150,7 @@ def duration_summary(x):
     }
 
 
-def phase_stats(state, minute, segment):
+def phase_stats(state, minute, segment, context_code=None):
     import numpy as np
     valid = state >= 0
     continuation = (
@@ -160,6 +160,8 @@ def phase_stats(state, minute, segment):
         (segment[1:] == segment[:-1]) &
         ((minute[1:] - minute[:-1]) == 60_000)
     )
+    if context_code is not None:
+        continuation &= (context_code[1:] == context_code[:-1])
     start_mask = valid.copy()
     end_mask = valid.copy()
     start_mask[1:] &= ~continuation
@@ -183,7 +185,7 @@ def phase_stats(state, minute, segment):
     return result
 
 
-def transition_stats(state, minute, segment):
+def transition_stats(state, minute, segment, context_code=None):
     import numpy as np
     valid_pair = (
         (state[:-1] >= 0) &
@@ -191,6 +193,8 @@ def transition_stats(state, minute, segment):
         (segment[:-1] == segment[1:]) &
         ((minute[1:] - minute[:-1]) == 60_000)
     )
+    if context_code is not None:
+        valid_pair &= (context_code[:-1] == context_code[1:])
     src = state[:-1][valid_pair]
     dst = state[1:][valid_pair]
     matrix = np.zeros((3, 3), dtype=np.int64)
@@ -439,9 +443,14 @@ def main() -> int:
         normalized_counts = state_counts(normalized_state)
 
         absolute_phases = phase_stats(absolute_state, minute, seg)
-        normalized_phases = phase_stats(normalized_state, minute, seg)
+        normalized_phases = phase_stats(normalized_state, minute, seg, context_code=ny_hour)
         absolute_transitions = transition_stats(absolute_state, minute, seg)
-        normalized_transitions = transition_stats(normalized_state, minute, seg)
+        normalized_transitions = transition_stats(normalized_state, minute, seg, context_code=ny_hour)
+
+        if sum(x["valid_count"] for x in hour_baselines) != int(np.count_nonzero(np.isfinite(rv15))):
+            raise RuntimeError("Hourly RV15 baseline count conservation failed.")
+        if int(np.count_nonzero(np.isfinite(normalized))) != int(np.count_nonzero(np.isfinite(rv15))):
+            raise RuntimeError("Intraday normalization lost valid RV15 observations.")
 
         year_shares = []
         for year in range(2021, 2027):
@@ -454,6 +463,9 @@ def main() -> int:
                 "minute_rows": int(np.count_nonzero(mask)),
                 **counts,
             })
+
+        if sum(x["valid_count"] for x in year_shares) != int(np.count_nonzero(np.isfinite(normalized))):
+            raise RuntimeError("Year state-share count conservation failed.")
 
         share = np.full(n, np.nan, dtype=np.float64)
         both = np.isfinite(rv15) & np.isfinite(rv60) & (rv60 > 0)
@@ -513,6 +525,7 @@ def main() -> int:
                 "intraday_baseline": "full-sample median RV15 by America/New_York hour",
                 "normalized_rv15": "RV15 / median_RV15_of_same_New_York_hour",
                 "normalized_state_thresholds": "full-sample normalized_RV15 p20/p80",
+                "normalized_phase_transition_boundary": "same America/New_York hour required to avoid baseline-step artifacts",
                 "compression_rule": "value <= p20",
                 "normal_rule": "p20 < value < p80",
                 "expansion_rule": "value >= p80",
