@@ -106,6 +106,16 @@ def path_chain_has_reparse_or_symlink(path: Path) -> bool:
     return False
 
 
+def resolve_manifest_member(root: Path, rel: str) -> Path:
+    raw = root / Path(rel)
+    if path_chain_has_reparse_or_symlink(raw):
+        raise RuntimeError(f"AP0 manifest member path contains reparse/symlink: {rel}")
+    p = raw.resolve(strict=False)
+    if not is_within(p, root) or not p.is_file() or is_reparse_or_symlink(p):
+        raise RuntimeError(f"invalid AP0 file path: {rel}")
+    return p
+
+
 def write_json_exclusive(path: Path, payload: dict) -> None:
     raw = (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
     if len(raw) > MAX_OUTPUT_BYTES:
@@ -390,9 +400,7 @@ def main() -> int:
     try:
         for rec in files:
             rel = rec["relative_path"]
-            p = (root / Path(rel)).resolve(strict=False)
-            if not is_within(p, root) or not p.is_file() or is_reparse_or_symlink(p):
-                raise RuntimeError(f"invalid AP0 file path: {rel}")
+            p = resolve_manifest_member(root, rel)
             if int(p.stat().st_size) != int(rec["size_bytes"]) or sha256_path(p) != rec["sha256"]:
                 raise RuntimeError(f"AP0 file identity mismatch: {rel}")
             pf = pq.ParquetFile(p)

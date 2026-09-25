@@ -76,6 +76,19 @@ class AP5Tests(unittest.TestCase):
     def test_read_columns_exclude_source_volume(self):
         self.assertFalse(any("volume" in c.lower() for c in M.READ_COLUMNS))
 
+    def test_manifest_member_rejects_symlink_component(self):
+        with tempfile.TemporaryDirectory() as td:
+            root=Path(td)/"root"; root.mkdir()
+            target=root/"target"; target.mkdir(); (target/"x.parquet").write_bytes(b"x")
+            link=root/"alias"
+            try:
+                link.symlink_to(target, target_is_directory=True)
+            except (OSError, NotImplementedError) as exc:
+                self.skipTest(f"symlink unavailable: {exc}")
+            with self.assertRaises(RuntimeError):
+                M.resolve_manifest_member(root,"alias/x.parquet")
+            self.assertEqual(M.resolve_manifest_member(root,"target/x.parquet"),(target/"x.parquet").resolve())
+
     def test_path_chain_rejects_symlink_component(self):
         with tempfile.TemporaryDirectory() as td:
             base=Path(td); target=base/"target"; target.mkdir(); link=base/"link"

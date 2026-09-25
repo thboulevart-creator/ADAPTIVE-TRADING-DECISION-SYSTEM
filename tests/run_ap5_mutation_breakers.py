@@ -12,6 +12,7 @@ MUTANTS=[
  ("CASH_1600_INCLUDED","cash = (wd < 5) & (md >= 9 * 60 + 30) & (md < 16 * 60)","cash = (wd < 5) & (md >= 9 * 60 + 30) & (md <= 16 * 60)"),
  ("QUINTILE_LEFT","return thresholds, np.searchsorted(thresholds, x, side=\"right\").astype(np.int8)","return thresholds, np.searchsorted(thresholds, x, side=\"left\").astype(np.int8)"),
  ("PATH_CHAIN_BYPASS","if is_reparse_or_symlink(cur):\n                return True","if is_reparse_or_symlink(cur):\n                return False"),
+ ("MANIFEST_MEMBER_CHAIN_BYPASS","if path_chain_has_reparse_or_symlink(raw):\n        raise RuntimeError(f\"AP0 manifest member path contains reparse/symlink: {rel}\")","if False:\n        raise RuntimeError(f\"AP0 manifest member path contains reparse/symlink: {rel}\")"),
 ]
 results=[]
 for name,old,new in MUTANTS:
