@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : SOURCE-B CONTINUITÉ CADRÉE, PROVENANCE DOCUMENTÉE, F2 BID/ASK PRÊT.** La section 207 fixe l’état courant. Le corpus est explicitement DISCONTINU mais utilisable ultérieurement avec parcours horodaté/gap-aware ; 1 290/1 605 gaps sont frontières de session régulière, 315 restent en session ouverte avant holiday overlay complet, dont 13 pertes d’acquisition historiques prouvées et 9 historiques inconnues. La provenance publique qualifie USTECH/Nasdaq100 CFD, timestamp UTC, CC-BY-4.0, source publisher ‘Dukascopy via Tickstory’, sans certifier feed equivalence. F2 bid/ask actuel est re-break PASS et attend une exécution locale.
+> **DIRECTIVE ACTIVE — 2026-09-25 : F2 BID/ASK COMPLETE EN LOCAL ; JSON EXACT À INGÉRER AVANT SYNTHÈSE DATA TRUTH.** La section 208 fixe l’état courant. F2 a lu 376 003 618 lignes avec 0 null bid/ask, 0 ask<bid et 0 spread non positif ; spread min/max/moyen observés = 0.001 / 35.667 / 2.139504. Prochaine action unique : joindre le JSON F2 exact, puis adjudication complète et décision de clôture DATA TRUTH.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13658,5 +13658,53 @@ Après F2 :
 - décision sur ce qui reste réellement avant clôture Data Truth et passage à Asset Behavioral Profile.
 
 Aucun E1/backtest/MT5/paper/broker/live.
+
+STOP.
+
+---
+
+## 208. E0-SOURCE-B-F2 — exécution locale complète, JSON exact en attente — 2026-09-25
+
+Fresh HEAD avant persistance du résultat terminal :
+`b2ef568cf6f74bc6f7855370815694b530c56b7d`.
+
+Sortie locale :
+```text
+F2_COMPLETE
+Rows read: 376003618
+Bid null: 0; Ask null: 0
+Ask < Bid: 0
+Nonpositive spread: 0
+Spread min/max/mean: 0.000999999996565748 / 35.66699999999764 / 2.1395040593705223
+Report: C:\Users\Boulevart\AppData\Local\Temp\ATDS-E0-SOURCE-B-F2-BID-ASK-QUALITY.json
+```
+
+Rapport :
+`reports/data-qualification/e0_source_b_f2_bid_ask_quality_execution_observed_2026-09-25.md`
+blob `4a6715c5896168ed6093fa1add15520078df0bdd`
+commit `3b29b58ba8fd9ae918d68946a92a2f79cdb5a91a`.
+
+**Verdict borné : PASS — terminaison locale F2 selon la sortie terminale.**
+
+Reste à prouver par ingestion du JSON exact :
+- SHA-256 du rapport F2 ;
+- bindings manifest/F0/F1 ;
+- compteurs nonfinite/nonpositive détaillés ;
+- extrema bid/ask ;
+- détail fichier par fichier ;
+- budget déclaré ;
+- `volume_fields_qualified=false`.
+
+### Prochaine action gouvernée unique
+
+Joindre :
+`ATDS-E0-SOURCE-B-F2-BID-ASK-QUALITY.json`.
+
+Puis :
+- adjudication F2 ;
+- synthèse Source-B Data Truth ;
+- décision de clôture ou dernier contrôle minimal.
+
+Aucun volume scan, E1, backtest, MT5, paper/broker/live.
 
 STOP.
