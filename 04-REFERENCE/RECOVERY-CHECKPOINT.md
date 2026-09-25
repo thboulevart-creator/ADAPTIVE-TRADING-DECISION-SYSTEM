@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP2 EXACT PASS ; AP3 EXPANSION/COMPRESSION PRÊT POUR EXÉCUTION LOCALE.** La section 212 fixe l’état courant. AP2 qualifie la carte de volatilité gap-aware sur 1 709 180 minutes, avec 1m/5m/15m/60m et RV5/RV15/RV60. Les premières observations sont persistées. AP3 est pré-enregistré et re-break PASS avec deux lentilles : volatilité absolue et volatilité normalisée par médiane RV15 de l’heure New York ; seuils p20/p80 descriptifs, causal_deployable=false. Prochaine action unique : exécuter AP3 localement et joindre le JSON exact.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP4 EXACT PASS ; AP5 MICROSTRUCTURE PRICE-CORE À PRÉ-ENREGISTRER.** AP3 reste PASS. AP4 a été ingéré depuis le JSON exact, hashé et adjudiqué PASS sous ses bindings pré-enregistrés. Aucun edge, backtest, MT5, PnL ou optimisation n'est ouvert. Prochaine action : AP5 preflight → helper → adversarial break/re-break → exécution locale uniquement si nécessaire.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14207,3 +14207,52 @@ Aucun AP5 ouvert ; AP3 reste PASS.
 Préférence de handoff : copie du rapport dans un dossier ATDS sur le Bureau + ouverture automatique, sans écrasement ni déplacement de l'original.
 Prochaine action gouvernée unique : joindre ATDS-AP4-PRICE-STRUCTURE.json.
 Ne pas relancer AP4. À réception : fresh HEAD, hash exact, adjudication, puis poursuite si PASS.
+
+
+---
+
+## 216. AP4 EXACT PASS → AP5 PREFLIGHT — 2026-09-25
+
+Fresh HEAD avant adjudication :
+`52da2531c98e63a934742f9dddc51b17179389df`.
+
+### AP4 exact
+
+Evidence :
+`reports/program/evidence/2026-09-25-AP4-PRICE-STRUCTURE.json`.
+
+- 15 488 octets ;
+- SHA-256 `c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad` ;
+- `AP4_COMPLETE` ;
+- AP0 manifest/AP3/helper exacts liés ;
+- 61 fichiers AP0 rehashés ;
+- 1 709 180 minutes ;
+- 1 606 segments ;
+- 1 707 574 retours 1m ;
+- 1 686 423 fenêtres 15m ;
+- 1 620 195 fenêtres 60m ;
+- 1 605 réouvertures.
+
+Contrôles de conservation :
+matrice de signes, runs, issues de réintégration, buckets annuels, counts AP2 et flags de portée : PASS.
+
+Adjudication :
+`reports/program/2026-09-25-AP4-PRICE-STRUCTURE-ADJUDICATION.md`.
+
+Observations :
+`reports/program/2026-09-25-AP4-FIRST-BEHAVIORAL-OBSERVATIONS.md`.
+
+Verdict :
+**PASS — AP4 PRICE STRUCTURE descriptif.**
+
+Limites :
+exécution locale non reproduite indépendamment ; future observations pour la réintégration ; `causal_deployable=false` ; fenêtres non indépendantes ; stabilité AP6 non qualifiée.
+
+### Prochaine action gouvernée unique
+
+Pré-enregistrer **AP5 MICROSTRUCTURE PRICE-CORE** selon le protocole V0.1.
+
+AP5 reste strategy-agnostic :
+spread, spread temporel, extrêmes, relation spread↔volatilité et tick density ; volume/profondeur hors scope.
+
+Aucun backtest/MT5/stratégie/PnL/optimisation.

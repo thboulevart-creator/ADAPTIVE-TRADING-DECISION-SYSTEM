@@ -1,0 +1,644 @@
+{
+  "binding": {
+    "ap0_files_rehashed": 61,
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap3_sha256": "caa2d02942d5cbd05bcfadd0dedfabde000e4e941cdf4aa4b0433801f76f42ef",
+    "helper_sha256": "f957b38a252ffb2649602fdc5405b82735c88300e1f32cc9fee5f41834098987"
+  },
+  "coverage": {
+    "minute_rows": 1709180,
+    "segments": 1606,
+    "valid_1m_returns": 1707574
+  },
+  "direction": {
+    "adjacent_pair_counts": [
+      [
+        412453,
+        595,
+        431548
+      ],
+      [
+        616,
+        3,
+        635
+      ],
+      [
+        431500,
+        658,
+        428039
+      ]
+    ],
+    "eligible_pairs": 1706047,
+    "nonzero_pairs": 1703540,
+    "persistence_rate": 0.4933796682202942,
+    "reversal_rate": 0.5066203317797058,
+    "sign_counts": [
+      845357,
+      1256,
+      860961
+    ],
+    "sign_order": [
+      "DOWN",
+      "ZERO",
+      "UP"
+    ],
+    "valid_return_count": 1707574,
+    "zero_involving_pairs": 2507
+  },
+  "directional_runs": {
+    "DOWN": {
+      "amplitude_abs_log_bps": {
+        "count": 432904,
+        "max": 372.0846136154141,
+        "mean": 4.194059541266035,
+        "min": 0.0,
+        "p50": 2.1813472935464233,
+        "p90": 9.880267306603491,
+        "p99": 30.45262294854149
+      },
+      "duration_minutes": {
+        "count": 432904,
+        "max": 20.0,
+        "mean": 1.9527585792693067,
+        "min": 1.0,
+        "p50": 1.0,
+        "p90": 4.0,
+        "p99": 7.0
+      }
+    },
+    "UP": {
+      "amplitude_abs_log_bps": {
+        "count": 432922,
+        "max": 462.2238943623379,
+        "mean": 4.208938391975729,
+        "min": 0.0,
+        "p50": 2.262536168360384,
+        "p90": 9.79158713470679,
+        "p99": 29.333028754530144
+      },
+      "duration_minutes": {
+        "count": 432922,
+        "max": 18.0,
+        "mean": 1.9887208319281533,
+        "min": 1.0,
+        "p50": 2.0,
+        "p90": 4.0,
+        "p99": 7.0
+      }
+    },
+    "nonzero_return_count": 1706318
+  },
+  "horizons": {
+    "15": {
+      "abs_displacement_bps": {
+        "count": 1686423,
+        "max": 657.466834476329,
+        "mean": 8.409146494574696,
+        "min": 0.0,
+        "p50": 4.782867989752049,
+        "p90": 19.78237097483209,
+        "p99": 54.08429520234839
+      },
+      "breakouts": {
+        "down": {
+          "censored": 441,
+          "event_count": 117253,
+          "first_reentry_lag_minutes": {
+            "count": 87688,
+            "max": 15.0,
+            "mean": 3.467806313292583,
+            "min": 1.0,
+            "p50": 2.0,
+            "p90": 9.0,
+            "p99": 15.0
+          },
+          "not_reentered_full_15m": 29124,
+          "reentered": 87688
+        },
+        "eligible_count": 1686423,
+        "up": {
+          "censored": 524,
+          "event_count": 130221,
+          "first_reentry_lag_minutes": {
+            "count": 95187,
+            "max": 15.0,
+            "mean": 3.5357664386943597,
+            "min": 1.0,
+            "p50": 2.0,
+            "p90": 9.0,
+            "p99": 15.0
+          },
+          "not_reentered_full_15m": 34510,
+          "reentered": 95187
+        }
+      },
+      "efficiency": {
+        "count": 1686423,
+        "max": 1.0,
+        "mean": 0.25740927472902353,
+        "min": 0.0,
+        "p50": 0.22367145981390998,
+        "p90": 0.5231200500562267,
+        "p99": 0.7653155302676656
+      },
+      "signed_displacement_bps": {
+        "count": 1686423,
+        "max": 657.466834476329,
+        "mean": 0.05538593220877874,
+        "min": -417.52094899693157,
+        "p50": 0.20431669282879739,
+        "p90": 12.422385247822108,
+        "p99": 41.07512100337887
+      },
+      "valid_windows": 1686423,
+      "zero_travel_excluded": 0
+    },
+    "60": {
+      "abs_displacement_bps": {
+        "count": 1620195,
+        "max": 815.2187430573231,
+        "mean": 17.148924733338035,
+        "min": 0.0,
+        "p50": 9.913246315257766,
+        "p90": 40.55240684473689,
+        "p99": 107.38374287876815
+      },
+      "breakouts": {
+        "down": {
+          "censored": 224,
+          "event_count": 52218,
+          "first_reentry_lag_minutes": {
+            "count": 38834,
+            "max": 15.0,
+            "mean": 3.466575681104187,
+            "min": 1.0,
+            "p50": 2.0,
+            "p90": 9.0,
+            "p99": 15.0
+          },
+          "not_reentered_full_15m": 13160,
+          "reentered": 38834
+        },
+        "eligible_count": 1620195,
+        "up": {
+          "censored": 284,
+          "event_count": 61792,
+          "first_reentry_lag_minutes": {
+            "count": 45064,
+            "max": 15.0,
+            "mean": 3.512537724125688,
+            "min": 1.0,
+            "p50": 2.0,
+            "p90": 9.0,
+            "p99": 15.0
+          },
+          "not_reentered_full_15m": 16444,
+          "reentered": 45064
+        }
+      },
+      "efficiency": {
+        "count": 1620195,
+        "max": 0.7923057573559367,
+        "mean": 0.13080767215518072,
+        "min": 0.0,
+        "p50": 0.1115368569298813,
+        "p90": 0.2678717341624287,
+        "p99": 0.41687622682214925
+      },
+      "signed_displacement_bps": {
+        "count": 1620195,
+        "max": 815.2187430573231,
+        "mean": 0.17817168437872175,
+        "min": -574.2500653055358,
+        "p50": 0.715965138991578,
+        "p90": 25.470750967359713,
+        "p99": 80.38702553367028
+      },
+      "valid_windows": 1620195,
+      "zero_travel_excluded": 0
+    }
+  },
+  "input_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "metric_contract": {
+    "breakout": "close strictly outside previous H minute high/low range; current excluded",
+    "efficiency": "abs(sum(r))/sum(abs(r)); zero denominator excluded",
+    "horizons_minutes": [
+      15,
+      60
+    ],
+    "percentiles": "linear",
+    "reentry": "first future close inside frozen inclusive event range, censored at discontinuity",
+    "reentry_horizon_minutes": 15,
+    "reopen": "explicitly discontinuous current open vs previous close",
+    "runs": "consecutive same-sign nonzero 1m close returns; zero breaks",
+    "stability": "AP6 pending; overlapping observations not independent"
+  },
+  "reopen": {
+    "absolute_discontinuous_log_bps": {
+      "count": 1605,
+      "max": 517.6103757428144,
+      "mean": 13.645830547404133,
+      "min": 0.0,
+      "p50": 5.993795613435418,
+      "p90": 31.995592415618358,
+      "p99": 118.19115682382152
+    },
+    "boundary_count": 1605,
+    "gap_ms": {
+      "count": 1605,
+      "max": 265872098.0,
+      "mean": 34422873.957009345,
+      "min": 60008.0,
+      "p50": 6305326.0,
+      "p90": 179106097.0,
+      "p99": 182701251.12
+    },
+    "signed_discontinuous_log_bps": {
+      "count": 1605,
+      "max": 322.6961394559438,
+      "mean": 0.6763861350766741,
+      "min": -517.6103757428144,
+      "p50": 0.8708907025659484,
+      "p90": 18.485461379267118,
+      "p99": 75.87427034250014
+    }
+  },
+  "runtime": {
+    "numpy_version": "2.5.3",
+    "pyarrow_version": "25.0.1"
+  },
+  "schema": "ATDS_AP4_PRICE_STRUCTURE_V0_1",
+  "scope": {
+    "causal_deployable": false,
+    "future_observations_used": true,
+    "optimization": false,
+    "pnl_calculated": false,
+    "predictive_labels_exported": false,
+    "signals_calculated": false,
+    "source_volume_used": false,
+    "strategy_agnostic": true
+  },
+  "status": "AP4_COMPLETE",
+  "utc_years": [
+    {
+      "direction": {
+        "adjacent_pair_counts": [
+          [
+            50567,
+            140,
+            53011
+          ],
+          [
+            143,
+            1,
+            139
+          ],
+          [
+            53005,
+            142,
+            52273
+          ]
+        ],
+        "eligible_pairs": 209421,
+        "nonzero_pairs": 208856,
+        "persistence_rate": 0.49239667522120506,
+        "reversal_rate": 0.507603324778795,
+        "sign_counts": [
+          103808,
+          283,
+          105517
+        ],
+        "sign_order": [
+          "DOWN",
+          "ZERO",
+          "UP"
+        ],
+        "valid_return_count": 209608,
+        "zero_involving_pairs": 565
+      },
+      "efficiency": {
+        "15": {
+          "count": 207004,
+          "max": 1.0,
+          "mean": 0.2531046575286586,
+          "min": 6.080430180524929e-15,
+          "p50": 0.22037708672552048,
+          "p90": 0.5140230505414084,
+          "p99": 0.7483714856536532
+        },
+        "60": {
+          "count": 198994,
+          "max": 0.6821372574994967,
+          "mean": 0.12845728389800035,
+          "min": 0.0,
+          "p50": 0.10941870667979618,
+          "p90": 0.2639455791549543,
+          "p99": 0.41069462717128397
+        }
+      },
+      "minute_rows": 209795,
+      "partial_period": true,
+      "year": 2021
+    },
+    {
+      "direction": {
+        "adjacent_pair_counts": [
+          [
+            84234,
+            113,
+            86312
+          ],
+          [
+            112,
+            1,
+            123
+          ],
+          [
+            86318,
+            122,
+            84659
+          ]
+        ],
+        "eligible_pairs": 341994,
+        "nonzero_pairs": 341523,
+        "persistence_rate": 0.49452891898935064,
+        "reversal_rate": 0.5054710810106493,
+        "sign_counts": [
+          170818,
+          236,
+          171231
+        ],
+        "sign_order": [
+          "DOWN",
+          "ZERO",
+          "UP"
+        ],
+        "valid_return_count": 342285,
+        "zero_involving_pairs": 471
+      },
+      "efficiency": {
+        "15": {
+          "count": 338249,
+          "max": 1.0,
+          "mean": 0.2602808081612025,
+          "min": 0.0,
+          "p50": 0.2279369055026284,
+          "p90": 0.5251984054669403,
+          "p99": 0.7610606610087022
+        },
+        "60": {
+          "count": 325571,
+          "max": 0.726233380394345,
+          "mean": 0.13328891858880934,
+          "min": 0.0,
+          "p50": 0.11459203869189835,
+          "p90": 0.2717818126081174,
+          "p99": 0.41704400923255197
+        }
+      },
+      "minute_rows": 342580,
+      "partial_period": false,
+      "year": 2022
+    },
+    {
+      "direction": {
+        "adjacent_pair_counts": [
+          [
+            81908,
+            185,
+            86390
+          ],
+          [
+            204,
+            1,
+            204
+          ],
+          [
+            86372,
+            225,
+            84752
+          ]
+        ],
+        "eligible_pairs": 340241,
+        "nonzero_pairs": 339422,
+        "persistence_rate": 0.4910111896105733,
+        "reversal_rate": 0.5089888103894268,
+        "sign_counts": [
+          168648,
+          411,
+          171496
+        ],
+        "sign_order": [
+          "DOWN",
+          "ZERO",
+          "UP"
+        ],
+        "valid_return_count": 340555,
+        "zero_involving_pairs": 819
+      },
+      "efficiency": {
+        "15": {
+          "count": 336214,
+          "max": 1.0,
+          "mean": 0.25514481499516767,
+          "min": 0.0,
+          "p50": 0.2207634150244412,
+          "p90": 0.520205627969352,
+          "p99": 0.7616938801515801
+        },
+        "60": {
+          "count": 322766,
+          "max": 0.7455662255631986,
+          "mean": 0.12928431651991837,
+          "min": 0.0,
+          "p50": 0.11067707524587414,
+          "p90": 0.26333709082182266,
+          "p99": 0.41214540124242516
+        }
+      },
+      "minute_rows": 340877,
+      "partial_period": false,
+      "year": 2023
+    },
+    {
+      "direction": {
+        "adjacent_pair_counts": [
+          [
+            81441,
+            60,
+            86345
+          ],
+          [
+            63,
+            0,
+            76
+          ],
+          [
+            86331,
+            79,
+            87160
+          ]
+        ],
+        "eligible_pairs": 341555,
+        "nonzero_pairs": 341277,
+        "persistence_rate": 0.4940297763986439,
+        "reversal_rate": 0.5059702236013561,
+        "sign_counts": [
+          167998,
+          139,
+          173720
+        ],
+        "sign_order": [
+          "DOWN",
+          "ZERO",
+          "UP"
+        ],
+        "valid_return_count": 341857,
+        "zero_involving_pairs": 278
+      },
+      "efficiency": {
+        "15": {
+          "count": 337700,
+          "max": 1.0,
+          "mean": 0.2563305143175388,
+          "min": 0.0,
+          "p50": 0.2220560763274385,
+          "p90": 0.5224582005816462,
+          "p99": 0.7666965952041801
+        },
+        "60": {
+          "count": 324660,
+          "max": 0.7923057573559367,
+          "mean": 0.13137819827267017,
+          "min": 0.0,
+          "p50": 0.11087740531620066,
+          "p90": 0.27217164910210073,
+          "p99": 0.423473726224589
+        }
+      },
+      "minute_rows": 342214,
+      "partial_period": false,
+      "year": 2024
+    },
+    {
+      "direction": {
+        "adjacent_pair_counts": [
+          [
+            82003,
+            69,
+            85781
+          ],
+          [
+            73,
+            0,
+            66
+          ],
+          [
+            85776,
+            70,
+            86136
+          ]
+        ],
+        "eligible_pairs": 339974,
+        "nonzero_pairs": 339696,
+        "persistence_rate": 0.49496903113371954,
+        "reversal_rate": 0.5050309688662804,
+        "sign_counts": [
+          167994,
+          139,
+          172128
+        ],
+        "sign_order": [
+          "DOWN",
+          "ZERO",
+          "UP"
+        ],
+        "valid_return_count": 340261,
+        "zero_involving_pairs": 278
+      },
+      "efficiency": {
+        "15": {
+          "count": 336243,
+          "max": 1.0,
+          "mean": 0.25998334400910916,
+          "min": 0.0,
+          "p50": 0.2244721610836529,
+          "p90": 0.5309878370886755,
+          "p99": 0.7801674456555687
+        },
+        "60": {
+          "count": 323388,
+          "max": 0.7550667803339572,
+          "mean": 0.13059948529424517,
+          "min": 0.0,
+          "p50": 0.11078089723800255,
+          "p90": 0.2673861463731197,
+          "p99": 0.41883891304100873
+        }
+      },
+      "minute_rows": 340554,
+      "partial_period": false,
+      "year": 2025
+    },
+    {
+      "direction": {
+        "adjacent_pair_counts": [
+          [
+            32300,
+            28,
+            33709
+          ],
+          [
+            21,
+            0,
+            27
+          ],
+          [
+            33698,
+            20,
+            33059
+          ]
+        ],
+        "eligible_pairs": 132862,
+        "nonzero_pairs": 132766,
+        "persistence_rate": 0.49228718195923654,
+        "reversal_rate": 0.5077128180407634,
+        "sign_counts": [
+          66091,
+          48,
+          66869
+        ],
+        "sign_order": [
+          "DOWN",
+          "ZERO",
+          "UP"
+        ],
+        "valid_return_count": 133008,
+        "zero_involving_pairs": 96
+      },
+      "efficiency": {
+        "15": {
+          "count": 131013,
+          "max": 1.0,
+          "mean": 0.25878247697625434,
+          "min": 0.0,
+          "p50": 0.22729388558959784,
+          "p90": 0.5217104049673327,
+          "p99": 0.7627543482456346
+        },
+        "60": {
+          "count": 124816,
+          "max": 0.7275732090777419,
+          "mean": 0.1310774837695381,
+          "min": 4.2469234219007635e-14,
+          "p50": 0.11292648149434961,
+          "p90": 0.2657093077819493,
+          "p99": 0.4129226519340819
+        }
+      },
+      "minute_rows": 133160,
+      "partial_period": true,
+      "year": 2026
+    }
+  ]
+}
