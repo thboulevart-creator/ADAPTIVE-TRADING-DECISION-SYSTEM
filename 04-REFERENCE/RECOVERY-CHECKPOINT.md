@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : SIDECAR DU BUNDLE HISTORIQUE REÇU ; ZIP ENCORE À JOINDRE.** La section 205 fixe l’état courant. Le sidecar annonce SHA-256 `072f26bf...` pour `ATDS-SOURCE-B-GAP-FORENSICS-HISTORICAL.zip`. Le ZIP lui-même n’est pas encore accessible dans la session, donc les 53 artefacts ne sont pas encore ingérés. Prochaine action unique : joindre le ZIP exact, puis vérification SHA/manifest/entrées et reconstruction des preuves historiques.
+> **DIRECTIVE ACTIVE — 2026-09-25 : GAP-FORENSICS HISTORIQUE RÉCUPÉRÉ ; SÉMANTIQUE DE SESSION RÉCONCILIÉE ; OVERLAY HOLIDAYS/MATÉRIALITÉ SUIVANT.** La section 206 fixe l’état courant. Le bundle historique est PASS 53/53. Les 22 anciens gaps correspondent encore 22/22 au F1 courant ; les verdicts 13 DATASET_ACQUISITION_LOSS / 9 UNKNOWN restent valides pour ces 22 seuls intervalles. L’horloge brute Source-B est supportée comme GMT/UTC pour la session régulière ; l’ancienne politique Europe/Paris est superseded pour cet usage. Les 1 605 gaps >60 s se répartissent en 1 290 frontières de session et 315 gaps en session régulière avant holidays. Prochaine action : overlay ciblé des horaires spéciaux puis décision de matérialité, sans refaire l’ancien travail.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13465,3 +13465,70 @@ Après ingestion :
 Aucune nouvelle recherche calendrier/session/événement avant cette ingestion.
 
 STOP.
+
+---
+
+## 206. E0-SOURCE-B — bundle historique PASS, timestamp/session reconcilié — 2026-09-25
+
+Fresh HEAD :
+`af09f9580a7915d153697d747eb05e612f62d8f0`.
+
+### Bundle historique
+
+ZIP :
+- SHA-256 `072f26bfacd51ba1501d3c9009d79c78436f360fc6eccd7143275db759f9d028`;
+- 53/53 entrées manifestées et re-hashées PASS ;
+- 5 774 487 octets source.
+
+Rapport :
+`reports/data-qualification/e0_source_b_historical_gap_forensics_bundle_adjudication_2026-09-25.md`
+blob `05d3ace66e6bf108f26c2b7f9ab5be43463fa44a`.
+
+Les 22 intervalles historiques open-gap correspondent exactement 22/22 au F1 courant.
+Réutilisation bornée :
+- 13 `DATASET_ACQUISITION_LOSS`;
+- 9 `UNKNOWN_INSUFFICIENT_SOURCE_CONTEXT`;
+- aucune extrapolation aux autres gaps.
+
+### Réconciliation timestamp/session
+
+Rapport :
+`reports/data-qualification/e0_source_b_timestamp_session_semantics_reconciliation_2026-09-25.md`
+blob `0f257567f00bb3970ece80d37b5f6d7ee3789187`.
+
+Revue adversariale :
+`reports/data-qualification/e0_source_b_timestamp_session_semantics_adversarial_review_2026-09-25.md`
+blob `9fcb4fac0b3dc83d602ac30d1ffcee362cd6280d`.
+
+Verdict :
+**PASS_WITH_LIMITATION — horloge brute Source-B supportée comme GMT/UTC pour la classification de la session régulière USATECH.**
+
+L’ancienne politique `Europe/Paris wall-clock -> UTC` est **SUPERSEDED pour la classification de session**, sans réécrire l’historique.
+
+Motifs officiels/réconciliés :
+- summer break : 20:15→22:00 GMT ;
+- winter break : 21:15→23:00 GMT ;
+- bascules observées suivant le DST US.
+
+Classification F1 sans holiday overrides :
+- 1 605 gaps >60 s ;
+- 1 290 `SESSION_BOUNDARY_GAP`;
+- 315 `TRUE_OPEN_SESSION_GAP`.
+
+Les 22 gaps historiques sont 22/22 dans les 315.
+
+### Prochaine action gouvernée
+
+Overlay ciblé des horaires spéciaux/jours fériés sur les 315, en commençant par les gaps matériellement longs, puis :
+1. `DOCUMENTED_SPECIAL_BREAK`;
+2. `HISTORICAL_PROVEN_ACQUISITION_LOSS`;
+3. `HISTORICAL_UNKNOWN`;
+4. `UNRESOLVED_CURRENT`.
+
+Ne pas appeler automatiquement un gap en session ouverte une perte d’acquisition.
+
+Après overlay : décider si le résiduel est matériel pour l’usage recherche visé.
+
+Aucun E1/backtest/MT5/paper/broker/live.
+
+STOP uniquement si preuve externe/local manquante.
