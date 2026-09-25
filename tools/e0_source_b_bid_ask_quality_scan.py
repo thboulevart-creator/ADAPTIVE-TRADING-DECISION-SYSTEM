@@ -242,6 +242,8 @@ def main() -> int:
 
         if int(pf.metadata.num_rows) != int(f0row["num_rows"]):
             blocked(output, report, "BLOCKED_ROW_COUNT_DRIFT", rel)
+        if int(pf.metadata.num_row_groups) != int(f0row["num_row_groups"]):
+            blocked(output, report, "BLOCKED_ROW_GROUP_DRIFT", rel)
 
         file_counts = {
             "rows": 0, "bid_null": 0, "ask_null": 0,
@@ -350,7 +352,7 @@ def main() -> int:
     }
     report["status"] = "F2_COMPLETE"
     report["reason"] = "Bid/ask-only quality scan complete; volume fields deliberately outside qualified scope."
-    report["runtime"] = {"numpy_version": np.__version__}
+    report["runtime"] = {"numpy_version": np.__version__, "pyarrow_version": pq.__version__ if hasattr(pq, "__version__") else None}
 
     write_json(output, report)
     print("F2_COMPLETE")
