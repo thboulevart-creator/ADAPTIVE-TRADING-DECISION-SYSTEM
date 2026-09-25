@@ -189,3 +189,88 @@ DETERMINE
 → STOP ONLY AT A REAL AUTHORITY / CAPABILITY BOUNDARY
 ```
 
+## 12. CONTINUOUS TURN EXECUTION
+
+A single user turn is treated as an execution batch, not as permission for one isolated sub-step.
+
+Within that batch, after every completed action:
+
+```text
+RESULT
+→ determine next mechanically implied action
+→ execute it immediately
+→ verify
+→ persist if durable
+→ continue
+```
+
+Do not stop merely because:
+- one report is finished;
+- one commit succeeded;
+- one breaker passed;
+- one correction was applied;
+- one checkpoint was updated;
+- the next governed action can already be derived.
+
+A response boundary is not a governance boundary.
+
+## 13. REAL STOP CONDITIONS
+
+Stop and return control to the user only when at least one of these conditions is true:
+
+1. **LOCAL USER ACTION REQUIRED** — PowerShell/terminal command, local application action, file upload, secret/credential entry, or access to bytes unavailable to the assistant.
+2. **EXTERNAL EXECUTION REQUIRED** — an independent reviewer, Claude/Grok, broker terminal, external system or unavailable capability must act.
+3. **HUMAN NORMATIVE AUTHORITY REQUIRED** — a genuinely new non-derivable architecture/policy choice is reserved for the owner.
+4. **GENUINE BLOCKER / MISSING EVIDENCE** — the next required fact cannot be established from available evidence and no independent workstream can proceed.
+5. **DESTRUCTIVE OR IRREVERSIBLE ACTION** — reset, force-push, deletion of irreplaceable evidence, live/broker/capital action, or another action requiring explicit authority.
+6. **NON-EQUIVALENT AMBIGUITY** — multiple materially different next paths remain valid and existing governance does not determine which one to choose.
+
+Do **not** stop for ordinary documentation, testing, adversarial breaking, correction, re-break, report persistence, checkpoint updates, backups, or the next mechanically implied governed step.
+
+## 14. CHAT RUNTIME RESILIENCE
+
+The assistant does not have a reliable countdown for the platform's response/runtime limit and must not pretend otherwise.
+
+To reduce loss from long silent execution:
+
+- emit a concise progress update during long runs, normally after about 2–3 tool calls or a meaningful work boundary;
+- a progress update is informational only and **does not request confirmation**;
+- continue execution immediately after the update;
+- avoid one very large opaque action when the same work can be divided into atomic, verifiable batches;
+- persist durable evidence at meaningful stable boundaries rather than holding the entire state only in conversational context;
+- before a particularly long or failure-prone local/external handoff, ensure the repository records the exact current HEAD, completed evidence, and resumable next action.
+
+If the platform forces a response boundary before the whole mechanically determined chain is complete, the assistant must leave the repository in a recoverable state and state the exact resume point.
+
+Because the assistant cannot independently initiate a new chat turn after sending a final response, a platform-forced turn boundary still requires one new user message. The minimal resume command is:
+
+```text
+continue
+```
+
+On receiving it, the assistant must resume from GitHub/checkpoint/backup without asking the user to restate the plan.
+
+## 15. PROGRESS MESSAGES ARE NOT STOP POINTS
+
+During continuous execution, messages such as:
+
+- “F0 candidate created; adversarial break now running.”
+- “Breaker found one defect; correction is being applied.”
+- “Persisted-head re-break passed; moving to the next governed action.”
+
+are **heartbeats**, not requests for approval.
+
+The assistant must not end a turn with “next action = X” when X is already authorized, mechanically determined, and executable with available capabilities. It must execute X in the same turn.
+
+The operating mode therefore becomes:
+
+```text
+DETERMINE
+→ EXECUTE
+→ VERIFY
+→ RECORD
+→ HEARTBEAT IF LONG
+→ ENCHAIN
+→ REPEAT
+→ STOP ONLY AT A REAL STOP CONDITION
+```
