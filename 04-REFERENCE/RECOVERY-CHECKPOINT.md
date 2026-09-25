@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : F2 BID/ASK COMPLETE EN LOCAL ; JSON EXACT À INGÉRER AVANT SYNTHÈSE DATA TRUTH.** La section 208 fixe l’état courant. F2 a lu 376 003 618 lignes avec 0 null bid/ask, 0 ask<bid et 0 spread non positif ; spread min/max/moyen observés = 0.001 / 35.667 / 2.139504. Prochaine action unique : joindre le JSON F2 exact, puis adjudication complète et décision de clôture DATA TRUTH.
+> **DIRECTIVE ACTIVE — 2026-09-25 : DATA TRUTH PRICE-CORE FERMÉE ; ASSET BEHAVIORAL PROFILE CORE OUVERT ; AP0 PRÊT POUR EXÉCUTION LOCALE.** La section 209 fixe l’état courant. `SOURCE_B_USTECH_PRICE_CORE_V0_1` est PASS pour timestamp+bid+ask, avec série explicitement discontinue et volumes non qualifiés. Le protocole Asset Behavioral Profile CORE est PASS. AP0 `USTECH_PROFILE_MINUTE_CORE_V0_1` est pré-enregistré, adversarialement re-breaké et attend une seule action locale : générer les 61 Parquet mensuels minute gap-aware puis joindre le manifest AP0.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13706,5 +13706,136 @@ Puis :
 - décision de clôture ou dernier contrôle minimal.
 
 Aucun volume scan, E1, backtest, MT5, paper/broker/live.
+
+STOP.
+
+---
+
+## 209. DATA TRUTH PRICE-CORE CLOSED → ASSET BEHAVIORAL PROFILE AP0 READY — 2026-09-25
+
+Fresh HEAD avant checkpoint :
+`da8c4d9d0cd56bfa534eef0b80f127b9f1db69d1`.
+
+### F2 exact
+
+JSON F2 :
+- taille : 76 768 octets ;
+- SHA-256 : `6484784faf7c77d1ba8b6d7f007ee8498ad085c4beef58a21be71898e767cb29`;
+- 212 fichiers ;
+- 376 003 618 lignes ;
+- 0 null/nonfinite/nonpositive bid/ask ;
+- 0 ask<bid ;
+- 0 spread <=0 ;
+- bid min/max = 10 431.569 / 29 805.338 ;
+- ask min/max = 10 433.001 / 29 806.499 ;
+- spread min/max/mean = 0.001 / 35.667 / 2.1395040593705223 ;
+- volumes explicitement NON QUALIFIÉS.
+
+Adjudication F2 :
+`reports/data-qualification/e0_source_b_f2_bid_ask_quality_adjudication_2026-09-25.md`.
+
+### DATA TRUTH closure
+
+DatasetIdentity :
+`SOURCE_B_USTECH_PRICE_CORE_V0_1`.
+
+Champs autorisés :
+- timestamp ;
+- bid_price ;
+- ask_price.
+
+Champs non autorisés :
+- bid_volume ;
+- ask_volume.
+
+Série :
+**DISCONTINUE**.
+
+Usages :
+- observation descriptive ;
+- transformation gap-aware ;
+- Asset Behavioral Profile strategy-agnostic.
+
+Interdictions :
+- continuité implicite par index ;
+- volumes ;
+- feed-native equivalence claim ;
+- stratégie/backtest/MT5 par cette clôture seule.
+
+Clôture :
+`reports/data-qualification/source_b_price_core_data_truth_closure_2026-09-25.md`
+blob `62e9bd1e0892dab7273eed35c8704a9e05611112`.
+
+Revue :
+`reports/data-qualification/source_b_price_core_data_truth_closure_adversarial_review_2026-09-25.md`
+blob `e72fafc60eb2eea8691c6e34c67c968139b19e53`.
+
+Verdict :
+**PASS — DATA TRUTH fermée pour PRICE-CORE uniquement.**
+
+### ASSET BEHAVIORAL PROFILE CORE
+
+Protocole :
+`docs/02.1-ASSET-BEHAVIORAL-PROFILE-CORE-PROTOCOL.md`
+blob `bfa0aa393224e54dd281735cedeb6e259089ee06`.
+
+Revue :
+`reports/program/2026-09-25-ASSET-BEHAVIORAL-PROFILE-CORE-PROTOCOL-ADVERSARIAL-REVIEW.md`
+blob `c86ff35776f0d34ea8d28d56500bdb6758d2e1ad`.
+
+Verdict :
+**PASS — fondation strategy-agnostic ouverte.**
+
+Ordre :
+AP0 minute canonical → AP1 intraday/spread → AP2 volatility → AP3 expansion/compression → AP4 structure → AP5 microstructure price-core → AP6 stability.
+
+### AP0
+
+Output identity :
+`USTECH_PROFILE_MINUTE_CORE_V0_1`.
+
+Preflight :
+`reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-PREFLIGHT.md`
+blob `374c01b1902ebcdac8dda350e01e3bfe41b45753`.
+
+Helper :
+`tools/ap0_ustech_profile_minute_core.py`
+blob `42fcb38809a1cc0365cd4027fae5154e1d6d3b4f`.
+
+Helper review :
+`reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-HELPER-ADVERSARIAL-REVIEW.md`
+blob `7c8fc0034ba86590ca99c5ef9258576bb465d7ef`.
+
+AP0 contract :
+- timestamp+bid+ask only ;
+- 1-minute UTC bars, no fill ;
+- mid descriptive only ;
+- spread mean tick-weighted ;
+- segment break at every gap >60,000 ms ;
+- 1,605 gaps expected ;
+- 1,606 segments expected ;
+- exactly 61 monthly output Parquet files ;
+- source ticks preserved = 376,003,618 ;
+- no returns/strategy/PnL.
+
+Budget dedicated :
+- 9,024,086,832 logical source bytes ;
+- cap 12 GiB ;
+- output cap 4 GiB / 100 files.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter AP0 localement.**
+
+Output recommended:
+`%USERPROFILE%\Documents\ATDS-DERIVED\USTECH_PROFILE_MINUTE_CORE_V0_1`.
+
+If `AP0_COMPLETE`:
+- copy/upload `AP0-MANIFEST.json`.
+
+If `BLOCKED_AP0_*`:
+- preserve output and send terminal output / AP0-BLOCKED.json.
+
+No AP1 analysis before AP0 manifest adjudication.
 
 STOP.
