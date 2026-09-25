@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 RAW GIT BLOB DIAGNOSIS PASS.** Local git-cat-file returns canonical AP4 bytes (15,488 bytes, SHA c66a2e...e3baad, 644 LF, 0 CRLF). Only the staged AP4 is CRLF-normalized (16,132 bytes, SHA 7019e7..., 644 CRLF). Next action: atomic binary rewrite + in-process verification; R3 only if exact canonical identity is demonstrated. AP6 remains closed.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R3 PRODUCED AP5_COMPLETE BUT IS NOT QUALIFIED.** Uploaded R3 JSON matches terminal (39,460 bytes, SHA-256 21dc09b0...4406) and passes internal AP5 reconciliations, but the staged helper SHA was 92855187... rather than frozen fdb929f5...; the guard had explicitly BLOCKED before commands were continued. The mismatch is not simple CRLF normalization. Next action: brand-new stage with helper+AP4 materialized directly from raw Git blobs, exact hashes verified, then R4. AP6 remains closed.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14427,3 +14427,39 @@ Adjudication:
 
 Next action:
 atomic binary rewrite of staged AP4 from raw Git object, with same-process verification. AP5 R3 only after exact identity confirmation.
+
+
+---
+
+## 222. AP5 R3 AP5_COMPLETE UNQUALIFIED — HELPER MISMATCH — 2026-09-25
+
+Fresh HEAD before persistence:
+`56f88db65a37245c47256aac65eb9ca9869703bf`.
+
+R3 output:
+- `AP5_COMPLETE`;
+- exit code 0;
+- 39,460 bytes;
+- SHA-256 `21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406`;
+- uploaded file independently rehashed to the same identity;
+- internal registered AP5 checks pass.
+
+However, staged helper before execution:
+- observed SHA-256 `92855187374b80651ef67dcf1224132c80d839f3c3516ad634693def6420a399`;
+- required frozen SHA-256 `fdb929f54d5c816cd12fb03130545b3714a38cb2261d3b23433fb1cd4b0f7671`;
+- explicit local guard raised BLOCKED and later commands were still continued.
+
+Canonical helper:
+- blob `21de65a7fbf8277dd2eb0afc99f4c2b80912af06`;
+- 566 LF;
+- pure CRLF-converted SHA would be `faa0f90d030f655bdefbc13f01ce6df4bd341b946600b253f3f00ecb81e6269e`, not the observed local SHA.
+
+Adjudication:
+**BLOCKED — R3 candidate output not qualified because exact helper provenance failed.**
+No AP5 PASS. AP6 remains closed.
+
+Report:
+`reports/program/2026-09-25-AP5-R3-UNQUALIFIED-HELPER-MISMATCH.md`.
+
+Next action:
+new empty stage → raw Git blob helper + raw Git blob AP4 → exact dual hash verification → fresh R4 output.
