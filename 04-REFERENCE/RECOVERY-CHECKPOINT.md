@@ -14193,3 +14193,17 @@ BLOCKED — AP4 corpus, en attente d'exécution et adjudication.
 LOCAL USER ACTION REQUIRED — exécuter le helper figé et joindre ATDS-AP4-PRICE-STRUCTURE.json + terminal.
 Si BLOCKED_AP4 : joindre terminal sans contourner ni écraser.
 Puis fresh HEAD et adjudication ; AP5 seulement si AP4 PASS.
+
+---
+
+## 215. AP4 COMPLETE rapporté — JSON exact en attente — 2026-09-25
+Fresh HEAD : 6b8dc8d8060b028f4887f028530bb206e015f192.
+Sortie utilisateur : AP4_COMPLETE ; 1 709 180 minutes ; 1 605 réouvertures.
+SHA-256 rapporté : c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad.
+Rapport terminal : reports/program/2026-09-25-AP4-PRICE-STRUCTURE-EXECUTION-OBSERVED.md.
+PASS — terminaison locale selon sortie fournie.
+BLOCKED — adjudication AP4 avant ingestion du JSON exact. Hash non recalculé dans cette session.
+Aucun AP5 ouvert ; AP3 reste PASS.
+Préférence de handoff : copie du rapport dans un dossier ATDS sur le Bureau + ouverture automatique, sans écrasement ni déplacement de l'original.
+Prochaine action gouvernée unique : joindre ATDS-AP4-PRICE-STRUCTURE.json.
+Ne pas relancer AP4. À réception : fresh HEAD, hash exact, adjudication, puis poursuite si PASS.
