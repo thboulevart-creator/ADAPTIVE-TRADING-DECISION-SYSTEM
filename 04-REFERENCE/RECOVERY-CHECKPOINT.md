@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R4 MAY RUN FROM THE CURRENT LOCAL CHECKOUT WITHOUT SWITCHING BRANCHES.** Local checkout feat/min-experiment-gaps-batch-v1 is a real divergent branch (25 ahead / 884 behind vs integration/system-v1) and must be preserved untouched. R4 identity is bound to origin/integration/system-v1 HEAD plus exact raw Git blobs, not the checked-out local branch. No reset/rebase/merge/switch required. AP6 remains closed pending qualified R4.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R4 NOT YET EXECUTED; WINDOWS POWERSHELL python -c WRAPPER FAILED BEFORE MATERIALIZATION.** Origin/remote HEAD/AP0 manifest checks passed. The multiline Python payload lost quoting around the AP4 filename, causing SyntaxError before helper/AP4 materialization. Next action: temporary Python script file + exact raw Git blobs + dual hash verification. Local divergent branch remains untouched. AP6 remains closed.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14499,3 +14499,31 @@ Report:
 
 Next action:
 run revised R4 with no local-branch equality guard.
+
+
+---
+
+## 224. AP5 R4 WRAPPER SYNTAX BLOCK — 2026-09-25
+
+Fresh HEAD before persistence:
+`a9a4fc78c4880484774d14f3206ee289422b6914`.
+
+Prechecks passed:
+- correct repository origin;
+- local branch preserved: `feat/min-experiment-gaps-batch-v1`;
+- remote `origin/integration/system-v1` matched expected HEAD;
+- AP0 manifest SHA exact.
+
+Failure:
+- multiline Python supplied through `python -c` produced a SyntaxError before any exact helper/AP4 materialization;
+- no AP5 execution occurred;
+- no R4 result exists.
+
+Adjudication:
+**BLOCKED — wrapper transport only, not AP5.**
+
+Report:
+`reports/program/2026-09-25-AP5-R4-WRAPPER-SYNTAX-BLOCK.md`.
+
+Next action:
+write the materialization program to a temporary `.py` file, invoke it directly, verify exact helper/AP4 hashes, then execute R4.
