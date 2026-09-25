@@ -22,6 +22,61 @@ PROVENANCE_FILE = Path("reports/data-qualification/provenance_timestamp_search.t
 TOOLS_DIR = Path("tools")
 REPORT_GLOB = "huggingface_ustech_*.json"
 TOOL_GLOB = "probe_huggingface_ustech_*.py"
+EXPECTED_RELATIVE_PATHS = {
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_controlled_acquisition_checkpoint_h9_1_c3_b2_a.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_controlled_acquisition_checkpoint_h9_1_c3_c7_c10.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_controlled_acquisition_h9_1_c3_b2_a.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_controlled_acquisition_h9_1_c3_c7_c10.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_dataset_repairability_h9_1_c3_b2_c6.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_existing_gap_reconciliation_h9_1_c3_b2_c7_a.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_existing_tick_provenance_h9_1_c3_b2_c7_b.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_external_instrument_identity_h9_1_c3_b2_c7_b8.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_full_dataset_qualification_c7_c11.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_full_dataset_temporal_coverage_census_h9_1_c3_c8.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_gap_loss_quantification_h9_1_c3_b2_c5.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_gap_origin_discrimination_h9_1_c3_b2_c3.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_gap_source_crosscheck_h9_1_c3_b2_c4.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_instrument_identity_h9_1_c3_b2_c7_b7.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_integrity_provenance_h9_1_c3_b1.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_internal_market_structure_h9_1_c3_b2_c7_b6.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_local_dataset_inventory_coverage_h9_1_c3_c7_c9.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_open_gap_forensics_h9_1_c3_b2_c2.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_price_encoding_forensics_h9_1_c3_b2_c7_b5.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_price_offset_instrument_identity_h9_1_c3_b2_c7_b3.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_session_continuity_h9_1_c3_b2_c.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_session_continuity_h9_1_c3_b2_c1.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_single_gap_repair_pilot_h9_1_c3_b2_c7.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_tick_quality_h9_1_c3_b2.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_time_alignment_forensics_h9_1_c3_b2_c7_b4.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_timestamp_semantics_h9_1_c3_b2_c7_b1.json",
+    "reports/data-qualification/dukascopy_research_a/huggingface_ustech_timezone_normalized_provenance_h9_1_c3_b2_c7_b2.json",
+    "reports/data-qualification/provenance_timestamp_search.txt",
+    "tools/probe_huggingface_ustech_controlled_acquisition_h9_1_c3_b2_a.py",
+    "tools/probe_huggingface_ustech_controlled_acquisition_h9_1_c3_c7_c10.py",
+    "tools/probe_huggingface_ustech_dataset_repairability_h9_1_c3_b2_c6.py",
+    "tools/probe_huggingface_ustech_existing_gap_reconciliation_h9_1_c3_b2_c7_a.py",
+    "tools/probe_huggingface_ustech_existing_tick_provenance_h9_1_c3_b2_c7_b.py",
+    "tools/probe_huggingface_ustech_external_instrument_identity_h9_1_c3_b2_c7_b8.py",
+    "tools/probe_huggingface_ustech_full_dataset_qualification_c7_c11.py",
+    "tools/probe_huggingface_ustech_full_dataset_temporal_coverage_census_h9_1_c3_c8.py",
+    "tools/probe_huggingface_ustech_gap_loss_quantification_h9_1_c3_b2_c5.py",
+    "tools/probe_huggingface_ustech_gap_origin_discrimination_h9_1_c3_b2_c3.py",
+    "tools/probe_huggingface_ustech_gap_source_crosscheck_h9_1_c3_b2_c4.py",
+    "tools/probe_huggingface_ustech_instrument_identity_h9_1_c3_b2_c7_b7.py",
+    "tools/probe_huggingface_ustech_integrity_provenance_h9_1_c3_b1.py",
+    "tools/probe_huggingface_ustech_internal_market_structure_h9_1_c3_b2_c7_b6.py",
+    "tools/probe_huggingface_ustech_local_dataset_inventory_coverage_h9_1_c3_c7_c9.py",
+    "tools/probe_huggingface_ustech_open_gap_forensics_h9_1_c3_b2_c2.py",
+    "tools/probe_huggingface_ustech_price_encoding_forensics_h9_1_c3_b2_c7_b5.py",
+    "tools/probe_huggingface_ustech_price_offset_instrument_identity_h9_1_c3_b2_c7_b3.py",
+    "tools/probe_huggingface_ustech_session_continuity_h9_1_c3_b2_c.py",
+    "tools/probe_huggingface_ustech_session_continuity_h9_1_c3_b2_c1.py",
+    "tools/probe_huggingface_ustech_single_gap_repair_pilot_h9_1_c3_b2_c7.py",
+    "tools/probe_huggingface_ustech_tick_quality_h9_1_c3_b2.py",
+    "tools/probe_huggingface_ustech_time_alignment_forensics_h9_1_c3_b2_c7_b4.py",
+    "tools/probe_huggingface_ustech_timestamp_semantics_h9_1_c3_b2_c7_b1.py",
+    "tools/probe_huggingface_ustech_timezone_normalized_provenance_h9_1_c3_b2_c7_b2.py",
+}
 
 
 def utc_now() -> str:
@@ -105,6 +160,15 @@ def main() -> int:
     if len(files) != EXPECTED_TOTAL_FILES or len(files) > MAX_FILES:
         return die(f"Unexpected total file count: {len(files)}.")
 
+    selected_relpaths = {p.relative_to(root).as_posix() for p in files}
+    if selected_relpaths != EXPECTED_RELATIVE_PATHS:
+        missing = sorted(EXPECTED_RELATIVE_PATHS - selected_relpaths)
+        unexpected = sorted(selected_relpaths - EXPECTED_RELATIVE_PATHS)
+        return die(
+            "Historical artifact path-set mismatch. "
+            f"Missing={missing}; unexpected={unexpected}"
+        )
+
     records: list[dict[str, Any]] = []
     total_bytes = 0
 
@@ -147,6 +211,9 @@ def main() -> int:
             "expected_report_jsons": EXPECTED_REPORT_JSONS,
             "expected_tool_scripts": EXPECTED_TOOL_SCRIPTS,
             "expected_total_files": EXPECTED_TOTAL_FILES,
+            "expected_relative_paths_sha256": hashlib.sha256(
+                ("\n".join(sorted(EXPECTED_RELATIVE_PATHS)) + "\n").encode("utf-8")
+            ).hexdigest(),
             "max_total_bytes": MAX_TOTAL_BYTES,
             "data_paths_allowed": False,
         },
