@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : F1 EXACT PASS ; GAP-FORENSICS HISTORIQUE LOCAL RETROUVÉ ; BUNDLE DE RÉCUPÉRATION PRÊT.** La section 204 fixe l’état courant. Le F1 exact confirme 376 003 618 timestamps strictement croissants, 0 null, 0 backward, 0 égalité adjacente et 1 605 gaps >60 s. L’inventaire local retrouve 53 artefacts historiques (~5,8 MiB), dont toute la chaîne session/open-gap/origin/source/loss/repairability. Un bundler read-only lié aux 53 chemins exacts est re-break PASS. Prochaine action réelle : exécuter le bundler localement et joindre le ZIP ; ne pas refaire calendriers/événements avant ingestion.
+> **DIRECTIVE ACTIVE — 2026-09-25 : SIDECAR DU BUNDLE HISTORIQUE REÇU ; ZIP ENCORE À JOINDRE.** La section 205 fixe l’état courant. Le sidecar annonce SHA-256 `072f26bf...` pour `ATDS-SOURCE-B-GAP-FORENSICS-HISTORICAL.zip`. Le ZIP lui-même n’est pas encore accessible dans la session, donc les 53 artefacts ne sont pas encore ingérés. Prochaine action unique : joindre le ZIP exact, puis vérification SHA/manifest/entrées et reconstruction des preuves historiques.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13419,5 +13419,49 @@ Après ingestion :
 Aucune nouvelle recherche calendrier/session/événement avant cette récupération.
 
 Aucun E1/backtest/MT5/paper/broker/live.
+
+STOP.
+
+---
+
+## 205. E0-SOURCE-B — sidecar bundle reçu, ZIP absent — 2026-09-25
+
+Fresh HEAD avant persistance :
+`cc809f0063a8ac7a60886aa509f014b6425d93c9`.
+
+Sidecar joint :
+```text
+072f26bfacd51ba1501d3c9009d79c78436f360fc6eccd7143275db759f9d028  ATDS-SOURCE-B-GAP-FORENSICS-HISTORICAL.zip
+```
+
+SHA-256 du sidecar lui-même dans la session :
+`e37f242814ff6aada0b09861910b0f5fa4f1afa591d2a1627fe0acd4e3fe6c6b`.
+
+Rapport :
+`reports/data-qualification/e0_source_b_gap_forensics_bundle_sidecar_received_2026-09-25.md`
+blob `ff0529d50958fc67e7a44ceafd35183eae290cff`.
+
+**Portée :**
+la valeur attendue du ZIP est maintenant scellée :
+`072f26bfacd51ba1501d3c9009d79c78436f360fc6eccd7143275db759f9d028`.
+
+Le ZIP exact n'est pas encore accessible dans la session.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — joindre :**
+`ATDS-SOURCE-B-GAP-FORENSICS-HISTORICAL.zip`.
+
+Après ingestion :
+1. SHA-256 ZIP == sidecar ;
+2. manifest interne ;
+3. 53 entrées exactes ;
+4. SHA-256 de chaque entrée ;
+5. parsing des anciens rapports ;
+6. reconstruction 22 / 13 / 9 depuis les preuves exactes ;
+7. comparaison avec F1 courant ;
+8. réutilisation du travail historique valide.
+
+Aucune nouvelle recherche calendrier/session/événement avant cette ingestion.
 
 STOP.
