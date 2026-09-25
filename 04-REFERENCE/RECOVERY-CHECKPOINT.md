@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP4 EXACT PASS ; AP5 MICROSTRUCTURE PRICE-CORE À PRÉ-ENREGISTRER.** AP3 reste PASS. AP4 a été ingéré depuis le JSON exact, hashé et adjudiqué PASS sous ses bindings pré-enregistrés. Aucun edge, backtest, MT5, PnL ou optimisation n'est ouvert. Prochaine action : AP5 preflight → helper → adversarial break/re-break → exécution locale uniquement si nécessaire.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP4 EXACT PASS ; AP5 PREFLIGHT PASS, HELPER CANDIDAT À MATÉRIALISER.** AP5 V0.1 reste minute-core, strategy-agnostic et sans volume source ; la microstructure sub-minute n'est pas revendiquée. Prochaine action : helper + tests synthétiques + mutation breakers, puis revue adversariale avant run local.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14256,3 +14256,35 @@ AP5 reste strategy-agnostic :
 spread, spread temporel, extrêmes, relation spread↔volatilité et tick density ; volume/profondeur hors scope.
 
 Aucun backtest/MT5/stratégie/PnL/optimisation.
+
+
+---
+
+## 217. AP5 PREFLIGHT PASS → HELPER CANDIDATE — 2026-09-25
+
+Fresh HEAD :
+`563adffe7f2452ff2897aea2c663b343c36068d2`.
+
+Preflight :
+`reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-PREFLIGHT.md`.
+
+Portée :
+- AP0 minute-core exact ;
+- spread minute ;
+- tick density minute ;
+- New York hour + proxy cash-clock 09:30–16:00 weekdays ;
+- relation descriptive spread↔minute_range / abs-return 1m / tick_count ;
+- quintiles full-sample descriptifs ;
+- UTC-year buckets ;
+- aucune donnée volume ;
+- aucune prétention sub-minute.
+
+Bindings/réconciliations :
+AP0 manifest exact, AP4 evidence exacte, F2/AP1 spread et AP2 minute-range/1m-return.
+
+Verdict :
+**PASS — preflight uniquement.**
+
+### Prochaine action gouvernée unique
+
+Matérialiser `tools/ap5_microstructure_price_core.py`, tests synthétiques et mutation breakers ; exécuter break/correction/re-break avant toute tentative corpus.
