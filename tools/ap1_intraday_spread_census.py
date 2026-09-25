@@ -107,19 +107,19 @@ def summary_for_indices(idx, tick_count, minute_range, spread_mean, spread_max):
         "minute_count": n,
         "source_tick_count": ticks,
         "tick_count_mean": float(np.mean(tc)),
-        "tick_count_p50": float(np.percentile(tc, 50)),
-        "tick_count_p90": float(np.percentile(tc, 90)),
-        "tick_count_p99": float(np.percentile(tc, 99)),
+        "tick_count_p50": float(np.percentile(tc, 50, method="linear")),
+        "tick_count_p90": float(np.percentile(tc, 90, method="linear")),
+        "tick_count_p99": float(np.percentile(tc, 99, method="linear")),
         "minute_range_mean": float(np.mean(rg)),
-        "minute_range_p50": float(np.percentile(rg, 50)),
-        "minute_range_p90": float(np.percentile(rg, 90)),
-        "minute_range_p95": float(np.percentile(rg, 95)),
-        "minute_range_p99": float(np.percentile(rg, 99)),
+        "minute_range_p50": float(np.percentile(rg, 50, method="linear")),
+        "minute_range_p90": float(np.percentile(rg, 90, method="linear")),
+        "minute_range_p95": float(np.percentile(rg, 95, method="linear")),
+        "minute_range_p99": float(np.percentile(rg, 99, method="linear")),
         "spread_tick_weighted_mean": weighted_spread,
-        "spread_mean_p50": float(np.percentile(sm, 50)),
-        "spread_mean_p90": float(np.percentile(sm, 90)),
-        "spread_mean_p95": float(np.percentile(sm, 95)),
-        "spread_mean_p99": float(np.percentile(sm, 99)),
+        "spread_mean_p50": float(np.percentile(sm, 50, method="linear")),
+        "spread_mean_p90": float(np.percentile(sm, 90, method="linear")),
+        "spread_mean_p95": float(np.percentile(sm, 95, method="linear")),
+        "spread_mean_p99": float(np.percentile(sm, 99, method="linear")),
         "spread_max_observed": float(np.max(sx)),
     }
 
@@ -210,7 +210,6 @@ def main() -> int:
 
     minute_chunks = []
     tick_chunks = []
-    segment_chunks = []
     segment_start_chunks = []
     range_chunks = []
     spread_mean_chunks = []
@@ -313,7 +312,6 @@ def main() -> int:
 
             minute_chunks.append(minute.copy())
             tick_chunks.append(tick.copy())
-            segment_chunks.append(seg.copy())
             segment_start_chunks.append(seg_start.copy())
             range_chunks.append(minute_range.copy())
             spread_mean_chunks.append(spread_mean.copy())
@@ -439,6 +437,7 @@ def main() -> int:
                 "spread_distribution_basis": "per-minute spread_mean",
                 "percentiles": [50, 90, 95, 99],
                 "tick_count_percentiles": [50, 90, 99],
+                "numpy_percentile_method": "linear",
                 "optimization": False,
             },
             "global": global_summary,
