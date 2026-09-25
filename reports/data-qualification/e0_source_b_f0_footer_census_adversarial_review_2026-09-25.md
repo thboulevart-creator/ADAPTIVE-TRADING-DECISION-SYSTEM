@@ -123,6 +123,19 @@ F0 ne qualifie aucune sémantique temporelle à partir de l'heuristique. Il éme
 **Résultat : PASS fail-closed pour F0.**
 Le helper compte explicitement les row groups avec/sans min-max. Il ne lit pas les pages de données pour combler l'absence. F1 reste séparé.
 
+### A12 — manifest déplacé ou absent
+
+**Attaque :** le chemin `--manifest` n'existe plus au moment de l'exécution.
+
+**Résultat candidat précédent : FAIL de forme.**
+La résolution `strict=True` pouvait lever une exception avant la création du rapport `BLOCKED_*`.
+
+**Correction :**
+résolution non stricte, puis contrôle explicite `is_file()` après initialisation du rapport.
+
+**Re-break : PASS.**
+Le helper produit désormais `BLOCKED_MANIFEST_NOT_FOUND` dans le JSON de sortie.
+
 ## Verdict
 
 **PASS — helper F0 suffisamment borné pour tentative locale read-only, avec deux limitations explicitement non sur-promues :**
