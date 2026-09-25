@@ -58,6 +58,15 @@ def json_safe(value: Any) -> Any:
         return repr(value)
 
 
+def is_within(child: Path, parent: Path) -> bool:
+    try:
+        child_s = os.path.normcase(str(child))
+        parent_s = os.path.normcase(str(parent))
+        return os.path.commonpath([child_s, parent_s]) == parent_s
+    except ValueError:
+        return False
+
+
 def is_reparse_or_symlink(path: Path) -> bool:
     try:
         st = path.lstat()
@@ -236,6 +245,12 @@ def main() -> int:
     output = Path(args.output).expanduser().resolve(strict=False)
     corpus = (repo_root / "data" / "research_source_b_ustech" / "parquet").resolve(strict=False)
 
+    # Enforce zero corpus writes before any error-report path can be written.
+    if output == corpus or is_within(output, corpus):
+        print("BLOCKED_OUTPUT_INSIDE_CORPUS", file=sys.stderr)
+        print("Output path must be outside the corpus.", file=sys.stderr)
+        return 2
+
     report: dict[str, Any] = {
         "schema": "ATDS_E0_SOURCE_B_F0_FOOTER_CENSUS_V0_1",
         "generated_at_utc": utc_now(),
@@ -279,11 +294,8 @@ def main() -> int:
     for row in files:
         rel = row["relative_path"]
         path = (corpus / Path(rel)).resolve(strict=False)
-        try:
-            if os.path.commonpath([str(path), str(corpus)]) != str(corpus):
-                blocked(output, report, "BLOCKED_PATH_ESCAPE", f"Manifest path escapes corpus: {rel}")
-        except ValueError:
-            blocked(output, report, "BLOCKED_PATH_ESCAPE", f"Manifest path is on another volume: {rel}")
+        if not is_within(path, corpus):
+            blocked(output, report, "BLOCKED_PATH_ESCAPE", f"Manifest path escapes corpus: {rel}")
 
         if not path.is_file():
             blocked(output, report, "BLOCKED_FILE_MISSING", f"Missing manifest file: {rel}")
@@ -298,9 +310,6 @@ def main() -> int:
         if int(st.st_mtime_ns) != expected_mtime:
             blocked(output, report, "BLOCKED_FILE_MTIME_CHANGED", f"mtime changed: {rel}")
         file_paths.append(path)
-
-    if output == corpus or corpus in output.parents:
-        blocked(output, report, "BLOCKED_OUTPUT_INSIDE_CORPUS", "Output path must be outside the corpus.")
 
     # Phase F0-A: exactly 8 tail bytes per file.
     footer_total = 0
@@ -320,22 +329,28 @@ def main() -> int:
             "footer_envelope_bytes": footer_len + 8,
         })
 
+    tail_probe_bytes = len(footer_lengths) * 8
+    planned_metadata_read_bytes = tail_probe_bytes + footer_total
     report["footer_probe"] = {
         "files_probed": len(footer_lengths),
-        "tail_probe_bytes": len(footer_lengths) * 8,
+        "tail_probe_bytes": tail_probe_bytes,
         "footer_envelope_bytes_total": footer_total,
+        "planned_cumulative_metadata_read_bytes": planned_metadata_read_bytes,
         "footer_len_min": min(footer_lengths),
         "footer_len_max": max(footer_lengths),
         "footer_len_mean": footer_total / len(footer_lengths) - 8,
-        "within_128_mib_budget": footer_total <= MAX_FOOTER_METADATA_BYTES,
+        "within_128_mib_budget": planned_metadata_read_bytes <= MAX_FOOTER_METADATA_BYTES,
     }
 
-    if footer_total > MAX_FOOTER_METADATA_BYTES:
+    if planned_metadata_read_bytes > MAX_FOOTER_METADATA_BYTES:
         blocked(
             output,
             report,
             "BLOCKED_FOOTER_METADATA_BUDGET",
-            f"Footer envelope total {footer_total} exceeds frozen limit {MAX_FOOTER_METADATA_BYTES}.",
+            (
+                f"Planned cumulative metadata read {planned_metadata_read_bytes} "
+                f"exceeds frozen limit {MAX_FOOTER_METADATA_BYTES}."
+            ),
         )
 
     # Phase F0-B: metadata API only. No column data reads are requested.
