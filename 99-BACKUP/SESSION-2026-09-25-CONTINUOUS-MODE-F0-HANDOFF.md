@@ -40,7 +40,7 @@ La plateforme ne permet pas à l'assistant de déclencher seul un nouveau tour a
 
 Manifest exact :
 - SHA-256 : `c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5`;
-- digest inventaire : `c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54`;
+- digest inventaire : `5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf`;
 - 212 Parquet ;
 - 3 936 721 231 octets ;
 - identity/inventory manifest PASS borné.
@@ -49,11 +49,11 @@ Manifest exact :
 
 Helper :
 `tools/e0_source_b_footer_census.py`
-blob : `bc409c8ae921f2822ed46f511a68303c21e2ca9c`.
+blob : `7fd406e2419e77706028c1c465c595f349cd9b1e`.
 
 Revue adversariale :
 `reports/data-qualification/e0_source_b_f0_footer_census_adversarial_review_2026-09-25.md`
-blob : `15adb0cecfd579c5faa001640d0ae0954c699f60`.
+blob : `76fa43aad6b14ad23a32a42b67820b2939ba621c`.
 
 Défauts du candidat initial corrigés :
 1. possible écriture de rapport dans le corpus lors d'un échec précoce ;
@@ -85,3 +85,28 @@ Checkpoint actif : §199.
 Aucun F1, E1, backtest, MT5, paper/broker/live ou contact Dukascopy n'est ouvert.
 
 STOP à la frontière locale.
+
+## Incident réel après premier handoff F0
+
+La première exécution locale F0 a correctement bloqué sur :
+
+```text
+BLOCKED_MANIFEST_BINDING
+canonical inventory digest mismatch:
+5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf
+!=
+c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54
+```
+
+Diagnostic : le SHA-256 exact du JSON manifest est resté conforme (`c341fb5e...`). Le digest auxiliaire `c6baf5...` était une erreur de l'adjudication précédente. Deux recalculs indépendants de la formule publiée donnent `5cf0fe2c...`.
+
+Correction durable :
+- helper F0 blob `7fd406e2419e77706028c1c465c595f349cd9b1e` ;
+- revue adversariale blob `76fa43aad6b14ad23a32a42b67820b2939ba621c` ;
+- rapport de correction/re-break :
+  `reports/data-qualification/e0_source_b_manifest_inventory_digest_correction_2026-09-25.md`
+  blob `9ae1d775f2cc63174ba7c8500428267bccfa82bc`.
+
+Re-break du binding corrigé : **PASS**.
+
+La prochaine action reste une nouvelle exécution locale F0 avec le helper corrigé.
