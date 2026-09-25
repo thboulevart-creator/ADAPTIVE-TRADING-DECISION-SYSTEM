@@ -1,0 +1,622 @@
+{
+  "absolute_lens": {
+    "phase_durations": {
+      "COMPRESSION": {
+        "max_minutes": 698,
+        "mean_minutes": 18.543350376601243,
+        "p50_minutes": 5.0,
+        "p90_minutes": 43.0,
+        "p99_minutes": 221.11999999999898,
+        "phase_count": 18189
+      },
+      "EXPANSION": {
+        "max_minutes": 1317,
+        "mean_minutes": 23.2002338698583,
+        "p50_minutes": 11.0,
+        "p90_minutes": 51.0,
+        "p99_minutes": 230.0,
+        "phase_count": 14538
+      },
+      "NORMAL": {
+        "max_minutes": 691,
+        "mean_minutes": 30.53913017233574,
+        "p50_minutes": 11.0,
+        "p90_minutes": 82.0,
+        "p99_minutes": 273.0,
+        "phase_count": 33133
+      },
+      "all_phase_count": 65860,
+      "duration_sum_minutes": 1686423,
+      "valid_state_minutes": 1686423
+    },
+    "rv15_distribution": {
+      "count": 1686423,
+      "max": 423.7015867665045,
+      "mean": 10.478525943077567,
+      "p20": 4.038130426072135,
+      "p50": 7.617655651183205,
+      "p80": 15.018274772834737,
+      "p90": 21.152386132760906,
+      "p95": 27.768130420792204,
+      "p99": 46.061288822136234,
+      "p99_9": 84.67271610781043
+    },
+    "state_counts": {
+      "states": {
+        "COMPRESSION": {
+          "count": 337285,
+          "share": 0.20000023718841595
+        },
+        "EXPANSION": {
+          "count": 337285,
+          "share": 0.20000023718841595
+        },
+        "NORMAL": {
+          "count": 1011853,
+          "share": 0.599999525623168
+        }
+      },
+      "valid_count": 1686423
+    },
+    "thresholds": {
+      "compression_max_bps": 4.038130426072135,
+      "expansion_min_bps": 15.018274772834737
+    },
+    "transitions": {
+      "conditional_probabilities_by_source": [
+        [
+          0.9464370986638193,
+          0.05352137740801709,
+          4.152392816360428e-05
+        ],
+        [
+          0.017654519085993317,
+          0.9682186999800168,
+          0.014126780933989945
+        ],
+        [
+          0.0,
+          0.04207205228509863,
+          0.9579279477149014
+        ]
+      ],
+      "counts": [
+        [
+          319096,
+          18045,
+          14
+        ],
+        [
+          17846,
+          978720,
+          14280
+        ],
+        [
+          0,
+          14175,
+          322747
+        ]
+      ],
+      "state_order": [
+        "COMPRESSION",
+        "NORMAL",
+        "EXPANSION"
+      ],
+      "valid_transition_count": 1684923
+    }
+  },
+  "binding": {
+    "ap0_files_rehashed": 61,
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap2_sha256": "4e3c79a5b9c8131f62a8fb7f205712d8a5c4301ff01b7fd3ce7226d8799d9c9f"
+  },
+  "coverage": {
+    "minute_rows": 1709180,
+    "normalized_rv15_valid_count": 1686423,
+    "rv15_valid_count": 1686423,
+    "rv60_valid_count": 1620195,
+    "segments": 1606,
+    "variance_share_valid_count": 1620195,
+    "variance_share_zero_rv60_excluded": 0
+  },
+  "input_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "intraday_normalized_lens": {
+    "hourly_rv15_medians": [
+      {
+        "hour": 0,
+        "label": "00:00 America/New_York",
+        "rv15_median_bps": 3.6009628687945012,
+        "valid_count": 77197
+      },
+      {
+        "hour": 1,
+        "label": "01:00 America/New_York",
+        "rv15_median_bps": 4.5546131693523995,
+        "valid_count": 77149
+      },
+      {
+        "hour": 2,
+        "label": "02:00 America/New_York",
+        "rv15_median_bps": 5.807721689618592,
+        "valid_count": 77154
+      },
+      {
+        "hour": 3,
+        "label": "03:00 America/New_York",
+        "rv15_median_bps": 8.146233009593029,
+        "valid_count": 77162
+      },
+      {
+        "hour": 4,
+        "label": "04:00 America/New_York",
+        "rv15_median_bps": 7.720122039041511,
+        "valid_count": 77188
+      },
+      {
+        "hour": 5,
+        "label": "05:00 America/New_York",
+        "rv15_median_bps": 6.435395226503193,
+        "valid_count": 77150
+      },
+      {
+        "hour": 6,
+        "label": "06:00 America/New_York",
+        "rv15_median_bps": 6.391881071617108,
+        "valid_count": 77066
+      },
+      {
+        "hour": 7,
+        "label": "07:00 America/New_York",
+        "rv15_median_bps": 7.148054596935397,
+        "valid_count": 77136
+      },
+      {
+        "hour": 8,
+        "label": "08:00 America/New_York",
+        "rv15_median_bps": 8.769719433822566,
+        "valid_count": 77108
+      },
+      {
+        "hour": 9,
+        "label": "09:00 America/New_York",
+        "rv15_median_bps": 15.139107431915964,
+        "valid_count": 77038
+      },
+      {
+        "hour": 10,
+        "label": "10:00 America/New_York",
+        "rv15_median_bps": 20.2459476952204,
+        "valid_count": 76930
+      },
+      {
+        "hour": 11,
+        "label": "11:00 America/New_York",
+        "rv15_median_bps": 15.25128119881766,
+        "valid_count": 76866
+      },
+      {
+        "hour": 12,
+        "label": "12:00 America/New_York",
+        "rv15_median_bps": 12.747340936324694,
+        "valid_count": 77012
+      },
+      {
+        "hour": 13,
+        "label": "13:00 America/New_York",
+        "rv15_median_bps": 12.069388203227877,
+        "valid_count": 74682
+      },
+      {
+        "hour": 14,
+        "label": "14:00 America/New_York",
+        "rv15_median_bps": 12.041646195660347,
+        "valid_count": 74633
+      },
+      {
+        "hour": 15,
+        "label": "15:00 America/New_York",
+        "rv15_median_bps": 12.690475266492207,
+        "valid_count": 74636
+      },
+      {
+        "hour": 16,
+        "label": "16:00 America/New_York",
+        "rv15_median_bps": 14.32256882258019,
+        "valid_count": 18654
+      },
+      {
+        "hour": 17,
+        "label": "17:00 America/New_York",
+        "rv15_median_bps": null,
+        "valid_count": 0
+      },
+      {
+        "hour": 18,
+        "label": "18:00 America/New_York",
+        "rv15_median_bps": 5.00401968694943,
+        "valid_count": 55845
+      },
+      {
+        "hour": 19,
+        "label": "19:00 America/New_York",
+        "rv15_median_bps": 4.795803261380357,
+        "valid_count": 76810
+      },
+      {
+        "hour": 20,
+        "label": "20:00 America/New_York",
+        "rv15_median_bps": 5.738370699828768,
+        "valid_count": 77189
+      },
+      {
+        "hour": 21,
+        "label": "21:00 America/New_York",
+        "rv15_median_bps": 5.179144718650532,
+        "valid_count": 77326
+      },
+      {
+        "hour": 22,
+        "label": "22:00 America/New_York",
+        "rv15_median_bps": 4.324922479946785,
+        "valid_count": 77253
+      },
+      {
+        "hour": 23,
+        "label": "23:00 America/New_York",
+        "rv15_median_bps": 3.735189356615608,
+        "valid_count": 77239
+      }
+    ],
+    "normalized_distribution": {
+      "count": 1686423,
+      "max": 40.38769373082837,
+      "mean": 1.2351362191804764,
+      "p20": 0.6304316352021648,
+      "p50": 1.0,
+      "p80": 1.6569597384304056,
+      "p90": 2.1927759554219577,
+      "p95": 2.786236243071895,
+      "p99": 4.5703830808241195,
+      "p99_9": 9.346809169009155
+    },
+    "phase_durations": {
+      "COMPRESSION": {
+        "max_minutes": 60,
+        "mean_minutes": 11.134457942691139,
+        "p50_minutes": 5.0,
+        "p90_minutes": 31.0,
+        "p99_minutes": 60.0,
+        "phase_count": 30292
+      },
+      "EXPANSION": {
+        "max_minutes": 60,
+        "mean_minutes": 14.643554899492033,
+        "p50_minutes": 9.0,
+        "p90_minutes": 38.0,
+        "p99_minutes": 60.0,
+        "phase_count": 23033
+      },
+      "NORMAL": {
+        "max_minutes": 60,
+        "mean_minutes": 17.314390828199862,
+        "p50_minutes": 11.0,
+        "p90_minutes": 47.0,
+        "p99_minutes": 60.0,
+        "phase_count": 58440
+      },
+      "all_phase_count": 111765,
+      "duration_sum_minutes": 1686423,
+      "valid_state_minutes": 1686423
+    },
+    "state_counts": {
+      "states": {
+        "COMPRESSION": {
+          "count": 337285,
+          "share": 0.20000023718841595
+        },
+        "EXPANSION": {
+          "count": 337285,
+          "share": 0.20000023718841595
+        },
+        "NORMAL": {
+          "count": 1011853,
+          "share": 0.599999525623168
+        }
+      },
+      "valid_count": 1686423
+    },
+    "thresholds": {
+      "compression_max_ratio": 0.6304316352021648,
+      "expansion_min_ratio": 1.6569597384304056
+    },
+    "transitions": {
+      "conditional_probabilities_by_source": [
+        [
+          0.9291049519093996,
+          0.07070740698145984,
+          0.0001876411091405432
+        ],
+        [
+          0.023771433857576522,
+          0.9586732400682545,
+          0.017555326074168966
+        ],
+        [
+          1.5064869327323455e-05,
+          0.053151871960662615,
+          0.94683306317001
+        ]
+      ],
+      "counts": [
+        [
+          306993,
+          23363,
+          62
+        ],
+        [
+          23641,
+          953413,
+          17459
+        ],
+        [
+          5,
+          17641,
+          314252
+        ]
+      ],
+      "state_order": [
+        "COMPRESSION",
+        "NORMAL",
+        "EXPANSION"
+      ],
+      "valid_transition_count": 1656829
+    },
+    "utc_year_state_shares": [
+      {
+        "minute_rows": 209795,
+        "partial_period": true,
+        "states": {
+          "COMPRESSION": {
+            "count": 71585,
+            "share": 0.3458145736314274
+          },
+          "EXPANSION": {
+            "count": 19520,
+            "share": 0.0942976947305366
+          },
+          "NORMAL": {
+            "count": 115899,
+            "share": 0.559887731638036
+          }
+        },
+        "valid_count": 207004,
+        "year": 2021
+      },
+      {
+        "minute_rows": 342580,
+        "partial_period": false,
+        "states": {
+          "COMPRESSION": {
+            "count": 6801,
+            "share": 0.020106489597899773
+          },
+          "EXPANSION": {
+            "count": 163997,
+            "share": 0.4848410490496646
+          },
+          "NORMAL": {
+            "count": 167451,
+            "share": 0.49505246135243564
+          }
+        },
+        "valid_count": 338249,
+        "year": 2022
+      },
+      {
+        "minute_rows": 340877,
+        "partial_period": false,
+        "states": {
+          "COMPRESSION": {
+            "count": 64168,
+            "share": 0.19085463425080454
+          },
+          "EXPANSION": {
+            "count": 32334,
+            "share": 0.09617089115860732
+          },
+          "NORMAL": {
+            "count": 239712,
+            "share": 0.7129744745905882
+          }
+        },
+        "valid_count": 336214,
+        "year": 2023
+      },
+      {
+        "minute_rows": 342214,
+        "partial_period": false,
+        "states": {
+          "COMPRESSION": {
+            "count": 95977,
+            "share": 0.28420787681374
+          },
+          "EXPANSION": {
+            "count": 29174,
+            "share": 0.08639028723719278
+          },
+          "NORMAL": {
+            "count": 212549,
+            "share": 0.6294018359490672
+          }
+        },
+        "valid_count": 337700,
+        "year": 2024
+      },
+      {
+        "minute_rows": 340554,
+        "partial_period": false,
+        "states": {
+          "COMPRESSION": {
+            "count": 82256,
+            "share": 0.24463260201699366
+          },
+          "EXPANSION": {
+            "count": 61135,
+            "share": 0.1818179114509447
+          },
+          "NORMAL": {
+            "count": 192852,
+            "share": 0.5735494865320616
+          }
+        },
+        "valid_count": 336243,
+        "year": 2025
+      },
+      {
+        "minute_rows": 133160,
+        "partial_period": true,
+        "states": {
+          "COMPRESSION": {
+            "count": 16498,
+            "share": 0.12592643478128124
+          },
+          "EXPANSION": {
+            "count": 31125,
+            "share": 0.23757184401547937
+          },
+          "NORMAL": {
+            "count": 83390,
+            "share": 0.6365017212032393
+          }
+        },
+        "valid_count": 131013,
+        "year": 2026
+      }
+    ]
+  },
+  "metric_contract": {
+    "absolute_state_thresholds": "full-sample RV15 p20/p80",
+    "compression_rule": "value <= p20",
+    "expansion_rule": "value >= p80",
+    "intraday_baseline": "full-sample median RV15 by America/New_York hour",
+    "normal_rule": "p20 < value < p80",
+    "normalized_phase_transition_boundary": "same America/New_York hour required to avoid baseline-step artifacts",
+    "normalized_rv15": "RV15 / median_RV15_of_same_New_York_hour",
+    "normalized_state_thresholds": "full-sample normalized_RV15 p20/p80",
+    "optimization": false,
+    "percentile_method": "linear",
+    "rv15_bps": "sqrt(sum(last 15 valid 1m log returns squared))*10000",
+    "rv60_bps": "sqrt(sum(last 60 valid 1m log returns squared))*10000",
+    "variance_share_15_of_60": "RV15^2 / RV60^2"
+  },
+  "reconciliation": {
+    "rv15_ap2": {
+      "count": 1686423,
+      "max": 423.7015867665045,
+      "mean": 10.478525943077567,
+      "p50": 7.617655651183205,
+      "p90": 21.152386132760906,
+      "p95": 27.768130420792204,
+      "p99": 46.061288822136234,
+      "p99_9": 84.67271610781043
+    },
+    "rv15_observed": {
+      "count": 1686423,
+      "max": 423.7015867665045,
+      "mean": 10.478525943077567,
+      "p50": 7.617655651183205,
+      "p90": 21.152386132760906,
+      "p95": 27.768130420792204,
+      "p99": 46.061288822136234,
+      "p99_9": 84.67271610781043
+    },
+    "rv60_ap2": {
+      "count": 1620195,
+      "max": 479.92029054395715,
+      "mean": 21.63083566473441,
+      "p50": 16.196822486770692,
+      "p90": 42.70878114042718,
+      "p95": 55.075242344886554,
+      "p99": 89.010616408331,
+      "p99_9": 163.6268960212105
+    },
+    "rv60_observed": {
+      "count": 1620195,
+      "max": 479.92029054395715,
+      "mean": 21.63083566473441,
+      "p50": 16.196822486770692,
+      "p90": 42.70878114042718,
+      "p95": 55.075242344886554,
+      "p99": 89.010616408331,
+      "p99_9": 163.6268960212105
+    },
+    "tolerance": 1e-09
+  },
+  "runtime": {
+    "numpy_version": "2.5.3",
+    "pyarrow_version": "25.0.1"
+  },
+  "schema": "ATDS_AP3_EXPANSION_COMPRESSION_V0_1",
+  "scope": {
+    "causal_deployable": false,
+    "full_sample_descriptive_thresholds": true,
+    "future_labels": false,
+    "pnl_calculated": false,
+    "signals_calculated": false,
+    "source_volume_used": false,
+    "strategy_agnostic": true
+  },
+  "status": "AP3_COMPLETE",
+  "variance_concentration": {
+    "by_intraday_normalized_state": {
+      "COMPRESSION": {
+        "count": 322445,
+        "max": 0.8421084667988208,
+        "mean": 0.18554313513652607,
+        "p20": 0.11111723583944923,
+        "p50": 0.17074911591605174,
+        "p80": 0.2509008410846806,
+        "p90": 0.30262351568021745,
+        "p95": 0.3527022386840335,
+        "p99": 0.46103670080762904,
+        "p99_9": 0.6124044605146178
+      },
+      "EXPANSION": {
+        "count": 322168,
+        "max": 0.9952792267428946,
+        "mean": 0.3398412511773389,
+        "p20": 0.19903171408270884,
+        "p50": 0.3011740800195999,
+        "p80": 0.4611559955396819,
+        "p90": 0.5855867012122334,
+        "p95": 0.7049240584708734,
+        "p99": 0.8742105494660296,
+        "p99_9": 0.9815490604867617
+      },
+      "NORMAL": {
+        "count": 975582,
+        "max": 0.9337472800020109,
+        "mean": 0.2561945141080014,
+        "p20": 0.15576641652653364,
+        "p50": 0.23313133042218803,
+        "p80": 0.34298252563218273,
+        "p90": 0.4176610773927044,
+        "p95": 0.4919481257656605,
+        "p99": 0.6583857646847526,
+        "p99_9": 0.8211452364000402
+      }
+    },
+    "global": {
+      "count": 1620195,
+      "max": 0.9952792267428946,
+      "mean": 0.2587664996379512,
+      "p20": 0.14893165995747298,
+      "p50": 0.23015488311451135,
+      "p80": 0.34939477163317434,
+      "p90": 0.4355071436420709,
+      "p95": 0.5263436728873496,
+      "p99": 0.7395522976024829,
+      "p99_9": 0.9201580354070981
+    }
+  }
+}

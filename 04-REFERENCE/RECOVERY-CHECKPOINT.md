@@ -14144,3 +14144,19 @@ joindre tel quel.
 Aucun AP4 avant adjudication AP3.
 
 STOP.
+
+---
+
+## 213. AP3 EXACT PASS → AP4 PREFLIGHT — 2026-09-25
+Fresh HEAD : e8cedd4890d83623c4f835f57873d0989f178282.
+JSON AP3 : 16 078 octets, SHA-256 caa2d02942d5cbd05bcfadd0dedfabde000e4e941cdf4aa4b0433801f76f42ef.
+Preuve exacte : reports/program/evidence/2026-09-25-AP3-EXPANSION-COMPRESSION.json.
+Adjudication : reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-ADJUDICATION.md.
+Observations : reports/program/2026-09-25-AP3-FIRST-BEHAVIORAL-OBSERVATIONS.md.
+PASS — qualification descriptive du rapport local, sans reproduction indépendante du corpus.
+RV15 : 1 686 423 ; RV60 : 1 620 195 ; AP2 embarqué réconcilié (écart 0).
+Seuils absolus 4.038130426072135 / 15.018274772834737 bps.
+Seuils normalisés 0.6304316352021648 / 1.6569597384304056.
+Limites : seuils full-sample, causal_deployable=false ; chevauchement RV15 ; phases normalisées coupées par heure ; stabilité AP6 non qualifiée.
+Pas de réouverture AP0/AP1/AP2. Aucun backtest/MT5/stratégie/PnL/optimisation.
+Prochaine action gouvernée unique : pré-enregistrer AP4 Price Structure, puis helper et audit avant exécution locale.
