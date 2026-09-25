@@ -91,3 +91,26 @@ Le breaker local ayant refusé la divergence avant toute lecture footer F0, aucu
 Re-break du helper corrigé contre le manifest exact scellé, puis nouvelle tentative locale F0.
 
 Aucun F1, E1, backtest, MT5, paper/broker/live n'est ouvert.
+
+## Re-break du binding corrigé
+
+Le manifest exact scellé a été relu et le même contrat de validation que le helper F0 a été rejoué.
+
+Contrôles PASS :
+- SHA-256 JSON exact = `c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5` ;
+- schema exact ;
+- `MANIFEST_COMPLETE` ;
+- 212 fichiers et 212 entrées ;
+- total = 3 936 721 231 octets ;
+- `sha256_complete=true` ;
+- `parquet_magic_checked=true` ;
+- `snapshot_stable=true` ;
+- chemins uniques ;
+- 212 SHA-256 individuels syntaxiquement valides avec status PASS ;
+- digest canonique recalculé = `5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf`.
+
+Résultat :
+
+`CORRECTED_BINDING_REBREAK_PASS`.
+
+La nouvelle tentative F0 peut donc être exécutée avec le helper corrigé.
