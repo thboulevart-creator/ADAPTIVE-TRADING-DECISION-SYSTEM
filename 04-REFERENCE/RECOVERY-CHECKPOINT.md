@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R2 REPEATED THE SAME AP4-BINDING BLOCK.** R2 JSON is byte-identical to R1 (151 bytes, SHA-256 89bb73dd...1860). The attempted raw-blob repair failed its own size/SHA checks, so no third AP5 run is authorized yet. Next action: read-only comparison of local git-cat-file blob bytes vs staged AP4 bytes. AP6 remains closed.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 RAW GIT BLOB DIAGNOSIS PASS.** Local git-cat-file returns canonical AP4 bytes (15,488 bytes, SHA c66a2e...e3baad, 644 LF, 0 CRLF). Only the staged AP4 is CRLF-normalized (16,132 bytes, SHA 7019e7..., 644 CRLF). Next action: atomic binary rewrite + in-process verification; R3 only if exact canonical identity is demonstrated. AP6 remains closed.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14400,3 +14400,30 @@ Evidence:
 
 Next action:
 read-only diagnostic of local raw Git blob bytes and current staged AP4 bytes. No AP5 R3 until canonical raw bytes are demonstrated.
+
+
+---
+
+## 221. AP5 RAW GIT BLOB DIAGNOSIS PASS — 2026-09-25
+
+Fresh HEAD before persistence:
+`b74436379dbfbc54ce057703e1e9a0691fb40236`.
+
+Read-only local proof:
+- raw Git blob length = 15,488;
+- raw Git blob SHA-256 = `c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad`;
+- raw LF = 644;
+- raw CRLF = 0;
+- staged length = 16,132;
+- staged SHA-256 = `7019e769da721d757bc8f0cf9fc1203e96bfd1923acc92b1cd3e332d5a96e78e`;
+- staged LF = 644;
+- staged CRLF = 644;
+- staged equals raw = false;
+- diagnostic exit code = 0.
+
+Adjudication:
+**PASS — canonical raw Git object is available locally.**
+**BLOCKED — staged AP4 still not canonical.**
+
+Next action:
+atomic binary rewrite of staged AP4 from raw Git object, with same-process verification. AP5 R3 only after exact identity confirmation.
