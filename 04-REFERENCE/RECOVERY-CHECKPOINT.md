@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-24 : E0-SOURCE-B MANIFEST EXACT ADJUGÉ, FOOTER CENSUS PROCHAIN.** La section 198 fixe l'état courant. Le manifest exact joint a été parsé intégralement : 212/212 fichiers cohérents, 3 936 721 231 octets, SHA-256 PASS, PAR1 PASS, snapshot stable, partitions nominales 2021-05→2026-05 sans mois manquant. Cela ne prouve pas encore schéma logique, bornes temporelles réelles ni trous. Prochaine action unique : E0-SOURCE-B-F0, census read-only des footers sous plafond 128 MiB. Aucun scan de colonne, E1, backtest, paper/broker/live.
+> **DIRECTIVE ACTIVE — 2026-09-25 : MODE D’EXÉCUTION CONTINUE ACTIF ; E0-SOURCE-B-F0 PRÊT POUR EXÉCUTION LOCALE.** La section 199 fixe l’état courant. Le protocole autonome a été renforcé pour enchaîner automatiquement les étapes mécaniquement déterminées dans un même tour, avec heartbeats non bloquants et arrêt seulement à une vraie frontière humaine/capacité. Le helper F0 footer-only a été créé, corrigé et re-breaké. Prochaine frontière réelle : exécuter localement F0 sur les 212 Parquet et joindre le JSON produit. Aucun F1/E1/backtest/MT5/paper/broker/live n’est ouvert.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -12957,3 +12957,88 @@ Si F0 ne suffit pas pour prouver les trous internes, F1 sera une décision sépa
 E1, confirmatoire, paper/broker/live, capital réel et contact Dukascopy restent fermés.
 
 STOP.
+
+---
+
+## 199. MODE CONTINU + E0-SOURCE-B-F0 — helper footer-only prêt, exécution locale requise — 2026-09-25
+
+Fresh HEAD au début de session :
+`9cc7e96b255dad6987ccef9c7ab04a2abf13e7ae`.
+
+### Méthode de travail durable
+
+Le protocole existant :
+`docs/ALGO-ECOSYSTEM-AUTONOMOUS-EXECUTION-PROTOCOL.md`
+a été renforcé aux sections 12–15.
+
+Nouveau principe opérationnel :
+```text
+DETERMINE
+→ EXECUTE
+→ VERIFY
+→ RECORD
+→ HEARTBEAT IF LONG
+→ ENCHAIN
+→ REPEAT
+→ STOP ONLY AT A REAL STOP CONDITION
+```
+
+Les heartbeats sont informatifs et ne demandent pas de confirmation.
+
+Arrêts autorisés seulement pour :
+- commande/action locale ou transfert de fichier requis ;
+- exécution externe/contre-expertise réellement nécessaire ;
+- décision normative humaine non dérivable ;
+- blocker/evidence/capability réellement manquant ;
+- action destructive/irréversible/live-capital ;
+- ambiguïté matérielle non résolue par la gouvernance.
+
+`04-REFERENCE/AI-OPERATING-MEMORY.md` intègre également cette règle de reprise continue.
+
+Limite plateforme explicitée : l’assistant ne peut pas auto-déclencher un nouveau tour après avoir envoyé une réponse finale. Si une coupure runtime impose un arrêt, le dépôt doit être récupérable et un simple message `continue` suffit à reprendre sans reconstruction manuelle.
+
+### Reprise E0-SOURCE-B-F0
+
+Manifest Source-B scellé :
+- SHA-256 JSON : `c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5`;
+- digest inventaire : `c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54`;
+- 212 Parquet ;
+- 3 936 721 231 octets.
+
+Helper F0 :
+`tools/e0_source_b_footer_census.py`
+blob `fee98c19b880a4d886c0b8cbd208858426de08dc`.
+
+Revue adversariale :
+`reports/data-qualification/e0_source_b_f0_footer_census_adversarial_review_2026-09-25.md`
+blob `e5becf81b172e4fe62cb1969cd0a221704a49dc8`.
+
+Le candidat initial a été corrigé avant handoff pour :
+1. empêcher toute écriture de rapport dans le corpus même lors d’un échec précoce ;
+2. compter le probe initial de 8 octets/fichier dans le budget metadata cumulatif ;
+3. éliminer un risque de signature de schéma non déterministe via `repr()`.
+
+Re-break interne :
+**PASS — helper F0 suffisamment borné pour tentative locale read-only**, avec limitations explicites :
+- pas de re-hash 3,9 GiB pendant F0 ; identité courante contrôlée par taille/mtime contre le manifest scellé ;
+- PyArrow metadata-only ne mesure pas les octets physiques de prefetch OS ; aucune API de lecture de colonne n’est demandée et cette limitation est enregistrée.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter F0 sur le clone contenant Source-B.**
+
+Le helper doit :
+- vérifier le manifest exact ;
+- vérifier taille/mtime des 212 fichiers ;
+- lire les 8 derniers octets/fichier ;
+- calculer la somme cumulative logique metadata ;
+- BLOCKED si >128 MiB ;
+- sinon décoder uniquement metadata/schema/row-group stats via PyArrow ;
+- produire `ATDS-E0-SOURCE-B-F0-FOOTER-CENSUS.json`.
+
+Si `F0_COMPLETE` : joindre le JSON.
+Si `BLOCKED_*` : joindre le JSON sans contourner le breaker.
+
+STOP à cette frontière locale.
+
+Aucun F1, E1, backtest, MT5, paper/broker/live, capital réel ou contact Dukascopy.
