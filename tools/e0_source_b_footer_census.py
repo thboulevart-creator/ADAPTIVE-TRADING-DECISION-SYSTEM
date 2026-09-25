@@ -55,7 +55,7 @@ def json_safe(value: Any) -> Any:
     try:
         return value.item()
     except Exception:
-        return repr(value)
+        return str(value)
 
 
 def is_within(child: Path, parent: Path) -> bool:
@@ -271,6 +271,8 @@ def main() -> int:
             "signal_calculation": False,
             "trade_or_pnl_calculation": False,
             "provider_network": False,
+            "metadata_api_only": True,
+            "physical_os_read_bytes_measured": False,
         },
         "status": "PRECHECK",
         "reason": None,
@@ -354,6 +356,9 @@ def main() -> int:
         )
 
     # Phase F0-B: metadata API only. No column data reads are requested.
+    # The 128 MiB gate is enforced from exact footer lengths plus the initial
+    # 8-byte probes. OS/filesystem prefetch is not measured and is reported
+    # explicitly rather than being falsely claimed as byte-exact accounting.
     try:
         import pyarrow as pa
         import pyarrow.parquet as pq
