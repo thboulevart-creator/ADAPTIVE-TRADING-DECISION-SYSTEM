@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP1 EXACT PASS ; PREMIÈRES OBSERVATIONS PERSISTÉES ; AP2 VOLATILITY MAP PRÊT POUR EXÉCUTION LOCALE.** La section 211 fixe l’état courant. AP1 qualifie 1 709 180 minutes / 376 003 618 ticks / 1 606 segments et reconstruit le spread F2 à ~1.8e-15 près. Les premiers comportements intraday sont enregistrés sans promotion vers stratégie. AP2 est pré-enregistré et re-break PASS : range bps, mouvements absolus 1/5/15/60m et realized volatility 5/15/60m, fenêtres strictement contiguës et same-segment. Prochaine action unique : exécuter AP2 localement et joindre le JSON exact.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP2 EXACT PASS ; AP3 EXPANSION/COMPRESSION PRÊT POUR EXÉCUTION LOCALE.** La section 212 fixe l’état courant. AP2 qualifie la carte de volatilité gap-aware sur 1 709 180 minutes, avec 1m/5m/15m/60m et RV5/RV15/RV60. Les premières observations sont persistées. AP3 est pré-enregistré et re-break PASS avec deux lentilles : volatilité absolue et volatilité normalisée par médiane RV15 de l’heure New York ; seuils p20/p80 descriptifs, causal_deployable=false. Prochaine action unique : exécuter AP3 localement et joindre le JSON exact.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14038,5 +14038,109 @@ Si `BLOCKED_AP2_*` :
 joindre tel quel.
 
 Aucun AP3 avant adjudication AP2.
+
+STOP.
+
+---
+
+## 212. AP2 EXACT PASS → AP3 EXPANSION/COMPRESSION HANDOFF — 2026-09-25
+
+Fresh HEAD :
+`1a579e337cc49f3653f1dfb48a1cbe3c37cf8579`.
+
+### AP2 exact
+
+JSON :
+- SHA-256 :
+  `4e3c79a5b9c8131f62a8fb7f205712d8a5c4301ff01b7fd3ce7226d8799d9c9f`;
+- 85 770 octets ;
+- status : `AP2_COMPLETE`;
+- input : `USTECH_PROFILE_MINUTE_CORE_V0_1`;
+- 61 AP0 files rehashed.
+
+Coverage :
+- 1 709 180 minutes ;
+- 1 606 segments ;
+- valid abs-return :
+  1m 1 707 574 ;
+  5m 1 701 503 ;
+  15m 1 686 423 ;
+  60m 1 620 195 ;
+- RV5/RV15/RV60 counts identiques aux horizons correspondants.
+
+Global :
+- minute range mean = 4.033115022615127 bps ;
+- abs 1m mean = 2.130371613870453 bps ;
+- abs 60m mean = 17.14892473333806 bps ;
+- RV5 mean = 5.759246480746593 bps ;
+- RV15 mean = 10.478525943077567 bps ;
+- RV60 mean = 21.63083566473441 bps ;
+- RV60 p99 = 89.010616408331 bps ;
+- RV60 max = 479.92029054395715 bps.
+
+Adjudication :
+`reports/program/2026-09-25-AP2-VOLATILITY-MAP-ADJUDICATION.md`
+blob `65472700ec078d6811776e43bd3ec3164ccdb576`.
+
+Verdict :
+**PASS — AP2 qualifié.**
+
+Observations :
+`reports/program/2026-09-25-AP2-FIRST-VOLATILITY-OBSERVATIONS.md`
+blob `c4766bee16c1796563eabb3e7e18a1107578f4ca`.
+
+### AP3
+
+Preflight :
+`reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-PREFLIGHT.md`.
+
+Helper :
+`tools/ap3_expansion_compression.py`
+blob `8a7aa643eb6e4414dad378ca4ddb8b98adce7bd1`.
+
+Review :
+`reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-HELPER-ADVERSARIAL-REVIEW.md`
+blob `5f77c8539c0076611e8e4630648612aafaffcf2f`.
+
+AP3 reconstruit et réconcilie AP2 RV15/RV60 avant classification.
+
+Deux lentilles :
+1. ABSOLUTE RV15 p20/p80 ;
+2. INTRADAY-NORMALIZED RV15 / médiane RV15 de la même heure NY, puis p20/p80.
+
+Labels :
+- COMPRESSION ;
+- NORMAL ;
+- EXPANSION.
+
+Important :
+- seuils full-sample descriptifs ;
+- `causal_deployable=false` ;
+- aucune utilisation signal/backtest autorisée.
+
+Phases :
+- minute exacte ;
+- même segment ;
+- même état ;
+- pour normalized : même heure NY afin d’éviter artefact de changement de baseline.
+
+Transitions :
+- adjacentes uniquement ;
+- descriptives, non prédictives.
+
+Variance concentration :
+`RV15^2 / RV60^2`.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter AP3.**
+
+Si `AP3_COMPLETE` :
+joindre `ATDS-AP3-EXPANSION-COMPRESSION.json`.
+
+Si `BLOCKED_AP3_*` :
+joindre tel quel.
+
+Aucun AP4 avant adjudication AP3.
 
 STOP.
