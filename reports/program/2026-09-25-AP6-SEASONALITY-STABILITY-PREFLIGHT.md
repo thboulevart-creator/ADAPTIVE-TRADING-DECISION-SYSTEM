@@ -114,6 +114,13 @@ Must reproduce:
 
 ## 6. Temporal dimensions
 
+### 6.0 Window attribution
+
+Every rolling/window metric is assigned to the **endpoint minute** of the observation, matching AP2/AP4 endpoint semantics.
+
+A valid historical window may begin in a different hour, weekday, month, quarter or year when it crosses that calendar boundary, provided all minute/segment continuity requirements hold. Temporal bucket membership is determined only by the endpoint timestamp; AP6 does not truncate an otherwise valid window at calendar bucket boundaries.
+
+
 ### 6.1 New York hour
 
 `America/New_York`, DST-aware, codes 0..23.
