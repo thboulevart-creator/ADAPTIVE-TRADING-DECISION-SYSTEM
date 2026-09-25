@@ -1,0 +1,8 @@
+{
+  "include_current_bar": "KILLED",
+  "ignore_gap_window": "KILLED",
+  "include_zero_in_runs": "KILLED",
+  "inclusive_breakout": "KILLED",
+  "ignore_reentry_gap": "KILLED",
+  "reject_valid_nullable_gap": "KILLED"
+}

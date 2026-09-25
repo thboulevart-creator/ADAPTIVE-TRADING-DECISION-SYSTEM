@@ -14160,3 +14160,36 @@ Seuils normalisés 0.6304316352021648 / 1.6569597384304056.
 Limites : seuils full-sample, causal_deployable=false ; chevauchement RV15 ; phases normalisées coupées par heure ; stabilité AP6 non qualifiée.
 Pas de réouverture AP0/AP1/AP2. Aucun backtest/MT5/stratégie/PnL/optimisation.
 Prochaine action gouvernée unique : pré-enregistrer AP4 Price Structure, puis helper et audit avant exécution locale.
+
+---
+
+## 214. AP3 PASS → AP4 PRICE STRUCTURE LOCAL HANDOFF — 2026-09-25
+Fresh HEAD : cc329b3cbe55c24072d6382aee600a5509eb4609.
+AP3 reste PASS selon §213 ; aucune fondation antérieure rouverte.
+
+### AP4
+Preflight : reports/program/2026-09-25-AP4-PRICE-STRUCTURE-PREFLIGHT.md.
+Helper : tools/ap4_price_structure.py.
+Commit figé : cc329b3cbe55c24072d6382aee600a5509eb4609.
+Blob : 6931712c06e7ed912266782487ed7813cd0be1ff.
+SHA-256 : f957b38a252ffb2649602fdc5405b82735c88300e1f32cc9fee5f41834098987.
+Tests : tests/test_ap4_price_structure.py ; 9/9 PASS.
+Mutants : tests/run_ap4_mutation_breakers.py ; 6/6 détectés.
+Review : reports/program/2026-09-25-AP4-PRICE-STRUCTURE-HELPER-ADVERSARIAL-REVIEW.md.
+Handoff : reports/program/2026-09-25-AP4-PRICE-STRUCTURE-LOCAL-HANDOFF.md.
+
+Mesures : signes, suites directionnelles 1m, efficacité 15/60m, franchissements des ranges passés 15/60m, réintégrations futures dans range figé sur 15m avec censure, écarts discontinus de réouverture.
+Aucune stratégie, PnL, signal, optimisation ou MT5.
+future_observations_used=true ; causal_deployable=false.
+AP0 61 Parquet rehashés avant/après lecture ; AP0 manifest et AP3 exact scellés.
+
+Correction avant candidat : null gap_before_ms hors frontière autorisé et vérifié.
+Correction runner : ValueError attendu du mutant null reconnu spécifiquement ; re-break PASS.
+Limites : corpus et PyArrow absents ici ; lecture réelle, mémoire/temps non vérifiés. Audit par le même assistant.
+PASS — helper pour tentative locale.
+BLOCKED — AP4 corpus, en attente d'exécution et adjudication.
+
+### Prochaine action gouvernée unique
+LOCAL USER ACTION REQUIRED — exécuter le helper figé et joindre ATDS-AP4-PRICE-STRUCTURE.json + terminal.
+Si BLOCKED_AP4 : joindre terminal sans contourner ni écraser.
+Puis fresh HEAD et adjudication ; AP5 seulement si AP4 PASS.

@@ -12,7 +12,7 @@ AP3 exact SHA-256 caa2d02942d5cbd05bcfadd0dedfabde000e4e941cdf4aa4b0433801f76f42
 Colonnes : minute_start_ms_utc, first_tick_ms, last_tick_ms, segment_id, segment_start, gap_before_ms, mid_open, mid_high, mid_low, mid_close.
 Pas de volume ni spread. mid descriptif uniquement.
 Mémoire cible <1 GiB, plafond logique entrées Parquet 128 MiB, JSON 32 MiB, un fichier output hors corpus. Temps cible <10 min sur poste utilisateur ; non mesuré avant run.
-Aucun nouvel accès source. Les 61 fichiers exacts sont scellés par le manifest ; rejet symlinks/reparse, échappements de chemins, nulls, OHLC invalides, ordre/segments incohérents.
+Aucun nouvel accès source. Les 61 fichiers exacts sont scellés par le manifest ; rejet symlinks/reparse, échappements de chemins, nulls hors gap_before_ms (null attendu sauf frontières >60s), OHLC invalides, ordre/segments incohérents.
 Output existant refusé, création exclusive ; aucun écrasement du corpus ou des preuves.
 
 ## Métriques préenregistrées
