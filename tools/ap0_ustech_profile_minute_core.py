@@ -22,6 +22,7 @@ EXPECTED_FILES = 212
 EXPECTED_ROWS = 376_003_618
 EXPECTED_GAPS_GT_60S = 1_605
 EXPECTED_SEGMENTS = 1_606
+EXPECTED_MONTH_FILES = 61
 EXPECTED_FIRST_MS = 1_621_900_800_309
 EXPECTED_LAST_MS = 1_779_667_199_963
 GAP_THRESHOLD_MS = 60_000
@@ -262,6 +263,7 @@ def main() -> int:
     total_output_bytes = 0
     observed_first_ms: int | None = None
     observed_last_ms: int | None = None
+    segment_start_rows = 0
 
     def flush_month(key: tuple[int, int], records: list[dict[str, Any]]) -> None:
         nonlocal minute_rows_written, total_output_bytes
@@ -326,7 +328,7 @@ def main() -> int:
         monthly_records.append(row)
 
     def finalize_pending() -> None:
-        nonlocal pending
+        nonlocal pending, segment_start_rows
         if pending is None:
             return
         count = int(pending.pop("_spread_count"))
@@ -334,6 +336,28 @@ def main() -> int:
         if count != int(pending["tick_count"]) or count <= 0:
             raise RuntimeError("Pending spread count mismatch.")
         pending["spread_mean"] = spread_sum / count
+
+        minute_start = int(pending["minute_start_ms_utc"])
+        first_tick = int(pending["first_tick_ms"])
+        last_tick = int(pending["last_tick_ms"])
+        if not (minute_start <= first_tick <= last_tick < minute_start + 60_000):
+            raise RuntimeError("Minute tick-bound invariant failed.")
+        if int(pending["tick_count"]) <= 0:
+            raise RuntimeError("Minute tick_count must be positive.")
+        lo = float(pending["mid_low"])
+        hi = float(pending["mid_high"])
+        op = float(pending["mid_open"])
+        cl = float(pending["mid_close"])
+        if not (lo <= min(op, cl) <= max(op, cl) <= hi):
+            raise RuntimeError("Minute mid OHLC invariant failed.")
+        smin = float(pending["spread_min"])
+        smean = float(pending["spread_mean"])
+        smax = float(pending["spread_max"])
+        if not (0.0 < smin <= smean <= smax):
+            raise RuntimeError("Minute spread invariant failed.")
+        if bool(pending["segment_start"]):
+            segment_start_rows += 1
+
         emit_finalized(pending)
         pending = None
 
@@ -495,6 +519,10 @@ def main() -> int:
             raise RuntimeError(f"Gap count {gap_count} != {EXPECTED_GAPS_GT_60S}")
         if segment_id + 1 != EXPECTED_SEGMENTS:
             raise RuntimeError(f"Segment count {segment_id + 1} != {EXPECTED_SEGMENTS}")
+        if segment_start_rows != EXPECTED_SEGMENTS:
+            raise RuntimeError(f"segment_start rows {segment_start_rows} != {EXPECTED_SEGMENTS}")
+        if len(output_files) != EXPECTED_MONTH_FILES:
+            raise RuntimeError(f"Output month files {len(output_files)} != {EXPECTED_MONTH_FILES}")
         if len(output_files) > MAX_OUTPUT_FILES:
             raise RuntimeError("Output file cap exceeded.")
         if not output_files:
@@ -510,6 +538,16 @@ def main() -> int:
         months = [x["relative_path"].split("/")[0] + "/" + x["relative_path"].split("/")[1] for x in output_files]
         if len(months) != len(set(months)):
             raise RuntimeError("Duplicate output month.")
+        expected_months = []
+        y, m = 2021, 5
+        while (y, m) <= (2026, 5):
+            expected_months.append(f"year={y:04d}/month={m:02d}")
+            m += 1
+            if m == 13:
+                y += 1
+                m = 1
+        if months != expected_months:
+            raise RuntimeError("Output month coverage is not the exact 2021-05..2026-05 sequence.")
 
         manifest_out = {
             "schema": "ATDS_AP0_USTECH_PROFILE_MINUTE_CORE_MANIFEST_V0_1",
@@ -551,6 +589,7 @@ def main() -> int:
                 "minute_rows_written": minute_rows_written,
                 "gaps_gt_60s": gap_count,
                 "segments": segment_id + 1,
+                "segment_start_rows": segment_start_rows,
                 "first_source_tick_ms": observed_first_ms,
                 "last_source_tick_ms": observed_last_ms,
                 "first_source_tick_utc": iso_ms(observed_first_ms),
@@ -583,6 +622,7 @@ def main() -> int:
         print(f"Minute rows: {minute_rows_written}")
         print(f"Gaps >60s: {gap_count}")
         print(f"Segments: {segment_id + 1}")
+        print(f"Segment-start rows: {segment_start_rows}")
         print(f"Monthly files: {len(output_files)}")
         print(f"Output bytes: {total_output_bytes}")
         print(f"Manifest SHA256: {manifest_sha}")
