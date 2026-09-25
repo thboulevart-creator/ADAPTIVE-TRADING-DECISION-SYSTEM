@@ -264,6 +264,7 @@ def main() -> int:
     observed_first_ms: int | None = None
     observed_last_ms: int | None = None
     segment_start_rows = 0
+    last_emitted_minute_ms: int | None = None
 
     def flush_month(key: tuple[int, int], records: list[dict[str, Any]]) -> None:
         nonlocal minute_rows_written, total_output_bytes
@@ -317,8 +318,12 @@ def main() -> int:
         minute_rows_written += rows
 
     def emit_finalized(row: dict[str, Any]) -> None:
-        nonlocal current_month, monthly_records
-        key = month_key_from_ms(int(row["minute_start_ms_utc"]))
+        nonlocal current_month, monthly_records, last_emitted_minute_ms
+        minute_ms = int(row["minute_start_ms_utc"])
+        if last_emitted_minute_ms is not None and minute_ms <= last_emitted_minute_ms:
+            raise RuntimeError("Derived minute timestamps are not strictly increasing.")
+        last_emitted_minute_ms = minute_ms
+        key = month_key_from_ms(minute_ms)
         if current_month is None:
             current_month = key
         if key != current_month:
