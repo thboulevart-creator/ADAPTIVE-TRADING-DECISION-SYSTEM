@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : MODE D’EXÉCUTION CONTINUE ACTIF ; E0-SOURCE-B-F0 PRÊT POUR EXÉCUTION LOCALE.** La section 199 fixe l’état courant. Le protocole autonome a été renforcé pour enchaîner automatiquement les étapes mécaniquement déterminées dans un même tour, avec heartbeats non bloquants et arrêt seulement à une vraie frontière humaine/capacité. Le helper F0 footer-only a été créé, corrigé et re-breaké. Prochaine frontière réelle : exécuter localement F0 sur les 212 Parquet et joindre le JSON produit. Aucun F1/E1/backtest/MT5/paper/broker/live n’est ouvert.
+> **DIRECTIVE ACTIVE — 2026-09-25 : F0 PREMIÈRE TENTATIVE BLOCKED PAR DIGEST AUXILIAIRE ERRONÉ ; BINDING CORRIGÉ ET RE-BREAKÉ.** La section 200 fixe l’état courant. Le manifest exact n’a pas changé : son SHA-256 JSON reste `c341fb5e...`. La valeur historique `c6baf5...` était erronée pour la formule publiée ; deux recalculs indépendants donnent `5cf0fe2c...`. Helper F0 corrigé et re-break PASS. Prochaine action réelle : relancer localement F0 avec le nouveau helper puis joindre le JSON. Aucun F1/E1/backtest/MT5/paper/broker/live.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13043,3 +13043,84 @@ Si `BLOCKED_*` : joindre le JSON sans contourner le breaker.
 STOP à cette frontière locale.
 
 Aucun F1, E1, backtest, MT5, paper/broker/live, capital réel ou contact Dukascopy.
+
+---
+
+## 200. E0-SOURCE-B-F0 — premier breaker réel, correction du digest auxiliaire — 2026-09-25
+
+Première tentative locale exécutée sur le helper blob historique :
+`bc409c8ae921f2822ed46f511a68303c21e2ca9c`.
+
+Sortie :
+```text
+BLOCKED_MANIFEST_BINDING
+canonical inventory digest mismatch:
+5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf
+!=
+c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54
+```
+
+Le breaker a correctement empêché F0 de poursuivre.
+
+### Diagnostic
+
+Le manifest exact utilisé localement a passé son ancre primaire avant d'atteindre le digest secondaire :
+- SHA-256 JSON exact : `c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5`;
+- taille : 86 752 octets ;
+- 212 entrées ;
+- 3 936 721 231 octets ;
+- schema/status/flags conformes.
+
+Le manifest n'a donc pas été remplacé.
+
+La formule publiée :
+```text
+relative_path<TAB>size_bytes<TAB>sha256<LF>
+```
+a été recalculée par deux implémentations indépendantes sur les 212 entrées.
+
+Résultat commun :
+`5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf`.
+
+La valeur historique :
+`c6baf5c42808317167b5dc60c88d86b4481b3d0004565bc3a7b33d54ef13ea54`
+est **ERRONÉE** pour cette formule et est superseded.
+
+Rapport de correction :
+`reports/data-qualification/e0_source_b_manifest_inventory_digest_correction_2026-09-25.md`
+blob `9ae1d775f2cc63174ba7c8500428267bccfa82bc`.
+
+### Correction F0
+
+Helper courant :
+`tools/e0_source_b_footer_census.py`
+blob `7fd406e2419e77706028c1c465c595f349cd9b1e`.
+
+Binding courant :
+- manifest SHA-256 : `c341fb5e...`;
+- inventory digest : `5cf0fe2c...`.
+
+Revue adversariale mise à jour :
+`reports/data-qualification/e0_source_b_f0_footer_census_adversarial_review_2026-09-25.md`
+blob `76fa43aad6b14ad23a32a42b67820b2939ba621c`.
+
+Re-break exact du binding corrigé :
+`CORRECTED_BINDING_REBREAK_PASS`.
+
+### Portée
+
+La correction ne modifie aucun hash fichier, taille, PAR1 ou flag du manifest. Elle corrige uniquement un digest auxiliaire dérivé incorrectement lors de l'adjudication du 2026-09-24.
+
+Aucune lecture footer F0 n'a été admise sous le mauvais binding.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — relancer F0 avec le helper courant blob `7fd406e...`.**
+
+Si `F0_COMPLETE` : joindre `%TEMP%\ATDS-E0-SOURCE-B-F0-FOOTER-CENSUS.json`.
+
+Si `BLOCKED_*` : joindre le même JSON sans contourner.
+
+STOP à cette frontière locale.
+
+Aucun F1, E1, backtest, MT5, paper/broker/live ou capital réel.
