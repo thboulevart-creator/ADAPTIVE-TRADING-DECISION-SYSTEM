@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : GAP-FORENSICS HISTORIQUE RÉCUPÉRÉ ; SÉMANTIQUE DE SESSION RÉCONCILIÉE ; OVERLAY HOLIDAYS/MATÉRIALITÉ SUIVANT.** La section 206 fixe l’état courant. Le bundle historique est PASS 53/53. Les 22 anciens gaps correspondent encore 22/22 au F1 courant ; les verdicts 13 DATASET_ACQUISITION_LOSS / 9 UNKNOWN restent valides pour ces 22 seuls intervalles. L’horloge brute Source-B est supportée comme GMT/UTC pour la session régulière ; l’ancienne politique Europe/Paris est superseded pour cet usage. Les 1 605 gaps >60 s se répartissent en 1 290 frontières de session et 315 gaps en session régulière avant holidays. Prochaine action : overlay ciblé des horaires spéciaux puis décision de matérialité, sans refaire l’ancien travail.
+> **DIRECTIVE ACTIVE — 2026-09-25 : SOURCE-B CONTINUITÉ CADRÉE, PROVENANCE DOCUMENTÉE, F2 BID/ASK PRÊT.** La section 207 fixe l’état courant. Le corpus est explicitement DISCONTINU mais utilisable ultérieurement avec parcours horodaté/gap-aware ; 1 290/1 605 gaps sont frontières de session régulière, 315 restent en session ouverte avant holiday overlay complet, dont 13 pertes d’acquisition historiques prouvées et 9 historiques inconnues. La provenance publique qualifie USTECH/Nasdaq100 CFD, timestamp UTC, CC-BY-4.0, source publisher ‘Dukascopy via Tickstory’, sans certifier feed equivalence. F2 bid/ask actuel est re-break PASS et attend une exécution locale.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13532,3 +13532,131 @@ Après overlay : décider si le résiduel est matériel pour l’usage recherche
 Aucun E1/backtest/MT5/paper/broker/live.
 
 STOP uniquement si preuve externe/local manquante.
+
+---
+
+## 207. E0-SOURCE-B — gap-aware data contract + provenance + F2 handoff — 2026-09-25
+
+Fresh HEAD :
+`e84f1e0adf216f28e7e2d1bb3c679105fa24d349`.
+
+### Continuité et matérialité
+
+Rapport :
+`reports/data-qualification/e0_source_b_regular_session_gap_materiality_2026-09-25.md`
+blob `4f50b9d4d122d361b8209ada7956a907827b6326`.
+
+Sous session régulière :
+- 1 605 gaps >60 s ;
+- 1 290 `SESSION_BOUNDARY_GAP` ;
+- 315 `TRUE_OPEN_SESSION_GAP`.
+
+Parmi les 315 :
+- 13 `HISTORICAL_PROVEN_ACQUISITION_LOSS`;
+- 9 `HISTORICAL_UNKNOWN`;
+- 4 `HOLIDAY_CONTEXT_UNRESOLVED`;
+- 289 autres `UNRESOLVED_CURRENT`.
+
+Profil matériel :
+- 12 gaps >15 min ;
+- 2 des 12 = pertes d'acquisition historiques prouvées ;
+- 3 des 12 = contexte holiday officiel mais intervalle exact non prouvé ;
+- 7 autres >15 min non résolus.
+
+Data Contract :
+**SÉRIE DISCONTINUE**.
+
+Conséquence :
+un futur moteur ne peut pas traverser ce corpus par index en supposant la continuité. Il devra parcourir par horodatage et casser les fenêtres sur interruptions suspectes.
+
+### Contrôle de session reproductible
+
+Helper :
+`tools/e0_source_b_regular_session_gap_classifier.py`
+blob `1dde9a83cbaa6cf12e446d05a854354669d0f39d`.
+
+Revue :
+`reports/data-qualification/e0_source_b_regular_session_gap_classifier_adversarial_review_2026-09-25.md`
+blob `60808ee4ce537891c3e46e5e467eefb48c076e35`.
+
+Verdict :
+**PASS — reproduction 1 290 / 315, holidays explicitement non appliqués.**
+
+### Provenance / identité documentaire
+
+Rapport :
+`reports/data-qualification/e0_source_b_public_provenance_identity_2026-09-25.md`
+blob `c3b74951d8c774bd761b5295c082ba3dfe8589cf`.
+
+Source publique observée :
+`CarlosSilva1/ustech-ticks`.
+
+Dataset card :
+- USTECH / Nasdaq 100 Index CFD ;
+- timestamp UTC milliseconde ;
+- période 2021-05-25 → 2026-05-24 ;
+- ~376M lignes ;
+- Parquet ;
+- publisher provenance : Dukascopy via Tickstory ;
+- licence CC-BY-4.0.
+
+Convergence locale :
+- 376 003 618 lignes ;
+- mêmes bornes ;
+- même schéma ;
+- taille ~3,94 GB.
+
+Verdicts :
+- **PASS** identité documentaire + UTC publisher declaration + licence ;
+- **BLOCKED** feed-value equivalence Dukascopy native ;
+- feed equivalence non nécessaire pour reconnaître la provenance documentaire.
+
+### F2 bid/ask actuel
+
+Helper :
+`tools/e0_source_b_bid_ask_quality_scan.py`
+blob `c3fbcda9b82dcf96bfc4ccc94b37e1e622369fd5`.
+
+Revue :
+`reports/data-qualification/e0_source_b_f2_bid_ask_quality_adversarial_review_2026-09-25.md`
+blob `f992c4082b2362d7dc9e95f26822b46f5772e9c8`.
+
+F2 lit uniquement :
+- `bid_price`;
+- `ask_price`.
+
+Contrôles :
+- null/nonfinite ;
+- prix <=0 ;
+- ask<bid ;
+- spread <=0 / =0 ;
+- extrema ;
+- spread min/max/mean.
+
+Budget :
+- cumul avant F2 = 6 945 200 507 octets logiques ;
+- F2 bid+ask = 6 016 057 888 ;
+- cumul planifié = 12 961 258 395 (~12,07 GiB) < 16 GiB.
+
+Volumes explicitement non qualifiés.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter F2 sur le corpus courant.**
+
+Entrées exactes :
+- manifest sur Bureau ;
+- F0 dans %TEMP% ;
+- F1 dans %TEMP%.
+
+Si `F2_COMPLETE` : joindre le JSON F2.
+Si `BLOCKED_*` : joindre tel quel.
+
+Après F2 :
+- adjudication bid/ask ;
+- synthèse de qualification Source-B ;
+- décision sur ce qui reste réellement avant clôture Data Truth et passage à Asset Behavioral Profile.
+
+Aucun E1/backtest/MT5/paper/broker/live.
+
+STOP.
