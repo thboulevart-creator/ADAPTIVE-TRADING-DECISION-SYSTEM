@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R4 NOT YET EXECUTED; WINDOWS POWERSHELL python -c WRAPPER FAILED BEFORE MATERIALIZATION.** Origin/remote HEAD/AP0 manifest checks passed. The multiline Python payload lost quoting around the AP4 filename, causing SyntaxError before helper/AP4 materialization. Next action: temporary Python script file + exact raw Git blobs + dual hash verification. Local divergent branch remains untouched. AP6 remains closed.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 MICROSTRUCTURE PRICE-CORE PASS.** Qualified R4 evidence SHA-256 21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406, exact canonical helper/AP4 provenance, 61 AP0 files rehashed, 1,709,180 minutes / 376,003,618 source ticks, registered reconciliations and partition conservation PASS. AP6 seasonality/stability is now the sole active frontier. No strategy/edge/PnL/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14527,3 +14527,52 @@ Report:
 
 Next action:
 write the materialization program to a temporary `.py` file, invoke it directly, verify exact helper/AP4 hashes, then execute R4.
+
+
+---
+
+## 225. AP5 MICROSTRUCTURE PRICE-CORE PASS — 2026-09-25
+
+Fresh HEAD before persistence:
+`38a9a9ad12de6574ffe4686c77bd98fa7638245d`.
+
+Qualified evidence:
+- `reports/program/evidence/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE.json`;
+- 39,460 bytes;
+- SHA-256 `21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406`;
+- schema `ATDS_AP5_MICROSTRUCTURE_PRICE_CORE_V0_1`;
+- status `AP5_COMPLETE`.
+
+R4 exact provenance:
+- helper SHA-256 `fdb929f54d5c816cd12fb03130545b3714a38cb2261d3b23433fb1cd4b0f7671`;
+- AP4 SHA-256 `c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad`;
+- py_compile PASS;
+- AP5_COMPLETE / exit 0.
+
+Coverage:
+- 1709180 minutes;
+- 376003618 ticks;
+- 1606 segments;
+- 61 AP0 files rehashed.
+
+All registered AP5 reconciliations and partition-conservation checks PASS.
+
+Adjudication:
+`reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-ADJUDICATION.md`.
+
+Behavioral observations:
+`reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-BEHAVIORAL-OBSERVATIONS.md`.
+
+Backup:
+`99-BACKUP/SESSION-2026-09-25-AP5-PASS-AP6-HANDOFF.md`.
+
+Verdict:
+**PASS — AP5 MICROSTRUCTURE PRICE-CORE.**
+
+Same assistant producer/auditor; no independence claimed.
+
+### Next governed action
+
+AP6 seasonality/stability preflight:
+hour, weekday, month, year, sub-periods and temporal distribution stability.
+No strategy, PnL, optimization, MT5 or edge claim.
