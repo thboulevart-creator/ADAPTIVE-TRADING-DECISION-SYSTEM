@@ -151,6 +151,7 @@ def main() -> int:
 
     try:
         import numpy as np
+        import pyarrow as pa
         import pyarrow.parquet as pq
     except Exception as exc:
         return block("BLOCKED_AP2_RUNTIME_DEPENDENCY", str(exc))
@@ -184,6 +185,10 @@ def main() -> int:
             meta = pf.schema_arrow.metadata or {}
             if meta.get(b"dataset_identity") != EXPECTED_AP0_IDENTITY.encode():
                 raise RuntimeError(f"AP0 identity metadata mismatch: {rel}")
+            if meta.get(b"volumes_used") != b"false":
+                raise RuntimeError(f"AP0 volume metadata violation: {rel}")
+            if meta.get(b"mid_semantics") != b"descriptive_only_not_execution_price":
+                raise RuntimeError(f"AP0 mid semantics mismatch: {rel}")
 
             table = pf.read(columns=READ_COLUMNS, use_threads=False)
             minute = table["minute_start_ms_utc"].combine_chunks().to_numpy(zero_copy_only=False).astype(np.int64, copy=False)
@@ -353,6 +358,7 @@ def main() -> int:
             "utc_year": year_buckets,
             "runtime": {
                 "numpy_version": np.__version__,
+                "pyarrow_version": pa.__version__,
             },
         }
 
