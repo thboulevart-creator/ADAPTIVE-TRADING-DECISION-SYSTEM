@@ -17,6 +17,10 @@ EXPECTED_FILES = 61
 EXPECTED_MINUTES = 1_709_180
 EXPECTED_SOURCE_TICKS = 376_003_618
 EXPECTED_SEGMENTS = 1_606
+EXPECTED_F2_SPREAD_MIN = 0.000999999996565748
+EXPECTED_F2_SPREAD_MAX = 35.66699999999764
+EXPECTED_F2_SPREAD_MEAN = 2.1395040593705223
+SPREAD_RECONCILIATION_TOLERANCE = 1e-9
 MAX_OUTPUT_BYTES = 32 * 1024 * 1024
 
 REQUIRED_SCHEMA = [
@@ -220,6 +224,8 @@ def main() -> int:
     actual_segment_starts = 0
     previous_minute = None
     previous_segment = None
+    observed_spread_min = math.inf
+    observed_spread_max = -math.inf
 
     try:
         for rec in files:
@@ -303,6 +309,8 @@ def main() -> int:
                     raise RuntimeError(f"Segment boundary start flag mismatch: {rel}")
 
             minute_range = high - low
+            observed_spread_min = min(observed_spread_min, float(np.min(spread_min)))
+            observed_spread_max = max(observed_spread_max, float(np.max(spread_max)))
 
             actual_rows += int(n)
             actual_ticks += int(np.sum(tick, dtype=np.int64))
@@ -358,6 +366,13 @@ def main() -> int:
         all_idx = np.arange(minute.size, dtype=np.int64)
         global_summary = summary_for_indices(all_idx, tick, minute_range, spread_mean, spread_max)
         global_summary["segment_start_count"] = int(np.count_nonzero(segment_start))
+        global_summary["spread_min_observed"] = observed_spread_min
+        if abs(observed_spread_min - EXPECTED_F2_SPREAD_MIN) > SPREAD_RECONCILIATION_TOLERANCE:
+            raise RuntimeError("AP0/AP1 spread minimum does not reconcile with F2.")
+        if abs(observed_spread_max - EXPECTED_F2_SPREAD_MAX) > SPREAD_RECONCILIATION_TOLERANCE:
+            raise RuntimeError("AP0/AP1 spread maximum does not reconcile with F2.")
+        if abs(global_summary["spread_tick_weighted_mean"] - EXPECTED_F2_SPREAD_MEAN) > SPREAD_RECONCILIATION_TOLERANCE:
+            raise RuntimeError("AP0/AP1 tick-weighted spread mean does not reconcile with F2.")
 
         utc_hour_summary = summarize_dimension(
             utc_hour, range(24), lambda x: f"{x:02d}:00 UTC",
@@ -439,6 +454,7 @@ def main() -> int:
                 "tick_count_percentiles": [50, 90, 99],
                 "numpy_percentile_method": "linear",
                 "optimization": False,
+                "f2_spread_reconciliation_tolerance": SPREAD_RECONCILIATION_TOLERANCE,
             },
             "global": global_summary,
             "utc_hour": utc_hour_summary,
