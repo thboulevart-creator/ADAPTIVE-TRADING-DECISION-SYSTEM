@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP0 EXACT PASS ; AP1 INTRADAY/SPREAD PRÊT POUR EXÉCUTION LOCALE.** La section 210 fixe l’état courant. `USTECH_PROFILE_MINUTE_CORE_V0_1` est adjugé PASS : 61 mois exacts, 1 709 180 minutes, 376 003 618 ticks conservés, 1 605 gaps, 1 606 segments. AP1 est pré-enregistré et re-break PASS ; il re-hash les 61 Parquet AP0, décrit activité/range/spread par heure UTC/New York, weekday et année, et doit réconcilier le spread global avec F2. Prochaine action unique : exécuter AP1 localement et joindre le JSON exact.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP1 EXACT PASS ; PREMIÈRES OBSERVATIONS PERSISTÉES ; AP2 VOLATILITY MAP PRÊT POUR EXÉCUTION LOCALE.** La section 211 fixe l’état courant. AP1 qualifie 1 709 180 minutes / 376 003 618 ticks / 1 606 segments et reconstruit le spread F2 à ~1.8e-15 près. Les premiers comportements intraday sont enregistrés sans promotion vers stratégie. AP2 est pré-enregistré et re-break PASS : range bps, mouvements absolus 1/5/15/60m et realized volatility 5/15/60m, fenêtres strictement contiguës et same-segment. Prochaine action unique : exécuter AP2 localement et joindre le JSON exact.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13940,5 +13940,103 @@ Si `BLOCKED_AP1_*` :
 joindre le JSON tel quel.
 
 Aucun AP2 avant adjudication AP1.
+
+STOP.
+
+---
+
+## 211. AP1 EXACT PASS → AP2 VOLATILITY MAP HANDOFF — 2026-09-25
+
+Fresh HEAD :
+`ebb29e6e94104ce709fdd58945661d890341d5cc`.
+
+### AP1 exact
+
+JSON :
+- SHA-256 :
+  `db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b`;
+- 179 955 octets ;
+- status : `AP1_COMPLETE`;
+- input : `USTECH_PROFILE_MINUTE_CORE_V0_1`;
+- 61 AP0 files rehashed.
+
+Coverage :
+- 1 709 180 minutes ;
+- 376 003 618 source ticks ;
+- 1 606 segment-start rows.
+
+Global :
+- minute range mean = 6.8231403696509565 ;
+- minute range p50/p90/p95/p99 =
+  4.740000000001601 /
+  14.248999999998158 /
+  19.23399999999674 /
+  33.311210000001516 ;
+- tick count mean = 219.99064931721645 ;
+- p50/p90/p99 = 184 / 443 / 621 ;
+- spread min/max =
+  0.000999999996565748 /
+  35.66699999999764 ;
+- spread tick-weighted mean =
+  2.1395040593705206.
+
+F2 mean :
+2.1395040593705223.
+Écart ~1.8e-15 <1e-9.
+
+Adjudication :
+`reports/program/2026-09-25-AP1-INTRADAY-SPREAD-CENSUS-ADJUDICATION.md`
+blob `3aade0376c19f0ab6c52679540a259b76d1b6f43`.
+
+Verdict :
+**PASS — AP1 qualifié.**
+
+Premières observations :
+`reports/program/2026-09-25-AP1-FIRST-BEHAVIORAL-OBSERVATIONS.md`
+blob `9d1cfb220b3bff31db7fb8bee0fb8d3cbc661ac4`.
+
+### AP2
+
+Preflight :
+`reports/program/2026-09-25-AP2-VOLATILITY-MAP-PREFLIGHT.md`.
+
+Helper :
+`tools/ap2_volatility_map.py`
+blob `0dd8df0294f9ec459c74da571b80c27b7134c612`.
+
+Review :
+`reports/program/2026-09-25-AP2-VOLATILITY-MAP-HELPER-ADVERSARIAL-REVIEW.md`
+blob `a6d28ec580b96b2703973434b63ae8c0a7aa36d9`.
+
+Bindings :
+- AP0 manifest exact ;
+- AP1 exact ;
+- 61 AP0 Parquet rehashed.
+
+Metrics :
+- minute range bps ;
+- abs log return bps 1/5/15/60m ;
+- realized vol bps 5/15/60m.
+
+Garde-fous :
+- même segment ;
+- différence temporelle exacte H minutes ;
+- aucune minute manquante ;
+- aucun future label ;
+- aucun signal/PnL/optimisation ;
+- buckets GLOBAL / New York hour / UTC year ;
+- 2021/2026 marqués partial.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter AP2.**
+
+Si `AP2_COMPLETE` :
+joindre `ATDS-AP2-VOLATILITY-MAP.json`.
+
+Si `BLOCKED_AP2_*` :
+joindre tel quel.
+
+Aucun AP3 avant adjudication AP2.
 
 STOP.
