@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R3 PRODUCED AP5_COMPLETE BUT IS NOT QUALIFIED.** Uploaded R3 JSON matches terminal (39,460 bytes, SHA-256 21dc09b0...4406) and passes internal AP5 reconciliations, but the staged helper SHA was 92855187... rather than frozen fdb929f5...; the guard had explicitly BLOCKED before commands were continued. The mismatch is not simple CRLF normalization. Next action: brand-new stage with helper+AP4 materialized directly from raw Git blobs, exact hashes verified, then R4. AP6 remains closed.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP5 R4 MAY RUN FROM THE CURRENT LOCAL CHECKOUT WITHOUT SWITCHING BRANCHES.** Local checkout feat/min-experiment-gaps-batch-v1 is a real divergent branch (25 ahead / 884 behind vs integration/system-v1) and must be preserved untouched. R4 identity is bound to origin/integration/system-v1 HEAD plus exact raw Git blobs, not the checked-out local branch. No reset/rebase/merge/switch required. AP6 remains closed pending qualified R4.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14463,3 +14463,39 @@ Report:
 
 Next action:
 new empty stage → raw Git blob helper + raw Git blob AP4 → exact dual hash verification → fresh R4 output.
+
+
+---
+
+## 223. AP5 R4 PRECHECK — LOCAL BRANCH PRESERVED — 2026-09-25
+
+Fresh HEAD before persistence:
+`7119a15dbe7766ce39df669c0d49f971dbdb0bff`.
+
+Local checkout:
+`feat/min-experiment-gaps-batch-v1`.
+
+GitHub remote verification:
+- branch exists at `2951345d8f0b47400b8b2d52885615f01f11556b`;
+- diverged from `integration/system-v1`;
+- ahead 25;
+- behind 884;
+- merge base `ff50b6d5d123969e091b5df18c46d438f7cb8052`.
+
+Decision:
+**preserve local branch untouched.**
+Do not reset, merge, rebase or switch merely for AP5.
+
+R4 execution identity is now:
+- expected origin repository;
+- fetched `origin/integration/system-v1`;
+- exact remote HEAD;
+- exact helper raw blob + SHA;
+- exact AP4 raw blob + SHA;
+- exact AP0 manifest/corpus.
+
+Report:
+`reports/program/2026-09-25-AP5-R4-PRECHECK-LOCAL-BRANCH-MISMATCH.md`.
+
+Next action:
+run revised R4 with no local-branch equality guard.
