@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 : DATA TRUTH PRICE-CORE FERMÉE ; ASSET BEHAVIORAL PROFILE CORE OUVERT ; AP0 PRÊT POUR EXÉCUTION LOCALE.** La section 209 fixe l’état courant. `SOURCE_B_USTECH_PRICE_CORE_V0_1` est PASS pour timestamp+bid+ask, avec série explicitement discontinue et volumes non qualifiés. Le protocole Asset Behavioral Profile CORE est PASS. AP0 `USTECH_PROFILE_MINUTE_CORE_V0_1` est pré-enregistré, adversarialement re-breaké et attend une seule action locale : générer les 61 Parquet mensuels minute gap-aware puis joindre le manifest AP0.
+> **DIRECTIVE ACTIVE — 2026-09-25 : AP0 EXACT PASS ; AP1 INTRADAY/SPREAD PRÊT POUR EXÉCUTION LOCALE.** La section 210 fixe l’état courant. `USTECH_PROFILE_MINUTE_CORE_V0_1` est adjugé PASS : 61 mois exacts, 1 709 180 minutes, 376 003 618 ticks conservés, 1 605 gaps, 1 606 segments. AP1 est pré-enregistré et re-break PASS ; il re-hash les 61 Parquet AP0, décrit activité/range/spread par heure UTC/New York, weekday et année, et doit réconcilier le spread global avec F2. Prochaine action unique : exécuter AP1 localement et joindre le JSON exact.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -13837,5 +13837,108 @@ If `BLOCKED_AP0_*`:
 - preserve output and send terminal output / AP0-BLOCKED.json.
 
 No AP1 analysis before AP0 manifest adjudication.
+
+STOP.
+
+---
+
+## 210. AP0 EXACT PASS → AP1 INTRADAY/SPREAD HANDOFF — 2026-09-25
+
+Fresh HEAD :
+`a0565f1c9679db20dc32dcd5e384162db4cd6568`.
+
+### AP0 exact
+
+Manifest :
+- SHA-256 :
+  `62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce`;
+- taille : 26 900 octets ;
+- status : `AP0_COMPLETE`;
+- output identity :
+  `USTECH_PROFILE_MINUTE_CORE_V0_1`.
+
+Coverage :
+- 61 Parquet mensuels exacts ;
+- 1 709 180 minute rows ;
+- 376 003 618 source ticks ;
+- 1 605 gaps >60s ;
+- 1 606 segments ;
+- 1 606 segment-start rows ;
+- 91 734 766 output bytes ;
+- période 2021-05-25 → 2026-05-24.
+
+Recalcul manifest :
+- 61 chemins uniques ;
+- 61 hashes uniques/valides ;
+- sum rows = 1 709 180 ;
+- sum ticks = 376 003 618 ;
+- sum bytes = 91 734 766 ;
+- séquence mensuelle exacte 2021-05→2026-05 ;
+- segment ids 0→1605.
+
+Adjudication :
+`reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-ADJUDICATION.md`
+blob `94bba3315e3569993623b8cd2a2bf4264f4ab6f8`.
+
+Verdict :
+**PASS — AP0 DatasetIdentity dérivée canonique.**
+
+### AP1
+
+Preflight :
+`reports/program/2026-09-25-AP1-INTRADAY-SPREAD-CENSUS-PREFLIGHT.md`.
+
+Helper :
+`tools/ap1_intraday_spread_census.py`
+blob `9f613063fb8a190a1ff6f2f8b12c97c4ed97712a`.
+
+Revue :
+`reports/program/2026-09-25-AP1-INTRADAY-SPREAD-CENSUS-HELPER-ADVERSARIAL-REVIEW.md`
+blob `9925a2ea9e34775d39144d428c76cf72c0938c0b`.
+
+AP1 lit :
+- minute_start_ms_utc ;
+- tick_count ;
+- segment_id/start ;
+- mid_high/low ;
+- spread_mean/min/max.
+
+Dimensions :
+- GLOBAL ;
+- 24 UTC hours ;
+- 24 New York hours ;
+- 7 New York weekdays ;
+- 168 New York weekday-hours ;
+- UTC years 2021..2026.
+
+Métriques :
+- minute/tick counts ;
+- activity percentiles ;
+- minute-range mean/p50/p90/p95/p99 ;
+- spread tick-weighted mean ;
+- spread minute p50/p90/p95/p99 ;
+- max spread observed.
+
+Cross-check obligatoire :
+AP1 doit reconstruire F2 :
+- spread min = 0.000999999996565748 ;
+- spread max = 35.66699999999764 ;
+- spread mean = 2.1395040593705223 ;
+tolérance 1e-9.
+
+Interdictions :
+aucun return, future label, signal, stratégie, PnL, volume source.
+
+### Prochaine action gouvernée unique
+
+**LOCAL USER ACTION REQUIRED — exécuter AP1 sur les 61 Parquet AP0.**
+
+Si `AP1_COMPLETE` :
+joindre `ATDS-AP1-INTRADAY-SPREAD-CENSUS.json`.
+
+Si `BLOCKED_AP1_*` :
+joindre le JSON tel quel.
+
+Aucun AP2 avant adjudication AP1.
 
 STOP.
