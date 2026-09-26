@@ -220,7 +220,11 @@ class P3D2AdversarialStaticTests(unittest.TestCase):
             self.module,
         )
         self.assertIn(
-            "explicit Obsidian Sync artifact forbidden",
+            '"explicit Obsidian Sync artifact "',
+            self.module,
+        )
+        self.assertIn(
+            'f"forbidden: {entry.name}"',
             self.module,
         )
         self.assertIn(
