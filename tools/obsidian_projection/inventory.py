@@ -290,3 +290,29 @@ def verify_inventory(
         )
 
     return tuple(verified)
+
+
+def verify_inventory_blob_bytes(
+    source: FrozenGitSource,
+    verified_entries: tuple[VerifiedInventoryEntry, ...],
+) -> int:
+    """Read every selected source as a raw Git blob and verify byte length."""
+    total_bytes = 0
+
+    for verified in verified_entries:
+        expected = verified.inventory
+        raw = source.read_blob(
+            expected.source_blob_sha
+        )
+
+        if len(raw) != expected.source_blob_size:
+            raise InventoryError(
+                f"raw blob size mismatch for "
+                f"{expected.source_path}: "
+                f"expected={expected.source_blob_size} "
+                f"actual={len(raw)}"
+            )
+
+        total_bytes += len(raw)
+
+    return total_bytes
