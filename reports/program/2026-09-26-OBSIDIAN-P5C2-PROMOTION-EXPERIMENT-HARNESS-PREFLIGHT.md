@@ -27,7 +27,7 @@ Qualified P5-C contract blob:
 Harness:
 
     tools/obsidian_projection/promotion_experiment.py
-    blob: 831203f498d6996e8c12345f77c5208c9619f270
+    blob: b5ba13a6aa9ddf1690842aafea422973e15cdf2d
 
 CLI:
 
@@ -37,7 +37,7 @@ CLI:
 Unit tests:
 
     tests/obsidian_projection/test_promotion_experiment.py
-    blob: 93f0b386e66fecc3a37c69428c084132f9321bb6
+    blob: 604ef68f5ef51fe0bacfcee780f2d3f1c62a8171
 
 Adversarial breakers:
 
