@@ -12,6 +12,7 @@ from tools.obsidian_projection.inventory import (
     InventoryError,
     load_inventory,
     verify_inventory,
+    verify_inventory_blob_bytes,
 )
 
 COMMIT = "1" * 40
@@ -32,6 +33,7 @@ class FakeSource:
         self._entries = entries
         self.repository_verified = False
         self.source_verified = False
+        self.blobs = {}
 
     def verify_repository(self):
         self.repository_verified = True
@@ -44,6 +46,9 @@ class FakeSource:
             entry.path: entry
             for entry in self._entries
         }
+
+    def read_blob(self, oid):
+        return self.blobs[oid]
 
 
 def inventory(entries) -> FrozenInventory:
@@ -248,6 +253,74 @@ class InventoryTests(unittest.TestCase):
             inventory([a, b]).digest_sha256,
             inventory([b, a]).digest_sha256,
         )
+
+    def test_verify_inventory_blob_bytes_reads_declared_blobs(
+        self,
+    ):
+        declared = InventoryEntry(
+            "a.md",
+            BLOB_A,
+            5,
+            "AP_PROGRAM",
+        )
+        source = FakeSource(
+            [
+                TreeEntry(
+                    "a.md",
+                    "100644",
+                    "blob",
+                    BLOB_A,
+                    5,
+                )
+            ]
+        )
+        source.blobs[BLOB_A] = b"12345"
+
+        verified = verify_inventory(
+            source,
+            inventory([declared]),
+        )
+
+        self.assertEqual(
+            verify_inventory_blob_bytes(
+                source,
+                verified,
+            ),
+            5,
+        )
+
+    def test_verify_inventory_blob_bytes_blocks_length_mismatch(
+        self,
+    ):
+        declared = InventoryEntry(
+            "a.md",
+            BLOB_A,
+            5,
+            "AP_PROGRAM",
+        )
+        source = FakeSource(
+            [
+                TreeEntry(
+                    "a.md",
+                    "100644",
+                    "blob",
+                    BLOB_A,
+                    5,
+                )
+            ]
+        )
+        source.blobs[BLOB_A] = b"1234"
+
+        verified = verify_inventory(
+            source,
+            inventory([declared]),
+        )
+
+        with self.assertRaises(InventoryError):
+            verify_inventory_blob_bytes(
+                source,
+                verified,
+            )
 
 
 if __name__ == "__main__":
