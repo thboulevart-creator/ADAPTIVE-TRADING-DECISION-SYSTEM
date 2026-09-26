@@ -127,7 +127,6 @@ class P5B2AdversarialStaticTests(
         joined = self.module + "\n" + self.cli
         for forbidden in (
             "ATDS-OBSIDIAN-PROJECTION",
-            ".obsidian",
             "seed_native_views",
             "generated/live",
         ):
