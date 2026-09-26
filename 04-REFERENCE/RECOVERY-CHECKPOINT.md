@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR2 HELPER PERSISTED-HEAD RE-BREAK PASS; ONE LOCAL N0 SYNTHESIS RUN AUTHORIZED.** Exact helper blob 34c702e9..., SHA-256 cdea6b31...cf757; py_compile PASS; 26/26 synthetic PASS; 20/20 mutants killed. C01=ABS_VOL×TICK and C02=REL_VOL×TICK only. Next: one fresh raw-Git CR2 corpus run. No winner selection, regime naming, strategy, direction target, PnL, optimization or MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR2 REGIME-CANDIDATE SYNTHESIS COMPLETE / PASS.** Exact evidence SHA-256 5c05e9e8d965314f4a6852aa71f442f89a0962133edc79873cf610682f34c501. C01 ABS_VOL×TICK = SUPPORTED_N0_SYNTHESIS; C02 REL_VOL×TICK = NOT_INTERPRETABLE due F2 state2 count 53 < 500 sparse floor. No winner selection or regime naming. Next: freeze a C01 confirmatory Charter before any genuinely new/pristine data is inspected/calculated. No strategy/PnL/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15078,3 +15078,42 @@ Verdict:
 **PASS — one local CR2 N0 corpus synthesis attempt authorized.**
 
 No CR2 candidate is yet scientifically supported/refuted.
+
+
+---
+
+## 240. CR2 REGIME-CANDIDATE SYNTHESIS COMPLETE — 2026-09-26
+
+Fresh HEAD before persistence:
+`637fabd57e1fd15199c8eee37c13ed46a9eed9ef`.
+
+Exact evidence:
+- `reports/program/evidence/2026-09-26-CR2-REGIME-CANDIDATE-SYNTHESIS.json`
+- 32,243 bytes
+- SHA-256 `5c05e9e8d965314f4a6852aa71f442f89a0962133edc79873cf610682f34c501`
+- Git blob `d6543d12fc01405fedb006ddb5d714a772f32678`
+
+Adjudication:
+`reports/program/2026-09-26-CR2-REGIME-CANDIDATE-SYNTHESIS-ADJUDICATION.md`
+
+Observations:
+`reports/program/2026-09-26-CR2-REGIME-CANDIDATE-SYNTHESIS-OBSERVATIONS.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR2-COMPLETE-CONFIRMATORY-HANDOFF.md`
+
+Results:
+- C01 ABS_VOL × TICK = `SUPPORTED_N0_SYNTHESIS`
+- C02 REL_VOL × TICK = `NOT_INTERPRETABLE`
+
+C02 sparse cause:
+F2 joint state 2 = 53 < frozen floor 500.
+
+Verdict:
+**PASS — CR2 REGIME-CANDIDATE SYNTHESIS COMPLETE.**
+
+### Next governed frontier
+
+Freeze a C01 confirmatory Charter before any new/pristine confirmation-data inspection or calculation.
+
+No semantic regime naming, strategy, PnL, optimization, MT5, or post-hoc C02 redesign.
