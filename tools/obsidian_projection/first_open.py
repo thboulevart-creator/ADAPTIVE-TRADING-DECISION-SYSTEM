@@ -223,32 +223,40 @@ def _expected_vault_path(
             "first-open harness requires Windows"
         )
 
-    local_appdata = os.environ.get(
-        "LOCALAPPDATA"
-    )
-    if not local_appdata:
-        raise FirstOpenError(
-            "LOCALAPPDATA unavailable"
-        )
+    expected_raw = contract[
+        "materialized_vault"
+    ].get("observed_resolved_path")
 
-    actual = (
-        Path(local_appdata)
-        / EXPECTED_FINAL_NAME
-    ).resolve(strict=False)
+    if not isinstance(
+        expected_raw,
+        str,
+    ) or not expected_raw:
+        raise FirstOpenError(
+            "contractual Vault path missing"
+        )
 
     expected = Path(
-        contract["materialized_vault"][
-            "observed_resolved_path"
-        ]
+        expected_raw
     )
 
-    if _norm(actual) != _norm(expected):
+    if not expected.is_absolute():
         raise FirstOpenError(
-            "resolved Vault path mismatch: "
-            f"expected={expected} actual={actual}"
+            "contractual Vault path must be absolute"
         )
 
-    return actual
+    if expected.name != EXPECTED_FINAL_NAME:
+        raise FirstOpenError(
+            "contractual Vault final name mismatch"
+        )
+
+    # The P3-C contract blob is pinned before this function
+    # is used.  Therefore its exact observed_resolved_path is
+    # the authority for first-open verification.  Do not derive
+    # the path from LOCALAPPDATA here: Microsoft Store / MSIX
+    # Python may expose a virtualized LOCALAPPDATA pointing into
+    # Packages/.../LocalCache/Local even when the qualified P3-B
+    # Vault exists at the host path recorded by the contract.
+    return expected.resolve(strict=False)
 
 
 def _top_level_names(root: Path) -> list[str]:
