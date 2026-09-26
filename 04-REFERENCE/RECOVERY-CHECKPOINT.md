@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 HELPER PERSISTED-HEAD RE-BREAK PASS; ONE LOCAL N0 CORPUS RUN AUTHORIZED.** Exact helper blob 484f74d0..., SHA-256 2ec7ae1b...0cf0; py_compile PASS; 26/26 synthetic PASS; 20/20 mutants killed; static Context/registry/CORE/causality/scope review PASS. Next: one fresh raw-Git local CR1 run. No regime claim, strategy, direction target, PnL, optimisation or MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 REGISTRY SHA BINDING INCIDENT CORRECTED AS CANDIDATE; PRIOR CORPUS AUTHORIZATION REVOKED PENDING PERSISTED-HEAD RE-BREAK.** Exact registry Git blob remains 490039ce...; correct raw-byte SHA-256 is 24db0f82a602fa9e1abc04d2793898847c98dc27ed5fe4a16bcd12502fd787a4. No CR1 corpus calculation occurred. Next: re-break corrected persisted helper before any rerun.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14900,3 +14900,29 @@ Backup:
 Verdict:
 **PASS — helper qualified for one CR1 N0 local corpus execution.**
 **No context hypothesis is yet supported. No regime exists yet.**
+
+
+---
+
+## 235. CR1 REGISTRY SHA BINDING INCIDENT — 2026-09-26
+
+Fresh HEAD before correction:
+`397e01a3cb77ac931550aa7248bde571ee302807`.
+
+Observed local block:
+`REGISTRY_SHA256_MISMATCH=24db0f82a602fa9e1abc04d2793898847c98dc27ed5fe4a16bcd12502fd787a4`.
+
+Exact registry Git blob remained:
+`490039cecf5a02ac7e553f8f7e47f6d4baedb584`.
+
+Root cause:
+previous auxiliary SHA-256 metadata was wrong; registry content was unchanged.
+
+Incident report:
+`reports/program/2026-09-26-CR1-REGISTRY-SHA-BINDING-INCIDENT.md`
+
+Corrected helper candidate expected identity:
+- blob `bb5cd4acd1b48141019c0ec3796ea61627dc0dbf`
+- SHA-256 `423eed0f22b87a92210f53c6668c5b242c8ddb687da3292415c43879fb1f4eac`.
+
+Prior CR1 corpus authorization is revoked until persisted-head re-break passes.
