@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-25 SESSION CLOSE : AP5 PASS; AP6 PREFLIGHT PASS; AP6 HELPER CANDIDATE NOT YET PERSISTED/QUALIFIED.** Tomorrow resume with fresh HEAD → read AI memory/checkpoint/session backup → persist exact AP6 helper/tests/mutation runner → persisted-HEAD py_compile + 19-test synthetic suite + 18-mutant re-break → only then authorize AP6 corpus. No strategy/PnL/MT5/edge claim.
+> **DIRECTIVE ACTIVE — 2026-09-26 : AP6 HELPER PERSISTED-HEAD RE-BREAK PASS; LOCAL CORPUS EXECUTION AUTHORIZED ONCE.** Helper SHA-256 e5463af9...dfc6c, Git blob 28b5a298..., py_compile PASS, 19/19 synthetic PASS, 18/18 mutants killed, static scope/binding/path review PASS. Next action is one local AP6 corpus attempt from a fresh raw-Git stage. AP0–AP5 remain closed/PASS; no strategy/PnL/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14647,3 +14647,42 @@ Next action tomorrow:
 Do not infer AP6 PASS from in-session candidate tests.
 Do not execute AP6 corpus until persisted-HEAD qualification.
 Do not reopen AP0–AP5 absent demonstrated contradiction.
+
+
+---
+
+## 228. AP6 HELPER PERSISTED-HEAD RE-BREAK PASS — 2026-09-26
+
+Persisted candidate HEAD reviewed:
+`27eeefa038d1a06390c90582d900847159c18688`.
+
+Exact identities:
+- helper Git blob `28b5a298156616b9385dc0d8e4b0cfbaa3705497`, SHA-256 `e5463af97783e193f54e1ef25d96626c6a9a511e7236469054b69a788f6dfc6c`;
+- synthetic harness blob `0fa5a4b7a5bd7da117ab0f26077c74b7d58336c2`, SHA-256 `fcb5859fbf325c0b525a89a1d7f9fe5289bbea72aaf9e0d30b401b5fb2af356b`;
+- mutation runner blob `5dc0b786cabb649b18752d099fef6a9b01fe34a5`, SHA-256 `75fc8904a8c37490e1e42a18a2bbf52c53d4e57a5e0e209513bf73746eb1d2b9`.
+
+Re-break:
+- py_compile PASS;
+- synthetic 19/19 PASS;
+- mutation 18/18 KILLED;
+- static review PASS.
+
+Review:
+`reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-HELPER-ADVERSARIAL-REVIEW.md`
+
+Mutation evidence:
+`reports/program/evidence/2026-09-26-AP6-MUTATION-RESULTS.json`
+
+Local handoff:
+`reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-LOCAL-HANDOFF.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-AP6-HELPER-READY-LOCAL-HANDOFF.md`
+
+Verdict:
+**PASS — helper qualified for local AP6 execution.**
+**AP6 corpus remains PENDING.**
+
+### Next governed action
+
+One local AP6 corpus attempt from a fresh raw-Git stage, preserving the user's divergent local branch untouched.

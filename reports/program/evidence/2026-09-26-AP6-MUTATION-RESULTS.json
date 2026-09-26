@@ -1,0 +1,61 @@
+{
+  "schema": "ATDS_AP6_MUTATION_RESULTS_V0_1",
+  "status": "PASS",
+  "persisted_head": "27eeefa038d1a06390c90582d900847159c18688",
+  "helper": {
+    "path": "tools/ap6_seasonality_stability.py",
+    "git_blob": "28b5a298156616b9385dc0d8e4b0cfbaa3705497",
+    "sha256": "e5463af97783e193f54e1ef25d96626c6a9a511e7236469054b69a788f6dfc6c",
+    "bytes": 28784
+  },
+  "synthetic_tests": {
+    "path": "tests/test_ap6_seasonality_stability.py",
+    "git_blob": "0fa5a4b7a5bd7da117ab0f26077c74b7d58336c2",
+    "sha256": "fcb5859fbf325c0b525a89a1d7f9fe5289bbea72aaf9e0d30b401b5fb2af356b",
+    "bytes": 5503,
+    "passed": 19,
+    "total": 19
+  },
+  "mutation_runner": {
+    "path": "tests/run_ap6_mutation_breakers.py",
+    "git_blob": "5dc0b786cabb649b18752d099fef6a9b01fe34a5",
+    "sha256": "75fc8904a8c37490e1e42a18a2bbf52c53d4e57a5e0e209513bf73746eb1d2b9",
+    "bytes": 3123,
+    "killed": 18,
+    "total": 18
+  },
+  "mutants_killed": [
+    "RETURN_CROSS_GAP",
+    "RV_CROSS_GAP",
+    "EFFICIENCY_BAD_WINDOW",
+    "NY_TIMEZONE_UTC",
+    "WEEKDAY_SHIFT",
+    "NY_MONTH_REPLACED_UTC",
+    "QUARTER_OFF_BY_ONE",
+    "PARTIAL_YEARS_LEAK_REFERENCE",
+    "PERIOD_SPECIFIC_CDF_THRESHOLDS",
+    "SPEARMAN_TO_PEARSON",
+    "TIE_RANK_FIRST",
+    "PERSISTENCE_CROSS_BUCKET",
+    "AP5_BINDING_BYPASS",
+    "SYMLINK_CHAIN_BYPASS",
+    "SOURCE_VOLUME_SCOPE_TRUE",
+    "STABILITY_THRESHOLD_TRUE",
+    "PNL_SCOPE_TRUE",
+    "PARTITION_MINUTE_CHECK_BYPASS"
+  ],
+  "static_review": {
+    "exact_upstream_bindings": true,
+    "allowed_read_columns_only": true,
+    "source_volume_fields_read": false,
+    "symlink_reparse_chain_guard": true,
+    "temporal_partition_conservation_guard": true,
+    "output_bound_64_mib": true,
+    "scope_strategy_agnostic": true,
+    "pnl_calculated": false,
+    "optimization": false,
+    "future_labels_used": false,
+    "stability_threshold_applied": false
+  },
+  "independence": "same-assistant review; not independent"
+}
