@@ -1,0 +1,185 @@
+{
+  "schema": "ATDS_C01_CONFIRMATION_EXECUTION_CONTRACT_V0_1",
+  "status": "PREFLIGHT_PERSISTENCE_CANDIDATE_EXECUTION_NOT_AUTHORIZED",
+  "date": "2026-09-26",
+  "binding": {
+    "persistence_base_head": "6aef3b1304313c3446c08a3a37b51ea61733f41e",
+    "charter_path": "reports/program/evidence/2026-09-26-C01-CONFIRMATORY-CHARTER-V0.2.json",
+    "charter_git_blob": "ada0ebf41ecd7ab406d2656ac745ed7003d5b5c1",
+    "sealed_model_path": "reports/program/evidence/2026-09-26-C01-FROZEN-CONFIRMATORY-MODEL-V0.2.json",
+    "sealed_model_git_blob": "68ee4795462c5dbd5747a7bfdef81716dc84227f",
+    "sealed_model_sha256": "ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f",
+    "sealed_model_digest_sha256": "a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f",
+    "qualified_producer_git_blob": "13bdc28585e9c6d34bc2217c750f1716fa3e7f9c",
+    "seal_candidate_path": "reports/program/evidence/2026-09-26-C01-FROZEN-MODEL-V0.2-SEAL-CANDIDATE.json",
+    "seal_candidate_git_blob": "3a6897a63ef2f07a26429342b45977767090651e",
+    "final_seal_path": "reports/program/2026-09-26-C01-FROZEN-MODEL-V0.2-FINAL-SEAL-ADJUDICATION.md",
+    "final_seal_git_blob": "d54ec7840a7bf4eecd94a72f753a02418ea8f543"
+  },
+  "candidate": {
+    "id": "CR2-C01-ABS_VOL_X_TICK",
+    "semantics": "neutral 3x3 ABS_VOL x TICK joint state",
+    "semantic_regime_labels_authorized": false
+  },
+  "confirmation_window": {
+    "eligible_start_utc": "2026-05-25T00:00:00Z",
+    "fixed_end_utc": "2027-05-24T23:59:59Z",
+    "earliest_primary_evaluation_utc": "2027-05-25T00:00:00Z",
+    "partial_window_primary_scoring_authorized": false,
+    "early_primary_score_peek_authorized": false
+  },
+  "data_eligibility": {
+    "instrument": "USTECH",
+    "same_price_core_semantics_required": true,
+    "same_source_lineage_required": true,
+    "genuinely_new_pristine_required": true,
+    "must_not_have_been_used_to_modify_candidate": true,
+    "prior_exposure_invalidates_confirmatory_claim": true
+  },
+  "status_axes": {
+    "purpose": "preserve both already-frozen Charter clauses without rewriting or collapsing either one",
+    "if_pristine_or_new_data_eligibility_cannot_be_established": {
+      "confirmatory_claim_status": "NOT_CONFIRMATORY",
+      "primary_scientific_decision_status": "NOT_INTERPRETABLE"
+    },
+    "basis": {
+      "confirmatory_claim_axis": "confirmation_data.if_pristine_status_cannot_be_proven = NOT_CONFIRMATORY",
+      "primary_decision_axis": "decision_rule.NOT_INTERPRETABLE includes pristine/new-data eligibility cannot be established"
+    },
+    "charter_amendment": false
+  },
+  "causality": {
+    "context_cutoff": "<=t",
+    "target_start": "t+1",
+    "gap_crossing": false,
+    "segment_crossing": false,
+    "exact_minute_continuity_required": true,
+    "same_segment_continuity_required": true,
+    "confirmation_anchor_may_enter_fitting": false
+  },
+  "frozen_evaluation": {
+    "primary_horizon_minutes": 15,
+    "secondary_horizon_minutes": 60,
+    "secondary_is_diagnostic_only": true,
+    "target_classes": 25,
+    "joint_states": 9,
+    "sparse_floor_per_joint_state": 500,
+    "laplace_alpha": 1.0,
+    "abs_rv15_thresholds": [
+      5.371776146488064,
+      10.71209216288787
+    ],
+    "tick5_hour_relative_thresholds": [
+      0.8005586592178772,
+      1.2183908045977012
+    ],
+    "rv15_target_quintiles": [
+      3.973523081929233,
+      6.185588239477184,
+      9.29219887827349,
+      15.11786314181646
+    ],
+    "tick15_target_quintiles": [
+      91.53333333333333,
+      144.26666666666668,
+      220.66666666666666,
+      338.8
+    ],
+    "required_baselines": [
+      "B2+ABS_VOL",
+      "B2+TICK"
+    ],
+    "primary_metrics": [
+      "delta_log_loss",
+      "delta_brier"
+    ],
+    "parameter_refit_authorized": false,
+    "threshold_refit_authorized": false,
+    "probability_refit_authorized": false,
+    "feature_change_authorized": false,
+    "interaction_change_authorized": false
+  },
+  "primary_decision_rule": {
+    "CONFIRMED": [
+      "all 9 joint states have >=500 valid primary targets",
+      "vs ABS_VOL delta_log_loss > 0 and delta_brier > 0",
+      "vs TICK delta_log_loss > 0 and delta_brier > 0",
+      "all critical identity/provenance/causality/continuity controls PASS"
+    ],
+    "REFUTED": [
+      "either required comparison has delta_log_loss <= 0",
+      "either required comparison has delta_brier <= 0"
+    ],
+    "NOT_INTERPRETABLE": [
+      "any joint state has <500 valid primary targets",
+      "new/pristine eligibility cannot be established",
+      "identity/provenance/continuity control failure",
+      "any other critical control invalidates the test"
+    ]
+  },
+  "current_authorization": {
+    "confirmation_data_accessed": false,
+    "confirmation_data_access_authorized_now": false,
+    "primary_score_computed": false,
+    "primary_scoring_authorized_now": false,
+    "real_confirmation_execution_authorized_now": false,
+    "runner_development_authorized_after_persisted_head_rebreak": true,
+    "runner_development_data_class": "SYNTHETIC_ONLY"
+  },
+  "forbidden": [
+    "confirmation-window outcome access during runner development",
+    "primary scoring before fixed confirmation window closes",
+    "partial-window primary scoring",
+    "early primary score peek",
+    "parameter refit",
+    "threshold or bin search",
+    "probability refit",
+    "feature modification",
+    "interaction modification",
+    "semantic regime naming",
+    "winner selection",
+    "C02 redesign",
+    "strategy",
+    "direction target",
+    "signals or trades",
+    "PnL",
+    "MT5 execution",
+    "post-hoc Charter modification presented as the same confirmatory test"
+  ],
+  "minimum_runner_breakers": [
+    "wrong Charter identity",
+    "wrong sealed-model identity",
+    "wrong seal-candidate identity",
+    "wrong model digest",
+    "real execution before fixed window closes",
+    "confirmation-data access during runner development",
+    "partial-window primary scoring",
+    "early primary score exposure",
+    "wrong instrument",
+    "wrong price-core semantics",
+    "wrong source lineage",
+    "unproven pristine status treated as valid confirmatory claim",
+    "unproven pristine status not reported as NOT_INTERPRETABLE on primary decision axis",
+    "confirmation anchors entering fitting",
+    "threshold refit",
+    "probability refit",
+    "target starting at t instead of t+1",
+    "gap crossing",
+    "segment crossing",
+    "ABS_VOL comparison omitted",
+    "TICK comparison omitted",
+    "delta sign reversed",
+    "sparse state allowed to CONFIRM",
+    "60m allowed to rescue 15m",
+    "semantic regime naming",
+    "strategy/direction/PnL/signals introduced",
+    "C02 redesign",
+    "winner selection",
+    "post-hoc Charter modification"
+  ],
+  "next_governed_action": {
+    "action": "PERSISTED_HEAD_REBREAK_C01_CONFIRMATION_EXECUTION_PREFLIGHT_V0_1",
+    "after_pass": "TEST_FIRST_CONFIRMATION_RUNNER_SYNTHETIC_ONLY",
+    "real_confirmation_execution_authorized": false
+  }
+}

@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN CONFIRMATORY MODEL V0.2 FINAL SEALED.** Exact sealed artifact Git blob 68ee4795462c5dbd5747a7bfdef81716dc84227f; SHA-256 ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f; qualified seal-candidate blob 3a6897a63ef2f07a26429342b45977767090651e; corrected persisted-head re-break a823b1c712b786ba7883ed94adb7dd7a08c0282a PASS. This is a model freeze/seal, not scientific confirmation. No confirmation-data access or scoring is authorized by this seal itself.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 PERSISTENCE CANDIDATE.** Frozen Charter blob ada0ebf41ecd7ab406d2656ac745ed7003d5b5c1; sealed model blob 68ee4795462c5dbd5747a7bfdef81716dc84227f. Confirmation data accessed=false; primary score computed=false; real confirmation execution unauthorized. Earliest primary evaluation 2027-05-25T00:00:00Z. Next: persisted-head re-break of the preflight.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15426,3 +15426,64 @@ authorization by itself.
 Next governed frontier:
 separate confirmation-execution preflight/authorization under the frozen
 C01 confirmatory Charter. No early primary scoring.
+
+---
+
+## 249. C01 CONFIRMATION EXECUTION PREFLIGHT V0.1 — PERSISTENCE CANDIDATE
+
+Date:
+2026-09-26
+
+Persistence base HEAD:
+`6aef3b1304313c3446c08a3a37b51ea61733f41e`
+
+Preflight:
+`reports/program/2026-09-26-C01-CONFIRMATION-EXECUTION-PREFLIGHT-V0.1.md`
+
+Machine-readable contract:
+`reports/program/evidence/2026-09-26-C01-CONFIRMATION-EXECUTION-CONTRACT-V0.1.json`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-CONFIRMATION-EXECUTION-PREFLIGHT-V0.1.md`
+
+Frozen Charter blob:
+`ada0ebf41ecd7ab406d2656ac745ed7003d5b5c1`
+
+Sealed model blob:
+`68ee4795462c5dbd5747a7bfdef81716dc84227f`
+
+Seal-candidate blob:
+`3a6897a63ef2f07a26429342b45977767090651e`
+
+Final-seal adjudication blob:
+`d54ec7840a7bf4eecd94a72f753a02418ea8f543`
+
+Fixed confirmation window:
+`2026-05-25T00:00:00Z -> 2027-05-24T23:59:59Z`
+
+Earliest primary evaluation:
+`2027-05-25T00:00:00Z`
+
+Current boundary:
+
+- confirmation data accessed: `false`
+- primary score computed: `false`
+- real confirmation execution authorized: `false`
+- next runner data class after re-break: `SYNTHETIC_ONLY`
+
+Pristine/new-data failure reporting preserves both frozen axes:
+
+- confirmatory claim: `NOT_CONFIRMATORY`
+- primary decision: `NOT_INTERPRETABLE`
+
+Status:
+
+**PREFLIGHT PERSISTENCE CANDIDATE — NOT YET QUALIFIED.**
+
+Next:
+
+persisted-head re-break.
+
+Only after PASS:
+
+**TEST-FIRST CONFIRMATION RUNNER — SYNTHETIC DATA ONLY.**
