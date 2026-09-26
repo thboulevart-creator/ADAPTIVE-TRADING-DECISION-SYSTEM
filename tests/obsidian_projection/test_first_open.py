@@ -130,9 +130,9 @@ class FirstOpenHarnessUnitTests(unittest.TestCase):
         )
 
         virtualized = (
-            r"C:\Users\Boulevart\AppData\Local\Packages\"
-            r"PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\"
-            r"LocalCache\Local"
+            "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\"
+            "PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\"
+            "LocalCache\\Local"
         )
 
         with patch.dict(
@@ -147,8 +147,8 @@ class FirstOpenHarnessUnitTests(unittest.TestCase):
         self.assertEqual(
             str(actual),
             (
-                r"C:\Users\Boulevart\AppData\Local\"
-                r"ATDS-OBSIDIAN-PROJECTION"
+                "C:\\Users\\Boulevart\\AppData\\Local\\"
+                "ATDS-OBSIDIAN-PROJECTION"
             ),
         )
 
