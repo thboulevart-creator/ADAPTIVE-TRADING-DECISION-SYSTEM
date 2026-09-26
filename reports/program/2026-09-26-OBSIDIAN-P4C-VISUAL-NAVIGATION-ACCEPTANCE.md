@@ -140,3 +140,49 @@ Intermediate disposition:
 **CANVAS ACCEPTABLE WITH MINOR UX CORRECTIONS — P4-C OVERALL STILL OPEN**
 
 No content rewrite is authorized from this screenshot alone.
+
+
+## Final HOME recheck
+
+A post-remediation user screenshot of `views/HOME.md` was reviewed with document Properties hidden.
+
+Observed result:
+
+- the human navigation content is visible in the first viewport;
+- the page hierarchy is clear: entry title → projection binding → dashboards → maps → visual overview;
+- dashboard links are immediately accessible;
+- map links are immediately accessible;
+- the Canvas entry is visible without navigating through technical metadata;
+- the non-authoritative warning remains visible;
+- projection identity remains auditable;
+- no plugin-dependent rendering is required for HOME;
+- no broken link or missing-file condition is visible.
+
+Residual minor UX observations:
+
+1. raw source commit and projection digest remain relatively prominent for a primary navigation page;
+2. the editor/live-preview mode may expose Markdown editing affordances such as the heading marker while the cursor is active;
+3. Mermaid consent/prompt text may still appear inside some Canvas file previews.
+
+These are non-blocking usability refinements. They do not justify reopening P4-B or altering authority boundaries.
+
+## Final P4-C adjudication
+
+**PASS — VISUAL / NAVIGATION ACCEPTANCE, WITH MINOR NON-BLOCKING UX RESIDUALS**
+
+The qualified P4-B bundle is accepted as usable for its initial objective:
+
+- human entry point is readable;
+- navigation hierarchy is understandable;
+- native Canvas provides a coherent overview;
+- dashboards/maps are discoverable;
+- technical metadata remains available without dominating the primary interface;
+- no community plugin, Sync, Dataview, custom JavaScript, custom CSS, or external dependency is required.
+
+P4-C does not claim that the current visual layer is the final long-term UX. It qualifies it as a professional and usable V0.1 navigation surface.
+
+## Closure
+
+P4-C is closed PASS.
+
+Any subsequent visual refinement must be a new bounded phase and must not silently overwrite human-owned views.
