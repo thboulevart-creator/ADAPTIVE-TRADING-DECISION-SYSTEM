@@ -1,0 +1,180 @@
+{
+  "schema": "ATDS_AP6_EVIDENCE_SEAL_V0_1",
+  "status": "AP6_COMPLETE_VERIFIED",
+  "raw_evidence": {
+    "local_handoff_name": "ATDS-AP6-SEASONALITY-STABILITY.json",
+    "size_bytes": 273269,
+    "sha256": "f2cfa2c8c43f70519904c375452027f79415890be20a61c4c0452c06127e17fd",
+    "raw_json_versioned_in_repo": false,
+    "archival_note": "Exact uploaded bytes were independently hashed and parsed in-session; current Files bridge did not expose the attachment for byte-for-byte GitHub ingestion."
+  },
+  "binding": {
+    "ap0_files_rehashed": 61,
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap2_sha256": "4e3c79a5b9c8131f62a8fb7f205712d8a5c4301ff01b7fd3ce7226d8799d9c9f",
+    "ap3_sha256": "caa2d02942d5cbd05bcfadd0dedfabde000e4e941cdf4aa4b0433801f76f42ef",
+    "ap4_sha256": "c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad",
+    "ap5_sha256": "21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406",
+    "helper_sha256": "e5463af97783e193f54e1ef25d96626c6a9a511e7236469054b69a788f6dfc6c"
+  },
+  "coverage": {
+    "minute_rows": 1709180,
+    "segments": 1606,
+    "source_ticks_accounted": 376003618
+  },
+  "scope": {
+    "strategy_agnostic": true,
+    "signals_calculated": false,
+    "pnl_calculated": false,
+    "optimization": false,
+    "source_volume_used": false,
+    "future_labels_used": false,
+    "causal_deployable": false,
+    "stability_measured": true,
+    "stability_threshold_applied": false
+  },
+  "global_reconciliation": {
+    "minute_range_bps": {
+      "count": 1709180,
+      "mean": 4.033115022615127
+    },
+    "abs_log_return_1m_bps": {
+      "count": 1707574,
+      "mean": 2.130371613870453
+    },
+    "realized_vol_15m_bps": {
+      "count": 1686423,
+      "mean": 10.478525943077567
+    },
+    "realized_vol_60m_bps": {
+      "count": 1620195,
+      "mean": 21.63083566473441
+    },
+    "efficiency_15m": {
+      "count": 1686423,
+      "mean": 0.25740927472902353
+    },
+    "efficiency_60m": {
+      "count": 1620195,
+      "mean": 0.13080767215518072
+    },
+    "directional_persistence_rate": 0.4933796682202942,
+    "directional_reversal_rate": 0.5066203317797058,
+    "spread_tick_weighted_mean": 2.1395040593705206,
+    "tick_density_mean": 219.99064931721645
+  },
+  "stability_reference": {
+    "complete_years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "partial_years": [
+      2021,
+      2026
+    ],
+    "threshold_applied": false
+  },
+  "complete_year_distribution": {
+    "minute_range_bps": {
+      "mean_cv": 0.27341767729335076,
+      "cdf_distance": {
+        "2022": 0.22043938751434344,
+        "2023": 0.06576969184951298,
+        "2024": 0.1054424271341381,
+        "2025": 0.050551748034085686
+      }
+    },
+    "realized_vol_15m_bps": {
+      "mean_cv": 0.27134198978031876,
+      "cdf_distance": {
+        "2022": 0.24767700717518754,
+        "2023": 0.07107675468600361,
+        "2024": 0.11856085282795381,
+        "2025": 0.05911230941512857
+      }
+    },
+    "realized_vol_60m_bps": {
+      "mean_cv": 0.2724738996000803,
+      "cdf_distance": {
+        "2022": 0.26233486879603285,
+        "2023": 0.08067640333864157,
+        "2024": 0.12134502181534057,
+        "2025": 0.06547614630103782
+      }
+    },
+    "efficiency_15m": {
+      "mean_cv": 0.008681687430761328,
+      "max_complete_year_cdf_distance": 0.007968981430839406
+    },
+    "efficiency_60m": {
+      "mean_cv": 0.011057265350893943,
+      "max_complete_year_cdf_distance": 0.010976486139100905
+    },
+    "spread_mean": {
+      "mean_cv": 0.08430162787581119,
+      "cdf_distance": {
+        "2022": 0.2822877149123234,
+        "2023": 0.2133650106971534,
+        "2024": 0.3537806014928728,
+        "2025": 0.2312275743840782
+      }
+    },
+    "tick_count": {
+      "mean_cv": 0.27879057812587826,
+      "cdf_distance": {
+        "2022": 0.24292454188992557,
+        "2023": 0.053224148899335244,
+        "2024": 0.20035815969640913,
+        "2025": 0.07049282201839513
+      }
+    }
+  },
+  "seasonal_rank_stability": {
+    "new_york_hour_min_spearman": {
+      "minute_range_bps": 0.967391304347826,
+      "abs_log_return_1m_bps": 0.974308300395257,
+      "realized_vol_15m_bps": 0.9634387351778656,
+      "realized_vol_60m_bps": 0.9649915302089215,
+      "tick_count": 0.9812252964426877,
+      "spread_mean": 0.775691699604743,
+      "efficiency_15m": 0.35276679841897235,
+      "efficiency_60m": 0.3438735177865613
+    },
+    "new_york_weekday_min_spearman": {
+      "minute_range_bps": 0.9428571428571428,
+      "realized_vol_15m_bps": 0.9428571428571428,
+      "realized_vol_60m_bps": 0.9428571428571428,
+      "tick_count": 0.9428571428571428,
+      "spread_mean": 0.4857142857142857
+    },
+    "new_york_month_min_spearman": {
+      "minute_range_bps": -0.6503496503496503,
+      "realized_vol_15m_bps": -0.6643356643356644,
+      "realized_vol_60m_bps": -0.6713286713286714,
+      "tick_count": -0.6293706293706294,
+      "spread_mean": -0.3356643356643357
+    }
+  },
+  "directional_persistence_complete_year": {
+    "2022": 0.49452891898935064,
+    "2023": 0.4910111896105733,
+    "2024": 0.4940297763986439,
+    "2025": 0.49496903113371954
+  },
+  "partition_conservation": {
+    "dimensions": [
+      "new_york_hour",
+      "new_york_weekday",
+      "new_york_month",
+      "utc_year",
+      "utc_quarter"
+    ],
+    "minute_rows_each": 1709180,
+    "source_ticks_each": 376003618,
+    "metric_valid_counts_conserved": true
+  },
+  "same_assistant_review": true,
+  "independence_claimed": false
+}

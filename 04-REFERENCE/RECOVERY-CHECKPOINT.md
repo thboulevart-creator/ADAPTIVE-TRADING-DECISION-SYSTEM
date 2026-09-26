@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : AP6 HELPER PERSISTED-HEAD RE-BREAK PASS; LOCAL CORPUS EXECUTION AUTHORIZED ONCE.** Helper SHA-256 e5463af9...dfc6c, Git blob 28b5a298..., py_compile PASS, 19/19 synthetic PASS, 18/18 mutants killed, static scope/binding/path review PASS. Next action is one local AP6 corpus attempt from a fresh raw-Git stage. AP0–AP5 remain closed/PASS; no strategy/PnL/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : AP6 SEASONALITY/STABILITY PASS.** Exact local evidence size 273,269 bytes SHA-256 f2cfa2c8c43f70519904c375452027f79415890be20a61c4c0452c06127e17fd; bindings/reconciliations/temporal conservation PASS. Raw JSON GitHub archival is pending due Files bridge visibility, but a structured evidence seal is versioned. Next action: construct ASSET BEHAVIORAL PROFILE CORE V0.1. No strategy/PnL/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14686,3 +14686,39 @@ Verdict:
 ### Next governed action
 
 One local AP6 corpus attempt from a fresh raw-Git stage, preserving the user's divergent local branch untouched.
+
+
+---
+
+## 229. AP6 SEASONALITY / STABILITY PASS — 2026-09-26
+
+Fresh HEAD before persistence:
+`7d7678780ff2f3818010ff7d77b6e08dce776797`.
+
+Exact local evidence:
+- 273,269 bytes
+- SHA-256 `f2cfa2c8c43f70519904c375452027f79415890be20a61c4c0452c06127e17fd`
+- schema `ATDS_AP6_SEASONALITY_STABILITY_V0_1`
+- status `AP6_COMPLETE`
+
+Durable seal:
+`reports/program/evidence/2026-09-26-AP6-SEASONALITY-STABILITY-SEAL.json`
+
+Adjudication:
+`reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-ADJUDICATION.md`
+
+Observations:
+`reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-OBSERVATIONS.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-AP6-PASS-CORE-HANDOFF.md`
+
+Verdict:
+**PASS — AP6 SEASONALITY / STABILITY.**
+
+Archival limitation:
+raw AP6 JSON not yet mirrored into GitHub because the current Files bridge does not expose the exact attachment to the GitHub connector. Exact local identity is sealed.
+
+### Next governed action
+
+Construct ASSET BEHAVIORAL PROFILE CORE V0.1.
