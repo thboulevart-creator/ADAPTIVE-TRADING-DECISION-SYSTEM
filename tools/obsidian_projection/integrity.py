@@ -229,6 +229,19 @@ def exclusive_write(
     stage_root: Path,
     rendered: RenderedFile,
 ) -> Path:
+    if rendered.content.startswith(b"\xef\xbb\xbf"):
+        raise IntegrityError(
+            "UTF-8 BOM forbidden in deterministic output"
+        )
+    if b"\r" in rendered.content:
+        raise IntegrityError(
+            "CR/CRLF forbidden in deterministic output"
+        )
+    if not rendered.content.endswith(b"\n"):
+        raise IntegrityError(
+            "deterministic output must end with LF"
+        )
+
     candidate = stage_root.resolve()
     destination = (
         candidate
