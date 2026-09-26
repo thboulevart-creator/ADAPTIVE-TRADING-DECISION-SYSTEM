@@ -1132,8 +1132,7 @@ def _verify_obsidian_directory(
                     for item in parsed
                 ):
                     raise FirstOpenOneDriveError(
-                        "Obsidian Sync core "
-                        "plugin enabled"
+                        "Obsidian Sync core plugin enabled"
                     )
             elif isinstance(parsed, dict):
                 if not all(
@@ -1153,8 +1152,7 @@ def _verify_obsidian_directory(
                     in parsed.items()
                 ):
                     raise FirstOpenOneDriveError(
-                        "Obsidian Sync core "
-                        "plugin enabled"
+                        "Obsidian Sync core plugin enabled"
                     )
             else:
                 raise FirstOpenOneDriveError(
