@@ -1,0 +1,182 @@
+{
+  "schema": "ATDS_ASSET_BEHAVIORAL_PROFILE_CORE_V0_1",
+  "status": "CORE_COMPLETE",
+  "asset": "USTECH",
+  "input_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "period": {
+    "start": "2021-05-25",
+    "end": "2026-05-24",
+    "continuity": "discontinuous"
+  },
+  "binding": {
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap1_sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "ap2_sha256": "4e3c79a5b9c8131f62a8fb7f205712d8a5c4301ff01b7fd3ce7226d8799d9c9f",
+    "ap3_sha256": "caa2d02942d5cbd05bcfadd0dedfabde000e4e941cdf4aa4b0433801f76f42ef",
+    "ap4_sha256": "c66a2e8631330a54929c8a30b1b64112a8603489dd5572b8e7414c4e17e3baad",
+    "ap5_sha256": "21dc09b082e32f20543c6206c276c24389b7b61fd930fbe2d1783adabaca4406",
+    "ap6_sha256": "f2cfa2c8c43f70519904c375452027f79415890be20a61c4c0452c06127e17fd"
+  },
+  "coverage": {
+    "minute_rows": 1709180,
+    "source_ticks": 376003618,
+    "segments": 1606,
+    "ap0_files": 61
+  },
+  "promoted_properties": [
+    {
+      "id": "CORE-P01",
+      "statement": "New York intraday ordering of volatility/range/activity is strongly persistent across complete years, while absolute amplitude drifts.",
+      "temporal_evidence": {
+        "min_pairwise_spearman": {
+          "minute_range_bps": 0.967391304347826,
+          "rv15": 0.9634387351778656,
+          "rv60": 0.9649915302089215,
+          "tick_count": 0.9812252964426877
+        },
+        "complete_year_mean_cv": {
+          "minute_range_bps": 0.27341767729335076,
+          "rv15": 0.27134198978031876,
+          "rv60": 0.2724738996000803,
+          "tick_count": 0.27879057812587826
+        }
+      },
+      "interpretation": "Promote relative intraday shape; do not promote a fixed absolute volatility level."
+    },
+    {
+      "id": "CORE-P02",
+      "statement": "Weekday ordering of volatility/range/activity is persistent across 2022-2025; calendar-month ordering is not.",
+      "temporal_evidence": {
+        "weekday_min_spearman": 0.9428571428571428,
+        "month_min_spearman": {
+          "range": -0.6503496503496503,
+          "rv15": -0.6643356643356644,
+          "rv60": -0.6713286713286714,
+          "tick_count": -0.6293706293706294
+        }
+      },
+      "interpretation": "Weekday can be researched as context; month is not promoted as stable context."
+    },
+    {
+      "id": "CORE-P03",
+      "statement": "Absolute volatility level is temporally nonstationary in this dataset.",
+      "temporal_evidence": {
+        "range_mean_cv": 0.27341767729335076,
+        "rv15_mean_cv": 0.27134198978031876,
+        "rv60_mean_cv": 0.2724738996000803
+      },
+      "interpretation": "Full-sample absolute thresholds must not be treated as timeless asset constants."
+    },
+    {
+      "id": "CORE-P04",
+      "statement": "Minute close-to-close directional persistence is approximately balanced with reversal and remains near 0.5 across complete years.",
+      "global": {
+        "persistence": 0.4933796682202942,
+        "reversal": 0.5066203317797058
+      },
+      "complete_year_persistence": {
+        "2022": 0.49452891898935064,
+        "2023": 0.4910111896105733,
+        "2024": 0.4940297763986439,
+        "2025": 0.49496903113371954
+      },
+      "interpretation": "No dominant 1m directional persistence is established; no contrarian edge is inferred."
+    },
+    {
+      "id": "CORE-P05",
+      "statement": "Path efficiency is low on average under the registered metric and its distribution level is comparatively stable across complete years.",
+      "global": {
+        "efficiency15_mean": 0.25740927472902353,
+        "efficiency15_median": 0.22367145981390998,
+        "efficiency60_mean": 0.13080767215518072,
+        "efficiency60_median": 0.1115368569298813
+      },
+      "temporal_evidence": {
+        "efficiency15_mean_cv": 0.008681687430761328,
+        "efficiency60_mean_cv": 0.011057265350893943,
+        "max_complete_year_cdf_distance_15": 0.007968981430839406,
+        "max_complete_year_cdf_distance_60": 0.010976486139100905
+      },
+      "interpretation": "Promote distribution-level property only; do not infer mean reversion or predictability."
+    },
+    {
+      "id": "CORE-P06",
+      "statement": "Active US-session hours combine higher range/tick activity with narrower observed spread, but spread level itself drifts over time.",
+      "full_sample": {
+        "spread_tick_weighted_mean": 2.1395040593705206,
+        "tick_density_mean": 219.99064931721645,
+        "spread_vs_range_pearson": -0.3408104857682299,
+        "spread_vs_tick_pearson": -0.5910554340229595
+      },
+      "temporal_evidence": {
+        "spread_hour_min_spearman": 0.775691699604743,
+        "spread_complete_year_mean_cv": 0.08430162787581119
+      },
+      "interpretation": "Promote time-varying execution-cost context; do not treat spread as constant or infer causality."
+    },
+    {
+      "id": "CORE-P07",
+      "statement": "Discontinuities/reopen boundaries are material and must remain explicit in all downstream research.",
+      "historical_evidence": {
+        "reopen_boundaries": 1605,
+        "abs_discontinuous_log_bps_median": 5.993795613435418,
+        "p90": 31.995592415618358,
+        "p99": 118.19115682382152,
+        "max": 517.6103757428144
+      },
+      "interpretation": "Promote as data/context handling constraint; temporal stability of reopen magnitudes is not qualified."
+    },
+    {
+      "id": "CORE-P08",
+      "statement": "Volatility distributions have heavy full-sample tails relative to their medians.",
+      "historical_evidence": {
+        "rv60_mean": 21.63083566473441,
+        "rv60_median": 16.1968,
+        "rv60_p99": 89.010616408331,
+        "rv60_max": 479.92029054395715
+      },
+      "interpretation": "Promote heavy-tail caution, but not invariant tail levels because absolute volatility drifts."
+    }
+  ],
+  "historical_observations_not_stability_promoted": [
+    {
+      "id": "CORE-H01",
+      "statement": "AP4 breakout/reentry frequencies and 2m median / 9m p90 reentry delay are historical future-observation findings.",
+      "reason": "AP6 V0.1 deliberately excludes future-label stability qualification."
+    },
+    {
+      "id": "CORE-H02",
+      "statement": "AP3 20/60/20 compression/normal/expansion shares are construction-defined quantiles.",
+      "reason": "They are descriptive state partitions, not discovered natural probabilities or live thresholds."
+    }
+  ],
+  "not_qualified": [
+    "source traded volume",
+    "market depth",
+    "order flow",
+    "sub-minute microstructure",
+    "execution price realism",
+    "causal relationships",
+    "live/deployable full-sample thresholds",
+    "strategy",
+    "PnL",
+    "edge",
+    "optimization"
+  ],
+  "downstream_research_candidates": [
+    "New York time-of-day as a relative context axis",
+    "weekday as a candidate context axis",
+    "time-varying absolute volatility level / normalization",
+    "spread and tick-density as provider-specific activity/cost context",
+    "gap/reopen state",
+    "efficiency distribution as descriptive context"
+  ],
+  "scope": {
+    "strategy_agnostic": true,
+    "signals_calculated": false,
+    "pnl_calculated": false,
+    "optimization": false,
+    "causal_deployable": false
+  },
+  "promotion_gate": "PASS"
+}

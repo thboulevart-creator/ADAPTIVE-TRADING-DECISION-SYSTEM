@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : AP6 SEASONALITY/STABILITY PASS.** Exact local evidence size 273,269 bytes SHA-256 f2cfa2c8c43f70519904c375452027f79415890be20a61c4c0452c06127e17fd; bindings/reconciliations/temporal conservation PASS. Raw JSON GitHub archival is pending due Files bridge visibility, but a structured evidence seal is versioned. Next action: construct ASSET BEHAVIORAL PROFILE CORE V0.1. No strategy/PnL/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : ASSET BEHAVIORAL PROFILE CORE V0.1 PASS.** AP0→AP6 are closed/PASS. CORE promotes stable relative NY intraday/weekday structure, time-varying absolute volatility/activity/spread levels, near-balanced 1m direction, stable efficiency-distribution level, explicit gap handling, and rejects month seasonality/breakout stability/causal or strategy claims. Next allowed frontier: CONTEXT / REGIME RESEARCH preflight only. No strategy/PnL/MT5/optimization.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14722,3 +14722,43 @@ raw AP6 JSON not yet mirrored into GitHub because the current Files bridge does 
 ### Next governed action
 
 Construct ASSET BEHAVIORAL PROFILE CORE V0.1.
+
+
+---
+
+## 230. ASSET BEHAVIORAL PROFILE CORE V0.1 PASS — 2026-09-26
+
+Fresh HEAD before persistence:
+`5e3509c1b1760dd36963eb05e6dfb70eb49fa82b`.
+
+CORE:
+`reports/program/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1.md`
+
+Machine-readable CORE:
+`reports/program/evidence/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1.json`
+
+Adjudication:
+`reports/program/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1-ADJUDICATION.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CORE-V0.1-PASS-CONTEXT-RESEARCH-HANDOFF.md`
+
+Promotion gate:
+- AP0 reproducible: PASS
+- gaps explicit: PASS
+- metrics documented: PASS
+- no strategy calculations: PASS
+- temporal stability measured: PASS
+- limitations/unqualified data explicit: PASS
+
+Verdict:
+**PASS — ASSET BEHAVIORAL PROFILE CORE V0.1.**
+
+AP0→AP6 profile program is closed.
+
+### Next governed frontier
+
+**CONTEXT / REGIME RESEARCH preflight only.**
+
+Do not reopen AP0–AP6 absent demonstrated contradiction.
+Do not begin strategy/backtest/PnL/MT5/optimization without later explicit gates.
