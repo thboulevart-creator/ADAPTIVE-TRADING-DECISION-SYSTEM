@@ -304,6 +304,20 @@ class DynamicInventoryTests(unittest.TestCase):
         self.assertIn("path_sha256=", message)
         self.assertNotIn("config/.env", message)
 
+    def test_root_sensitive_directory_blocks(
+        self,
+    ) -> None:
+        source = source_for(
+            blob_entry(
+                "secrets/example.txt",
+                b"placeholder\n",
+            )
+        )
+        with self.assertRaises(
+            SensitivePathError
+        ):
+            self.build(source)
+
     def test_forbidden_generated_surface_blocks(
         self,
     ) -> None:
