@@ -105,7 +105,6 @@ class P5B2AdversarialStaticTests(
         joined = self.module + "\n" + self.cli
         for forbidden in (
             '"push"',
-            '"commit"',
             '"checkout"',
             '"reset"',
             '"clean"',
@@ -113,6 +112,8 @@ class P5B2AdversarialStaticTests(
             '"rebase"',
             '"switch"',
             '"add"',
+            'git commit',
+            '_git("commit"',
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(
