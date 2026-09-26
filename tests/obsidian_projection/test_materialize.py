@@ -111,32 +111,41 @@ def build_p2_pair(
     Path,
     Path,
 ]:
+    records_list: list[SemanticRecord] = []
+    blobs: dict[str, bytes] = {}
+
     source_raw = (
         b"# Source\n\n"
-        b"Evidence: \x60reports/target.md\x60\n"
+        b"Evidence: \x60reports/item-001.md\x60\n"
     )
-    target_raw = b"# Target\n"
-
     source_record = make_record(
-        "reports/source.md",
+        "reports/item-000.md",
         source_raw,
     )
-    target_record = make_record(
-        "reports/target.md",
-        target_raw,
-    )
-    records = (
-        source_record,
-        target_record,
-    )
-    source = FakeSource(
-        {
-            source_record.source_blob_sha:
-                source_raw,
-            target_record.source_blob_sha:
-                target_raw,
-        }
-    )
+    records_list.append(source_record)
+    blobs[
+        source_record.source_blob_sha
+    ] = source_raw
+
+    for index in range(1, 74):
+        path = f"reports/item-{index:03d}.md"
+        raw = (
+            f"# Item {index:03d}\n"
+        ).encode("utf-8")
+        record = make_record(
+            path,
+            raw,
+        )
+        records_list.append(record)
+        blobs[record.source_blob_sha] = raw
+
+    records = tuple(records_list)
+    if len(records) != 74:
+        raise AssertionError(
+            "synthetic P2 fixture must contain 74 records"
+        )
+
+    source = FakeSource(blobs)
 
     semantic_digest = records_digest_sha256(
         records
@@ -183,7 +192,8 @@ def build_p2_pair(
         "semantic_record_count": 74,
         "semantic_record_digest_sha256":
             semantic_digest,
-        "artifact_record_count": 74,
+        "artifact_record_count":
+            result_a.artifact_record_count,
         "relation_record_count":
             relation_count,
         "artifact_set_digest_sha256":
