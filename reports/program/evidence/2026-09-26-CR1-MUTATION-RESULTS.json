@@ -1,0 +1,70 @@
+{
+  "schema": "ATDS_CR1_MUTATION_RESULTS_V0_1",
+  "status": "PASS",
+  "persisted_head": "6e9f1b4c44e0e76346061677dfe2e4fbf7f69001",
+  "helper": {
+    "path": "tools/cr1_context_informativeness.py",
+    "git_blob": "484f74d0c05eabd3ecc0d9b35fbbafdf120f408a",
+    "sha256": "2ec7ae1b2db5f0afe7b9ff4405c26d2f85cb2141b527aec203bd0e1c37ee0cf0",
+    "bytes": 36971
+  },
+  "synthetic_tests": {
+    "path": "tests/test_cr1_context_informativeness.py",
+    "git_blob": "d326ddafa1d348decb4ae67ac480bc01060ac340",
+    "sha256": "758d5f68b38ea704bdb5256375f8f03cebf51dc07eae470f698104aabf4106b8",
+    "bytes": 8354,
+    "passed": 26,
+    "total": 26
+  },
+  "mutation_runner": {
+    "path": "tests/run_cr1_mutation_breakers.py",
+    "git_blob": "69455bdbbde6e9f693e8f29c0fb2969fa8490d15",
+    "sha256": "7b9a8ef462378a64779f9ecfb4e55464ef5f84264814b212ee37338d225c7146",
+    "bytes": 3289,
+    "killed": 20,
+    "total": 20
+  },
+  "mutants_killed": [
+    "CONTEXT_ID_BYPASS",
+    "RETURN_CROSS_GAP",
+    "FORWARD_INCLUDES_T",
+    "FORWARD_GAP_BYPASS",
+    "TRAILING_FUTURE_LEAK",
+    "FOLD_TEST_LEAK",
+    "GAP_STATE_THRESHOLD_SEARCH",
+    "TEST_QUANTILE_RECALIBRATION",
+    "UNSEEN_NO_LAPLACE",
+    "STATUS_ALLOW_TWO_FOLDS",
+    "SPARSE_BYPASS",
+    "D2026_PRIMARY",
+    "STATE_BASELINE_B0",
+    "SPREAD_TARGET_DRIFT",
+    "DIRECTION_SCOPE_TRUE",
+    "PNL_SCOPE_TRUE",
+    "REGIME_LABELS_TRUE",
+    "REGISTRY_OMISSION_BYPASS",
+    "H07_DIAGNOSTIC_OMIT",
+    "B2_DROP_WEEKDAY"
+  ],
+  "static_review": {
+    "allowed_read_columns_only": true,
+    "context_exact_identity_required": true,
+    "hypothesis_registry_exact_family_required": true,
+    "core_exact_git_blob_required": true,
+    "core_upstream_binding_exact": true,
+    "target_starts_at_t_plus_1": true,
+    "gap_and_segment_continuity_required": true,
+    "train_only_context_thresholds": true,
+    "train_only_target_quintiles": true,
+    "d2026_diagnostic_only": true,
+    "baseline_hierarchy_frozen": true,
+    "all_hypotheses_reported": true,
+    "direction_target_used": false,
+    "pnl_calculated": false,
+    "regime_labels_instantiated": false,
+    "optimization": false,
+    "feature_search": false,
+    "winner_selection": false
+  },
+  "independence": "same-assistant review; not independent"
+}

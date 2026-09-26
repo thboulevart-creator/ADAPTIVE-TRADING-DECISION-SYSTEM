@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 LOCAL CANDIDATE PASSES 26/26 SYNTHETIC + 20/20 MUTANTS, BUT PRODUCTION HELPER EXACT TRANSFER IS PENDING.** Helper bytes 36,971 SHA-256 2ec7ae1b...0cf0 expected Git blob 484f74d0...408a. Test and mutation Git blobs exist only as unreferenced objects. No CR1 helper is authoritative/persisted; no corpus run is authorized. Next: ingest exact helper attachment → exact blob → persisted-head re-break.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 HELPER PERSISTED-HEAD RE-BREAK PASS; ONE LOCAL N0 CORPUS RUN AUTHORIZED.** Exact helper blob 484f74d0..., SHA-256 2ec7ae1b...0cf0; py_compile PASS; 26/26 synthetic PASS; 20/20 mutants killed; static Context/registry/CORE/causality/scope review PASS. Next: one fresh raw-Git local CR1 run. No regime claim, strategy, direction target, PnL, optimisation or MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14865,3 +14865,38 @@ Current verdict:
 
 Next governed action:
 ingest exact helper bytes as a visible attachment, create exact Git blob, persist candidate files, then persisted-head re-break.
+
+
+---
+
+## 234. CR1 HELPER PERSISTED-HEAD RE-BREAK PASS — 2026-09-26
+
+Persisted candidate HEAD reviewed:
+`6e9f1b4c44e0e76346061677dfe2e4fbf7f69001`.
+
+Exact identities:
+- helper blob `484f74d0c05eabd3ecc0d9b35fbbafdf120f408a`, SHA-256 `2ec7ae1b2db5f0afe7b9ff4405c26d2f85cb2141b527aec203bd0e1c37ee0cf0`;
+- tests blob `d326ddafa1d348decb4ae67ac480bc01060ac340`, SHA-256 `758d5f68b38ea704bdb5256375f8f03cebf51dc07eae470f698104aabf4106b8`;
+- mutation runner blob `69455bdbbde6e9f693e8f29c0fb2969fa8490d15`, SHA-256 `7b9a8ef462378a64779f9ecfb4e55464ef5f84264814b212ee37338d225c7146`.
+
+Re-break:
+- py_compile PASS;
+- synthetic 26/26 PASS;
+- mutation 20/20 KILLED;
+- static review PASS.
+
+Review:
+`reports/program/2026-09-26-CR1-CONTEXT-INFORMATIVENESS-HELPER-ADVERSARIAL-REVIEW.md`
+
+Mutation evidence:
+`reports/program/evidence/2026-09-26-CR1-MUTATION-RESULTS.json`
+
+Local handoff:
+`reports/program/2026-09-26-CR1-CONTEXT-INFORMATIVENESS-LOCAL-HANDOFF.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR1-HELPER-READY-LOCAL-HANDOFF.md`
+
+Verdict:
+**PASS — helper qualified for one CR1 N0 local corpus execution.**
+**No context hypothesis is yet supported. No regime exists yet.**
