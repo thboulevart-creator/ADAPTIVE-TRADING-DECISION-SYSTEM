@@ -441,7 +441,7 @@ def build_projection_from_records(
         deterministic_file_count=(
             len(artifact_files)
             + len(relation_files)
-            + 1
+            + 2
         ),
         generated_file_count=len(
             generated_files
