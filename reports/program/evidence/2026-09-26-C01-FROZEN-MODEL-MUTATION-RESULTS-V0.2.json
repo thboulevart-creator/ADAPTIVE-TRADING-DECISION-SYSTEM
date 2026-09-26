@@ -1,0 +1,32 @@
+{
+  "schema": "ATDS_C01_FROZEN_MODEL_MUTATION_RESULTS_V0_2",
+  "status": "PASS",
+  "persisted_head": "01e8a392a86faab0db7d712c46b79547de51b800",
+  "producer": {
+    "git_blob": "13bdc28585e9c6d34bc2217c750f1716fa3e7f9c",
+    "sha256": "a7d1782debb31bee089f99351e1f83345333caf8bb9453d5db3d9be83f1cd4ed",
+    "bytes": 22169
+  },
+  "synthetic": {
+    "git_blob": "60a15d2a985f13d71d137ece8aa527c759f314e8",
+    "sha256": "05a68021e31b657b468ae1f630cdf14ef0ed3b0ed741eeb576c53e15eb7783c4",
+    "passed": 29,
+    "total": 29
+  },
+  "mutation_runner": {
+    "git_blob": "128e80e8d6efd66f038d47abbfb00345ce0a096c",
+    "sha256": "5655379a57e025d759f94d17ca535078d79c739b69259a2c23a330a073def1cd",
+    "killed": 17,
+    "total": 17
+  },
+  "correction": {
+    "type": "representation_only",
+    "v01_run_sha256": "05cb33679a48ba683ba6a68b95a371ed7ec630df24c237bebbdab404f8200b31",
+    "unchanged_model_digest": "a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f",
+    "unavailable_ny_hour": [
+      17
+    ],
+    "strict_json": true
+  },
+  "independence": "same-assistant review; not independent"
+}

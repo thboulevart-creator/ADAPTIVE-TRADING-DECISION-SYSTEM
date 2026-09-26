@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL V0.1 RUN SUCCEEDED BUT IS NOT SEALED DUE NON-STANDARD NaN JSON; V0.2 REPRESENTATION FIX PERSISTED AS CANDIDATE.** Internal model/digest unchanged; NY hour 17 is structurally unavailable and must serialize as null + explicit unavailable list. Next: persisted-head re-break of V0.2 before any second development-only freeze. Confirmation-data access remains forbidden.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL PRODUCER V0.2 PERSISTED-HEAD RE-BREAK PASS; ONE DEVELOPMENT-ONLY AP0 RERUN AUTHORIZED.** V0.2 emits strict JSON, hour17=null + unavailable=[17], with unchanged expected model digest a8b8b823...26c7f. py_compile PASS; 29/29 tests PASS; 17/17 mutants killed. No confirmation-data access/scoring.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15290,3 +15290,39 @@ Next:
 persisted-head re-break only.
 
 No confirmation-data access.
+
+
+---
+
+## 246. C01 FROZEN MODEL PRODUCER V0.2 PERSISTED-HEAD RE-BREAK PASS — 2026-09-26
+
+Persisted candidate HEAD:
+`01e8a392a86faab0db7d712c46b79547de51b800`
+
+Review:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-PRODUCER-PERSISTED-HEAD-REVIEW-V0.2.md`
+
+Mutation evidence:
+`reports/program/evidence/2026-09-26-C01-FROZEN-MODEL-MUTATION-RESULTS-V0.2.json`
+
+Handoff:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-LOCAL-HANDOFF-V0.2.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-FROZEN-MODEL-V0.2-READY.md`
+
+Exact producer blob:
+`13bdc28585e9c6d34bc2217c750f1716fa3e7f9c`
+
+Re-break:
+- py_compile PASS
+- 29/29 synthetic PASS
+- 17/17 mutation KILLED
+
+Verdict:
+**PASS — one development-only AP0 rerun authorized.**
+
+Expected model digest remains:
+`a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f`
+
+Confirmation-window access remains forbidden.
