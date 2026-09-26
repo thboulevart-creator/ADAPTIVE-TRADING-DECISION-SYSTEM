@@ -1,0 +1,80 @@
+{
+  "schema": "ATDS_CR2_MUTATION_RESULTS_V0_1",
+  "status": "PASS",
+  "persisted_head": "6f6fd02ba65a597fd04a1bb3e78edded7b19594d",
+  "helper": {
+    "path": "tools/cr2_regime_candidate_synthesis.py",
+    "git_blob": "34c702e926b3baec90c57b8366177c2db1eca074",
+    "sha256": "cdea6b317400fbbd32208e05343a6a2c1c78c3cfbd04bcf0271fc7e60dfcf757",
+    "bytes": 25383
+  },
+  "synthetic_tests": {
+    "path": "tests/test_cr2_regime_candidate_synthesis.py",
+    "git_blob": "dec91d42c70f5b38dbd23ba170222b5803aeb316",
+    "sha256": "7d72970ef38fab67a29fc33b6f7bdb5d3220557080f35144bb6b2dceb02b6582",
+    "bytes": 9078,
+    "passed": 26,
+    "total": 26
+  },
+  "mutation_runner": {
+    "path": "tests/run_cr2_mutation_breakers.py",
+    "git_blob": "0dc3875d51131095adb6a81772df825eaca26306",
+    "sha256": "89d91f5a171402363f236084f2787334892baca6598736af359c538db7725bce",
+    "bytes": 4062,
+    "killed": 20,
+    "total": 20
+  },
+  "mutants_killed": [
+    "CONTEXT_ID_BYPASS",
+    "CR1_STATUS_DRIFT_ACCEPT",
+    "REGISTRY_EXTRA_FAMILY_ACCEPT",
+    "JOINT_STATE_WRONG_BASE",
+    "TARGET_TEST_RECALIBRATION",
+    "TERTILE_TEST_LEAK",
+    "B2_DROP_WEEKDAY",
+    "SPARSE_FLOOR_ZERO_ONLY",
+    "D2026_PRIMARY_LEAK",
+    "SUPPORT_ONE_BASELINE_ONLY",
+    "REFUTE_REQUIRES_BOTH_FAIL",
+    "SPARSE_SUPPORT_BYPASS",
+    "C01_USES_REL",
+    "C02_USES_ABS",
+    "WINNER_SELECTION_TRUE",
+    "SEMANTIC_LABEL_TRUE",
+    "PNL_TRUE",
+    "DIRECTION_TRUE",
+    "COLUMN_SPREAD_INJECT",
+    "SPARSE_100_INSTEAD_500"
+  ],
+  "static_review": {
+    "cr1_helper_exact_git_blob_required": true,
+    "context_exact_sha_required": true,
+    "cr1_evidence_exact_git_blob_required": true,
+    "cr2_registry_exact_git_blob_required": true,
+    "cr1_status_family_exact": true,
+    "only_two_candidate_families": true,
+    "ap0_read_columns": [
+      "minute_start_ms_utc",
+      "tick_count",
+      "segment_id",
+      "mid_close"
+    ],
+    "spread_field_read": false,
+    "source_volume_used": false,
+    "target_starts_after_context_cutoff": true,
+    "gap_segment_continuity_reused_from_qualified_cr1": true,
+    "train_only_tertiles": true,
+    "train_only_joint_target_quintiles": true,
+    "b2_hour_weekday_backbone": true,
+    "dual_constituent_comparisons_required": true,
+    "sparse_floor_per_joint_state": 500,
+    "d2026_diagnostic_only": true,
+    "winner_selection": false,
+    "semantic_regime_labels": false,
+    "pnl": false,
+    "direction_target": false,
+    "optimization": false,
+    "mt5": false
+  },
+  "independence": "same-assistant review; not independent"
+}
