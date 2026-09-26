@@ -1,0 +1,138 @@
+{
+  "schema": "ATDS_CR2_REGIME_CANDIDATE_REGISTRY_V0_1",
+  "status": "PREFLIGHT_ONLY_NO_SYNTHESIS_EXECUTED",
+  "epistemic_class": "N0_EXPLORATORY",
+  "bindings": {
+    "cr1_evidence_git_blob": "cd40bf975613d1fa0e6d7277c2850ec87104727e",
+    "cr1_evidence_sha256": "c7aacf73c175c6af49a4866ad62f1d65c0b46b05fa6cd0dd0def4eb5ce87ba3f",
+    "cr1_adjudication_commit": "8ba1f75d40e021d469481de3e061c07bed88fcd9",
+    "context_id": "CTX-d0501ec820062bfe373f1f4b94de4e191ca2c7e05bbe788b3d5d963750158cbf"
+  },
+  "admitted_axes": [
+    "NY_HOUR",
+    "NY_WEEKDAY",
+    "BACKWARD_RV15_ABSOLUTE_STATE",
+    "BACKWARD_RV15_HOUR_RELATIVE_STATE",
+    "BACKWARD_TICK5_HOUR_RELATIVE_STATE"
+  ],
+  "excluded_axes": [
+    {
+      "axis": "BACKWARD_SPREAD5_HOUR_RELATIVE_STATE",
+      "status": "NOT_INTERPRETABLE"
+    },
+    {
+      "axis": "MINUTES_SINCE_SEGMENT_START_STATE",
+      "status": "REFUTED_N0"
+    },
+    {
+      "axis": "BACKWARD_EFFICIENCY15_STATE",
+      "status": "REFUTED_N0"
+    }
+  ],
+  "calendar_backbone": {
+    "baseline": "B2",
+    "dimensions": [
+      "NY_HOUR",
+      "NY_WEEKDAY"
+    ],
+    "role": "conditioning backbone only; not multiplied into regime-state identity"
+  },
+  "candidate_families": [
+    {
+      "id": "CR2-C01-ABS_VOL_X_TICK",
+      "dynamic_state_axes": [
+        "BACKWARD_RV15_ABSOLUTE_STATE",
+        "BACKWARD_TICK5_HOUR_RELATIVE_STATE"
+      ],
+      "state_space": "3x3 = 9 fixed joint states",
+      "state_ids": [
+        "V0T0",
+        "V0T1",
+        "V0T2",
+        "V1T0",
+        "V1T1",
+        "V1T2",
+        "V2T0",
+        "V2T1",
+        "V2T2"
+      ],
+      "target": "joint(RV15_quintile,TICK15_quintile) = 25 classes",
+      "comparisons": [
+        "joint candidate vs B2+ABS_VOL_STATE",
+        "joint candidate vs B2+TICK_STATE"
+      ]
+    },
+    {
+      "id": "CR2-C02-REL_VOL_X_TICK",
+      "dynamic_state_axes": [
+        "BACKWARD_RV15_HOUR_RELATIVE_STATE",
+        "BACKWARD_TICK5_HOUR_RELATIVE_STATE"
+      ],
+      "state_space": "3x3 = 9 fixed joint states",
+      "state_ids": [
+        "V0T0",
+        "V0T1",
+        "V0T2",
+        "V1T0",
+        "V1T1",
+        "V1T2",
+        "V2T0",
+        "V2T1",
+        "V2T2"
+      ],
+      "target": "joint(RV15_quintile,TICK15_quintile) = 25 classes",
+      "comparisons": [
+        "joint candidate vs B2+REL_VOL_STATE",
+        "joint candidate vs B2+TICK_STATE"
+      ]
+    }
+  ],
+  "folds": {
+    "primary": [
+      "F1",
+      "F2",
+      "F3"
+    ],
+    "diagnostic": "D2026",
+    "pristine_oos": false
+  },
+  "construction": {
+    "context_cutoff": "all inputs <= t",
+    "target_start": "t+1",
+    "target_horizon_minutes": 15,
+    "secondary_horizon_minutes": 60,
+    "gap_crossing": false,
+    "segment_crossing": false,
+    "dynamic_state_thresholds": "reuse CR1 causal train-only tertile construction",
+    "target_thresholds": "train-only quintiles for RV and TICK separately; cartesian 25-class target",
+    "refit_on_test": false
+  },
+  "scoring": {
+    "laplace_alpha": 1,
+    "primary_metric": "delta_log_loss",
+    "secondary_metric": "delta_brier",
+    "required_comparisons_per_candidate": 2,
+    "sparse_min_test_per_joint_state": 500,
+    "supported_n0_synthesis": [
+      "for each required comparison: delta_log_loss > 0 in F1,F2,F3",
+      "for each required comparison: pooled delta_brier > 0",
+      "no joint state sparse in any primary fold"
+    ],
+    "refuted_n0_synthesis": [
+      "for any required comparison: pooled delta_log_loss <= 0",
+      "or for any required comparison: delta_log_loss <= 0 in at least 2 primary folds"
+    ],
+    "otherwise": "NOT_INTERPRETABLE"
+  },
+  "no_selection_rules": [
+    "do not compare C01 and C02 to choose a winner",
+    "do not add/remove axes after results",
+    "do not search alternative bin counts",
+    "do not search interactions beyond the two preregistered 3x3 families",
+    "do not use spread/gap/efficiency",
+    "do not instantiate TENDANCE/RANGE/BREAKOUT/STRESS labels",
+    "do not use PnL, direction, signals, trades, optimization or MT5",
+    "report every candidate family and every fold"
+  ],
+  "promotion_limit": "CR2 may create N0 regime-candidate structures only; validated regime claims require a later frozen charter and pristine/new data."
+}

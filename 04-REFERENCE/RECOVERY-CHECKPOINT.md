@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 CONTEXT INFORMATIVENESS COMPLETE / PASS.** Exact evidence SHA-256 c7aacf73...87ba3f. SUPPORTED_N0: NY hour, weekday, absolute RV15, hour-relative RV15, relative tick-density. NOT_INTERPRETABLE: relative spread due sparse F2 state=21. REFUTED_N0: gap/reopen and efficiency. Next: bounded CR2 regime-candidate synthesis preflight only. No combinatorial search, strategy, PnL, MT5 or validated-regime claim.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR2 REGIME-CANDIDATE SYNTHESIS PREFLIGHT V0.1 PASS.** Exactly two N0 candidate families are frozen: ABS_VOL×TICK and REL_VOL×TICK, each 3×3, with hour+weekday as B2 backbone. Joint 25-class RV15×TICK15 target; each family must beat both constituent baselines across F1/F2/F3. No winner search, semantic regime labels, PnL, direction, strategy, MT5 or pristine-OOS claim. Next: CR2 helper/tests only.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15003,3 +15003,42 @@ Bounded CR2 regime-candidate synthesis preflight only.
 
 Only CR1-supported axes may enter.
 No winner search, PnL, strategy, MT5, or validated regime claim.
+
+
+---
+
+## 238. CR2 REGIME-CANDIDATE SYNTHESIS PREFLIGHT V0.1 — 2026-09-26
+
+Fresh HEAD before persistence:
+`8ba1f75d40e021d469481de3e061c07bed88fcd9`.
+
+Preflight:
+`reports/program/2026-09-26-CR2-REGIME-CANDIDATE-SYNTHESIS-PREFLIGHT-V0.1.md`
+
+Registry:
+`reports/program/evidence/2026-09-26-CR2-CANDIDATE-REGISTRY-V0.1.json`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR2-PREFLIGHT-V0.1.md`
+
+Frozen families:
+- C01 ABS_VOL × TICK
+- C02 REL_VOL × TICK
+
+Each family:
+- 9 fixed dynamic states;
+- B2 hour+weekday backbone;
+- primary 25-class joint RV15×TICK15 target;
+- dual constituent-baseline comparisons;
+- sparse floor 500 per state/fold;
+- N0-only decision rule.
+
+Verdict:
+**PASS — PREFLIGHT ONLY.**
+
+No CR2 synthesis computation has occurred.
+No regime candidate is yet supported.
+
+### Next action
+
+CR2 helper + synthetic/adversarial tests only; persisted-head re-break before corpus execution.
