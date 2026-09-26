@@ -38,7 +38,7 @@ Unit tests:
 Adversarial breakers:
 
     tests/obsidian_projection/test_p5b2_adversarial.py
-    blob: 785fbe8bacb120541dc2487d83b5e4a7a1c51a42
+    blob: adc4cc7ede11c3ccf8fd977a881a568227aef1c8
 
 ## Contract binding
 
