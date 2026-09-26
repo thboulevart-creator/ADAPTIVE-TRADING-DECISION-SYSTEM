@@ -46,7 +46,7 @@ def main() -> int:
         report = materialize_once(
             Path(args.repo_root)
         )
-    except MaterializationError as exc:
+    except Exception as exc:
         blocked = {
             "schema":
                 "ATDS_OBSIDIAN_P3B_EXECUTION_REPORT_V0_1",
@@ -54,6 +54,8 @@ def main() -> int:
                 False,
             "status":
                 "BLOCKED",
+            "error_type":
+                type(exc).__name__,
             "error":
                 str(exc),
         }
