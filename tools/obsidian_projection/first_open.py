@@ -256,7 +256,7 @@ def _expected_vault_path(
     # Python may expose a virtualized LOCALAPPDATA pointing into
     # Packages/.../LocalCache/Local even when the qualified P3-B
     # Vault exists at the host path recorded by the contract.
-    return expected.resolve(strict=False)
+    return expected
 
 
 def _top_level_names(root: Path) -> list[str]:
