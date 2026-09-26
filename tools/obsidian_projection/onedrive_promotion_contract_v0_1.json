@@ -1,0 +1,207 @@
+{
+  "schema": "ATDS_OBSIDIAN_ONEDRIVE_PROMOTION_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "predecessor_p5b2_head": "eb7b3202c8c3c9ced8cb6d068051e0a922da5e22",
+  "purpose": "Empirically qualify or reject Windows/OneDrive promotion primitives before any continuous replacement of the live machine-owned Obsidian projection.",
+  "live_vault": {
+    "path": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROJECTION",
+    "mutation_authorized": false,
+    "generated_mutation_authorized": false,
+    "views_mutation_authorized": false,
+    "obsidian_config_mutation_authorized": false
+  },
+  "sandbox": {
+    "path": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-P5C-PROMOTION-SANDBOX",
+    "same_onedrive_root_required": true,
+    "sacrificial": true,
+    "must_not_be_git_repository": true,
+    "must_not_overlap_live_vault": true,
+    "must_be_empty_or_absent_before_experiment": true,
+    "cleanup_after_evidence_persistence_allowed": true
+  },
+  "objective": {
+    "primary": "ZERO_MIXED_GENERATION_VISIBILITY",
+    "secondary": [
+      "NO_MISSING_LIVE_ENTRY_WINDOW",
+      "NO_PARTIAL_GENERATION_WINDOW",
+      "RECOVERABLE_AFTER_INTERRUPTION",
+      "COMPATIBLE_WITH_WINDOWS_ONEDRIVE",
+      "NO_HUMAN_VIEW_OVERWRITE"
+    ],
+    "no_atomicity_claim_without_empirical_evidence": true
+  },
+  "generation_fixture": {
+    "generation_ids": [
+      "GEN_A",
+      "GEN_B"
+    ],
+    "files_per_generation": 128,
+    "nested_directories": 8,
+    "each_file_must_embed_generation_id": true,
+    "manifest_required": true,
+    "manifest_fields": [
+      "generation_id",
+      "file_count",
+      "tree_digest_sha256"
+    ],
+    "generation_tree_digest_required": true,
+    "payload_size_variation_required": true
+  },
+  "reader_probe": {
+    "continuous_concurrent_reader_required": true,
+    "reader_must_verify": [
+      "ENTRYPOINT_PRESENT",
+      "GENERATION_ID_PARSEABLE",
+      "ALL_REFERENCED_FILES_PRESENT",
+      "ALL_REFERENCED_FILES_SAME_GENERATION",
+      "MANIFEST_TREE_DIGEST_MATCHES",
+      "NO_TEMP_OR_STAGING_PATH_EXPOSED_AS_LIVE"
+    ],
+    "sample_interval_ms_max": 10,
+    "minimum_samples_per_candidate": 5000,
+    "mixed_generation_count_must_equal": 0,
+    "missing_entrypoint_count_must_equal": 0,
+    "partial_generation_count_must_equal": 0,
+    "parse_error_count_must_equal": 0
+  },
+  "candidate_primitives": [
+    {
+      "id": "DIRECT_IN_PLACE_PER_FILE_REPLACE",
+      "description": "Replace live files one-by-one.",
+      "expected_role": "NEGATIVE_CONTROL",
+      "qualification_allowed": false,
+      "reason": "By construction this can expose a mixed generation and is included only as a breaker/control."
+    },
+    {
+      "id": "DIRECTORY_TWO_RENAME_SWAP",
+      "description": "Move current live directory aside, then rename fully staged directory into the live name.",
+      "qualification_allowed": true,
+      "required_observation": "Must prove there is no observable missing-entry or mixed-generation window."
+    },
+    {
+      "id": "WINDOWS_MOVEFILEEX_DIRECTORY_REPLACE",
+      "description": "Use Win32 MoveFileExW with replace/write-through flags on fully staged directories where supported.",
+      "qualification_allowed": true,
+      "required_observation": "Must empirically prove API behavior on this Windows/OneDrive environment; no documented-behavior assumption is accepted."
+    },
+    {
+      "id": "IMMUTABLE_GENERATION_ATOMIC_POINTER",
+      "description": "Keep complete immutable generation directories and atomically replace one small CURRENT pointer/entry file.",
+      "qualification_allowed": true,
+      "required_observation": "Must prove the official entrypoint always resolves to exactly one complete generation.",
+      "architecture_note": "A PASS qualifies the primitive only; Graph/Search implications of coexisting generations require a later visual-layer contract."
+    }
+  ],
+  "execution_order": [
+    "CREATE_SANDBOX",
+    "VERIFY_SANDBOX_IDENTITY_AND_ONEDRIVE_LOCATION",
+    "BUILD_GEN_A_AND_GEN_B",
+    "VERIFY_BOTH_GENERATIONS_COMPLETE",
+    "START_READER_PROBE",
+    "RUN_NEGATIVE_CONTROL",
+    "REQUIRE_NEGATIVE_CONTROL_BREAKER_DETECTS_MIXED_OR_NON_ATOMIC_BEHAVIOR",
+    "TEST_DIRECTORY_TWO_RENAME_SWAP",
+    "TEST_WINDOWS_MOVEFILEEX_DIRECTORY_REPLACE",
+    "TEST_IMMUTABLE_GENERATION_ATOMIC_POINTER",
+    "STOP_READER_PROBE",
+    "PERSIST_RAW_METRICS_OUTSIDE_LIVE_VAULT",
+    "ADJUDICATE_CANDIDATES"
+  ],
+  "experiment_scale": {
+    "minimum_promotion_cycles_per_qualifiable_candidate": 250,
+    "minimum_reader_samples_per_candidate": 5000,
+    "both_directions_required": true,
+    "gen_a_to_b_and_b_to_a": true
+  },
+  "qualification_rules": {
+    "primitive_pass_requires": [
+      "ZERO_MIXED_GENERATION",
+      "ZERO_MISSING_ENTRYPOINT",
+      "ZERO_PARTIAL_GENERATION",
+      "ZERO_PARSE_ERRORS",
+      "ALL_CYCLES_COMPLETED",
+      "POST_CYCLE_TREE_DIGEST_MATCH",
+      "SANDBOX_ONLY_MUTATION"
+    ],
+    "one_successful_cycle_is_insufficient": true,
+    "undocumented_assumption_is_insufficient": true,
+    "static_code_review_is_insufficient": true,
+    "pass_is_environment_bounded": true,
+    "pass_environment_fields_required": [
+      "windows_version",
+      "filesystem_type",
+      "onedrive_path",
+      "reparse_state_summary",
+      "python_version"
+    ]
+  },
+  "crash_recovery_probe": {
+    "required_for_selected_candidate": true,
+    "injection_points": [
+      "BEFORE_PROMOTION",
+      "AFTER_FIRST_MUTATION_STEP_IF_MULTI_STEP",
+      "AFTER_PROMOTION_BEFORE_STATE_RECORD"
+    ],
+    "last_known_good_must_remain_identifiable": true,
+    "no_recursive_delete_of_only_good_generation": true,
+    "recovery_must_be_deterministic": true
+  },
+  "obsidian_open_policy": {
+    "filesystem_primitive_must_pass_before_any_obsidian_open_test": true,
+    "live_user_vault_must_not_be_used_for_open_state_experiment": true,
+    "sacrificial_sandbox_vault_required": true,
+    "obsidian_open_compatibility_is_separate_subqualification": true,
+    "filesystem_pass_alone_does_not_authorize_live_promotion_while_obsidian_open": true
+  },
+  "evidence": {
+    "raw_metrics_schema": "ATDS_OBSIDIAN_P5C_PROMOTION_METRICS_V0_1",
+    "append_only_event_log_required": true,
+    "candidate_result_values": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "NOT_SUPPORTED"
+    ],
+    "all_fail_is_valid_outcome": true,
+    "no_candidate_may_be_selected_by_preference_without_metrics": true
+  },
+  "p5c_boundary": {
+    "contract_tests_only": true,
+    "live_vault_experiment_authorized": false,
+    "sandbox_experiment_authorized": false,
+    "background_observer_authorized": false,
+    "continuous_projection_authorized": false,
+    "windows_task_registration_authorized": false
+  },
+  "required_breakers": [
+    "live Vault used as experiment target",
+    "human views modified",
+    ".obsidian modified",
+    "sandbox overlaps live Vault",
+    "sandbox outside OneDrive accepted",
+    "sandbox contains .git",
+    "single promotion cycle treated as sufficient",
+    "reader probe absent",
+    "reader sample interval above 10 ms",
+    "fewer than 5000 samples accepted",
+    "fewer than 250 promotion cycles accepted",
+    "mixed generation observed but candidate passes",
+    "missing entrypoint observed but candidate passes",
+    "partial generation observed but candidate passes",
+    "parse error observed but candidate passes",
+    "staging path exposed as live",
+    "negative control unexpectedly treated as qualifiable",
+    "directory rename assumed atomic without measurement",
+    "MoveFileEx behavior assumed from documentation only",
+    "pointer primitive treated as final visual architecture",
+    "all-fail outcome coerced into selecting a winner",
+    "pass generalized beyond environment",
+    "crash recovery omitted for selected candidate",
+    "last-known-good deleted during recovery test",
+    "Obsidian-open promotion authorized from filesystem-only PASS",
+    "real user Vault used for Obsidian-open experiment",
+    "raw metrics overwritten instead of append-only persistence"
+  ],
+  "next_gate": "P5C2_PROMOTION_EXPERIMENT_HARNESS_CANDIDATE"
+}
