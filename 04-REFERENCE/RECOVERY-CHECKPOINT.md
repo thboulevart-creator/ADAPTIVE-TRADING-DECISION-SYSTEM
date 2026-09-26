@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 CONFIRMATORY CHARTER V0.1 FROZEN BEFORE CONFIRMATION-DATA ACCESS.** C01 is the sole CR2 candidate eligible for confirmation; this is not winner selection. Development fit cutoff <=2025-12-31. Fixed confirmation window 2026-05-25→2027-05-24. Next: materialize/qualify immutable C01 frozen-model artifact from development data only. No confirmation-data scoring/access before model seal; no strategy/PnL/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 CONFIRMATORY CHARTER V0.2 FROZEN BEFORE CONFIRMATION-DATA ACCESS.** V0.1 preserved. V0.2 clarifies exact CR2 D2026 semantics: training anchor t has utc_year<=2025; strictly-future target may cross New Year under same-segment exact-minute continuity. Confirmation window remains 2026-05-25→2027-05-24. Next: frozen-model artifact producer; no confirmation-data access/scoring.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15152,3 +15152,33 @@ Verdict:
 ### Next governed action
 
 Materialize and qualify the C01 frozen-model artifact producer using development data only.
+
+
+---
+
+## 242. C01 CONFIRMATORY CHARTER V0.2 FROZEN — 2026-09-26
+
+Fresh HEAD before persistence:
+`779722c0cf2802e146285ed821a80042e027c5cb`.
+
+V0.1 preserved.
+
+V0.2:
+`reports/program/2026-09-26-C01-CONFIRMATORY-RESEARCH-CHARTER-V0.2.md`
+
+Machine-readable:
+`reports/program/evidence/2026-09-26-C01-CONFIRMATORY-CHARTER-V0.2.json`
+
+Amendment:
+`reports/program/2026-09-26-C01-CONFIRMATORY-CHARTER-V0.2-AMENDMENT.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-CONFIRMATORY-CHARTER-V0.2-FROZEN.md`
+
+Only correction:
+development cutoff is defined on anchor `t`, exactly matching CR2 D2026; target t+1..t+H may cross New Year under exact continuity.
+
+No confirmation data accessed.
+
+Next:
+C01 frozen-model artifact producer.
