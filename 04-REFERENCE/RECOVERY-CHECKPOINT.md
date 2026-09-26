@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 CONFIRMATORY CHARTER V0.2 FROZEN BEFORE CONFIRMATION-DATA ACCESS.** V0.1 preserved. V0.2 clarifies exact CR2 D2026 semantics: training anchor t has utc_year<=2025; strictly-future target may cross New Year under same-segment exact-minute continuity. Confirmation window remains 2026-05-25→2027-05-24. Next: frozen-model artifact producer; no confirmation-data access/scoring.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL PRODUCER QUALIFIED LOCALLY; EXACT-BYTE GITHUB PERSISTENCE PENDING.** Charter V0.2 is frozen. Local helper SHA-256 682c1ce6...37133c; py_compile PASS; 25/25 synthetic PASS; 15/15 mutants killed. Not authorized for corpus until persisted-head re-break. No confirmation data access.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15182,3 +15182,34 @@ No confirmation data accessed.
 
 Next:
 C01 frozen-model artifact producer.
+
+
+---
+
+## 243. C01 FROZEN-MODEL PRODUCER — LOCAL QUALIFICATION / TRANSFER BOUNDARY — 2026-09-26
+
+Fresh HEAD before persistence:
+`1d00af9a8fd51ee7ebaed04a81afe0ee150ec181`.
+
+Review:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-PRODUCER-LOCAL-QUALIFICATION.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-MODEL-PRODUCER-TRANSFER-BOUNDARY.md`
+
+Local candidate:
+- helper expected blob `ee0989f29399bf9f904ca314fdb5f01cc45ddec8`
+- tests expected blob `1386ab0da905817f496c11197afd63b35620ccee`
+- mutation expected blob `4d42ba615444601f115e65c8379d6d303fa5487b`
+
+Local qualification:
+- py_compile PASS
+- 25/25 tests PASS
+- 15/15 mutants KILLED
+
+**Corpus authorization: NO.**
+
+Next:
+exact-byte persistence then persisted-head re-break.
+
+Confirmation-data access remains forbidden.
