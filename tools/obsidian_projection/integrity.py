@@ -336,6 +336,18 @@ def digest_entries(
 def make_integrity_manifest(
     entries: Sequence[FileDigest],
 ) -> tuple[bytes, str]:
+    forbidden_self = (
+        "generated/manifests/"
+        "integrity-manifest.json"
+    )
+    if any(
+        item.relative_path == forbidden_self
+        for item in entries
+    ):
+        raise IntegrityError(
+            "integrity manifest may not include itself"
+        )
+
     ordered = sorted(
         entries,
         key=lambda item: item.relative_path.encode(
