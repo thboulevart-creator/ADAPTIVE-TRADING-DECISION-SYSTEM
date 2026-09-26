@@ -12,6 +12,7 @@ from tools.obsidian_projection.first_open import (
     MATERIALIZATION_CONTRACT_BLOB,
     QUALIFIED_MATERIALIZE_HELPER_BLOB,
     FirstOpenError,
+    _expected_vault_path,
     _generated_map_from_snapshot,
     _load_snapshot,
     _snapshot_envelope,
@@ -113,6 +114,64 @@ class FirstOpenHarnessUnitTests(unittest.TestCase):
 
             with self.assertRaises(FirstOpenError):
                 verify_harness_dependencies(package)
+
+    @unittest.skipUnless(
+        os.name == "nt",
+        "Windows contractual Vault path",
+    )
+    def test_msix_localappdata_virtualization_does_not_redirect_vault(
+        self,
+    ) -> None:
+        contract = json.loads(
+            (
+                PACKAGE_DIR
+                / "first_open_safety_contract_v0_1.json"
+            ).read_text(encoding="utf-8")
+        )
+
+        virtualized = (
+            r"C:\Users\Boulevart\AppData\Local\Packages\"
+            r"PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\"
+            r"LocalCache\Local"
+        )
+
+        with patch.dict(
+            os.environ,
+            {"LOCALAPPDATA": virtualized},
+            clear=False,
+        ):
+            actual = _expected_vault_path(
+                contract
+            )
+
+        self.assertEqual(
+            str(actual),
+            (
+                r"C:\Users\Boulevart\AppData\Local\"
+                r"ATDS-OBSIDIAN-PROJECTION"
+            ),
+        )
+
+    def test_contractual_vault_path_must_keep_fixed_final_name(
+        self,
+    ) -> None:
+        contract = {
+            "materialized_vault": {
+                "observed_resolved_path":
+                    r"C:\Users\Boulevart\AppData\Local\WRONG"
+            }
+        }
+
+        with patch(
+            "tools.obsidian_projection.first_open.os.name",
+            "nt",
+        ):
+            with self.assertRaises(
+                FirstOpenError
+            ):
+                _expected_vault_path(
+                    contract
+                )
 
     def test_snapshot_envelope_binds_payload_digest(
         self,
