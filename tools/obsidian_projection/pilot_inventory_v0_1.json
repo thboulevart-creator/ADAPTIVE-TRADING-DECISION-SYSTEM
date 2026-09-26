@@ -1,0 +1,454 @@
+{
+  "schema": "ATDS_OBSIDIAN_PILOT_INVENTORY_V0_1",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "source_branch": "integration/system-v1",
+  "source_commit": "7bd8c1312430dfc3def5523eb65397a5d6a5ae05",
+  "source_tree": "66eeb08a338732d4cf7f5b7f4f5e5fd9fbb4d54b",
+  "source_artifact_count": 74,
+  "entries": [
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP0-PASS-AP1-HANDOFF.md",
+      "source_blob_sha": "82ab39a8190326f77d9ce741780b815191dfa76e",
+      "source_blob_size": 874,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP1-PASS-AP2-HANDOFF.md",
+      "source_blob_sha": "1a3d82bb75b8e680746c42e020d39f0d9f47e220",
+      "source_blob_size": 662,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP2-PASS-AP3-HANDOFF.md",
+      "source_blob_sha": "e550ef9200e36f37e43c923bbd9847f8893c18aa",
+      "source_blob_size": 721,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP3-PASS-AP4-HANDOFF.md",
+      "source_blob_sha": "34636c8469d1a371db64a724e26a5a79aecb4e30",
+      "source_blob_size": 1371,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP3-PASS.md",
+      "source_blob_sha": "c897b405cc62b28b9f693e59de10a2fd0a8079a4",
+      "source_blob_size": 717,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP4-COMPLETE-JSON-PENDING.md",
+      "source_blob_sha": "11a95e6dc20a5fbcbbab873ab723f8c5b51a8359",
+      "source_blob_size": 833,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP4-PASS-AP5-HANDOFF.md",
+      "source_blob_sha": "012ef4ea7f4d3de49b51eaeaa86d3944788dbf92",
+      "source_blob_size": 1220,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP5-HELPER-READY-LOCAL-HANDOFF.md",
+      "source_blob_sha": "1678f5a3704545c64e37efce4d688c298ba51800",
+      "source_blob_size": 993,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP5-PASS-AP6-HANDOFF.md",
+      "source_blob_sha": "393bdda1c873e3d98f73be66c22e4a5673723f1a",
+      "source_blob_size": 1703,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP5-PASS-AP6-PREFLIGHT-CLOSE.md",
+      "source_blob_sha": "af125467253d7e958442ef71dc0f64a8deaa74de",
+      "source_blob_size": 7362,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-26-AP6-HELPER-READY-LOCAL-HANDOFF.md",
+      "source_blob_sha": "d458c559fe9abe7a5f2e907723ae200a24d53560",
+      "source_blob_size": 851,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-26-AP6-PASS-CORE-HANDOFF.md",
+      "source_blob_sha": "fd599dae8145d0c11fc27c948dada272627ed34d",
+      "source_blob_size": 1003,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "99-BACKUP/SESSION-2026-09-26-CORE-V0.1-PASS-CONTEXT-RESEARCH-HANDOFF.md",
+      "source_blob_sha": "e1f256b2f18939f6388b0947f1d5ee47e2eb8fa2",
+      "source_blob_size": 1449,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "docs/02.1-ASSET-BEHAVIORAL-PROFILE-CORE-PROTOCOL.md",
+      "source_blob_sha": "bfa0aa393224e54dd281735cedeb6e259089ee06",
+      "source_blob_size": 6139,
+      "inventory_class": "CORE_PROTOCOL"
+    },
+    {
+      "source_path": "GOVERNANCE/README.md",
+      "source_blob_sha": "a5036c2e6b3e12e8693924a1e39bdb26c168e016",
+      "source_blob_size": 2407,
+      "inventory_class": "GOVERNANCE_ANCHOR"
+    },
+    {
+      "source_path": "GOVERNANCE/REPOSITORY-SAFETY-RULES.md",
+      "source_blob_sha": "b69f3cfab5318b950d70d4310bb763f08ef9d374",
+      "source_blob_size": 1798,
+      "inventory_class": "GOVERNANCE_ANCHOR"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-ADJUDICATION.md",
+      "source_blob_sha": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+      "source_blob_size": 3968,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "7c8fc0034ba86590ca99c5ef9258576bb465d7ef",
+      "source_blob_size": 4448,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-PREFLIGHT.md",
+      "source_blob_sha": "374c01b1902ebcdac8dda350e01e3bfe41b45753",
+      "source_blob_size": 3395,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP1-FIRST-BEHAVIORAL-OBSERVATIONS.md",
+      "source_blob_sha": "9d1cfb220b3bff31db7fb8bee0fb8d3cbc661ac4",
+      "source_blob_size": 2919,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP1-INTRADAY-SPREAD-CENSUS-ADJUDICATION.md",
+      "source_blob_sha": "3aade0376c19f0ab6c52679540a259b76d1b6f43",
+      "source_blob_size": 1395,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP1-INTRADAY-SPREAD-CENSUS-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "9925a2ea9e34775d39144d428c76cf72c0938c0b",
+      "source_blob_size": 4085,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP1-INTRADAY-SPREAD-CENSUS-PREFLIGHT.md",
+      "source_blob_sha": "d16e7a6d579f0e7c99385c33ba84ed2b2ae9096d",
+      "source_blob_size": 3236,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP2-FIRST-VOLATILITY-OBSERVATIONS.md",
+      "source_blob_sha": "c4766bee16c1796563eabb3e7e18a1107578f4ca",
+      "source_blob_size": 2415,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP2-VOLATILITY-MAP-ADJUDICATION.md",
+      "source_blob_sha": "65472700ec078d6811776e43bd3ec3164ccdb576",
+      "source_blob_size": 4198,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP2-VOLATILITY-MAP-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "a6d28ec580b96b2703973434b63ae8c0a7aa36d9",
+      "source_blob_size": 2768,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP2-VOLATILITY-MAP-PREFLIGHT.md",
+      "source_blob_sha": "1cae4a21c76bbd41f482e669bd3ca869b54e7e1f",
+      "source_blob_size": 3009,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-ADJUDICATION.md",
+      "source_blob_sha": "e77b9ecb4a4da238ba92daacb2a91b2abd3af46e",
+      "source_blob_size": 4085,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "5f77c8539c0076611e8e4630648612aafaffcf2f",
+      "source_blob_size": 3765,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-PREFLIGHT.md",
+      "source_blob_sha": "cc2ae29560be2d21d63f42b39e2dc8aacd0e5ec3",
+      "source_blob_size": 4429,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP3-FIRST-BEHAVIORAL-OBSERVATIONS.md",
+      "source_blob_sha": "7d30298d1b4bb7b6085e9f9a069c3c0f76ecd05f",
+      "source_blob_size": 2071,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP4-FIRST-BEHAVIORAL-OBSERVATIONS.md",
+      "source_blob_sha": "1390c360f01a4fdac289148165c4fa8a970d4db7",
+      "source_blob_size": 2777,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP4-PRICE-STRUCTURE-ADJUDICATION.md",
+      "source_blob_sha": "312c4ae183337b4ec3972a7c02c3a4b529d4e06e",
+      "source_blob_size": 3930,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP4-PRICE-STRUCTURE-EXECUTION-OBSERVED.md",
+      "source_blob_sha": "a69afd5d1ae1f584b8539bdb38311092fddb49a6",
+      "source_blob_size": 1689,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP4-PRICE-STRUCTURE-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "ec34a06b79bb5722e16abed6109cb932dd5999e0",
+      "source_blob_size": 4890,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP4-PRICE-STRUCTURE-LOCAL-HANDOFF.md",
+      "source_blob_sha": "ab22b4f998e4a1685bf5d3dcbf9082e69bd0b563",
+      "source_blob_size": 1432,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP4-PRICE-STRUCTURE-PREFLIGHT.md",
+      "source_blob_sha": "b8d170c139b5ffcae175c3608a70f76182aede52",
+      "source_blob_size": 5676,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-LOCAL-BLOCKED-AP4-BINDING-DIAGNOSIS.md",
+      "source_blob_sha": "ca857d93504de544e7ba9ad5cbf1e50a1851d874",
+      "source_blob_size": 1928,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-LOCAL-R2-BLOCKED-AP4-BINDING.md",
+      "source_blob_sha": "c4ffd085892ef8393432872ccf3031b70247dd57",
+      "source_blob_size": 849,
+      "inventory_class": "HISTORICAL_LINEAGE"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-ADJUDICATION.md",
+      "source_blob_sha": "15cf79d8d48ab8965fbb9a1c640aa65da61a88b6",
+      "source_blob_size": 3328,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-BEHAVIORAL-OBSERVATIONS.md",
+      "source_blob_sha": "a19ee775808534fd2c6a88f05e8c38e30d108776",
+      "source_blob_size": 2419,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "a69c0a1204b8812081c5a0b2a36fd8f088ba3584",
+      "source_blob_size": 5307,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-LOCAL-HANDOFF.md",
+      "source_blob_sha": "241b6f37d704be4ee4f6ec4cad5ebebe715f30a8",
+      "source_blob_size": 1614,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-PREFLIGHT.md",
+      "source_blob_sha": "912fb779cff2ca9a279d38d44c24f9529a8bcf9b",
+      "source_blob_size": 6803,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-25-AP6-SEASONALITY-STABILITY-PREFLIGHT.md",
+      "source_blob_sha": "196e0e40fa7c1eedbdbf5efb8a9456efc0f3295d",
+      "source_blob_size": 9218,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-ADJUDICATION.md",
+      "source_blob_sha": "d3f4dd17c39dadf1b301ccc8f6cbf5e7ef80764d",
+      "source_blob_size": 4801,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "51ca2b468cb43392425fe2f027bbd3d9271e167c",
+      "source_blob_size": 4143,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-LOCAL-HANDOFF.md",
+      "source_blob_sha": "1ce9777b5e749035d7a5729ffb6cbbca8a41bf5c",
+      "source_blob_size": 1498,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-OBSERVATIONS.md",
+      "source_blob_sha": "dc85a205e57417d962b41525b9e0780429434922",
+      "source_blob_size": 787,
+      "inventory_class": "AP_PROGRAM"
+    },
+    {
+      "source_path": "reports/program/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1-ADJUDICATION.md",
+      "source_blob_sha": "679a805ee72a60ebe7539576695666f8701ea9bd",
+      "source_blob_size": 1754,
+      "inventory_class": "CORE_PROFILE"
+    },
+    {
+      "source_path": "reports/program/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1.md",
+      "source_blob_sha": "e1c7467fcd5d7231e84e50cdb5fba9583e80cae9",
+      "source_blob_size": 8037,
+      "inventory_class": "CORE_PROFILE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP3-EXPANSION-COMPRESSION.json",
+      "source_blob_sha": "4c6cca91e6f7f972702c1859226bd3612e3ec920",
+      "source_blob_size": 16078,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP4-MUTATION-RESULTS.json",
+      "source_blob_sha": "159f48d434e4a43c2048889140e084076dc26363",
+      "source_blob_size": 216,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP4-PRICE-STRUCTURE.json",
+      "source_blob_sha": "3bc22e33956dc422ad45d4a825c89255bf60c432",
+      "source_blob_size": 15488,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP5-LOCAL-BLOCKED-AP4-BINDING.json",
+      "source_blob_sha": "d456a33fd40ffac854d3559e285eec8576f5d2b1",
+      "source_blob_size": 151,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP5-LOCAL-R2-BLOCKED-AP4-BINDING.json",
+      "source_blob_sha": "d456a33fd40ffac854d3559e285eec8576f5d2b1",
+      "source_blob_size": 151,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE.json",
+      "source_blob_sha": "061efdaedbc2cfa158e855b0d8bb6c679a782358",
+      "source_blob_size": 39460,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-25-AP5-MUTATION-RESULTS.json",
+      "source_blob_sha": "9968afae1680b21b8befdcc48242448b06f6774b",
+      "source_blob_size": 657,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-26-AP6-MUTATION-RESULTS.json",
+      "source_blob_sha": "8845cb1e86221c46a25449476593c29ef25257ae",
+      "source_blob_size": 1938,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-26-AP6-SEASONALITY-STABILITY-SEAL.json",
+      "source_blob_sha": "5a107b8816b0260b41c0f59426571ce563ac1e46",
+      "source_blob_size": 5541,
+      "inventory_class": "EVIDENCE"
+    },
+    {
+      "source_path": "reports/program/evidence/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1.json",
+      "source_blob_sha": "eee2c1b4c27029f05d6ea246ae95cf30c17f0d5e",
+      "source_blob_size": 7327,
+      "inventory_class": "CORE_PROFILE"
+    },
+    {
+      "source_path": "tests/run_ap4_mutation_breakers.py",
+      "source_blob_sha": "98793bca1b11b77ff35b9492e105a57c1e2e091b",
+      "source_blob_size": 2231,
+      "inventory_class": "BREAKER"
+    },
+    {
+      "source_path": "tests/run_ap5_mutation_breakers.py",
+      "source_blob_sha": "3bf31bfd14d5fdd3a3663fef2bc1e26468aab243",
+      "source_blob_size": 2099,
+      "inventory_class": "BREAKER"
+    },
+    {
+      "source_path": "tests/run_ap6_mutation_breakers.py",
+      "source_blob_sha": "5dc0b786cabb649b18752d099fef6a9b01fe34a5",
+      "source_blob_size": 3123,
+      "inventory_class": "BREAKER"
+    },
+    {
+      "source_path": "tests/test_ap4_price_structure.py",
+      "source_blob_sha": "b439386288e94fe0ddd002ff5ed60aa28d199a71",
+      "source_blob_size": 7962,
+      "inventory_class": "TEST"
+    },
+    {
+      "source_path": "tests/test_ap5_microstructure_price_core.py",
+      "source_blob_sha": "f0b732b66e258fff416cdf643c1de6fa4c373baa",
+      "source_blob_size": 5597,
+      "inventory_class": "TEST"
+    },
+    {
+      "source_path": "tests/test_ap6_seasonality_stability.py",
+      "source_blob_sha": "0fa5a4b7a5bd7da117ab0f26077c74b7d58336c2",
+      "source_blob_size": 5503,
+      "inventory_class": "TEST"
+    },
+    {
+      "source_path": "tools/ap0_ustech_profile_minute_core.py",
+      "source_blob_sha": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+      "source_blob_size": 29542,
+      "inventory_class": "IMPLEMENTATION"
+    },
+    {
+      "source_path": "tools/ap1_intraday_spread_census.py",
+      "source_blob_sha": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+      "source_blob_size": 21885,
+      "inventory_class": "IMPLEMENTATION"
+    },
+    {
+      "source_path": "tools/ap2_volatility_map.py",
+      "source_blob_sha": "0dd8df0294f9ec459c74da571b80c27b7134c612",
+      "source_blob_size": 16361,
+      "inventory_class": "IMPLEMENTATION"
+    },
+    {
+      "source_path": "tools/ap3_expansion_compression.py",
+      "source_blob_sha": "8a7aa643eb6e4414dad378ca4ddb8b98adce7bd1",
+      "source_blob_size": 24797,
+      "inventory_class": "IMPLEMENTATION"
+    },
+    {
+      "source_path": "tools/ap4_price_structure.py",
+      "source_blob_sha": "6931712c06e7ed912266782487ed7813cd0be1ff",
+      "source_blob_size": 14868,
+      "inventory_class": "IMPLEMENTATION"
+    },
+    {
+      "source_path": "tools/ap5_microstructure_price_core.py",
+      "source_blob_sha": "21de65a7fbf8277dd2eb0afc99f4c2b80912af06",
+      "source_blob_size": 25610,
+      "inventory_class": "IMPLEMENTATION"
+    },
+    {
+      "source_path": "tools/ap6_seasonality_stability.py",
+      "source_blob_sha": "28b5a298156616b9385dc0d8e4b0cfbaa3705497",
+      "source_blob_size": 28784,
+      "inventory_class": "IMPLEMENTATION"
+    }
+  ]
+}
