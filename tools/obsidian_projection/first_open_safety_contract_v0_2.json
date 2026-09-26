@@ -1,0 +1,306 @@
+{
+  "schema": "ATDS_OBSIDIAN_FIRST_OPEN_SAFETY_CONTRACT_V0_2",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "predecessor_p3c_head": "fa1e24e20acbfba60de2c3ebaaa7dc5427778851",
+  "predecessor_p3d_head": "3cafa6e98ec45236aba48ddf60e55957e49bed76",
+  "qualified_p3b_head": "bb5fc55c8a7f51a58f9a53b27bb499f5b6d381ba",
+  "qualified_p2b_head": "157b519dafb226e53ae13a281f7dc294d584cc0d",
+  "source_commit": "7bd8c1312430dfc3def5523eb65397a5d6a5ae05",
+  "source_tree": "66eeb08a338732d4cf7f5b7f4f5e5fd9fbb4d54b",
+  "materialized_vault": {
+    "observed_resolved_path": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROJECTION",
+    "authority_role": "DERIVED",
+    "canonical_source": "GitHub/ATDS",
+    "generated_owner": "MACHINE",
+    "views_owner": "HUMAN",
+    "obsidian_directory_expected_before_first_open": false,
+    "host_storage_environment": "ONEDRIVE_CLOUD_FILES",
+    "obsidian_sync_authorized": false,
+    "git_automation_authorized": false
+  },
+  "relocation_evidence": {
+    "evidence_status": "REPORTED_LOCAL_EXECUTION",
+    "generated_file_count": 92,
+    "integrity_manifest_sha256": "a23d009aa4ba668ea2e8d049b5496e05b42235ac1735fa8373ce07d2b2a1fc1b",
+    "projection_tree_entry_count": 91,
+    "projection_tree_digest_sha256": "bf67fb65d42de58f394a21a884ca180665b3ba550be101ac2d410b0aa425e2e0",
+    "views_entry_count": 0,
+    "obsidian_directory_present": false,
+    "top_level_entries": [
+      "generated",
+      "views"
+    ],
+    "symlink_files": 0,
+    "junction_files": 0,
+    "offline_files": 0,
+    "sparse_files": 0,
+    "unreadable_files": 0,
+    "native_reparse_file_count": 92,
+    "native_reparse_tag_hex": "0x9000601A",
+    "native_reparse_tag_name": "IO_REPARSE_TAG_CLOUD_6",
+    "native_reparse_tag_count": 92,
+    "microsoft_semantics": "Cloud Files filter; files managed by a sync engine such as Microsoft OneDrive",
+    "microsoft_reference": "MS-FSCC Reparse Tags / WinNT.h predefined reparse tags"
+  },
+  "onedrive_reparse_policy": {
+    "scope": "FILES_ONLY",
+    "allowed_regular_file_reparse_classes": [
+      "NO_REPARSE_POINT",
+      "IO_REPARSE_TAG_CLOUD_6:0x9000601A"
+    ],
+    "allowed_generated_preopen_observation": {
+      "required_file_count": 92,
+      "observed_all_files_tag": "IO_REPARSE_TAG_CLOUD_6:0x9000601A"
+    },
+    "directory_reparse_points_allowed": false,
+    "symlinks_allowed": false,
+    "junctions_allowed": false,
+    "mount_points_allowed": false,
+    "other_reparse_tags_allowed": false,
+    "offline_files_allowed": false,
+    "sparse_files_allowed": false,
+    "unreadable_files_allowed": false,
+    "exact_bytes_still_authoritative_for_projection_integrity": true,
+    "metadata_class_change_between_no_reparse_and_cloud_6": "ALLOWED_ONLY_IF_ALL_OTHER_GATES_PASS",
+    "rationale": "OneDrive Cloud Files metadata must not be confused with symlink/junction authority or semantic mutation."
+  },
+  "p3c2_boundary": {
+    "contract_and_tests_only": true,
+    "obsidian_launch_authorized": false,
+    "obsidian_directory_creation_authorized": false,
+    "vault_write_authorized": false,
+    "generated_write_authorized": false,
+    "views_write_authorized": false,
+    "community_plugins_authorized": false,
+    "obsidian_sync_authorized": false,
+    "git_automation_authorized": false,
+    "onedrive_host_sync_environment_accepted_for_candidate_requalification": true
+  },
+  "pre_open_reconstruction": {
+    "mandatory": true,
+    "fresh_p2_execution_required": true,
+    "fresh_p2_must_use_exact_qualified_p2_identity": true,
+    "fresh_p2_double_build_required": true,
+    "fresh_p2_double_build_byte_match_required": true,
+    "current_vault_generated_must_equal_fresh_p2_build_a": true,
+    "comparisons_required": [
+      "exact_relative_path_set",
+      "each_file_size",
+      "each_file_sha256",
+      "integrity_manifest_all_clean",
+      "build_manifest_identity",
+      "projection_tree_digest"
+    ],
+    "expected_generated_file_count": 92,
+    "expected_projection_tree_digest_sha256": "bf67fb65d42de58f394a21a884ca180665b3ba550be101ac2d410b0aa425e2e0",
+    "expected_integrity_manifest_sha256": "a23d009aa4ba668ea2e8d049b5496e05b42235ac1735fa8373ce07d2b2a1fc1b",
+    "mismatch_result": "BLOCK_FIRST_OPEN"
+  },
+  "pre_open_filesystem_gate": {
+    "native_reparse_inspection_required": true,
+    "inspection_mechanism": "WINDOWS_NATIVE_FSUTIL_REPARSEPOINT_QUERY_OR_EQUIVALENT_NATIVE_API",
+    "generated_files_must_be_readable": true,
+    "generated_files_offline_forbidden": true,
+    "generated_files_sparse_forbidden": true,
+    "symlink_forbidden": true,
+    "junction_forbidden": true,
+    "directory_reparse_forbidden": true,
+    "unexpected_reparse_tag_result": "BLOCK_FIRST_OPEN"
+  },
+  "pre_open_snapshot": {
+    "storage_location": "OS_TEMP_OUTSIDE_VAULT",
+    "deterministic_vault_bytes_modified": false,
+    "required_fields": [
+      "vault_resolved_path",
+      "vault_filesystem_identity",
+      "generated_relative_path_set",
+      "generated_file_sizes",
+      "generated_file_sha256",
+      "generated_tree_digest_sha256",
+      "integrity_manifest_sha256",
+      "views_entry_count",
+      "obsidian_directory_present",
+      "vault_top_level_entries",
+      "repository_branch",
+      "repository_head",
+      "repository_status_porcelain",
+      "generated_reparse_policy_summary"
+    ],
+    "required_state": {
+      "final_vault_exists": true,
+      "generated_exists": true,
+      "views_exists": true,
+      "views_entry_count": 0,
+      "obsidian_directory_present": false,
+      "vault_top_level_entries": [
+        "generated",
+        "views"
+      ],
+      "generated_integrity": "ALL_CLEAN"
+    }
+  },
+  "first_open_operation": {
+    "execution_model": "TWO_PHASE_MANUAL_OPEN",
+    "phase_1": "PREPARE_AND_FREEZE_PRE_OPEN_SNAPSHOT",
+    "phase_2": "HUMAN_OPENS_EXACT_ONEDRIVE_VAULT_IN_OBSIDIAN_AND_CLOSES_WITHOUT_EDITING_CONTENT",
+    "phase_3": "VERIFY_POST_CLOSE_STATE_AGAINST_SNAPSHOT",
+    "automatic_obsidian_launch_forbidden": true,
+    "user_content_edits_during_first_open_forbidden": true,
+    "views_edits_during_first_open_forbidden": true,
+    "generated_edits_during_first_open_forbidden": true,
+    "obsidian_must_be_fully_closed_before_post_check": true,
+    "post_check_while_obsidian_running": "BLOCK"
+  },
+  "obsidian_directory_policy": {
+    "may_be_created_during_first_open": true,
+    "ownership": "OBSIDIAN_UI_CONFIGURATION_ONLY",
+    "semantic_authority": "NONE",
+    "may_be_semantic_input": false,
+    "root_regular_json_files_allowed": true,
+    "root_non_json_files_allowed": false,
+    "subdirectories_allowed": [],
+    "regular_json_file_reparse_classes_allowed": [
+      "NO_REPARSE_POINT",
+      "IO_REPARSE_TAG_CLOUD_6:0x9000601A"
+    ],
+    "directory_reparse_points_allowed": false,
+    "symlink_allowed": false,
+    "junction_allowed": false,
+    "other_reparse_tags_allowed": false,
+    "offline_allowed": false,
+    "sparse_allowed": false,
+    "plugins_directory_forbidden": true,
+    "themes_directory_forbidden": true,
+    "snippets_directory_forbidden": true,
+    "community_plugins_file": {
+      "path": ".obsidian/community-plugins.json",
+      "allowed_if_absent": true,
+      "allowed_if_present_only_when_valid_json_empty_array": true,
+      "non_empty_or_unparseable": "BLOCK"
+    },
+    "core_plugins_file": {
+      "path": ".obsidian/core-plugins.json",
+      "allowed": true,
+      "obsidian_sync_enablement_forbidden": true,
+      "accepted_shapes": [
+        "JSON_OBJECT_BOOLEAN_MAP",
+        "JSON_ARRAY_OF_ENABLED_PLUGIN_IDS"
+      ],
+      "sync_plugin_id": "sync",
+      "if_shape_or_sync_state_cannot_be_interpreted": "BLOCK"
+    },
+    "explicit_obsidian_sync_artifact_policy": {
+      "filename_or_directory_case_insensitive_contains_sync": true,
+      "exception": ".obsidian/core-plugins.json",
+      "result": "BLOCK"
+    }
+  },
+  "generated_before_after_gate": {
+    "exact_relative_path_set_equal": true,
+    "exact_file_size_equal": true,
+    "exact_file_sha256_equal": true,
+    "exact_tree_digest_equal": true,
+    "integrity_manifest_all_clean_after": true,
+    "build_manifest_unchanged": true,
+    "allowed_reparse_classes_only": true,
+    "no_offline_or_sparse_after": true,
+    "any_byte_change_result": "BLOCK_FIRST_OPEN_QUALIFICATION"
+  },
+  "views_before_after_gate": {
+    "required_entry_count_before": 0,
+    "required_entry_count_after": 0,
+    "any_change_result": "BLOCK_FIRST_OPEN_QUALIFICATION"
+  },
+  "vault_structure_after_first_open": {
+    "allowed_top_level_entries": [
+      "generated",
+      "views",
+      ".obsidian"
+    ],
+    "git_directory_forbidden": true,
+    "extra_top_level_entry": "BLOCK",
+    "vault_filesystem_identity_must_equal_pre_open": true
+  },
+  "repository_before_after_gate": {
+    "branch_equal": true,
+    "head_equal": true,
+    "status_porcelain_equal": true,
+    "any_change_result": "BLOCK_FIRST_OPEN_QUALIFICATION"
+  },
+  "first_open_qualification": {
+    "source": "POST_CLOSE_EXTERNAL_VERIFICATION_ONLY",
+    "stored_inside_vault": false,
+    "folder_name_not_qualification": true,
+    "obsidian_opened_not_qualification": true,
+    "obsidian_directory_exists_not_qualification": true,
+    "onedrive_sync_badge_not_qualification": true,
+    "requires_all_gates": true,
+    "success_status": "PASS",
+    "failure_status": "BLOCKED",
+    "generated_mutation_never_auto_repaired": true,
+    "unexpected_obsidian_config_never_auto_deleted": true
+  },
+  "failure_protocol": {
+    "no_recursive_delete": true,
+    "no_generated_auto_restore": true,
+    "no_obsidian_config_auto_cleanup": true,
+    "preserve_evidence_for_adjudication": true,
+    "generated_changed": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED",
+    "unexpected_obsidian_state": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED",
+    "repository_changed": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED",
+    "unexpected_reparse_state": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED"
+  },
+  "forbidden_actions": [
+    "open Obsidian during P3-C2 preregistration",
+    "create .obsidian during P3-C2 preregistration",
+    "write generated during P3-C2 preregistration",
+    "write views during P3-C2 preregistration",
+    "install community plugins",
+    "enable Obsidian Sync",
+    "enable Git automation",
+    "treat OneDrive synchronization metadata as semantic truth",
+    "treat .obsidian files as semantic truth",
+    "treat backlinks/wikilinks as typed semantic relations",
+    "auto-repair generated after first-open mutation",
+    "auto-delete unexpected .obsidian state"
+  ],
+  "acceptance_breakers": [
+    "old LocalAppData Vault path reused",
+    "OneDrive location accepted without cryptographic equality proof",
+    "generic reparse point accepted without native tag qualification",
+    "reparse tag other than NO_REPARSE_POINT or IO_REPARSE_TAG_CLOUD_6 accepted",
+    "directory reparse point accepted",
+    "symlink accepted",
+    "junction accepted",
+    "offline generated file accepted",
+    "sparse generated file accepted",
+    "unreadable generated file accepted",
+    "first open attempted without fresh P2 reconstruction",
+    "current generated tree differs from fresh P2 build",
+    "pre-open .obsidian already exists",
+    "pre-open views not empty",
+    "pre-open extra top-level entry",
+    "Obsidian launched automatically by harness",
+    "Obsidian Sync enabled",
+    "community plugin enabled",
+    "generated bytes changed",
+    "views changed",
+    "repository branch changes",
+    "repository HEAD changes",
+    "repository working tree changes",
+    "OneDrive metadata treated as semantic authority"
+  ],
+  "next_action_gate": {
+    "allowed_after_persisted_rebreak": "P3D2_ONEDRIVE_FIRST_OPEN_SAFETY_HARNESS_IMPLEMENTATION_CANDIDATE",
+    "implementation_scope": "PREPARE_SNAPSHOT_NATIVE_REPARSE_GATES_AND_POST_CLOSE_VERIFY_ONLY",
+    "may_launch_obsidian": false,
+    "may_create_obsidian_directory": false,
+    "may_modify_generated": false,
+    "may_modify_views": false,
+    "may_install_plugins": false,
+    "may_enable_obsidian_sync": false,
+    "may_enable_git_automation": false,
+    "manual_first_open_only_after_harness_local_precheck_passes": true
+  }
+}
