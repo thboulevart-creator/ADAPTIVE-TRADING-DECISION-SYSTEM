@@ -1,0 +1,346 @@
+{
+  "schema": "ATDS_OBSIDIAN_DYNAMIC_INVENTORY_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "predecessor_p5a_head": "343d253074abe603eb61bebab29ba58f0bd9301c",
+  "purpose": "Build a deterministic complete tracked-blob inventory from each exact monitored Git HEAD without relying on the frozen 74-artifact pilot.",
+  "authority_boundary": {
+    "git_tree_of_exact_head": "SOURCE_OF_INVENTORY_TRUTH",
+    "local_working_tree": "NOT_INVENTORY_AUTHORITY",
+    "path_name": "SELECTION_SIGNAL_ONLY_NOT_SEMANTIC_TRUTH",
+    "inventory": "DERIVED_PROVENANCE_INDEX",
+    "inventory_may_qualify_artifact": false,
+    "inventory_may_infer_scientific_status": false,
+    "inventory_may_infer_epistemic_status": false
+  },
+  "enumeration": {
+    "source": "EXACT_GIT_TREE_OBJECT",
+    "equivalent_command": "git ls-tree -r -l -z <EXACT_HEAD>",
+    "working_tree_enumeration_forbidden": true,
+    "git_index_enumeration_as_authority_forbidden": true,
+    "recursive": true,
+    "nul_delimited_required": true,
+    "deterministic_sort": "source_path UTF-8 bytewise ASC",
+    "accepted_object_type": "blob",
+    "accepted_modes": [
+      "100644",
+      "100755"
+    ],
+    "symlink_mode": "120000",
+    "symlink_result": "BLOCK_HEAD",
+    "gitlink_mode": "160000",
+    "gitlink_result": "BLOCK_HEAD",
+    "undecodable_path_result": "BLOCK_HEAD"
+  },
+  "selection_policy": {
+    "baseline_rule": "EVERY_TRACKED_REGULAR_BLOB_IS_AN_INVENTORY_MEMBER_UNLESS_AN_EXPLICIT_SAFETY_EXCLUSION_BLOCKS_THE_HEAD",
+    "unknown_top_level_zone": "OTHER_TRACKED",
+    "no_silent_drop": true,
+    "known_zones": [
+      {
+        "prefix": "GOVERNANCE/",
+        "selection_zone": "GOVERNANCE"
+      },
+      {
+        "prefix": "docs/",
+        "selection_zone": "DOCUMENTATION"
+      },
+      {
+        "prefix": "evidence/",
+        "selection_zone": "EVIDENCE"
+      },
+      {
+        "prefix": "reports/",
+        "selection_zone": "REPORT"
+      },
+      {
+        "prefix": "requirements/",
+        "selection_zone": "REQUIREMENT"
+      },
+      {
+        "prefix": "src/",
+        "selection_zone": "IMPLEMENTATION"
+      },
+      {
+        "prefix": "tests/",
+        "selection_zone": "TEST"
+      },
+      {
+        "prefix": "tools/",
+        "selection_zone": "TOOL"
+      },
+      {
+        "prefix": "breakers/",
+        "selection_zone": "BREAKER"
+      },
+      {
+        "prefix": ".github/",
+        "selection_zone": "GITHUB_AUTOMATION_OR_CONFIG"
+      },
+      {
+        "prefix": "04-REFERENCE/",
+        "selection_zone": "REFERENCE"
+      },
+      {
+        "prefix": "99-BACKUP/",
+        "selection_zone": "HISTORICAL_LINEAGE"
+      }
+    ],
+    "root_regular_blob_zone": "ROOT_DOCUMENT",
+    "selection_zone_is_not_artifact_family": true,
+    "selection_zone_is_not_authority": true,
+    "selection_zone_is_not_qualification": true
+  },
+  "forbidden_tracked_surfaces": {
+    "prefixes": [
+      "generated/",
+      "views/",
+      ".obsidian/",
+      ".git/",
+      "__pycache__/",
+      ".pytest_cache/",
+      ".mypy_cache/",
+      ".venv/",
+      "venv/",
+      "node_modules/"
+    ],
+    "suffixes": [
+      ".pyc",
+      ".pyo"
+    ],
+    "result": "BLOCK_HEAD",
+    "rationale": "Continuous projection must not recurse over derived Vault output, local UI state, runtime caches, or vendored runtime trees without a separate explicit rule."
+  },
+  "sensitive_path_policy": {
+    "case_insensitive": true,
+    "blocked_patterns": [
+      ".env",
+      ".env.*",
+      "*.pem",
+      "*.key",
+      "*.p12",
+      "*.pfx",
+      "id_rsa*",
+      "**/secrets/**",
+      "**/credentials/**",
+      "**/*credential*",
+      "**/*private-key*",
+      "**/*private_key*"
+    ],
+    "result": "BLOCK_HEAD_NO_PROJECTION",
+    "plaintext_sensitive_path_in_live_projection_forbidden": true,
+    "operational_recording": "COUNT_PLUS_SHA256_OF_PATH_ONLY"
+  },
+  "content_modes": {
+    "FULL_TEXT": {
+      "max_blob_size_bytes": 1048576,
+      "candidate_extensions": [
+        ".md",
+        ".py",
+        ".json",
+        ".yml",
+        ".yaml",
+        ".txt",
+        ".toml",
+        ".ini",
+        ".cfg",
+        ".csv",
+        ".tsv",
+        ".xml",
+        ".html",
+        ".css",
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".sql",
+        ".sh",
+        ".ps1",
+        ".bat",
+        ".cmd"
+      ],
+      "byte_requirements": [
+        "VALID_UTF8",
+        "NO_NUL_BYTE",
+        "SECRET_SCAN_PASS"
+      ],
+      "source_body_copy_to_inventory_forbidden": true,
+      "downstream_semantic_read_allowed": true
+    },
+    "METADATA_ONLY": {
+      "triggers": [
+        "BLOB_SIZE_GT_1_MIB",
+        "EXTENSION_NOT_IN_FULL_TEXT_ALLOWLIST",
+        "INVALID_UTF8",
+        "NUL_BYTE_PRESENT"
+      ],
+      "retained_fields": [
+        "source_path",
+        "source_blob_sha",
+        "source_blob_size",
+        "git_mode",
+        "selection_zone",
+        "content_mode"
+      ],
+      "source_bytes_may_be_copied_to_projection": false,
+      "downstream_semantic_body_read_allowed": false,
+      "default_semantic_status": "UNKNOWN_UNLESS_SEPARATE_PARSER_IS_QUALIFIED"
+    }
+  },
+  "secret_scan": {
+    "applies_to": "FULL_TEXT_CANDIDATES_BEFORE_SEMANTIC_CLASSIFICATION",
+    "scanner_version_must_be_pinned": true,
+    "unavailable_scanner_result": "BLOCK_HEAD",
+    "high_confidence_secret_match_result": "BLOCK_HEAD_NO_PROJECTION",
+    "secret_value_must_never_be_logged": true,
+    "secret_value_must_never_enter_inventory": true,
+    "false_positive_override_requires_explicit_governed_exception": true
+  },
+  "inventory_record": {
+    "schema": "ATDS_OBSIDIAN_DYNAMIC_INVENTORY_V0_1",
+    "top_level_fields": [
+      "schema",
+      "source_repository",
+      "source_branch",
+      "source_commit",
+      "source_tree",
+      "selection_contract_version",
+      "source_blob_count",
+      "full_text_count",
+      "metadata_only_count",
+      "entries",
+      "inventory_digest_sha256"
+    ],
+    "entry_fields": [
+      "source_path",
+      "source_blob_sha",
+      "source_blob_size",
+      "git_mode",
+      "selection_zone",
+      "content_mode"
+    ],
+    "entry_order": "source_path UTF-8 bytewise ASC",
+    "duplicate_path_result": "BLOCK_HEAD",
+    "duplicate_blob_sha_allowed": true,
+    "absolute_paths_forbidden": true,
+    "parent_traversal_forbidden": true,
+    "backslash_separator_forbidden": true,
+    "timestamps_forbidden": true,
+    "hostname_forbidden": true,
+    "username_forbidden": true
+  },
+  "digest": {
+    "algorithm": "SHA256",
+    "payload": "canonical JSON array of entry dictionaries in exact entry field order sorted by source_path UTF-8 bytewise ASC",
+    "include_source_commit_in_entry_digest": false,
+    "source_commit_bound_at_inventory_top_level": true,
+    "deterministic_across_hosts_required": true
+  },
+  "exact_head_binding": {
+    "repository_must_match": true,
+    "branch_must_match": true,
+    "commit_must_match_observed_remote_head": true,
+    "tree_oid_must_match_commit_tree": true,
+    "every_entry_blob_oid_must_match_tree": true,
+    "every_entry_size_must_match_git_tree": true,
+    "raw_blob_length_verification_required_for_full_text": true
+  },
+  "delta_semantics": {
+    "previous_inventory_optional_for_first_generation": true,
+    "added_path": "ADDED",
+    "removed_path": "REMOVED",
+    "same_path_new_blob": "MODIFIED",
+    "same_path_same_blob": "UNCHANGED",
+    "rename_inference_from_same_blob": "INFORMATIONAL_ONLY_NOT_SEMANTIC",
+    "removed_live_artifact_candidate_state": "ORPHAN",
+    "expected_but_absent_projection_candidate_state": "MISSING"
+  },
+  "observed_reference_census": {
+    "non_normative": true,
+    "source_head": "6aef3b1304313c3446c08a3a37b51ea61733f41e",
+    "source_tree": "ac1e61838a72852cad96e003bfb593de567c2b6d",
+    "tracked_regular_blob_count": 908,
+    "tracked_regular_blob_bytes": 100818496,
+    "full_text_candidate_count_under_contract": 890,
+    "metadata_only_count_under_contract": 18,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "sensitive_path_match_count": 0,
+    "zone_counts": {
+      "GITHUB_AUTOMATION_OR_CONFIG": 84,
+      "REFERENCE": 16,
+      "HISTORICAL_LINEAGE": 100,
+      "ROOT_DOCUMENT": 4,
+      "GOVERNANCE": 16,
+      "BREAKER": 53,
+      "DOCUMENTATION": 88,
+      "EVIDENCE": 151,
+      "REPORT": 265,
+      "REQUIREMENT": 1,
+      "IMPLEMENTATION": 46,
+      "TEST": 42,
+      "TOOL": 42
+    },
+    "largest_blob": {
+      "source_path": "evidence/bfiq02/interval_inventory_v0_1.json",
+      "source_blob_size": 22826236,
+      "expected_content_mode": "METADATA_ONLY"
+    }
+  },
+  "p5b_boundary": {
+    "contract_tests_and_census_only": true,
+    "dynamic_inventory_runtime_implementation_authorized": false,
+    "continuous_observer_authorized": false,
+    "vault_write_authorized": false,
+    "projection_rebuild_authorized": false,
+    "semantic_classifier_change_authorized": false,
+    "existing_pilot_inventory_mutation_authorized": false
+  },
+  "required_breakers": [
+    "working tree used as inventory authority",
+    "Git index used as inventory authority",
+    "wrong repository accepted",
+    "wrong branch accepted",
+    "inventory commit differs from observed remote HEAD",
+    "inventory tree differs from commit tree",
+    "tree symlink accepted",
+    "gitlink accepted",
+    "non-UTF8 path silently accepted",
+    "tracked regular blob silently dropped",
+    "unknown top-level zone silently dropped",
+    "selection zone promoted to semantic role",
+    "selection zone promoted to authority",
+    "selection zone promoted to qualification",
+    "generated/ tracked surface accepted",
+    "views/ tracked surface accepted",
+    ".obsidian/ tracked surface accepted",
+    "__pycache__ tracked surface accepted",
+    "pyc tracked blob accepted",
+    "sensitive path projected",
+    "sensitive path logged in plaintext operational evidence",
+    "FULL_TEXT blob larger than 1 MiB",
+    "FULL_TEXT invalid UTF-8 accepted",
+    "FULL_TEXT NUL byte accepted",
+    "FULL_TEXT secret scanner unavailable",
+    "FULL_TEXT high-confidence secret match accepted",
+    "secret value logged",
+    "metadata-only source bytes copied into projection",
+    "metadata-only body used for semantic classification",
+    "duplicate source path accepted",
+    "absolute source path accepted",
+    "parent traversal accepted",
+    "backslash source separator accepted",
+    "volatile timestamp included in deterministic inventory",
+    "hostname included in deterministic inventory",
+    "username included in deterministic inventory",
+    "inventory digest changes across host for same Git tree",
+    "entry blob OID differs from Git tree",
+    "entry blob size differs from Git tree",
+    "full-text raw blob length mismatch ignored",
+    "rename inferred as semantic relation",
+    "current 908 count treated as future normative constant",
+    "frozen 74-artifact pilot reused as continuous inventory"
+  ],
+  "next_gate": "P5B2_DYNAMIC_INVENTORY_IMPLEMENTATION_CANDIDATE"
+}
