@@ -152,6 +152,40 @@ identity, continuity or other critical control failure.
 
 The 60m diagnostic cannot rescue the 15m primary result.
 
+## Adjudication precedence
+
+Validity gates have precedence over metric verdicts.
+
+The future runner must adjudicate, in this order:
+
+1. new/pristine eligibility;
+2. critical identity, provenance, causality and continuity controls;
+3. the nine-state sparse guard;
+4. only if all preceding guards PASS, the frozen primary metrics.
+
+Any critical validity/control failure forces the primary scientific
+decision to:
+
+`NOT_INTERPRETABLE`
+
+regardless of whether the numerical deltas would otherwise satisfy the
+CONFIRMED or REFUTED metric rule.
+
+A pristine/new-data eligibility failure additionally forces the
+confirmatory-claim axis to:
+
+`NOT_CONFIRMATORY`
+
+Therefore:
+
+- sparse + negative metrics cannot become `REFUTED`;
+- control failure + negative metrics cannot become `REFUTED`;
+- pristine failure + negative metrics cannot become `REFUTED`;
+- invalid tests cannot become `CONFIRMED`.
+
+This is a fail-closed execution precedence rule. It does not alter any
+frozen scientific threshold, baseline or metric criterion.
+
 ## Current authorization
 
 Real confirmation execution:

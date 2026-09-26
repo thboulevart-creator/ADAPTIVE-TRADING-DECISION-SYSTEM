@@ -117,6 +117,25 @@
       "any other critical control invalidates the test"
     ]
   },
+  "adjudication_precedence": {
+    "guard_first": true,
+    "rule": "eligibility, pristine/new-data, critical identity/provenance/causality/continuity and sparse guards are adjudicated before primary metric verdicts",
+    "invalid_test_primary_status": "NOT_INTERPRETABLE",
+    "pristine_failure_confirmatory_claim_status": "NOT_CONFIRMATORY",
+    "metric_verdict_allowed_only_if_all_critical_guards_pass": true,
+    "metric_verdicts_after_validity_gate": [
+      "CONFIRMED",
+      "REFUTED"
+    ],
+    "forbidden_outcomes": [
+      "critical guard failure -> CONFIRMED",
+      "critical guard failure -> REFUTED",
+      "sparse guard failure -> CONFIRMED",
+      "sparse guard failure -> REFUTED",
+      "unproven pristine/new-data eligibility -> CONFIRMED",
+      "unproven pristine/new-data eligibility -> REFUTED"
+    ]
+  },
   "current_authorization": {
     "confirmation_data_accessed": false,
     "confirmation_data_access_authorized_now": false,
@@ -175,7 +194,10 @@
     "strategy/direction/PnL/signals introduced",
     "C02 redesign",
     "winner selection",
-    "post-hoc Charter modification"
+    "post-hoc Charter modification",
+    "sparse state with otherwise negative primary metrics must remain NOT_INTERPRETABLE and must not become REFUTED",
+    "critical identity/provenance/causality/continuity failure with otherwise negative primary metrics must remain NOT_INTERPRETABLE and must not become REFUTED",
+    "unproven pristine/new-data eligibility with otherwise negative primary metrics must report NOT_CONFIRMATORY on the confirmatory claim axis and NOT_INTERPRETABLE on the primary decision axis, never REFUTED"
   ],
   "next_governed_action": {
     "action": "PERSISTED_HEAD_REBREAK_C01_CONFIRMATION_EXECUTION_PREFLIGHT_V0_1",

@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 PERSISTENCE CANDIDATE.** Frozen Charter blob ada0ebf41ecd7ab406d2656ac745ed7003d5b5c1; sealed model blob 68ee4795462c5dbd5747a7bfdef81716dc84227f. Confirmation data accessed=false; primary score computed=false; real confirmation execution unauthorized. Earliest primary evaluation 2027-05-25T00:00:00Z. Next: persisted-head re-break of the preflight.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 CORRECTIVE PERSISTENCE CANDIDATE.** First persisted-head re-break at 074bf4af09cbeeae7ae5f270dc6f414221acb28b failed only because adjudication precedence was under-specified. Confirmation data accessed=false; primary score computed=false; real confirmation execution unauthorized. Next: persisted-head re-break of the corrected preflight.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15487,3 +15487,64 @@ persisted-head re-break.
 Only after PASS:
 
 **TEST-FIRST CONFIRMATION RUNNER — SYNTHETIC DATA ONLY.**
+---
+
+## 250. C01 CONFIRMATION EXECUTION PREFLIGHT V0.1 — FIRST RE-BREAK FAIL / CORRECTION CANDIDATE
+
+Date:
+2026-09-26
+
+Reviewed persisted HEAD:
+`074bf4af09cbeeae7ae5f270dc6f414221acb28b`
+
+Structural checks:
+
+- exact parentage: PASS
+- exact four-file scope: PASS
+- strict JSON: PASS
+- unresolved placeholders: 0
+- forbidden control characters: 0
+- frozen Charter/model/seal/final-seal identities: UNCHANGED
+
+Semantic re-break:
+
+**FAIL — adjudication precedence under-specified.**
+
+Demonstrated gap:
+
+an implementation could evaluate the metric REFUTED rule before the sparse
+or critical-control invalidity rule.
+
+This could incorrectly produce `REFUTED` where the frozen Charter requires
+`NOT_INTERPRETABLE`.
+
+Corrective scope:
+
+- no Charter change;
+- no model change;
+- no threshold change;
+- no confirmation-data access;
+- no score;
+- no runner implementation;
+- add explicit guard-first adjudication precedence;
+- add three synthetic breakers for REFUTED-under-invalidity mutants.
+
+Corrected precedence:
+
+`eligibility/control/sparse guards -> PASS required -> metric adjudication`
+
+Invalid critical test:
+
+`primary decision = NOT_INTERPRETABLE`
+
+Pristine/new-data failure additionally:
+
+`confirmatory claim = NOT_CONFIRMATORY`
+
+Status:
+
+**CORRECTIVE PERSISTENCE CANDIDATE — NOT YET QUALIFIED.**
+
+Next:
+
+persisted-head re-break of the corrected documentary candidate only.

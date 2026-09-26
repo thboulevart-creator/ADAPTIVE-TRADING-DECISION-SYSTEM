@@ -40,3 +40,34 @@ Contract:
 Status:
 
 **PERSISTENCE CANDIDATE — PERSISTED-HEAD RE-BREAK REQUIRED.**
+
+
+## Persisted-head re-break incident
+
+Persisted-head re-break at
+`074bf4af09cbeeae7ae5f270dc6f414221acb28b`:
+
+**FAIL — adjudication precedence under-specified.**
+
+Structural persistence, protected identities, strict JSON and scope all
+passed.
+
+The defect is documentary/execution-semantic only:
+
+the contract did not explicitly prevent an invalid/sparse experiment with
+negative primary metrics from being classified `REFUTED`.
+
+Correction:
+
+- validity and sparse guards now precede metric adjudication;
+- invalid critical controls force `NOT_INTERPRETABLE`;
+- pristine failure also reports `NOT_CONFIRMATORY`;
+- three synthetic mutation breakers are added.
+
+No confirmation data was accessed.
+No primary score was computed.
+No frozen model/Charter identity changed.
+
+Status:
+
+**CORRECTIVE PERSISTENCE CANDIDATE — RE-BREAK REQUIRED.**
