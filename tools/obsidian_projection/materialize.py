@@ -25,6 +25,12 @@ EXPECTED_REPOSITORY = (
     "ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 EXPECTED_FINAL_NAME = "ATDS-OBSIDIAN-PROJECTION"
+FROZEN_SOURCE_COMMIT = (
+    "7bd8c1312430dfc3def5523eb65397a5d6a5ae05"
+)
+FROZEN_SOURCE_TREE = (
+    "66eeb08a338732d4cf7f5b7f4f5e5fd9fbb4d54b"
+)
 
 
 class MaterializationError(RuntimeError):
@@ -586,6 +592,23 @@ def _assert_build_manifest_identity(
 def validate_fresh_p2_report(
     report: Mapping[str, Any],
 ) -> Path:
+    if report.get("repository") != EXPECTED_REPOSITORY:
+        raise MaterializationError(
+            "fresh P2 repository identity mismatch"
+        )
+    if report.get(
+        "source_commit"
+    ) != FROZEN_SOURCE_COMMIT:
+        raise MaterializationError(
+            "fresh P2 source commit mismatch"
+        )
+    if report.get(
+        "source_tree"
+    ) != FROZEN_SOURCE_TREE:
+        raise MaterializationError(
+            "fresh P2 source tree mismatch"
+        )
+
     if report.get("status") != "PASS":
         raise MaterializationError(
             "fresh P2 report is not PASS"
