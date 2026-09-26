@@ -1,0 +1,56 @@
+{
+    "schema":  "ATDS_C01_FROZEN_CONFIRMATORY_MODEL_SEAL_CANDIDATE_V0_2",
+    "status":  "SEAL_PERSISTENCE_CANDIDATE",
+    "date":  "2026-09-26",
+    "artifact":  {
+                     "repo_path":  "reports/program/evidence/2026-09-26-C01-FROZEN-CONFIRMATORY-MODEL-V0.2.json",
+                     "local_handoff_name":  "ATDS-C01-FROZEN-CONFIRMATORY-MODEL-V0.2.json",
+                     "size_bytes":  2597159,
+                     "sha256":  "ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f",
+                     "git_blob":  "68ee4795462c5dbd5747a7bfdef81716dc84227f",
+                     "schema":  "ATDS_C01_FROZEN_CONFIRMATORY_MODEL_V0_2",
+                     "model_status":  "C01_MODEL_FROZEN",
+                     "candidate_id":  "CR2-C01-ABS_VOL_X_TICK",
+                     "model_digest_sha256":  "a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f"
+                 },
+    "qualified_producer":  {
+                               "git_blob":  "13bdc28585e9c6d34bc2217c750f1716fa3e7f9c"
+                           },
+    "binding":  {
+                    "ap0_manifest_sha256":  "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+                    "charter_git_blob":  "ada0ebf41ecd7ab406d2656ac745ed7003d5b5c1",
+                    "cr1_helper_git_blob":  "bb5cd4acd1b48141019c0ec3796ea61627dc0dbf",
+                    "cr2_helper_git_blob":  "34c702e926b3baec90c57b8366177c2db1eca074",
+                    "cr2_evidence_git_blob":  "d6543d12fc01405fedb006ddb5d714a772f32678"
+                },
+    "authentication":  {
+                           "exact_byte_length":  "PASS",
+                           "sha256":  "PASS",
+                           "git_blob":  "PASS",
+                           "strict_json":  "PASS",
+                           "dependency_binding":  "PASS",
+                           "coverage":  "PASS",
+                           "frozen_parameters":  "PASS",
+                           "d2026_reproduction":  "PASS",
+                           "confirmation_scope_guard":  "PASS",
+                           "strict_semantic_authentication":  "PASS"
+                       },
+    "scope":  {
+                  "confirmation_data_accessed":  false,
+                  "confirmation_scoring_authorized":  false,
+                  "parameter_refit_authorized":  false,
+                  "threshold_search_authorized":  false,
+                  "feature_change_authorized":  false,
+                  "interaction_change_authorized":  false,
+                  "strategy_authorized":  false,
+                  "pnl_authorized":  false,
+                  "mt5_authorized":  false
+              },
+    "governance":  {
+                       "base_head":  "2343e1aded32d2004f488c32cd56410baa06c4ca",
+                       "final_seal_claimed":  false,
+                       "persisted_head_rebreak_required":  true,
+                       "same_assistant_review":  true,
+                       "independent_review_claimed":  false
+                   }
+}

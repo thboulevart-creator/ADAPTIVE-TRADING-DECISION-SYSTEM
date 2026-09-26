@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL PRODUCER V0.2 PERSISTED-HEAD RE-BREAK PASS; ONE DEVELOPMENT-ONLY AP0 RERUN AUTHORIZED.** V0.2 emits strict JSON, hour17=null + unavailable=[17], with unchanged expected model digest a8b8b823...26c7f. py_compile PASS; 29/29 tests PASS; 17/17 mutants killed. No confirmation-data access/scoring.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 DEVELOPMENT RERUN + EXACT ARTIFACT AUTHENTICATION PASS; SEAL PERSISTENCE CANDIDATE PERSISTED FOR RE-BREAK.** Exact artifact: 2,597,159 bytes; SHA-256 ae06a517...a199f; Git blob 68ee4795...227f; model digest a8b8b823...26c7f. No final seal is claimed before persisted-head re-break. Confirmation-data access/scoring remains forbidden.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15326,3 +15326,48 @@ Expected model digest remains:
 `a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f`
 
 Confirmation-window access remains forbidden.
+
+---
+
+## 247. C01 V0.2 EXACT ARTIFACT AUTHENTICATED — SEAL PERSISTENCE CANDIDATE
+
+Date:
+2026-09-26
+
+Base HEAD:
+$ExpectedBaseHead
+
+Exact artifact:
+$ArtifactRepoPath
+
+Identity:
+- bytes $ExpectedLength
+- SHA-256 $ExpectedSha256
+- Git blob $ExpectedGitBlob
+
+Model digest:
+$ExpectedModelDigest
+
+Qualified producer blob:
+$ExpectedProducerBlob
+
+Authentication:
+- exact byte identity PASS
+- strict JSON PASS
+- binding PASS
+- coverage PASS
+- frozen parameters PASS
+- D2026 reproduction PASS
+- confirmation scope guard PASS
+- strict semantic authentication PASS
+
+Confirmation data accessed:
+alse
+
+Status:
+**SEAL PERSISTENCE CANDIDATE — NOT FINAL SEAL.**
+
+Next:
+persisted-head re-break of the exact artifact and seal candidate only.
+
+No confirmation-data access or scoring.
