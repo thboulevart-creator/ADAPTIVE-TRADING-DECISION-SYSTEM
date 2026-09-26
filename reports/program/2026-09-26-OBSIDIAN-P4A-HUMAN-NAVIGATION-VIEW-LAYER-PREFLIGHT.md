@@ -37,7 +37,7 @@ Documentation:
 Contract breakers:
 
     tests/obsidian_projection/test_human_navigation_contract_v0_1.py
-    blob: afb27084d0a2187bd1c0b281c90cb8b271bc3674
+    blob: d61ba1f9c41056588492b5c41d99d77908df2ae3
 
 ## 5. Fixed P4-A architecture
 
