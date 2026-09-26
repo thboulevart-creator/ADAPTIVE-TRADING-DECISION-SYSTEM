@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 CONTEXT IDENTITY MATERIALIZED; CR1 HELPER/TESTS NEXT.** Exact Context `CTX-d0501ec820062bfe373f1f4b94de4e191ca2c7e05bbe788b3d5d963750158cbf` is now a required supplied input at RESEARCH entry. No silent reconstruction/fallback is allowed. CR1 remains N0 exploratory; no corpus calculation yet.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 LOCAL CANDIDATE PASSES 26/26 SYNTHETIC + 20/20 MUTANTS, BUT PRODUCTION HELPER EXACT TRANSFER IS PENDING.** Helper bytes 36,971 SHA-256 2ec7ae1b...0cf0 expected Git blob 484f74d0...408a. Test and mutation Git blobs exist only as unreferenced objects. No CR1 helper is authoritative/persisted; no corpus run is authorized. Next: ingest exact helper attachment → exact blob → persisted-head re-break.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14833,3 +14833,35 @@ observation_start/end remain scope metadata and do not enter the deterministic C
 
 Next action:
 CR1 helper/tests must require this full Context artifact and reject absent/foreign/forged identity before research.
+
+
+---
+
+## 233. CR1 LOCAL CANDIDATE PASS / EXACT TRANSFER PENDING — 2026-09-26
+
+Fresh HEAD before persistence:
+`98a58f676cab1a436b762c8e5bbb3190f078b538`.
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR1-CANDIDATE-TRANSFER-BLOCKED.md`
+
+Exact local candidate identities:
+- helper: 36,971 bytes; SHA-256 `2ec7ae1b2db5f0afe7b9ff4405c26d2f85cb2141b527aec203bd0e1c37ee0cf0`; expected Git blob `484f74d0c05eabd3ecc0d9b35fbbafdf120f408a`;
+- tests: 8,354 bytes; SHA-256 `758d5f68b38ea704bdb5256375f8f03cebf51dc07eae470f698104aabf4106b8`; Git blob `d326ddafa1d348decb4ae67ac480bc01060ac340`;
+- mutation runner: 3,289 bytes; SHA-256 `7b9a8ef462378a64779f9ecfb4e55464ef5f84264814b212ee37338d225c7146`; Git blob `69455bdbbde6e9f693e8f29c0fb2969fa8490d15`.
+
+Local qualification:
+- py_compile PASS;
+- synthetic **26/26 PASS**;
+- mutations **20/20 KILLED**.
+
+Transfer guard:
+manual helper transport produced mismatched bytes and was rejected before branch update.
+
+Current verdict:
+**PASS — local candidate only.**
+**BLOCKED — persisted-helper qualification pending exact helper transfer.**
+**CR1 CORPUS EXECUTION NOT AUTHORIZED.**
+
+Next governed action:
+ingest exact helper bytes as a visible attachment, create exact Git blob, persist candidate files, then persisted-head re-break.
