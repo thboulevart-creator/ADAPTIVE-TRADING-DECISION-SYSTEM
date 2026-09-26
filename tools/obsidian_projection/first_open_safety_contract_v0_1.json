@@ -1,0 +1,249 @@
+{
+  "schema": "ATDS_OBSIDIAN_FIRST_OPEN_SAFETY_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "qualified_p3b_head": "bb5fc55c8a7f51a58f9a53b27bb499f5b6d381ba",
+  "materialized_vault": {
+    "expression": "%LOCALAPPDATA%\\ATDS-OBSIDIAN-PROJECTION",
+    "observed_resolved_path": "C:\\Users\\Boulevart\\AppData\\Local\\ATDS-OBSIDIAN-PROJECTION",
+    "authority_role": "DERIVED",
+    "canonical_source": "GitHub/ATDS",
+    "generated_owner": "MACHINE",
+    "views_owner": "HUMAN",
+    "obsidian_directory_expected_before_first_open": false
+  },
+  "p3b_adjudication_basis": {
+    "local_terminal_marker": "P3B_LOCAL_MATERIALIZATION_PASS",
+    "local_terminal_marker_status": "REPORTED_EXECUTION_RESULT",
+    "remote_candidate_head_reverified": true,
+    "remote_candidate_head": "bb5fc55c8a7f51a58f9a53b27bb499f5b6d381ba",
+    "p3b_json_report_available_in_conversation": false,
+    "p3b_digest_values_available_in_conversation": false,
+    "bounded_materialization_status": "PASS_WITH_CRYPTOGRAPHIC_RECONSTRUCTION_REQUIRED_BEFORE_FIRST_OPEN",
+    "forbidden_inference": "Do not invent or persist missing P3-B relation counts or digest values."
+  },
+  "p3c_boundary": {
+    "adjudication_and_contract_only": true,
+    "first_open_harness_code_authorized": false,
+    "obsidian_launch_authorized": false,
+    "obsidian_directory_creation_authorized": false,
+    "vault_write_authorized": false,
+    "generated_write_authorized": false,
+    "views_write_authorized": false,
+    "plugins_authorized": false,
+    "sync_authorized": false,
+    "git_automation_authorized": false
+  },
+  "pre_open_reconstruction": {
+    "mandatory": true,
+    "reason": "P3-B terminal PASS is known, but the full P3-B JSON/digest set was not captured in conversation.",
+    "fresh_p2_execution_required": true,
+    "fresh_p2_must_use_exact_qualified_p2_identity": true,
+    "fresh_p2_double_build_required": true,
+    "fresh_p2_double_build_byte_match_required": true,
+    "current_vault_generated_must_equal_fresh_p2_build_a": true,
+    "comparisons_required": [
+      "exact_relative_path_set",
+      "each_file_size",
+      "each_file_sha256",
+      "integrity_manifest_all_clean",
+      "build_manifest_identity",
+      "projection_tree_digest"
+    ],
+    "mismatch_result": "BLOCK_FIRST_OPEN"
+  },
+  "pre_open_snapshot": {
+    "storage_location": "OS_TEMP_OUTSIDE_VAULT",
+    "deterministic_vault_bytes_modified": false,
+    "required_fields": [
+      "vault_resolved_path",
+      "vault_filesystem_identity",
+      "generated_relative_path_set",
+      "generated_file_sizes",
+      "generated_file_sha256",
+      "generated_tree_digest_sha256",
+      "integrity_manifest_sha256",
+      "views_entry_count",
+      "obsidian_directory_present",
+      "vault_top_level_entries",
+      "repository_branch",
+      "repository_head",
+      "repository_status_porcelain"
+    ],
+    "required_state": {
+      "final_vault_exists": true,
+      "generated_exists": true,
+      "views_exists": true,
+      "views_entry_count": 0,
+      "obsidian_directory_present": false,
+      "vault_top_level_entries": [
+        "generated",
+        "views"
+      ],
+      "generated_integrity": "ALL_CLEAN"
+    }
+  },
+  "first_open_operation": {
+    "execution_model": "TWO_PHASE_MANUAL_OPEN",
+    "phase_1": "PREPARE_AND_FREEZE_PRE_OPEN_SNAPSHOT",
+    "phase_2": "HUMAN_OPENS_VAULT_IN_OBSIDIAN_AND_CLOSES_OBSIDIAN_WITHOUT_EDITING_CONTENT",
+    "phase_3": "VERIFY_POST_CLOSE_STATE_AGAINST_SNAPSHOT",
+    "automatic_obsidian_launch_forbidden": true,
+    "user_content_edits_during_first_open_forbidden": true,
+    "views_edits_during_first_open_forbidden": true,
+    "generated_edits_during_first_open_forbidden": true,
+    "obsidian_must_be_fully_closed_before_post_check": true,
+    "post_check_while_obsidian_running": "BLOCK"
+  },
+  "obsidian_directory_policy": {
+    "may_be_created_during_first_open": true,
+    "ownership": "OBSIDIAN_LOCAL_UI_CONFIGURATION_ONLY",
+    "semantic_authority": "NONE",
+    "may_be_semantic_input": false,
+    "root_regular_json_files_allowed": true,
+    "root_non_json_files_allowed": false,
+    "subdirectories_allowed": [],
+    "symlink_junction_reparse_forbidden": true,
+    "non_regular_files_forbidden": true,
+    "plugins_directory_forbidden": true,
+    "themes_directory_forbidden": true,
+    "snippets_directory_forbidden": true,
+    "community_plugins_file": {
+      "path": ".obsidian/community-plugins.json",
+      "allowed_if_absent": true,
+      "allowed_if_present_only_when_valid_json_empty_array": true,
+      "non_empty_or_unparseable": "BLOCK"
+    },
+    "core_plugins_file": {
+      "path": ".obsidian/core-plugins.json",
+      "allowed": true,
+      "sync_enablement_forbidden": true,
+      "accepted_shapes": [
+        "JSON_OBJECT_BOOLEAN_MAP",
+        "JSON_ARRAY_OF_ENABLED_PLUGIN_IDS"
+      ],
+      "sync_plugin_id": "sync",
+      "if_shape_or_sync_state_cannot_be_interpreted": "BLOCK"
+    },
+    "explicit_sync_artifact_policy": {
+      "filename_or_directory_case_insensitive_contains_sync": true,
+      "exception": ".obsidian/core-plugins.json",
+      "result": "BLOCK"
+    }
+  },
+  "generated_before_after_gate": {
+    "exact_relative_path_set_equal": true,
+    "exact_file_size_equal": true,
+    "exact_file_sha256_equal": true,
+    "exact_tree_digest_equal": true,
+    "integrity_manifest_all_clean_after": true,
+    "build_manifest_unchanged": true,
+    "any_change_result": "BLOCK_FIRST_OPEN_QUALIFICATION"
+  },
+  "views_before_after_gate": {
+    "required_entry_count_before": 0,
+    "required_entry_count_after": 0,
+    "any_change_result": "BLOCK_FIRST_OPEN_QUALIFICATION"
+  },
+  "vault_structure_after_first_open": {
+    "allowed_top_level_entries": [
+      "generated",
+      "views",
+      ".obsidian"
+    ],
+    "git_directory_forbidden": true,
+    "extra_top_level_entry": "BLOCK",
+    "vault_filesystem_identity_must_equal_pre_open": true
+  },
+  "repository_before_after_gate": {
+    "branch_equal": true,
+    "head_equal": true,
+    "status_porcelain_equal": true,
+    "any_change_result": "BLOCK_FIRST_OPEN_QUALIFICATION"
+  },
+  "first_open_qualification": {
+    "source": "POST_CLOSE_EXTERNAL_VERIFICATION_ONLY",
+    "stored_inside_vault": false,
+    "folder_name_not_qualification": true,
+    "obsidian_opened_not_qualification": true,
+    "obsidian_directory_exists_not_qualification": true,
+    "requires_all_gates": true,
+    "success_status": "PASS",
+    "failure_status": "BLOCKED",
+    "generated_mutation_never_auto_repaired": true,
+    "unexpected_obsidian_config_never_auto_deleted": true
+  },
+  "failure_protocol": {
+    "no_recursive_delete": true,
+    "no_generated_auto_restore": true,
+    "no_obsidian_config_auto_cleanup": true,
+    "preserve_evidence_for_adjudication": true,
+    "generated_changed": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED",
+    "unexpected_obsidian_state": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED",
+    "repository_changed": "BLOCK_AND_DO_NOT_REOPEN_UNTIL_ADJUDICATED"
+  },
+  "forbidden_actions": [
+    "open Obsidian during P3-C preregistration",
+    "create .obsidian during P3-C preregistration",
+    "write generated during P3-C preregistration",
+    "write views during P3-C preregistration",
+    "install community plugins",
+    "enable Obsidian Sync",
+    "enable Git automation",
+    "treat .obsidian files as semantic truth",
+    "treat backlinks/wikilinks as typed semantic relations",
+    "auto-repair generated after first-open mutation",
+    "auto-delete unexpected .obsidian state"
+  ],
+  "acceptance_breakers": [
+    "P3-B digest values invented from terminal marker",
+    "first open attempted without fresh P2 reconstruction",
+    "current generated tree differs from fresh P2 build",
+    "pre-open .obsidian already exists",
+    "pre-open views not empty",
+    "pre-open generated integrity not all CLEAN",
+    "pre-open extra top-level entry",
+    "Obsidian launched automatically by harness",
+    "post-check executed while Obsidian still running",
+    "generated relative path added",
+    "generated relative path removed",
+    "generated file size changed",
+    "generated file hash changed",
+    "generated tree digest changed",
+    "integrity manifest not CLEAN after open",
+    "build manifest changed",
+    "views changed during first open",
+    ".obsidian contains non-JSON root file",
+    ".obsidian contains subdirectory",
+    ".obsidian/plugins exists",
+    ".obsidian/themes exists",
+    ".obsidian/snippets exists",
+    "community-plugins.json non-empty",
+    "community-plugins.json invalid",
+    "core-plugins.json enables sync",
+    "core-plugins.json shape cannot be interpreted",
+    "explicit sync artifact appears",
+    ".git appears in Vault",
+    "extra top-level Vault entry appears",
+    "Vault filesystem identity changes",
+    "repository branch changes",
+    "repository HEAD changes",
+    "repository working tree changes",
+    "first-open failure triggers automatic generated repair",
+    "first-open failure triggers automatic .obsidian cleanup",
+    "folder name treated as first-open qualification",
+    ".obsidian existence treated as first-open qualification"
+  ],
+  "next_action_gate": {
+    "allowed_after_persisted_rebreak": "P3D_FIRST_OPEN_SAFETY_HARNESS_IMPLEMENTATION_CANDIDATE",
+    "implementation_scope": "PREPARE_SNAPSHOT_AND_POST_CLOSE_VERIFY_ONLY",
+    "may_launch_obsidian": false,
+    "may_create_obsidian_directory": false,
+    "may_modify_generated": false,
+    "may_modify_views": false,
+    "may_install_plugins": false,
+    "may_enable_sync": false,
+    "may_enable_git_automation": false,
+    "manual_first_open_only_after_harness_local_precheck_passes": true
+  }
+}
