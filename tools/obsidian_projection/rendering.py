@@ -283,6 +283,43 @@ def render_relation(
 ) -> RenderedFile:
     relation_contract = contract["relation_record"]
 
+    if relation.relation_type not in relation_contract[
+        "allowed_relation_types"
+    ]:
+        raise RenderingError(
+            f"relation type not allowed: {relation.relation_type}"
+        )
+    if relation.basis not in relation_contract[
+        "allowed_basis"
+    ]:
+        raise RenderingError(
+            f"relation basis not allowed: {relation.basis}"
+        )
+    if relation.basis in relation_contract[
+        "forbidden_authoritative_basis"
+    ]:
+        raise RenderingError(
+            f"forbidden authoritative basis: {relation.basis}"
+        )
+    if not relation.evidence_source_path:
+        raise RenderingError(
+            "relation provenance path required"
+        )
+    if (
+        len(relation.evidence_source_blob_sha) != 40
+        or any(
+            char not in "0123456789abcdef"
+            for char in relation.evidence_source_blob_sha.lower()
+        )
+    ):
+        raise RenderingError(
+            "relation provenance blob SHA must be full hex OID"
+        )
+
+    _validate_source_path(
+        relation.evidence_source_path
+    )
+
     values: dict[str, Any] = {
         "record_schema":
             relation_contract["record_schema"],
