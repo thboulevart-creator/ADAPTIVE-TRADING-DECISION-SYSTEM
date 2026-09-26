@@ -250,11 +250,19 @@ class P3D2AdversarialStaticTests(unittest.TestCase):
 
     def test_repository_state_is_checked_both_sides(self) -> None:
         self.assertIn(
-            "repository changed during pre-open reconstruction",
+            '"ATDS repository changed during "',
             self.module,
         )
         self.assertIn(
-            "repository changed during post-check",
+            '"pre-open reconstruction"',
+            self.module,
+        )
+        self.assertIn(
+            '"ATDS repository changed "',
+            self.module,
+        )
+        self.assertIn(
+            '"during post-check"',
             self.module,
         )
 
