@@ -115,3 +115,28 @@ Only if the Canvas remains visually weak after Properties are hidden should a P4
 **P4-C = CORRECTION REQUIRED, BOUNDED TO UI DISPLAY**
 
 No content rewrite is authorized yet.
+
+
+## Recheck after Properties hidden
+
+A second user-provided Canvas screenshot was reviewed after applying the native Obsidian display setting that hides Properties in the document.
+
+Observed improvement:
+
+- file-node cards now expose human-facing headings and descriptions instead of governance metadata;
+- the central HOME node is immediately identifiable;
+- left-side maps and right-side dashboards form a readable visual hierarchy;
+- navigation edges are visually understandable;
+- no semantic-authority boundary was changed.
+
+Remaining visible UX issues:
+
+1. `SYSTEM-ARCHITECTURE` and `GOVERNANCE` show an Obsidian Mermaid rendering consent/prompt inside their card previews, adding visual noise;
+2. Canvas file nodes repeat the note name twice: once as the Canvas/file label and once as the note H1;
+3. HOME visual acceptance still requires the post-remediation screenshot requested by P4-C.
+
+Intermediate disposition:
+
+**CANVAS ACCEPTABLE WITH MINOR UX CORRECTIONS — P4-C OVERALL STILL OPEN**
+
+No content rewrite is authorized from this screenshot alone.
