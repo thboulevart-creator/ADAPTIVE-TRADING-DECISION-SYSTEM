@@ -681,6 +681,30 @@ def _next_generation(
     )
 
 
+def _require_expected_final_state(
+    final_state: dict[str, Any] | None,
+    fixtures: dict[str, Path],
+    cycles_completed: int,
+    cycles_required: int,
+) -> tuple[dict[str, Any] | None, str | None]:
+    if (
+        final_state is None
+        or cycles_completed != cycles_required
+    ):
+        return final_state, None
+
+    expected_id = _next_generation(
+        cycles_required - 1
+    )
+    expected = validate_generation_dir(
+        fixtures[expected_id]
+    )
+
+    if final_state != expected:
+        return None, "FINAL_STATE_MISMATCH"
+    return final_state, None
+
+
 def run_negative_control(
     candidate_root: Path,
     fixtures: dict[str, Path],
@@ -860,6 +884,20 @@ def run_two_rename_swap(
     except PromotionExperimentError:
         final_state = None
 
+    final_state, final_mismatch = (
+        _require_expected_final_state(
+            final_state,
+            fixtures,
+            completed,
+            QUALIFIABLE_CYCLES,
+        )
+    )
+    if (
+        final_mismatch is not None
+        and failure_code is None
+    ):
+        failure_code = final_mismatch
+
     return _candidate_result(
         candidate_id=
             "DIRECTORY_TWO_RENAME_SWAP",
@@ -989,6 +1027,20 @@ def run_movefileex_replace(
     except PromotionExperimentError:
         final_state = None
 
+    final_state, final_mismatch = (
+        _require_expected_final_state(
+            final_state,
+            fixtures,
+            completed,
+            QUALIFIABLE_CYCLES,
+        )
+    )
+    if (
+        final_mismatch is not None
+        and failure_code is None
+    ):
+        failure_code = final_mismatch
+
     return _candidate_result(
         candidate_id=
             "WINDOWS_MOVEFILEEX_DIRECTORY_REPLACE",
@@ -1091,6 +1143,20 @@ def run_pointer_swap(
         )
     except PromotionExperimentError:
         final_state = None
+
+    final_state, final_mismatch = (
+        _require_expected_final_state(
+            final_state,
+            fixtures,
+            completed,
+            QUALIFIABLE_CYCLES,
+        )
+    )
+    if (
+        final_mismatch is not None
+        and failure_code is None
+    ):
+        failure_code = final_mismatch
 
     return _candidate_result(
         candidate_id=
