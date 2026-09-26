@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 REGISTRY SHA BINDING INCIDENT CORRECTED AS CANDIDATE; PRIOR CORPUS AUTHORIZATION REVOKED PENDING PERSISTED-HEAD RE-BREAK.** Exact registry Git blob remains 490039ce...; correct raw-byte SHA-256 is 24db0f82a602fa9e1abc04d2793898847c98dc27ed5fe4a16bcd12502fd787a4. No CR1 corpus calculation occurred. Next: re-break corrected persisted helper before any rerun.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 HELPER V0.2 PERSISTED-HEAD RE-BREAK PASS; ONE LOCAL N0 CORPUS RUN RE-AUTHORIZED.** Correct registry SHA-256 is 24db0f82...fd787a4; registry Git blob unchanged. Corrected helper blob bb5cd4ac..., SHA-256 423eed0f...f4eac; py_compile PASS; 26/26 synthetic PASS; 20/20 mutants killed. Next: one fresh raw-Git CR1 corpus run. No regime claim/strategy/PnL/optimisation/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14926,3 +14926,42 @@ Corrected helper candidate expected identity:
 - SHA-256 `423eed0f22b87a92210f53c6668c5b242c8ddb687da3292415c43879fb1f4eac`.
 
 Prior CR1 corpus authorization is revoked until persisted-head re-break passes.
+
+
+---
+
+## 236. CR1 HELPER V0.2 PERSISTED-HEAD RE-BREAK PASS — 2026-09-26
+
+Corrected persisted HEAD reviewed:
+`03b02dc1d29bfbaed1c0839872544401659f5d92`.
+
+Root cause:
+registry content unchanged; prior auxiliary SHA-256 metadata incorrect.
+
+Correct registry:
+- blob `490039cecf5a02ac7e553f8f7e47f6d4baedb584`
+- SHA-256 `24db0f82a602fa9e1abc04d2793898847c98dc27ed5fe4a16bcd12502fd787a4`
+
+Corrected helper:
+- blob `bb5cd4acd1b48141019c0ec3796ea61627dc0dbf`
+- SHA-256 `423eed0f22b87a92210f53c6668c5b242c8ddb687da3292415c43879fb1f4eac`
+
+Re-break:
+- py_compile PASS
+- 26/26 synthetic PASS
+- 20/20 mutation breakers KILLED
+
+Review:
+`reports/program/2026-09-26-CR1-CONTEXT-INFORMATIVENESS-HELPER-ADVERSARIAL-REVIEW-V0.2.md`
+
+Mutation evidence:
+`reports/program/evidence/2026-09-26-CR1-MUTATION-RESULTS-V0.2.json`
+
+Handoff:
+`reports/program/2026-09-26-CR1-CONTEXT-INFORMATIVENESS-LOCAL-HANDOFF-V0.2.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR1-HELPER-V0.2-READY-LOCAL-HANDOFF.md`
+
+Verdict:
+**PASS — one local CR1 N0 corpus attempt authorized.**

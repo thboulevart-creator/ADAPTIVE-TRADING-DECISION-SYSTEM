@@ -1,0 +1,28 @@
+{
+  "schema": "ATDS_CR1_MUTATION_RESULTS_V0_2",
+  "status": "PASS",
+  "persisted_head": "03b02dc1d29bfbaed1c0839872544401659f5d92",
+  "correction": "registry raw-byte SHA-256 metadata corrected; registry Git blob/content unchanged",
+  "helper": {
+    "path": "tools/cr1_context_informativeness.py",
+    "git_blob": "bb5cd4acd1b48141019c0ec3796ea61627dc0dbf",
+    "sha256": "423eed0f22b87a92210f53c6668c5b242c8ddb687da3292415c43879fb1f4eac",
+    "bytes": 36971
+  },
+  "registry": {
+    "git_blob": "490039cecf5a02ac7e553f8f7e47f6d4baedb584",
+    "sha256": "24db0f82a602fa9e1abc04d2793898847c98dc27ed5fe4a16bcd12502fd787a4",
+    "bytes": 7215
+  },
+  "synthetic_tests": {
+    "passed": 26,
+    "total": 26,
+    "git_blob": "d326ddafa1d348decb4ae67ac480bc01060ac340"
+  },
+  "mutation_runner": {
+    "killed": 20,
+    "total": 20,
+    "git_blob": "69455bdbbde6e9f693e8f29c0fb2969fa8490d15"
+  },
+  "independence": "same-assistant review; not independent"
+}
