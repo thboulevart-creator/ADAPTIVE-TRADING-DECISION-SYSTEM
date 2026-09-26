@@ -301,34 +301,62 @@ def _generated_entries(
 def _generated_map_from_snapshot(
     payload: Mapping[str, Any],
 ) -> dict[str, tuple[int, str]]:
-    entries = payload.get("generated_files")
-    if not isinstance(entries, list):
+    paths = payload.get(
+        "generated_relative_path_set"
+    )
+    sizes = payload.get(
+        "generated_file_sizes"
+    )
+    hashes = payload.get(
+        "generated_file_sha256"
+    )
+
+    if (
+        not isinstance(paths, list)
+        or not all(
+            isinstance(path, str)
+            for path in paths
+        )
+        or len(paths) != len(set(paths))
+        or paths != sorted(
+            paths,
+            key=lambda value: value.encode("utf-8"),
+        )
+    ):
         raise FirstOpenError(
-            "snapshot generated_files missing"
+            "snapshot generated_relative_path_set invalid"
+        )
+
+    if not isinstance(sizes, dict):
+        raise FirstOpenError(
+            "snapshot generated_file_sizes invalid"
+        )
+    if not isinstance(hashes, dict):
+        raise FirstOpenError(
+            "snapshot generated_file_sha256 invalid"
+        )
+
+    if set(paths) != set(sizes) or set(paths) != set(hashes):
+        raise FirstOpenError(
+            "snapshot generated metadata key mismatch"
         )
 
     result: dict[str, tuple[int, str]] = {}
-
-    for item in entries:
-        if not isinstance(item, dict):
-            raise FirstOpenError(
-                "snapshot generated file entry invalid"
-            )
-        path = item.get("relative_path")
-        size = item.get("size_bytes")
-        digest = item.get("sha256")
+    for path in paths:
+        size = sizes[path]
+        digest = hashes[path]
         if (
-            not isinstance(path, str)
-            or not isinstance(size, int)
+            not isinstance(size, int)
+            or size < 0
             or not isinstance(digest, str)
             or len(digest) != 64
+            or any(
+                char not in "0123456789abcdef"
+                for char in digest.lower()
+            )
         ):
             raise FirstOpenError(
                 "snapshot generated file metadata invalid"
-            )
-        if path in result:
-            raise FirstOpenError(
-                "snapshot duplicate generated path"
             )
         result[path] = (size, digest)
 
@@ -564,6 +592,24 @@ def prepare_first_open(
             "ATDS repository changed during pre-open reconstruction"
         )
 
+    generated_entries = _generated_entries(
+        vault
+    )
+    generated_paths = [
+        str(item["relative_path"])
+        for item in generated_entries
+    ]
+    generated_sizes = {
+        str(item["relative_path"]):
+            int(item["size_bytes"])
+        for item in generated_entries
+    }
+    generated_hashes = {
+        str(item["relative_path"]):
+            str(item["sha256"])
+        for item in generated_entries
+    }
+
     payload = {
         "qualified_p3b_head":
             QUALIFIED_P3B_HEAD,
@@ -571,8 +617,12 @@ def prepare_first_open(
             str(vault),
         "vault_filesystem_identity":
             vault_identity.to_dict(),
-        "generated_files":
-            _generated_entries(vault),
+        "generated_relative_path_set":
+            generated_paths,
+        "generated_file_sizes":
+            generated_sizes,
+        "generated_file_sha256":
+            generated_hashes,
         "generated_tree_digest_sha256":
             projection_tree_digest(vault),
         "integrity_manifest_sha256":
@@ -585,8 +635,12 @@ def prepare_first_open(
             (vault / ".obsidian").exists(),
         "vault_top_level_entries":
             _top_level_names(vault),
-        "repository":
-            repo_before,
+        "repository_branch":
+            repo_before["branch"],
+        "repository_head":
+            repo_before["head"],
+        "repository_status_porcelain":
+            repo_before["status_porcelain"],
         "fresh_p2_identity": {
             "repository":
                 p2_report["repository"],
@@ -643,7 +697,11 @@ def prepare_first_open(
         "authorization_token": digest,
         "vault_resolved_path": str(vault),
         "generated_file_count":
-            len(payload["generated_files"]),
+            len(
+                payload[
+                    "generated_relative_path_set"
+                ]
+            ),
         "projection_tree_digest_sha256":
             payload[
                 "generated_tree_digest_sha256"
@@ -916,9 +974,16 @@ def verify_first_open(
         repo_root
     )
 
-    snapshot_repo = payload.get(
-        "repository"
-    )
+    snapshot_repo = {
+        "branch":
+            payload.get("repository_branch"),
+        "head":
+            payload.get("repository_head"),
+        "status_porcelain":
+            payload.get(
+                "repository_status_porcelain"
+            ),
+    }
     if current_repo != snapshot_repo:
         raise FirstOpenError(
             "ATDS repository state changed since prepare"
