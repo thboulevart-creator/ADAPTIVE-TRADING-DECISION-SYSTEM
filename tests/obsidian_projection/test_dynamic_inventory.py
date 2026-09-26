@@ -263,7 +263,7 @@ class DynamicInventoryTests(unittest.TestCase):
                 "docs/a.txt",
                 (
                     b"-----BEGIN PRIVATE KEY-----\n"
-                    b"secret\n"
+                    b"TOP_SECRET_PAYLOAD_123\n"
                 ),
             )
         )
@@ -282,7 +282,7 @@ class DynamicInventoryTests(unittest.TestCase):
             message,
         )
         self.assertNotIn(
-            "secret",
+            "TOP_SECRET_PAYLOAD_123",
             message,
         )
 
