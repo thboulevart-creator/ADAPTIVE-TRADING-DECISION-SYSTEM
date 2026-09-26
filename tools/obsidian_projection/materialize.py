@@ -698,7 +698,13 @@ def validate_fresh_p2_report(
 def _create_incoming_structure(
     incoming: Path,
 ) -> FilesystemIdentity:
-    incoming.mkdir(exist_ok=False)
+    try:
+        incoming.mkdir(exist_ok=False)
+    except FileExistsError as exc:
+        raise MaterializationError(
+            f"incoming path already exists: {incoming}"
+        ) from exc
+
     identity = filesystem_identity(
         incoming
     )
