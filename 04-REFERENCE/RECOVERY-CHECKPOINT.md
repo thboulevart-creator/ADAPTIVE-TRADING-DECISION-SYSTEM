@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR2 REGIME-CANDIDATE SYNTHESIS COMPLETE / PASS.** Exact evidence SHA-256 5c05e9e8d965314f4a6852aa71f442f89a0962133edc79873cf610682f34c501. C01 ABS_VOL×TICK = SUPPORTED_N0_SYNTHESIS; C02 REL_VOL×TICK = NOT_INTERPRETABLE due F2 state2 count 53 < 500 sparse floor. No winner selection or regime naming. Next: freeze a C01 confirmatory Charter before any genuinely new/pristine data is inspected/calculated. No strategy/PnL/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 CONFIRMATORY CHARTER V0.1 FROZEN BEFORE CONFIRMATION-DATA ACCESS.** C01 is the sole CR2 candidate eligible for confirmation; this is not winner selection. Development fit cutoff <=2025-12-31. Fixed confirmation window 2026-05-25→2027-05-24. Next: materialize/qualify immutable C01 frozen-model artifact from development data only. No confirmation-data scoring/access before model seal; no strategy/PnL/MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15117,3 +15117,38 @@ Verdict:
 Freeze a C01 confirmatory Charter before any new/pristine confirmation-data inspection or calculation.
 
 No semantic regime naming, strategy, PnL, optimization, MT5, or post-hoc C02 redesign.
+
+
+---
+
+## 241. C01 CONFIRMATORY CHARTER V0.1 FROZEN — 2026-09-26
+
+Fresh HEAD before persistence:
+`3450538e81895c970ec8e384dd36f62071366c7e`.
+
+Charter:
+`reports/program/2026-09-26-C01-CONFIRMATORY-RESEARCH-CHARTER-V0.1.md`
+
+Machine-readable Charter:
+`reports/program/evidence/2026-09-26-C01-CONFIRMATORY-CHARTER-V0.1.json`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-CONFIRMATORY-CHARTER-FROZEN.md`
+
+Candidate:
+`CR2-C01-ABS_VOL_X_TICK`
+
+Development fit cutoff:
+`<= 2025-12-31T23:59:59Z`
+
+Fixed confirmation window:
+`2026-05-25T00:00:00Z → 2027-05-24T23:59:59Z`
+
+No early primary-score evaluation.
+
+Verdict:
+**CHARTER FROZEN BEFORE CONFIRMATION-DATA ACCESS.**
+
+### Next governed action
+
+Materialize and qualify the C01 frozen-model artifact producer using development data only.

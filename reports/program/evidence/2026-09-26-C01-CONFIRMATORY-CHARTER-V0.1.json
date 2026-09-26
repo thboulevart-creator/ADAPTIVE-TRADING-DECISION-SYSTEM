@@ -1,0 +1,110 @@
+{
+  "schema": "ATDS_C01_CONFIRMATORY_RESEARCH_CHARTER_V0_1",
+  "status": "FROZEN_BEFORE_CONFIRMATION_DATA_ACCESS",
+  "freeze_date": "2026-09-26",
+  "scope_note": "experiment-specific charter; does not freeze or amend docs/D1.3-RESEARCH-CHARTER.md",
+  "candidate": {
+    "id": "CR2-C01-ABS_VOL_X_TICK",
+    "origin_cr2_evidence_blob": "d6543d12fc01405fedb006ddb5d714a772f32678",
+    "origin_cr2_evidence_sha256": "5c05e9e8d965314f4a6852aa71f442f89a0962133edc79873cf610682f34c501",
+    "cr2_status": "SUPPORTED_N0_SYNTHESIS",
+    "semantics": "neutral 3x3 joint state; no semantic regime labels"
+  },
+  "hypothesis": {
+    "statement": "On genuinely new/pristine USTECH price-core data, the frozen C01 ABS_VOL x TICK joint state improves the probability description of the next-15m joint RV15 x TICK15 environment beyond both frozen constituent baselines.",
+    "falsifiable": true,
+    "target_classes": 25,
+    "primary_horizon_minutes": 15,
+    "secondary_horizon_minutes": 60
+  },
+  "development_freeze": {
+    "fit_cutoff_utc": "2025-12-31T23:59:59Z",
+    "source_dataset": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "parameter_artifact_required": true,
+    "parameter_artifact_must_be_created_before_confirmation_data_access": true,
+    "already_registered_thresholds": {
+      "abs_rv15_state": [
+        5.371776146488064,
+        10.71209216288787
+      ],
+      "tick5_hour_relative_state": [
+        0.8005586592178772,
+        1.2183908045977012
+      ],
+      "rv15_target_quintiles": [
+        3.973523081929233,
+        6.185588239477184,
+        9.29219887827349,
+        15.11786314181646
+      ],
+      "tick15_target_quintiles": [
+        91.53333333333333,
+        144.26666666666668,
+        220.66666666666666,
+        338.8
+      ]
+    },
+    "additional_frozen_parameters_required": [
+      "24 training-only NY-hour medians for tick5 normalization",
+      "B2+ABS_VOL 25-class categorical probability tables",
+      "B2+TICK 25-class categorical probability tables",
+      "B2+ABS_VOL+TICK joint-candidate 25-class categorical probability tables",
+      "Laplace alpha=1.0"
+    ]
+  },
+  "confirmation_data": {
+    "eligible_start_utc": "2026-05-25T00:00:00Z",
+    "fixed_end_utc": "2027-05-24T23:59:59Z",
+    "reason": "strictly after the AP0 profile end; fixed 12-month window before outcome inspection",
+    "same_instrument": "USTECH",
+    "same_price_core_semantics": true,
+    "same_source_lineage_required": true,
+    "must_not_have_been_used_to_modify_candidate": true,
+    "prior_exposure_invalidates_confirmatory_claim": true,
+    "if_pristine_status_cannot_be_proven": "NOT_CONFIRMATORY"
+  },
+  "evaluation": {
+    "no_parameter_refit": true,
+    "no_threshold_refit": true,
+    "no_probability_refit": true,
+    "no_feature_or_interaction_change": true,
+    "context_cutoff": "<=t",
+    "target_start": "t+1",
+    "gap_crossing": false,
+    "segment_crossing": false,
+    "primary_sparse_floor_per_joint_state": 500,
+    "evaluate_only_after_fixed_window_closes": true
+  },
+  "decision_rule": {
+    "CONFIRMED": [
+      "all 9 joint states have >=500 valid primary targets",
+      "vs ABS_VOL baseline: delta_log_loss > 0 and delta_brier > 0",
+      "vs TICK baseline: delta_log_loss > 0 and delta_brier > 0",
+      "all critical provenance/causality/identity controls PASS"
+    ],
+    "REFUTED": [
+      "either required comparison has delta_log_loss <= 0",
+      "or either required comparison has delta_brier <= 0"
+    ],
+    "NOT_INTERPRETABLE": [
+      "any joint state has <500 valid primary targets",
+      "pristine/new-data eligibility cannot be established",
+      "identity/provenance/continuity control failure",
+      "all other control-invalid cases"
+    ],
+    "secondary_60m": "diagnostic only; cannot rescue primary result"
+  },
+  "forbidden": [
+    "semantic regime naming",
+    "strategy",
+    "direction target",
+    "PnL",
+    "signals/trades",
+    "threshold or bin search",
+    "probability refit on confirmation data",
+    "winner selection",
+    "C02 redesign",
+    "MT5 execution",
+    "post-hoc charter modification presented as same confirmatory test"
+  ]
+}
