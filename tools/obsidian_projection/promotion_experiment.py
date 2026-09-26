@@ -707,6 +707,9 @@ def run_negative_control(
             NEGATIVE_CONTROL_CYCLES
         ):
             target_id = _next_generation(cycle)
+            before_samples = (
+                reader.metrics.samples
+            )
             source = fixtures[target_id]
 
             manifest = json.loads(
@@ -731,8 +734,7 @@ def run_negative_control(
             cycles_completed += 1
             _wait_for_reader_progress(
                 reader,
-                promotion_sample_start
-                + cycles_completed - 1,
+                before_samples,
             )
 
         promotion_sample_end = (
@@ -814,6 +816,9 @@ def run_two_rename_swap(
             QUALIFIABLE_CYCLES
         ):
             target_id = _next_generation(cycle)
+            before_samples = (
+                reader.metrics.samples
+            )
             stage = (
                 candidate_root
                 / f"stage-{cycle:04d}"
@@ -833,8 +838,7 @@ def run_two_rename_swap(
             completed += 1
             _wait_for_reader_progress(
                 reader,
-                promotion_sample_start
-                + completed - 1,
+                before_samples,
             )
 
         promotion_sample_end = (
@@ -935,6 +939,9 @@ def run_movefileex_replace(
             QUALIFIABLE_CYCLES
         ):
             target_id = _next_generation(cycle)
+            before_samples = (
+                reader.metrics.samples
+            )
             stage = (
                 candidate_root
                 / f"stage-{cycle:04d}"
@@ -959,8 +966,7 @@ def run_movefileex_replace(
             completed += 1
             _wait_for_reader_progress(
                 reader,
-                promotion_sample_start
-                + completed - 1,
+                before_samples,
             )
 
         promotion_sample_end = (
@@ -1051,6 +1057,9 @@ def run_pointer_swap(
             QUALIFIABLE_CYCLES
         ):
             target_id = _next_generation(cycle)
+            before_samples = (
+                reader.metrics.samples
+            )
             _write_pointer(
                 candidate_root,
                 target_id,
@@ -1059,8 +1068,7 @@ def run_pointer_swap(
             completed += 1
             _wait_for_reader_progress(
                 reader,
-                promotion_sample_start
-                + completed - 1,
+                before_samples,
             )
 
         promotion_sample_end = (
