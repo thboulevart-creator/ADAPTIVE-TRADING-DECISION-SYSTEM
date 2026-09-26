@@ -32,7 +32,7 @@ Harness:
 CLI:
 
     tools/obsidian_projection/p5c2_verify.py
-    blob: 419a91fc01d8b58d756ddec87d9975bdf03f604d
+    blob: 267b1da5832e31af32886f747e73727ae58bb59e
 
 Unit tests:
 
@@ -42,7 +42,12 @@ Unit tests:
 Adversarial breakers:
 
     tests/obsidian_projection/test_p5c2_adversarial.py
-    blob: 2e3b193e25d3b9c92e240256810333063ea2507a
+    blob: f4a3be3b151c7a064587bed7588ba5ed963a189f
+
+Persisted control runner:
+
+    tools/obsidian_projection/run_p5c2_control.ps1
+    blob: 6eb34646a78961af13bce86e23cf060e543cb493
 
 ## Protected live Vault
 
