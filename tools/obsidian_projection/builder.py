@@ -91,6 +91,7 @@ def _assert_contract_boundary(
 def _render_artifacts(
     records: Sequence[SemanticRecord],
     contract: Mapping[str, Any],
+    source: Any | None = None,
 ) -> tuple[RenderedFile, ...]:
     rendered: list[RenderedFile] = []
     seen_paths: set[str] = set()
@@ -100,6 +101,15 @@ def _render_artifacts(
             record,
             contract,
         )
+        if source is not None:
+            raw_source = source.read_blob(
+                record.source_blob_sha
+            )
+            if raw_source and raw_source in item.content:
+                raise BuilderError(
+                    "canonical source bytes copied into "
+                    f"projection note: {record.source_path}"
+                )
         if item.relative_path in seen_paths:
             raise BuilderError(
                 "artifact projection ID collision: "
@@ -281,6 +291,7 @@ def build_projection_from_records(
         artifact_files = _render_artifacts(
             records,
             contract,
+            source=source,
         )
 
         relations = extract_relations(
