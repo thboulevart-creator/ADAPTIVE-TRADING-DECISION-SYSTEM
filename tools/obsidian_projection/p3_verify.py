@@ -4,7 +4,10 @@ import argparse
 import json
 from pathlib import Path
 
-from .materialize import materialize_once
+from .materialize import (
+    MaterializationError,
+    materialize_once,
+)
 
 
 def main() -> int:
@@ -39,9 +42,30 @@ def main() -> int:
             "P3-B materialization attempt"
         )
 
-    report = materialize_once(
-        Path(args.repo_root)
-    )
+    try:
+        report = materialize_once(
+            Path(args.repo_root)
+        )
+    except MaterializationError as exc:
+        blocked = {
+            "schema":
+                "ATDS_OBSIDIAN_P3B_EXECUTION_REPORT_V0_1",
+            "materialization_qualified":
+                False,
+            "status":
+                "BLOCKED",
+            "error":
+                str(exc),
+        }
+        print(
+            json.dumps(
+                blocked,
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 1
 
     print(
         json.dumps(
