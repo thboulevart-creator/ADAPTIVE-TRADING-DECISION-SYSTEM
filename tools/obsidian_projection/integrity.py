@@ -6,7 +6,7 @@ import os
 import stat
 import tempfile
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Iterable, Sequence
 
 from .rendering import RenderedFile
@@ -229,6 +229,20 @@ def exclusive_write(
     stage_root: Path,
     rendered: RenderedFile,
 ) -> Path:
+    relative_spec = rendered.relative_path
+    posix = PurePosixPath(relative_spec)
+
+    if (
+        not relative_spec
+        or relative_spec.startswith(("/", "\\"))
+        or "\\" in relative_spec
+        or ".." in posix.parts
+        or posix.is_absolute()
+    ):
+        raise IntegrityError(
+            f"unsafe generated relative path: {relative_spec}"
+        )
+
     if rendered.content.startswith(b"\xef\xbb\xbf"):
         raise IntegrityError(
             "UTF-8 BOM forbidden in deterministic output"
@@ -245,11 +259,23 @@ def exclusive_write(
     candidate = stage_root.resolve()
     destination = (
         candidate
-        / Path(rendered.relative_path)
+        / Path(*posix.parts)
+    )
+    resolved_destination = destination.resolve(
+        strict=False
     )
 
+    if (
+        resolved_destination == candidate
+        or candidate not in resolved_destination.parents
+    ):
+        raise IntegrityError(
+            f"generated path escapes staging root: "
+            f"{relative_spec}"
+        )
+
     relative = _relative_posix(
-        destination,
+        resolved_destination,
         candidate,
     )
 
