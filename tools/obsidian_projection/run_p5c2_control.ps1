@@ -62,7 +62,7 @@ Write-Host "This phase may take several minutes."
 python -B -m tools.obsidian_projection.p5c2_verify --run-experiment
 
 if ($LASTEXITCODE -ne 0) {
-    throw "BLOCKED: P5-C2 experiment did not qualify a production candidate."
+    throw "BLOCKED: P5-C2 experiment did not qualify a filesystem candidate."
 }
 
 Write-Host "`nP5C2_EXPERIMENT_EXECUTION_PASS" -ForegroundColor Green
