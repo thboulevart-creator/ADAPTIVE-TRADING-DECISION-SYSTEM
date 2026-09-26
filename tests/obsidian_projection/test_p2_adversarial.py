@@ -155,6 +155,28 @@ class P2AdversarialTests(unittest.TestCase):
                             ),
                         )
 
+    def test_generated_path_traversal_blocks(self) -> None:
+        with tempfile.TemporaryDirectory() as parent:
+            stage = Path(parent) / "build"
+            create_stage_directories(stage)
+
+            for relative in (
+                "generated/artifacts/../../escape.md",
+                "generated\\artifacts\\x.md",
+                "/absolute.md",
+            ):
+                with self.subTest(relative=relative):
+                    with self.assertRaises(
+                        IntegrityError
+                    ):
+                        exclusive_write(
+                            stage,
+                            RenderedFile(
+                                relative_path=relative,
+                                content=b"x\n",
+                            ),
+                        )
+
     def test_reparse_alias_guard_blocks(self) -> None:
         with tempfile.TemporaryDirectory() as parent:
             stage = Path(parent) / "build"
