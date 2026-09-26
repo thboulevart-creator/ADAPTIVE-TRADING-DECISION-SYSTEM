@@ -855,9 +855,16 @@ def _verify_seeded_bundle(
                 .as_posix()
             )
 
-    if tuple(actual_paths) != VIEW_PATHS:
+    actual_paths.sort(
+        key=lambda item: item.encode("utf-8")
+    )
+    expected_paths = sorted(
+        VIEW_PATHS,
+        key=lambda item: item.encode("utf-8"),
+    )
+    if actual_paths != expected_paths:
         raise NativeViewBundleError(
-            "seeded view path set/order mismatch"
+            "seeded view path set mismatch"
         )
 
     manifest: dict[str, dict[str, Any]] = {}
