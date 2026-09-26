@@ -65,6 +65,14 @@ def main() -> int:
                 raise PromotionExperimentError(
                     "sandbox already exists"
                 )
+            if not (LIVE_VAULT / "generated").is_dir():
+                raise PromotionExperimentError(
+                    "live generated directory missing"
+                )
+            if not (LIVE_VAULT / "views").is_dir():
+                raise PromotionExperimentError(
+                    "live views directory missing"
+                )
             report: dict[str, object] = {
                 "schema":
                     "ATDS_OBSIDIAN_P5C2_PREFLIGHT_REPORT_V0_1",
