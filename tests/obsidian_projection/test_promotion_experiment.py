@@ -10,6 +10,7 @@ from unittest.mock import patch
 from tools.obsidian_projection.promotion_experiment import (
     EntryPointMissingError,
     MixedGenerationError,
+    PartialGenerationError,
     PromotionExperimentError,
     _write_pointer,
     assert_sandbox_boundary,
@@ -114,7 +115,7 @@ class PromotionExperimentTests(unittest.TestCase):
             )
 
             with self.assertRaises(
-                MixedGenerationError
+                PartialGenerationError
             ):
                 validate_generation_dir(
                     live
