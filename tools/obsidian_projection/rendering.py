@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 from dataclasses import dataclass
+from pathlib import PurePosixPath
 from typing import Any, Mapping, Sequence
 
 from .classification import SemanticRecord
@@ -142,10 +143,38 @@ def _code_span(value: str) -> str:
     return "\x60" + value + "\x60"
 
 
+def _validate_source_path(source_path: str) -> None:
+    if not source_path:
+        raise RenderingError("empty source_path")
+    if source_path.startswith(("/", "\\")):
+        raise RenderingError("absolute source_path forbidden")
+    if (
+        len(source_path) >= 3
+        and source_path[1] == ":"
+        and source_path[2] in "\\/"
+    ):
+        raise RenderingError(
+            "Windows absolute source_path forbidden"
+        )
+    if "\\" in source_path:
+        raise RenderingError(
+            "source_path must use repository POSIX separators"
+        )
+    if ".." in PurePosixPath(source_path).parts:
+        raise RenderingError(
+            "source_path parent traversal forbidden"
+        )
+    if any(ord(char) < 32 for char in source_path):
+        raise RenderingError(
+            "control character in source_path"
+        )
+
+
 def artifact_frontmatter(
     record: SemanticRecord,
     contract: Mapping[str, Any],
 ) -> tuple[str, dict[str, Any]]:
+    _validate_source_path(record.source_path)
     artifact_contract = contract["artifact_record"]
     projection_id = artifact_record_id(
         record.source_repository,
