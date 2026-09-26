@@ -1,0 +1,414 @@
+{
+  "schema": "ATDS_OBSIDIAN_DETERMINISTIC_PROJECTION_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "p1_classifier_head": "26e541c0aedc85440bb069cdc767b2075b56317c",
+  "frozen_source_commit": "7bd8c1312430dfc3def5523eb65397a5d6a5ae05",
+  "frozen_source_tree": "66eeb08a338732d4cf7f5b7f4f5e5fd9fbb4d54b",
+  "semantic_record_schema": "ATDS_OBSIDIAN_SEMANTIC_RECORD_V0_1",
+  "pilot_source_count": 74,
+  "execution_boundary": {
+    "staging_only": true,
+    "staging_root_policy": "OS_TEMP_ONLY",
+    "real_vault_creation_authorized": false,
+    "obsidian_config_creation_authorized": false,
+    "canonical_repo_mutation_authorized": false,
+    "renderer_implementation_authorized_after_this_preregistration_only": true,
+    "relations_implementation_authorized_after_this_preregistration_only": true,
+    "community_plugins_authorized": false,
+    "sync_authorized": false
+  },
+  "ownership": {
+    "generated": {
+      "owner": "MACHINE",
+      "disposable": true,
+      "reproducible": true,
+      "human_unique_knowledge_allowed": false,
+      "manual_edit_semantics": "INTEGRITY_VIOLATION",
+      "overwrite_in_place": false
+    },
+    "views": {
+      "owner": "HUMAN",
+      "builder_write_allowed": false,
+      "builder_read_as_semantic_input": false
+    }
+  },
+  "deterministic_inputs": [
+    "source_repository",
+    "frozen_source_commit",
+    "frozen_source_tree",
+    "pilot_inventory_digest",
+    "p1_semantic_record_digest",
+    "projection_contract_version",
+    "renderer_version",
+    "relation_rule_registry_version"
+  ],
+  "forbidden_deterministic_inputs": [
+    "wall_clock_time",
+    "generated_at",
+    "host_name",
+    "user_name",
+    "absolute_local_repo_path",
+    "absolute_temp_path",
+    "current_branch_head_unless_explicitly_frozen_as_input",
+    "filesystem_enumeration_order",
+    "locale",
+    "timezone",
+    "randomness",
+    "uuid"
+  ],
+  "artifact_record": {
+    "record_schema": "ATDS_OBSIDIAN_ARTIFACT_V0_1",
+    "record_type": "ARTIFACT",
+    "relative_path_pattern": "generated/artifacts/{projection_record_id}.md",
+    "projection_record_id": {
+      "algorithm": "A- + first16hex(SHA256(UTF8(source_repository) + NUL + UTF8(source_path)))",
+      "collision_policy": "BLOCK_BUILD"
+    },
+    "frontmatter_field_order": [
+      "record_schema",
+      "record_type",
+      "projection_record_id",
+      "source_repository",
+      "source_branch",
+      "source_commit",
+      "source_tree",
+      "source_path",
+      "source_blob_sha",
+      "source_blob_size",
+      "artifact_family",
+      "semantic_role",
+      "procedure_role",
+      "source_authority_role",
+      "projection_authority_role",
+      "qualification_status",
+      "qualification_scope",
+      "scientific_status",
+      "epistemic_role",
+      "temporal_role",
+      "persistence_state",
+      "source_freshness",
+      "projection_integrity",
+      "limitations",
+      "non_claims"
+    ],
+    "field_mapping": {
+      "source_authority_role": "SemanticRecord.authority_role",
+      "projection_authority_role": "DERIVED",
+      "source_freshness": "UNKNOWN",
+      "projection_integrity": "CLEAN"
+    },
+    "invariants": [
+      "projection_authority_role is always DERIVED",
+      "source_authority_role may describe canonical source authority but never projection authority",
+      "qualification_scope is null when absent",
+      "limitations preserve classifier order",
+      "non_claims preserve classifier order",
+      "no volatile field is permitted"
+    ]
+  },
+  "relation_record": {
+    "record_schema": "ATDS_OBSIDIAN_RELATION_V0_1",
+    "record_type": "RELATION",
+    "relative_path_pattern": "generated/relations/{projection_relation_id}.md",
+    "allowed_relation_types": [
+      "REFERENCES",
+      "USES_INPUT",
+      "PRODUCES",
+      "GOVERNS",
+      "TESTED_BY",
+      "CHALLENGED_BY",
+      "ADJUDICATED_BY",
+      "SUCCESSOR_OF"
+    ],
+    "allowed_basis": [
+      "EXPLICIT_STRUCTURED",
+      "EXPLICIT_TEXT",
+      "DERIVED_BY_RULE"
+    ],
+    "forbidden_authoritative_basis": [
+      "INFERRED"
+    ],
+    "projection_relation_id": {
+      "algorithm": "R- + first16hex(SHA256(UTF8(source_record_id) + NUL + UTF8(relation_type) + NUL + UTF8(target_record_id) + NUL + UTF8(basis) + NUL + UTF8(evidence_source_path) + NUL + UTF8(evidence_source_blob_sha)))",
+      "collision_policy": "BLOCK_BUILD"
+    },
+    "target_policy": {
+      "pilot_v0_1": "TARGET_MUST_BE_ONE_OF_74_PROJECTED_ARTIFACT_RECORDS",
+      "unresolved_target": "DO_NOT_EMIT_RELATION"
+    },
+    "frontmatter_field_order": [
+      "record_schema",
+      "record_type",
+      "projection_relation_id",
+      "source_record_id",
+      "relation_type",
+      "target_record_id",
+      "basis",
+      "evidence_source_path",
+      "evidence_source_blob_sha",
+      "source_commit",
+      "projection_authority_role",
+      "projection_integrity"
+    ],
+    "fixed_values": {
+      "projection_authority_role": "DERIVED",
+      "projection_integrity": "CLEAN"
+    },
+    "provenance_required": true
+  },
+  "relation_extraction_policy": {
+    "llm_free_text_inference_allowed": false,
+    "wikilink_is_relation": false,
+    "backlink_is_relation": false,
+    "filename_similarity_is_relation": false,
+    "chronological_adjacency_is_relation": false,
+    "only_preregistered_rules_may_emit": true,
+    "fail_closed_on_ambiguity": true,
+    "authoritative_graph_basis_allowlist": [
+      "EXPLICIT_STRUCTURED",
+      "EXPLICIT_TEXT",
+      "DERIVED_BY_RULE"
+    ],
+    "inferred_relations_policy": "MAY_EXIST_ONLY_AS_NON_AUTHORITATIVE_DIAGNOSTIC_OUTSIDE_GENERATED_RELATIONS_AND_IS_NOT_AUTHORIZED_IN_P2"
+  },
+  "preregistered_relation_rules": [
+    {
+      "rule_id": "REL-V0-EXACT-STRUCTURED-PATH",
+      "description": "Emit only when an explicitly labeled structured field/list designates a repository path that exactly matches one of the 74 frozen source paths.",
+      "basis": "EXPLICIT_STRUCTURED",
+      "allowed_types": [
+        "REFERENCES",
+        "USES_INPUT",
+        "PRODUCES",
+        "ADJUDICATED_BY",
+        "TESTED_BY",
+        "CHALLENGED_BY"
+      ],
+      "ambiguity_policy": "BLOCK_OR_SKIP_NO_GUESS"
+    },
+    {
+      "rule_id": "REL-V0-EXPLICIT-LABELED-TEXT-PATH",
+      "description": "Emit only from a preregistered labeled section/field whose semantic function is fixed before corpus execution and whose cited path exactly matches one of the 74 frozen source paths.",
+      "basis": "EXPLICIT_TEXT",
+      "allowed_types": [
+        "REFERENCES",
+        "USES_INPUT",
+        "PRODUCES",
+        "ADJUDICATED_BY",
+        "TESTED_BY",
+        "CHALLENGED_BY"
+      ],
+      "ambiguity_policy": "SKIP_NO_GUESS"
+    },
+    {
+      "rule_id": "REL-V0-EXACT-LINEAGE-RULE",
+      "description": "SUCCESSOR_OF may be emitted only from an exact preregistered lineage fixture/rule bound to source and target blob identities; date or filename ordering is insufficient.",
+      "basis": "DERIVED_BY_RULE",
+      "allowed_types": [
+        "SUCCESSOR_OF"
+      ],
+      "ambiguity_policy": "SKIP_NO_GUESS"
+    },
+    {
+      "rule_id": "REL-V0-EXACT-GOVERNANCE-RULE",
+      "description": "GOVERNS may be emitted only by an exact preregistered governance rule bound to the governing source blob and governed target/scope.",
+      "basis": "DERIVED_BY_RULE",
+      "allowed_types": [
+        "GOVERNS"
+      ],
+      "ambiguity_policy": "SKIP_NO_GUESS"
+    }
+  ],
+  "markdown_serialization": {
+    "encoding": "UTF-8",
+    "bom": false,
+    "newline": "LF",
+    "final_newline": true,
+    "frontmatter_delimiter": "---",
+    "frontmatter_scalar_encoding": "JSON_DOUBLE_QUOTED_STRING",
+    "frontmatter_array_encoding": "JSON_COMPACT_ARRAY",
+    "null_encoding": "null",
+    "boolean_encoding": [
+      "true",
+      "false"
+    ],
+    "integer_encoding": "BASE10_NO_LEADING_PLUS",
+    "field_order": "EXACT_AS_REGISTERED",
+    "unknown_extra_fields": "BLOCK_BUILD",
+    "body": {
+      "artifact_template": [
+        "# {projection_record_id}",
+        "",
+        "Source artifact: `{source_path}`"
+      ],
+      "relation_template": [
+        "# {projection_relation_id}",
+        "",
+        "{source_record_id} —[{relation_type}]→ {target_record_id}"
+      ],
+      "escaping_policy": "Renderer MUST apply a deterministic escaping function for Markdown code spans/arrows; ambiguity or unsupported control characters BLOCK."
+    },
+    "source_text_copying": "FORBIDDEN_IN_V0_1",
+    "wikilink_generation": "FORBIDDEN_IN_V0_1"
+  },
+  "ordering": {
+    "artifact_output_order": "projection_record_id ASC bytewise ASCII",
+    "relation_output_order": "projection_relation_id ASC bytewise ASCII",
+    "manifest_file_order": "relative_path ASC bytewise UTF-8",
+    "list_order": "PRESERVE_CLASSIFIER_OR_RULE_ORDER_UNLESS_RULE_EXPLICITLY_DECLARES_SORT",
+    "mapping_order": "CONTRACT_FIELD_ORDER_ONLY"
+  },
+  "path_safety": {
+    "allowed_generated_roots": [
+      "generated/artifacts",
+      "generated/relations",
+      "generated/manifests"
+    ],
+    "forbidden_builder_write_roots": [
+      "views",
+      ".obsidian"
+    ],
+    "filename_source": "DETERMINISTIC_RECORD_ID_ONLY",
+    "source_path_used_as_output_path": false,
+    "path_separator": "/"
+  },
+  "staging": {
+    "real_vault": false,
+    "required_fresh_empty_directory": true,
+    "location": "OS_TEMP_ONLY",
+    "preexisting_target_policy": "BLOCK",
+    "file_creation_mode": "CREATE_NEW_EXCLUSIVE",
+    "overwrite_in_place": false,
+    "symlink_junction_reparse_escape": "BLOCK",
+    "hard_link_count_expected": 1,
+    "hard_link_check_unavailable": "BLOCK",
+    "builder_write_outside_staging": "BLOCK",
+    "promotion_to_real_vault": "NOT_AUTHORIZED_IN_P2"
+  },
+  "integrity_manifest": {
+    "schema": "ATDS_OBSIDIAN_INTEGRITY_MANIFEST_V0_1",
+    "relative_path": "generated/manifests/integrity-manifest.json",
+    "serialization": "CANONICAL_JSON_UTF8_LF",
+    "file_entry_order": "relative_path ASC bytewise UTF-8",
+    "file_entry_fields": [
+      "relative_path",
+      "size_bytes",
+      "sha256"
+    ],
+    "include_files": [
+      "generated/artifacts/*.md",
+      "generated/relations/*.md"
+    ],
+    "exclude_self": true,
+    "aggregate_digest_algorithm": "SHA256(CANONICAL_JSON(file_entries))"
+  },
+  "build_manifest": {
+    "schema": "ATDS_OBSIDIAN_BUILD_MANIFEST_V0_1",
+    "relative_path": "generated/manifests/build-manifest.json",
+    "deterministic": true,
+    "field_order": [
+      "schema",
+      "source_repository",
+      "source_commit",
+      "source_tree",
+      "pilot_inventory_digest_sha256",
+      "semantic_record_digest_sha256",
+      "projection_contract_version",
+      "renderer_version",
+      "relation_rule_registry_version",
+      "artifact_record_count",
+      "relation_record_count",
+      "artifact_set_digest_sha256",
+      "relation_set_digest_sha256",
+      "integrity_manifest_sha256",
+      "build_status"
+    ],
+    "forbidden_fields": [
+      "generated_at",
+      "host",
+      "user",
+      "absolute_repo_path",
+      "absolute_staging_path"
+    ]
+  },
+  "volatile_run_metadata": {
+    "deterministic_tree_membership": false,
+    "semantic_digest_membership": false,
+    "optional": true,
+    "rule": "If implementation records runtime timestamps/host/path, it MUST place them outside generated/ deterministic output and they must never influence semantic or byte determinism."
+  },
+  "digests": {
+    "semantic_record_digest": "SHA256(canonical JSON array of 74 SemanticRecord dictionaries sorted by source_path)",
+    "artifact_set_digest": "SHA256(canonical JSON array of [relative_path,sha256,size_bytes] sorted by relative_path)",
+    "relation_set_digest": "SHA256(canonical JSON array of [relative_path,sha256,size_bytes] sorted by relative_path)",
+    "projection_tree_digest": "SHA256(canonical JSON array of all deterministic generated files except build-manifest.json, sorted by relative_path)"
+  },
+  "determinism_gate": {
+    "independent_build_count": 2,
+    "same_inputs_required": true,
+    "separate_fresh_staging_directories": true,
+    "required_equalities": [
+      "relative_path_set",
+      "each_file_bytes",
+      "each_file_sha256",
+      "semantic_record_digest_sha256",
+      "artifact_set_digest_sha256",
+      "relation_set_digest_sha256",
+      "integrity_manifest_sha256",
+      "projection_tree_digest_sha256"
+    ],
+    "mismatch_result": "BLOCK"
+  },
+  "integrity_semantics": {
+    "generated_record_initial_projection_integrity": "CLEAN",
+    "verifier_authority": "INTEGRITY_MANIFEST_COMPARISON",
+    "manual_edit_result": "MODIFIED",
+    "missing_generated_file_result": "MISSING",
+    "record_self_declared_CLEAN_is_not_sufficient": true,
+    "source_freshness_in_deterministic_artifact": "UNKNOWN",
+    "rationale": "Branch-relative freshness is dynamic and must not contaminate deterministic build bytes."
+  },
+  "acceptance_breakers": [
+    "field order changed",
+    "CRLF output",
+    "UTF-8 BOM output",
+    "volatile timestamp injected",
+    "absolute local path injected",
+    "UUID/random identifier used",
+    "artifact ID collision",
+    "relation ID collision",
+    "wikilink interpreted as semantic relation",
+    "backlink interpreted as semantic relation",
+    "filename similarity interpreted as relation",
+    "INFERRED relation enters generated/relations",
+    "relation lacks evidence_source_path",
+    "relation lacks evidence_source_blob_sha",
+    "relation target outside 74-record pilot",
+    "unresolved relation target guessed",
+    "generated file overwritten in place",
+    "preexisting staging target accepted",
+    "builder writes views/",
+    "builder writes .obsidian/",
+    "builder writes outside staging",
+    "hard-link anomaly accepted",
+    "reparse/junction/symlink escape accepted",
+    "manual generated edit still reported CLEAN by verifier",
+    "integrity manifest includes itself recursively",
+    "same-input double build has byte mismatch",
+    "source path used directly as output path",
+    "source text copied into note body",
+    "extra frontmatter field silently accepted"
+  ],
+  "next_action_gate": {
+    "allowed_after_persisted_rebreak": "P2_IMPLEMENTATION_CANDIDATE_IN_TEMP_STAGING_ONLY",
+    "renderer_implementation_allowed": true,
+    "typed_relation_implementation_allowed": true,
+    "integrity_manifest_implementation_allowed": true,
+    "double_build_determinism_test_allowed": true,
+    "real_vault_creation_allowed": false,
+    "obsidian_open_allowed": false,
+    "plugins_allowed": false,
+    "sync_allowed": false
+  }
+}
