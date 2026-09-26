@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_CR1_CONTEXT_V0_1",
+  "context_id": "CTX-d0501ec820062bfe373f1f4b94de4e191ca2c7e05bbe788b3d5d963750158cbf",
+  "dataset_id": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "dataset_version": "V0.1",
+  "content_hash": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+  "instrument": "USTECH",
+  "granularity": "1-minute",
+  "timezone_storage": "UTC",
+  "configuration_version": "CR1-CONTEXT-INFORMATIVENESS-V0.1",
+  "observation_start": "2021-05-25T00:00:00Z",
+  "observation_end": "2026-05-24T23:59:00Z",
+  "epistemic_class": "N0_EXPLORATORY",
+  "bindings": {
+    "core_commit": "23ff3c93356ce93c2a1dbe74ec192d948a78050e",
+    "hypothesis_registry_git_blob": "490039cecf5a02ac7e553f8f7e47f6d4baedb584"
+  },
+  "note": "observation_start/end are scope metadata and are not part of deterministic Context identity"
+}

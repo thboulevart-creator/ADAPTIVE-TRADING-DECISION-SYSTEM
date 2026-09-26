@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CONTEXT / REGIME RESEARCH PREFLIGHT V0.1 PASS; CR1 CONTEXT INFORMATIVENESS IS THE SOLE ACTIVE FRONTIER.** Eight context hypotheses are frozen before calculation. Research is N0 exploratory because the corpus has already been exposed during AP0→AP6. Context variables must be causal at t; targets start t+1; state variables are scored incrementally over hour+weekday with chronological 2023/2024/2025 tests. No regime labels, strategy, PnL, MT5, threshold search, interaction search or winner selection. Next: CR1 helper/tests only, then persisted-head re-break before corpus execution.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 CONTEXT IDENTITY MATERIALIZED; CR1 HELPER/TESTS NEXT.** Exact Context `CTX-d0501ec820062bfe373f1f4b94de4e191ca2c7e05bbe788b3d5d963750158cbf` is now a required supplied input at RESEARCH entry. No silent reconstruction/fallback is allowed. CR1 remains N0 exploratory; no corpus calculation yet.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14805,3 +14805,31 @@ No regime exists yet.
 ### Next governed action
 
 Materialize CR1 helper + synthetic/adversarial tests; re-break persisted HEAD before any real corpus run.
+
+
+---
+
+## 232. CR1 CONTEXT IDENTITY MATERIALIZED — 2026-09-26
+
+Fresh HEAD before persistence:
+`a9fe63195e4a975feeaeab32c910b4c6977e1f36`.
+
+Context artifact:
+`reports/program/evidence/2026-09-26-CR1-CONTEXT-V0.1.json`
+
+Deterministic identity:
+`CTX-d0501ec820062bfe373f1f4b94de4e191ca2c7e05bbe788b3d5d963750158cbf`
+
+Identity fields:
+- dataset_id = `USTECH_PROFILE_MINUTE_CORE_V0_1`
+- dataset_version = `V0.1`
+- content_hash = AP0 manifest SHA-256
+- instrument = `USTECH`
+- granularity = `1-minute`
+- timezone_storage = `UTC`
+- configuration_version = `CR1-CONTEXT-INFORMATIVENESS-V0.1`
+
+observation_start/end remain scope metadata and do not enter the deterministic Context identity.
+
+Next action:
+CR1 helper/tests must require this full Context artifact and reject absent/foreign/forged identity before research.
