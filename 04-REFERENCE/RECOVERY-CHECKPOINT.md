@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR2 REGIME-CANDIDATE SYNTHESIS PREFLIGHT V0.1 PASS.** Exactly two N0 candidate families are frozen: ABS_VOL×TICK and REL_VOL×TICK, each 3×3, with hour+weekday as B2 backbone. Joint 25-class RV15×TICK15 target; each family must beat both constituent baselines across F1/F2/F3. No winner search, semantic regime labels, PnL, direction, strategy, MT5 or pristine-OOS claim. Next: CR2 helper/tests only.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR2 HELPER PERSISTED-HEAD RE-BREAK PASS; ONE LOCAL N0 SYNTHESIS RUN AUTHORIZED.** Exact helper blob 34c702e9..., SHA-256 cdea6b31...cf757; py_compile PASS; 26/26 synthetic PASS; 20/20 mutants killed. C01=ABS_VOL×TICK and C02=REL_VOL×TICK only. Next: one fresh raw-Git CR2 corpus run. No winner selection, regime naming, strategy, direction target, PnL, optimization or MT5.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15042,3 +15042,39 @@ No regime candidate is yet supported.
 ### Next action
 
 CR2 helper + synthetic/adversarial tests only; persisted-head re-break before corpus execution.
+
+
+---
+
+## 239. CR2 HELPER PERSISTED-HEAD RE-BREAK PASS — 2026-09-26
+
+Persisted candidate HEAD reviewed:
+`6f6fd02ba65a597fd04a1bb3e78edded7b19594d`.
+
+Exact identities:
+- helper blob `34c702e926b3baec90c57b8366177c2db1eca074`, SHA-256 `cdea6b317400fbbd32208e05343a6a2c1c78c3cfbd04bcf0271fc7e60dfcf757`;
+- tests blob `dec91d42c70f5b38dbd23ba170222b5803aeb316`, SHA-256 `7d72970ef38fab67a29fc33b6f7bdb5d3220557080f35144bb6b2dceb02b6582`;
+- mutation runner blob `0dc3875d51131095adb6a81772df825eaca26306`, SHA-256 `89d91f5a171402363f236084f2787334892baca6598736af359c538db7725bce`.
+
+Re-break:
+- py_compile PASS;
+- synthetic 26/26 PASS;
+- mutation 20/20 KILLED;
+- static review PASS.
+
+Review:
+`reports/program/2026-09-26-CR2-REGIME-CANDIDATE-SYNTHESIS-HELPER-ADVERSARIAL-REVIEW.md`
+
+Mutation evidence:
+`reports/program/evidence/2026-09-26-CR2-MUTATION-RESULTS.json`
+
+Handoff:
+`reports/program/2026-09-26-CR2-REGIME-CANDIDATE-SYNTHESIS-LOCAL-HANDOFF.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR2-HELPER-READY-LOCAL-HANDOFF.md`
+
+Verdict:
+**PASS — one local CR2 N0 corpus synthesis attempt authorized.**
+
+No CR2 candidate is yet scientifically supported/refuted.
