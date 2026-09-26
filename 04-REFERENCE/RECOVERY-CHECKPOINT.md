@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED.** Persisted-head re-break at bee13fa157b3066194cb6e2ac1feb737ac56ddde PASS. Guard-first adjudication qualified; 32 minimum synthetic runner breakers frozen. Confirmation data accessed=false; primary score computed=false; real confirmation execution unauthorized. Next: TEST-FIRST CONFIRMATION RUNNER — SYNTHETIC DATA ONLY.
+> **DIRECTIVE ACTIVE — 2026-09-26 EOD : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; SESSION STOPPED BEFORE CONFIRMATION RUNNER TEST-FIRST RED.** Authoritative qualified preflight HEAD 818b7e3a21d767ce7fd34cf3b74286b07246a152. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false; scientific confirmation=NOT_YET_PERFORMED. No C01 confirmation runner runtime or breaker has been persisted yet. Exact next action tomorrow: materialize and execute the test-first synthetic runner harness (32 frozen breakers + 1 positive synthetic control), require the expected red baseline solely because the runtime is absent, persist it, then perform persisted-head re-break before runtime implementation.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15604,3 +15604,128 @@ Verdict:
 Next governed action:
 
 **TEST-FIRST CONFIRMATION RUNNER — SYNTHETIC DATA ONLY.**
+
+---
+
+## 252. END OF DAY — C01 PREFLIGHT QUALIFIED / RUNNER NOT STARTED
+
+Date:
+2026-09-26
+
+Authoritative branch:
+`integration/system-v1`
+
+Qualified preflight persistence HEAD at stop:
+`818b7e3a21d767ce7fd34cf3b74286b07246a152`
+
+### Current qualified C01 chain
+
+- CR2 C01 candidate: `SUPPORTED_N0_SYNTHESIS`
+- C01 Confirmatory Charter V0.2: `FROZEN`
+- C01 frozen-model producer V0.2: `QUALIFIED`
+- C01 frozen confirmatory model V0.2: `FINAL SEALED`
+- C01 Confirmation Execution Preflight V0.1: `PASS / QUALIFIED`
+- C01 scientific confirmation: `NOT_YET_PERFORMED`
+
+Qualified preflight:
+`reports/program/2026-09-26-C01-CONFIRMATION-EXECUTION-PREFLIGHT-V0.1.md`
+
+Qualified contract:
+`reports/program/evidence/2026-09-26-C01-CONFIRMATION-EXECUTION-CONTRACT-V0.1.json`
+
+Persisted-head review:
+`reports/program/2026-09-26-C01-CONFIRMATION-EXECUTION-PREFLIGHT-PERSISTED-HEAD-REVIEW-V0.1.md`
+
+### Frozen protected identities
+
+- Charter blob: `ada0ebf41ecd7ab406d2656ac745ed7003d5b5c1`
+- sealed model blob: `68ee4795462c5dbd5747a7bfdef81716dc84227f`
+- sealed model SHA-256: `ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f`
+- model digest: `a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f`
+- seal-candidate blob: `3a6897a63ef2f07a26429342b45977767090651e`
+- final-seal blob: `d54ec7840a7bf4eecd94a72f753a02418ea8f543`
+- qualified preflight blob: `7bebedae876ec73fa4ee2b1460d348c8d6d5d3d2`
+- qualified execution contract blob: `f6823cfa7b3c582524b3d512d45b16fdc0450ee8`
+
+### Execution boundary at stop
+
+- confirmation-window data accessed: `false`
+- primary confirmation score computed: `false`
+- real confirmation execution: `false`
+- real confirmation execution authorized now: `false`
+- runner development authorization: `SYNTHETIC_ONLY`
+- minimum frozen runner breakers: `32`
+
+Guard-first precedence is qualified:
+
+`pristine/eligibility -> critical controls -> sparse guard -> primary metrics`
+
+Invalid critical test:
+`NOT_INTERPRETABLE`
+
+Unproven pristine/new-data eligibility additionally:
+`NOT_CONFIRMATORY`
+
+### Local topology to preserve
+
+The ATDS source checkout under OneDrive remains on:
+`feat/min-experiment-gaps-batch-v1`
+
+It was dirty before creation of the isolated core worktree and was preserved unchanged.
+
+The isolated ATDS core worktree used for this session is:
+
+`C:\Users\Boulevart\OneDrive\Bureau\ATDS\WORKTREES\ATDS-CORE-INTEGRATION-SYSTEM-V1`
+
+It is a detached worktree created from the exact authoritative
+`integration/system-v1` HEAD.
+
+Do not infer current ATDS core state from any old
+`C:\Users\Boulevart\Documents\...` path.
+
+Parallel Obsidian worktrees/branches are outside this workstream and must not
+influence ATDS core decisions.
+
+### Important stop boundary
+
+The next runner script/harness was designed in conversation but **NOT EXECUTED**.
+
+At this EOD checkpoint, the following do not exist on the authoritative branch:
+
+- `tools/c01_confirmation_runner.py`
+- `breakers/c01_confirmation_runner_breaker.py`
+- `reports/program/2026-09-26-C01-CONFIRMATION-RUNNER-TEST-FIRST-SPEC-V0.1.md`
+- `99-BACKUP/SESSION-2026-09-26-C01-CONFIRMATION-RUNNER-TEST-FIRST-RED.md`
+
+Do not claim a test-first red baseline exists yet.
+
+### Exact next governed action
+
+Tomorrow:
+
+1. verify live `integration/system-v1` HEAD against this EOD backup;
+2. use an isolated OneDrive core worktree only;
+3. materialize **tests/breaker first**, no runtime;
+4. encode the 32 frozen minimum breakers plus one positive synthetic control;
+5. execute the synthetic harness;
+6. require the expected red state to be attributable solely to absent
+   `tools/c01_confirmation_runner.py`;
+7. persist the exact red baseline;
+8. persisted-head re-break;
+9. only after PASS authorize minimal runner implementation.
+
+No confirmation data access and no primary confirmation scoring during this
+sequence.
+
+### Long-horizon scientific gate
+
+Fixed confirmation window:
+`2026-05-25T00:00:00Z -> 2027-05-24T23:59:59Z`
+
+Earliest primary evaluation:
+`2027-05-25T00:00:00Z`
+
+Therefore runner engineering can advance now on synthetic fixtures, but the
+actual C01 scientific confirmation cannot be adjudicated before that fixed
+window closes.
+
