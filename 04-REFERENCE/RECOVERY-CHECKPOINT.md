@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL PRODUCER QUALIFIED LOCALLY; EXACT-BYTE GITHUB PERSISTENCE PENDING.** Charter V0.2 is frozen. Local helper SHA-256 682c1ce6...37133c; py_compile PASS; 25/25 synthetic PASS; 15/15 mutants killed. Not authorized for corpus until persisted-head re-break. No confirmation data access.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL PRODUCER PERSISTED-HEAD RE-BREAK PASS; ONE DEVELOPMENT-ONLY MODEL-FREEZE RUN AUTHORIZED.** Exact producer blob ee0989f2..., SHA-256 682c1ce6...7133c; py_compile PASS; 25/25 synthetic PASS; 15/15 mutants killed; static bindings/scope review PASS. Next: one fresh raw-Git local run against AP0 only to emit immutable C01 model artifact. Confirmation-window access/scoring remains forbidden.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15213,3 +15213,46 @@ Next:
 exact-byte persistence then persisted-head re-break.
 
 Confirmation-data access remains forbidden.
+
+
+---
+
+## 244. C01 FROZEN-MODEL PRODUCER PERSISTED-HEAD RE-BREAK PASS — 2026-09-26
+
+Persisted candidate HEAD reviewed:
+`aa2c3311d1d838ada7f99dba69d94b463f089b3c`.
+
+Exact producer:
+- blob `ee0989f29399bf9f904ca314fdb5f01cc45ddec8`
+- SHA-256 `682c1ce6f06f753cf3f0508396394bf6acd51249dfe61dc1c89815755137133c`
+
+Exact tests:
+- blob `1386ab0da905817f496c11197afd63b35620ccee`
+- SHA-256 `2d0d447816a48b8b4ee9a694778356313a407c84ccdb0cb56746252ab4732217`
+
+Exact mutation runner:
+- blob `4d42ba615444601f115e65c8379d6d303fa5487b`
+- SHA-256 `222ca69aa57491a12b3df6f03866de3e1ce6807049dc855eb79a23950c7acdb1`
+
+Re-break:
+- py_compile PASS
+- 25/25 synthetic PASS
+- 15/15 mutation KILLED
+- static review PASS
+
+Review:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-PRODUCER-PERSISTED-HEAD-REVIEW.md`
+
+Mutation evidence:
+`reports/program/evidence/2026-09-26-C01-FROZEN-MODEL-MUTATION-RESULTS.json`
+
+Handoff:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-LOCAL-HANDOFF.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-FROZEN-MODEL-PRODUCER-READY.md`
+
+Verdict:
+**PASS — one AP0 development-only model-freeze run authorized.**
+
+No confirmation-data access or confirmation scoring is authorized.

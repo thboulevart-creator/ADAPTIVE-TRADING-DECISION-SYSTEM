@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_C01_FROZEN_MODEL_MUTATION_RESULTS_V0_1",
+  "status": "PASS",
+  "persisted_head": "aa2c3311d1d838ada7f99dba69d94b463f089b3c",
+  "producer": {
+    "path": "tools/c01_frozen_model_artifact.py",
+    "git_blob": "ee0989f29399bf9f904ca314fdb5f01cc45ddec8",
+    "sha256": "682c1ce6f06f753cf3f0508396394bf6acd51249dfe61dc1c89815755137133c",
+    "bytes": 21431
+  },
+  "tests": {
+    "path": "tests/test_c01_frozen_model_artifact.py",
+    "git_blob": "1386ab0da905817f496c11197afd63b35620ccee",
+    "sha256": "2d0d447816a48b8b4ee9a694778356313a407c84ccdb0cb56746252ab4732217",
+    "bytes": 7316,
+    "passed": 25,
+    "total": 25
+  },
+  "mutation_runner": {
+    "path": "tests/run_c01_frozen_model_mutation_breakers.py",
+    "git_blob": "4d42ba615444601f115e65c8379d6d303fa5487b",
+    "sha256": "222ca69aa57491a12b3df6f03866de3e1ce6807049dc855eb79a23950c7acdb1",
+    "bytes": 3079,
+    "killed": 15,
+    "total": 15
+  },
+  "mutants_killed": [
+    "OLD_CHARTER_ACCEPTED",
+    "WINDOW_DRIFT_ACCEPTED",
+    "THRESHOLD_DRIFT_ACCEPTED",
+    "C02_PROMOTION_ACCEPTED",
+    "PNL_SCOPE_ACCEPTED",
+    "PAD_OVERSIZE_ACCEPTED",
+    "NO_LAPLACE",
+    "DIGEST_BLIND_COUNTS",
+    "COMPARE_TOLERANCE_WEAK",
+    "D2026_SCORE_BYPASS",
+    "D2026_COUNT_BYPASS",
+    "CONFIRM_ACCESS_TRUE",
+    "PNL_TRUE",
+    "WINNER_TRUE",
+    "SYMLINK_BYPASS"
+  ],
+  "independence": "same-assistant review; not independent"
+}
