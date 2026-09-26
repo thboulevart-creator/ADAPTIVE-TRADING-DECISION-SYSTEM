@@ -439,13 +439,11 @@ class P4AHumanNavigationContractTests(
                 "may_write_only_if_views_empty"
             ]
         )
-        self.assertFalse(
+        self.assertTrue(
             p4b["may_not_modify_generated"]
-            is False
         )
-        self.assertFalse(
+        self.assertTrue(
             p4b["may_not_modify_obsidian_config"]
-            is False
         )
 
     def test_p4b_requires_digest_and_post_write_verify(
