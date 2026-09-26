@@ -303,6 +303,32 @@ def verify_p2_core_blobs(
         "qualified_p2_core_blobs"
     ]
 
+    projection_contract_path = (
+        package_dir
+        / "deterministic_projection_contract_v0_1.json"
+    )
+    try:
+        projection_contract_raw = (
+            projection_contract_path.read_bytes()
+        )
+    except OSError as exc:
+        raise MaterializationError(
+            "cannot read pinned P2-A projection contract"
+        ) from exc
+
+    actual_contract_oid = git_blob_oid(
+        projection_contract_raw
+    )
+    expected_contract_oid = contract[
+        "p2a_contract_blob_sha"
+    ]
+    if actual_contract_oid != expected_contract_oid:
+        raise MaterializationError(
+            "P2-A contract blob mismatch: "
+            f"expected={expected_contract_oid} "
+            f"actual={actual_contract_oid}"
+        )
+
     for relative, expected_oid in expected.items():
         prefix = "tools/obsidian_projection/"
         if not relative.startswith(prefix):
