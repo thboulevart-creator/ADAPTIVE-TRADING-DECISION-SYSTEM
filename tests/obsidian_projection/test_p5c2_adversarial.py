@@ -22,6 +22,12 @@ class P5C2AdversarialStaticTests(
             / "obsidian_projection"
             / "p5c2_verify.py"
         ).read_text(encoding="utf-8")
+        cls.runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c2_control.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_p5c_contract_blob_is_pinned(self) -> None:
         self.assertIn(
@@ -277,6 +283,52 @@ class P5C2AdversarialStaticTests(
             '"live_vault_modified": False',
             self.cli,
         )
+
+    def test_runner_orders_tests_preflight_experiment(
+        self,
+    ) -> None:
+        targeted = self.runner.index(
+            "=== TARGETED TESTS ==="
+        )
+        full = self.runner.index(
+            "=== FULL OBSIDIAN SUITE ==="
+        )
+        preflight = self.runner.index(
+            "=== P5-C2 PREFLIGHT ==="
+        )
+        experiment = self.runner.index(
+            "=== P5-C2 SANDBOX EXPERIMENT ==="
+        )
+        self.assertLess(targeted, full)
+        self.assertLess(full, preflight)
+        self.assertLess(preflight, experiment)
+
+    def test_runner_disables_bytecode_and_keeps_sandbox(
+        self,
+    ) -> None:
+        self.assertIn(
+            'PYTHONDONTWRITEBYTECODE = "1"',
+            self.runner,
+        )
+        self.assertIn(
+            "python -B",
+            self.runner,
+        )
+        self.assertIn(
+            "sandbox is intentionally preserved",
+            self.runner,
+        )
+        for forbidden in (
+            "Remove-Item",
+            "git clean",
+            "git reset",
+            "git checkout",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    self.runner,
+                )
 
     def test_no_git_mutation_commands(self) -> None:
         joined = self.module + "\n" + self.cli
