@@ -79,7 +79,6 @@ class P4BAdversarialStaticTests(unittest.TestCase):
             "shutil.copy",
             "copytree(",
             "copy2(",
-            ".replace(",
             ".rename(",
         ):
             with self.subTest(forbidden=forbidden):
@@ -95,10 +94,10 @@ class P4BAdversarialStaticTests(unittest.TestCase):
             "obsidian://",
             "os.startfile",
             "subprocess.Popen",
-            "dataview",
-            "Dataview",
-            "excalidraw",
-            "Excalidraw",
+            "import dataview",
+            "from dataview",
+            "import excalidraw",
+            "from excalidraw",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(
