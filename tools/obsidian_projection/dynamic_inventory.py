@@ -330,6 +330,13 @@ def _forbidden_surface(path: str) -> bool:
 def _sensitive_path(path: str) -> bool:
     lowered = path.lower()
     base = lowered.rsplit("/", 1)[-1]
+    components = lowered.split("/")
+
+    if any(
+        part in {"secrets", "credentials"}
+        for part in components[:-1]
+    ):
+        return True
 
     candidates = {lowered, base}
     for pattern in SENSITIVE_PATH_PATTERNS:
