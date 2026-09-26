@@ -782,7 +782,12 @@ def run_negative_control(
 
     force_result = (
         "PASS"
-        if anomalies > 0
+        if (
+            anomalies > 0
+            and cycles_completed
+            == NEGATIVE_CONTROL_CYCLES
+            and failure_code is None
+        )
         else "BLOCKED"
     )
 
@@ -1348,6 +1353,44 @@ def append_metrics_event(
     return path
 
 
+def _directory_content_digest(
+    root: Path,
+) -> str:
+    if not root.is_dir():
+        raise PromotionExperimentError(
+            f"protected directory missing: {root}"
+        )
+
+    records: list[list[Any]] = []
+    for current, directories, files in os.walk(
+        root,
+        topdown=True,
+        followlinks=False,
+    ):
+        directories.sort(
+            key=lambda item: item.encode("utf-8")
+        )
+        files.sort(
+            key=lambda item: item.encode("utf-8")
+        )
+        current_path = Path(current)
+
+        for name in files:
+            path = current_path / name
+            raw = path.read_bytes()
+            records.append(
+                [
+                    path.relative_to(root).as_posix(),
+                    _sha256(raw),
+                    len(raw),
+                ]
+            )
+
+    return _tree_digest_from_records(
+        records
+    )
+
+
 def prepare_sandbox(
     sandbox: Path = SANDBOX,
 ) -> dict[str, Path]:
@@ -1412,6 +1455,18 @@ def run_full_experiment(
     verify_contract(
         Path(__file__).resolve().parent
     )
+
+    live_generated_before = (
+        _directory_content_digest(
+            LIVE_VAULT / "generated"
+        )
+    )
+    live_views_before = (
+        _directory_content_digest(
+            LIVE_VAULT / "views"
+        )
+    )
+
     fixtures = prepare_sandbox(sandbox)
 
     candidates_root = (
@@ -1425,6 +1480,26 @@ def run_full_experiment(
     )
 
     if negative.result != "PASS":
+        live_generated_after = (
+            _directory_content_digest(
+                LIVE_VAULT / "generated"
+            )
+        )
+        live_views_after = (
+            _directory_content_digest(
+                LIVE_VAULT / "views"
+            )
+        )
+        if (
+            live_generated_after
+            != live_generated_before
+            or live_views_after
+            != live_views_before
+        ):
+            raise PromotionExperimentError(
+                "protected live Vault trees changed during sandbox experiment"
+            )
+
         report = {
             "schema": METRICS_SCHEMA,
             "status": "BLOCKED",
@@ -1485,6 +1560,26 @@ def run_full_experiment(
                     "REQUIRES_SEPARATE_CANDIDATE_SPECIFIC_CRASH_PROBE"
             }
 
+    live_generated_after = (
+        _directory_content_digest(
+            LIVE_VAULT / "generated"
+        )
+    )
+    live_views_after = (
+        _directory_content_digest(
+            LIVE_VAULT / "views"
+        )
+    )
+    if (
+        live_generated_after
+        != live_generated_before
+        or live_views_after
+        != live_views_before
+    ):
+        raise PromotionExperimentError(
+            "protected live Vault trees changed during sandbox experiment"
+        )
+
     environment = {
         "windows_version":
             platform.platform(),
@@ -1536,6 +1631,14 @@ def run_full_experiment(
         "live_vault_path":
             str(LIVE_VAULT),
         "live_vault_modified": False,
+        "live_generated_digest_before":
+            live_generated_before,
+        "live_generated_digest_after":
+            live_generated_after,
+        "live_views_digest_before":
+            live_views_before,
+        "live_views_digest_after":
+            live_views_after,
         "qualified_candidates":
             qualified,
         "selected_candidate":
