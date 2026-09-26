@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 SEAL CANDIDATE PERSISTED-HEAD RE-BREAK FAIL — DOCUMENTARY INTERPOLATION ONLY; CORRECTION CANDIDATE REQUIRES PERSISTED-HEAD RE-BREAK.** Exact model artifact blob 68ee4795...227f and machine-readable seal candidate remain intact. Final seal remains BLOCKED. Confirmation-data access/scoring remains forbidden.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN CONFIRMATORY MODEL V0.2 FINAL SEALED.** Exact sealed artifact Git blob 68ee4795462c5dbd5747a7bfdef81716dc84227f; SHA-256 ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f; qualified seal-candidate blob 3a6897a63ef2f07a26429342b45977767090651e; corrected persisted-head re-break a823b1c712b786ba7883ed94adb7dd7a08c0282a PASS. This is a model freeze/seal, not scientific confirmation. No confirmation-data access or scoring is authorized by this seal itself.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15371,3 +15371,58 @@ Next:
 persisted-head re-break of the exact artifact and seal candidate only.
 
 No confirmation-data access or scoring.
+
+---
+
+## 248. C01 FROZEN MODEL V0.2 FINAL SEAL — 2026-09-26
+
+Final adjudication:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-V0.2-FINAL-SEAL-ADJUDICATION.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-C01-FROZEN-MODEL-V0.2-FINAL-SEALED.md`
+
+Exact sealed artifact:
+`reports/program/evidence/2026-09-26-C01-FROZEN-CONFIRMATORY-MODEL-V0.2.json`
+
+Identity:
+- bytes `2597159`
+- SHA-256 `ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f`
+- Git blob `68ee4795462c5dbd5747a7bfdef81716dc84227f`
+- model digest `a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f`
+
+Qualified producer blob:
+`13bdc28585e9c6d34bc2217c750f1716fa3e7f9c`
+
+Qualified seal-candidate blob:
+`3a6897a63ef2f07a26429342b45977767090651e`
+
+Initial seal persistence HEAD:
+`b201352830d3a4344a1a7109a2cffdf0cf7b93b9`
+
+Initial persisted-head re-break:
+**FAIL — documentary interpolation only.**
+
+Corrected persisted HEAD:
+`a823b1c712b786ba7883ed94adb7dd7a08c0282a`
+
+Corrected persisted-head re-break:
+**PASS.**
+
+Protected artifact and seal blobs:
+**UNCHANGED / PASS.**
+
+Confirmation data accessed:
+`false`
+
+Verdict:
+**PASS — C01 FROZEN CONFIRMATORY MODEL V0.2 = FINAL SEALED.**
+
+Important:
+this seal freezes the model artifact; it does not confirm the C01
+scientific hypothesis and it grants no confirmation-data/scoring
+authorization by itself.
+
+Next governed frontier:
+separate confirmation-execution preflight/authorization under the frozen
+C01 confirmatory Charter. No early primary scoring.
