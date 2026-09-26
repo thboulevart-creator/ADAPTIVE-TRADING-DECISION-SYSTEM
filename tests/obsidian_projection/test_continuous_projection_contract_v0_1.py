@@ -486,11 +486,10 @@ class P5AContinuousProjectionContractTests(
                 "append_only_event_log_required"
             ]
         )
-        self.assertFalse(
+        self.assertTrue(
             storage[
                 "event_log_is_not_semantic_authority"
             ]
-            is False
         )
 
     def test_single_writer_lock_is_required(self) -> None:
