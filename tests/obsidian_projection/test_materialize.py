@@ -239,6 +239,16 @@ class P3MaterializationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             temp_package = Path(tmp)
 
+            (
+                temp_package
+                / "deterministic_projection_contract_v0_1.json"
+            ).write_bytes(
+                (
+                    PACKAGE_DIR
+                    / "deterministic_projection_contract_v0_1.json"
+                ).read_bytes()
+            )
+
             for relative in MATERIALIZATION_CONTRACT[
                 "qualified_p2_core_blobs"
             ]:
@@ -255,6 +265,38 @@ class P3MaterializationTests(unittest.TestCase):
             (
                 temp_package / "builder.py"
             ).write_bytes(b"tampered\n")
+
+            with self.assertRaises(
+                MaterializationError
+            ):
+                verify_p2_core_blobs(
+                    temp_package,
+                    MATERIALIZATION_CONTRACT,
+                )
+
+    def test_tampered_p2a_contract_blob_blocks(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            temp_package = Path(tmp)
+
+            (
+                temp_package
+                / "deterministic_projection_contract_v0_1.json"
+            ).write_bytes(b"tampered contract\n")
+
+            for relative in MATERIALIZATION_CONTRACT[
+                "qualified_p2_core_blobs"
+            ]:
+                name = relative.split(
+                    "tools/obsidian_projection/",
+                    1,
+                )[1]
+                (
+                    temp_package / name
+                ).write_bytes(
+                    (PACKAGE_DIR / name).read_bytes()
+                )
 
             with self.assertRaises(
                 MaterializationError
