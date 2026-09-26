@@ -543,7 +543,25 @@ class CandidateMetrics:
     final_tree_digest_sha256: str | None
     failure_code: str | None
     duration_seconds: float
+    samples_during_promotions: int
     qualifies_primitive: bool
+
+
+def _wait_for_reader_progress(
+    reader: ReaderProbe,
+    baseline_samples: int,
+    *,
+    minimum_increment: int = 1,
+    timeout_seconds: float = 10.0,
+) -> None:
+    deadline = time.monotonic() + timeout_seconds
+    target = baseline_samples + minimum_increment
+    while reader.metrics.samples < target:
+        if time.monotonic() >= deadline:
+            raise PromotionExperimentError(
+                "reader did not progress during promotion window"
+            )
+        time.sleep(0.0005)
 
 
 def _candidate_result(
@@ -557,6 +575,7 @@ def _candidate_result(
     failure_code: str | None,
     duration: float,
     force_result: str | None = None,
+    samples_during_promotions: int = 0,
 ) -> CandidateMetrics:
     metrics = reader.metrics
 
@@ -577,6 +596,10 @@ def _candidate_result(
             metrics.samples
             >= MIN_READER_SAMPLES
         )
+        enough_active_samples = (
+            samples_during_promotions
+            >= cycles_requested
+        )
         result = (
             "PASS"
             if (
@@ -584,6 +607,7 @@ def _candidate_result(
                 and zero_anomalies
                 and enough_cycles
                 and enough_samples
+                and enough_active_samples
                 and final_state is not None
             )
             else "FAIL"
@@ -630,6 +654,8 @@ def _candidate_result(
             duration,
             6,
         ),
+        samples_during_promotions=
+            samples_during_promotions,
         qualifies_primitive=qualifies,
     )
 
@@ -672,6 +698,9 @@ def run_negative_control(
     started = time.perf_counter()
     cycles_completed = 0
     failure_code: str | None = None
+    promotion_sample_start = (
+        reader.metrics.samples
+    )
 
     try:
         for cycle in range(
@@ -700,7 +729,15 @@ def run_negative_control(
                 live / "MANIFEST.json",
             )
             cycles_completed += 1
+            _wait_for_reader_progress(
+                reader,
+                promotion_sample_start
+                + cycles_completed - 1,
+            )
 
+        promotion_sample_end = (
+            reader.metrics.samples
+        )
         reader.wait_for_samples(
             NEGATIVE_CONTROL_MIN_SAMPLES
         )
@@ -741,6 +778,13 @@ def run_negative_control(
         failure_code=failure_code,
         duration=duration,
         force_result=force_result,
+        samples_during_promotions=(
+            promotion_sample_end
+            - promotion_sample_start
+            if "promotion_sample_end" in locals()
+            else reader.metrics.samples
+            - promotion_sample_start
+        ),
     )
 
 
@@ -761,6 +805,9 @@ def run_two_rename_swap(
     started = time.perf_counter()
     completed = 0
     failure_code: str | None = None
+    promotion_sample_start = (
+        reader.metrics.samples
+    )
 
     try:
         for cycle in range(
@@ -784,7 +831,15 @@ def run_two_rename_swap(
             os.replace(stage, live)
             shutil.rmtree(backup)
             completed += 1
+            _wait_for_reader_progress(
+                reader,
+                promotion_sample_start
+                + completed - 1,
+            )
 
+        promotion_sample_end = (
+            reader.metrics.samples
+        )
         reader.wait_for_samples(
             MIN_READER_SAMPLES
         )
@@ -812,6 +867,13 @@ def run_two_rename_swap(
         final_state=final_state,
         failure_code=failure_code,
         duration=duration,
+        samples_during_promotions=(
+            promotion_sample_end
+            - promotion_sample_start
+            if "promotion_sample_end" in locals()
+            else reader.metrics.samples
+            - promotion_sample_start
+        ),
     )
 
 
@@ -864,6 +926,9 @@ def run_movefileex_replace(
     completed = 0
     failure_code: str | None = None
     unsupported = False
+    promotion_sample_start = (
+        reader.metrics.samples
+    )
 
     try:
         for cycle in range(
@@ -892,7 +957,15 @@ def run_movefileex_replace(
                     shutil.rmtree(stage)
                 break
             completed += 1
+            _wait_for_reader_progress(
+                reader,
+                promotion_sample_start
+                + completed - 1,
+            )
 
+        promotion_sample_end = (
+            reader.metrics.samples
+        )
         if not unsupported:
             reader.wait_for_samples(
                 MIN_READER_SAMPLES
@@ -925,6 +998,13 @@ def run_movefileex_replace(
             "NOT_SUPPORTED"
             if unsupported
             else None
+        ),
+        samples_during_promotions=(
+            promotion_sample_end
+            - promotion_sample_start
+            if "promotion_sample_end" in locals()
+            else reader.metrics.samples
+            - promotion_sample_start
         ),
     )
 
@@ -962,6 +1042,9 @@ def run_pointer_swap(
     started = time.perf_counter()
     completed = 0
     failure_code: str | None = None
+    promotion_sample_start = (
+        reader.metrics.samples
+    )
 
     try:
         for cycle in range(
@@ -974,7 +1057,15 @@ def run_pointer_swap(
                 f"generations/{target_id}",
             )
             completed += 1
+            _wait_for_reader_progress(
+                reader,
+                promotion_sample_start
+                + completed - 1,
+            )
 
+        promotion_sample_end = (
+            reader.metrics.samples
+        )
         reader.wait_for_samples(
             MIN_READER_SAMPLES
         )
@@ -1004,6 +1095,13 @@ def run_pointer_swap(
         final_state=final_state,
         failure_code=failure_code,
         duration=duration,
+        samples_during_promotions=(
+            promotion_sample_end
+            - promotion_sample_start
+            if "promotion_sample_end" in locals()
+            else reader.metrics.samples
+            - promotion_sample_start
+        ),
     )
 
 
