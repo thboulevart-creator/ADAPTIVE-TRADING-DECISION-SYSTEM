@@ -238,8 +238,7 @@ class P3AdversarialTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             parent = Path(tmp).resolve()
             repo_root = (
-                parent.parent
-                / "synthetic-repo-p3b"
+                parent / "_synthetic_repo"
             )
             repo_root.mkdir(
                 exist_ok=True
@@ -288,8 +287,7 @@ class P3AdversarialTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             parent = Path(tmp).resolve()
             repo_root = (
-                parent.parent
-                / "synthetic-repo-p3b-fat"
+                parent / "_synthetic_repo_fat"
             )
             repo_root.mkdir(
                 exist_ok=True
@@ -334,8 +332,7 @@ class P3AdversarialTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             parent = Path(tmp).resolve()
             repo_root = (
-                parent.parent
-                / "synthetic-repo-p3b-sync"
+                parent / "_synthetic_repo_sync"
             )
             repo_root.mkdir(
                 exist_ok=True
