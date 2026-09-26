@@ -1,0 +1,601 @@
+{
+  "schema": "ATDS_OBSIDIAN_SEMANTIC_CLASSIFICATION_RULES_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "source_commit": "7bd8c1312430dfc3def5523eb65397a5d6a5ae05",
+  "source_tree": "66eeb08a338732d4cf7f5b7f4f5e5fd9fbb4d54b",
+  "pilot_source_count": 74,
+  "defaults": {
+    "semantic_role": "UNKNOWN",
+    "procedure_role": "NONE",
+    "qualification_status": "UNKNOWN",
+    "scientific_status": "UNKNOWN",
+    "epistemic_role": "UNKNOWN",
+    "temporal_role": "UNKNOWN"
+  },
+  "path_filename_policy": {
+    "allowed_uses": [
+      "locate exact frozen inventory record",
+      "derive physical artifact_family when combined with frozen inventory_class and extension",
+      "select a candidate parser without committing semantic state"
+    ],
+    "forbidden_final_axes": [
+      "semantic_role",
+      "procedure_role",
+      "qualification_status",
+      "qualification_scope",
+      "scientific_status",
+      "epistemic_role",
+      "temporal_role",
+      "limitations",
+      "non_claims"
+    ],
+    "exact_override_exception": "An exact source_path may participate only when the same rule also requires the exact frozen source_blob_sha."
+  },
+  "evidence_precedence": [
+    "EXACT_GIT_IDENTITY",
+    "FROZEN_PILOT_INVENTORY",
+    "EXPLICIT_STRUCTURED_CONTENT",
+    "EXPLICIT_LABELED_CONTENT",
+    "EXACT_BLOB_OVERRIDE",
+    "UNKNOWN"
+  ],
+  "axis_rules": {
+    "artifact_family": {
+      "basis": "PHYSICAL_ONLY",
+      "rules": [
+        {
+          "inventory_class": "IMPLEMENTATION",
+          "extension": ".py",
+          "value": "CODE"
+        },
+        {
+          "inventory_class": "TEST",
+          "extension": ".py",
+          "value": "TEST"
+        },
+        {
+          "inventory_class": "BREAKER",
+          "extension": ".py",
+          "value": "BREAKER"
+        },
+        {
+          "inventory_class": "EVIDENCE",
+          "value": "EVIDENCE"
+        },
+        {
+          "inventory_class": "CORE_PROFILE",
+          "extension": ".json",
+          "value": "EVIDENCE"
+        },
+        {
+          "extension": ".md",
+          "value": "DOCUMENT"
+        }
+      ]
+    },
+    "authority_role": {
+      "default": "UNKNOWN",
+      "rules": [
+        {
+          "value": "CANONICAL",
+          "requires": [
+            "FROZEN_INVENTORY_MEMBER",
+            "EXACT_GIT_BLOB_MATCH",
+            "TRACKED_IN_FROZEN_TREE"
+          ]
+        }
+      ],
+      "non_implications": [
+        "qualified",
+        "PASS",
+        "normative",
+        "current",
+        "scientifically_supported"
+      ]
+    },
+    "persistence_state": {
+      "default": "UNKNOWN",
+      "rules": [
+        {
+          "value": "TRACKED_IN_GIT_TREE",
+          "requires": [
+            "FROZEN_INVENTORY_MEMBER",
+            "EXACT_GIT_BLOB_MATCH",
+            "TRACKED_IN_FROZEN_TREE"
+          ]
+        }
+      ]
+    },
+    "semantic_role": {
+      "default": "UNKNOWN",
+      "allowed_evidence": [
+        "EXPLICIT_STRUCTURED_CONTENT",
+        "EXPLICIT_LABELED_CONTENT",
+        "EXACT_BLOB_OVERRIDE"
+      ],
+      "title_or_filename_alone_sufficient": false
+    },
+    "procedure_role": {
+      "default": "NONE",
+      "allowed_evidence": [
+        "EXPLICIT_LABELED_CONTENT",
+        "EXACT_BLOB_OVERRIDE"
+      ],
+      "content_signatures": {
+        "PREFLIGHT": [
+          "explicit purpose/scope",
+          "explicit prohibitions or gates",
+          "terminal verdict scoped to preflight"
+        ],
+        "ADVERSARIAL_REVIEW": [
+          "explicit attacks/review body",
+          "terminal verdict scoped to reviewed candidate"
+        ],
+        "ADJUDICATION": [
+          "explicit evidence/inputs or promotion gate",
+          "explicit terminal verdict"
+        ],
+        "HANDOFF": [
+          "explicit transfer/next-action body",
+          "EXACT_BLOB_OVERRIDE or HISTORICAL_LINEAGE content signature"
+        ],
+        "TEST_RESULT": [
+          "structured test/mutation result content"
+        ],
+        "EXECUTION": [
+          "explicit attempt/run result content"
+        ]
+      }
+    },
+    "qualification_status": {
+      "default": "UNKNOWN",
+      "allowed_values": [
+        "PASS",
+        "FAIL",
+        "BLOCKED",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ],
+      "generic_terminal_rule": {
+        "allowed_procedure_roles": [
+          "ADJUDICATION",
+          "PREFLIGHT",
+          "ADVERSARIAL_REVIEW"
+        ],
+        "requires": [
+          "EXPLICIT_TERMINAL_VERDICT_BLOCK",
+          "QUALIFICATION_SCOPE_FROM_SAME_SOURCE"
+        ],
+        "forbids_as_sufficient": [
+          "FILENAME_TOKEN",
+          "PATH_TOKEN",
+          "TITLE_ONLY",
+          "BODY_MENTION_ONLY",
+          "MACHINE_STATUS_ONLY",
+          "TEST_PASS_ONLY",
+          "MUTANT_KILLED_ONLY",
+          "WORKFLOW_SUCCESS_ONLY",
+          "PROFILE_SELF_STATUS_ONLY",
+          "HANDOFF_REPORTED_VERDICT_ONLY"
+        ]
+      },
+      "bounded_exception_rule": {
+        "requires": [
+          "EXACT_SOURCE_PATH",
+          "EXACT_SOURCE_BLOB_SHA",
+          "EXPLICIT_ATTEMPT_STATUS_IN_CONTENT",
+          "EXPLICIT_FAILURE_OR_BLOCKING_CONTEXT"
+        ],
+        "purpose": "Represent known historical blocked attempts that have no terminal Verdict section without creating a generic status heuristic."
+      }
+    },
+    "qualification_scope": {
+      "default": null,
+      "rule": "MUST be extracted or preregistered from the same authoritative source that supplies qualification_status; never inherited from filename or neighboring record."
+    },
+    "scientific_status": {
+      "default": "UNKNOWN",
+      "allowed_values": [
+        "SUPPORTED",
+        "REFUTED",
+        "NOT_INTERPRETABLE",
+        "UNKNOWN",
+        "NOT_APPLICABLE"
+      ],
+      "rule": "Only explicit scientific-decision content may set this axis. qualification_status never maps to scientific_status."
+    },
+    "epistemic_role": {
+      "default": "UNKNOWN",
+      "allowed_values": [
+        "OBSERVATION",
+        "DESCRIPTION",
+        "HYPOTHESIS",
+        "TEST",
+        "RESULT",
+        "VALIDATED_KNOWLEDGE",
+        "REJECTED_HYPOTHESIS",
+        "UNKNOWN"
+      ],
+      "rule": "Requires explicit epistemic declaration/content signature or exact blob override."
+    },
+    "temporal_role": {
+      "default": "UNKNOWN",
+      "historical_rule": {
+        "value": "HISTORICAL",
+        "requires": [
+          "FROZEN_INVENTORY_CLASS_HISTORICAL_LINEAGE",
+          "SESSION_OR_ATTEMPT_CONTENT_SIGNATURE"
+        ]
+      },
+      "current_rule": {
+        "automatic_assignment": false,
+        "reason": "Latest date/version/commit/path/backlinks do not establish CURRENT."
+      }
+    },
+    "limitations": {
+      "default": [],
+      "allowed_sources": [
+        "DEDICATED_LIMITATIONS_SECTION",
+        "EXACT_STRUCTURED_LIMITATION_FIELD",
+        "EXACT_BLOB_OVERRIDE"
+      ],
+      "generic_negation_scraping_allowed": false
+    },
+    "non_claims": {
+      "default": [],
+      "allowed_sources": [
+        "DEDICATED_NON_PROMOTIONS_SECTION",
+        "EXPLICIT_SCOPE_NEGATIVE_LIST",
+        "TERMINAL_VERDICT_BOUNDARY_TEXT",
+        "EXACT_BLOB_OVERRIDE"
+      ],
+      "generic_negation_scraping_allowed": false
+    }
+  },
+  "forbidden_promotions": [
+    "CANONICAL -> PASS",
+    "MACHINE_STATUS -> QUALIFICATION_PASS",
+    "TEST_PASS -> ARTIFACT_PASS",
+    "MUTANT_KILLED -> ARTIFACT_PASS",
+    "WORKFLOW_SUCCESS -> GOVERNED_PASS",
+    "PROFILE_SELF_STATUS_PASS -> QUALIFICATION_PASS",
+    "HANDOFF_REPORTED_PASS -> QUALIFICATION_PASS",
+    "PASS -> SUPPORTED",
+    "LATEST -> CURRENT",
+    "SEAL -> RAW_ARTIFACT",
+    "WIKILINK -> SEMANTIC_RELATION"
+  ],
+  "exact_fixtures": [
+    {
+      "id": "FX-GOV-README",
+      "source_path": "GOVERNANCE/README.md",
+      "source_blob_sha": "a5036c2e6b3e12e8693924a1e39bdb26c168e016",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "GOVERNANCE",
+        "procedure_role": "NONE",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "authoritative governance content",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-CORE-PROTOCOL",
+      "source_path": "docs/02.1-ASSET-BEHAVIORAL-PROFILE-CORE-PROTOCOL.md",
+      "source_blob_sha": "bfa0aa393224e54dd281735cedeb6e259089ee06",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "PROTOCOL",
+        "procedure_role": "CANDIDATE",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "explicit CANDIDATE FOUNDATION content",
+        "protocol body",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP3-PREFLIGHT",
+      "source_path": "reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-PREFLIGHT.md",
+      "source_blob_sha": "cc2ae29560be2d21d63f42b39e2dc8aacd0e5ec3",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "SPECIFICATION",
+        "procedure_role": "PREFLIGHT",
+        "authority_role": "CANONICAL",
+        "qualification_status": "PASS",
+        "qualification_scope": "AP3_HELPER_MATERIALIZATION_PREFLIGHT_ONLY",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "explicit preflight constraints",
+        "terminal Verdict section",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP3-ADVERSARIAL-REVIEW",
+      "source_path": "reports/program/2026-09-25-AP3-EXPANSION-COMPRESSION-HELPER-ADVERSARIAL-REVIEW.md",
+      "source_blob_sha": "5f77c8539c0076611e8e4630648612aafaffcf2f",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "RESULT",
+        "procedure_role": "ADVERSARIAL_REVIEW",
+        "authority_role": "CANONICAL",
+        "qualification_status": "PASS",
+        "qualification_scope": "AP3_HELPER_LOCAL_ATTEMPT_READINESS_ONLY",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "explicit attack review body",
+        "terminal Verdict section",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP4-ADJUDICATION",
+      "source_path": "reports/program/2026-09-25-AP4-PRICE-STRUCTURE-ADJUDICATION.md",
+      "source_blob_sha": "312c4ae183337b4ec3972a7c02c3a4b529d4e06e",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "DECISION",
+        "procedure_role": "ADJUDICATION",
+        "authority_role": "CANONICAL",
+        "qualification_status": "PASS",
+        "qualification_scope": "AP4_PRICE_STRUCTURE_DESCRIPTIVE",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "exact evidence/integrity content",
+        "terminal Verdict section",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP5-R1-BLOCKED",
+      "source_path": "reports/program/2026-09-25-AP5-LOCAL-BLOCKED-AP4-BINDING-DIAGNOSIS.md",
+      "source_blob_sha": "ca857d93504de544e7ba9ad5cbf1e50a1851d874",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "DECISION",
+        "procedure_role": "ADJUDICATION",
+        "authority_role": "CANONICAL",
+        "qualification_status": "BLOCKED",
+        "qualification_scope": "AP5_R1_LOCAL_AP4_BINDING_ATTEMPT",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "HISTORICAL",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "exact BLOCKED status content",
+        "explicit adjudication/fail-closed context",
+        "exact frozen blob"
+      ],
+      "override_type": "EXACT_BLOB_BOUNDED_EXCEPTION"
+    },
+    {
+      "id": "FX-AP5-R2-BLOCKED",
+      "source_path": "reports/program/2026-09-25-AP5-LOCAL-R2-BLOCKED-AP4-BINDING.md",
+      "source_blob_sha": "c4ffd085892ef8393432872ccf3031b70247dd57",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "HISTORICAL_RECORD",
+        "procedure_role": "EXECUTION",
+        "authority_role": "CANONICAL",
+        "qualification_status": "BLOCKED",
+        "qualification_scope": "AP5_R2_LOCAL_AP4_BINDING_ATTEMPT",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "HISTORICAL",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "exact repeated BLOCKED attempt content",
+        "explicit no-new-observation statement",
+        "exact frozen blob"
+      ],
+      "override_type": "EXACT_BLOB_BOUNDED_EXCEPTION"
+    },
+    {
+      "id": "FX-AP5-ADJUDICATION",
+      "source_path": "reports/program/2026-09-25-AP5-MICROSTRUCTURE-PRICE-CORE-ADJUDICATION.md",
+      "source_blob_sha": "15cf79d8d48ab8965fbb9a1c640aa65da61a88b6",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "DECISION",
+        "procedure_role": "ADJUDICATION",
+        "authority_role": "CANONICAL",
+        "qualification_status": "PASS",
+        "qualification_scope": "AP5_MICROSTRUCTURE_PRICE_CORE_DESCRIPTIVE",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "qualified evidence/provenance content",
+        "terminal Verdict section",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP6-ADJUDICATION",
+      "source_path": "reports/program/2026-09-26-AP6-SEASONALITY-STABILITY-ADJUDICATION.md",
+      "source_blob_sha": "d3f4dd17c39dadf1b301ccc8f6cbf5e7ef80764d",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "DECISION",
+        "procedure_role": "ADJUDICATION",
+        "authority_role": "CANONICAL",
+        "qualification_status": "PASS",
+        "qualification_scope": "AP6_SEASONALITY_STABILITY_MEASUREMENT",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "exact evidence/provenance content",
+        "Non-promotions section",
+        "terminal Verdict section",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-CORE-ADJUDICATION",
+      "source_path": "reports/program/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1-ADJUDICATION.md",
+      "source_blob_sha": "679a805ee72a60ebe7539576695666f8701ea9bd",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "DECISION",
+        "procedure_role": "ADJUDICATION",
+        "authority_role": "CANONICAL",
+        "qualification_status": "PASS",
+        "qualification_scope": "ASSET_BEHAVIORAL_PROFILE_CORE_V0_1",
+        "scientific_status": "NOT_APPLICABLE",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "promotion gate",
+        "epistemic review",
+        "terminal Verdict section",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-CORE-PROFILE-SELF-STATUS",
+      "source_path": "reports/program/2026-09-26-ASSET-BEHAVIORAL-PROFILE-CORE-V0.1.md",
+      "source_blob_sha": "e1c7467fcd5d7231e84e50cdb5fba9583e80cae9",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "PROFILE",
+        "procedure_role": "NONE",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "profile body",
+        "self-reported CORE_COMPLETE/PASS is not an adjudication",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP4-MUTATION-RESULTS",
+      "source_path": "reports/program/evidence/2026-09-25-AP4-MUTATION-RESULTS.json",
+      "source_blob_sha": "159f48d434e4a43c2048889140e084076dc26363",
+      "expected": {
+        "artifact_family": "EVIDENCE",
+        "semantic_role": "RESULT",
+        "procedure_role": "TEST_RESULT",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "structured mutation outcomes",
+        "KILLED is not governed PASS",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP6-SEAL",
+      "source_path": "reports/program/evidence/2026-09-26-AP6-SEASONALITY-STABILITY-SEAL.json",
+      "source_blob_sha": "5a107b8816b0260b41c0f59426571ce563ac1e46",
+      "expected": {
+        "artifact_family": "EVIDENCE",
+        "semantic_role": "RESULT",
+        "procedure_role": "NONE",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "structured seal content",
+        "raw_json_versioned_in_repo=false",
+        "AP6_COMPLETE_VERIFIED is not governed PASS",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP4-HISTORICAL-HANDOFF",
+      "source_path": "99-BACKUP/SESSION-2026-09-25-AP4-PASS-AP5-HANDOFF.md",
+      "source_blob_sha": "012ef4ea7f4d3de49b51eaeaa86d3944788dbf92",
+      "expected": {
+        "artifact_family": "DOCUMENT",
+        "semantic_role": "HISTORICAL_RECORD",
+        "procedure_role": "HANDOFF",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "HISTORICAL",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "session handoff content",
+        "reported AP4 PASS must not qualify the handoff record",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP4-TEST-CODE",
+      "source_path": "tests/test_ap4_price_structure.py",
+      "source_blob_sha": "b439386288e94fe0ddd002ff5ed60aa28d199a71",
+      "expected": {
+        "artifact_family": "TEST",
+        "semantic_role": "COMPONENT",
+        "procedure_role": "NONE",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "frozen inventory TEST class",
+        "code content",
+        "exact frozen blob"
+      ]
+    },
+    {
+      "id": "FX-AP4-BREAKER-CODE",
+      "source_path": "tests/run_ap4_mutation_breakers.py",
+      "source_blob_sha": "98793bca1b11b77ff35b9492e105a57c1e2e091b",
+      "expected": {
+        "artifact_family": "BREAKER",
+        "semantic_role": "COMPONENT",
+        "procedure_role": "NONE",
+        "authority_role": "CANONICAL",
+        "qualification_status": "UNKNOWN",
+        "temporal_role": "UNKNOWN",
+        "persistence_state": "TRACKED_IN_GIT_TREE"
+      },
+      "basis": [
+        "frozen inventory BREAKER class",
+        "mutation runner code content",
+        "exact frozen blob"
+      ]
+    }
+  ],
+  "next_action_gate": {
+    "allowed_after_persisted_rebreak": "P1_CLASSIFIER_IMPLEMENTATION_CANDIDATE",
+    "renderer_authorized": false,
+    "vault_authorized": false,
+    "relations_authorized": false
+  }
+}
