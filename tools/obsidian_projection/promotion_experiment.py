@@ -547,6 +547,32 @@ class CandidateMetrics:
     qualifies_primitive: bool
 
 
+def _anomaly_count(
+    reader: ReaderProbe,
+) -> int:
+    return (
+        reader.metrics.mixed_generation_count
+        + reader.metrics.missing_entrypoint_count
+        + reader.metrics.partial_generation_count
+        + reader.metrics.parse_error_count
+    )
+
+
+def _wait_for_anomaly_progress(
+    reader: ReaderProbe,
+    baseline_anomalies: int,
+    *,
+    timeout_seconds: float = 10.0,
+) -> None:
+    deadline = time.monotonic() + timeout_seconds
+    while _anomaly_count(reader) <= baseline_anomalies:
+        if time.monotonic() >= deadline:
+            raise PromotionExperimentError(
+                "negative control anomaly was not observed"
+            )
+        time.sleep(0.0005)
+
+
 def _wait_for_reader_progress(
     reader: ReaderProbe,
     baseline_samples: int,
@@ -742,13 +768,25 @@ def run_negative_control(
                 )
             )
 
-            for row in manifest["files"]:
+            anomaly_baseline = _anomaly_count(
+                reader
+            )
+            for row_index, row in enumerate(
+                manifest["files"]
+            ):
                 relative = Path(row["path"])
                 destination = live / relative
                 shutil.copyfile(
                     source / relative,
                     destination,
                 )
+
+                if row_index == 0:
+                    _wait_for_anomaly_progress(
+                        reader,
+                        anomaly_baseline,
+                    )
+
                 time.sleep(0.0005)
 
             shutil.copyfile(
