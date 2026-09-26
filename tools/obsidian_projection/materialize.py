@@ -774,11 +774,30 @@ def _copy_qualified_generated_tree(
 def _assert_exact_projection_layout(
     root: Path,
 ) -> None:
+    expected_directories = {
+        "generated",
+        "generated/artifacts",
+        "generated/relations",
+        "generated/manifests",
+        "views",
+    }
+
+    actual_directories = {
+        path.relative_to(root).as_posix()
+        for path in root.rglob("*")
+        if path.is_dir()
+    }
+
+    if actual_directories != expected_directories:
+        raise MaterializationError(
+            "unexpected projection directory set: "
+            f"{sorted(actual_directories)}"
+        )
+
     allowed_top = {
         "generated",
         "views",
     }
-
     actual_top = {
         path.name
         for path in root.iterdir()
@@ -787,24 +806,6 @@ def _assert_exact_projection_layout(
         raise MaterializationError(
             f"unexpected top-level projection entries: "
             f"{sorted(actual_top)}"
-        )
-
-    generated = root / "generated"
-    expected_generated_dirs = {
-        "artifacts",
-        "relations",
-        "manifests",
-    }
-    actual_generated_dirs = {
-        path.name
-        for path in generated.iterdir()
-        if path.is_dir()
-    }
-    if actual_generated_dirs != (
-        expected_generated_dirs
-    ):
-        raise MaterializationError(
-            "unexpected generated directory set"
         )
 
     views = root / "views"
