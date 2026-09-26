@@ -1,0 +1,292 @@
+{
+  "schema": "ATDS_OBSIDIAN_CONTINUOUS_PROJECTION_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "predecessor_p4c_head": "10355f467ccf8f87070ab18839b96ba6fc547d9d",
+  "monitored_source": {
+    "remote": "origin",
+    "branch": "integration/system-v1",
+    "observed_head_at_preregistration": "6aef3b1304313c3446c08a3a37b51ea61733f41e",
+    "canonical_authority": "GITHUB_REMOTE_BRANCH",
+    "local_working_tree_is_not_authority": true
+  },
+  "objective": {
+    "name": "CONTINUOUS_GITHUB_TO_OBSIDIAN_PROJECTION",
+    "user_goal": "Every governed GitHub update on the monitored ATDS branch becomes visible in Obsidian without manual projection rebuild.",
+    "delivery_semantics": "NEAR_REAL_TIME_BOUNDED_LATENCY",
+    "instantaneous_realtime_claim_forbidden": true,
+    "target_detection_latency_seconds_max": 60,
+    "implementation_poll_interval_seconds_candidate": 30
+  },
+  "architecture_choice": {
+    "selected_candidate": "LOCAL_REMOTE_REF_OBSERVER",
+    "rationale": [
+      "The qualified Vault is local Windows/OneDrive storage.",
+      "GitHub Actions cannot directly mutate the user's local Vault.",
+      "A GitHub webhook would require an inbound endpoint and additional infrastructure.",
+      "Obsidian Git automation would violate the existing authority and persistence boundary.",
+      "A local remote-ref observer can remain read-only toward GitHub and write only the derived projection."
+    ],
+    "rejected_initial_mechanisms": [
+      "OBSIDIAN_GIT_AUTO_PULL_PUSH",
+      "GITHUB_ACTION_DIRECT_TO_LOCAL_VAULT",
+      "PUBLIC_WEBHOOK_ENDPOINT_REQUIRED"
+    ],
+    "webhook_may_be_reconsidered_later": true
+  },
+  "authority_boundary": {
+    "github_remote_branch": "CANONICAL",
+    "canonical_local_checkout": "READ_ONLY_EXECUTION_INPUT",
+    "projection": "DERIVED",
+    "obsidian": "OBSERVE_NAVIGATE_QUERY_VISUALIZE_UNDERSTAND",
+    "observer_may_push_to_github": false,
+    "observer_may_commit_to_github": false,
+    "observer_may_modify_canonical_worktree": false,
+    "observer_may_create_operational_authority": false
+  },
+  "runtime_isolation": {
+    "canonical_user_repo_mutation_forbidden": true,
+    "build_checkout_location": "OS_TEMP_OR_DEDICATED_NON_VAULT_CONTROL_ROOT",
+    "build_checkout_must_be_disposable": true,
+    "build_checkout_must_resolve_exact_repo_origin": true,
+    "build_checkout_must_resolve_exact_target_commit": true,
+    "build_must_not_use_user_worktree_registry": true,
+    "vault_must_not_contain_git_directory": true
+  },
+  "remote_observation": {
+    "operation_class": "READ_ONLY_REMOTE_REF_CHECK",
+    "permitted_examples": [
+      "git ls-remote origin refs/heads/integration/system-v1",
+      "git fetch --no-tags origin integration/system-v1"
+    ],
+    "full_fetch_on_every_poll_required": false,
+    "credentials_must_not_be_logged": true,
+    "network_failure_result": "NO_PROMOTION_KEEP_LAST_KNOWN_GOOD",
+    "repeated_same_head_result": "NOOP",
+    "new_head_result": "QUEUE_EXACT_HEAD_FOR_QUALIFICATION"
+  },
+  "head_transition_policy": {
+    "classify_transition": [
+      "INITIAL",
+      "FAST_FORWARD",
+      "NON_FAST_FORWARD",
+      "UNKNOWN"
+    ],
+    "automatic_promotion_allowed_for": [
+      "INITIAL",
+      "FAST_FORWARD"
+    ],
+    "non_fast_forward_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "unknown_ancestry_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "silent_history_rewrite_acceptance_forbidden": true
+  },
+  "event_coalescing": {
+    "every_observed_head_must_be_logged": true,
+    "active_build_may_finish_against_its_exact_head": true,
+    "newer_head_arriving_during_build_must_be_queued": true,
+    "superseded_heads_may_skip_projection_only_if_fast_forward_contained_by_later_head": true,
+    "skipped_head_status": "SUPERSEDED_NOT_PROMOTED",
+    "latest_head_must_eventually_be_evaluated": true
+  },
+  "current_head_projection_prerequisite": {
+    "frozen_pilot_inventory_is_insufficient_for_continuous_mode": true,
+    "continuous_mode_requires_dynamic_inventory_for_each_exact_head": true,
+    "inventory_scope_candidate": [
+      "GOVERNANCE",
+      "docs",
+      "evidence",
+      "reports",
+      "requirements",
+      "src",
+      "tests",
+      "tools",
+      "breakers",
+      ".github/workflows"
+    ],
+    "binary_or_large_artifact_policy_must_be_explicit": true,
+    "secrets_and_credentials_must_never_be_projected": true,
+    "source_selection_contract_required_before_runtime": true
+  },
+  "qualification_pipeline": {
+    "ordered_gates": [
+      "OBSERVE_REMOTE_HEAD",
+      "VERIFY_REPOSITORY_IDENTITY",
+      "CLASSIFY_HEAD_TRANSITION",
+      "FETCH_EXACT_HEAD",
+      "CREATE_ISOLATED_CHECKOUT",
+      "BUILD_DYNAMIC_INVENTORY",
+      "CLASSIFY_ARTIFACTS",
+      "BUILD_DETERMINISTIC_PROJECTION_A",
+      "BUILD_DETERMINISTIC_PROJECTION_B",
+      "REQUIRE_A_EQUALS_B",
+      "RUN_PROJECTION_BREAKERS",
+      "BUILD_MACHINE_VIEW_LAYER_IF_AUTHORIZED",
+      "STAGE_COMPLETE_GENERATION",
+      "VERIFY_STAGED_GENERATION",
+      "PROMOTE_ATOMICALLY_OR_BLOCK",
+      "VERIFY_LIVE_GENERATION",
+      "RECORD_EVENT_AND_STATE"
+    ],
+    "any_gate_failure_result": "NO_PROMOTION_KEEP_LAST_KNOWN_GOOD",
+    "partial_success_may_not_be_promoted": true
+  },
+  "generation_identity": {
+    "required_fields": [
+      "repository",
+      "branch",
+      "source_head",
+      "source_tree",
+      "projection_contract_version",
+      "inventory_digest",
+      "semantic_record_digest",
+      "projection_tree_digest",
+      "generated_file_count",
+      "qualified_at_state_transition"
+    ],
+    "volatile_host_data_in_deterministic_tree_forbidden": true,
+    "source_head_must_match_built_checkout_head": true
+  },
+  "projection_states": {
+    "allowed": [
+      "CURRENT",
+      "STALE",
+      "BLOCKED",
+      "ORPHAN",
+      "MISSING"
+    ],
+    "current_definition": "LIVE_PROJECTION_SOURCE_HEAD_EQUALS_LATEST_QUALIFIED_MONITORED_REMOTE_HEAD",
+    "stale_definition": "REMOTE_HEAD_IS_NEWER_THAN_LIVE_PROJECTION_HEAD_OR_LATEST_HEAD_NOT_YET_PROMOTED",
+    "blocked_definition": "LATEST_OBSERVED_HEAD_FAILED_OR_REQUIRES_ADJUDICATION",
+    "orphan_definition": "DERIVED_ARTIFACT_SOURCE_NO_LONGER_EXISTS_IN_CURRENT_QUALIFIED_SOURCE_TREE",
+    "missing_definition": "EXPECTED_DERIVED_ARTIFACT_IS_ABSENT",
+    "unknown_must_not_be_mapped_to_current": true
+  },
+  "last_known_good": {
+    "required": true,
+    "live_projection_must_remain_usable_on_failure": true,
+    "failed_candidate_must_not_modify_live_projection": true,
+    "failed_candidate_evidence_must_be_preserved_outside_live_projection": true,
+    "last_known_good_source_head_must_be_recorded": true
+  },
+  "promotion_atomicity": {
+    "mixed_generation_visibility_forbidden": true,
+    "direct_in_place_multi_file_overwrite_forbidden": true,
+    "staging_required": true,
+    "candidate_mechanism": "STAGED_GENERATION_SWAP_OR_EQUIVALENT_ATOMIC_VISIBILITY_PRIMITIVE",
+    "exact_windows_onedrive_mechanism_not_yet_qualified": true,
+    "obsidian_open_during_promotion_not_yet_authorized": true,
+    "empirical_promotion_primitive_qualification_required": true
+  },
+  "vault_policy": {
+    "vault_path": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROJECTION",
+    "generated_owner": "MACHINE",
+    "views_owner": "HUMAN",
+    "obsidian_config_owner": "OBSIDIAN_UI",
+    "observer_may_write_generated_only_after_promotion_gate": true,
+    "observer_may_overwrite_human_views": false,
+    "observer_may_modify_obsidian_config": false,
+    "observer_may_enable_obsidian_sync": false,
+    "observer_may_install_plugins": false
+  },
+  "machine_visual_layer_future_policy": {
+    "continuous_visual_refresh_required_for_final_goal": true,
+    "current_human_views_must_not_be_silently_overwritten": true,
+    "future_machine_managed_visual_namespace_required": true,
+    "candidate_namespace": "generated/live",
+    "bases_graph_canvas_dashboards_may_be_generated_only_after_separate_contract": true,
+    "human_views_may_link_to_machine_live_views": true
+  },
+  "runtime_state_storage": {
+    "deterministic_projection_state_inside_generated_allowed": true,
+    "volatile_daemon_state_location": "LOCALAPPDATA_OUTSIDE_VAULT",
+    "append_only_event_log_required": true,
+    "minimum_event_fields": [
+      "observed_at",
+      "remote_head",
+      "previous_live_head",
+      "transition_class",
+      "pipeline_result",
+      "live_head_after",
+      "projection_state",
+      "failure_code"
+    ],
+    "event_log_is_not_semantic_authority": true
+  },
+  "concurrency": {
+    "single_promotion_writer_required": true,
+    "lock_scope": "CONTINUOUS_PROJECTION_ENGINE",
+    "second_instance_result": "NO_WRITE_BLOCKED_BY_LOCK",
+    "obsidian_readers_must_never_observe_partial_generation": true
+  },
+  "recovery": {
+    "crash_before_promotion": "DISCARD_OR_PRESERVE_STAGING_NO_LIVE_CHANGE",
+    "crash_during_unqualified_atomic_primitive": "BLOCK_CONTINUOUS_MODE_UNTIL_ADJUDICATED",
+    "crash_after_promotion_before_state_log": "RECONSTRUCT_STATE_FROM_LIVE_GENERATION_IDENTITY",
+    "no_recursive_delete_of_last_known_good": true
+  },
+  "observability": {
+    "health_report_required": true,
+    "fields": [
+      "observer_running",
+      "latest_remote_head",
+      "live_projection_head",
+      "projection_state",
+      "last_success_time",
+      "last_failure_time",
+      "last_failure_code",
+      "queued_head_count"
+    ],
+    "current_state_must_be_visible_in_obsidian_later": true,
+    "current_state_visibility_must_not_create_authority": true
+  },
+  "p5a_boundary": {
+    "contract_tests_and_architecture_only": true,
+    "background_observer_execution_authorized": false,
+    "remote_polling_loop_authorized": false,
+    "vault_continuous_write_authorized": false,
+    "generated_replacement_authorized": false,
+    "human_views_overwrite_authorized": false,
+    "windows_startup_registration_authorized": false,
+    "scheduled_task_creation_authorized": false
+  },
+  "required_breakers": [
+    "observer pushes to GitHub",
+    "observer commits to canonical repository",
+    "canonical user working tree is mutated",
+    "wrong repository origin accepted",
+    "wrong monitored branch accepted",
+    "build checkout HEAD differs from observed remote HEAD",
+    "same HEAD triggers rebuild",
+    "non-fast-forward silently auto-promoted",
+    "unknown ancestry silently auto-promoted",
+    "frozen 74-artifact pilot treated as sufficient dynamic inventory",
+    "secret or credential projected",
+    "single build accepted without deterministic double-build comparison",
+    "failed candidate mutates live projection",
+    "partial candidate promoted",
+    "mixed generations visible",
+    "direct in-place multi-file overwrite used as promotion",
+    "last-known-good deleted before new generation verified",
+    "human views overwritten",
+    ".obsidian modified by observer",
+    "Obsidian Sync enabled",
+    "community plugin required",
+    "Git automation inside Vault enabled",
+    "volatile daemon data changes deterministic digest",
+    "remote network failure marks projection CURRENT",
+    "UNKNOWN mapped to CURRENT",
+    "STALE silently presented as CURRENT",
+    "second writer bypasses engine lock",
+    "event history lost for observed HEAD",
+    "superseded HEAD omitted without fast-forward containment",
+    "latest queued HEAD never evaluated",
+    "atomic promotion primitive assumed without Windows/OneDrive evidence",
+    "Obsidian-open promotion assumed safe without empirical qualification"
+  ],
+  "next_gates": {
+    "p5b": "DYNAMIC_CURRENT_HEAD_INVENTORY_AND_SOURCE_SELECTION_CONTRACT",
+    "p5c": "WINDOWS_ONEDRIVE_ATOMIC_PROMOTION_PRIMITIVE_QUALIFICATION",
+    "p5d": "CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE",
+    "p5e": "END_TO_END_NEAR_REAL_TIME_QUALIFICATION"
+  }
+}
