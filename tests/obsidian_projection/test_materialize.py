@@ -49,8 +49,8 @@ REPOSITORY = (
     "thboulevart-creator/"
     "ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
-COMMIT = "1" * 40
-TREE = "2" * 40
+COMMIT = "7bd8c1312430dfc3def5523eb65397a5d6a5ae05"
+TREE = "66eeb08a338732d4cf7f5b7f4f5e5fd9fbb4d54b"
 FAKE_IDENTITY = FilesystemIdentity(
     volume_serial=1234,
     file_identity=5678,
@@ -320,6 +320,29 @@ class P3MaterializationTests(unittest.TestCase):
                 selected.resolve(),
                 build_a.resolve(),
             )
+
+    def test_fresh_p2_report_rejects_wrong_source_identity(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            report, _, _ = build_p2_pair(
+                Path(tmp)
+            )
+
+            for field, mutant in (
+                ("repository", "example/wrong"),
+                ("source_commit", "9" * 40),
+                ("source_tree", "8" * 40),
+            ):
+                with self.subTest(field=field):
+                    changed = dict(report)
+                    changed[field] = mutant
+                    with self.assertRaises(
+                        MaterializationError
+                    ):
+                        validate_fresh_p2_report(
+                            changed
+                        )
 
     def test_fresh_p2_report_rejects_double_build_mismatch(
         self,
