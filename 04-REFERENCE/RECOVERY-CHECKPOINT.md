@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL PRODUCER PERSISTED-HEAD RE-BREAK PASS; ONE DEVELOPMENT-ONLY MODEL-FREEZE RUN AUTHORIZED.** Exact producer blob ee0989f2..., SHA-256 682c1ce6...7133c; py_compile PASS; 25/25 synthetic PASS; 15/15 mutants killed; static bindings/scope review PASS. Next: one fresh raw-Git local run against AP0 only to emit immutable C01 model artifact. Confirmation-window access/scoring remains forbidden.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 FROZEN-MODEL V0.1 RUN SUCCEEDED BUT IS NOT SEALED DUE NON-STANDARD NaN JSON; V0.2 REPRESENTATION FIX PERSISTED AS CANDIDATE.** Internal model/digest unchanged; NY hour 17 is structurally unavailable and must serialize as null + explicit unavailable list. Next: persisted-head re-break of V0.2 before any second development-only freeze. Confirmation-data access remains forbidden.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15256,3 +15256,37 @@ Verdict:
 **PASS — one AP0 development-only model-freeze run authorized.**
 
 No confirmation-data access or confirmation scoring is authorized.
+
+
+---
+
+## 245. C01 FROZEN MODEL V0.1 JSON SERIALIZATION INCIDENT — 2026-09-26
+
+V0.1 development run succeeded:
+- bytes 2,597,107
+- SHA-256 `05cb33679a48ba683ba6a68b95a371ed7ec630df24c237bebbdab404f8200b31`
+- model digest `a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f`
+- D2026 reproduction exact
+- confirmation_data_accessed=false
+
+But the artifact serialized internal missing NY hour 17 as non-standard JSON token `NaN`.
+
+Incident:
+`reports/program/2026-09-26-C01-FROZEN-MODEL-V0.1-NONSTANDARD-JSON-INCIDENT.md`
+
+V0.1 is retained as run evidence, not sealed as final model artifact.
+
+V0.2 corrective candidate exact blobs:
+- producer `13bdc28585e9c6d34bc2217c750f1716fa3e7f9c`
+- tests `60a15d2a985f13d71d137ece8aa527c759f314e8`
+- mutation runner `128e80e8d6efd66f038d47abbfb00345ce0a096c`
+
+Local corrective qualification:
+- py_compile PASS
+- 29/29 tests PASS
+- 17/17 mutants KILLED
+
+Next:
+persisted-head re-break only.
+
+No confirmation-data access.

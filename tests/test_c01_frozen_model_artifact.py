@@ -105,6 +105,27 @@ def test_path_symlink_guard():
         try: link.symlink_to(real,target_is_directory=True)
         except OSError: return
         ck(m.path_chain_has_reparse_or_symlink(link/"x"),"symlink bypass")
+def test_hour_median_serialization_marks_unavailable():
+    vals=np.arange(24,dtype=float); vals[17]=np.nan
+    serialized, unavailable=m.serialize_hour_medians(vals)
+    ck(serialized[17] is None and unavailable==[17] and serialized[16]==16.0,"hour median serialization")
+
+def test_unavailable_hour_guard_accepts_exact():
+    m.validate_unavailable_hours([17])
+
+def test_unavailable_hour_guard_rejects_drift():
+    try: m.validate_unavailable_hours([]); raise AssertionError("missing unavailable hour accepted")
+    except RuntimeError: pass
+    try: m.validate_unavailable_hours([16]); raise AssertionError("wrong unavailable hour accepted")
+    except RuntimeError: pass
+
+def test_write_json_rejects_nonfinite():
+    with tempfile.TemporaryDirectory() as td:
+        p=pathlib.Path(td)/"bad.json"
+        try: m.write_json_exclusive(p,{"x":float("nan")}); raise AssertionError("NaN JSON accepted")
+        except ValueError: pass
+        ck(not p.exists() or p.stat().st_size==0,"nonfinite JSON partially persisted")
+
 def test_write_exclusive_refuses_overwrite():
     with tempfile.TemporaryDirectory() as td:
         p=pathlib.Path(td)/"x.json"; m.write_json_exclusive(p,{"a":1})

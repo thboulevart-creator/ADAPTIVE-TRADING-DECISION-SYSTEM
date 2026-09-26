@@ -1,6 +1,6 @@
 import os, pathlib, subprocess, sys, tempfile
-SOURCE=pathlib.Path("/mnt/data/c01_frozen_model_artifact.py").read_text()
-TEST="/mnt/data/test_c01_frozen_model_artifact.py"
+SOURCE=pathlib.Path("/mnt/data/c01_frozen_model_artifact_v02.py").read_text()
+TEST="/mnt/data/test_c01_frozen_model_artifact_v02.py"
 MUTANTS=[
  ("OLD_CHARTER_ACCEPTED",'if ch.get("schema") != "ATDS_C01_CONFIRMATORY_RESEARCH_CHARTER_V0_2":','if False and ch.get("schema") != "ATDS_C01_CONFIRMATORY_RESEARCH_CHARTER_V0_2":'),
  ("WINDOW_DRIFT_ACCEPTED",'if conf.get("eligible_start_utc") != "2026-05-25T00:00:00Z" or conf.get("fixed_end_utc") != "2027-05-24T23:59:59Z":','if False and (conf.get("eligible_start_utc") != "2026-05-25T00:00:00Z" or conf.get("fixed_end_utc") != "2027-05-24T23:59:59Z"):'),
@@ -17,6 +17,8 @@ MUTANTS=[
  ("PNL_TRUE",'"pnl_calculated": False,','"pnl_calculated": True,'),
  ("WINNER_TRUE",'"winner_selection": False,','"winner_selection": True,'),
  ("SYMLINK_BYPASS",'if stat.S_ISLNK(st.st_mode) or getattr(st, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400):','if False and (stat.S_ISLNK(st.st_mode) or getattr(st, "st_file_attributes", 0) & getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0x400)):'),
+ ("ALLOW_NAN_JSON",'indent=2, allow_nan=False)','indent=2, allow_nan=True)'),
+ ("DROP_UNAVAILABLE_HOUR_GUARD",'if got != [17]:','if False and got != [17]:'),
 ]
 killed=[]; survived=[]
 for name,old,new in MUTANTS:

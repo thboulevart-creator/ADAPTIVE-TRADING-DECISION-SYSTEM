@@ -215,8 +215,24 @@ def validate_d2026_reproduction(c01: dict, result: dict, atol=1e-12) -> None:
         raise RuntimeError("D2026 joint-state count reproduction mismatch")
 
 
+def serialize_hour_medians(medians):
+    import numpy as np
+    x = np.asarray(medians, dtype=np.float64)
+    if x.shape != (24,):
+        raise RuntimeError("hour median shape mismatch")
+    unavailable = [int(i) for i in np.flatnonzero(~np.isfinite(x))]
+    values = [None if not np.isfinite(v) else float(v) for v in x]
+    return values, unavailable
+
+
+def validate_unavailable_hours(hours):
+    got = [int(x) for x in hours]
+    if got != [17]:
+        raise RuntimeError(f"unexpected unavailable NY hours: {got}")
+
+
 def write_json_exclusive(path: Path, payload: dict) -> None:
-    raw = (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2) + "\n").encode("utf-8")
+    raw = (json.dumps(payload, ensure_ascii=False, sort_keys=True, indent=2, allow_nan=False) + "\n").encode("utf-8")
     if len(raw) > MAX_OUTPUT_BYTES:
         raise RuntimeError("model artifact exceeds output bound")
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -392,8 +408,11 @@ def main():
         cand_probs = probabilities_from_counts(cand_counts)
         model_digest = canonical_model_digest(hour_medians, vol_th, tick_th, rv_q, tick_q, vol_counts, tick_counts, cand_counts)
 
+        serialized_hour_medians, unavailable_hours = serialize_hour_medians(hour_medians)
+        validate_unavailable_hours(unavailable_hours)
+
         payload = {
-            "schema": "ATDS_C01_FROZEN_CONFIRMATORY_MODEL_V0_1",
+            "schema": "ATDS_C01_FROZEN_CONFIRMATORY_MODEL_V0_2",
             "status": "C01_MODEL_FROZEN",
             "candidate_id": "CR2-C01-ABS_VOL_X_TICK",
             "binding": {
@@ -412,7 +431,8 @@ def main():
                 "target_classes": TARGET_CLASSES,
             },
             "frozen_parameters": {
-                "tick5_ny_hour_medians": [float(x) for x in hour_medians],
+                "tick5_ny_hour_medians": serialized_hour_medians,
+                "tick5_ny_hour_unavailable": unavailable_hours,
                 "abs_rv15_state_thresholds": [float(x) for x in vol_th],
                 "tick5_hour_relative_state_thresholds": [float(x) for x in tick_th],
                 "rv15_target_quintiles": [float(x) for x in rv_q],
