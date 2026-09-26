@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : ASSET BEHAVIORAL PROFILE CORE V0.1 PASS.** AP0→AP6 are closed/PASS. CORE promotes stable relative NY intraday/weekday structure, time-varying absolute volatility/activity/spread levels, near-balanced 1m direction, stable efficiency-distribution level, explicit gap handling, and rejects month seasonality/breakout stability/causal or strategy claims. Next allowed frontier: CONTEXT / REGIME RESEARCH preflight only. No strategy/PnL/MT5/optimization.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CONTEXT / REGIME RESEARCH PREFLIGHT V0.1 PASS; CR1 CONTEXT INFORMATIVENESS IS THE SOLE ACTIVE FRONTIER.** Eight context hypotheses are frozen before calculation. Research is N0 exploratory because the corpus has already been exposed during AP0→AP6. Context variables must be causal at t; targets start t+1; state variables are scored incrementally over hour+weekday with chronological 2023/2024/2025 tests. No regime labels, strategy, PnL, MT5, threshold search, interaction search or winner selection. Next: CR1 helper/tests only, then persisted-head re-break before corpus execution.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14762,3 +14762,46 @@ AP0→AP6 profile program is closed.
 
 Do not reopen AP0–AP6 absent demonstrated contradiction.
 Do not begin strategy/backtest/PnL/MT5/optimization without later explicit gates.
+
+
+---
+
+## 231. CONTEXT / REGIME RESEARCH PREFLIGHT V0.1 — 2026-09-26
+
+Fresh HEAD before persistence:
+`23ff3c93356ce93c2a1dbe74ec192d948a78050e`.
+
+Preflight:
+`reports/program/2026-09-26-CONTEXT-REGIME-RESEARCH-PREFLIGHT-V0.1.md`
+
+Frozen hypothesis registry:
+`reports/program/evidence/2026-09-26-CONTEXT-REGIME-HYPOTHESIS-REGISTRY-V0.1.json`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CONTEXT-REGIME-RESEARCH-PREFLIGHT-V0.1.md`
+
+Research class:
+**N0 / EXPLORATORY / PREVIOUSLY EXPOSED CORPUS.**
+
+CR1 preregistered axes:
+- NY hour;
+- NY weekday;
+- backward absolute RV15 state;
+- backward hour-relative RV15 state;
+- backward hour-relative spread5 state;
+- backward hour-relative tick5 state;
+- minutes-since-segment-start state;
+- backward efficiency15 state.
+
+Primary anti-snooping rule:
+context definitions, baselines, targets, folds, thresholds and scientific status rules are frozen before any CR1 corpus calculation.
+
+Verdict:
+**PASS — PREFLIGHT ONLY.**
+
+No context hypothesis has yet been supported.
+No regime exists yet.
+
+### Next governed action
+
+Materialize CR1 helper + synthetic/adversarial tests; re-break persisted HEAD before any real corpus run.

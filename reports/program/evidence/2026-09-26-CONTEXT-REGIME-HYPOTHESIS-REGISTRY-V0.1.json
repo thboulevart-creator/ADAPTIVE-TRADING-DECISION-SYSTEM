@@ -1,0 +1,181 @@
+{
+  "schema": "ATDS_CONTEXT_REGIME_HYPOTHESIS_REGISTRY_V0_1",
+  "status": "PREFLIGHT_ONLY_NO_RESEARCH_EXECUTED",
+  "epistemic_class": "N0_EXPLORATORY",
+  "dataset": {
+    "identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "instrument": "USTECH",
+    "granularity": "1-minute canonical price-core",
+    "period_start": "2021-05-25",
+    "period_end": "2026-05-24",
+    "continuity": "discontinuous",
+    "core_status": "ASSET_BEHAVIORAL_PROFILE_CORE_V0_1_PASS",
+    "core_commit": "23ff3c93356ce93c2a1dbe74ec192d948a78050e"
+  },
+  "contamination": {
+    "prior_corpus_inspection": true,
+    "pristine_oos_claim_allowed": false,
+    "chronological_forward_validation_allowed": true,
+    "confirmatory_promotion_requires_new_or_otherwise_pristine_data": true
+  },
+  "baselines": {
+    "B0": "unconditional training-fold target distribution",
+    "B1": "New-York-hour-conditioned training-fold target distribution",
+    "B2": "New-York-hour + weekday training-fold target distribution"
+  },
+  "folds": [
+    {
+      "id": "F1",
+      "train": "2021-05-25..2022-12-31",
+      "test": "2023-01-01..2023-12-31",
+      "role": "N0 chronological test"
+    },
+    {
+      "id": "F2",
+      "train": "2021-05-25..2023-12-31",
+      "test": "2024-01-01..2024-12-31",
+      "role": "N0 chronological test"
+    },
+    {
+      "id": "F3",
+      "train": "2021-05-25..2024-12-31",
+      "test": "2025-01-01..2025-12-31",
+      "role": "N0 chronological test"
+    },
+    {
+      "id": "D2026",
+      "train": "through 2025-12-31",
+      "test": "2026-01-01..2026-05-24",
+      "role": "partial diagnostic only"
+    }
+  ],
+  "target_contract": {
+    "primary_horizon_minutes": 15,
+    "secondary_horizon_minutes": 60,
+    "causal_cutoff": "all context inputs timestamp <= t",
+    "forward_window": "target starts strictly at t+1 minute",
+    "continuity": "exact +60s same-segment only; no gap crossing",
+    "primary_targets": [
+      "forward_RV15_bps",
+      "forward_efficiency15",
+      "forward_spread_mean15",
+      "forward_tick_density15"
+    ],
+    "secondary_targets": [
+      "forward_RV60_bps",
+      "forward_efficiency60",
+      "forward_spread_mean60",
+      "forward_tick_density60"
+    ],
+    "directional_return_target": false,
+    "pnl_target": false
+  },
+  "continuous_state_binning": {
+    "bins": [
+      "LOW",
+      "MID",
+      "HIGH"
+    ],
+    "thresholds": "training-fold tertiles only",
+    "test_reestimation": false,
+    "grid_search": false
+  },
+  "scoring": {
+    "target_classes": "training-fold quintiles, frozen into test",
+    "probability_model": "empirical categorical distribution with fixed Laplace smoothing",
+    "primary_metric": "delta_log_loss = baseline_log_loss - candidate_log_loss",
+    "secondary_metric": "delta_brier = baseline_brier - candidate_brier",
+    "supported_n0": "delta_log_loss > 0 in F1,F2,F3 AND pooled delta_brier > 0",
+    "refuted_n0": "pooled delta_log_loss <= 0 OR delta_log_loss <= 0 in at least 2 of F1,F2,F3",
+    "not_interpretable": "all remaining mixed/insufficient/control-failure cases",
+    "ranking_or_winner_selection": false
+  },
+  "hypotheses": [
+    {
+      "id": "CR-H01-NY-HOUR",
+      "context": "NY_HOUR",
+      "causal_definition": "known calendar hour America/New_York at t",
+      "baseline": "B0",
+      "primary_target": "forward_RV15_bps",
+      "statement": "NY hour provides out-of-fold information about the next-15m volatility distribution beyond the unconditional baseline."
+    },
+    {
+      "id": "CR-H02-WEEKDAY",
+      "context": "NY_WEEKDAY",
+      "causal_definition": "known weekday America/New_York at t",
+      "baseline": "B1",
+      "primary_target": "forward_RV15_bps",
+      "statement": "NY weekday provides incremental out-of-fold information about next-15m volatility beyond NY hour."
+    },
+    {
+      "id": "CR-H03-ABS-VOL",
+      "context": "BACKWARD_RV15_ABSOLUTE_STATE",
+      "causal_definition": "RV15 ending at t; LOW/MID/HIGH thresholds learned on training fold only",
+      "baseline": "B2",
+      "primary_target": "forward_RV15_bps",
+      "statement": "Current absolute volatility state provides incremental out-of-fold information about next-15m volatility beyond hour+weekday."
+    },
+    {
+      "id": "CR-H04-REL-VOL",
+      "context": "BACKWARD_RV15_HOUR_RELATIVE_STATE",
+      "causal_definition": "RV15 ending at t divided by training-only NY-hour median; LOW/MID/HIGH training tertiles",
+      "baseline": "B2",
+      "primary_target": "forward_RV15_bps",
+      "statement": "Hour-relative volatility state provides incremental out-of-fold information about next-15m volatility beyond hour+weekday."
+    },
+    {
+      "id": "CR-H05-SPREAD",
+      "context": "BACKWARD_SPREAD5_HOUR_RELATIVE_STATE",
+      "causal_definition": "mean spread over t-4..t, normalized by training-only NY-hour median; LOW/MID/HIGH training tertiles",
+      "baseline": "B2",
+      "primary_target": "forward_spread_mean15",
+      "statement": "Recent relative spread state provides incremental out-of-fold information about next-15m spread distribution beyond hour+weekday."
+    },
+    {
+      "id": "CR-H06-TICK-DENSITY",
+      "context": "BACKWARD_TICK5_HOUR_RELATIVE_STATE",
+      "causal_definition": "mean tick_count over t-4..t, normalized by training-only NY-hour median; LOW/MID/HIGH training tertiles",
+      "baseline": "B2",
+      "primary_target": "forward_tick_density15",
+      "statement": "Recent relative tick-density state provides incremental out-of-fold information about next-15m activity beyond hour+weekday."
+    },
+    {
+      "id": "CR-H07-GAP-REOPEN",
+      "context": "MINUTES_SINCE_SEGMENT_START_STATE",
+      "causal_definition": "REOPEN=0; EARLY=1..15; POST=16..60; MATURE>60, fixed before results",
+      "baseline": "B2",
+      "primary_target": "forward_RV15_bps",
+      "co_primary_diagnostic": "forward_spread_mean15",
+      "statement": "Reopen/early-segment state provides incremental out-of-fold information about near-future market-environment distributions."
+    },
+    {
+      "id": "CR-H08-EFFICIENCY",
+      "context": "BACKWARD_EFFICIENCY15_STATE",
+      "causal_definition": "efficiency15 ending at t; LOW/MID/HIGH thresholds learned on training fold only",
+      "baseline": "B2",
+      "primary_target": "forward_efficiency15",
+      "statement": "Current path-efficiency state provides incremental out-of-fold information about next-15m path efficiency beyond hour+weekday."
+    }
+  ],
+  "forbidden_in_v0_1": [
+    "TENDANCE/RANGE/BREAKOUT/STRESS labels as assumed truth",
+    "strategy signals",
+    "BUY/SELL/HOLD",
+    "trades/fills/positions",
+    "PnL/expectancy/Sharpe/profit factor/drawdown",
+    "parameter grid search",
+    "feature subset search",
+    "interaction search",
+    "winner-only reporting",
+    "test-fold threshold refitting",
+    "future information in context variables",
+    "silent gap bridging",
+    "MT5 execution"
+  ],
+  "promotion_sequence": [
+    "CR1 univariate/incremental context qualification",
+    "CR2 bounded regime-candidate synthesis only from CR1-supported axes",
+    "separate confirmatory charter on new/pristine data before any validated regime claim",
+    "expert/strategy research only after later explicit gate"
+  ]
+}
