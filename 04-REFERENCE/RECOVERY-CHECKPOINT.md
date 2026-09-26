@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 HELPER V0.2 PERSISTED-HEAD RE-BREAK PASS; ONE LOCAL N0 CORPUS RUN RE-AUTHORIZED.** Correct registry SHA-256 is 24db0f82...fd787a4; registry Git blob unchanged. Corrected helper blob bb5cd4ac..., SHA-256 423eed0f...f4eac; py_compile PASS; 26/26 synthetic PASS; 20/20 mutants killed. Next: one fresh raw-Git CR1 corpus run. No regime claim/strategy/PnL/optimisation/MT5.
+> **DIRECTIVE ACTIVE — 2026-09-26 : CR1 CONTEXT INFORMATIVENESS COMPLETE / PASS.** Exact evidence SHA-256 c7aacf73...87ba3f. SUPPORTED_N0: NY hour, weekday, absolute RV15, hour-relative RV15, relative tick-density. NOT_INTERPRETABLE: relative spread due sparse F2 state=21. REFUTED_N0: gap/reopen and efficiency. Next: bounded CR2 regime-candidate synthesis preflight only. No combinatorial search, strategy, PnL, MT5 or validated-regime claim.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -14965,3 +14965,41 @@ Backup:
 
 Verdict:
 **PASS — one local CR1 N0 corpus attempt authorized.**
+
+
+---
+
+## 237. CR1 CONTEXT INFORMATIVENESS COMPLETE — 2026-09-26
+
+Fresh HEAD before persistence:
+`56bf58171f0556bcaf92bbecfc16c8ef067da167`.
+
+Exact evidence:
+- `reports/program/evidence/2026-09-26-CR1-CONTEXT-INFORMATIVENESS.json`
+- 49,694 bytes
+- SHA-256 `c7aacf73c175c6af49a4866ad62f1d65c0b46b05fa6cd0dd0def4eb5ce87ba3f`
+- Git blob `cd40bf975613d1fa0e6d7277c2850ec87104727e`
+
+Adjudication:
+`reports/program/2026-09-26-CR1-CONTEXT-INFORMATIVENESS-ADJUDICATION.md`
+
+Observations:
+`reports/program/2026-09-26-CR1-CONTEXT-INFORMATIVENESS-OBSERVATIONS.md`
+
+Backup:
+`99-BACKUP/SESSION-2026-09-26-CR1-PASS-CR2-HANDOFF.md`
+
+Results:
+- SUPPORTED_N0: H01, H02, H03, H04, H06
+- NOT_INTERPRETABLE: H05
+- REFUTED_N0: H07, H08
+
+Verdict:
+**PASS — CR1 CONTEXT INFORMATIVENESS COMPLETE.**
+
+### Next governed frontier
+
+Bounded CR2 regime-candidate synthesis preflight only.
+
+Only CR1-supported axes may enter.
+No winner search, PnL, strategy, MT5, or validated regime claim.
