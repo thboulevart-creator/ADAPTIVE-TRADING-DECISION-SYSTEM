@@ -8,7 +8,7 @@ Base governed HEAD:
 ## Exact artifact
 
 Repository path:
-$ArtifactRepoPath
+reports/program/evidence/2026-09-26-C01-FROZEN-CONFIRMATORY-MODEL-V0.2.json
 
 Bytes:
 2597159

@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 DEVELOPMENT RERUN + EXACT ARTIFACT AUTHENTICATION PASS; SEAL PERSISTENCE CANDIDATE PERSISTED FOR RE-BREAK.** Exact artifact: 2,597,159 bytes; SHA-256 ae06a517...a199f; Git blob 68ee4795...227f; model digest a8b8b823...26c7f. No final seal is claimed before persisted-head re-break. Confirmation-data access/scoring remains forbidden.
+> **DIRECTIVE ACTIVE — 2026-09-26 : C01 V0.2 SEAL CANDIDATE PERSISTED-HEAD RE-BREAK FAIL — DOCUMENTARY INTERPOLATION ONLY; CORRECTION CANDIDATE REQUIRES PERSISTED-HEAD RE-BREAK.** Exact model artifact blob 68ee4795...227f and machine-readable seal candidate remain intact. Final seal remains BLOCKED. Confirmation-data access/scoring remains forbidden.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15335,21 +15335,21 @@ Date:
 2026-09-26
 
 Base HEAD:
-$ExpectedBaseHead
+2343e1aded32d2004f488c32cd56410baa06c4ca
 
 Exact artifact:
-$ArtifactRepoPath
+reports/program/evidence/2026-09-26-C01-FROZEN-CONFIRMATORY-MODEL-V0.2.json
 
 Identity:
-- bytes $ExpectedLength
-- SHA-256 $ExpectedSha256
-- Git blob $ExpectedGitBlob
+- bytes 2597159
+- SHA-256 ae06a5177aa04195a959deb1ee63e114a16448a87cdb2f6a2a8b639a4cba199f
+- Git blob 68ee4795462c5dbd5747a7bfdef81716dc84227f
 
 Model digest:
-$ExpectedModelDigest
+a8b8b823336fb0f7cd5a6b2bbae80d858603b6ff7567fe5e67e4b20c46726c7f
 
 Qualified producer blob:
-$ExpectedProducerBlob
+13bdc28585e9c6d34bc2217c750f1716fa3e7f9c
 
 Authentication:
 - exact byte identity PASS
@@ -15362,7 +15362,7 @@ Authentication:
 - strict semantic authentication PASS
 
 Confirmation data accessed:
-alse
+false
 
 Status:
 **SEAL PERSISTENCE CANDIDATE — NOT FINAL SEAL.**
