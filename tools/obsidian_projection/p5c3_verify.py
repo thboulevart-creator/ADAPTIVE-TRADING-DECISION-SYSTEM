@@ -6,6 +6,7 @@ from pathlib import Path
 
 from .obsidian_open_compatibility import (
     ObsidianOpenCompatibilityError,
+    diagnose_open_preconditions,
     post_close_verify,
     prepare_open_experiment,
     run_while_obsidian_open,
@@ -33,6 +34,10 @@ def _parser() -> argparse.ArgumentParser:
     )
     mode.add_argument(
         "--post-close",
+        action="store_true",
+    )
+    mode.add_argument(
+        "--diagnose-open",
         action="store_true",
     )
 
@@ -70,6 +75,19 @@ def main() -> int:
                     "--snapshot is forbidden with --prepare"
                 )
             report = prepare_open_experiment()
+
+        elif args.diagnose_open:
+            if args.snapshot is None:
+                raise ObsidianOpenCompatibilityError(
+                    "--snapshot required with --diagnose-open"
+                )
+            if args.manual_visual_accepted:
+                raise ObsidianOpenCompatibilityError(
+                    "manual acceptance flag is forbidden during --diagnose-open"
+                )
+            report = diagnose_open_preconditions(
+                args.snapshot
+            )
 
         elif args.run_open:
             if args.snapshot is None:
@@ -118,6 +136,13 @@ def main() -> int:
             sort_keys=True,
         )
     )
+
+    if args.diagnose_open:
+        return (
+            0
+            if report.get("status") == "PASS"
+            else 2
+        )
 
     if args.run_open:
         return (
