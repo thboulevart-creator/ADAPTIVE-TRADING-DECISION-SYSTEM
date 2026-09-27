@@ -17736,3 +17736,75 @@ Next governed boundary:
 `A0 — ADVERSARIAL BREAK EXPANSION V0.5`
 
 V0.5 must preserve all 85 current tests unchanged and derive only from already-adopted V0.3 requirements.
+
+
+---
+
+## 280. A0 — ADVERSARIAL BREAK EXPANSION V0.5 — BLOCKED METRIC-DOMAIN ORACLE
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`8207458d2be02da09691cd8d76bc12ead0e51292`
+
+Runtime blob:
+
+`18246b818c6c6af8c5412c3b0a515f76c5d5ddc8`
+
+Existing governed breaker set:
+
+```
+historical = e02ecfa6d30c2877a33f5c5d81b161ee562202b6
+V0.1 = 2911d5b282ccbb6147b2b54a7db5c357c2d315b6
+V0.2 = 9833ce563305cfb6d6fe1de8907e8aa9fc96fda4
+V0.3 = d23e3c72dd8bd2200cb392edc6c80b4e744d4751
+V0.4 = efcc3ca7927b29b45f5d0dc0180b81176dbed51e
+```
+
+Sandbox V0.5 breaker candidate:
+
+`f02eae836b79403673f8a43292cca19eab0c6b33`
+
+Sandbox workflow:
+
+`36332006554`
+
+Existing governed suite:
+
+`85/85 PASS`
+
+Sandbox V0.5 candidate:
+
+```
+TOTAL = 22
+PASS = 21
+UNADJUDICABLE = 1
+```
+
+Unadjudicable attack:
+
+`AF04 — source-specific foreign metric identity`
+
+The observed pytest failure is NOT classified as an implementation FAIL because no pinned producer/protocol authority currently establishes the allowed metric identity/domain for the synthetic fixture.
+
+A targeted read-only authority search found no explicit metric-domain definition in the governed A0/research producer/protocol artifacts examined.
+
+Status:
+
+`A0_ADVERSARIAL_BREAK_EXPANSION_V0_5 = BLOCKED_METRIC_DOMAIN_ORACLE`
+
+`AF04_IMPLEMENTATION_FAIL = NOT_ESTABLISHED`
+
+`A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET`
+
+The V0.5 breaker candidate is NOT promoted into the governed breaker set.
+
+No runtime correction is authorized.
+
+Next governed boundary:
+
+`A0 — SOURCE-SPECIFIC METRIC-DOMAIN AUTHORITY RESOLUTION`
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
