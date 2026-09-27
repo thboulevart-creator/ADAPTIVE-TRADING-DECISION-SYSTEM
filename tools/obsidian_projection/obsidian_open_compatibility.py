@@ -1369,6 +1369,131 @@ def _require_generation_immutability(
             )
 
 
+def diagnose_open_preconditions(
+    snapshot_path: Path,
+) -> dict[str, Any]:
+    checks: list[dict[str, Any]] = []
+
+    def record(
+        name: str,
+        operation: Callable[[], Any],
+    ) -> Any:
+        try:
+            value = operation()
+        except Exception as exc:
+            checks.append(
+                {
+                    "check": name,
+                    "status": "FAIL",
+                    "error_type": type(exc).__name__,
+                    "error": str(exc),
+                }
+            )
+            raise
+        checks.append(
+            {
+                "check": name,
+                "status": "PASS",
+            }
+        )
+        return value
+
+    try:
+        record(
+            "CONTRACT",
+            lambda: verify_contract(
+                Path(__file__).resolve().parent
+            ),
+        )
+
+        payload, token = record(
+            "SNAPSHOT",
+            lambda: _load_snapshot(
+                snapshot_path
+            ),
+        )
+
+        if payload.get("schema") != SNAPSHOT_SCHEMA:
+            raise ObsidianOpenCompatibilityError(
+                "snapshot schema mismatch"
+            )
+        if payload.get("sandbox_path") != str(
+            SANDBOX_VAULT
+        ):
+            raise ObsidianOpenCompatibilityError(
+                "snapshot sandbox mismatch"
+            )
+
+        record(
+            "SANDBOX_BOUNDARY",
+            assert_sandbox_boundary,
+        )
+
+        running = record(
+            "OBSIDIAN_PROCESS",
+            obsidian_running,
+        )
+        if not running:
+            raise ObsidianOpenCompatibilityError(
+                "Obsidian must be running during P5-C3 open experiment"
+            )
+
+        obsidian_state = record(
+            "OBSIDIAN_WORKSPACE_AND_PLUGIN_STATE",
+            lambda: _safe_obsidian_state(
+                SANDBOX_VAULT,
+                require_workspace_current=True,
+            ),
+        )
+
+        record(
+            "LIVE_VAULT_DIGESTS",
+            lambda: _require_snapshot_live_digests(
+                payload
+            ),
+        )
+
+        record(
+            "IMMUTABLE_GENERATIONS",
+            lambda: _require_generation_immutability(
+                payload
+            ),
+        )
+
+        current = record(
+            "CURRENT_POINTER",
+            lambda: validate_current_pointer(
+                SANDBOX_VAULT
+            ),
+        )
+
+        return {
+            "schema":
+                "ATDS_OBSIDIAN_P5C3_OPEN_DIAGNOSTIC_V0_1",
+            "status": "PASS",
+            "snapshot_token": token,
+            "checks": checks,
+            "obsidian_state": obsidian_state,
+            "current": current,
+            "mutation_performed": False,
+            "production_promotion_authorized": False,
+            "continuous_observer_authorized": False,
+        }
+
+    except Exception as exc:
+        return {
+            "schema":
+                "ATDS_OBSIDIAN_P5C3_OPEN_DIAGNOSTIC_V0_1",
+            "status": "FAIL",
+            "checks": checks,
+            "failure_type": type(exc).__name__,
+            "failure": str(exc),
+            "mutation_performed": False,
+            "production_promotion_authorized": False,
+            "continuous_observer_authorized": False,
+        }
+
+
 def run_while_obsidian_open(
     snapshot_path: Path,
 ) -> dict[str, Any]:
