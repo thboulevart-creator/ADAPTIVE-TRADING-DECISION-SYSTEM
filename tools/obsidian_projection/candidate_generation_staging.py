@@ -1364,7 +1364,10 @@ def stage_candidate_generation(
 
     root = _validate_new_package_root(
         package_root,
-        forbidden_roots,
+        (
+            *tuple(forbidden_roots),
+            projection_root,
+        ),
     )
 
     try:
