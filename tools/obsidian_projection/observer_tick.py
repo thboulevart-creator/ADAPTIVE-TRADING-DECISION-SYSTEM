@@ -14,7 +14,7 @@ EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 EXPECTED_BRANCH = "integration/system-v1"
-CONTRACT_BLOB = "0926367adc036b4352c47c3228f1a4c458a28f49"
+CONTRACT_BLOB = "f7c986450626e1f0aa3642a8c27fe826a4aceb4d"
 
 STATE_SCHEMA = "ATDS_OBSIDIAN_OBSERVER_STATE_V0_1"
 INPUT_SCHEMA = "ATDS_OBSIDIAN_OBSERVER_INPUT_V0_1"
@@ -264,6 +264,28 @@ def _validate_state(state: dict[str, Any]) -> None:
             "EVALUATING requires pending queue head"
         )
 
+    if (
+        state["observer_phase"] == "CANDIDATE_PENDING"
+        and state["last_qualified_head"] is None
+    ):
+        raise ObserverTickError(
+            "CANDIDATE_PENDING requires qualified HEAD"
+        )
+
+    if state["observer_phase"] == "BLOCKED":
+        if state["projection_state"] != "BLOCKED":
+            raise ObserverTickError(
+                "BLOCKED phase requires BLOCKED projection"
+            )
+        if state["blocked_head"] is None:
+            raise ObserverTickError(
+                "BLOCKED phase requires blocked HEAD"
+            )
+        if state["last_failure_code"] is None:
+            raise ObserverTickError(
+                "BLOCKED phase requires failure code"
+            )
+
 
 def _validate_input(
     previous_state: dict[str, Any],
@@ -455,6 +477,27 @@ def _apply_remote_observed(
     observed = event["observed_head"]
     transition_class = event["transition_class"]
     previous_live = state["live_projection_head"]
+
+    if state["observer_phase"] == "BLOCKED":
+        if (
+            transition_class == "SAME"
+            and state["latest_observed_head"] != observed
+        ):
+            raise ObserverTickError(
+                "SAME requires previous observed HEAD equality"
+            )
+        next_state = _clone(state)
+        next_state["remote_freshness"] = "KNOWN"
+        next_state["latest_observed_head"] = observed
+        decision = _decision(
+            action="BLOCK_REQUIRES_ADJUDICATION",
+            reason_code="OBSERVER_ALREADY_BLOCKED",
+            observed_head=observed,
+            candidate_head=None,
+            previous_live_head=previous_live,
+            next_projection_state="BLOCKED",
+        )
+        return next_state, decision
 
     if transition_class == "SAME":
         if state["latest_observed_head"] != observed:
