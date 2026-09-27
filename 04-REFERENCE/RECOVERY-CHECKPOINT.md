@@ -18338,3 +18338,77 @@ No runtime binding implementation has been made.
 Next action inside this exact boundary:
 
 execute the persisted RB00..RB19 breaker from this exact governed preregistration HEAD and record its RED profile before any runtime mutation.
+
+
+---
+
+## 288. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING TEST-FIRST RED — EXECUTED
+
+Date:
+2026-09-27
+
+Persisted preregistration HEAD:
+
+`e0320d5df64d39ad1386382efc197b1ae9739ecc`
+
+Manifest blob:
+
+`935661cbdf4dee031a738e37969baafa0a975d81`
+
+Breaker blob:
+
+`bcba5de33a73f9e32ff39e8fb498ab4d471af098`
+
+Execution run:
+
+`36342749521`
+
+Ordering:
+
+`PERSISTED_BEFORE_FIRST_EXECUTION = TRUE`
+
+AF04:
+
+`EXCLUDED`
+
+Existing frozen surface:
+
+`107/107 PASS`
+
+Runtime-binding family:
+
+```
+TOTAL = 20
+PASS = 4
+FAIL = 16
+```
+
+PASS:
+
+`RB08, RB09, RB13, RB14`
+
+FAIL:
+
+`RB00, RB01, RB02, RB03, RB04, RB05, RB06, RB07, RB10, RB11, RB12, RB15, RB16, RB17, RB18, RB19`
+
+Consolidated groups:
+
+- `A0-MDBIND-01` binding trace absent;
+- `A0-MDBIND-02` mandatory governed authority resolution not enforced;
+- `A0-MDBIND-03` standalone qualifier not bound to source measurements.
+
+Status:
+
+`A0_METRIC_DOMAIN_RUNTIME_BINDING_TEST_FIRST_RED = PASS_RED_PROFILE_ESTABLISHED`
+
+`METRIC_DOMAIN_RUNTIME_BINDING = NOT_IMPLEMENTED`
+
+`AF04_READJUDICATION = NOT_AUTHORIZED`
+
+Next governed boundary:
+
+`A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING MINIMAL IMPLEMENTATION CANDIDATE`
+
+The next boundary must preserve all 127 current tests unchanged and may not modify the standalone qualifier, frozen authority, preregistered breakers or AF04.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
