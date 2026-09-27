@@ -1,0 +1,402 @@
+{
+  "schema": "ATDS_OBSIDIAN_ONE_SHOT_OBSERVER_TICK_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "qualified_predecessor": {
+    "p5d1_contract_blob": "a20999ae991e07447e25ecd1592964f2d333449b",
+    "p5d1_qualification_report_blob": "fbe4a60f2349a96bf7a1f4c5dea0eb28328af841",
+    "p5d1_qualification_commit": "dce36303982d73a37d8498400f0a13e708e841b6"
+  },
+  "objective": {
+    "name": "ONE_SHOT_DETERMINISTIC_OBSERVER_TICK",
+    "input": "previous_state_plus_one_normalized_input",
+    "output": "next_state_plus_decision_plus_audit_record",
+    "exactly_one_transition_per_invocation": true,
+    "loop_forbidden": true,
+    "sleep_forbidden": true,
+    "background_execution_forbidden": true,
+    "network_io_forbidden": true,
+    "filesystem_io_forbidden": true,
+    "process_launch_forbidden": true,
+    "environment_read_forbidden": true,
+    "wall_clock_read_forbidden": true,
+    "randomness_forbidden": true
+  },
+  "schemas": {
+    "state": "ATDS_OBSIDIAN_OBSERVER_STATE_V0_1",
+    "input": "ATDS_OBSIDIAN_OBSERVER_INPUT_V0_1",
+    "decision": "ATDS_OBSIDIAN_OBSERVER_DECISION_V0_1",
+    "audit": "ATDS_OBSIDIAN_OBSERVER_EVENT_V0_1",
+    "tick_result": "ATDS_OBSIDIAN_ONE_SHOT_TICK_RESULT_V0_1"
+  },
+  "canonicalization": {
+    "encoding": "UTF-8",
+    "json": "SORT_KEYS_COMPACT",
+    "line_termination": "LF",
+    "terminal_lf_required": true,
+    "digest_algorithm": "SHA256",
+    "unicode_normalization": "INPUT_MUST_ALREADY_BE_NORMALIZED",
+    "non_json_values_forbidden": true
+  },
+  "state_validation": {
+    "repository_exact": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch_exact": "integration/system-v1",
+    "observer_phase_allowed": [
+      "IDLE",
+      "CANDIDATE_PENDING",
+      "EVALUATING",
+      "BLOCKED",
+      "STOPPED"
+    ],
+    "remote_freshness_allowed": [
+      "KNOWN",
+      "UNKNOWN"
+    ],
+    "projection_state_allowed": [
+      "CURRENT",
+      "STALE",
+      "BLOCKED",
+      "ORPHAN",
+      "MISSING"
+    ],
+    "head_format": "LOWERCASE_40_HEX_SHA1_OR_NULL",
+    "pending_heads": "FIFO_UNIQUE_LOWERCASE_40_HEX",
+    "last_event_sequence": "NONNEGATIVE_INTEGER",
+    "current_requires": [
+      "remote_freshness == KNOWN",
+      "latest_observed_head == live_projection_head",
+      "live_projection_head == last_qualified_head",
+      "live_projection_head != null"
+    ],
+    "evaluating_requires_nonempty_pending_queue": true
+  },
+  "normalized_input": {
+    "required_fields": [
+      "schema",
+      "event_type",
+      "sequence",
+      "observed_head",
+      "transition_class",
+      "candidate_head",
+      "failure_code"
+    ],
+    "event_types": [
+      "BOOTSTRAP",
+      "REMOTE_HEAD_OBSERVED",
+      "REMOTE_OBSERVATION_FAILED",
+      "EVALUATION_STARTED",
+      "EVALUATION_PASSED",
+      "EVALUATION_FAILED",
+      "PROMOTION_CONFIRMED",
+      "PROMOTION_FAILED",
+      "LOCK_CONTENDED",
+      "SHUTDOWN_REQUESTED"
+    ],
+    "transition_classes": [
+      "INITIAL",
+      "SAME",
+      "FAST_FORWARD",
+      "NON_FAST_FORWARD",
+      "UNKNOWN"
+    ],
+    "sequence_rule": "input.sequence == previous_state.last_event_sequence + 1",
+    "extra_fields_forbidden": true,
+    "event_specific_rules": {
+      "BOOTSTRAP": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head": null,
+        "failure_code": null
+      },
+      "REMOTE_HEAD_OBSERVED": {
+        "observed_head_required": true,
+        "transition_class_required": true,
+        "candidate_head": null,
+        "failure_code": null
+      },
+      "REMOTE_OBSERVATION_FAILED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head": null,
+        "failure_code_required": true
+      },
+      "EVALUATION_STARTED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head_required": true,
+        "failure_code": null
+      },
+      "EVALUATION_PASSED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head_required": true,
+        "failure_code": null
+      },
+      "EVALUATION_FAILED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head_required": true,
+        "failure_code_required": true
+      },
+      "PROMOTION_CONFIRMED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head_required": true,
+        "failure_code": null,
+        "external_confirmation_only": true
+      },
+      "PROMOTION_FAILED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head_required": true,
+        "failure_code_required": true,
+        "external_confirmation_only": true
+      },
+      "LOCK_CONTENDED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head": null,
+        "failure_code": "LOCK_CONTENDED"
+      },
+      "SHUTDOWN_REQUESTED": {
+        "observed_head": null,
+        "transition_class": null,
+        "candidate_head": null,
+        "failure_code": null
+      }
+    }
+  },
+  "transition_semantics": {
+    "BOOTSTRAP": {
+      "allowed_only_when_last_event_sequence_zero": true,
+      "action": "NOOP",
+      "state_unchanged_except_sequence": true
+    },
+    "REMOTE_HEAD_OBSERVED_SAME": {
+      "action": "NOOP",
+      "queue_unchanged": true,
+      "evaluation_not_started": true,
+      "remote_freshness": "KNOWN",
+      "latest_observed_head_becomes_observed": true,
+      "stale_may_return_current_only_if_current_invariants_hold": true,
+      "blocked_state_may_not_be_auto_cleared": true
+    },
+    "REMOTE_HEAD_OBSERVED_INITIAL": {
+      "action": "QUEUE_EXACT_HEAD_FOR_EVALUATION",
+      "queue_append_if_absent": true,
+      "remote_freshness": "KNOWN",
+      "latest_observed_head_becomes_observed": true,
+      "projection_state_if_live_missing": "MISSING",
+      "projection_state_if_live_exists": "STALE"
+    },
+    "REMOTE_HEAD_OBSERVED_FAST_FORWARD": {
+      "action": "QUEUE_EXACT_HEAD_FOR_EVALUATION",
+      "queue_append_if_absent": true,
+      "remote_freshness": "KNOWN",
+      "latest_observed_head_becomes_observed": true,
+      "projection_state": "STALE",
+      "active_evaluation_must_not_be_retargeted": true
+    },
+    "REMOTE_HEAD_OBSERVED_NON_FAST_FORWARD": {
+      "action": "BLOCK_REQUIRES_ADJUDICATION",
+      "queue_append_forbidden": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "blocked_head_becomes_observed": true,
+      "live_projection_head_unchanged": true
+    },
+    "REMOTE_HEAD_OBSERVED_UNKNOWN": {
+      "action": "BLOCK_REQUIRES_ADJUDICATION",
+      "queue_append_forbidden": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "blocked_head_becomes_observed": true,
+      "live_projection_head_unchanged": true
+    },
+    "REMOTE_OBSERVATION_FAILED": {
+      "action": "RETAIN_LAST_KNOWN_GOOD",
+      "remote_freshness": "UNKNOWN",
+      "latest_observed_head_unchanged": true,
+      "live_projection_head_unchanged": true,
+      "previous_current_becomes_stale": true,
+      "other_projection_states_retained": true,
+      "failure_code_recorded": true
+    },
+    "EVALUATION_STARTED": {
+      "candidate_must_equal_pending_queue_head": true,
+      "observer_phase": "EVALUATING",
+      "action": "START_EXACT_HEAD_EVALUATION",
+      "queue_unchanged": true,
+      "live_projection_head_unchanged": true
+    },
+    "EVALUATION_PASSED": {
+      "requires_observer_phase": "EVALUATING",
+      "candidate_must_equal_pending_queue_head": true,
+      "candidate_removed_from_queue_head": true,
+      "last_qualified_head_becomes_candidate": true,
+      "observer_phase": "CANDIDATE_PENDING",
+      "action": "CANDIDATE_QUALIFIED_PENDING_PROMOTION",
+      "live_projection_head_unchanged": true
+    },
+    "EVALUATION_FAILED": {
+      "requires_observer_phase": "EVALUATING",
+      "candidate_must_equal_pending_queue_head": true,
+      "candidate_removed_from_queue_head": true,
+      "blocked_head_becomes_candidate": true,
+      "failure_code_recorded": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "action": "RETAIN_LAST_KNOWN_GOOD",
+      "live_projection_head_unchanged": true
+    },
+    "PROMOTION_CONFIRMED": {
+      "requires_observer_phase": "CANDIDATE_PENDING",
+      "candidate_must_equal_last_qualified_head": true,
+      "live_projection_head_becomes_candidate": true,
+      "projection_state_current_only_if_freshness_and_head_equality_hold": true,
+      "otherwise_projection_state": "STALE",
+      "observer_phase": "IDLE",
+      "action": "CONFIRM_LIVE_PROJECTION",
+      "actual_promotion_io_forbidden": true
+    },
+    "PROMOTION_FAILED": {
+      "requires_observer_phase": "CANDIDATE_PENDING",
+      "candidate_must_equal_last_qualified_head": true,
+      "blocked_head_becomes_candidate": true,
+      "failure_code_recorded": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "action": "RETAIN_LAST_KNOWN_GOOD",
+      "live_projection_head_unchanged": true,
+      "actual_promotion_io_forbidden": true
+    },
+    "LOCK_CONTENDED": {
+      "action": "NOOP",
+      "state_unchanged_except_sequence": true,
+      "production_write_authorized": false
+    },
+    "SHUTDOWN_REQUESTED": {
+      "observer_phase": "STOPPED",
+      "action": "STOP",
+      "pending_heads_preserved": true,
+      "live_projection_head_unchanged": true
+    }
+  },
+  "decision_invariants": {
+    "required_fields": [
+      "schema",
+      "action",
+      "reason_code",
+      "observed_head",
+      "candidate_head",
+      "previous_live_head",
+      "next_projection_state",
+      "automatic_promotion_authorized",
+      "production_write_authorized"
+    ],
+    "automatic_promotion_authorized_always_false": true,
+    "production_write_authorized_always_false": true
+  },
+  "audit_invariants": {
+    "required_fields": [
+      "schema",
+      "sequence",
+      "event_type",
+      "previous_state_digest",
+      "input_digest",
+      "decision_digest",
+      "next_state_digest",
+      "reason_code"
+    ],
+    "sequence_equals_input_sequence": true,
+    "event_type_equals_input_event_type": true,
+    "reason_code_equals_decision_reason_code": true,
+    "volatile_fields_forbidden": true
+  },
+  "failure_model": {
+    "invalid_state": "RAISE_OBSERVER_TICK_ERROR_NO_OUTPUT",
+    "invalid_input": "RAISE_OBSERVER_TICK_ERROR_NO_OUTPUT",
+    "invalid_transition": "RAISE_OBSERVER_TICK_ERROR_NO_OUTPUT",
+    "digest_or_serialization_failure": "RAISE_OBSERVER_TICK_ERROR_NO_OUTPUT",
+    "partial_result_forbidden": true
+  },
+  "p5d2_boundary": {
+    "pure_one_shot_transition_implementation_authorized": true,
+    "network_adapter_authorized": false,
+    "git_adapter_authorized": false,
+    "filesystem_state_store_authorized": false,
+    "append_only_disk_event_log_authorized": false,
+    "background_observer_authorized": false,
+    "polling_loop_authorized": false,
+    "sleep_or_timer_authorized": false,
+    "production_promotion_authorized": false,
+    "continuous_vault_write_authorized": false,
+    "windows_startup_registration_authorized": false,
+    "scheduled_task_authorized": false,
+    "windows_service_authorized": false,
+    "graph_search_current_semantics_authorized": false
+  },
+  "required_breakers": [
+    "invalid repository accepted",
+    "invalid branch accepted",
+    "invalid observer phase accepted",
+    "invalid remote freshness accepted",
+    "invalid projection state accepted",
+    "uppercase or malformed HEAD accepted",
+    "duplicate pending HEAD accepted",
+    "negative or boolean event sequence accepted",
+    "CURRENT accepted with UNKNOWN freshness",
+    "CURRENT accepted with unequal observed live qualified heads",
+    "EVALUATING accepted with empty pending queue",
+    "input sequence skip accepted",
+    "input sequence replay accepted",
+    "extra normalized input field accepted",
+    "wrong input schema accepted",
+    "REMOTE_HEAD_OBSERVED without head accepted",
+    "REMOTE_HEAD_OBSERVED without transition class accepted",
+    "SAME changes queue",
+    "SAME starts evaluation",
+    "SAME auto-clears BLOCKED",
+    "INITIAL fails to queue exact head",
+    "FAST_FORWARD fails to queue exact head",
+    "new FAST_FORWARD retargets active evaluation",
+    "NON_FAST_FORWARD queues head",
+    "UNKNOWN queues head",
+    "network failure changes live head",
+    "network failure leaves fresh CURRENT claim",
+    "evaluation starts for non-head-of-queue candidate",
+    "evaluation PASS changes live head",
+    "evaluation PASS fails to advance last qualified head",
+    "evaluation FAIL changes live head",
+    "promotion confirmation for non-qualified candidate accepted",
+    "promotion failure changes live head",
+    "LOCK_CONTENDED mutates semantic state",
+    "SHUTDOWN drops pending heads",
+    "automatic promotion authority becomes true",
+    "production write authority becomes true",
+    "same inputs produce different normalized bytes",
+    "same inputs produce different digests",
+    "volatile host data appears in audit record",
+    "network API imported or called",
+    "subprocess imported or called",
+    "filesystem API used for state transition",
+    "sleep or timer used",
+    "environment variable read",
+    "randomness used",
+    "loop construct used for repeated observer ticks",
+    "background thread or async task created",
+    "Git command launched",
+    "Vault path referenced for writes",
+    "Windows startup registration referenced",
+    "scheduled task referenced",
+    "Windows service referenced",
+    "Graph/Search CURRENT semantics claimed"
+  ],
+  "next_gates": {
+    "p5d3": "CONTROLLED_CANDIDATE_EVALUATION_PIPELINE",
+    "p5d4": "BOUNDED_OBSERVER_LOOP_CANDIDATE",
+    "p5e": "END_TO_END_NEAR_REAL_TIME_QUALIFICATION",
+    "p6": "CONTROLLED_KNOWLEDGE_GRAPH_ARCHITECTURE"
+  }
+}
