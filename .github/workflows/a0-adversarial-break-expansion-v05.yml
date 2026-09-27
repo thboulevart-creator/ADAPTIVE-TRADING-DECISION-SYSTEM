@@ -1,0 +1,99 @@
+name: A0 Adversarial Break Expansion V0.5
+
+on:
+  push:
+    branches:
+      - sandbox/a0-adversarial-break-expansion-v05
+    paths:
+      - .github/workflows/a0-adversarial-break-expansion-v05.yml
+
+permissions:
+  contents: read
+
+jobs:
+  break-v05:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact V0.5 sandbox breaker HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: f5f902339ddcf0f838790ca154001f91261f9d52
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify governed identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "18246b818c6c6af8c5412c3b0a515f76c5d5ddc8"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v02.py)" = "9833ce563305cfb6d6fe1de8907e8aa9fc96fda4"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v03.py)" = "d23e3c72dd8bd2200cb392edc6c80b4e744d4751"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v04.py)" = "efcc3ca7927b29b45f5d0dc0180b81176dbed51e"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v05.py)" = "f02eae836b79403673f8a43292cca19eab0c6b33"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Verify V0.5 breaker-only scope
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "breakers/a0_research_authority_adversarial_breaker_v05.py",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only",
+               "8207458d2be02da09691cd8d76bc12ead0e51292",
+               "f5f902339ddcf0f838790ca154001f91261f9d52"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Compile runtime and all breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v02.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v03.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v04.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v05.py
+
+      - name: Preserve existing closed 85-test suite
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             | tee /tmp/a0-existing-85.txt
+          grep -q "85 passed" /tmp/a0-existing-85.txt
+          echo "A0_EXISTING_85=PASS_UNCHANGED"
+
+      - name: Execute V0.5 adversarial expansion
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q             breakers/a0_research_authority_adversarial_breaker_v05.py             > /tmp/a0-v05.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/a0-v05.txt
+          echo "A0_V05_PYTEST_EXIT=$status"
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path("/tmp/a0-v05.txt").read_text()
+          m = re.search(
+              r"(?:(\d+) failed, )?(?:(\d+) passed)(?: in |,)",
+              text,
+          )
+          if not m:
+              print("A0_V05_RESULT=UNPARSED")
+              raise SystemExit(2)
+          failed = int(m.group(1) or 0)
+          passed = int(m.group(2))
+          print(f"A0_V05_RESULT=PASS:{passed};FAIL:{failed}")
+          PY
