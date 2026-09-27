@@ -1,0 +1,63 @@
+name: A0 Metric-Domain Authority Minimal Qualifier Persisted Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-metric-domain-authority-minimal-qualifier-persisted-rebreak
+    paths:
+      - .github/workflows/a0-metric-domain-authority-minimal-qualifier-persisted-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact persisted qualifier HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 905b2b0440cfbc798e4a53d3948f6318bfa494bd
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact persisted scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "905b2b0440cfbc798e4a53d3948f6318bfa494bd"
+          python - <<'PY'
+          import subprocess
+          got=set(subprocess.check_output(
+              ["git","diff","--name-only",
+               "1be8b0c7858b5f955e47c1b41affc56e438bebcc",
+               "905b2b0440cfbc798e4a53d3948f6318bfa494bd"],
+              text=True,
+          ).splitlines())
+          assert got=={"src/a0_metric_domain_authority.py"}, got
+          PY
+
+      - name: Verify identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_metric_domain_authority.py)" = "9bd05f2a2a97f092c0fc2988319f15caff57dda3"
+          test "$(git hash-object src/a0_research_authority.py)" = "18246b818c6c6af8c5412c3b0a515f76c5d5ddc8"
+          test "$(git hash-object breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py)" = "e3620ac348a8042fe1d04cfc9b32c16060fce4a3"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-TEST-FIRST-RED-V0.1.json)" = "be8c1c0c805c86d376517ec11da744763c48143c"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json)" = "dd205d3e7b4a522a5ba23cef1e665d51c196acb8"
+          ! grep -q "FOREIGN_METRIC" breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py
+
+      - name: Compile qualifier
+        run: python -m py_compile src/a0_metric_domain_authority.py
+
+      - name: Fresh persisted-head 107-test rebreak
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py             | tee /tmp/a0-metric-persisted.txt
+          grep -q "107 passed" /tmp/a0-metric-persisted.txt
+          echo "A0_METRIC_DOMAIN_MINIMAL_QUALIFIER_PERSISTED_REBREAK=PASS_107_OF_107"
