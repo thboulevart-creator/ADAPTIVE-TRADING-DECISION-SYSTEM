@@ -33,6 +33,12 @@ class WinError32(PermissionError):
         self.winerror = 32
 
 
+class WinError33(PermissionError):
+    def __init__(self) -> None:
+        super().__init__(13, "Lock violation")
+        self.winerror = 33
+
+
 class P5C3RRetryTests(unittest.TestCase):
     def _fixture(
         self,
@@ -119,6 +125,61 @@ class P5C3RRetryTests(unittest.TestCase):
                 (root / "CURRENT.tmp").exists()
             )
 
+    def test_write_retry_absorbs_one_winerror32(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            manifests = self._fixture(root)
+
+            real_replace = os.replace
+            calls = 0
+
+            def flaky_replace(
+                source,
+                destination,
+            ) -> None:
+                nonlocal calls
+                calls += 1
+                if calls == 1:
+                    raise WinError32()
+                real_replace(
+                    source,
+                    destination,
+                )
+
+            with patch(
+                "tools.obsidian_projection."
+                "obsidian_open_retry.os.replace",
+                side_effect=flaky_replace,
+            ):
+                stats = (
+                    write_current_atomic_with_retry(
+                        root,
+                        "GEN_B",
+                        manifests["GEN_B"][
+                            "generation_tree_digest_sha256"
+                        ],
+                        expected_old_generation_id=
+                            "GEN_A",
+                    )
+                )
+
+            self.assertEqual(
+                stats.attempts,
+                2,
+            )
+            self.assertEqual(
+                stats.access_denied_conflicts,
+                1,
+            )
+            self.assertEqual(
+                validate_current_pointer(
+                    root
+                )["generation_id"],
+                "GEN_B",
+            )
+
     def test_write_retry_does_not_retry_other_winerror(
         self,
     ) -> None:
@@ -129,10 +190,10 @@ class P5C3RRetryTests(unittest.TestCase):
             with patch(
                 "tools.obsidian_projection."
                 "obsidian_open_retry.os.replace",
-                side_effect=WinError32(),
+                side_effect=WinError33(),
             ):
                 with self.assertRaises(
-                    WinError32
+                    WinError33
                 ):
                     write_current_atomic_with_retry(
                         root,
