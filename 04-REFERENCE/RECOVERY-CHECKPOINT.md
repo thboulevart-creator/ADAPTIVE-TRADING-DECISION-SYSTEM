@@ -18620,3 +18620,61 @@ Next action inside this exact boundary:
 execute the exact restored V0.5 breaker against this exact persisted governed HEAD, after verifying the existing 127-test surface remains PASS.
 
 No runtime correction, A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is authorized.
+
+
+---
+
+## 292. A0 — ADVERSARIAL BREAK EXPANSION V0.5 GOVERNED REPLAY — PASS
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`b8c538aabc2793ecc6d2ba57725a8919135a3335`
+
+Runtime blob:
+
+`1210bee06a2d9aed2ed7d9078542934ff430175c`
+
+Exact restored V0.5 breaker blob:
+
+`f02eae836b79403673f8a43292cca19eab0c6b33`
+
+Governed replay run:
+
+`36344507144`
+
+Replay gates:
+
+```
+existing qualified surface = 127/127 PASS
+V0.5 AF01..AF22 = 22/22 PASS
+combined current-head surface = 149/149 PASS
+```
+
+Status:
+
+`A0_ADVERSARIAL_BREAK_EXPANSION_V0_5 = PASS_CURRENT_HEAD`
+
+`A0_ADVERSARIAL_BREAK_EXPANSION_V0_5_GOVERNED_REPLAY = PASS_22_OF_22`
+
+`A0_V0_5_CURRENT_HEAD_QUALIFICATION = PASS`
+
+No V0.5 runtime correction is required.
+
+A0 full V0.3 qualification:
+
+`NOT_YET`
+
+Reason:
+
+the full contract-to-evidence coverage mapping has not yet been closed.
+
+Next governed boundary:
+
+`A0 — V0.3 COVERAGE CLOSURE REVIEW`
+
+The next boundary must review the V0.3 mandatory families against exact persisted evidence, preserve the combined 149-test surface unchanged, and make no runtime mutation.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
