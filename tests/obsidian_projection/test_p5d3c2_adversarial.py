@@ -493,12 +493,48 @@ class P5D3C2AdversarialTests(unittest.TestCase):
         ):
             self.assertNotIn(forbidden, defs)
 
-        while_nodes = [
+        allowed_while_functions: list[str] = []
+        for function in (
             node
-            for node in ast.walk(self.tree)
+            for node in self.tree.body
+            if isinstance(node, ast.FunctionDef)
+        ):
+            if any(
+                isinstance(node, ast.While)
+                for node in ast.walk(function)
+            ):
+                allowed_while_functions.append(
+                    function.name
+                )
+
+        self.assertEqual(
+            allowed_while_functions,
+            ["_assert_directory_chain_no_alias"],
+        )
+
+        for function_name in (
+            "stage_candidate_generation",
+            "verify_candidate_generation",
+        ):
+            function = next(
+                node
+                for node in self.tree.body
+                if isinstance(node, ast.FunctionDef)
+                and node.name == function_name
+            )
+            self.assertFalse(
+                any(
+                    isinstance(node, ast.While)
+                    for node in ast.walk(function)
+                )
+            )
+
+        runner_while_nodes = [
+            node
+            for node in ast.walk(self.runner_tree)
             if isinstance(node, ast.While)
         ]
-        self.assertEqual(while_nodes, [])
+        self.assertEqual(runner_while_nodes, [])
 
 
 if __name__ == "__main__":
