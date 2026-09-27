@@ -1,0 +1,41 @@
+name: A0 Test First RED
+
+on:
+  push:
+    branches:
+      - sandbox/a0-test-first-red
+    paths:
+      - breakers/a0_research_authority_red_breaker.py
+      - .github/workflows/a0-test-first-red.yml
+
+permissions:
+  contents: read
+
+jobs:
+  prove-red:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Breaker compiles
+        run: python -m py_compile breakers/a0_research_authority_red_breaker.py
+
+      - name: Prove current repository is RED
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q breakers/a0_research_authority_red_breaker.py > /tmp/a0-red.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/a0-red.txt
+          test "$status" -ne 0
+          grep -q "A0_AUTHORITY_MODULE_ABSENT_EXPECTED_RED" /tmp/a0-red.txt
+          grep -q "6 failed" /tmp/a0-red.txt
+          echo "A0_TEST_FIRST_RED=PASS_EXPECTED_FAILURE"
