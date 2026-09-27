@@ -7,6 +7,7 @@ import shutil
 import tempfile
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from tools.obsidian_projection.candidate_generation_staging import (
     CandidateGenerationInvalidError,
@@ -700,6 +701,24 @@ class CandidateGenerationStagingTests(
             CandidateGenerationInvalidError
         ):
             verify_candidate_generation(mutant)
+
+    def test_verifier_recomputes_projection_tree_digest(
+        self,
+    ) -> None:
+        package, _ = self.stage()
+
+        with patch(
+            "tools.obsidian_projection."
+            "candidate_generation_staging."
+            "projection_tree_digest",
+            return_value=sha("wrong-packaged-tree"),
+        ):
+            with self.assertRaises(
+                CandidateGenerationInvalidError
+            ):
+                verify_candidate_generation(
+                    package
+                )
 
     def test_expected_candidate_mismatch_is_rejected(
         self,
