@@ -24,6 +24,23 @@ _PERMISSION_DIMENSIONS = (
     "confirmatory_claim",
 )
 
+_GOVERNED_AUTHORITIES = {
+    "ATDS_A0_SYNTHETIC_SCIENTIFIC_RESULT_V0_1": {
+        "producer_identity":
+            "ATDS_A0_SYNTHETIC_PRODUCER_V0_1",
+        "registry_schema":
+            "ATDS_A0_SOURCE_PROFILE_REGISTRY_V0_1",
+        "registry_version": "V0_1",
+        "profile_contract_id":
+            "ATDS_A0_SYNTHETIC_SOURCE_PROFILE_V0_1",
+        "preregistration_schema":
+            "ATDS_A0_SYNTHETIC_PREREGISTRATION_V0_1",
+        "expected_family": ("H1", "H2", "H3"),
+        "normalization_policy_schema":
+            "ATDS_A0_GLOBAL_NORMALIZATION_POLICY_V0_1",
+    }
+}
+
 
 def _sha256(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
@@ -136,12 +153,55 @@ def _strict_string_list(
     return list(value)
 
 
+def _strict_number(
+    value: Any,
+    *,
+    label: str,
+) -> int | float:
+    if (
+        isinstance(value, bool)
+        or not isinstance(value, (int, float))
+    ):
+        raise ValueError(
+            f"invalid numeric:{label}"
+        )
+    return value
+
+
+def _strict_positive_int(
+    value: Any,
+    *,
+    label: str,
+) -> int:
+    if (
+        isinstance(value, bool)
+        or not isinstance(value, int)
+        or value <= 0
+    ):
+        raise ValueError(
+            f"invalid positive int:{label}"
+        )
+    return value
+
+
 def _permission_set(
     policy_permissions: dict[str, Any],
     dimension: str,
     source_value: str,
     universe: frozenset[str],
 ) -> frozenset[str]:
+    if (
+        dimension == "evidence_level"
+        and source_value == "UNDETERMINED"
+    ):
+        return frozenset()
+
+    if (
+        dimension == "source_promotion_limit"
+        and source_value == "NOT_REPRESENTED"
+    ):
+        return frozenset()
+
     dimension_map = policy_permissions.get(
         dimension
     )
@@ -252,14 +312,52 @@ def derive_authoritative_projection(
         label="source.schema",
     )
 
+    authority = _GOVERNED_AUTHORITIES.get(
+        source_schema
+    )
+    if authority is None:
+        raise ValueError(
+            "unsupported source schema authority"
+        )
+
     source_producer = _strict_string(
         source.get("producer_contract"),
         label="source.producer_contract",
     )
 
-    if source_producer != producer_identity:
+    if (
+        source_producer != producer_identity
+        or source_producer
+        != authority["producer_identity"]
+    ):
         raise ValueError(
             "producer artifact/source mismatch"
+        )
+
+    if (
+        registry.get("schema")
+        != authority["registry_schema"]
+        or registry.get("version")
+        != authority["registry_version"]
+    ):
+        raise ValueError(
+            "unrecognized registry authority"
+        )
+
+    if (
+        preregistration.get("schema")
+        != authority["preregistration_schema"]
+    ):
+        raise ValueError(
+            "unrecognized preregistration authority"
+        )
+
+    if (
+        policy.get("schema")
+        != authority["normalization_policy_schema"]
+    ):
+        raise ValueError(
+            "unrecognized normalization policy authority"
         )
 
     entries = registry.get("entries")
@@ -292,6 +390,14 @@ def derive_authoritative_projection(
         profile.get("contract_id"),
         label="profile.contract_id",
     )
+
+    if (
+        profile_contract_id
+        != authority["profile_contract_id"]
+    ):
+        raise ValueError(
+            "unrecognized profile authority"
+        )
 
     if (
         registry_entry.get("profile_contract_id")
@@ -338,6 +444,14 @@ def derive_authoritative_projection(
         label="preregistration.expected_family",
     )
 
+    if (
+        tuple(expected_family)
+        != authority["expected_family"]
+    ):
+        raise ValueError(
+            "unrecognized expected-family authority"
+        )
+
     findings = source.get("findings")
 
     if not isinstance(findings, list):
@@ -363,6 +477,25 @@ def derive_authoritative_projection(
             finding.get("raw_status"),
             label=f"finding.{finding_id}.raw_status",
         )
+
+        if "measurement" in finding:
+            measurement = finding["measurement"]
+            if not isinstance(measurement, dict):
+                raise ValueError(
+                    f"invalid measurement:{finding_id}"
+                )
+            _strict_string(
+                measurement.get("metric"),
+                label=f"finding.{finding_id}.measurement.metric",
+            )
+            _strict_number(
+                measurement.get("value"),
+                label=f"finding.{finding_id}.measurement.value",
+            )
+            _strict_positive_int(
+                measurement.get("sample_size"),
+                label=f"finding.{finding_id}.measurement.sample_size",
+            )
 
         if finding_id in raw_statuses:
             raise ValueError(
@@ -449,6 +582,19 @@ def derive_authoritative_projection(
         source.get("confirmatory_claim_status"),
         label="source.confirmatory_claim_status",
     )
+
+    for finding_id, raw_status in raw_statuses.items():
+        if (
+            raw_status == "CONFIRMED"
+            and (
+                data_class != "REAL"
+                or confirmatory_claim_status
+                != "CONFIRMATORY_ESTABLISHED"
+            )
+        ):
+            normalized[finding_id] = (
+                "NO_SCIENTIFIC_CLAIM"
+            )
 
     dimension_values = {
         "evidence_level": evidence_level,
