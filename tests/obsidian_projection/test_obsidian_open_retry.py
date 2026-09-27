@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import errno
 import os
 import tempfile
 import unittest
@@ -214,6 +215,42 @@ class P5C3RRetryTests(unittest.TestCase):
                 "GEN_A",
             )
 
+    def test_write_retry_rejects_reader_only_eacces_fallback(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            manifests = self._fixture(root)
+            denied = PermissionError(
+                errno.EACCES,
+                "Permission denied",
+            )
+
+            with patch(
+                "tools.obsidian_projection."
+                "obsidian_open_retry.os.replace",
+                side_effect=denied,
+            ):
+                with self.assertRaises(
+                    PermissionError
+                ):
+                    write_current_atomic_with_retry(
+                        root,
+                        "GEN_B",
+                        manifests["GEN_B"][
+                            "generation_tree_digest_sha256"
+                        ],
+                        expected_old_generation_id=
+                            "GEN_A",
+                    )
+
+            self.assertEqual(
+                validate_current_pointer(
+                    root
+                )["generation_id"],
+                "GEN_A",
+            )
+
     def test_write_retry_deadline_is_terminal(
         self,
     ) -> None:
@@ -314,6 +351,141 @@ class P5C3RRetryTests(unittest.TestCase):
         )
         self.assertEqual(
             telemetry.terminal_access_error_count,
+            0,
+        )
+
+    def test_reader_retries_permissionerror_eacces_without_winerror(
+        self,
+    ) -> None:
+        telemetry = ReaderAccessTelemetry()
+        calls = 0
+
+        def flaky_validator(_root):
+            nonlocal calls
+            calls += 1
+            if calls == 1:
+                try:
+                    raise PermissionError(
+                        errno.EACCES,
+                        "Permission denied",
+                    )
+                except PermissionError as exc:
+                    self.assertIsNone(
+                        getattr(
+                            exc,
+                            "winerror",
+                            None,
+                        )
+                    )
+                    raise OpenPointerPartialError(
+                        "CURRENT.md unreadable"
+                    ) from exc
+            return {
+                "generation_id": "GEN_A",
+                "generation_tree_digest_sha256":
+                    "a" * 64,
+            }
+
+        with patch(
+            "tools.obsidian_projection."
+            "obsidian_open_retry."
+            "validate_current_pointer",
+            side_effect=flaky_validator,
+        ):
+            result = validate_current_with_access_retry(
+                Path("unused"),
+                telemetry,
+            )
+
+        self.assertEqual(
+            result["generation_id"],
+            "GEN_A",
+        )
+        self.assertEqual(
+            telemetry.access_denied_retry_count,
+            1,
+        )
+        self.assertEqual(
+            telemetry.eacces_without_winerror_retry_count,
+            1,
+        )
+        self.assertEqual(
+            telemetry.terminal_access_error_count,
+            0,
+        )
+
+    def test_reader_does_not_retry_eacces_with_nonretryable_winerror(
+        self,
+    ) -> None:
+        telemetry = ReaderAccessTelemetry()
+
+        def denied(_root):
+            try:
+                raise WinError33()
+            except WinError33 as exc:
+                raise OpenPointerPartialError(
+                    "CURRENT.md unreadable"
+                ) from exc
+
+        with patch(
+            "tools.obsidian_projection."
+            "obsidian_open_retry."
+            "validate_current_pointer",
+            side_effect=denied,
+        ):
+            with self.assertRaises(
+                OpenPointerPartialError
+            ):
+                validate_current_with_access_retry(
+                    Path("unused"),
+                    telemetry,
+                )
+
+        self.assertEqual(
+            telemetry.access_denied_retry_count,
+            0,
+        )
+        self.assertEqual(
+            telemetry.eacces_without_winerror_retry_count,
+            0,
+        )
+
+    def test_reader_does_not_retry_nonpermission_eacces(
+        self,
+    ) -> None:
+        telemetry = ReaderAccessTelemetry()
+
+        def denied(_root):
+            try:
+                raise OSError(
+                    errno.EACCES,
+                    "Permission denied",
+                )
+            except OSError as exc:
+                raise OpenPointerPartialError(
+                    "CURRENT.md unreadable"
+                ) from exc
+
+        with patch(
+            "tools.obsidian_projection."
+            "obsidian_open_retry."
+            "validate_current_pointer",
+            side_effect=denied,
+        ):
+            with self.assertRaises(
+                OpenPointerPartialError
+            ):
+                validate_current_with_access_retry(
+                    Path("unused"),
+                    telemetry,
+                )
+
+        self.assertEqual(
+            telemetry.access_denied_retry_count,
+            0,
+        )
+        self.assertEqual(
+            telemetry.eacces_without_winerror_retry_count,
             0,
         )
 
