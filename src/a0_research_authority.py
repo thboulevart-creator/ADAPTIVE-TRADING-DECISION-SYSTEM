@@ -41,6 +41,54 @@ _CONTROL_STATES = frozenset(
     }
 )
 
+_GOVERNED_PERMISSION_TABLE = {
+    "evidence_level": {
+        "N0": (
+            "HYPOTHESIS_INPUT",
+            "AUDIT_ONLY",
+        ),
+        "UNDETERMINED": (
+            "HYPOTHESIS_INPUT",
+        ),
+    },
+    "research_class": {
+        "N0_EXPLORATORY_SYNTHETIC": (
+            "HYPOTHESIS_INPUT",
+            "TRACE_ONLY",
+        ),
+    },
+    "source_promotion_limit": {
+        "HYPOTHESIS_ONLY": (
+            "HYPOTHESIS_INPUT",
+            "AUDIT_ONLY",
+            "TRACE_ONLY",
+        ),
+        "NOT_REPRESENTED": (
+            "HYPOTHESIS_INPUT",
+        ),
+    },
+    "data_class": {
+        "SYNTHETIC_ONLY": (
+            "HYPOTHESIS_INPUT",
+            "TRACE_ONLY",
+        ),
+        "REAL": (
+            "HYPOTHESIS_INPUT",
+            "TRACE_ONLY",
+        ),
+    },
+    "confirmatory_claim": {
+        "NOT_CONFIRMATORY": (
+            "HYPOTHESIS_INPUT",
+            "AUDIT_ONLY",
+        ),
+        "NOT_ESTABLISHED": (
+            "HYPOTHESIS_INPUT",
+            "AUDIT_ONLY",
+        ),
+    },
+}
+
 _GOVERNED_AUTHORITIES = {
     "ATDS_A0_SYNTHETIC_SCIENTIFIC_RESULT_V0_1": {
         "producer_identity":
@@ -137,6 +185,18 @@ def _canonical_bytes(
         ensure_ascii=False,
         allow_nan=False,
     ).encode("utf-8")
+
+
+def _require_canonical_authority_bytes(
+    raw: bytes | bytearray,
+    value: dict[str, Any],
+    *,
+    label: str,
+) -> None:
+    if bytes(raw) != _canonical_bytes(value):
+        raise ValueError(
+            f"non-canonical governed authority bytes:{label}"
+        )
 
 
 def _strict_string(
@@ -309,6 +369,27 @@ def derive_authoritative_projection(
         label="normalization_policy",
     )
 
+    _require_canonical_authority_bytes(
+        prereg_raw,
+        preregistration,
+        label="preregistration",
+    )
+    _require_canonical_authority_bytes(
+        registry_raw,
+        registry,
+        label="profile_registry",
+    )
+    _require_canonical_authority_bytes(
+        profile_raw,
+        profile,
+        label="source_profile",
+    )
+    _require_canonical_authority_bytes(
+        policy_raw,
+        policy,
+        label="normalization_policy",
+    )
+
     if not isinstance(
         producer_raw,
         (bytes, bytearray),
@@ -421,6 +502,16 @@ def derive_authoritative_projection(
     }:
         raise ValueError(
             "unrecognized registry entry authority"
+        )
+
+    if (
+        registry_entry.get(
+            "supersedes_profile_sha256"
+        )
+        is not None
+    ):
+        raise ValueError(
+            "unrecognized registry supersession authority"
         )
 
     profile_contract_id = _strict_string(
@@ -565,6 +656,9 @@ def derive_authoritative_projection(
 
     finding_ids: list[str] = []
     raw_statuses: dict[str, str] = {}
+    opaque_narrative_references: dict[
+        str, dict[str, str]
+    ] = {}
 
     for finding in findings:
         if not isinstance(finding, dict):
@@ -581,6 +675,32 @@ def derive_authoritative_projection(
             finding.get("raw_status"),
             label=f"finding.{finding_id}.raw_status",
         )
+
+        for narrative_field in (
+            "statement",
+            "reason",
+            "rationale",
+        ):
+            if narrative_field not in finding:
+                continue
+            narrative = _strict_string(
+                finding.get(narrative_field),
+                label=(
+                    f"finding.{finding_id}."
+                    f"{narrative_field}"
+                ),
+            )
+            opaque_narrative_references[
+                f"{finding_id}.{narrative_field}"
+            ] = {
+                "source_path": (
+                    f"findings.{finding_id}."
+                    f"{narrative_field}"
+                ),
+                "sha256": _sha256(
+                    narrative.encode("utf-8")
+                ),
+            }
 
         if "measurement" in finding:
             measurement = finding["measurement"]
@@ -600,6 +720,14 @@ def derive_authoritative_projection(
                 measurement.get("sample_size"),
                 label=f"finding.{finding_id}.measurement.sample_size",
             )
+            if "scope" in measurement:
+                _strict_string(
+                    measurement.get("scope"),
+                    label=(
+                        f"finding.{finding_id}."
+                        "measurement.scope"
+                    ),
+                )
 
         if finding_id in raw_statuses:
             raise ValueError(
@@ -701,6 +829,40 @@ def derive_authoritative_projection(
         raise ValueError(
             "unexpected permission dimension"
         )
+
+    for dimension, dimension_map in (
+        permissions.items()
+    ):
+        if not isinstance(dimension_map, dict):
+            raise ValueError(
+                f"invalid permission table:{dimension}"
+            )
+        governed_dimension = (
+            _GOVERNED_PERMISSION_TABLE[dimension]
+        )
+        for source_value, raw_permissions in (
+            dimension_map.items()
+        ):
+            if source_value not in governed_dimension:
+                raise ValueError(
+                    "unrecognized permission-table authority"
+                )
+            values = tuple(
+                _strict_string_list(
+                    raw_permissions,
+                    label=(
+                        f"permissions.{dimension}."
+                        f"{source_value}"
+                    ),
+                )
+            )
+            if (
+                values
+                != governed_dimension[source_value]
+            ):
+                raise ValueError(
+                    "permission-table authority changed"
+                )
 
     evidence_level = source.get(
         "evidence_level",
@@ -889,25 +1051,24 @@ def derive_authoritative_projection(
             "superseded_by": superseded_by,
         }
 
-        artifact_status = source.get(
-            "artifact_status"
+        artifact_status = _strict_string(
+            source.get("artifact_status"),
+            label="source.artifact_status",
         )
-        if artifact_status is not None:
-            artifact_status = _strict_string(
-                artifact_status,
-                label="source.artifact_status",
+        if (
+            artifact_status
+            in {"REFUTED_N0", "NOT_INTERPRETABLE"}
+            and any(
+                status == "SUPPORTED_N0"
+                for status in raw_statuses.values()
             )
-            if (
-                artifact_status
-                in {"REFUTED_N0", "NOT_INTERPRETABLE"}
-                and any(
-                    status == "SUPPORTED_N0"
-                    for status in raw_statuses.values()
-                )
-            ):
-                raise ValueError(
-                    "unresolved native-status conflict"
-                )
+        ):
+            raise ValueError(
+                "unresolved native-status conflict"
+            )
+        raw_statuses[
+            "artifact_status"
+        ] = artifact_status
 
         for finding in findings:
             finding_id = finding["id"]
@@ -928,15 +1089,20 @@ def derive_authoritative_projection(
                     raise ValueError(
                         "unknown measurement fold binding"
                     )
-            measurement_references[
-                finding_id
-            ] = {
+            measurement_reference = {
                 "metric": measurement["metric"],
                 "value": measurement["value"],
                 "sample_size":
                     measurement["sample_size"],
                 "fold_id": fold_id,
             }
+            if "scope" in measurement:
+                measurement_reference[
+                    "scope"
+                ] = measurement["scope"]
+            measurement_references[
+                finding_id
+            ] = measurement_reference
 
     dimension_values = {
         "evidence_level": evidence_level,
@@ -1036,7 +1202,7 @@ def derive_authoritative_projection(
         "measurement_references":
             measurement_references,
         "opaque_narrative_references":
-            {},
+            opaque_narrative_references,
         "positive_evidence_consumability":
             positive_consumability,
     }
