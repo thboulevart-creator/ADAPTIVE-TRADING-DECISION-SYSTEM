@@ -67,12 +67,24 @@ Unit tests:
 Adversarial breakers:
 
     tests/obsidian_projection/test_p5c3_adversarial.py
-    blob: 4b5de0f26d6d708d0c520272020dadd7e9240a6f
+    blob: 31459377d9eedb90eef6f2678aed1f329050f2e6
 
 Protocol documentation:
 
     docs/OBSIDIAN-P5C3-OBSIDIAN-OPEN-COMPATIBILITY-V0.1.md
     blob: a29defb70cd3836ef0b979e4104435e3586669ea
+
+Inherited P5-C2 regression test stabilized in P5-C3:
+
+    tests/obsidian_projection/test_promotion_experiment.py
+    blob: f2ffaa3d1c975d6fc026607f9946602b207a25b4
+
+The qualified P5-C2 implementation itself remains unchanged:
+
+    tools/obsidian_projection/promotion_experiment.py
+    blob: b5ba13a6aa9ddf1690842aafea422973e15cdf2d
+
+The inherited unit test now uses a deterministic reader harness for its synthetic logic check. The real concurrency claim remains grounded in the already persisted P5-C2 empirical experiment (250/250 promotions, 5001 reader samples, zero anomalies).
 
 ## Protected live Vault
 
