@@ -1,0 +1,462 @@
+# OBSIDIAN P5-D3D — FINITE EVALUATOR CONTRACT STATIC REVIEW
+
+Date: 2026-09-27
+
+## Review status
+
+Same-assistant static review.
+
+It is not independent.
+It is not runtime evidence.
+It does not qualify P5-D3D.
+It does not authorize implementation until the local contract re-break passes.
+
+## Functional candidate reviewed
+
+    f94c708f312dc0338531cdba7e963cbbeea1dfb8
+
+Branch:
+
+    feat/obsidian-projection-p5d3d-finite-evaluator-contract-v0.1
+
+Evidence-only preflight commit:
+
+    3fa797ee4790c54a349a63878a654a5e4e6f02fc
+
+## Exact functional artifacts
+
+Current-head projection contract:
+
+    6bc5286367890a8c393e4f5bea2b4ecb0fb20af2
+
+Finite evaluator contract:
+
+    b6c17167875874db30a575be95e8e6aa33d630dd
+
+Projection contract tests:
+
+    34252aa1aff0b97b99bb8a4758218ca89d2fbaa1
+
+Evaluator contract tests:
+
+    75b0209429a05d0e18ad82f1c860a5a21229589a
+
+Documentation:
+
+    dc1bced19edeff4cdd69830dc2a8470f5e30abe0
+
+## Delta review
+
+Relative to qualified P5-D3C2:
+
+    five files added
+    zero qualified predecessor files modified
+
+Static review: PASS.
+
+## Projection authority replacement
+
+The current-head projection contract is a new authority rather than a rename of the legacy pilot contract.
+
+It explicitly forbids:
+
+    FrozenInventory conversion
+    fixed 74-source authority
+    pilot_inventory_digest_sha256
+    direct legacy builder reuse
+    direct legacy relation-extractor reuse
+
+The legacy pilot contract remains historical qualified evidence for its original scope only.
+
+Static review: PASS.
+
+## Renderer compatibility
+
+The current-head projection contract exposes exact keys required by the existing renderer:
+
+    artifact_record
+    relation_record
+
+artifact_record contains:
+
+    record_schema
+    record_type
+    frontmatter_field_order
+
+relation_record contains:
+
+    record_schema
+    record_type
+    allowed_relation_types
+    allowed_basis
+    forbidden_authoritative_basis
+    frontmatter_field_order
+
+Therefore future implementation may reuse render_artifact() and render_relation() without an implicit schema translation.
+
+Static review: PASS.
+
+## Artifact body-read boundary
+
+Artifact rendering is declared body-read free.
+
+One artifact is required per bridge entry.
+
+Therefore METADATA_ONLY entries remain projectable as provenance/metadata artifacts without granting body-read authority.
+
+Static review: PASS.
+
+## Relation body-read boundary
+
+Default body-read authority is DENY.
+
+Eligible relation sources must simultaneously satisfy:
+
+    content_mode = FULL_TEXT
+    downstream_body_read_allowed = true
+    suffix in {.md, .json}
+
+Explicitly forbidden as relation-body sources:
+
+    every METADATA_ONLY entry
+    FULL_TEXT entries with other suffixes
+
+Every permitted body read must use the exact bridge source_blob_sha and must be recorded in the body-read audit.
+
+Required:
+
+    metadata_only_body_read_count = 0
+
+Static review: PASS.
+
+## Relation target semantics
+
+A relation target need only be an exact projected bridge source_path.
+
+Therefore a METADATA_ONLY artifact may be a target without body read.
+
+Unresolved targets are skipped.
+
+Self-targets are skipped.
+
+Guessing is forbidden.
+
+Static review: PASS.
+
+## Relation rule narrowing
+
+Current-head V0.1 authorizes only:
+
+    relation type:
+        REFERENCES
+
+    bases:
+        EXPLICIT_STRUCTURED
+        EXPLICIT_TEXT
+
+Registered rules:
+
+    CH-REL-V0-EXACT-STRUCTURED-PATH
+    CH-REL-V0-EXPLICIT-LABELED-TEXT-PATH
+
+The legacy DERIVED_BY_RULE surface is not carried forward into current-head V0.1.
+
+Static review: PASS.
+
+## Build-manifest identity
+
+The new build manifest is:
+
+    ATDS_OBSIDIAN_CURRENT_HEAD_BUILD_MANIFEST_V0_1
+
+It binds:
+
+    repository/branch/head/tree
+    dynamic inventory digest
+    semantic bridge digest
+    semantic-record digest
+    projection contract identity
+    source/full-text/metadata-only counts
+    artifact/relation counts
+    relation source body-read count
+    metadata-only body-read count
+    body-read audit digest
+    artifact/relation/integrity digests
+
+Forbidden:
+
+    pilot_inventory_digest_sha256
+    pilot_source_count
+    volatile timestamps
+    host/user identity
+    absolute local paths
+
+Projection contract version semantics are defined as the exact Git blob SHA of the current-head projection contract.
+
+Static review: PASS.
+
+## Runtime-only evidence
+
+The builder result contract preserves runtime-only evidence needed by the breaker runner:
+
+    stage_root
+    body_read_audit_rows
+    relation_records
+
+These are not deterministic package identity by themselves.
+
+The body-read audit rows must hash to:
+
+    body_read_audit_digest_sha256
+
+The relation records must render to the exact generated relation set.
+
+Static review: PASS.
+
+## Deterministic double-build
+
+Build A and B must use identical scientific inputs and distinct fresh staging roots.
+
+Required equality covers:
+
+    generated relative path set
+    every generated byte
+    every generated SHA-256
+    semantic-record digest
+    body-read audit digest
+    body-read count
+    artifact-set digest
+    relation-set digest
+    integrity-manifest digest
+    projection-tree digest
+    generated-file count
+
+Any mismatch is deterministic candidate rejection.
+
+Static review: PASS.
+
+## P5-D3D activation
+
+The finite evaluator starts only from a P5-D2 result with:
+
+    decision.action = START_EXACT_HEAD_EVALUATION
+    decision.reason_code = EVALUATION_STARTED
+    next_state.observer_phase = EVALUATING
+
+Candidate identity must equal both:
+
+    decision.candidate_head
+    next_state.pending_heads[0]
+
+Automatic promotion and production write authority must both be false.
+
+Static review: PASS.
+
+## Isolated repository boundary
+
+The evaluator core does not:
+
+    fetch network state
+    create Git checkout
+    push
+    commit
+
+It consumes a prepared isolated exact candidate repository.
+
+That repository must remain outside:
+
+    canonical worktree
+    real Vault
+    live projection
+
+This preserves P5-D3D as a finite core and leaves complete checkout/sandbox qualification to P5-D3E.
+
+Static review: PASS.
+
+## P5-B2 and P5-D3B chain
+
+The ordered pipeline explicitly calls the qualified:
+
+    P5-B2 DynamicInventory builder
+    P5-D3B current-head semantic bridge
+
+and requires candidate HEAD/tree and inventory digest continuity across both boundaries.
+
+Static review: PASS.
+
+## Candidate breaker manifest
+
+Exactly twelve breaker IDs are preregistered:
+
+    CHP-B01
+    CHP-B02
+    CHP-B03
+    CHP-B04
+    CHP-B05
+    CHP-B06
+    CHP-B07
+    CHP-B08
+    CHP-B09
+    CHP-B10
+    CHP-B11
+    CHP-B12
+
+They are candidate-specific and read-only after build.
+
+Breaker failure:
+
+    REJECTED
+
+Breaker infrastructure failure:
+
+    BLOCKED
+
+Static review: PASS.
+
+## P5-D3C2 mapping
+
+Packaging is forbidden until:
+
+    determinism status = PASS
+    breaker status = PASS
+
+The mapping to VerifiedProjectionCandidate includes:
+
+    candidate HEAD/tree
+    DynamicInventory digest
+    semantic bridge digest
+    semantic-record digest
+    current-head projection contract identity
+    projection-tree digest
+    generated-file count
+    breaker manifest/result digests
+    double-build evidence digest
+
+Required package result:
+
+    PASS_SEALED_UNPROMOTED
+
+Static review: PASS.
+
+## Outcome classification
+
+The contract keeps:
+
+    QUALIFIED
+    REJECTED
+    BLOCKED
+
+semantically distinct.
+
+Deterministic candidate failures cannot be hidden as BLOCKED.
+
+Infrastructure-only failures cannot be turned into candidate rejection without candidate evidence.
+
+Static review: PASS.
+
+## P5-D2 result semantics
+
+QUALIFIED maps to:
+
+    EVALUATION_PASSED
+
+REJECTED maps to:
+
+    EVALUATION_FAILED
+
+BLOCKED maps to:
+
+    no P5-D2 result event
+
+For determinate outcomes, event sequence advances exactly once from activation next_state.
+
+State transition is applied only through:
+
+    one_shot_tick()
+
+Direct observer-state mutation is forbidden.
+
+Static review: PASS.
+
+## Live projection invariants
+
+For all outcomes:
+
+    live_projection_head_after
+        =
+    live_projection_head_before
+
+No:
+
+    CURRENT mutation
+    real Vault mutation
+    production promotion
+
+is authorized.
+
+Static review: PASS.
+
+## Evaluation report
+
+The report binds:
+
+    activation digest
+    candidate HEAD/tree
+    inventory/bridge/semantic digests
+    both build tree digests
+    breaker manifest/result identities
+    determinism evidence
+    package identity/status
+    outcome/failure code
+    P5-D2 result-tick digest when determinate
+    live projection HEAD before/after
+
+Absolute host paths and volatile host identity are forbidden.
+
+Static review: PASS.
+
+## Registry counts
+
+Projection-contract required breakers:
+
+    73 unique
+
+Finite-evaluator required breakers:
+
+    91 unique
+
+Persisted new contract-test methods:
+
+    15 projection
+    19 evaluator
+    34 total
+
+These are static repository facts only.
+
+## Non-authorizations
+
+Still false:
+
+    current-head builder implementation
+    current-head relation-adapter implementation
+    candidate breaker-runner implementation
+    finite evaluator implementation
+    evaluator execution
+    network fetch execution
+    checkout creation
+    production promotion
+    CURRENT mutation
+    real Vault write
+    background observer
+    polling
+    Graph/Search CURRENT semantics
+
+## Verdict
+
+**STATIC REVIEW PASS — LOCAL CONTRACT RE-BREAK REQUIRED.**
+
+P5-D3D remains unqualified.
+
+Exact contract candidate to execute:
+
+    f94c708f312dc0338531cdba7e963cbbeea1dfb8
