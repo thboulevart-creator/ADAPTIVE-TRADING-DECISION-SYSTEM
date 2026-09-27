@@ -211,7 +211,7 @@
     "status": "NOT_SAFE_FOR_UNFILTERED_BRIDGE_OUTPUT",
     "observed_fact": "legacy extract_relations reads and UTF-8 decodes source.read_blob for every SemanticRecord",
     "metadata_only_records_must_not_be_passed_to_legacy_body_relation_extractor": true,
-    "future_relation_adapter_must_filter_or use_content_mode_aware_rules": true,
+    "future_relation_adapter_must_filter_or_use_content_mode_aware_rules": true,
     "relation_adapter_change_deferred": "P5-D3D_OR_SEPARATE_PREREGISTERED_SUBGATE"
   },
   "legacy_builder_boundary": {
