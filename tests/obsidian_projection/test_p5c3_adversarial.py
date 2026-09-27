@@ -133,6 +133,68 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             self.module,
         )
 
+    def test_run_open_failure_telemetry_is_persisted(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def run_while_obsidian_open("
+        )
+        end = self.module.index(
+            "\ndef post_close_verify(",
+            start,
+        )
+        body = self.module[start:end]
+
+        for required in (
+            '"failure_message":',
+            '"failure_phase":',
+            '"failure_cycle":',
+            '"reader_stop_error":',
+            '"postcondition_failure_gate":',
+            '"PROMOTION_LOOP"',
+            '"READER_STOP"',
+            '"POSTCONDITION"',
+        ):
+            with self.subTest(required=required):
+                self.assertIn(
+                    required,
+                    body,
+                )
+
+        self.assertIn(
+            "event_log = _append_event(report)",
+            body,
+        )
+
+    def test_run_open_final_checks_do_not_raise_past_report(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def run_while_obsidian_open("
+        )
+        end = self.module.index(
+            "\ndef post_close_verify(",
+            start,
+        )
+        body = self.module[start:end]
+
+        self.assertIn(
+            "def final_check(",
+            body,
+        )
+        for gate in (
+            "OBSIDIAN_PROCESS_END",
+            "OBSIDIAN_WORKSPACE_AND_PLUGIN_STATE_END",
+            "CURRENT_POINTER_END",
+            "IMMUTABLE_GENERATIONS_END",
+            "LIVE_VAULT_DIGESTS_END",
+        ):
+            with self.subTest(gate=gate):
+                self.assertIn(
+                    f'"{gate}"',
+                    body,
+                )
+
     def test_open_diagnostic_is_read_only(
         self,
     ) -> None:
