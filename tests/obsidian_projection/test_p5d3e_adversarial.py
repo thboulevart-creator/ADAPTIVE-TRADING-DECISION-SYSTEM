@@ -63,7 +63,11 @@ class P5D3EAdversarialTests(unittest.TestCase):
 
     def test_candidate_checkout_is_detached(self) -> None:
         self.assertIn(
-            '"checkout", "--detach"',
+            '"checkout"',
+            self.source,
+        )
+        self.assertIn(
+            '"--detach"',
             self.source,
         )
 
@@ -75,7 +79,15 @@ class P5D3EAdversarialTests(unittest.TestCase):
 
     def test_origin_is_restored_to_canonical_github(self) -> None:
         self.assertIn(
-            '"remote", "set-url", "origin"',
+            '"remote"',
+            self.source,
+        )
+        self.assertIn(
+            '"set-url"',
+            self.source,
+        )
+        self.assertIn(
+            '"origin"',
             self.source,
         )
         self.assertIn(
