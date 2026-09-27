@@ -22,6 +22,8 @@
   "runtime_identity": {
     "phase": "P5-C3R2",
     "open_metrics_schema": "ATDS_OBSIDIAN_P5C3R2_OPEN_METRICS_V0_1",
+    "synthetic_lock_schema": "ATDS_OBSIDIAN_P5C3R2_SYNTHETIC_LOCK_BREAKER_V0_1",
+    "post_close_schema": "ATDS_OBSIDIAN_P5C3R2_POST_CLOSE_REPORT_V0_1",
     "event_log_namespace": "p5c3r2",
     "cli_module": "tools.obsidian_projection.p5c3r2_verify",
     "open_runner": "tools/obsidian_projection/run_p5c3r2_open.ps1",
