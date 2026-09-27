@@ -24,6 +24,23 @@ _PERMISSION_DIMENSIONS = (
     "confirmatory_claim",
 )
 
+_A0_PERMISSION_UNIVERSE = frozenset(
+    {
+        "HYPOTHESIS_INPUT",
+        "AUDIT_ONLY",
+        "TRACE_ONLY",
+    }
+)
+
+_CONTROL_STATES = frozenset(
+    {
+        "EVIDENCED_PASS",
+        "EVIDENCED_FAIL",
+        "NOT_REPRESENTED",
+        "CALLER_ASSERTED",
+    }
+)
+
 _GOVERNED_AUTHORITIES = {
     "ATDS_A0_SYNTHETIC_SCIENTIFIC_RESULT_V0_1": {
         "producer_identity":
@@ -38,6 +55,13 @@ _GOVERNED_AUTHORITIES = {
         "expected_family": ("H1", "H2", "H3"),
         "normalization_policy_schema":
             "ATDS_A0_GLOBAL_NORMALIZATION_POLICY_V0_1",
+        "profile_restriction_permissions":
+            ("HYPOTHESIS_INPUT",),
+        "required_normalization_map": {
+            "SUPPORTED_N0": "SUPPORTED",
+            "REFUTED_N0": "REFUTED",
+            "NOT_INTERPRETABLE": "NOT_INTERPRETABLE",
+        },
     }
 }
 
@@ -335,7 +359,9 @@ def derive_authoritative_projection(
         )
 
     if (
-        registry.get("schema")
+        set(registry)
+        != {"schema", "version", "entries"}
+        or registry.get("schema")
         != authority["registry_schema"]
         or registry.get("version")
         != authority["registry_version"]
@@ -385,6 +411,17 @@ def derive_authoritative_projection(
         )
 
     registry_entry = active[0]
+
+    if set(registry_entry) != {
+        "source_schema",
+        "profile_contract_id",
+        "profile_sha256",
+        "profile_status",
+        "supersedes_profile_sha256",
+    }:
+        raise ValueError(
+            "unrecognized registry entry authority"
+        )
 
     profile_contract_id = _strict_string(
         profile.get("contract_id"),
@@ -437,6 +474,73 @@ def derive_authoritative_projection(
     ):
         raise ValueError(
             "unsupported expected-family authority"
+        )
+
+    base_profile_keys = {
+        "contract_id",
+        "accepted_source_schema",
+        "accepted_producer_identity",
+        "expected_family_source",
+        "profile_restriction_permissions",
+    }
+    rich_profile_semantics = {
+        "native_status_paths": (
+            "findings[*].raw_status",
+            "artifact_status",
+        ),
+        "control_state_path": "controls",
+        "fold_role_path": "folds",
+        "applicability_path": "applicability",
+        "lineage_paths": (
+            "derived_from",
+            "shared_corpus_identity",
+        ),
+        "source_supersession_path": "supersession",
+        "measurement_path": "findings[*].measurement",
+    }
+    rich_profile_keys = set(
+        rich_profile_semantics
+    )
+
+    extra_profile_keys = (
+        set(profile) - base_profile_keys
+    )
+    if extra_profile_keys:
+        if extra_profile_keys != rich_profile_keys:
+            raise ValueError(
+                "unrecognized profile extraction authority"
+            )
+        for key, expected_value in (
+            rich_profile_semantics.items()
+        ):
+            actual_value = profile.get(key)
+            if isinstance(expected_value, tuple):
+                if tuple(actual_value or ()) != expected_value:
+                    raise ValueError(
+                        f"invalid profile extraction authority:{key}"
+                    )
+            elif actual_value != expected_value:
+                raise ValueError(
+                    f"invalid profile extraction authority:{key}"
+                )
+
+    governed_profile_permissions = tuple(
+        _strict_string_list(
+            profile.get(
+                "profile_restriction_permissions"
+            ),
+            label=(
+                "profile."
+                "profile_restriction_permissions"
+            ),
+        )
+    )
+    if (
+        governed_profile_permissions
+        != authority["profile_restriction_permissions"]
+    ):
+        raise ValueError(
+            "profile restriction authority widened"
         )
 
     expected_family = _strict_string_list(
@@ -513,6 +617,16 @@ def derive_authoritative_projection(
             "expected family mismatch"
         )
 
+    if set(policy) != {
+        "schema",
+        "permission_universe",
+        "normalized_status_map",
+        "permissions",
+    }:
+        raise ValueError(
+            "unrecognized normalization policy content"
+        )
+
     normalization_map = policy.get(
         "normalized_status_map"
     )
@@ -521,6 +635,32 @@ def derive_authoritative_projection(
         raise ValueError(
             "normalization policy missing status map"
         )
+
+    allowed_normalization_keys = set(
+        authority["required_normalization_map"]
+    ) | {"CONFIRMED"}
+    if (
+        not set(normalization_map).issubset(
+            allowed_normalization_keys
+        )
+        or not set(
+            authority["required_normalization_map"]
+        ).issubset(normalization_map)
+    ):
+        raise ValueError(
+            "unrecognized normalization mapping authority"
+        )
+
+    for raw_status, expected_conclusion in (
+        authority["required_normalization_map"].items()
+    ):
+        if (
+            normalization_map.get(raw_status)
+            != expected_conclusion
+        ):
+            raise ValueError(
+                "normalization mapping authority changed"
+            )
 
     normalized: dict[str, str] = {}
 
@@ -543,11 +683,23 @@ def derive_authoritative_projection(
     )
     universe = frozenset(universe_values)
 
+    if universe != _A0_PERMISSION_UNIVERSE:
+        raise ValueError(
+            "unrecognized A0 permission universe"
+        )
+
     permissions = policy.get("permissions")
 
     if not isinstance(permissions, dict):
         raise ValueError(
             "normalization policy missing permissions"
+        )
+
+    if not set(permissions).issubset(
+        set(_PERMISSION_DIMENSIONS)
+    ):
+        raise ValueError(
+            "unexpected permission dimension"
         )
 
     evidence_level = source.get(
@@ -596,6 +748,196 @@ def derive_authoritative_projection(
                 "NO_SCIENTIFIC_CLAIM"
             )
 
+    control_states: dict[str, str] = {}
+    fold_roles: dict[str, str] = {}
+    applicability_domain: dict[str, Any] = {}
+    lineage: list[str] = []
+    shared_corpus_identity: str | None = None
+    source_supersession: dict[str, Any] = {
+        "status": "NOT_REPRESENTED",
+        "superseded_by": None,
+    }
+    measurement_references: dict[
+        str, dict[str, Any]
+    ] = {}
+
+    if extra_profile_keys:
+        controls = source.get("controls")
+        if not isinstance(controls, dict):
+            raise ValueError(
+                "governed controls missing"
+            )
+        for control_id, control in controls.items():
+            control_id = _strict_string(
+                control_id,
+                label="control.id",
+            )
+            if not isinstance(control, dict):
+                raise ValueError(
+                    f"invalid control:{control_id}"
+                )
+            state = _strict_string(
+                control.get("state"),
+                label=f"control.{control_id}.state",
+            )
+            if state not in _CONTROL_STATES:
+                raise ValueError(
+                    f"unknown control state:{control_id}"
+                )
+            critical = control.get("critical")
+            if not isinstance(critical, bool):
+                raise ValueError(
+                    f"invalid control critical flag:{control_id}"
+                )
+            control_states[control_id] = state
+            if (
+                critical
+                and state == "EVIDENCED_FAIL"
+            ):
+                raise ValueError(
+                    "critical evidenced control failure"
+                )
+
+        folds = source.get("folds")
+        if not isinstance(folds, dict):
+            raise ValueError(
+                "governed folds missing"
+            )
+        for fold_id, fold in folds.items():
+            fold_id = _strict_string(
+                fold_id,
+                label="fold.id",
+            )
+            if not isinstance(fold, dict):
+                raise ValueError(
+                    f"invalid fold:{fold_id}"
+                )
+            role = _strict_string(
+                fold.get("role"),
+                label=f"fold.{fold_id}.role",
+            )
+            if role not in {"PRIMARY", "DIAGNOSTIC"}:
+                raise ValueError(
+                    f"unknown fold role:{fold_id}"
+                )
+            fold_roles[fold_id] = role
+
+        applicability = source.get(
+            "applicability"
+        )
+        if not isinstance(applicability, dict):
+            raise ValueError(
+                "governed applicability missing"
+            )
+        applicability_domain = copy_value = (
+            json.loads(
+                json.dumps(
+                    applicability,
+                    sort_keys=True,
+                    allow_nan=False,
+                )
+            )
+        )
+        if not isinstance(copy_value, dict):
+            raise ValueError(
+                "invalid applicability"
+            )
+
+        lineage = _strict_string_list(
+            source.get("derived_from"),
+            label="source.derived_from",
+        )
+        shared_corpus_identity = _strict_string(
+            source.get("shared_corpus_identity"),
+            label="source.shared_corpus_identity",
+        )
+
+        supersession = source.get(
+            "supersession"
+        )
+        if not isinstance(supersession, dict):
+            raise ValueError(
+                "governed supersession missing"
+            )
+        supersession_status = _strict_string(
+            supersession.get("status"),
+            label="source.supersession.status",
+        )
+        superseded_by = supersession.get(
+            "superseded_by"
+        )
+        if (
+            superseded_by is not None
+            and (
+                not isinstance(superseded_by, str)
+                or not superseded_by
+            )
+        ):
+            raise ValueError(
+                "invalid source supersession reference"
+            )
+        if supersession_status == "SUPERSEDED":
+            raise ValueError(
+                "superseded source cannot be current authority"
+            )
+        if supersession_status != "CURRENT":
+            raise ValueError(
+                "unknown source supersession status"
+            )
+        source_supersession = {
+            "status": supersession_status,
+            "superseded_by": superseded_by,
+        }
+
+        artifact_status = source.get(
+            "artifact_status"
+        )
+        if artifact_status is not None:
+            artifact_status = _strict_string(
+                artifact_status,
+                label="source.artifact_status",
+            )
+            if (
+                artifact_status
+                in {"REFUTED_N0", "NOT_INTERPRETABLE"}
+                and any(
+                    status == "SUPPORTED_N0"
+                    for status in raw_statuses.values()
+                )
+            ):
+                raise ValueError(
+                    "unresolved native-status conflict"
+                )
+
+        for finding in findings:
+            finding_id = finding["id"]
+            measurement = finding.get(
+                "measurement"
+            )
+            if measurement is None:
+                continue
+            fold_id = finding.get("fold_id")
+            if fold_id is not None:
+                fold_id = _strict_string(
+                    fold_id,
+                    label=(
+                        f"finding.{finding_id}.fold_id"
+                    ),
+                )
+                if fold_id not in fold_roles:
+                    raise ValueError(
+                        "unknown measurement fold binding"
+                    )
+            measurement_references[
+                finding_id
+            ] = {
+                "metric": measurement["metric"],
+                "value": measurement["value"],
+                "sample_size":
+                    measurement["sample_size"],
+                "fold_id": fold_id,
+            }
+
     dimension_values = {
         "evidence_level": evidence_level,
         "research_class": research_class,
@@ -617,12 +959,7 @@ def derive_authoritative_projection(
     ]
 
     profile_permissions = frozenset(
-        _strict_string_list(
-            profile.get(
-                "profile_restriction_permissions"
-            ),
-            label="profile.profile_restriction_permissions",
-        )
+        governed_profile_permissions
     )
 
     if not profile_permissions.issubset(
@@ -684,6 +1021,22 @@ def derive_authoritative_projection(
             research_class,
         "effective_usage_permissions":
             sorted(effective),
+        "control_states":
+            control_states,
+        "fold_roles":
+            fold_roles,
+        "applicability_domain":
+            applicability_domain,
+        "lineage":
+            lineage,
+        "shared_corpus_identity":
+            shared_corpus_identity,
+        "source_supersession":
+            source_supersession,
+        "measurement_references":
+            measurement_references,
+        "opaque_narrative_references":
+            {},
         "positive_evidence_consumability":
             positive_consumability,
     }
