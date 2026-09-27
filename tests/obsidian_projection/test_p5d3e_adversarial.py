@@ -27,9 +27,10 @@ class P5D3EAdversarialTests(unittest.TestCase):
 
     def test_no_current_pointer_write_surface(self) -> None:
         for forbidden in (
-            'open("CURRENT',
-            "'CURRENT'",
-            "CURRENT.tmp",
+            'open("CURRENT", "w"',
+            "write_text(\"CURRENT",
+            "replace(CURRENT",
+            "_write_pointer",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(
