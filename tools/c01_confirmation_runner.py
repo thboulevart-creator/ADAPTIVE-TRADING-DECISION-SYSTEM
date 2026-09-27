@@ -64,40 +64,75 @@ def _block(
     return result
 
 
+def _strict_metric(
+    raw: dict[str, Any],
+    key: str,
+) -> float:
+    value = raw[key]
+
+    if (
+        isinstance(value, bool)
+        or not isinstance(value, (int, float))
+    ):
+        raise ValueError(
+            f"invalid primary metric type:{key}"
+        )
+
+    try:
+        numeric = float(value)
+    except (OverflowError, TypeError, ValueError) as exc:
+        raise ValueError(
+            f"invalid primary metric:{key}"
+        ) from exc
+
+    if (
+        not math.isfinite(numeric)
+        or numeric < 0.0
+    ):
+        raise ValueError(
+            f"invalid primary metric value:{key}"
+        )
+
+    return numeric
+
+
 def _comparison(
     raw: dict[str, Any],
 ) -> dict[str, float | int]:
+    if not isinstance(raw, dict):
+        raise ValueError(
+            "invalid comparison payload"
+        )
+
     n_raw = raw["n"]
 
     if (
-        isinstance(n_raw, bool)
-        or not isinstance(n_raw, int)
-        or n_raw < 0
+        type(n_raw) is not int
+        or n_raw <= 0
     ):
         raise ValueError(
             "invalid comparison sample count"
         )
 
-    baseline_ll = float(raw["baseline_log_loss"])
-    candidate_ll = float(raw["candidate_log_loss"])
-
-    baseline_brier = float(raw["baseline_brier"])
-    candidate_brier = float(raw["candidate_brier"])
-
-    metrics = (
-        baseline_ll,
-        candidate_ll,
-        baseline_brier,
-        candidate_brier,
+    baseline_ll = _strict_metric(
+        raw,
+        "baseline_log_loss",
     )
 
-    if not all(
-        math.isfinite(value)
-        for value in metrics
-    ):
-        raise ValueError(
-            "non-finite primary metric"
-        )
+    candidate_ll = _strict_metric(
+        raw,
+        "candidate_log_loss",
+    )
+
+    baseline_brier = _strict_metric(
+        raw,
+        "baseline_brier",
+    )
+
+    candidate_brier = _strict_metric(
+        raw,
+        "candidate_brier",
+    )
 
     return {
         "n": n_raw,
@@ -370,9 +405,14 @@ def evaluate_confirmation_case(
             "INCOMPLETE_CAUSALITY_CONTROLS",
         )
 
-    if causality.get(
+    target_start_offset = causality.get(
         "target_start_offset_minutes"
-    ) != 1:
+    )
+
+    if (
+        type(target_start_offset) is not int
+        or target_start_offset != 1
+    ):
         return _block(
             result,
             "TARGET_DOES_NOT_START_AT_T_PLUS_1",
@@ -518,6 +558,17 @@ def evaluate_confirmation_case(
         return _block(
             result,
             "INVALID_PRIMARY_COMPARISON_PAYLOAD",
+        )
+
+    expected_primary_n = sum(counts)
+
+    if any(
+        comparison["n"] != expected_primary_n
+        for comparison in comparisons.values()
+    ):
+        return _block(
+            result,
+            "PRIMARY_SAMPLE_COUNT_MISMATCH",
         )
 
     result["comparisons"] = comparisons
