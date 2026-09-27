@@ -16247,3 +16247,85 @@ persist only the PASS review and checkpoint update.
 
 Then perform the final persisted-head re-break of that qualification commit.
 
+---
+
+## 260. C01 CONFIRMATION RUNNER RUNTIME — PERSISTED-HEAD REVIEW FAIL V0.3
+
+Date:
+2026-09-27
+
+Reviewed persisted HEAD:
+
+`9ab446cb602f41bc461ef56b790b2776cf15a217`
+
+Persisted runtime blob:
+
+`0680718c0778875cab0c884e9554c01027bb885d`
+
+Qualified breaker blob:
+
+`f2596da79f37a7bd7f46078e6b60a661158b6bf7`
+
+Adversarial verdict:
+
+**FAIL**
+
+Finding:
+
+`FROZEN_WINDOW_BINDING_FAILS_OPEN`
+
+The previous runtime PASS is superseded for current qualification purposes.
+
+The persisted runtime binds the frozen Charter/model/seal identities but does not verify that the caller-provided confirmation-window values exactly equal the frozen temporal contract:
+
+- `eligible_start_utc = 2026-05-25T00:00:00Z`;
+- `fixed_end_utc = 2027-05-24T23:59:59Z`;
+- `earliest_primary_evaluation_utc = 2027-05-25T00:00:00Z`.
+
+The persisted breaker carries these values in its positive fixture but does not independently falsify all three temporal bindings.
+
+Current real execution remains blocked. This review demonstrates a qualification gap, not confirmation-data access or a scientific result.
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Runtime qualification:
+
+`FALSE`
+
+Frozen Charter/model/seals:
+
+`UNCHANGED`
+
+Status:
+
+**C01 RUNTIME PERSISTED-HEAD REVIEW — FAIL V0.3.**
+
+Persisted review path:
+
+`reports/program/2026-09-27-C01-CONFIRMATION-RUNNER-RUNTIME-PERSISTED-HEAD-REVIEW-FAIL-V0.3.md`
+
+Next governed action:
+
+1. correct only the three exact frozen temporal bindings;
+2. add dedicated breakers for those bindings;
+3. rerun the historical qualified harness plus the new breakers;
+4. persist the correction;
+5. perform a fresh persisted-head adversarial re-break;
+6. issue a new PASS only if all controls hold.
+
+No confirmation data access is authorized.
+
