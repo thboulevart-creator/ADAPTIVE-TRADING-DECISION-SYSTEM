@@ -74,116 +74,6 @@
     "body_read_audit_digest_algorithm": "SHA256 canonical JSON rows",
     "metadata_only_body_read_count_must_equal": 0
   },
-  "artifact_projection": {
-    "reuse_legacy_renderer_allowed": true,
-    "legacy_renderer_reuse_reason": "render_artifact consumes SemanticRecord metadata only and does not require source body bytes",
-    "artifact_record_schema": "ATDS_OBSIDIAN_ARTIFACT_V0_1",
-    "record_type": "ARTIFACT",
-    "relative_path_pattern": "generated/artifacts/{projection_record_id}.md",
-    "projection_record_id_algorithm": "A- + first16hex(SHA256(UTF8(source_repository) + NUL + UTF8(source_path)))",
-    "collision_policy": "BLOCK_BUILD",
-    "frontmatter_field_order": [
-      "record_schema",
-      "record_type",
-      "projection_record_id",
-      "source_repository",
-      "source_branch",
-      "source_commit",
-      "source_tree",
-      "source_path",
-      "source_blob_sha",
-      "source_blob_size",
-      "artifact_family",
-      "semantic_role",
-      "procedure_role",
-      "source_authority_role",
-      "projection_authority_role",
-      "qualification_status",
-      "qualification_scope",
-      "scientific_status",
-      "epistemic_role",
-      "temporal_role",
-      "persistence_state",
-      "source_freshness",
-      "projection_integrity",
-      "limitations",
-      "non_claims"
-    ],
-    "fixed_projection_authority_role": "DERIVED",
-    "fixed_source_freshness": "UNKNOWN",
-    "fixed_projection_integrity": "CLEAN",
-    "body_template": [
-      "# {projection_record_id}",
-      "",
-      "Source artifact: `{source_path}`"
-    ],
-    "body_must_not_include_source_blob_bytes": true
-  },
-  "relation_projection": {
-    "legacy_extract_relations_direct_reuse_allowed": false,
-    "legacy_extract_relations_reason": "legacy extractor reads every semantic-record blob and therefore violates METADATA_ONLY authority",
-    "reuse_legacy_relation_renderer_allowed": true,
-    "relation_record_schema": "ATDS_OBSIDIAN_RELATION_V0_1",
-    "record_type": "RELATION",
-    "relative_path_pattern": "generated/relations/{projection_relation_id}.md",
-    "allowed_relation_types": [
-      "REFERENCES"
-    ],
-    "allowed_basis": [
-      "EXPLICIT_STRUCTURED",
-      "EXPLICIT_TEXT"
-    ],
-    "forbidden_authoritative_basis": [
-      "INFERRED",
-      "DERIVED_BY_RULE"
-    ],
-    "source_policy": {
-      "markdown": "FULL_TEXT .md only; exact labeled backtick path rule",
-      "json": "FULL_TEXT .json only; exact JSON string path rule",
-      "other_full_text_suffix": "NO_BODY_READ_NO_RELATION",
-      "metadata_only": "NO_BODY_READ_NO_RELATION"
-    },
-    "target_policy": {
-      "target_must_equal_exact_source_path_of_any_bridge_entry": true,
-      "metadata_only_target_allowed": true,
-      "unresolved_target": "DO_NOT_EMIT_RELATION",
-      "self_target": "DO_NOT_EMIT_RELATION",
-      "guessing_forbidden": true
-    },
-    "relation_rule_registry_version": "ATDS_OBSIDIAN_CURRENT_HEAD_RELATION_RULES_V0_1",
-    "preregistered_rules": [
-      {
-        "rule_id": "CH-REL-V0-EXACT-STRUCTURED-PATH",
-        "source_requirement": "FULL_TEXT .json",
-        "basis": "EXPLICIT_STRUCTURED",
-        "relation_type": "REFERENCES",
-        "description": "Emit REFERENCES only when an exact JSON string equals one projected bridge source_path."
-      },
-      {
-        "rule_id": "CH-REL-V0-EXPLICIT-LABELED-TEXT-PATH",
-        "source_requirement": "FULL_TEXT .md",
-        "basis": "EXPLICIT_TEXT",
-        "relation_type": "REFERENCES",
-        "description": "Emit REFERENCES only when an exact preregistered labeled backtick path equals one projected bridge source_path."
-      }
-    ],
-    "frontmatter_field_order": [
-      "record_schema",
-      "record_type",
-      "projection_relation_id",
-      "source_record_id",
-      "relation_type",
-      "target_record_id",
-      "basis",
-      "evidence_source_path",
-      "evidence_source_blob_sha",
-      "source_commit",
-      "projection_authority_role",
-      "projection_integrity"
-    ],
-    "fixed_projection_authority_role": "DERIVED",
-    "fixed_projection_integrity": "CLEAN"
-  },
   "markdown_serialization": {
     "encoding": "UTF-8",
     "bom": false,
@@ -291,7 +181,8 @@
       "user",
       "absolute_repo_path",
       "absolute_staging_path"
-    ]
+    ],
+    "projection_contract_version_semantics": "EXACT_GIT_BLOB_SHA_OF_CURRENT_HEAD_PROJECTION_CONTRACT"
   },
   "determinism": {
     "independent_build_count": 2,
@@ -338,9 +229,18 @@
       "relation_set_digest_sha256",
       "integrity_manifest_sha256",
       "projection_tree_digest_sha256",
-      "generated_file_count"
+      "generated_file_count",
+      "body_read_audit_rows",
+      "relation_records"
     ],
-    "stage_root_is_runtime_only_not_deterministic_identity": true
+    "stage_root_is_runtime_only_not_deterministic_identity": true,
+    "runtime_only_fields": [
+      "stage_root",
+      "body_read_audit_rows",
+      "relation_records"
+    ],
+    "body_read_audit_rows_must_hash_to": "body_read_audit_digest_sha256",
+    "relation_records_must_render_to": "generated/relations exact set"
   },
   "failure_semantics": {
     "candidate_invalid_examples": [
@@ -459,5 +359,115 @@
     "production promotion authorized",
     "background execution authorized",
     "polling authorized"
-  ]
+  ],
+  "artifact_record": {
+    "reuse_legacy_renderer_allowed": true,
+    "legacy_renderer_reuse_reason": "render_artifact consumes SemanticRecord metadata only and does not require source body bytes",
+    "record_type": "ARTIFACT",
+    "relative_path_pattern": "generated/artifacts/{projection_record_id}.md",
+    "projection_record_id_algorithm": "A- + first16hex(SHA256(UTF8(source_repository) + NUL + UTF8(source_path)))",
+    "collision_policy": "BLOCK_BUILD",
+    "frontmatter_field_order": [
+      "record_schema",
+      "record_type",
+      "projection_record_id",
+      "source_repository",
+      "source_branch",
+      "source_commit",
+      "source_tree",
+      "source_path",
+      "source_blob_sha",
+      "source_blob_size",
+      "artifact_family",
+      "semantic_role",
+      "procedure_role",
+      "source_authority_role",
+      "projection_authority_role",
+      "qualification_status",
+      "qualification_scope",
+      "scientific_status",
+      "epistemic_role",
+      "temporal_role",
+      "persistence_state",
+      "source_freshness",
+      "projection_integrity",
+      "limitations",
+      "non_claims"
+    ],
+    "fixed_projection_authority_role": "DERIVED",
+    "fixed_source_freshness": "UNKNOWN",
+    "fixed_projection_integrity": "CLEAN",
+    "body_template": [
+      "# {projection_record_id}",
+      "",
+      "Source artifact: `{source_path}`"
+    ],
+    "body_must_not_include_source_blob_bytes": true,
+    "record_schema": "ATDS_OBSIDIAN_ARTIFACT_V0_1"
+  },
+  "relation_record": {
+    "legacy_extract_relations_direct_reuse_allowed": false,
+    "legacy_extract_relations_reason": "legacy extractor reads every semantic-record blob and therefore violates METADATA_ONLY authority",
+    "reuse_legacy_relation_renderer_allowed": true,
+    "record_type": "RELATION",
+    "relative_path_pattern": "generated/relations/{projection_relation_id}.md",
+    "allowed_relation_types": [
+      "REFERENCES"
+    ],
+    "allowed_basis": [
+      "EXPLICIT_STRUCTURED",
+      "EXPLICIT_TEXT"
+    ],
+    "forbidden_authoritative_basis": [
+      "INFERRED",
+      "DERIVED_BY_RULE"
+    ],
+    "source_policy": {
+      "markdown": "FULL_TEXT .md only; exact labeled backtick path rule",
+      "json": "FULL_TEXT .json only; exact JSON string path rule",
+      "other_full_text_suffix": "NO_BODY_READ_NO_RELATION",
+      "metadata_only": "NO_BODY_READ_NO_RELATION"
+    },
+    "target_policy": {
+      "target_must_equal_exact_source_path_of_any_bridge_entry": true,
+      "metadata_only_target_allowed": true,
+      "unresolved_target": "DO_NOT_EMIT_RELATION",
+      "self_target": "DO_NOT_EMIT_RELATION",
+      "guessing_forbidden": true
+    },
+    "relation_rule_registry_version": "ATDS_OBSIDIAN_CURRENT_HEAD_RELATION_RULES_V0_1",
+    "preregistered_rules": [
+      {
+        "rule_id": "CH-REL-V0-EXACT-STRUCTURED-PATH",
+        "source_requirement": "FULL_TEXT .json",
+        "basis": "EXPLICIT_STRUCTURED",
+        "relation_type": "REFERENCES",
+        "description": "Emit REFERENCES only when an exact JSON string equals one projected bridge source_path."
+      },
+      {
+        "rule_id": "CH-REL-V0-EXPLICIT-LABELED-TEXT-PATH",
+        "source_requirement": "FULL_TEXT .md",
+        "basis": "EXPLICIT_TEXT",
+        "relation_type": "REFERENCES",
+        "description": "Emit REFERENCES only when an exact preregistered labeled backtick path equals one projected bridge source_path."
+      }
+    ],
+    "frontmatter_field_order": [
+      "record_schema",
+      "record_type",
+      "projection_relation_id",
+      "source_record_id",
+      "relation_type",
+      "target_record_id",
+      "basis",
+      "evidence_source_path",
+      "evidence_source_blob_sha",
+      "source_commit",
+      "projection_authority_role",
+      "projection_integrity"
+    ],
+    "fixed_projection_authority_role": "DERIVED",
+    "fixed_projection_integrity": "CLEAN",
+    "record_schema": "ATDS_OBSIDIAN_RELATION_V0_1"
+  }
 }
