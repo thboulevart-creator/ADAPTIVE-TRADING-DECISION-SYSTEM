@@ -1073,11 +1073,6 @@ def prepare_open_experiment() -> dict[str, Any]:
             "generation_tree_digest_sha256"
         ],
     )
-    if not obsidian_running():
-        raise ObsidianOpenCompatibilityError(
-            "Obsidian is not running at end of P5-C3 open experiment"
-        )
-
     current = validate_current_pointer(
         SANDBOX_VAULT
     )
@@ -1398,6 +1393,16 @@ def run_while_obsidian_open(
     finally:
         reader.stop()
 
+    if not obsidian_running():
+        raise ObsidianOpenCompatibilityError(
+            "Obsidian is not running at end of P5-C3 open experiment"
+        )
+
+    obsidian_state_after = _safe_obsidian_state(
+        SANDBOX_VAULT,
+        require_workspace_current=True,
+    )
+
     current = validate_current_pointer(
         SANDBOX_VAULT
     )
@@ -1448,8 +1453,10 @@ def run_while_obsidian_open(
             str(SANDBOX_VAULT),
         "obsidian_process_running":
             True,
-        "obsidian_state":
+        "obsidian_state_before":
             obsidian_state,
+        "obsidian_state_after":
+            obsidian_state_after,
         "cycles_requested":
             PROMOTION_CYCLES,
         "cycles_completed":
