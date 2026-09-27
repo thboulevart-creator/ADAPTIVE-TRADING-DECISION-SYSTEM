@@ -348,11 +348,38 @@ def run_current_head_projection_breakers(
         and audit_rows_eligible(build_b)
     )
 
+    def relation_evidence_is_audited(
+        relation: Any,
+        audit: dict[str, Any],
+    ) -> bool:
+        row = audit.get(
+            relation.evidence_source_path
+        )
+        if row is None:
+            return False
+        return (
+            row.source_blob_sha
+            == relation.evidence_source_blob_sha
+            and relation.source_record_id
+            == artifact_record_id(
+                bridge.source_repository,
+                relation.evidence_source_path,
+            )
+            and relation.source_commit
+            == bridge.source_commit
+        )
+
     b04 = all(
-        relation.evidence_source_path in audit_a
+        relation_evidence_is_audited(
+            relation,
+            audit_a,
+        )
         for relation in build_a.relation_records
     ) and all(
-        relation.evidence_source_path in audit_b
+        relation_evidence_is_audited(
+            relation,
+            audit_b,
+        )
         for relation in build_b.relation_records
     )
 
