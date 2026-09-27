@@ -1343,6 +1343,11 @@ def stage_candidate_generation(
 ) -> dict[str, Any]:
     _validate_candidate(candidate)
 
+    forbidden = tuple(
+        Path(root)
+        for root in forbidden_roots
+    )
+
     projection_root = _resolved(
         verified_projection_root
     )
@@ -1381,7 +1386,7 @@ def stage_candidate_generation(
     root = _validate_new_package_root(
         package_root,
         (
-            *tuple(forbidden_roots),
+            *forbidden,
             projection_root,
         ),
     )
@@ -1572,5 +1577,5 @@ def stage_candidate_generation(
     return verify_candidate_generation(
         root,
         expected_candidate=candidate,
-        forbidden_roots=forbidden_roots,
+        forbidden_roots=forbidden,
     )
