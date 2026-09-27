@@ -8,7 +8,7 @@ $env:PYTHONDONTWRITEBYTECODE = "1"
 
 if (-not (Test-Path -LiteralPath $Snapshot)) {
     $Leaf = Split-Path -Leaf $Snapshot
-    $BackupRoot = "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-P5C3-CONTROL-EVIDENCE\\snapshots"
+    $BackupRoot = "C:\Users\Boulevart\OneDrive\Bureau\ATDS\ATDS-P5C3-CONTROL-EVIDENCE\snapshots"
     $Backup = Join-Path $BackupRoot $Leaf
 
     if (Test-Path -LiteralPath $Backup) {
