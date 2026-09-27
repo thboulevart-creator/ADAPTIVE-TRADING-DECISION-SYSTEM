@@ -16671,3 +16671,55 @@ Next governed action:
 
 create the minimal A0 implementation candidate under the persisted breaker without changing the RED expectations.
 
+---
+
+## 266. A0 — MINIMAL IMPLEMENTATION CANDIDATE
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`287f4f3134315404053a545ec032c2365142db41`
+
+Persisted A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Persisted RED breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Candidate module:
+
+`src/a0_research_authority.py`
+
+Candidate module blob:
+
+`737f041b7b083f832f475b2aab607fb417c74fe0`
+
+Sandbox workflow run:
+
+`36323985814`
+
+Verification:
+
+- implementation compile = `PASS`;
+- persisted breaker compile = `PASS`;
+- persisted breaker identity = `UNCHANGED`;
+- initial RED suite = `6/6 PASS`.
+
+Status:
+
+`GREEN_ON_INITIAL_RED`
+
+Full A0 V0.3 qualification:
+
+`NOT_YET`
+
+No DecisionPolicy, Decision, ACTION, execution, knowledge-promotion or C01-real authority is introduced.
+
+Next governed action:
+
+persist this exact minimal implementation candidate, then perform a fresh persisted-head re-break against the unchanged six-test breaker.
+
