@@ -87,6 +87,22 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
                     joined,
                 )
 
+    def test_content_addressed_snapshot_reuse_is_idempotent(
+        self,
+    ) -> None:
+        self.assertIn(
+            "snapshot digest-path collision with different bytes",
+            self.module,
+        )
+        self.assertNotIn(
+            '"snapshot collision"',
+            self.module,
+        )
+        self.assertIn(
+            "existing != envelope",
+            self.module,
+        )
+
     def test_snapshot_persistence_has_verified_backup(
         self,
     ) -> None:
