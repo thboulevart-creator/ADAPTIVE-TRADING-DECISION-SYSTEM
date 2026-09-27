@@ -18108,3 +18108,83 @@ TOTAL = 107
 ```
 
 No modification of `src/a0_research_authority.py`, no A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority.
+
+
+---
+
+## 285. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN AUTHORITY MINIMAL QUALIFIER — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`905b2b0440cfbc798e4a53d3948f6318bfa494bd`
+
+Qualifier blob:
+
+`9bd05f2a2a97f092c0fc2988319f15caff57dda3`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Preregistered manifest blob:
+
+`be8c1c0c805c86d376517ec11da744763c48143c`
+
+Preregistered breaker blob:
+
+`e3620ac348a8042fe1d04cfc9b32c16060fce4a3`
+
+Pre-persistence qualification run:
+
+`36340760039`
+
+Fresh persisted-head re-break:
+
+`36340903575`
+
+Persistence scope:
+
+`src/a0_metric_domain_authority.py ONLY`
+
+Closed surface:
+
+```
+existing A0 suite = 85/85 PASS
+MG00..MG21 = 22/22 PASS
+TOTAL = 107/107 PASS
+```
+
+Status:
+
+`A0_METRIC_DOMAIN_MINIMAL_QUALIFIER = PASS_107_OF_107`
+
+`A0_METRIC_DOMAIN_MINIMAL_QUALIFIER_PERSISTED_REBREAK = PASS_107_OF_107`
+
+`A0_METRIC_DOMAIN_AUTHORITY_STANDALONE_QUALIFICATION = PASS`
+
+Historical field inside the frozen authority artifact remains:
+
+`FROZEN_UNQUALIFIED`
+
+and is not rewritten after observation.
+
+Runtime binding remains:
+
+`NOT_AUTHORIZED`
+
+AF04 re-adjudication remains:
+
+`NOT_AUTHORIZED`
+
+A0 full V0.3 qualification:
+
+`NOT_YET`
+
+Next governed boundary:
+
+`A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING GOVERNANCE DECISION`
+
+No `src/a0_research_authority.py` modification, AF04 execution, A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened by this qualification.
