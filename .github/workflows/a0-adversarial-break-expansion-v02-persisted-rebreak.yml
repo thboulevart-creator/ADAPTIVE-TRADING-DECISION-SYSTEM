@@ -1,0 +1,97 @@
+name: A0 Adversarial Break Expansion V0.2 Persisted Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-adversarial-break-expansion-v02-persisted-rebreak
+    paths:
+      - .github/workflows/a0-adversarial-break-expansion-v02-persisted-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak-v02:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact persisted V0.2 break HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: fc8b45efa4118ceb6ac9d50470ca985babcb3acd
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact persisted HEAD and scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "fc8b45efa4118ceb6ac9d50470ca985babcb3acd"
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "04-REFERENCE/RECOVERY-CHECKPOINT.md",
+              "breakers/a0_research_authority_adversarial_breaker_v02.py",
+              "reports/program/2026-09-27-A0-ADVERSARIAL-BREAK-EXPANSION-V0.2-FAIL.md",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only",
+               "a493c4824775b63480b5fe3c07220c9df271fb1b",
+               "fc8b45efa4118ceb6ac9d50470ca985babcb3acd"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "c7c1f37d9d306e0424274b276d42ab422beac560"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v02.py)" = "9833ce563305cfb6d6fe1de8907e8aa9fc96fda4"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Compile runtime and breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v02.py
+
+      - name: Preserve closed 24-test suite
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             | tee /tmp/a0-existing-24.txt
+          grep -q "24 passed" /tmp/a0-existing-24.txt
+          echo "A0_EXISTING_24=PASS_UNCHANGED"
+
+      - name: Reproduce exact V0.2 failure profile
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q             breakers/a0_research_authority_adversarial_breaker_v02.py             > /tmp/a0-v02-persisted.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/a0-v02-persisted.txt
+          test "$status" -ne 0
+          grep -q "14 failed, 4 passed" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac01_rich_governed_properties_are_represented" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac02_critical_evidenced_fail_not_rescued_by_metric" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac03_caller_asserted_control_never_becomes_evidenced_pass" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac04_unresolved_native_status_conflict_rejected" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac06_explicitly_superseded_source_rejected" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac09_measurement_references_preserve_exact_binding" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac10_fold_role_comes_from_governed_fold_authority" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac11_applicability_is_preserved_and_caller_cannot_widen" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac12_lineage_and_shared_corpus_cannot_disappear" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac13_same_version_registry_content_mutation_rejected" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac14_profile_permission_widening_after_outcome_rejected" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac15_same_schema_normalization_mapping_mutation_rejected" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac16_seventh_permission_dimension_rejected" /tmp/a0-v02-persisted.txt
+          grep -q "test_ac17_operational_permission_token_rejected_from_universe" /tmp/a0-v02-persisted.txt
+          echo "A0_V02_PERSISTED_REBREAK=PASS_FAILURE_PROFILE_REPRODUCED"
