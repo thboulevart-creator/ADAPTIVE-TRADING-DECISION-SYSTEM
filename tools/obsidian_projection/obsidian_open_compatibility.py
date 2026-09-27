@@ -971,10 +971,13 @@ def _write_snapshot(
             / f"p5c3-open-snapshot-{digest}.json"
         )
         if path.exists():
-            raise ObsidianOpenCompatibilityError(
-                "snapshot collision"
-            )
-        path.write_bytes(envelope)
+            existing = path.read_bytes()
+            if existing != envelope:
+                raise ObsidianOpenCompatibilityError(
+                    "snapshot digest-path collision with different bytes"
+                )
+        else:
+            path.write_bytes(envelope)
         paths.append(path)
 
     if (
