@@ -16397,3 +16397,81 @@ Next governed action:
 
 persist this exact correction candidate, then perform a fresh persisted-head adversarial re-break against the exact governed commit.
 
+---
+
+## 262. C01-R3 — FROZEN WINDOW BINDING — FRESH PERSISTED-HEAD RE-BREAK PASS
+
+Date:
+2026-09-27
+
+Reviewed persisted governed HEAD:
+
+`a2f70840fb9adfae02078de810dbe4d965787e1e`
+
+Runtime blob:
+
+`7ea6ed6796eae8618cfd823b49eee1a63a19e096`
+
+Breaker blob:
+
+`cf275dba96e50e8b899223a57267e811af4693ec`
+
+Fresh persisted-head adversarial workflow run:
+
+`36321372742`
+
+Structural verification:
+
+**PASS**
+
+Executed verification:
+
+- `py_compile = PASS`;
+- historical qualified harness = `33/33 PASS`;
+- C01-R3 frozen-window breakers = `3/3 PASS`;
+- full runner harness = `36/36 PASS`.
+
+Protected Charter/model/contract/seal blobs:
+
+**UNCHANGED**
+
+Finding:
+
+`FROZEN_WINDOW_BINDING_FAILS_OPEN`
+
+Status:
+
+`CLOSED`
+
+Exact bindings now enforced:
+
+- `eligible_start_utc = 2026-05-25T00:00:00Z`;
+- `fixed_end_utc = 2027-05-24T23:59:59Z`;
+- `earliest_primary_evaluation_utc = 2027-05-25T00:00:00Z`.
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Runtime implementation qualification:
+
+**PASS — SYNTHETIC_ONLY**
+
+This PASS supersedes section 260 for the frozen-window binding finding while preserving the historical audit trail.
+
+Next governed action:
+
+return to the blocked A0 contract work. C01 remains scientifically frozen and no real confirmation execution or scoring is authorized.
+
