@@ -96,11 +96,11 @@ class CurrentHeadProjectionContractTests(unittest.TestCase):
         )
 
     def test_artifact_renderer_reuse_is_metadata_only(self) -> None:
-        a = self.contract["artifact_projection"]
+        a = self.contract["artifact_record"]
         self.assertTrue(a["reuse_legacy_renderer_allowed"])
         self.assertTrue(a["body_must_not_include_source_blob_bytes"])
         self.assertEqual(
-            a["artifact_record_schema"],
+            a["record_schema"],
             "ATDS_OBSIDIAN_ARTIFACT_V0_1",
         )
         self.assertEqual(
@@ -109,7 +109,7 @@ class CurrentHeadProjectionContractTests(unittest.TestCase):
         )
 
     def test_legacy_relation_extractor_is_forbidden(self) -> None:
-        r = self.contract["relation_projection"]
+        r = self.contract["relation_record"]
         self.assertFalse(
             r["legacy_extract_relations_direct_reuse_allowed"]
         )
@@ -132,7 +132,7 @@ class CurrentHeadProjectionContractTests(unittest.TestCase):
     def test_relation_sources_and_targets_preserve_metadata_boundary(
         self,
     ) -> None:
-        r = self.contract["relation_projection"]
+        r = self.contract["relation_record"]
         self.assertEqual(
             r["source_policy"]["metadata_only"],
             "NO_BODY_READ_NO_RELATION",
@@ -156,7 +156,7 @@ class CurrentHeadProjectionContractTests(unittest.TestCase):
     def test_current_head_relation_rules_are_only_two_explicit_rules(
         self,
     ) -> None:
-        rules = self.contract["relation_projection"][
+        rules = self.contract["relation_record"][
             "preregistered_rules"
         ]
         self.assertEqual(
