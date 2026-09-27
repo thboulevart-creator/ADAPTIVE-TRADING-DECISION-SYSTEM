@@ -1,0 +1,71 @@
+name: A0 Minimal Correction ABF4 V0.1 Persisted Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-minimal-correction-abf4-v01-persisted-rebreak
+    paths:
+      - .github/workflows/a0-minimal-correction-abf4-v01-persisted-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact governed correction HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 83eded5ecd1a073a8c44f61975b8e14664a0ced2
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact persisted HEAD and correction scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "83eded5ecd1a073a8c44f61975b8e14664a0ced2"
+          python - <<'PY'
+          import subprocess
+          expected = {"src/a0_research_authority.py"}
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only",
+               "76a91c46c21d88fa42773343fcd24e1e0722d12e",
+               "83eded5ecd1a073a8c44f61975b8e14664a0ced2"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "18246b818c6c6af8c5412c3b0a515f76c5d5ddc8"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v02.py)" = "9833ce563305cfb6d6fe1de8907e8aa9fc96fda4"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v03.py)" = "d23e3c72dd8bd2200cb392edc6c80b4e744d4751"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v04.py)" = "efcc3ca7927b29b45f5d0dc0180b81176dbed51e"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Compile governed candidate and breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v02.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v03.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v04.py
+
+      - name: Fresh persisted-head 85-test rebreak
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             | tee /tmp/a0-abf4-persisted.txt
+          grep -q "85 passed" /tmp/a0-abf4-persisted.txt
+          echo "A0_MINIMAL_CORRECTION_ABF4_V01_PERSISTED_REBREAK=PASS_85_OF_85"
