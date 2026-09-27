@@ -372,9 +372,28 @@ def run_current_head_projection_breakers(
         )
     )
 
+    expected_integrity_a = {
+        path
+        for path in files_a
+        if (
+            path.startswith("generated/artifacts/")
+            or path.startswith("generated/relations/")
+        )
+    }
+    expected_integrity_b = {
+        path
+        for path in files_b
+        if (
+            path.startswith("generated/artifacts/")
+            or path.startswith("generated/relations/")
+        )
+    }
+
     b07 = (
         bool(integrity_a)
         and bool(integrity_b)
+        and set(integrity_a) == expected_integrity_a
+        and set(integrity_b) == expected_integrity_b
         and all(
             value == "CLEAN"
             for value in integrity_a.values()
