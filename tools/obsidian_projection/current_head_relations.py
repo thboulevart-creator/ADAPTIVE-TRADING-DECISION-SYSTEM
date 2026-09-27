@@ -142,9 +142,9 @@ def _structured_targets(
         return set()
 
     return {
-        value.strip()
+        value
         for value in _walk_json_strings(parsed)
-        if value.strip() in exact_paths
+        if value in exact_paths
     }
 
 
@@ -157,7 +157,7 @@ def _labeled_text_targets(
         match = _LABELED_BACKTICK_PATH.match(line)
         if match is None:
             continue
-        candidate = match.group(1).strip()
+        candidate = match.group(1)
         if candidate in exact_paths:
             targets.add(candidate)
     return targets
