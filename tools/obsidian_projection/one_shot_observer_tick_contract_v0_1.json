@@ -69,7 +69,11 @@
       "live_projection_head == last_qualified_head",
       "live_projection_head != null"
     ],
-    "evaluating_requires_nonempty_pending_queue": true
+    "evaluating_requires_nonempty_pending_queue": true,
+    "candidate_pending_requires_last_qualified_head": true,
+    "blocked_phase_requires_projection_blocked": true,
+    "blocked_phase_requires_blocked_head": true,
+    "blocked_phase_requires_failure_code": true
   },
   "normalized_input": {
     "required_fields": [
@@ -173,6 +177,17 @@
       "requires_canonical_initial_state": true,
       "action": "NOOP",
       "state_unchanged_except_sequence": true
+    },
+    "REMOTE_HEAD_OBSERVED_WHILE_BLOCKED": {
+      "action": "BLOCK_REQUIRES_ADJUDICATION",
+      "remote_freshness": "KNOWN",
+      "latest_observed_head_may_advance": true,
+      "queue_unchanged": true,
+      "blocked_head_unchanged": true,
+      "blocking_failure_code_unchanged": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "live_projection_head_unchanged": true
     },
     "REMOTE_HEAD_OBSERVED_SAME": {
       "action": "NOOP",
@@ -354,6 +369,8 @@
     "CURRENT accepted with UNKNOWN freshness",
     "CURRENT accepted with unequal observed live qualified heads",
     "EVALUATING accepted with empty pending queue",
+    "CANDIDATE_PENDING accepted without qualified head",
+    "BLOCKED phase accepted without blocked projection/head/failure code",
     "input sequence skip accepted",
     "input sequence replay accepted",
     "BOOTSTRAP accepted from noncanonical initial state",
@@ -364,6 +381,8 @@
     "SAME changes queue",
     "SAME starts evaluation",
     "SAME auto-clears BLOCKED",
+    "new remote HEAD clears BLOCKED phase",
+    "new remote HEAD grows queue while already BLOCKED",
     "INITIAL fails to queue exact head",
     "FAST_FORWARD fails to queue exact head",
     "new FAST_FORWARD retargets active evaluation",
