@@ -54,7 +54,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
 
     def test_retry_contract_blob_is_pinned(self) -> None:
         self.assertIn(
-            'CONTRACT_BLOB = "4ad283d616b955383814830766373f224124fbd4"',
+            'CONTRACT_BLOB = "246698941e839cb932216fe85dbad0bb9d5ac3db"',
             self.module,
         )
 
@@ -213,6 +213,18 @@ class P5C3RAdversarialTests(unittest.TestCase):
         self.assertNotIn(
             '/ "p5c3r"\n',
             event_body,
+        )
+
+    def test_p5c3r2_auxiliary_report_schemas_are_separate(
+        self,
+    ) -> None:
+        self.assertIn(
+            'LOCK_BREAKER_SCHEMA = "ATDS_OBSIDIAN_P5C3R2_SYNTHETIC_LOCK_BREAKER_V0_1"',
+            self.module,
+        )
+        self.assertIn(
+            'POST_CLOSE_SCHEMA = "ATDS_OBSIDIAN_P5C3R2_POST_CLOSE_REPORT_V0_1"',
+            self.module,
         )
 
     def test_predecessor_open_runner_is_unchanged(
