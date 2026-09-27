@@ -17975,3 +17975,64 @@ Next governed boundary:
 That boundary must persist an independent mutation set before execution, preserve all 85 current tests unchanged, make no runtime correction, and keep AF04 outside the independent qualification set.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 283. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN AUTHORITY TEST-FIRST RED — PREREGISTERED / UNEXECUTED
+
+Date:
+2026-09-27
+
+Preregistration base HEAD:
+
+`167d50a2de921c81262982283b0395ccad48de41`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Frozen authority content SHA-256:
+
+`5813f9d75395308386b4561b13c4eae889a4565cca3289f08a30d81657057492`
+
+Target qualifier interface:
+
+```
+src/a0_metric_domain_authority.py
+validate_measurement_domain(...)
+```
+
+Target kind:
+
+`QUALIFIER_ONLY_NO_RUNTIME_BINDING`
+
+Independent test family:
+
+`MG00..MG21`
+
+Count:
+
+`22`
+
+AF04 status:
+
+`EXCLUDED_FROM_THIS_BREAKER`
+
+The literal used by AF04 is absent from the preregistered breaker.
+
+Current execution status:
+
+`NOT_EXECUTED`
+
+No result has been observed at this checkpoint.
+
+Existing governed suite requirement:
+
+`85/85 PASS_UNCHANGED`
+
+No runtime correction, runtime binding, AF04 re-adjudication, A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is authorized.
+
+Next action inside this exact boundary:
+
+execute the persisted MG00..MG21 breaker from the exact persisted HEAD and record the RED profile without modifying its expectations.
