@@ -56,6 +56,8 @@
       "projection_contract_version",
       "projection_tree_digest_sha256",
       "generated_file_count",
+      "breaker_status",
+      "determinism_status",
       "breaker_manifest_digest_sha256",
       "breaker_result_digest_sha256",
       "determinism_evidence_digest_sha256"
@@ -161,6 +163,8 @@
       "generated_file_count",
       "payload_file_map_digest_sha256",
       "payload_manifest_digest_sha256",
+      "breaker_status",
+      "determinism_status",
       "breaker_manifest_digest_sha256",
       "breaker_result_digest_sha256",
       "determinism_evidence_digest_sha256",
@@ -194,6 +198,8 @@
       "generated_file_count",
       "payload_file_map_digest_sha256",
       "payload_manifest_digest_sha256",
+      "breaker_status",
+      "determinism_status",
       "breaker_manifest_digest_sha256",
       "breaker_result_digest_sha256",
       "determinism_evidence_digest_sha256",
@@ -210,7 +216,9 @@
       "pid",
       "absolute_stage_path",
       "absolute_repo_path"
-    ]
+    ],
+    "breaker_status_required": "PASS",
+    "determinism_status_required": "PASS"
   },
   "seal_contract": {
     "schema": "ATDS_OBSIDIAN_CANDIDATE_GENERATION_SEAL_V0_1",
@@ -282,6 +290,8 @@
       "SEMANTIC_RECORD_DIGEST_BINDING",
       "PROJECTION_CONTRACT_BINDING",
       "PROJECTION_TREE_DIGEST_BINDING",
+      "BREAKER_STATUS_IS_PASS",
+      "DETERMINISM_STATUS_IS_PASS",
       "BREAKER_MANIFEST_DIGEST_BINDING",
       "BREAKER_RESULT_DIGEST_BINDING",
       "DETERMINISM_EVIDENCE_DIGEST_BINDING",
@@ -432,6 +442,10 @@
     "semantic record digest omitted from generation identity",
     "projection contract version omitted from generation identity",
     "projection tree digest omitted from generation identity",
+    "breaker status omitted from generation identity",
+    "determinism status omitted from generation identity",
+    "non-PASS breaker status accepted",
+    "non-PASS determinism status accepted",
     "breaker manifest digest omitted from generation identity",
     "breaker result digest omitted from generation identity",
     "determinism evidence digest omitted from generation identity",
