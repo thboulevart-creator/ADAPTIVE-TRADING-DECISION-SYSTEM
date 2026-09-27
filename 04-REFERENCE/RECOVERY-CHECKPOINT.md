@@ -18564,3 +18564,59 @@ Next governed boundary:
 That boundary must preserve the current 127-test surface, use the exact historical V0.5 breaker bytes unchanged, and replay all 22 V0.5 cases against the current governed runtime before any full V0.5 qualification claim.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 291. A0 — ADVERSARIAL BREAK EXPANSION V0.5 GOVERNED REPLAY — BREAKER RESTORED / UNEXECUTED
+
+Date:
+2026-09-27
+
+Restore base HEAD:
+
+`b737dc101a3efbce5ad073671c72871ba0ffca27`
+
+Historical V0.5 breaker source commit:
+
+`f5f902339ddcf0f838790ca154001f91261f9d52`
+
+Historical V0.5 breaker blob:
+
+`f02eae836b79403673f8a43292cca19eab0c6b33`
+
+Restored governed path:
+
+`breakers/a0_research_authority_adversarial_breaker_v05.py`
+
+V0.5 test count:
+
+`22`
+
+Runtime blob remains:
+
+`1210bee06a2d9aed2ed7d9078542934ff430175c`
+
+Standalone qualifier blob remains:
+
+`9bd05f2a2a97f092c0fc2988319f15caff57dda3`
+
+Frozen authority blob remains:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Existing frozen surface requirement:
+
+`127/127 PASS_UNCHANGED`
+
+Execution status:
+
+`NOT_EXECUTED`
+
+No V0.5 current-head result has been observed from this restored governed breaker at this checkpoint.
+
+Next action inside this exact boundary:
+
+execute the exact restored V0.5 breaker against this exact persisted governed HEAD, after verifying the existing 127-test surface remains PASS.
+
+No runtime correction, A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is authorized.
