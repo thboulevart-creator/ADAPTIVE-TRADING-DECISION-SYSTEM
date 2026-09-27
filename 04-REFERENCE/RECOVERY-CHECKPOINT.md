@@ -16775,3 +16775,63 @@ Next governed boundary:
 
 No A1/A2/Decision/ACTION/execution authority is implied.
 
+---
+
+## 268. A0 — ADVERSARIAL BREAK EXPANSION V0.1 — FAIL
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`884b7af4f068bcf9162362b15a81414744da5485`
+
+Target candidate blob:
+
+`737f041b7b083f832f475b2aab607fb417c74fe0`
+
+Adversarial breaker:
+
+`breakers/a0_research_authority_adversarial_breaker_v01.py`
+
+Breaker blob:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Sandbox workflow run:
+
+`36324627870`
+
+Historical initial RED suite:
+
+`6/6 PASS`
+
+Adversarial expansion:
+
+```
+TOTAL = 18
+PASS = 9
+FAIL = 9
+```
+
+Confirmed material defect groups:
+
+- `A0-ABF-01` measurement strict typing / extraction absent;
+- `A0-ABF-02` expected-family authority not pinned;
+- `A0-ABF-03` D1 / MC2 fail-closed permission overrides missing;
+- `A0-ABF-04` D3 CONFIRMED guard missing;
+- `A0-ABF-05` global normalization policy authority not pinned;
+- `A0-ABF-06` Source Profile Registry authority not pinned.
+
+Status:
+
+`A0_MINIMAL_IMPLEMENTATION_CANDIDATE = FAIL_ADVERSARIAL_EXPANSION_V0_1`
+
+Full A0 V0.3 implementation qualification:
+
+`FAIL_NOT_CLOSED`
+
+Next governed action:
+
+persist this breaker/finding set, then perform a fresh persisted-head adversarial re-break before any correction implementation.
+
