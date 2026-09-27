@@ -128,6 +128,8 @@ PREPARE writes the same bound snapshot in two byte-identical locations outside b
 
 Both copies bind the same payload SHA-256. RUN-OPEN and POST-CLOSE may use either verified copy. If the LocalAppData copy disappears, the persisted runners automatically fall back to the OneDrive control copy. If both copies are missing, execution blocks.
 
+Content-addressed snapshot writes are idempotent: if the exact digest-named file already exists with byte-identical content, PREPARE reuses it. The run blocks only if the same digest path exists with different bytes.
+
 It never launches Obsidian.
 
 ## 8A. Guarded reset
