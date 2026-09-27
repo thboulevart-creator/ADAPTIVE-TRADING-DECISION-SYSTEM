@@ -203,6 +203,42 @@ class CurrentHeadBreakerRunnerTests(
             "FAIL",
         )
 
+    def test_unmanifested_artifact_in_both_builds_fails_b07(
+        self,
+    ) -> None:
+        bridge, build_a, build_b, temp = (
+            self.build_pair()
+        )
+        try:
+            for build in (build_a, build_b):
+                path = (
+                    Path(build.stage_root)
+                    / "generated"
+                    / "artifacts"
+                    / "A-extra.md"
+                )
+                path.write_bytes(
+                    b"# extra\n"
+                )
+
+            result = (
+                run_current_head_projection_breakers(
+                    bridge=bridge,
+                    build_a=build_a,
+                    build_b=build_b,
+                )
+            )
+        finally:
+            temp.cleanup()
+
+        statuses = dict(
+            result.breaker_statuses
+        )
+        self.assertEqual(
+            statuses["CHP-B07"],
+            "FAIL",
+        )
+
     def test_manifest_and_result_digests_are_stable(
         self,
     ) -> None:
