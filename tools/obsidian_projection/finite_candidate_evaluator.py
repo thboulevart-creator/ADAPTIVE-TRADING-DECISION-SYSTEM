@@ -683,8 +683,22 @@ def evaluate_candidate_finitely(
     except (
         SecretDetectedError,
         SensitivePathError,
-        DynamicInventoryError,
     ):
+        return rejected(
+            "DYNAMIC_INVENTORY_INVALID"
+        )
+    except DynamicInventoryError as exc:
+        if any(
+            marker in str(exc)
+            for marker in (
+                "P5-B contract unreadable",
+                "P5-B contract blob mismatch",
+                "unexpected P5-B contract schema",
+            )
+        ):
+            return blocked(
+                "TOOLING_CONTRACT_MISMATCH"
+            )
         return rejected(
             "DYNAMIC_INVENTORY_INVALID"
         )
@@ -753,7 +767,11 @@ def evaluate_candidate_finitely(
             bridge=bridge,
             stage_root=build_b_root,
         )
-    except CurrentHeadProjectionInfrastructureError:
+    except CurrentHeadProjectionInfrastructureError as exc:
+        if "projection contract unavailable" in str(exc):
+            return blocked(
+                "TOOLING_CONTRACT_MISMATCH"
+            )
         return blocked(
             "STAGING_INFRASTRUCTURE_UNAVAILABLE"
         )
@@ -807,13 +825,17 @@ def evaluate_candidate_finitely(
                 build_b=build_b,
             )
         )
-    except CurrentHeadBreakerInfrastructureError:
+    except CurrentHeadBreakerInfrastructureError as exc:
+        if "contract unavailable" in str(exc):
+            return blocked(
+                "TOOLING_CONTRACT_MISMATCH"
+            )
         return blocked(
             "BREAKER_INFRASTRUCTURE_UNAVAILABLE"
         )
     except CurrentHeadBreakerError:
-        return rejected(
-            "PROJECTION_BREAKER_FAILED"
+        return blocked(
+            "TOOLING_CONTRACT_MISMATCH"
         )
 
     breaker_manifest_digest = (
