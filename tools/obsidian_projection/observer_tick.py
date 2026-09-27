@@ -585,6 +585,10 @@ def _apply_transition(
             raise ObserverTickError(
                 "BOOTSTRAP allowed only at sequence zero"
             )
+        if state != make_initial_state():
+            raise ObserverTickError(
+                "BOOTSTRAP requires canonical initial state"
+            )
         next_state = _clone(state)
         decision = _decision(
             action="NOOP",
