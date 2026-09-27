@@ -105,6 +105,13 @@
       "UNKNOWN"
     ],
     "sequence_rule": "input.sequence == previous_state.last_event_sequence + 1",
+    "transition_class_state_consistency": {
+      "INITIAL": "previous latest_observed_head must be null",
+      "SAME": "observed_head must equal previous latest_observed_head",
+      "FAST_FORWARD": "previous latest_observed_head must exist and differ from observed_head",
+      "NON_FAST_FORWARD": "previous latest_observed_head must exist and differ from observed_head",
+      "UNKNOWN": "previous latest_observed_head must exist and differ from observed_head"
+    },
     "extra_fields_forbidden": true,
     "event_specific_rules": {
       "BOOTSTRAP": {
@@ -378,6 +385,12 @@
     "wrong input schema accepted",
     "REMOTE_HEAD_OBSERVED without head accepted",
     "REMOTE_HEAD_OBSERVED without transition class accepted",
+    "SAME accepted when observed head differs from previous observed head",
+    "INITIAL accepted after previous observed head exists",
+    "FAST_FORWARD accepted without previous observed head",
+    "FAST_FORWARD accepted for unchanged observed head",
+    "NON_FAST_FORWARD accepted for unchanged observed head",
+    "UNKNOWN accepted for unchanged observed head",
     "SAME changes queue",
     "SAME starts evaluation",
     "SAME auto-clears BLOCKED",
