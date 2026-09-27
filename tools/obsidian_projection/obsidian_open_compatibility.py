@@ -31,7 +31,7 @@ class OpenPointerPartialError(ObsidianOpenCompatibilityError):
 
 
 CONTRACT_SCHEMA = "ATDS_OBSIDIAN_OPEN_COMPATIBILITY_CONTRACT_V0_1"
-CONTRACT_BLOB = "76c3b681d3de930705a5e15c72d8c660d31d24b6"
+CONTRACT_BLOB = "4974302509a989fbd296ee7052ca15f22a0750a6"
 
 LIVE_VAULT = Path(
     r"C:\Users\Boulevart\OneDrive\Bureau\ATDS"
@@ -40,6 +40,10 @@ LIVE_VAULT = Path(
 SANDBOX_VAULT = Path(
     r"C:\Users\Boulevart\OneDrive\Bureau\ATDS"
     r"\ATDS-P5C3-OBSIDIAN-OPEN-SANDBOX"
+)
+CONTROL_EVIDENCE_ROOT = Path(
+    r"C:\Users\Boulevart\OneDrive\Bureau\ATDS"
+    r"\ATDS-P5C3-CONTROL-EVIDENCE"
 )
 
 GENERATION_IDS = ("GEN_A", "GEN_B")
@@ -894,19 +898,31 @@ def _seed_safe_obsidian_config(
     )
 
 
-def _snapshot_directory() -> Path:
+def _snapshot_directories() -> tuple[Path, Path]:
     local = os.environ.get("LOCALAPPDATA")
     if not local:
         raise ObsidianOpenCompatibilityError(
             "LOCALAPPDATA unavailable"
         )
-    return (
+    primary = (
         Path(local)
         / "ATDS"
         / "obsidian_projection"
         / "p5c3"
         / "snapshots"
     )
+
+    control = CONTROL_EVIDENCE_ROOT / "snapshots"
+
+    for protected in (LIVE_VAULT, SANDBOX_VAULT):
+        if _norm(control).startswith(
+            _norm(protected) + os.sep
+        ) or _norm(control) == _norm(protected):
+            raise ObsidianOpenCompatibilityError(
+                "control snapshot path overlaps protected Vault"
+            )
+
+    return primary, control
 
 
 def _metrics_log_path() -> Path:
@@ -926,32 +942,50 @@ def _metrics_log_path() -> Path:
 
 def _write_snapshot(
     payload: dict[str, Any],
-) -> tuple[Path, str]:
+) -> tuple[Path, Path, str]:
     digest = _sha256(
         _canonical_json_bytes(payload)
     )
-    directory = _snapshot_directory()
-    directory.mkdir(
-        parents=True,
-        exist_ok=True,
+    envelope = _canonical_json_bytes(
+        {
+            "payload": payload,
+            "payload_sha256": digest,
+        }
     )
-    path = (
-        directory
-        / f"p5c3-open-snapshot-{digest}.json"
+
+    primary_dir, backup_dir = (
+        _snapshot_directories()
     )
-    if path.exists():
+    paths: list[Path] = []
+
+    for directory in (
+        primary_dir,
+        backup_dir,
+    ):
+        directory.mkdir(
+            parents=True,
+            exist_ok=True,
+        )
+        path = (
+            directory
+            / f"p5c3-open-snapshot-{digest}.json"
+        )
+        if path.exists():
+            raise ObsidianOpenCompatibilityError(
+                "snapshot collision"
+            )
+        path.write_bytes(envelope)
+        paths.append(path)
+
+    if (
+        paths[0].read_bytes()
+        != paths[1].read_bytes()
+    ):
         raise ObsidianOpenCompatibilityError(
-            "snapshot collision"
+            "snapshot copies differ after write"
         )
-    path.write_bytes(
-        _canonical_json_bytes(
-            {
-                "payload": payload,
-                "payload_sha256": digest,
-            }
-        )
-    )
-    return path, digest
+
+    return paths[0], paths[1], digest
 
 
 def _load_snapshot(
@@ -994,6 +1028,37 @@ def _load_snapshot(
         raise ObsidianOpenCompatibilityError(
             "snapshot filename mismatch"
         )
+
+    primary_dir, backup_dir = (
+        _snapshot_directories()
+    )
+    primary = primary_dir / expected_name
+    backup = backup_dir / expected_name
+
+    existing = [
+        candidate
+        for candidate in (primary, backup)
+        if candidate.exists()
+    ]
+    if not existing:
+        raise ObsidianOpenCompatibilityError(
+            "both snapshot copies are missing"
+        )
+
+    reference = existing[0].read_bytes()
+    if any(
+        candidate.read_bytes() != reference
+        for candidate in existing[1:]
+    ):
+        raise ObsidianOpenCompatibilityError(
+            "snapshot copies differ"
+        )
+
+    if path not in existing:
+        raise ObsidianOpenCompatibilityError(
+            "snapshot path is not a verified persisted copy"
+        )
+
     return payload, digest
 
 
@@ -1119,7 +1184,11 @@ def prepare_open_experiment() -> dict[str, Any]:
         "expected_final_generation":
             "GEN_A",
     }
-    snapshot_path, token = _write_snapshot(
+    (
+        snapshot_path,
+        snapshot_backup_path,
+        token,
+    ) = _write_snapshot(
         payload
     )
 
@@ -1129,6 +1198,8 @@ def prepare_open_experiment() -> dict[str, Any]:
         "status": "PASS",
         "snapshot_path":
             str(snapshot_path),
+        "snapshot_backup_path":
+            str(snapshot_backup_path),
         "snapshot_token": token,
         "sandbox_path":
             str(SANDBOX_VAULT),
