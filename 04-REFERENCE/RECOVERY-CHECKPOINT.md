@@ -16475,3 +16475,68 @@ Next governed action:
 
 return to the blocked A0 contract work. C01 remains scientifically frozen and no real confirmation execution or scoring is authorized.
 
+---
+
+## 263. A0 V0.3 — HUMAN ADJUDICATION D1–D4 + CONTRACT — ATOMIC PERSISTENCE CANDIDATE
+
+Date:
+2026-09-27
+
+Persistence base HEAD:
+
+`d2871df7e45981a9b6b8f0b6af23545500b9dce3`
+
+Human adjudication:
+
+`GOVERNANCE/A0-HUMAN-ADJUDICATION-D1-D4-2026-09-27.md`
+
+Contract:
+
+`GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md`
+
+Human decisions:
+
+- D1: missing governed evidence level → `UNDETERMINED`;
+- D2: `SUPPORTED_N0_SYNTHESIS` may normalize to `SUPPORTED` only with N0/synthesis limitations preserved;
+- D3: synthetic/non-established `CONFIRMED` → `NO_SCIENTIFIC_CLAIM`; real established CONFIRMED never automatically means N4;
+- D4: effective downstream evidence-use permissions = exact intersection of the closed six governed permission sets.
+
+Contract consolidation includes:
+
+- Source Profile Registry authority (A0-R1);
+- closed permission-set intersection (A0-R2);
+- C1 explicit control-state vocabulary;
+- C2 strict parsing/typing;
+- C3 non-SUPPORTED measurement positive-consumption prohibition;
+- C4 native-status-only authority;
+- C5 explicit C01 qualified-runner interpretation authority;
+- C6 source-artifact supersession;
+- MC1 evidence-level authority;
+- MC2 source-promotion-limit authority;
+- MC3 downstream authoritative-consumer rule;
+- MC4 exact closed six-set D4 intersection.
+
+Closed documentary matrix:
+
+```
+TOTAL = 64
+PASS = 64
+PARTIAL = 0
+MISSING = 0
+FAIL = 0
+```
+
+Implementation:
+
+`NOT_AUTHORIZED`
+
+Test-first RED:
+
+`NOT_AUTHORIZED`
+
+Next governed action:
+
+persist exactly the human adjudication, autonomous A0 V0.3 contract and this checkpoint update in one commit.
+
+Then perform a fresh persisted-head documentary re-break before authorizing test-first RED.
+
