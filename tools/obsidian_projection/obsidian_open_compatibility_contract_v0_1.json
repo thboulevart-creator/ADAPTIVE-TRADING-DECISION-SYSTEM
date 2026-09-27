@@ -185,7 +185,26 @@
     "Obsidian still running during post-close verification",
     "P5-C3 claims native Graph understands CURRENT pointer",
     "P5-C3 authorizes production continuous promotion",
-    "automatic Obsidian launch introduced"
+    "automatic Obsidian launch introduced",
+    "snapshot persisted only in LocalAppData",
+    "OneDrive control backup missing after prepare",
+    "snapshot copies differ",
+    "snapshot copies bind different payload digests",
+    "control evidence root overlaps real Vault",
+    "control evidence root overlaps sacrificial Vault",
+    "RUN-OPEN accepts unverified snapshot copy"
   ],
-  "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE"
+  "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE",
+  "snapshot_persistence": {
+    "localappdata_primary_required": true,
+    "onedrive_control_backup_required": true,
+    "onedrive_control_root": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-P5C3-CONTROL-EVIDENCE",
+    "both_copies_must_be_byte_identical": true,
+    "both_copies_must_bind_same_payload_sha256": true,
+    "run_open_may_use_either_verified_copy": true,
+    "single_copy_disappearance_must_not_force_sandbox_rebuild": true,
+    "both_copies_missing_blocks": true,
+    "control_evidence_root_must_not_be_inside_live_vault": true,
+    "control_evidence_root_must_not_be_inside_sacrificial_vault": true
+  }
 }
