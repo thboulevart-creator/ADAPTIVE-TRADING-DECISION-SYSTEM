@@ -1,0 +1,67 @@
+name: A0 V0.3 Coverage Closure Review
+
+on:
+  push:
+    branches:
+      - sandbox/a0-v03-coverage-closure-review
+    paths:
+      - .github/workflows/a0-v03-coverage-closure-review.yml
+
+permissions:
+  contents: read
+
+jobs:
+  coverage-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact governed coverage-review HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 89710b879751d7fcebccf75cd03e64368f1b0e96
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "89710b879751d7fcebccf75cd03e64368f1b0e96"
+          test "$(git hash-object src/a0_research_authority.py)" = "1210bee06a2d9aed2ed7d9078542934ff430175c"
+          test "$(git hash-object src/a0_metric_domain_authority.py)" = "9bd05f2a2a97f092c0fc2988319f15caff57dda3"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v02.py)" = "9833ce563305cfb6d6fe1de8907e8aa9fc96fda4"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v03.py)" = "d23e3c72dd8bd2200cb392edc6c80b4e744d4751"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v04.py)" = "efcc3ca7927b29b45f5d0dc0180b81176dbed51e"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v05.py)" = "f02eae836b79403673f8a43292cca19eab0c6b33"
+          test "$(git hash-object breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py)" = "e3620ac348a8042fe1d04cfc9b32c16060fce4a3"
+          test "$(git hash-object breakers/a0_synthetic_producer_metric_domain_runtime_binding_red_breaker_v01.py)" = "bcba5de33a73f9e32ff39e8fb498ab4d471af098"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json)" = "dd205d3e7b4a522a5ba23cef1e665d51c196acb8"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+          test "$(git hash-object tools/c01_confirmation_runner.py)" = "7ea6ed6796eae8618cfd823b49eee1a63a19e096"
+          test "$(git hash-object breakers/c01_confirmation_runner_breaker.py)" = "cf275dba96e50e8b899223a57267e811af4693ec"
+
+      - name: Compile A0 runtime and all governed breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile src/a0_metric_domain_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v02.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v03.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v04.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v05.py
+          python -m py_compile breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py
+          python -m py_compile breakers/a0_synthetic_producer_metric_domain_runtime_binding_red_breaker_v01.py
+
+      - name: Preserve current combined 149-test surface
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             breakers/a0_research_authority_adversarial_breaker_v05.py             breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py             breakers/a0_synthetic_producer_metric_domain_runtime_binding_red_breaker_v01.py             | tee /tmp/a0-current-149.txt
+          grep -q "149 passed" /tmp/a0-current-149.txt
+          echo "A0_V03_COVERAGE_REVIEW_CURRENT_SURFACE=PASS_149_OF_149"
