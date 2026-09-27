@@ -16998,3 +16998,71 @@ Next governed boundary:
 `A0 — ADVERSARIAL BREAK EXPANSION V0.2`
 
 V0.2 must derive additional attacks only from already-adopted V0.3 requirements and must preserve all 24 currently passing tests unchanged.
+
+
+---
+
+## 271. A0 — ADVERSARIAL BREAK EXPANSION V0.2 — SANDBOX BREAK CONFIRMED
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`a493c4824775b63480b5fe3c07220c9df271fb1b`
+
+Implementation blob:
+
+`c7c1f37d9d306e0424274b276d42ab422beac560`
+
+Historical breaker:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial V0.1 breaker:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Sandbox workflow:
+
+`36326986380`
+
+Existing closed suite:
+
+`24/24 PASS`
+
+V0.2 expansion:
+
+```
+TOTAL = 18
+PASS = 4
+FAIL = 14
+```
+
+PASS:
+
+AC05, AC07, AC08, AC18.
+
+FAIL:
+
+AC01, AC02, AC03, AC04, AC06, AC09, AC10, AC11, AC12, AC13, AC14, AC15, AC16, AC17.
+
+Material correction groups:
+
+- `A0-ABF2-01` mandatory carrier/extraction representation absent;
+- `A0-ABF2-02` control-state authority / critical precedence absent;
+- `A0-ABF2-03` native-status conflict fail-closed rule absent;
+- `A0-ABF2-04` source supersession enforcement absent;
+- `A0-ABF2-05` exact registry-content authority not pinned;
+- `A0-ABF2-06` post-observation profile widening not blocked;
+- `A0-ABF2-07` exact normalization-policy content authority not pinned;
+- `A0-ABF2-08` exact six-dimension permission schema not enforced;
+- `A0-ABF2-09` operational-semantic permission guard absent.
+
+Status:
+
+`A0_ADVERSARIAL_BREAK_EXPANSION_V0_2 = BREAK_CONFIRMED_SANDBOX`
+
+Next action:
+
+persist only the V0.2 breaker, FAIL report and this checkpoint update; then perform a fresh persisted-head re-break before any runtime correction.
