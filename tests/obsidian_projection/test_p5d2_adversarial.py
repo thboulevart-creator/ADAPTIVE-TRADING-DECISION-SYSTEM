@@ -24,7 +24,7 @@ class P5D2AdversarialTests(unittest.TestCase):
         self.assertIn(
             (
                 'CONTRACT_BLOB = '
-                '"5967736c1d502450e75c8665922707657caccfc6"'
+                '"5f6a0e223714bb894eddf4ece7c95e6a8ad1e3a3"'
             ),
             self.module,
         )
