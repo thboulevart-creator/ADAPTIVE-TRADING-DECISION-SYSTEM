@@ -145,6 +145,53 @@ class P5D2OneShotObserverTickContractTests(
             bootstrap["state_unchanged_except_sequence"]
         )
 
+    def test_blocked_phase_is_sticky(self) -> None:
+        blocked = self.contract[
+            "transition_semantics"
+        ]["REMOTE_HEAD_OBSERVED_WHILE_BLOCKED"]
+        self.assertEqual(
+            blocked["action"],
+            "BLOCK_REQUIRES_ADJUDICATION",
+        )
+        self.assertTrue(blocked["queue_unchanged"])
+        self.assertTrue(
+            blocked["blocked_head_unchanged"]
+        )
+        self.assertTrue(
+            blocked["blocking_failure_code_unchanged"]
+        )
+        self.assertEqual(
+            blocked["observer_phase"],
+            "BLOCKED",
+        )
+        self.assertEqual(
+            blocked["projection_state"],
+            "BLOCKED",
+        )
+
+    def test_state_phase_invariants_are_explicit(self) -> None:
+        validation = self.contract["state_validation"]
+        self.assertTrue(
+            validation[
+                "candidate_pending_requires_last_qualified_head"
+            ]
+        )
+        self.assertTrue(
+            validation[
+                "blocked_phase_requires_projection_blocked"
+            ]
+        )
+        self.assertTrue(
+            validation[
+                "blocked_phase_requires_blocked_head"
+            ]
+        )
+        self.assertTrue(
+            validation[
+                "blocked_phase_requires_failure_code"
+            ]
+        )
+
     def test_same_head_is_noop(self) -> None:
         same = self.contract[
             "transition_semantics"
