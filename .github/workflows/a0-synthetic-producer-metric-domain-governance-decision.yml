@@ -1,0 +1,114 @@
+name: A0 Synthetic Producer Metric-Domain Governance Decision
+
+on:
+  push:
+    branches:
+      - sandbox/a0-synthetic-producer-metric-domain-governance
+    paths:
+      - .github/workflows/a0-synthetic-producer-metric-domain-governance-decision.yml
+
+permissions:
+  contents: read
+
+jobs:
+  decision-freeze:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact authority candidate
+        uses: actions/checkout@v4
+        with:
+          ref: 48aa24841abe097f998539f9f5a7a94a674c24af
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify decision-only scope
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          got = set(subprocess.check_output(
+              ["git","diff","--name-only",
+               "b4d8c169578a2bdd960e9568b01e6caa86100d84",
+               "48aa24841abe097f998539f9f5a7a94a674c24af"],
+              text=True,
+          ).splitlines())
+          expected = {
+              "GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json",
+          }
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "18246b818c6c6af8c5412c3b0a515f76c5d5ddc8"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v02.py)" = "9833ce563305cfb6d6fe1de8907e8aa9fc96fda4"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v03.py)" = "d23e3c72dd8bd2200cb392edc6c80b4e744d4751"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v04.py)" = "efcc3ca7927b29b45f5d0dc0180b81176dbed51e"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json)" = "dd205d3e7b4a522a5ba23cef1e665d51c196acb8"
+
+      - name: Verify canonical frozen decision bytes
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          p = Path("GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json")
+          raw = p.read_bytes()
+          obj = json.loads(raw.decode("utf-8"))
+          canonical = json.dumps(
+              obj,
+              sort_keys=False,
+              separators=(",", ":"),
+              ensure_ascii=False,
+              allow_nan=False,
+          ).encode("utf-8")
+          assert raw == canonical
+
+          assert obj["schema"] == "ATDS_A0_SYNTHETIC_PRODUCER_METRIC_DOMAIN_AUTHORITY_V0_1"
+          assert obj["version"] == "V0_1"
+          assert obj["status"] == "FROZEN_UNQUALIFIED"
+          assert obj["scope"] == "SYNTHETIC_FIXTURE_ONLY"
+          assert obj["producer_identity"] == "ATDS_A0_SYNTHETIC_PRODUCER_V0_1"
+          assert obj["source_schema"] == "ATDS_A0_SYNTHETIC_SCIENTIFIC_RESULT_V0_1"
+          assert obj["metric_identity_domain"] == ["SYNTHETIC_SCORE"]
+          rule = obj["metric_rules"]["SYNTHETIC_SCORE"]
+          assert rule == {
+              "value_semantics": "FINITE_JSON_NUMBER",
+              "allow_bool": False,
+              "allow_numeric_string": False,
+              "minimum": None,
+              "maximum": None,
+          }
+          assert obj["binding_fields"] == [
+              "findings[*].measurement.metric",
+              "findings[*].measurement.value",
+          ]
+          assert obj["unknown_metric_behavior"] == "NO_AUTHORITATIVE_OUTPUT"
+          assert obj["invalid_value_behavior"] == "NO_AUTHORITATIVE_OUTPUT"
+          assert obj["case_sensitive_metric_identity"] is True
+          assert obj["metric_aliases"] == []
+          assert obj["permission_semantics"] == "NONE"
+          assert obj["scientific_normalization_semantics"] == "NONE"
+          assert obj["observed_history_status"] == "ADOPTED_AFTER_AF04_OBSERVATION"
+          assert obj["qualification_requirement"] == "INDEPENDENT_PREREGISTERED_MUTANTS_REQUIRED_BEFORE_AF04_READJUDICATION"
+          print("A0_METRIC_DOMAIN_AUTHORITY_SHA256="+hashlib.sha256(raw).hexdigest())
+          print("A0_METRIC_DOMAIN_DECISION_FREEZE=PASS")
+          PY
+
+      - name: Preserve governed 85-test suite
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             | tee /tmp/a0-existing-85.txt
+          grep -q "85 passed" /tmp/a0-existing-85.txt
+          echo "A0_EXISTING_85=PASS_UNCHANGED"
