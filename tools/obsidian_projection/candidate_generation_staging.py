@@ -508,6 +508,30 @@ def _assert_outside_forbidden_roots(
             )
 
 
+def _raise_classified_integrity(
+    exc: IntegrityError,
+    *,
+    context: str,
+) -> None:
+    message = str(exc)
+    infrastructure_markers = (
+        "cannot lstat",
+        "cannot stat",
+        "hard-link count unavailable",
+    )
+    if any(
+        marker in message
+        for marker in infrastructure_markers
+    ):
+        raise CandidateGenerationInfrastructureError(
+            f"{context}: {message}"
+        ) from exc
+
+    raise CandidateGenerationInvalidError(
+        f"{context}: {message}"
+    ) from exc
+
+
 def _validate_new_package_root(
     package_root: Path,
     forbidden_roots: Iterable[Path],
@@ -517,9 +541,10 @@ def _validate_new_package_root(
             package_root
         )
     except IntegrityError as exc:
-        raise CandidateGenerationInvalidError(
-            str(exc)
-        ) from exc
+        _raise_classified_integrity(
+            exc,
+            context="new package root validation failed",
+        )
 
     _assert_outside_forbidden_roots(
         candidate,
@@ -1194,9 +1219,12 @@ def verify_candidate_generation(
             projection_tree_digest(root)
         )
     except IntegrityError as exc:
-        raise CandidateGenerationInvalidError(
-            f"packaged projection tree verification failed: {exc}"
-        ) from exc
+        _raise_classified_integrity(
+            exc,
+            context=(
+                "packaged projection tree verification failed"
+            ),
+        )
 
     if packaged_projection_digest != (
         candidate.projection_tree_digest_sha256
@@ -1372,9 +1400,10 @@ def stage_candidate_generation(
             )
         )
     except IntegrityError as exc:
-        raise CandidateGenerationInvalidError(
-            f"projection tree verification failed: {exc}"
-        ) from exc
+        _raise_classified_integrity(
+            exc,
+            context="projection tree verification failed",
+        )
 
     if actual_projection_digest != (
         candidate.projection_tree_digest_sha256
@@ -1532,9 +1561,12 @@ def stage_candidate_generation(
             projection_tree_digest(root)
         )
     except IntegrityError as exc:
-        raise CandidateGenerationInvalidError(
-            f"pre-seal projection tree verification failed: {exc}"
-        ) from exc
+        _raise_classified_integrity(
+            exc,
+            context=(
+                "pre-seal projection tree verification failed"
+            ),
+        )
 
     if staged_projection_digest != (
         candidate.projection_tree_digest_sha256
