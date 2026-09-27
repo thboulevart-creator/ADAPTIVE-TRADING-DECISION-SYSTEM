@@ -390,6 +390,42 @@ class ObserverTickTests(unittest.TestCase):
             "STALE",
         )
 
+    def test_fast_forward_rejects_unchanged_head(
+        self,
+    ) -> None:
+        state = observe_initial(bootstrap(), H1)
+        with self.assertRaises(ObserverTickError):
+            tick(
+                state,
+                "REMOTE_HEAD_OBSERVED",
+                observed_head=H1,
+                transition_class="FAST_FORWARD",
+            )
+
+    def test_non_fast_forward_rejects_unchanged_head(
+        self,
+    ) -> None:
+        state = observe_initial(bootstrap(), H1)
+        with self.assertRaises(ObserverTickError):
+            tick(
+                state,
+                "REMOTE_HEAD_OBSERVED",
+                observed_head=H1,
+                transition_class="NON_FAST_FORWARD",
+            )
+
+    def test_unknown_rejects_unchanged_head(
+        self,
+    ) -> None:
+        state = observe_initial(bootstrap(), H1)
+        with self.assertRaises(ObserverTickError):
+            tick(
+                state,
+                "REMOTE_HEAD_OBSERVED",
+                observed_head=H1,
+                transition_class="UNKNOWN",
+            )
+
     def test_fast_forward_requires_previous_observed_head(
         self,
     ) -> None:
