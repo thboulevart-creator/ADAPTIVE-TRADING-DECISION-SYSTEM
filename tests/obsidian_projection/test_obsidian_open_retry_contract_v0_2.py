@@ -56,6 +56,51 @@ class P5C3R2ContractTests(unittest.TestCase):
             ),
         )
 
+    def test_runtime_identity_is_separate(self) -> None:
+        identity = self.contract["runtime_identity"]
+        self.assertEqual(
+            identity["phase"],
+            "P5-C3R2",
+        )
+        self.assertEqual(
+            identity["open_metrics_schema"],
+            "ATDS_OBSIDIAN_P5C3R2_OPEN_METRICS_V0_1",
+        )
+        self.assertEqual(
+            identity["synthetic_lock_schema"],
+            "ATDS_OBSIDIAN_P5C3R2_SYNTHETIC_LOCK_BREAKER_V0_1",
+        )
+        self.assertEqual(
+            identity["post_close_schema"],
+            "ATDS_OBSIDIAN_P5C3R2_POST_CLOSE_REPORT_V0_1",
+        )
+        self.assertEqual(
+            identity["event_log_namespace"],
+            "p5c3r2",
+        )
+        self.assertEqual(
+            identity["cli_module"],
+            "tools.obsidian_projection.p5c3r2_verify",
+        )
+        self.assertEqual(
+            identity["open_runner"],
+            "tools/obsidian_projection/run_p5c3r2_open.ps1",
+        )
+        self.assertEqual(
+            identity["post_close_runner"],
+            "tools/obsidian_projection/run_p5c3r2_post_close.ps1",
+        )
+        self.assertTrue(
+            identity[
+                "predecessor_open_runner_must_remain_unchanged"
+            ]
+        )
+        self.assertTrue(
+            identity[
+                "predecessor_p5c3r_qualification_must_remain_false"
+            ]
+        )
+
     def test_write_retry_policy_is_unchanged(self) -> None:
         policy = self.contract["write_retry_policy"]
         self.assertEqual(
@@ -204,6 +249,11 @@ class P5C3R2ContractTests(unittest.TestCase):
         self.assertTrue(
             qualification[
                 "post_close_pass_required"
+            ]
+        )
+        self.assertTrue(
+            qualification[
+                "predecessor_p5c3r_must_remain_unqualified"
             ]
         )
 
