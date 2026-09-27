@@ -1551,6 +1551,10 @@ def run_while_obsidian_open(
     samples_at_start = reader.metrics.samples
     completed = 0
     failure_code: str | None = None
+    failure_message: str | None = None
+    failure_phase: str | None = None
+    failure_cycle: int | None = None
+    reader_stop_error: str | None = None
 
     try:
         for cycle in range(PROMOTION_CYCLES):
@@ -1597,28 +1601,101 @@ def run_while_obsidian_open(
         )
     except Exception as exc:
         failure_code = type(exc).__name__
+        failure_message = str(exc)
+        failure_phase = "PROMOTION_LOOP"
+        failure_cycle = completed
     finally:
-        reader.stop()
+        try:
+            reader.stop()
+        except Exception as exc:
+            reader_stop_error = (
+                f"{type(exc).__name__}: {exc}"
+            )
+            if failure_code is None:
+                failure_code = type(exc).__name__
+                failure_message = str(exc)
+                failure_phase = "READER_STOP"
+                failure_cycle = completed
 
-    if not obsidian_running():
-        raise ObsidianOpenCompatibilityError(
-            "Obsidian is not running at end of P5-C3 open experiment"
+    obsidian_state_after: dict[str, Any] | None = None
+    current: dict[str, Any] | None = None
+    postcondition_failure_gate: str | None = None
+
+    def final_check(
+        gate: str,
+        operation: Callable[[], Any],
+    ) -> Any:
+        nonlocal failure_code
+        nonlocal failure_message
+        nonlocal failure_phase
+        nonlocal failure_cycle
+        nonlocal postcondition_failure_gate
+
+        if postcondition_failure_gate is not None:
+            return None
+
+        try:
+            return operation()
+        except Exception as exc:
+            postcondition_failure_gate = gate
+            if failure_code is None:
+                failure_code = type(exc).__name__
+                failure_message = str(exc)
+                failure_phase = "POSTCONDITION"
+                failure_cycle = completed
+            return None
+
+    def require_obsidian_at_end() -> None:
+        if not obsidian_running():
+            raise ObsidianOpenCompatibilityError(
+                "Obsidian is not running at end of P5-C3 open experiment"
+            )
+
+    final_check(
+        "OBSIDIAN_PROCESS_END",
+        require_obsidian_at_end,
+    )
+
+    if postcondition_failure_gate is None:
+        obsidian_state_after = final_check(
+            "OBSIDIAN_WORKSPACE_AND_PLUGIN_STATE_END",
+            lambda: _safe_obsidian_state(
+                SANDBOX_VAULT,
+                require_workspace_current=True,
+            ),
         )
 
-    obsidian_state_after = _safe_obsidian_state(
-        SANDBOX_VAULT,
-        require_workspace_current=True,
-    )
+    if postcondition_failure_gate is None:
+        current = final_check(
+            "CURRENT_POINTER_END",
+            lambda: validate_current_pointer(
+                SANDBOX_VAULT
+            ),
+        )
 
-    current = validate_current_pointer(
-        SANDBOX_VAULT
-    )
-    _require_generation_immutability(
-        payload
-    )
-    _require_snapshot_live_digests(
-        payload
-    )
+    if postcondition_failure_gate is None:
+        final_check(
+            "IMMUTABLE_GENERATIONS_END",
+            lambda: _require_generation_immutability(
+                payload
+            ),
+        )
+
+    if postcondition_failure_gate is None:
+        final_check(
+            "LIVE_VAULT_DIGESTS_END",
+            lambda: _require_snapshot_live_digests(
+                payload
+            ),
+        )
+
+    if current is None:
+        try:
+            current = validate_current_pointer(
+                SANDBOX_VAULT
+            )
+        except Exception:
+            current = None
 
     metrics = reader.metrics
     samples_during_promotions = (
@@ -1645,6 +1722,8 @@ def run_while_obsidian_open(
         and samples_during_promotions
         >= PROMOTION_CYCLES
         and zero_anomalies
+        and postcondition_failure_gate is None
+        and current is not None
         and current["generation_id"]
         == "GEN_A"
     )
@@ -1684,12 +1763,28 @@ def run_while_obsidian_open(
             metrics.parse_error_count,
         "failure_code":
             failure_code,
-        "final_generation_id":
-            current["generation_id"],
-        "final_generation_tree_digest_sha256":
-            current[
+        "failure_message":
+            failure_message,
+        "failure_phase":
+            failure_phase,
+        "failure_cycle":
+            failure_cycle,
+        "reader_stop_error":
+            reader_stop_error,
+        "postcondition_failure_gate":
+            postcondition_failure_gate,
+        "final_generation_id": (
+            None
+            if current is None
+            else current["generation_id"]
+        ),
+        "final_generation_tree_digest_sha256": (
+            None
+            if current is None
+            else current[
                 "generation_tree_digest_sha256"
-            ],
+            ]
+        ),
         "manual_visual_acceptance_required":
             True,
         "manual_visual_acceptance_pending":
