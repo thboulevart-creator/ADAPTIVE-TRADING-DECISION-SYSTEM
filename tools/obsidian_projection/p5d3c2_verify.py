@@ -578,7 +578,10 @@ def main() -> int:
         report = run_sandbox_qualification(
             forbidden_roots=forbidden,
         )
-    except CandidateGenerationInfrastructureError as exc:
+    except (
+        CandidateGenerationInfrastructureError,
+        OSError,
+    ) as exc:
         print(
             json.dumps(
                 {
@@ -598,7 +601,6 @@ def main() -> int:
     except (
         CandidateGenerationInvalidError,
         SandboxQualificationError,
-        OSError,
     ) as exc:
         print(
             json.dumps(
