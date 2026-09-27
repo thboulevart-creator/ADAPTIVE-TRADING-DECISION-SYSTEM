@@ -14,6 +14,7 @@ from tools.obsidian_projection.obsidian_open_compatibility import (
     write_current_atomic,
 )
 from tools.obsidian_projection.obsidian_open_retry import (
+    ReaderAccessRetryDeadlineExceeded,
     ReaderAccessTelemetry,
     ReplaceRetryDeadlineExceeded,
     RetryReaderProbe,
@@ -412,6 +413,69 @@ class P5C3RRetryTests(unittest.TestCase):
         self.assertEqual(
             telemetry.terminal_access_error_count,
             0,
+        )
+
+    def test_reader_eacces_deadline_is_terminal(
+        self,
+    ) -> None:
+        telemetry = ReaderAccessTelemetry()
+
+        def denied(_root):
+            try:
+                raise PermissionError(
+                    errno.EACCES,
+                    "Permission denied",
+                )
+            except PermissionError as exc:
+                raise OpenPointerPartialError(
+                    "CURRENT.md unreadable"
+                ) from exc
+
+        with (
+            patch(
+                "tools.obsidian_projection."
+                "obsidian_open_retry."
+                "validate_current_pointer",
+                side_effect=denied,
+            ),
+            patch(
+                "tools.obsidian_projection."
+                "obsidian_open_retry."
+                "READ_RETRY_DEADLINE_SECONDS",
+                0.015,
+            ),
+            patch(
+                "tools.obsidian_projection."
+                "obsidian_open_retry."
+                "READ_INITIAL_BACKOFF_SECONDS",
+                0.005,
+            ),
+            patch(
+                "tools.obsidian_projection."
+                "obsidian_open_retry."
+                "READ_MAX_BACKOFF_SECONDS",
+                0.005,
+            ),
+        ):
+            with self.assertRaises(
+                ReaderAccessRetryDeadlineExceeded
+            ):
+                validate_current_with_access_retry(
+                    Path("unused"),
+                    telemetry,
+                )
+
+        self.assertGreater(
+            telemetry.access_denied_retry_count,
+            0,
+        )
+        self.assertEqual(
+            telemetry.eacces_without_winerror_retry_count,
+            telemetry.access_denied_retry_count,
+        )
+        self.assertEqual(
+            telemetry.terminal_access_error_count,
+            1,
         )
 
     def test_reader_does_not_retry_eacces_with_nonretryable_winerror(
