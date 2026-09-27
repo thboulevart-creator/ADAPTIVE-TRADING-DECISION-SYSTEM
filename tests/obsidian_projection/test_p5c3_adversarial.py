@@ -38,6 +38,12 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             / "obsidian_projection"
             / "run_p5c3_post_close.ps1"
         ).read_text(encoding="utf-8")
+        cls.legacy_p5c2_test = (
+            cls.root
+            / "tests"
+            / "obsidian_projection"
+            / "test_promotion_experiment.py"
+        ).read_text(encoding="utf-8")
 
     def test_contract_blob_is_pinned(self) -> None:
         self.assertIn(
@@ -372,6 +378,56 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
         self.assertIn(
             '"LOCALAPPDATA"',
             self.module,
+        )
+
+    def test_qualified_p5c2_implementation_blob_is_unchanged(
+        self,
+    ) -> None:
+        import subprocess
+
+        path = (
+            "tools/obsidian_projection/"
+            "promotion_experiment.py"
+        )
+        completed = subprocess.run(
+            ["git", "hash-object", path],
+            cwd=self.root,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+            text=True,
+        )
+        self.assertEqual(
+            completed.stdout.strip(),
+            "b5ba13a6aa9ddf1690842aafea422973e15cdf2d",
+        )
+
+    def test_inherited_pointer_unit_is_deterministic(
+        self,
+    ) -> None:
+        start = self.legacy_p5c2_test.index(
+            "def test_pointer_candidate_has_zero_anomalies("
+        )
+        end = self.legacy_p5c2_test.index(
+            "\n    @unittest.skipUnless(",
+            start,
+        )
+        body = self.legacy_p5c2_test[start:end]
+        self.assertIn(
+            "class DeterministicReaderProbe:",
+            body,
+        )
+        self.assertIn(
+            '"ReaderProbe",',
+            body,
+        )
+        self.assertIn(
+            '"_wait_for_reader_progress",',
+            body,
+        )
+        self.assertNotIn(
+            '"READER_INTERVAL_SECONDS",',
+            body,
         )
 
     def test_prepare_runner_orders_tests_before_prepare(
