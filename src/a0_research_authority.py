@@ -452,7 +452,9 @@ def derive_authoritative_projection(
         )
 
     if (
-        preregistration.get("schema")
+        set(preregistration)
+        != {"schema", "expected_family"}
+        or preregistration.get("schema")
         != authority["preregistration_schema"]
     ):
         raise ValueError(
@@ -864,6 +866,9 @@ def derive_authoritative_projection(
                     "permission-table authority changed"
                 )
 
+    evidence_level_present = (
+        "evidence_level" in source
+    )
     evidence_level = source.get(
         "evidence_level",
         "UNDETERMINED",
@@ -873,10 +878,26 @@ def derive_authoritative_projection(
         label="source.evidence_level",
     )
 
+    if (
+        evidence_level_present
+        and evidence_level != "N0"
+    ):
+        raise ValueError(
+            "unrecognized evidence-level authority"
+        )
+
     research_class = _strict_string(
         source.get("research_class"),
         label="source.research_class",
     )
+
+    if (
+        research_class
+        != "N0_EXPLORATORY_SYNTHETIC"
+    ):
+        raise ValueError(
+            "unrecognized research-class authority"
+        )
 
     source_promotion_limit = source.get(
         "source_promotion_limit",
@@ -896,6 +917,24 @@ def derive_authoritative_projection(
         source.get("confirmatory_claim_status"),
         label="source.confirmatory_claim_status",
     )
+
+    admitted_data_confirmatory_pairs = {
+        (
+            "SYNTHETIC_ONLY",
+            "NOT_CONFIRMATORY",
+        ),
+        (
+            "REAL",
+            "NOT_ESTABLISHED",
+        ),
+    }
+    if (
+        data_class,
+        confirmatory_claim_status,
+    ) not in admitted_data_confirmatory_pairs:
+        raise ValueError(
+            "unrecognized data/confirmatory authority pair"
+        )
 
     for finding_id, raw_status in raw_statuses.items():
         if (
