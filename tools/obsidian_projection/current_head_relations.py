@@ -11,6 +11,7 @@ from .current_head_semantic_bridge import (
     CurrentHeadBridgeEntry,
     CurrentHeadSemanticBridgeResult,
 )
+from .git_source import GitSourceError
 from .rendering import (
     artifact_record_id,
     relation_record_id,
@@ -251,7 +252,7 @@ def _read_eligible_blob(
         raw = source.read_blob(
             entry.source_blob_sha
         )
-    except Exception as exc:
+    except (GitSourceError, OSError) as exc:
         raise CurrentHeadRelationInfrastructureError(
             "source blob read unavailable"
         ) from exc
