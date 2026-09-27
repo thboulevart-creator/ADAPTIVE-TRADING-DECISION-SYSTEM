@@ -17869,3 +17869,109 @@ Next governed boundary:
 The next boundary must explicitly decide and freeze any new producer-specific metric-domain authority before AF04 can be re-adjudicated.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 282. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN GOVERNANCE DECISION
+
+Date:
+2026-09-27
+
+Decision base HEAD:
+
+`b4d8c169578a2bdd960e9568b01e6caa86100d84`
+
+Runtime blob remains:
+
+`18246b818c6c6af8c5412c3b0a515f76c5d5ddc8`
+
+A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Frozen authority:
+
+`ATDS_A0_SYNTHETIC_PRODUCER_METRIC_DOMAIN_AUTHORITY_V0_1`
+
+Authority artifact:
+
+`GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json`
+
+Authority Git blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Authority canonical content SHA-256:
+
+`5813f9d75395308386b4561b13c4eae889a4565cca3289f08a30d81657057492`
+
+Decision memo blob:
+
+`2721f928e399034707202e53a2de0b70b159cea4`
+
+Sandbox freeze qualification run:
+
+`36339726093`
+
+Sandbox freeze qualification:
+
+```
+A0_METRIC_DOMAIN_DECISION_FREEZE = PASS
+A0_EXISTING_85 = PASS_UNCHANGED
+```
+
+Normative decision:
+
+```
+producer_identity = ATDS_A0_SYNTHETIC_PRODUCER_V0_1
+source_schema = ATDS_A0_SYNTHETIC_SCIENTIFIC_RESULT_V0_1
+metric_identity_domain = {SYNTHETIC_SCORE}
+metric identity comparison = CASE_SENSITIVE
+metric aliases = NONE
+value_semantics = FINITE_JSON_NUMBER
+minimum = UNDEFINED
+maximum = UNDEFINED
+unknown metric = NO_AUTHORITATIVE_OUTPUT
+invalid value = NO_AUTHORITATIVE_OUTPUT
+permission authority = NONE
+scientific normalization authority = NONE
+```
+
+The authority governs only measurement metric identity and value.
+
+It does not redefine sample-size semantics, fold authority, scope, applicability, scientific status, evidence level, research class, confirmatory status or permissions.
+
+Historical status:
+
+`ADOPTED_AFTER_AF04_OBSERVATION`
+
+Therefore:
+
+- AF04 does not qualify this authority;
+- AF04 remains unadjudicated;
+- independent preregistered mutants are mandatory before any AF04 re-adjudication;
+- the authority is frozen before those new mutants are executed.
+
+Current status:
+
+```
+METRIC_DOMAIN_GOVERNANCE_DECISION = ADOPTED
+METRIC_DOMAIN_AUTHORITY = FROZEN_UNQUALIFIED
+METRIC_DOMAIN_RUNTIME_BINDING = NOT_AUTHORIZED
+AF04_READJUDICATION = NOT_AUTHORIZED
+ABF5_RUNTIME_CORRECTION = NOT_AUTHORIZED
+A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET
+```
+
+Governed A0 suite remains:
+
+`85/85 PASS`
+
+Next governed boundary:
+
+`A0 — SYNTHETIC PRODUCER METRIC-DOMAIN AUTHORITY TEST-FIRST RED`
+
+That boundary must persist an independent mutation set before execution, preserve all 85 current tests unchanged, make no runtime correction, and keep AF04 outside the independent qualification set.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
