@@ -17241,3 +17241,72 @@ Next governed boundary:
 `A0 — ADVERSARIAL BREAK EXPANSION V0.3`
 
 V0.3 must preserve all 42 currently passing tests unchanged and derive only from already-adopted V0.3 requirements.
+
+
+---
+
+## 274. A0 — ADVERSARIAL BREAK EXPANSION V0.3 — SANDBOX BREAK CONFIRMED
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`731380d8f1dd851c52de732c1edaf70f28ecc3c5`
+
+Implementation blob:
+
+`f0015894d001c0ced7d0edf881947e3a435ab5ca`
+
+Historical breaker:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial V0.1 breaker:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Adversarial V0.2 breaker:
+
+`9833ce563305cfb6d6fe1de8907e8aa9fc96fda4`
+
+Sandbox workflow:
+
+`36328425957`
+
+Existing closed suite:
+
+`42/42 PASS`
+
+V0.3 expansion:
+
+```
+TOTAL = 22
+PASS = 12
+FAIL = 10
+```
+
+PASS:
+
+AD01, AD02, AD03, AD11, AD12, AD14, AD17, AD18, AD19, AD20, AD21, AD22.
+
+FAIL:
+
+AD04, AD05, AD06, AD07, AD08, AD09, AD10, AD13, AD15, AD16.
+
+Material correction groups:
+
+- `A0-ABF3-01` exact persistent authority bytes not pinned;
+- `A0-ABF3-02` registry supersession metadata authority not pinned;
+- `A0-ABF3-03` native-status completeness/preservation incomplete;
+- `A0-ABF3-04` measurement scope binding not preserved;
+- `A0-ABF3-05` opaque narrative identity/reference not preserved;
+- `A0-ABF3-06` global-policy permission-table content not exactly pinned.
+
+Status:
+
+`A0_ADVERSARIAL_BREAK_EXPANSION_V0_3 = BREAK_CONFIRMED_SANDBOX`
+
+Next action:
+
+persist only the V0.3 breaker, FAIL report and this checkpoint update; then perform a fresh persisted-head re-break before any runtime correction.
