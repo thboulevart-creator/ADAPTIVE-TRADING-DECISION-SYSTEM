@@ -1,0 +1,93 @@
+name: A0 Adversarial Break Expansion V0.2
+
+on:
+  push:
+    branches:
+      - sandbox/a0-adversarial-break-expansion-v02
+    paths:
+      - .github/workflows/a0-adversarial-break-expansion-v02.yml
+
+permissions:
+  contents: read
+
+jobs:
+  break-v02:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact V0.2 sandbox breaker HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 7ef65ce79b09d00b8cf8ff6105d539eb01033256
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify protected governed identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "c7c1f37d9d306e0424274b276d42ab422beac560"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Verify V0.2 breaker-only scope from governed HEAD
+        shell: bash
+        run: |
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "breakers/a0_research_authority_adversarial_breaker_v02.py",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only",
+               "a493c4824775b63480b5fe3c07220c9df271fb1b",
+               "7ef65ce79b09d00b8cf8ff6105d539eb01033256"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Compile runtime and all breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v02.py
+
+      - name: Preserve closed 24-test suite
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             | tee /tmp/a0-v01-preserved.txt
+          grep -q "24 passed" /tmp/a0-v01-preserved.txt
+          echo "A0_EXISTING_24=PASS_UNCHANGED"
+
+      - name: Execute V0.2 adversarial expansion
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q             breakers/a0_research_authority_adversarial_breaker_v02.py             > /tmp/a0-v02.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/a0-v02.txt
+          echo "A0_V02_PYTEST_EXIT=$status"
+          python - <<'PY'
+          from pathlib import Path
+          text = Path("/tmp/a0-v02.txt").read_text()
+          import re
+          m = re.search(
+              r"(?:(\d+) failed, )?(?:(\d+) passed)(?: in |,)",
+              text,
+          )
+          if m:
+              failed = int(m.group(1) or 0)
+              passed = int(m.group(2))
+              print(f"A0_V02_RESULT=PASS:{passed};FAIL:{failed}")
+          else:
+              print("A0_V02_RESULT=UNPARSED")
+              raise SystemExit(2)
+          PY
