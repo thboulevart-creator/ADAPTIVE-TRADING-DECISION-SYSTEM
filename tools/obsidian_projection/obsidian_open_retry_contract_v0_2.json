@@ -57,7 +57,8 @@
     "transient_access_denied_not_classified_as_partial_generation": true,
     "terminal_reader_access_error_count_must_equal": 0,
     "semantic_partial_generation_count_must_equal": 0,
-    "retry_count_must_be_telemetried": true
+    "retry_count_must_be_telemetried": true,
+    "eacces_without_winerror_retry_count_must_be_telemetried": true
   },
   "synthetic_windows_lock_breaker": {
     "required": true,
@@ -101,6 +102,7 @@
     "append_only_event_required": true,
     "reader_access_denied_retry_count_required": true,
     "reader_terminal_access_error_count_required": true,
+    "reader_eacces_without_winerror_retry_count_required": true,
     "semantic_partial_signature_total_count_required": true,
     "semantic_partial_signatures_required": true
   },
@@ -125,6 +127,7 @@
     "reader does not retry PermissionError winerror 5",
     "reader does not retry PermissionError winerror 32",
     "reader does not retry PermissionError winerror None errno EACCES",
+    "reader EACCES fallback retry count does not increment",
     "reader retries non-PermissionError errno EACCES",
     "reader retries PermissionError errno EACCES with non-null winerror outside {5,32}",
     "reader retries unrelated PermissionError errno",
