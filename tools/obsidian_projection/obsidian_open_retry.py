@@ -160,8 +160,10 @@ def _read_bytes_with_access_retry(
         try:
             return path.read_bytes()
         except PermissionError as exc:
-            if getattr(exc, "winerror", None)
-            not in {5, 32}:
+            if (
+                getattr(exc, "winerror", None)
+                not in {5, 32}
+            ):
                 raise
 
             telemetry.access_denied_retry_count += 1
