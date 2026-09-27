@@ -88,8 +88,6 @@ class P5D3EVerifyTests(unittest.TestCase):
                 candidate_head=head,
                 candidate_tree=tree,
                 real_vault_root=vault,
-                candidate_resolution_network_fetch_performed=False,
-                real_candidate_evaluated=False,
             )
 
             self.assertEqual(
@@ -262,8 +260,6 @@ class P5D3EVerifyTests(unittest.TestCase):
                 candidate_head=head,
                 candidate_tree=tree,
                 real_vault_root=vault,
-                candidate_resolution_network_fetch_performed=False,
-                real_candidate_evaluated=False,
             )
 
             self.assertNotEqual(
