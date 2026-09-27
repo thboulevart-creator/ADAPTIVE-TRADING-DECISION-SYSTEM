@@ -1,8 +1,6 @@
 $ErrorActionPreference = "Stop"
 $env:PYTHONDONTWRITEBYTECODE = "1"
 
-param()
-
 $Snapshot = "C:\Users\Boulevart\AppData\Local\ATDS\obsidian_projection\p5c3\snapshots\p5c3-open-snapshot-bf2b9a1e817b35abdb550375970f21f84fd65de56590abf925aec329b0468b3b.json"
 
 if (Get-Process -Name "Obsidian" -ErrorAction SilentlyContinue) {
