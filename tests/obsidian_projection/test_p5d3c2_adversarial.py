@@ -448,7 +448,7 @@ class P5D3C2AdversarialTests(unittest.TestCase):
             '"CURRENT.json"',
             '"CURRENT.tmp"',
             "promote(",
-            "production_promotion_authorized": True",
+            '"production_promotion_authorized": true',
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(
