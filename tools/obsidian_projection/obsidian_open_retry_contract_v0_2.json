@@ -19,6 +19,14 @@
   },
   "objective": "Determine whether bounded reader-only retry of PermissionError EACCES observations with winerror absent removes transient CURRENT.md read-access failures without relaxing write-side sharing-conflict handling or semantic qualification criteria.",
   "non_goal": "Do not change the atomic publication primitive, write-side retryable WinErrors, generation model, snapshot binding, live-Vault boundary, graph semantics, or PASS criteria.",
+  "runtime_identity": {
+    "phase": "P5-C3R2",
+    "open_metrics_schema": "ATDS_OBSIDIAN_P5C3R2_OPEN_METRICS_V0_1",
+    "event_log_namespace": "p5c3r2",
+    "cli_module": "tools.obsidian_projection.p5c3r2_verify",
+    "open_runner": "tools/obsidian_projection/run_p5c3r2_open.ps1",
+    "predecessor_open_runner_must_remain_unchanged": true
+  },
   "write_retry_policy": {
     "retryable_exception_type": "PermissionError",
     "retryable_operation_only": "os.replace(CURRENT.tmp, CURRENT.md)",
@@ -146,7 +154,10 @@
     "Sync enabled",
     "community plugin enabled",
     "production authorization granted",
-    "continuous observer authorization granted"
+    "continuous observer authorization granted",
+    "P5-C3R2 event log written into P5-C3R namespace",
+    "P5-C3R2 open report uses predecessor metrics schema",
+    "P5-C3R2 runner invokes predecessor retry CLI"
   ],
   "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE"
 }
