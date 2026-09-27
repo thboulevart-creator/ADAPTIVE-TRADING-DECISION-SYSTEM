@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import tempfile
+from types import SimpleNamespace
 import unittest
 from pathlib import Path
 from unittest.mock import patch
@@ -266,6 +267,54 @@ class PromotionExperimentTests(unittest.TestCase):
     def test_pointer_candidate_has_zero_anomalies(
         self,
     ) -> None:
+        class DeterministicReaderProbe:
+            def __init__(
+                self,
+                validator,
+                *,
+                interval_seconds,
+            ) -> None:
+                del interval_seconds
+                self._validator = validator
+                self.metrics = SimpleNamespace(
+                    samples=0,
+                    mixed_generation_count=0,
+                    missing_entrypoint_count=0,
+                    partial_generation_count=0,
+                    parse_error_count=0,
+                )
+
+            def start(self) -> None:
+                self._validator()
+                self.metrics.samples += 1
+
+            def wait_for_samples(
+                self,
+                minimum: int,
+                *,
+                timeout_seconds: float = 300.0,
+            ) -> None:
+                del timeout_seconds
+                while self.metrics.samples < minimum:
+                    self._validator()
+                    self.metrics.samples += 1
+
+            def stop(self) -> None:
+                return None
+
+        def deterministic_progress(
+            reader,
+            baseline_samples: int,
+            *,
+            minimum_increment: int = 1,
+            timeout_seconds: float = 10.0,
+        ) -> None:
+            del timeout_seconds
+            target = baseline_samples + minimum_increment
+            while reader.metrics.samples < target:
+                reader._validator()
+                reader.metrics.samples += 1
+
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             fixtures = {
@@ -298,8 +347,13 @@ class PromotionExperimentTests(unittest.TestCase):
                 ),
                 patch(
                     "tools.obsidian_projection.promotion_experiment."
-                    "READER_INTERVAL_SECONDS",
-                    0.0005,
+                    "ReaderProbe",
+                    DeterministicReaderProbe,
+                ),
+                patch(
+                    "tools.obsidian_projection.promotion_experiment."
+                    "_wait_for_reader_progress",
+                    deterministic_progress,
                 ),
             ):
                 metrics = run_pointer_swap(
@@ -313,6 +367,25 @@ class PromotionExperimentTests(unittest.TestCase):
             )
             self.assertTrue(
                 metrics.qualifies_primitive
+            )
+            self.assertEqual(
+                metrics.cycles_completed,
+                20,
+            )
+            self.assertGreaterEqual(
+                metrics.samples,
+                100,
+            )
+            self.assertGreaterEqual(
+                metrics.samples_during_promotions,
+                20,
+            )
+            self.assertEqual(
+                metrics.final_generation_id,
+                "GEN_A",
+            )
+            self.assertIsNotNone(
+                metrics.final_tree_digest_sha256
             )
             self.assertEqual(
                 metrics.mixed_generation_count,
