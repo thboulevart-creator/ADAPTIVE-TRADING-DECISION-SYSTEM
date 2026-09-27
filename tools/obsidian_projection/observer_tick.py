@@ -14,7 +14,7 @@ EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 EXPECTED_BRANCH = "integration/system-v1"
-CONTRACT_BLOB = "f7c986450626e1f0aa3642a8c27fe826a4aceb4d"
+CONTRACT_BLOB = "5967736c1d502450e75c8665922707657caccfc6"
 
 STATE_SCHEMA = "ATDS_OBSIDIAN_OBSERVER_STATE_V0_1"
 INPUT_SCHEMA = "ATDS_OBSIDIAN_OBSERVER_INPUT_V0_1"
@@ -477,6 +477,27 @@ def _apply_remote_observed(
     observed = event["observed_head"]
     transition_class = event["transition_class"]
     previous_live = state["live_projection_head"]
+    previous_observed = state["latest_observed_head"]
+
+    if transition_class == "INITIAL":
+        if previous_observed is not None:
+            raise ObserverTickError(
+                "INITIAL requires no previous observed HEAD"
+            )
+    elif transition_class == "SAME":
+        if previous_observed != observed:
+            raise ObserverTickError(
+                "SAME requires previous observed HEAD equality"
+            )
+    else:
+        if previous_observed is None:
+            raise ObserverTickError(
+                f"{transition_class} requires previous observed HEAD"
+            )
+        if previous_observed == observed:
+            raise ObserverTickError(
+                f"{transition_class} requires a new observed HEAD"
+            )
 
     if state["observer_phase"] == "BLOCKED":
         if (
