@@ -118,6 +118,7 @@ def _base_case():
     return {
         "schema": "ATDS_C01_CONFIRMATION_SYNTHETIC_CASE_V0_1",
         "mode": "SYNTHETIC_ONLY",
+        "as_of_utc": "2026-09-27T00:00:00Z",
 
         "bindings": {
             "charter_git_blob":
@@ -364,6 +365,11 @@ def test_breaker_contract(
         _assert_blocked(_evaluate(m, case))
 
     elif breaker_id == "B05":
+        assert (
+            case["as_of_utc"]
+            < case["window"]["fixed_end_utc"]
+        )
+
         case["mode"] = "REAL_CONFIRMATION"
 
         case["window"][

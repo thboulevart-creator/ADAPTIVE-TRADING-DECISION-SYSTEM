@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; CONFIRMATION RUNNER TEST-FIRST RED PERSISTENCE CANDIDATE.** 32 frozen breakers plus one positive synthetic control executed before runtime implementation. Observed baseline: 33 failed, 33 absent-runtime markers, 0 collection errors. Runtime absent. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false. Next: persisted-head re-break.
+> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; TEST-FIRST RED HEAD 64c1c3e FAILED PERSISTED-HEAD RE-BREAK ON B05 TEMPORAL UNDER-SPECIFICATION; MINIMAL B05 CORRECTION IS A PERSISTENCE CANDIDATE.** Runtime absent; confirmation data accessed=false; primary score computed=false; real confirmation execution=false. Runtime implementation remains unauthorized.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15789,4 +15789,63 @@ Next:
 persisted-head re-break of the exact test-first breaker and documentary evidence.
 
 Only after PASS may the minimal runner runtime be implemented.
+
+---
+
+## 254. C01 RUNNER TEST-FIRST — PERSISTED-HEAD RE-BREAK FAIL AND B05 CORRECTION
+
+Date:
+2026-09-27
+
+Reviewed persisted HEAD:
+
+`64c1c3e7365e333d537dcbec43af528ffb1e132b`
+
+Verdict:
+
+**FAIL**
+
+Finding:
+
+`B05_TEMPORAL_BOUNDARY_UNDER_SPECIFIED`
+
+Minimal correction:
+
+- add `as_of_utc = 2026-09-27T00:00:00Z`;
+- require `as_of_utc < fixed_end_utc`;
+- then activate `REAL_CONFIRMATION`.
+
+Corrected breaker hash:
+
+`f2596da79f37a7bd7f46078e6b60a661158b6bf7`
+
+Corrected RED:
+
+- `33 failed`;
+- `33` absent-runtime markers;
+- `0` collection errors;
+- runtime absent.
+
+Confirmation data accessed:
+`false`
+
+Primary confirmation score computed:
+`false`
+
+Real confirmation execution:
+`false`
+
+Scientific confirmation:
+`NOT_YET_PERFORMED`
+
+Runtime implementation authorized:
+`false`
+
+Status:
+
+**B05 CORRECTION PERSISTENCE CANDIDATE — NOT YET QUALIFIED.**
+
+Next:
+
+persist correction, then fresh persisted-head re-break.
 
