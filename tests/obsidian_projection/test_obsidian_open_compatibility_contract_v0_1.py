@@ -148,6 +148,49 @@ class P5C3ContractTests(unittest.TestCase):
             pointer["direct_in_place_write_forbidden"]
         )
 
+    def test_snapshot_persistence_is_redundant(
+        self,
+    ) -> None:
+        snapshot = self.contract[
+            "snapshot_persistence"
+        ]
+        self.assertTrue(
+            snapshot[
+                "localappdata_primary_required"
+            ]
+        )
+        self.assertTrue(
+            snapshot[
+                "onedrive_control_backup_required"
+            ]
+        )
+        self.assertIn(
+            "ATDS-P5C3-CONTROL-EVIDENCE",
+            snapshot[
+                "onedrive_control_root"
+            ],
+        )
+        self.assertTrue(
+            snapshot[
+                "both_copies_must_be_byte_identical"
+            ]
+        )
+        self.assertTrue(
+            snapshot[
+                "run_open_may_use_either_verified_copy"
+            ]
+        )
+        self.assertTrue(
+            snapshot[
+                "single_copy_disappearance_must_not_force_sandbox_rebuild"
+            ]
+        )
+        self.assertTrue(
+            snapshot[
+                "both_copies_missing_blocks"
+            ]
+        )
+
     def test_prepare_requires_obsidian_closed(self) -> None:
         prepare = self.contract["prepare_phase"]
         self.assertTrue(
