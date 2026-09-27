@@ -42,7 +42,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
 
     def test_retry_contract_blob_is_pinned(self) -> None:
         self.assertIn(
-            'CONTRACT_BLOB = "5648b2f7d3d3beb528539cd7c711c39210270064"',
+            'CONTRACT_BLOB = "82cc7e100017d5e2db671ccce989f5e0e2afe912"',
             self.module,
         )
 
@@ -98,7 +98,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
             self.module,
         )
 
-    def test_write_retry_only_accepts_winerror5(
+    def test_write_retry_only_accepts_sharing_conflicts_5_and_32(
         self,
     ) -> None:
         start = self.module.index(
@@ -115,7 +115,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
             body,
         )
         self.assertIn(
-            'getattr(exc, "winerror", None) != 5',
+            'not in {5, 32}',
             body,
         )
         self.assertIn(
@@ -195,7 +195,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
             self.module,
         )
 
-    def test_reader_retries_only_underlying_winerror5(
+    def test_reader_retries_only_underlying_sharing_conflict(
         self,
     ) -> None:
         start = self.module.index(
