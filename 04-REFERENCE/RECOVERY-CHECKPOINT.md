@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; FRESH PERSISTED-HEAD RE-BREAK OF C01 RUNNER TEST-FIRST HEAD 189b2f098076a7bd1ac2c0eb647757f375c3a479 = PASS. PASS qualification documentation is now a persistence candidate. Runtime remains absent. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false. After persistence of this PASS documentation, only minimal SYNTHETIC_ONLY runner implementation may begin.
+> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; C01 RUNNER TEST-FIRST HARNESS QUALIFIED; MINIMAL SYNTHETIC-ONLY RUNNER CANDIDATE LOCALLY GREEN.** Runtime working blob 22617ba26603aa56ee0d462a5dd3a313690bcc37; qualified harness 33/33 PASS; supplemental non-finite probes 3/3 PASS. Confirmation data accessed=false; primary scientific score computed=false; real confirmation execution=false. Next: persist runtime candidate plus evidence, then fresh persisted-head adversarial re-break.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15937,4 +15937,74 @@ Only after that persistence may minimal implementation of:
 `tools/c01_confirmation_runner.py`
 
 begin against the qualified synthetic harness.
+
+---
+
+## 256. C01 CONFIRMATION RUNNER — MINIMAL SYNTHETIC RUNTIME CANDIDATE
+
+Date:
+2026-09-27
+
+Qualified implementation base HEAD:
+
+`4f545e19bcb7283d52a36fd51bbe74934db9286e`
+
+Runtime path:
+
+`tools/c01_confirmation_runner.py`
+
+Working runtime blob:
+
+`22617ba26603aa56ee0d462a5dd3a313690bcc37`
+
+Qualified breaker blob:
+
+`f2596da79f37a7bd7f46078e6b60a661158b6bf7`
+
+Local verification:
+
+- `py_compile = PASS`
+- qualified harness = `33 passed`
+- collection errors = `0`
+- supplemental adversarial probes = `3/3 PASS`
+
+Supplemental probes:
+
+- `NaN` primary metric: fail-closed;
+- `Infinity` primary metric: fail-closed;
+- invalid/non-finite joint-state count: fail-closed.
+
+Allowed development class:
+
+`SYNTHETIC_ONLY`
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Runtime qualification:
+
+`NOT_YET`
+
+Status:
+
+**MINIMAL RUNTIME PERSISTENCE CANDIDATE — NOT YET QUALIFIED.**
+
+Next governed action:
+
+persist exactly the runtime candidate, candidate report and checkpoint update.
+
+Then perform a fresh persisted-head adversarial re-break before runtime qualification.
 
