@@ -16723,3 +16723,55 @@ Next governed action:
 
 persist this exact minimal implementation candidate, then perform a fresh persisted-head re-break against the unchanged six-test breaker.
 
+---
+
+## 267. A0 — MINIMAL IMPLEMENTATION — FRESH PERSISTED-HEAD RE-BREAK PASS
+
+Date:
+2026-09-27
+
+Reviewed persisted governed HEAD:
+
+`831fb25b42bd4830712c3ded2d556de73ef4e8f2`
+
+Candidate implementation blob:
+
+`737f041b7b083f832f475b2aab607fb417c74fe0`
+
+Persisted initial RED breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Fresh persisted-head workflow run:
+
+`36324098836`
+
+Verification:
+
+- exact candidate HEAD = `PASS`;
+- exact persistence scope = `PASS`;
+- protected contract/adjudication/breaker identities = `PASS`;
+- implementation compile = `PASS`;
+- breaker compile = `PASS`;
+- unchanged initial RED suite = `6/6 PASS`.
+
+Status:
+
+`A0_INITIAL_RED_TRANSITION = CLOSED_PASS`
+
+`A0_MINIMAL_IMPLEMENTATION_CANDIDATE = PERSISTED_AND_REBROKEN`
+
+Full A0 V0.3 implementation qualification:
+
+`NOT_YET`
+
+Next governed boundary:
+
+`A0 — ADVERSARIAL BREAK EXPANSION`
+
+No A1/A2/Decision/ACTION/execution authority is implied.
+
