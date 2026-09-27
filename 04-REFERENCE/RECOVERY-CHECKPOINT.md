@@ -18188,3 +18188,97 @@ Next governed boundary:
 `A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING GOVERNANCE DECISION`
 
 No `src/a0_research_authority.py` modification, AF04 execution, A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened by this qualification.
+
+
+---
+
+## 286. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING GOVERNANCE DECISION
+
+Date:
+2026-09-27
+
+Decision base HEAD:
+
+`6f55748df1abbc72e437b077ed7912d6e15803a1`
+
+Decision document blob:
+
+`82b399f06c41fa740a3676d0272cb39759911a7f`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Standalone qualifier blob:
+
+`9bd05f2a2a97f092c0fc2988319f15caff57dda3`
+
+Verification run:
+
+`36341764050`
+
+Verification:
+
+```
+decision-only scope = PASS
+no runtime mutation = PASS
+107/107 existing tests = PASS
+```
+
+Adopted binding rules:
+
+```
+applicable producer =
+ATDS_A0_SYNTHETIC_PRODUCER_V0_1
+
+applicable source schema =
+ATDS_A0_SYNTHETIC_SCIENTIFIC_RESULT_V0_1
+
+authority source =
+fixed governed repository artifact only
+
+caller-selected authority =
+FORBIDDEN
+
+missing/corrupt authority =
+NO AUTHORITATIVE OUTPUT
+
+measurement validation =
+EVERY PRESENT finding.measurement
+
+Source Profile metric-domain override =
+FORBIDDEN
+
+Global Normalization Policy metric-domain override =
+FORBIDDEN
+```
+
+Future carrier additions are frozen as:
+
+```
+metric_domain_authority_identity
+metric_domain_authority_sha256
+metric_domain_validation
+```
+
+Current status:
+
+```
+METRIC_DOMAIN_AUTHORITY_STANDALONE_QUALIFICATION = PASS
+METRIC_DOMAIN_RUNTIME_BINDING_GOVERNANCE_DECISION = ADOPTED
+METRIC_DOMAIN_RUNTIME_BINDING = NOT_IMPLEMENTED
+METRIC_DOMAIN_RUNTIME_BINDING_QUALIFICATION = NOT_YET
+AF04_READJUDICATION = NOT_AUTHORIZED
+ABF5_RUNTIME_CORRECTION = NOT_AUTHORIZED
+A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET
+```
+
+No `src/a0_research_authority.py` mutation is authorized by this decision itself.
+
+Next governed boundary:
+
+`A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING TEST-FIRST RED`
+
+That boundary must preregister and persist an independent runtime-binding breaker before execution or implementation, preserve all 107 current tests unchanged, and keep AF04 excluded.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
