@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
+import re
 import tempfile
 from pathlib import Path
 from typing import Any, Iterable
@@ -15,6 +15,7 @@ from .candidate_generation_staging import (
     verify_candidate_generation,
 )
 from .current_head_breakers import (
+    CurrentHeadBreakerError,
     CurrentHeadBreakerInfrastructureError,
     run_current_head_projection_breakers,
 )
@@ -66,6 +67,8 @@ EVALUATOR_CONTRACT_BLOB = (
 P5D3D_CONTRACT_QUALIFICATION_COMMIT = (
     "c2d0323df53c40c8818d7f8d9805210e1961116e"
 )
+_HEAD_RE = re.compile(r"^[0-9a-f]{40}$")
+
 REPORT_SCHEMA = (
     "ATDS_OBSIDIAN_P5D3D_FINITE_EVALUATION_REPORT_V0_1"
 )
@@ -157,7 +160,7 @@ def _validate_activation(
     pending = state.get("pending_heads")
     if (
         not isinstance(candidate, str)
-        or len(candidate) != 40
+        or _HEAD_RE.fullmatch(candidate) is None
         or not isinstance(pending, list)
         or not pending
         or pending[0] != candidate
@@ -807,6 +810,10 @@ def evaluate_candidate_finitely(
     except CurrentHeadBreakerInfrastructureError:
         return blocked(
             "BREAKER_INFRASTRUCTURE_UNAVAILABLE"
+        )
+    except CurrentHeadBreakerError:
+        return rejected(
+            "PROJECTION_BREAKER_FAILED"
         )
 
     breaker_manifest_digest = (
