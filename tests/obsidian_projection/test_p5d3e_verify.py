@@ -13,6 +13,7 @@ from tools.obsidian_projection.p5d3e_verify import (
     resolve_real_candidate,
     run_pre_resolved_sandbox,
     run_real_exact_head_qualification,
+    _git_blob_oid,
 )
 
 
@@ -71,6 +72,12 @@ def _make_control_repo(root: Path) -> tuple[Path, str, str]:
 
 
 class P5D3EVerifyTests(unittest.TestCase):
+    def test_git_blob_oid_matches_canonical_git_object_id(self) -> None:
+        self.assertEqual(
+            _git_blob_oid(b"hello\n"),
+            "ce013625030ba8dba906f756967f9e9ca394464a",
+        )
+
     def test_pre_resolved_sandbox_exercises_full_qualified_core(self) -> None:
         with tempfile.TemporaryDirectory(
             prefix="p5d3e-test-"
