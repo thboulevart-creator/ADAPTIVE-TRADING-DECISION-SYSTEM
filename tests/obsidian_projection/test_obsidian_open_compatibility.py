@@ -13,6 +13,8 @@ from tools.obsidian_projection.obsidian_open_compatibility import (
     OpenPointerPartialError,
     _core_plugins_sync_disabled,
     _current_note_bytes,
+    _load_snapshot,
+    _write_snapshot,
     _parse_simple_frontmatter,
     _safe_obsidian_state,
     build_markdown_generation,
@@ -365,6 +367,106 @@ class P5C3OpenCompatibilityTests(unittest.TestCase):
                     vault,
                     require_workspace_current=False,
                 )
+
+    def test_snapshot_is_written_redundantly(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            primary = root / "primary"
+            backup = root / "backup"
+
+            payload = {
+                "schema": "TEST",
+                "value": 1,
+            }
+
+            with patch(
+                "tools.obsidian_projection."
+                "obsidian_open_compatibility."
+                "_snapshot_directories",
+                return_value=(primary, backup),
+            ):
+                (
+                    primary_path,
+                    backup_path,
+                    digest,
+                ) = _write_snapshot(payload)
+
+                self.assertTrue(
+                    primary_path.is_file()
+                )
+                self.assertTrue(
+                    backup_path.is_file()
+                )
+                self.assertEqual(
+                    primary_path.read_bytes(),
+                    backup_path.read_bytes(),
+                )
+
+                loaded_primary, token_primary = (
+                    _load_snapshot(
+                        primary_path
+                    )
+                )
+                loaded_backup, token_backup = (
+                    _load_snapshot(
+                        backup_path
+                    )
+                )
+
+            self.assertEqual(
+                loaded_primary,
+                payload,
+            )
+            self.assertEqual(
+                loaded_backup,
+                payload,
+            )
+            self.assertEqual(
+                token_primary,
+                digest,
+            )
+            self.assertEqual(
+                token_backup,
+                digest,
+            )
+
+    def test_snapshot_copy_divergence_is_blocked(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            primary = root / "primary"
+            backup = root / "backup"
+
+            payload = {
+                "schema": "TEST",
+                "value": 2,
+            }
+
+            with patch(
+                "tools.obsidian_projection."
+                "obsidian_open_compatibility."
+                "_snapshot_directories",
+                return_value=(primary, backup),
+            ):
+                (
+                    primary_path,
+                    backup_path,
+                    _digest,
+                ) = _write_snapshot(payload)
+
+                backup_path.write_bytes(
+                    b'{"corrupted":true}\n'
+                )
+
+                with self.assertRaises(
+                    ObsidianOpenCompatibilityError
+                ):
+                    _load_snapshot(
+                        primary_path
+                    )
 
     def test_pointer_write_uses_replace(self) -> None:
         with tempfile.TemporaryDirectory() as td:
