@@ -170,6 +170,7 @@
   "transition_semantics": {
     "BOOTSTRAP": {
       "allowed_only_when_last_event_sequence_zero": true,
+      "requires_canonical_initial_state": true,
       "action": "NOOP",
       "state_unchanged_except_sequence": true
     },
@@ -224,6 +225,7 @@
       "failure_code_recorded": true
     },
     "EVALUATION_STARTED": {
+      "requires_observer_phase": "IDLE",
       "candidate_must_equal_pending_queue_head": true,
       "observer_phase": "EVALUATING",
       "action": "START_EXACT_HEAD_EVALUATION",
@@ -281,6 +283,9 @@
       "action": "STOP",
       "pending_heads_preserved": true,
       "live_projection_head_unchanged": true
+    },
+    "STOPPED_TERMINAL": {
+      "further_events_forbidden": true
     }
   },
   "decision_invariants": {
@@ -351,6 +356,7 @@
     "EVALUATING accepted with empty pending queue",
     "input sequence skip accepted",
     "input sequence replay accepted",
+    "BOOTSTRAP accepted from noncanonical initial state",
     "extra normalized input field accepted",
     "wrong input schema accepted",
     "REMOTE_HEAD_OBSERVED without head accepted",
@@ -365,6 +371,7 @@
     "UNKNOWN queues head",
     "network failure changes live head",
     "network failure leaves fresh CURRENT claim",
+    "evaluation starts outside IDLE phase",
     "evaluation starts for non-head-of-queue candidate",
     "evaluation PASS changes live head",
     "evaluation PASS fails to advance last qualified head",
@@ -373,6 +380,7 @@
     "promotion failure changes live head",
     "LOCK_CONTENDED mutates semantic state",
     "SHUTDOWN drops pending heads",
+    "event accepted after STOPPED",
     "automatic promotion authority becomes true",
     "production write authority becomes true",
     "same inputs produce different normalized bytes",
