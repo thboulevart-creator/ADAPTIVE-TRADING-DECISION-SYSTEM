@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-26 EOD : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; SESSION STOPPED BEFORE CONFIRMATION RUNNER TEST-FIRST RED.** Authoritative qualified preflight HEAD 818b7e3a21d767ce7fd34cf3b74286b07246a152. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false; scientific confirmation=NOT_YET_PERFORMED. No C01 confirmation runner runtime or breaker has been persisted yet. Exact next action tomorrow: materialize and execute the test-first synthetic runner harness (32 frozen breakers + 1 positive synthetic control), require the expected red baseline solely because the runtime is absent, persist it, then perform persisted-head re-break before runtime implementation.
+> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; CONFIRMATION RUNNER TEST-FIRST RED PERSISTENCE CANDIDATE.** 32 frozen breakers plus one positive synthetic control executed before runtime implementation. Observed baseline: 33 failed, 33 absent-runtime markers, 0 collection errors. Runtime absent. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false. Next: persisted-head re-break.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15728,4 +15728,65 @@ Earliest primary evaluation:
 Therefore runner engineering can advance now on synthetic fixtures, but the
 actual C01 scientific confirmation cannot be adjudicated before that fixed
 window closes.
+
+---
+
+## 253. C01 CONFIRMATION RUNNER — TEST-FIRST RED BASELINE
+
+Date:
+2026-09-27
+
+Persistence base HEAD:
+`d4ab2ba9dde7f18531c5524364e43f52a5994cb8`
+
+Qualified preflight HEAD:
+`818b7e3a21d767ce7fd34cf3b74286b07246a152`
+
+Breaker:
+`breakers/c01_confirmation_runner_breaker.py`
+
+Future runtime:
+`tools/c01_confirmation_runner.py`
+
+Runtime:
+
+**ABSENT BY DESIGN**
+
+Frozen minimum breaker registry:
+`32`
+
+Positive synthetic control:
+`1`
+
+Local RED:
+
+- total cases: `33`
+- result: `33 failed`
+- absent-runtime markers: `33`
+- collection errors: `0`
+- pytest exit: `1`
+
+Demonstrated common cause:
+
+`C01_CONFIRMATION_RUNNER_ABSENT_EXPECTED_RED`
+
+No confirmation data accessed.
+
+No real primary confirmation score computed.
+
+No real confirmation execution.
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Status:
+
+**TEST-FIRST RED PERSISTENCE CANDIDATE — NOT YET QUALIFIED.**
+
+Next:
+
+persisted-head re-break of the exact test-first breaker and documentary evidence.
+
+Only after PASS may the minimal runner runtime be implemented.
 
