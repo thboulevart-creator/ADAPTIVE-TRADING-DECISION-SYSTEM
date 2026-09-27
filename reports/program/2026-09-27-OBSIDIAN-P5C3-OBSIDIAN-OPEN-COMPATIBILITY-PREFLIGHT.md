@@ -111,6 +111,13 @@ RUN-OPEN and POST-CLOSE may use either verified copy. The persisted PowerShell r
 
 Both copies missing => BLOCKED.
 
+Content-addressed snapshot reuse rule:
+
+- existing digest path + byte-identical envelope => REUSE / allowed;
+- existing digest path + different bytes => BLOCKED.
+
+This prevents a deterministic rerun of PREPARE from being falsely classified as a collision.
+
 The earlier PREPARE PASS report is retained as historical evidence but explicitly marked superseded for current execution:
 
     reports/program/2026-09-27-OBSIDIAN-P5C3-PREPARE-PASS.md
