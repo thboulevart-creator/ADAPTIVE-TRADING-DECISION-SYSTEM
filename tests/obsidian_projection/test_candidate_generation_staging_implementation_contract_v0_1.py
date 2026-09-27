@@ -209,7 +209,7 @@ class P5D3C2StagingImplementationContractTests(
         )
         self.assertTrue(
             p[
-                "capability_unavailable_does_not_waive_static_and_synthetic_breakers"
+                "capability_unavailable_does_not_waive_static_and_unit_reparse_breakers"
             ]
         )
 
