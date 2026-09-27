@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 
 from tools.obsidian_projection.classification import (
@@ -319,6 +320,40 @@ class CurrentHeadProjectionBuilderTests(
         self.assertNotIn(
             b"VALUE = 1",
             artifact_bytes,
+        )
+
+    def test_semantic_record_bridge_binding_is_fail_closed(
+        self,
+    ) -> None:
+        source, bridge = make_bridge()
+        entries = list(bridge.entries)
+        entries[0] = replace(
+            entries[0],
+            semantic_record=replace(
+                entries[0].semantic_record,
+                source_path="wrong/path.bin",
+            ),
+        )
+        mutant = replace(
+            bridge,
+            entries=tuple(entries),
+        )
+
+        with tempfile.TemporaryDirectory(
+            prefix="atds-p5d3d-build-binding-"
+        ) as temp:
+            with self.assertRaises(
+                CurrentHeadProjectionInvalidError
+            ):
+                build_current_head_projection(
+                    source=source,
+                    bridge=mutant,
+                    stage_root=Path(temp) / "build",
+                )
+
+        self.assertEqual(
+            source.reads,
+            [],
         )
 
     def test_preexisting_stage_root_is_rejected(
