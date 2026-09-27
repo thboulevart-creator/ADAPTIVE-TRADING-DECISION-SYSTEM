@@ -10,6 +10,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.obsidian_projection.candidate_generation_staging import (
+    CandidateGenerationInfrastructureError,
     CandidateGenerationInvalidError,
     STAGING_CONTRACT_BLOB,
     VerifiedProjectionCandidate,
@@ -17,6 +18,7 @@ from tools.obsidian_projection.candidate_generation_staging import (
     verify_candidate_generation,
 )
 from tools.obsidian_projection.integrity import (
+    IntegrityError,
     all_generated_files,
     projection_tree_digest,
 )
@@ -355,6 +357,26 @@ class CandidateGenerationStagingTests(
         self.assertEqual(second, descriptor)
         self.assertEqual(before, middle)
         self.assertEqual(middle, after)
+
+    def test_stat_unavailability_is_infrastructure_block(
+        self,
+    ) -> None:
+        with patch(
+            "tools.obsidian_projection."
+            "candidate_generation_staging."
+            "validate_new_temp_staging_path",
+            side_effect=IntegrityError(
+                "cannot lstat path: synthetic"
+            ),
+        ):
+            with self.assertRaises(
+                CandidateGenerationInfrastructureError
+            ):
+                stage_candidate_generation(
+                    self.candidate,
+                    verified_projection_root=self.projection,
+                    package_root=self.root / "infra-block",
+                )
 
     def test_preexisting_package_root_is_rejected(
         self,
