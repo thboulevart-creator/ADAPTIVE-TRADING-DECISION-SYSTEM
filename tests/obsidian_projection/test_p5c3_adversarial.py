@@ -50,6 +50,12 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             / "obsidian_projection"
             / "run_p5c3_diagnose_open.ps1"
         ).read_text(encoding="utf-8")
+        cls.observed_open_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3_observed_open_control.ps1"
+        ).read_text(encoding="utf-8")
         cls.legacy_p5c2_test = (
             cls.root
             / "tests"
@@ -225,6 +231,41 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             '"mutation_performed": False',
             body,
         )
+
+    def test_observed_open_runner_orders_control_flow(
+        self,
+    ) -> None:
+        targeted = self.observed_open_runner.index(
+            "=== TARGETED TESTS ==="
+        )
+        full = self.observed_open_runner.index(
+            "=== FULL OBSIDIAN SUITE ==="
+        )
+        diagnostic = self.observed_open_runner.index(
+            "=== READ-ONLY OPEN DIAGNOSTIC ==="
+        )
+        run_open = self.observed_open_runner.index(
+            "=== INSTRUMENTED RUN-OPEN ==="
+        )
+        self.assertLess(targeted, full)
+        self.assertLess(full, diagnostic)
+        self.assertLess(diagnostic, run_open)
+
+    def test_observed_open_runner_has_no_reset_prepare_or_launch(
+        self,
+    ) -> None:
+        for forbidden in (
+            "run_p5c3_reset.ps1",
+            "--prepare",
+            "Start-Process",
+            "Invoke-Item",
+            "obsidian://",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    self.observed_open_runner,
+                )
 
     def test_diagnostic_runner_uses_read_only_mode(
         self,
