@@ -1,0 +1,69 @@
+name: A0 Metric-Domain Runtime Binding Governance
+
+on:
+  push:
+    branches:
+      - sandbox/a0-metric-domain-runtime-binding-governance
+    paths:
+      - .github/workflows/a0-metric-domain-runtime-binding-governance.yml
+
+permissions:
+  contents: read
+
+jobs:
+  governance:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact governance decision candidate
+        uses: actions/checkout@v4
+        with:
+          ref: 6e73b0ea49fe6735b107df8d79b27fc687d53ded
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify decision-only scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "6e73b0ea49fe6735b107df8d79b27fc687d53ded"
+          python - <<'PY'
+          import subprocess
+          got=set(subprocess.check_output(
+              ["git","diff","--name-only",
+               "6f55748df1abbc72e437b077ed7912d6e15803a1",
+               "6e73b0ea49fe6735b107df8d79b27fc687d53ded"],
+              text=True,
+          ).splitlines())
+          expected={
+              "GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-RUNTIME-BINDING-GOVERNANCE-DECISION-2026-09-27.md"
+          }
+          assert got==expected,(got,expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-RUNTIME-BINDING-GOVERNANCE-DECISION-2026-09-27.md)" = "82b399f06c41fa740a3676d0272cb39759911a7f"
+          test "$(git hash-object src/a0_research_authority.py)" = "18246b818c6c6af8c5412c3b0a515f76c5d5ddc8"
+          test "$(git hash-object src/a0_metric_domain_authority.py)" = "9bd05f2a2a97f092c0fc2988319f15caff57dda3"
+          test "$(git hash-object breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py)" = "e3620ac348a8042fe1d04cfc9b32c16060fce4a3"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-TEST-FIRST-RED-V0.1.json)" = "be8c1c0c805c86d376517ec11da744763c48143c"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json)" = "dd205d3e7b4a522a5ba23cef1e665d51c196acb8"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Verify no runtime mutation
+        shell: bash
+        run: |
+          test "$(git diff --name-only 6f55748df1abbc72e437b077ed7912d6e15803a1 6e73b0ea49fe6735b107df8d79b27fc687d53ded -- src)" = ""
+
+      - name: Preserve frozen 107-test surface
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py             | tee /tmp/a0-binding-governance.txt
+          grep -q "107 passed" /tmp/a0-binding-governance.txt
+          echo "A0_METRIC_DOMAIN_RUNTIME_BINDING_GOVERNANCE_DECISION=PASS_107_UNCHANGED"
