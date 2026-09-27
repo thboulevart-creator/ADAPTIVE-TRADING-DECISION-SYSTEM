@@ -67,7 +67,7 @@ jobs:
               "M09": ["caller cannot choose profile"],
               "M10": ["pinned/versioned Source Profile Registry"],
               "M11": ["exactly one ACTIVE profile"],
-              "M12": ["Profile supersession is explicit"],
+              "M12": ["PROFILE V1 → superseded by PROFILE V2", "profile supersession explicit"],
               "M13": ["historical post-observation profile cannot increase authority"],
               "M14": ["future outcome-sensitive profile frozen pre-observation"],
               "M15": ["Global Normalization Policy", "Source Profiles cannot override"],
