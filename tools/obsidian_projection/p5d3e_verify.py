@@ -22,7 +22,6 @@ from .finite_candidate_evaluator import (
 )
 from .git_source import (
     RepositoryIdentityError,
-    git_blob_oid,
     normalize_origin,
 )
 from .observer_tick import (
@@ -108,6 +107,12 @@ _FORBIDDEN_PACKAGE_NAMES = frozenset(
         ".git",
     }
 )
+
+
+def _git_blob_oid(raw: bytes) -> str:
+    return hashlib.sha1(
+        f"blob {len(raw)}\0".encode("ascii") + raw
+    ).hexdigest()
 
 
 def _canonical_json_bytes(value: Any) -> bytes:
@@ -264,7 +269,7 @@ def _load_contract() -> dict[str, Any]:
             "P5-D3E contract unavailable"
         ) from exc
 
-    if git_blob_oid(raw) != P5D3E_CONTRACT_BLOB:
+    if _git_blob_oid(raw) != P5D3E_CONTRACT_BLOB:
         raise RealExactHeadSandboxGovernanceError(
             "P5-D3E contract blob mismatch"
         )
