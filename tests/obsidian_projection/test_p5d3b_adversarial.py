@@ -44,9 +44,10 @@ class P5D3BAdversarialTests(unittest.TestCase):
     def test_legacy_inventory_is_not_imported(self) -> None:
         for forbidden in (
             "FrozenInventory",
-            "InventoryEntry",
             "load_inventory",
             "pilot_inventory_v0_1",
+            ".inventory import",
+            "from tools.obsidian_projection.inventory",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(
