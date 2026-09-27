@@ -1189,6 +1189,22 @@ def verify_candidate_generation(
             "generated file count mismatch"
         )
 
+    try:
+        packaged_projection_digest = (
+            projection_tree_digest(root)
+        )
+    except IntegrityError as exc:
+        raise CandidateGenerationInvalidError(
+            f"packaged projection tree verification failed: {exc}"
+        ) from exc
+
+    if packaged_projection_digest != (
+        candidate.projection_tree_digest_sha256
+    ):
+        raise CandidateGenerationInvalidError(
+            "packaged projection tree digest mismatch"
+        )
+
     if (
         payload_manifest["file_count"]
         != candidate.generated_file_count
@@ -1505,6 +1521,23 @@ def stage_candidate_generation(
         raise CandidateGenerationInvalidError(
             "pre-seal payload manifest digest mismatch"
         )
+
+    try:
+        staged_projection_digest = (
+            projection_tree_digest(root)
+        )
+    except IntegrityError as exc:
+        raise CandidateGenerationInvalidError(
+            f"pre-seal projection tree verification failed: {exc}"
+        ) from exc
+
+    if staged_projection_digest != (
+        candidate.projection_tree_digest_sha256
+    ):
+        raise CandidateGenerationInvalidError(
+            "pre-seal projection tree digest mismatch"
+        )
+
     if (
         _sha256_bytes(generation_raw)
         != generation_digest
