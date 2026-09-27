@@ -7,7 +7,7 @@ import os
 import tempfile
 import threading
 import time
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from typing import Any, Callable
 
@@ -139,6 +139,33 @@ def _is_retryable_sharing_conflict(
         current = current.__cause__
 
     return False
+
+
+def _semantic_partial_signature(
+    exc: OpenPointerPartialError,
+) -> str:
+    cause = exc.__cause__
+    cause_type = (
+        type(cause).__name__
+        if cause is not None
+        else "NONE"
+    )
+    cause_errno = (
+        getattr(cause, "errno", None)
+        if cause is not None
+        else None
+    )
+    cause_winerror = (
+        getattr(cause, "winerror", None)
+        if cause is not None
+        else None
+    )
+    return (
+        f"message={str(exc)}"
+        f"|cause_type={cause_type}"
+        f"|errno={cause_errno}"
+        f"|winerror={cause_winerror}"
+    )
 
 
 @dataclass
@@ -652,6 +679,9 @@ class RetryReaderMetrics:
     mixed_generation_count: int = 0
     missing_entrypoint_count: int = 0
     semantic_partial_generation_count: int = 0
+    semantic_partial_signatures: dict[str, int] = field(
+        default_factory=dict
+    )
     parse_error_count: int = 0
     terminal_reader_access_error_count: int = 0
 
@@ -685,8 +715,20 @@ class RetryReaderProbe:
                 self.metrics.mixed_generation_count += 1
             except ReaderAccessRetryDeadlineExceeded:
                 self.metrics.terminal_reader_access_error_count += 1
-            except OpenPointerPartialError:
+            except OpenPointerPartialError as exc:
                 self.metrics.semantic_partial_generation_count += 1
+                signature = _semantic_partial_signature(
+                    exc
+                )
+                self.metrics.semantic_partial_signatures[
+                    signature
+                ] = (
+                    self.metrics.semantic_partial_signatures.get(
+                        signature,
+                        0,
+                    )
+                    + 1
+                )
             except Exception:
                 self.metrics.parse_error_count += 1
             finally:
@@ -966,6 +1008,16 @@ def run_retry_open_experiment(
             metrics.missing_entrypoint_count,
         "semantic_partial_generation_count":
             metrics.semantic_partial_generation_count,
+        "semantic_partial_signature_total_count":
+            sum(
+                metrics.semantic_partial_signatures.values()
+            ),
+        "semantic_partial_signatures":
+            dict(
+                sorted(
+                    metrics.semantic_partial_signatures.items()
+                )
+            ),
         "parse_error_count":
             metrics.parse_error_count,
         "failure_phase": failure_phase,
