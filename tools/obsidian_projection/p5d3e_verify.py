@@ -176,12 +176,15 @@ def _require_hex40(
     value: str,
     field: str,
 ) -> str:
-    lowered = value.strip().lower()
-    if _HEX40.fullmatch(lowered) is None:
+    stripped = value.strip()
+    if (
+        stripped != stripped.lower()
+        or _HEX40.fullmatch(stripped) is None
+    ):
         raise RealExactHeadSandboxGovernanceError(
             f"{field} is not a full lowercase Git object id"
         )
-    return lowered
+    return stripped
 
 
 def _require_sha256(
@@ -351,10 +354,10 @@ def _file_sha256(path: Path) -> str:
     digest = hashlib.sha256()
     try:
         with path.open("rb") as handle:
-            while True:
-                chunk = handle.read(1024 * 1024)
-                if not chunk:
-                    break
+            for chunk in iter(
+                lambda: handle.read(1024 * 1024),
+                b"",
+            ):
                 digest.update(chunk)
     except OSError as exc:
         raise RealExactHeadSandboxBlockedError(
