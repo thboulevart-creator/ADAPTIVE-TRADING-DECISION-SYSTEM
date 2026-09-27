@@ -4,6 +4,9 @@ import argparse
 import json
 from pathlib import Path
 
+from .obsidian_open_compatibility import (
+    ObsidianOpenCompatibilityError,
+)
 from .obsidian_open_retry import (
     ObsidianOpenRetryError,
     post_close_retry_verify,
