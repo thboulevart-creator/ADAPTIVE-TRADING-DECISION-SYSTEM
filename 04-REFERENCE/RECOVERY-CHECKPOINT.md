@@ -17395,3 +17395,96 @@ Next governed boundary:
 `A0 — MINIMAL CORRECTION CANDIDATE FOR A0-ABF3-01..06`
 
 The correction must keep all 64 current tests unchanged and may not alter contract V0.3 or introduce new normative decisions.
+
+
+---
+
+## 276. A0 — MINIMAL CORRECTION ABF3 V0.1 — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`a3d36fa417293bd6b436f622df73d157f36e41d8`
+
+Correction implementation blob:
+
+`4b4737238d01be0b1017b07cf33742797cb995eb`
+
+Historical breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial V0.1 breaker blob:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Adversarial V0.2 breaker blob:
+
+`9833ce563305cfb6d6fe1de8907e8aa9fc96fda4`
+
+Adversarial V0.3 breaker blob:
+
+`d23e3c72dd8bd2200cb392edc6c80b4e744d4751`
+
+A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Pre-persistence sandbox qualification:
+
+`36329233204`
+
+Fresh persisted-head re-break:
+
+`36329309592`
+
+Persistence scope:
+
+`src/a0_research_authority.py ONLY`
+
+Compilation:
+
+`PASS`
+
+Closed suite:
+
+```
+historical = 6/6 PASS
+V0.1 = 18/18 PASS
+V0.2 = 18/18 PASS
+V0.3 = 22/22 PASS
+TOTAL = 64/64 PASS
+```
+
+Status:
+
+`A0_MINIMAL_CORRECTION_ABF3_V0_1 = PASS_64_OF_64`
+
+`A0_MINIMAL_CORRECTION_ABF3_V0_1_PERSISTED_REBREAK = PASS`
+
+Correction groups closed relative to current suite:
+
+- `A0-ABF3-01`;
+- `A0-ABF3-02`;
+- `A0-ABF3-03`;
+- `A0-ABF3-04`;
+- `A0-ABF3-05`;
+- `A0-ABF3-06`.
+
+Full A0 V0.3 implementation qualification:
+
+`NOT_YET`
+
+Reason:
+
+mandatory V0.3 adversarial families remain untested or materially under-tested beyond the current 64-test suite.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+Next governed boundary:
+
+`A0 — ADVERSARIAL BREAK EXPANSION V0.4`
+
+V0.4 must preserve all 64 currently passing tests unchanged and derive only from already-adopted V0.3 requirements.
