@@ -19,6 +19,18 @@ class P5D3C2AdversarialTests(unittest.TestCase):
             encoding="utf-8"
         )
         cls.tree = ast.parse(cls.module)
+        cls.runner_path = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "p5d3c2_verify.py"
+        )
+        cls.runner = cls.runner_path.read_text(
+            encoding="utf-8"
+        )
+        cls.runner_tree = ast.parse(
+            cls.runner
+        )
 
     def test_exact_contract_and_qualification_are_pinned(
         self,
@@ -379,6 +391,92 @@ class P5D3C2AdversarialTests(unittest.TestCase):
                     forbidden,
                     source,
                 )
+
+    def test_runner_does_not_reuse_p5c2_fixture(
+        self,
+    ) -> None:
+        for forbidden in (
+            "promotion_experiment",
+            "build_generation",
+            "validate_generation_dir",
+            "_write_pointer",
+            "validate_pointer_entry",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    self.runner,
+                )
+
+    def test_runner_has_no_network_or_git_mutation_modules(
+        self,
+    ) -> None:
+        imported: set[str] = set()
+        for node in ast.walk(self.runner_tree):
+            if isinstance(node, ast.Import):
+                imported.update(
+                    alias.name.split(".", 1)[0]
+                    for alias in node.names
+                )
+            elif isinstance(node, ast.ImportFrom):
+                if node.module:
+                    imported.add(
+                        node.module.split(".", 1)[0]
+                    )
+
+        forbidden = {
+            "subprocess",
+            "socket",
+            "urllib",
+            "requests",
+            "http",
+            "git",
+            "winreg",
+            "ctypes",
+        }
+        self.assertEqual(
+            imported & forbidden,
+            set(),
+        )
+
+    def test_runner_never_creates_current_pointer(
+        self,
+    ) -> None:
+        for forbidden in (
+            '"CURRENT"',
+            '"CURRENT.md"',
+            '"CURRENT.json"',
+            '"CURRENT.tmp"',
+            "promote(",
+            "production_promotion_authorized": True",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    self.runner,
+                )
+
+    def test_runner_fixture_is_explicitly_packager_only(
+        self,
+    ) -> None:
+        self.assertIn(
+            "P5D3C2_SANDBOX_PACKAGER_INPUT",
+            self.runner,
+        )
+        self.assertNotIn(
+            "CURRENT_HEAD_BUILDER_QUALIFIED",
+            self.runner,
+        )
+
+    def test_runner_uses_temp_sandbox(self) -> None:
+        self.assertIn(
+            "tempfile.TemporaryDirectory(",
+            self.runner,
+        )
+        self.assertIn(
+            "sandbox_retained",
+            self.runner,
+        )
 
     def test_no_background_loop_entrypoints(self) -> None:
         defs = {
