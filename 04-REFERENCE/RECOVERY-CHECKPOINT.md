@@ -18498,3 +18498,69 @@ Next governed boundary:
 The next boundary must preserve all 127 tests unchanged and must not mutate runtime before AF04 is classified.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 290. A0 — AF04 METRIC-DOMAIN GOVERNED RE-ADJUDICATION — PASS
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`be950b4b0e7c6d7ca658a887955e51b61feaeebd`
+
+Runtime blob:
+
+`1210bee06a2d9aed2ed7d9078542934ff430175c`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Standalone qualifier blob:
+
+`9bd05f2a2a97f092c0fc2988319f15caff57dda3`
+
+Historical V0.5 candidate breaker blob:
+
+`f02eae836b79403673f8a43292cca19eab0c6b33`
+
+Re-adjudication run:
+
+`36343999416`
+
+Preserved surface:
+
+`127/127 PASS`
+
+AF04 isolated result:
+
+`1/1 PASS`
+
+Classification:
+
+```
+AF04_METRIC_DOMAIN_GOVERNED_READJUDICATION = PASS
+AF04_IMPLEMENTATION_FAIL = FALSE
+AF04_ORACLE = GOVERNED_AND_RESOLVED
+```
+
+No runtime correction was made or is required for AF04.
+
+Full V0.5 current-head replay:
+
+`NOT_YET`
+
+A0 full V0.3 qualification:
+
+`NOT_YET`
+
+Next governed boundary:
+
+`A0 — ADVERSARIAL BREAK EXPANSION V0.5 GOVERNED REPLAY`
+
+That boundary must preserve the current 127-test surface, use the exact historical V0.5 breaker bytes unchanged, and replay all 22 V0.5 cases against the current governed runtime before any full V0.5 qualification claim.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
