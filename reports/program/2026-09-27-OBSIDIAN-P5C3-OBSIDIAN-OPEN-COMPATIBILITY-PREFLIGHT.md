@@ -32,7 +32,7 @@ Contract:
 Harness:
 
     tools/obsidian_projection/obsidian_open_compatibility.py
-    blob: 2255b7ce20377cbf0bead47a7e96aa2975c443f5
+    blob: dbaff8ea3607b856a5384f2d965b5ade5de00779
 
 CLI:
 
@@ -67,17 +67,17 @@ Contract breakers:
 Unit tests:
 
     tests/obsidian_projection/test_obsidian_open_compatibility.py
-    blob: 05154a9fe3be7c61b066a2f12067408b26f16d44
+    blob: 5cb94ece52ab238598198e8af5597ed315271822
 
 Adversarial breakers:
 
     tests/obsidian_projection/test_p5c3_adversarial.py
-    blob: a3fa766aa09ec6eb6550e165355dedd441e07421
+    blob: b7c5b71e8487a62075863e5df75bbe540b79de8c
 
 Protocol documentation:
 
     docs/OBSIDIAN-P5C3-OBSIDIAN-OPEN-COMPATIBILITY-V0.1.md
-    blob: ee4264f3011beb39545e08decea23cacbd25804e
+    blob: 18cc893b8881415fe5e8c6b144fe7b3f1868ba10
 
 Inherited P5-C2 regression test stabilized in P5-C3:
 
