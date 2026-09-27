@@ -17310,3 +17310,88 @@ Status:
 Next action:
 
 persist only the V0.3 breaker, FAIL report and this checkpoint update; then perform a fresh persisted-head re-break before any runtime correction.
+
+
+---
+
+## 275. A0 — ADVERSARIAL BREAK EXPANSION V0.3 — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`64d4c8d4dac39264045e8dca1326fdac79da6025`
+
+Implementation blob:
+
+`f0015894d001c0ced7d0edf881947e3a435ab5ca`
+
+Historical breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial V0.1 breaker blob:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Adversarial V0.2 breaker blob:
+
+`9833ce563305cfb6d6fe1de8907e8aa9fc96fda4`
+
+Adversarial V0.3 breaker blob:
+
+`d23e3c72dd8bd2200cb392edc6c80b4e744d4751`
+
+Workflow run:
+
+`36328583961`
+
+Structural verification:
+
+`PASS`
+
+Existing closed suite:
+
+`42/42 PASS`
+
+Persisted V0.3 expansion:
+
+```
+TOTAL = 22
+PASS = 12
+FAIL = 10
+```
+
+PASS:
+
+AD01, AD02, AD03, AD11, AD12, AD14, AD17, AD18, AD19, AD20, AD21, AD22.
+
+FAIL:
+
+AD04, AD05, AD06, AD07, AD08, AD09, AD10, AD13, AD15, AD16.
+
+Status:
+
+`A0_ADVERSARIAL_V0_3_PERSISTED_REBREAK = PASS_FAILURE_PROFILE_REPRODUCED`
+
+`A0_CURRENT_IMPLEMENTATION = FAIL_ADVERSARIAL_EXPANSION_V0_3`
+
+`A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET`
+
+Confirmed correction groups:
+
+- `A0-ABF3-01`;
+- `A0-ABF3-02`;
+- `A0-ABF3-03`;
+- `A0-ABF3-04`;
+- `A0-ABF3-05`;
+- `A0-ABF3-06`.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+Next governed boundary:
+
+`A0 — MINIMAL CORRECTION CANDIDATE FOR A0-ABF3-01..06`
+
+The correction must keep all 64 current tests unchanged and may not alter contract V0.3 or introduce new normative decisions.
