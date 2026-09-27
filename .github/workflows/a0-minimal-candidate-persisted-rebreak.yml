@@ -1,0 +1,62 @@
+name: A0 Minimal Candidate Persisted Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-minimal-candidate-persisted-rebreak
+    paths:
+      - .github/workflows/a0-minimal-candidate-persisted-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact governed candidate HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 831fb25b42bd4830712c3ded2d556de73ef4e8f2
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact HEAD and candidate persistence scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "831fb25b42bd4830712c3ded2d556de73ef4e8f2"
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "04-REFERENCE/RECOVERY-CHECKPOINT.md",
+              "reports/program/2026-09-27-A0-MINIMAL-IMPLEMENTATION-CANDIDATE.md",
+              "src/a0_research_authority.py",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "737f041b7b083f832f475b2aab607fb417c74fe0"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+          test "$(git hash-object GOVERNANCE/A0-HUMAN-ADJUDICATION-D1-D4-2026-09-27.md)" = "d8c5a930ce7b88de8b8d8e3acded625f8794d47f"
+
+      - name: Compile implementation and breaker
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+
+      - name: Re-run unchanged initial RED suite
+        run: python -m pytest -q breakers/a0_research_authority_red_breaker.py
