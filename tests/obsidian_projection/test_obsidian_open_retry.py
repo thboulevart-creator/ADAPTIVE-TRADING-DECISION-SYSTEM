@@ -15,6 +15,7 @@ from tools.obsidian_projection.obsidian_open_compatibility import (
 from tools.obsidian_projection.obsidian_open_retry import (
     ReaderAccessTelemetry,
     ReplaceRetryDeadlineExceeded,
+    _semantic_partial_signature,
     run_synthetic_lock_breaker,
     validate_current_with_access_retry,
     write_current_atomic_with_retry,
@@ -339,6 +340,60 @@ class P5C3RRetryTests(unittest.TestCase):
         self.assertEqual(
             telemetry.access_denied_retry_count,
             0,
+        )
+
+    def test_semantic_partial_signature_captures_file_not_found_cause(
+        self,
+    ) -> None:
+        captured = None
+        try:
+            try:
+                raise FileNotFoundError(
+                    2,
+                    "No such file or directory",
+                )
+            except FileNotFoundError as cause:
+                raise OpenPointerPartialError(
+                    "CURRENT.md unreadable"
+                ) from cause
+        except OpenPointerPartialError as exc:
+            captured = _semantic_partial_signature(
+                exc
+            )
+
+        self.assertEqual(
+            captured,
+            (
+                "message=CURRENT.md unreadable"
+                "|cause_type=FileNotFoundError"
+                "|errno=2"
+                "|winerror=None"
+            ),
+        )
+
+    def test_semantic_partial_signature_captures_nonretryable_winerror(
+        self,
+    ) -> None:
+        captured = None
+        try:
+            try:
+                raise WinError33()
+            except WinError33 as cause:
+                raise OpenPointerPartialError(
+                    "CURRENT.md unreadable"
+                ) from cause
+        except OpenPointerPartialError as exc:
+            captured = _semantic_partial_signature(
+                exc
+            )
+
+        self.assertIn(
+            "|cause_type=WinError33",
+            captured,
+        )
+        self.assertIn(
+            "|winerror=33",
+            captured,
         )
 
     @unittest.skipUnless(
