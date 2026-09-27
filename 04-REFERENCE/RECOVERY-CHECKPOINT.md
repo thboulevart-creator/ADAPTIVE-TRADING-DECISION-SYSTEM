@@ -17488,3 +17488,74 @@ Next governed boundary:
 `A0 — ADVERSARIAL BREAK EXPANSION V0.4`
 
 V0.4 must preserve all 64 currently passing tests unchanged and derive only from already-adopted V0.3 requirements.
+
+
+---
+
+## 277. A0 — ADVERSARIAL BREAK EXPANSION V0.4 — SANDBOX BREAK CONFIRMED
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`c358fe46701be10cfb7059a934318a61206a7ade`
+
+Implementation blob:
+
+`4b4737238d01be0b1017b07cf33742797cb995eb`
+
+Historical breaker:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial V0.1:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Adversarial V0.2:
+
+`9833ce563305cfb6d6fe1de8907e8aa9fc96fda4`
+
+Adversarial V0.3:
+
+`d23e3c72dd8bd2200cb392edc6c80b4e744d4751`
+
+Sandbox workflow:
+
+`36330306803`
+
+Existing closed suite:
+
+`64/64 PASS`
+
+V0.4 expansion:
+
+```
+TOTAL = 21
+PASS = 15
+FAIL = 6
+```
+
+PASS:
+
+AE01, AE02, AE03, AE04, AE05, AE06, AE07, AE08, AE15, AE16, AE17, AE18, AE19, AE20, AE21.
+
+FAIL:
+
+AE09, AE10, AE11, AE12, AE13, AE14.
+
+Material correction groups:
+
+- `A0-ABF4-01` preregistration exact content authority not pinned;
+- `A0-ABF4-02` N0 evidence/research-class consistency not enforced;
+- `A0-ABF4-03` synthetic data/confirmatory consistency not enforced;
+- `A0-ABF4-04` CONFIRMED != N4 guard incomplete.
+
+Status:
+
+`A0_ADVERSARIAL_BREAK_EXPANSION_V0_4 = BREAK_CONFIRMED_SANDBOX`
+
+Next action:
+
+persist only V0.4 breaker + FAIL report + checkpoint update, then execute fresh persisted-head re-break before any runtime correction.
