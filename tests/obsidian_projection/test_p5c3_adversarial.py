@@ -38,6 +38,12 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             / "obsidian_projection"
             / "run_p5c3_post_close.ps1"
         ).read_text(encoding="utf-8")
+        cls.reset_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3_reset.ps1"
+        ).read_text(encoding="utf-8")
         cls.legacy_p5c2_test = (
             cls.root
             / "tests"
@@ -468,6 +474,59 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
         )
         self.assertLess(targeted, full)
         self.assertLess(full, prepare)
+
+    def test_open_and_post_runners_have_snapshot_fallback(
+        self,
+    ) -> None:
+        for runner in (
+            self.open_runner,
+            self.post_runner,
+        ):
+            with self.subTest():
+                self.assertIn(
+                    "ATDS-P5C3-CONTROL-EVIDENCE",
+                    runner,
+                )
+                self.assertIn(
+                    "SNAPSHOT_FALLBACK=ONEDRIVE_CONTROL_COPY",
+                    runner,
+                )
+                self.assertIn(
+                    "both P5-C3 snapshot copies are missing",
+                    runner,
+                )
+
+    def test_reset_runner_is_guarded_and_sandbox_only(
+        self,
+    ) -> None:
+        self.assertIn(
+            "close Obsidian completely before P5-C3 reset",
+            self.reset_runner,
+        )
+        self.assertIn(
+            "ATDS-P5C3-OBSIDIAN-OPEN-SANDBOX",
+            self.reset_runner,
+        )
+        self.assertIn(
+            "ATDS-P5C3-CONTROL-EVIDENCE",
+            self.reset_runner,
+        )
+        self.assertIn(
+            "ATDS-OBSIDIAN-PROJECTION",
+            self.reset_runner,
+        )
+        self.assertIn(
+            "REAL_VAULT_PRESERVED=PASS",
+            self.reset_runner,
+        )
+        self.assertIn(
+            "P5C3_RESET=PASS",
+            self.reset_runner,
+        )
+        self.assertNotIn(
+            'Remove-Item -LiteralPath $LiveVault',
+            self.reset_runner,
+        )
 
     def test_runners_disable_bytecode(self) -> None:
         for runner in (
