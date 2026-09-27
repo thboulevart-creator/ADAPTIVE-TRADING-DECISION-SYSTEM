@@ -1112,14 +1112,13 @@ def _base_report(
     }
 
 
-def run_pre_resolved_sandbox(
+def _run_pre_resolved_sandbox(
     *,
     control_repo_root: Path,
     candidate_head: str,
     candidate_tree: str,
     real_vault_root: Path,
-    candidate_resolution_network_fetch_performed: bool,
-    real_candidate_evaluated: bool,
+    real_context: bool,
     additional_forbidden_roots: Iterable[Path] = (),
 ) -> dict[str, Any]:
     _load_contract()
@@ -1191,6 +1190,22 @@ def run_pre_resolved_sandbox(
         _resolve(Path(root))
         for root in additional_forbidden_roots
     )
+
+    os_temp_root = _resolve(
+        Path(tempfile.gettempdir())
+    )
+    for protected in (
+        control,
+        vault,
+        *extra_forbidden,
+    ):
+        if (
+            os_temp_root == protected
+            or protected in os_temp_root.parents
+        ):
+            raise RealExactHeadSandboxGovernanceError(
+                "OS temp root is inside a protected root"
+            )
 
     final_report: dict[str, Any] | None = None
     candidate_path: Path | None = None
@@ -1405,10 +1420,7 @@ def run_pre_resolved_sandbox(
             )
 
         if outcome == "QUALIFIED":
-            if (
-                candidate_resolution_network_fetch_performed
-                and real_candidate_evaluated
-            ):
+            if real_context:
                 status = (
                     "PASS_REAL_EXACT_HEAD_FINITE_EVALUATION"
                 )
@@ -1438,10 +1450,10 @@ def run_pre_resolved_sandbox(
                 package_digest_matches
             ),
             candidate_resolution_network_fetch_performed=(
-                candidate_resolution_network_fetch_performed
+                real_context
             ),
             real_candidate_evaluated=(
-                real_candidate_evaluated
+                real_context
             ),
             candidate_repository_clean_after=(
                 candidate_clean
@@ -1475,6 +1487,26 @@ def run_pre_resolved_sandbox(
     return final_report
 
 
+def run_pre_resolved_sandbox(
+    *,
+    control_repo_root: Path,
+    candidate_head: str,
+    candidate_tree: str,
+    real_vault_root: Path,
+    additional_forbidden_roots: Iterable[Path] = (),
+) -> dict[str, Any]:
+    return _run_pre_resolved_sandbox(
+        control_repo_root=control_repo_root,
+        candidate_head=candidate_head,
+        candidate_tree=candidate_tree,
+        real_vault_root=real_vault_root,
+        real_context=False,
+        additional_forbidden_roots=(
+            additional_forbidden_roots
+        ),
+    )
+
+
 def run_real_exact_head_qualification(
     *,
     control_repo_root: Path,
@@ -1487,13 +1519,12 @@ def run_real_exact_head_qualification(
         )
     )
 
-    return run_pre_resolved_sandbox(
+    return _run_pre_resolved_sandbox(
         control_repo_root=control_repo_root,
         candidate_head=candidate_head,
         candidate_tree=candidate_tree,
         real_vault_root=real_vault_root,
-        candidate_resolution_network_fetch_performed=True,
-        real_candidate_evaluated=True,
+        real_context=True,
         additional_forbidden_roots=(
             additional_forbidden_roots
         ),
