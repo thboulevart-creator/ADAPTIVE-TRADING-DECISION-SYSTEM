@@ -152,6 +152,8 @@
       "remote_freshness": "UNKNOWN",
       "live_projection_head_must_not_change": true,
       "pending_heads_must_not_gain_unverified_head": true,
+      "projection_state_if_previous_current": "STALE",
+      "other_noncurrent_projection_states_are_retained": true,
       "action": "RETAIN_LAST_KNOWN_GOOD",
       "new_current_claim_forbidden": true
     },
@@ -195,6 +197,7 @@
     "evaluation_passed": {
       "candidate_must_equal_evaluating_head": true,
       "observer_phase": "CANDIDATE_PENDING",
+      "last_qualified_head_becomes_candidate": true,
       "live_projection_head_must_not_change": true,
       "action": "CANDIDATE_QUALIFIED_PENDING_PROMOTION",
       "promotion_still_requires_separate_authority": true
