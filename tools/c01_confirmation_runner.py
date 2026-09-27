@@ -25,6 +25,10 @@ EXPECTED_INSTRUMENT = "USTECH"
 EXPECTED_PRICE_CORE = "USTECH_PROFILE_MINUTE_CORE_V0_1"
 EXPECTED_SOURCE_LINEAGE = "SAME_AS_DEVELOPMENT_SOURCE_LINEAGE"
 
+EXPECTED_ELIGIBLE_START_UTC = "2026-05-25T00:00:00Z"
+EXPECTED_FIXED_END_UTC = "2027-05-24T23:59:59Z"
+EXPECTED_EARLIEST_PRIMARY_EVALUATION_UTC = "2027-05-25T00:00:00Z"
+
 REQUIRED_COMPARISONS = (
     "B2+ABS_VOL",
     "B2+TICK",
@@ -201,6 +205,20 @@ def evaluate_confirmation_case(
             result,
             "INCOMPLETE_WINDOW_CONTROLS",
         )
+
+    expected_window_bindings = {
+        "eligible_start_utc": EXPECTED_ELIGIBLE_START_UTC,
+        "fixed_end_utc": EXPECTED_FIXED_END_UTC,
+        "earliest_primary_evaluation_utc":
+            EXPECTED_EARLIEST_PRIMARY_EVALUATION_UTC,
+    }
+
+    for key, expected in expected_window_bindings.items():
+        if window.get(key) != expected:
+            return _block(
+                result,
+                f"WINDOW_BINDING_MISMATCH:{key}",
+            )
 
     real_requested = window[
         "real_execution_requested"
