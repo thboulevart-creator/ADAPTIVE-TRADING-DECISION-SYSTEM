@@ -129,6 +129,8 @@ A network failure must never create a fresh CURRENT claim.
 
 The last-known-good projection may remain physically usable while current remote freshness is unknown.
 
+If a remote observation fails while the projection state was CURRENT, the deterministic state is conservatively degraded to STALE while the live projection head itself remains unchanged.
+
 Therefore:
 
     projection content availability
@@ -198,6 +200,7 @@ EVALUATION_STARTED:
 
 EVALUATION_PASSED:
 
+    last_qualified_head becomes the exact candidate
     candidate becomes qualified pending promotion
     live projection unchanged
 
