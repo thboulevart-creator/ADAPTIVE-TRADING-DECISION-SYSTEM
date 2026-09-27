@@ -325,7 +325,15 @@
     "bridge grants production promotion authority",
     "bridge starts background observer",
     "bridge starts polling loop",
-    "bridge claims Graph/Search CURRENT semantics"
+    "bridge claims Graph/Search CURRENT semantics",
+    "qualification harness source HEAD differs from observed remote HEAD",
+    "qualification harness source tree differs from exact commit tree",
+    "qualification harness writes canonical worktree",
+    "qualification harness writes real Vault",
+    "qualification harness writes projection",
+    "qualification harness logs source body bytes",
+    "qualification harness hardcodes expected real-head count",
+    "qualification harness bridge count differs from P5B2 inventory count"
   ],
   "next_gates": {
     "p5d3c": "CANDIDATE_GENERATION_STAGING_CONTRACT",
@@ -334,5 +342,31 @@
     "p5d4": "BOUNDED_OBSERVER_LOOP_CANDIDATE",
     "p5e": "END_TO_END_NEAR_REAL_TIME_QUALIFICATION",
     "p6": "CONTROLLED_KNOWLEDGE_GRAPH_ARCHITECTURE"
+  },
+  "qualification_harness": {
+    "purpose": "Execute qualified P5-B2 against one exact monitored HEAD, then apply the pure P5-D3B bridge and emit summary-only qualification evidence.",
+    "may_reuse_p5b2_build_from_repository": true,
+    "exact_source_head_required": true,
+    "exact_source_tree_required": true,
+    "observed_remote_head_must_equal_source_head": true,
+    "control_clone_required": true,
+    "canonical_worktree_write_forbidden": true,
+    "real_vault_write_forbidden": true,
+    "projection_write_forbidden": true,
+    "source_body_bytes_in_report_forbidden": true,
+    "fixed_expected_source_count_forbidden": true,
+    "required_summary_checks": [
+      "bridge source repository equals inventory source repository",
+      "bridge source branch equals inventory source branch",
+      "bridge source commit equals exact source head",
+      "bridge source tree equals exact source tree",
+      "bridge dynamic inventory digest equals P5-B2 inventory digest",
+      "bridge source blob count equals dynamic inventory entry count",
+      "bridge full text count equals P5-B2 full text count",
+      "bridge metadata only count equals P5-B2 metadata only count",
+      "bridge semantic record count equals source blob count",
+      "every bridge entry has semantic_body_read = false",
+      "every metadata-only entry has downstream_body_read_allowed = false"
+    ]
   }
 }
