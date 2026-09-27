@@ -178,6 +178,44 @@ class CurrentHeadBreakerRunnerTests(
             "FAIL",
         )
 
+    def test_relation_evidence_blob_drift_fails_b04(
+        self,
+    ) -> None:
+        bridge, build_a, build_b, temp = (
+            self.build_pair()
+        )
+        relation = build_a.relation_records[0]
+        mutant_relation = replace(
+            relation,
+            evidence_source_blob_sha="f" * 40,
+        )
+        mutant_a = replace(
+            build_a,
+            relation_records=(
+                mutant_relation,
+                *build_a.relation_records[1:],
+            ),
+        )
+
+        try:
+            result = (
+                run_current_head_projection_breakers(
+                    bridge=bridge,
+                    build_a=mutant_a,
+                    build_b=build_b,
+                )
+            )
+        finally:
+            temp.cleanup()
+
+        statuses = dict(
+            result.breaker_statuses
+        )
+        self.assertEqual(
+            statuses["CHP-B04"],
+            "FAIL",
+        )
+
     def test_shared_stage_root_fails_b12(
         self,
     ) -> None:
