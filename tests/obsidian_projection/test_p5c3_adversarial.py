@@ -44,6 +44,12 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             / "obsidian_projection"
             / "run_p5c3_reset.ps1"
         ).read_text(encoding="utf-8")
+        cls.diagnose_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3_diagnose_open.ps1"
+        ).read_text(encoding="utf-8")
         cls.legacy_p5c2_test = (
             cls.root
             / "tests"
@@ -125,6 +131,57 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
         self.assertIn(
             "snapshot path is not a verified persisted copy",
             self.module,
+        )
+
+    def test_open_diagnostic_is_read_only(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def diagnose_open_preconditions("
+        )
+        end = self.module.index(
+            "\ndef run_while_obsidian_open(",
+            start,
+        )
+        body = self.module[start:end]
+        for forbidden in (
+            "write_current_atomic(",
+            "_append_event(",
+            "write_bytes(",
+            "write_text(",
+            "mkdir(",
+            "unlink(",
+            "rmtree(",
+            "os.replace(",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    body,
+                )
+        self.assertIn(
+            '"mutation_performed": False',
+            body,
+        )
+
+    def test_diagnostic_runner_uses_read_only_mode(
+        self,
+    ) -> None:
+        self.assertIn(
+            "--diagnose-open",
+            self.diagnose_runner,
+        )
+        self.assertIn(
+            "P5C3_OPEN_DIAGNOSTIC",
+            self.diagnose_runner,
+        )
+        self.assertNotIn(
+            "--run-open",
+            self.diagnose_runner,
+        )
+        self.assertNotIn(
+            "--post-close",
+            self.diagnose_runner,
         )
 
     def test_prepare_does_not_require_obsidian_open(
