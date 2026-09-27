@@ -216,6 +216,15 @@ class P5D1ContinuousObserverCoreContractTests(
             rule["new_current_claim_forbidden"]
         )
         self.assertEqual(
+            rule["projection_state_if_previous_current"],
+            "STALE",
+        )
+        self.assertTrue(
+            rule[
+                "other_noncurrent_projection_states_are_retained"
+            ]
+        )
+        self.assertEqual(
             rule["action"],
             "RETAIN_LAST_KNOWN_GOOD",
         )
@@ -309,6 +318,22 @@ class P5D1ContinuousObserverCoreContractTests(
                         "live_projection_head_must_not_change"
                     ]
                 )
+
+    def test_evaluation_pass_advances_qualification_not_live(
+        self,
+    ) -> None:
+        rule = self.contract[
+            "transition_rules"
+        ]["evaluation_passed"]
+        self.assertTrue(
+            rule["last_qualified_head_becomes_candidate"]
+        )
+        self.assertTrue(
+            rule["live_projection_head_must_not_change"]
+        )
+        self.assertTrue(
+            rule["promotion_still_requires_separate_authority"]
+        )
 
     def test_promotion_is_modelled_but_not_authorized(
         self,
