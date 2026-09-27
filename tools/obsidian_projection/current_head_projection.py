@@ -222,6 +222,46 @@ def _validate_bridge(
                 "METADATA_ONLY downstream read authority"
             )
 
+        record = entry.semantic_record
+        if record.record_schema != (
+            "ATDS_OBSIDIAN_SEMANTIC_RECORD_V0_1"
+        ):
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record schema mismatch"
+            )
+        if record.source_repository != bridge.source_repository:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record repository mismatch"
+            )
+        if record.source_branch != bridge.source_branch:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record branch mismatch"
+            )
+        if record.source_commit != bridge.source_commit:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record commit mismatch"
+            )
+        if record.source_tree != bridge.source_tree:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record tree mismatch"
+            )
+        if record.source_path != entry.source_path:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record path mismatch"
+            )
+        if record.source_blob_sha != entry.source_blob_sha:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record blob mismatch"
+            )
+        if record.source_blob_size != entry.source_blob_size:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record size mismatch"
+            )
+        if record.artifact_family != entry.artifact_family:
+            raise CurrentHeadProjectionInvalidError(
+                "semantic record artifact-family mismatch"
+            )
+
 
 def _render_artifacts(
     bridge: CurrentHeadSemanticBridgeResult,
