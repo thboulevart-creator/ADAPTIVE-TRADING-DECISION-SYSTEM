@@ -123,16 +123,53 @@ def evaluate_confirmation_case(
 
     result = _result()
 
+    if not isinstance(case, dict):
+        return _block(
+            result,
+            "INVALID_CASE_PAYLOAD",
+        )
+
+    if (
+        case.get("schema")
+        != "ATDS_C01_CONFIRMATION_SYNTHETIC_CASE_V0_1"
+    ):
+        return _block(
+            result,
+            "INVALID_CASE_SCHEMA",
+        )
+
     # ------------------------------------------------------------
     # Synthetic-only execution boundary
     # ------------------------------------------------------------
 
     mode = case.get("mode")
-    window = case.get("window", {})
+    window = case.get("window")
 
-    real_requested = bool(
-        window.get("real_execution_requested", False)
+    if not isinstance(window, dict):
+        return _block(
+            result,
+            "INVALID_WINDOW_CONTROL_BLOCK",
+        )
+
+    required_window_bools = (
+        "real_execution_requested",
+        "partial_window_primary_scoring",
+        "early_primary_score_exposed",
     )
+
+    if any(
+        key not in window
+        or type(window[key]) is not bool
+        for key in required_window_bools
+    ):
+        return _block(
+            result,
+            "INCOMPLETE_WINDOW_CONTROLS",
+        )
+
+    real_requested = window[
+        "real_execution_requested"
+    ]
 
     if mode != "SYNTHETIC_ONLY" or real_requested:
         as_of = case.get("as_of_utc")
@@ -153,7 +190,13 @@ def evaluate_confirmation_case(
     # Frozen object identity
     # ------------------------------------------------------------
 
-    bindings = case.get("bindings", {})
+    bindings = case.get("bindings")
+
+    if not isinstance(bindings, dict):
+        return _block(
+            result,
+            "INVALID_BINDINGS_BLOCK",
+        )
 
     for key, expected in EXPECTED_BINDINGS.items():
         if bindings.get(key) != expected:
@@ -166,12 +209,31 @@ def evaluate_confirmation_case(
     # No confirmation-data access / no early scoring
     # ------------------------------------------------------------
 
-    data = case.get("data", {})
+    data = case.get("data")
 
-    if data.get(
-        "confirmation_data_accessed_during_development",
-        False,
+    if not isinstance(data, dict):
+        return _block(
+            result,
+            "INVALID_DATA_CONTROL_BLOCK",
+        )
+
+    if (
+        "confirmation_data_accessed_during_development"
+        not in data
+        or type(
+            data[
+                "confirmation_data_accessed_during_development"
+            ]
+        ) is not bool
     ):
+        return _block(
+            result,
+            "CONFIRMATION_DATA_ACCESS_CONTROL_MISSING",
+        )
+
+    if data[
+        "confirmation_data_accessed_during_development"
+    ]:
         return _block(
             result,
             "CONFIRMATION_DATA_ACCESS_DURING_DEVELOPMENT",
@@ -246,7 +308,13 @@ def evaluate_confirmation_case(
     # Frozen model / no refit / no redesign
     # ------------------------------------------------------------
 
-    freeze = case.get("freeze_integrity", {})
+    freeze = case.get("freeze_integrity")
+
+    if not isinstance(freeze, dict):
+        return _block(
+            result,
+            "INVALID_FREEZE_INTEGRITY_BLOCK",
+        )
 
     forbidden_freeze_flags = (
         "confirmation_anchors_entered_fitting",
@@ -258,7 +326,16 @@ def evaluate_confirmation_case(
     )
 
     for key in forbidden_freeze_flags:
-        if freeze.get(key, False):
+        if (
+            key not in freeze
+            or type(freeze[key]) is not bool
+        ):
+            return _block(
+                result,
+                f"FREEZE_CONTROL_MISSING:{key}",
+            )
+
+        if freeze[key]:
             return _block(
                 result,
                 f"FROZEN_MODEL_VIOLATION:{key}",
@@ -268,7 +345,30 @@ def evaluate_confirmation_case(
     # Causality / continuity
     # ------------------------------------------------------------
 
-    causality = case.get("causality", {})
+    causality = case.get("causality")
+
+    if not isinstance(causality, dict):
+        return _block(
+            result,
+            "INVALID_CAUSALITY_BLOCK",
+        )
+
+    required_causality_bools = (
+        "gap_crossing",
+        "segment_crossing",
+        "exact_minute_continuity",
+        "same_segment_continuity",
+    )
+
+    if any(
+        key not in causality
+        or type(causality[key]) is not bool
+        for key in required_causality_bools
+    ):
+        return _block(
+            result,
+            "INCOMPLETE_CAUSALITY_CONTROLS",
+        )
 
     if causality.get(
         "target_start_offset_minutes"
@@ -310,7 +410,13 @@ def evaluate_confirmation_case(
     # Forbidden scope expansion
     # ------------------------------------------------------------
 
-    scope = case.get("scope", {})
+    scope = case.get("scope")
+
+    if not isinstance(scope, dict):
+        return _block(
+            result,
+            "INVALID_SCOPE_CONTROL_BLOCK",
+        )
 
     forbidden_scope_flags = (
         "semantic_regime_labels_instantiated",
@@ -324,7 +430,16 @@ def evaluate_confirmation_case(
     )
 
     for key in forbidden_scope_flags:
-        if scope.get(key, False):
+        if (
+            key not in scope
+            or type(scope[key]) is not bool
+        ):
+            return _block(
+                result,
+                f"SCOPE_CONTROL_MISSING:{key}",
+            )
+
+        if scope[key]:
             return _block(
                 result,
                 f"FORBIDDEN_SCOPE:{key}",
@@ -335,9 +450,14 @@ def evaluate_confirmation_case(
     # ------------------------------------------------------------
 
     raw_comparisons = case.get(
-        "comparisons",
-        {},
+        "comparisons"
     )
+
+    if not isinstance(raw_comparisons, dict):
+        return _block(
+            result,
+            "INVALID_COMPARISONS_BLOCK",
+        )
 
     for name in REQUIRED_COMPARISONS:
         if name not in raw_comparisons:

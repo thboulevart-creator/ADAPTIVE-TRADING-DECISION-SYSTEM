@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; C01 RUNNER TEST-FIRST HARNESS QUALIFIED; MINIMAL SYNTHETIC-ONLY RUNNER CANDIDATE LOCALLY GREEN.** Runtime working blob 22617ba26603aa56ee0d462a5dd3a313690bcc37; qualified harness 33/33 PASS; supplemental non-finite probes 3/3 PASS. Confirmation data accessed=false; primary scientific score computed=false; real confirmation execution=false. Next: persist runtime candidate plus evidence, then fresh persisted-head adversarial re-break.
+> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; RUNNER TEST-FIRST HARNESS QUALIFIED; PERSISTED RUNTIME CANDIDATE ce109b6c FAILED ADVERSARIAL RE-BREAK BECAUSE CRITICAL CONTROL ABSENCE FAILED OPEN.** Minimal fail-closed correction is locally green: qualified harness 33/33 PASS and explicit-control probes 6/6 PASS. Runtime corrected blob 867eae8dc1ebe6fcf9ba2a25f6920cd8cd0a94aa. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false. Runtime remains unqualified.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -16007,4 +16007,83 @@ Next governed action:
 persist exactly the runtime candidate, candidate report and checkpoint update.
 
 Then perform a fresh persisted-head adversarial re-break before runtime qualification.
+
+---
+
+## 257. C01 CONFIRMATION RUNNER RUNTIME — PERSISTED-HEAD RE-BREAK FAIL AND FAIL-CLOSED CORRECTION
+
+Date:
+2026-09-27
+
+Reviewed persisted HEAD:
+
+`ce109b6c6ef4b1ee7d200ef4452b303646b265d3`
+
+Persisted runtime blob:
+
+`22617ba26603aa56ee0d462a5dd3a313690bcc37`
+
+Adversarial verdict:
+
+**FAIL**
+
+Finding:
+
+`CRITICAL_CONTROL_ABSENCE_FAILS_OPEN`
+
+Required correction:
+
+critical control absence or malformed critical control data must fail closed as:
+
+`NOT_INTERPRETABLE`
+
+Corrected working runtime blob:
+
+`867eae8dc1ebe6fcf9ba2a25f6920cd8cd0a94aa`
+
+Corrected local verification:
+
+- `py_compile = PASS`
+- qualified harness = `33 passed`
+- collection errors = `0`
+- explicit-control probes = `6/6 PASS`
+
+Supplemental fail-closed probes cover:
+
+- missing confirmation-access control;
+- missing freeze block;
+- missing freeze flag;
+- missing scope block;
+- missing scope flag;
+- malformed comparisons block.
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Runtime qualification:
+
+`FALSE`
+
+Status:
+
+**FAIL-CLOSED CORRECTION PERSISTENCE CANDIDATE — NOT YET QUALIFIED.**
+
+Next governed action:
+
+persist corrected runtime + FAIL review + checkpoint update.
+
+Then perform a fresh persisted-head adversarial re-break.
 
