@@ -16610,3 +16610,64 @@ Next governed boundary:
 
 Only the test-first RED phase is now open. No downstream DecisionPolicy/ACTION/execution authority is implied.
 
+---
+
+## 265. A0 — TEST-FIRST RED
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`5ba550a736aadc80749d30956c3ca046a31cc50f`
+
+Governing A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Breaker:
+
+`breakers/a0_research_authority_red_breaker.py`
+
+Breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Sandbox expected-failure workflow run:
+
+`36323465488`
+
+Executed RED:
+
+- breaker compile = `PASS`;
+- tests = `6 FAILED`;
+- all six fail with `A0_AUTHORITY_MODULE_ABSENT_EXPECTED_RED`;
+- expected-failure workflow = `PASS_EXPECTED_FAILURE`.
+
+Covered causal kernel:
+
+1. registry/profile authority;
+2. strict source binding;
+3. closed permission intersection;
+4. downstream authority reconstruction;
+5. fail-closed ambiguous-registry semantics;
+6. positive synthetic control.
+
+Current implementation:
+
+`ABSENT`
+
+A0 test-first RED:
+
+`PASS_EXPECTED_FAILURE`
+
+A0 implementation qualification:
+
+`NOT_STARTED`
+
+No downstream DecisionPolicy/ACTION/trading/C01-real authority is implied.
+
+Next governed action:
+
+create the minimal A0 implementation candidate under the persisted breaker without changing the RED expectations.
+
