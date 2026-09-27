@@ -301,12 +301,34 @@ class P5C3RAdversarialTests(unittest.TestCase):
             '"reader_access_denied_retry_count":',
             '"reader_terminal_access_error_count":',
             '"semantic_partial_generation_count":',
+            '"semantic_partial_signature_total_count":',
+            '"semantic_partial_signatures":',
         ):
             with self.subTest(required=required):
                 self.assertIn(
                     required,
                     self.module,
                 )
+
+    def test_forensic_instrumentation_does_not_relax_failure_policy(
+        self,
+    ) -> None:
+        self.assertIn(
+            "metrics.semantic_partial_generation_count == 0",
+            self.module,
+        )
+        self.assertIn(
+            "except OpenPointerPartialError as exc:",
+            self.module,
+        )
+        self.assertIn(
+            "_semantic_partial_signature(",
+            self.module,
+        )
+        self.assertIn(
+            "not in {5, 32}",
+            self.module,
+        )
 
     def test_open_experiment_persists_failure_evidence(
         self,
