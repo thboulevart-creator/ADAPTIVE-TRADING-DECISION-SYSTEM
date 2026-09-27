@@ -16,7 +16,7 @@
     "p5d3c2_qualification_commit": "205d09e22430e60324b76f2713024e36527e5dba",
     "p5d3c2_qualification_report_blob": "d1ffea5fefc8845831c11a153a0e17492401ef60",
     "p5d3c2_packager_verifier_blob": "e2e5867536f4f9c7dec475c6696737249536ff39",
-    "current_head_projection_contract_blob": "8dc21998a82538586774847919cb0ba9f09f72a3"
+    "current_head_projection_contract_blob": "12e9904faf9b157cd6991455883ef35e628ee672"
   },
   "objective": {
     "name": "FINITE_CURRENT_HEAD_CANDIDATE_EVALUATION",
@@ -106,7 +106,7 @@
     "bridge_semantic_body_read_must_be_false_for_all_entries": true
   },
   "current_head_projection": {
-    "required_contract_blob": "8dc21998a82538586774847919cb0ba9f09f72a3",
+    "required_contract_blob": "12e9904faf9b157cd6991455883ef35e628ee672",
     "legacy_builder_direct_reuse_forbidden": true,
     "legacy_relation_extractor_direct_reuse_forbidden": true,
     "legacy_renderer_reuse_allowed": true,
