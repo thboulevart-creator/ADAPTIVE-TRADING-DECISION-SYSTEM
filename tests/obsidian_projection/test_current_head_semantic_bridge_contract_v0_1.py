@@ -369,6 +369,49 @@ class P5D3BCurrentHeadSemanticBridgeContractTests(
             with self.subTest(field=field):
                 self.assertFalse(boundary[field])
 
+    def test_real_head_qualification_harness_is_bounded(
+        self,
+    ) -> None:
+        harness = self.contract[
+            "qualification_harness"
+        ]
+        self.assertTrue(
+            harness["may_reuse_p5b2_build_from_repository"]
+        )
+        self.assertTrue(
+            harness["exact_source_head_required"]
+        )
+        self.assertTrue(
+            harness["exact_source_tree_required"]
+        )
+        self.assertTrue(
+            harness[
+                "observed_remote_head_must_equal_source_head"
+            ]
+        )
+        self.assertTrue(harness["control_clone_required"])
+        self.assertTrue(
+            harness["canonical_worktree_write_forbidden"]
+        )
+        self.assertTrue(
+            harness["real_vault_write_forbidden"]
+        )
+        self.assertTrue(
+            harness["projection_write_forbidden"]
+        )
+        self.assertTrue(
+            harness[
+                "source_body_bytes_in_report_forbidden"
+            ]
+        )
+        self.assertTrue(
+            harness["fixed_expected_source_count_forbidden"]
+        )
+        self.assertGreaterEqual(
+            len(harness["required_summary_checks"]),
+            10,
+        )
+
     def test_breaker_registry_is_broad_and_unique(
         self,
     ) -> None:
