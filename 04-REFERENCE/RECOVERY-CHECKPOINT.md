@@ -16907,3 +16907,94 @@ Next governed boundary:
 
 `A0 — MINIMAL CORRECTION CANDIDATE FOR A0-ABF-01..06`
 
+
+
+---
+
+## 270. A0 — MINIMAL CORRECTION ABF V0.1 — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`7e2a0052e99669ed42e55bbd9a81cf0a23a4c0f2`
+
+Correction implementation blob:
+
+`c7c1f37d9d306e0424274b276d42ab422beac560`
+
+Historical breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial breaker V0.1 blob:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Pre-persistence sandbox run:
+
+`36326117765`
+
+Fresh persisted-head re-break run:
+
+`36326229769`
+
+Persistence scope:
+
+`src/a0_research_authority.py ONLY`
+
+Compilation:
+
+`PASS`
+
+Historical six:
+
+`6/6 PASS`
+
+Adversarial V0.1:
+
+`18/18 PASS`
+
+Combined closed suite:
+
+`24/24 PASS`
+
+Previously failing attacks now closed:
+
+AB03, AB04, AB08, AB10, AB11, AB13, AB14, AB15, AB16.
+
+Correction groups closed relative to the current suite:
+
+- `A0-ABF-01`;
+- `A0-ABF-02`;
+- `A0-ABF-03`;
+- `A0-ABF-04`;
+- `A0-ABF-05`;
+- `A0-ABF-06`.
+
+Status:
+
+`A0_MINIMAL_CORRECTION_ABF_V0_1 = PASS_24_OF_24`
+
+`A0_MINIMAL_CORRECTION_ABF_V0_1_PERSISTED_REBREAK = PASS`
+
+Full A0 V0.3 implementation qualification:
+
+`NOT_YET`
+
+Reason:
+
+the current 18-test adversarial expansion does not exhaust the additional mandatory adversarial families already imposed by contract V0.3.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+Next governed boundary:
+
+`A0 — ADVERSARIAL BREAK EXPANSION V0.2`
+
+V0.2 must derive additional attacks only from already-adopted V0.3 requirements and must preserve all 24 currently passing tests unchanged.
