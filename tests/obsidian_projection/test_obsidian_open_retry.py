@@ -15,6 +15,7 @@ from tools.obsidian_projection.obsidian_open_compatibility import (
 from tools.obsidian_projection.obsidian_open_retry import (
     ReaderAccessTelemetry,
     ReplaceRetryDeadlineExceeded,
+    RetryReaderProbe,
     _semantic_partial_signature,
     run_synthetic_lock_breaker,
     validate_current_with_access_retry,
@@ -369,6 +370,59 @@ class P5C3RRetryTests(unittest.TestCase):
                 "|errno=2"
                 "|winerror=None"
             ),
+        )
+
+    def test_reader_records_semantic_partial_signature_without_retrying(
+        self,
+    ) -> None:
+        reader = RetryReaderProbe()
+
+        def one_partial(_root, _telemetry):
+            reader._stop.set()
+            try:
+                raise FileNotFoundError(
+                    2,
+                    "No such file or directory",
+                )
+            except FileNotFoundError as cause:
+                raise OpenPointerPartialError(
+                    "CURRENT.md unreadable"
+                ) from cause
+
+        with patch(
+            "tools.obsidian_projection."
+            "obsidian_open_retry."
+            "validate_current_with_access_retry",
+            side_effect=one_partial,
+        ):
+            reader._run()
+
+        self.assertEqual(
+            reader.metrics.samples,
+            1,
+        )
+        self.assertEqual(
+            reader.metrics.semantic_partial_generation_count,
+            1,
+        )
+        self.assertEqual(
+            sum(
+                reader.metrics.semantic_partial_signatures.values()
+            ),
+            1,
+        )
+        self.assertEqual(
+            reader.access.access_denied_retry_count,
+            0,
+        )
+        self.assertIn(
+            (
+                "message=CURRENT.md unreadable"
+                "|cause_type=FileNotFoundError"
+                "|errno=2"
+                "|winerror=None"
+            ),
+            reader.metrics.semantic_partial_signatures,
         )
 
     def test_semantic_partial_signature_captures_nonretryable_winerror(
