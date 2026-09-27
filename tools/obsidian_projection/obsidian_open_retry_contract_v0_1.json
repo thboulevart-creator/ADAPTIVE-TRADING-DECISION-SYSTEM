@@ -36,7 +36,6 @@
   },
   "retry_policy": {
     "retryable_exception_type": "PermissionError",
-    "retryable_winerror_only": 5,
     "retryable_operation_only": "os.replace(CURRENT.tmp, CURRENT.md)",
     "deadline_ms": 5000,
     "initial_backoff_ms": 10,
@@ -48,7 +47,11 @@
     "current_must_remain_valid_old_generation_while_waiting": true,
     "successful_replace_must_match_exact_candidate_bytes": true,
     "non_retryable_exception_immediate_fail": true,
-    "retry_deadline_exceeded_terminal_fail": true
+    "retry_deadline_exceeded_terminal_fail": true,
+    "retryable_winerrors_only": [
+      5,
+      32
+    ]
   },
   "synthetic_windows_lock_breaker": {
     "required": true,
@@ -109,7 +112,7 @@
   },
   "required_breakers": [
     "retry attempted for non-PermissionError",
-    "retry attempted for PermissionError with winerror other than 5",
+    "retry attempted for PermissionError with winerror outside {5,32}",
     "retry attempted outside os.replace CURRENT.tmp to CURRENT.md",
     "infinite retry loop",
     "retry deadline greater than contract",
@@ -137,14 +140,13 @@
     "production authorization granted",
     "continuous observer authorization granted",
     "reader retries non-access-denied semantic error",
-    "reader retries PermissionError with winerror other than 5",
+    "reader retries PermissionError with winerror outside {5,32}",
     "reader access-denied retry exceeds deadline",
     "transient reader access denial counted as semantic partial generation",
     "terminal reader access denial ignored"
   ],
   "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE",
   "reader_access_retry_policy": {
-    "retryable_only_when_underlying_cause_is_PermissionError_winerror_5": true,
     "deadline_ms": 500,
     "initial_backoff_ms": 5,
     "backoff_multiplier": 2,
@@ -152,6 +154,7 @@
     "transient_access_denied_not_classified_as_partial_generation": true,
     "terminal_reader_access_error_count_must_equal": 0,
     "semantic_partial_generation_count_must_equal": 0,
-    "retry_count_must_be_telemetried": true
+    "retry_count_must_be_telemetried": true,
+    "retryable_only_when_underlying_cause_is_PermissionError_winerror_5_or_32": true
   }
 }
