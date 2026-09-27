@@ -10,7 +10,7 @@ Branch:
 
 Reviewed HEAD:
 
-    cd8eeba3bbba03ac55a30da1fc6af56be8b62115
+    3605fe9330e68f40c2f0e5f12e78cba4f711f9d5
 
 Failed predecessor:
 
@@ -52,6 +52,7 @@ All reviewed checks passed:
     governed CLI modes present                          PASS
     recovery runner ordering correct                    PASS
     open runner precheck precedes mutation               PASS
+    open runner verifier/mode binding exact               PASS
     post-close manual acceptance required               PASS
     WinError 5 and 32 unit coverage present             PASS
     preflight identity pins current                     PASS
