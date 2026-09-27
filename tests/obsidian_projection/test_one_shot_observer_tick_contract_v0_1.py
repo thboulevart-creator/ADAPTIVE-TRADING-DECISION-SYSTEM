@@ -54,7 +54,7 @@ class P5D2OneShotObserverTickContractTests(
             objective["exactly_one_transition_per_invocation"]
         )
         for field in (
-            "loop_forbidden",
+            "repeated_tick_loop_forbidden",
             "sleep_forbidden",
             "background_execution_forbidden",
             "network_io_forbidden",
