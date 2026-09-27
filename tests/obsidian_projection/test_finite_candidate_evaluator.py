@@ -7,6 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.obsidian_projection.dynamic_inventory import (
+    DynamicInventoryError,
     SecretDetectedError,
 )
 from tools.obsidian_projection.finite_candidate_evaluator import (
@@ -129,6 +130,62 @@ class FiniteCandidateEvaluatorTests(
         self.assertEqual(
             report["live_projection_head_before"],
             report["live_projection_head_after"],
+        )
+
+    def test_tooling_contract_mismatch_is_blocked(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="atds-p5d3d-eval-contract-blocked-"
+        ) as temp:
+            root = Path(temp)
+            repo = root / "repo"
+            workspace = root / "workspace"
+            repo.mkdir()
+            workspace.mkdir()
+
+            with (
+                patch(
+                    "tools.obsidian_projection."
+                    "finite_candidate_evaluator."
+                    "FrozenGitSource.verify_repository",
+                    return_value=None,
+                ),
+                patch(
+                    "tools.obsidian_projection."
+                    "finite_candidate_evaluator."
+                    "FrozenGitSource.verify_frozen_source",
+                    return_value=None,
+                ),
+                patch(
+                    "tools.obsidian_projection."
+                    "finite_candidate_evaluator."
+                    "build_from_repository",
+                    side_effect=DynamicInventoryError(
+                        "P5-B contract blob mismatch"
+                    ),
+                ),
+            ):
+                report = evaluate_candidate_finitely(
+                    activation_tick_result=activation(),
+                    candidate_tree=TREE,
+                    candidate_repo_root=repo,
+                    evaluation_workspace_root=workspace,
+                )
+
+        self.assertEqual(
+            report["outcome"],
+            "BLOCKED",
+        )
+        self.assertEqual(
+            report["failure_code"],
+            "TOOLING_CONTRACT_MISMATCH",
+        )
+        self.assertFalse(
+            report["p5d2_result_event_emitted"]
+        )
+        self.assertIsNone(
+            report["p5d2_result_tick_digest_sha256"]
         )
 
     def test_secret_detection_rejects_and_emits_failure_event(
