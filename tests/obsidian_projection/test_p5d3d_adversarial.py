@@ -392,15 +392,28 @@ class P5D3DAdversarialTests(unittest.TestCase):
         )
         for forbidden in (
             "_write_pointer",
-            "CURRENT.tmp",
-            "CURRENT.json",
-            "CURRENT.md",
+            "promotion_experiment",
+            "validate_pointer_entry",
+            "PROMOTION_CONFIRMED",
         ):
             with self.subTest(forbidden=forbidden):
                 self.assertNotIn(
                     forbidden,
                     combined,
                 )
+
+        for module in (
+            self.breakers,
+            self.evaluator,
+        ):
+            self.assertNotIn(
+                'open("CURRENT',
+                module,
+            )
+            self.assertNotIn(
+                "Path("CURRENT",
+                module,
+            )
 
     def test_chp_runner_is_read_only(self) -> None:
         for forbidden in (
