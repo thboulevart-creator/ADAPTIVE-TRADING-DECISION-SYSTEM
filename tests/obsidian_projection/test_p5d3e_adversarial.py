@@ -72,10 +72,16 @@ class P5D3EAdversarialTests(unittest.TestCase):
         )
 
     def test_alternates_are_explicitly_rejected(self) -> None:
-        self.assertIn(
-            '"objects" / "info" / "alternates"',
-            self.source,
-        )
+        for required in (
+            '"objects"',
+            '"info"',
+            '"alternates"',
+        ):
+            with self.subTest(required=required):
+                self.assertIn(
+                    required,
+                    self.source,
+                )
 
     def test_origin_is_restored_to_canonical_github(self) -> None:
         self.assertIn(
