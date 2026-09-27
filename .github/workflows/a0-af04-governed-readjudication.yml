@@ -1,0 +1,61 @@
+name: A0 AF04 Metric-Domain Governed Re-Adjudication
+
+on:
+  push:
+    branches:
+      - sandbox/a0-af04-governed-readjudication
+    paths:
+      - .github/workflows/a0-af04-governed-readjudication.yml
+
+permissions:
+  contents: read
+
+jobs:
+  af04:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact AF04 sandbox HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 1637edaf9e80b297a3936323c1db7bd65f5ee0c6
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact governed runtime and historical AF04 oracle
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "1637edaf9e80b297a3936323c1db7bd65f5ee0c6"
+          test "$(git hash-object src/a0_research_authority.py)" = "1210bee06a2d9aed2ed7d9078542934ff430175c"
+          test "$(git hash-object src/a0_metric_domain_authority.py)" = "9bd05f2a2a97f092c0fc2988319f15caff57dda3"
+          test "$(git hash-object GOVERNANCE/A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json)" = "dd205d3e7b4a522a5ba23cef1e665d51c196acb8"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v05.py)" = "f02eae836b79403673f8a43292cca19eab0c6b33"
+          python - <<'PY'
+          import subprocess
+          got=set(subprocess.check_output(
+              ["git","diff","--name-only",
+               "be950b4b0e7c6d7ca658a887955e51b61feaeebd",
+               "1637edaf9e80b297a3936323c1db7bd65f5ee0c6"],
+              text=True,
+          ).splitlines())
+          assert got=={"breakers/a0_research_authority_adversarial_breaker_v05.py"}, got
+          PY
+
+      - name: Preserve frozen 127-test surface
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             breakers/a0_research_authority_adversarial_breaker_v04.py             breakers/a0_synthetic_producer_metric_domain_authority_red_breaker_v01.py             breakers/a0_synthetic_producer_metric_domain_runtime_binding_red_breaker_v01.py             | tee /tmp/a0-existing-127.txt
+          grep -q "127 passed" /tmp/a0-existing-127.txt
+          echo "A0_EXISTING_127=PASS_UNCHANGED"
+
+      - name: Execute AF04 only
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_adversarial_breaker_v05.py::test_af04_foreign_metric_identity_rejected_for_admitted_synthetic_producer             | tee /tmp/a0-af04.txt
+          grep -q "1 passed" /tmp/a0-af04.txt
+          echo "A0_AF04_METRIC_DOMAIN_GOVERNED_READJUDICATION=PASS"
