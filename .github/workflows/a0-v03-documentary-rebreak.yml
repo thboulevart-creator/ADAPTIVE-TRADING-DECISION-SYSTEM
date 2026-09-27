@@ -1,0 +1,140 @@
+name: A0 V0.3 Documentary Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-v03-documentary-rebreak
+    paths:
+      - .github/workflows/a0-v03-documentary-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact persisted governed HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: 0b7155f63d68d8f94b908aa732173232eec473b4
+          fetch-depth: 2
+
+      - name: Verify exact HEAD and atomic persistence scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "0b7155f63d68d8f94b908aa732173232eec473b4"
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "04-REFERENCE/RECOVERY-CHECKPOINT.md",
+              "GOVERNANCE/A0-HUMAN-ADJUDICATION-D1-D4-2026-09-27.md",
+              "GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify persisted document blob identities and protected C01 runtime
+        shell: bash
+        run: |
+          test "$(git hash-object GOVERNANCE/A0-HUMAN-ADJUDICATION-D1-D4-2026-09-27.md)" = "d8c5a930ce7b88de8b8d8e3acded625f8794d47f"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+          test "$(git hash-object tools/c01_confirmation_runner.py)" = "7ea6ed6796eae8618cfd823b49eee1a63a19e096"
+          test "$(git hash-object breakers/c01_confirmation_runner_breaker.py)" = "cf275dba96e50e8b899223a57267e811af4693ec"
+
+      - name: Closed 64-requirement documentary matrix
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          contract = Path("GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md").read_text(encoding="utf-8")
+          adjud = Path("GOVERNANCE/A0-HUMAN-ADJUDICATION-D1-D4-2026-09-27.md").read_text(encoding="utf-8")
+
+          req = {
+              "M01": ["It is NOT the authoritative A0 carrier."],
+              "M02": ["Governed inputs", "exact scientific-result artifact"],
+              "M03": ["SHA-256(raw exact bytes)"],
+              "M04": ["IDENTITY ≠ AUTHORITY"],
+              "M05": ["accepted producer identity", "exact producer identity"],
+              "M06": ["exact scientific producer", "exact protocol/interpreter identity"],
+              "M07": ["source-native lineage only"],
+              "M08": ["profile_sha256", "Profile identity"],
+              "M09": ["caller cannot choose profile"],
+              "M10": ["pinned/versioned Source Profile Registry"],
+              "M11": ["exactly one ACTIVE profile"],
+              "M12": ["Profile supersession is explicit"],
+              "M13": ["historical post-observation profile cannot increase authority"],
+              "M14": ["future outcome-sensitive profile frozen pre-observation"],
+              "M15": ["Global Normalization Policy", "Source Profiles cannot override"],
+              "M16": ["exact extraction paths", "pinned-path native-status extraction"],
+              "M17": ["All relevant native status fields identified by the profile are preserved"],
+              "M18": ["native producer artifact is status authority"],
+              "M19": ["downstream redeclaration cannot replace it"],
+              "M20": ["normalization only through pinned global policy"],
+              "M21": ["expected family is closed"],
+              "M22": ["no cherry-picking"],
+              "M23": ["Ordering is required only when contractually meaningful"],
+              "M24": ["Fold role comes exclusively from governed fold authority"],
+              "M25": ["data class separate"],
+              "M26": ["confirmatory claim separate"],
+              "M27": ["evidence level separate"],
+              "M28": ["research class separate"],
+              "M29": ["evidence_level = UNDETERMINED", "P_evidence_level = ∅"],
+              "M30": ["SUPPORTED_N0_SYNTHESIS", "N0/synthesis restrictions"],
+              "M31": ["normalized_conclusion = NO_SCIENTIFIC_CLAIM"],
+              "M32": ["CONFIRMED ≠ N4"],
+              "M33": ["EVIDENCED_PASS", "EVIDENCED_FAIL", "NOT_REPRESENTED", "CALLER_ASSERTED"],
+              "M34": ["CALLER_ASSERTED ≠ EVIDENCED_PASS"],
+              "M35": ["critical failure cannot be compensated by favorable metrics"],
+              "M36": ["currently qualified synthetic interpretation authority is the exact qualified C01 runner"],
+              "M37": ["A0 may preserve or restrict applicability. It may not widen it."],
+              "M38": ["shared_corpus_identity", "must not erase known dependence/shared corpus"],
+              "M39": ["Native source supersession relationships are preserved"],
+              "M40": ["superseded MUST NOT be presented as current authority"],
+              "M41": ["SHA-256(raw exact bytes)"],
+              "M42": ["duplicate JSON keys", "NaN", "+Infinity", "-Infinity"],
+              "M43": ["bool used as numeric", "numeric-string coercion"],
+              "M44": ["Measurements remain exactly source-bound"],
+              "M45": ["positive_evidence_consumability = FALSE"],
+              "M46": ["Free text cannot create scientific, decision or action authority"],
+              "M47": ["does not rely on `id()`, weakrefs or Python process-local object identity"],
+              "M48": ["A freely reconstructed look-alike object carries no authority"],
+              "M49": ["same exact governed inputs MUST produce the same canonical output bytes", "canonical_projection_sha256"],
+              "M50": ["finite, closed A0 usage-permission universe"],
+              "M51": ["Unknown permission tokens fail closed"],
+              "M52": ["P_evidence_level", "P_research_class", "P_source_promotion_limit", "P_data_class", "P_confirmatory_claim", "P_profile_restriction", "no others"],
+              "M53": ["Adding a restriction", "P_new ⊆ P_old"],
+              "M54": ["normalized_conclusion", "effective_usage_permissions", "separate outputs"],
+              "M55": ["normalized_conclusion = SUPPORTED", "effective_usage_permissions = ∅"],
+              "M56": ["No token in the A0 permission universe is itself"],
+              "M57": ["exact governed evidence-level source or derivation authority", "caller MUST NOT supply, select, override or upgrade the evidence level"],
+              "M58": ["exact native governed authority from which `source_promotion_limit` is extracted", "caller-supplied promotion limit has no authority"],
+              "M59": ["future DecisionPolicy MUST treat as authoritative research evidence only a successfully verified A0 authoritative projection"],
+              "M60": ["produce_decision(..., decision=<caller supplied string>)", "outside A0 guarantees"],
+              "M61": ["synthetic A0 fixture", "CR1-shaped extraction semantics", "CR2-shaped extraction semantics", "C01 `SYNTHETIC_ONLY`-shaped semantics"],
+              "M62": ["C01 real execution", "C01 confirmation-data access", "C01 primary scientific scoring"],
+              "M63": ["any unresolved critical ambiguity yields no authoritative output"],
+              "M64": ["PASS requires:", "FAIL means", "BLOCKED means"],
+          }
+
+          assert len(req) == 64
+          failures = {}
+          corpus = contract + "\n" + adjud
+          for rid, needles in req.items():
+              missing = [x for x in needles if x not in corpus]
+              if missing:
+                  failures[rid] = missing
+
+          if failures:
+              raise SystemExit(f"A0_V03_DOCUMENTARY_MATRIX_FAIL={failures}")
+
+          print("A0_V03_DOCUMENTARY_MATRIX=64/64 PASS")
+          print("PARTIAL=0")
+          print("MISSING=0")
+          print("FAIL=0")
+          PY
