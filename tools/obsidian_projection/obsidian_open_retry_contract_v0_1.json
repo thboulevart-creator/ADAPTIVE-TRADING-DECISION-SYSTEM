@@ -78,7 +78,9 @@
     "obsidian_must_remain_running": true,
     "workspace_must_reference_current": true,
     "sync_must_be_disabled": true,
-    "community_plugins_must_be_empty_or_absent": true
+    "community_plugins_must_be_empty_or_absent": true,
+    "reader_terminal_access_error_count_must_equal": 0,
+    "reader_access_denied_retry_count_may_be_nonzero": true
   },
   "telemetry": {
     "per_promotion_attempt_count_required": true,
@@ -87,7 +89,9 @@
     "max_retry_depth_required": true,
     "max_promotion_latency_ms_required": true,
     "failure_phase_cycle_type_message_required": true,
-    "append_only_event_required": true
+    "append_only_event_required": true,
+    "reader_access_denied_retry_count_required": true,
+    "reader_terminal_access_error_count_required": true
   },
   "qualification": {
     "synthetic_lock_breaker_pass_required": true,
@@ -131,7 +135,23 @@
     "Sync enabled",
     "community plugin enabled",
     "production authorization granted",
-    "continuous observer authorization granted"
+    "continuous observer authorization granted",
+    "reader retries non-access-denied semantic error",
+    "reader retries PermissionError with winerror other than 5",
+    "reader access-denied retry exceeds deadline",
+    "transient reader access denial counted as semantic partial generation",
+    "terminal reader access denial ignored"
   ],
-  "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE"
+  "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE",
+  "reader_access_retry_policy": {
+    "retryable_only_when_underlying_cause_is_PermissionError_winerror_5": true,
+    "deadline_ms": 500,
+    "initial_backoff_ms": 5,
+    "backoff_multiplier": 2,
+    "max_backoff_ms": 50,
+    "transient_access_denied_not_classified_as_partial_generation": true,
+    "terminal_reader_access_error_count_must_equal": 0,
+    "semantic_partial_generation_count_must_equal": 0,
+    "retry_count_must_be_telemetried": true
+  }
 }
