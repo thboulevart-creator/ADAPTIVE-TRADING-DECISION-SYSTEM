@@ -16329,3 +16329,71 @@ Next governed action:
 
 No confirmation data access is authorized.
 
+---
+
+## 261. C01-R3 — FROZEN WINDOW BINDING MINIMAL CORRECTION — PERSISTENCE CANDIDATE
+
+Date:
+2026-09-27
+
+Governed base HEAD:
+
+`7f07396a5f3936847d3271c5f242cebddb66a163`
+
+Finding:
+
+`FROZEN_WINDOW_BINDING_FAILS_OPEN`
+
+Closed correction scope:
+
+- exact `eligible_start_utc`;
+- exact `fixed_end_utc`;
+- exact `earliest_primary_evaluation_utc`;
+- three dedicated frozen-window breaker tests;
+- no other intended semantic change.
+
+Qualified sandbox blobs:
+
+Runtime:
+
+`7ea6ed6796eae8618cfd823b49eee1a63a19e096`
+
+Breaker:
+
+`cf275dba96e50e8b899223a57267e811af4693ec`
+
+Sandbox qualification workflow run:
+
+`36321233678`
+
+Results:
+
+- `py_compile = PASS`;
+- historical harness = `33/33 PASS`;
+- C01-R3 breakers = `3/3 PASS`;
+- full harness = `36/36 PASS`.
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Runtime qualification:
+
+`NOT_YET_FINAL`
+
+Next governed action:
+
+persist this exact correction candidate, then perform a fresh persisted-head adversarial re-break against the exact governed commit.
+
