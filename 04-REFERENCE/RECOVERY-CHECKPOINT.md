@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT QUALIFIED; TEST-FIRST RUNNER HARNESS QUALIFIED; RUNTIME HEAD 9cedc0a6 FAILED SECOND ADVERSARIAL RE-BREAK ON STRICT NUMERIC SEMANTICS.** Local correction blob 0680718c0778875cab0c884e9554c01027bb885d; qualified harness 33/33 PASS; consolidated adversarial probes 15/15 PASS. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false. Runtime remains unqualified.
+> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT QUALIFIED; TEST-FIRST HARNESS QUALIFIED; MINIMAL SYNTHETIC RUNNER HEAD 279f7c8d PASSED FRESH PERSISTED-HEAD ADVERSARIAL RE-BREAK.** Runtime blob 0680718c0778875cab0c884e9554c01027bb885d; qualified harness 33/33 PASS; consolidated adversarial probes 15/15 PASS. PASS qualification documentation is now a persistence candidate. Confirmation data accessed=false; primary scientific score computed=false; real confirmation execution=false.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -16166,4 +16166,84 @@ Next governed action:
 persist corrected runtime + FAIL V0.2 review + checkpoint update.
 
 Then perform a fresh persisted-head adversarial re-break.
+
+---
+
+## 259. C01 CONFIRMATION RUNNER RUNTIME — FRESH PERSISTED-HEAD ADVERSARIAL RE-BREAK PASS
+
+Date:
+2026-09-27
+
+Reviewed persisted HEAD:
+
+`279f7c8dcbec7bc68426243f7fa5867a161f0d0d`
+
+Runtime blob:
+
+`0680718c0778875cab0c884e9554c01027bb885d`
+
+Qualified breaker blob:
+
+`f2596da79f37a7bd7f46078e6b60a661158b6bf7`
+
+Fresh persisted-head adversarial re-break:
+
+**PASS**
+
+Verified:
+
+- exact persisted runtime identity;
+- all protected objects unchanged;
+- critical-control fail-closed behavior;
+- strict numeric semantics;
+- guard-first precedence;
+- sparse precedence;
+- primary sample-count consistency;
+- no external I/O;
+- no network;
+- no MT5;
+- no confirmation-data loader;
+- synthetic/scientific separation.
+
+Executed verification bound to the same runtime blob:
+
+- qualified harness = `33/33 PASS`
+- consolidated adversarial probes = `15/15 PASS`
+- non-finite = `3/3 PASS`
+- explicit controls = `6/6 PASS`
+- strict numeric = `6/6 PASS`
+
+Allowed runtime class:
+
+`SYNTHETIC_ONLY`
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Runtime implementation re-break:
+
+`PASS`
+
+Runtime qualification:
+
+`PASS DOCUMENTATION — PERSISTENCE CANDIDATE`
+
+Next governed action:
+
+persist only the PASS review and checkpoint update.
+
+Then perform the final persisted-head re-break of that qualification commit.
 
