@@ -208,7 +208,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
         body = self.module[start:end]
 
         self.assertIn(
-            "if not _is_winerror_5(exc):",
+            "if not _is_retryable_sharing_conflict(",
             body,
         )
         self.assertIn(
@@ -337,7 +337,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
             "def _append_event("
         )
         end = self.module.index(
-            "\ndef _is_winerror_5(",
+            "\ndef _is_retryable_sharing_conflict(",
             start,
         )
         body = self.module[start:end]
