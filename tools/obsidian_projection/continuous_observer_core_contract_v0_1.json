@@ -1,0 +1,370 @@
+{
+  "schema": "ATDS_OBSIDIAN_CONTINUOUS_OBSERVER_CORE_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_source": {
+    "remote": "origin",
+    "branch": "integration/system-v1",
+    "canonical_authority": "GITHUB_REMOTE_BRANCH",
+    "local_working_tree_is_not_authority": true
+  },
+  "qualified_predecessors": {
+    "p5a_continuous_projection_contract_blob": "96ec1a768b8e9ff77d94bbcd36ee513678c258e6",
+    "p5b2_dynamic_inventory_qualification_report_blob": "286a81a4f3f71a1d857631c2388d7894908acb5f",
+    "p5c2_promotion_qualification_report_blob": "a928598182b25d110c9040c62d846bf9018ac3ed",
+    "p5c3r2_final_qualification_report_blob": "fd54a78abde8342c6da708d3a4096b4d0b267905",
+    "p5c3r2_qualified_runtime_candidate": "b5f3a8de061772e15bc94b20095d419130c20781",
+    "p5c3r2_final_qualification_commit": "00ca2946ce30b0e319658f8d5b903357b7ccfc5e"
+  },
+  "objective": {
+    "name": "DETERMINISTIC_AUDITABLE_OBSERVER_STATE_MACHINE",
+    "purpose": "Define the pure observer state transition model before any background loop, scheduler, startup registration, or production continuous write authority exists.",
+    "one_shot_first": true,
+    "background_loop_deferred": true,
+    "time_based_behavior_deferred": true,
+    "production_runtime_deferred": true
+  },
+  "authority_boundary": {
+    "github_remote_branch": "CANONICAL",
+    "observer_core": "DERIVED_DECISION_ENGINE",
+    "projection": "DERIVED",
+    "obsidian": "OBSERVE_NAVIGATE_QUERY_VISUALIZE_UNDERSTAND",
+    "observer_may_push_to_github": false,
+    "observer_may_commit_to_github": false,
+    "observer_may_modify_canonical_worktree": false,
+    "observer_may_create_governance_authority": false,
+    "observer_may_modify_human_views": false,
+    "observer_may_modify_obsidian_config": false
+  },
+  "deterministic_core": {
+    "pure_transition_required": true,
+    "transition_signature": "next_state_and_decision = TRANSITION(previous_state, normalized_input)",
+    "network_io_inside_transition_forbidden": true,
+    "filesystem_io_inside_transition_forbidden": true,
+    "process_launch_inside_transition_forbidden": true,
+    "wall_clock_read_inside_transition_forbidden": true,
+    "randomness_inside_transition_forbidden": true,
+    "environment_variable_read_inside_transition_forbidden": true,
+    "same_inputs_must_produce_byte_identical_normalized_outputs": true,
+    "canonical_json_encoding": "UTF8_SORTED_KEYS_COMPACT_LF",
+    "state_digest_algorithm": "SHA256",
+    "decision_digest_algorithm": "SHA256",
+    "volatile_event_envelope_excluded_from_state_digest": true
+  },
+  "state_schema": {
+    "schema": "ATDS_OBSIDIAN_OBSERVER_STATE_V0_1",
+    "required_fields": [
+      "repository",
+      "branch",
+      "observer_phase",
+      "remote_freshness",
+      "latest_observed_head",
+      "last_qualified_head",
+      "live_projection_head",
+      "projection_state",
+      "pending_heads",
+      "blocked_head",
+      "last_failure_code",
+      "last_event_sequence"
+    ],
+    "observer_phase_allowed": [
+      "IDLE",
+      "CANDIDATE_PENDING",
+      "EVALUATING",
+      "BLOCKED",
+      "STOPPED"
+    ],
+    "remote_freshness_allowed": [
+      "KNOWN",
+      "UNKNOWN"
+    ],
+    "projection_state_allowed": [
+      "CURRENT",
+      "STALE",
+      "BLOCKED",
+      "ORPHAN",
+      "MISSING"
+    ],
+    "head_format": "LOWERCASE_40_HEX_SHA1",
+    "pending_heads_order": "OBSERVATION_ORDER_FIFO_UNIQUE",
+    "last_event_sequence_monotonic_nonnegative_integer": true,
+    "timestamps_forbidden_in_deterministic_state": true,
+    "pid_forbidden_in_deterministic_state": true,
+    "host_paths_forbidden_in_deterministic_state": true
+  },
+  "input_schema": {
+    "schema": "ATDS_OBSIDIAN_OBSERVER_INPUT_V0_1",
+    "event_types": [
+      "BOOTSTRAP",
+      "REMOTE_HEAD_OBSERVED",
+      "REMOTE_OBSERVATION_FAILED",
+      "EVALUATION_STARTED",
+      "EVALUATION_PASSED",
+      "EVALUATION_FAILED",
+      "PROMOTION_CONFIRMED",
+      "PROMOTION_FAILED",
+      "LOCK_CONTENDED",
+      "SHUTDOWN_REQUESTED"
+    ],
+    "remote_head_transition_classes": [
+      "INITIAL",
+      "SAME",
+      "FAST_FORWARD",
+      "NON_FAST_FORWARD",
+      "UNKNOWN"
+    ],
+    "transition_classification_must_be_explicit": true,
+    "implicit_history_rewrite_acceptance_forbidden": true
+  },
+  "decision_schema": {
+    "schema": "ATDS_OBSIDIAN_OBSERVER_DECISION_V0_1",
+    "allowed_actions": [
+      "NOOP",
+      "QUEUE_EXACT_HEAD_FOR_EVALUATION",
+      "START_EXACT_HEAD_EVALUATION",
+      "RETAIN_LAST_KNOWN_GOOD",
+      "BLOCK_REQUIRES_ADJUDICATION",
+      "CANDIDATE_QUALIFIED_PENDING_PROMOTION",
+      "CONFIRM_LIVE_PROJECTION",
+      "STOP"
+    ],
+    "required_fields": [
+      "action",
+      "reason_code",
+      "observed_head",
+      "candidate_head",
+      "previous_live_head",
+      "next_projection_state",
+      "automatic_promotion_authorized",
+      "production_write_authorized"
+    ],
+    "automatic_promotion_authorized_must_be_false_in_p5d1": true,
+    "production_write_authorized_must_be_false_in_p5d1": true
+  },
+  "transition_rules": {
+    "bootstrap_without_live_projection": {
+      "observer_phase": "IDLE",
+      "remote_freshness": "UNKNOWN",
+      "projection_state": "MISSING",
+      "action": "NOOP"
+    },
+    "remote_observation_failed": {
+      "remote_freshness": "UNKNOWN",
+      "live_projection_head_must_not_change": true,
+      "pending_heads_must_not_gain_unverified_head": true,
+      "action": "RETAIN_LAST_KNOWN_GOOD",
+      "new_current_claim_forbidden": true
+    },
+    "same_head": {
+      "queue_growth_forbidden": true,
+      "evaluation_start_forbidden": true,
+      "action": "NOOP",
+      "current_allowed_only_if_live_projection_head_equals_observed_head_and_last_qualified_head_equals_observed_head": true
+    },
+    "initial_head": {
+      "automatic_evaluation_queue_allowed": true,
+      "projection_state_if_live_missing": "MISSING",
+      "projection_state_if_live_exists": "STALE",
+      "action": "QUEUE_EXACT_HEAD_FOR_EVALUATION"
+    },
+    "fast_forward_head": {
+      "automatic_evaluation_queue_allowed": true,
+      "projection_state": "STALE",
+      "action": "QUEUE_EXACT_HEAD_FOR_EVALUATION"
+    },
+    "non_fast_forward_head": {
+      "automatic_evaluation_queue_allowed": false,
+      "automatic_promotion_forbidden": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "action": "BLOCK_REQUIRES_ADJUDICATION"
+    },
+    "unknown_ancestry_head": {
+      "automatic_evaluation_queue_allowed": false,
+      "automatic_promotion_forbidden": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "action": "BLOCK_REQUIRES_ADJUDICATION"
+    },
+    "evaluation_started": {
+      "candidate_must_equal_pending_head": true,
+      "observer_phase": "EVALUATING",
+      "live_projection_head_must_not_change": true,
+      "action": "START_EXACT_HEAD_EVALUATION"
+    },
+    "evaluation_passed": {
+      "candidate_must_equal_evaluating_head": true,
+      "observer_phase": "CANDIDATE_PENDING",
+      "live_projection_head_must_not_change": true,
+      "action": "CANDIDATE_QUALIFIED_PENDING_PROMOTION",
+      "promotion_still_requires_separate_authority": true
+    },
+    "evaluation_failed": {
+      "candidate_must_equal_evaluating_head": true,
+      "live_projection_head_must_not_change": true,
+      "observer_phase": "BLOCKED",
+      "projection_state": "BLOCKED",
+      "action": "RETAIN_LAST_KNOWN_GOOD"
+    },
+    "promotion_confirmed_model_semantics": {
+      "candidate_must_equal_last_qualified_head": true,
+      "live_projection_head_becomes_candidate": true,
+      "current_only_if_remote_freshness_known_and_latest_observed_head_equals_candidate": true,
+      "otherwise_projection_state": "STALE",
+      "action": "CONFIRM_LIVE_PROJECTION",
+      "p5d1_execution_authorized": false
+    },
+    "promotion_failed_model_semantics": {
+      "live_projection_head_must_not_change": true,
+      "projection_state": "BLOCKED",
+      "action": "RETAIN_LAST_KNOWN_GOOD",
+      "p5d1_execution_authorized": false
+    },
+    "lock_contended": {
+      "state_mutation_forbidden_except_event_sequence": true,
+      "action": "NOOP",
+      "production_write_authorized": false
+    },
+    "shutdown_requested": {
+      "observer_phase": "STOPPED",
+      "action": "STOP",
+      "pending_heads_must_be_preserved": true
+    }
+  },
+  "freshness_semantics": {
+    "network_failure_may_not_present_projection_as_fresh_current": true,
+    "current_requires_remote_freshness_known": true,
+    "current_requires_latest_observed_head_equals_live_projection_head": true,
+    "current_requires_live_projection_head_equals_last_qualified_head": true,
+    "unknown_remote_freshness_must_be_visible_to_later_health_reporting": true
+  },
+  "queue_and_coalescing": {
+    "every_unique_observed_head_must_have_append_only_event": true,
+    "pending_head_identity_is_exact_sha": true,
+    "duplicate_pending_head_forbidden": true,
+    "observation_order_preserved": true,
+    "active_evaluation_bound_to_exact_head": true,
+    "newer_head_may_not_retarget_active_evaluation": true,
+    "superseded_head_may_be_removed_only_after_proven_fast_forward_containment": true,
+    "superseded_status": "SUPERSEDED_NOT_PROMOTED",
+    "latest_observed_eligible_head_must_eventually_be_evaluated": true,
+    "runtime_queue_capacity_policy_deferred_to_p5d4": true
+  },
+  "event_and_audit_model": {
+    "append_only_event_required": true,
+    "event_schema": "ATDS_OBSIDIAN_OBSERVER_EVENT_V0_1",
+    "minimum_fields": [
+      "sequence",
+      "event_type",
+      "previous_state_digest",
+      "input_digest",
+      "decision_digest",
+      "next_state_digest",
+      "reason_code"
+    ],
+    "optional_volatile_envelope_fields": [
+      "observed_at",
+      "host_id",
+      "process_id"
+    ],
+    "volatile_envelope_fields_must_not_affect_deterministic_digests": true,
+    "event_log_is_not_semantic_authority": true,
+    "event_sequence_must_be_strictly_monotonic": true
+  },
+  "single_writer_model": {
+    "required": true,
+    "second_instance_result": "NO_WRITE_BLOCKED_BY_LOCK",
+    "lock_acquisition_is_outside_pure_transition": true,
+    "lock_owner_identity_must_not_enter_deterministic_state_digest": true,
+    "stale_lock_recovery_policy_deferred_to_p5d3": true
+  },
+  "last_known_good": {
+    "required": true,
+    "live_projection_head_may_change_only_after_separate_confirmed_promotion": true,
+    "failed_observation_must_not_change_live_projection_head": true,
+    "failed_evaluation_must_not_change_live_projection_head": true,
+    "failed_promotion_must_not_change_live_projection_head": true,
+    "recursive_delete_of_last_known_good_forbidden": true
+  },
+  "qualified_component_boundaries": {
+    "dynamic_inventory_contract_must_be_reused_not_reimplemented": true,
+    "atomic_pointer_primitive_must_be_reused_not_reimplemented": true,
+    "p5c3r2_reader_retry_policy_must_be_reused_not_weakened": true,
+    "human_views_remain_protected": true,
+    "obsidian_config_remains_protected": true,
+    "graph_search_current_semantics_remain_deferred_to_p6": true
+  },
+  "p5d1_boundary": {
+    "contract_and_breakers_only": true,
+    "observer_core_implementation_authorized": false,
+    "network_observation_execution_authorized": false,
+    "remote_fetch_execution_authorized": false,
+    "background_observer_execution_authorized": false,
+    "polling_loop_execution_authorized": false,
+    "production_promotion_authorized": false,
+    "continuous_vault_write_authorized": false,
+    "windows_startup_registration_authorized": false,
+    "scheduled_task_creation_authorized": false,
+    "windows_service_creation_authorized": false,
+    "graph_search_semantics_authorized": false
+  },
+  "required_breakers": [
+    "same HEAD triggers queue growth",
+    "same HEAD triggers evaluation",
+    "network failure changes live projection head",
+    "network failure creates a new CURRENT freshness claim",
+    "remote freshness UNKNOWN is presented as fresh CURRENT",
+    "CURRENT accepted when observed head differs from live projection head",
+    "CURRENT accepted when live projection head differs from last qualified head",
+    "INITIAL head is silently ignored",
+    "FAST_FORWARD head is silently ignored",
+    "NON_FAST_FORWARD enters automatic evaluation",
+    "NON_FAST_FORWARD enters automatic promotion",
+    "UNKNOWN ancestry enters automatic evaluation",
+    "UNKNOWN ancestry enters automatic promotion",
+    "active evaluation retargeted to newer observed head",
+    "duplicate pending head accepted",
+    "observation order silently reordered",
+    "superseded head dropped without proven fast-forward containment",
+    "latest eligible queued head never evaluated",
+    "evaluation starts for head not in pending queue",
+    "evaluation PASS mutates live projection head",
+    "evaluation FAIL mutates live projection head",
+    "promotion failure mutates last-known-good live head",
+    "promotion confirmation accepted for head different from last qualified head",
+    "second writer receives production write authority",
+    "lock owner PID changes deterministic state digest",
+    "wall clock changes deterministic state digest",
+    "environment variable changes deterministic state digest",
+    "randomness changes deterministic state digest",
+    "transition performs network IO",
+    "transition performs filesystem IO",
+    "transition launches process",
+    "observer pushes to GitHub",
+    "observer commits to GitHub",
+    "observer mutates canonical worktree",
+    "observer overwrites human views",
+    "observer modifies .obsidian",
+    "observer enables Obsidian Sync",
+    "observer installs community plugin",
+    "dynamic inventory is reimplemented instead of reused",
+    "atomic pointer primitive is reimplemented instead of reused",
+    "P5-C3R2 reader retry policy is weakened",
+    "background polling starts during P5-D1",
+    "production promotion occurs during P5-D1",
+    "Windows startup registration occurs during P5-D1",
+    "scheduled task is created during P5-D1",
+    "Windows service is created during P5-D1",
+    "Graph/Search CURRENT semantics are claimed during P5-D1",
+    "event sequence is not strictly monotonic",
+    "event log loses previous state digest",
+    "volatile envelope data changes deterministic decision digest"
+  ],
+  "next_gates": {
+    "p5d2": "ONE_SHOT_OBSERVER_TICK_IMPLEMENTATION",
+    "p5d3": "CONTROLLED_CANDIDATE_EVALUATION_PIPELINE",
+    "p5d4": "BOUNDED_OBSERVER_LOOP_CANDIDATE",
+    "p5e": "END_TO_END_NEAR_REAL_TIME_QUALIFICATION",
+    "p6": "CONTROLLED_KNOWLEDGE_GRAPH_ARCHITECTURE"
+  }
+}
