@@ -42,7 +42,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
 
     def test_retry_contract_blob_is_pinned(self) -> None:
         self.assertIn(
-            'CONTRACT_BLOB = "82cc7e100017d5e2db671ccce989f5e0e2afe912"',
+            'CONTRACT_BLOB = "334ef57bd30bd44baf28b97c50f19ebbff378114"',
             self.module,
         )
 
@@ -123,6 +123,60 @@ class P5C3RAdversarialTests(unittest.TestCase):
             body,
         )
 
+    def test_write_path_does_not_accept_reader_eacces_fallback(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def write_current_atomic_with_retry("
+        )
+        end = self.module.index(
+            "\ndef recover_failed_p5c3(",
+            start,
+        )
+        body = self.module[start:end]
+
+        self.assertIn(
+            'not in {5, 32}',
+            body,
+        )
+        self.assertNotIn(
+            "errno.EACCES",
+            body,
+        )
+        self.assertNotIn(
+            "_is_retryable_reader_access_conflict(",
+            body,
+        )
+
+    def test_reader_helper_requires_permissionerror_for_eacces(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def _is_retryable_reader_access_conflict("
+        )
+        end = self.module.index(
+            "\ndef _is_reader_eacces_without_winerror(",
+            start,
+        )
+        body = self.module[start:end]
+
+        self.assertIn(
+            "isinstance(current, PermissionError)",
+            body,
+        )
+        self.assertIn(
+            "winerror in {5, 32}",
+            body,
+        )
+        self.assertIn(
+            "winerror is None",
+            body,
+        )
+        self.assertIn(
+            "errno.EACCES",
+            body,
+        )
+
     def test_atomic_temp_is_written_once_before_replace_loop(
         self,
     ) -> None:
@@ -195,7 +249,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
             self.module,
         )
 
-    def test_reader_retries_only_underlying_sharing_conflict(
+    def test_reader_retry_policy_is_distinct_from_write_policy(
         self,
     ) -> None:
         start = self.module.index(
@@ -208,11 +262,15 @@ class P5C3RAdversarialTests(unittest.TestCase):
         body = self.module[start:end]
 
         self.assertIn(
-            "if not _is_retryable_sharing_conflict(",
+            "if not _is_retryable_reader_access_conflict(",
             body,
         )
         self.assertIn(
             "ReaderAccessRetryDeadlineExceeded",
+            body,
+        )
+        self.assertIn(
+            "_is_reader_eacces_without_winerror(",
             body,
         )
 
@@ -300,6 +358,7 @@ class P5C3RAdversarialTests(unittest.TestCase):
             '"max_promotion_latency_ms":',
             '"reader_access_denied_retry_count":',
             '"reader_terminal_access_error_count":',
+            '"reader_eacces_without_winerror_retry_count":',
             '"semantic_partial_generation_count":',
             '"semantic_partial_signature_total_count":',
             '"semantic_partial_signatures":',
@@ -327,6 +386,14 @@ class P5C3RAdversarialTests(unittest.TestCase):
         )
         self.assertIn(
             "not in {5, 32}",
+            self.module,
+        )
+        self.assertIn(
+            "metrics.semantic_partial_generation_count == 0",
+            self.module,
+        )
+        self.assertIn(
+            "reader_eacces_without_winerror_retry_count",
             self.module,
         )
 
