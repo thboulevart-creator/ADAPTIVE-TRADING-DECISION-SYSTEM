@@ -17066,3 +17066,87 @@ Status:
 Next action:
 
 persist only the V0.2 breaker, FAIL report and this checkpoint update; then perform a fresh persisted-head re-break before any runtime correction.
+
+
+---
+
+## 272. A0 — ADVERSARIAL BREAK EXPANSION V0.2 — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`fc8b45efa4118ceb6ac9d50470ca985babcb3acd`
+
+Implementation blob:
+
+`c7c1f37d9d306e0424274b276d42ab422beac560`
+
+Historical breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial V0.1 breaker blob:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Adversarial V0.2 breaker blob:
+
+`9833ce563305cfb6d6fe1de8907e8aa9fc96fda4`
+
+Workflow run:
+
+`36327135044`
+
+Structural verification:
+
+`PASS`
+
+Existing historical + V0.1 suite:
+
+`24/24 PASS`
+
+Persisted V0.2 expansion:
+
+```
+TOTAL = 18
+PASS = 4
+FAIL = 14
+```
+
+PASS:
+
+AC05, AC07, AC08, AC18.
+
+FAIL:
+
+AC01, AC02, AC03, AC04, AC06, AC09, AC10, AC11, AC12, AC13, AC14, AC15, AC16, AC17.
+
+Status:
+
+`A0_ADVERSARIAL_V0_2_PERSISTED_REBREAK = PASS_FAILURE_PROFILE_REPRODUCED`
+
+`A0_CURRENT_IMPLEMENTATION = FAIL_ADVERSARIAL_EXPANSION_V0_2`
+
+`A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET`
+
+Confirmed correction groups:
+
+- `A0-ABF2-01`;
+- `A0-ABF2-02`;
+- `A0-ABF2-03`;
+- `A0-ABF2-04`;
+- `A0-ABF2-05`;
+- `A0-ABF2-06`;
+- `A0-ABF2-07`;
+- `A0-ABF2-08`;
+- `A0-ABF2-09`.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+Next governed boundary:
+
+`A0 — MINIMAL CORRECTION CANDIDATE FOR A0-ABF2-01..09`
+
+The correction must keep all 42 existing tests unchanged and may not alter contract V0.3 or introduce new normative decisions.
