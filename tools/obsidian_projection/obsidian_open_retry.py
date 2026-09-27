@@ -46,7 +46,7 @@ class ReaderAccessRetryDeadlineExceeded(ObsidianOpenRetryError):
 
 
 CONTRACT_SCHEMA = "ATDS_OBSIDIAN_OPEN_RETRY_CONTRACT_V0_1"
-CONTRACT_BLOB = "5648b2f7d3d3beb528539cd7c711c39210270064"
+CONTRACT_BLOB = "82cc7e100017d5e2db671ccce989f5e0e2afe912"
 
 PROMOTION_CYCLES = 250
 MIN_READER_SAMPLES = 5000
@@ -122,7 +122,9 @@ def _append_event(report: dict[str, Any]) -> Path:
     return path
 
 
-def _is_winerror_5(exc: BaseException) -> bool:
+def _is_retryable_sharing_conflict(
+    exc: BaseException,
+) -> bool:
     current: BaseException | None = exc
     seen: set[int] = set()
 
@@ -130,7 +132,8 @@ def _is_winerror_5(exc: BaseException) -> bool:
         seen.add(id(current))
         if (
             isinstance(current, PermissionError)
-            and getattr(current, "winerror", None) == 5
+            and getattr(current, "winerror", None)
+            in {5, 32}
         ):
             return True
         current = current.__cause__
@@ -157,7 +160,8 @@ def _read_bytes_with_access_retry(
         try:
             return path.read_bytes()
         except PermissionError as exc:
-            if getattr(exc, "winerror", None) != 5:
+            if getattr(exc, "winerror", None)
+            not in {5, 32}:
                 raise
 
             telemetry.access_denied_retry_count += 1
@@ -202,7 +206,9 @@ def validate_current_with_access_retry(
         ):
             raise
         except OpenPointerPartialError as exc:
-            if not _is_winerror_5(exc):
+            if not _is_retryable_sharing_conflict(
+                exc
+            ):
                 raise
 
             telemetry.access_denied_retry_count += 1
@@ -283,7 +289,7 @@ def write_current_atomic_with_retry(
             os.replace(temporary, pointer)
             break
         except PermissionError as exc:
-            if getattr(exc, "winerror", None) != 5:
+            if getattr(exc, "winerror", None) not in {5, 32}:
                 raise
 
             conflicts += 1
