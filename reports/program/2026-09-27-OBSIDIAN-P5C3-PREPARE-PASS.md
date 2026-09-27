@@ -63,3 +63,17 @@ The user must manually:
 5. leave Obsidian open.
 
 Only after that may RUN-OPEN execute against the preserved snapshot above.
+
+
+## Supersession
+
+This PREPARE PASS remains valid as historical evidence for the earlier P5-C3 candidate.
+
+It is **SUPERSEDED FOR CURRENT EXECUTION** because the single-copy snapshot persistence assumption failed after PREPARE: the entire LocalAppData snapshot directory was later reported absent before RUN-OPEN.
+
+The P5-C3 candidate was subsequently revised to require two byte-identical bound snapshot copies:
+
+- LocalAppData primary;
+- OneDrive control-evidence backup outside both Vaults.
+
+Therefore this historical PREPARE result must not be reused for the revised candidate. A fresh guarded reset and PREPARE are required.
