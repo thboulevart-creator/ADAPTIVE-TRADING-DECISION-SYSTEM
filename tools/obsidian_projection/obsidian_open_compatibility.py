@@ -1413,30 +1413,38 @@ def diagnose_open_preconditions(
             ),
         )
 
-        if payload.get("schema") != SNAPSHOT_SCHEMA:
-            raise ObsidianOpenCompatibilityError(
-                "snapshot schema mismatch"
-            )
-        if payload.get("sandbox_path") != str(
-            SANDBOX_VAULT
-        ):
-            raise ObsidianOpenCompatibilityError(
-                "snapshot sandbox mismatch"
-            )
+        def require_snapshot_binding() -> None:
+            if payload.get("schema") != SNAPSHOT_SCHEMA:
+                raise ObsidianOpenCompatibilityError(
+                    "snapshot schema mismatch"
+                )
+            if payload.get("sandbox_path") != str(
+                SANDBOX_VAULT
+            ):
+                raise ObsidianOpenCompatibilityError(
+                    "snapshot sandbox mismatch"
+                )
+
+        record(
+            "SNAPSHOT_BINDING",
+            require_snapshot_binding,
+        )
 
         record(
             "SANDBOX_BOUNDARY",
             assert_sandbox_boundary,
         )
 
-        running = record(
+        def require_obsidian_running() -> None:
+            if not obsidian_running():
+                raise ObsidianOpenCompatibilityError(
+                    "Obsidian must be running during P5-C3 open experiment"
+                )
+
+        record(
             "OBSIDIAN_PROCESS",
-            obsidian_running,
+            require_obsidian_running,
         )
-        if not running:
-            raise ObsidianOpenCompatibilityError(
-                "Obsidian must be running during P5-C3 open experiment"
-            )
 
         obsidian_state = record(
             "OBSIDIAN_WORKSPACE_AND_PLUGIN_STATE",
