@@ -31,7 +31,7 @@ The un-retried Obsidian-open primitive is therefore not qualified.
 
 Candidate HEAD before local re-break:
 
-    dc2db6845c18a073b5ab998d5b3724ace0a9e0fa
+    c04bec423598750b1308db9c96cdbfb9e00fa2f4
 
 ## Persisted candidate artifacts
 
@@ -63,7 +63,7 @@ Unit tests:
 Adversarial breakers:
 
     tests/obsidian_projection/test_p5c3r_adversarial.py
-    blob: 3f035d00ade606519c6f781d385bde6b0177820c
+    blob: 3370378ffe0581ca3df08550a2649d1258fdca13
 
 Recovery/control runner:
 
