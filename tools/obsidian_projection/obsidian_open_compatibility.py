@@ -1073,6 +1073,11 @@ def prepare_open_experiment() -> dict[str, Any]:
             "generation_tree_digest_sha256"
         ],
     )
+    if not obsidian_running():
+        raise ObsidianOpenCompatibilityError(
+            "Obsidian is not running at end of P5-C3 open experiment"
+        )
+
     current = validate_current_pointer(
         SANDBOX_VAULT
     )
@@ -1347,6 +1352,14 @@ def run_while_obsidian_open(
 
     try:
         for cycle in range(PROMOTION_CYCLES):
+            if (
+                cycle % 25 == 0
+                and not obsidian_running()
+            ):
+                raise ObsidianOpenCompatibilityError(
+                    "Obsidian stopped during P5-C3 open experiment"
+                )
+
             target_id = (
                 "GEN_B"
                 if cycle % 2 == 0
