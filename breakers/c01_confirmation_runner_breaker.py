@@ -308,6 +308,51 @@ def _negative_primary(case):
         comp["candidate_brier"] = 0.80
 
 
+def _assert_frozen_window_binding_rejected(key):
+    m = _runner()
+
+    mutations = (
+        ("WRONG", "2099-01-01T00:00:00Z"),
+        ("MISSING", None),
+        ("MALFORMED", True),
+    )
+
+    for mutation, value in mutations:
+        case = _base_case()
+
+        if mutation == "MISSING":
+            del case["window"][key]
+        else:
+            case["window"][key] = value
+
+        result = _evaluate(m, case)
+
+        _assert_blocked(result)
+
+        assert (
+            f"WINDOW_BINDING_MISMATCH:{key}"
+            in result["guard_failures"]
+        )
+
+
+def test_r3_frozen_window_binding_eligible_start_utc():
+    _assert_frozen_window_binding_rejected(
+        "eligible_start_utc"
+    )
+
+
+def test_r3_frozen_window_binding_fixed_end_utc():
+    _assert_frozen_window_binding_rejected(
+        "fixed_end_utc"
+    )
+
+
+def test_r3_frozen_window_binding_earliest_primary_evaluation_utc():
+    _assert_frozen_window_binding_rejected(
+        "earliest_primary_evaluation_utc"
+    )
+
+
 def test_a0_positive_synthetic_control():
     m = _runner()
 
