@@ -65,7 +65,7 @@ class FiniteCandidateEvaluatorContractTests(unittest.TestCase):
         )
         self.assertEqual(
             p["current_head_projection_contract_blob"],
-            "12e9904faf9b157cd6991455883ef35e628ee672",
+            "6bc5286367890a8c393e4f5bea2b4ecb0fb20af2",
         )
 
     def test_objective_is_one_finite_nonpromoting_evaluation(
@@ -176,7 +176,7 @@ class FiniteCandidateEvaluatorContractTests(unittest.TestCase):
         p = self.contract["current_head_projection"]
         self.assertEqual(
             p["required_contract_blob"],
-            "12e9904faf9b157cd6991455883ef35e628ee672",
+            "6bc5286367890a8c393e4f5bea2b4ecb0fb20af2",
         )
         self.assertTrue(p["legacy_builder_direct_reuse_forbidden"])
         self.assertTrue(
