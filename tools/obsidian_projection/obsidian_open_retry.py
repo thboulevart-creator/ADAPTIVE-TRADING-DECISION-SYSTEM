@@ -47,7 +47,7 @@ class ReaderAccessRetryDeadlineExceeded(ObsidianOpenRetryError):
 
 
 CONTRACT_SCHEMA = "ATDS_OBSIDIAN_OPEN_RETRY_CONTRACT_V0_2"
-CONTRACT_BLOB = "246698941e839cb932216fe85dbad0bb9d5ac3db"
+CONTRACT_BLOB = "a3fb7736f2c25f144b1d9bc4a50cbf4029e3dc33"
 
 PROMOTION_CYCLES = 250
 MIN_READER_SAMPLES = 5000
@@ -1118,6 +1118,8 @@ def run_retry_open_experiment(
             "generations/GEN_A/INDEX",
         "live_vault_modified": False,
         "obsidian_open_retry_qualified": False,
+        "p5c3r_qualified": False,
+        "p5c3r2_qualified": False,
         "production_promotion_authorized": False,
         "continuous_observer_authorized": False,
     }
@@ -1143,11 +1145,11 @@ def post_close_retry_verify(
         )
     if obsidian_running():
         raise ObsidianOpenRetryError(
-            "Obsidian must be fully closed before P5-C3R post-close verify"
+            "Obsidian must be fully closed before P5-C3R2 post-close verify"
         )
     if (SANDBOX_VAULT / "CURRENT.tmp").exists():
         raise ObsidianOpenRetryError(
-            "CURRENT.tmp present during P5-C3R post-close verify"
+            "CURRENT.tmp present during P5-C3R2 post-close verify"
         )
 
     _safe_obsidian_state(
@@ -1164,7 +1166,7 @@ def post_close_retry_verify(
     )
     if current["generation_id"] != "GEN_A":
         raise ObsidianOpenRetryError(
-            "P5-C3R post-close final generation is not GEN_A"
+            "P5-C3R2 post-close final generation is not GEN_A"
         )
 
     report = {
@@ -1175,8 +1177,11 @@ def post_close_retry_verify(
         "final_generation_id": "GEN_A",
         "reader_access_denied_retry_count":
             telemetry.access_denied_retry_count,
+        "reader_eacces_without_winerror_retry_count":
+            telemetry.eacces_without_winerror_retry_count,
         "obsidian_open_retry_qualified": True,
-        "p5c3r_qualified": True,
+        "p5c3r_qualified": False,
+        "p5c3r2_qualified": True,
         "live_vault_modified": False,
         "production_promotion_authorized": False,
         "continuous_observer_authorized": False,
