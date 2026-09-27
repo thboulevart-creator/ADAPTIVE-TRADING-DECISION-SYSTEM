@@ -392,6 +392,29 @@ def _assert_directory_not_alias(path: Path) -> None:
         )
 
 
+def _assert_directory_chain_no_alias(
+    path: Path,
+    root: Path,
+) -> None:
+    current = _resolved(path)
+    boundary = _resolved(root)
+
+    while True:
+        if (
+            current != boundary
+            and boundary not in current.parents
+        ):
+            raise CandidateGenerationInvalidError(
+                "directory chain escaped package root"
+            )
+
+        _assert_directory_not_alias(current)
+
+        if current == boundary:
+            return
+        current = current.parent
+
+
 def _assert_tree_has_no_aliases(root: Path) -> None:
     _assert_directory_not_alias(root)
 
@@ -574,8 +597,9 @@ def _write_exclusive(
             "package write escapes root"
         )
 
-    _assert_directory_not_alias(
-        destination.parent
+    _assert_directory_chain_no_alias(
+        destination.parent,
+        package_root,
     )
     try:
         with destination.open("xb") as handle:
