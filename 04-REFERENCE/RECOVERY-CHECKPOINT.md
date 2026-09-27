@@ -18412,3 +18412,89 @@ Next governed boundary:
 The next boundary must preserve all 127 current tests unchanged and may not modify the standalone qualifier, frozen authority, preregistered breakers or AF04.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 289. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING MINIMAL IMPLEMENTATION — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`8630a512ad7abafed10783caf5165c61e095b534`
+
+Runtime blob:
+
+`1210bee06a2d9aed2ed7d9078542934ff430175c`
+
+Standalone qualifier blob:
+
+`9bd05f2a2a97f092c0fc2988319f15caff57dda3`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Runtime-binding manifest blob:
+
+`935661cbdf4dee031a738e37969baafa0a975d81`
+
+Runtime-binding breaker blob:
+
+`bcba5de33a73f9e32ff39e8fb498ab4d471af098`
+
+Sandbox qualification run:
+
+`36343261232`
+
+Fresh persisted-head re-break:
+
+`36343390967`
+
+Persistence scope:
+
+`src/a0_research_authority.py ONLY`
+
+Closed surface:
+
+```
+previous frozen surface = 107/107 PASS
+RB00..RB19 = 20/20 PASS
+TOTAL = 127/127 PASS
+```
+
+Status:
+
+`A0_METRIC_DOMAIN_RUNTIME_BINDING_MINIMAL_IMPLEMENTATION = PASS_127_OF_127`
+
+`A0_METRIC_DOMAIN_RUNTIME_BINDING_MINIMAL_IMPLEMENTATION_PERSISTED_REBREAK = PASS_127_OF_127`
+
+`A0_METRIC_DOMAIN_RUNTIME_BINDING_QUALIFICATION = PASS`
+
+Closed groups:
+
+- `A0-MDBIND-01`;
+- `A0-MDBIND-02`;
+- `A0-MDBIND-03`.
+
+AF04:
+
+`NOT_EXECUTED_IN_THIS_BOUNDARY`
+
+The governance prerequisites for a separate AF04 re-adjudication are now satisfied.
+
+`AF04_READJUDICATION_NEXT_BOUNDARY = AUTHORIZED`
+
+`ABF5_RUNTIME_CORRECTION = NOT_AUTHORIZED`
+
+`A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET`
+
+Next governed boundary:
+
+`A0 — AF04 METRIC-DOMAIN GOVERNED RE-ADJUDICATION`
+
+The next boundary must preserve all 127 tests unchanged and must not mutate runtime before AF04 is classified.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
