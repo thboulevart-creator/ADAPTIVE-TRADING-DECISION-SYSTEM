@@ -39,10 +39,22 @@ class P5C3RAdversarialTests(unittest.TestCase):
             / "obsidian_projection"
             / "run_p5c3r_post_close.ps1"
         ).read_text(encoding="utf-8")
+        cls.r2_cli = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "p5c3r2_verify.py"
+        ).read_text(encoding="utf-8")
+        cls.r2_open_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3r2_open.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_retry_contract_blob_is_pinned(self) -> None:
         self.assertIn(
-            'CONTRACT_BLOB = "334ef57bd30bd44baf28b97c50f19ebbff378114"',
+            'CONTRACT_BLOB = "4ad283d616b955383814830766373f224124fbd4"',
             self.module,
         )
 
@@ -175,6 +187,99 @@ class P5C3RAdversarialTests(unittest.TestCase):
         self.assertIn(
             "errno.EACCES",
             body,
+        )
+
+    def test_p5c3r2_runtime_identity_is_separate(
+        self,
+    ) -> None:
+        self.assertIn(
+            'RETRY_METRICS_SCHEMA = "ATDS_OBSIDIAN_P5C3R2_OPEN_METRICS_V0_1"',
+            self.module,
+        )
+        event_start = self.module.index(
+            "def _event_log_path("
+        )
+        event_end = self.module.index(
+            "\ndef _append_event(",
+            event_start,
+        )
+        event_body = self.module[
+            event_start:event_end
+        ]
+        self.assertIn(
+            '/ "p5c3r2"',
+            event_body,
+        )
+        self.assertNotIn(
+            '/ "p5c3r"\n',
+            event_body,
+        )
+
+    def test_predecessor_open_runner_is_unchanged(
+        self,
+    ) -> None:
+        path = (
+            "tools/obsidian_projection/"
+            "run_p5c3r_open.ps1"
+        )
+        completed = subprocess.run(
+            ["git", "hash-object", path],
+            cwd=self.root,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+            text=True,
+        )
+        self.assertEqual(
+            completed.stdout.strip(),
+            "ea6dc7d45d98df9507db4015d4e15b76fbc1fd52",
+        )
+
+    def test_p5c3r2_cli_exposes_no_recovery_mode(
+        self,
+    ) -> None:
+        for required in (
+            "--synthetic-lock-breaker",
+            "--run-open",
+            "--post-close",
+        ):
+            with self.subTest(required=required):
+                self.assertIn(
+                    required,
+                    self.r2_cli,
+                )
+        self.assertNotIn(
+            '"--recover"',
+            self.r2_cli,
+        )
+
+    def test_p5c3r2_runner_binds_new_cli(
+        self,
+    ) -> None:
+        diagnostic = self.r2_open_runner.index(
+            "=== P5-C3R2 READ-ONLY PRECHECK ==="
+        )
+        experiment = self.r2_open_runner.index(
+            "=== P5-C3R2 READER-EACCES OPEN EXPERIMENT ==="
+        )
+        self.assertLess(
+            diagnostic,
+            experiment,
+        )
+        self.assertIn(
+            "tools.obsidian_projection."
+            "p5c3_verify --diagnose-open",
+            self.r2_open_runner,
+        )
+        self.assertIn(
+            "tools.obsidian_projection."
+            "p5c3r2_verify --run-open",
+            self.r2_open_runner,
+        )
+        self.assertNotIn(
+            "tools.obsidian_projection."
+            "p5c3r_verify --run-open",
+            self.r2_open_runner,
         )
 
     def test_atomic_temp_is_written_once_before_replace_loop(
