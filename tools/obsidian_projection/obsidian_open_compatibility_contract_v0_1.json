@@ -1,0 +1,191 @@
+{
+  "schema": "ATDS_OBSIDIAN_OPEN_COMPATIBILITY_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "qualified_predecessor_p5c2_head": "33c6184d8404b6cb0f59dbb0ead68949ece27544",
+  "checkpoint_base_head": "3bd534c755c65f112d5a64c6e2bbb0fa4913589f",
+  "selected_filesystem_primitive": "IMMUTABLE_GENERATION_ATOMIC_POINTER",
+  "objective": "Qualify the selected atomic pointer publication primitive while a sacrificial Vault is actually open in Obsidian, without using the real user Vault.",
+  "live_vault": {
+    "path": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROJECTION",
+    "experiment_target": false,
+    "mutation_authorized": false,
+    "generated_mutation_authorized": false,
+    "views_mutation_authorized": false,
+    "obsidian_config_mutation_authorized": false,
+    "before_after_digest_required_for_generated": true,
+    "before_after_digest_required_for_views": true
+  },
+  "sacrificial_vault": {
+    "path": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-P5C3-OBSIDIAN-OPEN-SANDBOX",
+    "same_onedrive_root_required": true,
+    "sacrificial": true,
+    "must_not_be_git_repository": true,
+    "must_not_overlap_live_vault": true,
+    "must_be_absent_before_prepare": true,
+    "top_level_expected_after_prepare": [
+      ".obsidian",
+      "CURRENT.md",
+      "generations"
+    ]
+  },
+  "safe_obsidian_seed": {
+    "source": "COPY_ONLY_SAFE_CORE_PLUGIN_STATE_FROM_LIVE_VAULT_PLUS_EMPTY_COMMUNITY_PLUGIN_LIST",
+    "live_core_plugins_must_show_sync_disabled": true,
+    "community_plugins_seed": "EMPTY_LIST",
+    "plugin_directory_creation_authorized": false,
+    "theme_installation_authorized": false,
+    "obsidian_sync_authorized": false,
+    "community_plugin_authorized": false
+  },
+  "fixture": {
+    "generation_ids": [
+      "GEN_A",
+      "GEN_B"
+    ],
+    "notes_per_generation": 128,
+    "nested_directories": 8,
+    "index_note_required": true,
+    "each_note_embeds_generation_id": true,
+    "each_index_links_all_generation_notes": true,
+    "generation_manifest_required": true,
+    "immutable_after_prepare": true
+  },
+  "live_pointer_note": {
+    "path": "CURRENT.md",
+    "update_primitive": "WRITE_TEMP_FSYNC_OS_REPLACE",
+    "frontmatter_fields": [
+      "schema",
+      "generation_id",
+      "generation_tree_digest_sha256"
+    ],
+    "body_must_link_exact_generation_index": true,
+    "direct_in_place_write_forbidden": true,
+    "temp_pointer_must_never_be_target_of_obsidian_navigation": true
+  },
+  "prepare_phase": {
+    "obsidian_must_be_closed": true,
+    "creates_sacrificial_vault": true,
+    "builds_both_immutable_generations": true,
+    "validates_generation_digests": true,
+    "seeds_safe_obsidian_config": true,
+    "initializes_current_to": "GEN_A",
+    "captures_live_vault_digests": true,
+    "automatic_obsidian_launch": false,
+    "output_instruction": "Manually open the exact sacrificial Vault in Obsidian and open CURRENT.md. Make no edits and enable no Sync/plugins."
+  },
+  "open_proof": {
+    "obsidian_process_must_be_running": true,
+    "sacrificial_obsidian_directory_must_exist": true,
+    "workspace_json_required": true,
+    "workspace_must_reference": "CURRENT.md",
+    "sync_must_be_disabled": true,
+    "community_plugins_must_be_empty_or_absent": true,
+    "exact_vault_process_binding_is_not_claimed_beyond_workspace_evidence": true
+  },
+  "open_experiment": {
+    "promotion_cycles": 250,
+    "reader_samples_minimum": 5000,
+    "reader_interval_ms_max": 10,
+    "at_least_one_fresh_reader_sample_per_cycle": true,
+    "both_directions_required": true,
+    "no_generation_directory_mutation": true,
+    "pointer_write_error_count_must_equal": 0,
+    "mixed_generation_count_must_equal": 0,
+    "missing_entrypoint_count_must_equal": 0,
+    "partial_generation_count_must_equal": 0,
+    "parse_error_count_must_equal": 0,
+    "final_generation_expected": "GEN_A",
+    "live_vault_before_after_digests_must_match": true
+  },
+  "manual_visual_acceptance": {
+    "required": true,
+    "while_obsidian_still_open": true,
+    "expected_visible_note": "CURRENT.md",
+    "expected_final_generation": "GEN_A",
+    "expected_link_target": "generations/GEN_A/INDEX",
+    "user_must_not_edit_during_check": true,
+    "screenshot_or_equivalent_human_observation_required": true,
+    "automated_filesystem_pass_alone_is_insufficient": true
+  },
+  "post_close_phase": {
+    "obsidian_must_be_fully_closed": true,
+    "pointer_final_state_must_match_expected": true,
+    "both_generation_tree_digests_must_match_prepare_snapshot": true,
+    "obsidian_sync_must_be_disabled": true,
+    "community_plugins_must_be_empty_or_absent": true,
+    "live_vault_before_after_digests_must_match": true,
+    "sacrificial_vault_may_remain_for_evidence": true
+  },
+  "graph_indexing_boundary": {
+    "p5c3_does_not_qualify_native_graph_current_generation_semantics": true,
+    "duplicate_generation_indexing_problem_remains_open": true,
+    "no_claim_that_obsidian_graph_understands_current_pointer": true,
+    "resolution_deferred_to": "P6_CONTROLLED_KNOWLEDGE_GRAPH_ARCHITECTURE"
+  },
+  "qualification_result": {
+    "pass_requires": [
+      "PREPARE_PASS",
+      "OPEN_PROOF_PASS",
+      "250_POINTER_PROMOTIONS_PASS",
+      "5000_READER_SAMPLES_MINIMUM",
+      "ZERO_POINTER_WRITE_ERRORS",
+      "ZERO_MIXED_GENERATION",
+      "ZERO_MISSING_ENTRYPOINT",
+      "ZERO_PARTIAL_GENERATION",
+      "ZERO_PARSE_ERRORS",
+      "FINAL_GEN_A_EXACT",
+      "LIVE_VAULT_DIGESTS_UNCHANGED",
+      "MANUAL_VISUAL_ACCEPTANCE_PASS",
+      "POST_CLOSE_PASS"
+    ],
+    "filesystem_only_pass_is_insufficient": true,
+    "production_promotion_authorized_on_p5c3_pass": false,
+    "continuous_observer_authorized_on_p5c3_pass": false
+  },
+  "p5c3_boundary": {
+    "contract_and_sandbox_harness_only": true,
+    "real_vault_experiment_authorized": false,
+    "automatic_obsidian_launch_authorized": false,
+    "continuous_observer_authorized": false,
+    "production_promotion_authorized": false,
+    "windows_task_registration_authorized": false,
+    "human_views_overwrite_authorized": false
+  },
+  "required_breakers": [
+    "real user Vault used as experiment target",
+    "sandbox overlaps real Vault",
+    "sandbox outside qualified OneDrive root",
+    "sandbox already exists before prepare",
+    "sandbox contains .git",
+    "Obsidian running during prepare",
+    "Obsidian absent during open experiment",
+    "workspace.json absent during open experiment",
+    "workspace does not reference CURRENT.md",
+    "Sync enabled",
+    "community plugin enabled",
+    "plugin directory silently accepted",
+    "generation note mutated after prepare",
+    "generation manifest mutated after prepare",
+    "CURRENT.md written in place",
+    "CURRENT.tmp exposed as navigation target",
+    "fewer than 250 promotions accepted",
+    "fewer than 5000 reader samples accepted",
+    "reader does not progress during each cycle",
+    "pointer write error ignored",
+    "mixed generation observed but PASS",
+    "missing entrypoint observed but PASS",
+    "partial generation observed but PASS",
+    "parse error observed but PASS",
+    "wrong final generation accepted",
+    "real live generated digest changed",
+    "real live views digest changed",
+    "automated PASS accepted without manual visual acceptance",
+    "post-close verification omitted",
+    "Obsidian still running during post-close verification",
+    "P5-C3 claims native Graph understands CURRENT pointer",
+    "P5-C3 authorizes production continuous promotion",
+    "automatic Obsidian launch introduced"
+  ],
+  "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE"
+}
