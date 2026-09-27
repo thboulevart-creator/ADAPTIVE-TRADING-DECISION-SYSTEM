@@ -1,0 +1,84 @@
+name: A0 Adversarial Expansion V0.1 Persisted Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-adversarial-expansion-v01-persisted-rebreak
+    paths:
+      - .github/workflows/a0-adversarial-expansion-v01-persisted-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact governed break HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: bc0d83ef757b0abbea21c2cea6fa3fc6a18dd920
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact HEAD and break persistence scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "bc0d83ef757b0abbea21c2cea6fa3fc6a18dd920"
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "04-REFERENCE/RECOVERY-CHECKPOINT.md",
+              "breakers/a0_research_authority_adversarial_breaker_v01.py",
+              "reports/program/2026-09-27-A0-ADVERSARIAL-BREAK-EXPANSION-V0.1-FAIL.md",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only", "HEAD^", "HEAD"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "737f041b7b083f832f475b2aab607fb417c74fe0"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Compile candidate and breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+
+      - name: Historical six remain green
+        run: python -m pytest -q breakers/a0_research_authority_red_breaker.py
+
+      - name: Reproduce exact adversarial failure profile
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q breakers/a0_research_authority_adversarial_breaker_v01.py > /tmp/a0-adversarial-persisted.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/a0-adversarial-persisted.txt
+          test "$status" -ne 0
+          grep -q "9 failed, 9 passed" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab03_bool_sample_size_rejected_not_ignored" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab04_numeric_string_sample_size_rejected_not_coerced_or_ignored" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab08_forged_preregistration_cannot_hide_refuted_member" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab10_undetermined_evidence_level_contributes_empty_set" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab11_unrepresented_promotion_limit_contributes_empty_set" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab13_synthetic_confirmed_cannot_normalize_to_supported" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab14_real_but_not_established_confirmed_cannot_be_supported" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab15_foreign_normalization_policy_identity_rejected" /tmp/a0-adversarial-persisted.txt
+          grep -q "test_ab16_coforged_registry_and_profile_cannot_create_new_authority" /tmp/a0-adversarial-persisted.txt
+          echo "A0_ADVERSARIAL_V01_PERSISTED_REBREAK=PASS_FAILURE_PROFILE_REPRODUCED"
