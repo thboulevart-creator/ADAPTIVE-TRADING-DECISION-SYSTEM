@@ -411,7 +411,7 @@ class P5D3DAdversarialTests(unittest.TestCase):
                 module,
             )
             self.assertNotIn(
-                "Path("CURRENT",
+                'Path("CURRENT',
                 module,
             )
 
