@@ -1,0 +1,388 @@
+{
+  "schema": "ATDS_OBSIDIAN_CURRENT_HEAD_PROJECTION_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "source_branch": "integration/system-v1",
+  "qualified_predecessors": {
+    "p5d3b_qualification_commit": "51dfa30a9fcca4f012f80410f24f95007d2cf2e6",
+    "p5d3b_qualification_report_blob": "94fbe40ffde900040c9a784b205c37e76b7ef834",
+    "p5d3b_bridge_contract_blob": "7015db1206cd40b703795d12519707a6455b4fc3",
+    "p5d3b_bridge_implementation_blob": "ff3c2dd232487594a5283a9ab7750780ac098f2d",
+    "p5d3c2_qualification_commit": "205d09e22430e60324b76f2713024e36527e5dba",
+    "p5d3c2_qualification_report_blob": "d1ffea5fefc8845831c11a153a0e17492401ef60"
+  },
+  "legacy_components_observed_not_authoritative": {
+    "legacy_projection_contract_blob": "c546b7116c68ee17fd0ff5868748bb4b1bbae1f3",
+    "legacy_builder_blob": "8a68d85bdbfaacddefba85355be337514c05512e",
+    "legacy_relations_blob": "9f913273174b3935dd7b5bf09ff56d4dfad4c887",
+    "legacy_rendering_blob": "5111518bc4d842fd39f0e5a1a00f2cc66f681501",
+    "legacy_integrity_blob": "e98c8ed5c6b284168faf6ed7742f1ff0e98b27e8"
+  },
+  "objective": {
+    "name": "CURRENT_HEAD_DETERMINISTIC_PROJECTION",
+    "purpose": "Define a deterministic current-head projection builder and relation adapter over qualified P5-D3B bridge output without FrozenInventory, pilot source counts, or METADATA_ONLY body reads.",
+    "one_artifact_per_bridge_entry": true,
+    "fixed_source_count_forbidden": true,
+    "pilot_inventory_semantics_forbidden": true,
+    "frozen_inventory_conversion_forbidden": true,
+    "source_body_copying_forbidden": true,
+    "live_vault_write_forbidden": true,
+    "current_pointer_write_forbidden": true
+  },
+  "input_contract": {
+    "required_bridge_schema": "ATDS_OBSIDIAN_CURRENT_HEAD_SEMANTIC_BRIDGE_RESULT_V0_1",
+    "required_entry_schema": "ATDS_OBSIDIAN_CURRENT_HEAD_SEMANTIC_BRIDGE_ENTRY_V0_1",
+    "required_semantic_record_schema": "ATDS_OBSIDIAN_SEMANTIC_RECORD_V0_1",
+    "repository_must_equal_contract_repository": true,
+    "branch_must_equal_contract_branch": true,
+    "bridge_source_commit_is_candidate_head": true,
+    "bridge_source_tree_is_candidate_tree": true,
+    "bridge_dynamic_inventory_digest_required": true,
+    "bridge_entry_digest_required": true,
+    "semantic_record_digest_required": true,
+    "bridge_entries_bytewise_source_path_sorted": true,
+    "duplicate_source_path_forbidden": true,
+    "artifact_count_must_equal_bridge_entry_count": true,
+    "empty_bridge_forbidden": true
+  },
+  "body_read_authority": {
+    "default": "DENY",
+    "metadata_only_body_read_allowed": false,
+    "artifact_render_body_read_allowed": false,
+    "relation_body_read_allowed_only_when": {
+      "content_mode": "FULL_TEXT",
+      "downstream_body_read_allowed": true,
+      "source_suffix_in": [
+        ".md",
+        ".json"
+      ]
+    },
+    "full_text_non_relation_suffix_body_read_allowed": false,
+    "metadata_only_may_be_relation_target": true,
+    "metadata_only_may_be_relation_source": false,
+    "body_read_must_use_exact_bridge_blob_sha": true,
+    "body_read_source_path_and_blob_binding_required": true,
+    "unregistered_blob_read_forbidden": true,
+    "body_read_audit_required": true,
+    "body_read_audit_order": "source_path UTF-8 bytewise ASC",
+    "body_read_audit_fields": [
+      "source_path",
+      "source_blob_sha",
+      "content_mode",
+      "purpose"
+    ],
+    "body_read_audit_digest_algorithm": "SHA256 canonical JSON rows",
+    "metadata_only_body_read_count_must_equal": 0
+  },
+  "artifact_projection": {
+    "reuse_legacy_renderer_allowed": true,
+    "legacy_renderer_reuse_reason": "render_artifact consumes SemanticRecord metadata only and does not require source body bytes",
+    "artifact_record_schema": "ATDS_OBSIDIAN_ARTIFACT_V0_1",
+    "record_type": "ARTIFACT",
+    "relative_path_pattern": "generated/artifacts/{projection_record_id}.md",
+    "projection_record_id_algorithm": "A- + first16hex(SHA256(UTF8(source_repository) + NUL + UTF8(source_path)))",
+    "collision_policy": "BLOCK_BUILD",
+    "frontmatter_field_order": [
+      "record_schema",
+      "record_type",
+      "projection_record_id",
+      "source_repository",
+      "source_branch",
+      "source_commit",
+      "source_tree",
+      "source_path",
+      "source_blob_sha",
+      "source_blob_size",
+      "artifact_family",
+      "semantic_role",
+      "procedure_role",
+      "source_authority_role",
+      "projection_authority_role",
+      "qualification_status",
+      "qualification_scope",
+      "scientific_status",
+      "epistemic_role",
+      "temporal_role",
+      "persistence_state",
+      "source_freshness",
+      "projection_integrity",
+      "limitations",
+      "non_claims"
+    ],
+    "fixed_projection_authority_role": "DERIVED",
+    "fixed_source_freshness": "UNKNOWN",
+    "fixed_projection_integrity": "CLEAN",
+    "body_template": [
+      "# {projection_record_id}",
+      "",
+      "Source artifact: `{source_path}`"
+    ],
+    "body_must_not_include_source_blob_bytes": true
+  },
+  "relation_projection": {
+    "legacy_extract_relations_direct_reuse_allowed": false,
+    "legacy_extract_relations_reason": "legacy extractor reads every semantic-record blob and therefore violates METADATA_ONLY authority",
+    "reuse_legacy_relation_renderer_allowed": true,
+    "relation_record_schema": "ATDS_OBSIDIAN_RELATION_V0_1",
+    "record_type": "RELATION",
+    "relative_path_pattern": "generated/relations/{projection_relation_id}.md",
+    "allowed_relation_types": [
+      "REFERENCES"
+    ],
+    "allowed_basis": [
+      "EXPLICIT_STRUCTURED",
+      "EXPLICIT_TEXT"
+    ],
+    "forbidden_authoritative_basis": [
+      "INFERRED",
+      "DERIVED_BY_RULE"
+    ],
+    "source_policy": {
+      "markdown": "FULL_TEXT .md only; exact labeled backtick path rule",
+      "json": "FULL_TEXT .json only; exact JSON string path rule",
+      "other_full_text_suffix": "NO_BODY_READ_NO_RELATION",
+      "metadata_only": "NO_BODY_READ_NO_RELATION"
+    },
+    "target_policy": {
+      "target_must_equal_exact_source_path_of_any_bridge_entry": true,
+      "metadata_only_target_allowed": true,
+      "unresolved_target": "DO_NOT_EMIT_RELATION",
+      "self_target": "DO_NOT_EMIT_RELATION",
+      "guessing_forbidden": true
+    },
+    "relation_rule_registry_version": "ATDS_OBSIDIAN_CURRENT_HEAD_RELATION_RULES_V0_1",
+    "preregistered_rules": [
+      {
+        "rule_id": "CH-REL-V0-EXACT-STRUCTURED-PATH",
+        "source_requirement": "FULL_TEXT .json",
+        "basis": "EXPLICIT_STRUCTURED",
+        "relation_type": "REFERENCES",
+        "description": "Emit REFERENCES only when an exact JSON string equals one projected bridge source_path."
+      },
+      {
+        "rule_id": "CH-REL-V0-EXPLICIT-LABELED-TEXT-PATH",
+        "source_requirement": "FULL_TEXT .md",
+        "basis": "EXPLICIT_TEXT",
+        "relation_type": "REFERENCES",
+        "description": "Emit REFERENCES only when an exact preregistered labeled backtick path equals one projected bridge source_path."
+      }
+    ],
+    "frontmatter_field_order": [
+      "record_schema",
+      "record_type",
+      "projection_relation_id",
+      "source_record_id",
+      "relation_type",
+      "target_record_id",
+      "basis",
+      "evidence_source_path",
+      "evidence_source_blob_sha",
+      "source_commit",
+      "projection_authority_role",
+      "projection_integrity"
+    ],
+    "fixed_projection_authority_role": "DERIVED",
+    "fixed_projection_integrity": "CLEAN"
+  },
+  "markdown_serialization": {
+    "encoding": "UTF-8",
+    "bom": false,
+    "newline": "LF",
+    "final_newline": true,
+    "frontmatter_scalar_encoding": "JSON_DOUBLE_QUOTED_STRING",
+    "frontmatter_array_encoding": "JSON_COMPACT_ARRAY",
+    "null_encoding": "null",
+    "boolean_encoding": [
+      "true",
+      "false"
+    ],
+    "integer_encoding": "BASE10_NO_LEADING_PLUS",
+    "unknown_extra_fields": "BLOCK_BUILD",
+    "source_text_copying": "FORBIDDEN",
+    "wikilink_generation": "FORBIDDEN"
+  },
+  "ordering": {
+    "bridge_input_order": "source_path ASC UTF-8 bytewise",
+    "artifact_output_order": "projection_record_id ASC bytewise ASCII",
+    "relation_output_order": "projection_relation_id ASC bytewise ASCII",
+    "manifest_file_order": "relative_path ASC UTF-8 bytewise",
+    "body_read_audit_order": "source_path ASC UTF-8 bytewise"
+  },
+  "path_safety": {
+    "allowed_generated_roots": [
+      "generated/artifacts",
+      "generated/relations",
+      "generated/manifests"
+    ],
+    "forbidden_builder_write_roots": [
+      "views",
+      ".obsidian"
+    ],
+    "forbidden_pointer_names": [
+      "CURRENT",
+      "CURRENT.md",
+      "CURRENT.json",
+      "CURRENT.tmp"
+    ],
+    "filename_source": "DETERMINISTIC_RECORD_ID_ONLY",
+    "source_path_used_as_output_path": false,
+    "path_separator": "/"
+  },
+  "staging": {
+    "location": "OS_TEMP_ONLY",
+    "fresh_empty_directory_required": true,
+    "preexisting_target_policy": "BLOCK",
+    "file_creation_mode": "CREATE_NEW_EXCLUSIVE",
+    "overwrite_in_place": false,
+    "symlink_junction_reparse_escape": "BLOCK",
+    "hard_link_count_expected": 1,
+    "hard_link_check_unavailable": "BLOCK",
+    "builder_write_outside_staging": "BLOCK",
+    "real_vault": false,
+    "promotion": "NOT_AUTHORIZED"
+  },
+  "integrity_manifest": {
+    "schema": "ATDS_OBSIDIAN_INTEGRITY_MANIFEST_V0_1",
+    "relative_path": "generated/manifests/integrity-manifest.json",
+    "serialization": "CANONICAL_JSON_UTF8_LF",
+    "include_artifacts_and_relations": true,
+    "exclude_self": true
+  },
+  "build_manifest": {
+    "schema": "ATDS_OBSIDIAN_CURRENT_HEAD_BUILD_MANIFEST_V0_1",
+    "relative_path": "generated/manifests/build-manifest.json",
+    "serialization": "CANONICAL_JSON_UTF8_LF",
+    "deterministic": true,
+    "field_order": [
+      "schema",
+      "source_repository",
+      "source_branch",
+      "source_commit",
+      "source_tree",
+      "dynamic_inventory_digest_sha256",
+      "semantic_bridge_digest_sha256",
+      "semantic_record_digest_sha256",
+      "projection_contract_version",
+      "renderer_version",
+      "relation_rule_registry_version",
+      "source_record_count",
+      "full_text_count",
+      "metadata_only_count",
+      "artifact_record_count",
+      "relation_record_count",
+      "relation_source_body_read_count",
+      "metadata_only_body_read_count",
+      "body_read_audit_digest_sha256",
+      "artifact_set_digest_sha256",
+      "relation_set_digest_sha256",
+      "integrity_manifest_sha256",
+      "build_status"
+    ],
+    "required_values": {
+      "metadata_only_body_read_count": 0,
+      "build_status": "PASS"
+    },
+    "forbidden_fields": [
+      "pilot_inventory_digest_sha256",
+      "pilot_source_count",
+      "generated_at",
+      "timestamp",
+      "host",
+      "user",
+      "absolute_repo_path",
+      "absolute_staging_path"
+    ]
+  },
+  "determinism": {
+    "independent_build_count": 2,
+    "same_candidate_head_required": true,
+    "same_candidate_tree_required": true,
+    "same_dynamic_inventory_digest_required": true,
+    "same_semantic_bridge_digest_required": true,
+    "same_semantic_record_digest_required": true,
+    "same_projection_contract_required": true,
+    "separate_fresh_stage_roots_required": true,
+    "required_equalities": [
+      "relative_path_set",
+      "each_file_bytes",
+      "each_file_sha256",
+      "semantic_record_digest_sha256",
+      "body_read_audit_digest_sha256",
+      "relation_source_body_read_count",
+      "artifact_set_digest_sha256",
+      "relation_set_digest_sha256",
+      "integrity_manifest_sha256",
+      "projection_tree_digest_sha256",
+      "generated_file_count"
+    ],
+    "any_mismatch_is_candidate_rejection": true
+  },
+  "builder_result": {
+    "schema": "ATDS_OBSIDIAN_CURRENT_HEAD_BUILD_RESULT_V0_1",
+    "required_fields": [
+      "source_commit",
+      "source_tree",
+      "dynamic_inventory_digest_sha256",
+      "semantic_bridge_digest_sha256",
+      "semantic_record_digest_sha256",
+      "projection_contract_version",
+      "source_record_count",
+      "full_text_count",
+      "metadata_only_count",
+      "artifact_record_count",
+      "relation_record_count",
+      "relation_source_body_read_count",
+      "metadata_only_body_read_count",
+      "body_read_audit_digest_sha256",
+      "artifact_set_digest_sha256",
+      "relation_set_digest_sha256",
+      "integrity_manifest_sha256",
+      "projection_tree_digest_sha256",
+      "generated_file_count"
+    ],
+    "stage_root_is_runtime_only_not_deterministic_identity": true
+  },
+  "failure_semantics": {
+    "candidate_invalid_examples": [
+      "BRIDGE_IDENTITY_MISMATCH",
+      "BRIDGE_DUPLICATE_PATH",
+      "BRIDGE_UNSORTED",
+      "METADATA_ONLY_BODY_READ_ATTEMPT",
+      "UNREGISTERED_BODY_READ_ATTEMPT",
+      "RELATION_SOURCE_POLICY_VIOLATION",
+      "RELATION_ID_COLLISION",
+      "ARTIFACT_ID_COLLISION",
+      "SOURCE_BODY_COPY_DETECTED",
+      "PROJECTION_INTEGRITY_FAILURE",
+      "DETERMINISTIC_DOUBLE_BUILD_MISMATCH"
+    ],
+    "infrastructure_blocked_examples": [
+      "SOURCE_BLOB_READ_UNAVAILABLE",
+      "STAGING_ROOT_UNAVAILABLE",
+      "FILESYSTEM_STAT_UNAVAILABLE",
+      "HARD_LINK_COUNT_UNAVAILABLE"
+    ],
+    "candidate_invalid_must_not_be_relabelled_blocked": true,
+    "infrastructure_blocked_must_not_be_relabelled_candidate_invalid_without_candidate_evidence": true
+  },
+  "execution_boundary": {
+    "contract_only_until_qualified": true,
+    "current_head_builder_implementation_authorized": false,
+    "current_head_relation_adapter_implementation_authorized": false,
+    "current_head_build_execution_authorized": false,
+    "real_vault_creation_authorized": false,
+    "current_pointer_mutation_authorized": false,
+    "production_promotion_authorized": false,
+    "background_execution_authorized": false,
+    "polling_authorized": false
+  },
+  "next_action_gate": {
+    "after_contract_qualification": "P5_D3D_IMPLEMENTATION_CANDIDATE",
+    "current_head_builder_implementation_allowed": true,
+    "current_head_relation_adapter_implementation_allowed": true,
+    "finite_orchestrator_implementation_allowed": true,
+    "real_vault_creation_allowed": false,
+    "current_pointer_mutation_allowed": false,
+    "production_promotion_allowed": false
+  }
+}
