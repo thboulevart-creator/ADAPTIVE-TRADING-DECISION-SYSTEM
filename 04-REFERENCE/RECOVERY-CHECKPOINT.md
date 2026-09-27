@@ -1,4 +1,4 @@
-> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; TEST-FIRST RED HEAD 64c1c3e FAILED PERSISTED-HEAD RE-BREAK ON B05 TEMPORAL UNDER-SPECIFICATION; MINIMAL B05 CORRECTION IS A PERSISTENCE CANDIDATE.** Runtime absent; confirmation data accessed=false; primary score computed=false; real confirmation execution=false. Runtime implementation remains unauthorized.
+> **DIRECTIVE ACTIVE — 2026-09-27 : C01 V0.2 FINAL SEALED; CONFIRMATION EXECUTION PREFLIGHT V0.1 QUALIFIED; FRESH PERSISTED-HEAD RE-BREAK OF C01 RUNNER TEST-FIRST HEAD 189b2f098076a7bd1ac2c0eb647757f375c3a479 = PASS. PASS qualification documentation is now a persistence candidate. Runtime remains absent. Confirmation data accessed=false; primary score computed=false; real confirmation execution=false. After persistence of this PASS documentation, only minimal SYNTHETIC_ONLY runner implementation may begin.
 
 # RECOVERY CHECKPOINT — ALGO ECOSYSTEM
 
@@ -15848,4 +15848,93 @@ Status:
 Next:
 
 persist correction, then fresh persisted-head re-break.
+
+---
+
+## 255. C01 CONFIRMATION RUNNER TEST-FIRST — FRESH PERSISTED-HEAD RE-BREAK PASS
+
+Date:
+2026-09-27
+
+Reviewed persisted HEAD:
+
+`189b2f098076a7bd1ac2c0eb647757f375c3a479`
+
+Parent:
+
+`64c1c3e7365e333d537dcbec43af528ffb1e132b`
+
+Fresh persisted-head re-break:
+
+**PASS**
+
+Corrected breaker blob:
+
+`f2596da79f37a7bd7f46078e6b60a661158b6bf7`
+
+Verification summary:
+
+- exact branch/HEAD identity: PASS;
+- exact parent identity: PASS;
+- exact three-file correction scope: PASS;
+- runtime absent: PASS;
+- protected qualified objects unchanged: PASS;
+- 32 frozen breakers present exactly once: PASS;
+- positive synthetic control count = 1: PASS;
+- B05 temporal boundary correction: PASS;
+- B30 sparse guard precedence: PASS;
+- B31 critical-control precedence: PASS;
+- B32 pristine dual-axis precedence: PASS.
+
+B05 now explicitly binds:
+
+`as_of_utc = 2026-09-27T00:00:00Z`
+
+and verifies:
+
+`as_of_utc < fixed_end_utc`
+
+before requesting real confirmation execution.
+
+Confirmation data accessed:
+
+`false`
+
+Primary confirmation score computed:
+
+`false`
+
+Real confirmation execution:
+
+`false`
+
+Scientific confirmation:
+
+`NOT_YET_PERFORMED`
+
+Allowed runner-development data class after persistence of this qualification:
+
+`SYNTHETIC_ONLY`
+
+Real confirmation execution authorized:
+
+`false`
+
+Primary scientific scoring authorized:
+
+`false`
+
+Status:
+
+**PASS QUALIFICATION DOCUMENTATION — PERSISTENCE CANDIDATE.**
+
+Next governed action:
+
+persist this PASS review and checkpoint update.
+
+Only after that persistence may minimal implementation of:
+
+`tools/c01_confirmation_runner.py`
+
+begin against the qualified synthetic harness.
 
