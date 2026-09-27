@@ -27,12 +27,12 @@ Checkpoint base:
 Contract:
 
     tools/obsidian_projection/obsidian_open_compatibility_contract_v0_1.json
-    blob: 76c3b681d3de930705a5e15c72d8c660d31d24b6
+    blob: 4974302509a989fbd296ee7052ca15f22a0750a6
 
 Harness:
 
     tools/obsidian_projection/obsidian_open_compatibility.py
-    blob: 242d84d5a12d2ef26423f5bbe0e1bbc1ff3a7c53
+    blob: 2255b7ce20377cbf0bead47a7e96aa2975c443f5
 
 CLI:
 
@@ -47,32 +47,37 @@ Prepare/control runner:
 Open-experiment runner:
 
     tools/obsidian_projection/run_p5c3_open.ps1
-    blob: a47a4f8a939fb93622cc827a57d67101ee06ceaa
+    blob: 2b538f4c03c72342cba78fc8a96b7d0972c0f22d
 
 Post-close runner:
 
     tools/obsidian_projection/run_p5c3_post_close.ps1
-    blob: ab766f38d87561b850aadf6db5095cd69df18fd9
+    blob: 1d1d457b6fcaa518806ee027d67a02385420bcdf
+
+Reset runner:
+
+    tools/obsidian_projection/run_p5c3_reset.ps1
+    blob: ffce2b32c556a0581c5b3caf6fd97b80996556de
 
 Contract breakers:
 
     tests/obsidian_projection/test_obsidian_open_compatibility_contract_v0_1.py
-    blob: 78d1115a5a443e9bd95d6e0f34524b1dc6c80650
+    blob: 0fd820812922f2c25e42b98c796dc594ae075423
 
 Unit tests:
 
     tests/obsidian_projection/test_obsidian_open_compatibility.py
-    blob: 904378908a702efcd81c52d02961361ff7679f82
+    blob: 05154a9fe3be7c61b066a2f12067408b26f16d44
 
 Adversarial breakers:
 
     tests/obsidian_projection/test_p5c3_adversarial.py
-    blob: 31459377d9eedb90eef6f2678aed1f329050f2e6
+    blob: a3fa766aa09ec6eb6550e165355dedd441e07421
 
 Protocol documentation:
 
     docs/OBSIDIAN-P5C3-OBSIDIAN-OPEN-COMPATIBILITY-V0.1.md
-    blob: a29defb70cd3836ef0b979e4104435e3586669ea
+    blob: ee4264f3011beb39545e08decea23cacbd25804e
 
 Inherited P5-C2 regression test stabilized in P5-C3:
 
@@ -85,6 +90,33 @@ The qualified P5-C2 implementation itself remains unchanged:
     blob: b5ba13a6aa9ddf1690842aafea422973e15cdf2d
 
 The inherited unit test now uses a deterministic reader harness for its synthetic logic check. The real concurrency claim remains grounded in the already persisted P5-C2 empirical experiment (250/250 promotions, 5001 reader samples, zero anomalies).
+
+## Snapshot persistence correction
+
+The first P5-C3 PREPARE execution established a valid historical PREPARE state, but the single LocalAppData snapshot directory was later reported absent before RUN-OPEN.
+
+The current candidate therefore supersedes that single-copy assumption.
+
+PREPARE now writes the same bound snapshot to two byte-identical locations:
+
+    %LOCALAPPDATA%\ATDS\obsidian_projection\p5c3\snapshots
+
+and:
+
+    C:\Users\Boulevart\OneDrive\Bureau\ATDS\ATDS-P5C3-CONTROL-EVIDENCE\snapshots
+
+Both copies bind the same payload SHA-256.
+
+RUN-OPEN and POST-CLOSE may use either verified copy. The persisted PowerShell runners automatically fall back to the OneDrive control copy when the LocalAppData primary is missing.
+
+Both copies missing => BLOCKED.
+
+The earlier PREPARE PASS report is retained as historical evidence but explicitly marked superseded for current execution:
+
+    reports/program/2026-09-27-OBSIDIAN-P5C3-PREPARE-PASS.md
+    blob: b59317214177de571d795b7e0bb76f5ce5c07136
+
+A fresh guarded reset and PREPARE are required for this revised candidate.
 
 ## Protected live Vault
 
