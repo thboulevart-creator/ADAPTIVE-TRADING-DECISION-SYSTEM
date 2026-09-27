@@ -16540,3 +16540,73 @@ persist exactly the human adjudication, autonomous A0 V0.3 contract and this che
 
 Then perform a fresh persisted-head documentary re-break before authorizing test-first RED.
 
+---
+
+## 264. A0 V0.3 — FRESH PERSISTED-HEAD DOCUMENTARY RE-BREAK PASS
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`0b7155f63d68d8f94b908aa732173232eec473b4`
+
+Human-adjudication blob:
+
+`d8c5a930ce7b88de8b8d8e3acded625f8794d47f`
+
+A0 V0.3 contract blob:
+
+`f1168481879f33f8762dcb1e19e2ad35211c8ec2`
+
+Atomic persistence scope:
+
+`PASS`
+
+Closed documentary matrix:
+
+```
+TOTAL = 64
+PASS = 64
+PARTIAL = 0
+MISSING = 0
+FAIL = 0
+```
+
+Direct persisted-blob verification:
+
+`64/64 PASS`
+
+Sandbox re-break:
+
+- first run `36323032266`: checker-only FAIL on M12 exact wording;
+- governed contract unchanged;
+- checker corrected only;
+- final run `36323075598`: PASS.
+
+Final run verified:
+
+- exact persisted HEAD;
+- exact three-file atomic persistence scope;
+- adjudication/contract blob identities;
+- protected C01 runtime/breaker identities;
+- 64/64 closed documentary requirements.
+
+Verdict:
+
+`A0_V0_3_FRESH_PERSISTED_HEAD_DOCUMENTARY_REBREAK = PASS`
+
+Contract status:
+
+`ADOPTED`
+
+A0 implementation:
+
+`NOT_YET_IMPLEMENTED`
+
+Next governed boundary:
+
+`A0 TEST-FIRST RED`
+
+Only the test-first RED phase is now open. No downstream DecisionPolicy/ACTION/execution authority is implied.
+
