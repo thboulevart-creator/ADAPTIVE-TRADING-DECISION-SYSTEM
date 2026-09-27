@@ -72,8 +72,8 @@ class P5C3RContractTests(unittest.TestCase):
             "PermissionError",
         )
         self.assertEqual(
-            policy["retryable_winerror_only"],
-            5,
+            policy["retryable_winerrors_only"],
+            [5, 32],
         )
         self.assertEqual(
             policy[
@@ -132,7 +132,7 @@ class P5C3RContractTests(unittest.TestCase):
         ]
         self.assertTrue(
             policy[
-                "retryable_only_when_underlying_cause_is_PermissionError_winerror_5"
+                "retryable_only_when_underlying_cause_is_PermissionError_winerror_5_or_32"
             ]
         )
         self.assertEqual(
