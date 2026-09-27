@@ -13,7 +13,7 @@
     "input": "previous_state_plus_one_normalized_input",
     "output": "next_state_plus_decision_plus_audit_record",
     "exactly_one_transition_per_invocation": true,
-    "loop_forbidden": true,
+    "repeated_tick_loop_forbidden": true,
     "sleep_forbidden": true,
     "background_execution_forbidden": true,
     "network_io_forbidden": true,
