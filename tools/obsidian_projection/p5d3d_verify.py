@@ -36,6 +36,12 @@ class SyntheticQualificationError(RuntimeError):
     pass
 
 
+class SyntheticQualificationBlockedError(
+    SyntheticQualificationError
+):
+    pass
+
+
 def _git(
     repo: Path,
     *args: str,
@@ -54,7 +60,7 @@ def _git(
         OSError,
         subprocess.CalledProcessError,
     ) as exc:
-        raise SyntheticQualificationError(
+        raise SyntheticQualificationBlockedError(
             "synthetic Git fixture unavailable"
         ) from exc
     return completed.stdout.strip()
@@ -219,6 +225,10 @@ def run_synthetic_qualification(
             forbidden_roots=forbidden_roots,
         )
 
+        if report["outcome"] == "BLOCKED":
+            raise SyntheticQualificationBlockedError(
+                "synthetic control evaluation blocked"
+            )
         if report["outcome"] != "QUALIFIED":
             raise SyntheticQualificationError(
                 "synthetic control candidate did not qualify"
@@ -402,23 +412,8 @@ def main() -> int:
         report = run_synthetic_qualification(
             forbidden_roots=forbidden,
         )
-    except SyntheticQualificationError as exc:
-        print(
-            json.dumps(
-                {
-                    "schema": FAIL_SCHEMA,
-                    "status": "FAIL",
-                    "error_type":
-                        type(exc).__name__,
-                    "error_message": str(exc),
-                },
-                ensure_ascii=False,
-                indent=2,
-                sort_keys=True,
-            )
-        )
-        return 1
     except (
+        SyntheticQualificationBlockedError,
         FiniteCandidateEvaluatorError,
         OSError,
     ) as exc:
@@ -438,6 +433,22 @@ def main() -> int:
             )
         )
         return 2
+    except SyntheticQualificationError as exc:
+        print(
+            json.dumps(
+                {
+                    "schema": FAIL_SCHEMA,
+                    "status": "FAIL",
+                    "error_type":
+                        type(exc).__name__,
+                    "error_message": str(exc),
+                },
+                ensure_ascii=False,
+                indent=2,
+                sort_keys=True,
+            )
+        )
+        return 1
 
     print(
         json.dumps(
