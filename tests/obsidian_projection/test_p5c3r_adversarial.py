@@ -21,6 +21,24 @@ class P5C3RAdversarialTests(unittest.TestCase):
             / "obsidian_projection"
             / "p5c3r_verify.py"
         ).read_text(encoding="utf-8")
+        cls.recover_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3r_recover_control.ps1"
+        ).read_text(encoding="utf-8")
+        cls.open_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3r_open.ps1"
+        ).read_text(encoding="utf-8")
+        cls.post_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3r_post_close.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_retry_contract_blob_is_pinned(self) -> None:
         self.assertIn(
@@ -361,6 +379,93 @@ class P5C3RAdversarialTests(unittest.TestCase):
                 self.assertIn(
                     mode,
                     self.cli,
+                )
+
+    def test_recovery_runner_orders_qualification_before_recovery(
+        self,
+    ) -> None:
+        targeted = self.recover_runner.index(
+            "=== TARGETED TESTS ==="
+        )
+        full = self.recover_runner.index(
+            "=== FULL OBSIDIAN SUITE ==="
+        )
+        lock = self.recover_runner.index(
+            "=== SYNTHETIC WINDOWS LOCK BREAKER ==="
+        )
+        recovery = self.recover_runner.index(
+            "=== RECOVER FAILED P5-C3 STATE ==="
+        )
+        self.assertLess(targeted, full)
+        self.assertLess(full, lock)
+        self.assertLess(lock, recovery)
+
+    def test_recovery_runner_requires_obsidian_closed(
+        self,
+    ) -> None:
+        self.assertIn(
+            'Get-Process -Name "Obsidian"',
+            self.recover_runner,
+        )
+        self.assertIn(
+            "close Obsidian completely before P5-C3R recovery",
+            self.recover_runner,
+        )
+
+    def test_open_runner_prechecks_before_retry_experiment(
+        self,
+    ) -> None:
+        diagnostic = self.open_runner.index(
+            "=== P5-C3R READ-ONLY PRECHECK ==="
+        )
+        experiment = self.open_runner.index(
+            "=== P5-C3R RETRY OPEN EXPERIMENT ==="
+        )
+        self.assertLess(
+            diagnostic,
+            experiment,
+        )
+        self.assertIn(
+            "--diagnose-open",
+            self.open_runner,
+        )
+        self.assertIn(
+            "--run-open",
+            self.open_runner,
+        )
+
+    def test_post_runner_requires_manual_acceptance(
+        self,
+    ) -> None:
+        self.assertIn(
+            "[switch]$ManualVisualAccepted",
+            self.post_runner,
+        )
+        self.assertIn(
+            "--manual-visual-accepted",
+            self.post_runner,
+        )
+
+    def test_runners_have_no_obsidian_launch_or_reset(
+        self,
+    ) -> None:
+        joined = (
+            self.recover_runner
+            + "\n"
+            + self.open_runner
+            + "\n"
+            + self.post_runner
+        )
+        for forbidden in (
+            "Start-Process",
+            "Invoke-Item",
+            "obsidian://",
+            "run_p5c3_reset.ps1",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    joined,
                 )
 
     def test_no_git_mutation_or_obsidian_launch(self) -> None:
