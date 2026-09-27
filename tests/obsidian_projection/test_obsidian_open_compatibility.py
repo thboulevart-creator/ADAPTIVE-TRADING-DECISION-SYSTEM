@@ -432,6 +432,37 @@ class P5C3OpenCompatibilityTests(unittest.TestCase):
                 digest,
             )
 
+    def test_identical_content_addressed_snapshot_is_reused(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            primary = root / "primary"
+            backup = root / "backup"
+
+            payload = {
+                "schema": "TEST",
+                "value": 3,
+            }
+
+            with patch(
+                "tools.obsidian_projection."
+                "obsidian_open_compatibility."
+                "_snapshot_directories",
+                return_value=(primary, backup),
+            ):
+                first = _write_snapshot(payload)
+                second = _write_snapshot(payload)
+
+            self.assertEqual(
+                first,
+                second,
+            )
+            self.assertEqual(
+                first[0].read_bytes(),
+                first[1].read_bytes(),
+            )
+
     def test_snapshot_copy_divergence_is_blocked(
         self,
     ) -> None:
