@@ -314,6 +314,57 @@ class ObserverTickTests(unittest.TestCase):
             "BLOCKED",
         )
 
+    def test_new_remote_head_does_not_clear_blocked_state(
+        self,
+    ) -> None:
+        state = make_current_state()
+        state = tick(
+            state,
+            "REMOTE_HEAD_OBSERVED",
+            observed_head=H2,
+            transition_class="NON_FAST_FORWARD",
+        )["next_state"]
+        pending_before = copy.deepcopy(
+            state["pending_heads"]
+        )
+        blocked_before = state["blocked_head"]
+        failure_before = state["last_failure_code"]
+        result = tick(
+            state,
+            "REMOTE_HEAD_OBSERVED",
+            observed_head=H3,
+            transition_class="FAST_FORWARD",
+        )
+        next_state = result["next_state"]
+        self.assertEqual(
+            next_state["observer_phase"],
+            "BLOCKED",
+        )
+        self.assertEqual(
+            next_state["projection_state"],
+            "BLOCKED",
+        )
+        self.assertEqual(
+            next_state["pending_heads"],
+            pending_before,
+        )
+        self.assertEqual(
+            next_state["blocked_head"],
+            blocked_before,
+        )
+        self.assertEqual(
+            next_state["last_failure_code"],
+            failure_before,
+        )
+        self.assertEqual(
+            next_state["latest_observed_head"],
+            H3,
+        )
+        self.assertEqual(
+            result["decision"]["action"],
+            "BLOCK_REQUIRES_ADJUDICATION",
+        )
+
     def test_fast_forward_queues_without_retargeting_active(
         self,
     ) -> None:
@@ -842,6 +893,44 @@ class ObserverTickTests(unittest.TestCase):
     ) -> None:
         state = make_initial_state()
         state["observer_phase"] = "EVALUATING"
+        with self.assertRaises(ObserverTickError):
+            one_shot_tick(
+                state,
+                event(1, "BOOTSTRAP"),
+            )
+
+    def test_candidate_pending_requires_qualified_head(
+        self,
+    ) -> None:
+        state = make_initial_state()
+        state["observer_phase"] = "CANDIDATE_PENDING"
+        with self.assertRaises(ObserverTickError):
+            one_shot_tick(
+                state,
+                event(1, "BOOTSTRAP"),
+            )
+
+    def test_blocked_phase_requires_consistent_block_state(
+        self,
+    ) -> None:
+        state = make_initial_state()
+        state["observer_phase"] = "BLOCKED"
+        state["projection_state"] = "STALE"
+        state["blocked_head"] = H1
+        state["last_failure_code"] = "BLOCKED_FOR_TEST"
+        with self.assertRaises(ObserverTickError):
+            one_shot_tick(
+                state,
+                event(1, "BOOTSTRAP"),
+            )
+
+    def test_blocked_phase_requires_blocked_head(
+        self,
+    ) -> None:
+        state = make_initial_state()
+        state["observer_phase"] = "BLOCKED"
+        state["projection_state"] = "BLOCKED"
+        state["last_failure_code"] = "BLOCKED_FOR_TEST"
         with self.assertRaises(ObserverTickError):
             one_shot_tick(
                 state,
