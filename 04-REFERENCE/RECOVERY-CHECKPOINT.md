@@ -16835,3 +16835,75 @@ Next governed action:
 
 persist this breaker/finding set, then perform a fresh persisted-head adversarial re-break before any correction implementation.
 
+---
+
+## 269. A0 — ADVERSARIAL BREAK EXPANSION V0.1 — FRESH PERSISTED-HEAD RE-BREAK
+
+Date:
+2026-09-27
+
+Reviewed governed HEAD:
+
+`bc0d83ef757b0abbea21c2cea6fa3fc6a18dd920`
+
+Candidate blob:
+
+`737f041b7b083f832f475b2aab607fb417c74fe0`
+
+Historical breaker blob:
+
+`e02ecfa6d30c2877a33f5c5d81b161ee562202b6`
+
+Adversarial breaker blob:
+
+`2911d5b282ccbb6147b2b54a7db5c357c2d315b6`
+
+Workflow run:
+
+`36324774812`
+
+Structural verification:
+
+`PASS`
+
+Historical six:
+
+`6/6 PASS`
+
+Adversarial expansion:
+
+```
+TOTAL = 18
+PASS = 9
+FAIL = 9
+```
+
+Exact failure profile reproduced:
+
+AB03, AB04, AB08, AB10, AB11, AB13, AB14, AB15, AB16.
+
+Confirmed correction groups:
+
+- `A0-ABF-01`;
+- `A0-ABF-02`;
+- `A0-ABF-03`;
+- `A0-ABF-04`;
+- `A0-ABF-05`;
+- `A0-ABF-06`.
+
+Status:
+
+`A0_ADVERSARIAL_V01_PERSISTED_REBREAK = PASS_FAILURE_PROFILE_REPRODUCED`
+
+Candidate qualification:
+
+`FAIL_ADVERSARIAL_EXPANSION_V0_1`
+
+Full A0 V0.3 qualification:
+
+`FAIL_NOT_CLOSED`
+
+Next governed boundary:
+
+`A0 — MINIMAL CORRECTION CANDIDATE FOR A0-ABF-01..06`
+
