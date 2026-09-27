@@ -234,6 +234,86 @@ class CurrentHeadRelationAdapterTests(
                 contract=load_current_head_projection_contract(),
             )
 
+    def test_whitespace_wrapped_paths_are_not_normalized(
+        self,
+    ) -> None:
+        source, bridge, _ = fixture()
+
+        json_entry = next(
+            entry
+            for entry in bridge.entries
+            if entry.source_path == "data/refs.json"
+        )
+        md_entry = next(
+            entry
+            for entry in bridge.entries
+            if entry.source_path == "docs/source.md"
+        )
+
+        json_raw = b'{"reference":" docs/source.md "}\n'
+        md_raw = (
+            b"# Source\n\nBinary target: "
+            b"\x60 assets/blob.bin \x60\n"
+        )
+
+        from tools.obsidian_projection.classification import (
+            git_blob_oid as _oid,
+        )
+
+        json_oid = _oid(json_raw)
+        md_oid = _oid(md_raw)
+        source.blobs[json_oid] = json_raw
+        source.blobs[md_oid] = md_raw
+
+        entries = []
+        for entry in bridge.entries:
+            if entry.source_path == "data/refs.json":
+                entries.append(
+                    replace(
+                        entry,
+                        source_blob_sha=json_oid,
+                        source_blob_size=len(json_raw),
+                        semantic_record=replace(
+                            entry.semantic_record,
+                            source_blob_sha=json_oid,
+                            source_blob_size=len(json_raw),
+                        ),
+                    )
+                )
+            elif entry.source_path == "docs/source.md":
+                entries.append(
+                    replace(
+                        entry,
+                        source_blob_sha=md_oid,
+                        source_blob_size=len(md_raw),
+                        semantic_record=replace(
+                            entry.semantic_record,
+                            source_blob_sha=md_oid,
+                            source_blob_size=len(md_raw),
+                        ),
+                    )
+                )
+            else:
+                entries.append(entry)
+
+        mutant = replace(
+            bridge,
+            entries=tuple(entries),
+        )
+        result = extract_current_head_relations(
+            source=source,
+            bridge=mutant,
+            contract=load_current_head_projection_contract(),
+        )
+        self.assertEqual(
+            result.relations,
+            (),
+        )
+        self.assertEqual(
+            result.relation_source_body_read_count,
+            2,
+        )
+
     def test_audit_contains_only_full_text_rows(
         self,
     ) -> None:
