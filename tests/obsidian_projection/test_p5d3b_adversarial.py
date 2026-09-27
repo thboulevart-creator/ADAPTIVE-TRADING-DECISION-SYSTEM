@@ -281,21 +281,71 @@ class P5D3BAdversarialTests(unittest.TestCase):
                 self.assertIn(field, source)
 
     def test_input_is_not_mutated_by_assignment(self) -> None:
-        for forbidden in (
-            "inventory.source_repository =",
-            "inventory.source_branch =",
-            "inventory.source_commit =",
-            "inventory.source_tree =",
-            "inventory.entries =",
-            "entry.source_path =",
-            "entry.content_mode =",
-            "entry.selection_zone =",
-        ):
-            with self.subTest(forbidden=forbidden):
-                self.assertNotIn(
-                    forbidden,
-                    self.module,
+        protected = {
+            "inventory": {
+                "source_repository",
+                "source_branch",
+                "source_commit",
+                "source_tree",
+                "entries",
+            },
+            "entry": {
+                "source_path",
+                "source_blob_sha",
+                "source_blob_size",
+                "git_mode",
+                "selection_zone",
+                "content_mode",
+            },
+        }
+
+        mutations: list[str] = []
+
+        def inspect_target(target: ast.AST) -> None:
+            for item in ast.walk(target):
+                if (
+                    isinstance(item, ast.Attribute)
+                    and isinstance(item.value, ast.Name)
+                    and item.value.id in protected
+                    and item.attr in protected[item.value.id]
+                ):
+                    mutations.append(
+                        f"{item.value.id}.{item.attr}"
+                    )
+
+        for node in ast.walk(self.tree):
+            targets: list[ast.AST] = []
+            if isinstance(node, ast.Assign):
+                targets.extend(node.targets)
+            elif isinstance(
+                node,
+                (ast.AnnAssign, ast.AugAssign),
+            ):
+                targets.append(node.target)
+
+            for target in targets:
+                inspect_target(target)
+
+            if (
+                isinstance(node, ast.Call)
+                and isinstance(node.func, ast.Name)
+                and node.func.id == "setattr"
+                and len(node.args) >= 2
+                and isinstance(node.args[0], ast.Name)
+                and node.args[0].id in protected
+                and isinstance(node.args[1], ast.Constant)
+                and isinstance(node.args[1].value, str)
+                and node.args[1].value
+                in protected[node.args[0].id]
+            ):
+                mutations.append(
+                    (
+                        f"setattr({node.args[0].id},"
+                        f"{node.args[1].value})"
+                    )
                 )
+
+        self.assertEqual(mutations, [])
 
     def test_no_vault_or_promotion_surface(self) -> None:
         for forbidden in (
