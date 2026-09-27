@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ctypes
+import errno
 import hashlib
 import json
 import os
@@ -45,8 +46,8 @@ class ReaderAccessRetryDeadlineExceeded(ObsidianOpenRetryError):
     pass
 
 
-CONTRACT_SCHEMA = "ATDS_OBSIDIAN_OPEN_RETRY_CONTRACT_V0_1"
-CONTRACT_BLOB = "82cc7e100017d5e2db671ccce989f5e0e2afe912"
+CONTRACT_SCHEMA = "ATDS_OBSIDIAN_OPEN_RETRY_CONTRACT_V0_2"
+CONTRACT_BLOB = "334ef57bd30bd44baf28b97c50f19ebbff378114"
 
 PROMOTION_CYCLES = 250
 MIN_READER_SAMPLES = 5000
@@ -73,7 +74,7 @@ def _git_blob_oid(raw: bytes) -> str:
 
 
 def verify_retry_contract(package_dir: Path) -> dict[str, Any]:
-    path = package_dir / "obsidian_open_retry_contract_v0_1.json"
+    path = package_dir / "obsidian_open_retry_contract_v0_2.json"
     try:
         raw = path.read_bytes()
         value = json.loads(raw.decode("utf-8"))
@@ -141,6 +142,66 @@ def _is_retryable_sharing_conflict(
     return False
 
 
+def _is_retryable_reader_access_conflict(
+    exc: BaseException,
+) -> bool:
+    current: BaseException | None = exc
+    seen: set[int] = set()
+
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        if isinstance(current, PermissionError):
+            winerror = getattr(
+                current,
+                "winerror",
+                None,
+            )
+            if winerror in {5, 32}:
+                return True
+            if (
+                winerror is None
+                and getattr(
+                    current,
+                    "errno",
+                    None,
+                )
+                == errno.EACCES
+            ):
+                return True
+        current = current.__cause__
+
+    return False
+
+
+def _is_reader_eacces_without_winerror(
+    exc: BaseException,
+) -> bool:
+    current: BaseException | None = exc
+    seen: set[int] = set()
+
+    while current is not None and id(current) not in seen:
+        seen.add(id(current))
+        if (
+            isinstance(current, PermissionError)
+            and getattr(
+                current,
+                "winerror",
+                None,
+            )
+            is None
+            and getattr(
+                current,
+                "errno",
+                None,
+            )
+            == errno.EACCES
+        ):
+            return True
+        current = current.__cause__
+
+    return False
+
+
 def _semantic_partial_signature(
     exc: OpenPointerPartialError,
 ) -> str:
@@ -171,6 +232,7 @@ def _semantic_partial_signature(
 @dataclass
 class ReaderAccessTelemetry:
     access_denied_retry_count: int = 0
+    eacces_without_winerror_retry_count: int = 0
     terminal_access_error_count: int = 0
     max_retry_depth: int = 0
 
@@ -187,13 +249,16 @@ def _read_bytes_with_access_retry(
         try:
             return path.read_bytes()
         except PermissionError as exc:
-            if (
-                getattr(exc, "winerror", None)
-                not in {5, 32}
+            if not _is_retryable_reader_access_conflict(
+                exc
             ):
                 raise
 
             telemetry.access_denied_retry_count += 1
+            if _is_reader_eacces_without_winerror(
+                exc
+            ):
+                telemetry.eacces_without_winerror_retry_count += 1
             depth += 1
             telemetry.max_retry_depth = max(
                 telemetry.max_retry_depth,
@@ -235,12 +300,16 @@ def validate_current_with_access_retry(
         ):
             raise
         except OpenPointerPartialError as exc:
-            if not _is_retryable_sharing_conflict(
+            if not _is_retryable_reader_access_conflict(
                 exc
             ):
                 raise
 
             telemetry.access_denied_retry_count += 1
+            if _is_reader_eacces_without_winerror(
+                exc
+            ):
+                telemetry.eacces_without_winerror_retry_count += 1
             depth += 1
             telemetry.max_retry_depth = max(
                 telemetry.max_retry_depth,
@@ -998,6 +1067,8 @@ def run_retry_open_experiment(
             total_verification_read_retries,
         "reader_access_denied_retry_count":
             reader.access.access_denied_retry_count,
+        "reader_eacces_without_winerror_retry_count":
+            reader.access.eacces_without_winerror_retry_count,
         "reader_max_retry_depth":
             reader.access.max_retry_depth,
         "reader_terminal_access_error_count":
