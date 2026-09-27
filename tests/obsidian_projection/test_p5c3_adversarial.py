@@ -47,7 +47,7 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
 
     def test_contract_blob_is_pinned(self) -> None:
         self.assertIn(
-            "76c3b681d3de930705a5e15c72d8c660d31d24b6",
+            "4974302509a989fbd296ee7052ca15f22a0750a6",
             self.module,
         )
 
@@ -80,6 +80,30 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
                     forbidden,
                     joined,
                 )
+
+    def test_snapshot_persistence_has_verified_backup(
+        self,
+    ) -> None:
+        self.assertIn(
+            "ATDS-P5C3-CONTROL-EVIDENCE",
+            self.module,
+        )
+        self.assertIn(
+            "snapshot copies differ after write",
+            self.module,
+        )
+        self.assertIn(
+            "snapshot copies differ",
+            self.module,
+        )
+        self.assertIn(
+            "both snapshot copies are missing",
+            self.module,
+        )
+        self.assertIn(
+            "snapshot path is not a verified persisted copy",
+            self.module,
+        )
 
     def test_prepare_does_not_require_obsidian_open(
         self,
