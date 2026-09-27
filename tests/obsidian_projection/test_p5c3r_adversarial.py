@@ -51,10 +51,16 @@ class P5C3RAdversarialTests(unittest.TestCase):
             / "obsidian_projection"
             / "run_p5c3r2_open.ps1"
         ).read_text(encoding="utf-8")
+        cls.r2_post_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3r2_post_close.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_retry_contract_blob_is_pinned(self) -> None:
         self.assertIn(
-            'CONTRACT_BLOB = "246698941e839cb932216fe85dbad0bb9d5ac3db"',
+            'CONTRACT_BLOB = "a3fb7736f2c25f144b1d9bc4a50cbf4029e3dc33"',
             self.module,
         )
 
@@ -292,6 +298,72 @@ class P5C3RAdversarialTests(unittest.TestCase):
             "tools.obsidian_projection."
             "p5c3r_verify --run-open",
             self.r2_open_runner,
+        )
+
+    def test_predecessor_post_close_runner_is_unchanged(
+        self,
+    ) -> None:
+        path = (
+            "tools/obsidian_projection/"
+            "run_p5c3r_post_close.ps1"
+        )
+        completed = subprocess.run(
+            ["git", "hash-object", path],
+            cwd=self.root,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=True,
+            text=True,
+        )
+        self.assertEqual(
+            completed.stdout.strip(),
+            "1409ed062e7a1546ad0d7afa42168d8c47312840",
+        )
+
+    def test_p5c3r2_post_close_runner_binds_new_cli(
+        self,
+    ) -> None:
+        self.assertIn(
+            "[switch]$ManualVisualAccepted",
+            self.r2_post_runner,
+        )
+        self.assertIn(
+            "tools.obsidian_projection."
+            "p5c3r2_verify",
+            self.r2_post_runner,
+        )
+        self.assertIn(
+            "--post-close",
+            self.r2_post_runner,
+        )
+        self.assertNotIn(
+            "tools.obsidian_projection."
+            "p5c3r_verify --post-close",
+            self.r2_post_runner,
+        )
+
+    def test_p5c3r2_post_close_preserves_predecessor_failure(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def post_close_retry_verify("
+        )
+        body = self.module[start:]
+        self.assertIn(
+            '"p5c3r_qualified": False',
+            body,
+        )
+        self.assertIn(
+            '"p5c3r2_qualified": True',
+            body,
+        )
+        self.assertIn(
+            '"production_promotion_authorized": False',
+            body,
+        )
+        self.assertIn(
+            '"continuous_observer_authorized": False',
+            body,
         )
 
     def test_atomic_temp_is_written_once_before_replace_loop(
