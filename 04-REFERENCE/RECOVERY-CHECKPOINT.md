@@ -18282,3 +18282,59 @@ Next governed boundary:
 That boundary must preregister and persist an independent runtime-binding breaker before execution or implementation, preserve all 107 current tests unchanged, and keep AF04 excluded.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 287. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN RUNTIME BINDING TEST-FIRST RED — PREREGISTERED / UNEXECUTED
+
+Date:
+2026-09-27
+
+Preregistration base HEAD:
+
+`0995b9237959b38eccf74319fc416f19f5606785`
+
+Binding governance decision blob:
+
+`82b399f06c41fa740a3676d0272cb39759911a7f`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Standalone qualifier blob:
+
+`9bd05f2a2a97f092c0fc2988319f15caff57dda3`
+
+Target runtime:
+
+`src/a0_research_authority.py`
+
+Independent integration family:
+
+`RB00..RB19`
+
+Count:
+
+`20`
+
+AF04:
+
+`EXCLUDED`
+
+The AF04 observed metric literal is absent from the preregistered breaker.
+
+Existing frozen surface requirement:
+
+`107/107 PASS_UNCHANGED`
+
+Current execution state:
+
+`NOT_EXECUTED`
+
+No runtime binding implementation has been made.
+
+Next action inside this exact boundary:
+
+execute the persisted RB00..RB19 breaker from this exact governed preregistration HEAD and record its RED profile before any runtime mutation.
