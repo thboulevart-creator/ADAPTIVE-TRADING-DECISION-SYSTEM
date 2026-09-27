@@ -75,6 +75,46 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
                     joined,
                 )
 
+    def test_prepare_does_not_require_obsidian_open(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def prepare_open_experiment("
+        )
+        end = self.module.index(
+            "\n@dataclass\nclass OpenReaderMetrics",
+            start,
+        )
+        body = self.module[start:end]
+        self.assertIn(
+            "Obsidian must be closed during P5-C3 prepare",
+            body,
+        )
+        self.assertNotIn(
+            "Obsidian is not running at end of P5-C3 open experiment",
+            body,
+        )
+
+    def test_run_open_contains_end_process_check(
+        self,
+    ) -> None:
+        start = self.module.index(
+            "def run_while_obsidian_open("
+        )
+        end = self.module.index(
+            "\ndef post_close_verify(",
+            start,
+        )
+        body = self.module[start:end]
+        self.assertIn(
+            "Obsidian must be running during P5-C3 open experiment",
+            body,
+        )
+        self.assertIn(
+            "Obsidian is not running at end of P5-C3 open experiment",
+            body,
+        )
+
     def test_prepare_requires_obsidian_closed(self) -> None:
         self.assertIn(
             "Obsidian must be closed during P5-C3 prepare",
