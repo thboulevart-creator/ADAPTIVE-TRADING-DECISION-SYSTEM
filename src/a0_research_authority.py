@@ -2,10 +2,27 @@ from __future__ import annotations
 
 import hashlib
 import json
+from pathlib import Path
 from typing import Any
+
+from src.a0_metric_domain_authority import (
+    validate_measurement_domain,
+)
 
 
 CONTRACT = "ATDS_A0_RESEARCH_FINDINGS_AUTHORITY_INTERPRETATION_V0_3"
+
+_METRIC_DOMAIN_AUTHORITY_IDENTITY = (
+    "ATDS_A0_SYNTHETIC_PRODUCER_METRIC_DOMAIN_AUTHORITY_V0_1"
+)
+_METRIC_DOMAIN_AUTHORITY_SHA256 = (
+    "5813f9d75395308386b4561b13c4eae889a4565cca3289f08a30d81657057492"
+)
+_METRIC_DOMAIN_AUTHORITY_PATH = (
+    Path(__file__).resolve().parents[1]
+    / "GOVERNANCE"
+    / "A0-SYNTHETIC-PRODUCER-METRIC-DOMAIN-AUTHORITY-V0.1.json"
+)
 
 _NORMALIZED_CONCLUSIONS = frozenset(
     {
@@ -116,6 +133,22 @@ _GOVERNED_AUTHORITIES = {
 
 def _sha256(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
+
+
+def _metric_domain_authority_bytes() -> bytes:
+    try:
+        raw = _METRIC_DOMAIN_AUTHORITY_PATH.read_bytes()
+    except OSError as exc:
+        raise ValueError(
+            "metric-domain authority unavailable"
+        ) from exc
+
+    if _sha256(raw) != _METRIC_DOMAIN_AUTHORITY_SHA256:
+        raise ValueError(
+            "metric-domain authority identity mismatch"
+        )
+
+    return raw
 
 
 def _reject_duplicate_keys(
@@ -649,6 +682,11 @@ def derive_authoritative_projection(
             "unrecognized expected-family authority"
         )
 
+    metric_domain_authority_raw = (
+        _metric_domain_authority_bytes()
+    )
+    metric_domain_validation: dict[str, str] = {}
+
     findings = source.get("findings")
 
     if not isinstance(findings, list):
@@ -710,14 +748,43 @@ def derive_authoritative_projection(
                 raise ValueError(
                     f"invalid measurement:{finding_id}"
                 )
-            _strict_string(
+            metric_identity = _strict_string(
                 measurement.get("metric"),
                 label=f"finding.{finding_id}.measurement.metric",
             )
-            _strict_number(
+            metric_value = _strict_number(
                 measurement.get("value"),
                 label=f"finding.{finding_id}.measurement.value",
             )
+
+            try:
+                metric_domain_valid = (
+                    validate_measurement_domain(
+                        authority_raw=(
+                            metric_domain_authority_raw
+                        ),
+                        producer_identity=producer_identity,
+                        source_schema=source_schema,
+                        metric_identity=metric_identity,
+                        metric_value=metric_value,
+                        source_profile_claim=None,
+                        normalization_policy_claim=None,
+                    )
+                )
+            except Exception as exc:
+                raise ValueError(
+                    "metric-domain qualifier failure"
+                ) from exc
+
+            if metric_domain_valid is not True:
+                raise ValueError(
+                    "measurement outside metric-domain authority"
+                )
+
+            metric_domain_validation[
+                finding_id
+            ] = "PASS"
+
             _strict_positive_int(
                 measurement.get("sample_size"),
                 label=f"finding.{finding_id}.measurement.sample_size",
@@ -1240,6 +1307,12 @@ def derive_authoritative_projection(
             source_supersession,
         "measurement_references":
             measurement_references,
+        "metric_domain_authority_identity":
+            _METRIC_DOMAIN_AUTHORITY_IDENTITY,
+        "metric_domain_authority_sha256":
+            _METRIC_DOMAIN_AUTHORITY_SHA256,
+        "metric_domain_validation":
+            metric_domain_validation,
         "opaque_narrative_references":
             opaque_narrative_references,
         "positive_evidence_consumability":
