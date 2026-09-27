@@ -27,7 +27,9 @@
     "event_log_namespace": "p5c3r2",
     "cli_module": "tools.obsidian_projection.p5c3r2_verify",
     "open_runner": "tools/obsidian_projection/run_p5c3r2_open.ps1",
-    "predecessor_open_runner_must_remain_unchanged": true
+    "post_close_runner": "tools/obsidian_projection/run_p5c3r2_post_close.ps1",
+    "predecessor_open_runner_must_remain_unchanged": true,
+    "predecessor_p5c3r_qualification_must_remain_false": true
   },
   "write_retry_policy": {
     "retryable_exception_type": "PermissionError",
@@ -122,7 +124,8 @@
     "manual_visual_acceptance_required": true,
     "post_close_pass_required": true,
     "production_promotion_authorized_on_pass": false,
-    "continuous_observer_authorized_on_pass": false
+    "continuous_observer_authorized_on_pass": false,
+    "predecessor_p5c3r_must_remain_unqualified": true
   },
   "graph_indexing_boundary": {
     "unchanged": true,
@@ -159,7 +162,10 @@
     "continuous observer authorization granted",
     "P5-C3R2 event log written into P5-C3R namespace",
     "P5-C3R2 open report uses predecessor metrics schema",
-    "P5-C3R2 runner invokes predecessor retry CLI"
+    "P5-C3R2 runner invokes predecessor retry CLI",
+    "P5-C3R2 post-close runner invokes predecessor retry CLI",
+    "P5-C3R2 post-close marks predecessor P5-C3R qualified",
+    "P5-C3R2 post-close omits its own qualification flag"
   ],
   "next_gate_on_pass": "P5D_CONTINUOUS_OBSERVER_IMPLEMENTATION_CANDIDATE"
 }
