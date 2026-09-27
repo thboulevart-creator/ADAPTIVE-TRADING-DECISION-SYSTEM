@@ -12,6 +12,7 @@ from tools.obsidian_projection.p5d3e_verify import (
     RealExactHeadSandboxGovernanceError,
     resolve_real_candidate,
     run_pre_resolved_sandbox,
+    run_real_exact_head_qualification,
 )
 
 
@@ -175,8 +176,6 @@ class P5D3EVerifyTests(unittest.TestCase):
                     candidate_head="a" * 40,
                     candidate_tree=tree,
                     real_vault_root=vault,
-                    candidate_resolution_network_fetch_performed=False,
-                    real_candidate_evaluated=False,
                 )
 
     def test_resolver_uses_exact_single_governed_fetch(self) -> None:
@@ -244,6 +243,32 @@ class P5D3EVerifyTests(unittest.TestCase):
                 "origin",
                 "+refs/heads/integration/system-v1:refs/remotes/origin/integration/system-v1",
             ),
+        )
+
+    def test_real_wrapper_is_the_only_path_that_sets_real_context(self) -> None:
+        head = "1" * 40
+        tree = "2" * 40
+        expected = {"status": "SENTINEL"}
+
+        with patch(
+            "tools.obsidian_projection.p5d3e_verify.resolve_real_candidate",
+            return_value=(head, tree),
+        ) as resolver:
+            with patch(
+                "tools.obsidian_projection.p5d3e_verify._run_pre_resolved_sandbox",
+                return_value=expected,
+            ) as core:
+                actual = run_real_exact_head_qualification(
+                    control_repo_root=Path("control"),
+                    real_vault_root=Path("vault"),
+                )
+
+        self.assertIs(actual, expected)
+        resolver.assert_called_once_with(
+            Path("control")
+        )
+        self.assertTrue(
+            core.call_args.kwargs["real_context"]
         )
 
     def test_real_success_status_cannot_be_claimed_without_real_flags(self) -> None:
