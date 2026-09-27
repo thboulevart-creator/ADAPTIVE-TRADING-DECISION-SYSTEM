@@ -18036,3 +18036,75 @@ No runtime correction, runtime binding, AF04 re-adjudication, A1/A2/DecisionPoli
 Next action inside this exact boundary:
 
 execute the persisted MG00..MG21 breaker from the exact persisted HEAD and record the RED profile without modifying its expectations.
+
+
+---
+
+## 284. A0 — SYNTHETIC PRODUCER METRIC-DOMAIN AUTHORITY TEST-FIRST RED — EXECUTED
+
+Date:
+2026-09-27
+
+Persisted preregistration HEAD:
+
+`2e1c7d4f556367fb5f4a33d44b74d359dc7b39a9`
+
+Manifest blob:
+
+`be8c1c0c805c86d376517ec11da744763c48143c`
+
+Breaker blob:
+
+`e3620ac348a8042fe1d04cfc9b32c16060fce4a3`
+
+Frozen authority blob:
+
+`dd205d3e7b4a522a5ba23cef1e665d51c196acb8`
+
+Workflow run:
+
+`36340271687`
+
+Ordering:
+
+`PERSISTED_BEFORE_FIRST_EXECUTION = TRUE`
+
+AF04:
+
+`EXCLUDED`
+
+Existing governed suite:
+
+`85/85 PASS`
+
+Independent RED family:
+
+```
+MG00..MG21
+22/22 RED
+common reason = A0_METRIC_DOMAIN_QUALIFIER_REQUIRED
+```
+
+Status:
+
+`A0_METRIC_DOMAIN_AUTHORITY_TEST_FIRST_RED = PASS_RED_22_OF_22`
+
+`METRIC_DOMAIN_QUALIFIER = NOT_IMPLEMENTED`
+
+`METRIC_DOMAIN_AUTHORITY = FROZEN_UNQUALIFIED`
+
+No runtime binding or AF04 re-adjudication is authorized.
+
+Next governed boundary:
+
+`A0 — SYNTHETIC PRODUCER METRIC-DOMAIN AUTHORITY MINIMAL QUALIFIER CANDIDATE`
+
+The next boundary may implement only a standalone qualifier for the frozen authority and must keep all 107 current tests unchanged:
+
+```
+existing A0 suite = 85
+metric-domain RED family = 22
+TOTAL = 107
+```
+
+No modification of `src/a0_research_authority.py`, no A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority.
