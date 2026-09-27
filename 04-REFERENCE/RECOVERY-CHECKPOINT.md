@@ -17808,3 +17808,64 @@ Next governed boundary:
 `A0 — SOURCE-SPECIFIC METRIC-DOMAIN AUTHORITY RESOLUTION`
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+
+---
+
+## 281. A0 — SOURCE-SPECIFIC METRIC-DOMAIN AUTHORITY RESOLUTION
+
+Date:
+2026-09-27
+
+Governed HEAD reviewed:
+
+`4f60f2373b42a12493e39d9d577f1683b5413e29`
+
+Runtime blob:
+
+`18246b818c6c6af8c5412c3b0a515f76c5d5ddc8`
+
+Governed breaker set remains unchanged:
+
+```
+historical = e02ecfa6d30c2877a33f5c5d81b161ee562202b6
+V0.1 = 2911d5b282ccbb6147b2b54a7db5c357c2d315b6
+V0.2 = 9833ce563305cfb6d6fe1de8907e8aa9fc96fda4
+V0.3 = d23e3c72dd8bd2200cb392edc6c80b4e744d4751
+V0.4 = efcc3ca7927b29b45f5d0dc0180b81176dbed51e
+```
+
+V0.5 sandbox candidate remains non-governed:
+
+`f02eae836b79403673f8a43292cca19eab0c6b33`
+
+Authority inventory:
+
+- 74 candidate A0/research/producer/protocol paths enumerated;
+- 60 high-probability artifacts directly inspected in this boundary;
+- targeted index search for producer identity / metric identity / metric-domain terminology;
+- no governed metric-domain authority located.
+
+Resolution:
+
+`A0_EXISTING_SOURCE_SPECIFIC_METRIC_DOMAIN_AUTHORITY = ABSENT`
+
+`AF04_ORACLE_FROM_EXISTING_AUTHORITY = UNAVAILABLE`
+
+`AF04_IMPLEMENTATION_FAIL = NOT_ESTABLISHED`
+
+`A0_SOURCE_SPECIFIC_METRIC_DOMAIN_AUTHORITY_RESOLUTION = PASS_EXISTING_AUTHORITY_ABSENT`
+
+V0.5 remains:
+
+`BLOCKED_PENDING_METRIC_DOMAIN_GOVERNANCE`
+
+No runtime/test/contract mutation is authorized by this resolution.
+
+Next governed boundary:
+
+`A0 — SYNTHETIC PRODUCER METRIC-DOMAIN GOVERNANCE DECISION`
+
+The next boundary must explicitly decide and freeze any new producer-specific metric-domain authority before AF04 can be re-adjudicated.
+
+No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
