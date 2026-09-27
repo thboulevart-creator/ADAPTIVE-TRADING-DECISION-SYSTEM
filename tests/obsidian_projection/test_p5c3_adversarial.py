@@ -20,6 +20,24 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
             / "obsidian_projection"
             / "p5c3_verify.py"
         ).read_text(encoding="utf-8")
+        cls.prepare_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3_prepare_control.ps1"
+        ).read_text(encoding="utf-8")
+        cls.open_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3_open.ps1"
+        ).read_text(encoding="utf-8")
+        cls.post_runner = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "run_p5c3_post_close.ps1"
+        ).read_text(encoding="utf-8")
 
     def test_contract_blob_is_pinned(self) -> None:
         self.assertIn(
@@ -314,6 +332,69 @@ class P5C3AdversarialStaticTests(unittest.TestCase):
         self.assertIn(
             '"LOCALAPPDATA"',
             self.module,
+        )
+
+    def test_prepare_runner_orders_tests_before_prepare(
+        self,
+    ) -> None:
+        targeted = self.prepare_runner.index(
+            "=== TARGETED TESTS ==="
+        )
+        full = self.prepare_runner.index(
+            "=== FULL OBSIDIAN SUITE ==="
+        )
+        prepare = self.prepare_runner.index(
+            "=== P5-C3 PREPARE ==="
+        )
+        self.assertLess(targeted, full)
+        self.assertLess(full, prepare)
+
+    def test_runners_disable_bytecode(self) -> None:
+        for runner in (
+            self.prepare_runner,
+            self.open_runner,
+            self.post_runner,
+        ):
+            with self.subTest():
+                self.assertIn(
+                    'PYTHONDONTWRITEBYTECODE = "1"',
+                    runner,
+                )
+                self.assertIn(
+                    "python -B",
+                    runner,
+                )
+
+    def test_runners_never_launch_obsidian(self) -> None:
+        joined = (
+            self.prepare_runner
+            + "\n"
+            + self.open_runner
+            + "\n"
+            + self.post_runner
+        )
+        for forbidden in (
+            "Start-Process",
+            "Invoke-Item",
+            "obsidian://",
+            "os.startfile",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    joined,
+                )
+
+    def test_post_runner_requires_manual_acceptance_switch(
+        self,
+    ) -> None:
+        self.assertIn(
+            "[switch]$ManualVisualAccepted",
+            self.post_runner,
+        )
+        self.assertIn(
+            "--manual-visual-accepted",
+            self.post_runner,
         )
 
     def test_no_git_mutation_commands(self) -> None:
