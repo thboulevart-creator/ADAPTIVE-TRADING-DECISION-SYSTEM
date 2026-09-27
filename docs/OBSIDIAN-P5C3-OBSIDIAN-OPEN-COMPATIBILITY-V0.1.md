@@ -118,9 +118,29 @@ Initial state:
 
     CURRENT.md → GEN_A
 
-PREPARE writes a bound snapshot outside the Vault under LocalAppData.
+PREPARE writes the same bound snapshot in two byte-identical locations outside both Vaults:
+
+    LocalAppData primary:
+    %LOCALAPPDATA%\ATDS\obsidian_projection\p5c3\snapshots
+
+    OneDrive control-evidence backup:
+    C:\Users\Boulevart\OneDrive\Bureau\ATDS\ATDS-P5C3-CONTROL-EVIDENCE\snapshots
+
+Both copies bind the same payload SHA-256. RUN-OPEN and POST-CLOSE may use either verified copy. If the LocalAppData copy disappears, the persisted runners automatically fall back to the OneDrive control copy. If both copies are missing, execution blocks.
 
 It never launches Obsidian.
+
+## 8A. Guarded reset
+
+If an earlier P5-C3 candidate already created the sacrificial Vault, the persisted reset runner may be used only with Obsidian fully closed.
+
+It can remove only:
+
+    ATDS-P5C3-OBSIDIAN-OPEN-SANDBOX
+    ATDS-P5C3-CONTROL-EVIDENCE
+    %LOCALAPPDATA%\ATDS\obsidian_projection\p5c3
+
+Before deleting the sandbox it verifies the expected P5-C3 structure. It never deletes the real Vault and requires the real Vault to remain present after reset.
 
 ## 9. Manual open proof
 
