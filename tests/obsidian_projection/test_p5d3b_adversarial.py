@@ -19,6 +19,18 @@ class P5D3BAdversarialTests(unittest.TestCase):
             encoding="utf-8"
         )
         cls.tree = ast.parse(cls.module)
+        cls.verify_path = (
+            cls.root
+            / "tools"
+            / "obsidian_projection"
+            / "p5d3b_verify.py"
+        )
+        cls.verify_module = cls.verify_path.read_text(
+            encoding="utf-8"
+        )
+        cls.verify_tree = ast.parse(
+            cls.verify_module
+        )
 
     def test_contract_blob_is_pinned(self) -> None:
         self.assertIn(
@@ -300,6 +312,74 @@ class P5D3BAdversarialTests(unittest.TestCase):
                     forbidden,
                     self.module,
                 )
+
+    def test_verifier_has_no_vault_or_promotion_write_surface(
+        self,
+    ) -> None:
+        for forbidden in (
+            "CURRENT.md",
+            "ATDS-OBSIDIAN-PROJECTION",
+            "OneDrive",
+            "promote(",
+            "pointer",
+            "Start-Process",
+            "schtasks",
+            "write_text(",
+            "write_bytes(",
+            "open(",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    self.verify_module,
+                )
+
+    def test_verifier_has_no_fixed_real_head_count(
+        self,
+    ) -> None:
+        for forbidden in (
+            "== 74",
+            "!= 74",
+            "== 908",
+            "!= 908",
+        ):
+            with self.subTest(forbidden=forbidden):
+                self.assertNotIn(
+                    forbidden,
+                    self.verify_module,
+                )
+
+    def test_verifier_emits_summary_not_entries(
+        self,
+    ) -> None:
+        self.assertNotIn(
+            '"entries":',
+            self.verify_module,
+        )
+        self.assertNotIn(
+            '"semantic_records":',
+            self.verify_module,
+        )
+        self.assertIn(
+            '"source_blob_count":',
+            self.verify_module,
+        )
+        self.assertIn(
+            '"bridge_entry_digest_sha256":',
+            self.verify_module,
+        )
+
+    def test_verifier_reuses_qualified_p5b2_builder(
+        self,
+    ) -> None:
+        self.assertIn(
+            "build_from_repository",
+            self.verify_module,
+        )
+        self.assertIn(
+            "build_current_head_semantic_bridge",
+            self.verify_module,
+        )
 
     def test_no_background_loop_or_daemon_surface(
         self,
