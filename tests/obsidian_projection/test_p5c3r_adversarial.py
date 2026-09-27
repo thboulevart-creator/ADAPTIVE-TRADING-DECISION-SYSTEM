@@ -426,11 +426,18 @@ class P5C3RAdversarialTests(unittest.TestCase):
             experiment,
         )
         self.assertIn(
-            "--diagnose-open",
+            "python -B -m tools.obsidian_projection."
+            "p5c3_verify --diagnose-open",
             self.open_runner,
         )
         self.assertIn(
-            "--run-open",
+            "python -B -m tools.obsidian_projection."
+            "p5c3r_verify --run-open",
+            self.open_runner,
+        )
+        self.assertNotIn(
+            "tools.obsidian_projection."
+            "p5c3r_verify --diagnose-open",
             self.open_runner,
         )
 
