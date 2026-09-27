@@ -740,6 +740,10 @@ class P5C3RAdversarialTests(unittest.TestCase):
             + self.open_runner
             + "\n"
             + self.post_runner
+            + "\n"
+            + self.r2_open_runner
+            + "\n"
+            + self.r2_post_runner
         )
         for forbidden in (
             "Start-Process",
@@ -754,7 +758,17 @@ class P5C3RAdversarialTests(unittest.TestCase):
                 )
 
     def test_no_git_mutation_or_obsidian_launch(self) -> None:
-        joined = self.module + "\n" + self.cli
+        joined = (
+            self.module
+            + "\n"
+            + self.cli
+            + "\n"
+            + self.r2_cli
+            + "\n"
+            + self.r2_open_runner
+            + "\n"
+            + self.r2_post_runner
+        )
         for forbidden in (
             "git push",
             "git commit",
