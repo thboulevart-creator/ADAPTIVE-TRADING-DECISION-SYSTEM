@@ -1,0 +1,93 @@
+name: A0 Adversarial Break Expansion V0.4 Persisted Rebreak
+
+on:
+  push:
+    branches:
+      - sandbox/a0-adversarial-break-expansion-v04-persisted-rebreak
+    paths:
+      - .github/workflows/a0-adversarial-break-expansion-v04-persisted-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak-v04:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact persisted V0.4 break HEAD
+        uses: actions/checkout@v4
+        with:
+          ref: c37805255e7a06ea18a17aa8e5c2660f80a31bd7
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pytest
+        run: python -m pip install pytest
+
+      - name: Verify exact persisted HEAD and scope
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD)" = "c37805255e7a06ea18a17aa8e5c2660f80a31bd7"
+          python - <<'PY'
+          import subprocess
+          expected = {
+              "04-REFERENCE/RECOVERY-CHECKPOINT.md",
+              "breakers/a0_research_authority_adversarial_breaker_v04.py",
+              "reports/program/2026-09-27-A0-ADVERSARIAL-BREAK-EXPANSION-V0.4-FAIL.md",
+          }
+          got = set(subprocess.check_output(
+              ["git", "diff", "--name-only",
+               "c358fe46701be10cfb7059a934318a61206a7ade",
+               "c37805255e7a06ea18a17aa8e5c2660f80a31bd7"],
+              text=True,
+          ).splitlines())
+          assert got == expected, (got, expected)
+          PY
+
+      - name: Verify protected identities
+        shell: bash
+        run: |
+          test "$(git hash-object src/a0_research_authority.py)" = "4b4737238d01be0b1017b07cf33742797cb995eb"
+          test "$(git hash-object breakers/a0_research_authority_red_breaker.py)" = "e02ecfa6d30c2877a33f5c5d81b161ee562202b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v01.py)" = "2911d5b282ccbb6147b2b54a7db5c357c2d315b6"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v02.py)" = "9833ce563305cfb6d6fe1de8907e8aa9fc96fda4"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v03.py)" = "d23e3c72dd8bd2200cb392edc6c80b4e744d4751"
+          test "$(git hash-object breakers/a0_research_authority_adversarial_breaker_v04.py)" = "efcc3ca7927b29b45f5d0dc0180b81176dbed51e"
+          test "$(git hash-object GOVERNANCE/A0-RESEARCH-FINDINGS-AUTHORITY-INTERPRETATION-CONTRACT-V0.3.md)" = "f1168481879f33f8762dcb1e19e2ad35211c8ec2"
+
+      - name: Compile runtime and breakers
+        run: |
+          python -m py_compile src/a0_research_authority.py
+          python -m py_compile breakers/a0_research_authority_red_breaker.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v01.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v02.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v03.py
+          python -m py_compile breakers/a0_research_authority_adversarial_breaker_v04.py
+
+      - name: Preserve existing closed 64-test suite
+        shell: bash
+        run: |
+          python -m pytest -q             breakers/a0_research_authority_red_breaker.py             breakers/a0_research_authority_adversarial_breaker_v01.py             breakers/a0_research_authority_adversarial_breaker_v02.py             breakers/a0_research_authority_adversarial_breaker_v03.py             | tee /tmp/a0-existing-64.txt
+          grep -q "64 passed" /tmp/a0-existing-64.txt
+          echo "A0_EXISTING_64=PASS_UNCHANGED"
+
+      - name: Reproduce exact V0.4 failure profile
+        shell: bash
+        run: |
+          set +e
+          python -m pytest -q             breakers/a0_research_authority_adversarial_breaker_v04.py             > /tmp/a0-v04-persisted.txt 2>&1
+          status=$?
+          set -e
+          cat /tmp/a0-v04-persisted.txt
+          test "$status" -ne 0
+          grep -q "6 failed, 15 passed" /tmp/a0-v04-persisted.txt
+          grep -q "test_ae09_canonical_preregistration_extra_content_cannot_create_authority" /tmp/a0-v04-persisted.txt
+          grep -q "test_ae10_supported_n0_cannot_be_redeclared_as_n4_in_source" /tmp/a0-v04-persisted.txt
+          grep -q "test_ae11_synthetic_n0_cannot_be_redeclared_as_confirmatory_research_class" /tmp/a0-v04-persisted.txt
+          grep -q "test_ae12_synthetic_research_class_cannot_be_redeclared_real" /tmp/a0-v04-persisted.txt
+          grep -q "test_ae13_synthetic_data_cannot_claim_confirmatory_established" /tmp/a0-v04-persisted.txt
+          grep -q "test_ae14_confirmed_does_not_establish_n4" /tmp/a0-v04-persisted.txt
+          echo "A0_V04_PERSISTED_REBREAK=PASS_FAILURE_PROFILE_REPRODUCED"
