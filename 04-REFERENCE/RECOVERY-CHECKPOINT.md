@@ -19689,3 +19689,89 @@ Subject to fresh persisted-head verification, the next candidate boundary is:
 
 That implementation requires separate explicit human authorization.
 
+---
+
+## 306. E1-05 — MINIMAL IMPLEMENTATION CANDIDATE — FAIL
+
+Date:
+2026-09-28
+
+Reviewed candidate HEAD:
+
+`a9feadaa011ccc3d10ef4c3e992a2065610c5db1`
+
+Reviewed candidate TREE:
+
+`daa83be279453ec76fbc721fa3bb9d735eaccc93`
+
+Protected E1-05 identities:
+
+```text
+runtime =
+022204c81e53b5db21450d4bec19fb6a67ee9856
+
+contract =
+51dc1152808ec9e841924976eac572cc4ec2ff93
+
+breaker =
+4308e3360f3cd834e863eb740a2eb7f087e242c0
+```
+
+Observed execution:
+
+```text
+PY_COMPILE = PASS
+
+M5-01 → M5-33
+TOTAL = 33
+PASS = 32
+FAIL = 1
+```
+
+Unique failing test:
+
+`M5-24 — non-increasing H1 order fails closed`
+
+Expected:
+
+`INVALID_H1_ORDER`
+
+Observed:
+
+`CONTINUITY_INCOHERENT`
+
+Defect:
+
+`M5-24_VALIDATION_PRECEDENCE`
+
+Interpretation:
+
+```text
+continuity-coherence validation fires before the runner reaches
+the later descending H1 timestamp, masking the required
+INVALID_H1_ORDER classification.
+```
+
+Adjudication:
+
+```text
+E1_05_MINIMAL_IMPLEMENTATION_CANDIDATE = FAIL
+E1_05_TEST_SURFACE = 32_PASS_1_FAIL
+E1_05_DEFECT = M5-24_VALIDATION_PRECEDENCE
+E1_05 = BLOCKED
+```
+
+Protected E1-03 and E1-04 identities remain unchanged.
+
+No runtime correction, real Momentum run, PnL, performance, backtest, E1-06, E1-07, E1-08, MT5, paper, broker, live or capital authority is created.
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-05-MINIMAL-MOMENTUM-RUNNER-MINIMAL-IMPLEMENTATION-QUALIFICATION.md`
+
+Subject to fresh persisted-head verification, the next candidate boundary is:
+
+`E1-05 — M5-24 VALIDATION PRECEDENCE — MINIMAL CORRECTION`
+
+That correction requires separate explicit human authorization and must preserve the frozen E1-05 contract and breaker.
+
