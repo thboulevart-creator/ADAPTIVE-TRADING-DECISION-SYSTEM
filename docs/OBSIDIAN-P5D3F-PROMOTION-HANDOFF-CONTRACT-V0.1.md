@@ -230,7 +230,11 @@ After copy:
 
 must return the same immutable identity.
 
+P5-D3F must also recompute a byte-tree digest before and after copy and require exact equality.
+
 The copied package may not depend on the evaluator workspace continuing to exist.
+
+Any future publication consumer must perform a fresh read-only verification of the retained handoff before publication planning or authorization.
 
 ## 10. PROMOTION-HANDOFF.json
 
