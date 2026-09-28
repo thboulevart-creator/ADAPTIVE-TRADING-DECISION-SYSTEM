@@ -14,7 +14,7 @@ CONTRACT_PATH = (
 )
 
 EXPECTED_CONTRACT_BLOB = (
-    "349d180478af0efd56ea1a4eb0b21d119833c1dc"
+    "64744325251db350d26c0269090ce62d5fa5f2e8"
 )
 
 
@@ -305,6 +305,21 @@ class PromotionHandoffContractV01Tests(unittest.TestCase):
         self.assertTrue(
             copy["destination_files_single_link_required"]
         )
+        self.assertTrue(
+            copy[
+                "source_package_byte_tree_digest_recomputed_before_copy"
+            ]
+        )
+        self.assertTrue(
+            copy[
+                "destination_package_byte_tree_digest_recomputed_after_copy"
+            ]
+        )
+        self.assertTrue(
+            copy[
+                "source_destination_package_byte_tree_digest_must_match"
+            ]
+        )
 
     def test_handoff_record_never_grants_publication_authority(
         self,
@@ -379,6 +394,11 @@ class PromotionHandoffContractV01Tests(unittest.TestCase):
         )
         self.assertTrue(
             verify["publication_authority_must_remain_false"]
+        )
+        self.assertTrue(
+            verify[
+                "handoff_consumer_must_reverify_before_any_future_publication"
+            ]
         )
 
     def test_success_status_remains_explicitly_unauthorized(
