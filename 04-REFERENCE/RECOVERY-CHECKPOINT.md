@@ -19775,3 +19775,133 @@ Subject to fresh persisted-head verification, the next candidate boundary is:
 
 That correction requires separate explicit human authorization and must preserve the frozen E1-05 contract and breaker.
 
+---
+
+## 307. E1-05 — CORRECTED MINIMAL IMPLEMENTATION QUALIFICATION — PASS
+
+Date:
+2026-09-28
+
+Qualified corrected HEAD:
+
+`569e06d8d9ba17694a04215cf9f7d768bb063fda`
+
+Qualified corrected TREE:
+
+`69edcf97ca9e7775722ee234772cc40fad540295`
+
+Protected identities:
+
+```text
+E1-05 runtime =
+baad3bd7c2e810451737c89bf8f9bcabc17c5ba6
+
+E1-05 contract =
+51dc1152808ec9e841924976eac572cc4ec2ff93
+
+E1-05 breaker =
+4308e3360f3cd834e863eb740a2eb7f087e242c0
+```
+
+Correction:
+
+`M5-24_VALIDATION_PRECEDENCE`
+
+Observed corrected replay:
+
+```text
+PY_COMPILE = PASS
+
+M5-01 → M5-33
+TOTAL = 33
+PASS = 33
+FAIL = 0
+```
+
+Adjudication:
+
+```text
+M5_24_VALIDATION_PRECEDENCE = CLOSED
+E1_05_CORRECTED_MINIMAL_IMPLEMENTATION = PASS_33_OF_33
+E1_05 = PASS
+```
+
+Protected E1-03 and E1-04 identities remain unchanged.
+
+No real Momentum run, PnL, performance, backtest, E1-06, E1-07, E1-08, MT5, paper, broker, live or capital result is created.
+
+Readiness state:
+
+```text
+E1-01 = PASS
+E1-02 = PASS
+E1-03 = PASS
+E1-04 = PASS
+E1-05 = PASS
+E1_READINESS = NOT_READY
+```
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-05-MINIMAL-MOMENTUM-RUNNER-MINIMAL-IMPLEMENTATION-QUALIFICATION.md`
+
+---
+
+## 308. E1 — ACCELERATED GOVERNED MODE
+
+Date:
+2026-09-28
+
+Human authorization:
+
+`ACTIVE`
+
+Purpose:
+
+reduce human coordination overhead while preserving the authority and evidence boundaries that materially protect scientific and execution validity.
+
+For each subsequent E1 control, one macro authorization may cover one complete governed control cycle:
+
+```text
+1. preregister contract and breakers
+2. execute test-first RED
+3. persist RED evidence
+4. implement minimal candidate
+5. execute frozen tests
+6. apply minimal mechanical corrections only when directly demonstrated
+   by the frozen tests
+7. re-break
+8. persist qualification
+9. STOP at end of control
+```
+
+No intermediate human authorization is required for a purely mechanical correction while ALL of the following remain true:
+
+```text
+frozen contract unchanged
+frozen tests unchanged
+functional scope unchanged
+previously qualified E1 controls unchanged
+no new real-data acquisition
+no PnL
+no real backtest
+no paper/broker/MT5/live/capital authority
+```
+
+Mandatory STOP and return to human decision if ANY of the following occurs:
+
+```text
+contract change required
+test expectation change required
+functional scope expansion required
+previous qualified E1 boundary would change
+new real-data acquisition required
+PnL or real backtest required
+paper/broker/MT5/live/capital authority required
+defect is architectural rather than local/mechanical
+```
+
+This accelerated mode changes workflow granularity only.
+
+It does not weaken frozen contracts, frozen breakers, fail-closed requirements, deterministic identity checks, evidence persistence, or human authority at the listed STOP boundaries.
+

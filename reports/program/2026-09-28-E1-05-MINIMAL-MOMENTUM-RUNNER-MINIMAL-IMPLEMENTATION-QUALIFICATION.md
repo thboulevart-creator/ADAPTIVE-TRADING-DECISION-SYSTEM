@@ -128,3 +128,76 @@ Subject to fresh persisted-head verification, the next candidate boundary is:
 Any correction must be separately human-authorized and limited to the demonstrated precedence defect.
 
 The frozen E1-05 contract and breaker must remain unchanged.
+
+## 7. Corrected candidate qualification
+
+A separately authorized minimal correction was applied only to the demonstrated defect:
+
+`M5-24_VALIDATION_PRECEDENCE`
+
+Qualified corrected candidate HEAD:
+
+`569e06d8d9ba17694a04215cf9f7d768bb063fda`
+
+Qualified corrected candidate TREE:
+
+`69edcf97ca9e7775722ee234772cc40fad540295`
+
+Protected identities:
+
+```text
+E1-05 runtime blob =
+baad3bd7c2e810451737c89bf8f9bcabc17c5ba6
+
+E1-05 contract blob =
+51dc1152808ec9e841924976eac572cc4ec2ff93
+
+E1-05 breaker blob =
+4308e3360f3cd834e863eb740a2eb7f087e242c0
+```
+
+The E1-05 contract and breaker remained byte-identical.
+
+Protected E1-03 and E1-04 contract/breaker/runtime identities also remained unchanged.
+
+Correction scope:
+
+```text
+defect =
+M5-24_VALIDATION_PRECEDENCE
+
+semantic change =
+temporal-order validation is completed before continuity-coherence
+validation can classify the same malformed H1 stream.
+
+No Momentum formula change.
+No E1-04 delegation change.
+No cost-scope change.
+No additional runner capability.
+```
+
+Observed corrected replay:
+
+```text
+PY_COMPILE = PASS
+
+M5-01 → M5-33
+TOTAL = 33
+PASS = 33
+FAIL = 0
+```
+
+Corrected adjudication:
+
+```text
+M5_24_VALIDATION_PRECEDENCE = CLOSED
+E1_05_CORRECTED_MINIMAL_IMPLEMENTATION = PASS_33_OF_33
+E1_05_CONTRACT = UNCHANGED
+E1_05_BREAKER = UNCHANGED
+E1_05 = PASS
+```
+
+Authority remains limited to the synthetic/minimal E1-05 runner surface already preregistered.
+
+No real Momentum run, PnL, performance calculation, backtest, E1-06, E1-07, E1-08, MT5, paper, broker, live or capital result is created by this qualification.
+
