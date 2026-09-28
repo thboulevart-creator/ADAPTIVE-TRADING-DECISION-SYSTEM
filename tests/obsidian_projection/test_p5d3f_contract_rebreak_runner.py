@@ -75,6 +75,34 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
             ],
         )
 
+    def test_lf_checkout_policy_and_byte_pins_are_canonical(
+        self,
+    ) -> None:
+        repo = p5d3f_contract_rebreak._repo_root()
+
+        self.assertEqual(
+            p5d3f_contract_rebreak._committed_blob(
+                repo,
+                ".gitattributes",
+            ),
+            p5d3f_contract_rebreak.EXPECTED_GITATTRIBUTES_BLOB,
+        )
+
+        for relative in (
+            p5d3f_contract_rebreak.BYTE_PIN_COMPATIBILITY_PATHS
+        ):
+            with self.subTest(relative=relative):
+                self.assertEqual(
+                    p5d3f_contract_rebreak._raw_worktree_blob(
+                        repo,
+                        relative,
+                    ),
+                    p5d3f_contract_rebreak._committed_blob(
+                        repo,
+                        relative,
+                    ),
+                )
+
     def test_origin_normalization_accepts_supported_github_forms(
         self,
     ) -> None:
