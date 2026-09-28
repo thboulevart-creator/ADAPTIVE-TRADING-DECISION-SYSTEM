@@ -1,0 +1,275 @@
+{
+  "schema": "ATDS_E1_03_H1_DATASET_IDENTITY_CONTRACT_V0_1",
+  "control_id": "E1-03",
+  "status": "HUMAN_ADOPTED_TEST_FIRST",
+  "date": "2026-09-28",
+  "authority": {
+    "implementation_authorized": false,
+    "real_h1_build_authorized": false,
+    "e1_run_authorized": false,
+    "allowed_data_class_for_red": "SYNTHETIC_ONLY"
+  },
+  "runtime_target": "tools/e1_03_h1_dataset_identity.py",
+  "runtime_contract": "ATDS_E1_03_H1_DATASET_IDENTITY_V0_1",
+  "required_runtime_surface": [
+    "CONTRACT",
+    "derive_h1_dataset",
+    "canonical_stream_sha256",
+    "verify_ap0_binding"
+  ],
+  "input": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap0_files": 61,
+    "ap0_rows": 1709180,
+    "ap0_segments": 1606,
+    "ap0_gaps_gt_60s": 1605,
+    "required_columns": [
+      "minute_start_ms_utc",
+      "first_tick_ms",
+      "last_tick_ms",
+      "tick_count",
+      "segment_id",
+      "segment_start",
+      "gap_before_ms",
+      "mid_close"
+    ]
+  },
+  "output": {
+    "dataset_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "row_fields_exact": [
+      "h1_start_ms_utc",
+      "source_segment_id",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "mid_close"
+    ]
+  },
+  "raw_window": {
+    "start_utc": "2021-05-25T00:00:00.309Z",
+    "end_utc": "2026-05-24T23:59:59.963Z",
+    "boundary_partial_hour_policy": "REJECT"
+  },
+  "h1_bucket": {
+    "timezone": "UTC",
+    "duration_ms": 3600000,
+    "start_rule": "floor(minute_start_ms_utc / 3600000) * 3600000",
+    "required_m1_rows": 60,
+    "required_offsets_minutes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50,
+      51,
+      52,
+      53,
+      54,
+      55,
+      56,
+      57,
+      58,
+      59
+    ],
+    "same_segment_required": true,
+    "segment_start_allowed_only_at_minute_offset": 0,
+    "forward_fill": false,
+    "interpolation": false,
+    "synthetic_minutes": false,
+    "close_rule": "mid_close of minute offset 59"
+  },
+  "continuity": {
+    "new_block_when": [
+      "source_segment_id changes",
+      "current_h1_start_ms_utc != previous_h1_start_ms_utc + 3600000"
+    ],
+    "ordinal_start": 0,
+    "warmup_h1_bars": 20,
+    "first_momentum_eligible_ordinal": 20,
+    "cross_block_warmup_forbidden": true
+  },
+  "oos": {
+    "start_utc": "2025-05-25T00:00:00Z",
+    "pre_oos_rule": "h1_start_ms_utc < OOS_START",
+    "oos_rule": "h1_start_ms_utc >= OOS_START",
+    "reset_warmup_at_oos": false,
+    "prior_same_block_history_allowed": true
+  },
+  "input_binding": {
+    "manifest_sha256_must_match": true,
+    "all_61_files_must_be_rehashed": true,
+    "mismatch_status": "BLOCKED"
+  },
+  "canonical_digest": {
+    "prefix_utf8": "ATDS_E1_H1_CANONICAL_STREAM_V0_1\\n",
+    "row_binary_big_endian": ">qqqqd",
+    "algorithm": "SHA-256",
+    "parquet_independent": true
+  },
+  "test_cases": [
+    [
+      "H1-01",
+      "60 exact M1 minutes, same segment",
+      "ACCEPT"
+    ],
+    [
+      "H1-02",
+      "59 M1 minutes",
+      "REJECT_HOUR"
+    ],
+    [
+      "H1-03",
+      "duplicate minute",
+      "BLOCKED"
+    ],
+    [
+      "H1-04",
+      "wrong minute inside bucket",
+      "REJECT_HOUR"
+    ],
+    [
+      "H1-05",
+      "segment changes inside H1",
+      "REJECT_HOUR"
+    ],
+    [
+      "H1-06",
+      "segment_start at minute 00",
+      "ACCEPT_AND_RESET"
+    ],
+    [
+      "H1-07",
+      "segment_start after minute 00",
+      "REJECT_HOUR"
+    ],
+    [
+      "H1-08",
+      "first raw boundary hour",
+      "REJECT_BOUNDARY"
+    ],
+    [
+      "H1-09",
+      "last raw boundary hour",
+      "REJECT_BOUNDARY"
+    ],
+    [
+      "H1-10",
+      "missing minute must not be forward-filled",
+      "FORBIDDEN"
+    ],
+    [
+      "H1-11",
+      "H1 close equals M1 minute 59 close",
+      "EXACT_CLOSE"
+    ],
+    [
+      "H1-12",
+      "continuity block change",
+      "ORDINAL_RESET_ZERO"
+    ],
+    [
+      "H1-13",
+      "continuity ordinal 19",
+      "MOMENTUM_INELIGIBLE"
+    ],
+    [
+      "H1-14",
+      "continuity ordinal 20",
+      "FIRST_MOMENTUM_ELIGIBLE"
+    ],
+    [
+      "H1-15",
+      "t-20 in another continuity block",
+      "MOMENTUM_FORBIDDEN"
+    ],
+    [
+      "H1-16",
+      "H1 exactly at OOS_START",
+      "OOS"
+    ],
+    [
+      "H1-17",
+      "OOS with prior same-block history",
+      "WARMUP_ALLOWED"
+    ],
+    [
+      "H1-18",
+      "AP0 manifest hash mutation",
+      "BLOCKED"
+    ],
+    [
+      "H1-19",
+      "one AP0 file hash mutation",
+      "BLOCKED"
+    ],
+    [
+      "H1-20",
+      "two identical builds",
+      "SAME_CANONICAL_DIGEST"
+    ],
+    [
+      "H1-21",
+      "one H1 row mutation",
+      "CANONICAL_DIGEST_CHANGES"
+    ]
+  ],
+  "non_authorizations": [
+    "MOMENTUM_SIGNAL",
+    "POSITION",
+    "TRADE",
+    "PNL",
+    "EXECUTION",
+    "OPTIMIZATION",
+    "REGIME",
+    "BACKTEST",
+    "E1_RUN",
+    "E1_05"
+  ]
+}
