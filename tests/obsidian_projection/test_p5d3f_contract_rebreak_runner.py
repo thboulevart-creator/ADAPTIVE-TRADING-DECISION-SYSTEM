@@ -26,6 +26,55 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
 
         self.assertEqual(observed, expected)
 
+
+    def test_committed_contract_blob_uses_git_authority(self) -> None:
+        repo = p5d3f_contract_rebreak._repo_root()
+        observed = (
+            p5d3f_contract_rebreak._committed_blob(
+                repo,
+                "tools/obsidian_projection/"
+                "promotion_handoff_contract_v0_1.json",
+            )
+        )
+        self.assertEqual(
+            observed,
+            p5d3f_contract_rebreak.EXPECTED_CONTRACT_BLOB,
+        )
+
+    def test_reexec_argv_reloads_runner_from_target_checkout(
+        self,
+    ) -> None:
+        repo = p5d3f_contract_rebreak._repo_root()
+        argv = p5d3f_contract_rebreak._build_reexec_argv(
+            repo,
+            original_argv=[
+                "old-runner.py",
+                "--expected-remote-head",
+                "a" * 40,
+                "--expected-candidate-head",
+                "b" * 40,
+            ],
+            dont_write_bytecode=True,
+        )
+        self.assertEqual(argv[0], p5d3f_contract_rebreak.sys.executable)
+        self.assertEqual(argv[1], "-B")
+        self.assertEqual(
+            Path(argv[2]),
+            repo
+            / "tools"
+            / "obsidian_projection"
+            / "p5d3f_contract_rebreak.py",
+        )
+        self.assertEqual(
+            argv[3:],
+            [
+                "--expected-remote-head",
+                "a" * 40,
+                "--expected-candidate-head",
+                "b" * 40,
+            ],
+        )
+
     def test_origin_normalization_accepts_supported_github_forms(
         self,
     ) -> None:
