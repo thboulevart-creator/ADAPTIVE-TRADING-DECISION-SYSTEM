@@ -20186,3 +20186,79 @@ E1_07 = OPEN_IN_PROGRESS
 
 Accelerated-governed authority permits the minimal E1-07 implementation candidate while contract, schemas, breaker and E1-01→E1-06 remain frozen.
 
+
+---
+
+## 314. E1-07 — FINAL EXACT PREFLIGHT / REPRODUCIBILITY / TRACE QUALIFICATION — PASS
+
+Date:
+2026-09-28
+
+Qualified persisted candidate HEAD:
+
+`ebdbfdf72993a55897374fd2127d162f72989adf`
+
+Qualified persisted candidate TREE:
+
+`3b13e2954cf7c5d395a53dea453ae46630da5ef2`
+
+Frozen E1-07 identities:
+
+```text
+contract = b19f9b5a4505f50d77f1cbd09b2b6381241b5205
+breaker = 40a02b99488039949dcde8483af01db7767f5075
+preflight schema = 50630a8404f8c1c7c8283ba1f356b961980aecc9
+result schema = f129797ec5eb229f70ca3293670bc13c542633e3
+runtime = 88ca1f1ae89d1a2cfac1ae35becb3ea6209755f5
+```
+
+Exact persisted-head re-break:
+
+```text
+EXACT_BLOBS = PASS
+PY_COMPILE = PASS
+Q7-01 → Q7-30
+TOTAL = 30
+PASS = 30
+FAIL = 0
+```
+
+Qualification fixture evidence:
+
+```text
+preflight digest =
+9a9c16226f7364dbb02ccba00a38b46a64c291c97b89fe43c9caa530d4dc9c41
+
+result digest =
+f2144c380b700f5c3f28cdec15856d920b04d641e63eee561d27e0949bdbd35f
+
+trace digest =
+7832b145838fa2d3496070c152719bb9abd61529f4d1092aa0b5bd8b14a6d255
+```
+
+Those digests are qualification-fixture evidence only, not a real E1 run.
+
+Adjudication:
+
+```text
+E1_07_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_07_EXACT_PERSISTED_HEAD_REBREAK = PASS_30_OF_30
+E1_07 = PASS
+
+E1-01 = PASS
+E1-02 = PASS
+E1-03 = PASS
+E1-04 = PASS
+E1-05 = PASS
+E1-06 = PASS
+E1-07 = PASS
+
+E1-08 = NOT_OPENED
+E1_READINESS = NOT_READY
+```
+
+No real E1 execution, E1-08, real-data performance interpretation, MT5, paper, broker, live or capital authority is created.
+
+Accelerated governed E1-07 control cycle:
+`CLOSED — STOP AT END OF E1-07`
+
