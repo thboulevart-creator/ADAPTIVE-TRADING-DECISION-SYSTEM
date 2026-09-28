@@ -20,6 +20,27 @@ EXPECTED_CONTRACT_BLOB = (
 EXPECTED_TEST_BLOB = (
     "3dc1d7315874d4352eeaf05407f266961c878e70"
 )
+EXPECTED_GITATTRIBUTES_BLOB = (
+    "e0154899b5640da025a082ef6b02f4bf179d3030"
+)
+
+BYTE_PIN_COMPATIBILITY_PATHS = (
+    "tools/obsidian_projection/"
+    "first_open_safety_contract_v0_1.json",
+    "tools/obsidian_projection/"
+    "first_open_safety_contract_v0_2.json",
+    "tools/obsidian_projection/"
+    "deterministic_projection_contract_v0_1.json",
+    "tools/obsidian_projection/first_open.py",
+    "tools/obsidian_projection/p3d_verify.py",
+    "tools/obsidian_projection/"
+    "obsidian_open_retry_contract_v0_2.json",
+    "tools/obsidian_projection/"
+    "real_exact_head_sandbox_contract_v0_1.json",
+    "tools/obsidian_projection/"
+    "promotion_handoff_contract_v0_1.json",
+)
+
 OID40 = re.compile(r"^[0-9a-f]{40}$")
 
 
@@ -131,6 +152,72 @@ def _committed_blob(repo: Path, relative: str) -> str:
         f"git rev-parse HEAD:{relative} failed",
     )
     return _stdout(result)
+
+
+def _raw_worktree_blob(repo: Path, relative: str) -> str:
+    result = _git(
+        repo,
+        "hash-object",
+        "--no-filters",
+        relative,
+    )
+    _require_ok(
+        result,
+        f"git hash-object --no-filters failed for {relative}",
+    )
+    return _stdout(result)
+
+
+def _materialize_canonical_worktree(repo: Path) -> None:
+    attributes_blob = _committed_blob(
+        repo,
+        ".gitattributes",
+    )
+    if attributes_blob != EXPECTED_GITATTRIBUTES_BLOB:
+        raise GovernedRunError(
+            "unexpected .gitattributes blob: "
+            f"{attributes_blob}"
+        )
+
+    checkout = _git(
+        repo,
+        "checkout-index",
+        "--all",
+        "--force",
+        capture=False,
+    )
+    _require_ok(
+        checkout,
+        "canonical checkout materialization failed",
+    )
+
+    _require_clean(
+        repo,
+        "après canonical checkout materialization",
+    )
+
+    mismatches: list[str] = []
+    for relative in BYTE_PIN_COMPATIBILITY_PATHS:
+        committed = _committed_blob(
+            repo,
+            relative,
+        )
+        working = _raw_worktree_blob(
+            repo,
+            relative,
+        )
+        if committed != working:
+            mismatches.append(
+                f"{relative}: committed={committed} "
+                f"working={working}"
+            )
+
+    if mismatches:
+        raise GovernedRunError(
+            "working-tree byte representation is not "
+            "canonical LF: "
+            + " | ".join(mismatches)
+        )
 
 
 REEXEC_ENV = "ATDS_P5D3F_REEXEC_COUNT"
@@ -358,6 +445,10 @@ def main() -> int:
 
     runtime_head = loaded_head
     print(f"P5D3F_RUNTIME_HEAD={runtime_head}")
+
+    _materialize_canonical_worktree(repo)
+    print("P5D3F_CANONICAL_LF_CHECKOUT=PASS")
+    print("P5D3F_BYTE_PIN_COMPATIBILITY=PASS")
 
     contract_blob = _committed_blob(
         repo,
