@@ -168,20 +168,22 @@ def _raw_worktree_blob(repo: Path, relative: str) -> str:
     return _stdout(result)
 
 
-def _index_tree(repo: Path) -> str:
+def _index_stage_snapshot(repo: Path) -> str:
     result = _git(
         repo,
-        "write-tree",
+        "ls-files",
+        "--stage",
+        "-z",
     )
     _require_ok(
         result,
-        "cannot resolve index tree",
+        "cannot snapshot index stage entries",
     )
-    return _stdout(result)
+    return result.stdout or ""
 
 
 def _refresh_index_stat_cache(repo: Path) -> None:
-    tree_before = _index_tree(repo)
+    index_before = _index_stage_snapshot(repo)
 
     refresh = _git(
         repo,
@@ -194,11 +196,10 @@ def _refresh_index_stat_cache(repo: Path) -> None:
             "index stat refresh failed",
         )
 
-    tree_after = _index_tree(repo)
-    if tree_after != tree_before:
+    index_after = _index_stage_snapshot(repo)
+    if index_after != index_before:
         raise GovernedRunError(
-            "index tree changed during stat refresh: "
-            f"before={tree_before} after={tree_after}"
+            "index stage entries changed during stat refresh"
         )
 
 
