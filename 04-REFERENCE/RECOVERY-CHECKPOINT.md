@@ -18835,3 +18835,76 @@ E1-03 — EXACT GAP-AWARE H1 DATASET IDENTITY
 
 No E1 run, E1-05 runner, A1/A2, DecisionPolicy, Decision, ACTION, MT5, paper, broker, live or capital authority is opened by this persistence.
 
+---
+
+## 295. E1-03 — H1 DATASET IDENTITY — TEST-FIRST RED — PASS EXPECTED FAILURE
+
+Date:
+2026-09-28
+
+Reviewed persisted HEAD:
+
+`ebca9292f7fbafcff6facb3997f261ba0b718c60`
+
+Reviewed persisted tree:
+
+`e5c2a569efc4f4431522fc977f28e45e8186bc8e`
+
+Persisted contract:
+
+`GOVERNANCE/E1-03-H1-DATASET-IDENTITY-CONTRACT-V0.1.json`
+
+Contract blob:
+
+`c2d4323039d65fcd9319d4f5eb02f45ee27c8afc`
+
+Persisted breaker:
+
+`breakers/e1_03_h1_dataset_identity_red_breaker.py`
+
+Breaker blob:
+
+`958e338a1e9e7c5b56198eb3585f25ca140aa331`
+
+Runtime target:
+
+`tools/e1_03_h1_dataset_identity.py`
+
+Runtime state:
+
+`ABSENT`
+
+Fresh RED execution:
+
+```text
+PY_COMPILE = PASS
+PYTEST_EXIT_CODE = 1
+TOTAL_TESTS = 21
+FAILED = 21
+COLLECTION_ERRORS = 0
+FAILURE_CAUSE_ALL_21 = E1_03_H1_TRANSFORMER_ABSENT_EXPECTED_RED
+```
+
+Adjudication:
+
+```text
+E1_03_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_03_IMPLEMENTATION = ABSENT
+E1_03_REAL_H1_BUILD = NOT_STARTED
+E1_03 = BLOCKED
+```
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-03-H1-DATASET-IDENTITY-TEST-FIRST-RED.md`
+
+The 21 persisted H1-01 → H1-21 breaker cases are now the upstream executable constraint.
+
+No contract change, breaker change, runtime implementation, AP0 real-data transformation, Momentum, PnL, backtest or E1 execution is authorized by this persistence.
+
+Subject to fresh persisted-head verification of this evidence commit, the next candidate boundary is:
+
+`E1-03 — MINIMAL IMPLEMENTATION CANDIDATE`
+
+That implementation boundary requires separate human authorization.
+
