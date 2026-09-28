@@ -205,6 +205,51 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
                 Path(".")
             )
 
+    def test_index_stat_refresh_is_individually_pathscoped(
+        self,
+    ) -> None:
+        fake_refresh = (
+            p5d3f_contract_rebreak.subprocess.CompletedProcess(
+                args=["git", "update-index", "--really-refresh"],
+                returncode=1,
+                stdout="sample.txt: needs update\n",
+                stderr="",
+            )
+        )
+
+        with (
+            mock.patch.object(
+                p5d3f_contract_rebreak,
+                "_index_stage_snapshot",
+                side_effect=["a" * 40, "a" * 40],
+            ),
+            mock.patch.object(
+                p5d3f_contract_rebreak,
+                "_git",
+                return_value=fake_refresh,
+            ) as git_mock,
+        ):
+            p5d3f_contract_rebreak._refresh_index_stat_cache(
+                Path(".")
+            )
+
+        self.assertEqual(
+            git_mock.call_args_list,
+            [
+                mock.call(
+                    Path("."),
+                    "update-index",
+                    "--really-refresh",
+                    "--",
+                    relative,
+                )
+                for relative in (
+                    p5d3f_contract_rebreak.
+                    BYTE_PIN_COMPATIBILITY_PATHS
+                )
+            ],
+        )
+
     def test_index_stat_refresh_rejects_index_stage_mutation(
         self,
     ) -> None:
