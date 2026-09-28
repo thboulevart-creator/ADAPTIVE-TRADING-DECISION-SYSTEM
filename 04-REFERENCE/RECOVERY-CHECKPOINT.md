@@ -19945,3 +19945,62 @@ Expected initial state:
 
 Accelerated cycle may continue through mechanical corrections while contract/tests/prior E1 controls remain unchanged.
 
+---
+
+## 310. E1-06 — TEST-FIRST RED — PASS EXPECTED FAILURE
+
+Date:
+2026-09-28
+
+Persisted HEAD under test:
+
+`79b98fe6fea3c6bf0015c049850b0d0654d0cd4f`
+
+Persisted TREE under test:
+
+`9a002b870dd682f8b8e7ebd499e51eab41c93144`
+
+Protected identities:
+
+```text
+E1-06 contract =
+483552f2ea1def15f94a28f2e45b97dd65f786ff
+
+E1-06 breaker =
+dc4858559a2fda113c7290ad39a45d5291580773
+
+E1-06 independent reference =
+25b01e6d31709f02f9c095262bfe78366e83003b
+
+E1-05 runtime =
+baad3bd7c2e810451737c89bf8f9bcabc17c5ba6
+
+E1-04 runtime =
+15e72b8743e7726fc8b8bedd933cf7defe56413b
+```
+
+Observed exact breaker replay:
+
+```text
+PY_COMPILE = PASS
+
+Q6-01 → Q6-22
+TOTAL = 22
+PASS = 1
+FAIL = 21
+
+Q6-20 = PASS
+21 target-dependent tests =
+E1_06_TARGET_ABSENT_EXPECTED_RED
+```
+
+Adjudication:
+
+```text
+E1_06_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_06_REFERENCE_INDEPENDENCE_PRECHECK = PASS
+E1_06_TARGET = ABSENT
+```
+
+Accelerated-governed authorization permits immediate minimal qualifier implementation while contract, breaker, independent reference and E1-01→E1-05 remain frozen.
+
