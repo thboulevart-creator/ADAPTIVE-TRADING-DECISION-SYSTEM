@@ -34,6 +34,8 @@ BYTE_PIN_COMPATIBILITY_PATHS = (
     "tools/obsidian_projection/builder.py",
     "tools/obsidian_projection/p2_verify.py",
     "tools/obsidian_projection/"
+    "dynamic_inventory_contract_v0_1.json",
+    "tools/obsidian_projection/"
     "first_open_safety_contract_v0_1.json",
     "tools/obsidian_projection/"
     "first_open_safety_contract_v0_2.json",
