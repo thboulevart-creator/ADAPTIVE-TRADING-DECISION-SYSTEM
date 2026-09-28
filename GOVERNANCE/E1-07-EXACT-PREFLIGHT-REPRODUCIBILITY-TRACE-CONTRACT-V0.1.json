@@ -1,0 +1,286 @@
+{
+  "schema": "ATDS_E1_07_EXACT_PREFLIGHT_REPRODUCIBILITY_TRACE_CONTRACT_V0_1",
+  "control_id": "E1-07",
+  "date": "2026-09-28",
+  "status": "HUMAN_AUTHORIZED_ACCELERATED_TEST_FIRST",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "c658f769dcf5e6b7e44ef455290f65fe21ef69e6",
+    "tree": "a26711112ad132ba7ac5c11ebeac7c19900ef308"
+  },
+  "authority": {
+    "e1_07_construction_and_qualification": true,
+    "real_e1_run_authorized": false,
+    "e1_08_authorized": false,
+    "real_data_performance_authorized": false,
+    "profitability_interpretation_authorized": false,
+    "paper_broker_mt5_live_capital_authorized": false
+  },
+  "protected_dependencies": {
+    "e1_01_e1_02_freeze_package_blob": "6b1e0d6e76d9813cd50eb01eb4b6c06cbfa8260e",
+    "e1_03_contract_blob": "c2d4323039d65fcd9319d4f5eb02f45ee27c8afc",
+    "e1_03_h1_breaker_blob": "958e338a1e9e7c5b56198eb3585f25ca140aa331",
+    "e1_03_rc01_breaker_blob": "38db4d3c01d60b885a694183df6da8317fd30dc0",
+    "e1_03_runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+    "e1_04_contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+    "e1_04_breaker_blob": "092a612e432530a7dfea627704d89ea8d03328e5",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "e1_05_contract_blob": "51dc1152808ec9e841924976eac572cc4ec2ff93",
+    "e1_05_breaker_blob": "4308e3360f3cd834e863eb740a2eb7f087e242c0",
+    "e1_05_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6",
+    "e1_06_contract_blob": "483552f2ea1def15f94a28f2e45b97dd65f786ff",
+    "e1_06_breaker_blob": "dc4858559a2fda113c7290ad39a45d5291580773",
+    "e1_06_reference_blob": "25b01e6d31709f02f9c095262bfe78366e83003b",
+    "e1_06_qualifier_blob": "0793adc08416563125f57a55c0d272d24bb4b3df",
+    "e1_06_report_blob": "6f16f9367e932379a87b59599b59c7cc47127b1d"
+  },
+  "frozen_scope": {
+    "experiment_id": "ATDS_E1_MOMENTUM_V1_SOURCE_B_EXPLORATORY_N0_V0",
+    "strategy_id": "MOMENTUM_V1",
+    "data_source_id": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "mode": "OFFLINE",
+    "class": "EXPLORATORY",
+    "research_level": "N0",
+    "timeframe": "H1",
+    "lookback_completed_admissible_h1": 20
+  },
+  "frozen_window": {
+    "raw_window_start": "2021-05-25T00:00:00.309Z",
+    "raw_window_end": "2026-05-24T23:59:59.963Z",
+    "pre_oos": "timestamp < 2025-05-25T00:00:00Z",
+    "oos_start": "2025-05-25T00:00:00Z",
+    "oos_end": "2026-05-24T23:59:59.963Z"
+  },
+  "frozen_dataset_bindings": {
+    "raw_dataset_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "raw_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "h1_dataset_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "h1_canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "h1_qualification_result_sha256": "3a96ac264f23b7c1f14de69dbe0444af5b25265b7a61d5e233479a4b581e6425",
+    "h1_jsonl_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0"
+  },
+  "cost_scope": {
+    "spread": {
+      "included": true,
+      "mode": "RAW_BID_ASK_INTRINSIC"
+    },
+    "commission": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "slippage": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "financing": {
+      "included": false,
+      "assumed_zero": false
+    }
+  },
+  "artifacts": {
+    "preflight_schema": {
+      "path": "GOVERNANCE/E1-07-PREFLIGHT-MANIFEST-SCHEMA-V0.1.json",
+      "schema_id": "E1_PREFLIGHT_MANIFEST_V0",
+      "canonical_sha256": "dfef55de3b29f165d60fac5c814be4bd81d0c3674768a3775f4fc6c532e8a99d"
+    },
+    "result_schema": {
+      "path": "GOVERNANCE/E1-07-RESULT-ENVELOPE-SCHEMA-V0.1.json",
+      "schema_id": "E1_RESULT_ENVELOPE_SCHEMA_V0",
+      "canonical_sha256": "d3da7e97b533ce1930e7d4c4ea7d9e5224a737bcef452db951b69c789d853f7c"
+    },
+    "breaker": "breakers/e1_07_preflight_reproducibility_trace_red_breaker.py",
+    "future_target": "tools/e1_07_preflight_trace.py",
+    "report": "reports/program/2026-09-28-E1-07-PREFLIGHT-REPRODUCIBILITY-TRACE-QUALIFICATION.md"
+  },
+  "preflight_required_bindings": [
+    "repository_full_name",
+    "branch",
+    "HEAD",
+    "TREE",
+    "preflight_tool_blob",
+    "strategy_identity",
+    "raw_dataset_identity",
+    "raw_manifest_sha256",
+    "h1_dataset_identity",
+    "h1_canonical_stream_sha256",
+    "window_and_oos",
+    "execution_cost_model_identity",
+    "runner_identity",
+    "qualification_identity",
+    "environment_identity",
+    "dependency_inventory",
+    "result_schema_identity"
+  ],
+  "environment_descriptor_required_fields": [
+    "implementation",
+    "version",
+    "system",
+    "machine",
+    "dependencies",
+    "environment_variables"
+  ],
+  "minimum_trace_fields": [
+    "experiment_id",
+    "preflight_digest",
+    "timestamp_utc",
+    "input_identities",
+    "runner_identity",
+    "environment_identity",
+    "execution_status",
+    "result_payload",
+    "result_digest"
+  ],
+  "test_cases": [
+    [
+      "Q7-01",
+      "baseline preflight verifies and carries canonical digest"
+    ],
+    [
+      "Q7-02",
+      "identical inputs yield exact deterministic preflight"
+    ],
+    [
+      "Q7-03",
+      "mapping insertion order cannot change canonical digest"
+    ],
+    [
+      "Q7-04",
+      "repository and branch binding are exact"
+    ],
+    [
+      "Q7-05",
+      "HEAD and TREE binding are exact"
+    ],
+    [
+      "Q7-06",
+      "E1-01 scope/strategy identity is frozen"
+    ],
+    [
+      "Q7-07",
+      "E1-02 raw window and OOS split are frozen"
+    ],
+    [
+      "Q7-08",
+      "raw dataset identity and manifest hash are bound"
+    ],
+    [
+      "Q7-09",
+      "H1 dataset identity and content hashes are bound"
+    ],
+    [
+      "Q7-10",
+      "execution/cost identity and cost scope are bound"
+    ],
+    [
+      "Q7-11",
+      "E1-05 runner identity is bound"
+    ],
+    [
+      "Q7-12",
+      "E1-06 qualification identities are bound"
+    ],
+    [
+      "Q7-13",
+      "environment/dependency snapshot has canonical identity"
+    ],
+    [
+      "Q7-14",
+      "result-envelope schema identity is bound"
+    ],
+    [
+      "Q7-15",
+      "E1-07 grants no run/live/broker/capital authority"
+    ],
+    [
+      "Q7-16",
+      "HEAD substitution is blocked"
+    ],
+    [
+      "Q7-17",
+      "TREE substitution is blocked"
+    ],
+    [
+      "Q7-18",
+      "raw dataset hash substitution is blocked"
+    ],
+    [
+      "Q7-19",
+      "H1 stream hash substitution is blocked"
+    ],
+    [
+      "Q7-20",
+      "runner substitution is blocked"
+    ],
+    [
+      "Q7-21",
+      "qualification substitution is blocked"
+    ],
+    [
+      "Q7-22",
+      "environment substitution is blocked"
+    ],
+    [
+      "Q7-23",
+      "result-schema substitution is blocked"
+    ],
+    [
+      "Q7-24",
+      "result envelope carries minimum trace and verifies"
+    ],
+    [
+      "Q7-25",
+      "result payload tampering is detected"
+    ],
+    [
+      "Q7-26",
+      "preflight digest tampering is detected"
+    ],
+    [
+      "Q7-27",
+      "bound repository/dataset tampering in envelope is detected"
+    ],
+    [
+      "Q7-28",
+      "trace digest tampering is detected"
+    ],
+    [
+      "Q7-29",
+      "unknown preflight fields fail closed"
+    ],
+    [
+      "Q7-30",
+      "runtime exposes no real-run delegation path"
+    ]
+  ],
+  "forbidden_claims": [
+    "STRATEGY_QUALIFIED",
+    "EDGE_CONFIRMED",
+    "ROBUST",
+    "LIVE_PROFITABLE",
+    "BROKER_NET_PNL",
+    "ALL_IN_COST_PROFITABILITY",
+    "LIVE_PROFITABILITY",
+    "FULL_BROKER_EXECUTION_REALISM",
+    "CONFIRMATORY_RESULT",
+    "DECISION_AUTHORITY",
+    "ACTION_AUTHORITY",
+    "MT5_AUTHORIZED",
+    "PAPER_AUTHORIZED",
+    "BROKER_AUTHORIZED",
+    "LIVE_AUTHORIZED",
+    "CAPITAL_AUTHORIZED"
+  ],
+  "stop_boundaries": [
+    "CONTRACT_CHANGE_REQUIRED",
+    "FROZEN_TEST_CHANGE_REQUIRED",
+    "SCOPE_EXPANSION_REQUIRED",
+    "PRIOR_E1_CHANGE_REQUIRED",
+    "NEW_REAL_DATA_REQUIRED",
+    "REAL_BACKTEST_REQUIRED",
+    "PERFORMANCE_INTERPRETATION_REQUIRED",
+    "E1_08_REQUIRED",
+    "PAPER_BROKER_MT5_LIVE_CAPITAL_REQUIRED",
+    "ARCHITECTURAL_DEFECT"
+  ]
+}

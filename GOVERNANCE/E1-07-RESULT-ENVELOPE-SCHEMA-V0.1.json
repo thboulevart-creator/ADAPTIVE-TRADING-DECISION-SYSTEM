@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ATDS_E1_RESULT_ENVELOPE_SCHEMA_V0",
+  "title": "E1_RESULT_ENVELOPE_SCHEMA_V0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "experiment_id",
+    "run_id",
+    "timestamp_utc",
+    "preflight_digest",
+    "repository",
+    "protocol",
+    "datasets",
+    "window",
+    "costs",
+    "runner_identity",
+    "environment_identity",
+    "execution_status",
+    "metrics",
+    "result_payload",
+    "result_digest",
+    "trace_digest"
+  ],
+  "properties": {
+    "schema": {
+      "const": "E1_RESULT_ENVELOPE_SCHEMA_V0"
+    },
+    "experiment_id": {
+      "const": "ATDS_E1_MOMENTUM_V1_SOURCE_B_EXPLORATORY_N0_V0"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "timestamp_utc": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?Z$"
+    },
+    "preflight_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "repository": {
+      "type": "object"
+    },
+    "protocol": {
+      "type": "object"
+    },
+    "datasets": {
+      "type": "object"
+    },
+    "window": {
+      "type": "object"
+    },
+    "costs": {
+      "type": "object"
+    },
+    "runner_identity": {
+      "type": "object"
+    },
+    "environment_identity": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "execution_status": {
+      "enum": [
+        "NOT_EXECUTED",
+        "EXECUTED",
+        "BLOCKED",
+        "FAILED",
+        "QUALIFICATION_FIXTURE"
+      ]
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "result_payload": {
+      "type": "object"
+    },
+    "result_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "trace_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

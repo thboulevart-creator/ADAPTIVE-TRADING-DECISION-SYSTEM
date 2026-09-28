@@ -20106,3 +20106,39 @@ Evidence report:
 
 `reports/program/2026-09-28-E1-06-ADVERSARIAL-REFERENCE-PARITY-QUALIFICATION.md`
 
+
+
+---
+
+## 312. E1-07 — ACCELERATED TEST-FIRST PREREGISTRATION
+
+Date:
+2026-09-28
+
+Base HEAD:
+`c658f769dcf5e6b7e44ef455290f65fe21ef69e6`
+
+Base TREE:
+`a26711112ad132ba7ac5c11ebeac7c19900ef308`
+
+Human macro authorization:
+`E1-07 — EXACT PREFLIGHT + REPRODUCIBILITY + TRACE`
+
+Frozen surface:
+`Q7-01 → Q7-30`
+
+Artifacts:
+`E1_PREFLIGHT_MANIFEST_V0`
+`E1_RESULT_ENVELOPE_SCHEMA_V0`
+
+Future target:
+`tools/e1_07_preflight_trace.py`
+
+Expected initial state:
+`RED — E1_07_TARGET_ABSENT_EXPECTED_RED`
+
+Authority:
+`REAL_E1_RUN = FALSE`
+`E1_08 = NOT_AUTHORIZED`
+`MT5/PAPER/BROKER/LIVE/CAPITAL = CLOSED`
+

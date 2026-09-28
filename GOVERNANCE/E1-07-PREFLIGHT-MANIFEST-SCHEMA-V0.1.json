@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ATDS_E1_PREFLIGHT_MANIFEST_V0",
+  "title": "E1_PREFLIGHT_MANIFEST_V0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "control_id",
+    "experiment_id",
+    "repository",
+    "strategy",
+    "datasets",
+    "window",
+    "execution_model",
+    "runner",
+    "qualification",
+    "environment",
+    "result_schema",
+    "authority",
+    "canonical_digest"
+  ],
+  "properties": {
+    "schema": {
+      "const": "E1_PREFLIGHT_MANIFEST_V0"
+    },
+    "control_id": {
+      "const": "E1-07"
+    },
+    "experiment_id": {
+      "const": "ATDS_E1_MOMENTUM_V1_SOURCE_B_EXPLORATORY_N0_V0"
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "full_name",
+        "branch",
+        "head",
+        "tree",
+        "preflight_tool_blob"
+      ],
+      "properties": {
+        "full_name": {
+          "const": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
+        },
+        "branch": {
+          "const": "integration/system-v1"
+        },
+        "head": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "tree": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        },
+        "preflight_tool_blob": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40}$"
+        }
+      }
+    },
+    "strategy": {
+      "type": "object"
+    },
+    "datasets": {
+      "type": "object"
+    },
+    "window": {
+      "type": "object"
+    },
+    "execution_model": {
+      "type": "object"
+    },
+    "runner": {
+      "type": "object"
+    },
+    "qualification": {
+      "type": "object"
+    },
+    "environment": {
+      "type": "object"
+    },
+    "result_schema": {
+      "type": "object"
+    },
+    "authority": {
+      "type": "object"
+    },
+    "canonical_digest": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
