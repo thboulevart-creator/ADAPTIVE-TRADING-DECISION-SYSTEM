@@ -19620,3 +19620,72 @@ The next permitted action inside this boundary is execution of the exact persist
 
 No E1-05 implementation is authorized until the RED is observed, persisted and adjudicated.
 
+---
+
+## 305. E1-05 — TEST-FIRST RED — PASS EXPECTED FAILURE
+
+Date:
+2026-09-28
+
+Persisted HEAD under test:
+
+`a9b28cad2461abf820c1d1b283274343a6627792`
+
+Persisted TREE under test:
+
+`92fcd23adc8c4f492c7a1b84afaea31e807924d9`
+
+Protected E1-05 preregistration identities:
+
+```text
+contract =
+51dc1152808ec9e841924976eac572cc4ec2ff93
+
+breaker =
+4308e3360f3cd834e863eb740a2eb7f087e242c0
+```
+
+Observed execution:
+
+```text
+PY_COMPILE = PASS
+
+M5-01 → M5-33
+TOTAL = 33
+PASS = 0
+FAIL = 33
+```
+
+Unique observed failure reason:
+
+`E1_05_RUNTIME_ABSENT_EXPECTED_RED`
+
+Observed runtime state:
+
+```text
+tools/e1_05_minimal_momentum_runner.py = ABSENT
+```
+
+Adjudication:
+
+```text
+E1_05_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_05_RUNTIME = ABSENT
+E1_05_IMPLEMENTATION = NOT_AUTHORIZED
+E1_05 = BLOCKED
+```
+
+E1-01 through E1-04 remain unchanged.
+
+No real Momentum run, PnL, performance, backtest, E1-06, E1-07, E1-08, MT5, paper, broker, live or capital authority is created.
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-05-MINIMAL-MOMENTUM-RUNNER-TEST-FIRST-RED.md`
+
+Subject to fresh persisted-head verification, the next candidate boundary is:
+
+`E1-05 — MINIMAL IMPLEMENTATION CANDIDATE`
+
+That implementation requires separate explicit human authorization.
+
