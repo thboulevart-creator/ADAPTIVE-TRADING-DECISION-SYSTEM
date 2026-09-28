@@ -209,7 +209,7 @@ def verify_ap0_binding(
     for rec in files:
         if not isinstance(rec, dict):
             return _blocked("AP0_FILE_RECORD_INVALID")
-        rel = rec.get("path")
+        rel = rec.get("relative_path")
         expected_sha = rec.get("sha256")
         expected_size = rec.get("size_bytes")
         if not isinstance(rel, str) or not isinstance(expected_sha, str):
