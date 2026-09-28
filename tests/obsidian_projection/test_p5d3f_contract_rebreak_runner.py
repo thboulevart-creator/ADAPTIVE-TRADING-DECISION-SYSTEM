@@ -76,6 +76,28 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
             ],
         )
 
+    def test_historical_raw_byte_pinned_dependencies_are_in_compatibility_surface(
+        self,
+    ) -> None:
+        required = {
+            "tools/obsidian_projection/materialization_contract_v0_1.json",
+            "tools/obsidian_projection/materialize.py",
+            "tools/obsidian_projection/rendering.py",
+            "tools/obsidian_projection/relations.py",
+            "tools/obsidian_projection/integrity.py",
+            "tools/obsidian_projection/builder.py",
+            "tools/obsidian_projection/p2_verify.py",
+        }
+
+        self.assertTrue(
+            required.issubset(
+                set(
+                    p5d3f_contract_rebreak.
+                    BYTE_PIN_COMPATIBILITY_PATHS
+                )
+            )
+        )
+
     def test_lf_checkout_policy_and_byte_pins_are_canonical(
         self,
     ) -> None:
