@@ -16,6 +16,7 @@ permissions:
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONHASHSEED: '0'
+  PYTHONPYCACHEPREFIX: '/tmp/e1-pycache'
   PYTEST_ADDOPTS: '-p no:cacheprovider'
   TZ: 'UTC'
   LANG: 'C.UTF-8'
@@ -33,6 +34,12 @@ jobs:
 
       - name: Prove exact persisted HEAD
         run: test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+
+      - name: Export exact E1-07 persisted bindings
+        run: |
+          echo "E1_07_EXPECTED_HEAD=${GITHUB_SHA}" >> "${GITHUB_ENV}"
+          echo "E1_07_EXPECTED_TREE=$(git rev-parse HEAD^{tree})" >> "${GITHUB_ENV}"
+          echo "E1_07_EXPECTED_TOOL_BLOB=$(git rev-parse HEAD:tools/e1_07_preflight_trace.py)" >> "${GITHUB_ENV}"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
