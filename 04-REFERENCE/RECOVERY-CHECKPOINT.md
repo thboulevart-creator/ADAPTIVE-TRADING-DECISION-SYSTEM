@@ -20142,3 +20142,47 @@ Authority:
 `E1_08 = NOT_AUTHORIZED`
 `MT5/PAPER/BROKER/LIVE/CAPITAL = CLOSED`
 
+
+---
+
+## 313. E1-07 — TEST-FIRST RED — PASS EXPECTED FAILURE
+
+Date:
+2026-09-28
+
+Persisted HEAD under test:
+`b5bc2b5147620a296c808160bfcf9f4876d29619`
+
+Persisted TREE under test:
+`47df68d512419b6ef9ef45a99f236926df128a1a`
+
+Frozen E1-07 identities:
+
+```text
+contract = b19f9b5a4505f50d77f1cbd09b2b6381241b5205
+breaker = 40a02b99488039949dcde8483af01db7767f5075
+preflight schema = 50630a8404f8c1c7c8283ba1f356b961980aecc9
+result schema = f129797ec5eb229f70ca3293670bc13c542633e3
+```
+
+Observed execution:
+
+```text
+PY_COMPILE = PASS
+Q7-01 → Q7-30
+TOTAL = 30
+PASS = 0
+FAIL = 30
+UNIQUE_FAILURE = E1_07_TARGET_ABSENT_EXPECTED_RED
+```
+
+Adjudication:
+
+```text
+E1_07_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_07_TARGET = ABSENT
+E1_07 = OPEN_IN_PROGRESS
+```
+
+Accelerated-governed authority permits the minimal E1-07 implementation candidate while contract, schemas, breaker and E1-01→E1-06 remain frozen.
+

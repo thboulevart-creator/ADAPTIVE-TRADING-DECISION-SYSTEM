@@ -38,3 +38,39 @@ Expected initial execution:
 `RED — E1_07_TARGET_ABSENT_EXPECTED_RED`
 
 No PASS is claimed at preregistration.
+
+## 3. Test-first RED — observed
+
+Persisted HEAD under test:
+`b5bc2b5147620a296c808160bfcf9f4876d29619`
+
+Persisted TREE under test:
+`47df68d512419b6ef9ef45a99f236926df128a1a`
+
+Exact breaker blob:
+`40a02b99488039949dcde8483af01db7767f5075`
+
+Exact-byte local materialization:
+`PASS — git hash-object matched persisted breaker blob`
+
+Execution:
+
+```text
+PY_COMPILE = PASS
+Q7-01 → Q7-30
+TOTAL = 30
+PASS = 0
+FAIL = 30
+UNIQUE_FAILURE = E1_07_TARGET_ABSENT_EXPECTED_RED
+```
+
+Adjudication:
+
+```text
+E1_07_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_07_TARGET = ABSENT
+E1_07_IMPLEMENTATION_CANDIDATE = NOT_YET
+E1_07 = OPEN_IN_PROGRESS
+```
+
+No real E1 run, E1-08, real-data performance interpretation, MT5, paper, broker, live or capital authority is created.
