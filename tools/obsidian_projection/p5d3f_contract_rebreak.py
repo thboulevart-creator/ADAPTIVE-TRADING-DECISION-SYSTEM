@@ -185,21 +185,26 @@ def _index_stage_snapshot(repo: Path) -> str:
 def _refresh_index_stat_cache(repo: Path) -> None:
     index_before = _index_stage_snapshot(repo)
 
-    refresh = _git(
-        repo,
-        "update-index",
-        "--really-refresh",
-    )
-    if refresh.returncode not in (0, 1):
-        _require_ok(
-            refresh,
-            "index stat refresh failed",
+    for relative in BYTE_PIN_COMPATIBILITY_PATHS:
+        refresh = _git(
+            repo,
+            "update-index",
+            "--really-refresh",
+            "--",
+            relative,
         )
+        if refresh.returncode not in (0, 1):
+            _require_ok(
+                refresh,
+                "path-scoped index stat refresh failed "
+                f"for {relative}",
+            )
 
     index_after = _index_stage_snapshot(repo)
     if index_after != index_before:
         raise GovernedRunError(
-            "index stage entries changed during stat refresh"
+            "index stage entries changed during "
+            "path-scoped stat refresh"
         )
 
 
