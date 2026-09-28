@@ -217,3 +217,134 @@ The next governed boundary may be a separately authorized minimal runtime correc
 
 The frozen H1-01 → H1-21 breaker and RC01 must remain unchanged during that correction.
 
+## 10. Minimal manifest-compatibility correction qualification
+
+The previously preregistered RC01 defect was corrected by a separately authorized minimal runtime mutation.
+
+Qualified correction HEAD:
+
+`e9f1dae809328937f0eb08767585e596ee8b162b`
+
+Qualified correction TREE:
+
+`b5561d7a17de7d7bff1de84b964190d794d82d49`
+
+Corrected runtime blob:
+
+`38d481755e00ce3c2ed9c66c4db710500ca0911a`
+
+The correction commit modified exactly one repository file:
+
+`tools/e1_03_h1_dataset_identity.py`
+
+and exactly one runtime lookup:
+
+```text
+before: rec.get("path")
+after:  rec.get("relative_path")
+```
+
+No other runtime semantic was intentionally changed.
+
+Protected objects remained byte-identical:
+
+```text
+contract blob =
+c2d4323039d65fcd9319d4f5eb02f45ee27c8afc
+
+H1-01..H1-21 breaker blob =
+958e338a1e9e7c5b56198eb3585f25ca140aa331
+
+RC01 breaker blob =
+38db4d3c01d60b885a694183df6da8317fd30dc0
+```
+
+### Combined frozen-surface replay
+
+The corrected runtime was replayed against both persisted breaker surfaces without modifying either breaker.
+
+Observed result:
+
+```text
+H1-01..H1-21 = 21/21 PASS
+RC01 = 1/1 PASS
+
+TOTAL = 22/22 PASS
+```
+
+Adjudication:
+
+```text
+E1_03_RC01_RUNTIME_CORRECTION = PASS
+E1_03_COMBINED_SYNTHETIC_SURFACE = PASS_22_OF_22
+```
+
+### H1-19 known limitation
+
+The historical H1-19 fixture remains frozen and still constructs its synthetic AP0 file record with:
+
+`files[].path`
+
+After the governed runtime correction, that historical fixture no longer independently demonstrates the intended file-hash-mutation path because it can be rejected before reaching the file SHA-256 comparison.
+
+Therefore:
+
+```text
+H1_19_HISTORICAL_RESULT = PASS
+H1_19_REAL_SCHEMA_HASH_MUTATION_AUTHORITY = LIMITED
+```
+
+This limitation is recorded rather than silently changing H1-19.
+
+### Complementary read-only diagnostic
+
+A separate diagnostic was performed using the governed real-schema convention:
+
+`files[].relative_path`
+
+with a same-size synthetic file mutation so that size checking could not explain the rejection.
+
+Observed result:
+
+```text
+status = BLOCKED
+reason = AP0_FILE_SHA256_MISMATCH
+```
+
+Therefore the corrected runtime still reaches and enforces the AP0 file SHA-256 comparison under the governed path schema.
+
+Diagnostic adjudication:
+
+```text
+REAL_SCHEMA_NORMAL_BINDING = PASS
+REAL_SCHEMA_FILE_HASH_MUTATION_BLOCKING = PASS_DIAGNOSTIC
+```
+
+This diagnostic is supplementary evidence. It does not modify or replace the frozen H1-19 breaker.
+
+## 11. Current state after correction qualification
+
+```text
+E1_03_RC01_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_03_RC01_RUNTIME_CORRECTION = PASS
+E1_03_COMBINED_SYNTHETIC_SURFACE = PASS_22_OF_22
+
+E1_03_REAL_SCHEMA_NORMAL_BINDING = PASS
+E1_03_REAL_SCHEMA_FILE_HASH_MUTATION_BLOCKING = PASS_DIAGNOSTIC
+
+E1_03_REAL_AP0_FILE_REHASH = NOT_YET_REPLAYED
+E1_03_REAL_H1_BUILD = NOT_STARTED
+E1_03_REAL_CANONICAL_DIGEST = UNKNOWN
+E1_03_REAL_DETERMINISTIC_REBUILD = NOT_STARTED
+
+E1_03_FINAL_VERDICT = BLOCKED
+```
+
+The next candidate boundary is:
+
+`E1-03 — REAL AP0 → H1 QUALIFICATION REPLAY`
+
+That replay must revalidate and re-hash the real 61 AP0 Parquet files before any real H1 construction.
+
+No real-data replay is authorized by this documentary persistence itself.
+

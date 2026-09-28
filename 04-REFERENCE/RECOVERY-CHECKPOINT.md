@@ -19134,3 +19134,86 @@ Subject to fresh persisted-head verification, the next candidate boundary is:
 
 That correction requires separate explicit human authorization.
 
+---
+
+## 299. E1-03 — AP0 MANIFEST-COMPATIBILITY CORRECTION QUALIFICATION
+
+Date:
+2026-09-28
+
+Qualified correction HEAD:
+
+`e9f1dae809328937f0eb08767585e596ee8b162b`
+
+Qualified correction TREE:
+
+`b5561d7a17de7d7bff1de84b964190d794d82d49`
+
+Corrected runtime blob:
+
+`38d481755e00ce3c2ed9c66c4db710500ca0911a`
+
+Protected objects unchanged:
+
+```text
+contract = c2d4323039d65fcd9319d4f5eb02f45ee27c8afc
+H1-01..H1-21 breaker = 958e338a1e9e7c5b56198eb3585f25ca140aa331
+RC01 breaker = 38db4d3c01d60b885a694183df6da8317fd30dc0
+```
+
+Minimal correction:
+
+```text
+rec.get("path")
+→
+rec.get("relative_path")
+```
+
+Combined replay:
+
+```text
+H1-01..H1-21 = 21/21 PASS
+RC01 = 1/1 PASS
+TOTAL = 22/22 PASS
+```
+
+Known limitation:
+
+```text
+H1-19 remains frozen.
+Its historical fixture still uses files[].path.
+Its PASS therefore no longer independently proves the real-schema file-hash mutation path.
+```
+
+Complementary read-only real-schema diagnostic:
+
+```text
+manifest key = files[].relative_path
+mutation = same-size file content mutation
+result status = BLOCKED
+result reason = AP0_FILE_SHA256_MISMATCH
+```
+
+Adjudication:
+
+```text
+E1_03_RC01_RUNTIME_CORRECTION = PASS
+E1_03_COMBINED_SYNTHETIC_SURFACE = PASS_22_OF_22
+REAL_SCHEMA_NORMAL_BINDING = PASS
+REAL_SCHEMA_FILE_HASH_MUTATION_BLOCKING = PASS_DIAGNOSTIC
+
+E1_03_REAL_AP0_FILE_REHASH = NOT_YET_REPLAYED
+E1_03_REAL_H1_BUILD = NOT_STARTED
+E1_03_FINAL_VERDICT = BLOCKED
+```
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-03-REAL-AP0-MANIFEST-COMPATIBILITY-FAIL.md`
+
+Subject to fresh persisted-head verification, the next candidate boundary is:
+
+`E1-03 — REAL AP0 → H1 QUALIFICATION REPLAY`
+
+The replay must re-hash the real 61 AP0 Parquet files before any H1 construction.
+
