@@ -1,0 +1,282 @@
+{
+  "schema": "ATDS_E1_04_EXECUTION_COST_MODEL_CONTRACT_V0_1",
+  "control_id": "E1-04",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "date": "2026-09-28",
+  "authority": {
+    "test_first_contract_authorized": true,
+    "implementation_authorized": false,
+    "real_data_execution_authorized": false,
+    "e1_05_authorized": false,
+    "e1_run_authorized": false,
+    "pnl_authorized": false
+  },
+  "runtime_target": "tools/e1_04_execution_cost_model.py",
+  "runtime_contract": "ATDS_E1_04_EXECUTION_COST_MODEL_V0_1",
+  "required_runtime_surface": [
+    "CONTRACT",
+    "COST_SCOPE",
+    "FORBIDDEN_CLAIMS",
+    "execute_transition"
+  ],
+  "execution_model": {
+    "signal_source": "H1_MID_DERIVED_SIGNAL_ONLY",
+    "mid_is_execution_price": false,
+    "signal_freeze": "AFTER_H1_T_CLOSE",
+    "same_bar_execution": false,
+    "execution_search_start": "SIGNAL_H1_END_MS_INCLUSIVE",
+    "candidate_rule": "FIRST_ADMISSIBLE_RAW_SOURCE_B_TICK",
+    "tick_price_source": "RAW_SOURCE_B_BID_ASK_ONLY",
+    "positions": {
+      "LONG": 1,
+      "NEUTRAL": 0,
+      "SHORT": -1
+    },
+    "transitions": {
+      "FLAT->LONG": {
+        "events": [
+          {
+            "action": "BUY",
+            "quantity": 1,
+            "price_side": "ASK"
+          }
+        ]
+      },
+      "FLAT->SHORT": {
+        "events": [
+          {
+            "action": "SELL",
+            "quantity": 1,
+            "price_side": "BID"
+          }
+        ]
+      },
+      "LONG->NEUTRAL": {
+        "events": [
+          {
+            "action": "SELL",
+            "quantity": 1,
+            "price_side": "BID"
+          }
+        ]
+      },
+      "SHORT->NEUTRAL": {
+        "events": [
+          {
+            "action": "BUY",
+            "quantity": 1,
+            "price_side": "ASK"
+          }
+        ]
+      },
+      "LONG->SHORT": {
+        "events": [
+          {
+            "action": "SELL",
+            "quantity": 1,
+            "price_side": "BID",
+            "role": "CLOSE"
+          },
+          {
+            "action": "SELL",
+            "quantity": 1,
+            "price_side": "BID",
+            "role": "OPEN"
+          }
+        ]
+      },
+      "SHORT->LONG": {
+        "events": [
+          {
+            "action": "BUY",
+            "quantity": 1,
+            "price_side": "ASK",
+            "role": "CLOSE"
+          },
+          {
+            "action": "BUY",
+            "quantity": 1,
+            "price_side": "ASK",
+            "role": "OPEN"
+          }
+        ]
+      },
+      "LONG->LONG": {
+        "status": "HOLD"
+      },
+      "SHORT->SHORT": {
+        "status": "HOLD"
+      },
+      "FLAT->NEUTRAL": {
+        "status": "HOLD"
+      }
+    },
+    "pyramiding": false,
+    "gap_semantics": {
+      "forward_fill": false,
+      "last_price_carry": false,
+      "mid_substitution": false,
+      "silent_forbidden_continuity_crossing": false,
+      "no_admissible_price_status": "NOT_EXECUTED"
+    },
+    "synthetic_tick_contract": {
+      "required_fields": [
+        "timestamp_ms",
+        "bid",
+        "ask",
+        "continuity_status"
+      ],
+      "continuity_ok_value": "OK",
+      "forbidden_boundary_value": "FORBIDDEN_BOUNDARY",
+      "rule": "Encountering FORBIDDEN_BOUNDARY at or after execution-search start terminates the search as NOT_EXECUTED; later ticks are not traversed."
+    }
+  },
+  "cost_scope": {
+    "spread": {
+      "included": true,
+      "mode": "RAW_BID_ASK_INTRINSIC"
+    },
+    "commission": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "slippage": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "financing": {
+      "included": false,
+      "assumed_zero": false
+    }
+  },
+  "forbidden_claims": [
+    "BROKER_NET_PNL",
+    "ALL_IN_COST_PROFITABILITY",
+    "LIVE_PROFITABILITY",
+    "FULL_BROKER_EXECUTION_REALISM"
+  ],
+  "test_cases": [
+    [
+      "E4-01",
+      "MID-only raw value cannot become execution price",
+      "NOT_EXECUTED"
+    ],
+    [
+      "E4-02",
+      "events inside signal H1 t cannot execute frozen signal",
+      "POST_T_ONLY"
+    ],
+    [
+      "E4-03",
+      "first admissible RAW Source-B tick at t+1 is selected",
+      "FIRST_ADMISSIBLE_RAW_TICK"
+    ],
+    [
+      "E4-04",
+      "FLAT to LONG executes buy +1 at ASK",
+      "ASK"
+    ],
+    [
+      "E4-05",
+      "FLAT to SHORT executes sell -1 at BID",
+      "BID"
+    ],
+    [
+      "E4-06",
+      "LONG to NEUTRAL closes at BID",
+      "BID"
+    ],
+    [
+      "E4-07",
+      "SHORT to NEUTRAL closes at ASK",
+      "ASK"
+    ],
+    [
+      "E4-08",
+      "LONG to SHORT closes and opens on same BID tick",
+      "BID_REVERSAL"
+    ],
+    [
+      "E4-09",
+      "SHORT to LONG closes and opens on same ASK tick",
+      "ASK_REVERSAL"
+    ],
+    [
+      "E4-10",
+      "LONG to LONG is HOLD",
+      "HOLD"
+    ],
+    [
+      "E4-11",
+      "SHORT to SHORT is HOLD",
+      "HOLD"
+    ],
+    [
+      "E4-12",
+      "FLAT to NEUTRAL is HOLD",
+      "HOLD"
+    ],
+    [
+      "E4-13",
+      "target exposure outside {-1,0,+1} is blocked",
+      "NO_PYRAMIDING"
+    ],
+    [
+      "E4-14",
+      "missing post-t ASK is never forward-filled from earlier ASK",
+      "NO_FORWARD_FILL"
+    ],
+    [
+      "E4-15",
+      "missing required side is never satisfied by last-price carry",
+      "NO_LAST_PRICE_CARRY"
+    ],
+    [
+      "E4-16",
+      "MID is never substituted for missing BID or ASK",
+      "NO_MID_SUBSTITUTION"
+    ],
+    [
+      "E4-17",
+      "forbidden continuity boundary terminates execution search",
+      "NO_FORBIDDEN_BOUNDARY_CROSSING"
+    ],
+    [
+      "E4-18",
+      "no admissible execution price yields NOT_EXECUTED",
+      "NOT_EXECUTED"
+    ],
+    [
+      "E4-19",
+      "historical spread is included intrinsically through RAW BID/ASK",
+      "SPREAD_INCLUDED"
+    ],
+    [
+      "E4-20",
+      "commission is excluded and not assumed zero",
+      "COMMISSION_EXCLUDED_NOT_ZERO"
+    ],
+    [
+      "E4-21",
+      "slippage and financing are excluded and not assumed zero",
+      "OTHER_COSTS_EXCLUDED_NOT_ZERO"
+    ],
+    [
+      "E4-22",
+      "forbidden execution-model claims are exactly bounded",
+      "FORBIDDEN_CLAIMS"
+    ]
+  ],
+  "non_authorizations": [
+    "MOMENTUM_SIGNAL",
+    "PNL",
+    "BACKTEST",
+    "E1_05",
+    "E1_RUN",
+    "PAPER",
+    "BROKER",
+    "MT5",
+    "LIVE",
+    "CAPITAL"
+  ]
+}

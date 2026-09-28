@@ -19329,3 +19329,84 @@ After fresh persisted-head verification, formally re-adjudicate E1-02 against it
 
 No E1-04, E1-05, Momentum, PnL, runner or E1 run authority is created by this persistence.
 
+---
+
+## 301. E1-04 — EXECUTION / COST MODEL — TEST-FIRST PREREGISTRATION
+
+Date:
+2026-09-28
+
+Pre-persistence HEAD:
+
+`6763453795c1cc08744de407f800fa6785246f94`
+
+Pre-persistence TREE:
+
+`4655bb3445d4b6c408342f17ba0691d9049ab718`
+
+Authorized boundary:
+
+`E1-04 — EXECUTION / COST MODEL — TEST-FIRST RED`
+
+Persisted artifacts:
+
+```text
+contract =
+GOVERNANCE/E1-04-EXECUTION-COST-MODEL-CONTRACT-V0.1.json
+
+breaker =
+breakers/e1_04_execution_cost_model_red_breaker.py
+
+report =
+reports/program/2026-09-28-E1-04-EXECUTION-COST-MODEL-TEST-FIRST-RED.md
+```
+
+Preregistered executable cases:
+
+`E4-01 → E4-22`
+
+Scope:
+
+```text
+MID signal only / never execution price
+same-bar forbidden
+search from t+1
+first admissible RAW Source-B tick
+exact BID/ASK transition sides
+HOLD semantics
+no pyramiding
+no forward fill
+no last-price carry
+no MID substitution
+no forbidden continuity crossing
+no admissible price => NOT_EXECUTED
+spread intrinsic via RAW BID/ASK
+commission/slippage/financing excluded, not assumed zero
+forbidden broker/live/all-in execution claims
+```
+
+Authority at persistence:
+
+```text
+E1_04_RUNTIME = ABSENT
+E1_04_IMPLEMENTATION_AUTHORIZED = FALSE
+E1_05_AUTHORIZED = FALSE
+PNL_AUTHORIZED = FALSE
+BACKTEST_AUTHORIZED = FALSE
+E1_RUN_AUTHORIZED = FALSE
+```
+
+Expected first execution:
+
+`RED — E1_04_RUNTIME_ABSENT_EXPECTED_RED`
+
+State at persistence:
+
+```text
+E4_01_TO_E4_22_EXECUTION = NOT_YET
+```
+
+The next permitted action inside this boundary is execution of the persisted breaker against the still-absent E1-04 runtime.
+
+No E1-04 implementation is authorized until that RED is observed and adjudicated.
+
