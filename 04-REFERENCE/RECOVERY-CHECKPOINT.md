@@ -18982,3 +18982,85 @@ Subject to fresh persisted-head verification of this authority/qualification per
 
 That next boundary requires separate explicit authorization before accessing the real AP0 files or building the real H1 dataset.
 
+---
+
+## 297. E1-03 — REAL AP0 MANIFEST COMPATIBILITY DEFECT — FAIL / TEST-FIRST REGRESSION PREREGISTERED
+
+Date:
+2026-09-28
+
+Reviewed persisted HEAD:
+
+`78a7fdd38bf58991971fafff696536fd5551553b`
+
+Reviewed persisted tree:
+
+`d0fe90556de90c4d9ec8ded9f2719ea1ca7ae40f`
+
+Protected identities:
+
+```text
+contract = c2d4323039d65fcd9319d4f5eb02f45ee27c8afc
+H1-01..H1-21 breaker = 958e338a1e9e7c5b56198eb3585f25ca140aa331
+runtime = 6abe23caea680a40c892cd5a470331ca63c67e2e
+```
+
+Exact real AP0 manifest:
+
+```text
+sha256 = 62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce
+size_bytes = 26900
+schema = ATDS_AP0_USTECH_PROFILE_MINUTE_CORE_MANIFEST_V0_1
+status = AP0_COMPLETE
+output_identity = USTECH_PROFILE_MINUTE_CORE_V0_1
+files = 61
+file path key = relative_path
+```
+
+Observed defect:
+
+```text
+runtime expected key = path
+real governed key = relative_path
+status = BLOCKED
+reason = AP0_FILE_RECORD_INVALID
+```
+
+No AP0 Parquet was opened or read.
+
+No real H1 dataset was built.
+
+Adjudication:
+
+```text
+E1_03_AP0_MANIFEST_IDENTITY = PASS
+E1_03_REAL_INPUT_COMPATIBILITY = FAIL
+E1_03_REAL_AP0_FILE_REHASH = NOT_EXECUTED
+E1_03_REAL_H1_BUILD = NOT_EXECUTED
+E1_03_FINAL_VERDICT = FAIL
+```
+
+Independent regression breaker persisted:
+
+`breakers/e1_03_real_ap0_manifest_compatibility_breaker.py`
+
+Regression case:
+
+`RC01 — files[].relative_path real-schema compatibility`
+
+State at persistence:
+
+```text
+RC01_PERSISTED_BEFORE_FIRST_EXECUTION = TRUE
+RC01_EXECUTION = NOT_YET
+RUNTIME_CORRECTION = NONE
+```
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-03-REAL-AP0-MANIFEST-COMPATIBILITY-FAIL.md`
+
+Next action inside this exact boundary:
+
+execute persisted RC01 against the unchanged persisted runtime and record the RED result before authorizing any runtime correction.
+
