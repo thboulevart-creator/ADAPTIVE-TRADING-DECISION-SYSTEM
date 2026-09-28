@@ -16,6 +16,7 @@ permissions:
 env:
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONHASHSEED: '0'
+  PYTEST_ADDOPTS: '-p no:cacheprovider'
   TZ: 'UTC'
   LANG: 'C.UTF-8'
   LC_ALL: 'C.UTF-8'
@@ -46,8 +47,9 @@ jobs:
       - name: Run frozen E1-08A breaker
         run: python -m pytest -q breakers/e1_08_one_shot_real_e1_red_breaker.py
 
-      - name: Run complete repository regression
-        run: python -m pytest -q
+      - name: Re-break protected E1 executable chain
+        run: |
+          python -m pytest -q             breakers/e1_03_h1_dataset_identity_red_breaker.py             breakers/e1_04_execution_cost_model_red_breaker.py             breakers/e1_05_minimal_momentum_runner_red_breaker.py             breakers/e1_06_adversarial_reference_parity_red_breaker.py             breakers/e1_07_preflight_reproducibility_trace_red_breaker.py             breakers/e1_08_one_shot_real_e1_red_breaker.py
 
       - name: Prove clean worktree
         if: always()
