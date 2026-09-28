@@ -65,11 +65,8 @@ def _validate_dependencies(*, e1_03_identity, e1_04_runtime):
 
 def _validate_h1_rows(h1_rows):
     previous_ts = None
-    previous_block = None
-    previous_ordinal = None
-    seen_blocks = set()
 
-    for index, row in enumerate(h1_rows):
+    for row in h1_rows:
         if not isinstance(row, dict):
             return _blocked("MISSING_H1_FIELD")
 
@@ -77,8 +74,6 @@ def _validate_h1_rows(h1_rows):
             return _blocked("MISSING_H1_FIELD")
 
         ts = row["h1_start_ms_utc"]
-        block = row["continuity_block_id"]
-        ordinal = row["continuity_ordinal"]
         close = row["mid_close"]
 
         if not _finite_number(close):
@@ -89,6 +84,18 @@ def _validate_h1_rows(h1_rows):
                 return _blocked("DUPLICATE_H1_TIMESTAMP")
             if ts < previous_ts:
                 return _blocked("INVALID_H1_ORDER")
+
+        previous_ts = ts
+
+    previous_ts = None
+    previous_block = None
+    previous_ordinal = None
+    seen_blocks = set()
+
+    for index, row in enumerate(h1_rows):
+        ts = row["h1_start_ms_utc"]
+        block = row["continuity_block_id"]
+        ordinal = row["continuity_ordinal"]
 
         if index == 0:
             if ordinal != 0:
@@ -111,7 +118,6 @@ def _validate_h1_rows(h1_rows):
         previous_ordinal = ordinal
 
     return None
-
 
 def _signal_for_row(h1_rows, index, block_start_index):
     row = h1_rows[index]
