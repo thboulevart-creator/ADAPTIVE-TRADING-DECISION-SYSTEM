@@ -1,27 +1,54 @@
 from __future__ import annotations
 
-import hashlib
 import json
+import subprocess
 import unittest
 from pathlib import Path
 
 
-CONTRACT_PATH = (
-    Path(__file__).resolve().parents[2]
-    / "tools"
-    / "obsidian_projection"
-    / "promotion_handoff_contract_v0_1.json"
+REPO_ROOT = Path(__file__).resolve().parents[2]
+
+CONTRACT_RELATIVE = (
+    "tools/obsidian_projection/"
+    "promotion_handoff_contract_v0_1.json"
 )
+
+CONTRACT_PATH = REPO_ROOT / CONTRACT_RELATIVE
 
 EXPECTED_CONTRACT_BLOB = (
     "64744325251db350d26c0269090ce62d5fa5f2e8"
 )
 
 
-def _git_blob_oid(raw: bytes) -> str:
-    return hashlib.sha1(
-        f"blob {len(raw)}\0".encode("ascii") + raw
-    ).hexdigest()
+def _committed_contract_blob() -> str:
+    result = subprocess.run(
+        [
+            "git",
+            "rev-parse",
+            f"HEAD:{CONTRACT_RELATIVE}",
+        ],
+        cwd=str(REPO_ROOT),
+        check=True,
+        text=True,
+        capture_output=True,
+    )
+    return result.stdout.strip()
+
+
+def _working_tree_contract_is_clean() -> bool:
+    result = subprocess.run(
+        [
+            "git",
+            "diff",
+            "--quiet",
+            "HEAD",
+            "--",
+            CONTRACT_RELATIVE,
+        ],
+        cwd=str(REPO_ROOT),
+        check=False,
+    )
+    return result.returncode == 0
 
 
 class PromotionHandoffContractV01Tests(unittest.TestCase):
@@ -33,8 +60,11 @@ class PromotionHandoffContractV01Tests(unittest.TestCase):
         )
 
     def test_contract_blob_and_schema_are_exact(self) -> None:
+        self.assertTrue(
+            _working_tree_contract_is_clean()
+        )
         self.assertEqual(
-            _git_blob_oid(self.raw),
+            _committed_contract_blob(),
             EXPECTED_CONTRACT_BLOB,
         )
         self.assertEqual(
