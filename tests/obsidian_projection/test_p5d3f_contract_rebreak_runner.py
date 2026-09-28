@@ -87,6 +87,7 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
             "tools/obsidian_projection/integrity.py",
             "tools/obsidian_projection/builder.py",
             "tools/obsidian_projection/p2_verify.py",
+            "tools/obsidian_projection/dynamic_inventory_contract_v0_1.json",
         }
 
         self.assertTrue(
