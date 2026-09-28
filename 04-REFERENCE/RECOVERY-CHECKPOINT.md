@@ -20555,3 +20555,40 @@ REAL_OOS_PERFORMANCE = NOT_AUTHORIZED
 E1_08B = NOT_AUTHORIZED
 ```
 
+
+
+---
+
+## 320. LEGACY TIER-A CI DOCUMENTARY CLOSURE BRIDGE
+
+Date:
+2026-09-28
+
+Purpose:
+
+Restore compact historical closure markers required by the already-persisted P0.4/P0.5/P0.6 Tier-A workflows so current full-repository regression can reach its executable test stages.
+
+This bridge does not reopen or alter those controls.
+
+```text
+aa9551addc0fe554af9cbb8ebdb26314d37e412e
+- P0.4: **CLOSED / PASS**
+
+7ae5f3cb77d6914699df3cd1104bc02ecb3c2bf4
+- P0.5: **CLOSED / PASS**
+
+8061127c148f06454dac6e7977a8d0cb921276f8
+35147651568 / 104967695069
+- P0.6: **CLOSED / PASS**
+```
+
+Scope:
+
+```text
+DOCUMENTARY CHECKPOINT REPAIR ONLY
+E1-01 → E1-07 = UNCHANGED
+E1-08A CONTRACT = UNCHANGED
+E1-08A BREAKER = UNCHANGED
+E1-08A EXECUTOR = UNCHANGED
+REAL_E1_RUN = NOT_AUTHORIZED
+```
