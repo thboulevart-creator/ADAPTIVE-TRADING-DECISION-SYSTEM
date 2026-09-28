@@ -18738,3 +18738,100 @@ Next governed boundary:
 The next boundary must persist its new coverage tests before first execution, preserve all 149 existing tests unchanged, introduce no new normative semantics, and make no runtime correction before observing those persisted tests.
 
 No A1/A2/DecisionPolicy/Decision/ACTION/trading/MT5/real-C01 authority is opened.
+
+---
+
+## 294. E1 — PHASE 18 PRE-IMPLEMENTATION FREEZE PACKAGE — HUMAN ADOPTION / PERSISTENCE BRIDGE
+
+Date:
+2026-09-28
+
+Human-adopted package:
+
+`ATDS — E1 PRE-IMPLEMENTATION FREEZE PACKAGE V0`
+
+Persistence path:
+
+`04-REFERENCE/E1-PRE-IMPLEMENTATION-FREEZE-PACKAGE-V0.md`
+
+Pre-persistence governed HEAD:
+
+`61af0d79d687f97c1344875a38d7f3f0e52caaf9`
+
+Pre-persistence tree:
+
+`483eb3e6948986ba4655f6112b1142915b6ab896`
+
+Adopted controls:
+
+```text
+E1-01 = SCOPE FREEZE ADOPTED
+E1-02 = SOURCE-B RAW WINDOW + OOS FREEZE ADOPTED
+E1-04 = BID/ASK EXECUTION + COST-SCOPE FREEZE ADOPTED
+```
+
+Frozen Source-B raw window:
+
+```text
+2021-05-25T00:00:00.309Z
+->
+2026-05-24T23:59:59.963Z
+```
+
+Frozen split:
+
+```text
+PRE_OOS:
+timestamp < 2025-05-25T00:00:00Z
+
+OOS:
+timestamp >= 2025-05-25T00:00:00Z
+AND
+timestamp <= 2026-05-24T23:59:59.963Z
+```
+
+Execution/cost scope:
+
+```text
+LONG entry = ASK
+LONG exit = BID
+SHORT entry = BID
+SHORT exit = ASK
+
+historical Source-B spread = INCLUDED
+commission = EXCLUDED, NOT ASSUMED ZERO
+slippage = EXCLUDED, NOT ASSUMED ZERO
+financing = EXCLUDED, NOT ASSUMED ZERO
+
+BROKER_NET_PNL claim = FORBIDDEN
+ALL_IN_COST_PROFITABILITY claim = FORBIDDEN
+```
+
+Authority bridge from prior checkpoint:
+
+```text
+A0_V0_3_COVERAGE_GAP_V0_6 = OPEN_BUT_DEFERRED_POST_E1
+A0_V0_3_FULL_IMPLEMENTATION_QUALIFICATION = NOT_YET
+RUNTIME_DEFECT_ESTABLISHED_BY_A0_COVERAGE_REVIEW = FALSE
+
+E1_CRITICAL_PATH = AUTHORIZED_FOR_READINESS_CLOSURE
+REAL_E1_RUN = NOT_AUTHORIZED
+```
+
+The earlier A0 next-boundary record remains historical truth for the state in which it was written. This later human adjudication changes priority only; it does not rewrite A0 evidence or claim A0 closure.
+
+Persisted-head verification requirement:
+
+```text
+E1-01 / E1-02 / E1-04 may not be adjudicated PASS
+until the exact resulting persisted HEAD and blobs are re-read.
+```
+
+Subject to that read-only verification, the next technical boundary is:
+
+```text
+E1-03 — EXACT GAP-AWARE H1 DATASET IDENTITY
+```
+
+No E1 run, E1-05 runner, A1/A2, DecisionPolicy, Decision, ACTION, MT5, paper, broker, live or capital authority is opened by this persistence.
+
