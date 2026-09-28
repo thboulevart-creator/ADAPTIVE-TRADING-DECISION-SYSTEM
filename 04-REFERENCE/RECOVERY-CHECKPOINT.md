@@ -20498,3 +20498,60 @@ Next action inside E1-08A:
 
 `MINIMAL ONE-SHOT EXECUTOR CANDIDATE`
 
+
+
+---
+
+## 319. E1-08A — MINIMAL ONE-SHOT EXECUTOR CANDIDATE
+
+Date:
+2026-09-28
+
+Base HEAD before candidate:
+`7aafbfc52900961912b0059784e391e8edfed72e`
+
+Frozen preregistration remains:
+
+```text
+contract = 4d868b34c42fe6765ece8007a0bf173d22199ab1
+breaker  = 20297ca64c12bf9cd1eb9f6bef73598692959342
+```
+
+Candidate target:
+
+`tools/e1_08_one_shot_real_e1.py`
+
+Candidate scope:
+
+```text
+raw tick adapter
+input identity verification
+OOS exposure declaration
+one-shot authority validation/consumption
+trade ledger
+frozen metrics
+result payload
+synthetic E1-05/E1-04 delegation
+E1-07 trace envelope
+```
+
+Local pre-persistence development replay:
+
+```text
+Q8-01 → Q8-20 = 20/20 PASS
+DEPENDENCY MODE = SYNTHETIC-COMPATIBLE LOCAL DEVELOPMENT COPIES
+AUTHORITY = DEVELOPMENT ONLY
+```
+
+This local replay is not the final persisted-head qualification.
+
+Final qualification requires the persisted candidate to pass the exact frozen breaker in the repository environment with the protected E1 dependencies.
+
+Authority remains:
+
+```text
+REAL_E1_RUN = NOT_AUTHORIZED
+REAL_OOS_PERFORMANCE = NOT_AUTHORIZED
+E1_08B = NOT_AUTHORIZED
+```
+
