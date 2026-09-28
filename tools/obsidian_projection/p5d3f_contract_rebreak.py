@@ -168,6 +168,51 @@ def _raw_worktree_blob(repo: Path, relative: str) -> str:
     return _stdout(result)
 
 
+def _read_committed_blob_bytes(
+    repo: Path,
+    relative: str,
+) -> bytes:
+    result = subprocess.run(
+        [
+            "git",
+            "cat-file",
+            "blob",
+            f"HEAD:{relative}",
+        ],
+        cwd=str(repo),
+        check=False,
+        capture_output=True,
+    )
+    if result.returncode != 0:
+        details = (
+            result.stderr.decode(
+                "utf-8",
+                errors="replace",
+            ).strip()
+        )
+        raise GovernedRunError(
+            f"git cat-file failed for {relative}: {details}"
+        )
+    return result.stdout
+
+
+def _write_committed_blob_exact(
+    repo: Path,
+    relative: str,
+) -> None:
+    target = repo / relative
+    if not target.is_file():
+        raise GovernedRunError(
+            f"tracked byte-pin path missing: {relative}"
+        )
+    target.write_bytes(
+        _read_committed_blob_bytes(
+            repo,
+            relative,
+        )
+    )
+
+
 def _materialize_canonical_worktree(repo: Path) -> None:
     attributes_blob = _committed_blob(
         repo,
@@ -179,21 +224,15 @@ def _materialize_canonical_worktree(repo: Path) -> None:
             f"{attributes_blob}"
         )
 
-    checkout = _git(
-        repo,
-        "checkout-index",
-        "--all",
-        "--force",
-        capture=False,
-    )
-    _require_ok(
-        checkout,
-        "canonical checkout materialization failed",
-    )
+    for relative in BYTE_PIN_COMPATIBILITY_PATHS:
+        _write_committed_blob_exact(
+            repo,
+            relative,
+        )
 
     _require_clean(
         repo,
-        "après canonical checkout materialization",
+        "après canonical blob materialization",
     )
 
     mismatches: list[str] = []
@@ -215,7 +254,7 @@ def _materialize_canonical_worktree(repo: Path) -> None:
     if mismatches:
         raise GovernedRunError(
             "working-tree byte representation is not "
-            "canonical LF: "
+            "canonical Git blob bytes: "
             + " | ".join(mismatches)
         )
 
@@ -447,7 +486,7 @@ def main() -> int:
     print(f"P5D3F_RUNTIME_HEAD={runtime_head}")
 
     _materialize_canonical_worktree(repo)
-    print("P5D3F_CANONICAL_LF_CHECKOUT=PASS")
+    print("P5D3F_CANONICAL_BLOB_MATERIALIZATION=PASS")
     print("P5D3F_BYTE_PIN_COMPATIBILITY=PASS")
 
     contract_blob = _committed_blob(
