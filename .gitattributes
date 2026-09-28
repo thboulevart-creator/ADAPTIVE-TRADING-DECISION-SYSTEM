@@ -1,0 +1,5 @@
+# Canonical working-tree representation for byte-pinned qualification surfaces.
+# The project contains historical tests that intentionally hash local file bytes.
+# Force text files to LF on every platform so Windows checkout representation
+# matches the canonical Git blobs used by those qualified pins.
+* text=auto eol=lf
