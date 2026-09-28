@@ -148,7 +148,10 @@
     "non_regular_payload_files_forbidden": true,
     "destination_files_single_link_required": true,
     "package_copy_must_not_use_rename_from_evaluator_workspace": true,
-    "evaluator_workspace_cleanup_may_not_destroy_handoff_copy": true
+    "evaluator_workspace_cleanup_may_not_destroy_handoff_copy": true,
+    "source_package_byte_tree_digest_recomputed_before_copy": true,
+    "destination_package_byte_tree_digest_recomputed_after_copy": true,
+    "source_destination_package_byte_tree_digest_must_match": true
   },
   "handoff_record": {
     "schema": "ATDS_OBSIDIAN_P5D3F_PROMOTION_HANDOFF_V0_1",
@@ -203,7 +206,8 @@
     "package_and_handoff_candidate_tree_must_match": true,
     "package_and_handoff_candidate_generation_digest_must_match": true,
     "package_and_handoff_projection_tree_digest_must_match": true,
-    "publication_authority_must_remain_false": true
+    "publication_authority_must_remain_false": true,
+    "handoff_consumer_must_reverify_before_any_future_publication": true
   },
   "success_semantics": {
     "report_schema": "ATDS_OBSIDIAN_P5D3F_HANDOFF_QUALIFICATION_REPORT_V0_1",
@@ -298,6 +302,7 @@
     "source and destination verifier descriptors differ",
     "source and destination payload file-map digest differ",
     "source and destination package byte-tree digest differ",
+    "future publication consumes handoff without fresh read-only reverification",
     "publication_authorized true in handoff",
     "current_pointer_mutation_authorized true in handoff",
     "real_vault_write_authorized true in handoff",
