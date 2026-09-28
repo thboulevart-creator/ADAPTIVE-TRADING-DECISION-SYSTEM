@@ -103,6 +103,79 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
                     ),
                 )
 
+    def test_exact_blob_materialization_restores_committed_bytes(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as td:
+            repo = Path(td)
+
+            init = p5d3f_contract_rebreak.subprocess.run(
+                ["git", "init"],
+                cwd=str(repo),
+                check=False,
+                capture_output=True,
+            )
+            self.assertEqual(init.returncode, 0)
+
+            p5d3f_contract_rebreak.subprocess.run(
+                ["git", "config", "user.email", "test@example.invalid"],
+                cwd=str(repo),
+                check=True,
+            )
+            p5d3f_contract_rebreak.subprocess.run(
+                ["git", "config", "user.name", "ATDS Test"],
+                cwd=str(repo),
+                check=True,
+            )
+
+            sample = repo / "sample.txt"
+            sample.write_bytes(b"alpha\nbeta\n")
+
+            p5d3f_contract_rebreak.subprocess.run(
+                ["git", "add", "sample.txt"],
+                cwd=str(repo),
+                check=True,
+            )
+            p5d3f_contract_rebreak.subprocess.run(
+                ["git", "commit", "-m", "fixture"],
+                cwd=str(repo),
+                check=True,
+                capture_output=True,
+            )
+
+            sample.write_bytes(b"alpha\r\nbeta\r\n")
+
+            self.assertNotEqual(
+                p5d3f_contract_rebreak._raw_worktree_blob(
+                    repo,
+                    "sample.txt",
+                ),
+                p5d3f_contract_rebreak._committed_blob(
+                    repo,
+                    "sample.txt",
+                ),
+            )
+
+            p5d3f_contract_rebreak._write_committed_blob_exact(
+                repo,
+                "sample.txt",
+            )
+
+            self.assertEqual(
+                sample.read_bytes(),
+                b"alpha\nbeta\n",
+            )
+            self.assertEqual(
+                p5d3f_contract_rebreak._raw_worktree_blob(
+                    repo,
+                    "sample.txt",
+                ),
+                p5d3f_contract_rebreak._committed_blob(
+                    repo,
+                    "sample.txt",
+                ),
+            )
+
     def test_origin_normalization_accepts_supported_github_forms(
         self,
     ) -> None:
