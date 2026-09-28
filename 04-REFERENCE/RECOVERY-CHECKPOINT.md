@@ -19217,3 +19217,115 @@ Subject to fresh persisted-head verification, the next candidate boundary is:
 
 The replay must re-hash the real 61 AP0 Parquet files before any H1 construction.
 
+---
+
+## 300. E1-03 — REAL AP0 → H1 QUALIFICATION — PASS
+
+Date:
+2026-09-28
+
+Qualified source HEAD:
+
+`4a8292c2ad7dc671663bda7bb83b52cd616abad6`
+
+Qualified source TREE:
+
+`5f1455f88046b2ca50308ec834d3b163165e2246`
+
+Protected identities:
+
+```text
+runtime = 38d481755e00ce3c2ed9c66c4db710500ca0911a
+contract = c2d4323039d65fcd9319d4f5eb02f45ee27c8afc
+H1-01..H1-21 breaker = 958e338a1e9e7c5b56198eb3585f25ca140aa331
+RC01 breaker = 38db4d3c01d60b885a694183df6da8317fd30dc0
+```
+
+Real AP0 binding:
+
+```text
+manifest sha256 =
+62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce
+
+Parquet files = 61
+Parquet hash match = 61/61
+Parquet bytes = 91734766
+source M1 rows = 1709180
+verify_ap0_binding = PASS
+```
+
+Real H1 identity:
+
+```text
+output identity =
+USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1
+
+accepted H1 rows = 27677
+first admissible H1 = 2021-05-25T01:00:00Z
+last admissible H1 = 2026-05-24T22:00:00Z
+
+PRE-OOS H1 = 22199
+OOS H1 = 5478
+
+continuity blocks = 1436
+Momentum-eligible H1 = 1927
+
+canonical stream sha256 =
+15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f
+```
+
+Independent deterministic rebuild:
+
+```text
+ROWS_EXACT_EQUAL = TRUE
+MANIFEST_EXACT_EQUAL = TRUE
+CANONICAL_DIGEST_EXACT_EQUAL = TRUE
+```
+
+Method limitation preserved:
+
+```text
+Momentum-eligible H1 = 1927
+because adopted E1 continuity policy resets warmup after continuity rupture.
+
+This is an E1 policy-bound result, not a generic Momentum sampling claim.
+```
+
+Local artifact identities:
+
+```text
+E1-03-REAL-H1-QUALIFICATION-RESULT.json
+sha256 =
+3a96ac264f23b7c1f14de69dbe0444af5b25265b7a61d5e233479a4b581e6425
+
+E1-H1-MID-CLOSE.jsonl
+sha256 =
+94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0
+```
+
+Human operator reported PASS after re-hashing both files in their final local ATDS-DERIVED location.
+
+Adjudication:
+
+```text
+E1_03_REAL_AP0_FILE_REHASH = PASS
+E1_03_REAL_H1_BUILD = PASS
+E1_03_REAL_CANONICAL_DIGEST = PASS
+E1_03_REAL_DETERMINISTIC_REBUILD = PASS
+E1_03 = PASS
+```
+
+E1-02 dependency impact:
+
+```text
+E1_02_BLOCKER_PENDING_H1_IDENTITY = CLOSED
+```
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-03-REAL-H1-QUALIFICATION.md`
+
+After fresh persisted-head verification, formally re-adjudicate E1-02 against its frozen raw window and OOS split.
+
+No E1-04, E1-05, Momentum, PnL, runner or E1 run authority is created by this persistence.
+
