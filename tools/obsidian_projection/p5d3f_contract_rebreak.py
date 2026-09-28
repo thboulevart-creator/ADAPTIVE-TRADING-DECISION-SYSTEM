@@ -168,6 +168,40 @@ def _raw_worktree_blob(repo: Path, relative: str) -> str:
     return _stdout(result)
 
 
+def _index_tree(repo: Path) -> str:
+    result = _git(
+        repo,
+        "write-tree",
+    )
+    _require_ok(
+        result,
+        "cannot resolve index tree",
+    )
+    return _stdout(result)
+
+
+def _refresh_index_stat_cache(repo: Path) -> None:
+    tree_before = _index_tree(repo)
+
+    refresh = _git(
+        repo,
+        "update-index",
+        "--really-refresh",
+    )
+    if refresh.returncode not in (0, 1):
+        _require_ok(
+            refresh,
+            "index stat refresh failed",
+        )
+
+    tree_after = _index_tree(repo)
+    if tree_after != tree_before:
+        raise GovernedRunError(
+            "index tree changed during stat refresh: "
+            f"before={tree_before} after={tree_after}"
+        )
+
+
 def _read_committed_blob_bytes(
     repo: Path,
     relative: str,
@@ -230,11 +264,6 @@ def _materialize_canonical_worktree(repo: Path) -> None:
             relative,
         )
 
-    _require_clean(
-        repo,
-        "après canonical blob materialization",
-    )
-
     mismatches: list[str] = []
     for relative in BYTE_PIN_COMPATIBILITY_PATHS:
         committed = _committed_blob(
@@ -257,6 +286,14 @@ def _materialize_canonical_worktree(repo: Path) -> None:
             "canonical Git blob bytes: "
             + " | ".join(mismatches)
         )
+
+    _refresh_index_stat_cache(repo)
+
+    _require_clean(
+        repo,
+        "après canonical blob materialization "
+        "et index stat refresh",
+    )
 
 
 REEXEC_ENV = "ATDS_P5D3F_REEXEC_COUNT"
@@ -487,6 +524,7 @@ def main() -> int:
 
     _materialize_canonical_worktree(repo)
     print("P5D3F_CANONICAL_BLOB_MATERIALIZATION=PASS")
+    print("P5D3F_INDEX_STAT_REFRESH=PASS")
     print("P5D3F_BYTE_PIN_COMPATIBILITY=PASS")
 
     contract_blob = _committed_blob(
