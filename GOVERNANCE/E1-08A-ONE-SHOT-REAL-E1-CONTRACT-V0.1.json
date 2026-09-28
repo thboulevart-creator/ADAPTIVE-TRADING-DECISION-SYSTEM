@@ -1,0 +1,366 @@
+{
+  "schema": "ATDS_E1_08A_ONE_SHOT_REAL_E1_CONTRACT_V0_1",
+  "control_id": "E1-08A",
+  "date": "2026-09-28",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_CONSTRUCTION_AND_SYNTHETIC_QUALIFICATION",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "6d981503aecd37cc86bb20f6461cf52c6e2ecea9",
+    "tree": "583bc8bc0d089cfaf3d77e8e07d1d53e39f794c2"
+  },
+  "authority": {
+    "e1_08a_preregistration": true,
+    "e1_08a_minimal_executor": true,
+    "e1_08a_synthetic_qualification": true,
+    "e1_08b_authorized": false,
+    "real_e1_run_authorized": false,
+    "real_oos_performance_authorized": false,
+    "automatic_rerun_authorized": false,
+    "phase_22_plus_authorized": false,
+    "mt5_paper_broker_live_capital_authorized": false
+  },
+  "phase_21_decision_blob": "eecbfd4a7c214a2d09210f5b0490c06673619c24",
+  "protected_dependencies": {
+    "e1_01_e1_02_freeze_package_blob": "6b1e0d6e76d9813cd50eb01eb4b6c06cbfa8260e",
+    "e1_03_runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+    "e1_04_contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+    "e1_04_breaker_blob": "092a612e432530a7dfea627704d89ea8d03328e5",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "e1_05_contract_blob": "51dc1152808ec9e841924976eac572cc4ec2ff93",
+    "e1_05_breaker_blob": "4308e3360f3cd834e863eb740a2eb7f087e242c0",
+    "e1_05_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6",
+    "e1_06_contract_blob": "483552f2ea1def15f94a28f2e45b97dd65f786ff",
+    "e1_06_breaker_blob": "dc4858559a2fda113c7290ad39a45d5291580773",
+    "e1_06_reference_blob": "25b01e6d31709f02f9c095262bfe78366e83003b",
+    "e1_06_qualifier_blob": "0793adc08416563125f57a55c0d272d24bb4b3df",
+    "e1_07_contract_blob": "b19f9b5a4505f50d77f1cbd09b2b6381241b5205",
+    "e1_07_breaker_blob": "40a02b99488039949dcde8483af01db7767f5075",
+    "e1_07_runtime_blob": "88ca1f1ae89d1a2cfac1ae35becb3ea6209755f5",
+    "phase_21_decision_blob": "eecbfd4a7c214a2d09210f5b0490c06673619c24"
+  },
+  "experiment": {
+    "experiment_id": "ATDS_E1_MOMENTUM_V1_SOURCE_B_EXPLORATORY_N0_V0",
+    "strategy_id": "MOMENTUM_V1",
+    "hypothesis_family": "MOMENTUM_V1",
+    "mode": "OFFLINE",
+    "class": "EXPLORATORY",
+    "research_level": "N0",
+    "timeframe": "H1",
+    "lookback_completed_admissible_h1": 20,
+    "normalized_positions": [
+      -1,
+      0,
+      1
+    ],
+    "parameter_optimization": false,
+    "regime_filter": false,
+    "discretionary_override": false
+  },
+  "frozen_window": {
+    "raw_window_start": "2021-05-25T00:00:00.309Z",
+    "raw_window_end": "2026-05-24T23:59:59.963Z",
+    "oos_start": "2025-05-25T00:00:00Z",
+    "oos_end": "2026-05-24T23:59:59.963Z",
+    "oos_start_ms": 1748131200000
+  },
+  "source_b": {
+    "dataset_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+    "inventory_digest": "5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf",
+    "parquet_files": 212,
+    "total_rows": 376003618,
+    "total_parquet_bytes": 3936721231,
+    "allowed_columns": [
+      "timestamp",
+      "bid_price",
+      "ask_price"
+    ],
+    "forbidden_columns": [
+      "bid_volume",
+      "ask_volume"
+    ],
+    "hash_on_consumption": true,
+    "sort": false,
+    "deduplicate": false,
+    "repair": false,
+    "interpolate": false,
+    "forward_fill": false
+  },
+  "h1": {
+    "dataset_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "jsonl_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+    "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "qualification_result_sha256": "3a96ac264f23b7c1f14de69dbe0444af5b25265b7a61d5e233479a4b581e6425",
+    "accepted_h1_rows": 27677,
+    "pre_oos_h1_rows": 22199,
+    "oos_h1_rows": 5478,
+    "continuity_blocks": 1436,
+    "momentum_eligible_h1_rows": 1927
+  },
+  "raw_tick_adapter": {
+    "required_output_fields": [
+      "timestamp_ms",
+      "bid",
+      "ask",
+      "continuity_status"
+    ],
+    "continuity_ok_value": "OK",
+    "forbidden_boundary_value": "FORBIDDEN_BOUNDARY",
+    "forbidden_boundary_rule": "CURRENT_TIMESTAMP_MS_MINUS_PREVIOUS_TIMESTAMP_MS_GT_60000",
+    "exactly_60000_ms": "OK",
+    "order": "SOURCE_ORDER_ONLY"
+  },
+  "exposure_schema": {
+    "schema": "E1_OOS_EXPOSURE_DECLARATION_V0",
+    "required_fields": [
+      "schema",
+      "experiment_id",
+      "hypothesis_family",
+      "dataset_identity",
+      "oos_start",
+      "oos_end",
+      "prior_oos_performance_exposure",
+      "declaration_timestamp_utc",
+      "human_authority_reference",
+      "oos_clean",
+      "canonical_digest"
+    ],
+    "clean_value": "NONE_DECLARED"
+  },
+  "authority_schema": {
+    "schema": "E1_ONE_SHOT_RUN_AUTHORITY_V0",
+    "required_fields": [
+      "schema",
+      "experiment_id",
+      "run_id",
+      "repository",
+      "branch",
+      "authorized_base_head",
+      "authorized_base_tree",
+      "executor_blob",
+      "protected_bindings",
+      "source_manifest_sha256",
+      "h1_jsonl_sha256",
+      "oos_start",
+      "oos_end",
+      "max_runs",
+      "real_e1_run_authorized",
+      "authorized_at_utc",
+      "human_decision_reference",
+      "canonical_digest"
+    ],
+    "max_runs": 1
+  },
+  "result_semantics": {
+    "schema": "E1_REAL_RESULT_V0",
+    "trade_classification": [
+      "PRE_OOS",
+      "OOS",
+      "CROSS_BOUNDARY"
+    ],
+    "oos_attribution": "OOS_IFF_ENTRY_TIMESTAMP_MS_GTE_OOS_START_MS",
+    "cross_boundary": "ENTRY_LT_OOS_START_AND_EXIT_GTE_OOS_START",
+    "final_open_position": "OPEN_UNREALIZED_NO_FORCED_LIQUIDATION",
+    "drawdown_metric": "realized_closed_trade_max_drawdown",
+    "full_sample_metric_keys": [
+      "aggregate_realized_unit_pnl",
+      "closed_trade_count",
+      "win_count",
+      "loss_count",
+      "zero_pnl_count",
+      "win_rate",
+      "average_win",
+      "average_loss",
+      "expectancy_per_closed_trade",
+      "realized_closed_trade_max_drawdown",
+      "long_trade_count",
+      "long_realized_pnl",
+      "short_trade_count",
+      "short_realized_pnl",
+      "executed_transition_count",
+      "not_executed_transition_count"
+    ],
+    "partition_metric_keys": [
+      "aggregate_realized_unit_pnl",
+      "closed_trade_count",
+      "win_count",
+      "loss_count",
+      "zero_pnl_count",
+      "win_rate",
+      "average_win",
+      "average_loss",
+      "expectancy_per_closed_trade",
+      "realized_closed_trade_max_drawdown",
+      "long_trade_count",
+      "long_realized_pnl",
+      "short_trade_count",
+      "short_realized_pnl"
+    ],
+    "cross_boundary_metric_keys": [
+      "trade_count",
+      "aggregate_realized_unit_pnl"
+    ],
+    "calendar_metric_keys": [
+      "trade_count",
+      "aggregate_realized_unit_pnl"
+    ]
+  },
+  "cost_scope": {
+    "spread": {
+      "included": true,
+      "mode": "RAW_BID_ASK_INTRINSIC"
+    },
+    "commission": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "slippage": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "financing": {
+      "included": false,
+      "assumed_zero": false
+    }
+  },
+  "one_shot": {
+    "authorization_marker_required": true,
+    "marker_create_mode": "EXCLUSIVE_CREATE",
+    "automatic_retry": false,
+    "automatic_rerun": false,
+    "abort_requires_new_human_authority": true,
+    "exposure_record_persisted_before_performance": true,
+    "hard_stop_after_result_persistence": true
+  },
+  "artifacts": {
+    "breaker": "breakers/e1_08_one_shot_real_e1_red_breaker.py",
+    "future_executor": "tools/e1_08_one_shot_real_e1.py",
+    "qualification_report": "reports/program/2026-09-28-E1-08A-ONE-SHOT-REAL-E1-QUALIFICATION.md"
+  },
+  "test_cases": [
+    [
+      "Q8-01",
+      "runtime contract and required surface are exact"
+    ],
+    [
+      "Q8-02",
+      "protected dependency identities are frozen"
+    ],
+    [
+      "Q8-03",
+      "gap strictly greater than 60000ms becomes FORBIDDEN_BOUNDARY"
+    ],
+    [
+      "Q8-04",
+      "gap exactly 60000ms remains OK"
+    ],
+    [
+      "Q8-05",
+      "raw adapter preserves source order and exact field mapping"
+    ],
+    [
+      "Q8-06",
+      "non-increasing source timestamp fails closed; no sort/dedup repair"
+    ],
+    [
+      "Q8-07",
+      "file hash verification detects byte mismatch"
+    ],
+    [
+      "Q8-08",
+      "source manifest canonical inventory binding detects substitution"
+    ],
+    [
+      "Q8-09",
+      "H1 JSONL and canonical stream identity are both verified"
+    ],
+    [
+      "Q8-10",
+      "missing or malformed exposure declaration blocks"
+    ],
+    [
+      "Q8-11",
+      "prior OOS exposure prevents CLEAN_OOS classification"
+    ],
+    [
+      "Q8-12",
+      "one-shot authority schema is exact and max_runs is one"
+    ],
+    [
+      "Q8-13",
+      "one-shot authorization marker cannot be consumed twice"
+    ],
+    [
+      "Q8-14",
+      "authority mismatch on executor or experiment blocks"
+    ],
+    [
+      "Q8-15",
+      "PRE_OOS OOS and CROSS_BOUNDARY attribution is exact"
+    ],
+    [
+      "Q8-16",
+      "final open position remains OPEN_UNREALIZED; no forced liquidation"
+    ],
+    [
+      "Q8-17",
+      "metric schema and realized closed-trade drawdown are deterministic"
+    ],
+    [
+      "Q8-18",
+      "synthetic executor delegates to frozen E1-05/E1-04 and is deterministic"
+    ],
+    [
+      "Q8-19",
+      "result payload binds records exposure authority and metrics by digest"
+    ],
+    [
+      "Q8-20",
+      "runtime exposes no automatic retry broker MT5 live capital or optimization path"
+    ]
+  ],
+  "forbidden_claims": [
+    "STRATEGY_QUALIFIED",
+    "EDGE_CONFIRMED",
+    "ROBUST",
+    "CONFIRMATORY_RESULT",
+    "BROKER_NET_PNL",
+    "ALL_IN_COST_PROFITABILITY",
+    "LIVE_PROFITABILITY",
+    "FULL_BROKER_EXECUTION_REALISM",
+    "DECISION_AUTHORITY",
+    "ACTION_AUTHORITY",
+    "MT5_AUTHORIZED",
+    "PAPER_AUTHORIZED",
+    "BROKER_AUTHORIZED",
+    "LIVE_AUTHORIZED",
+    "CAPITAL_AUTHORIZED"
+  ],
+  "stop_boundaries": [
+    "PROTECTED_E1_01_TO_E1_07_CHANGE_REQUIRED",
+    "FROZEN_TEST_CHANGE_REQUIRED",
+    "SCOPE_CHANGE_REQUIRED",
+    "WINDOW_OR_OOS_CHANGE_REQUIRED",
+    "METRIC_SEMANTIC_CHANGE_REQUIRED",
+    "REAL_OOS_PERFORMANCE_REQUIRED",
+    "E1_08B_HUMAN_AUTHORITY_REQUIRED",
+    "AUTOMATIC_RERUN_REQUIRED",
+    "MT5_PAPER_BROKER_LIVE_CAPITAL_REQUIRED",
+    "ARCHITECTURAL_DEFECT"
+  ],
+  "non_authorizations": [
+    "REAL_E1_RUN",
+    "REAL_OOS_PERFORMANCE",
+    "E1_08B",
+    "AUTOMATIC_RERUN",
+    "PARAMETER_OPTIMIZATION",
+    "REGIME_FILTER",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL",
+    "PHASE_22_PLUS"
+  ]
+}
