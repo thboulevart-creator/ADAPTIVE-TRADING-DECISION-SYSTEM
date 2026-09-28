@@ -18908,3 +18908,77 @@ Subject to fresh persisted-head verification of this evidence commit, the next c
 
 That implementation boundary requires separate human authorization.
 
+---
+
+## 296. E1-03 — H1 DATASET IDENTITY — MINIMAL IMPLEMENTATION QUALIFICATION
+
+Date:
+2026-09-28
+
+Reviewed persisted HEAD:
+
+`97a6a2e698e081770fba7a8948ba11fa70b06db8`
+
+Reviewed persisted tree:
+
+`7e2472dc7e0a47f69940615c59e87786301fa4f7`
+
+Human authorization chronology:
+
+```text
+TEST-FIRST RED persisted before implementation = TRUE
+MINIMAL IMPLEMENTATION separately human-authorized = TRUE
+REAL AP0 BUILD authorized = FALSE
+E1 RUN authorized = FALSE
+```
+
+Frozen protected identities:
+
+```text
+contract blob = c2d4323039d65fcd9319d4f5eb02f45ee27c8afc
+breaker blob = 958e338a1e9e7c5b56198eb3585f25ca140aa331
+```
+
+Persisted runtime:
+
+`tools/e1_03_h1_dataset_identity.py`
+
+Runtime blob:
+
+`6abe23caea680a40c892cd5a470331ca63c67e2e`
+
+Implementation persistence scope:
+
+`ONE FILE ONLY`
+
+Qualification:
+
+```text
+PY_COMPILE = PASS
+H1-01..H1-21 = 21/21 PASS
+FAIL = 0
+COLLECTION_ERRORS = 0
+```
+
+Status:
+
+```text
+E1_03_MINIMAL_IMPLEMENTATION_CANDIDATE = PASS
+E1_03_SYNTHETIC_BREAKER = PASS_21_OF_21
+E1_03_REAL_AP0_REVALIDATION = NOT_STARTED
+E1_03_REAL_H1_BUILD = NOT_STARTED
+E1_03_FINAL_VERDICT = BLOCKED
+```
+
+The frozen contract's historical `implementation_authorized=false` field is not rewritten. It records the pre-implementation state. The later explicit human authorization is recorded here as the authority for the completed implementation boundary.
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-03-H1-DATASET-IDENTITY-MINIMAL-IMPLEMENTATION-QUALIFICATION.md`
+
+Subject to fresh persisted-head verification of this authority/qualification persistence, the next candidate boundary is:
+
+`E1-03 — REAL AP0 → H1 QUALIFICATION`
+
+That next boundary requires separate explicit authorization before accessing the real AP0 files or building the real H1 dataset.
+
