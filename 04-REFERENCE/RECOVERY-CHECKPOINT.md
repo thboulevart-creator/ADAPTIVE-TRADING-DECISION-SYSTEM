@@ -20315,3 +20315,81 @@ SOLE ACTIVE E1 READINESS BLOCKER = E1-08
 
 The five Phase 20 deliverables are decision-support artifacts only. No KEEP/SIMPLIFY/MERGE/DEFER/REMOVE_CANDIDATE/UNKNOWN proposal is self-executing.
 
+
+
+---
+
+## 316. PHASE 21 — HUMAN ADJUDICATION — ADOPTED
+
+Date:
+2026-09-28
+
+Decision base HEAD:
+`2e2233a274712ed9ee85e09f787b1db1dea4c073`
+
+Decision base TREE:
+`04b15f734aa56c336906df0456deb95e9c7d150d`
+
+Human decision:
+
+```text
+ADOPT target architecture and simplification rules now
+DO NOT implement structural simplifications before first real E1
+KEEP E1-01 → E1-07 unchanged
+DEFINE E1-08 next
+ALLOW only minimum E1-08 protections tied to irreversible OOS exposure
+RUN E1 only after separate explicit E1-08 human authorization
+PERSIST RESULT
+STOP
+THEN begin Phase 22+ / middleware reduction
+```
+
+Persisted decision artifact:
+
+`GOVERNANCE/PHASE-21-HUMAN-ADJUDICATION-DECISION-V0.1.md`
+
+Adopted high-leverage classifications:
+
+```text
+SP-02 = MERGE
+SP-06 = MERGE
+SP-08 = SIMPLIFY
+SP-09 = SIMPLIFY
+SP-16 = SIMPLIFY
+SP-25 = SIMPLIFY
+SP-26 = SIMPLIFY
+```
+
+New adopted principles:
+
+```text
+P21-R1:
+INDEPENDENCE_OF_IMPLEMENTATION
+!=
+INDEPENDENCE_OF_ASSUMPTION
+
+P21-R2:
+PERSISTENT_EXPERIMENTAL_MEMORY
+MUST_TRACK_DATA_EXPOSURE
+NOT_ONLY_RESULTS
+```
+
+Authority remains:
+
+```text
+SIMPLIFICATION_IMPLEMENTATION = NOT_AUTHORIZED
+E1_01_TO_E1_07_MUTATION = NOT_AUTHORIZED
+E1_08 = NOT_OPENED
+REAL_E1_RUN = NOT_AUTHORIZED
+PROJECT_CONTROL_PLANE = NOT_AUTHORIZED
+PHASE_22_PLUS = CLOSED
+```
+
+Next governed boundary:
+
+```text
+E1-08
+—
+EXACT ONE-SHOT REAL E1 RUN AUTHORIZATION DEFINITION
+```
+
