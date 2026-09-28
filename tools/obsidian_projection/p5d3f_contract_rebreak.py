@@ -26,6 +26,14 @@ EXPECTED_GITATTRIBUTES_BLOB = (
 
 BYTE_PIN_COMPATIBILITY_PATHS = (
     "tools/obsidian_projection/"
+    "materialization_contract_v0_1.json",
+    "tools/obsidian_projection/materialize.py",
+    "tools/obsidian_projection/rendering.py",
+    "tools/obsidian_projection/relations.py",
+    "tools/obsidian_projection/integrity.py",
+    "tools/obsidian_projection/builder.py",
+    "tools/obsidian_projection/p2_verify.py",
+    "tools/obsidian_projection/"
     "first_open_safety_contract_v0_1.json",
     "tools/obsidian_projection/"
     "first_open_safety_contract_v0_2.json",
