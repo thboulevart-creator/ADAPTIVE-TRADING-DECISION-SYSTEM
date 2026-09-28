@@ -3,6 +3,7 @@ from __future__ import annotations
 import os
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 
 from tools.obsidian_projection import p5d3f_contract_rebreak
@@ -175,6 +176,65 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
                     "sample.txt",
                 ),
             )
+
+    def test_index_stat_refresh_accepts_observed_return_one_when_tree_unchanged(
+        self,
+    ) -> None:
+        fake_refresh = (
+            p5d3f_contract_rebreak.subprocess.CompletedProcess(
+                args=["git", "update-index", "--really-refresh"],
+                returncode=1,
+                stdout="sample.txt: needs update\n",
+                stderr="",
+            )
+        )
+
+        with (
+            mock.patch.object(
+                p5d3f_contract_rebreak,
+                "_index_tree",
+                side_effect=["a" * 40, "a" * 40],
+            ),
+            mock.patch.object(
+                p5d3f_contract_rebreak,
+                "_git",
+                return_value=fake_refresh,
+            ),
+        ):
+            p5d3f_contract_rebreak._refresh_index_stat_cache(
+                Path(".")
+            )
+
+    def test_index_stat_refresh_rejects_index_tree_mutation(
+        self,
+    ) -> None:
+        fake_refresh = (
+            p5d3f_contract_rebreak.subprocess.CompletedProcess(
+                args=["git", "update-index", "--really-refresh"],
+                returncode=0,
+                stdout="",
+                stderr="",
+            )
+        )
+
+        with (
+            mock.patch.object(
+                p5d3f_contract_rebreak,
+                "_index_tree",
+                side_effect=["a" * 40, "b" * 40],
+            ),
+            mock.patch.object(
+                p5d3f_contract_rebreak,
+                "_git",
+                return_value=fake_refresh,
+            ),
+        ):
+            with self.assertRaises(
+                p5d3f_contract_rebreak.GovernedRunError
+            ):
+                p5d3f_contract_rebreak._refresh_index_stat_cache(
+                    Path(".")
+                )
 
     def test_origin_normalization_accepts_supported_github_forms(
         self,
