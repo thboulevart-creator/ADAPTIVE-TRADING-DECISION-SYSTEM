@@ -177,7 +177,7 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
                 ),
             )
 
-    def test_index_stat_refresh_accepts_observed_return_one_when_tree_unchanged(
+    def test_index_stat_refresh_accepts_observed_return_one_when_index_unchanged(
         self,
     ) -> None:
         fake_refresh = (
@@ -192,7 +192,7 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
         with (
             mock.patch.object(
                 p5d3f_contract_rebreak,
-                "_index_tree",
+                "_index_stage_snapshot",
                 side_effect=["a" * 40, "a" * 40],
             ),
             mock.patch.object(
@@ -205,7 +205,7 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
                 Path(".")
             )
 
-    def test_index_stat_refresh_rejects_index_tree_mutation(
+    def test_index_stat_refresh_rejects_index_stage_mutation(
         self,
     ) -> None:
         fake_refresh = (
@@ -220,7 +220,7 @@ class P5D3FContractRebreakRunnerTests(unittest.TestCase):
         with (
             mock.patch.object(
                 p5d3f_contract_rebreak,
-                "_index_tree",
+                "_index_stage_snapshot",
                 side_effect=["a" * 40, "b" * 40],
             ),
             mock.patch.object(
