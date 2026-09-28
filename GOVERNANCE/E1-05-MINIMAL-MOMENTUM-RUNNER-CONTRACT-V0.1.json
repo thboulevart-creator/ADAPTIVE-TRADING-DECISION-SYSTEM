@@ -1,0 +1,311 @@
+{
+  "schema": "ATDS_E1_05_MINIMAL_MOMENTUM_RUNNER_CONTRACT_V0_1",
+  "control_id": "E1-05",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "date": "2026-09-28",
+  "authority": {
+    "test_first_contract_authorized": true,
+    "implementation_authorized": false,
+    "real_data_run_authorized": false,
+    "pnl_authorized": false,
+    "e1_06_authorized": false,
+    "e1_07_authorized": false,
+    "e1_08_authorized": false,
+    "paper_broker_live_capital_authorized": false
+  },
+  "qualified_dependencies": {
+    "e1_01": {
+      "status": "PASS",
+      "strategy_id": "MOMENTUM_V1",
+      "timeframe": "H1",
+      "lookback_completed_admissible_h1": 20
+    },
+    "e1_02": {
+      "status": "PASS",
+      "oos_start_ms_utc": 1748131200000
+    },
+    "e1_03": {
+      "status": "PASS",
+      "output_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+      "runtime_contract": "ATDS_E1_03_H1_DATASET_IDENTITY_V0_1",
+      "runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a"
+    },
+    "e1_04": {
+      "status": "PASS",
+      "runtime_contract": "ATDS_E1_04_EXECUTION_COST_MODEL_V0_1",
+      "runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+      "contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+      "breaker_blob": "092a612e432530a7dfea627704d89ea8d03328e5"
+    }
+  },
+  "runtime_target": "tools/e1_05_minimal_momentum_runner.py",
+  "runtime_contract": "ATDS_E1_05_MINIMAL_MOMENTUM_RUNNER_V0_1",
+  "required_runtime_surface": [
+    "CONTRACT",
+    "EXPECTED_H1_IDENTITY",
+    "EXPECTED_E1_04_CONTRACT",
+    "PROHIBITED_FEATURES",
+    "FORBIDDEN_CLAIMS",
+    "run_momentum_runner"
+  ],
+  "momentum_v1": {
+    "formula": "M_t = Close_t / Close_t_minus_20 - 1",
+    "positive_signal": "LONG",
+    "negative_signal": "SHORT",
+    "zero_signal": "NEUTRAL",
+    "insufficient_history_signal": "UNDEFINED",
+    "positions": {
+      "LONG": 1,
+      "NEUTRAL": 0,
+      "SHORT": -1
+    },
+    "signal_price": "H1_MID_CLOSE",
+    "lookback": 20,
+    "first_eligible_continuity_ordinal": 20,
+    "cross_continuity_block_lookback": false,
+    "oos_boundary_resets_warmup": false,
+    "lookahead": false
+  },
+  "h1_input": {
+    "identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "required_fields": [
+      "h1_start_ms_utc",
+      "source_segment_id",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "mid_close"
+    ],
+    "timestamp_order": "STRICTLY_INCREASING",
+    "duplicate_timestamp_allowed": false,
+    "mid_close": "FINITE_NUMBER_REQUIRED",
+    "continuity_rules": [
+      "within one continuity block ordinal starts at 0 and increments by 1",
+      "within one continuity block H1 timestamps increment by exactly 3600000 ms",
+      "a new continuity block starts with ordinal 0",
+      "a continuity block id cannot reappear after another block has started"
+    ]
+  },
+  "execution_delegation": {
+    "required_runtime_contract": "ATDS_E1_04_EXECUTION_COST_MODEL_V0_1",
+    "signal_execution_boundary": "signal_h1_end_ms = h1_start_ms_utc + 3600000",
+    "same_bar_execution": false,
+    "target_exposure_only_after_h1_close": true,
+    "delegated_statuses": [
+      "HOLD",
+      "EXECUTED",
+      "NOT_EXECUTED",
+      "BLOCKED"
+    ],
+    "runner_additional_cost_model": false,
+    "mid_execution_substitution": false
+  },
+  "state_semantics": {
+    "initial_position_allowed": [
+      -1,
+      0,
+      1
+    ],
+    "executed_transition_updates_position_to_target": true,
+    "hold_preserves_position": true,
+    "not_executed_preserves_position": true,
+    "undefined_signal_preserves_position": true
+  },
+  "output": {
+    "top_level": [
+      "status",
+      "records"
+    ],
+    "record_fields": [
+      "h1_start_ms_utc",
+      "signal",
+      "target_position",
+      "execution",
+      "trace"
+    ],
+    "trace_fields": [
+      "continuity_block_id",
+      "continuity_ordinal",
+      "lookback_h1_start_ms_utc"
+    ],
+    "pnl_fields_forbidden": true,
+    "performance_fields_forbidden": true
+  },
+  "fail_closed_reasons": [
+    "E1_03_IDENTITY_MISSING",
+    "E1_03_IDENTITY_MISMATCH",
+    "E1_04_RUNTIME_MISSING",
+    "E1_04_IDENTITY_MISMATCH",
+    "E1_04_RUNTIME_SURFACE_MISSING",
+    "DUPLICATE_H1_TIMESTAMP",
+    "INVALID_H1_ORDER",
+    "CONTINUITY_INCOHERENT",
+    "NONFINITE_MID_CLOSE",
+    "MISSING_H1_FIELD"
+  ],
+  "prohibited_features": [
+    "PARAMETER_OPTIMIZATION",
+    "REGIME_FILTER",
+    "DISCRETIONARY_OVERRIDE",
+    "PYRAMIDING",
+    "STOP_LOSS",
+    "TAKE_PROFIT",
+    "TRAILING_STOP",
+    "BREAK_EVEN",
+    "POSITION_SIZING_OPTIMIZATION"
+  ],
+  "forbidden_claims": [
+    "STRATEGY_QUALIFIED",
+    "BROKER_NET_PNL",
+    "ALL_IN_COST_PROFITABILITY",
+    "LIVE_PROFITABILITY",
+    "FULL_BROKER_EXECUTION_REALISM"
+  ],
+  "test_cases": [
+    [
+      "M5-01",
+      "continuity ordinal 19 remains UNDEFINED"
+    ],
+    [
+      "M5-02",
+      "positive exact t minus 20 Momentum yields LONG"
+    ],
+    [
+      "M5-03",
+      "negative exact t minus 20 Momentum yields SHORT"
+    ],
+    [
+      "M5-04",
+      "zero exact t minus 20 Momentum yields NEUTRAL"
+    ],
+    [
+      "M5-05",
+      "formula uses exactly Close t minus 20 rather than adjacent H1"
+    ],
+    [
+      "M5-06",
+      "continuity block change resets warmup and forbids cross-block lookback"
+    ],
+    [
+      "M5-07",
+      "continuity ordinal 20 is first eligible signal"
+    ],
+    [
+      "M5-08",
+      "OOS boundary does not reset valid same-block warmup"
+    ],
+    [
+      "M5-09",
+      "future H1 mutation cannot change an already-computable signal"
+    ],
+    [
+      "M5-10",
+      "execution cannot use a raw tick inside signal H1 t"
+    ],
+    [
+      "M5-11",
+      "LONG target delegates to qualified E1-04 ASK execution"
+    ],
+    [
+      "M5-12",
+      "SHORT target delegates to qualified E1-04 BID execution"
+    ],
+    [
+      "M5-13",
+      "NEUTRAL target delegates to qualified E1-04 close semantics"
+    ],
+    [
+      "M5-14",
+      "same exposure delegates to E1-04 HOLD"
+    ],
+    [
+      "M5-15",
+      "missing admissible execution tick preserves E1-04 NOT_EXECUTED"
+    ],
+    [
+      "M5-16",
+      "runner target exposure is bounded to -1 0 +1 or None when UNDEFINED"
+    ],
+    [
+      "M5-17",
+      "identical inputs produce exactly identical output"
+    ],
+    [
+      "M5-18",
+      "missing E1-03 identity fails closed"
+    ],
+    [
+      "M5-19",
+      "incorrect E1-03 identity fails closed"
+    ],
+    [
+      "M5-20",
+      "missing E1-04 runtime fails closed"
+    ],
+    [
+      "M5-21",
+      "incorrect E1-04 runtime identity fails closed"
+    ],
+    [
+      "M5-22",
+      "missing E1-04 execute_transition surface fails closed"
+    ],
+    [
+      "M5-23",
+      "duplicate H1 timestamp fails closed"
+    ],
+    [
+      "M5-24",
+      "non-increasing H1 order fails closed"
+    ],
+    [
+      "M5-25",
+      "continuity ordinal inconsistency fails closed"
+    ],
+    [
+      "M5-26",
+      "continuity block inconsistency fails closed"
+    ],
+    [
+      "M5-27",
+      "non-finite mid_close fails closed"
+    ],
+    [
+      "M5-28",
+      "missing critical H1 field fails closed"
+    ],
+    [
+      "M5-29",
+      "prohibited strategy features remain explicitly disabled"
+    ],
+    [
+      "M5-30",
+      "forbidden claims remain exactly bounded"
+    ],
+    [
+      "M5-31",
+      "runner output contains no PnL or performance metrics"
+    ],
+    [
+      "M5-32",
+      "runner does not extend E1-04 cost scope in execution output"
+    ],
+    [
+      "M5-33",
+      "per-H1 trace remains minimal and deterministically links t to lookback and execution"
+    ]
+  ],
+  "non_authorizations": [
+    "REAL_E1_RUN",
+    "PNL",
+    "PERFORMANCE",
+    "BACKTEST",
+    "E1_06",
+    "E1_07",
+    "E1_08",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ]
+}

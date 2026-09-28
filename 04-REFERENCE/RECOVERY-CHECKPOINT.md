@@ -19545,3 +19545,78 @@ E1_READINESS = NOT_READY
 
 Subject to fresh persisted-head verification and re-reading the adopted readiness contract, identify the next E1 control boundary without opening it automatically.
 
+---
+
+## 304. E1-05 — MINIMAL MOMENTUM RUNNER — TEST-FIRST PREREGISTRATION
+
+Date:
+2026-09-28
+
+Pre-persistence HEAD:
+
+`f99270487c69d016c6f5933eb4d84875f96053c3`
+
+Pre-persistence TREE:
+
+`2d095d5a6bfee499425eb910e8fa206c2009a2f9`
+
+Authorized boundary:
+
+`E1-05 — MINIMAL MOMENTUM RUNNER — TEST-FIRST CONTRACT / RED`
+
+Persisted artifacts:
+
+```text
+contract =
+GOVERNANCE/E1-05-MINIMAL-MOMENTUM-RUNNER-CONTRACT-V0.1.json
+
+breaker =
+breakers/e1_05_minimal_momentum_runner_red_breaker.py
+
+report =
+reports/program/2026-09-28-E1-05-MINIMAL-MOMENTUM-RUNNER-TEST-FIRST-RED.md
+```
+
+Preregistered cases:
+
+`M5-01 → M5-33`
+
+Qualified dependencies remain:
+
+```text
+E1-01 = PASS
+E1-02 = PASS
+E1-03 = PASS
+E1-04 = PASS
+```
+
+E1-05 scope is restricted to deterministic orchestration of these qualified boundaries.
+
+Authority at persistence:
+
+```text
+E1_05_RUNTIME = ABSENT
+E1_05_IMPLEMENTATION_AUTHORIZED = FALSE
+REAL_E1_RUN_AUTHORIZED = FALSE
+PNL_AUTHORIZED = FALSE
+PERFORMANCE_AUTHORIZED = FALSE
+E1_06_AUTHORIZED = FALSE
+E1_07_AUTHORIZED = FALSE
+E1_08_AUTHORIZED = FALSE
+MT5_PAPER_BROKER_LIVE_CAPITAL = CLOSED
+```
+
+Expected first execution:
+
+`RED — E1_05_RUNTIME_ABSENT_EXPECTED_RED`
+
+State at persistence:
+
+```text
+M5_01_TO_M5_33_EXECUTION = NOT_YET
+```
+
+The next permitted action inside this boundary is execution of the exact persisted breaker against the absent E1-05 runtime.
+
+No E1-05 implementation is authorized until the RED is observed, persisted and adjudicated.
+
