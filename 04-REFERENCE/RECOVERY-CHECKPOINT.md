@@ -19473,3 +19473,75 @@ Subject to fresh persisted-head verification, the next candidate boundary is:
 
 That implementation requires separate explicit human authorization.
 
+---
+
+## 303. E1-04 — MINIMAL IMPLEMENTATION QUALIFICATION — PASS
+
+Date:
+2026-09-28
+
+Qualified candidate HEAD:
+
+`1aedd2356cc4668fc14d95fb5d24092002d6be6f`
+
+Qualified candidate TREE:
+
+`99a812ef0a9f3746434e1d41632179b87c6eec97`
+
+Protected E1-04 identities:
+
+```text
+runtime =
+15e72b8743e7726fc8b8bedd933cf7defe56413b
+
+contract =
+cf07f1400af614fa53fe41afe8a40e412d28c87d
+
+breaker =
+092a612e432530a7dfea627704d89ea8d03328e5
+```
+
+Observed qualification:
+
+```text
+PY_COMPILE = PASS
+
+E4-01 → E4-22
+TOTAL = 22
+PASS = 22
+FAIL = 0
+```
+
+Adjudication:
+
+```text
+E1_04_MINIMAL_IMPLEMENTATION_CANDIDATE = PASS
+E1_04_FROZEN_TEST_SURFACE = PASS_22_OF_22
+E1_04_RUNTIME = PRESENT
+E1_04_CONTRACT = UNCHANGED
+E1_04_BREAKER = UNCHANGED
+E1_04 = PASS
+```
+
+Protected E1-03 identities remained unchanged.
+
+No E1-05, Momentum, PnL, backtest, real-data E1 run, paper, broker, MT5, live or capital authority is created.
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-04-EXECUTION-COST-MODEL-MINIMAL-IMPLEMENTATION-QUALIFICATION.md`
+
+Readiness state after this qualification:
+
+```text
+E1-01 = PASS
+E1-02 = PASS
+E1-03 = PASS
+E1-04 = PASS
+
+E1-05 = NOT_OPENED
+E1_READINESS = NOT_READY
+```
+
+Subject to fresh persisted-head verification and re-reading the adopted readiness contract, identify the next E1 control boundary without opening it automatically.
+
