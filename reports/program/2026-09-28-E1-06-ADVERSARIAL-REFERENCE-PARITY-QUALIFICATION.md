@@ -127,3 +127,119 @@ E1_06_IMPLEMENTATION = NOT_YET
 
 This RED does not establish parity qualification. It establishes the frozen test surface before qualifier implementation.
 
+## 6. Final exact persisted-head qualification
+
+Qualified persisted HEAD:
+
+`992a2c9b62ca825481efad36ea5f5d511269500f`
+
+Qualified persisted TREE:
+
+`61a5e1a7b8575bbe52f70116a6456180abe45b8a`
+
+Exact protected identities executed:
+
+```text
+E1-06 contract =
+483552f2ea1def15f94a28f2e45b97dd65f786ff
+
+E1-06 breaker =
+dc4858559a2fda113c7290ad39a45d5291580773
+
+E1-06 qualifier =
+0793adc08416563125f57a55c0d272d24bb4b3df
+
+E1-06 independent reference =
+25b01e6d31709f02f9c095262bfe78366e83003b
+
+E1-05 runner =
+baad3bd7c2e810451737c89bf8f9bcabc17c5ba6
+
+E1-04 execution runtime =
+15e72b8743e7726fc8b8bedd933cf7defe56413b
+```
+
+Before execution, every materialized file listed above was verified with `git hash-object` and matched the persisted GitHub blob identity exactly.
+
+Observed compile result:
+
+```text
+PY_COMPILE = PASS
+```
+
+Observed exact breaker replay:
+
+```text
+Q6-01 → Q6-22
+TOTAL = 22
+PASS = 22
+FAIL = 0
+```
+
+The passing qualification includes:
+
+- full runner/reference signal parity;
+- exact signal timestamps;
+- exact execution timestamps;
+- exact BID/ASK sides and prices;
+- exact position transitions including reversal;
+- exact closed-trade count;
+- exact realized PnL components;
+- exact aggregate realized PnL;
+- intrinsic spread handling;
+- no look-ahead;
+- no same-bar execution;
+- exact first admissible post-H1 tick selection;
+- forbidden gap-boundary protection;
+- warmup isolation across continuity blocks;
+- no artificial OOS warmup reset;
+- reversal close counted once;
+- no fabricated PnL when execution price is absent;
+- deterministic replay;
+- exact E1-04 cost-scope parity;
+- independent-reference static independence;
+- tampered aggregate detection;
+- forbidden profitability/live claims absent.
+
+Baseline synthetic realized PnL parity fixture:
+
+```text
+runner components = [3.0, 4.0]
+reference components = [3.0, 4.0]
+
+runner aggregate = 7.0
+reference aggregate = 7.0
+```
+
+This PnL is synthetic qualification evidence only.
+
+It is not a strategy-performance result.
+
+## 7. E1-06 adjudication
+
+```text
+E1_06_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_06_REFERENCE_INDEPENDENCE_PRECHECK = PASS
+E1_06_EXACT_PERSISTED_HEAD_REBREAK = PASS_22_OF_22
+E1_06_SYNTHETIC_REFERENCE_PARITY = PASS
+E1_06 = PASS
+```
+
+No real E1 backtest was executed.
+
+No real E1-03 dataset was used to compute performance.
+
+No claim of strategy profitability, broker-net PnL, all-in profitability or live profitability is authorized.
+
+E1-07 and E1-08 remain closed.
+
+## 8. End-of-control STOP
+
+Accelerated-governed E1-06 control cycle is complete.
+
+```text
+E1-06 = PASS
+CONTROL_CYCLE = CLOSED
+NEXT_E1_CONTROL = NOT_OPENED
+```
+
