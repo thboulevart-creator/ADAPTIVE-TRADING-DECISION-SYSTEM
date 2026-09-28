@@ -19410,3 +19410,66 @@ The next permitted action inside this boundary is execution of the persisted bre
 
 No E1-04 implementation is authorized until that RED is observed and adjudicated.
 
+---
+
+## 302. E1-04 — TEST-FIRST RED — PASS EXPECTED FAILURE
+
+Date:
+2026-09-28
+
+Persisted HEAD under test:
+
+`d88776fa452982677d5cb2cf664b2bea5af559de`
+
+Persisted TREE under test:
+
+`5884ef02516cf557572e499c5855d810d678088a`
+
+Protected E1-04 preregistration identities:
+
+```text
+contract =
+cf07f1400af614fa53fe41afe8a40e412d28c87d
+
+breaker =
+092a612e432530a7dfea627704d89ea8d03328e5
+```
+
+Observed execution:
+
+```text
+PY_COMPILE = PASS
+
+E4-01 → E4-22
+TOTAL = 22
+PASS = 0
+FAIL = 22
+```
+
+Unique observed failure reason:
+
+`E1_04_RUNTIME_ABSENT_EXPECTED_RED`
+
+Adjudication:
+
+```text
+E1_04_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_04_RUNTIME = ABSENT
+E1_04_IMPLEMENTATION = NOT_AUTHORIZED
+E1_04 = BLOCKED
+```
+
+Protected E1-03 contract, breakers and runtime were unchanged.
+
+No E1-04 runtime, E1-05, Momentum, PnL, backtest, real-data execution, paper, broker, MT5, live or capital authority was created.
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-04-EXECUTION-COST-MODEL-TEST-FIRST-RED.md`
+
+Subject to fresh persisted-head verification, the next candidate boundary is:
+
+`E1-04 — MINIMAL IMPLEMENTATION CANDIDATE`
+
+That implementation requires separate explicit human authorization.
+

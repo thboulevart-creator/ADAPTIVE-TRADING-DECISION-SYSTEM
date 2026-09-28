@@ -87,3 +87,71 @@ E4_01_TO_E4_22_EXECUTION = NOT_YET
 ```
 
 No implementation correction is authorized by this artifact.
+
+## 6. Observed persisted-head RED
+
+The preregistered breaker was executed after persistence against the exact persisted E1-04 contract and breaker bytes, with the E1-04 runtime target still absent.
+
+Observed persisted source identities:
+
+```text
+HEAD =
+d88776fa452982677d5cb2cf664b2bea5af559de
+
+TREE =
+5884ef02516cf557572e499c5855d810d678088a
+
+E1-04 contract blob =
+cf07f1400af614fa53fe41afe8a40e412d28c87d
+
+E1-04 breaker blob =
+092a612e432530a7dfea627704d89ea8d03328e5
+```
+
+Observed compile result:
+
+```text
+PY_COMPILE = PASS
+```
+
+Observed breaker result:
+
+```text
+E4-01 → E4-22
+
+TOTAL = 22
+PASS = 0
+FAIL = 22
+```
+
+All observed failures shared the same preregistered cause:
+
+`E1_04_RUNTIME_ABSENT_EXPECTED_RED`
+
+No alternate failure family was observed.
+
+Adjudication:
+
+```text
+E1_04_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_04_RUNTIME = ABSENT
+E1_04_IMPLEMENTATION = NOT_AUTHORIZED
+E1_04 = BLOCKED
+```
+
+This RED establishes that the test-first surface is active before implementation.
+
+It does not establish that any future implementation is correct.
+
+No E1-04 runtime, E1-05, Momentum computation, PnL, backtest, real-data execution, paper, broker, MT5, live or capital path was opened by this execution.
+
+## 7. Next governed boundary
+
+The next candidate boundary is:
+
+`E1-04 — MINIMAL IMPLEMENTATION CANDIDATE`
+
+That boundary requires separate human authorization.
+
+Any future implementation must preserve the persisted contract and breaker unchanged and must be limited to the minimum runtime surface required to make the preregistered 22 tests progress.
+
