@@ -120,17 +120,77 @@ def _require_clean(repo: Path, stage: str) -> None:
         )
 
 
-def _hash_object(repo: Path, relative: str) -> str:
+def _committed_blob(repo: Path, relative: str) -> str:
     result = _git(
         repo,
-        "hash-object",
-        relative,
+        "rev-parse",
+        f"HEAD:{relative}",
     )
     _require_ok(
         result,
-        f"git hash-object failed for {relative}",
+        f"git rev-parse HEAD:{relative} failed",
     )
     return _stdout(result)
+
+
+REEXEC_ENV = "ATDS_P5D3F_REEXEC_COUNT"
+
+
+def _runner_path(repo: Path) -> Path:
+    return (
+        repo
+        / "tools"
+        / "obsidian_projection"
+        / "p5d3f_contract_rebreak.py"
+    )
+
+
+def _build_reexec_argv(
+    repo: Path,
+    *,
+    original_argv: list[str] | None = None,
+    dont_write_bytecode: bool | None = None,
+) -> list[str]:
+    argv = list(
+        sys.argv
+        if original_argv is None
+        else original_argv
+    )
+    no_bytecode = (
+        bool(sys.flags.dont_write_bytecode)
+        if dont_write_bytecode is None
+        else bool(dont_write_bytecode)
+    )
+
+    result = [sys.executable]
+    if no_bytecode:
+        result.append("-B")
+    result.append(str(_runner_path(repo)))
+    result.extend(argv[1:])
+    return result
+
+
+def _reexec_runner(repo: Path) -> None:
+    try:
+        count = int(os.environ.get(REEXEC_ENV, "0"))
+    except ValueError as exc:
+        raise GovernedRunError(
+            "invalid re-exec counter"
+        ) from exc
+
+    if count >= 1:
+        raise GovernedRunError(
+            "runner re-exec loop guard triggered"
+        )
+
+    env = dict(os.environ)
+    env[REEXEC_ENV] = str(count + 1)
+
+    os.execve(
+        sys.executable,
+        _build_reexec_argv(repo),
+        env,
+    )
 
 
 def _parser() -> argparse.ArgumentParser:
@@ -244,37 +304,67 @@ def main() -> int:
         "candidat P5-D3F introuvable",
     )
 
-    checkout = _git(
-        repo,
-        "switch",
-        "--detach",
-        args.expected_candidate_head,
-        capture=False,
-    )
-    _require_ok(
-        checkout,
-        "checkout candidat P5-D3F impossible",
-    )
-
-    head = _git(
+    loaded_head_result = _git(
         repo,
         "rev-parse",
         "HEAD",
     )
-    _require_ok(head, "cannot resolve HEAD")
-    runtime_head = _stdout(head)
-    if runtime_head != args.expected_candidate_head:
-        raise GovernedRunError(
-            f"runtime HEAD inattendu: {runtime_head}"
+    _require_ok(
+        loaded_head_result,
+        "cannot resolve loaded HEAD",
+    )
+    loaded_head = _stdout(loaded_head_result)
+
+    if loaded_head != args.expected_candidate_head:
+        checkout = _git(
+            repo,
+            "switch",
+            "--detach",
+            args.expected_candidate_head,
+            capture=False,
         )
+        _require_ok(
+            checkout,
+            "checkout candidat P5-D3F impossible",
+        )
+
+        switched_head_result = _git(
+            repo,
+            "rev-parse",
+            "HEAD",
+        )
+        _require_ok(
+            switched_head_result,
+            "cannot resolve switched HEAD",
+        )
+        switched_head = _stdout(switched_head_result)
+        if switched_head != args.expected_candidate_head:
+            raise GovernedRunError(
+                f"runtime HEAD inattendu après checkout: {switched_head}"
+            )
+
+        if not _runner_path(repo).is_file():
+            raise GovernedRunError(
+                "runner absent après checkout candidat"
+            )
+
+        print(
+            "P5D3F_REEXEC_AFTER_CHECKOUT=REQUIRED"
+        )
+        _reexec_runner(repo)
+        raise AssertionError(
+            "os.execve returned unexpectedly"
+        )
+
+    runtime_head = loaded_head
     print(f"P5D3F_RUNTIME_HEAD={runtime_head}")
 
-    contract_blob = _hash_object(
+    contract_blob = _committed_blob(
         repo,
         "tools/obsidian_projection/"
         "promotion_handoff_contract_v0_1.json",
     )
-    test_blob = _hash_object(
+    test_blob = _committed_blob(
         repo,
         "tests/obsidian_projection/"
         "test_promotion_handoff_contract_v0_1.py",
