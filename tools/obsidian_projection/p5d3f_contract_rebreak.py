@@ -315,8 +315,12 @@ def main() -> int:
             sys.executable,
             "-m",
             "py_compile",
+            "tools/obsidian_projection/"
+            "p5d3f_contract_rebreak.py",
             "tests/obsidian_projection/"
             "test_promotion_handoff_contract_v0_1.py",
+            "tests/obsidian_projection/"
+            "test_p5d3f_contract_rebreak_runner.py",
             cwd=repo,
         )
         _require_ok(
@@ -332,6 +336,8 @@ def main() -> int:
             "unittest",
             "tests.obsidian_projection."
             "test_promotion_handoff_contract_v0_1",
+            "tests.obsidian_projection."
+            "test_p5d3f_contract_rebreak_runner",
             "-v",
             cwd=repo,
         )
