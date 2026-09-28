@@ -19905,3 +19905,43 @@ This accelerated mode changes workflow granularity only.
 
 It does not weaken frozen contracts, frozen breakers, fail-closed requirements, deterministic identity checks, evidence persistence, or human authority at the listed STOP boundaries.
 
+---
+
+## 309. E1-06 — ACCELERATED TEST-FIRST PREREGISTRATION
+
+Date:
+2026-09-28
+
+Base HEAD:
+`b2edbb83c71699a502827b64d9486ec4467d1d8e`
+
+Base TREE:
+`a8be442caf92340dac7f3af3c13bb0c21f8738b3`
+
+Human macro authorization:
+`E1-06 — ADVERSARIAL RUNNER QUALIFICATION + INDEPENDENT REFERENCE PARITY`
+
+Persisted surfaces:
+
+```text
+contract = GOVERNANCE/E1-06-ADVERSARIAL-RUNNER-REFERENCE-PARITY-CONTRACT-V0.1.json
+breaker = breakers/e1_06_adversarial_reference_parity_red_breaker.py
+independent reference = tools/e1_06_independent_reference.py
+qualification report = reports/program/2026-09-28-E1-06-ADVERSARIAL-REFERENCE-PARITY-QUALIFICATION.md
+future target = tools/e1_06_adversarial_parity.py
+```
+
+Frozen test surface:
+`Q6-01 → Q6-22`
+
+Synthetic/reference realized PnL parity:
+`AUTHORIZED_FOR_E1_06_ONLY`
+
+Real E1 backtest / real-data performance:
+`NOT_AUTHORIZED`
+
+Expected initial state:
+`RED — E1_06_TARGET_ABSENT_EXPECTED_RED`
+
+Accelerated cycle may continue through mechanical corrections while contract/tests/prior E1 controls remain unchanged.
+

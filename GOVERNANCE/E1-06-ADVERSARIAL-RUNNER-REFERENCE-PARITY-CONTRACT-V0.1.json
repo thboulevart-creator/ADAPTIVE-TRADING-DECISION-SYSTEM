@@ -1,0 +1,198 @@
+{
+  "schema": "ATDS_E1_06_ADVERSARIAL_REFERENCE_PARITY_CONTRACT_V0_1",
+  "control_id": "E1-06",
+  "date": "2026-09-28",
+  "status": "HUMAN_AUTHORIZED_ACCELERATED_TEST_FIRST",
+  "authority": {
+    "synthetic_reference_pnl_authorized": true,
+    "real_e1_backtest_authorized": false,
+    "real_e1_data_performance_use_authorized": false,
+    "e1_07_authorized": false,
+    "e1_08_authorized": false,
+    "paper_broker_mt5_live_capital_authorized": false
+  },
+  "protected_dependencies": {
+    "e1_03_runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+    "e1_04_contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+    "e1_04_breaker_blob": "092a612e432530a7dfea627704d89ea8d03328e5",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "e1_05_contract_blob": "51dc1152808ec9e841924976eac572cc4ec2ff93",
+    "e1_05_breaker_blob": "4308e3360f3cd834e863eb740a2eb7f087e242c0",
+    "e1_05_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6"
+  },
+  "reference": {
+    "path": "tools/e1_06_independent_reference.py",
+    "contract": "ATDS_E1_06_INDEPENDENT_REFERENCE_V0_1",
+    "independence": [
+      "must not import E1-04 runtime",
+      "must not import E1-05 runtime",
+      "must independently reconstruct Momentum V1",
+      "must independently reconstruct raw BID/ASK execution transitions",
+      "must independently reconstruct realized unit PnL"
+    ]
+  },
+  "qualifier_target": {
+    "path": "tools/e1_06_adversarial_parity.py",
+    "contract": "ATDS_E1_06_ADVERSARIAL_REFERENCE_PARITY_V0_1",
+    "required_surface": [
+      "CONTRACT",
+      "PNL_SCOPE",
+      "FORBIDDEN_CLAIMS",
+      "qualify_fixture"
+    ]
+  },
+  "synthetic_pnl_scope": {
+    "quantity": 1,
+    "realized_only": true,
+    "spread": {
+      "included": true,
+      "mode": "RAW_BID_ASK_INTRINSIC"
+    },
+    "commission": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "slippage": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "financing": {
+      "included": false,
+      "assumed_zero": false
+    },
+    "long_component": "exit_bid - entry_ask_or_reversal_ask",
+    "short_component": "entry_bid_or_reversal_bid - exit_ask",
+    "aggregate": "sum(realized_components)",
+    "interpretation": "QUALIFICATION_PARITY_ONLY"
+  },
+  "adversarial_families": [
+    "LOOK_AHEAD",
+    "SAME_BAR_EXECUTION",
+    "INCORRECT_T_PLUS_1",
+    "BID_ASK_INVERSION",
+    "REVERSAL_ACCOUNTING",
+    "GAP_CROSSING",
+    "WARMUP_LEAKAGE",
+    "OOS_LEAKAGE",
+    "DOUBLE_COUNT",
+    "MISSING_EXECUTION_PRICE",
+    "COST_OMISSION",
+    "NONDETERMINISM"
+  ],
+  "parity_dimensions": [
+    "signal_direction",
+    "signal_timestamp",
+    "execution_timestamp",
+    "execution_side",
+    "execution_price",
+    "position_transition",
+    "closed_trade_count",
+    "realized_pnl_components",
+    "aggregate_realized_pnl"
+  ],
+  "forbidden_claims": [
+    "STRATEGY_QUALIFIED",
+    "BROKER_NET_PNL",
+    "ALL_IN_COST_PROFITABILITY",
+    "LIVE_PROFITABILITY",
+    "FULL_BROKER_EXECUTION_REALISM"
+  ],
+  "test_cases": [
+    [
+      "Q6-01",
+      "baseline runner/reference full parity"
+    ],
+    [
+      "Q6-02",
+      "signal direction parity"
+    ],
+    [
+      "Q6-03",
+      "signal timestamp parity"
+    ],
+    [
+      "Q6-04",
+      "execution timestamp parity"
+    ],
+    [
+      "Q6-05",
+      "BID/ASK execution side and price parity"
+    ],
+    [
+      "Q6-06",
+      "position transition parity including reversal"
+    ],
+    [
+      "Q6-07",
+      "closed-trade count parity"
+    ],
+    [
+      "Q6-08",
+      "realized PnL component and aggregate parity"
+    ],
+    [
+      "Q6-09",
+      "spread cost is intrinsic in synthetic realized PnL"
+    ],
+    [
+      "Q6-10",
+      "look-ahead mutation cannot alter earlier qualified record"
+    ],
+    [
+      "Q6-11",
+      "same-bar raw event cannot execute"
+    ],
+    [
+      "Q6-12",
+      "first admissible post-H1 tick is selected"
+    ],
+    [
+      "Q6-13",
+      "forbidden gap boundary cannot be crossed"
+    ],
+    [
+      "Q6-14",
+      "warmup cannot leak across continuity blocks"
+    ],
+    [
+      "Q6-15",
+      "OOS boundary does not reset same-block warmup"
+    ],
+    [
+      "Q6-16",
+      "reversal close is counted once, not double-counted"
+    ],
+    [
+      "Q6-17",
+      "missing execution price yields NOT_EXECUTED without fabricated PnL"
+    ],
+    [
+      "Q6-18",
+      "identical qualification inputs are deterministic"
+    ],
+    [
+      "Q6-19",
+      "cost scope parity is exactly E1-04-authorized scope"
+    ],
+    [
+      "Q6-20",
+      "independent reference has no E1-04/E1-05 import or delegation"
+    ],
+    [
+      "Q6-21",
+      "tampered independent aggregate is detected"
+    ],
+    [
+      "Q6-22",
+      "forbidden profitability/live claims remain absent"
+    ]
+  ],
+  "stop_boundaries": [
+    "CONTRACT_CHANGE_REQUIRED",
+    "FROZEN_TEST_CHANGE_REQUIRED",
+    "PRIOR_E1_CHANGE_REQUIRED",
+    "NEW_REAL_DATA_REQUIRED",
+    "REAL_BACKTEST_REQUIRED",
+    "ARCHITECTURAL_DEFECT"
+  ]
+}
