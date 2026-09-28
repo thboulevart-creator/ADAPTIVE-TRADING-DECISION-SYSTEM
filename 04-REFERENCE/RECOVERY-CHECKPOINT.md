@@ -19064,3 +19064,73 @@ Next action inside this exact boundary:
 
 execute persisted RC01 against the unchanged persisted runtime and record the RED result before authorizing any runtime correction.
 
+---
+
+## 298. E1-03 — RC01 TEST-FIRST RED — PASS EXPECTED FAILURE
+
+Date:
+2026-09-28
+
+Persisted preregistration HEAD:
+
+`cb794e2449c242c6906d2fa5eacbd37ee5a6ac27`
+
+Persisted preregistration TREE:
+
+`7410f84cf832386e715eab6c028fe4c626c7a823`
+
+Protected runtime blob:
+
+`6abe23caea680a40c892cd5a470331ca63c67e2e`
+
+Persisted RC01 breaker blob:
+
+`38db4d3c01d60b885a694183df6da8317fd30dc0`
+
+Ordering:
+
+```text
+RC01_PERSISTED_BEFORE_FIRST_EXECUTION = TRUE
+```
+
+Observed execution:
+
+```text
+PY_COMPILE = PASS
+RC01_TOTAL = 1
+RC01_PASS = 0
+RC01_FAIL = 1
+OBSERVED_STATUS = BLOCKED
+OBSERVED_REASON = AP0_FILE_RECORD_INVALID
+```
+
+Causal incompatibility:
+
+```text
+governed AP0 key = files[].relative_path
+current runtime lookup = files[].path
+```
+
+Adjudication:
+
+```text
+E1_03_RC01_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_03_REAL_INPUT_COMPATIBILITY = FAIL
+E1_03_RUNTIME_CORRECTION = NONE
+E1_03_REAL_AP0_FILE_REHASH = NOT_EXECUTED
+E1_03_REAL_H1_BUILD = NOT_EXECUTED
+E1_03_FINAL_VERDICT = FAIL
+```
+
+Evidence report:
+
+`reports/program/2026-09-28-E1-03-REAL-AP0-MANIFEST-COMPATIBILITY-FAIL.md`
+
+No contract, H1-01→H1-21 breaker, RC01 breaker or runtime mutation is authorized by this persistence.
+
+Subject to fresh persisted-head verification, the next candidate boundary is:
+
+`E1-03 — MINIMAL AP0 MANIFEST-COMPATIBILITY RUNTIME CORRECTION`
+
+That correction requires separate explicit human authorization.
+

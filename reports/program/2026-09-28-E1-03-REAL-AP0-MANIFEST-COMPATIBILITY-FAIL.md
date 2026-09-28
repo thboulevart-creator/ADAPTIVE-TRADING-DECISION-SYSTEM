@@ -145,3 +145,75 @@ RUNTIME_CORRECTION = NONE
 The first permitted action after this commit is to execute RC01 against the unchanged persisted runtime and observe its RED profile.
 
 No runtime mutation is authorized by this artifact.
+
+## 8. Persisted RC01 execution
+
+RC01 was executed only after its breaker had been persisted.
+
+Persisted preregistration HEAD:
+
+`cb794e2449c242c6906d2fa5eacbd37ee5a6ac27`
+
+Persisted preregistration TREE:
+
+`7410f84cf832386e715eab6c028fe4c626c7a823`
+
+Protected runtime blob:
+
+`6abe23caea680a40c892cd5a470331ca63c67e2e`
+
+Persisted RC01 breaker blob:
+
+`38db4d3c01d60b885a694183df6da8317fd30dc0`
+
+Execution profile:
+
+```text
+PY_COMPILE = PASS
+
+RC01_TOTAL = 1
+RC01_PASS = 0
+RC01_FAIL = 1
+
+OBSERVED_STATUS = BLOCKED
+OBSERVED_REASON = AP0_FILE_RECORD_INVALID
+```
+
+Ordering:
+
+```text
+RC01_PERSISTED_BEFORE_FIRST_EXECUTION = TRUE
+```
+
+Interpretation:
+
+The regression test reproduces the governed AP0 manifest convention `files[].relative_path` against the unchanged runtime, while deliberately omitting the synthetic-only `files[].path` field.
+
+The observed RED is therefore causal and interpretable:
+
+```text
+REAL AP0 file-record key = relative_path
+CURRENT runtime key lookup = path
+RESULT = AP0_FILE_RECORD_INVALID
+```
+
+No runtime correction occurred before or during this execution.
+
+## 9. RC01 adjudication
+
+```text
+E1_03_RC01_TEST_FIRST_RED = PASS_EXPECTED_FAILURE
+E1_03_RC01_PERSISTED_BEFORE_FIRST_EXECUTION = TRUE
+
+E1_03_REAL_INPUT_COMPATIBILITY = FAIL
+E1_03_RUNTIME_CORRECTION = NONE
+
+E1_03_REAL_AP0_FILE_REHASH = NOT_EXECUTED
+E1_03_REAL_H1_BUILD = NOT_EXECUTED
+E1_03_FINAL_VERDICT = FAIL
+```
+
+The next governed boundary may be a separately authorized minimal runtime correction limited to the real AP0 manifest compatibility defect.
+
+The frozen H1-01 → H1-21 breaker and RC01 must remain unchanged during that correction.
+
