@@ -1,0 +1,199 @@
+{
+  "schema": "ATDS_E1_TD_03B_FIRST_REAL_COLLECTION_AUTHORITY_CONTRACT_V0_1",
+  "control_id": "E1-TD-03B",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_PREWINDOW_NOT_YET_EXECUTABLE",
+  "purpose": "Authorize exactly one first governed real Source-B prospective collection event, then STOP for human adjudication.",
+  "authority_creation_base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "b8de2bf0ed5ff1132df281f57c4c814bbb21b3c7",
+    "tree": "9b8d0687cc41d338e18a0bd8a551a4145968f15b"
+  },
+  "protected_bindings": {
+    "e1_td_03_contract_blob": "c66c36bb5f01cb0a13e22eb9210abfdac74b35d3",
+    "e1_td_03_adoption_blob": "0573472825af96938bab260c8d0b78431350c6ea",
+    "e1_td_03a_contract_blob": "c6ed450ae0c6b36ae2412cc367261504980d5b43",
+    "e1_td_03a_breaker_blob": "59593f273c45276f4af8e410ab05768ee730d6a6",
+    "e1_td_03a_runtime_blob": "a90903320a168a845b2b72bafba15b8d8abb2950",
+    "e1_td_03a_qualification_report_blob": "3aadd66499c844fb7eb3a63592ea92b801f6d049"
+  },
+  "source_identity": {
+    "publisher_dataset": "CarlosSilva1/ustech-ticks",
+    "economic_instrument": "USTECH / Nasdaq 100 Index CFD",
+    "publisher_declared_provenance": "Dukascopy via Tickstory",
+    "license": "CC-BY-4.0",
+    "required_fields": ["timestamp", "bid_price", "ask_price"],
+    "limitations": [
+      "native Dukascopy tick-for-tick equivalence not proven",
+      "exact Tickstory transformations not proven",
+      "third-party broker feed equivalence not proven",
+      "volumes not qualified for this research path"
+    ]
+  },
+  "prospective_dataset": {
+    "dataset_id": "SOURCE_B_USTECH_TD01_PROSPECTIVE_20261001_20271001_V0_1",
+    "window_start_utc": "2026-10-01T00:00:00Z",
+    "window_end_utc": "2027-10-01T00:00:00Z",
+    "source_policy": "SOURCE_B_CONTINUATION_OR_BLOCK",
+    "out_of_window_rows": "NOT_EVALUATION_EVIDENCE"
+  },
+  "temporal_gate": {
+    "not_before_utc": "2026-10-01T00:00:00Z",
+    "prewindow_execution": "FORBIDDEN",
+    "final_dataset_seal_before_utc": "2027-10-01T00:00:00Z",
+    "final_dataset_seal": "NOT_AUTHORIZED"
+  },
+  "event_budget": {
+    "max_governed_collection_events": 1,
+    "events_consumed": 0,
+    "second_collection_event_authorized": false,
+    "continuous_collection_authorized": false,
+    "unbounded_retries_authorized": false
+  },
+  "availability_preflight": {
+    "allowed": true,
+    "consumes_collection_event": false,
+    "purpose": "Check only Source-B repository identity and whether a provider-defined object containing timestamps within the prospective window exists.",
+    "must_not_download_market_data_bytes": true,
+    "must_not_compute_strategy_or_performance": true,
+    "if_no_eligible_object_exists": "WAITING_SOURCE_CONTINUATION",
+    "candidate_selection_rule": "Use the lexicographically first provider-defined Parquet object under the earliest provider partition intersecting the prospective window; no performance-based selection."
+  },
+  "collection_event_definition": [
+    "ACQUISITION_REQUEST",
+    "provider response or failure",
+    "raw-object preservation if received",
+    "SHA-256 and integrity inspection",
+    "append-only ledger persistence",
+    "adjudication",
+    "STOP"
+  ],
+  "event_start_rule": {
+    "requires_current_utc_at_or_after_not_before": true,
+    "requires_eligible_source_object_metadata_or_real_request_target": true,
+    "requires_one_shot_execution_authority_instance": true,
+    "requires_exact_persisted_bindings": true
+  },
+  "one_shot_execution_authority_instance": {
+    "storage": "OUTSIDE_REPOSITORY_OR_OTHERWISE_NON_SELF_REFERENTIAL",
+    "reason": "An authority object that embeds the exact execution HEAD/TREE cannot be committed into that same HEAD without self-reference.",
+    "required_fields": [
+      "schema",
+      "run_id",
+      "authorized_head",
+      "authorized_tree",
+      "e1_td_03_contract_blob",
+      "e1_td_03_adoption_blob",
+      "e1_td_03a_contract_blob",
+      "e1_td_03a_breaker_blob",
+      "e1_td_03a_runtime_blob",
+      "e1_td_03a_qualification_report_blob",
+      "dataset_id",
+      "window_start_utc",
+      "window_end_utc",
+      "source_identity",
+      "max_governed_collection_events",
+      "event_ordinal",
+      "authorized_at_utc",
+      "human_authority_reference",
+      "canonical_digest"
+    ],
+    "event_ordinal": 1,
+    "max_governed_collection_events": 1,
+    "authority_mismatch_status": "BLOCKED_AUTHORITY_BINDING"
+  },
+  "raw_object_policy": {
+    "preserve_original_bytes": true,
+    "sha256_required": true,
+    "size_bytes_required": true,
+    "source_request_identity_required": true,
+    "source_revision_required": true,
+    "silent_rewrite": false,
+    "silent_replacement": false,
+    "sort_to_repair": false,
+    "deduplicate_to_repair": false,
+    "interpolate": false,
+    "forward_fill": false
+  },
+  "same_request_retry_policy": {
+    "allowed": true,
+    "must_be_ledger_visible": true,
+    "does_not_create_continuous_collection_authority": true,
+    "must_not_change_provider_source_instrument_or_semantics": true
+  },
+  "source_continuity_breakers": [
+    "provider changed",
+    "publisher dataset changed",
+    "instrument changed",
+    "symbol semantics changed",
+    "timestamp semantics changed",
+    "BID semantics changed",
+    "ASK semantics changed",
+    "acquisition mechanism materially changes provenance without separate qualification"
+  ],
+  "source_continuity_failure_status": "BLOCKED_SOURCE_CONTINUITY",
+  "authorized_outputs": [
+    "REQUEST_STATUS",
+    "SOURCE_IDENTITY_STATUS",
+    "OBJECT_RECEIVED",
+    "OBJECT_SHA256",
+    "OBJECT_SIZE_BYTES",
+    "SCHEMA_STATUS",
+    "TIMESTAMP_COVERAGE",
+    "WINDOW_ELIGIBILITY",
+    "LEDGER_STATUS",
+    "SOURCE_REVISION_STATUS",
+    "INTEGRITY_STATUS",
+    "FIRST_COLLECTION_EVENT"
+  ],
+  "forbidden": [
+    "CONTINUOUS_AUTOMATIC_COLLECTION",
+    "SECOND_COLLECTION_EVENT",
+    "UNBOUNDED_RETRIES",
+    "PROVIDER_SUBSTITUTION",
+    "SOURCE_SUBSTITUTION",
+    "DATASET_FINAL_SEAL",
+    "DATASET_COMPLETION_CLAIM",
+    "AP0_BUILD",
+    "M1_BUILD",
+    "H1_BUILD",
+    "MOMENTUM_EXECUTION",
+    "SIGNAL_GENERATION",
+    "TRADE_GENERATION",
+    "PERFORMANCE_COMPUTATION",
+    "PNL_OBSERVATION",
+    "EXPECTANCY",
+    "WIN_RATE",
+    "DRAWDOWN",
+    "LARGEST_WINNER",
+    "FLIP_FRACTION",
+    "TAIL_DEPENDENCE_ANALYSIS",
+    "TAIL_DEPENDENCE_VERDICT",
+    "BACKTEST",
+    "E1_RERUN",
+    "NEXT_EXPERIMENT",
+    "STRATEGY_CHANGE",
+    "PARAMETER_CHANGE",
+    "LONG_ONLY",
+    "SHORT_REMOVAL",
+    "REGIME_FILTER",
+    "OPTIMIZATION",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ],
+  "post_event_state": {
+    "first_governed_collection_event": "CONSUMED",
+    "second_collection_event": "NOT_AUTHORIZED",
+    "continuous_collection": "NOT_AUTHORIZED",
+    "h1_build": "NOT_AUTHORIZED",
+    "momentum_execution": "NOT_AUTHORIZED",
+    "performance_computation": "NOT_AUTHORIZED",
+    "backtest": "NOT_AUTHORIZED",
+    "human_adjudication": "REQUIRED",
+    "stop": true
+  }
+}
