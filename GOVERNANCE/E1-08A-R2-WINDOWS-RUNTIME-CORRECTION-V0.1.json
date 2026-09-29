@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_E1_08A_R2_WINDOWS_RUNTIME_CORRECTION_V0_1",
+  "control_id": "E1-08A-R2",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_MINIMAL_RUNTIME_CORRECTION",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "94a8b35022babc01ab81e0157885474a1c159e20",
+    "tree": "946af1ca21809df4a0a6ac8413262523205039aa"
+  },
+  "authority": {
+    "modify_runtime_environment_binding": true,
+    "windows_python_from": "3.12.14",
+    "windows_python_to": "3.12.10",
+    "linux_python_remains": "3.12.14",
+    "pyarrow_remains": "25.0.1",
+    "real_e1_run_authorized": false,
+    "real_oos_performance_authorized": false,
+    "strategy_change_authorized": false,
+    "dataset_change_authorized": false,
+    "oos_change_authorized": false,
+    "runner_change_authorized": false,
+    "execution_model_change_authorized": false
+  },
+  "frozen_parent": {
+    "r1_runtime_blob": "d3e9c848f5585346048e1a911d82cdf865b06e85",
+    "r1_contract_blob": "d4155af3fa5e1db2abfd3902469b9ae332434464",
+    "r1_breaker_blob": "eaf8dc6846f30a068c3a6cbebb3286e188e419d9",
+    "r1_requirements_blob": "8a047b50d76c12784c9b0bee7b6f2a629df60fd5",
+    "r1_workflow_blob": "30e7c9146c169a872d6871b8e7796985b5eb6516",
+    "r1_qualification_report_blob": "2c1f3258034440a312be61ce3bcf165cf588c555"
+  },
+  "exact_change": {
+    "file": "tools/e1_08a_r1_real_run.py",
+    "old_rule": "all platforms require Python 3.12.14",
+    "new_rule": {
+      "Windows": "3.12.10",
+      "Linux": "3.12.14"
+    },
+    "pyarrow": "25.0.1",
+    "all_other_runtime_behavior": "UNCHANGED"
+  },
+  "tests": [
+    [
+      "R2-01",
+      "real Windows runner with CPython 3.12.10 and pyarrow 25.0.1 passes environment verification"
+    ],
+    [
+      "R2-02",
+      "Windows 3.12.14 is rejected after correction"
+    ],
+    [
+      "R2-03",
+      "Linux 3.12.14 remains accepted"
+    ],
+    [
+      "R2-04",
+      "pyarrow version remains exactly 25.0.1"
+    ],
+    [
+      "R2-05",
+      "all non-environment protected E1 identities remain unchanged"
+    ]
+  ],
+  "stop_boundaries": [
+    "ANY_NON_ENVIRONMENT_RUNTIME_CHANGE_REQUIRED",
+    "STRATEGY_CHANGE_REQUIRED",
+    "DATASET_CHANGE_REQUIRED",
+    "OOS_CHANGE_REQUIRED",
+    "RUNNER_CHANGE_REQUIRED",
+    "EXECUTION_MODEL_CHANGE_REQUIRED",
+    "REAL_OOS_PERFORMANCE_REQUIRED"
+  ]
+}
