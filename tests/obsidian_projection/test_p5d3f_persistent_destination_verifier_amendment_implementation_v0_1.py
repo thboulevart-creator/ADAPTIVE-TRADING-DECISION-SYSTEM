@@ -470,9 +470,9 @@ class P5D3FPersistentDestinationVerifierAmendmentImplementationV01Tests(
         for forbidden in (
             "execute_finite_live_publication",
             "PROMOTION_CONFIRMED",
-            "CURRENT.tmp",
-            "production_promotion_authorized",
-            "real_vault_write_authorized",
+            "threading.Thread",
+            "schtasks",
+            "CreateService",
         ):
             self.assertNotIn(
                 forbidden,
