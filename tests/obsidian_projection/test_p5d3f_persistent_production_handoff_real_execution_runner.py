@@ -21,7 +21,7 @@ class P5D3FPersistentRealExecutionRunnerTests(
     def test_runner_branch_is_exact(self) -> None:
         self.assertEqual(
             runner.RUNNER_BRANCH,
-            "feat/obsidian-projection-p5d3f-persistent-production-handoff-real-execution-v0.1",
+            "feat/obsidian-projection-p5d3f-persistent-real-execution-failure-preservation-v0.2",
         )
 
     def test_runtime_authority_pins_are_exact(self) -> None:
@@ -52,7 +52,7 @@ class P5D3FPersistentRealExecutionRunnerTests(
             "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
         )
 
-    def test_cleanup_removes_empty_staging_created_by_run(self) -> None:
+    def test_residual_snapshot_preserves_empty_staging(self) -> None:
         with tempfile.TemporaryDirectory(
             prefix="p5d3f-real-runner-empty-"
         ) as temp:
@@ -60,35 +60,21 @@ class P5D3FPersistentRealExecutionRunnerTests(
             staging = root / "staging"
             staging.mkdir()
 
-            runner._cleanup_empty_staging_after_failure(
-                staging,
-                "ABSENT",
+            snapshot = runner._snapshot_staging_residual(
+                staging
             )
 
-            self.assertFalse(staging.exists())
-
-    def test_cleanup_restores_empty_preexisting_staging(self) -> None:
-        with tempfile.TemporaryDirectory(
-            prefix="p5d3f-real-runner-preexisting-"
-        ) as temp:
-            root = Path(temp)
-            staging = root / "staging"
-            staging.mkdir()
-            packages = staging / "packages"
-            packages.mkdir()
-
-            runner._cleanup_empty_staging_after_failure(
-                staging,
+            self.assertTrue(staging.exists())
+            self.assertEqual(
+                snapshot["state"],
                 "PRESENT_EMPTY",
             )
-
-            self.assertTrue(staging.is_dir())
             self.assertEqual(
-                list(staging.iterdir()),
+                snapshot["entries"],
                 [],
             )
 
-    def test_cleanup_refuses_nonempty_residual(self) -> None:
+    def test_residual_snapshot_preserves_nonempty_evidence(self) -> None:
         with tempfile.TemporaryDirectory(
             prefix="p5d3f-real-runner-residual-"
         ) as temp:
@@ -97,18 +83,76 @@ class P5D3FPersistentRealExecutionRunnerTests(
             staging.mkdir()
             packages = staging / "packages"
             packages.mkdir()
-            residual = packages / "residual"
-            residual.mkdir()
+            residual = packages / "residual.txt"
+            residual.write_bytes(b"EVIDENCE\n")
 
-            with self.assertRaises(
-                runner.RealExecutionRunnerError
-            ):
-                runner._cleanup_empty_staging_after_failure(
-                    staging,
-                    "ABSENT",
-                )
+            snapshot = runner._snapshot_staging_residual(
+                staging
+            )
 
             self.assertTrue(residual.exists())
+            self.assertEqual(
+                snapshot["state"],
+                "PRESENT_NONEMPTY",
+            )
+            self.assertEqual(
+                snapshot["entries"],
+                [
+                    {
+                        "path": "packages",
+                        "type": "DIRECTORY",
+                    },
+                    {
+                        "path": "packages/residual.txt",
+                        "type": "FILE",
+                        "size": 9,
+                    },
+                ],
+            )
+
+    def test_residual_snapshot_reports_absent_without_creation(self) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3f-real-runner-absent-"
+        ) as temp:
+            staging = Path(temp) / "staging"
+
+            snapshot = runner._snapshot_staging_residual(
+                staging
+            )
+
+            self.assertFalse(staging.exists())
+            self.assertEqual(
+                snapshot["state"],
+                "ABSENT",
+            )
+            self.assertFalse(
+                snapshot["exists"]
+            )
+
+    def test_failure_path_contains_no_cleanup_delete(self) -> None:
+        source = (
+            Path(__file__).resolve().parents[2]
+            / "tools"
+            / "obsidian_projection"
+            / "p5d3f_persistent_production_handoff_real_execution.py"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            "P5D3F_PERSISTENT_FAILURE_ORIGINAL=",
+            source,
+        )
+        self.assertIn(
+            "P5D3F_PERSISTENT_FAILURE_RESIDUAL_JSON=",
+            source,
+        )
+        self.assertNotIn(
+            "staging.rmdir()",
+            source,
+        )
+        self.assertNotIn(
+            "packages.rmdir()",
+            source,
+        )
 
     def test_source_requires_explicit_runner_blob_binding(self) -> None:
         source = (
