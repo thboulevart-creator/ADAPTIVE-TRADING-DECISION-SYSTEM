@@ -80,9 +80,8 @@ class P5D3FRecoveryRealExecutionRunnerV03Tests(
             packages = staging / "packages"
             packages.mkdir()
             residual = packages / "evidence.txt"
-            residual.write_text(
-                "evidence\n",
-                encoding="utf-8",
+            residual.write_bytes(
+                b"evidence\n"
             )
 
             snapshot = runner._snapshot_staging_residual(
