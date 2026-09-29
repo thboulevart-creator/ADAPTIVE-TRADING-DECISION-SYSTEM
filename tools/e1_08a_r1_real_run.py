@@ -24,7 +24,10 @@ HYPOTHESIS_FAMILY="MOMENTUM_V1"
 OOS_START="2025-05-25T00:00:00Z"
 OOS_END="2026-05-24T23:59:59.963Z"
 
-REAL_RUN_PYTHON="3.12.14"
+REAL_RUN_PYTHON_BY_SYSTEM={
+    "Windows":"3.12.10",
+    "Linux":"3.12.14",
+}
 REAL_RUN_PYARROW="25.0.1"
 
 SOURCE_DATASET_ID="SOURCE_B_USTECH_PRICE_CORE_V0_1"
@@ -95,13 +98,17 @@ def verify_git_blob_file(path,expected_blob):
     return {"status":"PASS","blob":observed}
 
 def verify_runtime_environment():
+    observed_system=platform.system()
     observed_python=platform.python_version()
     observed_arrow=pa.__version__
-    if observed_python!=REAL_RUN_PYTHON:
-        return _blocked("PYTHON_VERSION_MISMATCH",python=observed_python,pyarrow=observed_arrow)
+    expected_python=REAL_RUN_PYTHON_BY_SYSTEM.get(observed_system)
+    if expected_python is None:
+        return _blocked("UNSUPPORTED_RUNTIME_SYSTEM",system=observed_system,python=observed_python,pyarrow=observed_arrow)
+    if observed_python!=expected_python:
+        return _blocked("PYTHON_VERSION_MISMATCH",system=observed_system,python=observed_python,pyarrow=observed_arrow)
     if observed_arrow!=REAL_RUN_PYARROW:
-        return _blocked("PYARROW_VERSION_MISMATCH",python=observed_python,pyarrow=observed_arrow)
-    return {"status":"PASS","python":observed_python,"pyarrow":observed_arrow}
+        return _blocked("PYARROW_VERSION_MISMATCH",system=observed_system,python=observed_python,pyarrow=observed_arrow)
+    return {"status":"PASS","system":observed_system,"python":observed_python,"pyarrow":observed_arrow}
 
 def read_git_identity(repo_root):
     root=Path(repo_root)
