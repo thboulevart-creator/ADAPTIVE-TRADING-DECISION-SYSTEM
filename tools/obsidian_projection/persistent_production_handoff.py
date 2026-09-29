@@ -33,6 +33,12 @@ class PersistentHandoffGovernanceError(
     pass
 
 
+class PersistentHandoffPostSuccessCleanupBlockedError(
+    PersistentHandoffBlockedError
+):
+    pass
+
+
 EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
@@ -40,6 +46,9 @@ MONITORED_BRANCH = "integration/system-v1"
 
 PERSISTENT_GATE_CONTRACT_BLOB = (
     "59ce9e079d256799d072405fa4a623ba58b75c0d"
+)
+RECOVERY_GATE_CONTRACT_BLOB = (
+    "aef627936b6f745017bcace7e8a3e44270f95674"
 )
 QUALIFIED_P5D3F_IMPLEMENTATION_BLOB = (
     "2108131914cf65bb076b80f5bb63cd63267567fa"
@@ -55,6 +64,10 @@ REAL_VAULT = Path(
 _GATE_CONTRACT_RELATIVE = (
     "tools/obsidian_projection/"
     "persistent_production_handoff_gate_contract_v0_1.json"
+)
+_RECOVERY_GATE_CONTRACT_RELATIVE = (
+    "tools/obsidian_projection/"
+    "persistent_production_handoff_gate_contract_v0_2.json"
 )
 _P5D3F_IMPLEMENTATION_RELATIVE = (
     "tools/obsidian_projection/"
@@ -187,6 +200,8 @@ def _verify_tooling_identity(
     expected = {
         _GATE_CONTRACT_RELATIVE:
             PERSISTENT_GATE_CONTRACT_BLOB,
+        _RECOVERY_GATE_CONTRACT_RELATIVE:
+            RECOVERY_GATE_CONTRACT_BLOB,
         _P5D3F_IMPLEMENTATION_RELATIVE:
             QUALIFIED_P5D3F_IMPLEMENTATION_BLOB,
     }
@@ -387,12 +402,42 @@ def validate_staging_prestate(
             "persistent staging enumeration unavailable"
         ) from exc
 
-    if entries:
-        raise PersistentHandoffBlockedError(
-            "BLOCKED_PERSISTENT_STAGING_CONFLICT"
-        )
+    if not entries:
+        return "PRESENT_EMPTY"
 
-    return "PRESENT_EMPTY"
+    if (
+        len(entries) == 1
+        and entries[0].name == "packages"
+    ):
+        packages = entries[0]
+
+        if _is_alias(packages):
+            raise PersistentHandoffGovernanceError(
+                "persistent packages recovery path is alias/reparse"
+            )
+
+        if not packages.is_dir():
+            raise PersistentHandoffBlockedError(
+                "BLOCKED_PERSISTENT_STAGING_CONFLICT"
+            )
+
+        try:
+            package_entries = list(
+                packages.iterdir()
+            )
+        except OSError as exc:
+            raise PersistentHandoffBlockedError(
+                "persistent packages recovery enumeration unavailable"
+            ) from exc
+
+        if not package_entries:
+            return (
+                "PRESENT_EMPTY_PACKAGES_RECOVERY"
+            )
+
+    raise PersistentHandoffBlockedError(
+        "BLOCKED_PERSISTENT_STAGING_CONFLICT"
+    )
 
 
 def fingerprint_tree(
@@ -812,6 +857,72 @@ def _validate_success(
         )
 
 
+def _annotate_body_failure(
+    exc: Exception,
+    temp_root: Path,
+) -> Exception:
+    try:
+        setattr(
+            exc,
+            "p5d3f_temp_root",
+            str(temp_root),
+        )
+    except Exception:
+        pass
+    return exc
+
+
+def _cleanup_temp_root_after_success(
+    temp_root: Path,
+    result: dict[str, Any],
+) -> None:
+    try:
+        shutil.rmtree(temp_root)
+    except OSError as exc:
+        blocked = (
+            PersistentHandoffPostSuccessCleanupBlockedError(
+                "BLOCKED_TEMPORARY_CLEANUP_AFTER_BODY_SUCCESS"
+            )
+        )
+        blocked.p5d3f_temp_root = str(
+            temp_root
+        )
+        blocked.p5d3f_success_result = dict(
+            result
+        )
+        raise blocked from exc
+
+    try:
+        still_exists = temp_root.exists()
+    except OSError as exc:
+        blocked = (
+            PersistentHandoffPostSuccessCleanupBlockedError(
+                "BLOCKED_TEMPORARY_CLEANUP_AFTER_BODY_SUCCESS"
+            )
+        )
+        blocked.p5d3f_temp_root = str(
+            temp_root
+        )
+        blocked.p5d3f_success_result = dict(
+            result
+        )
+        raise blocked from exc
+
+    if still_exists:
+        blocked = (
+            PersistentHandoffPostSuccessCleanupBlockedError(
+                "BLOCKED_TEMPORARY_CLEANUP_AFTER_BODY_SUCCESS"
+            )
+        )
+        blocked.p5d3f_temp_root = str(
+            temp_root
+        )
+        blocked.p5d3f_success_result = dict(
+            result
+        )
+        raise blocked
+
+
 def execute_persistent_production_handoff(
     *,
     control_repo: Path | None = None,
@@ -849,15 +960,15 @@ def execute_persistent_production_handoff(
         _intersects(temp_root, staging)
         or _intersects(temp_root, vault)
     ):
-        shutil.rmtree(
-            temp_root,
-            ignore_errors=True,
-        )
-        raise PersistentHandoffGovernanceError(
+        exc = PersistentHandoffGovernanceError(
             "temporary roots intersect protected paths"
         )
+        _annotate_body_failure(
+            exc,
+            temp_root,
+        )
+        raise exc
 
-    completed = False
     result: dict[str, Any] | None = None
 
     try:
@@ -891,6 +1002,16 @@ def execute_persistent_production_handoff(
             )
 
         _assert_alias_free_chain(staging)
+
+        current_prestate = (
+            validate_staging_prestate(
+                staging
+            )
+        )
+        if current_prestate != staging_prestate:
+            raise PersistentHandoffBlockedError(
+                "BLOCKED_PERSISTENT_STAGING_PRESTATE_RACE"
+            )
 
         report = run_finite_promotion_handoff(
             candidate_head=head,
@@ -980,23 +1101,26 @@ def execute_persistent_production_handoff(
                 True,
         }
 
-        completed = True
-        return result
+    except Exception as exc:
+        _annotate_body_failure(
+            exc,
+            temp_root,
+        )
+        raise
 
-    finally:
-        try:
-            shutil.rmtree(temp_root)
-        except OSError as exc:
-            raise PersistentHandoffBlockedError(
-                "BLOCKED_TEMPORARY_CLEANUP"
-            ) from exc
+    if result is None:
+        exc = PersistentHandoffGovernanceError(
+            "completed result missing"
+        )
+        _annotate_body_failure(
+            exc,
+            temp_root,
+        )
+        raise exc
 
-        if temp_root.exists():
-            raise PersistentHandoffBlockedError(
-                "BLOCKED_TEMPORARY_CLEANUP"
-            )
+    _cleanup_temp_root_after_success(
+        temp_root,
+        result,
+    )
 
-        if completed and result is None:
-            raise PersistentHandoffGovernanceError(
-                "completed result missing"
-            )
+    return result
