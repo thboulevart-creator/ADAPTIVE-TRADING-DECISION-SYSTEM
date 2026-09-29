@@ -1,0 +1,112 @@
+{
+  "schema": "ATDS_E1_08B_ONE_SHOT_AUTHORIZATION_DRAFT_V0_1",
+  "control_id": "E1-08B",
+  "date": "2026-09-29",
+  "status": "DRAFT_BLOCKED_NOT_AUTHORITY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "analysis_base": {
+    "head": "75f435578ccceca7eaf4c826a2fc3e6de2b76f32",
+    "tree": "1cd1fb1ad24964f0ab763ddd938236f9fee59bbc"
+  },
+  "experiment": {
+    "experiment_id": "ATDS_E1_MOMENTUM_V1_SOURCE_B_EXPLORATORY_N0_V0",
+    "hypothesis_family": "MOMENTUM_V1",
+    "strategy_id": "MOMENTUM_V1",
+    "timeframe": "H1",
+    "oos_start": "2025-05-25T00:00:00Z",
+    "oos_end": "2026-05-24T23:59:59.963Z"
+  },
+  "frozen_bindings": {
+    "e1_08a_contract_blob": "4d868b34c42fe6765ece8007a0bf173d22199ab1",
+    "e1_08a_breaker_blob": "20297ca64c12bf9cd1eb9f6bef73598692959342",
+    "e1_08a_executor_blob": "a4a04a7f63546e09d43f8c043d41872ec973a900",
+    "e1_08a_qualification_report_blob": "83b614c5c7cac58c8645d74b06cc964ae2f53ece",
+    "e1_01_e1_02_freeze_package_blob": "6b1e0d6e76d9813cd50eb01eb4b6c06cbfa8260e",
+    "e1_03_runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "e1_05_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6",
+    "e1_06_reference_blob": "25b01e6d31709f02f9c095262bfe78366e83003b",
+    "e1_06_qualifier_blob": "0793adc08416563125f57a55c0d272d24bb4b3df",
+    "e1_07_runtime_blob": "88ca1f1ae89d1a2cfac1ae35becb3ea6209755f5",
+    "phase_21_decision_blob": "eecbfd4a7c214a2d09210f5b0490c06673619c24"
+  },
+  "source_b": {
+    "dataset_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+    "inventory_digest": "5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf",
+    "parquet_files": 212,
+    "total_rows": 376003618,
+    "h1_jsonl_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+    "h1_canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f"
+  },
+  "intended_one_shot_authority": {
+    "schema": "E1_ONE_SHOT_RUN_AUTHORITY_V0",
+    "run_id": "E1-REAL-001",
+    "max_runs": 1,
+    "real_e1_run_authorized": false,
+    "authorized_base_head": null,
+    "authorized_base_tree": null,
+    "executor_blob": "a4a04a7f63546e09d43f8c043d41872ec973a900",
+    "human_decision_reference": null,
+    "authorized_at_utc": null,
+    "canonical_digest": null
+  },
+  "blocking_findings": [
+    {
+      "id": "E1-08B-B01",
+      "class": "AUTHORITY_BINDING_DEFECT",
+      "severity": "BLOCKING",
+      "fact": "tools/e1_08_one_shot_real_e1.py verify_one_shot_authority() does not validate authorized_base_head or authorized_base_tree.",
+      "consequence": "A syntactically valid authority payload can carry arbitrary HEAD/TREE values without being rejected, so the claimed exact persisted-state binding is not mechanically enforced."
+    },
+    {
+      "id": "E1-08B-B02",
+      "class": "HUMAN_AUTHORITY_PROVENANCE_DEFECT",
+      "severity": "BLOCKING",
+      "fact": "verify_one_shot_authority() does not validate a non-empty human_decision_reference or the semantic validity of authorized_at_utc.",
+      "consequence": "The runtime does not yet mechanically enforce that the one-shot authority was bound to an explicit human decision record."
+    },
+    {
+      "id": "E1-08B-B03",
+      "class": "REAL_EXECUTION_SURFACE_MISSING",
+      "severity": "BLOCKING",
+      "fact": "The E1-08A runtime exposes run_synthetic_qualification() but no bounded real Source-B Parquet→E1-05 execution entry point.",
+      "consequence": "E1-08B would authorize a real run whose actual orchestration path is not frozen or qualified."
+    },
+    {
+      "id": "E1-08B-B04",
+      "class": "PARQUET_RUNTIME_ENVIRONMENT_UNFROZEN",
+      "severity": "BLOCKING",
+      "fact": "Real Source-B data are Parquet. Existing repository Parquet reading uses pyarrow in an older read-only compatibility probe, but no exact pyarrow version/environment is frozen for E1 real execution.",
+      "consequence": "The real input reader/environment is not reproducibly identified."
+    }
+  ],
+  "required_correction_cycle": {
+    "status": "REQUIRES_EXPLICIT_HUMAN_AUTHORIZATION",
+    "scope": [
+      "strengthen one-shot authority verification for exact HEAD/TREE and human decision reference",
+      "add frozen adversarial tests for those authority bindings",
+      "add minimal real-run orchestration over exact Source-B Parquet and qualified H1 inputs",
+      "freeze real-run Parquet dependency/environment identity",
+      "qualify corrections without computing real OOS performance",
+      "HARD STOP again before E1-08B authorization"
+    ],
+    "constraints": [
+      "no change to strategy logic",
+      "no change to OOS window",
+      "no change to E1-04 execution semantics",
+      "no change to E1-05 runner semantics",
+      "no real Momentum OOS performance",
+      "no automatic rerun",
+      "no MT5/PAPER/BROKER/LIVE/CAPITAL"
+    ]
+  },
+  "authority_state": {
+    "e1_08b_opened_for_draft_analysis": true,
+    "e1_08b_authorized": false,
+    "real_e1_run_authorized": false,
+    "real_oos_performance_authorized": false,
+    "authorization_payload_executable": false
+  }
+}

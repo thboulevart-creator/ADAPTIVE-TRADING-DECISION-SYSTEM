@@ -20671,3 +20671,57 @@ E1-08B
 EXPLICIT HUMAN ONE-SHOT REAL E1 RUN AUTHORIZATION
 ```
 
+
+
+---
+
+## 322. E1-08B — AUTHORIZATION PACKAGE DRAFT REVIEW
+
+Date:
+2026-09-29
+
+Analysis base:
+
+```text
+HEAD = 75f435578ccceca7eaf4c826a2fc3e6de2b76f32
+TREE = 1cd1fb1ad24964f0ab763ddd938236f9fee59bbc
+```
+
+Persisted draft:
+
+`GOVERNANCE/E1-08B-ONE-SHOT-AUTHORIZATION-DRAFT-V0.1.json`
+
+Persisted review:
+
+`reports/program/2026-09-29-E1-08B-AUTHORIZATION-DRAFT-REVIEW.md`
+
+Verdict:
+
+```text
+E1_08B_DRAFT = PRODUCED
+E1_08B_AUTHORIZATION = BLOCKED
+REAL_E1_RUN = NOT_AUTHORIZED
+REAL_OOS_PERFORMANCE = NOT_AUTHORIZED
+```
+
+Blocking findings:
+
+```text
+B01 = authorized_base_head/tree are present in schema but not verified
+B02 = human_decision_reference/authorization provenance not mechanically enforced
+B03 = no bounded real Source-B Parquet → E1 runner entry point exists
+B04 = exact Parquet runtime dependency/environment is not frozen
+```
+
+Derived next candidate boundary:
+
+```text
+E1-08A-R1
+—
+AUTHORITY BINDING + REAL-RUN ORCHESTRATION CLOSURE
+—
+NO REAL OOS PERFORMANCE
+```
+
+No E1-08A technical artifact is modified by this draft review.
+
