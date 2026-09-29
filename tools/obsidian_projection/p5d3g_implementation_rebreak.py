@@ -556,7 +556,17 @@ def main() -> int:
         "tools/obsidian_projection/"
         "live_publication_transaction_contract_v0_1.json",
     )
-    test_blob = _committed_blob(
+    implementation_blob = _committed_blob(
+        repo,
+        "tools/obsidian_projection/"
+        "live_publication_transaction.py",
+    )
+    implementation_test_blob = _committed_blob(
+        repo,
+        "tests/obsidian_projection/"
+        "test_p5d3g_live_publication_transaction.py",
+    )
+    contract_test_blob = _committed_blob(
         repo,
         "tests/obsidian_projection/"
         "test_live_publication_transaction_contract_v0_1.py",
@@ -564,21 +574,33 @@ def main() -> int:
 
     if contract_blob != EXPECTED_CONTRACT_BLOB:
         raise GovernedRunError(
-            "P5-D3G implementation blob inattendu: "
+            "P5-D3G contract blob inattendu: "
             f"{contract_blob}"
         )
-    if test_blob != EXPECTED_TEST_BLOB:
+    if implementation_blob != EXPECTED_IMPLEMENTATION_BLOB:
+        raise GovernedRunError(
+            "P5-D3G implementation blob inattendu: "
+            f"{implementation_blob}"
+        )
+    if implementation_test_blob != EXPECTED_IMPLEMENTATION_TEST_BLOB:
         raise GovernedRunError(
             "P5-D3G implementation-test blob inattendu: "
-            f"{test_blob}"
+            f"{implementation_test_blob}"
+        )
+    if contract_test_blob != EXPECTED_CONTRACT_TEST_BLOB:
+        raise GovernedRunError(
+            "P5-D3G contract-test blob inattendu: "
+            f"{contract_test_blob}"
         )
 
+    print("P5D3G_CONTRACT_BLOB=PASS")
     print("P5D3G_IMPLEMENTATION_BLOB=PASS")
     print("P5D3G_IMPLEMENTATION_TEST_BLOB=PASS")
+    print("P5D3G_CONTRACT_TEST_BLOB=PASS")
 
     pycache = (
         Path(tempfile.gettempdir())
-        / "ATDS-P5D3G-CONTRACT-PYCACHE"
+        / "ATDS-P5D3G-IMPLEMENTATION-PYCACHE"
     )
     pycache.mkdir(
         parents=True,
@@ -627,7 +649,7 @@ def main() -> int:
         )
         _require_ok(
             targeted,
-            "P5-D3G targeted contract tests failed",
+            "P5-D3G targeted implementation tests failed",
         )
         print("P5D3G_IMPLEMENTATION_TARGETED=PASS")
 
