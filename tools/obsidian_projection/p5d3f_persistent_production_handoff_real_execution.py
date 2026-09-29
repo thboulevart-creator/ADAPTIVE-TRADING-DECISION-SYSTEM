@@ -41,6 +41,10 @@ AUTHORIZATION_LITERAL = (
 )
 
 OID40 = re.compile(r"^[0-9a-f]{40}$")
+RUNNER_RELATIVE = (
+    "tools/obsidian_projection/"
+    "p5d3f_persistent_production_handoff_real_execution.py"
+)
 
 
 class RealExecutionRunnerError(RuntimeError):
@@ -137,9 +141,22 @@ def _committed_blob(
     )
 
 
+def _worktree_blob(
+    repo: Path,
+    relative: str,
+) -> str:
+    return _git(
+        repo,
+        "hash-object",
+        "--no-filters",
+        relative,
+    )
+
+
 def _verify_exact_runtime(
     repo: Path,
     expected_runner_head: str,
+    expected_runner_blob: str,
 ) -> None:
     if _normalize_origin(
         _git(
@@ -182,6 +199,22 @@ def _verify_exact_runtime(
             "BLOCKED_RUNNER_REMOTE_HEAD_RACE"
         )
 
+    if _committed_blob(
+        repo,
+        RUNNER_RELATIVE,
+    ) != expected_runner_blob:
+        raise RealExecutionRunnerError(
+            "governed runner committed blob mismatch"
+        )
+
+    if _worktree_blob(
+        repo,
+        RUNNER_RELATIVE,
+    ) != expected_runner_blob:
+        raise RealExecutionRunnerError(
+            "governed runner worktree blob mismatch"
+        )
+
     expected_blobs = {
         (
             "tools/obsidian_projection/"
@@ -215,10 +248,60 @@ def _verify_exact_runtime(
             )
 
 
+def _cleanup_empty_staging_after_failure(
+    staging: Path,
+    prestate: str,
+) -> None:
+    if prestate not in {
+        "ABSENT",
+        "PRESENT_EMPTY",
+    }:
+        raise RealExecutionRunnerError(
+            "unsupported staging prestate during failure cleanup"
+        )
+
+    if not staging.exists():
+        return
+
+    if not staging.is_dir():
+        raise RealExecutionRunnerError(
+            "BLOCKED_PERSISTENT_STAGING_RESIDUAL_REQUIRES_AUDIT"
+        )
+
+    entries = list(staging.iterdir())
+
+    if not entries:
+        if prestate == "ABSENT":
+            staging.rmdir()
+        return
+
+    if len(entries) == 1 and entries[0].name == "packages":
+        packages = entries[0]
+        if (
+            packages.is_dir()
+            and not any(packages.iterdir())
+        ):
+            packages.rmdir()
+            if (
+                prestate == "ABSENT"
+                and not any(staging.iterdir())
+            ):
+                staging.rmdir()
+            return
+
+    raise RealExecutionRunnerError(
+        "BLOCKED_PERSISTENT_STAGING_RESIDUAL_REQUIRES_AUDIT"
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--expected-runner-head",
+        required=True,
+    )
+    parser.add_argument(
+        "--expected-runner-blob",
         required=True,
     )
     parser.add_argument(
@@ -232,6 +315,13 @@ def main() -> int:
     ) is None:
         raise RealExecutionRunnerError(
             "invalid --expected-runner-head"
+        )
+
+    if OID40.fullmatch(
+        args.expected_runner_blob
+    ) is None:
+        raise RealExecutionRunnerError(
+            "invalid --expected-runner-blob"
         )
 
     if args.authorization != (
@@ -266,6 +356,7 @@ def main() -> int:
     _verify_exact_runtime(
         repo,
         args.expected_runner_head,
+        args.expected_runner_blob,
     )
     print(
         "P5D3F_PERSISTENT_REAL_EXECUTION_RUNTIME_IDENTITY=PASS"
@@ -297,9 +388,16 @@ def main() -> int:
         + prestate
     )
 
-    result = execute_persistent_production_handoff(
-        control_repo=repo,
-    )
+    try:
+        result = execute_persistent_production_handoff(
+            control_repo=repo,
+        )
+    except Exception:
+        _cleanup_empty_staging_after_failure(
+            staging,
+            prestate,
+        )
+        raise
 
     if result.get("status") != (
         "PASS_PERSISTENT_PRODUCTION_HANDOFF_READY_UNAUTHORIZED"
