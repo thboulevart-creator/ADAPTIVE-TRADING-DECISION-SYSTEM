@@ -5,6 +5,7 @@ import os
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 
@@ -300,80 +301,107 @@ def main() -> int:
     print("P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_BLOB=PASS")
     print("P5D3G_PRODUCTION_ENABLEMENT_TEST_BLOB=PASS")
 
-    compile_result = _run(
-        sys.executable,
-        "-m",
-        "py_compile",
-        "tools/obsidian_projection/"
-        "p5d3g_production_enablement_contract_rebreak.py",
-        "tests/obsidian_projection/"
-        "test_production_enablement_gate_contract_v0_1.py",
-        cwd=repo,
+    pycache = (
+        Path(tempfile.gettempdir())
+        / "ATDS-P5D3G-PRODUCTION-ENABLEMENT-PYCACHE"
     )
-    _require_ok(
-        compile_result,
-        "production-enablement py_compile failed",
-    )
-    print(
-        "P5D3G_PRODUCTION_ENABLEMENT_PY_COMPILE=PASS"
+    pycache.mkdir(
+        parents=True,
+        exist_ok=True,
     )
 
-    targeted = _run(
-        sys.executable,
-        "-B",
-        "-m",
-        "unittest",
-        "tests.obsidian_projection."
-        "test_production_enablement_gate_contract_v0_1",
-        "-v",
-        cwd=repo,
+    old_prefix = os.environ.get(
+        "PYTHONPYCACHEPREFIX"
     )
-    if targeted.stdout:
-        print(targeted.stdout, end="")
-    if targeted.stderr:
-        print(targeted.stderr, end="", file=sys.stderr)
-    _require_ok(
-        targeted,
-        "production-enablement targeted contract tests failed",
-    )
-    print(
-        "P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_TARGETED=PASS"
+    os.environ["PYTHONPYCACHEPREFIX"] = str(
+        pycache
     )
 
-    full = _run(
-        sys.executable,
-        "-B",
-        "-m",
-        "unittest",
-        "discover",
-        "-s",
-        "tests/obsidian_projection",
-        "-p",
-        "test_*.py",
-        "-v",
-        cwd=repo,
-    )
-    if full.stdout:
-        print(full.stdout, end="")
-    if full.stderr:
-        print(full.stderr, end="", file=sys.stderr)
-    _require_ok(
-        full,
-        "full Obsidian suite failed",
-    )
-    print(
-        "P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_FULL_REBREAK=PASS"
-    )
+    try:
+        compile_result = _run(
+            sys.executable,
+            "-m",
+            "py_compile",
+            "tools/obsidian_projection/"
+            "p5d3g_production_enablement_contract_rebreak.py",
+            "tests/obsidian_projection/"
+            "test_production_enablement_gate_contract_v0_1.py",
+            cwd=repo,
+        )
+        _require_ok(
+            compile_result,
+            "production-enablement py_compile failed",
+        )
+        print(
+            "P5D3G_PRODUCTION_ENABLEMENT_PY_COMPILE=PASS"
+        )
 
-    _require_clean(
-        repo,
-        "après production-enablement contract re-break",
-    )
-    print("CONTROL_CLONE_CLEAN=PASS")
-    print(
-        "P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_REBREAK_COMPLETED=PASS"
-    )
-    return 0
+        targeted = _run(
+            sys.executable,
+            "-B",
+            "-m",
+            "unittest",
+            "tests.obsidian_projection."
+            "test_production_enablement_gate_contract_v0_1",
+            "-v",
+            cwd=repo,
+        )
+        if targeted.stdout:
+            print(targeted.stdout, end="")
+        if targeted.stderr:
+            print(targeted.stderr, end="", file=sys.stderr)
+        _require_ok(
+            targeted,
+            "production-enablement targeted contract tests failed",
+        )
+        print(
+            "P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_TARGETED=PASS"
+        )
+
+        full = _run(
+            sys.executable,
+            "-B",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests/obsidian_projection",
+            "-p",
+            "test_*.py",
+            "-v",
+            cwd=repo,
+        )
+        if full.stdout:
+            print(full.stdout, end="")
+        if full.stderr:
+            print(full.stderr, end="", file=sys.stderr)
+        _require_ok(
+            full,
+            "full Obsidian suite failed",
+        )
+        print(
+            "P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_FULL_REBREAK=PASS"
+        )
+
+        _require_clean(
+            repo,
+            "après production-enablement contract re-break",
+        )
+        print("CONTROL_CLONE_CLEAN=PASS")
+        print(
+            "P5D3G_PRODUCTION_ENABLEMENT_CONTRACT_REBREAK_COMPLETED=PASS"
+        )
+        return 0
+    finally:
+        if old_prefix is None:
+            os.environ.pop(
+                "PYTHONPYCACHEPREFIX",
+                None,
+            )
+        else:
+            os.environ[
+                "PYTHONPYCACHEPREFIX"
+            ] = old_prefix
 
 
 if __name__ == "__main__":
