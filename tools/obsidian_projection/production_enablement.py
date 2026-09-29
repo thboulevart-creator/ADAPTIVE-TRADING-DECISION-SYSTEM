@@ -52,6 +52,12 @@ CONTRACT_BLOB = (
 QUALIFIED_LIVE_PUBLICATION_IMPLEMENTATION_BLOB = (
     "b8875f8973ddf1076ff20d8e725ce04abbb814a8"
 )
+PRODUCTION_ENABLEMENT_PIN_REQUALIFICATION_CONTRACT_BLOB = (
+    "6f938414059b2bde425ea17febfbb77635fd91e5"
+)
+EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB = (
+    "2fb34e1c04b4dd32d19b85b488d89f8a702204d0"
+)
 
 PLAN_SCHEMA = (
     "ATDS_OBSIDIAN_P5D3G_REAL_LIVE_PUBLICATION_PLAN_V0_1"
@@ -189,19 +195,24 @@ def _worktree_blob(relative: str) -> str:
     return completed.stdout.strip()
 
 
-def _verify_tooling_identity() -> None:
-    expected = {
-        (
-            "tools/obsidian_projection/"
-            "production_enablement_gate_contract_v0_1.json"
-        ): CONTRACT_BLOB,
-        (
-            "tools/obsidian_projection/"
-            "live_publication_transaction.py"
-        ): QUALIFIED_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
-    }
+_TOOLING = {
+    (
+        "tools/obsidian_projection/"
+        "production_enablement_gate_contract_v0_1.json"
+    ): CONTRACT_BLOB,
+    (
+        "tools/obsidian_projection/"
+        "production_enablement_dependency_pin_requalification_contract_v0_1.json"
+    ): PRODUCTION_ENABLEMENT_PIN_REQUALIFICATION_CONTRACT_BLOB,
+    (
+        "tools/obsidian_projection/"
+        "live_publication_transaction.py"
+    ): EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
+}
 
-    for relative, blob in expected.items():
+
+def _verify_tooling_identity() -> None:
+    for relative, blob in _TOOLING.items():
         if _git_blob(relative) != blob:
             raise ProductionEnablementGovernanceError(
                 f"qualified tooling commit mismatch: {relative}"
@@ -514,7 +525,7 @@ def production_plan_digest(
         )
     if plan.get(
         "qualified_live_publication_implementation_blob"
-    ) != QUALIFIED_LIVE_PUBLICATION_IMPLEMENTATION_BLOB:
+    ) != EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB:
         raise ProductionEnablementGovernanceError(
             "production plan implementation blob mismatch"
         )
@@ -758,7 +769,7 @@ def build_real_live_publication_plan(
         "qualified_production_enablement_contract_blob":
             CONTRACT_BLOB,
         "qualified_live_publication_implementation_blob":
-            QUALIFIED_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
+            EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
         "candidate_head":
             verified["candidate_head"],
         "candidate_tree":
