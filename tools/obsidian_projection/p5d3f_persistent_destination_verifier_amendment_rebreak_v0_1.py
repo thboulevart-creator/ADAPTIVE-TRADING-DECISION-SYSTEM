@@ -27,22 +27,22 @@ EXPECTED_RED_TESTS_BLOB = (
     "fa421e6c14f7ebf53cc53170a8aaf9f3821acd0b"
 )
 EXPECTED_VERIFIER_BLOB = (
-    "65edda8427744c0ed8b8dfa7ae0333d474b8c00d"
+    "398bda75604f8172128fbe0ddaf78cab4cee9f92"
 )
 EXPECTED_HANDOFF_BLOB = (
-    "cb8dd498fbc503acfcccb38799965c8139db82a7"
+    "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"
 )
 EXPECTED_IMPLEMENTATION_TESTS_BLOB = (
-    "6599b63a8d7595d136938d451b0781b549020bfc"
+    "804f3a025f00ef6192e7043de97dd1d29213f482"
 )
 EXPECTED_PERSISTENT_WRAPPER_BLOB = (
-    "1babcefe4f75173fab5d1f0aeec43c2f7b8aad68"
+    "375607d88bc926e4fd4c297ddc6fedba5506642a"
 )
 EXPECTED_PERSISTENT_WRAPPER_TESTS_BLOB = (
-    "3c463e818909a8330557fcc463e7c4e16d38b9b2"
+    "93f1dd5f86780cb462f7cb382f1f063222090339"
 )
 EXPECTED_HISTORICAL_HANDOFF_TESTS_BLOB = (
-    "5a388914e3bbb43684373f4e3d03cdec9d16e43d"
+    "ef0f5bcbd6a18c7119d822e57fa93b401ba46ada"
 )
 
 OID40 = re.compile(r"^[0-9a-f]{40}$")
@@ -227,7 +227,7 @@ def _static_surface_scan(repo: Path) -> None:
 
     required_persistent_wrapper = (
         'QUALIFIED_P5D3F_IMPLEMENTATION_BLOB = (',
-        '"cb8dd498fbc503acfcccb38799965c8139db82a7"',
+        '"23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"',
         "verified = verify_promotion_handoff(",
         "promotion_staging_root=staging",
     )
@@ -512,6 +512,8 @@ def main() -> int:
         "test_p5d3f_promotion_handoff",
         "tests.obsidian_projection."
         "test_p5d3f_persistent_production_handoff",
+        "tests.obsidian_projection."
+        "test_p5d3c2_adversarial",
     )
 
     print(
