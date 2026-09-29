@@ -33,7 +33,13 @@ EXPECTED_HANDOFF_BLOB = (
     "cb8dd498fbc503acfcccb38799965c8139db82a7"
 )
 EXPECTED_IMPLEMENTATION_TESTS_BLOB = (
-    "d6e21a492eddfc57a0fcbdd2acbb3d3548882c10"
+    "6599b63a8d7595d136938d451b0781b549020bfc"
+)
+EXPECTED_PERSISTENT_WRAPPER_BLOB = (
+    "1babcefe4f75173fab5d1f0aeec43c2f7b8aad68"
+)
+EXPECTED_PERSISTENT_WRAPPER_TESTS_BLOB = (
+    "3c463e818909a8330557fcc463e7c4e16d38b9b2"
 )
 EXPECTED_HISTORICAL_HANDOFF_TESTS_BLOB = (
     "5a388914e3bbb43684373f4e3d03cdec9d16e43d"
@@ -171,6 +177,13 @@ def _static_surface_scan(repo: Path) -> None:
         / "p5d3f_promotion_handoff.py"
     ).read_text(encoding="utf-8")
 
+    persistent_wrapper = (
+        repo
+        / "tools"
+        / "obsidian_projection"
+        / "persistent_production_handoff.py"
+    ).read_text(encoding="utf-8")
+
     required_verifier = (
         "def verify_candidate_generation(",
         "package root must be below OS temp root",
@@ -212,6 +225,19 @@ def _static_surface_scan(repo: Path) -> None:
                 + token
             )
 
+    required_persistent_wrapper = (
+        'QUALIFIED_P5D3F_IMPLEMENTATION_BLOB = (',
+        '"cb8dd498fbc503acfcccb38799965c8139db82a7"',
+        "verified = verify_promotion_handoff(",
+        "promotion_staging_root=staging",
+    )
+    for token in required_persistent_wrapper:
+        if token not in persistent_wrapper:
+            raise GovernedRunError(
+                "required persistent wrapper binding missing: "
+                + token
+            )
+
     forbidden = (
         "execute_finite_live_publication",
         "consume_stage_a_plan_approval",
@@ -223,7 +249,11 @@ def _static_surface_scan(repo: Path) -> None:
     hits = [
         token
         for token in forbidden
-        if token in verifier or token in handoff
+        if (
+            token in verifier
+            or token in handoff
+            or token in persistent_wrapper
+        )
     ]
     if hits:
         raise GovernedRunError(
@@ -399,6 +429,14 @@ def main() -> int:
             "tests/obsidian_projection/"
             "test_p5d3f_promotion_handoff.py"
         ): EXPECTED_HISTORICAL_HANDOFF_TESTS_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "persistent_production_handoff.py"
+        ): EXPECTED_PERSISTENT_WRAPPER_BLOB,
+        (
+            "tests/obsidian_projection/"
+            "test_p5d3f_persistent_production_handoff.py"
+        ): EXPECTED_PERSISTENT_WRAPPER_TESTS_BLOB,
     }
 
     for relative, expected_blob in (
@@ -444,8 +482,12 @@ def main() -> int:
         "candidate_generation_staging.py",
         "tools/obsidian_projection/"
         "p5d3f_promotion_handoff.py",
+        "tools/obsidian_projection/"
+        "persistent_production_handoff.py",
         "tests/obsidian_projection/"
         "test_p5d3f_persistent_destination_verifier_amendment_implementation_v0_1.py",
+        "tests/obsidian_projection/"
+        "test_p5d3f_persistent_production_handoff.py",
         cwd=repo,
         env=env,
     )
@@ -468,6 +510,8 @@ def main() -> int:
         "test_p5d3f_persistent_destination_verifier_amendment_implementation_v0_1",
         "tests.obsidian_projection."
         "test_p5d3f_promotion_handoff",
+        "tests.obsidian_projection."
+        "test_p5d3f_persistent_production_handoff",
     )
 
     print(
