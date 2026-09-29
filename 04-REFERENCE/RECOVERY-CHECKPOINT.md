@@ -20819,3 +20819,65 @@ E1-08B
 EXACT HUMAN ONE-SHOT REAL E1 AUTHORIZATION
 ```
 
+
+
+---
+
+## 324. E1-08A-R2 — WINDOWS RUNTIME CORRECTION — PASS
+
+Date:
+2026-09-29
+
+Qualified runtime HEAD:
+
+`5e1ceb171c57f2c4804f923d47e6388f8f75f648`
+
+Qualified runtime TREE:
+
+`6ba93c5dfbcdc9aea706682be9a13ce087135d60`
+
+Qualified executor blob:
+
+`5a91f7b072fb37e8653027c387096ced6da9c053`
+
+R2 qualification:
+
+```text
+Windows 2025
+Python 3.12.10
+pyarrow 25.0.1
+R2 breaker = 5/5 PASS
+
+Ubuntu 24.04
+Python 3.12.14
+pyarrow 25.0.1
+R1 breaker = 26/26 PASS
+Q8 = 20/20 PASS
+```
+
+Scope:
+
+```text
+environment binding only
+strategy unchanged
+dataset unchanged
+OOS unchanged
+runner unchanged
+execution model unchanged
+```
+
+Authority:
+
+```text
+previous E1-08B authority = SUPERSEDED
+REAL_E1_RUN = NOT_EXECUTED
+OOS_EXPOSED = FALSE
+E1_08A_R2 = PASS
+HARD_STOP = TRUE
+```
+
+Next candidate boundary:
+
+```text
+E1-08B — exact one-shot re-authorization against post-R2 state
+```
