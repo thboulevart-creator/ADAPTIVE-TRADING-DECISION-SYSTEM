@@ -1,0 +1,291 @@
+{
+  "schema": "ATDS_P22_02_IDENTITY_STATE_VERIFIER_CONTRACT_V0_1",
+  "control_id": "P22-02",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_GOVERNED_CYCLE",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "dbd4a6e727eda7e409f85e6c53a35e5ca222c308",
+    "tree": "72f67cb7b096957690698c142de263fc03f9c337"
+  },
+  "protected_dependencies": {
+    "phase22_contract_blob": "afc519d3e937dfcde2ce1e0bf7d2646dd010a8ce",
+    "phase22_adoption_blob": "90f6405435c62869f220ebe8783fc138d133ee93",
+    "p22_01_contract_blob": "503a2f0d63b7de1a553119fed6280860a3125e0a",
+    "p22_01_runtime_blob": "18b01a995f521377ec98bd4f24b7837a329ad139",
+    "p22_01_qualification_blob": "02dee12b98855977d8c5435e8c97bdc0b7947b33",
+    "p22_02_authority_blob": "9bd3a8cf51e5bb24dfc2c1c02e30584af0af5342",
+    "e1_td_03b_authority_blob": "7ea58d02387d67e7360356a10c0eaed441d0b2f4"
+  },
+  "architectural_boundary": {
+    "component": "IDENTITY_STATE_VERIFIER",
+    "purpose": "Collect and verify local Git identity/state using a strict read-only Git allowlist, producing a verified snapshot compatible with P22-01.",
+    "can_observe": true,
+    "can_verify": true,
+    "can_compare": true,
+    "can_classify": true,
+    "can_report": true,
+    "can_repair": false,
+    "can_mutate_repository": false,
+    "can_network": false,
+    "can_grant_authority": false
+  },
+  "authority": {
+    "preregister_contract": true,
+    "preregister_breaker": true,
+    "execute_test_first_red": true,
+    "minimal_runtime_implementation": true,
+    "implementation_only_mechanical_corrections": true,
+    "adversarial_testing": true,
+    "p22_01_integration_test": true,
+    "fresh_clone_real_qualification": true,
+    "persisted_head_rebreak": true,
+    "persist_red_report": true,
+    "persist_qualification_report": true,
+    "mutate_e1_or_e1_td": false,
+    "consume_td03b_event": false,
+    "strategy_performance_access": false,
+    "arbitrary_command_execution": false,
+    "network_git_operations": false,
+    "automatic_repair": false
+  },
+  "runtime_target": "tools/p22_02_identity_state_verifier.py",
+  "breaker_target": "breakers/p22_02_identity_state_verifier_red_breaker.py",
+  "p22_01_runtime": "tools/p22_01_pure_state_projector.py",
+  "allowed_git_arguments": [
+    [
+      "rev-parse",
+      "--show-toplevel"
+    ],
+    [
+      "remote",
+      "get-url",
+      "origin"
+    ],
+    [
+      "branch",
+      "--show-current"
+    ],
+    [
+      "rev-parse",
+      "HEAD"
+    ],
+    [
+      "rev-parse",
+      "HEAD^{tree}"
+    ],
+    [
+      "status",
+      "--porcelain",
+      "--untracked-files=all"
+    ],
+    [
+      "rev-parse",
+      "HEAD:<PROTECTED_RELATIVE_PATH>"
+    ]
+  ],
+  "forbidden_git_verbs": [
+    "add",
+    "am",
+    "apply",
+    "bisect",
+    "branch-delete",
+    "checkout",
+    "cherry-pick",
+    "clean",
+    "clone",
+    "commit",
+    "fetch",
+    "gc",
+    "merge",
+    "mv",
+    "pull",
+    "push",
+    "rebase",
+    "reset",
+    "restore",
+    "revert",
+    "rm",
+    "switch",
+    "tag",
+    "worktree-add"
+  ],
+  "required_runtime_surface": [
+    "CONTRACT",
+    "P2202Error",
+    "canonical_json_bytes",
+    "canonical_sha256",
+    "collect_local_git_state",
+    "verify_identity_state",
+    "build_verified_snapshot"
+  ],
+  "forbidden_runtime_surface": [
+    "repair_repository",
+    "checkout",
+    "reset",
+    "clean",
+    "fetch",
+    "pull",
+    "push",
+    "commit",
+    "merge",
+    "delete",
+    "rebase",
+    "tag",
+    "deploy",
+    "run_arbitrary_command",
+    "consume_td03b_event",
+    "run_momentum",
+    "compute_pnl",
+    "backtest"
+  ],
+  "expected_binding_required": [
+    "repository",
+    "origin",
+    "branch",
+    "head",
+    "tree",
+    "protected_artifacts"
+  ],
+  "verification_statuses": [
+    "PASS",
+    "BLOCKED_REPOSITORY_MISMATCH",
+    "BLOCKED_REMOTE_MISMATCH",
+    "BLOCKED_BRANCH_MISMATCH",
+    "BLOCKED_DETACHED_HEAD",
+    "BLOCKED_HEAD_DRIFT",
+    "BLOCKED_TREE_DRIFT",
+    "BLOCKED_PROTECTED_PATH_MISSING",
+    "BLOCKED_PROTECTED_BLOB_DRIFT",
+    "DIRTY_WORKTREE",
+    "UNKNOWN_LOCAL_STATE",
+    "INVALID_EXPECTED_BINDING",
+    "VERIFICATION_ERROR"
+  ],
+  "test_cases": [
+    [
+      "P2202-01",
+      "exact repository accepted"
+    ],
+    [
+      "P2202-02",
+      "wrong repository blocked"
+    ],
+    [
+      "P2202-03",
+      "expected origin accepted"
+    ],
+    [
+      "P2202-04",
+      "wrong origin blocked"
+    ],
+    [
+      "P2202-05",
+      "correct branch accepted"
+    ],
+    [
+      "P2202-06",
+      "wrong branch blocked"
+    ],
+    [
+      "P2202-07",
+      "detached HEAD blocked when branch required"
+    ],
+    [
+      "P2202-08",
+      "exact HEAD accepted"
+    ],
+    [
+      "P2202-09",
+      "stale or wrong HEAD blocked"
+    ],
+    [
+      "P2202-10",
+      "exact TREE accepted"
+    ],
+    [
+      "P2202-11",
+      "wrong TREE blocked"
+    ],
+    [
+      "P2202-12",
+      "clean worktree classified correctly"
+    ],
+    [
+      "P2202-13",
+      "tracked modification produces DIRTY"
+    ],
+    [
+      "P2202-14",
+      "untracked file produces DIRTY"
+    ],
+    [
+      "P2202-15",
+      "protected path exact blob passes"
+    ],
+    [
+      "P2202-16",
+      "protected blob mismatch blocks"
+    ],
+    [
+      "P2202-17",
+      "missing protected path blocks"
+    ],
+    [
+      "P2202-18",
+      "malformed expected SHA or binding fails closed"
+    ],
+    [
+      "P2202-19",
+      "subprocess execution uses fixed read-only allowlist"
+    ],
+    [
+      "P2202-20",
+      "no shell execution surface"
+    ],
+    [
+      "P2202-21",
+      "no network fetch pull surface"
+    ],
+    [
+      "P2202-22",
+      "no repository mutation command surface"
+    ],
+    [
+      "P2202-23",
+      "output deterministic and machine-readable"
+    ],
+    [
+      "P2202-24",
+      "verified snapshot accepted by P22-01"
+    ],
+    [
+      "P2202-25",
+      "input expectations not silently modified"
+    ],
+    [
+      "P2202-26",
+      "verification failure cannot self-repair"
+    ],
+    [
+      "P2202-27",
+      "E1 and E1-TD protected artifacts observational only"
+    ],
+    [
+      "P2202-28",
+      "TD-03B event budget cannot be consumed"
+    ]
+  ],
+  "stop_boundaries": [
+    "CONTRACT_OR_BREAKER_CHANGE_REQUIRED_AFTER_RED",
+    "ARBITRARY_COMMAND_REQUIRED",
+    "NETWORK_GIT_REQUIRED",
+    "AUTOMATIC_REPAIR_REQUIRED",
+    "MUTATION_OUTSIDE_AUTHORIZED_PATHS_REQUIRED",
+    "E1_OR_E1_TD_MUTATION_REQUIRED",
+    "TD03B_EVENT_CONSUMPTION_REQUIRED",
+    "STRATEGY_PERFORMANCE_ACCESS_REQUIRED",
+    "SEMANTIC_AMBIGUITY"
+  ]
+}
