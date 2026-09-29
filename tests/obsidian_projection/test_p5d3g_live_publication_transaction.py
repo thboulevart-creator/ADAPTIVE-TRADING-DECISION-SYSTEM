@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import subprocess
 import tempfile
 import unittest
@@ -30,6 +31,7 @@ from tools.obsidian_projection.live_publication_transaction import (
     classify_publication_recovery,
     execute_finite_live_publication,
     publication_plan_digest,
+    recover_finite_live_publication,
     verify_live_publication,
 )
 
@@ -211,6 +213,105 @@ class P5D3GLivePublicationImplementationTests(
             "control": control,
             "protected": protected,
         }
+
+    def _next_handoff(
+        self,
+        fx: dict[str, object],
+        root: Path,
+        *,
+        version: int,
+    ) -> tuple[str, str, Path]:
+        repo = fx["repo"]
+        protected = fx["protected"]
+        assert isinstance(repo, Path)
+        assert isinstance(protected, Path)
+
+        (
+            repo / "src" / "code.py"
+        ).write_text(
+            f"VALUE = {version}\n",
+            encoding="utf-8",
+        )
+
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "add",
+                "--all",
+            ],
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "commit",
+                "-m",
+                f"p5d3g fixture {version}",
+            ],
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
+
+        head = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "rev-parse",
+                "HEAD",
+            ],
+            check=True,
+            stdout=subprocess.PIPE,
+            text=True,
+        ).stdout.strip()
+        tree = subprocess.run(
+            [
+                "git",
+                "-C",
+                str(repo),
+                "rev-parse",
+                "HEAD^{tree}",
+            ],
+            check=True,
+            stdout=subprocess.PIPE,
+            text=True,
+        ).stdout.strip()
+
+        workspace = (
+            root
+            / f"evaluation-{version}"
+        )
+        staging = (
+            root
+            / f"promotion-staging-{version}"
+        )
+        workspace.mkdir()
+        staging.mkdir()
+
+        report = run_finite_promotion_handoff(
+            candidate_head=head,
+            candidate_tree=tree,
+            candidate_repo_root=repo,
+            evaluation_workspace_root=workspace,
+            promotion_staging_root=staging,
+            live_vault_root=protected,
+        )
+
+        handoff = (
+            staging
+            / "packages"
+            / report["generation_id"]
+        )
+        return head, tree, handoff
 
     def test_contract_blob_is_exact(self) -> None:
         self.assertEqual(
@@ -906,6 +1007,375 @@ class P5D3GLivePublicationImplementationTests(
             self.assertEqual(
                 after["classification"],
                 "NEW_CURRENT_TARGET_EXACT_FORWARD_COMPLETE",
+            )
+
+    def test_replace_existing_current_succeeds(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3g-replace-"
+        ) as temp:
+            root = Path(temp)
+            fx = self._fixture(root)
+            handoff1 = fx["handoff"]
+            live = fx["live"]
+            control = fx["control"]
+            head1 = fx["head"]
+            assert isinstance(handoff1, Path)
+            assert isinstance(live, Path)
+            assert isinstance(control, Path)
+            assert isinstance(head1, str)
+
+            plan1 = build_publication_plan(
+                handoff_root=handoff1,
+                live_vault_root=live,
+            )
+            execute_finite_live_publication(
+                handoff_root=handoff1,
+                live_vault_root=live,
+                control_root=control,
+                plan=plan1,
+                authorization=_authorization(
+                    plan1,
+                    nonce_suffix="first",
+                ),
+                observer_state=(
+                    _candidate_pending_state(
+                        head1
+                    )
+                ),
+            )
+
+            head2, _tree2, handoff2 = (
+                self._next_handoff(
+                    fx,
+                    root,
+                    version=2,
+                )
+            )
+            plan2 = build_publication_plan(
+                handoff_root=handoff2,
+                live_vault_root=live,
+            )
+
+            self.assertEqual(
+                plan2["publication_mode"],
+                "REPLACE_EXISTING_CURRENT",
+            )
+            self.assertEqual(
+                plan2[
+                    "expected_previous_generation_id"
+                ],
+                plan1["generation_id"],
+            )
+
+            report = execute_finite_live_publication(
+                handoff_root=handoff2,
+                live_vault_root=live,
+                control_root=control,
+                plan=plan2,
+                authorization=_authorization(
+                    plan2,
+                    nonce_suffix="second",
+                ),
+                observer_state=(
+                    _candidate_pending_state(
+                        head2
+                    )
+                ),
+            )
+
+            self.assertEqual(
+                report["status"],
+                "PASS_LIVE_PUBLICATION_CONFIRMED",
+            )
+            verified = verify_live_publication(
+                live_vault_root=live,
+                expected_generation_id=(
+                    plan2["generation_id"]
+                ),
+            )
+            self.assertEqual(
+                verified["generation_id"],
+                plan2["generation_id"],
+            )
+            self.assertTrue(
+                (
+                    live
+                    / "generations"
+                    / plan1["generation_id"]
+                ).is_dir()
+            )
+
+    def test_retryable_sharing_conflicts_are_absorbed(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3g-retry-"
+        ) as temp:
+            root = Path(temp)
+            fx = self._fixture(root)
+            handoff = fx["handoff"]
+            live = fx["live"]
+            control = fx["control"]
+            head = fx["head"]
+            assert isinstance(handoff, Path)
+            assert isinstance(live, Path)
+            assert isinstance(control, Path)
+            assert isinstance(head, str)
+
+            plan = build_publication_plan(
+                handoff_root=handoff,
+                live_vault_root=live,
+            )
+            original_replace = os.replace
+            attempts = {"count": 0}
+
+            def flaky_replace(
+                source: object,
+                destination: object,
+            ) -> None:
+                attempts["count"] += 1
+                if attempts["count"] <= 2:
+                    exc = PermissionError(
+                        "synthetic sharing conflict"
+                    )
+                    exc.winerror = 32
+                    raise exc
+                original_replace(
+                    source,
+                    destination,
+                )
+
+            with patch(
+                "tools.obsidian_projection."
+                "live_publication_transaction."
+                "os.replace",
+                side_effect=flaky_replace,
+            ):
+                report = (
+                    execute_finite_live_publication(
+                        handoff_root=handoff,
+                        live_vault_root=live,
+                        control_root=control,
+                        plan=plan,
+                        authorization=_authorization(
+                            plan,
+                            nonce_suffix="retry",
+                        ),
+                        observer_state=(
+                            _candidate_pending_state(
+                                head
+                            )
+                        ),
+                    )
+                )
+
+            self.assertEqual(
+                attempts["count"],
+                3,
+            )
+            self.assertEqual(
+                report["status"],
+                "PASS_LIVE_PUBLICATION_CONFIRMED",
+            )
+
+    def test_physical_pending_recovery_completes_forward(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3g-forward-recovery-"
+        ) as temp:
+            root = Path(temp)
+            fx = self._fixture(root)
+            handoff = fx["handoff"]
+            live = fx["live"]
+            control = fx["control"]
+            head = fx["head"]
+            assert isinstance(handoff, Path)
+            assert isinstance(live, Path)
+            assert isinstance(control, Path)
+            assert isinstance(head, str)
+
+            plan = build_publication_plan(
+                handoff_root=handoff,
+                live_vault_root=live,
+            )
+            auth = _authorization(
+                plan,
+                nonce_suffix="recover-forward",
+            )
+            state = _candidate_pending_state(
+                head
+            )
+
+            with patch(
+                "tools.obsidian_projection."
+                "live_publication_transaction."
+                "one_shot_tick",
+                side_effect=ObserverTickError(
+                    "synthetic confirmation interruption"
+                ),
+            ):
+                pending = (
+                    execute_finite_live_publication(
+                        handoff_root=handoff,
+                        live_vault_root=live,
+                        control_root=control,
+                        plan=plan,
+                        authorization=auth,
+                        observer_state=state,
+                    )
+                )
+
+            self.assertEqual(
+                pending["status"],
+                "PASS_PHYSICAL_PUBLICATION_LOGICAL_CONFIRMATION_PENDING",
+            )
+
+            recovered = (
+                recover_finite_live_publication(
+                    handoff_root=handoff,
+                    live_vault_root=live,
+                    control_root=control,
+                    plan=plan,
+                    authorization=auth,
+                    observer_state=state,
+                )
+            )
+            self.assertEqual(
+                recovered["status"],
+                "PASS_LIVE_PUBLICATION_CONFIRMED",
+            )
+            self.assertTrue(
+                recovered[
+                    "p5d2_promotion_confirmed_emitted"
+                ]
+            )
+
+    def test_replace_invalid_new_target_rolls_back(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3g-rollback-"
+        ) as temp:
+            root = Path(temp)
+            fx = self._fixture(root)
+            handoff1 = fx["handoff"]
+            live = fx["live"]
+            control = fx["control"]
+            head1 = fx["head"]
+            assert isinstance(handoff1, Path)
+            assert isinstance(live, Path)
+            assert isinstance(control, Path)
+            assert isinstance(head1, str)
+
+            plan1 = build_publication_plan(
+                handoff_root=handoff1,
+                live_vault_root=live,
+            )
+            execute_finite_live_publication(
+                handoff_root=handoff1,
+                live_vault_root=live,
+                control_root=control,
+                plan=plan1,
+                authorization=_authorization(
+                    plan1,
+                    nonce_suffix="rb-first",
+                ),
+                observer_state=(
+                    _candidate_pending_state(
+                        head1
+                    )
+                ),
+            )
+
+            head2, _tree2, handoff2 = (
+                self._next_handoff(
+                    fx,
+                    root,
+                    version=3,
+                )
+            )
+            plan2 = build_publication_plan(
+                handoff_root=handoff2,
+                live_vault_root=live,
+            )
+            auth2 = _authorization(
+                plan2,
+                nonce_suffix="rb-second",
+            )
+            state2 = _candidate_pending_state(
+                head2
+            )
+
+            with patch(
+                "tools.obsidian_projection."
+                "live_publication_transaction."
+                "one_shot_tick",
+                side_effect=ObserverTickError(
+                    "synthetic logical interruption"
+                ),
+            ):
+                execute_finite_live_publication(
+                    handoff_root=handoff2,
+                    live_vault_root=live,
+                    control_root=control,
+                    plan=plan2,
+                    authorization=auth2,
+                    observer_state=state2,
+                )
+
+            (
+                live
+                / "generations"
+                / plan2["generation_id"]
+                / "INDEX.md"
+            ).write_bytes(
+                b"TAMPERED\n"
+            )
+
+            classified = (
+                classify_publication_recovery(
+                    live_vault_root=live,
+                    plan=plan2,
+                )
+            )
+            self.assertEqual(
+                classified["classification"],
+                "NEW_CURRENT_TARGET_INVALID_ROLLBACK_ELIGIBLE",
+            )
+
+            rolled_back = (
+                recover_finite_live_publication(
+                    handoff_root=handoff2,
+                    live_vault_root=live,
+                    control_root=control,
+                    plan=plan2,
+                    authorization=auth2,
+                    observer_state=state2,
+                )
+            )
+
+            self.assertEqual(
+                rolled_back["status"],
+                "ROLLBACK_COMPLETED_FAILED_CANDIDATE",
+            )
+            self.assertFalse(
+                rolled_back[
+                    "p5d2_promotion_confirmed_emitted"
+                ]
+            )
+
+            verified = verify_live_publication(
+                live_vault_root=live,
+                expected_generation_id=(
+                    plan1["generation_id"]
+                ),
+            )
+            self.assertEqual(
+                verified["generation_id"],
+                plan1["generation_id"],
             )
 
     def test_no_background_or_scheduler_surface(
