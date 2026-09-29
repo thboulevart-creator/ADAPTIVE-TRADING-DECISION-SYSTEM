@@ -7,7 +7,7 @@ from pathlib import Path
 from unittest.mock import patch
 
 from tools.obsidian_projection import (
-    p5d3f_persistent_production_handoff_real_execution as runner,
+    p5d3f_recovery_real_execution_v0_3 as runner,
 )
 from tools.obsidian_projection.persistent_production_handoff import (
     PersistentHandoffPostSuccessCleanupBlockedError,
@@ -204,7 +204,7 @@ class P5D3FRecoveryRealExecutionRunnerV03Tests(
             Path(__file__).resolve().parents[2]
             / "tools"
             / "obsidian_projection"
-            / "p5d3f_persistent_production_handoff_real_execution.py"
+            / "p5d3f_recovery_real_execution_v0_3.py"
         ).read_text(encoding="utf-8")
 
         for token in (
@@ -224,7 +224,7 @@ class P5D3FRecoveryRealExecutionRunnerV03Tests(
             Path(__file__).resolve().parents[2]
             / "tools"
             / "obsidian_projection"
-            / "p5d3f_persistent_production_handoff_real_execution.py"
+            / "p5d3f_recovery_real_execution_v0_3.py"
         ).read_text(encoding="utf-8")
 
         for forbidden in (
