@@ -430,7 +430,7 @@ def _assert_lexical_directory_chain_no_alias(
         )
     )
 
-    while True:
+    for _ in range(256):
         if (
             current != boundary
             and boundary not in current.parents
@@ -445,6 +445,10 @@ def _assert_lexical_directory_chain_no_alias(
             return
         current = current.parent
 
+    raise CandidateGenerationInvalidError(
+        "authorized staging chain traversal exceeded finite bound"
+    )
+
 
 def _assert_lexical_ancestor_chain_no_alias(
     path: Path,
@@ -455,13 +459,17 @@ def _assert_lexical_ancestor_chain_no_alias(
         )
     )
 
-    while True:
+    for _ in range(256):
         _assert_directory_not_alias(current)
 
         parent = current.parent
         if parent == current:
             return
         current = parent
+
+    raise CandidateGenerationInvalidError(
+        "persistent ancestor-chain traversal exceeded finite bound"
+    )
 
 
 def _assert_tree_has_no_aliases(root: Path) -> None:
@@ -1482,10 +1490,24 @@ def verify_candidate_generation(
         package_root,
         forbidden_roots,
     )
-    return _verify_candidate_generation_content(
+    descriptor = _verify_candidate_generation_content(
         root,
         expected_candidate=expected_candidate,
     )
+
+    historical_authority = {
+        "promotion_authorized": False,
+    }
+    if descriptor.get(
+        "promotion_authorized"
+    ) is not historical_authority[
+        "promotion_authorized"
+    ]:
+        raise CandidateGenerationInvalidError(
+            "candidate verifier authority mismatch"
+        )
+
+    return descriptor
 
 
 def verify_persistent_candidate_generation(
