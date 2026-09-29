@@ -60,11 +60,14 @@ EXPECTED_BRANCH = "integration/system-v1"
 CONTRACT_BLOB = (
     "64997ddd9977229961387f66af4de356c045c0ac"
 )
+P5D3G_DEPENDENCY_PIN_REQUALIFICATION_CONTRACT_BLOB = (
+    "734aa3e0242af39263e558750d1c3b4b957f0db2"
+)
 P5D3F_IMPLEMENTATION_BLOB = (
-    "2108131914cf65bb076b80f5bb63cd63267567fa"
+    "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"
 )
 P5D3C2_VERIFIER_BLOB = (
-    "e2e5867536f4f9c7dec475c6696737249536ff39"
+    "398bda75604f8172128fbe0ddaf78cab4cee9f92"
 )
 P5D2_OBSERVER_BLOB = (
     "fd212f61ec38332b677110f40265638af55a73e2"
@@ -183,6 +186,10 @@ _TOOLING = {
         "tools/obsidian_projection/"
         "live_publication_transaction_contract_v0_1.json"
     ): CONTRACT_BLOB,
+    (
+        "tools/obsidian_projection/"
+        "p5d3g_downstream_dependency_pin_requalification_contract_v0_1.json"
+    ): P5D3G_DEPENDENCY_PIN_REQUALIFICATION_CONTRACT_BLOB,
     (
         "tools/obsidian_projection/"
         "p5d3f_promotion_handoff.py"
