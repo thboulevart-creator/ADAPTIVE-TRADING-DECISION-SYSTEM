@@ -21,7 +21,7 @@ EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 RUNNER_BRANCH = (
-    "feat/obsidian-projection-p5d3f-persistent-production-handoff-real-execution-v0.1"
+    "feat/obsidian-projection-p5d3f-persistent-real-execution-failure-preservation-v0.2"
 )
 EXPECTED_IMPLEMENTATION_BLOB = (
     "d2f40c8b2c8fb06b37bb34442c59d78222046452"
