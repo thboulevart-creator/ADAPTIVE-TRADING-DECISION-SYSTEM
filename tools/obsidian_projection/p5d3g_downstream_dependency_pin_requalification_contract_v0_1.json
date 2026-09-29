@@ -1,0 +1,78 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D3G_DOWNSTREAM_DEPENDENCY_PIN_REQUALIFICATION_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "frontier": "P5-D3G-DOWNSTREAM-DEPENDENCY-PIN-REQUALIFICATION",
+  "title": "P5D3G_UPSTREAM_TOOLING_IDENTITY_REBIND_ONLY",
+  "purpose": "Rebind P5-D3G tooling identity to the qualified P5-D3F persistent-destination-verifier amendment without changing any live-publication semantics or granting any publication authority.",
+  "basis": {
+    "historical_p5d3g_contract_blob": "64997ddd9977229961387f66af4de356c045c0ac",
+    "observed_failure": "LivePublicationGovernanceError: qualified tooling commit mismatch: tools/obsidian_projection/p5d3f_promotion_handoff.py",
+    "failure_occurs_before_publication_planning_logic": true,
+    "upstream_amendment_contract_blob": "7d13922e51256f2785af4e6d3062116b2bc324d6"
+  },
+  "exact_rebindings": {
+    "p5d3f_implementation_blob": {
+      "from": "2108131914cf65bb076b80f5bb63cd63267567fa",
+      "to": "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"
+    },
+    "candidate_generation_verifier_blob": {
+      "from": "e2e5867536f4f9c7dec475c6696737249536ff39",
+      "to": "398bda75604f8172128fbe0ddaf78cab4cee9f92"
+    }
+  },  "preservation": {
+    "historical_p5d3g_contract_must_remain_byte_exact": true,
+    "historical_p5d3g_contract_semantics_remain_authoritative_except_exact_rebindings": true,
+    "publication_logic_may_not_change": true,
+    "authorization_logic_may_not_change": true,
+    "current_pointer_logic_may_not_change": true,
+    "rollback_logic_may_not_change": true,
+    "writer_lock_logic_may_not_change": true,
+    "observer_confirmation_logic_may_not_change": true,
+    "real_vault_guards_may_not_be_weakened": true
+  },
+  "implementation_scope": {
+    "runtime_file": "tools/obsidian_projection/live_publication_transaction.py",
+    "allowed_runtime_changes": [
+      "add exact amendment contract blob identity",
+      "repin P5D3F_IMPLEMENTATION_BLOB",
+      "repin P5D3C2_VERIFIER_BLOB",
+      "add amendment contract to tooling identity map"
+    ],
+    "all_other_runtime_changes_forbidden": true
+  },
+  "required_qualification": [
+    "CONTRACT_STATIC_TEST_PASS",
+    "RED_BEFORE_REPIN_CONFIRMED",
+    "TEST_PLANNING_IS_READ_ONLY_PASS",
+    "P5D3G_LIVE_PUBLICATION_IMPLEMENTATION_CLASS_PASS",
+    "P5D3F_PERSISTENT_VERIFIER_AMENDMENT_TARGETED_REBREAK_PASS",
+    "FULL_OBSIDIAN_REBREAK_PASS"
+  ],  "boundary": {
+    "real_persistent_handoff_execution_authorized": false,
+    "real_vault_read_authorized": false,
+    "real_vault_write_authorized": false,
+    "live_publication_authorized": false,
+    "current_pointer_creation_authorized": false,
+    "current_pointer_mutation_authorized": false,
+    "promotion_confirmed_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "p5d4_authorized": false,
+    "p6_authorized": false,
+    "background_execution_authorized": false
+  },
+  "stop_conditions": [
+    "ANY_NON_PIN_RUNTIME_DIFF",
+    "HISTORICAL_CONTRACT_BYTE_CHANGE",
+    "TARGETED_TEST_FAILURE",
+    "P5D3G_CLASS_FAILURE",
+    "AMENDMENT_REBREAK_FAILURE",
+    "FULL_OBSIDIAN_REBREAK_FAILURE"
+  ],
+  "next_gate": {
+    "after_full_rebreak_pass": "FRESH_P5D3F_REAL_HANDOFF_PREFLIGHT",
+    "human_one_shot_authorization_still_required": true
+  }
+}
