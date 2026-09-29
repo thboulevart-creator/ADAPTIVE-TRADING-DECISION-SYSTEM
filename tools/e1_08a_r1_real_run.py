@@ -242,11 +242,22 @@ class ParquetTickCursor:
                 except Exception as exc:
                     raise R1Error("PARQUET_OPEN_FAILED") from exc
                 schema=parquet.schema_arrow
+                original_schema=schema
+                metadata=parquet.metadata.metadata or {}
+                encoded_original=metadata.get(b"ARROW:schema")
+                if encoded_original:
+                    try:
+                        original_schema=pa.ipc.read_schema(pa.BufferReader(base64.b64decode(encoded_original)))
+                    except Exception as exc:
+                        raise R1Error("PARQUET_ORIGINAL_SCHEMA_INVALID") from exc
                 for name in ("timestamp","bid_price","ask_price"):
-                    if schema.get_field_index(name)<0:
+                    if schema.get_field_index(name)<0 or original_schema.get_field_index(name)<0:
                         raise R1Error("PARQUET_SCHEMA_MISMATCH")
                 ts_type=schema.field("timestamp").type
+                original_ts_type=original_schema.field("timestamp").type
                 if not pa.types.is_timestamp(ts_type) or ts_type.unit!="ms":
+                    raise R1Error("PARQUET_TIMESTAMP_TYPE_MISMATCH")
+                if not pa.types.is_timestamp(original_ts_type) or original_ts_type.unit!="ms":
                     raise R1Error("PARQUET_TIMESTAMP_TYPE_MISMATCH")
                 if not pa.types.is_floating(schema.field("bid_price").type) or not pa.types.is_floating(schema.field("ask_price").type):
                     raise R1Error("PARQUET_PRICE_TYPE_MISMATCH")
@@ -452,7 +463,7 @@ def run_real_one_shot(*,repo_root,source_manifest_path,source_corpus_root,h1_jso
     if verified["status"]!="PASS":
         return _blocked("E1_07_PREFLIGHT_BLOCKED_AFTER_AUTHORITY_CONSUMPTION",detail=verified,oos_may_be_exposed=True)
     legacy_envelope=e107.build_result_envelope(preflight,run_id=authority["run_id"],timestamp_utc=authority["authorized_at_utc"],
-        execution_status="REAL_E1_ONE_SHOT",metrics=base_result["metrics"],result_payload=result)
+        execution_status="EXECUTED",metrics=base_result["metrics"],result_payload=result)
     legacy_verify=e107.verify_result_envelope(legacy_envelope,preflight)
     if legacy_verify["status"]!="PASS":
         return _blocked("E1_07_RESULT_ENVELOPE_BLOCKED_AFTER_AUTHORITY_CONSUMPTION",detail=legacy_verify,oos_may_be_exposed=True)
