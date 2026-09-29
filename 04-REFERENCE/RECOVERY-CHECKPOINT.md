@@ -20725,3 +20725,97 @@ NO REAL OOS PERFORMANCE
 
 No E1-08A technical artifact is modified by this draft review.
 
+
+
+---
+
+## 323. E1-08A-R1 — AUTHORITY + REAL-RUN CLOSURE — PASS
+
+Date:
+2026-09-29
+
+Qualified persisted HEAD:
+
+`5c5746990d0d1cce8b2a3c5cbb85cb8144116ec4`
+
+Qualified persisted TREE:
+
+`fdd1b822911904cf331ad548054160935f49a8ec`
+
+Frozen R1 identities:
+
+```text
+contract =
+d4155af3fa5e1db2abfd3902469b9ae332434464
+
+breaker =
+eaf8dc6846f30a068c3a6cbebb3286e188e419d9
+
+requirements =
+8a047b50d76c12784c9b0bee7b6f2a629df60fd5
+
+workflow =
+30e7c9146c169a872d6871b8e7796985b5eb6516
+
+qualified target =
+d3e9c848f5585346048e1a911d82cdf865b06e85
+```
+
+Test-first RED:
+
+```text
+26/26 expected failures
+unique failure =
+E1_08A_R1_TARGET_ABSENT_EXPECTED_RED
+```
+
+Final qualification:
+
+```text
+R1 = 26/26 PASS
+existing Q8 = 20/20 PASS
+clean worktree = PASS
+Python = 3.12.14
+pyarrow = 25.0.1
+```
+
+E1-08B draft blockers:
+
+```text
+B01 exact HEAD/TREE binding = CLOSED_BY_R1
+B02 human decision reference binding = CLOSED_BY_R1
+B03 real Source-B Parquet → runner orchestration = CLOSED_BY_R1
+B04 exact Parquet runtime environment = CLOSED_BY_R1
+```
+
+Additional provenance finding closed additively:
+
+```text
+physical Source-B manifest =
+c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5
+
+AP0 intermediate manifest =
+62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce
+
+E1-07 byte identity = PRESERVED
+R1 provenance disambiguation = PASS
+```
+
+Authority:
+
+```text
+E1_08A_R1 = PASS
+E1_08B = NOT_AUTHORIZED
+REAL_E1_RUN = NOT_AUTHORIZED
+REAL_OOS_PERFORMANCE = NOT_OBSERVED
+HARD_STOP = TRUE
+```
+
+Next candidate boundary:
+
+```text
+E1-08B
+—
+EXACT HUMAN ONE-SHOT REAL E1 AUTHORIZATION
+```
+
