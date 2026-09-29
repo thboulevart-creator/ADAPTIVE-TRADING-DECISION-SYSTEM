@@ -14,6 +14,7 @@ from .candidate_generation_staging import (
     CandidateGenerationInfrastructureError,
     CandidateGenerationInvalidError,
     verify_candidate_generation,
+    verify_persistent_candidate_generation,
 )
 from .finite_candidate_evaluator import (
     FiniteCandidateEvaluatorError,
@@ -52,7 +53,7 @@ HANDOFF_CONTRACT_BLOB = (
     "64744325251db350d26c0269090ce62d5fa5f2e8"
 )
 P5D3C2_VERIFIER_BLOB = (
-    "e2e5867536f4f9c7dec475c6696737249536ff39"
+    "c80df2b594fa55e65699f3db6212598c71a26f6d"
 )
 P5D3D_EVALUATOR_BLOB = (
     "bff5f51abbb344c1ccc5e9c669a11cf0e26c2562"
@@ -1287,6 +1288,7 @@ def verify_promotion_handoff(
     handoff_root: Path,
     *,
     live_vault_root: Path,
+    promotion_staging_root: Path | None = None,
 ) -> dict[str, Any]:
     _verify_tooling_identity()
 
@@ -1362,10 +1364,21 @@ def verify_promotion_handoff(
     package = root / "package"
 
     try:
-        descriptor = verify_candidate_generation(
-            package,
-            forbidden_roots=(vault,),
-        )
+        if promotion_staging_root is None:
+            descriptor = verify_candidate_generation(
+                package,
+                forbidden_roots=(vault,),
+            )
+        else:
+            descriptor = (
+                verify_persistent_candidate_generation(
+                    package,
+                    authorized_staging_root=(
+                        promotion_staging_root
+                    ),
+                    forbidden_roots=(vault,),
+                )
+            )
     except CandidateGenerationInfrastructureError as exc:
         raise PromotionHandoffBlockedError(
             "copied package reverification unavailable"
@@ -1629,8 +1642,9 @@ def run_finite_promotion_handoff(
 
         try:
             destination_descriptor = (
-                verify_candidate_generation(
+                verify_persistent_candidate_generation(
                     destination_package,
+                    authorized_staging_root=staging,
                     forbidden_roots=(
                         repo,
                         workspace,
@@ -1694,6 +1708,7 @@ def run_finite_promotion_handoff(
         verified = verify_promotion_handoff(
             target,
             live_vault_root=vault,
+            promotion_staging_root=staging,
         )
 
         if verified["generation_id"] != generation_id:
