@@ -582,6 +582,49 @@ def _validate_existing_package_root(
     return root
 
 
+def _validate_existing_persistent_package_root(
+    package_root: Path,
+    *,
+    authorized_staging_root: Path,
+    forbidden_roots: Iterable[Path],
+) -> Path:
+    root = _resolved(package_root)
+    staging = _resolved(authorized_staging_root)
+
+    if not staging.exists() or not staging.is_dir():
+        raise CandidateGenerationInvalidError(
+            "authorized staging root must exist"
+        )
+
+    expected_packages = staging / "packages"
+    wrapper = root.parent
+
+    if (
+        root.name != "package"
+        or wrapper.parent != expected_packages
+        or expected_packages.parent != staging
+    ):
+        raise CandidateGenerationInvalidError(
+            "persistent package wrapper layout mismatch"
+        )
+
+    _assert_outside_forbidden_roots(
+        root,
+        forbidden_roots,
+    )
+    _assert_directory_chain_no_alias(
+        root,
+        staging,
+    )
+    _assert_tree_has_no_aliases(root)
+
+    if (root / ".git").exists():
+        raise CandidateGenerationInvalidError(
+            "package root may not be Git repository"
+        )
+    return root
+
+
 def _read_bytes(path: Path) -> bytes:
     _assert_regular_single_link(path)
     try:
@@ -1119,19 +1162,13 @@ def _candidate_from_generation_manifest(
     )
 
 
-def verify_candidate_generation(
-    package_root: Path,
+def _verify_candidate_generation_content(
+    root: Path,
     *,
     expected_candidate: (
         VerifiedProjectionCandidate | None
     ) = None,
-    forbidden_roots: Iterable[Path] = (),
 ) -> dict[str, Any]:
-    root = _validate_existing_package_root(
-        package_root,
-        forbidden_roots,
-    )
-
     top_level = {
         path.name
         for path in root.iterdir()
@@ -1361,6 +1398,51 @@ def verify_candidate_generation(
         "promotion_authorized": False,
     }
 
+
+def verify_candidate_generation(
+    package_root: Path,
+    *,
+    expected_candidate: (
+        VerifiedProjectionCandidate | None
+    ) = None,
+    forbidden_roots: Iterable[Path] = (),
+) -> dict[str, Any]:
+    root = _validate_existing_package_root(
+        package_root,
+        forbidden_roots,
+    )
+    return _verify_candidate_generation_content(
+        root,
+        expected_candidate=expected_candidate,
+    )
+
+
+def verify_persistent_candidate_generation(
+    package_root: Path,
+    *,
+    authorized_staging_root: Path,
+    expected_candidate: (
+        VerifiedProjectionCandidate | None
+    ) = None,
+    forbidden_roots: Iterable[Path] = (),
+) -> dict[str, Any]:
+    root = _validate_existing_persistent_package_root(
+        package_root,
+        authorized_staging_root=authorized_staging_root,
+        forbidden_roots=forbidden_roots,
+    )
+
+    descriptor = _verify_candidate_generation_content(
+        root,
+        expected_candidate=expected_candidate,
+    )
+
+    if root.parent.name != descriptor["generation_id"]:
+        raise CandidateGenerationInvalidError(
+            "persistent wrapper generation ID mismatch"
+        )
+
+    return descriptor
 
 def stage_candidate_generation(
     candidate: VerifiedProjectionCandidate,
