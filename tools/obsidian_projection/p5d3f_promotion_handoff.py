@@ -384,7 +384,7 @@ def _intersects(
     )
 
 
-def _is_git_worktree(path: Path) -> bool:
+def _is_git_repository_root(path: Path) -> bool:
     try:
         completed = subprocess.run(
             [
@@ -409,7 +409,26 @@ def _is_git_worktree(path: Path) -> bool:
             "Git repository check unavailable"
         ) from exc
 
-    return completed.returncode == 0
+    if completed.returncode != 0:
+        return False
+
+    top_level = completed.stdout.strip()
+    if not top_level:
+        raise PromotionHandoffBlockedError(
+            "Git repository root unavailable"
+        )
+
+    try:
+        discovered = Path(
+            top_level
+        ).resolve(strict=False)
+        candidate = path.resolve(strict=False)
+    except OSError as exc:
+        raise PromotionHandoffBlockedError(
+            "Git repository root resolution unavailable"
+        ) from exc
+
+    return discovered == candidate
 
 
 def _validate_environment(
@@ -472,9 +491,9 @@ def _validate_environment(
             "candidate repository intersects evaluation workspace"
         )
 
-    if _is_git_worktree(staging):
+    if _is_git_repository_root(staging):
         raise PromotionHandoffGovernanceError(
-            "promotion staging must not be a Git worktree"
+            "promotion staging must not be a Git repository root"
         )
 
     return repo, workspace, staging, vault
