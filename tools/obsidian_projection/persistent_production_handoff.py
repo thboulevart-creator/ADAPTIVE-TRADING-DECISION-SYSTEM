@@ -440,6 +440,16 @@ def validate_staging_prestate(
     )
 
 
+def _staging_prestate_transition_allowed(
+    initial: str,
+    current: str,
+) -> bool:
+    if initial == "ABSENT":
+        return current == "PRESENT_EMPTY"
+
+    return current == initial
+
+
 def fingerprint_tree(
     root: Path,
 ) -> dict[str, Any]:
@@ -1008,7 +1018,10 @@ def execute_persistent_production_handoff(
                 staging
             )
         )
-        if current_prestate != staging_prestate:
+        if not _staging_prestate_transition_allowed(
+            staging_prestate,
+            current_prestate,
+        ):
             raise PersistentHandoffBlockedError(
                 "BLOCKED_PERSISTENT_STAGING_PRESTATE_RACE"
             )
