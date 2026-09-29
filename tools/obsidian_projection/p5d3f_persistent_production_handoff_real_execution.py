@@ -11,7 +11,6 @@ from pathlib import Path
 from tools.obsidian_projection.persistent_production_handoff import (
     PERSISTENT_STAGING,
     REAL_VAULT,
-    PersistentHandoffPostSuccessCleanupBlockedError,
     execute_persistent_production_handoff,
     validate_persistent_paths,
     validate_staging_prestate,
@@ -22,16 +21,13 @@ EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 RUNNER_BRANCH = (
-    "feat/obsidian-projection-p5d3f-recovery-real-execution-runner-v0.3"
+    "feat/obsidian-projection-p5d3f-persistent-real-execution-failure-preservation-v0.2"
 )
 EXPECTED_IMPLEMENTATION_BLOB = (
-    "dcd70a9d9794675eab90e41df560f8b030b5dbf3"
+    "d2f40c8b2c8fb06b37bb34442c59d78222046452"
 )
-EXPECTED_RECOVERY_IMPLEMENTATION_TEST_BLOB = (
-    "242305bc0f95bbe243158b5c806255508093a357"
-)
-EXPECTED_RECOVERY_GATE_CONTRACT_BLOB = (
-    "aef627936b6f745017bcace7e8a3e44270f95674"
+EXPECTED_TEST_BLOB = (
+    "7da1fadeb1b3e9efee54b7ca09f0735277af345c"
 )
 EXPECTED_GATE_CONTRACT_BLOB = (
     "59ce9e079d256799d072405fa4a623ba58b75c0d"
@@ -42,9 +38,6 @@ EXPECTED_QUALIFIED_P5D3F_BLOB = (
 
 AUTHORIZATION_LITERAL = (
     "AUTHORIZE_ONE_P5D3F_PERSISTENT_READY_UNAUTHORIZED_HANDOFF"
-)
-AUTHORIZED_STAGING_PRESTATE = (
-    "PRESENT_EMPTY_PACKAGES_RECOVERY"
 )
 
 OID40 = re.compile(r"^[0-9a-f]{40}$")
@@ -229,12 +222,8 @@ def _verify_exact_runtime(
         ): EXPECTED_IMPLEMENTATION_BLOB,
         (
             "tests/obsidian_projection/"
-            "test_p5d3f_persistent_handoff_recovery_implementation_v0_3.py"
-        ): EXPECTED_RECOVERY_IMPLEMENTATION_TEST_BLOB,
-        (
-            "tools/obsidian_projection/"
-            "persistent_production_handoff_gate_contract_v0_2.json"
-        ): EXPECTED_RECOVERY_GATE_CONTRACT_BLOB,
+            "test_p5d3f_persistent_production_handoff.py"
+        ): EXPECTED_TEST_BLOB,
         (
             "tools/obsidian_projection/"
             "persistent_production_handoff_gate_contract_v0_1.json"
@@ -257,101 +246,6 @@ def _verify_exact_runtime(
                 "qualified blob mismatch: "
                 + relative
             )
-
-
-def _require_authorized_prestate(
-    prestate: str,
-) -> None:
-    if prestate != AUTHORIZED_STAGING_PRESTATE:
-        raise RealExecutionRunnerError(
-            "BLOCKED_UNAUTHORIZED_STAGING_PRESTATE: "
-            + prestate
-        )
-
-
-def _validate_final_success_result(
-    result: dict[str, object],
-) -> None:
-    if result.get("status") != (
-        "PASS_PERSISTENT_PRODUCTION_HANDOFF_READY_UNAUTHORIZED"
-    ):
-        raise RealExecutionRunnerError(
-            "unexpected persistent handoff status"
-        )
-
-    if result.get(
-        "publication_authorized"
-    ) is not False:
-        raise RealExecutionRunnerError(
-            "publication authority unexpectedly true"
-        )
-
-    if result.get(
-        "live_publication_executed"
-    ) is not False:
-        raise RealExecutionRunnerError(
-            "live publication unexpectedly executed"
-        )
-
-    if result.get(
-        "mandatory_stop"
-    ) is not True:
-        raise RealExecutionRunnerError(
-            "mandatory STOP missing"
-        )
-
-    zero = result.get(
-        "zero_mutation_proof"
-    )
-    if (
-        not isinstance(zero, dict)
-        or zero.get("unchanged") is not True
-        or zero.get("status")
-        != "PASS_REAL_VAULT_ZERO_MUTATION"
-    ):
-        raise RealExecutionRunnerError(
-            "real Vault zero-mutation proof missing"
-        )
-
-
-def _post_success_cleanup_block_details(
-    exc: PersistentHandoffPostSuccessCleanupBlockedError,
-) -> dict[str, object]:
-    temp_root = getattr(
-        exc,
-        "p5d3f_temp_root",
-        None,
-    )
-    success_result = getattr(
-        exc,
-        "p5d3f_success_result",
-        None,
-    )
-
-    if (
-        not isinstance(temp_root, str)
-        or not temp_root
-    ):
-        raise RealExecutionRunnerError(
-            "post-success cleanup block missing temp root"
-        )
-
-    if not isinstance(
-        success_result,
-        dict,
-    ):
-        raise RealExecutionRunnerError(
-            "post-success cleanup block missing success result"
-        )
-
-    _validate_final_success_result(
-        success_result
-    )
-
-    return {
-        "temp_root": temp_root,
-        "success_result": success_result,
-    }
 
 
 def _snapshot_staging_residual(
@@ -535,58 +429,11 @@ def main() -> int:
         "P5D3F_PERSISTENT_STAGING_PRESTATE="
         + prestate
     )
-    _require_authorized_prestate(
-        prestate
-    )
-    print(
-        "P5D3F_RECOVERY_PRESTATE_AUTHORIZED=PASS"
-    )
 
     try:
         result = execute_persistent_production_handoff(
             control_repo=repo,
         )
-    except PersistentHandoffPostSuccessCleanupBlockedError as cleanup_exc:
-        details = (
-            _post_success_cleanup_block_details(
-                cleanup_exc
-            )
-        )
-        residual = _snapshot_staging_residual(
-            staging
-        )
-        print(
-            "P5D3F_POST_SUCCESS_CLEANUP_BLOCKED=TRUE",
-            file=sys.stderr,
-        )
-        print(
-            "P5D3F_POST_SUCCESS_TEMP_ROOT="
-            + str(details["temp_root"]),
-            file=sys.stderr,
-        )
-        print(
-            "P5D3F_POST_SUCCESS_RESULT_JSON="
-            + json.dumps(
-                details["success_result"],
-                ensure_ascii=False,
-                sort_keys=True,
-                separators=(",", ":"),
-                allow_nan=False,
-            ),
-            file=sys.stderr,
-        )
-        print(
-            "P5D3F_PERSISTENT_FAILURE_RESIDUAL_JSON="
-            + json.dumps(
-                residual,
-                ensure_ascii=False,
-                sort_keys=True,
-                separators=(",", ":"),
-                allow_nan=False,
-            ),
-            file=sys.stderr,
-        )
-        raise
     except Exception as original_exc:
         residual = _snapshot_staging_residual(
             staging
@@ -598,20 +445,6 @@ def main() -> int:
             + str(original_exc),
             file=sys.stderr,
         )
-        temp_root = getattr(
-            original_exc,
-            "p5d3f_temp_root",
-            None,
-        )
-        if isinstance(
-            temp_root,
-            str,
-        ) and temp_root:
-            print(
-                "P5D3F_PERSISTENT_FAILURE_TEMP_ROOT="
-                + temp_root,
-                file=sys.stderr,
-            )
         print(
             "P5D3F_PERSISTENT_FAILURE_RESIDUAL_JSON="
             + json.dumps(
@@ -625,9 +458,43 @@ def main() -> int:
         )
         raise
 
-    _validate_final_success_result(
-        result
+    if result.get("status") != (
+        "PASS_PERSISTENT_PRODUCTION_HANDOFF_READY_UNAUTHORIZED"
+    ):
+        raise RealExecutionRunnerError(
+            "unexpected persistent handoff status"
+        )
+    if result.get(
+        "publication_authorized"
+    ) is not False:
+        raise RealExecutionRunnerError(
+            "publication authority unexpectedly true"
+        )
+    if result.get(
+        "live_publication_executed"
+    ) is not False:
+        raise RealExecutionRunnerError(
+            "live publication unexpectedly executed"
+        )
+    if result.get(
+        "mandatory_stop"
+    ) is not True:
+        raise RealExecutionRunnerError(
+            "mandatory STOP missing"
+        )
+
+    zero = result.get(
+        "zero_mutation_proof"
     )
+    if (
+        not isinstance(zero, dict)
+        or zero.get("unchanged") is not True
+        or zero.get("status")
+        != "PASS_REAL_VAULT_ZERO_MUTATION"
+    ):
+        raise RealExecutionRunnerError(
+            "real Vault zero-mutation proof missing"
+        )
 
     print(
         "P5D3F_PERSISTENT_HANDOFF_REAL_EXECUTION=PASS"
