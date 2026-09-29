@@ -1,0 +1,190 @@
+{
+  "schema": "ATDS_P22_01_PURE_STATE_PROJECTOR_CONTRACT_V0_1",
+  "control_id": "P22-01",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_GOVERNED_CYCLE",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "0e27384286f8b6c48d6246d1434e8b8c9622465c",
+    "tree": "075256faa73a7233f503c3db837aa9f1d4162823"
+  },
+  "protected_dependencies": {
+    "phase22_contract_blob": "afc519d3e937dfcde2ce1e0bf7d2646dd010a8ce",
+    "phase22_adoption_blob": "90f6405435c62869f220ebe8783fc138d133ee93",
+    "p22_01_authority_blob": "627d414bc783c6fbc1675b7afcb3751eb96efaff",
+    "e1_td_03b_authority_blob": "7ea58d02387d67e7360356a10c0eaed441d0b2f4"
+  },
+  "architectural_boundary": {
+    "component": "PURE_STATE_PROJECTOR",
+    "purpose": "Derive a non-authoritative active-state representation from explicit canonical evidence inputs.",
+    "state_model": "CANONICAL_EVIDENCE -> PURE_PROJECTOR -> DERIVED_ACTIVE_STATE",
+    "cache_is_authority": false,
+    "projection_is_authority": false,
+    "repository_collection": "DEFERRED_TO_P22_02",
+    "command_execution": "FORBIDDEN"
+  },
+  "authority": {
+    "preregister_contract": true,
+    "preregister_breaker": true,
+    "execute_test_first_red": true,
+    "minimal_runtime_implementation": true,
+    "implementation_only_mechanical_corrections": true,
+    "persisted_head_rebreak": true,
+    "persist_red_report": true,
+    "persist_qualification_report": true,
+    "mutate_e1_or_e1_td": false,
+    "consume_td03b_event": false,
+    "strategy_performance_access": false,
+    "repository_command_execution": false,
+    "network_access": false,
+    "automatic_authority_grant": false
+  },
+  "runtime_target": "tools/p22_01_pure_state_projector.py",
+  "breaker_target": "breakers/p22_01_pure_state_projector_red_breaker.py",
+  "required_runtime_surface": [
+    "CONTRACT",
+    "P2201Error",
+    "canonical_json_bytes",
+    "canonical_sha256",
+    "project_active_state"
+  ],
+  "forbidden_runtime_surface": [
+    "run_command",
+    "execute_command",
+    "git_write",
+    "commit",
+    "push",
+    "merge",
+    "delete",
+    "download",
+    "backtest",
+    "run_momentum",
+    "compute_pnl",
+    "consume_td03b_event"
+  ],
+  "required_input": {
+    "canonical_required": [
+      "repository",
+      "branch",
+      "head",
+      "tree"
+    ],
+    "optional": [
+      "working_tree_state",
+      "protected_artifacts",
+      "recovery_checkpoint",
+      "authority_state",
+      "experimental_exposure_state",
+      "protected_research_state",
+      "current_frontier",
+      "last_completed_boundary",
+      "open_blockers",
+      "hard_stops"
+    ]
+  },
+  "required_output": [
+    "schema",
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "working_tree_state",
+    "protected_artifacts",
+    "recovery_checkpoint_status",
+    "authority_state",
+    "experimental_exposure_state",
+    "protected_research_state",
+    "current_frontier",
+    "last_completed_boundary",
+    "open_blockers",
+    "hard_stops",
+    "projection_authority",
+    "cache_authority",
+    "reconstructible_from_canonical_inputs"
+  ],
+  "test_cases": [
+    [
+      "P2201-01",
+      "exact runtime contract and required surface"
+    ],
+    [
+      "P2201-02",
+      "identical canonical inputs produce identical projection and digest"
+    ],
+    [
+      "P2201-03",
+      "repository identity is explicit and preserved"
+    ],
+    [
+      "P2201-04",
+      "branch HEAD and TREE are explicit and preserved"
+    ],
+    [
+      "P2201-05",
+      "missing optional facts remain UNKNOWN rather than upgraded"
+    ],
+    [
+      "P2201-06",
+      "working-tree state preserves CLEAN DIRTY and UNKNOWN"
+    ],
+    [
+      "P2201-07",
+      "invalid working-tree state fails closed"
+    ],
+    [
+      "P2201-08",
+      "protected artifact PASS BLOCKED and UNKNOWN statuses are derived without repair"
+    ],
+    [
+      "P2201-09",
+      "stale recovery checkpoint is detected against canonical HEAD TREE"
+    ],
+    [
+      "P2201-10",
+      "matching recovery checkpoint is not falsely marked stale"
+    ],
+    [
+      "P2201-11",
+      "projection and cache are explicitly non-authoritative"
+    ],
+    [
+      "P2201-12",
+      "protected research state is surfaced without mutation or event consumption"
+    ],
+    [
+      "P2201-13",
+      "authority state is copied explicitly and missing authority remains UNKNOWN"
+    ],
+    [
+      "P2201-14",
+      "malformed critical canonical input fails closed"
+    ],
+    [
+      "P2201-15",
+      "canonical JSON forbids NaN and Infinity"
+    ],
+    [
+      "P2201-16",
+      "runtime exposes no repository mutation command or network surface"
+    ],
+    [
+      "P2201-17",
+      "input snapshot is not mutated by projection"
+    ],
+    [
+      "P2201-18",
+      "output is machine-readable and contains the frozen required surface"
+    ]
+  ],
+  "stop_boundaries": [
+    "CONTRACT_OR_BREAKER_CHANGE_REQUIRED_AFTER_RED",
+    "REPOSITORY_COLLECTION_REQUIRED",
+    "COMMAND_EXECUTION_REQUIRED",
+    "MUTATION_OUTSIDE_AUTHORIZED_PATHS_REQUIRED",
+    "E1_OR_E1_TD_MUTATION_REQUIRED",
+    "TD03B_EVENT_CONSUMPTION_REQUIRED",
+    "STRATEGY_PERFORMANCE_ACCESS_REQUIRED",
+    "SEMANTIC_AMBIGUITY"
+  ]
+}
