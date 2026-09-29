@@ -307,6 +307,84 @@ class P5D3FPromotionHandoffTests(unittest.TestCase):
                     live_vault_root=vault,
                 )
 
+    def test_staging_and_live_vault_require_same_parent_context(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3f-parent-context-"
+        ) as temp:
+            root = Path(temp)
+            (
+                repo,
+                head,
+                tree,
+                workspace,
+                _staging,
+                vault,
+            ) = self._inputs(root)
+
+            other_parent = root / "other-parent"
+            other_parent.mkdir()
+            staging = other_parent / "promotion-staging"
+            staging.mkdir()
+
+            with self.assertRaises(
+                PromotionHandoffGovernanceError
+            ):
+                run_finite_promotion_handoff(
+                    candidate_head=head,
+                    candidate_tree=tree,
+                    candidate_repo_root=repo,
+                    evaluation_workspace_root=workspace,
+                    promotion_staging_root=staging,
+                    live_vault_root=vault,
+                )
+
+    def test_handoff_wrapper_name_matches_generation_id(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3f-wrapper-name-"
+        ) as temp:
+            root = Path(temp)
+            (
+                repo,
+                head,
+                tree,
+                workspace,
+                staging,
+                vault,
+            ) = self._inputs(root)
+
+            report = run_finite_promotion_handoff(
+                candidate_head=head,
+                candidate_tree=tree,
+                candidate_repo_root=repo,
+                evaluation_workspace_root=workspace,
+                promotion_staging_root=staging,
+                live_vault_root=vault,
+            )
+
+            target = (
+                staging
+                / "packages"
+                / report["generation_id"]
+            )
+            wrong = (
+                staging
+                / "packages"
+                / ("0" * 64)
+            )
+            target.rename(wrong)
+
+            with self.assertRaises(
+                PromotionHandoffGovernanceError
+            ):
+                verify_promotion_handoff(
+                    wrong,
+                    live_vault_root=vault,
+                )
+
     def test_existing_generation_target_blocks(self) -> None:
         with tempfile.TemporaryDirectory(
             prefix="p5d3f-collision-"
