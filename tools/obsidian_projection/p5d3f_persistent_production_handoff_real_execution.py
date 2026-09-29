@@ -248,51 +248,93 @@ def _verify_exact_runtime(
             )
 
 
-def _cleanup_empty_staging_after_failure(
+def _snapshot_staging_residual(
     staging: Path,
-    prestate: str,
-) -> None:
-    if prestate not in {
-        "ABSENT",
-        "PRESENT_EMPTY",
-    }:
-        raise RealExecutionRunnerError(
-            "unsupported staging prestate during failure cleanup"
-        )
+) -> dict[str, object]:
+    snapshot: dict[str, object] = {
+        "path": str(staging),
+        "exists": False,
+        "state": "ABSENT",
+        "entries": [],
+    }
 
-    if not staging.exists():
-        return
+    try:
+        if not staging.exists():
+            return snapshot
 
-    if not staging.is_dir():
-        raise RealExecutionRunnerError(
-            "BLOCKED_PERSISTENT_STAGING_RESIDUAL_REQUIRES_AUDIT"
-        )
+        snapshot["exists"] = True
 
-    entries = list(staging.iterdir())
+        if not staging.is_dir():
+            snapshot["state"] = (
+                "PRESENT_NON_DIRECTORY"
+            )
+            return snapshot
 
-    if not entries:
-        if prestate == "ABSENT":
-            staging.rmdir()
-        return
-
-    if len(entries) == 1 and entries[0].name == "packages":
-        packages = entries[0]
-        if (
-            packages.is_dir()
-            and not any(packages.iterdir())
+        rows: list[dict[str, object]] = []
+        for path in sorted(
+            staging.rglob("*"),
+            key=lambda p: p.relative_to(
+                staging
+            ).as_posix(),
         ):
-            packages.rmdir()
-            if (
-                prestate == "ABSENT"
-                and not any(staging.iterdir())
-            ):
-                staging.rmdir()
-            return
+            relative = path.relative_to(
+                staging
+            ).as_posix()
 
-    raise RealExecutionRunnerError(
-        "BLOCKED_PERSISTENT_STAGING_RESIDUAL_REQUIRES_AUDIT"
-    )
+            try:
+                if path.is_dir():
+                    rows.append(
+                        {
+                            "path": relative,
+                            "type": "DIRECTORY",
+                        }
+                    )
+                elif path.is_file():
+                    info = path.stat()
+                    rows.append(
+                        {
+                            "path": relative,
+                            "type": "FILE",
+                            "size": int(
+                                info.st_size
+                            ),
+                        }
+                    )
+                else:
+                    rows.append(
+                        {
+                            "path": relative,
+                            "type": "OTHER",
+                        }
+                    )
+            except OSError as exc:
+                rows.append(
+                    {
+                        "path": relative,
+                        "type": "UNREADABLE",
+                        "error_type":
+                            type(exc).__name__,
+                        "error": str(exc),
+                    }
+                )
 
+        snapshot["entries"] = rows
+        snapshot["state"] = (
+            "PRESENT_EMPTY"
+            if not rows
+            else "PRESENT_NONEMPTY"
+        )
+        return snapshot
+
+    except Exception as exc:
+        snapshot["state"] = (
+            "SNAPSHOT_UNAVAILABLE"
+        )
+        snapshot["snapshot_error_type"] = (
+            type(exc).__name__
+        )
+        snapshot["snapshot_error"] = str(exc)
+        return snapshot
 
 def main() -> int:
     parser = argparse.ArgumentParser()
@@ -392,10 +434,27 @@ def main() -> int:
         result = execute_persistent_production_handoff(
             control_repo=repo,
         )
-    except Exception:
-        _cleanup_empty_staging_after_failure(
-            staging,
-            prestate,
+    except Exception as original_exc:
+        residual = _snapshot_staging_residual(
+            staging
+        )
+        print(
+            "P5D3F_PERSISTENT_FAILURE_ORIGINAL="
+            + type(original_exc).__name__
+            + ": "
+            + str(original_exc),
+            file=sys.stderr,
+        )
+        print(
+            "P5D3F_PERSISTENT_FAILURE_RESIDUAL_JSON="
+            + json.dumps(
+                residual,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+                allow_nan=False,
+            ),
+            file=sys.stderr,
         )
         raise
 
