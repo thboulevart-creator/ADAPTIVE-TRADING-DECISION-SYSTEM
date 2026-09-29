@@ -504,6 +504,32 @@ class P5D3FPersistentDestinationVerifierAmendmentImplementationV01Tests(
             source,
         )
 
+    def test_persistent_wrapper_reverification_passes_staging_authority(
+        self,
+    ) -> None:
+        source = (
+            Path(__file__).resolve().parents[2]
+            / "tools"
+            / "obsidian_projection"
+            / "persistent_production_handoff.py"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            'QUALIFIED_P5D3F_IMPLEMENTATION_BLOB = (\n'
+            '    "cb8dd498fbc503acfcccb38799965c8139db82a7"\n'
+            ')',
+            source,
+        )
+        self.assertIn(
+            "verified = verify_promotion_handoff(\n"
+            "            handoff_root,\n"
+            "            live_vault_root=vault,\n"
+            "            promotion_staging_root=staging,\n"
+            "        )",
+            source,
+        )
+
+
     def test_no_later_publication_authority_is_added(
         self,
     ) -> None:
