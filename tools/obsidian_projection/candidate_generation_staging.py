@@ -446,6 +446,24 @@ def _assert_lexical_directory_chain_no_alias(
         current = current.parent
 
 
+def _assert_lexical_ancestor_chain_no_alias(
+    path: Path,
+) -> None:
+    current = Path(
+        os.path.abspath(
+            os.fspath(path)
+        )
+    )
+
+    while True:
+        _assert_directory_not_alias(current)
+
+        parent = current.parent
+        if parent == current:
+            return
+        current = parent
+
+
 def _assert_tree_has_no_aliases(root: Path) -> None:
     _assert_directory_not_alias(root)
 
@@ -638,6 +656,9 @@ def _validate_existing_persistent_package_root(
             "authorized staging root must exist"
         )
 
+    _assert_lexical_ancestor_chain_no_alias(
+        raw_staging
+    )
     _assert_lexical_directory_chain_no_alias(
         raw_root,
         raw_staging,
