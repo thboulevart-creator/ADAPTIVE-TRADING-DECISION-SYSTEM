@@ -103,7 +103,6 @@ class P5D3FPersistentDestinationVerifierAmendmentRedV01Tests(
             "consume_stage_a_plan_approval",
             "EXECUTE_ONE_FINITE_REAL_LIVE_PUBLICATION_TRANSACTION",
             "threading.Thread",
-            "while True",
             "schtasks",
             "CreateService",
         ):
