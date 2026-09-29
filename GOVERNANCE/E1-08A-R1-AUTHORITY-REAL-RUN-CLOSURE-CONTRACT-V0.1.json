@@ -1,0 +1,191 @@
+{
+  "schema": "ATDS_E1_08A_R1_AUTHORITY_REAL_RUN_CLOSURE_CONTRACT_V0_1",
+  "control_id": "E1-08A-R1",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_CORRECTION_CYCLE",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "88a56c70509883c318bfab1ab71dd00c2031a6c8",
+    "tree": "ec527fd28ee7b53f8047dd291b6fc086f048b49d"
+  },
+  "authority": {
+    "r1_preregistration": true,
+    "r1_minimal_implementation": true,
+    "r1_synthetic_parquet_qualification": true,
+    "real_e1_run_authorized": false,
+    "real_oos_performance_authorized": false,
+    "e1_08b_authorized": false,
+    "automatic_rerun_authorized": false
+  },
+  "frozen_parent": {
+    "e1_08a_contract_blob": "4d868b34c42fe6765ece8007a0bf173d22199ab1",
+    "e1_08a_breaker_blob": "20297ca64c12bf9cd1eb9f6bef73598692959342",
+    "e1_08a_executor_blob": "a4a04a7f63546e09d43f8c043d41872ec973a900",
+    "e1_08a_qualification_report_blob": "83b614c5c7cac58c8645d74b06cc964ae2f53ece",
+    "e1_08b_blocked_draft_blob": "eaf4e83a2037af48f7b29176d3d54b6df90fc92c",
+    "e1_08b_draft_review_blob": "8f00050afb7c9e25927a6132ff69816a922e1e8f"
+  },
+  "environment": {
+    "python": "3.12.14",
+    "pyarrow": "25.0.1",
+    "requirements_path": "requirements/e1_08a_r1_real_run.lock.txt",
+    "qualification_os": "ubuntu-24.04",
+    "real_run_platform": "RECORDED_AT_RUN_TIME_NOT_ASSUMED"
+  },
+  "provenance": {
+    "execution_raw_source": {
+      "identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+      "manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+      "inventory_digest": "5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf",
+      "parquet_files": 212,
+      "rows": 376003618
+    },
+    "signal_intermediate_source": {
+      "identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "parquet_files": 61,
+      "minute_rows": 1709180
+    },
+    "h1_source": {
+      "identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+      "jsonl_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+      "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f"
+    },
+    "legacy_e1_07_notice": "E1-07 datasets.raw labels SOURCE_B_USTECH_PRICE_CORE_V0_1 while its manifest_sha256 is the AP0 minute-core manifest 62cccc...; R1 must preserve E1-07 byte identity but explicitly disambiguate this legacy binding in the real-run trace."
+  },
+  "real_run_requirements": {
+    "source_order_only": true,
+    "parquet_columns": [
+      "timestamp",
+      "bid_price",
+      "ask_price"
+    ],
+    "timestamp_type": "timestamp[ms]",
+    "continuity_boundary_ms": 60000,
+    "boundary_rule": "delta_gt_60000_is_FORBIDDEN_BOUNDARY",
+    "sort": false,
+    "deduplicate": false,
+    "repair": false,
+    "interpolate": false,
+    "forward_fill": false,
+    "raw_cursor": "MONOTONE_SINGLE_PASS",
+    "full_corpus_materialization": false,
+    "automatic_retry": false,
+    "max_runs": 1
+  },
+  "human_authority": {
+    "reference_format": "HUMAN_DECISION_SHA256:<64 lowercase hex>",
+    "exact_head_required": true,
+    "exact_tree_required": true,
+    "exact_executor_blob_required": true,
+    "utc_authorized_at_required": true
+  },
+  "artifacts": {
+    "breaker": "breakers/e1_08a_r1_authority_real_run_red_breaker.py",
+    "target": "tools/e1_08a_r1_real_run.py",
+    "workflow": ".github/workflows/e1-08a-r1-synthetic-qualification.yml",
+    "requirements": "requirements/e1_08a_r1_real_run.lock.txt",
+    "qualification_report": "reports/program/2026-09-29-E1-08A-R1-AUTHORITY-REAL-RUN-CLOSURE-QUALIFICATION.md"
+  },
+  "tests": [
+    [
+      "R1-01",
+      "required R1 surface and constants are exact"
+    ],
+    [
+      "R1-02",
+      "parent E1-08A and protected dependency blobs remain frozen"
+    ],
+    [
+      "R1-03",
+      "strict one-shot authority passes only with exact HEAD TREE executor and human reference"
+    ],
+    [
+      "R1-04",
+      "HEAD substitution blocks"
+    ],
+    [
+      "R1-05",
+      "TREE substitution blocks"
+    ],
+    [
+      "R1-06",
+      "missing or malformed human decision reference blocks"
+    ],
+    [
+      "R1-07",
+      "invalid or non-UTC authorization timestamp blocks"
+    ],
+    [
+      "R1-08",
+      "executor blob substitution blocks"
+    ],
+    [
+      "R1-09",
+      "runtime environment is exact Python 3.12.14 plus pyarrow 25.0.1"
+    ],
+    [
+      "R1-10",
+      "git identity is observed from repository and mismatch blocks"
+    ],
+    [
+      "R1-11",
+      "protected Git blob identity helper detects byte substitution"
+    ],
+    [
+      "R1-12",
+      "Parquet cursor maps timestamp bid ask and gap semantics exactly"
+    ],
+    [
+      "R1-13",
+      "Parquet file SHA mismatch blocks before first tick is yielded"
+    ],
+    [
+      "R1-14",
+      "unsupported Parquet schema or timestamp unit blocks"
+    ],
+    [
+      "R1-15",
+      "non-increasing timestamp across batches or files blocks without repair"
+    ],
+    [
+      "R1-16",
+      "Parquet cursor is monotone single-pass and never restarts"
+    ],
+    [
+      "R1-17",
+      "provenance bridge separates physical Source-B AP0 intermediate and H1 identities"
+    ],
+    [
+      "R1-18",
+      "synthetic Parquet through the real-run orchestration reaches frozen E1-05 E1-04 and E1-07"
+    ],
+    [
+      "R1-19",
+      "result exposure and trace artifacts are exclusive-create and cannot be overwritten"
+    ],
+    [
+      "R1-20",
+      "consumed one-shot marker blocks a second execution"
+    ],
+    [
+      "R1-21",
+      "real-run target exposes no network broker MT5 live capital optimizer or automatic retry path"
+    ],
+    [
+      "R1-22",
+      "legacy E1-07 raw-manifest mismatch is explicitly disclosed in R1 provenance"
+    ]
+  ],
+  "stop_boundaries": [
+    "FROZEN_E1_01_TO_E1_08A_CHANGE_REQUIRED",
+    "FROZEN_R1_TEST_CHANGE_REQUIRED_AFTER_RED",
+    "STRATEGY_SEMANTIC_CHANGE_REQUIRED",
+    "OOS_WINDOW_CHANGE_REQUIRED",
+    "REAL_OOS_PERFORMANCE_REQUIRED",
+    "E1_08B_AUTHORITY_REQUIRED",
+    "AUTOMATIC_RERUN_REQUIRED",
+    "MT5_PAPER_BROKER_LIVE_CAPITAL_REQUIRED"
+  ]
+}
