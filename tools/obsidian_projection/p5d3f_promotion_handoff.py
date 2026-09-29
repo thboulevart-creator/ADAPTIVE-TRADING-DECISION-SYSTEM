@@ -449,6 +449,11 @@ def _validate_environment(
             "promotion staging overlaps live Vault"
         )
 
+    if staging.parent != vault.parent:
+        raise PromotionHandoffGovernanceError(
+            "promotion staging/live Vault parent context mismatch"
+        )
+
     for protected in (
         staging,
         vault,
@@ -1350,6 +1355,11 @@ def verify_promotion_handoff(
         raise PromotionHandoffGovernanceError(
             "copied package reverification failed"
         ) from exc
+
+    if root.name != descriptor.get("generation_id"):
+        raise PromotionHandoffGovernanceError(
+            "handoff wrapper generation ID mismatch"
+        )
 
     package_digest = (
         _package_byte_tree_digest(
