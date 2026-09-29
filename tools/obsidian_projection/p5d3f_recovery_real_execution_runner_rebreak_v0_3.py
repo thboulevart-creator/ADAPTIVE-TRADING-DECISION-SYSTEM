@@ -17,10 +17,10 @@ BRANCH = (
 )
 
 EXPECTED_REAL_RUNNER_BLOB = (
-    "ab9702e0288dedf6c126be35239603d8112e028c"
+    "2d22734c73c7e95eed88141c3237ed61afe39dfe"
 )
 EXPECTED_REAL_RUNNER_TESTS_BLOB = (
-    "aef1dedec8217dff6d3dee4c5ecc184a08f495ab"
+    "0bb06b5a836b69f3a83e57ad0840b21fe993339c"
 )
 EXPECTED_RECOVERY_IMPLEMENTATION_BLOB = (
     "dcd70a9d9794675eab90e41df560f8b030b5dbf3"
@@ -165,7 +165,7 @@ def _static_surface_scan(repo: Path) -> None:
         repo
         / "tools"
         / "obsidian_projection"
-        / "p5d3f_persistent_production_handoff_real_execution.py"
+        / "p5d3f_recovery_real_execution_v0_3.py"
     ).read_text(encoding="utf-8")
 
     required = (
@@ -337,7 +337,7 @@ def main() -> int:
     expected_blobs = {
         (
             "tools/obsidian_projection/"
-            "p5d3f_persistent_production_handoff_real_execution.py"
+            "p5d3f_recovery_real_execution_v0_3.py"
         ): EXPECTED_REAL_RUNNER_BLOB,
         (
             "tests/obsidian_projection/"
@@ -407,7 +407,7 @@ def main() -> int:
         "-m",
         "py_compile",
         "tools/obsidian_projection/"
-        "p5d3f_persistent_production_handoff_real_execution.py",
+        "p5d3f_recovery_real_execution_v0_3.py",
         "tests/obsidian_projection/"
         "test_p5d3f_recovery_real_execution_runner_v0_3.py",
         cwd=repo,
