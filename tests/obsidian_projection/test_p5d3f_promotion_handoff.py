@@ -77,7 +77,7 @@ class P5D3FPromotionHandoffTests(unittest.TestCase):
         )
         self.assertEqual(
             P5D3C2_VERIFIER_BLOB,
-            "e2e5867536f4f9c7dec475c6696737249536ff39",
+            "c80df2b594fa55e65699f3db6212598c71a26f6d",
         )
         self.assertEqual(
             P5D3D_EVALUATOR_BLOB,
