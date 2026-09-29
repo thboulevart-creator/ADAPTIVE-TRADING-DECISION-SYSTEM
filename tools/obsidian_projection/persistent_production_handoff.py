@@ -51,7 +51,7 @@ RECOVERY_GATE_CONTRACT_BLOB = (
     "aef627936b6f745017bcace7e8a3e44270f95674"
 )
 QUALIFIED_P5D3F_IMPLEMENTATION_BLOB = (
-    "2108131914cf65bb076b80f5bb63cd63267567fa"
+    "cb8dd498fbc503acfcccb38799965c8139db82a7"
 )
 
 PERSISTENT_STAGING = Path(
@@ -1050,6 +1050,7 @@ def execute_persistent_production_handoff(
         verified = verify_promotion_handoff(
             handoff_root,
             live_vault_root=vault,
+            promotion_staging_root=staging,
         )
 
         _validate_success(
