@@ -1,0 +1,127 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D3F_PERSISTENT_DESTINATION_VERIFIER_AMENDMENT_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "frontier": "P5-D3F-PERSISTENT-DESTINATION-VERIFIER-AMENDMENT",
+  "title": "PERSISTENT_DESTINATION_PACKAGE_VERIFICATION_POLICY_AMENDMENT",
+  "purpose": "Permit read-only verification of an already-copied sealed candidate-generation package at the exact authorized persistent promotion staging destination without weakening the historical TEMP-only verifier or any content, seal, manifest, alias, hardlink, path, or integrity checks.",
+  "incident_basis": {
+    "observed_error": "PromotionHandoffGovernanceError: destination package verification failed",
+    "underlying_static_cause": "candidate_generation_staging._validate_existing_package_root requires package root below tempfile.gettempdir(), while the production handoff contract requires destination verification under the persistent OneDrive promotion staging root",
+    "incident_report": "reports/program/2026-09-29-OBSIDIAN-P5D3F-RECOVERY-V0.4-DESTINATION-PACKAGE-VERIFICATION-INCIDENT-V1.md"
+  },
+  "pinned_authorities": {
+    "candidate_generation_staging_blob": "e2e5867536f4f9c7dec475c6696737249536ff39",
+    "qualified_p5d3f_runtime_blob": "2108131914cf65bb076b80f5bb63cd63267567fa",
+    "qualified_persistent_handoff_blob": "dcd70a9d9794675eab90e41df560f8b030b5dbf3",
+    "persistent_gate_contract_v0_1_blob": "59ce9e079d256799d072405fa4a623ba58b75c0d",
+    "persistent_recovery_contract_v0_2_blob": "aef627936b6f745017bcace7e8a3e44270f95674"
+  },
+  "historical_preservation": {
+    "existing_verify_candidate_generation_name": "verify_candidate_generation",
+    "existing_temp_only_policy_must_remain": true,
+    "existing_temp_only_behavior_may_not_be_broadened": true,
+    "existing_callers_must_remain_semantically_unchanged": true,
+    "historical_tests_may_not_be_weakened_or_rewritten_to_accept_persistent_roots": true
+  },
+  "required_new_surface": {
+    "verifier_name": "verify_persistent_candidate_generation",
+    "persistent_root_argument_required": true,
+    "explicit_authorized_staging_root_argument_required": true,
+    "forbidden_roots_argument_required": true,
+    "expected_candidate_argument_optional": true,
+    "verifier_is_read_only": true,
+    "verifier_may_not_create_or_delete_paths": true
+  },
+  "exact_persistent_location_policy": {
+    "production_staging_root": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROMOTION-STAGING",
+    "protected_real_vault_root": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROJECTION",
+    "required_wrapper_shape": "<staging>/packages/<generation_id>/package",
+    "package_leaf_name": "package",
+    "packages_parent_name": "packages",
+    "package_must_be_descendant_of_explicit_authorized_staging_root": true,
+    "package_may_not_equal_staging_root": true,
+    "package_may_not_be_below_real_vault": true,
+    "package_may_not_intersect_real_vault": true,
+    "package_may_not_intersect_candidate_repo": true,
+    "package_may_not_intersect_evaluation_workspace": true,
+    "package_may_not_be_symlink_junction_or_reparse": true,
+    "staging_chain_may_not_contain_symlink_junction_or_reparse": true,
+    "arbitrary_non_temp_root_must_block": true,
+    "arbitrary_persistent_root_must_block": true
+  },
+  "shared_verification_semantics": {
+    "same_semantic_verification_core_required": true,
+    "content_checks_may_not_be_duplicated_with_divergent_logic": true,
+    "top_level_package_layout_exact": true,
+    "canonical_payload_manifest_required": true,
+    "canonical_generation_manifest_required": true,
+    "canonical_seal_required": true,
+    "payload_exact_file_set_required": true,
+    "payload_file_sizes_required": true,
+    "payload_sha256_required": true,
+    "payload_file_map_digest_required": true,
+    "projection_tree_digest_required": true,
+    "generation_identity_digest_required": true,
+    "generation_id_required": true,
+    "seal_binding_required": true,
+    "seal_byte_binding_required": true,
+    "package_status_required": "PASS_SEALED_UNPROMOTED",
+    "hard_links_forbidden": true,
+    "symlinks_forbidden": true,
+    "junctions_forbidden": true,
+    "reparse_points_forbidden": true,
+    "non_regular_files_forbidden": true
+  },
+  "p5d3f_integration_requirement": {
+    "source_package_must_continue_using_temp_only_verifier": true,
+    "destination_package_must_use_persistent_verifier": true,
+    "source_and_destination_descriptors_must_match": true,
+    "source_and_destination_byte_tree_digest_must_match": true,
+    "destination_verification_must_occur_before_PROMOTION_HANDOFF_write": true,
+    "real_vault_fingerprint_before_after_still_required": true
+  },
+  "required_adversarial_tests": [
+    "HISTORICAL_TEMP_VERIFIER_STILL_REJECTS_NON_TEMP_ROOT",
+    "PERSISTENT_VERIFIER_REJECTS_ARBITRARY_NON_TEMP_ROOT",
+    "PERSISTENT_VERIFIER_REJECTS_WRONG_STAGING_ROOT",
+    "PERSISTENT_VERIFIER_REJECTS_REAL_VAULT_INTERSECTION",
+    "PERSISTENT_VERIFIER_REJECTS_ALIAS_REPARSE_CHAIN",
+    "PERSISTENT_VERIFIER_REJECTS_HARDLINK",
+    "PERSISTENT_VERIFIER_REJECTS_TAMPERED_PAYLOAD",
+    "PERSISTENT_VERIFIER_REJECTS_TAMPERED_MANIFEST",
+    "PERSISTENT_VERIFIER_REJECTS_TAMPERED_SEAL",
+    "PERSISTENT_VERIFIER_REJECTS_WRONG_WRAPPER_LAYOUT",
+    "PERSISTENT_VERIFIER_ACCEPTS_EXACT_AUTHORIZED_PERSISTENT_PACKAGE_EQUIVALENT",
+    "TEMP_AND_PERSISTENT_VERIFIERS_RETURN_IDENTICAL_DESCRIPTOR_FOR_IDENTICAL_VALID_PACKAGE",
+    "P5D3F_DESTINATION_CALL_USES_PERSISTENT_VERIFIER_ONLY",
+    "NO_REAL_VAULT_WRITE_AUTHORITY_ADDED"
+  ],
+  "red_phase": {
+    "implementation_must_be_absent_at_contract_adoption": true,
+    "red_tests_must_fail_before_implementation": true,
+    "red_failure_must_be_due_to_missing_persistent_verifier_surface_or_missing_p5d3f_destination_binding": true,
+    "implementation_not_authorized_by_contract_adoption": true
+  },
+  "boundary": {
+    "contract_tests_only": true,
+    "red_tests_authorized": true,
+    "implementation_authorized": false,
+    "persistent_staging_real_access_authorized": false,
+    "real_vault_read_authorized": false,
+    "real_vault_write_authorized": false,
+    "persistent_handoff_real_execution_authorized": false,
+    "live_publication_authorized": false,
+    "current_pointer_mutation_authorized": false,
+    "promotion_confirmed_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "p5d4_authorized": false,
+    "p6_authorized": false
+  },
+  "next_gate": {
+    "after_contract_and_red": "P5-D3F-PERSISTENT-DESTINATION-VERIFIER-AMENDMENT-MINIMAL-IMPLEMENTATION-V0.1",
+    "mandatory_stop_after_red": true
+  }
+}
