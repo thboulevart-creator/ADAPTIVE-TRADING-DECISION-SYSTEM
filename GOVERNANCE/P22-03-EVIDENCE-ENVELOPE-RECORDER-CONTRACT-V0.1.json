@@ -1,0 +1,321 @@
+{
+  "schema": "ATDS_P22_03_EVIDENCE_ENVELOPE_RECORDER_CONTRACT_V0_1",
+  "control_id": "P22-03",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_GOVERNED_CYCLE",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "fbe8c3148787dca693829364d663d8c6cbe44436",
+    "tree": "a3b0902b1459696629847789d3a2e162fcc4e98d"
+  },
+  "protected_dependencies": {
+    "phase22_contract_blob": "afc519d3e937dfcde2ce1e0bf7d2646dd010a8ce",
+    "phase22_adoption_blob": "90f6405435c62869f220ebe8783fc138d133ee93",
+    "p22_01_contract_blob": "503a2f0d63b7de1a553119fed6280860a3125e0a",
+    "p22_01_runtime_blob": "18b01a995f521377ec98bd4f24b7837a329ad139",
+    "p22_01_qualification_blob": "02dee12b98855977d8c5435e8c97bdc0b7947b33",
+    "p22_02_contract_blob": "100175e3036d31c836b99656f363b25c7654b1db",
+    "p22_02_runtime_blob": "c6ac0c5435d3c1bc081d457abdad2225a7d0fe64",
+    "p22_02_qualification_blob": "8d79704e02c3d1483a3df4fb0c385e09dff3861f",
+    "p22_03_authority_blob": "b3d2374f7cfb973c5098b3609797accdf2c2e4aa",
+    "e1_td_03b_authority_blob": "7ea58d02387d67e7360356a10c0eaed441d0b2f4"
+  },
+  "architectural_boundary": {
+    "component": "EVIDENCE_ENVELOPE_RECORDER",
+    "purpose": "Validate supplied operation evidence and produce a canonical tamper-evident non-authoritative envelope.",
+    "executes_operation": false,
+    "collects_git_state": false,
+    "reads_filesystem": false,
+    "writes_filesystem": false,
+    "network_access": false,
+    "grants_authority": false,
+    "mutates_input": false
+  },
+  "authority": {
+    "preregister_contract": true,
+    "preregister_breaker": true,
+    "execute_test_first_red": true,
+    "minimal_runtime_implementation": true,
+    "implementation_only_mechanical_corrections": true,
+    "adversarial_tamper_testing": true,
+    "p22_02_compatibility_test": true,
+    "fresh_clone_qualification": true,
+    "persist_red_report": true,
+    "persist_qualification_report": true,
+    "mutate_e1_or_e1_td": false,
+    "consume_td03b_event": false,
+    "strategy_performance_access": false,
+    "subprocess_execution": false,
+    "git_execution": false,
+    "network_access": false,
+    "filesystem_write": false,
+    "authority_grant": false
+  },
+  "runtime_target": "tools/p22_03_evidence_envelope_recorder.py",
+  "breaker_target": "breakers/p22_03_evidence_envelope_recorder_red_breaker.py",
+  "envelope_schema": "ATDS_P22_03_EVIDENCE_ENVELOPE_V0_1",
+  "required_runtime_surface": [
+    "CONTRACT",
+    "P2203Error",
+    "canonical_json_bytes",
+    "canonical_sha256",
+    "build_evidence_envelope",
+    "validate_evidence_envelope"
+  ],
+  "forbidden_runtime_surface": [
+    "run_command",
+    "execute_command",
+    "run_git",
+    "read_repository",
+    "write_file",
+    "delete_file",
+    "fetch",
+    "pull",
+    "push",
+    "commit",
+    "merge",
+    "deploy",
+    "authorize",
+    "grant_authority",
+    "consume_td03b_event",
+    "run_momentum",
+    "compute_pnl",
+    "backtest"
+  ],
+  "required_evidence_fields": [
+    "operation_id",
+    "operation_class",
+    "command_or_check",
+    "start_head",
+    "start_tree",
+    "end_head",
+    "end_tree",
+    "exit_code",
+    "stdout",
+    "stderr",
+    "files_changed",
+    "test_results",
+    "probe_results",
+    "artifact_hashes",
+    "started_at_utc",
+    "finished_at_utc",
+    "authority_reference",
+    "final_status"
+  ],
+  "output_fields": [
+    "schema",
+    "operation_id",
+    "operation_class",
+    "command_or_check",
+    "start_head",
+    "start_tree",
+    "end_head",
+    "end_tree",
+    "exit_code",
+    "stdout",
+    "stderr",
+    "files_changed",
+    "test_results",
+    "probe_results",
+    "artifact_hashes",
+    "started_at_utc",
+    "finished_at_utc",
+    "authority_reference",
+    "final_status",
+    "envelope_authority",
+    "operation_authorized_by_envelope",
+    "evidence_digest"
+  ],
+  "allowed_operation_classes": [
+    "READ_ONLY_INFORMATIONAL",
+    "TEST_OR_PROBE",
+    "MUTATION",
+    "EXTERNAL_ACTION"
+  ],
+  "allowed_final_statuses": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "UNKNOWN",
+    "ABORTED"
+  ],
+  "allowed_result_statuses": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "UNKNOWN",
+    "ABORTED",
+    "NOT_RUN"
+  ],
+  "unknown_identity_value": "UNKNOWN",
+  "unknown_exit_code_value": "UNKNOWN",
+  "invariants": {
+    "envelope_authority": false,
+    "operation_authorized_by_envelope": false,
+    "digest_algorithm": "SHA-256",
+    "digest_scope": "ALL_ENVELOPE_FIELDS_EXCEPT_EVIDENCE_DIGEST",
+    "timestamps": "RFC3339_UTC_Z_ONLY",
+    "list_order_is_evidence": true,
+    "no_internal_clock": true,
+    "no_auto_reseal_on_validation": true
+  },
+  "test_cases": [
+    [
+      "P2203-01",
+      "exact runtime contract and required surface"
+    ],
+    [
+      "P2203-02",
+      "canonical JSON deterministic"
+    ],
+    [
+      "P2203-03",
+      "identical evidence yields identical envelope and digest"
+    ],
+    [
+      "P2203-04",
+      "all required evidence fields enforced"
+    ],
+    [
+      "P2203-05",
+      "unknown top-level evidence fields rejected"
+    ],
+    [
+      "P2203-06",
+      "operation_id required and nonempty"
+    ],
+    [
+      "P2203-07",
+      "operation_class restricted to frozen enum"
+    ],
+    [
+      "P2203-08",
+      "command_or_check preserved exactly"
+    ],
+    [
+      "P2203-09",
+      "valid HEAD and TREE identities accepted"
+    ],
+    [
+      "P2203-10",
+      "malformed HEAD or TREE rejected"
+    ],
+    [
+      "P2203-11",
+      "explicit UNKNOWN Git identity semantics preserved"
+    ],
+    [
+      "P2203-12",
+      "exit_code requires integer or UNKNOWN"
+    ],
+    [
+      "P2203-13",
+      "stdout and stderr preserved exactly"
+    ],
+    [
+      "P2203-14",
+      "repository-relative changed paths accepted"
+    ],
+    [
+      "P2203-15",
+      "absolute or traversal changed paths rejected"
+    ],
+    [
+      "P2203-16",
+      "duplicate changed paths rejected"
+    ],
+    [
+      "P2203-17",
+      "artifact SHA-256 values accepted"
+    ],
+    [
+      "P2203-18",
+      "malformed artifact SHA-256 rejected"
+    ],
+    [
+      "P2203-19",
+      "test-result FAIL preserved"
+    ],
+    [
+      "P2203-20",
+      "probe-result UNKNOWN preserved"
+    ],
+    [
+      "P2203-21",
+      "UTC Z timestamps accepted"
+    ],
+    [
+      "P2203-22",
+      "naive or non-UTC timestamps rejected"
+    ],
+    [
+      "P2203-23",
+      "finished-before-started rejected"
+    ],
+    [
+      "P2203-24",
+      "authority reference retained as provenance only"
+    ],
+    [
+      "P2203-25",
+      "envelope cannot grant authority"
+    ],
+    [
+      "P2203-26",
+      "digest binds every body field"
+    ],
+    [
+      "P2203-27",
+      "single-field post-build mutation detected"
+    ],
+    [
+      "P2203-28",
+      "validation does not auto-repair or reseal"
+    ],
+    [
+      "P2203-29",
+      "canonical JSON forbids NaN and Infinity"
+    ],
+    [
+      "P2203-30",
+      "input evidence is not mutated"
+    ],
+    [
+      "P2203-31",
+      "output is machine-readable"
+    ],
+    [
+      "P2203-32",
+      "no subprocess Git network or filesystem-write surface"
+    ],
+    [
+      "P2203-33",
+      "no E1 E1-TD or performance execution surface"
+    ],
+    [
+      "P2203-34",
+      "TD-03B event cannot be consumed"
+    ],
+    [
+      "P2203-35",
+      "real P22-02 evidence can be represented without semantic laundering"
+    ],
+    [
+      "P2203-36",
+      "untouched envelope validates PASS"
+    ]
+  ],
+  "stop_boundaries": [
+    "CONTRACT_OR_BREAKER_CHANGE_REQUIRED_AFTER_RED",
+    "OPERATION_EXECUTION_REQUIRED",
+    "GIT_COLLECTION_REQUIRED",
+    "FILESYSTEM_COLLECTION_REQUIRED",
+    "AUTHORITY_GRANT_REQUIRED",
+    "MUTATION_OUTSIDE_AUTHORIZED_PATHS_REQUIRED",
+    "E1_OR_E1_TD_MUTATION_REQUIRED",
+    "TD03B_EVENT_CONSUMPTION_REQUIRED",
+    "STRATEGY_PERFORMANCE_ACCESS_REQUIRED",
+    "SEMANTIC_AMBIGUITY"
+  ]
+}
