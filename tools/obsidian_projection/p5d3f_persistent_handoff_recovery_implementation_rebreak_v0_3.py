@@ -16,10 +16,10 @@ BRANCH = (
     "feat/obsidian-projection-p5d3f-persistent-handoff-recovery-implementation-v0.3"
 )
 EXPECTED_IMPLEMENTATION_BLOB = (
-    "bd5e9286efed875b4650d460cd2174b0768718e2"
+    "dcd70a9d9794675eab90e41df560f8b030b5dbf3"
 )
 EXPECTED_TESTS_BLOB = (
-    "afe770464a01fd35f8279384ba87b8ebd2e44310"
+    "242305bc0f95bbe243158b5c806255508093a357"
 )
 EXPECTED_RECOVERY_CONTRACT_BLOB = (
     "aef627936b6f745017bcace7e8a3e44270f95674"
