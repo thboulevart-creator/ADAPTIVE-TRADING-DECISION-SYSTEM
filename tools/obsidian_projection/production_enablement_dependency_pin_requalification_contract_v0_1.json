@@ -1,0 +1,82 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D3G_PRODUCTION_ENABLEMENT_DEPENDENCY_PIN_REQUALIFICATION_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "frontier": "P5-D3G-PRODUCTION-ENABLEMENT-DOWNSTREAM-DEPENDENCY-PIN-REQUALIFICATION",
+  "title": "PRODUCTION_ENABLEMENT_EFFECTIVE_P5D3G_TOOLING_REBIND_ONLY",
+  "purpose": "Rebind production_enablement tooling identity to the already requalified P5-D3G live-publication runtime without rewriting the historical production-enablement contract, weakening historical tests, changing production-planning semantics, or granting any real production authority.",
+  "basis": {
+    "source_head": "c5d4ae4f70e3d1f3b246bd9125ffbc072e176a26",
+    "historical_production_enablement_contract_blob": "5de65f5d13a93d1325d53e1b58536ed0860921f2",
+    "historical_production_enablement_implementation_blob": "64c1b2279835f57c03c9ec2d6a0eae9e349d55ee",
+    "historical_live_publication_blob": "b8875f8973ddf1076ff20d8e725ce04abbb814a8",
+    "requalified_live_publication_blob": "2fb34e1c04b4dd32d19b85b488d89f8a702204d0",
+    "upstream_requalification_contract_blob": "734aa3e0242af39263e558750d1c3b4b957f0db2",
+    "observed_failure": "ProductionEnablementGovernanceError: qualified tooling commit mismatch: tools/obsidian_projection/live_publication_transaction.py"
+  },  "historical_preservation": {
+    "historical_contract_must_remain_byte_exact": true,
+    "historical_test_qualified_authorities_are_exact_must_remain_unchanged": true,
+    "historical_qualified_live_publication_constant_must_remain_old_value": true,
+    "historical_rebreak_artifact_must_remain_unchanged": true,
+    "history_may_not_be_rewritten_to_present_new_blob_as_original_authority": true
+  },
+  "effective_requalification": {
+    "effective_live_publication_blob": "2fb34e1c04b4dd32d19b85b488d89f8a702204d0",
+    "effective_binding_must_be_explicitly_distinct_from_historical_binding": true,
+    "tooling_identity_must_require_effective_blob": true,
+    "new_production_plans_must_bind_effective_blob": true,
+    "plan_validation_must_require_effective_blob": true,
+    "historical_constant_must_not_be_used_as_effective_tooling_identity_after_requalification": true
+  },
+  "implementation_scope": {
+    "runtime_file": "tools/obsidian_projection/production_enablement.py",
+    "allowed_runtime_changes": [
+      "add exact requalification contract blob identity",
+      "add exact effective requalified live-publication blob identity",
+      "bind tooling identity to the amendment contract",
+      "bind tooling identity to the effective requalified live-publication blob",
+      "bind newly built production plans to the effective requalified live-publication blob",
+      "validate production plans against the effective requalified live-publication blob"
+    ],
+    "all_other_runtime_changes_forbidden": true
+  },  "required_qualification": [
+    "CONTRACT_STATIC_TEST_PASS",
+    "RED_BEFORE_REPIN_CONFIRMED",
+    "PRODUCTION_ENABLEMENT_TARGETED_TESTS_PASS_UNCHANGED",
+    "PRODUCTION_ENABLEMENT_REQUALIFICATION_TESTS_PASS",
+    "PRODUCTION_ENABLEMENT_REBREAK_PASS",
+    "P5D3G_P5D3F_REBREAK_PASS",
+    "FULL_OBSIDIAN_REBREAK_PASS"
+  ],
+  "boundary": {
+    "real_persistent_handoff_execution_authorized": false,
+    "real_vault_read_authorized": false,
+    "real_vault_write_authorized": false,
+    "live_publication_authorized": false,
+    "current_pointer_creation_authorized": false,
+    "current_pointer_mutation_authorized": false,
+    "promotion_confirmed_authorized": false,
+    "stage_a_real_execution_authorized": false,
+    "stage_b_authorized": false,
+    "p5d4_authorized": false,
+    "p6_authorized": false,
+    "background_execution_authorized": false
+  },
+  "stop_conditions": [
+    "ANY_NON_PIN_RUNTIME_DIFF",
+    "HISTORICAL_CONTRACT_BYTE_CHANGE",
+    "HISTORICAL_TEST_WEAKENING",
+    "HISTORICAL_REBREAK_REWRITE",
+    "TARGETED_TEST_FAILURE",
+    "REQUALIFICATION_TEST_FAILURE",
+    "PRODUCTION_ENABLEMENT_REBREAK_FAILURE",
+    "P5D3G_P5D3F_REBREAK_FAILURE",
+    "FULL_OBSIDIAN_REBREAK_FAILURE",
+    "NEW_DOWNSTREAM_STALE_DEPENDENCY"
+  ],
+  "next_gate": {
+    "after_full_rebreak_pass": "FRESH_P5D3F_REAL_HANDOFF_PREFLIGHT",
+    "p5d3f_one_shot_authorization_must_remain_unconsumed": true
+  }
+}
