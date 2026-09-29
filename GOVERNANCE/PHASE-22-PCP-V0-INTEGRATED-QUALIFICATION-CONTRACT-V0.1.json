@@ -1,0 +1,117 @@
+{
+  "schema": "ATDS_PHASE_22_PCP_V0_INTEGRATED_QUALIFICATION_CONTRACT_V0_1",
+  "control_id": "PHASE-22-PCP-V0-INTEGRATED-QUALIFICATION",
+  "date": "2026-09-29",
+  "status": "HUMAN_AUTHORIZED_INTEGRATED_QUALIFICATION",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "fa7d151dbcda6f488baf1c95ce6eb156371f7554",
+    "tree": "55a2c44475610b5862f46c235f158afad64f3fa3"
+  },
+  "authority_blob": "11efbbd7be9847fa870c59b0c38af5c1af1f0a40",
+  "harness_required": false,
+  "test_first_red": "NOT_APPLICABLE_NO_NEW_RUNTIME",
+  "components": {
+    "p22_01": {
+      "runtime": "tools/p22_01_pure_state_projector.py",
+      "runtime_blob": "18b01a995f521377ec98bd4f24b7837a329ad139",
+      "qualification_blob": "02dee12b98855977d8c5435e8c97bdc0b7947b33"
+    },
+    "p22_02": {
+      "runtime": "tools/p22_02_identity_state_verifier.py",
+      "runtime_blob": "c6ac0c5435d3c1bc081d457abdad2225a7d0fe64",
+      "qualification_blob": "8d79704e02c3d1483a3df4fb0c385e09dff3861f"
+    },
+    "p22_03": {
+      "runtime": "tools/p22_03_evidence_envelope_recorder.py",
+      "runtime_blob": "c7c81ec8cd9e253c2c6e56d0d5e41960cb472233",
+      "qualification_blob": "13248c4738519c1afaad94ddc7fe98e5063d7db5"
+    }
+  },
+  "protected_dependencies": {
+    "phase22_contract_blob": "afc519d3e937dfcde2ce1e0bf7d2646dd010a8ce",
+    "phase22_adoption_blob": "90f6405435c62869f220ebe8783fc138d133ee93",
+    "e1_td_03b_authority_blob": "7ea58d02387d67e7360356a10c0eaed441d0b2f4"
+  },
+  "integrated_requirements": [
+    [
+      "T22-01",
+      "wrong repository blocked"
+    ],
+    [
+      "T22-02",
+      "wrong branch blocked"
+    ],
+    [
+      "T22-03",
+      "HEAD drift blocked"
+    ],
+    [
+      "T22-04",
+      "TREE drift blocked"
+    ],
+    [
+      "T22-05",
+      "protected blob drift blocked"
+    ],
+    [
+      "T22-06",
+      "unavailable local state remains UNKNOWN"
+    ],
+    [
+      "T22-07",
+      "stale derived state detected"
+    ],
+    [
+      "T22-08",
+      "corrupted cache has no authority"
+    ],
+    [
+      "T22-09",
+      "mutation attempt blocked"
+    ],
+    [
+      "T22-10",
+      "E1-TD protected research isolated"
+    ],
+    [
+      "T22-11",
+      "incomplete evidence rejected"
+    ],
+    [
+      "T22-12",
+      "no silent retry after blocked or failed operation"
+    ],
+    [
+      "I22-01",
+      "valid Git reality flows P22-02 to P22-01"
+    ],
+    [
+      "I22-02",
+      "valid evidence flows through P22-03 and tamper is blocked"
+    ],
+    [
+      "I22-03",
+      "no component grants authority"
+    ],
+    [
+      "I22-04",
+      "no new production harness or fourth runtime component required"
+    ]
+  ],
+  "closure_invariants": {
+    "control_plane_mode": [
+      "OBSERVATIONAL",
+      "DERIVATIONAL",
+      "EVIDENCE-PRODUCING",
+      "NON-AUTHORITATIVE"
+    ],
+    "mutation_disabled": true,
+    "p22_04_authorized": false,
+    "phase_23_authorized": false,
+    "e1_td_mutation_authorized": false,
+    "td03b_event_consumption_authorized": false
+  },
+  "required_exit_state": "QUALIFIED_CANDIDATE_FOR_HUMAN_CLOSURE_OR_FAIL_BLOCKED_THEN_STOP"
+}
