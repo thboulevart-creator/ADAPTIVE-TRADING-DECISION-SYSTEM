@@ -91,6 +91,34 @@ class P5D3FPersistentHandoffRecoveryImplementationV03Tests(
                     staging
                 )
 
+    def test_absent_prestate_may_transition_to_present_empty_after_setup(
+        self,
+    ) -> None:
+        self.assertTrue(
+            handoff._staging_prestate_transition_allowed(
+                "ABSENT",
+                "PRESENT_EMPTY",
+            )
+        )
+
+    def test_recovery_prestate_must_remain_exact(self) -> None:
+        self.assertTrue(
+            handoff._staging_prestate_transition_allowed(
+                "PRESENT_EMPTY_PACKAGES_RECOVERY",
+                "PRESENT_EMPTY_PACKAGES_RECOVERY",
+            )
+        )
+
+    def test_unexpected_staging_prestate_transition_is_rejected(
+        self,
+    ) -> None:
+        self.assertFalse(
+            handoff._staging_prestate_transition_allowed(
+                "PRESENT_EMPTY",
+                "PRESENT_EMPTY_PACKAGES_RECOVERY",
+            )
+        )
+
     def test_body_failure_annotation_preserves_original_exception(
         self,
     ) -> None:
