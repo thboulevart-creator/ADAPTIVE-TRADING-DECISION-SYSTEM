@@ -273,6 +273,29 @@ class P5D3FPersistentDestinationVerifierAmendmentImplementationV01Tests(
             ):
                 self.verify_persistent()
 
+
+    def test_authorized_staging_ancestor_alias_is_rejected(
+        self,
+    ) -> None:
+        ancestor = self.staging.parent
+        original = cgs._is_reparse_or_symlink
+
+        def synthetic_alias(path: Path) -> bool:
+            if Path(path) == ancestor:
+                return True
+            return original(Path(path))
+
+        with patch(
+            "tools.obsidian_projection."
+            "candidate_generation_staging."
+            "_is_reparse_or_symlink",
+            side_effect=synthetic_alias,
+        ):
+            with self.assertRaises(
+                CandidateGenerationInvalidError
+            ):
+                self.verify_persistent()
+
     def test_hardlink_alias_is_rejected(
         self,
     ) -> None:
@@ -406,6 +429,30 @@ class P5D3FPersistentDestinationVerifierAmendmentImplementationV01Tests(
             self.verify_persistent(
                 package=wrong_package
             )
+
+    def test_temp_and_persistent_verifiers_share_one_content_core(
+        self,
+    ) -> None:
+        source = (
+            Path(__file__).resolve().parents[2]
+            / "tools"
+            / "obsidian_projection"
+            / "candidate_generation_staging.py"
+        ).read_text(encoding="utf-8")
+
+        self.assertEqual(
+            source.count(
+                "def _verify_candidate_generation_content("
+            ),
+            1,
+        )
+        self.assertGreaterEqual(
+            source.count(
+                "_verify_candidate_generation_content("
+            ),
+            3,
+        )
+
 
     def test_p5d3f_destination_is_bound_to_persistent_verifier(
         self,
