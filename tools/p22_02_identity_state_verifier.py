@@ -277,9 +277,16 @@ def _snapshot_from_observed(
     observed_protected = observed.get("protected_artifacts", {})
     for path in sorted(expected["protected_artifacts"]):
         record = observed_protected.get(path, {})
+        if not isinstance(record, dict) or record.get("exists") is not True:
+            status = "BLOCKED_PROTECTED_PATH_MISSING"
+        elif record.get("observed_blob") != expected["protected_artifacts"][path]:
+            status = "BLOCKED_PROTECTED_BLOB_DRIFT"
+        else:
+            status = "PASS"
         protected[path] = {
             "expected_blob": expected["protected_artifacts"][path],
             "observed_blob": record.get("observed_blob"),
+            "status": status,
         }
 
     branch = observed.get("branch")
