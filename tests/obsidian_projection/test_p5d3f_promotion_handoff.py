@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
@@ -327,6 +328,87 @@ class P5D3FPromotionHandoffTests(unittest.TestCase):
             other_parent.mkdir()
             staging = other_parent / "promotion-staging"
             staging.mkdir()
+
+            with self.assertRaises(
+                PromotionHandoffGovernanceError
+            ):
+                run_finite_promotion_handoff(
+                    candidate_head=head,
+                    candidate_tree=tree,
+                    candidate_repo_root=repo,
+                    evaluation_workspace_root=workspace,
+                    promotion_staging_root=staging,
+                    live_vault_root=vault,
+                )
+
+    def test_ancestor_git_worktree_does_not_make_staging_a_repository(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3f-ancestor-git-"
+        ) as temp:
+            root = Path(temp)
+
+            completed = subprocess.run(
+                ["git", "init", str(root)],
+                check=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                encoding="utf-8",
+            )
+            if completed.returncode != 0:
+                self.skipTest("git init unavailable")
+
+            (
+                repo,
+                head,
+                tree,
+                workspace,
+                staging,
+                vault,
+            ) = self._inputs(root)
+
+            report = run_finite_promotion_handoff(
+                candidate_head=head,
+                candidate_tree=tree,
+                candidate_repo_root=repo,
+                evaluation_workspace_root=workspace,
+                promotion_staging_root=staging,
+                live_vault_root=vault,
+            )
+
+            self.assertEqual(
+                report["status"],
+                "PASS_PROMOTION_HANDOFF_READY_UNAUTHORIZED",
+            )
+
+    def test_staging_that_is_git_repository_fails_closed(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory(
+            prefix="p5d3f-staging-git-"
+        ) as temp:
+            root = Path(temp)
+            (
+                repo,
+                head,
+                tree,
+                workspace,
+                staging,
+                vault,
+            ) = self._inputs(root)
+
+            completed = subprocess.run(
+                ["git", "init", str(staging)],
+                check=False,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                text=True,
+                encoding="utf-8",
+            )
+            if completed.returncode != 0:
+                self.skipTest("git init unavailable")
 
             with self.assertRaises(
                 PromotionHandoffGovernanceError
