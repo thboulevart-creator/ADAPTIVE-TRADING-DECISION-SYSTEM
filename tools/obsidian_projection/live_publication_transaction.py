@@ -1322,9 +1322,26 @@ def _operation_sequence_digest() -> str:
         / "obsidian_projection"
         / "live_publication_transaction_contract_v0_1.json"
     )
-    contract, _ = _read_json_canonical(
-        contract_path
-    )
+
+    try:
+        raw = contract_path.read_bytes()
+        contract = json.loads(
+            raw.decode("utf-8")
+        )
+    except (
+        OSError,
+        UnicodeDecodeError,
+        json.JSONDecodeError,
+    ) as exc:
+        raise LivePublicationGovernanceError(
+            "qualified contract JSON unavailable"
+        ) from exc
+
+    if not isinstance(contract, dict):
+        raise LivePublicationGovernanceError(
+            "qualified contract must be object"
+        )
+
     sequence = contract.get(
         "operation_order"
     )
