@@ -36,7 +36,7 @@ class P5D3FPersistentProductionHandoffTests(
         )
         self.assertEqual(
             QUALIFIED_P5D3F_IMPLEMENTATION_BLOB,
-            "2108131914cf65bb076b80f5bb63cd63267567fa",
+            "cb8dd498fbc503acfcccb38799965c8139db82a7",
         )
 
     def test_exact_sibling_paths_are_accepted(self) -> None:
