@@ -296,6 +296,9 @@ class P5D3FPromotionHandoffTests(unittest.TestCase):
                 vault,
             ) = self._inputs(root)
 
+            overlapping_staging = vault / "staging"
+            overlapping_staging.mkdir()
+
             with self.assertRaises(
                 PromotionHandoffGovernanceError
             ):
@@ -304,7 +307,7 @@ class P5D3FPromotionHandoffTests(unittest.TestCase):
                     candidate_tree=tree,
                     candidate_repo_root=repo,
                     evaluation_workspace_root=workspace,
-                    promotion_staging_root=vault / "staging",
+                    promotion_staging_root=overlapping_staging,
                     live_vault_root=vault,
                 )
 
