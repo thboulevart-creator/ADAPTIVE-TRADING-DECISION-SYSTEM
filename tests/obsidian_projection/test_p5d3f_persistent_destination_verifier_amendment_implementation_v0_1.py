@@ -516,7 +516,7 @@ class P5D3FPersistentDestinationVerifierAmendmentImplementationV01Tests(
 
         self.assertIn(
             'QUALIFIED_P5D3F_IMPLEMENTATION_BLOB = (\n'
-            '    "cb8dd498fbc503acfcccb38799965c8139db82a7"\n'
+            '    "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"\n'
             ')',
             source,
         )
