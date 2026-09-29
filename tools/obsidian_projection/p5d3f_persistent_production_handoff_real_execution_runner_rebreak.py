@@ -13,13 +13,13 @@ EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 BRANCH = (
-    "feat/obsidian-projection-p5d3f-persistent-production-handoff-real-execution-v0.1"
+    "feat/obsidian-projection-p5d3f-persistent-real-execution-failure-preservation-v0.2"
 )
 EXPECTED_REAL_RUNNER_BLOB = (
-    "e56501e3710ab23537975e950aff016e4a832742"
+    "1b44e12a6c23715ea3d5055c9263f4bccb67fe39"
 )
 EXPECTED_REAL_RUNNER_TEST_BLOB = (
-    "97d7577d46f728aae5bfe1e0eadc389121dd7872"
+    "64033e4b2fe652a936b690293557bcd0eeac2c4f"
 )
 EXPECTED_IMPLEMENTATION_BLOB = (
     "d2f40c8b2c8fb06b37bb34442c59d78222046452"
@@ -169,6 +169,8 @@ def _static_surface_scan(repo: Path) -> None:
         "REAL_VAULT_WRITE_AUTHORIZED=FALSE",
         "LIVE_PUBLICATION_AUTHORIZED=FALSE",
         "MANDATORY_STOP=TRUE",
+        "P5D3F_PERSISTENT_FAILURE_ORIGINAL=",
+        "P5D3F_PERSISTENT_FAILURE_RESIDUAL_JSON=",
     )
     for token in required:
         if token not in source:
@@ -186,6 +188,8 @@ def _static_surface_scan(repo: Path) -> None:
         "while True",
         "schtasks",
         "CreateService",
+        "staging.rmdir()",
+        "packages.rmdir()",
     )
     hits = [
         token
