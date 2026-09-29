@@ -12,7 +12,7 @@ EXPECTED_REPOSITORY = (
     "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
 )
 BRANCH = (
-    "feat/obsidian-projection-p5d3g-live-publication-transaction-contract-v0.1"
+    "feat/obsidian-projection-p5d3g-live-publication-transaction-implementation-v0.1"
 )
 EXPECTED_CONTRACT_BLOB = (
     "64997ddd9977229961387f66af4de356c045c0ac"
