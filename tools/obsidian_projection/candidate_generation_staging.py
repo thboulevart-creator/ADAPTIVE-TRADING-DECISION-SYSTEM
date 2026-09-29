@@ -415,6 +415,37 @@ def _assert_directory_chain_no_alias(
         current = current.parent
 
 
+def _assert_lexical_directory_chain_no_alias(
+    path: Path,
+    root: Path,
+) -> None:
+    current = Path(
+        os.path.abspath(
+            os.fspath(path)
+        )
+    )
+    boundary = Path(
+        os.path.abspath(
+            os.fspath(root)
+        )
+    )
+
+    while True:
+        if (
+            current != boundary
+            and boundary not in current.parents
+        ):
+            raise CandidateGenerationInvalidError(
+                "directory chain escaped authorized staging root"
+            )
+
+        _assert_directory_not_alias(current)
+
+        if current == boundary:
+            return
+        current = current.parent
+
+
 def _assert_tree_has_no_aliases(root: Path) -> None:
     _assert_directory_not_alias(root)
 
@@ -588,13 +619,32 @@ def _validate_existing_persistent_package_root(
     authorized_staging_root: Path,
     forbidden_roots: Iterable[Path],
 ) -> Path:
-    root = _resolved(package_root)
-    staging = _resolved(authorized_staging_root)
+    raw_root = Path(
+        os.path.abspath(
+            os.fspath(package_root)
+        )
+    )
+    raw_staging = Path(
+        os.path.abspath(
+            os.fspath(authorized_staging_root)
+        )
+    )
 
-    if not staging.exists() or not staging.is_dir():
+    if (
+        not raw_staging.exists()
+        or not raw_staging.is_dir()
+    ):
         raise CandidateGenerationInvalidError(
             "authorized staging root must exist"
         )
+
+    _assert_lexical_directory_chain_no_alias(
+        raw_root,
+        raw_staging,
+    )
+
+    root = _resolved(raw_root)
+    staging = _resolved(raw_staging)
 
     expected_packages = staging / "packages"
     wrapper = root.parent
