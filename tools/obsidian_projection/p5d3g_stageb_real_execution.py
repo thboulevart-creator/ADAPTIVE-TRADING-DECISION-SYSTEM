@@ -114,7 +114,7 @@ def _git_blob(relative: str) -> str:
 
 def _worktree_blob(relative: str) -> str:
     completed = subprocess.run(
-        ["git", "hash-object", "--no-filters", relative],
+        ["git", "hash-object", f"--path={relative}", relative],
         cwd=str(_repo_root()),
         check=False,
         text=True,
