@@ -1,0 +1,156 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D4_BOUNDED_OBSERVER_LOOP_RUNTIME_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_IMPLEMENTATION",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "frontier": "P5-D4-BOUNDED-OBSERVER-LOOP-RUNTIME-IMPLEMENTATION-CANDIDATE-V0.1",
+  "qualified_contract": {
+    "contract_blob": "6980de1eb55e49c0c2bd2f91620aeb75640753b6",
+    "breaker_test_blob": "7e572e90cc331a316b58bc3e69970bed9ac40507",
+    "qualification_report_blob": "2628af543245cae45310334c6bf1d3966d3ba71f",
+    "qualification_head": "b12643109a62f740baa47057c86520304c3ef170"
+  },
+  "candidate_surface": {
+    "runtime_path": "tools/obsidian_projection/p5d4_bounded_observer_loop.py",
+    "red_test_path": "tests/obsidian_projection/test_p5d4_bounded_observer_loop_runtime_v0_1.py",
+    "single_runtime_module_required": true,
+    "p5d2_semantic_transition_runtime": "tools/obsidian_projection/observer_tick.py",
+    "p5d3_finite_evaluator_runtime": "tools/obsidian_projection/finite_candidate_evaluator.py",
+    "p5d3_reimplementation_forbidden": true,
+    "p5d3f_import_from_loop_runtime_forbidden": true,
+    "p5d3g_import_from_loop_runtime_forbidden": true
+  },
+  "required_public_api": [
+    "make_loop_plan",
+    "validate_loop_plan",
+    "acquire_ownership",
+    "release_ownership",
+    "load_event_log",
+    "load_checkpoint",
+    "reconcile_control_state",
+    "reconstruct_from_verified_publication_evidence",
+    "persist_tick",
+    "run_bounded_loop"
+  ],
+  "runtime_design": {
+    "observation_adapter": "INJECTED_CALLABLE_RETURNING_NORMALIZED_P5D2_INPUT",
+    "evaluation_adapter": "INJECTED_CALLABLE_RETURNING_QUALIFIED_REJECTED_OR_BLOCKED",
+    "semantic_state_mutation": "P5D2_ONE_SHOT_TICK_ONLY",
+    "control_state_location": "EXPLICIT_CONTROL_ROOT_OUTSIDE_VAULT_AND_CANONICAL_REPOSITORY",
+    "qualification_control_roots": "OS_TEMP_ONLY",
+    "event_log": "CANONICAL_APPEND_ONLY_HASH_CHAINED_JSONL",
+    "checkpoint": "CANONICAL_ATOMIC_REPLACE_JSON",
+    "ownership": "EXCLUSIVE_CREATE_NO_AUTO_STEAL",
+    "time_scheduler": "NONE",
+    "background_runtime": "NONE",
+    "promotion_runtime": "NONE"
+  },
+  "bounded_runner": {
+    "budgets": [
+      "max_cycles",
+      "max_remote_observations",
+      "max_evaluations",
+      "max_pending_heads",
+      "max_consecutive_failures"
+    ],
+    "all_budgets_validated_before_run": true,
+    "cycle_counter_incremented_before_cycle_body": true,
+    "new_cycle_after_terminal_forbidden": true,
+    "candidate_pending_stop_reason": "PROMOTION_AUTHORITY_REQUIRED",
+    "blocked_stop_reason": "BLOCKED_REQUIRES_ADJUDICATION",
+    "evaluating_state_on_restart_stop_reason": "RECONCILIATION_REQUIRED",
+    "no_pending_after_same_stop_reason": "NO_PENDING_WORK"
+  },
+  "persistence_protocol": {
+    "event_before_checkpoint": true,
+    "event_fsync_required": true,
+    "checkpoint_temp_fsync_required": true,
+    "checkpoint_atomic_replace_required": true,
+    "checkpoint_read_after_write_required": true,
+    "fault_injection_point_required": "AFTER_EVENT_DURABLE_BEFORE_CHECKPOINT_REPLACE",
+    "one_record_ahead_recovery_requires_p5d2_replay": true,
+    "checkpoint_ahead_forbidden": true,
+    "log_more_than_one_record_ahead_forbidden": true
+  },
+  "queue_policy": {
+    "fifo": true,
+    "unique": true,
+    "bounded_by_plan": true,
+    "silent_drop_forbidden": true,
+    "latest_only_forbidden": true,
+    "coalescing_authorized": false,
+    "preflight_before_append_event": true
+  },
+  "ownership_policy": {
+    "exclusive_create": true,
+    "second_runner_writes_nothing": true,
+    "stale_lock_auto_steal": false,
+    "release_requires_matching_owner": true
+  },
+  "restart_policy": {
+    "aligned_checkpoint_log": "CONTINUE",
+    "log_exactly_one_ahead": "REPLAY_P5D2_AND_ADVANCE_CHECKPOINT_IF_DIGESTS_MATCH",
+    "checkpoint_ahead": "FAIL_CLOSED",
+    "log_more_than_one_ahead": "FAIL_CLOSED",
+    "checkpoint_current_mismatch": "FAIL_CLOSED",
+    "no_checkpoint_no_log_no_current": "P5D2_INITIAL_STATE",
+    "no_checkpoint_no_log_current_present": "RECONSTRUCT_FROM_VERIFIED_P5D3G_EVIDENCE"
+  },
+  "publication_evidence_reconstruction": {
+    "direct_state_assignment_forbidden": true,
+    "starts_from_make_initial_state": true,
+    "semantic_events": [
+      "REMOTE_HEAD_OBSERVED:INITIAL",
+      "EVALUATION_STARTED",
+      "EVALUATION_PASSED",
+      "PROMOTION_CONFIRMED"
+    ],
+    "all_events_applied_by_one_shot_tick": true,
+    "event_origin": "EVIDENCE_RECONSTRUCTION",
+    "verified_physical_and_logical_receipt_digests_required": true,
+    "does_not_execute_evaluation": true,
+    "does_not_execute_publication": true
+  },
+  "required_adversarial_families": [
+    "BOUNDS",
+    "SEQUENCE",
+    "CHECKPOINT_EVENT_INTEGRITY",
+    "CRASH_WINDOW",
+    "QUEUE_CAPACITY_AND_ORDER",
+    "ACTIVE_EVALUATION_IDENTITY",
+    "SINGLE_INSTANCE",
+    "STALE_LOCK",
+    "RESTART_RECONCILIATION",
+    "COMPLETED_WORK_REPLAY",
+    "REMOTE_TRANSITION_SEMANTICS",
+    "BLOCKED_REJECTED_DISTINCTION",
+    "P5D2_STATE_AUTHORITY",
+    "P5D3_REUSE",
+    "PROMOTION_AUTHORITY_LEAK",
+    "GITHUB_WORKTREE_VAULT_BOUNDARY"
+  ],
+  "qualification_scope": {
+    "synthetic_temp_only": true,
+    "multi_cycle_synthetic_required": true,
+    "crash_recovery_synthetic_required": true,
+    "concurrency_synthetic_required": true,
+    "real_vault_mutation": false,
+    "real_publication": false,
+    "real_repeated_polling": false,
+    "full_obsidian_rebreak_once_after_stabilization": true
+  },
+  "forbidden_runtime_surfaces": [
+    "while True",
+    "time.sleep",
+    "asyncio.sleep",
+    "Timer(",
+    "ScheduledTask",
+    "schtasks",
+    "WindowsService",
+    "p5d3f_promotion_handoff",
+    "p5d3g_stageb_real_execution",
+    "execute_one_real_live_publication",
+    "execute_finite_live_publication"
+  ],
+  "mandatory_stop": "AFTER_RUNTIME_CANDIDATE_QUALIFICATION_BEFORE_REAL_BOUNDED_LOOP_OR_P5E"
+}
