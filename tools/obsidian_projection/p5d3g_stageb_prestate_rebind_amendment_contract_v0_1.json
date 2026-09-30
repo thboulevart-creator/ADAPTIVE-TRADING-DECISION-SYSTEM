@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D3G_STAGE_B_PRESTATE_REBIND_AMENDMENT_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "frontier": "P5-D3G-STAGE-B-PRESTATE-REBIND-AMENDMENT",
+  "title": "STAGE_B_PRESTATE_REBIND_AMENDMENT",
+  "purpose": "Rebind only the Stage-A approval and real-Vault prestate authorities after Obsidian UI metadata changed while preserving the exact candidate, retained handoff and publication semantics.",
+  "basis": {
+    "stage_b_gate_contract_blob": "c5c7fbb52f3dd2e3d3f5d1c1bbdc1069e2dabead",
+    "source_head": "ed2253d7181033392a60c1133812afb4098e6845",
+    "previous_stage_a_plan_digest_sha256": "7a5df19b2e0e90b89f7319dff57b7ac521d5adc24bf408dbc76e221a616bac79",
+    "previous_real_vault_tree_digest_sha256": "8de7ea62c525586b95319c03eff2bd5c872a8efddb1c75be36d3684cc63e7775",
+    "new_stage_a_plan_digest_sha256": "f83f266e17db3ee90e07eeefbc9baf308b7ddf6714fec16562a34cb4025db3f6",
+    "new_stage_a_approval_digest_sha256": "2ad99ab121c59a09cc0c34a5a91a129547c19d9748344e9960980dbc170caf25",
+    "new_stage_a_approval_receipt_sha256": "d7db614a87e53684440ff62b3ccd2c6d92c2b18377fa6c75bc19231e6d726a8f",
+    "new_stage_a_receipt_nonce": "stagea-f83f266e17db3ee90e07eeefbc9baf30-human-approval-02",
+    "new_real_vault_tree_digest_sha256": "d9024f75989970cf7ce7f4119d48c5e58f141017e36ab089c1921bb82a4b716c"
+  },
+  "preserved_authority": {
+    "candidate_head": "59f1dc26973b0b50efefccf12b26784d1e41f546",
+    "candidate_tree": "beb85ddb99e8a87afc4e8a6ed9b989ed0f83e1ea",
+    "generation_id": "gen-69e845e1b6f60f213dd2e8e90ed493fd6a2a541084be9cfa9df3b2e035877ea0",
+    "handoff_record_sha256": "b583aacbebc023dcbf6f1c0930cd15318d08fb3a03b5ef57b8ddda20cb374dee",
+    "planned_current_sha256": "867c639b164d9bd9a37bf0045c3181c6dde93aebfcf47f1a384bb4c3668107b9",
+    "planned_publication_generation_digest_sha256": "f91846354467fad374cfd16356e00b2bd3cb13938b6899ca3f3282523f3d6f3c",
+    "operation_sequence_digest_sha256": "a280a8db8b208affd6309e4f4ad451e40eebd594ab9285875c91948254b52588"
+  },
+  "required_delta": {
+    "stage_a_receipt_nonce_rebound": true,
+    "stage_a_plan_digest_rebound": true,
+    "stage_a_approval_digest_rebound": true,
+    "stage_a_receipt_sha256_rebound": true,
+    "real_vault_prestate_rebound": true,
+    "candidate_identity_unchanged": true,
+    "handoff_identity_unchanged": true,
+    "publication_semantics_unchanged": true
+  },
+  "boundary": {
+    "stage_b_real_execution_authorized": false,
+    "stage_b_authorization_consumption_authorized": false,
+    "real_vault_write_authorized": false,
+    "current_creation_authorized": false,
+    "current_tmp_creation_authorized": false,
+    "promotion_confirmed_authorized": false,
+    "real_stage_b_read_only_preflight_authorized": true
+  },
+  "mandatory_stop": "AFTER_REAL_STAGE_B_READ_ONLY_PREFLIGHT_AND_EXACT_AUTHORIZATION_PRESENTATION_BEFORE_ANY_REAL_VAULT_MUTATION"
+}
