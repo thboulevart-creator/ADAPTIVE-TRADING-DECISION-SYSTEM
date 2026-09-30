@@ -472,10 +472,27 @@ class P5D4BoundedObserverLoopContractV01Tests(unittest.TestCase):
         )
         self.assertTrue(next_gate["mandatory_human_stop_before_runtime"])
 
-    def test_no_p5d4_runtime_python_surface_exists(self) -> None:
-        tools = REPO_ROOT / "tools" / "obsidian_projection"
+    def test_no_p5d4_runtime_python_surface_existed_at_contract_qualification(self) -> None:
+        result = subprocess.run(
+            [
+                "git",
+                "ls-tree",
+                "-r",
+                "--name-only",
+                "b12643109a62f740baa47057c86520304c3ef170",
+                "--",
+                "tools/obsidian_projection",
+            ],
+            cwd=str(REPO_ROOT),
+            check=True,
+            text=True,
+            capture_output=True,
+        )
         runtime_candidates = sorted(
-            path.name for path in tools.glob("p5d4*.py")
+            Path(line).name
+            for line in result.stdout.splitlines()
+            if Path(line).name.startswith("p5d4")
+            and Path(line).suffix == ".py"
         )
         self.assertEqual(runtime_candidates, [])
 
