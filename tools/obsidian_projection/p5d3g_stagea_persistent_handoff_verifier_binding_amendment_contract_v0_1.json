@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D3G_STAGEA_PERSISTENT_HANDOFF_VERIFIER_BINDING_AMENDMENT_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_branch": "integration/system-v1",
+  "frontier": "P5-D3G-STAGE-A-PERSISTENT-HANDOFF-VERIFIER-BINDING-AMENDMENT",
+  "title": "STAGE_A_PERSISTENT_HANDOFF_VERIFIER_BINDING_AMENDMENT",
+  "purpose": "Permit P5-D3G Stage A read-only production planning and Stage-A approval validation to explicitly reverify the already-qualified persistent P5-D3F handoff under the exact authorized persistent promotion staging root, while preserving historical TEMP-only behavior when no persistent staging authority is supplied.",
+  "incident_basis": {
+    "observed_error": "ProductionEnablementGovernanceError: FAIL_INVALID_P5D3F_HANDOFF",
+    "underlying_error": "CandidateGenerationInvalidError: package root must be below OS temp root",
+    "discriminating_evidence": {
+      "without_promotion_staging_root": "PromotionHandoffGovernanceError: copied package reverification failed",
+      "with_exact_promotion_staging_root": "PASS_PROMOTION_HANDOFF_READY_UNAUTHORIZED"
+    }
+  },
+  "basis": {
+    "source_head": "14dafa4109c6a99b10a1af5a411c2c2b3376661d",
+    "production_enablement_blob": "a9c0b46e5e623d765811d6d9b7766f172ca817a6",
+    "live_publication_blob": "2fb34e1c04b4dd32d19b85b488d89f8a702204d0",
+    "persistent_handoff_blob": "375607d88bc926e4fd4c297ddc6fedba5506642a",
+    "persistent_destination_verifier_amendment_contract_blob": "7d13922e51256f2785af4e6d3062116b2bc324d6",
+    "real_handoff_record_sha256": "b583aacbebc023dcbf6f1c0930cd15318d08fb3a03b5ef57b8ddda20cb374dee",
+    "real_vault_tree_digest_sha256": "8de7ea62c525586b95319c03eff2bd5c872a8efddb1c75be36d3684cc63e7775"
+  },
+  "required_delta": {
+    "live_publication_verified_handoff_optional_promotion_staging_root": true,
+    "live_publication_default_none_preserves_historical_temp_only_behavior": true,
+    "production_enablement_plan_optional_promotion_staging_root": true,
+    "production_enablement_stage_a_consumption_optional_promotion_staging_root": true,
+    "production_enablement_must_validate_supplied_persistent_staging_against_exact_qualified_root": true,
+    "production_enablement_must_pass_validated_staging_to_handoff_reverification": true,
+    "persistent_handoff_module_identity_must_be_pinned": true,
+    "effective_live_publication_blob_must_be_rebound_after_change": true,
+    "historical_contracts_and_tests_must_not_be_weakened": true
+  },
+  "exact_persistent_authority": {
+    "staging_root": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROMOTION-STAGING",
+    "real_vault_root": "C:\\Users\\Boulevart\\OneDrive\\Bureau\\ATDS\\ATDS-OBSIDIAN-PROJECTION",
+    "arbitrary_persistent_staging_for_stage_a_forbidden": true,
+    "persistent_verification_read_only": true
+  },
+  "required_red": [
+    "LIVE_PUBLICATION_VERIFIED_HANDOFF_LACKS_OPTIONAL_PERSISTENT_STAGING_BINDING",
+    "PRODUCTION_ENABLEMENT_PLAN_LACKS_OPTIONAL_PERSISTENT_STAGING_BINDING",
+    "PRODUCTION_ENABLEMENT_APPROVAL_CONSUMPTION_LACKS_OPTIONAL_PERSISTENT_STAGING_BINDING"
+  ],
+  "required_qualification": [
+    "AMENDMENT_CONTRACT_STATIC_PASS",
+    "DISCRIMINATING_RED_CONFIRMED",
+    "TARGETED_P5D3G_PRODUCTION_ENABLEMENT_PASS",
+    "TARGETED_P5D3G_LIVE_PUBLICATION_PASS",
+    "TARGETED_P5D3F_PERSISTENT_VERIFIER_PASS",
+    "AMENDMENT_TARGETED_PASS",
+    "ONE_FULL_OBSIDIAN_REBREAK_PASS",
+    "REAL_STAGE_A_PLAN_READ_ONLY_PASS",
+    "REAL_VAULT_ZERO_MUTATION_PASS"
+  ],
+  "boundary": {
+    "stage_a_plan_build_read_only_authorized": true,
+    "stage_a_plan_approval_automatic_authorized": false,
+    "stage_a_plan_approval_consumption_authorized": false,
+    "stage_b_authorized": false,
+    "real_vault_write_authorized": false,
+    "current_creation_or_mutation_authorized": false,
+    "current_tmp_creation_or_mutation_authorized": false,
+    "generation_materialization_authorized": false,
+    "promotion_confirmed_authorized": false,
+    "live_publication_authorized": false,
+    "p5d4_authorized": false,
+    "p5e_authorized": false,
+    "p6_authorized": false
+  },
+  "mandatory_stop": "AFTER_EXACT_REAL_STAGE_A_PLAN_PRESENTED_BEFORE_HUMAN_APPROVAL"
+}
