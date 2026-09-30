@@ -575,7 +575,7 @@ def production_plan_digest(
         )
     if plan.get(
         "qualified_live_publication_implementation_blob"
-    ) != EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB:
+    ) != STAGEA_EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB:
         raise ProductionEnablementGovernanceError(
             "production plan implementation blob mismatch"
         )
@@ -824,7 +824,7 @@ def build_real_live_publication_plan(
         "qualified_production_enablement_contract_blob":
             CONTRACT_BLOB,
         "qualified_live_publication_implementation_blob":
-            EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
+            STAGEA_EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
         "candidate_head":
             verified["candidate_head"],
         "candidate_tree":

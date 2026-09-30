@@ -94,6 +94,12 @@ class P5D3GStageAPersistentHandoffVerifierBindingImplementationV01Tests(
                 result["status"],
                 "PASS_REAL_LIVE_PUBLICATION_PLAN_READ_ONLY",
             )
+            self.assertEqual(
+                result["plan"][
+                    "qualified_live_publication_implementation_blob"
+                ],
+                pe.STAGEA_EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
+            )
             self.assertFalse(
                 result["stage_b_execution_authority"]
             )
