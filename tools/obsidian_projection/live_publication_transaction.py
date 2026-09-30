@@ -78,6 +78,8 @@ REAL_VAULT = Path(
     r"\ATDS-OBSIDIAN-PROJECTION"
 )
 
+_REAL_PRODUCTION_EXECUTION_CAPABILITY = object()
+
 PLAN_SCHEMA = (
     "ATDS_OBSIDIAN_P5D3G_PUBLICATION_PLAN_V0_1"
 )
@@ -498,6 +500,52 @@ def _validate_sacrificial_live_vault(
         )
 
     return live
+
+
+def _validate_real_production_vault(
+    live_vault_root: Path,
+) -> Path:
+    supplied = Path(live_vault_root)
+    expected = Path(REAL_VAULT)
+    if str(supplied) != str(expected):
+        raise LivePublicationGovernanceError(
+            "real production Vault lexical identity mismatch"
+        )
+
+    live = _resolve(supplied)
+    real = _resolve(expected)
+    if live != real:
+        raise LivePublicationGovernanceError(
+            "real production Vault resolved identity mismatch"
+        )
+    if not live.is_dir():
+        raise LivePublicationBlockedError(
+            "real production Vault unavailable"
+        )
+
+    _assert_alias_free_chain(live)
+    if (live / ".git").exists():
+        raise LivePublicationGovernanceError(
+            "real production Vault may not contain .git"
+        )
+    return live
+
+
+def _validated_execution_live_vault(
+    live_vault_root: Path,
+    capability: object | None,
+) -> Path:
+    if capability is None:
+        return _validate_sacrificial_live_vault(
+            live_vault_root
+        )
+    if capability is not _REAL_PRODUCTION_EXECUTION_CAPABILITY:
+        raise LivePublicationGovernanceError(
+            "invalid real production execution capability"
+        )
+    return _validate_real_production_vault(
+        live_vault_root
+    )
 
 
 def _validate_control_root(
@@ -1367,10 +1415,13 @@ def build_publication_plan(
     *,
     handoff_root: Path,
     live_vault_root: Path,
+    promotion_staging_root: Path | None = None,
+    _production_capability: object | None = None,
 ) -> dict[str, Any]:
     _verify_tooling_identity()
-    live = _validate_sacrificial_live_vault(
-        live_vault_root
+    live = _validated_execution_live_vault(
+        live_vault_root,
+        _production_capability,
     )
 
     if (live / "CURRENT.tmp").exists():
@@ -1386,6 +1437,9 @@ def build_publication_plan(
     ) = _verified_handoff(
         handoff_root,
         live,
+        promotion_staging_root=(
+            promotion_staging_root
+        ),
     )
 
     generation_id = _require_generation_id(
@@ -2660,11 +2714,14 @@ def execute_finite_live_publication(
     plan: dict[str, Any],
     authorization: dict[str, Any] | None,
     observer_state: dict[str, Any],
+    promotion_staging_root: Path | None = None,
+    _production_capability: object | None = None,
 ) -> dict[str, Any]:
     _verify_tooling_identity()
 
-    live = _validate_sacrificial_live_vault(
-        live_vault_root
+    live = _validated_execution_live_vault(
+        live_vault_root,
+        _production_capability,
     )
     handoff = _resolve(
         handoff_root
@@ -2720,6 +2777,9 @@ def execute_finite_live_publication(
         ) = _verified_handoff(
             handoff,
             live,
+            promotion_staging_root=(
+                promotion_staging_root
+            ),
         )
 
         if (
@@ -2752,6 +2812,12 @@ def execute_finite_live_publication(
                     verified_handoff_root
                 ),
                 live_vault_root=live,
+                promotion_staging_root=(
+                    promotion_staging_root
+                ),
+                _production_capability=(
+                    _production_capability
+                ),
             )
         except LivePublicationGovernanceError as exc:
             raise LivePublicationBlockedError(
