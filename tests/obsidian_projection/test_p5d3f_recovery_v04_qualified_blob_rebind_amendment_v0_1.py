@@ -14,7 +14,7 @@ CONTRACT_RELATIVE = (
     "tools/obsidian_projection/"
     "p5d3f_recovery_v04_qualified_blob_rebind_amendment_contract_v0_1.json"
 )
-CONTRACT_BLOB = "9b298eaa8da989e2d7d30ebbd6bd7c1f1c469489"
+CONTRACT_BLOB = "3667488c6cb7a348eab6564b7152049e0ba32d3b"
 HISTORICAL_RUNNER_TEST_BLOB = "667e458962aca47a1d3f08ef3f12c80015c1390b"
 HISTORICAL_RUNNER_REBREAK_BLOB = "e6c9ab7f98c9fa8f77db3dc98571120e6cbeb7c0"
 EFFECTIVE_BRANCH = (
