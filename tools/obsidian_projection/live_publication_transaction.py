@@ -14,6 +14,8 @@ from typing import Any
 from .candidate_generation_staging import (
     CandidateGenerationInfrastructureError,
     CandidateGenerationInvalidError,
+    _assert_tree_has_no_aliases,
+    _verify_candidate_generation_content,
     verify_candidate_generation,
 )
 from .observer_tick import (
@@ -1036,6 +1038,8 @@ def _read_bytes_with_retry(
 
 def _validate_target(
     target: Path,
+    *,
+    _production_capability: object | None = None,
 ) -> dict[str, Any]:
     target = _resolve(target)
 
@@ -1071,9 +1075,29 @@ def _validate_target(
     package = target / "package"
 
     try:
-        descriptor = verify_candidate_generation(
-            package
-        )
+        if _production_capability is None:
+            descriptor = verify_candidate_generation(
+                package
+            )
+        elif _production_capability is _REAL_PRODUCTION_EXECUTION_CAPABILITY:
+            real = _resolve(REAL_VAULT)
+            if target.parent != (real / "generations"):
+                raise LivePublicationGovernanceError(
+                    "published production target escaped real Vault generations"
+                )
+            if not package.is_dir():
+                raise LivePublicationGovernanceError(
+                    "published production package missing"
+                )
+            _assert_tree_has_no_aliases(package)
+            descriptor = _verify_candidate_generation_content(
+                package,
+                expected_candidate=None,
+            )
+        else:
+            raise LivePublicationGovernanceError(
+                "invalid published-target production capability"
+            )
     except CandidateGenerationInfrastructureError as exc:
         raise LivePublicationBlockedError(
             "published package verification unavailable"
@@ -1221,6 +1245,8 @@ def _validate_target(
 
 def _validate_current_pointer(
     live: Path,
+    *,
+    _production_capability: object | None = None,
 ) -> dict[str, Any]:
     pointer = live / "CURRENT.md"
 
@@ -1300,7 +1326,10 @@ def _validate_current_pointer(
         / generation_id
     )
     verified = _validate_target(
-        target
+        target,
+        _production_capability=(
+            _production_capability
+        ),
     )
 
     if (
@@ -1329,14 +1358,19 @@ def verify_live_publication(
     *,
     live_vault_root: Path,
     expected_generation_id: str | None = None,
+    _production_capability: object | None = None,
 ) -> dict[str, Any]:
     _verify_tooling_identity()
-    live = _validate_sacrificial_live_vault(
-        live_vault_root
+    live = _validated_execution_live_vault(
+        live_vault_root,
+        _production_capability,
     )
 
     current = _validate_current_pointer(
-        live
+        live,
+        _production_capability=(
+            _production_capability
+        ),
     )
 
     if (
@@ -2268,6 +2302,7 @@ def _materialize_target(
     record: dict[str, Any],
     live: Path,
     plan: dict[str, Any],
+    _production_capability: object | None = None,
 ) -> dict[str, Any]:
     generations = (
         live / "generations"
@@ -2375,7 +2410,10 @@ def _materialize_target(
         ) from exc
 
     verified = _validate_target(
-        target
+        target,
+        _production_capability=(
+            _production_capability
+        ),
     )
 
     if (
@@ -2861,6 +2899,9 @@ def execute_finite_live_publication(
             record=handoff_record,
             live=live,
             plan=plan,
+            _production_capability=(
+                _production_capability
+            ),
         )
 
         if (
@@ -2890,6 +2931,9 @@ def execute_finite_live_publication(
             live_vault_root=live,
             expected_generation_id=(
                 plan["generation_id"]
+            ),
+            _production_capability=(
+                _production_capability
             ),
         )
 
