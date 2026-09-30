@@ -40,6 +40,18 @@ EXPECTED_GATE_CONTRACT_BLOB = (
 EXPECTED_QUALIFIED_P5D3F_BLOB = (
     "2108131914cf65bb076b80f5bb63cd63267567fa"
 )
+RECOVERY_V04_REBIND_AMENDMENT_CONTRACT_BLOB = (
+    "3667488c6cb7a348eab6564b7152049e0ba32d3b"
+)
+EFFECTIVE_RUNNER_BRANCH = (
+    "feat/obsidian-projection-p5d3f-recovery-v04-qualified-blob-rebind-amendment-v0.1"
+)
+EFFECTIVE_IMPLEMENTATION_BLOB = (
+    "375607d88bc926e4fd4c297ddc6fedba5506642a"
+)
+EFFECTIVE_QUALIFIED_P5D3F_BLOB = (
+    "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"
+)
 
 AUTHORIZATION_LITERAL = (
     "AUTHORIZE_ONE_P5D3F_PERSISTENT_READY_UNAUTHORIZED_HANDOFF"
@@ -195,7 +207,7 @@ def _verify_exact_runtime(
         "fetch",
         "--no-tags",
         "origin",
-        RUNNER_BRANCH,
+        EFFECTIVE_RUNNER_BRANCH,
     )
     fetched = _git(
         repo,
@@ -226,8 +238,12 @@ def _verify_exact_runtime(
     expected_blobs = {
         (
             "tools/obsidian_projection/"
+            "p5d3f_recovery_v04_qualified_blob_rebind_amendment_contract_v0_1.json"
+        ): RECOVERY_V04_REBIND_AMENDMENT_CONTRACT_BLOB,
+        (
+            "tools/obsidian_projection/"
             "persistent_production_handoff.py"
-        ): EXPECTED_IMPLEMENTATION_BLOB,
+        ): EFFECTIVE_IMPLEMENTATION_BLOB,
         (
             "tests/obsidian_projection/"
             "test_p5d3f_persistent_handoff_recovery_implementation_v0_3.py"
@@ -243,7 +259,7 @@ def _verify_exact_runtime(
         (
             "tools/obsidian_projection/"
             "p5d3f_promotion_handoff.py"
-        ): EXPECTED_QUALIFIED_P5D3F_BLOB,
+        ): EFFECTIVE_QUALIFIED_P5D3F_BLOB,
     }
 
     for relative, expected_blob in (
