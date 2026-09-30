@@ -235,6 +235,11 @@ def load_event_log(control_root: Path) -> list[dict[str, Any]]:
         }
         if set(record) != required or record.get("schema") != EVENT_SCHEMA:
             raise PersistenceError("event log fields mismatch")
+        if record["record_origin"] not in {
+            "LIVE_BOUNDED_LOOP",
+            "EVIDENCE_RECONSTRUCTION",
+        }:
+            raise PersistenceError("event log record origin invalid")
         if record["sequence"] != expected_sequence:
             raise PersistenceError("event log sequence mismatch")
         if record["previous_record_digest_sha256"] != previous_digest:
@@ -653,6 +658,7 @@ def run_bounded_loop(
         result["terminal_reason"] = "LOCK_CONTENDED"
         return result
 
+    state: dict[str, Any] | None = None
     try:
         reconciled = reconcile_control_state(
             control_root=root,
@@ -756,6 +762,21 @@ def run_bounded_loop(
 
         if result["terminal_reason"] is None:
             result["terminal_reason"] = "BOUND_REACHED"
+        result["observer_state"] = state
+        _write_run_result(root, result)
+        return result
+    except QueueCapacityError:
+        result["terminal_reason"] = "QUEUE_CAPACITY_REQUIRES_ADJUDICATION"
+        result["observer_state"] = state
+        _write_run_result(root, result)
+        return result
+    except ReconciliationError:
+        result["terminal_reason"] = "RECONCILIATION_REQUIRED"
+        result["observer_state"] = state
+        _write_run_result(root, result)
+        return result
+    except Exception:
+        result["terminal_reason"] = "FATAL_INCONSISTENCY"
         result["observer_state"] = state
         _write_run_result(root, result)
         return result
