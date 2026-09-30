@@ -28,6 +28,9 @@ from .live_publication_transaction import (
     _verified_handoff,
     _virtual_target_digest,
 )
+from .persistent_production_handoff import (
+    PERSISTENT_STAGING,
+)
 
 
 class ProductionEnablementError(RuntimeError):
@@ -57,6 +60,15 @@ PRODUCTION_ENABLEMENT_PIN_REQUALIFICATION_CONTRACT_BLOB = (
 )
 EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB = (
     "2fb34e1c04b4dd32d19b85b488d89f8a702204d0"
+)
+STAGEA_PERSISTENT_HANDOFF_BINDING_AMENDMENT_CONTRACT_BLOB = (
+    "f2625a98ac53c737c884f5d276bb41f51ce5f498"
+)
+STAGEA_EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB = (
+    "4a056c3a27796043b833c803a18a17c621b79ab0"
+)
+PERSISTENT_HANDOFF_IMPLEMENTATION_BLOB = (
+    "375607d88bc926e4fd4c297ddc6fedba5506642a"
 )
 
 PLAN_SCHEMA = (
@@ -210,9 +222,25 @@ _TOOLING = {
     ): EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
 }
 
+_STAGEA_TOOLING = {
+    **_TOOLING,
+    (
+        "tools/obsidian_projection/"
+        "p5d3g_stagea_persistent_handoff_verifier_binding_amendment_contract_v0_1.json"
+    ): STAGEA_PERSISTENT_HANDOFF_BINDING_AMENDMENT_CONTRACT_BLOB,
+    (
+        "tools/obsidian_projection/"
+        "persistent_production_handoff.py"
+    ): PERSISTENT_HANDOFF_IMPLEMENTATION_BLOB,
+    (
+        "tools/obsidian_projection/"
+        "live_publication_transaction.py"
+    ): STAGEA_EFFECTIVE_LIVE_PUBLICATION_IMPLEMENTATION_BLOB,
+}
+
 
 def _verify_tooling_identity() -> None:
-    for relative, blob in _TOOLING.items():
+    for relative, blob in _STAGEA_TOOLING.items():
         if _git_blob(relative) != blob:
             raise ProductionEnablementGovernanceError(
                 f"qualified tooling commit mismatch: {relative}"
@@ -230,6 +258,28 @@ def _resolve(path: Path) -> Path:
         raise ProductionEnablementBlockedError(
             "path resolution unavailable"
         ) from exc
+
+
+def _validate_promotion_staging_root(
+    promotion_staging_root: Path | None,
+) -> Path | None:
+    if promotion_staging_root is None:
+        return None
+
+    supplied = Path(promotion_staging_root)
+    expected = Path(PERSISTENT_STAGING)
+    if str(supplied) != str(expected):
+        raise ProductionEnablementGovernanceError(
+            "persistent staging lexical identity mismatch"
+        )
+
+    staging = _resolve(supplied)
+    exact = _resolve(expected)
+    if staging != exact:
+        raise ProductionEnablementGovernanceError(
+            "persistent staging resolved identity mismatch"
+        )
+    return staging
 
 
 def _validate_real_vault(
@@ -636,10 +686,14 @@ def build_real_live_publication_plan(
     *,
     handoff_root: Path,
     real_vault_root: Path,
+    promotion_staging_root: Path | None = None,
 ) -> dict[str, Any]:
     _verify_tooling_identity()
     live = _validate_real_vault(
         real_vault_root
+    )
+    staging = _validate_promotion_staging_root(
+        promotion_staging_root
     )
     before = snapshot_real_vault(live)
 
@@ -652,6 +706,7 @@ def build_real_live_publication_plan(
         ) = _verified_handoff(
             handoff_root,
             live,
+            promotion_staging_root=staging,
         )
     except Exception as exc:
         if isinstance(
@@ -1043,10 +1098,14 @@ def consume_stage_a_plan_approval(
     control_root: Path,
     plan: dict[str, Any],
     approval: dict[str, Any] | None,
+    promotion_staging_root: Path | None = None,
 ) -> dict[str, Any]:
     _verify_tooling_identity()
     live = _validate_real_vault(
         real_vault_root
+    )
+    staging = _validate_promotion_staging_root(
+        promotion_staging_root
     )
     handoff = _resolve(
         handoff_root
@@ -1076,6 +1135,7 @@ def consume_stage_a_plan_approval(
         ) = _verified_handoff(
             handoff,
             live,
+            promotion_staging_root=staging,
         )
     except Exception as exc:
         raise ProductionEnablementGovernanceError(

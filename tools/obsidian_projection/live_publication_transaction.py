@@ -601,6 +601,7 @@ def _read_json_canonical(
 def _verified_handoff(
     handoff_root: Path,
     live: Path,
+    promotion_staging_root: Path | None = None,
 ) -> tuple[
     Path,
     dict[str, Any],
@@ -618,6 +619,9 @@ def _verified_handoff(
         verified = verify_promotion_handoff(
             handoff,
             live_vault_root=live,
+            promotion_staging_root=(
+                promotion_staging_root
+            ),
         )
     except PromotionHandoffBlockedError as exc:
         raise LivePublicationBlockedError(
