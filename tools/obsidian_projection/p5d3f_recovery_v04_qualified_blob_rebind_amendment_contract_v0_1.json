@@ -1,0 +1,87 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D3F_RECOVERY_V04_QUALIFIED_BLOB_REBIND_AMENDMENT_CONTRACT_V0_1",
+  "status": "CANDIDATE_PREREGISTRATION_ONLY",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "source_head": "4cf7d94f9c8d49e647ec56fbf55d8afc9d892f51",
+  "branch": "feat/obsidian-projection-p5d3f-recovery-v04-qualified-blob-rebind-amendment-v0.1",
+  "frontier": "P5-D3F-RECOVERY-V0.4-REAL-EXECUTION-RUNNER-QUALIFIED-BLOB-REBIND",
+  "purpose": "Requalify the Recovery V0.4 real-execution runner against the currently qualified P5-D3F persistent handoff artifacts while preserving historical runner authority byte-exact and granting no real execution authority.",
+  "historical_authority": {
+    "runner_branch": "feat/obsidian-projection-p5d3f-recovery-real-execution-runner-v0.4-monitored-head-pin",
+    "runner_head": "1d725a35490fbf0c137072152d2876c53d63f183",
+    "runner_blob": "0dfb31d86c84739fc66ee7efb6ca82e97396d87b",
+    "runner_test_blob": "667e458962aca47a1d3f08ef3f12c80015c1390b",
+    "runner_rebreak_blob": "e6c9ab7f98c9fa8f77db3dc98571120e6cbeb7c0",
+    "historical_expected_persistent_handoff_blob": "dcd70a9d9794675eab90e41df560f8b030b5dbf3",
+    "historical_expected_p5d3f_blob": "2108131914cf65bb076b80f5bb63cd63267567fa"
+  },
+  "effective_requalification": {
+    "persistent_production_handoff_blob": "375607d88bc926e4fd4c297ddc6fedba5506642a",
+    "p5d3f_promotion_handoff_blob": "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60",
+    "candidate_generation_staging_blob": "398bda75604f8172128fbe0ddaf78cab4cee9f92",
+    "recovery_implementation_test_blob": "242305bc0f95bbe243158b5c806255508093a357",
+    "recovery_gate_v0_2_blob": "aef627936b6f745017bcace7e8a3e44270f95674",
+    "gate_v0_1_blob": "59ce9e079d256799d072405fa4a623ba58b75c0d"
+  },
+  "historical_preservation": {
+    "historical_runner_constants_remain_historical": true,
+    "historical_runner_test_remains_byte_exact": true,
+    "historical_runner_rebreak_remains_byte_exact": true,
+    "historical_gate_contracts_remain_byte_exact": true,
+    "effective_binding_must_be_distinct": true,
+    "no_retroactive_claim_of_historical_authority": true
+  },
+  "allowed_runtime_changes": [
+    "add amendment contract identity",
+    "add effective runner branch identity",
+    "add effective persistent handoff blob identity",
+    "add effective P5-D3F blob identity",
+    "bind exact-runtime verification to effective identities",
+    "preserve all execution semantics and authorization literal"
+  ],
+  "forbidden_changes": [
+    "real P5-D3F execution",
+    "one-shot authorization consumption",
+    "real Vault write",
+    "CURRENT.md creation or mutation",
+    "CURRENT.tmp creation or mutation",
+    "live publication",
+    "PROMOTION_CONFIRMED",
+    "Stage A real execution",
+    "Stage B",
+    "P5-D4",
+    "P6",
+    "polling loop",
+    "background observer",
+    "scheduled task",
+    "Windows service",
+    "functional publication-semantic change",
+    "weakening historical tests"
+  ],
+  "required_qualification": [
+    "discriminating RED before runtime mutation",
+    "targeted amendment tests",
+    "historical Recovery V0.4 tests unchanged",
+    "dedicated synthetic re-break",
+    "P5-D3F/P5-D3G regression re-break",
+    "full Obsidian re-break",
+    "fresh real-environment preflight read-only",
+    "mandatory STOP before real execution"
+  ],
+  "stop_conditions": [
+    "unexpected HEAD or blob divergence",
+    "historical artifact mutation",
+    "non-pin runtime semantic diff",
+    "new stale dependency outside authorized frontier",
+    "targeted or full re-break failure",
+    "real environment preflight mutation or mismatch"
+  ],
+  "authority": {
+    "real_execution_authorized": false,
+    "one_shot_consumption_authorized": false,
+    "real_vault_read_only_preflight_authorized": true,
+    "real_vault_write_authorized": false,
+    "persistent_handoff_materialization_authorized": false,
+    "mandatory_stop_before_real_execution": true
+  }
+}
