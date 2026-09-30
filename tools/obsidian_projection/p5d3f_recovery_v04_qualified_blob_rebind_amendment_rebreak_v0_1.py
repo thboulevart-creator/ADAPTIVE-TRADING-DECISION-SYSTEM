@@ -1,0 +1,551 @@
+from __future__ import annotations
+
+import argparse
+import os
+import re
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+
+EXPECTED_REPOSITORY = (
+    "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
+)
+BRANCH = (
+    "feat/obsidian-projection-p5d3f-recovery-v04-qualified-blob-rebind-amendment-v0.1"
+)
+
+EXPECTED_REAL_RUNNER_BLOB = (
+    "9228ea75d269c9bfc89537374dec5990498c3e4a"
+)
+EXPECTED_REAL_RUNNER_TESTS_BLOB = (
+    "667e458962aca47a1d3f08ef3f12c80015c1390b"
+)
+EXPECTED_AMENDMENT_CONTRACT_BLOB = (
+    "3667488c6cb7a348eab6564b7152049e0ba32d3b"
+)
+EXPECTED_AMENDMENT_TESTS_BLOB = (
+    "46f3e2886b7b22d167fcd352521c8db22ac8c2bf"
+)
+EXPECTED_HISTORICAL_REBREAK_BLOB = (
+    "e6c9ab7f98c9fa8f77db3dc98571120e6cbeb7c0"
+)
+EXPECTED_RECOVERY_IMPLEMENTATION_BLOB = (
+    "375607d88bc926e4fd4c297ddc6fedba5506642a"
+)
+EXPECTED_RECOVERY_IMPLEMENTATION_TESTS_BLOB = (
+    "242305bc0f95bbe243158b5c806255508093a357"
+)
+EXPECTED_RECOVERY_GATE_CONTRACT_BLOB = (
+    "aef627936b6f745017bcace7e8a3e44270f95674"
+)
+EXPECTED_GATE_CONTRACT_BLOB = (
+    "59ce9e079d256799d072405fa4a623ba58b75c0d"
+)
+EXPECTED_QUALIFIED_P5D3F_BLOB = (
+    "23a4cc69b3b9f6fab1a6d77bed0247fce9b69c60"
+)
+
+OID40 = re.compile(r"^[0-9a-f]{40}$")
+
+
+class GovernedRunError(RuntimeError):
+    pass
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def _run(
+    *args: str,
+    cwd: Path,
+    capture: bool = True,
+    env: dict[str, str] | None = None,
+) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        list(args),
+        cwd=str(cwd),
+        check=False,
+        text=True,
+        capture_output=capture,
+        env=env,
+    )
+
+
+def _git(
+    repo: Path,
+    *args: str,
+    capture: bool = True,
+) -> subprocess.CompletedProcess[str]:
+    return _run(
+        "git",
+        *args,
+        cwd=repo,
+        capture=capture,
+    )
+
+
+def _stdout(
+    result: subprocess.CompletedProcess[str],
+) -> str:
+    return (result.stdout or "").strip()
+
+
+def _require_ok(
+    result: subprocess.CompletedProcess[str],
+    message: str,
+) -> None:
+    if result.returncode != 0:
+        details = (
+            (result.stderr or "").strip()
+            or (result.stdout or "").strip()
+        )
+        raise GovernedRunError(
+            f"{message}: {details}"
+            if details
+            else message
+        )
+
+
+def _normalize_origin(origin: str) -> str:
+    value = origin.strip()
+
+    for prefix in (
+        "git@github.com:",
+        "https://github.com/",
+        "ssh://git@github.com/",
+    ):
+        if value.startswith(prefix):
+            value = value[len(prefix):]
+            break
+    else:
+        raise GovernedRunError(
+            f"unsupported origin form: {origin}"
+        )
+
+    if value.endswith(".git"):
+        value = value[:-4]
+
+    return value.strip("/")
+
+
+def _require_clean(
+    repo: Path,
+    stage: str,
+) -> None:
+    result = _git(
+        repo,
+        "status",
+        "--porcelain",
+        "--untracked-files=all",
+    )
+    _require_ok(
+        result,
+        f"git status failed during {stage}",
+    )
+
+    dirty = _stdout(result)
+    if dirty:
+        raise GovernedRunError(
+            f"working tree non propre {stage}: {dirty}"
+        )
+
+
+def _committed_blob(
+    repo: Path,
+    relative: str,
+) -> str:
+    result = _git(
+        repo,
+        "rev-parse",
+        f"HEAD:{relative}",
+    )
+    _require_ok(
+        result,
+        f"git rev-parse HEAD:{relative} failed",
+    )
+    return _stdout(result)
+
+
+def _static_surface_scan(repo: Path) -> None:
+    source = (
+        repo
+        / "tools"
+        / "obsidian_projection"
+        / "p5d3f_recovery_real_execution_v0_4.py"
+    ).read_text(encoding="utf-8")
+
+    required = (
+        "AUTHORIZED_STAGING_PRESTATE",
+        "PRESENT_EMPTY_PACKAGES_RECOVERY",
+        "EXPECTED_RECOVERY_GATE_CONTRACT_BLOB",
+        "EXPECTED_RECOVERY_IMPLEMENTATION_TEST_BLOB",
+        "RECOVERY_V04_REBIND_AMENDMENT_CONTRACT_BLOB",
+        "EFFECTIVE_RUNNER_BRANCH",
+        "EFFECTIVE_IMPLEMENTATION_BLOB",
+        "EFFECTIVE_QUALIFIED_P5D3F_BLOB",
+        "PersistentHandoffPostSuccessCleanupBlockedError",
+        "P5D3F_RECOVERY_PRESTATE_AUTHORIZED=PASS",
+        "P5D3F_PERSISTENT_FAILURE_ORIGINAL=",
+        "P5D3F_PERSISTENT_FAILURE_TEMP_ROOT=",
+        "P5D3F_PERSISTENT_FAILURE_RESIDUAL_JSON=",
+        "P5D3F_POST_SUCCESS_CLEANUP_BLOCKED=TRUE",
+        "P5D3F_POST_SUCCESS_TEMP_ROOT=",
+        "P5D3F_POST_SUCCESS_RESULT_JSON=",
+        "--expected-monitored-head",
+        "BLOCKED_MONITORED_HEAD_AUTHORITY_MISMATCH",
+        "P5D3F_EXPECTED_MONITORED_HEAD=",
+        "P5D3F_MONITORED_HEAD_AUTHORITY=PASS",
+        "result candidate head differs from authorized monitored head",
+    )
+
+    for token in required:
+        if token not in source:
+            raise GovernedRunError(
+                "required recovery real-runner surface missing: "
+                + token
+            )
+
+    forbidden = (
+        "execute_finite_live_publication",
+        "PROMOTION_CONFIRMED",
+        "consume_stage_a_plan_approval",
+        "EXECUTE_ONE_FINITE_REAL_LIVE_PUBLICATION_TRANSACTION",
+        "os.replace(",
+        "threading.Thread",
+        "while True",
+        "schtasks",
+        "CreateService",
+    )
+
+    hits = [
+        token
+        for token in forbidden
+        if token in source
+    ]
+    if hits:
+        raise GovernedRunError(
+            "forbidden later-authority surface present: "
+            + ", ".join(hits)
+        )
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--expected-remote-head",
+        required=True,
+    )
+    parser.add_argument(
+        "--expected-candidate-head",
+        required=True,
+    )
+
+    args = parser.parse_args()
+
+    if OID40.fullmatch(
+        args.expected_remote_head
+    ) is None:
+        raise GovernedRunError(
+            "invalid --expected-remote-head"
+        )
+
+    if OID40.fullmatch(
+        args.expected_candidate_head
+    ) is None:
+        raise GovernedRunError(
+            "invalid --expected-candidate-head"
+        )
+
+    repo = _repo_root()
+
+    print(
+        "=== P5-D3F RECOVERY REAL EXECUTION RUNNER V0.4 "
+        "SYNTHETIC RE-BREAK ==="
+    )
+    print(
+        "=== SYNTHETIC ONLY — NO PERSISTENT STAGING / "
+        "NO REAL VAULT ACCESS ==="
+    )
+
+    origin = _git(
+        repo,
+        "remote",
+        "get-url",
+        "origin",
+    )
+    _require_ok(
+        origin,
+        "cannot read origin",
+    )
+
+    if _normalize_origin(
+        _stdout(origin)
+    ) != EXPECTED_REPOSITORY:
+        raise GovernedRunError(
+            "repository mismatch"
+        )
+
+    _require_clean(
+        repo,
+        "avant recovery real-runner re-break",
+    )
+    print(
+        "CONTROL_CLONE_CLEAN_BEFORE=PASS"
+    )
+
+    fetch = _git(
+        repo,
+        "fetch",
+        "--no-tags",
+        "origin",
+        BRANCH,
+        capture=False,
+    )
+    _require_ok(
+        fetch,
+        "fetch recovery real-runner branch failed",
+    )
+
+    fetched = _git(
+        repo,
+        "rev-parse",
+        "FETCH_HEAD",
+    )
+    _require_ok(
+        fetched,
+        "cannot resolve FETCH_HEAD",
+    )
+    fetched_head = _stdout(fetched)
+
+    if fetched_head != (
+        args.expected_remote_head
+    ):
+        raise GovernedRunError(
+            "REMOTE_RACE_GUARD: "
+            f"attendu {args.expected_remote_head}, "
+            f"reçu {fetched_head}"
+        )
+
+    print(
+        "REMOTE_RACE_GUARD=PASS"
+    )
+
+    local = _git(
+        repo,
+        "rev-parse",
+        "HEAD",
+    )
+    _require_ok(
+        local,
+        "cannot resolve HEAD",
+    )
+
+    if _stdout(local) != (
+        args.expected_candidate_head
+    ):
+        raise GovernedRunError(
+            "LOCAL_HEAD_MISMATCH: switch manually "
+            "to exact candidate before re-break"
+        )
+
+    expected_blobs = {
+        (
+            "tools/obsidian_projection/"
+            "p5d3f_recovery_real_execution_v0_4.py"
+        ): EXPECTED_REAL_RUNNER_BLOB,
+        (
+            "tests/obsidian_projection/"
+            "test_p5d3f_recovery_real_execution_runner_v0_4.py"
+        ): EXPECTED_REAL_RUNNER_TESTS_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "p5d3f_recovery_v04_qualified_blob_rebind_amendment_contract_v0_1.json"
+        ): EXPECTED_AMENDMENT_CONTRACT_BLOB,
+        (
+            "tests/obsidian_projection/"
+            "test_p5d3f_recovery_v04_qualified_blob_rebind_amendment_v0_1.py"
+        ): EXPECTED_AMENDMENT_TESTS_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "p5d3f_recovery_real_execution_runner_rebreak_v0_4.py"
+        ): EXPECTED_HISTORICAL_REBREAK_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "persistent_production_handoff.py"
+        ): EXPECTED_RECOVERY_IMPLEMENTATION_BLOB,
+        (
+            "tests/obsidian_projection/"
+            "test_p5d3f_persistent_handoff_recovery_implementation_v0_3.py"
+        ): EXPECTED_RECOVERY_IMPLEMENTATION_TESTS_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "persistent_production_handoff_gate_contract_v0_2.json"
+        ): EXPECTED_RECOVERY_GATE_CONTRACT_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "persistent_production_handoff_gate_contract_v0_1.json"
+        ): EXPECTED_GATE_CONTRACT_BLOB,
+        (
+            "tools/obsidian_projection/"
+            "p5d3f_promotion_handoff.py"
+        ): EXPECTED_QUALIFIED_P5D3F_BLOB,
+    }
+
+    for relative, expected_blob in (
+        expected_blobs.items()
+    ):
+        actual = _committed_blob(
+            repo,
+            relative,
+        )
+        if actual != expected_blob:
+            raise GovernedRunError(
+                f"blob mismatch: {relative}: {actual}"
+            )
+
+    print(
+        "P5D3F_RECOVERY_REAL_RUNNER_BLOBS=PASS"
+    )
+
+    _static_surface_scan(repo)
+
+    print(
+        "P5D3F_RECOVERY_REAL_RUNNER_SURFACE_SCAN=PASS"
+    )
+
+    pycache = (
+        Path(tempfile.gettempdir())
+        / "ATDS-P5D3F-RECOVERY-REAL-RUNNER-PYCACHE"
+    )
+    pycache.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    env = {
+        **os.environ,
+        "PYTHONPYCACHEPREFIX": str(pycache),
+        "PYTHONDONTWRITEBYTECODE": "1",
+    }
+
+    compile_result = _run(
+        sys.executable,
+        "-m",
+        "py_compile",
+        "tools/obsidian_projection/"
+        "p5d3f_recovery_real_execution_v0_4.py",
+        "tests/obsidian_projection/"
+        "test_p5d3f_recovery_real_execution_runner_v0_4.py",
+        "tests/obsidian_projection/"
+        "test_p5d3f_recovery_v04_qualified_blob_rebind_amendment_v0_1.py",
+        cwd=repo,
+        env=env,
+    )
+    _require_ok(
+        compile_result,
+        "recovery real-runner py_compile failed",
+    )
+
+    print(
+        "P5D3F_RECOVERY_REAL_RUNNER_PY_COMPILE=PASS"
+    )
+
+    targeted = _run(
+        sys.executable,
+        "-B",
+        "-m",
+        "unittest",
+        "tests.obsidian_projection."
+        "test_p5d3f_recovery_real_execution_runner_v0_4",
+        "tests.obsidian_projection."
+        "test_p5d3f_recovery_v04_qualified_blob_rebind_amendment_v0_1",
+        "-v",
+        cwd=repo,
+        env=env,
+    )
+
+    if targeted.stdout:
+        print(
+            targeted.stdout,
+            end="",
+        )
+    if targeted.stderr:
+        print(
+            targeted.stderr,
+            end="",
+            file=sys.stderr,
+        )
+
+    _require_ok(
+        targeted,
+        "recovery real-runner targeted tests failed",
+    )
+
+    print(
+        "P5D3F_RECOVERY_REAL_RUNNER_TARGETED=PASS"
+    )
+
+    full = _run(
+        sys.executable,
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/obsidian_projection",
+        "-p",
+        "test_*.py",
+        "-v",
+        cwd=repo,
+        env=env,
+    )
+
+    if full.stdout:
+        print(
+            full.stdout,
+            end="",
+        )
+    if full.stderr:
+        print(
+            full.stderr,
+            end="",
+            file=sys.stderr,
+        )
+
+    _require_ok(
+        full,
+        "full Obsidian suite failed",
+    )
+
+    print(
+        "P5D3F_RECOVERY_REAL_RUNNER_FULL_REBREAK=PASS"
+    )
+
+    _require_clean(
+        repo,
+        "après recovery real-runner re-break",
+    )
+
+    print(
+        "CONTROL_CLONE_CLEAN=PASS"
+    )
+    print(
+        "P5D3F_RECOVERY_REAL_RUNNER_REBREAK_COMPLETED=PASS"
+    )
+
+    return 0
+
+
+if __name__ == "__main__":
+    try:
+        raise SystemExit(main())
+    except GovernedRunError as exc:
+        print(
+            f"BLOCKED: {exc}",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
