@@ -25,6 +25,7 @@ class StageBExecutionGovernanceError(StageBExecutionError):
 
 
 CONTRACT_BLOB = "c5c7fbb52f3dd2e3d3f5d1c1bbdc1069e2dabead"
+PRESTATE_REBIND_AMENDMENT_CONTRACT_BLOB = "441fea40d33aa85dcfc6305d4d32cef39c42388e"
 LIVE_PUBLICATION_BLOB = "956ccb7274cea366b1a414df5a9239cbf580e3bf"
 PRODUCTION_ENABLEMENT_BLOB = "07a04ba2e23dea8512d786cafbf8fa7118572170"
 PERSISTENT_HANDOFF_BLOB = "375607d88bc926e4fd4c297ddc6fedba5506642a"
@@ -39,20 +40,20 @@ CONTROL_ROOT = Path(
     r"\ATDS-P5D3G-CONTROL-EVIDENCE"
 )
 STAGE_A_RECEIPT_NONCE = (
-    "stagea-7a5df19b2e0e90b89f7319dff57b7ac5-human-approval-01"
+    "stagea-f83f266e17db3ee90e07eeefbc9baf30-human-approval-02"
 )
 STAGE_A_RECEIPT_PATH = (
     CONTROL_ROOT / "stage-a-approvals" / (STAGE_A_RECEIPT_NONCE + ".json")
 )
 
 EXPECTED_STAGE_A_PLAN_DIGEST = (
-    "7a5df19b2e0e90b89f7319dff57b7ac521d5adc24bf408dbc76e221a616bac79"
+    "f83f266e17db3ee90e07eeefbc9baf308b7ddf6714fec16562a34cb4025db3f6"
 )
 EXPECTED_STAGE_A_APPROVAL_DIGEST = (
-    "6c1a5e16df5a6b7a72606d4f50990809cf567a9b92ef48242905f6f3e40a7e3d"
+    "2ad99ab121c59a09cc0c34a5a91a129547c19d9748344e9960980dbc170caf25"
 )
 EXPECTED_STAGE_A_RECEIPT_SHA256 = (
-    "2a2242ff906c33886d6b9860de90c47b1fb195f749d5932812d68630717909f3"
+    "d7db614a87e53684440ff62b3ccd2c6d92c2b18377fa6c75bc19231e6d726a8f"
 )
 EXPECTED_CANDIDATE_HEAD = "59f1dc26973b0b50efefccf12b26784d1e41f546"
 EXPECTED_CANDIDATE_TREE = "beb85ddb99e8a87afc4e8a6ed9b989ed0f83e1ea"
@@ -89,6 +90,7 @@ _AUTH_FIELDS = frozenset(
 
 _TOOLING = {
     "tools/obsidian_projection/p5d3g_stageb_real_execution_gate_contract_v0_1.json": CONTRACT_BLOB,
+    "tools/obsidian_projection/p5d3g_stageb_prestate_rebind_amendment_contract_v0_1.json": PRESTATE_REBIND_AMENDMENT_CONTRACT_BLOB,
     "tools/obsidian_projection/live_publication_transaction.py": LIVE_PUBLICATION_BLOB,
     "tools/obsidian_projection/production_enablement.py": PRODUCTION_ENABLEMENT_BLOB,
     "tools/obsidian_projection/persistent_production_handoff.py": PERSISTENT_HANDOFF_BLOB,
