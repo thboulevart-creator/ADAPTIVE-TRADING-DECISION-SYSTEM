@@ -1,0 +1,140 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5E_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_TARGETED_RED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "feat/obsidian-projection-p5e-v0.1-external-review-targeted-closure",
+  "opening_base_head": "4ffe259c2485437b5d782be633e1ba23985d4945",
+  "authority_scope": "B1_TO_B5_TARGETED_CLOSURE_ONLY",
+  "real_p5e_execution_authorized": false,
+  "candidate_identity": {
+    "contract_blob": "e5c3d7a9d451aba65e8062078c6c10d23e586f39",
+    "model_blob": "8662dd97a1c8a1af33d6593ae923384e96404b5a",
+    "base_test_blob": "2305e0768182d82657c34a7cb53c502714a2ab81",
+    "adversarial_test_blob": "6235c4b2addc16acd043832664440ec76f6dada2",
+    "p5d2_runtime_blob": "fd212f61ec38332b677110f40265638af55a73e2",
+    "p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5"
+  },
+  "adjudicated_findings": {
+    "B1": "CONFIRMED_BLOCKING_WITH_UPSTREAM_COVERAGE_NUANCE",
+    "B2": "CONFIRMED_BLOCKING",
+    "B3": "CONFIRMED_BLOCKING",
+    "B4": "CONFIRMED_BLOCKING",
+    "B5": "PARTIALLY_CONFIRMED_BLOCKING_SEMANTIC_GAP"
+  },
+  "inherited_timing_constraints": {
+    "poll_interval_seconds": 30,
+    "detection_latency_seconds_max": 60,
+    "silent_widening_forbidden": true
+  },
+  "timing_closure_contract": {
+    "real_measurement_origin": "CONTROLLED_SOURCE_RELEASE_MONOTONIC",
+    "unobservable_remote_head_available_time_claim_authorized": false,
+    "measurement_endpoint": "SUCCESSFUL_REMOTE_READ_COMPLETION_MONOTONIC",
+    "schedule_semantics": "FIXED_RATE",
+    "synthetic_schedule_origin_seconds": 0,
+    "first_required_attempt": "FIRST_FIXED_RATE_SLOT_AT_OR_AFTER_SOURCE_RELEASE",
+    "all_required_attempt_slots_must_be_present_until_terminal_result": true,
+    "attempt_start_and_read_completion_must_be_separate": true,
+    "read_completion_before_attempt_start_forbidden": true,
+    "overlapping_single_writer_attempts_forbidden": true,
+    "exact_tip_observed_before_source_release_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "skipped_required_attempt_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "cadence_gap_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "detection_after_60_seconds_result": "FAIL_DETECTION_LATENCY_BOUND_EXCEEDED",
+    "no_future_fixed_rate_attempt_can_meet_bound_result": "FAIL_NO_DETECTION_BY_BOUND"
+  },
+  "tip_visibility_closure": {
+    "observation_records_must_carry_head_identity": true,
+    "exact_tip_observed_definition": "REMOTE_READ_RETURNED_TARGET_HEAD",
+    "intermediate_fast_forward_commit_definition": "COMMIT_CONTAINED_BY_LATER_OBSERVED_FAST_FORWARD_HEAD_BUT_NOT_ITSELF_OBSERVED_AS_REMOTE_TIP",
+    "unobserved_intermediate_tip_may_be_claimed_exactly_observed": false,
+    "unobserved_intermediate_tip_may_be_queued": false,
+    "fast_forward_content_containment_is_not_queue_coalescing": true,
+    "already_observed_queued_head_replacement_forbidden": true,
+    "already_observed_queued_head_retarget_forbidden": true,
+    "per_transient_tip_detection_sla_authorized": false
+  },
+  "coverage_closure": {
+    "explicit_requirement_to_test_blob_matrix_required": true,
+    "upstream_behavioral_tests_may_be_reused_if_exactly_mapped": true,
+    "unmapped_required_case_result": "BLOCKED",
+    "unmapped_required_breaker_result": "BLOCKED",
+    "required_case_list_must_be_exactly_frozen": true,
+    "required_breaker_list_must_be_exactly_frozen": true,
+    "adversarial_invariants_must_cover_all_normative_contract_blocks": true,
+    "claims_without_executable_evidence_forbidden": true
+  },
+  "required_new_red_cases": [
+    "B1_UNGUARDED_HEAD_TRANSITION_MUTATION_SURVIVES",
+    "B1_UNGUARDED_FAILURE_SEMANTICS_MUTATION_SURVIVES",
+    "B1_UNGUARDED_SYNTHETIC_CLOCK_MUTATION_SURVIVES",
+    "B1_REQUIRED_BREAKER_LIST_REPLACEMENT_SURVIVES",
+    "B2_SKIPPED_FIRST_REQUIRED_SLOT_ACCEPTED",
+    "B2_CADENCE_GAP_ACCEPTED",
+    "B3_PRE_SOURCE_TARGET_OBSERVATION_IGNORED",
+    "B4_REMOTE_AVAILABILITY_ORIGIN_REMAINS_NORMATIVE",
+    "B4_READ_COMPLETION_DURATION_HIDDEN",
+    "B5_OBSERVATION_WITHOUT_HEAD_IDENTITY_ACCEPTED",
+    "B5_INTERMEDIATE_TIP_CLAIMED_AS_EXACT_OBSERVATION"
+  ],
+  "required_existing_behavioral_mappings": {
+    "SAME_HEAD_NOOP": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "method": "ObserverTickTests.test_same_head_is_strict_noop_for_queue",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58"
+    },
+    "NON_FAST_FORWARD_BLOCKED": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "method": "ObserverTickTests.test_non_fast_forward_blocks_without_queueing",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58"
+    },
+    "UNKNOWN_ANCESTRY_BLOCKED": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "method": "ObserverTickTests.test_unknown_ancestry_blocks_without_queueing",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58"
+    },
+    "PENDING_QUEUE_FULL_NEWER_HEAD_FAILS_CLOSED": {
+      "path": "tests/obsidian_projection/test_p5d4_bounded_observer_loop_runtime_v0_1.py",
+      "method": "P5D4RuntimeV01Tests.test_07_queue_capacity_blocks_before_tick",
+      "blob": "5bcc563487ca8c64a1afde9f022504b2b618af7b"
+    },
+    "SECOND_HEAD_DOES_NOT_RETARGET_PENDING_HEAD": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "method": "ObserverTickTests.test_fast_forward_queues_without_retargeting_active",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58"
+    }
+  },
+  "authority_boundary": {
+    "real_polling_loop_authorized": false,
+    "real_head_evaluation_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "promotion_authorized": false,
+    "publication_authorized": false,
+    "real_vault_mutation_authorized": false,
+    "current_mutation_authorized": false,
+    "daemon_authorized": false,
+    "scheduled_task_authorized": false,
+    "windows_service_authorized": false,
+    "startup_registration_authorized": false,
+    "p6_authorized": false,
+    "automatic_human_adoption_authorized": false
+  },
+  "qualification_sequence": [
+    "PERSIST_INTERNAL_ADJUDICATION_AND_PREREGISTRATION",
+    "ADD_TARGETED_RED_TESTS",
+    "PERSIST_RED_EVIDENCE",
+    "APPLY_MINIMAL_CONTRACT_MODEL_TEST_CORRECTIONS",
+    "BUILD_REQUIREMENT_TO_EXECUTABLE_EVIDENCE_MATRIX",
+    "RUN_TARGETED_GREEN_AND_ADVERSARIAL",
+    "RUN_REQUIRED_PREDECESSOR_REGRESSIONS",
+    "RUN_EXACTLY_ONE_FULL_OBSIDIAN_SUITE",
+    "BUILD_CORRECTED_SELF_CONTAINED_EXTERNAL_REVIEW_PACKET",
+    "PERSIST_QUALIFICATION_EVIDENCE",
+    "STOP_BEFORE_HUMAN_ADOPTION_AND_REAL_P5E"
+  ],
+  "full_suite_budget": {
+    "maximum_new_full_obsidian_runs": 1
+  },
+  "mandatory_stop": "BEFORE_HUMAN_NORMATIVE_ADOPTION_AND_BEFORE_ANY_REAL_P5E_EXECUTION"
+}
