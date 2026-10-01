@@ -1,0 +1,195 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5E_END_TO_END_NEAR_REAL_TIME_CONTRACT_V0_1",
+  "status": "CANDIDATE_CONTRACT_NOT_NORMATIVE",
+  "qualification_stage": "CONTRACT_AND_SYNTHETIC_QUALIFICATION_ONLY",
+  "real_p5e_execution_authorized": false,
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "monitored_source": {
+    "remote": "origin",
+    "branch": "integration/system-v1",
+    "canonical_authority": "GITHUB_REMOTE_BRANCH",
+    "local_working_tree_is_not_authority": true
+  },
+  "predecessors": {
+    "p5a_continuous_projection_contract_blob": "96ec1a768b8e9ff77d94bbcd36ee513678c258e6",
+    "p5a_qualification_report_blob": "8954475370494ff00f77af8331b2e54b80cf3f70",
+    "p5d1_observer_contract_blob": "a20999ae991e07447e25ecd1592964f2d333449b",
+    "p5d1_static_review_blob": "d10a6659e8deec917803f53c652fc7e4d4d19458",
+    "p5d2_one_shot_contract_blob": "5f6a0e223714bb894eddf4ece7c95e6a8ad1e3a3",
+    "p5d2_static_review_blob": "023cc210facdbc4b571b88bd257057c67a3df46b",
+    "p5d4_loop_contract_blob": "6980de1eb55e49c0c2bd2f91620aeb75640753b6",
+    "p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5",
+    "p5d4_real_v0_2_qualification_blob": "660a679532d1bb122b0df382230d4d249a0cac1f",
+    "p5d4_human_adjudication_blob": "ef5e07c6641db94e91d9f2bc0e8093b244baa507"
+  },
+  "objective": {
+    "name": "END_TO_END_NEAR_REAL_TIME_QUALIFICATION",
+    "purpose": "Define the temporal and authority contract required before any real repeated observation experiment may claim bounded near-real-time behavior around the already-qualified P5-D4 bounded loop.",
+    "this_stage_is_not_real_end_to_end_execution": true,
+    "this_stage_may_not_claim_continuous_synchronization": true
+  },
+  "near_real_time_timing": {
+    "delivery_semantics": "NEAR_REAL_TIME_BOUNDED_LATENCY",
+    "poll_interval_seconds": 30,
+    "detection_latency_seconds_max": 60,
+    "instantaneous_realtime_claim_forbidden": true,
+    "silent_interval_widening_forbidden": true,
+    "silent_latency_bound_widening_forbidden": true,
+    "detection_latency_definition": "FIRST_SUCCESSFUL_EXACT_REMOTE_HEAD_OBSERVATION_TIME_MINUS_SOURCE_HEAD_AVAILABLE_TIME",
+    "future_real_bound_clock": "MONOTONIC_ELAPSED_TIME",
+    "future_real_wall_clock_may_be_recorded_as_evidence_only": true,
+    "future_real_poll_schedule_semantics": "ATTEMPTS_AT_BOUNDED_30_SECOND_INTERVALS_WITH_NO_UNBOUNDED_RETRY",
+    "single_transient_read_failure_may_still_meet_60_second_bound": true,
+    "latency_bound_breach_must_not_be_reported_as_near_real_time_pass": true
+  },
+  "synthetic_timing_model": {
+    "required": true,
+    "clock_source": "EXPLICIT_INJECTED_SECONDS_ONLY",
+    "sleep_forbidden": true,
+    "network_forbidden": true,
+    "filesystem_state_forbidden": true,
+    "process_launch_forbidden": true,
+    "environment_read_forbidden": true,
+    "real_p5d4_control_state_access_forbidden": true,
+    "real_vault_access_forbidden": true,
+    "purpose": "Prove timing arithmetic and claim boundaries without performing repeated real observation."
+  },
+  "authority_boundary": {
+    "observer_may_create_governance_authority": false,
+    "pending_head_evaluation_authorized": false,
+    "evaluation_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "promotion_authorized": false,
+    "publication_authorized": false,
+    "real_vault_mutation_authorized": false,
+    "current_mutation_authorized": false,
+    "current_tmp_mutation_authorized": false,
+    "real_polling_loop_authorized": false,
+    "daemon_authorized": false,
+    "startup_registration_authorized": false,
+    "scheduled_task_authorized": false,
+    "windows_service_authorized": false,
+    "p6_authorized": false
+  },
+  "head_transition_policy": {
+    "same_head_result": "NOOP",
+    "same_head_queue_growth_forbidden": true,
+    "initial_head_may_queue_exact_head_only_under_existing_p5d2_semantics": true,
+    "fast_forward_head_may_queue_exact_head_only_under_existing_p5d2_semantics": true,
+    "non_fast_forward_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "unknown_ancestry_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "non_fast_forward_auto_continue_forbidden": true,
+    "unknown_ancestry_auto_continue_forbidden": true,
+    "active_or_pending_candidate_retarget_forbidden": true
+  },
+  "queue_and_supersession": {
+    "precedence_rule": "CURRENT_QUALIFIED_P5D4_EXECUTABLE_QUEUE_SEMANTICS_OVERRIDE_EARLIER_P5A_DESIGN_INTENT_WHERE_THEY_CONFLICT",
+    "p5a_supersession_intent_preserved_as_future_design_debt": true,
+    "fifo_required": true,
+    "unique_heads_required": true,
+    "silent_drop_forbidden": true,
+    "silent_reorder_forbidden": true,
+    "latest_only_replacement_forbidden": true,
+    "coalescing_authorized": false,
+    "new_coalescing_semantic_event_authorized": false,
+    "pending_head_retarget_forbidden": true,
+    "capacity_exhausted_result": "QUEUE_CAPACITY_REQUIRES_ADJUDICATION",
+    "capacity_exhausted_must_not_mutate_p5d2_state": true,
+    "burst_catch_up_claim_forbidden_without_separate_queue_semantics_qualification": true
+  },
+  "failure_and_freshness": {
+    "fail_closed_default": true,
+    "network_failure_must_not_create_current_claim": true,
+    "last_known_good_live_projection_preserved": true,
+    "latency_bound_breach_result": "NEAR_REAL_TIME_BOUND_NOT_QUALIFIED",
+    "queue_capacity_exhaustion_result": "QUEUE_CAPACITY_REQUIRES_ADJUDICATION",
+    "non_fast_forward_or_unknown_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "unexpected_state_or_timing_ambiguity_result": "BLOCKED_REQUIRES_ADJUDICATION"
+  },
+  "end_to_end_definition": {
+    "real_end_to_end_stages": [
+      "SOURCE_HEAD_BECOMES_OBSERVABLE",
+      "REMOTE_HEAD_DETECTED_WITHIN_BOUND",
+      "HEAD_TRANSITION_CLASSIFIED",
+      "EXACT_HEAD_ENTERED_GOVERNED_QUEUE_OR_FAIL_CLOSED",
+      "EXACT_HEAD_EVALUATED_IF_SEPARATELY_AUTHORIZED",
+      "PROMOTION_DECISION_IF_SEPARATELY_AUTHORIZED",
+      "PUBLICATION_IF_SEPARATELY_AUTHORIZED",
+      "LIVE_GENERATION_VERIFIED_IF_PUBLICATION_AUTHORIZED"
+    ],
+    "current_stage_may_qualify_only": [
+      "TIMING_CONTRACT",
+      "SYNTHETIC_DETECTION_BOUND_ARITHMETIC",
+      "AUTHORITY_BOUNDARIES",
+      "FAIL_CLOSED_QUEUE_INTERACTION"
+    ],
+    "real_end_to_end_pass_requires_all_authorized_applicable_stages": true,
+    "omitted_unauthorized_downstream_stages_may_not_be_relabelled_pass": true
+  },
+  "claim_boundary": {
+    "maximum_current_claim": "P5E_V0_1_CONTRACT_AND_SYNTHETIC_TIMING_MODEL_QUALIFIED",
+    "real_end_to_end_qualification_requires_separate_authorization": true,
+    "forbidden_current_claims": [
+      "P5E_REAL_END_TO_END_QUALIFIED",
+      "CONTINUOUS_SYNCHRONIZATION_QUALIFIED",
+      "REAL_60_SECOND_SLA_QUALIFIED",
+      "AUTOMATIC_EVALUATION_QUALIFIED",
+      "AUTOMATIC_PROMOTION_QUALIFIED",
+      "AUTOMATIC_PUBLICATION_QUALIFIED"
+    ]
+  },
+  "real_context_evidence_only": {
+    "live_projection_head_at_opening": "59f1dc26973b0b50efefccf12b26784d1e41f546",
+    "queued_unevaluated_head_at_opening": "1d4c2f3d657b36ecaa6ab25b967e46b3620190d1",
+    "remote_head_observed_during_contract_opening": "fcca78571a26955ae3fe462746ef49557e4e84e5",
+    "queued_head_is_ancestor_of_remote_head": true,
+    "must_not_be_used_as_real_experiment_execution": true,
+    "must_not_be_mutated_by_contract_qualification": true
+  },
+  "required_synthetic_cases": [
+    "SAME_HEAD_NOOP",
+    "CHANGE_JUST_AFTER_POLL_DETECTED_AT_NEXT_30_SECOND_SLOT",
+    "ONE_TRANSIENT_READ_FAILURE_THEN_DETECTED_BY_60_SECONDS",
+    "DETECTION_AFTER_60_SECONDS_REJECTED",
+    "NO_DETECTION_BY_60_SECONDS_REJECTED",
+    "NON_FAST_FORWARD_BLOCKED",
+    "UNKNOWN_ANCESTRY_BLOCKED",
+    "PENDING_QUEUE_FULL_NEWER_HEAD_FAILS_CLOSED",
+    "SAME_HEAD_DOES_NOT_GROW_QUEUE",
+    "SECOND_HEAD_DOES_NOT_RETARGET_PENDING_HEAD"
+  ],
+  "required_breakers": [
+    "POLL_INTERVAL_NOT_EXACTLY_30_ACCEPTED",
+    "DETECTION_BOUND_ABOVE_60_ACCEPTED",
+    "INSTANTANEOUS_REALTIME_CLAIM_ACCEPTED",
+    "WALL_CLOCK_USED_AS_SYNTHETIC_CONTROL_CLOCK",
+    "SLEEP_USED_IN_SYNTHETIC_MODEL",
+    "NETWORK_USED_IN_SYNTHETIC_MODEL",
+    "FILESYSTEM_STATE_USED_IN_SYNTHETIC_MODEL",
+    "PROCESS_LAUNCH_USED_IN_SYNTHETIC_MODEL",
+    "SUCCESS_AFTER_60_SECONDS_CLASSIFIED_PASS",
+    "NO_SUCCESS_BY_60_SECONDS_CLASSIFIED_PASS",
+    "SAME_HEAD_GROWS_QUEUE",
+    "NON_FAST_FORWARD_AUTO_CONTINUES",
+    "UNKNOWN_ANCESTRY_AUTO_CONTINUES",
+    "QUEUE_FULL_SILENTLY_DROPS_HEAD",
+    "QUEUE_FULL_REPLACES_OLDER_PENDING_HEAD",
+    "QUEUE_FULL_COALESCES_WITHOUT_P5D2_EVENT",
+    "PENDING_HEAD_RETARGETED_TO_NEWER_HEAD",
+    "EVALUATION_AUTHORITY_BECOMES_TRUE",
+    "PROMOTION_AUTHORITY_BECOMES_TRUE",
+    "PUBLICATION_AUTHORITY_BECOMES_TRUE",
+    "REAL_VAULT_MUTATION_AUTHORITY_BECOMES_TRUE",
+    "REAL_POLLING_AUTHORITY_BECOMES_TRUE",
+    "DAEMON_OR_SERVICE_AUTHORITY_BECOMES_TRUE",
+    "P6_AUTHORITY_BECOMES_TRUE",
+    "CONTRACT_PASS_LAUNDERS_INTO_REAL_P5E_PASS"
+  ],
+  "next_gate_after_candidate_qualification": {
+    "external_adversarial_review_required_before_normative_adoption": true,
+    "human_adjudication_required_after_external_review": true,
+    "real_p5e_execution_requires_separate_human_authorization": true,
+    "p6_remains_closed": true
+  }
+}
