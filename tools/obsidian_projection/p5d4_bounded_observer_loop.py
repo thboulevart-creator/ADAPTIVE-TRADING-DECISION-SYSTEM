@@ -153,7 +153,7 @@ def _path_is_within(path: Path, anchor: Path) -> bool:
 def _existing_chain_has_reparse_point(path: Path) -> bool:
     current = Path(path)
     visited: set[str] = set()
-    while True:
+    for _ in range(512):
         key = _normcase_path(current)
         if key in visited:
             raise ControlRootBindingError("control root path chain loop detected")
@@ -175,6 +175,7 @@ def _existing_chain_has_reparse_point(path: Path) -> bool:
         if current.parent == current:
             return False
         current = current.parent
+    raise ControlRootBindingError("control root path depth exceeds bound")
 
 def _userprofile_root() -> Path:
     value = os.environ.get("USERPROFILE")
