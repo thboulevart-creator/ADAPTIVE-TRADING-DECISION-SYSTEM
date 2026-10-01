@@ -1,0 +1,103 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D4_CONTROL_ROOT_BINDING_REMEDIATION_CONTRACT_V0_1",
+  "status": "PREREGISTERED_BEFORE_REMEDIATION",
+  "frontier": "P5-D4-REAL-CONTROL-ROOT-INTERPRETER-BINDING-REMEDIATION-V0.1",
+  "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "base_head": "4e36165a289e51d0d7f2ab1a7bd098697bfeabe0",
+  "qualified_runtime_blob": "b41c6b5172dd8ffe01d49717f5d796e4b5ad8f90",
+  "blocked_real_qualification_report_blob": "d28ec65c2a69515fb58a21482ec3887eee2a3e72",
+  "blocking_finding": {
+    "logical_root": "%LOCALAPPDATA%\\ATDS-OBSIDIAN-PROJECTION\\P5D4",
+    "store_redirected_root": "%LOCALAPPDATA%\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\Local\\ATDS-OBSIDIAN-PROJECTION\\P5D4",
+    "failure": "LOGICAL_ROOT_DID_NOT_BIND_TO_ONE_PHYSICAL_NAMESPACE_ACROSS_INTERPRETERS",
+    "material_risk": "CROSS_INTERPRETER_SINGLE_INSTANCE_OWNERSHIP_NOT_PROVEN"
+  },
+  "canonical_binding": {
+    "anchor_expression": "%USERPROFILE%\\ATDS-CONTROL",
+    "production_root_expression": "%USERPROFILE%\\ATDS-CONTROL\\OBSIDIAN-PROJECTION\\P5D4",
+    "localappdata_dependency_forbidden": true,
+    "appdata_dependency_forbidden": true,
+    "microsoft_store_localcache_root_forbidden": true,
+    "relative_root_forbidden": true,
+    "root_must_be_absolute": true,
+    "root_must_equal_resolved_canonical_production_root_for_real_execution": true,
+    "case_insensitive_windows_equivalence_may_be_normalized": true,
+    "reparse_point_or_symlink_in_control_chain_forbidden": true,
+    "junction_in_control_chain_forbidden": true,
+    "canonical_root_must_be_outside_repository": true,
+    "canonical_root_must_be_outside_real_vault": true
+  },
+  "synthetic_qualification_exception": {
+    "os_temp_roots_allowed": true,
+    "purpose": "TESTS_ONLY",
+    "production_authority": false,
+    "real_execution_authority": false
+  },
+  "required_runtime_primitive": {
+    "name": "resolve_and_validate_control_root",
+    "must_run_before": [
+      "CONTROL_ROOT_CREATION",
+      "OWNERSHIP_LOCK_ACQUIRE",
+      "CHECKPOINT_READ",
+      "EVENT_LOG_READ",
+      "CONTROL_STATE_MUTATION"
+    ],
+    "must_return_one_canonical_path": true,
+    "must_fail_closed_on_binding_mismatch": true
+  },
+  "semantic_freeze": {
+    "p5d2_one_shot_tick_authority_unchanged": true,
+    "bounded_budgets_unchanged": true,
+    "event_before_checkpoint_unchanged": true,
+    "hash_chain_unchanged": true,
+    "atomic_checkpoint_replace_unchanged": true,
+    "queue_policy_unchanged": true,
+    "restart_reconciliation_unchanged": true,
+    "promotion_authority_closed": true,
+    "no_new_loop_business_logic": true
+  },
+  "cross_interpreter_requirements": {
+    "store_python_required": true,
+    "native_python_required": true,
+    "powershell_filesystem_required": true,
+    "all_compatible_interpreters_must_observe_same_physical_namespace": true,
+    "lock_created_by_one_interpreter_must_be_observable_by_other": true,
+    "second_runner_cross_interpreter_must_fail_closed": true,
+    "incompatible_interpreter_must_fail_before_control_mutation": true
+  },
+  "required_adversarial_families": [
+    "MICROSOFT_STORE_LOCALAPPDATA_VIRTUALIZATION",
+    "NATIVE_PYTHON_BINDING",
+    "POWERSHELL_BINDING",
+    "TWO_INTERPRETER_LOCK_NAMESPACE",
+    "CANONICAL_PATH_MISMATCH",
+    "REDIRECTED_LOCALCACHE_PATH",
+    "STALE_LOCK",
+    "SYMLINK_REPARSE_JUNCTION",
+    "RELATIVE_PATH",
+    "PATH_NORMALIZATION",
+    "CASE_NORMALIZATION",
+    "RESTART_WITH_INTERPRETER_CHANGE"
+  ],
+  "historical_evidence": {
+    "redirected_real_qualification_artifacts_are_evidence_only": true,
+    "redirected_artifacts_must_not_become_new_operational_authority": true,
+    "automatic_migration_from_redirected_root_authorized": false
+  },
+  "forbidden": {
+    "new_real_p5d4_loop": true,
+    "real_evaluation": true,
+    "p5d3f": true,
+    "p5d3g": true,
+    "new_publication": true,
+    "real_vault_mutation": true,
+    "current_mutation": true,
+    "obsidian_config_mutation": true,
+    "daemon": true,
+    "polling_timer": true,
+    "p5e": true,
+    "p6": true
+  },
+  "next_gate": "P5-D4-REAL-BOUNDED-LOOP-REQUALIFICATION-V0.2",
+  "mandatory_human_stop_before_next_real_loop": true
+}
