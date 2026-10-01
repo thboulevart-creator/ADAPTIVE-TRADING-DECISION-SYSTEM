@@ -4,6 +4,8 @@ import hashlib
 import json
 import os
 import re
+import stat
+import tempfile
 from pathlib import Path
 from typing import Any, Callable, Iterable
 
@@ -49,6 +51,10 @@ class OwnershipContended(OwnershipError):
 
 class QueueCapacityError(P5D4RuntimeError):
     pass
+
+class ControlRootBindingError(P5D4RuntimeError):
+    pass
+
 def _canonical_bytes(value: Any) -> bytes:
     try:
         text = json.dumps(
@@ -133,12 +139,110 @@ def _intersects(first: Path, second: Path) -> bool:
         or second in first.parents
     )
 
+def _normcase_path(path: Path) -> str:
+    return os.path.normcase(os.path.normpath(str(path)))
+
+def _path_is_within(path: Path, anchor: Path) -> bool:
+    candidate = _normcase_path(path)
+    parent = _normcase_path(anchor)
+    try:
+        return os.path.commonpath([candidate, parent]) == parent
+    except ValueError:
+        return False
+
+def _existing_chain_has_reparse_point(path: Path) -> bool:
+    current = Path(path)
+    visited: set[str] = set()
+    while True:
+        key = _normcase_path(current)
+        if key in visited:
+            raise ControlRootBindingError("control root path chain loop detected")
+        visited.add(key)
+        try:
+            if current.exists() or current.is_symlink():
+                info = os.lstat(current)
+                attributes = getattr(info, "st_file_attributes", 0)
+                reparse_flag = getattr(stat, "FILE_ATTRIBUTE_REPARSE_POINT", 0)
+                if current.is_symlink() or (reparse_flag and attributes & reparse_flag):
+                    return True
+                is_junction = getattr(current, "is_junction", None)
+                if callable(is_junction) and is_junction():
+                    return True
+        except OSError as exc:
+            raise ControlRootBindingError(
+                "control root path chain inspection unavailable"
+            ) from exc
+        if current.parent == current:
+            return False
+        current = current.parent
+
+def _userprofile_root() -> Path:
+    value = os.environ.get("USERPROFILE")
+    if not isinstance(value, str) or not value.strip():
+        raise ControlRootBindingError("USERPROFILE unavailable")
+    profile = Path(value)
+    if not profile.is_absolute():
+        raise ControlRootBindingError("USERPROFILE is not absolute")
+    return _resolved(profile)
+
+def canonical_production_control_root() -> Path:
+    return _userprofile_root() / "ATDS-CONTROL" / "OBSIDIAN-PROJECTION" / "P5D4"
+
+def _qualification_control_anchor() -> Path:
+    return _userprofile_root() / "ATDS-CONTROL" / "_QUALIFICATION"
+
+def resolve_and_validate_control_root(root: Path) -> Path:
+    requested = Path(root)
+    if not requested.is_absolute():
+        raise ControlRootBindingError("control root must be absolute")
+    if _existing_chain_has_reparse_point(requested):
+        raise ControlRootBindingError(
+            "control root path chain contains reparse point"
+        )
+
+    resolved = _resolved(requested)
+    canonical = _resolved(canonical_production_control_root())
+    qualification = _resolved(_qualification_control_anchor())
+    temp_root = _resolved(Path(tempfile.gettempdir()))
+
+    requested_norm = _normcase_path(resolved)
+    canonical_norm = _normcase_path(canonical)
+    is_production = requested_norm == canonical_norm
+    is_qualification = _path_is_within(resolved, qualification)
+    is_temp = _path_is_within(resolved, temp_root)
+
+    if not (is_production or is_qualification or is_temp):
+        raise ControlRootBindingError(
+            "control root is outside canonical or synthetic qualification namespaces"
+        )
+
+    if is_production:
+        localappdata = os.environ.get("LOCALAPPDATA")
+        appdata = os.environ.get("APPDATA")
+        for forbidden in (localappdata, appdata):
+            if isinstance(forbidden, str) and forbidden.strip():
+                if _path_is_within(canonical, _resolved(Path(forbidden))):
+                    raise ControlRootBindingError(
+                        "production control root depends on AppData"
+                    )
+        lowered = _normcase_path(canonical)
+        if (
+            os.path.normcase("\\packages\\") in lowered
+            or os.path.normcase("\\localcache\\") in lowered
+        ):
+            raise ControlRootBindingError(
+                "production control root is Store-redirectable"
+            )
+        return canonical
+
+    return resolved
+
 def _validate_control_root(
     root: Path,
     *,
     forbidden_roots: Iterable[Path] = (),
 ) -> Path:
-    resolved = _resolved(root)
+    resolved = resolve_and_validate_control_root(root)
     protected = (_resolved(_repo_root()),) + tuple(_resolved(x) for x in forbidden_roots)
     if any(_intersects(resolved, item) for item in protected):
         raise P5D4RuntimeError("control root intersects protected root")
