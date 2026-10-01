@@ -1,4 +1,4 @@
-import hashlib
+import subprocess
 import json
 import unittest
 from pathlib import Path
@@ -13,10 +13,17 @@ def load_json(path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def git_blob_sha1(path):
-    data = path.read_bytes()
-    prefix = f"blob {len(data)}\0".encode("ascii")
-    return hashlib.sha1(prefix + data).hexdigest()
+def git_blob_sha1(path, relative_path):
+    return subprocess.check_output(
+        [
+            "git",
+            "hash-object",
+            f"--path={relative_path}",
+            str(path),
+        ],
+        cwd=ROOT,
+        text=True,
+    ).strip()
 
 
 class TestP5ERequirementEvidenceMatrixV01(unittest.TestCase):
@@ -78,7 +85,10 @@ class TestP5ERequirementEvidenceMatrixV01(unittest.TestCase):
                     )
                     path = ROOT / entry["path"]
                     self.assertTrue(path.is_file(), entry["path"])
-                    self.assertEqual(entry["blob"], git_blob_sha1(path))
+                    self.assertEqual(
+                        entry["blob"],
+                        git_blob_sha1(path, entry["path"]),
+                    )
                     method = entry["test_method"].split(".")[-1]
                     text = path.read_text(encoding="utf-8")
                     self.assertIn(f"def {method}", text)

@@ -329,12 +329,26 @@ class TestP5EAdversarialV01(unittest.TestCase):
     def test_synthetic_model_imports_are_ast_allowlisted(self):
         tree = ast.parse(MODEL.read_text(encoding="utf-8"))
         allowed = {"__future__", "typing"}
+        forbidden_calls = {
+            "open", "eval", "exec", "__import__", "compile", "input"
+        }
+        forbidden_attributes = {
+            "sleep", "wait", "system", "popen", "Popen", "run",
+            "connect", "request", "urlopen", "FileIO", "environ"
+        }
         for node in ast.walk(tree):
             if isinstance(node, ast.Import):
                 for alias in node.names:
                     self.assertIn(alias.name.split(".")[0], allowed)
             elif isinstance(node, ast.ImportFrom):
                 self.assertIn((node.module or "").split(".")[0], allowed)
+            elif isinstance(node, ast.Call):
+                if isinstance(node.func, ast.Name):
+                    self.assertNotIn(node.func.id, forbidden_calls)
+                elif isinstance(node.func, ast.Attribute):
+                    self.assertNotIn(node.func.attr, forbidden_attributes)
+            elif isinstance(node, ast.Attribute):
+                self.assertNotIn(node.attr, forbidden_attributes)
 
     def test_exact_60_second_completion_boundary_passes(self):
         m = load_model()

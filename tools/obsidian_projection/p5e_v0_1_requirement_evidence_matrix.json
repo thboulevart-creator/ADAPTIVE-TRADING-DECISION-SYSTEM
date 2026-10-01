@@ -1,0 +1,327 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5E_REQUIREMENT_EVIDENCE_MATRIX_V0_1",
+  "qualification_scope": "P5E_V0_1_EXTERNAL_REVIEW_TARGETED_CLOSURE",
+  "built_against_head": "95881afe5f03783de3c933d2c8ee65373220f3ed",
+  "binding": "GIT_HASH_OBJECT_WITH_PATH_FILTERS",
+  "real_p5e_execution_authorized": false,
+  "real_60_second_sla_qualified": false,
+  "per_transient_tip_detection_sla_qualified": false,
+  "automatic_evaluation_authorized": false,
+  "automatic_promotion_authorized": false,
+  "automatic_publication_authorized": false,
+  "required_synthetic_cases": {
+    "SAME_HEAD_NOOP": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_same_head_is_strict_noop_for_queue",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "CHANGE_JUST_AFTER_POLL_DETECTED_AT_NEXT_30_SECOND_SLOT": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_contract_v0_1.py",
+      "test_method": "TestP5EContractV01.test_change_just_after_poll_is_detected_at_next_slot_completion",
+      "blob": "a4fbd35987b4abb4fe185f8ceee3f75bd749e23d",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "ONE_TRANSIENT_READ_FAILURE_THEN_DETECTED_BY_60_SECONDS": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_contract_v0_1.py",
+      "test_method": "TestP5EContractV01.test_one_transient_failure_can_pass_only_by_completion_within_60",
+      "blob": "a4fbd35987b4abb4fe185f8ceee3f75bd749e23d",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "DETECTION_AFTER_60_SECONDS_REJECTED": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_contract_v0_1.py",
+      "test_method": "TestP5EContractV01.test_read_completion_after_60_is_rejected",
+      "blob": "a4fbd35987b4abb4fe185f8ceee3f75bd749e23d",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "NO_DETECTION_BY_60_SECONDS_REJECTED": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_contract_v0_1.py",
+      "test_method": "TestP5EContractV01.test_no_detection_fails_when_next_fixed_rate_slot_cannot_meet_bound",
+      "blob": "a4fbd35987b4abb4fe185f8ceee3f75bd749e23d",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "NON_FAST_FORWARD_BLOCKED": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_non_fast_forward_blocks_without_queueing",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "UNKNOWN_ANCESTRY_BLOCKED": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_unknown_ancestry_blocks_without_queueing",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "PENDING_QUEUE_FULL_NEWER_HEAD_FAILS_CLOSED": {
+      "path": "tests/obsidian_projection/test_p5d4_bounded_observer_loop_runtime_v0_1.py",
+      "test_method": "P5D4RuntimeV01Tests.test_07_queue_capacity_blocks_before_tick",
+      "blob": "5bcc563487ca8c64a1afde9f022504b2b618af7b",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "SAME_HEAD_DOES_NOT_GROW_QUEUE": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_same_head_is_strict_noop_for_queue",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "SECOND_HEAD_DOES_NOT_RETARGET_PENDING_HEAD": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_fast_forward_queues_without_retargeting_active",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    }
+  },
+  "base_breakers": {
+    "POLL_INTERVAL_NOT_EXACTLY_30_ACCEPTED": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_timing_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "DETECTION_BOUND_ABOVE_60_ACCEPTED": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_timing_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "INSTANTANEOUS_REALTIME_CLAIM_ACCEPTED": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_timing_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "WALL_CLOCK_USED_AS_SYNTHETIC_CONTROL_CLOCK": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_previously_surviving_contract_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "SLEEP_USED_IN_SYNTHETIC_MODEL": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_synthetic_model_imports_are_ast_allowlisted",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "NETWORK_USED_IN_SYNTHETIC_MODEL": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_synthetic_model_imports_are_ast_allowlisted",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "FILESYSTEM_STATE_USED_IN_SYNTHETIC_MODEL": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_synthetic_model_imports_are_ast_allowlisted",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "PROCESS_LAUNCH_USED_IN_SYNTHETIC_MODEL": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_synthetic_model_imports_are_ast_allowlisted",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "SUCCESS_AFTER_60_SECONDS_CLASSIFIED_PASS": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_contract_v0_1.py",
+      "test_method": "TestP5EContractV01.test_read_completion_after_60_is_rejected",
+      "blob": "a4fbd35987b4abb4fe185f8ceee3f75bd749e23d",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "NO_SUCCESS_BY_60_SECONDS_CLASSIFIED_PASS": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_contract_v0_1.py",
+      "test_method": "TestP5EContractV01.test_no_detection_fails_when_next_fixed_rate_slot_cannot_meet_bound",
+      "blob": "a4fbd35987b4abb4fe185f8ceee3f75bd749e23d",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "SAME_HEAD_GROWS_QUEUE": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_same_head_is_strict_noop_for_queue",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "NON_FAST_FORWARD_AUTO_CONTINUES": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_non_fast_forward_blocks_without_queueing",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "UNKNOWN_ANCESTRY_AUTO_CONTINUES": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_unknown_ancestry_blocks_without_queueing",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "QUEUE_FULL_SILENTLY_DROPS_HEAD": {
+      "path": "tests/obsidian_projection/test_p5d4_bounded_observer_loop_runtime_v0_1.py",
+      "test_method": "P5D4RuntimeV01Tests.test_07_queue_capacity_blocks_before_tick",
+      "blob": "5bcc563487ca8c64a1afde9f022504b2b618af7b",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "QUEUE_FULL_REPLACES_OLDER_PENDING_HEAD": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_queue_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "QUEUE_FULL_COALESCES_WITHOUT_P5D2_EVENT": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_queue_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "PENDING_HEAD_RETARGETED_TO_NEWER_HEAD": {
+      "path": "tests/obsidian_projection/test_observer_tick.py",
+      "test_method": "ObserverTickTests.test_fast_forward_queues_without_retargeting_active",
+      "blob": "9c472a39e3d8eed8cf6cfc910bce27ee5fac7c58",
+      "evidence_kind": "REUSED_QUALIFIED_P5D2_P5D4",
+      "verdict": "PASS"
+    },
+    "EVALUATION_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "PROMOTION_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "PUBLICATION_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "REAL_VAULT_MUTATION_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "REAL_POLLING_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "DAEMON_OR_SERVICE_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "P6_AUTHORITY_BECOMES_TRUE": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_authority_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "CONTRACT_PASS_LAUNDERS_INTO_REAL_P5E_PASS": {
+      "path": "tests/obsidian_projection/test_p5e_end_to_end_near_real_time_adversarial_v0_1.py",
+      "test_method": "TestP5EAdversarialV01.test_claim_and_tip_mutations_are_rejected",
+      "blob": "3c0f556a02e8a8b5eae2e755116138d34a6c8ed8",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    }
+  },
+  "targeted_closure_breakers": {
+    "SKIPPED_REQUIRED_ATTEMPT_ACCEPTED": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b2_skipped_first_required_slot_blocks",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "CADENCE_GAP_ACCEPTED": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b2_cadence_gap_blocks",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "PRE_SOURCE_TARGET_OBSERVATION_IGNORED": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b3_pre_source_target_observation_blocks",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "REMOTE_AVAILABILITY_TIME_TREATED_AS_MEASURABLE_ORIGIN": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b4_contract_uses_falsifiable_local_monotonic_measurement",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "READ_COMPLETION_LATENCY_HIDDEN": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b4_read_completion_not_poll_start_controls_latency",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "OBSERVATION_WITHOUT_HEAD_IDENTITY_ACCEPTED": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b5_observation_requires_head_identity",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "UNOBSERVED_TRANSIENT_TIP_CLAIMED_EXACTLY_OBSERVED": {
+      "path": "tests/obsidian_projection/test_p5e_external_review_targeted_closure_v0_1.py",
+      "test_method": "TestP5EExternalReviewTargetedClosureV01.test_b5_exact_and_contained_tip_classifications_are_distinct",
+      "blob": "15c3e44ab9c1c40873110d88ff42cebb13a2643e",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    },
+    "REQUIRED_CASE_OR_BREAKER_UNMAPPED": {
+      "path": "tests/obsidian_projection/test_p5e_requirement_evidence_matrix_v0_1.py",
+      "test_method": "TestP5ERequirementEvidenceMatrixV01.test_matrix_has_no_unmapped_or_deferred_requirements",
+      "blob": "ff9db4c6faca038e061a4247fe1cbccc466db254",
+      "evidence_kind": "DIRECT_P5E",
+      "verdict": "PASS"
+    }
+  },
+  "coverage_summary": {
+    "required_synthetic_cases_total": 10,
+    "base_breakers_total": 25,
+    "targeted_closure_breakers_total": 8,
+    "mapped_total": 43,
+    "unmapped": 0,
+    "deferred": 0
+  }
+}
