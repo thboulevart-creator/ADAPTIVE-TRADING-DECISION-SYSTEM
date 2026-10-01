@@ -1,0 +1,86 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5D4_REAL_BOUNDED_LOOP_REQUALIFICATION_PREREGISTRATION_V0_2",
+  "status": "PREREGISTERED_BEFORE_REAL_INVOCATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "execution_branch": "feat/obsidian-projection-p5d4-control-root-binding-remediation-v0.1",
+  "qualified_base_head": "2d47dacf57a6da71f2ac3aef58ebdc22f69f491a",
+  "qualified_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5",
+  "observer_tick_blob": "fd212f61ec38332b677110f40265638af55a73e2",
+  "remediation_qualification_report_blob": "7c2e6e9f8f1a1a3ceb70b04e0d40d71b0857439e",
+  "authorization": {
+    "authorized_frontier": "P5-D4 — REAL BOUNDED LOOP REQUALIFICATION V0.2",
+    "mode": "GOVERNED",
+    "real_bounded_loop_invocations_authorized": 1,
+    "p5e_authorized": false,
+    "p6_authorized": false,
+    "evaluation_authorized": false,
+    "promotion_authorized": false,
+    "real_vault_mutation_authorized": false
+  },
+  "control_root": {
+    "canonical": "%USERPROFILE%\\ATDS-CONTROL\\OBSIDIAN-PROJECTION\\P5D4",
+    "expected_resolved": "C:\\Users\\Boulevart\\ATDS-CONTROL\\OBSIDIAN-PROJECTION\\P5D4",
+    "must_be_absent_before_real_invocation": true
+  },
+  "verified_current": {
+    "candidate_head": "59f1dc26973b0b50efefccf12b26784d1e41f546",
+    "candidate_tree": "beb85ddb99e8a87afc4e8a6ed9b989ed0f83e1ea",
+    "current_sha256": "867c639b164d9bd9a37bf0045c3181c6dde93aebfcf47f1a384bb4c3668107b9",
+    "current_tmp_expected_absent": true,
+    "publication_plan_digest_sha256": "45e0c918825ce49bf5251b335d0653d17153dd62f35ae63e521f2a8f6dc2e10d",
+    "physical_receipt_digest_sha256": "cbd2b3721e054883a5217f16ee64abfdab99f35608ea656b21ad3d3af94126c4",
+    "logical_receipt_digest_sha256": "b6c29d9cc6c8a16e4132908cda93e9f2ce1ae5fd88da5d45c493ada126bbfed6",
+    "publication_event_log_sha256": "ad414d170626a0d238fc37161c4c04f54c660a17573d7f77607c0374045d7af2"
+  },
+  "remote_preflight": {
+    "branch": "integration/system-v1",
+    "head": "1d4c2f3d657b36ecaa6ab25b967e46b3620190d1",
+    "tree": "bff033bf559d1e61995052be3876d20f0c47223d",
+    "relationship_from_current": "FAST_FORWARD",
+    "must_be_reverified_immediately_before_invocation": true
+  },
+  "prestate_fingerprints": {
+    "vault_content_tree_sha256": "1f9d192845950f3929714faa7a2f09fadad6a264aab3158ee22523951122ed9a",
+    "vault_content_file_count": 2210,
+    "obsidian_tree_sha256": "3d0b8704f662d5c1fe385ca15b99beca27f37c94b2284e392c2b0ba1ac98f7a9",
+    "obsidian_file_count": 5,
+    "current_generation_tree_sha256": "f6aee8f8e2dc1044946f0aae121c23b35d9887a3e7b2642753d29c03e15f22d3",
+    "current_generation_file_count": 2110
+  },
+  "loop_plan": {
+    "schema": "ATDS_OBSIDIAN_P5D4_LOOP_PLAN_V0_1",
+    "loop_id": "p5d4-real-requalification-v0.2-01",
+    "max_cycles": 2,
+    "max_remote_observations": 2,
+    "max_evaluations": 0,
+    "max_pending_heads": 1,
+    "max_consecutive_failures": 0,
+    "plan_digest_sha256": "3cf5fdaf51da674eb4af090f7cff29dc07fa832109916c51cd9e8549c2379af1"
+  },
+  "expected_real_behavior_if_preconditions_hold": {
+    "remote_observations": 1,
+    "evaluations_started": 0,
+    "latest_observed_head": "1d4c2f3d657b36ecaa6ab25b967e46b3620190d1",
+    "live_projection_head": "59f1dc26973b0b50efefccf12b26784d1e41f546",
+    "pending_heads": ["1d4c2f3d657b36ecaa6ab25b967e46b3620190d1"],
+    "projection_state": "STALE",
+    "terminal_reason": "BOUND_REACHED",
+    "automatic_promotion_authorized": false,
+    "production_write_authorized": false
+  },
+  "breakers": [
+    "execution repository, branch, HEAD or runtime blob differs",
+    "worktree is not clean before real invocation",
+    "Obsidian process count is nonzero",
+    "CURRENT or P5-D3G evidence differs from preregistered bytes",
+    "CURRENT.tmp exists",
+    "canonical production control root exists before invocation",
+    "remote integration/system-v1 HEAD differs from preregistered HEAD",
+    "remote relationship is not FAST_FORWARD",
+    "evaluation adapter is invoked",
+    "Vault, CURRENT, CURRENT.tmp, .obsidian or current generation changes",
+    "ownership lock remains after invocation",
+    "cross-interpreter physical visibility fails"
+  ],
+  "mandatory_stop": "AFTER_ONE_REAL_INVOCATION_POSTCHECK_QUALIFICATION_REPORT_AND_PERSISTENCE"
+}
