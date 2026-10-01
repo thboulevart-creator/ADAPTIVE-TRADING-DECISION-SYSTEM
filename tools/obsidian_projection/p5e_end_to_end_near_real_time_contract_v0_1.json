@@ -1,6 +1,6 @@
 {
   "schema": "ATDS_OBSIDIAN_P5E_END_TO_END_NEAR_REAL_TIME_CONTRACT_V0_1",
-  "status": "CANDIDATE_CONTRACT_NOT_NORMATIVE",
+  "status": "CANDIDATE_TARGETED_CLOSURE_PENDING_EXTERNAL_REREVIEW",
   "qualification_stage": "CONTRACT_AND_SYNTHETIC_QUALIFICATION_ONLY",
   "real_p5e_execution_authorized": false,
   "source_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
@@ -35,16 +35,25 @@
     "instantaneous_realtime_claim_forbidden": true,
     "silent_interval_widening_forbidden": true,
     "silent_latency_bound_widening_forbidden": true,
-    "detection_latency_definition": "FIRST_SUCCESSFUL_EXACT_REMOTE_HEAD_OBSERVATION_TIME_MINUS_SOURCE_HEAD_AVAILABLE_TIME",
+    "detection_latency_definition": "SUCCESSFUL_REMOTE_READ_COMPLETION_MONOTONIC_MINUS_CONTROLLED_SOURCE_RELEASE_MONOTONIC",
     "future_real_bound_clock": "MONOTONIC_ELAPSED_TIME",
     "future_real_wall_clock_may_be_recorded_as_evidence_only": true,
-    "future_real_poll_schedule_semantics": "ATTEMPTS_AT_BOUNDED_30_SECOND_INTERVALS_WITH_NO_UNBOUNDED_RETRY",
-    "single_transient_read_failure_may_still_meet_60_second_bound": true,
-    "latency_bound_breach_must_not_be_reported_as_near_real_time_pass": true
+    "future_real_poll_schedule_semantics": "FIXED_RATE_30_SECOND_GRID",
+    "single_transient_read_failure_may_still_meet_60_second_bound": false,
+    "latency_bound_breach_must_not_be_reported_as_near_real_time_pass": true,
+    "real_measurement_origin": "CONTROLLED_SOURCE_RELEASE_MONOTONIC",
+    "measurement_endpoint": "SUCCESSFUL_REMOTE_READ_COMPLETION_MONOTONIC",
+    "schedule_semantics": "FIXED_RATE",
+    "remote_head_available_time_is_measurable_origin": false,
+    "real_latency_metric": "REMOTE_READ_COMPLETION_MONOTONIC_MINUS_CONTROLLED_SOURCE_RELEASE_MONOTONIC",
+    "attempt_start_and_read_completion_are_distinct": true,
+    "read_duration_is_included_in_detection_latency": true,
+    "eligible_detection_attempt_must_start_at_or_after_release": true,
+    "single_transient_read_failure_may_meet_bound_only_if_read_completion_is_within_60_seconds": true
   },
   "synthetic_timing_model": {
     "required": true,
-    "clock_source": "EXPLICIT_INJECTED_SECONDS_ONLY",
+    "clock_source": "EXPLICIT_INJECTED_MONOTONIC_SECONDS_ONLY",
     "sleep_forbidden": true,
     "network_forbidden": true,
     "filesystem_state_forbidden": true,
@@ -52,7 +61,19 @@
     "environment_read_forbidden": true,
     "real_p5d4_control_state_access_forbidden": true,
     "real_vault_access_forbidden": true,
-    "purpose": "Prove timing arithmetic and claim boundaries without performing repeated real observation."
+    "purpose": "Prove timing arithmetic and claim boundaries without performing repeated real observation.",
+    "schedule_semantics": "FIXED_RATE",
+    "schedule_origin_seconds": 0,
+    "observation_record_fields": [
+      "scheduled_at_seconds",
+      "completed_at_seconds",
+      "outcome",
+      "observed_head"
+    ],
+    "head_identity_required_on_successful_remote_observation": true,
+    "skipped_required_attempt_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "cadence_gap_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "pre_source_target_observation_result": "BLOCKED_REQUIRES_ADJUDICATION"
   },
   "authority_boundary": {
     "observer_may_create_governance_authority": false,
@@ -105,7 +126,11 @@
     "latency_bound_breach_result": "NEAR_REAL_TIME_BOUND_NOT_QUALIFIED",
     "queue_capacity_exhaustion_result": "QUEUE_CAPACITY_REQUIRES_ADJUDICATION",
     "non_fast_forward_or_unknown_result": "BLOCKED_REQUIRES_ADJUDICATION",
-    "unexpected_state_or_timing_ambiguity_result": "BLOCKED_REQUIRES_ADJUDICATION"
+    "unexpected_state_or_timing_ambiguity_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "timing_inconsistency_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "skipped_required_attempt_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "cadence_gap_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "pre_source_target_observation_result": "BLOCKED_REQUIRES_ADJUDICATION"
   },
   "end_to_end_definition": {
     "real_end_to_end_stages": [
@@ -120,15 +145,17 @@
     ],
     "current_stage_may_qualify_only": [
       "TIMING_CONTRACT",
-      "SYNTHETIC_DETECTION_BOUND_ARITHMETIC",
+      "SYNTHETIC_FIXED_RATE_DETECTION_MODEL",
       "AUTHORITY_BOUNDARIES",
-      "FAIL_CLOSED_QUEUE_INTERACTION"
+      "REUSED_MAPPED_P5D2_P5D4_FAIL_CLOSED_QUEUE_BEHAVIOR"
     ],
     "real_end_to_end_pass_requires_all_authorized_applicable_stages": true,
-    "omitted_unauthorized_downstream_stages_may_not_be_relabelled_pass": true
+    "omitted_unauthorized_downstream_stages_may_not_be_relabelled_pass": true,
+    "transient_tip_exact_detection_sla_not_qualified": true,
+    "real_remote_availability_to_detection_sla_not_qualified": true
   },
   "claim_boundary": {
-    "maximum_current_claim": "P5E_V0_1_CONTRACT_AND_SYNTHETIC_TIMING_MODEL_QUALIFIED",
+    "maximum_current_claim": "P5E_V0_1_TARGETED_CLOSURE_CANDIDATE_QUALIFIED_PENDING_EXTERNAL_REREVIEW",
     "real_end_to_end_qualification_requires_separate_authorization": true,
     "forbidden_current_claims": [
       "P5E_REAL_END_TO_END_QUALIFIED",
@@ -136,7 +163,9 @@
       "REAL_60_SECOND_SLA_QUALIFIED",
       "AUTOMATIC_EVALUATION_QUALIFIED",
       "AUTOMATIC_PROMOTION_QUALIFIED",
-      "AUTOMATIC_PUBLICATION_QUALIFIED"
+      "AUTOMATIC_PUBLICATION_QUALIFIED",
+      "REMOTE_HEAD_AVAILABLE_TIME_TO_DETECTION_SLA_QUALIFIED",
+      "PER_TRANSIENT_TIP_DETECTION_SLA_QUALIFIED"
     ]
   },
   "real_context_evidence_only": {
@@ -190,6 +219,44 @@
     "external_adversarial_review_required_before_normative_adoption": true,
     "human_adjudication_required_after_external_review": true,
     "real_p5e_execution_requires_separate_human_authorization": true,
-    "p6_remains_closed": true
+    "p6_remains_closed": true,
+    "external_adversarial_rereview_required": true,
+    "human_adjudication_before_external_rereview_forbidden": true
+  },
+  "tip_visibility_semantics": {
+    "observed_remote_tip_definition": "HEAD_IDENTITY_RETURNED_BY_A_SUCCESSFUL_REMOTE_READ",
+    "intermediate_fast_forward_commit_definition": "COMMIT_CONTAINED_BY_LATER_OBSERVED_FAST_FORWARD_HEAD_BUT_NOT_ITSELF_OBSERVED_AS_REMOTE_TIP",
+    "unobserved_intermediate_tip_may_be_claimed_observed": false,
+    "unobserved_intermediate_tip_may_be_queued": false,
+    "fast_forward_content_containment_is_queue_coalescing": false,
+    "already_observed_queued_head_replacement_forbidden": true,
+    "already_observed_queued_head_retarget_forbidden": true,
+    "per_transient_tip_detection_sla_authorized": false,
+    "future_ancestry_enumeration_requires_separate_qualification": true
+  },
+  "external_review_targeted_closure": {
+    "findings": {
+      "B1": "CONFIRMED_BLOCKING_WITH_UPSTREAM_COVERAGE_NUANCE",
+      "B2": "CONFIRMED_BLOCKING",
+      "B3": "CONFIRMED_BLOCKING",
+      "B4": "CONFIRMED_BLOCKING",
+      "B5": "PARTIALLY_CONFIRMED_BLOCKING_SEMANTIC_GAP"
+    },
+    "required_breakers": [
+      "SKIPPED_REQUIRED_ATTEMPT_ACCEPTED",
+      "CADENCE_GAP_ACCEPTED",
+      "PRE_SOURCE_TARGET_OBSERVATION_IGNORED",
+      "REMOTE_AVAILABILITY_TIME_TREATED_AS_MEASURABLE_ORIGIN",
+      "READ_COMPLETION_LATENCY_HIDDEN",
+      "OBSERVATION_WITHOUT_HEAD_IDENTITY_ACCEPTED",
+      "UNOBSERVED_TRANSIENT_TIP_CLAIMED_EXACTLY_OBSERVED",
+      "REQUIRED_CASE_OR_BREAKER_UNMAPPED"
+    ],
+    "requirement_to_executable_evidence_matrix_required": true,
+    "all_required_cases_must_be_mapped": true,
+    "all_base_breakers_must_be_mapped": true,
+    "all_targeted_closure_breakers_must_be_mapped": true,
+    "unmapped_requirement_result": "BLOCKED",
+    "external_rereview_required_before_human_normative_adoption": true
   }
 }
