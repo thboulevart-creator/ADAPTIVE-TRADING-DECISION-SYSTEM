@@ -50,8 +50,18 @@ def event(state):
     }
 
 class P5D4ControlRootBindingAdversarialV01Tests(unittest.TestCase):
-    def test_00_production_root_remains_absent_during_remediation(self):
-        self.assertFalse(CANONICAL.exists())
+    def test_00_production_root_lifecycle_state_preserves_exact_binding(self):
+        resolved = rt.resolve_and_validate_control_root(CANONICAL)
+        self.assertEqual(
+            os.path.normcase(str(resolved)),
+            os.path.normcase(str(CANONICAL.resolve(strict=False))),
+        )
+        if CANONICAL.exists():
+            self.assertTrue(CANONICAL.is_dir())
+            self.assertFalse(CANONICAL.is_symlink())
+            is_junction = getattr(CANONICAL, "is_junction", None)
+            if callable(is_junction):
+                self.assertFalse(is_junction())
 
     def test_01_store_native_and_powershell_compute_same_production_root(self):
         self.assertTrue(NATIVE.is_file())

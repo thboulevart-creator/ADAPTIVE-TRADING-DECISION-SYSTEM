@@ -43,12 +43,29 @@ class P5D4ControlRootBindingRemediationV01Tests(unittest.TestCase):
         self.assertNotIn("\\appdata\\", lowered)
         self.assertNotIn("\\packages\\", lowered)
         self.assertNotIn("\\localcache\\", lowered)
-    def test_03_exact_canonical_root_resolves_without_creating_it(self):
-        if CANONICAL.exists():
-            self.fail("production root must remain absent during remediation qualification")
+    def test_03_exact_canonical_root_resolution_is_non_mutating(self):
+        existed_before = CANONICAL.exists()
+        children_before = (
+            sorted(p.name for p in CANONICAL.iterdir())
+            if existed_before
+            else None
+        )
         resolved = rt.resolve_and_validate_control_root(CANONICAL)
-        self.assertEqual(os.path.normcase(str(resolved)), os.path.normcase(str(CANONICAL.resolve(strict=False))))
-        self.assertFalse(CANONICAL.exists())
+        self.assertEqual(
+            os.path.normcase(str(resolved)),
+            os.path.normcase(str(CANONICAL.resolve(strict=False))),
+        )
+        self.assertEqual(CANONICAL.exists(), existed_before)
+        if existed_before:
+            self.assertTrue(CANONICAL.is_dir())
+            self.assertFalse(CANONICAL.is_symlink())
+            is_junction = getattr(CANONICAL, "is_junction", None)
+            if callable(is_junction):
+                self.assertFalse(is_junction())
+            self.assertEqual(
+                sorted(p.name for p in CANONICAL.iterdir()),
+                children_before,
+            )
 
     def test_04_old_localappdata_and_store_redirect_roots_are_rejected(self):
         old = Path(os.environ["LOCALAPPDATA"]) / "ATDS-OBSIDIAN-PROJECTION" / "P5D4"
