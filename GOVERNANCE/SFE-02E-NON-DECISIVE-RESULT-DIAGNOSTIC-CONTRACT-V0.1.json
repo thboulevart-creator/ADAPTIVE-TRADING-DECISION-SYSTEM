@@ -1,0 +1,124 @@
+{
+  "schema": "ATDS_SFE_02E_NON_DECISIVE_RESULT_DIAGNOSTIC_CONTRACT_V0_1",
+  "control_id": "SFE-02E",
+  "date": "2026-10-02",
+  "status": "HUMAN_AUTHORIZED_DOCUMENTARY_READ_ONLY_DIAGNOSTIC",
+  "purpose": "Diagnose why SFE-02D was non-decisive and produce a post-result hypothesis map without searching for a winning configuration.",
+  "canonical_inputs": {
+    "sfe_02d_closure": {
+      "path": "reports/program/2026-10-02-SFE-02D-FINAL-QUALIFICATION-CLOSURE.md",
+      "blob": "4365bef87dd9dd4613261aeba70dffe2e8ba4500"
+    },
+    "breakout_result": {
+      "path": "reports/program/2026-10-02-SFE-02D-BREAKOUT-V1-RESULT-ENVELOPE.json",
+      "blob": "e8dec64b78bed3e4dbd6534f7837c97791f6e242"
+    },
+    "mean_reversion_result": {
+      "path": "reports/program/2026-10-02-SFE-02D-MEAN-REVERSION-V1-RESULT-ENVELOPE.json",
+      "blob": "a294efd25302f01ccce6ea53a2fb83bac9f93e23"
+    },
+    "dual_manifest": {
+      "path": "reports/program/2026-10-02-SFE-02D-DUAL-RUN-MANIFEST.json",
+      "blob": "bedb27b5cf19e5f383b11f649077391d67f5f4da"
+    },
+    "sfe_02c_freeze": {
+      "path": "reports/program/2026-10-02-SFE-02C-DUAL-EXPERIMENT-PREREGISTRATION-FREEZE.md",
+      "blob": "72d3bbb05d76a69c3d5f487500908d3a9c40bc3c"
+    },
+    "sfe_01_adjudication": {
+      "path": "GOVERNANCE/SFE-01-V0.2-HUMAN-ADJUDICATION-2026-10-02.md",
+      "blob": "66aa556e4e161e49550451062273bc8d6422593c"
+    }
+  },
+  "authority": {
+    "read_persisted_result_envelopes": true,
+    "restate_persisted_statistics": true,
+    "compare_persisted_diagnostics": true,
+    "identify_design_limitations": true,
+    "generate_post_result_hypotheses": true,
+    "define_falsification_requirements_for_future_hypotheses": true,
+    "raw_h1_read": false,
+    "signal_recomputation": false,
+    "behavioral_y_recomputation": false,
+    "new_performance_metric": false,
+    "new_backtest": false,
+    "parameter_search": false,
+    "threshold_search": false,
+    "response_horizon_search": false,
+    "strategy_rule_change": false,
+    "new_strategy_definition": false,
+    "experiment_execution": false,
+    "pnl": false,
+    "optimization": false,
+    "ranking": false,
+    "router": false,
+    "regime_filter": false
+  },
+  "epistemic_rules": {
+    "fact": "Directly established by persisted SFE-02C/SFE-02D artifacts.",
+    "interpretation": "Reasoned implication of persisted facts that does not claim causal proof.",
+    "hypothesis": "Post-result candidate explanation requiring new preregistered evidence.",
+    "hypothesis_exposure_status": "POST_RESULT_EXPOSED",
+    "hypothesis_confirmatory_status": false,
+    "causal_claim_without_new_experiment_forbidden": true,
+    "absence_of_decisive_evidence_must_not_be_relabelled_absence_of_effect": true,
+    "observed_sign_of_theta_must_not_be_relabelled_support_or_refutation": true,
+    "diagnostic_result_must_not_select_parameters": true
+  },
+  "required_diagnostic_domains": [
+    "PROXIMATE_STATISTICAL_REASON_FOR_NON_DECISION",
+    "CONTINUITY_AND_T1_ATTRITION",
+    "ATTRITION_SELECTION_RISK",
+    "RESPONSE_HORIZON_SCOPE",
+    "BREAKOUT_CONSTRUCT_VALIDITY",
+    "MEAN_REVERSION_CONSTRUCT_VALIDITY",
+    "CROSS_FAMILY_MECHANICAL_COUPLING",
+    "SOURCE_INSTRUMENT_PERIOD_SPECIFICITY",
+    "RAW_ZERO_AND_UNCONDITIONAL_DRIFT_CONTEXT",
+    "NULL_OR_WEAK_EFFECT_AS_A_VALID_EXPLANATION"
+  ],
+  "required_hypothesis_map_fields": [
+    "hypothesis_id",
+    "candidate_explanation",
+    "basis_in_persisted_evidence",
+    "what_is_not_established",
+    "falsification_question",
+    "minimum_new_evidence_class",
+    "contamination_risk",
+    "status"
+  ],
+  "output_rules": {
+    "separate_fact_interpretation_hypothesis": true,
+    "no_new_decision_bearing_statistics": true,
+    "no_parameter_values_for_future_strategy_variants": true,
+    "no_claim_of_best_strategy": true,
+    "no_claim_that_more_data_will_resolve_non_decision": true,
+    "future_experiment_candidates_may_be_described_only_at_question_class_level": true,
+    "final_human_choice_required_before_any_new_experiment": true
+  },
+  "non_authorizations": [
+    "SFE-02F_OR_ANY_NEW_EXPERIMENT",
+    "BREAKOUT_V2",
+    "MEAN_REVERSION_V2",
+    "LOOKBACK_CHANGE",
+    "Z_THRESHOLD_CHANGE",
+    "RESPONSE_HORIZON_CHANGE",
+    "COMPRESSION_FILTER",
+    "ATR_OR_VOLATILITY_FILTER",
+    "REAL_DATA_RECOMPUTATION",
+    "TD03B_CONSUMPTION",
+    "C01_RESERVED_EVIDENCE_CONSUMPTION",
+    "PNL",
+    "EXECUTION",
+    "OPTIMIZATION",
+    "RANKING",
+    "ROUTER",
+    "REGIME_FILTER",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ],
+  "stop": true
+}
