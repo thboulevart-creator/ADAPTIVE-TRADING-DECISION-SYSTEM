@@ -1,0 +1,99 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE01_GOVERNED_CLOSED_SCHEMA_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "date": "2026-10-02",
+  "base_head": "d904eb61d9b704dc8ac38da445eb1cd491a58b33",
+  "readiness_adoption_blob": "aeba19575671a37fbdde2bbb994bbe947fed88d8",
+  "readiness_v0_2_json_blob": "7708709840f2f3b4317a7968987b1a280f143b70",
+  "stage": "RPE-01",
+  "closes": ["N4", "NF-D"],
+  "authority": {
+    "implementation_authorized": true,
+    "scope": "GOVERNED_JSON_SCHEMA_GUARD_ONLY",
+    "adopted_p5e_contract_mutation_authorized": false,
+    "adopted_p5e_model_mutation_authorized": false,
+    "p5d4_runtime_mutation_authorized": false,
+    "real_remote_io_authorized": false,
+    "real_p5d4_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false,
+    "rpe02_or_later_implementation_authorized": false,
+    "real_p5e_authorized": false
+  },
+  "guard_api": {
+    "input_authority": "EXPLICIT_RAW_JSON_PLUS_EXPLICIT_GOVERNED_SCHEMA",
+    "environment_authority_forbidden": true,
+    "cli_authority_forbidden": true,
+    "implicit_file_discovery_forbidden": true,
+    "network_forbidden": true,
+    "runtime_state_forbidden": true
+  },
+  "schema_language_v0_1": {
+    "node_kinds": ["object", "array", "string", "integer", "boolean", "null"],
+    "object_closed_by_default_and_required": true,
+    "supported_scalar_constraints": ["const", "enum", "pattern", "minimum", "maximum"],
+    "supported_array_constraints": ["items", "min_items", "max_items", "unique", "ordered_const", "allowed_values"],
+    "schema_definition_itself_strictly_validated": true
+  },
+  "mandatory_breakers": [
+    "DUPLICATE_OBJECT_MEMBER_CONTRADICTORY_AUTHORITY",
+    "DUPLICATE_NESTED_MEMBER",
+    "UNKNOWN_TOP_LEVEL_KEY",
+    "UNKNOWN_NESTED_AUTHORITY_KEY",
+    "UNKNOWN_NESTED_TIMING_KEY",
+    "UNKNOWN_NESTED_QUEUE_KEY",
+    "NAN_CONSTANT",
+    "POSITIVE_INFINITY_CONSTANT",
+    "NEGATIVE_INFINITY_CONSTANT",
+    "FLOAT_WHERE_INTEGER_REQUIRED",
+    "SCIENTIFIC_FLOAT_WHERE_INTEGER_REQUIRED",
+    "BOOLEAN_WHERE_INTEGER_REQUIRED",
+    "INTEGER_WHERE_BOOLEAN_REQUIRED",
+    "UNKNOWN_ENUM_VALUE",
+    "DUPLICATE_NORMATIVE_LIST_MEMBER",
+    "UNKNOWN_NORMATIVE_LIST_MEMBER",
+    "NORMATIVE_ORDER_CHANGE",
+    "MISSING_REQUIRED_KEY",
+    "ADJACENT_CONFIG_UNKNOWN_AUTHORITY_KEY",
+    "ADJACENT_CONFIG_UNGOVERNED_ENVIRONMENT_OVERRIDE_KEY",
+    "ADJACENT_CONFIG_UNGOVERNED_CLI_OVERRIDE_KEY",
+    "SCHEMA_DEFINITION_UNKNOWN_KEY",
+    "SCHEMA_DEFINITION_WRONG_TYPE",
+    "SCHEMA_DEFINITION_UNSUPPORTED_KIND"
+  ],
+  "p5e_contract_schema_policy": {
+    "all_object_levels_closed": true,
+    "all_required_keys_exact": true,
+    "strict_json_types": true,
+    "normative_lists_unique": true,
+    "real_end_to_end_stages_order_frozen": true,
+    "known_normative_lists_use_closed_allowed_values": true,
+    "unknown_authority_claim_timing_queue_members_fail": true,
+    "contract_bytes_remain_unchanged": true
+  },
+  "mutation_sweep": {
+    "required": true,
+    "operators": [
+      "add unknown key at every object node",
+      "remove required key at every object node",
+      "change one leaf to a different JSON type",
+      "duplicate selected raw JSON member names",
+      "inject NaN/Infinity constants",
+      "duplicate each normative list member",
+      "replace one allowed normative list member",
+      "reorder real_end_to_end_stages"
+    ],
+    "exit_criterion": "ALL_PREREGISTERED_SCHEMA_MUTATIONS_REJECTED_WITHOUT_USING_P5E_CONTRACT_BLOB_BINDING"
+  },
+  "qualification_requirements": [
+    "RED persisted before implementation",
+    "guard module has no os.environ/sys.argv/argparse/network/runtime-state authority",
+    "schema definition validator is fail-closed",
+    "P5-E adopted contract passes through the governed schema",
+    "P5-E adopted contract blob is unchanged",
+    "all mandatory breakers pass",
+    "mutation sweep has zero survivors",
+    "targeted existing P5-E contract/adversarial tests remain green",
+    "guard implementation blob and P5-E schema blob are persisted in qualification evidence"
+  ],
+  "stop": "EXTERNAL_REVIEW_AND_HUMAN_ADOPTION_REQUIRED_BEFORE_RPE02"
+}
