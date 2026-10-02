@@ -1,0 +1,276 @@
+{
+  "schema": "ATDS_SFE_02F_IMPLEMENTATION_EXECUTION_READINESS_CONTRACT_V0_1",
+  "control_id": "SFE-02F-READINESS",
+  "date": "2026-10-02",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "authority": {
+    "implementation_authorized": true,
+    "synthetic_qualification_authorized": true,
+    "real_h1_structural_profile_authorized": false,
+    "real_h1_data_read_authorized": false,
+    "td03b_authorized": false,
+    "c01_reserved_evidence_authorized": false
+  },
+  "canonical_binding": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "authorization_base_head": "136c421854dda1e5dd5a6becd6c7bde180142ccc",
+    "authorization_base_tree": "2b7dc7b904fe9b555e7ed1c688c615429c5e9ece",
+    "adopted_design_blob": "9d822cc829a0a8360cbd4533ffa87889e9730440",
+    "human_adjudication_blob": "8bf1ab1e63cb7b6ad2918c51c7eb7918546554fa",
+    "external_review_blob": "ba19b3e7932a9970346cd4f2c577c556494c694d",
+    "adoption_diff_verification_blob": "363d98f86848e5ca0aea538727a0a6c182ba6b65",
+    "e1_03_contract_blob": "c2d4323039d65fcd9319d4f5eb02f45ee27c8afc",
+    "source_b_truth_closure_blob": "62e9bd1e0892dab7273eed35c8704a9e05611112",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8"
+  },
+  "runtime_target": "tools/sfe_02f_structural_continuity.py",
+  "runtime_contract": "ATDS_SFE_02F_STRUCTURAL_CONTINUITY_RUNTIME_V0_1",
+  "qualification_requirements": "requirements/sfe_02f_readiness_v0_1.lock.txt",
+  "calendar_identity": {
+    "timezone_key": "America/New_York",
+    "python_implementation": "cpython",
+    "python_version": "3.13.14",
+    "timezone_library": "stdlib.zoneinfo",
+    "zoneinfo_tzpath_exact": [],
+    "tzdata_package_version": "2026.3",
+    "iana_tzdb_release": "2026c",
+    "america_new_york_tzif_sha256": "d7f2206b3a45989fc9ad63d558922532fa7352280d5f87176bf1db79cb1d1fa9",
+    "mismatch_status": "BLOCKED_CALENDAR_IDENTITY"
+  },
+  "canonical_dataset_identity": {
+    "dataset": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "recorded_jsonl_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+    "rows": 27677,
+    "continuity_blocks": 1436,
+    "first_h1_start_ms_utc": 1621904400000,
+    "last_h1_start_ms_utc": 1779660000000,
+    "row_fields_exact": [
+      "h1_start_ms_utc",
+      "source_segment_id",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "mid_close"
+    ],
+    "mismatch_status": "BLOCKED_DATASET_IDENTITY"
+  },
+  "implementation_semantics": {
+    "hour_ms": 3600000,
+    "warmup_h1": 20,
+    "allowed_row_fields_exact": [
+      "h1_start_ms_utc",
+      "source_segment_id",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "mid_close"
+    ],
+    "mid_close_use": "FINITE_POSITIVE_DOMAIN_VALIDATION_ONLY",
+    "price_derived_statistics": "FORBIDDEN",
+    "quantiles": "HYNDMAN_FAN_TYPE_7_LINEAR",
+    "fraction_zero_denominator": null,
+    "row_level_upstream_classification": "UNRESOLVED",
+    "synthetic_success_status": "SYNTHETIC_PROFILE_PRODUCED",
+    "real_success_status_reserved": "STRUCTURAL_PROFILE_PRODUCED_ON_EXPOSED_SURFACE"
+  },
+  "blocked_statuses": [
+    "BLOCKED_DATASET_IDENTITY",
+    "BLOCKED_CANONICAL_INTEGRITY",
+    "BLOCKED_UPSTREAM_SEMANTICS_DISCREPANCY",
+    "BLOCKED_CALENDAR_IDENTITY",
+    "BLOCKED_FORBIDDEN_INPUT_SURFACE"
+  ],
+  "forbidden_surfaces": [
+    "STRATEGY_SIGNAL",
+    "STRATEGY_EVENT_MEMBERSHIP",
+    "Y",
+    "THETA",
+    "CI",
+    "PNL",
+    "TRADE",
+    "POSITION",
+    "EXECUTION",
+    "RETURN",
+    "ABS_RETURN",
+    "VOLATILITY",
+    "ZSCORE",
+    "RANGE",
+    "ATR",
+    "OPTIMIZATION",
+    "RANKING",
+    "ROUTER"
+  ],
+  "test_cases": [
+    [
+      "F2R-01",
+      "contiguous same-block transitions",
+      "PASS"
+    ],
+    [
+      "F2R-02",
+      "source change without time gap",
+      "SOURCE_SEGMENT_CHANGE_ONLY"
+    ],
+    [
+      "F2R-03",
+      "source change plus time gap",
+      "SOURCE_SEGMENT_CHANGE_AND_TEMPORAL_GAP"
+    ],
+    [
+      "F2R-04",
+      "time gap within same source",
+      "BLOCKED_UPSTREAM_SEMANTICS_DISCREPANCY"
+    ],
+    [
+      "F2R-05",
+      "A to B to A block-id reuse",
+      "BLOCKED_CANONICAL_INTEGRITY"
+    ],
+    [
+      "F2R-06",
+      "block change without source change or time gap",
+      "BLOCKED_CANONICAL_INTEGRITY"
+    ],
+    [
+      "F2R-07",
+      "trigger without block change",
+      "BLOCKED_CANONICAL_INTEGRITY"
+    ],
+    [
+      "F2R-08",
+      "first row ordinal not zero",
+      "BLOCKED_CANONICAL_INTEGRITY"
+    ],
+    [
+      "F2R-09",
+      "dataset start and end truncation markers",
+      "PASS"
+    ],
+    [
+      "F2R-10",
+      "block length 1",
+      "STRUCTURAL_IDENTITIES"
+    ],
+    [
+      "F2R-11",
+      "block length 20",
+      "STRUCTURAL_IDENTITIES"
+    ],
+    [
+      "F2R-12",
+      "block length 21",
+      "STRUCTURAL_IDENTITIES"
+    ],
+    [
+      "F2R-13",
+      "block length 22",
+      "STRUCTURAL_IDENTITIES"
+    ],
+    [
+      "F2R-14",
+      "large block length",
+      "STRUCTURAL_IDENTITIES"
+    ],
+    [
+      "F2R-15",
+      "exact frozen calendar identity",
+      "PASS"
+    ],
+    [
+      "F2R-16",
+      "calendar identity mismatch",
+      "BLOCKED_CALENDAR_IDENTITY"
+    ],
+    [
+      "F2R-17",
+      "America/New_York DST transition annotation",
+      "PASS"
+    ],
+    [
+      "F2R-18",
+      "row-level Source-B classification attempt",
+      "BLOCKED_FORBIDDEN_INPUT_SURFACE"
+    ],
+    [
+      "F2R-19",
+      "strategy field input attempt",
+      "BLOCKED_FORBIDDEN_INPUT_SURFACE"
+    ],
+    [
+      "F2R-20",
+      "Y field input attempt",
+      "BLOCKED_FORBIDDEN_INPUT_SURFACE"
+    ],
+    [
+      "F2R-21",
+      "PnL field input attempt",
+      "BLOCKED_FORBIDDEN_INPUT_SURFACE"
+    ],
+    [
+      "F2R-22",
+      "mid_close value mutation within domain",
+      "PROFILE_INVARIANT"
+    ],
+    [
+      "F2R-23",
+      "nonfinite or nonpositive mid_close",
+      "BLOCKED_DATASET_IDENTITY"
+    ],
+    [
+      "F2R-24",
+      "identical synthetic input replay",
+      "EXACT_DETERMINISM"
+    ],
+    [
+      "F2R-25",
+      "output has no forbidden performance or strategy surface",
+      "PASS"
+    ],
+    [
+      "F2R-26",
+      "Type-7 quantile semantics",
+      "PASS"
+    ],
+    [
+      "F2R-27",
+      "exact canonical dataset identity metadata",
+      "PASS"
+    ],
+    [
+      "F2R-28",
+      "canonical dataset identity metadata mismatch",
+      "BLOCKED_DATASET_IDENTITY"
+    ],
+    [
+      "F2R-29",
+      "ordinal jump within same block",
+      "BLOCKED_CANONICAL_INTEGRITY"
+    ],
+    [
+      "F2R-30",
+      "new block ordinal must reset to zero",
+      "BLOCKED_CANONICAL_INTEGRITY"
+    ],
+    [
+      "F2R-31",
+      "row schema is exact",
+      "PASS"
+    ]
+  ],
+  "non_authorizations": [
+    "REAL_H1_STRUCTURAL_PROFILE_RUN",
+    "REAL_H1_DATA_READ",
+    "STRATEGY_SIGNAL",
+    "Y",
+    "THETA",
+    "PNL",
+    "BACKTEST",
+    "OPTIMIZATION",
+    "STRATEGY_CHANGE",
+    "CONTINUITY_CHANGE",
+    "ADMISSIBILITY_CHANGE",
+    "TD03B",
+    "C01_RESERVED_EVIDENCE"
+  ],
+  "stop": "AFTER_SYNTHETIC_QUALIFICATION"
+}
