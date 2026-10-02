@@ -1,0 +1,158 @@
+{
+  "schema": "ATDS_OBSIDIAN_P5E_BB1_NORMATIVE_GUARD_CLOSURE_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "feat/obsidian-projection-p5e-v0.1-bb1-normative-guard-closure",
+  "opening_checkpoint": "fe622489e9b822a987a1ec571f99b180fcfa5fb5",
+  "authority_scope": "BB1_PLUS_NB1_NB4_NB6_NB7_ONLY",
+  "real_p5e_execution_authorized": false,
+  "opening_identity": {
+    "contract_blob": "b0668b4dff65b8e30ee0d93a3e5a3fe42c4421dd",
+    "model_blob": "b783717c9e9596b585b7b1686835c73fffbd1a7c",
+    "matrix_blob": "0440175fbb79877e466119cb973ea82389a4ecd8",
+    "p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5"
+  },
+  "bb1_reproduction": {
+    "baseline_tests": 50,
+    "baseline_failures": 0,
+    "baseline_errors": 0,
+    "combined_bb1_mutation_tests": 50,
+    "combined_bb1_mutation_failures": 0,
+    "combined_bb1_mutation_errors": 0,
+    "full_leaf_mutations": 154,
+    "surviving_mutations": 36,
+    "normative_survivors": 23,
+    "non_normative_or_historical_survivors": 13
+  },
+  "normative_leaf_set": [
+    "source_repository",
+    "monitored_source.remote",
+    "monitored_source.branch",
+    "monitored_source.canonical_authority",
+    "monitored_source.local_working_tree_is_not_authority",
+    "objective.this_stage_is_not_real_end_to_end_execution",
+    "objective.this_stage_may_not_claim_continuous_synchronization",
+    "near_real_time_timing.delivery_semantics",
+    "near_real_time_timing.detection_latency_definition",
+    "near_real_time_timing.future_real_bound_clock",
+    "near_real_time_timing.future_real_wall_clock_may_be_recorded_as_evidence_only",
+    "near_real_time_timing.latency_bound_breach_must_not_be_reported_as_near_real_time_pass",
+    "synthetic_timing_model.required",
+    "synthetic_timing_model.observation_record_fields",
+    "head_transition_policy.initial_head_may_queue_exact_head_only_under_existing_p5d2_semantics",
+    "head_transition_policy.fast_forward_head_may_queue_exact_head_only_under_existing_p5d2_semantics",
+    "queue_and_supersession.burst_catch_up_claim_forbidden_without_separate_queue_semantics_qualification",
+    "end_to_end_definition.real_end_to_end_stages",
+    "end_to_end_definition.real_end_to_end_pass_requires_all_authorized_applicable_stages",
+    "real_context_evidence_only.must_not_be_used_as_real_experiment_execution",
+    "real_context_evidence_only.must_not_be_mutated_by_contract_qualification",
+    "tip_visibility_semantics.future_ancestry_enumeration_requires_separate_qualification",
+    "external_review_targeted_closure.external_rereview_required_before_human_normative_adoption"
+  ],
+  "non_normative_metadata_set": [
+    "objective.name",
+    "objective.purpose",
+    "synthetic_timing_model.purpose",
+    "queue_and_supersession.p5a_supersession_intent_preserved_as_future_design_debt",
+    "real_context_evidence_only.live_projection_head_at_opening",
+    "real_context_evidence_only.queued_unevaluated_head_at_opening",
+    "real_context_evidence_only.remote_head_observed_during_contract_opening",
+    "real_context_evidence_only.queued_head_is_ancestor_of_remote_head",
+    "external_review_targeted_closure.findings.B1",
+    "external_review_targeted_closure.findings.B2",
+    "external_review_targeted_closure.findings.B3",
+    "external_review_targeted_closure.findings.B4",
+    "external_review_targeted_closure.findings.B5"
+  ],
+  "mutation_sweep_contract": {
+    "mutation_operator": {
+      "boolean": "INVERT",
+      "integer": "PLUS_ONE",
+      "string": "REPLACE_WITH_MUTATED",
+      "list": "DROP_LAST_ITEM"
+    },
+    "exit_criterion": "NORMATIVE_LEAF_MUTATIONS_SURVIVING_EQUALS_ZERO",
+    "non_normative_survivors_permitted": true,
+    "combined_bb1_regression_case_required": true,
+    "all_normative_leaves_must_be_guarded_or_semantically_deduplicated": true
+  },
+  "matrix_binding_closure": {
+    "covered_contract_blob_required": true,
+    "covered_model_blob_required": true,
+    "matrix_test_must_fail_on_contract_drift": true,
+    "matrix_test_must_fail_on_model_drift": true
+  },
+  "nb1_closure": {
+    "status": "IN_SCOPE",
+    "fixed_rate_single_writer_preserved": true,
+    "read_crossing_next_required_slot_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "failure_code": "ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT"
+  },
+  "nb4_closure": {
+    "status": "IN_SCOPE_CLAIM_ONLY",
+    "unobserved_tip_non_injection_is_future_adapter_rule": true,
+    "unobserved_tip_non_injection_is_current_runtime_qualified_property": false
+  },
+  "nb6_closure": {
+    "status": "IN_SCOPE",
+    "matrix_mapping_must_match_exact_semantic_behavior": true,
+    "queue_capacity_behavior_should_reuse_p5d4_test_07": true,
+    "pending_non_active_behavior_requires_exact_existing_or_new_minimal_test": true
+  },
+  "nb7_closure": {
+    "status": "IN_SCOPE_PARTIAL",
+    "incomplete_synthetic_window_must_be_explicit_non_pass": true,
+    "duplicate_slot_must_not_use_cadence_gap_code": true,
+    "duplicate_slot_failure_code": "DUPLICATE_FIXED_RATE_SLOT",
+    "ast_theoretical_bypass_in_scope": false
+  },
+  "deferred_findings": [
+    "NB2",
+    "NB3",
+    "NB5",
+    "NB9"
+  ],
+  "real_state_fingerprint_before": {
+    "observer_events_sha256": "54223895a720e98e0f686e4882f098f2d93324d0e0d4a06164e58ac864eda4af",
+    "observer_checkpoint_sha256": "c737e064461bd8562cbfe21ff68e28556bc2ce0cb74abe2d59c89c9b0cca13d4",
+    "last_run_sha256": "eb555cadff72152553b460068cb89964b8b9cd40b7b47e8a82594e26fc47d259"
+  },
+  "qualification_sequence": [
+    "PERSIST_ADJUDICATION_AND_PREREGISTRATION",
+    "CREATE_MUTATION_SWEEP_AND_BB1_RED",
+    "CREATE_NB1_NB4_NB6_NB7_RED",
+    "PERSIST_RED_EVIDENCE",
+    "APPLY_MINIMAL_GUARD_AND_SEMANTIC_CORRECTIONS",
+    "BIND_MATRIX_TO_EXACT_CONTRACT_AND_MODEL_BLOBS",
+    "RERUN_NORMATIVE_MUTATION_SWEEP",
+    "REQUIRE_ZERO_NORMATIVE_SURVIVORS",
+    "RUN_TARGETED_REGRESSIONS",
+    "RUN_EXACTLY_ONE_FULL_OBSIDIAN_SUITE_IN_DISPOSABLE_CLONE",
+    "VERIFY_REAL_P5D4_FINGERPRINT_UNCHANGED",
+    "BUILD_SELF_CONTAINED_EXTERNAL_REVIEW_PACKET",
+    "PERSIST_QUALIFICATION_AND_STOP"
+  ],
+  "full_suite_budget": {
+    "maximum_runs": 1,
+    "disposable_clone_required": true,
+    "pre_post_real_state_fingerprints_required": true
+  },
+  "authority_boundary": {
+    "real_polling_loop_authorized": false,
+    "real_head_evaluation_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "promotion_authorized": false,
+    "publication_authorized": false,
+    "real_vault_mutation_authorized": false,
+    "current_mutation_authorized": false,
+    "p5d4_real_state_mutation_authorized": false,
+    "daemon_authorized": false,
+    "scheduled_task_authorized": false,
+    "windows_service_authorized": false,
+    "startup_registration_authorized": false,
+    "p6_authorized": false,
+    "automatic_human_adoption_authorized": false
+  },
+  "mandatory_stop": "BEFORE_HUMAN_NORMATIVE_ADOPTION_AND_BEFORE_ANY_REAL_P5E_EXECUTION"
+}
