@@ -1,0 +1,114 @@
+{
+  "schema": "ATDS_SFE_02C_B_MEAN_REVERSION_V1_EXPERIMENT_CONTRACT_V0_1",
+  "control_id": "SFE-02C-B",
+  "experiment_id": "MEAN_REVERSION_V1_SOURCE_B_USTECH_H1_E1_EXPOSED_EXPLORATORY_V0_1",
+  "date": "2026-10-02",
+  "status": "HUMAN_AUTHORIZED_PREREGISTERED_CANDIDATE_NO_PERFORMANCE_AUTHORITY",
+  "shared_surface": {
+    "path": "GOVERNANCE/SFE-02C-DUAL-EXPERIMENT-SHARED-SURFACE-V0.1.json",
+    "blob": "0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2"
+  },
+  "strategy_binding": {
+    "strategy_id": "MEAN_REVERSION_V1",
+    "adopted_definition_blob": "027c42b38bf9c74415b21e98bcce19124f744995",
+    "adjudication_blob": "66aa556e4e161e49550451062273bc8d6422593c",
+    "implementation_path": "tools/sfe_02b_mean_reversion_v1.py",
+    "implementation_blob": "273e184093e4cc98f0eb6569cd6f1007366cce40",
+    "implementation_closure_blob": "31ff4eb47f4cf07feb9c1de7c2527fc642e894e8",
+    "signal_rule_change": false,
+    "parameter_change": false,
+    "numerical_semantics_change": false
+  },
+  "dataset_adapter": {
+    "source_row_field_map": {
+      "bar_start_ms_utc": "h1_start_ms_utc",
+      "continuity_block_id": "continuity_block_id",
+      "continuity_ordinal": "continuity_ordinal",
+      "close": "mid_close"
+    },
+    "source_segment_id_ignored_by_strategy_signal": true,
+    "canonical_h1_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f"
+  },
+  "exposure": {
+    "class": "EXPLORATORY",
+    "status": "E1_EXPOSED",
+    "pristine_confirmatory": false,
+    "reason": [
+      "Evaluation uses the same qualified historical USTECH H1 evidence surface previously inspected under E1.",
+      "SFE-01 human adjudication defaults any E1-overlapping evidence to E1_EXPOSED for MEAN_REVERSION_V1 as well."
+    ],
+    "future_relabel_to_pristine_forbidden": true
+  },
+  "hypothesis": {
+    "behavioral_claim": "For valid MEAN_REVERSION_V1 directional events on this exact exposed H1 surface, the expected immediately-following admissible H1 directional response is positive.",
+    "primary_estimand": "mean(Y_MEAN_REVERSION) over ALL VALID MEAN_REVERSION_V1 DIRECTIONAL EVENTS",
+    "effect_reference": "RAW_ZERO",
+    "predicted_direction": "theta_MEAN_REVERSION > 0",
+    "profitability_claim": false
+  },
+  "event_generation": {
+    "signal_runtime_must_match_blob": "273e184093e4cc98f0eb6569cd6f1007366cce40",
+    "event_definition": "EVERY eligible H1 bar with signal LONG or SHORT",
+    "warmup": "continuity_ordinal < 20 => UNDEFINED",
+    "zero_sigma": "UNDEFINED under the frozen SFE-02B numerical semantics",
+    "t1_admissibility": "Use shared-surface exact rule; no synthetic t+1.",
+    "outcome": "Y_t = (+1 for LONG, -1 for SHORT) * (C_(t+1)/C_t - 1)"
+  },
+  "numerical_binding": {
+    "price_representation": "IEEE-754 binary64 / Python float",
+    "mean_algorithm": "math.fsum(x / 20.0 for x in window)",
+    "sigma_algorithm": "scaled two-pass population standard deviation",
+    "sigma_denominator": 20,
+    "hidden_epsilon": "NONE",
+    "z_lower_threshold": "<= -1.0 => LONG",
+    "z_upper_threshold": ">= +1.0 => SHORT",
+    "source_of_authority": "SFE-02B closure blob 31ff4eb47f4cf07feb9c1de7c2527fc642e894e8"
+  },
+  "evidence_sufficiency": "INHERIT EXACTLY FROM SHARED SURFACE BLOB 0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2",
+  "inference": "INHERIT EXACTLY FROM SHARED SURFACE BLOB 0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2",
+  "primary_decision_surface": "ALL_DIRECTIONAL_EVENTS",
+  "descriptive_only_surfaces": [
+    "LONG_ONLY",
+    "SHORT_ONLY",
+    "CO_FIRING_WITH_BREAKOUT",
+    "MEAN_REVERSION_EXCLUSIVE_WHILE_BREAKOUT_NEUTRAL",
+    "MEAN_REVERSION_EXCLUSIVE_WHILE_BREAKOUT_UNDEFINED"
+  ],
+  "result_mapping": {
+    "data_or_identity_gate_failure": "NOT_INTERPRETABLE",
+    "evidence_sufficiency_failure": "NOT_INTERPRETABLE / INSUFFICIENT_EVIDENCE",
+    "degenerate_inference": "NOT_INTERPRETABLE / DEGENERATE_INFERENCE",
+    "lower_confidence_bound_gt_zero": "SUPPORTED_ON_THIS_EXPLORATORY_E1_EXPOSED_SURFACE",
+    "upper_confidence_bound_lte_zero": "REFUTED_ON_THIS_EXPLORATORY_E1_EXPOSED_SURFACE",
+    "confidence_interval_spans_zero": "NOT_INTERPRETABLE / NON_DECISIVE_STATISTICAL_EVIDENCE"
+  },
+  "mandatory_reporting": [
+    "all shared-surface diagnostics",
+    "theta_MEAN_REVERSION",
+    "cluster-jackknife SE",
+    "97.5% two-sided Bonferroni-adjusted confidence interval",
+    "result status",
+    "exact strategy runtime blob",
+    "exact H1 canonical stream SHA-256",
+    "event and block counts",
+    "t+1 exclusions",
+    "unconditional drift diagnostic",
+    "co-firing/exclusive descriptive counts"
+  ],
+  "contamination_firewall": {
+    "breakout_contract_must_be_persisted_before_any_mean_reversion_performance": true,
+    "dual_freeze_record_required_before_any_mean_reversion_performance": true,
+    "mean_reversion_result_may_not_be_inspected_before_breakout_result_is_persisted_in_future_dual_run": true
+  },
+  "authority": {
+    "contract_persistence_authorized": true,
+    "performance_observation_authorized": false,
+    "behavioral_y_calculation_authorized": false,
+    "real_result_run_authorized": false,
+    "pnl_authorized": false,
+    "execution_authorized": false,
+    "optimization_authorized": false,
+    "ranking_authorized": false
+  },
+  "stop": true
+}
