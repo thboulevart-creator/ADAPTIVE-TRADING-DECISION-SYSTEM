@@ -1,0 +1,301 @@
+{
+  "schema": "ATDS_MCEPR_ACTIVATION_CONTRACT_V0_1",
+  "control_id": "MCEPR-ACTIVATION-V0.1",
+  "status": "DOCUMENTARY_CONTRACT_QUALIFIED_REAL_POPULATION_NOT_AUTHORIZED",
+  "date": "2026-10-02",
+  "governed_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "governed_branch": "integration/system-v1",
+  "authority": {
+    "contract_definition_authorized": true,
+    "documentary_adversarial_review_authorized": true,
+    "documentary_corrections_authorized": true,
+    "cutover_record_creation_authorized": false,
+    "genesis_segment_creation_authorized": false,
+    "real_event_persistence_authorized": false,
+    "real_relation_persistence_authorized": false,
+    "registry_population_authorized": false,
+    "historical_backfill_authorized": false,
+    "automated_producer_authorized": false,
+    "automated_consumer_authorized": false,
+    "runtime_integration_authorized": false,
+    "p1_modification_authorized": false,
+    "sfe_modification_authorized": false,
+    "memory_engine_modification_authorized": false,
+    "decision_modification_authorized": false,
+    "backtest_authorized": false,
+    "performance_observation_authorized": false,
+    "strategy_change_authorized": false,
+    "automatic_authority_authorized": false,
+    "automatic_promotion_authorized": false,
+    "automatic_n_budget_authorized": false,
+    "automatic_n_famille_authorized": false
+  },
+  "bound_dependencies": {
+    "g6_adjudication_blob": "93e3c87f24b8933fbdfe25b1806d42233b6ec328",
+    "implementation_contract_v0_1_blob": "55957058f610cca9de2e20b52d2ad1335f194d16",
+    "frozen_breaker_v0_1_blob": "1bf0f8c6b26ec35bf98aec4e021dc5a0243302ee",
+    "expected_red_qualification_blob": "9ffced946746c73207f7c0e20676e0764da9b659",
+    "minimal_implementation_v0_1_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+    "green_qualification_blob": "5fbf3bf9a79b50c5df41b017bd082133db7ce1cf"
+  },
+  "activation_model": {
+    "mode": "FORWARD_FIRST_MANUAL_FIRST",
+    "synthetic_bootstrap_event": "FORBIDDEN",
+    "historical_backfill": "SEPARATE_FUTURE_CONTRACT_REQUIRED",
+    "automation": "SEPARATE_FUTURE_QUALIFICATION_REQUIRED",
+    "trading_runtime_coupling": false
+  },
+  "forward_cutover_definition": {
+    "status": "DEFINED_NOT_CREATED",
+    "future_record_path": "reports/program/evidence/cross-experiment-provenance-registry/MCEPR-FORWARD-CUTOVER-V0.1.json",
+    "create_once": true,
+    "later_modification_or_deletion": "BLOCKED",
+    "record_schema": "ATDS_MCEPR_FORWARD_CUTOVER_RECORD_V0_1",
+    "exact_fields": [
+      "schema",
+      "cutover_utc",
+      "governed_branch",
+      "activation_base_commit",
+      "activation_contract_blob",
+      "implementation_blob",
+      "breaker_blob"
+    ],
+    "field_rules": {
+      "schema": "must equal ATDS_MCEPR_FORWARD_CUTOVER_RECORD_V0_1",
+      "cutover_utc": "RFC3339 UTC whole-second timestamp",
+      "governed_branch": "must equal integration/system-v1",
+      "activation_base_commit": "exact 40-lowercase-hex commit at branch HEAD immediately before cutover-record persistence",
+      "activation_contract_blob": "must equal exact qualified activation-contract blob",
+      "implementation_blob": "must equal e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+      "breaker_blob": "must equal 1bf0f8c6b26ec35bf98aec4e021dc5a0243302ee"
+    },
+    "immutable_identity": "the exact Git blob of the cutover record plus the first governed-branch commit that introduces that exact blob at the fixed path",
+    "effective_cutover_rule": "effective cutover time is the later of record.cutover_utc and the committed_at timestamp of the first governed-branch commit introducing the exact cutover blob",
+    "equality_rule": "occurred_at_utc equal to the effective cutover second is not forward-eligible",
+    "retroactivity_rule": "no event with occurred_at_utc <= effective cutover time may enter the forward pilot; such an event is historical/backfill territory",
+    "creation_requires_separate_human_authorization": true
+  },
+  "canonical_registry_surface": {
+    "segment_root": "reports/program/evidence/cross-experiment-provenance-registry/segments/",
+    "allowed_segment_name": "RGS-<64-lowercase-hex>.json",
+    "unknown_file_in_segment_root": "BLOCKED",
+    "canonical_segment_definition": "segment file reachable from governed branch HEAD at the exact segment_root and passing the frozen MCEPR validator",
+    "orphan_git_blob_or_unreachable_commit": "NOT_CANONICAL",
+    "append_only_repository_rule": "every previously canonical segment path and blob must remain present byte-identically at every later governed MCEPR state",
+    "prior_segment_deletion": "BLOCKED",
+    "prior_segment_rewrite": "BLOCKED"
+  },
+  "genesis_rule": {
+    "genesis_requires_separate_human_authorization": true,
+    "prerequisite": "qualified immutable forward cutover record already canonical",
+    "exact_payload_shape": "exactly one real forward-eligible event and zero relations",
+    "parent_registry_ref": null,
+    "synthetic_or_bootstrap_only_event": "FORBIDDEN",
+    "empty_segment": "FORBIDDEN",
+    "historical_event": "FORBIDDEN",
+    "relation_in_genesis": "FORBIDDEN_DURING_INITIAL_ACTIVATION_PILOT",
+    "rationale": "separate event/genesis mechanics from relation temporality and avoid manufacturing data merely to initialize the chain"
+  },
+  "first_real_event_eligibility": {
+    "all_required": [
+      "event actually occurred",
+      "event occurred strictly after effective cutover time",
+      "event was not created solely to initialize MCEPR",
+      "event is materially relevant to research provenance or research-evidence handling",
+      "event fields are truthfully populated under the frozen event schema",
+      "all decisive references required by the event resolve",
+      "when consultation_intensity is asserted, applicable 04 §4.6 traceability/evidence rules are satisfied",
+      "event and candidate segment validate under the exact qualified MCEPR implementation and frozen breaker surface",
+      "human approves the exact candidate segment blob before canonical append"
+    ],
+    "prohibited": [
+      "retroactively relabeling a pre-cutover event as forward",
+      "inventing source/evidence references for completeness",
+      "using missing registry history as evidence that no prior exposure occurred",
+      "using a registry event as scientific or operational authority"
+    ]
+  },
+  "relation_activation_boundary": {
+    "initial_manual_pilot_relation_persistence": "NOT_AUTHORIZED",
+    "reason": "relation records have no intrinsic occurred_at_utc; allowing them in the initial forward pilot could silently collapse historical/backfill relations into forward population",
+    "first_real_relation_next_step": "requires a separate relation-temporality/admissibility authorization after the forward event pilot",
+    "relation_vocabulary_unchanged": [
+      "INFORMED_BY",
+      "PREREGISTERED_BY",
+      "RESERVED_FOR",
+      "CLASSIFIED_BY"
+    ]
+  },
+  "manual_pilot": {
+    "mode": "EVENT_ONLY",
+    "minimum_successful_consecutive_appends": 3,
+    "maximum_authorized_append_cycles_under_future_pilot_authorization": 5,
+    "one_event_per_segment": true,
+    "relations_per_segment": 0,
+    "first_cycle": "genesis",
+    "later_cycles": "single-event child segments",
+    "qualification_rule": "at least 3 consecutive successful canonical append cycles after the last material activation-protocol correction; if this cannot be achieved within 5 authorized cycles, pilot status is BLOCKED pending human review",
+    "each_append_requires_human_approval_of_exact_segment_blob": true,
+    "no_bulk_batch_append": true
+  },
+  "append_protocol": [
+    "fetch/revalidate fresh governed branch HEAD and TREE",
+    "verify activation contract, cutover record, implementation and breaker identities",
+    "enumerate exact canonical segment_root contents",
+    "reject unknown files, prior deletions, prior rewrites, invalid segments, multiple genesis, forks or unresolved chain",
+    "derive unique current MCEPR head from full validated chain; for genesis require no canonical segment",
+    "construct exactly one eligible event",
+    "construct exactly one candidate segment with zero relations",
+    "validate complete prior chain plus candidate",
+    "compute exact candidate segment blob and obtain human approval bound to that blob",
+    "re-fetch governed branch immediately before persistence",
+    "if MCEPR semantic state changed, BLOCKED and rebuild/reapprove",
+    "if only unrelated repository state changed and all bound MCEPR identities/refs remain exact, rebuild Git tree on fresh HEAD while preserving the exact approved segment blob",
+    "persist with force=false",
+    "post-persistence fetch exact branch HEAD and re-enumerate/replay complete MCEPR chain",
+    "require candidate blob reachable at exact canonical path and unique derived head",
+    "persist append evidence only if separately authorized by the append action",
+    "STOP"
+  ],
+  "concurrency_rules": {
+    "git_head_changed_mcepr_unchanged": "candidate segment blob may remain approved only after fresh revalidation proves cutover blob, contract blob, implementation blob, breaker blob, prior canonical segment set and every decisive reference used by the candidate remain unchanged/resolvable",
+    "mcepr_head_changed": "BLOCKED; candidate parent and REGISTRY_ID are stale; rebuild and require new exact human approval",
+    "concurrent_mcepr_writers": "no automatic merge, no automatic winner selection",
+    "fork_detected": "BLOCKED",
+    "branch_update_force": false
+  },
+  "failure_semantics": {
+    "PASS": "declared activation/append checks satisfied within the governed technical surface only",
+    "FAIL": "intrinsic deterministic violation of the frozen event/segment/activation rules",
+    "BLOCKED": "safe append or activation conclusion unavailable because authority, cutover, canonical chain, external reference resolution, concurrency state or repository continuity is ambiguous/missing"
+  },
+  "pilot_success_does_not_claim": [
+    "registry completeness",
+    "absence of unrecorded cognition",
+    "absence of historical exposure",
+    "pristine evidence",
+    "scientific support",
+    "scientific independence",
+    "family membership",
+    "N_budget",
+    "N_famille",
+    "performance validity",
+    "operational authority"
+  ],
+  "post_pilot_boundaries": {
+    "historical_backfill": "requires separate contract + breaker + authorization",
+    "first_real_relation": "requires separate temporality/admissibility contract or equivalent governed decision",
+    "automated_producer": "requires separate contract + breaker + qualification",
+    "automated_consumer": "requires separate contract + breaker + qualification",
+    "runtime_integration": "not justified by this activation contract"
+  },
+  "adversarial_review_cases": [
+    [
+      "ACT-ADV-01",
+      "synthetic event created only to obtain genesis",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-02",
+      "pre-cutover event labeled forward",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-03",
+      "event occurred in same whole second as effective cutover",
+      "BLOCKED_AS_NOT_FORWARD_ELIGIBLE"
+    ],
+    [
+      "ACT-ADV-04",
+      "cutover record modified after activation",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-05",
+      "cutover record deleted after activation",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-06",
+      "orphan Git object treated as canonical cutover or segment",
+      "REJECTED"
+    ],
+    [
+      "ACT-ADV-07",
+      "prior canonical segment deleted from current branch",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-08",
+      "prior canonical segment rewritten under same path",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-09",
+      "unknown file introduced inside segment_root",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-10",
+      "unrelated SFE commit changes Git HEAD but not MCEPR state",
+      "REVALIDATE_AND_REBASE_GIT_TREE_ONLY"
+    ],
+    [
+      "ACT-ADV-11",
+      "MCEPR head changes after human candidate approval",
+      "BLOCKED_REBUILD_REAPPROVE"
+    ],
+    [
+      "ACT-ADV-12",
+      "two MCEPR writers create children of same parent",
+      "BLOCKED_FORK"
+    ],
+    [
+      "ACT-ADV-13",
+      "unresolvable decisive reference",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-14",
+      "relation inserted into initial event-only pilot",
+      "BLOCKED"
+    ],
+    [
+      "ACT-ADV-15",
+      "missing relation record interpreted as no influence",
+      "FORBIDDEN_INFERENCE"
+    ],
+    [
+      "ACT-ADV-16",
+      "three successful cycles used to claim completeness",
+      "FORBIDDEN_INFERENCE"
+    ],
+    [
+      "ACT-ADV-17",
+      "pilot cannot reach 3 consecutive successes within 5 cycles",
+      "BLOCKED_HUMAN_REVIEW"
+    ],
+    [
+      "ACT-ADV-18",
+      "bulk batch of multiple real events in one pilot segment",
+      "FAIL"
+    ],
+    [
+      "ACT-ADV-19",
+      "automatic producer starts after pilot without separate qualification",
+      "NOT_AUTHORIZED"
+    ],
+    [
+      "ACT-ADV-20",
+      "historical backfill begins after pilot without separate contract",
+      "NOT_AUTHORIZED"
+    ]
+  ],
+  "next_frontier_after_documentary_qualification": {
+    "candidate": "MCEPR FORWARD CUTOVER RECORD V0.1",
+    "status": "NOT_AUTHORIZED",
+    "requires_separate_human_authorization": true,
+    "note": "cutover creation is not registry population and must occur before waiting for the first forward event"
+  },
+  "stop_after_documentary_qualification": true
+}
