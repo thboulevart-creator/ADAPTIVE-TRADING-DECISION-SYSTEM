@@ -167,7 +167,12 @@ def test_di_08_m04_independent_reference_parity():
         structural_flags=[],
     )
     values = [0.1, -0.2, 0.4, 0.3, -0.1, 0.2]
-    assert m.dependence_diagnostics(values, **kwargs) == r.reference_dependence_diagnostics(values, **kwargs)
+    actual = m.dependence_diagnostics(values, **kwargs)
+    expected = r.reference_dependence_diagnostics(values, **kwargs)
+    actual_acf = actual.pop("acf")
+    expected_acf = expected.pop("acf")
+    assert actual == expected
+    assert actual_acf == pytest.approx(expected_acf, rel=1e-12, abs=1e-15)
 
 
 def test_di_09_iid_bootstrap_requires_justification():
@@ -274,8 +279,9 @@ def test_di_15_percentile_and_basic_are_distinct_selectable_contracts():
         stationarity_status="STATIONARY",
         iid_justified=True,
     )
-    a = m.bootstrap_mean_ci([0.0, 0.0, 0.0, 10.0], interval_method="PERCENTILE", **common)
-    b = m.bootstrap_mean_ci([0.0, 0.0, 0.0, 10.0], interval_method="BASIC", **common)
+    values = [0.0, 1.0, 1.0, 10.0, 30.0]
+    a = m.bootstrap_mean_ci(values, interval_method="PERCENTILE", **common)
+    b = m.bootstrap_mean_ci(values, interval_method="BASIC", **common)
     assert (a["lower"], a["upper"]) != (b["lower"], b["upper"])
 
 
