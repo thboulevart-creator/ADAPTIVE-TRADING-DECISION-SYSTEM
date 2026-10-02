@@ -189,8 +189,9 @@ class TestP5EBB1NormativeGuardClosureV01(unittest.TestCase):
             )
             self.assertEqual(
                 entry["evidence_kind"],
-                "REUSED_QUALIFIED_P5D2_P5D4",
+                "DIRECT_P5E",
             )
+
     def test_nb7_incomplete_window_is_explicit_non_pass(self):
         synthetic = self.contract["synthetic_timing_model"]
         self.assertIn(

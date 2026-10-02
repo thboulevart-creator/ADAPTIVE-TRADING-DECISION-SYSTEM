@@ -155,6 +155,7 @@ def assert_contract_invariants(contract):
     assert synthetic["attempt_overruns_next_required_slot_failure_code"] == "ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT"
     assert synthetic["duplicate_fixed_rate_slot_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
     assert synthetic["duplicate_fixed_rate_slot_failure_code"] == "DUPLICATE_FIXED_RATE_SLOT"
+    assert synthetic["read_completion_before_attempt_start_forbidden"] is True
     assert synthetic["skipped_required_attempt_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
     assert synthetic["cadence_gap_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
     assert synthetic["pre_source_target_observation_result"] == "BLOCKED_REQUIRES_ADJUDICATION"

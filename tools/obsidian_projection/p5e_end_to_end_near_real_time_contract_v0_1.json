@@ -80,7 +80,8 @@
     "attempt_overruns_next_required_slot_result": "BLOCKED_REQUIRES_ADJUDICATION",
     "attempt_overruns_next_required_slot_failure_code": "ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT",
     "duplicate_fixed_rate_slot_result": "BLOCKED_REQUIRES_ADJUDICATION",
-    "duplicate_fixed_rate_slot_failure_code": "DUPLICATE_FIXED_RATE_SLOT"
+    "duplicate_fixed_rate_slot_failure_code": "DUPLICATE_FIXED_RATE_SLOT",
+    "read_completion_before_attempt_start_forbidden": true
   },
   "authority_boundary": {
     "observer_may_create_governance_authority": false,
