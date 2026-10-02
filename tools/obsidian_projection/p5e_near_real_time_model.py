@@ -215,6 +215,8 @@ def qualify_detection(
         if completed < scheduled:
             return _blocked("READ_COMPLETION_PRECEDES_ATTEMPT_START")
         if previous_scheduled is not None:
+            if scheduled == previous_scheduled:
+                return _blocked("DUPLICATE_FIXED_RATE_SLOT")
             if scheduled - previous_scheduled != interval:
                 return _blocked("CADENCE_GAP")
             if previous_completed is not None and previous_completed > scheduled:
@@ -230,6 +232,13 @@ def qualify_detection(
             return _blocked(
                 "TARGET_HEAD_OBSERVED_BEFORE_CONTROLLED_RELEASE"
             )
+
+    last_observation = observations[-1]
+    if (
+        last_observation["completed_at_seconds"]
+        > last_observation["scheduled_at_seconds"] + interval
+    ):
+        return _blocked("ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT")
 
     first_required_slot = _first_fixed_rate_slot_at_or_after(
         instant_seconds=source_release_at_seconds,

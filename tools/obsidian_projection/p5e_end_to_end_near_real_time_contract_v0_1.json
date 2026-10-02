@@ -73,7 +73,14 @@
     "head_identity_required_on_successful_remote_observation": true,
     "skipped_required_attempt_result": "BLOCKED_REQUIRES_ADJUDICATION",
     "cadence_gap_result": "BLOCKED_REQUIRES_ADJUDICATION",
-    "pre_source_target_observation_result": "BLOCKED_REQUIRES_ADJUDICATION"
+    "pre_source_target_observation_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "explicit_non_pass_statuses": [
+      "INCOMPLETE_SYNTHETIC_WINDOW"
+    ],
+    "attempt_overruns_next_required_slot_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "attempt_overruns_next_required_slot_failure_code": "ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT",
+    "duplicate_fixed_rate_slot_result": "BLOCKED_REQUIRES_ADJUDICATION",
+    "duplicate_fixed_rate_slot_failure_code": "DUPLICATE_FIXED_RATE_SLOT"
   },
   "authority_boundary": {
     "observer_may_create_governance_authority": false,
@@ -232,7 +239,9 @@
     "already_observed_queued_head_replacement_forbidden": true,
     "already_observed_queued_head_retarget_forbidden": true,
     "per_transient_tip_detection_sla_authorized": false,
-    "future_ancestry_enumeration_requires_separate_qualification": true
+    "future_ancestry_enumeration_requires_separate_qualification": true,
+    "unobserved_intermediate_tip_non_injection_is_future_adapter_rule": true,
+    "unobserved_intermediate_tip_non_injection_is_current_runtime_qualified_property": false
   },
   "external_review_targeted_closure": {
     "findings": {

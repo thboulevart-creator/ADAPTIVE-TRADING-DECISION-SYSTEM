@@ -93,6 +93,17 @@ def assert_contract_invariants(contract):
     assert contract["status"] == "CANDIDATE_TARGETED_CLOSURE_PENDING_EXTERNAL_REREVIEW"
     assert contract["qualification_stage"] == "CONTRACT_AND_SYNTHETIC_QUALIFICATION_ONLY"
     assert contract["real_p5e_execution_authorized"] is False
+    assert contract["source_repository"] == "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
+
+    source = contract["monitored_source"]
+    assert source["remote"] == "origin"
+    assert source["branch"] == "integration/system-v1"
+    assert source["canonical_authority"] == "GITHUB_REMOTE_BRANCH"
+    assert source["local_working_tree_is_not_authority"] is True
+
+    objective = contract["objective"]
+    assert objective["this_stage_is_not_real_end_to_end_execution"] is True
+    assert objective["this_stage_may_not_claim_continuous_synchronization"] is True
 
     timing = contract["near_real_time_timing"]
     assert timing["poll_interval_seconds"] == 30
@@ -100,6 +111,13 @@ def assert_contract_invariants(contract):
     assert timing["instantaneous_realtime_claim_forbidden"] is True
     assert timing["silent_interval_widening_forbidden"] is True
     assert timing["silent_latency_bound_widening_forbidden"] is True
+    assert timing["delivery_semantics"] == "NEAR_REAL_TIME_BOUNDED_LATENCY"
+    assert timing["detection_latency_definition"] == (
+        "SUCCESSFUL_REMOTE_READ_COMPLETION_MONOTONIC_MINUS_CONTROLLED_SOURCE_RELEASE_MONOTONIC"
+    )
+    assert timing["future_real_bound_clock"] == "MONOTONIC_ELAPSED_TIME"
+    assert timing["future_real_wall_clock_may_be_recorded_as_evidence_only"] is True
+    assert timing["latency_bound_breach_must_not_be_reported_as_near_real_time_pass"] is True
     assert timing["real_measurement_origin"] == "CONTROLLED_SOURCE_RELEASE_MONOTONIC"
     assert timing["measurement_endpoint"] == "SUCCESSFUL_REMOTE_READ_COMPLETION_MONOTONIC"
     assert timing["schedule_semantics"] == "FIXED_RATE"
@@ -114,6 +132,7 @@ def assert_contract_invariants(contract):
     ] is True
 
     synthetic = contract["synthetic_timing_model"]
+    assert synthetic["required"] is True
     assert synthetic["clock_source"] == "EXPLICIT_INJECTED_MONOTONIC_SECONDS_ONLY"
     assert synthetic["schedule_semantics"] == "FIXED_RATE"
     assert synthetic["schedule_origin_seconds"] == 0
@@ -124,7 +143,18 @@ def assert_contract_invariants(contract):
     assert synthetic["environment_read_forbidden"] is True
     assert synthetic["real_p5d4_control_state_access_forbidden"] is True
     assert synthetic["real_vault_access_forbidden"] is True
+    assert synthetic["observation_record_fields"] == [
+        "scheduled_at_seconds",
+        "completed_at_seconds",
+        "outcome",
+        "observed_head",
+    ]
     assert synthetic["head_identity_required_on_successful_remote_observation"] is True
+    assert synthetic["explicit_non_pass_statuses"] == ["INCOMPLETE_SYNTHETIC_WINDOW"]
+    assert synthetic["attempt_overruns_next_required_slot_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
+    assert synthetic["attempt_overruns_next_required_slot_failure_code"] == "ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT"
+    assert synthetic["duplicate_fixed_rate_slot_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
+    assert synthetic["duplicate_fixed_rate_slot_failure_code"] == "DUPLICATE_FIXED_RATE_SLOT"
     assert synthetic["skipped_required_attempt_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
     assert synthetic["cadence_gap_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
     assert synthetic["pre_source_target_observation_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
@@ -132,6 +162,8 @@ def assert_contract_invariants(contract):
     transition = contract["head_transition_policy"]
     assert transition["same_head_result"] == "NOOP"
     assert transition["same_head_queue_growth_forbidden"] is True
+    assert transition["initial_head_may_queue_exact_head_only_under_existing_p5d2_semantics"] is True
+    assert transition["fast_forward_head_may_queue_exact_head_only_under_existing_p5d2_semantics"] is True
     assert transition["non_fast_forward_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
     assert transition["non_fast_forward_auto_continue_forbidden"] is True
     assert transition["unknown_ancestry_result"] == "BLOCKED_REQUIRES_ADJUDICATION"
@@ -149,6 +181,7 @@ def assert_contract_invariants(contract):
     assert queue["pending_head_retarget_forbidden"] is True
     assert queue["capacity_exhausted_result"] == "QUEUE_CAPACITY_REQUIRES_ADJUDICATION"
     assert queue["capacity_exhausted_must_not_mutate_p5d2_state"] is True
+    assert queue["burst_catch_up_claim_forbidden_without_separate_queue_semantics_qualification"] is True
     assert queue["precedence_rule"] == (
         "CURRENT_QUALIFIED_P5D4_EXECUTABLE_QUEUE_SEMANTICS_OVERRIDE_"
         "EARLIER_P5A_DESIGN_INTENT_WHERE_THEY_CONFLICT"
@@ -188,6 +221,10 @@ def assert_contract_invariants(contract):
     ):
         assert authority[field] is False
 
+    real_context = contract["real_context_evidence_only"]
+    assert real_context["must_not_be_used_as_real_experiment_execution"] is True
+    assert real_context["must_not_be_mutated_by_contract_qualification"] is True
+
     tips = contract["tip_visibility_semantics"]
     assert tips["observed_remote_tip_definition"] == "HEAD_IDENTITY_RETURNED_BY_A_SUCCESSFUL_REMOTE_READ"
     assert tips["unobserved_intermediate_tip_may_be_claimed_observed"] is False
@@ -196,14 +233,28 @@ def assert_contract_invariants(contract):
     assert tips["already_observed_queued_head_replacement_forbidden"] is True
     assert tips["already_observed_queued_head_retarget_forbidden"] is True
     assert tips["per_transient_tip_detection_sla_authorized"] is False
+    assert tips["future_ancestry_enumeration_requires_separate_qualification"] is True
+    assert tips["unobserved_intermediate_tip_non_injection_is_future_adapter_rule"] is True
+    assert tips["unobserved_intermediate_tip_non_injection_is_current_runtime_qualified_property"] is False
 
     end_to_end = contract["end_to_end_definition"]
+    assert end_to_end["real_end_to_end_stages"] == [
+        "SOURCE_HEAD_BECOMES_OBSERVABLE",
+        "REMOTE_HEAD_DETECTED_WITHIN_BOUND",
+        "HEAD_TRANSITION_CLASSIFIED",
+        "EXACT_HEAD_ENTERED_GOVERNED_QUEUE_OR_FAIL_CLOSED",
+        "EXACT_HEAD_EVALUATED_IF_SEPARATELY_AUTHORIZED",
+        "PROMOTION_DECISION_IF_SEPARATELY_AUTHORIZED",
+        "PUBLICATION_IF_SEPARATELY_AUTHORIZED",
+        "LIVE_GENERATION_VERIFIED_IF_PUBLICATION_AUTHORIZED",
+    ]
     assert end_to_end["current_stage_may_qualify_only"] == [
         "TIMING_CONTRACT",
         "SYNTHETIC_FIXED_RATE_DETECTION_MODEL",
         "AUTHORITY_BOUNDARIES",
         "REUSED_MAPPED_P5D2_P5D4_FAIL_CLOSED_QUEUE_BEHAVIOR",
     ]
+    assert end_to_end["real_end_to_end_pass_requires_all_authorized_applicable_stages"] is True
     assert end_to_end["omitted_unauthorized_downstream_stages_may_not_be_relabelled_pass"] is True
     assert end_to_end["transient_tip_exact_detection_sla_not_qualified"] is True
     assert end_to_end["real_remote_availability_to_detection_sla_not_qualified"] is True
@@ -240,6 +291,7 @@ def assert_contract_invariants(contract):
     assert closure["all_base_breakers_must_be_mapped"] is True
     assert closure["all_targeted_closure_breakers_must_be_mapped"] is True
     assert closure["unmapped_requirement_result"] == "BLOCKED"
+    assert closure["external_rereview_required_before_human_normative_adoption"] is True
 
 
 class TestP5EAdversarialV01(unittest.TestCase):
@@ -427,7 +479,7 @@ class TestP5EAdversarialV01(unittest.TestCase):
                     obs(30, 30, "READ_FAILURE"),
                     obs(30, 30, "REMOTE_HEAD_OBSERVED", TARGET),
                 ],
-                "CADENCE_GAP",
+                "DUPLICATE_FIXED_RATE_SLOT",
             ),
             (
                 [

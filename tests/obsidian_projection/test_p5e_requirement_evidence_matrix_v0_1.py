@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 CONTRACT = ROOT / "tools" / "obsidian_projection" / "p5e_end_to_end_near_real_time_contract_v0_1.json"
+MODEL = ROOT / "tools" / "obsidian_projection" / "p5e_near_real_time_model.py"
 MATRIX = ROOT / "tools" / "obsidian_projection" / "p5e_v0_1_requirement_evidence_matrix.json"
 
 
@@ -39,6 +40,24 @@ class TestP5ERequirementEvidenceMatrixV01(unittest.TestCase):
             "P5E_V0_1_EXTERNAL_REVIEW_TARGETED_CLOSURE",
         )
         self.assertFalse(m["real_p5e_execution_authorized"])
+
+    def test_matrix_binds_exact_covered_contract_and_model(self):
+        m = load_json(MATRIX)
+        self.assertTrue(m["covered_object_drift_must_fail"])
+        self.assertEqual(
+            m["covered_contract_blob"],
+            git_blob_sha1(
+                CONTRACT,
+                "tools/obsidian_projection/p5e_end_to_end_near_real_time_contract_v0_1.json",
+            ),
+        )
+        self.assertEqual(
+            m["covered_model_blob"],
+            git_blob_sha1(
+                MODEL,
+                "tools/obsidian_projection/p5e_near_real_time_model.py",
+            ),
+        )
 
     def test_every_required_case_and_breaker_is_mapped_exactly_once(self):
         c = load_json(CONTRACT)

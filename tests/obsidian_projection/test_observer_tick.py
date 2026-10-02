@@ -365,6 +365,27 @@ class ObserverTickTests(unittest.TestCase):
             "BLOCK_REQUIRES_ADJUDICATION",
         )
 
+    def test_fast_forward_preserves_existing_pending_fifo_without_active_evaluation(
+        self,
+    ) -> None:
+        state = observe_initial(bootstrap(), H1)
+        self.assertEqual(state["observer_phase"], "IDLE")
+        self.assertEqual(state["pending_heads"], [H1])
+        result = tick(
+            state,
+            "REMOTE_HEAD_OBSERVED",
+            observed_head=H2,
+            transition_class="FAST_FORWARD",
+        )
+        next_state = result["next_state"]
+        self.assertEqual(next_state["observer_phase"], "IDLE")
+        self.assertEqual(next_state["pending_heads"], [H1, H2])
+        self.assertEqual(
+            result["decision"]["action"],
+            "QUEUE_EXACT_HEAD_FOR_EVALUATION",
+        )
+        self.assertEqual(result["decision"]["candidate_head"], H2)
+
     def test_fast_forward_queues_without_retargeting_active(
         self,
     ) -> None:
