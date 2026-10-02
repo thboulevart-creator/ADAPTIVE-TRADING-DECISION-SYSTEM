@@ -1,0 +1,341 @@
+{
+  "schema": "ATDS_SFE_02A_BREAKOUT_V1_MINIMAL_IMPLEMENTATION_CONTRACT_V0_1",
+  "control_id": "SFE-02A",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_MINIMAL_IMPLEMENTATION_SYNTHETIC_QUALIFICATION",
+  "date": "2026-10-02",
+  "authority": {
+    "contract_and_breaker_authorized": true,
+    "minimal_implementation_authorized": true,
+    "synthetic_qualification_authorized": true,
+    "adversarial_mutation_sweep_authorized": true,
+    "real_market_data_authorized": false,
+    "performance_observation_authorized": false,
+    "behavioral_y_authorized": false,
+    "pnl_authorized": false,
+    "backtest_authorized": false,
+    "execution_authorized": false,
+    "sfe_02b_authorized": false,
+    "ranking_authorized": false,
+    "router_authorized": false,
+    "regime_filter_authorized": false,
+    "mt5_paper_broker_live_capital_authorized": false
+  },
+  "adopted_dependencies": {
+    "sfe_01_v0_2": {
+      "status": "HUMAN_ADOPTED_WITH_AMENDMENTS",
+      "definition_blob": "027c42b38bf9c74415b21e98bcce19124f744995",
+      "adjudication_blob": "66aa556e4e161e49550451062273bc8d6422593c"
+    },
+    "architecture_v2": {
+      "status": "HUMAN_ADOPTED_WITH_AMENDMENTS",
+      "adjudication_blob": "1817969d1b2431be3476a7ab4b52b61e8f5da172"
+    }
+  },
+  "runtime_target": "tools/sfe_02a_breakout_v1.py",
+  "runtime_contract": "ATDS_SFE_02A_BREAKOUT_V1_RUNTIME_V0_1",
+  "strategy": {
+    "strategy_id": "BREAKOUT_V1",
+    "family": "BREAKOUT",
+    "version": "V1",
+    "bar_interval": "H1",
+    "lookback_completed_admissible_h1": 20,
+    "channel_upper": "max(C[t-20] ... C[t-1])",
+    "channel_lower": "min(C[t-20] ... C[t-1])",
+    "current_close_excluded_from_channel": true,
+    "long_rule": "C_t > U_t",
+    "short_rule": "C_t < L_t",
+    "neutral_rule": "L_t <= C_t <= U_t",
+    "tie_upper": "NEUTRAL",
+    "tie_lower": "NEUTRAL",
+    "warmup_signal": "UNDEFINED",
+    "first_eligible_continuity_ordinal": 20,
+    "cross_continuity_block_lookback": false,
+    "signal_states": [
+      "LONG",
+      "SHORT",
+      "NEUTRAL",
+      "UNDEFINED"
+    ]
+  },
+  "input": {
+    "required_fields": [
+      "bar_start_ms_utc",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "close"
+    ],
+    "bar_start_ms_utc": {
+      "type": "INTEGER_NOT_BOOL",
+      "order": "STRICTLY_INCREASING",
+      "duplicate_allowed": false,
+      "within_same_continuity_block_increment_ms": 3600000
+    },
+    "continuity_block_id": {
+      "type": "STRING_OR_INTEGER_NOT_BOOL",
+      "block_reappearance_after_transition": false
+    },
+    "continuity_ordinal": {
+      "type": "INTEGER_NOT_BOOL",
+      "first_in_block": 0,
+      "same_block_increment": 1
+    },
+    "close": {
+      "accepted_source_types": [
+        "INTEGER_NOT_BOOL",
+        "FLOAT_NOT_BOOL"
+      ],
+      "canonical_runtime_representation": "IEEE_754_BINARY64_PYTHON_FLOAT",
+      "finite_required": true,
+      "strictly_positive_required": true
+    }
+  },
+  "numerical_semantics": {
+    "close_normalization": "float(close) after type validation",
+    "channel_reduction": "Python max/min over canonical binary64 closes",
+    "comparison_semantics": "exact binary64 > and < after normalization",
+    "equality_semantics": "neither > nor <, therefore NEUTRAL",
+    "parameter_change_after_performance_observation": false
+  },
+  "validation_precedence": [
+    "TOP_LEVEL_INPUT_TYPE",
+    "ROW_OBJECT_AND_REQUIRED_FIELDS",
+    "FIELD_TYPES_AND_CLOSE_DOMAIN",
+    "TIMESTAMP_DUPLICATE_AND_ORDER",
+    "CONTINUITY_COHERENCE",
+    "SIGNAL_COMPUTATION"
+  ],
+  "output": {
+    "top_level": [
+      "status",
+      "records"
+    ],
+    "record_fields": [
+      "bar_start_ms_utc",
+      "signal",
+      "trace"
+    ],
+    "trace_fields": [
+      "continuity_block_id",
+      "continuity_ordinal",
+      "lookback_start_ms_utc",
+      "lookback_end_ms_utc"
+    ],
+    "performance_fields_forbidden": true,
+    "behavioral_y_forbidden": true,
+    "execution_fields_forbidden": true,
+    "position_fields_forbidden": true
+  },
+  "fail_closed_reasons": [
+    "INPUT_NOT_LIST",
+    "ROW_NOT_OBJECT",
+    "MISSING_REQUIRED_FIELD",
+    "INVALID_TIMESTAMP_TYPE",
+    "INVALID_CLOSE_TYPE",
+    "NONFINITE_CLOSE",
+    "NONPOSITIVE_CLOSE",
+    "INVALID_BLOCK_ID",
+    "INVALID_ORDINAL_TYPE",
+    "DUPLICATE_TIMESTAMP",
+    "INVALID_TIMESTAMP_ORDER",
+    "CONTINUITY_INCOHERENT"
+  ],
+  "prohibited_features": [
+    "PARAMETER_OPTIMIZATION",
+    "PERFORMANCE_OBSERVATION",
+    "BEHAVIORAL_Y_CALCULATION",
+    "PNL_CALCULATION",
+    "EXECUTION",
+    "POSITION_STATE",
+    "REGIME_FILTER",
+    "ROUTER",
+    "DISCRETIONARY_OVERRIDE",
+    "E1_TD_DATA_CONSUMPTION"
+  ],
+  "forbidden_claims": [
+    "BREAKOUT_V1_SUPPORTED",
+    "BREAKOUT_V1_REFUTED",
+    "BREAKOUT_V1_PROFITABLE",
+    "ECONOMIC_EDGE",
+    "ROBUST",
+    "SOURCE_INDEPENDENT",
+    "PRODUCTION_READY",
+    "PAPER_READY",
+    "BROKER_READY",
+    "LIVE_READY",
+    "CAPITAL_READY"
+  ],
+  "test_cases": [
+    [
+      "B2A-01",
+      "continuity ordinal 19 is UNDEFINED"
+    ],
+    [
+      "B2A-02",
+      "ordinal 20 strict upper breach is LONG"
+    ],
+    [
+      "B2A-03",
+      "ordinal 20 strict lower breach is SHORT"
+    ],
+    [
+      "B2A-04",
+      "upper tie is NEUTRAL"
+    ],
+    [
+      "B2A-05",
+      "lower tie is NEUTRAL"
+    ],
+    [
+      "B2A-06",
+      "inside channel is NEUTRAL"
+    ],
+    [
+      "B2A-07",
+      "current close is excluded from channel"
+    ],
+    [
+      "B2A-08",
+      "oldest of exact 20-lookback is included"
+    ],
+    [
+      "B2A-09",
+      "bar older than exact 20-lookback is excluded"
+    ],
+    [
+      "B2A-10",
+      "continuity change resets warmup"
+    ],
+    [
+      "B2A-11",
+      "ordinal 20 in new block is first eligible"
+    ],
+    [
+      "B2A-12",
+      "future row mutation cannot change prior signal"
+    ],
+    [
+      "B2A-13",
+      "identical input is exactly deterministic"
+    ],
+    [
+      "B2A-14",
+      "missing required field fails closed"
+    ],
+    [
+      "B2A-15",
+      "non-object row fails closed"
+    ],
+    [
+      "B2A-16",
+      "non-list top-level input fails closed"
+    ],
+    [
+      "B2A-17",
+      "non-numeric close fails closed"
+    ],
+    [
+      "B2A-18",
+      "boolean close fails closed"
+    ],
+    [
+      "B2A-19",
+      "NaN close fails closed"
+    ],
+    [
+      "B2A-20",
+      "infinite close fails closed"
+    ],
+    [
+      "B2A-21",
+      "zero close fails closed"
+    ],
+    [
+      "B2A-22",
+      "negative close fails closed"
+    ],
+    [
+      "B2A-23",
+      "invalid timestamp type fails closed"
+    ],
+    [
+      "B2A-24",
+      "duplicate timestamp fails closed"
+    ],
+    [
+      "B2A-25",
+      "decreasing timestamp fails closed"
+    ],
+    [
+      "B2A-26",
+      "non-H1 timestamp step inside block fails closed"
+    ],
+    [
+      "B2A-27",
+      "invalid ordinal type fails closed"
+    ],
+    [
+      "B2A-28",
+      "ordinal jump fails closed"
+    ],
+    [
+      "B2A-29",
+      "new block must start at ordinal zero"
+    ],
+    [
+      "B2A-30",
+      "continuity block cannot reappear"
+    ],
+    [
+      "B2A-31",
+      "invalid continuity block id fails closed"
+    ],
+    [
+      "B2A-32",
+      "runtime constants and prohibitions are exact"
+    ],
+    [
+      "B2A-33",
+      "output contains no performance execution or position surface"
+    ],
+    [
+      "B2A-34",
+      "breakout directional signal implies same-direction 20-bar momentum sign"
+    ],
+    [
+      "B2A-35",
+      "trace binds eligible signal to exact previous-20 window"
+    ],
+    [
+      "B2A-36",
+      "independent reference parity on synthetic corpus"
+    ]
+  ],
+  "qualification_boundary": {
+    "synthetic_data_only": true,
+    "actual_market_data": false,
+    "performance_observation": false,
+    "qualification_claim": "implementation matches adopted BREAKOUT_V1 signal semantics on preregistered synthetic adversarial surface only"
+  },
+  "stop_after_qualification": true,
+  "non_authorizations": [
+    "REAL_MARKET_DATA",
+    "BEHAVIORAL_Y",
+    "PERFORMANCE",
+    "PNL",
+    "BACKTEST",
+    "EXECUTION",
+    "SFE_02B",
+    "RANKING",
+    "ROUTER",
+    "REGIME_FILTER",
+    "E1_TD",
+    "TD03B",
+    "A0",
+    "C01_REAL",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ]
+}
