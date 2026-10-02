@@ -1,0 +1,212 @@
+{
+  "schema": "ATDS_SFE_02C_DUAL_EXPERIMENT_SHARED_SURFACE_V0_1",
+  "control_id": "SFE-02C",
+  "status": "HUMAN_AUTHORIZED_PREREGISTRATION_SHARED_SURFACE",
+  "date": "2026-10-02",
+  "purpose": "Freeze one shared exploratory evidence/statistical surface for BREAKOUT_V1 and MEAN_REVERSION_V1 before any SFE performance observation.",
+  "authority": {
+    "preregistration_authorized": true,
+    "performance_observation_authorized": false,
+    "behavioral_y_calculation_authorized": false,
+    "pnl_authorized": false,
+    "backtest_authorized": false,
+    "execution_authorized": false,
+    "optimization_authorized": false,
+    "ranking_authorized": false,
+    "router_authorized": false,
+    "regime_filter_authorized": false
+  },
+  "prerequisite_identities": {
+    "sfe_01_adjudication_blob": "66aa556e4e161e49550451062273bc8d6422593c",
+    "breakout_runtime_blob": "60f32b2d054390c2b5dbb975b015d7e09a5a1a96",
+    "breakout_closure_blob": "b88d7468394913606b5931b1c3cc070631e19912",
+    "mean_reversion_runtime_blob": "273e184093e4cc98f0eb6569cd6f1007366cce40",
+    "mean_reversion_closure_blob": "31ff4eb47f4cf07feb9c1de7c2527fc642e894e8",
+    "e1_03_contract_blob": "c2d4323039d65fcd9319d4f5eb02f45ee27c8afc",
+    "e1_03_real_h1_qualification_blob": "534233d63a01c42c6b4de8979cca8dcb2feb7bc7",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "source_b_data_truth_closure_blob": "62e9bd1e0892dab7273eed35c8704a9e05611112"
+  },
+  "evidence_classification": {
+    "experiment_class": "EXPLORATORY",
+    "exposure_status": "E1_EXPOSED",
+    "pristine_confirmatory": false,
+    "source_independent_confirmation": false,
+    "td03b_consumed": false,
+    "reserved_confirmatory_evidence_consumed": false,
+    "rule": "No result from this surface may later be relabeled pristine confirmatory evidence."
+  },
+  "dataset": {
+    "instrument_identity": "USTECH / Nasdaq 100 Index CFD as represented by SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "provider_chain": "Public dataset CarlosSilva1/ustech-ticks; publisher documents Dukascopy via Tickstory",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "ap0_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "h1_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "h1_canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "local_h1_jsonl_recorded_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+    "accepted_h1_rows": 27677,
+    "continuity_blocks": 1436,
+    "first_admissible_h1_utc": "2021-05-25T01:00:00Z",
+    "last_admissible_h1_utc": "2026-05-24T22:00:00Z",
+    "evaluation_surface": "ALL 27677 ROWS OF THE EXACT CANONICAL H1 STREAM, subject only to preregistered signal warmup and t+1 admissibility.",
+    "price_field": "mid_close",
+    "source_tick_fields_qualified": [
+      "timestamp",
+      "bid_price",
+      "ask_price"
+    ],
+    "source_volume_fields_authorized": false
+  },
+  "data_construction": {
+    "mid_definition": "mid=(bid+ask)/2",
+    "minute_bucket": "floor(timestamp_ms/60000)",
+    "h1_timezone": "UTC",
+    "h1_duration_ms": 3600000,
+    "h1_bucket_rule": "floor(minute_start_ms_utc / 3600000) * 3600000",
+    "required_m1_rows_per_h1": 60,
+    "required_minute_offsets": "0..59 exactly",
+    "same_source_segment_required": true,
+    "h1_close_rule": "mid_close of minute offset 59",
+    "partial_first_last_raw_hour": "REJECT",
+    "missing_interval_policy": "REJECT H1; do not synthesize",
+    "forward_fill": false,
+    "interpolation": false,
+    "synthetic_minutes": false,
+    "duplicate_source_timestamp_policy": "SOURCE_B F1 qualified 0 equal-adjacent; any duplicate in governed rebuild is BLOCKED",
+    "outlier_policy": "NO OUTLIER CLIPPING OR WINSORIZATION; qualified finite positive bid/ask price-core values are retained as observed",
+    "cleaning_policy": "USE EXACT QUALIFIED SOURCE_B → AP0 → E1-03 PIPELINE; no new SFE-specific cleaning",
+    "futures_roll_adjustment_policy": "NOT_APPLICABLE: source is represented as USTECH/Nasdaq 100 Index CFD, not a futures contract",
+    "daylight_saving_policy": "NOT_APPLICABLE TO H1 BUCKETING: timestamps and H1 boundaries are UTC",
+    "continuity_rule": [
+      "new block when source_segment_id changes",
+      "new block when current H1 start != previous H1 start + 3600000 ms",
+      "continuity_ordinal starts at 0",
+      "cross-block lookback forbidden"
+    ]
+  },
+  "event_and_outcome": {
+    "directional_event": "EVERY eligible H1 bar whose adopted strategy signal is LONG or SHORT",
+    "response_required": "Immediately following H1 row must be exactly +3600000 ms, same continuity_block_id, continuity_ordinal +1, finite positive close.",
+    "response_return": "R_t_t1 = C_(t+1) / C_t - 1",
+    "direction_encoding": {
+      "LONG": 1,
+      "SHORT": -1
+    },
+    "behavioral_outcome": "Y_t = direction_t * R_t_t1",
+    "primary_effect_reference": "RAW_ZERO",
+    "primary_estimand": "Arithmetic mean of Y_t over ALL VALID DIRECTIONAL EVENTS for the family.",
+    "inadmissible_t1": "Exclude from primary estimand and report diagnostics; never forward-fill."
+  },
+  "inference_blocks": {
+    "definition": "Within each continuity block, eligible signal bars are partitioned into fixed non-overlapping 20-H1 inference blocks by floor((continuity_ordinal - 20)/20).",
+    "reason": "Pre-data dependence unit aligned with the frozen 20-H1 strategy horizon; no outcome-driven clustering.",
+    "event_bearing_block": "An inference block containing at least one valid directional event with admissible t+1.",
+    "statistical_unit": "event-bearing fixed 20-H1 inference block",
+    "dependence_treatment": "Arbitrary dependence is allowed within an inference block; blocks are the units for cluster jackknife inference.",
+    "raw_event_count_alone_sufficient": false
+  },
+  "evidence_sufficiency": {
+    "minimum_valid_directional_events": 100,
+    "minimum_valid_long_events": 20,
+    "minimum_valid_short_events": 20,
+    "minimum_event_bearing_inference_blocks": 30,
+    "all_gates_required": true,
+    "failure_status": "NOT_INTERPRETABLE / INSUFFICIENT_EVIDENCE"
+  },
+  "primary_inference": {
+    "estimator": "theta = sum(Y_t) / N over all valid directional events",
+    "per_block_values": [
+      "S_b = sum(Y_t in block b)",
+      "N_b = count(valid directional events in block b)"
+    ],
+    "cluster_jackknife": [
+      "K = number of event-bearing inference blocks",
+      "theta_minus_b = (sum_b S_b - S_b) / (sum_b N_b - N_b)",
+      "theta_jack_mean = arithmetic mean(theta_minus_b)",
+      "jackknife_variance = ((K-1)/K) * sum((theta_minus_b - theta_jack_mean)^2)",
+      "SE = sqrt(jackknife_variance)"
+    ],
+    "degeneracy_rule": "If K<30, any denominator is zero, or SE is nonfinite or exactly zero, status = NOT_INTERPRETABLE / DEGENERATE_INFERENCE.",
+    "multiplicity": "BONFERRONI ACROSS THE TWO DECISION-BEARING FAMILY EXPERIMENTS",
+    "familywise_alpha": 0.05,
+    "per_family_two_sided_alpha": 0.025,
+    "normal_critical_value": 2.241402727604947,
+    "confidence_interval": "theta ± 2.241402727604947 * SE",
+    "decision_rule": {
+      "SUPPORTED": "lower_bound > 0",
+      "REFUTED": "upper_bound <= 0",
+      "NOT_INTERPRETABLE_NON_DECISIVE": "otherwise"
+    },
+    "note": "This is an exploratory inferential rule on E1-exposed evidence; statistical significance does not create a profitability or confirmatory claim."
+  },
+  "mandatory_diagnostics": {
+    "directional_counts": [
+      "n_total",
+      "n_LONG",
+      "n_SHORT"
+    ],
+    "outcome_means": [
+      "mean_Y_combined",
+      "mean_Y_LONG",
+      "mean_Y_SHORT"
+    ],
+    "unconditional_drift": {
+      "surface": "all valid consecutive admissible H1 transitions in the canonical evaluation surface, regardless of SFE signal state",
+      "metric": "mean(C_(t+1)/C_t - 1)",
+      "role": "SECONDARY_DIAGNOSTIC_ONLY"
+    },
+    "t1_exclusions": [
+      "count and fraction of directional events excluded",
+      "calendar-month distribution",
+      "reason category: END_OF_CONTINUITY_BLOCK / END_OF_DATASET / OTHER_ADMISSIBILITY_FAILURE",
+      "median abs(C_t/C_(t-1)-1) for included vs excluded events where prior H1 is admissible"
+    ],
+    "co_firing_reporting": [
+      "N_BREAKOUT_DIRECTIONAL",
+      "N_MEAN_REVERSION_DIRECTIONAL",
+      "N_CO_FIRING",
+      "N_BREAKOUT_EXCLUSIVE_OTHER_NEUTRAL",
+      "N_BREAKOUT_EXCLUSIVE_OTHER_UNDEFINED",
+      "N_MEAN_REVERSION_EXCLUSIVE_OTHER_NEUTRAL",
+      "N_MEAN_REVERSION_EXCLUSIVE_OTHER_UNDEFINED"
+    ],
+    "co_firing_role": "DESCRIPTIVE_ONLY"
+  },
+  "post_result_integrity_audit": {
+    "symmetry_required": true,
+    "required_prepersistence_fields": [
+      "trigger",
+      "scope",
+      "checks",
+      "application_rule_for_favorable_and_unfavorable_results"
+    ],
+    "silent_post_hoc_rescue_forbidden": true
+  },
+  "paired_execution_firewall": {
+    "both_child_contracts_must_be_persisted_before_any_performance": true,
+    "final_dual_freeze_record_required": true,
+    "future_execution_if_authorized": "ONE GOVERNED DUAL RUN: compute and persist both result envelopes before any human/model review of either result.",
+    "intermediate_result_inspection_forbidden": true,
+    "first_result_may_not_modify_second_contract": true
+  },
+  "non_authorizations": [
+    "PERFORMANCE_OBSERVATION",
+    "BEHAVIORAL_Y_CALCULATION",
+    "REAL_SFE_RESULT_RUN",
+    "PNL",
+    "BACKTEST",
+    "EXECUTION",
+    "OPTIMIZATION",
+    "RANKING",
+    "ROUTER",
+    "REGIME_FILTER",
+    "TD03B_CONSUMPTION",
+    "C01_RESERVED_EVIDENCE_CONSUMPTION",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ]
+}
