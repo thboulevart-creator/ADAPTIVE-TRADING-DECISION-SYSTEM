@@ -1,0 +1,38 @@
+{
+  "atomicity": {
+    "both_envelopes_written_before_manifest": true,
+    "no_result_values_emitted_to_stdout": true,
+    "single_process": true
+  },
+  "contract": "ATDS_SFE_02D_DUAL_RESULT_RUN_V0_1",
+  "dataset_validation": {
+    "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "continuity_blocks": 1436,
+    "file_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+    "first_h1_ms_utc": 1621904400000,
+    "last_h1_ms_utc": 1779660000000,
+    "rows": 27677
+  },
+  "outputs": {
+    "breakout": {
+      "path": "reports/program/2026-10-02-SFE-02D-BREAKOUT-V1-RESULT-ENVELOPE.json",
+      "sha256": "bff35e4269603e7ca16d1659f3ef2afb31c9dc14699ef5ca8cf068b156a14b1d"
+    },
+    "mean_reversion": {
+      "path": "reports/program/2026-10-02-SFE-02D-MEAN-REVERSION-V1-RESULT-ENVELOPE.json",
+      "sha256": "5be94345ea7f2a595206360acba0ddd1fcf24c5c90ad90ef4d35d1b6075a1399"
+    }
+  },
+  "protected_blobs": {
+    "breakout_contract": "55db053489a3c00b015c424297e316e9e5461e38",
+    "breakout_runtime": "60f32b2d054390c2b5dbb975b015d7e09a5a1a96",
+    "freeze_record": "72d3bbb05d76a69c3d5f487500908d3a9c40bc3c",
+    "mean_reversion_contract": "672b059b17413c9058cea749992e0ee08e11f2b4",
+    "mean_reversion_runtime": "273e184093e4cc98f0eb6569cd6f1007366cce40",
+    "run_contract": "4fd8b1adb2bb8e6d2ca11870bdee88fd232c757f",
+    "runner": "29a348648f76e7e234687388b119b2a729b51985",
+    "shared_surface": "0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2"
+  },
+  "schema": "ATDS_SFE_02D_DUAL_RUN_MANIFEST_V0_1",
+  "status": "DUAL_RESULT_ENVELOPES_PRODUCED_NOT_YET_INTERPRETED"
+}
