@@ -1,0 +1,285 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_PRE_EXECUTION_READINESS_V0_1",
+  "status": "CANDIDATE_REQUIREMENT_EXTRACTION_AND_BLOCKER_MAP",
+  "date": "2026-10-02",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "feat/obsidian-projection-real-p5e-pre-execution-readiness-v0.1",
+  "opening_head": "15047e3e60a7973b341bbb05b859cfa26ef71f3f",
+  "authority": {
+    "purpose": "Map and order the prerequisites that must close before any REAL P5-E preregistration or execution.",
+    "requirements_only": true,
+    "runtime_modification_authorized": false,
+    "real_remote_polling_authorized": false,
+    "real_head_evaluation_authorized": false,
+    "vault_or_current_mutation_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "promotion_authorized": false,
+    "publication_authorized": false,
+    "daemon_or_service_registration_authorized": false,
+    "p6_authorized": false
+  },
+  "adopted_predecessor": {
+    "human_adjudication_blob": "76defeedea7ca7cff6af40534e479e7bc2bdd95a",
+    "contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+    "synthetic_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+    "state": "P5E_V0_1_CONTRACT_AND_SYNTHETIC_TIMING_MODEL_QUALIFIED_AND_HUMAN_ADOPTED",
+    "real_p5e": "CLOSED"
+  },
+  "reusable_qualified_or_observed_surfaces": {
+    "p5a_continuous_projection_contract": {
+      "blob": "96ec1a768b8e9ff77d94bbcd36ee513678c258e6",
+      "use": "remote source identity, read-only remote observation intent, 30s candidate poll / 60s target, isolated control checkout principle"
+    },
+    "p5d1_observer_core_contract": {
+      "blob": "a20999ae991e07447e25ecd1592964f2d333449b",
+      "use": "explicit transition classes and fail-closed NON_FAST_FORWARD/UNKNOWN semantics"
+    },
+    "p5d2_observer_tick": {
+      "blob": "fd212f61ec38332b677110f40265638af55a73e2",
+      "use": "deterministic normalized-event consumer; transition_class is caller supplied and is not independently proven"
+    },
+    "p5d4_bounded_loop_contract": {
+      "blob": "6980de1eb55e49c0c2bd2f91620aeb75640753b6",
+      "use": "injected observation_adapter boundary; real read-only Git permitted; timing/sleep explicitly deferred to P5-E"
+    },
+    "p5d4_bounded_loop_runtime": {
+      "blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5",
+      "use": "bounded orchestration only; no time scheduler; no real P5-E authority"
+    },
+    "p5d3f_real_remote_ref_pattern": {
+      "blob": "9228ea75d269c9bfc89537374dec5990498c3e4a",
+      "use": "existing proof pattern for exact git ls-remote --heads origin refs/heads/integration/system-v1 identity validation; not a qualified P5-E observation adapter"
+    },
+    "frozen_git_source": {
+      "blob": "aef3a232980fa6ceb5253d38616419e41182162a",
+      "use": "read-only access to an already frozen exact commit/tree/blob domain; not remote-ref observation or ancestry classification"
+    }
+  },
+  "blockers": {
+    "N4": {
+      "title": "CLOSED_SCHEMA_AND_ADDED_KEY_HARDENING",
+      "status": "OPEN_CONFIRMED",
+      "failure_mode": "A future amendment can add a new authority/claim/timing/queue key and rebind object identity while existing semantic guards do not reject the new key.",
+      "observed_evidence": [
+        "authority_boundary.pending_head_evaluation_override=true survives current assert_contract_invariants",
+        "claim_boundary.additional_current_claims=[P5E_REAL_END_TO_END_QUALIFIED] survives",
+        "near_real_time_timing.poll_interval_seconds_override=300 survives",
+        "queue_and_supersession.coalescing_authorized_v0_2=true survives"
+      ],
+      "recommended_closure": {
+        "preserve_adopted_contract_bytes_if_possible": true,
+        "artifact": "P5E_V0_1_CLOSED_SCHEMA_GUARD",
+        "requirements": [
+          "exact top-level key set",
+          "exact key sets for every nested object used by current or future authority/claim/timing/queue logic",
+          "unexpected keys fail closed independent of covered-object blob binding",
+          "authority and claim lists reject duplicates and unknown enum members where applicable",
+          "added-key adversarial sweep"
+        ],
+        "exit_criterion": "ALL_PREREGISTERED_ADDED_KEY_BREAKERS_REJECTED_WITH_OBJECT_BINDING_TESTS_EXCLUDED"
+      },
+      "dependencies": []
+    },
+    "N5": {
+      "title": "EXACT_TIMING_AND_IDENTITY_BOUNDARY_FREEZE",
+      "status": "OPEN_BEHAVIOR_EXISTS_NOT_FULLY_NORMATIVELY_FROZEN",
+      "observed_current_behavior": {
+        "source_release_exactly_on_slot_is_eligible": true,
+        "source_release_non_aligned_31_first_required_slot": 60,
+        "completion_exactly_on_next_slot_is_allowed": true,
+        "previous_completion_equal_to_next_attempt_start_is_not_overlap": true,
+        "completion_after_next_slot_is_blocked": "ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT",
+        "latency_equal_to_bound_is_eligible_for_pass": true,
+        "uppercase_sha_is_rejected": true,
+        "read_completion_before_attempt_start_is_blocked": true
+      },
+      "failure_mode": "Off-by-one or rounding changes can alter real SLA classification without changing the high-level 30s/60s contract.",
+      "recommended_closure": {
+        "preserve_synthetic_model_bytes_unless_a_test_exposes_inconsistency": true,
+        "artifact": "REAL_P5E_TIMING_BOUNDARY_CONTRACT_V0_1",
+        "tests_required": [
+          "release exactly at 30 and 60",
+          "release immediately after a slot / non-aligned release ceiling rule",
+          "completion exactly at next fixed-rate slot",
+          "completion one unit after next fixed-rate slot",
+          "previous read completion exactly equals next attempt start",
+          "previous read completion exceeds next attempt start",
+          "latency exactly 60 versus greater than 60",
+          "first required slot rounding",
+          "lowercase exact SHA accepted and uppercase/malformed SHA rejected"
+        ],
+        "exit_criterion": "ALL_EQUALITY_AND_ROUNDING_BOUNDARIES_HAVE_EXPLICIT_CONTRACT_RULE_AND_EXECUTABLE_TEST"
+      },
+      "dependencies": ["N4"]
+    },
+    "NB5": {
+      "title": "QUALIFIED_ANCESTRY_CLASSIFIER",
+      "status": "OPEN_CONFIRMED",
+      "failure_mode": "P5-D2 trusts caller-supplied INITIAL/SAME/FAST_FORWARD/NON_FAST_FORWARD/UNKNOWN and cannot prove whether that classification matches the Git graph.",
+      "observed_evidence": [
+        "A→B→A can be supplied to P5-D2 with the second A mislabeled FAST_FORWARD; P5-D2 accepts the class because classification is outside its authority.",
+        "No qualified ancestry classifier exists under tools/obsidian_projection.",
+        "A one-off merge-base use elsewhere in the repository is not qualified as an Obsidian P5-E component."
+      ],
+      "recommended_closure": {
+        "artifact": "REAL_P5E_ANCESTRY_CLASSIFIER_V0_1",
+        "network_inside_classifier_forbidden": true,
+        "input": [
+          "previous_observed_head_or_null",
+          "new_exact_observed_head",
+          "verified_local_git_object_domain"
+        ],
+        "output": [
+          "INITIAL",
+          "SAME",
+          "FAST_FORWARD",
+          "NON_FAST_FORWARD",
+          "UNKNOWN"
+        ],
+        "classification_rules": {
+          "no_previous_head": "INITIAL",
+          "same_head": "SAME",
+          "previous_is_ancestor_of_new": "FAST_FORWARD",
+          "both_commits_verified_but_previous_is_not_ancestor_of_new": "NON_FAST_FORWARD",
+          "missing_object_invalid_type_git_error_or_unprovable_relation": "UNKNOWN"
+        },
+        "local_fixture_cases": [
+          "A→B fast-forward",
+          "B→A rollback",
+          "B and C divergent siblings",
+          "same A→A",
+          "initial null→A",
+          "missing/unreadable commit object",
+          "non-commit object"
+        ],
+        "exit_criterion": "CLASSIFICATION_IS_DERIVED_FROM_VERIFIED_GIT_GRAPH_AND_CANNOT_BE_CALLER_FORGED"
+      },
+      "dependencies": ["N4"]
+    },
+    "NB2_NB3": {
+      "title": "REAL_REMOTE_OBSERVATION_ADAPTER_AND_TIP_VISIBILITY",
+      "status": "OPEN_CONFIRMED",
+      "failure_mode": "A real remote observation is not yet converted into a normalized P5-D2 event with independently proven ancestry; intermediate contained commits can otherwise be confused with actually observed remote tips.",
+      "observed_evidence": [
+        "P5-D4 already exposes an injected observation_adapter boundary and permits read-only Git outside P5-D2.",
+        "P5-D3F contains an exact ls-remote ref validation pattern but does not emit P5-D2 events or classify ancestry.",
+        "P5-E classify_tip_visibility is stateless and trusts caller-supplied fast_forward_contains_target."
+      ],
+      "recommended_closure": {
+        "artifact": "REAL_P5E_REMOTE_OBSERVATION_ADAPTER_V0_1",
+        "initial_qualification_environment": "LOCAL_BARE_REMOTE_OR_SYNTHETIC_NETWORK_ADAPTER_NO_REAL_GITHUB_POLLING",
+        "requirements": [
+          "read exactly one configured remote ref and validate exact ref plus lowercase 40-hex head",
+          "record attempt-start and read-completion monotonic timestamps outside deterministic P5-D2 state",
+          "network/read failure emits REMOTE_OBSERVATION_FAILED and cannot create a CURRENT claim",
+          "same exact head emits SAME",
+          "new exact observed head must be materialized/proven in isolated control Git object storage before ancestry classification",
+          "invoke only the qualified NB5 ancestry classifier",
+          "emit normalized P5-D2 REMOTE_HEAD_OBSERVED event with independently derived transition_class",
+          "only the SHA returned by the successful remote read is an observed remote tip",
+          "intermediate commits discovered by ancestry/history enumeration are CONTENT_CONTAINED_NOT_OBSERVED and must not be injected into the queue unless independently observed on a successful remote read",
+          "exact-fetch/materialization race or inability to prove the observed SHA results in UNKNOWN/BLOCKED rather than retargeting to a newer head",
+          "no canonical worktree mutation, no Vault mutation, no evaluation/promotion authority"
+        ],
+        "NB2_resolution_semantics": "Do not infer motive such as lag, rollback, or third-party push. Classify only the observed sequence and provable Git graph relation. A later observed head that is not a descendant of the previous observed head is NON_FAST_FORWARD; unprovable relation is UNKNOWN.",
+        "NB3_resolution_semantics": "Observation and containment are distinct evidence classes. Containment never becomes exact tip observation.",
+        "exit_criterion": "ADAPTER_OUTPUT_IS_EXACT_REMOTE_EVIDENCE_PLUS_QUALIFIED_ANCESTRY_WITH_NO_CALLER_SUPPLIED_CONTAINMENT_OR_TRANSITION_AUTHORITY"
+      },
+      "dependencies": ["NB5", "N5"]
+    },
+    "NB9": {
+      "title": "CONTROLLED_REAL_EXPERIMENT_PROTOCOL",
+      "status": "OPEN_CONFIRMED",
+      "failure_mode": "There is no preregistered real protocol binding source release, observer schedule, clock domain, target ref, push authority, and read completion into one falsifiable real experiment.",
+      "observed_evidence": [
+        "P5-E adopted metric requires CONTROLLED_SOURCE_RELEASE_MONOTONIC → SUCCESSFUL_REMOTE_READ_COMPLETION_MONOTONIC.",
+        "No REAL P5-E observation adapter currently records that protocol.",
+        "Existing time.monotonic uses elsewhere in Obsidian tooling do not qualify this P5-E experiment.",
+        "Current authority forbids silent mutation of integration/system-v1."
+      ],
+      "recommended_closure": {
+        "artifact": "REAL_P5E_CONTROLLED_EXPERIMENT_PREREGISTRATION_V0_1",
+        "same_clock_domain_required": true,
+        "same_host_preferred": true,
+        "fixed_rate_schedule": {
+          "interval_seconds": 30,
+          "bound_seconds": 60,
+          "attempt_start_and_completion_recorded_separately": true
+        },
+        "source_release_definition_candidate": "MONOTONIC_TIMESTAMP_CAPTURED_IMMEDIATELY_BEFORE_STARTING_THE_EXPLICITLY_AUTHORIZED_PUSH_OF_A_PRECOMPUTED_TARGET_COMMIT",
+        "reason_for_release_definition": "Conservative and locally falsifiable; includes push transport time and cannot detect the target before the recorded release point without exposing an inconsistency.",
+        "safest_first_real_experiment": {
+          "remote_ref": "DEDICATED_EXPERIMENT_REF_NOT_INTEGRATION_SYSTEM_V1",
+          "force_push_forbidden": true,
+          "one_explicit_push_authorization_required": true,
+          "target_commit_precomputed_before_release": true,
+          "producer_clone_isolated_from_canonical_user_worktree": true,
+          "remote_ref_deletion_not_implicitly_authorized": true,
+          "claim_limit": "Qualifies runner/transport/adapter timing on the GitHub remote path but does not by itself qualify branch-specific production behavior for integration/system-v1."
+        },
+        "production_ref_gate_after_safe_experiment": {
+          "integration_system_v1_mutation_may_not_be_created_only_for_measurement": true,
+          "preferred_source_event": "A separately authorized legitimate governed update whose target commit is known before push.",
+          "separate_human_authorization_required": true,
+          "production_ref_sla_claim_requires_its_own_evidence": true
+        },
+        "forbidden": [
+          "silent push to integration/system-v1",
+          "force push",
+          "using GitHub/server wall-clock as the normative measurement origin",
+          "cross-host clocks without proven common monotonic domain",
+          "real Vault/CURRENT mutation",
+          "evaluation, promotion, publication",
+          "daemon/startup/service registration"
+        ],
+        "exit_criterion": "A SELF_CONTAINED_PREREGISTRATION EXISTS_FOR_ONE_FINITE_REAL_EXPERIMENT_WITH_EXACT_REF_RELEASE_CLOCK_SCHEDULE_ADAPTER_AND_STOP_CONDITIONS"
+      },
+      "dependencies": ["N4", "N5", "NB5", "NB2_NB3"]
+    }
+  },
+  "recommended_sequence": [
+    {
+      "id": "RPE-01",
+      "closes": ["N4"],
+      "name": "CLOSED_SCHEMA_GUARD",
+      "reason": "Prevent future prerequisite amendments from creating new unguarded authority keys."
+    },
+    {
+      "id": "RPE-02",
+      "closes": ["N5"],
+      "name": "TIMING_BOUNDARY_FREEZE",
+      "reason": "Freeze exact equality/rounding semantics before any real scheduler or adapter consumes them."
+    },
+    {
+      "id": "RPE-03",
+      "closes": ["NB5"],
+      "name": "ANCESTRY_CLASSIFIER",
+      "reason": "Remove caller authority over FAST_FORWARD/NON_FAST_FORWARD/UNKNOWN before building the real adapter."
+    },
+    {
+      "id": "RPE-04",
+      "closes": ["NB2", "NB3"],
+      "name": "REMOTE_OBSERVATION_ADAPTER",
+      "reason": "Bind exact remote observation evidence to the qualified ancestry classifier and preserve observed-tip versus contained-content semantics."
+    },
+    {
+      "id": "RPE-05",
+      "closes": ["NB9"],
+      "name": "CONTROLLED_REAL_EXPERIMENT_PREREGISTRATION",
+      "reason": "Only after static/runtime prerequisites are qualified should a real network experiment be specified."
+    }
+  ],
+  "post_readiness_gate": {
+    "real_experiment_execution_authorized_by_this_map": false,
+    "required_before_real_experiment": [
+      "RPE-01 QUALIFIED",
+      "RPE-02 QUALIFIED",
+      "RPE-03 QUALIFIED",
+      "RPE-04 QUALIFIED",
+      "RPE-05 PREREGISTERED_AND_HUMAN_ADOPTED",
+      "separate one-shot human execution authorization"
+    ],
+    "mandatory_stop": true
+  }
+}
