@@ -1,0 +1,9 @@
+{
+  "schema": "ATDS_MCEPR_FORWARD_CUTOVER_RECORD_V0_1",
+  "cutover_utc": "2026-10-02T17:18:53Z",
+  "governed_branch": "integration/system-v1",
+  "activation_base_commit": "19a606d06c79f2673b72b925c3790b577e235cd7",
+  "activation_contract_blob": "cf235747fc5218a3f1b492159f82593a6ee51392",
+  "implementation_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+  "breaker_blob": "1bf0f8c6b26ec35bf98aec4e021dc5a0243302ee"
+}
