@@ -1,4 +1,4 @@
-name: SMF03 CORE Post-Integration Qualification
+name: SMF03 CORE Final Canonical Closure Qualification
 
 on:
   push:
@@ -15,14 +15,14 @@ jobs:
       PYTHONHASHSEED: "0"
       TZ: UTC
     steps:
-      - name: Checkout exact canonical integration HEAD
+      - name: Checkout exact final canonical HEAD
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: 3faa6e4b6e1c14082eaedd55cd7a87ec540df1ba
+          ref: 2714cf5bf6d607760c589e334757f395ca903991
 
       - name: Verify exact canonical identity
         run: |
-          test "$(git rev-parse HEAD)" = "3faa6e4b6e1c14082eaedd55cd7a87ec540df1ba"
+          test "$(git rev-parse HEAD)" = "2714cf5bf6d607760c589e334757f395ca903991"
           git rev-parse HEAD
           git rev-parse HEAD^{tree}
 
