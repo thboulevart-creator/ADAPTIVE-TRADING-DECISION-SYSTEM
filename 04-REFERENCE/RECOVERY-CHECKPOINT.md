@@ -21243,3 +21243,113 @@ FALSE
 SFE_01_CHANGED =
 FALSE
 ```
+
+
+---
+
+## 326. G6 — MINIMAL CROSS-EXPERIMENT PROVENANCE REGISTRY — HUMAN ADJUDICATION
+
+This section records a **separate semantic-design adjudication**. It does not attempt to resynchronize the broader SFE program state recorded elsewhere in the repository and does not supersede later SFE artifacts.
+
+Canonical adjudication:
+
+`GOVERNANCE/G6-MINIMAL-CROSS-EXPERIMENT-PROVENANCE-REGISTRY-HUMAN-ADJUDICATION-2026-10-02.md`
+
+Blob:
+
+`93e3c87f24b8933fbdfe25b1806d42233b6ec328`
+
+Decision:
+
+```text
+G6_VERDICT =
+ADOPT
+
+ADOPTED_OBJECT =
+MINIMAL CROSS-EXPERIMENT PROVENANCE REGISTRY
+SEMANTIC DESIGN G5-R1
+
+DESIGN_STATUS =
+HUMAN_ADOPTED_FOR_SEMANTIC_DESIGN ONLY
+```
+
+Adopted scope is limited to:
+
+- reuse of the existing research-registry concept;
+- program-evidence persistence outside runtime;
+- content-bound parent-linked registry history;
+- immutable content-bound event and relation identities;
+- minimal relation vocabulary `INFORMED_BY / PREREGISTERED_BY / RESERVED_FOR / CLASSIFIED_BY`;
+- typed, immutable, resolvable decisive references;
+- explicit supersession instead of silent rewrite;
+- unexplained fork = `BLOCKED`;
+- no inference from absence of record to absence of event/influence/exposure;
+- no automatic `N_budget` or `N_famille`;
+- no registry self-adjudication of scientific classification or family membership;
+- no autonomous scientific or operational authority.
+
+Fundamental limits remain explicit:
+
+```text
+REGISTRY_COMPLETE = NOT_CLAIMED
+UNRECORDED_HUMAN_COGNITION = NOT_SOLVED
+DISHONEST_DECLARATION = NOT_SOLVED
+UNKNOWN_UNKNOWN_EXPOSURE = NOT_SOLVED
+```
+
+Non-authorizations:
+
+```text
+IMPLEMENTATION = NOT_AUTHORIZED
+RUNTIME_CHANGE = NOT_AUTHORIZED
+P1_MODIFICATION = NOT_AUTHORIZED
+SFE_MODIFICATION = NOT_AUTHORIZED
+MEMORY_ENGINE_MODIFICATION = NOT_AUTHORIZED
+DECISION_MODIFICATION = NOT_AUTHORIZED
+BACKTEST = NOT_AUTHORIZED_BY_G6
+PERFORMANCE_OBSERVATION = NOT_AUTHORIZED_BY_G6
+STRATEGY_CHANGE = NOT_AUTHORIZED
+AUTOMATIC_AUTHORITY = NOT_AUTHORIZED
+AUTOMATIC_PROMOTION = NOT_AUTHORIZED
+AUTOMATIC_N_BUDGET = NOT_AUTHORIZED
+AUTOMATIC_N_FAMILLE = NOT_AUTHORIZED
+```
+
+Only candidate downstream frontier created by this adjudication:
+
+```text
+IMPLEMENTATION CONTRACT V0.1
+— MINIMAL CROSS-EXPERIMENT PROVENANCE REGISTRY
+
+STATUS =
+NOT_AUTHORIZED
+REQUIRES SEPARATE HUMAN AUTHORIZATION
+```
+
+Required properties if later opened:
+
+```text
+MINIMAL
+TEST_FIRST
+FAIL_CLOSED
+DELTA_ONLY
+NO_RUNTIME_COUPLING
+NO_AUTHORITY_EXPANSION
+```
+
+```text
+G6_PERSISTENCE_STATUS =
+CANONICAL
+
+SCIENTIFIC_STATE_CHANGED_BY_G6 =
+FALSE
+
+RUNTIME_CHANGED_BY_G6 =
+FALSE
+
+AUTHORITY_EXPANDED_BY_G6 =
+FALSE
+
+STOP =
+TRUE
+```
