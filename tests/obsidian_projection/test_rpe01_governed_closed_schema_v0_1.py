@@ -31,7 +31,8 @@ def load_guard():
 def load_schema():
     if not P5E_SCHEMA_PATH.exists():
         raise AssertionError(f"required governed schema missing: {P5E_SCHEMA_PATH}")
-    return json.loads(P5E_SCHEMA_PATH.read_text(encoding="utf-8"))
+    g = load_guard()
+    return g.parse_schema_json_strict(P5E_SCHEMA_PATH.read_text(encoding="utf-8"))
 
 
 def current_contract_raw() -> str:
@@ -120,6 +121,14 @@ class SchemaDefinitionTests(unittest.TestCase):
         schema["root"]["fields"]["interval_ns"]["kind"] = "number"
         with self.assertRaises(g.GovernedSchemaError):
             g.validate_schema_definition(schema)
+
+    def test_raw_schema_duplicate_member_and_nan_are_rejected(self):
+        g = load_guard()
+        duplicate = '{"schema":"ATDS_GOVERNED_JSON_SCHEMA_V0_1","artifact_role":"A","artifact_role":"B","root":{"kind":"null"}}'
+        with self.assertRaises(g.GovernedSchemaError):
+            g.parse_schema_json_strict(duplicate)
+        with self.assertRaises(g.GovernedSchemaError):
+            g.parse_schema_json_strict('{"schema":"ATDS_GOVERNED_JSON_SCHEMA_V0_1","artifact_role":"A","root":{"kind":"integer","minimum":NaN}}')
 
 
 class StrictTypeAndListTests(unittest.TestCase):
@@ -215,6 +224,29 @@ class P5EConcreteSchemaTests(unittest.TestCase):
         stages[0], stages[1] = stages[1], stages[0]
         with self.assertRaises(g.GovernedSchemaError):
             g.validate_governed_json(json.dumps(reordered), schema)
+
+
+class SchemaBindingTests(unittest.TestCase):
+    def test_p5e_schema_source_binding_matches_current_contract_blob(self):
+        import subprocess
+
+        schema = load_schema()
+        binding = schema["source_binding"]
+        self.assertEqual(
+            binding["path"],
+            "tools/obsidian_projection/p5e_end_to_end_near_real_time_contract_v0_1.json",
+        )
+        actual = subprocess.check_output(
+            [
+                "git",
+                "hash-object",
+                "--path=" + binding["path"],
+                binding["path"],
+            ],
+            cwd=ROOT,
+            text=True,
+        ).strip()
+        self.assertEqual(actual, binding["git_blob"])
 
 
 class GuardPurityTests(unittest.TestCase):

@@ -1,0 +1,62 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE01_GOVERNED_CLOSED_SCHEMA_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_EXTERNAL_REVIEW",
+  "date": "2026-10-02",
+  "base_adopted_readiness_head": "d904eb61d9b704dc8ac38da445eb1cd491a58b33",
+  "preregistration_blob": "406e67da3ab197c5a9ae4b3e971368549af6e1da",
+  "red_test_blob": "803709c26769fc9889b4ac1e47c0dd8df2782580",
+  "red_report_blob": "b3a7df32198fd5a618f927c83d04d5f3a6491050",
+  "guard_blob": "3f61b9191e0ee7fb8c18fdecf60f45c586c74629",
+  "p5e_schema_blob": "87e45cc75753439879e2902d3cbdbd5d71d8a1b2",
+  "green_test_blob": "391663ee2b8634c0221b5352c8d1242bfdb3c04e",
+  "mutation_sweep_test_blob": "bad495950ddce5c171cac4c667e40654c6673724",
+  "covered_adopted_p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+  "covered_adopted_p5e_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+  "covered_p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5",
+  "results": {
+    "rpe01_targeted_tests": "22/22 PASS",
+    "schema_mutation_sweep": {
+      "attempted": 433,
+      "survivors": 0
+    },
+    "p5e_plus_rpe01_targeted_regression": "89/89 PASS",
+    "contract_diff_from_adopted_readiness_head": 0,
+    "model_diff_from_adopted_readiness_head": 0,
+    "p5d4_runtime_diff_from_adopted_readiness_head": 0
+  },
+  "qualified_properties": [
+    "duplicate JSON members rejected before dictionary construction",
+    "NaN and +/-Infinity rejected",
+    "closed object key sets at every covered P5-E contract object depth",
+    "strict integer/boolean/string/null typing",
+    "float/scientific-float values rejected where integer is required",
+    "closed enum capability",
+    "normative list uniqueness",
+    "closed normative list vocabulary",
+    "real_end_to_end_stages exact order",
+    "schema definition itself strictly parsed and strictly validated",
+    "guard source contains no environment/CLI/network/filesystem-discovery authority",
+    "P5-E schema source binding matches adopted P5-E contract Git blob",
+    "adjacent configuration unknown authority/environment/CLI override keys rejected by closed schema"
+  ],
+  "guard_binding_policy": {
+    "this_guard_blob_is_the_qualified_guard_identity": "3f61b9191e0ee7fb8c18fdecf60f45c586c74629",
+    "this_p5e_schema_blob_is_the_qualified_schema_identity": "87e45cc75753439879e2902d3cbdbd5d71d8a1b2",
+    "any_guard_or_schema_change_requires_requalification": true
+  },
+  "real_state_fingerprints_unchanged": {
+    "observer_events_sha256": "54223895a720e98e0f686e4882f098f2d93324d0e0d4a06164e58ac864eda4af",
+    "observer_checkpoint_sha256": "c737e064461bd8562cbfe21ff68e28556bc2ce0cb74abe2d59c89c9b0cca13d4",
+    "last_run_sha256": "eb555cadff72152553b460068cb89964b8b9cd40b7b47e8a82594e26fc47d259"
+  },
+  "claim_boundary": {
+    "rpe01_implemented": true,
+    "rpe01_qualified_for_external_review": true,
+    "rpe01_human_adopted": false,
+    "rpe02_opened": false,
+    "real_p5e_qualified": false,
+    "real_p5e_authorized": false
+  },
+  "next_gate": "EXTERNAL_REVIEW_THEN_HUMAN_ADOPTION",
+  "stop": true
+}
