@@ -1,0 +1,102 @@
+{
+  "schema": "ATDS_SFE_02C_A_BREAKOUT_V1_EXPERIMENT_CONTRACT_V0_1",
+  "control_id": "SFE-02C-A",
+  "experiment_id": "BREAKOUT_V1_SOURCE_B_USTECH_H1_E1_EXPOSED_EXPLORATORY_V0_1",
+  "date": "2026-10-02",
+  "status": "HUMAN_AUTHORIZED_PREREGISTERED_CANDIDATE_NO_PERFORMANCE_AUTHORITY",
+  "shared_surface": {
+    "path": "GOVERNANCE/SFE-02C-DUAL-EXPERIMENT-SHARED-SURFACE-V0.1.json",
+    "blob": "0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2"
+  },
+  "strategy_binding": {
+    "strategy_id": "BREAKOUT_V1",
+    "adopted_definition_blob": "027c42b38bf9c74415b21e98bcce19124f744995",
+    "adjudication_blob": "66aa556e4e161e49550451062273bc8d6422593c",
+    "implementation_path": "tools/sfe_02a_breakout_v1.py",
+    "implementation_blob": "60f32b2d054390c2b5dbb975b015d7e09a5a1a96",
+    "implementation_closure_blob": "b88d7468394913606b5931b1c3cc070631e19912",
+    "signal_rule_change": false,
+    "parameter_change": false
+  },
+  "dataset_adapter": {
+    "source_row_field_map": {
+      "bar_start_ms_utc": "h1_start_ms_utc",
+      "continuity_block_id": "continuity_block_id",
+      "continuity_ordinal": "continuity_ordinal",
+      "close": "mid_close"
+    },
+    "source_segment_id_ignored_by_strategy_signal": true,
+    "canonical_h1_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f"
+  },
+  "exposure": {
+    "class": "EXPLORATORY",
+    "status": "E1_EXPOSED",
+    "pristine_confirmatory": false,
+    "reason": [
+      "Evaluation uses the same qualified historical USTECH H1 evidence surface previously inspected under E1.",
+      "BREAKOUT_V1 directional events structurally imply same-direction MOMENTUM_V1 states under the shared H1/lookback-20 representation."
+    ],
+    "future_relabel_to_pristine_forbidden": true
+  },
+  "hypothesis": {
+    "behavioral_claim": "For valid BREAKOUT_V1 directional events on this exact exposed H1 surface, the expected immediately-following admissible H1 directional response is positive.",
+    "primary_estimand": "mean(Y_BREAKOUT) over ALL VALID BREAKOUT_V1 DIRECTIONAL EVENTS",
+    "effect_reference": "RAW_ZERO",
+    "predicted_direction": "theta_BREAKOUT > 0",
+    "profitability_claim": false
+  },
+  "event_generation": {
+    "signal_runtime_must_match_blob": "60f32b2d054390c2b5dbb975b015d7e09a5a1a96",
+    "event_definition": "EVERY eligible H1 bar with signal LONG or SHORT",
+    "warmup": "continuity_ordinal < 20 => UNDEFINED",
+    "t1_admissibility": "Use shared-surface exact rule; no synthetic t+1.",
+    "outcome": "Y_t = (+1 for LONG, -1 for SHORT) * (C_(t+1)/C_t - 1)"
+  },
+  "evidence_sufficiency": "INHERIT EXACTLY FROM SHARED SURFACE BLOB 0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2",
+  "inference": "INHERIT EXACTLY FROM SHARED SURFACE BLOB 0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2",
+  "primary_decision_surface": "ALL_DIRECTIONAL_EVENTS",
+  "descriptive_only_surfaces": [
+    "LONG_ONLY",
+    "SHORT_ONLY",
+    "CO_FIRING_WITH_MEAN_REVERSION",
+    "BREAKOUT_EXCLUSIVE_WHILE_MEAN_REVERSION_NEUTRAL",
+    "BREAKOUT_EXCLUSIVE_WHILE_MEAN_REVERSION_UNDEFINED"
+  ],
+  "result_mapping": {
+    "data_or_identity_gate_failure": "NOT_INTERPRETABLE",
+    "evidence_sufficiency_failure": "NOT_INTERPRETABLE / INSUFFICIENT_EVIDENCE",
+    "degenerate_inference": "NOT_INTERPRETABLE / DEGENERATE_INFERENCE",
+    "lower_confidence_bound_gt_zero": "SUPPORTED_ON_THIS_EXPLORATORY_E1_EXPOSED_SURFACE",
+    "upper_confidence_bound_lte_zero": "REFUTED_ON_THIS_EXPLORATORY_E1_EXPOSED_SURFACE",
+    "confidence_interval_spans_zero": "NOT_INTERPRETABLE / NON_DECISIVE_STATISTICAL_EVIDENCE"
+  },
+  "mandatory_reporting": [
+    "all shared-surface diagnostics",
+    "theta_BREAKOUT",
+    "cluster-jackknife SE",
+    "97.5% two-sided Bonferroni-adjusted confidence interval",
+    "result status",
+    "exact strategy runtime blob",
+    "exact H1 canonical stream SHA-256",
+    "event and block counts",
+    "t+1 exclusions",
+    "unconditional drift diagnostic",
+    "co-firing/exclusive descriptive counts"
+  ],
+  "contamination_firewall": {
+    "mean_reversion_contract_must_be_persisted_before_any_breakout_performance": true,
+    "dual_freeze_record_required_before_any_breakout_performance": true,
+    "breakout_result_may_not_be_inspected_before_mean_reversion_result_is_persisted_in_future_dual_run": true
+  },
+  "authority": {
+    "contract_persistence_authorized": true,
+    "performance_observation_authorized": false,
+    "behavioral_y_calculation_authorized": false,
+    "real_result_run_authorized": false,
+    "pnl_authorized": false,
+    "execution_authorized": false,
+    "optimization_authorized": false,
+    "ranking_authorized": false
+  },
+  "stop": true
+}
