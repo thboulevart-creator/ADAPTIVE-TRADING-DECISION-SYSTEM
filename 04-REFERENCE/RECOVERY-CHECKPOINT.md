@@ -20881,3 +20881,365 @@ Next candidate boundary:
 ```text
 E1-08B — exact one-shot re-authorization against post-R2 state
 ```
+
+---
+
+## 325. DURABLE MEMORY SYNCHRONIZATION — CURRENT CANONICAL STATE THROUGH SFE-01 V0.2 ADOPTION
+
+Date:
+2026-10-02
+
+Purpose:
+
+```text
+DOCUMENTARY_RECOVERY_SYNC_ONLY
+NO_SCIENTIFIC_STATE_CHANGE
+NO_RUNTIME_CHANGE
+NO_AUTHORITY_EXPANSION
+```
+
+Pre-sync canonical base:
+
+```text
+repository =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+branch =
+integration/system-v1
+
+PRE_SYNC_HEAD =
+77fedcec4906d01a85a275b2d5c02e059e28d23f
+
+PRE_SYNC_TREE =
+e1e8317f0db2a47e152e3bcada1afafcf3337f3a
+```
+
+This synchronization records already-canonical state that post-dates checkpoint entry 324. It does not retroactively alter the scientific meaning, authority, tests, runtime, strategies, datasets, or evidence of the referenced work.
+
+### 325.1 E1 exploratory experiment — closed with durable memory
+
+Canonical artifact:
+
+`reports/program/2026-09-29-E1-EXPERIMENTAL-MEMORY-FINAL.md`
+
+Blob:
+
+`46450fea882f453335fcca7851df9764fc1ddf5c`
+
+Persisted state:
+
+```text
+E1_EXPERIMENTAL_MEMORY =
+ADOPTED_FOR_PERSISTENCE
+
+E1_EVIDENCE_REVIEW =
+CLOSED
+
+E1_EXPLORATORY_EXPERIMENT =
+CLOSED
+
+STRATEGY_VALIDATED =
+FALSE
+
+NEW_BACKTEST =
+NOT_AUTHORIZED
+
+NEXT_EXPERIMENT =
+NOT_AUTHORIZED
+```
+
+Critical execution history preserved by the canonical E1 memory:
+
+```text
+E1-REAL-001 =
+ABORTED_PRE_OOS
+AUTHORITY_EXECUTOR_MISMATCH
+OOS_EXPOSED = FALSE
+
+E1-REAL-002 =
+ABORTED_AFTER_OOS_COMPUTATION
+E1_07_INVALID_ENVIRONMENT_DESCRIPTOR
+OOS_EXPOSED = TRUE
+
+E1-REAL-003 =
+PASS
+REPRODUCTION_OF_EXPOSED_OOS
+OOS_UNTOUCHED = FALSE
+OOS_CLEAN = FALSE
+```
+
+The E1 OOS is permanently exposed and cannot regain pristine / independent-confirmation status.
+
+### 325.2 Architecture V2 — adopted with amendments
+
+Canonical artifact:
+
+`GOVERNANCE/ATDS-ARCHITECTURE-V2-HUMAN-ADJUDICATION-2026-10-01.md`
+
+Blob:
+
+`1817969d1b2431be3476a7ab4b52b61e8f5da172`
+
+State:
+
+```text
+ARCHITECTURE_V2 =
+HUMAN_ADOPTED_WITH_AMENDMENTS
+
+P22-04 =
+NOT_AUTHORIZED
+
+UU-P1 =
+FUTURE_BOUNDARY_NOT_AUTHORIZED
+
+UU-P2 =
+FUTURE_BOUNDARY_NOT_AUTHORIZED
+
+UU-P3 =
+FUTURE_BOUNDARY_NOT_AUTHORIZED
+
+RISK_ENGINE =
+NOT_AUTHORIZED
+
+PORTFOLIO_ENGINE =
+NOT_AUTHORIZED
+```
+
+Preserved authority invariant:
+
+```text
+NO MODEL
+NO PLAN
+NO CONTROL
+NO AGENT
+NO LLM
+
+MAY GRANT ITSELF
+CONSEQUENTIAL AUTHORITY
+OR CLOSE ITS OWN
+CONSEQUENTIAL FINDING
+```
+
+### 325.3 P1.16 — final persisted-state re-break closed
+
+Canonical artifact:
+
+`reports/program/2026-10-01-P1-16-FINAL-PERSISTED-STATE-REBREAK-CLOSURE.md`
+
+Blob:
+
+`8839e6df3ea0ccff69ec82fdfccb1527e5601faf`
+
+State:
+
+```text
+P1_16_PROTECTED_CHAIN_REBREAK =
+PASS
+
+P1_16_EXACT_ENVIRONMENT_VERIFICATION =
+PASS
+
+P1_16_PERSISTED_STATE_REBREAK =
+PASS
+
+P1_16_FINAL =
+PASS
+
+P1_16 =
+CLOSED
+```
+
+P1.16 does not create durable knowledge, decision authority, operational authority, trading authority, broker authority, live authority, or capital authority.
+
+### 325.4 Strategy Family Expansion — SFE-01 path
+
+The 2026-10-01 end-of-day checkpoint records the path:
+
+```text
+SFE-01 V0.1
+→ external adversarial review
+→ review findings F01-F16
+→ targeted V0.2 closure
+→ V0.2 external adversarial re-review
+```
+
+Canonical V0.1:
+
+`GOVERNANCE/SFE-01-DUAL-STRATEGY-FAMILY-DEFINITION-CANDIDATE-V0.1.md`
+
+Blob:
+
+`99d1698d303797b25ed7c140c5ad43f276cefe2c`
+
+Canonical V0.2:
+
+`GOVERNANCE/SFE-01-DUAL-STRATEGY-FAMILY-DEFINITION-CANDIDATE-V0.2.md`
+
+Blob:
+
+`027c42b38bf9c74415b21e98bcce19124f744995`
+
+The V0.1 review did not validate either strategy family; it identified documentary/specification defects. V0.2 preserved the frozen V1 signal rules and parameters while addressing the review surface.
+
+### 325.5 SFE-01 V0.2 — human adoption with amendments
+
+Canonical adjudication:
+
+`GOVERNANCE/SFE-01-V0.2-HUMAN-ADJUDICATION-2026-10-02.md`
+
+Blob:
+
+`66aa556e4e161e49550451062273bc8d6422593c`
+
+State:
+
+```text
+SFE_01_V0_2 =
+HUMAN_ADOPTED_WITH_AMENDMENTS
+
+BREAKOUT_V1_DEFINITION =
+HUMAN_ADOPTED
+UNTESTED
+
+MEAN_REVERSION_V1_DEFINITION =
+HUMAN_ADOPTED
+UNTESTED
+
+V0_2_EXTERNAL_REVIEW =
+PASS_WITH_NON_BLOCKING_FINDINGS
+
+ARCHITECTURE_V2_STATUS =
+HUMAN_ADOPTED_WITH_AMENDMENTS
+
+PERFORMANCE_OBSERVATION =
+NOT_AUTHORIZED
+
+SFE_02A =
+NOT_AUTHORIZED
+
+SFE_02B =
+NOT_AUTHORIZED
+```
+
+Adoption establishes documentary strategy-family definitions only. It does not establish performance, profitability, robustness, implementation, execution, or production readiness.
+
+Binding downstream obligations include, where applicable:
+
+- semantic exposure rather than exact-data-overlap-only exposure;
+- default to EXPOSED when exposure status is reasonably uncertain;
+- protection of evidence reserved for other experiments;
+- persisted preregistration before performance observation;
+- multiplicity handling when more than one inferential claim is made;
+- numerical semantics frozen before implementation.
+
+### 325.6 Preserved separate debts / non-authorizations
+
+This recovery synchronization does not open or mutate:
+
+```text
+A0 =
+NOT_CURRENT_FRONTIER
+
+C01 =
+NOT_CURRENT_FRONTIER
+
+E1_RERUN =
+NOT_AUTHORIZED
+
+MOMENTUM_V1_MODIFICATION =
+NOT_AUTHORIZED
+
+E1-TD / TD03B =
+SEPARATE
+NO_MUTATION_OR_EVENT_CONSUMPTION_AUTHORIZED_BY_THIS_SYNC
+
+P22-04 =
+NOT_AUTHORIZED
+
+PHASE_23 =
+NOT_AUTHORIZED
+
+UU-P1 / UU-P2 / UU-P3 =
+NOT_AUTHORIZED
+
+RISK_ENGINE =
+NOT_AUTHORIZED
+
+PORTFOLIO_ENGINE =
+NOT_AUTHORIZED
+
+MT5 =
+NOT_AUTHORIZED
+
+PAPER =
+NOT_AUTHORIZED
+
+BROKER =
+NOT_AUTHORIZED
+
+LIVE =
+NOT_AUTHORIZED
+
+CAPITAL =
+NOT_AUTHORIZED
+```
+
+### 325.7 Current canonical frontier
+
+The SFE-01 V0.2 adoption supersedes the 2026-10-01 checkpoint's prior waiting state for external re-review.
+
+The exact current next action from the canonical adjudication is:
+
+```text
+NEXT_ACTION =
+HUMAN CHOICE OF WHICH SEPARATE DOWNSTREAM CONTRACT TO AUTHORIZE
+```
+
+Therefore:
+
+```text
+SFE-02A =
+NOT_AUTHORIZED
+
+SFE-02B =
+NOT_AUTHORIZED
+
+NEW_IMPLEMENTATION =
+NOT_AUTHORIZED
+
+BACKTEST =
+NOT_AUTHORIZED
+
+PERFORMANCE_OBSERVATION =
+NOT_AUTHORIZED
+
+STOP =
+TRUE
+```
+
+No downstream contract is opened by this recovery synchronization.
+
+### 325.8 Recovery-memory synchronization status
+
+This entry is paired with:
+
+`99-BACKUP/SESSION-2026-10-02-ATDS-DURABLE-MEMORY-SYNC.md`
+
+The operation is documentary only.
+
+```text
+RECOVERY_CHECKPOINT_CURRENT_THROUGH_SFE01_ADOPTION =
+TRUE
+
+SCIENTIFIC_STATE_CHANGED =
+FALSE
+
+RUNTIME_CHANGED =
+FALSE
+
+AUTHORITY_EXPANDED =
+FALSE
+
+SFE_01_CHANGED =
+FALSE
+```
