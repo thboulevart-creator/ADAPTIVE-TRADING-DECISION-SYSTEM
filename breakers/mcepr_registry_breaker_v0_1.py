@@ -1,5 +1,3 @@
-[Reading 623 lines from start (total: 623 lines, 0 remaining)]
-
 from __future__ import annotations
 
 import argparse
@@ -623,5 +621,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
-[executed on device: DESKTOP-49BN9M3 (fee0d805-3594-4239-925d-0d80cc344847)]
