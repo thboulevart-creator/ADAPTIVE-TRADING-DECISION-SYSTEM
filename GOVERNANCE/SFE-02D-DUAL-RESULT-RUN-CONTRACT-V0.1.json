@@ -1,0 +1,115 @@
+{
+  "schema": "ATDS_SFE_02D_DUAL_RESULT_RUN_CONTRACT_V0_1",
+  "control_id": "SFE-02D",
+  "date": "2026-10-02",
+  "status": "HUMAN_AUTHORIZED_DUAL_RESULT_RUN_QUALIFICATION",
+  "authority": {
+    "exact_dataset_revalidation_authorized": true,
+    "dual_behavioral_y_calculation_authorized": true,
+    "dual_result_envelope_persistence_authorized": true,
+    "preregistered_inference_authorized": true,
+    "result_inspection_only_after_both_persisted": true,
+    "pnl_authorized": false,
+    "execution_authorized": false,
+    "optimization_authorized": false,
+    "ranking_authorized": false,
+    "router_authorized": false,
+    "regime_filter_authorized": false,
+    "td03b_consumption_authorized": false,
+    "c01_reserved_evidence_consumption_authorized": false
+  },
+  "frozen_dependencies": {
+    "shared_surface_blob": "0fcf3ce86033b5d8b75caa0a1f18cc6b64fd54a2",
+    "breakout_contract_blob": "55db053489a3c00b015c424297e316e9e5461e38",
+    "mean_reversion_contract_blob": "672b059b17413c9058cea749992e0ee08e11f2b4",
+    "dual_freeze_record_blob": "72d3bbb05d76a69c3d5f487500908d3a9c40bc3c",
+    "breakout_runtime_blob": "60f32b2d054390c2b5dbb975b015d7e09a5a1a96",
+    "mean_reversion_runtime_blob": "273e184093e4cc98f0eb6569cd6f1007366cce40",
+    "e1_h1_qualification_blob": "534233d63a01c42c6b4de8979cca8dcb2feb7bc7"
+  },
+  "dataset_requirements": {
+    "local_filename": "E1-H1-MID-CLOSE.jsonl",
+    "recorded_file_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0",
+    "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "expected_rows": 27677,
+    "expected_continuity_blocks": 1436,
+    "expected_first_h1_ms_utc": 1621904400000,
+    "expected_last_h1_ms_utc": 1779660000000,
+    "source_fields_exact": [
+      "h1_start_ms_utc",
+      "source_segment_id",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "mid_close"
+    ],
+    "mismatch_status": "BLOCKED"
+  },
+  "no_peek_atomicity": {
+    "rule": "Both result envelopes MUST be produced in one process and persisted in one Git commit before either envelope content is inspected by a human or model.",
+    "stdout_before_persistence": [
+      "dataset validation status only",
+      "output file existence only",
+      "cryptographic hashes only",
+      "commit/push status only"
+    ],
+    "stdout_forbidden_before_persistence": [
+      "theta",
+      "SE",
+      "confidence interval",
+      "event counts",
+      "LONG/SHORT counts",
+      "SUPPORTED/REFUTED/NOT_INTERPRETABLE status",
+      "any strategy-conditioned return statistic",
+      "any comparative interpretation"
+    ],
+    "intermediate_result_file_inspection_forbidden": true,
+    "separate_commits_for_family_envelopes_forbidden": true
+  },
+  "output_paths": {
+    "breakout_envelope": "reports/program/2026-10-02-SFE-02D-BREAKOUT-V1-RESULT-ENVELOPE.json",
+    "mean_reversion_envelope": "reports/program/2026-10-02-SFE-02D-MEAN-REVERSION-V1-RESULT-ENVELOPE.json",
+    "dual_run_manifest": "reports/program/2026-10-02-SFE-02D-DUAL-RUN-MANIFEST.json"
+  },
+  "computation": {
+    "rules_source": "SFE-02C shared surface and child contracts; no post-freeze changes",
+    "all_directional_events_primary": true,
+    "t1_must_be_same_block_next_hour_next_ordinal": true,
+    "raw_zero_reference": true,
+    "evidence_gates": {
+      "min_total_events": 100,
+      "min_long_events": 20,
+      "min_short_events": 20,
+      "min_event_bearing_blocks": 30
+    },
+    "inference": {
+      "fixed_block_formula": "floor((continuity_ordinal - 20)/20)",
+      "method": "cluster jackknife over event-bearing fixed 20-H1 blocks",
+      "multiplicity": "Bonferroni across 2 decision-bearing family experiments",
+      "familywise_alpha": 0.05,
+      "per_family_two_sided_alpha": 0.025,
+      "critical_value": 2.241402727604947
+    },
+    "decision": {
+      "lower_bound_gt_zero": "SUPPORTED_ON_THIS_EXPLORATORY_E1_EXPOSED_SURFACE",
+      "upper_bound_lte_zero": "REFUTED_ON_THIS_EXPLORATORY_E1_EXPOSED_SURFACE",
+      "otherwise": "NOT_INTERPRETABLE / NON_DECISIVE_STATISTICAL_EVIDENCE"
+    }
+  },
+  "post_persistence_sequence": [
+    "verify pushed commit is canonical integration/system-v1 HEAD or ancestor with no conflicting mutation",
+    "read both result envelopes together",
+    "apply only preregistered interpretation",
+    "persist SFE-02D qualification/closure",
+    "STOP"
+  ],
+  "forbidden_claims": [
+    "PROFITABILITY",
+    "PNL",
+    "ECONOMIC_EDGE",
+    "COMPARATIVE_SUPERIORITY",
+    "ROBUSTNESS",
+    "SOURCE_INDEPENDENT_CONFIRMATION",
+    "PRODUCTION_READINESS"
+  ],
+  "stop": true
+}
