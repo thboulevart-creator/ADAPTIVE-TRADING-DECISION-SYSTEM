@@ -1,0 +1,341 @@
+{
+  "schema": "ATDS_MCEPR_ACTIVATION_CONTRACT_AMENDMENT_V0_2",
+  "control_id": "MCEPR-ACTIVATION-V0.2-BOUNDED-PILOT-MACRO-AUTHORIZATION",
+  "status": "DOCUMENTARY_AMENDMENT_QUALIFIED_FUTURE_PILOT_NOT_AUTHORIZED",
+  "date": "2026-10-02",
+  "governed_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "governed_branch": "integration/system-v1",
+  "parent_contract": {
+    "path": "GOVERNANCE/MCEPR-ACTIVATION-CONTRACT-V0.1.json",
+    "blob": "cf235747fc5218a3f1b492159f82593a6ee51392",
+    "inheritance_rule": "ALL_V0_1_RULES_REMAIN_IN_FORCE_EXCEPT_EXACT_CLAUSES_EXPLICITLY_REPLACED_BY_THIS_AMENDMENT"
+  },
+  "bound_dependencies": {
+    "g6_adjudication_blob": "93e3c87f24b8933fbdfe25b1806d42233b6ec328",
+    "implementation_contract_v0_1_blob": "55957058f610cca9de2e20b52d2ad1335f194d16",
+    "frozen_breaker_v0_1_blob": "1bf0f8c6b26ec35bf98aec4e021dc5a0243302ee",
+    "expected_red_qualification_blob": "9ffced946746c73207f7c0e20676e0764da9b659",
+    "minimal_implementation_v0_1_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+    "green_qualification_blob": "5fbf3bf9a79b50c5df41b017bd082133db7ce1cf",
+    "activation_contract_v0_1_blob": "cf235747fc5218a3f1b492159f82593a6ee51392",
+    "activation_contract_v0_1_qualification_blob": "c08fcac0d2b2d363cf6a43eafdfe29432902e8e5",
+    "forward_cutover_v0_1_blob": "2e2528e908ffefaa4451fe9b41ca639943d2415d",
+    "effective_cutover_utc": "2026-10-02T17:19:21Z"
+  },
+  "authority": {
+    "amendment_definition_authorized": true,
+    "documentary_adversarial_review_authorized": true,
+    "documentary_corrections_authorized": true,
+    "future_pilot_execution_authorized": false,
+    "genesis_segment_creation_authorized": false,
+    "real_event_persistence_authorized": false,
+    "real_relation_persistence_authorized": false,
+    "historical_backfill_authorized": false,
+    "automated_producer_authorized": false,
+    "automated_consumer_authorized": false,
+    "runtime_integration_authorized": false,
+    "scientific_auto_adjudication_authorized": false,
+    "automatic_n_budget_authorized": false,
+    "automatic_n_famille_authorized": false,
+    "automatic_promotion_authorized": false,
+    "trading_authority_authorized": false
+  },
+  "objective": {
+    "human_authority": "PRESERVED",
+    "human_intermediation": "REDUCED_ONLY_FOR_MECHANICALLY_DETERMINED_STEPS",
+    "fail_closed_guarantees": "UNCHANGED_OR_STRONGER",
+    "semantic_authority_expansion": "NONE"
+  },
+  "exact_replacements": [
+    {
+      "v0_1_clause": "first_real_event_eligibility.all_required: human approves the exact candidate segment blob before canonical append",
+      "v0_2_rule": "during a separately human-authorized bounded pilot, exact per-segment human blob approval is replaced by prior human approval of the exact V0.2 macro envelope; candidate construction, validation and persistence remain mandatory"
+    },
+    {
+      "v0_1_clause": "manual_pilot.each_append_requires_human_approval_of_exact_segment_blob = true",
+      "v0_2_rule": "for the separately authorized macro pilot only, per-append human approval is not required; every append must remain inside the exact macro bounds and pass all deterministic and semantic admission gates"
+    },
+    {
+      "v0_1_clause": "append_protocol obtain human approval bound to candidate blob",
+      "v0_2_rule": "replace with verify active macro authorization binding and candidate compliance with the exact frozen derivation/admission rules"
+    },
+    {
+      "v0_1_clause": "mcepr_head_changed => rebuild and require new exact human approval",
+      "v0_2_rule": "candidate becomes stale; fresh full-chain revalidation and deterministic rebuild are mandatory; human reapproval is not required while the separately authorized macro envelope remains valid and no STOP condition is met"
+    }
+  ],
+  "bounded_macro_envelope": {
+    "status": "DEFINED_NOT_AUTHORIZED",
+    "future_authorization_required": true,
+    "future_authorization_must_bind_exact_amendment_blob": true,
+    "allowed_sequence": [
+      "FIRST_REAL_FORWARD_ELIGIBLE_EVENT",
+      "ELIGIBILITY_VALIDATION",
+      "GENESIS_IF_NO_CANONICAL_SEGMENT_EXISTS",
+      "POST_PERSISTENCE_FULL_REPLAY",
+      "SUBSEQUENT_REAL_FORWARD_EVENT_APPENDS",
+      "MINIMUM_3_CONSECUTIVE_SUCCESSFUL_PILOT_APPENDS",
+      "MAXIMUM_5_PILOT_CYCLES",
+      "PILOT_QUALIFICATION",
+      "STOP"
+    ],
+    "successful_cycle_definition": "one canonical append executed under the active macro authorization whose exact persisted segment is reachable from governed branch HEAD, whose full chain replays PASS post-persistence, and whose cycle evidence confirms no STOP condition",
+    "consecutive_success_rule": "a material activation-protocol correction or failed/blocked append resets the consecutive-success count; unrelated Git drift does not",
+    "completion_rule": "pilot qualifies only after at least 3 consecutive successful macro-authorized cycles and full final replay",
+    "exhaustion_rule": "if qualification is not achieved within 5 authorized cycles, STOP BLOCKED_HUMAN_REVIEW"
+  },
+  "event_admission_authority": {
+    "core_rule": "MACRO_AUTHORIZATION_IS_NEVER_EVIDENCE_THAT_AN_EVENT_OCCURRED",
+    "occurrence_basis_required": "event occurrence must be supported by an explicit human declaration or independently existing canonical evidence that was not created solely to advance the MCEPR pilot",
+    "eligible_occurrence_sources": [
+      "explicit human statement describing an actually occurred research-provenance event",
+      "immutable canonical repository artifact evidencing an actually occurred research-provenance event",
+      "other immutable evidence already admissible under the frozen MCEPR event schema and applicable governance"
+    ],
+    "ineligible_occurrence_sources": [
+      "the macro authorization itself",
+      "MCEPR cutover creation",
+      "MCEPR contract/amendment drafting",
+      "MCEPR eligibility checking",
+      "MCEPR segment construction",
+      "MCEPR validation or replay",
+      "MCEPR pilot evidence persistence",
+      "an event manufactured solely to satisfy pilot cycle count"
+    ],
+    "semantic_gate": "if actual occurrence, material research-provenance relevance, truthful field population, or decisive-reference meaning is ambiguous, STOP BLOCKED; the executing system may not resolve the ambiguity by self-assertion",
+    "cutover_gate": "occurred_at_utc must be strictly greater than 2026-10-02T17:19:21Z",
+    "relation_gate": "zero relations throughout the initial macro pilot"
+  },
+  "bounded_execution_model": {
+    "execution_style": "SINGLE_HUMAN_PREAUTHORIZATION_THEN_MECHANICAL_EXECUTION_WITHIN_BOUNDS",
+    "ongoing_background_monitoring": false,
+    "waiting_for_future_events": false,
+    "insufficient_current_events_rule": "if fewer real eligible events are available than required to complete the pilot during the authorized execution, do not fabricate or wait; execute only what is safely authorized/available and STOP with INSUFFICIENT_REAL_FORWARD_EVENTS when completion cannot be reached",
+    "per_cycle_mandatory_checks": [
+      "fresh governed branch HEAD/TREE revalidation",
+      "exact G6/implementation-contract/breaker/implementation/activation/cutover identity revalidation",
+      "enumerate exact canonical segment root",
+      "verify every prior canonical segment path and blob remains byte-identical",
+      "reject unknown segment-root files",
+      "full chain validation and unique head derivation",
+      "independent occurrence/admission-basis validation",
+      "strict effective-cutover comparison",
+      "construct exactly one event and exactly one zero-relation segment",
+      "validate prior chain plus candidate",
+      "compute exact candidate path/blob",
+      "fresh branch re-fetch immediately before persistence",
+      "fresh MCEPR semantic-state comparison",
+      "persist only with force=false",
+      "post-persistence exact path/blob verification",
+      "post-persistence full-chain replay",
+      "persist cycle evidence",
+      "evaluate STOP conditions before next cycle"
+    ]
+  },
+  "concurrency_and_drift": {
+    "unrelated_git_head_change": "automatically absorbable only after fresh proof that all bound MCEPR identities, complete canonical segment set, cutover blob and candidate decisive refs remain exact/resolvable; rebuild Git tree on fresh HEAD without changing candidate semantic content",
+    "mcepr_head_change": "candidate is stale; full chain must be revalidated and candidate rebuilt against new unique head; no per-blob human reapproval required inside active macro envelope",
+    "external_valid_mcepr_append": "may be incorporated as prior canonical state only after complete validation; it does not count as a successful cycle of the current macro pilot unless it was itself executed under that exact active macro authorization",
+    "fork_or_multiple_tips": "STOP BLOCKED",
+    "prior_segment_rewrite_or_deletion": "STOP BLOCKED",
+    "unresolved_reference": "STOP BLOCKED",
+    "force_update": false
+  },
+  "cycle_evidence": {
+    "required": true,
+    "authority": "PROGRAM_EVIDENCE_ONLY",
+    "scientific_authority": false,
+    "operational_authority": false,
+    "must_capture": [
+      "cycle ordinal within macro authorization",
+      "fresh pre-append HEAD/TREE",
+      "prior derived MCEPR head or explicit no-segment genesis state",
+      "event identity and occurrence/admission basis",
+      "candidate segment path and blob",
+      "fresh pre-persistence HEAD/TREE",
+      "persisting commit",
+      "post-persistence HEAD/TREE",
+      "post-persistence derived MCEPR head",
+      "full replay verdict",
+      "breaker/implementation/activation/cutover identities",
+      "STOP-condition evaluation"
+    ]
+  },
+  "automatic_stop_conditions": [
+    "EVENT_NOT_CLEARLY_ADMISSIBLE",
+    "EVENT_OCCURRENCE_BASIS_MISSING_OR_SELF_GENERATED",
+    "SEMANTIC_AMBIGUITY_NOT_RESOLVED_BY_EXISTING_CONTRACTS",
+    "FORK_OR_MULTIPLE_TIPS",
+    "UNRESOLVABLE_DECISIVE_REFERENCE",
+    "CUTOVER_VIOLATION",
+    "PRIOR_CANONICAL_SEGMENT_REWRITE_OR_DELETION",
+    "UNKNOWN_FILE_IN_SEGMENT_ROOT",
+    "BREAKER_OR_IMPLEMENTATION_IDENTITY_DRIFT",
+    "ACTIVATION_OR_CUTOVER_IDENTITY_DRIFT",
+    "VALIDATOR_OR_REPLAY_FAILURE",
+    "NEED_FOR_RELATION_PERSISTENCE",
+    "NEED_FOR_HISTORICAL_BACKFILL",
+    "NEED_FOR_NEW_AUTHORITY",
+    "NEED_FOR_RUNTIME_INTEGRATION",
+    "PILOT_NOT_QUALIFIED_WITHIN_5_CYCLES"
+  ],
+  "forbidden_inferences_and_actions": [
+    "macro authorization means an event occurred",
+    "system self-declaration is sufficient event evidence",
+    "missing relation means no influence",
+    "successful pilot means registry completeness",
+    "successful pilot means pristine evidence",
+    "successful pilot means scientific support or independence",
+    "automatic family membership",
+    "automatic N_budget",
+    "automatic N_famille",
+    "automatic scientific adjudication",
+    "automatic promotion",
+    "trading or operational authority",
+    "relation persistence",
+    "historical backfill",
+    "automated producer",
+    "automated consumer",
+    "runtime integration"
+  ],
+  "adversarial_review_cases": [
+    [
+      "MACRO-ADV-01",
+      "macro authorization used as proof event occurred",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-02",
+      "system invents event solely to progress cycle count",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-03",
+      "MCEPR administrative action treated as research event",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-04",
+      "pre/equal-cutover event treated as forward",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-05",
+      "ambiguous research relevance self-resolved by executor",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-06",
+      "missing decisive reference guessed from path/name",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-07",
+      "unrelated SFE commit changes Git HEAD only",
+      "REVALIDATE_AND_REBASE_TREE_ONLY"
+    ],
+    [
+      "MACRO-ADV-08",
+      "valid external MCEPR append changes unique head",
+      "REVALIDATE_REBUILD_NO_HUMAN_REAPPROVAL_WITHIN_ACTIVE_ENVELOPE"
+    ],
+    [
+      "MACRO-ADV-09",
+      "external append counted as this pilot successful cycle",
+      "FORBIDDEN"
+    ],
+    [
+      "MACRO-ADV-10",
+      "two children create fork",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-11",
+      "prior canonical segment deleted",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-12",
+      "prior canonical segment rewritten",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-13",
+      "unknown file appears under segment root",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-14",
+      "breaker/implementation/activation/cutover blob drifts",
+      "BLOCKED"
+    ],
+    [
+      "MACRO-ADV-15",
+      "relation needed to describe candidate event context",
+      "BLOCKED_RELATION_FRONTIER_REQUIRED"
+    ],
+    [
+      "MACRO-ADV-16",
+      "historical fact discovered during pilot",
+      "BLOCKED_BACKFILL_FRONTIER_REQUIRED"
+    ],
+    [
+      "MACRO-ADV-17",
+      "three successes used to claim completeness/pristine/scientific validity",
+      "FORBIDDEN_INFERENCE"
+    ],
+    [
+      "MACRO-ADV-18",
+      "five cycles reached without three consecutive successes",
+      "BLOCKED_HUMAN_REVIEW"
+    ],
+    [
+      "MACRO-ADV-19",
+      "fewer than three real eligible events exist now",
+      "NO_FABRICATION_NO_WAIT_STOP_IF_PILOT_CANNOT_COMPLETE"
+    ],
+    [
+      "MACRO-ADV-20",
+      "macro execution silently becomes recurring/background monitor",
+      "FORBIDDEN"
+    ],
+    [
+      "MACRO-ADV-21",
+      "executor assigns N_budget/N_famille/family membership",
+      "FORBIDDEN"
+    ],
+    [
+      "MACRO-ADV-22",
+      "executor auto-promotes or gains trading authority",
+      "FORBIDDEN"
+    ],
+    [
+      "MACRO-ADV-23",
+      "per-blob approval removed but post-persistence replay skipped",
+      "FAIL"
+    ],
+    [
+      "MACRO-ADV-24",
+      "candidate rebuilt after head drift without rechecking decisive refs",
+      "FAIL"
+    ]
+  ],
+  "documentary_review_verdict": {
+    "human_authority_preserved": true,
+    "per_blob_human_intermediation_removed_for_future_bounded_pilot": true,
+    "event_semantic_self_authority_created": false,
+    "fail_closed_guarantees_weakened": false,
+    "runtime_coupling_added": false,
+    "relation_scope_expanded": false,
+    "backfill_scope_expanded": false,
+    "automatic_scientific_authority_added": false,
+    "result": "PASS_WITH_TARGETED_HARDENING"
+  },
+  "next_frontier": {
+    "candidate": "MCEPR FORWARD PILOT MACRO-AUTHORIZATION V0.1",
+    "status": "NOT_AUTHORIZED",
+    "requirement": "one separate explicit human authorization bound to the exact persisted V0.2 amendment blob",
+    "after_authorization": "execute eligible event-only pilot mechanically within the frozen macro envelope until qualification or automatic STOP/BLOCKED"
+  },
+  "stop_after_documentary_qualification": true
+}
