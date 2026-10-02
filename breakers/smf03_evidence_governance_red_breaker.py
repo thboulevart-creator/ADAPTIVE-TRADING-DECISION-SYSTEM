@@ -169,7 +169,7 @@ def test_eg_09_m08_exact_stratum_inclusion_rates():
     )
     assert out["strata"]["A"]["inclusion_rate"] == 0.5
     assert out["strata"]["B"]["inclusion_rate"] == 1.0
-    assert out["max_inclusion_rate_gap"] == 0.5
+    assert out["observed_inclusion_rate_gap"] == 0.5\n    assert out["max_inclusion_rate_gap"] == 0.6
 
 
 def test_eg_10_m08_material_asymmetry_uses_explicit_threshold():
