@@ -1,0 +1,493 @@
+{
+  "schema": "ATDS_MINIMAL_CROSS_EXPERIMENT_PROVENANCE_REGISTRY_IMPLEMENTATION_CONTRACT_V0_1",
+  "control_id": "MCEPR-IC-V0.1",
+  "status": "DOCUMENTARY_CONTRACT_QUALIFIED_IMPLEMENTATION_NOT_AUTHORIZED",
+  "date": "2026-10-02",
+  "governed_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "governed_branch": "integration/system-v1",
+  "authority": {
+    "contract_definition_authorized": true,
+    "documentary_qualification_authorized": true,
+    "breaker_specification_authorized": true,
+    "breaker_implementation_authorized": false,
+    "registry_implementation_authorized": false,
+    "registry_population_authorized": false,
+    "backfill_authorized": false,
+    "runtime_change_authorized": false,
+    "p1_modification_authorized": false,
+    "sfe_modification_authorized": false,
+    "memory_engine_modification_authorized": false,
+    "decision_modification_authorized": false,
+    "backtest_authorized": false,
+    "performance_observation_authorized": false,
+    "strategy_change_authorized": false,
+    "automatic_authority_authorized": false,
+    "automatic_promotion_authorized": false,
+    "automatic_n_budget_authorized": false,
+    "automatic_n_famille_authorized": false
+  },
+  "adopted_dependency": {
+    "g6_adjudication_path": "GOVERNANCE/G6-MINIMAL-CROSS-EXPERIMENT-PROVENANCE-REGISTRY-HUMAN-ADJUDICATION-2026-10-02.md",
+    "g6_adjudication_blob": "93e3c87f24b8933fbdfe25b1806d42233b6ec328",
+    "g6_status": "HUMAN_ADOPTED_FOR_SEMANTIC_DESIGN_ONLY"
+  },
+  "architectural_boundary": {
+    "persistence_class": "PROGRAM_EVIDENCE_ONLY",
+    "runtime_dependency": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "completeness_claim": false,
+    "semantics_owner": "existing applicable research governance; registry records identity and provenance relationships only",
+    "storage_root_if_later_implemented": "reports/program/evidence/cross-experiment-provenance-registry/segments/",
+    "segment_filename_rule": "RGS-<64-lowercase-hex>.json",
+    "mutable_head_file": false,
+    "current_head_rule": "derive the unique valid tip by replaying the complete current segment set; never trust a separately mutable head pointer"
+  },
+  "canonicalization": {
+    "profile_id": "ATDS_STABLE_JSON_SHA256_V1",
+    "algorithm": "SHA-256",
+    "serialization": {
+      "json_object_keys": "sort lexicographically",
+      "separators": "comma and colon with no insignificant whitespace",
+      "ensure_ascii": false,
+      "text_encoding": "UTF-8",
+      "bom": false,
+      "duplicate_object_keys": "REJECT",
+      "unicode_normalization": "NONE; exact valid Unicode string content is identity-bearing",
+      "json_numbers_in_identity_payload": "FORBIDDEN",
+      "arrays": "order is identity-bearing unless an explicit sorted-set rule below applies",
+      "unknown_structural_fields": "REJECT"
+    },
+    "compatibility_note": "Matches the existing ATDS stable-hash serialization pattern: json.dumps(sort_keys=True,separators=(',',':'),ensure_ascii=False) then UTF-8 SHA-256, with additional fail-closed input restrictions defined here."
+  },
+  "decisive_reference_grammar": {
+    "allowed_forms": [
+      "git_blob:<40-lowercase-hex>",
+      "git_commit:<40-lowercase-hex>",
+      "event:EVT-<64-lowercase-hex>",
+      "relation:REL-<64-lowercase-hex>",
+      "registry:RGS-<64-lowercase-hex>"
+    ],
+    "forbidden_as_decisive_identity": [
+      "bare filesystem path",
+      "mutable branch name",
+      "latest/current symbolic label",
+      "unversioned URL",
+      "human-readable object name without immutable anchor"
+    ],
+    "resolution_rules": {
+      "git_blob": "must resolve to the exact blob in the governed repository object database",
+      "git_commit": "must resolve to the exact commit in the governed repository object database",
+      "event": "must resolve to a validated event in an ancestor segment or, where explicitly allowed, the current segment",
+      "relation": "must resolve to a validated relation in an ancestor segment; current-segment relation-to-relation references are forbidden",
+      "registry": "must resolve to a validated ancestor registry segment"
+    },
+    "existing_atds_object_rule": "An existing ATDS object is decisively referenced through the immutable Git blob or commit containing its canonical persisted representation; this V0.1 does not create a second object-identity namespace."
+  },
+  "event_record": {
+    "schema_id": "ATDS_MCEPR_EVENT_V0_1",
+    "exact_fields": [
+      "event_id",
+      "event_core"
+    ],
+    "event_core_exact_fields": [
+      "occurred_at_utc",
+      "operator",
+      "nature",
+      "declared_purpose",
+      "source_refs",
+      "asset",
+      "period_start_utc",
+      "period_end_utc",
+      "consultation_intensity",
+      "information_accessed",
+      "evidence_refs"
+    ],
+    "field_rules": {
+      "occurred_at_utc": "RFC3339 UTC whole-second string YYYY-MM-DDTHH:MM:SSZ",
+      "operator": "non-empty string; identifies the declared human/process actor but grants no authority",
+      "nature": "non-empty string describing the research/observation event",
+      "declared_purpose": "non-empty string",
+      "source_refs": "array of decisive refs; lexicographically sorted; duplicate-free; may be empty for an explicitly unanchored human declaration",
+      "asset": "non-empty string or null",
+      "period_start_utc": "RFC3339 UTC whole-second string or null",
+      "period_end_utc": "RFC3339 UTC whole-second string or null",
+      "period_pair_rule": "both period boundaries null or both present; when present start <= end",
+      "consultation_intensity": "null or I1 or I2 or I3",
+      "information_accessed": "non-empty string or null",
+      "evidence_refs": "array of decisive refs; lexicographically sorted; duplicate-free; may be empty only when no consultation intensity is asserted",
+      "intensity_evidence_rule": "if consultation_intensity is non-null evidence_refs must be non-empty",
+      "i1_rule": "if consultation_intensity is I1 information_accessed must be non-null and evidence_refs must be non-empty"
+    },
+    "identity_payload": {
+      "contract": "ATDS_MCEPR_EVENT_V0_1",
+      "shape": "{'contract':'ATDS_MCEPR_EVENT_V0_1','event_core':<exact event_core>}"
+    },
+    "id_rule": "event_id = 'EVT-' + full 64-lowercase-hex SHA-256 of canonical identity_payload",
+    "mutation_rule": "material correction to event_core creates a new EVENT_ID; existing event content is never rewritten under the same identity",
+    "temporal_rule": "occurred_at_utc records declared occurrence time; durable recording order is established by registry/Git ancestry and is never backdated by occurred_at_utc"
+  },
+  "relation_record": {
+    "schema_id": "ATDS_MCEPR_RELATION_V0_1",
+    "exact_fields": [
+      "relation_id",
+      "relation_core"
+    ],
+    "relation_core_exact_fields": [
+      "source_ref",
+      "relation_type",
+      "target_ref",
+      "relation_status",
+      "basis_ref",
+      "supersedes_relation_ref"
+    ],
+    "relation_types": [
+      "INFORMED_BY",
+      "PREREGISTERED_BY",
+      "RESERVED_FOR",
+      "CLASSIFIED_BY"
+    ],
+    "relation_statuses": [
+      "DECLARED",
+      "ADJUDICATED",
+      "DISPUTED",
+      "UNKNOWN"
+    ],
+    "field_rules": {
+      "source_ref": "decisive reference; generalized from the conceptual SOURCE_EVENT_REF so all four adopted relation types can represent non-event sources without adding a new relation type",
+      "target_ref": "decisive reference",
+      "basis_ref": "required decisive reference supporting why this relation/status was recorded",
+      "supersedes_relation_ref": "null or ancestor relation ref",
+      "same_segment_relation_reference": "FORBIDDEN for source_ref target_ref basis_ref and supersedes_relation_ref when the referenced object is a relation",
+      "same_segment_event_reference": "ALLOWED after all event identities in the segment validate",
+      "adjudicated_gate": "ADJUDICATED remains BLOCKED unless basis_ref is a git_blob included in a separately human-authorized adjudication-basis allowlist supplied to validation; path/name/content heuristics cannot self-authorize it"
+    },
+    "identity_payload": {
+      "contract": "ATDS_MCEPR_RELATION_V0_1",
+      "shape": "{'contract':'ATDS_MCEPR_RELATION_V0_1','relation_core':<exact relation_core>}"
+    },
+    "id_rule": "relation_id = 'REL-' + full 64-lowercase-hex SHA-256 of canonical identity_payload",
+    "supersession_rules": [
+      "superseded relation must exist in an ancestor segment",
+      "superseded relation must be currently active at the point of replay",
+      "successor must preserve source_ref relation_type and target_ref exactly",
+      "relation_status basis_ref and supersedes_relation_ref may change",
+      "one active relation may have at most one direct successor",
+      "later correction must supersede the current active successor, not an older ancestor",
+      "supersession never deletes historical relations"
+    ]
+  },
+  "registry_segment": {
+    "schema_id": "ATDS_MCEPR_REGISTRY_SEGMENT_V0_1",
+    "exact_fields": [
+      "schema",
+      "registry_id",
+      "parent_registry_ref",
+      "events",
+      "relations"
+    ],
+    "schema_field_value": "ATDS_MCEPR_REGISTRY_SEGMENT_V0_1",
+    "parent_registry_ref": "null for genesis; otherwise registry:RGS-<64-lowercase-hex>",
+    "events_rule": "new events only; array strictly sorted by event_id; duplicate-free",
+    "relations_rule": "new relations only; array strictly sorted by relation_id; duplicate-free",
+    "empty_segment": "FORBIDDEN",
+    "identity_payload": {
+      "contract": "ATDS_MCEPR_REGISTRY_SEGMENT_V0_1",
+      "shape": "{'contract':'ATDS_MCEPR_REGISTRY_SEGMENT_V0_1','segment_core':{'schema':schema,'parent_registry_ref':parent_registry_ref,'events':events,'relations':relations}}"
+    },
+    "id_rule": "registry_id = 'RGS-' + full 64-lowercase-hex SHA-256 of canonical identity_payload",
+    "filename_binding": "filename must equal registry_id + '.json'",
+    "replay_rules": [
+      "exactly one genesis must exist once initialized",
+      "every non-genesis parent must resolve",
+      "each parent may have at most one child",
+      "the complete validated graph must form one linear chain",
+      "the unique tip is the derived current head",
+      "event_id and relation_id may appear only once across the entire chain",
+      "child omission never deletes ancestor records",
+      "forks are never auto-merged or auto-selected"
+    ]
+  },
+  "validation_verdicts": {
+    "PASS": {
+      "meaning": "technical registry integrity PASS within this contract only",
+      "requires": [
+        "all current segment files parse under exact schema",
+        "all content-bound identities recompute exactly",
+        "complete chain resolves to exactly one genesis and one tip",
+        "no forks",
+        "all decisive references required for technical validation resolve",
+        "all supersession rules hold",
+        "all ADJUDICATED relations have separately human-authorized basis"
+      ],
+      "explicitly_not_claimed": [
+        "registry completeness",
+        "absence of unrecorded events",
+        "absence of unknown exposure",
+        "pristine evidence",
+        "scientific support",
+        "scientific independence",
+        "family-membership correctness",
+        "N_budget",
+        "N_famille",
+        "performance validity",
+        "operational authority"
+      ]
+    },
+    "FAIL": {
+      "meaning": "intrinsic deterministic contract violation",
+      "examples": [
+        "invalid JSON or duplicate key",
+        "unknown field",
+        "invalid field type/value",
+        "invalid identity",
+        "invalid ordering or duplicate item",
+        "invalid supersession",
+        "silent rewrite/tamper",
+        "forbidden relation type/status"
+      ]
+    },
+    "BLOCKED": {
+      "meaning": "cannot safely determine a technically usable registry state because required external identity/authority/chain resolution is unavailable or ambiguous",
+      "examples": [
+        "unresolved immutable reference",
+        "missing parent",
+        "multiple genesis segments",
+        "registry fork or no unique head",
+        "ADJUDICATED relation without separately authorized adjudication basis",
+        "required resolution context unavailable"
+      ]
+    }
+  },
+  "forbidden_semantics_and_outputs": [
+    "REGISTRY_COMPLETE_TRUE",
+    "NO_RECORD_MEANS_NO_EVENT",
+    "NO_RELATION_MEANS_NO_INFLUENCE",
+    "NO_EXPOSURE_MEANS_PRISTINE",
+    "AUTO_N_BUDGET",
+    "AUTO_N_FAMILLE",
+    "AUTO_FAMILY_ADJUDICATION",
+    "AUTO_SCIENTIFIC_VERDICT",
+    "AUTO_PROMOTION",
+    "AUTO_AUTHORITY",
+    "PROFITABILITY_CLAIM",
+    "PERFORMANCE_CLAIM",
+    "RUNTIME_DECISION"
+  ],
+  "future_breaker_specification": {
+    "breaker_candidate_path": "breakers/mcepr_registry_breaker_v0_1.py",
+    "breaker_implementation_status": "NOT_AUTHORIZED",
+    "test_cases": [
+      [
+        "MCEPR-IC-01",
+        "canonical hash is invariant to input object key insertion order"
+      ],
+      [
+        "MCEPR-IC-02",
+        "canonical JSON uses UTF-8 sort_keys separators comma/colon ensure_ascii false with no BOM"
+      ],
+      [
+        "MCEPR-IC-03",
+        "duplicate JSON object key is rejected"
+      ],
+      [
+        "MCEPR-IC-04",
+        "unknown structural field is rejected"
+      ],
+      [
+        "MCEPR-IC-05",
+        "JSON number inside an identity-bearing payload is rejected"
+      ],
+      [
+        "MCEPR-IC-06",
+        "identical event core produces identical full-length EVENT_ID"
+      ],
+      [
+        "MCEPR-IC-07",
+        "material event-core mutation changes EVENT_ID"
+      ],
+      [
+        "MCEPR-IC-08",
+        "EVENT_ID/content mismatch fails"
+      ],
+      [
+        "MCEPR-IC-09",
+        "invalid occurred_at_utc fails"
+      ],
+      [
+        "MCEPR-IC-10",
+        "partial period boundary fails"
+      ],
+      [
+        "MCEPR-IC-11",
+        "reversed event period fails"
+      ],
+      [
+        "MCEPR-IC-12",
+        "source_refs and evidence_refs must be lexicographically sorted and duplicate-free"
+      ],
+      [
+        "MCEPR-IC-13",
+        "consultation_intensity outside null/I1/I2/I3 fails"
+      ],
+      [
+        "MCEPR-IC-14",
+        "non-null consultation_intensity without evidence_refs fails"
+      ],
+      [
+        "MCEPR-IC-15",
+        "I1 without information_accessed fails"
+      ],
+      [
+        "MCEPR-IC-16",
+        "identical relation core produces identical full-length RELATION_ID"
+      ],
+      [
+        "MCEPR-IC-17",
+        "material relation-core mutation changes RELATION_ID"
+      ],
+      [
+        "MCEPR-IC-18",
+        "RELATION_ID/content mismatch fails"
+      ],
+      [
+        "MCEPR-IC-19",
+        "relation type outside INFORMED_BY/PREREGISTERED_BY/RESERVED_FOR/CLASSIFIED_BY fails"
+      ],
+      [
+        "MCEPR-IC-20",
+        "relation status outside DECLARED/ADJUDICATED/DISPUTED/UNKNOWN fails"
+      ],
+      [
+        "MCEPR-IC-21",
+        "missing or syntactically invalid BASIS_REF fails"
+      ],
+      [
+        "MCEPR-IC-22",
+        "ADJUDICATED without separately human-authorized basis is BLOCKED"
+      ],
+      [
+        "MCEPR-IC-23",
+        "supersedes ref must resolve to an ancestor relation"
+      ],
+      [
+        "MCEPR-IC-24",
+        "supersession must preserve source_ref relation_type and target_ref"
+      ],
+      [
+        "MCEPR-IC-25",
+        "superseding a non-active relation fails"
+      ],
+      [
+        "MCEPR-IC-26",
+        "same prior relation cannot have two active direct successors"
+      ],
+      [
+        "MCEPR-IC-27",
+        "invalid typed-reference syntax fails"
+      ],
+      [
+        "MCEPR-IC-28",
+        "unresolvable git blob or commit reference is BLOCKED"
+      ],
+      [
+        "MCEPR-IC-29",
+        "unresolvable event/relation/registry reference is BLOCKED"
+      ],
+      [
+        "MCEPR-IC-30",
+        "valid genesis has null parent and becomes sole initial head"
+      ],
+      [
+        "MCEPR-IC-31",
+        "multiple genesis segments are BLOCKED"
+      ],
+      [
+        "MCEPR-IC-32",
+        "missing parent registry segment is BLOCKED"
+      ],
+      [
+        "MCEPR-IC-33",
+        "REGISTRY_ID/content mismatch fails"
+      ],
+      [
+        "MCEPR-IC-34",
+        "segment filename must exactly match REGISTRY_ID"
+      ],
+      [
+        "MCEPR-IC-35",
+        "empty segment fails"
+      ],
+      [
+        "MCEPR-IC-36",
+        "events array must be strictly sorted by event_id and duplicate-free"
+      ],
+      [
+        "MCEPR-IC-37",
+        "relations array must be strictly sorted by relation_id and duplicate-free"
+      ],
+      [
+        "MCEPR-IC-38",
+        "event id already present in ancestor chain fails even if byte-equivalent"
+      ],
+      [
+        "MCEPR-IC-39",
+        "relation id already present in ancestor chain fails even if byte-equivalent"
+      ],
+      [
+        "MCEPR-IC-40",
+        "two children of one parent produce REGISTRY_FORK and BLOCKED"
+      ],
+      [
+        "MCEPR-IC-41",
+        "one fully resolvable linear chain has one derived head and may PASS technical validation"
+      ],
+      [
+        "MCEPR-IC-42",
+        "omission of an ancestor event from a child segment does not delete the ancestor event"
+      ],
+      [
+        "MCEPR-IC-43",
+        "tampering with a persisted segment changes its content-bound registry identity and fails"
+      ],
+      [
+        "MCEPR-IC-44",
+        "event references inside the same segment may resolve after event-id validation"
+      ],
+      [
+        "MCEPR-IC-45",
+        "relation refs to relations created in the same segment are forbidden"
+      ],
+      [
+        "MCEPR-IC-46",
+        "validator output cannot claim registry completeness pristine status scientific support or independence"
+      ],
+      [
+        "MCEPR-IC-47",
+        "validator output cannot compute or assert N_budget or N_famille"
+      ],
+      [
+        "MCEPR-IC-48",
+        "retrospective occurred_at does not imply earlier durable knowledge; chain/Git ancestry governs persistence order"
+      ],
+      [
+        "MCEPR-IC-49",
+        "RESERVED_FOR and CLASSIFIED_BY can use a non-event SOURCE_REF such as immutable git_blob"
+      ],
+      [
+        "MCEPR-IC-50",
+        "all four adopted relation types are representable without adding a fifth relation type"
+      ]
+    ]
+  },
+  "implementation_boundary": {
+    "contract_and_test_specification_only": true,
+    "executable_breaker_created": false,
+    "registry_code_created": false,
+    "registry_segment_created": false,
+    "registry_backfill_performed": false,
+    "runtime_modified": false,
+    "next_step_if_separately_authorized": "create frozen breaker first, demonstrate expected RED against absent implementation, then authorize minimal implementation separately"
+  },
+  "stop_after_documentary_qualification": true
+}
