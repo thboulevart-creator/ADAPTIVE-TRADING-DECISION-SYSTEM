@@ -17,7 +17,8 @@
     "lags_must_be_explicit": true,
     "absolute_threshold_must_be_explicit": true,
     "structural_flags_are_independent_evidence": true,
-    "independence_claim_forbidden": true
+    "independence_claim_forbidden": true,
+    "reference_parity_tolerance": {"rel": 1e-12, "abs": 1e-15}
   },
   "m05": {
     "schemes_supported": ["IID", "MOVING_BLOCK"],
