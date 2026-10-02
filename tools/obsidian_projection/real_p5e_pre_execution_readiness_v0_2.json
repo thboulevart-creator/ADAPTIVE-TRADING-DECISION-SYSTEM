@@ -1,0 +1,459 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_PRE_EXECUTION_READINESS_V0_2",
+  "status": "TARGETED_AMENDMENT_CANDIDATE_FOR_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-02",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "feat/obsidian-projection-real-p5e-pre-execution-readiness-v0.2-targeted-amendment",
+  "base_checkpoint": "90189ac1ddddc8d81b12eeaa2a4241969a7dc405",
+  "supersedes_readiness_v0_1": {
+    "json_blob": "9ee1e02cf371cc990097af0ae6e31317ed083a69",
+    "report_blob": "5434397e87fe0f204891d230b03832c625e01368",
+    "external_review_verdict": "FAIL",
+    "blocking_findings": ["BF1", "BF2"]
+  },
+  "authority": {
+    "purpose": "Close the decomposition gaps in REAL P5-E pre-execution readiness without implementing any prerequisite.",
+    "requirements_only": true,
+    "runtime_modification_authorized": false,
+    "adopted_p5e_contract_modification_authorized": false,
+    "adopted_synthetic_model_modification_authorized": false,
+    "schema_guard_implementation_authorized": false,
+    "real_time_model_or_conversion_implementation_authorized": false,
+    "ancestry_classifier_implementation_authorized": false,
+    "remote_adapter_implementation_authorized": false,
+    "timed_runner_implementation_authorized": false,
+    "real_remote_polling_authorized": false,
+    "experimental_push_authorized": false,
+    "real_head_evaluation_authorized": false,
+    "p5d4_real_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false,
+    "stage_a_authorized": false,
+    "stage_b_authorized": false,
+    "promotion_authorized": false,
+    "publication_authorized": false,
+    "daemon_or_service_registration_authorized": false,
+    "p6_authorized": false
+  },
+  "adopted_predecessor": {
+    "human_adjudication_blob": "76defeedea7ca7cff6af40534e479e7bc2bdd95a",
+    "contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+    "synthetic_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+    "state": "P5E_V0_1_CONTRACT_AND_SYNTHETIC_TIMING_MODEL_QUALIFIED_AND_HUMAN_ADOPTED",
+    "real_p5e": "CLOSED"
+  },
+  "external_review_adjudication": {
+    "BF1": {
+      "verdict": "CONFIRMED_BLOCKING",
+      "closure_location": "RPE-05",
+      "summary": "V0.1 had no qualified component owning fixed-rate timer/sleep, finite scheduling, single active attempt, and terminal STOP."
+    },
+    "BF2": {
+      "verdict": "CONFIRMED_BLOCKING",
+      "closure_location": "RPE-02",
+      "summary": "The adopted integer-second synthetic model is not a safe lossless representation of real monotonic timing evidence and has no actual-start field."
+    },
+    "NF1": "ACCEPTED_REQUIREMENT_RPE_01",
+    "NF2": "ACCEPTED_REQUIREMENT_RPE_03",
+    "NF3": "ACCEPTED_REQUIREMENT_RPE_04",
+    "NF4": "ACCEPTED_REQUIREMENT_RPE_06",
+    "NF5": "ACCEPTED_REQUIREMENT_RPE_06",
+    "NF6": "ACCEPTED_REQUIREMENT_RPE_02_AND_RPE_06",
+    "NF7": "ACCEPTED_WITH_DAG_REFINEMENT"
+  },
+  "non_normative_local_clock_observation": {
+    "purpose": "Example of evidence RPE-02/RPE-06 must capture again on the actual qualification environment; not a pilot qualification.",
+    "python_clock": "monotonic",
+    "implementation_observed": "QueryPerformanceCounter()",
+    "monotonic_observed": true,
+    "adjustable_observed": false,
+    "reported_resolution_seconds": 1e-7,
+    "normative_authority": "NONE"
+  },
+  "dependency_dag": {
+    "nodes": ["RPE-01", "RPE-02", "RPE-03", "RPE-04", "RPE-05", "RPE-06"],
+    "edges": [
+      ["RPE-01", "RPE-02"],
+      ["RPE-01", "RPE-03"],
+      ["RPE-02", "RPE-04"],
+      ["RPE-03", "RPE-04"],
+      ["RPE-04", "RPE-05"],
+      ["RPE-01", "RPE-06"],
+      ["RPE-02", "RPE-06"],
+      ["RPE-03", "RPE-06"],
+      ["RPE-04", "RPE-06"],
+      ["RPE-05", "RPE-06"]
+    ],
+    "notes": [
+      "RPE-02 and RPE-03 may proceed independently after RPE-01.",
+      "RPE-04 requires both real-time representation semantics and qualified ancestry classification.",
+      "RPE-05 consumes the qualified RPE-04 adapter interface but is first qualified with a fake adapter and injected time, without network.",
+      "RPE-06 is the final preregistration gate and requires RPE-01 through RPE-05."
+    ]
+  },
+  "stages": {
+    "RPE-01": {
+      "title": "N4_GOVERNED_CLOSED_SCHEMA",
+      "closes": ["N4", "NF1"],
+      "status": "NOT_OPENED",
+      "depends_on": [],
+      "purpose": "Prevent new authority, timing, queue, claim, or execution semantics from entering governed JSON through added or duplicate members, type coercion, list laundering, or adjacent configuration files.",
+      "preserve_adopted_contract_bytes_if_possible": true,
+      "requirements": {
+        "reject_duplicate_json_member_names_before_dictionary_construction": true,
+        "close_all_object_levels": true,
+        "strict_types": true,
+        "integer_must_exclude_boolean_and_float_coercion": true,
+        "normative_list_vocabularies_closed": true,
+        "normative_list_uniqueness_enforced": true,
+        "normative_list_order_frozen_where_required": true,
+        "real_end_to_end_stages_order_normative": true,
+        "schema_guard_itself_versioned_and_blob_bound": true,
+        "schema_change_requires_governed_amendment": true,
+        "future_real_p5e_json_artifacts_must_use_governed_schema_guard": [
+          "adapter_configuration",
+          "runner_configuration",
+          "experiment_preregistration",
+          "execution_evidence_envelope"
+        ]
+      },
+      "minimum_red_families": [
+        "duplicate authority key with contradictory first/last values",
+        "unknown authority key",
+        "unknown claim key",
+        "unknown timing key",
+        "unknown queue key",
+        "integer to float coercion",
+        "boolean where integer required",
+        "duplicate normative list member",
+        "unknown normative enum member",
+        "real_end_to_end_stages reorder",
+        "authority moved to adjacent governed config"
+      ],
+      "exit_criterion": "ALL_SCHEMA_AND_ADDED_KEY_BREAKERS_REJECTED_WITHOUT_RELYING_ON_COVERED_OBJECT_BINDING_ALONE"
+    },
+    "RPE-02": {
+      "title": "N5_PLUS_REAL_TIME_REPRESENTATION_AND_BOUNDARY_FREEZE",
+      "closes": ["N5", "BF2", "NF6_TIMING_CAPABILITY_PART"],
+      "status": "NOT_OPENED",
+      "depends_on": ["RPE-01"],
+      "purpose": "Define a lossless real-time evidence representation and freeze equality, rounding, actual-start, completion, and bound semantics before any real scheduler or adapter consumes them.",
+      "adopted_synthetic_model_remains_immutable_by_default": true,
+      "preferred_real_evidence_unit": "INTEGER_MONOTONIC_NANOSECONDS",
+      "floating_point_seconds_as_normative_evidence_forbidden": true,
+      "lossy_truncation_to_integer_seconds_for_real_pass_fail_forbidden": true,
+      "candidate_real_evidence_fields": [
+        "schedule_origin_ns",
+        "scheduled_at_ns",
+        "attempt_started_at_ns",
+        "remote_observation_completed_at_ns",
+        "attempt_completed_at_ns",
+        "controlled_source_release_started_at_ns"
+      ],
+      "field_semantics_to_freeze": {
+        "scheduled_at_ns": "planned fixed-rate slot",
+        "attempt_started_at_ns": "actual start of one observation attempt",
+        "remote_observation_completed_at_ns": "completion of the governed remote observation operation that produced the exact observed remote-ref evidence",
+        "attempt_completed_at_ns": "completion of local materialization, ancestry classification, and normalized event construction",
+        "controlled_source_release_started_at_ns": "same-host monotonic timestamp captured immediately before starting the separately authorized source release operation"
+      },
+      "boundary_rules_to_freeze": [
+        "release exactly on scheduled slot",
+        "release just after scheduled slot",
+        "first required slot ceiling rule",
+        "attempt actual-start delay relative to scheduled slot",
+        "maximum permitted start lag or explicit missed-slot rule",
+        "remote observation completion exactly on next slot",
+        "remote observation completion just after next slot",
+        "previous attempt completion exactly equal to next attempt start",
+        "previous attempt completion greater than next attempt start",
+        "latency exactly 60 seconds",
+        "latency strictly greater than 60 seconds",
+        "lowercase exact commit identity format",
+        "relationship between remote observation completion and full attempt completion"
+      ],
+      "clock_capability_evidence_required": [
+        "clock implementation",
+        "monotonic property",
+        "adjustable property",
+        "reported resolution",
+        "same process/host domain for compared timestamps"
+      ],
+      "mandatory_red_cases": [
+        "non-integer monotonic release",
+        "non-integer actual attempt start",
+        "non-integer remote completion",
+        "real latency just above 60 seconds",
+        "late actual start hidden behind on-time scheduled slot",
+        "two-phase remote-completion versus attempt-completion case"
+      ],
+      "architecture_decision_gate": {
+        "candidate_A": "QUALIFIED_CONSERVATIVE_CONVERSION_LAYER",
+        "candidate_B": "SEPARATE_REAL_TIME_MODEL_V0_2",
+        "decision_rule": "Choose the smallest architecture that passes all preregistered RED cases without weakening conservative classification.",
+        "candidate_A_constraints": [
+          "real evidence retained losslessly in integer nanoseconds",
+          "conversion used only for parity/reference comparison or explicitly qualified mapping",
+          "conversion may not turn real >bound into PASS",
+          "actual-start evidence may not be erased",
+          "real runner pass/fail may not depend on lossy conversion"
+        ],
+        "candidate_B_constraints": [
+          "native integer nanoseconds",
+          "explicit actual-start field",
+          "explicit remote-completion field",
+          "explicit full-attempt-completion field",
+          "parity qualification against adopted synthetic model on common exact-grid domain"
+        ]
+      },
+      "exit_criterion": "REAL_TIME_REPRESENTATION_AND_ALL_EQUALITY_ROUNDING_START_COMPLETION_BOUNDARIES_ARE_EXPLICITLY_CONTRACTED_AND_EXECUTABLY_QUALIFIED"
+    },
+    "RPE-03": {
+      "title": "NB5_QUALIFIED_ANCESTRY_CLASSIFIER",
+      "closes": ["NB5", "NF2"],
+      "status": "NOT_OPENED",
+      "depends_on": ["RPE-01"],
+      "purpose": "Remove caller authority over INITIAL/SAME/FAST_FORWARD/NON_FAST_FORWARD/UNKNOWN by deriving transition class from a controlled verified local Git object domain.",
+      "network_inside_classifier_forbidden": true,
+      "input": [
+        "previous_observed_head_or_null",
+        "new_exact_observed_head",
+        "verified_local_git_object_domain"
+      ],
+      "output": ["INITIAL", "SAME", "FAST_FORWARD", "NON_FAST_FORWARD", "UNKNOWN"],
+      "verified_domain_requirements": [
+        "GIT_NO_REPLACE_OBJECTS=1",
+        "repository is not shallow",
+        "no git info/grafts",
+        "previous object type commit when previous exists",
+        "new object type commit",
+        "previous missing -> UNKNOWN",
+        "new missing -> UNKNOWN",
+        "timeout -> UNKNOWN",
+        "corruption -> UNKNOWN"
+      ],
+      "ancestry_command_semantics": {
+        "command_family": "git merge-base --is-ancestor PREVIOUS NEW",
+        "exit_0": "FAST_FORWARD",
+        "exit_1": "NON_FAST_FORWARD",
+        "other_exit": "UNKNOWN"
+      },
+      "classification_rules": {
+        "no_previous_head": "INITIAL",
+        "same_exact_head": "SAME",
+        "verified_previous_is_ancestor_of_new": "FAST_FORWARD",
+        "verified_both_commits_previous_not_ancestor_of_new": "NON_FAST_FORWARD",
+        "unprovable_or_invalid_domain": "UNKNOWN"
+      },
+      "local_fixture_cases": [
+        "null to A",
+        "A to A",
+        "A to B fast-forward",
+        "B to A rollback",
+        "B and C divergent siblings",
+        "missing previous",
+        "missing new",
+        "non-commit object",
+        "replace-ref attempt",
+        "shallow repository",
+        "graft presence",
+        "timeout",
+        "corrupt repository"
+      ],
+      "exit_criterion": "TRANSITION_CLASS_IS_DERIVED_FROM_VERIFIED_LOCAL_GIT_GRAPH_AND_CANNOT_BE_CALLER_FORGED"
+    },
+    "RPE-04": {
+      "title": "NB2_NB3_REAL_REMOTE_OBSERVATION_ADAPTER",
+      "closes": ["NB2", "NB3", "NF3"],
+      "status": "NOT_OPENED",
+      "depends_on": ["RPE-02", "RPE-03"],
+      "purpose": "Convert one governed remote-ref observation into exact evidence plus independently derived ancestry without conflating observed tips with contained history.",
+      "initial_qualification_environment": "LOCAL_BARE_REMOTE_OR_INJECTED_REMOTE_IO_NO_GITHUB_POLLING",
+      "preferred_remote_transaction": "SINGLE_GOVERNED_FETCH_TO_ISOLATED_NAMESPACE",
+      "two_read_ls_remote_then_fetch": "REQUIRES_SEPARATE_JUSTIFICATION_AND_RACE_SEMANTICS_IF_RETAINED",
+      "git_environment_isolation": [
+        "pinned remote URL or equivalently governed verified remote configuration",
+        "neutralized global Git config",
+        "neutralized system Git config",
+        "empty or disabled hooks path",
+        "GIT_TERMINAL_PROMPT=0",
+        "explicit timeout",
+        "no inherited url.insteadOf authority",
+        "no canonical user worktree mutation",
+        "isolated ref namespace and object domain"
+      ],
+      "requirements": [
+        "one exact configured remote ref per attempt",
+        "zero/multiple/unexpected ref outcomes fail closed",
+        "exact lower-case 40-hex observed identity",
+        "remote observation completion timestamp uses RPE-02 representation",
+        "network/read failure emits fail-closed observation failure",
+        "exact observed commit materialized/proven in isolated domain",
+        "invoke only qualified RPE-03 ancestry classifier",
+        "emit normalized P5-D2 REMOTE_HEAD_OBSERVED event with derived transition class",
+        "only exact SHA evidenced by successful governed remote operation is OBSERVED_REMOTE_TIP",
+        "ancestry-enumerated commits are CONTENT_CONTAINED_NOT_OBSERVED",
+        "no intermediate commit injection without independent successful remote observation",
+        "unprovable exact observed SHA -> UNKNOWN/BLOCKED",
+        "no queue coalescing",
+        "no retargeting",
+        "no evaluation/promotion/publication/Vault authority"
+      ],
+      "transaction_questions_to_preregister": [
+        "exact fetch command/refspec",
+        "exact source of observed SHA evidence",
+        "timestamp point for remote observation completion",
+        "timestamp point for full attempt completion",
+        "timeout representation",
+        "isolated namespace lifecycle",
+        "object-domain retention across attempts"
+      ],
+      "exit_criterion": "ADAPTER_OUTPUT_IS_EXACT_GOVERNED_REMOTE_EVIDENCE_PLUS_QUALIFIED_ANCESTRY_WITH_NO_CALLER_SUPPLIED_CONTAINMENT_OR_TRANSITION_AUTHORITY"
+    },
+    "RPE-05": {
+      "title": "FINITE_FIXED_RATE_TIMED_RUNNER",
+      "closes": ["BF1"],
+      "status": "NOT_OPENED",
+      "depends_on": ["RPE-04"],
+      "purpose": "Qualify the finite P5-E timing/scheduler authority delegated away from P5-D4 before any network execution.",
+      "initial_qualification_environment": "NO_NETWORK_INJECTED_CLOCK_INJECTED_SLEEP_FAKE_ADAPTER",
+      "target_interval_ns": 30000000000,
+      "target_detection_bound_ns": 60000000000,
+      "required_properties": [
+        "fixed-rate schedule anchored to one origin",
+        "no fixed-delay drift",
+        "separate scheduled slot and actual attempt start",
+        "separate remote observation completion and total attempt completion",
+        "exactly one active attempt",
+        "no overlapping observation operation",
+        "late-start handling delegated to qualified RPE-02 policy",
+        "attempt-crossing-next-slot handling delegated to qualified RPE-02 policy",
+        "finite maximum slots or finite terminal horizon",
+        "deterministic terminal reason",
+        "terminal reason causes STOP",
+        "adapter exception or network-equivalent failure becomes fail-closed evidence",
+        "no implicit retry authority beyond preregistered schedule",
+        "no queue coalescing",
+        "no candidate retargeting",
+        "no evaluation authority",
+        "no Stage A/B authority",
+        "no promotion/publication/Vault/CURRENT authority",
+        "no daemon/service/startup registration",
+        "no production P5-D4 control-state mutation",
+        "runner state and evidence isolated from production P5-D4 state"
+      ],
+      "minimum_fake_clock_traces": [
+        "perfect on-time attempts",
+        "late start within chosen policy",
+        "late start beyond chosen policy",
+        "attempt completes exactly at next slot",
+        "attempt overruns next slot",
+        "adapter failure",
+        "terminal success",
+        "terminal latency failure",
+        "finite no-detection stop",
+        "sleep returns early",
+        "sleep returns late",
+        "clock discontinuity injected"
+      ],
+      "exit_criterion": "FINITE_FIXED_RATE_RUNNER_IS_DETERMINISTIC_FAIL_CLOSED_SINGLE_ACTIVE_ATTEMPT_AND_QUALIFIED_WITHOUT_NETWORK"
+    },
+    "RPE-06": {
+      "title": "NB9_CONTROLLED_REAL_EXPERIMENT_PREREGISTRATION",
+      "closes": ["NB9", "NF4", "NF5", "NF6_EXPERIMENT_PART"],
+      "status": "NOT_OPENED",
+      "depends_on": ["RPE-01", "RPE-02", "RPE-03", "RPE-04", "RPE-05"],
+      "purpose": "Define exactly one finite real-network experiment after every static/runtime prerequisite is qualified.",
+      "experiment_contract_must_be_distinct_from_adopted_production_source_contract": true,
+      "p5d4_real_state_mutation_authorized": false,
+      "same_host_same_monotonic_clock_domain_required": true,
+      "sleep_hibernation_suspend_resume_must_be_prevented_or_detected_and_invalidate_run": true,
+      "preferred_first_pilot_surface": "DEDICATED_SANDBOX_REPOSITORY_OR_EQUIVALENT_ISOLATED_EXPERIMENT_SURFACE",
+      "sandbox_claim_limit": "May qualify runner/transport/adapter timing path; may not qualify integration/system-v1-specific SLA.",
+      "required_identity_and_isolation": [
+        "exact experiment repository URL",
+        "exact experiment ref",
+        "isolated producer clone",
+        "isolated observer/control root",
+        "no production P5-D4 control-root reuse",
+        "explicit claim boundary"
+      ],
+      "release_and_push_evidence": [
+        "target commit precomputed before release",
+        "same-host controlled source release start monotonic timestamp captured immediately before starting push",
+        "push completion monotonic timestamp",
+        "explicit refspec",
+        "no force push",
+        "creation-only guard technically validated before use",
+        "separate cleanup authority",
+        "cleanup not implicitly authorized by execution authorization"
+      ],
+      "push_outcome_matrix_minimum": {
+        "push_success_target_observed_within_bound": "VALID_PASS_CANDIDATE",
+        "push_success_target_not_observed_by_bound": "SLA_FAIL_CANDIDATE",
+        "push_failure_target_not_observed": "INVALID_EXPERIMENT",
+        "push_failure_target_observed": "INCONCLUSIVE_OR_BLOCKED"
+      },
+      "pre_push_side_effect_audit": [
+        "GitHub Actions workflows triggered by push",
+        "branch/ref filters",
+        "secret-bearing workflows",
+        "external side effects",
+        "other automation triggered by experiment ref"
+      ],
+      "execution_evidence_required": [
+        "clock capability evidence",
+        "host continuity evidence",
+        "release-start timestamp",
+        "push-completion timestamp",
+        "scheduled slots",
+        "actual attempt starts",
+        "remote observation completions",
+        "attempt completions",
+        "exact observed heads",
+        "derived transition classes",
+        "terminal runner reason",
+        "push outcome",
+        "experiment verdict"
+      ],
+      "production_ref_gate_after_sandbox": {
+        "integration_system_v1_mutation_for_measurement_only_forbidden": true,
+        "separate_human_authorization_required": true,
+        "preferred_source_event": "separately authorized legitimate governed update with target commit known before push",
+        "production_ref_sla_claim_requires_own_evidence": true,
+        "production_p5d4_pending_state_and_queue_capacity_must_be_explicitly_adjudicated": true
+      },
+      "exit_criterion": "SELF_CONTAINED_HUMAN_ADOPTED_PREREGISTRATION_EXISTS_FOR_ONE_FINITE_REAL_EXPERIMENT_WITH_EXACT_SOURCE_CLOCK_PUSH_RUNNER_ADAPTER_EVIDENCE_AND_STOP_RULES"
+    }
+  },
+  "governance_efficiency": {
+    "rpe_01_and_rpe_02_may_share_future_macro_authorization": true,
+    "conditions": [
+      "separate preregistrations",
+      "separate RED families",
+      "RPE-01 schema guard qualified before any RPE-02 governed artifact relies on it"
+    ],
+    "rpe_03_must_remain_separate_runtime_qualification": true
+  },
+  "post_readiness_gate": {
+    "real_experiment_execution_authorized_by_this_map": false,
+    "required_before_real_experiment": [
+      "RPE-01 QUALIFIED",
+      "RPE-02 QUALIFIED",
+      "RPE-03 QUALIFIED",
+      "RPE-04 QUALIFIED",
+      "RPE-05 QUALIFIED",
+      "RPE-06 PREREGISTERED_AND_HUMAN_ADOPTED",
+      "separate one-shot human execution authorization"
+    ],
+    "mandatory_stop": true
+  },
+  "claim_boundary": {
+    "real_p5e_qualified": false,
+    "real_60_second_sla_qualified": false,
+    "integration_system_v1_sla_qualified": false,
+    "real_tip_visibility_adapter_qualified": false,
+    "ancestry_classifier_qualified": false,
+    "timed_runner_qualified": false,
+    "real_experiment_authorized": false
+  }
+}
