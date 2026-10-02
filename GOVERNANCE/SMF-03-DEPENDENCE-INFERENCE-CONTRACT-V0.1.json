@@ -1,0 +1,73 @@
+{
+  "schema": "ATDS_SMF03_DEPENDENCE_INFERENCE_CONTRACT_V0_1",
+  "control_id": "SMF-03-W3",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "scope": {
+    "method_families": ["M04", "M05", "M06"],
+    "synthetic_only": true,
+    "real_backtest_authorized": false,
+    "real_performance_observation_authorized": false
+  },
+  "runtime_target": "tools/smf03_dependence_inference.py",
+  "reference_target": "tools/smf03_dependence_inference_reference.py",
+  "runtime_contract": "ATDS_SMF03_DEPENDENCE_INFERENCE_V0_1",
+  "reference_contract": "ATDS_SMF03_DEPENDENCE_INFERENCE_REFERENCE_V0_1",
+  "m04": {
+    "acf_estimators_supported": ["BIASED", "ADJUSTED"],
+    "lags_must_be_explicit": true,
+    "absolute_threshold_must_be_explicit": true,
+    "structural_flags_are_independent_evidence": true,
+    "independence_claim_forbidden": true,
+    "reference_parity_tolerance": {"rel": 1e-12, "abs": 1e-15}
+  },
+  "m05": {
+    "schemes_supported": ["IID", "MOVING_BLOCK"],
+    "interval_methods_supported": ["PERCENTILE", "BASIC"],
+    "confidence_level_must_be_explicit": true,
+    "replications_must_be_explicit": true,
+    "seed_must_be_explicit": true,
+    "iid_requires_iid_justified": true,
+    "moving_block_requires_block_length": true,
+    "unresolved_nonstationarity_blocks_global_resampling": true
+  },
+  "m06": {
+    "precision_model": "NORMAL_MEAN_KNOWN_SIGMA",
+    "power_model": "NORMAL_MEAN_KNOWN_SIGMA",
+    "no_model_is_default": true,
+    "power_effect_source_must_be_PREDECLARED": true,
+    "post_hoc_observed_power_forbidden": true
+  },
+  "forbidden_claims": [
+    "INDEPENDENCE_PROVEN",
+    "MODEL_VALID",
+    "STRATEGY_QUALIFIED",
+    "EDGE_GENERALIZABLE",
+    "LIVE_PROFITABILITY"
+  ],
+  "test_cases": [
+    ["DI-01","runtime contract and exact surface"],
+    ["DI-02","M04 requires explicit nonempty lags"],
+    ["DI-03","M04 biased ACF matches frozen synthetic case"],
+    ["DI-04","M04 adjusted ACF differs by frozen estimator semantics"],
+    ["DI-05","M04 structural dependence cannot be erased by low ACF"],
+    ["DI-06","M04 low tested ACF never claims independence"],
+    ["DI-07","M04 rejects invalid threshold and nonfinite observations"],
+    ["DI-08","M04 matches independent reference"],
+    ["DI-09","M05 IID resampling requires explicit IID justification"],
+    ["DI-10","M05 unresolved nonstationarity blocks global resampling"],
+    ["DI-11","M05 moving block requires explicit valid block length"],
+    ["DI-12","M05 requires explicit valid interval method"],
+    ["DI-13","M05 deterministic seed produces exact repeatability"],
+    ["DI-14","M05 constant sample CI collapses to the constant"],
+    ["DI-15","M05 percentile and basic are distinct selectable contracts"],
+    ["DI-16","M05 matches independent reference"],
+    ["DI-17","M06 precision model requires explicit supported model"],
+    ["DI-18","M06 precision required N matches independent reference"],
+    ["DI-19","M06 power model requires PREDECLARED effect source"],
+    ["DI-20","M06 unsupported model blocks rather than substitutes"],
+    ["DI-21","M06 power required N is deterministic and bounded by max_n"],
+    ["DI-22","M06 unreachable target within max_n blocks"],
+    ["DI-23","outputs contain no forbidden claims"],
+    ["DI-24","identical inputs are deterministic"]
+  ]
+}

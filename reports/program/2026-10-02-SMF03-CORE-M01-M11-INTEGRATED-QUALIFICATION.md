@@ -1,0 +1,260 @@
+# SMF-03 — CORE M01-M11 INTEGRATED IMPLEMENTATION QUALIFICATION
+
+Date: 2026-10-02
+
+Feature branch:
+`feat/smf03-core-implementation-v0.1`
+
+Governed base at final verification:
+
+```text
+integration/system-v1 HEAD =
+88f6978a77e87bed4ccef0708cdde7bfbbf7e929
+
+integration/system-v1 TREE =
+586bc319990d7f1e0c45b38d6e32a5cea7203765
+```
+
+Integrated candidate identity before this report:
+
+```text
+FEATURE HEAD =
+5b7b5281ddc53c65c2a0c61541b5b7afda0a8514
+
+FEATURE TREE =
+a1a3b2629917bcfbeebf641dd3000ea8f4f53b37
+```
+
+Qualified implementation surface:
+
+```text
+M01  PREREGISTERED CLAIM / ESTIMAND CONTRACT
+     + METHOD_ACTIVATION_RECORD
+
+M02  NET EXPECTANCY + ECONOMIC EFFECT + COST STRESS
+M03  ECDF + EMPIRICAL QUANTILES
+M04  DEPENDENCE / OVERLAP GATE
+M05  DEPENDENCE-AWARE RESAMPLING CI
+M06  SAMPLE ADEQUACY / POWER
+M07  INFLUENCE / EVIDENCE CONCENTRATION
+M08  SAMPLE SELECTION / ATTRITION
+M09  OOS / PRISTINE CONFIRMATION
+M10  PREDECLARED TEMPORAL / REGIME STABILITY
+M11  SEARCH-PROVENANCE / MULTIPLICITY GATE
+```
+
+Exact governed contracts:
+
+```text
+CORE FOUNDATION CONTRACT =
+5b71a409f135e42de5805b12afbd518a152b32a5
+
+DEPENDENCE / INFERENCE CONTRACT =
+618171fd013f7f9cfe39f233048e650fc276b729
+
+EVIDENCE GOVERNANCE CONTRACT =
+67014f4fb753e3165cacc0ae59a49b522e84fa87
+```
+
+Exact breakers:
+
+```text
+W1-W2 BREAKER =
+d9e6efde77d52113f1e26ad23a3df0efd94b2776
+
+W3 BREAKER =
+b190848223210467b8535ebcf98ba190e9ab65b7
+
+W4 BREAKER =
+c913f1bd8fdb6f48e046aa78bd906c55c19f34b8
+
+CORE INTEGRATED REBREAK =
+605b8f6589458643ac521c3a6c36b819ff599ae5
+```
+
+Exact runtimes and independent references:
+
+```text
+FOUNDATION RUNTIME =
+b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb
+
+FOUNDATION REFERENCE =
+00131e4369c15cf5efdbc3a6523b57e77b91b2f4
+
+DEPENDENCE / INFERENCE RUNTIME =
+fce7998167745659cb0fd5d03a8de14946b0394d
+
+DEPENDENCE / INFERENCE REFERENCE =
+f134c0a8c7a1832be3e851a2597f2f7218fab6c9
+
+EVIDENCE GOVERNANCE RUNTIME =
+7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222
+
+EVIDENCE GOVERNANCE REFERENCE =
+55c47f98f574286242e8bf9a09156d24134130bd
+```
+
+Test-first history:
+
+```text
+W1-W2 EXPECTED RED:
+21 failed because runtime was absent.
+
+W1-W2 FIRST GREEN:
+20 pass / 1 fail.
+Targeted runtime correction:
+non-finite scalar cost now fails as NONFINITE_COST.
+FINAL:
+21 / 21 PASS.
+
+W3 EXPECTED RED:
+27 failed because runtime was absent.
+
+W3 FIRST GREEN:
+25 pass / 2 fail.
+Both findings were test-contract defects:
+- explicit floating reference tolerance required;
+- non-discriminating percentile/basic fixture replaced.
+FINAL:
+27 / 27 PASS.
+
+W4 EXPECTED RED:
+33 failed because runtime was absent.
+
+W4 FIRST GREEN:
+32 pass / 1 fail.
+Finding was a breaker field-selection error:
+declared attrition threshold and observed gap were conflated.
+FINAL:
+33 / 33 PASS.
+```
+
+Integrated local re-break:
+
+```text
+21 + 27 + 33 + 15 cross-surface tests
+=
+96 / 96 PASS
+```
+
+Canonical environment:
+
+```text
+runner = ubuntu-24.04
+python = 3.12.14
+requirements = requirements/qualification.lock.txt
+pytest = 8.4.2
+```
+
+Canonical same-head CI at:
+
+```text
+HEAD =
+5b7b5281ddc53c65c2a0c61541b5b7afda0a8514
+
+W1-W2 =
+run 37049414863
+SUCCESS
+
+W3 =
+run 37049414946
+SUCCESS
+
+W4 =
+run 37049414985
+SUCCESS
+
+CORE INTEGRATED =
+run 37049415335
+SUCCESS
+```
+
+Cross-surface properties re-broken:
+
+```text
+METHOD ACTIVATION MUST PRECEDE RESULT
+= PASS
+
+GROSS POSITIVE CANNOT COMPENSATE NEGATIVE NET EFFECT
+= PASS
+
+LOW TESTED ACF DOES NOT AUTO-GRANT IID
+= PASS
+
+STRUCTURAL DEPENDENCE SURVIVES FAVORABLE ACF THRESHOLD
+= PASS
+
+DEPENDENCE-UNIT INFLUENCE REMAINS GROUPED
+= PASS
+
+ATTRITION AND TEMPORAL STABILITY DO NOT COMPENSATE EACH OTHER
+= PASS
+
+OOS / PRISTINE EXPOSURE IS IRREVERSIBLE
+= PASS
+
+UNKNOWN SEARCH UNIVERSE DOES NOT CREATE N_TRIALS
+= PASS
+
+POST-HOC REGIME RESCUE IS BLOCKED
+= PASS
+
+INDEPENDENT REFERENCE PARITY
+= PASS WITH FROZEN NUMERICAL TOLERANCE WHERE REQUIRED
+
+STDLIB-ONLY CORE RUNTIMES
+= PASS
+
+DETERMINISTIC SYNTHETIC PACKET
+= PASS
+
+NO STRATEGY / LIVE / DEPLOYMENT AUTHORITY CLAIM
+= PASS
+```
+
+Qualification verdict:
+
+```text
+SMF03_CORE_M01_M11 =
+QUALIFIED_IMPLEMENTATION_CANDIDATE
+
+QUALIFICATION_MEANING =
+NO FAILURE FOUND
+WITHIN THE DEFINED
+AND ACTUALLY TESTED
+SYNTHETIC IMPLEMENTATION SURFACE
+```
+
+This does not claim:
+
+```text
+REAL STRATEGY EDGE
+REAL PROFITABILITY
+GENERALIZATION
+LIVE VALIDITY
+BROKER REALISM
+CAPITAL SUITABILITY
+COMPLETE FAILURE-MODE COVERAGE
+```
+
+Conditional method families remain unimplemented:
+
+```text
+C01 EXPECTED SHORTFALL
+C02 HOLM FWER
+C03 BENJAMINI-HOCHBERG FDR
+C04 PBO / CSCV
+C05 HANSEN SPA
+C06 PSR / DSR / MINIMUM TRACK RECORD LENGTH
+C07 SEQUENTIAL-VALID INFERENCE
+C08 EQUIVALENCE / NEGLIGIBILITY TESTING
+C09 DEPENDENCE-PRESERVING PATH SIMULATION
+C10 RISK OF RUIN UNDER EXACT POLICY
+C11 PROPER SCORING / CALIBRATION
+C12 EXACT BINOMIAL / PERMUTATION
+```
+
+They are not failed or rejected.
+They remain governed conditional families whose exact executable specifications must be fixed before implementation.
+
+No merge to `integration/system-v1` is authorized by this qualification report.

@@ -1,0 +1,97 @@
+{
+  "schema": "ATDS_SMF03_EVIDENCE_GOVERNANCE_CONTRACT_V0_1",
+  "control_id": "SMF-03-W4",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "scope": {
+    "method_families": ["M07", "M08", "M09", "M10", "M11"],
+    "synthetic_only": true,
+    "real_backtest_authorized": false,
+    "real_performance_observation_authorized": false,
+    "oos_consumption_authorized": false
+  },
+  "runtime_target": "tools/smf03_evidence_governance.py",
+  "reference_target": "tools/smf03_evidence_governance_reference.py",
+  "runtime_contract": "ATDS_SMF03_EVIDENCE_GOVERNANCE_V0_1",
+  "reference_contract": "ATDS_SMF03_EVIDENCE_GOVERNANCE_REFERENCE_V0_1",
+  "m07": {
+    "analysis": "leave-one-dependence-unit-out mean sensitivity",
+    "dependence_unit_ids_required": true,
+    "materiality_abs_delta_must_be_explicit": true,
+    "automatic_outlier_deletion": false
+  },
+  "m08": {
+    "inclusion_indicator_required": true,
+    "exclusion_reason_required_for_excluded_observations": true,
+    "stratum_required": true,
+    "max_inclusion_rate_gap_must_be_explicit": true
+  },
+  "m09": {
+    "states": ["PRISTINE", "EXPOSED", "CONTAMINATED"],
+    "events": [
+      "CONFIRMATORY_EVALUATION",
+      "EXPLORATORY_INSPECTION",
+      "HYPOTHESIS_REDESIGN_USING_EVIDENCE"
+    ],
+    "reset_to_pristine": "FORBIDDEN",
+    "state_progression": "MONOTONIC_EXPOSURE_ONLY"
+  },
+  "m10": {
+    "strata_must_be_predeclared": true,
+    "declared_strata_required": true,
+    "minimum_n_per_stratum_must_be_explicit": true,
+    "max_mean_spread_must_be_explicit": true,
+    "post_hoc_confirmatory_regime": "FORBIDDEN"
+  },
+  "m11": {
+    "statuses": [
+      "NO_RELEVANT_MULTIPLICITY",
+      "KNOWN_SEARCH_UNIVERSE",
+      "PARTIAL_SEARCH_UNIVERSE",
+      "UNKNOWN_SEARCH_UNIVERSE"
+    ],
+    "automatic_n_trials_from_registry_count": false,
+    "known_universe_requires_explicit_n_trials": true,
+    "partial_or_unknown_n_trials": null
+  },
+  "forbidden_claims": [
+    "OUTLIERS_INVALID",
+    "MISSINGNESS_IGNORABLE",
+    "PRISTINE_RESET",
+    "POST_HOC_REGIME_CONFIRMED",
+    "AUTOMATIC_N_TRIALS",
+    "STRATEGY_QUALIFIED",
+    "EDGE_GENERALIZABLE",
+    "LIVE_PROFITABILITY"
+  ],
+  "test_cases": [
+    ["EG-01","runtime contract and exact surface"],
+    ["EG-02","M07 requires explicit dependence-unit ids"],
+    ["EG-03","M07 groups repeated observations before leave-one-out"],
+    ["EG-04","M07 detects sign reversal without deleting observations"],
+    ["EG-05","M07 materiality threshold is explicit and exact"],
+    ["EG-06","M07 matches independent reference"],
+    ["EG-07","M08 excluded observations require explicit reason"],
+    ["EG-08","M08 computes exact reason counts"],
+    ["EG-09","M08 computes exact inclusion rates by declared stratum"],
+    ["EG-10","M08 material selection asymmetry uses explicit gap threshold"],
+    ["EG-11","M08 matches independent reference"],
+    ["EG-12","M09 pristine confirmatory evaluation becomes exposed"],
+    ["EG-13","M09 exploratory inspection becomes exposed"],
+    ["EG-14","M09 redesign using evidence becomes contaminated"],
+    ["EG-15","M09 cannot reset exposed or contaminated evidence to pristine"],
+    ["EG-16","M09 exposure progression is deterministic and monotonic"],
+    ["EG-17","M10 rejects post-hoc confirmatory strata"],
+    ["EG-18","M10 rejects undeclared stratum labels"],
+    ["EG-19","M10 blocks insufficient conditional sample"],
+    ["EG-20","M10 detects exact mean-spread instability"],
+    ["EG-21","M10 passes stability only within explicit tolerance"],
+    ["EG-22","M10 matches independent reference"],
+    ["EG-23","M11 known universe requires explicit n_trials"],
+    ["EG-24","M11 registry count never becomes n_trials"],
+    ["EG-25","M11 partial and unknown universes return n_trials null"],
+    ["EG-26","M11 no relevant multiplicity remains distinct from known one-trial universe"],
+    ["EG-27","M11 known n_trials must be positive integer and provenance complete"],
+    ["EG-28","outputs contain no forbidden claims"],
+    ["EG-29","identical inputs are deterministic"]
+  ]
+}

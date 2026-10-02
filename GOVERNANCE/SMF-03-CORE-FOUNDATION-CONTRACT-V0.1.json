@@ -1,0 +1,97 @@
+{
+  "schema": "ATDS_SMF03_CORE_FOUNDATION_CONTRACT_V0_1",
+  "control_id": "SMF-03-W1-W2",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "base_head": "88f6978a77e87bed4ccef0708cdde7bfbbf7e929",
+  "scope": {
+    "method_families": ["M01", "M02", "M03"],
+    "activation_record": true,
+    "synthetic_only": true,
+    "real_backtest_authorized": false,
+    "real_performance_observation_authorized": false,
+    "oos_consumption_authorized": false
+  },
+  "runtime_target": "tools/smf03_core_foundation.py",
+  "reference_target": "tools/smf03_core_foundation_reference.py",
+  "runtime_contract": "ATDS_SMF03_CORE_FOUNDATION_V0_1",
+  "reference_contract": "ATDS_SMF03_CORE_FOUNDATION_REFERENCE_V0_1",
+  "allowed_method_families": [
+    "M01","M02","M03","M04","M05","M06","M07","M08","M09","M10","M11",
+    "C01","C02","C03","C04","C05","C06","C07","C08","C09","C10","C11","C12"
+  ],
+  "activation_states": ["ACTIVATED", "NOT_APPLICABLE", "BLOCKED"],
+  "activation_required_fields": [
+    "claim_definition_ref",
+    "failure_mode_ref",
+    "method_family_ref",
+    "validity_scope_ref",
+    "assumption_set_ref",
+    "activation_reason",
+    "activation_rule",
+    "parameter_selection_policy",
+    "dependency_refs",
+    "activation_state"
+  ],
+  "activation_invariants": [
+    "activation must precede method-result exposure",
+    "material identity fields must be non-empty",
+    "activation record must be deterministic and digest-bound",
+    "method family must belong to the adopted SMF-01 registry"
+  ],
+  "m02": {
+    "estimand": "arithmetic mean of per-observation net outcomes",
+    "net_outcome": "gross_outcome - applicable_cost",
+    "costs": "scalar broadcast or one cost per observation",
+    "minimum_effect": "required explicit finite threshold",
+    "threshold_relation": ["ABOVE_OR_EQUAL", "BELOW"],
+    "epistemic_qualification_forbidden": true
+  },
+  "m03": {
+    "ecdf": "sorted observations with cumulative rank i/n",
+    "quantile_definition": "linear interpolation with h=(n-1)*p",
+    "probability_domain": "[0,1]",
+    "tail_extrapolation": "FORBIDDEN",
+    "empty_sample": "BLOCKED"
+  },
+  "forbidden_output_claims": [
+    "STRATEGY_QUALIFIED",
+    "EDGE_GENERALIZABLE",
+    "LIVE_PROFITABILITY",
+    "DEPLOYMENT_AUTHORIZED",
+    "UNOBSERVED_TAIL_IMPOSSIBLE"
+  ],
+  "test_cases": [
+    ["CF-01","runtime contract and surface are exact"],
+    ["CF-02","activation rejects post-result method selection"],
+    ["CF-03","activation rejects empty material identities"],
+    ["CF-04","activation rejects non-adopted method family"],
+    ["CF-05","activation states remain distinct"],
+    ["CF-06","activation record digest is deterministic"],
+    ["CF-07","M02 subtracts scalar cost before averaging"],
+    ["CF-08","M02 subtracts per-observation costs"],
+    ["CF-09","M02 threshold relation is exact"],
+    ["CF-10","M02 rejects non-finite outcomes or costs"],
+    ["CF-11","M03 ECDF uses exact sorted cumulative ranks"],
+    ["CF-12","M03 quantiles use frozen linear interpolation"],
+    ["CF-13","M03 handles p=0 and p=1 exactly"],
+    ["CF-14","M03 blocks empty samples"],
+    ["CF-15","M02 matches independent reference"],
+    ["CF-16","M03 matches independent reference"],
+    ["CF-17","outputs contain no forbidden scientific or deployment claims"],
+    ["CF-18","identical synthetic inputs are deterministic"]
+  ],
+  "non_authorizations": [
+    "REAL_BACKTEST",
+    "REAL_PERFORMANCE",
+    "OOS_CONSUMPTION",
+    "STRATEGY_MODIFICATION",
+    "SFE_MODIFICATION",
+    "RISK_ENGINE",
+    "PORTFOLIO_ENGINE",
+    "SIZING",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ]
+}
