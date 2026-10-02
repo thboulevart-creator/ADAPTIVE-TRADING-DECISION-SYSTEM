@@ -1,0 +1,395 @@
+{
+  "schema": "ATDS_SFE_02B_MEAN_REVERSION_V1_MINIMAL_IMPLEMENTATION_CONTRACT_V0_1",
+  "control_id": "SFE-02B",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_MINIMAL_IMPLEMENTATION_SYNTHETIC_QUALIFICATION",
+  "date": "2026-10-02",
+  "authority": {
+    "contract_and_breaker_authorized": true,
+    "minimal_implementation_authorized": true,
+    "synthetic_qualification_authorized": true,
+    "numerical_adversarial_mutation_sweep_authorized": true,
+    "independent_synthetic_reference_authorized": true,
+    "real_market_data_authorized": false,
+    "performance_observation_authorized": false,
+    "behavioral_y_authorized": false,
+    "pnl_authorized": false,
+    "backtest_authorized": false,
+    "execution_authorized": false,
+    "optimization_authorized": false,
+    "ranking_authorized": false,
+    "router_authorized": false,
+    "regime_filter_authorized": false,
+    "mt5_paper_broker_live_capital_authorized": false
+  },
+  "adopted_dependencies": {
+    "sfe_01_v0_2": {
+      "status": "HUMAN_ADOPTED_WITH_AMENDMENTS",
+      "definition_blob": "027c42b38bf9c74415b21e98bcce19124f744995",
+      "adjudication_blob": "66aa556e4e161e49550451062273bc8d6422593c"
+    },
+    "sfe_02a_breakout_v1": {
+      "status": "CLOSED_AT_SYNTHETIC_IMPLEMENTATION_BOUNDARY",
+      "contract_blob": "0b99adfd76f2756e1d58319093fded50d751cf32",
+      "breaker_blob": "c2189c8b28f62ccffda58b02ff537dd53ba343f9",
+      "runtime_blob": "60f32b2d054390c2b5dbb975b015d7e09a5a1a96",
+      "closure_blob": "b88d7468394913606b5931b1c3cc070631e19912"
+    }
+  },
+  "runtime_target": "tools/sfe_02b_mean_reversion_v1.py",
+  "runtime_contract": "ATDS_SFE_02B_MEAN_REVERSION_V1_RUNTIME_V0_1",
+  "strategy": {
+    "strategy_id": "MEAN_REVERSION_V1",
+    "family": "MEAN_REVERSION",
+    "version": "V1",
+    "bar_interval": "H1",
+    "lookback_completed_admissible_h1": 20,
+    "mean_reference": "preceding 20 admissible H1 closes only",
+    "population_sigma_reference": "preceding 20 admissible H1 closes only; denominator 20",
+    "current_close_excluded_from_reference": true,
+    "z_formula": "(C_t - MU_t) / SIGMA_t",
+    "z_threshold": 1,
+    "long_rule": "Z_t <= -1.0",
+    "short_rule": "Z_t >= +1.0",
+    "neutral_rule": "-1.0 < Z_t < +1.0",
+    "exact_lower_threshold": "LONG",
+    "exact_upper_threshold": "SHORT",
+    "zero_sigma_signal": "UNDEFINED",
+    "warmup_signal": "UNDEFINED",
+    "first_eligible_continuity_ordinal": 20,
+    "cross_continuity_block_lookback": false,
+    "signal_states": [
+      "LONG",
+      "SHORT",
+      "NEUTRAL",
+      "UNDEFINED"
+    ]
+  },
+  "input": {
+    "required_fields": [
+      "bar_start_ms_utc",
+      "continuity_block_id",
+      "continuity_ordinal",
+      "close"
+    ],
+    "bar_start_ms_utc": {
+      "type": "INTEGER_NOT_BOOL",
+      "order": "STRICTLY_INCREASING",
+      "duplicate_allowed": false,
+      "within_same_continuity_block_increment_ms": 3600000
+    },
+    "continuity_block_id": {
+      "type": "STRING_OR_INTEGER_NOT_BOOL",
+      "block_reappearance_after_transition": false
+    },
+    "continuity_ordinal": {
+      "type": "INTEGER_NOT_BOOL",
+      "first_in_block": 0,
+      "same_block_increment": 1
+    },
+    "close": {
+      "accepted_source_types": [
+        "INTEGER_NOT_BOOL",
+        "FLOAT_NOT_BOOL"
+      ],
+      "canonical_runtime_representation": "IEEE_754_BINARY64_PYTHON_FLOAT",
+      "conversion_failure": "NONFINITE_CLOSE",
+      "finite_required": true,
+      "strictly_positive_required": true
+    }
+  },
+  "numerical_semantics": {
+    "canonical_price_type": "Python float / IEEE-754 binary64",
+    "close_normalization": "float(close) after source-type validation",
+    "mean_algorithm": "MU = math.fsum(x / 20.0 for x in window)",
+    "variance_algorithm": [
+      "d_i = x_i - MU",
+      "scale = max(abs(d_i))",
+      "if scale == 0.0 then SIGMA = 0.0",
+      "otherwise SIGMA = scale * math.sqrt(math.fsum(((d_i / scale) ** 2) / 20.0 for d_i in deviations))"
+    ],
+    "variance_kind": "POPULATION",
+    "variance_denominator": 20,
+    "square_root": "math.sqrt on nonnegative scaled population second moment",
+    "zero_sigma_test": "exact binary64 equality SIGMA == 0.0",
+    "near_zero_sigma_epsilon": "NONE",
+    "z_computation": "(current_close - MU) / SIGMA using binary64 operations",
+    "lower_threshold_comparison": "Z <= -1.0",
+    "upper_threshold_comparison": "Z >= +1.0",
+    "threshold_constants": "binary64 literals -1.0 and +1.0",
+    "current_close_excluded_from_mu_sigma": true,
+    "parameter_or_numeric_semantic_change_after_performance_observation": false
+  },
+  "validation_precedence": [
+    "TOP_LEVEL_INPUT_TYPE",
+    "ROW_OBJECT_AND_REQUIRED_FIELDS",
+    "FIELD_TYPES_AND_CLOSE_DOMAIN",
+    "TIMESTAMP_DUPLICATE_AND_ORDER",
+    "CONTINUITY_COHERENCE",
+    "REFERENCE_STATISTICS",
+    "SIGNAL_COMPUTATION"
+  ],
+  "output": {
+    "top_level": [
+      "status",
+      "records"
+    ],
+    "record_fields": [
+      "bar_start_ms_utc",
+      "signal",
+      "trace"
+    ],
+    "trace_fields": [
+      "continuity_block_id",
+      "continuity_ordinal",
+      "lookback_start_ms_utc",
+      "lookback_end_ms_utc"
+    ],
+    "mean_sigma_z_not_exposed": true,
+    "performance_fields_forbidden": true,
+    "behavioral_y_forbidden": true,
+    "execution_fields_forbidden": true,
+    "position_fields_forbidden": true
+  },
+  "fail_closed_reasons": [
+    "INPUT_NOT_LIST",
+    "ROW_NOT_OBJECT",
+    "MISSING_REQUIRED_FIELD",
+    "INVALID_TIMESTAMP_TYPE",
+    "INVALID_CLOSE_TYPE",
+    "NONFINITE_CLOSE",
+    "NONPOSITIVE_CLOSE",
+    "INVALID_BLOCK_ID",
+    "INVALID_ORDINAL_TYPE",
+    "DUPLICATE_TIMESTAMP",
+    "INVALID_TIMESTAMP_ORDER",
+    "CONTINUITY_INCOHERENT"
+  ],
+  "prohibited_features": [
+    "PARAMETER_OPTIMIZATION",
+    "PERFORMANCE_OBSERVATION",
+    "BEHAVIORAL_Y_CALCULATION",
+    "PNL_CALCULATION",
+    "EXECUTION",
+    "POSITION_STATE",
+    "REGIME_FILTER",
+    "ROUTER",
+    "DISCRETIONARY_OVERRIDE",
+    "BREAKOUT_PERFORMANCE_CONSUMPTION",
+    "E1_TD_DATA_CONSUMPTION"
+  ],
+  "forbidden_claims": [
+    "MEAN_REVERSION_V1_SUPPORTED",
+    "MEAN_REVERSION_V1_REFUTED",
+    "MEAN_REVERSION_V1_PROFITABLE",
+    "ECONOMIC_EDGE",
+    "ROBUST",
+    "SOURCE_INDEPENDENT",
+    "PRODUCTION_READY",
+    "PAPER_READY",
+    "BROKER_READY",
+    "LIVE_READY",
+    "CAPITAL_READY"
+  ],
+  "test_cases": [
+    [
+      "M2B-01",
+      "continuity ordinal 19 is UNDEFINED"
+    ],
+    [
+      "M2B-02",
+      "ordinal 20 exact upper z threshold is SHORT"
+    ],
+    [
+      "M2B-03",
+      "ordinal 20 exact lower z threshold is LONG"
+    ],
+    [
+      "M2B-04",
+      "binary64 value immediately below upper threshold is NEUTRAL"
+    ],
+    [
+      "M2B-05",
+      "binary64 value immediately above lower threshold is NEUTRAL"
+    ],
+    [
+      "M2B-06",
+      "inside z band is NEUTRAL"
+    ],
+    [
+      "M2B-07",
+      "exact zero sigma is UNDEFINED"
+    ],
+    [
+      "M2B-08",
+      "current close is excluded from mean and sigma"
+    ],
+    [
+      "M2B-09",
+      "oldest of exact 20-lookback is included"
+    ],
+    [
+      "M2B-10",
+      "bar older than exact 20-lookback is excluded"
+    ],
+    [
+      "M2B-11",
+      "population denominator 20 is used rather than sample denominator 19"
+    ],
+    [
+      "M2B-12",
+      "continuity change resets warmup"
+    ],
+    [
+      "M2B-13",
+      "ordinal 20 in new block is first eligible"
+    ],
+    [
+      "M2B-14",
+      "future row mutation cannot change prior signal"
+    ],
+    [
+      "M2B-15",
+      "identical input is exactly deterministic"
+    ],
+    [
+      "M2B-16",
+      "missing required field fails closed"
+    ],
+    [
+      "M2B-17",
+      "non-object row fails closed"
+    ],
+    [
+      "M2B-18",
+      "non-list top-level input fails closed"
+    ],
+    [
+      "M2B-19",
+      "non-numeric close fails closed"
+    ],
+    [
+      "M2B-20",
+      "boolean close fails closed"
+    ],
+    [
+      "M2B-21",
+      "NaN close fails closed"
+    ],
+    [
+      "M2B-22",
+      "infinite close fails closed"
+    ],
+    [
+      "M2B-23",
+      "binary64 conversion overflow fails closed"
+    ],
+    [
+      "M2B-24",
+      "zero close fails closed"
+    ],
+    [
+      "M2B-25",
+      "negative close fails closed"
+    ],
+    [
+      "M2B-26",
+      "invalid timestamp type fails closed"
+    ],
+    [
+      "M2B-27",
+      "duplicate timestamp fails closed"
+    ],
+    [
+      "M2B-28",
+      "decreasing timestamp fails closed"
+    ],
+    [
+      "M2B-29",
+      "non-H1 timestamp step inside block fails closed"
+    ],
+    [
+      "M2B-30",
+      "invalid ordinal type fails closed"
+    ],
+    [
+      "M2B-31",
+      "ordinal jump fails closed"
+    ],
+    [
+      "M2B-32",
+      "new block must start at ordinal zero"
+    ],
+    [
+      "M2B-33",
+      "continuity block cannot reappear"
+    ],
+    [
+      "M2B-34",
+      "invalid continuity block id fails closed"
+    ],
+    [
+      "M2B-35",
+      "integer and equivalent float closes normalize identically"
+    ],
+    [
+      "M2B-36",
+      "runtime constants numerical semantics and prohibitions are exact"
+    ],
+    [
+      "M2B-37",
+      "output contains no mean sigma z performance execution or position surface"
+    ],
+    [
+      "M2B-38",
+      "trace binds eligible signal to exact previous-20 window"
+    ],
+    [
+      "M2B-39",
+      "independent Decimal reference parity on safe synthetic corpus"
+    ],
+    [
+      "M2B-40",
+      "very large finite positive closes remain numerically interpretable"
+    ],
+    [
+      "M2B-41",
+      "near-zero but nonzero sigma uses no hidden epsilon"
+    ],
+    [
+      "M2B-42",
+      "steady-trend displacement can legitimately produce directional signal"
+    ]
+  ],
+  "qualification_boundary": {
+    "synthetic_data_only": true,
+    "actual_market_data": false,
+    "breakout_performance_observed": false,
+    "performance_observation": false,
+    "qualification_claim": "implementation matches adopted MEAN_REVERSION_V1 signal semantics and frozen numerical semantics on preregistered synthetic adversarial surface only"
+  },
+  "stop_after_qualification": true,
+  "non_authorizations": [
+    "REAL_MARKET_DATA",
+    "BEHAVIORAL_Y",
+    "PERFORMANCE",
+    "PNL",
+    "BACKTEST",
+    "EXECUTION",
+    "OPTIMIZATION",
+    "RANKING",
+    "ROUTER",
+    "REGIME_FILTER",
+    "BREAKOUT_V1_MODIFICATION",
+    "MOMENTUM_V1_MODIFICATION",
+    "E1",
+    "E1_TD",
+    "TD03B",
+    "A0",
+    "C01_REAL",
+    "MT5",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ]
+}
