@@ -98,7 +98,9 @@ def _validated_sample(values, *, name: str):
     return out
 
 def _validated_costs(costs, n: int):
-    if _finite_number(costs):
+    if isinstance(costs, (int, float)) and not isinstance(costs, bool):
+        if not _finite_number(costs):
+            raise ValueError("NONFINITE_COST")
         return [float(costs)] * n
     if not isinstance(costs, (list, tuple)) or len(costs) != n:
         raise ValueError("COST_LENGTH_MISMATCH")
