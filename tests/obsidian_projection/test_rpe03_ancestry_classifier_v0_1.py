@@ -1,6 +1,7 @@
-﻿import importlib.util
+import importlib.util
 import inspect
 import os
+import stat
 import subprocess
 import tempfile
 import unittest
@@ -11,6 +12,8 @@ ROOT = Path(__file__).resolve().parents[2]
 MODULE = ROOT / "tools/obsidian_projection/rpe03_ancestry_classifier_v0_1.py"
 PREREG = ROOT / "tools/obsidian_projection/rpe03_ancestry_classifier_preregistration_v0_1.json"
 SCHEMA = ROOT / "tools/obsidian_projection/rpe03_ancestry_classifier_preregistration_v0_1_schema_v0_1.json"
+AMENDMENT = ROOT / "tools/obsidian_projection/rpe03_no_lazy_fetch_amendment_v0_1.json"
+AMENDMENT_SCHEMA = ROOT / "tools/obsidian_projection/rpe03_no_lazy_fetch_amendment_v0_1_schema_v0_1.json"
 GUARD = ROOT / "tools/obsidian_projection/rpe01_governed_closed_schema.py"
 MISSING = "f" * 40
 
@@ -59,6 +62,25 @@ class TestRPE03AncestryClassifierV01(unittest.TestCase):
         g=load(GUARD,"rpe01_guard_for_rpe03")
         d=g.validate_governed_json(PREREG.read_text(encoding="utf-8"),SCHEMA.read_text(encoding="utf-8"))
         self.assertEqual(d["classification"]["outputs"],["INITIAL","SAME","FAST_FORWARD","NON_FAST_FORWARD","UNKNOWN"])
+
+    def test_implementation_constants_match_governed_preregistration(self):
+        g=load(GUARD,"rpe01_guard_for_rpe03_parity")
+        d=g.validate_governed_json(PREREG.read_text(encoding="utf-8"),SCHEMA.read_text(encoding="utf-8"))
+        a=g.validate_governed_json(AMENDMENT.read_text(encoding="utf-8"),AMENDMENT_SCHEMA.read_text(encoding="utf-8"))
+        m=load(MODULE,"rpe03_governed_config_parity")
+        self.assertEqual(
+            m._TIMEOUT_SECONDS * 1000,
+            d["git_execution"]["command_timeout_milliseconds"],
+        )
+        env=m._safe_git_env()
+        self.assertEqual(env["GIT_NO_REPLACE_OBJECTS"],"1")
+        self.assertEqual(env["GIT_CONFIG_NOSYSTEM"],"1")
+        self.assertEqual(env["GIT_TERMINAL_PROMPT"],"0")
+        self.assertEqual(env["GIT_OPTIONAL_LOCKS"],"0")
+        self.assertEqual(
+            env["GIT_NO_LAZY_FETCH"],
+            a["added_requirement"]["required_value"],
+        )
 
     def test_static_source_has_no_network_commands_or_network_modules(self):
         source=MODULE.read_text(encoding="utf-8") if MODULE.exists() else ""
@@ -161,7 +183,8 @@ class TestRPE03AncestryClassifierV01(unittest.TestCase):
             gd=Path(git(repo,"rev-parse","--absolute-git-dir"))
             obj=gd/"objects"/b[:2]/b[2:]
             self.assertTrue(obj.exists())
-            obj.unlink()
+            os.chmod(obj, stat.S_IWRITE)
+            obj.write_bytes(b"corrupt-object")
             self.assertEqual(m.classify_transition(repo,a,b),"UNKNOWN")
         finally: td.cleanup()
 
@@ -193,7 +216,8 @@ class TestRPE03AncestryClassifierV01(unittest.TestCase):
                 self.assertEqual(env["GIT_NO_REPLACE_OBJECTS"],"1")
                 self.assertEqual(env["GIT_CONFIG_NOSYSTEM"],"1")
                 self.assertEqual(env["GIT_TERMINAL_PROMPT"],"0")
-                self.assertFalse(any(k.startswith("GIT_") and k not in {"GIT_NO_REPLACE_OBJECTS","GIT_CONFIG_NOSYSTEM","GIT_CONFIG_GLOBAL","GIT_TERMINAL_PROMPT","GIT_OPTIONAL_LOCKS"} for k in env))
+                self.assertEqual(env["GIT_NO_LAZY_FETCH"],"1")
+                self.assertFalse(any(k.startswith("GIT_") and k not in {"GIT_NO_REPLACE_OBJECTS","GIT_CONFIG_NOSYSTEM","GIT_CONFIG_GLOBAL","GIT_TERMINAL_PROMPT","GIT_OPTIONAL_LOCKS","GIT_NO_LAZY_FETCH"} for k in env))
         finally: td.cleanup()
 
     def test_invalid_head_format_is_unknown(self):
