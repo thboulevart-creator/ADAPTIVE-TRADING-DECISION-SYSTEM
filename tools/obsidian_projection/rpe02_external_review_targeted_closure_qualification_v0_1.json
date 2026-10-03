@@ -1,0 +1,78 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE02_EXTERNAL_REVIEW_TARGETED_CLOSURE_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-03",
+  "branch": "feat/obsidian-projection-rpe02-real-time-representation-v0.1",
+  "external_review": {
+    "verdict": "FAIL",
+    "review_blob": "45766b0ad21a62447b9233ec1563eb85825f221d",
+    "adjudication_blob": "836450b88ae69254dda77f548ede19bfaae1cb86"
+  },
+  "preregistration": {
+    "head": "b8b2698252be7f630e435d17313cd1058bec2a51",
+    "blob": "cafee7194155944eb059ead466fd6bc517edde58",
+    "schema_blob": "d67da710e63643c26c0a004cc38109ff4e301b25"
+  },
+  "targeted_red": {
+    "head": "afaafb9f3b9fb3a4d90cfa912b7eb176abc19161",
+    "test_blob": "0756598131911168a7cb5944c0ed465c7ebbd2a0",
+    "report_blob": "b558fceaf0b214715ef65cd710ebb391464778d0",
+    "result": "15 tests; 7 failures; 8 passes"
+  },
+  "final_candidate": {
+    "head": "4a28540eafa82fd136dd4a402ef552f22f817f36",
+    "implementation_blob": "31db5d944a25e54db81bd901a087cdc2039925ad",
+    "targeted_test_blob": "0756598131911168a7cb5944c0ed465c7ebbd2a0",
+    "targeted_mutation_blob": "c00bb49ffa930aefcdce794c5b7a7c68211e586f"
+  },
+  "closures": {
+    "bf1": "CLOSED_CANDIDATE",
+    "nb1": "CLOSED_CANDIDATE",
+    "nb2": "CLOSED_CANDIDATE",
+    "nb3": "CLOSED_CANDIDATE",
+    "nb4": "SCOPE_ADJUDICATED_RPE05_EXECUTION_GUARANTEE",
+    "nb5": "PACKET_REBUILD_REQUIRED_AND_AUTHORIZED"
+  },
+  "final_semantics": {
+    "outcomes": [
+      "READ_FAILURE",
+      "REMOTE_HEAD_OBSERVED"
+    ],
+    "successful_remote_observation_requires_lowercase_40hex": true,
+    "read_failure_requires_null_head": true,
+    "malformed_observation": "RPE02TimingError before SLA verdict",
+    "observation_order": "supplied scheduled_at_ns may not decrease; duplicates retain DUPLICATE_FIXED_RATE_SLOT",
+    "release_eligibility": "attempt_started_at_ns",
+    "no_detection_rule": "next_required_slot_ns - release_ns > bound_ns",
+    "no_detection_failure_code": "NO_FUTURE_FIXED_RATE_ATTEMPT_CAN_MEET_BOUND",
+    "exact_bound_without_detection": "INCOMPLETE_REAL_TIME_WINDOW",
+    "sla_endpoint": "remote_observation_completed_at_ns",
+    "full_attempt_completion_role": "TIMELINE_AND_OVERLAP_EVIDENCE_ONLY",
+    "no_real_attempt_overlap_execution_guarantee_stage": "RPE-05"
+  },
+  "tests": {
+    "targeted_green": "15/15 PASS",
+    "targeted_mutation": "12/12 PASS / 12 mutants killed",
+    "full_targeted_regression": "162/162 PASS"
+  },
+  "protected_diffs": {
+    "p5e_contract": 0,
+    "p5e_synthetic_model": 0,
+    "p5d4_runtime": 0
+  },
+  "packet_fidelity": {
+    "original_historical_red_test_blob": "089a72c736302abd08ea1267c149e2ef771240db",
+    "original_final_test_blob": "23618a9317c554099670e84482641a8014f8682d",
+    "targeted_historical_red_test_blob": "0756598131911168a7cb5944c0ed465c7ebbd2a0",
+    "labels_must_remain_distinct": true
+  },
+  "claim_boundary": {
+    "rpe02_human_adopted": false,
+    "rpe04_opened": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_authorized": false
+  },
+  "next_gate": "SHORT_EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADJUDICATION",
+  "stop": true
+}
