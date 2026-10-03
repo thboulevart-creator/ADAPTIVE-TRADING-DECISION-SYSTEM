@@ -1,0 +1,21 @@
+# RPE-02 — EXTERNAL REVIEW TARGETED CLOSURE — INTERNAL ADJUDICATION
+
+Date: 2026-10-03
+
+External verdict:
+`FAIL`
+
+Adjudication:
+
+```text
+BF-1 = CONFIRMED / BLOCKING / MUST CLOSE
+NB-1 = CONFIRMED / TEST-LOCK REQUIRED
+NB-2 = CONFIRMED / SEMANTIC ALIGNMENT REQUIRED
+NB-3 = CONFIRMED / SILENT REORDERING FORBIDDEN
+NB-4 = ADJUDICATED / SLA ENDPOINT UNCHANGED / NO-OVERLAP EXECUTION DEFERRED TO RPE-05
+NB-5 = CONFIRMED / PACKET FIDELITY REPAIR REQUIRED
+```
+
+Targeted closure is authorized only for those findings.
+
+No RPE-04/05/06, real network observation, P5-D4 real-state mutation, Vault/CURRENT mutation, REAL P5-E, or human adoption is authorized by this adjudication.
