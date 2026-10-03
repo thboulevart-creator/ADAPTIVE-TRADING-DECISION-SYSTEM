@@ -1,0 +1,526 @@
+{
+  "schema": "ATDS_RTMA_01_SYNTHETIC_CHANGE_LAB_CONTRACT_V0_2",
+  "control_id": "RTMA-01",
+  "version": "V0.2",
+  "date": "2026-10-03",
+  "status": "HUMAN_ADOPTED_DESIGN_PREREGISTRATION_AND_TEST_FIRST_RED_AUTHORIZED",
+  "purpose": "Qualify a truth-controlled synthetic laboratory capable of falsifying future regime/change methods before any real-market interpretation.",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "authorized_parent_head": "caad9412a3cfb3301d8255e1dee4e615bd379101",
+    "authorized_parent_tree": "ee70fe09f77aaa5ab2cc298a372a2c760be5ab47"
+  },
+  "parent_semantic_authority": {
+    "control": "RTMA-00 V0.2",
+    "status": "HUMAN_ADOPTED_AT_DESIGN_LEVEL / SEMANTICALLY_CLOSED"
+  },
+  "qualification_target": "LAB_ONLY_NOT_DETECTOR",
+  "runtime_target": "tools/rtma_01_synthetic_change_lab.py",
+  "runtime_contract": "RTMA_01_SYNTHETIC_CHANGE_LAB_V0_2",
+  "namespace_firewalls": {
+    "rtma_generator": "RTMA_01_SYNTHETIC_CHANGE_GENERATOR_V0_2",
+    "must_not_equal": "ATDS_A0_SYNTHETIC_PRODUCER_V0_1",
+    "experiment_specification_replacement": false,
+    "scientific_evaluator_authority": false
+  },
+  "task_classes": [
+    "DISTRIBUTIONAL_CHANGE_DETECTION",
+    "PERSISTENT_MARKET_TRANSITION_DETECTION",
+    "GRADUAL_DRIFT_DETECTION",
+    "TRANSIENT_SHOCK_DETECTION",
+    "DATA_INTEGRITY_CHANGE_DETECTION",
+    "STATE_NOVELTY_RECOGNITION",
+    "TRANSITION_NOVELTY_RECOGNITION",
+    "RESPONSE_NOVELTY_DETECTION",
+    "WITHIN_CONTEXT_RESPONSE_DEGRADATION",
+    "EXECUTION_DEGRADATION"
+  ],
+  "lanes": [
+    [
+      "LANE_O",
+      "ONLINE_SEQUENTIAL",
+      "PREFIX_ONLY"
+    ],
+    [
+      "LANE_R",
+      "RETROSPECTIVE",
+      "FULL_FROZEN_SEQUENCE"
+    ],
+    [
+      "LANE_M",
+      "MEMORY_RECOGNITION",
+      "TIME_CAUSAL_REFERENCE_MEMORY"
+    ],
+    [
+      "LANE_E",
+      "EDGE_RESPONSE",
+      "FROZEN_CONTEXT_PLUS_SYNTHETIC_RESPONSE"
+    ]
+  ],
+  "core_separations": [
+    "RAW_DISTRIBUTIONAL_CHANGE!=ADJUDICATED_MARKET_CHANGE",
+    "RAW_DETECTOR_SCORE!=ALERT",
+    "ONLINE_RESULT!=RETROSPECTIVE_RESULT",
+    "MECHANICAL_SCORER!=SCIENTIFIC_EVALUATOR_AUTHORITY",
+    "RTMA_CASE_SPEC!=ATDS_EXPERIMENT_SPECIFICATION",
+    "RTMA_01_SYNTHETIC_CHANGE_GENERATOR!=ATDS_A0_SYNTHETIC_PRODUCER_V0_1"
+  ],
+  "truth_geometries": [
+    "POINT_EVENT",
+    "ONSET_INTERVAL",
+    "DRIFT_PATH",
+    "MULTIPLE_EVENTS",
+    "NO_EVENT"
+  ],
+  "detector_visible_identity": "OPAQUE_RUN_DIGEST_ONLY",
+  "detector_hidden_fields": [
+    "case_family",
+    "true_change_type",
+    "true_onset",
+    "true_dimensions",
+    "novelty_class",
+    "expected_output",
+    "ground_truth"
+  ],
+  "input_views": [
+    "MARKET_OBSERVATIONS_ONLY",
+    "MARKET_PLUS_ADMISSIBLE_CONTINUITY_STATUS",
+    "INTEGRITY_STREAM_ONLY",
+    "RESPONSE_PLUS_CONTEXT"
+  ],
+  "reference_memory_rules": {
+    "novelty_is_relational": true,
+    "reference_memory_version_required": true,
+    "reference_cutoff_required": true,
+    "self_match_forbidden": true,
+    "future_memory_forbidden": true
+  },
+  "matching_policy_required_fields": [
+    "eligible_alert",
+    "eligible_true_event",
+    "match_window",
+    "primary_match_rule",
+    "duplicate_alert_rule",
+    "unmatched_alert_rule",
+    "unmatched_truth_rule",
+    "overlapping_event_rule"
+  ],
+  "scripted_scorer_fixtures": [
+    "ORACLE",
+    "NEVER_ALERT",
+    "SPAM_ALERT",
+    "DUPLICATE_ALERT",
+    "LATE_ALERT",
+    "WRONG_DIMENSION",
+    "FUTURE_LEAKAGE_MUTANT"
+  ],
+  "case_families": [
+    {
+      "id": "SYN-00",
+      "semantic": "NO_STRUCTURAL_CHANGE"
+    },
+    {
+      "id": "SYN-01",
+      "semantic": "ABRUPT_LOCATION_CHANGE"
+    },
+    {
+      "id": "SYN-02",
+      "semantic": "ABRUPT_SCALE_VARIANCE_CHANGE"
+    },
+    {
+      "id": "SYN-03",
+      "semantic": "DEPENDENCY_CHANGE"
+    },
+    {
+      "id": "SYN-04",
+      "semantic": "GRADUAL_DRIFT"
+    },
+    {
+      "id": "SYN-05",
+      "semantic": "TRANSIENT_SHOCK"
+    },
+    {
+      "id": "SYN-06",
+      "semantic": "A_TO_B_TO_A_RECURRENCE"
+    },
+    {
+      "id": "SYN-07",
+      "semantic": "KNOWN_ENDPOINTS_MEMORY_NOVEL_TRANSITION"
+    },
+    {
+      "id": "SYN-08",
+      "semantic": "MEMORY_NOVEL_STATE"
+    },
+    {
+      "id": "SYN-09",
+      "semantic": "FAMILIAR_STATE_RESPONSE_NOVELTY"
+    },
+    {
+      "id": "SYN-10",
+      "semantic": "OBSERVATION_PROVIDER_ARTIFACT"
+    },
+    {
+      "id": "SYN-11",
+      "semantic": "CONTEXT_MIX_CHANGE_WITHOUT_CONDITIONAL_RESPONSE_CHANGE"
+    },
+    {
+      "id": "SYN-12",
+      "semantic": "WITHIN_CONTEXT_RESPONSE_CHANGE"
+    },
+    {
+      "id": "SYN-13",
+      "semantic": "EXECUTION_DEGRADATION"
+    },
+    {
+      "id": "SYN-14",
+      "semantic": "MULTIPLE_CLOSE_STRUCTURAL_CHANGES"
+    },
+    {
+      "id": "SYN-15",
+      "semantic": "WEAK_CHANGE_NEAR_DETECTION_LIMIT"
+    },
+    {
+      "id": "SYN-16",
+      "semantic": "EXPECTED_PERIODIC_VARIATION"
+    },
+    {
+      "id": "SYN-17",
+      "semantic": "CONTINUITY_BREAK_WITHOUT_LATENT_MARKET_CHANGE"
+    },
+    {
+      "id": "SYN-18",
+      "semantic": "HEAVY_TAILED_AUTOCORRELATED_NO_CHANGE"
+    },
+    {
+      "id": "SYN-19",
+      "semantic": "ASYNCHRONOUS_MULTIDIMENSIONAL_CHANGE"
+    },
+    {
+      "id": "SYN-20",
+      "semantic": "SCALE_LOCAL_CHANGE"
+    },
+    {
+      "id": "SYN-21",
+      "semantic": "STOCHASTIC_VOLATILITY_WITHOUT_STRUCTURAL_BREAK"
+    },
+    {
+      "id": "SYN-22",
+      "semantic": "WANDERING_LEVEL_WITHOUT_DISCRETE_BREAK"
+    }
+  ],
+  "authority": {
+    "persist_contract": true,
+    "persist_breaker": true,
+    "execute_expected_red": true,
+    "persist_red_evidence": true,
+    "runtime_implementation": false,
+    "synthetic_green_qualification": false,
+    "detector_benchmarking": false,
+    "rtma_02": false,
+    "real_market_data": false,
+    "historical_market_mining": false,
+    "news_event_retrieval": false,
+    "strategy_backtest": false,
+    "pnl": false,
+    "production_integration": false,
+    "decision_authority": false,
+    "adaptation_authority": false,
+    "autonomous_learning": false
+  },
+  "required_runtime_surface": [
+    "CONTRACT",
+    "GENERATOR_IDENTITY",
+    "TASK_CLASSES",
+    "LANES",
+    "CASE_FAMILIES",
+    "canonical_json_bytes",
+    "canonical_sha256",
+    "validate_case_spec",
+    "generate_case",
+    "build_opaque_run_identity",
+    "seal_case",
+    "verify_case",
+    "iter_online_prefixes",
+    "build_retrospective_view",
+    "validate_reference_memory",
+    "validate_detector_output",
+    "match_outputs_to_truth",
+    "calculate_mechanical_metrics"
+  ],
+  "forbidden_runtime_surface": [
+    "download_market_data",
+    "retrieve_news",
+    "run_live_strategy",
+    "run_backtest",
+    "compute_real_pnl",
+    "optimize_strategy",
+    "select_best_detector",
+    "promote_detector",
+    "change_decision_policy",
+    "authorize_adaptation",
+    "claim_causality",
+    "bypass_context_boundary"
+  ],
+  "red_rule": {
+    "target_must_not_exist_before_red": true,
+    "expected_nodes": 63,
+    "expected_common_failure": "RTMA_01_RUNTIME_ABSENT_EXPECTED_RED",
+    "breaker_freezes_after_persisted_red": true
+  },
+  "test_cases": [
+    [
+      "RTMA01-01",
+      "exact runtime contract and frozen identities"
+    ],
+    [
+      "RTMA01-02",
+      "task classes exact and distinct"
+    ],
+    [
+      "RTMA01-03",
+      "lanes exact and distinct"
+    ],
+    [
+      "RTMA01-04",
+      "case family registry exact SYN-00 through SYN-22"
+    ],
+    [
+      "RTMA01-05",
+      "same spec seed runtime yields deterministic generation"
+    ],
+    [
+      "RTMA01-06",
+      "different seed changes realization without changing semantic schedule"
+    ],
+    [
+      "RTMA01-07",
+      "seed cannot choose case semantics"
+    ],
+    [
+      "RTMA01-08",
+      "opaque run id does not expose semantic case label"
+    ],
+    [
+      "RTMA01-09",
+      "ground truth absent from detector-visible observations"
+    ],
+    [
+      "RTMA01-10",
+      "future-state metadata absent from detector-visible observations"
+    ],
+    [
+      "RTMA01-11",
+      "online prefixes expose no future samples"
+    ],
+    [
+      "RTMA01-12",
+      "retrospective view explicitly marked retrospective"
+    ],
+    [
+      "RTMA01-13",
+      "retrospective output cannot claim historical FIRST_ALERT_AT"
+    ],
+    [
+      "RTMA01-14",
+      "raw detector score distinct from alert decision"
+    ],
+    [
+      "RTMA01-15",
+      "decision adapter identity required when score becomes alert"
+    ],
+    [
+      "RTMA01-16",
+      "target task identity required in detector output"
+    ],
+    [
+      "RTMA01-17",
+      "input view identity required and explicit"
+    ],
+    [
+      "RTMA01-18",
+      "SYN-00 encodes no structural change"
+    ],
+    [
+      "RTMA01-19",
+      "SYN-01 changes location only"
+    ],
+    [
+      "RTMA01-20",
+      "SYN-02 changes scale only"
+    ],
+    [
+      "RTMA01-21",
+      "SYN-03 changes dependency while marginal schedule remains frozen"
+    ],
+    [
+      "RTMA01-22",
+      "SYN-04 preserves drift interval/path truth"
+    ],
+    [
+      "RTMA01-23",
+      "SYN-05 shock truth does not imply durable transition"
+    ],
+    [
+      "RTMA01-24",
+      "SYN-06 contains multiple ordered truth events"
+    ],
+    [
+      "RTMA01-25",
+      "SYN-07 novelty requires frozen reference memory"
+    ],
+    [
+      "RTMA01-26",
+      "SYN-08 state novelty requires frozen reference memory"
+    ],
+    [
+      "RTMA01-27",
+      "SYN-09 response novelty separated from market state novelty"
+    ],
+    [
+      "RTMA01-28",
+      "SYN-10 latent market unchanged while observation process changes"
+    ],
+    [
+      "RTMA01-29",
+      "SYN-11 context mix changes while conditional response law remains frozen"
+    ],
+    [
+      "RTMA01-30",
+      "SYN-12 market law frozen while conditional response changes"
+    ],
+    [
+      "RTMA01-31",
+      "SYN-13 gross response frozen while execution effect degrades"
+    ],
+    [
+      "RTMA01-32",
+      "SYN-14 preserves distinct close truth events"
+    ],
+    [
+      "RTMA01-33",
+      "SYN-15 weak-change truth retained without mandatory detectability claim"
+    ],
+    [
+      "RTMA01-34",
+      "SYN-16 periodic variation has no structural change"
+    ],
+    [
+      "RTMA01-35",
+      "SYN-17 continuity break has no latent market change"
+    ],
+    [
+      "RTMA01-36",
+      "SYN-18 heavy-tail autocorrelation control has no structural change"
+    ],
+    [
+      "RTMA01-37",
+      "SYN-19 asynchronous dimension changes retain distinct times"
+    ],
+    [
+      "RTMA01-38",
+      "SYN-20 scale-local truths derive from one base process"
+    ],
+    [
+      "RTMA01-39",
+      "SYN-21 stochastic volatility law remains structurally unchanged"
+    ],
+    [
+      "RTMA01-40",
+      "SYN-22 wandering-level process has no discrete break"
+    ],
+    [
+      "RTMA01-41",
+      "reference memory rejects self match"
+    ],
+    [
+      "RTMA01-42",
+      "reference memory rejects future episodes"
+    ],
+    [
+      "RTMA01-43",
+      "matching policy allows at most one primary match per truth event"
+    ],
+    [
+      "RTMA01-44",
+      "duplicate alerts remain visible"
+    ],
+    [
+      "RTMA01-45",
+      "unmatched alerts remain false-alert evidence"
+    ],
+    [
+      "RTMA01-46",
+      "unmatched truth events remain misses"
+    ],
+    [
+      "RTMA01-47",
+      "overlapping-event assignment deterministic"
+    ],
+    [
+      "RTMA01-48",
+      "drift evaluation accepts interval/path geometry"
+    ],
+    [
+      "RTMA01-49",
+      "oracle scripted fixture scores as exact expected control"
+    ],
+    [
+      "RTMA01-50",
+      "never-alert scripted fixture yields misses and zero false alerts"
+    ],
+    [
+      "RTMA01-51",
+      "spam-alert scripted fixture retains false and duplicate alerts"
+    ],
+    [
+      "RTMA01-52",
+      "wrong-dimension fixture separates timing from dimension credit"
+    ],
+    [
+      "RTMA01-53",
+      "future-leakage mutant rejected by online boundary"
+    ],
+    [
+      "RTMA01-54",
+      "sealed truth one-byte mutation rejected"
+    ],
+    [
+      "RTMA01-55",
+      "sealed observations one-byte mutation rejected"
+    ],
+    [
+      "RTMA01-56",
+      "mechanical result exact replay is deterministic"
+    ],
+    [
+      "RTMA01-57",
+      "development and holdout identities are distinct"
+    ],
+    [
+      "RTMA01-58",
+      "consumed holdout cannot remain untouched holdout"
+    ],
+    [
+      "RTMA01-59",
+      "attempt ledger preserves all attempted case identities"
+    ],
+    [
+      "RTMA01-60",
+      "no A0 synthetic producer authority inheritance"
+    ],
+    [
+      "RTMA01-61",
+      "no generic ExperimentSpecification replacement"
+    ],
+    [
+      "RTMA01-62",
+      "no scientific evaluator authority claimed by mechanical scorer"
+    ],
+    [
+      "RTMA01-63",
+      "no network real-data news strategy pnl detector-selection or adaptation surface"
+    ]
+  ],
+  "stop": true
+}
