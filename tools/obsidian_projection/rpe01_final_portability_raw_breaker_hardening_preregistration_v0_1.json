@@ -1,0 +1,81 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE01_FINAL_PORTABILITY_RAW_BREAKER_HARDENING_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "date": "2026-10-03",
+  "opening_head": "cbe8b2534e3a4f65edbe1732a5b322e018756713",
+  "stage": "RPE-01",
+  "scope": [
+    "NB-a deterministic depth and residual recursion normalization",
+    "NB-b discriminating raw-JSON breaker families",
+    "NB-c governed consumer usage rule"
+  ],
+  "authority": {
+    "rpe01_hardening_implementation_authorized": true,
+    "p5e_contract_mutation_authorized": false,
+    "p5e_model_mutation_authorized": false,
+    "p5d4_runtime_mutation_authorized": false,
+    "rpe02_authorized": false,
+    "rpe03_authorized": false,
+    "real_remote_io_authorized": false,
+    "real_p5e_authorized": false
+  },
+  "deterministic_depth_contract": {
+    "constant_name": "MAX_GOVERNED_JSON_DEPTH",
+    "value": 64,
+    "definition": "Maximum syntactic nesting of JSON containers outside strings. A root object or array has depth 1.",
+    "application": [
+      "raw governed document before json.loads",
+      "raw governed schema before json.loads"
+    ],
+    "exact_boundary_policy": {
+      "depth_64": "ALLOWED_BY_DEPTH_GUARD_SUBJECT_TO_NORMAL_JSON_AND_SCHEMA_VALIDATION",
+      "depth_65": "REJECT_GOVERNED_SCHEMA_ERROR"
+    },
+    "current_artifact_observations_non_normative": {
+      "adopted_p5e_contract_max_json_container_depth": 3,
+      "p5e_governed_schema_max_json_container_depth": 8
+    },
+    "interpreter_recursion_limit_is_not_normative": true,
+    "residual_recursion_policy": "Any RecursionError escaping schema/document validation through the public governed validation boundary is normalized to GovernedSchemaError."
+  },
+  "portable_red_families": [
+    "DOCUMENT_DEPTH_64_ACCEPTED_BY_DEPTH_GUARD",
+    "DOCUMENT_DEPTH_65_REJECTED_BY_DEPTH_GUARD",
+    "SCHEMA_DEPTH_64_ACCEPTED_BY_DEPTH_GUARD",
+    "SCHEMA_DEPTH_65_REJECTED_BY_DEPTH_GUARD",
+    "VALIDATION_RECURSION_NORMALIZED_IF_FORCED"
+  ],
+  "discriminating_raw_breakers": {
+    "source": "otherwise-valid adopted P5-E contract and otherwise-valid governed schema",
+    "families": [
+      "duplicate real authority key evaluation_authorized with contradictory values",
+      "escaped duplicate spelling of real authority key evaluation_authorized",
+      "NaN in real numeric field poll_interval_seconds",
+      "Infinity in real numeric field target_max_detection_latency_seconds",
+      "-Infinity in real numeric field target_max_detection_latency_seconds",
+      "duplicate raw schema member on an otherwise-valid schema"
+    ],
+    "proof_requirement": "Each breaker must assert the intended strict-parser rejection reason, and targeted mutant checks must demonstrate that removing the relevant parser protection changes that targeted outcome."
+  },
+  "mutation_kill_requirements": [
+    "duplicate-member-protection mutant is killed by a real-contract duplicate-key breaker",
+    "non-standard-numeric-constant-protection mutant is killed by real-contract NaN/Infinity breakers",
+    "depth-guard mutant is killed by depth_65 breaker"
+  ],
+  "nb_c_usage_rule": {
+    "authorized_entrypoint": "validate_governed_json(raw_document, raw_schema)",
+    "underscore_prefixed_functions_external_use_forbidden": true,
+    "validate_schema_definition_is_not_an_authorized_governed_document_validation_entrypoint": true
+  },
+  "qualification_environment_context_required": [
+    "python_version",
+    "python_implementation",
+    "platform"
+  ],
+  "evidence_partition_required": [
+    "parsed_object_mutations",
+    "raw_json_breakers",
+    "mutation_kill_checks"
+  ],
+  "stop": "FINAL_EXTERNAL_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}
