@@ -58,21 +58,34 @@ def wrong_type(value):
 
 def run_sweep():
     guard = load_guard()
-    schema = json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
+    schema_raw = SCHEMA_PATH.read_text(encoding="utf-8")
     baseline = json.loads(CONTRACT_PATH.read_text(encoding="utf-8"))
     raw_baseline = CONTRACT_PATH.read_text(encoding="utf-8")
-    guard.validate_governed_json(raw_baseline, schema)
+    guard.validate_governed_json(raw_baseline, schema_raw)
 
-    attempted = 0
+    parsed_object_attempted = 0
+    raw_json_attempted = 0
     survivors = []
 
     def expect_reject(label, mutated):
-        nonlocal attempted
-        attempted += 1
+        nonlocal parsed_object_attempted
+        parsed_object_attempted += 1
         try:
             guard.validate_governed_json(
                 json.dumps(mutated, ensure_ascii=False),
-                schema,
+                schema_raw,
+            )
+        except guard.GovernedSchemaError:
+            return
+        survivors.append(label)
+
+    def expect_raw_reject(label, raw_document, raw_schema=None):
+        nonlocal raw_json_attempted
+        raw_json_attempted += 1
+        try:
+            guard.validate_governed_json(
+                raw_document,
+                schema_raw if raw_schema is None else raw_schema,
             )
         except guard.GovernedSchemaError:
             return
@@ -133,8 +146,27 @@ def run_sweep():
     target[0], target[1] = target[1], target[0]
     expect_reject("ORDER_CHANGE:real_end_to_end_stages", mutated)
 
+    # Raw JSON breaker families preregistered separately from parsed-object mutations.
+    expect_raw_reject("RAW_DUPLICATE_TOP_LEVEL", '{"x":1,"x":2}')
+    expect_raw_reject("RAW_DUPLICATE_NESTED", '{"outer":{"x":1,"x":2}}')
+    expect_raw_reject(
+        "RAW_ESCAPED_DUPLICATE",
+        '{"evaluation_authorized":true,"\u0065valuation_authorized":false}',
+    )
+    expect_raw_reject("RAW_NAN", '{"x":NaN}')
+    expect_raw_reject("RAW_POSITIVE_INFINITY", '{"x":Infinity}')
+    expect_raw_reject("RAW_NEGATIVE_INFINITY", '{"x":-Infinity}')
+    duplicate_schema = (
+        '{"schema":"ATDS_GOVERNED_JSON_SCHEMA_V0_1",'
+        '"artifact_role":"A","artifact_role":"B",'
+        '"root":{"kind":"null"}}'
+    )
+    expect_raw_reject("RAW_SCHEMA_DUPLICATE_MEMBER", 'null', duplicate_schema)
+
     return {
-        "attempted": attempted,
+        "parsed_object_attempted": parsed_object_attempted,
+        "raw_json_attempted": raw_json_attempted,
+        "attempted": parsed_object_attempted + raw_json_attempted,
         "survivors": survivors,
         "survivor_count": len(survivors),
     }
@@ -143,7 +175,9 @@ def run_sweep():
 class RPE01MutationSweepTests(unittest.TestCase):
     def test_all_preregistered_contract_schema_mutations_are_rejected(self):
         result = run_sweep()
-        self.assertGreater(result["attempted"], 0)
+        self.assertEqual(result["parsed_object_attempted"], 433)
+        self.assertEqual(result["raw_json_attempted"], 7)
+        self.assertEqual(result["attempted"], 440)
         self.assertEqual(result["survivors"], [])
 
 

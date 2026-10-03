@@ -28,11 +28,14 @@ def load_guard():
     return load_module(GUARD_PATH, "rpe01_guard_under_test")
 
 
-def load_schema():
+def load_schema_raw():
     if not P5E_SCHEMA_PATH.exists():
         raise AssertionError(f"required governed schema missing: {P5E_SCHEMA_PATH}")
-    g = load_guard()
-    return g.parse_schema_json_strict(P5E_SCHEMA_PATH.read_text(encoding="utf-8"))
+    return P5E_SCHEMA_PATH.read_text(encoding="utf-8")
+
+
+def synthetic_schema_raw():
+    return json.dumps(synthetic_schema(), separators=(",", ":"))
 
 
 def current_contract_raw() -> str:
@@ -135,14 +138,14 @@ class StrictTypeAndListTests(unittest.TestCase):
     def assert_rejected(self, document):
         g = load_guard()
         with self.assertRaises(g.GovernedSchemaError):
-            g.validate_governed_json(json.dumps(document), synthetic_schema())
+            g.validate_governed_json(json.dumps(document), synthetic_schema_raw())
 
     def test_float_and_scientific_float_where_integer_required_are_rejected(self):
         self.assert_rejected({"interval_ns": 30.0, "enabled": False, "mode": "FIXED_RATE", "stages": ["OBSERVE", "STOP"]})
         g = load_guard()
         raw = '{"interval_ns":1e2,"enabled":false,"mode":"FIXED_RATE","stages":["OBSERVE","STOP"]}'
         with self.assertRaises(g.GovernedSchemaError):
-            g.validate_governed_json(raw, synthetic_schema())
+            g.validate_governed_json(raw, synthetic_schema_raw())
 
     def test_boolean_where_integer_required_is_rejected(self):
         self.assert_rejected({"interval_ns": True, "enabled": False, "mode": "FIXED_RATE", "stages": ["OBSERVE", "STOP"]})
@@ -171,13 +174,13 @@ class StrictTypeAndListTests(unittest.TestCase):
 class P5EConcreteSchemaTests(unittest.TestCase):
     def test_adopted_contract_is_accepted_without_byte_mutation(self):
         g = load_guard()
-        schema = load_schema()
-        doc = g.validate_governed_json(current_contract_raw(), schema)
+        schema_raw = load_schema_raw()
+        doc = g.validate_governed_json(current_contract_raw(), schema_raw)
         self.assertEqual(doc["schema"], "ATDS_OBSIDIAN_P5E_END_TO_END_NEAR_REAL_TIME_CONTRACT_V0_1")
 
     def test_unknown_keys_at_representative_depths_are_rejected(self):
         g = load_guard()
-        schema = load_schema()
+        schema_raw = load_schema_raw()
         contract = json.loads(current_contract_raw())
         paths = [
             (),
@@ -194,43 +197,44 @@ class P5EConcreteSchemaTests(unittest.TestCase):
                     node = node[key]
                 node["rpe01_unknown_key"] = True
                 with self.assertRaises(g.GovernedSchemaError):
-                    g.validate_governed_json(json.dumps(mutated), schema)
+                    g.validate_governed_json(json.dumps(mutated), schema_raw)
 
     def test_missing_required_key_is_rejected(self):
         g = load_guard()
-        schema = load_schema()
+        schema_raw = load_schema_raw()
         contract = json.loads(current_contract_raw())
         del contract["authority_boundary"]["evaluation_authorized"]
         with self.assertRaises(g.GovernedSchemaError):
-            g.validate_governed_json(json.dumps(contract), schema)
+            g.validate_governed_json(json.dumps(contract), schema_raw)
 
     def test_normative_list_duplicate_unknown_and_order_change_are_rejected(self):
         g = load_guard()
-        schema = load_schema()
+        schema_raw = load_schema_raw()
         contract = json.loads(current_contract_raw())
 
         duplicate = copy.deepcopy(contract)
         duplicate["claim_boundary"]["forbidden_current_claims"][1] = duplicate["claim_boundary"]["forbidden_current_claims"][0]
         with self.assertRaises(g.GovernedSchemaError):
-            g.validate_governed_json(json.dumps(duplicate), schema)
+            g.validate_governed_json(json.dumps(duplicate), schema_raw)
 
         unknown = copy.deepcopy(contract)
         unknown["required_synthetic_cases"][0] = "RPE01_UNKNOWN_CASE"
         with self.assertRaises(g.GovernedSchemaError):
-            g.validate_governed_json(json.dumps(unknown), schema)
+            g.validate_governed_json(json.dumps(unknown), schema_raw)
 
         reordered = copy.deepcopy(contract)
         stages = reordered["end_to_end_definition"]["real_end_to_end_stages"]
         stages[0], stages[1] = stages[1], stages[0]
         with self.assertRaises(g.GovernedSchemaError):
-            g.validate_governed_json(json.dumps(reordered), schema)
+            g.validate_governed_json(json.dumps(reordered), schema_raw)
 
 
 class SchemaBindingTests(unittest.TestCase):
     def test_p5e_schema_source_binding_matches_current_contract_blob(self):
         import subprocess
 
-        schema = load_schema()
+        g = load_guard()
+        schema = g.parse_schema_json_strict(load_schema_raw())
         binding = schema["source_binding"]
         self.assertEqual(
             binding["path"],

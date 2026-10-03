@@ -1,0 +1,96 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE01_EXTERNAL_REVIEW_TARGETED_CLOSURE_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-03",
+  "opening_head": "c9e8ad98aeee6b4ae9346dac554fc599abfe1a8b",
+  "external_review_blob": "51b168dd9973b748e8e592093dc16497d2a42301",
+  "internal_adjudication_blob": "b6bf8eabfeefff2e264ae0b0d957b1492d2a0c5a",
+  "targeted_red_head": "0d680623b50a075024107443b14b638b1250e0d8",
+  "targeted_red_test_blob": "1691d7f74e430d65f00fd4603f6da51c23e75a52",
+  "targeted_red_report_blob": "425b8102389e134ef54f6ff95b03afa8a9d9ae8c",
+  "final_guard_blob": "82f4323316b95ea5895cdd0c6f0c68e801e595ca",
+  "p5e_schema_blob_unchanged": "87e45cc75753439879e2902d3cbdbd5d71d8a1b2",
+  "final_main_test_blob": "cd0e091233e5a4473ef280c7061db8cf880169e9",
+  "final_mutation_sweep_test_blob": "a8baceaf4a921765ae0fdcb182bef7dd0eba1246",
+  "final_targeted_closure_test_blob": "1691d7f74e430d65f00fd4603f6da51c23e75a52",
+  "covered_adopted_p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+  "covered_adopted_p5e_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+  "covered_p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5",
+  "closure_results": {
+    "nb1_nb2_targeted_tests": "6/6 PASS",
+    "rpe01_main_plus_sweep_tests": "22/22 PASS",
+    "schema_mutation_sweep": {
+      "parsed_object_attempted": 433,
+      "raw_json_attempted": 7,
+      "attempted_total": 440,
+      "survivors": 0
+    },
+    "p5e_plus_rpe01_final_targeted_regression": "95/95 PASS",
+    "contract_diff_from_adopted_readiness_head": 0,
+    "model_diff_from_adopted_readiness_head": 0,
+    "p5d4_runtime_diff_from_adopted_readiness_head": 0
+  },
+  "nb1_closure": {
+    "status": "CLOSED_CANDIDATE",
+    "public_validation_api": "validate_governed_json(raw_document: str|bytes, raw_schema: str|bytes)",
+    "preparsed_schema_object_public_input_rejected": true,
+    "parsed_document_schema_validator_public_symbol_removed": true,
+    "all_current_rpe01_public_validation_tests_use_raw_schema": true,
+    "mutation_sweep_uses_raw_schema": true
+  },
+  "nb2_closure": {
+    "status": "CLOSED_CANDIDATE",
+    "value_error_normalized_to_governed_schema_error": true,
+    "recursion_error_normalized_to_governed_schema_error": true,
+    "pathological_integer_red_green_covered": true,
+    "pathological_nesting_red_green_covered": true
+  },
+  "nb6_evidence_hygiene": {
+    "status": "CLOSED_CANDIDATE",
+    "parsed_object_sweep_reported_separately": 433,
+    "raw_json_breakers_reported_separately": 7,
+    "raw_json_breaker_families": [
+      "duplicate top-level member",
+      "duplicate nested member",
+      "escaped duplicate decoded to same key",
+      "NaN",
+      "Infinity",
+      "-Infinity",
+      "duplicate raw schema member"
+    ],
+    "total_attempted": 440,
+    "survivors": 0
+  },
+  "nb7_packet_fidelity_policy": {
+    "status": "MUST_BE_VERIFIED_BY_DELTA_PACKET",
+    "historical_red_blob_is_reference_only_not_mislabeled_as_current_source": true,
+    "embedded_external_review_source_must_come_from_current_persisted_file": true,
+    "transformed_markdown_must_not_be_claimed_byte_identical": true,
+    "current_code_json_blob_identities_must_be_exact": true,
+    "exact_diff_required": true
+  },
+  "scope_clarifications": {
+    "nb3": "The concrete P5-E schema is structural/type/list governance. Existing P5-E value semantics remain guarded by adopted P5-E invariants. Future REAL P5-E authority flags should normally use schema-level const:false where the schema itself carries authority.",
+    "nb4": "Current source_binding and artifact_role are structurally validated but not dynamically enforced against expected role/source bytes by the generic guard. The current P5-E binding remains independently proven by Git blob evidence. Later RPE preregistrations must explicitly decide the binding enforcement boundary."
+  },
+  "remaining_nonblocking_debt": {
+    "nb5": [
+      "contradictory schema constraints may be rejected proactively in a future hardening",
+      "ASCII regex semantics may be enforced where required",
+      "isolated Unicode surrogates may be rejected where downstream UTF-8 persistence requires it"
+    ]
+  },
+  "real_state_fingerprints_unchanged": {
+    "observer_events_sha256": "54223895a720e98e0f686e4882f098f2d93324d0e0d4a06164e58ac864eda4af",
+    "observer_checkpoint_sha256": "c737e064461bd8562cbfe21ff68e28556bc2ce0cb74abe2d59c89c9b0cca13d4",
+    "last_run_sha256": "eb555cadff72152553b460068cb89964b8b9cd40b7b47e8a82594e26fc47d259"
+  },
+  "claim_boundary": {
+    "rpe01_targeted_external_review_closure_qualified_for_delta_review": true,
+    "rpe01_human_adopted": false,
+    "rpe02_opened": false,
+    "real_p5e_authorized": false
+  },
+  "next_gate": "SHORT_EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADJUDICATION",
+  "stop": true
+}

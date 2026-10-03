@@ -45,8 +45,10 @@ def parse_json_strict(raw: str | bytes) -> Any:
         )
     except GovernedSchemaError:
         raise
-    except json.JSONDecodeError as exc:
-        raise GovernedSchemaError(f"invalid governed JSON: {exc}") from exc
+    except (json.JSONDecodeError, ValueError, RecursionError) as exc:
+        raise GovernedSchemaError(
+            f"invalid or unsupported governed JSON: {type(exc).__name__}: {exc}"
+        ) from exc
 
 
 def _exact_keys(label: str, value: object, allowed: set[str], required: set[str]) -> dict[str, Any]:
@@ -311,12 +313,15 @@ def parse_schema_json_strict(raw: str | bytes) -> dict[str, Any]:
     return validate_schema_definition(schema)
 
 
-def validate_document(document: object, schema: object) -> Any:
-    validated_schema = validate_schema_definition(schema)
+def _validate_document(document: object, validated_schema: dict[str, Any]) -> Any:
     _validate_document_node(document, validated_schema["root"], "$")
     return document
 
 
-def validate_governed_json(raw: str | bytes, schema: object) -> Any:
-    document = parse_json_strict(raw)
-    return validate_document(document, schema)
+def validate_governed_json(
+    raw_document: str | bytes,
+    raw_schema: str | bytes,
+) -> Any:
+    validated_schema = parse_schema_json_strict(raw_schema)
+    document = parse_json_strict(raw_document)
+    return _validate_document(document, validated_schema)
