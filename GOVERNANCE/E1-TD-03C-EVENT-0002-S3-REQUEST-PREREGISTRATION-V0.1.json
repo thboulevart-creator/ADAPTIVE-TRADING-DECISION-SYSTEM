@@ -1,0 +1,102 @@
+{
+  "schema": "ATDS_E1_TD_03C_EVENT_0002_S3_REQUEST_PREREGISTRATION_V0_1",
+  "control_id": "E1-TD-03C-R2",
+  "event_id": "E1-TD-03C-REAL-EVENT-0002",
+  "date": "2026-10-03",
+  "status": "PREREGISTERED_NON_EXECUTABLE",
+  "authority_binding": {
+    "authorized_parent_head": "612fb196b45c79e096ea26cf2e09d65435467e5a",
+    "authorized_parent_tree": "1268f03a4e53e02d6e2efd9296b547c2bdb67c11",
+    "persistence_parent_head": "18e9b0543736804a3a6fd8429ca89fc24216f4e1",
+    "persistence_parent_tree": "b404c0be3a56ed8e9e0c45d0e4a6730b707240b2",
+    "concurrent_delta_review": "PASS_NO_E1_TD_03C_CONFLICT",
+    "concurrent_delta_scope": "RTMA-01 only"
+  },
+  "lane": {
+    "lane_id": "LANE_B_DUKASCOPY_PROSPECTIVE_INSURANCE",
+    "dataset_id": "DUKASCOPY_USATECH_PROSPECTIVE_INSURANCE_20261001_20271001_V0_1",
+    "provider": "Dukascopy Bank SA",
+    "instrument_id": "USATECH.IDX/USD",
+    "source_b_equivalence": "UNRESOLVED"
+  },
+  "s3_binding": {
+    "bucket": "cfg-public-proper-wallaby",
+    "region": "eu-west-1",
+    "requester_pays": true,
+    "path_convention": "SYMBOL/YEAR/MONTH_ZERO_INDEXED/DAY_ticks.bi5",
+    "documentary_status": "PASS_OFFICIAL_DOCUMENTATION"
+  },
+  "candidate_request": {
+    "operation": "GetObject",
+    "bucket": "cfg-public-proper-wallaby",
+    "region": "eu-west-1",
+    "request_payer": "requester",
+    "candidate_symbol_prefix": "USATECHIDXUSD",
+    "candidate_key": "USATECHIDXUSD/2026/09/01_ticks.bi5",
+    "logical_market_date_utc": "2026-10-01",
+    "max_get_requests": 1,
+    "retries": 0,
+    "fallback_key": false,
+    "alternate_endpoint": false,
+    "decode": false,
+    "object_body_observation": "AUTHORIZED_ONLY_BY_FUTURE_EVENT_0002_AUTHORITY",
+    "candidate_symbol_mapping_status": "UNVERIFIED_IN_S3",
+    "candidate_key_existence_status": "UNVERIFIED_IN_S3"
+  },
+  "pre_execution_gates": [
+    "AWS_TOOLING_AVAILABLE",
+    "AWS_CREDENTIAL_CAPABILITY_PRESENT_WITHOUT_SECRET_DISCLOSURE",
+    "EXPLICIT_AWS_REQUESTER_PAYS_SPEND_AUTHORITY",
+    "S3_TOP_LEVEL_PREFIX_METADATA_VERIFIED",
+    "CANDIDATE_KEY_METADATA_VERIFIED",
+    "FRESH_CANONICAL_HEAD_TREE_BOUND",
+    "SEPARATE_HUMAN_EVENT_0002_AUTHORIZATION"
+  ],
+  "metadata_plan": {
+    "status": "PREREGISTERED_NOT_EXECUTED",
+    "operation_1": {
+      "api": "ListObjectsV2",
+      "bucket": "cfg-public-proper-wallaby",
+      "delimiter": "/",
+      "request_payer": "requester",
+      "purpose": "verify exact top-level S3 instrument prefix",
+      "market_object_body_download": false
+    },
+    "operation_2": {
+      "api": "HeadObject",
+      "bucket": "cfg-public-proper-wallaby",
+      "key": "USATECHIDXUSD/2026/09/01_ticks.bi5",
+      "request_payer": "requester",
+      "purpose": "verify exact candidate key metadata if prefix matches",
+      "market_object_body_download": false
+    }
+  },
+  "current_blockers": {
+    "aws_cli_present": false,
+    "boto3_present": false,
+    "botocore_present": false,
+    "aws_credentials_file_present": false,
+    "aws_config_file_present": false,
+    "aws_access_key_env_present": false,
+    "aws_secret_key_env_present": false,
+    "aws_session_token_env_present": false,
+    "aws_profile_env_present": false,
+    "aws_spend_authorized": false
+  },
+  "forbidden": [
+    "MARKET_OBJECT_DOWNLOAD",
+    "REAL_MARKET_BYTES",
+    "SOURCE_B_EQUIVALENCE",
+    "SOURCE_B_SUBSTITUTION",
+    "TD01_MERGE",
+    "HISTORICAL_OVERLAP_ANALYSIS",
+    "H1",
+    "SIGNALS",
+    "STRATEGIES",
+    "PNL",
+    "PERFORMANCE",
+    "BACKTEST"
+  ],
+  "execution_status": "BLOCKED_PENDING_REQUESTER_PAYS_ENABLEMENT_AND_METADATA_VERIFICATION",
+  "stop": true
+}
