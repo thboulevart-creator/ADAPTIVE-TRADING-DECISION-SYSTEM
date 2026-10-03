@@ -44,6 +44,26 @@ class TestRPE02RealTimeRepresentationV01(unittest.TestCase):
         )
         self.assertEqual(doc["architecture"]["selected"], "SEPARATE_REAL_TIME_MODEL_V0_2")
 
+    def test_implementation_constants_match_governed_preregistration(self):
+        g = load(GUARD, "rpe01_guard_for_rpe02_parity")
+        doc = g.validate_governed_json(
+            PREREG.read_text(encoding="utf-8"),
+            SCHEMA.read_text(encoding="utf-8"),
+        )
+        m = load(MODULE, "rpe02_governed_config_parity")
+        self.assertEqual(
+            m.NANOSECONDS_PER_SECOND,
+            doc["representation"]["nanoseconds_per_second"],
+        )
+        self.assertEqual(
+            m.POLL_INTERVAL_NS,
+            doc["representation"]["poll_interval_ns"],
+        )
+        self.assertEqual(
+            m.DETECTION_LATENCY_BOUND_NS,
+            doc["representation"]["detection_latency_bound_ns"],
+        )
+
     def test_exact_nanosecond_plan(self):
         m = load(MODULE, "rpe02")
         plan = m.make_real_time_plan(schedule_origin_ns=0)
