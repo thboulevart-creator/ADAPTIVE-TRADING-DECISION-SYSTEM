@@ -1,0 +1,371 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE02_REAL_TIME_REPRESENTATION_PREREGISTRATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE02_REAL_TIME_REPRESENTATION_PREREGISTRATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_RED"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe01_adoption_commit": {
+            "kind": "string",
+            "const": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25"
+          },
+          "rpe01_adoption_blob": {
+            "kind": "string",
+            "const": "49203ebc2fb208c5dd23ded140295ac00c0afab6"
+          },
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          },
+          "p5e_contract_blob": {
+            "kind": "string",
+            "const": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9"
+          },
+          "p5e_synthetic_model_blob": {
+            "kind": "string",
+            "const": "c0f16baa151c1466e30ba5778f1fca8184cd4aac"
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "stage": {
+            "kind": "string",
+            "const": "RPE-02"
+          },
+          "rpe02_implementation_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "network_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5d4_state_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "vault_or_current_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "architecture": {
+        "kind": "object",
+        "fields": {
+          "selected": {
+            "kind": "string",
+            "const": "SEPARATE_REAL_TIME_MODEL_V0_2"
+          },
+          "synthetic_model_role": {
+            "kind": "string",
+            "const": "IMMUTABLE_SEMANTIC_AND_EXACT_GRID_PARITY_REFERENCE"
+          }
+        }
+      },
+      "governed_config": {
+        "kind": "object",
+        "fields": {
+          "authorized_entrypoint": {
+            "kind": "string",
+            "const": "validate_governed_json(raw_document, raw_schema)"
+          },
+          "private_guard_functions_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "validate_schema_definition_not_document_entrypoint": {
+            "kind": "boolean",
+            "const": true
+          },
+          "runtime_preregistration_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe02_real_time_representation_preregistration_v0_1.json"
+          },
+          "runtime_schema_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe02_real_time_representation_preregistration_v0_1_schema_v0_1.json"
+          },
+          "environment_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "cli_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "unlisted_file_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "representation": {
+        "kind": "object",
+        "fields": {
+          "normative_unit": {
+            "kind": "string",
+            "const": "INTEGER_MONOTONIC_NANOSECONDS"
+          },
+          "nanoseconds_per_second": {
+            "kind": "integer",
+            "const": 1000000000
+          },
+          "poll_interval_ns": {
+            "kind": "integer",
+            "const": 30000000000
+          },
+          "detection_latency_bound_ns": {
+            "kind": "integer",
+            "const": 60000000000
+          },
+          "floating_point_seconds_normative_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "lossy_integer_seconds_real_verdict_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "required_fields": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 6,
+            "max_items": 6,
+            "unique": true,
+            "ordered_const": [
+              "schedule_origin_ns",
+              "scheduled_at_ns",
+              "attempt_started_at_ns",
+              "remote_observation_completed_at_ns",
+              "attempt_completed_at_ns",
+              "controlled_source_release_started_at_ns"
+            ],
+            "allowed_values": [
+              "schedule_origin_ns",
+              "scheduled_at_ns",
+              "attempt_started_at_ns",
+              "remote_observation_completed_at_ns",
+              "attempt_completed_at_ns",
+              "controlled_source_release_started_at_ns"
+            ]
+          }
+        }
+      },
+      "boundaries": {
+        "kind": "object",
+        "fields": {
+          "origin_release": {
+            "kind": "string",
+            "const": "schedule_origin_ns < controlled_source_release_started_at_ns"
+          },
+          "first_slot": {
+            "kind": "string",
+            "const": "schedule_origin_ns + poll_interval_ns"
+          },
+          "slot_grid": {
+            "kind": "string",
+            "const": "scheduled_at_ns > schedule_origin_ns AND exact poll grid"
+          },
+          "release_on_slot": {
+            "kind": "string",
+            "const": "THAT_SLOT_IS_FIRST_REQUIRED"
+          },
+          "release_after_slot": {
+            "kind": "string",
+            "const": "NEXT_SLOT_IS_FIRST_REQUIRED"
+          },
+          "actual_start_min": {
+            "kind": "string",
+            "const": "attempt_started_at_ns >= scheduled_at_ns"
+          },
+          "actual_start_max": {
+            "kind": "string",
+            "const": "attempt_started_at_ns < scheduled_at_ns + poll_interval_ns"
+          },
+          "actual_start_equal_next_slot": {
+            "kind": "string",
+            "const": "BLOCKED_ACTUAL_START_MISSED_FIXED_RATE_SLOT"
+          },
+          "remote_completion_min": {
+            "kind": "string",
+            "const": "remote_observation_completed_at_ns >= attempt_started_at_ns"
+          },
+          "remote_completion_equal_next_slot": {
+            "kind": "string",
+            "const": "ALLOWED"
+          },
+          "remote_completion_after_next_slot": {
+            "kind": "string",
+            "const": "BLOCKED_ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT"
+          },
+          "attempt_completion_min": {
+            "kind": "string",
+            "const": "attempt_completed_at_ns >= remote_observation_completed_at_ns"
+          },
+          "previous_completion_equal_next_start": {
+            "kind": "string",
+            "const": "ALLOWED"
+          },
+          "previous_completion_gt_next_start": {
+            "kind": "string",
+            "const": "BLOCKED_ATTEMPT_OVERLAP"
+          },
+          "eligible_detection": {
+            "kind": "string",
+            "const": "attempt_started_at_ns >= controlled_source_release_started_at_ns"
+          },
+          "pre_release_target": {
+            "kind": "string",
+            "const": "BLOCKED_REQUIRES_ADJUDICATION"
+          },
+          "latency_metric": {
+            "kind": "string",
+            "const": "remote_observation_completed_at_ns - controlled_source_release_started_at_ns"
+          },
+          "latency_equal_bound": {
+            "kind": "string",
+            "const": "PASS_DETECTED_WITHIN_BOUND"
+          },
+          "latency_gt_bound": {
+            "kind": "string",
+            "const": "FAIL_DETECTION_LATENCY_BOUND_EXCEEDED"
+          },
+          "full_completion_role": {
+            "kind": "string",
+            "const": "TIMELINE_AND_OVERLAP_ONLY_NOT_LATENCY"
+          }
+        }
+      },
+      "statuses": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 5,
+        "max_items": 5,
+        "unique": true,
+        "ordered_const": [
+          "BLOCKED_REQUIRES_ADJUDICATION",
+          "PASS_DETECTED_WITHIN_BOUND",
+          "FAIL_DETECTION_LATENCY_BOUND_EXCEEDED",
+          "FAIL_NO_DETECTION_BY_BOUND",
+          "INCOMPLETE_REAL_TIME_WINDOW"
+        ],
+        "allowed_values": [
+          "BLOCKED_REQUIRES_ADJUDICATION",
+          "PASS_DETECTED_WITHIN_BOUND",
+          "FAIL_DETECTION_LATENCY_BOUND_EXCEEDED",
+          "FAIL_NO_DETECTION_BY_BOUND",
+          "INCOMPLETE_REAL_TIME_WINDOW"
+        ]
+      },
+      "mandatory_red_cases": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 11,
+        "max_items": 11,
+        "unique": true,
+        "ordered_const": [
+          "non-integer timestamps rejected",
+          "latency exactly 60 seconds passes",
+          "latency 60 seconds plus 1 nanosecond fails",
+          "late actual start cannot hide behind on-time slot",
+          "remote completion exactly next slot allowed",
+          "remote completion one nanosecond after next slot blocked",
+          "previous completion equal next start allowed",
+          "previous completion greater next start blocked",
+          "pre-release-started target observation blocked",
+          "full attempt completion does not replace remote completion latency endpoint",
+          "exact-grid parity with adopted synthetic model"
+        ],
+        "allowed_values": [
+          "non-integer timestamps rejected",
+          "latency exactly 60 seconds passes",
+          "latency 60 seconds plus 1 nanosecond fails",
+          "late actual start cannot hide behind on-time slot",
+          "remote completion exactly next slot allowed",
+          "remote completion one nanosecond after next slot blocked",
+          "previous completion equal next start allowed",
+          "previous completion greater next start blocked",
+          "pre-release-started target observation blocked",
+          "full attempt completion does not replace remote completion latency endpoint",
+          "exact-grid parity with adopted synthetic model"
+        ]
+      },
+      "clock_capability": {
+        "kind": "object",
+        "fields": {
+          "required_api": {
+            "kind": "string",
+            "const": "time.monotonic_ns"
+          },
+          "metadata_api": {
+            "kind": "string",
+            "const": "time.get_clock_info('monotonic')"
+          },
+          "monotonic_true_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "adjustable_recorded": {
+            "kind": "boolean",
+            "const": true
+          },
+          "resolution_recorded": {
+            "kind": "boolean",
+            "const": true
+          },
+          "implementation_recorded": {
+            "kind": "boolean",
+            "const": true
+          },
+          "python_platform_recorded": {
+            "kind": "boolean",
+            "const": true
+          },
+          "same_process_host_domain_required": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "stop": {
+        "kind": "string",
+        "const": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}

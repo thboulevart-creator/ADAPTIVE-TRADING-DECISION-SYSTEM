@@ -1,0 +1,105 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE02_REAL_TIME_REPRESENTATION_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "base": {
+    "rpe01_adoption_commit": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25",
+    "rpe01_adoption_blob": "49203ebc2fb208c5dd23ded140295ac00c0afab6",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+    "p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+    "p5e_synthetic_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac"
+  },
+  "authority": {
+    "stage": "RPE-02",
+    "rpe02_implementation_authorized": true,
+    "rpe04_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "real_p5e_authorized": false,
+    "network_authorized": false,
+    "real_p5d4_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false
+  },
+  "architecture": {
+    "selected": "SEPARATE_REAL_TIME_MODEL_V0_2",
+    "synthetic_model_role": "IMMUTABLE_SEMANTIC_AND_EXACT_GRID_PARITY_REFERENCE"
+  },
+  "governed_config": {
+    "authorized_entrypoint": "validate_governed_json(raw_document, raw_schema)",
+    "private_guard_functions_forbidden": true,
+    "validate_schema_definition_not_document_entrypoint": true,
+    "runtime_preregistration_path": "tools/obsidian_projection/rpe02_real_time_representation_preregistration_v0_1.json",
+    "runtime_schema_path": "tools/obsidian_projection/rpe02_real_time_representation_preregistration_v0_1_schema_v0_1.json",
+    "environment_authority_forbidden": true,
+    "cli_authority_forbidden": true,
+    "unlisted_file_authority_forbidden": true
+  },
+  "representation": {
+    "normative_unit": "INTEGER_MONOTONIC_NANOSECONDS",
+    "nanoseconds_per_second": 1000000000,
+    "poll_interval_ns": 30000000000,
+    "detection_latency_bound_ns": 60000000000,
+    "floating_point_seconds_normative_forbidden": true,
+    "lossy_integer_seconds_real_verdict_forbidden": true,
+    "required_fields": [
+      "schedule_origin_ns",
+      "scheduled_at_ns",
+      "attempt_started_at_ns",
+      "remote_observation_completed_at_ns",
+      "attempt_completed_at_ns",
+      "controlled_source_release_started_at_ns"
+    ]
+  },
+  "boundaries": {
+    "origin_release": "schedule_origin_ns < controlled_source_release_started_at_ns",
+    "first_slot": "schedule_origin_ns + poll_interval_ns",
+    "slot_grid": "scheduled_at_ns > schedule_origin_ns AND exact poll grid",
+    "release_on_slot": "THAT_SLOT_IS_FIRST_REQUIRED",
+    "release_after_slot": "NEXT_SLOT_IS_FIRST_REQUIRED",
+    "actual_start_min": "attempt_started_at_ns >= scheduled_at_ns",
+    "actual_start_max": "attempt_started_at_ns < scheduled_at_ns + poll_interval_ns",
+    "actual_start_equal_next_slot": "BLOCKED_ACTUAL_START_MISSED_FIXED_RATE_SLOT",
+    "remote_completion_min": "remote_observation_completed_at_ns >= attempt_started_at_ns",
+    "remote_completion_equal_next_slot": "ALLOWED",
+    "remote_completion_after_next_slot": "BLOCKED_ATTEMPT_OVERRUNS_NEXT_FIXED_RATE_SLOT",
+    "attempt_completion_min": "attempt_completed_at_ns >= remote_observation_completed_at_ns",
+    "previous_completion_equal_next_start": "ALLOWED",
+    "previous_completion_gt_next_start": "BLOCKED_ATTEMPT_OVERLAP",
+    "eligible_detection": "attempt_started_at_ns >= controlled_source_release_started_at_ns",
+    "pre_release_target": "BLOCKED_REQUIRES_ADJUDICATION",
+    "latency_metric": "remote_observation_completed_at_ns - controlled_source_release_started_at_ns",
+    "latency_equal_bound": "PASS_DETECTED_WITHIN_BOUND",
+    "latency_gt_bound": "FAIL_DETECTION_LATENCY_BOUND_EXCEEDED",
+    "full_completion_role": "TIMELINE_AND_OVERLAP_ONLY_NOT_LATENCY"
+  },
+  "statuses": [
+    "BLOCKED_REQUIRES_ADJUDICATION",
+    "PASS_DETECTED_WITHIN_BOUND",
+    "FAIL_DETECTION_LATENCY_BOUND_EXCEEDED",
+    "FAIL_NO_DETECTION_BY_BOUND",
+    "INCOMPLETE_REAL_TIME_WINDOW"
+  ],
+  "mandatory_red_cases": [
+    "non-integer timestamps rejected",
+    "latency exactly 60 seconds passes",
+    "latency 60 seconds plus 1 nanosecond fails",
+    "late actual start cannot hide behind on-time slot",
+    "remote completion exactly next slot allowed",
+    "remote completion one nanosecond after next slot blocked",
+    "previous completion equal next start allowed",
+    "previous completion greater next start blocked",
+    "pre-release-started target observation blocked",
+    "full attempt completion does not replace remote completion latency endpoint",
+    "exact-grid parity with adopted synthetic model"
+  ],
+  "clock_capability": {
+    "required_api": "time.monotonic_ns",
+    "metadata_api": "time.get_clock_info('monotonic')",
+    "monotonic_true_required": true,
+    "adjustable_recorded": true,
+    "resolution_recorded": true,
+    "implementation_recorded": true,
+    "python_platform_recorded": true,
+    "same_process_host_domain_required": true
+  },
+  "stop": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}
