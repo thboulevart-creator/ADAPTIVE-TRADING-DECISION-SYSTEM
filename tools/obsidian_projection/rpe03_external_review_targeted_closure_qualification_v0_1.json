@@ -1,0 +1,87 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_EXTERNAL_REVIEW_TARGETED_CLOSURE_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-03",
+  "branch": "feat/obsidian-projection-rpe03-ancestry-classifier-v0.1",
+  "external_review": {
+    "verdict": "PASS_WITH_NON_BLOCKING_NOTES",
+    "review_blob": "50acb047475ba568a54b15ea8a4d3aaea170878c",
+    "adjudication_blob": "bf9caa0792e6e47fd48f4186f7e3e71577375459"
+  },
+  "preregistration": {
+    "head": "cd2804ac3ec865e065e121cdd7dd92a09b304a8b",
+    "blob": "250f351c656d5a782a4c4e4edad42bfa52a3e498",
+    "schema_blob": "8f2ccf1cbfa5196785a7cc8edb591f3f1fc381da"
+  },
+  "targeted_red": {
+    "head": "9cf0056eb938c631100ac7e4891b750d0bdb5984",
+    "test_blob": "14d63db2c986d19f217ec598404927764944a05d",
+    "report_blob": "2125afe83dc58ffff6305d22dacf0b35b9bc8664",
+    "result": "9 tests; 2 failures; 7 passes"
+  },
+  "final_candidate": {
+    "head": "b0e57da54c09a838107e33fed34e0afc0afab6de",
+    "implementation_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "targeted_test_blob": "14d63db2c986d19f217ec598404927764944a05d",
+    "targeted_mutation_blob": "0a4dbebcb61b13badc8c15b14b41924e3d9c031d"
+  },
+  "closures": {
+    "nb1": "CLOSED_CANDIDATE",
+    "nb2": "CLOSED_CANDIDATE",
+    "nb3": "CARRIED_TO_RPE04_PRECONDITION",
+    "nb4": "CARRIED_TO_RPE04_PRECONDITION",
+    "nb5": "PACKET_REBUILD_REQUIRED_AND_AUTHORIZED"
+  },
+  "domain_semantics": {
+    "allowed": [
+      "MAIN_WORKTREE_ROOT",
+      "BARE_REPOSITORY_ROOT"
+    ],
+    "ordinary_parent_subdirectory": "UNKNOWN",
+    "gitfile_redirection": "UNKNOWN",
+    "main_worktree_requires_exact_toplevel": true,
+    "main_worktree_requires_local_dot_git_directory": true,
+    "main_worktree_git_dir_equals_supplied_dot_git": true,
+    "bare_git_dir_equals_supplied_root": true,
+    "git_dir_equals_common_dir": true
+  },
+  "discrimination": {
+    "annotated_tag_previous": "UNKNOWN",
+    "previous_noncommit": "UNKNOWN",
+    "merge_base_other_exit": "UNKNOWN",
+    "corrupt_intermediate_ancestry": "UNKNOWN",
+    "hostile_global_git_config": "NO_INFLUENCE",
+    "targeted_mutants_killed": 5
+  },
+  "rpe04_preconditions": {
+    "git_executable_identity": "EXPLICIT_AND_GOVERNED",
+    "minimum_supported_git_version": "PREREGISTERED_AND_VERIFIED",
+    "local_repository_config": "CONTROLLED_DOMAIN_REQUIRED",
+    "include_path_includeif": "NO_UNGOVERNED_AUTHORITY_OR_PROVENANCE"
+  },
+  "tests": {
+    "targeted_green": "9/9 PASS",
+    "targeted_mutation": "5/5 PASS / 5 mutants killed",
+    "full_targeted_regression": "148/148 PASS"
+  },
+  "protected_diffs": {
+    "p5e_contract": 0,
+    "p5e_synthetic_model": 0,
+    "p5d4_runtime": 0
+  },
+  "packet_fidelity": {
+    "original_historical_red_test_blob": "eca438187aceb64b4d96d29bcda6c5896864b12e",
+    "original_final_test_blob": "d424f5becbb40d5b9a9276132a1ac684986b7d0d",
+    "targeted_historical_red_test_blob": "14d63db2c986d19f217ec598404927764944a05d",
+    "labels_must_remain_distinct": true
+  },
+  "claim_boundary": {
+    "rpe03_human_adopted": false,
+    "rpe04_opened": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_authorized": false
+  },
+  "next_gate": "SHORT_EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADJUDICATION",
+  "stop": true
+}
