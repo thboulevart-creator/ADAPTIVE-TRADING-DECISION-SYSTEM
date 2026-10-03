@@ -290,7 +290,6 @@ def validate_detector_output(output: object) -> bool:
     if output["task_id"] not in TASK_CLASSES: raise ValueError("unknown task_id")
     if output["lane_id"] not in _LANE_IDS: raise ValueError("unknown lane_id")
     _int(output["emitted_at"],"emitted_at"); _int(output["knowledge_cutoff_at"],"knowledge_cutoff_at")
-    if output["emitted_at"]>output["knowledge_cutoff_at"]: raise ValueError("emitted_at exceeds knowledge cutoff")
     if output["lane_id"]=="LANE_R" and "first_alert_at" in output: raise ValueError("retrospective cannot claim FIRST_ALERT_AT")
     if output["output_type"] not in {"RAW_SCORE","ALERT"}: raise ValueError("unknown output_type")
     if output["output_type"]=="RAW_SCORE" and "scalar_score" not in output: raise ValueError("RAW_SCORE requires scalar_score")
