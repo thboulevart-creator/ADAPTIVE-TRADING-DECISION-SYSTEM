@@ -1,0 +1,95 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE02_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_TARGETED_RED",
+  "base": {
+    "branch": "feat/obsidian-projection-rpe02-real-time-representation-v0.1",
+    "review_adjudication_head": "fcf628a80c4db84f516a99863d1c80ec7501a381",
+    "external_review_verdict": "FAIL",
+    "blocking_finding": "BF-1",
+    "qualified_impl_blob": "db5dcfe8ad3b7ce93099368b459bb09ac25f933b",
+    "qualified_main_test_blob": "23618a9317c554099670e84482641a8014f8682d",
+    "qualified_mutation_test_blob": "77cdadb376320c4e8f591a3a80105feac250b716"
+  },
+  "authority": {
+    "targeted_closure_authorized": true,
+    "rpe04_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "real_p5e_authorized": false,
+    "network_authorized": false
+  },
+  "closure_scope": [
+    "BF-1",
+    "NB-1",
+    "NB-2",
+    "NB-3",
+    "NB-5"
+  ],
+  "observation_integrity": {
+    "allowed_outcomes": [
+      "READ_FAILURE",
+      "REMOTE_HEAD_OBSERVED"
+    ],
+    "remote_head_observed_requires_lowercase_40hex": true,
+    "read_failure_requires_observed_head_null": true,
+    "malformed_record_policy": "RAISE_RPE02_TIMING_ERROR_BEFORE_ANY_SLA_VERDICT",
+    "input_order_field": "scheduled_at_ns",
+    "input_order_requirement": "STRICTLY_INCREASING_AS_SUPPLIED",
+    "silent_sorting_forbidden": true
+  },
+  "eligibility_test_lock": {
+    "detection_eligibility_field": "attempt_started_at_ns",
+    "pre_release_target_field": "attempt_started_at_ns",
+    "scheduled_at_ns_substitution_forbidden": true,
+    "structural_breakers": [
+      "ACTUAL_START_PRECEDES_SCHEDULED_SLOT",
+      "REMOTE_COMPLETION_PRECEDES_ATTEMPT_START",
+      "ATTEMPT_COMPLETION_PRECEDES_REMOTE_COMPLETION",
+      "DUPLICATE_FIXED_RATE_SLOT",
+      "CADENCE_GAP",
+      "SKIPPED_REQUIRED_ATTEMPT",
+      "OBSERVATION_ORDER_NOT_STRICTLY_INCREASING"
+    ]
+  },
+  "no_detection_semantics": {
+    "rule": "NEXT_REQUIRED_FIXED_RATE_SLOT_FEASIBILITY",
+    "last_scheduled_source": "LAST_SUPPLIED_AND_VALIDATED_SCHEDULED_SLOT",
+    "next_required_slot_formula": "last_scheduled_at_ns + poll_interval_ns",
+    "fail_condition": "next_required_slot_ns - controlled_source_release_started_at_ns > detection_latency_bound_ns",
+    "fail_status": "FAIL_NO_DETECTION_BY_BOUND",
+    "fail_code": "NO_FUTURE_FIXED_RATE_ATTEMPT_CAN_MEET_BOUND",
+    "otherwise_status": "INCOMPLETE_REAL_TIME_WINDOW",
+    "last_remote_completion_alone_may_not_decide_no_detection": true,
+    "exact_grid_parity_claim_may_remain_only_if_counterexamples_converge": true
+  },
+  "nb4_scope_adjudication": {
+    "sla_endpoint": "remote_observation_completed_at_ns",
+    "full_attempt_completion_role": "TIMELINE_AND_OVERLAP_EVIDENCE_ONLY",
+    "last_attempt_full_completion_beyond_future_slot_alone_changes_sla": false,
+    "no_real_attempt_overlap_execution_guarantee_stage": "RPE-05"
+  },
+  "packet_fidelity": {
+    "historical_red_test_blob": "089a72c736302abd08ea1267c149e2ef771240db",
+    "final_preclosure_test_blob": "23618a9317c554099670e84482641a8014f8682d",
+    "historical_red_must_be_sourced_from_historical_blob": true,
+    "final_test_must_be_labeled_separately": true
+  },
+  "mandatory_red_cases": [
+    "unknown outcome",
+    "REMOTE_HEAD_OBSERVED without head",
+    "READ_FAILURE with head",
+    "outcome typo with target head",
+    "actual-start eligibility differs from scheduled slot",
+    "pre-release target handling differs from scheduled slot",
+    "started before scheduled",
+    "remote completion before started",
+    "attempt completion before remote completion",
+    "duplicate slot",
+    "cadence gap",
+    "skipped required attempt",
+    "out-of-order supplied observations",
+    "parity counterexample release 1 with slots 30 and 60",
+    "parity counterexample release 30 with completions 31 and 90"
+  ],
+  "stop": "TARGETED_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}

@@ -1,0 +1,322 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE02_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE02_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_TARGETED_RED"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "branch": {
+            "kind": "string",
+            "const": "feat/obsidian-projection-rpe02-real-time-representation-v0.1"
+          },
+          "review_adjudication_head": {
+            "kind": "string",
+            "const": "fcf628a80c4db84f516a99863d1c80ec7501a381"
+          },
+          "external_review_verdict": {
+            "kind": "string",
+            "const": "FAIL"
+          },
+          "blocking_finding": {
+            "kind": "string",
+            "const": "BF-1"
+          },
+          "qualified_impl_blob": {
+            "kind": "string",
+            "const": "db5dcfe8ad3b7ce93099368b459bb09ac25f933b"
+          },
+          "qualified_main_test_blob": {
+            "kind": "string",
+            "const": "23618a9317c554099670e84482641a8014f8682d"
+          },
+          "qualified_mutation_test_blob": {
+            "kind": "string",
+            "const": "77cdadb376320c4e8f591a3a80105feac250b716"
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "targeted_closure_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "network_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "closure_scope": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 5,
+        "max_items": 5,
+        "unique": true,
+        "ordered_const": [
+          "BF-1",
+          "NB-1",
+          "NB-2",
+          "NB-3",
+          "NB-5"
+        ],
+        "allowed_values": [
+          "BF-1",
+          "NB-1",
+          "NB-2",
+          "NB-3",
+          "NB-5"
+        ]
+      },
+      "observation_integrity": {
+        "kind": "object",
+        "fields": {
+          "allowed_outcomes": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 2,
+            "max_items": 2,
+            "unique": true,
+            "ordered_const": [
+              "READ_FAILURE",
+              "REMOTE_HEAD_OBSERVED"
+            ],
+            "allowed_values": [
+              "READ_FAILURE",
+              "REMOTE_HEAD_OBSERVED"
+            ]
+          },
+          "remote_head_observed_requires_lowercase_40hex": {
+            "kind": "boolean",
+            "const": true
+          },
+          "read_failure_requires_observed_head_null": {
+            "kind": "boolean",
+            "const": true
+          },
+          "malformed_record_policy": {
+            "kind": "string",
+            "const": "RAISE_RPE02_TIMING_ERROR_BEFORE_ANY_SLA_VERDICT"
+          },
+          "input_order_field": {
+            "kind": "string",
+            "const": "scheduled_at_ns"
+          },
+          "input_order_requirement": {
+            "kind": "string",
+            "const": "STRICTLY_INCREASING_AS_SUPPLIED"
+          },
+          "silent_sorting_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "eligibility_test_lock": {
+        "kind": "object",
+        "fields": {
+          "detection_eligibility_field": {
+            "kind": "string",
+            "const": "attempt_started_at_ns"
+          },
+          "pre_release_target_field": {
+            "kind": "string",
+            "const": "attempt_started_at_ns"
+          },
+          "scheduled_at_ns_substitution_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "structural_breakers": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 7,
+            "max_items": 7,
+            "unique": true,
+            "ordered_const": [
+              "ACTUAL_START_PRECEDES_SCHEDULED_SLOT",
+              "REMOTE_COMPLETION_PRECEDES_ATTEMPT_START",
+              "ATTEMPT_COMPLETION_PRECEDES_REMOTE_COMPLETION",
+              "DUPLICATE_FIXED_RATE_SLOT",
+              "CADENCE_GAP",
+              "SKIPPED_REQUIRED_ATTEMPT",
+              "OBSERVATION_ORDER_NOT_STRICTLY_INCREASING"
+            ],
+            "allowed_values": [
+              "ACTUAL_START_PRECEDES_SCHEDULED_SLOT",
+              "REMOTE_COMPLETION_PRECEDES_ATTEMPT_START",
+              "ATTEMPT_COMPLETION_PRECEDES_REMOTE_COMPLETION",
+              "DUPLICATE_FIXED_RATE_SLOT",
+              "CADENCE_GAP",
+              "SKIPPED_REQUIRED_ATTEMPT",
+              "OBSERVATION_ORDER_NOT_STRICTLY_INCREASING"
+            ]
+          }
+        }
+      },
+      "no_detection_semantics": {
+        "kind": "object",
+        "fields": {
+          "rule": {
+            "kind": "string",
+            "const": "NEXT_REQUIRED_FIXED_RATE_SLOT_FEASIBILITY"
+          },
+          "last_scheduled_source": {
+            "kind": "string",
+            "const": "LAST_SUPPLIED_AND_VALIDATED_SCHEDULED_SLOT"
+          },
+          "next_required_slot_formula": {
+            "kind": "string",
+            "const": "last_scheduled_at_ns + poll_interval_ns"
+          },
+          "fail_condition": {
+            "kind": "string",
+            "const": "next_required_slot_ns - controlled_source_release_started_at_ns > detection_latency_bound_ns"
+          },
+          "fail_status": {
+            "kind": "string",
+            "const": "FAIL_NO_DETECTION_BY_BOUND"
+          },
+          "fail_code": {
+            "kind": "string",
+            "const": "NO_FUTURE_FIXED_RATE_ATTEMPT_CAN_MEET_BOUND"
+          },
+          "otherwise_status": {
+            "kind": "string",
+            "const": "INCOMPLETE_REAL_TIME_WINDOW"
+          },
+          "last_remote_completion_alone_may_not_decide_no_detection": {
+            "kind": "boolean",
+            "const": true
+          },
+          "exact_grid_parity_claim_may_remain_only_if_counterexamples_converge": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "nb4_scope_adjudication": {
+        "kind": "object",
+        "fields": {
+          "sla_endpoint": {
+            "kind": "string",
+            "const": "remote_observation_completed_at_ns"
+          },
+          "full_attempt_completion_role": {
+            "kind": "string",
+            "const": "TIMELINE_AND_OVERLAP_EVIDENCE_ONLY"
+          },
+          "last_attempt_full_completion_beyond_future_slot_alone_changes_sla": {
+            "kind": "boolean",
+            "const": false
+          },
+          "no_real_attempt_overlap_execution_guarantee_stage": {
+            "kind": "string",
+            "const": "RPE-05"
+          }
+        }
+      },
+      "packet_fidelity": {
+        "kind": "object",
+        "fields": {
+          "historical_red_test_blob": {
+            "kind": "string",
+            "const": "089a72c736302abd08ea1267c149e2ef771240db"
+          },
+          "final_preclosure_test_blob": {
+            "kind": "string",
+            "const": "23618a9317c554099670e84482641a8014f8682d"
+          },
+          "historical_red_must_be_sourced_from_historical_blob": {
+            "kind": "boolean",
+            "const": true
+          },
+          "final_test_must_be_labeled_separately": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "mandatory_red_cases": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 15,
+        "max_items": 15,
+        "unique": true,
+        "ordered_const": [
+          "unknown outcome",
+          "REMOTE_HEAD_OBSERVED without head",
+          "READ_FAILURE with head",
+          "outcome typo with target head",
+          "actual-start eligibility differs from scheduled slot",
+          "pre-release target handling differs from scheduled slot",
+          "started before scheduled",
+          "remote completion before started",
+          "attempt completion before remote completion",
+          "duplicate slot",
+          "cadence gap",
+          "skipped required attempt",
+          "out-of-order supplied observations",
+          "parity counterexample release 1 with slots 30 and 60",
+          "parity counterexample release 30 with completions 31 and 90"
+        ],
+        "allowed_values": [
+          "unknown outcome",
+          "REMOTE_HEAD_OBSERVED without head",
+          "READ_FAILURE with head",
+          "outcome typo with target head",
+          "actual-start eligibility differs from scheduled slot",
+          "pre-release target handling differs from scheduled slot",
+          "started before scheduled",
+          "remote completion before started",
+          "attempt completion before remote completion",
+          "duplicate slot",
+          "cadence gap",
+          "skipped required attempt",
+          "out-of-order supplied observations",
+          "parity counterexample release 1 with slots 30 and 60",
+          "parity counterexample release 30 with completions 31 and 90"
+        ]
+      },
+      "stop": {
+        "kind": "string",
+        "const": "TARGETED_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}
