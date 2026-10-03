@@ -1,0 +1,302 @@
+{
+  "schema": "ATDS_E1_TD_03C_SOURCE_CONTINUITY_ASSURANCE_CONTRACT_V0_1",
+  "control_id": "E1-TD-03C",
+  "date": "2026-10-03",
+  "status": "HUMAN_AUTHORIZED_PREREGISTRATION_AND_TEST_FIRST_RED",
+  "purpose": "Preserve the option of an independent prospective Dukascopy lane without promoting it to Source-B, modifying TD01, merging lanes, or observing strategy performance.",
+  "base": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "fe5c81484d5773a284ad27e50ffe53fa8b5ceb5e",
+    "tree": "1a517a951c00967c0caf681ddfdda744661f7aab"
+  },
+  "protected_dependencies": {
+    "e1_td_03_contract_blob": "c66c36bb5f01cb0a13e22eb9210abfdac74b35d3",
+    "e1_td_03_adoption_blob": "0573472825af96938bab260c8d0b78431350c6ea",
+    "e1_td_03a_contract_blob": "c6ed450ae0c6b36ae2412cc367261504980d5b43",
+    "e1_td_03a_breaker_blob": "59593f273c45276f4af8e410ab05768ee730d6a6",
+    "e1_td_03a_runtime_blob": "a90903320a168a845b2b72bafba15b8d8abb2950",
+    "e1_td_03a_qualification_report_blob": "3aadd66499c844fb7eb3a63592ea92b801f6d049",
+    "e1_td_03b_authority_contract_blob": "7ea58d02387d67e7360356a10c0eaed441d0b2f4",
+    "sfe_02f_close_commit": "fe5c81484d5773a284ad27e50ffe53fa8b5ceb5e",
+    "dukascopy_direct_contact_stop_blob": "b19537e2720a64945fa481e4ab526d87df6a3d6c"
+  },
+  "lane_a": {
+    "lane_id": "LANE_A_SOURCE_B_TD01",
+    "dataset_id": "SOURCE_B_USTECH_TD01_PROSPECTIVE_20261001_20271001_V0_1",
+    "publisher_dataset": "CarlosSilva1/ustech-ticks",
+    "source_policy": "SOURCE_B_CONTINUATION_OR_BLOCK",
+    "authority": "CANONICAL_TD01_TARGET_UNCHANGED"
+  },
+  "lane_b": {
+    "lane_id": "LANE_B_DUKASCOPY_PROSPECTIVE_INSURANCE",
+    "candidate_dataset_id": "DUKASCOPY_USATECH_PROSPECTIVE_INSURANCE_20261001_20271001_V0_1",
+    "provider": "Dukascopy Bank SA",
+    "candidate_instrument_id": "USATECH.IDX/USD",
+    "instrument_description": "US 100 Tech Index",
+    "source_equivalence_status": "UNRESOLVED",
+    "td01_admissibility": "NOT_AUTHORIZED",
+    "source_b_promotion": "NOT_AUTHORIZED"
+  },
+  "prospective_window": {
+    "start_utc": "2026-10-01T00:00:00Z",
+    "end_utc": "2027-10-01T00:00:00Z",
+    "lane_b_window_must_match_lane_a": true,
+    "adaptive_window_change": false
+  },
+  "feasibility_evidence": [
+    {
+      "observed_on": "2026-10-03",
+      "source": "https://www.dukascopy.com/swiss/english/cfd/range-of-markets/",
+      "fact": "Dukascopy publicly lists USATECH.IDX/USD as US 100 Tech Index."
+    },
+    {
+      "observed_on": "2026-10-03",
+      "source": "https://www.dukascopy.com/wiki/en/development/strategy-api/historical-data/history-ticks/",
+      "fact": "Dukascopy JForex IHistory supports tick retrieval by time interval and exposes bid/ask tick values."
+    }
+  ],
+  "unresolved_limitations": [
+    "Source-B tick-for-tick equivalence to native Dukascopy is not proven.",
+    "Exact Tickstory transformations are not proven.",
+    "USATECH native BI5 raw integer price divisor is not proven in current ATDS evidence.",
+    "Lane B may preserve raw bytes while decoded-value authority remains blocked.",
+    "No historical-overlap equivalence study is authorized by this contract."
+  ],
+  "dual_lane_firewall": {
+    "lane_a_bytes_may_enter_lane_b": false,
+    "lane_b_bytes_may_enter_lane_a": false,
+    "cross_source_gap_fill": false,
+    "cross_source_interpolation": false,
+    "silent_failover": false,
+    "shared_raw_archive": false,
+    "shared_ledger": false,
+    "shared_manifest": false,
+    "shared_seal": false,
+    "lane_b_may_use_source_b_dataset_id": false
+  },
+  "authority": {
+    "persist_contract": true,
+    "persist_breaker_before_runtime": true,
+    "execute_synthetic_red": true,
+    "persist_red_evidence": true,
+    "minimal_runtime_implementation": false,
+    "synthetic_green_qualification": false,
+    "real_market_data_acquisition": false,
+    "real_market_data_download": false,
+    "real_market_data_observation": false,
+    "historical_overlap_equivalence_run": false,
+    "source_b_promotion": false,
+    "td01_modification": false,
+    "performance_computation": false,
+    "h1_build": false,
+    "strategy_execution": false,
+    "provider_contact": false
+  },
+  "runtime_target": "tools/e1_td_03c_source_continuity_assurance.py",
+  "breaker_target": "breakers/e1_td_03c_source_continuity_assurance_red_breaker.py",
+  "runtime_contract": "ATDS_E1_TD_03C_SOURCE_CONTINUITY_ASSURANCE_V0_1",
+  "required_runtime_surface": [
+    "CONTRACT",
+    "LANE_A_IDENTITY",
+    "LANE_B_IDENTITY",
+    "INSURANCE_DATASET_ID",
+    "WINDOW_START",
+    "WINDOW_END",
+    "canonical_json_bytes",
+    "canonical_sha256",
+    "validate_lane_b_binding",
+    "validate_storage_separation",
+    "validate_file_record",
+    "verify_raw_object",
+    "detect_source_revision",
+    "inspect_interpreted_ticks",
+    "assess_bi5_decode_semantics",
+    "append_ledger_event",
+    "validate_ledger",
+    "canonical_inventory_digest",
+    "build_manifest",
+    "validate_manifest",
+    "build_seal",
+    "verify_seal",
+    "assess_source_equivalence_claim",
+    "validate_source_b_promotion"
+  ],
+  "forbidden_runtime_surface": [
+    "download_real_data",
+    "acquire_real_market_data",
+    "contact_provider",
+    "send_email",
+    "open_support_ticket",
+    "build_h1",
+    "run_momentum",
+    "run_breakout",
+    "run_mean_reversion",
+    "compute_pnl",
+    "backtest",
+    "optimize",
+    "select_regime"
+  ],
+  "expected_statuses": [
+    "PASS_LANE_B_BINDING",
+    "PASS_STORAGE_SEPARATION",
+    "PASS_RAW_OBJECT_INTEGRITY",
+    "PASS_INTERPRETED_TICKS",
+    "PASS_LEDGER",
+    "PASS_MANIFEST",
+    "PASS_SEAL",
+    "RAW_PRESERVATION_ONLY",
+    "BLOCKED_PROVIDER_IDENTITY",
+    "BLOCKED_INSTRUMENT_IDENTITY",
+    "BLOCKED_DATASET_IDENTITY",
+    "BLOCKED_CROSS_LANE_CONTAMINATION",
+    "BLOCKED_RAW_OBJECT_INTEGRITY",
+    "BLOCKED_SOURCE_REVISION",
+    "BLOCKED_TIMESTAMP_SEMANTICS",
+    "BLOCKED_BID_ASK_SEMANTICS",
+    "BLOCKED_TIMESTAMP_INTEGRITY",
+    "BLOCKED_RAW_DECODE_SEMANTICS",
+    "BLOCKED_LEDGER",
+    "BLOCKED_PERFORMANCE_PEEK",
+    "BLOCKED_MANIFEST",
+    "BLOCKED_PREMATURE_SEAL",
+    "BLOCKED_POST_SEAL_MUTATION",
+    "BLOCKED_SOURCE_EQUIVALENCE",
+    "BLOCKED_SOURCE_SUBSTITUTION"
+  ],
+  "test_cases": [
+    [
+      "TD03C-01",
+      "exact runtime contract and required surface"
+    ],
+    [
+      "TD03C-02",
+      "exact Lane-A/Lane-B identities and frozen window"
+    ],
+    [
+      "TD03C-03",
+      "Lane-A canonical identity cannot be mutated"
+    ],
+    [
+      "TD03C-04",
+      "exact Lane-B candidate binding accepted"
+    ],
+    [
+      "TD03C-05",
+      "wrong provider blocked"
+    ],
+    [
+      "TD03C-06",
+      "wrong instrument blocked"
+    ],
+    [
+      "TD03C-07",
+      "Source-B dataset identity reuse by Lane-B blocked"
+    ],
+    [
+      "TD03C-08",
+      "shared or nested Lane-A/Lane-B storage blocked"
+    ],
+    [
+      "TD03C-09",
+      "Lane-A file record in Lane-B inventory blocked"
+    ],
+    [
+      "TD03C-10",
+      "Lane-A ledger event in Lane-B ledger blocked"
+    ],
+    [
+      "TD03C-11",
+      "exact raw-object SHA and size accepted"
+    ],
+    [
+      "TD03C-12",
+      "one-byte raw-object mutation blocked"
+    ],
+    [
+      "TD03C-13",
+      "same logical request with changed bytes surfaces source revision"
+    ],
+    [
+      "TD03C-14",
+      "valid interpreted UTC millisecond BID/ASK ticks accepted"
+    ],
+    [
+      "TD03C-15",
+      "missing BID or ASK blocked"
+    ],
+    [
+      "TD03C-16",
+      "ASK below BID blocked"
+    ],
+    [
+      "TD03C-17",
+      "non-increasing tick timestamps blocked"
+    ],
+    [
+      "TD03C-18",
+      "unknown timestamp semantics blocked"
+    ],
+    [
+      "TD03C-19",
+      "unknown BI5 price scale allows raw preservation but blocks decoded values"
+    ],
+    [
+      "TD03C-20",
+      "qualified decode semantics still do not imply Source-B equivalence"
+    ],
+    [
+      "TD03C-21",
+      "Lane-B ledger hash chain deterministic"
+    ],
+    [
+      "TD03C-22",
+      "Lane-B ledger tampering detected"
+    ],
+    [
+      "TD03C-23",
+      "retry remains ledger-visible"
+    ],
+    [
+      "TD03C-24",
+      "performance fields rejected from Lane-B ledger"
+    ],
+    [
+      "TD03C-25",
+      "canonical inventory independent of file input order and duplicate path blocked"
+    ],
+    [
+      "TD03C-26",
+      "manifest binds Lane-B only and rejects Lane-A identity"
+    ],
+    [
+      "TD03C-27",
+      "seal before prospective window end blocked"
+    ],
+    [
+      "TD03C-28",
+      "post-seal manifest mutation detected"
+    ],
+    [
+      "TD03C-29",
+      "provider/name similarity cannot authorize equivalence or Source-B promotion"
+    ],
+    [
+      "TD03C-30",
+      "no network acquisition, provider contact, H1, strategy or performance surface exists"
+    ]
+  ],
+  "red_rule": {
+    "target_must_not_exist_before_red": true,
+    "expected_nodes": 30,
+    "expected_common_failure": "E1_TD_03C_RUNTIME_ABSENT_EXPECTED_RED",
+    "breaker_freezes_after_persisted_red": true
+  },
+  "future_boundaries": {
+    "after_red": "STOP",
+    "implementation_requires_separate_human_authorization": true,
+    "real_lane_b_preservation_requires_separate_human_authorization": true,
+    "historical_overlap_equivalence_requires_separate_frontier": "E1-TD-03D"
+  },
+  "stop": true
+}
