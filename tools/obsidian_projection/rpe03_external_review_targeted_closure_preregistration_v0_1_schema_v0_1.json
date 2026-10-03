@@ -1,0 +1,278 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE03_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE03_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_TARGETED_RED"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "branch": {
+            "kind": "string",
+            "const": "feat/obsidian-projection-rpe03-ancestry-classifier-v0.1"
+          },
+          "review_adjudication_head": {
+            "kind": "string",
+            "const": "d0cac5b6833e5e94f0235a07b27449ef41464d3a"
+          },
+          "external_review_verdict": {
+            "kind": "string",
+            "const": "PASS_WITH_NON_BLOCKING_NOTES"
+          },
+          "blocking_findings": {
+            "kind": "string",
+            "const": "NONE"
+          },
+          "qualified_impl_blob": {
+            "kind": "string",
+            "const": "7c41bb66a1438c2df9e2e77149a2c3cccb131abb"
+          },
+          "qualified_main_test_blob": {
+            "kind": "string",
+            "const": "d424f5becbb40d5b9a9276132a1ac684986b7d0d"
+          },
+          "qualified_mutation_test_blob": {
+            "kind": "string",
+            "const": "72d5f6d5ec38c7dc5785834e636943d7ec5ad181"
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "targeted_closure_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "network_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "closure_scope": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 3,
+        "max_items": 3,
+        "unique": true,
+        "ordered_const": [
+          "NB-1",
+          "NB-2",
+          "NB-5"
+        ],
+        "allowed_values": [
+          "NB-1",
+          "NB-2",
+          "NB-5"
+        ]
+      },
+      "supplied_domain_confinement": {
+        "kind": "object",
+        "fields": {
+          "allowed_domain_kinds": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 2,
+            "max_items": 2,
+            "unique": true,
+            "ordered_const": [
+              "MAIN_WORKTREE_ROOT",
+              "BARE_REPOSITORY_ROOT"
+            ],
+            "allowed_values": [
+              "MAIN_WORKTREE_ROOT",
+              "BARE_REPOSITORY_ROOT"
+            ]
+          },
+          "parent_repository_discovery_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "gitfile_redirection_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "main_worktree_requirements": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "supplied path resolves exactly to git --show-toplevel",
+              ".git exists as local directory not file",
+              "git_dir equals common_dir",
+              "git_dir equals supplied_path/.git"
+            ],
+            "allowed_values": [
+              "supplied path resolves exactly to git --show-toplevel",
+              ".git exists as local directory not file",
+              "git_dir equals common_dir",
+              "git_dir equals supplied_path/.git"
+            ]
+          },
+          "bare_requirements": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 3,
+            "max_items": 3,
+            "unique": true,
+            "ordered_const": [
+              "git --is-bare-repository equals true",
+              "git_dir equals common_dir",
+              "git_dir equals supplied resolved path"
+            ],
+            "allowed_values": [
+              "git --is-bare-repository equals true",
+              "git_dir equals common_dir",
+              "git_dir equals supplied resolved path"
+            ]
+          },
+          "supplied_subdirectory_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "gitfile_redirection_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "git_ceiling_directories": {
+            "kind": "string",
+            "const": "OPTIONAL_DERIVED_DEFENSE_NOT_NORMATIVE_AUTHORITY"
+          }
+        }
+      },
+      "additional_discrimination": {
+        "kind": "object",
+        "fields": {
+          "annotated_tag_previous_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "previous_noncommit_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "merge_base_exit_other_than_0_or_1": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "corrupt_intermediate_ancestry_object_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "hostile_global_git_config_must_not_influence": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "rpe04_carried_preconditions": {
+        "kind": "object",
+        "fields": {
+          "git_executable_identity": {
+            "kind": "string",
+            "const": "EXPLICIT_AND_GOVERNED"
+          },
+          "minimum_supported_git_version": {
+            "kind": "string",
+            "const": "PREREGISTERED_AND_VERIFIED"
+          },
+          "local_repository_config": {
+            "kind": "string",
+            "const": "CONTROLLED_DOMAIN_REQUIRED"
+          },
+          "include_path_and_includeif": {
+            "kind": "string",
+            "const": "MUST_NOT_INTRODUCE_UNGOVERNED_AUTHORITY_OR_PROVENANCE"
+          }
+        }
+      },
+      "packet_fidelity": {
+        "kind": "object",
+        "fields": {
+          "historical_red_test_blob": {
+            "kind": "string",
+            "const": "eca438187aceb64b4d96d29bcda6c5896864b12e"
+          },
+          "final_preclosure_test_blob": {
+            "kind": "string",
+            "const": "d424f5becbb40d5b9a9276132a1ac684986b7d0d"
+          },
+          "historical_red_must_be_sourced_from_historical_blob": {
+            "kind": "boolean",
+            "const": true
+          },
+          "final_test_must_be_labeled_separately": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "mandatory_red_cases": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 7,
+        "max_items": 7,
+        "unique": true,
+        "ordered_const": [
+          "ordinary subdirectory of parent repository",
+          "gitfile redirecting to another repository",
+          "annotated tag as previous head",
+          "previous blob as previous head",
+          "merge-base exit 128",
+          "corrupted intermediate ancestry object",
+          "hostile global Git config"
+        ],
+        "allowed_values": [
+          "ordinary subdirectory of parent repository",
+          "gitfile redirecting to another repository",
+          "annotated tag as previous head",
+          "previous blob as previous head",
+          "merge-base exit 128",
+          "corrupted intermediate ancestry object",
+          "hostile global Git config"
+        ]
+      },
+      "stop": {
+        "kind": "string",
+        "const": "TARGETED_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}

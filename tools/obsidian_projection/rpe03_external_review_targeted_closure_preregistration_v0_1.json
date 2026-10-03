@@ -1,0 +1,77 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_EXTERNAL_REVIEW_TARGETED_CLOSURE_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_TARGETED_RED",
+  "base": {
+    "branch": "feat/obsidian-projection-rpe03-ancestry-classifier-v0.1",
+    "review_adjudication_head": "d0cac5b6833e5e94f0235a07b27449ef41464d3a",
+    "external_review_verdict": "PASS_WITH_NON_BLOCKING_NOTES",
+    "blocking_findings": "NONE",
+    "qualified_impl_blob": "7c41bb66a1438c2df9e2e77149a2c3cccb131abb",
+    "qualified_main_test_blob": "d424f5becbb40d5b9a9276132a1ac684986b7d0d",
+    "qualified_mutation_test_blob": "72d5f6d5ec38c7dc5785834e636943d7ec5ad181"
+  },
+  "authority": {
+    "targeted_closure_authorized": true,
+    "rpe04_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "real_p5e_authorized": false,
+    "network_authorized": false
+  },
+  "closure_scope": [
+    "NB-1",
+    "NB-2",
+    "NB-5"
+  ],
+  "supplied_domain_confinement": {
+    "allowed_domain_kinds": [
+      "MAIN_WORKTREE_ROOT",
+      "BARE_REPOSITORY_ROOT"
+    ],
+    "parent_repository_discovery_forbidden": true,
+    "gitfile_redirection_forbidden": true,
+    "main_worktree_requirements": [
+      "supplied path resolves exactly to git --show-toplevel",
+      ".git exists as local directory not file",
+      "git_dir equals common_dir",
+      "git_dir equals supplied_path/.git"
+    ],
+    "bare_requirements": [
+      "git --is-bare-repository equals true",
+      "git_dir equals common_dir",
+      "git_dir equals supplied resolved path"
+    ],
+    "supplied_subdirectory_result": "UNKNOWN",
+    "gitfile_redirection_result": "UNKNOWN",
+    "git_ceiling_directories": "OPTIONAL_DERIVED_DEFENSE_NOT_NORMATIVE_AUTHORITY"
+  },
+  "additional_discrimination": {
+    "annotated_tag_previous_result": "UNKNOWN",
+    "previous_noncommit_result": "UNKNOWN",
+    "merge_base_exit_other_than_0_or_1": "UNKNOWN",
+    "corrupt_intermediate_ancestry_object_result": "UNKNOWN",
+    "hostile_global_git_config_must_not_influence": true
+  },
+  "rpe04_carried_preconditions": {
+    "git_executable_identity": "EXPLICIT_AND_GOVERNED",
+    "minimum_supported_git_version": "PREREGISTERED_AND_VERIFIED",
+    "local_repository_config": "CONTROLLED_DOMAIN_REQUIRED",
+    "include_path_and_includeif": "MUST_NOT_INTRODUCE_UNGOVERNED_AUTHORITY_OR_PROVENANCE"
+  },
+  "packet_fidelity": {
+    "historical_red_test_blob": "eca438187aceb64b4d96d29bcda6c5896864b12e",
+    "final_preclosure_test_blob": "d424f5becbb40d5b9a9276132a1ac684986b7d0d",
+    "historical_red_must_be_sourced_from_historical_blob": true,
+    "final_test_must_be_labeled_separately": true
+  },
+  "mandatory_red_cases": [
+    "ordinary subdirectory of parent repository",
+    "gitfile redirecting to another repository",
+    "annotated tag as previous head",
+    "previous blob as previous head",
+    "merge-base exit 128",
+    "corrupted intermediate ancestry object",
+    "hostile global Git config"
+  ],
+  "stop": "TARGETED_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}
