@@ -1,0 +1,108 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE02_REAL_TIME_REPRESENTATION_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_EXTERNAL_REVIEW",
+  "date": "2026-10-03",
+  "branch": "feat/obsidian-projection-rpe02-real-time-representation-v0.1",
+  "base": {
+    "rpe01_adoption_commit": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25",
+    "rpe01_adoption_blob": "49203ebc2fb208c5dd23ded140295ac00c0afab6",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+    "p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+    "p5e_synthetic_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+    "p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5"
+  },
+  "preregistration": {
+    "head": "c42a0f3df48807b3681db782f0a6fd58bd5c7aea",
+    "blob": "614d3724c5c36bbdb6afbf9b49a31f88da465719",
+    "schema_blob": "923671b1539585b5c32c8e2d284598b521fc0bba",
+    "predraft_blob": "a5d559ebb854c029dbdeb5834562864c7c035f02"
+  },
+  "red": {
+    "head": "03394a8a85680ca24a2593d14466c192fd208e8e",
+    "test_blob": "089a72c736302abd08ea1267c149e2ef771240db",
+    "report_blob": "0c5f30c7cce63e5d149111bae4d5b3309367f4af",
+    "result": "17 tests; 15 failures; 2 passes; implementation absent"
+  },
+  "implementation": {
+    "head": "c17d68b04de9dca13f9d9ed655e034b13436484d",
+    "module_blob": "db5dcfe8ad3b7ce93099368b459bb09ac25f933b",
+    "main_test_blob": "23618a9317c554099670e84482641a8014f8682d",
+    "mutation_test_blob": "77cdadb376320c4e8f591a3a80105feac250b716"
+  },
+  "qualified_properties": {
+    "normative_unit": "INTEGER_MONOTONIC_NANOSECONDS",
+    "schedule_origin_ns": true,
+    "scheduled_at_ns": true,
+    "attempt_started_at_ns": true,
+    "remote_observation_completed_at_ns": true,
+    "attempt_completed_at_ns": true,
+    "controlled_source_release_started_at_ns": true,
+    "poll_interval_ns": 30000000000,
+    "detection_latency_bound_ns": 60000000000,
+    "actual_start_drives_attempt_eligibility": true,
+    "pre_release_started_target_observation_blocks": true,
+    "remote_completion_is_latency_endpoint": true,
+    "full_attempt_completion_is_not_latency_endpoint": true,
+    "remote_completion_equal_next_slot_allowed": true,
+    "remote_completion_after_next_slot_blocked": true,
+    "previous_completion_equal_next_start_allowed": true,
+    "overlap_blocked": true,
+    "exact_bound_passes": true,
+    "bound_plus_one_nanosecond_fails": true,
+    "exact_grid_parity_with_synthetic_reference": true,
+    "float_or_bool_timestamp_authority_rejected": true,
+    "environment_or_cli_normative_authority_absent": true,
+    "implementation_constants_match_governed_preregistration": true
+  },
+  "mutation_discrimination": {
+    "checks": 4,
+    "kills": 4,
+    "survivors": 0,
+    "families": [
+      "exact latency-bound comparison operator",
+      "actual-start next-slot comparison operator",
+      "remote-completion next-slot comparison operator",
+      "remote-completion versus full-attempt-completion latency endpoint"
+    ]
+  },
+  "test_results": {
+    "dedicated_surface": "22/22 PASS",
+    "full_targeted_regression": "135/135 PASS",
+    "p5e_contract_diff": 0,
+    "p5e_synthetic_model_diff": 0,
+    "p5d4_runtime_diff": 0
+  },
+  "host_clock_capability_non_normative": {
+    "api": "time.monotonic_ns",
+    "metadata_api": "time.get_clock_info('monotonic')",
+    "monotonic": true,
+    "adjustable": false,
+    "resolution_seconds": 1e-7,
+    "implementation": "QueryPerformanceCounter()",
+    "sample_1_ns": 4845925967277900,
+    "sample_2_ns": 4845925967278100,
+    "same_process_host_domain": true,
+    "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+    "python_implementation": "CPython",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "real_p5d4_state_unchanged": {
+    "observer_events_sha256": "54223895a720e98e0f686e4882f098f2d93324d0e0d4a06164e58ac864eda4af",
+    "observer_checkpoint_sha256": "c737e064461bd8562cbfe21ff68e28556bc2ce0cb74abe2d59c89c9b0cca13d4",
+    "last_run_sha256": "eb555cadff72152553b460068cb89964b8b9cd40b7b47e8a82594e26fc47d259"
+  },
+  "claim_boundary": {
+    "rpe02_qualified_for_external_review": true,
+    "rpe02_human_adopted": false,
+    "rpe03_status_untouched_by_this_branch": true,
+    "rpe04_opened": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_authorized": false,
+    "network_used": false,
+    "p5d4_real_state_mutated": false,
+    "vault_or_current_mutated": false
+  },
+  "next_gate": "INDEPENDENT_EXTERNAL_REVIEW_THEN_HUMAN_ADJUDICATION",
+  "stop": true
+}
