@@ -6,6 +6,7 @@ from typing import Any
 
 
 SCHEMA_ID = "ATDS_GOVERNED_JSON_SCHEMA_V0_1"
+MAX_GOVERNED_JSON_DEPTH = 64
 _ALLOWED_KINDS = {"object", "array", "string", "integer", "boolean", "null"}
 _SHA1_RE = re.compile(r"[0-9a-f]{40}\Z")
 
@@ -27,6 +28,35 @@ def _reject_constant(value: str) -> None:
     raise GovernedSchemaError(f"non-standard JSON numeric constant forbidden: {value}")
 
 
+def _enforce_max_json_depth(text: str) -> None:
+    depth = 0
+    in_string = False
+    escaped = False
+    for char in text:
+        if in_string:
+            if escaped:
+                escaped = False
+            elif char == "\\":
+                escaped = True
+            elif char == '"':
+                in_string = False
+            continue
+
+        if char == '"':
+            in_string = True
+            continue
+
+        if char in "[{":
+            depth += 1
+            if depth > MAX_GOVERNED_JSON_DEPTH:
+                raise GovernedSchemaError(
+                    "maximum governed JSON depth exceeded: "
+                    f"{depth} > {MAX_GOVERNED_JSON_DEPTH}"
+                )
+        elif char in "]}":
+            depth -= 1
+
+
 def parse_json_strict(raw: str | bytes) -> Any:
     if isinstance(raw, bytes):
         try:
@@ -37,6 +67,7 @@ def parse_json_strict(raw: str | bytes) -> Any:
         text = raw
     else:
         raise GovernedSchemaError("raw governed JSON must be str or bytes")
+    _enforce_max_json_depth(text)
     try:
         return json.loads(
             text,
@@ -232,7 +263,7 @@ def _validate_schema_node(node: object, path: str) -> None:
     raise GovernedSchemaError(f"{path}.kind unsupported")
 
 
-def validate_schema_definition(schema: object) -> dict[str, Any]:
+def _validate_schema_definition(schema: object) -> dict[str, Any]:
     top = _exact_keys(
         "schema",
         schema,
@@ -255,6 +286,17 @@ def validate_schema_definition(schema: object) -> dict[str, Any]:
             raise GovernedSchemaError("schema.source_binding.git_blob must be lowercase 40-hex")
     _validate_schema_node(top["root"], "schema.root")
     return top
+
+
+def validate_schema_definition(schema: object) -> dict[str, Any]:
+    try:
+        return _validate_schema_definition(schema)
+    except GovernedSchemaError:
+        raise
+    except RecursionError as exc:
+        raise GovernedSchemaError(
+            "governed schema validation exceeded recursion safety boundary"
+        ) from exc
 
 
 def _validate_document_node(value: object, node: dict[str, Any], path: str) -> None:
@@ -322,6 +364,13 @@ def validate_governed_json(
     raw_document: str | bytes,
     raw_schema: str | bytes,
 ) -> Any:
-    validated_schema = parse_schema_json_strict(raw_schema)
-    document = parse_json_strict(raw_document)
-    return _validate_document(document, validated_schema)
+    try:
+        validated_schema = parse_schema_json_strict(raw_schema)
+        document = parse_json_strict(raw_document)
+        return _validate_document(document, validated_schema)
+    except GovernedSchemaError:
+        raise
+    except RecursionError as exc:
+        raise GovernedSchemaError(
+            "governed document validation exceeded recursion safety boundary"
+        ) from exc

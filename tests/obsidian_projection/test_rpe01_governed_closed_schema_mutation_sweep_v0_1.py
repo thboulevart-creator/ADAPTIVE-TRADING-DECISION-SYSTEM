@@ -79,7 +79,7 @@ def run_sweep():
             return
         survivors.append(label)
 
-    def expect_raw_reject(label, raw_document, raw_schema=None):
+    def expect_raw_reject(label, raw_document, expected_reason, raw_schema=None):
         nonlocal raw_json_attempted
         raw_json_attempted += 1
         try:
@@ -87,7 +87,10 @@ def run_sweep():
                 raw_document,
                 schema_raw if raw_schema is None else raw_schema,
             )
-        except guard.GovernedSchemaError:
+        except guard.GovernedSchemaError as exc:
+            if expected_reason in str(exc):
+                return
+            survivors.append(f"{label}:WRONG_REASON:{exc}")
             return
         survivors.append(label)
 
@@ -146,26 +149,163 @@ def run_sweep():
     target[0], target[1] = target[1], target[0]
     expect_reject("ORDER_CHANGE:real_end_to_end_stages", mutated)
 
-    # Raw JSON breaker families preregistered separately from parsed-object mutations.
-    expect_raw_reject("RAW_DUPLICATE_TOP_LEVEL", '{"x":1,"x":2}')
-    expect_raw_reject("RAW_DUPLICATE_NESTED", '{"outer":{"x":1,"x":2}}')
+    # Raw JSON breaker families constructed from otherwise-valid governed artifacts.
+    def replace_once(raw, old, replacement):
+        if raw.count(old) != 1:
+            raise AssertionError(f"expected one raw anchor: {old!r}")
+        return raw.replace(old, replacement, 1)
+
+    authority_anchor = '    "evaluation_authorized": false,'
+    duplicate_authority = replace_once(
+        raw_baseline,
+        authority_anchor,
+        authority_anchor + '\n    "evaluation_authorized": true,',
+    )
     expect_raw_reject(
-        "RAW_ESCAPED_DUPLICATE",
-        '{"evaluation_authorized":true,"\u0065valuation_authorized":false}',
+        "RAW_REAL_AUTHORITY_DUPLICATE",
+        duplicate_authority,
+        "duplicate JSON member: evaluation_authorized",
     )
-    expect_raw_reject("RAW_NAN", '{"x":NaN}')
-    expect_raw_reject("RAW_POSITIVE_INFINITY", '{"x":Infinity}')
-    expect_raw_reject("RAW_NEGATIVE_INFINITY", '{"x":-Infinity}')
-    duplicate_schema = (
-        '{"schema":"ATDS_GOVERNED_JSON_SCHEMA_V0_1",'
-        '"artifact_role":"A","artifact_role":"B",'
-        '"root":{"kind":"null"}}'
+
+    escaped_duplicate_authority = replace_once(
+        raw_baseline,
+        authority_anchor,
+        authority_anchor + '\n    "\\u0065valuation_authorized": true,',
     )
-    expect_raw_reject("RAW_SCHEMA_DUPLICATE_MEMBER", 'null', duplicate_schema)
+    expect_raw_reject(
+        "RAW_REAL_AUTHORITY_ESCAPED_DUPLICATE",
+        escaped_duplicate_authority,
+        "duplicate JSON member: evaluation_authorized",
+    )
+
+    poll_anchor = '    "poll_interval_seconds": 30,'
+    duplicate_poll = replace_once(
+        raw_baseline,
+        poll_anchor,
+        poll_anchor + '\n    "poll_interval_seconds": 31,',
+    )
+    expect_raw_reject(
+        "RAW_REAL_NUMERIC_DUPLICATE",
+        duplicate_poll,
+        "duplicate JSON member: poll_interval_seconds",
+    )
+
+    expect_raw_reject(
+        "RAW_REAL_NAN",
+        replace_once(
+            raw_baseline,
+            poll_anchor,
+            '    "poll_interval_seconds": NaN,',
+        ),
+        "non-standard JSON numeric constant forbidden: NaN",
+    )
+
+    latency_anchor = '    "detection_latency_seconds_max": 60,'
+    expect_raw_reject(
+        "RAW_REAL_POSITIVE_INFINITY",
+        replace_once(
+            raw_baseline,
+            latency_anchor,
+            '    "detection_latency_seconds_max": Infinity,',
+        ),
+        "non-standard JSON numeric constant forbidden: Infinity",
+    )
+    expect_raw_reject(
+        "RAW_REAL_NEGATIVE_INFINITY",
+        replace_once(
+            raw_baseline,
+            latency_anchor,
+            '    "detection_latency_seconds_max": -Infinity,',
+        ),
+        "non-standard JSON numeric constant forbidden: -Infinity",
+    )
+
+    schema_role_anchor = (
+        '  "artifact_role": "P5E_V0_1_ADOPTED_CONTRACT_CLOSED_SCHEMA",'
+    )
+    duplicate_schema = replace_once(
+        schema_raw,
+        schema_role_anchor,
+        schema_role_anchor + "\n" + schema_role_anchor,
+    )
+    expect_raw_reject(
+        "RAW_VALID_SCHEMA_DUPLICATE_MEMBER",
+        raw_baseline,
+        "duplicate JSON member: artifact_role",
+        duplicate_schema,
+    )
+
+    mutation_checks = 0
+    mutation_kills = 0
+    mutation_survivors = []
+
+    # Mutant 1: remove duplicate-member protection. The real authority duplicate
+    # becomes structurally valid because N4 intentionally does not freeze its bool value.
+    mutation_checks += 1
+    original_strict_object = guard._strict_object
+    guard._strict_object = dict
+    try:
+        try:
+            guard.validate_governed_json(duplicate_authority, schema_raw)
+        except guard.GovernedSchemaError as exc:
+            mutation_survivors.append(
+                f"DUPLICATE_DETECTION_MUTANT_SURVIVED:{exc}"
+            )
+        else:
+            mutation_kills += 1
+    finally:
+        guard._strict_object = original_strict_object
+
+    # Mutant 2: remove non-standard constant parser rejection. The document
+    # remains fail-closed later on type, but the parser-specific breaker is killed.
+    mutation_checks += 1
+    original_reject_constant = guard._reject_constant
+    guard._reject_constant = lambda value: float(value)
+    try:
+        try:
+            guard.validate_governed_json(
+                replace_once(
+                    raw_baseline,
+                    poll_anchor,
+                    '    "poll_interval_seconds": NaN,',
+                ),
+                schema_raw,
+            )
+        except guard.GovernedSchemaError as exc:
+            if "non-standard JSON numeric constant forbidden: NaN" not in str(exc):
+                mutation_kills += 1
+            else:
+                mutation_survivors.append(
+                    "NONSTANDARD_CONSTANT_MUTANT_SURVIVED"
+                )
+        else:
+            mutation_kills += 1
+    finally:
+        guard._reject_constant = original_reject_constant
+
+    # Mutant 3: remove deterministic depth protection. Depth 65 must then parse.
+    mutation_checks += 1
+    original_depth_guard = guard._enforce_max_json_depth
+    guard._enforce_max_json_depth = lambda text: None
+    try:
+        depth_65 = ("[" * 65) + "0" + ("]" * 65)
+        try:
+            guard.parse_json_strict(depth_65)
+        except guard.GovernedSchemaError as exc:
+            mutation_survivors.append(
+                f"DEPTH_GUARD_MUTANT_SURVIVED:{exc}"
+            )
+        else:
+            mutation_kills += 1
+    finally:
+        guard._enforce_max_json_depth = original_depth_guard
 
     return {
         "parsed_object_attempted": parsed_object_attempted,
         "raw_json_attempted": raw_json_attempted,
+        "mutation_kill_checks": mutation_checks,
+        "mutation_kills": mutation_kills,
+        "mutation_survivors": mutation_survivors,
         "attempted": parsed_object_attempted + raw_json_attempted,
         "survivors": survivors,
         "survivor_count": len(survivors),
@@ -179,6 +319,9 @@ class RPE01MutationSweepTests(unittest.TestCase):
         self.assertEqual(result["raw_json_attempted"], 7)
         self.assertEqual(result["attempted"], 440)
         self.assertEqual(result["survivors"], [])
+        self.assertEqual(result["mutation_kill_checks"], 3)
+        self.assertEqual(result["mutation_kills"], 3)
+        self.assertEqual(result["mutation_survivors"], [])
 
 
 if __name__ == "__main__":

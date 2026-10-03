@@ -1,0 +1,109 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE01_FINAL_HARDENING_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_FINAL_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-03",
+  "opening_head": "cbe8b2534e3a4f65edbe1732a5b322e018756713",
+  "preregistration_head": "cee9f7e4c46a9cef28891561c63e112d81cc3744",
+  "preregistration_blob": "3fbd871ac3faeaab8d40c730ac539677ac272c33",
+  "final_delta_review_return_blob": "d5ce7aa73a070610a2a56c04647c426cff7d1249",
+  "red_head": "6327333ba27b551ac7c1fcda20fafe3eb488749f",
+  "red_test_blob": "449898e62f244a275af290559b7441af1798ee09",
+  "red_report_blob": "33f6f1bea040bddcb452657319e87f90bca9ed54",
+  "final_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+  "p5e_schema_blob_unchanged": "87e45cc75753439879e2902d3cbdbd5d71d8a1b2",
+  "main_rpe01_test_blob_unchanged": "cd0e091233e5a4473ef280c7061db8cf880169e9",
+  "final_mutation_sweep_blob": "b37ca3e31aecde1beccf08eafe04696e6a7dc4c9",
+  "portable_nb1_nb2_test_blob": "f52b88a9d56ea12a515e35ad8e915d0a1bc28b91",
+  "final_hardening_test_blob": "449898e62f244a275af290559b7441af1798ee09",
+  "covered_adopted_p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+  "covered_adopted_p5e_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+  "covered_p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5",
+  "nb_a": {
+    "status": "CLOSED_CANDIDATE",
+    "max_governed_json_depth": 64,
+    "depth_definition": "Maximum syntactic nesting of JSON containers outside strings, root container depth 1.",
+    "document_boundary_64": "PASS",
+    "document_boundary_65": "REJECT_GOVERNED_SCHEMA_ERROR",
+    "schema_boundary_64": "PASS",
+    "schema_boundary_65": "REJECT_GOVERNED_SCHEMA_ERROR",
+    "interpreter_recursion_limit_normative": false,
+    "schema_validation_recursion_normalized": true,
+    "document_validation_recursion_normalized_at_public_boundary": true
+  },
+  "nb_b": {
+    "status": "CLOSED_CANDIDATE",
+    "parsed_object_mutations": 433,
+    "raw_json_breakers": 7,
+    "raw_json_breaker_survivors": 0,
+    "mutation_kill_checks": 3,
+    "mutation_kills": 3,
+    "mutation_survivors": 0,
+    "raw_breakers_are_built_from": [
+      "otherwise-valid adopted P5-E contract",
+      "otherwise-valid P5-E governed schema"
+    ],
+    "raw_breaker_families": [
+      "contradictory duplicate real authority key evaluation_authorized",
+      "escaped duplicate real authority key evaluation_authorized",
+      "duplicate real numeric key poll_interval_seconds",
+      "NaN in real numeric field poll_interval_seconds",
+      "Infinity in real numeric field detection_latency_seconds_max",
+      "-Infinity in real numeric field detection_latency_seconds_max",
+      "duplicate artifact_role in otherwise-valid raw governed schema"
+    ],
+    "raw_breakers_require_targeted_parser_reason": true
+  },
+  "nb_c": {
+    "status": "ADOPTED_USAGE_RULE_CANDIDATE",
+    "authorized_governed_artifact_validation_entrypoint": "validate_governed_json(raw_document, raw_schema)",
+    "underscore_prefixed_guard_functions_external_consumer_use_forbidden": true,
+    "validate_schema_definition_is_not_authorized_for_governed_document_validation": true,
+    "runtime_tools_external_private_guard_consumers_observed": 0
+  },
+  "test_results": {
+    "final_hardening_red": "14 tests; 2 failures + 4 errors before patch; 8 passes",
+    "final_hardening_green": "14/14 PASS",
+    "current_rpe01_surface": "42/42 PASS",
+    "final_targeted_regression": "109/109 PASS",
+    "final_sweep": {
+      "parsed_object_attempted": 433,
+      "raw_json_attempted": 7,
+      "attempted_total": 440,
+      "survivors": 0,
+      "mutation_kill_checks": 3,
+      "mutation_kills": 3,
+      "mutation_survivors": 0
+    },
+    "contract_diff_from_adopted_readiness_head": 0,
+    "model_diff_from_adopted_readiness_head": 0,
+    "p5d4_runtime_diff_from_adopted_readiness_head": 0
+  },
+  "qualification_environment_non_normative": {
+    "python_version": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+    "python_implementation": "CPython",
+    "platform": "Windows-11-10.0.22631-SP0"
+  },
+  "current_artifact_depth_observations_non_normative": {
+    "adopted_p5e_contract": 3,
+    "p5e_governed_schema": 8
+  },
+  "remaining_nonblocking_scope_notes": {
+    "nb3": "The P5-E schema remains structural/type/list governance; adopted P5-E invariants retain value semantics.",
+    "nb4": "Generic source_binding/artifact_role remain structurally validated but not dynamically bound by the generic guard.",
+    "nb5": "Contradictory restrictive schema constraints, ASCII regex semantics, and isolated-surrogate handling remain non-blocking future hardening."
+  },
+  "real_state_fingerprints_unchanged": {
+    "observer_events_sha256": "54223895a720e98e0f686e4882f098f2d93324d0e0d4a06164e58ac864eda4af",
+    "observer_checkpoint_sha256": "c737e064461bd8562cbfe21ff68e28556bc2ce0cb74abe2d59c89c9b0cca13d4",
+    "last_run_sha256": "eb555cadff72152553b460068cb89964b8b9cd40b7b47e8a82594e26fc47d259"
+  },
+  "claim_boundary": {
+    "rpe01_final_hardening_qualified_for_external_delta_review": true,
+    "rpe01_human_adopted": false,
+    "rpe02_opened": false,
+    "rpe03_opened": false,
+    "real_p5e_authorized": false
+  },
+  "next_gate": "FINAL_SHORT_EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADOPTION",
+  "stop": true
+}

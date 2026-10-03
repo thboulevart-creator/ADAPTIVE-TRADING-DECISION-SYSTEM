@@ -78,9 +78,12 @@ class NB2NormalizedExceptionTests(unittest.TestCase):
 
     def test_pathological_nesting_is_normalized(self):
         g = load_guard()
-        depth = 5000
+        depth = g.MAX_GOVERNED_JSON_DEPTH + 1
         pathological = ("[" * depth) + "0" + ("]" * depth)
-        with self.assertRaises(g.GovernedSchemaError):
+        with self.assertRaisesRegex(
+            g.GovernedSchemaError,
+            "maximum governed JSON depth",
+        ):
             g.parse_json_strict(pathological)
 
 
