@@ -18,6 +18,7 @@ NANOSECONDS_PER_SECOND = 1_000_000_000
 POLL_INTERVAL_NS = 30 * NANOSECONDS_PER_SECOND
 DETECTION_LATENCY_BOUND_NS = 60 * NANOSECONDS_PER_SECOND
 _SHA40_RE = re.compile(r"[0-9a-f]{40}\Z")
+_ALLOWED_OUTCOMES = {"READ_FAILURE", "REMOTE_HEAD_OBSERVED"}
 
 
 class RPE02TimingError(ValueError):
@@ -118,9 +119,17 @@ def _normalize_observation(raw: Mapping[str, Any], index: int) -> dict[str, Any]
         "attempt_completed_at_ns",
     ):
         out[key] = _strict_int(f"observations[{index}].{key}", out[key])
-    if type(out["outcome"]) is not str or not out["outcome"]:
-        raise RPE02TimingError(f"observations[{index}].outcome must be non-empty string")
-    if out["observed_head"] is not None:
+    if type(out["outcome"]) is not str or out["outcome"] not in _ALLOWED_OUTCOMES:
+        raise RPE02TimingError(
+            f"observations[{index}].outcome must be one of "
+            f"{sorted(_ALLOWED_OUTCOMES)}"
+        )
+    if out["outcome"] == "READ_FAILURE":
+        if out["observed_head"] is not None:
+            raise RPE02TimingError(
+                f"observations[{index}] READ_FAILURE may not carry observed_head"
+            )
+    else:
         out["observed_head"] = _strict_sha40(
             f"observations[{index}].observed_head",
             out["observed_head"],
@@ -151,7 +160,9 @@ def qualify_detection_ns(
         raise RPE02TimingError("observations must be a sequence")
 
     normalized = [_normalize_observation(raw, i) for i, raw in enumerate(observations)]
-    normalized.sort(key=lambda item: item["scheduled_at_ns"])
+    for index in range(1, len(normalized)):
+        if normalized[index]["scheduled_at_ns"] < normalized[index - 1]["scheduled_at_ns"]:
+            return _blocked("OBSERVATION_ORDER_NOT_STRICTLY_INCREASING")
 
     previous_scheduled: int | None = None
     previous_completion: int | None = None
@@ -235,14 +246,15 @@ def qualify_detection_ns(
                 "first_detection_attempt_completed_at_ns": item["attempt_completed_at_ns"],
             }
 
-    window_end = max(
-        (item["remote_observation_completed_at_ns"] for item in normalized),
-        default=origin,
+    next_required_slot = (
+        normalized[-1]["scheduled_at_ns"] + interval
+        if normalized
+        else first_required
     )
-    if window_end >= release + bound:
+    if next_required_slot - release > bound:
         return {
             "status": "FAIL_NO_DETECTION_BY_BOUND",
-            "failure_code": None,
+            "failure_code": "NO_FUTURE_FIXED_RATE_ATTEMPT_CAN_MEET_BOUND",
             "detection_latency_ns": None,
         }
     return {
