@@ -1,0 +1,90 @@
+{
+  "schema": "ATDS_E1_TD_03C_R2A_REQUESTER_PAYS_ENABLEMENT_METADATA_PROBE_V0_1",
+  "control_id": "E1-TD-03C-R2A",
+  "date": "2026-10-03",
+  "authority_binding": {
+    "authorized_parent_head": "b7e0c643e580af917dbb741a78b308d42d3f3c27",
+    "authorized_parent_tree": "9cdd77ca46aaffbbc7816c318c2a3df233db2778"
+  },
+  "aws_client": {
+    "implementation": "boto3",
+    "isolated_environment": "C:\\Users\\Boulevart\\ATDS-TOOLS\\aws-metadata-client-v0.1\\.venv",
+    "python_version": "3.13.14",
+    "boto3_version": "1.43.108",
+    "botocore_version": "1.43.108",
+    "status": "PASS_MINIMAL_CLIENT_ENABLED"
+  },
+  "credential_capability": {
+    "available_profiles": 0,
+    "credentials_resolved": false,
+    "credential_method": "NONE",
+    "region_resolved": "NONE",
+    "env_access_key_present": false,
+    "env_secret_key_present": false,
+    "env_session_token_present": false,
+    "credentials_file_exists": false,
+    "config_file_exists": false,
+    "secret_values_observed": false,
+    "status": "BLOCKED_MISSING_AWS_CREDENTIAL_CAPABILITY"
+  },
+  "requester_pays": {
+    "bucket": "cfg-public-proper-wallaby",
+    "region": "eu-west-1",
+    "request_payer": "requester",
+    "authenticated_request_required": true,
+    "cost_authority": "AUTHORIZED_METADATA_ONLY_MINIMUM_NECESSARY",
+    "cost_consumed": "0",
+    "documentary_sources": [
+      "https://www.dukascopy.com/wiki/en/development/data-export/",
+      "https://docs.aws.amazon.com/AmazonS3/latest/userguide/RequesterPaysBuckets.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_ListObjectsV2.html",
+      "https://docs.aws.amazon.com/AmazonS3/latest/API/API_HeadObject.html"
+    ]
+  },
+  "preregistered_probe": {
+    "list_objects_v2": {
+      "authorized_max_calls": 1,
+      "executed_calls": 0,
+      "bucket": "cfg-public-proper-wallaby",
+      "delimiter": "/",
+      "request_payer": "requester",
+      "purpose": "verify exact top-level instrument prefix",
+      "status": "NOT_EXECUTED_BLOCKED_CREDENTIALS"
+    },
+    "head_object": {
+      "authorized_max_calls": 1,
+      "executed_calls": 0,
+      "conditional_on_prefix_match": true,
+      "candidate_key": "USATECHIDXUSD/2026/09/01_ticks.bi5",
+      "request_payer": "requester",
+      "purpose": "verify exact candidate key metadata",
+      "status": "NOT_EXECUTED_BLOCKED_UPSTREAM"
+    }
+  },
+  "event_0002": {
+    "preregistration_blob": "04ac356046d57b168596dc9381b9cfd523439bdd",
+    "candidate_key": "USATECHIDXUSD/2026/09/01_ticks.bi5",
+    "key_status": "UNVERIFIED_IN_S3",
+    "verified_key_frozen": false,
+    "executable": false
+  },
+  "forbidden_confirmed": [
+    "GetObject",
+    "MARKET_OBJECT_DOWNLOAD",
+    "REAL_MARKET_BYTES",
+    "DECOMPRESSION",
+    "DECODING",
+    "SOURCE_B_EQUIVALENCE",
+    "SOURCE_B_SUBSTITUTION",
+    "TD01_MERGE",
+    "HISTORICAL_OVERLAP_ANALYSIS",
+    "H1",
+    "SIGNALS",
+    "STRATEGIES",
+    "PNL",
+    "PERFORMANCE",
+    "BACKTEST"
+  ],
+  "verdict": "BLOCKED_PENDING_HUMAN_AWS_CREDENTIAL_CAPABILITY",
+  "stop": true
+}
