@@ -71,25 +71,49 @@ def _canonical_path(text: str, base: Path) -> Path:
     return p.resolve(strict=False)
 
 
+def _same_path(left: Path, right: Path) -> bool:
+    return os.path.normcase(str(left)) == os.path.normcase(str(right))
+
+
 def _verified_domain(repo_path: Path) -> tuple[Path, Path] | None:
     try:
         repo = repo_path.resolve(strict=True)
     except (OSError, RuntimeError):
         return None
-    if not repo.exists():
+    if not repo.is_dir():
         return None
 
+    dot_git = repo / ".git"
+    if dot_git.is_file():
+        return None
+
+    bare_text = _stdout_ok(_run_git(repo, "rev-parse", "--is-bare-repository"))
     git_dir_text = _stdout_ok(_run_git(repo, "rev-parse", "--absolute-git-dir"))
     common_dir_text = _stdout_ok(
         _run_git(repo, "rev-parse", "--path-format=absolute", "--git-common-dir")
     )
-    if not git_dir_text or not common_dir_text:
+    if bare_text not in {"true", "false"} or not git_dir_text or not common_dir_text:
         return None
 
     git_dir = _canonical_path(git_dir_text, repo)
     common_dir = _canonical_path(common_dir_text, repo)
-    if os.path.normcase(str(git_dir)) != os.path.normcase(str(common_dir)):
+    if not _same_path(git_dir, common_dir):
         return None
+
+    if bare_text == "true":
+        if not _same_path(git_dir, repo):
+            return None
+    else:
+        top_text = _stdout_ok(_run_git(repo, "rev-parse", "--show-toplevel"))
+        if not top_text:
+            return None
+        top = _canonical_path(top_text, repo)
+        if not _same_path(top, repo):
+            return None
+        if not dot_git.is_dir():
+            return None
+        if not _same_path(git_dir, dot_git.resolve(strict=False)):
+            return None
 
     shallow = _stdout_ok(_run_git(repo, "rev-parse", "--is-shallow-repository"))
     if shallow is None or shallow.lower() != "false":
