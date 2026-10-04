@@ -1,0 +1,81 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_GOVERNED_GIT_EXECUTABLE_BINDING_QUALIFICATION_V0_2",
+  "status": "QUALIFIED_FOR_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-04",
+  "branch": "feat/obsidian-projection-rpe03-governed-git-executable-binding-v0.2",
+  "lineage": {
+    "rpe03_v01_human_adoption_commit": "546ce03b8c56a48eb54aaf163e02a9be0e028ce6",
+    "blocker_provenance_head": "d596fa136e3b4ed21a1ade341e34f800dfd4a540",
+    "preregistration_head": "6de09282b4a97371d662f8871b3e34d2bb7ee9f0",
+    "targeted_red_head": "aaf045644051a6002b908a330f8fcdfe494a9dde",
+    "implementation_head": "8dfda75a89181034a3c352f06d7a76cefbb56a54",
+    "windows_falsification_evidence_head": "4b61fa1477d63885ca74938316ad722fbc4f52b9"
+  },
+  "exact_identities": {
+    "rpe03_v01_adoption_blob": "3a5933a59ad68e342595721e30ee71909d075a3f",
+    "rpe03_v01_classifier_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "rpe04_external_review_blob": "fa34c6cd69d19ec4e1913b10b2b5237b9d007220",
+    "rpe04_human_adjudication_blob": "77656b362e24adc412df3040ae5221da99d49a7e",
+    "preregistration_blob": "c173ec092cec571f7c0ad8229892800fa9ca3634",
+    "preregistration_schema_blob": "e0d2ac35ea4a2a0f85a4093c4fbeb7ba36e2779b",
+    "historical_red_test_blob": "3a3947c6b75038644f84900d8c01a6ce91a360e1",
+    "historical_red_report_blob": "da34d645de7abd0d22d9a8d17cf82928ce149b21",
+    "windows_harness_correction_blob": "c5ee2713d78055bbaa4f98774318581cd2a769c9",
+    "final_classifier_v02_blob": "65aec74ae089f51786f85a9742ea0a7ac2fdbe38",
+    "final_targeted_test_blob": "8daeabec8f189a88c6bb37a4941bd217bc3318e1",
+    "mutation_test_blob": "0e36cdc59b62fa9ee473f88604a6a8d8eaca0298",
+    "rpe04_compatibility_test_blob": "631931f334e7b8d54ff91d58dbc916b15ae04151",
+    "windows_falsification_evidence_blob": "5ec59d27c7113fb02bff41e1759ac022e5a688d3",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887"
+  },
+  "governed_git": {
+    "absolute_path": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "sha256": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5",
+    "observed_version": "git version 2.54.0.windows.1",
+    "minimum_qualified_version": "2.54.0",
+    "actually_executed_classifier_binary_is_absolute_governed_path": true,
+    "implicit_git_token_removed": true,
+    "broader_git_for_windows_helper_chain_qualified": false
+  },
+  "evidence": {
+    "targeted_green": "8/8 PASS",
+    "targeted_mutation_tests": "4/4 PASS",
+    "rpe04_call_site_compatibility": "1/1 PASS",
+    "combined_mutation_and_compatibility": "5/5 PASS",
+    "complete_rpe03_regression": "51/51 PASS",
+    "windows_implicit_search_falsification": "OBSERVED",
+    "preregistration_rpe01_guard_validation": "PASS",
+    "rpe03_v01_classifier_unchanged": true,
+    "rpe01_guard_unchanged": true
+  },
+  "windows_falsification": {
+    "fake_executable_source": "C:\\WINDOWS\\System32\\where.exe",
+    "fake_name": "git.exe",
+    "placement": "PROCESS_CURRENT_DIRECTORY",
+    "implicit_git_result": "FAKE_EXECUTABLE_SELECTED / RC=1 / NO_GIT_VERSION_OUTPUT",
+    "governed_absolute_git_result": "RC=0 / git version 2.54.0.windows.1",
+    "v02_result": "CORRECT_TRANSITION_WITH_FAKE_PRESENT"
+  },
+  "qualified_claims": {
+    "exact_governed_path_required": true,
+    "exact_sha256_required": true,
+    "observed_version_required": true,
+    "minimum_version_required": true,
+    "caller_cannot_select_alternate_executable": true,
+    "subprocess_git_commands_use_governed_absolute_path": true,
+    "ancestry_semantics_unchanged_from_v01": true,
+    "no_network_inside_classifier": true
+  },
+  "claim_boundary": {
+    "rpe03_v02_human_adopted": false,
+    "rpe04_rebound_to_v02": false,
+    "rpe04_bf1_closed": false,
+    "nf2_closed": false,
+    "nf3_closed": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_opened": false
+  },
+  "next_gate": "EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADOPTION",
+  "stop": true
+}
