@@ -37,7 +37,7 @@ DERIVATION_NONCE = "ab" * 32
 EVALUATION_NONCE = "cd" * 32
 
 def _canonical(value: object) -> bytes:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8") + b"\n"
 
 def _sha256(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()

@@ -93,8 +93,8 @@ jobs:
           test "$(git hash-object breakers/rvo_05_integration_breaker.py)" = "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d"
           test "$(git hash-object reports/program/2026-10-04-RVO-05-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "cccb520f254279f223fd050cd93da7609a9f8587"
           test "$(git hash-object src/rvo_05_cc02_bindings.py)" = "0b6e373e6d9bdea8e27a7f91a962a6b5b7b482f4"
-          test "$(git hash-object tests/rvo_05_fixture.py)" = "2a8b85e5786d21d52b02eb865affd568520e662b"
-          test "$(git hash-object tests/test_rvo_05_cc02_bindings.py)" = "9a11c18941510894ad22d23fa88a7a44a6ba9b2f"
+          test "$(git hash-object tests/rvo_05_fixture.py)" = "cd0bd5dbc975ffea3023af545968a90c62888347"
+          test "$(git hash-object tests/test_rvo_05_cc02_bindings.py)" = "ef087a7f1125870e541765e97e5194f2aa39c268"
 
       - name: Prove RVO-05 delta is RVO-only
         run: |

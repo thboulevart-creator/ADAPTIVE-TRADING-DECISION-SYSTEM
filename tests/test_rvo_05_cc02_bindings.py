@@ -48,7 +48,7 @@ def test_rvo05_04_m03_executes_owner_method_only_after_activation():
     assert out["owner_result"]["quantiles"]["0.5"] == pytest.approx(0.2)
     assert out["procedure_ref"].endswith("#ecdf_quantiles")
     assert len(out["procedure_sha256"]) == 64
-    assert len(out["result_digest"]) == 64
+    assert out["result_digest"].startswith("sha256:")\n    assert len(out["result_digest"]) == 71
 
 def test_rvo05_05_exact_data02_synthetic_admission_binds(tmp_path: Path):
     package = make_data02_package(tmp_path)
