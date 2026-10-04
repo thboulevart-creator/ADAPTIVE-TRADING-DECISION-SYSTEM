@@ -1,0 +1,126 @@
+{
+  "schema": "ATDS_RVO_03_CANONICAL_OWNER_INTEGRATION_QUALIFICATION_RECEIPT_V0_1",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_FINAL_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "966c65c5cbcda677ddaab5a8070f7c2bafcaaf8b",
+    "tree": "e3768d553b2383ded5947e683b6ba41a730608c7"
+  },
+  "frozen_rvo02": {
+    "runtime_blob": "20766da0d609d0056e40df0115a3151d5c703938",
+    "breaker_blob": "c5835e8a0a9c3ff26201a5860d0866478b3cdacb",
+    "fixture_blob": "47af02f575943c89a5647664710a15036cf4332e",
+    "positive_test_blob": "c95300922fcf7707c4317cfbf20510ad6cba91db",
+    "qualification_receipt_blob": "bcd5454c5bbf7208de76685cc98375347078d868",
+    "qualification_report_blob": "26d91f9a1017d58c84c4a620115f09197ccf568e"
+  },
+  "rvo03_surface": {
+    "capability_matrix_blob": "5f2406189af8e118ca8f20f5a7f92f3a2ce91c13",
+    "adapter_blob": "7ded32616fa959ecdc7857dad95b53884f58c15a",
+    "integration_test_blob": "5fb325e420a72a64ae024fbea0b8332cd0dcc63f",
+    "workflow_blob": "f6a701cb0be366282bd56ec880c837e4f2dcf0ae"
+  },
+  "canonical_owner_interfaces": {
+    "p1_experiment_specification": {
+      "runtime_blob": "8ff7725cf3324825c12f85def4c73eed477c181b",
+      "qualification_blob": "8839e6df3ea0ccff69ec82fdfccb1527e5601faf",
+      "state": "QUALIFIED"
+    },
+    "smf_core": {
+      "runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+      "qualification_blob": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+      "state": "QUALIFIED"
+    },
+    "smf_conditional_c01_c12": {
+      "qualification_blob": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+      "state": "BLOCKED"
+    },
+    "mcepr": {
+      "runtime_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+      "qualification_blob": "5fbf3bf9a79b50c5df41b017bd082133db7ce1cf",
+      "state": "QUALIFIED"
+    },
+    "pcp_p22_01": {
+      "runtime_blob": "18b01a995f521377ec98bd4f24b7837a329ad139",
+      "qualification_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "state": "QUALIFIED"
+    },
+    "pcp_p22_02": {
+      "runtime_blob": "c6ac0c5435d3c1bc081d457abdad2225a7d0fe64",
+      "qualification_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "state": "QUALIFIED"
+    },
+    "pcp_p22_03": {
+      "runtime_blob": "c7c81ec8cd9e253c2c6e56d0d5e41960cb472233",
+      "qualification_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "state": "QUALIFIED"
+    },
+    "data_tick_admissibility": {
+      "runtime_blob": "63f629a8cf39c79b5334015e038b70771c39f78b",
+      "observed_test_blob": "99120fdb0951d3ac1cbec0ff808ec182182d84d7",
+      "state": "AVAILABLE"
+    },
+    "temporal_generic": {
+      "proposal_blob": "861362264a3602aa875bb16487d12558f700c250",
+      "state": "UNAVAILABLE"
+    },
+    "execution_generic": {
+      "state": "UNAVAILABLE"
+    },
+    "execution_e1_specific": {
+      "runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+      "qualification_blob": "5c877f36c4f5c78f78d54ac5e4cf819da37f92b9",
+      "state": "QUALIFIED",
+      "generic_for_rvo": false
+    }
+  },
+  "observed_integration_run": {
+    "commit": "e84b1e8027471ea288af62feec424452a698e1fe",
+    "tree": "365e1f3a8bbe0cfcdb05a00fa93cbbdcf2566fab",
+    "workflow_run_id": 37208067662,
+    "job_id": 111453355702,
+    "conclusion": "SUCCESS",
+    "unchanged_rvo02_breaker": {
+      "passed": 47,
+      "failed": 0
+    },
+    "rvo03_canonical_owner_integration": {
+      "passed": 11,
+      "failed": 0
+    },
+    "protected_owner_regression": {
+      "passed": 320,
+      "failed": 0
+    },
+    "rvo_only_delta_check": "PASS"
+  },
+  "unresolved_gaps": [
+    "DATASET_ADMISSIBILITY_TICK_CSV remains AVAILABLE rather than promoted to generic QUALIFIED by RVO-03.",
+    "TEMPORAL_GENERIC_POINT_IN_TIME remains UNAVAILABLE.",
+    "EXECUTION_GENERIC remains UNAVAILABLE; EXECUTION_E1_SPECIFIC is qualified only within E1 scope.",
+    "SMF_CONDITIONAL_C01_C12 remains BLOCKED."
+  ],
+  "qualification_semantics": {
+    "pass": "NO_MATERIAL_FAILURE_FOUND_WITHIN_EXACT_RVO03_CANONICAL_OWNER_SYNTHETIC_INTEGRATION_SURFACE",
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "rvo_authority": "NONE",
+    "owner_semantics_modified": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "real_experiment_use": false,
+    "real_backtest": false,
+    "real_performance_observation": false,
+    "oos_consumption": false,
+    "broker_live_capital": false
+  },
+  "final_rebreak_requirement": {
+    "exact_persisted_head_required": true,
+    "unchanged_rvo02_breaker_required": true,
+    "exact_capability_matrix_blob": "5f2406189af8e118ca8f20f5a7f92f3a2ce91c13",
+    "exact_adapter_blob": "7ded32616fa959ecdc7857dad95b53884f58c15a",
+    "exact_integration_test_blob": "5fb325e420a72a64ae024fbea0b8332cd0dcc63f",
+    "protected_owner_regression_required": true
+  },
+  "next_frontier": "RVO-04_NOT_AUTHORIZED"
+}
