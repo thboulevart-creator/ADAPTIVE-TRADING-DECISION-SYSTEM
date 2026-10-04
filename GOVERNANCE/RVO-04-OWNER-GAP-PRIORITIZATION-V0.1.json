@@ -1,0 +1,288 @@
+{
+  "schema": "ATDS_RVO_04_OWNER_GAP_PRIORITIZATION_V0_1",
+  "status": "RVO04_DESIGN_CANDIDATE",
+  "taxonomy_blob": "1fa07fb4b262bfc2a867e66914ce4221cdcd1f79",
+  "claim_capability_graph_blob": "fcd723a30bad063471d7a399c06464b580c87e77",
+  "source_capability_matrix_blob": "5f2406189af8e118ca8f20f5a7f92f3a2ce91c13",
+  "principles": [
+    "OWNER_GAP != RVO_INTEGRATION_GAP",
+    "OWNER_CAPABILITY != ACTIVATION_AUTHORITY",
+    "GLOBAL_COMPLETION != CLAIM_SCOPED_READINESS",
+    "DO_NOT_BUILD_UNUSED_CAPABILITY",
+    "QUALIFY_EXACT_FIRST_USE_SURFACE_BEFORE_GENERALIZING"
+  ],
+  "gaps": [
+    {
+      "id": "GAP-RVO04-01",
+      "type": "RVO_INTEGRATION_GAP",
+      "owner": "RVO",
+      "title": "P1 downstream experiment/evaluation/finding binding",
+      "current_state": "OWNER_QUALIFIED_RVO_BINDING_PARTIAL",
+      "priority": "HIGH",
+      "blocks": [
+        "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+        "CC03_STATISTICAL_EFFECT",
+        "CC04_PREDICTIVE",
+        "CC05_ECONOMIC_NET_PROFITABILITY",
+        "CC06_ROBUSTNESS_STABILITY",
+        "CC07_MULTIPLICITY_MODEL_SELECTION",
+        "CC08_HISTORICAL_POINT_IN_TIME",
+        "CC09_PATH_RISK_RUIN",
+        "CC10_OOS_CONFIRMATION"
+      ],
+      "does_not_require_owner_modification": true,
+      "recommended_frontier": "RVO-only downstream P1 binding, synthetic-first, after RVO-04 human routing decision."
+    },
+    {
+      "id": "GAP-RVO04-02",
+      "type": "RVO_INTEGRATION_GAP",
+      "owner": "RVO",
+      "title": "SMF result/procedure binding beyond activation",
+      "current_state": "SMF_CORE_QUALIFIED_RVO_BINDS_ACTIVATION_ONLY",
+      "priority": "HIGH",
+      "blocks": [
+        "CC03_STATISTICAL_EFFECT",
+        "CC04_PREDICTIVE",
+        "CC05_ECONOMIC_NET_PROFITABILITY",
+        "CC06_ROBUSTNESS_STABILITY",
+        "CC07_MULTIPLICITY_MODEL_SELECTION",
+        "CC09_PATH_RISK_RUIN",
+        "CC10_OOS_CONFIRMATION"
+      ],
+      "does_not_require_owner_modification": true,
+      "recommended_frontier": "RVO-only binding to exact qualified SMF CORE outputs, synthetic-first."
+    },
+    {
+      "id": "GAP-RVO04-03",
+      "type": "OWNER_QUALIFICATION_GAP",
+      "owner": "DATA",
+      "title": "Claim-scoped data identity/admissibility/provenance qualification",
+      "current_state": "TICK_CSV_RUNTIME_AVAILABLE_NOT_GENERICALLY_QUALIFIED",
+      "priority": "CRITICAL_FOR_FIRST_EMPIRICAL_CLAIM",
+      "blocks": [
+        "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+        "CC03_STATISTICAL_EFFECT",
+        "CC04_PREDICTIVE",
+        "CC05_ECONOMIC_NET_PROFITABILITY",
+        "CC06_ROBUSTNESS_STABILITY",
+        "CC08_HISTORICAL_POINT_IN_TIME",
+        "CC09_PATH_RISK_RUIN",
+        "CC10_OOS_CONFIRMATION"
+      ],
+      "decision": "A universal generic Data abstraction is not required before first use. The exact dataset family/schema consumed by the first real empirical claim must be qualified. If the first claim uses H1/derived data, the current tick-CSV boundary is insufficient.",
+      "minimum_maturation": [
+        "exact content identity",
+        "schema and domain admissibility",
+        "lineage/provenance sufficient for the claim",
+        "immutable result-to-dataset binding",
+        "usage constraints",
+        "explicit UNKNOWN / UNVERIFIED / BLOCKED preservation",
+        "handoff interface to Temporal for time-validity semantics"
+      ],
+      "recommended_frontier": "DATA-01 — CLAIM-SCOPED DATA ADMISSIBILITY + PROVENANCE QUALIFICATION"
+    },
+    {
+      "id": "GAP-RVO04-04",
+      "type": "OWNER_IMPLEMENTATION_GAP",
+      "owner": "TEMPORAL",
+      "title": "Minimal point-in-time admissibility owner",
+      "current_state": "UNAVAILABLE_PROPOSAL_ONLY",
+      "priority": "CRITICAL_FOR_HISTORICAL_PREDICTIVE_OOS_ECONOMIC_CLAIMS",
+      "blocks": [
+        "CC04_PREDICTIVE",
+        "CC05_ECONOMIC_NET_PROFITABILITY",
+        "CC08_HISTORICAL_POINT_IN_TIME",
+        "CC10_OOS_CONFIRMATION"
+      ],
+      "conditionally_blocks": [
+        "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+        "CC03_STATISTICAL_EFFECT",
+        "CC06_ROBUSTNESS_STABILITY",
+        "CC07_MULTIPLICITY_MODEL_SELECTION",
+        "CC09_PATH_RISK_RUIN"
+      ],
+      "minimum_maturation": [
+        "declared research mode",
+        "decision/reference time",
+        "world-validity time versus knowledge-availability time",
+        "vintage identity where revisions matter",
+        "dependency-closure propagation",
+        "UNKNOWN temporal predicate fails closed",
+        "manual/model-selection temporal provenance when material",
+        "no execution-time retroactive expansion of historical information"
+      ],
+      "not_required_before": [
+        "CC01_STRUCTURAL_PROTOCOL",
+        "pure retrospective CC02 description that makes no historical-availability/tradability claim"
+      ],
+      "recommended_frontier": "TEMPORAL-01 — MINIMAL POINT-IN-TIME ADMISSIBILITY CONTRACT + TEST-FIRST QUALIFICATION"
+    },
+    {
+      "id": "GAP-RVO04-05",
+      "type": "OWNER_IMPLEMENTATION_GAP",
+      "owner": "EXECUTION",
+      "title": "Generic claim-sufficient execution/cost owner",
+      "current_state": "UNAVAILABLE_GENERIC_E1_SPECIFIC_ONLY",
+      "priority": "CRITICAL_ONLY_WHEN_ECONOMIC_OR_POLICY_PATH_CLAIM_IS_TARGETED",
+      "blocks": [
+        "CC05_ECONOMIC_NET_PROFITABILITY",
+        "CC09_PATH_RISK_RUIN"
+      ],
+      "conditionally_blocks": [
+        "CC03_STATISTICAL_EFFECT",
+        "CC06_ROBUSTNESS_STABILITY",
+        "CC07_MULTIPLICITY_MODEL_SELECTION",
+        "CC10_OOS_CONFIRMATION"
+      ],
+      "minimum_maturation": [
+        "signal-time versus execution-time boundary",
+        "causal admissible fill search",
+        "BID/ASK side semantics",
+        "continuity/gap handling",
+        "quantity/policy binding",
+        "claim-required cost components",
+        "excluded cost != zero",
+        "forbidden claim set when cost/realism surface is incomplete",
+        "reconstructible execution identity"
+      ],
+      "note": "E1-04 may be reused only for an exact E1-scoped claim inside its qualified limits; it must not be generalized by RVO.",
+      "recommended_frontier": "EXECUTION-01 — CLAIM-SCOPED GENERIC EXECUTION/COST CONTRACT"
+    },
+    {
+      "id": "GAP-RVO04-06",
+      "type": "AUTHORITY_ACTIVATION_GAP",
+      "owner": "MCEPR",
+      "title": "Real forward provenance persistence activation",
+      "current_state": "RUNTIME_QUALIFIED_REAL_PERSISTENCE_NOT_AUTHORIZED_BY_CURRENT_CANONICAL_V0_2",
+      "priority": "HIGH_WHEN_SEARCH_PROVENANCE_OR_PRISTINE_OOS_IS_MATERIAL",
+      "blocks": [
+        "CC07_MULTIPLICITY_MODEL_SELECTION",
+        "CC10_OOS_CONFIRMATION"
+      ],
+      "conditionally_blocks": [
+        "CC03_STATISTICAL_EFFECT",
+        "CC04_PREDICTIVE",
+        "CC05_ECONOMIC_NET_PROFITABILITY",
+        "CC06_ROBUSTNESS_STABILITY",
+        "CC08_HISTORICAL_POINT_IN_TIME",
+        "CC09_PATH_RISK_RUIN"
+      ],
+      "evidence": {
+        "activation_contract_blob": "532da50bb1e72341d3b7126aa0d3f08568c01e78",
+        "activation_qualification_blob": "5fd8ab6ce2662eb522d229fbec75fd5be6468283"
+      },
+      "recommended_frontier": "Only reopen the separately governed MCEPR forward-persistence activation when a selected claim actually requires durable cross-experiment provenance."
+    },
+    {
+      "id": "GAP-RVO04-07",
+      "type": "OWNER_IMPLEMENTATION_GAP",
+      "owner": "SMF",
+      "title": "Conditional C01-C12 implementation",
+      "current_state": "BLOCKED_NOT_IMPLEMENTED_BY_SMF03_CORE",
+      "priority": "ON_DEMAND_ONLY",
+      "blocks_when_triggered": {
+        "C01": [
+          "tail Expected-Shortfall claim"
+        ],
+        "C02": [
+          "declared FWER-controlled family"
+        ],
+        "C03": [
+          "declared FDR-controlled family"
+        ],
+        "C04": [
+          "PBO/CSCV model-selection or backtest-overfitting claim"
+        ],
+        "C05": [
+          "Hansen SPA benchmark-superiority/data-snooping claim"
+        ],
+        "C06": [
+          "PSR/DSR/minimum-track-record claim"
+        ],
+        "C07": [
+          "sequential/optional-stopping inference"
+        ],
+        "C08": [
+          "equivalence/negligibility claim"
+        ],
+        "C09": [
+          "dependence-preserving path-simulation claim",
+          "CC09_PATH_RISK_RUIN"
+        ],
+        "C10": [
+          "Risk-of-Ruin claim",
+          "CC09_PATH_RISK_RUIN"
+        ],
+        "C11": [
+          "probabilistic scoring/calibration claim",
+          "conditional CC04_PREDICTIVE"
+        ],
+        "C12": [
+          "exact binary/permutation structure when activated"
+        ]
+      },
+      "decision": "Do not implement C01-C12 as a catalogue. Open only the exact family whose activation condition is present in the selected claim.",
+      "recommended_frontier": "SMF-Cxx owner-specific frontier only after claim activation identifies the exact required conditional family."
+    },
+    {
+      "id": "GAP-RVO04-08",
+      "type": "AUTHORITY_GATE",
+      "owner": "HUMAN_GOVERNANCE",
+      "title": "Real experiment / OOS consumption authority",
+      "current_state": "NOT_AUTHORIZED_BY_RVO04",
+      "priority": "CLAIM_SPECIFIC",
+      "blocks": [
+        "all real RVO experiment execution",
+        "CC10_OOS_CONFIRMATION requires separate OOS consumption authority"
+      ],
+      "recommended_frontier": "Separate human authorization only after capability readiness is demonstrated; capability PASS never self-grants this authority."
+    }
+  ],
+  "priority_tracks": {
+    "FIRST_REAL_PROTOCOL_ONLY": [
+      "Close GAP-RVO04-01 only if downstream P1 finding is required by the selected protocol claim.",
+      "No Data/Temporal/Execution owner maturation is required for a pure protocol claim.",
+      "Separate real-use human authorization remains mandatory."
+    ],
+    "FIRST_REAL_EMPIRICAL_DESCRIPTIVE": [
+      "GAP-RVO04-03 DATA claim-scoped qualification",
+      "GAP-RVO04-01 P1 downstream binding",
+      "SMF M03 binding if empirical distribution/quantile claim is made",
+      "Temporal only if historical availability/tradability is asserted"
+    ],
+    "FIRST_REAL_PREDICTIVE": [
+      "GAP-RVO04-03 DATA",
+      "GAP-RVO04-04 TEMPORAL",
+      "GAP-RVO04-01 P1 downstream binding",
+      "GAP-RVO04-02 SMF result binding",
+      "GAP-RVO04-06 MCEPR activation if search provenance is material",
+      "GAP-RVO04-07 only for conditionally activated methods such as C11"
+    ],
+    "FIRST_REAL_ECONOMIC": [
+      "All FIRST_REAL_PREDICTIVE prerequisites that apply",
+      "GAP-RVO04-05 EXECUTION generic",
+      "SMF M02 exact economic-effect/cost-stress binding"
+    ],
+    "FIRST_REAL_PATH_RISK": [
+      "GAP-RVO04-03 DATA",
+      "GAP-RVO04-05 EXECUTION",
+      "GAP-RVO04-07 C09 and/or C10 as required",
+      "GAP-RVO04-04 TEMPORAL when historical calibration is used"
+    ],
+    "FIRST_REAL_OOS": [
+      "GAP-RVO04-03 DATA",
+      "GAP-RVO04-04 TEMPORAL",
+      "GAP-RVO04-01 P1 downstream binding",
+      "GAP-RVO04-02 SMF result binding",
+      "GAP-RVO04-06 MCEPR activation",
+      "GAP-RVO04-08 explicit OOS consumption authority"
+    ]
+  },
+  "global_recommendation": {
+    "first_owner_frontier": "GAP-RVO04-03 / DATA-01",
+    "rationale": "Data is the broadest common owner prerequisite for every meaningful empirical market claim while remaining unnecessary for pure protocol-only claims. Qualify the exact first-use data family rather than constructing a universal Data layer.",
+    "second_owner_frontier": "GAP-RVO04-04 / TEMPORAL-01 if the selected first empirical claim is predictive, historical, OOS, or economic.",
+    "third_owner_frontier": "GAP-RVO04-05 / EXECUTION-01 only when a net-economic or path-policy claim is actually selected.",
+    "conditional_frontiers": "SMF C01-C12 and MCEPR real persistence only when claim activation makes them material."
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "schema": "ATDS_RVO_04_CLAIM_CLASS_TAXONOMY_V0_1",
+  "status": "RVO04_DESIGN_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "2cc20a84eb1979febec41f36aeb657a93d0f6a01",
+    "tree": "218cb83e588931f957739e7cbee819ccf21de370"
+  },
+  "semantics": {
+    "claim_classes_are_not_proof_levels": true,
+    "stronger_sounding_claim_does_not_inherit_lower_class_validity": true,
+    "routing_is_claim_scoped": true,
+    "rvo_authority": "NONE",
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "claim_classes": [
+    {
+      "id": "CC01_STRUCTURAL_PROTOCOL",
+      "name": "STRUCTURAL / PROTOCOL CLAIM",
+      "definition": "Claim about specification identity, control routing, protocol completeness, status preservation, reconstructibility, or authority boundaries, without asserting market behavior, predictive performance, profitability, OOS evidence, or historical tradability.",
+      "examples": [
+        "The pre-result manifest was frozen before result exposure.",
+        "The same canonical inputs reconstruct the same control graph.",
+        "Owner-native BLOCKED was preserved rather than converted to FAIL."
+      ],
+      "forbidden_escalations": [
+        "protocol correctness -> scientific validity",
+        "package completeness -> strategy validity",
+        "reconstructibility -> profitability"
+      ]
+    },
+    {
+      "id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+      "name": "DESCRIPTIVE MARKET-BEHAVIOR CLAIM",
+      "definition": "Retrospective description of observed market-data properties or empirical distributions without asserting that the information was historically available for a trading decision or that a predictive/economic edge exists.",
+      "examples": [
+        "Observed returns in the declared dataset have this empirical quantile profile.",
+        "Observed spread distribution differs across declared windows."
+      ],
+      "forbidden_escalations": [
+        "retrospective description -> historical tradability",
+        "descriptive association -> predictive edge",
+        "descriptive effect -> profitability"
+      ]
+    },
+    {
+      "id": "CC03_STATISTICAL_EFFECT",
+      "name": "STATISTICAL EFFECT CLAIM",
+      "definition": "Inferential claim that a declared effect, association, difference, or estimand is supported beyond descriptive reporting within an explicitly declared validity scope.",
+      "examples": [
+        "The declared effect is distinguishable from the preregistered null under dependence-aware inference.",
+        "The estimated effect clears the minimum-effect threshold with qualified uncertainty."
+      ],
+      "forbidden_escalations": [
+        "statistical significance -> economic significance",
+        "effect estimate -> causal effect unless causation is separately established",
+        "in-sample effect -> OOS confirmation"
+      ]
+    },
+    {
+      "id": "CC04_PREDICTIVE",
+      "name": "PREDICTIVE CLAIM",
+      "definition": "Claim that information available under the declared temporal model predicts a future target under a frozen prediction protocol.",
+      "examples": [
+        "The frozen model predicts the declared future target above the preregistered baseline.",
+        "A probabilistic forecast is calibrated within the declared evaluation surface."
+      ],
+      "forbidden_escalations": [
+        "prediction -> profitability",
+        "retrospective association -> prediction",
+        "post-hoc feature availability -> historical predictive validity"
+      ]
+    },
+    {
+      "id": "CC05_ECONOMIC_NET_PROFITABILITY",
+      "name": "ECONOMIC / NET-PROFITABILITY CLAIM",
+      "definition": "Claim about economically material net outcomes after the execution and cost semantics required by the declared trading policy.",
+      "examples": [
+        "Net expectancy remains above the preregistered minimum after all claim-required costs.",
+        "The frozen strategy remains economically viable under the declared execution model."
+      ],
+      "forbidden_escalations": [
+        "gross effect -> net profitability",
+        "spread-only execution -> all-in profitability",
+        "backtest execution model -> broker/live realism"
+      ]
+    },
+    {
+      "id": "CC06_ROBUSTNESS_STABILITY",
+      "name": "ROBUSTNESS / STABILITY CLAIM",
+      "definition": "Claim that a previously declared effect or behavior remains materially stable across preregistered parameter, temporal, regime, perturbation, or influence checks.",
+      "examples": [
+        "The effect survives the preregistered regime partitions.",
+        "The conclusion is not driven by a small set of influential observations."
+      ],
+      "forbidden_escalations": [
+        "robustness check -> independent confirmation",
+        "parameter sweep -> proof against overfitting",
+        "stability -> OOS confirmation"
+      ]
+    },
+    {
+      "id": "CC07_MULTIPLICITY_MODEL_SELECTION",
+      "name": "MULTIPLICITY / MODEL-SELECTION CLAIM",
+      "definition": "Claim about evidence after accounting for declared search exposure, multiple hypotheses, model selection, or data-snooping risk.",
+      "examples": [
+        "The family-level conclusion survives the preregistered multiplicity procedure.",
+        "Search provenance is sufficient to evaluate the selected model under the declared correction."
+      ],
+      "forbidden_escalations": [
+        "registry event count -> N_trials",
+        "missing relation -> no influence",
+        "single correction -> complete protection against data snooping"
+      ]
+    },
+    {
+      "id": "CC08_HISTORICAL_POINT_IN_TIME",
+      "name": "HISTORICAL POINT-IN-TIME CLAIM",
+      "definition": "Claim that every materially influencing datum, feature, parameter, annotation, model choice, or transformation was admissible at the declared historical decision time under the declared research mode.",
+      "examples": [
+        "The feature set was historically knowable at each decision timestamp.",
+        "The selected data vintage was the defensible vintage available at T."
+      ],
+      "forbidden_escalations": [
+        "event timestamp -> knowledge availability",
+        "dataset acquisition time -> historical availability",
+        "latest revised vintage -> historically available vintage"
+      ]
+    },
+    {
+      "id": "CC09_PATH_RISK_RUIN",
+      "name": "PATH-RISK / RUIN CLAIM",
+      "definition": "Claim about path-dependent downside, tail loss, drawdown, survival, or risk of ruin under an exact declared policy and dependence-preserving path model.",
+      "examples": [
+        "Estimated ruin probability under the exact policy is below the preregistered threshold.",
+        "Tail/path risk remains bounded under the declared dependence-preserving resampling model."
+      ],
+      "forbidden_escalations": [
+        "IID shuffle -> dependence-preserving path risk",
+        "convergence -> model validity",
+        "historical maximum drawdown -> risk-of-ruin probability"
+      ]
+    },
+    {
+      "id": "CC10_OOS_CONFIRMATION",
+      "name": "OOS / PRISTINE CONFIRMATION CLAIM",
+      "definition": "Claim based on evidence that was pristine relative to calibration, validation, model selection, and prior exposure under the declared experiment design.",
+      "examples": [
+        "The frozen strategy confirms the preregistered claim on pristine OOS data.",
+        "The holdout remained unconsumed until the authorized confirmation."
+      ],
+      "forbidden_escalations": [
+        "chronologically later data -> pristine OOS",
+        "unrecorded exposure -> no exposure",
+        "OOS result -> automatic promotion"
+      ]
+    }
+  ]
+}

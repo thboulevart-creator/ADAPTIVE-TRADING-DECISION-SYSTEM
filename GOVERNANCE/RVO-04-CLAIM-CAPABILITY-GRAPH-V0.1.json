@@ -1,0 +1,680 @@
+{
+  "schema": "ATDS_RVO_04_CLAIM_CAPABILITY_GRAPH_V0_1",
+  "status": "RVO04_DESIGN_CANDIDATE",
+  "taxonomy_blob": "1fa07fb4b262bfc2a867e66914ce4221cdcd1f79",
+  "source_capability_matrix_blob": "5f2406189af8e118ca8f20f5a7f92f3a2ce91c13",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "semantics": {
+    "requirement_states": [
+      "REQUIRED",
+      "CONDITIONAL",
+      "NOT_APPLICABLE"
+    ],
+    "capability_states": [
+      "QUALIFIED",
+      "AVAILABLE",
+      "UNAVAILABLE",
+      "BLOCKED"
+    ],
+    "authority_gate_is_separate_from_capability_state": true,
+    "integration_gap_is_separate_from_owner_gap": true,
+    "rules": [
+      "CAPABILITY_DESIRED != CAPABILITY_REQUIRED",
+      "AVAILABLE != QUALIFIED",
+      "QUALIFIED != APPLICABLE",
+      "APPLICABLE != EXECUTED",
+      "EXECUTED != PASS",
+      "PASS != SCIENTIFIC_AUTHORITY",
+      "MISSING_GENERIC_CAPABILITY != NOT_APPLICABLE",
+      "CLAIM_SPECIFIC_NEED != GLOBAL_ARCHITECTURAL_NEED"
+    ]
+  },
+  "capability_nodes": {
+    "P1_SPEC": {
+      "owner": "P1",
+      "state": "QUALIFIED",
+      "evidence_blob": "8839e6df3ea0ccff69ec82fdfccb1527e5601faf",
+      "runtime_blob": "8ff7725cf3324825c12f85def4c73eed477c181b",
+      "rvo_binding": "QUALIFIED_SYNTHETIC_BINDING"
+    },
+    "P1_DOWNSTREAM_FINDING_CHAIN": {
+      "owner": "P1",
+      "state": "QUALIFIED",
+      "evidence_blob": "8839e6df3ea0ccff69ec82fdfccb1527e5601faf",
+      "runtime_blobs": [
+        "5419ad7caf4dbfa2a621b060d3f42bc090e97077",
+        "6700fbbef314bc9c6e5b7f6f374e71cfabee0f92",
+        "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+        "968ef47d0fc4e066374b7471110c71d0eaf28865",
+        "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+        "bfab3c421263434d5e3e3066720f95abb521b09c",
+        "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f"
+      ],
+      "rvo_binding": "NOT_YET_BOUND_END_TO_END",
+      "gap_type": "RVO_INTEGRATION_GAP_NOT_OWNER_GAP"
+    },
+    "SMF_CORE": {
+      "owner": "SMF",
+      "state": "QUALIFIED",
+      "evidence_blob": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+      "runtime_blobs": [
+        "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "fce7998167745659cb0fd5d03a8de14946b0394d",
+        "7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222"
+      ],
+      "rvo_binding": "ACTIVATION_BOUND_SYNTHETICALLY_RESULTS_NOT_YET_BOUND_END_TO_END",
+      "gap_type": "RVO_INTEGRATION_GAP_NOT_OWNER_GAP"
+    },
+    "SMF_CONDITIONAL": {
+      "owner": "SMF",
+      "state": "BLOCKED",
+      "evidence_blob": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+      "note": "C01-C12 adopted/on-demand; no conditional family implemented by SMF-03 CORE."
+    },
+    "MCEPR_REGISTRY": {
+      "owner": "MCEPR",
+      "state": "QUALIFIED",
+      "runtime_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+      "evidence_blob": "5fbf3bf9a79b50c5df41b017bd082133db7ce1cf",
+      "real_persistence_authority": "BLOCKED",
+      "activation_contract_blob": "532da50bb1e72341d3b7126aa0d3f08568c01e78",
+      "activation_qualification_blob": "5fd8ab6ce2662eb522d229fbec75fd5be6468283",
+      "note": "Runtime is qualified but current canonical activation V0.2 says future pilot / real persistence not authorized."
+    },
+    "PCP_IDENTITY": {
+      "owner": "PCP",
+      "state": "QUALIFIED",
+      "runtime_blob": "c6ac0c5435d3c1bc081d457abdad2225a7d0fe64",
+      "evidence_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "rvo_binding": "QUALIFIED_SYNTHETIC_BINDING"
+    },
+    "PCP_EVIDENCE": {
+      "owner": "PCP",
+      "state": "QUALIFIED",
+      "runtime_blob": "c7c81ec8cd9e253c2c6e56d0d5e41960cb472233",
+      "evidence_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "rvo_binding": "QUALIFIED_SYNTHETIC_BINDING"
+    },
+    "PCP_STATE_PROJECTOR": {
+      "owner": "PCP",
+      "state": "QUALIFIED",
+      "runtime_blob": "18b01a995f521377ec98bd4f24b7837a329ad139",
+      "evidence_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "rvo_binding": "QUALIFIED_SYNTHETIC_BINDING"
+    },
+    "DATA_EXACT_CLAIM_SURFACE": {
+      "owner": "DATA",
+      "state": "AVAILABLE",
+      "runtime_blob": "63f629a8cf39c79b5334015e038b70771c39f78b",
+      "observed_test_blob": "99120fdb0951d3ac1cbec0ff808ec182182d84d7",
+      "note": "Current executable boundary is tick-CSV specific. RVO-04 does not infer generic qualification or coverage for other dataset families such as H1/derived datasets."
+    },
+    "TEMPORAL_PIT": {
+      "owner": "TEMPORAL",
+      "state": "UNAVAILABLE",
+      "proposal_blob": "861362264a3602aa875bb16487d12558f700c250",
+      "note": "Canonical temporal document is proposal/non-normative; no generic qualified runtime owner is identified."
+    },
+    "EXECUTION_GENERIC": {
+      "owner": "EXECUTION",
+      "state": "UNAVAILABLE",
+      "note": "No generic qualified execution/cost owner suitable for arbitrary RVO economic claims is identified."
+    },
+    "EXECUTION_E1_SPECIFIC": {
+      "owner": "EXECUTION",
+      "state": "QUALIFIED",
+      "runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+      "evidence_blob": "5c877f36c4f5c78f78d54ac5e4cf819da37f92b9",
+      "generic_for_rvo": false,
+      "note": "E1-specific only; excluded commission/slippage/financing remain excluded rather than zero."
+    }
+  },
+  "routes": [
+    {
+      "claim_class": "CC01_STRUCTURAL_PROTOCOL",
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Real experiment/protocol identity must be exact."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "CONDITIONAL",
+          "Required only if the structural claim is persisted as a P1 experimental finding rather than a protocol-only RVO check."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact repository/state identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Technical evidence envelope."
+        ],
+        [
+          "PCP_STATE_PROJECTOR",
+          "CONDITIONAL",
+          "Required when projected project state is part of the claim."
+        ],
+        [
+          "SMF_CORE",
+          "NOT_APPLICABLE",
+          "No statistical effect is asserted by the pure structural/protocol class."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required only if cross-experiment provenance is materially part of the structural claim."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "NOT_APPLICABLE",
+          "No empirical data claim."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "NOT_APPLICABLE",
+          "No historical availability claim."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "NOT_APPLICABLE",
+          "No execution/economic claim."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Claim and measurement plan must be frozen."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Empirical claim requires qualified experiment/evaluation/finding chain."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Observed market facts must come from an exact admissible dataset surface."
+        ],
+        [
+          "SMF_CORE",
+          "CONDITIONAL",
+          "M03 is required for declared empirical distribution/quantile summaries; dependence-aware uncertainty becomes required if inference is added."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "CONDITIONAL",
+          "Required if the claim implies historical knowability/tradability or depends on time-sensitive vintages/derived features; retrospective reconstruction alone must not imply PIT validity."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required if search/exposure provenance affects interpretation."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "NOT_APPLICABLE",
+          "Pure description does not assert execution/profitability."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC03_STATISTICAL_EFFECT",
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Exact claim/estimand preregistration."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified scientific finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact empirical input surface."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "M01 plus applicable M04-M08 and other CORE controls must activate dependency-first."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "CONDITIONAL",
+          "Required when temporal availability or historical decision validity can affect the estimand."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Becomes required when M11/search provenance is material."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "CONDITIONAL",
+          "Required if the effect is defined on executable/net trading outcomes."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC04_PREDICTIVE",
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Prediction, target, falsification and measurement plan must be frozen."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified prediction finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact training/evaluation data identities."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "REQUIRED",
+          "Feature/label/model availability must be temporally admissible for predictive validity."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "Applicable CORE controls include claim definition, dependence, uncertainty, adequacy, influence, attrition, stability and search provenance as triggered."
+        ],
+        [
+          "SMF_CONDITIONAL",
+          "CONDITIONAL",
+          "C11 for probabilistic scoring/calibration; C12 for exact binary/permutation structures; others only under their activation conditions."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required when model/search exposure is material to M11."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "NOT_APPLICABLE",
+          "Prediction alone is not profitability."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Economic claim and minimum effect must be frozen."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact market input surface."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "REQUIRED",
+          "Historical strategy inputs/choices must be admissible at decision time."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "REQUIRED",
+          "Net profitability requires claim-sufficient execution and cost semantics."
+        ],
+        [
+          "EXECUTION_E1_SPECIFIC",
+          "CONDITIONAL",
+          "Usable only if the exact claim is explicitly E1-scoped and does not exceed E1-04 cost/realism limits."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "M01/M02 plus applicable dependence, uncertainty, adequacy, robustness and search controls."
+        ],
+        [
+          "SMF_CONDITIONAL",
+          "CONDITIONAL",
+          "Activated only for specific tail, selection, path-risk, calibration or exact-test failure modes."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required when search provenance/multiplicity is material."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC06_ROBUSTNESS_STABILITY",
+      "inherits_base_claim_requirements": true,
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Robustness target and perturbations must be preregistered."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact base and perturbation data identities."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "M07 influence and M10 temporal/regime stability are core candidates; other controls inherit from the base claim."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "CONDITIONAL",
+          "Required when temporal/regime partitions or historical availability matter."
+        ],
+        [
+          "SMF_CONDITIONAL",
+          "CONDITIONAL",
+          "C04/C05/C06 may activate for selection/overfitting claims; no blanket activation."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required when robustness work adds search/model exposure."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "CONDITIONAL",
+          "Inherited when the base claim is economic."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC07_MULTIPLICITY_MODEL_SELECTION",
+      "inherits_base_claim_requirements": true,
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Search family/claim scope must be declared."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified finding boundary."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "REQUIRED",
+          "Cross-experiment/search provenance is material; event count must not be treated as N_trials."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "M11 search-provenance/multiplicity gate."
+        ],
+        [
+          "SMF_CONDITIONAL",
+          "CONDITIONAL",
+          "C02/C03 for declared FWER/FDR families; C04/C05/C06 for data-snooping/model-selection structures when activated."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "CONDITIONAL",
+          "Inherited from the empirical base claim."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "CONDITIONAL",
+          "Inherited when search/selection has temporal exposure implications."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "CONDITIONAL",
+          "Inherited if the selected models make economic claims."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC08_HISTORICAL_POINT_IN_TIME",
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Decision time/research mode and temporal claim must be explicit."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact data/vintage/dependency identities."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "REQUIRED",
+          "This is the owner of the claim's central admissibility semantics."
+        ],
+        [
+          "SMF_CORE",
+          "CONDITIONAL",
+          "M10 or other CORE controls apply only if statistical stability/effect claims are also made."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required if research-choice/exposure provenance materially affects PIT validity."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "NOT_APPLICABLE",
+          "PIT alone does not assert fills or profitability."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC09_PATH_RISK_RUIN",
+      "inherits_base_claim_requirements": true,
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Risk event, horizon, policy, ruin threshold and falsification rule must be frozen."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact empirical calibration/input surface."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "CONDITIONAL",
+          "Required when historical data/parameter availability supports the risk model."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "REQUIRED",
+          "Trading-policy path risk requires exact executable policy/cost semantics."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "Core dependence/effect/adequacy controls remain prerequisites."
+        ],
+        [
+          "SMF_CONDITIONAL",
+          "REQUIRED",
+          "C09 is required for dependence-preserving path simulation claims; C10 is required for Risk-of-Ruin claims. C01 may additionally activate for Expected Shortfall."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "CONDITIONAL",
+          "Required when selected policy/model/search exposure is material."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ]
+      ]
+    },
+    {
+      "claim_class": "CC10_OOS_CONFIRMATION",
+      "inherits_base_claim_requirements": true,
+      "requirements": [
+        [
+          "P1_SPEC",
+          "REQUIRED",
+          "Frozen pre-OOS claim and confirmation rule."
+        ],
+        [
+          "P1_DOWNSTREAM_FINDING_CHAIN",
+          "REQUIRED",
+          "Qualified finding boundary."
+        ],
+        [
+          "DATA_EXACT_CLAIM_SURFACE",
+          "REQUIRED",
+          "Exact holdout identity and usage constraints."
+        ],
+        [
+          "TEMPORAL_PIT",
+          "REQUIRED",
+          "Pristine/historical availability and exposure must be defensible."
+        ],
+        [
+          "SMF_CORE",
+          "REQUIRED",
+          "M09 pristine confirmation plus M11/search provenance and other inherited CORE controls."
+        ],
+        [
+          "MCEPR_REGISTRY",
+          "REQUIRED",
+          "Prior exposure/search provenance is material to pristine confirmation."
+        ],
+        [
+          "SMF_CONDITIONAL",
+          "CONDITIONAL",
+          "Only if the underlying claim activates a conditional family."
+        ],
+        [
+          "PCP_IDENTITY",
+          "REQUIRED",
+          "Exact technical identity."
+        ],
+        [
+          "PCP_EVIDENCE",
+          "REQUIRED",
+          "Evidence envelope."
+        ],
+        [
+          "EXECUTION_GENERIC",
+          "CONDITIONAL",
+          "Required for OOS economic/net-profitability confirmation."
+        ]
+      ],
+      "authority_gate": "OOS_CONSUMPTION_REQUIRES_SEPARATE_EXPLICIT_HUMAN_AUTHORIZATION"
+    }
+  ]
+}
