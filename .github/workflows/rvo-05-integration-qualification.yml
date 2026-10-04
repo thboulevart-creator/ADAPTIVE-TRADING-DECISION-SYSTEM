@@ -106,6 +106,7 @@ jobs:
               ".github/workflows/rvo-05-red-baseline.yml",
               ".github/workflows/rvo-05-integration-qualification.yml",
               "GOVERNANCE/RVO-05-FROZEN-INTEGRATION-BREAKER-CONTRACT-V0.1.json",
+              "GOVERNANCE/RVO-05-FIRST-REAL-CC02-PRE-EXECUTION-READINESS-V0.1.md",
               "breakers/rvo_05_integration_breaker.py",
               "src/rvo_05_cc02_bindings.py",
               "tests/rvo_05_fixture.py",
