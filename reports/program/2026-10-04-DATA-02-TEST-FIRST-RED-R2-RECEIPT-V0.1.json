@@ -1,0 +1,46 @@
+{
+  "schema": "ATDS_DATA_02_TEST_FIRST_RED_R2_RECEIPT_V0_1",
+  "status": "FINAL_OBSERVED_RED_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "frozen_data01_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2",
+  "executable_breaker_blob": "876f3ad70e70f55421a80ef8e7d1633c09847fcc",
+  "fixture_blob": "e261eb62a776698a83e18bec9afc2b3b5d92ea11",
+  "correction_history": [
+    {
+      "from_fixture_blob": "824bf1e9b4832cfaa5185cc80ee3d84f46489d7c",
+      "to_fixture_blob": "e261eb62a776698a83e18bec9afc2b3b5d92ea11",
+      "scope": "Mechanical fixture nesting correction only: root.mkdir(parents=True).",
+      "frozen_case_ids_changed": false,
+      "frozen_expected_results_changed": false,
+      "failure_mode_intent_changed": false
+    }
+  ],
+  "observed_red": {
+    "commit": "67eafcc0c5e0cf5ae52e4d6de492fb3e1b588809",
+    "tree": "aff82a9e9acd520d3696e612671f7f594a0b84db",
+    "workflow_run_id": 37223642778,
+    "job_id": 111498767036,
+    "workflow_conclusion": "SUCCESS_EXPECTED_RED_PROOF",
+    "pytest_result": "32_FAILED",
+    "failure_marker": "DATA02_RUNTIME_ABSENT_EXPECTED_RED",
+    "runtime_present": false
+  },
+  "test_first_integrity": {
+    "final_breaker_and_fixture_observed_red_before_runtime": true,
+    "frozen_documentary_contract_unchanged": true,
+    "no_case_removed": true,
+    "no_expected_result_changed": true,
+    "no_intent_weakened": true
+  },
+  "authority": {
+    "real_data_consumed": false,
+    "real_experiment": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "rvo_authority": "NONE"
+  }
+}
