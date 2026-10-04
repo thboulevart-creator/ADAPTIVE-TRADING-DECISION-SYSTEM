@@ -1,6 +1,6 @@
 {
   "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE04_REAL_REMOTE_OBSERVATION_ADAPTER_PREREGISTRATION_V0_1",
-  "status": "PREREGISTERED_BEFORE_RED",
+  "status": "PREREGISTRATION_CORRECTED_AFTER_RED_BEFORE_GREEN",
   "base": {
     "rpe01_adoption_commit": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25",
     "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
@@ -67,6 +67,7 @@
       "core.repositoryformatversion=0",
       "core.filemode=false",
       "core.bare=true",
+      "core.symlinks=false",
       "core.ignorecase=true"
     ],
     "inherited_url_instead_of_authority_forbidden": true,
@@ -195,5 +196,13 @@
     "real_60_second_sla_qualified": false,
     "production_github_polling_qualified": false
   },
-  "stop": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+  "stop": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE",
+  "preregistration_correction": {
+    "reason": "NEUTRALIZED_GIT_INIT_BARE_OBSERVED_CORE_SYMLINKS_FALSE",
+    "observation_environment": "git version 2.54.0.windows.1 / Windows / GIT_CONFIG_NOSYSTEM=1 / GIT_CONFIG_GLOBAL=NUL",
+    "observed_additional_local_config": "core.symlinks=false",
+    "scope_change": false,
+    "implementation_semantics_change": false,
+    "authority_expansion": false
+  }
 }

@@ -10,7 +10,7 @@
       },
       "status": {
         "kind": "string",
-        "const": "PREREGISTERED_BEFORE_RED"
+        "const": "PREREGISTRATION_CORRECTED_AFTER_RED_BEFORE_GREEN"
       },
       "base": {
         "kind": "object",
@@ -245,19 +245,21 @@
             "items": {
               "kind": "string"
             },
-            "min_items": 4,
-            "max_items": 4,
+            "min_items": 5,
+            "max_items": 5,
             "unique": true,
             "ordered_const": [
               "core.repositoryformatversion=0",
               "core.filemode=false",
               "core.bare=true",
+              "core.symlinks=false",
               "core.ignorecase=true"
             ],
             "allowed_values": [
               "core.repositoryformatversion=0",
               "core.filemode=false",
               "core.bare=true",
+              "core.symlinks=false",
               "core.ignorecase=true"
             ]
           },
@@ -681,6 +683,35 @@
       "stop": {
         "kind": "string",
         "const": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      },
+      "preregistration_correction": {
+        "kind": "object",
+        "fields": {
+          "reason": {
+            "kind": "string",
+            "const": "NEUTRALIZED_GIT_INIT_BARE_OBSERVED_CORE_SYMLINKS_FALSE"
+          },
+          "observation_environment": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1 / Windows / GIT_CONFIG_NOSYSTEM=1 / GIT_CONFIG_GLOBAL=NUL"
+          },
+          "observed_additional_local_config": {
+            "kind": "string",
+            "const": "core.symlinks=false"
+          },
+          "scope_change": {
+            "kind": "boolean",
+            "const": false
+          },
+          "implementation_semantics_change": {
+            "kind": "boolean",
+            "const": false
+          },
+          "authority_expansion": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
       }
     }
   }
