@@ -1,0 +1,168 @@
+name: RVO-05 Integration Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/rvo-05-integration-qualification.yml'
+      - 'GOVERNANCE/RVO-05-*'
+      - 'src/rvo_05_cc02_bindings.py'
+      - 'tests/rvo_05_fixture.py'
+      - 'tests/test_rvo_05_cc02_bindings.py'
+      - 'breakers/rvo_05_integration_breaker.py'
+      - 'reports/program/*RVO-05*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: 0
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  RVO05_AUTHORIZED_PARENT: '51f3818a4d09cb6af8f096adf97798dea87484f9'
+  RVO05_RECONCILED_PARENT: '289ff8832b570d94932203d680ed1fe0776eefaa'
+
+jobs:
+  rvo-05:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${RVO05_AUTHORIZED_PARENT}" HEAD
+          git merge-base --is-ancestor "${RVO05_RECONCILED_PARENT}" HEAD
+
+      - name: Prove RVO-01 through RVO-04 identities
+        run: |
+          test "$(git hash-object GOVERNANCE/RVO-THIN-ORCHESTRATOR-TARGET-ARCHITECTURE-R1-HUMAN-ADJUDICATION-2026-10-04.md)" = "d83685b23938b4b7baa9ab098416aa1e1178ab67"
+          test "$(git hash-object GOVERNANCE/RVO-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "975dbd74abc999d0b907bae360b23abd224dbc5d"
+          test "$(git hash-object src/rvo_orchestrator.py)" = "20766da0d609d0056e40df0115a3151d5c703938"
+          test "$(git hash-object breakers/rvo_02_frozen_breaker_v0_1.py)" = "c5835e8a0a9c3ff26201a5860d0866478b3cdacb"
+          test "$(git hash-object reports/program/2026-10-04-RVO-02-SYNTHETIC-QUALIFICATION-RECEIPT-V0.1.json)" = "bcd5454c5bbf7208de76685cc98375347078d868"
+          test "$(git hash-object GOVERNANCE/RVO-03-CANONICAL-OWNER-CAPABILITY-MATRIX-V0.1.json)" = "5f2406189af8e118ca8f20f5a7f92f3a2ce91c13"
+          test "$(git hash-object src/rvo_owner_adapters.py)" = "7ded32616fa959ecdc7857dad95b53884f58c15a"
+          test "$(git hash-object reports/program/2026-10-04-RVO-03-CANONICAL-OWNER-INTEGRATION-QUALIFICATION-RECEIPT-V0.1.json)" = "611da4247a62ebfb2e5d9962e44ab0a72f3c96be"
+          test "$(git hash-object GOVERNANCE/RVO-04-CLAIM-CAPABILITY-GRAPH-V0.1.json)" = "fcd723a30bad063471d7a399c06464b580c87e77"
+          test "$(git hash-object GOVERNANCE/RVO-04-REAL-EXPERIMENT-READINESS-DESIGN-V0.1.md)" = "3f6875e1a1a1aa36396d10c43eae25478963a48a"
+          test "$(git hash-object reports/program/2026-10-04-RVO-04-CLAIM-ROUTING-READINESS-QUALIFICATION-RECEIPT-V0.1.json)" = "47fcd31c68220054eede4e5f297a415ad5165f7c"
+
+      - name: Prove DATA-01 and DATA-02 identities
+        run: |
+          test "$(git hash-object GOVERNANCE/DATA-01-CLAIM-SCOPED-DATA-ADMISSIBILITY-PROVENANCE-CONTRACT-V0.1.json)" = "ec013c8db53b482770a62016db50b113b19ecd7f"
+          test "$(git hash-object GOVERNANCE/DATA-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "d9cafc53c863341ca827097014411702c26633f2"
+          test "$(git hash-object src/data/claim_scoped_admission.py)" = "6ce06e1583e61be9e8618136d1bc8fdda608ffd7"
+          test "$(git hash-object breakers/data_02_claim_scoped_admission_breaker.py)" = "876f3ad70e70f55421a80ef8e7d1633c09847fcc"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json)" = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-QUALIFICATION-RECEIPT-V0.1.json)" = "d5cca198fc88eb76678bd33faa7ebd1cdd1b3976"
+
+      - name: Prove exact P1 owner identities
+        run: |
+          test "$(git hash-object src/experiment_specification.py)" = "8ff7725cf3324825c12f85def4c73eed477c181b"
+          test "$(git hash-object src/experiment_execution_binding.py)" = "5419ad7caf4dbfa2a621b060d3f42bc090e97077"
+          test "$(git hash-object src/qualified_experiment_execution_input.py)" = "6700fbbef314bc9c6e5b7f6f374e71cfabee0f92"
+          test "$(git hash-object src/linked_experiment_execution.py)" = "f2fa07178134e04963d42d1fbdda1a8f7bad179d"
+          test "$(git hash-object src/experiment_evaluation_submission.py)" = "968ef47d0fc4e066374b7471110c71d0eaf28865"
+          test "$(git hash-object src/experiment_measurement_provenance.py)" = "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5"
+          test "$(git hash-object src/experiment_evaluator_authority.py)" = "bfab3c421263434d5e3e3066720f95abb521b09c"
+          test "$(git hash-object src/qualified_experimental_finding.py)" = "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f"
+          test "$(git hash-object reports/program/2026-10-01-P1-16-FINAL-PERSISTED-STATE-REBREAK-CLOSURE.md)" = "8839e6df3ea0ccff69ec82fdfccb1527e5601faf"
+          test "$(git hash-object src/research/execution.py)" = "6ca117f2cd760b299b14933f308cfc1b2466ae0d"
+          test "$(git hash-object src/research/engine.py)" = "6e0a4c68ca75cea27b7691477f98e5566f2b8cac"
+          test "$(git hash-object src/research/input_binding.py)" = "5f68d9db03badc5f266d6e6bf2e6fe1d40e092db"
+
+      - name: Prove exact SMF identities
+        run: |
+          test "$(git hash-object GOVERNANCE/SMF-01-QUALIFIED-MINIMAL-METHOD-SET-HUMAN-ADJUDICATION-2026-10-02.md)" = "2856b9aa8df7be964d0ee8f20d7332494e599549"
+          test "$(git hash-object GOVERNANCE/SMF-02-METHOD-ACTIVATION-EXECUTABLE-QUALIFICATION-CONTRACT-DESIGN-V0.1-HUMAN-ADJUDICATION-2026-10-02.md)" = "ffd02a3957a1b823379cc57bdeb04c48e34eeff6"
+          test "$(git hash-object tools/smf03_core_foundation.py)" = "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+          test "$(git hash-object reports/program/2026-10-02-SMF03-CORE-CANONICAL-INTEGRATION-CLOSURE.md)" = "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a"
+
+      - name: Prove RVO-05 frozen RED and implementation identities
+        run: |
+          test "$(git hash-object GOVERNANCE/RVO-05-FROZEN-INTEGRATION-BREAKER-CONTRACT-V0.1.json)" = "aeded1d85c095bcba4b58fae24046dca36107215"
+          test "$(git hash-object breakers/rvo_05_integration_breaker.py)" = "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d"
+          test "$(git hash-object reports/program/2026-10-04-RVO-05-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "cccb520f254279f223fd050cd93da7609a9f8587"
+          test "$(git hash-object src/rvo_05_cc02_bindings.py)" = "0b6e373e6d9bdea8e27a7f91a962a6b5b7b482f4"
+          test "$(git hash-object tests/rvo_05_fixture.py)" = "2a8b85e5786d21d52b02eb865affd568520e662b"
+          test "$(git hash-object tests/test_rvo_05_cc02_bindings.py)" = "9a11c18941510894ad22d23fa88a7a44a6ba9b2f"
+
+      - name: Prove RVO-05 delta is RVO-only
+        run: |
+          python - <<'PY'
+          import subprocess
+          parent = "289ff8832b570d94932203d680ed1fe0776eefaa"
+          changed = subprocess.check_output(["git","diff","--name-only",f"{parent}..HEAD"],text=True).splitlines()
+          exact = {
+              ".github/workflows/rvo-05-red-baseline.yml",
+              ".github/workflows/rvo-05-integration-qualification.yml",
+              "GOVERNANCE/RVO-05-FROZEN-INTEGRATION-BREAKER-CONTRACT-V0.1.json",
+              "breakers/rvo_05_integration_breaker.py",
+              "src/rvo_05_cc02_bindings.py",
+              "tests/rvo_05_fixture.py",
+              "tests/test_rvo_05_cc02_bindings.py",
+          }
+          for path in changed:
+              if path in exact:
+                  continue
+              if path.startswith("reports/program/") and "RVO-05" in path:
+                  continue
+              raise SystemExit(f"UNAUTHORIZED_RVO05_DELTA:{path}")
+          print("PASS: RVO-05 delta is RVO-only")
+          PY
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Compile RVO-05 surfaces without filesystem mutation
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in ("src/rvo_05_cc02_bindings.py","tests/rvo_05_fixture.py","tests/test_rvo_05_cc02_bindings.py"):
+              path=Path(name)
+              compile(path.read_text(encoding="utf-8"),str(path),"exec")
+          print("PASS: RVO-05 sources compile")
+          PY
+
+      - name: Replay frozen RVO-05 breakers
+        run: python -m pytest -q breakers/rvo_05_integration_breaker.py
+
+      - name: Execute RVO-05 synthetic owner qualification
+        run: python -m pytest -q tests/test_rvo_05_cc02_bindings.py
+
+      - name: Replay DATA-02 frozen breaker
+        run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
+
+      - name: Replay RVO-04 routing breaker
+        run: python -m pytest -q breakers/rvo_04_claim_routing_breaker.py
+
+      - name: Replay RVO-02 frozen breaker
+        run: python -m pytest -q breakers/rvo_02_frozen_breaker_v0_1.py
+
+      - name: Replay P1.16 protected finding boundary
+        run: python -m pytest -q breakers/p1_16_qualified_experimental_finding_breaker.py
+
+      - name: Replay SMF core integrated qualification
+        run: python -m pytest -q breakers/smf03_core_integrated_rebreak.py
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"

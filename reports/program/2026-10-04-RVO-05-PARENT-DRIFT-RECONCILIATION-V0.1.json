@@ -1,0 +1,51 @@
+{
+  "schema": "ATDS_RVO_05_PARENT_DRIFT_RECONCILIATION_V0_1",
+  "status": "NON_MATERIAL_DRIFT_RECONCILED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "51f3818a4d09cb6af8f096adf97798dea87484f9",
+    "tree": "3abbf952ba9463dc74bac947a2f0933bd398dee9"
+  },
+  "rvo05_red_receipt_commit": "3d4eeb365c7c48ee45ec33e2a6ceffc1f44a8f71",
+  "observed_intervening_parent": {
+    "head": "289ff8832b570d94932203d680ed1fe0776eefaa",
+    "tree": "379bf8f422bc640ee8ef428abfbbeccff0081c67",
+    "commit_message": "governance: qualify AO-E0 EXEC-01 synthetic all-in cost envelope",
+    "relation_to_rvo05_red_receipt": "ONE_DESCENDANT_COMMIT"
+  },
+  "observed_delta": [
+    "GOVERNANCE/AO-E0-B4-B5-HUMAN-ADJUDICATION-2026-10-04.md",
+    "GOVERNANCE/AO-E0-EXEC-01-E1-SCOPED-ALL-IN-COST-CONTRACT-V0.1.json",
+    "breakers/ao_e0_exec_01_all_in_cost_breaker.py",
+    "reports/program/2026-10-04-AO-E0-EXEC-01-QUALIFICATION-RECEIPT-V0.1.json",
+    "reports/program/2026-10-04-AO-E0-EXEC-01-QUALIFICATION.md",
+    "reports/program/2026-10-04-AO-E0-EXEC-01-TEST-FIRST-RED-RECEIPT-V0.1.json",
+    "tests/test_ao_e0_exec_01_all_in_cost.py",
+    "tools/ao_e0_exec_01_all_in_cost.py"
+  ],
+  "classification": "NON_MATERIAL_TO_RVO05_CC02",
+  "basis": [
+    "Intervening delta is AO-E0 / CC05 economic-execution scoped, whereas RVO-05 targets CC02 retrospective descriptive behavior.",
+    "RVO-05 exact RVO, DATA-02, P1 and SMF owner identities were re-fetched at the intervening parent and remained unchanged.",
+    "CC02 exact route keeps generic execution NOT_APPLICABLE; the intervening AO-E0 execution surface does not satisfy or alter the P1/AP0 execution gap.",
+    "Intervening AO-E0 governance grants no OOS/backtest/live/capital authority relevant to RVO-05.",
+    "No RVO-05 frozen breaker, DATA-02 runtime, P1 owner runtime or canonical SMF runtime was modified."
+  ],
+  "exact_revalidated_identities": {
+    "rvo_runtime_blob": "20766da0d609d0056e40df0115a3151d5c703938",
+    "rvo_owner_adapter_blob": "7ded32616fa959ecdc7857dad95b53884f58c15a",
+    "data02_runtime_blob": "6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+    "p1_experiment_specification_blob": "8ff7725cf3324825c12f85def4c73eed477c181b",
+    "p1_linked_execution_blob": "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+    "p1_qualified_finding_blob": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+    "smf_core_runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "rvo05_frozen_contract_blob": "aeded1d85c095bcba4b58fae24046dca36107215",
+    "rvo05_executable_breaker_blob": "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d",
+    "rvo05_red_receipt_blob": "cccb520f254279f223fd050cd93da7609a9f8587"
+  },
+  "note": "A separate AO-E0 contract contains its own scoped identity references. RVO-05 does not reinterpret, repair or adopt those references and does not use them as CC02 owner authority.",
+  "implementation_delta_base": "289ff8832b570d94932203d680ed1fe0776eefaa",
+  "force": false,
+  "rvo_authority": "NONE"
+}
