@@ -1,0 +1,428 @@
+{
+  "schema": "ATDS_RVO_01_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "RVO-01",
+  "status": "FROZEN_DOCUMENTARY_BREAKER_CONTRACT",
+  "governed_repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "governed_branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "1a6b4e3e62e37e1e5827abb14472f84d1aed9888",
+    "tree": "d47bb260ead57fd3ee46da4eeed78e1246c816dc"
+  },
+  "adopted_architecture": {
+    "path": "GOVERNANCE/RVO-THIN-ORCHESTRATOR-TARGET-ARCHITECTURE-R1-HUMAN-ADJUDICATION-2026-10-04.md",
+    "blob": "d83685b23938b4b7baa9ab098416aa1e1178ab67",
+    "decision": "ADOPT",
+    "adoption_scope": "SEMANTIC_ARCHITECTURAL_DESIGN_ONLY",
+    "rvo_authority": "NONE"
+  },
+  "authoritative_reference_blobs": {
+    "decision_support_and_human_boundary": "8da175c2ff2f373e6f81c75d35ceb31f23f7ac09",
+    "smf_00": "e2d0ed87114b6731ef84e82738c53b69f379d2d9",
+    "smf_01": "2856b9aa8df7be964d0ee8f20d7332494e599549",
+    "smf_02": "ffd02a3957a1b823379cc57bdeb04c48e34eeff6",
+    "mcepr_g6": "93e3c87f24b8933fbdfe25b1806d42233b6ec328",
+    "p22_closure": "8559f9665644196019bec266c5ccea7d3ceae488",
+    "p1_16_closure": "8839e6df3ea0ccff69ec82fdfccb1527e5601faf",
+    "smf03_core_closure": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+    "system_reproducibility_contract": "0e9d50afc6160aafc66fe625b836f43e71c00c46",
+    "e1_07_reproducibility_trace_contract": "b19f9b5a4505f50d77f1cbd09b2b6381241b5205",
+    "dataset_provenance_registry_proposal": "89763a279e957afd0e9a1e3933a2d582df58dda3",
+    "temporal_pit_proposal": "861362264a3602aa875bb16487d12558f700c250",
+    "e1_04_execution_cost_contract": "cf07f1400af614fa53fe41afe8a40e412d28c87d"
+  },
+  "authority": {
+    "semantic_persistence_authorized": true,
+    "documentary_contract_authorized": true,
+    "documentary_static_qualification_authorized": true,
+    "executable_breaker_code_authorized": false,
+    "rvo_runtime_authorized": false,
+    "owner_system_modification_authorized": false,
+    "backtest_authorized": false,
+    "real_performance_observation_authorized": false,
+    "oos_consumption_authorized": false,
+    "strategy_modification_authorized": false,
+    "paper_broker_live_capital_authorized": false,
+    "automatic_scientific_promotion_authorized": false,
+    "automatic_operational_authority_authorized": false
+  },
+  "qualification_target": {
+    "purpose": "Any future RVO implementation must survive these frozen adversarial cases within its claimed implemented surface before it may be qualified.",
+    "pass_semantics": "NO_FROZEN_FAILURE_MODE_TRIGGERED_WITHIN_THE_EXACT_TESTED_SURFACE",
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "runtime_qualification_by_this_contract": false
+  },
+  "mandatory_invariants": [
+    "ORCHESTRATION != AUTHORITY",
+    "OWNER_CONTRACT > RVO_DESCRIPTION_OF_OWNER_CONTRACT",
+    "CONTROL_ABSENT != NOT_APPLICABLE",
+    "NOT_APPLICABLE_REQUIRES_EXPLICIT_APPLICABILITY_BASIS",
+    "NATIVE_OWNER_STATUS_MUST_BE_PRESERVED",
+    "UNKNOWN != BLOCKED",
+    "BLOCKED != FAIL",
+    "FAIL != REFUTED",
+    "NOT_APPLICABLE != PASS",
+    "UNVERIFIED != UNKNOWN",
+    "SUPPORTED != VALIDATED_STRATEGY",
+    "CONTROL_STATE != EPISTEMIC_STATE",
+    "GLOBAL_SCIENTIFIC_PASS_BY_RVO_IS_FORBIDDEN",
+    "P1_OWNS_EXPERIMENT_LIFECYCLE_AND_QUALIFIED_FINDINGS",
+    "SMF_OWNS_STATISTICAL_METHODOLOGY",
+    "MCEPR_OWNS_CROSS_EXPERIMENT_PROVENANCE_ONLY",
+    "PCP_OWNS_PROJECT_STATE_AND_TECHNICAL_EVIDENCE_SURFACES",
+    "DATA_TEMPORAL_EXECUTION_REMAIN_INDEPENDENT_SEMANTIC_OWNERSHIP_SURFACES",
+    "LABEL_ONLY_METHOD_REF != QUALIFIED_METHOD_BINDING",
+    "APPLICABLE_CONTROLS_MUST_BE_FROZEN_BEFORE_RESULT_EXPOSURE",
+    "MATERIAL_APPLICABILITY_UNKNOWN_FAILS_CLOSED_AT_ORCHESTRATION_BOUNDARY",
+    "PRE_STATE != POST_STATE",
+    "MCEPR_PRE != MCEPR_POST",
+    "OOS_PRE != OOS_POST",
+    "POST_STATE_MUST_NOT_RETROACTIVELY_CHANGE_PRE_RESULT_METHODOLOGY",
+    "MATERIAL_DEPENDENCY_DRIFT_REQUIRES_EXACT_REVALIDATION_OR_BLOCKED",
+    "UNKNOWN_DRIFT_IMPACT -> BLOCKED",
+    "RUNTIME_ATTESTATION != DURABLE_RECONSTRUCTION",
+    "EVIDENCE_REPLAY != EXACT_REPLAY",
+    "UNKNOWN_UNKNOWN_COVERAGE = NOT_CLAIMED",
+    "RVO_AUTHORITY = NONE"
+  ],
+  "required_future_breaker_classes": [
+    "OWNERSHIP_AND_AUTHORITY",
+    "CONTROL_APPLICABILITY_AND_OMISSION",
+    "PRE_RESULT_FREEZE_AND_METHOD_BINDING",
+    "STATUS_PRESERVATION",
+    "PRE_POST_FIREWALL",
+    "DRIFT_AND_SNAPSHOT_COHERENCE",
+    "RECONSTRUCTIBILITY",
+    "PROVENANCE_AND_MULTIPLICITY",
+    "TEMPORAL_AND_EXECUTION_CAPABILITY",
+    "GLOBAL_CLAIM_LAUNDERING",
+    "RVO01_AUTHORITY_BOUNDARY"
+  ],
+  "cases": [
+    {
+      "id": "RVO-B01",
+      "class": "OWNERSHIP_AND_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "RVO description overrides a contradictory native owner contract.",
+      "expected": "REJECT_OWNER_OVERRIDE"
+    },
+    {
+      "id": "RVO-B02",
+      "class": "OWNERSHIP_AND_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "RVO assigns itself scientific finding authority.",
+      "expected": "REJECT_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "RVO-B03",
+      "class": "OWNERSHIP_AND_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "RVO assigns itself normative decision, action, trading, or capital authority.",
+      "expected": "REJECT_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "RVO-B04",
+      "class": "OWNERSHIP_AND_AUTHORITY",
+      "severity": "HIGH",
+      "attack": "RVO redefines native Data, Temporal, or Execution validity semantics.",
+      "expected": "REJECT_OWNER_SEMANTIC_REWRITE"
+    },
+    {
+      "id": "RVO-B05",
+      "class": "OWNERSHIP_AND_AUTHORITY",
+      "severity": "HIGH",
+      "attack": "RVO treats PCP evidence-envelope validity as scientific or operational authority.",
+      "expected": "REJECT_AUTHORITY_LAUNDERING"
+    },
+    {
+      "id": "RVO-B06",
+      "class": "CONTROL_APPLICABILITY_AND_OMISSION",
+      "severity": "CRITICAL",
+      "attack": "A material catalog control is omitted from the manifest without an applicability record.",
+      "expected": "BLOCKED_CONTROL_OMISSION"
+    },
+    {
+      "id": "RVO-B07",
+      "class": "CONTROL_APPLICABILITY_AND_OMISSION",
+      "severity": "CRITICAL",
+      "attack": "A control is marked NOT_APPLICABLE without an explicit applicability rule and basis.",
+      "expected": "BLOCKED_UNJUSTIFIED_NOT_APPLICABLE"
+    },
+    {
+      "id": "RVO-B08",
+      "class": "CONTROL_APPLICABILITY_AND_OMISSION",
+      "severity": "CRITICAL",
+      "attack": "Material applicability remains UNKNOWN but manifest proceeds as executable.",
+      "expected": "BLOCKED_MATERIAL_APPLICABILITY_UNKNOWN"
+    },
+    {
+      "id": "RVO-B09",
+      "class": "CONTROL_APPLICABILITY_AND_OMISSION",
+      "severity": "HIGH",
+      "attack": "Catalog registration is treated as proof that a control was required, executed, or passed.",
+      "expected": "REJECT_CATALOG_STATE_LAUNDERING"
+    },
+    {
+      "id": "RVO-B10",
+      "class": "CONTROL_APPLICABILITY_AND_OMISSION",
+      "severity": "HIGH",
+      "attack": "A later catalog version is applied retroactively to the already exposed current result without governed re-specification.",
+      "expected": "REJECT_RETROACTIVE_CATALOG_SUBSTITUTION"
+    },
+    {
+      "id": "RVO-B11",
+      "class": "PRE_RESULT_FREEZE_AND_METHOD_BINDING",
+      "severity": "CRITICAL",
+      "attack": "Pre-result manifest is created after result exposure.",
+      "expected": "BLOCKED_POST_RESULT_MANIFEST"
+    },
+    {
+      "id": "RVO-B12",
+      "class": "PRE_RESULT_FREEZE_AND_METHOD_BINDING",
+      "severity": "CRITICAL",
+      "attack": "A frozen pre-result manifest is materially amended after result exposure.",
+      "expected": "BLOCKED_MANIFEST_MUTATION_AFTER_RESULT"
+    },
+    {
+      "id": "RVO-B13",
+      "class": "PRE_RESULT_FREEZE_AND_METHOD_BINDING",
+      "severity": "CRITICAL",
+      "attack": "A P1 method_ref label is accepted without exact applicable SMF activation and qualified-method binding.",
+      "expected": "BLOCKED_LABEL_ONLY_METHOD_REF"
+    },
+    {
+      "id": "RVO-B14",
+      "class": "PRE_RESULT_FREEZE_AND_METHOD_BINDING",
+      "severity": "HIGH",
+      "attack": "The bound SMF activation digest does not match the claim, failure mode, assumptions, parameter policy, or dependencies.",
+      "expected": "BLOCKED_METHOD_BINDING_MISMATCH"
+    },
+    {
+      "id": "RVO-B15",
+      "class": "PRE_RESULT_FREEZE_AND_METHOD_BINDING",
+      "severity": "HIGH",
+      "attack": "Material statistical parameters silently default after the manifest is sealed.",
+      "expected": "BLOCKED_PARAMETER_DEFAULTING"
+    },
+    {
+      "id": "RVO-B16",
+      "class": "STATUS_PRESERVATION",
+      "severity": "CRITICAL",
+      "attack": "Native UNKNOWN is rewritten as PASS, FAIL, or NOT_APPLICABLE.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO-B17",
+      "class": "STATUS_PRESERVATION",
+      "severity": "CRITICAL",
+      "attack": "Native BLOCKED is rewritten as FAIL or REFUTED.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO-B18",
+      "class": "STATUS_PRESERVATION",
+      "severity": "CRITICAL",
+      "attack": "Native NOT_APPLICABLE is rewritten as PASS.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO-B19",
+      "class": "STATUS_PRESERVATION",
+      "severity": "HIGH",
+      "attack": "Native UNVERIFIED is rewritten as UNKNOWN without preserving UNVERIFIED.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO-B20",
+      "class": "STATUS_PRESERVATION",
+      "severity": "HIGH",
+      "attack": "SUPPORTED is rewritten as VALIDATED_STRATEGY.",
+      "expected": "REJECT_CLAIM_ESCALATION"
+    },
+    {
+      "id": "RVO-B21",
+      "class": "STATUS_PRESERVATION",
+      "severity": "HIGH",
+      "attack": "RVO derives an orchestration blocker from an owner-native status without a referenced applicable blocking rule.",
+      "expected": "BLOCKED_UNGROUNDED_STATUS_INTERPRETATION"
+    },
+    {
+      "id": "RVO-B22",
+      "class": "PRE_POST_FIREWALL",
+      "severity": "CRITICAL",
+      "attack": "MCEPR_POST from the current experiment changes the current experiment's multiplicity or method activation.",
+      "expected": "REJECT_RETROACTIVE_MCEPR_FEEDBACK"
+    },
+    {
+      "id": "RVO-B23",
+      "class": "PRE_POST_FIREWALL",
+      "severity": "CRITICAL",
+      "attack": "OOS_POST is used to claim that OOS was pristine before the current experiment.",
+      "expected": "REJECT_RETROACTIVE_OOS_REWRITE"
+    },
+    {
+      "id": "RVO-B24",
+      "class": "PRE_POST_FIREWALL",
+      "severity": "HIGH",
+      "attack": "POST state is used as an assumed substitute for missing PRE state.",
+      "expected": "BLOCKED_MISSING_PRE_STATE"
+    },
+    {
+      "id": "RVO-B25",
+      "class": "PRE_POST_FIREWALL",
+      "severity": "HIGH",
+      "attack": "PRE and POST snapshot identities are collapsed into one mutable record.",
+      "expected": "REJECT_PRE_POST_COLLAPSE"
+    },
+    {
+      "id": "RVO-B26",
+      "class": "DRIFT_AND_SNAPSHOT_COHERENCE",
+      "severity": "CRITICAL",
+      "attack": "A materially bound object changes and execution continues without exact revalidation.",
+      "expected": "BLOCKED_STALE_MATERIAL_BINDING"
+    },
+    {
+      "id": "RVO-B27",
+      "class": "DRIFT_AND_SNAPSHOT_COHERENCE",
+      "severity": "HIGH",
+      "attack": "HEAD changes and impact is unknown, but execution continues because drift appears unrelated.",
+      "expected": "BLOCKED_UNKNOWN_DRIFT_IMPACT"
+    },
+    {
+      "id": "RVO-B28",
+      "class": "DRIFT_AND_SNAPSHOT_COHERENCE",
+      "severity": "HIGH",
+      "attack": "Different controls execute against incompatible repository, dataset, owner-contract, or environment snapshots.",
+      "expected": "BLOCKED_MIXED_SNAPSHOT_EXECUTION"
+    },
+    {
+      "id": "RVO-B29",
+      "class": "RECONSTRUCTIBILITY",
+      "severity": "CRITICAL",
+      "attack": "Ephemeral runtime object identity or weakref attestation is treated as durable reconstruction evidence.",
+      "expected": "REJECT_RUNTIME_ATTESTATION_AS_DURABLE_PROOF"
+    },
+    {
+      "id": "RVO-B30",
+      "class": "RECONSTRUCTIBILITY",
+      "severity": "HIGH",
+      "attack": "Material environment identity or dependency identities are absent from the reconstruction package.",
+      "expected": "BLOCKED_INCOMPLETE_RECONSTRUCTION"
+    },
+    {
+      "id": "RVO-B31",
+      "class": "RECONSTRUCTIBILITY",
+      "severity": "HIGH",
+      "attack": "Evidence replay of a non-repeatable external event is labeled EXACT_REPLAY.",
+      "expected": "REJECT_RECONSTRUCTION_CLASS_ESCALATION"
+    },
+    {
+      "id": "RVO-B32",
+      "class": "RECONSTRUCTIBILITY",
+      "severity": "HIGH",
+      "attack": "Identical canonical pre-inputs produce different control graph or manifest identity without an explicitly bound material cause.",
+      "expected": "FAIL_NONDETERMINISTIC_MANIFEST"
+    },
+    {
+      "id": "RVO-B33",
+      "class": "RECONSTRUCTIBILITY",
+      "severity": "HIGH",
+      "attack": "Pre-manifest digest or post-package digest is missing or does not match canonical content.",
+      "expected": "BLOCKED_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "RVO-B34",
+      "class": "PROVENANCE_AND_MULTIPLICITY",
+      "severity": "CRITICAL",
+      "attack": "MCEPR event count is automatically used as N_trials or search budget.",
+      "expected": "REJECT_INVENTED_MULTIPLICITY_PARAMETER"
+    },
+    {
+      "id": "RVO-B35",
+      "class": "PROVENANCE_AND_MULTIPLICITY",
+      "severity": "HIGH",
+      "attack": "Absence of an MCEPR relation is interpreted as absence of influence.",
+      "expected": "REJECT_ABSENCE_AS_NEGATION"
+    },
+    {
+      "id": "RVO-B36",
+      "class": "PROVENANCE_AND_MULTIPLICITY",
+      "severity": "HIGH",
+      "attack": "RVO claims the MCEPR registry is complete or proves pristine evidence.",
+      "expected": "REJECT_REGISTRY_COMPLETENESS_CLAIM"
+    },
+    {
+      "id": "RVO-B37",
+      "class": "TEMPORAL_AND_EXECUTION_CAPABILITY",
+      "severity": "CRITICAL",
+      "attack": "A historical claim requiring point-in-time proof proceeds although the applicable temporal owner capability is unavailable or unresolved.",
+      "expected": "BLOCKED_TEMPORAL_CAPABILITY_GAP"
+    },
+    {
+      "id": "RVO-B38",
+      "class": "TEMPORAL_AND_EXECUTION_CAPABILITY",
+      "severity": "CRITICAL",
+      "attack": "An all-in profitability claim proceeds while commission, slippage, financing, or other material execution-cost semantics required by that claim remain excluded or unresolved.",
+      "expected": "BLOCKED_EXECUTION_COST_CAPABILITY_GAP"
+    },
+    {
+      "id": "RVO-B39",
+      "class": "GLOBAL_CLAIM_LAUNDERING",
+      "severity": "CRITICAL",
+      "attack": "RVO emits STRATEGY_VALIDATION=PASS or equivalent global scientific PASS.",
+      "expected": "REJECT_GLOBAL_SCIENTIFIC_PASS"
+    },
+    {
+      "id": "RVO-B40",
+      "class": "GLOBAL_CLAIM_LAUNDERING",
+      "severity": "CRITICAL",
+      "attack": "PACKAGE_COMPLETE or MANIFEST_COMPLETE is interpreted as scientific support, profitability, or promotion authority.",
+      "expected": "REJECT_PROCEDURAL_TO_SCIENTIFIC_LAUNDERING"
+    },
+    {
+      "id": "RVO-B41",
+      "class": "GLOBAL_CLAIM_LAUNDERING",
+      "severity": "HIGH",
+      "attack": "A favorable metric compensates for a non-compensable blocker through voting or aggregation.",
+      "expected": "REJECT_BLOCKER_COMPENSATION"
+    },
+    {
+      "id": "RVO-B42",
+      "class": "RVO01_AUTHORITY_BOUNDARY",
+      "severity": "CRITICAL",
+      "attack": "RVO-01 creates executable RVO runtime or executable breaker code.",
+      "expected": "REJECT_RVO01_SCOPE_EXPANSION"
+    },
+    {
+      "id": "RVO-B43",
+      "class": "RVO01_AUTHORITY_BOUNDARY",
+      "severity": "CRITICAL",
+      "attack": "RVO-01 modifies P1, SMF, MCEPR, PCP, Data, Temporal, or Execution owner semantics.",
+      "expected": "REJECT_OWNER_MODIFICATION"
+    },
+    {
+      "id": "RVO-B44",
+      "class": "RVO01_AUTHORITY_BOUNDARY",
+      "severity": "CRITICAL",
+      "attack": "RVO-01 executes backtest, consumes OOS, observes real performance, modifies strategy, or opens paper/broker/live/capital surface.",
+      "expected": "REJECT_EXECUTION_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "RVO-B45",
+      "class": "RVO01_AUTHORITY_BOUNDARY",
+      "severity": "HIGH",
+      "attack": "RVO claims complete failure-mode or unknown-unknown coverage because all frozen breaker cases pass.",
+      "expected": "REJECT_COMPLETENESS_OVERCLAIM"
+    }
+  ],
+  "future_qualification_rule": {
+    "all_applicable_frozen_cases_required": true,
+    "case_omission_requires_explicit_not_applicable_basis": true,
+    "passing_cases_do_not_grant_scientific_authority": true,
+    "passing_cases_do_not_grant_operational_authority": true,
+    "passing_cases_do_not_authorize_owner_modification": true,
+    "passing_cases_do_not_authorize_backtest_or_oos": true,
+    "qualification_must_bind_exact_implementation_identity": true,
+    "qualification_must_bind_exact_breaker_contract_blob": true
+  },
+  "stop_boundary": "STOP_BEFORE_ANY_RVO_RUNTIME_IMPLEMENTATION"
+}
