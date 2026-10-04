@@ -157,7 +157,7 @@ def test_data01_20_required_attack_families_are_present():
         "minute ordering",
         "transformation ambiguity",
         "unverified source",
-        "usage envelope",
+        "reused for a predictive, economic, oos, execution-price or historical-tradability claim",
         "historically available",
         "result lacks binding",
         "mutable commentary",

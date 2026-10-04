@@ -75,7 +75,7 @@ jobs:
           test "$(git hash-object GOVERNANCE/DATA-01-CLAIM-SCOPED-DATA-ADMISSIBILITY-PROVENANCE-CONTRACT-V0.1.json)" = "ec013c8db53b482770a62016db50b113b19ecd7f"
           test "$(git hash-object GOVERNANCE/DATA-01-DATA-TEMPORAL-OWNERSHIP-BOUNDARY-V0.1.md)" = "4bdb9d6c7448759c0349048fd4f48abba296c0cf"
           test "$(git hash-object GOVERNANCE/DATA-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "d9cafc53c863341ca827097014411702c26633f2"
-          test "$(git hash-object breakers/data_01_documentary_static_breaker.py)" = "a6932d1d19b87580470361a8210c939ca1ed7b69"
+          test "$(git hash-object breakers/data_01_documentary_static_breaker.py)" = "8bce54c4964d970cd703e803f55ccae089d814da"
 
       - name: Prove DATA-01 delta does not modify owner runtimes
         run: |
