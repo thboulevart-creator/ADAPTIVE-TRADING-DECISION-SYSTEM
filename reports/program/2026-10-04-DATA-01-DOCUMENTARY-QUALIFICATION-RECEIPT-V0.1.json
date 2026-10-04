@@ -1,0 +1,116 @@
+{
+  "schema": "ATDS_DATA_01_DOCUMENTARY_QUALIFICATION_RECEIPT_V0_1",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_FINAL_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "1a4ea7f19a4bdee0cd632f8f42adb40fa1f0fe86",
+    "tree": "b84b4a8538be3eb4a34d81665202e217cf3c483f"
+  },
+  "selected_first_use_surface": {
+    "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "consumer_id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "consumer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "dataset_family": "AP0_GAP_AWARE_1_MINUTE_MONTHLY_PARQUET",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap0_transformer_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "source_qualification_blob": "62e9bd1e0892dab7273eed35c8704a9e05611112",
+    "files": 61,
+    "rows": 1709180,
+    "source_ticks": 376003618
+  },
+  "data01_surface": {
+    "requirements_map_blob": "2d6d43d783281ee3dfd4028bc9b84c4dce495b87",
+    "claim_scoped_contract_blob": "ec013c8db53b482770a62016db50b113b19ecd7f",
+    "data_temporal_boundary_blob": "4bdb9d6c7448759c0349048fd4f48abba296c0cf",
+    "frozen_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2",
+    "static_breaker_blob": "8bce54c4964d970cd703e803f55ccae089d814da",
+    "workflow_blob": "11df8a56e95e783240439f343196e50ccf2d6234"
+  },
+  "frozen_breaker": {
+    "cases": 32,
+    "classes": 9,
+    "semantics_changed_after_observation": false,
+    "frozen_contract_blob_unchanged_after_initial_static_failure": true
+  },
+  "initial_static_run": {
+    "commit": "e4729577d494e71c76e558130227e4d49e3d0405",
+    "tree": "08deee2f2521fe6cdf6b54eabdff9eceaf4a07e5",
+    "workflow_run_id": 37219602383,
+    "job_id": 111487078884,
+    "conclusion": "FAILURE",
+    "documentary_static_breaker": {
+      "passed": 24,
+      "failed": 1
+    },
+    "failure": "test_data01_20_required_attack_families_are_present searched for literal phrase 'usage envelope' although DATA01-B18 encoded the same failure mode through its attack semantics and expected code.",
+    "semantic_contract_failure": false,
+    "correction": "Static assertion wording only; frozen breaker contract and all DATA-01 design artifacts remained unchanged."
+  },
+  "correction": {
+    "commit": "17186ae4d9403978fdbf85f3bed832ee12cb59d4",
+    "tree": "951d7daa349ca4b65f5ba0222c924cb2e4f33dfa",
+    "changed_only": [
+      "breakers/data_01_documentary_static_breaker.py",
+      ".github/workflows/data-01-documentary-qualification.yml"
+    ],
+    "frozen_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2"
+  },
+  "successful_qualification_run": {
+    "commit": "17186ae4d9403978fdbf85f3bed832ee12cb59d4",
+    "workflow_run_id": 37219696461,
+    "job_id": 111487357463,
+    "conclusion": "SUCCESS",
+    "documentary_static_breaker": {
+      "passed": 25,
+      "failed": 0
+    },
+    "rvo04_routing_breaker": {
+      "passed": 25,
+      "failed": 0
+    },
+    "existing_tick_csv_data_tests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "delta_check": "PASS_DOCUMENTARY_STATIC_ONLY"
+  },
+  "temporal_firewall": {
+    "current_state": "NOT_APPLICABLE_WITH_EXPLICIT_BASIS",
+    "basis": "Retrospective descriptive claim only; no historical availability/tradability assertion.",
+    "data_pass_may_not_establish_temporal_validity": true,
+    "future_historical_predictive_oos_claim_requires_temporal_owner": true
+  },
+  "qualification_semantics": {
+    "pass": "DATA01_CONTRACT_AND_BREAKER_DESIGN_ARE_DOCUMENTARILY_SELF_CONSISTENT_WITH_SELECTED_FIRST_USE_SURFACE_AND_FROZEN_BOUNDARIES",
+    "selected_surface_is_universal_for_all_cc02": false,
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "data_runtime_implemented": false,
+    "data_runtime_modified": false,
+    "real_data_consumed": false,
+    "real_experiment": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "rvo_authority": "NONE"
+  },
+  "final_rebreak_requirement": {
+    "exact_persisted_head_required": true,
+    "exact_requirements_map_blob": "2d6d43d783281ee3dfd4028bc9b84c4dce495b87",
+    "exact_contract_blob": "ec013c8db53b482770a62016db50b113b19ecd7f",
+    "exact_boundary_blob": "4bdb9d6c7448759c0349048fd4f48abba296c0cf",
+    "exact_frozen_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2",
+    "exact_static_breaker_blob": "8bce54c4964d970cd703e803f55ccae089d814da",
+    "exact_workflow_blob": "11df8a56e95e783240439f343196e50ccf2d6234"
+  },
+  "next_frontiers": {
+    "data_02": "NOT_AUTHORIZED",
+    "rvo_05": "NOT_AUTHORIZED"
+  }
+}
