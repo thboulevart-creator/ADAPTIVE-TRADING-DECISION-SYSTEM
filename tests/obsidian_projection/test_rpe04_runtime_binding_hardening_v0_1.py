@@ -62,7 +62,7 @@ class TestRPE04RuntimeBindingHardening(unittest.TestCase):
                 return "0" * 64
             return original(path)
 
-        with mock.patch.object(m, "_sha256_file", side_effect=fake):
+        with mock.patch.object(m, "_raw_sha256_file", side_effect=fake):
             self.assertFalse(m._verify_runtime_bindings())
 
     def test_physical_domain_is_reverified_after_fetch(self):
