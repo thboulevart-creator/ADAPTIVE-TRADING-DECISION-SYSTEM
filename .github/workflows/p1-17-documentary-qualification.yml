@@ -69,6 +69,8 @@ jobs:
           test "$(git hash-object GOVERNANCE/P1-17-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "9ab0f9018dd6e9def4a5e35b8e9a35c3beb556bc"
           test "$(git hash-object reports/program/2026-10-04-P1-17-SYNTHETIC-IMPLEMENTATION-READINESS.md)" = "b5d93f4d6fb9149fe1d43b79c476c2f9acbc6d47"
           test "$(git hash-object reports/program/2026-10-04-P1-17-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.1.json)" = "efd52c7a7ad4833dda18a04bbe34fc1270638d3d"
+          test "$(git hash-object reports/program/2026-10-04-P1-17-FINAL-DOCUMENTARY-CLOSURE-RECEIPT-V0.1.json)" = "706b274f0a45f8941988c25915829f40c50c2af1"
+          test "$(git hash-object reports/program/2026-10-04-P1-17-FINAL-DOCUMENTARY-CLOSURE.md)" = "a57db02041b5387a73e7017d39f1da130b5c9631"
 
       - name: Prove P1-17 remains design-only
         run: |
@@ -132,6 +134,8 @@ jobs:
               "GOVERNANCE/P1-17-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json",
               "reports/program/2026-10-04-P1-17-SYNTHETIC-IMPLEMENTATION-READINESS.md",
               "reports/program/2026-10-04-P1-17-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.1.json",
+              "reports/program/2026-10-04-P1-17-FINAL-DOCUMENTARY-CLOSURE-RECEIPT-V0.1.json",
+              "reports/program/2026-10-04-P1-17-FINAL-DOCUMENTARY-CLOSURE.md",
           }
           extra = sorted(set(changed) - allowed)
           if extra:
