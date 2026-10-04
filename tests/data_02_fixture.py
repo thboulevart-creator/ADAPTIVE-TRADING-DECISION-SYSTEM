@@ -62,7 +62,7 @@ def write_manifest(path: Path, manifest: dict[str, Any]) -> str:
 
 def make_package(tmp_path: Path) -> dict[str, Any]:
     root = tmp_path / "ap0"
-    root.mkdir()
+    root.mkdir(parents=True)
     files: list[dict[str, Any]] = []
     for i in range(61):
         rel = Path(f"year=synthetic/month={i + 1:02d}/AP0-{i:02d}.parquet")
