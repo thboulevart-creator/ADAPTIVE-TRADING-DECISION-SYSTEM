@@ -1,0 +1,174 @@
+{
+  "schema": "ATDS_RVO_03_CANONICAL_OWNER_CAPABILITY_MATRIX_V0_1",
+  "status": "RVO03_CANDIDATE_CAPABILITY_MATRIX",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "inventoried_at_parent": {
+    "head": "966c65c5cbcda677ddaab5a8070f7c2bafcaaf8b",
+    "tree": "e3768d553b2383ded5947e683b6ba41a730608c7"
+  },
+  "state_semantics": {
+    "AVAILABLE": "Canonical runtime/interface exists, but this matrix does not establish a qualified generic capability for the claimed RVO use.",
+    "QUALIFIED": "Canonical evidence establishes qualification within the explicitly recorded scope.",
+    "UNAVAILABLE": "No canonical generic runtime capability was identified for this surface.",
+    "BLOCKED": "A design/adoption may exist, but qualification/use for this capability is not presently established and must fail closed."
+  },
+  "invariants": [
+    "AVAILABLE != QUALIFIED",
+    "QUALIFIED != APPLICABLE",
+    "APPLICABLE != EXECUTED",
+    "EXECUTED != PASS",
+    "PASS != SCIENTIFIC_AUTHORITY",
+    "MISSING_GENERIC_CAPABILITY != NOT_APPLICABLE",
+    "RVO_AUTHORITY = NONE"
+  ],
+  "capabilities": [
+    {
+      "capability_id": "P1_EXPERIMENT_SPECIFICATION",
+      "owner": "P1",
+      "state": "QUALIFIED",
+      "scope": "P1 experiment lifecycle through qualified finding chain; RVO-03 binds only the experiment-specification interface.",
+      "runtime_path": "src/experiment_specification.py",
+      "runtime_blob": "8ff7725cf3324825c12f85def4c73eed477c181b",
+      "contract_id": "P1_9B_EXPERIMENT_SPECIFICATION_BOUNDARY_V1",
+      "qualification_evidence_path": "reports/program/2026-10-01-P1-16-FINAL-PERSISTED-STATE-REBREAK-CLOSURE.md",
+      "qualification_evidence_blob": "8839e6df3ea0ccff69ec82fdfccb1527e5601faf",
+      "generic_for_rvo": true
+    },
+    {
+      "capability_id": "SMF_CORE_ACTIVATION_M01_M11",
+      "owner": "SMF",
+      "state": "QUALIFIED",
+      "scope": "SMF CORE M01-M11 implementation and activation semantics.",
+      "runtime_path": "tools/smf03_core_foundation.py",
+      "runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+      "contract_id": "ATDS_SMF03_CORE_FOUNDATION_V0_1",
+      "qualification_evidence_path": "reports/program/2026-10-02-SMF03-CORE-CANONICAL-INTEGRATION-CLOSURE.md",
+      "qualification_evidence_blob": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+      "generic_for_rvo": true
+    },
+    {
+      "capability_id": "SMF_CONDITIONAL_C01_C12",
+      "owner": "SMF",
+      "state": "BLOCKED",
+      "scope": "Conditional method families are adopted/on-demand but were not implemented by the SMF-03 CORE integration.",
+      "runtime_path": null,
+      "runtime_blob": null,
+      "contract_id": "SMF-01/SMF-02 CONDITIONAL C01-C12",
+      "qualification_evidence_path": "reports/program/2026-10-02-SMF03-CORE-CANONICAL-INTEGRATION-CLOSURE.md",
+      "qualification_evidence_blob": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a",
+      "generic_for_rvo": false
+    },
+    {
+      "capability_id": "MCEPR_MINIMAL_REGISTRY",
+      "owner": "MCEPR",
+      "state": "QUALIFIED",
+      "scope": "Minimal registry mechanics within the frozen 50-case surface; no completeness or scientific-truth claim.",
+      "runtime_path": "src/mcepr_registry.py",
+      "runtime_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+      "contract_id": "ATDS_MCEPR_REGISTRY_SEGMENT_V0_1",
+      "qualification_evidence_path": "reports/program/2026-10-02-MCEPR-MINIMAL-IMPLEMENTATION-V0.1-GREEN-QUALIFICATION.md",
+      "qualification_evidence_blob": "5fbf3bf9a79b50c5df41b017bd082133db7ce1cf",
+      "generic_for_rvo": true
+    },
+    {
+      "capability_id": "PCP_P22_01_STATE_PROJECTOR",
+      "owner": "PCP",
+      "state": "QUALIFIED",
+      "scope": "Pure non-authoritative project-state projection.",
+      "runtime_path": "tools/p22_01_pure_state_projector.py",
+      "runtime_blob": "18b01a995f521377ec98bd4f24b7837a329ad139",
+      "contract_id": "ATDS_P22_01_PURE_STATE_PROJECTOR_V0_1",
+      "qualification_evidence_path": "GOVERNANCE/PHASE-22-HUMAN-CLOSURE-DECISION-V0.1.md",
+      "qualification_evidence_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "generic_for_rvo": true
+    },
+    {
+      "capability_id": "PCP_P22_02_IDENTITY_VERIFIER",
+      "owner": "PCP",
+      "state": "QUALIFIED",
+      "scope": "Read-only identity/state verification.",
+      "runtime_path": "tools/p22_02_identity_state_verifier.py",
+      "runtime_blob": "c6ac0c5435d3c1bc081d457abdad2225a7d0fe64",
+      "contract_id": "ATDS_P22_02_IDENTITY_STATE_VERIFIER_V0_1",
+      "qualification_evidence_path": "GOVERNANCE/PHASE-22-HUMAN-CLOSURE-DECISION-V0.1.md",
+      "qualification_evidence_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "generic_for_rvo": true
+    },
+    {
+      "capability_id": "PCP_P22_03_EVIDENCE_ENVELOPE",
+      "owner": "PCP",
+      "state": "QUALIFIED",
+      "scope": "Non-authoritative tamper-evident operation evidence envelope.",
+      "runtime_path": "tools/p22_03_evidence_envelope_recorder.py",
+      "runtime_blob": "c7c81ec8cd9e253c2c6e56d0d5e41960cb472233",
+      "contract_id": "ATDS_P22_03_EVIDENCE_ENVELOPE_RECORDER_V0_1",
+      "qualification_evidence_path": "GOVERNANCE/PHASE-22-HUMAN-CLOSURE-DECISION-V0.1.md",
+      "qualification_evidence_blob": "8559f9665644196019bec266c5ccea7d3ceae488",
+      "generic_for_rvo": true
+    },
+    {
+      "capability_id": "DATASET_ADMISSIBILITY_TICK_CSV",
+      "owner": "DATA",
+      "state": "AVAILABLE",
+      "scope": "Executable tick-CSV identity/admissibility boundary. RVO-03 found runtime and tests but does not promote it to a generic qualified Data owner capability absent a dedicated canonical qualification artifact.",
+      "runtime_path": "src/data/dataset_admissibility.py",
+      "runtime_blob": "63f629a8cf39c79b5334015e038b70771c39f78b",
+      "contract_id": "EXECUTABLE_DATASET_ADMISSIBILITY_BOUNDARY",
+      "qualification_evidence_path": "tests/test_dataset_admissibility.py",
+      "qualification_evidence_blob": "99120fdb0951d3ac1cbec0ff808ec182182d84d7",
+      "generic_for_rvo": false
+    },
+    {
+      "capability_id": "TEMPORAL_GENERIC_POINT_IN_TIME",
+      "owner": "TEMPORAL",
+      "state": "UNAVAILABLE",
+      "scope": "Generic historical point-in-time runtime owner.",
+      "runtime_path": null,
+      "runtime_blob": null,
+      "contract_id": "TEMPORAL_POINT_IN_TIME_PROPOSAL_V0_1",
+      "qualification_evidence_path": "docs/10-TEMPORAL-POINT-IN-TIME-CONTRACT.md",
+      "qualification_evidence_blob": "861362264a3602aa875bb16487d12558f700c250",
+      "generic_for_rvo": false,
+      "reason": "Canonical document is explicitly ARCHITECTURE PROPOSAL / NON-NORMATIVE and states implementation remains pending."
+    },
+    {
+      "capability_id": "EXECUTION_GENERIC",
+      "owner": "EXECUTION",
+      "state": "UNAVAILABLE",
+      "scope": "Generic execution/cost capability suitable for arbitrary RVO claims.",
+      "runtime_path": null,
+      "runtime_blob": null,
+      "contract_id": null,
+      "qualification_evidence_path": "reports/program/2026-09-28-E1-04-EXECUTION-COST-MODEL-MINIMAL-IMPLEMENTATION-QUALIFICATION.md",
+      "qualification_evidence_blob": "5c877f36c4f5c78f78d54ac5e4cf819da37f92b9",
+      "generic_for_rvo": false,
+      "reason": "Qualified execution runtime identified is E1-specific, not a generic owner capability."
+    },
+    {
+      "capability_id": "EXECUTION_E1_SPECIFIC",
+      "owner": "EXECUTION",
+      "state": "QUALIFIED",
+      "scope": "E1-specific execution/cost semantics only; commission, slippage and financing excluded rather than assumed zero; forbidden all-in/broker claims remain bounded.",
+      "runtime_path": "tools/e1_04_execution_cost_model.py",
+      "runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+      "contract_id": "ATDS_E1_04_EXECUTION_COST_MODEL_V0_1",
+      "qualification_evidence_path": "reports/program/2026-09-28-E1-04-EXECUTION-COST-MODEL-MINIMAL-IMPLEMENTATION-QUALIFICATION.md",
+      "qualification_evidence_blob": "5c877f36c4f5c78f78d54ac5e4cf819da37f92b9",
+      "generic_for_rvo": false
+    }
+  ],
+  "unresolved_gaps": [
+    "DATASET_ADMISSIBILITY_TICK_CSV is AVAILABLE but not promoted by RVO-03 to a generic QUALIFIED Data capability.",
+    "TEMPORAL_GENERIC_POINT_IN_TIME is UNAVAILABLE.",
+    "EXECUTION_GENERIC is UNAVAILABLE; only EXECUTION_E1_SPECIFIC is QUALIFIED within E1 scope.",
+    "SMF_CONDITIONAL_C01_C12 remains BLOCKED until separately implemented/qualified when a claim requires it."
+  ],
+  "authority": {
+    "rvo_authority": "NONE",
+    "owner_semantics_modified": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false
+  }
+}
