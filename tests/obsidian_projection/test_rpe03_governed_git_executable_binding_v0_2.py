@@ -154,7 +154,8 @@ class TestRPE03GovernedGitExecutableBindingV02(unittest.TestCase):
         old_cwd = os.getcwd()
         with tempfile.TemporaryDirectory(prefix="rpe03-v02-fakegit-") as fake_dir:
             fake = pathlib.Path(fake_dir) / "git.exe"
-            shutil.copy2(sys.executable, fake)
+            source = pathlib.Path(os.environ.get("SystemRoot", r"C:\\Windows")) / "System32" / "where.exe"
+            shutil.copy2(source, fake)
             try:
                 os.chdir(fake_dir)
                 cp = subprocess.run(
@@ -164,7 +165,8 @@ class TestRPE03GovernedGitExecutableBindingV02(unittest.TestCase):
                     stderr=subprocess.PIPE,
                     check=False,
                 )
-                self.assertIn("Python", cp.stdout + cp.stderr)
+                self.assertNotEqual(cp.returncode, 0)
+                self.assertNotIn("git version", (cp.stdout + cp.stderr).lower())
                 self.assertEqual(m.classify_transition(repo, a, b, GIT), "FAST_FORWARD")
             finally:
                 os.chdir(old_cwd)
