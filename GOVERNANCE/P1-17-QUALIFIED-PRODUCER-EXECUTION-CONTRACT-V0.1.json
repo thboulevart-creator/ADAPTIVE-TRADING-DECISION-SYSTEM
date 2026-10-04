@@ -1,0 +1,171 @@
+{
+  "schema": "ATDS_P1_17_CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_CONTRACT_V0_1",
+  "status": "DESIGN_FROZEN_IMPLEMENTATION_NOT_AUTHORIZED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "9e104a74dd9ccfee1d3a38e7b4786a817e51d1fe",
+    "tree": "91aed9f7ccd138201584c5eac8a19a85c2b08b11"
+  },
+  "selected_architecture": {
+    "option": "A_P1_INVOKES_QUALIFIED_PRODUCER",
+    "boundary": "P1_12C_CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_V1",
+    "boundary_relation": "SIBLING_OF_P1_12B",
+    "p1_12b_change": "FORBIDDEN_BY_THIS_DESIGN",
+    "option_b_digest_only": "REJECTED",
+    "option_b_replay": "DOMINATED_AS_PRIMARY_BECAUSE_REPLAY_REQUIRES_OPTION_A_EXECUTION"
+  },
+  "target": {
+    "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "producer_id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "output_schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1"
+  },
+  "input_contract": {
+    "required_upstream_ids": [
+      "experiment_execution_input_id",
+      "execution_binding_id",
+      "experiment_spec_id",
+      "request_id",
+      "revision_id",
+      "audit_id",
+      "scope_id"
+    ],
+    "required_data_binding": [
+      "data02_admission_digest",
+      "claim_scope_id",
+      "dataset_identity",
+      "ap0_manifest_sha256",
+      "dataset_file_set_digest",
+      "schema_identity",
+      "source_identity",
+      "usage_envelope_id"
+    ],
+    "required_producer_binding": [
+      "producer_id",
+      "producer_code_blob",
+      "producer_entrypoint",
+      "producer_semantic_parameter_digest",
+      "producer_invocation_contract_digest"
+    ],
+    "required_runtime_binding": [
+      "runtime_lock_digest",
+      "python_version",
+      "numpy_version",
+      "pyarrow_version",
+      "timezone_database_identity",
+      "deterministic_environment_digest"
+    ],
+    "required_output_expectation": [
+      "expected_output_schema",
+      "expected_output_contract",
+      "maximum_output_bytes"
+    ],
+    "invariants": {
+      "result_exposed": false,
+      "path_is_identity": false,
+      "execution_authority": false,
+      "scientific_authority": false,
+      "operational_authority": false,
+      "trading_authority": false,
+      "capital_authority": false
+    }
+  },
+  "result_contract": {
+    "identity_prefix": "QPER-",
+    "required_fields": [
+      "producer_execution_result_id",
+      "producer_execution_plan_digest",
+      "experiment_execution_input_id",
+      "execution_binding_id",
+      "experiment_spec_id",
+      "request_id",
+      "revision_id",
+      "audit_id",
+      "scope_id",
+      "data02_admission_digest",
+      "dataset_identity",
+      "dataset_file_set_digest_before",
+      "dataset_file_set_digest_after",
+      "producer_id",
+      "producer_code_blob",
+      "producer_parameter_digest",
+      "runtime_lock_digest",
+      "execution_status",
+      "exit_code",
+      "output_schema",
+      "output_size_bytes",
+      "output_sha256",
+      "result_identity",
+      "data02_result_binding_digest",
+      "producer_stdout_digest",
+      "producer_stderr_digest",
+      "reconstruction_class",
+      "reconstruction_descriptor_digest"
+    ],
+    "accepted_execution_statuses": [
+      "EXECUTED",
+      "BLOCKED"
+    ],
+    "source_immutability_rule": "dataset_file_set_digest_before == dataset_file_set_digest_after",
+    "output_identity_rule": "result_identity derives from exact output bytes and bound producer/input identities",
+    "path_is_identity": false,
+    "authority": {
+      "scientific": false,
+      "operational": false,
+      "trading": false,
+      "capital": false
+    }
+  },
+  "exact_ap1_acceptance": {
+    "required_output_schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "required_output_status": "AP1_COMPLETE",
+    "required_input_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "required_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "maximum_output_bytes": 33554432,
+    "data02_result_binding_required": true,
+    "output_path_authority": false
+  },
+  "execution_model": {
+    "producer_selected_before_result": true,
+    "source_rehash_before": true,
+    "source_rehash_after": true,
+    "isolated_output_required": true,
+    "exact_code_blob_required": true,
+    "exact_runtime_lock_required": true,
+    "network_requirement": "NONE",
+    "generic_process_framework": false,
+    "claim_scoped_only": true
+  },
+  "reconstruction": {
+    "persisted_proof_authority": false,
+    "exact_replay_required_for_durable_reattestation": true,
+    "exact_replay_inputs": [
+      "qualified_experiment_input",
+      "data02_admission",
+      "dataset_bytes",
+      "producer_blob",
+      "producer_parameters",
+      "runtime_lock",
+      "deterministic_environment"
+    ],
+    "runtime_attestation_is_durable_reconstruction": false
+  },
+  "downstream_gap": {
+    "p1_13b_current_input_type": "LinkedExperimentExecutionResult",
+    "p1_13b_current_attestation": "P1_12B factory attestation",
+    "p1_12c_result_directly_accepted": false,
+    "future_owner_maturation_required": true,
+    "p1_13_change_authorized_now": false
+  },
+  "synthetic_readiness": {
+    "generic_synthetic_test_producer": "READY_FOR_FUTURE_TEST_FIRST_IMPLEMENTATION",
+    "exact_ap1_small_fixture": "BLOCKED",
+    "reason": "AP1 hard-codes exact real AP0 counts/manifest/F2 reconciliation constants.",
+    "real_ap1_execution": false
+  },
+  "authority": "NONE",
+  "unknown_unknown_coverage": "NOT_CLAIMED"
+}

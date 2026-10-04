@@ -1,0 +1,70 @@
+{
+  "schema": "ATDS_P1_17_DOCUMENTARY_QUALIFICATION_RECEIPT_V0_1",
+  "status": "CANDIDATE_PENDING_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "9e104a74dd9ccfee1d3a38e7b4786a817e51d1fe",
+    "tree": "91aed9f7ccd138201584c5eac8a19a85c2b08b11"
+  },
+  "exact_verified_identities": {
+    "rvo05_runtime_blob": "b7ee009f0f07fc47e1816740812fcc543e8d6d54",
+    "rvo05_breaker_blob": "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d",
+    "rvo05_readiness_blob": "e07673ef19954aa14a24af90ba59d29084527f20",
+    "rvo05_closure_receipt_blob": "a16ac7bc464822bd9235335538c754c98cbfec05",
+    "rvo05_closure_report_blob": "baaa4d8bb2d4860eb62157c2540de14aa2cc8f71",
+    "data02_runtime_blob": "6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "p1_10b_blob": "5419ad7caf4dbfa2a621b060d3f42bc090e97077",
+    "p1_11b_blob": "6700fbbef314bc9c6e5b7f6f374e71cfabee0f92",
+    "p1_12b_blob": "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+    "p1_13b_blob": "968ef47d0fc4e066374b7471110c71d0eaf28865",
+    "p1_14b_blob": "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+    "p1_15b_blob": "bfab3c421263434d5e3e3066720f95abb521b09c",
+    "p1_16_blob": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+    "research_input_binding_blob": "5f68d9db03badc5f266d6e6bf2e6fe1d40e092db",
+    "research_execution_blob": "6ca117f2cd760b299b14933f308cfc1b2466ae0d",
+    "research_engine_blob": "6e0a4c68ca75cea27b7691477f98e5566f2b8cac",
+    "research_interprocess_blob": "34c304f846228382a6c7dfe40f7c667b1a487802",
+    "interprocess_contract_blob": "599e58989ce3f151aac15e3aaa42c27e3c5f7c12"
+  },
+  "decision": {
+    "option_a": "SELECTED",
+    "option_b_digest_only": "REJECTED",
+    "option_b_with_replay": "DOMINATED_AS_PRIMARY",
+    "p1_12b_extension": "REJECTED",
+    "p1_12c_sibling": "SELECTED"
+  },
+  "blockers": {
+    "current_p1_12b": "BI5_ONLY",
+    "exact_ap1_small_synthetic_qualification": "BLOCKED_BY_PRODUCER_TESTABILITY",
+    "p1_13b_downstream": "BLOCKED_BY_EXACT_P1_12B_RESULT_TYPE",
+    "exact_ap1_runtime_lock": "REQUIRED_BEFORE_EXECUTION"
+  },
+  "readiness": {
+    "generic_p1_12c_synthetic_test_first": "READY_FOR_SEPARATE_AUTHORIZATION",
+    "exact_ap1_execution": "NOT_AUTHORIZED",
+    "exact_ap1_real_readiness": "NOT_REACHED"
+  },
+  "breaker_design": {
+    "case_count": 32,
+    "red_executed": false,
+    "implementation_present": false
+  },
+  "owner_changes": {
+    "p1": false,
+    "data": false,
+    "rvo": false,
+    "smf": false,
+    "temporal": false,
+    "ap1": false,
+    "research_execution": false
+  },
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false,
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  }
+}

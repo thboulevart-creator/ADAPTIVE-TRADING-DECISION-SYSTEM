@@ -1,0 +1,230 @@
+{
+  "schema": "ATDS_P1_17_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_DOCUMENTARY_PRE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "9e104a74dd9ccfee1d3a38e7b4786a817e51d1fe",
+    "tree": "91aed9f7ccd138201584c5eac8a19a85c2b08b11"
+  },
+  "target_boundary": "P1_12C_CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_V1",
+  "selected_architecture": "OPTION_A_P1_INVOKES_QUALIFIED_PRODUCER",
+  "implementation_present": false,
+  "red_executed": false,
+  "freeze_rule": "Case IDs, attack intent and expected fail-closed semantics are frozen before any P1.12C runtime implementation.",
+  "cases": [
+    {
+      "id": "P117-B01",
+      "severity": "CRITICAL",
+      "attack": "Producer label supplied without exact producer code blob.",
+      "expected": "BLOCKED_PRODUCER_CODE_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P117-B02",
+      "severity": "CRITICAL",
+      "attack": "Producer result omits exact input dataset identity.",
+      "expected": "BLOCKED_RESULT_DATASET_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P117-B03",
+      "severity": "CRITICAL",
+      "attack": "Dataset is substituted after DATA-02 admission.",
+      "expected": "BLOCKED_DATASET_SUBSTITUTION_AFTER_ADMISSION"
+    },
+    {
+      "id": "P117-B04",
+      "severity": "CRITICAL",
+      "attack": "Producer semantic parameters change after pre-result freeze.",
+      "expected": "BLOCKED_PRODUCER_PARAMETER_DRIFT"
+    },
+    {
+      "id": "P117-B05",
+      "severity": "CRITICAL",
+      "attack": "Producer code blob changes after plan freeze.",
+      "expected": "BLOCKED_PRODUCER_CODE_DRIFT"
+    },
+    {
+      "id": "P117-B06",
+      "severity": "CRITICAL",
+      "attack": "Output bytes are substituted after execution.",
+      "expected": "BLOCKED_OUTPUT_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P117-B07",
+      "severity": "CRITICAL",
+      "attack": "Result content changes while caller retains the same result ID.",
+      "expected": "BLOCKED_RESULT_ID_CONTENT_COLLISION"
+    },
+    {
+      "id": "P117-B08",
+      "severity": "CRITICAL",
+      "attack": "P1 result cannot bind back to the exact ExperimentSpecification.",
+      "expected": "BLOCKED_EXPERIMENT_SPEC_BINDING_MISMATCH"
+    },
+    {
+      "id": "P117-B09",
+      "severity": "CRITICAL",
+      "attack": "P1 producer result omits execution-binding identity.",
+      "expected": "BLOCKED_EXECUTION_BINDING_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P117-B10",
+      "severity": "HIGH",
+      "attack": "External producer result is trusted because filename/path matches.",
+      "expected": "REJECT_PATH_OR_FILENAME_AUTHORITY"
+    },
+    {
+      "id": "P117-B11",
+      "severity": "CRITICAL",
+      "attack": "RVO fabricates producer qualification or execution authority.",
+      "expected": "REJECT_RVO_PRODUCER_AUTHORITY"
+    },
+    {
+      "id": "P117-B12",
+      "severity": "CRITICAL",
+      "attack": "DATA PASS is interpreted as producer execution PASS.",
+      "expected": "REJECT_DATA_TO_EXECUTION_LAUNDERING"
+    },
+    {
+      "id": "P117-B13",
+      "severity": "CRITICAL",
+      "attack": "Producer EXECUTED is interpreted as a P1 finding.",
+      "expected": "REJECT_EXECUTION_TO_FINDING_LAUNDERING"
+    },
+    {
+      "id": "P117-B14",
+      "severity": "CRITICAL",
+      "attack": "Producer result is interpreted as scientific support.",
+      "expected": "REJECT_RESULT_TO_SCIENCE_LAUNDERING"
+    },
+    {
+      "id": "P117-B15",
+      "severity": "HIGH",
+      "attack": "Runtime object attestation is claimed as durable reconstruction.",
+      "expected": "BLOCKED_RUNTIME_ATTESTATION_NOT_DURABLE"
+    },
+    {
+      "id": "P117-B16",
+      "severity": "CRITICAL",
+      "attack": "External producer result has no reconstructible execution evidence.",
+      "expected": "BLOCKED_EXTERNAL_RESULT_REPLAY_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "P117-B17",
+      "severity": "CRITICAL",
+      "attack": "Producer is selected after result exposure.",
+      "expected": "BLOCKED_POST_RESULT_PRODUCER_SELECTION"
+    },
+    {
+      "id": "P117-B18",
+      "severity": "CRITICAL",
+      "attack": "AP1 calculation logic is duplicated inside P1.",
+      "expected": "REJECT_PRODUCER_SEMANTIC_DUPLICATION"
+    },
+    {
+      "id": "P117-B19",
+      "severity": "CRITICAL",
+      "attack": "AP0 is converted or relabeled to BI5 solely to satisfy P1.12B.",
+      "expected": "REJECT_LEGACY_ENGINE_FORMAT_LAUNDERING"
+    },
+    {
+      "id": "P117-B20",
+      "severity": "CRITICAL",
+      "attack": "Producer invocation mutates admitted source dataset bytes.",
+      "expected": "BLOCKED_SOURCE_MUTATION_DURING_PRODUCER_EXECUTION"
+    },
+    {
+      "id": "P117-B21",
+      "severity": "CRITICAL",
+      "attack": "Producer execution silently introduces historical/PIT/tradability semantics.",
+      "expected": "BLOCKED_TEMPORAL_SCOPE_ESCALATION"
+    },
+    {
+      "id": "P117-B22",
+      "severity": "CRITICAL",
+      "attack": "Producer consumes OOS data under this CC02 route.",
+      "expected": "BLOCKED_OOS_CONSUMPTION"
+    },
+    {
+      "id": "P117-B23",
+      "severity": "CRITICAL",
+      "attack": "An owner boundary is semantically rewritten only to obtain GREEN.",
+      "expected": "REJECT_OWNER_REWRITE_FOR_INTEGRATION"
+    },
+    {
+      "id": "P117-B24",
+      "severity": "CRITICAL",
+      "attack": "P1 producer execution result grants trading or capital authority.",
+      "expected": "REJECT_EXECUTION_AUTHORITY_ESCALATION"
+    },
+    {
+      "id": "P117-B25",
+      "severity": "CRITICAL",
+      "attack": "A P1.12C result is forged into the legacy P1.12B LinkedExperimentExecutionResult type.",
+      "expected": "REJECT_P1_12B_RESULT_SEMANTIC_LAUNDERING"
+    },
+    {
+      "id": "P117-B26",
+      "severity": "CRITICAL",
+      "attack": "P1.13B exact P1.12B type requirement is bypassed for a P1.12C result.",
+      "expected": "BLOCKED_DOWNSTREAM_RESULT_TYPE_CONTRACT"
+    },
+    {
+      "id": "P117-B27",
+      "severity": "HIGH",
+      "attack": "Producer output schema differs from the frozen expected schema.",
+      "expected": "BLOCKED_PRODUCER_OUTPUT_SCHEMA_MISMATCH"
+    },
+    {
+      "id": "P117-B28",
+      "severity": "CRITICAL",
+      "attack": "Runtime/dependency lock is absent or changes after plan freeze.",
+      "expected": "BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED"
+    },
+    {
+      "id": "P117-B29",
+      "severity": "CRITICAL",
+      "attack": "Hash-only external result is accepted without replay or qualified trust root.",
+      "expected": "REJECT_DIGEST_ONLY_EXTERNAL_AUTHORITY"
+    },
+    {
+      "id": "P117-B30",
+      "severity": "HIGH",
+      "attack": "Local filesystem paths are incorporated as producer/result authority identity.",
+      "expected": "REJECT_PATH_AS_IDENTITY"
+    },
+    {
+      "id": "P117-B31",
+      "severity": "CRITICAL",
+      "attack": "Pre-execution and post-execution dataset file-set digests differ.",
+      "expected": "BLOCKED_SOURCE_IMMUTABILITY_FAILURE"
+    },
+    {
+      "id": "P117-B32",
+      "severity": "CRITICAL",
+      "attack": "Output status is not AP1_COMPLETE but result is marked EXECUTED.",
+      "expected": "BLOCKED_PRODUCER_OUTPUT_STATUS_MISMATCH"
+    }
+  ],
+  "mandatory_distinctions": [
+    "DATA_ADMISSION != PRODUCER_EXECUTION",
+    "PRODUCER_EXECUTION != P1_FINDING",
+    "EXECUTED != SUPPORTED",
+    "SUPPORTED != VALIDATED_STRATEGY",
+    "AVAILABLE_PRODUCER != QUALIFIED_PRODUCER",
+    "QUALIFIED_PRODUCER != AUTHORIZED_REAL_EXECUTION",
+    "RUNTIME_ATTESTATION != DURABLE_RECONSTRUCTION",
+    "P1_AUTHORITY != TRADING_AUTHORITY"
+  ],
+  "future_test_first_rule": [
+    "materialize executable breakers unchanged",
+    "observe RED before P1.12C implementation",
+    "persist RED",
+    "implement minimal owner boundary",
+    "replay unchanged breakers",
+    "protected-owner regression",
+    "persisted-head rebreak"
+  ],
+  "authority": "NONE",
+  "unknown_unknown_coverage": "NOT_CLAIMED"
+}

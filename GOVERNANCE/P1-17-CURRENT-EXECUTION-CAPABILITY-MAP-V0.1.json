@@ -1,0 +1,102 @@
+{
+  "schema": "ATDS_P1_17_CURRENT_EXECUTION_CAPABILITY_MAP_V0_1",
+  "status": "DOCUMENTARY_ANALYSIS_COMPLETE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "9e104a74dd9ccfee1d3a38e7b4786a817e51d1fe",
+    "tree": "91aed9f7ccd138201584c5eac8a19a85c2b08b11"
+  },
+  "target": {
+    "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "producer_id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1"
+  },
+  "exact_identities": {
+    "rvo05_runtime_blob": "b7ee009f0f07fc47e1816740812fcc543e8d6d54",
+    "rvo05_breaker_blob": "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d",
+    "rvo05_readiness_blob": "e07673ef19954aa14a24af90ba59d29084527f20",
+    "rvo05_closure_receipt_blob": "a16ac7bc464822bd9235335538c754c98cbfec05",
+    "rvo05_closure_report_blob": "baaa4d8bb2d4860eb62157c2540de14aa2cc8f71",
+    "data02_runtime_blob": "6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "p1_10b_blob": "5419ad7caf4dbfa2a621b060d3f42bc090e97077",
+    "p1_11b_blob": "6700fbbef314bc9c6e5b7f6f374e71cfabee0f92",
+    "p1_12b_blob": "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+    "p1_13b_blob": "968ef47d0fc4e066374b7471110c71d0eaf28865",
+    "p1_14b_blob": "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+    "p1_15b_blob": "bfab3c421263434d5e3e3066720f95abb521b09c",
+    "p1_16_blob": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+    "research_input_binding_blob": "5f68d9db03badc5f266d6e6bf2e6fe1d40e092db",
+    "research_execution_blob": "6ca117f2cd760b299b14933f308cfc1b2466ae0d",
+    "research_engine_blob": "6e0a4c68ca75cea27b7691477f98e5566f2b8cac",
+    "research_interprocess_blob": "34c304f846228382a6c7dfe40f7c667b1a487802",
+    "interprocess_contract_blob": "599e58989ce3f151aac15e3aaa42c27e3c5f7c12"
+  },
+  "capabilities": [
+    {
+      "surface": "P1.10B ExperimentExecutionBinding",
+      "capability": "Binds exact ExperimentSpecification to exact factory-bound resource identity and revalidates source bytes.",
+      "ap0_compatibility": "YES_AT_RESOURCE_BINDING_LEVEL",
+      "execution": false,
+      "authority": false
+    },
+    {
+      "surface": "P1.11B QualifiedExperimentExecutionInput",
+      "capability": "Revalidates bound corpus/contract identities and snapshots the exact experiment binding.",
+      "ap0_compatibility": "YES_AT_PRE_EXECUTION_IDENTITY_LEVEL",
+      "execution": false,
+      "authority": false
+    },
+    {
+      "surface": "P1.12B LinkedExperimentExecution",
+      "capability": "Executes only through QualifiedResearchInput -> run_qualified_research -> BI5ResearchEngine.",
+      "ap0_compatibility": "NO",
+      "blocker": "BI5ResearchEngine enumerates *.bi5 and requires at least one decoded tick.",
+      "output_type": "LinkedExperimentExecutionResult",
+      "authority": false
+    },
+    {
+      "surface": "P1.13B ExperimentEvaluationSubmission",
+      "capability": "Accepts exact currently-attested LinkedExperimentExecutionResult from P1.12B only.",
+      "producer_result_compatibility": "NO_NEW_RESULT_TYPE",
+      "blocker": "Exact-type and P1.12B attestation coupling."
+    },
+    {
+      "surface": "DATA-02",
+      "capability": "Can bind a result identity to exact admitted dataset lineage/claim scope through validate_result_binding.",
+      "proves_producer_execution": false,
+      "scientific_authority": false
+    },
+    {
+      "surface": "AP1 producer",
+      "capability": "Standalone deterministic descriptive CLI over exact AP0 Parquet surface; validates AP0 identities and writes one JSON result.",
+      "p1_interface": "NONE",
+      "result_schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "result_identity_boundary": "NONE_P1_NATIVE",
+      "execution_receipt": "NONE_P1_NATIVE",
+      "testability_note": "Exact helper hard-codes the real AP0 identity, 61 files, 1,709,180 rows, 376,003,618 source ticks, 1,606 segments and exact F2 spread reconciliation constants."
+    },
+    {
+      "surface": "P0.5 ResearchInterprocess",
+      "capability": "Persisted external proof is non-authorizing until deterministic replay against independently supplied trusted input/code identity.",
+      "architectural_precedent": "CHECKSUM_ONLY_EXTERNAL_RESULT_IS_INSUFFICIENT"
+    }
+  ],
+  "current_gap_graph": [
+    "P1.10B_RESOURCE_BINDING -> PASS_FOR_AP0_IDENTITY",
+    "P1.11B_QUALIFIED_INPUT -> PASS_FOR_AP0_IDENTITY",
+    "P1.12B_EXECUTION -> BLOCKED_BI5_ONLY",
+    "AP1_STANDALONE_PRODUCER -> AVAILABLE_BUT_NOT_P1_QUALIFIED",
+    "P1.13B_DOWNSTREAM -> COUPLED_TO_P1.12B_RESULT_TYPE"
+  ],
+  "owner_rules": {
+    "data_owner": "DATA retains dataset identity/admissibility/provenance.",
+    "p1_owner": "P1 retains experiment lifecycle and qualified execution/result boundaries.",
+    "producer_owner": "AP1 retains descriptive computation semantics.",
+    "rvo_owner": "RVO may bind/rout but may not execute or grant producer authority."
+  },
+  "unknown_unknown_coverage": "NOT_CLAIMED",
+  "authority": "NONE"
+}

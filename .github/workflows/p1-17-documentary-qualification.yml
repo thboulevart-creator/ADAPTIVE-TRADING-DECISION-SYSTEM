@@ -1,0 +1,151 @@
+name: P1-17 Documentary Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p1-17-documentary-qualification.yml'
+      - 'GOVERNANCE/P1-17-*'
+      - 'reports/program/*P1-17*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  P1_17_AUTHORIZED_PARENT: '9e104a74dd9ccfee1d3a38e7b4786a817e51d1fe'
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  p1-17-documentary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove persisted HEAD and authorized ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P1_17_AUTHORIZED_PARENT}" HEAD
+
+      - name: Prove exact RVO-05 identities
+        run: |
+          test "$(git hash-object src/rvo_05_cc02_bindings.py)" = "b7ee009f0f07fc47e1816740812fcc543e8d6d54"
+          test "$(git hash-object breakers/rvo_05_integration_breaker.py)" = "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d"
+          test "$(git hash-object GOVERNANCE/RVO-05-FIRST-REAL-CC02-PRE-EXECUTION-READINESS-V0.1.md)" = "e07673ef19954aa14a24af90ba59d29084527f20"
+          test "$(git hash-object reports/program/2026-10-04-RVO-05-FINAL-CLOSURE-RECEIPT-V0.1.json)" = "a16ac7bc464822bd9235335538c754c98cbfec05"
+          test "$(git hash-object reports/program/2026-10-04-RVO-05-FINAL-PERSISTED-STATE-REBREAK-CLOSURE.md)" = "baaa4d8bb2d4860eb62157c2540de14aa2cc8f71"
+
+      - name: Prove exact Data AP1 P1 and Research identities
+        run: |
+          test "$(git hash-object src/data/claim_scoped_admission.py)" = "6ce06e1583e61be9e8618136d1bc8fdda608ffd7"
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+          test "$(git hash-object src/experiment_execution_binding.py)" = "5419ad7caf4dbfa2a621b060d3f42bc090e97077"
+          test "$(git hash-object src/qualified_experiment_execution_input.py)" = "6700fbbef314bc9c6e5b7f6f374e71cfabee0f92"
+          test "$(git hash-object src/linked_experiment_execution.py)" = "f2fa07178134e04963d42d1fbdda1a8f7bad179d"
+          test "$(git hash-object src/experiment_evaluation_submission.py)" = "968ef47d0fc4e066374b7471110c71d0eaf28865"
+          test "$(git hash-object src/experiment_measurement_provenance.py)" = "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5"
+          test "$(git hash-object src/experiment_evaluator_authority.py)" = "bfab3c421263434d5e3e3066720f95abb521b09c"
+          test "$(git hash-object src/qualified_experimental_finding.py)" = "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f"
+          test "$(git hash-object src/research/input_binding.py)" = "5f68d9db03badc5f266d6e6bf2e6fe1d40e092db"
+          test "$(git hash-object src/research/execution.py)" = "6ca117f2cd760b299b14933f308cfc1b2466ae0d"
+          test "$(git hash-object src/research/engine.py)" = "6e0a4c68ca75cea27b7691477f98e5566f2b8cac"
+          test "$(git hash-object src/research_interprocess.py)" = "34c304f846228382a6c7dfe40f7c667b1a487802"
+          test "$(git hash-object 04-REFERENCE/RESEARCH-INTERPROCESS-REATTESTATION-CONTRACT.md)" = "599e58989ce3f151aac15e3aaa42c27e3c5f7c12"
+
+      - name: Prove exact P1-17 documentary artifact identities
+        run: |
+          test "$(git hash-object GOVERNANCE/P1-17-CURRENT-EXECUTION-CAPABILITY-MAP-V0.1.json)" = "355c87bde7cf78b8652884c83f4c0ed8ee9f86fd"
+          test "$(git hash-object GOVERNANCE/P1-17-QUALIFIED-PRODUCER-EXECUTION-BOUNDARY-DESIGN-V0.1.md)" = "107815f3b53dd5718189332880b968d4387de92c"
+          test "$(git hash-object GOVERNANCE/P1-17-QUALIFIED-PRODUCER-EXECUTION-CONTRACT-V0.1.json)" = "164bb9027bb7a241b3a14b1f6704e9be8b2bef7d"
+          test "$(git hash-object GOVERNANCE/P1-17-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "9ab0f9018dd6e9def4a5e35b8e9a35c3beb556bc"
+          test "$(git hash-object reports/program/2026-10-04-P1-17-SYNTHETIC-IMPLEMENTATION-READINESS.md)" = "b5d93f4d6fb9149fe1d43b79c476c2f9acbc6d47"
+          test "$(git hash-object reports/program/2026-10-04-P1-17-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.1.json)" = "efd52c7a7ad4833dda18a04bbe34fc1270638d3d"
+
+      - name: Prove P1-17 remains design-only
+        run: |
+          test ! -e src/qualified_producer_execution.py
+          test ! -e src/p1_12c_qualified_producer_execution.py
+          test ! -e breakers/p1_17_qualified_producer_execution_breaker.py
+
+      - name: Verify frozen documentary semantics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          contract = json.loads(Path("GOVERNANCE/P1-17-QUALIFIED-PRODUCER-EXECUTION-CONTRACT-V0.1.json").read_text())
+          breaker = json.loads(Path("GOVERNANCE/P1-17-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json").read_text())
+          capability = json.loads(Path("GOVERNANCE/P1-17-CURRENT-EXECUTION-CAPABILITY-MAP-V0.1.json").read_text())
+          receipt = json.loads(Path("reports/program/2026-10-04-P1-17-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.1.json").read_text())
+
+          assert contract["selected_architecture"]["option"] == "A_P1_INVOKES_QUALIFIED_PRODUCER"
+          assert contract["selected_architecture"]["boundary"] == "P1_12C_CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_V1"
+          assert contract["selected_architecture"]["p1_12b_change"] == "FORBIDDEN_BY_THIS_DESIGN"
+          assert contract["selected_architecture"]["option_b_digest_only"] == "REJECTED"
+          assert contract["result_contract"]["source_immutability_rule"] == "dataset_file_set_digest_before == dataset_file_set_digest_after"
+          assert contract["reconstruction"]["persisted_proof_authority"] is False
+          assert contract["downstream_gap"]["p1_12c_result_directly_accepted"] is False
+          assert contract["synthetic_readiness"]["exact_ap1_small_fixture"] == "BLOCKED"
+
+          assert breaker["status"] == "FROZEN_DOCUMENTARY_PRE_IMPLEMENTATION"
+          assert breaker["implementation_present"] is False
+          assert breaker["red_executed"] is False
+          assert len(breaker["cases"]) == 32
+          assert [x["id"] for x in breaker["cases"]] == [f"P117-B{i:02d}" for i in range(1,33)]
+          assert len({x["expected"] for x in breaker["cases"]}) == 32
+
+          assert capability["authority"] == "NONE"
+          assert receipt["decision"]["option_a"] == "SELECTED"
+          assert receipt["readiness"]["exact_ap1_execution"] == "NOT_AUTHORIZED"
+          assert receipt["owner_changes"] == {
+              "p1": False,
+              "data": False,
+              "rvo": False,
+              "smf": False,
+              "temporal": False,
+              "ap1": False,
+              "research_execution": False,
+          }
+          print("PASS: P1-17 documentary semantics")
+          PY
+
+      - name: Prove bounded P1-17 delta only
+        run: |
+          python - <<'PY'
+          import subprocess
+          parent = "9e104a74dd9ccfee1d3a38e7b4786a817e51d1fe"
+          changed = subprocess.check_output(["git","diff","--name-only",f"{parent}..HEAD"],text=True).splitlines()
+          allowed = {
+              ".github/workflows/p1-17-documentary-qualification.yml",
+              "GOVERNANCE/P1-17-CURRENT-EXECUTION-CAPABILITY-MAP-V0.1.json",
+              "GOVERNANCE/P1-17-QUALIFIED-PRODUCER-EXECUTION-BOUNDARY-DESIGN-V0.1.md",
+              "GOVERNANCE/P1-17-QUALIFIED-PRODUCER-EXECUTION-CONTRACT-V0.1.json",
+              "GOVERNANCE/P1-17-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json",
+              "reports/program/2026-10-04-P1-17-SYNTHETIC-IMPLEMENTATION-READINESS.md",
+              "reports/program/2026-10-04-P1-17-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.1.json",
+          }
+          extra = sorted(set(changed) - allowed)
+          if extra:
+              raise SystemExit("UNAUTHORIZED_P1_17_DELTA:" + ",".join(extra))
+          print("PASS: P1-17 delta is documentary-only")
+          PY
+
+      - name: Prove no empirical execution occurred in workflow
+        run: |
+          test ! -e /tmp/ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          echo "PASS: no AP1 execution path invoked"
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
