@@ -1,0 +1,78 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_FINAL_PRE_ADOPTION_SCOPE_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "date": "2026-10-03",
+  "branch": "feat/obsidian-projection-rpe03-ancestry-classifier-v0.1",
+  "lineage": {
+    "prior_targeted_delta_packet_head": "f66bca8b2e10290d92aa687a448916ed137507a4",
+    "final_external_review_persistence_head": "c001caad21b50d009b0ade3cebee94ac0791b864",
+    "nb6_test_only_head": "d8356f26dc19b3a5df05c9d7996d92e51c65a62a"
+  },
+  "external_review": {
+    "verdict": "PASS_WITH_NON_BLOCKING_NOTES",
+    "blocking_findings": "NONE",
+    "adoption_readiness": "YES",
+    "persisted_review_blob": "980e0d65da684fac88f16422f4843983c9ecbc8d",
+    "internal_adjudication_blob": "8228fae41f7c81598e871858c9cdf2ef4ca74d48"
+  },
+  "implementation": {
+    "classifier_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "functional_code_changed_after_external_delta_review": false
+  },
+  "nb6": {
+    "disposition": "CLOSED_TEST_ONLY",
+    "test_blob": "b7724499e0fe15b069689afb2f222ed2f4223eeb",
+    "functional_tests": "3/3 PASS",
+    "exact_bare_root": "ALLOWED",
+    "bare_subdirectory": "UNKNOWN",
+    "mutation": "removal of bare git_dir == supplied path condition is killed",
+    "code_change_required": false
+  },
+  "nb1_prime_scope": {
+    "rpe03_supplied_path_confinement": "QUALIFIED",
+    "rpe03_physical_object_store_containment": "NOT_CLAIMED",
+    "physical_indirections_outside_rpe03_claim": [
+      "SYMLINK",
+      "JUNCTION",
+      "REPARSE_POINT",
+      "EQUIVALENT_FILESYSTEM_REDIRECTION"
+    ],
+    "carried_to_rpe04": true
+  },
+  "rpe04_mandatory_preconditions": {
+    "git_executable_identity": "EXPLICIT_AND_GOVERNED",
+    "minimum_supported_git_version": "PREREGISTERED_AND_VERIFIED",
+    "local_repository_config": "CONTROLLED_DOMAIN_REQUIRED",
+    "include_path_includeif": "MUST_NOT_INTRODUCE_UNGOVERNED_AUTHORITY_OR_PROVENANCE",
+    "filesystem_object_domain_indirection": "ABSENT_OR_EXPLICITLY_GOVERNED_AND_QUALIFIED",
+    "required_control_surfaces": [
+      ".git",
+      "objects",
+      "objects/pack",
+      "objects/info",
+      "BARE_REPOSITORY_EQUIVALENTS"
+    ],
+    "semantic_separation": "PATH_IDENTITY != PHYSICAL_OBJECT_STORE_CONTAINMENT",
+    "forbidden_inference": "RPE03_CLASSIFIED does not imply objects physically materialized in isolated domain"
+  },
+  "final_evidence": {
+    "dedicated_rpe03_surface": "38/38 PASS",
+    "full_targeted_regression": "151/151 PASS",
+    "p5e_contract_diff": 0,
+    "p5e_synthetic_model_diff": 0,
+    "p5d4_runtime_diff": 0
+  },
+  "authority_boundary": {
+    "rpe03_human_adopted": false,
+    "rpe03_closed": false,
+    "rpe04_opened": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_authorized": false,
+    "network_runtime_authorized": false,
+    "p5d4_real_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false
+  },
+  "next_gate": "HUMAN_ADOPTION_RPE03",
+  "stop": true
+}

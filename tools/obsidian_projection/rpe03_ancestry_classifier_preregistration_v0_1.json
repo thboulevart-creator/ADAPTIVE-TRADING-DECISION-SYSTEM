@@ -1,0 +1,120 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_ANCESTRY_CLASSIFIER_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "base": {
+    "rpe01_adoption_commit": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25",
+    "rpe01_adoption_blob": "49203ebc2fb208c5dd23ded140295ac00c0afab6",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+    "p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9"
+  },
+  "authority": {
+    "stage": "RPE-03",
+    "rpe03_implementation_authorized": true,
+    "rpe04_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "network_inside_classifier_authorized": false,
+    "real_p5e_authorized": false,
+    "real_p5d4_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false
+  },
+  "governed_config": {
+    "authorized_entrypoint": "validate_governed_json(raw_document, raw_schema)",
+    "private_guard_functions_forbidden": true,
+    "validate_schema_definition_not_document_entrypoint": true,
+    "runtime_preregistration_path": "tools/obsidian_projection/rpe03_ancestry_classifier_preregistration_v0_1.json",
+    "runtime_schema_path": "tools/obsidian_projection/rpe03_ancestry_classifier_preregistration_v0_1_schema_v0_1.json",
+    "environment_config_authority_forbidden": true,
+    "cli_config_authority_forbidden": true,
+    "unlisted_file_config_authority_forbidden": true
+  },
+  "classification": {
+    "outputs": [
+      "INITIAL",
+      "SAME",
+      "FAST_FORWARD",
+      "NON_FAST_FORWARD",
+      "UNKNOWN"
+    ],
+    "previous_null": "INITIAL_AFTER_NEW_COMMIT_AND_DOMAIN_VERIFIED",
+    "same_exact_head": "SAME_AFTER_COMMIT_AND_DOMAIN_VERIFIED",
+    "merge_base_exit_0": "FAST_FORWARD",
+    "merge_base_exit_1": "NON_FAST_FORWARD",
+    "merge_base_other_exit": "UNKNOWN",
+    "invalid_or_unprovable_domain": "UNKNOWN",
+    "invalid_head_format": "UNKNOWN"
+  },
+  "git_execution": {
+    "git_executable_token": "git",
+    "command_timeout_milliseconds": 5000,
+    "network_commands_forbidden": true,
+    "allowed_git_command_families": [
+      "rev-parse",
+      "cat-file",
+      "merge-base --is-ancestor"
+    ],
+    "commit_graph_disabled": true,
+    "replace_objects_disabled": true,
+    "system_git_config_disabled": true,
+    "global_git_config_disabled": true,
+    "terminal_prompt_disabled": true,
+    "optional_locks_disabled": true
+  },
+  "environment_isolation": {
+    "strip_all_inherited_git_prefixed_variables": true,
+    "explicit_git_environment": [
+      "GIT_NO_REPLACE_OBJECTS=1",
+      "GIT_CONFIG_NOSYSTEM=1",
+      "GIT_CONFIG_GLOBAL=os.devnull",
+      "GIT_TERMINAL_PROMPT=0",
+      "GIT_OPTIONAL_LOCKS=0"
+    ],
+    "non_git_process_plumbing_may_be_preserved": true,
+    "git_prefixed_environment_may_not_supply_normative_authority": true
+  },
+  "verified_domain": {
+    "repository_must_resolve": true,
+    "git_dir_must_equal_common_dir": true,
+    "linked_worktree_common_dir_mismatch_result": "UNKNOWN",
+    "shallow_repository_result": "UNKNOWN",
+    "info_grafts_presence_result": "UNKNOWN",
+    "objects_info_alternates_presence_result": "UNKNOWN",
+    "new_object_must_exist_and_be_commit": true,
+    "previous_object_when_present_must_exist_and_be_commit": true,
+    "missing_object_result": "UNKNOWN",
+    "non_commit_result": "UNKNOWN",
+    "timeout_result": "UNKNOWN",
+    "corruption_or_command_error_result": "UNKNOWN"
+  },
+  "local_fixture_cases": [
+    "null to A -> INITIAL",
+    "A to A -> SAME",
+    "A to B -> FAST_FORWARD",
+    "B to A rollback -> NON_FAST_FORWARD",
+    "B to C divergent siblings -> NON_FAST_FORWARD",
+    "missing previous -> UNKNOWN",
+    "missing new -> UNKNOWN",
+    "blob object -> UNKNOWN",
+    "replace ref present but neutralized",
+    "shallow marker -> UNKNOWN",
+    "graft presence -> UNKNOWN",
+    "alternates file presence -> UNKNOWN",
+    "inherited GIT_DIR/GIT_OBJECT_DIRECTORY/GIT_ALTERNATE_OBJECT_DIRECTORIES neutralized",
+    "timeout -> UNKNOWN",
+    "corrupt requested object -> UNKNOWN",
+    "commit graph command influence disabled",
+    "network command absence static check"
+  ],
+  "mandatory_breakers": [
+    "caller cannot forge transition class",
+    "merge-base exit 1 only maps NON_FAST_FORWARD after both commits and domain verified",
+    "missing object never maps NON_FAST_FORWARD",
+    "non-commit never maps NON_FAST_FORWARD",
+    "shallow/graft/alternate domain never maps FAST_FORWARD or NON_FAST_FORWARD",
+    "inherited GIT environment cannot redirect object domain",
+    "replace refs cannot alter ancestry",
+    "timeout/corruption fail closed to UNKNOWN",
+    "no fetch/ls-remote/network API inside classifier"
+  ],
+  "stop": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}

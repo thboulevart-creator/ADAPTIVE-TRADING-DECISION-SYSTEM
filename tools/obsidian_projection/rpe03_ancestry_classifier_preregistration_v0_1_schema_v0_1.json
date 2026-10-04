@@ -1,0 +1,407 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE03_ANCESTRY_CLASSIFIER_PREREGISTRATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE03_ANCESTRY_CLASSIFIER_PREREGISTRATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_RED"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe01_adoption_commit": {
+            "kind": "string",
+            "const": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25"
+          },
+          "rpe01_adoption_blob": {
+            "kind": "string",
+            "const": "49203ebc2fb208c5dd23ded140295ac00c0afab6"
+          },
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          },
+          "p5e_contract_blob": {
+            "kind": "string",
+            "const": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9"
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "stage": {
+            "kind": "string",
+            "const": "RPE-03"
+          },
+          "rpe03_implementation_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "network_inside_classifier_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5d4_state_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "vault_or_current_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "governed_config": {
+        "kind": "object",
+        "fields": {
+          "authorized_entrypoint": {
+            "kind": "string",
+            "const": "validate_governed_json(raw_document, raw_schema)"
+          },
+          "private_guard_functions_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "validate_schema_definition_not_document_entrypoint": {
+            "kind": "boolean",
+            "const": true
+          },
+          "runtime_preregistration_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe03_ancestry_classifier_preregistration_v0_1.json"
+          },
+          "runtime_schema_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe03_ancestry_classifier_preregistration_v0_1_schema_v0_1.json"
+          },
+          "environment_config_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "cli_config_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "unlisted_file_config_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "classification": {
+        "kind": "object",
+        "fields": {
+          "outputs": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 5,
+            "max_items": 5,
+            "unique": true,
+            "ordered_const": [
+              "INITIAL",
+              "SAME",
+              "FAST_FORWARD",
+              "NON_FAST_FORWARD",
+              "UNKNOWN"
+            ],
+            "allowed_values": [
+              "INITIAL",
+              "SAME",
+              "FAST_FORWARD",
+              "NON_FAST_FORWARD",
+              "UNKNOWN"
+            ]
+          },
+          "previous_null": {
+            "kind": "string",
+            "const": "INITIAL_AFTER_NEW_COMMIT_AND_DOMAIN_VERIFIED"
+          },
+          "same_exact_head": {
+            "kind": "string",
+            "const": "SAME_AFTER_COMMIT_AND_DOMAIN_VERIFIED"
+          },
+          "merge_base_exit_0": {
+            "kind": "string",
+            "const": "FAST_FORWARD"
+          },
+          "merge_base_exit_1": {
+            "kind": "string",
+            "const": "NON_FAST_FORWARD"
+          },
+          "merge_base_other_exit": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "invalid_or_unprovable_domain": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "invalid_head_format": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          }
+        }
+      },
+      "git_execution": {
+        "kind": "object",
+        "fields": {
+          "git_executable_token": {
+            "kind": "string",
+            "const": "git"
+          },
+          "command_timeout_milliseconds": {
+            "kind": "integer",
+            "const": 5000
+          },
+          "network_commands_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "allowed_git_command_families": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 3,
+            "max_items": 3,
+            "unique": true,
+            "ordered_const": [
+              "rev-parse",
+              "cat-file",
+              "merge-base --is-ancestor"
+            ],
+            "allowed_values": [
+              "rev-parse",
+              "cat-file",
+              "merge-base --is-ancestor"
+            ]
+          },
+          "commit_graph_disabled": {
+            "kind": "boolean",
+            "const": true
+          },
+          "replace_objects_disabled": {
+            "kind": "boolean",
+            "const": true
+          },
+          "system_git_config_disabled": {
+            "kind": "boolean",
+            "const": true
+          },
+          "global_git_config_disabled": {
+            "kind": "boolean",
+            "const": true
+          },
+          "terminal_prompt_disabled": {
+            "kind": "boolean",
+            "const": true
+          },
+          "optional_locks_disabled": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "environment_isolation": {
+        "kind": "object",
+        "fields": {
+          "strip_all_inherited_git_prefixed_variables": {
+            "kind": "boolean",
+            "const": true
+          },
+          "explicit_git_environment": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 5,
+            "max_items": 5,
+            "unique": true,
+            "ordered_const": [
+              "GIT_NO_REPLACE_OBJECTS=1",
+              "GIT_CONFIG_NOSYSTEM=1",
+              "GIT_CONFIG_GLOBAL=os.devnull",
+              "GIT_TERMINAL_PROMPT=0",
+              "GIT_OPTIONAL_LOCKS=0"
+            ],
+            "allowed_values": [
+              "GIT_NO_REPLACE_OBJECTS=1",
+              "GIT_CONFIG_NOSYSTEM=1",
+              "GIT_CONFIG_GLOBAL=os.devnull",
+              "GIT_TERMINAL_PROMPT=0",
+              "GIT_OPTIONAL_LOCKS=0"
+            ]
+          },
+          "non_git_process_plumbing_may_be_preserved": {
+            "kind": "boolean",
+            "const": true
+          },
+          "git_prefixed_environment_may_not_supply_normative_authority": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "verified_domain": {
+        "kind": "object",
+        "fields": {
+          "repository_must_resolve": {
+            "kind": "boolean",
+            "const": true
+          },
+          "git_dir_must_equal_common_dir": {
+            "kind": "boolean",
+            "const": true
+          },
+          "linked_worktree_common_dir_mismatch_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "shallow_repository_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "info_grafts_presence_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "objects_info_alternates_presence_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "new_object_must_exist_and_be_commit": {
+            "kind": "boolean",
+            "const": true
+          },
+          "previous_object_when_present_must_exist_and_be_commit": {
+            "kind": "boolean",
+            "const": true
+          },
+          "missing_object_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "non_commit_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "timeout_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "corruption_or_command_error_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          }
+        }
+      },
+      "local_fixture_cases": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 17,
+        "max_items": 17,
+        "unique": true,
+        "ordered_const": [
+          "null to A -> INITIAL",
+          "A to A -> SAME",
+          "A to B -> FAST_FORWARD",
+          "B to A rollback -> NON_FAST_FORWARD",
+          "B to C divergent siblings -> NON_FAST_FORWARD",
+          "missing previous -> UNKNOWN",
+          "missing new -> UNKNOWN",
+          "blob object -> UNKNOWN",
+          "replace ref present but neutralized",
+          "shallow marker -> UNKNOWN",
+          "graft presence -> UNKNOWN",
+          "alternates file presence -> UNKNOWN",
+          "inherited GIT_DIR/GIT_OBJECT_DIRECTORY/GIT_ALTERNATE_OBJECT_DIRECTORIES neutralized",
+          "timeout -> UNKNOWN",
+          "corrupt requested object -> UNKNOWN",
+          "commit graph command influence disabled",
+          "network command absence static check"
+        ],
+        "allowed_values": [
+          "null to A -> INITIAL",
+          "A to A -> SAME",
+          "A to B -> FAST_FORWARD",
+          "B to A rollback -> NON_FAST_FORWARD",
+          "B to C divergent siblings -> NON_FAST_FORWARD",
+          "missing previous -> UNKNOWN",
+          "missing new -> UNKNOWN",
+          "blob object -> UNKNOWN",
+          "replace ref present but neutralized",
+          "shallow marker -> UNKNOWN",
+          "graft presence -> UNKNOWN",
+          "alternates file presence -> UNKNOWN",
+          "inherited GIT_DIR/GIT_OBJECT_DIRECTORY/GIT_ALTERNATE_OBJECT_DIRECTORIES neutralized",
+          "timeout -> UNKNOWN",
+          "corrupt requested object -> UNKNOWN",
+          "commit graph command influence disabled",
+          "network command absence static check"
+        ]
+      },
+      "mandatory_breakers": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 9,
+        "max_items": 9,
+        "unique": true,
+        "ordered_const": [
+          "caller cannot forge transition class",
+          "merge-base exit 1 only maps NON_FAST_FORWARD after both commits and domain verified",
+          "missing object never maps NON_FAST_FORWARD",
+          "non-commit never maps NON_FAST_FORWARD",
+          "shallow/graft/alternate domain never maps FAST_FORWARD or NON_FAST_FORWARD",
+          "inherited GIT environment cannot redirect object domain",
+          "replace refs cannot alter ancestry",
+          "timeout/corruption fail closed to UNKNOWN",
+          "no fetch/ls-remote/network API inside classifier"
+        ],
+        "allowed_values": [
+          "caller cannot forge transition class",
+          "merge-base exit 1 only maps NON_FAST_FORWARD after both commits and domain verified",
+          "missing object never maps NON_FAST_FORWARD",
+          "non-commit never maps NON_FAST_FORWARD",
+          "shallow/graft/alternate domain never maps FAST_FORWARD or NON_FAST_FORWARD",
+          "inherited GIT environment cannot redirect object domain",
+          "replace refs cannot alter ancestry",
+          "timeout/corruption fail closed to UNKNOWN",
+          "no fetch/ls-remote/network API inside classifier"
+        ]
+      },
+      "stop": {
+        "kind": "string",
+        "const": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}

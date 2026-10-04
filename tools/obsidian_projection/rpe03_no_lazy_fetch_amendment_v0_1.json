@@ -1,0 +1,26 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_NO_LAZY_FETCH_AMENDMENT_V0_1",
+  "status": "PREREGISTERED_BEFORE_LAZY_FETCH_HARDENING",
+  "base": {
+    "rpe03_red_head": "55f00460dd1ae1004a2d450528937e7a870fc61d",
+    "rpe03_preregistration_blob": "4eca84a17f7d0c53a794f34af65d1d0a81302930"
+  },
+  "finding": {
+    "category": "IMPLICIT_NETWORK_PATH",
+    "mechanism": "Git may lazily obtain a missing object from a promisor remote on demand.",
+    "relevance": "RPE-03 forbids every network path inside the classifier."
+  },
+  "added_requirement": {
+    "environment_key": "GIT_NO_LAZY_FETCH",
+    "required_value": "1",
+    "applies_to_every_git_subprocess": true,
+    "inherited_value_must_be_removed_before_explicit_safe_value": true
+  },
+  "authority": {
+    "network_authorized": false,
+    "rpe04_authorized": false,
+    "real_p5e_authorized": false
+  },
+  "breaker": "Every captured classifier Git subprocess environment must contain GIT_NO_LAZY_FETCH=1; a mutant removing the explicit key must be killed.",
+  "stop": "REJOIN_RPE03_EXISTING_GREEN_AND_QUALIFICATION_FLOW"
+}

@@ -1,0 +1,93 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE03_NO_LAZY_FETCH_AMENDMENT",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE03_NO_LAZY_FETCH_AMENDMENT_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_LAZY_FETCH_HARDENING"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe03_red_head": {
+            "kind": "string",
+            "const": "55f00460dd1ae1004a2d450528937e7a870fc61d"
+          },
+          "rpe03_preregistration_blob": {
+            "kind": "string",
+            "const": "4eca84a17f7d0c53a794f34af65d1d0a81302930"
+          }
+        }
+      },
+      "finding": {
+        "kind": "object",
+        "fields": {
+          "category": {
+            "kind": "string",
+            "const": "IMPLICIT_NETWORK_PATH"
+          },
+          "mechanism": {
+            "kind": "string",
+            "const": "Git may lazily obtain a missing object from a promisor remote on demand."
+          },
+          "relevance": {
+            "kind": "string",
+            "const": "RPE-03 forbids every network path inside the classifier."
+          }
+        }
+      },
+      "added_requirement": {
+        "kind": "object",
+        "fields": {
+          "environment_key": {
+            "kind": "string",
+            "const": "GIT_NO_LAZY_FETCH"
+          },
+          "required_value": {
+            "kind": "string",
+            "const": "1"
+          },
+          "applies_to_every_git_subprocess": {
+            "kind": "boolean",
+            "const": true
+          },
+          "inherited_value_must_be_removed_before_explicit_safe_value": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "network_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe04_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "breaker": {
+        "kind": "string",
+        "const": "Every captured classifier Git subprocess environment must contain GIT_NO_LAZY_FETCH=1; a mutant removing the explicit key must be killed."
+      },
+      "stop": {
+        "kind": "string",
+        "const": "REJOIN_RPE03_EXISTING_GREEN_AND_QUALIFICATION_FLOW"
+      }
+    }
+  }
+}
