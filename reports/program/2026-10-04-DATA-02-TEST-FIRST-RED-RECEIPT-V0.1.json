@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_DATA_02_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "OBSERVED_RED_PERSISTED_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_expectation": {
+    "head": "dc33c5ff71bf55a273fddbd05a9e9aa0e2f62351",
+    "tree": "26710b4905f68ff9682e3b808502b2a7b24ee135"
+  },
+  "fresh_preflight_parent": {
+    "head": "1a68c13150b3897880bd3eb6667dfe64b2af923d",
+    "tree": "f44e05a0ee7c8da6f3d6993ab1f8fb1e71d4f9cd",
+    "expected_parent_is_ancestor": true,
+    "concurrent_drift_classification": "NON_MATERIAL_TO_DATA02",
+    "drift_paths": [
+      "GOVERNANCE/ATDS-AO-00-TARGETED-DELTA-CONTRACT-V0.2-R2.1.md",
+      "GOVERNANCE/ATDS-AO-00-V0.2-R2.1-HUMAN-ADOPTION-2026-10-04.md",
+      "reports/program/2026-10-04-ATDS-AO-00-V0.2-R2.1-PERSISTENCE-RECONCILIATION.md"
+    ],
+    "rationale": [
+      "The drift is a single append-only AO governance commit.",
+      "No RVO-04 or DATA-01 artifact identity changed.",
+      "No Data runtime or selected AP0/AP1 surface changed.",
+      "The AO adoption itself grants no backtest/OOS/runtime/trading/capital authority and explicitly treats DATA-01 as a separate blocker."
+    ]
+  },
+  "frozen_inputs": {
+    "data01_requirements_map_blob": "2d6d43d783281ee3dfd4028bc9b84c4dce495b87",
+    "data01_contract_blob": "ec013c8db53b482770a62016db50b113b19ecd7f",
+    "data01_data_temporal_boundary_blob": "4bdb9d6c7448759c0349048fd4f48abba296c0cf",
+    "data01_frozen_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2"
+  },
+  "red_surface": {
+    "fixture_blob": "824bf1e9b4832cfaa5185cc80ee3d84f46489d7c",
+    "executable_breaker_blob": "0fa595ab4f801def50e43d1f60e8e4900cffa641",
+    "red_workflow_blob": "e731e42508e7b48aa2267a7400fdd4632a29ed8a",
+    "red_commit": "1e725743c51364e3ea0576c8acd9a40e3e9e6094",
+    "red_tree": "cb6ad302994853c7ea4f88a05348f6c28a3425b9"
+  },
+  "observed_red": {
+    "workflow_run_id": 37223107683,
+    "job_id": 111497236257,
+    "workflow_conclusion": "SUCCESS_EXPECTED_RED_PROOF",
+    "pytest_result": "32_FAILED",
+    "failure_marker": "DATA02_RUNTIME_ABSENT_EXPECTED_RED",
+    "frozen_cases_materialized": 32,
+    "runtime_path": "src/data/claim_scoped_admission.py",
+    "runtime_present": false,
+    "meaning": "The executable 32-case frozen breaker surface existed and failed because the authorized DATA-02 runtime had not yet been implemented."
+  },
+  "test_first_integrity": {
+    "breaker_materialized_before_runtime": true,
+    "runtime_absence_proven": true,
+    "frozen_data01_contract_modified": false,
+    "frozen_breaker_intent_modified": false,
+    "red_is_not_a_scientific_result": true
+  },
+  "authority": {
+    "implementation_not_yet_present": true,
+    "real_data_consumed": false,
+    "real_experiment": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "rvo_authority": "NONE"
+  }
+}
