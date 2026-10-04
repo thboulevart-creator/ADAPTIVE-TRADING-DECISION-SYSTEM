@@ -1,0 +1,93 @@
+{
+  "schema": "ATDS_RVO_02_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_FINAL_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "7ce4665bff29e7e2cbd5e327764b8f2a5fbbf18b",
+    "tree": "a2e9aa4e79aed61f59eb34c96891c326a3c60847"
+  },
+  "frozen_prerequisites": {
+    "rvo_r1_adoption_blob": "d83685b23938b4b7baa9ab098416aa1e1178ab67",
+    "rvo_01_breaker_contract_blob": "975dbd74abc999d0b907bae360b23abd224dbc5d",
+    "rvo_01_qualification_blob": "64937939d981319ae4476b2de535d8b666fe06c4"
+  },
+  "executable_surface": {
+    "breaker_blob": "c5835e8a0a9c3ff26201a5860d0866478b3cdacb",
+    "fixture_blob": "47af02f575943c89a5647664710a15036cf4332e",
+    "runtime_blob": "20766da0d609d0056e40df0115a3151d5c703938",
+    "positive_test_blob": "c95300922fcf7707c4317cfbf20510ad6cba91db",
+    "workflow_blob": "ec86e6c7e20b81949bd3c291d64551072635e2a0",
+    "red_report_blob": "24f9acaeba61f85f1d4c609532d5b95ca1c9a3b4"
+  },
+  "observed_red": {
+    "commit": "17c1d6bb84ddf2ff659c5828ea69fc35cfd8c52e",
+    "tree": "db9fe0ab5871e5daeda90e9659f11cea2ee71b1a",
+    "workflow_run_id": 37205150614,
+    "job_id": 111444689946,
+    "conclusion": "FAILURE_EXPECTED",
+    "pytest": {
+      "passed": 1,
+      "failed": 1,
+      "skipped": 45
+    },
+    "failure_code": "RVO_RUNTIME_ABSENT",
+    "assessment": "VALID_TEST_FIRST_RED"
+  },
+  "intermediate_green_attempt": {
+    "commit": "cd764f240c28503600d7b0d02ae3784b455f9234",
+    "workflow_run_id": 37205482876,
+    "job_id": 111445677070,
+    "rvo_breaker": {
+      "passed": 47,
+      "failed": 0
+    },
+    "protected_owner_regression": {
+      "passed": 320,
+      "failed": 0
+    },
+    "overall_conclusion": "FAILURE_UNRELATED_FULL_REPOSITORY_DEPENDENCY_SCOPE",
+    "observed_issue": "Six unrelated test modules required numpy, which is not present in the exact P0.6 qualification lock used by the RVO workflow.",
+    "corrective_action": "Workflow-only regression scope correction to explicit RVO-relevant protected-owner surfaces; frozen breaker and runtime blobs unchanged."
+  },
+  "observed_green": {
+    "commit": "6a946754b975e5ec7b71ddc71aa7accaf0c7fba3",
+    "tree": "417bb7b4c88204b21796381152688038c7cf2771",
+    "workflow_run_id": 37205576952,
+    "job_id": 111445954399,
+    "conclusion": "SUCCESS",
+    "frozen_breaker": {
+      "passed": 47,
+      "failed": 0
+    },
+    "positive_synthetic": {
+      "passed": 4,
+      "failed": 0
+    },
+    "protected_owner_regression": {
+      "passed": 320,
+      "failed": 0
+    }
+  },
+  "qualification_semantics": {
+    "pass": "NO_MATERIAL_FAILURE_FOUND_WITHIN_THE_EXACT_IMPLEMENTED_AND_ACTUALLY_TESTED_SYNTHETIC_RVO_SURFACE",
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "rvo_authority": "NONE",
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "real_strategy_execution": false,
+    "real_backtest": false,
+    "real_performance_observation": false,
+    "oos_consumption": false,
+    "broker_live_capital": false
+  },
+  "final_rebreak_requirement": {
+    "exact_persisted_head_required": true,
+    "executable_breaker_blob_must_remain": "c5835e8a0a9c3ff26201a5860d0866478b3cdacb",
+    "runtime_blob_must_remain": "20766da0d609d0056e40df0115a3151d5c703938",
+    "protected_owner_regression_required": true,
+    "positive_synthetic_required": true
+  },
+  "next_frontier": "RVO-03_NOT_AUTHORIZED"
+}
