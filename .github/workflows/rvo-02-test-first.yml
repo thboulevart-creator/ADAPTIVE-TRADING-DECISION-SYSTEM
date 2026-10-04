@@ -10,6 +10,7 @@ on:
       - 'GOVERNANCE/RVO-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json'
       - 'src/rvo_orchestrator.py'
       - 'tests/rvo_runtime_fixture.py'
+      - 'tests/test_rvo_orchestrator.py'
       - 'breakers/rvo_02_frozen_breaker_v0_1.py'
       - 'reports/program/*RVO-02*'
       - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
@@ -61,12 +62,12 @@ jobs:
       - name: Execute frozen RVO-02 breaker
         run: python -m pytest -q breakers/rvo_02_frozen_breaker_v0_1.py
 
-      - name: Re-break protected owner surfaces
+      - name: Positive synthetic RVO qualification
+        run: python -m pytest -q tests/test_rvo_orchestrator.py
+
+      - name: Full relevant protected-owner regression
         run: |
           python -m pytest -q             breakers/p1_16_qualified_experimental_finding_breaker.py             breakers/smf03_core_foundation_red_breaker.py             breakers/smf03_dependence_inference_red_breaker.py             breakers/smf03_evidence_governance_red_breaker.py             breakers/mcepr_registry_breaker_v0_1.py             breakers/p22_01_pure_state_projector_red_breaker.py             breakers/p22_02_identity_state_verifier_red_breaker.py             breakers/p22_03_evidence_envelope_recorder_red_breaker.py             tests/test_dataset_admissibility.py
-
-      - name: Full repository regression
-        run: python -m pytest -q
 
       - name: Prove clean worktree
         if: always()
