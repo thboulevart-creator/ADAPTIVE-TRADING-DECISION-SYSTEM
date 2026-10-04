@@ -1,0 +1,369 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE04_REAL_REMOTE_OBSERVATION_ADAPTER_QUALIFICATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE04_REAL_REMOTE_OBSERVATION_ADAPTER_QUALIFICATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "QUALIFIED_FOR_EXTERNAL_REVIEW"
+      },
+      "date": {
+        "kind": "string",
+        "const": "2026-10-04"
+      },
+      "branch": {
+        "kind": "string",
+        "const": "feat/obsidian-projection-rpe04-real-remote-observation-adapter-v0.1"
+      },
+      "lineage": {
+        "kind": "object",
+        "fields": {
+          "rpe02_human_adopted_parent": {
+            "kind": "string",
+            "const": "7cb120b3c12efdb26a5938b4c2395650d00394b6"
+          },
+          "rpe03_dependency_import_head": {
+            "kind": "string",
+            "const": "c66daeb78f05a9f0e936fe4058d715f8d76d082d"
+          },
+          "initial_preregistration_head": {
+            "kind": "string",
+            "const": "5fba272905793ca4ac86ac5ba9ceb2803adda8bc"
+          },
+          "historical_red_head": {
+            "kind": "string",
+            "const": "107bdfd4ad3d865c60e2840ff28c41a693999a31"
+          },
+          "preregistration_correction_head": {
+            "kind": "string",
+            "const": "61c58406a344bdbbc6fef45201333f6d6d88a274"
+          },
+          "initial_implementation_head": {
+            "kind": "string",
+            "const": "2667b1487147bab0521a8555d5b699eaa18149bd"
+          },
+          "runtime_binding_hardening_red_head": {
+            "kind": "string",
+            "const": "6a1aeda"
+          },
+          "hardening_test_harness_correction_head": {
+            "kind": "string",
+            "const": "366a11e"
+          },
+          "timeout_recovery_duplicate_commit": {
+            "kind": "string",
+            "const": "f429e98"
+          },
+          "final_hardening_reconciliation_head": {
+            "kind": "string",
+            "const": "3de1d5ad5270eaa385c98cde90c7c153b347d62e"
+          }
+        }
+      },
+      "exact_identities": {
+        "kind": "object",
+        "fields": {
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          },
+          "rpe02_model_blob": {
+            "kind": "string",
+            "const": "31db5d944a25e54db81bd901a087cdc2039925ad"
+          },
+          "rpe03_classifier_blob": {
+            "kind": "string",
+            "const": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11"
+          },
+          "final_implementation_blob": {
+            "kind": "string",
+            "const": "3492006ebee581c205b2c26d4ea98efab72d522a"
+          },
+          "frozen_red_test_blob": {
+            "kind": "string",
+            "const": "eec1d9b39714b5e841438fc76180d851b6494bce"
+          },
+          "historical_red_report_blob": {
+            "kind": "string",
+            "const": "036383b58ae0149047870b6b0d000addba30e81b"
+          },
+          "mutation_test_blob": {
+            "kind": "string",
+            "const": "3bccfb5f96e6c112f6a5c40fcb43bb5ebf2385c6"
+          },
+          "hardening_test_blob": {
+            "kind": "string",
+            "const": "aeab0dd79b2e90d108525323ac401c062cc49ec8"
+          },
+          "corrected_preregistration_blob": {
+            "kind": "string",
+            "const": "bd4541bdc1c790b7936034ec4747f1cfb5e23f73"
+          },
+          "corrected_schema_blob": {
+            "kind": "string",
+            "const": "9522d851d01c7948e81e0999c3a7cc907d7a4e5e"
+          },
+          "preregistration_correction_report_blob": {
+            "kind": "string",
+            "const": "2994712837db75dee8aa36cc089e566fd1fe9c10"
+          },
+          "hardening_red_report_blob": {
+            "kind": "string",
+            "const": "25f1b6cfcdbfbd7679598f95fd1675fa2397c185"
+          },
+          "hardening_test_correction_adjudication_blob": {
+            "kind": "string",
+            "const": "b4f4eed940ad24d2a53d68b9bba3e4c2f7f8f7b9"
+          },
+          "timeout_recovery_reconciliation_blob": {
+            "kind": "string",
+            "const": "5560e54d79e9d61d19c53d371e0587b8392cdd20"
+          },
+          "p5e_contract_blob": {
+            "kind": "string",
+            "const": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9"
+          },
+          "p5e_synthetic_model_blob": {
+            "kind": "string",
+            "const": "c0f16baa151c1466e30ba5778f1fca8184cd4aac"
+          },
+          "p5d4_runtime_blob": {
+            "kind": "string",
+            "const": "1825e53d195ba2a63b5b646a5b78eb77939b94b5"
+          }
+        }
+      },
+      "runtime_binding_raw_sha256": {
+        "kind": "object",
+        "fields": {
+          "preregistration": {
+            "kind": "string",
+            "const": "0c59111fe90b8d80f0c41daf0911d772274eca733c6e68673d484ab8abf2c6ba"
+          },
+          "schema": {
+            "kind": "string",
+            "const": "e39dbc4f3bc82f5d5c2181574bdd120ad6d0fca46bcfdf358fac406b572a8861"
+          },
+          "rpe01_guard": {
+            "kind": "string",
+            "const": "24b36f5b3c0a02bc6247732fe1fa23d6c0fe30bc2b1629a7c54d4c094a628298"
+          },
+          "rpe03_classifier": {
+            "kind": "string",
+            "const": "cbcb996199b06859d257cc194e673a6bc51419890dc0641b42837d3f7cfcb0c3"
+          }
+        }
+      },
+      "qualification_environment": {
+        "kind": "object",
+        "fields": {
+          "git_path": {
+            "kind": "string",
+            "const": "C:\\Program Files\\Git\\cmd\\git.exe"
+          },
+          "git_sha256": {
+            "kind": "string",
+            "const": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+          },
+          "git_version": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1"
+          },
+          "python_version": {
+            "kind": "string",
+            "const": "Python 3.13.14"
+          },
+          "network_mode": {
+            "kind": "string",
+            "const": "LOCAL_BARE_REMOTE_ONLY_NO_GITHUB_POLLING"
+          }
+        }
+      },
+      "evidence": {
+        "kind": "object",
+        "fields": {
+          "historical_red": {
+            "kind": "string",
+            "const": "24 tests / 2 PASS / 22 FAIL due implementation absent"
+          },
+          "initial_dedicated_green": {
+            "kind": "string",
+            "const": "35/35 PASS"
+          },
+          "initial_mutation_sweep": {
+            "kind": "string",
+            "const": "11/11 PASS"
+          },
+          "initial_full_targeted_regression": {
+            "kind": "string",
+            "const": "237/237 PASS"
+          },
+          "hardening_red": {
+            "kind": "string",
+            "const": "5 tests / 2 ERROR / 3 FAIL"
+          },
+          "hardening_green": {
+            "kind": "string",
+            "const": "5/5 PASS"
+          },
+          "final_dedicated_rpe04": {
+            "kind": "string",
+            "const": "40/40 PASS"
+          },
+          "final_full_targeted_regression": {
+            "kind": "string",
+            "const": "242/242 PASS"
+          },
+          "rpe01_guard_validation": {
+            "kind": "string",
+            "const": "PASS"
+          }
+        }
+      },
+      "qualified_semantics": {
+        "kind": "object",
+        "fields": {
+          "one_governed_fetch_transaction_per_attempt": {
+            "kind": "boolean",
+            "const": true
+          },
+          "exact_observed_sha_only": {
+            "kind": "boolean",
+            "const": true
+          },
+          "observed_tip_not_contained_history": {
+            "kind": "boolean",
+            "const": true
+          },
+          "local_non_fast_forward_namespace_update": {
+            "kind": "boolean",
+            "const": true
+          },
+          "git_executable_identity_bound": {
+            "kind": "boolean",
+            "const": true
+          },
+          "governed_runtime_dependency_bytes_bound": {
+            "kind": "boolean",
+            "const": true
+          },
+          "inherited_git_authority_neutralized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "local_config_allowlisted": {
+            "kind": "boolean",
+            "const": true
+          },
+          "physical_object_domain_indirection_rejected": {
+            "kind": "boolean",
+            "const": true
+          },
+          "physical_object_domain_revalidated_after_fetch": {
+            "kind": "boolean",
+            "const": true
+          },
+          "git_identity_revalidated_before_rpe03": {
+            "kind": "boolean",
+            "const": true
+          },
+          "local_config_revalidated_before_rpe03": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe02_integer_monotonic_ns_handoff": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe03_transition_only_derived": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe03_unknown_blocks_positive_transition": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "claim_boundary": {
+        "kind": "object",
+        "fields": {
+          "rpe04_local_adapter_semantics_qualified": {
+            "kind": "boolean",
+            "const": true
+          },
+          "real_p5e_qualified": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_60_second_sla_qualified": {
+            "kind": "boolean",
+            "const": false
+          },
+          "production_github_polling_qualified": {
+            "kind": "boolean",
+            "const": false
+          },
+          "production_remote_adapter_configuration_qualified": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "authority_boundary": {
+        "kind": "object",
+        "fields": {
+          "rpe04_human_adopted": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_opened": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_opened": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_opened": {
+            "kind": "boolean",
+            "const": false
+          },
+          "github_polling_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "github_fetch_qualification_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "remote_push_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "p5d4_real_state_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "vault_or_current_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "next_gate": {
+        "kind": "string",
+        "const": "EXTERNAL_ADVERSARIAL_REVIEW_THEN_HUMAN_ADJUDICATION"
+      },
+      "stop": {
+        "kind": "boolean",
+        "const": true
+      }
+    }
+  }
+}
