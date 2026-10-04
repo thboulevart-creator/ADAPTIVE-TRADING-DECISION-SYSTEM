@@ -1,0 +1,332 @@
+{
+  "schema": "ATDS_DATA_01_CLAIM_SCOPED_DATA_ADMISSIBILITY_PROVENANCE_CONTRACT_V0_1",
+  "control_id": "DATA-01",
+  "status": "FROZEN_DOCUMENTARY_CONTRACT_IMPLEMENTATION_NOT_AUTHORIZED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "1a4ea7f19a4bdee0cd632f8f42adb40fa1f0fe86",
+    "tree": "b84b4a8538be3eb4a34d81665202e217cf3c483f"
+  },
+  "claim_scope": {
+    "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "first_use_consumer": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "allowed": [
+      "descriptive intraday activity/range census",
+      "descriptive spread census",
+      "descriptive grouping by UTC/New York clock and weekday",
+      "descriptive full-sample/year summaries within exact AP0 usage envelope"
+    ],
+    "forbidden": [
+      "predictive claim",
+      "historical tradability claim",
+      "decision-time information-availability claim",
+      "net-profitability claim",
+      "execution-price claim",
+      "OOS confirmation claim",
+      "traded-volume claim",
+      "market-depth claim",
+      "causal claim",
+      "automatic strategy promotion"
+    ]
+  },
+  "selected_dataset": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "dataset_family": "AP0_GAP_AWARE_1_MINUTE_MONTHLY_PARQUET",
+    "manifest_schema": "ATDS_AP0_USTECH_PROFILE_MINUTE_CORE_MANIFEST_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "expected_files": 61,
+    "expected_rows": 1709180,
+    "expected_source_ticks": 376003618,
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "source_manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+    "transformer": {
+      "path": "tools/ap0_ustech_profile_minute_core.py",
+      "blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f"
+    },
+    "adjudication": {
+      "path": "reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-ADJUDICATION.md",
+      "blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8"
+    },
+    "source_qualification": {
+      "path": "reports/data-qualification/source_b_price_core_data_truth_closure_2026-09-25.md",
+      "blob": "62e9bd1e0892dab7273eed35c8704a9e05611112"
+    },
+    "schema": [
+      [
+        "minute_start_ms_utc",
+        "int64"
+      ],
+      [
+        "first_tick_ms",
+        "int64"
+      ],
+      [
+        "last_tick_ms",
+        "int64"
+      ],
+      [
+        "tick_count",
+        "int64"
+      ],
+      [
+        "segment_id",
+        "int64"
+      ],
+      [
+        "segment_start",
+        "bool"
+      ],
+      [
+        "gap_before_ms",
+        "int64"
+      ],
+      [
+        "mid_open",
+        "float64"
+      ],
+      [
+        "mid_high",
+        "float64"
+      ],
+      [
+        "mid_low",
+        "float64"
+      ],
+      [
+        "mid_close",
+        "float64"
+      ],
+      [
+        "spread_mean",
+        "float64"
+      ],
+      [
+        "spread_min",
+        "float64"
+      ],
+      [
+        "spread_max",
+        "float64"
+      ]
+    ],
+    "schema_requirement": "EXACT_FULL_SCHEMA_REQUIRED_BY_FIRST_USE_CONSUMER",
+    "consumer_read_columns": [
+      "minute_start_ms_utc",
+      "tick_count",
+      "segment_id",
+      "segment_start",
+      "mid_high",
+      "mid_low",
+      "spread_mean",
+      "spread_min",
+      "spread_max"
+    ],
+    "metadata_semantics": {
+      "time_semantics": "UTC epoch milliseconds",
+      "mid_semantics": "descriptive_only_not_execution_price",
+      "spread_mean_weighting": "tick_weighted",
+      "volumes_used": false
+    }
+  },
+  "identity_semantics": {
+    "rule": "FILENAME != DATASET_IDENTITY",
+    "exact_binding_components": [
+      "dataset_identity",
+      "manifest_sha256",
+      "exact declared 61 relative paths",
+      "exact declared 61 file sizes",
+      "exact declared 61 file SHA-256 hashes",
+      "exact schema identity/metadata",
+      "source_identity",
+      "transformer blob"
+    ],
+    "content_change_rule": "ANY_CONTENT_CHANGE_REQUIRES_DISTINGUISHABLE_DATASET_STATE_AND_REQUALIFICATION",
+    "same_dataset_id_different_bytes": "FORBIDDEN",
+    "mutable_metadata_may_change_content_identity": false
+  },
+  "provenance_semantics": {
+    "parent_dataset_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "lineage_state_for_selected_surface": "KNOWN_SINGLE_PARENT",
+    "transformation_identity_required": true,
+    "transformation_parameters_required": true,
+    "exact_transform_contract": [
+      "source columns timestamp/bid_price/ask_price only",
+      "minute=floor(timestamp_ms/60000)",
+      "mid=(bid_price+ask_price)/2",
+      "spread=ask_price-bid_price",
+      "spread_mean=tick-weighted",
+      "no synthetic missing minutes",
+      "gap-aware segment structure",
+      "no volume"
+    ],
+    "parent_pass_inheritance": "FORBIDDEN",
+    "missing_lineage_rule": "LINEAGE_UNKNOWN_NOT_NO_PARENT",
+    "missing_provenance_rule": "UNVERIFIED_OR_BLOCKED_NEVER_PASS",
+    "source_verification_rule": "UNVERIFIED_SOURCE_MUST_REMAIN_UNVERIFIED"
+  },
+  "admissibility_semantics": {
+    "required_preconsumption_checks": [
+      "exact AP0 manifest SHA-256",
+      "61/61 declared files present",
+      "61/61 file size match",
+      "61/61 file SHA-256 match",
+      "exact full Parquet schema match",
+      "dataset_identity metadata match",
+      "source_identity metadata match",
+      "volumes_used=false",
+      "mid_semantics=descriptive_only_not_execution_price",
+      "strict global minute ordering",
+      "positive tick_count",
+      "valid segment continuity encoding",
+      "finite mid/spread fields",
+      "mid_low <= mid_open/mid_close <= mid_high",
+      "0 < spread_min <= spread_mean <= spread_max",
+      "row total = 1709180",
+      "source tick accounting = 376003618",
+      "segment-start count = 1606",
+      "usage envelope matches exact CC02 first-use claim"
+    ],
+    "absence_of_check": "NOT_PASS",
+    "parent_pass_implies_child_pass": false,
+    "source_exists_implies_admissible": false,
+    "admissible_for_this_claim_implies_all_claims": false
+  },
+  "usage_envelope": {
+    "permitted_claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "permitted_first_use": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "permitted_semantics": [
+      "retrospective descriptive minute behavior",
+      "descriptive tick-density proxy as count of source ticks per minute, not traded volume",
+      "descriptive mid-price range, not execution price",
+      "descriptive spread context",
+      "gap-aware grouping and census"
+    ],
+    "prohibited_semantics": [
+      "execution price",
+      "traded volume",
+      "market depth",
+      "historical availability",
+      "predictive edge",
+      "PnL",
+      "net profitability",
+      "OOS confirmation"
+    ],
+    "cross_claim_reuse_rule": "REQUIRES_NEW_APPLICABILITY_AND_USAGE_EVALUATION",
+    "subminute_claim_rule": "AP0_IS_NOT_UNIVERSALLY_SUFFICIENT; RAW_SOURCE_OR_OTHER_QUALIFIED_SURFACE_MAY_BE_REQUIRED"
+  },
+  "status_model": {
+    "identity_status": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "UNVERIFIED"
+    ],
+    "integrity_status": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "UNVERIFIED"
+    ],
+    "provenance_status": [
+      "PASS",
+      "FAIL",
+      "BLOCKED",
+      "UNVERIFIED"
+    ],
+    "lineage_status": [
+      "KNOWN",
+      "UNKNOWN",
+      "BROKEN"
+    ],
+    "usage_status": [
+      "PERMITTED",
+      "RESTRICTED",
+      "BLOCKED",
+      "UNKNOWN"
+    ],
+    "temporal_status": [
+      "NOT_APPLICABLE_WITH_EXPLICIT_BASIS",
+      "TEMPORAL_OWNER_REQUIRED",
+      "UNKNOWN"
+    ],
+    "claim_data_readiness": [
+      "READY_FOR_EXACT_CLAIM",
+      "BLOCKED",
+      "UNVERIFIED"
+    ],
+    "precedence": [
+      "BLOCKED conditions never become FAIL merely for aggregation",
+      "FAIL never becomes BLOCKED merely for aggregation",
+      "UNVERIFIED never becomes PASS",
+      "UNKNOWN never becomes PASS",
+      "NOT_APPLICABLE never becomes PASS"
+    ],
+    "ready_rule": "READY_FOR_EXACT_CLAIM requires all mandatory Data-owned checks PASS, lineage KNOWN, usage PERMITTED, exact result binding available, and Temporal either explicit NOT_APPLICABLE for this exact retrospective claim or independently satisfied by Temporal owner."
+  },
+  "result_to_dataset_binding": {
+    "required": true,
+    "minimum_fields": [
+      "claim_scope_id",
+      "dataset_identity",
+      "ap0_manifest_sha256",
+      "dataset_file_set_digest_or_exact_61_file_hash_set",
+      "schema_identity",
+      "source_identity",
+      "transformer_blob",
+      "usage_envelope_id",
+      "data_admissibility_evidence_ref",
+      "result_identity"
+    ],
+    "substitution_rule": "ANY_DATASET_OR_MANIFEST_IDENTITY_CHANGE_REQUIRES_NEW_DISTINGUISHABLE_RESULT_STATE",
+    "filename_only_binding": "FORBIDDEN"
+  },
+  "temporal_firewall": {
+    "data_owner_may_assert": [
+      "market timestamp field exists and follows declared UTC encoding",
+      "dataset coverage period and gap/segment metadata",
+      "source/derived transformation timestamps as provenance metadata where recorded"
+    ],
+    "temporal_owner_only": [
+      "known_from",
+      "historical point-in-time availability",
+      "decision-time admissibility",
+      "vintage availability",
+      "publication delay",
+      "temporal dependency leakage",
+      "historical tradability"
+    ],
+    "current_first_use_state": "NOT_APPLICABLE_WITH_EXPLICIT_BASIS",
+    "current_basis": "Retrospective descriptive CC02 consumer makes no historical availability/tradability assertion.",
+    "expansion_rule": "If a future claim requires any Temporal-owned predicate, DATA PASS cannot satisfy it; TEMPORAL_OWNER_REQUIRED."
+  },
+  "design_sources": {
+    "asset_behavioral_protocol_blob": "bfa0aa393224e54dd281735cedeb6e259089ee06",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "ap0_transformer_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "ap1_consumer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "source_b_closure_blob": "62e9bd1e0892dab7273eed35c8704a9e05611112",
+    "data_contract_proposal_blob": "e7426c6c5ee4a122aecc8c8719f9cdd9173841e7",
+    "dataset_registry_proposal_blob": "89763a279e957afd0e9a1e3933a2d582df58dda3",
+    "temporal_proposal_blob": "861362264a3602aa875bb16487d12558f700c250",
+    "e1_h1_qualification_blob": "534233d63a01c42c6b4de8979cca8dcb2feb7bc7",
+    "tick_csv_runtime_blob": "63f629a8cf39c79b5334015e038b70771c39f78b"
+  },
+  "authority": {
+    "data_authority": "CLAIM_SCOPED_DATA_IDENTITY_ADMISSIBILITY_PROVENANCE_ONLY",
+    "temporal_authority": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "implementation_authority": false,
+    "data_runtime_modification_authority": false,
+    "real_data_consumption_authority": false,
+    "rvo_authority": "NONE"
+  },
+  "next_boundary": {
+    "candidate": "DATA-02_TEST_FIRST_IMPLEMENTATION_AND_EXACT_AP0_ADMISSION_BINDING",
+    "status": "NOT_AUTHORIZED"
+  }
+}

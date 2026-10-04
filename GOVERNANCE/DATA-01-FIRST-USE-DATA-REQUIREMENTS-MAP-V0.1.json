@@ -1,0 +1,263 @@
+{
+  "schema": "ATDS_DATA_01_FIRST_USE_DATA_REQUIREMENTS_MAP_V0_1",
+  "status": "FROZEN_DESIGN_INPUT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "1a4ea7f19a4bdee0cd632f8f42adb40fa1f0fe86",
+    "tree": "b84b4a8538be3eb4a34d81665202e217cf3c483f"
+  },
+  "target": {
+    "rvo_claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "predictive_claim": false,
+    "historical_tradability_claim": false,
+    "net_profitability_claim": false,
+    "oos_claim": false,
+    "first_canonical_consumer": {
+      "id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "runtime_path": "tools/ap1_intraday_spread_census.py",
+      "runtime_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+      "rationale": "The canonical Asset Behavioral Profile protocol orders AP0 before behavioral statistics, and AP0 adjudication explicitly authorizes AP1 Intraday / Spread Census as the first descriptive consumer."
+    }
+  },
+  "inspected_surfaces": {
+    "source_b_price_core": {
+      "identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+      "state": "QUALIFIED_WITHIN_PRICE_CORE_SCOPE",
+      "qualification_path": "reports/data-qualification/source_b_price_core_data_truth_closure_2026-09-25.md",
+      "qualification_blob": "62e9bd1e0892dab7273eed35c8704a9e05611112",
+      "source_manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+      "physical_family": "212 source Parquet files",
+      "source_rows": 376003618,
+      "permitted_price_core": [
+        "timestamp",
+        "bid_price",
+        "ask_price"
+      ],
+      "selection_status": "PARENT_NOT_FIRST_USE_CONSUMER",
+      "reason": "Qualified source truth and required lineage parent. Raw tick-level data remains necessary for genuinely sub-minute questions, but it is not the minimum canonical input for the first AP1 descriptive census."
+    },
+    "ap0_minute_core": {
+      "identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "state": "CANONICAL_DERIVED_DATASET_IDENTITY_PASS",
+      "adjudication_path": "reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-ADJUDICATION.md",
+      "adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+      "transformer_path": "tools/ap0_ustech_profile_minute_core.py",
+      "transformer_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+      "manifest_schema": "ATDS_AP0_USTECH_PROFILE_MINUTE_CORE_MANIFEST_V0_1",
+      "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "physical_family": "61 monthly Parquet derived files",
+      "rows": 1709180,
+      "source_ticks_accounted": 376003618,
+      "period": "2021-05-25 through 2026-05-24, discontinuous/gap-aware",
+      "schema": [
+        [
+          "minute_start_ms_utc",
+          "int64"
+        ],
+        [
+          "first_tick_ms",
+          "int64"
+        ],
+        [
+          "last_tick_ms",
+          "int64"
+        ],
+        [
+          "tick_count",
+          "int64"
+        ],
+        [
+          "segment_id",
+          "int64"
+        ],
+        [
+          "segment_start",
+          "bool"
+        ],
+        [
+          "gap_before_ms",
+          "int64"
+        ],
+        [
+          "mid_open",
+          "float64"
+        ],
+        [
+          "mid_high",
+          "float64"
+        ],
+        [
+          "mid_low",
+          "float64"
+        ],
+        [
+          "mid_close",
+          "float64"
+        ],
+        [
+          "spread_mean",
+          "float64"
+        ],
+        [
+          "spread_min",
+          "float64"
+        ],
+        [
+          "spread_max",
+          "float64"
+        ]
+      ],
+      "metadata_semantics": {
+        "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+        "time_semantics": "UTC epoch milliseconds",
+        "mid_semantics": "descriptive_only_not_execution_price",
+        "spread_mean_weighting": "tick_weighted",
+        "volumes_used": false
+      }
+    },
+    "e1_h1": {
+      "identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+      "state": "QUALIFIED_E1_SPECIFIC_DERIVATION",
+      "qualification_path": "reports/program/2026-09-28-E1-03-REAL-H1-QUALIFICATION.md",
+      "qualification_blob": "534233d63a01c42c6b4de8979cca8dcb2feb7bc7",
+      "runtime_path": "tools/e1_03_h1_dataset_identity.py",
+      "runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+      "rows": 27677,
+      "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+      "selection_status": "NOT_SELECTED",
+      "reason": "Downstream H1 transformation is E1/Momentum-oriented and removes minute/spread detail needed by the canonical first descriptive consumer."
+    },
+    "generic_tick_csv_runtime": {
+      "state": "AVAILABLE_RUNTIME_NOT_SELECTED_FIRST_USE_CORPUS",
+      "runtime_path": "src/data/dataset_admissibility.py",
+      "runtime_blob": "63f629a8cf39c79b5334015e038b70771c39f78b",
+      "reader_path": "src/data/tick_reader.py",
+      "reader_blob": "ee80355504e14e1ac7f70b7481b3e9a980d7dc30",
+      "selection_status": "NOT_SELECTED",
+      "reason": "This five-column tick-CSV boundary is executable but does not identify the canonical AP0 corpus or lineage required by the selected first-use consumer."
+    }
+  },
+  "selection": {
+    "result": "SELECTED",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "dataset_family": "AP0_GAP_AWARE_1_MINUTE_MONTHLY_PARQUET",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "exact_reasoning": [
+      "CC02 is retrospective descriptive only.",
+      "The canonical Asset Behavioral Profile protocol requires AP0 before behavioral statistics.",
+      "AP0 adjudication records USTECH_PROFILE_MINUTE_CORE_V0_1 as an admissible canonical derived DatasetIdentity and explicitly authorizes AP1 Intraday / Spread Census.",
+      "AP1 is strategy-agnostic, descriptive, re-hashes all 61 AP0 files and consumes the AP0 schema directly.",
+      "Raw Source-B tick Parquet is the qualified lineage parent and remains necessary for genuinely sub-minute claims, but is not the minimum first-use consumer surface.",
+      "E1 H1 is downstream and E1-specific, therefore not minimal for CC02.",
+      "The generic tick-CSV runtime is a different representation and does not identify the selected canonical corpus."
+    ],
+    "selection_scope_only": "AP0 is selected only for the exact first retrospective descriptive consumer. This is not a universal assertion that AP0 is sufficient for every CC02 claim."
+  },
+  "consumer_schema_requirement": {
+    "full_schema_exact_match_required": true,
+    "exact_schema": [
+      [
+        "minute_start_ms_utc",
+        "int64"
+      ],
+      [
+        "first_tick_ms",
+        "int64"
+      ],
+      [
+        "last_tick_ms",
+        "int64"
+      ],
+      [
+        "tick_count",
+        "int64"
+      ],
+      [
+        "segment_id",
+        "int64"
+      ],
+      [
+        "segment_start",
+        "bool"
+      ],
+      [
+        "gap_before_ms",
+        "int64"
+      ],
+      [
+        "mid_open",
+        "float64"
+      ],
+      [
+        "mid_high",
+        "float64"
+      ],
+      [
+        "mid_low",
+        "float64"
+      ],
+      [
+        "mid_close",
+        "float64"
+      ],
+      [
+        "spread_mean",
+        "float64"
+      ],
+      [
+        "spread_min",
+        "float64"
+      ],
+      [
+        "spread_max",
+        "float64"
+      ]
+    ],
+    "columns_actually_read_by_first_consumer": [
+      "minute_start_ms_utc",
+      "tick_count",
+      "segment_id",
+      "segment_start",
+      "mid_high",
+      "mid_low",
+      "spread_mean",
+      "spread_min",
+      "spread_max"
+    ],
+    "rule": "UNREAD_COLUMNS_REMAIN_SCHEMA_MATERIAL_BECAUSE_THE_FIRST_CONSUMER_REQUIRES_EXACT_FULL_SCHEMA"
+  },
+  "minimum_provenance_requirements": {
+    "immutable_dataset_id": "REQUIRED",
+    "dataset_version_or_frozen_identity": "REQUIRED",
+    "content_digest": "REQUIRED_AS_EXACT_AP0_MANIFEST_SHA256_PLUS_ALL_DECLARED_FILE_HASHES",
+    "schema_identity": "REQUIRED",
+    "source_identity": "REQUIRED",
+    "parent_dataset_identities": "REQUIRED",
+    "transformation_identity": "REQUIRED",
+    "transformation_parameters": "REQUIRED_OR_EXACTLY_BOUND_BY_FROZEN_TRANSFORMER_AND_MANIFEST",
+    "coverage_integrity_evidence": "REQUIRED",
+    "usage_envelope": "REQUIRED",
+    "result_to_dataset_binding": "REQUIRED",
+    "reproducibility_reference": "REQUIRED",
+    "explicit_lineage_unknown": "REQUIRED_WHEN_UNRESOLVED"
+  },
+  "current_claim_temporal_requirement": {
+    "state": "NOT_APPLICABLE_WITH_EXPLICIT_BASIS",
+    "basis": "The selected first claim is retrospective descriptive only and makes no assertion that AP0 information was historically available to a trader at a decision time.",
+    "firewall": "Data may carry market timestamps and source-period/gap metadata but may not assert known_from, decision-time admissibility, vintage availability, publication delay, temporal dependency safety, or historical tradability."
+  },
+  "authority": {
+    "data01_contract_design_authority_only": true,
+    "data_runtime_modification": false,
+    "real_data_consumption": false,
+    "real_experiment": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "scientific_authority": false,
+    "trading_authority": false,
+    "rvo_authority": "NONE"
+  }
+}

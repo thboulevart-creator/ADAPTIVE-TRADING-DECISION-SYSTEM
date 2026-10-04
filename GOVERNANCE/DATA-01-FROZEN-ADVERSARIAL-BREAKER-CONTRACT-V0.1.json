@@ -1,0 +1,303 @@
+{
+  "schema": "ATDS_DATA_01_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "DATA-01",
+  "status": "FROZEN_DOCUMENTARY_BREAKER_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "1a4ea7f19a4bdee0cd632f8f42adb40fa1f0fe86",
+    "tree": "b84b4a8538be3eb4a34d81665202e217cf3c483f"
+  },
+  "bound_design": {
+    "requirements_map_blob": "2d6d43d783281ee3dfd4028bc9b84c4dce495b87",
+    "data_contract_blob": "ec013c8db53b482770a62016db50b113b19ecd7f",
+    "data_temporal_boundary_blob": "4bdb9d6c7448759c0349048fd4f48abba296c0cf",
+    "selected_dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "selected_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "selected_transformer_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "selected_consumer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+  },
+  "future_qualification_semantics": {
+    "pass": "NO_FROZEN_DATA01_FAILURE_MODE_TRIGGERED_WITHIN_EXACT_IMPLEMENTED_AND_TESTED_FIRST_USE_SURFACE",
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "temporal_authority": false
+  },
+  "invariants": [
+    "DATA_IDENTITY != DATA_VALIDITY",
+    "DATA_VALIDITY != TEMPORAL_VALIDITY",
+    "DATASET_EXISTS != DATASET_ADMISSIBLE",
+    "DATASET_ADMISSIBLE != DATASET_QUALIFIED_FOR_EVERY_CLAIM",
+    "PARENT_DATASET_PASS != CHILD_DATASET_PASS",
+    "FILENAME != DATASET_IDENTITY",
+    "LATEST_DATA != HISTORICALLY_AVAILABLE_DATA",
+    "ABSENCE_OF_CHECK != PASS",
+    "AVAILABLE != QUALIFIED",
+    "UNKNOWN != PASS",
+    "UNVERIFIED != PASS",
+    "BLOCKED != FAIL",
+    "NOT_APPLICABLE != PASS",
+    "RVO_DESCRIPTION != DATA_OWNER_AUTHORITY",
+    "DATA_PASS != SCIENTIFIC_AUTHORITY",
+    "DATA_QUALIFICATION != TRADING_AUTHORITY"
+  ],
+  "classes": [
+    "IDENTITY_AND_CONTENT",
+    "SUBSTITUTION_AND_BINDING",
+    "LINEAGE_AND_PROVENANCE",
+    "SCHEMA_AND_INTEGRITY",
+    "USAGE_AND_CLAIM_SCOPE",
+    "DATA_TEMPORAL_FIREWALL",
+    "STATUS_PRESERVATION",
+    "AUTHORITY_BOUNDARY",
+    "FIRST_USE_SELECTION"
+  ],
+  "cases": [
+    {
+      "id": "DATA01-B01",
+      "class": "IDENTITY_AND_CONTENT",
+      "severity": "CRITICAL",
+      "attack": "Same filename is presented with different bytes while retaining the prior dataset identity.",
+      "expected": "BLOCKED_CONTENT_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "DATA01-B02",
+      "class": "IDENTITY_AND_CONTENT",
+      "severity": "CRITICAL",
+      "attack": "Same declared dataset ID/manifest identity is used with one or more different AP0 file hashes.",
+      "expected": "BLOCKED_DATASET_ID_COLLISION"
+    },
+    {
+      "id": "DATA01-B03",
+      "class": "IDENTITY_AND_CONTENT",
+      "severity": "HIGH",
+      "attack": "Manifest SHA-256 changes but the dataset is treated as the same frozen first-use state.",
+      "expected": "BLOCKED_MANIFEST_IDENTITY_DRIFT"
+    },
+    {
+      "id": "DATA01-B04",
+      "class": "IDENTITY_AND_CONTENT",
+      "severity": "HIGH",
+      "attack": "Mutable commentary/metadata changes are allowed to rewrite immutable content identity.",
+      "expected": "REJECT_METADATA_CONTENT_IDENTITY_COUPLING"
+    },
+    {
+      "id": "DATA01-B05",
+      "class": "SUBSTITUTION_AND_BINDING",
+      "severity": "CRITICAL",
+      "attack": "A different dataset is silently substituted into the same result/experiment binding.",
+      "expected": "BLOCKED_SILENT_DATASET_SUBSTITUTION"
+    },
+    {
+      "id": "DATA01-B06",
+      "class": "SUBSTITUTION_AND_BINDING",
+      "severity": "CRITICAL",
+      "attack": "A result lacks binding to exact dataset identity, manifest/file-set identity, schema identity, source identity, transformer identity and admissibility evidence.",
+      "expected": "BLOCKED_INCOMPLETE_RESULT_DATASET_BINDING"
+    },
+    {
+      "id": "DATA01-B07",
+      "class": "SUBSTITUTION_AND_BINDING",
+      "severity": "HIGH",
+      "attack": "Filename/path alone is treated as sufficient result-to-dataset identity.",
+      "expected": "REJECT_FILENAME_ONLY_BINDING"
+    },
+    {
+      "id": "DATA01-B08",
+      "class": "LINEAGE_AND_PROVENANCE",
+      "severity": "CRITICAL",
+      "attack": "Derived AP0 inherits SOURCE_B parent PASS without independent child checks.",
+      "expected": "REJECT_PARENT_PASS_INHERITANCE"
+    },
+    {
+      "id": "DATA01-B09",
+      "class": "LINEAGE_AND_PROVENANCE",
+      "severity": "CRITICAL",
+      "attack": "Missing provenance is converted to PASS.",
+      "expected": "BLOCKED_MISSING_PROVENANCE"
+    },
+    {
+      "id": "DATA01-B10",
+      "class": "LINEAGE_AND_PROVENANCE",
+      "severity": "CRITICAL",
+      "attack": "Missing parent/lineage evidence is rewritten as NO_PARENT.",
+      "expected": "BLOCKED_LINEAGE_UNKNOWN"
+    },
+    {
+      "id": "DATA01-B11",
+      "class": "LINEAGE_AND_PROVENANCE",
+      "severity": "HIGH",
+      "attack": "An unverified source reference is presented as verified.",
+      "expected": "REJECT_SOURCE_VERIFICATION_LAUNDERING"
+    },
+    {
+      "id": "DATA01-B12",
+      "class": "LINEAGE_AND_PROVENANCE",
+      "severity": "HIGH",
+      "attack": "Transformation identity or material parameters are absent while derived data is accepted.",
+      "expected": "BLOCKED_HIDDEN_TRANSFORMATION"
+    },
+    {
+      "id": "DATA01-B13",
+      "class": "SCHEMA_AND_INTEGRITY",
+      "severity": "CRITICAL",
+      "attack": "AP0 full Parquet schema drifts while the first consumer proceeds.",
+      "expected": "BLOCKED_SCHEMA_DRIFT"
+    },
+    {
+      "id": "DATA01-B14",
+      "class": "SCHEMA_AND_INTEGRITY",
+      "severity": "CRITICAL",
+      "attack": "Row/domain corruption violates finite price/spread, positive tick count, OHLC or spread ordering invariants.",
+      "expected": "FAIL_DATA_DOMAIN_INTEGRITY"
+    },
+    {
+      "id": "DATA01-B15",
+      "class": "SCHEMA_AND_INTEGRITY",
+      "severity": "CRITICAL",
+      "attack": "Global minute ordering is corrupted or duplicated where strict ordering is required.",
+      "expected": "FAIL_ORDERING_INTEGRITY"
+    },
+    {
+      "id": "DATA01-B16",
+      "class": "SCHEMA_AND_INTEGRITY",
+      "severity": "HIGH",
+      "attack": "Gap/segment transformation ambiguity masks a source discontinuity or merges an invalid segment boundary.",
+      "expected": "BLOCKED_TRANSFORMATION_AMBIGUITY"
+    },
+    {
+      "id": "DATA01-B17",
+      "class": "SCHEMA_AND_INTEGRITY",
+      "severity": "HIGH",
+      "attack": "One of 61 declared AP0 files is absent, has changed size/hash, or the manifest/file count no longer reconciles.",
+      "expected": "BLOCKED_AP0_FILESET_MISMATCH"
+    },
+    {
+      "id": "DATA01-B18",
+      "class": "USAGE_AND_CLAIM_SCOPE",
+      "severity": "CRITICAL",
+      "attack": "AP0 qualification for the first retrospective CC02 claim is reused for a predictive, economic, OOS, execution-price or historical-tradability claim.",
+      "expected": "BLOCKED_USAGE_ENVELOPE_VIOLATION"
+    },
+    {
+      "id": "DATA01-B19",
+      "class": "USAGE_AND_CLAIM_SCOPE",
+      "severity": "HIGH",
+      "attack": "The selected AP0 minute surface is treated as universally sufficient for a sub-minute microstructure claim.",
+      "expected": "BLOCKED_CLAIM_SURFACE_MISMATCH"
+    },
+    {
+      "id": "DATA01-B20",
+      "class": "USAGE_AND_CLAIM_SCOPE",
+      "severity": "HIGH",
+      "attack": "tick_count is interpreted as traded volume or descriptive mid as execution price.",
+      "expected": "REJECT_SEMANTIC_SCOPE_ESCALATION"
+    },
+    {
+      "id": "DATA01-B21",
+      "class": "DATA_TEMPORAL_FIREWALL",
+      "severity": "CRITICAL",
+      "attack": "Data owner asserts decision-time/historical point-in-time admissibility from market timestamps alone.",
+      "expected": "REJECT_TEMPORAL_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "DATA01-B22",
+      "class": "DATA_TEMPORAL_FIREWALL",
+      "severity": "CRITICAL",
+      "attack": "Latest revised/reconstructed data is presented as historically available without Temporal-owner evidence.",
+      "expected": "BLOCKED_LATEST_AS_HISTORICAL"
+    },
+    {
+      "id": "DATA01-B23",
+      "class": "DATA_TEMPORAL_FIREWALL",
+      "severity": "HIGH",
+      "attack": "A derived dataset with historical row timestamps is treated as PIT-safe despite unknown temporal dependency provenance.",
+      "expected": "BLOCKED_TEMPORAL_DEPENDENCY_UNKNOWN"
+    },
+    {
+      "id": "DATA01-B24",
+      "class": "DATA_TEMPORAL_FIREWALL",
+      "severity": "HIGH",
+      "attack": "Future claim adds predictive/OOS/historical semantics but retains DATA-01 temporal NOT_APPLICABLE without new applicability analysis.",
+      "expected": "BLOCKED_STALE_TEMPORAL_NOT_APPLICABLE"
+    },
+    {
+      "id": "DATA01-B25",
+      "class": "STATUS_PRESERVATION",
+      "severity": "CRITICAL",
+      "attack": "UNKNOWN or UNVERIFIED data state is rewritten as PASS/READY.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "DATA01-B26",
+      "class": "STATUS_PRESERVATION",
+      "severity": "HIGH",
+      "attack": "BLOCKED is rewritten as FAIL or NOT_APPLICABLE is rewritten as PASS.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "DATA01-B27",
+      "class": "AUTHORITY_BOUNDARY",
+      "severity": "CRITICAL",
+      "attack": "RVO description overrides the Data owner contract or Data qualification is interpreted as scientific/trading authority.",
+      "expected": "REJECT_AUTHORITY_LAUNDERING"
+    },
+    {
+      "id": "DATA01-B28",
+      "class": "AUTHORITY_BOUNDARY",
+      "severity": "CRITICAL",
+      "attack": "DATA-01 modifies src/data, Temporal, P1, SMF, MCEPR, PCP, Execution, consumes real performance/OOS, or implements a new Data runtime.",
+      "expected": "REJECT_DATA01_SCOPE_EXPANSION"
+    },
+    {
+      "id": "DATA01-B29",
+      "class": "FIRST_USE_SELECTION",
+      "severity": "HIGH",
+      "attack": "E1 H1 is selected because it is already qualified even though it is downstream/E1-specific and not the minimal first descriptive consumer.",
+      "expected": "REJECT_NON_MINIMAL_H1_SELECTION"
+    },
+    {
+      "id": "DATA01-B30",
+      "class": "FIRST_USE_SELECTION",
+      "severity": "HIGH",
+      "attack": "Generic tick CSV runtime is selected merely because it is executable, ignoring the canonical AP0 lineage and first consumer.",
+      "expected": "REJECT_AVAILABILITY_AS_SELECTION"
+    },
+    {
+      "id": "DATA01-B31",
+      "class": "FIRST_USE_SELECTION",
+      "severity": "HIGH",
+      "attack": "Raw Source-B tick Parquet is forced as the first consumer although the canonical AP1 claim does not require sub-minute information.",
+      "expected": "REJECT_NON_MINIMAL_RAW_SELECTION"
+    },
+    {
+      "id": "DATA01-B32",
+      "class": "FIRST_USE_SELECTION",
+      "severity": "CRITICAL",
+      "attack": "AP0 is claimed sufficient for all future CC02 claims, including future sub-minute descriptive questions.",
+      "expected": "REJECT_GLOBAL_SUFFICIENCY_OVERCLAIM"
+    }
+  ],
+  "future_test_rule": {
+    "all_applicable_cases_required": true,
+    "case_omission_requires_explicit_basis": true,
+    "frozen_intent_may_not_be_weakened_after_observed_results": true,
+    "exact_contract_blob_must_be_bound": true,
+    "exact_data_implementation_identity_must_be_bound": true,
+    "pass_does_not_grant_scientific_authority": true,
+    "pass_does_not_grant_trading_authority": true
+  },
+  "authority": {
+    "documentary_breaker_design_authorized": true,
+    "executable_data_implementation_authorized": false,
+    "data_runtime_modification_authorized": false,
+    "real_data_consumption_authorized": false,
+    "real_experiment_authorized": false,
+    "oos_consumption_authorized": false,
+    "temporal_authority": false,
+    "rvo_authority": "NONE"
+  },
+  "stop_boundary": "STOP_BEFORE_DATA02_OR_ANY_DATA_RUNTIME_IMPLEMENTATION"
+}
