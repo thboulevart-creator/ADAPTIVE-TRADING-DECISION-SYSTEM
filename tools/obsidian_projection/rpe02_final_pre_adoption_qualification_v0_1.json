@@ -1,0 +1,63 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE02_FINAL_PRE_ADOPTION_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "date": "2026-10-04",
+  "branch": "feat/obsidian-projection-rpe02-real-time-representation-v0.1",
+  "lineage": {
+    "prior_delta_packet_head": "0da2d413445d19b45907bea484665d56e808491a",
+    "final_external_review_persistence_head": "890e05aa17a7e887db7cf9bedccfffc706e0fec4",
+    "nb6_test_only_head": "6ba85a645b9eab946fb1683b7c769a6aa1919ad5"
+  },
+  "external_review": {
+    "verdict": "PASS_WITH_NON_BLOCKING_NOTES",
+    "blocking_findings": "NONE",
+    "adoption_readiness": "YES",
+    "persisted_review_blob": "71886d9f3d7288f22caf2378b0b204672750348c",
+    "internal_adjudication_blob": "c0a12763b1687a9ef9afc990f16b8d8e56ed8a3b"
+  },
+  "implementation": {
+    "real_time_model_blob": "31db5d944a25e54db81bd901a087cdc2039925ad",
+    "functional_code_changed_after_external_delta_review": false
+  },
+  "closures": {
+    "bf1": "CLOSED",
+    "nb1": "CLOSED",
+    "nb2": "CLOSED",
+    "nb3": "CLOSED",
+    "nb4": "CARRIED_TO_RPE05_EXECUTION_GUARANTEE",
+    "nb5": "CLOSED",
+    "nb6": "CLOSED_TEST_ONLY"
+  },
+  "nb6": {
+    "test_blob": "a2e834dbf68d50c24d53e3ef95f6a671abad8426",
+    "dedicated_result": "2/2 PASS",
+    "current_behavior": "BLOCKED_REQUIRES_ADJUDICATION / ATTEMPT_OFF_FIXED_RATE_GRID",
+    "mutant_behavior": "PASS_DETECTED_WITHIN_BOUND / 6 seconds",
+    "code_change_required": false
+  },
+  "timing_scope": {
+    "sla_detection_endpoint": "remote_observation_completed_at_ns",
+    "full_attempt_completion_role": "TIMELINE_AND_OVERLAP_EVIDENCE_ONLY",
+    "no_real_attempt_overlap_execution_guarantee": "RPE-05"
+  },
+  "final_evidence": {
+    "dedicated_rpe02_surface": "51/51 PASS",
+    "full_targeted_regression": "164/164 PASS",
+    "p5e_contract_diff": 0,
+    "p5e_synthetic_model_diff": 0,
+    "p5d4_runtime_diff": 0
+  },
+  "authority_boundary": {
+    "rpe02_human_adopted": false,
+    "rpe02_closed": false,
+    "rpe04_opened": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_authorized": false,
+    "network_runtime_authorized": false,
+    "p5d4_real_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false
+  },
+  "next_gate": "HUMAN_ADOPTION_RPE02",
+  "stop": true
+}
