@@ -1,0 +1,199 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE04_REAL_REMOTE_OBSERVATION_ADAPTER_PREREGISTRATION_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "base": {
+    "rpe01_adoption_commit": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+    "rpe02_adoption_commit": "7cb120b3c12efdb26a5938b4c2395650d00394b6",
+    "rpe02_adoption_blob": "f652652fb7893774969e42deb9cf5ffe138bf43d",
+    "rpe02_model_blob": "31db5d944a25e54db81bd901a087cdc2039925ad",
+    "rpe03_adoption_commit": "546ce03b8c56a48eb54aaf163e02a9be0e028ce6",
+    "rpe03_adoption_blob": "3a5933a59ad68e342595721e30ee71909d075a3f",
+    "rpe03_classifier_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "rpe04_dependency_import_head": "c66daeb78f05a9f0e936fe4058d715f8d76d082d"
+  },
+  "authority": {
+    "stage": "RPE-04",
+    "rpe04_implementation_authorized": true,
+    "local_bare_remote_fixture_authorized": true,
+    "injected_remote_io_authorized": true,
+    "github_polling_authorized": false,
+    "external_network_qualification_authorized": false,
+    "remote_push_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "real_p5e_authorized": false,
+    "real_p5d4_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false,
+    "evaluation_promotion_publication_authorized": false
+  },
+  "governed_config": {
+    "authorized_entrypoint": "validate_governed_json(raw_document, raw_schema)",
+    "private_guard_functions_forbidden": true,
+    "validate_schema_definition_not_document_entrypoint": true,
+    "runtime_preregistration_path": "tools/obsidian_projection/rpe04_real_remote_observation_adapter_preregistration_v0_1.json",
+    "runtime_schema_path": "tools/obsidian_projection/rpe04_real_remote_observation_adapter_preregistration_v0_1_schema_v0_1.json",
+    "environment_config_authority_forbidden": true,
+    "cli_config_authority_forbidden": true,
+    "unlisted_file_config_authority_forbidden": true
+  },
+  "qualification_environment": {
+    "mode": "LOCAL_BARE_REMOTE_OR_INJECTED_REMOTE_IO_NO_GITHUB_POLLING",
+    "qualification_root": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION",
+    "source_bare_repository": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\source.git",
+    "observer_bare_repository": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\observer.git"
+  },
+  "git_executable": {
+    "resolved_path": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "sha256": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5",
+    "observed_version": "git version 2.54.0.windows.1",
+    "minimum_supported_version": "2.54.0.windows.1",
+    "exact_executable_identity_required": true
+  },
+  "git_environment_isolation": {
+    "strip_all_inherited_git_prefixed_variables": true,
+    "explicit_git_environment": [
+      "GIT_NO_REPLACE_OBJECTS=1",
+      "GIT_CONFIG_NOSYSTEM=1",
+      "GIT_CONFIG_GLOBAL=NUL",
+      "GIT_TERMINAL_PROMPT=0",
+      "GIT_OPTIONAL_LOCKS=0"
+    ],
+    "explicit_command_config": [
+      "core.hooksPath=NUL",
+      "gc.auto=0"
+    ],
+    "local_config_allowlist": [
+      "core.repositoryformatversion=0",
+      "core.filemode=false",
+      "core.bare=true",
+      "core.ignorecase=true"
+    ],
+    "inherited_url_instead_of_authority_forbidden": true,
+    "local_include_path_forbidden": true,
+    "local_include_if_forbidden": true,
+    "canonical_user_worktree_mutation_forbidden": true
+  },
+  "remote_transaction": {
+    "design": "ONE_GOVERNED_FETCH_TRANSACTION_PER_ATTEMPT",
+    "remote_identity": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\source.git",
+    "source_ref": "refs/heads/rpe04-source",
+    "isolated_local_ref": "refs/rpe04/observed",
+    "observed_sha_evidence_source": "POST_SUCCESS_EXACT_LOCAL_REF_refs/rpe04/observed_UPDATED_BY_THE_SINGLE_FETCH",
+    "observed_sha_extraction": "git rev-parse --verify refs/rpe04/observed^{commit}",
+    "remote_observation_completion_timestamp_point": "IMMEDIATELY_AFTER_FETCH_PROCESS_SUCCESS_RETURN",
+    "attempt_completion_timestamp_point": "AFTER_MATERIALIZATION_PROOF_RPE03_CLASSIFICATION_AND_NORMALIZED_EVENT_CONSTRUCTION",
+    "timeout_milliseconds": 5000,
+    "zero_ref_behavior": "READ_FAILURE_FAIL_CLOSED",
+    "multiple_ref_behavior": "BLOCKED_UNEXPECTED_OBSERVATION_NAMESPACE",
+    "unexpected_ref_behavior": "BLOCKED_UNEXPECTED_OBSERVATION_NAMESPACE",
+    "namespace_lifecycle": "ONLY_refs/rpe04/observed_MAY_EXIST_UNDER_refs/rpe04",
+    "object_domain_lifecycle": "PREINITIALIZED_BARE_OBSERVER_BEFORE_ATTEMPT",
+    "object_domain_retention_across_attempts": "RETAIN_WITHIN_ONE_QUALIFICATION_TRACE_TO_CLASSIFY_TRANSITIONS",
+    "local_plus_refspec_role": "ALLOW_LOCAL_OBSERVATION_NAMESPACE_TO_TRACK_NON_FAST_FORWARD_REMOTE_TRANSITIONS_ONLY",
+    "remote_force_push_authority": false,
+    "fetch_command_exact": "\"C:\\Program Files\\Git\\cmd\\git.exe\" -c core.hooksPath=NUL -c gc.auto=0 \"--git-dir=C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\observer.git\" fetch --no-tags --no-recurse-submodules --no-write-fetch-head -- \"C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\source.git\" +refs/heads/rpe04-source:refs/rpe04/observed"
+  },
+  "physical_object_domain": {
+    "path_identity_not_equal_physical_containment": true,
+    "no_ungoverned_indirection_required": true,
+    "paths_checked": [
+      "OBSERVER_REPOSITORY_ROOT",
+      "objects",
+      "objects/pack",
+      "objects/info"
+    ],
+    "indirections_rejected": [
+      "SYMLINK",
+      "JUNCTION",
+      "REPARSE_POINT",
+      "EQUIVALENT_FILESYSTEM_REDIRECTION"
+    ],
+    "absent_required_subpath_behavior": "BLOCKED",
+    "unprovable_containment_behavior": "BLOCKED"
+  },
+  "timing": {
+    "normative_unit": "INTEGER_MONOTONIC_NANOSECONDS",
+    "api": "time.monotonic_ns",
+    "attempt_started_at_ns": "CAPTURED_IMMEDIATELY_BEFORE_SINGLE_FETCH_INVOCATION",
+    "remote_observation_completed_at_ns": "CAPTURED_IMMEDIATELY_AFTER_SUCCESSFUL_FETCH_RETURN",
+    "attempt_completed_at_ns": "CAPTURED_AFTER_LOCAL_PROOF_CLASSIFICATION_AND_EVENT_CONSTRUCTION",
+    "floating_point_seconds_normative_forbidden": true
+  },
+  "evidence_semantics": {
+    "exact_success_identity": "LOWERCASE_40_HEX_SHA",
+    "successful_outcome": "REMOTE_HEAD_OBSERVED",
+    "failed_read_outcome": "READ_FAILURE",
+    "exact_remote_tip_label": "OBSERVED_REMOTE_TIP",
+    "ancestry_only_label": "CONTENT_CONTAINED_NOT_OBSERVED",
+    "intermediate_commit_injection_forbidden": true,
+    "caller_supplied_observed_head_authority_forbidden": true,
+    "caller_supplied_transition_class_authority_forbidden": true,
+    "caller_supplied_containment_authority_forbidden": true,
+    "observed_sha_must_be_materialized_commit_before_classification": true,
+    "unprovable_observed_sha_behavior": "UNKNOWN_BLOCKED"
+  },
+  "normalized_output": {
+    "event_type": "REMOTE_HEAD_OBSERVED",
+    "transition_source": "QUALIFIED_RPE03_CLASSIFIER_ONLY",
+    "transition_vocabulary": [
+      "INITIAL",
+      "SAME",
+      "FAST_FORWARD",
+      "NON_FAST_FORWARD",
+      "UNKNOWN"
+    ],
+    "required_success_fields": [
+      "outcome",
+      "event_type",
+      "evidence_label",
+      "observed_head",
+      "transition_class",
+      "attempt_started_at_ns",
+      "remote_observation_completed_at_ns",
+      "attempt_completed_at_ns"
+    ],
+    "queue_coalescing_authority": false,
+    "retargeting_authority": false,
+    "evaluation_authority": false,
+    "stage_a_authority": false,
+    "stage_b_authority": false,
+    "promotion_authority": false,
+    "publication_authority": false,
+    "vault_or_current_authority": false
+  },
+  "mandatory_red_cases": [
+    "zero ref fails closed",
+    "multiple or unexpected observation namespace ref blocks",
+    "malformed observed SHA blocks",
+    "remote read failure emits READ_FAILURE",
+    "timeout emits READ_FAILURE",
+    "inherited global Git config is neutralized",
+    "inherited system Git config is neutralized",
+    "url.insteadOf cannot redirect governed remote identity",
+    "local include.path is rejected",
+    "local includeIf is rejected",
+    "hooks path is explicitly disabled",
+    "terminal prompt is disabled",
+    "off-contract fetch argv rejected by static contract test",
+    "off-contract refspec rejected by static contract test",
+    "tag fetch absent",
+    "submodule recursion disabled",
+    "FETCH_HEAD write disabled",
+    "caller cannot supply transition class",
+    "caller cannot supply containment claim",
+    "observed SHA not materialized blocks",
+    "contained history cannot become OBSERVED_REMOTE_TIP",
+    "intermediate commit cannot be injected as observed tip",
+    "local isolated namespace can track NON_FAST_FORWARD transition",
+    "symlink junction or reparse object-domain indirection blocks",
+    "RPE-03 UNKNOWN propagates without positive laundering"
+  ],
+  "claim_boundary": {
+    "rpe04_local_adapter_semantics_qualified_candidate": true,
+    "real_p5e_qualified": false,
+    "real_60_second_sla_qualified": false,
+    "production_github_polling_qualified": false
+  },
+  "stop": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}

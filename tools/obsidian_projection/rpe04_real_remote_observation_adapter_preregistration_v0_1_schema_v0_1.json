@@ -1,0 +1,687 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE04_REAL_REMOTE_OBSERVATION_ADAPTER_PREREGISTRATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE04_REAL_REMOTE_OBSERVATION_ADAPTER_PREREGISTRATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_RED"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe01_adoption_commit": {
+            "kind": "string",
+            "const": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25"
+          },
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          },
+          "rpe02_adoption_commit": {
+            "kind": "string",
+            "const": "7cb120b3c12efdb26a5938b4c2395650d00394b6"
+          },
+          "rpe02_adoption_blob": {
+            "kind": "string",
+            "const": "f652652fb7893774969e42deb9cf5ffe138bf43d"
+          },
+          "rpe02_model_blob": {
+            "kind": "string",
+            "const": "31db5d944a25e54db81bd901a087cdc2039925ad"
+          },
+          "rpe03_adoption_commit": {
+            "kind": "string",
+            "const": "546ce03b8c56a48eb54aaf163e02a9be0e028ce6"
+          },
+          "rpe03_adoption_blob": {
+            "kind": "string",
+            "const": "3a5933a59ad68e342595721e30ee71909d075a3f"
+          },
+          "rpe03_classifier_blob": {
+            "kind": "string",
+            "const": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11"
+          },
+          "rpe04_dependency_import_head": {
+            "kind": "string",
+            "const": "c66daeb78f05a9f0e936fe4058d715f8d76d082d"
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "stage": {
+            "kind": "string",
+            "const": "RPE-04"
+          },
+          "rpe04_implementation_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "local_bare_remote_fixture_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "injected_remote_io_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "github_polling_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "external_network_qualification_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "remote_push_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5d4_state_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "vault_or_current_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "evaluation_promotion_publication_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "governed_config": {
+        "kind": "object",
+        "fields": {
+          "authorized_entrypoint": {
+            "kind": "string",
+            "const": "validate_governed_json(raw_document, raw_schema)"
+          },
+          "private_guard_functions_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "validate_schema_definition_not_document_entrypoint": {
+            "kind": "boolean",
+            "const": true
+          },
+          "runtime_preregistration_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe04_real_remote_observation_adapter_preregistration_v0_1.json"
+          },
+          "runtime_schema_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe04_real_remote_observation_adapter_preregistration_v0_1_schema_v0_1.json"
+          },
+          "environment_config_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "cli_config_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "unlisted_file_config_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "qualification_environment": {
+        "kind": "object",
+        "fields": {
+          "mode": {
+            "kind": "string",
+            "const": "LOCAL_BARE_REMOTE_OR_INJECTED_REMOTE_IO_NO_GITHUB_POLLING"
+          },
+          "qualification_root": {
+            "kind": "string",
+            "const": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION"
+          },
+          "source_bare_repository": {
+            "kind": "string",
+            "const": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\source.git"
+          },
+          "observer_bare_repository": {
+            "kind": "string",
+            "const": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\observer.git"
+          }
+        }
+      },
+      "git_executable": {
+        "kind": "object",
+        "fields": {
+          "resolved_path": {
+            "kind": "string",
+            "const": "C:\\Program Files\\Git\\cmd\\git.exe"
+          },
+          "sha256": {
+            "kind": "string",
+            "const": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+          },
+          "observed_version": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1"
+          },
+          "minimum_supported_version": {
+            "kind": "string",
+            "const": "2.54.0.windows.1"
+          },
+          "exact_executable_identity_required": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "git_environment_isolation": {
+        "kind": "object",
+        "fields": {
+          "strip_all_inherited_git_prefixed_variables": {
+            "kind": "boolean",
+            "const": true
+          },
+          "explicit_git_environment": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 5,
+            "max_items": 5,
+            "unique": true,
+            "ordered_const": [
+              "GIT_NO_REPLACE_OBJECTS=1",
+              "GIT_CONFIG_NOSYSTEM=1",
+              "GIT_CONFIG_GLOBAL=NUL",
+              "GIT_TERMINAL_PROMPT=0",
+              "GIT_OPTIONAL_LOCKS=0"
+            ],
+            "allowed_values": [
+              "GIT_NO_REPLACE_OBJECTS=1",
+              "GIT_CONFIG_NOSYSTEM=1",
+              "GIT_CONFIG_GLOBAL=NUL",
+              "GIT_TERMINAL_PROMPT=0",
+              "GIT_OPTIONAL_LOCKS=0"
+            ]
+          },
+          "explicit_command_config": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 2,
+            "max_items": 2,
+            "unique": true,
+            "ordered_const": [
+              "core.hooksPath=NUL",
+              "gc.auto=0"
+            ],
+            "allowed_values": [
+              "core.hooksPath=NUL",
+              "gc.auto=0"
+            ]
+          },
+          "local_config_allowlist": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "core.repositoryformatversion=0",
+              "core.filemode=false",
+              "core.bare=true",
+              "core.ignorecase=true"
+            ],
+            "allowed_values": [
+              "core.repositoryformatversion=0",
+              "core.filemode=false",
+              "core.bare=true",
+              "core.ignorecase=true"
+            ]
+          },
+          "inherited_url_instead_of_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "local_include_path_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "local_include_if_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "canonical_user_worktree_mutation_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "remote_transaction": {
+        "kind": "object",
+        "fields": {
+          "design": {
+            "kind": "string",
+            "const": "ONE_GOVERNED_FETCH_TRANSACTION_PER_ATTEMPT"
+          },
+          "remote_identity": {
+            "kind": "string",
+            "const": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\source.git"
+          },
+          "source_ref": {
+            "kind": "string",
+            "const": "refs/heads/rpe04-source"
+          },
+          "isolated_local_ref": {
+            "kind": "string",
+            "const": "refs/rpe04/observed"
+          },
+          "observed_sha_evidence_source": {
+            "kind": "string",
+            "const": "POST_SUCCESS_EXACT_LOCAL_REF_refs/rpe04/observed_UPDATED_BY_THE_SINGLE_FETCH"
+          },
+          "observed_sha_extraction": {
+            "kind": "string",
+            "const": "git rev-parse --verify refs/rpe04/observed^{commit}"
+          },
+          "remote_observation_completion_timestamp_point": {
+            "kind": "string",
+            "const": "IMMEDIATELY_AFTER_FETCH_PROCESS_SUCCESS_RETURN"
+          },
+          "attempt_completion_timestamp_point": {
+            "kind": "string",
+            "const": "AFTER_MATERIALIZATION_PROOF_RPE03_CLASSIFICATION_AND_NORMALIZED_EVENT_CONSTRUCTION"
+          },
+          "timeout_milliseconds": {
+            "kind": "integer",
+            "const": 5000
+          },
+          "zero_ref_behavior": {
+            "kind": "string",
+            "const": "READ_FAILURE_FAIL_CLOSED"
+          },
+          "multiple_ref_behavior": {
+            "kind": "string",
+            "const": "BLOCKED_UNEXPECTED_OBSERVATION_NAMESPACE"
+          },
+          "unexpected_ref_behavior": {
+            "kind": "string",
+            "const": "BLOCKED_UNEXPECTED_OBSERVATION_NAMESPACE"
+          },
+          "namespace_lifecycle": {
+            "kind": "string",
+            "const": "ONLY_refs/rpe04/observed_MAY_EXIST_UNDER_refs/rpe04"
+          },
+          "object_domain_lifecycle": {
+            "kind": "string",
+            "const": "PREINITIALIZED_BARE_OBSERVER_BEFORE_ATTEMPT"
+          },
+          "object_domain_retention_across_attempts": {
+            "kind": "string",
+            "const": "RETAIN_WITHIN_ONE_QUALIFICATION_TRACE_TO_CLASSIFY_TRANSITIONS"
+          },
+          "local_plus_refspec_role": {
+            "kind": "string",
+            "const": "ALLOW_LOCAL_OBSERVATION_NAMESPACE_TO_TRACK_NON_FAST_FORWARD_REMOTE_TRANSITIONS_ONLY"
+          },
+          "remote_force_push_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "fetch_command_exact": {
+            "kind": "string",
+            "const": "\"C:\\Program Files\\Git\\cmd\\git.exe\" -c core.hooksPath=NUL -c gc.auto=0 \"--git-dir=C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\observer.git\" fetch --no-tags --no-recurse-submodules --no-write-fetch-head -- \"C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\source.git\" +refs/heads/rpe04-source:refs/rpe04/observed"
+          }
+        }
+      },
+      "physical_object_domain": {
+        "kind": "object",
+        "fields": {
+          "path_identity_not_equal_physical_containment": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_ungoverned_indirection_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "paths_checked": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "OBSERVER_REPOSITORY_ROOT",
+              "objects",
+              "objects/pack",
+              "objects/info"
+            ],
+            "allowed_values": [
+              "OBSERVER_REPOSITORY_ROOT",
+              "objects",
+              "objects/pack",
+              "objects/info"
+            ]
+          },
+          "indirections_rejected": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "SYMLINK",
+              "JUNCTION",
+              "REPARSE_POINT",
+              "EQUIVALENT_FILESYSTEM_REDIRECTION"
+            ],
+            "allowed_values": [
+              "SYMLINK",
+              "JUNCTION",
+              "REPARSE_POINT",
+              "EQUIVALENT_FILESYSTEM_REDIRECTION"
+            ]
+          },
+          "absent_required_subpath_behavior": {
+            "kind": "string",
+            "const": "BLOCKED"
+          },
+          "unprovable_containment_behavior": {
+            "kind": "string",
+            "const": "BLOCKED"
+          }
+        }
+      },
+      "timing": {
+        "kind": "object",
+        "fields": {
+          "normative_unit": {
+            "kind": "string",
+            "const": "INTEGER_MONOTONIC_NANOSECONDS"
+          },
+          "api": {
+            "kind": "string",
+            "const": "time.monotonic_ns"
+          },
+          "attempt_started_at_ns": {
+            "kind": "string",
+            "const": "CAPTURED_IMMEDIATELY_BEFORE_SINGLE_FETCH_INVOCATION"
+          },
+          "remote_observation_completed_at_ns": {
+            "kind": "string",
+            "const": "CAPTURED_IMMEDIATELY_AFTER_SUCCESSFUL_FETCH_RETURN"
+          },
+          "attempt_completed_at_ns": {
+            "kind": "string",
+            "const": "CAPTURED_AFTER_LOCAL_PROOF_CLASSIFICATION_AND_EVENT_CONSTRUCTION"
+          },
+          "floating_point_seconds_normative_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "evidence_semantics": {
+        "kind": "object",
+        "fields": {
+          "exact_success_identity": {
+            "kind": "string",
+            "const": "LOWERCASE_40_HEX_SHA"
+          },
+          "successful_outcome": {
+            "kind": "string",
+            "const": "REMOTE_HEAD_OBSERVED"
+          },
+          "failed_read_outcome": {
+            "kind": "string",
+            "const": "READ_FAILURE"
+          },
+          "exact_remote_tip_label": {
+            "kind": "string",
+            "const": "OBSERVED_REMOTE_TIP"
+          },
+          "ancestry_only_label": {
+            "kind": "string",
+            "const": "CONTENT_CONTAINED_NOT_OBSERVED"
+          },
+          "intermediate_commit_injection_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "caller_supplied_observed_head_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "caller_supplied_transition_class_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "caller_supplied_containment_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "observed_sha_must_be_materialized_commit_before_classification": {
+            "kind": "boolean",
+            "const": true
+          },
+          "unprovable_observed_sha_behavior": {
+            "kind": "string",
+            "const": "UNKNOWN_BLOCKED"
+          }
+        }
+      },
+      "normalized_output": {
+        "kind": "object",
+        "fields": {
+          "event_type": {
+            "kind": "string",
+            "const": "REMOTE_HEAD_OBSERVED"
+          },
+          "transition_source": {
+            "kind": "string",
+            "const": "QUALIFIED_RPE03_CLASSIFIER_ONLY"
+          },
+          "transition_vocabulary": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 5,
+            "max_items": 5,
+            "unique": true,
+            "ordered_const": [
+              "INITIAL",
+              "SAME",
+              "FAST_FORWARD",
+              "NON_FAST_FORWARD",
+              "UNKNOWN"
+            ],
+            "allowed_values": [
+              "INITIAL",
+              "SAME",
+              "FAST_FORWARD",
+              "NON_FAST_FORWARD",
+              "UNKNOWN"
+            ]
+          },
+          "required_success_fields": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 8,
+            "max_items": 8,
+            "unique": true,
+            "ordered_const": [
+              "outcome",
+              "event_type",
+              "evidence_label",
+              "observed_head",
+              "transition_class",
+              "attempt_started_at_ns",
+              "remote_observation_completed_at_ns",
+              "attempt_completed_at_ns"
+            ],
+            "allowed_values": [
+              "outcome",
+              "event_type",
+              "evidence_label",
+              "observed_head",
+              "transition_class",
+              "attempt_started_at_ns",
+              "remote_observation_completed_at_ns",
+              "attempt_completed_at_ns"
+            ]
+          },
+          "queue_coalescing_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "retargeting_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "evaluation_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "stage_a_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "stage_b_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "promotion_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "publication_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "vault_or_current_authority": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "mandatory_red_cases": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 25,
+        "max_items": 25,
+        "unique": true,
+        "ordered_const": [
+          "zero ref fails closed",
+          "multiple or unexpected observation namespace ref blocks",
+          "malformed observed SHA blocks",
+          "remote read failure emits READ_FAILURE",
+          "timeout emits READ_FAILURE",
+          "inherited global Git config is neutralized",
+          "inherited system Git config is neutralized",
+          "url.insteadOf cannot redirect governed remote identity",
+          "local include.path is rejected",
+          "local includeIf is rejected",
+          "hooks path is explicitly disabled",
+          "terminal prompt is disabled",
+          "off-contract fetch argv rejected by static contract test",
+          "off-contract refspec rejected by static contract test",
+          "tag fetch absent",
+          "submodule recursion disabled",
+          "FETCH_HEAD write disabled",
+          "caller cannot supply transition class",
+          "caller cannot supply containment claim",
+          "observed SHA not materialized blocks",
+          "contained history cannot become OBSERVED_REMOTE_TIP",
+          "intermediate commit cannot be injected as observed tip",
+          "local isolated namespace can track NON_FAST_FORWARD transition",
+          "symlink junction or reparse object-domain indirection blocks",
+          "RPE-03 UNKNOWN propagates without positive laundering"
+        ],
+        "allowed_values": [
+          "zero ref fails closed",
+          "multiple or unexpected observation namespace ref blocks",
+          "malformed observed SHA blocks",
+          "remote read failure emits READ_FAILURE",
+          "timeout emits READ_FAILURE",
+          "inherited global Git config is neutralized",
+          "inherited system Git config is neutralized",
+          "url.insteadOf cannot redirect governed remote identity",
+          "local include.path is rejected",
+          "local includeIf is rejected",
+          "hooks path is explicitly disabled",
+          "terminal prompt is disabled",
+          "off-contract fetch argv rejected by static contract test",
+          "off-contract refspec rejected by static contract test",
+          "tag fetch absent",
+          "submodule recursion disabled",
+          "FETCH_HEAD write disabled",
+          "caller cannot supply transition class",
+          "caller cannot supply containment claim",
+          "observed SHA not materialized blocks",
+          "contained history cannot become OBSERVED_REMOTE_TIP",
+          "intermediate commit cannot be injected as observed tip",
+          "local isolated namespace can track NON_FAST_FORWARD transition",
+          "symlink junction or reparse object-domain indirection blocks",
+          "RPE-03 UNKNOWN propagates without positive laundering"
+        ]
+      },
+      "claim_boundary": {
+        "kind": "object",
+        "fields": {
+          "rpe04_local_adapter_semantics_qualified_candidate": {
+            "kind": "boolean",
+            "const": true
+          },
+          "real_p5e_qualified": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_60_second_sla_qualified": {
+            "kind": "boolean",
+            "const": false
+          },
+          "production_github_polling_qualified": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "stop": {
+        "kind": "string",
+        "const": "EXTERNAL_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}
