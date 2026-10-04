@@ -94,7 +94,7 @@ jobs:
           test "$(git hash-object reports/program/2026-10-04-RVO-05-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "cccb520f254279f223fd050cd93da7609a9f8587"
           test "$(git hash-object src/rvo_05_cc02_bindings.py)" = "0b6e373e6d9bdea8e27a7f91a962a6b5b7b482f4"
           test "$(git hash-object tests/rvo_05_fixture.py)" = "cd0bd5dbc975ffea3023af545968a90c62888347"
-          test "$(git hash-object tests/test_rvo_05_cc02_bindings.py)" = "ef087a7f1125870e541765e97e5194f2aa39c268"
+          test "$(git hash-object tests/test_rvo_05_cc02_bindings.py)" = "45c48239c1f143edfa32688c77428b09028ec70a"
 
       - name: Prove RVO-05 delta is RVO-only
         run: |
