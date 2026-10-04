@@ -1,0 +1,107 @@
+{
+  "schema": "ATDS_DATA_02_QUALIFICATION_RECEIPT_V0_1",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_FINAL_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_baseline": {
+    "expected_head": "dc33c5ff71bf55a273fddbd05a9e9aa0e2f62351",
+    "expected_tree": "26710b4905f68ff9682e3b808502b2a7b24ee135",
+    "actual_fresh_start_head": "1a68c13150b3897880bd3eb6667dfe64b2af923d",
+    "actual_fresh_start_tree": "f44e05a0ee7c8da6f3d6993ab1f8fb1e71d4f9cd",
+    "drift": "ONE_APPEND_ONLY_ATDS_AO_00_GOVERNANCE_COMMIT_NON_MATERIAL_TO_DATA02",
+    "relevant_rvo04_data01_identities_unchanged": true
+  },
+  "frozen_inputs": {
+    "data01_requirements_map_blob": "2d6d43d783281ee3dfd4028bc9b84c4dce495b87",
+    "data01_contract_blob": "ec013c8db53b482770a62016db50b113b19ecd7f",
+    "data01_temporal_boundary_blob": "4bdb9d6c7448759c0349048fd4f48abba296c0cf",
+    "data01_frozen_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2"
+  },
+  "test_first": {
+    "final_executable_breaker_blob": "876f3ad70e70f55421a80ef8e7d1633c09847fcc",
+    "final_fixture_blob": "6e76ae62858fa55cf74ec356bafd9b64e4bbfa45",
+    "final_red_receipt_blob": "d1989f9bf27d853af747d230c7379adb5184dcbb",
+    "final_red_commit": "85429872111e777c4386e13d9d14e3659c68ed1f",
+    "final_red_run_id": 37223812164,
+    "final_red_job_id": 111499254524,
+    "observed_red": "32_FAILED_RUNTIME_ABSENT",
+    "frozen_case_count": 32,
+    "frozen_expected_results_changed": false,
+    "frozen_intent_weakened": false
+  },
+  "implementation": {
+    "runtime_blob": "6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+    "positive_test_blob": "8ec90deac2221e19c3404a318bd577188210b4b0",
+    "qualification_workflow_blob": "c095672b90927d081f486548684a9fad05a1698c",
+    "implementation_commit": "24339acfd47ef37ac023ef52dddaed39a867f695",
+    "workflow_correction_commit": "9b3733a8aeb008e6e70c0fdce956f0f1fce7e4c7",
+    "runtime_scope": "CLAIM_SCOPED_AP0_ADMISSION_ONLY",
+    "existing_data_owner_files_modified": false
+  },
+  "synthetic_qualification": {
+    "successful_run_id": 37224075075,
+    "successful_job_id": 111500009631,
+    "conclusion": "SUCCESS",
+    "frozen_breakers": {
+      "passed": 32,
+      "failed": 0
+    },
+    "positive_tests": {
+      "passed": 10,
+      "failed": 0
+    },
+    "protected_existing_data_tests": {
+      "passed": 9,
+      "failed": 0
+    },
+    "rvo04_routing_regression": {
+      "passed": 25,
+      "failed": 0
+    },
+    "delta_check": "PASS_STRICTLY_BOUNDED",
+    "compile_check": "PASS_NON_WRITING"
+  },
+  "prior_green_candidate_run": {
+    "run_id": 37223990734,
+    "job_id": 111499768289,
+    "semantic_tests": {
+      "frozen_breakers": "32_PASS",
+      "positive_tests": "10_PASS",
+      "protected_data": "9_PASS",
+      "rvo04": "25_PASS"
+    },
+    "workflow_conclusion": "FAILURE",
+    "failure_reason": "py_compile wrote an untracked bytecode cache before the final clean-worktree check",
+    "correction_scope": "workflow compile check only; runtime, breaker, fixtures and tests unchanged"
+  },
+  "real_ap0": {
+    "status": "PASS_REAL_DATA_ADMISSION",
+    "receipt_path": "reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json",
+    "evidence_digest": "d11f6c39fcf9f31336ecc34027abc99c79a9f881d8203a78d6c7ac47c0b3af3b",
+    "replay_exact_equal": true
+  },
+  "protected_external_workflows": {
+    "data_to_context_boundary": "SUCCESS",
+    "context_to_research_boundary": "SUCCESS",
+    "p0_4_tier_a": "FAIL_PREEXISTING_HISTORICAL_EVIDENCE_FILESET_EXPECTATION_NOT_DATA02_RUNTIME_FAILURE",
+    "p0_6_tier_a": "FAIL_PREEXISTING_HISTORICAL_EVIDENCE_FILESET_EXPECTATION_NOT_DATA02_RUNTIME_FAILURE"
+  },
+  "qualification_semantics": {
+    "synthetic_runtime": "QUALIFIED_WITHIN_EXACT_DATA02_SURFACE",
+    "real_ap0_admission": "PASS_REAL_DATA_ADMISSION",
+    "real_cc02_experiment": "NOT_EXECUTED_NOT_AUTHORIZED",
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "rvo_authority": "NONE"
+  },
+  "stop": {
+    "data03": "NOT_AUTHORIZED",
+    "rvo05": "NOT_AUTHORIZED",
+    "real_cc02_rvo_experiment": "NOT_AUTHORIZED",
+    "backtest": "NOT_AUTHORIZED",
+    "oos_consumption": "NOT_AUTHORIZED"
+  }
+}

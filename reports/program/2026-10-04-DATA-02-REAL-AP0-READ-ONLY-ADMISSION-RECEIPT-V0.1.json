@@ -1,0 +1,73 @@
+{
+  "schema": "ATDS_DATA_02_REAL_AP0_READ_ONLY_ADMISSION_RECEIPT_V0_1",
+  "status": "PASS_REAL_DATA_ADMISSION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "runtime": {
+    "commit": "9b3733a8aeb008e6e70c0fdce956f0f1fce7e4c7",
+    "git_blob": "6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+    "raw_source_sha256": "2775647608e2e57c00bdfc5785a0ba7c181920d844c87875a56ba3b24008fd04",
+    "contract": "ATDS_DATA_02_CLAIM_SCOPED_ADMISSION_V0_1"
+  },
+  "execution_environment": {
+    "platform": "Windows",
+    "python": "3.13.14",
+    "pyarrow": "25.0.1",
+    "role": "OBSERVED_REAL_READ_ONLY_ADMISSION_ENVIRONMENT_NOT_GLOBAL_QUALIFICATION_AUTHORITY"
+  },
+  "corpus": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "files_verified": 61,
+    "rows": 1709180,
+    "source_ticks": 376003618,
+    "segments": 1606,
+    "file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+    "schema_identity": "5c5f5302891567b62024c718d4e7700b766d1ace8f3e40f7a0a29cee6b93bf88",
+    "transformer_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "usage_envelope_id": "DATA01_CC02_AP1_RETROSPECTIVE_V0_1",
+    "temporal_status": "NOT_APPLICABLE_WITH_EXPLICIT_BASIS"
+  },
+  "replay": {
+    "executions": 2,
+    "first_evidence_digest": "d11f6c39fcf9f31336ecc34027abc99c79a9f881d8203a78d6c7ac47c0b3af3b",
+    "second_evidence_digest": "d11f6c39fcf9f31336ecc34027abc99c79a9f881d8203a78d6c7ac47c0b3af3b",
+    "exact_equal": true,
+    "first_runtime_seconds": 5.34,
+    "second_runtime_seconds": 4.61
+  },
+  "checks": {
+    "manifest_identity": "PASS",
+    "file_paths_sizes_hashes_61_of_61": "PASS",
+    "exact_parquet_schema": "PASS",
+    "metadata_identities": "PASS",
+    "row_totals": "PASS",
+    "source_tick_accounting": "PASS",
+    "ordering_integrity": "PASS",
+    "domain_integrity": "PASS",
+    "segment_integrity": "PASS",
+    "usage_envelope_compatibility": "PASS",
+    "deterministic_replay": "PASS"
+  },
+  "exclusions": {
+    "market_behavior_result_computed": false,
+    "strategy_statistic_computed": false,
+    "pnl_computed": false,
+    "performance_observed": false,
+    "oos_consumed": false,
+    "data_modified": false,
+    "data_repaired": false,
+    "data_sorted_or_deduplicated": false,
+    "temporal_validity_claimed": false
+  },
+  "authority": {
+    "data_scientific_authority": false,
+    "temporal_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "rvo_authority": "NONE",
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  }
+}
