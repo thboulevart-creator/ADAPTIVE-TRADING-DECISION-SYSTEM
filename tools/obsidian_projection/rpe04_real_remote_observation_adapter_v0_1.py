@@ -25,6 +25,34 @@ _GUARD_PATH: Final = _ROOT / "tools/obsidian_projection/rpe01_governed_closed_sc
 _RPE03_PATH: Final = _ROOT / "tools/obsidian_projection/rpe03_ancestry_classifier_v0_1.py"
 _SHA40_RE: Final = re.compile(r"[0-9a-f]{40}\Z")
 
+_EXPECTED_RUNTIME_SHA256: Final = {
+    "preregistration": "0c59111fe90b8d80f0c41daf0911d772274eca733c6e68673d484ab8abf2c6ba",
+    "schema": "e39dbc4f3bc82f5d5c2181574bdd120ad6d0fca46bcfdf358fac406b572a8861",
+    "rpe01_guard": "24b36f5b3c0a02bc6247732fe1fa23d6c0fe30bc2b1629a7c54d4c094a628298",
+    "rpe03_classifier": "cbcb996199b06859d257cc194e673a6bc51419890dc0641b42837d3f7cfcb0c3",
+}
+
+
+def _raw_sha256_file(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def _verify_runtime_bindings() -> bool:
+    expected = {
+        _PREREG_PATH: _EXPECTED_RUNTIME_SHA256["preregistration"],
+        _SCHEMA_PATH: _EXPECTED_RUNTIME_SHA256["schema"],
+        _GUARD_PATH: _EXPECTED_RUNTIME_SHA256["rpe01_guard"],
+        _RPE03_PATH: _EXPECTED_RUNTIME_SHA256["rpe03_classifier"],
+    }
+    try:
+        return all(path.is_file() and _raw_sha256_file(path) == digest for path, digest in expected.items())
+    except (OSError, ValueError):
+        return False
+
 
 def _load_module(path: Path, name: str):
     spec = importlib.util.spec_from_file_location(name, path)
@@ -36,6 +64,8 @@ def _load_module(path: Path, name: str):
 
 
 def _load_preregistration() -> dict:
+    if not _verify_runtime_bindings():
+        raise RuntimeError("RPE04_RUNTIME_BINDING_MISMATCH")
     guard = _load_module(_GUARD_PATH, "rpe04_rpe01_guard")
     raw_document = _PREREG_PATH.read_text(encoding="utf-8")
     raw_schema = _SCHEMA_PATH.read_text(encoding="utf-8")
@@ -315,6 +345,13 @@ def observe_once(previous_observed_head):
     if fetch.returncode != 0:
         return _failure("REMOTE_FETCH_FAILED", attempt_started_at_ns, remote_done)
 
+    ok, code = _verify_physical_object_domain(_OBSERVER)
+    if not ok:
+        return _failure(code or "PHYSICAL_OBJECT_DOMAIN_UNPROVABLE", attempt_started_at_ns, remote_done)
+
+    if not _verify_local_config_allowlist():
+        return _failure("LOCAL_CONFIG_NOT_ALLOWLISTED", attempt_started_at_ns, remote_done)
+
     refs = _namespace_refs()
     if refs != [_LOCAL_REF]:
         return _failure("UNEXPECTED_OBSERVATION_NAMESPACE", attempt_started_at_ns, remote_done)
@@ -325,6 +362,12 @@ def observe_once(previous_observed_head):
 
     if not _materialized_commit(observed_head):
         return _failure("OBSERVED_SHA_NOT_MATERIALIZED", attempt_started_at_ns, remote_done)
+
+    if not _verify_runtime_bindings():
+        return _failure("RUNTIME_BINDING_MISMATCH", attempt_started_at_ns, remote_done)
+
+    if not _verify_git_executable_identity():
+        return _failure("GIT_EXECUTABLE_IDENTITY_MISMATCH", attempt_started_at_ns, remote_done)
 
     transition = _RPE03.classify_transition(
         _OBSERVER,

@@ -2,31 +2,58 @@
 
 Date: 2026-10-04
 
-Status: RED CONFIRMED / TEST-FIRST BASELINE
+## Frozen preregistration
 
-Preregistration HEAD:
-5fba272905793ca4ac86ac5ba9ceb2803adda8bc
+- preregistration blob: `0416bc26222b48713014e503ee39abfbfd40326f`
+- schema blob: `ca3e5205a6bd902991376ae77852a40b4a505aca`
+- preregistration HEAD: `5fba272905793ca4ac86ac5ba9ceb2803adda8bc`
+- RPE-01 guard validation: PASS
 
-Preregistration blob:
-0416bc26222b48713014e503ee39abfbfd40326f
+## RED test identity
 
-Schema blob:
-ca3e5205a6bd902991376ae77852a40b4a505aca
+`tests/obsidian_projection/test_rpe04_real_remote_observation_adapter_v0_1.py`
 
-RED test blob:
-eec1d9b39714b5e841438fc76180d851b6494bce
+Worktree blob before persistence:
 
-Observed result:
+`eec1d9b39714b5e841438fc76180d851b6494bce`
 
-- 24 tests executed
-- 2 preregistration/schema tests PASS
-- 22 adapter tests FAIL
-- failure reason: required RPE-04 implementation file does not yet exist
-- RED_EXIT = 1
+## Observed RED result
 
-This is the expected pre-implementation RED state.
+```text
+Ran 24 tests
 
-No RPE-04 implementation existed during this run.
+2 PASS
+22 FAIL
 
-Authority remains limited to the authorized local-only RPE-04 qualification.
-RPE-05, RPE-06 and REAL P5-E remain CLOSED.
+RED_EXIT = 1
+```
+
+The two passing tests validate the preregistration and its RPE-01 governed boundary.
+
+All 22 functional adapter tests fail because the preregistered implementation file does not yet exist:
+
+`tools/obsidian_projection/rpe04_real_remote_observation_adapter_v0_1.py`
+
+This is the expected test-first RED state.
+
+## Functional surfaces already frozen by the RED suite
+
+The frozen suite covers:
+- exact public interface without caller-supplied observed head/transition/containment authority;
+- exact observed remote tip evidence;
+- integer monotonic nanosecond timestamps;
+- exactly one fetch transaction per attempt;
+- FAST_FORWARD and NON_FAST_FORWARD derivation through RPE-03;
+- contained-history non-laundering;
+- missing remote ref and timeout fail-closed behavior;
+- unexpected isolated-namespace refs;
+- malformed and unmaterialized observed SHA;
+- RPE-03 UNKNOWN propagation without positive laundering;
+- local include.path/includeIf rejection;
+- inherited/global/system Git authority neutralization;
+- exact fetch argv protections;
+- Git executable identity binding;
+- physical object-domain acceptance and indirection rejection;
+- no intermediate observed-tip injection.
+
+No implementation exists at this RED checkpoint.
