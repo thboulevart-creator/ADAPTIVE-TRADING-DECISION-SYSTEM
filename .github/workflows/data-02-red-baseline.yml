@@ -8,7 +8,6 @@ on:
       - '.github/workflows/data-02-red-baseline.yml'
       - 'breakers/data_02_claim_scoped_admission_breaker.py'
       - 'tests/data_02_fixture.py'
-      - 'reports/program/*DATA-02*'
       - 'GOVERNANCE/DATA-01-*'
       - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
       - 'requirements/qualification.lock.txt'
@@ -45,7 +44,17 @@ jobs:
           test "$(git hash-object GOVERNANCE/DATA-01-DATA-TEMPORAL-OWNERSHIP-BOUNDARY-V0.1.md)" = "4bdb9d6c7448759c0349048fd4f48abba296c0cf"
           test "$(git hash-object GOVERNANCE/DATA-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "d9cafc53c863341ca827097014411702c26633f2"
 
+      - name: Determine RED lifecycle state
+        id: lifecycle
+        run: |
+          if [ -e src/data/claim_scoped_admission.py ]; then
+            echo "runtime_present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "runtime_present=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Prove runtime is absent before RED
+        if: steps.lifecycle.outputs.runtime_present == 'false'
         run: test ! -e src/data/claim_scoped_admission.py
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
@@ -59,6 +68,7 @@ jobs:
         run: python tools/qualification_environment.py verify
 
       - name: Observe exact 32-case RED
+        if: steps.lifecycle.outputs.runtime_present == 'false'
         run: |
           set +e
           python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py > /tmp/data02-red.log 2>&1
@@ -69,6 +79,14 @@ jobs:
           grep -q "32 failed" /tmp/data02-red.log
           test "$(grep -c 'DATA02_RUNTIME_ABSENT_EXPECTED_RED' /tmp/data02-red.log)" -ge 32
           echo "DATA02_RED_BASELINE=PASS_EXPECTED_32_FAILURES"
+
+      - name: Verify archived RED evidence after implementation
+        if: steps.lifecycle.outputs.runtime_present == 'true'
+        run: |
+          test "$(git hash-object breakers/data_02_claim_scoped_admission_breaker.py)" = "876f3ad70e70f55421a80ef8e7d1633c09847fcc"
+          test "$(git hash-object tests/data_02_fixture.py)" = "6e76ae62858fa55cf74ec356bafd9b64e4bbfa45"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-TEST-FIRST-RED-R3-RECEIPT-V0.1.json)" = "d1989f9bf27d853af747d230c7379adb5184dcbb"
+          echo "DATA02_RED_BASELINE=ARCHIVED_AND_IDENTITY_VERIFIED"
 
       - name: Prove clean worktree
         if: always()
