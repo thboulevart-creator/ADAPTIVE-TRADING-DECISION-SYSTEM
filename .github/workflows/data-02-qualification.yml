@@ -108,8 +108,14 @@ jobs:
       - name: Verify exact qualification environment
         run: python tools/qualification_environment.py verify
 
-      - name: Compile DATA-02 runtime
-        run: python -m py_compile src/data/claim_scoped_admission.py
+      - name: Compile DATA-02 runtime without writing bytecode
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("src/data/claim_scoped_admission.py")
+          compile(path.read_text(encoding="utf-8"), str(path), "exec")
+          print("PASS: DATA-02 runtime compiles without filesystem mutation")
+          PY
 
       - name: Replay exact frozen 32-case DATA-01 breaker
         run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
