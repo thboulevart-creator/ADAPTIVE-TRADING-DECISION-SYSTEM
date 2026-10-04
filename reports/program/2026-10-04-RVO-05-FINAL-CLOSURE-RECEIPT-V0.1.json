@@ -1,0 +1,94 @@
+{
+  "schema": "ATDS_RVO_05_FINAL_PERSISTED_STATE_REBREAK_CLOSURE_V0_1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "status": "RVO05_SYNTHETIC_BINDING_QUALIFIED_FIRST_REAL_CC02_BLOCKED_OWNER_GAP",
+  "persisted_state_verified": {
+    "head": "97e6b67f5254825fcba716bd71f49284b11549eb",
+    "tree": "1815bb8afe77692a22c53d5bddbddfed73ae40e0",
+    "workflow_run_id": 37226955522,
+    "job_id": 111508467944,
+    "conclusion": "SUCCESS"
+  },
+  "exact_final_surfaces_at_verified_state": {
+    "frozen_breaker_contract_blob": "aeded1d85c095bcba4b58fae24046dca36107215",
+    "executable_breaker_blob": "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d",
+    "red_receipt_blob": "cccb520f254279f223fd050cd93da7609a9f8587",
+    "drift_reconciliation_blob": "54d1755b65b26cfd77abb13251d1c4448b30e0f2",
+    "runtime_blob": "b7ee009f0f07fc47e1816740812fcc543e8d6d54",
+    "fixture_blob": "cd0bd5dbc975ffea3023af545968a90c62888347",
+    "positive_tests_blob": "7b30694d79667409e47f9aec591852bdc8f73d72",
+    "qualification_workflow_blob": "8b8a72486083f364282125f7868d2697590692a6",
+    "archived_red_workflow_blob": "eac272d7a0c4195aa571f7313124055585045d87",
+    "readiness_dossier_blob": "e07673ef19954aa14a24af90ba59d29084527f20",
+    "qualification_candidate_receipt_blob": "cde132c9fb33050996235e74bd7fbd7f3e8b557b",
+    "qualification_report_blob": "ac6a2948d7e5e0217fb394efd1d960c4fa8eefda"
+  },
+  "verified_counts": {
+    "rvo05_frozen_breakers": {
+      "passed": 25,
+      "warnings": 25,
+      "failed": 0
+    },
+    "rvo05_positive_integration": {
+      "passed": 14,
+      "failed": 0
+    },
+    "data02_breaker_replay": {
+      "passed": 32,
+      "failed": 0
+    },
+    "rvo04_breaker_replay": {
+      "passed": 25,
+      "failed": 0
+    },
+    "rvo02_breaker_replay": {
+      "passed": 47,
+      "failed": 0
+    },
+    "p1_16_breaker_replay": {
+      "passed": 37,
+      "failed": 0
+    },
+    "smf_core_rebreak": {
+      "passed": 15,
+      "failed": 0
+    }
+  },
+  "semantic_conclusions": {
+    "data02_real_admission": "QUALIFIED_EXISTING_EVIDENCE",
+    "p1_smf_binding": "QUALIFIED_SYNTHETIC_BI5_ONLY",
+    "rvo_validation_package": "PACKAGE_COMPLETE_SYNTHETIC_BI5_ONLY_NON_AUTHORITATIVE",
+    "exact_target_ap0_to_p1_execution": "BLOCKED_P1_TARGET_EXECUTION_SURFACE_UNSUPPORTED",
+    "first_real_cc02_preexecution": "BLOCKED_OWNER_GAP",
+    "blocking_owner": "P1/RESEARCH_EXECUTION",
+    "next_owner_problem": "CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_BOUNDARY_FOR_AP0_AP1"
+  },
+  "smf_route": {
+    "M01": "REQUIRED",
+    "M03": "REQUIRED",
+    "M02": "NOT_APPLICABLE",
+    "M04_M11": "NOT_APPLICABLE_FOR_EXACT_CURRENT_NON_INFERENTIAL_CC02",
+    "C01_C12": "NOT_APPLICABLE"
+  },
+  "authority": {
+    "real_ap1_execution": false,
+    "new_empirical_market_result": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "predictive_claim": false,
+    "profitability_claim": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "rvo_authority": "NONE",
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "closed_boundaries": {
+    "rvo06": "NOT_AUTHORIZED",
+    "data03": "NOT_AUTHORIZED",
+    "p1_owner_maturation": "NOT_AUTHORIZED_WITHOUT_NEW_HUMAN_DECISION"
+  },
+  "self_persistence_rule": "THIS_CLOSURE_ARTIFACT_MUST_ITSELF_BE_PERSISTED_AND_REBROKEN_AT_THE_RESULTING_HEAD_BEFORE_FINAL_CHAT_CLOSURE"
+}
