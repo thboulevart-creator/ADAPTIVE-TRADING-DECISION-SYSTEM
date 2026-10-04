@@ -172,6 +172,8 @@ def _exercise(case_id: str, tmp_path: Path):
 
     if case_id == "DATA01-B18":
         p["usage"]["claim_class"] = "CC04_PREDICTIVE"
+        p["temporal"]["state"] = "TEMPORAL_OWNER_REQUIRED"
+        p["temporal"]["basis"] = "predictive claim requires separate Temporal owner"
         return _reason(m.evaluate_synthetic(p), "BLOCKED_USAGE_ENVELOPE_VIOLATION")
 
     if case_id == "DATA01-B19":
