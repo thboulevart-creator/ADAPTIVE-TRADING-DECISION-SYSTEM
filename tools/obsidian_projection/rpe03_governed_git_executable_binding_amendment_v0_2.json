@@ -1,0 +1,97 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_GOVERNED_GIT_EXECUTABLE_BINDING_AMENDMENT_V0_2",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "date": "2026-10-04",
+  "base": {
+    "rpe03_v01_adoption_commit": "546ce03b8c56a48eb54aaf163e02a9be0e028ce6",
+    "rpe03_v01_adoption_blob": "3a5933a59ad68e342595721e30ee71909d075a3f",
+    "rpe03_v01_classifier_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+    "rpe04_external_review_blob": "fa34c6cd69d19ec4e1913b10b2b5237b9d007220",
+    "rpe04_human_adjudication_blob": "77656b362e24adc412df3040ae5221da99d49a7e",
+    "blocker_provenance_head": "d596fa136e3b4ed21a1ade341e34f800dfd4a540"
+  },
+  "authority": {
+    "stage": "RPE-03-V0.2-TARGETED-AMENDMENT",
+    "implementation_authorized": true,
+    "rpe03_v01_history_rewrite_authorized": false,
+    "rpe04_functional_rebind_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "real_p5e_authorized": false,
+    "network_authorized": false,
+    "real_p5d4_state_mutation_authorized": false,
+    "vault_or_current_mutation_authorized": false
+  },
+  "governed_config": {
+    "authorized_entrypoint": "validate_governed_json(raw_document, raw_schema)",
+    "private_guard_functions_forbidden": true,
+    "runtime_preregistration_path": "tools/obsidian_projection/rpe03_governed_git_executable_binding_amendment_v0_2.json",
+    "runtime_schema_path": "tools/obsidian_projection/rpe03_governed_git_executable_binding_amendment_v0_2_schema_v0_1.json"
+  },
+  "executable_binding": {
+    "absolute_git_executable_path": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "git_executable_sha256": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5",
+    "observed_git_version": "git version 2.54.0.windows.1",
+    "minimum_qualified_git_version": "2.54.0",
+    "exact_path_required": true,
+    "exact_sha256_required": true,
+    "observed_version_required": true,
+    "minimum_version_required": true,
+    "implicit_git_token_forbidden": true,
+    "actually_executed_binary_must_equal_verified_binary": true
+  },
+  "public_interface": {
+    "function": "classify_transition",
+    "positional_parameters": [
+      "repo_path",
+      "previous_observed_head",
+      "new_exact_observed_head",
+      "governed_git_executable"
+    ],
+    "caller_supplied_executable_is_authority": false,
+    "supplied_path_must_equal_preregistered_path": true,
+    "invalid_or_unverified_executable_result": "UNKNOWN"
+  },
+  "semantic_immutability": {
+    "outputs": [
+      "INITIAL",
+      "SAME",
+      "FAST_FORWARD",
+      "NON_FAST_FORWARD",
+      "UNKNOWN"
+    ],
+    "missing_object": "UNKNOWN",
+    "non_commit": "UNKNOWN",
+    "invalid_domain": "UNKNOWN",
+    "shallow_graft_alternate": "UNKNOWN",
+    "unexpected_merge_base_exit": "UNKNOWN",
+    "timeout_or_corruption": "UNKNOWN",
+    "no_other_functional_extension_authorized": true
+  },
+  "windows_falsification": {
+    "required": true,
+    "implicit_search_wrong_binary_selection_must_be_demonstrated": true,
+    "governed_absolute_path_must_ignore_fake_git": true,
+    "fake_git_must_not_execute_in_v02": true,
+    "safe_controlled_simulation_allowed": true
+  },
+  "mandatory_red_cases": [
+    "implicit executable search can select wrong binary",
+    "governed absolute executable must be used",
+    "wrong supplied executable path fails closed",
+    "wrong executable SHA fails closed",
+    "version below qualified minimum fails closed",
+    "RPE-03 transition semantics remain unchanged",
+    "caller cannot create executable authority",
+    "actual subprocess executable equals governed absolute path"
+  ],
+  "qualification_required": [
+    "TARGETED_GREEN",
+    "RPE03_DEDICATED_REGRESSION",
+    "RPE03_MUTATION_TESTS",
+    "RPE04_CALL_SITE_COMPATIBILITY_TEST",
+    "PROTECTED_PREDECESSOR_DIFF_CHECK"
+  ],
+  "stop": "EXTERNAL_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}

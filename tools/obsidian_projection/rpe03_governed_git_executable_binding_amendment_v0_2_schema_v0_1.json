@@ -1,0 +1,344 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE03_GOVERNED_GIT_EXECUTABLE_BINDING_AMENDMENT_V0_2",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE03_GOVERNED_GIT_EXECUTABLE_BINDING_AMENDMENT_V0_2"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_RED"
+      },
+      "date": {
+        "kind": "string",
+        "const": "2026-10-04"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe03_v01_adoption_commit": {
+            "kind": "string",
+            "const": "546ce03b8c56a48eb54aaf163e02a9be0e028ce6"
+          },
+          "rpe03_v01_adoption_blob": {
+            "kind": "string",
+            "const": "3a5933a59ad68e342595721e30ee71909d075a3f"
+          },
+          "rpe03_v01_classifier_blob": {
+            "kind": "string",
+            "const": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11"
+          },
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          },
+          "rpe04_external_review_blob": {
+            "kind": "string",
+            "const": "fa34c6cd69d19ec4e1913b10b2b5237b9d007220"
+          },
+          "rpe04_human_adjudication_blob": {
+            "kind": "string",
+            "const": "77656b362e24adc412df3040ae5221da99d49a7e"
+          },
+          "blocker_provenance_head": {
+            "kind": "string",
+            "const": "d596fa136e3b4ed21a1ade341e34f800dfd4a540"
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "stage": {
+            "kind": "string",
+            "const": "RPE-03-V0.2-TARGETED-AMENDMENT"
+          },
+          "implementation_authorized": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe03_v01_history_rewrite_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe04_functional_rebind_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "network_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5d4_state_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "vault_or_current_mutation_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "governed_config": {
+        "kind": "object",
+        "fields": {
+          "authorized_entrypoint": {
+            "kind": "string",
+            "const": "validate_governed_json(raw_document, raw_schema)"
+          },
+          "private_guard_functions_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "runtime_preregistration_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe03_governed_git_executable_binding_amendment_v0_2.json"
+          },
+          "runtime_schema_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe03_governed_git_executable_binding_amendment_v0_2_schema_v0_1.json"
+          }
+        }
+      },
+      "executable_binding": {
+        "kind": "object",
+        "fields": {
+          "absolute_git_executable_path": {
+            "kind": "string",
+            "const": "C:\\Program Files\\Git\\cmd\\git.exe"
+          },
+          "git_executable_sha256": {
+            "kind": "string",
+            "const": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+          },
+          "observed_git_version": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1"
+          },
+          "minimum_qualified_git_version": {
+            "kind": "string",
+            "const": "2.54.0"
+          },
+          "exact_path_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "exact_sha256_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "observed_version_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "minimum_version_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "implicit_git_token_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "actually_executed_binary_must_equal_verified_binary": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "public_interface": {
+        "kind": "object",
+        "fields": {
+          "function": {
+            "kind": "string",
+            "const": "classify_transition"
+          },
+          "positional_parameters": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "repo_path",
+              "previous_observed_head",
+              "new_exact_observed_head",
+              "governed_git_executable"
+            ],
+            "allowed_values": [
+              "repo_path",
+              "previous_observed_head",
+              "new_exact_observed_head",
+              "governed_git_executable"
+            ]
+          },
+          "caller_supplied_executable_is_authority": {
+            "kind": "boolean",
+            "const": false
+          },
+          "supplied_path_must_equal_preregistered_path": {
+            "kind": "boolean",
+            "const": true
+          },
+          "invalid_or_unverified_executable_result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          }
+        }
+      },
+      "semantic_immutability": {
+        "kind": "object",
+        "fields": {
+          "outputs": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 5,
+            "max_items": 5,
+            "unique": true,
+            "ordered_const": [
+              "INITIAL",
+              "SAME",
+              "FAST_FORWARD",
+              "NON_FAST_FORWARD",
+              "UNKNOWN"
+            ],
+            "allowed_values": [
+              "INITIAL",
+              "SAME",
+              "FAST_FORWARD",
+              "NON_FAST_FORWARD",
+              "UNKNOWN"
+            ]
+          },
+          "missing_object": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "non_commit": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "invalid_domain": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "shallow_graft_alternate": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "unexpected_merge_base_exit": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "timeout_or_corruption": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "no_other_functional_extension_authorized": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "windows_falsification": {
+        "kind": "object",
+        "fields": {
+          "required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "implicit_search_wrong_binary_selection_must_be_demonstrated": {
+            "kind": "boolean",
+            "const": true
+          },
+          "governed_absolute_path_must_ignore_fake_git": {
+            "kind": "boolean",
+            "const": true
+          },
+          "fake_git_must_not_execute_in_v02": {
+            "kind": "boolean",
+            "const": true
+          },
+          "safe_controlled_simulation_allowed": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "mandatory_red_cases": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 8,
+        "max_items": 8,
+        "unique": true,
+        "ordered_const": [
+          "implicit executable search can select wrong binary",
+          "governed absolute executable must be used",
+          "wrong supplied executable path fails closed",
+          "wrong executable SHA fails closed",
+          "version below qualified minimum fails closed",
+          "RPE-03 transition semantics remain unchanged",
+          "caller cannot create executable authority",
+          "actual subprocess executable equals governed absolute path"
+        ],
+        "allowed_values": [
+          "implicit executable search can select wrong binary",
+          "governed absolute executable must be used",
+          "wrong supplied executable path fails closed",
+          "wrong executable SHA fails closed",
+          "version below qualified minimum fails closed",
+          "RPE-03 transition semantics remain unchanged",
+          "caller cannot create executable authority",
+          "actual subprocess executable equals governed absolute path"
+        ]
+      },
+      "qualification_required": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 5,
+        "max_items": 5,
+        "unique": true,
+        "ordered_const": [
+          "TARGETED_GREEN",
+          "RPE03_DEDICATED_REGRESSION",
+          "RPE03_MUTATION_TESTS",
+          "RPE04_CALL_SITE_COMPATIBILITY_TEST",
+          "PROTECTED_PREDECESSOR_DIFF_CHECK"
+        ],
+        "allowed_values": [
+          "TARGETED_GREEN",
+          "RPE03_DEDICATED_REGRESSION",
+          "RPE03_MUTATION_TESTS",
+          "RPE04_CALL_SITE_COMPATIBILITY_TEST",
+          "PROTECTED_PREDECESSOR_DIFF_CHECK"
+        ]
+      },
+      "stop": {
+        "kind": "string",
+        "const": "EXTERNAL_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}
