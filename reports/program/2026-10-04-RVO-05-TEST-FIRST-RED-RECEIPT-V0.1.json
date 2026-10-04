@@ -1,0 +1,39 @@
+{
+  "schema": "ATDS_RVO_05_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "OBSERVED_RED_PERSISTED_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "51f3818a4d09cb6af8f096adf97798dea87484f9",
+    "tree": "3abbf952ba9463dc74bac947a2f0933bd398dee9"
+  },
+  "frozen_contract_blob": "aeded1d85c095bcba4b58fae24046dca36107215",
+  "executable_breaker_blob": "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d",
+  "red_workflow_blob": "ec3285e1ec8fe35780d844cf35ba9123f8995c77",
+  "red_commit": "7e070bc5c6cde0929f5e9640edc8e08278346046",
+  "red_tree": "2d00f2cfec5702d4d013ba8ad41063bee80ba874",
+  "observed_red": {
+    "workflow_run_id": 37225603423,
+    "job_id": 111504497934,
+    "conclusion": "SUCCESS_EXPECTED_RED_PROOF",
+    "pytest_result": "25_FAILED",
+    "marker": "RVO05_RUNTIME_ABSENT_EXPECTED_RED",
+    "runtime_present": false
+  },
+  "test_first_integrity": {
+    "frozen_case_count": 25,
+    "all_cases_materialized_before_runtime": true,
+    "frozen_expected_results_changed": false,
+    "frozen_intent_weakened": false
+  },
+  "authority": {
+    "real_ap1_execution": false,
+    "new_empirical_market_result": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "p1_owner_modified": false,
+    "smf_owner_modified": false,
+    "data_owner_modified": false,
+    "rvo_authority": "NONE"
+  }
+}
