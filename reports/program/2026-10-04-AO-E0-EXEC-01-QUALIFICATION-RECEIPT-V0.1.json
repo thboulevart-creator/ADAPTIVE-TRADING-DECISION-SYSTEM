@@ -1,0 +1,55 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_01_QUALIFICATION_RECEIPT_V0_1",
+  "original_authorized_parent": {
+    "head": "51f3818a4d09cb6af8f096adf97798dea87484f9",
+    "tree": "3abbf952ba9463dc74bac947a2f0933bd398dee9"
+  },
+  "fresh_reconciled_parent": {
+    "head": "3d4eeb365c7c48ee45ec33e2a6ceffc1f44a8f71",
+    "tree": "ba48f1cc139af4959af9ba8540b90c6cc92c1556"
+  },
+  "drift_adjudication": "RVO-05_CC02_AP0_RED_ONLY_NON_MATERIAL",
+  "artifacts": {
+    "contract_blob": "e6b71c6f53fb3cfde807fe06ccff27b2f3b458e4",
+    "human_b4_b5_blob": "8a8a4658fd182b0a73227df1ec9837dc25f0fc69",
+    "breaker_blob": "a114e768d44bde3243178da2aa6228fe3e477a8a",
+    "runtime_blob": "3d9d50929fe4d59c0919dfde2a3d96c035f59fe3",
+    "tests_blob": "1ec08feedb4d9371824ba57dcb44cad4aeedc323",
+    "test_first_red_receipt_blob": "278bb79a1bcc6801b434fd291d22f39f9aa5cb78",
+    "qualification_report_blob": "20e9233b15b5829949a62aea5dac54aa6cbb27f5"
+  },
+  "synthetic_execution": {
+    "breaker": "PASS",
+    "breaker_cases": 12,
+    "pytest": "PASS",
+    "pytest_cases": 8,
+    "mode": "STATIC_SYNTHETIC_ONLY_NO_REAL_DATA_NO_OOS"
+  },
+  "canonical_cost_evidence_search": {
+    "exact_ustech_commission_profile_found": false,
+    "exact_ustech_slippage_profile_found": false,
+    "exact_ustech_financing_or_swap_profile_found": false,
+    "account_cost_profile_identity_found": false,
+    "symbol_contract_identity_found": false,
+    "pedagogical_numeric_examples_are_admissible": false
+  },
+  "verdict": {
+    "synthetic_mechanics": "PASS",
+    "e1_scoped_all_in_extension": "INSUFFICIENT_FOR_REAL_CC05_READINESS",
+    "required_return_state": "BLOCKED_BY_EXECUTION_OWNER_FRONTIER",
+    "generic_execution_01": "NOT_JUSTIFIED",
+    "real_cc05_cost_profile": "BLOCKED",
+    "oos_consumption": "NOT_AUTHORIZED",
+    "b12": "CLOSED"
+  },
+  "missing_real_evidence": [
+    "exact execution venue identity",
+    "exact account cost profile identity",
+    "exact USTECH symbol contract identity",
+    "commission schedule applicable across OOS",
+    "defensible slippage upper-bound methodology/evidence",
+    "financing/swap schedule and holding-period applicability across OOS",
+    "full OOS cost-schedule coverage evidence",
+    "unit conversion identity if native fees differ from realized-PnL price units"
+  ]
+}

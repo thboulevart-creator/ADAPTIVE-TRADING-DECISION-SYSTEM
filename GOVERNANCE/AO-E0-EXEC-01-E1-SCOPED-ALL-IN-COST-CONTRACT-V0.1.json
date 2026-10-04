@@ -1,0 +1,136 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_01_E1_SCOPED_ALL_IN_COST_CONTRACT_V0_1",
+  "control_id": "AO-E0-EXEC-01",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST_CONTRACT_SYNTHETIC_MECHANICS_ONLY",
+  "authority_basis": {
+    "original_authorized_parent": {
+      "head": "51f3818a4d09cb6af8f096adf97798dea87484f9",
+      "tree": "3abbf952ba9463dc74bac947a2f0933bd398dee9"
+    },
+    "fresh_reconciled_parent": {
+      "head": "3d4eeb365c7c48ee45ec33e2a6ceffc1f44a8f71",
+      "tree": "ba48f1cc139af4959af9ba8540b90c6cc92c1556"
+    },
+    "intervening_drift": "RVO-05 CC02/AP0 TEST-FIRST RED ONLY / NON-MATERIAL TO AO-E0-EXEC-01"
+  },
+  "scope": {
+    "strategy_id": "MOMENTUM_V1",
+    "instrument": "USTECH",
+    "timeframe": "H1",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "architecture": "E1_SCOPED_EXTENSION_NOT_GENERIC_EXECUTION",
+    "base_execution_contract": "ATDS_E1_04_EXECUTION_COST_MODEL_V0_1",
+    "base_execution_contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+    "base_execution_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b"
+  },
+  "dependencies": {
+    "ao_contract_blob": "0b07b8bfe44b5007d46b580c5bef131f2ab9a273",
+    "rvo_04_claim_graph_blob": "fcd723a30bad063471d7a399c06464b580c87e77",
+    "rvo_05_breaker_contract_blob": "aeded1d85c095bcba4b58fae24046dca36107215",
+    "data_01_contract_blob": "ec013c8db53b482770a62016db50b113b19ecd7f",
+    "data_02_qualification_blob": "0c2a66b2e59e19daaaeda41f3e1c981a0effac03",
+    "smf03_core_foundation_blob": "5b71a409f135e42de5805b12afbd518a152b32a5",
+    "smf03_dependence_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87"
+  },
+  "authority": {
+    "real_e1_run_authorized": false,
+    "real_performance_observation_authorized": false,
+    "oos_consumption_authorized": false,
+    "strategy_modification_authorized": false,
+    "parameter_optimization_authorized": false,
+    "broker_live_capital_authorized": false
+  },
+  "preserved_e1_04_semantics": [
+    "RAW_BID_ASK_EXECUTION",
+    "MID_IS_NOT_EXECUTION_PRICE",
+    "SAME_BAR_EXECUTION_FORBIDDEN",
+    "NO_PYRAMIDING",
+    "FORBIDDEN_CONTINUITY_BOUNDARY_FAILS_CLOSED",
+    "NO_ADMISSIBLE_PRICE_YIELDS_NOT_EXECUTED",
+    "SPREAD_INCLUDED_INTRINSICALLY"
+  ],
+  "economic_unit": {
+    "unit": "PRICE_UNITS_PER_UNIT_POSITION",
+    "all_cost_components_must_be_converted_to_same_unit": true,
+    "conversion_identity_required_if_native_cost_unit_differs": true
+  },
+  "cost_inventory": {
+    "required_components": [
+      "commission",
+      "slippage",
+      "financing"
+    ],
+    "optional_material_components": "MUST_BE_DECLARED_AND_INCLUDED_IF_APPLICABLE",
+    "inventory_completeness_required": true,
+    "missing_component_rule": "UNKNOWN_BLOCKS_CC05"
+  },
+  "cost_component_contract": {
+    "states": [
+      "EXACT",
+      "BOUNDED",
+      "NOT_APPLICABLE_WITH_EVIDENCE",
+      "UNKNOWN"
+    ],
+    "provenance_kinds": [
+      "OBSERVED",
+      "CONTRACTUAL",
+      "ESTIMATED_WITH_BOUND",
+      "POLICY_BOUND",
+      "NOT_APPLICABLE_EVIDENCE"
+    ],
+    "required_fields": [
+      "state",
+      "provenance_kind",
+      "source_ref",
+      "lower_cost",
+      "upper_cost",
+      "unit"
+    ],
+    "conservative_claim_value": "UPPER_COST_BOUND",
+    "estimated_point_without_bound": "BLOCKED",
+    "average_without_bound": "BLOCKED",
+    "unknown": "BLOCKED",
+    "not_applicable_requires_evidence": true
+  },
+  "required_real_applicability_bindings": [
+    "execution_venue_identity",
+    "account_cost_profile_identity",
+    "symbol_contract_identity",
+    "cost_schedule_effective_from_utc",
+    "cost_schedule_effective_to_utc",
+    "cost_profile_source_ref",
+    "unit_conversion_identity_or_NOT_REQUIRED_WITH_BASIS"
+  ],
+  "oos_cost_schedule_requirement": {
+    "oos_start": "2025-05-25T00:00:00Z",
+    "oos_end": "2026-05-24T23:59:59.963Z",
+    "rule": "COST_SCHEDULE_MUST_COVER_ENTIRE_OOS_OR_BLOCK"
+  },
+  "trade_cost_envelope": {
+    "raw_pnl": "E1_RAW_BID_ASK_REALIZED_UNIT_PNL",
+    "formula": "CONSERVATIVE_ALL_IN_NET = RAW_BID_ASK_PNL - SUM(COMPONENT_UPPER_COST)",
+    "commission_slippage_nonnegative": true,
+    "financing_may_be_signed": true,
+    "spread_double_count_forbidden": true
+  },
+  "forbidden_equivalences": [
+    "MISSING_COST_EQUALS_ZERO",
+    "ESTIMATED_COST_EQUALS_OBSERVED_COST",
+    "AVERAGE_COST_EQUALS_GUARANTEED_COST",
+    "SPREAD_ONLY_EQUALS_ALL_IN",
+    "BACKTEST_EXECUTION_EQUALS_BROKER_REALISM",
+    "EXECUTION_MODEL_PASS_EQUALS_STRATEGY_QUALIFIED",
+    "FAVORABLE_COST_ASSUMPTION_EQUALS_AUTHORITY"
+  ],
+  "real_readiness": {
+    "commission": "UNKNOWN_PENDING_EXACT_APPLICABLE_SOURCE",
+    "slippage": "UNKNOWN_PENDING_DEFENSIBLE_BOUND",
+    "financing": "UNKNOWN_PENDING_EXACT_APPLICABLE_SOURCE_AND_HOLDING_RULE",
+    "execution_venue_identity": "UNKNOWN_NOT_CANONICALLY_BOUND",
+    "account_cost_profile_identity": "UNKNOWN_NOT_CANONICALLY_BOUND",
+    "symbol_contract_identity": "UNKNOWN_NOT_CANONICALLY_BOUND",
+    "cost_schedule_full_oos_coverage": "UNKNOWN_NOT_CANONICALLY_BOUND",
+    "cc05_real_applicability": "BLOCKED"
+  }
+}

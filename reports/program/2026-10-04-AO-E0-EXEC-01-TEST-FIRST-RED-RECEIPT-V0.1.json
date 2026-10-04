@@ -1,0 +1,8 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "expected": "RED_BECAUSE_RUNTIME_TARGET_ABSENT",
+  "observed": "EXPECTED_RED",
+  "note": "Breaker executed before runtime target existed; no real data or OOS performance accessed.",
+  "oos_consumed": false,
+  "real_performance_observed": false
+}
