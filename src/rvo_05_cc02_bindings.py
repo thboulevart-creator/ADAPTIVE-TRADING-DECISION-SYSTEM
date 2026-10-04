@@ -416,3 +416,291 @@ def readiness_verdict(*,data02_real_status:str,p1_smf_binding_status:str,target_
             real_cc02_authorized=False,
         )
     return _decision("READY_FOR_SEPARATE_HUMAN_AUTHORIZATION","FIRST_REAL_CC02_PRE_EXECUTION_READY",real_cc02_authorized=False)
+
+
+def build_synthetic_rvo_validation_package(
+    *,
+    repository: str,
+    branch: str,
+    head: str,
+    tree: str,
+    data_admission: Mapping[str, Any],
+    specification,
+    p1_chain_binding: Mapping[str, Any],
+    smf_bundle: Mapping[str, Any],
+    smf_result_binding: Mapping[str, Any],
+    environment_identity: str,
+) -> dict[str, Any]:
+    """Assemble a synthetic RVO package from exact owner-native evidence.
+
+    PACKAGE_COMPLETE remains procedural only. The package preserves the P1
+    finding status and exact SMF activation/result references without
+    interpreting either as strategy validation or authority.
+    """
+    data_check = validate_data_admission(
+        data_admission,
+        expected_digest=str(data_admission.get("admission_digest", "")),
+    )
+    if data_check["status"] != "READY":
+        raise RVO05Error(data_check["reason"])
+    method_check = validate_method_bundle(smf_bundle)
+    if method_check["status"] != "READY":
+        raise RVO05Error(method_check["reason"])
+    if p1_chain_binding.get("status") != "READY":
+        raise RVO05Error("P1_CHAIN_NOT_READY")
+    if not p1_spec.is_factory_attested_experiment_specification(specification):
+        raise RVO05Error("P1_SPEC_NOT_ATTESTED")
+
+    m01 = _activation_payload(smf_bundle["m01_activation"])
+    m03 = _activation_payload(smf_bundle["m03_activation"])
+    if not isinstance(m01, Mapping) or not isinstance(m03, Mapping):
+        raise RVO05Error("SMF_ACTIVATION_BINDING_INCOMPLETE")
+    if smf_result_binding.get("result_digest") != p1_chain_binding.get("smf_result_digest"):
+        raise RVO05Error("P1_SMF_RESULT_BINDING_MISMATCH")
+
+    controls = [
+        {
+            "control_id": "P1-SPEC",
+            "owner_id": "P1",
+            "owner_contract_ref": p1_spec.CONTRACT,
+            "failure_mode_refs": ["UNFROZEN_EXPERIMENT_SPECIFICATION"],
+            "applicability_rule_ref": "rvo05:cc02:p1-spec-required",
+            "input_contract_ref": "P1.8:FollowUpRequest",
+            "output_contract_ref": p1_spec.CONTRACT,
+            "dependency_control_ids": [],
+            "native_status_schema_ref": "P1:FACTORY_ATTESTATION",
+            "blocking_rule_ref": "rvo05:p1-spec-attestation",
+            "reconstructibility_contract_ref": "rvo05:p1-spec-content-identity",
+            "validity_scope": "RVO05_CC02_SYNTHETIC_BI5",
+        },
+        {
+            "control_id": "DATA-02",
+            "owner_id": "DATA",
+            "owner_contract_ref": data02.CONTRACT,
+            "failure_mode_refs": ["DATA_IDENTITY_OR_ADMISSIBILITY"],
+            "applicability_rule_ref": "rvo05:cc02:data-required",
+            "input_contract_ref": "DATA02:AP0_CLAIM_SCOPED_INPUT",
+            "output_contract_ref": data02.CONTRACT,
+            "dependency_control_ids": ["P1-SPEC"],
+            "native_status_schema_ref": "DATA02:ADMISSION_STATUS",
+            "blocking_rule_ref": "rvo05:data02-native-status",
+            "reconstructibility_contract_ref": "rvo05:data02-admission-digest",
+            "validity_scope": "RVO05_CC02_SYNTHETIC_BI5",
+        },
+        {
+            "control_id": "SMF-M01",
+            "owner_id": "SMF",
+            "owner_contract_ref": smf.CONTRACT,
+            "failure_mode_refs": ["ESTIMAND_DRIFT"],
+            "applicability_rule_ref": "rvo05:cc02:m01-required",
+            "input_contract_ref": "SMF02:ACTIVATION_INPUT",
+            "output_contract_ref": smf.CONTRACT,
+            "dependency_control_ids": ["P1-SPEC"],
+            "native_status_schema_ref": "SMF:ACTIVATION_STATE",
+            "blocking_rule_ref": "rvo05:smf-m01-native",
+            "reconstructibility_contract_ref": "rvo05:smf-activation-digest",
+            "validity_scope": "RVO05_CC02_SYNTHETIC_BI5",
+        },
+        {
+            "control_id": "SMF-M03",
+            "owner_id": "SMF",
+            "owner_contract_ref": smf.CONTRACT,
+            "failure_mode_refs": ["EMPIRICAL_DISTRIBUTION_QUANTILE_SUMMARY"],
+            "applicability_rule_ref": "rvo05:cc02:m03-required",
+            "input_contract_ref": "SMF02:ACTIVATION_INPUT",
+            "output_contract_ref": smf.CONTRACT,
+            "dependency_control_ids": ["DATA-02", "P1-SPEC", "SMF-M01"],
+            "native_status_schema_ref": "SMF:ACTIVATION_STATE",
+            "blocking_rule_ref": "rvo05:smf-m03-native",
+            "reconstructibility_contract_ref": "rvo05:smf-activation-and-result-digest",
+            "validity_scope": "RVO05_CC02_SYNTHETIC_BI5",
+        },
+        {
+            "control_id": "P1-DOWNSTREAM",
+            "owner_id": "P1",
+            "owner_contract_ref": p1_find.CONTRACT,
+            "failure_mode_refs": ["UNQUALIFIED_EXPERIMENT_FINDING_CHAIN"],
+            "applicability_rule_ref": "rvo05:cc02:p1-downstream-required",
+            "input_contract_ref": p1_exec.CONTRACT,
+            "output_contract_ref": p1_find.CONTRACT,
+            "dependency_control_ids": ["DATA-02", "P1-SPEC", "SMF-M03"],
+            "native_status_schema_ref": "P1:FINDING_STATUS",
+            "blocking_rule_ref": "rvo05:p1-native-finding",
+            "reconstructibility_contract_ref": "rvo05:p1-chain-identities",
+            "validity_scope": "RVO05_CC02_SYNTHETIC_BI5",
+        },
+    ]
+    catalog = rvo.build_control_catalog(
+        controls,
+        catalog_version="RVO05_CC02_SYNTHETIC_OWNER_CHAIN_V0_1",
+    )
+    pre = rvo.build_pre_snapshot(
+        repository=repository,
+        branch=branch,
+        head=head,
+        tree=tree,
+        dataset_refs=[
+            str(data_admission["admission_digest"]),
+            str(data_admission["binding_basis"]["dataset_identity"]),
+        ],
+        temporal_ref="NOT_APPLICABLE_WITH_EXPLICIT_BASIS:RETROSPECTIVE_DESCRIPTIVE_ONLY",
+        execution_ref="P1_EXECUTION:SYNTHETIC_BI5_ONLY",
+        smf_activation_refs=[
+            str(m01["activation_digest"]),
+            str(m03["activation_digest"]),
+        ],
+        mcepr_pre_ref="NOT_APPLICABLE_WITH_BASIS:NO_MATERIAL_SEARCH_EXPOSURE",
+        oos_pre_state="NOT_CONSUMED_SYNTHETIC",
+        environment_identity=environment_identity,
+        owner_contract_refs={
+            "RVO": rvo.CONTRACT,
+            "DATA": data02.CONTRACT,
+            "P1_SPEC": p1_spec.CONTRACT,
+            "P1_EXECUTION": p1_exec.CONTRACT,
+            "P1_FINDING": p1_find.CONTRACT,
+            "SMF": smf.CONTRACT,
+        },
+    )
+
+    method_bindings = {
+        "SMF-M01": {
+            "p1_method_ref": smf_bundle["p1_method_ref"],
+            "activation_digest": m01["activation_digest"],
+            "qualified_method_ref": "gitblob:" + SMF_CORE_BLOB,
+            "claim_ref": m01["claim_definition_ref"],
+            "failure_mode_ref": m01["failure_mode_ref"],
+            "assumption_set_ref": m01["assumption_set_ref"],
+            "parameter_policy_ref": rvo.canonical_sha256(m01["parameter_selection_policy"]),
+            "dependency_refs": list(m01["dependency_refs"]),
+        },
+        "SMF-M03": {
+            "p1_method_ref": smf_bundle["p1_method_ref"],
+            "activation_digest": m03["activation_digest"],
+            "qualified_method_ref": "gitblob:" + SMF_CORE_BLOB,
+            "claim_ref": m03["claim_definition_ref"],
+            "failure_mode_ref": m03["failure_mode_ref"],
+            "assumption_set_ref": m03["assumption_set_ref"],
+            "parameter_policy_ref": rvo.canonical_sha256(m03["parameter_selection_policy"]),
+            "dependency_refs": list(m03["dependency_refs"]),
+        },
+    }
+    applicability = [
+        {"control_id":"P1-SPEC","applicability_state":"APPLICABLE","applicability_basis":"Exact empirical experiment specification is required.","material":True},
+        {"control_id":"DATA-02","applicability_state":"APPLICABLE","applicability_basis":"Exact claim-scoped data admission is required before empirical execution.","material":True},
+        {"control_id":"SMF-M01","applicability_state":"APPLICABLE","applicability_basis":"Claim and estimand must be frozen before result exposure.","material":True},
+        {"control_id":"SMF-M03","applicability_state":"APPLICABLE","applicability_basis":"Declared empirical percentile summaries require M03.","material":True},
+        {"control_id":"P1-DOWNSTREAM","applicability_state":"APPLICABLE","applicability_basis":"Empirical claim requires the qualified P1 downstream finding chain.","material":True},
+    ]
+    manifest = rvo.build_pre_result_manifest(
+        catalog=catalog,
+        experiment_spec_id=specification.experiment_spec_id,
+        claim_ref=m01["claim_definition_ref"],
+        estimand_ref="estimand:rvo05:synthetic-spread-empirical-quantiles",
+        validity_scope_ref=m01["validity_scope_ref"],
+        pre_snapshot=pre,
+        applicability_records=applicability,
+        method_bindings=method_bindings,
+        result_exposed=False,
+    )
+
+    snapshot = pre["pre_snapshot_digest"]
+    owner_results = [
+        rvo.bind_owner_result(
+            control_id="P1-SPEC", owner_id="P1",
+            native_status_schema_ref="P1:FACTORY_ATTESTATION",
+            native_status="ATTESTED", asserted_native_status="ATTESTED",
+            orchestration_state="READY", blocking_rule_ref=None, snapshot_digest=snapshot,
+        ),
+        rvo.bind_owner_result(
+            control_id="DATA-02", owner_id="DATA",
+            native_status_schema_ref="DATA02:ADMISSION_STATUS",
+            native_status=str(data_admission["status"]), asserted_native_status=str(data_admission["status"]),
+            orchestration_state="READY", blocking_rule_ref=None, snapshot_digest=snapshot,
+        ),
+        rvo.bind_owner_result(
+            control_id="SMF-M01", owner_id="SMF",
+            native_status_schema_ref="SMF:ACTIVATION_STATE",
+            native_status=str(m01["activation_state"]), asserted_native_status=str(m01["activation_state"]),
+            orchestration_state="READY", blocking_rule_ref=None, snapshot_digest=snapshot,
+        ),
+        rvo.bind_owner_result(
+            control_id="SMF-M03", owner_id="SMF",
+            native_status_schema_ref="SMF:ACTIVATION_STATE",
+            native_status=str(m03["activation_state"]), asserted_native_status=str(m03["activation_state"]),
+            orchestration_state="READY", blocking_rule_ref=None, snapshot_digest=snapshot,
+        ),
+        rvo.bind_owner_result(
+            control_id="P1-DOWNSTREAM", owner_id="P1",
+            native_status_schema_ref="P1:FINDING_STATUS",
+            native_status=str(p1_chain_binding["p1_native_finding_status"]),
+            asserted_native_status=str(p1_chain_binding["p1_native_finding_status"]),
+            orchestration_state="READY", blocking_rule_ref=None, snapshot_digest=snapshot,
+        ),
+    ]
+    post = rvo.build_post_snapshot(
+        pre_manifest_digest=manifest["manifest_digest"],
+        actual_input_refs=[
+            str(data_admission["admission_digest"]),
+            str(p1_chain_binding["execution_result_id"]),
+        ],
+        owner_output_refs=[
+            str(m01["activation_digest"]),
+            str(m03["activation_digest"]),
+            str(smf_result_binding["result_digest"]),
+            str(p1_chain_binding["finding_id"]),
+        ],
+        p1_finding_refs=[str(p1_chain_binding["finding_id"])],
+        pcp_post_ref="SYNTHETIC_PCP_POST:UNCHANGED",
+        mcepr_post_ref="NOT_APPLICABLE_WITH_BASIS:NO_MATERIAL_SEARCH_EXPOSURE",
+        oos_post_state="NOT_CONSUMED_SYNTHETIC",
+        environment_identity=environment_identity,
+        material_dependency_refs=[
+            "gitblob:" + SMF_CORE_BLOB,
+            "gitblob:" + P1_LINKED_EXECUTION_BLOB,
+            "gitblob:6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+        ],
+    )
+    reconstruction = rvo.validate_reconstruction_descriptor(
+        reconstruction_class="EVIDENCE_REPLAY",
+        material_inputs={
+            "data_admission_digest": data_admission["admission_digest"],
+            "experiment_spec_id": specification.experiment_spec_id,
+            "execution_result_id": p1_chain_binding["execution_result_id"],
+            "smf_result_digest": smf_result_binding["result_digest"],
+            "finding_id": p1_chain_binding["finding_id"],
+        },
+        environment_identity=environment_identity,
+        dependency_refs=[
+            "gitblob:" + SMF_CORE_BLOB,
+            "gitblob:" + P1_LINKED_EXECUTION_BLOB,
+            "gitblob:6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+        ],
+        schema_refs=[data02.CONTRACT, p1_find.CONTRACT, SMF_RESULT_SCHEMA],
+        parameters={"probabilities":[0.5,0.9,0.95,0.99],"quantile_method":"linear"},
+        seeds={},
+        owner_contract_refs={
+            "DATA":data02.CONTRACT,
+            "P1":p1_find.CONTRACT,
+            "SMF":smf.CONTRACT,
+            "RVO":rvo.CONTRACT,
+        },
+        routing_order=manifest["routing_plan"],
+        pre_manifest_digest=manifest["manifest_digest"],
+        runtime_attestation=p1_chain_binding["finding_id"],
+    )
+    package = rvo.build_validation_package(
+        manifest=manifest,
+        pre_snapshot=pre,
+        post_snapshot=post,
+        owner_results=owner_results,
+        reconstruction_descriptor=reconstruction,
+    )
+    return {
+        "catalog":catalog,
+        "pre_snapshot":pre,
+        "manifest":manifest,
+        "post_snapshot":post,
+        "reconstruction":reconstruction,
+        "owner_results":owner_results,
+        "package":package,
+    }

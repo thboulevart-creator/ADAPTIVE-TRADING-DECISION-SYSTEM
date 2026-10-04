@@ -130,3 +130,54 @@ def test_rvo05_12_no_authority_or_global_pass_is_created():
     )["status"] == "READY"
     assert rvo05.validate_global_claim("PACKAGE_COMPLETE")["status"] == "READY"
     assert rvo05.validate_global_claim("SCIENTIFIC_PASS")["status"] == "BLOCKED"
+
+
+def test_rvo05_13_full_synthetic_rvo_package_is_complete_but_non_authoritative(tmp_path: Path):
+    case = build_positive_p1_smf_chain(tmp_path / "chain")
+    data_package = make_data02_package(tmp_path / "data")
+    admission = data02.evaluate_synthetic(data_package)
+    assembled = rvo05.build_synthetic_rvo_validation_package(
+        repository="thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+        branch="integration/system-v1",
+        head="1" * 40,
+        tree="2" * 40,
+        data_admission=admission,
+        specification=case["specification"],
+        p1_chain_binding=case["bound_chain"],
+        smf_bundle=case["bundle"],
+        smf_result_binding=case["smf_result"],
+        environment_identity="rvo05:synthetic:locked",
+    )
+    package = assembled["package"]
+    assert package["package_state"] == "PACKAGE_COMPLETE"
+    assert package["scientific_authority"] is False
+    assert package["operational_authority"] is False
+    assert package["rvo_authority"] == "NONE"
+    native = {item["control_id"]: item["native_status"] for item in package["owner_results"]}
+    assert native["DATA-02"] == "READY_FOR_EXACT_CLAIM"
+    assert native["SMF-M01"] == "ACTIVATED"
+    assert native["SMF-M03"] == "ACTIVATED"
+    assert native["P1-DOWNSTREAM"] == case["finding"].finding_status == "SUPPORTED"
+    assert assembled["reconstruction"]["reconstruction_class"] == "EVIDENCE_REPLAY"
+    assert assembled["reconstruction"]["runtime_attestation_informational_only"] is True
+
+def test_rvo05_14_package_complete_cannot_be_interpreted_as_scientific_support(tmp_path: Path):
+    from src import rvo_orchestrator as rvo
+    case = build_positive_p1_smf_chain(tmp_path / "chain")
+    data_package = make_data02_package(tmp_path / "data")
+    admission = data02.evaluate_synthetic(data_package)
+    assembled = rvo05.build_synthetic_rvo_validation_package(
+        repository="thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+        branch="integration/system-v1",
+        head="1" * 40,
+        tree="2" * 40,
+        data_admission=admission,
+        specification=case["specification"],
+        p1_chain_binding=case["bound_chain"],
+        smf_bundle=case["bundle"],
+        smf_result_binding=case["smf_result"],
+        environment_identity="rvo05:synthetic:locked",
+    )
+    assert assembled["package"]["package_state"] == "PACKAGE_COMPLETE"
+    with pytest.raises(rvo.RVOFail, match="PROCEDURAL_TO_SCIENTIFIC_LAUNDERING"):
+        rvo.interpret_package_state("PACKAGE_COMPLETE", "SCIENTIFIC_SUPPORT")
