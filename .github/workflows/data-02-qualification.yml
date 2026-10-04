@@ -1,0 +1,130 @@
+name: DATA-02 Synthetic Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/data-02-qualification.yml'
+      - 'src/data/claim_scoped_admission.py'
+      - 'breakers/data_02_claim_scoped_admission_breaker.py'
+      - 'tests/data_02_fixture.py'
+      - 'tests/test_data_02_claim_scoped_admission.py'
+      - 'reports/program/*DATA-02*'
+      - 'GOVERNANCE/DATA-01-*'
+      - 'breakers/rvo_04_claim_routing_breaker.py'
+      - 'tests/test_dataset_admissibility.py'
+      - 'tools/ap0_ustech_profile_minute_core.py'
+      - 'tools/ap1_intraday_spread_census.py'
+      - '04-REFERENCE/QUALIFICATION-ENVIRONMENT-LOCK.json'
+      - 'requirements/qualification.lock.txt'
+      - 'tools/qualification_environment.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: 0
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  DATA02_ACTUAL_START: '1a68c13150b3897880bd3eb6667dfe64b2af923d'
+
+jobs:
+  data-02:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and DATA-02 ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${DATA02_ACTUAL_START}" HEAD
+
+      - name: Prove frozen DATA-01 identities
+        run: |
+          test "$(git hash-object GOVERNANCE/DATA-01-FIRST-USE-DATA-REQUIREMENTS-MAP-V0.1.json)" = "2d6d43d783281ee3dfd4028bc9b84c4dce495b87"
+          test "$(git hash-object GOVERNANCE/DATA-01-CLAIM-SCOPED-DATA-ADMISSIBILITY-PROVENANCE-CONTRACT-V0.1.json)" = "ec013c8db53b482770a62016db50b113b19ecd7f"
+          test "$(git hash-object GOVERNANCE/DATA-01-DATA-TEMPORAL-OWNERSHIP-BOUNDARY-V0.1.md)" = "4bdb9d6c7448759c0349048fd4f48abba296c0cf"
+          test "$(git hash-object GOVERNANCE/DATA-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "d9cafc53c863341ca827097014411702c26633f2"
+
+      - name: Prove final test-first identities
+        run: |
+          test "$(git hash-object breakers/data_02_claim_scoped_admission_breaker.py)" = "876f3ad70e70f55421a80ef8e7d1633c09847fcc"
+          test "$(git hash-object tests/data_02_fixture.py)" = "6e76ae62858fa55cf74ec356bafd9b64e4bbfa45"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-TEST-FIRST-RED-R3-RECEIPT-V0.1.json)" = "d1989f9bf27d853af747d230c7379adb5184dcbb"
+
+      - name: Prove exact DATA-02 implementation identities
+        run: |
+          test "$(git hash-object src/data/claim_scoped_admission.py)" = "6ce06e1583e61be9e8618136d1bc8fdda608ffd7"
+          test "$(git hash-object tests/test_data_02_claim_scoped_admission.py)" = "8ec90deac2221e19c3404a318bd577188210b4b0"
+
+      - name: Prove protected Data owner surfaces remain unchanged
+        run: |
+          test "$(git hash-object src/data/dataset_admissibility.py)" = "63f629a8cf39c79b5334015e038b70771c39f78b"
+          test "$(git hash-object src/data/tick_reader.py)" = "ee80355504e14e1ac7f70b7481b3e9a980d7dc30"
+          test "$(git hash-object tools/ap0_ustech_profile_minute_core.py)" = "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f"
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+
+      - name: Prove DATA-02 delta is strictly bounded
+        run: |
+          python - <<'PY'
+          import subprocess
+          parent = "1a68c13150b3897880bd3eb6667dfe64b2af923d"
+          changed = subprocess.check_output(
+              ["git", "diff", "--name-only", f"{parent}..HEAD"],
+              text=True,
+          ).splitlines()
+          exact = {
+              ".github/workflows/data-02-red-baseline.yml",
+              ".github/workflows/data-02-qualification.yml",
+              "breakers/data_02_claim_scoped_admission_breaker.py",
+              "tests/data_02_fixture.py",
+              "tests/test_data_02_claim_scoped_admission.py",
+              "src/data/claim_scoped_admission.py",
+          }
+          for path in changed:
+              if path in exact:
+                  continue
+              if path.startswith("reports/program/") and "DATA-02" in path:
+                  continue
+              raise SystemExit(f"UNAUTHORIZED_DATA02_DELTA:{path}")
+          print("PASS: DATA-02 delta is strictly bounded")
+          PY
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Compile DATA-02 runtime
+        run: python -m py_compile src/data/claim_scoped_admission.py
+
+      - name: Replay exact frozen 32-case DATA-01 breaker
+        run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
+
+      - name: Positive synthetic qualification
+        run: python -m pytest -q tests/test_data_02_claim_scoped_admission.py
+
+      - name: Protected existing Data boundary regression
+        run: python -m pytest -q tests/test_dataset_admissibility.py
+
+      - name: RVO-04 routing regression
+        run: python -m pytest -q breakers/rvo_04_claim_routing_breaker.py
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
