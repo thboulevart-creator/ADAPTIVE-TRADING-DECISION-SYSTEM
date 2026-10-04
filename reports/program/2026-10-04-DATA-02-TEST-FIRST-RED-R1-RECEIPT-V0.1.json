@@ -1,0 +1,44 @@
+{
+  "schema": "ATDS_DATA_02_TEST_FIRST_RED_R1_RECEIPT_V0_1",
+  "status": "OBSERVED_RED_FINAL_EXECUTABLE_BREAKER_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "frozen_data01_breaker_contract_blob": "d9cafc53c863341ca827097014411702c26633f2",
+  "executable_breaker": {
+    "blob": "876f3ad70e70f55421a80ef8e7d1633c09847fcc",
+    "case_count": 32,
+    "correction_from_prior_blob": "0fa595ab4f801def50e43d1f60e8e4900cffa641",
+    "correction_scope": "B18 fixture precondition only: predictive cross-claim usage attack now marks Temporal as separately required so B18 usage-overreach remains distinguishable from B24 stale-temporal-N/A.",
+    "frozen_case_ids_changed": false,
+    "frozen_expected_results_changed": false,
+    "frozen_failure_mode_intent_changed": false
+  },
+  "fixture_blob": "824bf1e9b4832cfaa5185cc80ee3d84f46489d7c",
+  "observed_red": {
+    "commit": "bd347dc598ec6971d69b68baed7ff1f18879e64c",
+    "tree": "54356712fac78778b5f38405841dc9516ad2fe87",
+    "workflow_run_id": 37223285253,
+    "job_id": 111497731400,
+    "workflow_conclusion": "SUCCESS_EXPECTED_RED_PROOF",
+    "pytest_result": "32_FAILED",
+    "failure_marker": "DATA02_RUNTIME_ABSENT_EXPECTED_RED",
+    "runtime_present": false
+  },
+  "test_first_integrity": {
+    "final_executable_breaker_observed_red_before_runtime": true,
+    "frozen_documentary_contract_unchanged": true,
+    "no_case_removed": true,
+    "no_expected_result_weakened": true,
+    "implementation_still_absent": true
+  },
+  "authority": {
+    "real_data_consumed": false,
+    "real_experiment": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "rvo_authority": "NONE"
+  }
+}
