@@ -1,0 +1,135 @@
+{
+  "schema": "ATDS_RVO_05_QUALIFICATION_RECEIPT_V0_1",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "51f3818a4d09cb6af8f096adf97798dea87484f9",
+    "tree": "3abbf952ba9463dc74bac947a2f0933bd398dee9"
+  },
+  "reconciled_parent": {
+    "head": "289ff8832b570d94932203d680ed1fe0776eefaa",
+    "tree": "379bf8f422bc640ee8ef428abfbbeccff0081c67",
+    "reconciliation_receipt_blob": "54d1755b65b26cfd77abb13251d1c4448b30e0f2",
+    "classification": "NON_MATERIAL_TO_RVO05_CC02"
+  },
+  "frozen_red": {
+    "contract_blob": "aeded1d85c095bcba4b58fae24046dca36107215",
+    "executable_breaker_blob": "72a0d362ca3ad32a366b30dbf87470d52e3f5d1d",
+    "receipt_blob": "cccb520f254279f223fd050cd93da7609a9f8587",
+    "commit": "7e070bc5c6cde0929f5e9640edc8e08278346046",
+    "run_id": 37225603423,
+    "job_id": 111504497934,
+    "result": "25_FAILED_RUNTIME_ABSENT_EXPECTED_RED"
+  },
+  "final_surfaces": {
+    "rvo05_runtime_blob": "b7ee009f0f07fc47e1816740812fcc543e8d6d54",
+    "synthetic_fixture_blob": "cd0bd5dbc975ffea3023af545968a90c62888347",
+    "positive_test_blob": "7b30694d79667409e47f9aec591852bdc8f73d72",
+    "qualification_workflow_blob": "066134d0138d6467c473f9b4833621020de63f5b",
+    "archived_red_workflow_blob": "eac272d7a0c4195aa571f7313124055585045d87"
+  },
+  "smf_route": {
+    "M01": "REQUIRED_ACTIVATION",
+    "M03": "REQUIRED_ACTIVATION_AND_EXECUTION",
+    "M02": "NOT_APPLICABLE",
+    "M04_M11": "NOT_APPLICABLE_FOR_EXACT_NON_INFERENTIAL_CC02",
+    "C01_C12": "NOT_APPLICABLE",
+    "exact_core_runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+  },
+  "successful_pre_persistence_run": {
+    "commit": "6af98a03ccca02b8f57f30dbb0327fbe5a22707b",
+    "tree": "04fe1ef39c218300af64109ae7922385135dab2a",
+    "workflow_run_id": 37226648172,
+    "job_id": 111507556367,
+    "conclusion": "SUCCESS",
+    "rvo05_frozen_breakers": {
+      "passed": 25,
+      "warnings": 25,
+      "failed": 0
+    },
+    "rvo05_positive_integration": {
+      "passed": 14,
+      "failed": 0
+    },
+    "data02_breakers": {
+      "passed": 32,
+      "failed": 0
+    },
+    "rvo04_breakers": {
+      "passed": 25,
+      "failed": 0
+    },
+    "rvo02_breakers": {
+      "passed": 47,
+      "failed": 0
+    },
+    "p1_16_breakers": {
+      "passed": 37,
+      "failed": 0
+    },
+    "smf_core_rebreak": {
+      "passed": 15,
+      "failed": 0
+    },
+    "rvo05_delta_check": "PASS_RVO_ONLY",
+    "compile_check": "PASS"
+  },
+  "correction_history": [
+    {
+      "run_id": 37226251974,
+      "status": "FAILED_CANDIDATE",
+      "finding": "Positive synthetic tests exposed a prefixed RVO digest expectation and noncanonical P1 external receipt bytes.",
+      "frozen_breaker_result": "PASS",
+      "frozen_contract_changed": false
+    },
+    {
+      "run_id": 37226358160,
+      "status": "FAILED_CANDIDATE",
+      "finding": "Mechanical test-source newline correction was encoded literally and failed compile.",
+      "frozen_contract_changed": false
+    },
+    {
+      "run_id": 37226444198,
+      "status": "SUCCESS_INTERMEDIATE",
+      "finding": "12 positive integration tests passed; package-assembly coverage was then strengthened before closure.",
+      "frozen_contract_changed": false
+    }
+  ],
+  "owner_binding_results": {
+    "data02_exact_admission": "QUALIFIED",
+    "p1_full_downstream_chain": "QUALIFIED_SYNTHETIC_BI5_ONLY",
+    "smf_m01_activation": "QUALIFIED",
+    "smf_m03_activation_and_execution": "QUALIFIED_SYNTHETIC",
+    "p1_smf_exact_method_procedure_binding": "QUALIFIED_SYNTHETIC_BI5_ONLY",
+    "rvo_validation_package": "PACKAGE_COMPLETE_SYNTHETIC_BI5_ONLY_NON_AUTHORITATIVE",
+    "target_ap0_to_p1_linked_execution": "BLOCKED_P1_TARGET_EXECUTION_SURFACE_UNSUPPORTED"
+  },
+  "readiness": {
+    "first_real_cc02_pre_execution": "BLOCKED_OWNER_GAP",
+    "blocking_owner": "P1/RESEARCH_EXECUTION",
+    "blocker": "CURRENT_P1_LINKED_EXECUTION_IS_BI5_ONLY_WHILE_SELECTED_TARGET_SURFACE_IS_AP0_PARQUET",
+    "data_failure": false,
+    "smf_failure": false,
+    "rvo_failure": false,
+    "temporal_failure": false
+  },
+  "authority": {
+    "real_ap1_execution": false,
+    "real_cc02_experiment": false,
+    "new_empirical_result": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "rvo_authority": "NONE",
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "next": {
+    "rvo06": "NOT_AUTHORIZED",
+    "data03": "NOT_AUTHORIZED",
+    "p1_owner_maturation": "REQUIRES_SEPARATE_HUMAN_AUTHORIZATION"
+  }
+}
