@@ -1,0 +1,293 @@
+{
+  "schema": "ATDS_RVO_05_FROZEN_INTEGRATION_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "51f3818a4d09cb6af8f096adf97798dea87484f9",
+    "tree": "3abbf952ba9463dc74bac947a2f0933bd398dee9"
+  },
+  "target": {
+    "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "dataset_family": "AP0_GAP_AWARE_1_MINUTE_MONTHLY_PARQUET",
+    "consumer": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "real_ap1_execution_authorized": false
+  },
+  "exact_dependencies": {
+    "rvo_runtime_blob": "20766da0d609d0056e40df0115a3151d5c703938",
+    "rvo_owner_adapter_blob": "7ded32616fa959ecdc7857dad95b53884f58c15a",
+    "rvo04_graph_blob": "fcd723a30bad063471d7a399c06464b580c87e77",
+    "data02_runtime_blob": "6ce06e1583e61be9e8618136d1bc8fdda608ffd7",
+    "data02_qualification_receipt_blob": "d5cca198fc88eb76678bd33faa7ebd1cdd1b3976",
+    "data02_real_ap0_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "p1": {
+      "experiment_specification": "8ff7725cf3324825c12f85def4c73eed477c181b",
+      "experiment_execution_binding": "5419ad7caf4dbfa2a621b060d3f42bc090e97077",
+      "qualified_experiment_execution_input": "6700fbbef314bc9c6e5b7f6f374e71cfabee0f92",
+      "linked_experiment_execution": "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+      "experiment_evaluation_submission": "968ef47d0fc4e066374b7471110c71d0eaf28865",
+      "experiment_measurement_provenance": "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+      "experiment_evaluator_authority": "bfab3c421263434d5e3e3066720f95abb521b09c",
+      "qualified_experimental_finding": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+      "qualification_evidence": "8839e6df3ea0ccff69ec82fdfccb1527e5601faf",
+      "research_execution": "6ca117f2cd760b299b14933f308cfc1b2466ae0d",
+      "research_engine": "6e0a4c68ca75cea27b7691477f98e5566f2b8cac",
+      "research_input_binding": "5f68d9db03badc5f266d6e6bf2e6fe1d40e092db"
+    },
+    "smf": {
+      "method_set_adjudication": "2856b9aa8df7be964d0ee8f20d7332494e599549",
+      "activation_adjudication": "ffd02a3957a1b823379cc57bdeb04c48e34eeff6",
+      "core_runtime": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+      "core_qualification": "5ee54a2fcb87fc4d69053d449d9ce6d8dfdf742a"
+    }
+  },
+  "smf_routing": {
+    "M01": {
+      "requirement": "REQUIRED",
+      "role": "PREREGISTERED_CLAIM_ESTIMAND_CONTROL",
+      "execution": "ACTIVATION_ONLY",
+      "basis": "The empirical descriptive claim and estimand must be frozen before any result exposure."
+    },
+    "M02": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No economic/net-profitability claim."
+    },
+    "M03": {
+      "requirement": "REQUIRED",
+      "role": "ECDF_EMPIRICAL_QUANTILE_METHOD",
+      "execution": "ACTIVATED_AND_EXECUTED",
+      "basis": "AP1 explicitly declares empirical percentiles for tick_count, minute_range and per-minute spread_mean."
+    },
+    "M04": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No inferential IID/dependence claim is made by the exact first retrospective census."
+    },
+    "M05": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No confidence interval or inferential uncertainty claim."
+    },
+    "M06": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No power/significance decision."
+    },
+    "M07": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No generalized effect claim requiring influence concentration adjudication."
+    },
+    "M08": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "Exact first census is not an attrition/selection inference claim."
+    },
+    "M09": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "OOS is explicitly excluded."
+    },
+    "M10": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No temporal/regime stability claim."
+    },
+    "M11": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No search/model-selection or multiplicity inference is asserted by the predeclared first census."
+    },
+    "conditional_C01_C12": {
+      "requirement": "NOT_APPLICABLE",
+      "basis": "No exact first-claim conditional trigger is present."
+    }
+  },
+  "target_owner_compatibility_hypothesis": {
+    "data02_surface": "AP0_PARQUET",
+    "p1_linked_execution_engine": "BI5ResearchEngine",
+    "expected_preimplementation_result": "BLOCKED_P1_TARGET_EXECUTION_SURFACE_UNSUPPORTED",
+    "rule": "RVO_MUST_NOT_FAKE_AP0_TO_P1_EXECUTION_COMPATIBILITY"
+  },
+  "invariants": [
+    "DATA_READY != P1_FINDING",
+    "P1_FINDING != RVO_PACKAGE_STATE",
+    "RVO_PACKAGE_COMPLETE != CLAIM_SUPPORTED",
+    "CLAIM_SUPPORTED != VALIDATED_STRATEGY",
+    "DESCRIPTIVE_STATISTIC != PREDICTIVE_EVIDENCE",
+    "RETROSPECTIVE_DESCRIPTION != HISTORICAL_TRADABILITY",
+    "M03_REQUIRED != ALL_SMF_REQUIRED",
+    "SMF_ACTIVATED != SMF_RESULT_PASS",
+    "PASS != SCIENTIFIC_AUTHORITY",
+    "UNKNOWN != PASS",
+    "BLOCKED != FAIL",
+    "NOT_APPLICABLE != PASS",
+    "RUNTIME_ATTESTATION != DURABLE_RECONSTRUCTION",
+    "RVO_AUTHORITY = NONE"
+  ],
+  "cases": [
+    {
+      "id": "RVO05-B01",
+      "severity": "CRITICAL",
+      "attack": "DATA-02 admission is omitted before empirical execution.",
+      "expected": "BLOCKED_DATA02_ADMISSION_REQUIRED"
+    },
+    {
+      "id": "RVO05-B02",
+      "severity": "CRITICAL",
+      "attack": "A stale DATA-02 admission digest is supplied.",
+      "expected": "BLOCKED_DATA02_ADMISSION_DIGEST_MISMATCH"
+    },
+    {
+      "id": "RVO05-B03",
+      "severity": "CRITICAL",
+      "attack": "Dataset identity is substituted after Data admission.",
+      "expected": "BLOCKED_DATASET_SUBSTITUTION_AFTER_ADMISSION"
+    },
+    {
+      "id": "RVO05-B04",
+      "severity": "CRITICAL",
+      "attack": "DATA-02 READY/PASS is laundered into scientific support.",
+      "expected": "REJECT_DATA_TO_SCIENCE_LAUNDERING"
+    },
+    {
+      "id": "RVO05-B05",
+      "severity": "CRITICAL",
+      "attack": "P1 method_ref is a label without exact SMF activation/implementation binding.",
+      "expected": "BLOCKED_LABEL_ONLY_P1_METHOD_REF"
+    },
+    {
+      "id": "RVO05-B06",
+      "severity": "CRITICAL",
+      "attack": "SMF activation is attempted after result exposure.",
+      "expected": "BLOCKED_POST_RESULT_METHOD_ACTIVATION"
+    },
+    {
+      "id": "RVO05-B07",
+      "severity": "CRITICAL",
+      "attack": "M03-required AP1 quantile claim is bound to a different SMF family.",
+      "expected": "BLOCKED_WRONG_SMF_METHOD_FAMILY"
+    },
+    {
+      "id": "RVO05-B08",
+      "severity": "CRITICAL",
+      "attack": "SMF binding points to the wrong qualified implementation identity.",
+      "expected": "BLOCKED_SMF_IMPLEMENTATION_IDENTITY"
+    },
+    {
+      "id": "RVO05-B09",
+      "severity": "CRITICAL",
+      "attack": "P1 finding is paired with a mismatched evaluation chain.",
+      "expected": "BLOCKED_P1_CHAIN_MISMATCH"
+    },
+    {
+      "id": "RVO05-B10",
+      "severity": "HIGH",
+      "attack": "RVO rewrites the native P1 finding status.",
+      "expected": "REJECT_P1_STATUS_REWRITE"
+    },
+    {
+      "id": "RVO05-B11",
+      "severity": "HIGH",
+      "attack": "RVO rewrites the native SMF activation state/result identity.",
+      "expected": "REJECT_SMF_STATUS_REWRITE"
+    },
+    {
+      "id": "RVO05-B12",
+      "severity": "HIGH",
+      "attack": "A BLOCKED native state is converted to FAIL.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO05-B13",
+      "severity": "HIGH",
+      "attack": "An UNKNOWN state is converted to PASS.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO05-B14",
+      "severity": "HIGH",
+      "attack": "NOT_APPLICABLE is converted to PASS.",
+      "expected": "REJECT_STATUS_LAUNDERING"
+    },
+    {
+      "id": "RVO05-B15",
+      "severity": "CRITICAL",
+      "attack": "M03 is silently omitted although AP1 percentile metrics remain in scope.",
+      "expected": "BLOCKED_REQUIRED_M03_OMITTED"
+    },
+    {
+      "id": "RVO05-B16",
+      "severity": "HIGH",
+      "attack": "An unnecessary SMF method family is activated without applicability basis.",
+      "expected": "BLOCKED_UNJUSTIFIED_SMF_ACTIVATION"
+    },
+    {
+      "id": "RVO05-B17",
+      "severity": "CRITICAL",
+      "attack": "Temporal NOT_APPLICABLE is reused after expansion to predictive/historical/OOS semantics.",
+      "expected": "BLOCKED_TEMPORAL_OWNER_REQUIRED"
+    },
+    {
+      "id": "RVO05-B18",
+      "severity": "HIGH",
+      "attack": "P1 runtime object attestation is presented as durable reconstruction.",
+      "expected": "BLOCKED_RUNTIME_ATTESTATION_NOT_DURABLE"
+    },
+    {
+      "id": "RVO05-B19",
+      "severity": "CRITICAL",
+      "attack": "POST state is used to retroactively construct or alter PRE methodology.",
+      "expected": "REJECT_POST_TO_PRE_REWRITE"
+    },
+    {
+      "id": "RVO05-B20",
+      "severity": "CRITICAL",
+      "attack": "RVO emits a global scientific PASS from package completeness.",
+      "expected": "REJECT_GLOBAL_SCIENTIFIC_PASS"
+    },
+    {
+      "id": "RVO05-B21",
+      "severity": "CRITICAL",
+      "attack": "RVO grants scientific, operational, trading or capital authority.",
+      "expected": "REJECT_RVO_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "RVO05-B22",
+      "severity": "CRITICAL",
+      "attack": "DATA-02 AP0 Parquet admission is treated as executable by the current P1 BI5-only linked execution owner.",
+      "expected": "BLOCKED_P1_TARGET_EXECUTION_SURFACE_UNSUPPORTED"
+    },
+    {
+      "id": "RVO05-B23",
+      "severity": "CRITICAL",
+      "attack": "P1 measurement provenance procedure does not bind the exact M03 activation/result/implementation.",
+      "expected": "BLOCKED_P1_SMF_PROCEDURE_BINDING"
+    },
+    {
+      "id": "RVO05-B24",
+      "severity": "HIGH",
+      "attack": "M01 preregistered claim/estimand control is omitted before statistical result exposure.",
+      "expected": "BLOCKED_REQUIRED_M01_OMITTED"
+    },
+    {
+      "id": "RVO05-B25",
+      "severity": "HIGH",
+      "attack": "A positive synthetic P1↔SMF result is generalized to the AP0 target despite a different execution surface.",
+      "expected": "REJECT_SYNTHETIC_SURFACE_GENERALIZATION"
+    }
+  ],
+  "qualification_semantics": {
+    "breaker_pass": "ALL_FROZEN_ATTACKS_ARE_REJECTED_OR_BLOCKED_AS_PREDECLARED",
+    "target_readiness_pass_requires_positive_exact_ap0_p1_execution_binding": true,
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "rvo_authority": "NONE"
+  },
+  "stop_boundary": {
+    "real_ap1_execution": "NOT_AUTHORIZED",
+    "new_empirical_market_result": "NOT_AUTHORIZED",
+    "p1_owner_modification": "NOT_AUTHORIZED",
+    "smf_owner_modification": "NOT_AUTHORIZED",
+    "data_owner_modification": "NOT_AUTHORIZED",
+    "rvo06": "NOT_AUTHORIZED",
+    "data03": "NOT_AUTHORIZED"
+  }
+}
