@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_04_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-EXEC-04",
+  "decision": "ADOPT",
+  "status": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "adopted_contract": {
+    "path": "GOVERNANCE/AO-E0-EXEC-04-PRE-RESULT-CONSERVATIVE-COST-STRESS-POLICY-V0.1.json",
+    "blob": "52b849c46d0a5cf45b261fd16e34edab44489572"
+  },
+  "frozen_parameters": {
+    "financing_adverse_anchor_price_units_per_standard_rollover_per_lot": 6.3665,
+    "financing_stress_multipliers": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "friday_rollover_multiplier": 3,
+    "slippage_stress_grid_bps_per_execution_event": [
+      0,
+      0.5,
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "total_stress_nodes": 28,
+    "all_nodes_must_be_reported": true,
+    "post_result_node_selection_forbidden": true,
+    "favorable_short_swap_credit_assumed": false
+  },
+  "epistemic_semantics": {
+    "policy_stress_is_observed_historical_cost": false,
+    "source_b_is_vt_markets_slippage_evidence": false
+  },
+  "pending": {
+    "minimum_robustness_requirement": "PENDING_SEPARATE_PRE_OOS_HUMAN_ADJUDICATION"
+  },
+  "authority": {
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "b12": "CLOSED"
+  },
+  "force": false,
+  "parent": {
+    "head": "6a6211f1353fbf51c668f6feaa6688f88fce3c39",
+    "tree": "34bc87220751e62cd6db19ee7fe26e5bfaf48ee3"
+  }
+}
