@@ -1,0 +1,513 @@
+{
+  "schema": "ATDS_BEPD_01D_HISTORICAL_LEDGER_SCHEMA_V0_1",
+  "status": "FROZEN_PRE_SCAN_SCHEMA_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "69abfb629adf92b8bde389cec9bc2b49094dadb5",
+    "tree": "960f413b9e8b91d3c9a40caa3dcad4653aa770fd"
+  },
+  "primary_ledgers": {
+    "LEVEL_LEDGER": {
+      "grain": "ONE_ROW_PER_CORPUS_BORN_WEEKLY_LEVEL",
+      "primary_key": [
+        "level_id"
+      ],
+      "fields": [
+        {
+          "name": "schema_version",
+          "type": "string",
+          "nullable": false,
+          "semantic": "BEPD-01D ledger schema version"
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "nullable": false,
+          "semantic": "exact historical build run identity"
+        },
+        {
+          "name": "dataset_id",
+          "type": "string",
+          "nullable": false,
+          "semantic": "USTECH_PROFILE_MINUTE_CORE_V0_1"
+        },
+        {
+          "name": "dataset_manifest_sha256",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "AP0-MANIFEST.json file SHA-256"
+        },
+        {
+          "name": "level_id",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "deterministic identity from bound dataset+source_week_id+side+schema"
+        },
+        {
+          "name": "source_week_id",
+          "type": "date",
+          "nullable": false,
+          "semantic": "Monday label for NY session week"
+        },
+        {
+          "name": "source_week_start_utc",
+          "type": "timestamp_utc",
+          "nullable": false,
+          "semantic": "Sunday 18:00 America/New_York converted to UTC"
+        },
+        {
+          "name": "source_week_end_utc",
+          "type": "timestamp_utc",
+          "nullable": false,
+          "semantic": "next Sunday 18:00 America/New_York converted to UTC"
+        },
+        {
+          "name": "side",
+          "type": "enum[HIGH,LOW]",
+          "nullable": false,
+          "semantic": "Weekly reference side"
+        },
+        {
+          "name": "level_price_mid",
+          "type": "float64",
+          "nullable": false,
+          "semantic": "observed AP0 mid Weekly extreme"
+        },
+        {
+          "name": "level_observed_at_utc",
+          "type": "timestamp_utc",
+          "nullable": false,
+          "semantic": "minute where selected Weekly extreme occurs"
+        },
+        {
+          "name": "causal_available_from_utc",
+          "type": "timestamp_utc",
+          "nullable": false,
+          "semantic": "source_week_end_utc; never earlier"
+        },
+        {
+          "name": "source_week_file_binding_digest",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "digest of sorted intersecting AP0 relative_path:sha256 bindings"
+        },
+        {
+          "name": "source_week_gap_count_gt60s",
+          "type": "int64",
+          "nullable": false,
+          "semantic": "observed AP0 segment breaks inside session-week interval"
+        },
+        {
+          "name": "source_week_max_gap_ms",
+          "type": "int64",
+          "nullable": true,
+          "semantic": "max observed adjacent gap in interval"
+        },
+        {
+          "name": "source_week_quality_state",
+          "type": "enum[COMPLETE_CORPUS_WEEK_OBSERVED_SURFACE,LEFT_TRUNCATED,RIGHT_TRUNCATED] ",
+          "nullable": false,
+          "semantic": "only COMPLETE may create a level"
+        },
+        {
+          "name": "universe",
+          "type": "enum[CORPUS_BORN_WEEKLY_LEVEL]",
+          "nullable": false,
+          "semantic": "pre-corpus levels excluded, never synthesized"
+        },
+        {
+          "name": "terminal_state",
+          "type": "enum[CONSUMED,ACTIVE_RIGHT_CENSORED]",
+          "nullable": false,
+          "semantic": "state at completed-corpus horizon"
+        },
+        {
+          "name": "consumed_event_id",
+          "type": "sha256",
+          "nullable": true,
+          "semantic": "EVENT_LEDGER identity if consumed"
+        },
+        {
+          "name": "consumed_target_week_id",
+          "type": "date",
+          "nullable": true,
+          "semantic": "target complete week of first qualifying H1 take"
+        },
+        {
+          "name": "consumed_at_h1_close_utc",
+          "type": "timestamp_utc",
+          "nullable": true,
+          "semantic": "first qualifying H1 close time"
+        },
+        {
+          "name": "age_weeks_at_consumption",
+          "type": "int64",
+          "nullable": true,
+          "semantic": "number of eligible target weeks since source week"
+        },
+        {
+          "name": "right_censored_at_utc",
+          "type": "timestamp_utc",
+          "nullable": true,
+          "semantic": "completed-corpus horizon when still active"
+        },
+        {
+          "name": "engine_blob",
+          "type": "git_sha1",
+          "nullable": false,
+          "semantic": "exact implementation identity used"
+        },
+        {
+          "name": "contract_blob",
+          "type": "git_sha1",
+          "nullable": false,
+          "semantic": "exact BEPD-01D contract identity"
+        },
+        {
+          "name": "breaker_blob",
+          "type": "git_sha1",
+          "nullable": false,
+          "semantic": "exact pre-scan breaker identity"
+        }
+      ],
+      "invariants": [
+        "source_week_quality_state must be COMPLETE_CORPUS_WEEK_OBSERVED_SURFACE for persisted level rows",
+        "causal_available_from_utc == source_week_end_utc",
+        "one HIGH and one LOW row per eligible complete source week",
+        "CONSUMED implies non-null consumed_event_id/consumed_target_week_id/consumed_at_h1_close_utc/age_weeks_at_consumption",
+        "ACTIVE_RIGHT_CENSORED implies consumed fields are null",
+        "pre-corpus or truncated-week levels are never created"
+      ]
+    },
+    "EVENT_LEDGER": {
+      "grain": "ONE_ROW_PER_CONSUMED_LEVEL",
+      "primary_key": [
+        "event_id"
+      ],
+      "fields": [
+        {
+          "name": "schema_version",
+          "type": "string",
+          "nullable": false,
+          "semantic": "BEPD-01D ledger schema version"
+        },
+        {
+          "name": "run_id",
+          "type": "string",
+          "nullable": false,
+          "semantic": "same run identity as LEVEL_LEDGER"
+        },
+        {
+          "name": "dataset_id",
+          "type": "string",
+          "nullable": false,
+          "semantic": "USTECH_PROFILE_MINUTE_CORE_V0_1"
+        },
+        {
+          "name": "dataset_manifest_sha256",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "AP0 manifest file identity"
+        },
+        {
+          "name": "event_id",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "deterministic identity from level_id+take_h1_close_utc"
+        },
+        {
+          "name": "sweep_cluster_id",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "shared identity for all consumed levels in one target week"
+        },
+        {
+          "name": "level_id",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "foreign key to LEVEL_LEDGER"
+        },
+        {
+          "name": "source_week_id",
+          "type": "date",
+          "nullable": false,
+          "semantic": "origin week of level"
+        },
+        {
+          "name": "target_week_id",
+          "type": "date",
+          "nullable": false,
+          "semantic": "complete session week in which level is consumed"
+        },
+        {
+          "name": "side",
+          "type": "enum[HIGH,LOW]",
+          "nullable": false,
+          "semantic": "copied from level"
+        },
+        {
+          "name": "level_price_mid",
+          "type": "float64",
+          "nullable": false,
+          "semantic": "copied from level"
+        },
+        {
+          "name": "level_age_weeks",
+          "type": "int64",
+          "nullable": false,
+          "semantic": "age at consumption"
+        },
+        {
+          "name": "active_level_count_at_target_week_start",
+          "type": "int64",
+          "nullable": false,
+          "semantic": "denominator support / opportunity context"
+        },
+        {
+          "name": "cluster_consumed_level_count",
+          "type": "int64",
+          "nullable": false,
+          "semantic": "number of level events sharing sweep_cluster_id"
+        },
+        {
+          "name": "take_h1_bucket_start_utc",
+          "type": "timestamp_utc",
+          "nullable": false,
+          "semantic": "UTC clock-hour bucket start"
+        },
+        {
+          "name": "take_h1_close_utc",
+          "type": "timestamp_utc",
+          "nullable": false,
+          "semantic": "bucket terminal time represented by observed HH:59 minute"
+        },
+        {
+          "name": "take_h1_close_mid",
+          "type": "float64",
+          "nullable": false,
+          "semantic": "qualified observed H1 close"
+        },
+        {
+          "name": "take_h1_terminal_minute_present",
+          "type": "bool",
+          "nullable": false,
+          "semantic": "must be true"
+        },
+        {
+          "name": "take_h1_internal_gap_count",
+          "type": "int64",
+          "nullable": false,
+          "semantic": "gaps >60s inside bucket; recorded, not silently erased"
+        },
+        {
+          "name": "reintegration_h1_bucket_start_utc",
+          "type": "timestamp_utc",
+          "nullable": true,
+          "semantic": "first strictly later qualifying H1 returning inside"
+        },
+        {
+          "name": "reintegration_h1_close_utc",
+          "type": "timestamp_utc",
+          "nullable": true,
+          "semantic": "qualified reintegration close time"
+        },
+        {
+          "name": "reintegration_h1_close_mid",
+          "type": "float64",
+          "nullable": true,
+          "semantic": "qualified reintegration close"
+        },
+        {
+          "name": "reintegration_h1_internal_gap_count",
+          "type": "int64",
+          "nullable": true,
+          "semantic": "gap count in reintegration bucket"
+        },
+        {
+          "name": "same_week_reintegration",
+          "type": "bool",
+          "nullable": false,
+          "semantic": "false retained as valid outcome"
+        },
+        {
+          "name": "target_week_close_mid",
+          "type": "float64",
+          "nullable": false,
+          "semantic": "last observed AP0 mid_close within complete target week interval"
+        },
+        {
+          "name": "close_displacement",
+          "type": "float64",
+          "nullable": false,
+          "semantic": "HIGH: level-target close; LOW: target close-level"
+        },
+        {
+          "name": "target_week_file_binding_digest",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": "digest of sorted AP0 files intersecting target week"
+        },
+        {
+          "name": "target_week_gap_count_gt60s",
+          "type": "int64",
+          "nullable": false,
+          "semantic": "observed segment breaks in target week"
+        },
+        {
+          "name": "target_week_max_gap_ms",
+          "type": "int64",
+          "nullable": true,
+          "semantic": "max observed adjacent gap in target week"
+        },
+        {
+          "name": "holiday_tag",
+          "type": "string",
+          "nullable": true,
+          "semantic": "diagnostic metadata only; requires separately bound calendar source if populated"
+        },
+        {
+          "name": "gap_cause",
+          "type": "enum[UNKNOWN]",
+          "nullable": false,
+          "semantic": "AP0 alone does not establish closure/outage cause"
+        },
+        {
+          "name": "engine_blob",
+          "type": "git_sha1",
+          "nullable": false,
+          "semantic": "exact implementation identity"
+        },
+        {
+          "name": "contract_blob",
+          "type": "git_sha1",
+          "nullable": false,
+          "semantic": "exact BEPD-01D contract identity"
+        },
+        {
+          "name": "breaker_blob",
+          "type": "git_sha1",
+          "nullable": false,
+          "semantic": "exact pre-scan breaker identity"
+        }
+      ],
+      "invariants": [
+        "event exists only for a level active at target-week start",
+        "take_h1_terminal_minute_present must be true",
+        "take/reintegration comparisons use strict inequalities",
+        "reintegration bucket, when present, is strictly later than take bucket",
+        "negative close_displacement is retained",
+        "no-reintegration event is retained",
+        "all events in same target_week_id share one sweep_cluster_id",
+        "multiple events in same target week are not declared independent"
+      ]
+    }
+  },
+  "derived_views": {
+    "LEVEL_WEEK_OPPORTUNITY": {
+      "grain": "ONE_ROW_PER_ACTIVE_CORPUS_BORN_LEVEL_AT_START_OF_EACH_COMPLETE_TARGET_WEEK",
+      "materialization": "DERIVED_RECONSTRUCTIBLE_FROM_LEVEL_LEDGER_PLUS_COMPLETE_WEEK_CALENDAR",
+      "fields": [
+        {
+          "name": "run_id",
+          "type": "string",
+          "nullable": false,
+          "semantic": ""
+        },
+        {
+          "name": "level_id",
+          "type": "sha256",
+          "nullable": false,
+          "semantic": ""
+        },
+        {
+          "name": "target_week_id",
+          "type": "date",
+          "nullable": false,
+          "semantic": ""
+        },
+        {
+          "name": "dependence_key",
+          "type": "string",
+          "nullable": false,
+          "semantic": "target_week_id"
+        },
+        {
+          "name": "side",
+          "type": "enum[HIGH,LOW]",
+          "nullable": false,
+          "semantic": ""
+        },
+        {
+          "name": "level_age_weeks",
+          "type": "int64",
+          "nullable": false,
+          "semantic": ""
+        },
+        {
+          "name": "swept_this_week",
+          "type": "bool",
+          "nullable": false,
+          "semantic": ""
+        },
+        {
+          "name": "event_id",
+          "type": "sha256",
+          "nullable": true,
+          "semantic": ""
+        },
+        {
+          "name": "active_level_count_at_target_week_start",
+          "type": "int64",
+          "nullable": false,
+          "semantic": ""
+        }
+      ],
+      "denominator_rule": "primary occurrence denominator = count of eligible LEVEL_WEEK_OPPORTUNITY rows; numerator = rows with swept_this_week=true",
+      "exclusions": [
+        "levels created at end of the same target week",
+        "pre-corpus unknown levels",
+        "left-truncated source-week levels",
+        "right-truncated target weeks",
+        "weeks outside AP0 coverage envelope"
+      ],
+      "dependence_rule": "rows sharing target_week_id are dependent by construction; IID may not be assumed"
+    },
+    "WEEK_CLUSTER_OPPORTUNITY": {
+      "grain": "ONE_ROW_PER_COMPLETE_TARGET_WEEK_WITH_AT_LEAST_ONE_ACTIVE_CORPUS_BORN_LEVEL_AT_START",
+      "status": "DIAGNOSTIC_ONLY_NOT_SUBSTITUTE_FOR_LEVEL_DENOMINATOR",
+      "numerator": "week contains >=1 EVENT_LEDGER row",
+      "denominator": "eligible complete weeks with >=1 active corpus-born level at start"
+    }
+  },
+  "run_manifest_requirements": [
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "run_id",
+    "dataset_id",
+    "dataset_manifest_sha256",
+    "selected_ap0_files[{relative_path,sha256}]",
+    "timezone_database_runtime_identity",
+    "weekly_boundary_timezone=America/New_York",
+    "weekly_boundary_local_time=Sunday 18:00:00",
+    "h1_bucket_timezone=UTC",
+    "engine_blob",
+    "contract_blob",
+    "ledger_schema_blob",
+    "breaker_contract_blob",
+    "breaker_executable_blob",
+    "command_or_entrypoint",
+    "output_files[{relative_path,sha256,rows}]"
+  ],
+  "forbidden": [
+    "raw event count used as occurrence rate without opportunity denominator",
+    "pre-corpus active levels invented or backfilled",
+    "current target-week new levels counted as same-week opportunities",
+    "holiday cause inferred from AP0 gaps alone",
+    "multiple level opportunities in one week treated as IID",
+    "mid price treated as execution price",
+    "five-year scan performed under BEPD-01D"
+  ]
+}
