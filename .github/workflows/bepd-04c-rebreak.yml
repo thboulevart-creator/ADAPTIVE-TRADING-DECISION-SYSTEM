@@ -1,0 +1,136 @@
+name: BEPD-04C Persisted-Head Rebreak
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04c-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  persisted-head-rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout persisted HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify persisted identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"; expected="$2"; actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04C_REBREAK_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RESULT.json" "947714ebf0f0882baf7501eff8fc0ad47291331c"
+          check_blob "artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RUN_MANIFEST.json" "23c1fc0e044d7461f382d59895bb9b930481b896"
+          check_blob "reports/program/2026-10-05-BEPD-04C-ONE-SHOT-EXECUTION-RECORD-V0.1.json" "b5cfe8caa21aa8dcadc70f025df16577486c0376"
+          check_blob "GOVERNANCE/BEPD-04C-FIRST-REAL-SAME-WEEK-REINTEGRATION-PRE-RESULT-EXECUTION-FREEZE-V0.1.json" "7c2c04c7fb3374d0dbdf7ba184c79624f8ba91a2"
+          check_blob "GOVERNANCE/BEPD-04A-EVENT-CONDITIONAL-SAME-WEEK-REINTEGRATION-RESPONSE-SEMANTICS-CONTRACT-V0.1.json" "796bcaec05eb36234074ba4ea871afcd6f784915"
+          check_blob "GOVERNANCE/BEPD-04A-FROZEN-PRE-RESULT-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json" "dce13d0b5b31c189aa71fe3642d5d2829a66da06"
+          check_blob "reports/program/2026-10-05-BEPD-04A-RESPONSE-SEMANTICS-QUALIFICATION-V0.1.md" "43f7b53827a4422d8af1ee625991db8098b1b9d8"
+          check_blob "GOVERNANCE/BEPD-04B-SAME-WEEK-REINTEGRATION-RESPONSE-IMPLEMENTATION-CONTRACT-V0.1.json" "9eae42882e76f1e18dde46cc63d0b7fdf4a1e682"
+          check_blob "tools/bepd_04b_same_week_reintegration_response_v0_1.py" "d796cd198ad01498491ee2dbe44a7f5e4c42681e"
+          check_blob "breakers/bepd_04b_same_week_reintegration_response_breaker_v0_1.py" "53587218b92311906e8767ebccfe84147987862f"
+          check_blob "reports/program/2026-10-05-BEPD-04B-SYNTHETIC-IMPLEMENTATION-QUALIFICATION-RECEIPT-V0.1.json" "63ccfd912fb916c4547b02da0940a5b5e5557fa2"
+          check_blob "reports/program/2026-10-05-BEPD-04B-SYNTHETIC-IMPLEMENTATION-QUALIFICATION-V0.1.md" "252441db70a42a1a4317cd4432d7049f6c9f9707"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl" "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/RUN_MANIFEST.json" "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+          check_blob "GOVERNANCE/BEPD-03A-SMF-M05-OCCURRENCE-UNCERTAINTY-ACTIVATION-RECORD-V0.1.json" "53d33074038fa9d971b4672b1d981589da020a1e"
+          echo "BEPD04C_PERSISTED_IDENTITIES_PASS"
+
+      - name: Deterministic replay against persisted result
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04c-rebreak
+          python tools/bepd_04b_same_week_reintegration_response_v0_1.py \
+            --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl \
+            --execution-scope REAL_AUTHORIZED \
+            --source-ledger-blob 0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2 \
+            --source-run-id 68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821 \
+            --real-execution-authorized \
+            --output bepd04c-rebreak/RESULT.replay.json
+          cmp --silent bepd04c-rebreak/RESULT.replay.json artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RESULT.json
+          test "$(sha256sum bepd04c-rebreak/RESULT.replay.json | awk '{print $1}')" = "f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b"
+          echo "BEPD04C_DETERMINISTIC_REPLAY_PASS"
+
+      - name: Independent count reconciliation and manifest validation
+        shell: bash
+        env:
+          REBREAK_WORKFLOW_RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib, json, os
+          from decimal import Decimal, ROUND_HALF_EVEN
+          from pathlib import Path
+
+          result_path=Path("artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RESULT.json")
+          manifest_path=Path("artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RUN_MANIFEST.json")
+          ledger_path=Path("artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl")
+          result=json.loads(result_path.read_text(encoding="utf-8"))
+          manifest=json.loads(manifest_path.read_text(encoding="utf-8"))
+          rows=[json.loads(x) for x in ledger_path.read_text(encoding="utf-8").splitlines() if x.strip()]
+          seen=set(); t=0
+          for row in rows:
+              assert row["run_id"]=="68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+              assert type(row["same_week_reintegration"]) is bool
+              assert row["event_id"] not in seen
+              seen.add(row["event_id"])
+              t+=int(row["same_week_reintegration"])
+          n=len(rows); f=n-t
+          q=Decimal("0.000000000000000001")
+          share=format((Decimal(t)/Decimal(n)).quantize(q,rounding=ROUND_HALF_EVEN),"f")
+          expected={"total_event_count":n,"reintegration_true_count":t,"reintegration_false_count":f,"reintegration_fraction":f"{t}/{n}","reintegration_share_decimal":share}
+          for k,v in expected.items(): assert result[k]==v,(k,result[k],v)
+          assert expected==manifest["independent_recomputation"]["authorized_global_fields"]
+          assert manifest["independent_recomputation"]["status"]=="PASS"
+          assert result["m05_generalization_uncertainty"]=="BLOCKED"
+          assert manifest["m05_generalization_uncertainty"]=="BLOCKED"
+          assert result["forbidden_analytics_executed"] is False
+          assert manifest["forbidden_analytics_executed"] is False
+          result_bytes=result_path.read_bytes()
+          assert hashlib.sha256(result_bytes).hexdigest()=="f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b"
+          assert manifest["result"]["sha256"]=="f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b"
+          assert manifest["result"]["size_bytes"]==len(result_bytes)
+          assert manifest["execution_head"]=="c9aaf7816770e26328879ff3664aadca3ebf9ae3"
+          assert manifest["execution_tree"]=="c22bbbf73314d6c8d0142d355d5859e9f1324b64"
+          assert manifest["run_id"]=="9a68934ddfea835380b77ef6b7bd4d2733a75079ad5921834721ff9d664cc833"
+          receipt={
+            "schema":"ATDS_BEPD_04C_PERSISTED_HEAD_REBREAK_RECEIPT_V0_1",
+            "status":"PASS",
+            "rebreak_workflow_run_id":int(os.environ["REBREAK_WORKFLOW_RUN_ID"]),
+            "persisted_result_blob":"947714ebf0f0882baf7501eff8fc0ad47291331c",
+            "persisted_manifest_blob":"23c1fc0e044d7461f382d59895bb9b930481b896",
+            "persisted_execution_record_blob":"b5cfe8caa21aa8dcadc70f025df16577486c0376",
+            "run_id":"9a68934ddfea835380b77ef6b7bd4d2733a75079ad5921834721ff9d664cc833",
+            "result_sha256":"f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b",
+            "deterministic_replay":"PASS",
+            "independent_recomputation":"PASS",
+            "authorized_global_fields":expected,
+            "m05":"BLOCKED",
+            "forbidden_analytics_executed":False,
+          }
+          Path("bepd04c-rebreak/PERSISTED_HEAD_REBREAK_RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n",encoding="utf-8",newline="\n")
+          print("BEPD04C_INDEPENDENT_RECOMPUTATION_PASS")
+          PY
+
+      - name: Execute qualified adversarial breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04b_same_week_reintegration_response_breaker_v0_1.py --root .
+
+      - name: Upload rebreak receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04c-rebreak-${{ github.run_id }}
+          path: bepd04c-rebreak/PERSISTED_HEAD_REBREAK_RECEIPT.json
+          if-no-files-found: error
+          retention-days: 30
