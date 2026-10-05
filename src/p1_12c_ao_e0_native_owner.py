@@ -45,14 +45,15 @@ SEMANTIC_PARAMETERS = {
     "strategy_id": "MOMENTUM_V1",
     "instrument": "USTECH",
     "timeframe": "H1",
-    "claim_class": CLAIM_CLASS,
-    "cell_identity": CELL_IDENTITY,
+    "h1_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
     "temporal_mode": "E1_REPLAY_POINT_IN_TIME",
+    "execution_contract": "ATDS_E1_04_EXECUTION_COST_MODEL_V0_1",
     "cost_node": "F2_S4",
     "financing_multiplier": 2,
     "financing_adverse_anchor": 6.3665,
     "slippage_bps_per_execution_event": 4,
     "delta_min": 5.0,
+    "policy_stress_is_observed_historical_cost": False,
 }
 EXPECTED_DATA_BINDING = {
     "cell_identity": CELL_IDENTITY,

@@ -1,7 +1,7 @@
 {
   "schema": "ATDS_AO_E0_P1_OWNER_01_NATIVE_OWNER_CONTRACT_V0_1",
   "control_id": "AO-E0-P1-OWNER-01",
-  "status": "IMPLEMENTATION_CANDIDATE_PRE_GREEN",
+  "status": "IMPLEMENTATION_CANDIDATE_PRE_GREEN_R1",
   "target": {
     "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
     "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
@@ -21,7 +21,7 @@
     "producer_path": "tools/ao_e0_cc05_e1_producer.py",
     "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
     "owner_path": "src/p1_12c_ao_e0_native_owner.py",
-    "owner_blob": "1dbcf3da39d7c18b9e6391199c10436cba8e6d27",
+    "owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
     "p1_12d_extension_path": "src/p1_12d_ao_e0_extension.py",
     "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
     "test_blob": "18cd6028467f5eef9aa015f25e333e99b1868262",
