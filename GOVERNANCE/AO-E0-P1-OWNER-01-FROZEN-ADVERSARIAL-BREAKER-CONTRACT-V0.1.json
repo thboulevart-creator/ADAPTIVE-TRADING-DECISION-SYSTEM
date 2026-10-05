@@ -1,0 +1,132 @@
+{
+  "schema": "ATDS_AO_E0_P1_OWNER_01_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "AO-E0-P1-OWNER-01",
+  "status": "FROZEN_PRE_IMPLEMENTATION",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "expected_native_owner": "P1.12C.AO-E0",
+  "cases": [
+    [
+      "AOE0-P1-B01",
+      "wrong CELL_IDENTITY",
+      "BLOCKED_CELL_IDENTITY_MISMATCH"
+    ],
+    [
+      "AOE0-P1-B02",
+      "wrong claim class",
+      "BLOCKED_CLAIM_CLASS_MISMATCH"
+    ],
+    [
+      "AOE0-P1-B03",
+      "AP1 profile substituted for AO-E0",
+      "BLOCKED_INVOCATION_PROFILE_MISMATCH"
+    ],
+    [
+      "AOE0-P1-B04",
+      "DATA-02 substituted for DT-01A",
+      "BLOCKED_DATA_BINDING_MISMATCH"
+    ],
+    [
+      "AOE0-P1-B05",
+      "RETROSPECTIVE_DESCRIPTIVE_ONLY substituted for DT-01B",
+      "BLOCKED_TEMPORAL_BINDING_MISMATCH"
+    ],
+    [
+      "AOE0-P1-B06",
+      "future-H1 temporal escalation",
+      "BLOCKED_TEMPORAL_RULE_VIOLATION"
+    ],
+    [
+      "AOE0-P1-B07",
+      "OOS consumption enabled",
+      "BLOCKED_OOS_CONSUMPTION"
+    ],
+    [
+      "AOE0-P1-B08",
+      "post-result producer selection",
+      "BLOCKED_POST_RESULT_PRODUCER_SELECTION"
+    ],
+    [
+      "AOE0-P1-B09",
+      "post-result parameter selection",
+      "BLOCKED_POST_RESULT_PARAMETER_SELECTION"
+    ],
+    [
+      "AOE0-P1-B10",
+      "producer code drift",
+      "BLOCKED_PRODUCER_CODE_DRIFT"
+    ],
+    [
+      "AOE0-P1-B11",
+      "runtime-lock drift",
+      "BLOCKED_RUNTIME_LOCK_DRIFT"
+    ],
+    [
+      "AOE0-P1-B12",
+      "invocation-profile drift",
+      "BLOCKED_INVOCATION_PROFILE_DRIFT"
+    ],
+    [
+      "AOE0-P1-B13",
+      "execution-model drift",
+      "BLOCKED_EXECUTION_MODEL_DRIFT"
+    ],
+    [
+      "AOE0-P1-B14",
+      "cost-policy drift",
+      "BLOCKED_COST_SCOPE_DRIFT"
+    ],
+    [
+      "AOE0-P1-B15",
+      "F2_S4 changed",
+      "BLOCKED_COST_NODE_DRIFT"
+    ],
+    [
+      "AOE0-P1-B16",
+      "unknown native owner",
+      "BLOCKED_UNKNOWN_EXECUTION_OWNER"
+    ],
+    [
+      "AOE0-P1-B17",
+      "forged native result",
+      "BLOCKED_NATIVE_OWNER_ATTESTATION_REQUIRED"
+    ],
+    [
+      "AOE0-P1-B18",
+      "structural duck typing accepted",
+      "REJECT_STRUCTURAL_DUCK_TYPING"
+    ],
+    [
+      "AOE0-P1-B19",
+      "P1.12D owner allowlist laundering",
+      "REJECT_OWNER_ALLOWLIST_LAUNDERING"
+    ],
+    [
+      "AOE0-P1-B20",
+      "result -> scientific support laundering",
+      "REJECT_RESULT_TO_SCIENTIFIC_AUTHORITY"
+    ],
+    [
+      "AOE0-P1-B21",
+      "execution -> trading authority laundering",
+      "REJECT_EXECUTION_TO_TRADING_AUTHORITY"
+    ],
+    [
+      "AOE0-P1-B22",
+      "legacy P1.12B regression",
+      "BLOCKED_P1_12B_REGRESSION"
+    ],
+    [
+      "AOE0-P1-B23",
+      "legacy synthetic P1.12C regression",
+      "BLOCKED_P1_12C_REGRESSION"
+    ],
+    [
+      "AOE0-P1-B24",
+      "P1-21 AP1 capability regression",
+      "BLOCKED_P1_21_AP1_REGRESSION"
+    ]
+  ],
+  "freeze_rule": "case IDs, attack intent, and expected fail-closed outcomes frozen before implementation",
+  "execution_scope": "SYNTHETIC_ONLY_NO_REAL_AO_E0_NO_OOS"
+}
