@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_AO_E0_P1_OWNER_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "control_id": "AO-E0-P1-OWNER-01",
+  "red_commit": "b57d927fd03d97ece9dbfee698f0337fee5b0d43",
+  "red_tree": "fd3d60b73a2065a768dd8dc99f72b40acb34b6aa",
+  "workflow_run_id": 37343691257,
+  "workflow_name": "AO-E0 P1 Owner 01 Qualification",
+  "conclusion": "failure",
+  "expected_red": true,
+  "environment_steps_passed": true,
+  "failing_step": "Frozen AO-E0 owner breaker",
+  "exact_failure": [
+    "ModuleNotFoundError: No module named 'src.p1_12c_ao_e0_native_owner'",
+    "ModuleNotFoundError: No module named 'src.p1_12d_ao_e0_extension'"
+  ],
+  "pytest_summary": "3 failed",
+  "real_ao_e0_executed": false,
+  "oos_consumed": false,
+  "performance_observed": false
+}

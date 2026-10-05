@@ -1,0 +1,64 @@
+{
+  "schema": "ATDS_AO_E0_P1_OWNER_01_NATIVE_OWNER_CONTRACT_V0_1",
+  "control_id": "AO-E0-P1-OWNER-01",
+  "status": "IMPLEMENTATION_CANDIDATE_PRE_GREEN",
+  "target": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "strategy": "MOMENTUM_V1",
+    "instrument": "USTECH",
+    "timeframe": "H1",
+    "cost_node": "F2_S4"
+  },
+  "foundation": {
+    "p1_12c_core_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "p1_21_report_blob": "a1e15ab46f9e7606bd4d88b0a87213850aa162af",
+    "p1_21_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "p1_12d_core_blob": "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190",
+    "p1_12d_core_modified": false
+  },
+  "implementation": {
+    "producer_path": "tools/ao_e0_cc05_e1_producer.py",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "owner_path": "src/p1_12c_ao_e0_native_owner.py",
+    "owner_blob": "1dbcf3da39d7c18b9e6391199c10436cba8e6d27",
+    "p1_12d_extension_path": "src/p1_12d_ao_e0_extension.py",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "test_blob": "18cd6028467f5eef9aa015f25e333e99b1868262",
+    "frozen_breaker_blob": "5d79a8edd37f403a72c1cec958a18a52d73780ff",
+    "frozen_breaker_contract_blob": "b0f6b2fed7b50bcac801d2db79a45933ffe727f8"
+  },
+  "exact_bindings": {
+    "dt01a_contract_blob": "66759f93ad019e18fd00c871bd1737293070b1a8",
+    "dt01b_contract_blob": "b312981ae8cba905c50db657ba0217addf296548",
+    "dt01_closure_receipt_blob": "fad20f527393b85b6d06b998c89a3543a18be46a",
+    "e1_03_contract_blob": "c2d4323039d65fcd9319d4f5eb02f45ee27c8afc",
+    "e1_04_contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "e1_05_contract_blob": "51dc1152808ec9e841924976eac572cc4ec2ff93",
+    "e1_05_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6",
+    "exec04_policy_blob": "52b849c46d0a5cf45b261fd16e34edab44489572",
+    "exec05_contract_blob": "ca292ce2efde127bd7ab5f8efb160a98fa73f900",
+    "b4_freeze_blob": "8cf494fcfffe0575d3e2a0fe887e2f524a3eb304"
+  },
+  "result_semantics": {
+    "owner_id": "P1.12C.AO-E0",
+    "exact_type": "QualifiedAOE0ExecutionResult",
+    "common_envelope": "P1_12D_QUALIFIED_EXECUTION_EVIDENCE_ENVELOPE_V1",
+    "structural_duck_typing": false,
+    "digest_only_authority": false,
+    "scientific_authority": false,
+    "trading_authority": false,
+    "capital_authority": false
+  },
+  "authority": {
+    "real_ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b12": "CLOSED"
+  }
+}
