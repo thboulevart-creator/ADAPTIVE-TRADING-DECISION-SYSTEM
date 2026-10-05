@@ -1,0 +1,48 @@
+{
+  "schema": "ATDS_P1_18_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "OBSERVED_RED_PERSISTED_BEFORE_P1_12C_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "761cb696ea9e58f437efb320f96e8adb574e38e4",
+    "tree": "94040f1b04cbf7b5e170ff936d5b9ffe6a7268d3"
+  },
+  "reconciled_parent": {
+    "head": "07a54720284acbfd0a94a727ebd58468d26a1e06",
+    "tree": "eda1b8e995182c0d6e63ac0bdd5c98efdbb8e3d6",
+    "classification": "NON_MATERIAL_TO_P1_18",
+    "reconciliation_receipt_blob": "03fb6659f611f18568c02bf4c61b5e822f0b87a4"
+  },
+  "frozen_p1_17_breaker_contract_blob": "9ab0f9018dd6e9def4a5e35b8e9a35c3beb556bc",
+  "executable_breaker_blob": "7f40b525e16ca06306cba3ae59f03cb08c71d0cd",
+  "red_workflow_blob": "94f16163890239cfc27d148e79031629cb3a22ec",
+  "observed_red": {
+    "commit": "644f22d6785aa0373f39d1a4715b28b05ceee2f4",
+    "tree": "2881ed9680470f62ebab9da110b161fa020e1e61",
+    "workflow_run_id": 37293347906,
+    "job_id": 111708717662,
+    "conclusion": "SUCCESS_EXPECTED_RED_PROOF",
+    "pytest_result": "32_FAILED",
+    "failure_marker": "P1_12C_RUNTIME_ABSENT_EXPECTED_RED",
+    "p1_12c_runtime_present": false
+  },
+  "test_first_integrity": {
+    "frozen_case_count": 32,
+    "all_case_ids_materialized_before_runtime": true,
+    "expected_reasons_changed": false,
+    "attack_intent_weakened": false,
+    "implementation_present_at_red": false
+  },
+  "authority": {
+    "real_ap0_executed": false,
+    "real_ap1_executed": false,
+    "new_market_result": false,
+    "backtest": false,
+    "oos_consumption": false,
+    "p1_13b_or_downstream_modified": false,
+    "scientific_authority": false,
+    "operational_authority": false,
+    "trading_authority": false,
+    "capital_authority": false
+  }
+}
