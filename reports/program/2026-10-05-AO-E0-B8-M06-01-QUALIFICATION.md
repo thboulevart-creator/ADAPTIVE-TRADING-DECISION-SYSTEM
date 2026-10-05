@@ -1,0 +1,102 @@
+# AO-E0-B8-M06-01 — EXPOSED E1 LEDGER RECOVERY + PLANNING DISPERSION QUALIFICATION
+
+VERDICT = QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION
+
+SOURCE =
+E1-REAL-003-USED.zip
+
+SOURCE_ZIP_SHA256 =
+a6588ef94d6cf15447ee8f7d2be0b7d3642ae857f2d64fcf86c77070ced0ca84
+
+CANONICAL_GITHUB_BASE64_BLOB =
+c35032412bc2831df1289013310e5f4df6339e0a
+
+RESULT_RAW_SHA256 =
+ab1815c56284000658f04ac70e53472f6cf1390cb57926f96e94076630d6942f
+
+RESULT_CANONICAL_DIGEST =
+56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738
+
+RECORDS_DIGEST =
+f890dd32f3e14b20430cb5898a05946a5d71231a9103b755fa0eb683f8834fc4
+
+CLOSED_TRADES =
+650
+
+Deterministic reconstruction:
+
+FULL_SAMPLE_SAMPLE_STDDEV =
+336.4106561689863
+
+PRE_OOS_SAMPLE_STDDEV =
+295.8344792563870
+
+EXPOSED_OOS_SAMPLE_STDDEV =
+482.17824961107937
+
+FULL_SAMPLE_POPULATION_STDDEV_DIAGNOSTIC_ONLY =
+336.151779134749
+
+PLANNING_STDDEV_CANDIDATE =
+336.4106561689863
+
+EPISTEMIC_CLASS =
+EXPOSED_E1_PLANNING_PROXY_ONLY
+
+SELECTION BASIS =
+FULL SAMPLE SELECTED PRE-ADOPTION TO AVOID OOS-ONLY SIGMA SELECTION
+
+Qualification checks:
+- exact ZIP digest = PASS
+- exact RESULT raw digest = PASS
+- RESULT canonical digest independently recomputed = PASS
+- records_digest field identity = PASS
+- closed_trade_count = 650 PASS
+- full/pre/OOS aggregate reconstruction = PASS
+- sample standard deviation uses denominator n-1 = PASS
+- population-sigma substitution rejected = PASS
+- OOS-only sigma substitution rejected = PASS
+- mutated ledger row changes canonical result digest = PASS
+- new strategy execution = NONE
+- new forward data observation = NONE
+
+Required separations:
+
+PLANNING_DATA != CONFIRMATORY_DATA
+OLD_E1_OOS != INDEPENDENT_CONFIRMATION
+RAW_E1_SPREAD_ONLY_STDDEV != HISTORICAL_F2_S4_STDDEV
+SAMPLE_STDDEV != POPULATION_STDDEV
+
+The recovered E1 ledger is already-exposed historical evidence and may only be used as planning information.
+
+The exact ZIP is now recoverable from GitHub by Base64 decoding the canonical evidence file and verifying SOURCE_ZIP_SHA256.
+
+CI confirmation:
+RUN_ID = 37368229279
+STATUS_AT_QUALIFICATION = QUEUED
+ROLE = SUPPLEMENTAL REPRODUCIBILITY CONFIRMATION
+The qualification verdict above is based on deterministic local replay of the same persisted verifier and exact materialized source, not on an assumed CI result.
+
+M06_PLANNING_DISPERSION =
+QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION
+
+HUMAN_ADOPTION =
+NOT_YET_GRANTED
+
+B8 =
+BLOCKED_PENDING_M06_HUMAN_ADOPTION_AND_FINAL_M06_CONFIGURATION
+
+B12 =
+CLOSED
+
+AO_E0_EXECUTION =
+NOT_AUTHORIZED
+
+FORWARD_DATA_OBSERVATION =
+NOT_AUTHORIZED
+
+NEW_AO_E0_PERFORMANCE_OBSERVATION =
+FALSE
+
+FORCE =
+FALSE

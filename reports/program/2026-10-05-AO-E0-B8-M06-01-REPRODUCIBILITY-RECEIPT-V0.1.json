@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_01_REPRODUCIBILITY_RECEIPT_V0_1",
+  "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "source": {
+    "zip_sha256": "a6588ef94d6cf15447ee8f7d2be0b7d3642ae857f2d64fcf86c77070ced0ca84",
+    "github_base64_blob": "c35032412bc2831df1289013310e5f4df6339e0a",
+    "result_raw_sha256": "ab1815c56284000658f04ac70e53472f6cf1390cb57926f96e94076630d6942f",
+    "result_canonical_digest": "56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738",
+    "records_digest": "f890dd32f3e14b20430cb5898a05946a5d71231a9103b755fa0eb683f8834fc4",
+    "closed_trade_count": 650
+  },
+  "diagnostics": {
+    "full_sample_sample_stddev": 336.4106561689863,
+    "pre_oos_sample_stddev": 295.834479256387,
+    "exposed_oos_sample_stddev": 482.17824961107937,
+    "full_sample_population_stddev_diagnostic_only": 336.151779134749
+  },
+  "candidate": {
+    "planning_stddev": 336.4106561689863,
+    "epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY",
+    "human_adopted": false
+  },
+  "qualification": {
+    "exact_zip_digest": "PASS",
+    "exact_result_raw_digest": "PASS",
+    "canonical_result_digest_recomputed": "PASS",
+    "records_digest_identity": "PASS",
+    "aggregate_reconstruction": "PASS",
+    "sample_stddev_n_minus_1": "PASS",
+    "mutated_ledger_row_detected": "PASS",
+    "population_sigma_substitution_rejected": "PASS",
+    "oos_only_sigma_substitution_rejected": "PASS"
+  },
+  "ci": {
+    "run_id": 37368229279,
+    "status_at_receipt": "QUEUED",
+    "role": "SUPPLEMENTAL_CONFIRMATION"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "new_ao_e0_performance_observation": false,
+    "b8_closure": false,
+    "b12": "CLOSED",
+    "real_smf_execution": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
