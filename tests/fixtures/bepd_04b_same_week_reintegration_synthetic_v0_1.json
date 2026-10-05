@@ -1,0 +1,312 @@
+{
+  "schema": "ATDS_BEPD_04B_FROZEN_SYNTHETIC_EXPECTATIONS_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION_EXPECTATIONS",
+  "execution_scope": "SYNTHETIC_QUALIFICATION",
+  "synthetic_source_ledger_blob": "SYNTHETIC_BEPD04B_LEDGER_V0_1",
+  "synthetic_run_id": "SYNTHETIC_BEPD04B_RUN_V0_1",
+  "row_schema_version": "ATDS_BEPD_01D_HISTORICAL_LEDGER_SCHEMA_V0_1",
+  "cases": [
+    {
+      "id": "S01",
+      "rows": [
+        {
+          "event_id": "syn-event-001",
+          "sweep_cluster_id": "syn-cluster-001",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-001",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-09T11:59:00+00:00",
+          "same_week_reintegration": true
+        }
+      ],
+      "expected": {
+        "total": 1,
+        "true": 1,
+        "false": 0,
+        "fraction": "1/1",
+        "share_decimal": "1.000000000000000000"
+      }
+    },
+    {
+      "id": "S02",
+      "rows": [
+        {
+          "event_id": "syn-event-002",
+          "sweep_cluster_id": "syn-cluster-002",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-002",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-10T12:59:00+00:00",
+          "same_week_reintegration": false
+        }
+      ],
+      "expected": {
+        "total": 1,
+        "true": 0,
+        "false": 1,
+        "fraction": "0/1",
+        "share_decimal": "0.000000000000000000"
+      }
+    },
+    {
+      "id": "S03",
+      "rows": [
+        {
+          "event_id": "syn-event-003",
+          "sweep_cluster_id": "syn-cluster-003",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-003",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-11T13:59:00+00:00",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "syn-event-004",
+          "sweep_cluster_id": "syn-cluster-004",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-004",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-08T14:59:00+00:00",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "syn-event-005",
+          "sweep_cluster_id": "syn-cluster-005",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-005",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-09T15:59:00+00:00",
+          "same_week_reintegration": true
+        }
+      ],
+      "expected": {
+        "total": 3,
+        "true": 2,
+        "false": 1,
+        "fraction": "2/3",
+        "share_decimal": "0.666666666666666667"
+      }
+    },
+    {
+      "id": "S04",
+      "rows": [
+        {
+          "event_id": "syn-event-006",
+          "sweep_cluster_id": "syn-cluster-006",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-006",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-10T16:59:00+00:00",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "syn-event-007",
+          "sweep_cluster_id": "syn-cluster-007",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-007",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-11T17:59:00+00:00",
+          "same_week_reintegration": true
+        }
+      ],
+      "expected": {
+        "total": 2,
+        "true": 2,
+        "false": 0,
+        "fraction": "2/2",
+        "share_decimal": "1.000000000000000000"
+      }
+    },
+    {
+      "id": "S05",
+      "rows": [
+        {
+          "event_id": "syn-event-008",
+          "sweep_cluster_id": "syn-cluster-008",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-008",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-08T18:59:00+00:00",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "syn-event-009",
+          "sweep_cluster_id": "syn-cluster-009",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-009",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-09T19:59:00+00:00",
+          "same_week_reintegration": false
+        }
+      ],
+      "expected": {
+        "total": 2,
+        "true": 0,
+        "false": 2,
+        "fraction": "0/2",
+        "share_decimal": "0.000000000000000000"
+      }
+    },
+    {
+      "id": "S06",
+      "rows": [
+        {
+          "event_id": "syn-event-010",
+          "sweep_cluster_id": "shared-cluster",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-010",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-10T10:59:00+00:00",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "syn-event-011",
+          "sweep_cluster_id": "shared-cluster",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-011",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-11T11:59:00+00:00",
+          "same_week_reintegration": false
+        }
+      ],
+      "expected": {
+        "total": 2,
+        "true": 1,
+        "false": 1,
+        "fraction": "1/2",
+        "share_decimal": "0.500000000000000000"
+      }
+    },
+    {
+      "id": "S07",
+      "rows": [
+        {
+          "event_id": "syn-event-012",
+          "sweep_cluster_id": "syn-cluster-012",
+          "target_week_id": "2024-02-05",
+          "level_id": "syn-level-012",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-08T12:59:00+00:00",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "syn-event-013",
+          "sweep_cluster_id": "syn-cluster-013",
+          "target_week_id": "2024-02-05",
+          "level_id": "syn-level-013",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-09T13:59:00+00:00",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "syn-event-014",
+          "sweep_cluster_id": "syn-cluster-014",
+          "target_week_id": "2024-02-05",
+          "level_id": "syn-level-014",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-10T14:59:00+00:00",
+          "same_week_reintegration": true
+        }
+      ],
+      "expected": {
+        "total": 3,
+        "true": 2,
+        "false": 1,
+        "fraction": "2/3",
+        "share_decimal": "0.666666666666666667"
+      }
+    },
+    {
+      "id": "S08",
+      "rows": [
+        {
+          "event_id": "syn-event-015",
+          "sweep_cluster_id": "syn-cluster-015",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-015",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-11T15:59:00+00:00",
+          "same_week_reintegration": true
+        }
+      ],
+      "expected": {
+        "total": 1,
+        "true": 1,
+        "false": 0,
+        "fraction": "1/1",
+        "share_decimal": "1.000000000000000000"
+      }
+    },
+    {
+      "id": "S09",
+      "rows": [
+        {
+          "event_id": "syn-event-016",
+          "sweep_cluster_id": "syn-cluster-016",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-016",
+          "side": "LOW",
+          "take_h1_close_utc": "2024-01-08T16:59:00+00:00",
+          "same_week_reintegration": false
+        }
+      ],
+      "expected": {
+        "total": 1,
+        "true": 0,
+        "false": 1,
+        "fraction": "0/1",
+        "share_decimal": "0.000000000000000000"
+      }
+    },
+    {
+      "id": "S10",
+      "rows": [
+        {
+          "event_id": "syn-event-017",
+          "sweep_cluster_id": "syn-cluster-017",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-017",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-09T17:59:00+00:00",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "syn-event-018",
+          "sweep_cluster_id": "syn-cluster-018",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-018",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-10T18:59:00+00:00",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "syn-event-019",
+          "sweep_cluster_id": "syn-cluster-019",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-019",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-11T19:59:00+00:00",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "syn-event-020",
+          "sweep_cluster_id": "syn-cluster-020",
+          "target_week_id": "2024-01-08",
+          "level_id": "syn-level-020",
+          "side": "HIGH",
+          "take_h1_close_utc": "2024-01-08T10:59:00+00:00",
+          "same_week_reintegration": true
+        }
+      ],
+      "expected": {
+        "total": 4,
+        "true": 2,
+        "false": 2,
+        "fraction": "2/4",
+        "share_decimal": "0.500000000000000000"
+      }
+    }
+  ],
+  "real_market_values_preencoded": false,
+  "real_event_ledger_rows_included": false
+}
