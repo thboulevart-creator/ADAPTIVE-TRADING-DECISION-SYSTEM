@@ -1,0 +1,47 @@
+{
+  "schema": "ATDS_AO_E0_CELL_01_REPRODUCIBILITY_RECEIPT_V0_1",
+  "control_id": "AO-E0-CELL-01",
+  "parent": {
+    "head": "e75eb082aab1d8c2268d77d7a349091a157606d5",
+    "tree": "b97c5b387bcfccf61663916454d7dcfc008e4f61"
+  },
+  "preflight": {
+    "dependency_identities_exact": true,
+    "ao_e0_material_drift": false,
+    "unrelated_drift_classification": "BEPD_ONLY_NON_MATERIAL"
+  },
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "canonicalization": {
+    "encoding": "UTF-8",
+    "recursively_sorted_keys": true,
+    "separators": ",:",
+    "whitespace": false,
+    "trailing_lf_in_digest_input": false,
+    "digest": "SHA-256"
+  },
+  "artifacts": {
+    "contract_blob": "d65821f5200deba528ebbef2e7f635f1610ce844",
+    "canonical_serialization_blob": "5f3217dc748c1dd9fac924f275076363186e55a2",
+    "breaker_blob": "46765aa43937af72e5b2d652b0fb4e053a56ccda",
+    "tests_blob": "c2a1550c48311b414ba9d969951e0ac8eedbf54d",
+    "red_receipt_blob": "79021615a29585a3d3a3ca401ea8cb3fa68ed694",
+    "qualification_report_blob": "84cdf8c1feaea36bc0e443777c26a7c7548ee137"
+  },
+  "qualification": {
+    "test_first_red": "EXPECTED_RED",
+    "breaker": "PASS",
+    "pytest": "8/8 PASS",
+    "adversarial_required_cases": "11/11 PASS",
+    "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION"
+  },
+  "authority": {
+    "human_adopted": false,
+    "ao_e0_execution_authorized": false,
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "backtest_authorized": false,
+    "b12": "CLOSED"
+  },
+  "b1": "PENDING_DISTINCT_HUMAN_ADOPTION",
+  "force": false
+}

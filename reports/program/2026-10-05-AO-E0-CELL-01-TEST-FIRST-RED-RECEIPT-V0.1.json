@@ -1,0 +1,9 @@
+{
+  "schema": "ATDS_AO_E0_CELL_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "control_id": "AO-E0-CELL-01",
+  "result": "EXPECTED_RED",
+  "red_return_code": 1,
+  "reason": "identity contract and canonical serialization intentionally absent before implementation",
+  "oos_consumed": false,
+  "performance_accessed": false
+}
