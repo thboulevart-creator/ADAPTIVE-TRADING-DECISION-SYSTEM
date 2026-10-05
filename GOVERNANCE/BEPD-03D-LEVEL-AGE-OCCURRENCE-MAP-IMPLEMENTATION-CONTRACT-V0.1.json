@@ -1,0 +1,194 @@
+{
+  "schema": "ATDS_BEPD_03D_LEVEL_AGE_OCCURRENCE_MAP_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_IMPLEMENTATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "a7582159c55d343fd0e79672dc3053646ef4bfea",
+    "tree": "edbcf036aa22d6bf0e00084eab50122d365a96ed"
+  },
+  "bindings": {
+    "human_authorization_blob": "4bbcc78cf8e74bcb5fcd96bc51b60921ed82e2b0",
+    "bepd03a_dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03b_result_blob": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "bepd03b_manifest_blob": "98abfece6796ecfb355714c31bcf0126a28729c9",
+    "bepd03b_qualification_blob": "e88bcce2d3256a9e374e76cfb5e9ebc641316d56",
+    "bepd03c_result_blob": "809fa76f82bbbe0311a6c538378eed2a22c77fe0",
+    "bepd03c_manifest_blob": "02acd5a81808119c9bb3896f4be34ca977eb3839",
+    "bepd03c_qualification_blob": "fd3b0caa97361e61e81510a2e69f0fbeb25cbe12",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+  },
+  "implementation": {
+    "path": "tools/bepd_03d_level_age_occurrence_map_v0_1.py",
+    "input_primary": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/LEVEL_WEEK_OPPORTUNITY.jsonl",
+    "baseline_reference": "artifacts/bepd03b/global-weekly-liquidity-occurrence-baseline-v0.1/RESULT.json",
+    "calendar_reference_identity_only": "artifacts/bepd03c/preregistered-calendar-occurrence-map-v0.1/RESULT.json",
+    "output_directory": "artifacts/bepd03d/level-age-occurrence-map-v0.1",
+    "outputs": [
+      "RESULT.json",
+      "RUN_MANIFEST.json"
+    ]
+  },
+  "dimension": {
+    "id": "V05_LEVEL_AGE_BAND",
+    "source_field": "level_age_weeks",
+    "valid_domain": "integer >= 1",
+    "bins": [
+      {
+        "label": "AGE_1",
+        "min": 1,
+        "max": 1
+      },
+      {
+        "label": "AGE_2",
+        "min": 2,
+        "max": 2
+      },
+      {
+        "label": "AGE_3_4",
+        "min": 3,
+        "max": 4
+      },
+      {
+        "label": "AGE_5_8",
+        "min": 5,
+        "max": 8
+      },
+      {
+        "label": "AGE_9_16",
+        "min": 9,
+        "max": 16
+      },
+      {
+        "label": "AGE_17_32",
+        "min": 17,
+        "max": 32
+      },
+      {
+        "label": "AGE_33_64",
+        "min": 33,
+        "max": 64
+      },
+      {
+        "label": "AGE_65_PLUS",
+        "min": 65,
+        "max": null
+      }
+    ],
+    "order": [
+      "AGE_1",
+      "AGE_2",
+      "AGE_3_4",
+      "AGE_5_8",
+      "AGE_9_16",
+      "AGE_17_32",
+      "AGE_33_64",
+      "AGE_65_PLUS"
+    ]
+  },
+  "result_schema": {
+    "top_level_fields": [
+      "schema",
+      "interpretation",
+      "run_id",
+      "source_bepd02_run_id",
+      "baseline_reference",
+      "calendar_reference_identity",
+      "dependence_statement",
+      "m05_generalization_uncertainty",
+      "dimension",
+      "forbidden_analytics_executed"
+    ],
+    "dimension_fields": [
+      "dimension_id",
+      "category_order",
+      "cells"
+    ],
+    "cell_fields": [
+      "category",
+      "eligible_target_week_count",
+      "unique_level_count",
+      "opportunity_count",
+      "event_count",
+      "occurrence_fraction",
+      "occurrence_proportion_decimal"
+    ],
+    "occurrence_fraction": "'<event_count>/<opportunity_count>'; if denominator=0 use '0/0'",
+    "occurrence_proportion_decimal": "18-decimal fixed string using ROUND_HALF_EVEN; null iff denominator=0"
+  },
+  "estimator": {
+    "numerator": "count selected rows where swept_this_week is exactly true",
+    "denominator": "count selected rows",
+    "weighting": "equal weight per eligible level-week opportunity row",
+    "weekly_rate_averaging_forbidden": true,
+    "row_exclusion_forbidden": true
+  },
+  "baseline_reconciliation": {
+    "source": "BEPD-03B GLOBAL_ALL_SIDES",
+    "opportunity_sum_equals_global": true,
+    "event_sum_equals_global": true,
+    "target_week_union_equals_global_target_week_set": true,
+    "unique_level_union_equals_global_unique_level_set": true,
+    "target_week_counts_are_not_additive": true,
+    "unique_level_counts_are_not_additive": true,
+    "note": "a target week may contain opportunities from multiple age bins; a surviving level may traverse multiple age bins across weeks"
+  },
+  "dependence": {
+    "dependence_key": "target_week_id",
+    "opportunity_row_iid": false,
+    "repeated_level_across_weeks": true,
+    "m05_generalization_uncertainty": "BLOCKED"
+  },
+  "zero_support_policy": {
+    "emit_all_eight_bins": true,
+    "zero_opportunity_cell_proportion": null,
+    "zero_event_nonzero_opportunity_cell_proportion": "0.000000000000000000"
+  },
+  "forbidden_output_fields": [
+    "rank",
+    "best",
+    "worst",
+    "p_value",
+    "significance",
+    "confidence_interval",
+    "standard_error",
+    "bootstrap",
+    "target_month",
+    "target_year",
+    "target_month_position",
+    "take_day_ny",
+    "side_filter",
+    "cross_product"
+  ],
+  "forbidden": [
+    "bin modification",
+    "new age thresholds",
+    "ranking",
+    "best/worst",
+    "age x side",
+    "age x month",
+    "age x year",
+    "age x early/late",
+    "age x take day",
+    "any cross-product",
+    "calendar-result modification",
+    "significance testing",
+    "p-values",
+    "generalization interval",
+    "bootstrap",
+    "M05 activation",
+    "future probability",
+    "causal interpretation",
+    "predictive interpretation",
+    "TAKE DAY NY",
+    "Response Map",
+    "Occurrence x Response",
+    "edge",
+    "strategy",
+    "PnL"
+  ]
+}
