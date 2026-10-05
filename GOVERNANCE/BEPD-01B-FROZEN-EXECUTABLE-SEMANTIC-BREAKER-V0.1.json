@@ -4,14 +4,18 @@
   "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
   "branch": "integration/system-v1",
   "parent": {
-    "head": "8d6839970edd2d11785777baaf623718fe4576d4",
-    "tree": "8c3b84785011a455bda7ae64a8e62b304e075a29"
+    "head": "64a72dcd8abeb02ed8ec0d59ea5ddc59e18da53b",
+    "tree": "41cb5ad1ef48114419993c9bd3c8a0663ae8f4ad"
   },
   "bindings": {
     "bepd_01a_contract_blob": "341f6267f7f1add350759d6d95dfebfb5b9e46f7",
-    "bepd_01a_fixture_blob": "89f2af87171002e75fa06d7fb704817e149968bc",
-    "bepd_01a_fixture_sha256": "0365e0dfb1c5e3f78f4a3f01aca1f3bc91dc13147900c63831e4a51c1644434e",
-    "bepd_01a_human_adjudication_blob": "66ae9ff193c5734c32490300ef24d2c1895492c1"
+    "bepd_01a_fixture_blob": "d2e663eaef865507c1cb92f5baa0074dcfc11032",
+    "bepd_01a_fixture_sha256": "ceadd3844b9c10e52fa750d9e680e9124ed37ac139621c8b9ad5c0a3724385b2",
+    "bepd_01a_human_adjudication_blob": "66ae9ff193c5734c32490300ef24d2c1895492c1",
+    "bepd_01a_fixture_semantic_sha256": "5fbaae622527a4f7499fd18825026ecc45319d76efa4af743bb866e540dff6dd",
+    "bepd_01a_fixture_correction_blob": "4def4dbcfa314c3be3d12129ebbc6a854619dd32",
+    "bepd_01a_fixture_correction_human_adjudication_blob": "d1b9e466e9647cb748634c77eae24fa1437dd186",
+    "superseded_contaminated_fixture_blob": "89f2af87171002e75fa06d7fb704817e149968bc"
   },
   "target": {
     "implementation_path": "tools/bepd_01_weekly_liquidity_engine.py",
