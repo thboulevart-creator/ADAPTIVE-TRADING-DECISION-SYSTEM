@@ -1,0 +1,255 @@
+{
+  "schema": "ATDS_BEPD_03D_FROZEN_LEVEL_AGE_OCCURRENCE_MAP_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "e74faebe97be6b56eebc71990e013290946dc55a",
+    "tree": "0017a1ff88831f842edc7cdad5b90e72e8a8456d"
+  },
+  "bindings": {
+    "authorization_blob": "4bbcc78cf8e74bcb5fcd96bc51b60921ed82e2b0",
+    "implementation_contract_blob": "ee9464c167954367591654514c7cb0596be7340b",
+    "calculator_blob": "d3cbad6e744fd9a6029561824a9618c2751de4a7",
+    "bepd03a_dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03b_result_blob": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "bepd03b_manifest_blob": "98abfece6796ecfb355714c31bcf0126a28729c9",
+    "bepd03c_result_blob": "809fa76f82bbbe0311a6c538378eed2a22c77fe0",
+    "bepd03c_manifest_blob": "02acd5a81808119c9bb3896f4be34ca977eb3839",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "source_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "cases": [
+    {
+      "id": "BEPD03D-B01",
+      "intent": "level_age_weeks <= 0 accepted",
+      "expected": "REJECT_NON_POSITIVE_AGE"
+    },
+    {
+      "id": "BEPD03D-B02",
+      "intent": "non-integer level_age_weeks accepted",
+      "expected": "REJECT_NON_INTEGER_AGE"
+    },
+    {
+      "id": "BEPD03D-B03",
+      "intent": "age 1 not mapped to AGE_1",
+      "expected": "REJECT_AGE1_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B04",
+      "intent": "age 2 not mapped to AGE_2",
+      "expected": "REJECT_AGE2_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B05",
+      "intent": "age 3 or 4 not mapped to AGE_3_4",
+      "expected": "REJECT_AGE3_4_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B06",
+      "intent": "age 5 or 8 not mapped to AGE_5_8",
+      "expected": "REJECT_AGE5_8_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B07",
+      "intent": "age 9 or 16 not mapped to AGE_9_16",
+      "expected": "REJECT_AGE9_16_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B08",
+      "intent": "age 17 or 32 not mapped to AGE_17_32",
+      "expected": "REJECT_AGE17_32_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B09",
+      "intent": "age 33 or 64 not mapped to AGE_33_64",
+      "expected": "REJECT_AGE33_64_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B10",
+      "intent": "age >=65 not mapped to AGE_65_PLUS",
+      "expected": "REJECT_AGE65_PLUS_BOUNDARY"
+    },
+    {
+      "id": "BEPD03D-B11",
+      "intent": "age category missing or extra",
+      "expected": "REJECT_AGE_CATEGORY_DRIFT"
+    },
+    {
+      "id": "BEPD03D-B12",
+      "intent": "age categories not in preregistered order",
+      "expected": "REJECT_AGE_ORDER_DRIFT"
+    },
+    {
+      "id": "BEPD03D-B13",
+      "intent": "cell event count differs from direct source count",
+      "expected": "REJECT_CELL_NUMERATOR_MISMATCH"
+    },
+    {
+      "id": "BEPD03D-B14",
+      "intent": "cell opportunity count differs from direct source count",
+      "expected": "REJECT_CELL_DENOMINATOR_MISMATCH"
+    },
+    {
+      "id": "BEPD03D-B15",
+      "intent": "cell occurrence ratio differs from exact count ratio",
+      "expected": "REJECT_CELL_RATIO_MISMATCH"
+    },
+    {
+      "id": "BEPD03D-B16",
+      "intent": "cell target-week count differs from direct source set",
+      "expected": "REJECT_CELL_WEEK_COUNT_MISMATCH"
+    },
+    {
+      "id": "BEPD03D-B17",
+      "intent": "cell unique-level count differs from direct source set",
+      "expected": "REJECT_CELL_LEVEL_COUNT_MISMATCH"
+    },
+    {
+      "id": "BEPD03D-B18",
+      "intent": "opportunity rows not exhaustively assigned to exactly one age bin",
+      "expected": "REJECT_ROW_ACCOUNTING"
+    },
+    {
+      "id": "BEPD03D-B19",
+      "intent": "age-bin opportunity sum differs from BEPD-03B global baseline",
+      "expected": "REJECT_OPPORTUNITY_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03D-B20",
+      "intent": "age-bin event sum differs from BEPD-03B global baseline",
+      "expected": "REJECT_EVENT_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03D-B21",
+      "intent": "union of target weeks differs from global source set",
+      "expected": "REJECT_TARGET_WEEK_UNION"
+    },
+    {
+      "id": "BEPD03D-B22",
+      "intent": "union of unique levels differs from global source set",
+      "expected": "REJECT_LEVEL_UNION"
+    },
+    {
+      "id": "BEPD03D-B23",
+      "intent": "target-week counts treated as additive across age bins",
+      "expected": "REJECT_WEEK_COUNT_ADDITIVITY_LAUNDERING"
+    },
+    {
+      "id": "BEPD03D-B24",
+      "intent": "unique-level counts treated as additive across age bins",
+      "expected": "REJECT_LEVEL_COUNT_ADDITIVITY_LAUNDERING"
+    },
+    {
+      "id": "BEPD03D-B25",
+      "intent": "age cross-product or side/calendar/take-day dimension emitted",
+      "expected": "REJECT_CROSS_PRODUCT"
+    },
+    {
+      "id": "BEPD03D-B26",
+      "intent": "ranking/best/worst emitted",
+      "expected": "REJECT_RANKING"
+    },
+    {
+      "id": "BEPD03D-B27",
+      "intent": "p-value/significance/confidence interval/bootstrap emitted",
+      "expected": "REJECT_UNAUTHORIZED_INFERENCE"
+    },
+    {
+      "id": "BEPD03D-B28",
+      "intent": "M05 state differs from BLOCKED",
+      "expected": "REJECT_M05_ACTIVATION"
+    },
+    {
+      "id": "BEPD03D-B29",
+      "intent": "historical descriptive age heterogeneity labeled future probability/predictive",
+      "expected": "REJECT_GENERALIZATION_LAUNDERING"
+    },
+    {
+      "id": "BEPD03D-B30",
+      "intent": "source/policy/calculator provenance mismatch or forbidden analytics flag not false",
+      "expected": "REJECT_PROVENANCE_OR_AUTHORITY_EXPANSION"
+    }
+  ],
+  "frozen_result_contract": {
+    "interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_AGE_HETEROGENEITY",
+    "dimension_id": "V05_LEVEL_AGE_BAND",
+    "age_order": [
+      "AGE_1",
+      "AGE_2",
+      "AGE_3_4",
+      "AGE_5_8",
+      "AGE_9_16",
+      "AGE_17_32",
+      "AGE_33_64",
+      "AGE_65_PLUS"
+    ],
+    "age_boundaries": [
+      [
+        "AGE_1",
+        1,
+        1
+      ],
+      [
+        "AGE_2",
+        2,
+        2
+      ],
+      [
+        "AGE_3_4",
+        3,
+        4
+      ],
+      [
+        "AGE_5_8",
+        5,
+        8
+      ],
+      [
+        "AGE_9_16",
+        9,
+        16
+      ],
+      [
+        "AGE_17_32",
+        17,
+        32
+      ],
+      [
+        "AGE_33_64",
+        33,
+        64
+      ],
+      [
+        "AGE_65_PLUS",
+        65,
+        null
+      ]
+    ],
+    "m05_generalization_uncertainty": "BLOCKED",
+    "result_ranking": false,
+    "cross_products": []
+  },
+  "qualification_rule": {
+    "expected_age_market_values_preencoded": false,
+    "direct_recomputation_from_bound_opportunity_ledger": true,
+    "baseline_reconciliation_required": true,
+    "pass_meaning": "exact preregistered descriptive age partition calculation and provenance only"
+  },
+  "authority": {
+    "age_marginal": true,
+    "side_cross_product": false,
+    "calendar_cross_product": false,
+    "take_day": false,
+    "ranking": false,
+    "inference": false,
+    "bootstrap": false,
+    "m05_activation": false,
+    "response_map": false,
+    "strategy": false
+  },
+  "stop_boundary": "STOP_AFTER_PERSISTED_BEPD03D_LEVEL_AGE_MAP_AND_REBREAK"
+}
