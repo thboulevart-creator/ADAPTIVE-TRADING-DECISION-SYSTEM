@@ -1,0 +1,28 @@
+{
+  "schema": "ATDS_RVO_07_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "PASS_EXPECTED_RED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "red_head": "308afd22c5933f297c242d1d10fa731c73b63e9f",
+  "red_tree": "18184c277837d683c121869d131052c9102c9aef",
+  "contract_blob": "e5e57b26ac39468147940b231c10d68bd104f118",
+  "breaker_contract_blob": "c3cf29a8aa5b3d5345a74b32c9c9feff6dd1b9db",
+  "breaker_blob": "b34a208df3e08c73c9c2e62ad0c53985797ec551",
+  "red_workflow_blob": "e2aef8e0cc45227f72277573fd73b6917bfe64f8",
+  "workflow_run_id": 37358867410,
+  "job_id": 111928116529,
+  "workflow_conclusion": "SUCCESS",
+  "observed": "35_FAILED_REQUALIFICATION_RUNTIME_ABSENT",
+  "marker": "RVO_07_REQUALIFICATION_RUNTIME_ABSENT_EXPECTED_RED",
+  "runtime_present": false,
+  "real_ap1_output_present": false,
+  "empirical_artifact_present": false,
+  "interpretation": "Expected test-first RED proves the RVO-07 adjudication runtime was absent before implementation. No owner semantics or frozen breaker changed.",
+  "authority": {
+    "execution": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}
