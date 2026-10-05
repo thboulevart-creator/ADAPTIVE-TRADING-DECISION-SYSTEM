@@ -1,0 +1,151 @@
+{
+  "schema": "ATDS_RVO_07_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "RVO-07",
+  "status": "FROZEN_BEFORE_REQUALIFICATION_IMPLEMENTATION",
+  "parent_head": "81b561546030e20229623f21ac00fdec38cf33a2",
+  "requalification_contract_path": "GOVERNANCE/RVO-07-FIRST-REAL-CC02-PRE-EXECUTION-REQUALIFICATION-CONTRACT-V0.1.json",
+  "expected_red_marker": "RVO_07_REQUALIFICATION_RUNTIME_ABSENT_EXPECTED_RED",
+  "cases": [
+    [
+      "RVO07-B01",
+      "contract identity exact"
+    ],
+    [
+      "RVO07-B02",
+      "repository exact"
+    ],
+    [
+      "RVO07-B03",
+      "branch exact"
+    ],
+    [
+      "RVO07-B04",
+      "owner blob map exact"
+    ],
+    [
+      "RVO07-B05",
+      "workspace receipt schema exact"
+    ],
+    [
+      "RVO07-B06",
+      "workspace dry-ready status required"
+    ],
+    [
+      "RVO07-B07",
+      "workspace head must equal current head"
+    ],
+    [
+      "RVO07-B08",
+      "workspace tree must equal current tree"
+    ],
+    [
+      "RVO07-B09",
+      "workspace owner blobs exact"
+    ],
+    [
+      "RVO07-B10",
+      "AP0 dataset identity exact"
+    ],
+    [
+      "RVO07-B11",
+      "AP0 manifest hash exact"
+    ],
+    [
+      "RVO07-B12",
+      "AP0 file count exact"
+    ],
+    [
+      "RVO07-B13",
+      "Parquet statistical open must be false"
+    ],
+    [
+      "RVO07-B14",
+      "write probe must pass and be removed"
+    ],
+    [
+      "RVO07-B15",
+      "G01 data evidence binding required"
+    ],
+    [
+      "RVO07-B16",
+      "G02 invocation profile exact"
+    ],
+    [
+      "RVO07-B17",
+      "G03 runtime lock exact"
+    ],
+    [
+      "RVO07-B18",
+      "G03 runtime execution authority false"
+    ],
+    [
+      "RVO07-B19",
+      "G03 finite timeout exact"
+    ],
+    [
+      "RVO07-B20",
+      "G03 material environment exact"
+    ],
+    [
+      "RVO07-B21",
+      "G04 activation digest exact"
+    ],
+    [
+      "RVO07-B22",
+      "G04 dry plan digest exact"
+    ],
+    [
+      "RVO07-B23",
+      "G04 method and result absent"
+    ],
+    [
+      "RVO07-B24",
+      "G05 detached/clean observation required"
+    ],
+    [
+      "RVO07-B25",
+      "exact real CC02 input not minted"
+    ],
+    [
+      "RVO07-B26",
+      "P1 result absent"
+    ],
+    [
+      "RVO07-B27",
+      "all authorities false"
+    ],
+    [
+      "RVO07-B28",
+      "forbidden observations false"
+    ],
+    [
+      "RVO07-B29",
+      "cross-gap protected identities consistent"
+    ],
+    [
+      "RVO07-B30",
+      "pre-result freeze binds exact head/tree"
+    ],
+    [
+      "RVO07-B31",
+      "pre-result freeze deterministic"
+    ],
+    [
+      "RVO07-B32",
+      "one failed gap forces NO_GO"
+    ],
+    [
+      "RVO07-B33",
+      "all gaps satisfied yields GO"
+    ],
+    [
+      "RVO07-B34",
+      "GO does not mint execution authority"
+    ],
+    [
+      "RVO07-B35",
+      "GO does not mint scientific/trading/capital authority"
+    ]
+  ],
+  "frozen_rule": "Any material unsatisfied gap produces NO_GO. GO is readiness-only and grants no execution/scientific/trading/capital authority."
+}

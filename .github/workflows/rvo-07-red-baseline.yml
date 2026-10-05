@@ -1,0 +1,55 @@
+name: RVO-07 Requalification RED Baseline
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/RVO-07-*'
+      - 'breakers/rvo_07_pre_execution_requalification_breaker.py'
+      - '.github/workflows/rvo-07-red-baseline.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  red:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+      - name: Observe exact expected RED
+        run: |
+          set +e
+          python -m pytest -q breakers/rvo_07_pre_execution_requalification_breaker.py > /tmp/red.log 2>&1
+          rc=$?
+          set -e
+          cat /tmp/red.log
+          test "$rc" -ne 0
+          grep -q "35 failed" /tmp/red.log
+          test "$(grep -c 'RVO_07_REQUALIFICATION_RUNTIME_ABSENT_EXPECTED_RED' /tmp/red.log)" -ge 35
+      - name: Prove runtime and empirical outputs absent
+        run: |
+          test ! -e src/rvo_07_pre_execution_requalification.py
+          test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          test ! -d artifacts/rvo-07
+          echo "PASS: RVO-07 RED is requalification-runtime absence only"
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"

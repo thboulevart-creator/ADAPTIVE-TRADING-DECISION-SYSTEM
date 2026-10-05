@@ -1,0 +1,158 @@
+{
+  "schema": "ATDS_RVO_07_FIRST_REAL_CC02_PRE_EXECUTION_REQUALIFICATION_CONTRACT_V0_1",
+  "control_id": "RVO-07",
+  "status": "HUMAN_AUTHORIZED_FROZEN_REQUALIFICATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "canonical_branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "81b561546030e20229623f21ac00fdec38cf33a2",
+    "tree": "3e6569b436268e1169d9e6fffe62e6a42c2a267"
+  },
+  "preflight": {
+    "head": "81b561546030e20229623f21ac00fdec38cf33a2",
+    "tree": "3e6569b436268e1169d9e6fffe62e6a42c2a267",
+    "drift": "IDENTICAL_0_AHEAD_0_BEHIND"
+  },
+  "target": "FIRST_REAL_CC02_PRE_EXECUTION_READINESS",
+  "historical_gaps": [
+    "RVO06_G01",
+    "RVO06_G02",
+    "RVO06_G03",
+    "RVO06_G04",
+    "RVO06_G05"
+  ],
+  "required_starting_capabilities": {
+    "G01": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G02": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G03": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G04": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G05": "CAPABILITY_CLOSED_PENDING_REAL_RVO_REQUALIFICATION"
+  },
+  "protected_owner_blobs": {
+    "reports/program/2026-10-05-P1-21-QUALIFICATION-RECEIPT-V0.1.json": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "src/p1_12c_qualified_producer_execution.py": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "tools/p1_12c_sandbox_runner.py": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION-RECEIPT-V0.1.json": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "src/smf_ap1_m03_binding.py": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "tools/smf_ap1_m03_companion.py": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "tools/ap1_intraday_spread_census.py": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "GOVERNANCE/RVO-06-PRE-EXECUTION-OWNER-GAP-MATRIX-V0.1.json": "464fe8b03166c687c3618c18e7c3509fbc62f08b",
+    "reports/program/2026-10-05-RVO-06-QUALIFICATION-RECEIPT-V0.1.json": "11453a26a181eeca050a518d4ece01c68ddf5716",
+    "GOVERNANCE/RVO-06-REAL-AP1-RUNTIME-LOCK-OBSERVATION-V0.1.json": "e4e275e8590e3bead9123969c068b036c6c4e1d8",
+    "GOVERNANCE/G05-01-FIRST-REAL-CC02-EXECUTION-WORKSPACE-CONTRACT-V0.1.json": "dc7e4e2375855034a796b06fdb52ae43cc1bec41",
+    "reports/program/2026-10-05-G05-01-QUALIFICATION-RECEIPT-V0.1.json": "60a17b59aa03a41d517ee887c565d314a3d92ce5"
+  },
+  "workspace_transport": {
+    "intended_path": "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+    "identity_authority": false,
+    "exact_current_head_required": true,
+    "exact_current_tree_required": true,
+    "detached_required": true,
+    "clean_required": true,
+    "main_checkout_must_remain_clean": true
+  },
+  "data_requirements": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "parquet_file_count": 61,
+    "parquet_statistical_open_forbidden": true
+  },
+  "runtime_requirements": {
+    "runtime_lock_schema": "P1_12C_REAL_PRODUCER_RUNTIME_LOCK_V1",
+    "runtime_lock_digest": "5b77e0c094812f3e7e9d25efdb87bd3da92748bc6f8a436ffe52cefe6d38f6c4",
+    "python_version": "3.13.14",
+    "python_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "numpy_version": "2.5.3",
+    "numpy_metadata_sha256": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+    "numpy_record_sha256": "5135e045b7bc7d8f2ef83e2bd9c618840f46ebd09d8590c819bbcdeb32cfe41e",
+    "pyarrow_version": "25.0.1",
+    "pyarrow_metadata_sha256": "12ed8d0988a6f7153fec923ee47b7fc1d6134463a86b1b89fa36f24c250163ff",
+    "pyarrow_record_sha256": "a6cc5dcd5681d231959f61ccc1b57cb13dc1690f0819ed7bfd66ebd575e0db24",
+    "tzdata_version": "2026.3",
+    "tzdata_metadata_sha256": "511c019df477939fe7f4c38e32ad74a570c4ebb05b13fd2fffd0f0f2dbe6f7b1",
+    "tzdata_record_sha256": "8f9f4ae062c3c9af93f22cff46986c4735d15d1306a413df291d5b67301db0eb",
+    "timezone": "America/New_York",
+    "timeout_seconds": 3600,
+    "material_environment": {
+      "PYTHONHASHSEED": "0",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    }
+  },
+  "p1_requirements": {
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "invocation_profile_digest": "3a8689dcfa79515fae9f38b7e4903722ebdcd601ca16e7d84ef9139eb62b4de4",
+    "qualified_input_scope": "SYNTHETIC_NON_EMPIRICAL_SHAPE_PROOF_ONLY",
+    "exact_real_cc02_input_minted": false,
+    "result_minted": false,
+    "execution_authority": false
+  },
+  "smf_requirements": {
+    "activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+    "dry_plan_digest": "sha256:b2670b0fe4502b0a8027b5b7304e8886cfb033160f254250f00c8ca98f39d750",
+    "method_executed": false,
+    "result_minted": false
+  },
+  "verdict_semantics": {
+    "admissible": [
+      "GO",
+      "NO_GO"
+    ],
+    "go_means": "PRE_EXECUTION_READINESS_GO_ONLY",
+    "go_does_not_mean": [
+      "EXECUTION_AUTHORIZED",
+      "SCIENTIFIC_FINDING",
+      "STRATEGY_VALIDATED",
+      "TRADING_AUTHORIZED",
+      "CAPITAL_AUTHORIZED"
+    ],
+    "any_material_gap_failure": "NO_GO"
+  },
+  "invariants": [
+    "OWNER_CAPABILITY != RVO_AUTHORITY",
+    "WORKSPACE_READY != EXECUTION_AUTHORITY",
+    "RUNTIME_CAPABILITY != EXECUTION_AUTHORITY",
+    "DATA_ADMISSION != METHOD_VALIDITY",
+    "METHOD_ACTIVATION != METHOD_EXECUTION",
+    "P1_PLAN != P1_RESULT",
+    "EXECUTION_RESULT != FINDING",
+    "FINDING != VALIDATED_STRATEGY",
+    "RVO_GO != EXECUTION_AUTHORITY",
+    "RVO_AUTHORITY != TRADING_AUTHORITY"
+  ],
+  "forbidden": [
+    "AP1_EXECUTION",
+    "PARQUET_STATISTICAL_OPEN",
+    "REAL_M03_EXECUTION",
+    "REAL_ECDF",
+    "REAL_QUANTILES",
+    "NEW_EMPIRICAL_RESULT",
+    "FIRST_REAL_CC02_EXECUTION",
+    "AUTO_OPEN_NEXT_EXECUTION_STAGE",
+    "DATA02_MODIFICATION",
+    "AP1_MODIFICATION",
+    "P121_MODIFICATION",
+    "SMF_AP1_M03_MODIFICATION",
+    "BACKTEST",
+    "OOS",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL"
+  ],
+  "initial_workspace_evidence": {
+    "receipt_sha256": "daf1e651af6c3264af5f48606590dd06967a7bc3d52e91da1c922bd592c20f7d",
+    "workspace_id": "G05WS-fbf2188a72d78847f3ae4c7e5eca28bd",
+    "workspace_digest": "fbf2188a72d78847f3ae4c7e5eca28bd26cf8ac39386017c468d4af803767b56",
+    "head": "81b561546030e20229623f21ac00fdec38cf33a2",
+    "tree": "3e6569b436268e1169d9e6fffe62e6a42c2a267",
+    "g05_breakers": "30_PASS",
+    "g05_positive": "19_PASS",
+    "note": "Observational pre-implementation rebind evidence; final RVO verdict must be rebuilt against the later qualification candidate/final persisted HEAD."
+  },
+  "stop": {
+    "real_ap1": "NOT_AUTHORIZED",
+    "real_m03": "NOT_AUTHORIZED",
+    "next_execution_stage": "NOT_AUTHORIZED"
+  }
+}
