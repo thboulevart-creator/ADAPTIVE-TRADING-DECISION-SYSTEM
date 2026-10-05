@@ -1,0 +1,160 @@
+{
+  "schema": "ATDS_P1_21_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "b0c90f8692334160251f9dc59766a479de63b001",
+    "tree": "ab59282251e1b0083cad1676c3dc87cbc1cd4e1a"
+  },
+  "cases": [
+    {
+      "id": "P121-B01",
+      "attack": "real DATA-02 status rewritten into synthetic READY status",
+      "expected": "REJECT_DATA_OWNER_STATUS_REWRITE"
+    },
+    {
+      "id": "P121-B02",
+      "attack": "Data evidence digest omitted",
+      "expected": "BLOCKED_DATA_OWNER_EVIDENCE_DIGEST_REQUIRED"
+    },
+    {
+      "id": "P121-B03",
+      "attack": "stale DATA-02 receipt identity",
+      "expected": "BLOCKED_STALE_DATA02_RECEIPT"
+    },
+    {
+      "id": "P121-B04",
+      "attack": "dataset identity mismatch",
+      "expected": "BLOCKED_DATASET_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P121-B05",
+      "attack": "AP0 manifest mismatch",
+      "expected": "BLOCKED_AP0_MANIFEST_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P121-B06",
+      "attack": "file-set identity mismatch",
+      "expected": "BLOCKED_DATASET_FILE_SET_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P121-B07",
+      "attack": "schema identity mismatch",
+      "expected": "BLOCKED_DATASET_SCHEMA_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P121-B08",
+      "attack": "AP1 producer label without exact code blob",
+      "expected": "BLOCKED_PRODUCER_CODE_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P121-B09",
+      "attack": "wrong invocation profile selected",
+      "expected": "BLOCKED_INVOCATION_PROFILE_MISMATCH"
+    },
+    {
+      "id": "P121-B10",
+      "attack": "legacy synthetic argv selected for AP1",
+      "expected": "REJECT_SYNTHETIC_ARGV_FOR_AP1"
+    },
+    {
+      "id": "P121-B11",
+      "attack": "AP1 argv missing manifest",
+      "expected": "BLOCKED_AP1_MANIFEST_ARGUMENT_REQUIRED"
+    },
+    {
+      "id": "P121-B12",
+      "attack": "shell invocation requested",
+      "expected": "REJECT_SHELL_INVOCATION"
+    },
+    {
+      "id": "P121-B13",
+      "attack": "output path used as result identity",
+      "expected": "REJECT_OUTPUT_PATH_AS_RESULT_IDENTITY"
+    },
+    {
+      "id": "P121-B14",
+      "attack": "runtime lock missing exact Python binary identity",
+      "expected": "BLOCKED_PYTHON_BINARY_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P121-B15",
+      "attack": "runtime lock missing NumPy identity",
+      "expected": "BLOCKED_NUMPY_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P121-B16",
+      "attack": "runtime lock missing PyArrow identity",
+      "expected": "BLOCKED_PYARROW_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P121-B17",
+      "attack": "runtime lock missing timezone database identity",
+      "expected": "BLOCKED_TIMEZONE_DATABASE_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P121-B18",
+      "attack": "dependency version accepted without stronger identity evidence",
+      "expected": "REJECT_VERSION_ONLY_DEPENDENCY_IDENTITY"
+    },
+    {
+      "id": "P121-B19",
+      "attack": "synthetic runtime lock reused for AP1",
+      "expected": "REJECT_SYNTHETIC_RUNTIME_LOCK_FOR_REAL_PRODUCER"
+    },
+    {
+      "id": "P121-B20",
+      "attack": "implicit timeout for AP1",
+      "expected": "BLOCKED_EXPLICIT_TIMEOUT_REQUIRED"
+    },
+    {
+      "id": "P121-B21",
+      "attack": "unbounded/non-finite timeout",
+      "expected": "BLOCKED_FINITE_TIMEOUT_REQUIRED"
+    },
+    {
+      "id": "P121-B22",
+      "attack": "runtime lock selected after result exposure",
+      "expected": "BLOCKED_POST_RESULT_RUNTIME_SELECTION"
+    },
+    {
+      "id": "P121-B23",
+      "attack": "Data evidence selected after result exposure",
+      "expected": "BLOCKED_POST_RESULT_DATA_EVIDENCE_SELECTION"
+    },
+    {
+      "id": "P121-B24",
+      "attack": "producer profile selected after result exposure",
+      "expected": "BLOCKED_POST_RESULT_INVOCATION_PROFILE_SELECTION"
+    },
+    {
+      "id": "P121-B25",
+      "attack": "P1 plan grants execution authority",
+      "expected": "REJECT_PLAN_EXECUTION_AUTHORITY"
+    },
+    {
+      "id": "P121-B26",
+      "attack": "P1 plan grants scientific authority",
+      "expected": "REJECT_PLAN_SCIENTIFIC_AUTHORITY"
+    },
+    {
+      "id": "P121-B27",
+      "attack": "P1 plan grants trading/capital authority",
+      "expected": "REJECT_PLAN_TRADING_CAPITAL_AUTHORITY"
+    },
+    {
+      "id": "P121-B28",
+      "attack": "matured P1.12C semantics incompatible with P1.12D",
+      "expected": "BLOCKED_P1_12D_COMPATIBILITY_REGRESSION"
+    },
+    {
+      "id": "P121-B29",
+      "attack": "legacy synthetic P1.12C behavior regresses",
+      "expected": "BLOCKED_LEGACY_SYNTHETIC_P1_12C_REGRESSION"
+    }
+  ],
+  "freeze_rule": "Case IDs, attack intent, and expected fail-closed outcomes are frozen before P1-21 implementation.",
+  "execution_scope": "SYNTHETIC_OR_NON_EMPIRICAL_ONLY",
+  "real_ap1_execution": false
+}
