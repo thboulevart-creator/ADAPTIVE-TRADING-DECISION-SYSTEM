@@ -1,0 +1,161 @@
+{
+  "schema": "ATDS_P1_18_QUALIFICATION_RECEIPT_V0_1",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization": {
+    "expected_parent_head": "761cb696ea9e58f437efb320f96e8adb574e38e4",
+    "expected_parent_tree": "94040f1b04cbf7b5e170ff936d5b9ffe6a7268d3",
+    "reconciled_parent_head": "07a54720284acbfd0a94a727ebd58468d26a1e06",
+    "reconciled_parent_tree": "eda1b8e995182c0d6e63ac0bdd5c98efdbb8e3d6",
+    "drift_receipt_blob": "03fb6659f611f18568c02bf4c61b5e822f0b87a4",
+    "drift_classification": "NON_MATERIAL_TO_P1_18"
+  },
+  "frozen_design": {
+    "p1_17_execution_contract_blob": "164bb9027bb7a241b3a14b1f6704e9be8b2bef7d",
+    "p1_17_frozen_breaker_contract_blob": "9ab0f9018dd6e9def4a5e35b8e9a35c3beb556bc",
+    "executable_breaker_blob": "7f40b525e16ca06306cba3ae59f03cb08c71d0cd",
+    "frozen_case_count": 32
+  },
+  "test_first_red": {
+    "red_receipt_blob": "69abcade9791e8826e201f718b753061ee5f1321",
+    "red_commit": "644f22d6785aa0373f39d1a4715b28b05ceee2f4",
+    "red_tree": "2881ed9680470f62ebab9da110b161fa020e1e61",
+    "workflow_run_id": 37293347906,
+    "job_id": 111708717662,
+    "observed": "32_FAILED_RUNTIME_ABSENT",
+    "marker": "P1_12C_RUNTIME_ABSENT_EXPECTED_RED"
+  },
+  "implementation": {
+    "p1_12c_runtime_blob": "6d634ed1adab21ce31a55289d8d6e5b288e70005",
+    "sandbox_runner_blob": "08fbd6f4b2cd4db9cb714f583c1459d0753a9112",
+    "synthetic_producer_blob": "06d48e6253e6f94cb3eebf3aa53f3fd96a5ad7b0",
+    "synthetic_fixture_blob": "83878b17f854a28db10adde845e1d811a7ba6599",
+    "positive_tests_blob": "c20d6052b7ae394ce61a53ee6b7bfa3d548493b1",
+    "archived_red_workflow_blob": "256ee9e3835bef1d1243d276a469ebc1b5054f20",
+    "qualification_workflow_blob": "9ba72068e105537899f3c6cd2b17f62df146b423",
+    "boundary": "P1_12C_CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_V1",
+    "relation_to_p1_12b": "SIBLING",
+    "p1_12b_modified": false
+  },
+  "runtime_lock": {
+    "runtime_lock_digest": "9040a208046cd59e559d136d06db8cceffe9310b9309f0db042ff55b45000bf9",
+    "python_version": "3.12.14",
+    "python_executable_sha256": "bef88f140b625959f8af25c7b75cce2cd5d4b29cc2f2b079befd7f68eda4dba0",
+    "timezone_database_identity": "NOT_USED_BY_SYNTHETIC_PRODUCER",
+    "material_third_party_dependencies": [],
+    "network_policy": "PYTHON_AUDIT_HOOK_BLOCK_SOCKET_AND_CHILD_PROCESS"
+  },
+  "successful_pre_persistence_qualification": {
+    "commit": "151520efcad14430e3c4c5597b4ed4d2db77ce89",
+    "tree": "2766af8439be51790942687035da690a93558fc5",
+    "workflow_run_id": 37294383240,
+    "job_id": 111712043318,
+    "conclusion": "SUCCESS",
+    "frozen_breakers": {
+      "passed": 32,
+      "failed": 0
+    },
+    "positive_p1_18": {
+      "passed": 16,
+      "failed": 0
+    },
+    "protected_p1_10b_to_p1_16": {
+      "passed": 229,
+      "failed": 0
+    },
+    "protected_data02": {
+      "passed": 32,
+      "failed": 0
+    },
+    "protected_p0_4": {
+      "passed": 16,
+      "failed": 0
+    },
+    "protected_p0_5": {
+      "passed": 15,
+      "failed": 0
+    },
+    "delta_check": "PASS_STRICTLY_BOUNDED",
+    "compile_check": "PASS",
+    "ap1_execution_check": "PASS_NOT_EXECUTED"
+  },
+  "qualification_proofs": {
+    "source_immutability_positive": "PASS_PRE_EQUALS_POST",
+    "source_mutation_attack": "PASS_BLOCKED",
+    "producer_code_drift": "PASS_BLOCKED",
+    "network_attempt": "PASS_BLOCKED_BY_SANDBOX",
+    "child_process_attempt": "PASS_BLOCKED_BY_SANDBOX",
+    "output_status_mismatch": "PASS_BLOCKED",
+    "result_identity_determinism": "PASS_TWO_EXECUTIONS_EQUAL",
+    "path_not_identity": "PASS",
+    "runtime_lock_pre_result": "PASS",
+    "data_status_preservation": "PASS",
+    "p1_13b_downstream_firewall": "PASS_BLOCKED_BY_EXISTING_EXACT_TYPE_CONTRACT",
+    "p1_12b_result_coercion": "FORBIDDEN"
+  },
+  "reconstructibility": {
+    "qualified_class": "EVIDENCE_REPLAY_WITHIN_SYNTHETIC_RUNTIME_SURFACE",
+    "deterministic_reexecution": "PASS",
+    "persisted_durable_replay_proof": "NOT_IMPLEMENTED",
+    "durable_cross_process_reattestation": "UNRESOLVED_FUTURE_CAPABILITY",
+    "runtime_attestation_is_durable_reconstruction": false
+  },
+  "external_workflow_observations": {
+    "implementation_commit_p0_4_run": {
+      "run_id": 37294070906,
+      "conclusion": "FAILURE",
+      "closure_evidence_check": "PASS",
+      "failing_assertion": "PREEXISTING_BERD02_BODY_FILESET_EXPECTATION"
+    },
+    "implementation_commit_p0_6_run": {
+      "run_id": 37294070801,
+      "conclusion": "FAILURE",
+      "closure_evidence_check": "PASS",
+      "failing_assertion": "PREEXISTING_BERD02_BODY_FILESET_EXPECTATION"
+    },
+    "interpretation": "Recorded separately; internal protected P0.4/P0.5 regression suites passed and no P1-18 owner drift was identified."
+  },
+  "protected_owner_mutation": {
+    "p1_10b": false,
+    "p1_11b": false,
+    "p1_12b": false,
+    "p1_13b": false,
+    "p1_14b": false,
+    "p1_15b": false,
+    "p1_16": false,
+    "data02": false,
+    "ap1": false,
+    "rvo": false,
+    "smf": false,
+    "temporal": false,
+    "mcepr": false,
+    "pcp": false
+  },
+  "success_semantics": {
+    "p1_12c_generic_synthetic_execution_boundary": "QUALIFIED_CANDIDATE",
+    "ap1": "NOT_QUALIFIED_NOT_EXECUTED",
+    "first_real_cc02": "NOT_READY",
+    "p1_finding_chain": "NOT_READY_FOR_P1_12C_RESULT",
+    "p1_12c_to_p1_13b": "BLOCKED_BY_EXISTING_DOWNSTREAM_CONTRACT",
+    "strategy": "NOT_VALIDATED",
+    "trading": "NOT_AUTHORIZED"
+  },
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false,
+    "real_ap1": false,
+    "backtest": false,
+    "oos": false,
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "stop": {
+    "p1_19": "NOT_AUTHORIZED",
+    "rvo_06": "NOT_AUTHORIZED",
+    "data_03": "NOT_AUTHORIZED",
+    "p1_13b_integration": "NOT_AUTHORIZED",
+    "real_ap1_execution": "NOT_AUTHORIZED"
+  }
+}
