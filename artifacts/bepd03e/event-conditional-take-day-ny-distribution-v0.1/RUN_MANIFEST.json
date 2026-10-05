@@ -1,0 +1,37 @@
+{
+  "schema": "ATDS_BEPD_03E_TAKE_DAY_NY_DISTRIBUTION_RUN_MANIFEST_V0_1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "c7e81ed7725c507fb1cfddfaf4e472ea552fb052",
+  "tree": "3ccd855ec200ef3d1a7b2e1fbf26a76c09cfca68",
+  "run_id": "7e084afff3db600ec1e10ec83274fb7c54fdacae16dc0d75f59fbfe98e43449f",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "input_git_blobs": {
+    "EVENT_LEDGER": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "BEPD02_RUN_MANIFEST": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "policy_git_blobs": {
+    "BEPD03E_AUTHORIZATION": "e6e91abc1449ecc55f2241446e80da657148ca8f",
+    "BEPD03E_IMPLEMENTATION_CONTRACT": "5a4aa7f22abd68e47fe67b888314a33d0128530a",
+    "BEPD03A_DIMENSIONS": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "BEPD03A_MEASUREMENT_CONTRACT": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "BEPD03A_M05_ACTIVATION": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "BEPD03A_ADJUDICATION": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "BEPD03B_QUALIFICATION": "e88bcce2d3256a9e374e76cfb5e9ebc641316d56",
+    "BEPD03C_QUALIFICATION": "fd3b0caa97361e61e81510a2e69f0fbeb25cbe12",
+    "BEPD03D_QUALIFICATION": "c7151af0bd7acce71f5d7f0e1e059c6f141c57d1"
+  },
+  "timezone_runtime": {
+    "zoneinfo_key": "America/New_York",
+    "dst_probes_passed": true
+  },
+  "calculator_blob": "98e025b430a051fa0b6eb7c55dd72dbfddd276eb",
+  "output_files": [
+    {
+      "relative_path": "artifacts/bepd03e/event-conditional-take-day-ny-distribution-v0.1/RESULT.json",
+      "sha256": "0b38561f0ff5a175f0860a84b77885f71919b9a63ef44b4020c4de338ae539be",
+      "size_bytes": 2489
+    }
+  ],
+  "forbidden_analytics_executed": false
+}
