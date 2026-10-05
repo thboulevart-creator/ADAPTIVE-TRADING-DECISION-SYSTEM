@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_BEPD_03A_SMF_M05_OCCURRENCE_UNCERTAINTY_ACTIVATION_RECORD_V0_1",
+  "status": "PRE_RESULT_ACTIVATION_RECORD",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "32a3f1710a37e33b507bd7e9f68699374653d705",
+    "tree": "2092d2e9fd8d60ae9a0f098b3b15abd5b5ccfc8a"
+  },
+  "bindings": {
+    "occurrence_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "smf03_dependence_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_dependence_runtime_blob": "fce7998167745659cb0fd5d03a8de14946b0394d"
+  },
+  "activation_record": {
+    "claim_definition_ref": "BEPD-03A process-generalization uncertainty for GLOBAL_WEEKLY_LEVEL_SWEEP_OCCURRENCE",
+    "failure_mode_ref": "naive IID uncertainty understates dependence and historical-window uncertainty may be laundered into future probability",
+    "method_family_ref": "M05",
+    "validity_scope_ref": "future/generalization uncertainty only; not required for exact fixed-corpus historical proportion",
+    "assumption_set_ref": [
+      "ordered weekly clusters are the resampling sequence",
+      "all opportunity rows from a selected target_week_id remain together",
+      "global moving-block resampling requires nonstationarity not to be unresolved",
+      "ratio-of-sums statistic requires separately frozen executable qualification",
+      "material bootstrap parameters require prior human adjudication"
+    ],
+    "activation_reason": "M05 MOVING_BLOCK is the selected candidate family because individual opportunity rows are structurally dependent within target_week_id and temporal order must be preserved",
+    "activation_rule": "may transition from BLOCKED to ACTIVATED only before occurrence-result exposure and only after stationarity gate, exact material parameters, and ratio-of-sums executable qualification are all closed",
+    "parameter_selection_policy": {
+      "scheme": "MOVING_BLOCK",
+      "interval_method": "HUMAN_ADJUDICATION_REQUIRED",
+      "confidence_level": "HUMAN_ADJUDICATION_REQUIRED",
+      "replications": "HUMAN_ADJUDICATION_REQUIRED",
+      "seed": "HUMAN_ADJUDICATION_REQUIRED",
+      "block_length": "HUMAN_ADJUDICATION_REQUIRED",
+      "post_result_selection": "FORBIDDEN"
+    },
+    "dependency_refs": [
+      "GOVERNANCE/BEPD-03A-WEEKLY-LIQUIDITY-OCCURRENCE-MEASUREMENT-CONTRACT-V0.1.json",
+      "GOVERNANCE/BEPD-03A-PREREGISTERED-OCCURRENCE-DIMENSIONS-V0.1.json",
+      "GOVERNANCE/SMF-03-DEPENDENCE-INFERENCE-CONTRACT-V0.1.json"
+    ],
+    "activation_state": "BLOCKED"
+  },
+  "blockers": [
+    "UNRESOLVED_NONSTATIONARITY_STATUS",
+    "MATERIAL_BOOTSTRAP_PARAMETERS_NOT_HUMAN_ADJUDICATED",
+    "RATIO_OF_SUMS_MOVING_BLOCK_EXECUTABLE_NOT_SEPARATELY_QUALIFIED"
+  ],
+  "forbidden": [
+    "auto-activate based on favorable occurrence result",
+    "fallback to IID",
+    "fallback to naive binomial CI",
+    "bootstrap individual opportunity rows",
+    "interpret exact historical corpus rate as a future probability interval"
+  ]
+}
