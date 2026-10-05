@@ -1,0 +1,96 @@
+{
+  "schema": "ATDS_AO_E0_B9_01_PRIOR_EXPOSURE_SEARCH_PROVENANCE_MULTIPLICITY_DECLARATION_V0_1",
+  "control_id": "AO-E0-B9-01",
+  "status": "QUALIFICATION_CANDIDATE",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "prior_exposure_state": "CONTAMINATED",
+  "exposure_transition_history": [
+    {
+      "before": "PRISTINE",
+      "event": "EXPLORATORY_INSPECTION",
+      "after": "EXPOSED",
+      "basis_blob": "46450fea882f453335fcca7851df9764fc1ddf5c"
+    },
+    {
+      "before": "EXPOSED",
+      "event": "HYPOTHESIS_REDESIGN_USING_EVIDENCE",
+      "after": "CONTAMINATED",
+      "basis_blob": "5503f50924e64224f949115667e5feabc1098e54"
+    }
+  ],
+  "exposure_evidence": {
+    "e1_experimental_memory_blob": "46450fea882f453335fcca7851df9764fc1ddf5c",
+    "e1_post_experiment_question_blob": "5503f50924e64224f949115667e5feabc1098e54",
+    "exposure_digest": "b47fe0ec3c057b5de60858b2e35717be5274bf56d27eb07a01ad66913d39af35",
+    "result_digest": "56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738",
+    "oos_exposed": true,
+    "oos_clean": false,
+    "independent_confirmation_eligible": false,
+    "oos_reuse_class": "HISTORICAL_MOTIVATION_REPRODUCTION_DEBUGGING_DESCRIPTIVE_HYPOTHESIS_GENERATION_ONLY"
+  },
+  "search_provenance": {
+    "status": "PARTIAL_SEARCH_UNIVERSE",
+    "provenance_complete": false,
+    "explicit_n_trials": null,
+    "registry_candidate_ids": [
+      "E1_HYPOTHESIS_01_REGIME_DEPENDENCE",
+      "E1_HYPOTHESIS_02_TAIL_DEPENDENCE",
+      "E1_HYPOTHESIS_03_DIRECTIONAL_ASYMMETRY",
+      "E1_HYPOTHESIS_04_STRUCTURAL_USTECH_DIRECTIONAL_BIAS",
+      "E1_HYPOTHESIS_05_PERIOD_SPECIFIC_2026_EFFECT",
+      "MOMENTUM_V1_LOOKBACK_20_E1_BASELINE",
+      "SFE_BREAKOUT_V1",
+      "SFE_MEAN_REVERSION_V1"
+    ],
+    "registry_record_count_is_n_trials": false,
+    "multiplicity_relevant_to_cc05": true,
+    "no_relevant_multiplicity_claimed": false
+  },
+  "histories": {
+    "parameter_selection_history": {
+      "known": "MOMENTUM_V1 lookback 20 was frozen for E1; E1 forbade parameter optimization.",
+      "complete_pre_e1_parameter_search_history": "UNKNOWN",
+      "post_result_parameter_change_for_current_cell": "NOT_EVIDENCED",
+      "b4_delta_min_note": "delta_min=5.0 is a later human policy threshold and is not recorded as fitted to E1 performance."
+    },
+    "strategy_selection_history": {
+      "known": "MOMENTUM_V1 was the E1 baseline; repository also contains separate BREAKOUT_V1 and MEAN_REVERSION_V1 research-family candidates.",
+      "complete_strategy_search_universe": "UNKNOWN"
+    },
+    "claim_selection_history": {
+      "known": "AO-E0 CC05 framing was constructed after E1 OOS exposure; post-E1 research questions were explicitly selected using exposed evidence.",
+      "complete_claim_search_universe": "UNKNOWN"
+    },
+    "dataset_window_exposure_history": {
+      "known": "The frozen E1 Source-B/H1 window and OOS partition were already used in E1; the OOS partition is permanently exposed.",
+      "pristine_reuse_for_confirmation": false
+    },
+    "oos_performance_exposure_history": {
+      "known": "E1-REAL-002 computed OOS metrics before persistence failed; E1-REAL-003 persisted a reproduction of that already-exposed OOS.",
+      "new_ao_e0_performance_observed_in_b9": false
+    }
+  },
+  "m11_binding": {
+    "smf_runtime_blob": "7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222",
+    "smf_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "status": "PARTIAL_SEARCH_UNIVERSE",
+    "explicit_n_trials": null,
+    "provenance_complete": false
+  },
+  "closure_candidate": {
+    "b9": "CLOSED_IF_GREEN",
+    "b8": "OPEN",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "strategy_modification": false,
+    "parameter_optimization": false,
+    "mcepr_new_event_population": false,
+    "trading": false,
+    "capital": false
+  }
+}
