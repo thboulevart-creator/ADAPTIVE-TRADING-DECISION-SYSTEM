@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_REPRODUCIBILITY_BLOCKER_RECEIPT_V0_1",
+  "control_id": "AO-E0-B11-01",
+  "verdict": "BLOCKED",
+  "blocker": "BLOCKED_P1_CC05_NATIVE_EXECUTION_OWNER_NOT_QUALIFIED",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "owner_states": {
+    "data": "BOUND_B10_CLOSED",
+    "temporal": "BOUND_B6_CLOSED",
+    "execution": "BOUND_E1_CELL_SCOPED",
+    "p1": "BLOCKED_NATIVE_OWNER_GAP",
+    "smf": "PRE_RESULT_BINDING_PLAN_FROZEN",
+    "rvo": "BLOCKED_BY_P1_OWNER_BINDING"
+  },
+  "p1_evidence": {
+    "p1_12c_runtime_blob": "6d634ed1adab21ce31a55289d8d6e5b288e70005",
+    "p1_12c_required_temporal_scope": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "p1_12c_incompatible_scope_status": "BLOCKED_TEMPORAL_SCOPE_ESCALATION",
+    "p1_20_report_blob": "fda28179df1617277f59f60492d8b682efbe47c7",
+    "p1_20_receipt_blob": "610e37b1c76ad4e4dccd388b10ee7978f27c135c",
+    "p1_21_frozen_breaker_contract_blob": "2d985ebcd2fca331a8af1be864fdce07ff26ceec",
+    "p1_21_breaker_blob": "981f21bcdde9afea5b85cced387c3acdb119e26f",
+    "p1_21_state": "EXPECTED_RED_BASELINE_ONLY"
+  },
+  "artifacts": {
+    "owner_binding_contract_blob": "408b80992211a425a50b5ef6299e12fcbd691fc0",
+    "rvo_routing_record_blob": "7008ec168f94e251884f051d0f34c1a05cd2f3a6",
+    "p1_binding_blob": "caf0a3b49ddb8b6978bfe03cffd011508c4e1624",
+    "smf_activation_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "breaker_blob": "f258341a7fac7530c95b048f6d274d953de680ec",
+    "tests_blob": "45fd8f0b4ddca05f283bc9f6d5efc5dd0d7bf866",
+    "red_receipt_blob": "6358071d2ff79bd4f210e9c606927342ec60521c",
+    "qualification_report_blob": "3342fea795a041d86eeed70fa9739fb048888f98"
+  },
+  "test_first": {
+    "red": "EXPECTED",
+    "breaker": "PASS",
+    "pytest": "9/9 PASS"
+  },
+  "blockers": {
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b11": "BLOCKED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "real_smf_execution": false,
+    "rvo_strategy_qualification": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}

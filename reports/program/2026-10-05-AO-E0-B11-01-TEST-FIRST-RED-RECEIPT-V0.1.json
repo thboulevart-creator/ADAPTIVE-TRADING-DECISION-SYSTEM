@@ -1,0 +1,8 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "control_id": "AO-E0-B11-01",
+  "result": "EXPECTED_RED",
+  "reason": "owner-binding artifacts intentionally absent before implementation",
+  "oos_consumed": false,
+  "performance_accessed": false
+}

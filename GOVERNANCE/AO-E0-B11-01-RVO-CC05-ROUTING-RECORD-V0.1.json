@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_RVO_CC05_ROUTING_RECORD_V0_1",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "route": [
+    {
+      "owner": "DATA",
+      "surface": "AO-E0-DT-01A",
+      "state": "QUALIFIED_BOUND",
+      "authority": "DATA_ONLY"
+    },
+    {
+      "owner": "TEMPORAL",
+      "surface": "AO-E0-DT-01B",
+      "state": "QUALIFIED_BOUND",
+      "authority": "PIT_E1_SCOPE_ONLY"
+    },
+    {
+      "owner": "EXECUTION",
+      "surface": "E1-04+EXEC-04+EXEC-05",
+      "state": "QUALIFIED_BOUND",
+      "authority": "CELL_SCOPED_EXECUTION_SEMANTICS_ONLY"
+    },
+    {
+      "owner": "P1",
+      "surface": "P1.12D→P1.16C",
+      "state": "BLOCKED",
+      "reason": "NO_QUALIFIED_CC05_NATIVE_EXECUTION_OWNER"
+    },
+    {
+      "owner": "SMF",
+      "surface": "SMF-01/02/03",
+      "state": "PRE_RESULT_BINDING_READY",
+      "authority": "METHOD_BINDING_ONLY"
+    },
+    {
+      "owner": "RVO",
+      "surface": "CC05_ORCHESTRATION",
+      "state": "BLOCKED",
+      "reason": "P1_OWNER_BINDING_BLOCKED"
+    }
+  ],
+  "separations": {
+    "owner_capability_ne_owner_authority": true,
+    "qualified_interface_ne_scientific_result": true,
+    "scientific_result_ne_qualification_decision": true,
+    "qualification_decision_ne_trading_authority": true,
+    "unknown_to_pass_forbidden": true,
+    "blocked_to_fail_forbidden": true,
+    "blocked_to_not_applicable_forbidden": true
+  }
+}

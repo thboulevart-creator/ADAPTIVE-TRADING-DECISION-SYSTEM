@@ -1,0 +1,81 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_EXACT_CC05_OWNER_BINDING_CONTRACT_V0_1",
+  "control_id": "AO-E0-B11-01",
+  "status": "BLOCKED",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "strategy": "MOMENTUM_V1",
+  "instrument": "USTECH",
+  "timeframe": "H1",
+  "binding_cost_node": "F2_S4",
+  "estimand": "mean all-in net realized unit PnL per closed OOS trade at F2_S4",
+  "h0": "theta_AO_E0 <= 5.0",
+  "h1": "theta_AO_E0 > 5.0",
+  "owner_graph": [
+    "AO-E0-CELL-01",
+    "AO-E0-DT-01A",
+    "AO-E0-DT-01B",
+    "E1-04+EXEC-04+EXEC-05",
+    "P1-20_COMMON_DOWNSTREAM",
+    "SMF-01/02/03",
+    "RVO_CC05"
+  ],
+  "bindings": {
+    "data": {
+      "status": "BOUND",
+      "ref": "AO-E0-DT-01A",
+      "b10": "CLOSED"
+    },
+    "temporal": {
+      "status": "BOUND",
+      "ref": "AO-E0-DT-01B",
+      "b6": "CLOSED"
+    },
+    "execution": {
+      "status": "BOUND",
+      "scope": "E1_SPECIFIC_CELL_ONLY",
+      "generic_execution_substitution": false
+    },
+    "p1": {
+      "status": "BLOCKED",
+      "blocker": "BLOCKED_P1_CC05_NATIVE_EXECUTION_OWNER_NOT_QUALIFIED"
+    },
+    "smf": {
+      "status": "BOUND_PRE_RESULT",
+      "execution_of_methods": false
+    },
+    "rvo": {
+      "status": "BLOCKED_BY_P1_OWNER_BINDING"
+    }
+  },
+  "p1_blocker_basis": {
+    "p1_12d_allowlisted_native_owners": [
+      "P1.12B",
+      "P1.12C"
+    ],
+    "p1_12b_ao_e0_native_owner": false,
+    "p1_12c_temporal_scope": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "p1_12c_data_owner": "DATA-02/AP0 claim-scoped admission",
+    "ao_e0_required_claim": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "ao_e0_required_temporal_scope": "E1_REPLAY_POINT_IN_TIME / OOS-capable future execution evidence",
+    "compatibility_laundering_forbidden": true,
+    "p1_21_state": "RED_BASELINE_ONLY_REAL_PRODUCER_CAPABILITY_NOT_YET_IMPLEMENTED"
+  },
+  "closures": {
+    "b11": "BLOCKED",
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "real_smf_execution": false,
+    "rvo_strategy_qualification": false,
+    "trading": false,
+    "capital": false
+  }
+}

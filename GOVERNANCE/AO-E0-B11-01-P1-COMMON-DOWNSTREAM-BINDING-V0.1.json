@@ -1,0 +1,38 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_P1_COMMON_DOWNSTREAM_BINDING_V0_1",
+  "status": "BLOCKED_OWNER_GAP",
+  "common_path": {
+    "p1_12d_blob": "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190",
+    "p1_13c_blob": "617c39505cdd64e8a7a40a40612b4bec0c30ed34",
+    "p1_14c_blob": "7bd6a91a69484213b4d26d25bd18d62019c77b08",
+    "p1_15c_blob": "a0c7ced052a734ce44d580f2430081f8f8647a47",
+    "p1_16c_blob": "92967f7789537399510ac2c61ceab5b52268c931",
+    "p1_20_report_blob": "fda28179df1617277f59f60492d8b682efbe47c7",
+    "p1_20_receipt_blob": "610e37b1c76ad4e4dccd388b10ee7978f27c135c"
+  },
+  "native_owner_requirements": {
+    "p1_12d_requires_allowlisted_factory_attested_native_result": true,
+    "allowlisted": [
+      "P1.12B",
+      "P1.12C"
+    ],
+    "ao_e0_exact_native_owner_available": false
+  },
+  "p1_12c_incompatibility": {
+    "runtime_blob": "6d634ed1adab21ce31a55289d8d6e5b288e70005",
+    "required_temporal_scope_literal": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "uses_data02_claim_scoped_admission": true,
+    "cc05_or_oos_temporal_escalation": "BLOCKED_TEMPORAL_SCOPE_ESCALATION",
+    "data_family_substitution": "BLOCKED_DATASET_SUBSTITUTION_AFTER_ADMISSION"
+  },
+  "preserved": {
+    "execution_result_ne_evaluation": true,
+    "measurement_provenance_ne_evaluator_authority": true,
+    "evaluator_authority_ne_finding": true,
+    "p1_finding_ne_scientific_authority": true,
+    "p1_finding_ne_trading_authority": true,
+    "common_interface_ne_common_authority": true
+  },
+  "next_owner_requirement": "QUALIFY_A_CC05_COMPATIBLE_NATIVE_P1_EXECUTION_OWNER_OR_EXTENSION_BEFORE_B11_CAN_CLOSE",
+  "p1_21_note": "CURRENTLY_EXPECTED_RED_BASELINE_ONLY; NOT_USED_AS_QUALIFIED_CAPABILITY"
+}

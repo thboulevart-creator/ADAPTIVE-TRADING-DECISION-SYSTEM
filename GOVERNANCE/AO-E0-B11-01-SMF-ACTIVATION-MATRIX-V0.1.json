@@ -1,0 +1,106 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_SMF_ACTIVATION_MATRIX_V0_1",
+  "status": "FROZEN_PRE_RESULT_BINDING_PLAN",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "methods": [
+    {
+      "method": "M01",
+      "state": "ACTIVATED_REQUIRED",
+      "reason": "exact claim/estimand/H0/H1 identity",
+      "prerequisite": "CELL-01+B4",
+      "owner": "SMF_CORE",
+      "future_result_interface": "claim_contract"
+    },
+    {
+      "method": "M02",
+      "state": "ACTIVATED_REQUIRED",
+      "reason": "net expectancy + delta_min + F2_S4 cost-stress claim",
+      "prerequisite": "EXEC-04+EXEC-05+B4",
+      "owner": "SMF_CORE",
+      "future_result_interface": "net_expectancy_materiality"
+    },
+    {
+      "method": "M03",
+      "state": "NOT_APPLICABLE_TO_PRIMARY_CC05_GATE",
+      "reason": "ECDF/quantiles are not the primary mean-net-profitability decision gate",
+      "prerequisite": "NONE",
+      "owner": "SMF_CORE",
+      "future_result_interface": "NONE"
+    },
+    {
+      "method": "M04",
+      "state": "ACTIVATED_REQUIRED",
+      "reason": "dependence/overlap must be diagnosed before inferential configuration; independence cannot be silently claimed",
+      "prerequisite": "closed-trade outcome sequence with dependence-unit semantics",
+      "owner": "SMF_CORE",
+      "future_result_interface": "dependence_diagnostics"
+    },
+    {
+      "method": "M05",
+      "state": "PREDECLARED_CONDITIONAL_ACTIVATION",
+      "reason": "uncertainty procedure depends on M04; IID scheme forbidden without explicit IID justification",
+      "prerequisite": "M04 + B8 numeric resampling configuration",
+      "owner": "SMF_CORE",
+      "future_result_interface": "bootstrap_mean_ci",
+      "rule": "IF M04=STRUCTURALLY_PRESENT or DETECTED_WITHIN_TESTED_LAGS or IID_JUSTIFICATION_ABSENT -> MOVING_BLOCK required; IID only with separately explicit valid justification; unresolved nonstationarity blocks global resampling"
+    },
+    {
+      "method": "M06",
+      "state": "BINDING_REQUIRED_EXECUTION_BLOCKED_PENDING_B8_NUMERIC_CONFIGURATION",
+      "reason": "sample adequacy/power must be predeclared; post-hoc observed power forbidden",
+      "prerequisite": "B8 freezes supported model, target power/precision and effect-source parameters",
+      "owner": "SMF_CORE",
+      "future_result_interface": "required_n_for_mean_precision_or_power"
+    },
+    {
+      "method": "M07",
+      "state": "ACTIVATED_REQUIRED",
+      "reason": "detect concentration of economic effect in few dependence units/trades",
+      "prerequisite": "explicit dependence-unit ids + materiality threshold preregistered in B8",
+      "owner": "SMF_CORE",
+      "future_result_interface": "influence_analysis"
+    },
+    {
+      "method": "M08",
+      "state": "ACTIVATED_REQUIRED",
+      "reason": "NOT_EXECUTED, continuity failures, undefined/excluded signals and closed-trade denominator can induce selection/attrition",
+      "prerequisite": "explicit inclusion/exclusion reasons and strata",
+      "owner": "SMF_CORE",
+      "future_result_interface": "attrition_analysis"
+    },
+    {
+      "method": "M09",
+      "state": "BINDING_REQUIRED_EXECUTION_BLOCKED_PENDING_B8_AND_B12",
+      "reason": "pristine OOS confirmation control is required but cannot execute before preregistration and separate OOS authority",
+      "prerequisite": "B8 closed + B12 separately opened immediately before OOS",
+      "owner": "SMF_CORE",
+      "future_result_interface": "exposure_transition"
+    },
+    {
+      "method": "M10",
+      "state": "NOT_APPLICABLE_TO_BASE_CC05",
+      "reason": "base CC05 does not assert temporal/regime stability; EXEC-04/05 cost stress is not M10 regime stability",
+      "prerequisite": "new explicit stability claim required",
+      "owner": "SMF_CORE",
+      "future_result_interface": "NONE"
+    },
+    {
+      "method": "M11",
+      "state": "BINDING_REQUIRED_EXECUTION_BLOCKED_PENDING_B9",
+      "reason": "search provenance/multiplicity must remain visible until prior-exposure declaration closes B9",
+      "prerequisite": "B9 closed",
+      "owner": "SMF_CORE",
+      "future_result_interface": "search_provenance_gate"
+    }
+  ],
+  "conditional_families": {
+    "C01-C12": "DORMANT_BY_DEFAULT",
+    "blanket_activation_forbidden": true
+  },
+  "invariants": {
+    "method_selection_after_result": false,
+    "iid_assumed_silently": false,
+    "blocked_ne_not_applicable": true,
+    "convergence_ne_validity": true
+  }
+}
