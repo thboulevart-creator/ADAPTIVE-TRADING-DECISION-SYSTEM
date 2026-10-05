@@ -1,0 +1,318 @@
+{
+  "schema": "ATDS_BEPD_01A_WEEKLY_LIQUIDITY_CALIBRATION_FIXTURE_V0_1",
+  "status": "FROZEN_CALIBRATION_EXPECTATION_CANDIDATE",
+  "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+  "price_surface": "mid",
+  "calendar_timezone": "Europe/Paris",
+  "calibration_window": {
+    "start": "2026-01-12T00:00:00+01:00",
+    "end_exclusive": "2026-02-21T00:00:00+01:00"
+  },
+  "weekly_boundary_candidate": "MONDAY_00_00_EUROPE_PARIS_TO_SATURDAY_00_00_EXCLUSIVE_LAST_OBSERVED_CLOSE",
+  "h1_rule": {
+    "take_high": "H1_CLOSE > ACTIVE_WEEKLY_HIGH",
+    "take_low": "H1_CLOSE < ACTIVE_WEEKLY_LOW",
+    "reintegration_high": "first later H1_CLOSE < consumed HIGH level",
+    "reintegration_low": "first later H1_CLOSE > consumed LOW level",
+    "strict_inequality": true
+  },
+  "consumption_rule": "A level is consumed permanently at its first qualifying H1 close beyond the level; reintegration is recorded separately and does not reactivate it.",
+  "seed_semantics": "Only levels created by the first fixture week 2026-01-12 are seeded; no claim of complete pre-window active-level state.",
+  "weekly_bars": [
+    {
+      "week": "2026-01-12",
+      "open": 25781.6415,
+      "high": 25880.369,
+      "high_time": "2026-01-13T14:32:00+01:00",
+      "low": 25262.8315,
+      "low_time": "2026-01-14T19:38:00+01:00",
+      "close": 25522.4835,
+      "close_time": "2026-01-16T22:14:00+01:00"
+    },
+    {
+      "week": "2026-01-19",
+      "open": 25305.879,
+      "high": 25709.83,
+      "high_time": "2026-01-23T17:04:00+01:00",
+      "low": 24883.833,
+      "low_time": "2026-01-21T13:00:00+01:00",
+      "close": 25570.013,
+      "close_time": "2026-01-23T22:14:00+01:00"
+    },
+    {
+      "week": "2026-01-26",
+      "open": 25372.38,
+      "high": 26219.597,
+      "high_time": "2026-01-28T07:32:00+01:00",
+      "low": 25267.864,
+      "low_time": "2026-01-26T00:00:00+01:00",
+      "close": 25532.501,
+      "close_time": "2026-01-30T22:14:00+01:00"
+    },
+    {
+      "week": "2026-02-02",
+      "open": 25388.2585,
+      "high": 25917.352,
+      "high_time": "2026-02-03T08:58:00+01:00",
+      "low": 24150.3635,
+      "low_time": "2026-02-06T01:16:00+01:00",
+      "close": 25040.6875,
+      "close_time": "2026-02-06T22:14:00+01:00"
+    },
+    {
+      "week": "2026-02-09",
+      "open": 25084.5055,
+      "high": 25382.97,
+      "high_time": "2026-02-11T15:31:00+01:00",
+      "low": 24507.2445,
+      "low_time": "2026-02-13T15:42:00+01:00",
+      "close": 24728.0505,
+      "close_time": "2026-02-13T22:14:00+01:00"
+    },
+    {
+      "week": "2026-02-16",
+      "open": 24728.603,
+      "high": 25079.9755,
+      "high_time": "2026-02-20T17:04:00+01:00",
+      "low": 24382.217,
+      "low_time": "2026-02-17T16:33:00+01:00",
+      "close": 25018.969,
+      "close_time": "2026-02-20T22:14:00+01:00"
+    }
+  ],
+  "expected_clusters": [
+    {
+      "target_week": "2026-01-19",
+      "events": [
+        {
+          "source_week": "2026-01-12",
+          "side": "LOW",
+          "level": 25262.8315,
+          "age_weeks": 1,
+          "take_h1": "2026-01-19T02:00:00+01:00",
+          "take_h1_close": 25242.3845,
+          "reintegration_h1": "2026-01-20T02:00:00+01:00",
+          "reintegration_h1_close": 25267.261,
+          "same_week_reintegration": true,
+          "target_week_close": 25570.013,
+          "close_displacement": 307.1815
+        }
+      ],
+      "active_after": [
+        {
+          "source_week": "2026-01-12",
+          "side": "HIGH",
+          "level": 25880.369,
+          "age_weeks": 1
+        },
+        {
+          "source_week": "2026-01-19",
+          "side": "HIGH",
+          "level": 25709.83,
+          "age_weeks": 0
+        },
+        {
+          "source_week": "2026-01-19",
+          "side": "LOW",
+          "level": 24883.833,
+          "age_weeks": 0
+        }
+      ]
+    },
+    {
+      "target_week": "2026-01-26",
+      "events": [
+        {
+          "source_week": "2026-01-19",
+          "side": "HIGH",
+          "level": 25709.83,
+          "age_weeks": 1,
+          "take_h1": "2026-01-26T16:00:00+01:00",
+          "take_h1_close": 25749.0425,
+          "reintegration_h1": "2026-01-29T16:00:00+01:00",
+          "reintegration_h1_close": 25452.55,
+          "same_week_reintegration": true,
+          "target_week_close": 25532.501,
+          "close_displacement": 177.329
+        },
+        {
+          "source_week": "2026-01-12",
+          "side": "HIGH",
+          "level": 25880.369,
+          "age_weeks": 2,
+          "take_h1": "2026-01-27T12:00:00+01:00",
+          "take_h1_close": 25903.891,
+          "reintegration_h1": "2026-01-27T13:00:00+01:00",
+          "reintegration_h1_close": 25876.25,
+          "same_week_reintegration": true,
+          "target_week_close": 25532.501,
+          "close_displacement": 347.868
+        }
+      ],
+      "active_after": [
+        {
+          "source_week": "2026-01-19",
+          "side": "LOW",
+          "level": 24883.833,
+          "age_weeks": 1
+        },
+        {
+          "source_week": "2026-01-26",
+          "side": "HIGH",
+          "level": 26219.597,
+          "age_weeks": 0
+        },
+        {
+          "source_week": "2026-01-26",
+          "side": "LOW",
+          "level": 25267.864,
+          "age_weeks": 0
+        }
+      ]
+    },
+    {
+      "target_week": "2026-02-02",
+      "events": [
+        {
+          "source_week": "2026-01-26",
+          "side": "LOW",
+          "level": 25267.864,
+          "age_weeks": 1,
+          "take_h1": "2026-02-02T03:00:00+01:00",
+          "take_h1_close": 25253.7735,
+          "reintegration_h1": "2026-02-02T09:00:00+01:00",
+          "reintegration_h1_close": 25288.6245,
+          "same_week_reintegration": true,
+          "target_week_close": 25040.6875,
+          "close_displacement": -227.1765
+        },
+        {
+          "source_week": "2026-01-19",
+          "side": "LOW",
+          "level": 24883.833,
+          "age_weeks": 2,
+          "take_h1": "2026-02-04T18:00:00+01:00",
+          "take_h1_close": 24770.991,
+          "reintegration_h1": "2026-02-04T20:00:00+01:00",
+          "reintegration_h1_close": 25005.461,
+          "same_week_reintegration": true,
+          "target_week_close": 25040.6875,
+          "close_displacement": 156.8545
+        }
+      ],
+      "active_after": [
+        {
+          "source_week": "2026-01-26",
+          "side": "HIGH",
+          "level": 26219.597,
+          "age_weeks": 1
+        },
+        {
+          "source_week": "2026-02-02",
+          "side": "HIGH",
+          "level": 25917.352,
+          "age_weeks": 0
+        },
+        {
+          "source_week": "2026-02-02",
+          "side": "LOW",
+          "level": 24150.3635,
+          "age_weeks": 0
+        }
+      ]
+    },
+    {
+      "target_week": "2026-02-09",
+      "events": [],
+      "active_after": [
+        {
+          "source_week": "2026-01-26",
+          "side": "HIGH",
+          "level": 26219.597,
+          "age_weeks": 2
+        },
+        {
+          "source_week": "2026-02-02",
+          "side": "HIGH",
+          "level": 25917.352,
+          "age_weeks": 1
+        },
+        {
+          "source_week": "2026-02-02",
+          "side": "LOW",
+          "level": 24150.3635,
+          "age_weeks": 1
+        },
+        {
+          "source_week": "2026-02-09",
+          "side": "HIGH",
+          "level": 25382.97,
+          "age_weeks": 0
+        },
+        {
+          "source_week": "2026-02-09",
+          "side": "LOW",
+          "level": 24507.2445,
+          "age_weeks": 0
+        }
+      ]
+    },
+    {
+      "target_week": "2026-02-16",
+      "events": [
+        {
+          "source_week": "2026-02-09",
+          "side": "LOW",
+          "level": 24507.2445,
+          "age_weeks": 1,
+          "take_h1": "2026-02-17T15:00:00+01:00",
+          "take_h1_close": 24415.0805,
+          "reintegration_h1": "2026-02-17T16:00:00+01:00",
+          "reintegration_h1_close": 24533.1475,
+          "same_week_reintegration": true,
+          "target_week_close": 25018.969,
+          "close_displacement": 511.7245
+        }
+      ],
+      "active_after": [
+        {
+          "source_week": "2026-01-26",
+          "side": "HIGH",
+          "level": 26219.597,
+          "age_weeks": 3
+        },
+        {
+          "source_week": "2026-02-02",
+          "side": "HIGH",
+          "level": 25917.352,
+          "age_weeks": 2
+        },
+        {
+          "source_week": "2026-02-02",
+          "side": "LOW",
+          "level": 24150.3635,
+          "age_weeks": 2
+        },
+        {
+          "source_week": "2026-02-09",
+          "side": "HIGH",
+          "level": 25382.97,
+          "age_weeks": 1
+        },
+        {
+          "source_week": "2026-02-16",
+          "side": "HIGH",
+          "level": 25079.9755,
+          "age_weeks": 0
+        },
+        {
+          "source_week": "2026-02-16",
+          "side": "LOW",
+          "level": 24382.217,
+          "age_weeks": 0
+        }
+      ]
+    }
+  ]
+}
