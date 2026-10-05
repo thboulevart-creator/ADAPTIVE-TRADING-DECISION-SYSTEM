@@ -1,0 +1,41 @@
+{
+  "schema": "ATDS_AO_E0_CELL_01_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-CELL-01",
+  "decision": "ADOPT",
+  "status": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "adopted_identity": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "contract_blob": "d65821f5200deba528ebbef2e7f635f1610ce844",
+    "canonical_serialization_blob": "5f3217dc748c1dd9fac924f275076363186e55a2",
+    "human_adoption_blob": "615681aa586ef92a34d0fa1757ceed8972404319"
+  },
+  "decisive_qualification_evidence": {
+    "qualification_report_blob": "84cdf8c1feaea36bc0e443777c26a7c7548ee137",
+    "reproducibility_receipt_blob": "900d5e0b942c65545abeb19894951228d3a0036b",
+    "breaker_blob": "46765aa43937af72e5b2d652b0fb4e053a56ccda",
+    "tests_blob": "c2a1550c48311b414ba9d969951e0ac8eedbf54d",
+    "red_receipt_blob": "79021615a29585a3d3a3ca401ea8cb3fa68ed694"
+  },
+  "material_change_rule": "NEW_STRATEGY_QUALIFICATION_CELL_IDENTITY_REQUIRED_NO_AUTOMATIC_QUALIFICATION_TRANSFER",
+  "semantic_exclusions": [
+    "dataset_instance",
+    "dataset_hash",
+    "sample_window",
+    "oos_partition",
+    "result",
+    "performance_metric",
+    "evidence_package"
+  ],
+  "b1": {
+    "status": "CLOSED",
+    "closure_basis": "QUALIFIED_CELL_IDENTITY_EXACT_PERSISTENCE_DISTINCT_HUMAN_ADOPTION"
+  },
+  "authority": {
+    "ao_e0_execution_authorized": false,
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "backtest_authorized": false,
+    "b12": "CLOSED"
+  },
+  "force": false
+}
