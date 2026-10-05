@@ -1,0 +1,162 @@
+{
+  "schema": "ATDS_BEPD_03C_CALENDAR_OCCURRENCE_MAP_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_IMPLEMENTATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "693f6c84ea7aec27a2e2ba43f21b2f26bce6482a",
+    "tree": "4219cf5a165e087a96ebccb4905923caf06b29db"
+  },
+  "bindings": {
+    "human_authorization_blob": "6de519f3cfc885819e4147f08e4cc9f6f68d6fbf",
+    "bepd03a_dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03b_result_blob": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "bepd03b_manifest_blob": "98abfece6796ecfb355714c31bcf0126a28729c9",
+    "bepd03b_qualification_blob": "e88bcce2d3256a9e374e76cfb5e9ebc641316d56",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+  },
+  "implementation": {
+    "path": "tools/bepd_03c_calendar_occurrence_map_v0_1.py",
+    "input_primary": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/LEVEL_WEEK_OPPORTUNITY.jsonl",
+    "baseline_reference": "artifacts/bepd03b/global-weekly-liquidity-occurrence-baseline-v0.1/RESULT.json",
+    "output_directory": "artifacts/bepd03c/preregistered-calendar-occurrence-map-v0.1",
+    "outputs": [
+      "RESULT.json",
+      "RUN_MANIFEST.json"
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "V02_TARGET_MONTH",
+      "source_field": "target_week_id",
+      "derivation": "calendar month of ISO target_week_id",
+      "categories": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "ordering": "ascending 1..12"
+    },
+    {
+      "id": "V03_TARGET_MONTH_POSITION",
+      "source_field": "target_week_id",
+      "derivation": "EARLY_01_15 if ISO date day <=15 else LATE_16_EOM",
+      "categories": [
+        "EARLY_01_15",
+        "LATE_16_EOM"
+      ],
+      "ordering": "EARLY_01_15 then LATE_16_EOM"
+    },
+    {
+      "id": "V04_TARGET_YEAR",
+      "source_field": "target_week_id",
+      "derivation": "calendar year of ISO target_week_id",
+      "categories": "all represented years from eligible rows",
+      "ordering": "ascending chronological"
+    }
+  ],
+  "result_schema": {
+    "top_level_fields": [
+      "schema",
+      "interpretation",
+      "run_id",
+      "source_bepd02_run_id",
+      "baseline_reference",
+      "dependence_statement",
+      "m05_generalization_uncertainty",
+      "dimensions",
+      "forbidden_analytics_executed"
+    ],
+    "dimension_fields": [
+      "dimension_id",
+      "category_order",
+      "cells"
+    ],
+    "cell_fields": [
+      "category",
+      "eligible_target_week_count",
+      "unique_level_count",
+      "opportunity_count",
+      "event_count",
+      "occurrence_fraction",
+      "occurrence_proportion_decimal"
+    ],
+    "occurrence_fraction": "'<event_count>/<opportunity_count>'; if denominator=0 use '0/0'",
+    "occurrence_proportion_decimal": "18-decimal fixed string using ROUND_HALF_EVEN; null iff denominator=0"
+  },
+  "estimator": {
+    "numerator": "count selected rows where swept_this_week is exactly true",
+    "denominator": "count selected rows",
+    "weighting": "equal weight per eligible level-week opportunity row",
+    "weekly_rate_averaging_forbidden": true,
+    "row_exclusion_forbidden": true
+  },
+  "baseline_reconciliation": {
+    "source": "BEPD-03B GLOBAL_ALL_SIDES",
+    "each_partition_opportunity_sum_equals_global": true,
+    "each_partition_event_sum_equals_global": true,
+    "each_partition_target_week_union_equals_global_target_week_set": true,
+    "note": "unique_level_count is recomputed per cell and is not additive across cells because a level may appear in multiple calendar cells"
+  },
+  "dependence": {
+    "dependence_key": "target_week_id",
+    "opportunity_row_iid": false,
+    "m05_generalization_uncertainty": "BLOCKED"
+  },
+  "zero_support_policy": {
+    "emit_all_preregistered_month_and_month_position_categories": true,
+    "zero_opportunity_cell_proportion": null,
+    "zero_event_nonzero_opportunity_cell_proportion": "0.000000000000000000"
+  },
+  "forbidden_output_fields": [
+    "rank",
+    "best",
+    "worst",
+    "p_value",
+    "significance",
+    "confidence_interval",
+    "standard_error",
+    "bootstrap",
+    "level_age_band",
+    "take_day_ny",
+    "side_filter",
+    "cross_product"
+  ],
+  "forbidden": [
+    "month x side",
+    "month x age",
+    "year x month",
+    "early/late x side",
+    "any cross-product",
+    "ranking",
+    "best/worst",
+    "significance testing",
+    "p-values",
+    "generalization interval",
+    "bootstrap",
+    "M05 activation",
+    "future probability",
+    "causal interpretation",
+    "predictive interpretation",
+    "LEVEL AGE BAND",
+    "TAKE DAY NY",
+    "Response Map",
+    "Occurrence x Response",
+    "edge",
+    "strategy",
+    "PnL"
+  ]
+}
