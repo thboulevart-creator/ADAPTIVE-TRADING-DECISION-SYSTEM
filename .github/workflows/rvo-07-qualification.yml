@@ -45,6 +45,8 @@ jobs:
           test "$(git hash-object GOVERNANCE/RVO-07-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "c3cf29a8aa5b3d5345a74b32c9c9feff6dd1b9db"
           test "$(git hash-object breakers/rvo_07_pre_execution_requalification_breaker.py)" = "b34a208df3e08c73c9c2e62ad0c53985797ec551"
           test "$(git hash-object reports/program/2026-10-05-RVO-07-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "ef271b4941fad63ba3e84c579dd860c2080ef3c4"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-CONCURRENT-DRIFT-RECONCILIATION-V0.1.json)" = "6d6e922fa323c604b89974958d54c0fe87857a8e"
+          test "$(git hash-object GOVERNANCE/BEPD-03E-EVENT-CONDITIONAL-TAKE-DAY-NY-DISTRIBUTION-HUMAN-ADJUDICATION-CLOSURE-2026-10-05.md)" = "43155d6af71b76d88bbe0e9e758d6062102253d3"
           git merge-base --is-ancestor 8a8ba4d1eaf8b41f2bc09306261eace3bb579987 HEAD
 
       - name: Prove protected owner identities
@@ -110,6 +112,7 @@ jobs:
             "src/rvo_07_pre_execution_requalification.py",
             "tests/test_rvo_07_pre_execution_requalification.py",
             ".github/workflows/rvo-07-qualification.yml",
+            "GOVERNANCE/BEPD-03E-EVENT-CONDITIONAL-TAKE-DAY-NY-DISTRIBUTION-HUMAN-ADJUDICATION-CLOSURE-2026-10-05.md",
           }
           for p in changed:
               if p in allowed:
