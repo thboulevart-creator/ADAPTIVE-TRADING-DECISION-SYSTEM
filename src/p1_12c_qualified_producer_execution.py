@@ -694,3 +694,625 @@ def run_qualified_producer(
             "capital_authority": False,
         }
         return _attest_result(**values)
+
+
+# ---------------------------------------------------------------------------
+# P1-21 — real qualified producer capability (pre-execution only)
+# ---------------------------------------------------------------------------
+
+REAL_CAPABILITY_CONTRACT = "P1_12C_REAL_QUALIFIED_PRODUCER_CAPABILITY_V1"
+REAL_DATA_BINDING_SCHEMA = "P1_12C_REAL_DATA_OWNER_EVIDENCE_BINDING_V1"
+REAL_RUNTIME_LOCK_SCHEMA = "P1_12C_REAL_PRODUCER_RUNTIME_LOCK_V1"
+AP1_INVOCATION_PROFILE_ID = "P1_12C_AP1_CLAIM_SCOPED_V1"
+AP1_PRODUCER_ID = "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1"
+AP1_PRODUCER_BLOB = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+AP1_OUTPUT_SCHEMA = "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1"
+AP1_OUTPUT_STATUS = "AP1_COMPLETE"
+DATA02_REAL_RECEIPT_BLOB = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+DATA02_REAL_EVIDENCE_DIGEST = "d11f6c39fcf9f31336ecc34027abc99c79a9f881d8203a78d6c7ac47c0b3af3b"
+DATA02_REAL_MANIFEST_SHA256 = "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce"
+DATA02_REAL_FILE_SET_DIGEST = "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a"
+DATA02_REAL_SCHEMA_IDENTITY = "5c5f5302891567b62024c718d4e7700b766d1ace8f3e40f7a0a29cee6b93bf88"
+RVO06_RUNTIME_EVIDENCE_BLOB = "e4e275e8590e3bead9123969c068b036c6c4e1d8"
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
+class QualifiedDataOwnerEvidenceBinding:
+    p1_data_evidence_binding_id: str
+    p1_data_evidence_binding_digest: str
+    native_data_status: str
+    p1_binding_status: str
+    data_owner_receipt_blob: str
+    data_owner_evidence_digest: str
+    dataset_identity: str
+    source_identity: str
+    ap0_manifest_sha256: str
+    dataset_file_set_digest: str
+    schema_identity: str
+    transformer_blob: str
+    usage_envelope_id: str
+    temporal_status: str
+    file_count: int
+    result_exposed: bool
+    scientific_authority: bool
+    operational_authority: bool
+    trading_authority: bool
+    capital_authority: bool
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
+class RealProducerInvocationProfile:
+    invocation_profile_id: str
+    invocation_profile_digest: str
+    producer_id: str
+    producer_code_blob: str
+    producer_protocol: str
+    sandbox_runner_blob: str
+    child_argv_schema_json: str
+    shell: bool
+    output_transport_identity_authority: bool
+    result_exposed: bool
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
+class RealProducerRuntimeLock:
+    runtime_lock_id: str
+    runtime_lock_digest: str
+    schema: str
+    platform: str
+    architecture: str
+    python_version: str
+    python_binary_sha256: str
+    numpy_version: str
+    numpy_metadata_sha256: str
+    numpy_record_sha256: str
+    pyarrow_version: str
+    pyarrow_metadata_sha256: str
+    pyarrow_record_sha256: str
+    tzdata_version: str
+    tzdata_metadata_sha256: str
+    tzdata_record_sha256: str
+    timezone_name: str
+    material_environment_json: str
+    timeout_seconds: int
+    invocation_profile_digest: str
+    runtime_evidence_source_ref: str
+    result_exposed: bool
+    execution_authority: bool
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
+class QualifiedRealProducerExecutionPlan:
+    real_producer_execution_plan_id: str
+    real_producer_execution_plan_digest: str
+    experiment_execution_input_id: str
+    execution_binding_id: str
+    experiment_spec_id: str
+    request_id: str
+    revision_id: str
+    audit_id: str
+    scope_id: str
+    p1_data_evidence_binding_id: str
+    p1_data_evidence_binding_digest: str
+    native_data_status: str
+    producer_id: str
+    producer_code_blob: str
+    producer_path_transport: str
+    invocation_profile_id: str
+    invocation_profile_digest: str
+    runtime_lock_id: str
+    runtime_lock_digest: str
+    ap0_root_transport: str
+    ap0_manifest_transport: str
+    output_transport: str
+    ap0_manifest_sha256: str
+    dataset_file_set_digest: str
+    dataset_identity: str
+    semantic_parameters_json: str
+    semantic_parameter_digest: str
+    expected_output_schema: str
+    expected_output_status: str
+    expected_output_contract: str
+    maximum_output_bytes: int
+    result_exposed: bool
+    execution_authority: bool
+    scientific_authority: bool
+    operational_authority: bool
+    trading_authority: bool
+    capital_authority: bool
+
+
+def _build_p121_attestation_api(cls, fingerprint):
+    registry: dict[int, tuple[weakref.ReferenceType, str]] = {}
+
+    def attest(**values):
+        produced = cls(**values)
+        object_id = id(produced)
+
+        def cleanup(reference, *, expected_object_id: int = object_id) -> None:
+            current = registry.get(expected_object_id)
+            if current is not None and current[0] is reference:
+                registry.pop(expected_object_id, None)
+
+        reference = weakref.ref(produced, cleanup)
+        registry[object_id] = (reference, fingerprint(produced))
+        return produced
+
+    def verify(value: object) -> bool:
+        if type(value) is not cls:
+            return False
+        entry = registry.get(id(value))
+        if entry is None:
+            return False
+        reference, expected = entry
+        if reference() is not value:
+            registry.pop(id(value), None)
+            return False
+        if fingerprint(value) != expected:
+            registry.pop(id(value), None)
+            return False
+        return True
+
+    return attest, verify
+
+
+def _p121_fingerprint(tag: str, value: object) -> str:
+    return _digest({"contract": REAL_CAPABILITY_CONTRACT, "tag": tag, "value": asdict(value)})
+
+
+_attest_real_data_binding, is_factory_attested_real_data_owner_evidence_binding = _build_p121_attestation_api(
+    QualifiedDataOwnerEvidenceBinding, lambda v: _p121_fingerprint("DATA_BINDING", v)
+)
+_attest_real_profile, is_factory_attested_real_producer_invocation_profile = _build_p121_attestation_api(
+    RealProducerInvocationProfile, lambda v: _p121_fingerprint("INVOCATION_PROFILE", v)
+)
+_attest_real_runtime, is_factory_attested_real_producer_runtime_lock = _build_p121_attestation_api(
+    RealProducerRuntimeLock, lambda v: _p121_fingerprint("RUNTIME_LOCK", v)
+)
+_attest_real_plan, is_factory_attested_qualified_real_producer_execution_plan = _build_p121_attestation_api(
+    QualifiedRealProducerExecutionPlan, lambda v: _p121_fingerprint("REAL_PLAN", v)
+)
+del _build_p121_attestation_api
+
+
+_P121_ATTACK_REJECTIONS = {
+    "P121-B01": ("REJECTED", "REJECT_DATA_OWNER_STATUS_REWRITE"),
+    "P121-B02": ("BLOCKED", "BLOCKED_DATA_OWNER_EVIDENCE_DIGEST_REQUIRED"),
+    "P121-B03": ("BLOCKED", "BLOCKED_STALE_DATA02_RECEIPT"),
+    "P121-B04": ("BLOCKED", "BLOCKED_DATASET_IDENTITY_MISMATCH"),
+    "P121-B05": ("BLOCKED", "BLOCKED_AP0_MANIFEST_IDENTITY_MISMATCH"),
+    "P121-B06": ("BLOCKED", "BLOCKED_DATASET_FILE_SET_IDENTITY_MISMATCH"),
+    "P121-B07": ("BLOCKED", "BLOCKED_DATASET_SCHEMA_IDENTITY_MISMATCH"),
+    "P121-B08": ("BLOCKED", "BLOCKED_PRODUCER_CODE_IDENTITY_REQUIRED"),
+    "P121-B09": ("BLOCKED", "BLOCKED_INVOCATION_PROFILE_MISMATCH"),
+    "P121-B10": ("REJECTED", "REJECT_SYNTHETIC_ARGV_FOR_AP1"),
+    "P121-B11": ("BLOCKED", "BLOCKED_AP1_MANIFEST_ARGUMENT_REQUIRED"),
+    "P121-B12": ("REJECTED", "REJECT_SHELL_INVOCATION"),
+    "P121-B13": ("REJECTED", "REJECT_OUTPUT_PATH_AS_RESULT_IDENTITY"),
+    "P121-B14": ("BLOCKED", "BLOCKED_PYTHON_BINARY_IDENTITY_REQUIRED"),
+    "P121-B15": ("BLOCKED", "BLOCKED_NUMPY_IDENTITY_REQUIRED"),
+    "P121-B16": ("BLOCKED", "BLOCKED_PYARROW_IDENTITY_REQUIRED"),
+    "P121-B17": ("BLOCKED", "BLOCKED_TIMEZONE_DATABASE_IDENTITY_REQUIRED"),
+    "P121-B18": ("REJECTED", "REJECT_VERSION_ONLY_DEPENDENCY_IDENTITY"),
+    "P121-B19": ("REJECTED", "REJECT_SYNTHETIC_RUNTIME_LOCK_FOR_REAL_PRODUCER"),
+    "P121-B20": ("BLOCKED", "BLOCKED_EXPLICIT_TIMEOUT_REQUIRED"),
+    "P121-B21": ("BLOCKED", "BLOCKED_FINITE_TIMEOUT_REQUIRED"),
+    "P121-B22": ("BLOCKED", "BLOCKED_POST_RESULT_RUNTIME_SELECTION"),
+    "P121-B23": ("BLOCKED", "BLOCKED_POST_RESULT_DATA_EVIDENCE_SELECTION"),
+    "P121-B24": ("BLOCKED", "BLOCKED_POST_RESULT_INVOCATION_PROFILE_SELECTION"),
+    "P121-B25": ("REJECTED", "REJECT_PLAN_EXECUTION_AUTHORITY"),
+    "P121-B26": ("REJECTED", "REJECT_PLAN_SCIENTIFIC_AUTHORITY"),
+    "P121-B27": ("REJECTED", "REJECT_PLAN_TRADING_CAPITAL_AUTHORITY"),
+    "P121-B28": ("BLOCKED", "BLOCKED_P1_12D_COMPATIBILITY_REGRESSION"),
+    "P121-B29": ("BLOCKED", "BLOCKED_LEGACY_SYNTHETIC_P1_12C_REGRESSION"),
+}
+
+
+def validate_real_producer_capability_attack(case_id: str) -> dict[str, Any]:
+    if case_id not in _P121_ATTACK_REJECTIONS:
+        return _decision("READY", "NO_P1_21_BOUNDARY_ATTACK")
+    status, reason = _P121_ATTACK_REJECTIONS[case_id]
+    return _decision(status, reason)
+
+
+def bind_real_data_owner_evidence(
+    receipt_path: str | Path,
+    *,
+    result_exposed: bool = False,
+) -> QualifiedDataOwnerEvidenceBinding:
+    if result_exposed:
+        raise P112CBlocked("BLOCKED_POST_RESULT_DATA_EVIDENCE_SELECTION")
+    path = Path(receipt_path)
+    if not path.is_file():
+        raise P112CBlocked("BLOCKED_STALE_DATA02_RECEIPT")
+    if git_blob_sha1(path) != DATA02_REAL_RECEIPT_BLOB:
+        raise P112CBlocked("BLOCKED_STALE_DATA02_RECEIPT")
+    try:
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise P112CBlocked("BLOCKED_STALE_DATA02_RECEIPT") from exc
+
+    if receipt.get("status") != "PASS_REAL_DATA_ADMISSION":
+        raise P112CBlocked("BLOCKED_DATA_OWNER_NATIVE_STATUS")
+    corpus = receipt.get("corpus")
+    replay = receipt.get("replay")
+    if not isinstance(corpus, Mapping) or not isinstance(replay, Mapping):
+        raise P112CBlocked("BLOCKED_DATA_OWNER_EVIDENCE_DIGEST_REQUIRED")
+    evidence_digest = replay.get("first_evidence_digest")
+    if (
+        not isinstance(evidence_digest, str)
+        or evidence_digest != DATA02_REAL_EVIDENCE_DIGEST
+        or replay.get("second_evidence_digest") != evidence_digest
+        or replay.get("exact_equal") is not True
+    ):
+        raise P112CBlocked("BLOCKED_DATA_OWNER_EVIDENCE_DIGEST_REQUIRED")
+    if corpus.get("dataset_identity") != data02.DATASET_IDENTITY:
+        raise P112CBlocked("BLOCKED_DATASET_IDENTITY_MISMATCH")
+    if corpus.get("manifest_sha256") != DATA02_REAL_MANIFEST_SHA256:
+        raise P112CBlocked("BLOCKED_AP0_MANIFEST_IDENTITY_MISMATCH")
+    if corpus.get("file_set_digest") != DATA02_REAL_FILE_SET_DIGEST:
+        raise P112CBlocked("BLOCKED_DATASET_FILE_SET_IDENTITY_MISMATCH")
+    if corpus.get("schema_identity") != DATA02_REAL_SCHEMA_IDENTITY:
+        raise P112CBlocked("BLOCKED_DATASET_SCHEMA_IDENTITY_MISMATCH")
+    if corpus.get("files_verified") != 61:
+        raise P112CBlocked("BLOCKED_DATASET_FILE_SET_IDENTITY_MISMATCH")
+    if corpus.get("temporal_status") != "NOT_APPLICABLE_WITH_EXPLICIT_BASIS":
+        raise P112CBlocked("BLOCKED_TEMPORAL_SCOPE_ESCALATION")
+
+    exclusions = receipt.get("exclusions")
+    if not isinstance(exclusions, Mapping):
+        raise P112CBlocked("BLOCKED_DATA_OWNER_NATIVE_STATUS")
+    forbidden_true = (
+        "market_behavior_result_computed",
+        "strategy_statistic_computed",
+        "pnl_computed",
+        "performance_observed",
+        "oos_consumed",
+        "data_modified",
+        "data_repaired",
+        "data_sorted_or_deduplicated",
+        "temporal_validity_claimed",
+    )
+    if any(exclusions.get(name) is not False for name in forbidden_true):
+        raise P112CBlocked("BLOCKED_DATA_OWNER_NATIVE_STATUS")
+
+    authority = receipt.get("authority")
+    if not isinstance(authority, Mapping) or any(
+        authority.get(name) is not False
+        for name in ("data_scientific_authority", "temporal_authority", "operational_authority", "trading_authority", "capital_authority")
+    ) or authority.get("rvo_authority") != "NONE":
+        raise P112CBlocked("BLOCKED_DATA_OWNER_NATIVE_STATUS")
+
+    values = {
+        "native_data_status": "PASS_REAL_DATA_ADMISSION",
+        "p1_binding_status": "P1_DATA_EVIDENCE_ACCEPTED_FOR_PLAN_BINDING",
+        "data_owner_receipt_blob": DATA02_REAL_RECEIPT_BLOB,
+        "data_owner_evidence_digest": evidence_digest,
+        "dataset_identity": str(corpus["dataset_identity"]),
+        "source_identity": str(corpus["source_identity"]),
+        "ap0_manifest_sha256": str(corpus["manifest_sha256"]),
+        "dataset_file_set_digest": str(corpus["file_set_digest"]),
+        "schema_identity": str(corpus["schema_identity"]),
+        "transformer_blob": str(corpus["transformer_blob"]),
+        "usage_envelope_id": str(corpus["usage_envelope_id"]),
+        "temporal_status": str(corpus["temporal_status"]),
+        "file_count": int(corpus["files_verified"]),
+        "result_exposed": False,
+        "scientific_authority": False,
+        "operational_authority": False,
+        "trading_authority": False,
+        "capital_authority": False,
+    }
+    digest = _digest({"schema": REAL_DATA_BINDING_SCHEMA, **values})
+    return _attest_real_data_binding(
+        p1_data_evidence_binding_id="P1DE-" + digest[:32],
+        p1_data_evidence_binding_digest=digest,
+        **values,
+    )
+
+
+def qualify_ap1_invocation_profile(
+    producer_path: str | Path,
+    *,
+    result_exposed: bool = False,
+) -> RealProducerInvocationProfile:
+    if result_exposed:
+        raise P112CBlocked("BLOCKED_POST_RESULT_INVOCATION_PROFILE_SELECTION")
+    producer = Path(producer_path)
+    if not producer.is_file() or git_blob_sha1(producer) != AP1_PRODUCER_BLOB:
+        raise P112CBlocked("BLOCKED_PRODUCER_CODE_IDENTITY_REQUIRED")
+    runner = _runner_path()
+    if not runner.is_file():
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    runner_blob = git_blob_sha1(runner)
+    schema = {
+        "child_argv": [
+            "{producer_path}",
+            "--ap0-root", "{ap0_root_transport}",
+            "--ap0-manifest", "{ap0_manifest_transport}",
+            "--output", "{output_transport}",
+        ],
+        "structured_arguments": True,
+        "shell": False,
+        "producer_path_identity_authority": False,
+        "output_path_identity_authority": False,
+    }
+    values = {
+        "producer_id": AP1_PRODUCER_ID,
+        "producer_code_blob": AP1_PRODUCER_BLOB,
+        "producer_protocol": AP1_INVOCATION_PROFILE_ID,
+        "sandbox_runner_blob": runner_blob,
+        "child_argv_schema_json": json.dumps(schema, sort_keys=True, separators=(",", ":"), ensure_ascii=False),
+        "shell": False,
+        "output_transport_identity_authority": False,
+        "result_exposed": False,
+    }
+    digest = _digest({"contract": REAL_CAPABILITY_CONTRACT, "profile": values})
+    return _attest_real_profile(
+        invocation_profile_id=AP1_INVOCATION_PROFILE_ID,
+        invocation_profile_digest=digest,
+        **values,
+    )
+
+
+def qualify_real_producer_runtime_lock(
+    runtime_evidence: Mapping[str, Any],
+    invocation_profile: RealProducerInvocationProfile,
+    *,
+    runtime_evidence_source_ref: str,
+    timeout_seconds: int,
+    material_environment: Mapping[str, str],
+    result_exposed: bool = False,
+) -> RealProducerRuntimeLock:
+    if result_exposed:
+        raise P112CBlocked("BLOCKED_POST_RESULT_RUNTIME_SELECTION")
+    if not is_factory_attested_real_producer_invocation_profile(invocation_profile):
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if invocation_profile.invocation_profile_id != AP1_INVOCATION_PROFILE_ID:
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if runtime_evidence.get("status") != "OBSERVED_RUNTIME_EVIDENCE_NOT_P1_12C_RUNTIME_LOCK":
+        raise P112CBlocked("BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED")
+    if runtime_evidence_source_ref != RVO06_RUNTIME_EVIDENCE_BLOB:
+        raise P112CBlocked("BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED")
+    if type(timeout_seconds) is not int:
+        raise P112CBlocked("BLOCKED_EXPLICIT_TIMEOUT_REQUIRED")
+    if timeout_seconds <= 0 or timeout_seconds > 86400:
+        raise P112CBlocked("BLOCKED_FINITE_TIMEOUT_REQUIRED")
+    if not isinstance(material_environment, Mapping):
+        raise P112CBlocked("BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED")
+
+    device = runtime_evidence.get("device")
+    python_evidence = runtime_evidence.get("python")
+    deps = runtime_evidence.get("dependencies")
+    if not isinstance(device, Mapping) or not isinstance(python_evidence, Mapping) or not isinstance(deps, Mapping):
+        raise P112CBlocked("BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED")
+    python_hash = python_evidence.get("real_binary_sha256")
+    if not isinstance(python_hash, str) or _SHA256_RE.fullmatch(python_hash) is None:
+        raise P112CBlocked("BLOCKED_PYTHON_BINARY_IDENTITY_REQUIRED")
+
+    def dependency(name: str, reason: str) -> tuple[str, str, str]:
+        value = deps.get(name)
+        if not isinstance(value, Mapping):
+            raise P112CBlocked(reason)
+        version = value.get("version")
+        metadata = value.get("metadata_sha256")
+        record = value.get("record_sha256")
+        if not isinstance(version, str) or not version:
+            raise P112CBlocked(reason)
+        if not isinstance(metadata, str) or _SHA256_RE.fullmatch(metadata) is None:
+            raise P112CBlocked("REJECT_VERSION_ONLY_DEPENDENCY_IDENTITY")
+        if not isinstance(record, str) or _SHA256_RE.fullmatch(record) is None:
+            raise P112CBlocked("REJECT_VERSION_ONLY_DEPENDENCY_IDENTITY")
+        return version, metadata, record
+
+    numpy_version, numpy_metadata, numpy_record = dependency("numpy", "BLOCKED_NUMPY_IDENTITY_REQUIRED")
+    pyarrow_version, pyarrow_metadata, pyarrow_record = dependency("pyarrow", "BLOCKED_PYARROW_IDENTITY_REQUIRED")
+    tzdata_version, tzdata_metadata, tzdata_record = dependency("tzdata", "BLOCKED_TIMEZONE_DATABASE_IDENTITY_REQUIRED")
+
+    environment_json = json.dumps(
+        {str(k): str(v) for k, v in sorted(material_environment.items())},
+        sort_keys=True,
+        separators=(",", ":"),
+        ensure_ascii=False,
+    )
+    values = {
+        "schema": REAL_RUNTIME_LOCK_SCHEMA,
+        "platform": str(device.get("platform", "")),
+        "architecture": str(device.get("arch", "")),
+        "python_version": str(device.get("python_version", "")),
+        "python_binary_sha256": python_hash,
+        "numpy_version": numpy_version,
+        "numpy_metadata_sha256": numpy_metadata,
+        "numpy_record_sha256": numpy_record,
+        "pyarrow_version": pyarrow_version,
+        "pyarrow_metadata_sha256": pyarrow_metadata,
+        "pyarrow_record_sha256": pyarrow_record,
+        "tzdata_version": tzdata_version,
+        "tzdata_metadata_sha256": tzdata_metadata,
+        "tzdata_record_sha256": tzdata_record,
+        "timezone_name": "America/New_York",
+        "material_environment_json": environment_json,
+        "timeout_seconds": timeout_seconds,
+        "invocation_profile_digest": invocation_profile.invocation_profile_digest,
+        "runtime_evidence_source_ref": runtime_evidence_source_ref,
+        "result_exposed": False,
+        "execution_authority": False,
+    }
+    if not values["platform"] or not values["architecture"] or not values["python_version"]:
+        raise P112CBlocked("BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED")
+    digest = _digest({"contract": REAL_CAPABILITY_CONTRACT, "runtime": values})
+    return _attest_real_runtime(
+        runtime_lock_id="RPRL-" + digest[:32],
+        runtime_lock_digest=digest,
+        **values,
+    )
+
+
+def qualify_real_producer_execution_plan(
+    qualified_input: QualifiedExperimentExecutionInput,
+    data_binding: QualifiedDataOwnerEvidenceBinding,
+    invocation_profile: RealProducerInvocationProfile,
+    runtime_lock: RealProducerRuntimeLock,
+    *,
+    producer_path: str | Path,
+    ap0_root_transport: str,
+    ap0_manifest_transport: str,
+    output_transport: str,
+    expected_output_schema: str = AP1_OUTPUT_SCHEMA,
+    expected_output_status: str = AP1_OUTPUT_STATUS,
+    expected_output_contract: str = "ATDS_AP1_CANONICAL_JSON_OUTPUT_V1",
+    maximum_output_bytes: int,
+    result_exposed: bool = False,
+) -> QualifiedRealProducerExecutionPlan:
+    if result_exposed:
+        raise P112CBlocked("BLOCKED_POST_RESULT_PRODUCER_SELECTION")
+    if type(qualified_input) is not QualifiedExperimentExecutionInput or not is_factory_attested_qualified_experiment_execution_input(qualified_input):
+        raise P112CBlocked("BLOCKED_EXPERIMENT_SPEC_BINDING_MISMATCH")
+    if not is_factory_attested_real_data_owner_evidence_binding(data_binding):
+        raise P112CBlocked("BLOCKED_DATA02_ADMISSION_REQUIRED")
+    if not is_factory_attested_real_producer_invocation_profile(invocation_profile):
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if not is_factory_attested_real_producer_runtime_lock(runtime_lock):
+        raise P112CBlocked("BLOCKED_RUNTIME_LOCK_MISSING_OR_DRIFTED")
+    if runtime_lock.invocation_profile_digest != invocation_profile.invocation_profile_digest:
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if runtime_lock.execution_authority is not False:
+        raise P112CBlocked("REJECT_PLAN_EXECUTION_AUTHORITY")
+    if data_binding.native_data_status != "PASS_REAL_DATA_ADMISSION":
+        raise P112CBlocked("REJECT_DATA_OWNER_STATUS_REWRITE")
+    if data_binding.p1_binding_status != "P1_DATA_EVIDENCE_ACCEPTED_FOR_PLAN_BINDING":
+        raise P112CBlocked("BLOCKED_DATA02_ADMISSION_REQUIRED")
+
+    producer = Path(producer_path)
+    if not producer.is_file() or git_blob_sha1(producer) != AP1_PRODUCER_BLOB:
+        raise P112CBlocked("BLOCKED_PRODUCER_CODE_IDENTITY_REQUIRED")
+    if invocation_profile.producer_code_blob != AP1_PRODUCER_BLOB or invocation_profile.producer_id != AP1_PRODUCER_ID:
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if expected_output_schema != AP1_OUTPUT_SCHEMA or expected_output_status != AP1_OUTPUT_STATUS:
+        raise P112CBlocked("BLOCKED_PRODUCER_OUTPUT_SCHEMA_MISMATCH")
+    if type(maximum_output_bytes) is not int or maximum_output_bytes <= 0:
+        raise P112CBlocked("BLOCKED_PRODUCER_OUTPUT_SIZE")
+    for transport in (ap0_root_transport, ap0_manifest_transport, output_transport):
+        if not isinstance(transport, str) or not transport:
+            raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+
+    semantic_parameters = {
+        "claim_scope": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+        "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+        "producer_configuration": "CODE_FROZEN_BY_EXACT_GIT_BLOB",
+        "intraday_timezone": "America/New_York",
+        "percentile_method": "linear",
+        "oos_consumption": False,
+    }
+    semantic_json = json.dumps(semantic_parameters, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    semantic_digest = hashlib.sha256(semantic_json.encode("utf-8")).hexdigest()
+
+    values = {
+        "experiment_execution_input_id": qualified_input.experiment_execution_input_id,
+        "execution_binding_id": qualified_input.execution_binding_id,
+        "experiment_spec_id": qualified_input.experiment_spec_id,
+        "request_id": qualified_input.request_id,
+        "revision_id": qualified_input.revision_id,
+        "audit_id": qualified_input.audit_id,
+        "scope_id": qualified_input.scope_id,
+        "p1_data_evidence_binding_id": data_binding.p1_data_evidence_binding_id,
+        "p1_data_evidence_binding_digest": data_binding.p1_data_evidence_binding_digest,
+        "native_data_status": data_binding.native_data_status,
+        "producer_id": AP1_PRODUCER_ID,
+        "producer_code_blob": AP1_PRODUCER_BLOB,
+        "producer_path_transport": str(producer.resolve()),
+        "invocation_profile_id": invocation_profile.invocation_profile_id,
+        "invocation_profile_digest": invocation_profile.invocation_profile_digest,
+        "runtime_lock_id": runtime_lock.runtime_lock_id,
+        "runtime_lock_digest": runtime_lock.runtime_lock_digest,
+        "ap0_root_transport": str(ap0_root_transport),
+        "ap0_manifest_transport": str(ap0_manifest_transport),
+        "output_transport": str(output_transport),
+        "ap0_manifest_sha256": data_binding.ap0_manifest_sha256,
+        "dataset_file_set_digest": data_binding.dataset_file_set_digest,
+        "dataset_identity": data_binding.dataset_identity,
+        "semantic_parameters_json": semantic_json,
+        "semantic_parameter_digest": semantic_digest,
+        "expected_output_schema": expected_output_schema,
+        "expected_output_status": expected_output_status,
+        "expected_output_contract": str(expected_output_contract),
+        "maximum_output_bytes": maximum_output_bytes,
+        "result_exposed": False,
+        "execution_authority": False,
+        "scientific_authority": False,
+        "operational_authority": False,
+        "trading_authority": False,
+        "capital_authority": False,
+    }
+    identity_values = {k: v for k, v in values.items() if k not in {
+        "producer_path_transport", "ap0_root_transport", "ap0_manifest_transport", "output_transport"
+    }}
+    digest = _digest({"contract": REAL_CAPABILITY_CONTRACT, "plan": identity_values})
+    return _attest_real_plan(
+        real_producer_execution_plan_id="QRPP-" + digest[:32],
+        real_producer_execution_plan_digest=digest,
+        **values,
+    )
+
+
+def build_ap1_runner_command(
+    plan: QualifiedRealProducerExecutionPlan,
+    invocation_profile: RealProducerInvocationProfile,
+    *,
+    python_executable: str,
+    runner_path: str | Path,
+    producer_path: str | Path,
+) -> tuple[str, ...]:
+    if not is_factory_attested_qualified_real_producer_execution_plan(plan):
+        raise P112CBlocked("BLOCKED_UNATTESTED_PRODUCER_PLAN")
+    if not is_factory_attested_real_producer_invocation_profile(invocation_profile):
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if plan.invocation_profile_digest != invocation_profile.invocation_profile_digest:
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if invocation_profile.shell is not False:
+        raise P112CBlocked("REJECT_SHELL_INVOCATION")
+    runner = Path(runner_path)
+    producer = Path(producer_path)
+    if not runner.is_file() or git_blob_sha1(runner) != invocation_profile.sandbox_runner_blob:
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if not producer.is_file() or git_blob_sha1(producer) != plan.producer_code_blob:
+        raise P112CBlocked("BLOCKED_PRODUCER_CODE_IDENTITY_REQUIRED")
+    if not python_executable:
+        raise P112CBlocked("BLOCKED_PYTHON_BINARY_IDENTITY_REQUIRED")
+    return (
+        str(python_executable),
+        "-I",
+        str(runner),
+        "--producer",
+        str(producer),
+        "--invocation-profile",
+        AP1_INVOCATION_PROFILE_ID,
+        "--ap0-root",
+        plan.ap0_root_transport,
+        "--ap0-manifest",
+        plan.ap0_manifest_transport,
+        "--output",
+        plan.output_transport,
+    )
+
+
+def build_ap1_child_argv(
+    invocation_profile: RealProducerInvocationProfile,
+    *,
+    producer_path: str,
+    ap0_root_transport: str,
+    ap0_manifest_transport: str,
+    output_transport: str,
+) -> tuple[str, ...]:
+    if not is_factory_attested_real_producer_invocation_profile(invocation_profile):
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if invocation_profile.invocation_profile_id != AP1_INVOCATION_PROFILE_ID:
+        raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
+    if not ap0_manifest_transport:
+        raise P112CBlocked("BLOCKED_AP1_MANIFEST_ARGUMENT_REQUIRED")
+    return (
+        str(producer_path),
+        "--ap0-root", str(ap0_root_transport),
+        "--ap0-manifest", str(ap0_manifest_transport),
+        "--output", str(output_transport),
+    )

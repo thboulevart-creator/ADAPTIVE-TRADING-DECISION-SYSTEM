@@ -32,20 +32,37 @@ def _audit(event: str, args) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--producer", required=True)
-    parser.add_argument("--source-root", required=True)
-    parser.add_argument("--parameters", required=True)
+    parser.add_argument("--invocation-profile", default="P1_12C_PYTHON_JSON_FILE_V1")
+    parser.add_argument("--source-root")
+    parser.add_argument("--parameters")
     parser.add_argument("--output", required=True)
-    parser.add_argument("--producer-id", required=True)
+    parser.add_argument("--producer-id")
+    parser.add_argument("--ap0-root")
+    parser.add_argument("--ap0-manifest")
     ns = parser.parse_args()
 
     sys.addaudithook(_audit)
-    sys.argv = [
-        ns.producer,
-        "--source-root", ns.source_root,
-        "--parameters", ns.parameters,
-        "--output", ns.output,
-        "--producer-id", ns.producer_id,
-    ]
+    if ns.invocation_profile == "P1_12C_PYTHON_JSON_FILE_V1":
+        if not ns.source_root or not ns.parameters or not ns.producer_id:
+            parser.error("legacy synthetic profile requires --source-root --parameters --producer-id")
+        sys.argv = [
+            ns.producer,
+            "--source-root", ns.source_root,
+            "--parameters", ns.parameters,
+            "--output", ns.output,
+            "--producer-id", ns.producer_id,
+        ]
+    elif ns.invocation_profile == "P1_12C_AP1_CLAIM_SCOPED_V1":
+        if not ns.ap0_root or not ns.ap0_manifest:
+            parser.error("AP1 profile requires --ap0-root --ap0-manifest")
+        sys.argv = [
+            ns.producer,
+            "--ap0-root", ns.ap0_root,
+            "--ap0-manifest", ns.ap0_manifest,
+            "--output", ns.output,
+        ]
+    else:
+        parser.error("unsupported P1.12C invocation profile")
     runpy.run_path(ns.producer, run_name="__main__")
     return 0
 

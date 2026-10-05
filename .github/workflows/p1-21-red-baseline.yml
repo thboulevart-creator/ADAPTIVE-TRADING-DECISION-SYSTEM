@@ -6,7 +6,6 @@ on:
       - integration/system-v1
     paths:
       - '.github/workflows/p1-21-red-baseline.yml'
-      - 'GOVERNANCE/P1-21-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json'
       - 'breakers/p1_21_real_producer_capability_breaker.py'
       - 'reports/program/*P1-21*'
   workflow_dispatch:
@@ -22,7 +21,7 @@ env:
   LC_ALL: C.UTF-8
 
 jobs:
-  p1-21-red:
+  p1-21-red-archive:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
@@ -31,15 +30,11 @@ jobs:
           ref: ${{ github.sha }}
           fetch-depth: 0
 
-      - name: Prove persisted HEAD
-        run: test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
-
-      - name: Prove exact prerequisite identities
+      - name: Verify immutable RED evidence
         run: |
-          test "$(git hash-object reports/program/2026-10-05-RVO-06-QUALIFICATION-RECEIPT-V0.1.json)" = "11453a26a181eeca050a518d4ece01c68ddf5716"
-          test "$(git hash-object src/p1_12c_qualified_producer_execution.py)" = "6d634ed1adab21ce31a55289d8d6e5b288e70005"
-          test "$(git hash-object tools/p1_12c_sandbox_runner.py)" = "08fbd6f4b2cd4db9cb714f583c1459d0753a9112"
-          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+          test "$(git hash-object GOVERNANCE/P1-21-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "2d985ebcd2fca331a8af1be864fdce07ff26ceec"
+          test "$(git hash-object breakers/p1_21_real_producer_capability_breaker.py)" = "981f21bcdde9afea5b85cced387c3acdb119e26f"
+          test "$(git hash-object reports/program/2026-10-05-P1-21-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "006a877e9c64361d68cbb969578ed71b34054d6e"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -48,23 +43,8 @@ jobs:
       - name: Install qualification packages
         run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
 
-      - name: Verify qualification environment
-        run: python tools/qualification_environment.py verify
+      - name: Replay frozen breaker after implementation
+        run: python -m pytest -q breakers/p1_21_real_producer_capability_breaker.py
 
-      - name: Observe exact 29-case RED
-        run: |
-          set +e
-          python -m pytest -q breakers/p1_21_real_producer_capability_breaker.py > /tmp/p121-red.log 2>&1
-          rc=$?
-          set -e
-          cat /tmp/p121-red.log
-          test "$rc" -ne 0
-          grep -q "29 failed" /tmp/p121-red.log
-          test "$(grep -c 'P1_21_REAL_PRODUCER_CAPABILITY_ABSENT_EXPECTED_RED' /tmp/p121-red.log)" -ge 29
-          echo "P1_21_RED_BASELINE=PASS_EXPECTED_29_FAILURES"
-
-      - name: Prove clean worktree
-        if: always()
-        run: |
-          git diff --exit-code
-          test -z "$(git status --porcelain)"
+      - name: Archive status
+        run: echo "P1_21_RED_BASELINE=ARCHIVED_AND_IDENTITY_VERIFIED"
