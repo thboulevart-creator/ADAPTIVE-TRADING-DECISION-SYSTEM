@@ -1,0 +1,29 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "PASS_EXPECTED_RED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "red_head": "480620914a85b554ddc66f0cb8afde79891672fa",
+  "red_tree": "04af39befee8f63f07a4d79c3494566c09583836",
+  "activation_contract_blob": "847bce0365921024addb42c930dc5f47dee9401c",
+  "breaker_contract_blob": "aed06cf37230ab539de34f8d409c38caacaab79d",
+  "breaker_blob": "b1fa584249e60f3bb99ea9849c684ff76207de27",
+  "red_workflow_blob": "aa8ba000a84b7307e265ac412b508b1cf47100ee",
+  "workflow_run_id": 37349995017,
+  "job_id": 111898135285,
+  "workflow_conclusion": "SUCCESS",
+  "observed_pytest": "28_FAILED_RUNTIME_ABSENT",
+  "marker": "SMF_AP1_M03_01_RUNTIME_ABSENT_EXPECTED_RED",
+  "runtime_present": false,
+  "companion_present": false,
+  "real_ap1_output_present": false,
+  "interpretation": "Expected test-first RED proving the authorized capability was absent before implementation. No breaker weakening and no empirical execution.",
+  "authority": {
+    "real_ap1": false,
+    "real_ap0_read": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}
