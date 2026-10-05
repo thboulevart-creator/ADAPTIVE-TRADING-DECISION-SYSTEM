@@ -1,0 +1,153 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_01_CLAIM_SCOPED_ACTIVATION_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-01",
+  "status": "HUMAN_AUTHORIZED_FROZEN_CONTRACT",
+  "authorization_scope": "RVO06_G04_ONLY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "a0156f73932f54926d96c5c88a8239671cc271e5",
+    "tree": "5c9e67ea7859e2274a8dbeb46df3ff90944dbfd2"
+  },
+  "execution_parent": {
+    "head": "34227fc45639b57eaf7d59979c3b705d760e2be8",
+    "tree": "1915e2421caf6af729756535a359d22091d7b067"
+  },
+  "parent_drift": {
+    "classification": "NON_MATERIAL",
+    "commits": 7,
+    "files": [
+      "GOVERNANCE/BEPD-03C-CALENDAR-OCCURRENCE-MAP-IMPLEMENTATION-CONTRACT-V0.1.json",
+      "GOVERNANCE/BEPD-03C-FROZEN-CALENDAR-OCCURRENCE-MAP-BREAKER-CONTRACT-V0.1.json",
+      "GOVERNANCE/BEPD-03C-PREREGISTERED-CALENDAR-OCCURRENCE-MAP-HUMAN-AUTHORIZATION-2026-10-05.md",
+      "artifacts/bepd03c/preregistered-calendar-occurrence-map-v0.1/RESULT.json",
+      "artifacts/bepd03c/preregistered-calendar-occurrence-map-v0.1/RUN_MANIFEST.json",
+      "breakers/bepd_03c_calendar_occurrence_map_breaker_v0_1.py",
+      "reports/program/2026-10-05-BEPD-03C-PREREGISTERED-CALENDAR-OCCURRENCE-MAP-QUALIFICATION-V0.1.md",
+      "tools/bepd_03c_calendar_occurrence_map_v0_1.py"
+    ],
+    "reason": "Only additive BEPD-03C surfaces; no SMF/AP1/DATA-02/RVO-06/P1-21 prerequisite path changed."
+  },
+  "claim": {
+    "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "consumer_id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "consumer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce"
+  },
+  "prerequisite_identities": {
+    "smf01_adjudication_blob": "2856b9aa8df7be964d0ee8f20d7332494e599549",
+    "smf02_adjudication_blob": "ffd02a3957a1b823379cc57bdeb04c48e34eeff6",
+    "smf03_core_contract_blob": "5b71a409f135e42de5805b12afbd518a152b32a5",
+    "smf03_adjudication_blob": "eca159da397a8e22bd0b244a282b590f06b6df67",
+    "smf03_core_runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf03_core_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "data02_real_admission_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "rvo06_m03_analysis_blob": "b23eded40a91c9c4dc691145e5083e3b6a9ff124",
+    "rvo06_gap_matrix_blob": "464fe8b03166c687c3618c18e7c3509fbc62f08b",
+    "rvo06_receipt_blob": "11453a26a181eeca050a518d4ece01c68ddf5716",
+    "p121_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42"
+  },
+  "applicability": {
+    "verdict": "ACTIVATED",
+    "method_family": "M03",
+    "semantics": "ECDF + EMPIRICAL QUANTILES",
+    "reason": "AP1 declares empirical percentile summaries for tick_count, minute_range, and per-minute spread_mean.",
+    "failure_mode": "EMPIRICAL_DISTRIBUTION_QUANTILE_DEFINITION_AND_PROCEDURE_IDENTITY",
+    "not_by_convention": true,
+    "m02": "NOT_APPLICABLE",
+    "m04_m11": "NOT_APPLICABLE_FOR_EXACT_NON_INFERENTIAL_CLAIM",
+    "conditional_methods": "NOT_APPLICABLE"
+  },
+  "population_semantics": {
+    "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+    "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET",
+    "stochastic_sample_claim": false,
+    "iid_claim": false,
+    "inference_claim": false,
+    "bucket_dimensions": [
+      "GLOBAL",
+      "UTC_HOUR",
+      "NEW_YORK_HOUR",
+      "NEW_YORK_WEEKDAY",
+      "NEW_YORK_WEEKDAY_HOUR",
+      "UTC_YEAR"
+    ],
+    "observation_vectors": {
+      "tick_count": "tick_count per admitted AP0 minute",
+      "minute_range": "mid_high - mid_low per admitted AP0 minute",
+      "spread_mean": "spread_mean per admitted AP0 minute"
+    },
+    "empty_bucket_rule": "PREDECLARED: n=0 yields no numerical M03 result; AP1 null quantiles remain absence-of-observation, not PASS."
+  },
+  "parameter_binding": {
+    "quantile_definition": "linear interpolation with h=(n-1)*p",
+    "tail_extrapolation": "FORBIDDEN",
+    "probabilities": {
+      "tick_count": [
+        0.5,
+        0.9,
+        0.99
+      ],
+      "minute_range": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "spread_mean": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ]
+    },
+    "material_defaults_forbidden": true,
+    "result_exposure_before_activation": false
+  },
+  "binding_design": {
+    "pattern": "SEPARATE_SMF_COMPANION_RECONSTRUCTION",
+    "rationale": "Preserve exact AP1/P1-21 identities; future separately authorized SMF companion reconstructs the same vectors from the same admitted AP0 corpus and invokes exact qualified M03.",
+    "exact_method_procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "ap1_modified": false,
+    "p121_modified": false,
+    "data02_modified": false,
+    "future_real_execution_authority": false,
+    "current_real_data_read_authority": false
+  },
+  "invariants": [
+    "METHOD_APPLICABILITY != METHOD_ACTIVATION",
+    "METHOD_ACTIVATION != EXECUTION_AUTHORITY",
+    "DATA_ADMISSION != METHOD_VALIDITY",
+    "P1_PLAN != P1_RESULT",
+    "EXECUTION_RESULT != FINDING",
+    "FINDING != VALIDATED_STRATEGY",
+    "SMF_AUTHORITY != TRADING_AUTHORITY",
+    "NUMERICAL_PARITY != PROCEDURE_IDENTITY",
+    "AP1_PRODUCER_IDENTITY != SMF_COMPANION_IDENTITY"
+  ],
+  "forbidden": [
+    "REAL_AP1_EXECUTION",
+    "REAL_AP0_OPEN",
+    "NEW_EMPIRICAL_RESULT",
+    "G05_MATERIALIZATION",
+    "RVO07_OPEN",
+    "BACKTEST",
+    "OOS",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL",
+    "DATA02_SEMANTIC_REWRITE",
+    "P121_STATUS_REWRITE",
+    "IMPLICIT_IID",
+    "SILENT_MATERIAL_PARAMETER_DEFAULT"
+  ],
+  "stop": {
+    "g05": "NOT_AUTHORIZED",
+    "rvo07": "NOT_AUTHORIZED",
+    "real_ap1": "NOT_AUTHORIZED",
+    "empirical_m03": "NOT_AUTHORIZED"
+  }
+}
