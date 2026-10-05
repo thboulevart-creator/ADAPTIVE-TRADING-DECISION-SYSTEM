@@ -1,0 +1,15 @@
+{
+  "dependence_statement": "EVENT != IID OBSERVATION; sweep_cluster_id and target_week_id are preserved dependence/provenance keys; multiple events sharing either structure are not assumed independent",
+  "execution_scope": "REAL_AUTHORIZED",
+  "forbidden_analytics_executed": false,
+  "interpretation": "EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_POST_SWEEP_RESPONSE_DESCRIPTION",
+  "m05_generalization_uncertainty": "BLOCKED",
+  "reintegration_false_count": 102,
+  "reintegration_fraction": "370/472",
+  "reintegration_share_decimal": "0.783898305084745763",
+  "reintegration_true_count": 370,
+  "schema": "ATDS_BEPD_04B_SAME_WEEK_REINTEGRATION_RESPONSE_RESULT_V0_1",
+  "source_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "source_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "total_event_count": 472
+}
