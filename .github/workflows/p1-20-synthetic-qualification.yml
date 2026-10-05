@@ -27,7 +27,7 @@ env:
   TZ: UTC
   LANG: C.UTF-8
   LC_ALL: C.UTF-8
-  P1_20_RECONCILED_PARENT: '0d67013e20e3d2a9fcec26bec8de62c015955711'
+  P1_20_RECONCILED_PARENT: '691604f14b7c67861e885fa2ac9009eb216de1d3'
 
 jobs:
   p1-20:
@@ -53,6 +53,8 @@ jobs:
           test "$(git hash-object reports/program/2026-10-05-P1-19-FINAL-DOCUMENTARY-CLOSURE-RECEIPT-V0.1.json)" = "2d6dd8d139235006a4ec77286ae4b81050427ce5"
           test "$(git hash-object breakers/p1_20_common_downstream_breaker.py)" = "eb958d866acb0d69af405768c980cbd3296cb715"
           test "$(git hash-object reports/program/2026-10-05-P1-20-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "1221e564623b20e509deb078b0449cf8253ded54"
+          test "$(git hash-object reports/program/2026-10-05-P1-20-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json)" = "e73b6ea450e56215a7cd8f0522cab64ff7558c29"
+          test "$(git hash-object reports/program/2026-10-05-P1-20-PARENT-DRIFT-RECONCILIATION-R3-V0.1.json)" = "fc03acd841f759b48651b8e179ab4ae5eeec68e6"
 
       - name: Prove legacy and native-owner firewalls
         run: |
@@ -78,7 +80,7 @@ jobs:
         run: |
           python - <<'PY'
           import subprocess
-          parent="0d67013e20e3d2a9fcec26bec8de62c015955711"
+          parent="691604f14b7c67861e885fa2ac9009eb216de1d3"
           changed=subprocess.check_output(["git","diff","--name-only",f"{parent}..HEAD"],text=True).splitlines()
           exact={
               ".github/workflows/p1-20-red-baseline.yml",

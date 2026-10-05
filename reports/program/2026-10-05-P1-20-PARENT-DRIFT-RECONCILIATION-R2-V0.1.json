@@ -1,0 +1,29 @@
+{
+  "schema": "ATDS_P1_20_PARENT_DRIFT_RECONCILIATION_R2_V0_1",
+  "status": "NON_MATERIAL_DRIFT_RECONCILED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "prior_qualified_candidate": {
+    "head": "3a0c9c0f5226cae097df14743a5fa4356ec1a019",
+    "tree": "ffccf5bfa4957a4a976233c5f18743e7c64d4281",
+    "workflow_run_id": 37313991506,
+    "job_id": 111776023083,
+    "conclusion": "SUCCESS"
+  },
+  "observed_parent": {
+    "head": "223703feaf070fb8165ca8dfe39a4b3e7464e374",
+    "tree": "33ccab46c45a7565bf92ccb51efe64ab8ad12c25",
+    "relation": "DESCENDANT_BY_1_COMMIT"
+  },
+  "observed_delta": [
+    "GOVERNANCE/BEPD-01A-WEEKLY-LIQUIDITY-CALIBRATION-FIXTURE-V0.1.json"
+  ],
+  "classification": "NON_MATERIAL_TO_P1_20",
+  "basis": [
+    "Intervening delta is one BEPD-01A weekly liquidity calibration fixture only.",
+    "All P1-20 implementation, breaker, workflow, P1-19 prerequisite, P1.12B/P1.12C and legacy P1.13B-P1.16 identities were freshly revalidated unchanged.",
+    "No P1-20 scientific or owner boundary premise changed."
+  ],
+  "new_delta_base": "223703feaf070fb8165ca8dfe39a4b3e7464e374",
+  "force": false
+}

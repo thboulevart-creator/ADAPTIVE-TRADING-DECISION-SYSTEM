@@ -1,0 +1,123 @@
+{
+  "schema": "ATDS_P1_20_SYNTHETIC_QUALIFICATION_RECEIPT_V0_3",
+  "status": "QUALIFICATION_CANDIDATE_PENDING_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent_reconciliation": [
+    {
+      "authorized_head": "fc3eec4da722df307499212864e9b6b340920950",
+      "authorized_tree": "46f2d3098fcfb0f6710ddc4d7e2bf37f78997d0e",
+      "reconciled_head": "0d67013e20e3d2a9fcec26bec8de62c015955711",
+      "reconciled_tree": "5235ef2c45b5e7ebf284558798775dcd377a4bf5",
+      "receipt_blob": "33b64cac196f8db280ab4fadf1530e78a1c35d84",
+      "classification": "NON_MATERIAL_TO_P1_20"
+    },
+    {
+      "prior_candidate_head": "3a0c9c0f5226cae097df14743a5fa4356ec1a019",
+      "reconciled_head": "223703feaf070fb8165ca8dfe39a4b3e7464e374",
+      "reconciled_tree": "33ccab46c45a7565bf92ccb51efe64ab8ad12c25",
+      "receipt_blob": "e73b6ea450e56215a7cd8f0522cab64ff7558c29",
+      "classification": "NON_MATERIAL_TO_P1_20"
+    },
+    {
+      "prior_reconciled_head": "223703feaf070fb8165ca8dfe39a4b3e7464e374",
+      "reconciled_head": "691604f14b7c67861e885fa2ac9009eb216de1d3",
+      "reconciled_tree": "36820531e8ea630c7d465fd4106bfb1ea20edb16",
+      "receipt_blob": "fc03acd841f759b48651b8e179ab4ae5eeec68e6",
+      "classification": "NON_MATERIAL_TO_P1_20"
+    }
+  ],
+  "frozen_design": {
+    "p1_19_architecture_blob": "832574ed747988d6df11dfb5f9c457ced30f3c26",
+    "p1_19_common_evidence_contract_blob": "d3a259f032db3a2d882e1e0403936476701a7cd3",
+    "p1_19_frozen_breaker_blob": "07f6d170ddd1afab20bec1e45c7fad6cc32fdf65",
+    "p1_19_final_qualification_blob": "70fea3d9716bbc6070e408e456517dd74a8f5c56",
+    "p1_19_final_closure_blob": "2d6dd8d139235006a4ec77286ae4b81050427ce5",
+    "frozen_case_count": 24
+  },
+  "test_first_red": {
+    "executable_breaker_blob": "eb958d866acb0d69af405768c980cbd3296cb715",
+    "red_receipt_blob": "1221e564623b20e509deb078b0449cf8253ded54",
+    "red_commit": "bc785b3fe2f54d2347df770810b173b8da51b455",
+    "workflow_run_id": 37312760641,
+    "job_id": 111771957659,
+    "observed": "24_FAILED_COMMON_RUNTIME_ABSENT"
+  },
+  "implementation": {
+    "p1_12d_blob": "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190",
+    "p1_13c_blob": "617c39505cdd64e8a7a40a40612b4bec0c30ed34",
+    "p1_14c_blob": "7bd6a91a69484213b4d26d25bd18d62019c77b08",
+    "p1_15c_blob": "a0c7ced052a734ce44d580f2430081f8f8647a47",
+    "p1_16c_blob": "92967f7789537399510ac2c61ceab5b52268c931",
+    "fixture_blob": "3d08058d681a78060f5b40cebea21ebe37e67108",
+    "positive_tests_blob": "03c4f25da8d5a987e599005691af816411456dbc",
+    "archived_red_workflow_blob": "364b5a3255b5244da6b5b93d4de45dd88ef0f7e4",
+    "qualification_workflow_blob": "537e044e8cd8e1708c07676e4c4247562e70b1ee"
+  },
+  "observed_iterations": [
+    {
+      "commit": "aec86e2d43b76ef9aeb84bebd606fa247cad9d6d",
+      "run_id": 37313808660,
+      "conclusion": "FAILURE",
+      "frozen_breakers": "24_PASS",
+      "positive_tests": "7_PASS_8_FAIL",
+      "failure": "datetime serialization defect in P1.12D native snapshot digest"
+    },
+    {
+      "commit": "3a0c9c0f5226cae097df14743a5fa4356ec1a019",
+      "run_id": 37313991506,
+      "job_id": 111776023083,
+      "conclusion": "SUCCESS",
+      "frozen_breakers": {
+        "passed": 24,
+        "failed": 0
+      },
+      "dual_owner_positive": {
+        "passed": 15,
+        "failed": 0
+      },
+      "legacy_p1_12b_to_p1_16": {
+        "passed": 180,
+        "failed": 0
+      },
+      "protected_p1_12c": {
+        "passed": 32,
+        "failed": 0
+      },
+      "ap1_execution": "NOT_EXECUTED"
+    }
+  ],
+  "semantics": {
+    "p1_12d": "EVIDENCE_NORMALIZER_NOT_EXECUTION_OWNER",
+    "p1_12b_measurement_input_identity": "stream_sha256",
+    "p1_12c_measurement_input_identity": "output_sha256",
+    "p1_16c_policy": "EXACT_LEGACY_POLICY_REUSED",
+    "native_owner_semantics_preserved": true,
+    "common_interface_authority": "NONE"
+  },
+  "protected_legacy": {
+    "p1_12b_blob": "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+    "p1_13b_blob": "968ef47d0fc4e066374b7471110c71d0eaf28865",
+    "p1_14b_blob": "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+    "p1_15b_blob": "bfab3c421263434d5e3e3066720f95abb521b09c",
+    "p1_16_blob": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+    "p1_12c_blob": "6d634ed1adab21ce31a55289d8d6e5b288e70005",
+    "byte_identity_preserved": true
+  },
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false,
+    "real_ap1": false,
+    "backtest": false,
+    "oos": false,
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "stop": {
+    "p1_21": "NOT_AUTHORIZED",
+    "rvo_06": "NOT_AUTHORIZED",
+    "data_03": "NOT_AUTHORIZED",
+    "real_ap1_execution": "NOT_AUTHORIZED"
+  }
+}

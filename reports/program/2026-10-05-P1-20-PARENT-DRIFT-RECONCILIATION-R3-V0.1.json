@@ -1,0 +1,27 @@
+{
+  "schema": "ATDS_P1_20_PARENT_DRIFT_RECONCILIATION_R3_V0_1",
+  "status": "NON_MATERIAL_DRIFT_RECONCILED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "prior_reconciled_parent": {
+    "head": "223703feaf070fb8165ca8dfe39a4b3e7464e374",
+    "tree": "33ccab46c45a7565bf92ccb51efe64ab8ad12c25"
+  },
+  "observed_parent": {
+    "head": "691604f14b7c67861e885fa2ac9009eb216de1d3",
+    "tree": "36820531e8ea630c7d465fd4106bfb1ea20edb16",
+    "relation": "DESCENDANT_BY_2_COMMITS"
+  },
+  "observed_delta": [
+    "GOVERNANCE/BEPD-01A-WEEKLY-LIQUIDITY-MEASUREMENT-CONTRACT-V0.1.md",
+    "reports/program/2026-10-05-BEPD-01A-CALIBRATION-REPLAY-V0.1.md"
+  ],
+  "classification": "NON_MATERIAL_TO_P1_20",
+  "basis": [
+    "Intervening changes are BEPD-01A liquidity measurement/replay documentation only.",
+    "All P1-20 implementation, breaker, workflow and protected P1 owner identities were freshly revalidated unchanged.",
+    "No common-downstream semantic premise changed."
+  ],
+  "new_delta_base": "691604f14b7c67861e885fa2ac9009eb216de1d3",
+  "force": false
+}
