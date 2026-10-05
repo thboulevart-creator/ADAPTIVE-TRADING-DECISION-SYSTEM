@@ -1,0 +1,114 @@
+{
+  "schema": "ATDS_G05_01_QUALIFICATION_RECEIPT_V0_1",
+  "status": "G05_01_WORKSPACE_DRY_READY",
+  "qualification": "QUALIFIED_WITH_NON_BLOCKING_PLATFORM_REGRESSION_NOTE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "ebf4c2ab996146582bf8f8b06f03095060a9415e",
+    "tree": "3a39d0ffe443065e89c4a0d523cd4919e09d23f8"
+  },
+  "frozen_contract_parent": {
+    "head": "d4eb2b6c05d64e72f5adfbe29ab13c366051fe53",
+    "tree": "fd33e8ba15c2795144bbaa168dddbaa0be8d989c",
+    "authorization_drift": "13_AHEAD_0_BEHIND_NON_MATERIAL"
+  },
+  "qualification_candidate": {
+    "head": "b76966237e8a0a363559b89c8fc4bd28e5afb3f6",
+    "tree": "ae1388710c44f0b0ab8d74995b3e34a39bc887b7"
+  },
+  "exact_artifacts": {
+    "workspace_contract_blob": "dc7e4e2375855034a796b06fdb52ae43cc1bec41",
+    "frozen_breaker_contract_blob": "05e8c946ae44017c81afd99185649e9aa9378b61",
+    "breaker_blob": "2b1936c7f70b536e5bd23591a5a48618e51e9012",
+    "red_workflow_blob": "26e87ebb87a2691d0370fbfa7f5e943acdd2153e",
+    "red_receipt_blob": "4c5ef9a53bed5bd5f04c2c6b262f8f86dd2d8aec",
+    "workspace_runtime_blob": "3f690c6e5d32434f451b2186b4202d9b305fd7e5",
+    "positive_tests_blob": "0f6c9fe901d4367b4386856ce97852c6ab1f6bd0",
+    "qualification_workflow_blob": "f8c7b06762bbbdfa47e7e2efe5d5378d7f6a368c"
+  },
+  "red": {
+    "run_id": 37353046487,
+    "job_id": 111908407598,
+    "conclusion": "SUCCESS",
+    "expected_red_cases": 30
+  },
+  "code_qualification": {
+    "head": "78047f01ad6a2c7dfaeb7dd1e5023cbad630abd0",
+    "run_id": 37354310984,
+    "job_id": 111912720468,
+    "conclusion": "SUCCESS",
+    "counts": {
+      "g05_breakers": 30,
+      "g05_positive": 19,
+      "p121_breakers": 29,
+      "p121_positive": 18,
+      "smf_breakers": 28,
+      "smf_positive": 25,
+      "data02_breakers": 32
+    }
+  },
+  "workspace_candidate": {
+    "path_transport": "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+    "workspace_id": "G05WS-1b1b3bc5a57948083d2759d221f1a205",
+    "workspace_digest": "1b1b3bc5a57948083d2759d221f1a205524032fdc52630db1e536312db086939",
+    "external_receipt_sha256": "f7de0a432c8a4615fd46adc721bf7e240af2d559ddff83e024bcd266a3f3613f",
+    "clean": true,
+    "detached": true
+  },
+  "runtime_lock": {
+    "id": "RPRL-5b77e0c094812f3e7e9d25efdb87bd3d",
+    "digest": "5b77e0c094812f3e7e9d25efdb87bd3da92748bc6f8a436ffe52cefe6d38f6c4",
+    "python": "3.13.14",
+    "python_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "numpy": "2.5.3",
+    "pyarrow": "25.0.1",
+    "tzdata": "2026.3",
+    "timezone": "America/New_York",
+    "timeout_seconds": 3600,
+    "execution_authority": false
+  },
+  "dry_bindings": {
+    "p1_invocation_profile_digest": "3a8689dcfa79515fae9f38b7e4903722ebdcd601ca16e7d84ef9139eb62b4de4",
+    "p1_dry_plan_id": "QRPP-02ec528b69aabcb5d052e5ae4e872213",
+    "p1_dry_plan_digest": "02ec528b69aabcb5d052e5ae4e8722131da8ffb2bcf5722ca5a0622a25f77cea",
+    "qualified_input_scope": "SYNTHETIC_NON_EMPIRICAL_SHAPE_PROOF_ONLY",
+    "exact_real_cc02_input_minted": false,
+    "smf_activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+    "smf_dry_plan_digest": "sha256:b2670b0fe4502b0a8027b5b7304e8886cfb033160f254250f00c8ca98f39d750"
+  },
+  "ap0": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "file_count": 61,
+    "parquet_statistical_open": false
+  },
+  "local_platform_note": {
+    "p121_breakers": "29_PASS",
+    "p121_positive_windows313": "3_PASS_15_FAIL_WINDOWS_STORE_ALIAS_HASH_FIXTURE",
+    "p121_positive_canonical_ci": "18_PASS",
+    "blocking": false
+  },
+  "rvo06_gap_effect": {
+    "G01": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G02": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G03": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G04": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G05": "CAPABILITY_CLOSED_PENDING_REAL_RVO_REQUALIFICATION"
+  },
+  "authority": {
+    "real_ap1": false,
+    "real_m03": false,
+    "new_empirical_result": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "persisted_head_rebreak": "REQUIRED_AFTER_THIS_RECEIPT",
+  "stop": {
+    "rvo_requalification": "NOT_OPENED",
+    "rvo07": "NOT_AUTHORIZED",
+    "real_ap1": "NOT_AUTHORIZED"
+  }
+}
