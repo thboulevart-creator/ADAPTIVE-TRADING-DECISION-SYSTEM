@@ -1,0 +1,447 @@
+{
+  "schema": "ATDS_BEPD_00_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "BEPD-00",
+  "version": "V0.1",
+  "date": "2026-10-05",
+  "status": "FROZEN_DOCUMENTARY_BREAKER_CANDIDATE_CANONICALLY_PERSISTED_PENDING_HUMAN_ADOPTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "bound_design": {
+    "path": "GOVERNANCE/BEPD-00-CONDENSED-DESIGN-V0.1.md",
+    "git_blob_sha": "e4317da4e93a0dc652f84c38fafb794c825bef9f",
+    "status": "DESIGN_CANDIDATE_NOT_YET_HUMAN_ADOPTED"
+  },
+  "freeze_rule": "Case IDs, attack intent, severity and expected fail-closed semantics are frozen before any BEPD implementation or real pattern mining. Future changes require explicit versioning and may not silently weaken a protected failure mode after results.",
+  "mandatory_distinctions": [
+    "CONCEPT_NAME!=FORMAL_EVENT_DEFINITION",
+    "EVENT_TIME!=CAUSAL_AVAILABILITY_TIME",
+    "OBSERVED_EVENT!=DESCRIPTIVE_RELATION",
+    "DESCRIPTIVE_RELATION!=CANDIDATE_PATTERN",
+    "CANDIDATE_PATTERN!=FORWARD_SUPPORTED_PATTERN",
+    "FORWARD_SUPPORTED_PATTERN!=EDGE",
+    "EDGE!=STRATEGY",
+    "STRATEGY!=AUTHORIZED_ALGORITHM",
+    "RETROSPECTIVE_CLASSIFICATION!=PROSPECTIVE_RECOGNITION",
+    "CONDITIONAL_FREQUENCY!=CERTAIN_NEXT_EVENT_PROBABILITY",
+    "ASSOCIATION!=CAUSATION",
+    "HISTORICAL_SUPPORT!=CURRENT_VALIDITY",
+    "MULTIPLE_LABELS!=MULTIPLE_INDEPENDENT_EVENTS",
+    "HIGH_CONDITIONAL_RATE!=INCREMENTAL_INFORMATION",
+    "PATTERN_EXISTS!=DECISION_VALUE",
+    "DISCOVERY_SUPPORT!=PRISTINE_CONFIRMATION",
+    "RTMA_CHANGE_ALERT!=SCIENTIFIC_REFUTATION",
+    "BEPD_RESEARCH_RESULT!=TRADING_AUTHORITY"
+  ],
+  "cases": [
+    {
+      "id": "BEPD00-B01",
+      "class": "DESIGN_IDENTITY_SCOPE",
+      "severity": "CRITICAL",
+      "attack": "Exact design identity absent while claiming exact BEPD V0.1 qualification.",
+      "expected": "BLOCKED_EXACT_DESIGN_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "BEPD00-B02",
+      "class": "DESIGN_IDENTITY_SCOPE",
+      "severity": "CRITICAL",
+      "attack": "Material design semantics drift after breaker freeze while old qualification is retained.",
+      "expected": "BLOCKED_BOUND_DESIGN_DRIFT"
+    },
+    {
+      "id": "BEPD00-B03",
+      "class": "DESIGN_IDENTITY_SCOPE",
+      "severity": "CRITICAL",
+      "attack": "Conversation intent is represented as canonical human adoption.",
+      "expected": "REJECT_CONVERSATION_TO_CANONICAL_AUTHORITY_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B04",
+      "class": "DESIGN_IDENTITY_SCOPE",
+      "severity": "CRITICAL",
+      "attack": "Implementation or empirical mining begins before separate authority.",
+      "expected": "BLOCKED_PREMATURE_IMPLEMENTATION"
+    },
+    {
+      "id": "BEPD00-B05",
+      "class": "EVENT_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Concept name is used as an event definition without exact mechanical semantics.",
+      "expected": "BLOCKED_AMBIGUOUS_EVENT_DEFINITION"
+    },
+    {
+      "id": "BEPD00-B06",
+      "class": "EVENT_SEMANTICS",
+      "severity": "HIGH",
+      "attack": "Materially different definitions sharing a concept name are silently collapsed.",
+      "expected": "REJECT_CONCEPT_DEFINITION_COLLAPSE"
+    },
+    {
+      "id": "BEPD00-B07",
+      "class": "EVENT_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Previous candle high and confirmed swing high are treated as interchangeable.",
+      "expected": "REJECT_REFERENCE_LEVEL_SEMANTIC_COLLAPSE"
+    },
+    {
+      "id": "BEPD00-B08",
+      "class": "EVENT_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Material event parameters are changed after response exposure.",
+      "expected": "BLOCKED_POST_RESULT_EVENT_REDEFINITION"
+    },
+    {
+      "id": "BEPD00-B09",
+      "class": "CAUSAL_TEMPORAL",
+      "severity": "CRITICAL",
+      "attack": "Physical event time is treated as prospective known-time despite later confirmation.",
+      "expected": "BLOCKED_CAUSAL_AVAILABILITY_MISMATCH"
+    },
+    {
+      "id": "BEPD00-B10",
+      "class": "CAUSAL_TEMPORAL",
+      "severity": "CRITICAL",
+      "attack": "Confirmed swing is represented as known before confirming bars existed.",
+      "expected": "REJECT_FUTURE_CONFIRMED_SWING_LEAKAGE"
+    },
+    {
+      "id": "BEPD00-B11",
+      "class": "CAUSAL_TEMPORAL",
+      "severity": "CRITICAL",
+      "attack": "Retrospective template classification is represented as prospective recognition.",
+      "expected": "REJECT_RETROSPECTIVE_TO_PROSPECTIVE_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B12",
+      "class": "CAUSAL_TEMPORAL",
+      "severity": "CRITICAL",
+      "attack": "ATR, percentile, scale or normalization at t uses future information.",
+      "expected": "BLOCKED_NORMALIZATION_FUTURE_LEAKAGE"
+    },
+    {
+      "id": "BEPD00-B13",
+      "class": "CAUSAL_TEMPORAL",
+      "severity": "CRITICAL",
+      "attack": "Event or response measurement silently crosses an invalid continuity boundary.",
+      "expected": "BLOCKED_CONTINUITY_BOUNDARY_VIOLATION"
+    },
+    {
+      "id": "BEPD00-B14",
+      "class": "DATA_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Price-core tick_count is interpreted as qualified traded volume.",
+      "expected": "REJECT_ACTIVITY_TO_VOLUME_SEMANTIC_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B15",
+      "class": "DATA_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Descriptive mid price is interpreted as attainable execution price.",
+      "expected": "REJECT_DESCRIPTIVE_PRICE_TO_EXECUTION_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B16",
+      "class": "DATA_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Minute data is used to invent unresolved sub-minute ordering.",
+      "expected": "BLOCKED_INTRABAR_ORDER_UNKNOWN"
+    },
+    {
+      "id": "BEPD00-B17",
+      "class": "DATA_SEMANTICS",
+      "severity": "CRITICAL",
+      "attack": "Cross-asset SMT uses a second asset without exact claim-scoped data/temporal admissibility.",
+      "expected": "BLOCKED_CROSS_ASSET_DATA_ADMISSIBILITY"
+    },
+    {
+      "id": "BEPD00-B18",
+      "class": "DATA_SEMANTICS",
+      "severity": "HIGH",
+      "attack": "Full-sample absolute historical threshold is treated as a timeless market constant.",
+      "expected": "REJECT_TIMELESS_ABSOLUTE_THRESHOLD"
+    },
+    {
+      "id": "BEPD00-B19",
+      "class": "RESPONSE_OUTCOME",
+      "severity": "CRITICAL",
+      "attack": "Response includes movement before the event was causally available.",
+      "expected": "BLOCKED_PRE_AVAILABILITY_RESPONSE_MEASUREMENT"
+    },
+    {
+      "id": "BEPD00-B20",
+      "class": "RESPONSE_OUTCOME",
+      "severity": "CRITICAL",
+      "attack": "Same-minute favorable/adverse path ordering is assumed under minute-only data.",
+      "expected": "BLOCKED_SAME_BAR_PATH_AMBIGUITY"
+    },
+    {
+      "id": "BEPD00-B21",
+      "class": "RESPONSE_OUTCOME",
+      "severity": "CRITICAL",
+      "attack": "MFE/MAE lacks frozen anchor, direction, start time or horizon semantics.",
+      "expected": "BLOCKED_RESPONSE_METRIC_SEMANTICS_INCOMPLETE"
+    },
+    {
+      "id": "BEPD00-B22",
+      "class": "RESPONSE_OUTCOME",
+      "severity": "CRITICAL",
+      "attack": "Outcome horizon is selected after exposure because it is favorable.",
+      "expected": "REJECT_POST_HOC_HORIZON_SELECTION"
+    },
+    {
+      "id": "BEPD00-B23",
+      "class": "RESPONSE_OUTCOME",
+      "severity": "CRITICAL",
+      "attack": "Behavioral response distribution is silently rewritten as TP/win-rate strategy evidence.",
+      "expected": "REJECT_RESPONSE_TO_STRATEGY_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B24",
+      "class": "BASELINE_INFORMATION",
+      "severity": "CRITICAL",
+      "attack": "Conditional reaction rate is promoted with no appropriate baseline.",
+      "expected": "BLOCKED_CONTEXTUAL_BASELINE_REQUIRED"
+    },
+    {
+      "id": "BEPD00-B25",
+      "class": "BASELINE_INFORMATION",
+      "severity": "HIGH",
+      "attack": "Unconditional baseline is used despite materially relevant known context.",
+      "expected": "BLOCKED_BASELINE_CONTEXT_MISMATCH"
+    },
+    {
+      "id": "BEPD00-B26",
+      "class": "BASELINE_INFORMATION",
+      "severity": "CRITICAL",
+      "attack": "Matched controls/baseline strata use outcome or future-state information.",
+      "expected": "BLOCKED_BASELINE_FUTURE_LEAKAGE"
+    },
+    {
+      "id": "BEPD00-B27",
+      "class": "BASELINE_INFORMATION",
+      "severity": "CRITICAL",
+      "attack": "High conditional frequency is represented as incremental information without baseline delta.",
+      "expected": "REJECT_FREQUENCY_TO_INFORMATION_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B28",
+      "class": "DEPENDENCE_SAMPLE",
+      "severity": "CRITICAL",
+      "attack": "One multi-timeframe sweep is counted as multiple independent observations.",
+      "expected": "BLOCKED_EVENT_DEPENDENCE_DOUBLE_COUNT"
+    },
+    {
+      "id": "BEPD00-B29",
+      "class": "DEPENDENCE_SAMPLE",
+      "severity": "CRITICAL",
+      "attack": "Overlapping response windows are treated as IID without justification.",
+      "expected": "BLOCKED_RESPONSE_DEPENDENCE_UNRESOLVED"
+    },
+    {
+      "id": "BEPD00-B30",
+      "class": "DEPENDENCE_SAMPLE",
+      "severity": "CRITICAL",
+      "attack": "High conditional rate on tiny support is promoted without adequacy/uncertainty.",
+      "expected": "BLOCKED_CONDITIONAL_SAMPLE_INADEQUACY"
+    },
+    {
+      "id": "BEPD00-B31",
+      "class": "DEPENDENCE_SAMPLE",
+      "severity": "HIGH",
+      "attack": "Pattern evidence is dominated by a few events, periods or regimes.",
+      "expected": "BLOCKED_EVIDENCE_CONCENTRATION"
+    },
+    {
+      "id": "BEPD00-B32",
+      "class": "DEPENDENCE_SAMPLE",
+      "severity": "CRITICAL",
+      "attack": "Historical empirical rate is represented as the exact next-event probability.",
+      "expected": "REJECT_EMPIRICAL_RATE_TO_EXACT_PROBABILITY"
+    },
+    {
+      "id": "BEPD00-B33",
+      "class": "SEARCH_MULTIPLICITY",
+      "severity": "CRITICAL",
+      "attack": "Discovered pattern lacks recorded search universe and trial surface.",
+      "expected": "BLOCKED_SEARCH_PROVENANCE_MISSING"
+    },
+    {
+      "id": "BEPD00-B34",
+      "class": "SEARCH_MULTIPLICITY",
+      "severity": "CRITICAL",
+      "attack": "Interaction/feature-subset pattern mining is executed under current CR V0.1 authority.",
+      "expected": "REJECT_CR_AUTHORITY_SCOPE_EXPANSION"
+    },
+    {
+      "id": "BEPD00-B35",
+      "class": "SEARCH_MULTIPLICITY",
+      "severity": "CRITICAL",
+      "attack": "Only favorable patterns are retained or reported.",
+      "expected": "REJECT_WINNER_ONLY_PATTERN_REGISTRY"
+    },
+    {
+      "id": "BEPD00-B36",
+      "class": "SEARCH_MULTIPLICITY",
+      "severity": "HIGH",
+      "attack": "Rolling recent window is selected after outcome exposure.",
+      "expected": "REJECT_POST_HOC_RECENCY_WINDOW_SELECTION"
+    },
+    {
+      "id": "BEPD00-B37",
+      "class": "SEARCH_MULTIPLICITY",
+      "severity": "CRITICAL",
+      "attack": "Thresholds are searched until a favorable relation appears while described as descriptive.",
+      "expected": "REJECT_HIDDEN_THRESHOLD_OPTIMIZATION"
+    },
+    {
+      "id": "BEPD00-B38",
+      "class": "SEARCH_MULTIPLICITY",
+      "severity": "HIGH",
+      "attack": "Complex concept is credited without checking whether a simpler component preserves information.",
+      "expected": "BLOCKED_COMPLEXITY_WITHOUT_INCREMENTAL_VALUE"
+    },
+    {
+      "id": "BEPD00-B39",
+      "class": "DISCOVERY_CONFIRMATION",
+      "severity": "CRITICAL",
+      "attack": "Discovery data is reused as pristine confirmation.",
+      "expected": "REJECT_DISCOVERY_CONFIRMATION_CONTAMINATION"
+    },
+    {
+      "id": "BEPD00-B40",
+      "class": "DISCOVERY_CONFIRMATION",
+      "severity": "CRITICAL",
+      "attack": "Exposed OOS is repeatedly reused while still called pristine.",
+      "expected": "REJECT_REUSED_OOS_AS_PRISTINE"
+    },
+    {
+      "id": "BEPD00-B41",
+      "class": "DISCOVERY_CONFIRMATION",
+      "severity": "CRITICAL",
+      "attack": "Exploratory relation is promoted directly to forward-supported status without appropriate confirmation.",
+      "expected": "BLOCKED_CONFIRMATION_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "BEPD00-B42",
+      "class": "DISCOVERY_CONFIRMATION",
+      "severity": "CRITICAL",
+      "attack": "Post-hoc pattern recognition is presented as prospective decision value.",
+      "expected": "REJECT_HINDSIGHT_DECISION_VALUE"
+    },
+    {
+      "id": "BEPD00-B43",
+      "class": "STABILITY_DRIFT",
+      "severity": "CRITICAL",
+      "attack": "Historical support is represented as currently active without current-state assessment.",
+      "expected": "BLOCKED_CURRENT_RELATION_STATE_REQUIRED"
+    },
+    {
+      "id": "BEPD00-B44",
+      "class": "STABILITY_DRIFT",
+      "severity": "HIGH",
+      "attack": "Current degradation deletes or rewrites historical evidence.",
+      "expected": "REJECT_HISTORICAL_EVIDENCE_REWRITE"
+    },
+    {
+      "id": "BEPD00-B45",
+      "class": "STABILITY_DRIFT",
+      "severity": "CRITICAL",
+      "attack": "Raw RTMA change alert becomes an automatic scientific verdict.",
+      "expected": "REJECT_RTMA_ALERT_TO_EPISTEMIC_VERDICT"
+    },
+    {
+      "id": "BEPD00-B46",
+      "class": "STATUS_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "Descriptive relation is silently promoted to predictive.",
+      "expected": "REJECT_DESCRIPTIVE_TO_PREDICTIVE_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B47",
+      "class": "STATUS_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "Predictive relation is silently promoted to exploitable edge/strategy.",
+      "expected": "REJECT_PREDICTIVE_TO_EXPLOITABLE_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B48",
+      "class": "STATUS_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "Pattern qualification grants trading, broker, paper, live or capital authority.",
+      "expected": "REJECT_PATTERN_TO_TRADING_AUTHORITY"
+    },
+    {
+      "id": "BEPD00-B49",
+      "class": "STATUS_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "UNKNOWN/UNVERIFIED/BLOCKED/NOT_APPLICABLE states are rewritten as PASS.",
+      "expected": "REJECT_EPISTEMIC_STATUS_LAUNDERING"
+    },
+    {
+      "id": "BEPD00-B50",
+      "class": "STATUS_AUTHORITY",
+      "severity": "CRITICAL",
+      "attack": "BEPD overrides DATA, SMF, MCEPR, RTMA, RVO, Temporal, Execution or another owner.",
+      "expected": "REJECT_OWNER_AUTHORITY_OVERRIDE"
+    },
+    {
+      "id": "BEPD00-B51",
+      "class": "FIRST_VERTICAL_SLICE",
+      "severity": "HIGH",
+      "attack": "Initial previous-closed level slice silently expands to confirmed-swing semantics.",
+      "expected": "BLOCKED_VERTICAL_SLICE_SEMANTIC_EXPANSION"
+    },
+    {
+      "id": "BEPD00-B52",
+      "class": "FIRST_VERTICAL_SLICE",
+      "severity": "HIGH",
+      "attack": "Initial slice prematurely adds SMT, Macro Breaker, RSI, broad indicators or large interaction mining.",
+      "expected": "REJECT_PREMATURE_FEATURE_EXPANSION"
+    },
+    {
+      "id": "BEPD00-B53",
+      "class": "FIRST_VERTICAL_SLICE",
+      "severity": "HIGH",
+      "attack": "H4+Daily+Weekly overlap is assumed superior without incremental comparison.",
+      "expected": "REJECT_CONFLUENCE_SUPERIORITY_ASSUMPTION"
+    },
+    {
+      "id": "BEPD00-B54",
+      "class": "FIRST_VERTICAL_SLICE",
+      "severity": "CRITICAL",
+      "attack": "A null first result triggers automated search expansion until a positive edge appears.",
+      "expected": "REJECT_SEARCH_UNTIL_POSITIVE"
+    }
+  ],
+  "future_qualification_semantics": {
+    "pass": "NO_FROZEN_BEPD00_FAILURE_MODE_TRIGGERED_WITHIN_EXACT_DEFINED_AND_ACTUALLY_TESTED_SURFACE",
+    "unknown_unknown_coverage": "NOT_CLAIMED",
+    "pattern_truth_claimed": false,
+    "profitability_claimed": false,
+    "strategy_validation_claimed": false,
+    "trading_authority": false
+  },
+  "future_test_first_rule": [
+    "bind exact human-adopted design blob before implementation qualification",
+    "bind exact frozen breaker blob",
+    "materialize executable/mechanical breakers before runtime implementation where applicable",
+    "observe and persist expected RED before implementation where a missing runtime is the intended RED condition",
+    "implement minimal required surface only",
+    "replay unchanged breaker intent",
+    "run owner-boundary regressions",
+    "perform persisted-head re-break",
+    "stop before real historical pattern mining unless separately authorized"
+  ],
+  "authority": {
+    "canonical_candidate_persistence": true,
+    "human_adoption": false,
+    "implementation": false,
+    "real_market_pattern_mining": false,
+    "oos_consumption": false,
+    "strategy_research": false,
+    "paper": false,
+    "broker": false,
+    "live": false,
+    "capital": false
+  },
+  "stop_boundary": "STOP_AFTER_CANONICAL_CANDIDATE_PERSISTENCE_AND_DOCUMENTARY_QUALIFICATION_PENDING_EXPLICIT_HUMAN_VERDICT"
+}
