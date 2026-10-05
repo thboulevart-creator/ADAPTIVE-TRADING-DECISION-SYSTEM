@@ -21,15 +21,19 @@ from typing import Final
 _ROOT: Final = Path(__file__).resolve().parents[2]
 _PREREG_PATH: Final = _ROOT / "tools/obsidian_projection/rpe04_real_remote_observation_adapter_preregistration_v0_1.json"
 _SCHEMA_PATH: Final = _ROOT / "tools/obsidian_projection/rpe04_real_remote_observation_adapter_preregistration_v0_1_schema_v0_1.json"
+_CLOSURE_PATH: Final = _ROOT / "tools/obsidian_projection/rpe04_rpe03v02_rebind_nf2_nf3_closure_v0_1.json"
+_CLOSURE_SCHEMA_PATH: Final = _ROOT / "tools/obsidian_projection/rpe04_rpe03v02_rebind_nf2_nf3_closure_v0_1_schema_v0_1.json"
 _GUARD_PATH: Final = _ROOT / "tools/obsidian_projection/rpe01_governed_closed_schema.py"
-_RPE03_PATH: Final = _ROOT / "tools/obsidian_projection/rpe03_ancestry_classifier_v0_1.py"
+_RPE03_PATH: Final = _ROOT / "tools/obsidian_projection/rpe03_ancestry_classifier_v0_2.py"
 _SHA40_RE: Final = re.compile(r"[0-9a-f]{40}\Z")
 
 _EXPECTED_RUNTIME_SHA256: Final = {
     "preregistration": "0c59111fe90b8d80f0c41daf0911d772274eca733c6e68673d484ab8abf2c6ba",
     "schema": "e39dbc4f3bc82f5d5c2181574bdd120ad6d0fca46bcfdf358fac406b572a8861",
+    "closure": "4c6c156c2bde72ed83b360a3ddccaf97a46b55b45cd107c85e32d998ef95cf11",
+    "closure_schema": "b812979ffcd6496929a2e9cab672278708943c20cdd0f5e504f2d97c0bd02a41",
     "rpe01_guard": "24b36f5b3c0a02bc6247732fe1fa23d6c0fe30bc2b1629a7c54d4c094a628298",
-    "rpe03_classifier": "cbcb996199b06859d257cc194e673a6bc51419890dc0641b42837d3f7cfcb0c3",
+    "rpe03_classifier": "4b743e187245585f4a4d9c923e316961f2842f96634d04dcac01972a29e60b41",
 }
 
 
@@ -45,6 +49,8 @@ def _verify_runtime_bindings() -> bool:
     expected = {
         _PREREG_PATH: _EXPECTED_RUNTIME_SHA256["preregistration"],
         _SCHEMA_PATH: _EXPECTED_RUNTIME_SHA256["schema"],
+        _CLOSURE_PATH: _EXPECTED_RUNTIME_SHA256["closure"],
+        _CLOSURE_SCHEMA_PATH: _EXPECTED_RUNTIME_SHA256["closure_schema"],
         _GUARD_PATH: _EXPECTED_RUNTIME_SHA256["rpe01_guard"],
         _RPE03_PATH: _EXPECTED_RUNTIME_SHA256["rpe03_classifier"],
     }
@@ -72,6 +78,13 @@ def _load_preregistration() -> dict:
     validated = guard.validate_governed_json(raw_document, raw_schema)
     if type(validated) is not dict:
         raise RuntimeError("governed preregistration did not validate to an object")
+
+    closure_document = _CLOSURE_PATH.read_text(encoding="utf-8")
+    closure_schema = _CLOSURE_SCHEMA_PATH.read_text(encoding="utf-8")
+    closure_validated = guard.validate_governed_json(closure_document, closure_schema)
+    if type(closure_validated) is not dict:
+        raise RuntimeError("governed closure preregistration did not validate to an object")
+
     return validated
 
 
@@ -154,31 +167,95 @@ def _is_indirection(path: Path) -> bool:
         return True
 
 
+def _lexists(path: Path) -> bool:
+    return os.path.lexists(str(path))
+
+
+def _inside_root(path: Path, root: Path) -> bool:
+    return path == root or root in path.parents
+
+
 def _verify_physical_object_domain(repo_path: Path) -> tuple[bool, str | None]:
-    try:
-        repo = repo_path.resolve(strict=True)
-    except (OSError, RuntimeError):
-        return False, "PHYSICAL_OBJECT_DOMAIN_UNPROVABLE"
-    required = [
+    legacy_required_dirs = [
         repo_path,
         repo_path / "objects",
         repo_path / "objects" / "pack",
         repo_path / "objects" / "info",
     ]
-    for path in required:
+
+    try:
+        if not _lexists(repo_path):
+            return False, "PHYSICAL_OBJECT_DOMAIN_REQUIRED_PATH_MISSING"
+        if _is_indirection(repo_path):
+            return False, "PHYSICAL_OBJECT_DOMAIN_INDIRECTION"
+        repo = repo_path.resolve(strict=True)
+        if not repo.is_dir():
+            return False, "PHYSICAL_OBJECT_DOMAIN_REQUIRED_PATH_MISSING"
+    except (OSError, RuntimeError, ValueError):
+        return False, "PHYSICAL_OBJECT_DOMAIN_UNPROVABLE"
+
+    for path in legacy_required_dirs:
         try:
-            if not path.exists() or not path.is_dir():
+            if not _lexists(path) or not path.is_dir():
                 return False, "PHYSICAL_OBJECT_DOMAIN_REQUIRED_PATH_MISSING"
             if _is_indirection(path):
                 return False, "PHYSICAL_OBJECT_DOMAIN_INDIRECTION"
             resolved = path.resolve(strict=True)
-            if path == repo_path:
-                if os.path.normcase(str(resolved)) != os.path.normcase(str(repo)):
-                    return False, "PHYSICAL_OBJECT_DOMAIN_INDIRECTION"
-            elif repo not in resolved.parents:
+            if not _inside_root(resolved, repo):
                 return False, "PHYSICAL_OBJECT_DOMAIN_ESCAPE"
-        except (OSError, RuntimeError):
+        except (OSError, RuntimeError, ValueError):
             return False, "PHYSICAL_OBJECT_DOMAIN_UNPROVABLE"
+
+    refs = repo_path / "refs"
+    try:
+        if not _lexists(refs) or not refs.is_dir():
+            return False, "PHYSICAL_GIT_DOMAIN_REQUIRED_PATH_MISSING"
+        if _is_indirection(refs):
+            return False, "PHYSICAL_GIT_DOMAIN_INDIRECTION"
+        if not _inside_root(refs.resolve(strict=True), repo):
+            return False, "PHYSICAL_GIT_DOMAIN_ESCAPE"
+    except (OSError, RuntimeError, ValueError):
+        return False, "PHYSICAL_GIT_DOMAIN_UNPROVABLE"
+
+    for required_file in (repo_path / "HEAD", repo_path / "config"):
+        try:
+            if not _lexists(required_file) or not required_file.is_file():
+                return False, "PHYSICAL_GIT_DOMAIN_REQUIRED_PATH_MISSING"
+            if _is_indirection(required_file):
+                return False, "PHYSICAL_GIT_DOMAIN_INDIRECTION"
+            if not _inside_root(required_file.resolve(strict=True), repo):
+                return False, "PHYSICAL_GIT_DOMAIN_ESCAPE"
+        except (OSError, RuntimeError, ValueError):
+            return False, "PHYSICAL_GIT_DOMAIN_UNPROVABLE"
+
+    for optional_path in (repo_path / "packed-refs", repo_path / "refs" / "rpe04"):
+        if not _lexists(optional_path):
+            continue
+        try:
+            if _is_indirection(optional_path):
+                return False, "PHYSICAL_GIT_DOMAIN_INDIRECTION"
+            if not _inside_root(optional_path.resolve(strict=True), repo):
+                return False, "PHYSICAL_GIT_DOMAIN_ESCAPE"
+        except (OSError, RuntimeError, ValueError):
+            return False, "PHYSICAL_GIT_DOMAIN_UNPROVABLE"
+
+    alternates = repo_path / "objects" / "info" / "alternates"
+    if _lexists(alternates):
+        return False, "PHYSICAL_GIT_DOMAIN_ALTERNATES_FORBIDDEN"
+
+    try:
+        for current, dirs, files in os.walk(repo, topdown=True, followlinks=False):
+            current_path = Path(current)
+            for name in [*dirs, *files]:
+                child = current_path / name
+                if _is_indirection(child):
+                    return False, "PHYSICAL_GIT_DOMAIN_INDIRECTION"
+                resolved = child.resolve(strict=True)
+                if not _inside_root(resolved, repo):
+                    return False, "PHYSICAL_GIT_DOMAIN_ESCAPE"
+    except (OSError, RuntimeError, ValueError):
+        return False, "PHYSICAL_GIT_DOMAIN_UNPROVABLE"
+
     return True, None
 
 
@@ -282,7 +359,27 @@ def _namespace_refs() -> list[str] | None:
 
 def _extract_observed_sha() -> str | None:
     try:
-        cp = _run_local_git("rev-parse", "--verify", f"{_LOCAL_REF}^{{commit}}")
+        cp = _run_local_git(
+            "for-each-ref",
+            "--format=%(refname) %(objectname)",
+            _LOCAL_REF,
+        )
+    except (OSError, ValueError, subprocess.TimeoutExpired):
+        return None
+    if cp.returncode != 0:
+        return None
+    lines = [line.strip() for line in cp.stdout.splitlines() if line.strip()]
+    if len(lines) != 1:
+        return None
+    parts = lines[0].split()
+    if len(parts) != 2 or parts[0] != _LOCAL_REF:
+        return None
+    return parts[1]
+
+
+def _materialized_object_type(sha: str) -> str | None:
+    try:
+        cp = _run_local_git("cat-file", "-t", sha)
     except (OSError, ValueError, subprocess.TimeoutExpired):
         return None
     if cp.returncode != 0:
@@ -291,11 +388,7 @@ def _extract_observed_sha() -> str | None:
 
 
 def _materialized_commit(sha: str) -> bool:
-    try:
-        cp = _run_local_git("cat-file", "-t", sha)
-    except (OSError, ValueError, subprocess.TimeoutExpired):
-        return False
-    return cp.returncode == 0 and cp.stdout.strip() == "commit"
+    return _materialized_object_type(sha) == "commit"
 
 
 def _failure(
@@ -360,8 +453,11 @@ def observe_once(previous_observed_head):
     if type(observed_head) is not str or _SHA40_RE.fullmatch(observed_head) is None:
         return _failure("MALFORMED_OBSERVED_SHA", attempt_started_at_ns, remote_done)
 
-    if not _materialized_commit(observed_head):
+    observed_type = _materialized_object_type(observed_head)
+    if observed_type is None:
         return _failure("OBSERVED_SHA_NOT_MATERIALIZED", attempt_started_at_ns, remote_done)
+    if observed_type != "commit":
+        return _failure("EXACT_OBSERVED_REF_NOT_COMMIT", attempt_started_at_ns, remote_done)
 
     if not _verify_runtime_bindings():
         return _failure("RUNTIME_BINDING_MISMATCH", attempt_started_at_ns, remote_done)
@@ -369,10 +465,15 @@ def observe_once(previous_observed_head):
     if not _verify_git_executable_identity():
         return _failure("GIT_EXECUTABLE_IDENTITY_MISMATCH", attempt_started_at_ns, remote_done)
 
+    ok, code = _verify_physical_object_domain(_OBSERVER)
+    if not ok:
+        return _failure(code or "PHYSICAL_GIT_DOMAIN_UNPROVABLE", attempt_started_at_ns, remote_done)
+
     transition = _RPE03.classify_transition(
         _OBSERVER,
         previous_observed_head,
         observed_head,
+        str(_GIT),
     )
 
     event = {
