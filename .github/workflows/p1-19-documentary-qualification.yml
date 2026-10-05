@@ -62,6 +62,8 @@ jobs:
           test "$(git hash-object GOVERNANCE/P1-19-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "07f6d170ddd1afab20bec1e45c7fad6cc32fdf65"
           test "$(git hash-object reports/program/2026-10-05-P1-19-DOWNSTREAM-IMPLEMENTATION-READINESS.md)" = "2206a55cfd68bf345390672af3646dbe497df27e"
           test "$(git hash-object reports/program/2026-10-05-P1-19-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.2.json)" = "29546a49ae8cbf958bc1aefb205c67fad1e939f6"
+          test "$(git hash-object reports/program/2026-10-05-P1-19-FINAL-DOCUMENTARY-QUALIFICATION.md)" = "70fea3d9716bbc6070e408e456517dd74a8f5c56"
+          test "$(git hash-object reports/program/2026-10-05-P1-19-FINAL-DOCUMENTARY-CLOSURE-RECEIPT-V0.1.json)" = "2d6dd8d139235006a4ec77286ae4b81050427ce5"
 
       - name: Prove no P1-19 runtime implementation exists
         run: |
@@ -153,6 +155,8 @@ jobs:
               "reports/program/2026-10-05-P1-19-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json",
               "reports/program/2026-10-05-P1-19-DOWNSTREAM-IMPLEMENTATION-READINESS.md",
               "reports/program/2026-10-05-P1-19-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.2.json",
+              "reports/program/2026-10-05-P1-19-FINAL-DOCUMENTARY-QUALIFICATION.md",
+              "reports/program/2026-10-05-P1-19-FINAL-DOCUMENTARY-CLOSURE-RECEIPT-V0.1.json",
           }
           extra=sorted(set(changed)-allowed)
           if extra:
