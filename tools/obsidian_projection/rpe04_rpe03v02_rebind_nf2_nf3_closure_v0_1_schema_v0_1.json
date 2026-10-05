@@ -1,0 +1,384 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE04_RPE03V02_REBIND_NF2_NF3_CLOSURE",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE04_RPE03V02_REBIND_NF2_NF3_CLOSURE_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_RED"
+      },
+      "date": {
+        "kind": "string",
+        "const": "2026-10-05"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe04_external_review_adjudicated_head": {
+            "kind": "string",
+            "const": "ec41c8a79defad9f343ee5c93b55c0c776f690fe"
+          },
+          "adopted_rpe03_v02_dependency_import_head": {
+            "kind": "string",
+            "const": "017fca56001c2181d6aafcce153283b0562adcb1"
+          },
+          "rpe03_v02_adoption_commit": {
+            "kind": "string",
+            "const": "f266121e6a65daa3bf19480412f1addd299b8172"
+          },
+          "rpe03_v02_adoption_blob": {
+            "kind": "string",
+            "const": "73b5a951a2ed9ed42cb827b4fadc555fc3dd7a7d"
+          },
+          "rpe03_v02_classifier_blob": {
+            "kind": "string",
+            "const": "5bbe455418fe1396ee5824379ad7450a1379cbba"
+          },
+          "rpe03_v02_qualification_blob": {
+            "kind": "string",
+            "const": "688a2abcc2caa2edeed5e67f2d3c38b293bcc238"
+          },
+          "rpe03_v02_classifier_raw_sha256": {
+            "kind": "string",
+            "const": "4b743e187245585f4a4d9c923e316961f2842f96634d04dcac01972a29e60b41"
+          }
+        }
+      },
+      "scope": {
+        "kind": "object",
+        "fields": {
+          "close_bf1_by_exact_rpe03_v02_rebind": {
+            "kind": "boolean",
+            "const": true
+          },
+          "close_nf2_exact_observed_tip": {
+            "kind": "boolean",
+            "const": true
+          },
+          "close_nf3_full_physical_domain": {
+            "kind": "boolean",
+            "const": true
+          },
+          "close_nf4": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "rpe03_v02_rebind": {
+        "kind": "object",
+        "fields": {
+          "classifier_path": {
+            "kind": "string",
+            "const": "tools/obsidian_projection/rpe03_ancestry_classifier_v0_2.py"
+          },
+          "classifier_blob": {
+            "kind": "string",
+            "const": "5bbe455418fe1396ee5824379ad7450a1379cbba"
+          },
+          "classifier_raw_sha256": {
+            "kind": "string",
+            "const": "4b743e187245585f4a4d9c923e316961f2842f96634d04dcac01972a29e60b41"
+          },
+          "governed_git_absolute_path": {
+            "kind": "string",
+            "const": "C:\\Program Files\\Git\\cmd\\git.exe"
+          },
+          "governed_git_sha256": {
+            "kind": "string",
+            "const": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+          },
+          "governed_git_version": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1"
+          },
+          "caller_creates_executable_authority": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "nf2_exact_observed_tip": {
+        "kind": "object",
+        "fields": {
+          "exact_local_ref": {
+            "kind": "string",
+            "const": "refs/rpe04/observed"
+          },
+          "extraction_command_semantics": {
+            "kind": "string",
+            "const": "for-each-ref exact ref objectname plus objecttype without peeling"
+          },
+          "peeling_for_observed_tip_authority_forbidden": {
+            "kind": "boolean",
+            "const": true
+          },
+          "commit_required": {
+            "kind": "boolean",
+            "const": true
+          },
+          "accepted_object_type": {
+            "kind": "string",
+            "const": "commit"
+          },
+          "annotated_tag_object_type": {
+            "kind": "string",
+            "const": "tag"
+          },
+          "annotated_tag_behavior": {
+            "kind": "string",
+            "const": "READ_FAILURE_EXACT_OBSERVED_REF_NOT_COMMIT"
+          },
+          "exact_oid_format": {
+            "kind": "string",
+            "const": "lowercase 40-hex"
+          },
+          "contained_commit_from_tag_must_not_be_observed_tip": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "nf3_full_physical_domain": {
+        "kind": "object",
+        "fields": {
+          "governed_root": {
+            "kind": "string",
+            "const": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RPE04-QUALIFICATION\\observer.git"
+          },
+          "check_before_fetch": {
+            "kind": "boolean",
+            "const": true
+          },
+          "check_after_fetch_before_tip_acceptance": {
+            "kind": "boolean",
+            "const": true
+          },
+          "check_before_rpe03_classification": {
+            "kind": "boolean",
+            "const": true
+          },
+          "reject_reparse_points_recursively": {
+            "kind": "boolean",
+            "const": true
+          },
+          "reject_symlinks_recursively": {
+            "kind": "boolean",
+            "const": true
+          },
+          "reject_junctions_recursively": {
+            "kind": "boolean",
+            "const": true
+          },
+          "resolved_paths_must_remain_under_root": {
+            "kind": "boolean",
+            "const": true
+          },
+          "reject_alternates": {
+            "kind": "boolean",
+            "const": true
+          },
+          "required_directories": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "objects",
+              "objects/info",
+              "objects/pack",
+              "refs"
+            ],
+            "allowed_values": [
+              "objects",
+              "objects/info",
+              "objects/pack",
+              "refs"
+            ]
+          },
+          "authority_paths": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 9,
+            "max_items": 9,
+            "unique": true,
+            "ordered_const": [
+              "HEAD",
+              "config",
+              "packed-refs",
+              "refs",
+              "refs/rpe04",
+              "objects",
+              "objects/info",
+              "objects/pack",
+              "objects/info/alternates"
+            ],
+            "allowed_values": [
+              "HEAD",
+              "config",
+              "packed-refs",
+              "refs",
+              "refs/rpe04",
+              "objects",
+              "objects/info",
+              "objects/pack",
+              "objects/info/alternates"
+            ]
+          },
+          "inspect_existing_descendants_recursively": {
+            "kind": "boolean",
+            "const": true
+          },
+          "pack_and_index_file_indirections_rejected": {
+            "kind": "boolean",
+            "const": true
+          },
+          "absent_optional_authority_files_allowed": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 2,
+            "max_items": 2,
+            "unique": true,
+            "ordered_const": [
+              "packed-refs",
+              "objects/info/alternates"
+            ],
+            "allowed_values": [
+              "packed-refs",
+              "objects/info/alternates"
+            ]
+          },
+          "missing_required_path_behavior": {
+            "kind": "string",
+            "const": "BLOCKED"
+          }
+        }
+      },
+      "semantic_immutability": {
+        "kind": "object",
+        "fields": {
+          "one_governed_fetch_transaction_per_attempt": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_ls_remote_plus_independent_fetch": {
+            "kind": "boolean",
+            "const": true
+          },
+          "exact_source_ref": {
+            "kind": "boolean",
+            "const": true
+          },
+          "isolated_local_observation_ref": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_tag_fetch": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_submodule_recursion": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_fetch_head_write": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_caller_transition_authority": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_caller_containment_authority": {
+            "kind": "boolean",
+            "const": true
+          },
+          "unknown_is_blocked": {
+            "kind": "boolean",
+            "const": true
+          },
+          "no_intermediate_commit_injection": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "timing_boundary": {
+        "kind": "object",
+        "fields": {
+          "success_timing_semantics_unchanged": {
+            "kind": "boolean",
+            "const": true
+          },
+          "nf4_failure_mapping_carried_to_rpe05": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "required_red": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 11,
+        "max_items": 11,
+        "unique": true,
+        "ordered_const": [
+          "annotated tag cannot be laundered to peeled commit observed tip",
+          "exact ref object type must be commit",
+          "objects indirection blocked",
+          "refs indirection blocked",
+          "refs/rpe04 indirection blocked",
+          "config indirection blocked",
+          "HEAD indirection blocked",
+          "packed-refs indirection blocked",
+          "objects/info/alternates presence blocked",
+          "pack or index file indirection blocked where representable",
+          "post-fetch containment change blocks before positive observation"
+        ],
+        "allowed_values": [
+          "annotated tag cannot be laundered to peeled commit observed tip",
+          "exact ref object type must be commit",
+          "objects indirection blocked",
+          "refs indirection blocked",
+          "refs/rpe04 indirection blocked",
+          "config indirection blocked",
+          "HEAD indirection blocked",
+          "packed-refs indirection blocked",
+          "objects/info/alternates presence blocked",
+          "pack or index file indirection blocked where representable",
+          "post-fetch containment change blocks before positive observation"
+        ]
+      },
+      "stop": {
+        "kind": "string",
+        "const": "EXTERNAL_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}
