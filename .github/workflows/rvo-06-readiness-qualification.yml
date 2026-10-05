@@ -63,6 +63,8 @@ jobs:
           test "$(git hash-object GOVERNANCE/RVO-06-SINGLE-RUN-EXECUTION-AUTHORIZATION-PACKAGE-V0.1.json)" = "658ec0938711b68f1036d989abfc227b2debbf67"
           test "$(git hash-object GOVERNANCE/RVO-06-FROZEN-READINESS-BREAKER-CONTRACT-V0.1.json)" = "b134c2d5567d14b7a900ee3e69eb89484b9ccc62"
           test "$(git hash-object tests/test_rvo_06_first_real_cc02_readiness.py)" = "0bc73a3fe261d761b0d589325e8960ce63d2ff93"
+          test "$(git hash-object reports/program/2026-10-05-RVO-06-PRE-EXECUTION-READINESS-BLOCKED.md)" = "4ba92df05b86f2085531dfa6f065346233ccb38c"
+          test "$(git hash-object reports/program/2026-10-05-RVO-06-QUALIFICATION-RECEIPT-V0.1.json)" = "11453a26a181eeca050a518d4ece01c68ddf5716"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -94,6 +96,8 @@ jobs:
               "GOVERNANCE/RVO-06-SINGLE-RUN-EXECUTION-AUTHORIZATION-PACKAGE-V0.1.json",
               "GOVERNANCE/RVO-06-FROZEN-READINESS-BREAKER-CONTRACT-V0.1.json",
               "tests/test_rvo_06_first_real_cc02_readiness.py",
+              "reports/program/2026-10-05-RVO-06-PRE-EXECUTION-READINESS-BLOCKED.md",
+              "reports/program/2026-10-05-RVO-06-QUALIFICATION-RECEIPT-V0.1.json",
           }
           for path in changed:
               if path in allowed:

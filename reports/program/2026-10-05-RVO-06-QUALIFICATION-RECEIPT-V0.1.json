@@ -1,0 +1,67 @@
+{
+  "schema": "ATDS_RVO_06_QUALIFICATION_RECEIPT_V0_1",
+  "status": "NO_GO_BLOCKED_MULTIPLE_PRE_EXECUTION_OWNER_GAPS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "candidate": {
+    "head": "18640dcc7c39450f27367d7b609a2780b366e522",
+    "tree": "54178011eaa18bd4e12f245a356d7323d4c227f2",
+    "workflow_run_id": 37324714975,
+    "job_id": 111812376478,
+    "conclusion": "SUCCESS",
+    "tests": "12_PASS",
+    "delta_boundary": "PASS",
+    "ap1_execution": "NOT_EXECUTED"
+  },
+  "exact_artifacts": {
+    "drift_v01_blob": "f5c0b5b3acd74737d86547857d6c2f65835fe0cf",
+    "drift_r2_blob": "41a4afedde5314b46a02b310eb205ea9222487f5",
+    "runtime_observation_blob": "e4e275e8590e3bead9123969c068b036c6c4e1d8",
+    "m03_analysis_blob": "b23eded40a91c9c4dc691145e5083e3b6a9ff124",
+    "owner_gap_matrix_blob": "464fe8b03166c687c3618c18e7c3509fbc62f08b",
+    "freeze_candidate_blob": "8a724a6681eb019a0a6817c9bfb3d71396d4ba82",
+    "single_run_package_blob": "658ec0938711b68f1036d989abfc227b2debbf67",
+    "frozen_readiness_breaker_blob": "b134c2d5567d14b7a900ee3e69eb89484b9ccc62",
+    "readiness_tests_blob": "0bc73a3fe261d761b0d589325e8960ce63d2ff93"
+  },
+  "verdict": {
+    "first_real_cc02_pre_execution_readiness": "NO_GO",
+    "reason": "BLOCKED_MULTIPLE_PRE_EXECUTION_OWNER_GAPS",
+    "blockers": [
+      "BLOCKED_DATA02_REAL_ADMISSION_TO_P112C_CONTRACT_MISMATCH",
+      "BLOCKED_P1_12C_AP1_INVOCATION_CONTRACT_MISMATCH",
+      "BLOCKED_P1_12C_RUNTIME_LOCK_NOT_AP1_CAPABLE",
+      "BLOCKED_SMF_AP1_METHOD_BINDING",
+      "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
+    ],
+    "m03_option_a": "REJECTED",
+    "m03_option_b": "NOT_CURRENTLY_EXECUTABLE_WITHOUT_OWNER_MATURATION",
+    "single_run_package": "BLOCKED_NOT_AUTHORIZING"
+  },
+  "authority": {
+    "real_ap1": false,
+    "new_market_result": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false,
+    "rvo": "NONE",
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "external_workflow_observations": {
+    "p0_4": {
+      "run_id": 37324714921,
+      "conclusion": "FAILURE_PREEXISTING_BERD02_BODY_FILESET_EXPECTATION"
+    },
+    "p0_6": {
+      "run_id": 37324715151,
+      "conclusion": "FAILURE_PREEXISTING_BERD02_BODY_FILESET_EXPECTATION"
+    }
+  },
+  "stop": {
+    "rvo_07": "NOT_AUTHORIZED",
+    "p1_21": "NOT_AUTHORIZED",
+    "data_03": "NOT_AUTHORIZED",
+    "real_ap1_execution": "NOT_AUTHORIZED"
+  }
+}
