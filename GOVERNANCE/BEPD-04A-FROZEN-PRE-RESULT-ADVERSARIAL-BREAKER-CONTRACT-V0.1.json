@@ -1,0 +1,151 @@
+{
+  "schema": "ATDS_BEPD_04A_FROZEN_PRE_RESULT_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_ADVERSARIAL_BREAKER_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "phase": "BEPD-04A",
+  "parent": {
+    "head": "76e4c907ffaed153911f3b7a328f7d059b803412",
+    "tree": "f9ab4460302e1491e3c0259eb04593aae0bb0b9f"
+  },
+  "bindings": {
+    "semantics_contract_blob": "796bcaec05eb36234074ba4ea871afcd6f784915",
+    "bepd03e_closure_blob": "43155d6af71b76d88bbe0e9e758d6062102253d3",
+    "bepd03e_qualification_blob": "f97c55ee479dc9be38daddcfe62e743bae836bde",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd01_weekly_liquidity_engine_blob": "050c96049f720757231136386719a40dd5653bbe",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "breaker_scope": "SEMANTICS_ONLY_NO_REAL_RESPONSE_CALCULATION",
+  "positive_invariants": [
+    "population is all qualified EVENT_LEDGER rows",
+    "response variable is exclusively same_week_reintegration",
+    "same_week_reintegration=false outcomes are retained",
+    "HIGH take uses strict > and HIGH reintegration uses strict <",
+    "LOW take uses strict < and LOW reintegration uses strict >",
+    "reintegration is strictly later than take",
+    "reintegration is bounded by the same qualified target week",
+    "dependence/provenance keys are preserved",
+    "available post-take observation time is explicitly variable",
+    "M05 remains BLOCKED",
+    "no real aggregate response result is calculated or exposed"
+  ],
+  "adversarial_cases": [
+    {
+      "case_id": "B04A-B01",
+      "mutation": "wrong EVENT_LEDGER identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B02",
+      "mutation": "population is not all qualified EVENT_LEDGER rows",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B03",
+      "mutation": "same_week_reintegration=false rows dropped or suppressed",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B04",
+      "mutation": "LEVEL_WEEK_OPPORTUNITY used as response denominator",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B05",
+      "mutation": "non-strict take comparator introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B06",
+      "mutation": "non-strict reintegration comparator introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B07",
+      "mutation": "take H1 allowed to count as reintegration",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B08",
+      "mutation": "reintegration allowed after target-week end",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B09",
+      "mutation": "required dependence/provenance keys missing",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B10",
+      "mutation": "EVENT treated or described as IID observation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B11",
+      "mutation": "false interpreted as price never reintegrated",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B12",
+      "mutation": "response interpreted as profit, trade success, or loss",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B13",
+      "mutation": "mid price represented as executable/tradable price",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B14",
+      "mutation": "post-hoc subgroup or cross-product introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B15",
+      "mutation": "TAKE_DAY_NY × RESPONSE comparison introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B16",
+      "mutation": "close_displacement used as BEPD-04A response estimand",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B17",
+      "mutation": "new +N-hour or other response horizon introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B18",
+      "mutation": "M05 activated or used",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B19",
+      "mutation": "predictive, future-probability, causal, or edge language introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "B04A-B20",
+      "mutation": "strategy, backtest, PnL, sizing, paper, broker, live, or capital output authorized",
+      "expected": "HARD_FAIL"
+    }
+  ],
+  "qualification_rule": {
+    "required_case_count": 20,
+    "all_cases_must_be_present": true,
+    "all_expected_outcomes": "HARD_FAIL",
+    "any_missing_or_weakened_case": "FAIL",
+    "any_upstream_binding_mismatch": "FAIL",
+    "any_real_result_exposure": "FAIL",
+    "pass_meaning": "contractual semantics coverage only; not executable validation and not result validation"
+  },
+  "execution_state": {
+    "executable_breaker": "NOT_AUTHORIZED_IN_BEPD_04A",
+    "real_response_calculator": "NOT_AUTHORIZED_IN_BEPD_04A"
+  }
+}
