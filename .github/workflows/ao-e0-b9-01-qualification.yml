@@ -5,6 +5,7 @@ on:
     branches:
       - integration/system-v1
     paths:
+      - '.github/workflows/ao-e0-b9-01-qualification.yml'
       - 'GOVERNANCE/AO-E0-B9-01-*'
       - 'breakers/ao_e0_b9_01_breaker.py'
       - 'tests/test_ao_e0_b9_01.py'
