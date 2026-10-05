@@ -118,7 +118,7 @@ def _make_real_cc02_spec(tmp: Path):
         observation_end="2026-01-02T00:00:00.002000+00:00",
     )
     result=run_qualified_research(qi)
-    evidence=from_research_execution(qi,result,code_version="RVO08_NON_EMPIRICAL_PREREGISTRATION_V0_1",context=context,dataset=dataset)
+    evidence=from_research_execution(qi,result,code_version="963f02e93db63bef36c25d58c3634096a2247e6a",context=context,dataset=dataset)
     decision=produce_decision(evidence,context=context,decision="HOLD")
     action=engage_qualification_action(decision,behavior="NO_ACTION")
     observed=observe_qualification_result(action,outcome="RVO08_PREREGISTRATION_SCAFFOLD_ONLY")
