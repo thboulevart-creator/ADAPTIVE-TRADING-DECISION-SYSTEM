@@ -1,0 +1,32 @@
+{
+  "schema": "ATDS_BEPD_03C_CALENDAR_OCCURRENCE_MAP_RUN_MANIFEST_V0_1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "bd3aa9c51f1eeaac444cc50e788ccead1bba8a4d",
+  "tree": "d84b8c0453730dbbc916f2570d61c1a526043df9",
+  "run_id": "bae4ad9bc034f6e927427c58805f533aa85f9294961518a49c25860b68f53181",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "input_git_blobs": {
+    "LEVEL_WEEK_OPPORTUNITY": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "BEPD03B_RESULT": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "BEPD03B_RUN_MANIFEST": "98abfece6796ecfb355714c31bcf0126a28729c9",
+    "BEPD02_RUN_MANIFEST": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "policy_git_blobs": {
+    "BEPD03C_AUTHORIZATION": "6de519f3cfc885819e4147f08e4cc9f6f68d6fbf",
+    "BEPD03C_IMPLEMENTATION_CONTRACT": "fc6093a5d3d6fb0029b602657b0464df4cad3bd1",
+    "BEPD03A_DIMENSIONS": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "BEPD03A_MEASUREMENT_CONTRACT": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "BEPD03A_M05_ACTIVATION": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "BEPD03A_ADJUDICATION": "b796fd69a9b40c0397cc89db5be755d59974b1fe"
+  },
+  "calculator_blob": "376d5153181f6ee9bdb63cd4adb8c38724cd0b3d",
+  "output_files": [
+    {
+      "relative_path": "artifacts/bepd03c/preregistered-calendar-occurrence-map-v0.1/RESULT.json",
+      "sha256": "bed1386e61a4dc00412f22c70a6ef1f62dd9ce6afe3064fa26345f74ee170398",
+      "size_bytes": 7618
+    }
+  ],
+  "forbidden_analytics_executed": false
+}

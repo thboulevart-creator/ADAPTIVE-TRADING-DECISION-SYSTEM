@@ -1,0 +1,241 @@
+{
+  "schema": "ATDS_BEPD_03C_PREREGISTERED_CALENDAR_OCCURRENCE_MAP_RESULT_V0_1",
+  "interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_HETEROGENEITY",
+  "run_id": "bae4ad9bc034f6e927427c58805f533aa85f9294961518a49c25860b68f53181",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "baseline_reference": {
+    "source_result_blob": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "eligible_target_week_count": 259,
+    "unique_level_count": 518,
+    "opportunity_count": 7213,
+    "event_count": 472,
+    "occurrence_fraction": "472/7213",
+    "occurrence_proportion_decimal": "0.065437404685983641"
+  },
+  "dependence_statement": "OPPORTUNITY ROW != IID OBSERVATION; dependence_key=target_week_id; multiple active levels in one target week are structurally dependent",
+  "m05_generalization_uncertainty": "BLOCKED",
+  "dimensions": [
+    {
+      "dimension_id": "V02_TARGET_MONTH",
+      "category_order": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "cells": [
+        {
+          "category": 1,
+          "eligible_target_week_count": 23,
+          "unique_level_count": 126,
+          "opportunity_count": 654,
+          "event_count": 48,
+          "occurrence_fraction": "48/654",
+          "occurrence_proportion_decimal": "0.073394495412844037"
+        },
+        {
+          "category": 2,
+          "eligible_target_week_count": 20,
+          "unique_level_count": 117,
+          "opportunity_count": 608,
+          "event_count": 33,
+          "occurrence_fraction": "33/608",
+          "occurrence_proportion_decimal": "0.054276315789473684"
+        },
+        {
+          "category": 3,
+          "eligible_target_week_count": 22,
+          "unique_level_count": 126,
+          "opportunity_count": 687,
+          "event_count": 51,
+          "occurrence_fraction": "51/687",
+          "occurrence_proportion_decimal": "0.074235807860262009"
+        },
+        {
+          "category": 4,
+          "eligible_target_week_count": 21,
+          "unique_level_count": 108,
+          "opportunity_count": 603,
+          "event_count": 47,
+          "occurrence_fraction": "47/603",
+          "occurrence_proportion_decimal": "0.077943615257048093"
+        },
+        {
+          "category": 5,
+          "eligible_target_week_count": 21,
+          "unique_level_count": 97,
+          "opportunity_count": 577,
+          "event_count": 31,
+          "occurrence_fraction": "31/577",
+          "occurrence_proportion_decimal": "0.053726169844020797"
+        },
+        {
+          "category": 6,
+          "eligible_target_week_count": 21,
+          "unique_level_count": 93,
+          "opportunity_count": 484,
+          "event_count": 27,
+          "occurrence_fraction": "27/484",
+          "occurrence_proportion_decimal": "0.055785123966942149"
+        },
+        {
+          "category": 7,
+          "eligible_target_week_count": 22,
+          "unique_level_count": 111,
+          "opportunity_count": 568,
+          "event_count": 38,
+          "occurrence_fraction": "38/568",
+          "occurrence_proportion_decimal": "0.066901408450704225"
+        },
+        {
+          "category": 8,
+          "eligible_target_week_count": 22,
+          "unique_level_count": 120,
+          "opportunity_count": 555,
+          "event_count": 36,
+          "occurrence_fraction": "36/555",
+          "occurrence_proportion_decimal": "0.064864864864864865"
+        },
+        {
+          "category": 9,
+          "eligible_target_week_count": 22,
+          "unique_level_count": 128,
+          "opportunity_count": 628,
+          "event_count": 45,
+          "occurrence_fraction": "45/628",
+          "occurrence_proportion_decimal": "0.071656050955414013"
+        },
+        {
+          "category": 10,
+          "eligible_target_week_count": 22,
+          "unique_level_count": 125,
+          "opportunity_count": 603,
+          "event_count": 38,
+          "occurrence_fraction": "38/603",
+          "occurrence_proportion_decimal": "0.063018242122719735"
+        },
+        {
+          "category": 11,
+          "eligible_target_week_count": 21,
+          "unique_level_count": 124,
+          "opportunity_count": 578,
+          "event_count": 42,
+          "occurrence_fraction": "42/578",
+          "occurrence_proportion_decimal": "0.072664359861591696"
+        },
+        {
+          "category": 12,
+          "eligible_target_week_count": 22,
+          "unique_level_count": 125,
+          "opportunity_count": 668,
+          "event_count": 36,
+          "occurrence_fraction": "36/668",
+          "occurrence_proportion_decimal": "0.053892215568862275"
+        }
+      ]
+    },
+    {
+      "dimension_id": "V03_TARGET_MONTH_POSITION",
+      "category_order": [
+        "EARLY_01_15",
+        "LATE_16_EOM"
+      ],
+      "cells": [
+        {
+          "category": "EARLY_01_15",
+          "eligible_target_week_count": 128,
+          "unique_level_count": 367,
+          "opportunity_count": 3567,
+          "event_count": 223,
+          "occurrence_fraction": "223/3567",
+          "occurrence_proportion_decimal": "0.062517521726941407"
+        },
+        {
+          "category": "LATE_16_EOM",
+          "eligible_target_week_count": 131,
+          "unique_level_count": 384,
+          "opportunity_count": 3646,
+          "event_count": 249,
+          "occurrence_fraction": "249/3646",
+          "occurrence_proportion_decimal": "0.068294020844761382"
+        }
+      ]
+    },
+    {
+      "dimension_id": "V04_TARGET_YEAR",
+      "category_order": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "cells": [
+        {
+          "category": 2021,
+          "eligible_target_week_count": 30,
+          "unique_level_count": 60,
+          "opportunity_count": 291,
+          "event_count": 49,
+          "occurrence_fraction": "49/291",
+          "occurrence_proportion_decimal": "0.168384879725085911"
+        },
+        {
+          "category": 2022,
+          "eligible_target_week_count": 52,
+          "unique_level_count": 115,
+          "opportunity_count": 827,
+          "event_count": 98,
+          "occurrence_fraction": "98/827",
+          "occurrence_proportion_decimal": "0.118500604594921403"
+        },
+        {
+          "category": 2023,
+          "eligible_target_week_count": 52,
+          "unique_level_count": 121,
+          "opportunity_count": 1331,
+          "event_count": 99,
+          "occurrence_fraction": "99/1331",
+          "occurrence_proportion_decimal": "0.074380165289256198"
+        },
+        {
+          "category": 2024,
+          "eligible_target_week_count": 53,
+          "unique_level_count": 128,
+          "opportunity_count": 1731,
+          "event_count": 88,
+          "occurrence_fraction": "88/1731",
+          "occurrence_proportion_decimal": "0.050837666088965916"
+        },
+        {
+          "category": 2025,
+          "eligible_target_week_count": 52,
+          "unique_level_count": 144,
+          "opportunity_count": 2072,
+          "event_count": 95,
+          "occurrence_fraction": "95/2072",
+          "occurrence_proportion_decimal": "0.045849420849420849"
+        },
+        {
+          "category": 2026,
+          "eligible_target_week_count": 20,
+          "unique_level_count": 89,
+          "opportunity_count": 961,
+          "event_count": 43,
+          "occurrence_fraction": "43/961",
+          "occurrence_proportion_decimal": "0.044745057232049948"
+        }
+      ]
+    }
+  ],
+  "forbidden_analytics_executed": false
+}
