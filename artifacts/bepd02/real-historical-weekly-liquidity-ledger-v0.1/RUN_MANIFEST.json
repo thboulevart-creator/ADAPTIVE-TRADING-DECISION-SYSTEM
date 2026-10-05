@@ -1,0 +1,422 @@
+{
+  "schema": "ATDS_BEPD_02_REAL_HISTORICAL_LEDGER_RUN_MANIFEST_V0_1",
+  "run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "79fc7b248118d0b87cb96f51b544f5745738b9e3",
+  "tree": "007c553e2ff073f3bdd1d06f65f024764f46d4ec",
+  "dataset_id": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "dataset_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+  "selected_ap0_files": [
+    {
+      "relative_path": "year=2021/month=05/USTECH-PROFILE-M1-2021-05.parquet",
+      "sha256": "aba7b038267de60498bd02989ab16e1dd3caccc82c9b1b97b635544b523fc50e",
+      "rows": 6480,
+      "size_bytes": 349147
+    },
+    {
+      "relative_path": "year=2021/month=06/USTECH-PROFILE-M1-2021-06.parquet",
+      "sha256": "72fe8e35eda554499627ae5f7d8f3bbb1fee631123aa36ac5022b572b5297415",
+      "rows": 29369,
+      "size_bytes": 1562711
+    },
+    {
+      "relative_path": "year=2021/month=07/USTECH-PROFILE-M1-2021-07.parquet",
+      "sha256": "1a437a7a536b9e9de90391d17270fd6e409c6f5ac48a671883d58fc963a72222",
+      "rows": 29053,
+      "size_bytes": 1551471
+    },
+    {
+      "relative_path": "year=2021/month=08/USTECH-PROFILE-M1-2021-08.parquet",
+      "sha256": "8bb5a564bd84f05abb6b0e0c8570c2a2651eb86aaa639cb86754992830cf3b2d",
+      "rows": 29488,
+      "size_bytes": 1564738
+    },
+    {
+      "relative_path": "year=2021/month=09/USTECH-PROFILE-M1-2021-09.parquet",
+      "sha256": "992cce17ecc860db9f46c66f2713f44859420681a0415444567ea72dec391305",
+      "rows": 29175,
+      "size_bytes": 1562894
+    },
+    {
+      "relative_path": "year=2021/month=10/USTECH-PROFILE-M1-2021-10.parquet",
+      "sha256": "cb25489752d465b6fc3c1504aa32fc0e7120dd870fb1328455a418917977b3c4",
+      "rows": 28035,
+      "size_bytes": 1510718
+    },
+    {
+      "relative_path": "year=2021/month=11/USTECH-PROFILE-M1-2021-11.parquet",
+      "sha256": "5835ed22728bb59a350d1d7d7b77abbe90aff4cf1c9bf31094662f42fe8b464a",
+      "rows": 28933,
+      "size_bytes": 1550094
+    },
+    {
+      "relative_path": "year=2021/month=12/USTECH-PROFILE-M1-2021-12.parquet",
+      "sha256": "f32c1f9b723b98924a5911427ca6826df54abc643a60177b2fa6d05c5959f642",
+      "rows": 29262,
+      "size_bytes": 1582794
+    },
+    {
+      "relative_path": "year=2022/month=01/USTECH-PROFILE-M1-2022-01.parquet",
+      "sha256": "651685b7c2a6a41f94ca5adcd89f1530a185f4f3947ce8385b6e99fbe3dff8ae",
+      "rows": 27836,
+      "size_bytes": 1513822
+    },
+    {
+      "relative_path": "year=2022/month=02/USTECH-PROFILE-M1-2022-02.parquet",
+      "sha256": "daa897d88b4b54707931cc26761c3e63afda17e0494f194c681ce11f64e73728",
+      "rows": 26500,
+      "size_bytes": 1433325
+    },
+    {
+      "relative_path": "year=2022/month=03/USTECH-PROFILE-M1-2022-03.parquet",
+      "sha256": "55473634d1729679069a5db537da3b08196b7c1cb2ada7794fad3af13ee3f184",
+      "rows": 30756,
+      "size_bytes": 1660386
+    },
+    {
+      "relative_path": "year=2022/month=04/USTECH-PROFILE-M1-2022-04.parquet",
+      "sha256": "228d57395d58c92ffee0b69b3060dcb4e04edf407640010fb505bbe130cf0fb8",
+      "rows": 26578,
+      "size_bytes": 1429524
+    },
+    {
+      "relative_path": "year=2022/month=05/USTECH-PROFILE-M1-2022-05.parquet",
+      "sha256": "f73e8aed2ff38f3be9d4befcce8b8dbde59bf83a0cc83c5b22f523e33543ef66",
+      "rows": 29294,
+      "size_bytes": 1585667
+    },
+    {
+      "relative_path": "year=2022/month=06/USTECH-PROFILE-M1-2022-06.parquet",
+      "sha256": "dd33f56c24dbf986184916dda9d081f9caa79f27baa2498aaa8481fa4414ab6c",
+      "rows": 29174,
+      "size_bytes": 1583094
+    },
+    {
+      "relative_path": "year=2022/month=07/USTECH-PROFILE-M1-2022-07.parquet",
+      "sha256": "6a5aedd4827289820e6367ac0b76f1ceb39d241f3e0c2fce042d58fd4afd929b",
+      "rows": 27835,
+      "size_bytes": 1498215
+    },
+    {
+      "relative_path": "year=2022/month=08/USTECH-PROFILE-M1-2022-08.parquet",
+      "sha256": "199a6349a69359aac238be601e58bfa12bbfe398589c0d58ddba6cb3072904d8",
+      "rows": 30698,
+      "size_bytes": 1647605
+    },
+    {
+      "relative_path": "year=2022/month=09/USTECH-PROFILE-M1-2022-09.parquet",
+      "sha256": "d6b38ad9d6a9dbf3038d3826e56419d6baa107309ac032287ae7c2caa7ce3b8d",
+      "rows": 29054,
+      "size_bytes": 1567162
+    },
+    {
+      "relative_path": "year=2022/month=10/USTECH-PROFILE-M1-2022-10.parquet",
+      "sha256": "78eb3c12b51d43ea59eded5f6a36f7cf5e3e10e688de2ca700c8e579002aeba6",
+      "rows": 27958,
+      "size_bytes": 1509978
+    },
+    {
+      "relative_path": "year=2022/month=11/USTECH-PROFILE-M1-2022-11.parquet",
+      "sha256": "3a88d6ec3237d1103bc0c42e9d1fee2de03db92af3da400413bb2daa2e2eaecd",
+      "rows": 28925,
+      "size_bytes": 1553829
+    },
+    {
+      "relative_path": "year=2022/month=12/USTECH-PROFILE-M1-2022-12.parquet",
+      "sha256": "7e4a628a80f01afc407a192818074744d9e55cc7e3c523efa5aabd1f4b53241a",
+      "rows": 27972,
+      "size_bytes": 1499403
+    },
+    {
+      "relative_path": "year=2023/month=01/USTECH-PROFILE-M1-2023-01.parquet",
+      "sha256": "da3dabe12113dfac71cedec7bd5e17829f1ca1b6b03eb70a97849b461f6790f5",
+      "rows": 27899,
+      "size_bytes": 1491331
+    },
+    {
+      "relative_path": "year=2023/month=02/USTECH-PROFILE-M1-2023-02.parquet",
+      "sha256": "2c1666f9193ffb59f5f374942633d6619e00f7256e0920396208a32d659f7304",
+      "rows": 26503,
+      "size_bytes": 1420764
+    },
+    {
+      "relative_path": "year=2023/month=03/USTECH-PROFILE-M1-2023-03.parquet",
+      "sha256": "55c74c9225ef08d3dbcb68570f7e8f39f73c8cfdab41fef5bfa5240d25daa33b",
+      "rows": 30637,
+      "size_bytes": 1642537
+    },
+    {
+      "relative_path": "year=2023/month=04/USTECH-PROFILE-M1-2023-04.parquet",
+      "sha256": "c8f2bec31484f94ddcce7f72be4a9e5598e96fcf41a98bf0b07baf2c990579db",
+      "rows": 26399,
+      "size_bytes": 1403672
+    },
+    {
+      "relative_path": "year=2023/month=05/USTECH-PROFILE-M1-2023-05.parquet",
+      "sha256": "35223884df473644d11cf2041eb3fcfa684d73ac17bfb7a062b994abb098c74b",
+      "rows": 30508,
+      "size_bytes": 1617993
+    },
+    {
+      "relative_path": "year=2023/month=06/USTECH-PROFILE-M1-2023-06.parquet",
+      "sha256": "2a65c0656a98028efa91f8a9a98d5195953e64a55b0ee7595c04a9cb292462e9",
+      "rows": 29038,
+      "size_bytes": 1552355
+    },
+    {
+      "relative_path": "year=2023/month=07/USTECH-PROFILE-M1-2023-07.parquet",
+      "sha256": "b89c0040d2d81e6d75fde371f4829d6f70298575919495dd7bae9e0f40827937",
+      "rows": 26636,
+      "size_bytes": 1415469
+    },
+    {
+      "relative_path": "year=2023/month=08/USTECH-PROFILE-M1-2023-08.parquet",
+      "sha256": "b5322afcb9717f7e70d74019ada23b58175938a1fd1417f89cb34289852e002a",
+      "rows": 30691,
+      "size_bytes": 1646677
+    },
+    {
+      "relative_path": "year=2023/month=09/USTECH-PROFILE-M1-2023-09.parquet",
+      "sha256": "2bf4bb48057c9fab796ba461629a6ff42e8ab39953b702aa5fd2331f4496a2c0",
+      "rows": 27635,
+      "size_bytes": 1477082
+    },
+    {
+      "relative_path": "year=2023/month=10/USTECH-PROFILE-M1-2023-10.parquet",
+      "sha256": "8dfb7119764468f5e37b97d4815e4ca4e412fc95165ae98fb161d538f096f3c7",
+      "rows": 29489,
+      "size_bytes": 1579015
+    },
+    {
+      "relative_path": "year=2023/month=11/USTECH-PROFILE-M1-2023-11.parquet",
+      "sha256": "c8a8e7ae9964da4d8bccfaeeed2f6dba29fdd9ad4754c71fce3e208162088b67",
+      "rows": 28804,
+      "size_bytes": 1520546
+    },
+    {
+      "relative_path": "year=2023/month=12/USTECH-PROFILE-M1-2023-12.parquet",
+      "sha256": "fc5ba76c93e101bcf271e99304984467f75fe836616860e1016dc94f70a8e38e",
+      "rows": 26638,
+      "size_bytes": 1367000
+    },
+    {
+      "relative_path": "year=2024/month=01/USTECH-PROFILE-M1-2024-01.parquet",
+      "sha256": "0d0e09b87ba211092af0187940ae7266c4b6c26ca9aac679916f27beb4243b40",
+      "rows": 29235,
+      "size_bytes": 1553049
+    },
+    {
+      "relative_path": "year=2024/month=02/USTECH-PROFILE-M1-2024-02.parquet",
+      "sha256": "762bd11c72d1c94add2e3ad8e02f72b2898ea4551f076a69e53c7e08e2e99966",
+      "rows": 27840,
+      "size_bytes": 1511047
+    },
+    {
+      "relative_path": "year=2024/month=03/USTECH-PROFILE-M1-2024-03.parquet",
+      "sha256": "05c655b33882bbb1988154964ae94fed00b90c201e82c470fac6a91065ce7e01",
+      "rows": 26643,
+      "size_bytes": 1450946
+    },
+    {
+      "relative_path": "year=2024/month=04/USTECH-PROFILE-M1-2024-04.parquet",
+      "sha256": "0037471f4f70f8a0484cea77821904c83284227287fc82f9af874f87df5d2a7c",
+      "rows": 29165,
+      "size_bytes": 1602931
+    },
+    {
+      "relative_path": "year=2024/month=05/USTECH-PROFILE-M1-2024-05.parquet",
+      "sha256": "1a8ac4afc137122ad91f08b4143db162840d809573e00d9291bcf1b1a5ba5f2e",
+      "rows": 30227,
+      "size_bytes": 1634201
+    },
+    {
+      "relative_path": "year=2024/month=06/USTECH-PROFILE-M1-2024-06.parquet",
+      "sha256": "1b5d50a1ecb30ffaf5051def8edc7e3055d9e32a3acd5433df49dbf3466231a1",
+      "rows": 26478,
+      "size_bytes": 1438616
+    },
+    {
+      "relative_path": "year=2024/month=07/USTECH-PROFILE-M1-2024-07.parquet",
+      "sha256": "8e1c441b044ec69556e024e4069bc18a21450797c3cd9bcb7dc58fa33e160e32",
+      "rows": 29934,
+      "size_bytes": 1629158
+    },
+    {
+      "relative_path": "year=2024/month=08/USTECH-PROFILE-M1-2024-08.parquet",
+      "sha256": "bd9b3b5ffeee6be90380940c93a16c6cf249025f160bedc4a6bdcaa4059d1d24",
+      "rows": 29072,
+      "size_bytes": 1615210
+    },
+    {
+      "relative_path": "year=2024/month=09/USTECH-PROFILE-M1-2024-09.parquet",
+      "sha256": "8e4ca3f6c14afcada65012df1200067d0a4f3cf31f18adaca005cf8cf3b43fb9",
+      "rows": 27811,
+      "size_bytes": 1539838
+    },
+    {
+      "relative_path": "year=2024/month=10/USTECH-PROFILE-M1-2024-10.parquet",
+      "sha256": "2e43e1c905ca8255fc850d34b5a5b01088689904910b98eb6a568b6b66f15888",
+      "rows": 30502,
+      "size_bytes": 1681210
+    },
+    {
+      "relative_path": "year=2024/month=11/USTECH-PROFILE-M1-2024-11.parquet",
+      "sha256": "c8d40c12511dc0882748ecb7897c9f5bd73d6f9867df601e287fb9c52f5e7fdf",
+      "rows": 27530,
+      "size_bytes": 1497587
+    },
+    {
+      "relative_path": "year=2024/month=12/USTECH-PROFILE-M1-2024-12.parquet",
+      "sha256": "480751904f583a41507ed4b4447443ab78c3a00910dc833f90360b29cd81a9d8",
+      "rows": 27777,
+      "size_bytes": 1510398
+    },
+    {
+      "relative_path": "year=2025/month=01/USTECH-PROFILE-M1-2025-01.parquet",
+      "sha256": "d6a7e34e9f199d851afbb7d988b7efb40d37f9d7ba8d30aec82681a95d6b817d",
+      "rows": 28676,
+      "size_bytes": 1575849
+    },
+    {
+      "relative_path": "year=2025/month=02/USTECH-PROFILE-M1-2025-02.parquet",
+      "sha256": "0026e3477597f90e04961279064a058862003b1bee7ec2d08c9a0cde7e39c23b",
+      "rows": 26500,
+      "size_bytes": 1457410
+    },
+    {
+      "relative_path": "year=2025/month=03/USTECH-PROFILE-M1-2025-03.parquet",
+      "sha256": "8a1e15b3c7845fb3997b64ab25c3e06f848ae63069737c8882e32b4da6a622cb",
+      "rows": 28048,
+      "size_bytes": 1538082
+    },
+    {
+      "relative_path": "year=2025/month=04/USTECH-PROFILE-M1-2025-04.parquet",
+      "sha256": "95458c31b0373cd63e0fdfecbb27b5c0c2ef426e095bbc0c4183fa5ab7886248",
+      "rows": 27927,
+      "size_bytes": 1510120
+    },
+    {
+      "relative_path": "year=2025/month=05/USTECH-PROFILE-M1-2025-05.parquet",
+      "sha256": "9455714f1909c1700a46ec6e7d0068d0977447b76441be416d13636c1a6b6a9f",
+      "rows": 28879,
+      "size_bytes": 1545073
+    },
+    {
+      "relative_path": "year=2025/month=06/USTECH-PROFILE-M1-2025-06.parquet",
+      "sha256": "43680c090db7e4aeae3d9377560e9c8c9835869c53a13b7ef71d42558f993d44",
+      "rows": 27830,
+      "size_bytes": 1486592
+    },
+    {
+      "relative_path": "year=2025/month=07/USTECH-PROFILE-M1-2025-07.parquet",
+      "sha256": "a0c0a2610bd019487da1c19222bf077441d09491b3e2d5a374e490243ac9819a",
+      "rows": 30175,
+      "size_bytes": 1612470
+    },
+    {
+      "relative_path": "year=2025/month=08/USTECH-PROFILE-M1-2025-08.parquet",
+      "sha256": "fe6e513df4dc3d3e761d0e8963987a59edba3624cf5ba72b8107a77c4eb60e1a",
+      "rows": 27913,
+      "size_bytes": 1492185
+    },
+    {
+      "relative_path": "year=2025/month=09/USTECH-PROFILE-M1-2025-09.parquet",
+      "sha256": "91ff1174e0869775b7528c5137e2b9d4e2e45675ebd508d67cc07c627038f894",
+      "rows": 29161,
+      "size_bytes": 1552397
+    },
+    {
+      "relative_path": "year=2025/month=10/USTECH-PROFILE-M1-2025-10.parquet",
+      "sha256": "d8ac3aa462a5fb00f0e3a4e29e44a17e27c8c3ce2e9021bcf897ccb710ca63e5",
+      "rows": 30583,
+      "size_bytes": 1586394
+    },
+    {
+      "relative_path": "year=2025/month=11/USTECH-PROFILE-M1-2025-11.parquet",
+      "sha256": "a900286df8c73e37680757c5ef4760637c0c99cce80ba6817419c0ed71424ca3",
+      "rows": 25737,
+      "size_bytes": 1353747
+    },
+    {
+      "relative_path": "year=2025/month=12/USTECH-PROFILE-M1-2025-12.parquet",
+      "sha256": "f51f473e0539468b4354c2d24fe769b1623c0e6d9c193cf10b55c054b8b1020f",
+      "rows": 29125,
+      "size_bytes": 1519977
+    },
+    {
+      "relative_path": "year=2026/month=01/USTECH-PROFILE-M1-2026-01.parquet",
+      "sha256": "3a4fcd1d952bf651c76f5fd281871cdd08692debbdbdba9ef6363f035d56144b",
+      "rows": 27838,
+      "size_bytes": 1451252
+    },
+    {
+      "relative_path": "year=2026/month=02/USTECH-PROFILE-M1-2026-02.parquet",
+      "sha256": "0edaa3cef16d6b348d3b5d9c0aafffdd6fbe333e1e86b781e63dccfe18265a5b",
+      "rows": 26501,
+      "size_bytes": 1388718
+    },
+    {
+      "relative_path": "year=2026/month=03/USTECH-PROFILE-M1-2026-03.parquet",
+      "sha256": "2528b258454ce5bc68158949e43ce579b99ab208e40f159442f7e35620b4def3",
+      "rows": 29454,
+      "size_bytes": 1561400
+    },
+    {
+      "relative_path": "year=2026/month=04/USTECH-PROFILE-M1-2026-04.parquet",
+      "sha256": "3e16509a428fa8150f82ca51155a205be3381667e6d4721480d6f3e91accea04",
+      "rows": 28020,
+      "size_bytes": 1465396
+    },
+    {
+      "relative_path": "year=2026/month=05/USTECH-PROFILE-M1-2026-05.parquet",
+      "sha256": "c07f07badb536c05fe690baccec83f6f969fd5dc603295b2b914f9e01101bd21",
+      "rows": 21347,
+      "size_bytes": 1122495
+    }
+  ],
+  "timezone_database_runtime_identity": {
+    "python_version": "3.13.14",
+    "platform": "Windows-11-10.0.22631-SP0",
+    "zoneinfo_key": "America/New_York",
+    "tzdata_package_version": "2026.3"
+  },
+  "weekly_boundary_timezone": "America/New_York",
+  "weekly_boundary_local_time": "Sunday 18:00:00",
+  "h1_bucket_timezone": "UTC",
+  "h1_terminal_minute_rule": "HH:59:00 UTC minute must be observed",
+  "engine_blob": "050c96049f720757231136386719a40dd5653bbe",
+  "build_implementation_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8",
+  "human_authorization_blob": "6b035f6f3a102d148d61a570b925ed3f01f79fa7",
+  "implementation_contract_blob": "d63821bf71a1473729dc1cb190f542af41ebd2a2",
+  "contract_blob": "a508fbaaa7468d3fd7a17991e48b9b207e274245",
+  "ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+  "breaker_contract_blob": "c2bf489b4991931d940d273d45856c308d0c99c9",
+  "breaker_executable_blob": "e8e0375604511765ce796f93354a2eaf55822b45",
+  "command_or_entrypoint": "tools/bepd_02_historical_weekly_liquidity_ledger_build_v0_1.py",
+  "complete_week_count": 260,
+  "first_complete_week_id": "2021-05-31",
+  "last_complete_week_id": "2026-05-18",
+  "right_censor_horizon_utc": "2026-05-24T22:00:00+00:00",
+  "output_files": [
+    {
+      "relative_path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/LEVEL_LEDGER.jsonl",
+      "sha256": "26ba68d6c163ce9a6c1abcd99c773fad707124ff389577c1e134b38408c40c3f",
+      "rows": 520,
+      "size_bytes": 702418
+    },
+    {
+      "relative_path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+      "sha256": "301a621b97fea14a72540d4c2c6da78eb742cc44c5009e44ad98e9f678ca4731",
+      "rows": 472,
+      "size_bytes": 754544
+    },
+    {
+      "relative_path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/LEVEL_WEEK_OPPORTUNITY.jsonl",
+      "sha256": "1b856c18d8926c46d8cc20a5ebef743a740861fd2fc8f2cbce071318e28222a8",
+      "rows": 7213,
+      "size_bytes": 2446139
+    }
+  ],
+  "forbidden_analytics_executed": false
+}
