@@ -111,8 +111,12 @@ class TestRPE04MutationSweep(unittest.TestCase):
         m = load_source_module(
             "rpe04_mut_materialized",
             ((
-                '    if not _materialized_commit(observed_head):\n',
-                '    if False:\n',
+                '    observed_type = _materialized_object_type(observed_head)\n'
+                '    if observed_type is None:\n'
+                '        return _failure("OBSERVED_SHA_NOT_MATERIALIZED", attempt_started_at_ns, remote_done)\n'
+                '    if observed_type != "commit":\n'
+                '        return _failure("EXACT_OBSERVED_REF_NOT_COMMIT", attempt_started_at_ns, remote_done)\n',
+                '    observed_type = "commit"\n',
             ),),
         )
         with mock.patch.object(m, "_extract_observed_sha", return_value="f" * 40):
@@ -128,6 +132,7 @@ class TestRPE04MutationSweep(unittest.TestCase):
                 '        _OBSERVER,\n'
                 '        previous_observed_head,\n'
                 '        observed_head,\n'
+                '        str(_GIT),\n'
                 '    )\n',
                 '    transition = "FAST_FORWARD"\n',
             ),),
@@ -159,16 +164,17 @@ class TestRPE04MutationSweep(unittest.TestCase):
             "rpe04_mut_physical",
             (
                 (
-                    '            if _is_indirection(path):\n'
-                    '                return False, "PHYSICAL_OBJECT_DOMAIN_INDIRECTION"\n',
-                    '            if False:\n'
-                    '                return False, "PHYSICAL_OBJECT_DOMAIN_INDIRECTION"\n',
+                    'def _is_indirection(path: Path) -> bool:\n'
+                    '    try:\n',
+                    'def _is_indirection(path: Path) -> bool:\n'
+                    '    return False\n'
+                    '    try:\n',
                 ),
                 (
-                    '            elif repo not in resolved.parents:\n'
-                    '                return False, "PHYSICAL_OBJECT_DOMAIN_ESCAPE"\n',
-                    '            elif False:\n'
-                    '                return False, "PHYSICAL_OBJECT_DOMAIN_ESCAPE"\n',
+                    'def _inside_root(path: Path, root: Path) -> bool:\n'
+                    '    return path == root or root in path.parents\n',
+                    'def _inside_root(path: Path, root: Path) -> bool:\n'
+                    '    return True\n',
                 ),
             ),
         )
@@ -176,10 +182,11 @@ class TestRPE04MutationSweep(unittest.TestCase):
             td = pathlib.Path(td)
             fake = td / "fake.git"
             target = td / "outside-objects"
-            fake.mkdir()
+            git("init", "--bare", str(fake))
             target.mkdir()
             (target / "pack").mkdir()
             (target / "info").mkdir()
+            subprocess.run(["cmd.exe", "/c", "rmdir", "/s", "/q", str(fake / "objects")], check=True)
             link = fake / "objects"
             made = False
             try:
