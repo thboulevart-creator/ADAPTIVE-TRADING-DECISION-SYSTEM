@@ -1,0 +1,42 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_04_QUALIFICATION_RECEIPT_V0_1",
+  "parent": {
+    "head": "8b867e6739545a73c95291fd129c34af9e2344f1",
+    "tree": "fa0c9399d1254101225d7586df7a78d55e2c63e7"
+  },
+  "artifacts": {
+    "contract_blob": "52b849c46d0a5cf45b261fd16e34edab44489572",
+    "runtime_blob": "8e5154f11badf8195e2f52f2efc5d1a4efcf9a70",
+    "breaker_blob": "1100be9115fec87959c947a34726edcc0c4d6b90",
+    "tests_blob": "03bdc0a4b6ef39674e95933f735ebc0f23d553b9",
+    "red_receipt_blob": "2bb710fc277483756e1fd94211be4cd1ab6b8762",
+    "qualification_report_blob": "60130e03c319f14f5cd025038bec52b34e3614f5"
+  },
+  "test_first": {
+    "red": "EXPECTED_RED",
+    "green_breaker": "PASS",
+    "pytest": "8/8 PASS"
+  },
+  "candidate_grids": {
+    "financing_multipliers": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "slippage_bps_per_event": [
+      0,
+      0.5,
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "stress_nodes": 28
+  },
+  "verdict": "QUALIFIED_SYNTHETICALLY_NOT_HUMAN_ADOPTED",
+  "performance_accessed": false,
+  "oos_consumed": false,
+  "b12": "CLOSED"
+}

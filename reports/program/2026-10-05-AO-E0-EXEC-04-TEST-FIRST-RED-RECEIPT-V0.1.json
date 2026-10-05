@@ -1,0 +1,8 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_04_TEST_FIRST_RED_RECEIPT_V0_1",
+  "expected": "RED_BECAUSE_RUNTIME_TARGET_ABSENT",
+  "observed": "EXPECTED_RED",
+  "candidate_contract_blob": "52b849c46d0a5cf45b261fd16e34edab44489572",
+  "performance_accessed": false,
+  "oos_consumed": false
+}

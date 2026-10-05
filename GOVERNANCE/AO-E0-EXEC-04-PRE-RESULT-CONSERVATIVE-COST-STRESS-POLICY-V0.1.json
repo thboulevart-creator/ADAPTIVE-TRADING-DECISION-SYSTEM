@@ -1,0 +1,123 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_04_PRE_RESULT_CONSERVATIVE_COST_STRESS_POLICY_V0_1",
+  "control_id": "AO-E0-EXEC-04",
+  "status": "CANDIDATE_NOT_HUMAN_ADOPTED",
+  "purpose": "Replace unavailable perfect historical cost reconstruction with a preregistered policy-stress surface without pretending policy costs are observed historical costs.",
+  "scope": {
+    "strategy_id": "MOMENTUM_V1",
+    "instrument": "USTECH",
+    "execution_target": "VT Markets / Standard STP / VTMarkets-Live 2 / NAS100.s",
+    "timeframe": "H1",
+    "claim_class": "CC05_POLICY_COST_ECONOMIC_VIABILITY"
+  },
+  "canonical_parent": {
+    "head": "8b867e6739545a73c95291fd129c34af9e2344f1",
+    "tree": "fa0c9399d1254101225d7586df7a78d55e2c63e7"
+  },
+  "dependencies": {
+    "exec01_contract_blob": "e6b71c6f53fb3cfde807fe06ccff27b2f3b458e4",
+    "exec02_current_spec_blob": "8374392bdbc6ba318aefc83a2ef74bc994e99de6",
+    "exec02_v03_package_blob": "9d606cf15755c1c8f8e6e9dd991e3756e1d05e73",
+    "exec03_financing_blob": "eb13daba65cfa5262becf2ad8fab1b63f54da27d",
+    "exec03_slippage_blob": "20177ca1070844bd908346f2e309939989bb418f"
+  },
+  "authority": {
+    "oos_consumption_authorized": false,
+    "performance_observation_authorized": false,
+    "backtest_authorized": false,
+    "strategy_change_authorized": false,
+    "policy_human_adopted": false
+  },
+  "epistemic_firewall": {
+    "POLICY_BOUND_NE_OBSERVED_COST": true,
+    "CURRENT_SWAP_NE_HISTORICAL_SWAP": true,
+    "SOURCE_B_NE_VT_EXECUTION_FEED": true,
+    "STRESS_SURVIVAL_NE_HISTORICAL_COST_RECONSTRUCTION": true
+  },
+  "base_costs": {
+    "spread": {
+      "mode": "INTRINSIC_RAW_BID_ASK",
+      "double_count_forbidden": true
+    },
+    "commission": {
+      "policy_value": 0,
+      "unit": "PRICE_UNITS_PER_UNIT_POSITION",
+      "basis": "VT Markets Standard STP official zero-separate-commission account structure",
+      "epistemic_class": "DOCUMENTED_ACCOUNT_STRUCTURE_ANCHOR"
+    }
+  },
+  "financing_policy": {
+    "current_observed_swap_long_usd_per_lot": -6.3665,
+    "current_observed_swap_short_usd_per_lot": 1.2017,
+    "current_contract_usd_per_price_unit_per_lot": 1,
+    "adverse_anchor_price_units_per_standard_rollover": 6.3665,
+    "anchor_rule": "MAX(positive long cost, positive short cost, 0) after converting current observed swap to positive-cost convention",
+    "direction_policy": "APPLY_SAME_ADVERSE_ANCHOR_TO_LONG_AND_SHORT; DO_NOT_USE_FAVORABLE_SHORT_CREDIT",
+    "rollover_multiplier_policy": {
+      "monday": 1,
+      "tuesday": 1,
+      "wednesday": 1,
+      "thursday": 1,
+      "friday": 3
+    },
+    "stress_multiplier_grid": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "tier_names": [
+      "F0_NO_FINANCING_REFERENCE",
+      "F1_CURRENT_WORST_SIDE_ANCHOR",
+      "F2_DOUBLE_ANCHOR",
+      "F4_QUADRUPLE_ANCHOR"
+    ],
+    "historical_truth_claim": false
+  },
+  "slippage_policy": {
+    "unit": "BASIS_POINTS_OF_REFERENCE_EXECUTION_PRICE_PER_EXECUTION_EVENT",
+    "stress_bps_grid": [
+      0,
+      0.5,
+      1,
+      2,
+      4,
+      8,
+      16
+    ],
+    "application": {
+      "BUY": "adverse_slippage_price_units = reference_ask * bps / 10000",
+      "SELL": "adverse_slippage_price_units = reference_bid * bps / 10000"
+    },
+    "reversal_rule": "APPLY_TO_EACH_EXECUTION_EVENT_SEPARATELY; CLOSE_AND_OPEN_ARE_TWO_EVENTS",
+    "source_b_use": "REFERENCE_PRICE_ONLY; NOT_SLIPPAGE_EVIDENCE",
+    "historical_truth_claim": false
+  },
+  "stress_surface": {
+    "financing_nodes": 4,
+    "slippage_nodes": 7,
+    "total_nodes": 28,
+    "all_nodes_must_be_reported": true,
+    "post_result_node_selection_forbidden": true,
+    "monotonicity_required": true
+  },
+  "decision_semantics": {
+    "exec04_does_not_choose_final_qualification_tier": true,
+    "future_ao_e0_output": [
+      "net economic estimand at every frozen stress node",
+      "maximum survived financing multiplier for each slippage node",
+      "maximum survived slippage bps for each financing node",
+      "cost-robustness frontier"
+    ],
+    "final_minimum_robustness_requirement": "PENDING_SEPARATE_PRE_OOS_HUMAN_ADJUDICATION",
+    "reason": "Avoid hiding a normative qualification threshold inside an engineering implementation."
+  },
+  "forbidden": [
+    "CALIBRATE_GRID_TO_MOMENTUM_RESULTS",
+    "DROP_FAILED_STRESS_NODES_POST_RESULT",
+    "CALL_POLICY_COST_OBSERVED_HISTORICAL_COST",
+    "USE_CURRENT_SHORT_SWAP_CREDIT_AS_REQUIRED_FUTURE_CREDIT",
+    "USE_SOURCE_B_SPREAD_OR_VOLATILITY_AS_VT_SLIPPAGE_EVIDENCE",
+    "SELECT_ONLY_PASSING_NODE"
+  ]
+}
