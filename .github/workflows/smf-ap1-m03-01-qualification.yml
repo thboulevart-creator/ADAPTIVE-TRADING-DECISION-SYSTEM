@@ -1,0 +1,129 @@
+name: SMF-AP1-M03-01 Synthetic Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'src/smf_ap1_m03_binding.py'
+      - 'tools/smf_ap1_m03_companion.py'
+      - 'tests/test_smf_ap1_m03_01_binding.py'
+      - 'breakers/smf_ap1_m03_01_binding_breaker.py'
+      - 'GOVERNANCE/SMF-AP1-M03-01-*'
+      - 'reports/program/*SMF-AP1-M03-01*'
+      - '.github/workflows/smf-ap1-m03-01-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove immutable test-first evidence
+        run: |
+          test "$(git hash-object GOVERNANCE/SMF-AP1-M03-01-CLAIM-SCOPED-ACTIVATION-CONTRACT-V0.1.json)" = "847bce0365921024addb42c930dc5f47dee9401c"
+          test "$(git hash-object GOVERNANCE/SMF-AP1-M03-01-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "aed06cf37230ab539de34f8d409c38caacaab79d"
+          test "$(git hash-object breakers/smf_ap1_m03_01_binding_breaker.py)" = "b1fa584249e60f3bb99ea9849c684ff76207de27"
+          test "$(git hash-object reports/program/2026-10-05-SMF-AP1-M03-01-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "904ae30d3323f3237c8eb0fecf1adf6fc635eea4"
+          git merge-base --is-ancestor b0c70483facf75ebbcdd81bba9991b9de083babb HEAD
+
+      - name: Prove protected owner identities
+        run: |
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json)" = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+          test "$(git hash-object reports/program/2026-10-05-P1-21-QUALIFICATION-RECEIPT-V0.1.json)" = "49142e1928cf32ec10ed9a4809388a782559ad42"
+          test "$(git hash-object src/p1_12c_qualified_producer_execution.py)" = "9d304202d44c8917cf640fd0b4114169968e511e"
+          test "$(git hash-object tools/p1_12c_sandbox_runner.py)" = "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108"
+          test "$(git hash-object tools/smf03_core_foundation.py)" = "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+          test "$(git hash-object tools/smf03_core_foundation_reference.py)" = "00131e4369c15cf5efdbc3a6523b57e77b91b2f4"
+          test "$(git hash-object GOVERNANCE/RVO-06-AP1-SMF-M03-BINDING-ANALYSIS-V0.1.json)" = "b23eded40a91c9c4dc691145e5083e3b6a9ff124"
+
+      - name: Prove exact implementation identities
+        run: |
+          test "$(git hash-object src/smf_ap1_m03_binding.py)" = "f4c0295625f8b360effbd27a8d616d9644ea2a5e"
+          test "$(git hash-object tools/smf_ap1_m03_companion.py)" = "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
+          test "$(git hash-object tests/test_smf_ap1_m03_01_binding.py)" = "44024d053c6839e00b7bcdb9f32c68761d3cc3cb"
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Compile implementation without execution
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for name in ("src/smf_ap1_m03_binding.py","tools/smf_ap1_m03_companion.py","tests/test_smf_ap1_m03_01_binding.py","breakers/smf_ap1_m03_01_binding_breaker.py"):
+              compile(Path(name).read_text(encoding="utf-8"),name,"exec")
+          print("PASS: SMF-AP1-M03-01 surfaces compile")
+          PY
+
+      - name: Replay frozen SMF-AP1-M03-01 breakers
+        run: python -m pytest -q breakers/smf_ap1_m03_01_binding_breaker.py
+
+      - name: Synthetic claim-scoped qualification
+        run: python -m pytest -q tests/test_smf_ap1_m03_01_binding.py
+
+      - name: SMF core protected rebreak
+        run: python -m pytest -q breakers/smf03_core_integrated_rebreak.py
+
+      - name: P1-21 frozen breaker regression
+        run: python -m pytest -q breakers/p1_21_real_producer_capability_breaker.py
+
+      - name: P1-21 positive regression
+        run: python -m pytest -q tests/test_p1_21_real_producer_capability.py
+
+      - name: DATA-02 protected regression
+        run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
+
+      - name: Prove implementation delta bounded
+        run: |
+          python - <<'PY'
+          import subprocess
+          changed=set(subprocess.check_output(["git","diff","--name-only","b0c70483facf75ebbcdd81bba9991b9de083babb..HEAD"],text=True).splitlines())
+          allowed={
+            "src/smf_ap1_m03_binding.py",
+            "tools/smf_ap1_m03_companion.py",
+            "tests/test_smf_ap1_m03_01_binding.py",
+            ".github/workflows/smf-ap1-m03-01-qualification.yml",
+          }
+          for path in changed:
+              if path in allowed:
+                  continue
+              if path.startswith("reports/program/") and "SMF-AP1-M03-01" in path:
+                  continue
+              raise SystemExit("UNAUTHORIZED_SMF_AP1_M03_01_DELTA:"+path)
+          print("PASS: SMF-AP1-M03-01 delta bounded")
+          PY
+
+      - name: Prove no real execution artifacts
+        run: |
+          test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          test ! -d artifacts/smf-ap1-m03-01
+          python tools/smf_ap1_m03_companion.py | grep -q "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
+          echo "PASS: G05 closed and no real AP1/M03 execution"
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
