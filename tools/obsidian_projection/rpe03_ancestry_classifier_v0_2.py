@@ -85,25 +85,37 @@ def _parse_git_version(text: str | None) -> tuple[int, int, int] | None:
     return tuple(int(x) for x in m.groups())
 
 
-def _verify_governed_git_executable(governed_git_executable) -> bool:
+def _resolve_and_verify_governed_git_executable(
+    governed_git_executable,
+) -> str | None:
     if type(governed_git_executable) is not str:
-        return False
+        return None
     try:
-        supplied = Path(governed_git_executable).resolve(strict=True)
+        raw = Path(governed_git_executable)
+    except (TypeError, ValueError):
+        return None
+    if not raw.is_absolute():
+        return None
+    try:
+        supplied = raw.resolve(strict=True)
         expected = Path(_GOVERNED_GIT_PATH).resolve(strict=True)
     except (OSError, RuntimeError, ValueError):
-        return False
+        return None
     if not supplied.is_file() or not _same_path(supplied, expected):
-        return False
+        return None
     if _sha256_file(supplied) != _GOVERNED_GIT_SHA256:
-        return False
+        return None
     version = _git_version(str(supplied))
     if version != _GOVERNED_GIT_VERSION:
-        return False
+        return None
     parsed = _parse_git_version(version)
     if parsed is None or parsed < _MIN_GIT_VERSION:
-        return False
-    return True
+        return None
+    return str(supplied)
+
+
+def _verify_governed_git_executable(governed_git_executable) -> bool:
+    return _resolve_and_verify_governed_git_executable(governed_git_executable) is not None
 
 
 def _run_git(
@@ -111,7 +123,20 @@ def _run_git(
     governed_git_executable: str,
     *args: str,
 ) -> subprocess.CompletedProcess[str] | None:
-    cmd = [governed_git_executable, "-c", "core.commitGraph=false", *args]
+    try:
+        executable = Path(governed_git_executable)
+    except (TypeError, ValueError):
+        return None
+    if not executable.is_absolute():
+        return None
+    try:
+        resolved = executable.resolve(strict=True)
+        expected = Path(_GOVERNED_GIT_PATH).resolve(strict=True)
+    except (OSError, RuntimeError, ValueError):
+        return None
+    if not _same_path(resolved, expected):
+        return None
+    cmd = [str(resolved), "-c", "core.commitGraph=false", *args]
     try:
         return subprocess.run(
             cmd,
@@ -225,7 +250,10 @@ def classify_transition(
 ):
     """Return INITIAL, SAME, FAST_FORWARD, NON_FAST_FORWARD, or UNKNOWN."""
 
-    if not _verify_governed_git_executable(governed_git_executable):
+    verified_git_executable = _resolve_and_verify_governed_git_executable(
+        governed_git_executable
+    )
+    if verified_git_executable is None:
         return "UNKNOWN"
 
     if type(new_exact_observed_head) is not str or _SHA40_RE.fullmatch(
@@ -243,18 +271,18 @@ def classify_transition(
     except (TypeError, ValueError):
         return "UNKNOWN"
 
-    domain = _verified_domain(repo_candidate, governed_git_executable)
+    domain = _verified_domain(repo_candidate, verified_git_executable)
     if domain is None:
         return "UNKNOWN"
     repo, _common_dir = domain
 
-    if not _valid_commit(repo, new_exact_observed_head, governed_git_executable):
+    if not _valid_commit(repo, new_exact_observed_head, verified_git_executable):
         return "UNKNOWN"
 
     if previous_observed_head is None:
         return "INITIAL"
 
-    if not _valid_commit(repo, previous_observed_head, governed_git_executable):
+    if not _valid_commit(repo, previous_observed_head, verified_git_executable):
         return "UNKNOWN"
 
     if previous_observed_head == new_exact_observed_head:
@@ -262,7 +290,7 @@ def classify_transition(
 
     cp = _run_git(
         repo,
-        governed_git_executable,
+        verified_git_executable,
         "merge-base",
         "--is-ancestor",
         previous_observed_head,

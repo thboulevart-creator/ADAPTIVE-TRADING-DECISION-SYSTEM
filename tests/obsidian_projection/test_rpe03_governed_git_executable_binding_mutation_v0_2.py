@@ -30,8 +30,8 @@ class TestRPE03V02Mutation(unittest.TestCase):
         mutant = load_mutant(
             "rpe03_v02_mut_path",
             ((
-                "    if not supplied.is_file() or not _same_path(supplied, expected):\n        return False\n",
-                "    if not supplied.is_file():\n        return False\n",
+                "    if not supplied.is_file() or not _same_path(supplied, expected):\n        return None\n",
+                "    if not supplied.is_file():\n        return None\n",
             ),),
         )
         with tempfile.TemporaryDirectory(prefix="rpe03-v02-copy-") as td:
@@ -46,7 +46,7 @@ class TestRPE03V02Mutation(unittest.TestCase):
         mutant = load_mutant(
             "rpe03_v02_mut_sha",
             ((
-                "    if _sha256_file(supplied) != _GOVERNED_GIT_SHA256:\n        return False\n",
+                "    if _sha256_file(supplied) != _GOVERNED_GIT_SHA256:\n        return None\n",
                 "    if False:\n        return False\n",
             ),),
         )
@@ -59,8 +59,8 @@ class TestRPE03V02Mutation(unittest.TestCase):
         mutant = load_mutant(
             "rpe03_v02_mut_version",
             ((
-                "    if version != _GOVERNED_GIT_VERSION:\n        return False\n    parsed = _parse_git_version(version)\n    if parsed is None or parsed < _MIN_GIT_VERSION:\n        return False\n",
-                "    if False:\n        return False\n    parsed = _MIN_GIT_VERSION\n    if False:\n        return False\n",
+                "    if version != _GOVERNED_GIT_VERSION:\n        return None\n    parsed = _parse_git_version(version)\n    if parsed is None or parsed < _MIN_GIT_VERSION:\n        return None\n",
+                "    if False:\n        return None\n    parsed = _MIN_GIT_VERSION\n    if False:\n        return None\n",
             ),),
         )
         with mock.patch.object(base, "_git_version", return_value="git version 2.53.0.windows.1"),              mock.patch.object(mutant, "_git_version", return_value="git version 2.53.0.windows.1"):
@@ -71,7 +71,7 @@ class TestRPE03V02Mutation(unittest.TestCase):
         mutant = load_mutant(
             "rpe03_v02_mut_implicit",
             ((
-                '    cmd = [governed_git_executable, "-c", "core.commitGraph=false", *args]\n',
+                '    cmd = [str(resolved), "-c", "core.commitGraph=false", *args]\n',
                 '    cmd = ["git", "-c", "core.commitGraph=false", *args]\n',
             ),),
         )
