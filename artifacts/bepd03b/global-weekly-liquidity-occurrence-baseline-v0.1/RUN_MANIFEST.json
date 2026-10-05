@@ -1,0 +1,32 @@
+{
+  "schema": "ATDS_BEPD_03B_GLOBAL_OCCURRENCE_BASELINE_RUN_MANIFEST_V0_1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "48037e94b9df2dc7fa93b350bcb86f8cd3187484",
+  "tree": "dec6dddf6326579fef4672f1b228189adbade6e6",
+  "run_id": "85f19aca696736c3a832715bdf0ef4876e6f025bb612d642e7651aa674a7fd3a",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "input_git_blobs": {
+    "LEVEL_LEDGER": "c50cea414a95e498199fbe0c426f4d246a1f1f99",
+    "EVENT_LEDGER": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "LEVEL_WEEK_OPPORTUNITY": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "RUN_MANIFEST": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "policy_git_blobs": {
+    "BEPD03B_AUTHORIZATION": "506e75c4c88a04019ae71156dbebf3c8f02d5d2b",
+    "BEPD03B_IMPLEMENTATION_CONTRACT": "a949cdf6b43a20a981e4a1fb4667de16f3b3c260",
+    "BEPD03A_DIMENSIONS": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "BEPD03A_MEASUREMENT_CONTRACT": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "BEPD03A_M05_ACTIVATION": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "BEPD03A_ADJUDICATION": "b796fd69a9b40c0397cc89db5be755d59974b1fe"
+  },
+  "calculator_blob": "7f8cebd92437ec724c8ebe81f0e9befdccc7dba4",
+  "output_files": [
+    {
+      "relative_path": "artifacts/bepd03b/global-weekly-liquidity-occurrence-baseline-v0.1/RESULT.json",
+      "sha256": "ce7393cc50a36030ed5819459a06ecda9e33f66484744324542d4fe378408750",
+      "size_bytes": 1519
+    }
+  ],
+  "forbidden_analytics_executed": false
+}

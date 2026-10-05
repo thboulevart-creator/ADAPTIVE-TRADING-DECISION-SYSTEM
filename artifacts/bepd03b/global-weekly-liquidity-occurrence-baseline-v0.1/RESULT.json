@@ -1,0 +1,41 @@
+{
+  "schema": "ATDS_BEPD_03B_GLOBAL_WEEKLY_LIQUIDITY_OCCURRENCE_BASELINE_RESULT_V0_1",
+  "interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_PROPORTION",
+  "run_id": "85f19aca696736c3a832715bdf0ef4876e6f025bb612d642e7651aa674a7fd3a",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "dependence_statement": "OPPORTUNITY ROW != IID OBSERVATION; dependence_key=target_week_id; multiple active levels in one target week are structurally dependent",
+  "m05_generalization_uncertainty": "BLOCKED",
+  "views": [
+    {
+      "view_id": "GLOBAL_ALL_SIDES",
+      "side_filter": null,
+      "eligible_target_week_count": 259,
+      "unique_level_count": 518,
+      "opportunity_count": 7213,
+      "event_count": 472,
+      "occurrence_fraction": "472/7213",
+      "occurrence_proportion_decimal": "0.065437404685983641"
+    },
+    {
+      "view_id": "HIGH",
+      "side_filter": "HIGH",
+      "eligible_target_week_count": 259,
+      "unique_level_count": 259,
+      "opportunity_count": 1573,
+      "event_count": 258,
+      "occurrence_fraction": "258/1573",
+      "occurrence_proportion_decimal": "0.164017800381436745"
+    },
+    {
+      "view_id": "LOW",
+      "side_filter": "LOW",
+      "eligible_target_week_count": 259,
+      "unique_level_count": 259,
+      "opportunity_count": 5640,
+      "event_count": 214,
+      "occurrence_fraction": "214/5640",
+      "occurrence_proportion_decimal": "0.037943262411347518"
+    }
+  ],
+  "forbidden_analytics_executed": false
+}
