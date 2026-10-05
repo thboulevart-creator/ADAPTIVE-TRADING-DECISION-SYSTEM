@@ -1,0 +1,108 @@
+{
+  "schema": "ATDS_P1_21_QUALIFICATION_RECEIPT_V0_1",
+  "status": "P1_12C_REAL_QUALIFIED_PRODUCER_CAPABILITY_SYNTHETICALLY_QUALIFIED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_candidate": {
+    "head": "e2f7d2064596b68109b1b36873f2f4e347e98e8e",
+    "tree": "9d718bef4be89a3bdd7a5cfc44e7980f82a9a6ec",
+    "workflow_run_id": 37333605771,
+    "job_id": 111842643344,
+    "conclusion": "SUCCESS"
+  },
+  "test_first_red": {
+    "frozen_breaker_contract_blob": "2d985ebcd2fca331a8af1be864fdce07ff26ceec",
+    "executable_breaker_blob": "981f21bcdde9afea5b85cced387c3acdb119e26f",
+    "red_receipt_blob": "006a877e9c64361d68cbb969578ed71b34054d6e",
+    "red_run_id": 37331229238,
+    "red_job_id": 111834542135,
+    "observed": "29_FAILED_RUNTIME_ABSENT"
+  },
+  "implementation": {
+    "p1_12c_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "runner_blob": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "fixture_blob": "92c3412aff89c46b290110d995b753d9c1f3b93f",
+    "ap1_profile_probe_blob": "b31918b1be62cf6aa03f2ca5fc45583662a07aa9",
+    "positive_tests_blob": "53a5f4f93cb95b36811311704a13ee632581e3f3",
+    "qualification_workflow_blob": "8df82ba716cc3881d9ca01d73acc5f595955887f",
+    "archived_red_workflow_blob": "2f3caac193f67fc97417c62ecc7583b23f7b7437"
+  },
+  "qualification_counts": {
+    "p1_21_frozen_breakers": "29_PASS",
+    "p1_21_positive": "18_PASS",
+    "p1_18_breakers": "32_PASS",
+    "p1_18_positive": "16_PASS",
+    "p1_20_breakers": "24_PASS",
+    "p1_20_positive": "15_PASS",
+    "data02_breakers": "32_PASS"
+  },
+  "matured_capabilities": {
+    "data_owner_evidence_binding": {
+      "status": "QUALIFIED_SYNTHETIC_NON_EMPIRICAL",
+      "native_data_status_preserved": "PASS_REAL_DATA_ADMISSION",
+      "p1_binding_status": "P1_DATA_EVIDENCE_ACCEPTED_FOR_PLAN_BINDING"
+    },
+    "ap1_invocation_profile": {
+      "status": "QUALIFIED_SYNTHETIC_NON_EMPIRICAL",
+      "profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+      "exact_child_argv": [
+        "--ap0-root",
+        "--ap0-manifest",
+        "--output"
+      ],
+      "shell": false
+    },
+    "real_runtime_lock_capability": {
+      "status": "QUALIFIED_SYNTHETIC_NON_EMPIRICAL",
+      "schema": "P1_12C_REAL_PRODUCER_RUNTIME_LOCK_V1",
+      "execution_authority": false
+    },
+    "real_producer_plan": {
+      "status": "QUALIFIED_SYNTHETIC_NON_EMPIRICAL",
+      "result_minted": false,
+      "execution_authority": false
+    }
+  },
+  "rvo06_gap_effect": {
+    "G01": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G02": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G03": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G04": "UNCHANGED_BLOCKED_SMF_AP1_METHOD_BINDING",
+    "G05": "OUTSIDE_P1_21"
+  },
+  "protected_owners": {
+    "data02_modified": false,
+    "ap1_modified": false,
+    "p1_12d_to_p1_16c_modified": false,
+    "smf_modified": false,
+    "rvo_modified": false
+  },
+  "caveats": {
+    "initial_green_candidate_failure": {
+      "run_id": 37333101027,
+      "reason": "TEST_FIXTURE_DEFECT_STALE_RECEIPT_COPY_WAS_BYTE_IDENTICAL",
+      "semantic_runtime_failure": false,
+      "frozen_breaker_changed": false
+    },
+    "historical_p1_18_workflow": {
+      "run_id": 37333100883,
+      "conclusion": "FAILURE_EXPECTED_EXACT_OLD_BLOB_PIN",
+      "interpretation": "Historical workflow pins pre-P1-21 P1.12C/runner blobs; direct P1-18 breaker and positive regressions both passed under P1-21."
+    }
+  },
+  "authority": {
+    "real_ap1": false,
+    "first_real_cc02_ready": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false,
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "stop": {
+    "p1_22": "NOT_AUTHORIZED",
+    "smf_ap1_m03": "NOT_AUTHORIZED",
+    "rvo_07": "NOT_AUTHORIZED",
+    "real_ap1_execution": "NOT_AUTHORIZED"
+  }
+}

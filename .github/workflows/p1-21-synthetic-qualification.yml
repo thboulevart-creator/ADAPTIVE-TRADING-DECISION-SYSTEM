@@ -67,6 +67,8 @@ jobs:
           test "$(git hash-object tests/p1_21_fixture.py)" = "92c3412aff89c46b290110d995b753d9c1f3b93f"
           test "$(git hash-object tests/p1_21_ap1_profile_probe.py)" = "b31918b1be62cf6aa03f2ca5fc45583662a07aa9"
           test "$(git hash-object tests/test_p1_21_real_producer_capability.py)" = "53a5f4f93cb95b36811311704a13ee632581e3f3"
+          test "$(git hash-object reports/program/2026-10-05-P1-21-QUALIFICATION.md)" = "a1e15ab46f9e7606bd4d88b0a87213850aa162af"
+          test "$(git hash-object reports/program/2026-10-05-P1-21-QUALIFICATION-RECEIPT-V0.1.json)" = "49142e1928cf32ec10ed9a4809388a782559ad42"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
