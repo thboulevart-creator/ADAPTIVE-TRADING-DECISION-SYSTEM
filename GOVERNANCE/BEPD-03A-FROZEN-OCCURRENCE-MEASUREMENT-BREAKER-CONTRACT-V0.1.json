@@ -1,0 +1,252 @@
+{
+  "schema": "ATDS_BEPD_03A_FROZEN_OCCURRENCE_MEASUREMENT_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "fdf95447e91c02fc628a947dd14cb6922d159002",
+    "tree": "f571dfd5a543a1ee761265150636e7ba916983d4"
+  },
+  "bindings": {
+    "authorization_blob": "03d1cf01b41f662280f00c8271bab411b5754b3a",
+    "dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "smf_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "smf03_dependence_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729"
+  },
+  "cases": [
+    {
+      "id": "BEPD03A-B01",
+      "intent": "event count used without opportunity denominator",
+      "expected": "REJECT_EVENT_COUNT_AS_RATE"
+    },
+    {
+      "id": "BEPD03A-B02",
+      "intent": "weekly rates averaged instead of pooled ratio-of-sums",
+      "expected": "REJECT_MEAN_OF_WEEKLY_RATES"
+    },
+    {
+      "id": "BEPD03A-B03",
+      "intent": "opportunity rows treated as IID",
+      "expected": "REJECT_IID_OPPORTUNITY_ROWS"
+    },
+    {
+      "id": "BEPD03A-B04",
+      "intent": "multiple rows sharing target_week_id treated as independent",
+      "expected": "REJECT_WITHIN_WEEK_INDEPENDENCE"
+    },
+    {
+      "id": "BEPD03A-B05",
+      "intent": "repeated level across weeks ignored as temporal repeated measure",
+      "expected": "REJECT_REPEATED_LEVEL_DEPENDENCE_ERASURE"
+    },
+    {
+      "id": "BEPD03A-B06",
+      "intent": "global pooled result emitted without HIGH and LOW views",
+      "expected": "REJECT_SIDE_MASKING"
+    },
+    {
+      "id": "BEPD03A-B07",
+      "intent": "HIGH/LOW hypothesis test introduced in initial descriptive map",
+      "expected": "REJECT_UNAUTHORIZED_SIDE_TEST"
+    },
+    {
+      "id": "BEPD03A-B08",
+      "intent": "target month derived from event/take date",
+      "expected": "REJECT_OUTCOME_DERIVED_MONTH_CONTEXT"
+    },
+    {
+      "id": "BEPD03A-B09",
+      "intent": "month-position boundary day 15/16 changed",
+      "expected": "REJECT_MONTH_POSITION_DRIFT"
+    },
+    {
+      "id": "BEPD03A-B10",
+      "intent": "year with eligible rows omitted",
+      "expected": "REJECT_YEAR_SUPPRESSION"
+    },
+    {
+      "id": "BEPD03A-B11",
+      "intent": "age band boundaries changed after results",
+      "expected": "REJECT_POST_HOC_AGE_BINNING"
+    },
+    {
+      "id": "BEPD03A-B12",
+      "intent": "age=1 or age=65 maps to wrong preregistered bin",
+      "expected": "REJECT_AGE_BIN_BOUNDARY_DRIFT"
+    },
+    {
+      "id": "BEPD03A-B13",
+      "intent": "take-day distribution called an occurrence rate",
+      "expected": "REJECT_TAKE_DAY_OCCURRENCE_LAUNDERING"
+    },
+    {
+      "id": "BEPD03A-B14",
+      "intent": "cross-product subgroup introduced in initial map",
+      "expected": "REJECT_CROSS_PRODUCT_FISHING"
+    },
+    {
+      "id": "BEPD03A-B15",
+      "intent": "zero-event preregistered group omitted",
+      "expected": "REJECT_ZERO_EVENT_SUPPRESSION"
+    },
+    {
+      "id": "BEPD03A-B16",
+      "intent": "low-support preregistered group omitted",
+      "expected": "REJECT_LOW_SUPPORT_SUPPRESSION"
+    },
+    {
+      "id": "BEPD03A-B17",
+      "intent": "groups sorted by occurrence value",
+      "expected": "REJECT_RESULT_ORDERING"
+    },
+    {
+      "id": "BEPD03A-B18",
+      "intent": "best/worst labels applied to descriptive groups",
+      "expected": "REJECT_RANKING_LANGUAGE"
+    },
+    {
+      "id": "BEPD03A-B19",
+      "intent": "historical corpus proportion called future probability",
+      "expected": "REJECT_GENERALIZATION_LAUNDERING"
+    },
+    {
+      "id": "BEPD03A-B20",
+      "intent": "fixed-corpus descriptor given naive sampling CI",
+      "expected": "REJECT_UNAUTHORIZED_FIXED_CORPUS_INFERENCE"
+    },
+    {
+      "id": "BEPD03A-B21",
+      "intent": "individual opportunity-row bootstrap used",
+      "expected": "REJECT_ROW_BOOTSTRAP"
+    },
+    {
+      "id": "BEPD03A-B22",
+      "intent": "IID bootstrap used as fallback",
+      "expected": "REJECT_IID_FALLBACK"
+    },
+    {
+      "id": "BEPD03A-B23",
+      "intent": "M05 MOVING_BLOCK activated while nonstationarity unresolved",
+      "expected": "REJECT_NONSTATIONARY_RESAMPLING"
+    },
+    {
+      "id": "BEPD03A-B24",
+      "intent": "M05 activated with material parameters unresolved",
+      "expected": "REJECT_UNADJUDICATED_PARAMETERS"
+    },
+    {
+      "id": "BEPD03A-B25",
+      "intent": "SMF mean-bootstrap runtime claimed to qualify ratio-of-sums statistic automatically",
+      "expected": "REJECT_METHOD_SCOPE_LAUNDERING"
+    },
+    {
+      "id": "BEPD03A-B26",
+      "intent": "null/adverse preregistered cells deleted",
+      "expected": "REJECT_RESULT_SELECTION"
+    },
+    {
+      "id": "BEPD03A-B27",
+      "intent": "descriptive heterogeneity called predictive information",
+      "expected": "REJECT_DESCRIPTIVE_TO_PREDICTIVE_LAUNDERING"
+    },
+    {
+      "id": "BEPD03A-B28",
+      "intent": "occurrence rate interpreted as response magnitude",
+      "expected": "REJECT_OCCURRENCE_RESPONSE_CONFLATION"
+    },
+    {
+      "id": "BEPD03A-B29",
+      "intent": "historical association interpreted as edge/strategy",
+      "expected": "REJECT_EDGE_LAUNDERING"
+    },
+    {
+      "id": "BEPD03A-B30",
+      "intent": "real occurrence result calculated under BEPD-03A authority",
+      "expected": "REJECT_RESULT_EXECUTION_AUTHORITY_EXPANSION"
+    }
+  ],
+  "frozen_principles": {
+    "primary_estimator": "sum(swept_this_week) / count(LEVEL_WEEK_OPPORTUNITY)",
+    "primary_weighting": "equal weight per eligible level-week opportunity",
+    "dependence_key": "target_week_id",
+    "initial_map": "marginal-only",
+    "real_result_execution_under_bepd03a": false,
+    "fixed_corpus_interval": "NONE",
+    "generalization_resampling_family": "M05 MOVING_BLOCK",
+    "generalization_activation_state": "BLOCKED",
+    "cross_products": []
+  },
+  "age_bins": [
+    [
+      "AGE_1",
+      1,
+      1
+    ],
+    [
+      "AGE_2",
+      2,
+      2
+    ],
+    [
+      "AGE_3_4",
+      3,
+      4
+    ],
+    [
+      "AGE_5_8",
+      5,
+      8
+    ],
+    [
+      "AGE_9_16",
+      9,
+      16
+    ],
+    [
+      "AGE_17_32",
+      17,
+      32
+    ],
+    [
+      "AGE_33_64",
+      33,
+      64
+    ],
+    [
+      "AGE_65_PLUS",
+      65,
+      null
+    ]
+  ],
+  "mandatory_views": [
+    "V00_GLOBAL_ALL_SIDES",
+    "V01_SIDE",
+    "V02_TARGET_MONTH",
+    "V03_TARGET_MONTH_POSITION",
+    "V04_TARGET_YEAR",
+    "V05_LEVEL_AGE_BAND",
+    "V06_TAKE_LOCAL_DAY"
+  ],
+  "qualification_rule": {
+    "all_cases_materialized": true,
+    "synthetic_only": true,
+    "real_occurrence_values_forbidden": true,
+    "pass_meaning": "protocol semantics and fail-closed boundaries only"
+  },
+  "authority": {
+    "design": true,
+    "breaker_qualification": true,
+    "real_occurrence_calculation": false,
+    "occurrence_map": false,
+    "response_map": false,
+    "occurrence_response": false,
+    "ranking": false,
+    "strategy": false,
+    "pnl": false
+  },
+  "stop_boundary": "STOP_BEFORE_BEPD03B_AND_BEFORE_ANY_REAL_OCCURRENCE_RESULT"
+}
