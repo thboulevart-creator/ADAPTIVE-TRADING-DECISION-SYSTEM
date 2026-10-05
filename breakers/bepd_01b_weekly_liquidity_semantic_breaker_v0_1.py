@@ -11,17 +11,17 @@ from pathlib import Path
 
 CONTRACT_PATH = Path("GOVERNANCE/BEPD-01B-FROZEN-EXECUTABLE-SEMANTIC-BREAKER-V0.1.json")
 BEPD01A_CONTRACT_PATH = Path("GOVERNANCE/BEPD-01A-WEEKLY-LIQUIDITY-MEASUREMENT-CONTRACT-V0.1.md")
-FIXTURE_PATH = Path("GOVERNANCE/BEPD-01A-WEEKLY-LIQUIDITY-CALIBRATION-FIXTURE-V0.1.json")
-ADJUDICATION_PATH = Path("GOVERNANCE/BEPD-01A-HUMAN-ADJUDICATION-2026-10-05.md")
+FIXTURE_PATH = Path("GOVERNANCE/BEPD-01A-WEEKLY-LIQUIDITY-CALIBRATION-FIXTURE-R1.json")
+ADJUDICATION_PATH = Path("GOVERNANCE/BEPD-01A-HUMAN-ADJUDICATION-2026-10-05.md")\nCORRECTION_PATH = Path("GOVERNANCE/BEPD-01A-TARGETED-FIXTURE-IDENTITY-CORRECTION-R1.md")\nCORRECTION_ADJUDICATION_PATH = Path("GOVERNANCE/BEPD-01A-TARGETED-FIXTURE-IDENTITY-CORRECTION-R1-HUMAN-ADJUDICATION-2026-10-05.md")
 TARGET_PATH = Path("tools/bepd_01_weekly_liquidity_engine.py")
 
 EXPECTED_GIT_BLOBS = {
     BEPD01A_CONTRACT_PATH: "341f6267f7f1add350759d6d95dfebfb5b9e46f7",
-    FIXTURE_PATH: "89f2af87171002e75fa06d7fb704817e149968bc",
+    FIXTURE_PATH: "d2e663eaef865507c1cb92f5baa0074dcfc11032",
     ADJUDICATION_PATH: "66ae9ff193c5734c32490300ef24d2c1895492c1",
-    CONTRACT_PATH: "45dfd629a0988f74866926c5616355e07e1aa8ce",
+    CORRECTION_PATH: "4def4dbcfa314c3be3d12129ebbc6a854619dd32",\n    CORRECTION_ADJUDICATION_PATH: "d1b9e466e9647cb748634c77eae24fa1437dd186",\n    CONTRACT_PATH: "d602a0666ab92662f2355ce0f44893934a7943a1",
 }
-EXPECTED_FIXTURE_SHA256 = "0365e0dfb1c5e3f78f4a3f01aca1f3bc91dc13147900c63831e4a51c1644434e"
+EXPECTED_FIXTURE_SHA256 = "ceadd3844b9c10e52fa750d9e680e9124ed37ac139621c8b9ad5c0a3724385b2"\nEXPECTED_FIXTURE_SEMANTIC_SHA256 = "5fbaae622527a4f7499fd18825026ecc45319d76efa4af743bb866e540dff6dd"
 
 
 class BreakerFailure(AssertionError):
@@ -109,10 +109,12 @@ def validate_frozen_inputs(root: Path) -> tuple[dict, dict]:
 
     contract = json.loads(canonical_bytes(root, CONTRACT_PATH).decode("utf-8"))
     fixture = json.loads(fixture_bytes.decode("utf-8"))
+    semantic_bytes = json.dumps(fixture, sort_keys=True, separators=(",", ":"), ensure_ascii=False).encode("utf-8")
+    assert_equal(hashlib.sha256(semantic_bytes).hexdigest(), EXPECTED_FIXTURE_SEMANTIC_SHA256, "FIXTURE_SEMANTIC_SHA256_MISMATCH")
 
     assert_equal(contract["status"], "FROZEN_TEST_FIRST_RED_EXPECTED", "BREAKER_STATUS_DRIFT")
     assert_equal(contract["bindings"]["bepd_01a_contract_blob"], EXPECTED_GIT_BLOBS[BEPD01A_CONTRACT_PATH], "BOUND_CONTRACT_DRIFT")
-    assert_equal(contract["bindings"]["bepd_01a_fixture_blob"], EXPECTED_GIT_BLOBS[FIXTURE_PATH], "BOUND_FIXTURE_DRIFT")
+    assert_equal(contract["bindings"]["bepd_01a_fixture_blob"], EXPECTED_GIT_BLOBS[FIXTURE_PATH], "BOUND_FIXTURE_DRIFT")\n    assert_equal(contract["bindings"]["bepd_01a_fixture_sha256"], EXPECTED_FIXTURE_SHA256, "BOUND_FIXTURE_SHA256_DRIFT")\n    assert_equal(contract["bindings"]["bepd_01a_fixture_semantic_sha256"], EXPECTED_FIXTURE_SEMANTIC_SHA256, "BOUND_FIXTURE_SEMANTIC_SHA256_DRIFT")\n    assert_equal(contract["bindings"]["bepd_01a_fixture_correction_blob"], EXPECTED_GIT_BLOBS[CORRECTION_PATH], "BOUND_FIXTURE_CORRECTION_DRIFT")\n    assert_equal(contract["bindings"]["bepd_01a_fixture_correction_human_adjudication_blob"], EXPECTED_GIT_BLOBS[CORRECTION_ADJUDICATION_PATH], "BOUND_FIXTURE_CORRECTION_ADJUDICATION_DRIFT")
     assert_equal(contract["bindings"]["bepd_01a_human_adjudication_blob"], EXPECTED_GIT_BLOBS[ADJUDICATION_PATH], "BOUND_ADJUDICATION_DRIFT")
     assert_equal(contract["authority"]["general_implementation"], False, "AUTHORITY_LAUNDERING_IMPLEMENTATION")
     assert_equal(contract["authority"]["five_year_scan"], False, "AUTHORITY_LAUNDERING_FIVE_YEAR")
