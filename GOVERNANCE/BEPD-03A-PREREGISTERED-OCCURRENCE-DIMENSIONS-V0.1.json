@@ -1,0 +1,209 @@
+{
+  "schema": "ATDS_BEPD_03A_PREREGISTERED_OCCURRENCE_DIMENSIONS_V0_1",
+  "status": "CANDIDATE_PRE_RESULT_HUMAN_ADOPTION_PENDING",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "26d464407290741014cd78f89ddf5763f99e5d43",
+    "tree": "464095e3843245bf2e5abbce77cc3264304d1671"
+  },
+  "bindings": {
+    "authorization_blob": "03d1cf01b41f662280f00c8271bab411b5754b3a",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+  },
+  "primary_population": {
+    "source": "LEVEL_WEEK_OPPORTUNITY",
+    "unit": "one eligible corpus-born active Weekly level at the start of one eligible complete target week",
+    "outcome": "swept_this_week",
+    "dependence_key": "target_week_id",
+    "explicit_non_independence": "multiple rows sharing target_week_id are dependent by construction"
+  },
+  "views": [
+    {
+      "id": "V00_GLOBAL_ALL_SIDES",
+      "role": "PRIMARY_GLOBAL_DESCRIPTIVE_VIEW",
+      "source": "LEVEL_WEEK_OPPORTUNITY",
+      "grouping": [],
+      "filter": "NONE",
+      "numerator": "count rows where swept_this_week=true",
+      "denominator": "count all eligible rows",
+      "mandatory_report": [
+        "target_week_count",
+        "unique_level_count",
+        "opportunity_count",
+        "event_count",
+        "occurrence_proportion"
+      ],
+      "interpretation_limit": "historical corpus description only"
+    },
+    {
+      "id": "V01_SIDE",
+      "role": "MANDATORY_MARGINAL_VIEW",
+      "source": "LEVEL_WEEK_OPPORTUNITY",
+      "grouping": [
+        "side"
+      ],
+      "categories": [
+        "HIGH",
+        "LOW"
+      ],
+      "complete_reporting": true,
+      "ranking_forbidden": true
+    },
+    {
+      "id": "V02_TARGET_MONTH",
+      "role": "MANDATORY_MARGINAL_CALENDAR_VIEW",
+      "source": "LEVEL_WEEK_OPPORTUNITY",
+      "grouping": [
+        "target_month"
+      ],
+      "derivation": "month(target_week_id)",
+      "categories": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "complete_reporting": true,
+      "ranking_forbidden": true,
+      "note": "target_week_id is the Monday label and is available before the outcome"
+    },
+    {
+      "id": "V03_TARGET_MONTH_POSITION",
+      "role": "MANDATORY_MARGINAL_CALENDAR_VIEW",
+      "source": "LEVEL_WEEK_OPPORTUNITY",
+      "grouping": [
+        "target_month_position"
+      ],
+      "derivation": "EARLY if day(target_week_id)<=15 else LATE",
+      "categories": [
+        "EARLY_01_15",
+        "LATE_16_EOM"
+      ],
+      "complete_reporting": true,
+      "ranking_forbidden": true
+    },
+    {
+      "id": "V04_TARGET_YEAR",
+      "role": "MANDATORY_TEMPORAL_STABILITY_DESCRIPTIVE_VIEW",
+      "source": "LEVEL_WEEK_OPPORTUNITY",
+      "grouping": [
+        "target_year"
+      ],
+      "derivation": "year(target_week_id)",
+      "categories_policy": "all calendar years represented by eligible target_week_id rows; no year may be omitted",
+      "complete_reporting": true,
+      "ranking_forbidden": true
+    },
+    {
+      "id": "V05_LEVEL_AGE_BAND",
+      "role": "MANDATORY_MARGINAL_VIEW",
+      "source": "LEVEL_WEEK_OPPORTUNITY",
+      "grouping": [
+        "level_age_band"
+      ],
+      "derivation": "deterministic power-of-two style bins from level_age_weeks",
+      "bins": [
+        {
+          "label": "AGE_1",
+          "min": 1,
+          "max": 1
+        },
+        {
+          "label": "AGE_2",
+          "min": 2,
+          "max": 2
+        },
+        {
+          "label": "AGE_3_4",
+          "min": 3,
+          "max": 4
+        },
+        {
+          "label": "AGE_5_8",
+          "min": 5,
+          "max": 8
+        },
+        {
+          "label": "AGE_9_16",
+          "min": 9,
+          "max": 16
+        },
+        {
+          "label": "AGE_17_32",
+          "min": 17,
+          "max": 32
+        },
+        {
+          "label": "AGE_33_64",
+          "min": 33,
+          "max": 64
+        },
+        {
+          "label": "AGE_65_PLUS",
+          "min": 65,
+          "max": null
+        }
+      ],
+      "complete_reporting": true,
+      "sparse_groups_must_be_reported": true,
+      "ranking_forbidden": true
+    },
+    {
+      "id": "V06_TAKE_LOCAL_DAY",
+      "role": "OUTCOME_CONDITIONAL_EVENT_TIMING_VIEW_NOT_AN_OCCURRENCE_DENOMINATOR",
+      "source": "EVENT_LEDGER",
+      "population": "events only; conditional on swept_this_week=true",
+      "grouping": [
+        "take_day_ny"
+      ],
+      "derivation": "weekday of take_h1_close_utc converted to America/New_York",
+      "categories": [
+        "SUNDAY_OPEN",
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY"
+      ],
+      "complete_reporting": true,
+      "occurrence_rate_language_forbidden": true,
+      "ranking_forbidden": true
+    }
+  ],
+  "combination_policy": {
+    "initial_occurrence_map": "MARGINAL_ONLY",
+    "authorized_cross_products": [],
+    "cross_product_search_forbidden": true,
+    "side_must_be_reported_alongside_global": true,
+    "global_all_sides_justification": "HIGH and LOW share the same level-week opportunity unit and same binary take semantics; pooling is descriptive only and cannot substitute for side-specific views"
+  },
+  "reporting_policy": {
+    "zero_event_groups_must_be_reported": true,
+    "low_support_groups_must_be_reported": true,
+    "group_suppression_based_on_result_forbidden": true,
+    "sort_policy": "canonical category order, never by occurrence value",
+    "best_worst_labels_forbidden": true,
+    "all_preregistered_groups_required": true
+  },
+  "forbidden": [
+    "post-result bin changes",
+    "new subgroup introduction after result exposure",
+    "winner-only reporting",
+    "cross-product fishing",
+    "take-day treated as pre-event occurrence context",
+    "event count without denominator presented as occurrence",
+    "group ranking"
+  ]
+}
