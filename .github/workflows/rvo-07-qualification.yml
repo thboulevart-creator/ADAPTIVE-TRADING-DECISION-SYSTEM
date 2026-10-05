@@ -46,6 +46,10 @@ jobs:
           test "$(git hash-object breakers/rvo_07_pre_execution_requalification_breaker.py)" = "b34a208df3e08c73c9c2e62ad0c53985797ec551"
           test "$(git hash-object reports/program/2026-10-05-RVO-07-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "ef271b4941fad63ba3e84c579dd860c2080ef3c4"
           test "$(git hash-object reports/program/2026-10-05-RVO-07-CONCURRENT-DRIFT-RECONCILIATION-V0.1.json)" = "6d6e922fa323c604b89974958d54c0fe87857a8e"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-CONCURRENT-DRIFT-RECONCILIATION-R2-V0.1.json)" = "b276e1f7036e2471e8abf94ec1116b057b9d9990"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-PRE-RESULT-FREEZE-V0.1.json)" = "8e1c9626ae0cf0c658d8db7c0c1a109c156f6b05"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-QUALIFICATION.md)" = "62533e27b9a0c733a17f4580551b27f5e1cb03d9"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-QUALIFICATION-RECEIPT-V0.1.json)" = "828851954c12745021c7463befb9761e5eaa51bc"
           test "$(git hash-object GOVERNANCE/BEPD-03E-EVENT-CONDITIONAL-TAKE-DAY-NY-DISTRIBUTION-HUMAN-ADJUDICATION-CLOSURE-2026-10-05.md)" = "43155d6af71b76d88bbe0e9e758d6062102253d3"
           git merge-base --is-ancestor 8a8ba4d1eaf8b41f2bc09306261eace3bb579987 HEAD
 
@@ -107,7 +111,7 @@ jobs:
         run: |
           python - <<'PY'
           import subprocess
-          changed=set(subprocess.check_output(["git","diff","--name-only","8a8ba4d1eaf8b41f2bc09306261eace3bb579987..HEAD"],text=True).splitlines())
+          changed=set(subprocess.check_output(["git","diff","--name-only","e8414c0b426ffca6a3dbcc9e8750fafd98fe23fa..HEAD"],text=True).splitlines())
           allowed={
             "src/rvo_07_pre_execution_requalification.py",
             "tests/test_rvo_07_pre_execution_requalification.py",

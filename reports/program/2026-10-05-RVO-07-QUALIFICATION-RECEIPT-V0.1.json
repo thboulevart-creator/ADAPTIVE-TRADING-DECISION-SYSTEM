@@ -1,0 +1,110 @@
+{
+  "schema": "ATDS_RVO_07_QUALIFICATION_RECEIPT_V0_1",
+  "status": "RVO_07_QUALIFIED",
+  "verdict": "GO",
+  "readiness": "PRE_EXECUTION_READINESS_GO",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "81b561546030e20229623f21ac00fdec38cf33a2",
+    "tree": "3e6569b436268e1169d9e6fffe62e6a42c2a267c"
+  },
+  "drift": [
+    {
+      "observed_head": "2102bfe2d0d46db1580845283fdfe3417ec91846",
+      "classification": "NON_MATERIAL",
+      "reconciliation_blob": "6d6e922fa323c604b89974958d54c0fe87857a8e"
+    },
+    {
+      "observed_head": "e8414c0b426ffca6a3dbcc9e8750fafd98fe23fa",
+      "classification": "NON_MATERIAL",
+      "reconciliation_blob": "b276e1f7036e2471e8abf94ec1116b057b9d9990"
+    }
+  ],
+  "exact_artifacts": {
+    "contract_blob": "e5e57b26ac39468147940b231c10d68bd104f118",
+    "breaker_contract_blob": "c3cf29a8aa5b3d5345a74b32c9c9feff6dd1b9db",
+    "breaker_blob": "b34a208df3e08c73c9c2e62ad0c53985797ec551",
+    "red_workflow_blob": "e2aef8e0cc45227f72277573fd73b6917bfe64f8",
+    "red_receipt_blob": "ef271b4941fad63ba3e84c579dd860c2080ef3c4",
+    "runtime_blob": "0a18883922cf5cbbfd9c4546cf0484404f1c7c21",
+    "positive_tests_blob": "d269a5cd162b327eb6cc6b9feb6e1800caf912f5",
+    "qualification_workflow_green_blob": "24522f8f629d7fa96a43700750ce0954c461cc88"
+  },
+  "red": {
+    "head": "308afd22c5933f297c242d1d10fa731c73b63e9f",
+    "run_id": 37358867410,
+    "job_id": 111928116529,
+    "observed": "35_EXPECTED_RUNTIME_ABSENT_FAILURES",
+    "conclusion": "SUCCESS"
+  },
+  "initial_green": {
+    "head": "10f827dbdc38a606b3636ead692457a9eb34ceba",
+    "run_id": 37359544097,
+    "job_id": 111930391481,
+    "scientific_and_regression_steps": "ALL_PASS",
+    "workflow_guard_failure": "UNWHITELISTED_RECONCILED_BEPD03E_DRIFT",
+    "semantic_failure": false
+  },
+  "green": {
+    "head": "44bdfc2577a6963cb846ce9af01cbc355d32352f",
+    "run_id": 37359789852,
+    "job_id": 111931207867,
+    "conclusion": "SUCCESS"
+  },
+  "pre_result_candidate": {
+    "head": "e8414c0b426ffca6a3dbcc9e8750fafd98fe23fa",
+    "tree": "9273ee4f1eb41527942b7f92f0997b0bb856a156",
+    "freeze_digest": "a348645b15532146fcb7032c6f9f5c1d91787232e9281869c72ec373f658c7cb",
+    "external_g05_receipt_sha256": "ad53633ccffffccd7ee5701ccc47bd496c00d2feac8ee900ecf04e8200fc0693",
+    "external_rvo07_receipt_sha256": "2d658d9fb2cf0a1752eeada8064f37c2596a4659844febbad8f7a51db62b1f9f",
+    "workspace_id": "G05WS-8e3d7793706811693879a829ddecb5a0",
+    "workspace_digest": "8e3d7793706811693879a829ddecb5a0703f859a9ac2c5cfaa14c78011056d3c"
+  },
+  "gaps": {
+    "G01": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+    "G02": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+    "G03": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+    "G04": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+    "G05": "PRE_EXECUTION_REQUALIFIED_CLOSED"
+  },
+  "runtime_lock": {
+    "id": "RPRL-5b77e0c094812f3e7e9d25efdb87bd3d",
+    "digest": "5b77e0c094812f3e7e9d25efdb87bd3da92748bc6f8a436ffe52cefe6d38f6c4",
+    "timeout_seconds": 3600,
+    "execution_authority": false
+  },
+  "counts": {
+    "rvo07_breakers": "35_PASS",
+    "rvo07_positive": "20_PASS",
+    "p121_breakers": "29_PASS",
+    "p121_positive": "18_PASS",
+    "smf_breakers": "28_PASS",
+    "smf_positive": "25_PASS",
+    "g05_breakers": "30_PASS",
+    "g05_positive": "19_PASS",
+    "data02_breakers": "32_PASS",
+    "bounded_delta": "PASS",
+    "non_empirical_guard": "PASS"
+  },
+  "authority": {
+    "execution": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "empirical": {
+    "ap1_executed": false,
+    "m03_executed": false,
+    "new_empirical_result": false,
+    "parquet_statistical_open": false,
+    "oos_consumed": false
+  },
+  "persisted_head_rebreak": "REQUIRED_AFTER_PERSISTENCE",
+  "stop": {
+    "real_ap1": "NOT_AUTHORIZED",
+    "real_m03": "NOT_AUTHORIZED",
+    "next_execution_stage": "NOT_AUTHORIZED"
+  }
+}

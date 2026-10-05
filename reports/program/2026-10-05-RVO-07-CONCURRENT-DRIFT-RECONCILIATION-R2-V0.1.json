@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_RVO_07_CONCURRENT_DRIFT_RECONCILIATION_R2_V0_1",
+  "prior_candidate_head": "44bdfc2577a6963cb846ce9af01cbc355d32352f",
+  "observed_head": "e8414c0b426ffca6a3dbcc9e8750fafd98fe23fa",
+  "observed_tree": "9273ee4f1eb41527942b7f92f0997b0bb856a156",
+  "delta": {
+    "ahead_by": 1,
+    "behind_by": 0
+  },
+  "changed_files": [
+    "GOVERNANCE/AO-E0-B8-01-FINAL-FORWARD-ONLY-PREREGISTRATION-BLOCKER-V0.1.json",
+    "reports/program/2026-10-05-AO-E0-B8-01-BLOCKER-RECEIPT-V0.1.json",
+    "reports/program/2026-10-05-AO-E0-B8-01-BLOCKER.md"
+  ],
+  "classification": "NON_MATERIAL",
+  "reason": "Additive AO-E0-B8 planning-dispersion blocker artifacts only; no RVO-07 prerequisite owner, G05, P1-21, DATA-02, AP1 or SMF-AP1-M03 surface changed.",
+  "workspace_rebound_and_requalified": true,
+  "fresh_verdict": "GO",
+  "force_used": false
+}

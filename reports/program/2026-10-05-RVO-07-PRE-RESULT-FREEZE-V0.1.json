@@ -1,0 +1,90 @@
+{
+  "schema": "ATDS_RVO_07_PRE_RESULT_FREEZE_V0_1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "e8414c0b426ffca6a3dbcc9e8750fafd98fe23fa",
+  "tree": "9273ee4f1eb41527942b7f92f0997b0bb856a156",
+  "owner_blobs": {
+    "GOVERNANCE/G05-01-FIRST-REAL-CC02-EXECUTION-WORKSPACE-CONTRACT-V0.1.json": "dc7e4e2375855034a796b06fdb52ae43cc1bec41",
+    "GOVERNANCE/RVO-06-PRE-EXECUTION-OWNER-GAP-MATRIX-V0.1.json": "464fe8b03166c687c3618c18e7c3509fbc62f08b",
+    "GOVERNANCE/RVO-06-REAL-AP1-RUNTIME-LOCK-OBSERVATION-V0.1.json": "e4e275e8590e3bead9123969c068b036c6c4e1d8",
+    "reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "reports/program/2026-10-05-G05-01-QUALIFICATION-RECEIPT-V0.1.json": "60a17b59aa03a41d517ee887c565d314a3d92ce5",
+    "reports/program/2026-10-05-P1-21-QUALIFICATION-RECEIPT-V0.1.json": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "reports/program/2026-10-05-RVO-06-QUALIFICATION-RECEIPT-V0.1.json": "11453a26a181eeca050a518d4ece01c68ddf5716",
+    "reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION-RECEIPT-V0.1.json": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "src/p1_12c_qualified_producer_execution.py": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "src/smf_ap1_m03_binding.py": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "tools/ap1_intraday_spread_census.py": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "tools/p1_12c_sandbox_runner.py": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "tools/smf_ap1_m03_companion.py": "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
+  },
+  "workspace": {
+    "workspace_id": "G05WS-8e3d7793706811693879a829ddecb5a0",
+    "workspace_digest": "8e3d7793706811693879a829ddecb5a0703f859a9ac2c5cfaa14c78011056d3c",
+    "workspace_receipt_sha256": "ad53633ccffffccd7ee5701ccc47bd496c00d2feac8ee900ecf04e8200fc0693",
+    "clean": true,
+    "detached": true,
+    "main_checkout_clean": true
+  },
+  "ap0": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "parquet_file_count": 61,
+    "parquet_statistical_open": false
+  },
+  "p1": {
+    "data_binding_id": "P1DE-fcad5b5935300a666e634315c29988de",
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "invocation_profile_digest": "3a8689dcfa79515fae9f38b7e4903722ebdcd601ca16e7d84ef9139eb62b4de4",
+    "dry_plan_id": "QRPP-1002020e27dba117619ad355fb6a28cb",
+    "dry_plan_digest": "1002020e27dba117619ad355fb6a28cb725d8358404be9b3883cf01c9805d912",
+    "exact_real_cc02_input_minted": false,
+    "result_minted": false
+  },
+  "runtime_lock": {
+    "id": "RPRL-5b77e0c094812f3e7e9d25efdb87bd3d",
+    "digest": "5b77e0c094812f3e7e9d25efdb87bd3da92748bc6f8a436ffe52cefe6d38f6c4",
+    "timeout_seconds": 3600,
+    "execution_authority": false
+  },
+  "smf": {
+    "activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+    "dry_plan_digest": "sha256:b2670b0fe4502b0a8027b5b7304e8886cfb033160f254250f00c8ca98f39d750",
+    "method_executed": false,
+    "result_minted": false
+  },
+  "gaps": {
+    "G01": {
+      "status": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+      "reasons": []
+    },
+    "G02": {
+      "status": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+      "reasons": []
+    },
+    "G03": {
+      "status": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+      "reasons": []
+    },
+    "G04": {
+      "status": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+      "reasons": []
+    },
+    "G05": {
+      "status": "PRE_EXECUTION_REQUALIFIED_CLOSED",
+      "reasons": []
+    }
+  },
+  "authority": {
+    "execution": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "real_ap1_executed": false,
+  "real_m03_executed": false,
+  "new_empirical_result": false,
+  "freeze_digest": "a348645b15532146fcb7032c6f9f5c1d91787232e9281869c72ec373f658c7cb"
+}
