@@ -1,0 +1,57 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_05_PRE_OOS_MINIMUM_COST_ROBUSTNESS_REQUIREMENT_V0_1",
+  "control_id": "AO-E0-EXEC-05",
+  "status": "CANDIDATE_NOT_HUMAN_ADOPTED",
+  "purpose": "Freeze the minimum pre-OOS cost-robustness node independently of MOMENTUM_V1 results.",
+  "dependencies": {
+    "exec04_contract_blob": "52b849c46d0a5cf45b261fd16e34edab44489572",
+    "exec04_human_adjudication_blob": "248a92965b74bf812f9245eccbedbca17f606270",
+    "b4_b5_adjudication_blob": "8a8a4658fd182b0a73227df1ec9837dc25f0fc69"
+  },
+  "minimum_required_node": {
+    "financing_multiplier": 2,
+    "financing_label": "F2_DOUBLE_ANCHOR",
+    "slippage_bps_per_execution_event": 4,
+    "slippage_label": "S4",
+    "node_id": "F2_S4",
+    "interpretation": "2x adverse financing anchor plus 4 bps adverse slippage on every execution event"
+  },
+  "rationale": {
+    "balanced_joint_stress": true,
+    "financing": "Requires survival after doubling the already conservative direction-neutral adverse rollover anchor.",
+    "slippage": "4 bps = 0.04% of reference execution price per execution event; material but below the deliberately severe 8/16 bps diagnostic tail nodes.",
+    "selection_timing": "Selected before OOS performance observation and without MOMENTUM_V1 results."
+  },
+  "gate_semantics": {
+    "cost_robustness_pass": "F2_S4 must satisfy the future AO-E0 economic-support decision under the separately frozen B4 materiality rule and applicable statistical method.",
+    "cost_robustness_fail": "If F2_S4 is REFUTED/NOT_SUPPORTED, minimum cost robustness is not met even if lower-cost nodes pass.",
+    "inconclusive": "INCONCLUSIVE at F2_S4 remains INCONCLUSIVE; it is neither PASS nor REFUTED.",
+    "all_28_nodes_reported": true,
+    "above_threshold_nodes": "DIAGNOSTIC_ONLY; failure above F2_S4 does not by itself fail the minimum gate.",
+    "post_result_threshold_change": "FORBIDDEN",
+    "monotonicity": "Any lower-or-equal cost node inconsistent with a supported F2_S4 result triggers IMPLEMENTATION_OR_EVIDENCE_INVALIDATION, not selective node picking."
+  },
+  "separations": {
+    "cost_robustness_gate_ne_delta_min": true,
+    "exec05_does_not_set_numeric_delta_min": true,
+    "exec05_pass_ne_ao_e0_qualification": true,
+    "policy_stress_ne_observed_historical_cost": true
+  },
+  "pending": {
+    "b4_numeric_delta_min": "PENDING_SEPARATE_PRE_OOS_HUMAN_FREEZE"
+  },
+  "authority": {
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "ao_e0_execution_authorized": false,
+    "human_adopted": false,
+    "b12": "CLOSED"
+  },
+  "forbidden": [
+    "CHANGE_F2_S4_AFTER_RESULTS",
+    "USE_LOWER_NODE_IF_F2_S4_FAILS",
+    "TREAT_DIAGNOSTIC_EXTREME_NODE_FAILURE_AS_AUTOMATIC_MINIMUM_GATE_FAILURE",
+    "EQUATE_POLICY_STRESS_WITH_HISTORICAL_COST",
+    "AUTO_SET_DELTA_MIN"
+  ]
+}

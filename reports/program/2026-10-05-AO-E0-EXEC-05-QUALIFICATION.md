@@ -1,0 +1,73 @@
+# AO-E0-EXEC-05 — PRE-OOS MINIMUM COST-ROBUSTNESS REQUIREMENT — CANDIDATE QUALIFICATION
+
+STATUS =
+QUALIFIED_SYNTHETICALLY_NOT_HUMAN_ADOPTED
+
+RECOMMENDED MINIMUM NODE =
+F2_S4
+
+FINANCING MULTIPLIER =
+2
+
+SLIPPAGE =
+4 bps per execution event
+
+RATIONALE =
+Balanced joint stress: financing is doubled relative to the already conservative direction-neutral EXEC-04 anchor, while 4 bps per execution event is material but remains below the deliberately severe 8/16 bps diagnostic tail.
+
+GATE SEMANTICS =
+F2_S4 must satisfy the future AO-E0 economic-support decision under the separately frozen B4 economic materiality rule and applicable statistical method.
+
+FAILURE SEMANTICS =
+If F2_S4 is not supported, lower-cost nodes cannot be substituted after results.
+
+INCONCLUSIVE SEMANTICS =
+INCONCLUSIVE remains INCONCLUSIVE.
+
+ABOVE-THRESHOLD NODES =
+DIAGNOSTIC_ONLY
+
+ALL 28 NODES =
+MUST BE REPORTED
+
+B4 NUMERIC DELTA_MIN =
+PENDING SEPARATE PRE-OOS HUMAN FREEZE
+
+TEST_FIRST =
+EXPECTED_RED
+
+BREAKER =
+PASS
+
+PYTEST =
+5/5 PASS
+
+CONTRACT BLOB =
+ca292ce2efde127bd7ab5f8efb160a98fa73f900
+
+RUNTIME BLOB =
+6b5aba18faf103da297049dee38733e372640a84
+
+BREAKER BLOB =
+fe2266aa3996538c5570e68a246f6362dcb42f98
+
+TESTS BLOB =
+b07113d83609ec0a16228ea41a572f1433900f10
+
+RED RECEIPT BLOB =
+4acc89b7a99e36f607113aa4c76ee40581bed7f1
+
+OOS_CONSUMPTION =
+NOT_AUTHORIZED
+
+REAL_PERFORMANCE_OBSERVATION =
+NOT_AUTHORIZED
+
+HUMAN_ADOPTION =
+NOT CLAIMED
+
+B12 =
+CLOSED
+
+STOP =
+HUMAN ADJUDICATION REQUIRED

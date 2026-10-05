@@ -1,0 +1,8 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_05_TEST_FIRST_RED_RECEIPT_V0_1",
+  "control_id": "AO-E0-EXEC-05",
+  "result": "EXPECTED_RED",
+  "reason": "breaker executed before runtime implementation existed",
+  "oos_consumed": false,
+  "performance_accessed": false
+}

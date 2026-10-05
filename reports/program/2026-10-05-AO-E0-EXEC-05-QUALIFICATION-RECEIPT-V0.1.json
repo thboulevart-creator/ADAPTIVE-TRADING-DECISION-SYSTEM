@@ -1,0 +1,30 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_05_QUALIFICATION_RECEIPT_V0_1",
+  "parent": {
+    "head": "66f914b867fe9182a1604eba47e07eaab194ac52",
+    "tree": "fcc0f2b7cb8206395da1aa58d266e33e38a7d2e5"
+  },
+  "artifacts": {
+    "contract_blob": "ca292ce2efde127bd7ab5f8efb160a98fa73f900",
+    "runtime_blob": "6b5aba18faf103da297049dee38733e372640a84",
+    "breaker_blob": "fe2266aa3996538c5570e68a246f6362dcb42f98",
+    "tests_blob": "b07113d83609ec0a16228ea41a572f1433900f10",
+    "red_receipt_blob": "4acc89b7a99e36f607113aa4c76ee40581bed7f1",
+    "qualification_report_blob": "2fbb5b9c4c3f2de0502795887c2201353673597a"
+  },
+  "recommended_minimum_node": {
+    "node_id": "F2_S4",
+    "financing_multiplier": 2,
+    "slippage_bps_per_execution_event": 4
+  },
+  "test_first": {
+    "red": "EXPECTED_RED",
+    "breaker": "PASS",
+    "pytest": "5/5 PASS"
+  },
+  "verdict": "QUALIFIED_SYNTHETICALLY_NOT_HUMAN_ADOPTED",
+  "b4_numeric_delta_min": "PENDING_SEPARATE_PRE_OOS_HUMAN_FREEZE",
+  "performance_accessed": false,
+  "oos_consumed": false,
+  "b12": "CLOSED"
+}
