@@ -1,0 +1,54 @@
+{
+  "schema": "ATDS_AO_E0_B7_01_MCEPR_QUALIFICATION_CLOSURE_RECEIPT_V0_1",
+  "verdict": "B7_CLOSED",
+  "pilot_status": "QUALIFIED",
+  "consecutive_successful_appends": 3,
+  "maximum_authorized_cycles": 5,
+  "authorization_blob": "f848a5dadf6e1270b6624d3b03a8d1a4afdd33b9",
+  "implementation_blob": "e5d5e2bace6a352c01f68cab77bea23b55b293b8",
+  "activation_v0_2_blob": "532da50bb1e72341d3b7126aa0d3f08568c01e78",
+  "forward_cutover_blob": "2e2528e908ffefaa4451fe9b41ca639943d2415d",
+  "cycles": [
+    {
+      "cycle": 1,
+      "segment_id": "RGS-e406afd988a27b986098a02b6f4925b915ad474ff5285dab69f55f187153e860",
+      "segment_blob": "7983ddd6787d474938a59a86c06d95e4ecd5d77e",
+      "receipt_blob": "5a5972a1cfffeb50b0399cef6c329477d4dde5f1",
+      "run_id": 37352087856,
+      "result": "PASS"
+    },
+    {
+      "cycle": 2,
+      "segment_id": "RGS-d0db0a8d3093d1969393138f38ccc855b7de754c819df3d818a30e6284bdd6da",
+      "segment_blob": "3fef16da42ca39781b7fda04427b4a55ba232428",
+      "receipt_blob": "9a99fcf7b79b4b281a2a6a8115a30b6b2d445dea",
+      "run_id": 37352223797,
+      "result": "PASS"
+    },
+    {
+      "cycle": 3,
+      "segment_id": "RGS-1bd4443cd0fcb707193a4f83db5edb55dcec06cae49a4a068e1f2e2fad0c156e",
+      "segment_blob": "8c140ca1417f22ce364eb738cdd1c42e69fcf7c1",
+      "run_id": 37352336600,
+      "result": "PASS"
+    }
+  ],
+  "final_registry_head": "registry:RGS-1bd4443cd0fcb707193a4f83db5edb55dcec06cae49a4a068e1f2e2fad0c156e",
+  "relations": 0,
+  "historical_backfill": false,
+  "fabricated_events": false,
+  "closures": {
+    "b7": "CLOSED",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
