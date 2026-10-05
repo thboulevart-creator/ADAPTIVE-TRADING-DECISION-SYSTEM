@@ -271,9 +271,7 @@ def main() -> int:
         if args.output.exists():
             fail("OUTPUT_CONTAMINATION")
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "
-", encoding="utf-8", newline="
-")
+        args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
         print("BEPD04B_RESPONSE_CALCULATOR_COMPLETE")
         return 0
     except ResponseFailure as exc:
