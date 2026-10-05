@@ -1,0 +1,158 @@
+{
+  "schema": "ATDS_BEPD_03A_WEEKLY_LIQUIDITY_OCCURRENCE_MEASUREMENT_CONTRACT_V0_1",
+  "status": "QUALIFIED_CANDIDATE_PRE_RESULT_HUMAN_ADOPTION_PENDING",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "e389eaecc02784f1d5e4164d301b4f8b31f4632d",
+    "tree": "c6e00048e169dfd445b5b235a34a965caf383e5c"
+  },
+  "bindings": {
+    "authorization_blob": "03d1cf01b41f662280f00c8271bab411b5754b3a",
+    "dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+    "smf03_dependence_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_core_adjudication_blob": "eca159da397a8e22bd0b244a282b590f06b6df67",
+    "smf03_dependence_runtime_blob": "fce7998167745659cb0fd5d03a8de14946b0394d"
+  },
+  "claim_scope": {
+    "primary_question": "Among eligible corpus-born Weekly levels active at the start of an eligible complete target week, what fraction are consumed during that target week?",
+    "population": "all rows of the bound LEVEL_WEEK_OPPORTUNITY ledger",
+    "historical_scope_only": true,
+    "future_generalization": false,
+    "predictive_claim": false,
+    "edge_claim": false
+  },
+  "primary_estimand": {
+    "id": "GLOBAL_WEEKLY_LEVEL_SWEEP_OCCURRENCE",
+    "unit": "LEVEL_WEEK_OPPORTUNITY row",
+    "outcome": "Y_i = 1 if swept_this_week=true else 0",
+    "numerator": "sum_i Y_i across all eligible opportunity rows",
+    "denominator": "N = count of all eligible opportunity rows",
+    "estimator": "p_hat = numerator / denominator",
+    "weighting": "each eligible level-week opportunity has equal weight",
+    "aggregation": "ratio of total events to total opportunities, not mean of weekly rates",
+    "exact_historical_descriptor": true
+  },
+  "mandatory_counts": {
+    "global": [
+      "eligible_target_week_count",
+      "unique_level_count",
+      "opportunity_count",
+      "event_count"
+    ],
+    "each_preregistered_group": [
+      "eligible_target_week_count",
+      "unique_level_count",
+      "opportunity_count",
+      "event_count"
+    ],
+    "zero_event_groups": "must still be emitted",
+    "low_support_groups": "must still be emitted; no post-result suppression"
+  },
+  "side_semantics": {
+    "global_all_sides": "PRIMARY",
+    "high": "MANDATORY_DESCRIPTIVE",
+    "low": "MANDATORY_DESCRIPTIVE",
+    "combined_justification": "HIGH and LOW use the same level-week opportunity grain and same binary take semantics",
+    "anti_masking_rule": "global pooled value may not replace or suppress HIGH and LOW reporting",
+    "high_vs_low_hypothesis_test": "NOT_AUTHORIZED_IN_BEPD03A_OR_INITIAL_OCCURRENCE_MAP"
+  },
+  "dependence_model": {
+    "within_target_week": "STRUCTURALLY_DEPENDENT",
+    "dependence_key": "target_week_id",
+    "reason": "multiple active levels share the same market path and target-week realization",
+    "repeated_level_across_weeks": "TEMPORAL_REPEATED_MEASURES_PRESENT_UNTIL_CONSUMPTION_OR_CENSORING",
+    "iid_opportunity_rows": false,
+    "iid_claim_forbidden": true
+  },
+  "uncertainty_policy": {
+    "historical_fixed_corpus": {
+      "state": "EXACT_DESCRIPTIVE_SUMMARY",
+      "inferential_interval_required": false,
+      "rationale": "for the realized bound historical corpus, numerator and denominator are observed quantities; a sampling CI is not used to imply a population beyond that corpus"
+    },
+    "process_generalization": {
+      "state": "BLOCKED_UNTIL_SEPARATE_ACTIVATION",
+      "selected_method_family": "SMF_M05",
+      "selected_scheme": "MOVING_BLOCK",
+      "resampling_unit": "ordered target_week_id clusters; when a week is selected all its opportunity rows move together",
+      "replicate_statistic": "ratio of summed swept_this_week numerators to summed opportunity denominators across resampled week blocks",
+      "within_week_dependence_preserved": true,
+      "serial_order_preserved_within_blocks": true,
+      "stationarity_gate": "if stationarity_status == UNRESOLVED_NONSTATIONARY then global resampling is forbidden",
+      "exact_material_parameters": {
+        "interval_method": "HUMAN_ADJUDICATION_REQUIRED_BEFORE_EXECUTION",
+        "confidence_level": "HUMAN_ADJUDICATION_REQUIRED_BEFORE_EXECUTION",
+        "replications": "HUMAN_ADJUDICATION_REQUIRED_BEFORE_EXECUTION",
+        "seed": "HUMAN_ADJUDICATION_REQUIRED_BEFORE_EXECUTION",
+        "block_length": "HUMAN_ADJUDICATION_REQUIRED_BEFORE_EXECUTION"
+      },
+      "smf_runtime_compatibility_note": "the adopted SMF M05 runtime qualifies moving-block resampling semantics for means; a ratio-of-sums cluster statistic requires its own frozen executable qualification before use",
+      "no_auto_fallback": "IID bootstrap, naive binomial interval, or opportunity-row bootstrap may not be substituted"
+    }
+  },
+  "preregistered_dimensions_ref": "GOVERNANCE/BEPD-03A-PREREGISTERED-OCCURRENCE-DIMENSIONS-V0.1.json",
+  "multiplicity_policy": {
+    "initial_map_type": "DESCRIPTIVE_MARGINAL_ONLY",
+    "hypothesis_tests": 0,
+    "p_values": false,
+    "significance_labels": false,
+    "cross_products": [],
+    "ranking": false,
+    "complete_reporting": true,
+    "interpretation": "differences across preregistered cells are descriptive heterogeneity only",
+    "later_inference": "requires separate claim, activation, multiplicity contract and prospective/generalization boundary"
+  },
+  "timing_semantics": {
+    "target_month": "derived from target_week_id before outcome",
+    "target_month_position": "EARLY_01_15 vs LATE_16_EOM using target_week_id day",
+    "target_year": "derived from target_week_id",
+    "level_age_band": "derived from level_age_weeks before target outcome",
+    "take_day_ny": "EVENT-ONLY conditional distribution; not a denominator-defined pre-event occurrence context"
+  },
+  "publication_contract": {
+    "report_all_preregistered_groups": true,
+    "canonical_group_order": true,
+    "sort_by_result_forbidden": true,
+    "winner_only_reporting_forbidden": true,
+    "best_worst_language_forbidden": true,
+    "null_or_adverse_cells_must_be_retained": true,
+    "provenance_required": [
+      "contract_blob",
+      "dimensions_blob",
+      "bound_ledger_blobs",
+      "run_id",
+      "code_blob_if_execution_occurs"
+    ]
+  },
+  "adversarial_distinctions": [
+    "EVENT_COUNT != OCCURRENCE_RATE",
+    "OPPORTUNITY_ROW != IID_OBSERVATION",
+    "MULTI_LEVEL_CLUSTER != INDEPENDENT_WEEKS",
+    "HISTORICAL_CORPUS_RATE != FUTURE PROBABILITY",
+    "DESCRIPTIVE_HETEROGENEITY != PREDICTIVE_INFORMATION",
+    "OCCURRENCE != RESPONSE_MAGNITUDE",
+    "ASSOCIATION != EDGE",
+    "TAKE_DAY_CONDITIONAL_DISTRIBUTION != PRE_EVENT_OCCURRENCE_CONTEXT",
+    "GLOBAL_POOLING != PERMISSION_TO_HIDE_SIDE_DIVERGENCE",
+    "UNRESOLVED_NONSTATIONARITY != RESAMPLING_PERMISSION"
+  ],
+  "forbidden": [
+    "calculate real occurrence results under BEPD-03A",
+    "post-hoc subgroup creation",
+    "post-hoc age binning",
+    "cross-product fishing",
+    "ranking months/days/ages",
+    "naive IID binomial inference over opportunity rows",
+    "bootstrap individual opportunity rows",
+    "infer future probability from historical rate",
+    "Response Map",
+    "Occurrence x Response",
+    "edge/strategy/PnL"
+  ],
+  "stop_boundary": "STOP_BEFORE_ANY_REAL_OCCURRENCE_NUMERATOR_DENOMINATOR_PROPORTION_OR_INTERVAL_CALCULATION"
+}
