@@ -106,6 +106,17 @@ jobs:
       - name: Verify exact qualification environment
         run: python tools/qualification_environment.py verify
 
+      - name: Emit exact P1-18 runtime lock identity
+        run: |
+          python - <<'PY'
+          from src import p1_12c_qualified_producer_execution as p12c
+          lock = p12c.build_current_runtime_lock()
+          print("P1_18_RUNTIME_LOCK_DIGEST=" + lock["runtime_lock_digest"])
+          print("P1_18_PYTHON_VERSION=" + lock["python_version"])
+          print("P1_18_PYTHON_EXECUTABLE_SHA256=" + lock["python_executable_sha256"])
+          print("P1_18_TIMEZONE_DATABASE_IDENTITY=" + lock["timezone_database_identity"])
+          PY
+
       - name: Compile P1-18 surfaces without filesystem mutation
         run: |
           python - <<'PY'
