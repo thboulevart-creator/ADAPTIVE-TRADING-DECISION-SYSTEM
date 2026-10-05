@@ -1,0 +1,144 @@
+{
+  "schema": "ATDS_BEPD_04A_EVENT_CONDITIONAL_SAME_WEEK_REINTEGRATION_RESPONSE_SEMANTICS_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_SEMANTICS_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "phase": "BEPD-04A",
+  "parent": {
+    "head": "72e9b70ed2bcf2d2b86421307ddc53cf3a9b011b",
+    "tree": "c7afafac38b752e708949692ae1e8493e948a349"
+  },
+  "human_authorization_basis": "Explicit human authorization supplied 2026-10-05 for BEPD-04A semantics-only execution; no standalone authorization artifact is created by this phase.",
+  "bindings": {
+    "bepd03e_closure_blob": "43155d6af71b76d88bbe0e9e758d6062102253d3",
+    "bepd03e_qualification_blob": "f97c55ee479dc9be38daddcfe62e743bae836bde",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd01_weekly_liquidity_engine_blob": "050c96049f720757231136386719a40dd5653bbe",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "authorized_question": "Among already-observed qualified historical sweep events, did the swept Weekly level obtain at least one strict qualifying H1 reintegration before the end of its target week?",
+  "claim_scope": {
+    "interpretation": "EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_POST_SWEEP_RESPONSE_DESCRIPTION",
+    "historical_scope_only": true,
+    "future_generalization": false,
+    "predictive_claim": false,
+    "causal_claim": false,
+    "edge_claim": false,
+    "trade_success_claim": false,
+    "strategy_claim": false,
+    "pnl_claim": false,
+    "trading_authority": false
+  },
+  "population": {
+    "source": "BEPD-02 EVENT_LEDGER",
+    "population": "all qualified EVENT_LEDGER rows",
+    "unit": "one LEVEL_SWEEP_EVENT / one EVENT_LEDGER row",
+    "condition": "sweep already observed",
+    "denominator_if_later_authorized": "all qualified EVENT_LEDGER rows, including same_week_reintegration=false",
+    "forbidden_denominator": "LEVEL_WEEK_OPPORTUNITY"
+  },
+  "response": {
+    "field": "same_week_reintegration",
+    "type": "boolean",
+    "exclusive_response_variable_for_bepd04a": true,
+    "source_policy": "use the already-qualified EVENT_LEDGER field; BEPD-04A does not recompute market outcomes",
+    "true_semantic": "at least one strictly later qualifying H1 close reintegrated the swept Weekly level before the end of the same qualified target week",
+    "false_semantic": "NO QUALIFYING STRICT REINTEGRATION OBSERVED AMONG ELIGIBLE QUALIFYING H1 CLOSES BEFORE TARGET-WEEK END",
+    "false_nonmeanings": [
+      "price never reintegrated",
+      "future non-reintegration",
+      "failed trade",
+      "loss",
+      "invalid sweep"
+    ]
+  },
+  "binding_event_semantics": {
+    "high_take": "first qualifying H1 close strictly > level_price_mid",
+    "high_reintegration": "first strictly later qualifying H1 close strictly < level_price_mid",
+    "low_take": "first qualifying H1 close strictly < level_price_mid",
+    "low_reintegration": "first strictly later qualifying H1 close strictly > level_price_mid",
+    "equality_to_level": "NOT_TAKE_AND_NOT_REINTEGRATION",
+    "take_h1_itself": "NOT_ELIGIBLE_AS_REINTEGRATION",
+    "reintegration_search": "STRICTLY_AFTER_TAKE"
+  },
+  "observation_window": {
+    "start": "first qualifying H1 strictly after take",
+    "end": "end of the same qualified target week",
+    "target_week_boundary_source": "BEPD-02 qualified complete-week construction; Sunday 18:00 America/New_York boundary semantics from bound run manifest",
+    "fixed_plus_n_hours": false,
+    "available_post_take_observation_time": "VARIES_WITH_TAKE_TIMING",
+    "take_day_response_comparison": "NOT_AUTHORIZED",
+    "consequence": "A future difference by TAKE_DAY_NY cannot be attributed to a day effect without separate treatment of unequal available post-take observation time."
+  },
+  "dependence_and_provenance": {
+    "required_keys": [
+      "event_id",
+      "sweep_cluster_id",
+      "target_week_id",
+      "level_id",
+      "side",
+      "take_h1_close_utc"
+    ],
+    "event_is_iid_observation": false,
+    "same_sweep_cluster": "DEPENDENT_BY_CONSTRUCTION",
+    "same_target_week": "DEPENDENT"
+  },
+  "m05": {
+    "generalization_uncertainty": "BLOCKED",
+    "activation_authorized": false,
+    "use_authorized": false
+  },
+  "excluded_estimands_and_horizons": [
+    "close_displacement",
+    "time-to-reintegration distribution",
+    "reintegration speed",
+    "MFE",
+    "MAE",
+    "+1H",
+    "+4H",
+    "+8H",
+    "+24H",
+    "fixed-horizon returns",
+    "target-week-close response analysis"
+  ],
+  "forbidden_analytics": [
+    "Response Map result",
+    "reintegration count",
+    "reintegration share",
+    "HIGH vs LOW response comparison",
+    "TAKE DAY × RESPONSE",
+    "MONTH × RESPONSE",
+    "YEAR × RESPONSE",
+    "EARLY/LATE × RESPONSE",
+    "LEVEL AGE × RESPONSE",
+    "any cross-product",
+    "Occurrence × Response",
+    "ranking",
+    "best/worst",
+    "p-value",
+    "significance test",
+    "confidence interval",
+    "bootstrap",
+    "predictive test",
+    "causal analysis",
+    "edge",
+    "strategy",
+    "backtest",
+    "PnL",
+    "sizing",
+    "paper trading",
+    "broker execution",
+    "live trading",
+    "real capital"
+  ],
+  "execution_boundary": {
+    "real_response_calculation": "NOT_AUTHORIZED",
+    "calculator_construction": "NOT_AUTHORIZED",
+    "executable_breaker_construction": "NOT_AUTHORIZED",
+    "aggregate_result_exposure": "NOT_AUTHORIZED",
+    "stop_after_semantics_qualification": true
+  }
+}
