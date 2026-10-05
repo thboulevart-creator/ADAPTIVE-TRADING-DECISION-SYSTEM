@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_RVO_07_CONCURRENT_DRIFT_RECONCILIATION_V0_1",
+  "authorization_reference": {
+    "head": "81b561546030e20229623f21ac00fdec38cf33a2",
+    "tree": "3e6569b436268e1169d9e6fffe62e6a42c2a267c"
+  },
+  "red_receipt_head": "8a8ba4d1eaf8b41f2bc09306261eace3bb579987",
+  "observed_head": "2102bfe2d0d46db1580845283fdfe3417ec91846",
+  "observed_tree": "0979b5b5094d394afd60a8eb15826a76cd7c093f",
+  "delta_from_red_receipt": {
+    "ahead_by": 1,
+    "behind_by": 0
+  },
+  "changed_files": [
+    "GOVERNANCE/BEPD-03E-EVENT-CONDITIONAL-TAKE-DAY-NY-DISTRIBUTION-HUMAN-ADJUDICATION-CLOSURE-2026-10-05.md"
+  ],
+  "classification": "NON_MATERIAL",
+  "reason": "Additive BEPD-03E human adjudication closure only; no RVO-07 prerequisite owner or G05 surface modified.",
+  "force_used": false
+}

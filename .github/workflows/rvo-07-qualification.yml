@@ -1,0 +1,133 @@
+name: RVO-07 Pre-Execution Requalification Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'src/rvo_07_pre_execution_requalification.py'
+      - 'tests/test_rvo_07_pre_execution_requalification.py'
+      - 'breakers/rvo_07_pre_execution_requalification_breaker.py'
+      - 'GOVERNANCE/RVO-07-*'
+      - 'reports/program/*RVO-07*'
+      - '.github/workflows/rvo-07-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Prove frozen RVO-07 identities
+        run: |
+          test "$(git hash-object GOVERNANCE/RVO-07-FIRST-REAL-CC02-PRE-EXECUTION-REQUALIFICATION-CONTRACT-V0.1.json)" = "e5e57b26ac39468147940b231c10d68bd104f118"
+          test "$(git hash-object GOVERNANCE/RVO-07-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "c3cf29a8aa5b3d5345a74b32c9c9feff6dd1b9db"
+          test "$(git hash-object breakers/rvo_07_pre_execution_requalification_breaker.py)" = "b34a208df3e08c73c9c2e62ad0c53985797ec551"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "ef271b4941fad63ba3e84c579dd860c2080ef3c4"
+          git merge-base --is-ancestor 8a8ba4d1eaf8b41f2bc09306261eace3bb579987 HEAD
+
+      - name: Prove protected owner identities
+        run: |
+          test "$(git hash-object reports/program/2026-10-05-P1-21-QUALIFICATION-RECEIPT-V0.1.json)" = "49142e1928cf32ec10ed9a4809388a782559ad42"
+          test "$(git hash-object src/p1_12c_qualified_producer_execution.py)" = "9d304202d44c8917cf640fd0b4114169968e511e"
+          test "$(git hash-object tools/p1_12c_sandbox_runner.py)" = "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108"
+          test "$(git hash-object reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION-RECEIPT-V0.1.json)" = "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921"
+          test "$(git hash-object src/smf_ap1_m03_binding.py)" = "f4c0295625f8b360effbd27a8d616d9644ea2a5e"
+          test "$(git hash-object tools/smf_ap1_m03_companion.py)" = "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json)" = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+          test "$(git hash-object GOVERNANCE/RVO-06-PRE-EXECUTION-OWNER-GAP-MATRIX-V0.1.json)" = "464fe8b03166c687c3618c18e7c3509fbc62f08b"
+          test "$(git hash-object reports/program/2026-10-05-RVO-06-QUALIFICATION-RECEIPT-V0.1.json)" = "11453a26a181eeca050a518d4ece01c68ddf5716"
+          test "$(git hash-object GOVERNANCE/RVO-06-REAL-AP1-RUNTIME-LOCK-OBSERVATION-V0.1.json)" = "e4e275e8590e3bead9123969c068b036c6c4e1d8"
+          test "$(git hash-object GOVERNANCE/G05-01-FIRST-REAL-CC02-EXECUTION-WORKSPACE-CONTRACT-V0.1.json)" = "dc7e4e2375855034a796b06fdb52ae43cc1bec41"
+          test "$(git hash-object reports/program/2026-10-05-G05-01-QUALIFICATION-RECEIPT-V0.1.json)" = "60a17b59aa03a41d517ee887c565d314a3d92ce5"
+
+      - name: Prove exact RVO-07 implementation identities
+        run: |
+          test "$(git hash-object src/rvo_07_pre_execution_requalification.py)" = "0a18883922cf5cbbfd9c4546cf0484404f1c7c21"
+          test "$(git hash-object tests/test_rvo_07_pre_execution_requalification.py)" = "d269a5cd162b327eb6cc6b9feb6e1800caf912f5"
+
+      - name: Compile RVO-07
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          for p in ("src/rvo_07_pre_execution_requalification.py","tests/test_rvo_07_pre_execution_requalification.py","breakers/rvo_07_pre_execution_requalification_breaker.py"):
+              compile(Path(p).read_text(encoding="utf-8"),p,"exec")
+          print("PASS: RVO-07 surfaces compile")
+          PY
+
+      - name: RVO-07 frozen breakers
+        run: python -m pytest -q breakers/rvo_07_pre_execution_requalification_breaker.py
+
+      - name: RVO-07 positive synthetic qualification
+        run: python -m pytest -q tests/test_rvo_07_pre_execution_requalification.py
+
+      - name: P1-21 regression
+        run: |
+          python -m pytest -q breakers/p1_21_real_producer_capability_breaker.py
+          python -m pytest -q tests/test_p1_21_real_producer_capability.py
+
+      - name: SMF-AP1-M03 regression
+        run: |
+          python -m pytest -q breakers/smf_ap1_m03_01_binding_breaker.py
+          python -m pytest -q tests/test_smf_ap1_m03_01_binding.py
+
+      - name: G05-01 regression
+        run: |
+          python -m pytest -q breakers/g05_01_workspace_dry_readiness_breaker.py
+          python -m pytest -q tests/test_g05_01_workspace_dry_readiness.py
+
+      - name: DATA-02 regression
+        run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
+
+      - name: Prove bounded RVO-07 delta
+        run: |
+          python - <<'PY'
+          import subprocess
+          changed=set(subprocess.check_output(["git","diff","--name-only","8a8ba4d1eaf8b41f2bc09306261eace3bb579987..HEAD"],text=True).splitlines())
+          allowed={
+            "src/rvo_07_pre_execution_requalification.py",
+            "tests/test_rvo_07_pre_execution_requalification.py",
+            ".github/workflows/rvo-07-qualification.yml",
+          }
+          for p in changed:
+              if p in allowed:
+                  continue
+              if p.startswith("reports/program/") and "RVO-07" in p:
+                  continue
+              raise SystemExit("UNAUTHORIZED_RVO07_DELTA:"+p)
+          print("PASS: RVO-07 delta bounded")
+          PY
+
+      - name: Prove no empirical execution artifact
+        run: |
+          test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          test ! -d artifacts/rvo-07
+          echo "PASS: RVO-07 code qualification is non-empirical"
+
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"
