@@ -1,0 +1,117 @@
+name: RVO-06 First Real CC02 Pre-Execution Readiness
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/rvo-06-readiness-qualification.yml'
+      - 'GOVERNANCE/RVO-06-*'
+      - 'reports/program/*RVO-06*'
+      - 'tests/test_rvo_06_first_real_cc02_readiness.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  RVO_06_DELTA_BASE: '1c38a8c53b0046786d67e652c01381d79a085cb4'
+
+jobs:
+  readiness:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${RVO_06_DELTA_BASE}" HEAD
+
+      - name: Prove exact prerequisite identities
+        run: |
+          test "$(git hash-object GOVERNANCE/RVO-05-FIRST-REAL-CC02-PRE-EXECUTION-READINESS-V0.1.md)" = "e07673ef19954aa14a24af90ba59d29084527f20"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json)" = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+          test "$(git hash-object src/p1_12c_qualified_producer_execution.py)" = "6d634ed1adab21ce31a55289d8d6e5b288e70005"
+          test "$(git hash-object src/p1_12d_qualified_execution_evidence.py)" = "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190"
+          test "$(git hash-object src/p1_13c_common_evaluation.py)" = "617c39505cdd64e8a7a40a40612b4bec0c30ed34"
+          test "$(git hash-object src/p1_14c_common_measurement_provenance.py)" = "7bd6a91a69484213b4d26d25bd18d62019c77b08"
+          test "$(git hash-object src/p1_15c_common_evaluator_authority.py)" = "a0c7ced052a734ce44d580f2430081f8f8647a47"
+          test "$(git hash-object src/p1_16c_common_qualified_finding.py)" = "92967f7789537399510ac2c61ceab5b52268c931"
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+          test "$(git hash-object tools/p1_12c_sandbox_runner.py)" = "08fbd6f4b2cd4db9cb714f583c1459d0753a9112"
+          test "$(git hash-object tools/smf03_core_foundation.py)" = "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+          test "$(git hash-object reports/program/2026-10-02-SMF03-CORE-M01-M11-INTEGRATED-QUALIFICATION.md)" = "f9b80f035f60c40eba6f9387b30bcf4dbe5a8e8f"
+
+      - name: Prove exact RVO-06 evidence identities
+        run: |
+          test "$(git hash-object reports/program/2026-10-05-RVO-06-PARENT-DRIFT-RECONCILIATION-V0.1.json)" = "f5c0b5b3acd74737d86547857d6c2f65835fe0cf"
+          test "$(git hash-object reports/program/2026-10-05-RVO-06-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json)" = "41a4afedde5314b46a02b310eb205ea9222487f5"
+          test "$(git hash-object GOVERNANCE/RVO-06-REAL-AP1-RUNTIME-LOCK-OBSERVATION-V0.1.json)" = "e4e275e8590e3bead9123969c068b036c6c4e1d8"
+          test "$(git hash-object GOVERNANCE/RVO-06-AP1-SMF-M03-BINDING-ANALYSIS-V0.1.json)" = "b23eded40a91c9c4dc691145e5083e3b6a9ff124"
+          test "$(git hash-object GOVERNANCE/RVO-06-PRE-EXECUTION-OWNER-GAP-MATRIX-V0.1.json)" = "464fe8b03166c687c3618c18e7c3509fbc62f08b"
+          test "$(git hash-object GOVERNANCE/RVO-06-FIRST-REAL-CC02-PRE-RESULT-FREEZE-CANDIDATE-V0.1.json)" = "8a724a6681eb019a0a6817c9bfb3d71396d4ba82"
+          test "$(git hash-object GOVERNANCE/RVO-06-SINGLE-RUN-EXECUTION-AUTHORIZATION-PACKAGE-V0.1.json)" = "658ec0938711b68f1036d989abfc227b2debbf67"
+          test "$(git hash-object GOVERNANCE/RVO-06-FROZEN-READINESS-BREAKER-CONTRACT-V0.1.json)" = "b134c2d5567d14b7a900ee3e69eb89484b9ccc62"
+          test "$(git hash-object tests/test_rvo_06_first_real_cc02_readiness.py)" = "0bc73a3fe261d761b0d589325e8960ce63d2ff93"
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install exact locked qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: Verify exact qualification environment
+        run: python tools/qualification_environment.py verify
+
+      - name: Run static/non-empirical RVO-06 readiness tests
+        run: python -m pytest -q tests/test_rvo_06_first_real_cc02_readiness.py
+
+      - name: Prove RVO-06 delta is bounded
+        run: |
+          python - <<'PY'
+          import subprocess
+          parent = "1c38a8c53b0046786d67e652c01381d79a085cb4"
+          changed = subprocess.check_output(["git","diff","--name-only",f"{parent}..HEAD"],text=True).splitlines()
+          allowed = {
+              ".github/workflows/rvo-06-readiness-qualification.yml",
+              "reports/program/2026-10-05-RVO-06-PARENT-DRIFT-RECONCILIATION-V0.1.json",
+              "reports/program/2026-10-05-RVO-06-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json",
+              "GOVERNANCE/RVO-06-REAL-AP1-RUNTIME-LOCK-OBSERVATION-V0.1.json",
+              "GOVERNANCE/RVO-06-AP1-SMF-M03-BINDING-ANALYSIS-V0.1.json",
+              "GOVERNANCE/RVO-06-PRE-EXECUTION-OWNER-GAP-MATRIX-V0.1.json",
+              "GOVERNANCE/RVO-06-FIRST-REAL-CC02-PRE-RESULT-FREEZE-CANDIDATE-V0.1.json",
+              "GOVERNANCE/RVO-06-SINGLE-RUN-EXECUTION-AUTHORIZATION-PACKAGE-V0.1.json",
+              "GOVERNANCE/RVO-06-FROZEN-READINESS-BREAKER-CONTRACT-V0.1.json",
+              "tests/test_rvo_06_first_real_cc02_readiness.py",
+          }
+          for path in changed:
+              if path in allowed:
+                  continue
+              if path.startswith("reports/program/") and "RVO-06" in path:
+                  continue
+              raise SystemExit(f"UNAUTHORIZED_RVO_06_DELTA:{path}")
+          print("PASS: RVO-06 delta bounded and non-owner")
+          PY
+
+      - name: Prove no AP1 result exists in qualification workspace
+        run: |
+          test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          test ! -e /tmp/ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          echo "PASS: AP1 not executed"
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"

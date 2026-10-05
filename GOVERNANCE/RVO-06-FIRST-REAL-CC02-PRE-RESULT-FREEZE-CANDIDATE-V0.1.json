@@ -1,0 +1,63 @@
+{
+  "schema": "ATDS_RVO_06_FIRST_REAL_CC02_PRE_RESULT_FREEZE_CANDIDATE_V0_1",
+  "status": "BLOCKED_NOT_EXECUTION_READY",
+  "claim": {
+    "class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+    "temporal": "NOT_APPLICABLE_WITH_EXPLICIT_BASIS",
+    "predictive": false,
+    "historical_tradability": false,
+    "oos": false,
+    "profitability": false
+  },
+  "data": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "file_count": 61,
+    "file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+    "schema_identity": "5c5f5302891567b62024c718d4e7700b766d1ace8f3e40f7a0a29cee6b93bf88",
+    "real_admission_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "real_admission_evidence_digest": "d11f6c39fcf9f31336ecc34027abc99c79a9f881d8203a78d6c7ac47c0b3af3b"
+  },
+  "producer": {
+    "id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "code_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "expected_output_schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "expected_output_status": "AP1_COMPLETE",
+    "max_output_bytes": 33554432,
+    "intraday_timezone": "America/New_York",
+    "percentile_method": "linear",
+    "semantic_parameter_state": "CODE_FROZEN_NO_SUPPORTED_P1_12C_PARAMETER_PROTOCOL"
+  },
+  "p1": {
+    "p1_12c_blob": "6d634ed1adab21ce31a55289d8d6e5b288e70005",
+    "p1_12d_blob": "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190",
+    "p1_13c_blob": "617c39505cdd64e8a7a40a40612b4bec0c30ed34",
+    "p1_14c_blob": "7bd6a91a69484213b4d26d25bd18d62019c77b08",
+    "p1_15c_blob": "a0c7ced052a734ce44d580f2430081f8f8647a47",
+    "p1_16c_blob": "92967f7789537399510ac2c61ceab5b52268c931",
+    "experiment_spec_id": "NOT_MINTED_FAIL_CLOSED",
+    "execution_binding_id": "NOT_MINTED_FAIL_CLOSED",
+    "qualified_execution_input_id": "NOT_MINTED_FAIL_CLOSED",
+    "p1_12c_plan_id": "NOT_MINTED_FAIL_CLOSED",
+    "reason": "Current real Data admission and AP1 invocation/runtime contracts do not satisfy P1.12C prerequisites."
+  },
+  "smf": {
+    "m01": "REQUIRED",
+    "m03": "REQUIRED",
+    "core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "activation_digests": "NOT_MINTED_AFTER_BLOCKER",
+    "method_binding": "BLOCKED_SMF_AP1_METHOD_BINDING"
+  },
+  "rvo_pre_result_manifest_digest": "NOT_MINTED_FAIL_CLOSED",
+  "execution_authorization": false,
+  "result_exposed": false,
+  "authority": {
+    "rvo": "NONE",
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}

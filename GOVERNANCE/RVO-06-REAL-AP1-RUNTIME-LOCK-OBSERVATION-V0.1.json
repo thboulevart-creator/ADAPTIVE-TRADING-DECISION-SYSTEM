@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_RVO_06_REAL_AP1_RUNTIME_LOCK_OBSERVATION_V0_1",
+  "status": "OBSERVED_RUNTIME_EVIDENCE_NOT_P1_12C_RUNTIME_LOCK",
+  "observation_scope": "NON_EMPIRICAL_PRE_EXECUTION_ONLY",
+  "device": {
+    "platform": "Windows",
+    "arch": "x64",
+    "python_version": "3.13.14"
+  },
+  "python": {
+    "real_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "launcher_hashability": "BLOCKED_OSERROR_INVALID_ARGUMENT"
+  },
+  "dependencies": {
+    "numpy": {
+      "version": "2.5.3",
+      "metadata_sha256": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+      "record_sha256": "5135e045b7bc7d8f2ef83e2bd9c618840f46ebd09d8590c819bbcdeb32cfe41e"
+    },
+    "pyarrow": {
+      "version": "25.0.1",
+      "metadata_sha256": "12ed8d0988a6f7153fec923ee47b7fc1d6134463a86b1b89fa36f24c250163ff",
+      "record_sha256": "a6cc5dcd5681d231959f61ccc1b57cb13dc1690f0819ed7bfd66ebd575e0db24"
+    },
+    "tzdata": {
+      "version": "2026.3",
+      "metadata_sha256": "511c019df477939fe7f4c38e32ad74a570c4ebb05b13fd2fffd0f0f2dbe6f7b1",
+      "record_sha256": "8f9f4ae062c3c9af93f22cff46986c4735d15d1306a413df291d5b67301db0eb"
+    },
+    "zoneinfo_tzpath": []
+  },
+  "data_resources": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "root_present": true,
+    "manifest_present": true,
+    "parquet_file_count": 61,
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "content_opened_for_market_statistics": false
+  },
+  "output_destination_probe": {
+    "temporary_write_probe": "PASS",
+    "probe_removed": true,
+    "market_result_written": false
+  },
+  "local_workspace_observation": {
+    "observed_head": "8ed3ec4079f3f996a5159b78fc40d0f32a917b25",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "p1_12c_present": false,
+    "interpretation": "CURRENT_LOCAL_WORKSPACE_IS_NOT_MATERIALIZED_FOR_P1_12C_REAL_ROUTE"
+  },
+  "authority": {
+    "execution": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}

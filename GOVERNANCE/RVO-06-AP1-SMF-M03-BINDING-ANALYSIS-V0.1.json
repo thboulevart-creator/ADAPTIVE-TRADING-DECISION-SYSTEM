@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_RVO_06_AP1_SMF_M03_BINDING_ANALYSIS_V0_1",
+  "status": "BLOCKED_SMF_AP1_METHOD_BINDING",
+  "ap1": {
+    "producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "percentile_backend": "numpy.percentile",
+    "percentile_method": "linear",
+    "probabilities": [
+      0.5,
+      0.9,
+      0.95,
+      0.99
+    ],
+    "direct_smf_call": false
+  },
+  "smf": {
+    "method_family": "M03",
+    "qualified_runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "qualified_procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "semantics": "ECDF + EMPIRICAL QUANTILES",
+    "activation_required_before_result": true
+  },
+  "synthetic_numeric_parity_observation": {
+    "cases": 5,
+    "comparisons": 20,
+    "probabilities": [
+      0.5,
+      0.9,
+      0.95,
+      0.99
+    ],
+    "result": "PASS",
+    "max_abs_diff": 0,
+    "scope": "TESTED_SYNTHETIC_LINEAR_QUANTILE_SURFACE_ONLY"
+  },
+  "distinction": "NUMERICAL_PARITY_WITHIN_TESTED_SURFACE != EXACT_QUALIFIED_PROCEDURE_IDENTITY",
+  "option_m_a": {
+    "verdict": "REJECTED",
+    "reason": "AP1 does not execute the exact adopted SMF M03 implementation and therefore cannot itself constitute exact SMF procedure/result evidence."
+  },
+  "option_m_b": {
+    "verdict": "NOT_CURRENTLY_EXECUTABLE_WITHOUT_OWNER_MATURATION",
+    "reason": "A distinct exact M03 run needs underlying observation vectors. AP1 persists summary statistics rather than the full tick_count/minute_range/spread_mean vectors required by ecdf_quantiles."
+  },
+  "final": "BLOCKED_SMF_AP1_METHOD_BINDING",
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}

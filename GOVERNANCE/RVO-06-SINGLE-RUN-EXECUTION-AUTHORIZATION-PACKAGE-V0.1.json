@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_RVO_06_SINGLE_RUN_EXECUTION_AUTHORIZATION_PACKAGE_V0_1",
+  "status": "BLOCKED_NOT_AUTHORIZING",
+  "target": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1 / CC02 retrospective descriptive",
+  "exact_target_freeze_ref": "RVO-06-FIRST-REAL-CC02-PRE-RESULT-FREEZE-CANDIDATE-V0.1",
+  "go_no_go": "NO_GO",
+  "blocking_reasons": [
+    "BLOCKED_DATA02_REAL_ADMISSION_TO_P112C_CONTRACT_MISMATCH",
+    "BLOCKED_P1_12C_AP1_INVOCATION_CONTRACT_MISMATCH",
+    "BLOCKED_P1_12C_RUNTIME_LOCK_NOT_AP1_CAPABLE",
+    "BLOCKED_SMF_AP1_METHOD_BINDING",
+    "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
+  ],
+  "may_authorize_execution": false,
+  "real_ap1_invocation": false,
+  "real_result_exposed": false,
+  "success_semantics": "READINESS_PACKAGE != EXECUTION_AUTHORITY",
+  "next_authority_needed": "OWNER_MATURATION_BEFORE_SINGLE_REAL_AP1_AUTHORIZATION"
+}

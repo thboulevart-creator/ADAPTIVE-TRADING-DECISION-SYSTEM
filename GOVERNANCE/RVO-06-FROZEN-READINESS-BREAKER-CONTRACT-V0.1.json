@@ -1,0 +1,124 @@
+{
+  "schema": "ATDS_RVO_06_FROZEN_READINESS_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_EXECUTION",
+  "freeze_rule": "Case IDs, attack intent and expected fail-closed outcome are frozen before any future owner maturation intended to obtain real AP1 readiness.",
+  "cases": [
+    {
+      "id": "RVO06-B01",
+      "attack": "stale DATA-02 receipt",
+      "expected": "BLOCKED_STALE_DATA02_RECEIPT"
+    },
+    {
+      "id": "RVO06-B02",
+      "attack": "wrong AP0 manifest",
+      "expected": "BLOCKED_AP0_MANIFEST_IDENTITY"
+    },
+    {
+      "id": "RVO06-B03",
+      "attack": "wrong AP1 producer blob",
+      "expected": "BLOCKED_AP1_PRODUCER_IDENTITY"
+    },
+    {
+      "id": "RVO06-B04",
+      "attack": "producer parameters drift after freeze",
+      "expected": "BLOCKED_AP1_PARAMETER_DRIFT"
+    },
+    {
+      "id": "RVO06-B05",
+      "attack": "runtime dependency drift",
+      "expected": "BLOCKED_AP1_RUNTIME_DRIFT"
+    },
+    {
+      "id": "RVO06-B06",
+      "attack": "timezone database drift where material",
+      "expected": "BLOCKED_AP1_TIMEZONE_DRIFT"
+    },
+    {
+      "id": "RVO06-B07",
+      "attack": "missing output schema/status",
+      "expected": "BLOCKED_AP1_OUTPUT_CONTRACT"
+    },
+    {
+      "id": "RVO06-B08",
+      "attack": "missing output-size ceiling",
+      "expected": "BLOCKED_AP1_OUTPUT_SIZE_CEILING"
+    },
+    {
+      "id": "RVO06-B09",
+      "attack": "P1 plan without exact Data admission",
+      "expected": "BLOCKED_P1_PLAN_DATA_ADMISSION"
+    },
+    {
+      "id": "RVO06-B10",
+      "attack": "SMF activation after result exposure",
+      "expected": "BLOCKED_POST_RESULT_METHOD_ACTIVATION"
+    },
+    {
+      "id": "RVO06-B11",
+      "attack": "M03 label-only binding",
+      "expected": "BLOCKED_LABEL_ONLY_M03"
+    },
+    {
+      "id": "RVO06-B12",
+      "attack": "NumPy percentile assumed exact SMF implementation",
+      "expected": "BLOCKED_SMF_AP1_METHOD_BINDING"
+    },
+    {
+      "id": "RVO06-B13",
+      "attack": "measurement plan lacks exact procedure identity",
+      "expected": "BLOCKED_MEASUREMENT_PROCEDURE_IDENTITY"
+    },
+    {
+      "id": "RVO06-B14",
+      "attack": "measurement input bound to path/filename",
+      "expected": "REJECT_PATH_AS_MEASUREMENT_IDENTITY"
+    },
+    {
+      "id": "RVO06-B15",
+      "attack": "P1.12D native owner mismatch",
+      "expected": "BLOCKED_P1_12D_NATIVE_OWNER_MISMATCH"
+    },
+    {
+      "id": "RVO06-B16",
+      "attack": "P1.13C plan lacks execution envelope",
+      "expected": "BLOCKED_P1_13C_EXECUTION_ENVELOPE"
+    },
+    {
+      "id": "RVO06-B17",
+      "attack": "P1.14C plan lacks measurement bytes identity",
+      "expected": "BLOCKED_P1_14C_MEASUREMENT_INPUT"
+    },
+    {
+      "id": "RVO06-B18",
+      "attack": "RVO package grants scientific authority",
+      "expected": "REJECT_RVO_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "RVO06-B19",
+      "attack": "readiness verdict treated as execution authorization",
+      "expected": "REJECT_READINESS_AS_EXECUTION_AUTHORITY"
+    },
+    {
+      "id": "RVO06-B20",
+      "attack": "real Data admission passed directly to current P1.12C",
+      "expected": "BLOCKED_DATA02_REAL_ADMISSION_TO_P112C_CONTRACT_MISMATCH"
+    },
+    {
+      "id": "RVO06-B21",
+      "attack": "current P1.12C synthetic invocation protocol used for AP1 CLI",
+      "expected": "BLOCKED_P1_12C_AP1_INVOCATION_CONTRACT_MISMATCH"
+    },
+    {
+      "id": "RVO06-B22",
+      "attack": "current P1.12C synthetic runtime lock used for AP1",
+      "expected": "BLOCKED_P1_12C_RUNTIME_LOCK_NOT_AP1_CAPABLE"
+    },
+    {
+      "id": "RVO06-B23",
+      "attack": "execution workspace lacks exact P1.12C/P1.12D+ runtime",
+      "expected": "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
+    }
+  ],
+  "executable_breaker_present": false,
+  "real_ap1_execution": false
+}

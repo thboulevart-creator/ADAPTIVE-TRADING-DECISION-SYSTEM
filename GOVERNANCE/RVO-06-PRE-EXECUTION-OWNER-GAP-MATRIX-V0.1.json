@@ -1,0 +1,55 @@
+{
+  "schema": "ATDS_RVO_06_PRE_EXECUTION_OWNER_GAP_MATRIX_V0_1",
+  "status": "NO_GO",
+  "gaps": [
+    {
+      "id": "RVO06-G01",
+      "priority": "CRITICAL",
+      "owner_boundary": "DATA-02 ↔ P1.12C",
+      "reason": "BLOCKED_DATA02_REAL_ADMISSION_TO_P112C_CONTRACT_MISMATCH",
+      "evidence": "DATA-02 real admission returns PASS_REAL_DATA_ADMISSION/evidence/evidence_digest while P1.12C requires READY_FOR_EXACT_CLAIM/binding_basis/admission_digest.",
+      "rvo_may_bridge": false
+    },
+    {
+      "id": "RVO06-G02",
+      "priority": "CRITICAL",
+      "owner_boundary": "P1.12C ↔ AP1",
+      "reason": "BLOCKED_P1_12C_AP1_INVOCATION_CONTRACT_MISMATCH",
+      "evidence": "P1.12C sandbox protocol passes --source-root/--parameters/--producer-id while AP1 accepts --ap0-root/--ap0-manifest/--output.",
+      "rvo_may_bridge": false
+    },
+    {
+      "id": "RVO06-G03",
+      "priority": "CRITICAL",
+      "owner_boundary": "P1.12C runtime lock ↔ AP1 runtime",
+      "reason": "BLOCKED_P1_12C_RUNTIME_LOCK_NOT_AP1_CAPABLE",
+      "evidence": "Current P1.12C lock is explicitly synthetic, has no material third-party dependencies, timezone database NOT_USED, and 10-second timeout; AP1 requires NumPy, PyArrow and America/New_York timezone data.",
+      "rvo_may_bridge": false
+    },
+    {
+      "id": "RVO06-G04",
+      "priority": "CRITICAL",
+      "owner_boundary": "AP1 ↔ SMF M03",
+      "reason": "BLOCKED_SMF_AP1_METHOD_BINDING",
+      "evidence": "Synthetic numerical parity exists but AP1 does not execute exact qualified SMF M03 procedure and does not persist raw observation vectors for a distinct M03 replay.",
+      "rvo_may_bridge": false
+    },
+    {
+      "id": "RVO06-G05",
+      "priority": "HIGH",
+      "owner_boundary": "single-run execution environment",
+      "reason": "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED",
+      "evidence": "Observed local governed checkout contains the exact AP1 producer but predates P1.12C and has no P1.12C module.",
+      "rvo_may_bridge": "SEPARATE_EXECUTION_PREPARATION_ONLY"
+    }
+  ],
+  "non_blocking_ready": [
+    "DATA-02 real AP0 admission receipt remains exact.",
+    "AP0 root and exact manifest are present; 61 Parquet files are present.",
+    "AP1 producer identity is exact.",
+    "P1.12D-P1.16C common downstream is synthetically qualified.",
+    "Temporal remains NOT_APPLICABLE_WITH_EXPLICIT_BASIS for the exact retrospective descriptive claim.",
+    "Observed Python/NumPy/PyArrow/tzdata environment can be identified exactly as readiness evidence."
+  ],
+  "final_verdict": "BLOCKED_MULTIPLE_PRE_EXECUTION_OWNER_GAPS"
+}
