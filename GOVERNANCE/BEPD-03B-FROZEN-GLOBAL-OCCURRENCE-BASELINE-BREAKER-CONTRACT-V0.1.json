@@ -1,0 +1,184 @@
+{
+  "schema": "ATDS_BEPD_03B_FROZEN_GLOBAL_OCCURRENCE_BASELINE_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "5e7f9796efde7e2c8a4a061a7291ae12abb4c1e0",
+    "tree": "53925a0dda86ece36c1ec79f011e663598feb9e3"
+  },
+  "bindings": {
+    "authorization_blob": "506e75c4c88a04019ae71156dbebf3c8f02d5d2b",
+    "implementation_contract_blob": "a949cdf6b43a20a981e4a1fb4667de16f3b3c260",
+    "calculator_blob": "7f8cebd92437ec724c8ebe81f0e9befdccc7dba4",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "level_ledger_blob": "c50cea414a95e498199fbe0c426f4d246a1f1f99",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "source_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "cases": [
+    {
+      "id": "BEPD03B-B01",
+      "intent": "result numerator differs from direct swept_this_week=true count",
+      "expected": "REJECT_NUMERATOR_MISMATCH"
+    },
+    {
+      "id": "BEPD03B-B02",
+      "intent": "result denominator differs from exact opportunity-row count",
+      "expected": "REJECT_DENOMINATOR_MISMATCH"
+    },
+    {
+      "id": "BEPD03B-B03",
+      "intent": "result ratio differs from exact event/opportunity ratio",
+      "expected": "REJECT_RATIO_MISMATCH"
+    },
+    {
+      "id": "BEPD03B-B04",
+      "intent": "GLOBAL opportunity count != HIGH+LOW",
+      "expected": "REJECT_GLOBAL_SIDE_OPPORTUNITY_PARITY"
+    },
+    {
+      "id": "BEPD03B-B05",
+      "intent": "GLOBAL event count != HIGH+LOW",
+      "expected": "REJECT_GLOBAL_SIDE_EVENT_PARITY"
+    },
+    {
+      "id": "BEPD03B-B06",
+      "intent": "GLOBAL unique-level count != HIGH+LOW",
+      "expected": "REJECT_GLOBAL_SIDE_LEVEL_PARITY"
+    },
+    {
+      "id": "BEPD03B-B07",
+      "intent": "GLOBAL target-week set differs from union of HIGH/LOW",
+      "expected": "REJECT_TARGET_WEEK_PARITY"
+    },
+    {
+      "id": "BEPD03B-B08",
+      "intent": "input opportunity row excluded",
+      "expected": "REJECT_ROW_EXCLUSION"
+    },
+    {
+      "id": "BEPD03B-B09",
+      "intent": "input opportunity row duplicated",
+      "expected": "REJECT_ROW_DUPLICATION"
+    },
+    {
+      "id": "BEPD03B-B10",
+      "intent": "side other than HIGH/LOW accepted",
+      "expected": "REJECT_SIDE_DOMAIN_DRIFT"
+    },
+    {
+      "id": "BEPD03B-B11",
+      "intent": "dependence_key differs from target_week_id",
+      "expected": "REJECT_DEPENDENCE_KEY_DRIFT"
+    },
+    {
+      "id": "BEPD03B-B12",
+      "intent": "opportunity-row IID claim introduced",
+      "expected": "REJECT_IID_LAUNDERING"
+    },
+    {
+      "id": "BEPD03B-B13",
+      "intent": "mean of weekly rates substituted for pooled ratio",
+      "expected": "REJECT_WEEKLY_MEAN_SUBSTITUTION"
+    },
+    {
+      "id": "BEPD03B-B14",
+      "intent": "HIGH omitted",
+      "expected": "REJECT_HIGH_OMISSION"
+    },
+    {
+      "id": "BEPD03B-B15",
+      "intent": "LOW omitted",
+      "expected": "REJECT_LOW_OMISSION"
+    },
+    {
+      "id": "BEPD03B-B16",
+      "intent": "view order changed from GLOBAL/HIGH/LOW",
+      "expected": "REJECT_VIEW_ORDER_DRIFT"
+    },
+    {
+      "id": "BEPD03B-B17",
+      "intent": "confidence interval field emitted",
+      "expected": "REJECT_UNAUTHORIZED_CI"
+    },
+    {
+      "id": "BEPD03B-B18",
+      "intent": "p-value/significance field emitted",
+      "expected": "REJECT_UNAUTHORIZED_INFERENCE"
+    },
+    {
+      "id": "BEPD03B-B19",
+      "intent": "ranking/best/worst field emitted",
+      "expected": "REJECT_UNAUTHORIZED_RANKING"
+    },
+    {
+      "id": "BEPD03B-B20",
+      "intent": "calendar/age/take-day segmentation emitted",
+      "expected": "REJECT_UNAUTHORIZED_SEGMENTATION"
+    },
+    {
+      "id": "BEPD03B-B21",
+      "intent": "M05 state differs from BLOCKED",
+      "expected": "REJECT_M05_ACTIVATION"
+    },
+    {
+      "id": "BEPD03B-B22",
+      "intent": "historical descriptor labeled future probability",
+      "expected": "REJECT_FUTURE_PROBABILITY_LAUNDERING"
+    },
+    {
+      "id": "BEPD03B-B23",
+      "intent": "source BEPD-02 run identity mismatch",
+      "expected": "REJECT_SOURCE_RUN_DRIFT"
+    },
+    {
+      "id": "BEPD03B-B24",
+      "intent": "bound input or policy Git blob mismatch",
+      "expected": "REJECT_PROVENANCE_DRIFT"
+    },
+    {
+      "id": "BEPD03B-B25",
+      "intent": "forbidden analytics flag not false",
+      "expected": "REJECT_AUTHORITY_EXPANSION"
+    }
+  ],
+  "exact_result_contract": {
+    "view_order": [
+      "GLOBAL_ALL_SIDES",
+      "HIGH",
+      "LOW"
+    ],
+    "ratio": "event_count/opportunity_count",
+    "decimal_places": 18,
+    "decimal_rounding": "ROUND_HALF_EVEN",
+    "result_interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_PROPORTION",
+    "m05_generalization_uncertainty": "BLOCKED",
+    "confidence_interval": null,
+    "p_value": null,
+    "ranking": false
+  },
+  "qualification_rule": {
+    "expected_market_values_preencoded": false,
+    "direct_recomputation_from_bound_ledger": true,
+    "all_input_rows_accounted_for": true,
+    "pass_meaning": "exact descriptive-baseline calculation and provenance only"
+  },
+  "authority": {
+    "global_baseline": true,
+    "high_low_views": true,
+    "calendar_segmentation": false,
+    "age_segmentation": false,
+    "timing_segmentation": false,
+    "ranking": false,
+    "inference": false,
+    "bootstrap": false,
+    "m05_activation": false,
+    "response_map": false,
+    "strategy": false
+  },
+  "stop_boundary": "STOP_AFTER_PERSISTED_GLOBAL_HIGH_LOW_BASELINE_AND_REBREAK"
+}
