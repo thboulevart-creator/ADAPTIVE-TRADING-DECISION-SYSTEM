@@ -1,0 +1,36 @@
+{
+  "schema": "ATDS_P1_21_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "OBSERVED_RED_PERSISTED_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "b0c90f8692334160251f9dc59766a479de63b001",
+    "tree": "ab59282251e1b0083cad1676c3dc87cbc1cd4e1a"
+  },
+  "frozen_breaker_contract_blob": "2d985ebcd2fca331a8af1be864fdce07ff26ceec",
+  "executable_breaker_blob": "981f21bcdde9afea5b85cced387c3acdb119e26f",
+  "red_workflow_blob": "1193253201530b17d960d861ca477e7d93ce5b7f",
+  "observed_red": {
+    "commit": "ca6151190250a032f9db676fd960dcce0a7cf0b5",
+    "tree": "d1bbb76863eee67cc738d43a0e5526afe6105914",
+    "workflow_run_id": 37331229238,
+    "job_id": 111834542135,
+    "conclusion": "SUCCESS_EXPECTED_RED_PROOF",
+    "pytest_result": "29_FAILED",
+    "marker": "P1_21_REAL_PRODUCER_CAPABILITY_ABSENT_EXPECTED_RED"
+  },
+  "integrity": {
+    "implementation_present_at_red": false,
+    "frozen_case_count": 29,
+    "case_ids_frozen_before_runtime": true,
+    "expected_reasons_frozen_before_runtime": true
+  },
+  "authority": {
+    "real_ap1": false,
+    "new_market_result": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}
