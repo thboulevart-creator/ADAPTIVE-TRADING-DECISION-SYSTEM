@@ -1,0 +1,185 @@
+name: BEPD-04C First Real Same-Week Reintegration
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04c-one-shot.yml
+
+permissions:
+  contents: read
+
+jobs:
+  first-real-execution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact triggering HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify frozen identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"
+            expected="$2"
+            actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04C_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "GOVERNANCE/BEPD-04C-FIRST-REAL-SAME-WEEK-REINTEGRATION-PRE-RESULT-EXECUTION-FREEZE-V0.1.json" "7c2c04c7fb3374d0dbdf7ba184c79624f8ba91a2"
+          check_blob "GOVERNANCE/BEPD-04A-EVENT-CONDITIONAL-SAME-WEEK-REINTEGRATION-RESPONSE-SEMANTICS-CONTRACT-V0.1.json" "796bcaec05eb36234074ba4ea871afcd6f784915"
+          check_blob "reports/program/2026-10-05-BEPD-04A-RESPONSE-SEMANTICS-QUALIFICATION-V0.1.md" "43f7b53827a4422d8af1ee625991db8098b1b9d8"
+          check_blob "GOVERNANCE/BEPD-04B-SAME-WEEK-REINTEGRATION-RESPONSE-IMPLEMENTATION-CONTRACT-V0.1.json" "9eae42882e76f1e18dde46cc63d0b7fdf4a1e682"
+          check_blob "tools/bepd_04b_same_week_reintegration_response_v0_1.py" "d796cd198ad01498491ee2dbe44a7f5e4c42681e"
+          check_blob "breakers/bepd_04b_same_week_reintegration_response_breaker_v0_1.py" "53587218b92311906e8767ebccfe84147987862f"
+          check_blob "reports/program/2026-10-05-BEPD-04B-SYNTHETIC-IMPLEMENTATION-QUALIFICATION-RECEIPT-V0.1.json" "63ccfd912fb916c4547b02da0940a5b5e5557fa2"
+          check_blob "reports/program/2026-10-05-BEPD-04B-SYNTHETIC-IMPLEMENTATION-QUALIFICATION-V0.1.md" "252441db70a42a1a4317cd4432d7049f6c9f9707"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl" "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/RUN_MANIFEST.json" "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+          check_blob "GOVERNANCE/BEPD-03A-SMF-M05-OCCURRENCE-UNCERTAINTY-ACTIVATION-RECORD-V0.1.json" "53d33074038fa9d971b4672b1d981589da020a1e"
+          python - <<'PY'
+          import json
+          p="GOVERNANCE/BEPD-03A-SMF-M05-OCCURRENCE-UNCERTAINTY-ACTIVATION-RECORD-V0.1.json"
+          x=json.load(open(p,encoding="utf-8"))
+          assert x["activation_record"]["activation_state"]=="BLOCKED"
+          print("BEPD04C_PREFLIGHT_BINDINGS_PASS")
+          PY
+
+      - name: Execute qualified calculator once on bound real EVENT_LEDGER
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04c-output
+          python tools/bepd_04b_same_week_reintegration_response_v0_1.py \
+            --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl \
+            --execution-scope REAL_AUTHORIZED \
+            --source-ledger-blob 0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2 \
+            --source-run-id 68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821 \
+            --real-execution-authorized \
+            --output bepd04c-output/RESULT.json
+
+      - name: Independent global-only reconciliation and manifest
+        shell: bash
+        env:
+          WORKFLOW_RUN_ID: ${{ github.run_id }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from __future__ import annotations
+          import hashlib, json, os, subprocess
+          from decimal import Decimal, ROUND_HALF_EVEN
+          from pathlib import Path
+
+          ledger=Path("artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl")
+          result_path=Path("bepd04c-output/RESULT.json")
+          result=json.loads(result_path.read_text(encoding="utf-8"))
+          rows=[json.loads(x) for x in ledger.read_text(encoding="utf-8").splitlines() if x.strip()]
+          assert rows
+          required=("schema_version","run_id","event_id","sweep_cluster_id","target_week_id","level_id","side","take_h1_close_utc","same_week_reintegration")
+          seen=set(); true_count=0
+          for i,row in enumerate(rows,1):
+              for k in required:
+                  assert k in row, (i,k)
+              assert row["schema_version"]=="ATDS_BEPD_01D_HISTORICAL_LEDGER_SCHEMA_V0_1"
+              assert row["run_id"]=="68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+              assert row["side"] in {"HIGH","LOW"}
+              assert type(row["same_week_reintegration"]) is bool
+              assert row["event_id"] not in seen
+              seen.add(row["event_id"])
+              true_count += int(row["same_week_reintegration"])
+          total=len(rows); false_count=total-true_count
+          q=Decimal("0.000000000000000001")
+          share=format((Decimal(true_count)/Decimal(total)).quantize(q,rounding=ROUND_HALF_EVEN),"f")
+          expected={
+              "total_event_count":total,
+              "reintegration_true_count":true_count,
+              "reintegration_false_count":false_count,
+              "reintegration_fraction":f"{true_count}/{total}",
+              "reintegration_share_decimal":share,
+          }
+          for k,v in expected.items():
+              assert result[k]==v, (k,result[k],v)
+          assert result["schema"]=="ATDS_BEPD_04B_SAME_WEEK_REINTEGRATION_RESPONSE_RESULT_V0_1"
+          assert result["execution_scope"]=="REAL_AUTHORIZED"
+          assert result["interpretation"]=="EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_POST_SWEEP_RESPONSE_DESCRIPTION"
+          assert result["source_ledger_blob"]=="0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          assert result["source_run_id"]=="68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+          assert result["m05_generalization_uncertainty"]=="BLOCKED"
+          assert result["forbidden_analytics_executed"] is False
+          assert "EVENT != IID OBSERVATION" in result["dependence_statement"]
+          assert "sweep_cluster_id" in result["dependence_statement"]
+          assert "target_week_id" in result["dependence_statement"]
+
+          head=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          tree=subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip()
+          bindings={
+              "bepd04c_freeze_blob":"7c2c04c7fb3374d0dbdf7ba184c79624f8ba91a2",
+              "bepd04a_semantics_blob":"796bcaec05eb36234074ba4ea871afcd6f784915",
+              "bepd04a_qualification_blob":"43f7b53827a4422d8af1ee625991db8098b1b9d8",
+              "bepd04b_implementation_contract_blob":"9eae42882e76f1e18dde46cc63d0b7fdf4a1e682",
+              "bepd04b_calculator_blob":"d796cd198ad01498491ee2dbe44a7f5e4c42681e",
+              "bepd04b_executable_breaker_blob":"53587218b92311906e8767ebccfe84147987862f",
+              "bepd04b_qualification_receipt_blob":"63ccfd912fb916c4547b02da0940a5b5e5557fa2",
+              "bepd04b_qualification_report_blob":"252441db70a42a1a4317cd4432d7049f6c9f9707",
+              "bepd02_event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+              "bepd02_run_manifest_blob":"ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+              "bepd02_run_id":"68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+          }
+          run_payload={"repository":"thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM","branch":"integration/system-v1","execution_head":head,"execution_tree":tree,"bindings":bindings}
+          run_id=hashlib.sha256(json.dumps(run_payload,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
+          result_bytes=result_path.read_bytes()
+          result_sha=hashlib.sha256(result_bytes).hexdigest()
+          manifest={
+              "schema":"ATDS_BEPD_04C_FIRST_REAL_RESPONSE_RUN_MANIFEST_V0_1",
+              "repository":"thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+              "branch":"integration/system-v1",
+              "execution_head":head,
+              "execution_tree":tree,
+              "run_id":run_id,
+              "execution_scope":"REAL_AUTHORIZED",
+              "bindings":bindings,
+              "result":{"relative_path":"artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RESULT.json","sha256":result_sha,"size_bytes":len(result_bytes)},
+              "independent_recomputation":{"status":"PASS","authorized_global_fields":expected},
+              "m05_generalization_uncertainty":"BLOCKED",
+              "forbidden_analytics_executed":False,
+          }
+          Path("bepd04c-output/RUN_MANIFEST.json").write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n",encoding="utf-8",newline="\n")
+          record={
+              "schema":"ATDS_BEPD_04C_ONE_SHOT_EXECUTION_RECORD_V0_1",
+              "status":"FIRST_REAL_EXECUTION_COMPLETED_PENDING_PERSISTENCE_AND_REBREAK",
+              "workflow_run_id":int(os.environ["WORKFLOW_RUN_ID"]),
+              "execution_head":head,
+              "execution_tree":tree,
+              "run_id":run_id,
+              "calculator_blob":"d796cd198ad01498491ee2dbe44a7f5e4c42681e",
+              "event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+              "result_sha256":result_sha,
+              "independent_recomputation":"PASS",
+              "real_execution_count":1,
+              "m05":"BLOCKED",
+              "authority":{"subgroups":False,"inference":False,"prediction":False,"edge":False,"strategy":False,"pnl":False,"trading":False,"capital":False},
+          }
+          Path("bepd04c-output/ONE_SHOT_EXECUTION_RECORD.json").write_text(json.dumps(record,indent=2,sort_keys=True)+"\n",encoding="utf-8",newline="\n")
+          print("BEPD04C_INDEPENDENT_RECONCILIATION_PASS")
+          print("BEPD04C_RUN_ID="+run_id)
+          PY
+
+      - name: Execute qualified adversarial breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04b_same_week_reintegration_response_breaker_v0_1.py --root .
+
+      - name: Upload first-real execution evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04c-first-real-${{ github.run_id }}
+          path: |
+            bepd04c-output/RESULT.json
+            bepd04c-output/RUN_MANIFEST.json
+            bepd04c-output/ONE_SHOT_EXECUTION_RECORD.json
+          if-no-files-found: error
+          retention-days: 30
