@@ -57,6 +57,8 @@ jobs:
           test "$(git hash-object src/smf_ap1_m03_binding.py)" = "f4c0295625f8b360effbd27a8d616d9644ea2a5e"
           test "$(git hash-object tools/smf_ap1_m03_companion.py)" = "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
           test "$(git hash-object tests/test_smf_ap1_m03_01_binding.py)" = "44024d053c6839e00b7bcdb9f32c68761d3cc3cb"
+          test "$(git hash-object reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION.md)" = "76f7484680da8cdc8c268c4ff27abea52403b668"
+          test "$(git hash-object reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION-RECEIPT-V0.1.json)" = "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:

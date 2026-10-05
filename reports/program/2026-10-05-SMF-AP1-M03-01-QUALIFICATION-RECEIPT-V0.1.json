@@ -1,0 +1,106 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_01_QUALIFICATION_RECEIPT_V0_1",
+  "status": "SMF_AP1_M03_01_CAPABILITY_SYNTHETICALLY_QUALIFIED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "a0156f73932f54926d96c5c88a8239671cc271e5",
+    "tree": "5c9e67ea7859e2274a8dbeb46df3ff90944dbfd2"
+  },
+  "reconciled_parent": {
+    "head": "34227fc45639b57eaf7d59979c3b705d760e2be8",
+    "tree": "1915e2421caf6af729756535a359d22091d7b067",
+    "drift_classification": "NON_MATERIAL",
+    "drift_scope": "BEPD-03C_ONLY",
+    "ahead_by": 7
+  },
+  "exact_artifacts": {
+    "activation_contract_blob": "847bce0365921024addb42c930dc5f47dee9401c",
+    "drift_reconciliation_blob": "5e196466efe7925f0a4396fd46e61d530c3df9cf",
+    "frozen_breaker_contract_blob": "aed06cf37230ab539de34f8d409c38caacaab79d",
+    "breaker_blob": "b1fa584249e60f3bb99ea9849c684ff76207de27",
+    "red_workflow_blob": "aa8ba000a84b7307e265ac412b508b1cf47100ee",
+    "red_receipt_blob": "904ae30d3323f3237c8eb0fecf1adf6fc635eea4",
+    "binding_runtime_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "positive_tests_blob": "44024d053c6839e00b7bcdb9f32c68761d3cc3cb",
+    "corrected_qualification_workflow_blob": "45a56c70a5ed566a053efbd4da7dd5e7e12e4d1a"
+  },
+  "protected_owner_identities": {
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "data02_real_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "p121_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "p112c_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "p112c_runner_blob": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "rvo06_m03_analysis_blob": "b23eded40a91c9c4dc691145e5083e3b6a9ff124"
+  },
+  "applicability": {
+    "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "m03": "REQUIRED_ACTIVATED",
+    "rationale": "AP1 declares empirical percentile summaries for tick_count, minute_range and per-minute spread_mean.",
+    "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+    "population": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET",
+    "iid_claim": false,
+    "inference_claim": false,
+    "method_procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles"
+  },
+  "red": {
+    "head": "480620914a85b554ddc66f0cb8afde79891672fa",
+    "tree": "04af39befee8f63f07a4d79c3494566c09583836",
+    "run_id": 37349995017,
+    "job_id": 111898135285,
+    "observed": "28_FAILED_RUNTIME_ABSENT",
+    "marker": "SMF_AP1_M03_01_RUNTIME_ABSENT_EXPECTED_RED"
+  },
+  "initial_green_candidate_failure": {
+    "head": "2800f6d629a93f8014c74b15f4460532c7766156",
+    "run_id": 37350519173,
+    "job_id": 111899918287,
+    "reason": "WORKFLOW_DIRECT_SCRIPT_IMPORT_PATH_DEFECT",
+    "exact_error": "ModuleNotFoundError: No module named 'src'",
+    "semantic_failure": false,
+    "breaker_changed": false,
+    "runtime_changed": false
+  },
+  "qualification_candidate": {
+    "head": "0f29d3d479e37442b822463605c489baaaf97fe4",
+    "tree": "9b1039ca36248dec26557712881b3c08fa147753",
+    "run_id": 37350625682,
+    "job_id": 111900274326,
+    "conclusion": "SUCCESS"
+  },
+  "qualification_counts": {
+    "frozen_breakers": "28_PASS",
+    "synthetic_positive": "25_PASS",
+    "smf_core_rebreak": "15_PASS",
+    "p121_breakers": "29_PASS",
+    "p121_positive": "18_PASS",
+    "data02_breakers": "32_PASS",
+    "bounded_delta": "PASS",
+    "g05_closed_no_real_execution": "PASS"
+  },
+  "rvo06_gap_effect": {
+    "G04": "CAPABILITY_CLOSED_PENDING_REAL_REQUALIFICATION",
+    "G05": "UNCHANGED_BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
+  },
+  "authority": {
+    "real_ap1": false,
+    "real_ap0_read": false,
+    "empirical_m03": false,
+    "new_market_result": false,
+    "first_real_cc02_ready": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "persisted_head_rebreak": "REQUIRED_AFTER_PERSISTENCE",
+  "stop": {
+    "g05": "NOT_AUTHORIZED_BY_THIS_STEP",
+    "rvo07": "NOT_AUTHORIZED",
+    "real_ap1": "NOT_AUTHORIZED",
+    "empirical_m03": "NOT_AUTHORIZED"
+  }
+}
