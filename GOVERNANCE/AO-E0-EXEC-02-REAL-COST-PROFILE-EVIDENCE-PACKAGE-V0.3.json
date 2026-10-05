@@ -1,0 +1,118 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_02_REAL_COST_PROFILE_EVIDENCE_PACKAGE_V0_3",
+  "control_id": "AO-E0-EXEC-02",
+  "status": "CURRENT_CONTRACT_BOUND_HISTORICAL_COST_PROFILE_STILL_BLOCKED",
+  "parent": {
+    "head": "afd06313c2b009f42a7063f7d62bb4ccf8c36999",
+    "tree": "fdc2d148a1a533919c785244fd0eb95a1dda697d"
+  },
+  "supersedes": "V0.2 target identity bound / current symbol specification pending",
+  "target_identity": {
+    "broker": "VT Markets",
+    "server": "VTMarkets-Live 2",
+    "account_type": "Standard STP",
+    "account_base_currency": "EUR",
+    "symbol": "NAS100.s",
+    "description": "NAS100 Cash"
+  },
+  "local_platform_evidence": {
+    "evidence_date": "2026-10-05",
+    "screenshot_sha256": [
+      "eeeb29d7ddc0e88f4d57e371ea67b26709ebf51d0d089db6733a2e37cc25d9e",
+      "f39b9586e6200792d1fefff504313571f9bd4257d1c68bebc6841c1f10a8f5f5",
+      "7d876f8d96fcf8aa5c1d8cf6b4b82e2557f4cb0f8283339e1cb3084bc81168af"
+    ],
+    "provenance_class": "OBSERVED_CURRENT_PLATFORM_SPECIFICATION",
+    "historical_oos_authority": false
+  },
+  "current_symbol_specification": {
+    "digits": 2,
+    "contract_size": 1,
+    "spread": "FLOATING",
+    "stops_level": 0,
+    "margin_currency": "USD",
+    "profit_currency": "USD",
+    "calculation_mode": "CFD",
+    "tick_size": 0.01,
+    "tick_value": 0.01,
+    "chart_mode": "BID",
+    "trade_mode": "FULL_ACCESS",
+    "execution_mode": "MARKET",
+    "gtc_mode": "VALID_UNTIL_CANCELLED",
+    "filling_mode": "IMMEDIATE_OR_CANCEL",
+    "expiration": "ALL",
+    "orders": "ALL",
+    "min_volume_lots": 0.1,
+    "max_volume_lots": 125,
+    "volume_step_lots": 0.1,
+    "swap_type_display": "USD",
+    "swap_long": -6.3665,
+    "swap_short": 1.2017,
+    "swap_multipliers": {
+      "monday": 1,
+      "tuesday": 1,
+      "wednesday": 1,
+      "thursday": 1,
+      "friday": 3
+    }
+  },
+  "current_unit_conversion": {
+    "tick_size_price_units": 0.01,
+    "tick_value_usd_per_lot": 0.01,
+    "usd_per_1_price_unit_per_lot": 1,
+    "basis": "tick_value / tick_size = 1 USD per 1.00 index price unit per lot",
+    "account_eur_conversion_required_for_ao_e0_price_unit_estimand": false,
+    "account_eur_conversion_required_for_account_currency_pnl_claim": true
+  },
+  "current_swap_cost_conversion": {
+    "convention": "POSITIVE_NUMBER_IS_COST_NEGATIVE_NUMBER_IS_CREDIT",
+    "long_standard_price_units_per_lot": 6.3665,
+    "short_standard_price_units_per_lot": -1.2017,
+    "long_friday_price_units_per_lot": 19.0995,
+    "short_friday_price_units_per_lot": -3.6051,
+    "historical_oos_use": "FORBIDDEN_WITHOUT_HISTORICAL_RATE_EVIDENCE"
+  },
+  "official_evidence_interpretation": {
+    "standard_stp_commission": "OFFICIAL SOURCES SUPPORT $0 SEPARATE COMMISSION",
+    "commission_full_oos_continuity": "NOT_VERSION_PROVEN",
+    "cash_index_swap_mechanics": "OFFICIAL VT GUIDANCE SUPPORTS OVERNIGHT SWAP AND FRIDAY TRIPLE ROLLOVER",
+    "current_swap_values": "BOUND_BY_LOCAL_MT5_SCREENSHOT",
+    "historical_swap_series": "NOT_ESTABLISHED",
+    "slippage": "OFFICIAL MARKET-EXECUTION POLICY CONFIRMS SLIPPAGE CAN OCCUR",
+    "finite_adverse_slippage_upper_bound": "NOT_ESTABLISHED"
+  },
+  "bindings": {
+    "EXECUTION_VENUE_IDENTITY": "VT_MARKETS",
+    "MT5_SERVER_IDENTITY": "VTMarkets-Live 2",
+    "ACCOUNT_COST_PROFILE_IDENTITY": "VT_MARKETS_STANDARD_STP_EUR",
+    "USTECH_SYMBOL_CONTRACT_IDENTITY": "VT_MARKETS_MT5_NAS100.s_NAS100_CASH_CURRENT_SPEC_2026_10_05",
+    "COMMISSION_SCHEDULE_IDENTITY": "ZERO_SEPARATE_COMMISSION_OFFICIAL_ANCHORS_FULL_OOS_CONTINUITY_NOT_VERSION_PROVEN",
+    "CURRENT_SWAP_SCHEDULE_IDENTITY": "MT5_NAS100.s_2026_10_05_LONG_-6.3665_SHORT_1.2017_USD_FRIDAY_X3",
+    "HISTORICAL_OOS_SWAP_SCHEDULE_IDENTITY": "UNKNOWN",
+    "SLIPPAGE_BOUND_IDENTITY": "UNKNOWN_NO_FINITE_DEFENSIBLE_BOUND",
+    "CURRENT_UNIT_CONVERSION_IDENTITY": "NAS100.s_TICK_0.01_VALUE_0.01USD_CONTRACT_SIZE_1",
+    "HISTORICAL_OOS_UNIT_CONVERSION_IDENTITY": "NOT_VERSION_PROVEN"
+  },
+  "decision": {
+    "REAL_COST_PROFILE": "BLOCKED",
+    "current_contract_binding": "PASS_CURRENT_ONLY",
+    "unresolved_blockers": [
+      "HISTORICAL_OOS_SWAP_RATE_SERIES_OR_DEFENSIBLE_HISTORICAL_FINANCING_BOUND",
+      "DEFENSIBLE_ADVERSE_SLIPPAGE_UPPER_BOUND",
+      "FULL_OOS_CONTINUITY_OF_ZERO_SEPARATE_COMMISSION_AND_CONTRACT_SPEC_IF_STRICT_VERSION_CONTINUITY_REQUIRED"
+    ],
+    "next_possible_evidence_actions": [
+      "seek historical NAS100.s swap/specification evidence from VT Markets support or archived official records",
+      "seek historical execution/fill evidence or a governed execution policy capable of producing a finite slippage bound without OOS-result calibration"
+    ],
+    "generic_execution_architecture_required": false
+  },
+  "authority": {
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "strategy_qualification_authorized": false,
+    "broker_execution_authorized": false,
+    "paper_live_capital_authorized": false,
+    "b12": "CLOSED"
+  }
+}
