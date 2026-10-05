@@ -1,0 +1,41 @@
+{
+  "schema": "ATDS_BEPD_04B_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "OBSERVED_RED_PERSISTED_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_at_parent": {
+    "head": "c8ec68ffc6873226bd673964b860f4835d1fdec6",
+    "tree": "c1b888eec93e2915b34dc19fe89196dc923c2911"
+  },
+  "frozen": {
+    "implementation_contract_blob": "9eae42882e76f1e18dde46cc63d0b7fdf4a1e682",
+    "synthetic_expectations_blob": "a1b7cd0e5fa40d19468dc031d5f02dfb1b5ba9db",
+    "test_blob": "e35ac8abbc6efd0a022450b97b75c9b8a4436947"
+  },
+  "observed_red": {
+    "command": "python -m unittest tests/test_bepd_04b_same_week_reintegration_response_v0_1.py",
+    "exit_code": 1,
+    "failure_marker": "BEPD04B_RUNTIME_ABSENT_EXPECTED_RED",
+    "calculator_present": false,
+    "meaning": "expected test-first RED caused by absent BEPD-04B runtime, before implementation"
+  },
+  "test_first_integrity": {
+    "frozen_synthetic_case_count": 10,
+    "expected_values_changed_after_red": false,
+    "implementation_present_at_red": false,
+    "real_event_ledger_executed": false,
+    "real_response_result_exposed": false
+  },
+  "authority": {
+    "real_event_ledger_execution": false,
+    "real_response_calculation": false,
+    "response_map_result": false,
+    "m05_activation": false,
+    "predictive": false,
+    "strategy": false,
+    "backtest": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  }
+}
