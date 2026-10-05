@@ -1,0 +1,137 @@
+{
+  "schema": "ATDS_RVO_08F_SINGLE_AP1_EXECUTION_FAILURE_FORENSIC_DIAGNOSTIC_PLAN_V0_1",
+  "status": "FROZEN_PRE_DIAGNOSTIC",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "7196401a3fc3e8b005c2069f78c7bca656f3d7b8",
+    "tree": "77afafd39da142a7c7686f2dbf48c2a610cfc54c"
+  },
+  "preflight_parent": {
+    "head": "9d59aa0cc7da214535cec5556987af36a7925f5d",
+    "tree": "bca3e459480421d7e44b06ef08c21bdc9fbfe6b1",
+    "drift": "NON_MATERIAL"
+  },
+  "target_failure": {
+    "status": "BLOCKED_AP1_EXECUTION_FAILED",
+    "exit_code": 1,
+    "timeout_observed": false,
+    "stderr_sha256": "3e7806beb5bb6c78a8d5128c9eb871223e14fc1b42e03e64f778ad9070aaf567",
+    "ap1_output": "NOT_MINTED"
+  },
+  "evidence_pins": {
+    "closure_blob": "5b030dcc7d1849594a7b9c25f2a43083bb3cae92",
+    "freeze_blob": "18da0e5df6ea310292f2dcb43b413d553afd233a",
+    "ledger_blob": "11d47d1dfc2fbfe6a2746f74f245812398494e8e",
+    "execution_receipt_blob": "937e33846126246596e4d8ecf8327706d59202e5",
+    "producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "runner_blob": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "runtime_observation_blob": "e4e275e8590e3bead9123969c068b036c6c4e1d8"
+  },
+  "invariants": {
+    "ap1_real_invocation_count_must_remain": 1,
+    "real_ap1_execution": false,
+    "real_ap0_consumption": false,
+    "real_m03_execution": false,
+    "backtest": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "failure_modes": [
+    {
+      "id": "FM01",
+      "hypothesis": "Frozen WindowsApps real-binary path is not a valid child-process invocation transport from the controller context."
+    },
+    {
+      "id": "FM02",
+      "hypothesis": "Interpreter starts but -I removes a material dependency or timezone resource."
+    },
+    {
+      "id": "FM03",
+      "hypothesis": "P1.12C sandbox runner fails before producer-specific logic."
+    },
+    {
+      "id": "FM04",
+      "hypothesis": "Sandbox audit hook blocks a dependency/runtime event needed by the producer environment."
+    },
+    {
+      "id": "FM05",
+      "hypothesis": "AP1 source contains a static syntax/import-declaration defect independent of market data."
+    },
+    {
+      "id": "FM06",
+      "hypothesis": "Output destination parent cannot create/write a result file."
+    },
+    {
+      "id": "FM07",
+      "hypothesis": "Controller failure capture discarded stderr content, preventing exact retrospective diagnosis."
+    },
+    {
+      "id": "FM08",
+      "hypothesis": "Pre-result Git persistence defect caused the child-process failure."
+    },
+    {
+      "id": "FM09",
+      "hypothesis": "Failure occurred only in AP1-specific manifest/data work after successful runner handoff."
+    },
+    {
+      "id": "FM10",
+      "hypothesis": "Root cause remains outside observable authorized non-AP1 surfaces."
+    }
+  ],
+  "tests": [
+    {
+      "id": "T01",
+      "name": "PATH_ACL_AND_TRANSPORT_INSPECTION"
+    },
+    {
+      "id": "T02",
+      "name": "DIRECT_BINARY_VS_ALIAS_BENIGN_SPAWN"
+    },
+    {
+      "id": "T03",
+      "name": "ISOLATED_INTERPRETER_AND_DEPENDENCY_IMPORTS"
+    },
+    {
+      "id": "T04",
+      "name": "RUNNER_SYNTHETIC_NOOP_PROFILE"
+    },
+    {
+      "id": "T05",
+      "name": "RUNNER_SYNTHETIC_DEPENDENCY_PROFILE"
+    },
+    {
+      "id": "T06",
+      "name": "RUNNER_AUDIT_HOOK_CALIBRATION"
+    },
+    {
+      "id": "T07",
+      "name": "AP1_STATIC_AST_COMPILE_AND_IMPORT_ENUMERATION"
+    },
+    {
+      "id": "T08",
+      "name": "OUTPUT_PARENT_TEMP_WRITE_PROBE"
+    },
+    {
+      "id": "T09",
+      "name": "SYNTHETIC_FAILURE_STDERR_CAPTURE_PROBE"
+    },
+    {
+      "id": "T10",
+      "name": "EVIDENCE_HASH_SIGNATURE_COMPARISON"
+    }
+  ],
+  "root_cause_rule": "ROOT_CAUSE_PROVEN only if a reproducible discriminating test excludes viable alternatives on the authorized surface.",
+  "forbidden": [
+    "REAL_AP1_EXECUTION",
+    "REAL_AP0_CONSUMPTION",
+    "REAL_M03",
+    "BACKTEST",
+    "OOS",
+    "TRADING",
+    "CAPITAL",
+    "LEDGER_RESET"
+  ],
+  "retry_authority": false
+}

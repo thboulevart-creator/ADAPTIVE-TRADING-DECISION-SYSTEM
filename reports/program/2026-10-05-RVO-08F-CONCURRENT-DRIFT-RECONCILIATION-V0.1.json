@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_RVO_08F_CONCURRENT_DRIFT_RECONCILIATION_V0_1",
+  "authorization_reference_head": "7196401a3fc3e8b005c2069f78c7bca656f3d7b8",
+  "authorization_reference_tree": "77afafd39da142a7c7686f2dbf48c2a610cfc54c",
+  "observed_head": "9d59aa0cc7da214535cec5556987af36a7925f5d",
+  "observed_tree": "bca3e459480421d7e44b06ef08c21bdc9fbfe6b1",
+  "ahead_by": 4,
+  "behind_by": 0,
+  "changed_files": [
+    "GOVERNANCE/BEPD-04B-SAME-WEEK-REINTEGRATION-RESPONSE-IMPLEMENTATION-CONTRACT-V0.1.json",
+    "reports/program/2026-10-05-BEPD-04B-TEST-FIRST-RED-RECEIPT-V0.1.json",
+    "tests/fixtures/bepd_04b_same_week_reintegration_synthetic_v0_1.json",
+    "tests/test_bepd_04b_same_week_reintegration_response_v0_1.py"
+  ],
+  "classification": "NON_MATERIAL",
+  "reason": "Only additive BEPD-04B artifacts changed. All pinned RVO-08 closure/freeze/ledger/execution-receipt, AP1 producer, P1.12C runner and runtime-evidence blobs remain exact.",
+  "force_used": false
+}
