@@ -1,0 +1,189 @@
+{
+  "schema": "ATDS_BEPD_01D_BOUNDED_HISTORICAL_BOUNDARY_CHARACTERIZATION_V0_1",
+  "status": "BOUNDED_CHARACTERIZATION_ONLY_NOT_EXHAUSTIVE_SCAN",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "7f0e093b0a124f93e1397bdf879f0a8eb3ec1edb",
+    "tree": "4d7e24644c9763301c6b806eff9d59d908b5296e"
+  },
+  "ap0": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_file_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "coverage": {
+      "first_source_tick_utc": "2021-05-25T00:00:00.309+00:00",
+      "last_source_tick_utc": "2026-05-24T23:59:59.963+00:00",
+      "minute_rows_written": 1709180,
+      "gaps_gt_60s": 1605,
+      "segments": 1606
+    },
+    "transformation": {
+      "forward_fill": false,
+      "gap_threshold_ms_strictly_greater_than": 60000,
+      "mid_definition": "(bid_price + ask_price) / 2",
+      "mid_is_execution_price": false,
+      "minute_definition": "floor(timestamp_ms / 60000)"
+    }
+  },
+  "bounded_files": [
+    [
+      "year=2021/month=05/USTECH-PROFILE-M1-2021-05.parquet",
+      "aba7b038267de60498bd02989ab16e1dd3caccc82c9b1b97b635544b523fc50e"
+    ],
+    [
+      "year=2021/month=06/USTECH-PROFILE-M1-2021-06.parquet",
+      "72fe8e35eda554499627ae5f7d8f3bbb1fee631123aa36ac5022b572b5297415"
+    ],
+    [
+      "year=2025/month=03/USTECH-PROFILE-M1-2025-03.parquet",
+      "8a1e15b3c7845fb3997b64ab25c3e06f848ae63069737c8882e32b4da6a622cb"
+    ],
+    [
+      "year=2025/month=04/USTECH-PROFILE-M1-2025-04.parquet",
+      "95458c31b0373cd63e0fdfecbb27b5c0c2ef426e095bbc0c4183fa5ab7886248"
+    ],
+    [
+      "year=2025/month=07/USTECH-PROFILE-M1-2025-07.parquet",
+      "a0c0a2610bd019487da1c19222bf077441d09491b3e2d5a374e490243ac9819a"
+    ],
+    [
+      "year=2025/month=10/USTECH-PROFILE-M1-2025-10.parquet",
+      "d8ac3aa462a5fb00f0e3a4e29e44a17e27c8c3ce2e9021bcf897ccb710ca63e5"
+    ],
+    [
+      "year=2025/month=11/USTECH-PROFILE-M1-2025-11.parquet",
+      "a900286df8c73e37680757c5ef4760637c0c99cce80ba6817419c0ed71424ca3"
+    ],
+    [
+      "year=2025/month=12/USTECH-PROFILE-M1-2025-12.parquet",
+      "f51f473e0539468b4354c2d24fe769b1623c0e6d9c193cf10b55c054b8b1020f"
+    ],
+    [
+      "year=2026/month=01/USTECH-PROFILE-M1-2026-01.parquet",
+      "3a4fcd1d952bf651c76f5fd281871cdd08692debbdbdba9ef6363f035d56144b"
+    ],
+    [
+      "year=2026/month=02/USTECH-PROFILE-M1-2026-02.parquet",
+      "0edaa3cef16d6b348d3b5d9c0aafffdd6fbe333e1e86b781e63dccfe18265a5b"
+    ]
+  ],
+  "findings": {
+    "corpus_start": {
+      "first_observation_utc": "2021-05-25T00:00:00+00:00",
+      "first_observation_ny": "2021-05-24T20:00:00-04:00",
+      "first_observation_paris": "2021-05-25T02:00:00+02:00",
+      "implication": "the session week beginning 2021-05-23T18:00:00-04:00 is left-truncated"
+    },
+    "ny_week_boundary_samples": [
+      {
+        "week_id": "2021-05-31",
+        "start_ny": "2021-05-30T18:00:00-04:00",
+        "first_ny": "2021-05-30T18:00:00-04:00",
+        "last_ny": "2021-06-04T16:14:00-04:00",
+        "rows": 6480
+      },
+      {
+        "week_id": "2025-03-10",
+        "start_ny": "2025-03-09T18:00:00-04:00",
+        "first_ny": "2025-03-09T18:04:00-04:00",
+        "first_paris": "2025-03-09T23:04:00+01:00",
+        "rows": 6646
+      },
+      {
+        "week_id": "2025-03-24",
+        "start_ny": "2025-03-23T18:00:00-04:00",
+        "first_ny": "2025-03-23T18:06:00-04:00",
+        "first_paris": "2025-03-23T23:06:00+01:00",
+        "rows": 6646
+      },
+      {
+        "week_id": "2025-03-31",
+        "start_ny": "2025-03-30T18:00:00-04:00",
+        "first_ny": "2025-03-30T18:04:00-04:00",
+        "first_paris": "2025-03-31T00:04:00+02:00",
+        "rows": 6647
+      },
+      {
+        "week_id": "2025-10-20",
+        "start_ny": "2025-10-19T18:00:00-04:00",
+        "first_ny": "2025-10-19T18:00:00-04:00",
+        "first_paris": "2025-10-20T00:00:00+02:00",
+        "rows": 6675
+      },
+      {
+        "week_id": "2025-10-27",
+        "start_ny": "2025-10-26T18:00:00-04:00",
+        "first_ny": "2025-10-26T18:00:00-04:00",
+        "first_paris": "2025-10-26T23:00:00+01:00",
+        "rows": 6674
+      },
+      {
+        "week_id": "2025-11-03",
+        "start_ny": "2025-11-02T18:00:00-05:00",
+        "first_ny": "2025-11-02T18:00:00-05:00",
+        "first_paris": "2025-11-03T00:00:00+01:00",
+        "rows": 6675
+      }
+    ],
+    "dst_conclusion": {
+      "monday_midnight_paris_is_not_safe_general_boundary": true,
+      "evidence": "during US/EU DST mismatch the source can trade before Monday 00:00 Europe/Paris",
+      "proposed_historical_boundary": "[Sunday 18:00 America/New_York, next Sunday 18:00 America/New_York)"
+    },
+    "calibration_equivalence": {
+      "fixture_weeks": [
+        "2026-01-12",
+        "2026-01-19",
+        "2026-01-26",
+        "2026-02-02",
+        "2026-02-09",
+        "2026-02-16"
+      ],
+      "same_minute_set_for_all_six_weeks": true,
+      "ny_start_equivalent_to_paris_monday_0000_in_fixture_period": true,
+      "utc_h1_same_minute_set_for_all_fixture_event_hours": true,
+      "all_fixture_event_h1_terminal_minutes_present": true
+    },
+    "selected_gap_topology": [
+      {
+        "at_paris": "2025-03-09T23:04:00+01:00",
+        "gap_hours": 48.826,
+        "classification": "OBSERVED_LONG_CLOSED_INTERVAL_CAUSE_NOT_INFERRED"
+      },
+      {
+        "at_paris": "2025-11-28T00:00:00+01:00",
+        "gap_hours": 5.018,
+        "classification": "OBSERVED_MULTI_HOUR_GAP_CAUSE_NOT_INFERRED"
+      },
+      {
+        "at_paris": "2025-11-28T08:00:00+01:00",
+        "gap_hours": 4.264,
+        "classification": "OBSERVED_MULTI_HOUR_GAP_CAUSE_NOT_INFERRED"
+      },
+      {
+        "at_paris": "2025-11-28T14:31:00+01:00",
+        "gap_hours": 6.523,
+        "classification": "OBSERVED_MULTI_HOUR_GAP_CAUSE_NOT_INFERRED"
+      },
+      {
+        "at_paris": "2025-12-26T00:00:00+01:00",
+        "gap_hours": 28.767,
+        "classification": "OBSERVED_MULTI_HOUR_GAP_CAUSE_NOT_INFERRED"
+      }
+    ],
+    "h1_characterization": {
+      "routine_weeks_contain_partial_clock_hours": true,
+      "selected_week_min_observed_minutes_per_h1_as_low_as": 1,
+      "implication": "last observed minute in an arbitrary partial clock hour must not silently become a qualified H1 close",
+      "candidate_rule": "H1 close is qualified only when the UTC HH:59 AP0 minute is observed"
+    }
+  },
+  "non_claims": [
+    "gap cause is not inferred from AP0 alone",
+    "holiday causation is not inferred from gap duration",
+    "bounded characterization is not an exhaustive five-year scan",
+    "no occurrence or response statistic is produced",
+    "no strategy or PnL claim is produced"
+  ]
+}
