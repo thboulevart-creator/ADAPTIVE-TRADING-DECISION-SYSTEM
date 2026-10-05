@@ -1,0 +1,137 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_02_REAL_COST_PROFILE_EVIDENCE_PACKAGE_V0_1",
+  "control_id": "AO-E0-EXEC-02",
+  "status": "FAIL_CLOSED_BLOCKER_IDENTIFIED",
+  "scope": {
+    "strategy_id": "MOMENTUM_V1",
+    "instrument_research_identity": "USTECH",
+    "timeframe": "H1",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "oos_start": "2025-05-25T00:00:00Z",
+    "oos_end": "2026-05-24T23:59:59.963Z"
+  },
+  "canonical_preflight": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "observed_head": "761cb696ea9e58f437efb320f96e8adb574e38e4",
+    "observed_tree": "94040f1b04cbf7b5e170ff936d5b9ffe6a7268d3",
+    "ao_contract_blob": "0b07b8bfe44b5007d46b580c5bef131f2ab9a273",
+    "exec01_contract_blob": "e6b71c6f53fb3cfde807fe06ccff27b2f3b458e4",
+    "exec01_qualification_report_blob": "20e9233b15b5829949a62aea5dac54aa6cbb27f5",
+    "exec01_qualification_receipt_blob": "55550dc2b82a8aa4df7175867c243a022edeb19b"
+  },
+  "source_b_provenance": {
+    "canonical_report_blob": "c3b74951d8c774bd761b5295c082ba3dfe8589cf",
+    "dataset": "CarlosSilva1/ustech-ticks",
+    "publisher_instrument_description": "USTECH (Nasdaq 100 Index CFD)",
+    "publisher_provenance": "Dukascopy via Tickstory",
+    "canonical_limits": [
+      "native Dukascopy tick-for-tick equivalence not proven",
+      "exact third-party broker symbol identity not proven",
+      "VT Markets NAS100 price/feed equivalence not proven"
+    ],
+    "binding_effect": "RESEARCH_DATA_PROVENANCE_ONLY_NOT_EXECUTION_VENUE_IDENTITY"
+  },
+  "external_sources": [
+    {
+      "source_id": "HF_USTECH_DATASET_CURRENT",
+      "publisher": "Hugging Face dataset publisher CarlosSilva1",
+      "url": "https://huggingface.co/datasets/CarlosSilva1/ustech-ticks",
+      "observed_fact": "Dataset card describes USTECH/Nasdaq 100 Index CFD, period 2021-05-25 to 2026-05-24, and states sourced from Dukascopy via Tickstory.",
+      "epistemic_class": "PUBLISHER_DECLARED_PROVENANCE",
+      "historical_cost_authority": false
+    },
+    {
+      "source_id": "DUKASCOPY_CURRENT_USATECH",
+      "publisher": "Dukascopy",
+      "url": "https://www.dukascopy.com/europe/english/cfd/range-of-markets/",
+      "observed_fact": "Current market list includes USATECH.IDX/USD as US 100 Tech Index.",
+      "epistemic_class": "CURRENT_OFFICIAL_PRODUCT_INFORMATION",
+      "historical_oos_identity_proven": false
+    },
+    {
+      "source_id": "DUKASCOPY_CURRENT_FEES",
+      "publisher": "Dukascopy",
+      "url": "https://www.dukascopy.com/europe/english/about/fee-schedule/",
+      "observed_fact": "Current commissions for CFD/indices depend on account deposit/equity or traded volume and platform.",
+      "epistemic_class": "CURRENT_OFFICIAL_FEE_INFORMATION",
+      "historical_oos_schedule_proven": false
+    },
+    {
+      "source_id": "VT_CURRENT_ACCOUNT_TYPES",
+      "publisher": "VT Markets",
+      "url": "https://www.vtmarkets.com/en-eu/tradingaccounts/",
+      "observed_fact": "Current account structures include Standard STP, Raw ECN and other variants with different commission/swap structures.",
+      "epistemic_class": "CURRENT_OFFICIAL_ACCOUNT_INFORMATION",
+      "historical_oos_schedule_proven": false
+    },
+    {
+      "source_id": "VT_CURRENT_NAS100_GUIDE",
+      "publisher": "VT Markets",
+      "url": "https://www.vtmarkets.com/en-eu/discover/how-to-trade-nas100-cash/",
+      "observed_fact": "Current guide says exact NAS100 contract specifications should be checked in the trading platform; worked contract figures are illustrative.",
+      "epistemic_class": "CURRENT_OFFICIAL_PRODUCT_GUIDANCE",
+      "historical_oos_contract_proven": false
+    }
+  ],
+  "required_bindings": {
+    "EXECUTION_VENUE_IDENTITY": "UNKNOWN_NOT_GOVERNED",
+    "ACCOUNT_COST_PROFILE_IDENTITY": "UNKNOWN_NOT_GOVERNED",
+    "USTECH_SYMBOL_CONTRACT_IDENTITY": "UNKNOWN_NOT_GOVERNED",
+    "COMMISSION_SCHEDULE_IDENTITY": "UNKNOWN_DEPENDENT_ON_EXACT_ACCOUNT_AND_PERIOD",
+    "SLIPPAGE_BOUND_IDENTITY": "UNKNOWN_NO_DEFENSIBLE_BOUND_BOUND_TO_EXACT_VENUE_ACCOUNT_SYMBOL",
+    "FINANCING_OR_SWAP_SCHEDULE_IDENTITY": "UNKNOWN_DEPENDENT_ON_EXACT_ACCOUNT_SYMBOL_DIRECTION_PERIOD",
+    "COST_SCHEDULE_EFFECTIVE_FROM_UTC": null,
+    "COST_SCHEDULE_EFFECTIVE_TO_UTC": null,
+    "COST_PROFILE_SOURCE_REF": "UNRESOLVED",
+    "UNIT_CONVERSION_IDENTITY": "UNKNOWN_UNTIL_EXACT_SYMBOL_CONTRACT_AND_ACCOUNT_CURRENCY_ARE_BOUND"
+  },
+  "component_states": {
+    "spread": {
+      "state": "EXACT_WITHIN_E1_04_SOURCE_B_BID_ASK_EXECUTION",
+      "note": "Already intrinsic in E1-04 and must not be double counted."
+    },
+    "commission": {
+      "state": "UNKNOWN",
+      "reason": "Exact account/venue/symbol and historical fee schedule are not bound."
+    },
+    "slippage": {
+      "state": "UNKNOWN",
+      "reason": "No defensible upper bound is bound to the exact venue/account/symbol before OOS."
+    },
+    "financing": {
+      "state": "UNKNOWN",
+      "reason": "Exact account/symbol schedule, long/short rules, rollover timing and historical effective periods are not bound."
+    }
+  },
+  "historical_applicability": {
+    "current_terms_as_historical_terms": "FORBIDDEN",
+    "full_oos_coverage": "NOT_ESTABLISHED",
+    "uncovered_period_rule": "UNKNOWN",
+    "source_b_provenance_as_broker_cost_profile": "FORBIDDEN"
+  },
+  "decision": {
+    "REAL_COST_PROFILE": "BLOCKED",
+    "BLOCKER": "BLOCKED_BY_HUMAN_DECISION",
+    "human_decision_required": [
+      "exact execution venue/broker identity",
+      "exact account type or account-cost-profile identity",
+      "exact tradable symbol/contract identity intended for AO-E0"
+    ],
+    "possible_follow_on_after_human_binding": [
+      "historical commission schedule acquisition",
+      "historical financing/swap schedule acquisition",
+      "slippage-bound evidence construction",
+      "unit conversion binding"
+    ],
+    "fallback_if_historical_documents_unavailable": "BLOCKED_BY_MISSING_EXTERNAL_EVIDENCE",
+    "generic_execution_architecture_required": false
+  },
+  "authority": {
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "strategy_qualification_authorized": false,
+    "broker_execution_authorized": false,
+    "paper_live_capital_authorized": false
+  }
+}
