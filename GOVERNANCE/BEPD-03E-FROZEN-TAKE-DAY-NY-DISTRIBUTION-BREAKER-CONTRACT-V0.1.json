@@ -1,0 +1,219 @@
+{
+  "schema": "ATDS_BEPD_03E_FROZEN_TAKE_DAY_NY_DISTRIBUTION_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "b6a61371bbdfb04fbaedf5a61f084fe952897002",
+    "tree": "4bee0a89cbcb8e9d260a54ed75ff39630f304399"
+  },
+  "bindings": {
+    "authorization_blob": "e6e91abc1449ecc55f2241446e80da657148ca8f",
+    "implementation_contract_blob": "5a4aa7f22abd68e47fe67b888314a33d0128530a",
+    "calculator_blob": "98e025b430a051fa0b6eb7c55dd72dbfddd276eb",
+    "bepd03a_dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03b_qualification_blob": "e88bcce2d3256a9e374e76cfb5e9ebc641316d56",
+    "bepd03c_qualification_blob": "fd3b0caa97361e61e81510a2e69f0fbeb25cbe12",
+    "bepd03d_qualification_blob": "c7151af0bd7acce71f5d7f0e1e059c6f141c57d1",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "source_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "cases": [
+    {
+      "id": "BEPD03E-B01",
+      "intent": "calculator reads or uses LEVEL_WEEK_OPPORTUNITY as denominator",
+      "expected": "REJECT_OPPORTUNITY_DENOMINATOR"
+    },
+    {
+      "id": "BEPD03E-B02",
+      "intent": "missing take_h1_close_utc accepted",
+      "expected": "REJECT_MISSING_TAKE_TIMESTAMP"
+    },
+    {
+      "id": "BEPD03E-B03",
+      "intent": "invalid take_h1_close_utc accepted",
+      "expected": "REJECT_INVALID_TAKE_TIMESTAMP"
+    },
+    {
+      "id": "BEPD03E-B04",
+      "intent": "naive timestamp accepted",
+      "expected": "REJECT_NAIVE_TIMESTAMP"
+    },
+    {
+      "id": "BEPD03E-B05",
+      "intent": "non-UTC take timestamp accepted",
+      "expected": "REJECT_NON_UTC_TIMESTAMP"
+    },
+    {
+      "id": "BEPD03E-B06",
+      "intent": "timezone key differs from America/New_York",
+      "expected": "REJECT_TIMEZONE_DRIFT"
+    },
+    {
+      "id": "BEPD03E-B07",
+      "intent": "spring-forward DST conversion incorrect",
+      "expected": "REJECT_DST_SPRING_DRIFT"
+    },
+    {
+      "id": "BEPD03E-B08",
+      "intent": "fall-back DST conversion incorrect",
+      "expected": "REJECT_DST_FALL_DRIFT"
+    },
+    {
+      "id": "BEPD03E-B09",
+      "intent": "Sunday local event not mapped to SUNDAY_OPEN",
+      "expected": "REJECT_SUNDAY_MAPPING"
+    },
+    {
+      "id": "BEPD03E-B10",
+      "intent": "Monday local event not mapped to MONDAY",
+      "expected": "REJECT_MONDAY_MAPPING"
+    },
+    {
+      "id": "BEPD03E-B11",
+      "intent": "Tuesday local event not mapped to TUESDAY",
+      "expected": "REJECT_TUESDAY_MAPPING"
+    },
+    {
+      "id": "BEPD03E-B12",
+      "intent": "Wednesday local event not mapped to WEDNESDAY",
+      "expected": "REJECT_WEDNESDAY_MAPPING"
+    },
+    {
+      "id": "BEPD03E-B13",
+      "intent": "Thursday local event not mapped to THURSDAY",
+      "expected": "REJECT_THURSDAY_MAPPING"
+    },
+    {
+      "id": "BEPD03E-B14",
+      "intent": "Friday local event not mapped to FRIDAY",
+      "expected": "REJECT_FRIDAY_MAPPING"
+    },
+    {
+      "id": "BEPD03E-B15",
+      "intent": "Saturday local event accepted",
+      "expected": "REJECT_SATURDAY_EVENT"
+    },
+    {
+      "id": "BEPD03E-B16",
+      "intent": "category missing or extra",
+      "expected": "REJECT_CATEGORY_DRIFT"
+    },
+    {
+      "id": "BEPD03E-B17",
+      "intent": "categories reordered by observed share",
+      "expected": "REJECT_RESULT_BASED_SORTING"
+    },
+    {
+      "id": "BEPD03E-B18",
+      "intent": "cell event_count differs from direct EVENT_LEDGER recomputation",
+      "expected": "REJECT_CELL_EVENT_COUNT_MISMATCH"
+    },
+    {
+      "id": "BEPD03E-B19",
+      "intent": "cell conditional share differs from event_count/total events",
+      "expected": "REJECT_CELL_SHARE_MISMATCH"
+    },
+    {
+      "id": "BEPD03E-B20",
+      "intent": "sum cell event_count differs from EVENT_LEDGER row count",
+      "expected": "REJECT_EVENT_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03E-B21",
+      "intent": "exact conditional fractions do not sum to one",
+      "expected": "REJECT_EXACT_SHARE_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03E-B22",
+      "intent": "decimal shares exceed frozen reconciliation tolerance",
+      "expected": "REJECT_DECIMAL_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03E-B23",
+      "intent": "EVENT_LEDGER row excluded or duplicated",
+      "expected": "REJECT_EVENT_ACCOUNTING"
+    },
+    {
+      "id": "BEPD03E-B24",
+      "intent": "sweep_cluster_id or target_week_id dependence key lost",
+      "expected": "REJECT_DEPENDENCE_PROVENANCE_LOSS"
+    },
+    {
+      "id": "BEPD03E-B25",
+      "intent": "event observations represented as IID",
+      "expected": "REJECT_IID_LAUNDERING"
+    },
+    {
+      "id": "BEPD03E-B26",
+      "intent": "occurrence-rate or future-sweep-probability semantics emitted",
+      "expected": "REJECT_OCCURRENCE_LAUNDERING"
+    },
+    {
+      "id": "BEPD03E-B27",
+      "intent": "take-day cross-product emitted",
+      "expected": "REJECT_CROSS_PRODUCT"
+    },
+    {
+      "id": "BEPD03E-B28",
+      "intent": "ranking/best/worst emitted",
+      "expected": "REJECT_RANKING"
+    },
+    {
+      "id": "BEPD03E-B29",
+      "intent": "p-value/CI/bootstrap or M05 activation emitted",
+      "expected": "REJECT_UNAUTHORIZED_INFERENCE"
+    },
+    {
+      "id": "BEPD03E-B30",
+      "intent": "source/policy/calculator provenance mismatch or forbidden analytics flag not false",
+      "expected": "REJECT_PROVENANCE_OR_AUTHORITY_EXPANSION"
+    }
+  ],
+  "frozen_result_contract": {
+    "interpretation": "EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_TAKE_TIMING_DISTRIBUTION",
+    "dimension_id": "V06_TAKE_DAY_NY",
+    "category_order": [
+      "SUNDAY_OPEN",
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY"
+    ],
+    "denominator_source": "EVENT_LEDGER",
+    "timestamp_source": "take_h1_close_utc",
+    "timezone": "America/New_York",
+    "conditional_share_formula": "event_count_in_category / total_EVENT_LEDGER_event_count",
+    "decimal_places": 18,
+    "decimal_rounding": "ROUND_HALF_EVEN",
+    "decimal_sum_tolerance": "0.000000000000000003",
+    "m05_generalization_uncertainty": "BLOCKED",
+    "occurrence_rate_language_forbidden": true,
+    "result_ranking": false,
+    "cross_products": []
+  },
+  "qualification_rule": {
+    "expected_take_day_market_values_preencoded": false,
+    "direct_recomputation_from_bound_event_ledger": true,
+    "dst_validation_required": true,
+    "event_accounting_required": true,
+    "pass_meaning": "exact event-conditional historical take-timing distribution and provenance only"
+  },
+  "authority": {
+    "take_day_event_conditional": true,
+    "occurrence_rate": false,
+    "opportunity_denominator": false,
+    "cross_products": false,
+    "ranking": false,
+    "inference": false,
+    "bootstrap": false,
+    "m05_activation": false,
+    "response_map": false,
+    "strategy": false
+  },
+  "stop_boundary": "STOP_AFTER_PERSISTED_BEPD03E_TAKE_DAY_DISTRIBUTION_AND_REBREAK"
+}
