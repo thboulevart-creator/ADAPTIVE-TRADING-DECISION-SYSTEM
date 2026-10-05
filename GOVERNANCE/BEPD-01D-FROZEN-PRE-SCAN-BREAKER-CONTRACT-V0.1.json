@@ -1,0 +1,197 @@
+{
+  "schema": "ATDS_BEPD_01D_FROZEN_PRE_SCAN_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_SCAN_BREAKER_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "1f64e326352c634c9788efd03917034935cb8a72",
+    "tree": "83fac5756089c2c3211d241bfd8e0ef4b31c150a"
+  },
+  "bindings": {
+    "authorization_blob": "c7b7b54366eb15748f539f30b4520081d9c94756",
+    "bounded_characterization_blob": "1ed879076c42c1c1697af0722cc99e6dbcb3a196",
+    "readiness_contract_blob": "a508fbaaa7468d3fd7a17991e48b9b207e274245",
+    "ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "upstream_bepd01a_contract_blob": "341f6267f7f1add350759d6d95dfebfb5b9e46f7",
+    "upstream_fixture_r1_blob": "d2e663eaef865507c1cb92f5baa0074dcfc11032",
+    "upstream_bepd01b_breaker_blob": "8433b725bb47423eac5879074557202993a664c2",
+    "upstream_bepd01c_engine_blob": "050c96049f720757231136386719a40dd5653bbe",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce"
+  },
+  "frozen_semantics": {
+    "week_timezone": "America/New_York",
+    "week_start_local": "Sunday 18:00:00",
+    "h1_bucket_timezone": "UTC",
+    "h1_terminal_minute_rule": "HH:59:00 UTC minute must be observed",
+    "initial_active_state": "EMPTY_BY_CONSTRUCTION_FOR_CORPUS_BORN_UNIVERSE",
+    "pre_corpus_state": "UNKNOWN_OUTSIDE_CLAIM_UNIVERSE",
+    "primary_occurrence_denominator": "ACTIVE_CORPUS_BORN_LEVEL_WEEK_OPPORTUNITIES",
+    "dependence_key": "target_week_id",
+    "gap_cause_default": "UNKNOWN",
+    "holiday_tag_authority": "DIAGNOSTIC_ONLY_UNLESS_SEPARATELY_BOUND"
+  },
+  "cases": [
+    {
+      "id": "BEPD01D-B01",
+      "intent": "Monday 00:00 Europe/Paris used as authoritative historical week boundary",
+      "expected": "REJECT_PARIS_AUTHORITY"
+    },
+    {
+      "id": "BEPD01D-B02",
+      "intent": "US spring DST transition encoded with fixed UTC offset",
+      "expected": "REJECT_FIXED_OFFSET_WEEK_BOUNDARY"
+    },
+    {
+      "id": "BEPD01D-B03",
+      "intent": "US/Europe spring DST mismatch drops source minutes before Paris Monday midnight",
+      "expected": "REJECT_DST_MISMATCH_MINUTE_LOSS"
+    },
+    {
+      "id": "BEPD01D-B04",
+      "intent": "Europe fall transition before US drops Sunday 18 NY source minutes",
+      "expected": "REJECT_DST_MISMATCH_MINUTE_LOSS"
+    },
+    {
+      "id": "BEPD01D-B05",
+      "intent": "repeated Europe/Paris fall-back hour used as H1 identity",
+      "expected": "REJECT_AMBIGUOUS_LOCAL_H1_IDENTITY"
+    },
+    {
+      "id": "BEPD01D-B06",
+      "intent": "H1 bucket without UTC HH:59 minute treated as qualified close",
+      "expected": "REJECT_PARTIAL_H1_CLOSE_LAUNDERING"
+    },
+    {
+      "id": "BEPD01D-B07",
+      "intent": "H1 terminal minute present with internal source gap",
+      "expected": "ALLOW_CLOSE_RECORD_INTERNAL_GAP"
+    },
+    {
+      "id": "BEPD01D-B08",
+      "intent": "observed gap assigned holiday/scheduled/outage cause from AP0 alone",
+      "expected": "REJECT_GAP_CAUSE_INFERENCE"
+    },
+    {
+      "id": "BEPD01D-B09",
+      "intent": "holiday tag changes core event inclusion without separately bound calendar authority",
+      "expected": "REJECT_HOLIDAY_AUTHORITY_LAUNDERING"
+    },
+    {
+      "id": "BEPD01D-B10",
+      "intent": "left-truncated initial corpus week creates Weekly levels",
+      "expected": "REJECT_LEFT_TRUNCATED_LEVEL_CREATION"
+    },
+    {
+      "id": "BEPD01D-B11",
+      "intent": "first complete corpus week creates exactly one HIGH and one LOW level",
+      "expected": "ACCEPT_FIRST_COMPLETE_WEEK_LEVELS"
+    },
+    {
+      "id": "BEPD01D-B12",
+      "intent": "pre-corpus active Weekly levels synthesized or treated as known inactive",
+      "expected": "REJECT_PRECORPUS_STATE_INVENTION"
+    },
+    {
+      "id": "BEPD01D-B13",
+      "intent": "right-truncated final week finalizes close displacement or denominator row",
+      "expected": "REJECT_RIGHT_TRUNCATED_FINALIZATION"
+    },
+    {
+      "id": "BEPD01D-B14",
+      "intent": "active unswept corpus-born level expires solely because another week completed",
+      "expected": "REJECT_AGE_EXPIRY"
+    },
+    {
+      "id": "BEPD01D-B15",
+      "intent": "current target week's newly born levels counted as same-week opportunities",
+      "expected": "REJECT_SELF_OPPORTUNITY"
+    },
+    {
+      "id": "BEPD01D-B16",
+      "intent": "consumed level contributes opportunity after consumption week",
+      "expected": "REJECT_POST_CONSUMPTION_OPPORTUNITY"
+    },
+    {
+      "id": "BEPD01D-B17",
+      "intent": "two active levels in same target week treated as independent IID observations",
+      "expected": "REJECT_IID_LAUNDERING"
+    },
+    {
+      "id": "BEPD01D-B18",
+      "intent": "raw event count presented as occurrence rate without active level-week denominator",
+      "expected": "REJECT_DENOMINATOR_OMISSION"
+    },
+    {
+      "id": "BEPD01D-B19",
+      "intent": "unknown pre-corpus levels included in numerator or denominator",
+      "expected": "REJECT_OUT_OF_UNIVERSE_OPPORTUNITY"
+    },
+    {
+      "id": "BEPD01D-B20",
+      "intent": "LEVEL_LEDGER missing deterministic identity/provenance/lifecycle fields",
+      "expected": "REJECT_LEVEL_LEDGER_SCHEMA_DRIFT"
+    },
+    {
+      "id": "BEPD01D-B21",
+      "intent": "EVENT_LEDGER missing cluster/H1 quality/provenance/outcome fields",
+      "expected": "REJECT_EVENT_LEDGER_SCHEMA_DRIFT"
+    },
+    {
+      "id": "BEPD01D-B22",
+      "intent": "selected AP0 file hash differs from bound manifest identity",
+      "expected": "FAIL_CLOSED_SOURCE_FILE_DIGEST_MISMATCH"
+    },
+    {
+      "id": "BEPD01D-B23",
+      "intent": "filename alone used as source provenance",
+      "expected": "REJECT_FILENAME_AS_PROVENANCE"
+    },
+    {
+      "id": "BEPD01D-B24",
+      "intent": "AP0 mid promoted to execution price",
+      "expected": "REJECT_EXECUTION_PRICE_LAUNDERING"
+    },
+    {
+      "id": "BEPD01D-B25",
+      "intent": "readiness qualification presented as five-year support or edge",
+      "expected": "REJECT_READINESS_TO_SUPPORT_LAUNDERING"
+    },
+    {
+      "id": "BEPD01D-B26",
+      "intent": "BEPD-01D used to run exhaustive history / Occurrence / Response / strategy search",
+      "expected": "REJECT_AUTHORITY_EXPANSION"
+    }
+  ],
+  "mandatory_distinctions": [
+    "CORPUS_BORN_LEVEL != ALL_REAL_MARKET_LEVELS",
+    "COMPLETE_COVERAGE_ENVELOPE != GAP_FREE_WEEK",
+    "OBSERVED_GAP != HOLIDAY_CAUSE",
+    "PARTIAL_HOUR_LAST_OBSERVATION != H1_CLOSE",
+    "LEVEL_OPPORTUNITY != INDEPENDENT_OBSERVATION",
+    "RAW_EVENT_COUNT != OCCURRENCE_RATE",
+    "MULTI_LEVEL_CLUSTER != MULTIPLE_INDEPENDENT_WEEKS",
+    "HISTORICAL_LEDGER != EDGE",
+    "MID != EXECUTION_PRICE",
+    "READINESS_PASS != FIVE_YEAR_SUPPORT"
+  ],
+  "qualification_rule": {
+    "executable_breaker_required": true,
+    "all_cases_must_be_materialized": true,
+    "bounded_historical_samples_allowed": true,
+    "exhaustive_scan_forbidden": true,
+    "green_meaning": "READINESS_CONTRACT_AND_PRE_SCAN_BREAKER_QUALIFIED_ONLY"
+  },
+  "authority": {
+    "bounded_characterization": true,
+    "documentary_qualification": true,
+    "pre_scan_breaker_construction": true,
+    "exhaustive_five_year_scan": false,
+    "occurrence_maps": false,
+    "response_maps": false,
+    "relation_search": false,
+    "strategy": false,
+    "pnl": false,
+    "paper_broker_live_capital": false
+  },
+  "stop_boundary": "STOP_BEFORE_EXHAUSTIVE_HISTORICAL_EXECUTION"
+}
