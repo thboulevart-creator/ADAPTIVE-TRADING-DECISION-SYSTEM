@@ -1,0 +1,84 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_R1_RVO_CC05_ROUTING_RECORD_V0_1",
+  "control_id": "AO-E0-B11-01-R1",
+  "status": "QUALIFIED_OWNER_BINDING_ROUTE",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "route": [
+    {
+      "owner": "DATA",
+      "surface": "AO-E0-DT-01A",
+      "state": "BOUND",
+      "gate": "B10_CLOSED"
+    },
+    {
+      "owner": "TEMPORAL",
+      "surface": "AO-E0-DT-01B",
+      "state": "BOUND",
+      "gate": "B6_CLOSED"
+    },
+    {
+      "owner": "EXECUTION_COST",
+      "surface": "E1-04 + EXEC-04 + EXEC-05 / F2_S4",
+      "state": "BOUND_CELL_SCOPED"
+    },
+    {
+      "owner": "P1_NATIVE_EXECUTION",
+      "surface": "P1.12C.AO-E0",
+      "state": "QUALIFIED_SYNTHETICALLY_PRE_EXECUTION"
+    },
+    {
+      "owner": "P1_COMMON_DOWNSTREAM",
+      "surface": "P1.12D extension → P1.13C → P1.14C → P1.15C → P1.16C",
+      "state": "SYNTHETIC_REBREAK_PASS"
+    },
+    {
+      "owner": "SMF",
+      "surface": "AO-E0-B11-01-SMF-ACTIVATION-MATRIX-V0.1",
+      "state": "BOUND_PRE_RESULT_WITH_EXPLICIT_BLOCKED_PREREQUISITES"
+    },
+    {
+      "owner": "RVO",
+      "surface": "CC05 exact orchestration",
+      "state": "ROUTABLE_OWNER_BINDING_ONLY",
+      "authority": "NONE"
+    }
+  ],
+  "exact_p1_owner": {
+    "owner_id": "P1.12C.AO-E0",
+    "owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "qualification_receipt_blob": "bdcedb6d9208aa2bbbb7188e5aabf55c566a4fe5"
+  },
+  "smf_state": {
+    "matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "m06": "BLOCKED_PENDING_B8_NUMERIC_CONFIGURATION",
+    "m09": "BLOCKED_PENDING_B8_AND_B12",
+    "m11": "BLOCKED_PENDING_B9"
+  },
+  "gate_state": {
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b11": "CLOSED",
+    "b12": "CLOSED"
+  },
+  "separations": {
+    "owner_capability_ne_owner_authority": true,
+    "p1_execution_ne_scientific_support": true,
+    "p1_finding_ne_qualification_decision": true,
+    "qualification_decision_ne_trading_authority": true,
+    "b11_closed_ne_ao_e0_execution_ready": true
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "real_smf_execution": false,
+    "strategy_qualification_decision": false,
+    "trading": false,
+    "capital": false
+  }
+}

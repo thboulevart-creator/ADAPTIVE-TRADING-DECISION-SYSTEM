@@ -1,0 +1,63 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_R1_CLOSURE_RECEIPT_V0_1",
+  "control_id": "AO-E0-B11-01-R1",
+  "verdict": "B11_CLOSED",
+  "closure_basis": "AO_E0_P1_OWNER_01_QUALIFIED_AND_EXECUTABLE_B11_R1_REBREAK_PASS",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "old_blocker": {
+    "receipt_blob": "bc7df8796b2dcb81a2b9c89e1e660e22cdd56e48",
+    "blocker": "BLOCKED_P1_CC05_NATIVE_EXECUTION_OWNER_NOT_QUALIFIED",
+    "status": "CLOSED_BY_AO_E0_P1_OWNER_01"
+  },
+  "owner": {
+    "id": "P1.12C.AO-E0",
+    "qualification_receipt_blob": "bdcedb6d9208aa2bbbb7188e5aabf55c566a4fe5",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "p1_12c_core_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "p1_12d_core_blob": "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190"
+  },
+  "rebreak": {
+    "contract_blob": "0b03196d76979df91caf472ac6855fc89b057c7a",
+    "breaker_blob": "56d409e2aee2eb6418597fbfa4064226d1af5326",
+    "tests_blob": "8067d857fb78ef6b6c9ad72e3c35f48f11dbb36e",
+    "candidate_report_blob": "ea5774f98421918cc8fdc80b5733acc3f3d9e49d",
+    "commit": "673534afedeee621c2103cf5caacacf292f844aa",
+    "tree": "27a0d2031856e96b95085d8598ed1333fcca2c4a",
+    "workflow_run_id": 37345884703,
+    "conclusion": "SUCCESS",
+    "breaker": "1/1 PASS",
+    "closure_tests": "6/6 PASS"
+  },
+  "protected_regressions": {
+    "p1_21": "18/18 PASS",
+    "p1_20": "15/15 PASS",
+    "p1_18": "16/16 PASS"
+  },
+  "exact_bindings": {
+    "dt01_closure_receipt_blob": "fad20f527393b85b6d06b998c89a3543a18be46a",
+    "smf_activation_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "rvo_routing_record_blob": "2507d64fa5139799a49fe35f69b39afbf8864324",
+    "closure_report_blob": "ce91bd7196bbbad588d653c261f976f57531489e"
+  },
+  "gate_state": {
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b11": "CLOSED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "real_smf_execution": false,
+    "strategy_qualification_decision": false,
+    "trading": false,
+    "capital": false
+  },
+  "real_ao_e0_output": false,
+  "force": false
+}
