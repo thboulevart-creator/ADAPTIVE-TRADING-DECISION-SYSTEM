@@ -35,6 +35,7 @@ PRODUCER_PROTOCOL = "P1_12C_PYTHON_JSON_FILE_V1"
 SYNTHETIC_OUTPUT_SCHEMA = "ATDS_P1_18_SYNTHETIC_PRODUCER_OUTPUT_V0_1"
 SYNTHETIC_OUTPUT_STATUS = "SYNTHETIC_COMPLETE"
 RVO_AUTHORITY = "NONE"
+AP1_PYTHON_FLAGS = ("-E", "-P")
 
 CAPABILITIES = {
     "qualified_producer_execution": True,
@@ -1026,6 +1027,7 @@ def qualify_ap1_invocation_profile(
         raise P112CBlocked("BLOCKED_INVOCATION_PROFILE_MISMATCH")
     runner_blob = git_blob_sha1(runner)
     schema = {
+        "python_flags": list(AP1_PYTHON_FLAGS),
         "child_argv": [
             "{producer_path}",
             "--ap0-root", "{ap0_root_transport}",
@@ -1281,7 +1283,7 @@ def build_ap1_runner_command(
         raise P112CBlocked("BLOCKED_PYTHON_BINARY_IDENTITY_REQUIRED")
     return (
         str(python_executable),
-        "-I",
+        *AP1_PYTHON_FLAGS,
         str(runner),
         "--producer",
         str(producer),

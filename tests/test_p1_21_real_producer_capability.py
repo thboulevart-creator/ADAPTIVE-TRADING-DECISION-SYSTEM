@@ -94,7 +94,8 @@ def test_p121_06_sandbox_runner_forwards_ap1_profile_to_synthetic_probe_only(tmp
     out = tmp_path / "probe-output.json"
     cmd = [
         sys.executable,
-        "-I",
+        "-E",
+        "-P",
         str(RUNNER),
         "--producer", str(PROBE),
         "--invocation-profile", p12c.AP1_INVOCATION_PROFILE_ID,
@@ -227,7 +228,8 @@ def test_p121_13_runner_command_is_structured_and_profile_bound(tmp_path: Path):
         producer_path=AP1,
     )
     assert cmd[0] == "BOUND_PYTHON_BINARY"
-    assert cmd[1] == "-I"
+    assert cmd[1:3] == ("-E", "-P")
+    assert "-I" not in cmd[:4]
     assert "--invocation-profile" in cmd
     assert p12c.AP1_INVOCATION_PROFILE_ID in cmd
     assert "--ap0-manifest" in cmd
