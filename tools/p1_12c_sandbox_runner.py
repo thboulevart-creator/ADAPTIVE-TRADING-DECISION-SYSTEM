@@ -10,14 +10,33 @@ import runpy
 import sys
 
 
+_ALLOWED_CTYPES_DLOPEN = frozenset({"kernel32", "user32", "tzres.dll"})
+_ALLOWED_CTYPES_DLSYM = frozenset({
+    ("kernel32", "GetLastError"),
+    ("user32", "LoadStringW"),
+})
+_ALLOWED_SOCKET_EVENTS = frozenset({"socket.gethostname"})
+
+
 def _audit(event: str, args) -> None:
+    if event == "ctypes.dlopen":
+        name = str(args[0]).lower() if args else ""
+        if name in _ALLOWED_CTYPES_DLOPEN:
+            return
+        raise RuntimeError(f"P1_12C_SANDBOX_FORBIDDEN_EVENT:{event}:{name}")
+    if event == "ctypes.dlsym":
+        library = str(getattr(args[0], "_name", "")).lower() if args else ""
+        symbol = str(args[1]) if len(args) > 1 else ""
+        if (library, symbol) in _ALLOWED_CTYPES_DLSYM:
+            return
+        raise RuntimeError(f"P1_12C_SANDBOX_FORBIDDEN_EVENT:{event}:{library}:{symbol}")
+    if event in _ALLOWED_SOCKET_EVENTS:
+        return
     blocked_exact = {
         "subprocess.Popen",
         "os.system",
         "os.fork",
         "os.forkpty",
-        "ctypes.dlopen",
-        "ctypes.dlsym",
     }
     blocked_prefixes = (
         "socket.",

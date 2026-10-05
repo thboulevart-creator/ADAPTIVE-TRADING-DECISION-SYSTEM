@@ -1,0 +1,21 @@
+{
+  "schema": "ATDS_RVO_08F_RUNTIME_REPAIR_TEST_FIRST_RED_RECEIPT_V0_1",
+  "head": "cc5012a70490a7bcf6b1b4b8f7a4809c27e3b1a4",
+  "test": "tests/test_rvo_08f_runtime_repair.py",
+  "result": "EXPECTED_RED",
+  "observed": {
+    "failed": 3,
+    "passed": 5,
+    "exit_code": 1
+  },
+  "failing_requirements": [
+    "PROFILE_MUST_BIND_PYTHON_FLAGS_E_P",
+    "AP1_RUNNER_COMMAND_MUST_USE_E_P_NOT_I",
+    "SANDBOX_MUST_ALLOW_EXACT_OBSERVED_LOCAL_RUNTIME_EVENTS"
+  ],
+  "safety": {
+    "ledger_invocation_count": 1,
+    "real_ap1_output_exists": false,
+    "real_ap1_invoked": false
+  }
+}
