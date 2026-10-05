@@ -1,0 +1,24 @@
+{
+  "authority": {
+    "capital": false,
+    "edge": false,
+    "inference": false,
+    "pnl": false,
+    "prediction": false,
+    "strategy": false,
+    "subgroups": false,
+    "trading": false
+  },
+  "calculator_blob": "d796cd198ad01498491ee2dbe44a7f5e4c42681e",
+  "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "execution_head": "c9aaf7816770e26328879ff3664aadca3ebf9ae3",
+  "execution_tree": "c22bbbf73314d6c8d0142d355d5859e9f1324b64",
+  "independent_recomputation": "PASS",
+  "m05": "BLOCKED",
+  "real_execution_count": 1,
+  "result_sha256": "f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b",
+  "run_id": "9a68934ddfea835380b77ef6b7bd4d2733a75079ad5921834721ff9d664cc833",
+  "schema": "ATDS_BEPD_04C_ONE_SHOT_EXECUTION_RECORD_V0_1",
+  "status": "FIRST_REAL_EXECUTION_COMPLETED_PENDING_PERSISTENCE_AND_REBREAK",
+  "workflow_run_id": 37370639339
+}
