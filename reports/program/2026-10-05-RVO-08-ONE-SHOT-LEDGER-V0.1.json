@@ -1,0 +1,9 @@
+{
+  "command_digest": "63191c1b99c9cca2b3fc41a8d25789f13e1df0c9404fd4767ebfa24e97f5e9ec",
+  "freeze_git_blob": "cdf60184396df2c6432321807c036f39fa846aa1",
+  "freeze_sha256": "be1447388649be310e524918b7970f5b96e3776d10df7db85f5f47973d0ab7b6",
+  "invocation_count": 1,
+  "schema": "ATDS_RVO_08_ONE_SHOT_LEDGER_V0_1",
+  "started_at": "2026-10-05T19:49:16.784208Z",
+  "state": "STARTED"
+}

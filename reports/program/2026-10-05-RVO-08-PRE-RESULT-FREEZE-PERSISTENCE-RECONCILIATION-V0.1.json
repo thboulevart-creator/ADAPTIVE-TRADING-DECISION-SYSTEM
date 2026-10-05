@@ -1,0 +1,35 @@
+{
+  "schema": "ATDS_RVO_08_PRE_RESULT_FREEZE_PERSISTENCE_RECONCILIATION_V0_1",
+  "status": "POST_RESULT_RECONCILED_PRE_RESULT_GIT_BLOB_NOT_BYTE_EXACT",
+  "execution_head": "b7dee2c03eb533eb789c593986dc346b34ce8624",
+  "execution_tree": "8af27f0b27e907c6e3753c8697243db16fa8c796",
+  "pre_result_local_freeze": {
+    "path_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-08\\rvo08-pre-result-freeze-b7dee2c0.json",
+    "sha256": "be1447388649be310e524918b7970f5b96e3776d10df7db85f5f47973d0ab7b6",
+    "written_before_invocation": true
+  },
+  "attempted_pre_result_git_blob": {
+    "sha": "cdf60184396df2c6432321807c036f39fa846aa1",
+    "byte_exact": false,
+    "observed_prefix": "[Reading 55 lines from start (total: 55 lines, 0 remaining)]",
+    "cause": "The blob was created from tool-rendered read output rather than the raw file bytes.",
+    "may_be_used_as_exact_freeze_identity": false
+  },
+  "exact_freeze_blob": {
+    "sha": "18da0e5df6ea310292f2dcb43b413d553afd233a",
+    "byte_exact": true,
+    "created_after_execution_result": true
+  },
+  "invocation_binding": {
+    "ledger_recorded_freeze_sha256": "be1447388649be310e524918b7970f5b96e3776d10df7db85f5f47973d0ab7b6",
+    "ledger_recorded_git_blob": "cdf60184396df2c6432321807c036f39fa846aa1",
+    "consequence": "The local byte-exact freeze SHA-256 was bound before invocation, but canonical pre-result Git-byte persistence is not qualified."
+  },
+  "authority": {
+    "retry": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}

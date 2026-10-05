@@ -1,0 +1,110 @@
+{
+  "schema": "ATDS_RVO_08_QUALIFICATION_CLOSURE_RECEIPT_V0_1",
+  "status": "RVO_08_BLOCKED_AFTER_SINGLE_AP1_EXECUTION_FAILURE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "e3cd567b7233e90f5f5b2feb7c424db7e213bfa4",
+    "tree": "ccafb924e157e717cbc2ff51867934ccf965d864"
+  },
+  "execution_parent": {
+    "head": "b7dee2c03eb533eb789c593986dc346b34ce8624",
+    "tree": "8af27f0b27e907c6e3753c8697243db16fa8c796"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "receipt_blob": "e90da864375a7b51f73aba3f0a42d953282292d3",
+    "scope": "BEPD-04A_ADDITIVE_ONLY"
+  },
+  "execution_plan": {
+    "experiment_spec_id": "EXS-4c70131ddca1dd4b2458d2d647655b04",
+    "execution_binding_id": "EEB-0460cfae3b0275284e78701580230dfa",
+    "experiment_execution_input_id": "QEI-c43f0ebdca64813bf205deb9f0e7114b",
+    "p1_data_evidence_binding_id": "P1DE-fcad5b5935300a666e634315c29988de",
+    "p1_data_evidence_binding_digest": "fcad5b5935300a666e634315c29988de809324a8ce7f5adc366da004372cac84",
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "invocation_profile_digest": "3a8689dcfa79515fae9f38b7e4903722ebdcd601ca16e7d84ef9139eb62b4de4",
+    "real_producer_execution_plan_id": "QRPP-c4ae8febe29061317aa2c44525db4650",
+    "real_producer_execution_plan_digest": "c4ae8febe29061317aa2c44525db4650706ee2e45ab3fff5a178e0a4e4fbd33e",
+    "command_digest": "63191c1b99c9cca2b3fc41a8d25789f13e1df0c9404fd4767ebfa24e97f5e9ec"
+  },
+  "freeze": {
+    "local_sha256": "be1447388649be310e524918b7970f5b96e3776d10df7db85f5f47973d0ab7b6",
+    "freeze_digest": "84b9286dbee74ba319d398dc54bbd5d40c237c813ac22a83de79b0fa80f7db63",
+    "attempted_pre_result_git_blob": "cdf60184396df2c6432321807c036f39fa846aa1",
+    "attempted_blob_byte_exact": false,
+    "exact_post_result_git_blob": "18da0e5df6ea310292f2dcb43b413d553afd233a",
+    "canonical_pre_result_git_byte_persistence": "NOT_QUALIFIED"
+  },
+  "one_shot": {
+    "invocation_count": 1,
+    "budget": 1,
+    "budget_consumed": true,
+    "automatic_retry": false,
+    "ledger_sha256": "714311480be2c1f5f153336419075f81efba0c1747857dd1c29ddd2228f2c4a7",
+    "ledger_blob": "11d47d1dfc2fbfe6a2746f74f245812398494e8e",
+    "ledger_state": "STARTED",
+    "retry_authorized": false
+  },
+  "execution": {
+    "status": "BLOCKED_AP1_EXECUTION_FAILED",
+    "execution_receipt_sha256": "39179dbd865639933c0eca8fb0d48e20a88f9a2149f743bddf858f607e909a79",
+    "execution_receipt_blob": "937e33846126246596e4d8ecf8327706d59202e5",
+    "exit_code": 1,
+    "timeout_observed": false,
+    "timeout_seconds": 3600,
+    "duration_seconds": 0.13509040046483278,
+    "started_at": "2026-10-05T19:49:16.784208Z",
+    "ended_at": "2026-10-05T19:49:16.921794Z",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "3e7806beb5bb6c78a8d5128c9eb871223e14fc1b42e03e64f778ad9070aaf567",
+    "exact_failure_cause": "UNKNOWN_STDERR_CONTENT_NOT_PERSISTED"
+  },
+  "output": {
+    "transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-08\\AP1-FIRST-REAL-CC02-b7dee2c0.json",
+    "exists": false,
+    "bytes": "NOT_MINTED",
+    "sha256": "NOT_MINTED",
+    "schema": "NOT_MINTED",
+    "status": "NOT_MINTED"
+  },
+  "runtime_lock": {
+    "id": "RPRL-5b77e0c094812f3e7e9d25efdb87bd3d",
+    "digest": "5b77e0c094812f3e7e9d25efdb87bd3da92748bc6f8a436ffe52cefe6d38f6c4",
+    "timeout_seconds": 3600
+  },
+  "regressions": {
+    "run_id": 37365326846,
+    "job_id": 111948950541,
+    "conclusion": "SUCCESS",
+    "rvo08": "5_PASS",
+    "p121_breakers": "29_PASS",
+    "p121_positive": "18_PASS",
+    "rvo07_breakers": "35_PASS",
+    "rvo07_positive": "20_PASS",
+    "g05_breakers": "30_PASS",
+    "g05_positive": "19_PASS",
+    "smf_breakers": "28_PASS",
+    "smf_positive": "25_PASS",
+    "data02_breakers": "32_PASS"
+  },
+  "authority": {
+    "m03_executed": false,
+    "scientific_finding": false,
+    "strategy_validated": false,
+    "backtest": false,
+    "new_oos": false,
+    "paper": false,
+    "broker_live": false,
+    "capital": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false
+  },
+  "persisted_head_rebreak": "REQUIRED_AFTER_CLOSURE_PERSISTENCE",
+  "stop": {
+    "ap1_retry": "NOT_AUTHORIZED",
+    "second_ap1_invocation": "FORBIDDEN",
+    "real_m03": "NOT_AUTHORIZED"
+  }
+}
