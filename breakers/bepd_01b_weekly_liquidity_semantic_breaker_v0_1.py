@@ -5,6 +5,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import subprocess
 import sys
 from pathlib import Path
 
@@ -37,11 +38,52 @@ def git_blob_sha(data: bytes) -> str:
     return hashlib.sha1(header + data).hexdigest()
 
 
-def read_bytes(root: Path, rel: Path) -> bytes:
+def worktree_bytes(root: Path, rel: Path) -> bytes:
     p = root / rel
     if not p.is_file():
         raise BreakerFailure(f"MISSING_BOUND_FILE:{rel.as_posix()}")
     return p.read_bytes()
+
+
+def git_object_bytes(root: Path, rel: Path) -> bytes | None:
+    try:
+        cp = subprocess.run(
+            ["git", "-C", str(root), "show", f"HEAD:{rel.as_posix()}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+        )
+    except OSError:
+        return None
+    if cp.returncode != 0:
+        return None
+    return cp.stdout
+
+
+def git_object_sha(root: Path, rel: Path) -> str | None:
+    try:
+        cp = subprocess.run(
+            ["git", "-C", str(root), "rev-parse", f"HEAD:{rel.as_posix()}"],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            check=False,
+            text=True,
+        )
+    except OSError:
+        return None
+    if cp.returncode != 0:
+        return None
+    return cp.stdout.strip()
+
+
+def canonical_bytes(root: Path, rel: Path) -> bytes:
+    data = git_object_bytes(root, rel)
+    return data if data is not None else worktree_bytes(root, rel)
+
+
+def canonical_blob_sha(root: Path, rel: Path) -> str:
+    sha = git_object_sha(root, rel)
+    return sha if sha is not None else git_blob_sha(worktree_bytes(root, rel))
 
 
 def assert_equal(actual, expected, code: str) -> None:
@@ -56,17 +98,16 @@ def assert_close(actual: float, expected: float, code: str, tol: float = 1e-9) -
 
 def validate_frozen_inputs(root: Path) -> tuple[dict, dict]:
     for rel, expected in EXPECTED_GIT_BLOBS.items():
-        data = read_bytes(root, rel)
-        assert_equal(git_blob_sha(data), expected, f"GIT_BLOB_MISMATCH:{rel.as_posix()}")
+        assert_equal(canonical_blob_sha(root, rel), expected, f"GIT_BLOB_MISMATCH:{rel.as_posix()}")
 
-    fixture_bytes = read_bytes(root, FIXTURE_PATH)
+    fixture_bytes = canonical_bytes(root, FIXTURE_PATH)
     assert_equal(
         hashlib.sha256(fixture_bytes).hexdigest(),
         EXPECTED_FIXTURE_SHA256,
         "FIXTURE_SHA256_MISMATCH",
     )
 
-    contract = json.loads(read_bytes(root, CONTRACT_PATH).decode("utf-8"))
+    contract = json.loads(canonical_bytes(root, CONTRACT_PATH).decode("utf-8"))
     fixture = json.loads(fixture_bytes.decode("utf-8"))
 
     assert_equal(contract["status"], "FROZEN_TEST_FIRST_RED_EXPECTED", "BREAKER_STATUS_DRIFT")
@@ -93,7 +134,6 @@ def validate_frozen_inputs(root: Path) -> tuple[dict, dict]:
     feb02 = clusters["2026-02-02"]["events"]
     assert any(float(x["close_displacement"]) < 0 for x in feb02), "FIXTURE_MUST_CONTAIN_NEGATIVE_D"
     assert any(float(x["close_displacement"]) > 0 for x in feb02), "FIXTURE_MUST_CONTAIN_POSITIVE_D"
-
     return contract, fixture
 
 
@@ -121,19 +161,15 @@ def bar(close: float, high: float | None = None, low: float | None = None) -> di
 
 
 def test_evaluate_level_event(m) -> None:
-    # B02: wick above HIGH is not a take when close remains below.
     r = m.evaluate_level_event("HIGH", 100.0, [bar(99.5, high=101.0)], 95.0)
     assert_equal(r["taken"], False, "B02_WICK_HIGH_MUST_NOT_TAKE")
 
-    # B03: wick below LOW is not a take when close remains above.
     r = m.evaluate_level_event("LOW", 100.0, [bar(100.5, low=99.0)], 105.0)
     assert_equal(r["taken"], False, "B03_WICK_LOW_MUST_NOT_TAKE")
 
-    # B04/B05: equality is not strict beyond.
     assert_equal(m.evaluate_level_event("HIGH", 100.0, [bar(100.0)], 90.0)["taken"], False, "B04_HIGH_EQUALITY")
     assert_equal(m.evaluate_level_event("LOW", 100.0, [bar(100.0)], 110.0)["taken"], False, "B05_LOW_EQUALITY")
 
-    # B06/B08: first strict take, equality after take is not reintegration.
     r = m.evaluate_level_event("HIGH", 100.0, [bar(99), bar(101), bar(100), bar(99)], 90.0)
     assert_equal(r["taken"], True, "B06_HIGH_MUST_TAKE")
     assert_equal(r["take_index"], 1, "B06_FIRST_HIGH_TAKE_INDEX")
@@ -141,30 +177,25 @@ def test_evaluate_level_event(m) -> None:
     assert_equal(r["same_week_reintegration"], True, "B08_HIGH_REINTEGRATION_FLAG")
     assert_close(r["close_displacement"], 10.0, "B06_HIGH_D")
 
-    # B07: same take bar can wick back through the level; reintegration is still later H1 close.
     r = m.evaluate_level_event("HIGH", 100.0, [bar(101, high=105, low=95), bar(99)], 98.0)
     assert_equal(r["take_index"], 0, "B07_TAKE_INDEX")
     assert_equal(r["reintegration_index"], 1, "B07_REINTEGRATION_STRICTLY_LATER")
 
-    # B09: LOW equality after take is not reintegration.
     r = m.evaluate_level_event("LOW", 100.0, [bar(99), bar(100), bar(101)], 110.0)
     assert_equal(r["take_index"], 0, "B09_LOW_TAKE_INDEX")
     assert_equal(r["reintegration_index"], 2, "B09_LOW_EQUALITY_NOT_REINTEGRATION")
     assert_close(r["close_displacement"], 10.0, "B09_LOW_D")
 
-    # B10: negative outcomes are retained.
     r = m.evaluate_level_event("HIGH", 100.0, [bar(101), bar(99)], 105.0)
     assert_equal(r["taken"], True, "B10_NEGATIVE_TAKEN")
     assert_close(r["close_displacement"], -5.0, "B10_NEGATIVE_D_RETAINED")
 
-    # B11: take without same-week reintegration remains an event.
     r = m.evaluate_level_event("HIGH", 100.0, [bar(101), bar(102)], 102.0)
     assert_equal(r["taken"], True, "B11_TAKE_RETAINED")
     assert_equal(r["reintegration_index"], None, "B11_NO_REINTEGRATION_INDEX")
     assert_equal(r["same_week_reintegration"], False, "B11_REINTEGRATION_FALSE")
     assert_close(r["close_displacement"], -2.0, "B11_D_RETAINED")
 
-    # B17: invalid side fails closed.
     try:
         m.evaluate_level_event("SIDEWAYS", 100.0, [bar(101)], 100.0)
     except ValueError:
@@ -182,7 +213,6 @@ def normalize_active(rows: list[dict]) -> list[dict]:
 
 
 def test_advance_week(m) -> None:
-    # B12: consumed level disappears; untouched level persists and ages.
     active = [
         {"source_week": "W1", "side": "HIGH", "level": 100.0, "age_weeks": 0},
         {"source_week": "W1", "side": "LOW", "level": 90.0, "age_weeks": 0},
@@ -198,7 +228,6 @@ def test_advance_week(m) -> None:
     assert_equal(len(low), 1, "B13_OLDER_LOW_PERSISTS")
     assert_equal(low[0]["age_weeks"], 1, "B13_OLDER_LOW_AGES")
 
-    # B14/B15: two active HIGH levels consumed in one cluster; keep positive and negative D.
     active = [
         {"source_week": "W0", "side": "HIGH", "level": 110.0, "age_weeks": 1},
         {"source_week": "W1", "side": "HIGH", "level": 100.0, "age_weeks": 0},
@@ -210,7 +239,6 @@ def test_advance_week(m) -> None:
     ds = sorted(float(x["close_displacement"]) for x in events)
     assert_equal(ds, [-5.0, 5.0], "B15_RETAIN_POSITIVE_AND_NEGATIVE")
 
-    # B16: current target-week levels are added only after event evaluation.
     out = m.advance_week([], "W3", [bar(150)], 150.0, 140.0, 80.0)
     assert_equal(len(out["cluster"]["events"]), 0, "B16_NO_SELF_CONSUMPTION")
     after = normalize_active(out["active_after"])
