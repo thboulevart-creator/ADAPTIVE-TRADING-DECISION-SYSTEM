@@ -1,0 +1,93 @@
+{
+  "schema": "ATDS_P1_19_COMMON_QUALIFIED_EXECUTION_EVIDENCE_CONTRACT_V0_1",
+  "status": "DESIGN_ONLY_NOT_IMPLEMENTED",
+  "target_boundary": "P1_12D_QUALIFIED_EXECUTION_EVIDENCE_ENVELOPE_V1",
+  "role": "Normalize only the evidence vocabulary needed by scientific downstream boundaries while preserving the exact native execution owner/result.",
+  "creation_rule": {
+    "native_owner_must_be_allowlisted": true,
+    "native_exact_type_required": true,
+    "native_factory_attestation_required": true,
+    "qualified_experiment_input_coherence_required": true,
+    "structural_protocol_alone_insufficient": true,
+    "unknown_execution_owner": "BLOCKED"
+  },
+  "required_common_fields": [
+    "execution_evidence_envelope_id",
+    "execution_owner_id",
+    "native_execution_contract_id",
+    "native_result_type_id",
+    "native_result_id",
+    "native_result_snapshot_digest",
+    "experiment_execution_input_id",
+    "execution_binding_id",
+    "experiment_spec_id",
+    "request_id",
+    "revision_id",
+    "audit_id",
+    "scope_id",
+    "experiment_definition_digest",
+    "input_evidence_identity",
+    "measurement_input_identity",
+    "result_content_identity",
+    "execution_procedure_identity",
+    "native_execution_status",
+    "input_owner_evidence_refs",
+    "reconstruction_class",
+    "reconstruction_descriptor_ref",
+    "native_attestation_verifier_ref",
+    "normalization_contract_digest",
+    "scientific_authority",
+    "operational_authority",
+    "trading_authority",
+    "capital_authority"
+  ],
+  "p1_12b_mapping": {
+    "execution_owner_id": "P1.12B",
+    "native_result_id": "experiment_execution_result_id",
+    "measurement_input_identity": "stream_sha256",
+    "result_content_identity": "stream_sha256",
+    "execution_procedure_identity": "P0.4 qualified BI5 research engine identity",
+    "native_execution_status": "QUALIFIED_EXECUTION_RESULT_ATTESTED",
+    "owner_specific_extension_refs": [
+      "files_consumed",
+      "ticks_consumed",
+      "first_timestamp",
+      "last_timestamp",
+      "source_verdict",
+      "source_completeness_status",
+      "source_independence_status"
+    ]
+  },
+  "p1_12c_mapping": {
+    "execution_owner_id": "P1.12C",
+    "native_result_id": "producer_execution_result_id",
+    "measurement_input_identity": "output_sha256",
+    "result_content_identity": "result_identity + output_sha256 as typed refs",
+    "execution_procedure_identity": "producer_code_blob + producer_parameter_digest + runtime_lock_digest + producer_execution_plan_digest",
+    "native_execution_status": "execution_status",
+    "owner_specific_extension_refs": [
+      "producer_id",
+      "producer_code_blob",
+      "producer_parameter_digest",
+      "runtime_lock_digest",
+      "data02_result_binding_digest",
+      "reconstruction_descriptor_digest"
+    ]
+  },
+  "non_common_fields": [
+    "BI5 files_consumed/ticks_consumed/timestamps as universal fields",
+    "BI5 stream_sha256 as universal name for all execution outputs",
+    "P1.12C producer code/runtime/output fields as mandatory fields for P1.12B",
+    "filesystem transport paths as identity",
+    "owner-native status rewritten into SUPPORTED/REFUTED"
+  ],
+  "experiment_context_rule": "The envelope must bind an exact experiment_definition_digest derived from the qualified P1 experiment input/specification because P1.12C result does not carry the full hypothesis/protocol text.",
+  "attestation_rule": "P1.12D has its own factory attestation; it records successful native verifier identity but does not claim native attestation is durable across process boundaries.",
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "success_semantics": "QUALIFIED_EXECUTION_EVIDENCE_NORMALIZED != EVALUATED != SUPPORTED"
+}

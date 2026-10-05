@@ -1,0 +1,160 @@
+{
+  "schema": "ATDS_P1_19_DOWNSTREAM_COMPATIBILITY_MAP_V0_1",
+  "status": "DOCUMENTARY_ANALYSIS_COMPLETE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "66f914b867fe9182a1604eba47e07eaab194ac52",
+    "tree": "fcc0f2b7cb8206395da1aa58d266e33e38a7d2e5"
+  },
+  "execution_owners": {
+    "P1_12B": {
+      "contract": "P1_12B_LINKED_EXPERIMENT_EXECUTION_BOUNDARY_V1",
+      "result_type": "LinkedExperimentExecutionResult",
+      "attestation": "is_factory_attested_linked_experiment_execution_result",
+      "native_result_id": "experiment_execution_result_id",
+      "measurement_input_identity": "stream_sha256",
+      "engine_specific_fields": [
+        "corpus_root",
+        "contract_path",
+        "expected_corpus_hash",
+        "expected_contract_hash",
+        "files_consumed",
+        "ticks_consumed",
+        "first_timestamp",
+        "last_timestamp",
+        "stream_sha256"
+      ],
+      "generic_identity_fields": [
+        "experiment_execution_input_id",
+        "execution_binding_id",
+        "experiment_spec_id",
+        "request_id",
+        "revision_id",
+        "audit_id",
+        "scope_id"
+      ]
+    },
+    "P1_12C": {
+      "contract": "P1_12C_CLAIM_SCOPED_QUALIFIED_PRODUCER_EXECUTION_V1",
+      "result_type": "QualifiedProducerExecutionResult",
+      "attestation": "is_factory_attested_qualified_producer_execution_result",
+      "native_result_id": "producer_execution_result_id",
+      "measurement_input_identity": "output_sha256",
+      "producer_specific_fields": [
+        "producer_execution_plan_digest",
+        "data02_admission_digest",
+        "dataset_identity",
+        "data02_dataset_file_set_digest",
+        "producer_id",
+        "producer_code_blob",
+        "producer_parameter_digest",
+        "runtime_lock_digest",
+        "execution_status",
+        "exit_code",
+        "output_schema",
+        "output_status",
+        "output_size_bytes",
+        "output_sha256",
+        "result_identity",
+        "data02_result_binding_digest",
+        "producer_stdout_digest",
+        "producer_stderr_digest",
+        "reconstruction_class",
+        "reconstruction_descriptor_digest"
+      ],
+      "generic_identity_fields": [
+        "experiment_execution_input_id",
+        "execution_binding_id",
+        "experiment_spec_id",
+        "request_id",
+        "revision_id",
+        "audit_id",
+        "scope_id"
+      ]
+    }
+  },
+  "downstream": [
+    {
+      "boundary": "P1.13B",
+      "blob": "968ef47d0fc4e066374b7471110c71d0eaf28865",
+      "direct_execution_type_dependency": "LinkedExperimentExecutionResult",
+      "direct_attestation_dependency": "P1.12B factory attestation",
+      "compatibility_with_p1_12c": "BLOCKED",
+      "exact_reason": "Exact type check plus exact P1.12B attestation; submission copies BI5-specific fields into its own identity.",
+      "engine_specific_coupling": [
+        "corpus_root",
+        "contract_path",
+        "expected_corpus_hash",
+        "expected_contract_hash",
+        "files_consumed",
+        "ticks_consumed",
+        "first_timestamp",
+        "last_timestamp",
+        "stream_sha256"
+      ]
+    },
+    {
+      "boundary": "P1.14B",
+      "blob": "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+      "direct_execution_type_dependency": "LinkedExperimentExecutionResult",
+      "direct_attestation_dependency": "P1.12B factory attestation",
+      "evaluation_dependency": "Exact P1.13B ExperimentEvaluationSubmission",
+      "compatibility_with_p1_12c": "BLOCKED",
+      "exact_reason": "Record/receipt/provenance identity hard-bind stream_sha256 as the measurement input identity.",
+      "engine_specific_coupling": [
+        "stream_sha256",
+        "input_stream_sha256"
+      ]
+    },
+    {
+      "boundary": "P1.15B",
+      "blob": "bfab3c421263434d5e3e3066720f95abb521b09c",
+      "direct_execution_type_dependency": "NONE",
+      "indirect_type_dependencies": [
+        "Exact P1.13B ExperimentEvaluationSubmission",
+        "Exact P1.14B WitnessedMeasurementProvenance"
+      ],
+      "compatibility_with_p1_12c": "BLOCKED_INDIRECTLY",
+      "exact_reason": "Evaluation/provenance exact types and IDs are inherited; procedure bindings themselves are execution-engine agnostic."
+    },
+    {
+      "boundary": "P1.16",
+      "blob": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+      "direct_execution_type_dependency": "NONE",
+      "indirect_type_dependencies": [
+        "Exact P1.13B ExperimentEvaluationSubmission",
+        "Exact P1.15B QualifiedExperimentEvaluationAuthority"
+      ],
+      "compatibility_with_p1_12c": "BLOCKED_INDIRECTLY",
+      "exact_reason": "Finding interpretation table is execution-engine agnostic, but accepted upstream exact types are not."
+    }
+  ],
+  "mandatory_answers": {
+    "p1_13b_actual_use": "P1.13B copies generic experiment identities and all BI5-specific execution fields into ExperimentEvaluationSubmission.",
+    "scientifically_required_common_core": [
+      "exact experiment lifecycle identities",
+      "exact native execution owner/contract/type",
+      "exact native execution result identity",
+      "exact input evidence identity",
+      "exact measurement-input content identity",
+      "exact result/content identity",
+      "exact execution procedure identity",
+      "native execution status without rewriting",
+      "reconstruction evidence/ref",
+      "owner-native input/source evidence refs"
+    ],
+    "engine_specific_not_common": [
+      "BI5 tick counts/timestamps/stream_sha256 as universal fields",
+      "P1.12C producer code/runtime/output fields as universal fields"
+    ],
+    "protocol_sufficient": false,
+    "protocol_reason": "Structural compatibility cannot prove exact owner-native factory attestation. A new factory-attested common evidence object must be minted only after native verifier success.",
+    "can_avoid_owner_specific_p1_13c_to_p1_16c": true,
+    "caveat": "Avoid producer-specific sibling chains by creating one versioned common downstream path serving both P1.12B and P1.12C. Legacy B boundaries remain unchanged.",
+    "measurement_provenance_rule": "Bind exact execution evidence envelope plus exact measurement-input content identity and exact procedure identity; do not bind an engine-specific type merely by convention.",
+    "p1_16_engine_dependency": "No semantic dependency on BI5 execution engine was found in the interpretation table; dependency is indirect through exact upstream P1.13B/P1.15B types."
+  },
+  "authority": "NONE",
+  "unknown_unknown_coverage": "NOT_CLAIMED"
+}

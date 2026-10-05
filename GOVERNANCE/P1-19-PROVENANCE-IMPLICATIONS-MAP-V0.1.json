@@ -1,0 +1,47 @@
+{
+  "schema": "ATDS_P1_19_PROVENANCE_IMPLICATIONS_MAP_V0_1",
+  "status": "DOCUMENTARY",
+  "current_p1_14b": {
+    "engine_specific_binding": "stream_sha256",
+    "direct_native_result_type": "LinkedExperimentExecutionResult",
+    "consequence": "Cannot consume P1.12C without semantic rewrite because P1.12C measurement input is its exact output bytes, not a BI5 tick stream."
+  },
+  "selected_common_p1_14c": {
+    "required_inputs": [
+      "exact P1.12D execution evidence envelope",
+      "exact P1.13C evaluation submission",
+      "external canonical derivation record/receipt",
+      "exact measurement_input_identity from envelope",
+      "exact procedure_ref",
+      "exact procedure_sha256"
+    ],
+    "derivation_binding": [
+      "measurement_id",
+      "measurement claim fields",
+      "execution_evidence_envelope_id",
+      "native_result_id",
+      "measurement_input_identity",
+      "procedure_ref",
+      "procedure_sha256"
+    ],
+    "forbidden": [
+      "Treat output identity alone as measurement provenance",
+      "Use stream_sha256 label for non-stream producer results",
+      "Permit procedure to bind a different result content identity",
+      "Rewrite execution owner status"
+    ]
+  },
+  "p1_15_implication": {
+    "semantic_change_needed": "LOW",
+    "type_contract_change_needed": "YES",
+    "basis": "Authority stage depends on exact evaluation/provenance identities and procedure bindings, not BI5-specific execution fields.",
+    "recommended_future": "P1.15C common successor preserving P1.15B authority semantics."
+  },
+  "p1_16_implication": {
+    "semantic_change_needed": "LOW",
+    "type_contract_change_needed": "YES",
+    "basis": "Finding interpretation policy depends on evaluation statuses and qualified authority coherence, not execution engine.",
+    "recommended_future": "P1.16C common successor preserving the same fixed interpretation table unless separately amended."
+  },
+  "finding_invariant": "P1 finding remains downstream of evaluation+provenance+authority; execution result can never become finding directly."
+}

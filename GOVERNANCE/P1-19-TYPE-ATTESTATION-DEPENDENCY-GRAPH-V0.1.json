@@ -1,0 +1,110 @@
+{
+  "schema": "ATDS_P1_19_TYPE_ATTESTATION_DEPENDENCY_GRAPH_V0_1",
+  "status": "DOCUMENTARY",
+  "nodes": [
+    {
+      "id": "P1.12B",
+      "type": "LinkedExperimentExecutionResult",
+      "factory_attestation": "P1.12B",
+      "native": true
+    },
+    {
+      "id": "P1.12C",
+      "type": "QualifiedProducerExecutionResult",
+      "factory_attestation": "P1.12C",
+      "native": true
+    },
+    {
+      "id": "P1.13B",
+      "type": "ExperimentEvaluationSubmission",
+      "factory_attestation": "P1.13B"
+    },
+    {
+      "id": "P1.14B",
+      "type": "WitnessedMeasurementProvenance",
+      "factory_attestation": "P1.14B"
+    },
+    {
+      "id": "P1.15B",
+      "type": "QualifiedExperimentEvaluationAuthority",
+      "factory_attestation": "P1.15B"
+    },
+    {
+      "id": "P1.16",
+      "type": "QualifiedExperimentalFinding",
+      "factory_attestation": "P1.16"
+    }
+  ],
+  "current_edges": [
+    {
+      "from": "P1.12B",
+      "to": "P1.13B",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    },
+    {
+      "from": "P1.12B",
+      "to": "P1.14B",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    },
+    {
+      "from": "P1.13B",
+      "to": "P1.14B",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    },
+    {
+      "from": "P1.13B",
+      "to": "P1.15B",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    },
+    {
+      "from": "P1.14B",
+      "to": "P1.15B",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    },
+    {
+      "from": "P1.13B",
+      "to": "P1.16",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    },
+    {
+      "from": "P1.15B",
+      "to": "P1.16",
+      "kind": "EXACT_TYPE_PLUS_FACTORY_ATTESTATION",
+      "required": true
+    }
+  ],
+  "missing_edges": [
+    {
+      "from": "P1.12C",
+      "to": "P1.13B",
+      "reason": "TYPE_AND_ATTESTATION_MISMATCH"
+    },
+    {
+      "from": "P1.12C",
+      "to": "P1.14B",
+      "reason": "TYPE_ATTESTATION_AND_STREAM_IDENTITY_MISMATCH"
+    }
+  ],
+  "selected_future_graph": {
+    "normalization_boundary": "P1.12D_QUALIFIED_EXECUTION_EVIDENCE_ENVELOPE_V1",
+    "native_to_common": [
+      "P1.12B -> P1.12D after exact P1.12B type+attestation verification",
+      "P1.12C -> P1.12D after exact P1.12C type+attestation verification"
+    ],
+    "downstream": [
+      "P1.12D -> P1.13C_COMMON_EVALUATION",
+      "P1.12D + P1.13C -> P1.14C_COMMON_MEASUREMENT_PROVENANCE",
+      "P1.13C + P1.14C -> P1.15C_COMMON_EVALUATOR_AUTHORITY",
+      "P1.13C + P1.15C -> P1.16C_COMMON_QUALIFIED_FINDING"
+    ],
+    "legacy_preservation": "P1.12B->P1.13B->P1.14B->P1.15B->P1.16 remains unchanged during migration.",
+    "producer_specific_chain": false
+  },
+  "key_invariant": "COMMON_INTERFACE != COMMON_AUTHORITY"
+}

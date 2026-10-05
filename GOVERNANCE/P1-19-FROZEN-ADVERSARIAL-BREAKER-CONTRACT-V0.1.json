@@ -1,0 +1,155 @@
+{
+  "schema": "ATDS_P1_19_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_DOCUMENTARY_PRE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "66f914b867fe9182a1604eba47e07eaab194ac52",
+    "tree": "fcc0f2b7cb8206395da1aa58d266e33e38a7d2e5"
+  },
+  "selected_architecture": "OPTION_B_VERSIONED_COMMON_DOWNSTREAM_WITH_P1_12D_NORMALIZATION",
+  "executable_breaker_present": false,
+  "red_executed": false,
+  "freeze_rule": "IDs, failure intent and expected fail-closed outcomes are frozen before implementation.",
+  "cases": [
+    {
+      "id": "P119-B01",
+      "intent": "P1.12C presented as P1.12B",
+      "expected": "REJECT_NATIVE_RESULT_TYPE_FORGERY"
+    },
+    {
+      "id": "P119-B02",
+      "intent": "execution_binding_id omitted",
+      "expected": "BLOCKED_EXECUTION_BINDING_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P119-B03",
+      "intent": "experiment_spec_id omitted",
+      "expected": "BLOCKED_EXPERIMENT_SPEC_IDENTITY_REQUIRED"
+    },
+    {
+      "id": "P119-B04",
+      "intent": "native result identity substituted",
+      "expected": "BLOCKED_NATIVE_RESULT_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P119-B05",
+      "intent": "engine-specific field treated as universal",
+      "expected": "REJECT_ENGINE_SPECIFIC_FIELD_LAUNDERING"
+    },
+    {
+      "id": "P119-B06",
+      "intent": "BI5 stream identity imposed on P1.12C",
+      "expected": "REJECT_BI5_STREAM_IDENTITY_GENERALIZATION"
+    },
+    {
+      "id": "P119-B07",
+      "intent": "producer fields imposed on P1.12B",
+      "expected": "REJECT_PRODUCER_FIELD_GENERALIZATION"
+    },
+    {
+      "id": "P119-B08",
+      "intent": "native execution status rewritten",
+      "expected": "REJECT_NATIVE_EXECUTION_STATUS_REWRITE"
+    },
+    {
+      "id": "P119-B09",
+      "intent": "EXECUTED promoted to SUPPORTED",
+      "expected": "REJECT_EXECUTION_TO_SUPPORT_LAUNDERING"
+    },
+    {
+      "id": "P119-B10",
+      "intent": "BLOCKED converted to FAIL",
+      "expected": "REJECT_BLOCKED_TO_FAIL_LAUNDERING"
+    },
+    {
+      "id": "P119-B11",
+      "intent": "result identity used as provenance",
+      "expected": "REJECT_RESULT_IDENTITY_AS_PROVENANCE"
+    },
+    {
+      "id": "P119-B12",
+      "intent": "evaluation lacks exact execution envelope binding",
+      "expected": "BLOCKED_EVALUATION_EXECUTION_BINDING_REQUIRED"
+    },
+    {
+      "id": "P119-B13",
+      "intent": "provenance binds wrong execution result",
+      "expected": "BLOCKED_PROVENANCE_RESULT_MISMATCH"
+    },
+    {
+      "id": "P119-B14",
+      "intent": "procedure binds wrong measurement input bytes",
+      "expected": "BLOCKED_MEASUREMENT_INPUT_IDENTITY_MISMATCH"
+    },
+    {
+      "id": "P119-B15",
+      "intent": "authority binds mismatched provenance",
+      "expected": "BLOCKED_EVALUATOR_AUTHORITY_PROVENANCE_MISMATCH"
+    },
+    {
+      "id": "P119-B16",
+      "intent": "finding binds mismatched evaluation authority",
+      "expected": "BLOCKED_FINDING_AUTHORITY_MISMATCH"
+    },
+    {
+      "id": "P119-B17",
+      "intent": "common interface claims scientific authority",
+      "expected": "REJECT_COMMON_INTERFACE_SCIENTIFIC_AUTHORITY"
+    },
+    {
+      "id": "P119-B18",
+      "intent": "common interface claims trading/capital authority",
+      "expected": "REJECT_COMMON_INTERFACE_TRADING_AUTHORITY"
+    },
+    {
+      "id": "P119-B19",
+      "intent": "runtime attestation treated as durable reconstruction",
+      "expected": "BLOCKED_RUNTIME_ATTESTATION_NOT_DURABLE"
+    },
+    {
+      "id": "P119-B20",
+      "intent": "structural compatibility accepted without native attestation",
+      "expected": "BLOCKED_NATIVE_OWNER_ATTESTATION_REQUIRED"
+    },
+    {
+      "id": "P119-B21",
+      "intent": "owner-specific downstream duplication drifts",
+      "expected": "REJECT_OWNER_SPECIFIC_DOWNSTREAM_DUPLICATION"
+    },
+    {
+      "id": "P119-B22",
+      "intent": "unknown execution owner accepted",
+      "expected": "BLOCKED_UNKNOWN_EXECUTION_OWNER"
+    },
+    {
+      "id": "P119-B23",
+      "intent": "normalizer chosen after result exposure",
+      "expected": "BLOCKED_POST_RESULT_NORMALIZER_SELECTION"
+    },
+    {
+      "id": "P119-B24",
+      "intent": "native P1.12B/P1.12C semantics rewritten for integration",
+      "expected": "REJECT_NATIVE_OWNER_SEMANTIC_REWRITE"
+    }
+  ],
+  "mandatory_distinctions": [
+    "TYPE_COMPATIBILITY != SEMANTIC_EQUIVALENCE",
+    "COMMON_INTERFACE != COMMON_AUTHORITY",
+    "EXECUTION_ENGINE != EXPERIMENT_LIFECYCLE",
+    "EXECUTION_RESULT != SCIENTIFIC_RESULT",
+    "EXECUTED != SUPPORTED",
+    "SUPPORTED != VALIDATED_STRATEGY",
+    "ADAPTER != OWNER",
+    "FACTORY_ATTESTATION != DURABLE_RECONSTRUCTION",
+    "P1_FINDING != TRADING_AUTHORITY"
+  ],
+  "future_test_first_rule": [
+    "materialize executable cases unchanged before implementation",
+    "observe and persist RED",
+    "implement minimal common path",
+    "replay unchanged breaker",
+    "protected legacy P1 regressions",
+    "persisted-head rebreak"
+  ]
+}

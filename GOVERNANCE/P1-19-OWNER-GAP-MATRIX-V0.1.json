@@ -1,0 +1,61 @@
+{
+  "schema": "ATDS_P1_19_OWNER_GAP_MATRIX_V0_1",
+  "status": "DOCUMENTARY",
+  "gaps": [
+    {
+      "id": "G1_COMMON_EXECUTION_EVIDENCE",
+      "owner": "P1",
+      "current": "ABSENT",
+      "priority": "CRITICAL",
+      "blocks": "P1.12C downstream scientific consumption",
+      "selected_maturation": "P1.12D factory-attested common evidence envelope"
+    },
+    {
+      "id": "G2_COMMON_EVALUATION",
+      "owner": "P1",
+      "current": "P1.13B BI5-coupled",
+      "priority": "CRITICAL",
+      "blocks": "Evaluation of normalized P1.12C execution evidence",
+      "selected_maturation": "P1.13C common evaluation successor"
+    },
+    {
+      "id": "G3_COMMON_MEASUREMENT_PROVENANCE",
+      "owner": "P1",
+      "current": "P1.14B stream_sha256/P1.12B-coupled",
+      "priority": "CRITICAL",
+      "blocks": "Scientific lineage from producer output bytes to measurement claims",
+      "selected_maturation": "P1.14C common measurement provenance successor"
+    },
+    {
+      "id": "G4_COMMON_EVALUATOR_AUTHORITY",
+      "owner": "P1",
+      "current": "P1.15B exact P1.13B/P1.14B types",
+      "priority": "HIGH",
+      "blocks": "Authority qualification for common downstream path",
+      "selected_maturation": "P1.15C preserving current semantics"
+    },
+    {
+      "id": "G5_COMMON_FINDING",
+      "owner": "P1",
+      "current": "P1.16 exact P1.13B/P1.15B types",
+      "priority": "HIGH",
+      "blocks": "Qualified finding on common downstream path",
+      "selected_maturation": "P1.16C preserving current interpretation policy"
+    }
+  ],
+  "not_gaps": [
+    "P1.12C synthetic execution mechanics",
+    "DATA-02 admission semantics",
+    "SMF method semantics",
+    "RVO orchestration",
+    "Temporal for exact retrospective descriptive CC02"
+  ],
+  "implementation_order": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5"
+  ],
+  "real_ap1_execution_before_gap_closure": false
+}

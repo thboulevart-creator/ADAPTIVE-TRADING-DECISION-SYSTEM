@@ -1,0 +1,173 @@
+name: P1-19 Documentary Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/p1-19-documentary-qualification.yml'
+      - 'GOVERNANCE/P1-19-*'
+      - 'reports/program/*P1-19*'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+  P1_19_RECONCILED_PARENT: '16b4d6401356637ee0cfa6437ebf90d5ab13cf2f'
+
+jobs:
+  p1-19:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - name: Prove exact persisted HEAD and ancestry
+        run: |
+          test "$(git rev-parse HEAD)" = "${GITHUB_SHA}"
+          git merge-base --is-ancestor "${P1_19_RECONCILED_PARENT}" HEAD
+
+      - name: Prove exact P1-18 and downstream source identities
+        run: |
+          test "$(git hash-object src/p1_12c_qualified_producer_execution.py)" = "6d634ed1adab21ce31a55289d8d6e5b288e70005"
+          test "$(git hash-object breakers/p1_18_qualified_producer_execution_breaker.py)" = "7f40b525e16ca06306cba3ae59f03cb08c71d0cd"
+          test "$(git hash-object reports/program/2026-10-05-P1-18-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "69abcade9791e8826e201f718b753061ee5f1321"
+          test "$(git hash-object reports/program/2026-10-05-P1-18-QUALIFICATION-RECEIPT-V0.1.json)" = "d11a3990c25ff1357dbf0433d16653c19e7d4511"
+          test "$(git hash-object reports/program/2026-10-05-P1-18-SYNTHETIC-QUALIFICATION.md)" = "582bc49337f59806bc79eb4638a4502894e7cffe"
+          test "$(git hash-object src/linked_experiment_execution.py)" = "f2fa07178134e04963d42d1fbdda1a8f7bad179d"
+          test "$(git hash-object src/experiment_evaluation_submission.py)" = "968ef47d0fc4e066374b7471110c71d0eaf28865"
+          test "$(git hash-object src/experiment_measurement_provenance.py)" = "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5"
+          test "$(git hash-object src/experiment_evaluator_authority.py)" = "bfab3c421263434d5e3e3066720f95abb521b09c"
+          test "$(git hash-object src/qualified_experimental_finding.py)" = "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f"
+
+      - name: Prove exact P1-19 documentary artifact identities
+        run: |
+          test "$(git hash-object reports/program/2026-10-05-P1-19-PARENT-DRIFT-RECONCILIATION-V0.1.json)" = "f0af2682a6b12e2bc655bd156192a72cdae19b38"
+          test "$(git hash-object reports/program/2026-10-05-P1-19-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json)" = "ff1d68554f95fddbca68468385ccad34e8dd5969"
+          test "$(git hash-object GOVERNANCE/P1-19-DOWNSTREAM-COMPATIBILITY-MAP-V0.1.json)" = "2891ae0200b09d44d31dac193f13bb4e59d1d1b8"
+          test "$(git hash-object GOVERNANCE/P1-19-TYPE-ATTESTATION-DEPENDENCY-GRAPH-V0.1.json)" = "f34d83a95a0c7fe1cb74f7aef33938fd5b591a59"
+          test "$(git hash-object GOVERNANCE/P1-19-ARCHITECTURE-SELECTION-V0.1.md)" = "832574ed747988d6df11dfb5f9c457ced30f3c26"
+          test "$(git hash-object GOVERNANCE/P1-19-COMMON-QUALIFIED-EXECUTION-EVIDENCE-CONTRACT-V0.1.json)" = "d3a259f032db3a2d882e1e0403936476701a7cd3"
+          test "$(git hash-object GOVERNANCE/P1-19-PROVENANCE-IMPLICATIONS-MAP-V0.1.json)" = "37d5122c0aae0ead3a06307159f5c4d5f40a08f2"
+          test "$(git hash-object GOVERNANCE/P1-19-OWNER-GAP-MATRIX-V0.1.json)" = "a4d1a38693ca6419c7fa6b54a4773f8373e1fb9a"
+          test "$(git hash-object GOVERNANCE/P1-19-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "07f6d170ddd1afab20bec1e45c7fad6cc32fdf65"
+          test "$(git hash-object reports/program/2026-10-05-P1-19-DOWNSTREAM-IMPLEMENTATION-READINESS.md)" = "2206a55cfd68bf345390672af3646dbe497df27e"
+          test "$(git hash-object reports/program/2026-10-05-P1-19-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.2.json)" = "29546a49ae8cbf958bc1aefb205c67fad1e939f6"
+
+      - name: Prove no P1-19 runtime implementation exists
+        run: |
+          test ! -e src/p1_12d_qualified_execution_evidence.py
+          test ! -e src/p1_13c_common_evaluation.py
+          test ! -e src/p1_14c_common_measurement_provenance.py
+          test ! -e src/p1_15c_common_evaluator_authority.py
+          test ! -e src/p1_16c_common_qualified_finding.py
+          test ! -e breakers/p1_19_downstream_compatibility_breaker.py
+
+      - name: Verify exact source coupling observations
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p13 = Path("src/experiment_evaluation_submission.py").read_text()
+          p14 = Path("src/experiment_measurement_provenance.py").read_text()
+          p15 = Path("src/experiment_evaluator_authority.py").read_text()
+          p16 = Path("src/qualified_experimental_finding.py").read_text()
+
+          assert "type(execution_result) is not LinkedExperimentExecutionResult" in p13
+          assert "is_factory_attested_linked_experiment_execution_result" in p13
+          for field in ("files_consumed","ticks_consumed","first_timestamp","last_timestamp","stream_sha256"):
+              assert field in p13
+
+          assert "type(execution_result) is not LinkedExperimentExecutionResult" in p14
+          assert "is_factory_attested_linked_experiment_execution_result" in p14
+          assert "input_stream_sha256" in p14
+          assert "stream_sha256" in p14
+
+          assert "LinkedExperimentExecutionResult" not in p15
+          assert "ExperimentEvaluationSubmission" in p15
+          assert "WitnessedMeasurementProvenance" in p15
+
+          assert "LinkedExperimentExecutionResult" not in p16
+          assert "ExperimentEvaluationSubmission" in p16
+          assert "QualifiedExperimentEvaluationAuthority" in p16
+          assert "_INTERPRETATION_TABLE" in p16
+          print("PASS: exact downstream coupling observations")
+          PY
+
+      - name: Verify P1-19 semantic design
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          compatibility=json.loads(Path("GOVERNANCE/P1-19-DOWNSTREAM-COMPATIBILITY-MAP-V0.1.json").read_text())
+          graph=json.loads(Path("GOVERNANCE/P1-19-TYPE-ATTESTATION-DEPENDENCY-GRAPH-V0.1.json").read_text())
+          common=json.loads(Path("GOVERNANCE/P1-19-COMMON-QUALIFIED-EXECUTION-EVIDENCE-CONTRACT-V0.1.json").read_text())
+          breaker=json.loads(Path("GOVERNANCE/P1-19-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json").read_text())
+          receipt=json.loads(Path("reports/program/2026-10-05-P1-19-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.2.json").read_text())
+
+          assert compatibility["mandatory_answers"]["protocol_sufficient"] is False
+          assert graph["selected_future_graph"]["normalization_boundary"] == "P1.12D_QUALIFIED_EXECUTION_EVIDENCE_ENVELOPE_V1"
+          assert graph["selected_future_graph"]["producer_specific_chain"] is False
+          assert common["creation_rule"]["native_factory_attestation_required"] is True
+          assert common["p1_12b_mapping"]["measurement_input_identity"] == "stream_sha256"
+          assert common["p1_12c_mapping"]["measurement_input_identity"] == "output_sha256"
+          assert common["authority"] == {"scientific":False,"operational":False,"trading":False,"capital":False}
+          assert breaker["status"] == "FROZEN_DOCUMENTARY_PRE_IMPLEMENTATION"
+          assert breaker["executable_breaker_present"] is False
+          assert breaker["red_executed"] is False
+          assert [x["id"] for x in breaker["cases"]] == [f"P119-B{i:02d}" for i in range(1,25)]
+          assert receipt["decision"]["option_b"] == "SELECTED"
+          assert receipt["owner_changes"] == {
+              "p1_12b":False,"p1_12c":False,"p1_13b":False,"p1_14b":False,"p1_15b":False,"p1_16":False,
+              "data":False,"rvo":False,"smf":False,"temporal":False
+          }
+          print("PASS: P1-19 documentary semantics")
+          PY
+
+      - name: Prove bounded P1-19 delta only
+        run: |
+          python - <<'PY'
+          import subprocess
+          parent="16b4d6401356637ee0cfa6437ebf90d5ab13cf2f"
+          changed=subprocess.check_output(["git","diff","--name-only",f"{parent}..HEAD"],text=True).splitlines()
+          allowed={
+              ".github/workflows/p1-19-documentary-qualification.yml",
+              "GOVERNANCE/P1-19-DOWNSTREAM-COMPATIBILITY-MAP-V0.1.json",
+              "GOVERNANCE/P1-19-TYPE-ATTESTATION-DEPENDENCY-GRAPH-V0.1.json",
+              "GOVERNANCE/P1-19-ARCHITECTURE-SELECTION-V0.1.md",
+              "GOVERNANCE/P1-19-COMMON-QUALIFIED-EXECUTION-EVIDENCE-CONTRACT-V0.1.json",
+              "GOVERNANCE/P1-19-PROVENANCE-IMPLICATIONS-MAP-V0.1.json",
+              "GOVERNANCE/P1-19-OWNER-GAP-MATRIX-V0.1.json",
+              "GOVERNANCE/P1-19-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json",
+              "reports/program/2026-10-05-P1-19-PARENT-DRIFT-RECONCILIATION-V0.1.json",
+              "reports/program/2026-10-05-P1-19-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json",
+              "reports/program/2026-10-05-P1-19-DOWNSTREAM-IMPLEMENTATION-READINESS.md",
+              "reports/program/2026-10-05-P1-19-DOCUMENTARY-QUALIFICATION-RECEIPT-V0.2.json",
+          }
+          extra=sorted(set(changed)-allowed)
+          if extra:
+              raise SystemExit("UNAUTHORIZED_P1_19_DELTA:"+",".join(extra))
+          print("PASS: P1-19 delta documentary-only")
+          PY
+
+      - name: Prove no AP1 result produced
+        run: |
+          test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          test ! -e /tmp/ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          echo "PASS: AP1 not executed"
+
+      - name: Prove clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"

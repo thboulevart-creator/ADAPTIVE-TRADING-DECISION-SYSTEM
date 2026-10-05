@@ -1,0 +1,86 @@
+{
+  "schema": "ATDS_P1_19_DOCUMENTARY_QUALIFICATION_RECEIPT_V0_2",
+  "status": "CANDIDATE_PENDING_PERSISTED_HEAD_REBREAK",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "8b867e6739545a73c95291fd129c34af9e2344f1",
+    "tree": "fa0c9399d1254101225d7586df7a78d55e2c63e7"
+  },
+  "reconciliation_chain": [
+    {
+      "head": "66f914b867fe9182a1604eba47e07eaab194ac52",
+      "tree": "fcc0f2b7cb8206395da1aa58d266e33e38a7d2e5",
+      "receipt_blob": "f0af2682a6b12e2bc655bd156192a72cdae19b38",
+      "classification": "NON_MATERIAL_TO_P1_19"
+    },
+    {
+      "head": "16b4d6401356637ee0cfa6437ebf90d5ab13cf2f",
+      "tree": "410e037ab974fc87bb15405c351a6873fdb3ab7d",
+      "receipt_blob": "ff1d68554f95fddbca68468385ccad34e8dd5969",
+      "classification": "NON_MATERIAL_TO_P1_19"
+    }
+  ],
+  "exact_sources": {
+    "p1_12b_blob": "f2fa07178134e04963d42d1fbdda1a8f7bad179d",
+    "p1_12c_blob": "6d634ed1adab21ce31a55289d8d6e5b288e70005",
+    "p1_13b_blob": "968ef47d0fc4e066374b7471110c71d0eaf28865",
+    "p1_14b_blob": "4ce8ceb7e46ac2f6ffbd97560225d559ea7757f5",
+    "p1_15b_blob": "bfab3c421263434d5e3e3066720f95abb521b09c",
+    "p1_16_blob": "a5c6b820df5ea5e89fd61c84feb42cb42e923a5f",
+    "p1_18_breaker_blob": "7f40b525e16ca06306cba3ae59f03cb08c71d0cd",
+    "p1_18_red_receipt_blob": "69abcade9791e8826e201f718b753061ee5f1321",
+    "p1_18_qualification_receipt_blob": "d11a3990c25ff1357dbf0433d16653c19e7d4511",
+    "p1_18_qualification_report_blob": "582bc49337f59806bc79eb4638a4502894e7cffe"
+  },
+  "artifacts": {
+    "compatibility_map_blob": "2891ae0200b09d44d31dac193f13bb4e59d1d1b8",
+    "type_attestation_graph_blob": "f34d83a95a0c7fe1cb74f7aef33938fd5b591a59",
+    "architecture_selection_blob": "832574ed747988d6df11dfb5f9c457ced30f3c26",
+    "common_execution_evidence_contract_blob": "d3a259f032db3a2d882e1e0403936476701a7cd3",
+    "provenance_implications_blob": "37d5122c0aae0ead3a06307159f5c4d5f40a08f2",
+    "owner_gap_matrix_blob": "a4d1a38693ca6419c7fa6b54a4773f8373e1fb9a",
+    "frozen_breaker_contract_blob": "07f6d170ddd1afab20bec1e45c7fad6cc32fdf65",
+    "implementation_readiness_blob": "2206a55cfd68bf345390672af3646dbe497df27e"
+  },
+  "decision": {
+    "option_a": "REJECTED_DOMINATED_BY_COMMON_VERSIONED_DOWNSTREAM",
+    "option_b": "SELECTED",
+    "option_c_direct_to_legacy": "REJECTED",
+    "normalization_adapter": "SELECTED_AS_COMPONENT_OF_OPTION_B",
+    "target": "P1.12D -> P1.13C -> P1.14C -> P1.15C -> P1.16C"
+  },
+  "breaker": {
+    "case_count": 24,
+    "frozen": true,
+    "executable": false,
+    "red_executed": false
+  },
+  "owner_changes": {
+    "p1_12b": false,
+    "p1_12c": false,
+    "p1_13b": false,
+    "p1_14b": false,
+    "p1_15b": false,
+    "p1_16": false,
+    "data": false,
+    "rvo": false,
+    "smf": false,
+    "temporal": false
+  },
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false,
+    "real_ap1": false,
+    "new_market_result": false,
+    "unknown_unknown_coverage": "NOT_CLAIMED"
+  },
+  "stop": {
+    "p1_20": "NOT_AUTHORIZED",
+    "rvo_06": "NOT_AUTHORIZED",
+    "data_03": "NOT_AUTHORIZED",
+    "downstream_runtime_implementation": "NOT_AUTHORIZED"
+  }
+}
