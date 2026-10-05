@@ -1,0 +1,35 @@
+{
+  "schema": "ATDS_G05_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "PASS_EXPECTED_RED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "frozen_contract_blob": "dc7e4e2375855034a796b06fdb52ae43cc1bec41",
+  "frozen_breaker_contract_blob": "05e8c946ae44017c81afd99185649e9aa9378b61",
+  "frozen_breaker_blob": "2b1936c7f70b536e5bd23591a5a48618e51e9012",
+  "initial_red_run": {
+    "run_id": 37352948913,
+    "job_id": 111908076118,
+    "expected_red_step": "PASS",
+    "observed": "30_FAILED_RUNTIME_ABSENT",
+    "marker": "G05_01_WORKSPACE_RUNTIME_ABSENT_EXPECTED_RED",
+    "workflow_conclusion": "FAILURE_DUE_ONLY_TO_PYTEST_PYCACHE_DIRTY_WORKTREE"
+  },
+  "corrected_red_run": {
+    "head": "a8c012452cfa2bab87c85c7e329885370cf1f7ca",
+    "run_id": 37353046487,
+    "job_id": 111908407598,
+    "conclusion": "SUCCESS",
+    "observed": "30_FAILED_RUNTIME_ABSENT",
+    "runtime_absent": true,
+    "clean_worktree": true
+  },
+  "interpretation": "Test-first RED proves G05-01 dry-readiness runtime was absent before implementation. The first run's only post-RED defect was bytecode-cache worktree pollution; the workflow was mechanically corrected without changing contract or frozen breakers.",
+  "workspace_materialized": false,
+  "authority": {
+    "execution": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}
