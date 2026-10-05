@@ -1,0 +1,124 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_02_REAL_COST_PROFILE_EVIDENCE_PACKAGE_V0_2",
+  "control_id": "AO-E0-EXEC-02",
+  "status": "TARGET_IDENTITY_BOUND_REAL_COST_PROFILE_STILL_BLOCKED",
+  "parent": {
+    "head": "2e2cf66f5c87248a39723267fdedea02ad7432f8",
+    "tree": "2c581bb6273a7a18f82351c716d9414cbd7b232d"
+  },
+  "supersedes_evidence_state": "V0.1 blocker BLOCKED_BY_HUMAN_DECISION for target identity",
+  "target_identity": {
+    "execution_venue_broker": "VT Markets",
+    "mt5_server": "VTMarkets-Live 2",
+    "account_type_cost_profile": "Standard STP",
+    "exact_tradable_symbol": "NAS100.s",
+    "broker_product_description": "NAS100 Cash",
+    "authority_basis": "HUMAN_DECLARATION_2026_10_05"
+  },
+  "source_b_firewall": {
+    "research_source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "source_b_to_vt_feed_equivalence": "NOT_CLAIMED",
+    "source_b_to_nas100_s_contract_equivalence": "NOT_CLAIMED"
+  },
+  "official_external_evidence": [
+    {
+      "id": "VT_STANDARD_STP_FAQ_2025_04_22",
+      "url": "https://www.vtmarkets.com/en-latam/faq/a-complete-faq-on-vt-markets-standard-stp-account/",
+      "date": "2025-04-22",
+      "fact": "Standard STP is commission-free; cost is incorporated through spread.",
+      "use": "PRE_OOS_ACCOUNT_STRUCTURE_ANCHOR"
+    },
+    {
+      "id": "VT_STANDARD_STP_CURRENT",
+      "url": "https://www.vtmarkets.com/en-eu/standard-stp/",
+      "date_class": "CURRENT",
+      "fact": "Standard STP specifications show commission $0 and MT4/MT5 support.",
+      "use": "CURRENT_ACCOUNT_STRUCTURE_ANCHOR"
+    },
+    {
+      "id": "VT_NAS100_CURRENT_GUIDE",
+      "url": "https://www.vtmarkets.com/en-eu/discover/how-to-trade-nas100-cash/",
+      "date": "2026-08-27",
+      "fact": "NAS100 Cash is a cash-index CFD with overnight swap; exact contract specifications are to be checked in MetaTrader.",
+      "use": "CURRENT_PRODUCT_SEMANTICS_ONLY"
+    },
+    {
+      "id": "VT_SWAP_NOTIFICATION",
+      "url": "https://www.vtmarkets.com/fr-eu/notifications/",
+      "date_class": "CURRENT_NOTIFICATION_SURFACE",
+      "fact": "Cash indices roll at server 00:00; Friday-to-Monday carries triple swap; latest swap rates are obtained from product Specifications in MetaTrader.",
+      "use": "SWAP_MECHANICS_NOT_HISTORICAL_RATE_SERIES"
+    },
+    {
+      "id": "VT_SLIPPAGE_POLICY",
+      "url": "https://www.vtmarkets.com/en-mena/notifications/?cat=dynamic-leverage",
+      "date_class": "CURRENT_NOTIFICATION_SURFACE",
+      "fact": "VT Markets uses market execution; requested price is not guaranteed and slippage can occur at the next available liquidity price.",
+      "use": "SLIPPAGE_EXISTENCE_NO_NUMERIC_UPPER_BOUND"
+    }
+  ],
+  "bindings": {
+    "EXECUTION_VENUE_IDENTITY": "VT_MARKETS",
+    "MT5_SERVER_IDENTITY": "VTMarkets-Live 2",
+    "ACCOUNT_COST_PROFILE_IDENTITY": "VT_MARKETS_STANDARD_STP",
+    "USTECH_SYMBOL_CONTRACT_IDENTITY": "VT_MARKETS_MT5_NAS100.s_NAS100_CASH",
+    "COMMISSION_SCHEDULE_IDENTITY": "PARTIALLY_BOUND_ZERO_AT_OFFICIAL_DOCUMENTED_ANCHORS_FULL_OOS_CONTINUITY_NOT_VERSION_PROVEN",
+    "SLIPPAGE_BOUND_IDENTITY": "UNKNOWN_NO_PUBLISHED_NUMERIC_UPPER_BOUND",
+    "FINANCING_OR_SWAP_SCHEDULE_IDENTITY": "UNKNOWN_CURRENT_PRODUCT_SPEC_AND_HISTORICAL_SERIES_NOT_BOUND",
+    "COST_SCHEDULE_EFFECTIVE_FROM_UTC": null,
+    "COST_SCHEDULE_EFFECTIVE_TO_UTC": null,
+    "COST_PROFILE_SOURCE_REF": "PARTIAL",
+    "UNIT_CONVERSION_IDENTITY": "UNKNOWN_PENDING_EXACT_MT5_CONTRACT_SPEC_AND_ACCOUNT_BASE_CURRENCY"
+  },
+  "component_states": {
+    "spread": {
+      "state": "EXACT_WITHIN_E1_04_SOURCE_B_BID_ASK_EXECUTION",
+      "note": "Already intrinsic; do not double count."
+    },
+    "commission": {
+      "state": "UNKNOWN_FOR_FULL_OOS",
+      "anchor_evidence": "Official Standard STP sources state $0 separate commission before OOS and currently.",
+      "unresolved": "No versioned continuous schedule proves no temporary rule change across every instant of OOS."
+    },
+    "slippage": {
+      "state": "UNKNOWN",
+      "unresolved": "Official policy confirms possible positive/negative slippage but publishes no defensible maximum adverse bound."
+    },
+    "financing": {
+      "state": "UNKNOWN",
+      "unresolved": "NAS100 Cash carries overnight swap; exact long/short values are platform-specific and can change. No full historical OOS rate series is bound."
+    }
+  },
+  "local_binding_needed": {
+    "required": true,
+    "items": [
+      "MT5 NAS100.s Specification values from VTMarkets-Live 2 Standard STP: contract size, digits, tick size, tick value, minimum volume, volume step, calculation mode if shown, swap type, swap long, swap short, triple-swap day, trading currency/profit currency if shown",
+      "trading account base currency only (no account number/login/secret)"
+    ],
+    "rationale": "Required to bind exact current symbol contract and unit conversion semantics; current screenshot still does not by itself prove historical swap-rate continuity."
+  },
+  "historical_applicability": {
+    "current_terms_as_historical_terms": "FORBIDDEN",
+    "commission_full_oos_continuity": "NOT_YET_PROVEN",
+    "swap_full_oos_history": "NOT_ESTABLISHED",
+    "slippage_bound_full_oos": "NOT_ESTABLISHED"
+  },
+  "decision": {
+    "prior_blocker": "BLOCKED_BY_HUMAN_DECISION",
+    "prior_blocker_status": "CLOSED_BY_HUMAN_TARGET_IDENTITY",
+    "REAL_COST_PROFILE": "BLOCKED",
+    "current_blockers": [
+      "LOCAL_USER_ACTION_REQUIRED_FOR_EXACT_CURRENT_NAS100.s_SPECIFICATION_AND_ACCOUNT_BASE_CURRENCY",
+      "BLOCKED_BY_MISSING_EXTERNAL_EVIDENCE_FOR_HISTORICAL_SWAP_SERIES_AND_DEFENSIBLE_SLIPPAGE_BOUND"
+    ],
+    "generic_execution_architecture_required": false
+  },
+  "authority": {
+    "oos_consumption_authorized": false,
+    "real_performance_observation_authorized": false,
+    "strategy_qualification_authorized": false,
+    "broker_execution_authorized": false,
+    "paper_live_capital_authorized": false,
+    "b12": "CLOSED"
+  }
+}
