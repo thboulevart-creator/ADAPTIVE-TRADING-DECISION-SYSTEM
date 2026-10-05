@@ -1,0 +1,131 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_01_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-01",
+  "status": "FROZEN_BEFORE_IMPLEMENTATION",
+  "parent_head": "4f372990855ce270595a08ca4c13f538ac58b6ef",
+  "activation_contract_blob": "847bce0365921024addb42c930dc5f47dee9401c",
+  "expected_red_marker": "SMF_AP1_M03_01_RUNTIME_ABSENT_EXPECTED_RED",
+  "test_cases": [
+    [
+      "SMFAP1M03-B01",
+      "runtime contract id exact"
+    ],
+    [
+      "SMFAP1M03-B02",
+      "claim scope exact"
+    ],
+    [
+      "SMFAP1M03-B03",
+      "M03 applicability is activated"
+    ],
+    [
+      "SMFAP1M03-B04",
+      "post-result activation rejected"
+    ],
+    [
+      "SMFAP1M03-B05",
+      "wrong AP1 producer identity blocked"
+    ],
+    [
+      "SMFAP1M03-B06",
+      "wrong DATA-02 receipt identity blocked"
+    ],
+    [
+      "SMFAP1M03-B07",
+      "wrong P1-21 receipt identity blocked"
+    ],
+    [
+      "SMFAP1M03-B08",
+      "wrong SMF core identity blocked"
+    ],
+    [
+      "SMFAP1M03-B09",
+      "wrong AP0 manifest identity blocked"
+    ],
+    [
+      "SMFAP1M03-B10",
+      "wrong dataset identity blocked"
+    ],
+    [
+      "SMFAP1M03-B11",
+      "tick_count probabilities exact"
+    ],
+    [
+      "SMFAP1M03-B12",
+      "minute_range probabilities exact"
+    ],
+    [
+      "SMFAP1M03-B13",
+      "spread_mean probabilities exact"
+    ],
+    [
+      "SMFAP1M03-B14",
+      "linear quantile and no tail extrapolation exact"
+    ],
+    [
+      "SMFAP1M03-B15",
+      "population semantics are census and no IID claim"
+    ],
+    [
+      "SMFAP1M03-B16",
+      "empty observations fail closed"
+    ],
+    [
+      "SMFAP1M03-B17",
+      "non-finite observations fail closed"
+    ],
+    [
+      "SMFAP1M03-B18",
+      "unsupported metric fails closed"
+    ],
+    [
+      "SMFAP1M03-B19",
+      "result binds exact qualified M03 procedure"
+    ],
+    [
+      "SMFAP1M03-B20",
+      "result evidence is compact and excludes raw ECDF/vector"
+    ],
+    [
+      "SMFAP1M03-B21",
+      "result evidence digest deterministic"
+    ],
+    [
+      "SMFAP1M03-B22",
+      "tampered activation digest rejected"
+    ],
+    [
+      "SMFAP1M03-B23",
+      "execution plan grants no execution authority"
+    ],
+    [
+      "SMFAP1M03-B24",
+      "result grants no scientific/trading/capital authority"
+    ],
+    [
+      "SMFAP1M03-B25",
+      "SMF companion identity remains distinct from AP1"
+    ],
+    [
+      "SMFAP1M03-B26",
+      "bucket identity is mandatory"
+    ],
+    [
+      "SMFAP1M03-B27",
+      "activation must precede method result exposure"
+    ],
+    [
+      "SMFAP1M03-B28",
+      "plan does not contain transport paths or real execution output"
+    ]
+  ],
+  "frozen_invariants": [
+    "M03 activation precedes result exposure",
+    "exact owner identities required",
+    "no implicit IID",
+    "no material parameter defaults",
+    "companion identity distinct from AP1",
+    "result evidence is not scientific authority",
+    "no real AP0 read or AP1 execution during qualification"
+  ]
+}
