@@ -1,0 +1,75 @@
+name: RVO-08 Single AP1 Execution Controller Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/RVO-08-*'
+      - 'tools/rvo_08_single_ap1_execution.py'
+      - 'tests/test_rvo_08_single_ap1_execution.py'
+      - 'reports/program/*RVO-08*'
+      - '.github/workflows/rvo-08-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+      - name: Prove owner identities
+        run: |
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+          test "$(git hash-object reports/program/2026-10-05-RVO-07-QUALIFICATION-RECEIPT-V0.1.json)" = "828851954c12745021c7463befb9761e5eaa51bc"
+          test "$(git hash-object reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json)" = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+          test "$(git hash-object reports/program/2026-10-05-P1-21-QUALIFICATION-RECEIPT-V0.1.json)" = "49142e1928cf32ec10ed9a4809388a782559ad42"
+          test "$(git hash-object reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION-RECEIPT-V0.1.json)" = "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921"
+          test "$(git hash-object reports/program/2026-10-05-G05-01-QUALIFICATION-RECEIPT-V0.1.json)" = "60a17b59aa03a41d517ee887c565d314a3d92ce5"
+      - name: RVO-08 controller tests
+        run: python -m pytest -q tests/test_rvo_08_single_ap1_execution.py
+      - name: P1-21 regression
+        run: |
+          python -m pytest -q breakers/p1_21_real_producer_capability_breaker.py
+          python -m pytest -q tests/test_p1_21_real_producer_capability.py
+      - name: RVO-07 regression
+        run: |
+          python -m pytest -q breakers/rvo_07_pre_execution_requalification_breaker.py
+          python -m pytest -q tests/test_rvo_07_pre_execution_requalification.py
+      - name: G05 regression
+        run: |
+          python -m pytest -q breakers/g05_01_workspace_dry_readiness_breaker.py
+          python -m pytest -q tests/test_g05_01_workspace_dry_readiness.py
+      - name: SMF regression
+        run: |
+          python -m pytest -q breakers/smf_ap1_m03_01_binding_breaker.py
+          python -m pytest -q tests/test_smf_ap1_m03_01_binding.py
+      - name: DATA-02 regression
+        run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
+      - name: Prove no AP1 output in CI
+        run: |
+          test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
+          test ! -d artifacts/rvo-08
+          echo "PASS: controller qualification did not execute real AP1"
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          test -z "$(git status --porcelain)"

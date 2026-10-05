@@ -1,0 +1,80 @@
+{
+  "schema": "ATDS_RVO_08_FIRST_REAL_CC02_SINGLE_AP1_EXECUTION_CONTRACT_V0_1",
+  "control_id": "RVO-08",
+  "status": "HUMAN_AUTHORIZED_EXECUTION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "e3cd567b7233e90f5f5b2feb7c424db7e213bfa4",
+    "tree": "ccafb924e157e717cbc2ff51867934ccf965d864"
+  },
+  "invocation_budget": {
+    "producer": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "maximum_real_invocations": 1,
+    "automatic_retry": false
+  },
+  "claim": {
+    "class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+    "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY"
+  },
+  "producer": {
+    "path": "tools/ap1_intraday_spread_census.py",
+    "blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "expected_schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "expected_status": "AP1_COMPLETE",
+    "maximum_output_bytes": 33554432
+  },
+  "data": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "expected_parquet_files": 61,
+    "data02_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b"
+  },
+  "runtime": {
+    "id": "RPRL-5b77e0c094812f3e7e9d25efdb87bd3d",
+    "digest": "5b77e0c094812f3e7e9d25efdb87bd3da92748bc6f8a436ffe52cefe6d38f6c4",
+    "timeout_seconds": 3600
+  },
+  "prerequisites": {
+    "rvo07_receipt_blob": "828851954c12745021c7463befb9761e5eaa51bc",
+    "rvo07_verdict": "GO",
+    "p121_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "smf_ap1_m03_receipt_blob": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "g05_receipt_blob": "60a17b59aa03a41d517ee887c565d314a3d92ce5"
+  },
+  "pre_result_requirements": [
+    "EXACT_CURRENT_HEAD_TREE",
+    "FRESH_RVO07_GO",
+    "FRESH_G05_WORKSPACE",
+    "REAL_AP0_BOUND_QUALIFIED_EXPERIMENT_EXECUTION_INPUT",
+    "DATA02_TO_P1_BINDING",
+    "AP1_INVOCATION_PROFILE",
+    "REAL_RUNTIME_LOCK",
+    "QUALIFIED_REAL_PRODUCER_PLAN",
+    "UNIQUE_OUTPUT_TRANSPORT",
+    "MAXIMUM_OUTPUT_BYTES",
+    "COMMAND_DIGEST",
+    "ONE_SHOT_LEDGER"
+  ],
+  "forbidden": [
+    "SECOND_AP1_INVOCATION",
+    "AUTOMATIC_RETRY",
+    "M03_REAL_EXECUTION",
+    "SCIENTIFIC_FINDING",
+    "STRATEGY_VALIDATION",
+    "BACKTEST",
+    "OOS",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL",
+    "OWNER_SEMANTIC_MODIFICATION"
+  ],
+  "result_semantics": "EXECUTION_RESULT_ONLY",
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}

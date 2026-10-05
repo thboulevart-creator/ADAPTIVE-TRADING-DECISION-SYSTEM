@@ -1,0 +1,15 @@
+{
+  "schema": "ATDS_RVO_08_AP0_RESOURCE_CONTRACT_V0_1",
+  "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+  "format": "AP0_PARQUET",
+  "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+  "file_count": 61,
+  "claim_class": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+  "semantic_limit": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+  "source_volume_used": false,
+  "oos": false,
+  "prediction": false,
+  "trading": false,
+  "identity_role": "P1_RESOURCE_BINDING_ONLY"
+}
