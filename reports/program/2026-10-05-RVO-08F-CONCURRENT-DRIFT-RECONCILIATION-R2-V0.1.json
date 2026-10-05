@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_RVO_08F_CONCURRENT_DRIFT_RECONCILIATION_R2_V0_1",
+  "from_head": "72c5ee7df37db6c8ca51b231e6b68934c709101c",
+  "observed_head": "a66827ad1ada77f6d7e8d4f527a52285bb32350d",
+  "observed_tree": "70b63b33bd6263feb7791a916fc6e91d95dfdadd",
+  "classification": "NON_MATERIAL",
+  "changed_scope": [
+    "AO-E0-B8-M06-01",
+    "BEPD-04B"
+  ],
+  "owner_recheck": {
+    "rvo08_closure_blob": "5b030dcc7d1849594a7b9c25f2a43083bb3cae92",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "p1_12c_runner_blob": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "p1_12c_source_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "forensic_plan_blob": "0ea2f00caecfe76b633ed45e3e8c874fdadefc80"
+  },
+  "force_used": false
+}
