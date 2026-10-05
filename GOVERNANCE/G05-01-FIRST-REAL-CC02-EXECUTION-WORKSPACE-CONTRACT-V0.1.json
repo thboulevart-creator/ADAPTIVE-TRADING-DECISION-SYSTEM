@@ -1,0 +1,151 @@
+{
+  "schema": "ATDS_G05_01_FIRST_REAL_CC02_EXECUTION_WORKSPACE_CONTRACT_V0_1",
+  "control_id": "G05-01",
+  "status": "HUMAN_AUTHORIZED_FROZEN_WORKSPACE_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "canonical_branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "ebf4c2ab996146582bf8f8b06f03095060a9415e",
+    "tree": "3a39d0ffe443065e89c4a0d523cd4919e09d23f8"
+  },
+  "frozen_parent": {
+    "head": "d4eb2b6c05d64e72f5adfbe29ab13c366051fe53",
+    "tree": "fd33e8ba15c2795144bbaa168dddbaa0be8d989c"
+  },
+  "parent_drift": {
+    "classification": "NON_MATERIAL",
+    "ahead_by": 13,
+    "behind_by": 0,
+    "changed_files": [
+      ".github/workflows/ao-e0-b7-mcepr-pilot-replay.yml",
+      "GOVERNANCE/AO-E0-B7-01-MCEPR-FORWARD-PILOT-HUMAN-AUTHORIZATION-2026-10-05.md",
+      "GOVERNANCE/BEPD-03D-FROZEN-LEVEL-AGE-OCCURRENCE-MAP-BREAKER-CONTRACT-V0.1.json",
+      "GOVERNANCE/BEPD-03D-LEVEL-AGE-OCCURRENCE-MAP-HUMAN-AUTHORIZATION-2026-10-05.md",
+      "GOVERNANCE/BEPD-03D-LEVEL-AGE-OCCURRENCE-MAP-IMPLEMENTATION-CONTRACT-V0.1.json",
+      "artifacts/bepd03d/level-age-occurrence-map-v0.1/RESULT.json",
+      "artifacts/bepd03d/level-age-occurrence-map-v0.1/RUN_MANIFEST.json",
+      "breakers/bepd_03d_level_age_occurrence_map_breaker_v0_1.py",
+      "reports/program/2026-10-05-AO-E0-B7-01-MCEPR-CLOSURE-RECEIPT-V0.1.json",
+      "reports/program/2026-10-05-AO-E0-B7-01-MCEPR-QUALIFICATION.md",
+      "reports/program/evidence/cross-experiment-provenance-registry/pilot/AO-E0-B7-01-CYCLE-01-RECEIPT-V0.1.json",
+      "reports/program/evidence/cross-experiment-provenance-registry/pilot/AO-E0-B7-01-CYCLE-02-RECEIPT-V0.1.json",
+      "reports/program/evidence/cross-experiment-provenance-registry/pilot/AO-E0-B7-01-CYCLE-03-RECEIPT-V0.1.json",
+      "reports/program/evidence/cross-experiment-provenance-registry/segments/RGS-1bd4443cd0fcb707193a4f83db5edb55dcec06cae49a4a068e1f2e2fad0c156e.json",
+      "reports/program/evidence/cross-experiment-provenance-registry/segments/RGS-d0db0a8d3093d1969393138f38ccc855b7de754c819df3d818a30e6284bdd6da.json",
+      "reports/program/evidence/cross-experiment-provenance-registry/segments/RGS-e406afd988a27b986098a02b6f4925b915ad474ff5285dab69f55f187153e860.json",
+      "tools/bepd_03d_level_age_occurrence_map_v0_1.py"
+    ],
+    "reason": "Cumulative delta is additive AO-E0/MCEPR and BEPD-03D only; all G05 prerequisite owner blobs were reverified unchanged."
+  },
+  "target_gap": "RVO06_G05_BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED",
+  "workspace": {
+    "intended_transport_path": "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+    "path_identity_authority": false,
+    "materialization_mode": "DEDICATED_DETACHED_GIT_WORKTREE",
+    "canonical_head_rule": "EXACT_CURRENT_integration/system-v1_HEAD_AT_MATERIALIZATION",
+    "canonical_tree_rule": "EXACT_TREE_OF_WORKSPACE_HEAD",
+    "clean_worktree_required": true,
+    "original_checkout_must_remain_untouched": true
+  },
+  "protected_identities": {
+    "p121_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "p112c_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "p112c_runner_blob": "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "data02_real_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "rvo06_runtime_observation_blob": "e4e275e8590e3bead9123969c068b036c6c4e1d8",
+    "rvo06_gap_matrix_blob": "464fe8b03166c687c3618c18e7c3509fbc62f08b",
+    "rvo06_receipt_blob": "11453a26a181eeca050a518d4ece01c68ddf5716",
+    "smf_ap1_qualification_receipt_blob": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "smf_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "smf_companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
+  },
+  "data_transport": {
+    "ap0_root": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_name": "AP0-MANIFEST.json",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "expected_parquet_file_count": 61,
+    "allowed_checks": [
+      "ROOT_PRESENCE",
+      "MANIFEST_PRESENCE",
+      "MANIFEST_SHA256",
+      "FILE_COUNT_BY_DIRECTORY_OR_MANIFEST"
+    ],
+    "parquet_statistical_open_forbidden": true,
+    "parquet_content_hash_replay_not_required": true
+  },
+  "observed_runtime_requirements": {
+    "platform": "Windows",
+    "architecture": "AMD64",
+    "python_version": "3.13.14",
+    "python_real_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "numpy": {
+      "version": "2.5.3",
+      "metadata_sha256": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+      "record_sha256": "5135e045b7bc7d8f2ef83e2bd9c618840f46ebd09d8590c819bbcdeb32cfe41e"
+    },
+    "pyarrow": {
+      "version": "25.0.1",
+      "metadata_sha256": "12ed8d0988a6f7153fec923ee47b7fc1d6134463a86b1b89fa36f24c250163ff",
+      "record_sha256": "a6cc5dcd5681d231959f61ccc1b57cb13dc1690f0819ed7bfd66ebd575e0db24"
+    },
+    "tzdata": {
+      "version": "2026.3",
+      "metadata_sha256": "511c019df477939fe7f4c38e32ad74a570c4ebb05b13fd2fffd0f0f2dbe6f7b1",
+      "record_sha256": "8f9f4ae062c3c9af93f22cff46986c4735d15d1306a413df291d5b67301db0eb"
+    },
+    "timezone_name": "America/New_York",
+    "timezone_probe_required": true,
+    "material_environment": {
+      "PYTHONHASHSEED": "0",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "timeout_seconds": 3600
+  },
+  "dry_readiness": {
+    "p1_data_owner_binding_required": true,
+    "p1_ap1_invocation_profile_required": true,
+    "p1_real_runtime_lock_required": true,
+    "p1_dry_plan_shape_proof_required": true,
+    "p1_dry_plan_qualified_input_scope": "SYNTHETIC_NON_EMPIRICAL_SHAPE_PROOF_ONLY",
+    "exact_real_cc02_p1_input_minted": false,
+    "smf_m03_activation_required": true,
+    "smf_dry_execution_plan_required": true,
+    "smf_method_execution_forbidden": true,
+    "ap1_execution_forbidden": true,
+    "output_probe_allowed": true,
+    "output_probe_must_be_removed": true
+  },
+  "invariants": [
+    "WORKSPACE_READY != EXECUTION_AUTHORITY",
+    "RUNTIME_CAPABILITY != EXECUTION_AUTHORITY",
+    "DATA_PRESENT != DATA_VALIDITY",
+    "DATA_ADMISSION != METHOD_VALIDITY",
+    "METHOD_ACTIVATION != METHOD_EXECUTION",
+    "P1_PLAN != P1_RESULT",
+    "EXECUTION_RESULT != FINDING",
+    "FINDING != VALIDATED_STRATEGY",
+    "RVO_READINESS != TRADING_AUTHORITY"
+  ],
+  "forbidden": [
+    "AP1_EXECUTION",
+    "REAL_M03_EXECUTION",
+    "REAL_ECDF",
+    "REAL_QUANTILES",
+    "NEW_EMPIRICAL_RESULT",
+    "FIRST_REAL_CC02_EXECUTION",
+    "RVO07_OPEN",
+    "BACKTEST",
+    "OOS",
+    "PAPER",
+    "BROKER",
+    "LIVE",
+    "CAPITAL",
+    "DATA02_MODIFICATION",
+    "AP1_SEMANTIC_MODIFICATION",
+    "P121_MODIFICATION",
+    "SMF_AP1_SEMANTIC_MODIFICATION",
+    "PARQUET_STATISTICAL_OPEN"
+  ]
+}

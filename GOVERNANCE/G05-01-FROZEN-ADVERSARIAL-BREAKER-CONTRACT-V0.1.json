@@ -1,0 +1,129 @@
+{
+  "schema": "ATDS_G05_01_FROZEN_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "control_id": "G05-01",
+  "status": "FROZEN_BEFORE_IMPLEMENTATION_AND_WORKSPACE_MATERIALIZATION",
+  "workspace_contract_path": "GOVERNANCE/G05-01-FIRST-REAL-CC02-EXECUTION-WORKSPACE-CONTRACT-V0.1.json",
+  "expected_red_marker": "G05_01_WORKSPACE_RUNTIME_ABSENT_EXPECTED_RED",
+  "cases": [
+    [
+      "G0501-B01",
+      "contract identity exact"
+    ],
+    [
+      "G0501-B02",
+      "canonical repository exact"
+    ],
+    [
+      "G0501-B03",
+      "canonical branch exact"
+    ],
+    [
+      "G0501-B04",
+      "protected owner blobs exact"
+    ],
+    [
+      "G0501-B05",
+      "workspace head exact"
+    ],
+    [
+      "G0501-B06",
+      "workspace tree exact"
+    ],
+    [
+      "G0501-B07",
+      "clean worktree mandatory"
+    ],
+    [
+      "G0501-B08",
+      "workspace path is transport not identity"
+    ],
+    [
+      "G0501-B09",
+      "AP0 root presence mandatory"
+    ],
+    [
+      "G0501-B10",
+      "AP0 manifest presence mandatory"
+    ],
+    [
+      "G0501-B11",
+      "AP0 manifest hash exact"
+    ],
+    [
+      "G0501-B12",
+      "AP0 parquet file count exact without statistical open"
+    ],
+    [
+      "G0501-B13",
+      "python real binary identity exact"
+    ],
+    [
+      "G0501-B14",
+      "numpy identity exact beyond version"
+    ],
+    [
+      "G0501-B15",
+      "pyarrow identity exact beyond version"
+    ],
+    [
+      "G0501-B16",
+      "tzdata identity exact beyond version"
+    ],
+    [
+      "G0501-B17",
+      "America/New_York capability required"
+    ],
+    [
+      "G0501-B18",
+      "material environment explicit"
+    ],
+    [
+      "G0501-B19",
+      "finite timeout exact"
+    ],
+    [
+      "G0501-B20",
+      "output write probe removed"
+    ],
+    [
+      "G0501-B21",
+      "P1 real data evidence binding required"
+    ],
+    [
+      "G0501-B22",
+      "AP1 invocation profile required"
+    ],
+    [
+      "G0501-B23",
+      "P1 real runtime lock non-authorizing"
+    ],
+    [
+      "G0501-B24",
+      "P1 dry plan shape proof non-authorizing"
+    ],
+    [
+      "G0501-B25",
+      "exact real CC02 P1 input not minted by G05"
+    ],
+    [
+      "G0501-B26",
+      "SMF M03 activation required before result"
+    ],
+    [
+      "G0501-B27",
+      "SMF dry plan non-authorizing"
+    ],
+    [
+      "G0501-B28",
+      "AP1 result absent"
+    ],
+    [
+      "G0501-B29",
+      "M03 empirical result absent"
+    ],
+    [
+      "G0501-B30",
+      "workspace qualification grants no scientific/trading/capital authority"
+    ]
+  ]
+}
