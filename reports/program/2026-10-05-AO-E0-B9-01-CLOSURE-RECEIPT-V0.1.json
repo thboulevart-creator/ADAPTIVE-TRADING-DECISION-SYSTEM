@@ -1,0 +1,41 @@
+{
+  "schema": "ATDS_AO_E0_B9_01_CLOSURE_RECEIPT_V0_1",
+  "verdict": "B9_CLOSED",
+  "declaration_blob": "ad5bb6917d99d09a913571cb5ad01934e938071d",
+  "qualification_run_id": 37355992279,
+  "qualification_result": "PASS",
+  "prior_exposure_state": "CONTAMINATED",
+  "search_universe_status": "PARTIAL_SEARCH_UNIVERSE",
+  "provenance_complete": false,
+  "n_trials": null,
+  "multiplicity_relevant_to_cc05": true,
+  "e1_oos": {
+    "exposed": true,
+    "clean": false,
+    "independent_confirmation_eligible": false,
+    "experimental_memory_blob": "46450fea882f453335fcca7851df9764fc1ddf5c",
+    "post_experiment_question_blob": "5503f50924e64224f949115667e5feabc1098e54"
+  },
+  "m11": {
+    "runtime_blob": "7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222",
+    "contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "search_provenance_gate": "PASS_WITH_PARTIAL_SEARCH_UNIVERSE"
+  },
+  "closure_meaning": "DECLARATION_COMPLETE_EXPOSURE_AND_MULTIPLICITY_UNCERTAINTY_PRESERVED",
+  "gates": {
+    "b8": "OPEN",
+    "b9": "CLOSED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "new_ao_e0_performance_observation": false,
+    "strategy_modification": false,
+    "parameter_optimization": false,
+    "mcepr_new_event_population": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
