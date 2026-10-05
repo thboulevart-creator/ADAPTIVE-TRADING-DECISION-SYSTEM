@@ -1,0 +1,72 @@
+{
+  "schema": "ATDS_BEPD_03E_EVENT_CONDITIONAL_TAKE_DAY_NY_DISTRIBUTION_RESULT_V0_1",
+  "interpretation": "EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_TAKE_TIMING_DISTRIBUTION",
+  "run_id": "7e084afff3db600ec1e10ec83274fb7c54fdacae16dc0d75f59fbfe98e43449f",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "population": {
+    "unit": "one LEVEL_SWEEP_EVENT / one EVENT_LEDGER row",
+    "condition": "sweep already observed",
+    "total_sweep_event_count": 472,
+    "denominator_source": "EVENT_LEDGER"
+  },
+  "dependence_statement": "EVENT != IID OBSERVATION; sweep_cluster_id and target_week_id preserve dependence/provenance; multiple level events in one cluster or target week are dependent",
+  "m05_generalization_uncertainty": "BLOCKED",
+  "dimension": {
+    "dimension_id": "V06_TAKE_DAY_NY",
+    "timezone": "America/New_York",
+    "timestamp_source": "take_h1_close_utc",
+    "category_order": [
+      "SUNDAY_OPEN",
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY"
+    ],
+    "cells": [
+      {
+        "category": "SUNDAY_OPEN",
+        "event_count": 70,
+        "conditional_event_fraction": "70/472",
+        "conditional_event_share_decimal": "0.148305084745762712"
+      },
+      {
+        "category": "MONDAY",
+        "event_count": 140,
+        "conditional_event_fraction": "140/472",
+        "conditional_event_share_decimal": "0.296610169491525424"
+      },
+      {
+        "category": "TUESDAY",
+        "event_count": 73,
+        "conditional_event_fraction": "73/472",
+        "conditional_event_share_decimal": "0.154661016949152542"
+      },
+      {
+        "category": "WEDNESDAY",
+        "event_count": 75,
+        "conditional_event_fraction": "75/472",
+        "conditional_event_share_decimal": "0.158898305084745763"
+      },
+      {
+        "category": "THURSDAY",
+        "event_count": 59,
+        "conditional_event_fraction": "59/472",
+        "conditional_event_share_decimal": "0.125000000000000000"
+      },
+      {
+        "category": "FRIDAY",
+        "event_count": 55,
+        "conditional_event_fraction": "55/472",
+        "conditional_event_share_decimal": "0.116525423728813559"
+      }
+    ]
+  },
+  "decimal_reconciliation": {
+    "sum_of_cell_decimal_shares": "1.000000000000000000",
+    "absolute_error_from_one": "0.000000000000000000",
+    "tolerance": "0.000000000000000003",
+    "within_tolerance": true
+  },
+  "forbidden_analytics_executed": false
+}
