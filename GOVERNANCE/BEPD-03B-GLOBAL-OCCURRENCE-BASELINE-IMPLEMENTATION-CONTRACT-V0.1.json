@@ -1,0 +1,143 @@
+{
+  "schema": "ATDS_BEPD_03B_GLOBAL_OCCURRENCE_BASELINE_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_IMPLEMENTATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "c748a583a8f45a6615fa196fa2028ffa102bc6fc",
+    "tree": "d2df896e2a3c25127322098a1b63df3117f35b51"
+  },
+  "bindings": {
+    "human_authorization_blob": "506e75c4c88a04019ae71156dbebf3c8f02d5d2b",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "level_ledger_blob": "c50cea414a95e498199fbe0c426f4d246a1f1f99",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+  },
+  "implementation": {
+    "path": "tools/bepd_03b_global_occurrence_baseline_v0_1.py",
+    "input_primary": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/LEVEL_WEEK_OPPORTUNITY.jsonl",
+    "output_directory": "artifacts/bepd03b/global-weekly-liquidity-occurrence-baseline-v0.1",
+    "outputs": [
+      "RESULT.json",
+      "RUN_MANIFEST.json"
+    ]
+  },
+  "result_schema": {
+    "top_level_fields": [
+      "schema",
+      "interpretation",
+      "run_id",
+      "source_bepd02_run_id",
+      "dependence_statement",
+      "m05_generalization_uncertainty",
+      "views",
+      "forbidden_analytics_executed"
+    ],
+    "view_order": [
+      "GLOBAL_ALL_SIDES",
+      "HIGH",
+      "LOW"
+    ],
+    "view_fields": [
+      "view_id",
+      "side_filter",
+      "eligible_target_week_count",
+      "unique_level_count",
+      "opportunity_count",
+      "event_count",
+      "occurrence_fraction",
+      "occurrence_proportion_decimal"
+    ],
+    "occurrence_fraction": "exact '<event_count>/<opportunity_count>' string",
+    "occurrence_proportion_decimal": "Decimal(event_count)/Decimal(opportunity_count), serialized as fixed 18-decimal-place string using ROUND_HALF_EVEN"
+  },
+  "estimator": {
+    "numerator": "count all rows in selected view where swept_this_week is exactly true",
+    "denominator": "count all rows in selected view",
+    "formula": "event_count / opportunity_count",
+    "weighting": "equal weight per eligible opportunity row",
+    "mean_weekly_rate_forbidden": true,
+    "row_exclusion_forbidden": true
+  },
+  "views": {
+    "GLOBAL_ALL_SIDES": {
+      "filter": "NONE",
+      "role": "PRIMARY"
+    },
+    "HIGH": {
+      "filter": "side == HIGH",
+      "role": "MANDATORY"
+    },
+    "LOW": {
+      "filter": "side == LOW",
+      "role": "MANDATORY"
+    }
+  },
+  "parity_rules": [
+    "GLOBAL opportunity_count == HIGH opportunity_count + LOW opportunity_count",
+    "GLOBAL event_count == HIGH event_count + LOW event_count",
+    "GLOBAL unique_level_count == HIGH unique_level_count + LOW unique_level_count",
+    "GLOBAL target weeks == union of HIGH and LOW target weeks",
+    "all input rows belong to exactly one of HIGH or LOW"
+  ],
+  "dependence": {
+    "dependence_key": "target_week_id",
+    "opportunity_row_iid": false,
+    "statement": "OPPORTUNITY ROW != IID OBSERVATION; multiple active levels in one target week are structurally dependent"
+  },
+  "uncertainty": {
+    "result_type": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_PROPORTION",
+    "confidence_interval": null,
+    "p_value": null,
+    "significance_test": null,
+    "bootstrap": null,
+    "m05_generalization_uncertainty": "BLOCKED"
+  },
+  "run_manifest_required": [
+    "repository",
+    "branch",
+    "head",
+    "tree",
+    "run_id",
+    "source_bepd02_run_id",
+    "input_git_blobs",
+    "policy_git_blobs",
+    "calculator_blob",
+    "output_files",
+    "forbidden_analytics_executed"
+  ],
+  "forbidden_output_fields": [
+    "confidence_interval",
+    "standard_error",
+    "p_value",
+    "significance",
+    "rank",
+    "best",
+    "worst",
+    "target_month",
+    "target_year",
+    "level_age_band",
+    "take_day_ny",
+    "bootstrap"
+  ],
+  "forbidden": [
+    "calendar segmentation",
+    "age segmentation",
+    "event timing segmentation",
+    "cross-products",
+    "HIGH vs LOW hypothesis test",
+    "HIGH vs LOW ranking",
+    "M05 activation",
+    "future probability",
+    "Response Map",
+    "Occurrence x Response",
+    "edge",
+    "strategy",
+    "PnL"
+  ]
+}
