@@ -38,7 +38,17 @@ jobs:
           test "$(git hash-object GOVERNANCE/P1-19-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "07f6d170ddd1afab20bec1e45c7fad6cc32fdf65"
           test "$(git hash-object GOVERNANCE/P1-19-COMMON-QUALIFIED-EXECUTION-EVIDENCE-CONTRACT-V0.1.json)" = "d3a259f032db3a2d882e1e0403936476701a7cd3"
 
+      - name: Determine P1-20 RED lifecycle state
+        id: lifecycle
+        run: |
+          if [ -e src/p1_12d_qualified_execution_evidence.py ]; then
+            echo "runtime_present=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "runtime_present=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Prove common runtime absent before RED
+        if: steps.lifecycle.outputs.runtime_present == 'false'
         run: |
           test ! -e src/p1_12d_qualified_execution_evidence.py
           test ! -e src/p1_13c_common_evaluation.py
@@ -57,6 +67,7 @@ jobs:
         run: python tools/qualification_environment.py verify
 
       - name: Observe exact 24-case RED
+        if: steps.lifecycle.outputs.runtime_present == 'false'
         run: |
           set +e
           python -m pytest -q breakers/p1_20_common_downstream_breaker.py > /tmp/p120-red.log 2>&1
@@ -67,6 +78,14 @@ jobs:
           grep -q "24 failed" /tmp/p120-red.log
           test "$(grep -c 'P1_COMMON_DOWNSTREAM_RUNTIME_ABSENT_EXPECTED_RED' /tmp/p120-red.log)" -ge 24
           echo "P1_20_RED_BASELINE=PASS_EXPECTED_24_FAILURES"
+
+      - name: Verify archived RED after implementation
+        if: steps.lifecycle.outputs.runtime_present == 'true'
+        run: |
+          test "$(git hash-object GOVERNANCE/P1-19-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "07f6d170ddd1afab20bec1e45c7fad6cc32fdf65"
+          test "$(git hash-object breakers/p1_20_common_downstream_breaker.py)" = "eb958d866acb0d69af405768c980cbd3296cb715"
+          test "$(git hash-object reports/program/2026-10-05-P1-20-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "1221e564623b20e509deb078b0449cf8253ded54"
+          echo "P1_20_RED_BASELINE=ARCHIVED_AND_IDENTITY_VERIFIED"
 
       - name: Prove clean worktree
         if: always()
