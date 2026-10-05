@@ -1,0 +1,53 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_01_EXPOSED_E1_LEDGER_RECOVERY_CONTRACT_V0_1",
+  "control_id": "AO-E0-B8-M06-01",
+  "status": "QUALIFICATION_CANDIDATE_NOT_HUMAN_ADOPTED",
+  "source": {
+    "name": "E1-REAL-003-USED.zip",
+    "representation_path": "reports/program/evidence/ao-e0-b8-m06/E1-REAL-003-USED.zip.b64",
+    "representation": "BASE64_OF_EXACT_ZIP_BYTES",
+    "zip_sha256": "a6588ef94d6cf15447ee8f7d2be0b7d3642ae857f2d64fcf86c77070ced0ca84",
+    "result_raw_sha256": "ab1815c56284000658f04ac70e53472f6cf1390cb57926f96e94076630d6942f",
+    "result_canonical_digest": "56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738",
+    "records_digest": "f890dd32f3e14b20430cb5898a05946a5d71231a9103b755fa0eb683f8834fc4",
+    "closed_trade_count": 650
+  },
+  "diagnostics": {
+    "method": "SAMPLE_STANDARD_DEVIATION_N_MINUS_1",
+    "full_sample": {
+      "n": 650,
+      "stddev": 336.4106561689863
+    },
+    "pre_oos": {
+      "n": 535,
+      "stddev": 295.834479256387
+    },
+    "exposed_oos": {
+      "n": 114,
+      "stddev": 482.17824961107937
+    },
+    "full_sample_population_stddev_diagnostic_only": 336.151779134749
+  },
+  "candidate": {
+    "planning_stddev": 336.4106561689863,
+    "selection_basis": "FULL_SAMPLE_TO_AVOID_OOS_ONLY_SELECTION",
+    "epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY",
+    "human_adopted": false
+  },
+  "separations": {
+    "planning_data_ne_confirmatory_data": true,
+    "old_e1_oos_ne_independent_confirmation": true,
+    "raw_e1_spread_only_stddev_ne_historical_f2_s4_stddev": true,
+    "sample_stddev_ne_population_stddev": true
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "real_performance_observation": false,
+    "b8_closure": false,
+    "b12": "CLOSED",
+    "real_smf_execution": false,
+    "trading": false,
+    "capital": false
+  }
+}
