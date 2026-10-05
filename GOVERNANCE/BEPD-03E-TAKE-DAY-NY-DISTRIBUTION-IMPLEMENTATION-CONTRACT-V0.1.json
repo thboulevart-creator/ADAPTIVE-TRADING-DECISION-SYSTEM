@@ -1,0 +1,177 @@
+{
+  "schema": "ATDS_BEPD_03E_TAKE_DAY_NY_DISTRIBUTION_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_IMPLEMENTATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "a8e1ddb918677543d8f21065c8469c10d750a0fb",
+    "tree": "c424dc319d2d9b2e750fa95116bda06143645b2e"
+  },
+  "bindings": {
+    "human_authorization_blob": "e6e91abc1449ecc55f2241446e80da657148ca8f",
+    "bepd03a_dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03b_qualification_blob": "e88bcce2d3256a9e374e76cfb5e9ebc641316d56",
+    "bepd03c_qualification_blob": "fd3b0caa97361e61e81510a2e69f0fbeb25cbe12",
+    "bepd03d_qualification_blob": "c7151af0bd7acce71f5d7f0e1e059c6f141c57d1",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "source_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+  },
+  "implementation": {
+    "path": "tools/bepd_03e_take_day_ny_distribution_v0_1.py",
+    "input_primary": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+    "forbidden_denominator_source": "LEVEL_WEEK_OPPORTUNITY",
+    "output_directory": "artifacts/bepd03e/event-conditional-take-day-ny-distribution-v0.1",
+    "outputs": [
+      "RESULT.json",
+      "RUN_MANIFEST.json"
+    ]
+  },
+  "population": {
+    "unit": "one EVENT_LEDGER row / one LEVEL_SWEEP_EVENT",
+    "condition": "sweep already observed",
+    "denominator": "count of all qualified EVENT_LEDGER rows",
+    "occurrence_rate_language_forbidden": true
+  },
+  "dimension": {
+    "id": "V06_TAKE_DAY_NY",
+    "timestamp_source": "take_h1_close_utc",
+    "timezone": "America/New_York",
+    "derivation": "convert aware UTC timestamp to America/New_York then map local weekday",
+    "categories": [
+      "SUNDAY_OPEN",
+      "MONDAY",
+      "TUESDAY",
+      "WEDNESDAY",
+      "THURSDAY",
+      "FRIDAY"
+    ],
+    "weekday_mapping": {
+      "SUNDAY": "SUNDAY_OPEN",
+      "MONDAY": "MONDAY",
+      "TUESDAY": "TUESDAY",
+      "WEDNESDAY": "WEDNESDAY",
+      "THURSDAY": "THURSDAY",
+      "FRIDAY": "FRIDAY"
+    },
+    "saturday_policy": "FAIL_CLOSED"
+  },
+  "result_schema": {
+    "top_level_fields": [
+      "schema",
+      "interpretation",
+      "run_id",
+      "source_bepd02_run_id",
+      "population",
+      "dependence_statement",
+      "m05_generalization_uncertainty",
+      "dimension",
+      "decimal_reconciliation",
+      "forbidden_analytics_executed"
+    ],
+    "population_fields": [
+      "unit",
+      "condition",
+      "total_sweep_event_count",
+      "denominator_source"
+    ],
+    "dimension_fields": [
+      "dimension_id",
+      "timezone",
+      "timestamp_source",
+      "category_order",
+      "cells"
+    ],
+    "cell_fields": [
+      "category",
+      "event_count",
+      "conditional_event_fraction",
+      "conditional_event_share_decimal"
+    ],
+    "conditional_event_fraction": "'<event_count>/<total_sweep_event_count>' exact integer fraction",
+    "conditional_event_share_decimal": "18-decimal fixed string using ROUND_HALF_EVEN"
+  },
+  "reconciliation": {
+    "exact_count_rule": "sum(cell.event_count) == total_sweep_event_count",
+    "exact_fraction_rule": "sum exact rational shares == 1",
+    "decimal_places": 18,
+    "decimal_rounding": "ROUND_HALF_EVEN",
+    "decimal_sum_tolerance": "0.000000000000000003"
+  },
+  "dependence": {
+    "event_iid": false,
+    "provenance_keys": [
+      "sweep_cluster_id",
+      "target_week_id"
+    ],
+    "same_cluster": "DEPENDENT_BY_CONSTRUCTION",
+    "same_target_week": "DEPENDENT",
+    "note": "same market path may generate multiple level events"
+  },
+  "timezone_validation": {
+    "runtime_zoneinfo_key_must_equal": "America/New_York",
+    "dst_probe_cases": [
+      {
+        "utc": "2024-03-10T06:59:00+00:00",
+        "expected_local": "2024-03-10T01:59:00-05:00"
+      },
+      {
+        "utc": "2024-03-10T07:00:00+00:00",
+        "expected_local": "2024-03-10T03:00:00-04:00"
+      },
+      {
+        "utc": "2024-11-03T05:59:00+00:00",
+        "expected_local": "2024-11-03T01:59:00-04:00"
+      },
+      {
+        "utc": "2024-11-03T06:00:00+00:00",
+        "expected_local": "2024-11-03T01:00:00-05:00"
+      }
+    ]
+  },
+  "forbidden_output_fields": [
+    "occurrence_rate",
+    "opportunity_count",
+    "rank",
+    "best",
+    "worst",
+    "p_value",
+    "significance",
+    "confidence_interval",
+    "standard_error",
+    "bootstrap",
+    "side_filter",
+    "target_month",
+    "target_year",
+    "level_age_band",
+    "cross_product"
+  ],
+  "forbidden": [
+    "LEVEL_WEEK_OPPORTUNITY denominator",
+    "take-day occurrence rate",
+    "future sweep probability",
+    "take day x side",
+    "take day x month",
+    "take day x year",
+    "take day x early/late",
+    "take day x age",
+    "any cross-product",
+    "ranking",
+    "best/worst",
+    "significance testing",
+    "p-values",
+    "generalization interval",
+    "bootstrap",
+    "M05 activation",
+    "causal interpretation",
+    "predictive interpretation",
+    "Response Map",
+    "Occurrence x Response",
+    "edge",
+    "strategy",
+    "PnL"
+  ]
+}
