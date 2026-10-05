@@ -1,0 +1,16 @@
+{
+  "schema": "ATDS_RVO_08_CONCURRENT_DRIFT_RECONCILIATION_V0_1",
+  "from_head": "72e9b70ed2bcf2d2b86421307ddc53cf3a9b011b",
+  "observed_head": "02e734aec02bbd54c5d53d8dfdbc0695a7e67cc2",
+  "observed_tree": "5490ff5e8087ba6333d4333de10e906a9b5823c4",
+  "ahead_by": 3,
+  "behind_by": 0,
+  "changed_files": [
+    "GOVERNANCE/BEPD-04A-EVENT-CONDITIONAL-SAME-WEEK-REINTEGRATION-RESPONSE-SEMANTICS-CONTRACT-V0.1.json",
+    "GOVERNANCE/BEPD-04A-FROZEN-PRE-RESULT-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json",
+    "reports/program/2026-10-05-BEPD-04A-RESPONSE-SEMANTICS-QUALIFICATION-V0.1.md"
+  ],
+  "classification": "NON_MATERIAL",
+  "reason": "Only additive BEPD-04A response-semantics surfaces; no RVO-08 prerequisite owner or execution surface changed.",
+  "force_used": false
+}

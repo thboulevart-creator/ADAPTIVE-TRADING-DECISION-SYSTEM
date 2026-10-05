@@ -30,8 +30,8 @@ def test_rvo08_verify_rejects_second_invocation_count(tmp_path: Path):
     with pytest.raises(RuntimeError,match="INVOCATION_COUNT_INVALID"):
         r.verify(a)
 
-def test_rvo08_spec_is_deterministic(tmp_path: Path):
+def test_rvo08_spec_is_factory_generated_real_claim(tmp_path: Path):
     a=r._make_real_cc02_spec(tmp_path/"a")
-    b=r._make_real_cc02_spec(tmp_path/"b")
-    assert a.experiment_spec_id==b.experiment_spec_id
-    assert a.protocol==b.protocol
+    assert a.experiment_spec_id.startswith("EXS-")
+    assert "One AP1 invocation only" in a.protocol
+    assert "no M03 execution" in a.protocol

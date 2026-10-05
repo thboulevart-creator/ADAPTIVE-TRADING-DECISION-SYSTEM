@@ -304,28 +304,56 @@ def _write_json(path: Path, value: Any) -> None:
     path.parent.mkdir(parents=True,exist_ok=True)
     path.write_bytes(json.dumps(value,sort_keys=True,indent=2,ensure_ascii=False).encode("utf-8")+b"\n")
 
-def execute_once(args) -> int:
-    freeze_path=Path(args.freeze).resolve()
-    freeze=_read_json(freeze_path)
+def _remote_branch_head(repo_root: Path) -> str:
+    cp=subprocess.run(
+        ["git","-C",str(repo_root),"ls-remote","origin","refs/heads/"+BRANCH],
+        capture_output=True,text=True,check=False,
+    )
+    if cp.returncode!=0 or not cp.stdout.strip():
+        raise RuntimeError("REMOTE_BRANCH_PREFLIGHT_FAILED")
+    return cp.stdout.split()[0].strip()
+
+def session(args) -> int:
     repo_root=Path(args.repo_root).resolve()
     main_root=Path(args.main_checkout_root).resolve()
-    ap0_root=Path(freeze["ap0_root_transport"])
-    ap0_manifest=Path(freeze["ap0_manifest_transport"])
-    output=Path(freeze["output_transport"])
+    ap0_root=Path(args.ap0_root).resolve()
+    ap0_manifest=Path(args.ap0_manifest).resolve()
+    output=Path(args.output).resolve()
+    freeze_out=Path(args.freeze_out).resolve()
     resource_contract=Path(args.resource_contract).resolve()
     python_real=Path(args.python_real_binary).resolve()
+    ack_path=Path(args.freeze_ack).resolve()
     ledger=Path(args.ledger).resolve()
     receipt_path=Path(args.execution_receipt).resolve()
-    require(freeze.get("status")=="PRE_RESULT_EXECUTION_FROZEN","FREEZE_STATUS_INVALID")
-    require(git(repo_root,"rev-parse","HEAD")==freeze["head"] and git(repo_root,"rev-parse","HEAD^{tree}")==freeze["tree"],"EXECUTION_HEAD_TREE_DRIFT")
+    g05_path=Path(args.g05_receipt).resolve()
+    rvo07_path=Path(args.rvo07_receipt).resolve()
+
+    head=git(repo_root,"rev-parse","HEAD")
+    tree=git(repo_root,"rev-parse","HEAD^{tree}")
+    require(head==args.expected_head and tree==args.expected_tree,"WORKSPACE_HEAD_TREE_MISMATCH")
+    require(_remote_branch_head(repo_root)==head,"REMOTE_BRANCH_HEAD_DRIFT")
     require(git(repo_root,"branch","--show-current")=="","WORKSPACE_NOT_DETACHED")
     require(git(repo_root,"status","--porcelain","--untracked-files=all")=="","WORKSPACE_DIRTY")
     require(git(main_root,"status","--porcelain","--untracked-files=all")=="","MAIN_CHECKOUT_DIRTY")
+    _verify_prereq_receipts(repo_root)
+    g05=_read_json(g05_path)
+    rvo07=_read_json(rvo07_path)
+    _verify_fresh_receipts(g05,rvo07,head,tree)
     require(not output.exists(),"AP1_OUTPUT_ALREADY_EXISTS")
     require(not ledger.exists(),"SECOND_AP1_INVOCATION_BLOCKED")
     require(not receipt_path.exists(),"EXECUTION_RECEIPT_ALREADY_EXISTS")
-    built=build_real_plan(repo_root=repo_root,ap0_root=ap0_root,ap0_manifest=ap0_manifest,output=output,resource_contract=resource_contract,python_real_binary=python_real)
-    checks={
+    require(not ack_path.exists(),"STALE_FREEZE_ACK_EXISTS")
+
+    built=build_real_plan(
+        repo_root=repo_root,ap0_root=ap0_root,ap0_manifest=ap0_manifest,
+        output=output,resource_contract=resource_contract,python_real_binary=python_real,
+    )
+    freeze={
+      "schema":"ATDS_RVO_08_PRE_RESULT_EXECUTION_FREEZE_V0_1",
+      "status":"PRE_RESULT_EXECUTION_FROZEN",
+      "repository":REPOSITORY,"branch":BRANCH,"head":head,"tree":tree,
+      "rvo07_external_receipt_sha256":sha256_path(rvo07_path),
+      "g05_external_receipt_sha256":sha256_path(g05_path),
       "experiment_spec_id":built["specification"]["experiment_spec_id"],
       "execution_binding_id":built["execution_binding"]["execution_binding_id"],
       "experiment_execution_input_id":built["qualified_input"]["experiment_execution_input_id"],
@@ -337,75 +365,97 @@ def execute_once(args) -> int:
       "runtime_lock_digest":built["runtime_lock"]["runtime_lock_digest"],
       "real_producer_execution_plan_id":built["plan"]["real_producer_execution_plan_id"],
       "real_producer_execution_plan_digest":built["plan"]["real_producer_execution_plan_digest"],
-      "command_digest":built["command_digest"],
+      "resource_contract_blob":built["resource_contract_blob"],
+      "resource_contract_sha256":built["resource_contract_sha256"],
+      "ap0_root_transport":str(ap0_root),"ap0_manifest_transport":str(ap0_manifest),
+      "output_transport":str(output),"maximum_output_bytes":MAX_OUTPUT_BYTES,
+      "command":built["command"],"command_digest":built["command_digest"],
+      "invocation_budget":1,"automatic_retry":False,"invocations_observed":0,
+      "result_exposed":False,"m03_execution_authorized":False,
+      "authority":dict(AUTHORITY_NONE),
     }
-    for key,value in checks.items():
-        require(freeze.get(key)==value,"FREEZE_REBUILD_MISMATCH:"+key)
-    require(sha256_path(freeze_path)==args.expected_freeze_sha256,"FREEZE_FILE_SHA256_MISMATCH")
+    freeze["freeze_digest"]=sha256_bytes(canonical(freeze))
+    freeze_out.parent.mkdir(parents=True,exist_ok=True)
+    freeze_out.write_bytes(json.dumps(freeze,sort_keys=True,indent=2,ensure_ascii=False).encode("utf-8")+b"\n")
+    freeze_sha=sha256_path(freeze_out)
+    print("RVO_08_FREEZE_READY",flush=True)
+    print("FREEZE_SHA256="+freeze_sha,flush=True)
+    print("EXPERIMENT_SPEC_ID="+freeze["experiment_spec_id"],flush=True)
+    print("EXPERIMENT_EXECUTION_INPUT_ID="+freeze["experiment_execution_input_id"],flush=True)
+    print("REAL_PRODUCER_EXECUTION_PLAN_ID="+freeze["real_producer_execution_plan_id"],flush=True)
+    print("REAL_PRODUCER_EXECUTION_PLAN_DIGEST="+freeze["real_producer_execution_plan_digest"],flush=True)
+    print("COMMAND_DIGEST="+freeze["command_digest"],flush=True)
+    print("WAITING_FOR_FREEZE_ACK="+str(ack_path),flush=True)
+
+    deadline=time.monotonic()+int(args.ack_timeout_seconds)
+    while not ack_path.exists():
+        if time.monotonic()>=deadline:
+            raise RuntimeError("FREEZE_ACK_TIMEOUT_NO_AP1_INVOCATION")
+        time.sleep(0.25)
+    ack=_read_json(ack_path)
+    require(ack.get("freeze_sha256")==freeze_sha,"FREEZE_ACK_SHA256_MISMATCH")
+    blob=ack.get("freeze_git_blob")
+    require(isinstance(blob,str) and len(blob)==40 and all(ch in "0123456789abcdef" for ch in blob),"FREEZE_ACK_GIT_BLOB_INVALID")
+
+    require(_remote_branch_head(repo_root)==head,"REMOTE_BRANCH_HEAD_DRIFT_BEFORE_INVOCATION")
+    require(git(repo_root,"rev-parse","HEAD")==head and git(repo_root,"rev-parse","HEAD^{tree}")==tree,"LOCAL_HEAD_TREE_DRIFT_BEFORE_INVOCATION")
+    require(git(repo_root,"status","--porcelain","--untracked-files=all")=="","WORKSPACE_DIRTY_BEFORE_INVOCATION")
+    require(git(main_root,"status","--porcelain","--untracked-files=all")=="","MAIN_CHECKOUT_DIRTY_BEFORE_INVOCATION")
+    require(not output.exists(),"AP1_OUTPUT_ALREADY_EXISTS_BEFORE_INVOCATION")
+    require(not ledger.exists(),"SECOND_AP1_INVOCATION_BLOCKED")
+
     started=utc_now()
     ledger.parent.mkdir(parents=True,exist_ok=True)
     with ledger.open("x",encoding="utf-8") as fh:
-        json.dump({"schema":"ATDS_RVO_08_ONE_SHOT_LEDGER_V0_1","state":"STARTED","invocation_count":1,"started_at":started,"freeze_sha256":args.expected_freeze_sha256,"command_digest":built["command_digest"]},fh,sort_keys=True,indent=2)
-        fh.write("\n")
-        fh.flush(); os.fsync(fh.fileno())
+        json.dump({
+          "schema":"ATDS_RVO_08_ONE_SHOT_LEDGER_V0_1","state":"STARTED",
+          "invocation_count":1,"started_at":started,"freeze_sha256":freeze_sha,
+          "freeze_git_blob":blob,"command_digest":built["command_digest"],
+        },fh,sort_keys=True,indent=2)
+        fh.write("\n"); fh.flush(); os.fsync(fh.fileno())
+
     env=os.environ.copy()
     env.update({"PYTHONHASHSEED":"0","PYTHONDONTWRITEBYTECODE":"1"})
     t0=time.monotonic()
     timeout_observed=False
     try:
         cp=subprocess.run(built["command"],capture_output=True,text=False,check=False,timeout=TIMEOUT_SECONDS,env=env)
-        exit_code=cp.returncode
-        stdout=cp.stdout or b""
-        stderr=cp.stderr or b""
+        exit_code=cp.returncode; stdout=cp.stdout or b""; stderr=cp.stderr or b""
     except subprocess.TimeoutExpired as exc:
-        timeout_observed=True
-        exit_code=None
-        stdout=exc.stdout or b""
-        stderr=exc.stderr or b""
-    ended=utc_now()
-    duration=time.monotonic()-t0
+        timeout_observed=True; exit_code=None; stdout=exc.stdout or b""; stderr=exc.stderr or b""
+    ended=utc_now(); duration=time.monotonic()-t0
     base={
       "schema":"ATDS_RVO_08_SINGLE_AP1_EXECUTION_RECEIPT_V0_1",
-      "freeze_sha256":args.expected_freeze_sha256,
-      "freeze_digest":freeze["freeze_digest"],
-      "head":freeze["head"],"tree":freeze["tree"],
-      "command_digest":built["command_digest"],
+      "freeze_sha256":freeze_sha,"freeze_git_blob":blob,"freeze_digest":freeze["freeze_digest"],
+      "head":head,"tree":tree,"command_digest":built["command_digest"],
+      "experiment_spec_id":freeze["experiment_spec_id"],
+      "execution_binding_id":freeze["execution_binding_id"],
+      "experiment_execution_input_id":freeze["experiment_execution_input_id"],
+      "real_producer_execution_plan_id":freeze["real_producer_execution_plan_id"],
+      "real_producer_execution_plan_digest":freeze["real_producer_execution_plan_digest"],
       "invocation_count":1,"automatic_retry":False,
       "started_at":started,"ended_at":ended,"duration_seconds":duration,
       "timeout_seconds":TIMEOUT_SECONDS,"timeout_observed":timeout_observed,
-      "exit_code":exit_code,
-      "stdout_sha256":sha256_bytes(stdout),"stderr_sha256":sha256_bytes(stderr),
+      "exit_code":exit_code,"stdout_sha256":sha256_bytes(stdout),"stderr_sha256":sha256_bytes(stderr),
       "runtime_lock_id":RUNTIME_LOCK_ID,"runtime_lock_digest":RUNTIME_LOCK_DIGEST,
       "ap0_manifest_sha256":MANIFEST_SHA256,"producer_blob":AP1_BLOB,
-      "output_transport":str(output),
-      "result_semantics":"EXECUTION_RESULT_ONLY",
-      "m03_executed":False,
-      "authority":dict(AUTHORITY_NONE),
+      "output_transport":str(output),"result_semantics":"EXECUTION_RESULT_ONLY",
+      "m03_executed":False,"authority":dict(AUTHORITY_NONE),
     }
     if timeout_observed:
-        receipt={**base,"status":"BLOCKED_AP1_TIMEOUT"}
-        _write_json(receipt_path,receipt)
-        return 3
+        _write_json(receipt_path,{**base,"status":"BLOCKED_AP1_TIMEOUT"}); return 3
     if exit_code!=0:
-        receipt={**base,"status":"BLOCKED_AP1_EXECUTION_FAILED"}
-        _write_json(receipt_path,receipt)
-        return 4
+        _write_json(receipt_path,{**base,"status":"BLOCKED_AP1_EXECUTION_FAILED"}); return 4
     if not output.is_file():
-        receipt={**base,"status":"BLOCKED_AP1_OUTPUT_MISSING"}
-        _write_json(receipt_path,receipt)
-        return 5
+        _write_json(receipt_path,{**base,"status":"BLOCKED_AP1_OUTPUT_MISSING"}); return 5
     size=output.stat().st_size
     if size<=0 or size>MAX_OUTPUT_BYTES:
-        receipt={**base,"status":"BLOCKED_AP1_OUTPUT_SIZE","output_bytes":size}
-        _write_json(receipt_path,receipt)
-        return 6
+        _write_json(receipt_path,{**base,"status":"BLOCKED_AP1_OUTPUT_SIZE","output_bytes":size}); return 6
     raw=output.read_bytes()
     try:
         payload=json.loads(raw.decode("utf-8"))
     except Exception:
-        receipt={**base,"status":"BLOCKED_AP1_OUTPUT_JSON","output_bytes":size,"output_sha256":sha256_bytes(raw)}
-        _write_json(receipt_path,receipt)
-        return 7
+        _write_json(receipt_path,{**base,"status":"BLOCKED_AP1_OUTPUT_JSON","output_bytes":size,"output_sha256":sha256_bytes(raw)}); return 7
     valid=(
       payload.get("schema")==p12c.AP1_OUTPUT_SCHEMA and
       payload.get("status")==p12c.AP1_OUTPUT_STATUS and
@@ -418,33 +468,29 @@ def execute_once(args) -> int:
       payload.get("scope",{}).get("pnl_calculated") is False
     )
     if not valid:
-        receipt={**base,"status":"BLOCKED_AP1_OUTPUT_CONTRACT","output_bytes":size,"output_sha256":sha256_bytes(raw)}
-        _write_json(receipt_path,receipt)
-        return 8
+        _write_json(receipt_path,{**base,"status":"BLOCKED_AP1_OUTPUT_CONTRACT","output_bytes":size,"output_sha256":sha256_bytes(raw)}); return 8
     receipt={
-      **base,
-      "status":"RVO_08_SINGLE_AP1_EXECUTION_COMPLETE",
-      "execution_status":"EXECUTED",
-      "output_bytes":size,
-      "output_sha256":sha256_bytes(raw),
-      "output_schema":payload["schema"],
-      "output_status":payload["status"],
-      "output_contract_checks":"PASS",
-      "scientific_finding":False,
-      "strategy_validated":False,
-      "trading_signal":False,
+      **base,"status":"RVO_08_SINGLE_AP1_EXECUTION_COMPLETE","execution_status":"EXECUTED",
+      "output_bytes":size,"output_sha256":sha256_bytes(raw),
+      "output_schema":payload["schema"],"output_status":payload["status"],
+      "output_contract_checks":"PASS","scientific_finding":False,
+      "strategy_validated":False,"trading_signal":False,
     }
     _write_json(receipt_path,receipt)
     ledger_state=_read_json(ledger)
-    ledger_state.update({"state":"COMPLETED","ended_at":ended,"execution_receipt_sha256":sha256_path(receipt_path),"output_sha256":receipt["output_sha256"]})
+    ledger_state.update({
+      "state":"COMPLETED","ended_at":ended,
+      "execution_receipt_sha256":sha256_path(receipt_path),
+      "output_sha256":receipt["output_sha256"],
+    })
     _write_json(ledger,ledger_state)
-    print("RVO_08_SINGLE_AP1_EXECUTION_COMPLETE")
-    print("EXIT_CODE=0")
-    print("OUTPUT_BYTES="+str(size))
-    print("OUTPUT_SHA256="+receipt["output_sha256"])
-    print("OUTPUT_SCHEMA="+receipt["output_schema"])
-    print("OUTPUT_STATUS="+receipt["output_status"])
-    print("EXECUTION_RECEIPT="+str(receipt_path))
+    print("RVO_08_SINGLE_AP1_EXECUTION_COMPLETE",flush=True)
+    print("EXIT_CODE=0",flush=True)
+    print("OUTPUT_BYTES="+str(size),flush=True)
+    print("OUTPUT_SHA256="+receipt["output_sha256"],flush=True)
+    print("OUTPUT_SCHEMA="+receipt["output_schema"],flush=True)
+    print("OUTPUT_STATUS="+receipt["output_status"],flush=True)
+    print("EXECUTION_RECEIPT="+str(receipt_path),flush=True)
     return 0
 
 def verify(args) -> int:
@@ -471,18 +517,15 @@ def verify(args) -> int:
 def main() -> int:
     ap=argparse.ArgumentParser()
     sub=ap.add_subparsers(dest="mode",required=True)
-    p=sub.add_parser("prepare")
-    for name in ("repo-root","main-checkout-root","expected-head","expected-tree","g05-receipt","rvo07-receipt","ap0-root","ap0-manifest","output","freeze-out","resource-contract","python-real-binary"):
-        p.add_argument("--"+name,required=True)
-    e=sub.add_parser("execute-once")
-    for name in ("repo-root","main-checkout-root","freeze","expected-freeze-sha256","resource-contract","python-real-binary","ledger","execution-receipt"):
-        e.add_argument("--"+name,required=True)
+    s=sub.add_parser("session")
+    for name in ("repo-root","main-checkout-root","expected-head","expected-tree","g05-receipt","rvo07-receipt","ap0-root","ap0-manifest","output","freeze-out","resource-contract","python-real-binary","freeze-ack","ledger","execution-receipt"):
+        s.add_argument("--"+name,required=True)
+    s.add_argument("--ack-timeout-seconds",type=int,default=600)
     v=sub.add_parser("verify")
     for name in ("freeze","execution-receipt","ledger"):
         v.add_argument("--"+name,required=True)
     args=ap.parse_args()
-    if args.mode=="prepare": return prepare(args)
-    if args.mode=="execute-once": return execute_once(args)
+    if args.mode=="session": return session(args)
     return verify(args)
 
 if __name__=="__main__":
