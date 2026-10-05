@@ -67,5 +67,5 @@ def test_14_no_execution_function_is_called_by_breaker_surface(monkeypatch):
     monkeypatch.setattr(g.smf,"execute_m03_observations",lambda *a,**k: (_ for _ in ()).throw(AssertionError("must not execute")))
     assert g.evaluate_frozen_breaker_case("G0501-B26") is True
 
-def test_15_contract_declares no authority():
+def test_15_contract_declares_no_authority():
     assert g.CONTRACT=="ATDS_G05_01_WORKSPACE_DRY_READINESS_V0_1"
