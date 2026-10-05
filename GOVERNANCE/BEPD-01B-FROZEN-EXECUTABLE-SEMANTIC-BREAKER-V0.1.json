@@ -1,0 +1,180 @@
+{
+  "schema": "ATDS_BEPD_01B_FROZEN_EXECUTABLE_SEMANTIC_BREAKER_V0_1",
+  "status": "FROZEN_TEST_FIRST_RED_EXPECTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "8d6839970edd2d11785777baaf623718fe4576d4",
+    "tree": "8c3b84785011a455bda7ae64a8e62b304e075a29"
+  },
+  "bindings": {
+    "bepd_01a_contract_blob": "341f6267f7f1add350759d6d95dfebfb5b9e46f7",
+    "bepd_01a_fixture_blob": "89f2af87171002e75fa06d7fb704817e149968bc",
+    "bepd_01a_fixture_sha256": "0365e0dfb1c5e3f78f4a3f01aca1f3bc91dc13147900c63831e4a51c1644434e",
+    "bepd_01a_human_adjudication_blob": "66ae9ff193c5734c32490300ef24d2c1895492c1"
+  },
+  "target": {
+    "implementation_path": "tools/bepd_01_weekly_liquidity_engine.py",
+    "current_expected_state": "ABSENT",
+    "required_callables": [
+      "evaluate_level_event",
+      "advance_week",
+      "replay_calibration"
+    ]
+  },
+  "interface": {
+    "evaluate_level_event": {
+      "input": "side, level, h1_bars, weekly_close",
+      "output_keys": [
+        "taken",
+        "take_index",
+        "reintegration_index",
+        "same_week_reintegration",
+        "close_displacement"
+      ]
+    },
+    "advance_week": {
+      "input": "active_levels, target_week, h1_bars, weekly_close, completed_week_high, completed_week_low",
+      "output_keys": [
+        "cluster",
+        "active_after"
+      ],
+      "ordering_rule": "evaluate pre-existing active levels first; remove consumed levels; add completed target-week HIGH/LOW only after evaluation"
+    },
+    "replay_calibration": {
+      "input": "ap0_root, frozen_fixture",
+      "output": "weekly_bars + expected_clusters reproducing the frozen fixture exactly"
+    }
+  },
+  "cases": [
+    {
+      "id": "BEPD01B-B01",
+      "intent": "target implementation absent before authorized implementation",
+      "expected": "RED_MISSING_IMPLEMENTATION"
+    },
+    {
+      "id": "BEPD01B-B02",
+      "intent": "HIGH wick exceeds level but H1 close does not",
+      "expected": "NOT_TAKEN"
+    },
+    {
+      "id": "BEPD01B-B03",
+      "intent": "LOW wick exceeds level but H1 close does not",
+      "expected": "NOT_TAKEN"
+    },
+    {
+      "id": "BEPD01B-B04",
+      "intent": "HIGH H1 close equals level",
+      "expected": "NOT_TAKEN_STRICT_INEQUALITY"
+    },
+    {
+      "id": "BEPD01B-B05",
+      "intent": "LOW H1 close equals level",
+      "expected": "NOT_TAKEN_STRICT_INEQUALITY"
+    },
+    {
+      "id": "BEPD01B-B06",
+      "intent": "several qualifying HIGH closes exist",
+      "expected": "FIRST_STRICT_H1_CLOSE_ONLY"
+    },
+    {
+      "id": "BEPD01B-B07",
+      "intent": "reintegration appears in same H1 as take",
+      "expected": "REINTEGRATION_MUST_BE_STRICTLY_LATER"
+    },
+    {
+      "id": "BEPD01B-B08",
+      "intent": "HIGH post-take close equals level before later close below",
+      "expected": "EQUALITY_NOT_REINTEGRATION"
+    },
+    {
+      "id": "BEPD01B-B09",
+      "intent": "LOW post-take close equals level before later close above",
+      "expected": "EQUALITY_NOT_REINTEGRATION"
+    },
+    {
+      "id": "BEPD01B-B10",
+      "intent": "taken level has negative Weekly close displacement",
+      "expected": "RETAIN_NEGATIVE_OUTCOME"
+    },
+    {
+      "id": "BEPD01B-B11",
+      "intent": "taken level has no same-week reintegration",
+      "expected": "RETAIN_TAKE_WITH_REINTEGRATION_FALSE"
+    },
+    {
+      "id": "BEPD01B-B12",
+      "intent": "consumed level presented in a later week",
+      "expected": "MUST_NOT_REAPPEAR_ACTIVE"
+    },
+    {
+      "id": "BEPD01B-B13",
+      "intent": "older untaken level survives another completed week",
+      "expected": "REMAIN_ACTIVE_AND_AGE"
+    },
+    {
+      "id": "BEPD01B-B14",
+      "intent": "two active HIGH levels consumed in one target week",
+      "expected": "ONE_CLUSTER_TWO_LEVEL_EVENTS"
+    },
+    {
+      "id": "BEPD01B-B15",
+      "intent": "one event positive and another negative in same cluster",
+      "expected": "RETAIN_BOTH_NO_RESULT_SELECTION"
+    },
+    {
+      "id": "BEPD01B-B16",
+      "intent": "current target-week level is evaluated before target week completes",
+      "expected": "FORBIDDEN_SELF_CONSUMPTION"
+    },
+    {
+      "id": "BEPD01B-B17",
+      "intent": "invalid side value supplied",
+      "expected": "FAIL_CLOSED_INVALID_SIDE"
+    },
+    {
+      "id": "BEPD01B-B18",
+      "intent": "AP0 mid interpreted as execution price",
+      "expected": "REJECT_EXECUTION_PRICE_LAUNDERING"
+    },
+    {
+      "id": "BEPD01B-B19",
+      "intent": "frozen six-week AP0 calibration replay",
+      "expected": "EXACT_FIXTURE_REPRODUCTION"
+    },
+    {
+      "id": "BEPD01B-B20",
+      "intent": "successful six-week replay presented as five-year scientific support",
+      "expected": "REJECT_SCOPE_LAUNDERING"
+    }
+  ],
+  "mandatory_distinctions": [
+    "WICK_TOUCH != H1_CLOSE_TAKE",
+    "TAKE != REINTEGRATION",
+    "ACTIVE != CONSUMED",
+    "CONSUMED != REACTIVATABLE",
+    "OLDER_ACTIVE != EXPIRED",
+    "LEVEL_EVENT != INDEPENDENT_WEEK",
+    "MULTI_LEVEL_CLUSTER != WINNER_SELECTION",
+    "NEGATIVE_D != DELETABLE",
+    "CALIBRATION_REPLAY != FIVE_YEAR_SUPPORT",
+    "DESCRIPTIVE_MID != EXECUTION_PRICE"
+  ],
+  "red_rule": {
+    "before_implementation": "breaker must exit non-zero with BEPD_01B_RED_MISSING_IMPLEMENTATION when the exact target module is absent",
+    "red_is_success_of_test_first_process": true,
+    "red_is_not_scientific_failure": true
+  },
+  "authority": {
+    "breaker_construction": true,
+    "red_execution": true,
+    "general_implementation": false,
+    "five_year_scan": false,
+    "occurrence_maps": false,
+    "response_maps": false,
+    "strategy": false,
+    "pnl": false,
+    "paper_broker_live_capital": false
+  },
+  "stop_boundary": "STOP_AFTER_PERSISTED_RED_EVIDENCE_PENDING_SEPARATE_HUMAN_IMPLEMENTATION_AUTHORIZATION"
+}
