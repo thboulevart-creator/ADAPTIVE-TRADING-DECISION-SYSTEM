@@ -1,0 +1,57 @@
+{
+  "schema": "ATDS_AO_E0_B8_01_FINAL_FORWARD_ONLY_PREREGISTRATION_BLOCKER_V0_1",
+  "control_id": "AO-E0-B8-01",
+  "verdict": "BLOCKED",
+  "blocker": "BLOCKED_M06_PLANNING_DISPERSION_SOURCE_NOT_CANONICALLY_AVAILABLE",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "preserved_state": {
+    "b7": "CLOSED",
+    "b8": "BLOCKED",
+    "b9": "CLOSED",
+    "b11": "CLOSED",
+    "b12": "CLOSED",
+    "prior_exposure_state": "CONTAMINATED",
+    "search_universe_status": "PARTIAL_SEARCH_UNIVERSE",
+    "n_trials": null,
+    "old_e1_oos_independent_confirmation_eligible": false
+  },
+  "m06": {
+    "runtime_blob": "fce7998167745659cb0fd5d03a8de14946b0394d",
+    "contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "supported_models": [
+      "NORMAL_MEAN_KNOWN_SIGMA"
+    ],
+    "explicit_positive_stddev_required": true,
+    "post_hoc_observed_power_forbidden": true,
+    "planning_dispersion_source": "UNAVAILABLE_IN_CURRENT_CANON",
+    "required_n": "NOT_COMPUTABLE_WITHOUT_INVENTED_DISPERSION"
+  },
+  "exposed_e1_planning_evidence": {
+    "memory_blob": "46450fea882f453335fcca7851df9764fc1ddf5c",
+    "full_sample_closed_trades": 650,
+    "pre_oos_closed_trades": 535,
+    "exposed_oos_closed_trades": 114,
+    "exposed_oos_expectancy": 25.0584912281,
+    "persisted_stddev": null,
+    "persisted_trade_ledger_in_current_canon": false
+  },
+  "fail_closed_reason": "B8 requires a fully configured M06 before closure. The current canonical repository preserves aggregate E1 planning metrics but not an exact numeric dispersion or recoverable trade ledger sufficient to compute the required stddev. Inventing a variance, sigma, target-N, or post-result calibration is forbidden.",
+  "allowed_remediation": [
+    "canonically materialize and identity-bind the already-exposed E1 trade ledger/result package, then compute a planning-only dispersion before any new forward observation",
+    "or separately human-adopt an externally justified pre-result planning dispersion/model with explicit rationale"
+  ],
+  "authority": {
+    "forward_data_observation": false,
+    "ao_e0_execution": false,
+    "real_performance_observation": false,
+    "b12_open": false,
+    "real_smf_execution": false,
+    "mcepr_event_population": false,
+    "strategy_modification": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}

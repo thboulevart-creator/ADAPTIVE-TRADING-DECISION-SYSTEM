@@ -1,0 +1,29 @@
+{
+  "schema": "ATDS_AO_E0_B8_01_BLOCKER_RECEIPT_V0_1",
+  "verdict": "B8_BLOCKED",
+  "blocker": "BLOCKED_M06_PLANNING_DISPERSION_SOURCE_NOT_CANONICALLY_AVAILABLE",
+  "parent_head": "44bdfc2577a6963cb846ce9af01cbc355d32352f",
+  "parent_tree": "a8a711ff89f55e13bbc735698cbc314822be2940",
+  "decisive_identities": {
+    "cell01_adoption_blob": "615681aa586ef92a34d0fa1757ceed8972404319",
+    "b4_blob": "8cf494fcfffe0575d3e2a0fe887e2f524a3eb304",
+    "b7_closure_blob": "efb0fe2c6aced6421fb9b6c2af9161632fec744a",
+    "b9_closure_blob": "1fe264aaf0770b3549004877550114e9c4c34331",
+    "b11_closure_blob": "4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+    "smf_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "m06_runtime_blob": "fce7998167745659cb0fd5d03a8de14946b0394d",
+    "m06_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "e1_memory_blob": "46450fea882f453335fcca7851df9764fc1ddf5c"
+  },
+  "no_forward_data_observed": true,
+  "no_ao_e0_execution": true,
+  "no_new_performance_observed": true,
+  "gates": {
+    "b7": "CLOSED",
+    "b8": "BLOCKED",
+    "b9": "CLOSED",
+    "b11": "CLOSED",
+    "b12": "CLOSED"
+  },
+  "force": false
+}
