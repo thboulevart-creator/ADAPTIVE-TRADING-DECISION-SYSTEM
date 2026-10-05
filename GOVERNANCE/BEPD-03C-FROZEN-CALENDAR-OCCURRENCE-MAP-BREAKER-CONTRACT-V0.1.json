@@ -1,0 +1,226 @@
+{
+  "schema": "ATDS_BEPD_03C_FROZEN_CALENDAR_OCCURRENCE_MAP_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "acd0b30ce449380ba1e3c8f5c672d08ab5a64a7a",
+    "tree": "030801c4412da5f34222b8115980141c0df94cc0"
+  },
+  "bindings": {
+    "authorization_blob": "6de519f3cfc885819e4147f08e4cc9f6f68d6fbf",
+    "implementation_contract_blob": "fc6093a5d3d6fb0029b602657b0464df4cad3bd1",
+    "calculator_blob": "376d5153181f6ee9bdb63cd4adb8c38724cd0b3d",
+    "bepd03a_dimensions_blob": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "bepd03a_measurement_contract_blob": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03b_result_blob": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "bepd03b_manifest_blob": "98abfece6796ecfb355714c31bcf0126a28729c9",
+    "level_week_opportunity_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "source_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "cases": [
+    {
+      "id": "BEPD03C-B01",
+      "intent": "target month derived from anything other than target_week_id",
+      "expected": "REJECT_MONTH_DERIVATION_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B02",
+      "intent": "month category 1..12 missing or extra",
+      "expected": "REJECT_MONTH_CATEGORY_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B03",
+      "intent": "month cells not ordered 1..12",
+      "expected": "REJECT_MONTH_ORDER_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B04",
+      "intent": "day 15 mapped to LATE",
+      "expected": "REJECT_DAY15_BOUNDARY_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B05",
+      "intent": "day 16 mapped to EARLY",
+      "expected": "REJECT_DAY16_BOUNDARY_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B06",
+      "intent": "EARLY/LATE category missing or extra",
+      "expected": "REJECT_MONTH_POSITION_CATEGORY_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B07",
+      "intent": "EARLY/LATE cells reordered by result",
+      "expected": "REJECT_MONTH_POSITION_ORDER_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B08",
+      "intent": "target year derived from anything other than target_week_id",
+      "expected": "REJECT_YEAR_DERIVATION_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B09",
+      "intent": "represented year omitted",
+      "expected": "REJECT_YEAR_SUPPRESSION"
+    },
+    {
+      "id": "BEPD03C-B10",
+      "intent": "unrepresented year injected",
+      "expected": "REJECT_YEAR_INJECTION"
+    },
+    {
+      "id": "BEPD03C-B11",
+      "intent": "year cells not chronological",
+      "expected": "REJECT_YEAR_ORDER_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B12",
+      "intent": "cell event count differs from direct source count",
+      "expected": "REJECT_CELL_NUMERATOR_MISMATCH"
+    },
+    {
+      "id": "BEPD03C-B13",
+      "intent": "cell opportunity count differs from direct source count",
+      "expected": "REJECT_CELL_DENOMINATOR_MISMATCH"
+    },
+    {
+      "id": "BEPD03C-B14",
+      "intent": "cell occurrence ratio differs from exact count ratio",
+      "expected": "REJECT_CELL_RATIO_MISMATCH"
+    },
+    {
+      "id": "BEPD03C-B15",
+      "intent": "cell eligible target-week count differs from direct source set",
+      "expected": "REJECT_CELL_WEEK_COUNT_MISMATCH"
+    },
+    {
+      "id": "BEPD03C-B16",
+      "intent": "cell unique-level count differs from direct source set",
+      "expected": "REJECT_CELL_LEVEL_COUNT_MISMATCH"
+    },
+    {
+      "id": "BEPD03C-B17",
+      "intent": "partition opportunity total differs from BEPD-03B global baseline",
+      "expected": "REJECT_PARTITION_OPPORTUNITY_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03C-B18",
+      "intent": "partition event total differs from BEPD-03B global baseline",
+      "expected": "REJECT_PARTITION_EVENT_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03C-B19",
+      "intent": "partition target-week coverage differs from source universe",
+      "expected": "REJECT_PARTITION_WEEK_RECONCILIATION"
+    },
+    {
+      "id": "BEPD03C-B20",
+      "intent": "result-sorted categories",
+      "expected": "REJECT_RESULT_BASED_SORTING"
+    },
+    {
+      "id": "BEPD03C-B21",
+      "intent": "cross-product dimension emitted",
+      "expected": "REJECT_CROSS_PRODUCT"
+    },
+    {
+      "id": "BEPD03C-B22",
+      "intent": "side segmentation emitted",
+      "expected": "REJECT_SIDE_CROSS_PRODUCT"
+    },
+    {
+      "id": "BEPD03C-B23",
+      "intent": "level-age or take-day segmentation emitted",
+      "expected": "REJECT_UNAUTHORIZED_DIMENSION"
+    },
+    {
+      "id": "BEPD03C-B24",
+      "intent": "ranking/best/worst emitted",
+      "expected": "REJECT_RANKING"
+    },
+    {
+      "id": "BEPD03C-B25",
+      "intent": "p-value/significance/confidence interval emitted",
+      "expected": "REJECT_UNAUTHORIZED_INFERENCE"
+    },
+    {
+      "id": "BEPD03C-B26",
+      "intent": "bootstrap emitted or executed",
+      "expected": "REJECT_BOOTSTRAP"
+    },
+    {
+      "id": "BEPD03C-B27",
+      "intent": "M05 state differs from BLOCKED",
+      "expected": "REJECT_M05_ACTIVATION"
+    },
+    {
+      "id": "BEPD03C-B28",
+      "intent": "historical descriptive heterogeneity labeled future probability/predictive",
+      "expected": "REJECT_GENERALIZATION_LAUNDERING"
+    },
+    {
+      "id": "BEPD03C-B29",
+      "intent": "source/policy/calculator provenance mismatch",
+      "expected": "REJECT_PROVENANCE_DRIFT"
+    },
+    {
+      "id": "BEPD03C-B30",
+      "intent": "forbidden analytics flag not false",
+      "expected": "REJECT_AUTHORITY_EXPANSION"
+    }
+  ],
+  "frozen_result_contract": {
+    "interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_HETEROGENEITY",
+    "dimension_order": [
+      "V02_TARGET_MONTH",
+      "V03_TARGET_MONTH_POSITION",
+      "V04_TARGET_YEAR"
+    ],
+    "month_order": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "month_position_order": [
+      "EARLY_01_15",
+      "LATE_16_EOM"
+    ],
+    "year_order": "ascending represented years",
+    "m05_generalization_uncertainty": "BLOCKED",
+    "result_ranking": false,
+    "cross_products": []
+  },
+  "qualification_rule": {
+    "expected_calendar_market_values_preencoded": false,
+    "direct_recomputation_from_bound_opportunity_ledger": true,
+    "baseline_reconciliation_required": true,
+    "pass_meaning": "exact preregistered descriptive calendar partition calculation and provenance only"
+  },
+  "authority": {
+    "month_marginal": true,
+    "month_position_marginal": true,
+    "year_marginal": true,
+    "side_cross_product": false,
+    "age": false,
+    "take_day": false,
+    "ranking": false,
+    "inference": false,
+    "bootstrap": false,
+    "m05_activation": false,
+    "response_map": false,
+    "strategy": false
+  },
+  "stop_boundary": "STOP_AFTER_PERSISTED_BEPD03C_CALENDAR_MAP_AND_REBREAK"
+}
