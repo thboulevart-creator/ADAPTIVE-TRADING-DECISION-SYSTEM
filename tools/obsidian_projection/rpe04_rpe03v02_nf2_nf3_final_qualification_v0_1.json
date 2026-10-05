@@ -1,0 +1,130 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE04_RPE03V02_NF2_NF3_FINAL_QUALIFICATION_V0_1",
+  "status": "QUALIFIED_FOR_EXTERNAL_DELTA_REVIEW",
+  "date": "2026-10-05",
+  "branch": "feat/obsidian-projection-rpe04-real-remote-observation-adapter-v0.1",
+  "lineage": {
+    "prior_rpe04_external_review_adjudication_head": "ec41c8a79defad9f343ee5c93b55c0c776f690fe",
+    "adopted_rpe03_v02_dependency_import_head": "017fca56001c2181d6aafcce153283b0562adcb1",
+    "closure_preregistration_head": "1ba14c2d89904c51b6766a686f4249cca3b6b7ee",
+    "targeted_red_head": "629e3f08134ae5592454e0628c311c1fea358934",
+    "minimal_implementation_head": "535277f59795d3904b8583c32746e4d125f828be",
+    "final_test_closure_head": "21f4eb820b501d585e96d07df84ccea5982fd5c7",
+    "legacy_mutation_rebind_head": "9aeb2764565f8cd65a6fcbf39ca5f7fe40c56b5b"
+  },
+  "exact_identities": {
+    "rpe03_v02_adoption_commit": "f266121e6a65daa3bf19480412f1addd299b8172",
+    "rpe03_v02_adoption_blob": "73b5a951a2ed9ed42cb827b4fadc555fc3dd7a7d",
+    "rpe03_v02_classifier_blob": "5bbe455418fe1396ee5824379ad7450a1379cbba",
+    "rpe03_v02_qualification_blob": "688a2abcc2caa2edeed5e67f2d3c38b293bcc238",
+    "final_rpe04_implementation_blob": "e188414cd433f839d5efbe5d28840d7acf4938d5",
+    "closure_preregistration_blob": "6f19ca7da0a791801f07b20d1645354666a6ffba",
+    "closure_preregistration_schema_blob": "ba35ddaa201e8bc11703a07efe794aaab2d3ab8c",
+    "targeted_red_report_blob": "d160048f5e8594b8647d33393438f4523a3ef7a2",
+    "rebind_nf2_test_blob": "49540da4a64c25febe0bec26edbf0ce768193551",
+    "nf3_test_blob": "eadddb42e5806c57d95737965ba501dbe427722c",
+    "nf2_nf3_mutation_test_blob": "dc2701d9722e626bb520b30e8db15d3308818ff5",
+    "runtime_binding_test_blob": "b8089430ccf320c95bb9b01eb2b4cef28bbe866c",
+    "legacy_rpe04_mutation_test_blob": "1b8e18e20be2dda2ed2d792730b0ab03f4b47845",
+    "final_test_evidence_blob": "0dab2fe5904acbf698f6c4eae29e4eb31c532b67",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887",
+    "rpe02_model_blob": "31db5d944a25e54db81bd901a087cdc2039925ad",
+    "rpe03_v01_classifier_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "p5e_contract_blob": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9",
+    "p5e_synthetic_model_blob": "c0f16baa151c1466e30ba5778f1fca8184cd4aac",
+    "p5d4_runtime_blob": "1825e53d195ba2a63b5b646a5b78eb77939b94b5"
+  },
+  "raw_sha256": {
+    "final_rpe04_implementation": "1300e60a5cd353557cc16779a372979b436fcacfeb082435cd749987342d1638",
+    "adopted_rpe03_v02_classifier": "4b743e187245585f4a4d9c923e316961f2842f96634d04dcac01972a29e60b41",
+    "closure_preregistration": "4c6c156c2bde72ed83b360a3ddccaf97a46b55b45cd107c85e32d998ef95cf11",
+    "governed_git_executable": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+  },
+  "candidate_closures": {
+    "bf1": "CLOSED_BY_EXACT_RPE03_V0_2_REBIND",
+    "nf2": "CLOSED",
+    "nf3": "CLOSED",
+    "nf4": "CARRIED_TO_RPE05"
+  },
+  "rpe03_v02_rebind": {
+    "classifier_blob": "5bbe455418fe1396ee5824379ad7450a1379cbba",
+    "governed_git_absolute_path": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "governed_git_sha256": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5",
+    "governed_git_version": "git version 2.54.0.windows.1",
+    "caller_creates_executable_authority": false
+  },
+  "nf2_exact_observed_tip": {
+    "exact_local_ref": "refs/rpe04/observed",
+    "extraction": "EXACT_REF_OBJECT_ID_WITHOUT_PEELING",
+    "exact_object_type_required": "commit",
+    "annotated_tag_behavior": "READ_FAILURE_EXACT_OBSERVED_REF_NOT_COMMIT",
+    "peeled_commit_must_not_receive_observed_tip_authority": true,
+    "observed_tip_format": "LOWERCASE_40_HEX"
+  },
+  "nf3_full_physical_domain": {
+    "recursive_indirection_rejection": true,
+    "required_directories": [
+      "objects",
+      "objects/info",
+      "objects/pack",
+      "refs"
+    ],
+    "authority_paths": [
+      "HEAD",
+      "config",
+      "packed-refs",
+      "refs",
+      "refs/rpe04",
+      "objects",
+      "objects/info",
+      "objects/pack",
+      "objects/info/alternates"
+    ],
+    "reject_symlink": true,
+    "reject_junction": true,
+    "reject_reparse_point": true,
+    "reject_uncontrolled_alternates": true,
+    "resolved_paths_must_remain_under_governed_root": true,
+    "check_before_fetch": true,
+    "check_after_fetch_before_tip_acceptance": true,
+    "check_before_rpe03_classification": true
+  },
+  "evidence": {
+    "rebind_nf2_targeted": "5/5 PASS",
+    "nf3_targeted": "7/7 PASS",
+    "runtime_binding_hardening": "5/5 PASS",
+    "nf2_nf3_mutations": "3/3 PASS",
+    "rpe04_discovery": "55/55 PASS",
+    "rpe03_final_qualified_surface": "59/59 PASS",
+    "rpe02_protected_regression": "51/51 PASS",
+    "rpe01_protected_regression": "46/46 PASS",
+    "p5e_protected_regression": "67/67 PASS",
+    "protected_blob_checks": "PASS"
+  },
+  "semantic_immutability": {
+    "one_governed_fetch_transaction_per_attempt": true,
+    "no_ls_remote_plus_independent_fetch": true,
+    "exact_source_ref": true,
+    "isolated_local_observation_ref": true,
+    "no_tag_fetch": true,
+    "no_submodule_recursion": true,
+    "no_fetch_head_write": true,
+    "no_caller_transition_authority": true,
+    "no_caller_containment_authority": true,
+    "unknown_is_blocked": true,
+    "no_intermediate_commit_injection": true
+  },
+  "qualification_scope": {
+    "local_only": true,
+    "github_polling_qualified": false,
+    "production_remote_observation_qualified": false,
+    "real_60_second_sla_qualified": false,
+    "rpe02_failure_handoff_nf4_closed": false,
+    "rpe04_human_adopted": false,
+    "rpe05_opened": false,
+    "rpe06_opened": false,
+    "real_p5e_opened": false
+  },
+  "next_gate": "EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADJUDICATION",
+  "stop": true
+}
