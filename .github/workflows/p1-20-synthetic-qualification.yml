@@ -65,7 +65,7 @@ jobs:
 
       - name: Prove exact P1-20 implementation identities
         run: |
-          test "$(git hash-object src/p1_12d_qualified_execution_evidence.py)" = "65e634e8fe9921af2fc4f450b8811f6b11089cef"
+          test "$(git hash-object src/p1_12d_qualified_execution_evidence.py)" = "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190"
           test "$(git hash-object src/p1_13c_common_evaluation.py)" = "617c39505cdd64e8a7a40a40612b4bec0c30ed34"
           test "$(git hash-object src/p1_14c_common_measurement_provenance.py)" = "7bd6a91a69484213b4d26d25bd18d62019c77b08"
           test "$(git hash-object src/p1_15c_common_evaluator_authority.py)" = "a0c7ced052a734ce44d580f2430081f8f8647a47"

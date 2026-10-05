@@ -11,6 +11,7 @@ import hashlib
 import json
 import weakref
 from dataclasses import asdict, dataclass
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -92,8 +93,18 @@ def _experiment_definition_digest(qei: QualifiedExperimentExecutionInput) -> str
     })
 
 
+def _jsonable(value: object):
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, dict):
+        return {str(k): _jsonable(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_jsonable(v) for v in value]
+    return value
+
+
 def _native_snapshot_digest(result: object) -> str:
-    return _digest({"native_type": type(result).__name__, "snapshot": asdict(result)})
+    return _digest({"native_type": type(result).__name__, "snapshot": _jsonable(asdict(result))})
 
 
 def _module_sha256(relative_path: str) -> str:
