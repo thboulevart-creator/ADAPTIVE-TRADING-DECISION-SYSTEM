@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_03_HISTORICAL_FINANCING_EVIDENCE_PACKAGE_V0_1",
+  "control_id": "AO-E0-EXEC-03",
+  "workstream": "A_HISTORICAL_FINANCING_SWAP_EVIDENCE",
+  "scope": {
+    "broker": "VT Markets",
+    "server": "VTMarkets-Live 2",
+    "account_type": "Standard STP",
+    "symbol": "NAS100.s",
+    "product": "NAS100 Cash",
+    "oos_start": "2025-05-25T00:00:00Z",
+    "oos_end": "2026-05-24T23:59:59.963Z"
+  },
+  "inherited_current_spec": {
+    "current_observation_date": "2026-10-05",
+    "swap_type_display": "USD",
+    "swap_long": -6.3665,
+    "swap_short": 1.2017,
+    "friday_multiplier": 3,
+    "evidence_blob": "8374392bdbc6ba318aefc83a2ef74bc994e99de6",
+    "use_for_historical_oos": "FORBIDDEN"
+  },
+  "official_public_evidence": [
+    {
+      "source": "VT Markets notifications/help content",
+      "url": "https://www.vtmarkets.com/en-mena/notifications/?cat=dynamic-leverage",
+      "finding": "Cash indices roll at server time 00:00; Friday-to-Monday carries triple swap; latest product swap rates are obtained from MetaTrader specifications.",
+      "claim_scope": "MECHANICS_ONLY_NOT_HISTORICAL_RATE_SERIES"
+    },
+    {
+      "source": "VT Markets Help Centre",
+      "url": "https://get.vtmarkets.help/hc/en-us/articles/37317722966425-What-are-swap-or-overnight-fees-and-how-are-they-calculated",
+      "finding": "When swap type is Currency, swap cost is Swap × Lot × Holding Days; product swap rate is an input.",
+      "claim_scope": "CALCULATION_SEMANTICS_ONLY"
+    },
+    {
+      "source": "VT Markets LLC Best Execution Policy",
+      "url": "https://www.vtmarkets.com/files/VT_Markets_LLC_Best_Execution_Policy.pdf",
+      "finding": "Overnight financing is a daily fee based on prevailing market interest rates; applicable fees can vary over time.",
+      "claim_scope": "DYNAMIC_FINANCING_SEMANTICS_NOT_EXACT_NAS100_S_HISTORY"
+    }
+  ],
+  "search_result": {
+    "exact_historical_daily_swap_series_found": false,
+    "exact_effective_change_schedule_found": false,
+    "archived_nas100_s_long_short_rates_covering_full_oos_found": false,
+    "defensible_finite_historical_financing_bound_found": false
+  },
+  "state": "UNKNOWN",
+  "reason": "Current and generic official mechanics do not reconstruct or bound the exact NAS100.s Standard STP swap rates across the full frozen OOS.",
+  "required_external_evidence": [
+    "historical NAS100.s swap long/short values or every effective change covering 2025-05-25 through 2026-05-24",
+    "swap type and triple-swap day/multiplier for each effective period",
+    "effective-from/effective-to dates",
+    "historical contract-spec changes if swap-unit conversion changed"
+  ],
+  "blocker": "LOCAL_USER_ACTION_REQUIRED_OR_BLOCKED_BY_MISSING_EXTERNAL_EVIDENCE",
+  "forbidden": [
+    "PROJECT_CURRENT_SWAP_BACKWARD",
+    "INTERPOLATE_MISSING_SWAP_HISTORY",
+    "ASSUME_CONSTANT_SWAP",
+    "USE_MOMENTUM_V1_RESULTS_TO_CHOOSE_FINANCING"
+  ],
+  "authority": {
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "b12": "CLOSED"
+  }
+}

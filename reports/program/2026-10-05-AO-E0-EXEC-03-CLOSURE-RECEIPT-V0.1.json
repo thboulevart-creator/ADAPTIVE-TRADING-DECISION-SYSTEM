@@ -1,0 +1,33 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_03_CLOSURE_RECEIPT_V0_1",
+  "parent": {
+    "head": "af47a7ac75a56460cdec288d2f079e34ea277c7c",
+    "tree": "ad4f88f63cccbdd0219bf73def1fc89554c44a0a"
+  },
+  "prior_exec02": {
+    "current_platform_spec_blob": "8374392bdbc6ba318aefc83a2ef74bc994e99de6",
+    "evidence_package_v0_3_blob": "9d606cf15755c1c8f8e6e9dd991e3756e1d05e73",
+    "report_v0_3_blob": "6e5f445149dc5f86571ec4c427047cc34dc6be13"
+  },
+  "workstream_a": {
+    "state": "UNKNOWN",
+    "exact_history_found": false,
+    "bounded_history_found": false,
+    "blocker": "LOCAL_USER_ACTION_REQUIRED_OR_BLOCKED_BY_MISSING_EXTERNAL_EVIDENCE"
+  },
+  "workstream_b": {
+    "state": "UNKNOWN",
+    "finite_upper_bound_found": false,
+    "blocker": "BLOCKED_BY_MISSING_EXTERNAL_EVIDENCE_OR_FUTURE_HUMAN_POLICY_DECISION"
+  },
+  "global_verdict": "REAL_COST_PROFILE_BLOCKED",
+  "issued_identities": {
+    "execution_model_identity": null,
+    "cost_scope_identity": null,
+    "real_cost_profile_identity": null
+  },
+  "performance_accessed": false,
+  "oos_consumed": false,
+  "b12": "CLOSED",
+  "force": false
+}

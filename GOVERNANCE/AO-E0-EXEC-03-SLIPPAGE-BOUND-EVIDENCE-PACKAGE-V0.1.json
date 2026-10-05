@@ -1,0 +1,61 @@
+{
+  "schema": "ATDS_AO_E0_EXEC_03_SLIPPAGE_BOUND_EVIDENCE_PACKAGE_V0_1",
+  "control_id": "AO-E0-EXEC-03",
+  "workstream": "B_DEFENSIBLE_ADVERSE_SLIPPAGE_UPPER_BOUND",
+  "scope": {
+    "broker": "VT Markets",
+    "server": "VTMarkets-Live 2",
+    "account_type": "Standard STP",
+    "symbol": "NAS100.s",
+    "execution_mode": "MARKET"
+  },
+  "official_public_evidence": [
+    {
+      "source": "VT Markets LLC Best Execution Policy",
+      "url": "https://www.vtmarkets.com/files/VT_Markets_LLC_Best_Execution_Policy.pdf",
+      "finding": "Requested price may be unavailable and execution can occur close to or several pips away; adverse slippage is normal under certain conditions.",
+      "implication": "SLIPPAGE_EXISTS_AND_IS_STATE_DEPENDENT"
+    },
+    {
+      "source": "VT Markets LLC Best Execution Policy",
+      "url": "https://www.vtmarkets.com/files/VT_Markets_LLC_Best_Execution_Policy.pdf",
+      "finding": "Execution prices may vary significantly from requested prices during abnormal market conditions, including openings, major news, volatile markets and insufficient liquidity.",
+      "implication": "NO_SMALL_FIXED_BOUND_CAN_BE_INFERRED"
+    },
+    {
+      "source": "VT Markets LLC Best Execution Policy",
+      "url": "https://www.vtmarkets.com/files/VT_Markets_LLC_Best_Execution_Policy.pdf",
+      "finding": "Execution depends on pricing and available liquidity from third-party liquidity providers.",
+      "implication": "FILL_ERROR_NOT_DETERMINISTIC_FROM_SOURCE_B_MARKET_DATA"
+    },
+    {
+      "source": "VT Markets slippage policy",
+      "url": "https://www.vtmarkets.com/en-mena/notifications/?cat=dynamic-leverage",
+      "finding": "Under market execution, if requested price is unavailable the order is filled at the best available market rate.",
+      "implication": "REQUESTED_PRICE_NOT_GUARANTEED"
+    }
+  ],
+  "search_result": {
+    "broker_published_finite_maximum_adverse_slippage_found": false,
+    "nas100_s_specific_maximum_deviation_found": false,
+    "contractual_guaranteed_fill_bound_found": false,
+    "admissible_pre_result_empirical_upper_bound_found": false
+  },
+  "state": "UNKNOWN",
+  "reason": "Official execution policy explicitly allows state-dependent and potentially significant deviations but publishes no finite contractual maximum for NAS100.s market execution.",
+  "note_on_empirical_bounds": "An observed sample maximum or percentile would not be a guaranteed future maximum under the frozen EXEC-03 invariants.",
+  "potential_future_route": "A separately authorized bounded-execution policy or claim design may be proposed later, but EXEC-03 does not invent one.",
+  "blocker": "BLOCKED_BY_MISSING_EXTERNAL_EVIDENCE_OR_FUTURE_HUMAN_POLICY_DECISION",
+  "forbidden": [
+    "SET_ZERO_SLIPPAGE",
+    "INVENT_FIXED_POINTS",
+    "USE_SOURCE_B_AS_VT_EXECUTION_SLIPPAGE",
+    "USE_OBSERVED_SAMPLE_MAX_AS_GUARANTEED_MAX",
+    "CALIBRATE_BOUND_TO_MOMENTUM_V1_RESULTS"
+  ],
+  "authority": {
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "b12": "CLOSED"
+  }
+}
