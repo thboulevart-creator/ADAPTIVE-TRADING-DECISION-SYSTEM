@@ -119,7 +119,7 @@ jobs:
         run: |
           test ! -e ATDS-AP1-INTRADAY-SPREAD-CENSUS.json
           test ! -d artifacts/smf-ap1-m03-01
-          python tools/smf_ap1_m03_companion.py | grep -q "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
+          python -m tools.smf_ap1_m03_companion | grep -q "BLOCKED_REAL_EXECUTION_WORKSPACE_NOT_MATERIALIZED"
           echo "PASS: G05 closed and no real AP1/M03 execution"
 
       - name: Prove clean worktree
