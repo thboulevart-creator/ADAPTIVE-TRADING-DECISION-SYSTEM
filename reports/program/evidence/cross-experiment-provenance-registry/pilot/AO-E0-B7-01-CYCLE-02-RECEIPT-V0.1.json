@@ -1,0 +1,14 @@
+{
+  "schema": "ATDS_AO_E0_B7_01_MCEPR_PILOT_CYCLE_RECEIPT_V0_1",
+  "cycle": 2,
+  "authorization_blob": "f848a5dadf6e1270b6624d3b03a8d1a4afdd33b9",
+  "segment_id": "RGS-d0db0a8d3093d1969393138f38ccc855b7de754c819df3d818a30e6284bdd6da",
+  "event_id": "EVT-9f69751b3af3a7b71654c8842d18570e316352dd534f5a43a7f335a9ce7e7cd3",
+  "persisted_head": "e74faebe97be6b56eebc71990e013290946dc55a",
+  "replay_run_id": 37352223797,
+  "replay": "PASS",
+  "relations": 0,
+  "oos_consumed": false,
+  "performance_observed": false,
+  "force": false
+}
