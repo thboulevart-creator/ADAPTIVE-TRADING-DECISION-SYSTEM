@@ -1,0 +1,95 @@
+# BEPD-01A — HUMAN ADJUDICATION — 2026-10-05
+
+**Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
+**Governed branch:** `integration/system-v1`  
+**Adjudication parent HEAD:** `38b723743d77df5afaf0bbdcc7212cc758aceedc`  
+**Adjudication parent TREE:** `e94b4a6b24ea4c3842e7800b9eac60c3412464ff`
+
+## 1. Human decision
+
+```text
+HUMAN_DECISION = ADOPT
+STATUS = HUMAN_ADOPTED / BINDING / FROZEN
+```
+
+The human explicitly adjudicated the following exact objects:
+
+```text
+BEPD-01A — WEEKLY LIQUIDITY MEASUREMENT CONTRACT V0.1
+Git blob =
+341f6267f7f1add350759d6d95dfebfb5b9e46f7
+
+BEPD-01A — WEEKLY LIQUIDITY CALIBRATION FIXTURE V0.1
+Git blob =
+89f2af87171002e75fa06d7fb704817e149968bc
+```
+
+Adopted scope:
+
+```text
+WEEKLY / H1 CALIBRATION SEMANTICS
++
+FROZEN SIX-WEEK CALIBRATION FIXTURE ONLY
+```
+
+## 2. Exact human authorization
+
+The human authorized opening and construction of:
+
+```text
+BEPD-01B — FROZEN EXECUTABLE SEMANTIC BREAKER V0.1
+MODE = TEST-FIRST / RED EXPECTED
+```
+
+## 3. Downstream authority
+
+```text
+BEPD-01B BREAKER DESIGN =
+AUTHORIZED
+
+BEPD-01B EXECUTABLE BREAKER CONSTRUCTION =
+AUTHORIZED
+
+BEPD-01B RED EXECUTION =
+AUTHORIZED
+
+GENERAL WEEKLY LIQUIDITY ENGINE IMPLEMENTATION =
+NOT AUTHORIZED BY THIS ADJUDICATION
+
+FIVE-YEAR HISTORICAL SCAN =
+NOT AUTHORIZED
+
+OCCURRENCE MAP =
+NOT AUTHORIZED
+
+RESPONSE MAP =
+NOT AUTHORIZED
+
+OCCURRENCE × RESPONSE MAP =
+NOT AUTHORIZED
+
+STRATEGY RESEARCH =
+NOT AUTHORIZED
+
+BACKTEST / PNL =
+NOT AUTHORIZED
+
+PAPER / BROKER / LIVE / CAPITAL =
+NOT AUTHORIZED
+```
+
+## 4. Binding distinctions
+
+```text
+WICK TOUCH != H1-CLOSE TAKE
+LEVEL TAKE != REINTEGRATION
+ACTIVE LEVEL != CONSUMED LEVEL
+OLDER LEVEL != EXPIRED LEVEL
+MULTIPLE LEVELS IN ONE WEEK != MULTIPLE INDEPENDENT WEEKS
+NEGATIVE OUTCOME != DELETABLE OUTCOME
+CALIBRATION PASS != FIVE-YEAR SCIENTIFIC SUPPORT
+```
+
+## 5. Stop boundary
+
+After BEPD-01B construction and observation/persistence of the expected RED state, STOP before any implementation that would make the breaker GREEN unless a separate human authorization is supplied.
