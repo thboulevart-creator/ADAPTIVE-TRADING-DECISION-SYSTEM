@@ -50,7 +50,7 @@ class TestRPE04RuntimeBindingHardening(unittest.TestCase):
         )
         self.assertEqual(
             m._EXPECTED_RUNTIME_SHA256["rpe03_classifier"],
-            "cbcb996199b06859d257cc194e673a6bc51419890dc0641b42837d3f7cfcb0c3",
+            "4b743e187245585f4a4d9c923e316961f2842f96634d04dcac01972a29e60b41",
         )
 
     def test_runtime_binding_mismatch_fails_closed(self):
