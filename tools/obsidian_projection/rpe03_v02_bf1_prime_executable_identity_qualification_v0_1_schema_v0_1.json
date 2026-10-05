@@ -1,0 +1,304 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE03_V02_BF1_PRIME_EXECUTABLE_IDENTITY_QUALIFICATION",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE03_V02_BF1_PRIME_EXECUTABLE_IDENTITY_QUALIFICATION_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "QUALIFIED_FOR_EXTERNAL_DELTA_REVIEW"
+      },
+      "date": {
+        "kind": "string",
+        "const": "2026-10-05"
+      },
+      "branch": {
+        "kind": "string",
+        "const": "feat/obsidian-projection-rpe03-governed-git-executable-binding-v0.2"
+      },
+      "lineage": {
+        "kind": "object",
+        "fields": {
+          "prior_external_packet_head": {
+            "kind": "string",
+            "const": "a6a10b2f4303afac01ddc5d6bca36a9b32d7913a"
+          },
+          "bf1_prime_adjudication_head": {
+            "kind": "string",
+            "const": "96783f48cd1206432a46044c0e9ce35f040be602"
+          },
+          "bf1_prime_preregistration_head": {
+            "kind": "string",
+            "const": "d91d7d373b631e887c087ef6558e507e2c7187f9"
+          },
+          "bf1_prime_red_head": {
+            "kind": "string",
+            "const": "4f2f8c7ef279f904db905670ffa0f94b6b106f55"
+          },
+          "bf1_prime_patch_head": {
+            "kind": "string",
+            "const": "d973fe17a3ef38af67cbd9bff7dd90a440fcebe2"
+          }
+        }
+      },
+      "exact_identities": {
+        "kind": "object",
+        "fields": {
+          "external_review_blob": {
+            "kind": "string",
+            "const": "df64d9545ae1eab2661d3ef63646eeaf3142faff"
+          },
+          "human_adjudication_blob": {
+            "kind": "string",
+            "const": "e99a0018a3cda7d02ed3bb81914cfea223cdd36a"
+          },
+          "preregistration_blob": {
+            "kind": "string",
+            "const": "3f4b193ac15ca3fafa34e13934e0ba1dee84e162"
+          },
+          "preregistration_schema_blob": {
+            "kind": "string",
+            "const": "32b4cbd980245ceef781def548ff5e7b591cd41e"
+          },
+          "historical_red_test_blob": {
+            "kind": "string",
+            "const": "984249ee982d652678517707c3f683a8acd57d44"
+          },
+          "historical_red_report_blob": {
+            "kind": "string",
+            "const": "bf6462f390f445a64d540e99c45b25dc1a52f8fa"
+          },
+          "final_classifier_blob": {
+            "kind": "string",
+            "const": "5bbe455418fe1396ee5824379ad7450a1379cbba"
+          },
+          "final_closure_test_blob": {
+            "kind": "string",
+            "const": "47d964fcc6a7fdf2b1a018f9b90fcc7b02d8ffd5"
+          },
+          "bf1_prime_mutation_test_blob": {
+            "kind": "string",
+            "const": "d04b07e65b58bdc1af949b757de97114b5835793"
+          },
+          "updated_v02_mutation_test_blob": {
+            "kind": "string",
+            "const": "3dad153472c433d9451a7343c853d66811719c83"
+          },
+          "windows_sentinel_evidence_blob": {
+            "kind": "string",
+            "const": "eb7973e35f24565ad9a685511ff43e500b86f872"
+          },
+          "harness_corrections_blob": {
+            "kind": "string",
+            "const": "b82c107a06282f52617f946fe556df66b7e96501"
+          },
+          "rpe03_v01_classifier_blob": {
+            "kind": "string",
+            "const": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11"
+          },
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          },
+          "p5e_contract_blob": {
+            "kind": "string",
+            "const": "43d2e45b40c6c1cf81f0e79d7650e6dc00be0da9"
+          },
+          "p5d4_runtime_blob": {
+            "kind": "string",
+            "const": "1825e53d195ba2a63b5b646a5b78eb77939b94b5"
+          }
+        }
+      },
+      "governed_git": {
+        "kind": "object",
+        "fields": {
+          "absolute_path": {
+            "kind": "string",
+            "const": "C:\\Program Files\\Git\\cmd\\git.exe"
+          },
+          "sha256": {
+            "kind": "string",
+            "const": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+          },
+          "observed_version": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1"
+          },
+          "minimum_version": {
+            "kind": "string",
+            "const": "2.54.0"
+          },
+          "direct_classifier_executable_binding_qualified_candidate": {
+            "kind": "boolean",
+            "const": true
+          },
+          "full_git_for_windows_helper_chain_qualified": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "evidence": {
+        "kind": "object",
+        "fields": {
+          "historical_red": {
+            "kind": "string",
+            "const": "4/4 FAIL"
+          },
+          "final_bf1_prime_closure": {
+            "kind": "string",
+            "const": "5/5 PASS"
+          },
+          "bf1_prime_mutations": {
+            "kind": "string",
+            "const": "3/3 PASS"
+          },
+          "updated_prior_v02_mutations": {
+            "kind": "string",
+            "const": "4/4 PASS"
+          },
+          "complete_rpe03_surface": {
+            "kind": "string",
+            "const": "59/59 PASS"
+          },
+          "rpe04_call_site_compatibility_included_in_surface": {
+            "kind": "boolean",
+            "const": true
+          },
+          "windows_control_implicit_rc": {
+            "kind": "integer",
+            "const": 7
+          },
+          "windows_control_sentinel_created": {
+            "kind": "boolean",
+            "const": true
+          },
+          "final_classification_with_fake_present": {
+            "kind": "string",
+            "const": "FAST_FORWARD"
+          },
+          "final_sentinel_created": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "qualified_properties": {
+        "kind": "object",
+        "fields": {
+          "non_absolute_executable_input_rejected": {
+            "kind": "boolean",
+            "const": true
+          },
+          "canonical_path_strictly_resolved": {
+            "kind": "boolean",
+            "const": true
+          },
+          "canonical_path_equals_governed_path": {
+            "kind": "boolean",
+            "const": true
+          },
+          "sha256_verified": {
+            "kind": "boolean",
+            "const": true
+          },
+          "exact_version_verified": {
+            "kind": "boolean",
+            "const": true
+          },
+          "minimum_version_verified": {
+            "kind": "boolean",
+            "const": true
+          },
+          "verified_canonical_path_returned": {
+            "kind": "boolean",
+            "const": true
+          },
+          "raw_caller_string_not_reused_after_verification": {
+            "kind": "boolean",
+            "const": true
+          },
+          "all_classifier_git_subprocesses_use_verified_canonical_path": {
+            "kind": "boolean",
+            "const": true
+          },
+          "internal_run_git_rejects_non_absolute_input": {
+            "kind": "boolean",
+            "const": true
+          },
+          "ancestry_semantics_unchanged": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "limitations": {
+        "kind": "object",
+        "fields": {
+          "privileged_program_files_toctou_out_of_scope": {
+            "kind": "boolean",
+            "const": true
+          },
+          "exact_version_and_minimum_version_redundancy_accepted": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe02_model_not_present_on_rpe03_historical_lineage": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_rebind_not_performed": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_nf2_open": {
+            "kind": "boolean",
+            "const": true
+          },
+          "rpe04_nf3_open": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "authority_boundary": {
+        "kind": "object",
+        "fields": {
+          "rpe03_v02_human_adopted": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe04_functional_rebind_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_opened": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_opened": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_opened": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "next_gate": {
+        "kind": "string",
+        "const": "EXTERNAL_DELTA_REVIEW_THEN_HUMAN_ADOPTION"
+      },
+      "stop": {
+        "kind": "boolean",
+        "const": true
+      }
+    }
+  }
+}
