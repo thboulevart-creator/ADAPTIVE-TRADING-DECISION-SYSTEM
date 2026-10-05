@@ -47,6 +47,7 @@ jobs:
           test "$(git hash-object GOVERNANCE/P1-21-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "2d985ebcd2fca331a8af1be864fdce07ff26ceec"
           test "$(git hash-object breakers/p1_21_real_producer_capability_breaker.py)" = "981f21bcdde9afea5b85cced387c3acdb119e26f"
           test "$(git hash-object reports/program/2026-10-05-P1-21-TEST-FIRST-RED-RECEIPT-V0.1.json)" = "006a877e9c64361d68cbb969578ed71b34054d6e"
+          test "$(git hash-object reports/program/2026-10-05-P1-21-PARENT-DRIFT-RECONCILIATION-R4-V0.1.json)" = "73983e061c8cd227fc1d826da42ca7eb1f07d72c"
 
       - name: Prove protected owner identities unchanged
         run: |
@@ -65,7 +66,7 @@ jobs:
           test "$(git hash-object tools/p1_12c_sandbox_runner.py)" = "b16fa57409a67049eedfbb6c6ec7b2e9ae3e3108"
           test "$(git hash-object tests/p1_21_fixture.py)" = "92c3412aff89c46b290110d995b753d9c1f3b93f"
           test "$(git hash-object tests/p1_21_ap1_profile_probe.py)" = "b31918b1be62cf6aa03f2ca5fc45583662a07aa9"
-          test "$(git hash-object tests/test_p1_21_real_producer_capability.py)" = "abcb55258a65aeecbe89bc007dd8bc7bb6a6528e"
+          test "$(git hash-object tests/test_p1_21_real_producer_capability.py)" = "53a5f4f93cb95b36811311704a13ee632581e3f3"
 
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
@@ -116,13 +117,18 @@ jobs:
       - name: DATA-02 protected regression
         run: python -m pytest -q breakers/data_02_claim_scoped_admission_breaker.py
 
-      - name: Prove P1-21 delta is bounded
+      - name: Prove P1-21 implementation and reconciliation deltas are bounded
         run: |
           python - <<'PY'
           import subprocess
-          parent="7e81f615b2cd8e3c8704a1469384ae8779b0c9fa"
-          changed=subprocess.check_output(["git","diff","--name-only",f"{parent}..HEAD"],text=True).splitlines()
-          exact={
+
+          implementation_parent="7e81f615b2cd8e3c8704a1469384ae8779b0c9fa"
+          implementation_head="6fc1d67ebc27d5329e4915e58b833ef044631f40"
+          implementation_changed=subprocess.check_output(
+              ["git","diff","--name-only",f"{implementation_parent}..{implementation_head}"],
+              text=True,
+          ).splitlines()
+          implementation_exact={
               ".github/workflows/p1-21-red-baseline.yml",
               ".github/workflows/p1-21-synthetic-qualification.yml",
               "src/p1_12c_qualified_producer_execution.py",
@@ -130,14 +136,30 @@ jobs:
               "tests/p1_21_fixture.py",
               "tests/p1_21_ap1_profile_probe.py",
               "tests/test_p1_21_real_producer_capability.py",
+              "reports/program/2026-10-05-P1-21-PARENT-DRIFT-RECONCILIATION-R2-V0.1.json",
+              "reports/program/2026-10-05-P1-21-PARENT-DRIFT-RECONCILIATION-R3-V0.1.json",
           }
-          for path in changed:
-              if path in exact:
+          extra=sorted(set(implementation_changed)-implementation_exact)
+          if extra:
+              raise SystemExit("UNAUTHORIZED_P1_21_IMPLEMENTATION_DELTA:"+",".join(extra))
+
+          tail_parent="e99b5e1cd3814144ef4c1294b2c0dd3df5c2389d"
+          tail_changed=subprocess.check_output(
+              ["git","diff","--name-only",f"{tail_parent}..HEAD"],
+              text=True,
+          ).splitlines()
+          tail_exact={
+              ".github/workflows/p1-21-synthetic-qualification.yml",
+              "tests/test_p1_21_real_producer_capability.py",
+              "reports/program/2026-10-05-P1-21-PARENT-DRIFT-RECONCILIATION-R4-V0.1.json",
+          }
+          for path in tail_changed:
+              if path in tail_exact:
                   continue
               if path.startswith("reports/program/") and "P1-21" in path:
                   continue
-              raise SystemExit(f"UNAUTHORIZED_P1_21_DELTA:{path}")
-          print("PASS: P1-21 delta strictly bounded")
+              raise SystemExit(f"UNAUTHORIZED_P1_21_TAIL_DELTA:{path}")
+          print("PASS: P1-21 implementation and reconciliation deltas bounded")
           PY
 
       - name: Prove no real AP1 output

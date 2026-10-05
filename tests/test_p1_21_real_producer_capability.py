@@ -54,7 +54,7 @@ def test_p121_02_data_binding_uses_exact_dataset_manifest_fileset_schema(tmp_pat
 
 def test_p121_03_stale_receipt_copy_is_rejected_before_any_data_open(tmp_path: Path):
     stale = tmp_path / "receipt.json"
-    stale.write_bytes(DATA_RECEIPT.read_bytes())
+    stale.write_bytes(DATA_RECEIPT.read_bytes() + b"\n")
     with pytest.raises(p12c.P112CBlocked, match="BLOCKED_STALE_DATA02_RECEIPT"):
         p12c.bind_real_data_owner_evidence(stale)
 
