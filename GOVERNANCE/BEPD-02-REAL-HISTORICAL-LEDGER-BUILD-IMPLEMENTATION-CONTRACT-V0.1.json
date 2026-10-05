@@ -1,0 +1,151 @@
+{
+  "schema": "ATDS_BEPD_02_REAL_HISTORICAL_LEDGER_BUILD_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "HUMAN_AUTHORIZED_TECHNICAL_IMPLEMENTATION_BINDING",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "ab8fffb519196c216e7fad56f6a2651450f5bd89",
+    "tree": "cf53188b9a0ba954cdcd8d53cdcc3e4d8a6c144f"
+  },
+  "bindings": {
+    "human_authorization_blob": "6b035f6f3a102d148d61a570b925ed3f01f79fa7",
+    "bepd01d_readiness_contract_blob": "a508fbaaa7468d3fd7a17991e48b9b207e274245",
+    "bepd01d_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd01d_breaker_contract_blob": "c2bf489b4991931d940d273d45856c308d0c99c9",
+    "bepd01d_breaker_executable_blob": "e8e0375604511765ce796f93354a2eaf55822b45",
+    "bepd01d_human_adjudication_blob": "6ac5a8ece82dc778c0b46aaada9bc5bdd4774cb8",
+    "bepd01c_engine_blob": "050c96049f720757231136386719a40dd5653bbe",
+    "ap0_dataset_id": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce"
+  },
+  "implementation": {
+    "path": "tools/bepd_02_historical_weekly_liquidity_ledger_build_v0_1.py",
+    "upstream_event_evaluator": "tools/bepd_01_weekly_liquidity_engine.py:evaluate_level_event",
+    "output_directory": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1",
+    "outputs": [
+      {
+        "path": "LEVEL_LEDGER.jsonl",
+        "format": "UTF-8 JSON Lines",
+        "line_ending": "LF"
+      },
+      {
+        "path": "EVENT_LEDGER.jsonl",
+        "format": "UTF-8 JSON Lines",
+        "line_ending": "LF"
+      },
+      {
+        "path": "LEVEL_WEEK_OPPORTUNITY.jsonl",
+        "format": "UTF-8 JSON Lines",
+        "line_ending": "LF"
+      },
+      {
+        "path": "RUN_MANIFEST.json",
+        "format": "UTF-8 pretty JSON",
+        "line_ending": "LF"
+      }
+    ]
+  },
+  "deterministic_identity": {
+    "canonical_json": "json.dumps(payload, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode('utf-8')",
+    "hash": "SHA-256 lowercase hex",
+    "level_id_payload": [
+      "dataset_id",
+      "ledger_schema_blob",
+      "source_week_id",
+      "side"
+    ],
+    "event_id_payload": [
+      "level_id",
+      "take_h1_close_utc"
+    ],
+    "sweep_cluster_id_payload": [
+      "dataset_id",
+      "ledger_schema_blob",
+      "target_week_id"
+    ],
+    "run_id_payload": [
+      "repository",
+      "branch",
+      "executed_head",
+      "executed_tree",
+      "dataset_id",
+      "ap0_manifest_sha256",
+      "bepd01c_engine_blob",
+      "bepd01d_readiness_contract_blob",
+      "bepd01d_ledger_schema_blob",
+      "bepd01d_breaker_contract_blob",
+      "bepd01d_breaker_executable_blob",
+      "bepd02_build_implementation_blob"
+    ],
+    "week_file_binding_digest": "SHA256 of LF-joined sorted '<relative_path>:<sha256>' entries"
+  },
+  "weekly_extreme_tie_rule": {
+    "high": "if more than one AP0 minute has exactly the Weekly max(mid_high), FAIL_CLOSED_EXTREME_TIME_TIE",
+    "low": "if more than one AP0 minute has exactly the Weekly min(mid_low), FAIL_CLOSED_EXTREME_TIME_TIE",
+    "rationale": "BEPD-01D binds the observed extreme price but does not authorize choosing among multiple exact extreme timestamps"
+  },
+  "session_week": {
+    "timezone": "America/New_York",
+    "start_local": "Sunday 18:00:00",
+    "end_local": "next Sunday 18:00:00",
+    "week_id": "following Monday local calendar date",
+    "complete_rule": "start_utc >= first_source_tick_utc AND end_utc <= last_source_tick_utc"
+  },
+  "h1": {
+    "timezone": "UTC",
+    "bucket": "[HH:00, next HH:00)",
+    "terminal_minute_required": "HH:59:00 UTC",
+    "unqualified_if_terminal_absent": true,
+    "internal_gap_count": "count adjacent observed minute_start jumps > 60,000 ms within bucket",
+    "take_reintegration_input": "only qualified H1 bars are passed to the frozen BEPD-01C evaluator"
+  },
+  "provenance": {
+    "verify_all_61_ap0_file_sha256_before_read": true,
+    "file_binding_digest_algorithm": "sorted relative_path:sha256 joined with LF then SHA256",
+    "timezone_runtime_identity_required": true,
+    "engine_blob_in_ledgers": "050c96049f720757231136386719a40dd5653bbe",
+    "build_implementation_blob_required_in_run_manifest": true
+  },
+  "output_ordering": {
+    "LEVEL_LEDGER": [
+      "source_week_id",
+      "side"
+    ],
+    "EVENT_LEDGER": [
+      "target_week_id",
+      "take_h1_close_utc",
+      "side",
+      "source_week_id",
+      "level_id"
+    ],
+    "LEVEL_WEEK_OPPORTUNITY": [
+      "target_week_id",
+      "level_id"
+    ]
+  },
+  "fail_closed": [
+    "any AP0 file missing or digest mismatch",
+    "Git binding mismatch",
+    "exact Weekly high/low timestamp tie",
+    "duplicate deterministic ID",
+    "foreign-key inconsistency",
+    "schema field mismatch",
+    "right/left truncation leakage",
+    "post-consumption opportunity",
+    "same-week self-opportunity",
+    "non-UNKNOWN gap_cause",
+    "unexpected output pre-exists",
+    "any frozen breaker regression"
+  ],
+  "forbidden": [
+    "Occurrence Map",
+    "Response Map",
+    "Occurrence x Response analysis",
+    "context ranking",
+    "positive relation search",
+    "post-hoc filtering",
+    "parameter optimization",
+    "edge inference",
+    "strategy or PnL computation"
+  ]
+}
