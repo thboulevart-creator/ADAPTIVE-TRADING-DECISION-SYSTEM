@@ -109,8 +109,8 @@ def _make_real_cc02_spec(tmp: Path):
     dataset=DatasetIdentity(
         dataset_id=ident.dataset_id,dataset_version=ident.dataset_version,
         content_hash=ident.corpus_sha256,format=ident.format,
-        schema_version="rvo08-non-empirical-seed-v1",
-        instrument=ident.instrument,granularity="control",timezone_storage="UTC",
+        schema_version="dukascopy-bi5-v1",
+        instrument=ident.instrument,granularity="tick",timezone_storage="UTC",
     )
     context=build_context(
         dataset,configuration_version=ident.configuration_version,
