@@ -1,0 +1,21 @@
+{
+  "authorized_global_fields": {
+    "reintegration_false_count": 102,
+    "reintegration_fraction": "370/472",
+    "reintegration_share_decimal": "0.783898305084745763",
+    "reintegration_true_count": 370,
+    "total_event_count": 472
+  },
+  "deterministic_replay": "PASS",
+  "forbidden_analytics_executed": false,
+  "independent_recomputation": "PASS",
+  "m05": "BLOCKED",
+  "persisted_execution_record_blob": "b5cfe8caa21aa8dcadc70f025df16577486c0376",
+  "persisted_manifest_blob": "23c1fc0e044d7461f382d59895bb9b930481b896",
+  "persisted_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+  "rebreak_workflow_run_id": 37372011852,
+  "result_sha256": "f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b",
+  "run_id": "9a68934ddfea835380b77ef6b7bd4d2733a75079ad5921834721ff9d664cc833",
+  "schema": "ATDS_BEPD_04C_PERSISTED_HEAD_REBREAK_RECEIPT_V0_1",
+  "status": "PASS"
+}
