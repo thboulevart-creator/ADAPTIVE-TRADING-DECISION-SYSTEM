@@ -1,0 +1,57 @@
+{
+  "schema": "ATDS_AO_E0_P1_OWNER_01_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-P1-OWNER-01",
+  "verdict": "QUALIFIED_SYNTHETICALLY_PRE_EXECUTION",
+  "native_owner_id": "P1.12C.AO-E0",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "test_first": {
+    "red_commit": "b57d927fd03d97ece9dbfee698f0337fee5b0d43",
+    "red_tree": "fd3d60b73a2065a768dd8dc99f72b40acb34b6aa",
+    "workflow_run_id": 37343691257,
+    "conclusion": "EXPECTED_FAILURE",
+    "exact_failure": "MISSING_AO_E0_NATIVE_OWNER_AND_P1_12D_EXTENSION",
+    "pytest": "3 failed"
+  },
+  "green": {
+    "commit": "377db6804ad9f2eae2e2e3c31a539000917d551c",
+    "tree": "cef4eeb4bd06fc9ff116872d7f1ad125bbd3e9cf",
+    "workflow_run_id": 37344925805,
+    "conclusion": "SUCCESS",
+    "breaker": "3/3 PASS",
+    "ao_e0_owner_tests": "12/12 PASS",
+    "p1_21_regression": "18/18 PASS",
+    "p1_20_regression": "15/15 PASS",
+    "p1_18_regression": "16/16 PASS",
+    "real_ao_e0_output": "ABSENT",
+    "clean_worktree": true
+  },
+  "artifacts": {
+    "frozen_breaker_contract_blob": "b0f6b2fed7b50bcac801d2db79a45933ffe727f8",
+    "frozen_breaker_blob": "5d79a8edd37f403a72c1cec958a18a52d73780ff",
+    "red_receipt_blob": "a4b842b598a7ca36abdd915df3cb2d3a40d145f8",
+    "native_owner_contract_blob": "fee72666d07ee32b9017d3ab5f59c5265dcabc10",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "ao_e0_owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "tests_blob": "18cd6028467f5eef9aa015f25e333e99b1868262",
+    "qualification_report_blob": "a15fd8801b225a5e866d5d192604d9bf7fe51d5d"
+  },
+  "protected": {
+    "p1_12c_core_blob": "9d304202d44c8917cf640fd0b4114169968e511e",
+    "p1_12d_core_blob": "2bbc59f248d1c735fba93a35fc8c00b3ab6c7190",
+    "p1_21_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42",
+    "p1_20_receipt_blob": "610e37b1c76ad4e4dccd388b10ee7978f27c135c"
+  },
+  "authority": {
+    "real_ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b12": "CLOSED"
+  },
+  "force": false
+}

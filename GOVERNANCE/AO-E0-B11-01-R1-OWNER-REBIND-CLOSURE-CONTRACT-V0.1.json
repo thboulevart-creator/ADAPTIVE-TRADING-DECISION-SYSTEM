@@ -1,0 +1,84 @@
+{
+  "schema": "ATDS_AO_E0_B11_01_R1_OWNER_REBIND_CLOSURE_CONTRACT_V0_1",
+  "control_id": "AO-E0-B11-01-R1",
+  "status": "CLOSURE_CANDIDATE_PRE_SYNTHETIC_REBREAK",
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+  "superseded_blocker": {
+    "receipt_blob": "bc7df8796b2dcb81a2b9c89e1e660e22cdd56e48",
+    "exact_blocker": "BLOCKED_P1_CC05_NATIVE_EXECUTION_OWNER_NOT_QUALIFIED",
+    "closure_evidence": "AO-E0-P1-OWNER-01"
+  },
+  "exact_owner": {
+    "owner_id": "P1.12C.AO-E0",
+    "owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "qualification_receipt_blob": "bdcedb6d9208aa2bbbb7188e5aabf55c566a4fe5",
+    "required_verdict": "QUALIFIED_SYNTHETICALLY_PRE_EXECUTION"
+  },
+  "owner_graph": {
+    "data": {
+      "surface": "AO-E0-DT-01A",
+      "status": "BOUND",
+      "b10": "CLOSED"
+    },
+    "temporal": {
+      "surface": "AO-E0-DT-01B",
+      "status": "BOUND",
+      "b6": "CLOSED"
+    },
+    "execution_cost": {
+      "surface": "E1-04 + EXEC-04 + EXEC-05",
+      "status": "BOUND_CELL_SCOPED"
+    },
+    "p1": {
+      "surface": "P1.12C.AO-E0 → P1.12D extension → P1.13C→P1.16C",
+      "status": "BOUND_SYNTHETICALLY"
+    },
+    "smf": {
+      "surface": "AO-E0-B11-01 SMF activation matrix",
+      "status": "BOUND_PRE_RESULT"
+    },
+    "rvo": {
+      "surface": "CC05 exact route",
+      "status": "REBINDABLE_NO_AUTHORITY_CREATION"
+    }
+  },
+  "closure_rule": {
+    "exact_old_blocker_closed": true,
+    "no_new_owner_binding_blocker_required": true,
+    "b6_must_remain": "CLOSED",
+    "b10_must_remain": "CLOSED",
+    "p1_owner_must_remain": "QUALIFIED_SYNTHETICALLY_PRE_EXECUTION",
+    "smf_matrix_must_remain_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "if_all_true": "B11_CLOSED"
+  },
+  "preserved_gates": {
+    "b7": "OPEN",
+    "b8": "OPEN",
+    "b9": "OPEN",
+    "b11": "CLOSURE_CANDIDATE",
+    "b12": "CLOSED"
+  },
+  "semantics": {
+    "owner_capability_ne_owner_authority": true,
+    "p1_envelope_ne_scientific_result": true,
+    "finding_ne_strategy_qualification": true,
+    "qualification_ne_trading_authority": true,
+    "blocked_ne_not_applicable": true,
+    "blocked_ne_fail": true,
+    "unknown_ne_pass": true
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "mcepr_population": false,
+    "real_smf_execution": false,
+    "rvo_strategy_performance_qualification": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}

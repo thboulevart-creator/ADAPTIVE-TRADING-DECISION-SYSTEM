@@ -13,6 +13,9 @@ on:
       - 'breakers/ao_e0_p1_owner_01_breaker.py'
       - 'tests/test_ao_e0_p1_owner_01.py'
       - 'reports/program/*AO-E0-P1-OWNER-01*'
+      - 'GOVERNANCE/AO-E0-B11-01-R1-*'
+      - 'breakers/ao_e0_b11_01_r1_rebreak.py'
+      - 'tests/test_ao_e0_b11_01_r1_rebreak.py'
   workflow_dispatch:
 
 permissions:
@@ -50,6 +53,12 @@ jobs:
 
       - name: AO-E0 owner synthetic qualification
         run: python -m pytest -q tests/test_ao_e0_p1_owner_01.py
+
+      - name: B11 R1 exact owner-binding rebreak
+        run: python -m pytest -q breakers/ao_e0_b11_01_r1_rebreak.py
+
+      - name: B11 R1 closure tests
+        run: python -m pytest -q tests/test_ao_e0_b11_01_r1_rebreak.py
 
       - name: Protected P1-21 regression
         run: python -m pytest -q tests/test_p1_21_real_producer_capability.py
