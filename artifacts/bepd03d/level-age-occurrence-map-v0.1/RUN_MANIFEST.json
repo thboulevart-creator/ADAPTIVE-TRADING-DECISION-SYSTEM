@@ -1,0 +1,34 @@
+{
+  "schema": "ATDS_BEPD_03D_LEVEL_AGE_OCCURRENCE_MAP_RUN_MANIFEST_V0_1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "4a9f7410cfa9407ce5c730ef6894ec4c31853176",
+  "tree": "be9c3535103d01b6484ee3f2698dc65625ea7803",
+  "run_id": "85391ee64b2565de90fe953680f5c386a6f979415ccae56019ef03d07ab9df45",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "input_git_blobs": {
+    "LEVEL_WEEK_OPPORTUNITY": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "BEPD03B_RESULT": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "BEPD03B_RUN_MANIFEST": "98abfece6796ecfb355714c31bcf0126a28729c9",
+    "BEPD03C_RESULT": "809fa76f82bbbe0311a6c538378eed2a22c77fe0",
+    "BEPD03C_RUN_MANIFEST": "02acd5a81808119c9bb3896f4be34ca977eb3839",
+    "BEPD02_RUN_MANIFEST": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "policy_git_blobs": {
+    "BEPD03D_AUTHORIZATION": "4bbcc78cf8e74bcb5fcd96bc51b60921ed82e2b0",
+    "BEPD03D_IMPLEMENTATION_CONTRACT": "ee9464c167954367591654514c7cb0596be7340b",
+    "BEPD03A_DIMENSIONS": "b7ec6a00e3d2281217c30e11d21527b5ce72aef6",
+    "BEPD03A_MEASUREMENT_CONTRACT": "e117ddea324dd1b6906bc9eadcf8a5806b8b591a",
+    "BEPD03A_M05_ACTIVATION": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "BEPD03A_ADJUDICATION": "b796fd69a9b40c0397cc89db5be755d59974b1fe"
+  },
+  "calculator_blob": "d3cbad6e744fd9a6029561824a9618c2751de4a7",
+  "output_files": [
+    {
+      "relative_path": "artifacts/bepd03d/level-age-occurrence-map-v0.1/RESULT.json",
+      "sha256": "32240c4c9fc633ec60434c020673ad0a35d3ebeb0f5874aea00622c6600232d3",
+      "size_bytes": 3727
+    }
+  ],
+  "forbidden_analytics_executed": false
+}

@@ -1,0 +1,109 @@
+{
+  "schema": "ATDS_BEPD_03D_LEVEL_AGE_OCCURRENCE_MAP_RESULT_V0_1",
+  "interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_AGE_HETEROGENEITY",
+  "run_id": "85391ee64b2565de90fe953680f5c386a6f979415ccae56019ef03d07ab9df45",
+  "source_bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "baseline_reference": {
+    "source_result_blob": "a2d083b67415b6cb8aa92395d702d1ab558dd4c1",
+    "eligible_target_week_count": 259,
+    "unique_level_count": 518,
+    "opportunity_count": 7213,
+    "event_count": 472,
+    "occurrence_fraction": "472/7213",
+    "occurrence_proportion_decimal": "0.065437404685983641"
+  },
+  "calendar_reference_identity": {
+    "source_result_blob": "809fa76f82bbbe0311a6c538378eed2a22c77fe0",
+    "use": "IDENTITY_ONLY_NOT_CROSSED_WITH_AGE"
+  },
+  "dependence_statement": "OPPORTUNITY ROW != IID OBSERVATION; dependence_key=target_week_id; multiple active levels in one target week are structurally dependent; same level across multiple target weeks is a temporal repeated measure",
+  "m05_generalization_uncertainty": "BLOCKED",
+  "dimension": {
+    "dimension_id": "V05_LEVEL_AGE_BAND",
+    "category_order": [
+      "AGE_1",
+      "AGE_2",
+      "AGE_3_4",
+      "AGE_5_8",
+      "AGE_9_16",
+      "AGE_17_32",
+      "AGE_33_64",
+      "AGE_65_PLUS"
+    ],
+    "cells": [
+      {
+        "category": "AGE_1",
+        "eligible_target_week_count": 259,
+        "unique_level_count": 518,
+        "opportunity_count": 518,
+        "event_count": 255,
+        "occurrence_fraction": "255/518",
+        "occurrence_proportion_decimal": "0.492277992277992278"
+      },
+      {
+        "category": "AGE_2",
+        "eligible_target_week_count": 233,
+        "unique_level_count": 261,
+        "opportunity_count": 261,
+        "event_count": 53,
+        "occurrence_fraction": "53/261",
+        "occurrence_proportion_decimal": "0.203065134099616858"
+      },
+      {
+        "category": "AGE_3_4",
+        "eligible_target_week_count": 228,
+        "unique_level_count": 207,
+        "opportunity_count": 381,
+        "event_count": 49,
+        "occurrence_fraction": "49/381",
+        "occurrence_proportion_decimal": "0.128608923884514436"
+      },
+      {
+        "category": "AGE_5_8",
+        "eligible_target_week_count": 233,
+        "unique_level_count": 156,
+        "opportunity_count": 546,
+        "event_count": 43,
+        "occurrence_fraction": "43/546",
+        "occurrence_proportion_decimal": "0.078754578754578755"
+      },
+      {
+        "category": "AGE_9_16",
+        "eligible_target_week_count": 218,
+        "unique_level_count": 110,
+        "opportunity_count": 754,
+        "event_count": 33,
+        "occurrence_fraction": "33/754",
+        "occurrence_proportion_decimal": "0.043766578249336870"
+      },
+      {
+        "category": "AGE_17_32",
+        "eligible_target_week_count": 209,
+        "unique_level_count": 77,
+        "opportunity_count": 1065,
+        "event_count": 20,
+        "occurrence_fraction": "20/1065",
+        "occurrence_proportion_decimal": "0.018779342723004695"
+      },
+      {
+        "category": "AGE_33_64",
+        "eligible_target_week_count": 176,
+        "unique_level_count": 57,
+        "opportunity_count": 1415,
+        "event_count": 12,
+        "occurrence_fraction": "12/1415",
+        "occurrence_proportion_decimal": "0.008480565371024735"
+      },
+      {
+        "category": "AGE_65_PLUS",
+        "eligible_target_week_count": 168,
+        "unique_level_count": 30,
+        "opportunity_count": 2273,
+        "event_count": 7,
+        "occurrence_fraction": "7/2273",
+        "occurrence_proportion_decimal": "0.003079630444346678"
+      }
+    ]
+  },
+  "forbidden_analytics_executed": false
+}
