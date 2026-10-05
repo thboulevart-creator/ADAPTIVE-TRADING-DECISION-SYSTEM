@@ -1,0 +1,72 @@
+name: AO-E0 B7 MCEPR Pilot Replay
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'reports/program/evidence/cross-experiment-provenance-registry/segments/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  replay:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Verify frozen MCEPR identities
+        run: |
+          test "$(git hash-object src/mcepr_registry.py)" = "e5d5e2bace6a352c01f68cab77bea23b55b293b8"
+          test "$(git hash-object GOVERNANCE/MCEPR-ACTIVATION-CONTRACT-V0.2.json)" = "532da50bb1e72341d3b7126aa0d3f08568c01e78"
+          test "$(git hash-object reports/program/evidence/cross-experiment-provenance-registry/MCEPR-FORWARD-CUTOVER-V0.1.json)" = "2e2528e908ffefaa4451fe9b41ca639943d2415d"
+
+      - name: Full-chain replay
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          from datetime import datetime, timezone
+          from src.mcepr_registry import validate_registry_files
+
+          root=Path("reports/program/evidence/cross-experiment-provenance-registry/segments")
+          files=sorted(root.glob("RGS-*.json"))
+          unknown=[p.name for p in root.iterdir() if p.is_file() and p not in files]
+          if unknown:
+              raise SystemExit("UNKNOWN_FILE_IN_SEGMENT_ROOT:"+",".join(unknown))
+          if not files:
+              raise SystemExit("NO_SEGMENTS")
+
+          def resolver(ref):
+              kind,sha=ref.split(":",1)
+              if kind=="git_blob":
+                  return subprocess.run(["git","cat-file","-e",sha+"^{blob}"],capture_output=True).returncode==0
+              if kind=="git_commit":
+                  return subprocess.run(["git","cat-file","-e",sha+"^{commit}"],capture_output=True).returncode==0
+              return False
+
+          raw={p.name:p.read_bytes() for p in files}
+          result=validate_registry_files(raw,git_resolver=resolver,adjudication_basis_allowlist=set())
+          cut=datetime.fromisoformat("2026-10-02T17:19:21+00:00")
+          events=0
+          for p in files:
+              seg=json.loads(p.read_text())
+              if seg["relations"] != []:
+                  raise SystemExit("RELATION_FRONTIER_VIOLATION")
+              for event in seg["events"]:
+                  t=datetime.fromisoformat(event["event_core"]["occurred_at_utc"].replace("Z","+00:00"))
+                  if not t>cut:
+                      raise SystemExit("CUTOVER_VIOLATION")
+                  events+=1
+          print("PASS",result["head_ref"],"events",events,"segments",len(files))
+          PY
