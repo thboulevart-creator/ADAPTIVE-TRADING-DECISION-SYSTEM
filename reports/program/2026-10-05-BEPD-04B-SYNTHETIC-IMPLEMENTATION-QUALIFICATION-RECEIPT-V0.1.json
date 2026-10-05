@@ -1,0 +1,89 @@
+{
+  "schema": "ATDS_BEPD_04B_SYNTHETIC_IMPLEMENTATION_QUALIFICATION_RECEIPT_V0_1",
+  "status": "IMPLEMENTATION_QUALIFIED_SYNTHETIC_CONTROLLED_ONLY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_execution_head": "a71a39ac0941239089d0741e7df6499b13388f03",
+  "qualification_execution_tree": "62a2931f80b3a11338361f7d69017879f20ac014",
+  "bindings": {
+    "implementation_contract": "9eae42882e76f1e18dde46cc63d0b7fdf4a1e682",
+    "synthetic_expectations": "a1b7cd0e5fa40d19468dc031d5f02dfb1b5ba9db",
+    "tests": "e35ac8abbc6efd0a022450b97b75c9b8a4436947",
+    "red_receipt": "7ea17de9dc1df3e25c82b1a38d3bc212080d442b",
+    "calculator": "d796cd198ad01498491ee2dbe44a7f5e4c42681e",
+    "executable_breaker": "53587218b92311906e8767ebccfe84147987862f",
+    "bepd04a_semantics": "796bcaec05eb36234074ba4ea871afcd6f784915",
+    "bepd04a_breaker_contract": "dce13d0b5b31c189aa71fe3642d5d2829a66da06",
+    "bepd04a_qualification": "43f7b53827a4422d8af1ee625991db8098b1b9d8",
+    "m05": "53d33074038fa9d971b4672b1d981589da020a1e"
+  },
+  "test_first_red": {
+    "receipt_blob": "7ea17de9dc1df3e25c82b1a38d3bc212080d442b",
+    "marker": "BEPD04B_RUNTIME_ABSENT_EXPECTED_RED",
+    "implementation_present_at_red": false
+  },
+  "synthetic_qualification": {
+    "unittest": {
+      "command": "python -m unittest tests/test_bepd_04b_same_week_reintegration_response_v0_1.py",
+      "tests_passed": 14,
+      "tests_failed": 0
+    },
+    "executable_breaker": {
+      "command": "python breakers/bepd_04b_same_week_reintegration_response_breaker_v0_1.py --root .",
+      "cases_total": 20,
+      "hard_fail_observed": 20,
+      "failed": 0,
+      "status_marker": "BEPD04B_EXECUTABLE_BREAKER_PASS"
+    },
+    "deterministic_replay": {
+      "pass": true,
+      "synthetic_result_sha256": "f616435e37dac5fd0f210bf95f68b7552ab6680767aa41e2fd9f520d10c6b888"
+    },
+    "output_contamination": {
+      "exit_code": 1,
+      "marker": "BEPD04B_RESPONSE_CALCULATOR_FAIL:OUTPUT_CONTAMINATION",
+      "pass": true
+    },
+    "real_scope_without_separate_authority": {
+      "exit_code": 1,
+      "marker": "BEPD04B_RESPONSE_CALCULATOR_FAIL:UNAUTHORIZED_EXECUTION_SCOPE:real_authority_missing",
+      "pass": true
+    }
+  },
+  "persisted_head_rebreak": {
+    "head": "a71a39ac0941239089d0741e7df6499b13388f03",
+    "tree": "62a2931f80b3a11338361f7d69017879f20ac014",
+    "artifact_blobs_exact": true,
+    "unittest_pass": true,
+    "executable_breaker_pass": true,
+    "deterministic_replay_pass": true
+  },
+  "authority": {
+    "real_event_ledger_rows_consumed": false,
+    "real_event_ledger_execution": false,
+    "real_response_calculation": false,
+    "real_reintegration_count_exposed": false,
+    "real_reintegration_share_exposed": false,
+    "real_response_result_persisted": false,
+    "m05_activation": false,
+    "inference": false,
+    "predictive": false,
+    "causal": false,
+    "edge": false,
+    "strategy": false,
+    "backtest": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false,
+    "bepd04c": false
+  },
+  "verdict": {
+    "bepd04b": "IMPLEMENTATION_QUALIFIED",
+    "response_calculator": "QUALIFIED_ON_SYNTHETIC_CONTROLLED_INPUTS",
+    "executable_adversarial_breaker": "QUALIFIED",
+    "hard_break_cases": "20/20 PASS",
+    "m05": "BLOCKED",
+    "real_response": "NOT_EXECUTED_NOT_EXPOSED",
+    "next_step": "DISTINCT_HUMAN_AUTHORIZATION_REQUIRED"
+  }
+}
