@@ -1,0 +1,68 @@
+{
+  "schema": "ATDS_OBSIDIAN_REAL_P5E_RPE03_V02_BF1_PRIME_EXECUTABLE_IDENTITY_CLOSURE_V0_1",
+  "status": "PREREGISTERED_BEFORE_RED",
+  "date": "2026-10-05",
+  "base": {
+    "rpe03_v02_packet_head": "a6a10b2f4303afac01ddc5d6bca36a9b32d7913a",
+    "external_review_adjudication_head": "96783f48cd1206432a46044c0e9ce35f040be602",
+    "rpe03_v02_classifier_blob": "65aec74ae089f51786f85a9742ea0a7ac2fdbe38",
+    "rpe03_v01_classifier_blob": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11",
+    "rpe01_guard_blob": "26f977961d72a062199d71ffd628d5a5cc047887"
+  },
+  "governed_identity": {
+    "absolute_git_path": "C:\\Program Files\\Git\\cmd\\git.exe",
+    "sha256": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5",
+    "observed_version": "git version 2.54.0.windows.1",
+    "minimum_version": "2.54.0"
+  },
+  "normative_flow": [
+    "RAW_CALLER_STRING",
+    "REQUIRE_ABSOLUTE",
+    "STRICT_RESOLVE",
+    "EXACT_CANONICAL_PATH_EQUALITY",
+    "SHA256_VERIFY",
+    "EXACT_VERSION_VERIFY",
+    "MINIMUM_VERSION_VERIFY",
+    "VERIFIED_CANONICAL_GIT_EXECUTABLE",
+    "ALL_GIT_SUBPROCESSES_USE_VERIFIED_CANONICAL_GIT_EXECUTABLE"
+  ],
+  "rejection": {
+    "non_absolute_values": [
+      "git",
+      "git.exe",
+      ".\\git.exe",
+      "relative\\git.exe"
+    ],
+    "result": "UNKNOWN",
+    "raw_string_execution_after_verification_forbidden": true
+  },
+  "required_tests": [
+    "bare git.exe rejected before classification",
+    "relative dot git.exe rejected before classification",
+    "relative nested git.exe rejected before classification",
+    "verified canonical path is exactly subprocess argv zero",
+    "raw caller string execution mutant is killed",
+    "sha mismatch fails closed",
+    "exact version mismatch fails closed",
+    "minimum version failure fails closed",
+    "Windows positive sentinel proves implicit search can execute fake git",
+    "Windows final candidate leaves sentinel absent",
+    "RPE03 V0.1 protected regression",
+    "RPE03 V0.2 regression",
+    "RPE04 compatibility harness"
+  ],
+  "threat_model": {
+    "privileged_program_files_binary_replacement_between_verify_and_execute": "OUT_OF_SCOPE_NON_BLOCKING_TOCTOU_NOTE",
+    "full_git_for_windows_helper_chain_qualified": false
+  },
+  "authority": {
+    "rpe03_v02_human_adoption_authorized": false,
+    "rpe04_functional_rebind_authorized": false,
+    "rpe04_nf2_authorized": false,
+    "rpe04_nf3_authorized": false,
+    "rpe05_authorized": false,
+    "rpe06_authorized": false,
+    "real_p5e_authorized": false
+  },
+  "stop": "EXTERNAL_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+}

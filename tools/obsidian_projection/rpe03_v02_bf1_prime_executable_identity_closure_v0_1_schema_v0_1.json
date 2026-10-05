@@ -1,0 +1,221 @@
+{
+  "schema": "ATDS_GOVERNED_JSON_SCHEMA_V0_1",
+  "artifact_role": "RPE03_V02_BF1_PRIME_EXECUTABLE_IDENTITY_CLOSURE",
+  "root": {
+    "kind": "object",
+    "fields": {
+      "schema": {
+        "kind": "string",
+        "const": "ATDS_OBSIDIAN_REAL_P5E_RPE03_V02_BF1_PRIME_EXECUTABLE_IDENTITY_CLOSURE_V0_1"
+      },
+      "status": {
+        "kind": "string",
+        "const": "PREREGISTERED_BEFORE_RED"
+      },
+      "date": {
+        "kind": "string",
+        "const": "2026-10-05"
+      },
+      "base": {
+        "kind": "object",
+        "fields": {
+          "rpe03_v02_packet_head": {
+            "kind": "string",
+            "const": "a6a10b2f4303afac01ddc5d6bca36a9b32d7913a"
+          },
+          "external_review_adjudication_head": {
+            "kind": "string",
+            "const": "96783f48cd1206432a46044c0e9ce35f040be602"
+          },
+          "rpe03_v02_classifier_blob": {
+            "kind": "string",
+            "const": "65aec74ae089f51786f85a9742ea0a7ac2fdbe38"
+          },
+          "rpe03_v01_classifier_blob": {
+            "kind": "string",
+            "const": "145b3112fd9309cc34d95a62c091cb6a6bc3bb11"
+          },
+          "rpe01_guard_blob": {
+            "kind": "string",
+            "const": "26f977961d72a062199d71ffd628d5a5cc047887"
+          }
+        }
+      },
+      "governed_identity": {
+        "kind": "object",
+        "fields": {
+          "absolute_git_path": {
+            "kind": "string",
+            "const": "C:\\Program Files\\Git\\cmd\\git.exe"
+          },
+          "sha256": {
+            "kind": "string",
+            "const": "81ef35ae005ca9318018d18e3327578ce939fb99feaad6b2d7c8ab15f3de8db5"
+          },
+          "observed_version": {
+            "kind": "string",
+            "const": "git version 2.54.0.windows.1"
+          },
+          "minimum_version": {
+            "kind": "string",
+            "const": "2.54.0"
+          }
+        }
+      },
+      "normative_flow": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 9,
+        "max_items": 9,
+        "unique": true,
+        "ordered_const": [
+          "RAW_CALLER_STRING",
+          "REQUIRE_ABSOLUTE",
+          "STRICT_RESOLVE",
+          "EXACT_CANONICAL_PATH_EQUALITY",
+          "SHA256_VERIFY",
+          "EXACT_VERSION_VERIFY",
+          "MINIMUM_VERSION_VERIFY",
+          "VERIFIED_CANONICAL_GIT_EXECUTABLE",
+          "ALL_GIT_SUBPROCESSES_USE_VERIFIED_CANONICAL_GIT_EXECUTABLE"
+        ],
+        "allowed_values": [
+          "RAW_CALLER_STRING",
+          "REQUIRE_ABSOLUTE",
+          "STRICT_RESOLVE",
+          "EXACT_CANONICAL_PATH_EQUALITY",
+          "SHA256_VERIFY",
+          "EXACT_VERSION_VERIFY",
+          "MINIMUM_VERSION_VERIFY",
+          "VERIFIED_CANONICAL_GIT_EXECUTABLE",
+          "ALL_GIT_SUBPROCESSES_USE_VERIFIED_CANONICAL_GIT_EXECUTABLE"
+        ]
+      },
+      "rejection": {
+        "kind": "object",
+        "fields": {
+          "non_absolute_values": {
+            "kind": "array",
+            "items": {
+              "kind": "string"
+            },
+            "min_items": 4,
+            "max_items": 4,
+            "unique": true,
+            "ordered_const": [
+              "git",
+              "git.exe",
+              ".\\git.exe",
+              "relative\\git.exe"
+            ],
+            "allowed_values": [
+              "git",
+              "git.exe",
+              ".\\git.exe",
+              "relative\\git.exe"
+            ]
+          },
+          "result": {
+            "kind": "string",
+            "const": "UNKNOWN"
+          },
+          "raw_string_execution_after_verification_forbidden": {
+            "kind": "boolean",
+            "const": true
+          }
+        }
+      },
+      "required_tests": {
+        "kind": "array",
+        "items": {
+          "kind": "string"
+        },
+        "min_items": 13,
+        "max_items": 13,
+        "unique": true,
+        "ordered_const": [
+          "bare git.exe rejected before classification",
+          "relative dot git.exe rejected before classification",
+          "relative nested git.exe rejected before classification",
+          "verified canonical path is exactly subprocess argv zero",
+          "raw caller string execution mutant is killed",
+          "sha mismatch fails closed",
+          "exact version mismatch fails closed",
+          "minimum version failure fails closed",
+          "Windows positive sentinel proves implicit search can execute fake git",
+          "Windows final candidate leaves sentinel absent",
+          "RPE03 V0.1 protected regression",
+          "RPE03 V0.2 regression",
+          "RPE04 compatibility harness"
+        ],
+        "allowed_values": [
+          "bare git.exe rejected before classification",
+          "relative dot git.exe rejected before classification",
+          "relative nested git.exe rejected before classification",
+          "verified canonical path is exactly subprocess argv zero",
+          "raw caller string execution mutant is killed",
+          "sha mismatch fails closed",
+          "exact version mismatch fails closed",
+          "minimum version failure fails closed",
+          "Windows positive sentinel proves implicit search can execute fake git",
+          "Windows final candidate leaves sentinel absent",
+          "RPE03 V0.1 protected regression",
+          "RPE03 V0.2 regression",
+          "RPE04 compatibility harness"
+        ]
+      },
+      "threat_model": {
+        "kind": "object",
+        "fields": {
+          "privileged_program_files_binary_replacement_between_verify_and_execute": {
+            "kind": "string",
+            "const": "OUT_OF_SCOPE_NON_BLOCKING_TOCTOU_NOTE"
+          },
+          "full_git_for_windows_helper_chain_qualified": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "authority": {
+        "kind": "object",
+        "fields": {
+          "rpe03_v02_human_adoption_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe04_functional_rebind_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe04_nf2_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe04_nf3_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe05_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "rpe06_authorized": {
+            "kind": "boolean",
+            "const": false
+          },
+          "real_p5e_authorized": {
+            "kind": "boolean",
+            "const": false
+          }
+        }
+      },
+      "stop": {
+        "kind": "string",
+        "const": "EXTERNAL_DELTA_REVIEW_PACKET_THEN_HUMAN_ADOPTION_GATE"
+      }
+    }
+  }
+}
