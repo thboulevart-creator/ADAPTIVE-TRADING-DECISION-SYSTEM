@@ -1,0 +1,9 @@
+{
+  "schema": "ATDS_AO_E0_DT_01_TEST_FIRST_RED_RECEIPT_V0_1",
+  "control_id": "AO-E0-DT-01",
+  "result": "EXPECTED_RED",
+  "red_return_code": 1,
+  "reason": "DT-01A and DT-01B runtimes intentionally absent before implementation",
+  "oos_consumed": false,
+  "performance_accessed": false
+}

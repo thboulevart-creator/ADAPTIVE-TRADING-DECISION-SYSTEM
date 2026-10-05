@@ -1,0 +1,67 @@
+{
+  "schema": "ATDS_AO_E0_DT_01B_E1_SCOPED_MINIMAL_PIT_ADMISSIBILITY_CONTRACT_V0_1",
+  "control_id": "AO-E0-DT-01B",
+  "status": "HUMAN_AUTHORIZED_QUALIFICATION_SURFACE",
+  "scope": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "temporal_mode": "E1_REPLAY_POINT_IN_TIME",
+    "generic_temporal_contract_promoted": false
+  },
+  "decision_clock": {
+    "timezone": "UTC",
+    "decision_time_rule": "SIGNAL_H1_END_MS",
+    "signal_h1_end_rule": "h1_start_ms_utc + 3600000",
+    "execution_search_start": "SIGNAL_H1_END_MS_INCLUSIVE"
+  },
+  "signal_information_set": {
+    "current_h1": "COMPLETED_AT_DECISION_BOUNDARY",
+    "lookback": "T_MINUS_20_COMPLETED_ADMISSIBLE_H1_WITHIN_SAME_CONTINUITY_BLOCK",
+    "future_h1_use": "FORBIDDEN",
+    "cross_continuity_lookback": "FORBIDDEN",
+    "future_aware_transformation": "FORBIDDEN"
+  },
+  "execution_temporal_rules": {
+    "raw_execution_tick_before_decision_time": "FORBIDDEN",
+    "same_bar_execution": "FORBIDDEN",
+    "past_price_forward_fill": "FORBIDDEN",
+    "future_bid_ask_used_for_signal": "FORBIDDEN",
+    "no_admissible_post_decision_tick": "NOT_EXECUTED"
+  },
+  "replay_availability_semantics": {
+    "market_event_timestamp_can_bound_replay_availability_only_for": "IMMUTABLE_MARKET_OBSERVATION_FIELDS_USED_CAUSALLY_WITHOUT_FUTURE_DERIVATION",
+    "dataset_acquisition_time_is_historical_live_availability_proof": false,
+    "market_timestamp_is_generic_knowledge_availability_proof": false,
+    "execution_timestamp_is_knowledge_timestamp": false,
+    "pit_safe_under_declared_e1_replay_model_is_live_feed_equivalence": false,
+    "pit_safe_is_full_broker_execution_realism": false,
+    "pit_safe_is_historical_vt_markets_tradability_proof": false
+  },
+  "oos_boundary_rule": {
+    "pre_oos_history_for_first_oos_signal": "ALLOWED_IF_TIMESTAMP_LT_DECISION_AND_SAME_CONTINUITY_BLOCK_AND_RESEARCH_FREEZES_PRE_RESULT",
+    "oos_boundary_resets_warmup": false
+  },
+  "unknown_rule": "UNKNOWN_ESSENTIAL_TEMPORAL_PREDICATE_FAILS_CLOSED",
+  "bound_existing_e1": {
+    "e1_03_contract_blob": "c2d4323039d65fcd9319d4f5eb02f45ee27c8afc",
+    "e1_03_runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+    "e1_04_contract_blob": "cf07f1400af614fa53fe41afe8a40e412d28c87d",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "e1_05_contract_blob": "51dc1152808ec9e841924976eac572cc4ec2ff93",
+    "e1_05_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6",
+    "e1_07_contract_blob": "b19f9b5a4505f50d77f1cbd09b2b6381241b5205"
+  },
+  "research_freeze_dependencies": {
+    "cell01_human_adoption_blob": "615681aa586ef92a34d0fa1757ceed8972404319",
+    "b4_delta_min_freeze_blob": "8cf494fcfffe0575d3e2a0fe887e2f524a3eb304",
+    "exec04_policy_blob": "52b849c46d0a5cf45b261fd16e34edab44489572",
+    "exec05_contract_blob": "ca292ce2efde127bd7ab5f8efb160a98fa73f900"
+  },
+  "authority": {
+    "generic_temporal_authority": false,
+    "rvo_authority": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "broker_execution": false
+  }
+}

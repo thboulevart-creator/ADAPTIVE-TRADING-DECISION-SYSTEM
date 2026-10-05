@@ -1,0 +1,25 @@
+{
+  "schema": "ATDS_AO_E0_DT_01C_B6_B10_JOINT_CLOSURE_CONTRACT_V0_1",
+  "control_id": "AO-E0-DT-01C",
+  "status": "HUMAN_AUTHORIZED_JOINT_REBREAK",
+  "closure_rule": {
+    "b10": "CLOSED_ONLY_IF_DT01A_QUALIFIED_CANDIDATE_AND_EXACT_EVIDENCE_IDENTITIES_PERSIST",
+    "b6": "CLOSED_ONLY_IF_DT01B_QUALIFIED_CANDIDATE_AND_EXACT_E1_TEMPORAL_BINDINGS_PERSIST",
+    "joint": "B6_AND_B10_CLOSED_ONLY_IF_BOTH_PASS"
+  },
+  "non_transfer": {
+    "data_pass_implies_temporal_pass": false,
+    "temporal_pass_implies_data_pass": false,
+    "b6_b10_closure_implies_b11": false,
+    "b6_b10_closure_implies_oos_authority": false
+  },
+  "authority": {
+    "b11_modified": false,
+    "rvo_requalification_authorized": false,
+    "mcepr_population_authorized": false,
+    "ao_e0_execution_authorized": false,
+    "oos_consumption_authorized": false,
+    "performance_observation_authorized": false,
+    "b12": "CLOSED"
+  }
+}

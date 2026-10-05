@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_AO_E0_DT_01_B6_B10_CLOSURE_RECEIPT_V0_1",
+  "control_id": "AO-E0-DT-01",
+  "parent": {
+    "head": "93d2e343f7e8b6f289b0fe45b5c417534d6e9f6c",
+    "tree": "18323a4b478f975d71301ce53a795532e58fabe9"
+  },
+  "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+  "qualification": {
+    "dt01a": "PASS_WITHIN_EXACT_SCOPE",
+    "dt01b": "PASS_WITHIN_EXACT_SCOPE",
+    "test_first_red": "EXPECTED",
+    "breaker": "PASS",
+    "pytest": "9/9 PASS"
+  },
+  "artifacts": {
+    "dt01a_contract_blob": "66759f93ad019e18fd00c871bd1737293070b1a8",
+    "dt01a_runtime_blob": "1c962c15d5b6c75f4ce8ec3c96a3593a38231507",
+    "dt01b_contract_blob": "b312981ae8cba905c50db657ba0217addf296548",
+    "dt01b_runtime_blob": "f0c8d92634e111a8c5ce27c239f5c77a5af68496",
+    "dt01c_contract_blob": "e631620517d91fbf0978397c9fadb8af00301e32",
+    "breaker_blob": "c769f228fe5f8856db2fdf0c59aeeb3b38359501",
+    "tests_blob": "2d339b1b6cc0b2a7e2af6cccf7b24a8cbb697832",
+    "red_receipt_blob": "ecf81a0706e157b04b95f621f42b1b903d656b17",
+    "qualification_report_blob": "24f43021815656ecdb6ad896938e8e4809a9807c"
+  },
+  "closures": {
+    "b10": "CLOSED",
+    "b6": "CLOSED",
+    "b11": "NOT_MODIFIED",
+    "b12": "CLOSED"
+  },
+  "separations": {
+    "data_pass_implies_temporal_pass": false,
+    "temporal_pass_implies_data_pass": false,
+    "pit_safe_implies_live_feed_equivalence": false,
+    "pit_safe_implies_full_broker_realism": false,
+    "pit_safe_implies_historical_vt_tradability": false,
+    "cc02_pass_transferred_to_cc05": false
+  },
+  "authority": {
+    "rvo_requalification_authorized": false,
+    "mcepr_population_authorized": false,
+    "ao_e0_execution_authorized": false,
+    "oos_consumption_authorized": false,
+    "performance_observation_authorized": false,
+    "broker_execution_authorized": false
+  },
+  "force": false
+}

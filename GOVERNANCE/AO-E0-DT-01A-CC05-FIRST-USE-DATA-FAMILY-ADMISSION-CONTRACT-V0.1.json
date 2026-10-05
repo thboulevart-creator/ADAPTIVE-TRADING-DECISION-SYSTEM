@@ -1,0 +1,80 @@
+{
+  "schema": "ATDS_AO_E0_DT_01A_CC05_FIRST_USE_DATA_FAMILY_ADMISSION_CONTRACT_V0_1",
+  "control_id": "AO-E0-DT-01A",
+  "status": "HUMAN_AUTHORIZED_QUALIFICATION_SURFACE",
+  "scope": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "consumer": "AO-E0 / MOMENTUM_V1 / USTECH / H1",
+    "universal_data_sufficiency_claim": false
+  },
+  "ownership": {
+    "data_authority": "CLAIM_SCOPED_IDENTITY_ADMISSIBILITY_PROVENANCE_ONLY",
+    "temporal_authority": false,
+    "scientific_authority": false,
+    "rvo_authority": false,
+    "trading_authority": false
+  },
+  "first_use_data_family": {
+    "raw_execution_source": {
+      "dataset_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+      "role": "RAW_BID_ASK_EXECUTION_INPUT_UNDER_E1_04_ONLY",
+      "data_truth_closure_blob": "62e9bd1e0892dab7273eed35c8704a9e05611112",
+      "public_provenance_blob": "c3b74951d8c774bd761b5295c082ba3dfe8589cf",
+      "manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+      "inventory_digest": "5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf",
+      "row_count": 376003618,
+      "permitted_fields": ["timestamp", "bid_price", "ask_price"],
+      "source_b_feed_equals_vt_execution_feed": false,
+      "native_dukascopy_tick_equivalence_claimed": false
+    },
+    "ap0_parent": {
+      "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "role": "DETERMINISTIC_PARENT_FOR_E1_03_H1_DERIVATION",
+      "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "files": 61,
+      "rows": 1709180,
+      "source_ticks": 376003618,
+      "file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+      "schema_identity": "5c5f5302891567b62024c718d4e7700b766d1ace8f3e40f7a0a29cee6b93bf88",
+      "data02_qualification_blob": "0c2a66b2e59e19daaaeda41f3e1c981a0effac03",
+      "data02_receipt_blob": "d5cca198fc88eb76678bd33faa7ebd1cdd1b3976",
+      "data02_cc02_status": "REUSED_AS_IDENTITY_INTEGRITY_EVIDENCE_ONLY_NOT_TRANSFERRED_AS_CC05_QUALIFICATION"
+    },
+    "h1_signal_source": {
+      "dataset_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+      "role": "MOMENTUM_V1_SIGNAL_INPUT_ONLY",
+      "e1_03_contract_blob": "c2d4323039d65fcd9319d4f5eb02f45ee27c8afc",
+      "e1_03_runtime_blob": "38d481755e00ce3c2ed9c66c4db710500ca0911a",
+      "e1_03_real_qualification_blob": "534233d63a01c42c6b4de8979cca8dcb2feb7bc7",
+      "canonical_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+      "qualification_result_sha256": "3a96ac264f23b7c1f14de69dbe0444af5b25265b7a61d5e233479a4b581e6425",
+      "jsonl_sha256": "94ccb7c78e2e21cb3baa2dfe0945e7b39e20f74300c3c72addb89135d5af1ca0"
+    }
+  },
+  "lineage": [
+    "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1"
+  ],
+  "usage_envelope": {
+    "raw_source": "BID_ASK_EXECUTION_INPUT_ONLY",
+    "ap0": "PARENT_LINEAGE_ONLY",
+    "h1": "MOMENTUM_SIGNAL_INPUT_ONLY",
+    "mid_as_execution_price": false,
+    "bid_ask_volume_as_traded_volume": false,
+    "result_or_performance_computation": false,
+    "oos_consumption": false
+  },
+  "invariants": [
+    "SOURCE_B_FEED_NE_VT_MARKETS_EXECUTION_FEED",
+    "SOURCE_B_PROVENANCE_NE_NATIVE_DUKASCOPY_TICK_EQUIVALENCE",
+    "DATA_IDENTITY_NE_TEMPORAL_ADMISSIBILITY",
+    "DATA_PASS_NE_CC05_SCIENTIFIC_SUPPORT",
+    "DATA02_CC02_PASS_NE_CC05_PASS"
+  ],
+  "verdict_rule": {
+    "all_exact_identities_and_usage_roles_match": "B10_CANDIDATE_PASS",
+    "any_material_mismatch": "BLOCKED"
+  }
+}
