@@ -1,0 +1,39 @@
+{
+  "bindings": {
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+    "bepd02_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "bepd04a_qualification_blob": "43f7b53827a4422d8af1ee625991db8098b1b9d8",
+    "bepd04a_semantics_blob": "796bcaec05eb36234074ba4ea871afcd6f784915",
+    "bepd04b_calculator_blob": "d796cd198ad01498491ee2dbe44a7f5e4c42681e",
+    "bepd04b_executable_breaker_blob": "53587218b92311906e8767ebccfe84147987862f",
+    "bepd04b_implementation_contract_blob": "9eae42882e76f1e18dde46cc63d0b7fdf4a1e682",
+    "bepd04b_qualification_receipt_blob": "63ccfd912fb916c4547b02da0940a5b5e5557fa2",
+    "bepd04b_qualification_report_blob": "252441db70a42a1a4317cd4432d7049f6c9f9707",
+    "bepd04c_freeze_blob": "7c2c04c7fb3374d0dbdf7ba184c79624f8ba91a2"
+  },
+  "branch": "integration/system-v1",
+  "execution_head": "c9aaf7816770e26328879ff3664aadca3ebf9ae3",
+  "execution_scope": "REAL_AUTHORIZED",
+  "execution_tree": "c22bbbf73314d6c8d0142d355d5859e9f1324b64",
+  "forbidden_analytics_executed": false,
+  "independent_recomputation": {
+    "authorized_global_fields": {
+      "reintegration_false_count": 102,
+      "reintegration_fraction": "370/472",
+      "reintegration_share_decimal": "0.783898305084745763",
+      "reintegration_true_count": 370,
+      "total_event_count": 472
+    },
+    "status": "PASS"
+  },
+  "m05_generalization_uncertainty": "BLOCKED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "result": {
+    "relative_path": "artifacts/bepd04c/first-real-same-week-reintegration-response-v0.1/RESULT.json",
+    "sha256": "f425e41af4e98c4691cb12d9f6dd0496731dac130061980a0ca8cc8def93167b",
+    "size_bytes": 854
+  },
+  "run_id": "9a68934ddfea835380b77ef6b7bd4d2733a75079ad5921834721ff9d664cc833",
+  "schema": "ATDS_BEPD_04C_FIRST_REAL_RESPONSE_RUN_MANIFEST_V0_1"
+}
