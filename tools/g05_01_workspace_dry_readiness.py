@@ -16,7 +16,12 @@ from zoneinfo import ZoneInfo
 
 from src import p1_12c_qualified_producer_execution as p12c
 from src import smf_ap1_m03_binding as smf
-from tests.p1_18_fixture import build_case
+from src.data import claim_scoped_admission as data02
+from src.experiment_execution_binding import bind_experiment_execution
+from src.qualified_experiment_execution_input import qualify_experiment_execution_input
+from src.research.input_binding import bind_execution_input, corpus_inventory_hash, sha256_file
+from tests.data_02_fixture import make_package as make_data02_package
+from tests.rvo_05_fixture import make_p1_spec
 
 CONTRACT = "ATDS_G05_01_WORKSPACE_DRY_READINESS_V0_1"
 REPOSITORY = "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM"
@@ -163,6 +168,37 @@ def output_probe(directory: Path) -> dict[str,Any]:
     _require(ok and not probe.exists(), "BLOCKED_OUTPUT_DESTINATION_CAPABILITY")
     return {"directory_transport":str(directory),"write_probe":"PASS","probe_removed":True}
 
+def _build_synthetic_qualified_input(tmp_path: Path):
+    """Build only the synthetic P1 input shape; never create or execute a legacy P1.12C producer plan."""
+    package=make_data02_package(tmp_path/"data")
+    admission=data02.evaluate_synthetic(package)
+    _require(admission.get("status")=="READY_FOR_EXACT_CLAIM", "BLOCKED_SYNTHETIC_P1_INPUT_FIXTURE")
+    specification=make_p1_spec(tmp_path/"spec", tag="G0501")
+    contract_path=tmp_path/"g05-01-synthetic-resource-contract.json"
+    contract_path.write_text(
+        json.dumps(
+            {
+                "format":"SYNTHETIC_DATA02_BYTE_FIXTURE",
+                "scope":"G05-01-P1-DRY-PLAN-SHAPE-ONLY",
+                "real_market_data":False,
+                "oos":False,
+            },
+            sort_keys=True,
+            separators=(",",":"),
+        ),
+        encoding="utf-8",
+    )
+    root=Path(package["root"])
+    bound=bind_execution_input(
+        root,
+        contract_path,
+        corpus_inventory_hash(root),
+        sha256_file(contract_path),
+    )
+    execution_binding=bind_experiment_execution(specification,bound)
+    return qualify_experiment_execution_input(execution_binding)
+
+
 def build_dry_bindings(repo_root: Path, ap0_root: Path, runtime_observation: Mapping[str,Any], output_transport: str) -> dict[str,Any]:
     validate_runtime_observation(runtime_observation)
     data_receipt=repo_root/"reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json"
@@ -193,7 +229,7 @@ def build_dry_bindings(repo_root: Path, ap0_root: Path, runtime_observation: Map
         result_exposed=False,
     )
     with tempfile.TemporaryDirectory(prefix="g05-01-p1-shape-") as tmp:
-        qualified_input=build_case(Path(tmp)/"synthetic-qualified-input")["qualified_input"]
+        qualified_input=_build_synthetic_qualified_input(Path(tmp)/"synthetic-qualified-input")
         p1_plan=p12c.qualify_real_producer_execution_plan(
             qualified_input,
             data_binding,

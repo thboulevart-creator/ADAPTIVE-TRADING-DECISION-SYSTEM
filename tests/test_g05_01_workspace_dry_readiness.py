@@ -69,3 +69,13 @@ def test_14_no_execution_function_is_called_by_breaker_surface(monkeypatch):
 
 def test_15_contract_declares_no_authority():
     assert g.CONTRACT=="ATDS_G05_01_WORKSPACE_DRY_READINESS_V0_1"
+
+
+def test_16_synthetic_input_shape_does_not_create_legacy_p112c_plan(tmp_path, monkeypatch):
+    monkeypatch.setattr(
+        g.p12c,
+        "qualify_producer_execution_plan",
+        lambda *a, **k: (_ for _ in ()).throw(AssertionError("legacy P1.12C plan must not be created")),
+    )
+    qualified=g._build_synthetic_qualified_input(tmp_path/"shape")
+    assert g.p12c.is_factory_attested_qualified_experiment_execution_input(qualified)
