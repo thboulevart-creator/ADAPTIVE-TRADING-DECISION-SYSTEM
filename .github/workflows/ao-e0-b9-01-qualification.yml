@@ -15,6 +15,11 @@ on:
 permissions:
   contents: read
 
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+
 jobs:
   qualify:
     runs-on: ubuntu-24.04
@@ -38,10 +43,10 @@ jobs:
           test "$(git hash-object GOVERNANCE/SMF-03-EVIDENCE-GOVERNANCE-CONTRACT-V0.1.json)" = "67014f4fb753e3165cacc0ae59a49b522e84fa87"
 
       - name: B9 adversarial breaker
-        run: python -m pytest -q breakers/ao_e0_b9_01_breaker.py
+        run: python -m pytest -q -p no:cacheprovider breakers/ao_e0_b9_01_breaker.py
 
       - name: B9 qualification tests
-        run: python -m pytest -q tests/test_ao_e0_b9_01.py
+        run: python -m pytest -q -p no:cacheprovider tests/test_ao_e0_b9_01.py
 
       - name: Clean worktree
         if: always()
