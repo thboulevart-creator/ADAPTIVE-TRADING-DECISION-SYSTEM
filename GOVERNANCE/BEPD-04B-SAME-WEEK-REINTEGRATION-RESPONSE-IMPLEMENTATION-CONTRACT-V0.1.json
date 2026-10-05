@@ -1,0 +1,184 @@
+{
+  "schema": "ATDS_BEPD_04B_SAME_WEEK_REINTEGRATION_RESPONSE_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "phase": "BEPD-04B",
+  "parent": {
+    "head": "7196401a3fc3e8b005c2069f78c7bca656f3d7b8",
+    "tree": "77afafd39da142a7c7686f2dbf48c2a610cfc54c"
+  },
+  "bindings": {
+    "bepd04a_semantics_blob": "796bcaec05eb36234074ba4ea871afcd6f784915",
+    "bepd04a_breaker_contract_blob": "dce13d0b5b31c189aa71fe3642d5d2829a66da06",
+    "bepd04a_qualification_blob": "43f7b53827a4422d8af1ee625991db8098b1b9d8",
+    "bepd03e_closure_blob": "43155d6af71b76d88bbe0e9e758d6062102253d3",
+    "bepd03e_qualification_blob": "f97c55ee479dc9be38daddcfe62e743bae836bde",
+    "bepd03a_adjudication_blob": "b796fd69a9b40c0397cc89db5be755d59974b1fe",
+    "bepd03a_m05_activation_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd01d_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd01_engine_blob": "050c96049f720757231136386719a40dd5653bbe",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+  },
+  "purpose": "qualify an executable deterministic global same_week_reintegration response calculator and executable adversarial breaker on synthetic/controlled inputs only; no real response exposure",
+  "implementation": {
+    "calculator_path": "tools/bepd_04b_same_week_reintegration_response_v0_1.py",
+    "breaker_path": "breakers/bepd_04b_same_week_reintegration_response_breaker_v0_1.py",
+    "test_path": "tests/test_bepd_04b_same_week_reintegration_response_v0_1.py",
+    "fixture_path": "tests/fixtures/bepd_04b_same_week_reintegration_synthetic_v0_1.json",
+    "real_input_path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+    "real_input_execution_under_bepd04b": "FORBIDDEN"
+  },
+  "response_source": {
+    "field": "same_week_reintegration",
+    "recompute_from_prices": false,
+    "rescan_ap0": false,
+    "allowed_estimand_count": 1
+  },
+  "required_row_fields": [
+    "schema_version",
+    "run_id",
+    "event_id",
+    "sweep_cluster_id",
+    "target_week_id",
+    "level_id",
+    "side",
+    "take_h1_close_utc",
+    "same_week_reintegration"
+  ],
+  "row_validation": {
+    "schema_version": "ATDS_BEPD_01D_HISTORICAL_LEDGER_SCHEMA_V0_1",
+    "side": [
+      "HIGH",
+      "LOW"
+    ],
+    "same_week_reintegration_type": "bool_exact",
+    "event_id_unique": true,
+    "empty_input": "FAIL_CLOSED"
+  },
+  "execution_scopes": {
+    "SYNTHETIC_QUALIFICATION": {
+      "source_ledger_blob": "SYNTHETIC_BEPD04B_LEDGER_V0_1",
+      "run_id": "SYNTHETIC_BEPD04B_RUN_V0_1",
+      "authorized_in_bepd04b": true
+    },
+    "REAL_AUTHORIZED": {
+      "source_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+      "run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+      "authorized_in_bepd04b": false
+    }
+  },
+  "global_result_schema": {
+    "fields": [
+      "schema",
+      "execution_scope",
+      "interpretation",
+      "source_ledger_blob",
+      "source_run_id",
+      "total_event_count",
+      "reintegration_true_count",
+      "reintegration_false_count",
+      "reintegration_fraction",
+      "reintegration_share_decimal",
+      "dependence_statement",
+      "m05_generalization_uncertainty",
+      "forbidden_analytics_executed"
+    ],
+    "schema": "ATDS_BEPD_04B_SAME_WEEK_REINTEGRATION_RESPONSE_RESULT_V0_1",
+    "interpretation": "EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_POST_SWEEP_RESPONSE_DESCRIPTION",
+    "fraction": "<true_count>/<total_count>",
+    "decimal_places": 18,
+    "rounding": "ROUND_HALF_EVEN",
+    "reconciliation": "true_count + false_count == total_event_count"
+  },
+  "synthetic_output_aliases": [
+    "synthetic_total_event_count",
+    "synthetic_reintegration_true_count",
+    "synthetic_reintegration_false_count",
+    "synthetic_reintegration_fraction",
+    "synthetic_reintegration_share_decimal"
+  ],
+  "allowed_grouping": [
+    "GLOBAL_ONLY"
+  ],
+  "forbidden_groupings": [
+    "side",
+    "take_day_ny",
+    "target_month",
+    "target_year",
+    "target_month_position",
+    "level_age_band",
+    "any_cross_product"
+  ],
+  "forbidden_estimands": [
+    "close_displacement",
+    "time_to_reintegration",
+    "reintegration_speed",
+    "MFE",
+    "MAE",
+    "+1H",
+    "+4H",
+    "+8H",
+    "+24H",
+    "fixed_horizon_returns",
+    "target_week_close_response"
+  ],
+  "inference": {
+    "m05": "BLOCKED",
+    "confidence_interval": false,
+    "bootstrap": false,
+    "p_value": false,
+    "significance": false,
+    "future_probability": false,
+    "prediction": false,
+    "causation": false
+  },
+  "trading_authority": {
+    "edge": false,
+    "entry": false,
+    "exit": false,
+    "strategy": false,
+    "backtest": false,
+    "pnl": false,
+    "expectancy": false,
+    "sizing": false,
+    "risk_allocation": false,
+    "paper": false,
+    "broker": false,
+    "live": false,
+    "capital": false
+  },
+  "fail_codes": {
+    "missing_field": "MISSING_REQUIRED_FIELD",
+    "duplicate_event_id": "DUPLICATE_EVENT_ID",
+    "non_boolean_response": "NON_BOOLEAN_RESPONSE",
+    "empty_input": "EMPTY_INPUT",
+    "unexpected_schema": "UNEXPECTED_SCHEMA_VERSION",
+    "wrong_run_id": "RUN_ID_MISMATCH",
+    "wrong_source_blob": "SOURCE_LEDGER_BLOB_MISMATCH",
+    "invalid_side": "INVALID_SIDE",
+    "invalid_string": "INVALID_REQUIRED_STRING",
+    "unauthorized_scope": "UNAUTHORIZED_EXECUTION_SCOPE",
+    "unauthorized_option": "UNAUTHORIZED_OPTION",
+    "result_reconciliation": "RESULT_RECONCILIATION_FAIL",
+    "forbidden_result_surface": "FORBIDDEN_RESULT_SURFACE"
+  },
+  "qualification_sequence": [
+    "FROZEN_EXPECTATIONS",
+    "OBSERVED_RED_RUNTIME_ABSENT",
+    "IMPLEMENTATION",
+    "GREEN_SYNTHETIC_TESTS",
+    "20_CASE_EXECUTABLE_BREAKER",
+    "DETERMINISTIC_REPLAY",
+    "PERSISTED_HEAD_REBREAK",
+    "STOP"
+  ],
+  "authority_boundary": {
+    "real_event_ledger_execution": false,
+    "real_response_calculation": false,
+    "real_reintegration_count_exposure": false,
+    "real_reintegration_share_exposure": false,
+    "bepd04c": false
+  }
+}
