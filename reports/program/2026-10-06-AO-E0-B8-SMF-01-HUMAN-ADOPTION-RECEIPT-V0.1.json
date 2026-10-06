@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_AO_E0_B8_SMF_01_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-SMF-01",
+  "decision": "ADOPT",
+  "status": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "bindings": {
+    "candidate_blob": "94d7eaf13b2682eb7de0c783f8937b8037699c86",
+    "qualification_receipt_blob": "0c7f6547102f776881d4413bf5b0796f1ad610eb",
+    "human_decision_packet_blob": "990b3fc8c1b4f67fbca3213184222c1fc76f39d4",
+    "human_adoption_blob": "240d715aa7b2ae79dff474a4cc4f80854416c9c7",
+    "b8_02_blocker_blob": "821d0b033e6bb993e64832d2fa0c2e84de24872e"
+  },
+  "configuration": {
+    "m04": {
+      "acf_estimator": "ADJUSTED",
+      "lags_rule": "1..min(n-1,ceil(n^(1/3)))",
+      "absolute_threshold": 0.05,
+      "at_n_58927_max_lag": 39
+    },
+    "m05": {
+      "scheme_policy": "MOVING_BLOCK_ONLY_FOR_AO_E0_WHEN_M05_EXECUTES",
+      "interval_method": "PERCENTILE",
+      "confidence_level": 0.99,
+      "replications": 50000,
+      "seed": 21449402,
+      "block_length_rule": "min(n,1+max(M04_LAGS(n)))",
+      "at_n_58927_block_length": 40,
+      "unresolved_nonstationarity": "BLOCK_GLOBAL_RESAMPLING",
+      "iid_route": "NOT_USED_BY_THIS_AO_E0_CONFIGURATION"
+    },
+    "m07": {
+      "materiality_abs_delta": 5.0
+    },
+    "m08": {
+      "max_inclusion_rate_gap": 0.05
+    }
+  },
+  "semantic_separations": {
+    "m05_confidence_automatically_inherited_from_m06": false,
+    "m07_threshold_automatically_inherited_from_delta_min": false,
+    "low_acf_means_independence_proven": false,
+    "moving_block_means_model_valid": false,
+    "influential_unit_means_invalid_unit": false,
+    "material_selection_asymmetry_means_causal_bias_proven": false
+  },
+  "m06": {
+    "modified": false,
+    "final_required_n": 58927
+  },
+  "state": {
+    "m04_m05_m07_m08_configuration": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "b8": "BLOCKED",
+    "b8_detail": "SMF_MATERIAL_CONFIGURATION_ADOPTED_AO_E0_B8_02_RERUN_REQUIRES_DISTINCT_AUTHORIZATION",
+    "b12": "CLOSED",
+    "ao_e0_b8_02_rerun_authorized": false
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}

@@ -1,0 +1,273 @@
+# AO-E0-B8-SMF-01 — M04/M05/M07/M08 MATERIAL CONFIGURATION HUMAN ADOPTION — 2026-10-06
+
+HUMAN_DECISION =
+ADOPT
+
+CONTROL =
+AO-E0-B8-SMF-01 — PRE-RESULT M04 / M05 / M07 / M08 MATERIAL CONFIGURATION PREREGISTRATION V0.1
+
+STATUS =
+HUMAN_ADOPTED / BINDING / FROZEN
+
+REPOSITORY =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+BRANCH =
+integration/system-v1
+
+BOUND_CANDIDATE_BLOB =
+94d7eaf13b2682eb7de0c783f8937b8037699c86
+
+BOUND_QUALIFICATION_RECEIPT_BLOB =
+0c7f6547102f776881d4413bf5b0796f1ad610eb
+
+BOUND_HUMAN_DECISION_PACKET_BLOB =
+990b3fc8c1b4f67fbca3213184222c1fc76f39d4
+
+BOUND_B8_02_BLOCKER_BLOB =
+821d0b033e6bb993e64832d2fa0c2e84de24872e
+
+CELL_IDENTITY =
+sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054
+
+DELTA_MIN =
+5.0
+
+MINIMUM_REQUIRED_COST_ROBUSTNESS_NODE =
+F2_S4
+
+M06_FINAL_REQUIRED_N =
+58927
+
+==================================================
+ADOPTED M04 CONFIGURATION
+==================================================
+
+M04_ACF_ESTIMATOR =
+ADJUSTED
+
+M04_LAGS_POLICY =
+FULLY_DETERMINISTIC_PREDECLARED_SELECTION_RULE
+
+M04_LAGS_RULE =
+L = min(n - 1, ceil(n^(1/3)))
+lags = [1,2,...,L]
+
+AT n = 58927:
+M04_MAX_LAG =
+39
+
+M04_ABSOLUTE_THRESHOLD =
+0.05
+
+STRUCTURAL_FLAGS =
+INDEPENDENT_EVIDENCE
+
+LOW_ACF_WITHIN_TESTED_LAGS
+!=
+INDEPENDENCE_PROVEN
+
+The M04 configuration is binding prospectively and cannot be tuned after future outcome observation.
+
+==================================================
+ADOPTED M05 CONFIGURATION
+==================================================
+
+M05_SCHEME_POLICY =
+MOVING_BLOCK_ONLY_FOR_AO_E0_WHEN_M05_EXECUTES
+
+M05_INTERVAL_METHOD =
+PERCENTILE
+
+M05_CONFIDENCE_LEVEL =
+0.99
+
+M05_REPLICATIONS =
+50000
+
+M05_SEED =
+21449402
+
+M05_SEED_ROLE =
+REPRODUCIBILITY_ONLY
+
+M05_MOVING_BLOCK_LENGTH_POLICY =
+FULLY_DETERMINISTIC_PREDECLARED_SELECTION_RULE
+
+M05_BLOCK_LENGTH_RULE =
+block_length = min(n, 1 + max(M04_LAGS(n)))
+
+AT n = 58927:
+M05_BLOCK_LENGTH =
+40
+
+UNRESOLVED_NONSTATIONARITY =
+BLOCK_GLOBAL_RESAMPLING
+
+IID_ROUTE =
+NOT_USED_BY_THIS_AO_E0_CONFIGURATION
+
+M05_CONFIDENCE_LEVEL = 0.99
+does NOT mean automatic inheritance from M06.
+
+The same numeric value is human-adopted here under an independent M05 uncertainty-policy rationale.
+
+MORE_REPLICATIONS
+!=
+MODEL_VALIDITY
+
+SEED
+!=
+STATISTICAL_ASSUMPTION
+
+==================================================
+ADOPTED M07 CONFIGURATION
+==================================================
+
+M07_MATERIALITY_ABS_DELTA =
+5.0
+
+This is human-adopted as an M07-specific material influence threshold because the leave-one-dependence-unit-out change is expressed in the same mean-PnL units as the AO-E0 economic claim.
+
+M07_MATERIALITY_ABS_DELTA = 5.0
+does NOT mean automatic inheritance from DELTA_MIN.
+
+It is a separate human policy decision using the same economic scale.
+
+SIGN_REVERSAL =
+SEPARATE_SIGNAL
+
+AUTOMATIC_OUTLIER_DELETION =
+FORBIDDEN
+
+INFLUENTIAL_UNIT
+!=
+INVALID_UNIT
+
+==================================================
+ADOPTED M08 CONFIGURATION
+==================================================
+
+M08_MAX_INCLUSION_RATE_GAP =
+0.05
+
+This is a prospective absolute five-percentage-point threshold for material inclusion-rate asymmetry across declared strata.
+
+It is not:
+- a p-value threshold;
+- a causal bias claim;
+- calibrated from future observed gaps.
+
+OBSERVED_GAP
+!=
+THRESHOLD_SOURCE
+
+MATERIAL_SELECTION_ASYMMETRY
+!=
+CAUSAL_SELECTION_BIAS_PROVEN
+
+==================================================
+NO SILENT INHERITANCE / NO POST-HOC TUNING
+==================================================
+
+SAME_NUMERIC_VALUE
+!=
+SAME_SEMANTIC_ROLE
+
+M06_CONFIDENCE_LEVEL
+!=
+AUTOMATIC_M05_CONFIDENCE_LEVEL
+
+DELTA_MIN
+!=
+AUTOMATIC_M07_THRESHOLD
+
+SYNTHETIC_FIXTURE_THRESHOLD
+!=
+AO_E0_POLICY_THRESHOLD
+
+DATA_DEPENDENT_BY_PREDECLARED_RULE
+!=
+POST_HOC_TUNING
+
+No adopted M04/M05/M07/M08 parameter may be modified after future result observation without a new explicitly governed pre-result human decision.
+
+==================================================
+M06 NON-MODIFICATION
+==================================================
+
+M06 =
+HUMAN_ADOPTED / BINDING / FROZEN / UNMODIFIED
+
+M06_SAMPLE_ADEQUACY_MODE =
+PRECISION_AND_POWER
+
+M06_CONFIDENCE_LEVEL =
+0.99
+
+M06_ALPHA =
+0.01
+
+M06_TARGET_POWER =
+0.90
+
+M06_POWER_EFFECT_SIZE =
+5.0
+
+M06_ALTERNATIVE =
+GREATER
+
+M06_FINAL_REQUIRED_N =
+58927
+
+==================================================
+STATE / AUTHORITY
+==================================================
+
+M04_M05_M07_M08_CONFIGURATION =
+HUMAN_ADOPTED / BINDING / FROZEN
+
+B8 =
+BLOCKED
+
+B8_DETAIL =
+SMF_MATERIAL_CONFIGURATION_ADOPTED / AO-E0-B8-02 RERUN STILL REQUIRES DISTINCT AUTHORIZATION
+
+B12 =
+CLOSED
+
+AO_E0_B8_02_RERUN =
+NOT_AUTHORIZED_BY_THIS_DECISION
+
+AO_E0_EXECUTION =
+NOT_AUTHORIZED
+
+FORWARD_DATA_OBSERVATION =
+NOT_AUTHORIZED
+
+OOS_CONSUMPTION =
+NOT_AUTHORIZED
+
+REAL_PERFORMANCE_OBSERVATION =
+NOT_AUTHORIZED
+
+REAL_SMF_EXECUTION =
+NOT_AUTHORIZED
+
+STRATEGY_RERUN =
+NOT_AUTHORIZED
+
+PARAMETER_OPTIMIZATION =
+NOT_AUTHORIZED
+
+TRADING =
+NOT_AUTHORIZED
+
+CAPITAL_DEPLOYMENT =
+NOT_AUTHORIZED
+
+FORCE =
+FALSE
+
+STOP =
+SMF MATERIAL CONFIGURATION HUMAN ADOPTION PERSISTED
