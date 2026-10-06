@@ -1,0 +1,72 @@
+{
+  "schema": "ATDS_BEPD_04D_GENERALIZATION_READINESS_QUALIFICATION_RECEIPT_V0_1",
+  "status": "READINESS_QUALIFIED",
+  "verdict": "EXPLORATORY_ONLY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "87c8cd6828cfc696ab9bcc2fcc81a2a70701bbcb",
+    "tree": "43e9718f1a192fa35efa130fdedbc2cf9a4aadad"
+  },
+  "bindings": {
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_run_manifest_blob": "23c1fc0e044d7461f382d59895bb9b930481b896",
+    "smf03_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "occurrence_scoped_m05_record_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "claim": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "evidence_state": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "dependence_map": "c26c6c10894efe5ed068c1a429353b69074435d5",
+    "nonstationarity_gate": "fedb12d532f1e68ee9405d05931a2a0d22672983",
+    "method_matrix": "84e5e5de64d749579501df8da61969790281421f",
+    "blocker_register": "e1dd20be134cfa3074253687d2215ad1027e1849"
+  },
+  "readiness": {
+    "response_generalization_claim": "DEFINED",
+    "evidence_state": "EXPOSED",
+    "evidence_state_contaminated": false,
+    "dependence_requirements": "DEFINED",
+    "candidate_resampling_unit": "CONTIGUOUS_COMPLETE_TARGET_WEEKS",
+    "nonstationarity_gate": "DEFINED_NOT_EXECUTED",
+    "m04": "CONDITIONALLY_ELIGIBLE_DIAGNOSTIC_ONLY",
+    "m05_iid": "INELIGIBLE",
+    "m05_moving_block": "CONDITIONALLY_ELIGIBLE_NOT_ACTIVATED",
+    "m09": "REQUIRED_AND_APPLIED",
+    "m10": "CONDITIONALLY_ELIGIBLE_DIAGNOSTIC_ONLY",
+    "m11": "NO_RELEVANT_MULTIPLICITY_CONDITIONAL_ON_SINGLE_GLOBAL_CLAIM"
+  },
+  "blockers": {
+    "open_count": 8,
+    "guard_count": 1,
+    "response_specific_m05_activation": "ABSENT",
+    "real_nonstationarity_gate_result": "NOT_AUTHORIZED_NOT_EXECUTED",
+    "material_parameters": "NOT_HUMAN_ADJUDICATED",
+    "ratio_of_sums_moving_block_runtime": "NOT_SEPARATELY_QUALIFIED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED"
+  },
+  "authority_boundary": {
+    "bepd04c": "UNCHANGED_HUMAN_ADOPTED_CLOSED",
+    "historical_response_result": "370/472_REFERENCE_ONLY",
+    "new_real_response_analysis": false,
+    "response_subgroup_inspection": false,
+    "real_bootstrap": false,
+    "confidence_interval": false,
+    "real_nonstationarity_diagnostics": false,
+    "response_specific_m05_activated": false,
+    "occurrence_m05_reused": false,
+    "time_to_reintegration": false,
+    "occurrence_x_response": false,
+    "prediction": false,
+    "edge": false,
+    "trading_authority": "NONE"
+  },
+  "rationale": [
+    "The current BEPD-04C corpus is EXPOSED under M09 and cannot be reset to PRISTINE.",
+    "No additional response values, subgroups, real stationarity diagnostics, bootstrap outputs, or intervals were inspected in BEPD-04D.",
+    "A structurally coherent future exploratory path exists using ordered complete-week clusters and a conditionally eligible moving-block method after separate activation and blocker closure.",
+    "A pristine confirmatory generalization claim cannot be supported by the already exposed corpus; fresh OOS evidence is required for that path."
+  ],
+  "next_step": "DISTINCT_HUMAN_DECISION_REQUIRED",
+  "next_frontier_opened": false
+}
