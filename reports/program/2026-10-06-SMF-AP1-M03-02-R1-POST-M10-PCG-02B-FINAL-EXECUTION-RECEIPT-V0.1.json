@@ -1,0 +1,125 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_02B_FINAL_EXECUTION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02B",
+  "status": "TECHNICALLY_QUALIFIED_RESULT_PERSISTED_HUMAN_ADJUDICATION_PENDING",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "execution_commit": {
+    "head": "f75838ac945f1328a3c33555177c9925d5c685ad",
+    "tree": "c9c8c0cfe1c4efba50b0b423089cb26ef08919ea"
+  },
+  "bindings": {
+    "pcg02a_final_readiness_receipt_blob": "9762fc6e85c9feb9a62a4e3a4fe9f4f0c1bad8bf",
+    "pcg02a_final_closure_blob": "8ff1a970245790173dab079c74cc445c1c5be571",
+    "packet_blob": "bcf5258247b9ef08f732d42abe88ca7e0a9b9c55",
+    "packet_sha256": "d0a4dde068a7fb460413120041f521597509b80736299af7dd21d7ad90531a99",
+    "pre_execution_freeze_blob": "12dcbd725c7f436025938b694ed1b8f4fafbc7be",
+    "pre_execution_freeze_sha256": "941ea0464b980a81db73813b51287c28dc6fc992fafe4cb3563be3634aed3e22",
+    "runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "result_artifacts": {
+    "primary_result_blob": "c36e30ab427ba092bfb935aeec42d32881765d39",
+    "primary_result_sha256": "2e31a9f728417c3a7f599573b15555efb8cd33037a4c9e900e68238d1cbe6464",
+    "reference_result_blob": "c36e30ab427ba092bfb935aeec42d32881765d39",
+    "reference_result_sha256": "2e31a9f728417c3a7f599573b15555efb8cd33037a4c9e900e68238d1cbe6464",
+    "parity_blob": "9a0ccb4afa82c8bacd774fe6a688621596642184",
+    "parity_sha256": "0babdae9a72c433ea4eb67f27f73110f758ed17880a4086dc606417185e2c06e",
+    "manifest_blob": "38605659320a58ae71633053c09ffdfbdf3c6d63",
+    "manifest_sha256": "0fc38e9dfa8524959dd44523db9d9d5148367398a869a1d7c7db79659a4a2caf",
+    "execution_record_blob": "28668cfb003b38134e6c67a686d7f96f6adcb7fa",
+    "technical_report_blob": "e07bedb0e173df4a32a31066c63d65f82924432b"
+  },
+  "execution_counts": {
+    "primary_real_gate_execution": 1,
+    "independent_reference_execution": 1,
+    "retry_count": 0
+  },
+  "parity": {
+    "semantic": "EXACT",
+    "canonical_byte": "EXACT"
+  },
+  "gate_result": {
+    "input_classification": "MATERIAL_TEMPORAL_VARIATION",
+    "selected_route": "NONE",
+    "gate_state": [
+      "BLOCKED"
+    ],
+    "route_states": {},
+    "decision_reason": "MATERIAL_CLAIM_UNIT_NO_ADMISSIBILITY_ROUTE",
+    "block_reason": "MATERIAL_CLAIM_UNIT_NO_ADMISSIBILITY_ROUTE",
+    "qualifying_routes": [],
+    "overall_gate_admissibility": "BLOCKED",
+    "authority_created": "NONE"
+  },
+  "qualification": {
+    "local_static_required_regression": "94/94 PASS",
+    "canonical_ci": {
+      "run_id": 37517976655,
+      "job_id": 112455703244,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37517976654,
+      "job_id": 112455702967,
+      "conclusion": "success"
+    }
+  },
+  "verdict": {
+    "POST_M10_PCG_02B_EXECUTION": "QUALIFIED",
+    "POST_M10_PCG_02B_PRIMARY_EXECUTION": "PASS",
+    "POST_M10_PCG_02B_REFERENCE_EXECUTION": "PASS",
+    "POST_M10_PCG_02B_REFERENCE_PARITY": "PASS",
+    "POST_M10_PCG_02B_RESULT_INTEGRITY": "QUALIFIED",
+    "POST_M10_PCG_02B_GATE_RESULT": "PERSISTED",
+    "PCG_02B_HUMAN_ADJUDICATION": "PENDING",
+    "POOLING_EXECUTION": false,
+    "CONDITIONING_EXECUTION": false,
+    "REAL_DATA_READ": false,
+    "NUMERICAL_ESTIMATION": false,
+    "NEW_STATISTICAL_METHOD_ACTIVATED": false,
+    "NEW_STATISTICAL_METHOD_EXECUTED": false,
+    "NEW_MARKET_RESULT": false,
+    "OOS_CONSUMPTION": false
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "trading": false,
+    "capital": false
+  },
+  "interpretation_boundary": {
+    "result_class": "CLAIM_SCOPED_GOVERNANCE_GATE_RESULT",
+    "blocked_means": "REQUESTED_DOWNSTREAM_USE_DOES_NOT_CURRENTLY_SATISFY_FROZEN_GOVERNANCE_ADMISSIBILITY_CONDITIONS",
+    "blocked_does_not_mean": [
+      "POOLING_IS_SCIENTIFICALLY_IMPOSSIBLE",
+      "CLAIM_IS_FALSE",
+      "MARKET_IS_NONSTATIONARY",
+      "STRATEGY_IS_INVALID"
+    ]
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4_run_id": 37517976615,
+    "p0_4_conclusion": "failure",
+    "p0_6_run_id": 37517976531,
+    "p0_6_conclusion": "failure",
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_PCG_02B_PASS_EVIDENCE"
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02C",
+    "scope": "FIRST_REAL_GOVERNANCE_GATE_RESULT_HUMAN_ADJUDICATION",
+    "separate_human_decision_required": true,
+    "automatic_adoption": false,
+    "automatic_downstream_action": false,
+    "opened": false
+  },
+  "stop": true,
+  "force": false
+}
