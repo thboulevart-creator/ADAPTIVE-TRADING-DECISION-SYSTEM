@@ -1,0 +1,23 @@
+{
+  "adversarial_breaker": "32/32 HARD_FAIL PASS",
+  "boundary_n_30": "PASS",
+  "boundary_spread_0_10": "PASS",
+  "deterministic_replay": "PASS",
+  "head": "5a8ac26932157c79a80d7c2e673b31d005f39eb3",
+  "independent_reference_parity": "PASS",
+  "m04_status": "NOT_APPLICABLE_BY_REPRESENTATION",
+  "old_bepd04d_gate": "PRESERVED",
+  "persisted_identities": "PASS",
+  "real_bootstrap_executed": false,
+  "real_confidence_interval_calculated": false,
+  "real_gate_executed": false,
+  "real_m10_executed": false,
+  "real_response_values_accessed": false,
+  "response_specific_m05_activation": "NOT_ACTIVATED",
+  "schema": "ATDS_BEPD_04F_PERSISTED_HEAD_SYNTHETIC_REBREAK_RECEIPT_V0_1",
+  "status": "PASS",
+  "substantive_fixture_states": "7/7 PASS",
+  "synthetic_green": "6/6 unittest methods PASS including 27 frozen fail-closed cases",
+  "tree": "005a3da9b2e8265d9d6dd303e27d7ce41533f337",
+  "workflow_run_id": 37431405492
+}
