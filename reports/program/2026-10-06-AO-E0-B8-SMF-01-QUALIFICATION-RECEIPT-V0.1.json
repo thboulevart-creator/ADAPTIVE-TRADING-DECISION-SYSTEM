@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_AO_E0_B8_SMF_01_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-SMF-01",
+  "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "candidate": {
+    "contract_blob": "94d7eaf13b2682eb7de0c783f8937b8037699c86",
+    "qualification_tool_blob": "cb1c75e2d3311e113f18b2d304ed41fc7cafc9c6",
+    "tests_blob": "210d0cb4044dc0c943e572d0b837ba543534d2ab",
+    "workflow_blob": "d9ced6ee829b7fc4d89460bb61c9fb7a669eb739"
+  },
+  "configuration": {
+    "m04": {
+      "acf_estimator": "ADJUSTED",
+      "lags_rule": "1..min(n-1,ceil(n^(1/3)))",
+      "absolute_threshold": 0.05,
+      "at_n_58927_max_lag": 39
+    },
+    "m05": {
+      "scheme_policy": "MOVING_BLOCK_ONLY_FOR_AO_E0_WHEN_M05_EXECUTES",
+      "interval_method": "PERCENTILE",
+      "confidence_level": 0.99,
+      "replications": 50000,
+      "seed": 21449402,
+      "block_length_rule": "min(n,1+max(M04_LAGS(n)))",
+      "at_n_58927_block_length": 40,
+      "unresolved_nonstationarity": "BLOCK_GLOBAL_RESAMPLING"
+    },
+    "m07": {
+      "materiality_abs_delta": 5.0
+    },
+    "m08": {
+      "max_inclusion_rate_gap": 0.05
+    }
+  },
+  "qualification": {
+    "independent_local_synthetic_replay": "PASS",
+    "independent_local_checks_passed": 20,
+    "independent_local_checks_total": 20,
+    "canonical_executable_tests_persisted": true,
+    "github_actions_run_observed": false,
+    "github_actions_conclusion": null,
+    "ci_pass_claimed": false,
+    "no_free_material_parameter_after_candidate": true
+  },
+  "silent_inheritance": {
+    "m05_confidence_automatically_inherited_from_m06": false,
+    "m07_threshold_automatically_inherited_from_delta_min": false,
+    "synthetic_fixture_threshold_used_as_policy_threshold": false
+  },
+  "m06": {
+    "modified": false,
+    "final_required_n": 58927
+  },
+  "state": {
+    "m04_m05_m07_m08_configuration": "NOT_HUMAN_ADOPTED",
+    "b8": "BLOCKED",
+    "b12": "CLOSED",
+    "ao_e0_b8_02_rerun": false
+  },
+  "authority": {
+    "human_adoption": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
