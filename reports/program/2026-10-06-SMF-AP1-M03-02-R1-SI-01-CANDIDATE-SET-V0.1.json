@@ -1,0 +1,414 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_SI_01_SCIENTIFIC_INTERPRETATION_CANDIDATE_SET_V0_1",
+  "status": "SCIENTIFIC_INTERPRETATION_CANDIDATE_SET",
+  "source": {
+    "m03_output_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "direct_facts_blob": "b5cdc46175ec85225e92d878e5f3e67784a96ba1",
+    "interpretation_contract_blob": "02ece03bc5371ac55d88a45d7fe310794e807c29",
+    "ef01_receipt_blob": "234a5af6bc79adc2e74b7ceb83319132cab478d4",
+    "coverage_utc": [
+      "2021-05-25T00:00:00Z",
+      "2026-05-24T23:59:00Z"
+    ],
+    "semantics": "RETROSPECTIVE_DESCRIPTIVE_ONLY"
+  },
+  "direct_execution_facts": {
+    "m03_status": "M03_REAL_EXECUTION_COMPLETE",
+    "m03_execution_qualified": true,
+    "direct_exit_code_observation": "UNAVAILABLE",
+    "parity": {
+      "overall": "PASS",
+      "pass_count": 1925,
+      "fail_count": 0,
+      "not_comparable_count": 165,
+      "max_abs_diff": 0
+    },
+    "total_buckets": 230,
+    "admitted_minutes": 1709180,
+    "authority": {
+      "scientific": false,
+      "operational": false,
+      "trading": false,
+      "capital": false
+    }
+  },
+  "candidates": [
+    {
+      "id": "SI01-C01",
+      "name": "GLOBAL_UPPER_QUANTILE_DISPERSION_DIFFERENCES",
+      "exploratory_search": true,
+      "metrics": [
+        "tick_count",
+        "minute_range",
+        "spread_mean"
+      ],
+      "buckets": [
+        "GLOBAL"
+      ],
+      "exact_evidence": {
+        "tick_count": {
+          "p50": 184,
+          "p99": 621,
+          "p99_over_p50": 3.375
+        },
+        "minute_range": {
+          "p50": 4.740000000001601,
+          "p99": 33.311210000001516,
+          "p99_over_p50": 7.027681434597103
+        },
+        "spread_mean": {
+          "p50": 3.342459677419323,
+          "p99": 3.450097186834026,
+          "p99_over_p50": 1.0322030838971283
+        }
+      },
+      "retrospective_candidate_statement": "Within the admitted corpus, minute_range and tick_count show substantially larger upper-quantile separation from their medians than spread_mean.",
+      "does_not_assert": [
+        "heavy-tail law",
+        "tail index",
+        "statistical significance",
+        "future persistence",
+        "economic edge"
+      ],
+      "open_failure_modes": [
+        "post-hoc ratio construction",
+        "serial dependence",
+        "extreme-observation influence",
+        "generalization outside admitted corpus"
+      ],
+      "methods_if_extended": [
+        "M01 — preregister an exact dispersion/tail estimand",
+        "M07 — influence / evidence concentration if asking whether a small set of minutes dominates upper-tail structure",
+        "M04 then M05 — dependence gate and dependence-aware uncertainty if inferential intervals are required",
+        "M09 — pristine confirmation before external/generalized claim"
+      ]
+    },
+    {
+      "id": "SI01-C02",
+      "name": "NEW_YORK_INTRADAY_DISTRIBUTIONAL_HETEROGENEITY",
+      "exploratory_search": true,
+      "metrics": [
+        "tick_count",
+        "minute_range",
+        "spread_mean"
+      ],
+      "buckets": [
+        "NEW_YORK_HOUR"
+      ],
+      "exact_evidence": {
+        "minute_range": {
+          "p50_max": {
+            "bucket": "NEW_YORK_HOUR:10",
+            "n": 77169,
+            "value": 12.665000000000873
+          },
+          "p50_min": {
+            "bucket": "NEW_YORK_HOUR:00",
+            "n": 77339,
+            "value": 2.138999999999214
+          },
+          "p99_max": {
+            "bucket": "NEW_YORK_HOUR:09",
+            "n": 77210,
+            "value": 51.752690000002396
+          },
+          "p99_min": {
+            "bucket": "NEW_YORK_HOUR:23",
+            "n": 77291,
+            "value": 14.250299999999715
+          }
+        },
+        "tick_count": {
+          "p50_max": {
+            "bucket": "NEW_YORK_HOUR:10",
+            "n": 77169,
+            "value": 455
+          },
+          "p50_min": {
+            "bucket": "NEW_YORK_HOUR:18",
+            "n": 75504,
+            "value": 75
+          },
+          "p99_max": {
+            "bucket": "NEW_YORK_HOUR:09",
+            "n": 77210,
+            "value": 693
+          },
+          "p99_min": {
+            "bucket": "NEW_YORK_HOUR:00",
+            "n": 77339,
+            "value": 305
+          }
+        },
+        "spread_mean": {
+          "p50_min": {
+            "bucket": "NEW_YORK_HOUR:10",
+            "n": 77169,
+            "value": 1.3493234567901158
+          },
+          "p50_max": {
+            "bucket": "NEW_YORK_HOUR:18",
+            "n": 75504,
+            "value": 3.3782105263159012
+          },
+          "p99_min": {
+            "bucket": "NEW_YORK_HOUR:10",
+            "n": 77169,
+            "value": 1.4412726826414932
+          },
+          "p99_max": {
+            "bucket": "NEW_YORK_HOUR:18",
+            "n": 75504,
+            "value": 3.4654611405831792
+          }
+        },
+        "empty_bucket": "NEW_YORK_HOUR:17"
+      },
+      "retrospective_candidate_statement": "The admitted corpus exhibits large descriptive differences by New York local hour; the 09–10 buckets have high activity/range quantiles and much lower spread_mean quantiles than several evening/overnight buckets.",
+      "does_not_assert": [
+        "time-of-day causality",
+        "statistical significance",
+        "stable future session effect",
+        "predictive edge",
+        "tradable session rule"
+      ],
+      "open_failure_modes": [
+        "extrema selected after observation",
+        "serial dependence",
+        "multiplicity across 24 hour buckets",
+        "coverage gap at hour 17",
+        "temporal-regime confounding"
+      ],
+      "methods_if_extended": [
+        "M01 — preregister exact hour contrasts/estimands",
+        "M04 — dependence / overlap gate",
+        "M05 — dependence-aware resampling CI",
+        "M11 — search-provenance / multiplicity gate because extrema were selected exploratorily",
+        "M09 — pristine confirmation for any generalized hour effect"
+      ]
+    },
+    {
+      "id": "SI01-C03",
+      "name": "NEW_YORK_WEEKDAY_DISTRIBUTIONAL_HETEROGENEITY",
+      "exploratory_search": true,
+      "metrics": [
+        "tick_count",
+        "minute_range",
+        "spread_mean"
+      ],
+      "buckets": [
+        "NEW_YORK_WEEKDAY"
+      ],
+      "weekday_semantics": "Python weekday index: 0=Monday ... 4=Friday, 5=Saturday, 6=Sunday",
+      "exact_evidence": {
+        "friday_index_4": {
+          "n": 247183,
+          "minute_range": {
+            "p50": 5.925000000001091,
+            "p99": 37.16957999999929
+          },
+          "tick_count": {
+            "p50": 236,
+            "p99": 637
+          },
+          "spread_mean": {
+            "p50": 3.210111111111045,
+            "p99": 3.446163249882773
+          }
+        },
+        "sunday_index_6": {
+          "n": 91732,
+          "minute_range": {
+            "p50": 3.2670000000034634,
+            "p99": 23.903604999999125
+          },
+          "tick_count": {
+            "p50": 114,
+            "p99": 385
+          },
+          "spread_mean": {
+            "p50": 3.3713786227545164,
+            "p99": 3.459354093220406
+          }
+        },
+        "saturday_index_5": {
+          "n": 0,
+          "status": "EMPTY_NO_NUMERICAL_RESULT"
+        }
+      },
+      "retrospective_candidate_statement": "Within the admitted corpus, weekday buckets differ descriptively; Friday has higher tick_count and minute_range quantiles than Sunday, while Saturday has no admitted observations.",
+      "does_not_assert": [
+        "weekday causal effect",
+        "significance",
+        "future persistence",
+        "economic edge",
+        "reason for Saturday absence"
+      ],
+      "open_failure_modes": [
+        "post-hoc extrema selection",
+        "unequal bucket sizes",
+        "structured missing support",
+        "serial dependence",
+        "multiplicity across weekday comparisons"
+      ],
+      "methods_if_extended": [
+        "M01 — preregister exact weekday contrast",
+        "M08 — sample selection / attrition for structured support gaps",
+        "M04 then M05 — dependence-aware inference",
+        "M11 — multiplicity gate for exploratory weekday search",
+        "M09 — pristine confirmation before generalized weekday claim"
+      ]
+    },
+    {
+      "id": "SI01-C04",
+      "name": "UTC_YEAR_DISTRIBUTIONAL_INSTABILITY_CANDIDATE",
+      "exploratory_search": true,
+      "metrics": [
+        "tick_count",
+        "minute_range",
+        "spread_mean"
+      ],
+      "buckets": [
+        "UTC_YEAR:2021",
+        "UTC_YEAR:2022",
+        "UTC_YEAR:2023",
+        "UTC_YEAR:2024",
+        "UTC_YEAR:2025",
+        "UTC_YEAR:2026"
+      ],
+      "scope_note": "2021 and 2026 are partial calendar-year buckets because the admitted corpus runs 2021-05-25 through 2026-05-24.",
+      "exact_evidence": {
+        "minute_range_p50": {
+          "y2021": 3.1750000000010914,
+          "y2022": 5.720000000001164,
+          "y2023": 3.4650000000001455,
+          "y2024": 4.3215000000018335,
+          "y2025": 5.771500000000742,
+          "y2026": 8.217000000000553
+        },
+        "minute_range_p99": {
+          "y2021": 21.719999999997743,
+          "y2022": 34.260210000000285,
+          "y2023": 22.024999999999636,
+          "y2024": 28.6217850000009,
+          "y2025": 42.100469999998616,
+          "y2026": 42.760115000002486
+        },
+        "tick_count_p50": {
+          "y2021": 177,
+          "y2022": 270,
+          "y2023": 170,
+          "y2024": 112,
+          "y2025": 161,
+          "y2026": 256
+        },
+        "spread_mean_p50": {
+          "y2021": 3.345500000000129,
+          "y2022": 3.326161188936817,
+          "y2023": 3.357409090909104,
+          "y2024": 3.4206326530610918,
+          "y2025": 1.434590363134381,
+          "y2026": 1.120975719391394
+        },
+        "spread_mean_p99": {
+          "y2021": 3.4097704680459167,
+          "y2022": 3.420260869565178,
+          "y2023": 3.4479322033897892,
+          "y2024": 3.4568210064934863,
+          "y2025": 3.4518364843194527,
+          "y2026": 3.4301723473400973
+        }
+      },
+      "retrospective_candidate_statement": "The year-bucket distributions are not descriptively stable across the admitted corpus. The 2025–2026 spread_mean central quantiles shift sharply while the p99 remains near prior-year levels, and minute_range/tick_count also vary materially across years.",
+      "does_not_assert": [
+        "formal nonstationarity test passed",
+        "structural break date",
+        "market-regime cause",
+        "data-source cause",
+        "monotonic trend",
+        "future persistence"
+      ],
+      "open_failure_modes": [
+        "2021/2026 partial-year composition",
+        "calendar/sample-composition effects",
+        "serial dependence",
+        "unresolved source/measurement regime explanation",
+        "post-hoc selection of largest annual contrasts"
+      ],
+      "methods_if_extended": [
+        "M10 — PREDECLARED TEMPORAL / REGIME STABILITY is the primary next SMF method",
+        "M01 — freeze exact temporal stability claim/estimand before M10",
+        "M04 then M05 — if uncertainty on temporal contrasts is required",
+        "M11 — multiplicity gate for any wider search across periods",
+        "M09 — pristine confirmation before generalized temporal claim"
+      ]
+    },
+    {
+      "id": "SI01-C05",
+      "name": "PREDECLARED_TIME_SUPPORT_IS_INCOMPLETE",
+      "exploratory_search": false,
+      "metrics": [
+        "tick_count",
+        "minute_range",
+        "spread_mean"
+      ],
+      "buckets": [
+        "NEW_YORK_HOUR",
+        "NEW_YORK_WEEKDAY",
+        "NEW_YORK_WEEKDAY_HOUR"
+      ],
+      "exact_evidence": {
+        "empty_new_york_hour_buckets": 1,
+        "empty_new_york_hour_ids": [
+          "NEW_YORK_HOUR:17"
+        ],
+        "empty_new_york_weekday_buckets": 1,
+        "empty_new_york_weekday_ids": [
+          "NEW_YORK_WEEKDAY:5"
+        ],
+        "empty_new_york_weekday_hour_buckets": 53,
+        "total_empty_time_bucket_ids": 55,
+        "parity_not_comparable_metric_entries": 165,
+        "relation": "55 empty bucket IDs x 3 metrics = 165 NOT_COMPARABLE metric-level parity entries"
+      },
+      "retrospective_candidate_statement": "The admitted corpus has incomplete support across the full predeclared New York calendar grid; empty buckets are explicit rather than numerically imputed.",
+      "does_not_assert": [
+        "reason for missing support",
+        "market-closure mechanism",
+        "random missingness",
+        "comparability of unsupported cells"
+      ],
+      "open_failure_modes": [
+        "target-population definition across unsupported cells",
+        "selection/availability mechanism"
+      ],
+      "methods_if_extended": [
+        "M08 — SAMPLE SELECTION / ATTRITION before claims that require unsupported time cells",
+        "M01 — define the target population/support explicitly"
+      ]
+    }
+  ],
+  "claims_not_supported_still_unknown": [
+    "No causal effect of hour, weekday, or year is established.",
+    "No statistical significance has been established for any bucket contrast.",
+    "No formal temporal stability/nonstationarity result exists yet; M10 has not been executed.",
+    "No predictive power or future persistence has been established.",
+    "No generalization beyond the admitted 2021-05-25 through 2026-05-24 corpus has been established.",
+    "No cross-metric dependence/correlation has been estimated merely because activity and range extrema sometimes co-locate.",
+    "No explanation has been established for the 2025-2026 spread_mean distribution shift.",
+    "No economic effect, expectancy, profitability, strategy validity, trading signal, trading authority, or capital authority has been established."
+  ],
+  "priority_for_next_scientific_question": {
+    "candidate": "SI01-C04",
+    "reason": "The strongest boundary-relevant observation is temporal distribution variation across predeclared UTC_YEAR buckets; formalizing whether this represents instability is directly owned by M10.",
+    "next_method": "M10 — PREDECLARED TEMPORAL / REGIME STABILITY",
+    "method_not_opened": true
+  },
+  "verdict": "QUALIFIED_FOR_HUMAN_SCIENTIFIC_ADJUDICATION",
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}
