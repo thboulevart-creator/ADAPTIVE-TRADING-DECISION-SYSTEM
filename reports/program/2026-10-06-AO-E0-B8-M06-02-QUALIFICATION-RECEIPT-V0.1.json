@@ -1,0 +1,93 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_02_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-M06-02",
+  "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "candidate": {
+    "contract_blob": "95a2e41c1e004e3b4461631060d8b12380983caa",
+    "tool_blob": "766ee7fd27f6bf2f2af2699ef240c5fb44d8d0b0",
+    "tests_blob": "c50a5a388e3acb9e91ca9f7b8849395d4a0da3d5",
+    "workflow_blob": "87c05d28fbc53686694a7165d0480d017194c645"
+  },
+  "parameters": {
+    "sample_adequacy_mode": "PRECISION_AND_POWER",
+    "combination_rule": "MAX_PRECISION_POWER",
+    "model_ref": "NORMAL_MEAN_KNOWN_SIGMA",
+    "stddev": 336.4106561689863,
+    "precision": {
+      "half_width": 5.0,
+      "confidence_level": 0.99,
+      "required_n": 30036
+    },
+    "power": {
+      "effect_size": 5.0,
+      "effect_source": "PREDECLARED",
+      "design_alternative_theta": 10.0,
+      "alpha": 0.01,
+      "target_power": 0.90,
+      "alternative": "GREATER",
+      "max_n": 58927,
+      "required_n": 58927,
+      "achieved_power": 0.9000043763601825,
+      "power_at_n_minus_1": 0.8999990037841005
+    },
+    "final_required_n": 58927
+  },
+  "qualification": {
+    "independent_deterministic_replay": "PASS",
+    "independent_dynamic_checks_passed": 13,
+    "independent_dynamic_checks_total": 13,
+    "contract_static_and_authority_checks_passed": 12,
+    "contract_static_and_authority_checks_total": 12,
+    "total_checks_passed": 25,
+    "total_checks": 25,
+    "github_actions_run_observed": false,
+    "github_actions_conclusion": null,
+    "ci_pass_claimed": false
+  },
+  "adversarial_checks": {
+    "unsupported_model_substitution": "PASS_BLOCKED",
+    "missing_explicit_confidence_level": "PASS_BLOCKED",
+    "invalid_half_width": "PASS_BLOCKED",
+    "alpha_out_of_range": "PASS_BLOCKED",
+    "target_power_out_of_range": "PASS_BLOCKED",
+    "zero_effect_size": "PASS_BLOCKED",
+    "effect_direction_mismatch": "PASS_BLOCKED",
+    "effect_source_not_predeclared": "PASS_BLOCKED",
+    "post_hoc_observed_effect": "PASS_BLOCKED",
+    "invalid_max_n": "PASS_BLOCKED",
+    "target_power_unreachable_at_n_minus_1": "PASS_BLOCKED",
+    "oos_exposed_result_tuning": "PASS_ABSENT",
+    "planning_sigma_relabelled_confirmatory": "PASS_ABSENT",
+    "required_n_relabelled_strategy_qualification": "PASS_ABSENT",
+    "future_parameter_selection": "PASS_FORBIDDEN",
+    "combination_rule_missing": "PASS_EXPLICIT",
+    "parameter_optimization_disguised_as_preregistration": "PASS_ABSENT",
+    "new_strategy_execution": "PASS_ABSENT",
+    "new_forward_data_observation": "PASS_ABSENT",
+    "real_performance_observation": "PASS_ABSENT"
+  },
+  "epistemic_notes": {
+    "confidence_0_99_is_universal_rule": false,
+    "alpha_0_01_is_multiplicity_correction": false,
+    "known_sigma_model_means_population_sigma_known": false,
+    "nominal_required_n_equals_effective_independent_n": false,
+    "m04_remains_required": true
+  },
+  "state": {
+    "b8": "BLOCKED_PENDING_DISTINCT_HUMAN_ADOPTION",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "real_performance_observation": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
