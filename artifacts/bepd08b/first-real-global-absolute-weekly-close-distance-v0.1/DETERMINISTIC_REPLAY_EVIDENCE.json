@@ -1,0 +1,12 @@
+{
+  "schema": "ATDS_BEPD_08B_DETERMINISTIC_REPLAY_EVIDENCE_V0_1",
+  "control_id": "BEPD-08B",
+  "status": "PASS",
+  "real_execution_freeze_blob": "d79e4fc316698e88a7c7bc2860700c113c5baf5c",
+  "runner_blob": "cb4c1a513015ef81f6f910f1c1345aa95c84b15a",
+  "canonical_runtime_result_sha256": "3df09774fddb1fa3a0b639e4cf080d944adcdee4e0f6a93e2fed350eba30b417",
+  "replay_runtime_result_sha256": "3df09774fddb1fa3a0b639e4cf080d944adcdee4e0f6a93e2fed350eba30b417",
+  "canonical_object_parity": "EXACT_PASS",
+  "replay_semantic": "REPRODUCIBILITY_EVIDENCE_ONLY",
+  "replay_is_new_independent_evidence": false
+}

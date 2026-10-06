@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_08B_RUN_MANIFEST_V0_1",
+  "run_id": "697530a15e7d49f8dedd900d610b01a7862a0f2494dfe5790825092af53bcc51",
+  "input_path": "artifacts\\bepd02\\real-historical-weekly-liquidity-ledger-v0.1\\EVENT_LEDGER.jsonl",
+  "input_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "input_sha256": "6458a3fa8fc309e87138ac86af549a3b53f5939822e7436daa8a3104986b45e0",
+  "output_path": "C:\\Users\\Boulevart\\ATDS-TMP\\BEPD-08B-EXECUTION\\REAL_GLOBAL_D_CLOSE_RESULT.json",
+  "output_sha256": "3df09774fddb1fa3a0b639e4cf080d944adcdee4e0f6a93e2fed350eba30b417",
+  "expected_n": 472,
+  "observed_n": 472,
+  "runner_blob": "cb4c1a513015ef81f6f910f1c1345aa95c84b15a",
+  "bepd08a_final_adjudication_blob": "553fedc2b538a90750839b6fce8edb9619a4dcb7",
+  "contract_blob": "4cfcb983ad64f31b443534d70991f8ddcb11ff8f",
+  "breaker_blob": "4d6ada0758a883ab639c93a6caf388e1e11b6d99",
+  "freeze_blob": "1b816f5ab7031e40add1d2c515167d5fb1147843",
+  "result_exposure": "FIRST_REAL_GLOBAL_D_CLOSE_DISTRIBUTION"
+}
