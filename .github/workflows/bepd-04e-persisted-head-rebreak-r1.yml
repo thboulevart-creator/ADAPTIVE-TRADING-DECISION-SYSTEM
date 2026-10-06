@@ -1,0 +1,141 @@
+name: BEPD-04E Persisted-Head Synthetic Rebreak R1
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04e-persisted-head-rebreak-r1.yml
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-rebreak-r1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact triggering HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify exact frozen identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"; expected="$2"; actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04E_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json" "26385eb2547892df4b87206ad59fc2ba07721354"
+          check_blob "GOVERNANCE/BEPD-04E-PRE-EXECUTION-METHOD-CONTRACT-V0.1.json" "5b06ee0c863c90af085a55fe145afd6d51c31497"
+          check_blob "tests/fixtures/bepd_04e_synthetic_v0_1.json" "eedaa71da7296fcce06be8beb75a7424be5bc28e"
+          check_blob "tests/test_bepd_04e_response_generalization_v0_1.py" "2750f1154279095f7ed39075b538fe568bcf9cde"
+          check_blob "reports/program/2026-10-06-BEPD-04E-TEST-FIRST-RED-RECEIPT-V0.1.json" "87273f14623825951c2439e46e765c1fcc4cfd32"
+          check_blob "tools/bepd_04e_response_generalization_v0_1.py" "61a996562fe18e0e2efd6f16db27a48738e60421"
+          check_blob "tools/bepd_04e_response_generalization_reference_v0_1.py" "e4ad2b642265889455e33f23ead3c5b57c1a7eae"
+          check_blob "breakers/bepd_04e_response_generalization_breaker_v0_1.py" "eda63bf26230a2b48eb75bb655e64e766b66c1a3"
+          check_blob "GOVERNANCE/BEPD-04E-MATERIAL-PARAMETER-DECISION-PACKET-V0.1.json" "e88900779eab989e5bfa3265d217485023dab4bb"
+          check_blob "GOVERNANCE/BEPD-04E-RESPONSE-SPECIFIC-M05-ACTIVATION-CANDIDATE-V0.1.json" "b740312275bff3d6910c2e0fd1a69a24d96df1cb"
+          echo "BEPD04E_PERSISTED_IDENTITIES_PASS"
+
+      - name: Run frozen synthetic test surface
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tests/test_bepd_04e_response_generalization_v0_1.py
+          echo "BEPD04E_SYNTHETIC_GREEN_PASS"
+
+      - name: Independent reference parity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from tools.bepd_04e_response_generalization_v0_1 import moving_block_ratio_ci
+          from tools.bepd_04e_response_generalization_reference_v0_1 import reference_moving_block_ratio_ci
+          f=json.loads(Path("tests/fixtures/bepd_04e_synthetic_v0_1.json").read_text())
+          c=f["cases"]["S06_MIXED_MULTI_CLUSTER"]
+          kw=dict(block_length=2,replications=500,seed=40420261006,confidence_level=.95,interval_method="PERCENTILE")
+          a=moving_block_ratio_ci(c["calendar"],c["events"],execution_scope="SYNTHETIC_QUALIFICATION",**kw)
+          b=reference_moving_block_ratio_ci(c["calendar"],c["events"],**kw)
+          for k in ("point_estimate","lower","upper"):
+              assert abs(a[k]-b[k]) < 1e-15, (k,a[k],b[k])
+          assert a["point_estimate"] == 0.6
+          assert a["lower"] == 0.3333333333333333
+          assert a["upper"] == 1.0
+          print("BEPD04E_INDEPENDENT_REFERENCE_PARITY_PASS")
+          PY
+
+      - name: Run executable adversarial breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04e_response_generalization_breaker_v0_1.py
+
+      - name: Verify governance states
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path("GOVERNANCE/BEPD-04E-MATERIAL-PARAMETER-DECISION-PACKET-V0.1.json").read_text())
+          a=json.loads(Path("GOVERNANCE/BEPD-04E-RESPONSE-SPECIFIC-M05-ACTIVATION-CANDIDATE-V0.1.json").read_text())
+          c=json.loads(Path("GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json").read_text())
+          m=json.loads(Path("GOVERNANCE/BEPD-04E-PRE-EXECUTION-METHOD-CONTRACT-V0.1.json").read_text())
+          assert p["human_adoption"] == "PENDING"
+          assert p["real_execution_authorized"] is False
+          assert a["activation_state"] == "NOT_ACTIVATED"
+          assert a["real_execution_authorized"] is False
+          assert a["occurrence_m05_reuse"] == "FORBIDDEN"
+          assert c["invariants"]["unique_complete_target_week_count"] == 259
+          assert c["invariants"]["zero_event_week_count"] == 29
+          assert c["invariants"]["response_values_inspected"] is False
+          assert m["m04_response_representation"]["status"] == "BLOCKED_BY_REPRESENTATION_CONSTRAINT"
+          assert m["authority"]["real_bootstrap"] is False
+          assert m["authority"]["real_confidence_interval"] is False
+          print("BEPD04E_GOVERNANCE_STATE_PASS")
+          PY
+
+      - name: Materialize rebreak receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04e-rebreak
+          python - <<'PY'
+          import json, os, subprocess
+          from pathlib import Path
+          head=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          tree=subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip()
+          receipt={
+            "schema":"ATDS_BEPD_04E_PERSISTED_HEAD_SYNTHETIC_REBREAK_RECEIPT_V0_1",
+            "status":"PASS",
+            "workflow_run_id":int(os.environ["GITHUB_RUN_ID"]),
+            "head":head,
+            "tree":tree,
+            "persisted_identities":"PASS",
+            "synthetic_green":"13/13 PASS",
+            "independent_reference_parity":"PASS",
+            "adversarial_breaker":"26/26 HARD_FAIL PASS",
+            "deterministic_replay":"PASS",
+            "m04_response_representation":"BLOCKED_BY_REPRESENTATION_CONSTRAINT",
+            "parameter_human_adoption":"PENDING",
+            "response_specific_m05_activation":"NOT_ACTIVATED",
+            "real_response_analysis_executed":False,
+            "real_nonstationarity_diagnostic_executed":False,
+            "real_bootstrap_executed":False,
+            "real_confidence_interval_calculated":False
+          }
+          Path("bepd04e-rebreak/RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
+          print("BEPD04E_PERSISTED_HEAD_REBREAK_PASS")
+          PY
+
+      - name: Upload rebreak receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04e-rebreak-r1
+          path: bepd04e-rebreak/RECEIPT.json
+          if-no-files-found: error
+          retention-days: 30
