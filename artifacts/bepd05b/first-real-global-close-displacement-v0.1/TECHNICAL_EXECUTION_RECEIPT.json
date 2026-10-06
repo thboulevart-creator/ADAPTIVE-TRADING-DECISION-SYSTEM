@@ -1,0 +1,21 @@
+{
+  "schema": "ATDS_BEPD_05B_REAL_EXECUTION_TECHNICAL_RECEIPT_V0_1",
+  "status": "REAL_GLOBAL_CLOSE_DISPLACEMENT_AGGREGATION_TECHNICALLY_QUALIFIED",
+  "head": "8adeaa5d96db6de388ea64f52c6dbf9f0047586f",
+  "runner_blob": "476f6ff06ee94dc1496e692beabe7480202fd518",
+  "source_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "result_sha256": "a836b243654ae2d9fe1e1a68623dbe9a60db074548e5bd6206f31455262d47c6",
+  "run_manifest_sha256": "060ad69c39815d8359cc62007bb766ab3e31be03d07c6ef96785231eb571a9b6",
+  "independent_reference_sha256": "65181e37526c24e781f7a54d8432ba413155c4d59c17f56630cd0df0640026b2",
+  "replay_result_sha256": "a836b243654ae2d9fe1e1a68623dbe9a60db074548e5bd6206f31455262d47c6",
+  "independent_recomputation": "EXACT_PARITY_PASS",
+  "deterministic_replay": "EXACT_PARITY_PASS",
+  "N": 472,
+  "p50_equals_median": true,
+  "ecdf_terminal_count": 472,
+  "ecdf_terminal_fraction": "1",
+  "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+  "human_adopted": false,
+  "subgroup_frontier_opened": false,
+  "next_scientific_frontier_opened": false
+}

@@ -1,0 +1,63 @@
+{
+  "schema": "ATDS_BEPD_05B_REAL_GLOBAL_CLOSE_DISPLACEMENT_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-05B",
+  "status": "REAL_GLOBAL_CLOSE_DISPLACEMENT_AGGREGATION_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "execution_freeze_blob": "826f20c72fe64dcb6d9a94c4c43643a72599d3f0",
+  "execution_commit": "8adeaa5d96db6de388ea64f52c6dbf9f0047586f",
+  "workflow": {
+    "run_id": 37451668314,
+    "job_id": 112229439613,
+    "conclusion": "SUCCESS"
+  },
+  "bindings": {
+    "human_authorization_blob": "b04ac2acd72d2fe768fdded0efebfc25351a2790",
+    "bepd05a_final_human_adjudication_blob": "024c7d23210b9c62604b3c6d2379746c1ac736a4",
+    "bepd05a_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05a_breaker_blob": "c39802f70d83dc249d23fe240b61169bf20ac757",
+    "bepd05a_freeze_blob": "30d438ef1daad9acaad170c002d7d5d8426acec4",
+    "implementation_qualification_receipt_blob": "a521efbe8fa162cccda755c563c6cabe0c2dc3fc",
+    "runner_blob": "476f6ff06ee94dc1496e692beabe7480202fd518",
+    "independent_reference_implementation_blob": "07f74f050ea64eeb88a2af5f9cead453cef3e707",
+    "executable_breaker_blob": "d5f6eff686b9e2f76e33476b3f246a933c8378f2",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "run_manifest_blob": "93468f3817d50887f56190187279c461b47c2791",
+    "independent_reference_result_blob": "49f8dd02ee25ce9d9057444aed54b15d959b1e63",
+    "technical_execution_receipt_blob": "f3ebd4dd0f62b66ded329d2c47f42e811c4756e2"
+  },
+  "result_sha256": {
+    "result": "a836b243654ae2d9fe1e1a68623dbe9a60db074548e5bd6206f31455262d47c6",
+    "run_manifest": "060ad69c39815d8359cc62007bb766ab3e31be03d07c6ef96785231eb571a9b6",
+    "independent_reference": "65181e37526c24e781f7a54d8432ba413155c4d59c17f56630cd0df0640026b2",
+    "replay_result": "a836b243654ae2d9fe1e1a68623dbe9a60db074548e5bd6206f31455262d47c6"
+  },
+  "qualification_checks": {
+    "source_event_ledger_identity": "PASS / EXACT",
+    "expected_n": "PASS / 472",
+    "event_id_uniqueness": "PASS",
+    "filtering": "PASS / NONE",
+    "negative_values_retained": "PASS",
+    "zero_values_retained": "PASS",
+    "no_reintegration_events_retained": "PASS",
+    "sign_semantics": "PASS / UNCHANGED",
+    "positive_zero_negative_reconciliation": "PASS",
+    "p50_equals_median": "PASS",
+    "quantile_method": "PASS / HYNDMAN_FAN_TYPE_7",
+    "ecdf_final_cumulative_count": "PASS / 472",
+    "ecdf_final_cumulative_fraction": "PASS / 1",
+    "independent_recomputation": "EXACT_PARITY_PASS",
+    "deterministic_replay": "EXACT_PARITY_PASS",
+    "subgroup_analysis": "NONE",
+    "oos_consumption": "NONE",
+    "prediction_edge_trading_authority": "NONE"
+  },
+  "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+  "generalization": "NOT_ESTABLISHED",
+  "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+  "result_human_adopted": false,
+  "subgroup_frontier_opened": false,
+  "next_scientific_frontier_opened": false,
+  "next_required_action": "HUMAN_ADJUDICATION_OF_FIRST_REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT"
+}

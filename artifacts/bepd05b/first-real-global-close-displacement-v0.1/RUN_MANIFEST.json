@@ -1,0 +1,16 @@
+{
+  "schema": "ATDS_BEPD_05B_RUN_MANIFEST_V0_1",
+  "run_id": "c2dc2292a81ea41d22089520c017a3a64bf34486dd5229a9df391bb9b77df80a",
+  "input_path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+  "input_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "input_sha256": "301a621b97fea14a72540d4c2c6da78eb742cc44c5009e44ad98e9f678ca4731",
+  "output_path": "/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json",
+  "output_sha256": "a836b243654ae2d9fe1e1a68623dbe9a60db074548e5bd6206f31455262d47c6",
+  "expected_n": 472,
+  "observed_n": 472,
+  "runner_blob": "476f6ff06ee94dc1496e692beabe7480202fd518",
+  "contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+  "breaker_blob": "c39802f70d83dc249d23fe240b61169bf20ac757",
+  "freeze_blob": "30d438ef1daad9acaad170c002d7d5d8426acec4",
+  "result_exposure": "FIRST_REAL_GLOBAL_CLOSE_DISPLACEMENT_AGGREGATION"
+}
