@@ -1,0 +1,128 @@
+{
+  "schema": "ATDS_RVO_10_FINAL_QUALIFICATION_RECEIPT_V0_1",
+  "status": "RVO_10_QUALIFIED_CLOSED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "525fed2f97eacb6767ee16ebb12453724da91594",
+    "tree": "df5356c170492ca723abc4186717c6ce3337ae14"
+  },
+  "authorization_reference": {
+    "head": "68d079b1a4f4e3965ebe60b84bbc7c1bc088801b",
+    "tree": "b17282fe476c19bad4221a5aff2e798ed370ebce"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "observed_after_execution_evidence": true,
+    "changed_scopes": [
+      "AO-E0-B8-SMF-01",
+      "BEPD-04G"
+    ],
+    "protected_rvo10_rvo09_p1_ap1_smf_blobs_unchanged": true
+  },
+  "exact_artifacts": {
+    "rvo10_contract_blob": "2daa316854e1f38e2f6868b347226292246c51ee",
+    "pre_result_freeze_blob": "7e0ef4d27b97ce17af248caa4c379232fcefaea9",
+    "parent_drift_reconciliation_blob": "c751e03e79b3ca2b9825505c3239a5c3331a9ffe",
+    "session_prepare_receipt_blob": "18850d5626660221c544e021a75ccbaab9726cbe",
+    "retry_ledger_blob": "37566b71499378821ce23cdeb2850ec23c0c4d77",
+    "execution_receipt_blob": "c03bc976f340fb04ed5eab39659faae3a0a8a35f",
+    "rvo09_final_receipt_blob": "34c0e1d6e57d4becdf72642c4bce0f46005403af",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "p1_12c_source_blob": "87d2ef49c0b70b956ada19443f5ba693cfb5b242",
+    "p1_12c_sandbox_runner_blob": "78aa1615a093c241774fdea1018b69f47728ecb6",
+    "smf_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e"
+  },
+  "execution": {
+    "status": "RVO_10_SINGLE_AP1_RETRY_COMPLETE",
+    "result_semantics": "EXECUTION_RESULT_ONLY",
+    "execution_head": "740defe38afb1d954c51d43822bce72d0c7df95c",
+    "execution_tree": "af45326e8ba39496e681c69c4b14aca50ad66e05",
+    "experiment_spec_id": "EXS-da5d5f4eb03b343a7d08196f4feace13",
+    "experiment_execution_input_id": "QEI-6a2bae1d240738804483602e3e95d1fd",
+    "execution_binding_id": "EEB-2326b082f5d292fd3d463b1ef10501d7",
+    "real_producer_execution_plan_id": "QRPP-4849170a7526b5018b7bc13b484ec8aa",
+    "real_producer_execution_plan_digest": "4849170a7526b5018b7bc13b484ec8aa58e7a87f5e06d577c5da60d50d0d4901",
+    "command_digest": "789d5b240d064247c933af6d894c6423fc4892252d3009477c5742189129acb4",
+    "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "exit_code": 0,
+    "timeout_observed": false,
+    "started_at": "2026-10-06T07:26:26.663366Z",
+    "ended_at": "2026-10-06T07:26:29.366921Z",
+    "duration_seconds": 2.703064899891615
+  },
+  "freeze": {
+    "freeze_digest": "e51901a8fc399c1ee8ab4fc82b2c27c22bb92d4f5178987f248d854e7412763b",
+    "freeze_sha256": "adc091f7074f4420fe0cf8d29c905efd3bbe0248753c014c3aad735cbd21855a",
+    "freeze_git_blob": "7e0ef4d27b97ce17af248caa4c379232fcefaea9",
+    "persistence_head": "08a5389ea496127c712a408df3f849c95c511b62",
+    "byte_exact": true,
+    "post_freeze_drift": "NONE"
+  },
+  "invocation_history": {
+    "historical_invocation_count": 1,
+    "retry_invocation_count": 1,
+    "total_real_ap1_invocations": 2,
+    "total_real_ap1_invocation_ordinal": 2,
+    "automatic_retry": false,
+    "third_invocation_authorized": false,
+    "retry_ledger_state": "COMPLETED_SUCCESS"
+  },
+  "output": {
+    "status": "AP1_COMPLETE",
+    "schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-740defe3.json",
+    "bytes": 179955,
+    "sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "contract_checks": "PASS",
+    "stdout_bytes": 260,
+    "stdout_sha256": "83103905cab9eb92459bc789292861eea80d8b8173087bc8497a98c75776c71e",
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "owner_regressions": {
+    "head": "f92b7d232e1cbcdc0b2df4d431797ccf1e8080a8",
+    "workflow": "RVO-10 Single AP1 Retry Qualification",
+    "run_id": 37429875332,
+    "job_id": 112157982002,
+    "conclusion": "success",
+    "rvo10_controller": "PASS",
+    "rvo09": "PASS",
+    "rvo08f": "PASS",
+    "p121": "PASS",
+    "rvo08": "PASS",
+    "rvo07": "PASS",
+    "g05": "PASS",
+    "smf": "PASS",
+    "data02": "PASS",
+    "clean_worktree": "PASS"
+  },
+  "persisted_head_rebreak": {
+    "head": "f92b7d232e1cbcdc0b2df4d431797ccf1e8080a8",
+    "conclusion": "PASS",
+    "github_run_id": 37429875332,
+    "github_job_id": 112157982002
+  },
+  "boundaries": {
+    "m03_real_executed": false,
+    "scientific_finding": false,
+    "strategy_validated": false,
+    "trading_signal": false,
+    "backtest": false,
+    "new_oos": false,
+    "paper": false,
+    "broker_live": false,
+    "capital": false
+  },
+  "authority": {
+    "retry_consumed": true,
+    "third_invocation": false,
+    "m03": false,
+    "scientific": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": "AP1_RESULT_SCIENTIFIC_INTERPRETATION_REQUIRES_SEPARATE_HUMAN_AUTHORIZATION",
+  "stop": true
+}
