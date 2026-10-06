@@ -27,6 +27,8 @@ NY = ZoneInfo("America/New_York")
 EXPECTED_DATASET = "USTECH_PROFILE_MINUTE_CORE_V0_1"
 EXPECTED_MANIFEST_SHA256 = "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce"
 EXPECTED_FILE_SET_DIGEST = "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a"
+QUANTILE_METHOD = "HYNDMAN_FAN_TYPE_7"
+ECDF_METHOD = "EXACT_UNSMOOTHED_UNBINNED"
 
 PROBS = {
     "P01": Decimal("0.01"),
@@ -203,6 +205,8 @@ def main():
     obj={
         "schema":"ATDS_BEPD_07B_INDEPENDENT_REFERENCE_V0_1",
         "implementation":"INDEPENDENT_NO_IMPORT_FROM_CANONICAL_RUNNER",
+        "quantile_method":QUANTILE_METHOD,
+        "ecdf":ECDF_METHOD,
         "metrics":{
             "MAX_REINTEGRATIVE_EXCURSION":surface(rein),
             "MAX_EXTERNAL_EXCURSION":surface(ext),
