@@ -1,0 +1,73 @@
+name: AO-E0 DATA-01 TC-01 Synthetic Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'tools/ao_e0_b12_data01_tc01_count_only.py'
+      - 'tools/ao_e0_b12_data01_tc01_reference.py'
+      - 'tests/test_ao_e0_b12_data01_tc01.py'
+      - 'GOVERNANCE/AO-E0-B12-DATA-01-TC-01-*'
+      - 'GOVERNANCE/AO-E0-B8-M06-TR-01-*'
+      - 'GOVERNANCE/AO-E0-TC01-M06-TR01-*'
+      - '.github/workflows/ao-e0-b12-data01-tc01-synthetic-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+
+      - name: TC-01 frozen synthetic qualification
+        run: python -m pytest -q tests/test_ao_e0_b12_data01_tc01.py
+
+      - name: E1-04 structural regression
+        run: python -m pytest -q breakers/e1_04_execution_cost_model_red_breaker.py
+
+      - name: E1-05 momentum regression
+        run: python -m pytest -q breakers/e1_05_minimal_momentum_runner_red_breaker.py
+
+      - name: Assert authority firewall
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          root=Path('.')
+          c=json.loads((root/'GOVERNANCE/AO-E0-B12-DATA-01-TC-01-COUNT-ONLY-CONTRACT-V0.1.json').read_text())
+          m=json.loads((root/'GOVERNANCE/AO-E0-B8-M06-TR-01-OPERATIONAL-COHERENCE-REVIEW-V0.1.json').read_text())
+          assert c['authority']['real_tc01_forward_read'] is False
+          assert c['authority']['b12_open'] is False
+          assert c['runtime']['performance_bearing_read'] is False
+          assert m['governance_interpretation']['real_forward_read'] is False
+          assert m['governance_interpretation']['m06_modified_by_review'] is False
+          assert m['authority']['b12_open'] is False
+          PY
+
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          git clean -fd
+          test -z "$(git status --porcelain)"

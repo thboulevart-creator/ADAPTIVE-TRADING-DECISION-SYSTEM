@@ -1,0 +1,15 @@
+{
+  "schema": "ATDS_TC01_M06_TR01_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "date": "2026-10-06",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_type": "HUMAN_CHAT_AUTHORIZATION",
+  "source_sha256": "02590f35fc5aafd60d28e573727975ef27d38b1c47b49923a708023cce87471e",
+  "authorized_work": [
+    "AO-E0-B12-DATA-01-TC-01 COUNT-ONLY ARCHITECTURE + FROZEN ADVERSARIAL BREAKERS + SYNTHETIC QUALIFICATION",
+    "AO-E0-B8-M06-TR-01 TERMINAL-RULE OPERATIONAL COHERENCE REVIEW"
+  ],
+  "hard_stop": "BEFORE_FIRST_REAL_TC01_FORWARD_READ",
+  "b12": "CLOSED",
+  "force": false
+}

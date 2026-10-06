@@ -1,0 +1,82 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_TR01_TERMINAL_RULE_OPERATIONAL_COHERENCE_REVIEW_V0_1",
+  "control_id": "AO-E0-B8-M06-TR-01",
+  "status": "ANALYSIS_COMPLETE_HUMAN_DECISION_REQUIRED",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / M06 terminal rule",
+  "bindings": {
+    "m06_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "m06_candidate_blob": "95a2e41c1e004e3b4461631060d8b12380983caa",
+    "momentum_v1_runtime_blob": "baad3bd7c2e810451737c89bf8f9bcabc17c5ba6",
+    "e1_04_runtime_blob": "15e72b8743e7726fc8b8bedd933cf7defe56413b",
+    "data01_formation_contract_blob": "7ebb5dc87434776d49966fdfbaba4006d44478ad",
+    "required_closed_trades": 58927,
+    "first_forward_evidence_decision_time_utc": "2026-10-06T11:00:00Z"
+  },
+  "proven_structural_lower_bound": {
+    "max_closed_trades_per_h1_decision": 1,
+    "initial_forward_position": "FLAT",
+    "first_forward_decision_can_close_trade": false,
+    "minimum_hourly_decision_intervals_to_58927th_close": 58927,
+    "minimum_elapsed_hours": 58927,
+    "minimum_elapsed_days": 2455.2916666666665,
+    "minimum_elapsed_years_365_25": 6.722222222222222,
+    "earliest_terminal_utc_under_impossible_24x7_hourly_close_envelope": "2033-06-26T18:00:00Z",
+    "classification": "PROVEN_STRUCTURAL_LOWER_BOUND"
+  },
+  "market_closure_effect": {
+    "exact_provider_trading_schedule_frozen_in_m06": false,
+    "effect": "UNAVAILABLE_HOURS_CAN_ONLY_DELAY_OR_LEAVE_UNCHANGED_THE_TERMINAL_TIME",
+    "illustrative_5d_x_24h_envelope": {
+      "eligible_h1_per_week": 120,
+      "minimum_weeks": 491.05833333333334,
+      "minimum_years_365_25": 9.411111111111111,
+      "classification": "DESIGN_BASED_ESTIMATE_NOT_PROVIDER_SCHEDULE_FACT"
+    }
+  },
+  "continuity_effect": {
+    "new_continuity_block_first_20_ordinals": "UNDEFINED",
+    "effect": "CAN_ONLY_DELAY_OR_LEAVE_UNCHANGED_TERMINAL_TIME",
+    "exact_future_block_count": "UNKNOWN_WITHOUT_FORWARD_OBSERVATION"
+  },
+  "hold_and_signal_persistence": {
+    "hold_closed_trade_increment": 0,
+    "persistent_signal_can_produce_indefinite_holds": true,
+    "finite_completion_time_structurally_guaranteed": false,
+    "upper_bound_on_completion_time": "UNBOUNDED_BY_CURRENT_RULES",
+    "classification": "PROVEN_STRUCTURAL_PROPERTY"
+  },
+  "unknown_without_forward_observation": [
+    "future signal-switch frequency",
+    "future continuity-block count",
+    "future admissible execution opportunity frequency",
+    "actual calendar completion time"
+  ],
+  "governance_interpretation": {
+    "operational_difficulty_ne_statistical_invalidity": true,
+    "statistical_preregistration_ne_operational_feasibility": true,
+    "m06_modified_by_review": false,
+    "required_n_modified_by_review": false,
+    "forward_performance_used": false,
+    "real_forward_read": false
+  },
+  "verdict": "DESIGN_DEFECT_CANDIDATE",
+  "verdict_reason": "The rule is internally deterministic but requires at least 58,927 hourly decision intervals even under an impossible 24x7 one-close-per-hour envelope (>6.7 years), and current strategy semantics provide no finite guarantee that 58,927 closes will ever occur. This is an operational-design defect candidate, not a statistical invalidity finding.",
+  "next_human_decision": [
+    "KEEP_FROZEN_M06",
+    "PROSPECTIVE_M06_AMENDMENT",
+    "ABANDON_CURRENT_CONFIRMATORY_ROUTE",
+    "OTHER_EXPLICITLY_GOVERNED_ROUTE"
+  ],
+  "authority": {
+    "m06_change": false,
+    "terminal_rule_change": false,
+    "b12_open": false,
+    "real_tc01_forward_read": false,
+    "real_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
