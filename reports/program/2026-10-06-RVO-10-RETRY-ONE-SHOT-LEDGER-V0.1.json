@@ -1,0 +1,22 @@
+{
+  "armed_at": "2026-10-06T07:26:26.661390Z",
+  "automatic_retry": false,
+  "command_digest": "789d5b240d064247c933af6d894c6423fc4892252d3009477c5742189129acb4",
+  "ended_at": "2026-10-06T07:26:29.366921Z",
+  "execution_receipt_sha256": "592a0e93b38d4fbca81353a5e98f887536c578343227e630fe4ae32a3bc040f4",
+  "freeze_git_blob": "7e0ef4d27b97ce17af248caa4c379232fcefaea9",
+  "freeze_persistence_head": "08a5389ea496127c712a408df3f849c95c511b62",
+  "freeze_sha256": "adc091f7074f4420fe0cf8d29c905efd3bbe0248753c014c3aad735cbd21855a",
+  "historical_invocation_count": 1,
+  "next_total_ordinal": 2,
+  "output_sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+  "real_producer_execution_plan_digest": "4849170a7526b5018b7bc13b484ec8aa58e7a87f5e06d577c5da60d50d0d4901",
+  "real_producer_execution_plan_id": "QRPP-4849170a7526b5018b7bc13b484ec8aa",
+  "retry_invocation_budget": 1,
+  "retry_invocation_count": 1,
+  "schema": "ATDS_RVO_10_RETRY_ONE_SHOT_LEDGER_V0_1",
+  "session_contract": "ATDS_RVO_10_IN_MEMORY_PLAN_FREEZE_ACK_SESSION_V0_1",
+  "started_at": "2026-10-06T07:26:26.663366Z",
+  "state": "COMPLETED_SUCCESS",
+  "total_real_ap1_invocations": 2
+}

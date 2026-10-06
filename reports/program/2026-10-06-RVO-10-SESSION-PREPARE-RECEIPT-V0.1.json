@@ -1,0 +1,22 @@
+{
+  "ap1_executed": false,
+  "command_digest": "789d5b240d064247c933af6d894c6423fc4892252d3009477c5742189129acb4",
+  "execution_binding_id": "EEB-2326b082f5d292fd3d463b1ef10501d7",
+  "execution_head": "740defe38afb1d954c51d43822bce72d0c7df95c",
+  "execution_tree": "af45326e8ba39496e681c69c4b14aca50ad66e05",
+  "experiment_execution_input_id": "QEI-6a2bae1d240738804483602e3e95d1fd",
+  "experiment_spec_id": "EXS-da5d5f4eb03b343a7d08196f4feace13",
+  "freeze_digest": "e51901a8fc399c1ee8ab4fc82b2c27c22bb92d4f5178987f248d854e7412763b",
+  "freeze_sha256": "adc091f7074f4420fe0cf8d29c905efd3bbe0248753c014c3aad735cbd21855a",
+  "historical_invocation_count": 1,
+  "m03_executed": false,
+  "real_producer_execution_plan_digest": "4849170a7526b5018b7bc13b484ec8aa58e7a87f5e06d577c5da60d50d0d4901",
+  "real_producer_execution_plan_id": "QRPP-4849170a7526b5018b7bc13b484ec8aa",
+  "retry_invocation_count": 0,
+  "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+  "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+  "schema": "ATDS_RVO_10_SESSION_PREPARE_RECEIPT_V0_1",
+  "session_contract": "ATDS_RVO_10_IN_MEMORY_PLAN_FREEZE_ACK_SESSION_V0_1",
+  "status": "RVO_10_SESSION_WAITING_FOR_BYTE_EXACT_FREEZE_ACK",
+  "total_real_ap1_invocations": 1
+}
