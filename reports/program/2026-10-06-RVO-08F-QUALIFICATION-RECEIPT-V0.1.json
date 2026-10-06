@@ -1,0 +1,92 @@
+{
+  "schema": "ATDS_RVO_08F_QUALIFICATION_RECEIPT_V0_1",
+  "status": "RVO_08F_QUALIFIED_CLOSED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "49efcbb1cb1981a26e9294406c0f9342b53558f7",
+    "tree": "1ac276658a937bf801be68c46b065722f31cf054"
+  },
+  "adjudication": {
+    "root_cause": "PROVEN",
+    "adjudication_blob": "8761e49bfce2ea82fcc6b3e796e0f7cae9a66520",
+    "repair_status": "SYNTHETICALLY_QUALIFIED_NON_AP1",
+    "repair_qualification_blob": "0f6fc4d11321d858a2ff59847502eb863064cf8c",
+    "qualification_report_blob": "1b86ea0feac520348f51e6276824d93157c24675",
+    "drift_reconciliation_blob": "6a83f6eca52a592d6dcc5d3b26ddff672fce08da"
+  },
+  "exact_protected_identities": {
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "p1_12c_source_blob": "87d2ef49c0b70b956ada19443f5ba693cfb5b242",
+    "p1_12c_runner_blob": "78aa1615a093c241774fdea1018b69f47728ecb6",
+    "rvo08_ledger_blob": "11d47d1dfc2fbfe6a2746f74f245812398494e8e",
+    "rvo08_execution_receipt_blob": "937e33846126246596e4d8ecf8327706d59202e5",
+    "rvo08f_plan_blob": "0ea2f00caecfe76b633ed45e3e8c874fdadefc80"
+  },
+  "repaired_derived_identities": {
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "synthetic_plan_id": "QRPP-2ac33559a1e042362ef42940576c9f61",
+    "synthetic_plan_digest": "2ac33559a1e042362ef42940576c9f61175fd07047b0c04c5872ba33ed562bd6"
+  },
+  "test_first": {
+    "red": {
+      "head": "cc5012a70490a7bcf6b1b4b8f7a4809c27e3b1a4",
+      "failed": 3,
+      "passed": 5
+    },
+    "green": {
+      "repair_tests": "8_PASS",
+      "p121_breakers": "29_PASS",
+      "p121_positive": "18_PASS"
+    }
+  },
+  "owner_regressions": {
+    "rvo08_controller": "5_PASS",
+    "rvo07_breakers": "35_PASS",
+    "rvo07_positive": "20_PASS",
+    "g05_breakers": "30_PASS",
+    "g05_positive": "19_PASS",
+    "smf_ap1_m03_breakers": "28_PASS",
+    "smf_ap1_m03_positive": "25_PASS",
+    "data02_breakers": "32_PASS"
+  },
+  "persisted_qualification_head_rebreak": {
+    "head": "49efcbb1cb1981a26e9294406c0f9342b53558f7",
+    "tree": "1ac276658a937bf801be68c46b065722f31cf054",
+    "local": "PASS",
+    "github": {
+      "workflow": "RVO-08F Forensic Qualification",
+      "run_id": 37422715478,
+      "job_id": 112135426371,
+      "conclusion": "success"
+    },
+    "companion_rvo08_workflow": {
+      "run_id": 37422715500,
+      "conclusion": "success"
+    }
+  },
+  "forensic_boundary": {
+    "ledger_invocation_count": 1,
+    "ledger_state": "STARTED",
+    "new_real_ap1_invocation": false,
+    "real_ap1_output_exists": false,
+    "real_m03_executed": false,
+    "backtest": false,
+    "new_oos": false,
+    "paper": false,
+    "broker_live": false,
+    "capital": false
+  },
+  "authority": {
+    "retry_authorized": false,
+    "execution_authority": false,
+    "scientific_authority": false,
+    "trading_authority": false,
+    "capital_authority": false
+  },
+  "next_frontier": "SEPARATE_PRE_RETRY_REQUALIFICATION_AUTHORIZATION_REQUIRED",
+  "stop": true
+}
