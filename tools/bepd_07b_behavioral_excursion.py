@@ -21,7 +21,7 @@ import json
 import math
 from datetime import datetime, timedelta, time, timezone
 from decimal import Decimal, ROUND_HALF_EVEN, getcontext
-from fractions import Fraction
+from fractions import Fraction\nfrom bisect import bisect_left, bisect_right
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
