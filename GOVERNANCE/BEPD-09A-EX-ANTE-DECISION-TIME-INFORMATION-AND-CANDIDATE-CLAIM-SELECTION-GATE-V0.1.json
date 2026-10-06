@@ -1,0 +1,352 @@
+{
+  "schema": "ATDS_BEPD_09A_EX_ANTE_DECISION_TIME_INFORMATION_AND_CANDIDATE_CLAIM_SELECTION_GATE_V0_1",
+  "status": "FROZEN_DESIGN_CANDIDATE",
+  "control_id": "BEPD-09A",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "7324ceafdc66c9fa9e21d2f6d8e455ab85c07e14",
+    "bepd08d_final_human_adjudication_blob": "227ee01f330fc5c10ad29422cab69ac8a6461de4",
+    "bepd08c_close_side_contract_blob": "dc767d77b8f0c8cf89f6d87e9a4cd2401dd0b42e",
+    "bepd07a_path_geometry_contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+    "bepd06a_time_to_reintegration_contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+    "bepd05a_close_displacement_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd04a_reintegration_response_contract_blob": "796bcaec05eb36234074ba4ea871afcd6f784915",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd01d_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd01a_measurement_contract_blob": "341f6267f7f1add350759d6d95dfebfb5b9e46f7"
+  },
+  "objective": "FREEZE_CAUSAL_DECISION_TIME_INFORMATION_BOUNDARY_AND_RANK_FUTURE_CANDIDATE_CLAIMS_WITHOUT_READING_REAL_DATA_OR_TESTING_ANY_CLAIM",
+  "decision_time": {
+    "symbol": "T0",
+    "canonical_field": "take_h1_close_utc",
+    "semantic": "FIRST_QUALIFYING_H1_CLOSE_AT_WHICH_THE_ACTIVE_WEEKLY_LEVEL_IS_STRICTLY_TAKEN_AND_THE_LEVEL_SWEEP_EVENT_CANONICALLY_EXISTS",
+    "earliest_predictive_cutoff": "INFORMATION_MUST_BE_CAUSALLY_AVAILABLE_AT_OR_BEFORE_T0",
+    "post_t0_information_as_predictor": "FORBIDDEN",
+    "row_presence_does_not_imply_ex_ante_availability": true
+  },
+  "availability_classes": {
+    "PRE_T0": "causally available before T0",
+    "AT_T0": "becomes observable no later than the qualified H1 close at T0",
+    "POST_T0_RESPONSE": "occurs strictly after T0 and may serve only as a future response if separately authorized",
+    "TARGET_WEEK_END_OUTCOME": "depends on target-week terminal state and may serve only as a future response/outcome if separately authorized",
+    "DIAGNOSTIC_ONLY": "quality/provenance metadata; not a predictor under BEPD-09A",
+    "IDENTITY_ONLY": "identity/join/dependence key; not a predictor under BEPD-09A",
+    "REQUIRES_NEW_CAUSAL_BINDING": "potentially ex-ante in principle but not proven eligible under currently bound sources"
+  },
+  "variable_map": [
+    {
+      "field": "source_week_id",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "target_week_id",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "PREDICTOR_ELIGIBLE_CALENDAR_CONTEXT"
+    },
+    {
+      "field": "side",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "level_price_mid",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "level_age_weeks",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "active_level_count_at_target_week_start",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "take_h1_bucket_start_utc",
+      "source": "EVENT_LEDGER",
+      "availability": "AT_T0",
+      "role": "PREDICTOR_ELIGIBLE_TIME_CONTEXT"
+    },
+    {
+      "field": "take_h1_close_utc",
+      "source": "EVENT_LEDGER",
+      "availability": "AT_T0",
+      "role": "DECISION_TIME_AND_PREDICTOR_ELIGIBLE_TIME_CONTEXT"
+    },
+    {
+      "field": "take_h1_close_mid",
+      "source": "EVENT_LEDGER",
+      "availability": "AT_T0",
+      "role": "PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "take_h1_terminal_minute_present",
+      "source": "EVENT_LEDGER",
+      "availability": "AT_T0",
+      "role": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "field": "take_h1_internal_gap_count",
+      "source": "EVENT_LEDGER",
+      "availability": "AT_T0",
+      "role": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "field": "event_id",
+      "source": "EVENT_LEDGER",
+      "availability": "AT_T0",
+      "role": "IDENTITY_ONLY"
+    },
+    {
+      "field": "level_id",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "IDENTITY_JOIN_ONLY"
+    },
+    {
+      "field": "sweep_cluster_id",
+      "source": "EVENT_LEDGER",
+      "availability": "PRE_T0",
+      "role": "DEPENDENCE_IDENTITY_ONLY"
+    },
+    {
+      "field": "cluster_consumed_level_count",
+      "source": "EVENT_LEDGER",
+      "availability": "POST_T0_RESPONSE",
+      "role": "FORBIDDEN_AS_PREDICTOR",
+      "reason": "may include levels consumed later in the same target week"
+    },
+    {
+      "field": "reintegration_h1_bucket_start_utc",
+      "source": "EVENT_LEDGER",
+      "availability": "POST_T0_RESPONSE",
+      "role": "RESPONSE_ONLY"
+    },
+    {
+      "field": "reintegration_h1_close_utc",
+      "source": "EVENT_LEDGER",
+      "availability": "POST_T0_RESPONSE",
+      "role": "RESPONSE_ONLY"
+    },
+    {
+      "field": "reintegration_h1_close_mid",
+      "source": "EVENT_LEDGER",
+      "availability": "POST_T0_RESPONSE",
+      "role": "RESPONSE_ONLY"
+    },
+    {
+      "field": "reintegration_h1_internal_gap_count",
+      "source": "EVENT_LEDGER",
+      "availability": "POST_T0_RESPONSE",
+      "role": "DIAGNOSTIC_ONLY"
+    },
+    {
+      "field": "same_week_reintegration",
+      "source": "EVENT_LEDGER",
+      "availability": "POST_T0_RESPONSE",
+      "role": "RESPONSE_ONLY"
+    },
+    {
+      "field": "target_week_close_mid",
+      "source": "EVENT_LEDGER",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "OUTCOME_ONLY"
+    },
+    {
+      "field": "close_displacement",
+      "source": "EVENT_LEDGER",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "OUTCOME_ONLY"
+    },
+    {
+      "field": "CLOSE_SIDE",
+      "source": "DERIVED_FROM_close_displacement",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "OUTCOME_ONLY_NOT_PREDICTOR"
+    },
+    {
+      "field": "D_CLOSE",
+      "source": "DERIVED_FROM_close_displacement",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "OUTCOME_ONLY_NOT_PREDICTOR"
+    },
+    {
+      "field": "D_INTERNAL",
+      "source": "OUTCOME_CONDITIONED_D_CLOSE",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "OUTCOME_CONDITIONED_DESCRIPTION_ONLY"
+    },
+    {
+      "field": "D_EXTERNAL",
+      "source": "OUTCOME_CONDITIONED_D_CLOSE",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "OUTCOME_CONDITIONED_DESCRIPTION_ONLY"
+    },
+    {
+      "field": "target_week_gap_count_gt60s",
+      "source": "EVENT_LEDGER",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "DIAGNOSTIC_ONLY_FORBIDDEN_AS_PREDICTOR"
+    },
+    {
+      "field": "target_week_max_gap_ms",
+      "source": "EVENT_LEDGER",
+      "availability": "TARGET_WEEK_END_OUTCOME",
+      "role": "DIAGNOSTIC_ONLY_FORBIDDEN_AS_PREDICTOR"
+    },
+    {
+      "field": "holiday_tag",
+      "source": "EVENT_LEDGER",
+      "availability": "REQUIRES_NEW_CAUSAL_BINDING",
+      "role": "NOT_PREDICTOR_ELIGIBLE_UNTIL_SEPARATELY_BOUND_CALENDAR_SOURCE"
+    },
+    {
+      "field": "gap_cause",
+      "source": "EVENT_LEDGER",
+      "availability": "DIAGNOSTIC_ONLY",
+      "role": "NOT_PREDICTOR_ELIGIBLE"
+    },
+    {
+      "field": "run_id/dataset_id/dataset_manifest_sha256/engine_blob/contract_blob/breaker_blob",
+      "source": "EVENT_LEDGER",
+      "availability": "DIAGNOSTIC_ONLY",
+      "role": "PROVENANCE_ONLY"
+    }
+  ],
+  "permitted_pre_t0_join_surface": {
+    "source": "LEVEL_LEDGER via level_id",
+    "rule": "JOINED_FIELD_MUST_HAVE_CAUSAL_AVAILABILITY_NO_LATER_THAN_T0",
+    "potentially_eligible": [
+      "source_week_start_utc",
+      "source_week_end_utc",
+      "level_observed_at_utc",
+      "causal_available_from_utc"
+    ],
+    "diagnostic_only": [
+      "source_week_file_binding_digest",
+      "source_week_gap_count_gt60s",
+      "source_week_max_gap_ms",
+      "source_week_quality_state"
+    ],
+    "forbidden_if_outcome_dependent": [
+      "terminal_state",
+      "consumed_event_id",
+      "consumed_target_week_id",
+      "consumed_at_h1_close_utc when used as future-derived label rather than T0 identity",
+      "right_censored_at_utc"
+    ]
+  },
+  "derived_feature_rule": {
+    "allowed_candidate_feature": "all source inputs individually causally available at or before T0 AND transformation formula frozen before any response/outcome read",
+    "forbidden": [
+      "feature using any POST_T0_RESPONSE field",
+      "feature using any TARGET_WEEK_END_OUTCOME field",
+      "feature using future cluster membership or cluster final size",
+      "feature selected because of observed response/outcome performance",
+      "target encoding from exposed outcomes",
+      "post-hoc threshold optimized on response/outcome",
+      "label leakage through joins"
+    ]
+  },
+  "candidate_claim_gate": {
+    "final_claim_selected": false,
+    "claim_testing_authorized": false,
+    "candidate_claims": [
+      {
+        "rank": 1,
+        "id": "C1",
+        "question": "Does T0-available context contain information about whether the swept Weekly level obtains a strict qualifying H1 reintegration before target-week end?",
+        "response": "same_week_reintegration",
+        "response_type": "BOOLEAN_POST_T0_RESPONSE",
+        "predictor_surface": "T0_ELIGIBLE_ONLY",
+        "material_caveat": "remaining observation time to target-week end varies with T0 and must be explicitly represented or otherwise controlled in any future design",
+        "recommendation": "PREFERRED_FIRST_CANDIDATE_FOR_SEPARATE_HUMAN_SELECTION"
+      },
+      {
+        "rank": 2,
+        "id": "C2",
+        "question": "Does T0-available context contain information about the target-week terminal close side relative to the swept Weekly level?",
+        "response": "CLOSE_SIDE",
+        "response_type": "TARGET_WEEK_END_OUTCOME",
+        "predictor_surface": "T0_ELIGIBLE_ONLY",
+        "material_caveat": "EXACT_LEVEL must remain a valid state prospectively; INTERNAL/EXTERNAL cannot be used as predictors",
+        "recommendation": "SECONDARY_CANDIDATE"
+      },
+      {
+        "rank": 3,
+        "id": "C3",
+        "question": "Does T0-available context contain information about absolute target-week-close distance from the swept Weekly level?",
+        "response": "D_CLOSE",
+        "response_type": "CONTINUOUS_TARGET_WEEK_END_OUTCOME",
+        "predictor_surface": "T0_ELIGIBLE_ONLY",
+        "material_caveat": "no target/TP interpretation; skew/tails/dependence require later method design",
+        "recommendation": "SECONDARY_CANDIDATE"
+      },
+      {
+        "rank": 4,
+        "id": "C4",
+        "question": "Does T0-available context contain information about time to first reintegration?",
+        "response": "TIME_TO_FIRST_REINTEGRATION_OR_SURVIVAL_STATE",
+        "response_type": "POST_T0_TIME_TO_EVENT",
+        "predictor_surface": "T0_ELIGIBLE_ONLY",
+        "material_caveat": "censoring and unequal remaining observation windows require a separately authorized survival/time-to-event estimand",
+        "recommendation": "DEFER_UNTIL_SURVIVAL_SEMANTICS_ARE_FROZEN"
+      }
+    ]
+  },
+  "dependence_boundary": {
+    "event_is_iid": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "future_method_must_preserve_cluster_dependence": true,
+    "iid_assumption_by_default": "FORBIDDEN"
+  },
+  "evidence_boundary": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "bepd09a_uses_real_rows": false,
+    "exploratory_testing_authorized": false,
+    "confirmatory_testing_authorized": false,
+    "fresh_oos_consumption_authorized": false,
+    "generalization": "NOT_ESTABLISHED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "authority": {
+    "design": true,
+    "causal_availability_mapping": true,
+    "candidate_claim_ranking": true,
+    "documentary_breaker": true,
+    "programmatic_documentary_qualification": true,
+    "real_data_read": false,
+    "real_result_read_for_new_analysis": false,
+    "historical_claim_test": false,
+    "comparative_test": false,
+    "threshold_search": false,
+    "feature_selection_from_outcomes": false,
+    "model_training": false,
+    "oos_consumption": false,
+    "tp_sl": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_action": "HUMAN_ADJUDICATION_OF_BEPD_09A_DESIGN_PACKAGE_ONLY",
+  "stop_boundary": "STOP_AFTER_DOCUMENTARY_PROGRAMMATIC_QUALIFICATION_AND_PERSISTED_HEAD_VERIFICATION"
+}
