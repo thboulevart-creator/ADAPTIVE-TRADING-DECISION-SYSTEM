@@ -1,0 +1,18 @@
+{
+  "bepd04e_human_adjudication_blob": "a92da70e6efec49729b275d806a76f0244e79bdd",
+  "bepd04f_amendment_blob": "38d9e3f45f51ef0f208f8a42a886a525b51be609",
+  "bepd04f_qualification_receipt_blob": "3b1836a578bbb46969dff13c5bcfa4bdff9ba0dc",
+  "bepd04g_run_id": "24b5b1bd226cc4f5fd2ca3cc5aafd5c9d32597e1d32d5a3fe78ff85b4948984c",
+  "branch": "integration/system-v1",
+  "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+  "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+  "execution_head": "353e12990b4a80cbc1fa86c4b97d783592432711",
+  "execution_tree": "a7a328aa22ee9b6e83bc003738c882f10750314f",
+  "m05_activation": "NOT_ACTIVATED",
+  "pre_result_freeze_blob": "98698c29e2df5ad5e99190311cd06f4e3096ba93",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "schema": "ATDS_BEPD_04G_RUN_MANIFEST_V0_1",
+  "source_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "source_run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "source_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+}
