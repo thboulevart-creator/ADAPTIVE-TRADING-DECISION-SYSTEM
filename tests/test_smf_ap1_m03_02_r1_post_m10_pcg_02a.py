@@ -187,3 +187,40 @@ def test_22_expected_gate_result_is_not_preregistered():
     b=load(BREAKERS)
     names=dict(b["breakers"])
     assert names["PCG02A-B30"]=="EXPECTED_GATE_RESULT_NOT_PREREGISTERED"
+
+
+FREEZE=GOV/"SMF-AP1-M03-02-R1-POST-M10-PCG-02A-PRE-EXECUTION-FREEZE-V0.1.json"
+
+def test_23_pre_execution_freeze_binds_exact_packet_identity():
+    f=load(FREEZE)
+    p=f["packet_identity"]
+    assert p["git_blob"]=="bcf5258247b9ef08f732d42abe88ca7e0a9b9c55"
+    assert p["sha256"]=="d0a4dde068a7fb460413120041f521597509b80736299af7dd21d7ad90531a99"
+    assert p["persisted_head"]=="f5ea7d92960e7952a809ae71a97fd01e988b9908"
+    assert p["persisted_tree"]=="fcc6715c166cc9d81c893ebe809f44f237d61e25"
+
+def test_24_pre_execution_freeze_binds_exact_pcg01_identity():
+    f=load(FREEZE)["pcg01_execution_bindings"]
+    assert f=={
+        "runtime_blob":EXPECTED_RUNTIME,
+        "reference_blob":EXPECTED_REFERENCE,
+        "breaker_blob":EXPECTED_PCG01_BREAKER,
+    }
+
+def test_25_expected_gate_result_is_explicitly_not_preregistered():
+    f=load(FREEZE)
+    assert f["expected_gate_result"]=="NOT_PREREGISTERED"
+    assert f["next_frontier"]["id"]=="SMF-AP1-M03-02-R1-POST-M10-PCG-02B"
+    assert f["next_frontier"]["separate_human_authorization_required"] is True
+    assert f["next_frontier"]["opened"] is False
+    assert f["next_frontier"]["executed"] is False
+
+def test_26_pre_execution_freeze_authority_ceiling_is_all_false():
+    assert all(v is False for v in load(FREEZE)["authority_ceiling"].values())
+
+def test_27_freeze_preserves_explicit_empty_route_set():
+    s=load(FREEZE)["frozen_application_summary"]
+    assert s["pooling_requested"] is True
+    assert s["requested_routes"]==[]
+    assert s["authority_requests"]==[]
+    assert s["real_data_dependency_requested"] is False

@@ -1,0 +1,61 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_02A_PRE_EXECUTION_FREEZE_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02A",
+  "application_id": "POST_M10-PCG02A-APP01-TICKCOUNT-P50-POOLED-2022-2025",
+  "status": "FROZEN_BEFORE_ANY_REAL_PCG_EXECUTION",
+  "packet_identity": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-PCG-02A-FIRST-REAL-APPLICATION-PACKET-V0.1.json",
+    "git_blob": "bcf5258247b9ef08f732d42abe88ca7e0a9b9c55",
+    "sha256": "d0a4dde068a7fb460413120041f521597509b80736299af7dd21d7ad90531a99",
+    "persisted_head": "f5ea7d92960e7952a809ae71a97fd01e988b9908",
+    "persisted_tree": "fcc6715c166cc9d81c893ebe809f44f237d61e25"
+  },
+  "pcg01_execution_bindings": {
+    "runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "dc00_source_bindings": {
+    "final_receipt_blob": "7c1d9474fc35e08e07c1b4481113e35d354715bc",
+    "final_closure_blob": "a17c4863c464357744beaeeba2f5ee156e2f2d2d",
+    "downstream_claim_contract_blob": "2e3336e44aa09efc4b44f6eed7d5bee680287c11",
+    "estimand_contract_blob": "f7c1c06dfb799073d586d63aa319ac9ed92f1edd",
+    "analysis_intent_contract_blob": "23e20dc28fa7eec3f7646acb7392a00a7f7d7623"
+  },
+  "frozen_application_summary": {
+    "claim_unit": "tick_count p50",
+    "m10_status": "MATERIAL_TEMPORAL_VARIATION",
+    "downstream_claim_id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "downstream_analysis_id": "POST_M10-DA01-POOLED-TICKCOUNT-P50-REFERENCE-CONSTRUCTION",
+    "requested_temporal_scope": "UTC_YEAR:2022|UTC_YEAR:2023|UTC_YEAR:2024|UTC_YEAR:2025",
+    "pooling_requested": true,
+    "requested_routes": [],
+    "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+    "authority_requests": [],
+    "real_data_dependency_requested": false
+  },
+  "expected_gate_result": "NOT_PREREGISTERED",
+  "expected_gate_result_reason": "PCG_02A_FREEZES_INPUTS_ONLY_AND_MUST_NOT_PRESUME_OR_COMPUTE_PCG_02B_RESULT",
+  "authority_ceiling": {
+    "pcg_runtime_execution": false,
+    "pcg_reference_execution": false,
+    "pcg_result_creation": false,
+    "numerical_estimation": false,
+    "real_data_read": false,
+    "pooling_execution": false,
+    "conditioning_execution": false,
+    "statistical_method_activation": false,
+    "statistical_method_execution": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02B",
+    "scope": "FIRST_REAL_CLAIM_SCOPED_GOVERNANCE_GATE_EXECUTION",
+    "separate_human_authorization_required": true,
+    "opened": false,
+    "executed": false
+  },
+  "force": false
+}
