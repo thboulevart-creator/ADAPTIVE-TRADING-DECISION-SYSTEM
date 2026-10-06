@@ -1,0 +1,121 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_00_FINAL_READINESS_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-00",
+  "status": "DESIGN_QUALIFIED_SEMANTICS_FROZEN_BREAKERS_FROZEN_READY_FOR_SEPARATE_HUMAN_DECISION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "design_persisted_head": {
+    "head": "cde8f5d48ac47d75f0740ee26d2bbb6630f4906f",
+    "tree": "4016e98b54339ab4cc753a562d0be70879b96f0b"
+  },
+  "canonical_artifacts": {
+    "contract": {
+      "blob": "8e6e888f8330e40d792b43650c32b09a8dc6a281",
+      "sha256": "1905f7d735c6c8d807cc8c3e097d99819ef38239ed45c70f6091de56cf07a683"
+    },
+    "decision_table": {
+      "blob": "da9bb3a7436072795fced2d171cae8df23591279",
+      "sha256": "42c7bf709c080b8798912991bd1df2013674d342a5ac681d87c79d13c9c35a6f"
+    },
+    "breaker_contract": {
+      "blob": "c52eca89c45fd68e83c506925626a3c389b5d4a2",
+      "sha256": "3f2c09c14981cb349e2f0b549d13a9cf6f5951b938121e0b19b4f61a302b3944"
+    },
+    "traceability": {
+      "blob": "364baff4a603c9be69f29742ba2647477742974f",
+      "sha256": "341eac831aa988d1883c3e59418809870787f18a5b5d196bfd2d67c3bf076215"
+    },
+    "qualification_report_blob": "116eeecc4ee94b11090ee0f9e5522431994c8645",
+    "qualification_test_blob": "de8ffd1a6969deed679296a23e72842a7274c11d",
+    "workflow_blob": "d8d9030a3bb9927e0b1ad22ccd4fe2e3a15abd45"
+  },
+  "binding_sources": {
+    "post_m10_human_adjudication_blob": "aeed65dd6853392168aa97432ebadb1f9ea48e46",
+    "post_m10_human_adoption_receipt_blob": "afe3fe2cc9dc36182f785620496a66bdab297370",
+    "m10_01_final_receipt_blob": "899d0e6d27920dccfc260de0c30646d9e5ee8c53",
+    "m10_01_final_closure_blob": "1664e786e65a68cf77370afc7cc933b34958133a"
+  },
+  "qualification": {
+    "local_combined_rebreak_before_receipt": "68/68 PASS",
+    "pcg00_targeted": "22/22 PASS",
+    "first_local_failure": {
+      "classification": "DOCUMENTARY_HARNESS_ENCODING_ONLY",
+      "cause": "ASCII_READER_AGAINST_UTF8_CONTRACT",
+      "scientific_semantics_changed": false,
+      "governance_semantics_changed": false
+    },
+    "canonical_ci": {
+      "run_id": 37488455323,
+      "job_id": 112354560499,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37488455160,
+      "job_id": 112354577044,
+      "conclusion": "success"
+    }
+  },
+  "design": {
+    "routes": [
+      "A",
+      "B",
+      "C"
+    ],
+    "states": [
+      "NOT_APPLICABLE",
+      "BLOCKED",
+      "ROUTE_A_PENDING",
+      "ROUTE_B_PENDING",
+      "ROUTE_C_PENDING",
+      "ADMISSIBLE_BY_ROUTE_A",
+      "ADMISSIBLE_BY_ROUTE_B",
+      "ADMISSIBLE_BY_ROUTE_C",
+      "NON_MATERIAL_POOLING_REVIEW_REQUIRED"
+    ],
+    "frozen_breakers": 36,
+    "minimum_authorized_breakers": 32,
+    "exact_material_claim_units": 8,
+    "exact_no_material_detected_claim_units": 3,
+    "claim_scoped": true,
+    "executable_evaluator_present": false
+  },
+  "verdict": {
+    "POST_M10_PCG_DESIGN": "QUALIFIED",
+    "POST_M10_PCG_SEMANTICS": "FROZEN",
+    "POST_M10_PCG_BREAKER_CONTRACT": "FROZEN",
+    "POST_M10_PCG_DOCUMENTARY_QUALIFICATION": "PASS",
+    "POST_M10_PCG_IMPLEMENTATION_READINESS": "READY_FOR_SEPARATE_HUMAN_DECISION",
+    "POST_M10_PCG_IMPLEMENTED": false,
+    "POST_M10_PCG_EXECUTED": false,
+    "REAL_DATA_READ": false,
+    "NEW_STATISTICAL_METHOD_EXECUTED": false,
+    "NEW_MARKET_RESULT": false
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4_conclusion": "failure",
+    "p0_6_conclusion": "failure",
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_PCG_00_PASS_EVIDENCE"
+  },
+  "next_frontier": {
+    "id": "POST_M10_PCG-01",
+    "scope": "EXECUTABLE_GOVERNANCE_GATE_IMPLEMENTATION_PLUS_SYNTHETIC_QUALIFICATION",
+    "separate_human_authorization_required": true,
+    "opened": false,
+    "executed": false
+  },
+  "stop": true,
+  "force": false
+}

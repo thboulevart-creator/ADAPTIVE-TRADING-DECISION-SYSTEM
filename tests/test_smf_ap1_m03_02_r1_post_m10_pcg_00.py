@@ -156,3 +156,27 @@ def test_22_pcg01_requires_separate_human_authorization():
     assert n["id"]=="POST_M10_PCG-01"
     assert n["separate_human_authorization_required"] is True
     assert n["automatically_opened"] is False
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-POST-M10-PCG-00-FINAL-READINESS-RECEIPT-V0.1.json"
+
+def test_23_final_receipt_closes_pcg00_and_keeps_pcg01_closed():
+    r=load(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert v["POST_M10_PCG_DESIGN"]=="QUALIFIED"
+    assert v["POST_M10_PCG_SEMANTICS"]=="FROZEN"
+    assert v["POST_M10_PCG_BREAKER_CONTRACT"]=="FROZEN"
+    assert v["POST_M10_PCG_DOCUMENTARY_QUALIFICATION"]=="PASS"
+    assert v["POST_M10_PCG_IMPLEMENTATION_READINESS"]=="READY_FOR_SEPARATE_HUMAN_DECISION"
+    assert v["POST_M10_PCG_IMPLEMENTED"] is False
+    assert v["POST_M10_PCG_EXECUTED"] is False
+    assert v["REAL_DATA_READ"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]=={"oos_consumption":False,"trading":False,"capital":False}
+    assert r["next_frontier"]["id"]=="POST_M10_PCG-01"
+    assert r["next_frontier"]["separate_human_authorization_required"] is True
+    assert r["next_frontier"]["opened"] is False
+    assert r["next_frontier"]["executed"] is False
+    assert r["stop"] is True
