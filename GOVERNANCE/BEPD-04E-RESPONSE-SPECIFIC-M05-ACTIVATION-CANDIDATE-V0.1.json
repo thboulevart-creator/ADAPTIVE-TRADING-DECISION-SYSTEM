@@ -1,0 +1,48 @@
+{
+  "schema": "ATDS_BEPD_04E_RESPONSE_SPECIFIC_M05_ACTIVATION_CANDIDATE_V0_1",
+  "status": "CANDIDATE_ONLY_NOT_ACTIVATED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent_head": "3de568abb80f740c9a5c171a317efe0651ca1004",
+  "claim_definition_ref": "generalization uncertainty for same_week_reintegration conditional on an already-observed qualified Weekly sweep",
+  "failure_mode_ref": "event-level IID or calendar-compressed uncertainty would understate structural dependence; unresolved nonstationarity must block global moving-block inference",
+  "method_family_ref": "M05",
+  "candidate_scheme": "MOVING_BLOCK",
+  "candidate_statistic": "RATIO_OF_SUMS",
+  "evidence_state": "EXPOSED",
+  "validity_scope_ref": "EXPLORATORY_ONLY on the already-exposed historical corpus; confirmatory generalization requires fresh OOS evidence",
+  "assumption_set_ref": [
+    "complete target-week calendar is the ordered resampling axis",
+    "all response events from one target_week_id remain together",
+    "zero-event weeks remain in calendar order",
+    "global moving-block execution requires a resolved response-specific nonstationarity gate",
+    "all material parameters require human adoption before execution"
+  ],
+  "bindings": {
+    "bepd04d_claim_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "bepd04d_m09_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "method_contract_blob": "5b06ee0c863c90af085a55fe145afd6d51c31497",
+    "runtime_blob": "61a996562fe18e0e2efd6f16db27a48738e60421",
+    "reference_runtime_blob": "e4ad2b642265889455e33f23ead3c5b57c1a7eae",
+    "breaker_blob": "eda63bf26230a2b48eb75bb655e64e766b66c1a3",
+    "material_parameter_packet_blob": "e88900779eab989e5bfa3265d217485023dab4bb",
+    "occurrence_scoped_m05_record_blob": "53d33074038fa9d971b4672b1d981589da020a1e"
+  },
+  "parameter_selection_policy": {
+    "source": "BEPD-04E-MATERIAL-PARAMETER-DECISION-PACKET-V0.1",
+    "human_adoption_required": true,
+    "current_binding_parameters": null,
+    "post_result_selection": "FORBIDDEN"
+  },
+  "activation_state": "NOT_ACTIVATED",
+  "blockers": [
+    "MATERIAL_PARAMETERS_NOT_HUMAN_ADOPTED",
+    "RESPONSE_NONSTATIONARITY_GATE_NOT_EXECUTED",
+    "M04_RESPONSE_REPRESENTATION_BLOCKED_UNDER_CURRENT_GATE",
+    "REAL_EXPLORATORY_EXECUTION_NOT_AUTHORIZED"
+  ],
+  "occurrence_m05_reuse": "FORBIDDEN",
+  "real_execution_authorized": false,
+  "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED"
+}
