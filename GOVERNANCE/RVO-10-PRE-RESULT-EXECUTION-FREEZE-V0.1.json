@@ -24,16 +24,16 @@
     "--ap0-manifest",
     "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1\\AP0-MANIFEST.json",
     "--output",
-    "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-f9ef165c.json"
+    "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-debbfbb4.json"
   ],
-  "command_digest": "e44f06e7254fb274c18879239233f9e1fa6e537c3e1012310febb8f2803cdebc",
+  "command_digest": "d04bb001387ceb20e8d4be40b38321d0839718d07a2ea6e9c20a99338a059350",
   "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
-  "execution_binding_id": "EEB-cd4337ab6ddb447318d391c98a9589a2",
-  "execution_head": "f9ef165cd41bb12d5e0e6f5789bd6d6d0f3a8796",
-  "execution_tree": "34256314abb2eda2ec3ed49a1dbefc3d387011dd",
-  "experiment_execution_input_id": "QEI-be540e393ec6320395ec942535dc0b90",
-  "experiment_spec_id": "EXS-dba970278fd5a9c0144d54212320906e",
-  "freeze_digest": "886406fbfdc538acca4f3435132ca9882fe1125a934b0924b6d9bdc577b79230",
+  "execution_binding_id": "EEB-8bcc74a0c044f6f8c64a8c692dc0d2cf",
+  "execution_head": "debbfbb48f9449258ecc8607d121f75e38c2bc92",
+  "execution_tree": "394357a100bf63db8868495a5e85f6879d6b74aa",
+  "experiment_execution_input_id": "QEI-e8ccaf0a35b2c59a186fcac6fa42d21a",
+  "experiment_spec_id": "EXS-0935e2eb9eac671ead1561fb215622ac",
+  "freeze_digest": "6658b12df4f6a07f8154ca7537cb2e6f804dcbf02bf061fcb72cfb82d620893e",
   "historical_invocation_count": 1,
   "historical_one_shot": {
     "canonical_ledger_blob": "11d47d1dfc2fbfe6a2746f74f245812398494e8e",
@@ -46,7 +46,7 @@
   "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
   "m03_execution_authorized": false,
   "maximum_output_bytes": 33554432,
-  "output_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-f9ef165c.json",
+  "output_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-debbfbb4.json",
   "owner_blobs": {
     "GOVERNANCE/RVO-08-AP0-RESOURCE-CONTRACT-V0.1.json": "23cef7d6dcc6ca0b4e3c72bd8f3af4e91b1d6ca3",
     "reports/program/2026-10-05-RVO-08-ONE-SHOT-LEDGER-V0.1.json": "11d47d1dfc2fbfe6a2746f74f245812398494e8e",
@@ -63,8 +63,8 @@
     "-E",
     "-P"
   ],
-  "real_producer_execution_plan_digest": "5489d9c84ed21af320b65ac055ec95ecded2dcec1057770a2d86185b1ccfa9de",
-  "real_producer_execution_plan_id": "QRPP-5489d9c84ed21af320b65ac055ec95ec",
+  "real_producer_execution_plan_digest": "d1a00361e4ca51d318e0549c1d8ca65cb00ec42ff1ae5204caa9e1c55cea549a",
+  "real_producer_execution_plan_id": "QRPP-d1a00361e4ca51d318e0549c1d8ca65c",
   "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
   "resource_contract_blob": "23cef7d6dcc6ca0b4e3c72bd8f3af4e91b1d6ca3",
   "resource_contract_sha256": "fd1271133dc8667f615153c943e214b2893ed76806a58d83cecd82df78f000f4",
@@ -74,15 +74,15 @@
   "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
   "rvo09_final_receipt_blob": "34c0e1d6e57d4becdf72642c4bce0f46005403af",
   "rvo09_final_status": "RVO_09_QUALIFIED_CLOSED",
-  "rvo09_fresh_revalidation_digest": "3f7479137d89d204646ac2e8171cd8cc7218a3b5a020f7fc7578c8e2347b63ca",
+  "rvo09_fresh_revalidation_digest": "d6ae9fb882ed46c65af7e89f86b9932779ad8206b3e6b8e4c534061fb0a13162",
   "schema": "ATDS_RVO_10_PRE_RESULT_EXECUTION_FREEZE_V0_1",
   "status": "PRE_RESULT_RETRY_EXECUTION_FROZEN",
   "total_real_ap1_invocation_ordinal_if_executed": 2,
   "workspace": {
     "clean": true,
     "detached": true,
-    "head": "f9ef165cd41bb12d5e0e6f5789bd6d6d0f3a8796",
+    "head": "debbfbb48f9449258ecc8607d121f75e38c2bc92",
     "main_checkout_clean": true,
-    "tree": "34256314abb2eda2ec3ed49a1dbefc3d387011dd"
+    "tree": "394357a100bf63db8868495a5e85f6879d6b74aa"
   }
 }
