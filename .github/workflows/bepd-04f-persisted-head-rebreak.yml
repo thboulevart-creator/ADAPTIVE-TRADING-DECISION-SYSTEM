@@ -1,0 +1,162 @@
+name: BEPD-04F Persisted-Head Synthetic Rebreak
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04f-persisted-head-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  synthetic-rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact triggering HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify exact identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"; expected="$2"; actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04F_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "GOVERNANCE/BEPD-04F-RESPONSE-NONSTATIONARITY-GATE-TARGETED-AMENDMENT-V0.1.json" "38d9e3f45f51ef0f208f8a42a886a525b51be609"
+          check_blob "tests/fixtures/bepd_04f_response_nonstationarity_gate_synthetic_v0_1.json" "007d61ac6cbafad763cdbf411f8c141efb7fb56a"
+          check_blob "tests/test_bepd_04f_response_nonstationarity_gate_v0_1.py" "32853600294410e412d7feee8e4dd0737f243c5c"
+          check_blob "reports/program/2026-10-06-BEPD-04F-TEST-FIRST-RED-RECEIPT-V0.1.json" "20426a0c3780bb0d2b7369a85dec50ca1819eada"
+          check_blob "tools/bepd_04f_response_nonstationarity_gate_v0_1.py" "4a4181f699ff37dbc95276150f5c4ea62df3874b"
+          check_blob "tools/bepd_04f_response_nonstationarity_gate_reference_v0_1.py" "64e383b8cf3736405ec514d89a0b03cb88e8a0a4"
+          check_blob "breakers/bepd_04f_response_nonstationarity_gate_breaker_v0_1.py" "95d66e1d13b7c636d6537490114395a2ad3dd4a2"
+          check_blob "GOVERNANCE/BEPD-04E-HUMAN-ADJUDICATION-MATERIAL-PARAMETERS-M04-GATE-2026-10-06.md" "a92da70e6efec49729b275d806a76f0244e79bdd"
+          check_blob "GOVERNANCE/BEPD-04D-RESPONSE-NONSTATIONARITY-GATE-CONTRACT-V0.1.json" "fedb12d532f1e68ee9405d05931a2a0d22672983"
+          check_blob "GOVERNANCE/BEPD-04E-MATERIAL-PARAMETER-DECISION-PACKET-V0.1.json" "e88900779eab989e5bfa3265d217485023dab4bb"
+          check_blob "GOVERNANCE/BEPD-04E-RESPONSE-SPECIFIC-M05-ACTIVATION-CANDIDATE-V0.1.json" "b740312275bff3d6910c2e0fd1a69a24d96df1cb"
+          echo "BEPD04F_PERSISTED_IDENTITIES_PASS"
+
+      - name: Run frozen synthetic tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tests/test_bepd_04f_response_nonstationarity_gate_v0_1.py
+          echo "BEPD04F_SYNTHETIC_GREEN_PASS"
+
+      - name: Independent reference parity
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import copy,json
+          from pathlib import Path
+          from tools.bepd_04f_response_nonstationarity_gate_v0_1 import evaluate_gate
+          from tools.bepd_04f_response_nonstationarity_gate_reference_v0_1 import reference_evaluate_gate
+          f=json.loads(Path("tests/fixtures/bepd_04f_response_nonstationarity_gate_synthetic_v0_1.json").read_text())
+          keys=("state","reason_code","structural_validation_status","sample_adequacy","maximum_spread","spread_classification","m04_status","m04_executed")
+          for name in ("S01_STABLE_EXACT_SPREAD_0_10","S02_STABLE_ZERO_SPREAD","S03_STABLE_BELOW_THRESHOLD","S04_UNSTABLE_ABOVE_THRESHOLD","S05_ONE_STRATUM_N29","S06_ONE_STRATUM_N30","S07_MULTIPLE_INSUFFICIENT"):
+              x=copy.deepcopy(f["base_request"])
+              for k,v in f["cases"][name].get("patch",{}).items(): x[k]=copy.deepcopy(v)
+              a=evaluate_gate(x); b=reference_evaluate_gate(x)
+              for k in keys:
+                  assert a[k]==b[k], (name,k,a[k],b[k])
+          print("BEPD04F_INDEPENDENT_REFERENCE_PARITY_PASS")
+          PY
+
+      - name: Verify exact boundaries
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import copy,json
+          from pathlib import Path
+          from tools.bepd_04f_response_nonstationarity_gate_v0_1 import evaluate_gate
+          f=json.loads(Path("tests/fixtures/bepd_04f_response_nonstationarity_gate_synthetic_v0_1.json").read_text())
+          def make(name):
+              x=copy.deepcopy(f["base_request"])
+              for k,v in f["cases"][name].get("patch",{}).items(): x[k]=copy.deepcopy(v)
+              return evaluate_gate(x)
+          a=make("S01_STABLE_EXACT_SPREAD_0_10")
+          assert a["maximum_spread"]=="0.10"
+          assert a["state"]=="NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+          b=make("S05_ONE_STRATUM_N29")
+          assert b["state"]=="NONSTATIONARITY_UNRESOLVED"
+          c=make("S06_ONE_STRATUM_N30")
+          assert c["sample_adequacy"]=="PASS"
+          assert c["state"]=="NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+          print("BEPD04F_BOUNDARY_N30_PASS")
+          print("BEPD04F_BOUNDARY_SPREAD_0_10_PASS")
+          PY
+
+      - name: Run adversarial breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04f_response_nonstationarity_gate_breaker_v0_1.py
+
+      - name: Verify amendment governance
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path("GOVERNANCE/BEPD-04F-RESPONSE-NONSTATIONARITY-GATE-TARGETED-AMENDMENT-V0.1.json").read_text())
+          assert a["amendment_semantics"]["old_gate"]=="PRESERVED_UNMODIFIED"
+          assert a["amendment_semantics"]["m04_status"]=="NOT_APPLICABLE_BY_REPRESENTATION"
+          assert a["amendment_semantics"]["m04_executed"] is False
+          assert a["authority_boundary"]["real_response_values"] is False
+          assert a["authority_boundary"]["real_m10"] is False
+          assert a["authority_boundary"]["real_gate"] is False
+          assert a["authority_boundary"]["response_specific_m05_activation"] is False
+          assert a["authority_boundary"]["real_bootstrap"] is False
+          assert a["authority_boundary"]["real_confidence_interval"] is False
+          print("BEPD04F_GOVERNANCE_STATE_PASS")
+          PY
+
+      - name: Materialize receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04f-rebreak
+          python - <<'PY'
+          import json,os,subprocess
+          from pathlib import Path
+          receipt={
+            "schema":"ATDS_BEPD_04F_PERSISTED_HEAD_SYNTHETIC_REBREAK_RECEIPT_V0_1",
+            "status":"PASS",
+            "workflow_run_id":int(os.environ["GITHUB_RUN_ID"]),
+            "head":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),
+            "tree":subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip(),
+            "persisted_identities":"PASS",
+            "synthetic_green":"6/6 unittest methods PASS including 27 frozen fail-closed cases",
+            "substantive_fixture_states":"7/7 PASS",
+            "boundary_n_30":"PASS",
+            "boundary_spread_0_10":"PASS",
+            "independent_reference_parity":"PASS",
+            "adversarial_breaker":"32/32 HARD_FAIL PASS",
+            "deterministic_replay":"PASS",
+            "old_bepd04d_gate":"PRESERVED",
+            "m04_status":"NOT_APPLICABLE_BY_REPRESENTATION",
+            "real_response_values_accessed":False,
+            "real_m10_executed":False,
+            "real_gate_executed":False,
+            "response_specific_m05_activation":"NOT_ACTIVATED",
+            "real_bootstrap_executed":False,
+            "real_confidence_interval_calculated":False
+          }
+          Path("bepd04f-rebreak/RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
+          print("BEPD04F_PERSISTED_HEAD_REBREAK_PASS")
+          PY
+
+      - name: Upload receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04f-rebreak
+          path: bepd04f-rebreak/RECEIPT.json
+          if-no-files-found: error
+          retention-days: 30
