@@ -1,0 +1,134 @@
+{
+    "schema":  "ATDS_SMF_AP1_M03_02_R1_SI_01_FINAL_QUALIFICATION_RECEIPT_V0_1",
+    "status":  "QUALIFIED_FOR_HUMAN_SCIENTIFIC_ADJUDICATION",
+    "repository":  "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch":  "integration/system-v1",
+    "qualification_parent":  {
+                                 "head":  "4475328a32f9c2ee2a68653c557975c2b5b15cc1",
+                                 "tree":  "942565834c3aecac2aab7da691d2c3b2370fd0bd"
+                             },
+    "authorization_reference":  {
+                                    "head":  "817e98a3b9c6ab25ff63968abc35e1d13fe48e76",
+                                    "tree":  "063650ceeed6705da557586e0153db82479cb602"
+                                },
+    "preflight":  {
+                      "status":  "PASS",
+                      "drift":  "NON_MATERIAL",
+                      "protected_identities_match":  true,
+                      "workspace_detached_clean":  true,
+                      "main_checkout_clean":  true,
+                      "drift_detail":  "Additive BEPD-00 and AO-E0-B12 governance drift only; no SI-01/M03/RVO-10/DATA-02 owner changed."
+                  },
+    "source_identities":  {
+                              "ef01_receipt_blob":  "234a5af6bc79adc2e74b7ceb83319132cab478d4",
+                              "m03_output_sha256":  "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+                              "m03_output_bytes":  1390634,
+                              "ap1_output_sha256":  "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+                              "r1_plan_blob":  "6849e42aef724fa7643fc70715a206632024bd54",
+                              "r1_freeze_blob":  "7a8d5bab32d2317ab55006151bac99c936e473ed",
+                              "m03_binding_blob":  "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+                              "m03_core_blob":  "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+                          },
+    "si01_artifacts":  {
+                           "interpretation_contract_blob":  "02ece03bc5371ac55d88a45d7fe310794e807c29",
+                           "direct_facts_blob":  "b5cdc46175ec85225e92d878e5f3e67784a96ba1",
+                           "candidate_set_blob":  "8f85f301380d192e7a8bbc225e39d080d76d78ac",
+                           "interpretation_report_blob":  "4005278081d500cfde20613a58816f300d188c9b",
+                           "tests_blob":  "9f1fb49dcf39bf08ba69ed89184062f51f550e02",
+                           "workflow_blob":  "a5604eaecb50bc4c875f3d16503480f95fd865ec"
+                       },
+    "output_inventory":  {
+                             "admitted_minutes":  1709180,
+                             "total_buckets":  230,
+                             "metrics":  [
+                                             "tick_count",
+                                             "minute_range",
+                                             "spread_mean"
+                                         ],
+                             "bucket_families":  {
+                                                     "GLOBAL":  1,
+                                                     "UTC_HOUR":  24,
+                                                     "NEW_YORK_HOUR":  24,
+                                                     "NEW_YORK_WEEKDAY":  7,
+                                                     "NEW_YORK_WEEKDAY_HOUR":  168,
+                                                     "UTC_YEAR":  6
+                                                 },
+                             "parity":  {
+                                            "overall":  "PASS",
+                                            "pass_count":  1925,
+                                            "fail_count":  0,
+                                            "not_comparable_count":  165,
+                                            "max_abs_diff":  0
+                                        }
+                         },
+    "candidate_set":  {
+                          "count":  5,
+                          "ids":  [
+                                      "SI01-C01",
+                                      "SI01-C02",
+                                      "SI01-C03",
+                                      "SI01-C04",
+                                      "SI01-C05"
+                                  ],
+                          "exploratory_candidates":  [
+                                                         "SI01-C01",
+                                                         "SI01-C02",
+                                                         "SI01-C03",
+                                                         "SI01-C04"
+                                                     ],
+                          "non_exploratory_candidates":  [
+                                                             "SI01-C05"
+                                                         ],
+                          "findings_adopted":  0,
+                          "maximum_semantics":  "SCIENTIFIC_INTERPRETATION_CANDIDATE_SET"
+                      },
+    "priority_next_question":  {
+                                   "candidate":  "SI01-C04",
+                                   "observation":  "UTC_YEAR distributions show substantial retrospective variation, with especially large spread_mean central-quantile changes in 2025-2026 and variation in minute_range/tick_count.",
+                                   "primary_next_method":  "M10 Ã¢â‚¬â€ PREDECLARED TEMPORAL / REGIME STABILITY",
+                                   "prerequisite":  "M01 Ã¢â‚¬â€ exact temporal-stability claim/estimand freeze",
+                                   "method_opened":  false,
+                                   "method_executed":  false
+                               },
+    "claims_not_established":  [
+                                   "causality",
+                                   "statistical significance",
+                                   "formal nonstationarity",
+                                   "predictive power",
+                                   "generalization",
+                                   "economic edge",
+                                   "profitability",
+                                   "validated strategy",
+                                   "trading signal",
+                                   "trading authority",
+                                   "capital authority"
+                               ],
+    "regressions":  {
+                        "local":  {
+                                      "si01_ef01_r1_m03_02":  "20 PASS",
+                                      "m03_01":  "53 PASS",
+                                      "rvo10":  "13 PASS",
+                                      "data02":  "32 PASS"
+                                  },
+                        "github":  {
+                                       "run_id":  37446543288,
+                                       "job_id":  112212645157,
+                                       "conclusion":  "success"
+                                   }
+                    },
+    "boundaries":  {
+                       "real_m03_executed":  false,
+                       "m03_retry":  false,
+                       "data02_recalculated":  false,
+                       "ap1_executed":  false,
+                       "other_smf_method_executed":  false,
+                       "backtest":  false,
+                       "new_oos":  false,
+                       "paper":  false,
+                       "broker_live":  false,
+                       "capital":  false,
+                       "findings_adopted":  false
+                   },
+    "next_frontier":  "DISTINCT HUMAN SCIENTIFIC ADJUDICATION OF SI01-C01..SI01-C05; NO METHOD IS AUTOMATICALLY OPENED.",
+    "stop":  true
+}
