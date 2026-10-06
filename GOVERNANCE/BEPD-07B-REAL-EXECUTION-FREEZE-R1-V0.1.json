@@ -1,0 +1,91 @@
+{
+  "schema": "ATDS_BEPD_07B_REAL_EXECUTION_FREEZE_R1_V0_1",
+  "control_id": "BEPD-07B",
+  "status": "FROZEN_FOR_ONE_FIRST_REAL_GLOBAL_BEHAVIORAL_EXCURSION_EXECUTION_AFTER_IDENTITY_CORRECTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "supersedes_for_execution_only": {
+    "prior_freeze_blob": "cd9dc9ae3d2f34cba994a0207ea8993de4d73780",
+    "reason": "Prior freeze bound an implementation whose AP0 file-set digest algorithm was incompatible with adopted DATA-02 identity semantics and failed closed before price-column read."
+  },
+  "authority": {
+    "human_authorization_blob": "95a02c85b15f2d8e73bc4412ed6de4bf80888480",
+    "bepd07a_final_human_adjudication_blob": "5b8a8c9538363f8878acfa47c75db420438582be",
+    "corrective_requalification_receipt_blob": "40228503c79798838f6dc2f6918b9aba00e15717",
+    "corrective_requalification_report_blob": "e282b77e81156eb137c640877943e6df0ec78cc5",
+    "corrective_requalification_run_id": 37480467696,
+    "corrective_requalification_job_id": 112326940993,
+    "corrective_requalification_conclusion": "SUCCESS"
+  },
+  "bindings": {
+    "human_authorization_blob": "95a02c85b15f2d8e73bc4412ed6de4bf80888480",
+    "bepd07a_final_human_adjudication_blob": "5b8a8c9538363f8878acfa47c75db420438582be",
+    "bepd07a_contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+    "bepd07a_breaker_blob": "42f2a720a0904c83c45a507cfa340af30ba73ae5",
+    "bepd07a_pre_result_freeze_blob": "10fa2fc9011dded1567a054efb31fbabfa6dab8a",
+    "corrected_runner_blob": "5b1108cc0fe703d9c45cfebc2ba12eb33c6552de",
+    "corrected_independent_reference_blob": "27963b7ab2bea48d12bb3da584b430f2c047bb78",
+    "executable_breaker_blob": "1a323010dbc03a79220e4e4f44541589329445d0",
+    "corrected_synthetic_tests_blob": "f14aa4178f630f60e423f2357cb4e342b2e96957",
+    "corrective_requalification_receipt_blob": "40228503c79798838f6dc2f6918b9aba00e15717",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_build_engine_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "ap0_transform_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "rvo08_ap0_resource_contract_blob": "23cef7d6dcc6ca0b4e3c72bd8f3af4e91b1d6ca3",
+    "data02_ap0_read_only_admission_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b"
+  },
+  "ap0_identity": {
+    "dataset_id": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "file_count": 61,
+    "row_count": 1709180,
+    "canonical_data02_file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+    "canonical_digest_material": [
+      "relative_path",
+      "size_bytes",
+      "sha256"
+    ],
+    "verification_before_price_column_read": "REQUIRED_ALL_61_SHA256_AND_SIZE"
+  },
+  "execution": {
+    "execution_count": "ONE_CANONICAL_FIRST_REAL_EXECUTION",
+    "prior_failed_attempt_consumes_execution_authority": false,
+    "prior_failed_attempt_basis": "NO_PRICE_COLUMN_READ_NO_EXCURSION_STATISTIC_NO_RESULT_EXPOSURE",
+    "base_event_count": 472,
+    "filtering": "NONE",
+    "weighting": "ONE_EQUAL_WEIGHT_PER_QUALIFIED_EVENT",
+    "anchor": "take_h1_close_mid",
+    "path_start": "FIRST_QUALIFIED_AP0_MINUTE_STRICTLY_AFTER_take_h1_close_utc",
+    "path_end": "END_OF_SAME_CANONICAL_TARGET_WEEK",
+    "session_week_start": "SUNDAY_18:00_America/New_York",
+    "extrema_primitives": [
+      "mid_high",
+      "mid_low"
+    ],
+    "metrics": [
+      "MAX_REINTEGRATIVE_EXCURSION",
+      "MAX_EXTERNAL_EXCURSION"
+    ],
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "independent_recomputation_required": true,
+    "deterministic_replay_required": true,
+    "event_level_derived_path_ledger_persisted": false,
+    "subgroups": "NONE",
+    "joint_metrics": "NONE"
+  },
+  "result_boundary": {
+    "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+    "price_surface": "MID_DESCRIPTIVE_ONLY",
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "terminal_state": "STOP_AFTER_TECHNICAL_QUALIFICATION_AND_PERSISTED_HEAD_VERIFICATION_FOR_HUMAN_RESULT_ADJUDICATION"
+}
