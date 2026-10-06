@@ -1,0 +1,168 @@
+{
+  "schema": "ATDS_BEPD_04E_SYNTHETIC_FIXTURES_V0_1",
+  "cases": {
+    "S01_ONE_EVENT_ONE_WEEK": {
+      "calendar": [
+        "2026-01-05"
+      ],
+      "events": [
+        {
+          "event_id": "e1",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c1",
+          "same_week_reintegration": true
+        }
+      ]
+    },
+    "S02_MULTIPLE_EVENTS_ONE_WEEK": {
+      "calendar": [
+        "2026-01-05"
+      ],
+      "events": [
+        {
+          "event_id": "e1",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c1",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e2",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c1",
+          "same_week_reintegration": false
+        }
+      ]
+    },
+    "S03_ZERO_EVENT_WEEK_BETWEEN": {
+      "calendar": [
+        "2026-01-05",
+        "2026-01-12",
+        "2026-01-19"
+      ],
+      "events": [
+        {
+          "event_id": "e1",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c1",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e2",
+          "target_week_id": "2026-01-19",
+          "sweep_cluster_id": "c3",
+          "same_week_reintegration": false
+        }
+      ]
+    },
+    "S04_ALL_TRUE": {
+      "calendar": [
+        "2026-01-05",
+        "2026-01-12",
+        "2026-01-19",
+        "2026-01-26"
+      ],
+      "events": [
+        {
+          "event_id": "e1",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c1",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e2",
+          "target_week_id": "2026-01-12",
+          "sweep_cluster_id": "c2",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e3",
+          "target_week_id": "2026-01-19",
+          "sweep_cluster_id": "c3",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e4",
+          "target_week_id": "2026-01-26",
+          "sweep_cluster_id": "c4",
+          "same_week_reintegration": true
+        }
+      ]
+    },
+    "S05_ALL_FALSE": {
+      "calendar": [
+        "2026-01-05",
+        "2026-01-12",
+        "2026-01-19",
+        "2026-01-26"
+      ],
+      "events": [
+        {
+          "event_id": "e1",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c1",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "e2",
+          "target_week_id": "2026-01-12",
+          "sweep_cluster_id": "c2",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "e3",
+          "target_week_id": "2026-01-19",
+          "sweep_cluster_id": "c3",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "e4",
+          "target_week_id": "2026-01-26",
+          "sweep_cluster_id": "c4",
+          "same_week_reintegration": false
+        }
+      ]
+    },
+    "S06_MIXED_MULTI_CLUSTER": {
+      "calendar": [
+        "2026-01-05",
+        "2026-01-12",
+        "2026-01-19",
+        "2026-01-26",
+        "2026-02-02",
+        "2026-02-09"
+      ],
+      "events": [
+        {
+          "event_id": "e1",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c0",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e2",
+          "target_week_id": "2026-01-05",
+          "sweep_cluster_id": "c0",
+          "same_week_reintegration": false
+        },
+        {
+          "event_id": "e3",
+          "target_week_id": "2026-01-19",
+          "sweep_cluster_id": "c2",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e4",
+          "target_week_id": "2026-01-26",
+          "sweep_cluster_id": "c3",
+          "same_week_reintegration": true
+        },
+        {
+          "event_id": "e5",
+          "target_week_id": "2026-02-09",
+          "sweep_cluster_id": "c5",
+          "same_week_reintegration": false
+        }
+      ]
+    }
+  }
+}
