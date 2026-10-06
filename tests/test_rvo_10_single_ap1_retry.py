@@ -122,6 +122,15 @@ def test_authority_none_excludes_scientific_trading_and_capital():
     }
 
 
+def test_post_freeze_allowlist_is_narrow():
+    assert r._is_allowed_post_freeze_path("reports/program/2026-10-06-BEPD-04E-X.json")
+    assert r._is_allowed_post_freeze_path("GOVERNANCE/AO-E0-B8-M06-99-X.json")
+    assert r._is_allowed_post_freeze_path(".github/workflows/bepd-04e-x.yml")
+    assert not r._is_allowed_post_freeze_path("src/p1_12c_qualified_producer_execution.py")
+    assert not r._is_allowed_post_freeze_path("tools/ap1_intraday_spread_census.py")
+    assert not r._is_allowed_post_freeze_path("GOVERNANCE/RVO-10-OTHER.json")
+
+
 def test_source_contains_single_real_command_invocation_site():
     source = Path(r.__file__).read_text(encoding="utf-8")
     needle = 'cp = subprocess.run(\n            built["command"],'

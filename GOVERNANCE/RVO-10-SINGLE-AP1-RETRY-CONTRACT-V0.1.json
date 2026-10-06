@@ -44,7 +44,8 @@
   "freeze_rule": {
     "byte_exact_git_persistence_before_invocation": true,
     "execution_head_tree_bound_before_persistence": true,
-    "only_allowed_branch_delta_before_invocation": "GOVERNANCE/RVO-10-PRE-RESULT-EXECUTION-FREEZE-V0.1.json"
+    "freeze_persistence_commit_delta": "GOVERNANCE/RVO-10-PRE-RESULT-EXECUTION-FREEZE-V0.1.json",
+    "post_freeze_non_material_drift_policy": "ONLY_EXPLICIT_BEPD_AND_AO_E0_B8_M06_PATHS_WITH_PROTECTED_OWNER_RECHECK"
   },
   "authority": {
     "retry": true,

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import fnmatch
 import hashlib
 import json
 import os
@@ -63,6 +64,21 @@ PROTECTED_BLOBS = {
     "tools/p1_12c_sandbox_runner.py": SANDBOX_BLOB,
     "src/smf_ap1_m03_binding.py": SMF_BINDING_BLOB,
 }
+
+POST_FREEZE_NON_MATERIAL_PATTERNS = (
+    "GOVERNANCE/BEPD-*",
+    "reports/program/*BEPD-*",
+    ".github/workflows/bepd-*",
+    "breakers/bepd_*",
+    "tests/fixtures/bepd_*",
+    "tests/test_bepd_*",
+    "tools/bepd_*",
+    "GOVERNANCE/AO-E0-B8-M06-*",
+    "reports/program/*AO-E0-B8-M06-*",
+    ".github/workflows/ao-e0-b8-m06-*",
+    "tests/test_ao_e0_b8_m06_*",
+    "tools/ao_e0_b8_m06_*",
+)
 
 
 class RVO10Blocked(RuntimeError):
@@ -138,6 +154,65 @@ def fetch_commit(repo_root: Path, sha: str) -> None:
     )
     if cp.returncode != 0:
         raise RVO10Blocked("FETCH_COMMIT_FAILED:" + cp.stderr.strip())
+
+
+def _is_allowed_post_freeze_path(path: str) -> bool:
+    return any(fnmatch.fnmatchcase(path, pattern) for pattern in POST_FREEZE_NON_MATERIAL_PATTERNS)
+
+
+def classify_post_freeze_remote_drift(
+    repo_root: Path,
+    *,
+    persistence_head: str,
+    freeze_git_blob: str,
+) -> dict[str, Any]:
+    current = remote_branch_head(repo_root)
+    if current == persistence_head:
+        return {
+            "classification": "NONE",
+            "persistence_head": persistence_head,
+            "observed_remote_head": current,
+            "changed_paths": [],
+            "protected_owner_recheck": "PASS",
+            "freeze_blob_unchanged": True,
+        }
+
+    fetch_commit(repo_root, current)
+    ancestor = subprocess.run(
+        ["git", "-C", str(repo_root), "merge-base", "--is-ancestor", persistence_head, current],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    require(ancestor.returncode == 0, "POST_FREEZE_REMOTE_NOT_DESCENDANT")
+
+    changed = [
+        line.strip()
+        for line in git_text(repo_root, "diff", "--name-only", persistence_head, current).splitlines()
+        if line.strip()
+    ]
+    require(bool(changed), "POST_FREEZE_DRIFT_EMPTY_UNEXPECTED")
+    unexpected = [path for path in changed if not _is_allowed_post_freeze_path(path)]
+    require(
+        not unexpected,
+        "POST_FREEZE_MATERIAL_DRIFT:" + ",".join(unexpected),
+    )
+
+    current_freeze_blob = git_text(repo_root, "rev-parse", current + ":" + FREEZE_REPO_PATH)
+    require(current_freeze_blob == freeze_git_blob, "POST_FREEZE_FREEZE_BLOB_DRIFT")
+
+    for rel, expected in PROTECTED_BLOBS.items():
+        observed = git_text(repo_root, "rev-parse", current + ":" + rel)
+        require(observed == expected, "POST_FREEZE_PROTECTED_OWNER_DRIFT:" + rel)
+
+    return {
+        "classification": "NON_MATERIAL",
+        "persistence_head": persistence_head,
+        "observed_remote_head": current,
+        "changed_paths": changed,
+        "protected_owner_recheck": "PASS",
+        "freeze_blob_unchanged": True,
+    }
 
 
 def write_json(path: Path, value: Any) -> None:
@@ -508,7 +583,6 @@ def verify_freeze_persistence(
     freeze_git_blob: str,
 ) -> dict[str, Any]:
     fetch_commit(repo_root, persistence_head)
-    require(remote_branch_head(repo_root) == persistence_head, "REMOTE_BRANCH_DRIFT_AFTER_FREEZE_PERSISTENCE")
     parent = git_text(repo_root, "rev-parse", persistence_head + "^")
     require(parent == execution_head, "FREEZE_PERSISTENCE_PARENT_MISMATCH")
     changed = [
@@ -533,6 +607,11 @@ def verify_freeze_persistence(
     canonical_bytes = git(repo_root, "show", persistence_head + ":" + FREEZE_REPO_PATH, binary=True)
     external_bytes = freeze_path.read_bytes()
     require(canonical_bytes == external_bytes, "FREEZE_NOT_BYTE_EXACT")
+    post_freeze_drift = classify_post_freeze_remote_drift(
+        repo_root,
+        persistence_head=persistence_head,
+        freeze_git_blob=freeze_git_blob,
+    )
     return {
         "persistence_head": persistence_head,
         "persistence_parent": parent,
@@ -540,6 +619,7 @@ def verify_freeze_persistence(
         "freeze_sha256": sha256_bytes(external_bytes),
         "changed_paths": changed,
         "byte_exact": True,
+        "post_freeze_drift": post_freeze_drift,
     }
 
 
@@ -661,7 +741,11 @@ def execute(args) -> int:
     )
     require(freeze.get("owner_blobs") == owners, "FREEZE_OWNER_BLOB_MAP_DRIFT")
     require(history.get("historical_invocation_count") == HISTORICAL_INVOCATION_COUNT, "HISTORY_COUNT_DRIFT")
-    require(remote_branch_head(repo_root) == args.freeze_persistence_head, "REMOTE_DRIFT_IMMEDIATELY_BEFORE_RETRY")
+    persistence["post_freeze_drift_immediately_before_retry"] = classify_post_freeze_remote_drift(
+        repo_root,
+        persistence_head=args.freeze_persistence_head,
+        freeze_git_blob=args.freeze_git_blob,
+    )
 
     armed_at = utc_now()
     ledger = {
