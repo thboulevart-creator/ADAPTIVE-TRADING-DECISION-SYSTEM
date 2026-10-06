@@ -1,0 +1,15 @@
+{
+  "schema":"ATDS_AO_E0_B12_PIPE_01_WORKFLOW_HISTORY_DEPTH_CORRECTION_V0_1",
+  "control_id":"AO-E0-B12-PIPE-01",
+  "failed_run_id":37448144933,
+  "failed_job_id":112217857574,
+  "controller_tests":"23/23 PASS",
+  "failure_classification":"SHALLOW_CHECKOUT_PREVENTED_HEAD_PARENT_INVARIANCE_CHECK",
+  "exact_correction":"actions/checkout fetch-depth 1 -> 2",
+  "controller_modified":false,
+  "tests_modified":false,
+  "contract_modified":false,
+  "protected_owner_modified":false,
+  "producer_modified":false,
+  "force":false
+}
