@@ -1,0 +1,155 @@
+name: BEPD-04G Persisted-Head Rebreak
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04g-persisted-head-rebreak.yml
+
+permissions:
+  contents: read
+
+jobs:
+  rebreak:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact triggering HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify exact persisted identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"; expected="$2"; actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04G_REBREAK_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "GOVERNANCE/BEPD-04G-PRE-RESULT-EXECUTION-FREEZE-V0.1.json" "98698c29e2df5ad5e99190311cd06f4e3096ba93"
+          check_blob "artifacts/bepd04g/first-real-m10-amended-gate-v0.1/REAL_M10_RESULT.json" "49cc9c7ad48599b7a4f98e677b1479e6b01e2e8d"
+          check_blob "artifacts/bepd04g/first-real-m10-amended-gate-v0.1/REAL_AMENDED_GATE_RESULT.json" "8c61124263a1bb3d074f35596e95e3b2beabead9"
+          check_blob "artifacts/bepd04g/first-real-m10-amended-gate-v0.1/RUN_MANIFEST.json" "d0ea25bc1b211b785fe4abe0998be803969f9a4d"
+          check_blob "reports/program/2026-10-06-BEPD-04G-FIRST-REAL-M10-GATE-EXECUTION-RECORD-V0.1.json" "9fd8b4af6b1d435d864af37891938e1395bdf2a6"
+          check_blob "reports/program/2026-10-06-BEPD-04G-INDEPENDENT-RECOMPUTATION-RECEIPT-V0.1.json" "ded8f1016bb40fb0ae09ad901d5d9dd21768997a"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl" "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          check_blob "GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json" "26385eb2547892df4b87206ad59fc2ba07721354"
+          check_blob "GOVERNANCE/BEPD-04F-RESPONSE-NONSTATIONARITY-GATE-TARGETED-AMENDMENT-V0.1.json" "38d9e3f45f51ef0f208f8a42a886a525b51be609"
+          check_blob "GOVERNANCE/BEPD-04E-RESPONSE-SPECIFIC-M05-ACTIVATION-CANDIDATE-V0.1.json" "b740312275bff3d6910c2e0fd1a69a24d96df1cb"
+          echo "BEPD04G_PERSISTED_IDENTITIES_PASS"
+
+      - name: Deterministic replay and semantic equality
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from decimal import Decimal, ROUND_HALF_EVEN
+          from pathlib import Path
+
+          ledger=[json.loads(x) for x in Path("artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl").read_text().splitlines() if x.strip()]
+          persisted=json.loads(Path("artifacts/bepd04g/first-real-m10-amended-gate-v0.1/REAL_M10_RESULT.json").read_text())
+          gate=json.loads(Path("artifacts/bepd04g/first-real-m10-amended-gate-v0.1/REAL_AMENDED_GATE_RESULT.json").read_text())
+          record=json.loads(Path("reports/program/2026-10-06-BEPD-04G-FIRST-REAL-M10-GATE-EXECUTION-RECORD-V0.1.json").read_text())
+          manifest=json.loads(Path("artifacts/bepd04g/first-real-m10-amended-gate-v0.1/RUN_MANIFEST.json").read_text())
+
+          bounds=[
+            ("T1","2021-06-07","2022-05-30"),
+            ("T2","2022-06-06","2023-05-29"),
+            ("T3","2023-06-05","2024-05-27"),
+            ("T4","2024-06-03","2025-05-26"),
+            ("T5","2025-06-02","2026-05-18")
+          ]
+          Q=Decimal("0.000000000000000001")
+          rows=[]
+          for sid,start,end in bounds:
+              ss=[r for r in ledger if start<=r["target_week_id"]<=end]
+              n=len(ss); t=sum(1 for r in ss if r["same_week_reintegration"] is True)
+              mean=(Decimal(t)/Decimal(n)).quantize(Q,rounding=ROUND_HALF_EVEN)
+              rows.append({"date_end":end,"date_start":start,"qualified_event_count":n,"reintegration_true_count":t,"response_mean":format(mean,"f"),"stratum_id":sid})
+          assert rows==persisted["strata"]
+          means=[Decimal(x["response_mean"]) for x in rows]
+          spread=(max(means)-min(means)).quantize(Q,rounding=ROUND_HALF_EVEN)
+          assert format(spread,"f")==persisted["maximum_response_mean_spread"]=="0.096259889714696715"
+          assert persisted["sample_adequacy"]=="PASS"
+          assert gate["state"]=="NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+          assert gate["maximum_response_mean_spread"]==format(spread,"f")
+          assert gate["structural_validation_status"]=="PASS"
+          assert gate["m04_status"]=="NOT_APPLICABLE_BY_REPRESENTATION"
+          assert gate["response_specific_m05_activation"]=="NOT_ACTIVATED"
+          assert record["status"]=="EXECUTED_ONCE"
+          assert record["real_bootstrap_executed"] is False
+          assert record["real_confidence_interval_calculated"] is False
+          assert manifest["m05_activation"]=="NOT_ACTIVATED"
+          print("BEPD04G_DETERMINISTIC_REPLAY_PASS")
+          PY
+
+      - name: Run BEPD-04F breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04f_response_nonstationarity_gate_breaker_v0_1.py
+          echo "BEPD04G_04F_BREAKER_PASS"
+
+      - name: Verify independent receipt and authority boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("reports/program/2026-10-06-BEPD-04G-INDEPENDENT-RECOMPUTATION-RECEIPT-V0.1.json").read_text())
+          g=json.loads(Path("artifacts/bepd04g/first-real-m10-amended-gate-v0.1/REAL_AMENDED_GATE_RESULT.json").read_text())
+          assert r["status"]=="PASS"
+          assert all(r[k]=="PASS" for k in [
+            "event_count_reconciliation","true_count_reconciliation","response_mean_reconciliation",
+            "minimum_mean_reconciliation","maximum_mean_reconciliation","spread_reconciliation",
+            "sample_adequacy_reconciliation","gate_state_reconciliation"])
+          assert r["new_estimand_introduced"] is False
+          assert r["threshold_changed"] is False
+          assert r["stratum_changed"] is False
+          assert r["subgroup_inspected"] is False
+          assert g["generalization_proven"] is False
+          assert g["iid_proven"] is False
+          assert g["stationarity_proven"] is False
+          print("BEPD04G_AUTHORITY_BOUNDARY_PASS")
+          PY
+
+      - name: Materialize persisted-head rebreak receipt
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04g-rebreak
+          python - <<'PY'
+          import json,os,subprocess
+          from pathlib import Path
+          receipt={
+            "schema":"ATDS_BEPD_04G_PERSISTED_HEAD_REBREAK_RECEIPT_V0_1",
+            "status":"PASS",
+            "workflow_run_id":int(os.environ["GITHUB_RUN_ID"]),
+            "head":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),
+            "tree":subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip(),
+            "persisted_identities":"PASS",
+            "deterministic_replay":"PASS",
+            "independent_recomputation":"PASS",
+            "bepd04f_breaker":"32/32 HARD_FAIL PASS",
+            "real_gate_state":"NONSTATIONARITY_NOT_MATERIALLY_DETECTED",
+            "maximum_response_mean_spread":"0.096259889714696715",
+            "m04_status":"NOT_APPLICABLE_BY_REPRESENTATION",
+            "response_specific_m05_activation":"NOT_ACTIVATED",
+            "real_bootstrap_executed":False,
+            "real_confidence_interval_calculated":False,
+            "result_human_adopted":False
+          }
+          Path("bepd04g-rebreak/RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
+          print("BEPD04G_PERSISTED_HEAD_REBREAK_PASS")
+          PY
+
+      - name: Upload rebreak receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04g-rebreak
+          path: bepd04g-rebreak/RECEIPT.json
+          if-no-files-found: error
+          retention-days: 30
