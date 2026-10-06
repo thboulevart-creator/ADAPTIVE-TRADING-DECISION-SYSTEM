@@ -1,0 +1,103 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M10_00_REAL_EXECUTION_READINESS_RECEIPT_V0_1",
+  "status": "READY_FOR_SEPARATE_HUMAN_AUTHORIZATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_head": {
+    "head": "a475261b085c173e935e4b80a66d95f897d91847",
+    "tree": "11e4c9bbb38a236b6347d1885d31b07458605622"
+  },
+  "binding_identities": {
+    "m01_contract_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+    "human_materiality_blob": "a9382bc08f354e9142ccd55308f46c86da3f1af3",
+    "m03_real_output_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "generic_m10_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "generic_m10_runtime_blob": "7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222",
+    "m10_00_contract_blob": "d9217071091656bd2a8bd7588d8dbbd9eb9ab00d",
+    "m10_00_activation_blob": "51c3b386a070ef84fd28abc53b3105323591f3ce",
+    "m10_00_breaker_blob": "9659f0ac80562d188bbf38018566186f4d6162be",
+    "m10_00_runtime_blob": "c1765a56d6c861522db02af6200b7072ce621799",
+    "m10_00_reference_blob": "2ddc0f69425d0a8349eb43b26f956f4159b76d93",
+    "m10_00_test_blob": "5fca0be5ed81e3e6578ad1120827e2a7c7fad6d5",
+    "m10_00_workflow_blob": "90cb52936884aba316147e03f514740dd0a4505e",
+    "m10_00_expected_red_blob": "9838b3ee0f18c3a501949434c61ff749c99aa90d",
+    "m10_00_local_qualification_blob": "1454e79c99b31cb646cc85671b71e4e0c2c07c2f",
+    "m10_01_real_execution_plan_blob": "573c1faa5588dbf95548f77d9eb33afae0210a85",
+    "activation_digest": "sha256:8ef5ab1a6bf606bd5fc0218874faa5ce18bcaecf4c7e571f83244945eb8d53ee"
+  },
+  "procedure": {
+    "claim_units": 11,
+    "primary_contrasts": 33,
+    "transitions": ["2022->2023", "2023->2024", "2024->2025"],
+    "effect_scale": "SYMMETRIC_RELATIVE_CHANGE",
+    "threshold": 0.20,
+    "threshold_equality": "MATERIAL",
+    "zero_denominator": "BLOCKED",
+    "blocked_precedence": true,
+    "global_cross_metric_verdict": "FORBIDDEN"
+  },
+  "epistemic_limit": {
+    "claim_origin": "EXPLORATORY_RESULT_DERIVED",
+    "maximum_semantics": "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE",
+    "confirmatory_generalization": false,
+    "pristine_confirmation": false
+  },
+  "test_first": {
+    "expected_red_observed": true,
+    "red_reason": "MISSING_IMPLEMENTATION:smf_ap1_m03_02_r1_m10_00.py",
+    "real_result_exposed_during_red": false
+  },
+  "local_green": {
+    "m10_00": "20/20 PASS",
+    "m01_cr1": "7/7 PASS",
+    "m01": "5/5 PASS",
+    "si01": "4/4 PASS",
+    "ef01": "4/4 PASS"
+  },
+  "canonical_ci": {
+    "m10_00_run_id": 37473188282,
+    "m10_00_job_id": 112301731307,
+    "m10_00_conclusion": "success",
+    "transport_run_id": 37473188114,
+    "transport_conclusion": "success"
+  },
+  "persisted_head_rebreak": {
+    "head": "a475261b085c173e935e4b80a66d95f897d91847",
+    "tree": "11e4c9bbb38a236b6347d1885d31b07458605622",
+    "m10_00": "20/20 PASS",
+    "m01_cr1": "7/7 PASS",
+    "m01": "5/5 PASS",
+    "si01": "4/4 PASS",
+    "ef01": "4/4 PASS",
+    "worktree": "CLEAN"
+  },
+  "breakers": {
+    "B1": "PASS", "B2": "PASS", "B3": "PASS", "B4": "PASS", "B5": "PASS",
+    "B6": "PASS", "B7": "PASS", "B8": "PASS", "B9": "PASS", "B10": "PASS",
+    "B11": "PASS", "B12": "PASS", "B13": "PASS", "B14": "PASS", "B15": "PASS",
+    "B16": "PASS", "B17": "PASS", "B18": "PASS", "B19": "PASS", "B20": "PASS",
+    "B21": "PASS", "B22": "PASS", "B23": "PASS", "B24": "PASS", "B25": "PASS"
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4_run_id": 37473188212,
+    "p0_4_conclusion": "failure",
+    "p0_6_run_id": 37473188046,
+    "p0_6_conclusion": "failure",
+    "failing_surface": "evidence/berd02/gha_run_35533153289/bodies/*.bi5",
+    "classification": "INHERITED_OUT_OF_SCOPE"
+  },
+  "verdict": {
+    "M10_CLAIM_SCOPED_BINDING": "QUALIFIED",
+    "M10_EXECUTABLE_PROCEDURE": "QUALIFIED",
+    "M10_SYNTHETIC_QUALIFICATION": "PASS",
+    "M10_REAL_EXECUTION_READINESS": "READY_FOR_SEPARATE_HUMAN_AUTHORIZATION"
+  },
+  "M10_REAL_EXECUTION_AUTHORIZED": false,
+  "M10_EXECUTED": false,
+  "M10_RESULT_EXPOSED": false,
+  "other_methods_auto_activated": false,
+  "next_frontier": "SMF-AP1-M03-02-R1-M10-01 — FIRST REAL M10 TEMPORAL-STABILITY EXECUTION",
+  "automatic_open": false,
+  "stop": true
+}

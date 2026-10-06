@@ -163,3 +163,20 @@ def test_real_source_identity_guard_is_fail_closed_without_reading_real_values()
  assert m.require_real_source_identity(EXPECTED_M03_SHA)==EXPECTED_M03_SHA
  with pytest.raises(ValueError,match="REAL_M03_IDENTITY_MISMATCH"):
   m.require_real_source_identity("0"*64)
+
+
+def test_readiness_receipt_binds_persisted_m10_00_identities_and_keeps_m10_01_closed():
+    receipt = ROOT / "reports" / "program" / "2026-10-06-SMF-AP1-M03-02-R1-M10-00-REAL-EXECUTION-READINESS-RECEIPT-V0.1.json"
+    r = load(receipt)
+    ids = r["binding_identities"]
+    assert ids["m10_00_contract_blob"] == "d9217071091656bd2a8bd7588d8dbbd9eb9ab00d"
+    assert ids["m10_00_activation_blob"] == "51c3b386a070ef84fd28abc53b3105323591f3ce"
+    assert ids["m10_00_breaker_blob"] == "9659f0ac80562d188bbf38018566186f4d6162be"
+    assert ids["m10_00_runtime_blob"] == "c1765a56d6c861522db02af6200b7072ce621799"
+    assert ids["m10_00_reference_blob"] == "2ddc0f69425d0a8349eb43b26f956f4159b76d93"
+    assert ids["m10_01_real_execution_plan_blob"] == "573c1faa5588dbf95548f77d9eb33afae0210a85"
+    assert r["verdict"]["M10_REAL_EXECUTION_READINESS"] == "READY_FOR_SEPARATE_HUMAN_AUTHORIZATION"
+    assert r["M10_REAL_EXECUTION_AUTHORIZED"] is False
+    assert r["M10_EXECUTED"] is False
+    assert r["M10_RESULT_EXPOSED"] is False
+    assert r["automatic_open"] is False
