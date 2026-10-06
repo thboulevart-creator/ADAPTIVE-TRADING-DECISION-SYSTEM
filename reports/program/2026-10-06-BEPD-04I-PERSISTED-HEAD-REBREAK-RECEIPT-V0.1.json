@@ -1,0 +1,22 @@
+{
+  "block_length": 13,
+  "bootstrap_replications": 200000,
+  "confidence_level": "0.99",
+  "deterministic_replay": "PASS",
+  "distribution_digest_replay": "PASS",
+  "generalization_established": false,
+  "head": "ce3c68d3e2f36240e6523c1e61d62aca7bddda6b",
+  "independent_recomputation": "PASS",
+  "interval_lower_parity": "PASS",
+  "interval_method": "PERCENTILE",
+  "interval_upper_parity": "PASS",
+  "persisted_identities": "PASS",
+  "point_estimate_parity": "PASS",
+  "result_human_adopted": false,
+  "schema": "ATDS_BEPD_04I_PERSISTED_HEAD_REBREAK_RECEIPT_V0_1",
+  "seed": 40420261006,
+  "status": "PASS",
+  "trading_authority": "NONE",
+  "tree": "40101c0eb1d6bf3edab508f3cd88abdb86f68eee",
+  "workflow_run_id": 37438169022
+}
