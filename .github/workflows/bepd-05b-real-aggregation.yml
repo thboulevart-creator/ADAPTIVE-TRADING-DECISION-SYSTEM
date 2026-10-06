@@ -1,0 +1,192 @@
+name: BEPD-05B first real aggregation
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - GOVERNANCE/BEPD-05B-REAL-EXECUTION-FREEZE-V0.1.json
+
+permissions:
+  contents: read
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify execution freeze and exact implementation identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, subprocess
+          p="GOVERNANCE/BEPD-05B-REAL-EXECUTION-FREEZE-V0.1.json"
+          f=json.load(open(p,encoding="utf-8"))
+          checks={
+            "human_authorization_blob":("GOVERNANCE/BEPD-05B-HUMAN-AUTHORIZATION-2026-10-06.md",f["bindings"]["human_authorization_blob"]),
+            "runner_blob":("tools/bepd_05b_close_displacement_aggregate.py",f["bindings"]["runner_blob"]),
+            "independent_reference_blob":("tools/bepd_05b_independent_reference.py",f["bindings"]["independent_reference_blob"]),
+            "executable_breaker_blob":("tools/bepd_05a_executable_breaker.py",f["bindings"]["executable_breaker_blob"]),
+            "tests_blob":("tests/test_bepd_05b_close_displacement_aggregate.py",f["bindings"]["tests_blob"]),
+            "implementation_qualification_receipt_blob":("reports/program/2026-10-06-BEPD-05B-IMPLEMENTATION-QUALIFICATION-RECEIPT-V0.1.json",f["bindings"]["implementation_qualification_receipt_blob"]),
+            "event_ledger_blob":("artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",f["bindings"]["event_ledger_blob"]),
+          }
+          for label,(path,expected) in checks.items():
+            observed=subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],text=True).strip()
+            if observed != expected:
+              raise SystemExit(f"{label} mismatch: {observed} != {expected}")
+          print("BEPD05B_REAL_EXECUTION_FREEZE_BINDINGS_PASS")
+          PY
+
+      - name: Run executable breaker real preflight
+        run: |
+          python tools/bepd_05a_executable_breaker.py             --runner tools/bepd_05b_close_displacement_aggregate.py             --mode real-preflight
+
+      - name: Execute first real canonical global aggregation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/bepd05b
+          RUNNER_BLOB="$(git rev-parse HEAD:tools/bepd_05b_close_displacement_aggregate.py)"
+          python tools/bepd_05b_close_displacement_aggregate.py             --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl             --output /tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json             --manifest /tmp/bepd05b/RUN_MANIFEST.json             --expected-n 472             --source-blob 0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2             --contract-blob 0a580920ce47885d2bd3277b879b2b888b8d4354             --breaker-blob c39802f70d83dc249d23fe240b61169bf20ac757             --freeze-blob 30d438ef1daad9acaad170c002d7d5d8426acec4             --runner-blob "$RUNNER_BLOB"
+          echo "BEPD05B_FIRST_REAL_AGGREGATION_EXECUTED"
+
+      - name: Independent recomputation
+        run: |
+          python tools/bepd_05b_independent_reference.py             --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl             --output /tmp/bepd05b/INDEPENDENT_REFERENCE.json             --expected-n 472
+
+      - name: Compare independent reference exact parity
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open("/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json"))
+          b=json.load(open("/tmp/bepd05b/INDEPENDENT_REFERENCE.json"))
+          if a["core"] != b["core"]:
+              raise SystemExit("BEPD05B_INDEPENDENT_RECOMPUTATION_MISMATCH")
+          print("BEPD05B_INDEPENDENT_RECOMPUTATION_EXACT_PARITY_PASS")
+          PY
+
+      - name: Deterministic replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUNNER_BLOB="$(git rev-parse HEAD:tools/bepd_05b_close_displacement_aggregate.py)"
+          python tools/bepd_05b_close_displacement_aggregate.py             --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl             --output /tmp/bepd05b/REPLAY_RESULT.json             --manifest /tmp/bepd05b/REPLAY_MANIFEST.json             --expected-n 472             --source-blob 0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2             --contract-blob 0a580920ce47885d2bd3277b879b2b888b8d4354             --breaker-blob c39802f70d83dc249d23fe240b61169bf20ac757             --freeze-blob 30d438ef1daad9acaad170c002d7d5d8426acec4             --runner-blob "$RUNNER_BLOB"
+          cmp /tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json /tmp/bepd05b/REPLAY_RESULT.json
+          echo "BEPD05B_DETERMINISTIC_REPLAY_EXACT_PARITY_PASS"
+
+      - name: Validate mandatory real-result invariants
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open("/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json"))
+          c=r["core"]
+          assert c["N"] == 472
+          assert c["POSITIVE_COUNT"] + c["ZERO_COUNT"] + c["NEGATIVE_COUNT"] == 472
+          assert c["P50"] == c["MEDIAN"]
+          assert c["EMPIRICAL_CDF"][-1]["cumulative_count"] == 472
+          assert c["EMPIRICAL_CDF"][-1]["cumulative_fraction"] == "1"
+          assert r["population"]["filtering"] == "NONE"
+          assert r["subgroups_executed"] == []
+          assert r["forbidden_analytics_executed"] is False
+          assert r["evidence_status"] == "EXPOSED_EXPLORATORY_ONLY"
+          assert r["generalization"] == "NOT_ESTABLISHED"
+          assert r["confirmatory_generalization"] == "FRESH_OOS_EVIDENCE_REQUIRED"
+          assert r["prediction"] is False
+          assert r["edge"] is False
+          assert r["trading_authority"] == "NONE"
+          print("BEPD05B_REAL_RESULT_INVARIANTS_PASS")
+          PY
+
+      - name: Build technical execution receipt
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib, json, subprocess
+          def sha(path):
+              h=hashlib.sha256()
+              with open(path,"rb") as f:
+                  for chunk in iter(lambda:f.read(1048576),b""): h.update(chunk)
+              return h.hexdigest()
+          result=json.load(open("/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json"))
+          receipt={
+            "schema":"ATDS_BEPD_05B_REAL_EXECUTION_TECHNICAL_RECEIPT_V0_1",
+            "status":"REAL_GLOBAL_CLOSE_DISPLACEMENT_AGGREGATION_TECHNICALLY_QUALIFIED",
+            "head":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),
+            "runner_blob":subprocess.check_output(["git","rev-parse","HEAD:tools/bepd_05b_close_displacement_aggregate.py"],text=True).strip(),
+            "source_event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "result_sha256":sha("/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json"),
+            "run_manifest_sha256":sha("/tmp/bepd05b/RUN_MANIFEST.json"),
+            "independent_reference_sha256":sha("/tmp/bepd05b/INDEPENDENT_REFERENCE.json"),
+            "replay_result_sha256":sha("/tmp/bepd05b/REPLAY_RESULT.json"),
+            "independent_recomputation":"EXACT_PARITY_PASS",
+            "deterministic_replay":"EXACT_PARITY_PASS",
+            "N":result["core"]["N"],
+            "p50_equals_median":result["core"]["P50"] == result["core"]["MEDIAN"],
+            "ecdf_terminal_count":result["core"]["EMPIRICAL_CDF"][-1]["cumulative_count"],
+            "ecdf_terminal_fraction":result["core"]["EMPIRICAL_CDF"][-1]["cumulative_fraction"],
+            "evidence_status":"EXPOSED_EXPLORATORY_ONLY",
+            "human_adopted":False,
+            "subgroup_frontier_opened":False,
+            "next_scientific_frontier_opened":False
+          }
+          open("/tmp/bepd05b/TECHNICAL_RECEIPT.json","w").write(json.dumps(receipt,indent=2)+"\n")
+          PY
+
+      - name: Emit bounded result summary
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open("/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json"))
+          c=r["core"]
+          summary={k:c[k] for k in [
+            "N","MINIMUM","MAXIMUM","MEAN","MEDIAN",
+            "P01","P05","P10","P25","P50","P75","P90","P95","P99",
+            "POSITIVE_COUNT","ZERO_COUNT","NEGATIVE_COUNT",
+            "POSITIVE_FRACTION","ZERO_FRACTION","NEGATIVE_FRACTION"
+          ]}
+          print("BEPD05B_RESULT_SUMMARY_JSON="+json.dumps(summary,separators=(",",":")))
+          PY
+
+      - name: Emit result files as chunked base64 for canonical persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          for spec in             "RESULT:/tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json"             "MANIFEST:/tmp/bepd05b/RUN_MANIFEST.json"             "INDEPENDENT:/tmp/bepd05b/INDEPENDENT_REFERENCE.json"             "TECHNICAL_RECEIPT:/tmp/bepd05b/TECHNICAL_RECEIPT.json"; do
+            label="${spec%%:*}"
+            file="${spec#*:}"
+            echo "BEPD05B_${label}_B64_BEGIN"
+            base64 -w0 "$file" | fold -w 60000
+            echo
+            echo "BEPD05B_${label}_B64_END"
+          done
+
+      - name: Upload qualification package
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd05b-first-real-global-close-displacement
+          path: |
+            /tmp/bepd05b/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json
+            /tmp/bepd05b/RUN_MANIFEST.json
+            /tmp/bepd05b/INDEPENDENT_REFERENCE.json
+            /tmp/bepd05b/REPLAY_RESULT.json
+            /tmp/bepd05b/REPLAY_MANIFEST.json
+            /tmp/bepd05b/TECHNICAL_RECEIPT.json
+          if-no-files-found: error
+
+      - name: Terminal marker
+        run: |
+          echo "BEPD05B_REAL_GLOBAL_CLOSE_DISPLACEMENT_AGGREGATION_QUALIFIED"
+          echo "RESULT_HUMAN_ADOPTED=NO"
+          echo "SUBGROUP_FRONTIER=NOT_OPENED"
+          echo "NEXT_SCIENTIFIC_FRONTIER=NOT_AUTOMATICALLY_OPENED"

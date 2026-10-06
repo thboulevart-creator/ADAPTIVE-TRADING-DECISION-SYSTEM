@@ -1,0 +1,70 @@
+name: BEPD-05B implementation qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - GOVERNANCE/BEPD-05B-HUMAN-AUTHORIZATION-2026-10-06.md
+      - tools/bepd_05b_close_displacement_aggregate.py
+      - tools/bepd_05b_independent_reference.py
+      - tools/bepd_05a_executable_breaker.py
+      - tests/test_bepd_05b_close_displacement_aggregate.py
+      - .github/workflows/bepd-05b-implementation-qualification.yml
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen upstream identities without result calculation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-05A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "024c7d23210b9c62604b3c6d2379746c1ac736a4"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-05A-CLOSE-DISPLACEMENT-RESPONSE-SEMANTICS-AGGREGATION-CONTRACT-V0.1.json)" = "0a580920ce47885d2bd3277b879b2b888b8d4354"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-05A-FROZEN-PRE-AGGREGATION-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "c39802f70d83dc249d23fe240b61169bf20ac757"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-05A-PRE-AGGREGATION-FREEZE-V0.1.json)" = "30d438ef1daad9acaad170c002d7d5d8426acec4"
+          test "$(git rev-parse HEAD:artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl)" = "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          echo "BEPD05B_FROZEN_BINDINGS_PASS"
+
+      - name: Compile implementation
+        run: |
+          python -m py_compile             tools/bepd_05b_close_displacement_aggregate.py             tools/bepd_05b_independent_reference.py             tools/bepd_05a_executable_breaker.py
+          echo "BEPD05B_COMPILE_PASS"
+
+      - name: Run synthetic numerical tests only
+        run: |
+          python -m unittest -v tests/test_bepd_05b_close_displacement_aggregate.py
+          echo "BEPD05B_SYNTHETIC_TESTS_PASS"
+
+      - name: Run executable-equivalent 41-case breaker pre-result
+        run: |
+          python tools/bepd_05a_executable_breaker.py             --runner tools/bepd_05b_close_displacement_aggregate.py             --mode pre-result
+
+      - name: Assert no BEPD-05B real result exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find artifacts reports -type f \( -iname '*BEPD-05B*RESULT*' -o -iname '*bepd05b*result*' \) | grep -q .; then
+            echo "Unexpected BEPD-05B real result before implementation qualification"
+            exit 1
+          fi
+          echo "BEPD05B_REAL_RESULT_EXPOSURE=NO"
+
+      - name: Qualification terminal marker
+        run: |
+          echo "BEPD05B_IMPLEMENTATION_QUALIFICATION_PASS"
+          echo "REAL_CLOSE_DISPLACEMENT_AGGREGATION=NOT_EXECUTED"
