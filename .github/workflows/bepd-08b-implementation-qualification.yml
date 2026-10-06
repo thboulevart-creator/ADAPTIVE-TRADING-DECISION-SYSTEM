@@ -1,0 +1,73 @@
+name: BEPD-08B implementation qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - GOVERNANCE/BEPD-08B-HUMAN-AUTHORIZATION-2026-10-06.md
+      - tools/bepd_08b_absolute_weekly_close_distance.py
+      - tools/bepd_08b_independent_reference.py
+      - tools/bepd_08a_executable_breaker.py
+      - tests/test_bepd_08b_absolute_weekly_close_distance.py
+      - .github/workflows/bepd-08b-implementation-qualification.yml
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen upstream identities without real aggregation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "553fedc2b538a90750839b6fce8edb9619a4dcb7"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08A-ABSOLUTE-LEVEL-TO-TARGET-WEEK-CLOSE-DISTANCE-CONTRACT-V0.1.json)" = "4cfcb983ad64f31b443534d70991f8ddcb11ff8f"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08A-FROZEN-PRE-RESULT-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "4d6ada0758a883ab639c93a6caf388e1e11b6d99"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08A-PRE-RESULT-FREEZE-V0.1.json)" = "1b816f5ab7031e40add1d2c515167d5fb1147843"
+          test "$(git rev-parse HEAD:artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl)" = "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-05A-CLOSE-DISPLACEMENT-RESPONSE-SEMANTICS-AGGREGATION-CONTRACT-V0.1.json)" = "0a580920ce47885d2bd3277b879b2b888b8d4354"
+          test "$(git rev-parse HEAD:artifacts/bepd05b/first-real-global-close-displacement-v0.1/REAL_GLOBAL_CLOSE_DISPLACEMENT_RESULT.json)" = "1280156ca949fc48f00e50240aa09cdae11ba4d7"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-05B-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "811b8e9f58d33cc35c45f714ea99e696d589b147"
+          echo "BEPD08B_FROZEN_BINDINGS_PASS"
+
+      - name: Compile implementation
+        run: |
+          python -m py_compile tools/bepd_08b_absolute_weekly_close_distance.py tools/bepd_08b_independent_reference.py tools/bepd_08a_executable_breaker.py
+          echo "BEPD08B_COMPILE_PASS"
+
+      - name: Run synthetic tests only
+        run: |
+          python -m unittest -v tests/test_bepd_08b_absolute_weekly_close_distance.py
+          echo "BEPD08B_SYNTHETIC_TESTS_PASS"
+
+      - name: Run executable-equivalent 27-case breaker
+        run: |
+          python tools/bepd_08a_executable_breaker.py --mode pre-result
+
+      - name: Assert no BEPD-08B real result exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find artifacts reports -type f \( -iname '*BEPD-08B*RESULT*' -o -path '*bepd08b*' \) 2>/dev/null | grep -q .; then
+            echo "Unexpected BEPD-08B real result before implementation qualification"
+            exit 1
+          fi
+          echo "BEPD08B_REAL_RESULT_EXPOSURE=NO"
+
+      - name: Qualification terminal marker
+        run: |
+          echo "BEPD08B_IMPLEMENTATION_QUALIFICATION_PASS"
+          echo "REAL_EVENT_LEDGER_D_CLOSE_AGGREGATION=NOT_EXECUTED"
