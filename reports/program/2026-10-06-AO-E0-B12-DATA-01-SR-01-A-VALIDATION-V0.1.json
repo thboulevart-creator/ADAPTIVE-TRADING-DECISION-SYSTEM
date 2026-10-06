@@ -1,0 +1,16 @@
+{
+  "ask_mismatch_count": 0,
+  "bid_mismatch_count": 0,
+  "candidate_rows": 360754,
+  "epsilon": 0,
+  "reference_rows": 360754,
+  "row_removal": 0,
+  "schema": "ATDS_SR01_A_VALIDATION_V0_1",
+  "status": "PASS_EXACT",
+  "timestamp_mismatch_count": 0,
+  "transformation_id": "DUKASCOPY_CANONICAL_DECODE_IDENTITY_V0_1",
+  "window": {
+    "end_utc": "2026-05-24T23:59:59.963Z",
+    "start_utc": "2026-05-22T00:00:00Z"
+  }
+}

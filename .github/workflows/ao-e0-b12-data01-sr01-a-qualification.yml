@@ -1,0 +1,35 @@
+name: AO-E0 DATA-01 SR-01 A Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/AO-E0-B12-DATA-01-SR-01-*.json'
+      - 'reports/program/2026-10-06-AO-E0-B12-DATA-01-SR-01-*.json'
+      - 'tools/ao_e0_b12_data01_sr01.py'
+      - 'tools/ao_e0_b12_data01_sr01_a_transform.py'
+      - 'tests/test_ao_e0_b12_data01_sr01*.py'
+      - '.github/workflows/ao-e0-b12-data01-sr01-a-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify-a:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest
+      - name: SR-01 frozen breakers
+        run: python -m pytest tests/test_ao_e0_b12_data01_sr01.py -q
+      - name: A transform tests
+        run: python -m pytest tests/test_ao_e0_b12_data01_sr01_a_transform.py -q
+      - name: A evidence qualification
+        run: python -m pytest tests/test_ao_e0_b12_data01_sr01_a_evidence.py -q
+      - name: Historical ACQ-01 blocker exact
+        shell: bash
+        run: test "$(git hash-object GOVERNANCE/AO-E0-B12-DATA-01-ACQ-01-BLOCKER-V0.1.json)" = "297e9d6ebbd44cf3a8dd3fabfce942ec5a418bee"

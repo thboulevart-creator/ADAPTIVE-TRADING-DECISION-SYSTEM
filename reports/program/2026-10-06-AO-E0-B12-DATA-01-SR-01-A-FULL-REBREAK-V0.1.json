@@ -1,0 +1,16 @@
+{
+  "ask_mismatch_count": 0,
+  "bid_mismatch_count": 0,
+  "candidate_multiplier_values": [
+    "0.001"
+  ],
+  "candidate_rows": 2058942,
+  "reference_float_to_milli_max_abs_residual_milli": 0.0,
+  "reference_float_to_milli_nonzero_residual_count": 0,
+  "reference_price_fields_checked": 4117884,
+  "reference_rows": 2058942,
+  "schema": "ATDS_SR01_A_FULL_REBREAK_V0_1",
+  "status": "PASS_EXACT_DETERMINISTIC_RECONCILIATION",
+  "timestamp_mismatch_count": 0,
+  "transformation_id": "DUKASCOPY_CANONICAL_DECODE_IDENTITY_V0_1"
+}
