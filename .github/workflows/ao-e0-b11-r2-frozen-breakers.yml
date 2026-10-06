@@ -1,0 +1,40 @@
+name: AO-E0 B11-R2 Frozen Compatibility Breakers
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/AO-E0-B11-R2-REAL-OOS-OWNER-COMPATIBILITY-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/AO-E0-B11-R2-FROZEN-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json'
+      - 'tests/test_ao_e0_b11_r2_frozen_breakers.py'
+      - '.github/workflows/ao-e0-b11-r2-frozen-breakers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  frozen-breakers:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install test dependency
+        run: python -m pip install pytest
+      - name: Run B11-R2 frozen breakers
+        run: python -m pytest tests/test_ao_e0_b11_r2_frozen_breakers.py -q
+      - name: Rebreak existing AO-E0 owner qualification
+        run: python -m pytest tests/test_ao_e0_p1_owner_01.py -q
+      - name: Rebreak adopted PIPE-01 controller
+        run: python -m unittest tests/test_ao_e0_b12_consumption_controller.py -v
+      - name: Verify protected Git blobs
+        shell: bash
+        run: |
+          test "$(git hash-object src/p1_12c_ao_e0_native_owner.py)" = "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739"
+          test "$(git hash-object src/p1_12d_ao_e0_extension.py)" = "fec520916ca07ee6fe7e6029b4ca611519c39bc2"
+          test "$(git hash-object tools/ao_e0_cc05_e1_producer.py)" = "981794fedbfd8c9fdac69ba4751540e63a2e5289"
