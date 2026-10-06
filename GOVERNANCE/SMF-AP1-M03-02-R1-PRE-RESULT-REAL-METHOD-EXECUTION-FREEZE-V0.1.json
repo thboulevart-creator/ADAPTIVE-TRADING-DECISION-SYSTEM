@@ -1,0 +1,179 @@
+{
+  "authority": {
+    "capital": false,
+    "operational": false,
+    "scientific": false,
+    "trading": false
+  },
+  "branch": "integration/system-v1",
+  "clean_worktree_required": true,
+  "command": {
+    "argv": [
+      "python",
+      "-E",
+      "-P",
+      "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01\\tools\\smf_ap1_m03_02_r1_bootstrap.py",
+      "--repo-root",
+      "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+      "--mode",
+      "execute",
+      "--",
+      "--ap0-root",
+      "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "--ap0-manifest",
+      "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1\\AP0-MANIFEST.json",
+      "--ap1-result",
+      "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-740defe3.json",
+      "--output",
+      "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json"
+    ],
+    "digest": "sha256:c8a84a0ac21468ac08b6a0989358047b80677dd1097d4686f6160634a9a5605c"
+  },
+  "forbidden": [
+    "AP1_REEXECUTION",
+    "THIRD_AP1_INVOCATION",
+    "SECOND_R1_RETRY",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL",
+    "AUTOMATIC_FINDING_PROMOTION"
+  ],
+  "freeze_digest": "sha256:38166f6cfc5e39986c8ca7dd440797c943ff13417b28e79439c8dc7e44dd2be6",
+  "head": "e73a24caa800971f8f1acb1cc7e1bf2106d212dc",
+  "method": {
+    "bucket_families": [
+      "GLOBAL",
+      "UTC_HOUR",
+      "NEW_YORK_HOUR",
+      "NEW_YORK_WEEKDAY",
+      "NEW_YORK_WEEKDAY_HOUR",
+      "UTC_YEAR"
+    ],
+    "empty_bucket_rule": "EMPTY_NO_NUMERICAL_RESULT",
+    "family": "M03",
+    "metrics": {
+      "minute_range": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "spread_mean": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "tick_count": [
+        0.5,
+        0.9,
+        0.99
+      ]
+    },
+    "nonfinite_rule": "BLOCK",
+    "procedure": "ecdf_quantiles",
+    "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "quantile_definition": "linear interpolation with h=(n-1)*p",
+    "tail_extrapolation": "FORBIDDEN"
+  },
+  "output": {
+    "maximum_bytes": 33554432,
+    "must_not_preexist": true,
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json"
+  },
+  "parity": {
+    "epsilon": 2.220446049250313e-16,
+    "factor": 8,
+    "fail_action": "STOP_BLOCK_SCIENTIFIC_INTERPRETATION",
+    "rule": "ABS_DIFF <= 8 * IEEE754_DOUBLE_EPSILON * max(1, abs(AP1), abs(M03))"
+  },
+  "plan_digest": "sha256:3c2850f34e62b06ba17cf58e313446cbf1cda4749478194191bf83d73c40ec31",
+  "plan_id": "M03R1P-3c2850f34e62b06ba17cf58e313446cb",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "result_exposed": false,
+  "retry": {
+    "automatic_retry": false,
+    "historical_launcher_invocations": 1,
+    "historical_method_executions": 0,
+    "launcher_invocation_ordinal": 2,
+    "ledger_path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\m03-r1-retry-ledger-e73a24ca.json",
+    "r1_retry_invocation_count": 1,
+    "third_attempt_authorized": false
+  },
+  "runtime": {
+    "installed_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "numpy_version": "2.5.3",
+    "ny": "America/New_York",
+    "pyarrow_version": "25.0.1",
+    "python_flags": [
+      "-E",
+      "-P"
+    ],
+    "python_version": "3.13.14",
+    "sys_executable": "C:\\Users\\Boulevart\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+    "transport_command": "python",
+    "transport_path": "C:\\Users\\Boulevart\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "tzdata_version": "2026.3"
+  },
+  "schema": "ATDS_SMF_AP1_M03_02_R1_PRE_RESULT_REAL_METHOD_EXECUTION_FREEZE_V0_1",
+  "scientific_interpretation_exposed": false,
+  "scientific_owners": {
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "data02_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "rvo10_final_receipt_blob": "81cf1ea950ce041ac4ae623882af095f548358a1"
+  },
+  "source_ap1": {
+    "bytes": 179955,
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-740defe3.json",
+    "schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "status": "AP1_COMPLETE"
+  },
+  "source_data02": {
+    "ap0_manifest": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1\\AP0-MANIFEST.json",
+    "ap0_root": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "expected_files": 61,
+    "iid_claim": false,
+    "inference_claim": false,
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+    "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET"
+  },
+  "status": "PRE_RESULT_REAL_M03_R1_EXECUTION_FROZEN",
+  "transport": {
+    "bootstrap_blob": "d510d01eb92f36a458b30a6bb0d3371914d8ee03",
+    "contract_blob": "e8416a1e4dc5af91b001b8584da10ec7fd2a0821",
+    "correction": "EXPLICIT_CANONICAL_REPO_ROOT_SYS_PATH_BOOTSTRAP",
+    "github_conclusion": "success",
+    "github_job_id": 112188480068,
+    "github_run_id": 37439207862,
+    "implicit_cwd_dependency": false,
+    "old_failure_reproduced": true,
+    "pythonpath_dependency": false,
+    "repo_root": "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+    "repo_root_explicitly_injected": true,
+    "sys_path": [
+      "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+      "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\python313.zip",
+      "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs",
+      "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\Lib",
+      "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0",
+      "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages",
+      "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\win32",
+      "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\win32\\lib",
+      "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\pythonwin",
+      "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\Lib\\site-packages"
+    ],
+    "tests_blob": "031b6b5f76fd925fcc7b8b64b44c5f95ebf2e2d9",
+    "workflow_blob": "832d406217f018a94c31c89fa4b1ce1fc75da32d"
+  },
+  "tree": "8b396f52239807a36fc5ffde5b46094945b54819"
+}

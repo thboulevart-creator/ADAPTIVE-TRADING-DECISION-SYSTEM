@@ -1,0 +1,35 @@
+{
+  "ap1_executed": false,
+  "bootstrap_blob": "d510d01eb92f36a458b30a6bb0d3371914d8ee03",
+  "contract_blob": "e8416a1e4dc5af91b001b8584da10ec7fd2a0821",
+  "github_conclusion": "success",
+  "github_job_id": 112188480068,
+  "github_run_id": 37439207862,
+  "local_tests": "12_PASS",
+  "old_failure_reproduced": true,
+  "runtime": {
+    "numpy_version": "2.5.3",
+    "ny": "America/New_York",
+    "pyarrow_version": "25.0.1",
+    "python_version": "3.13.14",
+    "sys_executable": "C:\\Users\\Boulevart\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+    "tzdata_version": "2026.3"
+  },
+  "schema": "ATDS_SMF_AP1_M03_02_R1_TRANSPORT_QUALIFICATION_RECEIPT_V0_1",
+  "scientific_owner_modification": false,
+  "status": "TRANSPORT_CORRECTION_QUALIFIED",
+  "synthetic_import": "PASS",
+  "synthetic_m03": "PASS",
+  "sys_path": [
+    "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01",
+    "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\python313.zip",
+    "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\DLLs",
+    "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\Lib",
+    "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0",
+    "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages",
+    "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\win32",
+    "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\win32\\lib",
+    "C:\\Users\\Boulevart\\AppData\\Local\\Packages\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\LocalCache\\local-packages\\Python313\\site-packages\\pythonwin",
+    "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_3.13.3824.0_x64__qbz5n2kfra8p0\\Lib\\site-packages"
+  ]
+}
