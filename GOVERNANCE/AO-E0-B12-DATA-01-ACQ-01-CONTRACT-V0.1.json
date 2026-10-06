@@ -1,0 +1,56 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ01_CONTRACT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-ACQ-01",
+  "status": "HUMAN_AUTHORIZED_TEST_FIRST",
+  "human_authorization_sha256": "71dcffb521f5353ca09e3857dea08e9e41281cc756603d6ad582e84fc3e49d6a",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "bindings": {
+    "data01_receipt": "290065c68a7d37a43d9c80e326575d9eddcfd088",
+    "pipe01_receipt": "4ac1555b846ecd205ed1ad682d1fa165e38a9a3d",
+    "owner02_b11_v02_receipt": "0e3b36944098b6602852072fd42eb4011c4a76b2",
+    "data01_formation_contract": "7ebb5dc87434776d49966fdfbaba4006d44478ad",
+    "td03a_runtime": "a90903320a168a845b2b72bafba15b8d8abb2950",
+    "td03c_runtime": "150a54ea3571dbf13619215f7015c2da46de699b",
+    "td03c_contract": "7e80efc32f50e6d9f5545edce5a1c9b2f2c96fde"
+  },
+  "temporal": {
+    "b8_closure_time_utc": "2026-10-06T09:22:55Z",
+    "first_full_post_cutover_h1_start_utc": "2026-10-06T10:00:00Z",
+    "first_forward_evidence_decision_time_utc": "2026-10-06T11:00:00Z",
+    "warmup_h1_max": 20
+  },
+  "overlap": {
+    "start_utc": "2026-05-18T00:00:00Z",
+    "end_utc": "2026-05-24T23:59:59.963Z",
+    "candidate_divisor": 1000,
+    "exact_timestamp_mismatches_allowed": 0,
+    "exact_bid_mismatches_allowed": 0,
+    "exact_ask_mismatches_allowed": 0
+  },
+  "source_candidate": {
+    "id": "DUKASCOPY_USATECH_FORWARD_CANDIDATE_V0_1",
+    "provider": "DUKASCOPY",
+    "instrument": "USATECH.IDX/USD",
+    "symbol": "USATECHIDXUSD",
+    "source_b_equivalence": "NOT_ASSUMED"
+  },
+  "terminal": {
+    "required_closed_trades": 58927,
+    "performance_based_stopping": false
+  },
+  "authority": {
+    "b12_open": false,
+    "performance_bearing_read": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "requester_pays_spend": false,
+    "trading": false,
+    "capital": false
+  },
+  "permitted_terminal_outcomes": [
+    "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+    "BLOCKED"
+  ],
+  "force": false
+}

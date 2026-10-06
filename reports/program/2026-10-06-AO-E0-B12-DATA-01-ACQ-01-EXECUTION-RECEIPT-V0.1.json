@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ01_EXECUTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-ACQ-01",
+  "verdict": "BLOCKED",
+  "exact_blocker": "BLOCKED_SOURCE_CONTINUATION_NOT_EXACT",
+  "test_first_local_replay": "30/30 PASS",
+  "ci_pass": "NOT_CLAIMED",
+  "source_continuation_result_sha256": "b1bac031f5331d3daf0e2f846dcba43faec61595772abbf42080a18250c7551b",
+  "candidate_inventory_digest": "026ab6505bc1a7367f1d6dcb2828d3cf8f20421d2964b647bb97824a43422fd1",
+  "timestamp_mismatch_count": 0,
+  "bid_mismatch_count": 264431,
+  "ask_mismatch_count": 245864,
+  "forward_october_acquired": false,
+  "b12": "CLOSED",
+  "performance_observed": false,
+  "strategy_qualified_claim": false,
+  "force": false
+}

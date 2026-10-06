@@ -1,0 +1,53 @@
+{
+  "candidate": {
+    "instrument": "USATECH.IDX-USD",
+    "inventory_digest": "026ab6505bc1a7367f1d6dcb2828d3cf8f20421d2964b647bb97824a43422fd1",
+    "new_objects_downloaded_this_run": 0,
+    "objects": 168,
+    "provider": "DUKASCOPY",
+    "rows": 2058942,
+    "transport": "https://jetta.dukascopy.com/v1/ticks"
+  },
+  "comparison": {
+    "ask_mismatch_count": 245864,
+    "bid_mismatch_count": 264431,
+    "exact_source_continuation": false,
+    "first_mismatch_identity_only": {
+      "kind": "BID",
+      "timestamp_ms": 1779094800020
+    },
+    "status": "BLOCKED_SOURCE_CONTINUATION_NOT_EXACT",
+    "timestamp_mismatch_count": 0
+  },
+  "forbidden_surfaces": {
+    "b12_opened": false,
+    "forward_october_acquired": false,
+    "performance_observed": false,
+    "pnl_calculated": false,
+    "strategy_calculated": false
+  },
+  "reference": {
+    "files": [
+      {
+        "name": "USTECH-2026-05-part0000.parquet",
+        "sha256": "0b374bf24b40659b0c30406c80ff519e8de5d2495e4bfb0c83ea1293e93c88bc",
+        "size_bytes": 26352107
+      },
+      {
+        "name": "USTECH-2026-05-part0001.parquet",
+        "sha256": "9ae9e557cb5120093eaa36a6cfb46168c2a426234fbb90a994b7e4a92b838b98",
+        "size_bytes": 31333773
+      },
+      {
+        "name": "USTECH-2026-05-part0002.parquet",
+        "sha256": "ebfb07931bd5385bbd2a3f6e9d75919237db5eb3ef4d6cb79f474570febcd35a",
+        "size_bytes": 18536034
+      }
+    ],
+    "lineage": "CarlosSilva1/ustech-ticks",
+    "rows": 2058942,
+    "window_end_utc": "2026-05-24T23:59:59.963Z",
+    "window_start_utc": "2026-05-18T00:00:00Z"
+  },
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ01_SOURCE_CONTINUATION_EXECUTION_V0_1"
+}

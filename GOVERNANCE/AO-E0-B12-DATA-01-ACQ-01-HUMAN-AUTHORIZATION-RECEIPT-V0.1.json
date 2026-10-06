@@ -1,0 +1,14 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ01_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-ACQ-01",
+  "human_authorization_sha256": "71dcffb521f5353ca09e3857dea08e9e41281cc756603d6ad582e84fc3e49d6a",
+  "authorized_terminal_outcomes": [
+    "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+    "BLOCKED"
+  ],
+  "requester_pays_spend_authorized": false,
+  "b12_open_authorized": false,
+  "performance_bearing_read_authorized": false,
+  "forward_performance_observation_authorized": false,
+  "force": false
+}

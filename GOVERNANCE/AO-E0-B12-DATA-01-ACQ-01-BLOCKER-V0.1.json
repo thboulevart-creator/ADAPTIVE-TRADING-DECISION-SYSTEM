@@ -1,0 +1,53 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ01_BLOCKER_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-ACQ-01",
+  "status": "BLOCKED",
+  "exact_blocker": "BLOCKED_SOURCE_CONTINUATION_NOT_EXACT",
+  "human_authorization_sha256": "71dcffb521f5353ca09e3857dea08e9e41281cc756603d6ad582e84fc3e49d6a",
+  "comparison_window": {
+    "start_utc": "2026-05-18T00:00:00Z",
+    "end_utc": "2026-05-24T23:59:59.963Z"
+  },
+  "reference": {
+    "lineage": "CarlosSilva1/ustech-ticks",
+    "rows": 2058942,
+    "files": 3
+  },
+  "candidate": {
+    "provider": "DUKASCOPY",
+    "instrument": "USATECH.IDX-USD",
+    "transport": "https://jetta.dukascopy.com/v1/ticks",
+    "objects": 168,
+    "rows": 2058942,
+    "raw_total_bytes": 47769010,
+    "inventory_digest": "026ab6505bc1a7367f1d6dcb2828d3cf8f20421d2964b647bb97824a43422fd1"
+  },
+  "comparison": {
+    "timestamp_mismatch_count": 0,
+    "bid_mismatch_count": 264431,
+    "ask_mismatch_count": 245864,
+    "exact_source_continuation": false,
+    "first_mismatch_identity_only": {
+      "kind": "BID",
+      "timestamp_ms": 1779094800020
+    }
+  },
+  "state": {
+    "b8": "CLOSED",
+    "b12": "CLOSED",
+    "exact_forward_instance": "NOT_YET_AVAILABLE",
+    "data01_instance_state": "WAIT_NOT_READY"
+  },
+  "non_authorizations": {
+    "forward_october_acquisition": false,
+    "performance_bearing_read": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "next_required_phase": "SEPARATELY_AUTHORIZED_SOURCE_SEMANTIC_RECONCILIATION_OR_ALTERNATIVE_EXACT_CONTINUATION",
+  "force": false
+}
