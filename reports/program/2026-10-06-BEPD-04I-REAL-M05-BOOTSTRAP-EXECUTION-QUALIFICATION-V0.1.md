@@ -1,0 +1,392 @@
+# BEPD-04I — FIRST REAL RESPONSE-SPECIFIC MOVING-BLOCK BOOTSTRAP EXECUTION + TECHNICAL QUALIFICATION V0.1
+
+**Date:** 2026-10-06  
+**Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
+**Branch:** `integration/system-v1`  
+**Report parent HEAD:** `a50650d8c5c83171a88f2193376347640f21fc81`  
+**Report parent TREE:** `71459a28b73c8bedc6bcb1c9c80b5426bade6516`  
+**Technical status:** REAL_M05_BOOTSTRAP_EXECUTION_QUALIFIED  
+**Result human-adoption status:** NOT HUMAN_ADOPTED
+
+## 1. Final technical verdict
+
+```text
+BEPD-04I =
+REAL_M05_BOOTSTRAP_EXECUTION_QUALIFIED
+
+RESPONSE-SPECIFIC M05 =
+ACTIVATED
+
+REAL M05 EXECUTION =
+EXECUTED ONCE
+
+BOOTSTRAP REPLICATIONS =
+200000
+
+BLOCK LENGTH =
+13 COMPLETE TARGET WEEKS
+
+SEED =
+40420261006
+
+CONFIDENCE LEVEL =
+0.99
+
+INTERVAL METHOD =
+PERCENTILE
+
+RESULT HUMAN ADOPTION =
+NO
+
+GENERALIZATION =
+NOT ESTABLISHED
+
+CONFIRMATORY GENERALIZATION =
+FRESH OOS EVIDENCE REQUIRED
+
+TRADING AUTHORITY =
+NONE
+```
+
+## 2. Canonical identities
+
+```text
+PRE-RESULT FREEZE =
+7e8b38648e0d55109068597099cdad3b4355cd4e
+
+BEPD-04H ACTIVATION =
+7f2fd16d7cc636e8d3e3cb23f618deb55407bcf1
+
+REAL M05 RESULT =
+5d6e7c7f3a7c3beb1e41b00d5edf58500eade94e
+
+RUN MANIFEST =
+2ce84bffa55a5095119e1a5eb3d4fa79ba84d11a
+
+FIRST REAL EXECUTION RECORD =
+db999472a23612fbfaefb45be654e40018c9d10a
+
+INDEPENDENT RECOMPUTATION =
+88b75ab96f3705f3c2a77acbcfd84f340b14ca3f
+
+DETERMINISTIC REPLAY =
+1f544d8cd87d080674eaf62d90c55da16584aff9
+
+PERSISTED-HEAD REBREAK =
+9b14463a1b0b4e3ff8d7c8041233c8f6a98151d0
+
+QUALIFICATION RECEIPT =
+dd3d636cae90787ffed28631809061232fba8b53
+```
+
+## 3. First real execution identity
+
+```text
+WORKFLOW RUN =
+37437816200
+
+EXECUTION HEAD =
+8a7a80cc15e0c93bb75e5c67ba8ef4010eb54e95
+
+EXECUTION TREE =
+380ca933ee26c5ea054e8fb793dbfb2f1d7521a9
+
+BEPD-04I RUN_ID =
+98441236904c7a1f81dd89a5070c222856de42725c10f3477c01990fe366f86e
+
+RESULT SHA256 =
+4dcd3ec589d3d6c063b51465701393189bd31d145e24f51984cbda0492e218ee
+```
+
+## 4. Real M05 bootstrap result
+
+```text
+HISTORICAL EVENTS =
+472
+
+HISTORICAL SUCCESSES =
+370
+
+HISTORICAL POINT ESTIMATE =
+0.78389830508474578
+
+BOOTSTRAP REPLICATIONS =
+200000
+
+BLOCK LENGTH =
+13 COMPLETE TARGET WEEKS
+
+SEED =
+40420261006
+
+CONFIDENCE LEVEL =
+0.99
+
+INTERVAL METHOD =
+PERCENTILE
+
+LOWER QUANTILE =
+0.005
+
+UPPER QUANTILE =
+0.995
+
+99% PERCENTILE LOWER BOUND =
+0.72631567604355718
+
+99% PERCENTILE UPPER BOUND =
+0.8438177874186551
+
+INTERVAL WIDTH =
+0.11750211137509792
+```
+
+## 5. Distribution evidence
+
+```text
+MINIMUM REPLICATE STATISTIC =
+0.67590618336886998
+
+MAXIMUM REPLICATE STATISTIC =
+0.88372093023255816
+
+REPLICATE SEQUENCE DIGEST SHA256 =
+e6b5015ece918651cb7c67d79996c936a56ab2934c98c5252877b5156435d8be
+
+SORTED DISTRIBUTION DIGEST SHA256 =
+3eaa0a58c3d48bbf4475ec5303b83a9ce8dab5f057f9b07c624d5a0b1706a41b
+```
+
+The full distribution was not persisted in the repository. Deterministic digests plus replay and independent recomputation evidence provide the canonical technical evidence.
+
+## 6. Independent recomputation
+
+The independent reference implementation reproduced exactly:
+
+```text
+POINT ESTIMATE =
+0.78389830508474578
+
+LOWER BOUND =
+0.72631567604355718
+
+UPPER BOUND =
+0.8438177874186551
+
+POINT ESTIMATE PARITY =
+PASS
+
+INTERVAL LOWER PARITY =
+PASS
+
+INTERVAL UPPER PARITY =
+PASS
+```
+
+It used the same:
+
+```text
+EVENT_LEDGER
+COMPLETE-WEEK CALENDAR
+BLOCK LENGTH = 13
+REPLICATIONS = 200000
+SEED = 40420261006
+CONFIDENCE = 0.99
+PERCENTILE METHOD
+```
+
+No subgroup or sensitivity analysis was introduced.
+
+## 7. Deterministic replay
+
+The persisted-input replay reproduced:
+
+```text
+POINT ESTIMATE =
+PASS
+
+INTERVAL LOWER =
+PASS
+
+INTERVAL UPPER =
+PASS
+
+INTERVAL WIDTH =
+PASS
+
+REPLICATE MINIMUM =
+PASS
+
+REPLICATE MAXIMUM =
+PASS
+
+REPLICATE SEQUENCE DIGEST =
+PASS
+
+SORTED DISTRIBUTION DIGEST =
+PASS
+
+RESULT SHA256 =
+PASS
+```
+
+## 8. Persisted-head rebreak
+
+Canonical rebreak:
+
+```text
+WORKFLOW RUN =
+37438169022
+
+HEAD =
+ce3c68d3e2f36240e6523c1e61d62aca7bddda6b
+
+TREE =
+40101c0eb1d6bf3edab508f3cd88abdb86f68eee
+
+PERSISTED IDENTITIES =
+PASS
+
+DETERMINISTIC REPLAY =
+PASS
+
+INDEPENDENT RECOMPUTATION =
+PASS
+
+DISTRIBUTION DIGEST REPLAY =
+PASS
+
+POINT ESTIMATE PARITY =
+PASS
+
+INTERVAL LOWER PARITY =
+PASS
+
+INTERVAL UPPER PARITY =
+PASS
+```
+
+## 9. Breaker evidence
+
+```text
+BEPD-04I BREAKER =
+28 / 28 HARD_FAIL PASS
+
+BEPD-04E QUALIFIED BREAKER =
+26 / 26 HARD_FAIL PASS
+```
+
+The fail-closed surface covers binding mismatch, parameter mutation, alternative method/statistic, subgroup and sensitivity analysis, second competing canonical execution, prediction, edge, strategy and trading authority.
+
+## 10. Interpretation boundary
+
+The technically qualified result is:
+
+```text
+EXPLORATORY RESAMPLING UNCERTAINTY INTERVAL
+```
+
+for the historical global same-week reintegration statistic on the already-exposed fixed corpus.
+
+It is not:
+
+```text
+A FUTURE PROBABILITY RANGE
+```
+
+and does not establish:
+
+```text
+future success probability
+confirmed generalization
+predictive reliability
+edge
+strategy validity
+expected profitability
+```
+
+## 11. M09 / confirmatory boundary
+
+```text
+M09 =
+EXPOSED
+
+PRISTINE =
+NO
+
+GENERALIZATION =
+NOT ESTABLISHED
+
+CONFIRMATORY GENERALIZATION =
+FRESH OOS EVIDENCE REQUIRED
+```
+
+## 12. Human-adoption boundary
+
+Technical qualification does not imply substantive human adoption.
+
+```text
+BEPD-04I REAL M05 RESULT =
+NOT HUMAN_ADOPTED
+```
+
+The next human decision must adjudicate:
+
+```text
+ACCEPT REAL M05 BOOTSTRAP RESULT AS CANONICAL
+
+or
+
+REJECT REAL M05 BOOTSTRAP RESULT
+
+or
+
+REQUIRE FURTHER QUALIFICATION
+```
+
+No automatic generalization, edge or trading authority is opened.
+
+## 13. Final state
+
+```text
+BEPD-04I =
+REAL_M05_BOOTSTRAP_EXECUTION_QUALIFIED
+
+RESPONSE-SPECIFIC M05 =
+ACTIVATED
+
+REAL M05 EXECUTION =
+EXECUTED ONCE
+
+HISTORICAL POINT ESTIMATE =
+0.78389830508474578
+
+99% PERCENTILE INTERVAL =
+[0.72631567604355718, 0.8438177874186551]
+
+INTERVAL WIDTH =
+0.11750211137509792
+
+REAL BOOTSTRAP RESULT HUMAN ADOPTION =
+NO
+
+GENERALIZATION =
+NOT ESTABLISHED
+
+CONFIRMATORY GENERALIZATION =
+FRESH OOS EVIDENCE REQUIRED
+
+PREDICTION =
+NO
+
+EDGE =
+NO
+
+TRADING AUTHORITY =
+NONE
+
+NEXT STEP =
+HUMAN ADJUDICATION OF REAL M05 BOOTSTRAP RESULT
+
+STOP.
+```
