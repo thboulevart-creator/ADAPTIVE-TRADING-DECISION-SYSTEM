@@ -1,0 +1,329 @@
+name: BEPD-04G First Real M10 + Amended Gate
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04g-first-real-m10-gate.yml
+
+permissions:
+  contents: read
+
+jobs:
+  first-real-execution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact triggering HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify frozen identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"; expected="$2"; actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04G_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "GOVERNANCE/BEPD-04G-PRE-RESULT-EXECUTION-FREEZE-V0.1.json" "98698c29e2df5ad5e99190311cd06f4e3096ba93"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl" "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/RUN_MANIFEST.json" "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5"
+          check_blob "GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json" "26385eb2547892df4b87206ad59fc2ba07721354"
+          check_blob "GOVERNANCE/BEPD-04E-HUMAN-ADJUDICATION-MATERIAL-PARAMETERS-M04-GATE-2026-10-06.md" "a92da70e6efec49729b275d806a76f0244e79bdd"
+          check_blob "GOVERNANCE/BEPD-04F-RESPONSE-NONSTATIONARITY-GATE-TARGETED-AMENDMENT-V0.1.json" "38d9e3f45f51ef0f208f8a42a886a525b51be609"
+          check_blob "tools/bepd_04f_response_nonstationarity_gate_v0_1.py" "4a4181f699ff37dbc95276150f5c4ea62df3874b"
+          check_blob "reports/program/2026-10-06-BEPD-04F-TARGETED-AMENDMENT-SYNTHETIC-QUALIFICATION-RECEIPT-V0.1.json" "3b1836a578bbb46969dff13c5bcfa4bdff9ba0dc"
+          check_blob "reports/program/2026-10-06-BEPD-04F-TARGETED-AMENDMENT-SYNTHETIC-QUALIFICATION-V0.1.md" "8b83efe4433c03f3ab896f58eeed59e7b1002cd4"
+          check_blob "GOVERNANCE/BEPD-04E-RESPONSE-SPECIFIC-M05-ACTIVATION-CANDIDATE-V0.1.json" "b740312275bff3d6910c2e0fd1a69a24d96df1cb"
+          echo "BEPD04G_PRE_RESULT_BINDINGS_PASS"
+
+      - name: Execute first real M10 and amended gate exactly once
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04g-real
+          python - <<'PY'
+          import hashlib,json,os,subprocess
+          from collections import defaultdict
+          from decimal import Decimal, ROUND_HALF_EVEN
+          from pathlib import Path
+
+          ROOT=Path(".")
+          LEDGER=ROOT/"artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl"
+          MANIFEST=ROOT/"artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/RUN_MANIFEST.json"
+          CAL=ROOT/"GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json"
+          FREEZE=ROOT/"GOVERNANCE/BEPD-04G-PRE-RESULT-EXECUTION-FREEZE-V0.1.json"
+
+          freeze=json.loads(FREEZE.read_text())
+          manifest=json.loads(MANIFEST.read_text())
+          calendar=json.loads(CAL.read_text())
+
+          expected_run_id="68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+          assert manifest["run_id"]==expected_run_id
+          assert freeze["sources"]["run_manifest"]["run_id"]==expected_run_id
+          assert freeze["m10"]["minimum_n_per_stratum"]==30
+          assert freeze["m10"]["maximum_response_mean_spread"]=="0.10"
+          assert freeze["m04"]["status"]=="NOT_APPLICABLE_BY_REPRESENTATION"
+          assert freeze["response_specific_m05"]=="NOT_ACTIVATED"
+
+          cal_rows=calendar["calendar"]
+          cal_ids=[r["target_week_id"] for r in cal_rows]
+          assert len(cal_ids)==259 and len(set(cal_ids))==259
+          assert cal_ids[0]=="2021-06-07" and cal_ids[-1]=="2026-05-18"
+          assert calendar["invariants"]["zero_event_week_count"]==29
+          assert calendar["invariants"]["exact_spacing_days"]==7
+
+          rows=[json.loads(x) for x in LEDGER.read_text().splitlines() if x.strip()]
+          assert len(rows)==472
+          ids=set(); cluster_week={}; week_cluster={}
+          allowed_calendar=set(cal_ids)
+          for r in rows:
+              assert r["run_id"]==expected_run_id
+              eid=r["event_id"]; w=r["target_week_id"]; c=r["sweep_cluster_id"]; y=r["same_week_reintegration"]
+              assert eid not in ids
+              ids.add(eid)
+              assert w in allowed_calendar
+              assert type(y) is bool
+              if c in cluster_week:
+                  assert cluster_week[c]==w
+              cluster_week[c]=w
+              if w in week_cluster:
+                  assert week_cluster[w]==c
+              week_cluster[w]=c
+
+          strata=freeze["m10"]["declared_strata"]
+          counts={s["id"]:{"stratum_id":s["id"],"date_start":s["start"],"date_end":s["end"],"qualified_event_count":0,"reintegration_true_count":0} for s in strata}
+
+          def stratum_for(w):
+              for s in strata:
+                  if s["start"] <= w <= s["end"]:
+                      return s["id"]
+              raise AssertionError(f"EVENT_OUTSIDE_DECLARED_STRATA:{w}")
+
+          for r in rows:
+              sid=stratum_for(r["target_week_id"])
+              counts[sid]["qualified_event_count"]+=1
+              counts[sid]["reintegration_true_count"]+=1 if r["same_week_reintegration"] else 0
+
+          Q=Decimal("0.000000000000000001")
+          out=[]
+          for s in strata:
+              x=counts[s["id"]]
+              n=x["qualified_event_count"]
+              assert n>0
+              mean=(Decimal(x["reintegration_true_count"])/Decimal(n)).quantize(Q,rounding=ROUND_HALF_EVEN)
+              x["response_mean"]=format(mean,"f")
+              out.append(x)
+
+          means=[Decimal(x["response_mean"]) for x in out]
+          min_mean=min(means); max_mean=max(means); spread=(max_mean-min_mean).quantize(Q,rounding=ROUND_HALF_EVEN)
+          insufficient=[x["stratum_id"] for x in out if x["qualified_event_count"]<30]
+          if insufficient:
+              gate_state="NONSTATIONARITY_UNRESOLVED"
+              reason="M10_INSUFFICIENT_SAMPLE"
+              sample_adequacy="INSUFFICIENT"
+          elif spread > Decimal("0.10"):
+              gate_state="NONSTATIONARITY_MATERIALLY_DETECTED"
+              reason="M10_SPREAD_EXCEEDS_ADOPTED_THRESHOLD"
+              sample_adequacy="PASS"
+          else:
+              gate_state="NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+              reason="M10_WITHIN_ADOPTED_TOLERANCE"
+              sample_adequacy="PASS"
+
+          m10_result={
+            "schema":"ATDS_BEPD_04G_REAL_M10_RESULT_V0_1",
+            "scope":"EXPLORATORY_HISTORICAL_FIXED_CORPUS_TEMPORAL_STABILITY_DIAGNOSTIC",
+            "event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "run_id":expected_run_id,
+            "total_historical_event_count":472,
+            "strata":out,
+            "minimum_stratum_response_mean":format(min_mean,"f"),
+            "maximum_stratum_response_mean":format(max_mean,"f"),
+            "maximum_response_mean_spread":format(spread,"f"),
+            "minimum_n_per_stratum":30,
+            "sample_adequacy":sample_adequacy,
+            "m04_status":"NOT_APPLICABLE_BY_REPRESENTATION",
+            "m04_executed":False
+          }
+          gate_result={
+            "schema":"ATDS_BEPD_04G_FIRST_REAL_AMENDED_NONSTATIONARITY_GATE_RESULT_V0_1",
+            "scope":"EXPLORATORY_ONLY",
+            "state":gate_state,
+            "reason_code":reason,
+            "structural_validation_status":"PASS",
+            "sample_adequacy":sample_adequacy,
+            "insufficient_strata":insufficient,
+            "maximum_response_mean_spread":format(spread,"f"),
+            "adopted_spread_threshold":"0.10",
+            "m04_status":"NOT_APPLICABLE_BY_REPRESENTATION",
+            "m04_executed":False,
+            "stationarity_proven":False,
+            "iid_proven":False,
+            "generalization_proven":False,
+            "response_specific_m05_activation":"NOT_ACTIVATED"
+          }
+
+          canonical=json.dumps({"m10":m10_result,"gate":gate_result},sort_keys=True,separators=(",",":"))
+          result_sha=hashlib.sha256(canonical.encode()).hexdigest()
+          identity_seed=json.dumps({
+            "freeze_blob":"98698c29e2df5ad5e99190311cd06f4e3096ba93",
+            "event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "calendar_blob":"26385eb2547892df4b87206ad59fc2ba07721354",
+            "amendment_blob":"38d9e3f45f51ef0f208f8a42a886a525b51be609",
+            "result_sha256":result_sha
+          },sort_keys=True,separators=(",",":"))
+          run_id=hashlib.sha256(identity_seed.encode()).hexdigest()
+
+          head=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          tree=subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip()
+
+          execution_record={
+            "schema":"ATDS_BEPD_04G_FIRST_REAL_M10_GATE_EXECUTION_RECORD_V0_1",
+            "status":"EXECUTED_ONCE",
+            "execution_head":head,
+            "execution_tree":tree,
+            "workflow_run_id":int(os.environ["GITHUB_RUN_ID"]),
+            "freeze_blob":"98698c29e2df5ad5e99190311cd06f4e3096ba93",
+            "result_sha256":result_sha,
+            "bepd04g_run_id":run_id,
+            "real_m10_executed":True,
+            "real_gate_executed":True,
+            "real_bootstrap_executed":False,
+            "real_confidence_interval_calculated":False,
+            "response_specific_m05_activation":"NOT_ACTIVATED"
+          }
+          run_manifest={
+            "schema":"ATDS_BEPD_04G_RUN_MANIFEST_V0_1",
+            "bepd04g_run_id":run_id,
+            "repository":"thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+            "branch":"integration/system-v1",
+            "execution_head":head,
+            "execution_tree":tree,
+            "source_event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "source_run_manifest_blob":"ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+            "source_run_id":expected_run_id,
+            "calendar_binding_blob":"26385eb2547892df4b87206ad59fc2ba07721354",
+            "pre_result_freeze_blob":"98698c29e2df5ad5e99190311cd06f4e3096ba93",
+            "bepd04e_human_adjudication_blob":"a92da70e6efec49729b275d806a76f0244e79bdd",
+            "bepd04f_amendment_blob":"38d9e3f45f51ef0f208f8a42a886a525b51be609",
+            "bepd04f_qualification_receipt_blob":"3b1836a578bbb46969dff13c5bcfa4bdff9ba0dc",
+            "m05_activation":"NOT_ACTIVATED",
+            "evidence_status":"EXPOSED_EXPLORATORY_ONLY"
+          }
+
+          base=Path("bepd04g-real")
+          (base/"REAL_M10_RESULT.json").write_text(json.dumps(m10_result,indent=2,sort_keys=True)+"\n")
+          (base/"REAL_AMENDED_GATE_RESULT.json").write_text(json.dumps(gate_result,indent=2,sort_keys=True)+"\n")
+          (base/"FIRST_REAL_M10_GATE_EXECUTION_RECORD.json").write_text(json.dumps(execution_record,indent=2,sort_keys=True)+"\n")
+          (base/"RUN_MANIFEST.json").write_text(json.dumps(run_manifest,indent=2,sort_keys=True)+"\n")
+          print("BEPD04G_FIRST_REAL_EXECUTION_COMPLETE")
+          PY
+
+      - name: Independent recomputation and reconciliation
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from decimal import Decimal, ROUND_HALF_EVEN
+          from pathlib import Path
+
+          ledger=[json.loads(x) for x in Path("artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl").read_text().splitlines() if x.strip()]
+          primary=json.loads(Path("bepd04g-real/REAL_M10_RESULT.json").read_text())
+          gate=json.loads(Path("bepd04g-real/REAL_AMENDED_GATE_RESULT.json").read_text())
+
+          bounds=[
+            ("T1","2021-06-07","2022-05-30"),
+            ("T2","2022-06-06","2023-05-29"),
+            ("T3","2023-06-05","2024-05-27"),
+            ("T4","2024-06-03","2025-05-26"),
+            ("T5","2025-06-02","2026-05-18")
+          ]
+          recomputed=[]
+          Q=Decimal("0.000000000000000001")
+          for sid,start,end in bounds:
+              subset=[r for r in ledger if start <= r["target_week_id"] <= end]
+              n=len(subset)
+              t=sum(1 for r in subset if r["same_week_reintegration"] is True)
+              mean=(Decimal(t)/Decimal(n)).quantize(Q,rounding=ROUND_HALF_EVEN)
+              recomputed.append({
+                "stratum_id":sid,"date_start":start,"date_end":end,
+                "qualified_event_count":n,"reintegration_true_count":t,
+                "response_mean":format(mean,"f")
+              })
+
+          assert recomputed==primary["strata"]
+          means=[Decimal(x["response_mean"]) for x in recomputed]
+          minm=min(means); maxm=max(means); spread=(maxm-minm).quantize(Q,rounding=ROUND_HALF_EVEN)
+          assert format(minm,"f")==primary["minimum_stratum_response_mean"]
+          assert format(maxm,"f")==primary["maximum_stratum_response_mean"]
+          assert format(spread,"f")==primary["maximum_response_mean_spread"]
+
+          insufficient=[x["stratum_id"] for x in recomputed if x["qualified_event_count"]<30]
+          if insufficient:
+              state="NONSTATIONARITY_UNRESOLVED"
+          elif spread > Decimal("0.10"):
+              state="NONSTATIONARITY_MATERIALLY_DETECTED"
+          else:
+              state="NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+          assert state==gate["state"]
+
+          receipt={
+            "schema":"ATDS_BEPD_04G_INDEPENDENT_RECOMPUTATION_RECEIPT_V0_1",
+            "status":"PASS",
+            "event_count_reconciliation":"PASS",
+            "true_count_reconciliation":"PASS",
+            "response_mean_reconciliation":"PASS",
+            "minimum_mean_reconciliation":"PASS",
+            "maximum_mean_reconciliation":"PASS",
+            "spread_reconciliation":"PASS",
+            "sample_adequacy_reconciliation":"PASS",
+            "gate_state_reconciliation":"PASS",
+            "new_estimand_introduced":False,
+            "threshold_changed":False,
+            "stratum_changed":False,
+            "subgroup_inspected":False
+          }
+          Path("bepd04g-real/INDEPENDENT_RECOMPUTATION_RECEIPT.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
+          print("BEPD04G_INDEPENDENT_RECOMPUTATION_PASS")
+          PY
+
+      - name: Run BEPD-04F adversarial breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04f_response_nonstationarity_gate_breaker_v0_1.py
+          echo "BEPD04G_04F_BREAKER_PASS"
+
+      - name: Verify forbidden outputs absent
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          forbidden={"bootstrap_distribution","confidence_interval","p_value","significance","prediction","edge","trading_authority_granted"}
+          for p in Path("bepd04g-real").glob("*.json"):
+              obj=json.loads(p.read_text())
+              keys=set()
+              def walk(x):
+                  if isinstance(x,dict):
+                      for k,v in x.items():
+                          keys.add(k); walk(v)
+                  elif isinstance(x,list):
+                      for v in x: walk(v)
+              walk(obj)
+              assert not (keys & forbidden), (p, keys & forbidden)
+          print("BEPD04G_FORBIDDEN_OUTPUT_SURFACE_PASS")
+          PY
+
+      - name: Upload first-real execution package
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04g-first-real
+          path: bepd04g-real/*.json
+          if-no-files-found: error
+          retention-days: 30
