@@ -1,0 +1,22 @@
+name: AO-E0 B8 M06-02 Qualification
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/AO-E0-B8-M06-02-SAMPLE-ADEQUACY-PREREGISTRATION-CANDIDATE-V0.1.json'
+      - 'tools/ao_e0_b8_m06_02_preregistration.py'
+      - 'tests/test_ao_e0_b8_m06_02.py'
+      - '.github/workflows/ao-e0-b8-m06-02-qualification.yml'
+  workflow_dispatch:
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Candidate reconstruction
+        run: python tools/ao_e0_b8_m06_02_preregistration.py
+      - name: Adversarial qualification
+        run: python -m unittest tests/test_ao_e0_b8_m06_02.py -v

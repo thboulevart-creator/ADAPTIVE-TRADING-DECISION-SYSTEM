@@ -1,0 +1,133 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_02_SAMPLE_ADEQUACY_PREREGISTRATION_CANDIDATE_V0_1",
+  "control_id": "AO-E0-B8-M06-02",
+  "status": "CANDIDATE_NOT_HUMAN_ADOPTED",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "bindings": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "m06_planning_dispersion": "HUMAN_ADOPTED",
+    "planning_stddev": 336.4106561689863,
+    "planning_stddev_epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY",
+    "planning_dispersion_human_adoption_blob": "71e1e50d77b073c34446508198994cbe21343a85",
+    "planning_dispersion_human_adoption_receipt_blob": "22c0016d0c8f5e2a6054200fff2461c597791735",
+    "m06_runtime_blob": "fce7998167745659cb0fd5d03a8de14946b0394d",
+    "m06_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "b4_delta_min_blob": "8cf494fcfffe0575d3e2a0fe887e2f524a3eb304",
+    "b4_delta_min_receipt_blob": "adcb7ed05248a6e3fa0e6aa5ac9998ba23264346"
+  },
+  "claim": {
+    "estimand": "mean all-in net realized unit PnL per closed OOS trade at F2_S4",
+    "delta_min": 5.0,
+    "h0": "theta_AO_E0 <= 5.0",
+    "h1": "theta_AO_E0 > 5.0",
+    "centered_estimand_for_power": "theta_AO_E0 - 5.0"
+  },
+  "sample_adequacy_rule": {
+    "mode": "PRECISION_AND_POWER",
+    "combination_rule": "FINAL_REQUIRED_N = MAX(PRECISION_REQUIRED_N, POWER_REQUIRED_N)",
+    "post_result_rule_change": "FORBIDDEN"
+  },
+  "precision": {
+    "model_ref": "NORMAL_MEAN_KNOWN_SIGMA",
+    "stddev": 336.4106561689863,
+    "stddev_role": "FIXED_PLANNING_INPUT_ONLY_NOT_POPULATION_KNOWN_CLAIM",
+    "half_width": 5.0,
+    "half_width_source": "FROZEN_B4_DELTA_MIN_USED_AS_POLICY_RESOLUTION_UNIT",
+    "confidence_level": 0.99,
+    "confidence_policy": "CANDIDATE_CONSERVATIVE_POLICY_NOT_UNIVERSAL_RULE",
+    "required_n": 30036
+  },
+  "power": {
+    "model_ref": "NORMAL_MEAN_KNOWN_SIGMA",
+    "stddev": 336.4106561689863,
+    "effect_size": 5.0,
+    "effect_semantics": "MINIMUM_DESIGN_EXCESS_ABOVE_H0_BOUNDARY",
+    "effect_source": "PREDECLARED",
+    "effect_policy_source": "ONE_FROZEN_DELTA_MIN_POLICY_MARGIN_ABOVE_NULL_BOUNDARY",
+    "design_alternative_theta": 10.0,
+    "alpha": 0.01,
+    "target_power": 0.90,
+    "alternative": "GREATER",
+    "max_n": 58927,
+    "max_n_rule": "EXACT_MINIMAL_POWER_ADEQUACY_CAP_DERIVED_PRE_RESULT",
+    "required_n": 58927,
+    "achieved_power": 0.9000043763601825,
+    "power_at_n_minus_1": 0.8999990037841005
+  },
+  "final_required_n": 58927,
+  "sensitivity_design_only": [
+    {
+      "id": "BASELINE_95_80",
+      "confidence_level": 0.95,
+      "alpha": 0.05,
+      "target_power": 0.80,
+      "half_width": 5.0,
+      "effect_size": 5.0,
+      "precision_required_n": 17390,
+      "power_required_n": 27988,
+      "final_required_n": 27988
+    },
+    {
+      "id": "RECOMMENDED_99_90",
+      "confidence_level": 0.99,
+      "alpha": 0.01,
+      "target_power": 0.90,
+      "half_width": 5.0,
+      "effect_size": 5.0,
+      "precision_required_n": 30036,
+      "power_required_n": 58927,
+      "final_required_n": 58927
+    },
+    {
+      "id": "STRICT_99_95",
+      "confidence_level": 0.99,
+      "alpha": 0.01,
+      "target_power": 0.95,
+      "half_width": 5.0,
+      "effect_size": 5.0,
+      "precision_required_n": 30036,
+      "power_required_n": 71391,
+      "final_required_n": 71391
+    }
+  ],
+  "epistemic_firewalls": {
+    "statistical_significance_ne_economic_relevance": true,
+    "minimum_effect_of_interest_ne_observed_effect": true,
+    "planning_sigma_ne_confirmatory_sigma": true,
+    "required_n_ne_strategy_qualification": true,
+    "power_target_met_ne_edge_generalizable": true,
+    "precision_target_met_ne_live_profitability": true,
+    "known_sigma_model_ne_population_sigma_known": true,
+    "nominal_required_n_ne_effective_independent_n": true,
+    "alpha_0_01_ne_multiplicity_correction": true
+  },
+  "dependence_routing": {
+    "m04_remains_required": true,
+    "implicit_iid": false,
+    "future_dependence_failure_must_propagate": true,
+    "m06_required_n_interpretation": "NOMINAL_MODEL_BASED_PLANNING_COUNT_ONLY"
+  },
+  "parameter_source_controls": {
+    "new_real_result_used": false,
+    "exposed_e1_performance_used_for_parameter_selection": false,
+    "exposed_e1_use_limited_to_adopted_planning_sigma": true,
+    "post_hoc_parameter_tuning": false
+  },
+  "state": {
+    "b8": "BLOCKED_PENDING_DISTINCT_HUMAN_ADOPTION",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "real_performance_observation": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
