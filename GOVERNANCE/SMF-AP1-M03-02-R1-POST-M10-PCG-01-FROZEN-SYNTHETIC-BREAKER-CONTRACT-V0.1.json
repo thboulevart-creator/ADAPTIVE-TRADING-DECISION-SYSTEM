@@ -1,0 +1,251 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_01_FROZEN_SYNTHETIC_BREAKER_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-01",
+  "status": "FROZEN_BEFORE_RUNTIME_IMPLEMENTATION",
+  "fixture_path": "tests/fixtures/smf_ap1_m03_02_r1_post_m10_pcg_01_synthetic_cases_v0_1.json",
+  "fixture_sha256": "12f8ec564b86a8db91df48b497a409871dbb719b31b8f96f949325ef31462b4c",
+  "fixture_case_count": 32,
+  "test_first_required": true,
+  "expected_red_required": true,
+  "pcg00_bindings": {
+    "contract_blob": "8e6e888f8330e40d792b43650c32b09a8dc6a281",
+    "decision_table_blob": "da9bb3a7436072795fced2d171cae8df23591279",
+    "breaker_contract_blob": "c52eca89c45fd68e83c506925626a3c389b5d4a2",
+    "traceability_blob": "364baff4a603c9be69f29742ba2647477742974f",
+    "final_receipt_blob": "769fcc81f4b365b4a54152042be31a2dd1ce9412",
+    "final_closure_blob": "4433648fb71684695513eddb2c60c4eddae41b6a"
+  },
+  "exact_input_fields": [
+    "case_id",
+    "claim_unit",
+    "downstream_claim_id",
+    "downstream_analysis_id",
+    "requested_temporal_scope",
+    "pooling_requested",
+    "conditioning_requested",
+    "preregistered_robust_method_requested",
+    "requested_routes",
+    "pooling_justification_ref",
+    "pooling_justification_status",
+    "pooling_justification_reason_code",
+    "temporal_conditioning_spec_ref",
+    "temporal_conditioning_spec_status",
+    "robust_method_preregistration_ref",
+    "robust_method_preregistration_status",
+    "robust_method_fields",
+    "evidence_state_request",
+    "authority_requests",
+    "real_data_dependency_requested",
+    "admissibility_basis_claim_unit"
+  ],
+  "hard_block_precedence": [
+    "PRISTINE_RESET_FORBIDDEN",
+    "METHOD_AUTHORITY_REQUEST_FORBIDDEN",
+    "METHOD_EXECUTION_REQUEST_FORBIDDEN",
+    "REAL_DATA_DEPENDENCY_FORBIDDEN",
+    "CROSS_METRIC_PROPAGATION_ATTEMPT",
+    "CROSS_CLAIM_PROPAGATION_ATTEMPT"
+  ],
+  "multiple_route_policy": {
+    "permitted": true,
+    "preserve_all_route_states": true,
+    "preserve_all_qualifying_routes": true,
+    "silent_priority_forbidden": true,
+    "if_any_route_admissible": "ADMISSIBLE",
+    "if_none_admissible_and_no_hard_blocker": "NOT_ADMISSIBLE_YET",
+    "hard_blocker_precedence": "BLOCKED"
+  },
+  "breakers": [
+    [
+      "PCG01-B01",
+      "EXACT_PCG00_CONTRACT_BLOB"
+    ],
+    [
+      "PCG01-B02",
+      "EXACT_PCG00_DECISION_TABLE_BLOB"
+    ],
+    [
+      "PCG01-B03",
+      "EXACT_PCG00_BREAKER_BLOB"
+    ],
+    [
+      "PCG01-B04",
+      "EXACT_PCG00_TRACEABILITY_BLOB"
+    ],
+    [
+      "PCG01-B05",
+      "EXACT_PCG00_FINAL_RECEIPT_BLOB"
+    ],
+    [
+      "PCG01-B06",
+      "EXACT_PCG00_FINAL_CLOSURE_BLOB"
+    ],
+    [
+      "PCG01-B07",
+      "FIXTURE_SHA256_EXACT"
+    ],
+    [
+      "PCG01-B08",
+      "FIXTURE_CASE_COUNT_32"
+    ],
+    [
+      "PCG01-B09",
+      "EXPECTED_RED_BEFORE_RUNTIME"
+    ],
+    [
+      "PCG01-B10",
+      "UNKNOWN_INPUT_FIELD_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B11",
+      "MISSING_REQUIRED_FIELD_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B12",
+      "UNKNOWN_CLAIM_UNIT_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B13",
+      "UNKNOWN_ROUTE_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B14",
+      "DUPLICATE_ROUTE_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B15",
+      "ROUTE_REQUEST_CONTRADICTION_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B16",
+      "MALFORMED_REFERENCE_STATUS_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B17",
+      "MALFORMED_ROBUST_METHOD_PREREGISTRATION_FAIL_CLOSED"
+    ],
+    [
+      "PCG01-B18",
+      "MATERIAL_NO_ROUTE_BLOCKED"
+    ],
+    [
+      "PCG01-B19",
+      "ROUTE_A_ABSENT_BLOCKED"
+    ],
+    [
+      "PCG01-B20",
+      "ROUTE_A_PENDING_EXACT"
+    ],
+    [
+      "PCG01-B21",
+      "ROUTE_A_ADOPTED_EXACT"
+    ],
+    [
+      "PCG01-B22",
+      "ROUTE_A_INSUFFICIENT_REASON_BLOCKED"
+    ],
+    [
+      "PCG01-B23",
+      "ROUTE_B_UNFROZEN_PENDING"
+    ],
+    [
+      "PCG01-B24",
+      "ROUTE_B_FROZEN_ADMISSIBLE"
+    ],
+    [
+      "PCG01-B25",
+      "ROUTE_C_INCOMPLETE_PENDING"
+    ],
+    [
+      "PCG01-B26",
+      "ROUTE_C_COMPLETE_ADMISSIBLE"
+    ],
+    [
+      "PCG01-B27",
+      "NONMATERIAL_NO_BASIS_REVIEW_REQUIRED"
+    ],
+    [
+      "PCG01-B28",
+      "NONMATERIAL_NEVER_AUTO_PROVES_STABILITY"
+    ],
+    [
+      "PCG01-B29",
+      "PRISTINE_RESET_HARD_BLOCK"
+    ],
+    [
+      "PCG01-B30",
+      "METHOD_AUTHORITY_HARD_BLOCK"
+    ],
+    [
+      "PCG01-B31",
+      "METHOD_EXECUTION_HARD_BLOCK"
+    ],
+    [
+      "PCG01-B32",
+      "REAL_DATA_DEPENDENCY_HARD_BLOCK"
+    ],
+    [
+      "PCG01-B33",
+      "MULTIPLE_VALID_ROUTES_PRESERVED"
+    ],
+    [
+      "PCG01-B34",
+      "PENDING_PLUS_VALID_ROUTE_ADMISSIBLE_WITH_PROVENANCE"
+    ],
+    [
+      "PCG01-B35",
+      "ALL_PENDING_NOT_ADMISSIBLE_YET"
+    ],
+    [
+      "PCG01-B36",
+      "CROSS_CLAIM_PROPAGATION_HARD_BLOCK"
+    ],
+    [
+      "PCG01-B37",
+      "CROSS_METRIC_PROPAGATION_HARD_BLOCK"
+    ],
+    [
+      "PCG01-B38",
+      "INDEPENDENT_REFERENCE_CANNOT_IMPORT_RUNTIME"
+    ],
+    [
+      "PCG01-B39",
+      "RUNTIME_REFERENCE_FULL_FIXTURE_PARITY"
+    ],
+    [
+      "PCG01-B40",
+      "DETERMINISTIC_REPLAY_EXACT"
+    ],
+    [
+      "PCG01-B41",
+      "NO_CLOCK_RANDOM_NETWORK_DEPENDENCY"
+    ],
+    [
+      "PCG01-B42",
+      "NO_REAL_DATA_FILE_ACCESS"
+    ],
+    [
+      "PCG01-B43",
+      "AUTHORITY_CREATED_ALWAYS_NONE"
+    ],
+    [
+      "PCG01-B44",
+      "M04_M05_M08_M09_M11_REMAIN_CLOSED"
+    ],
+    [
+      "PCG01-B45",
+      "NO_REAL_PCG_RESULT_ARTIFACT"
+    ],
+    [
+      "PCG01-B46",
+      "PCG02_REQUIRES_SEPARATE_HUMAN_AUTHORIZATION"
+    ]
+  ],
+  "breaker_count": 46,
+  "runtime_implementation_authorized": true,
+  "real_gate_application_authorized": false,
+  "real_data_read_authorized": false,
+  "statistical_method_execution_authorized": false,
+  "real_market_result_authorized": false,
+  "force": false
+}

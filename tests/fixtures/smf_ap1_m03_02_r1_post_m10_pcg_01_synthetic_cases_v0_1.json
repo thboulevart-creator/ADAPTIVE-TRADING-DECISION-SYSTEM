@@ -1,0 +1,1168 @@
+{
+  "case_count": 32,
+  "cases": [
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "NOT_APPLICABLE"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_APPLICABLE",
+        "qualifying_routes": []
+      },
+      "id": "D01_NOT_APPLICABLE",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D01_NOT_APPLICABLE",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D01_NOT_APPLICABLE",
+        "downstream_claim_id": "SYN_CLAIM_D01_NOT_APPLICABLE",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "MATERIAL_CLAIM_UNIT_NO_ADMISSIBILITY_ROUTE",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D02_MATERIAL_NO_ROUTE",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D02_MATERIAL_NO_ROUTE",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D02_MATERIAL_NO_ROUTE",
+        "downstream_claim_id": "SYN_CLAIM_D02_MATERIAL_NO_ROUTE",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D03_ROUTE_A_ABSENT",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D03_ROUTE_A_ABSENT",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D03_ROUTE_A_ABSENT",
+        "downstream_claim_id": "SYN_CLAIM_D03_ROUTE_A_ABSENT",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ROUTE_A_PENDING"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D04_ROUTE_A_PENDING",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D04_ROUTE_A_PENDING",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D04_ROUTE_A_PENDING",
+        "downstream_claim_id": "SYN_CLAIM_D04_ROUTE_A_PENDING",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_PRESENT_PENDING_ADJUDICATION",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ADMISSIBLE_BY_ROUTE_A"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "ADMISSIBLE",
+        "qualifying_routes": [
+          "A"
+        ]
+      },
+      "id": "D05_ROUTE_A_ADOPTED",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D05_ROUTE_A_ADOPTED",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D05_ROUTE_A_ADOPTED",
+        "downstream_claim_id": "SYN_CLAIM_D05_ROUTE_A_ADOPTED",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D06_ROUTE_A_INSUFFICIENT",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D06_ROUTE_A_INSUFFICIENT",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D06_ROUTE_A_INSUFFICIENT",
+        "downstream_claim_id": "SYN_CLAIM_D06_ROUTE_A_INSUFFICIENT",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SAMPLE_SIZE_IS_LARGE_ONLY",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ROUTE_B_PENDING"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D07_ROUTE_B_UNFROZEN",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D07_ROUTE_B_UNFROZEN",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": true,
+        "downstream_analysis_id": "SYN_ANALYSIS_D07_ROUTE_B_UNFROZEN",
+        "downstream_claim_id": "SYN_CLAIM_D07_ROUTE_B_UNFROZEN",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": "SYN_TEMP_SPEC_B",
+        "temporal_conditioning_spec_status": "SPEC_PRESENT_NOT_QUALIFIED_OR_FROZEN"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ADMISSIBLE_BY_ROUTE_B"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "ADMISSIBLE",
+        "qualifying_routes": [
+          "B"
+        ]
+      },
+      "id": "D08_ROUTE_B_FROZEN",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D08_ROUTE_B_FROZEN",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": true,
+        "downstream_analysis_id": "SYN_ANALYSIS_D08_ROUTE_B_FROZEN",
+        "downstream_claim_id": "SYN_CLAIM_D08_ROUTE_B_FROZEN",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": "SYN_TEMP_SPEC_B",
+        "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ROUTE_C_PENDING"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D09_ROUTE_C_INCOMPLETE",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D09_ROUTE_C_INCOMPLETE",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D09_ROUTE_C_INCOMPLETE",
+        "downstream_claim_id": "SYN_CLAIM_D09_ROUTE_C_INCOMPLETE",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": true,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "C"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": "SYN_METHOD_C",
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ADMISSIBLE_BY_ROUTE_C"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "ADMISSIBLE",
+        "qualifying_routes": [
+          "C"
+        ]
+      },
+      "id": "D10_ROUTE_C_QUALIFIED",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D10_ROUTE_C_QUALIFIED",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D10_ROUTE_C_QUALIFIED",
+        "downstream_claim_id": "SYN_CLAIM_D10_ROUTE_C_QUALIFIED",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": true,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "C"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {
+          "EXACT_ASSUMPTION_SET": "SYN_ASSUMPTIONS",
+          "EXACT_FAILURE_MODE": "SYN_TEMPORAL_VARIATION",
+          "EXACT_MATERIAL_PARAMETERS": "SYN_PARAMETERS",
+          "EXACT_METHOD_IDENTITY": "SYN_METHOD_V1",
+          "EXACT_VALIDITY_SCOPE": "SYN_SCOPE"
+        },
+        "robust_method_preregistration_ref": "SYN_METHOD_C",
+        "robust_method_preregistration_status": "METHOD_PREREG_QUALIFIED_AND_COMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "NON_MATERIAL_POOLING_REVIEW_REQUIRED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D11_NONMATERIAL_NO_BASIS",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D11_NONMATERIAL_NO_BASIS",
+        "claim_unit": "spread_mean p90",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D11_NONMATERIAL_NO_BASIS",
+        "downstream_claim_id": "SYN_CLAIM_D11_NONMATERIAL_NO_BASIS",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ADMISSIBLE_BY_ROUTE_A"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "ADMISSIBLE",
+        "qualifying_routes": [
+          "A"
+        ]
+      },
+      "id": "D12_NONMATERIAL_A_ADOPTED",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D12_NONMATERIAL_A_ADOPTED",
+        "claim_unit": "spread_mean p90",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D12_NONMATERIAL_A_ADOPTED",
+        "downstream_claim_id": "SYN_CLAIM_D12_NONMATERIAL_A_ADOPTED",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_N",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "PRISTINE_RESET_FORBIDDEN",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D13_RESET_PRISTINE",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D13_RESET_PRISTINE",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D13_RESET_PRISTINE",
+        "downstream_claim_id": "SYN_CLAIM_D13_RESET_PRISTINE",
+        "evidence_state_request": "RESET_TO_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "METHOD_AUTHORITY_REQUEST_FORBIDDEN",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D14_M05_AUTHORITY",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [
+          "M05_AUTHORIZE"
+        ],
+        "case_id": "D14_M05_AUTHORITY",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D14_M05_AUTHORITY",
+        "downstream_claim_id": "SYN_CLAIM_D14_M05_AUTHORITY",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "METHOD_EXECUTION_REQUEST_FORBIDDEN",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D15_METHOD_EXECUTION",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [
+          "METHOD_EXECUTE"
+        ],
+        "case_id": "D15_METHOD_EXECUTION",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": true,
+        "downstream_analysis_id": "SYN_ANALYSIS_D15_METHOD_EXECUTION",
+        "downstream_claim_id": "SYN_CLAIM_D15_METHOD_EXECUTION",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": "SYN_TEMP_SPEC_B",
+        "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "REAL_DATA_DEPENDENCY_FORBIDDEN",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D16_REAL_DATA_DEPENDENCY",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D16_REAL_DATA_DEPENDENCY",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D16_REAL_DATA_DEPENDENCY",
+        "downstream_claim_id": "SYN_CLAIM_D16_REAL_DATA_DEPENDENCY",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": true,
+        "real_data_dependency_requested": true,
+        "requested_routes": [
+          "C"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {
+          "EXACT_ASSUMPTION_SET": "SYN_ASSUMPTIONS",
+          "EXACT_FAILURE_MODE": "SYN_TEMPORAL_VARIATION",
+          "EXACT_MATERIAL_PARAMETERS": "SYN_PARAMETERS",
+          "EXACT_METHOD_IDENTITY": "SYN_METHOD_V1",
+          "EXACT_VALIDITY_SCOPE": "SYN_SCOPE"
+        },
+        "robust_method_preregistration_ref": "SYN_METHOD_C",
+        "robust_method_preregistration_status": "METHOD_PREREG_QUALIFIED_AND_COMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ADMISSIBLE_BY_ROUTE_A",
+          "ADMISSIBLE_BY_ROUTE_B"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "ADMISSIBLE",
+        "qualifying_routes": [
+          "A",
+          "B"
+        ]
+      },
+      "id": "D17_MULTI_A_B_VALID",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D17_MULTI_A_B_VALID",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": true,
+        "downstream_analysis_id": "SYN_ANALYSIS_D17_MULTI_A_B_VALID",
+        "downstream_claim_id": "SYN_CLAIM_D17_MULTI_A_B_VALID",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A",
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": "SYN_TEMP_SPEC_B",
+        "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ROUTE_A_PENDING",
+          "ADMISSIBLE_BY_ROUTE_B"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "ADMISSIBLE",
+        "qualifying_routes": [
+          "B"
+        ]
+      },
+      "id": "D18_MULTI_PENDING_AND_VALID",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D18_MULTI_PENDING_AND_VALID",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": true,
+        "downstream_analysis_id": "SYN_ANALYSIS_D18_MULTI_PENDING_AND_VALID",
+        "downstream_claim_id": "SYN_CLAIM_D18_MULTI_PENDING_AND_VALID",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_PRESENT_PENDING_ADJUDICATION",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A",
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": "SYN_TEMP_SPEC_B",
+        "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": null,
+        "gate_state": [
+          "ROUTE_A_PENDING",
+          "ROUTE_C_PENDING"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "NOT_ADMISSIBLE_YET",
+        "qualifying_routes": []
+      },
+      "id": "D19_MULTI_ALL_PENDING",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D19_MULTI_ALL_PENDING",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D19_MULTI_ALL_PENDING",
+        "downstream_claim_id": "SYN_CLAIM_D19_MULTI_ALL_PENDING",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_PRESENT_PENDING_ADJUDICATION",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": true,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A",
+          "C"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": "SYN_METHOD_C",
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "CROSS_CLAIM_PROPAGATION_ATTEMPT",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D20_CROSS_CLAIM",
+      "packet": {
+        "admissibility_basis_claim_unit": "tick_count p90",
+        "authority_requests": [],
+        "case_id": "D20_CROSS_CLAIM",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D20_CROSS_CLAIM",
+        "downstream_claim_id": "SYN_CLAIM_D20_CROSS_CLAIM",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "block_reason": "CROSS_METRIC_PROPAGATION_ATTEMPT",
+        "gate_state": [
+          "BLOCKED"
+        ],
+        "kind": "result",
+        "overall_gate_admissibility": "BLOCKED",
+        "qualifying_routes": []
+      },
+      "id": "D21_CROSS_METRIC",
+      "packet": {
+        "admissibility_basis_claim_unit": "minute_range p50",
+        "authority_requests": [],
+        "case_id": "D21_CROSS_METRIC",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D21_CROSS_METRIC",
+        "downstream_claim_id": "SYN_CLAIM_D21_CROSS_METRIC",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "UNKNOWN_CLAIM_UNIT",
+        "kind": "error"
+      },
+      "id": "D22_UNKNOWN_CLAIM",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D22_UNKNOWN_CLAIM",
+        "claim_unit": "synthetic_unknown_metric p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D22_UNKNOWN_CLAIM",
+        "downstream_claim_id": "SYN_CLAIM_D22_UNKNOWN_CLAIM",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "UNKNOWN_ROUTE",
+        "kind": "error"
+      },
+      "id": "D23_UNKNOWN_ROUTE",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D23_UNKNOWN_ROUTE",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D23_UNKNOWN_ROUTE",
+        "downstream_claim_id": "SYN_CLAIM_D23_UNKNOWN_ROUTE",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "D"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "ROUTE_REQUEST_CONTRADICTION",
+        "kind": "error"
+      },
+      "id": "D24_ROUTE_CONTRADICTION",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D24_ROUTE_CONTRADICTION",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D24_ROUTE_CONTRADICTION",
+        "downstream_claim_id": "SYN_CLAIM_D24_ROUTE_CONTRADICTION",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "MALFORMED_REFERENCE_STATUS",
+        "kind": "error"
+      },
+      "id": "D25_MALFORMED_STATUS",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D25_MALFORMED_STATUS",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D25_MALFORMED_STATUS",
+        "downstream_claim_id": "SYN_CLAIM_D25_MALFORMED_STATUS",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "BOGUS",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "MISSING_REQUIRED_FIELD",
+        "kind": "error"
+      },
+      "id": "D26_MISSING_REQUIRED",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D26_MISSING_REQUIRED",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_claim_id": "SYN_CLAIM_D26_MISSING_REQUIRED",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "UNKNOWN_INPUT_FIELD",
+        "kind": "error"
+      },
+      "id": "D27_EXTRA_UNKNOWN_FIELD",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D27_EXTRA_UNKNOWN_FIELD",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D27_EXTRA_UNKNOWN_FIELD",
+        "downstream_claim_id": "SYN_CLAIM_D27_EXTRA_UNKNOWN_FIELD",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "surprise_field": "NO",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "MALFORMED_ROBUST_METHOD_PREREGISTRATION",
+        "kind": "error"
+      },
+      "id": "D28_ROUTE_C_STATUS_COMPLETE_FIELDS_MISSING",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D28_ROUTE_C_STATUS_COMPLETE_FIELDS_MISSING",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D28_ROUTE_C_STATUS_COMPLETE_FIELDS_MISSING",
+        "downstream_claim_id": "SYN_CLAIM_D28_ROUTE_C_STATUS_COMPLETE_FIELDS_MISSING",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": true,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "C"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": "SYN_METHOD_C",
+        "robust_method_preregistration_status": "METHOD_PREREG_QUALIFIED_AND_COMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "MALFORMED_REFERENCE_STATUS",
+        "kind": "error"
+      },
+      "id": "D29_A_ADOPTED_REF_MISSING",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D29_A_ADOPTED_REF_MISSING",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D29_A_ADOPTED_REF_MISSING",
+        "downstream_claim_id": "SYN_CLAIM_D29_A_ADOPTED_REF_MISSING",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "MALFORMED_REFERENCE_STATUS",
+        "kind": "error"
+      },
+      "id": "D30_B_FROZEN_REF_MISSING",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D30_B_FROZEN_REF_MISSING",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": true,
+        "downstream_analysis_id": "SYN_ANALYSIS_D30_B_FROZEN_REF_MISSING",
+        "downstream_claim_id": "SYN_CLAIM_D30_B_FROZEN_REF_MISSING",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": false,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "B"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "DUPLICATE_ROUTE",
+        "kind": "error"
+      },
+      "id": "D31_DUPLICATE_ROUTE",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D31_DUPLICATE_ROUTE",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D31_DUPLICATE_ROUTE",
+        "downstream_claim_id": "SYN_CLAIM_D31_DUPLICATE_ROUTE",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "SYN_SUBSTANTIVE_REASON",
+        "pooling_justification_ref": "SYN_JUSTIFICATION_A",
+        "pooling_justification_status": "JUSTIFICATION_HUMAN_ADOPTED",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "A",
+          "A"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    },
+    {
+      "expected": {
+        "error_code": "ROUTE_REQUEST_CONTRADICTION",
+        "kind": "error"
+      },
+      "id": "D32_C_REQUEST_FLAG_CONTRADICTION",
+      "packet": {
+        "admissibility_basis_claim_unit": null,
+        "authority_requests": [],
+        "case_id": "D32_C_REQUEST_FLAG_CONTRADICTION",
+        "claim_unit": "tick_count p50",
+        "conditioning_requested": false,
+        "downstream_analysis_id": "SYN_ANALYSIS_D32_C_REQUEST_FLAG_CONTRADICTION",
+        "downstream_claim_id": "SYN_CLAIM_D32_C_REQUEST_FLAG_CONTRADICTION",
+        "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+        "pooling_justification_reason_code": "NONE",
+        "pooling_justification_ref": null,
+        "pooling_justification_status": "JUSTIFICATION_ABSENT",
+        "pooling_requested": true,
+        "preregistered_robust_method_requested": false,
+        "real_data_dependency_requested": false,
+        "requested_routes": [
+          "C"
+        ],
+        "requested_temporal_scope": "SYNTHETIC_TEMPORAL_SCOPE",
+        "robust_method_fields": {},
+        "robust_method_preregistration_ref": null,
+        "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+        "temporal_conditioning_spec_ref": null,
+        "temporal_conditioning_spec_status": "SPEC_ABSENT"
+      }
+    }
+  ],
+  "contains_real_market_values": false,
+  "frozen_pcg00_bindings": {
+    "breaker_contract_blob": "c52eca89c45fd68e83c506925626a3c389b5d4a2",
+    "contract_blob": "8e6e888f8330e40d792b43650c32b09a8dc6a281",
+    "decision_table_blob": "da9bb3a7436072795fced2d171cae8df23591279",
+    "traceability_blob": "364baff4a603c9be69f29742ba2647477742974f"
+  },
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_01_SYNTHETIC_FIXTURES_V0_1",
+  "status": "FROZEN_BEFORE_RUNTIME_IMPLEMENTATION",
+  "synthetic_only": true
+}
