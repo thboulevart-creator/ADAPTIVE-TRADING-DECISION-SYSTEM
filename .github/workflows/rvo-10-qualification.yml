@@ -6,7 +6,9 @@ on:
     paths:
       - 'GOVERNANCE/RVO-10-*'
       - 'tools/rvo_10_single_ap1_retry.py'
+      - 'tools/rvo_10_retry_session.py'
       - 'tests/test_rvo_10_single_ap1_retry.py'
+      - 'tests/test_rvo_10_retry_session.py'
       - 'reports/program/*RVO-10*'
       - '.github/workflows/rvo-10-qualification.yml'
   workflow_dispatch:
@@ -36,7 +38,9 @@ jobs:
       - name: Install qualification packages
         run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
       - name: RVO-10 controller tests
-        run: python -m pytest -q tests/test_rvo_10_single_ap1_retry.py
+        run: |
+          python -m pytest -q tests/test_rvo_10_single_ap1_retry.py
+          python -m pytest -q tests/test_rvo_10_retry_session.py
       - name: RVO-09 regression
         run: python -m pytest -q tests/test_rvo_09_pre_retry_requalification.py
       - name: RVO-08F regression
