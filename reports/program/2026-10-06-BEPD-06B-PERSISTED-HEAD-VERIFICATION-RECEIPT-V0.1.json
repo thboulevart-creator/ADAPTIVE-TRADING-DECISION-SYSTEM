@@ -1,0 +1,38 @@
+{
+  "schema": "ATDS_BEPD_06B_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-06B",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "f799fef9e40e71d812593c8939e0a1c297ab121b",
+  "verified_tree": "c620a792902d3e94c0fdae3409cedd22802fc890",
+  "verified_blobs": {
+    "result": "3a690e46e986ecf883f018d4185b9f0ded66f4d9",
+    "run_manifest": "1c3e516a6029934d5bb0ed24f9aa8286c03690bd",
+    "independent_reference": "12da2b570144f30510daf7470809345e7354614b",
+    "technical_execution_receipt": "80d8956663ba63443037918d881bbe6f9e8eb8a7",
+    "qualification_receipt": "6c366edf3fe266a83c7353fb63890129af2c8483",
+    "qualification_report": "f80e60949283fef03eccef15c2f1ddeb331be15a"
+  },
+  "checks": {
+    "all_blob_identities_exact": "PASS",
+    "base_n_472": "PASS",
+    "reintegration_true_n_370": "PASS",
+    "reintegration_false_n_102": "PASS",
+    "n_timing_370": "PASS",
+    "t1_gt_t0_for_all_370": "PASS",
+    "no_reintegration_events_given_duration_0": "PASS",
+    "p50_equals_median": "PASS",
+    "ecdf_terminal_count_370": "PASS",
+    "ecdf_terminal_fraction_1": "PASS",
+    "independent_exact_parity": "PASS",
+    "deterministic_replay_exact_parity": "PASS",
+    "survival_frontier_opened": false,
+    "subgroup_frontier_opened": false,
+    "mfe_mae_frontier_opened": false,
+    "next_scientific_frontier_opened": false
+  },
+  "new_analytics_executed": false,
+  "result_human_adopted": false,
+  "next_required_action": "HUMAN_ADJUDICATION_OF_FIRST_REAL_CONDITIONAL_TIME_TO_FIRST_REINTEGRATION_RESULT"
+}
