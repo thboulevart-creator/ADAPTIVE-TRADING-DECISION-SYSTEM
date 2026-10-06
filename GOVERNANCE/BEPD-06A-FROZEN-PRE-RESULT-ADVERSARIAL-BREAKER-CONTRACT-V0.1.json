@@ -1,0 +1,246 @@
+{
+  "schema": "ATDS_BEPD_06A_FROZEN_PRE_RESULT_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-06A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "f25c9156b4489f6c2c1775c2638d2a1efd5d3759",
+    "timing_contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd05b_final_human_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147"
+  },
+  "breaker_scope": "TIMING_SEMANTICS_CLOCK_CONTRACT_AND_PRE_RESULT_PROTOCOL_ONLY",
+  "adversarial_cases": [
+    {
+      "case_id": "BEPD06A-B01",
+      "mutation": "wrong BEPD-01D schema identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B02",
+      "mutation": "wrong BEPD-02 EVENT_LEDGER identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B03",
+      "mutation": "wrong BEPD-04C result identity or 370/102 state",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B04",
+      "mutation": "timing population represented as 472 instead of conditional 370",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B05",
+      "mutation": "take_h1_bucket_start_utc used instead of take_h1_close_utc",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B06",
+      "mutation": "reintegration_h1_bucket_start_utc used instead of reintegration_h1_close_utc",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B07",
+      "mutation": "reintegration event other than first qualifying reintegration used",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B08",
+      "mutation": "T1 <= T0 accepted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B09",
+      "mutation": "same-H1 reintegration accepted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B10",
+      "mutation": "local-time conversion used for canonical duration calculation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B11",
+      "mutation": "DST-adjusted local wall-clock difference substituted for UTC elapsed hours",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B12",
+      "mutation": "UTC elapsed hours represented as trading hours",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B13",
+      "mutation": "UTC elapsed hours represented as number of observed market hours",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B14",
+      "mutation": "UTC elapsed hours represented as time in position",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B15",
+      "mutation": "artificial duration assigned to a no-reintegration event",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B16",
+      "mutation": "infinite duration assigned to a no-reintegration event",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B17",
+      "mutation": "zero duration assigned to a no-reintegration event",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B18",
+      "mutation": "target-week-end duration assigned to a no-reintegration event",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B19",
+      "mutation": "102 no-reintegration events silently removed from result provenance",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B20",
+      "mutation": "conditional 370-event timing distribution described as unconditional sweep timing distribution",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B21",
+      "mutation": "post-hoc time threshold selected after timing result exposure",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B22",
+      "mutation": "quantile method changed after result exposure",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B23",
+      "mutation": "P50 differs from median",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B24",
+      "mutation": "histogram bins or smoothing substituted for exact ECDF",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B25",
+      "mutation": "HIGH / LOW subgroup introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B26",
+      "mutation": "close-displacement sign or magnitude subgroup introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B27",
+      "mutation": "age/take-day/month/year/volatility/regime/cluster-size subgroup introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B28",
+      "mutation": "EVENT treated as IID observation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B29",
+      "mutation": "target_week_id dependence erased",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B30",
+      "mutation": "sweep_cluster_id dependence erased",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B31",
+      "mutation": "naive IID standard error, confidence interval, or bootstrap introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B32",
+      "mutation": "Kaplan-Meier or other survival function activated under BEPD-06A",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B33",
+      "mutation": "hazard/cumulative hazard/competing-risk/censoring model activated under BEPD-06A",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B34",
+      "mutation": "conditional timing distribution rewritten as unconditional future probability",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B35",
+      "mutation": "historical timing distribution represented as predictive result",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B36",
+      "mutation": "timing distribution represented as causal effect",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B37",
+      "mutation": "timing distribution represented as edge or strategy validation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B38",
+      "mutation": "timing distribution represented as trading or capital authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B39",
+      "mutation": "real timing aggregate statistic calculated under BEPD-06A authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B40",
+      "mutation": "real timing ECDF or distribution support exposed under BEPD-06A authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B41",
+      "mutation": "MFE/MAE/path analysis/Occurrence × Response introduced under BEPD-06A",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD06A-B42",
+      "mutation": "OOS data consumed under BEPD-06A authority",
+      "expected": "HARD_FAIL"
+    }
+  ],
+  "qualification_rule": {
+    "required_case_count": 42,
+    "all_cases_must_be_present": true,
+    "all_expected_outcomes": "HARD_FAIL",
+    "any_missing_or_weakened_case": "FAIL",
+    "any_binding_mismatch": "FAIL",
+    "any_real_timing_result_exposure": "FAIL",
+    "pass_meaning": "contractual timing semantics and pre-result protection only; not validation of a real timing distribution"
+  },
+  "execution_state": {
+    "real_timing_calculator": "NOT_AUTHORIZED_IN_BEPD06A",
+    "real_timing_distribution": "NOT_AUTHORIZED_IN_BEPD06A",
+    "survival_analysis": "NOT_AUTHORIZED_IN_BEPD06A"
+  },
+  "stop_boundary": "STOP_BEFORE_ANY_REAL_TIME_TO_REINTEGRATION_EXECUTION"
+}

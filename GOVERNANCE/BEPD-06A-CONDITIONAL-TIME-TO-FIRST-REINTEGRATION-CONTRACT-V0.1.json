@@ -1,0 +1,194 @@
+{
+  "schema": "ATDS_BEPD_06A_CONDITIONAL_TIME_TO_FIRST_REINTEGRATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_CONTRACT_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-06A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "f25c9156b4489f6c2c1775c2638d2a1efd5d3759",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd04c_same_week_reintegration_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd05b_final_human_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147"
+  },
+  "inherited_population_state": {
+    "total_qualified_events": 472,
+    "same_week_reintegration_true": 370,
+    "same_week_reintegration_false": 102,
+    "source": "BEPD-04C CANONICAL RESULT",
+    "new_result": false
+  },
+  "estimand": {
+    "name": "CONDITIONAL_TIME_TO_FIRST_SAME_WEEK_REINTEGRATION",
+    "condition": "same_week_reintegration == true",
+    "timing_population_n": 370,
+    "denominator_semantics": "370 QUALIFIED REINTEGRATING EVENTS ONLY",
+    "not_an_unconditional_472_event_timing_distribution": true,
+    "time_origin_field": "take_h1_close_utc",
+    "event_time_field": "reintegration_h1_close_utc",
+    "event_time_semantic": "FIRST STRICTLY LATER QUALIFYING H1 REINTEGRATION CLOSE",
+    "formula": "elapsed_utc_hours = (reintegration_h1_close_utc - take_h1_close_utc) / 1 hour",
+    "required_ordering": "reintegration_h1_close_utc > take_h1_close_utc"
+  },
+  "clock_semantics": {
+    "canonical_timezone": "UTC",
+    "local_time_conversion_for_canonical_calculation": "FORBIDDEN",
+    "elapsed_time_basis": "WALL_CLOCK_UTC_ELAPSED_DURATION_BETWEEN_PERSISTED_H1_CLOSE_TIMESTAMPS",
+    "trading_hours_interpretation": "FORBIDDEN",
+    "observed_market_hours_interpretation": "FORBIDDEN",
+    "time_in_position_interpretation": "FORBIDDEN",
+    "duration_arithmetic": "exact timestamp difference in seconds divided by 3600",
+    "per_event_duration_unit": "UTC_HOURS",
+    "canonical_scalar_output": "18_DECIMAL_ROUND_HALF_EVEN",
+    "internal_arithmetic": "DECIMAL_EXACT_AFTER_INTEGER_SECOND_DIFFERENCE"
+  },
+  "no_reintegration_state": {
+    "population_n": 102,
+    "semantic": "TIME_TO_REINTEGRATION_NOT_OBSERVED_WITHIN_TARGET_WEEK",
+    "artificial_duration": "FORBIDDEN",
+    "infinite_duration": "FORBIDDEN",
+    "zero_duration": "FORBIDDEN",
+    "target_week_end_duration": "FORBIDDEN",
+    "silently_drop_from_provenance": "FORBIDDEN",
+    "required_provenance_count": 102,
+    "inclusion_in_primary_timing_distribution": false
+  },
+  "censoring_survival_boundary": {
+    "statement": "The 102 non-reintegration events contain non-observation information within their available target-week windows, but BEPD-06A does not define an unconditional survival estimand.",
+    "unequal_remaining_observation_window_material": true,
+    "kaplan_meier": "NOT_ACTIVATED",
+    "survival_function": "NOT_ACTIVATED",
+    "hazard_function": "NOT_ACTIVATED",
+    "cumulative_hazard": "NOT_ACTIVATED",
+    "competing_risks": "NOT_ACTIVATED",
+    "censoring_model": "NOT_ACTIVATED",
+    "inverse_probability_weighting": "NOT_ACTIVATED",
+    "future_survival_analysis": "REQUIRES_SEPARATE_METHOD_AND_HUMAN_AUTHORIZATION"
+  },
+  "first_real_timing_surface": {
+    "scope": "GLOBAL_CONDITIONAL_REINTEGRATING_EVENTS_ONLY",
+    "authorized_future_outputs": [
+      "N_TIMING",
+      "MINIMUM_ELAPSED_UTC_HOURS",
+      "MAXIMUM_ELAPSED_UTC_HOURS",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "EMPIRICAL_CDF"
+    ],
+    "quantiles": {
+      "family": "HYNDMAN_FAN_TYPE_7",
+      "probabilities": [
+        "0.01",
+        "0.05",
+        "0.10",
+        "0.25",
+        "0.50",
+        "0.75",
+        "0.90",
+        "0.95",
+        "0.99"
+      ],
+      "p50_must_equal_median": true,
+      "post_result_method_change": "FORBIDDEN"
+    },
+    "ecdf": {
+      "definition": "F_N(t) = count(elapsed_utc_hours_i <= t) / N_TIMING",
+      "representation": "all unique observed elapsed_utc_hours support values sorted ascending with support_count cumulative_count exact cumulative_fraction and canonical decimal",
+      "histogram_bins": "NONE",
+      "smoothing": "NONE",
+      "truncation": "NONE",
+      "tail_suppression": "FORBIDDEN"
+    },
+    "post_hoc_time_thresholds": "FORBIDDEN"
+  },
+  "subgroup_boundary": {
+    "first_real_timing_subgroups": [],
+    "forbidden": [
+      "HIGH / LOW",
+      "close_displacement sign",
+      "close_displacement magnitude",
+      "level age",
+      "take day",
+      "month / year",
+      "volatility",
+      "regime",
+      "sweep cluster size",
+      "other context"
+    ],
+    "future_subgroups": "SEPARATE_HUMAN_AUTHORIZATION_REQUIRED"
+  },
+  "dependence_boundary": {
+    "event_is_iid_observation": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "first_real_timing_distribution": "DESCRIPTIVE_FIXED_CORPUS_CONDITIONAL_ONLY",
+    "iid_standard_error": "FORBIDDEN",
+    "iid_confidence_interval": "FORBIDDEN",
+    "iid_bootstrap": "FORBIDDEN",
+    "generalization_interval": "NOT_ACTIVATED"
+  },
+  "evidence_status": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "analysis_status": "EXPLORATORY_ONLY",
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "explicit_out_of_scope": [
+    "real time-to-reintegration result",
+    "real timing distribution exposure",
+    "Kaplan-Meier or other survival estimation",
+    "MFE",
+    "MAE",
+    "post-sweep path analysis",
+    "close-displacement segmentation",
+    "Occurrence × Response",
+    "new contextual search",
+    "OOS consumption",
+    "prediction",
+    "causation",
+    "edge",
+    "strategy validation",
+    "PnL",
+    "trading authority",
+    "capital deployment"
+  ],
+  "authority": {
+    "semantics_design": true,
+    "clock_contract": true,
+    "pre_result_freeze": true,
+    "documentary_breaker": true,
+    "contractual_qualification": true,
+    "real_timing_execution": false,
+    "real_timing_distribution_exposure": false,
+    "survival_analysis": false,
+    "subgroup_analysis": false,
+    "oos_consumption": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "stop_boundary": "STOP_AFTER_BEPD06A_QUALIFICATION_AND_BEFORE_ANY_REAL_TIMING_EXECUTION"
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_BEPD_06A_PRE_RESULT_FREEZE_V0_1",
+  "status": "FROZEN_PRE_RESULT_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-06A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "f25c9156b4489f6c2c1775c2638d2a1efd5d3759",
+    "timing_contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+    "frozen_adversarial_breaker_blob": "02a64983b4ce75b0f798f1b9639bf8d1a4c41605",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd05b_final_human_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147"
+  },
+  "freeze_scope": {
+    "base_population_n": 472,
+    "timing_population_n": 370,
+    "no_reintegration_provenance_n": 102,
+    "condition": "same_week_reintegration == true",
+    "time_origin": "take_h1_close_utc",
+    "event_time": "reintegration_h1_close_utc",
+    "event_time_semantic": "FIRST_STRICTLY_LATER_QUALIFYING_SAME_WEEK_REINTEGRATION_H1_CLOSE",
+    "duration": "UTC elapsed hours = (T1-T0)/1 hour",
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "subgroups": "NONE",
+    "survival_method": "NONE_ACTIVATED",
+    "evidence_status": "EXPOSED_EXPLORATORY_ONLY"
+  },
+  "no_reintegration_handling": {
+    "assign_duration": false,
+    "remain_in_provenance": true,
+    "semantic": "NOT_OBSERVED_WITHIN_TARGET_WEEK"
+  },
+  "freeze_meaning": "The conditional timing estimand, clock and aggregation protocol are frozen before any authorized aggregate timing exposure. Raw ledger timestamps and BEPD-04C outcome states are already exposed historical evidence.",
+  "real_timing_result_exposure": false,
+  "real_timing_aggregation_executed": false,
+  "elapsed_time_distribution_read_for_bepd06a": false,
+  "authority": {
+    "real_timing_execution": false,
+    "real_timing_distribution_exposure": false,
+    "survival_analysis": false,
+    "subgroup_analysis": false,
+    "oos": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "terminal_requirement": "QUALIFY_CONTRACTUAL_SURFACE_THEN_STOP_FOR_HUMAN_ADJUDICATION"
+}
