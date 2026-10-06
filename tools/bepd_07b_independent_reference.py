@@ -55,6 +55,18 @@ def canonical_sha(obj) -> str:
     return hashlib.sha256(json.dumps(obj,sort_keys=True,separators=(",",":"),ensure_ascii=False).encode()).hexdigest()
 
 
+def data02_file_set_digest(files):
+    material=[
+        {
+            "relative_path":e["relative_path"],
+            "size_bytes":int(e["size_bytes"]),
+            "sha256":e["sha256"],
+        }
+        for e in files
+    ]
+    return hashlib.sha256(json.dumps(material,sort_keys=True,separators=(",",":")).encode("utf-8")).hexdigest()
+
+
 def q18(v: Decimal) -> str:
     return format(v.quantize(Q18,rounding=ROUND_HALF_EVEN),"f")
 
@@ -128,13 +140,13 @@ def verify_ap0(root:Path):
     m=json.loads(mp.read_text(encoding="utf-8"))
     if m["output_identity"]!=EXPECTED_DATASET or len(m["files"])!=61:
         raise RuntimeError("manifest identity/count mismatch")
-    lines=[]
     for e in m["files"]:
         p=root/Path(e["relative_path"])
         if sha256_file(p)!=e["sha256"]:
             raise RuntimeError("file sha mismatch "+e["relative_path"])
-        lines.append(f"{e['relative_path']}:{e['sha256']}")
-    digest=hashlib.sha256("\n".join(sorted(lines)).encode()).hexdigest()
+        if p.stat().st_size!=int(e["size_bytes"]):
+            raise RuntimeError("file size mismatch "+e["relative_path"])
+    digest=data02_file_set_digest(m["files"])
     if digest!=EXPECTED_FILE_SET_DIGEST:
         raise RuntimeError("file set mismatch")
     return m

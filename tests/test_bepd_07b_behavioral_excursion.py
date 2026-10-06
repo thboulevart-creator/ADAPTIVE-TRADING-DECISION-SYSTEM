@@ -173,6 +173,22 @@ class TestBEPD07B(unittest.TestCase):
         self.assertEqual(runner.EXPECTED_FILE_COUNT, 61)
         self.assertEqual(runner.EXPECTED_AP0_ROWS, 1709180)
 
+
+    def test_data02_file_set_digest_semantics(self):
+        files = [
+            {"relative_path":"b","size_bytes":2,"sha256":"bb"},
+            {"relative_path":"a","size_bytes":1,"sha256":"aa"},
+        ]
+        import hashlib, json
+        material = [
+            {"relative_path":"b","size_bytes":2,"sha256":"bb"},
+            {"relative_path":"a","size_bytes":1,"sha256":"aa"},
+        ]
+        expected = hashlib.sha256(
+            json.dumps(material, sort_keys=True, separators=(",", ":")).encode("utf-8")
+        ).hexdigest()
+        self.assertEqual(runner.data02_file_set_digest(files), expected)
+
     def test_manifest_and_file_set_bindings(self):
         self.assertEqual(
             runner.EXPECTED_MANIFEST_SHA256,

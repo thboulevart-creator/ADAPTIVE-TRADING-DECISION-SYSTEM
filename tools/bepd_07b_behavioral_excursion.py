@@ -62,6 +62,20 @@ def canonical_sha256(obj) -> str:
     return hashlib.sha256(payload).hexdigest()
 
 
+def data02_file_set_digest(files: list[dict]) -> str:
+    """Canonical DATA-02 file-set identity: ordered manifest records with size+SHA."""
+    material = [
+        {
+            "relative_path": entry["relative_path"],
+            "size_bytes": int(entry["size_bytes"]),
+            "sha256": entry["sha256"],
+        }
+        for entry in files
+    ]
+    raw = json.dumps(material, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    return hashlib.sha256(raw).hexdigest()
+
+
 def q18(x: Decimal) -> str:
     return format(x.quantize(Q18, rounding=ROUND_HALF_EVEN), "f")
 
@@ -187,7 +201,6 @@ def verify_manifest_and_files(ap0_root: Path, expected_manifest_sha256: str, exp
     if manifest.get("coverage", {}).get("minute_rows_written") != EXPECTED_AP0_ROWS:
         raise ValueError("AP0 row count mismatch")
 
-    digest_lines = []
     verified = []
     for entry in files:
         rel = entry["relative_path"]
@@ -198,15 +211,17 @@ def verify_manifest_and_files(ap0_root: Path, expected_manifest_sha256: str, exp
         actual = sha256_file(p)
         if actual != expected:
             raise ValueError(f"AP0 file SHA mismatch: {rel}")
-        digest_lines.append(f"{rel}:{expected}")
+        if p.stat().st_size != int(entry["size_bytes"]):
+            raise ValueError(f"AP0 file size mismatch: {rel}")
         verified.append({
             "relative_path": rel,
             "sha256": expected,
+            "size_bytes": int(entry["size_bytes"]),
             "first_minute_ms_utc": int(entry["first_minute_ms_utc"]),
             "last_minute_ms_utc": int(entry["last_minute_ms_utc"]),
             "rows": int(entry["rows"]),
         })
-    file_set_digest = hashlib.sha256("\n".join(sorted(digest_lines)).encode("utf-8")).hexdigest()
+    file_set_digest = data02_file_set_digest(files)
     if file_set_digest != expected_file_set_digest:
         raise ValueError(f"AP0 file-set digest mismatch: {file_set_digest}")
     return manifest, verified, observed_manifest_sha, file_set_digest
