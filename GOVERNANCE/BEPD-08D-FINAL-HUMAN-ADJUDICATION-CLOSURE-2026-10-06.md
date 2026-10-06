@@ -1,0 +1,358 @@
+# BEPD-08D — FINAL HUMAN ADJUDICATION / CLOSURE — 2026-10-06
+
+## Fresh pre-mutation verification
+
+```text
+REPOSITORY =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+BRANCH =
+integration/system-v1
+
+FRESH PRE-MUTATION HEAD =
+f75838ac945f1328a3c33555177c9925d5c685ad
+
+FRESH PRE-MUTATION TREE =
+c9c8c0cfe1c4efba50b0b423089cb26ef08919ea
+
+CONCURRENT DRIFT FROM PRIOR CHECKPOINT =
+NON_MATERIAL_TO_BEPD_08D
+
+DRIFT CONTENT =
+SMF-AP1-M03-02-R1-POST-M10-PCG-02B ONLY
+```
+
+The fresh identities above are the identities observed immediately before persistence. They are not imposed as future branch identities.
+
+## Human decision
+
+```text
+HUMAN ADJUDICATION =
+ADOPT
+```
+
+The human principal adopts the qualified package:
+
+`BEPD-08D — FIRST REAL INTERNAL / EXTERNAL TARGET-WEEK-CLOSE DISTANCE DISTRIBUTIONS + TECHNICAL QUALIFICATION V0.1`
+
+This adoption is limited exclusively to the finding that the first real dual BEPD-08D execution was correctly frozen, executed, persisted and technically qualified under the authorized contract.
+
+## Binding identities
+
+```text
+BEPD-08D HUMAN AUTHORIZATION =
+f9194cb8d049a30600af3e69bd615a26a294101a
+
+BEPD-08C FINAL HUMAN ADJUDICATION =
+0cc7d4f812525bd3c4dab29490613b70f8600514
+
+BEPD-08C DECOMPOSITION CONTRACT =
+dc767d77b8f0c8cf89f6d87e9a4cd2401dd0b42e
+
+BEPD-08C FROZEN PRE-RESULT BREAKER =
+13ad7dba0d4e83036ea1f40b47f1a0a8d1f40bb8
+
+BEPD-08C PRE-RESULT FREEZE =
+e4d6ebb35147f8cb884dbe569197236ed34251da
+
+BEPD-08D IMPLEMENTATION QUALIFICATION RECEIPT =
+554f1e85abdf29d5ee849d2596fe5f1879a78a9b
+
+BEPD-08D IMPLEMENTATION QUALIFICATION REPORT =
+a6ccdb962d78bccd94f4f1e8b5ec927900041f4c
+
+BEPD-08D REAL EXECUTION FREEZE =
+3b67978ef181fddc7d7e014aa2333ffc2459a5c3
+
+RUNNER =
+c1374ae27822c19cc39f1fbdb7d51b7fc8632705
+
+INDEPENDENT REFERENCE IMPLEMENTATION =
+8a89e07386cdfc311fbeef57425363f2905c5769
+
+EXECUTABLE-EQUIVALENT BREAKER =
+3d55a5ce4b81eac5526650a452d07ff5eb50bbb6
+
+SYNTHETIC TESTS =
+30a50f3264a49fc7a88ce7712bc1110e3d9cfbed
+
+CANONICAL REAL INTERNAL / EXTERNAL RESULT =
+351b467f91bacf452a5f75ae442496ed69d1aeaf
+
+RUN MANIFEST =
+6fdfb053e27d8da09c42f3fedc2fbf0284d56b41
+
+INDEPENDENT REFERENCE RESULT =
+cc6a12226df166e9f7ec937b673a461cb23b10eb
+
+DETERMINISTIC REPLAY EVIDENCE =
+9f239a9822087a181fd8748178f1336a9fa0e293
+
+TECHNICAL EXECUTION RECEIPT =
+eac78233b323f8069b5b33833c29b4d59cd6aa2f
+
+REAL RESULT QUALIFICATION RECEIPT =
+4e4e639c2ce842ef8b72f057d00d80af73a5d4c0
+
+REAL RESULT QUALIFICATION REPORT =
+40e78ac1b602735c33e22a359dc33287e82d25dc
+
+PERSISTED-HEAD VERIFICATION RECEIPT =
+0f65fb43a1dd6f0e7a1b695e940ada0633a11d55
+
+BEPD-02 EVENT_LEDGER =
+0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2
+```
+
+## Adopted descriptive population result
+
+```text
+TOTAL N =
+472
+
+INTERNAL N =
+207
+
+EXTERNAL N =
+265
+
+EXACT_LEVEL N =
+0
+
+OVERLAPPING MEMBERSHIP =
+0
+
+UNCLASSIFIED EVENTS =
+0
+```
+
+## Adopted conditional distance semantics and persisted distributions
+
+```text
+D_CLOSE =
+abs(close_displacement)
+
+D_INTERNAL =
+D_CLOSE
+CONDITIONAL ON
+close_displacement > 0
+
+D_EXTERNAL =
+D_CLOSE
+CONDITIONAL ON
+close_displacement < 0
+```
+
+The two exact historical conditional distributions persisted in the canonical result are human-adopted as descriptive exploratory results.
+
+### INTERNAL
+
+```text
+N = 207
+MINIMUM = 2.525000000000000000
+MAXIMUM = 2108.889500000000000000
+MEAN = 353.764521739130434783
+MEDIAN / P50 = 258.328000000000000000
+P01 = 6.473730000000000000
+P05 = 16.630700000000000000
+P10 = 34.989900000000000000
+P25 = 93.174250000000000000
+P75 = 497.082500000000000000
+P90 = 749.394800000000000000
+P95 = 1078.830800000000000000
+P99 = 1650.280380000000000000
+ZERO_COUNT = 0
+```
+
+The exact unbinned and unsmoothed INTERNAL ECDF persisted in the canonical result is adopted.
+
+### EXTERNAL
+
+```text
+N = 265
+MINIMUM = 2.590000000000000000
+MAXIMUM = 1847.299000000000000000
+MEAN = 297.310892452830188679
+MEDIAN / P50 = 219.595000000000000000
+P01 = 3.944680000000000000
+P05 = 19.240900000000000000
+P10 = 40.957200000000000000
+P25 = 107.095000000000000000
+P75 = 382.669000000000000000
+P90 = 616.205400000000000000
+P95 = 831.923100000000000000
+P99 = 1479.008380000000000000
+ZERO_COUNT = 0
+```
+
+The exact unbinned and unsmoothed EXTERNAL ECDF persisted in the canonical result is adopted.
+
+## Technical qualification accepted
+
+```text
+EVENT_LEDGER IDENTITY =
+EXACT
+
+D_INTERNAL IDENTITY =
+PASS FOR ALL 207 EVENTS
+
+D_EXTERNAL IDENTITY =
+PASS FOR ALL 265 EVENTS
+
+TYPE-7 QUANTILES =
+PASS
+
+ECDF TERMINAL CHECKS =
+PASS
+
+INDEPENDENT INTERNAL FULL DISTRIBUTION =
+EXACT PARITY PASS
+
+INDEPENDENT EXTERNAL FULL DISTRIBUTION =
+EXACT PARITY PASS
+
+DETERMINISTIC REPLAY =
+EXACT OBJECT PARITY PASS
+```
+
+## Auxiliary metadata parity note
+
+The previously observed auxiliary metadata comparison difference is not a material blocker.
+
+It concerned only the absence from the independent envelope of the diagnostic fields:
+
+```text
+OVERLAPPING_MEMBERSHIP = 0
+UNCLASSIFIED_EVENTS = 0
+```
+
+There is no scientific divergence in the authorized distributions, population counts or numerical results, and no scientific re-execution was performed for this note.
+
+## Scientific status and non-claims
+
+This adoption creates no additional scientific claim.
+
+```text
+INTERNAL vs EXTERNAL COMPARATIVE CLAIM =
+NOT AUTHORIZED / NOT ESTABLISHED
+
+INTERNAL > EXTERNAL =
+NOT ESTABLISHED
+
+INTERNAL < EXTERNAL =
+NOT ESTABLISHED
+
+DIFFERENCE OF MEANS =
+NOT ESTABLISHED
+
+DIFFERENCE OF MEDIANS =
+NOT ESTABLISHED
+
+EFFECT SIZE =
+NOT ESTABLISHED
+
+STATISTICAL SIGNIFICANCE =
+NOT ESTABLISHED
+
+GENERALIZATION =
+NOT ESTABLISHED
+
+CONFIRMATORY GENERALIZATION =
+NOT ESTABLISHED
+
+PREDICTION =
+NO
+
+CAUSATION =
+NOT ESTABLISHED
+
+EDGE =
+NO
+
+STRATEGY VALIDATION =
+NO
+
+D_INTERNAL AS TAKE PROFIT =
+NOT AUTHORIZED
+
+D_EXTERNAL AS STOP LOSS =
+NOT AUTHORIZED
+
+TRADING AUTHORITY =
+NONE
+```
+
+```text
+EVIDENCE STATUS =
+EXPOSED_EXPLORATORY_ONLY
+
+HISTORICAL CORPUS =
+ALREADY EXPOSED
+```
+
+Any future confirmatory claim requires a prospectively frozen design and, where required by the claim, fresh unexposed OOS evidence.
+
+## Closed frontiers
+
+```text
+INTERNAL vs EXTERNAL COMPARATIVE FRONTIER =
+CLOSED
+
+SUBGROUP FRONTIER =
+CLOSED
+
+THRESHOLD FRONTIER =
+CLOSED
+
+OOS FRONTIER =
+CLOSED
+
+TP / SL FRONTIER =
+CLOSED
+
+TRADING FRONTIER =
+CLOSED
+
+NEXT SCIENTIFIC FRONTIER =
+NOT AUTOMATICALLY OPENED
+```
+
+## Final decision
+
+```text
+BEPD-08D =
+HUMAN_ADOPTED
+
+FIRST REAL INTERNAL / EXTERNAL
+TARGET-WEEK-CLOSE DISTANCE DISTRIBUTIONS =
+ADOPTED
+
+TECHNICAL QUALIFICATION =
+ACCEPTED
+
+EVIDENCE STATUS =
+EXPOSED_EXPLORATORY_ONLY
+
+STATUS =
+QUALIFIED / HUMAN_ADOPTED / CLOSED
+```
+
+No BEPD-08D re-execution is authorized.
+
+No distribution recomputation is authorized.
+
+No new real scientific read is authorized.
+
+No new scientific frontier is opened by this decision.
+
+No OOS consumption is authorized.
+
+No TP / SL work is authorized.
+
+No trading work is authorized.
+
+```text
+STOP
+```
+
+Any next action requires a separate human decision.
