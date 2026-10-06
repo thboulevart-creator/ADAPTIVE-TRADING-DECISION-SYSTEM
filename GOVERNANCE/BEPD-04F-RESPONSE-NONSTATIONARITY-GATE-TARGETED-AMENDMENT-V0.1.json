@@ -1,0 +1,117 @@
+{
+  "schema": "ATDS_BEPD_04F_RESPONSE_NONSTATIONARITY_GATE_TARGETED_AMENDMENT_V0_1",
+  "status": "FROZEN_BEFORE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authority": "SYNTHETIC_REQUALIFICATION_ONLY",
+  "upstream_bindings": {
+    "bepd04e_human_adjudication_blob": "a92da70e6efec49729b275d806a76f0244e79bdd",
+    "bepd04e_qualification_report_blob": "a4d8aefe4b49efaddadc857bbe11d81415c2a6ad",
+    "bepd04e_qualification_receipt_blob": "10cc28e4c042f2af4ff5adfa995dcb64a228f3e8",
+    "bepd04e_material_parameter_packet_blob": "e88900779eab989e5bfa3265d217485023dab4bb",
+    "bepd04e_m05_candidate_blob": "b740312275bff3d6910c2e0fd1a69a24d96df1cb",
+    "bepd04e_complete_week_calendar_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "bepd04e_runtime_blob": "61a996562fe18e0e2efd6f16db27a48738e60421",
+    "bepd04e_breaker_blob": "eda63bf26230a2b48eb75bb655e64e766b66c1a3",
+    "bepd04d_old_gate_blob": "fedb12d532f1e68ee9405d05931a2a0d22672983",
+    "bepd04d_claim_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "bepd04d_m09_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813"
+  },
+  "amendment_semantics": {
+    "old_gate": "PRESERVED_UNMODIFIED",
+    "m04_status": "NOT_APPLICABLE_BY_REPRESENTATION",
+    "m04_executed": false,
+    "m04_stationarity_evidence": false,
+    "m04_nonstationarity_evidence": false,
+    "m04_workaround": "FORBIDDEN",
+    "gate_basis": [
+      "STRUCTURAL_DEPENDENCE_INVARIANTS",
+      "PROSPECTIVE_M10_TEMPORAL_STABILITY",
+      "FAIL_CLOSED_SAMPLE_ADEQUACY"
+    ]
+  },
+  "structural_invariants": {
+    "event_iid_observation": false,
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "complete_target_week_count": 259,
+    "first_target_week_id": "2021-06-07",
+    "last_target_week_id": "2026-05-18",
+    "zero_event_week_count": 29,
+    "calendar_spacing_days": 7,
+    "target_week_cluster_integrity": true,
+    "sweep_cluster_integrity": true,
+    "moving_block_axis": "COMPLETE_TARGET_WEEK_CALENDAR",
+    "individual_event_iid_resampling": false
+  },
+  "m10_binding": {
+    "declared_strata": [
+      {
+        "id": "T1",
+        "start": "2021-06-07",
+        "end": "2022-05-30"
+      },
+      {
+        "id": "T2",
+        "start": "2022-06-06",
+        "end": "2023-05-29"
+      },
+      {
+        "id": "T3",
+        "start": "2023-06-05",
+        "end": "2024-05-27"
+      },
+      {
+        "id": "T4",
+        "start": "2024-06-03",
+        "end": "2025-05-26"
+      },
+      {
+        "id": "T5",
+        "start": "2025-06-02",
+        "end": "2026-05-18"
+      }
+    ],
+    "minimum_n_per_stratum": 30,
+    "maximum_response_mean_spread": "0.10"
+  },
+  "exact_gate_logic": {
+    "structural_failure": "HARD_FAIL_INVALID_INPUT",
+    "any_stratum_n_below_30": "NONSTATIONARITY_UNRESOLVED",
+    "max_response_mean_spread_above_0_10": "NONSTATIONARITY_MATERIALLY_DETECTED",
+    "all_structural_pass_and_all_n_at_least_30_and_spread_at_most_0_10": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+  },
+  "pass_semantics": "No material temporal instability was detected under the exact prospectively adopted M10 rule and all structural gate requirements passed.",
+  "nonclaims": [
+    "stationarity proven",
+    "IID proven",
+    "future invariance proven",
+    "no regime changes",
+    "no dependence",
+    "generalization proven",
+    "M05 automatically activated"
+  ],
+  "adopted_parameters_preserved": {
+    "confidence_level": "0.99",
+    "interval_method": "PERCENTILE",
+    "replications": 200000,
+    "seed": 40420261006,
+    "primary_block_length_complete_weeks": 13,
+    "m10_minimum_n": 30,
+    "m10_maximum_spread": "0.10",
+    "empty_week_policy": "PRESERVE",
+    "conflict_policy": "FAIL_CLOSED",
+    "m11": "NO_RELEVANT_MULTIPLICITY_CONDITIONAL_ON_ONE_GLOBAL_CLAIM"
+  },
+  "authority_boundary": {
+    "real_response_values": false,
+    "real_m10": false,
+    "real_gate": false,
+    "response_specific_m05_activation": false,
+    "real_bootstrap": false,
+    "real_confidence_interval": false,
+    "prediction": false,
+    "edge": false,
+    "trading_authority": "NONE"
+  }
+}
