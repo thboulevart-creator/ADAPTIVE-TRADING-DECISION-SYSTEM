@@ -1,0 +1,34 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_TRANSPORT_CORRECTION_CONTRACT_V0_1",
+  "status": "FROZEN_TRANSPORT_CORRECTION_CONTRACT",
+  "historical_blocker": "MODULE_SEARCH_PATH_REMOVED_BY_PYTHON_P_FLAG_FOR_MODULE_LAUNCH",
+  "preserved_python_flags": [
+    "-E",
+    "-P"
+  ],
+  "correction": "EXPLICIT_CANONICAL_REPO_ROOT_SYS_PATH_BOOTSTRAP",
+  "constraints": {
+    "implicit_cwd_dependency": false,
+    "pythonpath_dependency": false,
+    "scientific_executor_modified": false,
+    "m03_binding_modified": false,
+    "m03_core_modified": false,
+    "ap1_modified": false,
+    "data02_modified": false
+  },
+  "target_module": "tools.smf_ap1_m03_02_real_execution",
+  "protected_blobs": {
+    "executor": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "binding": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "companion": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "core": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "reference": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "ap1": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+  },
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  }
+}

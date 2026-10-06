@@ -1,0 +1,26 @@
+{
+    "schema":  "ATDS_SMF_AP1_M03_02_R1_PARENT_DRIFT_RECONCILIATION_V0_1",
+    "authorization_reference":  {
+                                    "head":  "6556b25092fe6a4dc9692d901614f8e7d5c5440d",
+                                    "tree":  "474890b944469459c18c7599f192b0276f5e2fef"
+                                },
+    "first_observed_parent":  {
+                                  "head":  "7eec04cc53bcce209099a8f89e1ade1bb1dba9d4",
+                                  "tree":  "34ac811a53dce43f5511b02997716eacb36e5393"
+                              },
+    "reconciled_parent":  {
+                              "head":  "ce3c68d3e2f36240e6523c1e61d62aca7bddda6b",
+                              "tree":  "40101c0eb1d6bf3edab508f3cd88abdb86f68eee"
+                          },
+    "ancestry_from_authorization":  {
+                                        "ahead_by":  11,
+                                        "behind_by":  0
+                                    },
+    "classification":  "NON_MATERIAL",
+    "changed_scopes":  [
+                           "BEPD-04I",
+                           "AO-E0-B8-DR-01"
+                       ],
+    "protected_owners_unchanged":  true,
+    "force_used":  false
+}
