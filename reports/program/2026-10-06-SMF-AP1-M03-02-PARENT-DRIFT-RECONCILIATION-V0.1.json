@@ -1,0 +1,33 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_PARENT_DRIFT_RECONCILIATION_V0_1",
+  "authorization_reference": {
+    "head": "25a81e7b98b58fb757eb4e92428c9433c609d970",
+    "tree": "fc53aa42ee4e4b9342d2b36a21108d3b27a592df"
+  },
+  "observed_parent": {
+    "head": "e5f5c2711ec227e56509288c9a4ef63295c73ebe",
+    "tree": "7781966944c77d028a8ce4b8e971762f36354ec8"
+  },
+  "ancestry": {
+    "ahead_by": 2,
+    "behind_by": 0
+  },
+  "classification": "NON_MATERIAL",
+  "changed_scopes": [
+    "AO-E0-B8-02-R1",
+    "BEPD-04G"
+  ],
+  "reason": "All concurrent changes are additive AO-E0/BEPD governance/report artifacts. Exact RVO-10 result, AP1 producer, DATA-02 receipt, SMF-AP1-M03 binding/companion, SMF core runtime and independent reference blobs are unchanged.",
+  "owner_recheck": {
+    "rvo10_final_receipt_blob": "81cf1ea950ce041ac4ae623882af095f548358a1",
+    "rvo10_execution_receipt_blob": "c03bc976f340fb04ed5eab39659faae3a0a8a35f",
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "data02_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "m03_01_receipt_blob": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "m03_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "m03_companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4"
+  },
+  "force_used": false
+}

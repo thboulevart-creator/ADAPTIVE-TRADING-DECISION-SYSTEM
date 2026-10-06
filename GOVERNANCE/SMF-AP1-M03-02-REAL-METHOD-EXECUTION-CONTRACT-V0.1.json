@@ -1,0 +1,95 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_REAL_METHOD_EXECUTION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_EXECUTION_CONTRACT",
+  "claim": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+  "semantics": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+  "method": "M03",
+  "procedure": "ecdf_quantiles",
+  "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+  "source_ap1": {
+    "status": "AP1_COMPLETE",
+    "schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "bytes": 179955,
+    "final_rvo10_receipt_blob": "81cf1ea950ce041ac4ae623882af095f548358a1",
+    "execution_receipt_blob": "c03bc976f340fb04ed5eab39659faae3a0a8a35f",
+    "producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+  },
+  "data02": {
+    "receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "expected_parquet_files": 61,
+    "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+    "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET",
+    "iid_claim": false,
+    "inference_claim": false
+  },
+  "smf": {
+    "smf01_blob": "2856b9aa8df7be964d0ee8f20d7332494e599549",
+    "smf02_blob": "ffd02a3957a1b823379cc57bdeb04c48e34eeff6",
+    "smf03_contract_blob": "5b71a409f135e42de5805b12afbd518a152b32a5",
+    "smf03_adjudication_blob": "eca159da397a8e22bd0b244a282b590f06b6df67",
+    "core_runtime_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "independent_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "m03_01_receipt_blob": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
+  },
+  "metrics": {
+    "tick_count": [
+      0.5,
+      0.9,
+      0.99
+    ],
+    "minute_range": [
+      0.5,
+      0.9,
+      0.95,
+      0.99
+    ],
+    "spread_mean": [
+      0.5,
+      0.9,
+      0.95,
+      0.99
+    ]
+  },
+  "bucket_families": [
+    "GLOBAL",
+    "UTC_HOUR",
+    "NEW_YORK_HOUR",
+    "NEW_YORK_WEEKDAY",
+    "NEW_YORK_WEEKDAY_HOUR",
+    "UTC_YEAR"
+  ],
+  "quantile_definition": "linear interpolation with h=(n-1)*p",
+  "tail_extrapolation": "FORBIDDEN",
+  "empty_bucket_rule": "EMPTY_NO_NUMERICAL_RESULT",
+  "nonfinite_rule": "BLOCK",
+  "parity": {
+    "comparison": "ABS_DIFF <= 8 * IEEE754_DOUBLE_EPSILON * max(1, abs(AP1), abs(M03))",
+    "epsilon": "2.220446049250313e-16",
+    "factor": 8,
+    "preregistered_before_real_m03": true,
+    "fail_action": "STOP_BLOCK_SCIENTIFIC_INTERPRETATION"
+  },
+  "output_semantics": "M03_METHOD_EXECUTION_RESULT_ONLY",
+  "maximum_status": "SCIENTIFIC_INTERPRETATION_CANDIDATE",
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "forbidden": [
+    "AP1_REEXECUTION",
+    "THIRD_AP1_INVOCATION",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL",
+    "AUTOMATIC_FINDING_PROMOTION"
+  ]
+}
