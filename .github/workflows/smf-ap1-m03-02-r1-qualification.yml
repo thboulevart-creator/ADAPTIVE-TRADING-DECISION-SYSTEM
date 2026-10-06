@@ -34,7 +34,9 @@ jobs:
         with:
           python-version: '3.12.14'
       - name: Install qualification packages
-        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+        run: |
+          python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+          python -m pip install --disable-pip-version-check numpy==2.5.3 pyarrow==25.0.1 tzdata==2026.3
       - name: R1 transport qualification
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_transport.py
       - name: M03-02 executor regression
