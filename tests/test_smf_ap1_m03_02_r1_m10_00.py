@@ -155,7 +155,7 @@ def test_b25_no_real_result_exposure_during_qualification():
  assert c["authority"]["real_m10_execution"] is False
  assert c["authority"]["real_m10_r_calculation"] is False
  assert a["m10_result_exposed"] is False
- matches=list(ROOT.glob("artifacts/smf_ap1_m03_02_r1_m10*"))
+ matches=list(ROOT.glob("artifacts/smf_ap1_m03_02_r1_m10_00*"))
  assert matches==[]
 
 def test_real_source_identity_guard_is_fail_closed_without_reading_real_values():

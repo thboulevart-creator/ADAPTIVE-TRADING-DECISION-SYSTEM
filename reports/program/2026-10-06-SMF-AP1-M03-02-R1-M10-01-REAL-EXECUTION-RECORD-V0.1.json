@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M10_01_REAL_EXECUTION_RECORD_V0_1",
+  "status": "REAL_EXECUTION_COMPLETE_PENDING_TECHNICAL_QUALIFICATION",
+  "execution_parent": {
+    "head": "4eee70d51ab3e804d396f78e52bffdc8e85b03b8",
+    "tree": "a823d0ccbaa305529f7c6c9e8904a4595566afd8",
+    "drift_from_authorization_reference": "NON_MATERIAL_TO_M10_01",
+    "changed_scope": "BEPD-07B"
+  },
+  "input": {
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "identity_match": true
+  },
+  "procedure": {
+    "runtime_blob": "c1765a56d6c861522db02af6200b7072ce621799",
+    "reference_blob": "2ddc0f69425d0a8349eb43b26f956f4159b76d93",
+    "m01_contract_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+    "runtime_execution_count": 1,
+    "reference_execution_count": 1
+  },
+  "result": {
+    "sha256": "af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9",
+    "claim_units": 11,
+    "contrasts": 33,
+    "blocked_claim_units": 0,
+    "material_claim_units": 8,
+    "no_material_variation_claim_units": 3,
+    "blocked_contrasts": 0,
+    "material_contrasts": 20,
+    "non_material_contrasts": 13
+  },
+  "reference_parity": {
+    "status": "PASS",
+    "reference_result_sha256": "af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9",
+    "exact_object_equality": true,
+    "exact_canonical_byte_equality": true
+  },
+  "epistemic_limit": "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE",
+  "global_cross_metric_verdict": "FORBIDDEN",
+  "m10_result_exposed": true,
+  "scientific_adjudication": "PENDING_HUMAN_DECISION",
+  "methods_remaining_closed": ["M04","M05","M08","M09","M11"],
+  "authority": {"trading": false, "capital": false}
+}
