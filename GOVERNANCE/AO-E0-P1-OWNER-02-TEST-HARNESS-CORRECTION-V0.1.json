@@ -1,0 +1,14 @@
+{
+  "schema":"ATDS_AO_E0_P1_OWNER_02_TEST_HARNESS_CORRECTION_V0_1",
+  "control_id":"AO-E0-P1-OWNER-02",
+  "failed_run_id":37459723632,
+  "failed_job_id":112255981355,
+  "observed":"47/49 PASS; OWNER02-20 and OWNER02-25 failed before target API due zero-argument construction of a required-field dataclass",
+  "classification":"TEST_FIXTURE_CONSTRUCTION_DEFECT",
+  "exact_correction":"use opaque object() token so target APIs perform the intended real-plan / consumption-token attestation rejection",
+  "owner02_code_modified":false,
+  "breaker_contract_modified":false,
+  "p1_12d_modified":false,
+  "producer_modified":false,
+  "force":false
+}
