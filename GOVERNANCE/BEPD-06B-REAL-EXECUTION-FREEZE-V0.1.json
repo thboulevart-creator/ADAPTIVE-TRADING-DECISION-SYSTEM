@@ -1,0 +1,71 @@
+{
+  "schema": "ATDS_BEPD_06B_REAL_EXECUTION_FREEZE_V0_1",
+  "control_id": "BEPD-06B",
+  "status": "FROZEN_FOR_ONE_FIRST_REAL_CONDITIONAL_TIMING_EXECUTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "authority": {
+    "human_authorization_blob": "1ccaf1588224c910ed4206689fc2425c155866d9",
+    "bepd06a_final_human_adjudication_blob": "86d67aa938c8b6871528f085e76e9a82632fa53b",
+    "implementation_qualification_receipt_blob": "bc44f3133b07923cddb401bd7f7604a0a677ab94",
+    "implementation_qualification_report_blob": "bfd80c367b16dba11249a1f0ff6f7fd4029532db",
+    "implementation_qualification_run_id": 37458805348,
+    "implementation_qualification_job_id": 112252886708,
+    "implementation_qualification_conclusion": "SUCCESS"
+  },
+  "bindings": {
+    "human_authorization_blob": "1ccaf1588224c910ed4206689fc2425c155866d9",
+    "runner_blob": "3b75b0ed75529b5a055b23234cc61bdae5976e76",
+    "independent_reference_blob": "d1a75d4f13555d94405cbb6b8c280391ef635b9c",
+    "executable_breaker_blob": "ed537387aae5a5ba60c7cd564a1300eaca2ed300",
+    "tests_blob": "6d3d065be0a1719a0e4a184b41aadb1f274b5561",
+    "implementation_workflow_blob": "afc57661e63ce59367fc1fe8302b2b05ef23166b",
+    "real_execution_workflow_blob": "31ac2a60c47d408f756f5878316417d2995b7671",
+    "implementation_qualification_receipt_blob": "bc44f3133b07923cddb401bd7f7604a0a677ab94",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd06a_contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+    "bepd06a_breaker_blob": "02a64983b4ce75b0f798f1b9639bf8d1a4c41605",
+    "bepd06a_freeze_blob": "6cb6b5bac0848d8b24f035a1527216bf71843bbd"
+  },
+  "execution": {
+    "execution_count": "ONE_CANONICAL_FIRST_REAL_EXECUTION",
+    "base_population_n": 472,
+    "reintegration_true_n": 370,
+    "reintegration_false_n": 102,
+    "timing_population_n": 370,
+    "condition": "same_week_reintegration == true",
+    "t0": "take_h1_close_utc",
+    "t1": "reintegration_h1_close_utc",
+    "required_ordering": "T1 > T0",
+    "duration": "(T1 - T0) / 1 hour",
+    "clock": "UTC_ELAPSED_HOURS",
+    "filtering": "PRE_EXISTING_REINTEGRATION_TRUE_STATE_ONLY",
+    "weighting": "ONE_EQUAL_WEIGHT_PER_QUALIFIED_EVENT",
+    "subgroups": "NONE",
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "independent_recomputation_required": true,
+    "deterministic_replay_required": true,
+    "event_level_derived_timing_ledger_persisted": false
+  },
+  "evidence_boundary": {
+    "status": "EXPOSED_EXPLORATORY_ONLY",
+    "historical_corpus": "ALREADY_EXPOSED",
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "unopened_frontiers": {
+    "survival": true,
+    "subgroups": true,
+    "mfe_mae": true,
+    "occurrence_x_response": true,
+    "oos_consumption": true
+  },
+  "terminal_state": "STOP_AFTER_TECHNICAL_QUALIFICATION_FOR_HUMAN_RESULT_ADJUDICATION"
+}
