@@ -1,0 +1,107 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_00_DOWNSTREAM_CLAIM_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-00",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "preflight_parent": {
+    "head": "1a2292a38e8c4ee84443797b08be52555ad97d24",
+    "tree": "00cf52224f0fd2a291a2f0d45c16b8743145f040",
+    "drift_classification": "NON_MATERIAL_TO_POST_M10_DC_00",
+    "drift_scope": [
+      "BEPD-08C",
+      "AO-E0-B12-DATA-01-ACQ-02"
+    ]
+  },
+  "binding_sources": {
+    "m01_temporal_stability_contract_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+    "m10_01_final_receipt_blob": "899d0e6d27920dccfc260de0c30646d9e5ee8c53",
+    "m10_01_final_closure_blob": "1664e786e65a68cf77370afc7cc933b34958133a",
+    "post_m10_method_necessity_adjudication_blob": "aeed65dd6853392168aa97432ebadb1f9ea48e46",
+    "pcg00_contract_blob": "8e6e888f8330e40d792b43650c32b09a8dc6a281",
+    "pcg01_runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "pcg01_reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "pcg01_breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5",
+    "pcg01_fixture_blob": "4695450cbeb13b695de649e84b853967b07334c7",
+    "pcg01_final_receipt_blob": "c0987d858d30ba05587e94f0287982270d9b5cc2",
+    "pcg01_final_closure_blob": "ab207ff4b2c36aeb5b315e3260855be1f7a54030"
+  },
+  "selection": {
+    "claim_unit": "tick_count p50",
+    "m10_status": "MATERIAL_TEMPORAL_VARIATION",
+    "basis": "FIRST_MATERIAL_CLAIM_UNIT_IN_FROZEN_CANONICAL_M10_ORDER",
+    "by_effect_magnitude": false,
+    "by_profitability": false,
+    "by_predictive_interest": false,
+    "by_extremeness": false,
+    "by_convenience": false
+  },
+  "downstream_claim": {
+    "id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "exact_question_en": "CAN A SINGLE POOLED HISTORICAL DESCRIPTIVE REFERENCE FOR MEDIAN MINUTE-LEVEL TICK_COUNT ACROSS COMPLETE UTC YEARS 2022-2025 BE TREATED AS AN ADMISSIBLE REFERENCE FOR A SUBSEQUENT ATDS DESCRIPTIVE ANALYSIS?",
+    "exact_question_fr": "Peut-on traiter les annees UTC completes 2022, 2023, 2024 et 2025 comme une seule base historique agregee afin de definir une reference descriptive unique du tick_count p50 pour une analyse ATDS ulterieure ?",
+    "claim_class": "DESCRIPTIVE_GOVERNANCE_DEPENDENT",
+    "claim_origin": "POST_M10_DOWNSTREAM_DESIGN",
+    "admissibility": "UNRESOLVED_PENDING_PCG"
+  },
+  "epistemic_status": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN",
+    "maximum_same_corpus_semantics": [
+      "EXPLORATORY",
+      "DESCRIPTIVE",
+      "GOVERNANCE_SCOPED"
+    ]
+  },
+  "not_created": [
+    "TEMPORAL_STABILITY_PROVEN",
+    "STATIONARITY_PROVEN",
+    "FORMAL_NONSTATIONARITY",
+    "STRUCTURAL_BREAK",
+    "CHANGE_POINT",
+    "REGIME_CHANGE",
+    "REGIME_CAUSATION",
+    "FUTURE_REPRESENTATIVENESS",
+    "GENERALIZATION",
+    "PREDICTIVE_EDGE",
+    "ECONOMIC_EDGE",
+    "PROFITABILITY",
+    "STRATEGY_VALIDATION",
+    "TRADING_SIGNAL",
+    "TRADING_AUTHORITY",
+    "CAPITAL_AUTHORITY"
+  ],
+  "m10_relation": {
+    "finding": "MATERIAL_TEMPORAL_VARIATION",
+    "implication": "UNCONDITIONAL_TEMPORAL_POOLING_CANNOT_BE_ASSUMED_HARMLESS",
+    "does_not_imply": [
+      "POOLING_IMPOSSIBLE",
+      "CONDITIONING_REQUIRED",
+      "ROBUST_METHOD_REQUIRED"
+    ]
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "global_m05_resampling_across_2022_2025": "BLOCKED_PENDING_TEMPORAL_JUSTIFICATION",
+  "authority": {
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "pcg_execution": false,
+    "pcg_reference_execution": false,
+    "statistical_method_execution": false,
+    "pooling_execution": false,
+    "conditioning_execution": false,
+    "new_market_result": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_00_ESTIMAND_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-00",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "estimand_id": "POST_M10-E01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+  "downstream_claim_id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+  "conceptual_estimand": "A SINGLE HISTORICAL DESCRIPTIVE REFERENCE FOR THE MEDIAN MINUTE-LEVEL TICK_COUNT OVER THE REQUESTED COMPLETE-YEAR FRAME 2022-2025",
+  "metric": "tick_count",
+  "probability": "p50",
+  "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+  "requested_temporal_scope": [
+    "UTC_YEAR:2022",
+    "UTC_YEAR:2023",
+    "UTC_YEAR:2024",
+    "UTC_YEAR:2025"
+  ],
+  "excluded_partial_years": [
+    "UTC_YEAR:2021",
+    "UTC_YEAR:2026"
+  ],
+  "excluded_partial_year_role": "OUTSIDE_PRIMARY_DOWNSTREAM_ESTIMAND_SCOPE",
+  "estimand_semantics": "FROZEN",
+  "numerical_estimation": false,
+  "real_data_read": false,
+  "pooled_historical_reference_semantics": {
+    "describes_candidate_scientific_intent": true,
+    "pooling_is_valid": false,
+    "pooling_is_authorized": false,
+    "pooling_has_been_executed": false
+  },
+  "provenance": {
+    "metric": "CANONICAL_FACT",
+    "probability": "CANONICAL_FACT",
+    "observational_unit": "CANONICAL_FACT",
+    "temporal_scope": "CANONICAL_FACT",
+    "estimand_id": "HUMAN_DECISION"
+  },
+  "force": false
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_00_ANALYSIS_INTENT_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-00",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "downstream_analysis_id": "POST_M10-DA01-POOLED-TICKCOUNT-P50-REFERENCE-CONSTRUCTION",
+  "downstream_claim_id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+  "estimand_id": "POST_M10-E01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+  "description": "A FUTURE DESCRIPTIVE ANALYSIS WHOSE INTENDED OUTPUT WOULD REQUIRE A SINGLE HISTORICAL tick_count p50 REFERENCE ACROSS COMPLETE UTC YEARS 2022-2025, SUBJECT FIRST TO TEMPORAL-POOLING GOVERNANCE ADMISSIBILITY.",
+  "analysis_intent": "CONSTRUCT_ONE_HISTORICAL_DESCRIPTIVE_REFERENCE",
+  "requested_temporal_scope": ["UTC_YEAR:2022", "UTC_YEAR:2023", "UTC_YEAR:2024", "UTC_YEAR:2025"],
+  "pooling_intent": true,
+  "pooling_admissibility": "UNRESOLVED_PENDING_PCG",
+  "pooling_execution": false,
+  "conditioning_execution": false,
+  "route_selection": "NONE",
+  "route_a_selected": false,
+  "route_b_selected": false,
+  "route_c_selected": false,
+  "requested_route_for_pcg": "NOT_YET_FROZEN",
+  "known_route_state": {
+    "human_adopted_pooling_justification": "NONE_IDENTIFIED",
+    "frozen_temporal_conditioning_spec": "NONE_IDENTIFIED",
+    "qualified_robust_method_preregistration": "NONE_IDENTIFIED",
+    "interpretation": "NO_EXISTING_A_B_OR_C_BASIS_HAS_YET_BEEN_BOUND_TO_THIS_DOWNSTREAM_CLAIM"
+  },
+  "relation_to_pcg": {
+    "next_packet_phase": "PCG-02A",
+    "create_pcg_application_packet": false,
+    "call_pcg_runtime": false,
+    "call_pcg_reference": false,
+    "compute_pcg_state": false
+  },
+  "authority_requests": "NONE",
+  "force": false
+}
