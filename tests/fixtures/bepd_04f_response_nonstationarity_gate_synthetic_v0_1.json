@@ -1,0 +1,499 @@
+{
+  "schema": "ATDS_BEPD_04F_RESPONSE_NONSTATIONARITY_GATE_SYNTHETIC_FIXTURES_V0_1",
+  "base_request": {
+    "execution_scope": "SYNTHETIC_QUALIFICATION",
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "complete_target_week_count": 259,
+    "first_target_week_id": "2021-06-07",
+    "last_target_week_id": "2026-05-18",
+    "zero_event_week_count": 29,
+    "calendar_spacing_days": 7,
+    "calendar_order": "STRICT_ASCENDING_WEEKLY",
+    "target_week_cluster_integrity": true,
+    "sweep_cluster_integrity": true,
+    "moving_block_axis": "COMPLETE_TARGET_WEEK_CALENDAR",
+    "individual_event_iid_resampling": false,
+    "m04_status": "NOT_APPLICABLE_BY_REPRESENTATION",
+    "m10_minimum_n": 30,
+    "m10_maximum_spread": "0.10",
+    "declared_strata": [
+      {
+        "id": "T1",
+        "start": "2021-06-07",
+        "end": "2022-05-30"
+      },
+      {
+        "id": "T2",
+        "start": "2022-06-06",
+        "end": "2023-05-29"
+      },
+      {
+        "id": "T3",
+        "start": "2023-06-05",
+        "end": "2024-05-27"
+      },
+      {
+        "id": "T4",
+        "start": "2024-06-03",
+        "end": "2025-05-26"
+      },
+      {
+        "id": "T5",
+        "start": "2025-06-02",
+        "end": "2026-05-18"
+      }
+    ],
+    "stratum_stats": [
+      {
+        "id": "T1",
+        "n": 30,
+        "response_mean": "0.70"
+      },
+      {
+        "id": "T2",
+        "n": 30,
+        "response_mean": "0.75"
+      },
+      {
+        "id": "T3",
+        "n": 30,
+        "response_mean": "0.72"
+      },
+      {
+        "id": "T4",
+        "n": 30,
+        "response_mean": "0.80"
+      },
+      {
+        "id": "T5",
+        "n": 30,
+        "response_mean": "0.73"
+      }
+    ],
+    "real_response_input": false,
+    "m05_activation_state": "NOT_ACTIVATED",
+    "real_bootstrap": false,
+    "real_confidence_interval": false,
+    "response_subgroup": null,
+    "alternative_response": false,
+    "alternative_horizon": false,
+    "occurrence_x_response": false,
+    "time_to_reintegration": false,
+    "prediction_claim": false,
+    "edge_claim": false,
+    "trading_authority": "NONE"
+  },
+  "cases": {
+    "S01_STABLE_EXACT_SPREAD_0_10": {
+      "patch": {},
+      "expected_state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+    },
+    "S02_STABLE_ZERO_SPREAD": {
+      "patch": {
+        "stratum_stats": [
+          {
+            "id": "T1",
+            "n": 30,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T2",
+            "n": 30,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T3",
+            "n": 30,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T4",
+            "n": 30,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T5",
+            "n": 30,
+            "response_mean": "0.75"
+          }
+        ]
+      },
+      "expected_state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+    },
+    "S03_STABLE_BELOW_THRESHOLD": {
+      "patch": {
+        "stratum_stats": [
+          {
+            "id": "T1",
+            "n": 30,
+            "response_mean": "0.70"
+          },
+          {
+            "id": "T2",
+            "n": 30,
+            "response_mean": "0.74"
+          },
+          {
+            "id": "T3",
+            "n": 30,
+            "response_mean": "0.72"
+          },
+          {
+            "id": "T4",
+            "n": 30,
+            "response_mean": "0.79"
+          },
+          {
+            "id": "T5",
+            "n": 30,
+            "response_mean": "0.73"
+          }
+        ]
+      },
+      "expected_state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+    },
+    "S04_UNSTABLE_ABOVE_THRESHOLD": {
+      "patch": {
+        "stratum_stats": [
+          {
+            "id": "T1",
+            "n": 30,
+            "response_mean": "0.68"
+          },
+          {
+            "id": "T2",
+            "n": 30,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T3",
+            "n": 30,
+            "response_mean": "0.72"
+          },
+          {
+            "id": "T4",
+            "n": 30,
+            "response_mean": "0.80"
+          },
+          {
+            "id": "T5",
+            "n": 30,
+            "response_mean": "0.73"
+          }
+        ]
+      },
+      "expected_state": "NONSTATIONARITY_MATERIALLY_DETECTED"
+    },
+    "S05_ONE_STRATUM_N29": {
+      "patch": {
+        "stratum_stats": [
+          {
+            "id": "T1",
+            "n": 29,
+            "response_mean": "0.70"
+          },
+          {
+            "id": "T2",
+            "n": 30,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T3",
+            "n": 30,
+            "response_mean": "0.72"
+          },
+          {
+            "id": "T4",
+            "n": 30,
+            "response_mean": "0.80"
+          },
+          {
+            "id": "T5",
+            "n": 30,
+            "response_mean": "0.73"
+          }
+        ]
+      },
+      "expected_state": "NONSTATIONARITY_UNRESOLVED"
+    },
+    "S06_ONE_STRATUM_N30": {
+      "patch": {
+        "stratum_stats": [
+          {
+            "id": "T1",
+            "n": 30,
+            "response_mean": "0.70"
+          },
+          {
+            "id": "T2",
+            "n": 31,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T3",
+            "n": 31,
+            "response_mean": "0.72"
+          },
+          {
+            "id": "T4",
+            "n": 31,
+            "response_mean": "0.80"
+          },
+          {
+            "id": "T5",
+            "n": 31,
+            "response_mean": "0.73"
+          }
+        ]
+      },
+      "expected_state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+    },
+    "S07_MULTIPLE_INSUFFICIENT": {
+      "patch": {
+        "stratum_stats": [
+          {
+            "id": "T1",
+            "n": 29,
+            "response_mean": "0.70"
+          },
+          {
+            "id": "T2",
+            "n": 29,
+            "response_mean": "0.75"
+          },
+          {
+            "id": "T3",
+            "n": 30,
+            "response_mean": "0.72"
+          },
+          {
+            "id": "T4",
+            "n": 30,
+            "response_mean": "0.80"
+          },
+          {
+            "id": "T5",
+            "n": 30,
+            "response_mean": "0.73"
+          }
+        ]
+      },
+      "expected_state": "NONSTATIONARITY_UNRESOLVED"
+    },
+    "B01_WRONG_CALENDAR_IDENTITY": {
+      "patch": {
+        "calendar_binding_blob": "wrong"
+      },
+      "expected_error": "CALENDAR_IDENTITY_MISMATCH"
+    },
+    "B02_WRONG_WEEK_COUNT": {
+      "patch": {
+        "complete_target_week_count": 258
+      },
+      "expected_error": "TARGET_WEEK_COUNT_MISMATCH"
+    },
+    "B03_MISSING_ZERO_EVENT_WEEK": {
+      "patch": {
+        "zero_event_week_count": 28
+      },
+      "expected_error": "ZERO_EVENT_WEEK_COUNT_MISMATCH"
+    },
+    "B04_UNSORTED_CALENDAR": {
+      "patch": {
+        "calendar_order": "UNSORTED"
+      },
+      "expected_error": "CALENDAR_ORDER_INVALID"
+    },
+    "B05_CALENDAR_GAP": {
+      "patch": {
+        "calendar_spacing_days": 14
+      },
+      "expected_error": "CALENDAR_SPACING_MISMATCH"
+    },
+    "B06_TARGET_WEEK_CLUSTER_VIOLATION": {
+      "patch": {
+        "target_week_cluster_integrity": false
+      },
+      "expected_error": "TARGET_WEEK_CLUSTER_INTEGRITY_FAIL"
+    },
+    "B07_SWEEP_CLUSTER_VIOLATION": {
+      "patch": {
+        "sweep_cluster_integrity": false
+      },
+      "expected_error": "SWEEP_CLUSTER_INTEGRITY_FAIL"
+    },
+    "B08_M04_PASS": {
+      "patch": {
+        "m04_status": "PASS"
+      },
+      "expected_error": "M04_STATUS_INVALID"
+    },
+    "B09_M04_FAIL": {
+      "patch": {
+        "m04_status": "FAIL"
+      },
+      "expected_error": "M04_STATUS_INVALID"
+    },
+    "B10_M04_UNKNOWN": {
+      "patch": {
+        "m04_status": "UNKNOWN"
+      },
+      "expected_error": "M04_STATUS_INVALID"
+    },
+    "B11_M04_MISSING": {
+      "remove": [
+        "m04_status"
+      ],
+      "expected_error": "M04_STATUS_REQUIRED"
+    },
+    "B12_SIXTH_STRATUM": {
+      "patch": {
+        "declared_strata": [
+          {
+            "id": "T1",
+            "start": "2021-06-07",
+            "end": "2022-05-30"
+          },
+          {
+            "id": "T2",
+            "start": "2022-06-06",
+            "end": "2023-05-29"
+          },
+          {
+            "id": "T3",
+            "start": "2023-06-05",
+            "end": "2024-05-27"
+          },
+          {
+            "id": "T4",
+            "start": "2024-06-03",
+            "end": "2025-05-26"
+          },
+          {
+            "id": "T5",
+            "start": "2025-06-02",
+            "end": "2026-05-18"
+          },
+          {
+            "id": "T6",
+            "start": "2026-05-25",
+            "end": "2026-06-01"
+          }
+        ]
+      },
+      "expected_error": "DECLARED_STRATA_MISMATCH"
+    },
+    "B13_MISSING_DECLARED_STRATUM": {
+      "patch": {
+        "declared_strata": [
+          {
+            "id": "T1",
+            "start": "2021-06-07",
+            "end": "2022-05-30"
+          },
+          {
+            "id": "T2",
+            "start": "2022-06-06",
+            "end": "2023-05-29"
+          },
+          {
+            "id": "T3",
+            "start": "2023-06-05",
+            "end": "2024-05-27"
+          },
+          {
+            "id": "T4",
+            "start": "2024-06-03",
+            "end": "2025-05-26"
+          }
+        ]
+      },
+      "expected_error": "DECLARED_STRATA_MISMATCH"
+    },
+    "B14_MODIFIED_THRESHOLD": {
+      "patch": {
+        "m10_maximum_spread": "0.11"
+      },
+      "expected_error": "M10_THRESHOLD_MISMATCH"
+    },
+    "B15_MODIFIED_MINIMUM_N": {
+      "patch": {
+        "m10_minimum_n": 29
+      },
+      "expected_error": "M10_MINIMUM_N_MISMATCH"
+    },
+    "B16_REAL_INPUT": {
+      "patch": {
+        "execution_scope": "REAL_AUTHORIZED",
+        "real_response_input": true
+      },
+      "expected_error": "REAL_EXECUTION_NOT_AUTHORIZED"
+    },
+    "B17_M05_ACTIVATION": {
+      "patch": {
+        "m05_activation_state": "ACTIVATED"
+      },
+      "expected_error": "M05_ACTIVATION_NOT_AUTHORIZED"
+    },
+    "B18_REAL_BOOTSTRAP": {
+      "patch": {
+        "real_bootstrap": true
+      },
+      "expected_error": "REAL_BOOTSTRAP_NOT_AUTHORIZED"
+    },
+    "B19_REAL_CONFIDENCE_INTERVAL": {
+      "patch": {
+        "real_confidence_interval": true
+      },
+      "expected_error": "REAL_INTERVAL_NOT_AUTHORIZED"
+    },
+    "B20_TRADING_AUTHORITY": {
+      "patch": {
+        "trading_authority": "LIVE"
+      },
+      "expected_error": "TRADING_AUTHORITY_FORBIDDEN"
+    },
+    "B21_RESPONSE_SUBGROUP": {
+      "patch": {
+        "response_subgroup": "HIGH"
+      },
+      "expected_error": "RESPONSE_SUBGROUP_NOT_AUTHORIZED"
+    },
+    "B22_ALTERNATIVE_RESPONSE": {
+      "patch": {
+        "alternative_response": true
+      },
+      "expected_error": "ALTERNATIVE_RESPONSE_NOT_AUTHORIZED"
+    },
+    "B23_ALTERNATIVE_HORIZON": {
+      "patch": {
+        "alternative_horizon": true
+      },
+      "expected_error": "ALTERNATIVE_HORIZON_NOT_AUTHORIZED"
+    },
+    "B24_OCCURRENCE_X_RESPONSE": {
+      "patch": {
+        "occurrence_x_response": true
+      },
+      "expected_error": "OCCURRENCE_X_RESPONSE_NOT_AUTHORIZED"
+    },
+    "B25_TIME_TO_REINTEGRATION": {
+      "patch": {
+        "time_to_reintegration": true
+      },
+      "expected_error": "TIME_TO_REINTEGRATION_NOT_AUTHORIZED"
+    },
+    "B26_PREDICTION": {
+      "patch": {
+        "prediction_claim": true
+      },
+      "expected_error": "PREDICTION_NOT_AUTHORIZED"
+    },
+    "B27_EDGE": {
+      "patch": {
+        "edge_claim": true
+      },
+      "expected_error": "EDGE_NOT_AUTHORIZED"
+    }
+  }
+}
