@@ -1,0 +1,56 @@
+{
+  "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "m04_executed": false,
+  "m04_status": "NOT_APPLICABLE_BY_REPRESENTATION",
+  "maximum_response_mean_spread": "0.096259889714696715",
+  "maximum_stratum_response_mean": "0.848837209302325581",
+  "minimum_n_per_stratum": 30,
+  "minimum_stratum_response_mean": "0.752577319587628866",
+  "run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+  "sample_adequacy": "PASS",
+  "schema": "ATDS_BEPD_04G_REAL_M10_RESULT_V0_1",
+  "scope": "EXPLORATORY_HISTORICAL_FIXED_CORPUS_TEMPORAL_STABILITY_DIAGNOSTIC",
+  "strata": [
+    {
+      "date_end": "2022-05-30",
+      "date_start": "2021-06-07",
+      "qualified_event_count": 90,
+      "reintegration_true_count": 72,
+      "response_mean": "0.800000000000000000",
+      "stratum_id": "T1"
+    },
+    {
+      "date_end": "2023-05-29",
+      "date_start": "2022-06-06",
+      "qualified_event_count": 95,
+      "reintegration_true_count": 73,
+      "response_mean": "0.768421052631578947",
+      "stratum_id": "T2"
+    },
+    {
+      "date_end": "2024-05-27",
+      "date_start": "2023-06-05",
+      "qualified_event_count": 97,
+      "reintegration_true_count": 73,
+      "response_mean": "0.752577319587628866",
+      "stratum_id": "T3"
+    },
+    {
+      "date_end": "2025-05-26",
+      "date_start": "2024-06-03",
+      "qualified_event_count": 104,
+      "reintegration_true_count": 79,
+      "response_mean": "0.759615384615384615",
+      "stratum_id": "T4"
+    },
+    {
+      "date_end": "2026-05-18",
+      "date_start": "2025-06-02",
+      "qualified_event_count": 86,
+      "reintegration_true_count": 73,
+      "response_mean": "0.848837209302325581",
+      "stratum_id": "T5"
+    }
+  ],
+  "total_historical_event_count": 472
+}
