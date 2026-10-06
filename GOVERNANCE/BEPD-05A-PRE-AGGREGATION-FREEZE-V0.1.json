@@ -1,0 +1,46 @@
+{
+  "schema": "ATDS_BEPD_05A_PRE_AGGREGATION_FREEZE_V0_1",
+  "status": "FROZEN_PRE_AGGREGATION_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-05A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "cfd4c1d5588335e1c5edf7f9fbb41d5f8d3bafae",
+    "semantics_aggregation_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "frozen_adversarial_breaker_blob": "c39802f70d83dc249d23fe240b61169bf20ac757",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd_ces_01_r1_final_human_adjudication_blob": "a650b2e3bbdaed3201fd31580b5d58d2fbc9d052"
+  },
+  "freeze_scope": {
+    "population": "ALL 472 QUALIFIED BEPD-02 EVENT_LEDGER ROWS",
+    "response": "close_displacement",
+    "aggregation": "GLOBAL_ALL_SIDES_ONLY",
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_EMPIRICAL_CDF",
+    "subgroups": "NONE",
+    "inference": "NONE",
+    "uncertainty_method": "NONE_ACTIVATED",
+    "evidence_status": "EXPOSED_EXPLORATORY_ONLY"
+  },
+  "freeze_meaning": "The aggregation protocol is frozen before first authorized aggregate distribution exposure. Raw historical values are already exposed and are not represented as pristine.",
+  "real_result_exposure": false,
+  "real_aggregation_executed": false,
+  "close_displacement_values_read_for_bepd05a": false,
+  "authority": {
+    "real_aggregation": false,
+    "real_distribution_exposure": false,
+    "subgroup_analysis": false,
+    "oos": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "terminal_requirement": "QUALIFY_CONTRACTUAL_SURFACE_THEN_STOP_FOR_HUMAN_ADJUDICATION"
+}

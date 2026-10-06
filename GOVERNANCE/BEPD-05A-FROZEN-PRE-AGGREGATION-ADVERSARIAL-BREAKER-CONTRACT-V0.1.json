@@ -1,0 +1,257 @@
+{
+  "schema": "ATDS_BEPD_05A_FROZEN_PRE_AGGREGATION_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_AGGREGATION_BREAKER_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-05A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "cfd4c1d5588335e1c5edf7f9fbb41d5f8d3bafae",
+    "semantics_aggregation_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd_ces_01_r1_final_human_adjudication_blob": "a650b2e3bbdaed3201fd31580b5d58d2fbc9d052"
+  },
+  "breaker_scope": "SEMANTICS_AND_PRE_AGGREGATION_PROTOCOL_ONLY_NO_REAL_DISTRIBUTION_EXPOSURE",
+  "positive_invariants": [
+    "source EVENT_LEDGER identity exact",
+    "historical ledger schema identity exact",
+    "population is all 472 qualified EVENT_LEDGER rows",
+    "response field exclusively close_displacement",
+    "no market reconstruction",
+    "HIGH formula = level_price_mid - target_week_close_mid",
+    "LOW formula = target_week_close_mid - level_price_mid",
+    "negative zero and no-reintegration rows retained",
+    "global all-sides aggregation only",
+    "Hyndman-Fan Type 7 quantiles frozen",
+    "median equals P50",
+    "ECDF is unsmoothed exact empirical support representation",
+    "EVENT is not IID",
+    "target_week_id and sweep_cluster_id dependence retained",
+    "analysis explicitly exploratory-only on exposed corpus",
+    "no real aggregate statistics calculated or exposed"
+  ],
+  "adversarial_cases": [
+    {
+      "case_id": "BEPD05A-B01",
+      "mutation": "wrong EVENT_LEDGER identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B02",
+      "mutation": "wrong historical ledger schema identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B03",
+      "mutation": "population differs from all qualified EVENT_LEDGER rows",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B04",
+      "mutation": "event count other than 472 accepted without explicit new authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B05",
+      "mutation": "duplicate event_id tolerated",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B06",
+      "mutation": "close_displacement recomputed from market data instead of bound field",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B07",
+      "mutation": "HIGH sign formula inverted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B08",
+      "mutation": "LOW sign formula inverted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B09",
+      "mutation": "HIGH and LOW source semantics collapsed into one un-oriented raw difference",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B10",
+      "mutation": "target-week close replaced by take H1 close",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B11",
+      "mutation": "reference level replaced by take price",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B12",
+      "mutation": "negative close_displacement rows dropped or clipped",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B13",
+      "mutation": "zero close_displacement rows dropped",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B14",
+      "mutation": "same_week_reintegration=false rows dropped",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B15",
+      "mutation": "conditioning on same_week_reintegration introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B16",
+      "mutation": "HIGH vs LOW subgroup introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B17",
+      "mutation": "age/day/month/year/regime/volatility subgroup introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B18",
+      "mutation": "cross-product or interaction introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B19",
+      "mutation": "result-based sorting or best/worst language introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B20",
+      "mutation": "quantile method changed after result exposure",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B21",
+      "mutation": "quantiles computed with a method other than frozen Hyndman-Fan Type 7",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B22",
+      "mutation": "median differs from P50",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B23",
+      "mutation": "histogram bins or smoothing substituted for exact ECDF",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B24",
+      "mutation": "tails suppressed or truncated from ECDF representation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B25",
+      "mutation": "binary floating-point output drift accepted as canonical decimal result",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B26",
+      "mutation": "sign counts fail to reconcile to N",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B27",
+      "mutation": "EVENT treated as IID observation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B28",
+      "mutation": "target_week_id dependence erased",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B29",
+      "mutation": "sweep_cluster_id dependence erased",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B30",
+      "mutation": "naive IID standard error, confidence interval, or bootstrap introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B31",
+      "mutation": "close_displacement converted to PnL/ticks/money/risk multiple/TP/SL/trade return",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B32",
+      "mutation": "positive/negative displacement interpreted as profit/loss",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B33",
+      "mutation": "exploratory exposed-corpus result represented as pristine confirmation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B34",
+      "mutation": "historical distribution represented as future probability or prediction",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B35",
+      "mutation": "distribution represented as causal effect",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B36",
+      "mutation": "distribution represented as edge or strategy validation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B37",
+      "mutation": "distribution represented as trading or capital authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B38",
+      "mutation": "real close-displacement aggregate statistic calculated under BEPD-05A authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B39",
+      "mutation": "real ECDF/support values exposed under BEPD-05A authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B40",
+      "mutation": "time-to-reintegration, MFE, MAE or fixed-horizon return introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD05A-B41",
+      "mutation": "OOS data consumed under BEPD-05A authority",
+      "expected": "HARD_FAIL"
+    }
+  ],
+  "qualification_rule": {
+    "required_case_count": 41,
+    "all_cases_must_be_present": true,
+    "all_expected_outcomes": "HARD_FAIL",
+    "any_missing_or_weakened_case": "FAIL",
+    "any_binding_mismatch": "FAIL",
+    "any_real_distribution_exposure": "FAIL",
+    "pass_meaning": "contractual semantics and pre-aggregation protection only; not real result validation"
+  },
+  "execution_state": {
+    "real_aggregation_calculator": "NOT_AUTHORIZED_IN_BEPD05A",
+    "real_close_displacement_aggregation": "NOT_AUTHORIZED_IN_BEPD05A",
+    "real_distribution_exposure": "NOT_AUTHORIZED_IN_BEPD05A"
+  },
+  "stop_boundary": "STOP_BEFORE_ANY_REAL_CLOSE_DISPLACEMENT_AGGREGATION"
+}

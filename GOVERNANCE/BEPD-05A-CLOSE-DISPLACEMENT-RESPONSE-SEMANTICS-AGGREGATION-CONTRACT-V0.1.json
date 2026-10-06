@@ -1,0 +1,215 @@
+{
+  "schema": "ATDS_BEPD_05A_CLOSE_DISPLACEMENT_RESPONSE_SEMANTICS_AGGREGATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_AGGREGATION_CONTRACT_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-05A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "parent_reference": {
+    "head": "70af97dd84751596e193238799e237168eb39af9",
+    "tree": "21097e3ad67ee0fff5bb65379b587731260b5dcd",
+    "material_bepd_drift": "NONE"
+  },
+  "bindings": {
+    "human_authorization_blob": "cfd4c1d5588335e1c5edf7f9fbb41d5f8d3bafae",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd_ces_01_r1_final_human_adjudication_blob": "a650b2e3bbdaed3201fd31580b5d58d2fbc9d052"
+  },
+  "evidence_status": {
+    "raw_per_event_close_displacement_values": "ALREADY_EXPOSED_IN_HISTORICAL_EVENT_LEDGER",
+    "historical_corpus": "ALREADY_EXPOSED",
+    "analysis_status": "EXPLORATORY_ONLY",
+    "pristine_confirmation": false,
+    "future_confirmatory_claim": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "pre_aggregation_freeze_meaning": "aggregation rules frozen before first authorized aggregate distribution exposure; does not imply raw data are pristine or unobserved"
+  },
+  "source_semantics": {
+    "source": "BEPD-02 EVENT_LEDGER",
+    "population": "ALL_QUALIFIED_BEPD02_EVENT_LEDGER_ROWS",
+    "expected_event_count": 472,
+    "unit": "ONE_QUALIFIED_LEVEL_SWEEP_EVENT",
+    "response_field": "close_displacement",
+    "response_type": "float64 in qualified ledger schema",
+    "source_policy": "USE_ALREADY_QUALIFIED_LEDGER_FIELD_ONLY_NO_MARKET_RECONSTRUCTION",
+    "filtering": "NONE",
+    "no_reintegration_rows": "RETAIN",
+    "negative_values": "RETAIN",
+    "zero_values": "RETAIN",
+    "duplicate_event_id": "HARD_FAIL",
+    "event_count_mismatch": "HARD_FAIL"
+  },
+  "sign_semantics": {
+    "high_formula": "level_price_mid - target_week_close_mid",
+    "low_formula": "target_week_close_mid - level_price_mid",
+    "positive": "target-week close lies on the reintegrated/internal side of the swept Weekly reference level",
+    "negative": "target-week close lies on the external side beyond the swept Weekly reference level",
+    "zero": "target-week close equals the swept Weekly reference level exactly under the persisted value",
+    "profit_loss_interpretation": "FORBIDDEN",
+    "side_specific_sign_reversal_after_source": "FORBIDDEN"
+  },
+  "units_and_numeric_policy": {
+    "unit": "USTECH price units exactly as persisted; not execution price, PnL, ticks, money, risk multiple or return",
+    "input_parse": "parse JSON numeric token for close_displacement as exact decimal lexical value",
+    "allowed_input_precision": "as persisted by qualified ledger; no re-rounding before aggregation",
+    "arithmetic": "decimal arithmetic; no binary-float-dependent result canonicalization",
+    "scalar_output_decimal_places": 18,
+    "scalar_output_rounding": "ROUND_HALF_EVEN",
+    "scalar_output_quantum": "0.000000000000000001",
+    "min_max_output_policy": "canonical decimal string retaining exact persisted numeric value; trailing-zero normalization may be specified by implementation but numeric identity must remain exact",
+    "counts": "integer exact",
+    "fractions": {
+      "exact_fraction": "numerator/N string",
+      "decimal": "18-decimal ROUND_HALF_EVEN"
+    }
+  },
+  "primary_global_aggregation": {
+    "scope": "GLOBAL_ALL_SIDES_ONLY",
+    "weighting": "ONE_EQUAL_WEIGHT_PER_QUALIFIED_EVENT_LEDGER_ROW",
+    "authorized_future_outputs": [
+      "N",
+      "MINIMUM",
+      "MAXIMUM",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "POSITIVE_COUNT",
+      "ZERO_COUNT",
+      "NEGATIVE_COUNT",
+      "POSITIVE_FRACTION",
+      "ZERO_FRACTION",
+      "NEGATIVE_FRACTION",
+      "EMPIRICAL_CDF"
+    ],
+    "mean": {
+      "estimator": "sum(close_displacement_i) / N",
+      "output": "18-decimal ROUND_HALF_EVEN"
+    },
+    "quantiles": {
+      "family": "HYNDMAN_FAN_TYPE_7",
+      "probabilities": [
+        "0.01",
+        "0.05",
+        "0.10",
+        "0.25",
+        "0.50",
+        "0.75",
+        "0.90",
+        "0.95",
+        "0.99"
+      ],
+      "ordered_values": "x_(1) <= ... <= x_(N)",
+      "rule": "h = 1 + (N - 1) * p; j = floor(h); gamma = h - j; Q(p) = (1-gamma)*x_(j) + gamma*x_(j+1), with 1-based indexing and endpoint handling",
+      "arithmetic": "exact decimal interpolation before final 18-decimal ROUND_HALF_EVEN output",
+      "median": "Q(0.50)",
+      "p50_must_equal_median": true,
+      "post_result_method_change": "FORBIDDEN"
+    },
+    "sign_counts": {
+      "positive": "count(x_i > 0)",
+      "zero": "count(x_i = 0)",
+      "negative": "count(x_i < 0)",
+      "reconciliation": "positive_count + zero_count + negative_count = N"
+    },
+    "empirical_cdf": {
+      "definition": "F_N(x) = count(x_i <= x) / N",
+      "representation": "all unique observed close_displacement support values sorted ascending, with exact support value, support_count, cumulative_count, exact cumulative_fraction and 18-decimal cumulative_decimal",
+      "histogram_bins": "NONE",
+      "kernel_density": "NONE",
+      "smoothing": "NONE",
+      "truncation": "NONE",
+      "tail_suppression": "FORBIDDEN"
+    },
+    "result_ordering": "canonical metric order only; no result-based sorting or best/worst labels"
+  },
+  "dependence_boundary": {
+    "event_is_iid_observation": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "same_target_week": "DEPENDENT",
+    "same_sweep_cluster": "DEPENDENT_BY_CONSTRUCTION",
+    "first_real_aggregation": "DESCRIPTIVE_FIXED_CORPUS_ONLY",
+    "iid_standard_error": "FORBIDDEN",
+    "iid_confidence_interval": "FORBIDDEN",
+    "iid_bootstrap": "FORBIDDEN",
+    "uncertainty_method": "NOT_ACTIVATED_BY_BEPD05A",
+    "future_uncertainty": "REQUIRES_SEPARATE_HUMAN_AUTHORIZATION_AND_METHOD_QUALIFICATION"
+  },
+  "subgroup_boundary": {
+    "first_real_aggregation_subgroups": [],
+    "forbidden": [
+      "HIGH vs LOW",
+      "same_week_reintegration true vs false",
+      "level age bands",
+      "take day",
+      "month",
+      "year",
+      "regime",
+      "volatility",
+      "cross-products",
+      "interactions"
+    ],
+    "future_subgroups": "REQUIRE_SEPARATE_HUMAN_AUTHORIZATION_AFTER_GLOBAL_DISTRIBUTION_ADJUDICATION"
+  },
+  "prohibited_conversions": [
+    "PnL",
+    "ticks",
+    "money",
+    "risk multiple",
+    "TP",
+    "SL",
+    "trade return",
+    "strategy payoff"
+  ],
+  "explicit_out_of_scope": [
+    "real close-displacement aggregation under BEPD-05A",
+    "real distribution exposure under BEPD-05A",
+    "time-to-reintegration",
+    "MFE",
+    "MAE",
+    "post-sweep path analysis",
+    "fixed-horizon returns",
+    "Occurrence × Response",
+    "subgroup search",
+    "threshold search",
+    "parameter optimization",
+    "OOS consumption",
+    "prediction",
+    "causation",
+    "edge",
+    "strategy validation",
+    "PnL",
+    "trading authority",
+    "capital deployment"
+  ],
+  "authority": {
+    "semantics_design": true,
+    "aggregation_contract_design": true,
+    "documentary_breaker": true,
+    "qualification_of_contract": true,
+    "real_close_displacement_aggregation": false,
+    "real_distribution_exposure": false,
+    "subgroup_analysis": false,
+    "uncertainty_inference": false,
+    "oos_consumption": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "stop_boundary": "STOP_AFTER_BEPD05A_QUALIFICATION_AND_BEFORE_ANY_REAL_CLOSE_DISPLACEMENT_AGGREGATION"
+}
