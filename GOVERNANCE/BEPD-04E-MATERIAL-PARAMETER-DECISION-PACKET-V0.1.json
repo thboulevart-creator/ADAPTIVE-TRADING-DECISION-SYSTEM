@@ -1,0 +1,125 @@
+{
+  "schema": "ATDS_BEPD_04E_MATERIAL_PARAMETER_DECISION_PACKET_V0_1",
+  "status": "READY_FOR_HUMAN_DECISION_NOT_ADOPTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent_head": "f5d7af2a75548c71bbc18651f1fb466c616f81f1",
+  "bindings": {
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "method_contract_blob": "5b06ee0c863c90af085a55fe145afd6d51c31497",
+    "synthetic_fixture_blob": "eedaa71da7296fcce06be8beb75a7424be5bc28e",
+    "test_surface_blob": "2750f1154279095f7ed39075b538fe568bcf9cde",
+    "red_receipt_blob": "87273f14623825951c2439e46e765c1fcc4cfd32",
+    "runtime_blob": "61a996562fe18e0e2efd6f16db27a48738e60421",
+    "reference_runtime_blob": "e4ad2b642265889455e33f23ead3c5b57c1a7eae",
+    "breaker_blob": "eda63bf26230a2b48eb75bb655e64e766b66c1a3"
+  },
+  "calendar_context": {
+    "complete_target_weeks": 259,
+    "event_bearing_weeks": 230,
+    "zero_event_weeks": 29,
+    "first_week": "2021-06-07",
+    "last_week": "2026-05-18",
+    "outcome_values_used_for_recommendations": false
+  },
+  "recommendations": {
+    "confidence_level": {
+      "value": 0.99,
+      "binding": false,
+      "rationale": "High-assurance exploratory interval; chosen prospectively and not from the observed response result."
+    },
+    "interval_method": {
+      "value": "PERCENTILE",
+      "binding": false,
+      "rationale": "Direct transformation-free interpretation, already supported by qualified SMF-03 M05 semantics, and avoids introducing additional interval families."
+    },
+    "replications": {
+      "value": 200000,
+      "binding": false,
+      "rationale": "At 99% confidence this yields roughly 1000 Monte Carlo draws per 0.5% tail in expectation, reducing quantile simulation noise without changing the estimand."
+    },
+    "seed": {
+      "value": 40420261006,
+      "binding": false,
+      "rationale": "Deterministic phase/date-derived constant chosen without reference to response values."
+    },
+    "primary_block_length": {
+      "value": 13,
+      "unit": "complete target weeks",
+      "binding": false,
+      "rationale": "Outcome-blind quarter-year structural horizon; preserves medium-range temporal adjacency while retaining about twenty block-lengths across the 259-week calendar."
+    },
+    "m04": {
+      "status": "NOT_APPLICABLE_UNDER_CURRENT_REPRESENTATION",
+      "lags": null,
+      "materiality_threshold": null,
+      "rationale": "No scalar weekly response representation preserves zero-event weeks without inventing or dropping response values."
+    },
+    "m10_temporal_strata": {
+      "value": [
+        {
+          "id": "T1",
+          "start": "2021-06-07",
+          "end": "2022-05-30",
+          "week_count": 52
+        },
+        {
+          "id": "T2",
+          "start": "2022-06-06",
+          "end": "2023-05-29",
+          "week_count": 52
+        },
+        {
+          "id": "T3",
+          "start": "2023-06-05",
+          "end": "2024-05-27",
+          "week_count": 52
+        },
+        {
+          "id": "T4",
+          "start": "2024-06-03",
+          "end": "2025-05-26",
+          "week_count": 52
+        },
+        {
+          "id": "T5",
+          "start": "2025-06-02",
+          "end": "2026-05-18",
+          "week_count": 51
+        }
+      ],
+      "binding": false,
+      "rationale": "Five contiguous outcome-blind approximately annual strata derived solely from the frozen 259-week calendar."
+    },
+    "m10_minimum_n_per_stratum": {
+      "value": 30,
+      "unit": "qualified response events",
+      "binding": false,
+      "rationale": "Prospective floor to prevent interpretation of extremely sparse temporal strata; real sufficiency has not been inspected."
+    },
+    "m10_max_mean_spread": {
+      "value": 0.1,
+      "unit": "absolute response proportion",
+      "binding": false,
+      "rationale": "Ten-percentage-point prospective materiality threshold; decision relevance only, not fitted to observed response values."
+    },
+    "conflicting_diagnostics_policy": {
+      "value": "ANY_BLOCK_OR_CONFLICT_UNRESOLVED",
+      "binding": false,
+      "rationale": "Fail-closed policy consistent with BEPD-04D."
+    },
+    "empty_week_policy": {
+      "value": "PRESERVE_CALENDAR_POSITION_ZERO_NUMERATOR_ZERO_DENOMINATOR_FOR_RESAMPLING; DO_NOT_INVENT_RESPONSE_FOR_M04_OR_M10",
+      "binding": false,
+      "rationale": "Preserves calendar time without fabricating outcomes."
+    },
+    "multiplicity_status": {
+      "value": "NO_RELEVANT_MULTIPLICITY",
+      "binding": false,
+      "condition": "valid only for one global response-generalization claim with one primary block length and no subgroup/horizon expansion"
+    }
+  },
+  "human_adoption": "PENDING",
+  "parameter_selection_from_observed_response": false,
+  "real_execution_authorized": false
+}
