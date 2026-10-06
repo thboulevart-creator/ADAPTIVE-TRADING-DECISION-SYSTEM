@@ -1,0 +1,98 @@
+{
+  "schema": "ATDS_AO_E0_B12_01_FIRST_FORWARD_CONSUMPTION_AUTHORITY_ENVELOPE_BLOCKER_V0_1",
+  "control_id": "AO-E0-B12-01",
+  "verdict": "BLOCKED",
+  "b12_authority_envelope": "BLOCKED",
+  "exact_blockers": [
+    "BLOCKED_B12_FORWARD_SLICE_INSTANCE_NOT_CANONICALLY_BOUND",
+    "BLOCKED_B12_OOS_CONSUMPTION_PIPELINE_NOT_QUALIFIED"
+  ],
+  "canonical_state": {
+    "b8": "CLOSED",
+    "b8_human_closure_blob": "8740bf6255286c3c8d896b6b334d10b78c1899f7",
+    "b8_human_closure_receipt": "083a461a3e278e28b11b1c63d7460745441daa12",
+    "b12": "CLOSED",
+    "dr01": "HUMAN_ADOPTED_BINDING_FROZEN"
+  },
+  "forward_slice_blocker": {
+    "current_first_use_data_contract_blob": "66759f93ad019e18fd00c871bd1737293070b1a8",
+    "current_raw_source_dataset_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "current_raw_source_manifest_sha256": "c341fb5eef9f013c602abfc9e3ca58afcdbab1b71af21b0429d46df37dd5b4a5",
+    "current_raw_source_inventory_digest": "5cf0fe2c5cad725145432cab984375283df5fa3abdc72650cbba5f73278f28bf",
+    "current_ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "current_h1_stream_sha256": "15cbc898814c6128ca05b27735626e225c1eda3e45f882b166b654886967e59f",
+    "current_contract_result_or_performance_computation": false,
+    "current_contract_oos_consumption": false,
+    "new_forward_instance_identity": null,
+    "new_forward_manifest_sha256": null,
+    "new_forward_temporal_start_rule": null,
+    "new_forward_temporal_end_rule": null,
+    "new_forward_non_overlap_proof": null,
+    "reason": "The qualified first-use contract binds the historical E1 source/AP0/H1 instance identities and explicitly grants no OOS consumption. No distinct canonical NEW_FORWARD_DATA_ONLY instance, manifest, temporal envelope, or non-overlap proof exists."
+  },
+  "pipeline_blocker": {
+    "native_owner_contract_blob": "fee72666d07ee32b9017d3ab5f59c5265dcabc10",
+    "native_owner_qualification_receipt_blob": "bdcedb6d9208aa2bbbb7188e5aabf55c566a4fe5",
+    "native_owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "breaker_contract_blob": "b0f6b2fed7b50bcac801d2db79a45933ffe727f8",
+    "current_execution_scope": "SYNTHETIC_ONLY_NO_REAL_AO_E0_NO_OOS",
+    "current_owner_oos_consumption_behavior": "BLOCKED_OOS_CONSUMPTION",
+    "qualified_real_oos_consumption_controller": null,
+    "qualified_consumption_state_controller": null,
+    "reason": "The currently qualified AO-E0 owner is intentionally pre-execution/synthetic and explicitly rejects OOS consumption. B12 opening cannot safely target a pipeline that still fails closed on the very authority being opened."
+  },
+  "unresolved_required_surfaces": {
+    "exact_forward_slice_identity": false,
+    "exact_temporal_non_overlap": false,
+    "exact_first_consumption_event": false,
+    "exact_new_forward_data_instance": false,
+    "exact_oos_consumption_capable_pipeline": false,
+    "exact_one_shot_consumption_controller": false,
+    "exposure_monotonicity_controller": false,
+    "technical_failure_after_consumption_controller": false,
+    "terminal_output_observation_surface": false,
+    "replay_after_consumption_semantics_executable": false
+  },
+  "preserved_bindings": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "strategy_version_identity": "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "cost_scope": "F2_S4",
+    "m06_final_required_n": 58927,
+    "confirmatory_route": "NEW_FORWARD_DATA_ONLY"
+  },
+  "performance_consumption_attestation": {
+    "new_forward_performance_read": false,
+    "pnl_observed": false,
+    "expectancy_observed": false,
+    "ci_observed": false,
+    "support_refute_inconclusive_observed": false,
+    "f2_s4_outcome_observed": false,
+    "m07_outcome_observed": false,
+    "m08_outcome_observed": false
+  },
+  "required_remediation": [
+    "qualify a distinct NEW_FORWARD_DATA_ONLY instance identity with exact source/derivation lineage and temporal non-overlap without reading performance",
+    "implement and qualify an AO-E0 B12 consumption controller/owner extension that is exact-B12-gated, one-shot, exposure-monotone, and preserves the frozen P1/SMF/DR-01 bindings",
+    "define metadata-only pre-consumption checks, first performance-bearing read semantics, technical-failure semantics, terminal observation surface, and replay semantics",
+    "then rerun AO-E0-B12-01 before any B12 opening"
+  ],
+  "state": {
+    "b8": "CLOSED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "b12_human_opening": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_ao_e0_qualification_execution": false,
+    "strategy_qualification": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "force": false
+}

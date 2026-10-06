@@ -1,0 +1,48 @@
+{
+  "schema": "ATDS_AO_E0_B12_01_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-01",
+  "verdict": "BLOCKED",
+  "b12_authority_envelope": "BLOCKED",
+  "exact_blockers": [
+    "BLOCKED_B12_FORWARD_SLICE_INSTANCE_NOT_CANONICALLY_BOUND",
+    "BLOCKED_B12_OOS_CONSUMPTION_PIPELINE_NOT_QUALIFIED"
+  ],
+  "evidence": {
+    "b8_human_closure_blob": "8740bf6255286c3c8d896b6b334d10b78c1899f7",
+    "b8_human_closure_receipt": "083a461a3e278e28b11b1c63d7460745441daa12",
+    "first_use_data_contract_blob": "66759f93ad019e18fd00c871bd1737293070b1a8",
+    "pit_contract_blob": "b312981ae8cba905c50db657ba0217addf296548",
+    "native_owner_contract_blob": "fee72666d07ee32b9017d3ab5f59c5265dcabc10",
+    "native_owner_qualification_receipt_blob": "bdcedb6d9208aa2bbbb7188e5aabf55c566a4fe5",
+    "native_owner_blob": "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "p1_12d_extension_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "owner_breaker_contract_blob": "b0f6b2fed7b50bcac801d2db79a45933ffe727f8"
+  },
+  "checks": {
+    "b8_closed": true,
+    "dr01_frozen": true,
+    "b12_closed": true,
+    "performance_consumed": false,
+    "exact_new_forward_instance_bound": false,
+    "temporal_non_overlap_proof_bound": false,
+    "oos_consumption_capable_pipeline_qualified": false,
+    "one_shot_consumption_controller_qualified": false,
+    "exposure_monotonicity_controller_qualified": false
+  },
+  "state": {
+    "b8": "CLOSED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "b12_open": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_ao_e0_qualification_execution": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
