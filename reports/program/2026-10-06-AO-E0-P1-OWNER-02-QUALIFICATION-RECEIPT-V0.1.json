@@ -1,0 +1,93 @@
+{
+  "schema":"ATDS_AO_E0_P1_OWNER_02_QUALIFICATION_RECEIPT_V0_1",
+  "control_id":"AO-E0-P1-OWNER-02",
+  "verdict":"QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "owner02_real_oos_capability":"QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "owner02_human_adoption":"NOT_HUMAN_ADOPTED",
+  "identity":{
+    "owner02_contract_id":"P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_2",
+    "owner02_blob":"57191ab2892e571807a8ed3f53fd0569de1f739e",
+    "v01_lineage_blob":"524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "native_result_type":"QualifiedAOE0ExecutionResult",
+    "factory_verifier":"is_factory_attested_ao_e0_execution_result"
+  },
+  "artifacts":{
+    "owner02_contract_blob":"6958ab2db43bfe5b9ffb7619f6bf956f641ea22e",
+    "frozen_breakers_blob":"e21dfa210a68250aa2fc7638e730704696d1695b",
+    "final_owner02_tests_blob":"b2771896877a8bb7ba3d5dcd63371d28ded890e6",
+    "legacy_test_supersession_blob":"b439bf1707c0c2e01bd732129058bf48216f4341",
+    "test_harness_correction_blob":"01256258b8e7f6517722c6bc504c8d6bf14ba92f",
+    "b11_v02_contract_blob":"28c2c11ebfe8ac0cd44212d5219e2f13a6aeea21",
+    "b11_v02_tests_blob":"183a3ae53e66094469ceb2ca1c1b3165ab6d285e"
+  },
+  "qualification":{
+    "red_run_id":37458885133,
+    "red_job_id":112253150238,
+    "red_result":"40 FAILED / 9 PASSED",
+    "green_attempt_1_run_id":37459723632,
+    "green_attempt_1_job_id":112255981355,
+    "green_attempt_1_result":"47/49 PASS",
+    "final_owner02_run_id":37460012192,
+    "final_owner02_job_id":112256946767,
+    "final_owner02_conclusion":"SUCCESS",
+    "owner02_tests":"49/49 PASS",
+    "legacy_owner_tests":"12/12 PASS",
+    "pipe01_tests":"23/23 PASS",
+    "owner_compile":"PASS",
+    "b11_v02_run_id":37460739090,
+    "b11_v02_job_id":112259376232,
+    "b11_v02_conclusion":"SUCCESS",
+    "b11_v02_tests":"12/12 PASS",
+    "owner02_plus_legacy_rebreak":"61/61 PASS",
+    "b11_pipe01_rebreak":"23/23 PASS"
+  },
+  "protected":{
+    "p1_12d_blob":"fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "producer_blob":"981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "p1_12d_modified":false,
+    "producer_modified":false
+  },
+  "historical_b11":{
+    "v01_closure_receipt":"4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+    "b11_r2_blocker":"6b5efdc1f74adf6f551315f5bb565fa12ad72e89",
+    "b11_r2_receipt":"56f13cdadb625776f67d29a7b8bdc575afd6041c",
+    "rewritten":false
+  },
+  "p0_tier_a_failures":{
+    "owner02_regression":false,
+    "reason":"Ancient-base guards reject nine evidence/berd02/*.bi5 files that already existed at pre-OWNER02 parent b9de9794abfe0e5e885be38f1e0c2dc4e9617091."
+  },
+  "state":{
+    "data01":"HUMAN_ADOPTED_BINDING_FROZEN",
+    "pipe01":"HUMAN_ADOPTED_BINDING_FROZEN",
+    "owner02":"NOT_HUMAN_ADOPTED",
+    "b11_v02_capability":"QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+    "b12":"CLOSED",
+    "exact_forward_instance":"NOT_YET_AVAILABLE",
+    "data01_instance_state":"WAIT_NOT_READY",
+    "strategy_qualified_claim":false
+  },
+  "performance_consumption":{
+    "real_forward_data_read":false,
+    "oos_consumption":false,
+    "pnl_observed":false,
+    "expectancy_observed":false,
+    "ci_observed":false,
+    "qualification_result_observed":false,
+    "real_ao_e0_output":false
+  },
+  "authority":{
+    "owner02_adopted":false,
+    "real_oos_authority":false,
+    "b12_open":false,
+    "forward_data_observation":false,
+    "oos_consumption":false,
+    "real_performance_observation":false,
+    "real_execution":false,
+    "scientific_authority":false,
+    "trading":false,
+    "broker_execution":false,
+    "capital":false
+  },
+  "force":false
+}
