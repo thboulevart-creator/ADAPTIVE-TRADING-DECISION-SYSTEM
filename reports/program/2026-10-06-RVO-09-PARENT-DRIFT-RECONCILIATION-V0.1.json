@@ -1,0 +1,13 @@
+{
+  "schema": "ATDS_RVO_09_PARENT_DRIFT_RECONCILIATION_V0_1",
+  "reference_head": "bda61a9608dcab8c174df65e8e42f7c80e1b9868",
+  "reference_tree": "f1fc6d633c4e001da7777a3b6760cc1612b11289",
+  "observed_head": "63523024c7564a96d7f48afa34c5d2af16f6ec63",
+  "observed_tree": "9d96dd86ee0477d0969f1d9a6a22156075150862",
+  "ahead_by": 9,
+  "behind_by": 0,
+  "classification": "NON_MATERIAL",
+  "changed_scope": "BEPD-04D_PLUS_AO-E0-B8-M06-01",
+  "reason": "Eight additive BEPD-04D governance/report files plus two additive AO-E0 M06 adoption artifacts only; no RVO-08F, P1.12C, AP1, DATA-02, SMF, G05 or RVO-07 owner surface changed.",
+  "force_used": false
+}

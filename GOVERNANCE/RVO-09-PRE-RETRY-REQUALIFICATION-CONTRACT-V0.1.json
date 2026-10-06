@@ -1,0 +1,38 @@
+{
+  "schema": "ATDS_RVO_09_PRE_RETRY_REQUALIFICATION_CONTRACT_V0_1",
+  "status": "FROZEN",
+  "purpose": "Requalify repaired P1.12C/AP1 pre-retry readiness without executing AP1.",
+  "verdicts": ["GO", "NO_GO"],
+  "authorization_reference": {
+    "head": "bda61a9608dcab8c174df65e8e42f7c80e1b9868",
+    "tree": "f1fc6d633c4e001da7777a3b6760cc1612b11289"
+  },
+  "reconciled_parent": {
+    "head": "63523024c7564a96d7f48afa34c5d2af16f6ec63",
+    "tree": "9d96dd86ee0477d0969f1d9a6a22156075150862",
+    "drift_classification": "NON_MATERIAL",
+    "drift_scope": "BEPD-04D_PLUS_AO-E0-B8-M06-01"
+  },
+  "required_repaired_identities": {
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306"
+  },
+  "historical_one_shot": {
+    "required_invocation_count": 1,
+    "reset_forbidden": true
+  },
+  "forbidden": [
+    "REAL_AP1_EXECUTION",
+    "REAL_AP1_RETRY",
+    "REAL_M03_EXECUTION",
+    "REAL_AP0_STATISTICAL_OPEN",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL",
+    "LEDGER_RESET"
+  ]
+}
