@@ -1,0 +1,82 @@
+{
+  "schema": "ATDS_BEPD_04I_REAL_M05_BOOTSTRAP_EXECUTION_QUALIFICATION_RECEIPT_V0_1",
+  "status": "REAL_M05_BOOTSTRAP_EXECUTION_QUALIFIED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "eeb47adc1973435a6aeeb78e5695a987bb460440",
+    "tree": "879e6ad52333ab4bd6b84e905216ac014dcc6f9b"
+  },
+  "bindings": {
+    "pre_result_freeze_blob": "7e8b38648e0d55109068597099cdad3b4355cd4e",
+    "bepd04h_activation_blob": "7f2fd16d7cc636e8d3e3cb23f618deb55407bcf1",
+    "bepd04g_human_adjudication_blob": "47c1cbb109381929840cf66cd04c0695be81e4c1",
+    "harness_blob": "214177ae7a1e68f87d83076673c968f721076b29",
+    "breaker_blob": "7987de3da5b14c96acfbe9e51d788640d04f08aa",
+    "first_execution_workflow_blob": "d6d90cc2bb2a069995a849e88de33b49d4d238c1",
+    "real_result_blob": "5d6e7c7f3a7c3beb1e41b00d5edf58500eade94e",
+    "run_manifest_blob": "2ce84bffa55a5095119e1a5eb3d4fa79ba84d11a",
+    "execution_record_blob": "db999472a23612fbfaefb45be654e40018c9d10a",
+    "independent_recomputation_blob": "88b75ab96f3705f3c2a77acbcfd84f340b14ca3f",
+    "rebreak_workflow_blob": "c5b7d7e1c2ed01d73acf33487fe6df2125404033",
+    "deterministic_replay_blob": "1f544d8cd87d080674eaf62d90c55da16584aff9",
+    "persisted_head_rebreak_blob": "9b14463a1b0b4e3ff8d7c8041233c8f6a98151d0",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "calendar_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "qualified_runtime_blob": "61a996562fe18e0e2efd6f16db27a48738e60421",
+    "independent_reference_blob": "e4ad2b642265889455e33f23ead3c5b57c1a7eae"
+  },
+  "first_real_execution": {
+    "workflow_run_id": 37437816200,
+    "execution_head": "8a7a80cc15e0c93bb75e5c67ba8ef4010eb54e95",
+    "execution_tree": "380ca933ee26c5ea054e8fb793dbfb2f1d7521a9",
+    "bepd04i_run_id": "98441236904c7a1f81dd89a5070c222856de42725c10f3477c01990fe366f86e",
+    "result_sha256": "4dcd3ec589d3d6c063b51465701393189bd31d145e24f51984cbda0492e218ee",
+    "execution_count": "ONE_CANONICAL_REAL_EXECUTION"
+  },
+  "result": {
+    "historical_event_count": 472,
+    "historical_success_count": 370,
+    "historical_point_estimate": "0.78389830508474578",
+    "bootstrap_replications": 200000,
+    "block_length_complete_target_weeks": 13,
+    "seed": 40420261006,
+    "confidence_level": "0.99",
+    "interval_method": "PERCENTILE",
+    "lower_quantile": "0.005",
+    "upper_quantile": "0.995",
+    "percentile_lower_bound": "0.72631567604355718",
+    "percentile_upper_bound": "0.8438177874186551",
+    "interval_width": "0.11750211137509792",
+    "minimum_replicate_statistic": "0.67590618336886998",
+    "maximum_replicate_statistic": "0.88372093023255816",
+    "replicate_sequence_digest_sha256": "e6b5015ece918651cb7c67d79996c936a56ab2934c98c5252877b5156435d8be",
+    "sorted_distribution_digest_sha256": "3eaa0a58c3d48bbf4475ec5303b83a9ce8dab5f057f9b07c624d5a0b1706a41b"
+  },
+  "qualification_evidence": {
+    "pre_result_bindings": "PASS",
+    "bepd04i_breaker": "28/28 HARD_FAIL PASS",
+    "bepd04e_breaker": "26/26 HARD_FAIL PASS",
+    "primary_reference_point_parity": "PASS",
+    "primary_reference_lower_parity": "PASS",
+    "primary_reference_upper_parity": "PASS",
+    "independent_recomputation": "PASS",
+    "deterministic_replay": "PASS",
+    "distribution_digest_replay": "PASS",
+    "result_sha256_replay": "PASS",
+    "persisted_head_rebreak": "PASS",
+    "authority_boundary": "PASS"
+  },
+  "authority_boundary": {
+    "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+    "result_human_adopted": false,
+    "generalization_established": false,
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "next_step": "HUMAN_ADJUDICATION_OF_REAL_M05_BOOTSTRAP_RESULT",
+  "next_frontier_opened": false
+}
