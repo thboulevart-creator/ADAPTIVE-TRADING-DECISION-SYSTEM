@@ -1,0 +1,71 @@
+{
+  "schema": "ATDS_BEPD_04D_RESPONSE_NONSTATIONARITY_GATE_CONTRACT_V0_1",
+  "status": "DEFINED_NOT_EXECUTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "ac857c4241036b22f518b5d32cac2572e3a37dbc",
+    "tree": "f934d758ab7ee4b1734586003864127fd4189775"
+  },
+  "bindings": {
+    "bepd04d_claim_contract_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "m09_classification_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "dependence_requirement_map_blob": "c26c6c10894efe5ed068c1a429353b69074435d5",
+    "smf03_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87"
+  },
+  "execution": "NOT_AUTHORIZED_IN_BEPD_04D",
+  "future_input_contract": {
+    "ordered_axis": "complete target_week_id calendar order",
+    "cluster_unit": "one complete target week",
+    "cluster_payload": "all qualified EVENT_LEDGER rows for that target_week_id; zero-event weeks represented explicitly",
+    "outcome": "same_week_reintegration",
+    "real_values_access_in_bepd04d": false
+  },
+  "admissible_future_diagnostics": [
+    {
+      "method_family": "M04",
+      "role": "serial-dependence diagnostic on a prospectively defined cluster-level response series",
+      "limitations": [
+        "cannot prove independence",
+        "lags must be explicit",
+        "absolute threshold must be explicit",
+        "structural dependence evidence remains independent"
+      ]
+    },
+    {
+      "method_family": "M10",
+      "role": "descriptive stability diagnostic across prospectively declared contiguous temporal strata",
+      "limitations": [
+        "strata must be predeclared",
+        "minimum n per stratum explicit",
+        "maximum allowed response-mean spread explicit",
+        "post-hoc strata forbidden"
+      ]
+    }
+  ],
+  "gate_states": [
+    "NONSTATIONARITY_NOT_MATERIALLY_DETECTED",
+    "NONSTATIONARITY_MATERIALLY_DETECTED",
+    "NONSTATIONARITY_UNRESOLVED"
+  ],
+  "decision_rule_contract": {
+    "not_materially_detected": "allowed only when all predeclared diagnostics are executable, sufficiently sampled, within human-adjudicated thresholds, mutually non-conflicting, and no structural red flag remains unresolved",
+    "materially_detected": "returned when any predeclared materiality criterion is exceeded or a preregistered structural drift criterion is triggered",
+    "unresolved": "returned when parameters are missing, samples are insufficient, diagnostics conflict, required identities are missing, or the gate cannot distinguish material drift prospectively"
+  },
+  "human_parameters_required_before_future_execution": [
+    "M04 lags",
+    "M04 absolute dependence threshold",
+    "temporal stratum construction rule for M10",
+    "M10 minimum n per stratum",
+    "M10 maximum allowed response-mean spread",
+    "policy for conflicting diagnostics",
+    "policy for empty target weeks in each diagnostic"
+  ],
+  "downstream_effect": {
+    "NONSTATIONARITY_NOT_MATERIALLY_DETECTED": "may permit a separately authorized response-specific M05 activation review; does not itself activate M05",
+    "NONSTATIONARITY_MATERIALLY_DETECTED": "blocks global moving-block generalization interval under current claim",
+    "NONSTATIONARITY_UNRESOLVED": "blocks global moving-block generalization interval under current claim"
+  }
+}
