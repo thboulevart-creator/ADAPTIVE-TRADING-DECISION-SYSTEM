@@ -1,0 +1,174 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_EF_01_ADJUDICATION_RECEIPT_V0_1",
+  "status": "EVIDENCE_SUFFICIENT_EXECUTION_QUALIFIED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "evidence_parent": {
+    "head": "b8d68be55f795b152b4cffa2e8e7405a6e41b1bc",
+    "tree": "ad8ad7498051e06a6fdfa7f1f84f5697576f322b"
+  },
+  "authorization_reference": {
+    "head": "d19b59c321b661f9f3af4effe31b46e59d73d86e",
+    "tree": "5be806fd1640c349db05b0689d81fca20c566295"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "changed_scopes": [
+      "AO-E0-B8",
+      "BEPD-04I"
+    ],
+    "protected_evidence_unchanged": true
+  },
+  "forensic_artifacts": {
+    "contract_blob": "1f4179e64b3dca3473a8fb390e18bd51d35b4f90",
+    "controller_probes_blob": "832c4b08c20ec8206121538b211c013a4c4f0a85",
+    "control_flow_probes_blob": "02d7df2db4c2cca59d66792e5892a26a25f4d457",
+    "control_flow_analysis_blob": "359c26ee57ea346e890cc5d1c43d3fb2cbcdb626"
+  },
+  "historical_evidence": {
+    "blocked_receipt_blob": "187a8fe8fc5315fe73365aed392e23e3d932e9d7",
+    "r1_plan_blob": "6849e42aef724fa7643fc70715a206632024bd54",
+    "r1_freeze_blob": "7a8d5bab32d2317ab55006151bac99c936e473ed",
+    "bootstrap_blob": "d510d01eb92f36a458b30a6bb0d3371914d8ee03",
+    "executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+  },
+  "execution_evidence": {
+    "output_schema": "ATDS_SMF_AP1_M03_02_REAL_EXECUTION_V0_1",
+    "output_status": "M03_REAL_EXECUTION_COMPLETE",
+    "output_bytes": 1390634,
+    "output_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "stdout_bytes": 229,
+    "stdout_sha256": "19a951452687588a877cda25a170992479dccd1a2cc87c6d8c3e196237e6f0c3",
+    "stdout_material": [
+      "M03_EXIT_STATUS=M03_REAL_EXECUTION_COMPLETE",
+      "PARITY_STATUS=PASS",
+      "OUTPUT_SHA256=7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e"
+    ],
+    "stderr_bytes": 0,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "timeout_observed": false,
+    "direct_exit_code_observation": "UNAVAILABLE",
+    "direct_exit_code_value": null
+  },
+  "parity": {
+    "overall": "PASS",
+    "pass_count": 1925,
+    "fail_count": 0,
+    "not_comparable_count": 165,
+    "max_abs_diff": 0
+  },
+  "control_flow": {
+    "executor_success_path": "PROVEN",
+    "pass_path_semantic_return_code": 0,
+    "fail_path_semantic_return_code": 3,
+    "exception_path_semantic_return_code": 2,
+    "bootstrap_systemexit_propagation": "PROVEN_0_2_3_UNCHANGED",
+    "controller_capture_defect": "PROVEN",
+    "controller_historical_pattern_results": {
+      "exit_0": null,
+      "exit_2": null,
+      "exit_3": null
+    },
+    "corrected_wait_passthru_results": {
+      "exit_0": 0,
+      "exit_2": 2,
+      "exit_3": 3
+    }
+  },
+  "sufficiency_conditions": [
+    {
+      "id": 1,
+      "status": "PASS",
+      "condition": "exact output identity MATCH"
+    },
+    {
+      "id": 2,
+      "status": "PASS",
+      "condition": "output schema/status M03_REAL_EXECUTION_COMPLETE"
+    },
+    {
+      "id": 3,
+      "status": "PASS",
+      "condition": "exact stdout identity MATCH"
+    },
+    {
+      "id": 4,
+      "status": "PASS",
+      "condition": "stderr EMPTY"
+    },
+    {
+      "id": 5,
+      "status": "PASS",
+      "condition": "timeout FALSE"
+    },
+    {
+      "id": 6,
+      "status": "PASS",
+      "condition": "real parity PASS"
+    },
+    {
+      "id": 7,
+      "status": "PASS",
+      "condition": "parity fail count 0"
+    },
+    {
+      "id": 8,
+      "status": "PASS",
+      "condition": "max absolute parity difference 0.0"
+    },
+    {
+      "id": 9,
+      "status": "PASS",
+      "condition": "exact executor control flow proves COMPLETE + PARITY PASS reaches semantic success return 0"
+    },
+    {
+      "id": 10,
+      "status": "PASS",
+      "condition": "bootstrap SystemExit propagation semantics proven"
+    },
+    {
+      "id": 11,
+      "status": "PASS",
+      "condition": "controller exit-code capture defect independently reproduced synthetically"
+    },
+    {
+      "id": 12,
+      "status": "PASS",
+      "condition": "no materially plausible program-level failed-execution path remains consistent with all observed evidence"
+    }
+  ],
+  "root_cause": {
+    "classification": "CONTROLLER_EXIT_CODE_CAPTURE_DEFECT",
+    "statement": "On the observed Windows PowerShell environment, the historical Start-Process -PassThru + Wait-Process -Id + Refresh + ExitCode pattern returned null for synthetic child exits 0, 2, and 3; therefore its null result is non-discriminating. Start-Process -Wait -PassThru captured 0, 2, and 3 correctly."
+  },
+  "adjudication": {
+    "verdict": "EVIDENCE_SUFFICIENT_EXECUTION_QUALIFIED",
+    "direct_exit_code_observation": "UNAVAILABLE",
+    "execution_success": "QUALIFIED_BY_INDEPENDENT_CONVERGENT_EXECUTION_EVIDENCE",
+    "observed_exit_code_fabricated": false,
+    "r1_execution_status": "QUALIFIED",
+    "real_m03_output": "QUALIFIED",
+    "real_parity": "PASS",
+    "scientific_interpretation": "NOT_YET_ADOPTED"
+  },
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "boundaries": {
+    "additional_real_m03": false,
+    "second_r1_retry": false,
+    "ap1": false,
+    "backtest": false,
+    "new_oos": false,
+    "paper": false,
+    "broker_live": false,
+    "capital": false
+  },
+  "next_frontier": "SMF-AP1-M03-02-R1-SI-01 — EXISTING QUALIFIED M03 RESULT → BOUNDED SCIENTIFIC INTERPRETATION → HUMAN SCIENTIFIC ADJUDICATION CANDIDATE",
+  "stop": true
+}
