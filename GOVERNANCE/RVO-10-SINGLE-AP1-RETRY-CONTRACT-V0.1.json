@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_RVO_10_SINGLE_AP1_RETRY_CONTRACT_V0_1",
+  "status": "FROZEN",
+  "purpose": "Authorize exactly one AP1 retry invocation after RVO-09 PRE_RETRY_READINESS_GO.",
+  "authorization_reference": {
+    "head": "68d079b1a4f4e3965ebe60b84bbc7c1bc088801b",
+    "tree": "b17282fe476c19bad4221a5aff2e798ed370ebce"
+  },
+  "observed_preflight_parent": {
+    "head": "2cee7162d7e2050b845fb56c6713d4af9e5b3d8a",
+    "tree": "d595e1bde3735ef9e5f81123ece5f0bee29a77c1",
+    "drift_classification": "NON_MATERIAL",
+    "drift_scope": "AO-E0-B8-M06-02_PLUS_BEPD-04E"
+  },
+  "claim": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR",
+  "semantics": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+  "producer": {
+    "id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "path": "tools/ap1_intraday_spread_census.py",
+    "blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+  },
+  "dataset": {
+    "identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "expected_parquet_files": 61
+  },
+  "invocation_profile": {
+    "id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "python_flags": ["-E", "-P"]
+  },
+  "runtime_lock": {
+    "id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "timeout_seconds": 3600
+  },
+  "invocation_budget": {
+    "historical_real_ap1_invocations": 1,
+    "retry_invocations_authorized": 1,
+    "total_ordinal_after_retry": 2,
+    "automatic_retry": false,
+    "third_invocation_authorized": false
+  },
+  "freeze_rule": {
+    "byte_exact_git_persistence_before_invocation": true,
+    "execution_head_tree_bound_before_persistence": true,
+    "only_allowed_branch_delta_before_invocation": "GOVERNANCE/RVO-10-PRE-RESULT-EXECUTION-FREEZE-V0.1.json"
+  },
+  "authority": {
+    "retry": true,
+    "m03": false,
+    "scientific": false,
+    "trading": false,
+    "capital": false
+  },
+  "forbidden": [
+    "SECOND_RETRY",
+    "THIRD_TOTAL_AP1_INVOCATION",
+    "AUTOMATIC_RETRY",
+    "M03_REAL_EXECUTION",
+    "SCIENTIFIC_FINDING_PROMOTION",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL",
+    "RVO08_LEDGER_RESET"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "ATDS_RVO_10_PARENT_DRIFT_RECONCILIATION_V0_1",
+  "reference_head": "68d079b1a4f4e3965ebe60b84bbc7c1bc088801b",
+  "reference_tree": "b17282fe476c19bad4221a5aff2e798ed370ebce",
+  "observed_head": "2cee7162d7e2050b845fb56c6713d4af9e5b3d8a",
+  "observed_tree": "d595e1bde3735ef9e5f81123ece5f0bee29a77c1",
+  "ahead_by": 14,
+  "behind_by": 0,
+  "classification": "NON_MATERIAL",
+  "changed_scopes": ["AO-E0-B8-M06-02", "BEPD-04E"],
+  "reason": "Only additive AO-E0-B8-M06-02 and BEPD-04E files changed. RVO-09, RVO-08F, DATA-02, P1.12C, AP1 producer, sandbox runner and SMF owner blobs remained byte-identical.",
+  "rvo09_fresh_revalidation_sha256": "f3e4c46e840acc48f14cbbfcbd30ba3202871bcbdfb9ca3cdd11438ab90d3a36",
+  "force_used": false
+}
