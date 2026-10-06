@@ -1,8 +1,9 @@
-"""AO-E0/CC05 exact native owner extension over the qualified P1-21 capability pattern.
+"""AO-E0/CC05 native owner V0.2.
 
-No real AO-E0 execution is authorized here. This module only qualifies the
-pre-execution owner profile, exact bindings, runtime-lock capability, native
-result type, and synthetic rebreak attestation.
+Preserves the historical synthetic/pre-execution path and adds a separately
+gated real-OOS capability surface. The real path composes the human-adopted
+PIPE-01 controller semantics, produces no authority by itself, and exposes no
+performance-bearing values before a terminal package identity exists.
 """
 from __future__ import annotations
 
@@ -12,13 +13,29 @@ import json
 import weakref
 
 from src import p1_12c_qualified_producer_execution as p121
+from src import ao_e0_b12_consumption_controller as pipe01
 from src.qualified_experiment_execution_input import (
     QualifiedExperimentExecutionInput,
     is_factory_attested_qualified_experiment_execution_input,
 )
 
-CONTRACT = "P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_1"
+V01_CONTRACT_ID = "P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_1"
+OWNER02_CONTRACT_ID = "P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_2"
+CONTRACT = OWNER02_CONTRACT_ID
 OWNER_ID = "P1.12C.AO-E0"
+V01_OWNER_BLOB = "524ee6afe0fe2fb49459f70ca4f6612a3bcf2739"
+P1_12D_EXTENSION_BLOB = "fec520916ca07ee6fe7e6029b4ca611519c39bc2"
+DATA01_ADOPTION_BLOB = "63530d627ecbafda3fc160a15a52b27207d48c49"
+DATA01_ADOPTION_RECEIPT = "290065c68a7d37a43d9c80e326575d9eddcfd088"
+PIPE01_ADOPTION_BLOB = "e4a74a20cd8bf386fab21718bf5c621a91bd92e8"
+PIPE01_ADOPTION_RECEIPT = "4ac1555b846ecd205ed1ad682d1fa165e38a9a3d"
+PIPE01_CONTROLLER_BLOB = "e9d37a56e33d66b1c43c0a2ca11e96bb703dac0f"
+B8_CLOSURE_BLOB = "8740bf6255286c3c8d896b6b334d10b78c1899f7"
+DR01_ADOPTION_BLOB = "848e59ac0ef8e56d16322a17bd3f55a0b6e87e45"
+STRATEGY_VERSION_IDENTITY = "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687"
+REAL_OUTPUT_SCHEMA = "ATDS_AO_E0_CC05_REAL_OOS_TERMINAL_EVIDENCE_V0_2"
+REAL_OUTPUT_STATUS = "TERMINAL_EVIDENCE_PACKAGE_READY"
+INTERMEDIATE_PERFORMANCE_OUTPUT_USER_VISIBLE = False
 CELL_IDENTITY = "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054"
 CLAIM_CLASS = "CC05_ECONOMIC_NET_PROFITABILITY"
 PRODUCER_ID = "ATDS_AO_E0_CC05_E1_NATIVE_EXECUTION_V0_1"
@@ -213,6 +230,68 @@ class QualifiedAOE0ExecutionPlan:
 
 
 @dataclass(frozen=True, slots=True, weakref_slot=True)
+class QualifiedAOE0RealExecutionPlan:
+    ao_e0_real_plan_id: str
+    ao_e0_real_plan_digest: str
+    experiment_execution_input_id: str
+    execution_binding_id: str
+    experiment_spec_id: str
+    request_id: str
+    revision_id: str
+    audit_id: str
+    scope_id: str
+    cell_identity: str
+    strategy_version_identity: str
+    claim_class: str
+    data_binding_digest: str
+    temporal_binding_digest: str
+    execution_model_identity: str
+    cost_scope_identity: str
+    producer_id: str
+    producer_code_blob: str
+    invocation_profile_digest: str
+    runtime_lock_digest: str
+    semantic_parameter_digest: str
+    owner_lineage_blob: str
+    p1_12d_blob: str
+    b8_closure_blob: str
+    data01_adoption_blob: str
+    data01_adoption_receipt: str
+    pipe01_adoption_blob: str
+    pipe01_adoption_receipt: str
+    pipe01_controller_blob: str
+    dr01_adoption_blob: str
+    b12_human_opening_receipt_blob: str
+    forward_instance_digest: str
+    pipe01_authorized_state: str
+    pipe01_authorized_state_digest: str
+    expected_output_schema: str
+    expected_output_status: str
+    result_exposed: bool
+    oos_capability: bool
+    execution_authority: bool
+    scientific_authority: bool
+    trading_authority: bool
+    capital_authority: bool
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
+class QualifiedAOE0ConsumptionToken:
+    consumption_token_id: str
+    real_plan_digest: str
+    experiment_execution_input_id: str
+    execution_binding_id: str
+    forward_instance_digest: str
+    b12_human_opening_receipt_blob: str
+    consumption_state: str
+    performance_bearing_read_count: int
+    independent_confirmation_eligible: bool
+    scientific_authority: bool
+    trading_authority: bool
+    capital_authority: bool
+
+
+@dataclass(frozen=True, slots=True, weakref_slot=True)
 class QualifiedAOE0ExecutionResult:
     ao_e0_execution_result_id: str
     ao_e0_execution_plan_digest: str
@@ -247,7 +326,10 @@ class QualifiedAOE0ExecutionResult:
 _attest_profile, is_factory_attested_ao_e0_profile = _build_attestation_api(AOE0ProducerInvocationProfile, "PROFILE")
 _attest_runtime, is_factory_attested_ao_e0_runtime = _build_attestation_api(AOE0ProducerRuntimeLock, "RUNTIME")
 _attest_plan, is_factory_attested_ao_e0_plan = _build_attestation_api(QualifiedAOE0ExecutionPlan, "PLAN")
-_attest_result, is_factory_attested_ao_e0_execution_result = _build_attestation_api(QualifiedAOE0ExecutionResult, "RESULT")
+_attest_real_plan_raw, is_factory_attested_ao_e0_real_plan = _build_attestation_api(QualifiedAOE0RealExecutionPlan, "REAL_PLAN")
+_attest_consumption_token_raw, is_factory_attested_ao_e0_consumption_token = _build_attestation_api(QualifiedAOE0ConsumptionToken, "CONSUMPTION_TOKEN")
+_result_attest_raw, is_factory_attested_ao_e0_execution_result = _build_attestation_api(QualifiedAOE0ExecutionResult, "RESULT")
+_consumed_real_plan_digests: set[str] = set()
 
 
 _ATTACKS = {
@@ -423,7 +505,7 @@ def _check_plan_input(plan, qualified_input):
             raise AOE0P1OwnerBlocked("BLOCKED_EXPERIMENT_INPUT_MISMATCH")
 
 
-def attest_synthetic_ao_e0_result(plan, qualified_input, output: dict):
+def attest_synthetic_ao_e0_result(plan, qualified_input, output: dict, _native_attest=_result_attest_raw):
     _check_plan_input(plan, qualified_input)
     required = {
         "schema","status","producer_id","cell_identity","claim_class",
@@ -474,4 +556,260 @@ def attest_synthetic_ao_e0_result(plan, qualified_input, output: dict):
         "capital_authority": False,
     }
     digest = _digest({"contract": CONTRACT, "result": values})
-    return _attest_result(ao_e0_execution_result_id="AOE0-QER-" + digest[:32], **values)
+    return _native_attest(ao_e0_execution_result_id="AOE0-QER-" + digest[:32], **values)
+
+
+def _check_real_plan_input(plan, qualified_input):
+    if not is_factory_attested_ao_e0_real_plan(plan):
+        raise AOE0P1OwnerBlocked("BLOCKED_UNATTESTED_REAL_PLAN")
+    if type(qualified_input) is not QualifiedExperimentExecutionInput or not is_factory_attested_qualified_experiment_execution_input(qualified_input):
+        raise AOE0P1OwnerBlocked("BLOCKED_EXPERIMENT_INPUT_ATTESTATION")
+    for name in ("experiment_execution_input_id","execution_binding_id","experiment_spec_id","request_id","revision_id","audit_id","scope_id"):
+        if getattr(plan, name) != getattr(qualified_input, name):
+            raise AOE0P1OwnerBlocked("BLOCKED_EXPERIMENT_INPUT_MISMATCH")
+
+
+def qualify_ao_e0_real_plan(
+    qualified_input,
+    *,
+    profile,
+    runtime_lock,
+    b8_closed: bool,
+    b8_closure_blob: str,
+    data01_adoption_blob: str,
+    data01_adoption_receipt: str,
+    pipe01_adoption_blob: str,
+    pipe01_adoption_receipt: str,
+    pipe01_controller_blob: str,
+    b12_open: bool,
+    b12_human_opening_receipt_blob: str,
+    forward_instance_digest: str,
+    cell_identity: str,
+    strategy_version_identity: str,
+    dr01_adoption_blob: str,
+    owner_lineage_blob: str,
+    p1_12d_blob: str,
+    producer_code_blob: str,
+    result_preexposed: bool = False,
+    owner_selection_after_result: bool = False,
+    parameter_selection_after_result: bool = False,
+    _native_attest=_attest_real_plan_raw,
+):
+    if type(qualified_input) is not QualifiedExperimentExecutionInput or not is_factory_attested_qualified_experiment_execution_input(qualified_input):
+        raise AOE0P1OwnerBlocked("BLOCKED_EXPERIMENT_INPUT_ATTESTATION")
+    if not is_factory_attested_ao_e0_profile(profile):
+        raise AOE0P1OwnerBlocked("BLOCKED_INVOCATION_PROFILE_DRIFT")
+    if not is_factory_attested_ao_e0_runtime(runtime_lock):
+        raise AOE0P1OwnerBlocked("BLOCKED_RUNTIME_LOCK_DRIFT")
+    if runtime_lock.invocation_profile_digest != profile.invocation_profile_digest:
+        raise AOE0P1OwnerBlocked("BLOCKED_INVOCATION_PROFILE_DRIFT")
+    if owner_selection_after_result:
+        raise AOE0P1OwnerBlocked("BLOCKED_POST_RESULT_OWNER_SELECTION")
+    if parameter_selection_after_result:
+        raise AOE0P1OwnerBlocked("BLOCKED_POST_RESULT_PARAMETER_SELECTION")
+    if b8_closure_blob != B8_CLOSURE_BLOB:
+        raise AOE0P1OwnerBlocked("BLOCKED_B8_BINDING_MISMATCH")
+    if data01_adoption_blob != DATA01_ADOPTION_BLOB or data01_adoption_receipt != DATA01_ADOPTION_RECEIPT:
+        raise AOE0P1OwnerBlocked("BLOCKED_DATA01_BINDING_MISMATCH")
+    if pipe01_adoption_blob != PIPE01_ADOPTION_BLOB or pipe01_adoption_receipt != PIPE01_ADOPTION_RECEIPT:
+        raise AOE0P1OwnerBlocked("BLOCKED_PIPE01_BINDING_MISMATCH")
+    if pipe01_controller_blob != PIPE01_CONTROLLER_BLOB:
+        raise AOE0P1OwnerBlocked("BLOCKED_PIPE01_CONTROLLER_MISMATCH")
+    if dr01_adoption_blob != DR01_ADOPTION_BLOB:
+        raise AOE0P1OwnerBlocked("BLOCKED_DR01_BINDING_MISMATCH")
+    if owner_lineage_blob != V01_OWNER_BLOB:
+        raise AOE0P1OwnerBlocked("BLOCKED_OWNER_LINEAGE_MISMATCH")
+    if p1_12d_blob != P1_12D_EXTENSION_BLOB:
+        raise AOE0P1OwnerBlocked("BLOCKED_P1_12D_BINDING_MISMATCH")
+    if producer_code_blob != PRODUCER_BLOB or profile.producer_code_blob != PRODUCER_BLOB:
+        raise AOE0P1OwnerBlocked("BLOCKED_PRODUCER_CODE_DRIFT")
+    if cell_identity != CELL_IDENTITY:
+        raise AOE0P1OwnerBlocked("BLOCKED_CELL_IDENTITY_MISMATCH")
+    if strategy_version_identity != STRATEGY_VERSION_IDENTITY:
+        raise AOE0P1OwnerBlocked("BLOCKED_STRATEGY_VERSION_MISMATCH")
+    if result_preexposed:
+        raise AOE0P1OwnerBlocked("BLOCKED_RESULT_PREEXPOSED")
+
+    gate = pipe01.Gate(
+        b8_closed=b8_closed,
+        b12_open=b12_open,
+        b12_human_opening_receipt_blob=b12_human_opening_receipt_blob,
+        forward_instance_digest=forward_instance_digest,
+        cell_identity=cell_identity,
+        strategy_version_identity=strategy_version_identity,
+        dr01_adoption_blob=dr01_adoption_blob,
+        base_owner_blob=owner_lineage_blob,
+        base_p1_12d_extension_blob=p1_12d_blob,
+        result_preexposed=result_preexposed,
+    )
+    authorized = pipe01.authorize(pipe01.ConsumptionState(), gate)
+    if authorized.state != "AUTHORIZED_PENDING_READ":
+        raise AOE0P1OwnerBlocked("BLOCKED_PIPE01_GATE_INTEGRATION")
+    state_digest = _digest(asdict(authorized))
+    data_digest = _digest({
+        "data01_adoption_receipt": data01_adoption_receipt,
+        "forward_instance_digest": forward_instance_digest,
+    })
+    temporal_digest = _digest({
+        "data01_adoption_receipt": data01_adoption_receipt,
+        "first_forward_evidence_decision_time": "2026-10-06T11:00:00Z",
+        "terminal_rule": "FIRST_GOVERNED_DECISION_BOUNDARY_AT_OR_AFTER_58927_ADMISSIBLE_CLOSED_FORWARD_TRADES",
+        "forward_instance_digest": forward_instance_digest,
+    })
+    values = {
+        "experiment_execution_input_id": qualified_input.experiment_execution_input_id,
+        "execution_binding_id": qualified_input.execution_binding_id,
+        "experiment_spec_id": qualified_input.experiment_spec_id,
+        "request_id": qualified_input.request_id,
+        "revision_id": qualified_input.revision_id,
+        "audit_id": qualified_input.audit_id,
+        "scope_id": qualified_input.scope_id,
+        "cell_identity": CELL_IDENTITY,
+        "strategy_version_identity": STRATEGY_VERSION_IDENTITY,
+        "claim_class": CLAIM_CLASS,
+        "data_binding_digest": data_digest,
+        "temporal_binding_digest": temporal_digest,
+        "execution_model_identity": EXECUTION_MODEL_IDENTITY,
+        "cost_scope_identity": COST_SCOPE_IDENTITY,
+        "producer_id": PRODUCER_ID,
+        "producer_code_blob": PRODUCER_BLOB,
+        "invocation_profile_digest": profile.invocation_profile_digest,
+        "runtime_lock_digest": runtime_lock.runtime_lock_digest,
+        "semantic_parameter_digest": SEMANTIC_PARAMETER_DIGEST,
+        "owner_lineage_blob": V01_OWNER_BLOB,
+        "p1_12d_blob": P1_12D_EXTENSION_BLOB,
+        "b8_closure_blob": B8_CLOSURE_BLOB,
+        "data01_adoption_blob": DATA01_ADOPTION_BLOB,
+        "data01_adoption_receipt": DATA01_ADOPTION_RECEIPT,
+        "pipe01_adoption_blob": PIPE01_ADOPTION_BLOB,
+        "pipe01_adoption_receipt": PIPE01_ADOPTION_RECEIPT,
+        "pipe01_controller_blob": PIPE01_CONTROLLER_BLOB,
+        "dr01_adoption_blob": DR01_ADOPTION_BLOB,
+        "b12_human_opening_receipt_blob": authorized.human_opening_receipt_blob,
+        "forward_instance_digest": authorized.forward_instance_digest,
+        "pipe01_authorized_state": authorized.state,
+        "pipe01_authorized_state_digest": state_digest,
+        "expected_output_schema": REAL_OUTPUT_SCHEMA,
+        "expected_output_status": REAL_OUTPUT_STATUS,
+        "result_exposed": False,
+        "oos_capability": True,
+        "execution_authority": False,
+        "scientific_authority": False,
+        "trading_authority": False,
+        "capital_authority": False,
+    }
+    digest = _digest({"contract": OWNER02_CONTRACT_ID, "real_plan": values})
+    return _native_attest(
+        ao_e0_real_plan_id="AOE0-REAL-QEP-" + digest[:32],
+        ao_e0_real_plan_digest=digest,
+        **values,
+    )
+
+
+def attest_ao_e0_first_performance_read(
+    real_plan,
+    qualified_input,
+    _token_attest=_attest_consumption_token_raw,
+):
+    _check_real_plan_input(real_plan, qualified_input)
+    if real_plan.ao_e0_real_plan_digest in _consumed_real_plan_digests:
+        raise AOE0P1OwnerBlocked("BLOCKED_FIRST_READ_ALREADY_OCCURRED")
+    if real_plan.pipe01_authorized_state != "AUTHORIZED_PENDING_READ":
+        raise AOE0P1OwnerBlocked("BLOCKED_PIPE01_GATE_INTEGRATION")
+    authorized = pipe01.ConsumptionState(
+        state="AUTHORIZED_PENDING_READ",
+        forward_instance_digest=real_plan.forward_instance_digest,
+        human_opening_receipt_blob=real_plan.b12_human_opening_receipt_blob,
+        performance_bearing_read_count=0,
+        independent_confirmation_eligible=True,
+    )
+    consumed = pipe01.first_performance_bearing_read(authorized)
+    _consumed_real_plan_digests.add(real_plan.ao_e0_real_plan_digest)
+    values = {
+        "real_plan_digest": real_plan.ao_e0_real_plan_digest,
+        "experiment_execution_input_id": real_plan.experiment_execution_input_id,
+        "execution_binding_id": real_plan.execution_binding_id,
+        "forward_instance_digest": real_plan.forward_instance_digest,
+        "b12_human_opening_receipt_blob": real_plan.b12_human_opening_receipt_blob,
+        "consumption_state": consumed.state,
+        "performance_bearing_read_count": consumed.performance_bearing_read_count,
+        "independent_confirmation_eligible": consumed.independent_confirmation_eligible,
+        "scientific_authority": False,
+        "trading_authority": False,
+        "capital_authority": False,
+    }
+    digest = _digest({"contract": OWNER02_CONTRACT_ID, "consumption_token": values})
+    return _token_attest(consumption_token_id="AOE0-CONSUME-" + digest[:32], **values)
+
+
+def attest_real_ao_e0_result(
+    real_plan,
+    consumption_token,
+    qualified_input,
+    *,
+    terminal_package_digest: str,
+    _native_attest=_result_attest_raw,
+):
+    _check_real_plan_input(real_plan, qualified_input)
+    if not is_factory_attested_ao_e0_consumption_token(consumption_token):
+        raise AOE0P1OwnerBlocked("BLOCKED_CONSUMPTION_TOKEN_ATTESTATION")
+    if consumption_token.real_plan_digest != real_plan.ao_e0_real_plan_digest:
+        raise AOE0P1OwnerBlocked("BLOCKED_CONSUMPTION_PLAN_MISMATCH")
+    if consumption_token.experiment_execution_input_id != real_plan.experiment_execution_input_id:
+        raise AOE0P1OwnerBlocked("BLOCKED_EXPERIMENT_INPUT_MISMATCH")
+    if consumption_token.consumption_state != "CONSUMED_EXPOSED" or consumption_token.performance_bearing_read_count != 1:
+        raise AOE0P1OwnerBlocked("BLOCKED_FIRST_PERFORMANCE_READ_REQUIRED")
+    if consumption_token.forward_instance_digest != real_plan.forward_instance_digest:
+        raise AOE0P1OwnerBlocked("BLOCKED_FORWARD_INSTANCE_BINDING_MISMATCH")
+    if consumption_token.b12_human_opening_receipt_blob != real_plan.b12_human_opening_receipt_blob:
+        raise AOE0P1OwnerBlocked("BLOCKED_B12_RECEIPT_BINDING_MISMATCH")
+    if not _sha64(terminal_package_digest):
+        raise AOE0P1OwnerBlocked("BLOCKED_TERMINAL_PACKAGE_DIGEST")
+    consumed = pipe01.ConsumptionState(
+        state="CONSUMED_EXPOSED",
+        forward_instance_digest=real_plan.forward_instance_digest,
+        human_opening_receipt_blob=real_plan.b12_human_opening_receipt_blob,
+        performance_bearing_read_count=1,
+        independent_confirmation_eligible=False,
+    )
+    terminal = pipe01.terminal_package_ready(consumed, terminal_package_digest)
+    if terminal.state != "TERMINAL_PACKAGE_READY":
+        raise AOE0P1OwnerBlocked("BLOCKED_TERMINAL_PACKAGE_STATE")
+    values = {
+        "ao_e0_execution_plan_digest": real_plan.ao_e0_real_plan_digest,
+        "experiment_execution_input_id": real_plan.experiment_execution_input_id,
+        "execution_binding_id": real_plan.execution_binding_id,
+        "experiment_spec_id": real_plan.experiment_spec_id,
+        "request_id": real_plan.request_id,
+        "revision_id": real_plan.revision_id,
+        "audit_id": real_plan.audit_id,
+        "scope_id": real_plan.scope_id,
+        "cell_identity": real_plan.cell_identity,
+        "claim_class": real_plan.claim_class,
+        "data_binding_digest": real_plan.data_binding_digest,
+        "temporal_binding_digest": real_plan.temporal_binding_digest,
+        "execution_model_identity": real_plan.execution_model_identity,
+        "cost_scope_identity": real_plan.cost_scope_identity,
+        "producer_id": real_plan.producer_id,
+        "producer_code_blob": real_plan.producer_code_blob,
+        "semantic_parameter_digest": real_plan.semantic_parameter_digest,
+        "invocation_profile_digest": real_plan.invocation_profile_digest,
+        "runtime_lock_digest": real_plan.runtime_lock_digest,
+        "result_content_identity": terminal.terminal_package_digest,
+        "execution_status": "REAL_OOS_TERMINAL_PACKAGE_ATTESTED",
+        "output_schema": REAL_OUTPUT_SCHEMA,
+        "output_status": REAL_OUTPUT_STATUS,
+        "scientific_authority": False,
+        "qualification_decision": False,
+        "trading_authority": False,
+        "capital_authority": False,
+    }
+    digest = _digest({"contract": OWNER02_CONTRACT_ID, "real_result": values})
+    return _native_attest(ao_e0_execution_result_id="AOE0-REAL-QER-" + digest[:32], **values)
+
+
+# Raw attestors are intentionally not module-addressable after public factories
+# capture them as default-argument closures.
+del _attest_real_plan_raw
+del _attest_consumption_token_raw
+del _result_attest_raw
