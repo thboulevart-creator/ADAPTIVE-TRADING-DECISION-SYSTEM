@@ -1,0 +1,77 @@
+{
+  "schema": "ATDS_BEPD_04D_RESPONSE_GENERALIZATION_METHOD_ELIGIBILITY_MATRIX_V0_1",
+  "status": "READINESS_MATRIX",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "600b2e9c1b9c3fc4e7a30fc333e85507af17eacd",
+    "tree": "fa6c6ae2be4abf0237f1df79671dda1efa07deca"
+  },
+  "bindings": {
+    "claim_contract_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "m09_classification_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "dependence_map_blob": "c26c6c10894efe5ed068c1a429353b69074435d5",
+    "nonstationarity_gate_blob": "fedb12d532f1e68ee9405d05931a2a0d22672983"
+  },
+  "methods": [
+    {
+      "method": "M04",
+      "status": "CONDITIONALLY_ELIGIBLE_DIAGNOSTIC_ONLY",
+      "role": "future serial-dependence diagnostic for the response-specific nonstationarity gate",
+      "blocks": [
+        "real execution not authorized",
+        "lags not human-adjudicated",
+        "threshold not human-adjudicated"
+      ],
+      "forbidden_claim": "INDEPENDENCE_PROVEN"
+    },
+    {
+      "method": "M05_IID",
+      "status": "INELIGIBLE",
+      "role": "none",
+      "reason": "EVENT != IID OBSERVATION and target-week/sweep-cluster dependence is structural"
+    },
+    {
+      "method": "M05_MOVING_BLOCK",
+      "status": "CONDITIONALLY_ELIGIBLE_NOT_ACTIVATED",
+      "role": "future exploratory generalization-uncertainty method on ordered complete-week blocks using a response-specific ratio-of-sums statistic",
+      "blocks": [
+        "response-specific activation record absent",
+        "nonstationarity gate not executed",
+        "block length not human-adjudicated",
+        "confidence level not human-adjudicated",
+        "interval method not human-adjudicated",
+        "replications not human-adjudicated",
+        "seed not human-adjudicated",
+        "response-specific ratio-of-sums moving-block executable not qualified"
+      ]
+    },
+    {
+      "method": "M09",
+      "status": "REQUIRED_AND_APPLIED",
+      "role": "evidence-state governance",
+      "result": "EXPOSED",
+      "confirmatory_implication": "fresh OOS evidence required for a pristine confirmatory generalization claim"
+    },
+    {
+      "method": "M10",
+      "status": "CONDITIONALLY_ELIGIBLE_DIAGNOSTIC_ONLY",
+      "role": "future predeclared temporal stability diagnostic",
+      "blocks": [
+        "real execution not authorized",
+        "strata not human-adjudicated",
+        "minimum n not human-adjudicated",
+        "spread tolerance not human-adjudicated"
+      ]
+    },
+    {
+      "method": "M11",
+      "status": "NO_RELEVANT_MULTIPLICITY_CONDITIONAL",
+      "role": "single global response-generalization claim only",
+      "condition": "valid only while no subgroup, alternative horizon, alternative response, or multiple inferential claim family is introduced",
+      "scope_expansion_effect": "M11 status must be re-adjudicated before execution"
+    }
+  ],
+  "occurrence_m05_reuse": "FORBIDDEN",
+  "response_specific_m05_activation": "NOT_ACTIVATED"
+}
