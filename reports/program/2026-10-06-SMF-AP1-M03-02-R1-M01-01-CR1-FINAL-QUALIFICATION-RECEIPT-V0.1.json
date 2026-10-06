@@ -1,0 +1,138 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M01_01_CR1_FINAL_QUALIFICATION_RECEIPT_V0_1",
+  "status": "M01_CORRECTIVE_REQUALIFICATION_QUALIFIED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "receipt_parent": {
+    "head": "26e9f268a1ba2909700a41855654e70ac0936740",
+    "tree": "99709a877fb9f97f52b2f474cd00fb3ef77bc84f",
+    "drift_from_corrective_head": "NON_MATERIAL_TO_M01",
+    "changed_scopes": [
+      "AO-E0-P1-OWNER-02-B11-V0.2-HUMAN-ADOPTION",
+      "AO-E0-P1-OWNER-02-B11-V0.2-HUMAN-ADOPTION-RECEIPT"
+    ]
+  },
+  "corrective_qualification_head": {
+    "head": "02a52631eaf05daac2b2d59f9784d161466300ba",
+    "tree": "ff134fd0819d1c6f0c9c709dfa90b7c9c1543694"
+  },
+  "original_m01_contract": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.1.json",
+    "git_blob": "b7dc3ea554a74d6044e989b8017d4795ab4d9778",
+    "git_blob_sha256": "c60acbcb30222018dd6363da148113b5e6decf2df035168eecfa2c95e3f2ca60",
+    "windows_crlf_projection_sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6",
+    "history_action": "PRESERVED_UNCHANGED"
+  },
+  "pre_persistence_local_contract_identity": {
+    "windows_local_sha256": "37d1b18348982ba8a5981e33a31afd5baf7d76ddc32f47acb7b17b102517a26a",
+    "canonical_persisted": false
+  },
+  "corrected_m01_contract": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.2.json",
+    "git_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+    "git_blob_sha256": "90e8be1de734a633030c76eafaac0de2a95048e143584ec522a45b868f565010",
+    "normative_transitions": [
+      "2022->2023",
+      "2023->2024",
+      "2024->2025"
+    ],
+    "encoding_integrity": "QUALIFIED"
+  },
+  "human_materiality_adjudication": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-HUMAN-MATERIALITY-ADJUDICATION-V0.1.json",
+    "git_blob": "a9382bc08f354e9142ccd55308f46c86da3f1af3",
+    "git_blob_sha256": "91fb37bca8e25d1133e4d3859ba10c9f1e227a34390ee359175f5a72d3933b2f",
+    "declared_windows_crlf_projection_sha256": "e0cac00398f515424f9f6db902ce242928a30811212540aded12937f058b7ec3",
+    "mutation": "NONE"
+  },
+  "forensic_findings": {
+    "identity_change_cause": "SECOND_DESERIALIZE_RESERIALIZE_AFTER_INITIAL_HASH_PLUS_THREE_METADATA_FIELDS",
+    "fields_added_after_initial_hash": [
+      "human_materiality_adjudication_path",
+      "human_materiality_adjudication_sha256",
+      "m10_execution_readiness"
+    ],
+    "encoding_defect_cause": "UTF8_ARROW_MOJIBAKE_DURING_SECOND_TEXT_DECODING_RESERIALIZATION",
+    "transport_identity_finding": "PREVIOUS_SHA256_LABELS_FOR_V0_1_AND_HUMAN_ARTIFACT_WERE_WINDOWS_CRLF_PROJECTIONS_NOT_CANONICAL_GIT_BLOB_SHA256",
+    "scientific_semantics_changed": false,
+    "history_rewritten": false
+  },
+  "qualification": {
+    "local_prequalification": {
+      "cr1_targeted": "6/6 PASS",
+      "m01_regression": "5/5 PASS",
+      "si01_regression": "4/4 PASS",
+      "ef01_regression": "4/4 PASS"
+    },
+    "github": {
+      "run_id": 37467309427,
+      "job_id": 112281526294,
+      "head": "02a52631eaf05daac2b2d59f9784d161466300ba",
+      "conclusion": "success",
+      "cr1_targeted_breakers": "success",
+      "m01_regression": "success",
+      "si01_regression": "success",
+      "ef01_regression": "success",
+      "no_m10_execution_surface": "success",
+      "clean_worktree": "success"
+    },
+    "first_failed_cr1_run_preserved": {
+      "run_id": 37466567106,
+      "job_id": 112278976551,
+      "conclusion": "failure",
+      "cause": "HARNESS_ASSUMED_WINDOWS_WORKTREE_SHA256_WAS_CROSS_PLATFORM_CANONICAL_SHA256",
+      "disposition": "CORRECTED_BY_MULTI_IDENTITY_TRANSPORT_BINDING"
+    },
+    "persisted_head_rebreak": {
+      "head": "02a52631eaf05daac2b2d59f9784d161466300ba",
+      "tree": "ff134fd0819d1c6f0c9c709dfa90b7c9c1543694",
+      "cr1_targeted": "6/6 PASS",
+      "m01_regression": "5/5 PASS",
+      "si01_regression": "4/4 PASS",
+      "ef01_regression": "4/4 PASS",
+      "worktree": "CLEAN"
+    }
+  },
+  "breakers": {
+    "B1_EXACT_MATERIALITY_SEMANTICS": "PASS",
+    "B2_11_CLAIM_UNITS": "PASS",
+    "B3_33_ADJACENT_CONTRASTS": "PASS",
+    "B4_GLOBAL_CROSS_METRIC_VERDICT_FORBIDDEN": "PASS",
+    "B5_ZERO_DENOMINATOR_BLOCKED": "PASS",
+    "B6_M10_AUTHORIZED_FALSE": "PASS",
+    "B7_M10_EXECUTED_FALSE": "PASS",
+    "B8_EXACT_HUMAN_ADJUDICATION_MULTI_IDENTITY": "PASS",
+    "B9_NO_MOJIBAKE": "PASS",
+    "B10_EXACT_ASCII_TEMPORAL_TRANSITIONS": "PASS",
+    "B11_CANONICAL_CONTRACT_IDENTITY_AFTER_FINAL_SERIALIZATION": "PASS",
+    "B12_RECEIPT_REFERENCES_ACTUAL_PERSISTED_CONTRACT_BLOB_AND_SHA256": "PASS",
+    "B13_PERSISTED_HEAD_REBREAK": "PASS",
+    "B14_CLEAN_WORKTREE_AFTER_QUALIFICATION": "PASS"
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_6_run": {
+      "run_id": 37467309352,
+      "conclusion": "failure",
+      "failing_surface": "evidence/berd02/gha_run_35533153289/bodies/*.bi5",
+      "relation_to_cr1": "UNCHANGED_FROM_CR1_PARENT"
+    },
+    "p0_4_run": {
+      "run_id": 37467309281,
+      "conclusion": "failure",
+      "failing_surface": "evidence/berd02/gha_run_35533153289/bodies/*.bi5",
+      "relation_to_cr1": "UNCHANGED_FROM_CR1_PARENT"
+    },
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_CR1_PASS_EVIDENCE"
+  },
+  "verdict": {
+    "M01_CORRECTIVE_REQUALIFICATION": "QUALIFIED",
+    "M01_CANONICAL_IDENTITY": "CORRECTED_AND_TRACEABLE",
+    "M01_ENCODING_INTEGRITY": "QUALIFIED",
+    "M01_TEMPORAL_STABILITY_CLAIM_ESTIMAND": "FROZEN"
+  },
+  "m10_authorized": false,
+  "m10_executed": false,
+  "next_frontier": "CLOSED_PENDING_SEPARATE_HUMAN_DECISION",
+  "stop": true
+}

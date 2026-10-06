@@ -125,3 +125,18 @@ def test_correction_record_binds_actual_multi_identities():
     assert r["human_materiality_adjudication"]["declared_windows_crlf_projection_sha256"] == EXPECTED_HUMAN_CRLF_SHA256
     assert r["m10_authorized"] is False
     assert r["m10_executed"] is False
+
+
+def test_b12_final_receipt_references_actual_persisted_contract_identity():
+    receipt = ROOT / "reports" / "program" / "2026-10-06-SMF-AP1-M03-02-R1-M01-01-CR1-FINAL-QUALIFICATION-RECEIPT-V0.1.json"
+    r = load(receipt)
+    c = r["corrected_m01_contract"]
+    assert c["git_blob"] == EXPECTED_V02_BLOB
+    assert c["git_blob_sha256"] == EXPECTED_V02_CANON_SHA256
+    assert r["human_materiality_adjudication"]["git_blob"] == EXPECTED_HUMAN_BLOB
+    assert r["human_materiality_adjudication"]["git_blob_sha256"] == EXPECTED_HUMAN_CANON_SHA256
+    assert r["original_m01_contract"]["git_blob"] == EXPECTED_V01_BLOB
+    assert r["original_m01_contract"]["git_blob_sha256"] == EXPECTED_V01_CANON_SHA256
+    assert r["breakers"]["B12_RECEIPT_REFERENCES_ACTUAL_PERSISTED_CONTRACT_BLOB_AND_SHA256"] == "PASS"
+    assert r["m10_authorized"] is False
+    assert r["m10_executed"] is False
