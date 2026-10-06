@@ -1,0 +1,423 @@
+{
+  "schema": "ATDS_BEPD_CANONICAL_EVIDENCE_SYNTHESIS_V0_1",
+  "control_id": "BEPD-CES-01-R1",
+  "status": "CANDIDATE_FOR_TECHNICAL_QUALIFICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_preflight": {
+    "head": "3c044a3077091293bbe09a7b9216bdcb5db253f1",
+    "tree": "169fd12cbc5e7317cd55c027f0e08682b76f96fc",
+    "material_bepd_drift": "NONE"
+  },
+  "governance": {
+    "bepd00": {
+      "state": "HUMAN_ADOPTED / CLOSED",
+      "design_blob": "e4317da4e93a0dc652f84c38fafb794c825bef9f",
+      "frozen_breaker_blob": "87ba805ca0d4d33f8e5c2bf837a23ffdae19dd4c",
+      "documentary_qualification_blob": "44133db1521ce6b1a0efdeeec0e49109fdf5af44",
+      "final_human_adjudication_blob": "46d714b2abb4aff71adfa8cf778264f22e30a489",
+      "original_human_adjudication_gap": "CLOSED"
+    },
+    "bepd04i": {
+      "state": "HUMAN_ADOPTED / CANONICAL",
+      "real_m05_result_blob": "5d6e7c7f3a7c3beb1e41b00d5edf58500eade94e",
+      "qualification_receipt_blob": "dd3d636cae90787ffed28631809061232fba8b53",
+      "human_adjudication_blob": "9ff3a7f77d2f1870208cac5d9d018952e290370d"
+    }
+  },
+  "corpus": {
+    "dataset": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "files_declared": 61,
+    "files_present": 61,
+    "file_sha256_mismatches": 0,
+    "complete_session_weeks": 260,
+    "level_ledger_rows": 520,
+    "event_ledger_rows": 472,
+    "level_week_opportunity_rows": 7213,
+    "active_right_censored_levels": 48,
+    "eligible_target_weeks": 259,
+    "unique_level_count": 518
+  },
+  "occurrence": {
+    "interpretation": "HISTORICAL_FIXED_CORPUS_DESCRIPTIVE_PROPORTION",
+    "dependence_key": "target_week_id",
+    "views": [
+      {
+        "view_id": "GLOBAL_ALL_SIDES",
+        "event_count": 472,
+        "opportunity_count": 7213,
+        "fraction": "472/7213",
+        "decimal": "0.065437404685983641"
+      },
+      {
+        "view_id": "HIGH",
+        "event_count": 258,
+        "opportunity_count": 1573,
+        "fraction": "258/1573",
+        "decimal": "0.164017800381436745"
+      },
+      {
+        "view_id": "LOW",
+        "event_count": 214,
+        "opportunity_count": 5640,
+        "fraction": "214/5640",
+        "decimal": "0.037943262411347518"
+      }
+    ]
+  },
+  "target_month": [
+    [
+      1,
+      48,
+      654,
+      "48/654",
+      "0.073394495412844037"
+    ],
+    [
+      2,
+      33,
+      608,
+      "33/608",
+      "0.054276315789473684"
+    ],
+    [
+      3,
+      51,
+      687,
+      "51/687",
+      "0.074235807860262009"
+    ],
+    [
+      4,
+      47,
+      603,
+      "47/603",
+      "0.077943615257048093"
+    ],
+    [
+      5,
+      31,
+      577,
+      "31/577",
+      "0.053726169844020797"
+    ],
+    [
+      6,
+      27,
+      484,
+      "27/484",
+      "0.055785123966942149"
+    ],
+    [
+      7,
+      38,
+      568,
+      "38/568",
+      "0.066901408450704225"
+    ],
+    [
+      8,
+      36,
+      555,
+      "36/555",
+      "0.064864864864864865"
+    ],
+    [
+      9,
+      45,
+      628,
+      "45/628",
+      "0.071656050955414013"
+    ],
+    [
+      10,
+      38,
+      603,
+      "38/603",
+      "0.063018242122719735"
+    ],
+    [
+      11,
+      42,
+      578,
+      "42/578",
+      "0.072664359861591696"
+    ],
+    [
+      12,
+      36,
+      668,
+      "36/668",
+      "0.053892215568862275"
+    ]
+  ],
+  "target_month_position": [
+    [
+      "EARLY_01_15",
+      223,
+      3567,
+      "223/3567",
+      "0.062517521726941407"
+    ],
+    [
+      "LATE_16_EOM",
+      249,
+      3646,
+      "249/3646",
+      "0.068294020844761382"
+    ]
+  ],
+  "target_year": [
+    [
+      2021,
+      49,
+      291,
+      "49/291",
+      "0.168384879725085911"
+    ],
+    [
+      2022,
+      98,
+      827,
+      "98/827",
+      "0.118500604594921403"
+    ],
+    [
+      2023,
+      99,
+      1331,
+      "99/1331",
+      "0.074380165289256198"
+    ],
+    [
+      2024,
+      88,
+      1731,
+      "88/1731",
+      "0.050837666088965916"
+    ],
+    [
+      2025,
+      95,
+      2072,
+      "95/2072",
+      "0.045849420849420849"
+    ],
+    [
+      2026,
+      43,
+      961,
+      "43/961",
+      "0.044745057232049948"
+    ]
+  ],
+  "level_age": [
+    [
+      "AGE_1",
+      255,
+      518,
+      "255/518",
+      "0.492277992277992278"
+    ],
+    [
+      "AGE_2",
+      53,
+      261,
+      "53/261",
+      "0.203065134099616858"
+    ],
+    [
+      "AGE_3_4",
+      49,
+      381,
+      "49/381",
+      "0.128608923884514436"
+    ],
+    [
+      "AGE_5_8",
+      43,
+      546,
+      "43/546",
+      "0.078754578754578755"
+    ],
+    [
+      "AGE_9_16",
+      33,
+      754,
+      "33/754",
+      "0.043766578249336870"
+    ],
+    [
+      "AGE_17_32",
+      20,
+      1065,
+      "20/1065",
+      "0.018779342723004695"
+    ],
+    [
+      "AGE_33_64",
+      12,
+      1415,
+      "12/1415",
+      "0.008480565371024735"
+    ],
+    [
+      "AGE_65_PLUS",
+      7,
+      2273,
+      "7/2273",
+      "0.003079630444346678"
+    ]
+  ],
+  "take_day_ny": [
+    [
+      "SUNDAY_OPEN",
+      70,
+      "70/472",
+      "0.148305084745762712"
+    ],
+    [
+      "MONDAY",
+      140,
+      "140/472",
+      "0.296610169491525424"
+    ],
+    [
+      "TUESDAY",
+      73,
+      "73/472",
+      "0.154661016949152542"
+    ],
+    [
+      "WEDNESDAY",
+      75,
+      "75/472",
+      "0.158898305084745763"
+    ],
+    [
+      "THURSDAY",
+      59,
+      "59/472",
+      "0.125000000000000000"
+    ],
+    [
+      "FRIDAY",
+      55,
+      "55/472",
+      "0.116525423728813559"
+    ]
+  ],
+  "same_week_reintegration": {
+    "total_event_count": 472,
+    "true_count": 370,
+    "false_count": 102,
+    "fraction": "370/472",
+    "share_decimal": "0.783898305084745763",
+    "interpretation": "EVENT_CONDITIONAL_HISTORICAL_FIXED_CORPUS_POST_SWEEP_RESPONSE_DESCRIPTION"
+  },
+  "temporal_response": {
+    "strata": [
+      [
+        "T1",
+        "2021-06-07",
+        "2022-05-30",
+        90,
+        72,
+        "0.800000000000000000"
+      ],
+      [
+        "T2",
+        "2022-06-06",
+        "2023-05-29",
+        95,
+        73,
+        "0.768421052631578947"
+      ],
+      [
+        "T3",
+        "2023-06-05",
+        "2024-05-27",
+        97,
+        73,
+        "0.752577319587628866"
+      ],
+      [
+        "T4",
+        "2024-06-03",
+        "2025-05-26",
+        104,
+        79,
+        "0.759615384615384615"
+      ],
+      [
+        "T5",
+        "2025-06-02",
+        "2026-05-18",
+        86,
+        73,
+        "0.848837209302325581"
+      ]
+    ],
+    "minimum_stratum_response_mean": "0.752577319587628866",
+    "maximum_stratum_response_mean": "0.848837209302325581",
+    "maximum_response_mean_spread": "0.096259889714696715",
+    "adopted_spread_threshold": "0.10",
+    "sample_adequacy": "PASS",
+    "gate_state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED",
+    "stationarity_proven": false
+  },
+  "m05_response": {
+    "method": "M05",
+    "scheme": "MOVING_BLOCK",
+    "statistic": "RATIO_OF_SUMS",
+    "calendar_week_count": 259,
+    "block_length_complete_target_weeks": 13,
+    "bootstrap_replications": 200000,
+    "seed": 40420261006,
+    "confidence_level": "0.99",
+    "interval_method": "PERCENTILE",
+    "lower_quantile": "0.005",
+    "upper_quantile": "0.995",
+    "historical_event_count": 472,
+    "historical_success_count": 370,
+    "historical_point_estimate": "0.78389830508474578",
+    "percentile_lower_bound": "0.72631567604355718",
+    "percentile_upper_bound": "0.8438177874186551",
+    "interval_width": "0.11750211137509792",
+    "minimum_replicate_statistic": "0.67590618336886998",
+    "maximum_replicate_statistic": "0.88372093023255816",
+    "replicate_sequence_digest_sha256": "e6b5015ece918651cb7c67d79996c936a56ab2934c98c5252877b5156435d8be",
+    "sorted_distribution_digest_sha256": "3eaa0a58c3d48bbf4475ec5303b83a9ce8dab5f057f9b07c624d5a0b1706a41b",
+    "evidence_status": "EXPOSED_EXPLORATORY_ONLY"
+  },
+  "close_displacement": {
+    "ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "raw_field_available": true,
+    "nullable": false,
+    "semantic": "HIGH: level-target close; LOW: target close-level",
+    "aggregation": "NOT_AUTHORIZED / NOT_EXECUTED",
+    "mean": "NOT_ESTABLISHED",
+    "median": "NOT_ESTABLISHED",
+    "quantiles": "NOT_ESTABLISHED"
+  },
+  "authority_boundary": {
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": "NO",
+    "causation": "NOT_ESTABLISHED",
+    "edge": "NO",
+    "strategy_validation": "NO",
+    "trading_authority": "NONE"
+  },
+  "synthesis_boundary": {
+    "new_statistical_execution": "NO",
+    "new_result_exposure": "NO",
+    "new_estimand": "NO",
+    "recalculation_of_existing_results": "NO",
+    "close_displacement_aggregation": "NO",
+    "subgroup_search": "NO",
+    "parameter_mutation": "NO",
+    "oos_consumption": "NO",
+    "human_adoption": "NOT_YET"
+  }
+}
