@@ -1,0 +1,28 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_01_QUALIFICATION_RECEIPT_V0_1",
+  "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "source_zip_sha256": "a6588ef94d6cf15447ee8f7d2be0b7d3642ae857f2d64fcf86c77070ced0ca84",
+  "result_canonical_digest": "56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738",
+  "records_digest": "f890dd32f3e14b20430cb5898a05946a5d71231a9103b755fa0eb683f8834fc4",
+  "closed_trade_count": 650,
+  "diagnostics": {
+    "full_sample_sample_stddev": 336.4106561689863,
+    "pre_oos_sample_stddev": 295.834479256387,
+    "exposed_oos_sample_stddev": 482.17824961107937,
+    "full_sample_population_stddev": 336.151779134749
+  },
+  "planning_stddev_candidate": 336.4106561689863,
+  "epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY",
+  "status": {
+    "b8": "BLOCKED_PENDING_M06_COMPLETION",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "real_performance_observation": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}

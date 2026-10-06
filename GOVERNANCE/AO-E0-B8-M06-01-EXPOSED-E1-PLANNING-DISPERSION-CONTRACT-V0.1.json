@@ -1,0 +1,59 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_01_EXPOSED_E1_PLANNING_DISPERSION_CONTRACT_V0_1",
+  "control_id": "AO-E0-B8-M06-01",
+  "status": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "blocker_target": "BLOCKED_M06_PLANNING_DISPERSION_SOURCE_NOT_CANONICALLY_AVAILABLE",
+  "source": {
+    "recovered_package_name": "E1-REAL-003-USED.zip",
+    "recovered_library_file_id": "file_0000000062a481f48f72ca9f99ebd428",
+    "zip_sha256": "a6588ef94d6cf15447ee8f7d2be0b7d3642ae857f2d64fcf86c77070ced0ca84",
+    "result_canonical_digest": "56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738",
+    "records_digest": "f890dd32f3e14b20430cb5898a05946a5d71231a9103b755fa0eb683f8834fc4",
+    "run_id": "E1-REAL-003",
+    "execution_classification": "REPRODUCTION_OF_EXPOSED_OOS",
+    "already_exposed": true
+  },
+  "verification": {
+    "closed_trade_count": 650,
+    "full_sample_aggregate_realized_unit_pnl": -3653.772000000031,
+    "full_sample_expectancy_per_closed_trade": -5.621187692307741,
+    "pre_oos_closed_trade_count": 535,
+    "pre_oos_aggregate_realized_unit_pnl": -5940.314000000025,
+    "pre_oos_expectancy_per_closed_trade": -11.103390654205654,
+    "exposed_oos_closed_trade_count": 114,
+    "exposed_oos_aggregate_realized_unit_pnl": 2856.667999999994,
+    "exposed_oos_expectancy_per_closed_trade": 25.05849122807012,
+    "cross_boundary_closed_trade_count": 1
+  },
+  "dispersion": {
+    "estimator": "SAMPLE_STANDARD_DEVIATION",
+    "denominator": "n-1",
+    "realized_field": "realized_unit_pnl",
+    "full_sample_sample_stddev": 336.4106561689863,
+    "pre_oos_sample_stddev": 295.834479256387,
+    "exposed_oos_sample_stddev": 482.17824961107937,
+    "full_sample_population_stddev": 336.151779134749,
+    "selected_planning_stddev_candidate": 336.4106561689863,
+    "selection_rule": "FULL_SAMPLE_ONLY_PREDECLARED_TO_AVOID_OOS_ONLY_SELECTION",
+    "epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY"
+  },
+  "separations": {
+    "planning_data_ne_confirmatory_data": true,
+    "old_e1_oos_ne_independent_confirmation": true,
+    "raw_e1_spread_only_stddev_ne_historical_f2_s4_stddev": true,
+    "sample_stddev_ne_population_stddev": true,
+    "planning_sigma_ne_m06_adoption": true
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "real_performance_observation": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "capital": false
+  }
+}

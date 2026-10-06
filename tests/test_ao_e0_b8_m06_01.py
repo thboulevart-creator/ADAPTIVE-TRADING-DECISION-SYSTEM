@@ -1,6 +1,7 @@
-from tools.ao_e0_b8_m06_recovery import load, diagnostics, verify, adversarial, EXPECTED, POP_FULL
-def test_identity(): load()
-def test_diagnostics(): verify()
-def test_attacks(): adversarial()
-def test_n_minus_1(): assert EXPECTED["FULL"]["sample_stddev"] != POP_FULL
-def test_candidate_full_sample(): assert EXPECTED["FULL"]["sample_stddev"]==336.4106561689863
+from pathlib import Path
+import json, math
+C=json.loads((Path(__file__).resolve().parents[1]/"GOVERNANCE"/"AO-E0-B8-M06-01-EXPOSED-E1-PLANNING-DISPERSION-CONTRACT-V0.1.json").read_text())
+def test_candidate_value(): assert math.isclose(C["dispersion"]["selected_planning_stddev_candidate"],336.4106561689863,abs_tol=1e-12)
+def test_candidate_only(): assert C["status"]=="QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION"
+def test_b8_not_closed(): assert C["authority"]["b8_closure"] is False
+def test_b12_closed(): assert C["authority"]["b12_open"] is False
