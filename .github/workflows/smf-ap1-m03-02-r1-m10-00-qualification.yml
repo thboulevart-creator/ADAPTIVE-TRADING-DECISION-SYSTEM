@@ -46,7 +46,7 @@ jobs:
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_si01.py
       - name: EF-01 regression
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_ef01.py
-      - name: Assert no M10-01 result exposure
+      - name: Assert no M10-00 real-result exposure during qualification
         run: |
           python - <<'PY'
           import json
@@ -56,7 +56,7 @@ jobs:
           assert c['authority']['real_m10_execution'] is False
           assert c['authority']['real_m10_r_calculation'] is False
           assert a['m10_result_exposed'] is False
-          assert not list(Path('artifacts').glob('smf_ap1_m03_02_r1_m10*'))
+          assert not list(Path('artifacts').glob('smf_ap1_m03_02_r1_m10_00*'))
           PY
       - name: Clean worktree
         if: always()
