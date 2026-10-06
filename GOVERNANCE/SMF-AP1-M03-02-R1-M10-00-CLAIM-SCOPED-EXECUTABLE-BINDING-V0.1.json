@@ -1,0 +1,140 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M10_00_CLAIM_SCOPED_EXECUTABLE_BINDING_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_scope": "M10_CLAIM_SCOPED_BINDING_SYNTHETIC_QUALIFICATION_AND_REAL_EXECUTION_READINESS_ONLY",
+  "preflight_parent": {
+    "head": "377b98435cb77016893c5f8bfcff307a05c07d93",
+    "tree": "28c196ab71db32d927f73109ad7785524ebeb936"
+  },
+  "binding_sources": {
+    "m01_v0_2": {
+      "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.2.json",
+      "git_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+      "canonical_git_blob_sha256": "90e8be1de734a633030c76eafaac0de2a95048e143584ec522a45b868f565010"
+    },
+    "human_materiality": {
+      "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-HUMAN-MATERIALITY-ADJUDICATION-V0.1.json",
+      "git_blob": "a9382bc08f354e9142ccd55308f46c86da3f1af3",
+      "canonical_git_blob_sha256": "91fb37bca8e25d1133e4d3859ba10c9f1e227a34390ee359175f5a72d3933b2f"
+    },
+    "m03_real_output": {
+      "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+      "sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+      "read_values_during_m10_00": false
+    },
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "generic_m10_runtime_blob": "7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222"
+  },
+  "generic_m10_boundary": {
+    "qualified_reference_only": true,
+    "generic_estimator": "STRATUM_MEANS_PLUS_MAX_MEAN_SPREAD",
+    "ap1_m01_estimator": "EMPIRICAL_QUANTILES_PLUS_ADJACENT_SYMMETRIC_RELATIVE_CHANGE",
+    "procedure_equivalent": false,
+    "generic_runtime_modification_authorized": false
+  },
+  "claim_binding": {
+    "dataset": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "primary_years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "partial_years": [
+      2021,
+      2026
+    ],
+    "partial_year_role": "SENSITIVITY_DESCRIPTIVE_CONTEXT_ONLY",
+    "metrics_probabilities": {
+      "tick_count": [
+        0.5,
+        0.9,
+        0.99
+      ],
+      "minute_range": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "spread_mean": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ]
+    },
+    "claim_units": 11,
+    "transitions": [
+      "2022->2023",
+      "2023->2024",
+      "2024->2025"
+    ],
+    "transitions_per_claim_unit": 3,
+    "primary_contrasts": 33
+  },
+  "materiality": {
+    "effect_scale": "SYMMETRIC_RELATIVE_CHANGE",
+    "formula": "R[m,p,a,b] = 2 * abs(q[m,p,b] - q[m,p,a]) / (abs(q[m,p,b]) + abs(q[m,p,a]))",
+    "zero_denominator": "UNDEFINED_BLOCKED",
+    "threshold": 0.2,
+    "material_rule": "R >= 0.20",
+    "claim_unit_rule": "ANY_ADJACENT_MATERIAL_SHIFT",
+    "precedence": [
+      "IF_ANY_REQUIRED_CONTRAST_UNDEFINED_OR_BLOCKED => BLOCKED",
+      "ELSE_IF_ANY_ADJACENT_R_GTE_0_20 => MATERIAL_TEMPORAL_VARIATION",
+      "ELSE => NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"
+    ],
+    "exact_equality_at_threshold": "MATERIAL"
+  },
+  "output_semantics": {
+    "decision_unit": "ONE_METRIC_PROBABILITY_CLAIM_UNIT",
+    "allowed_claim_unit_states": [
+      "BLOCKED",
+      "MATERIAL_TEMPORAL_VARIATION",
+      "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"
+    ],
+    "global_cross_metric_verdict": "FORBIDDEN"
+  },
+  "epistemic_limit": {
+    "claim_origin": "EXPLORATORY_RESULT_DERIVED",
+    "same_corpus_maximum_semantics": "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE",
+    "pristine_confirmation_requires_distinct_future_authority": true
+  },
+  "dependencies": {
+    "M04": "NOT_AUTOMATICALLY_ACTIVATED",
+    "M05": "NOT_AUTOMATICALLY_ACTIVATED",
+    "M08": "NOT_AUTOMATICALLY_ACTIVATED",
+    "M09": "NOT_ACTIVATED_REQUIRED_ONLY_FOR_FUTURE_PRISTINE_CONFIRMATION",
+    "M11": "NOT_AUTOMATICALLY_ACTIVATED_REQUIRED_ONLY_FOR_INFERENTIAL_PROMOTION"
+  },
+  "implementation": {
+    "runtime_target": "tools/smf_ap1_m03_02_r1_m10_00.py",
+    "reference_target": "tools/smf_ap1_m03_02_r1_m10_00_reference.py",
+    "architecture": "FROZEN_M03_COMPACT_OUTPUT_TO_AP1_SPECIFIC_M10_COMPANION_TO_11_CLAIM_UNITS_TO_33_R_CONTRASTS_TO_CLAIM_UNIT_CLASSIFICATION",
+    "m03_reexecution_authorized": false,
+    "ap0_raw_read_authorized": false,
+    "real_m03_values_transform_authorized_during_m10_00": false
+  },
+  "authority": {
+    "real_m10_execution": false,
+    "real_m10_r_calculation": false,
+    "real_m10_claim_unit_classification": false,
+    "new_m03": false,
+    "new_ap1": false,
+    "raw_ap0": false,
+    "m04": false,
+    "m05": false,
+    "m08": false,
+    "m09": false,
+    "m11": false,
+    "new_oos": false,
+    "backtest": false,
+    "paper": false,
+    "broker": false,
+    "live": false,
+    "capital": false
+  }
+}

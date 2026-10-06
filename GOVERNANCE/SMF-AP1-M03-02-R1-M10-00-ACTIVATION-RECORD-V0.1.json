@@ -1,0 +1,35 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M10_00_ACTIVATION_RECORD_V0_1",
+  "status": "ACTIVATED_FOR_SYNTHETIC_QUALIFICATION_ONLY",
+  "method_activation_record": {
+    "claim_definition_ref": "gitblob:2293c665a2d30c520056c7814aec6a9dc79d68d1#M01_V0.2",
+    "failure_mode_ref": "M01_V0.2#TEMPORAL_DISTRIBUTIONAL_VARIATION",
+    "method_family_ref": "M10",
+    "validity_scope_ref": "SAME_CORPUS_EXPLORATORY_DIAGNOSTIC_ONLY",
+    "assumption_set_ref": "gitblob:2293c665a2d30c520056c7814aec6a9dc79d68d1#assumptions",
+    "activation_reason": "M01 freezes a temporal-distribution materiality question requiring a claim-scoped M10 companion distinct from the generic mean-spread runtime.",
+    "activation_rule": "ACTIVATE_M10_ONLY_FOR_THE_EXACT_FROZEN_M01_QUANTILE_CONTRAST_CLAIM",
+    "parameter_selection_policy": {
+      "material_defaults_forbidden": true,
+      "effect_scale": "SYMMETRIC_RELATIVE_CHANGE",
+      "threshold": 0.2,
+      "claim_unit_rule": "ANY_ADJACENT_MATERIAL_SHIFT",
+      "global_cross_metric_verdict": "FORBIDDEN"
+    },
+    "dependency_refs": [
+      "gitblob:2293c665a2d30c520056c7814aec6a9dc79d68d1",
+      "gitblob:a9382bc08f354e9142ccd55308f46c86da3f1af3",
+      "sha256:7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+      "gitblob:67014f4fb753e3165cacc0ae59a49b522e84fa87"
+    ],
+    "activation_state": "ACTIVATED",
+    "activation_digest": "sha256:8ef5ab1a6bf606bd5fc0218874faa5ce18bcaecf4c7e571f83244945eb8d53ee"
+  },
+  "method_activation_precedes_ap1_specific_result_exposure": true,
+  "real_execution_authority": false,
+  "m10_result_exposed": false,
+  "authority": {
+    "trading": false,
+    "capital": false
+  }
+}

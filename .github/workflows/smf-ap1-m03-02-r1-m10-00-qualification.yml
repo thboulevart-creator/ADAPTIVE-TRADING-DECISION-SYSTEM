@@ -1,0 +1,66 @@
+name: SMF AP1 M03-02 R1 M10-00 Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/SMF-AP1-M03-02-R1-M10-00-*'
+      - 'tools/smf_ap1_m03_02_r1_m10_00.py'
+      - 'tools/smf_ap1_m03_02_r1_m10_00_reference.py'
+      - 'tests/test_smf_ap1_m03_02_r1_m10_00.py'
+      - 'reports/program/*SMF-AP1-M03-02-R1-M10-00*'
+      - '.github/workflows/smf-ap1-m03-02-r1-m10-00-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+      - name: M10-00 claim-scoped qualification
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_m10_00.py
+      - name: M01 CR1 regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_m01_01_cr1.py
+      - name: M01 regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_m01_01.py
+      - name: SI-01 regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_si01.py
+      - name: EF-01 regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_ef01.py
+      - name: Assert no M10-01 result exposure
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          c=json.loads(Path('GOVERNANCE/SMF-AP1-M03-02-R1-M10-00-CLAIM-SCOPED-EXECUTABLE-BINDING-V0.1.json').read_text())
+          a=json.loads(Path('GOVERNANCE/SMF-AP1-M03-02-R1-M10-00-ACTIVATION-RECORD-V0.1.json').read_text())
+          assert c['authority']['real_m10_execution'] is False
+          assert c['authority']['real_m10_r_calculation'] is False
+          assert a['m10_result_exposed'] is False
+          assert not list(Path('artifacts').glob('smf_ap1_m03_02_r1_m10*'))
+          PY
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          git clean -fd
+          test -z "$(git status --porcelain)"

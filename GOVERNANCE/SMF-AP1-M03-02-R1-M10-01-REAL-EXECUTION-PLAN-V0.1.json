@@ -1,0 +1,46 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M10_01_REAL_EXECUTION_PLAN_V0_1",
+  "status": "PREPARED_NOT_AUTHORIZED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent_control": "SMF-AP1-M03-02-R1-M10-00",
+  "future_execution_id": "SMF-AP1-M03-02-R1-M10-01",
+  "required_human_authorization": true,
+  "real_execution_authorized": false,
+  "m10_executed": false,
+  "m10_result_exposed": false,
+  "input": {
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "required_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "reuse_frozen_m03_output_only": true,
+    "new_m03_authorized": false,
+    "raw_ap0_read_authorized": false
+  },
+  "procedure": {
+    "runtime": "tools/smf_ap1_m03_02_r1_m10_00.py",
+    "m01_contract_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+    "claim_units": 11,
+    "primary_contrasts": 33,
+    "transitions": ["2022->2023", "2023->2024", "2024->2025"],
+    "threshold": 0.20,
+    "global_cross_metric_verdict": "FORBIDDEN"
+  },
+  "required_pre_execution_checks": [
+    "FRESH_REMOTE_HEAD_TREE",
+    "NO_MATERIAL_DRIFT_TO_M01_M03_M10_00_SMF_SEMANTICS",
+    "EXACT_M03_SHA256",
+    "EXACT_M10_00_RUNTIME_BLOB",
+    "EXACT_M10_00_REFERENCE_BLOB",
+    "EXACT_M10_00_QUALIFICATION_RECEIPT",
+    "M10_01_HUMAN_AUTHORIZATION_PRESENT"
+  ],
+  "output_semantics": {
+    "maximum": "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE",
+    "global_verdict": "FORBIDDEN",
+    "generalization": false,
+    "confirmatory": false,
+    "trading_authority": false,
+    "capital_authority": false
+  },
+  "stop": "DO_NOT_EXECUTE_UNDER_M10_00_AUTHORITY"
+}
