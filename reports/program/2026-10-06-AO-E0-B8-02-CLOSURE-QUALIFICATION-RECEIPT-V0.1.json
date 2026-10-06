@@ -1,0 +1,51 @@
+{
+  "schema": "ATDS_AO_E0_B8_02_CLOSURE_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-02",
+  "verdict": "BLOCKED",
+  "b8_closure_candidate": "BLOCKED",
+  "exact_blocker": "BLOCKED_B8_PRE_RESULT_SMF_NUMERIC_CONFIGURATION_INCOMPLETE",
+  "decisive_evidence": {
+    "blocker_contract_blob": "821d0b033e6bb993e64832d2fa0c2e84de24872e",
+    "smf_activation_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "smf_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "m06_02_human_adoption_receipt": "ca44e6ce58314e8168d6f48fb7831fc03b789b9e",
+    "historical_b8_blocker_blob": "9d36a5cbaf7f7b270a5ea73ee9b4edff3ddeb73d"
+  },
+  "checks": {
+    "canonical_bindings_present": true,
+    "old_e1_oos_remains_nonconfirmatory": true,
+    "forward_only_route_preserved": true,
+    "m06_fully_frozen": true,
+    "m04_material_configuration_complete": false,
+    "m05_numeric_resampling_configuration_complete": false,
+    "m07_materiality_threshold_complete": false,
+    "m08_attrition_gap_threshold_complete": false,
+    "no_future_performance_observed": true,
+    "no_forward_data_consumed": true,
+    "no_parameter_invented": true,
+    "b12_remains_closed": true
+  },
+  "unresolved": {
+    "m04": ["acf_estimator_selection", "lags", "absolute_threshold"],
+    "m05": ["interval_method", "confidence_level", "replications", "seed", "moving_block_length_or_predeclared_selection_rule"],
+    "m07": ["materiality_abs_delta"],
+    "m08": ["max_inclusion_rate_gap"]
+  },
+  "state": {
+    "b8": "BLOCKED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
