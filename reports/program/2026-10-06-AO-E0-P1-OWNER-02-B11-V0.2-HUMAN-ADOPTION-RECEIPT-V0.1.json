@@ -1,0 +1,70 @@
+{
+  "schema": "ATDS_AO_E0_P1_OWNER_02_B11_V02_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-P1-OWNER-02",
+  "human_decision": "ADOPT",
+  "human_adjudication": "ADOPT_EXACT_OWNER02_V0_2_AND_B11_V0_2_CAPABILITY",
+  "status": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "human_adoption_blob": "da5d7560084e3e2b8bf4aa343b45466ea0bf2798",
+  "owner02": {
+    "contract_id": "P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_2",
+    "blob": "57191ab2892e571807a8ed3f53fd0569de1f739e",
+    "identity_blob": "eaa9da231d31304f8abbe2966574fee77d1e09c8",
+    "qualification_receipt": "0c5bfdbbffca12da0e28cd10a56e7c901d93b377",
+    "status": "HUMAN_ADOPTED_BINDING_FROZEN"
+  },
+  "b11_v02": {
+    "requalification_receipt": "30b560183d99176717964df02df593b89c3eb0c1",
+    "contract_blob": "28c2c11ebfe8ac0cd44212d5219e2f13a6aeea21",
+    "tests_blob": "183a3ae53e66094469ceb2ca1c1b3165ab6d285e",
+    "status": "HUMAN_ADOPTED_BINDING_FROZEN"
+  },
+  "historical_b11": {
+    "v01_closure_receipt": "4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+    "b11_r2_blocker": "6b5efdc1f74adf6f551315f5bb565fa12ad72e89",
+    "b11_r2_receipt": "56f13cdadb625776f67d29a7b8bdc575afd6041c",
+    "rewritten": false
+  },
+  "dependencies": {
+    "data01_human_adoption_receipt": "290065c68a7d37a43d9c80e326575d9eddcfd088",
+    "pipe01_human_adoption_receipt": "4ac1555b846ecd205ed1ad682d1fa165e38a9a3d",
+    "b8_human_closure_blob": "8740bf6255286c3c8d896b6b334d10b78c1899f7",
+    "dr01_human_adoption_blob": "848e59ac0ef8e56d16322a17bd3f55a0b6e87e45",
+    "p1_12d_blob": "fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "producer_blob": "981794fedbfd8c9fdac69ba4751540e63a2e5289"
+  },
+  "state": {
+    "data01": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "pipe01": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "owner02": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "b11_v02_capability": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "real_oos_native_owner_capability": "AVAILABLE_AND_HUMAN_ADOPTED",
+    "b8": "CLOSED",
+    "b12": "CLOSED",
+    "exact_forward_instance": "NOT_YET_AVAILABLE",
+    "data01_instance_state": "WAIT_NOT_READY",
+    "strategy_qualified_claim": false
+  },
+  "authority": {
+    "real_oos_authority": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "scientific_authority": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "performance_consumption": {
+    "real_forward_data_read": false,
+    "pnl_observed": false,
+    "expectancy_observed": false,
+    "ci_observed": false,
+    "support_refute_inconclusive_observed": false,
+    "qualification_result_observed": false,
+    "real_ao_e0_output": false
+  },
+  "next_frontier": "AO-E0-B12-DATA-01 CONCRETE FORWARD INSTANCE MATERIALIZATION + IDENTITY FREEZE + READINESS QUALIFICATION",
+  "force": false
+}
