@@ -1,0 +1,60 @@
+{
+  "schema": "ATDS_BEPD_07B_IMPLEMENTATION_REQUALIFICATION_R1_RECEIPT_V0_1",
+  "control_id": "BEPD-07B",
+  "status": "IMPLEMENTATION_REQUALIFIED_PRE_RESULT_AFTER_FILE_SET_IDENTITY_CORRECTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "correction_commit": "b432e7c836e95001d628208e2813ea5352888c31",
+  "correction_tree": "7845c9d7f1df9396d75447313163886f821cead4",
+  "correction_reason": "Runner and independent reference incorrectly reconstructed AP0 file-set identity using BEPD-02-style relative_path:sha256 lines instead of the adopted DATA-02 canonical JSON material {relative_path,size_bytes,sha256}.",
+  "failed_real_pre_read_attempt": {
+    "status": "FAIL_CLOSED_BEFORE_PRICE_COLUMN_READ",
+    "observed_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "observed_dataset_id": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "observed_file_count": 61,
+    "observed_row_count": 1709180,
+    "obsolete_bepd02_style_digest": "60d6a2f1ddfa7b1daf8589f6ab80c417a153554cf8aba33cab60842c0908601d",
+    "required_data02_admission_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+    "real_excursion_statistics_calculated": false,
+    "real_excursion_distribution_exposed": false
+  },
+  "corrected_bindings": {
+    "human_authorization_blob": "95a02c85b15f2d8e73bc4412ed6de4bf80888480",
+    "bepd07a_final_adjudication_blob": "5b8a8c9538363f8878acfa47c75db420438582be",
+    "bepd07a_contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+    "bepd07a_breaker_blob": "42f2a720a0904c83c45a507cfa340af30ba73ae5",
+    "bepd07a_freeze_blob": "10fa2fc9011dded1567a054efb31fbabfa6dab8a",
+    "runner_blob": "5b1108cc0fe703d9c45cfebc2ba12eb33c6552de",
+    "independent_reference_blob": "27963b7ab2bea48d12bb3da584b430f2c047bb78",
+    "executable_breaker_blob": "1a323010dbc03a79220e4e4f44541589329445d0",
+    "synthetic_tests_blob": "f14aa4178f630f60e423f2357cb4e342b2e96957",
+    "qualification_workflow_blob": "e28c829d9f7edc36c4dc80c193fc0e8691b73f21",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd02_build_engine_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "rvo08_ap0_resource_contract_blob": "23cef7d6dcc6ca0b4e3c72bd8f3af4e91b1d6ca3",
+    "data02_ap0_read_only_admission_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b"
+  },
+  "executable_requalification": {
+    "workflow_run_id": 37480467696,
+    "job_id": 112326940993,
+    "conclusion": "SUCCESS",
+    "frozen_bindings": "PASS",
+    "compile": "PASS",
+    "synthetic_tests": "35 / 35 PASS",
+    "executable_equivalent_breaker": "40 / 40 PASS",
+    "data02_file_set_digest_semantics_test": "PASS",
+    "real_ap0_path_scan": "NOT_EXECUTED_AFTER_CORRECTION",
+    "real_excursion_statistics": "NOT_CALCULATED",
+    "real_excursion_distribution_exposure": "NO"
+  },
+  "authority": {
+    "correction_scope": "MECHANICAL_IDENTITY_ALGORITHM_CORRECTION_ONLY",
+    "scientific_semantics_changed": false,
+    "path_geometry_changed": false,
+    "excursion_formulas_changed": false,
+    "real_execution_still_requires_new_exact_freeze": true,
+    "result_human_adopted": false
+  },
+  "next_action": "PERSIST DISTINCT CORRECTIVE REAL EXECUTION FREEZE R1, THEN REQUALIFY ACTUAL AP0 IDENTITY BEFORE PRICE READ"
+}
