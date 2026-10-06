@@ -1,0 +1,15 @@
+{
+  "schema":"ATDS_AO_E0_B12_PIPE_01_TEST_HARNESS_CORRECTION_V0_1",
+  "control_id":"AO-E0-B12-PIPE-01",
+  "failed_run_id":37448008175,
+  "failed_job_id":112217405477,
+  "classification":"TEST_HARNESS_IMPORT_REGISTRATION_DEFECT",
+  "controller_compile":"PASS",
+  "scientific_controller_failure_observed":false,
+  "exact_correction":"register dynamically loaded controller module in sys.modules before exec_module so Python 3.12 dataclasses can resolve cls.__module__",
+  "controller_modified":false,
+  "contract_modified":false,
+  "protected_owner_modified":false,
+  "producer_modified":false,
+  "force":false
+}

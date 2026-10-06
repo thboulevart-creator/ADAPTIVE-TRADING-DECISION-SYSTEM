@@ -1,11 +1,14 @@
 from __future__ import annotations
 import importlib.util
 from pathlib import Path
+import sys
 import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
-spec=importlib.util.spec_from_file_location("ctrl",ROOT/"src"/"ao_e0_b12_consumption_controller.py")
-C=importlib.util.module_from_spec(spec); spec.loader.exec_module(C)
+spec=importlib.util.spec_from_file_location("ao_e0_b12_consumption_controller",ROOT/"src"/"ao_e0_b12_consumption_controller.py")
+C=importlib.util.module_from_spec(spec)
+sys.modules[spec.name]=C
+spec.loader.exec_module(C)
 
 GOOD40="a"*40
 GOOD64="b"*64
