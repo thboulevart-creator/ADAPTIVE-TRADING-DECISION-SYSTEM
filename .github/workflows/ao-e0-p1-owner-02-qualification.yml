@@ -1,0 +1,43 @@
+name: AO-E0 OWNER-02 Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/AO-E0-P1-OWNER-02-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/AO-E0-P1-OWNER-02-FROZEN-BREAKERS-V0.1.json'
+      - 'src/p1_12c_ao_e0_native_owner.py'
+      - 'tests/test_ao_e0_p1_owner_02.py'
+      - 'tests/test_ao_e0_p1_owner_01.py'
+      - '.github/workflows/ao-e0-p1-owner-02-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pytest
+        run: python -m pip install pytest
+      - name: OWNER-02 frozen breakers and positive synthetic capability
+        run: python -m pytest tests/test_ao_e0_p1_owner_02.py -q
+      - name: Legacy AO-E0 owner regression
+        run: python -m pytest tests/test_ao_e0_p1_owner_01.py -q
+      - name: PIPE-01 regression
+        run: python -m unittest tests/test_ao_e0_b12_consumption_controller.py -v
+      - name: Protected P1.12D and producer blobs
+        shell: bash
+        run: |
+          test "$(git hash-object src/p1_12d_ao_e0_extension.py)" = "fec520916ca07ee6fe7e6029b4ca611519c39bc2"
+          test "$(git hash-object tools/ao_e0_cc05_e1_producer.py)" = "981794fedbfd8c9fdac69ba4751540e63a2e5289"
+      - name: Compile owner
+        run: python -m py_compile src/p1_12c_ao_e0_native_owner.py
