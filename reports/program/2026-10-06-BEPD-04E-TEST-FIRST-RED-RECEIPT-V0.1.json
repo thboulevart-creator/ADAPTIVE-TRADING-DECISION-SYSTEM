@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_04E_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "EXPECTED_RED_CONFIRMED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "frozen_surface": {
+    "contract_blob": "5b06ee0c863c90af085a55fe145afd6d51c31497",
+    "fixture_blob": "eedaa71da7296fcce06be8beb75a7424be5bc28e",
+    "test_blob": "2750f1154279095f7ed39075b538fe568bcf9cde",
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354"
+  },
+  "observation": {
+    "runtime_path": "tools/bepd_04e_response_generalization_v0_1.py",
+    "runtime_present": false,
+    "expected_failure_marker": "BEPD04E_RUNTIME_ABSENT_EXPECTED_RED",
+    "local_pre_persistence_test_marker_observed": true
+  },
+  "authority": {
+    "real_response_analysis": false,
+    "real_bootstrap": false,
+    "real_ci": false
+  }
+}
