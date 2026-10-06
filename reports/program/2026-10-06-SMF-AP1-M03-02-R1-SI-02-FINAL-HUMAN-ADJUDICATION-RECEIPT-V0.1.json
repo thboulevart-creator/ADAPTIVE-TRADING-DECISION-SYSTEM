@@ -1,0 +1,123 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_SI_02_FINAL_HUMAN_ADJUDICATION_RECEIPT_V0_1",
+  "status": "HUMAN_SCIENTIFIC_ADJUDICATION_CLOSED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "closure_parent": {
+    "head": "59b8c09c5623e6adeece5cd951238059ffb3d3af",
+    "tree": "fec420083cfea7eac86b777a0e01d14ae0f00b84"
+  },
+  "authorization_reference": {
+    "head": "737b3ddccfd84bae0898d60f6e74e50191dfc2f7",
+    "tree": "90621185bb822078f522567cea89872112eb21f6"
+  },
+  "si02_opening": {
+    "head": "70af97dd84751596e193238799e237168eb39af9",
+    "tree": "21097e3ad67ee0fff5bb65379b587731260b5dcd",
+    "decision_packet_blob": "69344c38638361ef7e027d28c34b8c3ff0416949",
+    "opening_receipt_blob": "9576b43fef21734da1813e4de2ff2e17055545c6"
+  },
+  "si01_package": {
+    "candidate_set_blob": "8f85f301380d192e7a8bbc225e39d080d76d78ac",
+    "final_receipt_blob": "f5eeae8b3806bd2aff0fb16d30d1ea139f5c6d89",
+    "status": "QUALIFIED_FOR_HUMAN_SCIENTIFIC_ADJUDICATION"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "changed_files": [
+      "GOVERNANCE/AO-E0-B12-DATA-01-PROSPECTIVE-FORWARD-INSTANCE-FORMATION-RULE-HUMAN-ADOPTION-2026-10-06.md",
+      "GOVERNANCE/BEPD-05A-CLOSE-DISPLACEMENT-RESPONSE-SEMANTICS-AGGREGATION-CONTRACT-V0.1.json",
+      "GOVERNANCE/BEPD-05A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md",
+      "GOVERNANCE/BEPD-05A-FROZEN-PRE-AGGREGATION-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json",
+      "GOVERNANCE/BEPD-05A-HUMAN-AUTHORIZATION-2026-10-06.md",
+      "GOVERNANCE/BEPD-05A-PRE-AGGREGATION-FREEZE-V0.1.json",
+      "reports/program/2026-10-06-AO-E0-B12-DATA-01-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+      "reports/program/2026-10-06-BEPD-05A-QUALIFICATION-RECEIPT-V0.1.json",
+      "reports/program/2026-10-06-BEPD-05A-QUALIFICATION-V0.1.md"
+    ],
+    "protected_si01_si02_package_unchanged": true
+  },
+  "human_decisions": [
+    {
+      "id": "SI01-C01",
+      "decision": "ADOPT",
+      "adopted_name": "GLOBAL_UPPER_QUANTILE_DISPERSION_DIFFERENCES",
+      "adopted_statement": "Within the admitted corpus, minute_range and tick_count show substantially larger upper-quantile separation from their medians than spread_mean.",
+      "exploratory_search": true
+    },
+    {
+      "id": "SI01-C02",
+      "decision": "ADOPT",
+      "adopted_name": "NEW_YORK_INTRADAY_DISTRIBUTIONAL_HETEROGENEITY",
+      "adopted_statement": "The admitted corpus exhibits large descriptive differences by New York local hour; the 09–10 buckets have high activity/range quantiles and much lower spread_mean quantiles than several evening/overnight buckets.",
+      "exploratory_search": true
+    },
+    {
+      "id": "SI01-C03",
+      "decision": "ADOPT",
+      "adopted_name": "NEW_YORK_WEEKDAY_DISTRIBUTIONAL_HETEROGENEITY",
+      "adopted_statement": "Within the admitted corpus, weekday buckets differ descriptively; Friday has higher tick_count and minute_range quantiles than Sunday, while Saturday has no admitted observations.",
+      "exploratory_search": true
+    },
+    {
+      "id": "SI01-C04",
+      "decision": "AMEND",
+      "adopted_name": "UTC_YEAR_DISTRIBUTIONAL_VARIATION_CANDIDATE",
+      "adopted_statement": "Within the admitted 2021-05-25 through 2026-05-24 corpus, the predeclared UTC_YEAR bucket distributions differ descriptively across years for minute_range, tick_count, and spread_mean. The 2025-2026 spread_mean central quantiles differ sharply from earlier year buckets while p99 remains near prior-year levels. This is a retrospective descriptive variation candidate only; formal temporal instability, nonstationarity, structural break, cause, persistence, and generalization remain untested.",
+      "exploratory_search": true
+    },
+    {
+      "id": "SI01-C05",
+      "decision": "ADOPT",
+      "adopted_name": "PREDECLARED_TIME_SUPPORT_IS_INCOMPLETE",
+      "adopted_statement": "The admitted corpus has incomplete support across the full predeclared New York calendar grid; empty buckets are explicit rather than numerically imputed.",
+      "exploratory_search": false
+    }
+  ],
+  "adjudication_summary": {
+    "adopted_without_amendment": 4,
+    "amended_and_adopted": 1,
+    "rejected": 0,
+    "deferred": 0,
+    "total_human_adopted_interpretations": 5
+  },
+  "binding_scope": [
+    "RETROSPECTIVE",
+    "DESCRIPTIVE",
+    "EMPIRICAL",
+    "FRAME_BOUND"
+  ],
+  "not_established": [
+    "CAUSALITY",
+    "STATISTICAL_SIGNIFICANCE",
+    "GENERALIZATION",
+    "PREDICTIVE_EDGE",
+    "ECONOMIC_EDGE",
+    "PROFITABILITY",
+    "VALIDATED_STRATEGY",
+    "TRADING_SIGNAL",
+    "TRADING_AUTHORITY",
+    "CAPITAL_AUTHORITY"
+  ],
+  "downstream_authority": {
+    "M01": false,
+    "M10": false,
+    "M04_M05": false,
+    "M08": false,
+    "M09": false,
+    "M11": false,
+    "new_M03": false,
+    "new_AP1": false,
+    "backtest": false,
+    "OOS": false,
+    "paper": false,
+    "live": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "name": "M01 — EXACT TEMPORAL / REGIME STABILITY CLAIM + ESTIMAND FREEZE",
+    "authorized": false,
+    "executed": false
+  },
+  "stop": true
+}
