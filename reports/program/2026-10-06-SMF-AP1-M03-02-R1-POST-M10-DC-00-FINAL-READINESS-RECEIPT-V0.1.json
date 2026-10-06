@@ -1,0 +1,106 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_00_FINAL_READINESS_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-00",
+  "status": "QUALIFIED_FROZEN_READY_FOR_SEPARATE_PCG_02A_REOPENING_DECISION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "design_persisted_head": {
+    "head": "4b3ef2e62ae830f54abcc01e4d1b9fc6364a01b8",
+    "tree": "49b1e6d22e6b5f816f5e09284d7b189629c69063"
+  },
+  "artifacts": {
+    "downstream_claim_contract_blob": "2e3336e44aa09efc4b44f6eed7d5bee680287c11",
+    "estimand_contract_blob": "f7c1c06dfb799073d586d63aa319ac9ed92f1edd",
+    "analysis_intent_contract_blob": "23e20dc28fa7eec3f7646acb7392a00a7f7d7623",
+    "breaker_contract_blob": "57ca3e6d1b8dfb803616d5fc42965f0faff3b958",
+    "traceability_blob": "33845d7f8d720a35ad669c323180d82915f46464",
+    "qualification_report_blob": "76c7fa7c875e17cb4a139aac209d54ce19b9d49f",
+    "test_blob": "8d05a50f6914c135feb9d26585dd8ad3e861efd3",
+    "workflow_blob": "e24f077fbe9fbab0f6ce329d5fc93832b784cb3e"
+  },
+  "frozen_target": {
+    "claim_unit": "tick_count p50",
+    "claim_unit_m10_status": "MATERIAL_TEMPORAL_VARIATION",
+    "selection_basis": "FIRST_MATERIAL_CLAIM_UNIT_IN_FROZEN_CANONICAL_M10_ORDER",
+    "downstream_claim_id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "estimand_id": "POST_M10-E01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "downstream_analysis_id": "POST_M10-DA01-POOLED-TICKCOUNT-P50-REFERENCE-CONSTRUCTION",
+    "requested_temporal_scope": [
+      "UTC_YEAR:2022",
+      "UTC_YEAR:2023",
+      "UTC_YEAR:2024",
+      "UTC_YEAR:2025"
+    ],
+    "pooling_intent": true,
+    "pooling_admissibility": "UNRESOLVED_PENDING_PCG",
+    "route_selection": "NONE"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "qualification": {
+    "local_targeted": "17/17 PASS",
+    "canonical_ci": {
+      "run_id": 37513322936,
+      "job_id": 112439805236,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37513322748,
+      "job_id": 112439804666,
+      "conclusion": "success"
+    },
+    "first_local_failure": {
+      "classification": "TEST_HARNESS_SELF_MATCH_ONLY",
+      "cause": "STRING_SEARCH_MATCHED_THE_FORBIDDEN_TOKEN_LITERAL_INSIDE_ITS_OWN_TEST",
+      "correction": "REPLACED_STRING_SELF_SCAN_WITH_AST_CALL_NAME_INSPECTION",
+      "scientific_semantics_changed": false,
+      "governance_semantics_changed": false
+    }
+  },
+  "verdict": {
+    "POST_M10_DC_00": "QUALIFIED",
+    "FIRST_DOWNSTREAM_CLAIM": "FROZEN",
+    "FIRST_DOWNSTREAM_ESTIMAND": "FROZEN",
+    "FIRST_DOWNSTREAM_ANALYSIS_INTENT": "FROZEN",
+    "NUMERICAL_ESTIMATION": false,
+    "REAL_DATA_READ": false,
+    "PCG_REAL_EXECUTION": false,
+    "PCG_REAL_RESULT": "NONE",
+    "POOLING_EXECUTION": false,
+    "CONDITIONING_EXECUTION": false,
+    "NEW_STATISTICAL_METHOD_EXECUTED": false,
+    "NEW_MARKET_RESULT": false,
+    "OOS_CONSUMPTION": false
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "trading": false,
+    "capital": false
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4_run_id": 37513322722,
+    "p0_4_conclusion": "failure",
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_DC00_PASS_EVIDENCE"
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02A",
+    "scope": "FIRST_REAL_CLAIM_SCOPED_APPLICATION_PACKET_SELECTION_PLUS_FREEZE",
+    "mandatory_downstream_source": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "separate_human_authorization_or_explicit_reopening_required": true,
+    "opened": false,
+    "executed": false
+  },
+  "stop": true,
+  "force": false
+}

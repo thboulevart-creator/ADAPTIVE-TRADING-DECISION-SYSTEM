@@ -174,3 +174,31 @@ def test_17_pcg02a_remains_closed():
     assert i["call_pcg_runtime"] is False
     assert i["call_pcg_reference"] is False
     assert i["compute_pcg_state"] is False
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-POST-M10-DC-00-FINAL-READINESS-RECEIPT-V0.1.json"
+
+def test_18_final_receipt_closes_dc00_and_keeps_pcg02a_closed():
+    r=load(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert v["POST_M10_DC_00"]=="QUALIFIED"
+    assert v["FIRST_DOWNSTREAM_CLAIM"]=="FROZEN"
+    assert v["FIRST_DOWNSTREAM_ESTIMAND"]=="FROZEN"
+    assert v["FIRST_DOWNSTREAM_ANALYSIS_INTENT"]=="FROZEN"
+    assert v["NUMERICAL_ESTIMATION"] is False
+    assert v["REAL_DATA_READ"] is False
+    assert v["PCG_REAL_EXECUTION"] is False
+    assert v["PCG_REAL_RESULT"]=="NONE"
+    assert v["POOLING_EXECUTION"] is False
+    assert v["CONDITIONING_EXECUTION"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert v["OOS_CONSUMPTION"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]=={"trading":False,"capital":False}
+    assert r["next_frontier"]["id"]=="SMF-AP1-M03-02-R1-POST-M10-PCG-02A"
+    assert r["next_frontier"]["mandatory_downstream_source"]=="POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE"
+    assert r["next_frontier"]["separate_human_authorization_or_explicit_reopening_required"] is True
+    assert r["next_frontier"]["opened"] is False
+    assert r["next_frontier"]["executed"] is False
+    assert r["stop"] is True
