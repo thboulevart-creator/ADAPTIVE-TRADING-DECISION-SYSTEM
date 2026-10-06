@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_EF_01_CONTROL_FLOW_ANALYSIS_V0_1",
+  "executor": {
+    "path": "tools/smf_ap1_m03_02_real_execution.py",
+    "blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "success_path": [
+      "compute parity",
+      "set payload.status=M03_REAL_EXECUTION_COMPLETE iff parity.overall==PASS",
+      "write_json(output,payload)",
+      "print M03_EXIT_STATUS",
+      "print PARITY_STATUS",
+      "print OUTPUT",
+      "print OUTPUT_SHA256",
+      "return 0 iff parity.overall==PASS"
+    ],
+    "fail_path": "return 3 if parity is not PASS",
+    "exception_path": "emit M03_REAL_EXECUTION_BLOCKED and return 2"
+  },
+  "bootstrap": {
+    "path": "tools/smf_ap1_m03_02_r1_bootstrap.py",
+    "blob": "d510d01eb92f36a458b30a6bb0d3371914d8ee03",
+    "execute_path": [
+      "inject exact repo root into sys.path[0]",
+      "set sys.argv",
+      "runpy.run_module(target,run_name=__main__,alter_sys=True)",
+      "does not catch SystemExit"
+    ],
+    "systemexit_propagation": "0/2/3 propagated unchanged in synthetic probe"
+  },
+  "historical_controller": {
+    "pattern": "Start-Process -PassThru; Wait-Process -Id; Process.Refresh(); Process.ExitCode",
+    "result": "ExitCode null for synthetic children known to exit 0, 2, and 3",
+    "discriminant": "Start-Process -Wait -PassThru observed exact 0/2/3",
+    "capture_defect": "PROVEN"
+  },
+  "market_execution_evidence": {
+    "output_status": "M03_REAL_EXECUTION_COMPLETE",
+    "output_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "stdout_sha256": "19a951452687588a877cda25a170992479dccd1a2cc87c6d8c3e196237e6f0c3",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "timeout_observed": false,
+    "parity": "PASS",
+    "parity_pass_count": 1925,
+    "parity_fail_count": 0,
+    "parity_not_comparable_count": 165,
+    "max_abs_diff": 0,
+    "direct_exit_code_observation": "UNAVAILABLE"
+  }
+}

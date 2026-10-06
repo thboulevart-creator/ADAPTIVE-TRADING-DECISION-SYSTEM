@@ -1,0 +1,83 @@
+[
+  {
+    "pattern": "historical",
+    "requested": 0,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": null,
+    "stdout": "SYNTHETIC_EXIT=0",
+    "stderr": ""
+  },
+  {
+    "pattern": "historical",
+    "requested": 2,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": null,
+    "stdout": "SYNTHETIC_EXIT=2",
+    "stderr": ""
+  },
+  {
+    "pattern": "historical",
+    "requested": 3,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": null,
+    "stdout": "SYNTHETIC_EXIT=3",
+    "stderr": ""
+  },
+  {
+    "pattern": "wait_passthru",
+    "requested": 0,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": 0,
+    "stdout": "SYNTHETIC_EXIT=0",
+    "stderr": ""
+  },
+  {
+    "pattern": "wait_passthru",
+    "requested": 2,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": 2,
+    "stdout": "SYNTHETIC_EXIT=2",
+    "stderr": ""
+  },
+  {
+    "pattern": "wait_passthru",
+    "requested": 3,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": 3,
+    "stdout": "SYNTHETIC_EXIT=3",
+    "stderr": ""
+  },
+  {
+    "pattern": "wait_for_exit",
+    "requested": 0,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": null,
+    "stdout": "SYNTHETIC_EXIT=0",
+    "stderr": ""
+  },
+  {
+    "pattern": "wait_for_exit",
+    "requested": 2,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": null,
+    "stdout": "SYNTHETIC_EXIT=2",
+    "stderr": ""
+  },
+  {
+    "pattern": "wait_for_exit",
+    "requested": 3,
+    "timed_out": false,
+    "has_exited": true,
+    "exit_code": null,
+    "stdout": "SYNTHETIC_EXIT=3",
+    "stderr": ""
+  }
+]

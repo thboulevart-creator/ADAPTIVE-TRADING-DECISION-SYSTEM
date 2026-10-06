@@ -1,0 +1,85 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_EF_01_ADJUDICATION_CONTRACT_V0_1",
+  "status": "FROZEN_BY_HUMAN_AUTHORIZATION_BEFORE_PROBES",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "d19b59c321b661f9f3af4effe31b46e59d73d86e",
+    "tree": "5be806fd1640c349db05b0689d81fca20c566295"
+  },
+  "current_preflight_parent": {
+    "head": "1187721e46bb2e751521a05fcb07782d3432de5d",
+    "tree": "02f196d51e13866a4e5fd64dcfcf693088cdac37"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "changed_scopes": [
+      "AO-E0-B8",
+      "BEPD-04I"
+    ],
+    "protected_ef01_evidence_unchanged": true
+  },
+  "mission": "Adjudicate whether the existing single R1 M03 execution is sufficiently proven successful despite unavailable direct exit-code observation, without rerunning M03.",
+  "historical_state": {
+    "r1_status": "BLOCKED",
+    "blocker": "EXIT_CODE_NOT_CAPTURED_BY_R1_CONTROLLER",
+    "original_launcher_invocation_count": 1,
+    "original_m03_method_execution_count": 0,
+    "r1_retry_invocation_count": 1,
+    "r1_launcher_ordinal": 2,
+    "r1_real_m03_method_execution_count": 1
+  },
+  "sufficiency_conditions": [
+    "exact output identity MATCH",
+    "output schema/status M03_REAL_EXECUTION_COMPLETE",
+    "exact stdout identity MATCH",
+    "stderr EMPTY",
+    "timeout FALSE",
+    "real parity PASS",
+    "parity fail count 0",
+    "max absolute parity difference 0.0",
+    "exact executor control flow proves COMPLETE + PARITY PASS reaches success return path",
+    "bootstrap SystemExit propagation semantics proven",
+    "controller exit-code capture defect independently reproduced synthetically",
+    "no materially plausible alternative path remains that explains evidence while implying failed M03 execution"
+  ],
+  "admissible_verdicts": [
+    "EVIDENCE_SUFFICIENT_EXECUTION_QUALIFIED",
+    "EVIDENCE_INSUFFICIENT_EXECUTION_REMAINS_BLOCKED",
+    "BLOCKED",
+    "FAIL"
+  ],
+  "exit_code_semantics": {
+    "direct_exit_code_observation": "UNAVAILABLE",
+    "forbidden_statement": "OBSERVED_EXIT_CODE = 0",
+    "allowed_success_statement": "QUALIFIED_BY_INDEPENDENT_CONVERGENT_EXECUTION_EVIDENCE"
+  },
+  "forbidden": [
+    "REAL_M03_EXECUTION",
+    "SECOND_R1_RETRY",
+    "REAL_M03_LAUNCHER_INVOCATION",
+    "M03_MARKET_RECALCULATION",
+    "AP1_EXECUTION",
+    "THIRD_AP1_INVOCATION",
+    "HISTORICAL_OUTPUT_MUTATION",
+    "HISTORICAL_LEDGER_MUTATION",
+    "HISTORICAL_STDOUT_MUTATION",
+    "HISTORICAL_STDERR_MUTATION",
+    "PLAN_MUTATION",
+    "FREEZE_MUTATION",
+    "EXECUTOR_MUTATION",
+    "BINDING_MUTATION",
+    "CORE_MUTATION",
+    "DATA02_MUTATION",
+    "RETROSPECTIVE_EXIT_CODE_FABRICATION",
+    "AUTOMATIC_SCIENTIFIC_INTERPRETATION",
+    "SCIENTIFIC_FINDING_ADOPTION",
+    "OTHER_SMF_METHOD_EXECUTION",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL"
+  ],
+  "note": "The human authorization itself froze these criteria before the synthetic forensic probes. This repository artifact materializes the pre-existing human-frozen rules without changing them after observation."
+}

@@ -1,0 +1,49 @@
+{
+  "bootstrap_systemexit_propagation": [
+    {
+      "requested_system_exit": 0,
+      "returned_normally": false,
+      "system_exit_code": 0
+    },
+    {
+      "requested_system_exit": 2,
+      "returned_normally": false,
+      "system_exit_code": 2
+    },
+    {
+      "requested_system_exit": 3,
+      "returned_normally": false,
+      "system_exit_code": 3
+    }
+  ],
+  "executor_cases": [
+    {
+      "case": "PASS",
+      "return_code": 0,
+      "stdout": [
+        "M03_EXIT_STATUS=M03_REAL_EXECUTION_COMPLETE",
+        "PARITY_STATUS=PASS",
+        "OUTPUT=<synthetic>",
+        "OUTPUT_SHA256=synthetic-sha256"
+      ]
+    },
+    {
+      "case": "FAIL",
+      "return_code": 3,
+      "stdout": [
+        "M03_EXIT_STATUS=M03_REAL_EXECUTION_PARITY_BLOCKED",
+        "PARITY_STATUS=FAIL",
+        "OUTPUT=<synthetic>",
+        "OUTPUT_SHA256=synthetic-sha256"
+      ]
+    },
+    {
+      "case": "EXCEPTION",
+      "return_code": 2,
+      "stdout": [
+        "M03_EXIT_STATUS=M03_REAL_EXECUTION_BLOCKED",
+        "REASON=SYNTHETIC_FAIL"
+      ]
+    }
+  ]
+}
