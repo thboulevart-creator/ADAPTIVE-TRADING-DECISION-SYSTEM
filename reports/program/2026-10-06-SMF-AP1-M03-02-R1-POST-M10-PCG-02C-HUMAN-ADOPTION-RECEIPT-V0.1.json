@@ -1,0 +1,106 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_02C_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02C",
+  "status": "HUMAN_ADJUDICATION_CANONICALLY_PERSISTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "adjudication_identity": {
+    "persisted_head": "b74f6349172565810c566e64ca6a2ba9224c0836",
+    "persisted_tree": "98489d34ce796ff95cef6450d3cd4fff2eb6767c",
+    "adjudication_blob": "2534e5d710e0242060c98d4e3f32beabbc01d16b",
+    "test_blob": "57c071a4d6d32d0c10725319dcb9b5041b6c73a9",
+    "workflow_blob": "0ffee2c83a4b175578921252ddb74e8e597c2d96"
+  },
+  "pcg02b_bindings": {
+    "final_execution_receipt_blob": "5e7810ebd00f65a001772ecd0f53e71181eaeb9a",
+    "final_closure_blob": "1c35d07477a65809ebcfd4e0812fbea7557afa0b",
+    "primary_result_blob": "c36e30ab427ba092bfb935aeec42d32881765d39",
+    "reference_result_blob": "c36e30ab427ba092bfb935aeec42d32881765d39",
+    "parity_blob": "9a0ccb4afa82c8bacd774fe6a688621596642184"
+  },
+  "qualification": {
+    "local_documentary_plus_pcg02b_integrity": "40/40 PASS",
+    "canonical_pcg02c_ci": {
+      "run_id": 37520137566,
+      "job_id": 112463134767,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37520137496,
+      "job_id": 112463134821,
+      "conclusion": "success"
+    }
+  },
+  "human_adjudication": {
+    "PCG_02B_TECHNICAL_RESULT": "HUMAN_ADOPTED",
+    "PCG_02B_GATE_RESULT": "HUMAN_ADOPTED",
+    "PCG_02B_BLOCKED_RESULT": "HUMAN_ADOPTED",
+    "CURRENT_POOLED_CLAIM": "BLOCKED",
+    "ROUTE_A": "NOT_SELECTED",
+    "ROUTE_B": "SELECTED_AS_PREFERRED_NEXT_DESIGN_DIRECTION",
+    "ROUTE_C": "NOT_SELECTED",
+    "ROUTE_B_ADMISSIBLE": "NOT_YET_ESTABLISHED",
+    "CANDIDATE_TEMPORAL_CONDITIONING": "YEAR_STRATA",
+    "YEAR_STRATA_SPEC": "NOT_YET_FROZEN",
+    "YEAR_STRATA_SPEC_QUALIFIED": false
+  },
+  "exact_gate_result": {
+    "claim_unit": "tick_count p50",
+    "input_classification": "MATERIAL_TEMPORAL_VARIATION",
+    "selected_route": "NONE",
+    "gate_state": [
+      "BLOCKED"
+    ],
+    "decision_reason": "MATERIAL_CLAIM_UNIT_NO_ADMISSIBILITY_ROUTE",
+    "block_reason": "MATERIAL_CLAIM_UNIT_NO_ADMISSIBILITY_ROUTE",
+    "qualifying_routes": [],
+    "overall_gate_admissibility": "BLOCKED",
+    "authority_created": "NONE"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "pooling": false,
+    "conditioning_execution": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+    "scope": "TEMPORALLY_CONDITIONED_DOWNSTREAM_CLAIM_PLUS_ESTIMAND_PLUS_YEAR_STRATA_CONDITIONING_SPEC_DESIGN_FREEZE_ONLY",
+    "candidate_conditioning_type": "YEAR_STRATA",
+    "candidate_strata": [
+      "UTC_YEAR:2022",
+      "UTC_YEAR:2023",
+      "UTC_YEAR:2024",
+      "UTC_YEAR:2025"
+    ],
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "real_data_read": false,
+    "conditioning_execution": false,
+    "method_execution": false,
+    "opened": false
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4": "INHERITED_OUT_OF_SCOPE",
+    "p0_6": "INHERITED_OUT_OF_SCOPE"
+  },
+  "stop": true,
+  "force": false
+}

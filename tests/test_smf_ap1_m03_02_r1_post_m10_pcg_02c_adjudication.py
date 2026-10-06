@@ -139,3 +139,38 @@ def test_16_no_pcg02c_runtime_or_data_artifact_surface():
 
 def test_17_record_ends_with_stop():
     assert text().rstrip().endswith("STOP.")
+
+
+RECEIPT=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-POST-M10-PCG-02C-HUMAN-ADOPTION-RECEIPT-V0.1.json"
+CLOSURE=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-POST-M10-PCG-02C-FINAL-CLOSURE.md"
+
+def test_18_human_adoption_receipt_preserves_exact_boundaries():
+    import json
+    r=json.loads(RECEIPT.read_text(encoding="utf-8"))
+    h=r["human_adjudication"]
+    assert r["status"]=="HUMAN_ADJUDICATION_CANONICALLY_PERSISTED"
+    assert h["PCG_02B_TECHNICAL_RESULT"]=="HUMAN_ADOPTED"
+    assert h["PCG_02B_GATE_RESULT"]=="HUMAN_ADOPTED"
+    assert h["CURRENT_POOLED_CLAIM"]=="BLOCKED"
+    assert h["ROUTE_A"]=="NOT_SELECTED"
+    assert h["ROUTE_B"]=="SELECTED_AS_PREFERRED_NEXT_DESIGN_DIRECTION"
+    assert h["ROUTE_C"]=="NOT_SELECTED"
+    assert h["ROUTE_B_ADMISSIBLE"]=="NOT_YET_ESTABLISHED"
+    assert h["YEAR_STRATA_SPEC"]=="NOT_YET_FROZEN"
+    assert h["YEAR_STRATA_SPEC_QUALIFIED"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert all(v is False for v in r["authority"].values())
+    assert r["next_frontier"]["id"]=="SMF-AP1-M03-02-R1-POST-M10-DC-01"
+    assert r["next_frontier"]["separate_human_authorization_required"] is True
+    assert r["next_frontier"]["automatic_open"] is False
+    assert r["next_frontier"]["opened"] is False
+    assert r["stop"] is True
+
+def test_19_final_closure_stops_before_dc01():
+    t=CLOSURE.read_text(encoding="utf-8")
+    assert "SMF-AP1-M03-02-R1-POST-M10-DC-01 =\nCLOSED" in t
+    assert "SEPARATE_HUMAN_AUTHORIZATION_REQUIRED =\nTRUE" in t
+    assert "REAL_DATA_READ =\nFALSE" in t
+    assert "CONDITIONING_EXECUTION =\nFALSE" in t
+    assert "METHOD_EXECUTION =\nFALSE" in t
+    assert t.rstrip().endswith("STOP.")
