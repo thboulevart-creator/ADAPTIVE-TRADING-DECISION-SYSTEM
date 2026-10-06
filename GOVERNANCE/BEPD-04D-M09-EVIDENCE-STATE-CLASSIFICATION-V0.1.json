@@ -1,0 +1,41 @@
+{
+  "schema": "ATDS_BEPD_04D_M09_EVIDENCE_STATE_CLASSIFICATION_V0_1",
+  "status": "READINESS_CLASSIFICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "32552560495b3a3d0a9be33dcf17daa2509b8fa8",
+    "tree": "1270c3a644d5bcc38b6a3c9d57b8127a357de97f"
+  },
+  "bindings": {
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_run_manifest_blob": "23c1fc0e044d7461f382d59895bb9b930481b896",
+    "smf03_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "occurrence_scoped_m05_record_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd04d_claim_contract_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db"
+  },
+  "m09": {
+    "current_state": "EXPOSED",
+    "pristine": false,
+    "contaminated": false,
+    "reset_to_pristine": "FORBIDDEN",
+    "rationale": [
+      "BEPD-04C fixed-corpus response result has already been exposed, qualified and HUMAN_ADOPTED.",
+      "BEPD-04D does not alter the estimand, select a favorable subgroup, select a favorable horizon, or choose method parameters from newly inspected response results.",
+      "The generalization-readiness question is a follow-on methodological question about the already-adopted estimand; therefore the current corpus cannot be represented as pristine confirmatory evidence.",
+      "CONTAMINATED is not assigned at this stage because no hypothesis redesign or parameter tuning using additional response evidence is authorized or performed in BEPD-04D."
+    ],
+    "contamination_triggers": [
+      "choose method family because it gives a favorable interval",
+      "choose confidence level from observed response values",
+      "choose block length from favorable inferential output",
+      "inspect response subgroups before freezing them",
+      "choose thresholds after viewing real nonstationarity diagnostics",
+      "select a favorable response horizon"
+    ],
+    "current_corpus_allowed_future_role": "EXPLORATORY_GENERALIZATION_ANALYSIS_ONLY_UNLESS_A_DISTINCT_FUTURE_AUTHORITY_DEFINES_A_NON_CONFIRMATORY_USE",
+    "confirmatory_generalization_requirement": "FRESH_OOS_EVIDENCE_REQUIRED"
+  }
+}
