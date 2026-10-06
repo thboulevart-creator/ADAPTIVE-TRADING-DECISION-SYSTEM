@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_BEPD_06A_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-06A",
+  "status": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent_commit": "a2247e4fb0fbf9e0d286579069e4e5ba8048b78a",
+  "qualification_parent_tree": "69c1d5baa602557223de0f5220d0f18bf27999d3",
+  "bindings": {
+    "human_authorization_blob": "f25c9156b4489f6c2c1775c2638d2a1efd5d3759",
+    "timing_contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+    "frozen_adversarial_breaker_blob": "02a64983b4ce75b0f798f1b9639bf8d1a4c41605",
+    "pre_result_freeze_blob": "6cb6b5bac0848d8b24f035a1527216bf71843bbd",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd05b_final_human_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147"
+  },
+  "qualification_checks": {
+    "source_identities": "PASS / EXACT",
+    "inherited_population_state": "PASS / 472 = 370 + 102",
+    "timing_population": "PASS / 370 CONDITIONAL REINTEGRATING EVENTS",
+    "time_origin": "PASS / take_h1_close_utc / FROZEN",
+    "event_time": "PASS / reintegration_h1_close_utc / FROZEN",
+    "event_time_semantic": "PASS / FIRST STRICTLY LATER QUALIFYING H1 REINTEGRATION CLOSE",
+    "ordering": "PASS / T1 > T0 REQUIRED",
+    "clock": "PASS / UTC ELAPSED HOURS / FROZEN",
+    "local_time_for_canonical_calculation": "FORBIDDEN",
+    "no_reintegration_handling": "PASS / 102 PROVENANCE RETAINED / NO ARTIFICIAL DURATION",
+    "quantile_method": "PASS / HYNDMAN_FAN_TYPE_7",
+    "empirical_cdf": "PASS / EXACT_UNSMOOTHED_UNBINNED",
+    "subgroup_authority": "NONE",
+    "survival_authority": "NONE",
+    "dependence_boundary": "PASS / target_week_id + sweep_cluster_id PRESERVED",
+    "breaker_cases": "42 / 42 PRESENT / HARD_FAIL",
+    "real_timing_execution": "NOT_AUTHORIZED",
+    "real_timing_distribution_exposure": "NO",
+    "oos_prediction_edge_trading_authority": "NONE"
+  },
+  "result_exposure": {
+    "real_timing_aggregate_statistics_calculated": false,
+    "real_timing_distribution_exposed": false,
+    "survival_analysis_executed": false
+  },
+  "human_adoption": false,
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_06A",
+  "next_frontier_opened": false
+}

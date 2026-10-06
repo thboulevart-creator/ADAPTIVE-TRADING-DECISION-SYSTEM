@@ -1,0 +1,266 @@
+# BEPD-06A — CONDITIONAL TIME-TO-FIRST-REINTEGRATION SEMANTICS + CLOCK CONTRACT + PRE-RESULT FREEZE — QUALIFICATION V0.1
+
+## Verdict
+
+```text
+BEPD-06A =
+QUALIFIED_FOR_HUMAN_ADOPTION
+
+HUMAN ADOPTION =
+NOT AUTOMATIC
+
+REAL TIMING EXECUTION =
+NOT AUTHORIZED
+
+REAL TIMING DISTRIBUTION EXPOSURE =
+NO
+```
+
+## Qualified identities
+
+```text
+HUMAN AUTHORIZATION =
+f25c9156b4489f6c2c1775c2638d2a1efd5d3759
+
+TIMING CONTRACT =
+a15278a9491e75096585ab576b548b965ee6a0e6
+
+FROZEN PRE-RESULT ADVERSARIAL BREAKER =
+02a64983b4ce75b0f798f1b9639bf8d1a4c41605
+
+PRE-RESULT FREEZE =
+6cb6b5bac0848d8b24f035a1527216bf71843bbd
+```
+
+## Bound source state
+
+```text
+TOTAL QUALIFIED EVENTS =
+472
+
+SAME_WEEK_REINTEGRATION TRUE =
+370
+
+SAME_WEEK_REINTEGRATION FALSE =
+102
+
+TIMING POPULATION =
+370 CONDITIONAL REINTEGRATING EVENTS
+```
+
+The 370/102 split is inherited exactly from canonical BEPD-04C. BEPD-06A creates no new response count.
+
+## Frozen timing semantics
+
+```text
+T0 =
+take_h1_close_utc
+
+T1 =
+reintegration_h1_close_utc
+
+T =
+(T1 - T0) / 1 hour
+
+T1 > T0 =
+REQUIRED
+
+EVENT TIME =
+FIRST STRICTLY LATER QUALIFYING SAME-WEEK REINTEGRATION H1 CLOSE
+
+CLOCK =
+UTC ELAPSED HOURS
+```
+
+Canonical UTC elapsed hours are explicitly distinct from trading hours, observed market hours and time in position.
+
+## No-reintegration handling
+
+For the 102 events with `same_week_reintegration = false`:
+
+```text
+TIME TO REINTEGRATION =
+NOT OBSERVED WITHIN TARGET WEEK
+
+ARTIFICIAL DURATION =
+FORBIDDEN
+
+INFINITE DURATION =
+FORBIDDEN
+
+ZERO DURATION =
+FORBIDDEN
+
+TARGET-WEEK-END DURATION =
+FORBIDDEN
+
+PROVENANCE COUNT =
+102 / REQUIRED
+```
+
+They are not part of the first conditional 370-event timing distribution.
+
+## Frozen candidate timing surface
+
+```text
+N_TIMING
+
+MINIMUM ELAPSED UTC HOURS
+MAXIMUM ELAPSED UTC HOURS
+
+MEAN
+MEDIAN
+
+P01
+P05
+P10
+P25
+P50
+P75
+P90
+P95
+P99
+
+EXACT EMPIRICAL CDF
+```
+
+with:
+
+```text
+QUANTILE METHOD =
+HYNDMAN-FAN TYPE 7
+
+P50 =
+MEDIAN
+
+ECDF =
+EXACT / UNSMOOTHED / UNBINNED
+
+POST-HOC TIME THRESHOLDS =
+FORBIDDEN
+```
+
+## Survival boundary
+
+```text
+KAPLAN-MEIER =
+NOT ACTIVATED
+
+SURVIVAL FUNCTION =
+NOT ACTIVATED
+
+HAZARD FUNCTION =
+NOT ACTIVATED
+
+CUMULATIVE HAZARD =
+NOT ACTIVATED
+
+COMPETING RISKS =
+NOT ACTIVATED
+
+CENSORING MODEL =
+NOT ACTIVATED
+
+INVERSE PROBABILITY WEIGHTING =
+NOT ACTIVATED
+```
+
+An unconditional survival question requires a separate methodological and human authorization boundary.
+
+## Dependence and subgroup boundary
+
+```text
+EVENT != IID OBSERVATION
+
+DEPENDENCE KEYS =
+target_week_id
+sweep_cluster_id
+
+SUBGROUP AUTHORITY =
+NONE
+
+IID STANDARD ERROR =
+FORBIDDEN
+
+IID CONFIDENCE INTERVAL =
+FORBIDDEN
+
+IID BOOTSTRAP =
+FORBIDDEN
+```
+
+## Adversarial qualification
+
+```text
+BREAKER CASES =
+42 / 42 PRESENT
+
+EXPECTED OUTCOME =
+HARD_FAIL FOR ALL 42
+```
+
+Coverage includes wrong timestamp anchor, wrong reintegration event, T1<=T0, local-time/DST laundering, artificial duration assignment to non-reintegrations, silent provenance loss, 370→472 denominator laundering, post-hoc thresholding, subgrouping, IID laundering, survival-model laundering, and prediction/edge/strategy/trading-authority laundering.
+
+## No real analytics executed
+
+```text
+REAL TIMING AGGREGATE STATISTICS CALCULATED =
+NO
+
+REAL TIMING DISTRIBUTION EXPOSED =
+NO
+
+SURVIVAL ANALYSIS EXECUTED =
+NO
+
+NEW OOS CONSUMPTION =
+NO
+```
+
+## Terminal state
+
+```text
+SOURCE IDENTITIES =
+EXACT
+
+370 / 102 STATE SEMANTICS =
+EXACT
+
+TIME ORIGIN =
+FROZEN
+
+EVENT TIME =
+FROZEN
+
+CLOCK =
+UTC ELAPSED HOURS / FROZEN
+
+CONDITIONAL ESTIMAND =
+FROZEN
+
+NO-REINTEGRATION HANDLING =
+FROZEN
+
+AGGREGATION SURFACE =
+FROZEN
+
+SURVIVAL AUTHORITY =
+NONE
+
+SUBGROUP AUTHORITY =
+NONE
+
+OOS AUTHORITY =
+NONE
+
+TRADING AUTHORITY =
+NONE
+
+BEPD-06A =
+QUALIFIED_FOR_HUMAN_ADOPTION
+
+NEXT REQUIRED ACTION =
+HUMAN ADJUDICATION OF BEPD-06A
+
+STOP.
+```
