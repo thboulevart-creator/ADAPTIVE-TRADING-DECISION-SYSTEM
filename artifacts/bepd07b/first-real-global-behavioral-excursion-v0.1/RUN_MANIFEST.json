@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_BEPD_07B_RUN_MANIFEST_V0_1",
+  "control_id": "BEPD-07B",
+  "run_id": "0b4d18291d4a36eaa596c2b3cc3a4c192705e14b9718823783012de5a95632db",
+  "event_ledger_path": "artifacts\\bepd02\\real-historical-weekly-liquidity-ledger-v0.1\\EVENT_LEDGER.jsonl",
+  "event_ledger_sha256": "6458a3fa8fc309e87138ac86af549a3b53f5939822e7436daa8a3104986b45e0",
+  "source_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "ap0_root": "C:\\Users\\Boulevart\\ATDS-TMP\\BEPD-07B-EXECUTION\\USTECH_PROFILE_MINUTE_CORE_V0_1",
+  "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+  "ap0_file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+  "ap0_files_verified": 61,
+  "ap0_rows": 1709180,
+  "runner_blob": "5b1108cc0fe703d9c45cfebc2ba12eb33c6552de",
+  "contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+  "breaker_blob": "42f2a720a0904c83c45a507cfa340af30ba73ae5",
+  "freeze_blob": "10fa2fc9011dded1567a054efb31fbabfa6dab8a",
+  "result_sha256": "a42cd2db8155d2ec79b5f7ec434a2fc731281d52df8d593c2572df257b35d632",
+  "diagnostics_sha256": "0928bb5c05f703cc2bedfd783ac67d11eaebe715daf04514c0bb70ec9a9b65b4",
+  "event_level_derived_path_ledger_persisted": false
+}
