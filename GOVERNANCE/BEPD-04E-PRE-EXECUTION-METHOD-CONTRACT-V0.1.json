@@ -1,0 +1,73 @@
+{
+  "schema": "ATDS_BEPD_04E_PRE_EXECUTION_METHOD_CONTRACT_V0_1",
+  "status": "FROZEN_BEFORE_RUNTIME_IMPLEMENTATION",
+  "scope": "SYNTHETIC_PRE_EXECUTION_QUALIFICATION_ONLY",
+  "bindings": {
+    "bepd04d_claim_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "bepd04d_m09_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "bepd04d_dependence_blob": "c26c6c10894efe5ed068c1a429353b69074435d5",
+    "bepd04d_gate_blob": "fedb12d532f1e68ee9405d05931a2a0d22672983",
+    "bepd04d_method_matrix_blob": "84e5e5de64d749579501df8da61969790281421f",
+    "bepd04d_blockers_blob": "e1dd20be134cfa3074253687d2215ad1027e1849",
+    "complete_week_calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "smf03_dependence_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87"
+  },
+  "method": {
+    "resampling_scheme": "MOVING_BLOCK",
+    "ordering_unit": "complete target week",
+    "block_unit": "contiguous complete target weeks",
+    "statistic": "RATIO_OF_SUMS",
+    "statistic_formula": "SUM(success_count_w)/SUM(event_count_w)",
+    "empty_week_contribution": {
+      "success_count": 0,
+      "event_count": 0
+    },
+    "individual_event_iid_resampling": false,
+    "interval_methods": [
+      "PERCENTILE",
+      "BASIC"
+    ],
+    "material_parameters_required": [
+      "block_length",
+      "replications",
+      "seed",
+      "confidence_level",
+      "interval_method"
+    ]
+  },
+  "m04_response_representation": {
+    "status": "BLOCKED_BY_REPRESENTATION_CONSTRAINT",
+    "reason": "A scalar weekly response series cannot preserve zero-event calendar weeks without either inventing a response value or dropping/collapsing those weeks. Both are forbidden.",
+    "forbidden_workarounds": [
+      "drop zero-event weeks",
+      "encode zero-event week as response=0",
+      "encode zero-event week using exposed global 370/472",
+      "compress event-bearing weeks into adjacent observations"
+    ]
+  },
+  "m10": {
+    "status": "SYNTHETIC_MECHANISM_ELIGIBLE",
+    "strata_rule_requirements": [
+      "PROSPECTIVE",
+      "DETERMINISTIC",
+      "CALENDAR_BASED",
+      "OUTCOME_BLIND"
+    ]
+  },
+  "nonstationarity_gate": {
+    "runtime_target": "support M10 and fail-closed gate aggregation",
+    "m04_status": "BLOCKED_BY_REPRESENTATION_CONSTRAINT",
+    "consequence": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED cannot be issued under current two-diagnostic BEPD-04D gate; unresolved remains mandatory until a separately authorized gate amendment or valid M04 representation exists."
+  },
+  "authority": {
+    "real_response_input": false,
+    "real_nonstationarity_diagnostic": false,
+    "real_bootstrap": false,
+    "real_confidence_interval": false,
+    "response_specific_m05_activation": false,
+    "occurrence_m05_reuse": false,
+    "parameter_human_adoption": false,
+    "trading_authority": "NONE"
+  }
+}
