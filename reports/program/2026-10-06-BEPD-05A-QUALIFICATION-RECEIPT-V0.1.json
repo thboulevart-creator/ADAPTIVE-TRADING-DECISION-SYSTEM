@@ -1,0 +1,47 @@
+{
+  "schema": "ATDS_BEPD_05A_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-05A",
+  "status": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent_commit": "9579a5697612adfac1c1c76e7d13a83f0f3c4a62",
+  "qualification_parent_tree": "d53eef33af625efb2138a66294a91faf90463144",
+  "bindings": {
+    "human_authorization_blob": "cfd4c1d5588335e1c5edf7f9fbb41d5f8d3bafae",
+    "semantics_aggregation_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "frozen_adversarial_breaker_blob": "c39802f70d83dc249d23fe240b61169bf20ac757",
+    "pre_aggregation_freeze_blob": "30d438ef1daad9acaad170c002d7d5d8426acec4",
+    "bepd01d_historical_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd_ces_01_r1_final_human_adjudication_blob": "a650b2e3bbdaed3201fd31580b5d58d2fbc9d052"
+  },
+  "qualification_checks": {
+    "authorization_identity": "PASS",
+    "contract_identity": "PASS",
+    "breaker_identity": "PASS",
+    "freeze_identity": "PASS",
+    "source_identity": "PASS",
+    "field_semantics": "PASS / EXACT",
+    "population_semantics": "PASS / FROZEN",
+    "sign_semantics": "PASS / FROZEN",
+    "aggregation_surface": "PASS / FROZEN",
+    "quantile_method": "PASS / HYNDMAN_FAN_TYPE_7",
+    "empirical_cdf": "PASS / EXACT_UNSMOOTHED",
+    "dependence_boundary": "PASS / PRESERVED",
+    "exposed_corpus_status": "PASS / EXPLICIT",
+    "subgroup_authority": "NONE",
+    "real_aggregation_authority": "NONE",
+    "oos_authority": "NONE",
+    "prediction_edge_trading_authority": "NONE",
+    "breaker_cases": "41 / 41 PRESENT / HARD_FAIL"
+  },
+  "result_exposure": {
+    "close_displacement_values_read_for_bepd05a": false,
+    "real_aggregate_statistics_calculated": false,
+    "real_distribution_exposed": false
+  },
+  "human_adoption": false,
+  "real_close_displacement_aggregation_authorized": false,
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_05A",
+  "next_frontier_opened": false
+}
