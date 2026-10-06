@@ -1,0 +1,46 @@
+{
+  "schema": "ATDS_AO_E0_B8_DR_01_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-DR-01",
+  "decision": "ADOPT",
+  "status": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "bindings": {
+    "candidate_blob": "7b08d0af9cb733be186ddc2f4fa6ca22768284fd",
+    "decision_table_blob": "1126cf429dc064104bdfe0615cea0a96b95b540e",
+    "qualification_receipt_blob": "af75a537538a7b4b46c467489972fbdd1dbf1796",
+    "human_decision_packet_blob": "6d6bb742e8c6a9d16698fd818cb6aad771492173",
+    "r1_blocker_blob": "475d4433cd8587dd36dc19274c7fad03ca39d830",
+    "human_adoption_blob": "848e59ac0ef8e56d16322a17bd3f55a0b6e87e45"
+  },
+  "decision_rule": {
+    "m05_lower_gt_5": "SUPPORT_SIGNAL",
+    "m05_upper_lte_5": "REFUTE_SIGNAL",
+    "m05_otherwise": "INCONCLUSIVE_SIGNAL",
+    "n_lt_58927": "INCONCLUSIVE_INSUFFICIENT_SAMPLE",
+    "m07_material_influence": "INCONCLUSIVE",
+    "m07_sign_reversal": "INCONCLUSIVE",
+    "m08_material_selection_asymmetry": "INCONCLUSIVE",
+    "unresolved_nonstationarity": "INCONCLUSIVE",
+    "partial_search_universe": "QUALIFICATION_LIMITATION_NOT_TERMINAL_GATE",
+    "support": "QUALIFIED",
+    "refute": "NOT_QUALIFIED_REFUTED",
+    "inconclusive": "NOT_QUALIFIED_EXACT_INCONCLUSIVE_REASON"
+  },
+  "state": {
+    "dr01_rule": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "b8": "BLOCKED",
+    "b12": "CLOSED",
+    "ao_e0_b8_02_rerun_authorized": false
+  },
+  "authority": {
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
