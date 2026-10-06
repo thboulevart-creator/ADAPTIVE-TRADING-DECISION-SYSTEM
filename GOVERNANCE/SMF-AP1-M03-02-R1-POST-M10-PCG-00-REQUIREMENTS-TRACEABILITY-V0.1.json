@@ -1,0 +1,222 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_00_REQUIREMENTS_TRACEABILITY_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-00",
+  "status": "FROZEN_DESIGN_TRACEABILITY",
+  "source_authority": "HUMAN_AUTHORIZATION_2026_10_06",
+  "mappings": [
+    {
+      "requirement": "DESIGN_FREEZE_ONLY",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE",
+        "BREAKER_CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B32"
+      ]
+    },
+    {
+      "requirement": "EXACT_POST_M10_BINDINGS",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B01",
+        "PCG-B02"
+      ]
+    },
+    {
+      "requirement": "EIGHT_MATERIAL_CLAIM_UNITS",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B03",
+        "PCG-B05"
+      ]
+    },
+    {
+      "requirement": "THREE_NO_MATERIAL_CLAIM_UNITS",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B04",
+        "PCG-B15",
+        "PCG-B34"
+      ]
+    },
+    {
+      "requirement": "ROUTE_A",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B06",
+        "PCG-B10"
+      ]
+    },
+    {
+      "requirement": "ROUTE_B",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B07",
+        "PCG-B11"
+      ]
+    },
+    {
+      "requirement": "ROUTE_C",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B08",
+        "PCG-B12"
+      ]
+    },
+    {
+      "requirement": "ABSENT_ROUTE_BLOCKS",
+      "artifacts": [
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B09"
+      ]
+    },
+    {
+      "requirement": "PER_CLAIM_UNIT_SCOPE",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B13",
+        "PCG-B14"
+      ]
+    },
+    {
+      "requirement": "NO_STABILITY_OR_NONSTATIONARITY_PROMOTION",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B16",
+        "PCG-B17",
+        "PCG-B18",
+        "PCG-B19"
+      ]
+    },
+    {
+      "requirement": "EXPOSED_NON_PRISTINE",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B20"
+      ]
+    },
+    {
+      "requirement": "GLOBAL_M05_REMAINS_BLOCKED",
+      "artifacts": [
+        "CONTRACT",
+        "DECISION_TABLE"
+      ],
+      "breakers": [
+        "PCG-B21",
+        "PCG-B23"
+      ]
+    },
+    {
+      "requirement": "M04_M05_M08_M09_M11_CLOSED",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B22",
+        "PCG-B23",
+        "PCG-B24",
+        "PCG-B25",
+        "PCG-B26"
+      ]
+    },
+    {
+      "requirement": "NO_REAL_DATA_OR_NEW_MARKET_RESULT",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B27",
+        "PCG-B28"
+      ]
+    },
+    {
+      "requirement": "NO_OOS",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B29"
+      ]
+    },
+    {
+      "requirement": "NO_TRADING_OR_CAPITAL_AUTHORITY",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B30",
+        "PCG-B31"
+      ]
+    },
+    {
+      "requirement": "NO_SILENT_DEFAULTS",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B33"
+      ]
+    },
+    {
+      "requirement": "GATE_ADMISSIBILITY_NOT_SCIENTIFIC_RESULT",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B35"
+      ]
+    },
+    {
+      "requirement": "PCG_01_SEPARATE_AUTHORIZATION",
+      "artifacts": [
+        "CONTRACT"
+      ],
+      "breakers": [
+        "PCG-B36"
+      ]
+    }
+  ],
+  "authorized_artifact_classes": [
+    "GOVERNANCE_CONTRACT",
+    "STATE_MACHINE_DECISION_TABLE",
+    "FROZEN_BREAKER_CONTRACT",
+    "REQUIREMENTS_TRACEABILITY_MAP",
+    "DOCUMENTARY_QUALIFICATION_REPORT",
+    "READINESS_CLOSURE_RECEIPT"
+  ],
+  "explicitly_excluded_artifact_classes": [
+    "EXECUTABLE_GATE_RUNTIME",
+    "REAL_RESULT",
+    "REAL_DATA_DERIVATIVE",
+    "STATISTICAL_METHOD_ACTIVATION",
+    "OOS_RESULT"
+  ]
+}

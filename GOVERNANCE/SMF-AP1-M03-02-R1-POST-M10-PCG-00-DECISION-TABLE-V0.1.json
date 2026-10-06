@@ -1,0 +1,202 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_00_DECISION_TABLE_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-00",
+  "status": "FROZEN_DESIGN_ONLY",
+  "semantics": {
+    "unit": "PER_CLAIM_UNIT_PER_DOWNSTREAM_CLAIM_PER_DOWNSTREAM_ANALYSIS_PER_TEMPORAL_SCOPE",
+    "pass_fail_only_forbidden": true,
+    "no_cross_claim_propagation": true,
+    "no_cross_metric_route_propagation": true
+  },
+  "rows": [
+    {
+      "id": "PCG-D01",
+      "condition": {
+        "pooling_requested": false,
+        "conditioning_requested": false,
+        "robust_method_requested": false
+      },
+      "applies_to": "ANY_CLAIM_UNIT",
+      "state": "NOT_APPLICABLE",
+      "reason": "NO_TEMPORAL_POOLING_OR_CONDITIONING_DECISION_REQUESTED"
+    },
+    {
+      "id": "PCG-D02",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "pooling_requested": true,
+        "route_refs": "NONE"
+      },
+      "state": "BLOCKED",
+      "reason": "MATERIAL_CLAIM_UNIT_DEFAULTS_TO_BLOCKED_WITHOUT_A_B_OR_C"
+    },
+    {
+      "id": "PCG-D03",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "pooling_requested": true,
+        "pooling_justification_ref": "PRESENT_NOT_HUMAN_ADOPTED"
+      },
+      "state": "ROUTE_A_PENDING",
+      "reason": "JUSTIFICATION_PRESENT_PENDING_HUMAN_ADJUDICATION"
+    },
+    {
+      "id": "PCG-D04",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "pooling_requested": true,
+        "pooling_justification_ref": "HUMAN_ADOPTED"
+      },
+      "state": "ADMISSIBLE_BY_ROUTE_A",
+      "reason": "EXPLICIT_POOLING_JUSTIFICATION_HUMAN_ADOPTED"
+    },
+    {
+      "id": "PCG-D05",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "conditioning_requested": true,
+        "temporal_conditioning_spec_ref": "ABSENT_OR_NOT_FROZEN"
+      },
+      "state": "ROUTE_B_PENDING",
+      "reason": "TEMPORAL_CONDITIONING_SPEC_NOT_YET_QUALIFIED_AND_FROZEN"
+    },
+    {
+      "id": "PCG-D06",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "conditioning_requested": true,
+        "temporal_conditioning_spec_ref": "QUALIFIED_AND_FROZEN"
+      },
+      "state": "ADMISSIBLE_BY_ROUTE_B",
+      "reason": "PREDECLARED_TEMPORAL_CONDITIONING_SPEC_EXISTS"
+    },
+    {
+      "id": "PCG-D07",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "robust_method_requested": true,
+        "robust_method_preregistration_ref": "ABSENT_OR_INCOMPLETE"
+      },
+      "state": "ROUTE_C_PENDING",
+      "reason": "ROBUST_METHOD_PREREGISTRATION_NOT_YET_QUALIFIED"
+    },
+    {
+      "id": "PCG-D08",
+      "condition": {
+        "claim_status": "MATERIAL_TEMPORAL_VARIATION",
+        "robust_method_requested": true,
+        "robust_method_preregistration_ref": "QUALIFIED_AND_COMPLETE"
+      },
+      "state": "ADMISSIBLE_BY_ROUTE_C",
+      "reason": "QUALIFIED_PREREGISTRATION_EXISTS_WITH_EXACT_METHOD_FAILURE_MODE_ASSUMPTIONS_SCOPE_AND_PARAMETERS"
+    },
+    {
+      "id": "PCG-D09",
+      "condition": {
+        "claim_status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED",
+        "pooling_requested": true,
+        "pooling_justification_ref": "ABSENT"
+      },
+      "state": "NON_MATERIAL_POOLING_REVIEW_REQUIRED",
+      "reason": "NO_MATERIAL_VARIATION_DETECTED_DOES_NOT_AUTO_VALIDATE_POOLING"
+    },
+    {
+      "id": "PCG-D10",
+      "condition": {
+        "claim_status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED",
+        "pooling_requested": true,
+        "pooling_justification_ref": "PRESENT_NOT_HUMAN_ADOPTED"
+      },
+      "state": "ROUTE_A_PENDING",
+      "reason": "CLAIM_SCOPED_POOLING_JUSTIFICATION_PENDING_HUMAN_ADJUDICATION"
+    },
+    {
+      "id": "PCG-D11",
+      "condition": {
+        "claim_status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED",
+        "pooling_requested": true,
+        "pooling_justification_ref": "HUMAN_ADOPTED"
+      },
+      "state": "ADMISSIBLE_BY_ROUTE_A",
+      "reason": "CLAIM_SCOPED_POOLING_JUSTIFICATION_HUMAN_ADOPTED_WITHOUT_STABILITY_PROMOTION"
+    },
+    {
+      "id": "PCG-D12",
+      "condition": {
+        "claim_status": "ANY",
+        "requested_route": "A",
+        "justification_reason": "ALL_YEARS_BELONG_TO_SAME_DATASET_ONLY"
+      },
+      "state": "BLOCKED",
+      "reason": "INSUFFICIENT_ROUTE_A_JUSTIFICATION"
+    },
+    {
+      "id": "PCG-D13",
+      "condition": {
+        "claim_status": "ANY",
+        "requested_route": "A",
+        "justification_reason": "SAMPLE_SIZE_IS_LARGE_ONLY"
+      },
+      "state": "BLOCKED",
+      "reason": "INSUFFICIENT_ROUTE_A_JUSTIFICATION"
+    },
+    {
+      "id": "PCG-D14",
+      "condition": {
+        "claim_status": "ANY",
+        "requested_route": "A",
+        "justification_reason": "POOLING_IS_CONVENIENT_ONLY"
+      },
+      "state": "BLOCKED",
+      "reason": "INSUFFICIENT_ROUTE_A_JUSTIFICATION"
+    },
+    {
+      "id": "PCG-D15",
+      "condition": {
+        "claim_status": "ANY",
+        "same_corpus_new_hypothesis_or_estimand": true
+      },
+      "state": "BLOCKED",
+      "reason": "SAME_CORPUS_CANNOT_BE_REDESIGNATED_PRISTINE_FOR_CONFIRMATORY_USE"
+    },
+    {
+      "id": "PCG-D16",
+      "condition": {
+        "claim_status": "ANY",
+        "requested_action": "AUTHORIZE_OR_ACTIVATE_M05"
+      },
+      "state": "BLOCKED",
+      "reason": "PCG_CANNOT_AUTHORIZE_OR_ACTIVATE_M05"
+    },
+    {
+      "id": "PCG-D17",
+      "condition": {
+        "claim_status": "ANY",
+        "requested_action": "EXECUTE_STATISTICAL_METHOD_OR_READ_REAL_DATA"
+      },
+      "state": "BLOCKED",
+      "reason": "OUTSIDE_PCG_00_DESIGN_FREEZE_AUTHORITY"
+    }
+  ],
+  "precedence": [
+    "AUTHORITY_VIOLATION_BLOCKS",
+    "PRISTINE_RESET_ATTEMPT_BLOCKS",
+    "MATERIAL_CLAIM_WITHOUT_VALID_ROUTE_BLOCKS",
+    "PENDING_ROUTE_REMAINS_PENDING",
+    "ADMISSIBILITY_IS_ROUTE_AND_CLAIM_SCOPED"
+  ],
+  "forbidden_output_labels": [
+    "PASS",
+    "FAIL",
+    "STABILITY_PROVEN",
+    "STATIONARITY_PROVEN",
+    "FORMAL_NONSTATIONARITY",
+    "REGIME_CHANGE",
+    "M05_AUTHORIZED",
+    "M05_ACTIVATED",
+    "STRATEGY_VALIDATED",
+    "TRADING_AUTHORITY"
+  ],
+  "design_only": true,
+  "executable_evaluator_present": false
+}

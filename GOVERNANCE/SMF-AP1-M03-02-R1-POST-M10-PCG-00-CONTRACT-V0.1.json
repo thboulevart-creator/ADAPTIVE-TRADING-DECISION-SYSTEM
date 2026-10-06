@@ -1,0 +1,193 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_00_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-00",
+  "title": "POST-M10 TEMPORAL POOLING AND CONDITIONING GATE — DESIGN / FREEZE V0.1",
+  "status": "DESIGN_FROZEN_PENDING_DOCUMENTARY_QUALIFICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "design_only": true,
+  "implementation": {
+    "executable_gate_implemented": false,
+    "executable_gate_executed": false,
+    "real_data_read": false,
+    "new_statistical_method_executed": false,
+    "new_market_result": false,
+    "oos_consumption": false
+  },
+  "binding_sources": {
+    "post_m10_human_adjudication_blob": "aeed65dd6853392168aa97432ebadb1f9ea48e46",
+    "post_m10_human_adoption_receipt_blob": "afe3fe2cc9dc36182f785620496a66bdab297370",
+    "m10_01_final_receipt_blob": "899d0e6d27920dccfc260de0c30646d9e5ee8c53",
+    "m10_01_final_closure_blob": "1664e786e65a68cf77370afc7cc933b34958133a",
+    "smf01_human_adjudication_blob": "2856b9aa8df7be964d0ee8f20d7332494e599549",
+    "smf02_human_adjudication_blob": "ffd02a3957a1b823379cc57bdeb04c48e34eeff6",
+    "smf03_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87"
+  },
+  "preflight_parent": {
+    "head": "76d434c5266fe222fb95025084879aa8e1ab6275",
+    "tree": "0dc3ca3eae622a26c0ce8bac968b097a1d76d747",
+    "drift_from_last_observed": "NON_MATERIAL_TO_POST_M10_PCG_00",
+    "drift_scope": [
+      "AO-E0-B12-DATA-01-SR-01-A"
+    ]
+  },
+  "purpose": {
+    "question": "IS TEMPORAL POOLING FOR THIS EXACT CLAIM UNIT AND THIS EXACT DOWNSTREAM ANALYSIS ADMISSIBLE UNDER THE POST-M10 RULES?",
+    "control_type": "GOVERNANCE_CONTROL",
+    "not_a": [
+      "STATISTICAL_METHOD",
+      "STATISTICAL_TEST",
+      "MARKET_MODEL",
+      "REGIME_MODEL",
+      "SIGNAL",
+      "STRATEGY"
+    ],
+    "produces_new_empirical_market_information": false
+  },
+  "claim_units": {
+    "material_temporal_variation": [
+      "tick_count p50",
+      "tick_count p90",
+      "tick_count p99",
+      "minute_range p50",
+      "minute_range p90",
+      "minute_range p95",
+      "minute_range p99",
+      "spread_mean p50"
+    ],
+    "no_material_temporal_variation_detected": [
+      "spread_mean p90",
+      "spread_mean p95",
+      "spread_mean p99"
+    ],
+    "material_default_pooling_rule": "NOT_ALLOWED_BY_DEFAULT",
+    "non_material_status_does_not_imply": [
+      "STABILITY_PROVEN",
+      "STATIONARITY_PROVEN",
+      "UNCONDITIONAL_POOLING_VALIDATED"
+    ]
+  },
+  "required_inputs": [
+    "CLAIM_UNIT",
+    "DOWNSTREAM_CLAIM_ID",
+    "DOWNSTREAM_ANALYSIS_ID",
+    "REQUESTED_TEMPORAL_SCOPE",
+    "POOLING_REQUESTED",
+    "CONDITIONING_REQUESTED",
+    "PREREGISTERED_ROBUST_METHOD_REQUESTED"
+  ],
+  "conditional_inputs": [
+    "POOLING_JUSTIFICATION_REF",
+    "TEMPORAL_CONDITIONING_SPEC_REF",
+    "ROBUST_METHOD_PREREGISTRATION_REF"
+  ],
+  "material_defaults_forbidden": true,
+  "routes": {
+    "A": {
+      "id": "EXPLICITLY_JUSTIFY_TEMPORAL_POOLING",
+      "required_ref": "POOLING_JUSTIFICATION_REF",
+      "ref_states": [
+        "JUSTIFICATION_ABSENT",
+        "JUSTIFICATION_PRESENT_PENDING_ADJUDICATION",
+        "JUSTIFICATION_HUMAN_ADOPTED"
+      ],
+      "self_adoption_forbidden": true,
+      "insufficient_reasons": [
+        "ALL_YEARS_BELONG_TO_SAME_DATASET",
+        "SAMPLE_SIZE_IS_LARGE",
+        "POOLING_IS_CONVENIENT"
+      ]
+    },
+    "B": {
+      "id": "CONDITION_OR_STRATIFY_BY_TIME",
+      "required_ref": "TEMPORAL_CONDITIONING_SPEC_REF",
+      "permitted_spec_types": [
+        "YEAR_STRATA",
+        "TEMPORAL_WINDOWS",
+        "OTHER_PREDECLARED_TEMPORAL_PARTITIONS"
+      ],
+      "spec_must_be_frozen_before_downstream_result": true,
+      "executes_stratification": false
+    },
+    "C": {
+      "id": "PREREGISTER_A_METHOD_EXPLICITLY_ROBUST_TO_THE_OBSERVED_TEMPORAL_VARIATION",
+      "required_ref": "ROBUST_METHOD_PREREGISTRATION_REF",
+      "required_method_fields": [
+        "EXACT_METHOD_IDENTITY",
+        "EXACT_FAILURE_MODE",
+        "EXACT_ASSUMPTION_SET",
+        "EXACT_VALIDITY_SCOPE",
+        "EXACT_MATERIAL_PARAMETERS"
+      ],
+      "selects_method": false,
+      "activates_method": false,
+      "executes_method": false
+    }
+  },
+  "states": [
+    "NOT_APPLICABLE",
+    "BLOCKED",
+    "ROUTE_A_PENDING",
+    "ROUTE_B_PENDING",
+    "ROUTE_C_PENDING",
+    "ADMISSIBLE_BY_ROUTE_A",
+    "ADMISSIBLE_BY_ROUTE_B",
+    "ADMISSIBLE_BY_ROUTE_C",
+    "NON_MATERIAL_POOLING_REVIEW_REQUIRED"
+  ],
+  "scope_binding": [
+    "CLAIM_UNIT",
+    "DOWNSTREAM_CLAIM_ID",
+    "DOWNSTREAM_ANALYSIS_ID",
+    "REQUESTED_TEMPORAL_SCOPE"
+  ],
+  "evidence_state": {
+    "historical_corpus": "EXPOSED",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN",
+    "new_contract_makes_old_data_pristine": false
+  },
+  "method_guards": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED",
+    "global_m05_resampling_across_2022_2025": "BLOCKED_PENDING_TEMPORAL_JUSTIFICATION"
+  },
+  "invariants": [
+    "POOLING_GATE != STATISTICAL_METHOD",
+    "POOLING_GATE_ADMISSIBLE != METHOD_ACTIVATED",
+    "METHOD_ACTIVATED != METHOD_EXECUTED",
+    "CONDITIONING_SPEC_EXISTS != CONDITIONED_ANALYSIS_EXECUTED",
+    "POOLING_JUSTIFICATION_EXISTS != POOLING_JUSTIFICATION_ACCEPTED",
+    "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED != STABILITY_PROVEN",
+    "MATERIAL_TEMPORAL_VARIATION != FORMAL_NONSTATIONARITY",
+    "MATERIAL_TEMPORAL_VARIATION != REGIME_CHANGE",
+    "EXPOSED_DATA != PRISTINE_DATA",
+    "GATE_ADMISSIBILITY != SCIENTIFIC_RESULT",
+    "SCIENTIFIC_RESULT != STRATEGY_VALIDATION",
+    "STRATEGY_VALIDATION != TRADING_AUTHORITY"
+  ],
+  "authority": {
+    "gate_runtime_implementation": false,
+    "gate_real_execution": false,
+    "statistical_method_execution": false,
+    "real_data_read": false,
+    "m03_reexecution": false,
+    "m10_reexecution": false,
+    "market_statistic_creation": false,
+    "market_result_creation": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "POST_M10_PCG-01",
+    "description": "EXECUTABLE GOVERNANCE GATE IMPLEMENTATION + SYNTHETIC QUALIFICATION",
+    "separate_human_authorization_required": true,
+    "automatically_opened": false
+  },
+  "force": false
+}
