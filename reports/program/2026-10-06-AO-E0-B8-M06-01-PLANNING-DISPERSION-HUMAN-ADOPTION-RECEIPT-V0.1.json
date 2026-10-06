@@ -1,0 +1,56 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_01_PLANNING_DISPERSION_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-M06-01",
+  "decision": "ADOPT",
+  "status": "HUMAN_ADOPTED",
+  "adopted_planning_dispersion": {
+    "planning_stddev": 336.4106561689863,
+    "estimator": "SAMPLE_STANDARD_DEVIATION",
+    "denominator": "n-1",
+    "source": "E1-REAL-003 FULL SAMPLE / 650 CLOSED TRADES",
+    "epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY"
+  },
+  "source_identity": {
+    "source_zip_sha256": "a6588ef94d6cf15447ee8f7d2be0b7d3642ae857f2d64fcf86c77070ced0ca84",
+    "result_canonical_digest": "56eaf2626629bff2ff7b6dcd13e2ca178edddf06aade81f9480c4e3d142cf738",
+    "records_digest": "f890dd32f3e14b20430cb5898a05946a5d71231a9103b755fa0eb683f8834fc4"
+  },
+  "binding_evidence": {
+    "planning_dispersion_contract_blob": "1425225b49349160129c503f4459d6d3f4b618ad",
+    "recovery_qualification_contract_blob": "06b8f0900f6f2dd56c9a94709aa0f52927d97be2",
+    "qualification_report_blob": "2b873637cd10393fd33d9f3ef60e9dd998830bd6",
+    "qualification_receipt_blob": "2517a45b16065354c6f1791b9c4d8b6713aa1402",
+    "human_adoption_blob": "71e1e50d77b073c34446508198994cbe21343a85"
+  },
+  "epistemic_firewalls": {
+    "planning_data_is_confirmatory_data": false,
+    "old_e1_oos_is_independent_confirmation": false,
+    "raw_e1_spread_only_stddev_is_historical_f2_s4_stddev": false,
+    "sample_stddev_is_population_stddev": false
+  },
+  "state": {
+    "b8": "BLOCKED_PENDING_M06_COMPLETION",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution_authorized": false,
+    "forward_data_observation_authorized": false,
+    "real_performance_observation_authorized": false,
+    "b8_closure_authorized": false,
+    "b12_open_authorized": false,
+    "strategy_rerun_authorized": false,
+    "parameter_optimization_authorized": false,
+    "real_smf_execution_authorized": false,
+    "trading_authorized": false,
+    "capital_deployment_authorized": false
+  },
+  "pending_separate_human_decision": [
+    "alpha_or_confidence_level",
+    "target_power",
+    "target_precision",
+    "effect_size_or_minimum_effect_of_interest",
+    "max_n",
+    "other_material_m06_parameters"
+  ],
+  "force": false
+}
