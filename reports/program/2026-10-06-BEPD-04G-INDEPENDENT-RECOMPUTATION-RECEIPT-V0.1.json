@@ -1,0 +1,16 @@
+{
+  "event_count_reconciliation": "PASS",
+  "gate_state_reconciliation": "PASS",
+  "maximum_mean_reconciliation": "PASS",
+  "minimum_mean_reconciliation": "PASS",
+  "new_estimand_introduced": false,
+  "response_mean_reconciliation": "PASS",
+  "sample_adequacy_reconciliation": "PASS",
+  "schema": "ATDS_BEPD_04G_INDEPENDENT_RECOMPUTATION_RECEIPT_V0_1",
+  "spread_reconciliation": "PASS",
+  "status": "PASS",
+  "stratum_changed": false,
+  "subgroup_inspected": false,
+  "threshold_changed": false,
+  "true_count_reconciliation": "PASS"
+}
