@@ -224,3 +224,31 @@ def test_27_freeze_preserves_explicit_empty_route_set():
     assert s["requested_routes"]==[]
     assert s["authority_requests"]==[]
     assert s["real_data_dependency_requested"] is False
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-POST-M10-PCG-02A-FINAL-READINESS-RECEIPT-V0.1.json"
+
+def test_28_final_receipt_closes_pcg02a_and_keeps_pcg02b_closed():
+    r=load(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert v["POST_M10_PCG_02A_TARGET_SELECTION"]=="QUALIFIED"
+    assert v["FIRST_REAL_APPLICATION_PACKET"]=="FROZEN"
+    assert v["FIRST_REAL_APPLICATION_PACKET_INTEGRITY"]=="QUALIFIED"
+    assert v["FIRST_REAL_APPLICATION_PRE_EXECUTION_READINESS"]=="READY_FOR_SEPARATE_HUMAN_DECISION"
+    assert v["EXPECTED_GATE_RESULT"]=="NOT_PREREGISTERED"
+    assert v["PCG_REAL_RUNTIME_EXECUTION"] is False
+    assert v["PCG_REAL_REFERENCE_EXECUTION"] is False
+    assert v["PCG_REAL_RESULT"]=="NONE"
+    assert v["REAL_DATA_READ"] is False
+    assert v["NUMERICAL_ESTIMATION"] is False
+    assert v["NEW_STATISTICAL_METHOD_ACTIVATED"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert v["OOS_CONSUMPTION"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]=={"trading":False,"capital":False}
+    assert r["next_frontier"]["id"]=="SMF-AP1-M03-02-R1-POST-M10-PCG-02B"
+    assert r["next_frontier"]["separate_human_authorization_required"] is True
+    assert r["next_frontier"]["opened"] is False
+    assert r["next_frontier"]["executed"] is False
+    assert r["stop"] is True
