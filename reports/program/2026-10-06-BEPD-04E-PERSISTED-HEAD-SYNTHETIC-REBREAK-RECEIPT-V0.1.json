@@ -1,0 +1,26 @@
+{
+  "schema": "ATDS_BEPD_04E_PERSISTED_HEAD_SYNTHETIC_REBREAK_RECEIPT_V0_1",
+  "status": "PASS",
+  "workflow_run_id": 37427449620,
+  "job_id": 112150230405,
+  "head": "b697f46cf75eec73a0128624c2c7e08d123b2899",
+  "tree": "e63ed4d14542c8f605a62bdc34cc0164543a135d",
+  "persisted_identities": "PASS",
+  "synthetic_green": "13/13 PASS",
+  "independent_reference_parity": "PASS",
+  "adversarial_breaker": "26/26 HARD_FAIL PASS",
+  "deterministic_replay": "PASS",
+  "m04_response_representation": "BLOCKED_BY_REPRESENTATION_CONSTRAINT",
+  "parameter_human_adoption": "PENDING",
+  "response_specific_m05_activation": "NOT_ACTIVATED",
+  "real_response_analysis_executed": false,
+  "real_nonstationarity_diagnostic_executed": false,
+  "real_bootstrap_executed": false,
+  "real_confidence_interval_calculated": false,
+  "prior_rebreak_attempt": {
+    "workflow_run_id": 37427282152,
+    "technical_gates": "PASS_THROUGH_GOVERNANCE_STATE",
+    "receipt_materialization": "FAIL_ENVIRONMENT_ESCAPE_ONLY",
+    "used_for_qualification": false
+  }
+}
