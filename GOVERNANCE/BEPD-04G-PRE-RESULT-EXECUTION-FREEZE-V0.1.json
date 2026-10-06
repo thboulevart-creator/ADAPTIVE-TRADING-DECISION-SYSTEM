@@ -1,0 +1,113 @@
+{
+  "schema": "ATDS_BEPD_04G_PRE_RESULT_EXECUTION_FREEZE_V0_1",
+  "status": "FROZEN_BEFORE_FIRST_REAL_M10_AND_GATE_EXECUTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "execution_scope": "EXPOSED_EXPLORATORY_ONLY",
+  "pre_result_state": {
+    "head": "4f987ec0bb9b08eeff3dd3eae177a28179fbfb37",
+    "tree": "8914ecc11d120c151e931b8330621a45cc01d0c2"
+  },
+  "sources": {
+    "event_ledger": {
+      "path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+      "git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+      "expected_event_count": 472
+    },
+    "run_manifest": {
+      "path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/RUN_MANIFEST.json",
+      "git_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+      "run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821"
+    },
+    "complete_week_calendar_blob": "26385eb2547892df4b87206ad59fc2ba07721354"
+  },
+  "governance_bindings": {
+    "bepd04e_human_adjudication_blob": "a92da70e6efec49729b275d806a76f0244e79bdd",
+    "bepd04e_material_parameter_packet_blob": "e88900779eab989e5bfa3265d217485023dab4bb",
+    "bepd04e_m05_candidate_blob": "b740312275bff3d6910c2e0fd1a69a24d96df1cb",
+    "bepd04f_amendment_blob": "38d9e3f45f51ef0f208f8a42a886a525b51be609",
+    "bepd04f_runtime_blob": "4a4181f699ff37dbc95276150f5c4ea62df3874b",
+    "bepd04f_qualification_receipt_blob": "3b1836a578bbb46969dff13c5bcfa4bdff9ba0dc",
+    "bepd04f_qualification_report_blob": "8b83efe4433c03f3ab896f58eeed59e7b1002cd4",
+    "bepd04f_breaker_blob": "95d66e1d13b7c636d6537490114395a2ad3dd4a2"
+  },
+  "m10": {
+    "declared_strata": [
+      {
+        "id": "T1",
+        "start": "2021-06-07",
+        "end": "2022-05-30"
+      },
+      {
+        "id": "T2",
+        "start": "2022-06-06",
+        "end": "2023-05-29"
+      },
+      {
+        "id": "T3",
+        "start": "2023-06-05",
+        "end": "2024-05-27"
+      },
+      {
+        "id": "T4",
+        "start": "2024-06-03",
+        "end": "2025-05-26"
+      },
+      {
+        "id": "T5",
+        "start": "2025-06-02",
+        "end": "2026-05-18"
+      }
+    ],
+    "minimum_n_per_stratum": 30,
+    "maximum_response_mean_spread": "0.10"
+  },
+  "m04": {
+    "status": "NOT_APPLICABLE_BY_REPRESENTATION",
+    "executed": false
+  },
+  "exact_gate_logic": {
+    "structural_failure": "HARD_FAIL_INVALID_INPUT",
+    "any_stratum_n_below_30": "NONSTATIONARITY_UNRESOLVED",
+    "max_response_mean_spread_above_0_10": "NONSTATIONARITY_MATERIALLY_DETECTED",
+    "all_structural_pass_and_all_n_at_least_30_and_spread_at_most_0_10": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED"
+  },
+  "allowed_real_outputs": {
+    "per_stratum": [
+      "stratum_id",
+      "date_start",
+      "date_end",
+      "qualified_event_count",
+      "reintegration_true_count",
+      "response_mean"
+    ],
+    "aggregate": [
+      "minimum_stratum_response_mean",
+      "maximum_stratum_response_mean",
+      "maximum_response_mean_spread",
+      "sample_adequacy",
+      "gate_state"
+    ]
+  },
+  "forbidden": [
+    "M05 activation",
+    "moving-block bootstrap",
+    "confidence interval",
+    "p-value",
+    "significance test",
+    "subgroup inspection",
+    "alternative response",
+    "alternative horizon",
+    "Occurrence x Response",
+    "time-to-reintegration",
+    "prediction",
+    "causation",
+    "edge",
+    "strategy",
+    "trading authority"
+  ],
+  "response_specific_m05": "NOT_ACTIVATED",
+  "bootstrap": "NOT_AUTHORIZED",
+  "confidence_interval": "NOT_AUTHORIZED",
+  "human_adjudication_required_after_execution": true
+}
