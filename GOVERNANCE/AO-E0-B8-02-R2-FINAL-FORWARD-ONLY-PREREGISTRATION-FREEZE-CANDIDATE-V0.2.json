@@ -1,0 +1,225 @@
+{
+  "schema": "ATDS_AO_E0_B8_02_R2_FINAL_FORWARD_ONLY_PREREGISTRATION_FREEZE_CANDIDATE_V0_2",
+  "control_id": "AO-E0-B8-02-R2",
+  "status": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "b8_closure_candidate": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "canonical_bindings": {
+    "cell_adoption_blob": "615681aa586ef92a34d0fa1757ceed8972404319",
+    "cell_contract_blob": "d65821f5200deba528ebbef2e7f635f1610ce844",
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "strategy_version_identity": "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687",
+    "b4_freeze_blob": "8cf494fcfffe0575d3e2a0fe887e2f524a3eb304",
+    "b6_b10_closure_receipt": "fad20f527393b85b6d06b998c89a3543a18be46a",
+    "b7_closure_receipt": "efb0fe2c6aced6421fb9b6c2af9161632fec744a",
+    "b9_closure_receipt": "1fe264aaf0770b3549004877550114e9c4c34331",
+    "b11_closure_receipt": "4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+    "exec04_human_adjudication_blob": "248a92965b74bf812f9245eccbedbca17f606270",
+    "exec05_human_adjudication_blob": "1f3ca6ca549cd491f2b591cac395f24a208c1a64",
+    "smf_activation_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "m06_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "m06_human_adoption_receipt": "ca44e6ce58314e8168d6f48fb7831fc03b789b9e",
+    "smf_material_configuration_adoption_blob": "240d715aa7b2ae79dff474a4cc4f80854416c9c7",
+    "smf_material_configuration_adoption_receipt": "49530455fa74112c761933a6c773f125e65b0fe4",
+    "dr01_human_adoption_blob": "848e59ac0ef8e56d16322a17bd3f55a0b6e87e45",
+    "dr01_human_adoption_receipt": "13da5cd208a81a4b44390c488a2e3848f06ab2d4",
+    "dr01_decision_table_blob": "1126cf429dc064104bdfe0615cea0a96b95b540e"
+  },
+  "historical_blockers": {
+    "b8_01": "9d36a5cbaf7f7b270a5ea73ee9b4edff3ddeb73d",
+    "b8_02": "821d0b033e6bb993e64832d2fa0c2e84de24872e",
+    "b8_02_r1": "475d4433cd8587dd36dc19274c7fad03ca39d830",
+    "immutable": true
+  },
+  "claim": {
+    "estimand": "mean all-in net realized unit PnL per closed OOS/forward trade at F2_S4",
+    "delta_min": 5.0,
+    "h0": "theta_AO_E0 <= 5.0",
+    "h1": "theta_AO_E0 > 5.0",
+    "design_alternative_theta": 10.0,
+    "design_alternative_is_qualification_threshold": false,
+    "minimum_required_cost_robustness_node": "F2_S4"
+  },
+  "method_freeze": {
+    "m04": {
+      "state": "HUMAN_ADOPTED_BINDING_FROZEN",
+      "acf_estimator": "ADJUSTED",
+      "lags_rule": "1..min(n-1,ceil(n^(1/3)))",
+      "absolute_threshold": 0.05
+    },
+    "m05": {
+      "state": "HUMAN_ADOPTED_BINDING_FROZEN",
+      "scheme": "MOVING_BLOCK",
+      "interval_method": "PERCENTILE",
+      "confidence_level": 0.99,
+      "replications": 50000,
+      "seed": 21449402,
+      "block_length_rule": "min(n,1+max(M04_LAGS(n)))",
+      "unresolved_nonstationarity": "BLOCK_GLOBAL_RESAMPLING"
+    },
+    "m06": {
+      "state": "HUMAN_ADOPTED_BINDING_FROZEN",
+      "final_required_n": 58927
+    },
+    "m07": {
+      "state": "HUMAN_ADOPTED_BINDING_FROZEN",
+      "materiality_abs_delta": 5.0
+    },
+    "m08": {
+      "state": "HUMAN_ADOPTED_BINDING_FROZEN",
+      "max_inclusion_rate_gap": 0.05
+    },
+    "m09": {
+      "state": "BINDING_REQUIRED_EXECUTION_BLOCKED_PENDING_B8_AND_B12",
+      "prerequisite": "B8 closed + B12 separately opened immediately before OOS"
+    },
+    "m10": {
+      "state": "NOT_APPLICABLE_TO_BASE_CC05"
+    },
+    "m11": {
+      "state": "BOUND_BY_B9_CLOSURE",
+      "search_provenance_gate": "PASS_WITH_PARTIAL_SEARCH_UNIVERSE"
+    }
+  },
+  "decision_rule_freeze": {
+    "state": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "m05_support": "lower > 5.0",
+    "m05_refute": "upper <= 5.0",
+    "m05_inconclusive": "otherwise",
+    "n_lt_58927": "INCONCLUSIVE / INSUFFICIENT_SAMPLE",
+    "n_gte_58927": "SAMPLE_ADEQUACY_GATE_PASS_ONLY",
+    "unresolved_nonstationarity": "INCONCLUSIVE",
+    "m07_material_influence": "INCONCLUSIVE",
+    "m07_sign_reversal": "INCONCLUSIVE",
+    "m08_material_selection_asymmetry": "INCONCLUSIVE",
+    "f2_s4_inconclusive": "INCONCLUSIVE",
+    "m05_support_and_f2_pass_all_gates_clean": "SUPPORT",
+    "m05_support_and_f2_fail": "INCONCLUSIVE / EVIDENCE_CONFLICT",
+    "m05_refute_and_f2_fail_all_gates_clean": "REFUTE",
+    "m05_refute_and_f2_pass": "INCONCLUSIVE / EVIDENCE_CONFLICT",
+    "SUPPORT": {
+      "qualification_status": "QUALIFIED",
+      "qualification_reason": "SUPPORTED_NEW_FORWARD_CC05_WITH_PARTIAL_PRIOR_SEARCH_UNIVERSE"
+    },
+    "REFUTE": {
+      "qualification_status": "NOT_QUALIFIED",
+      "qualification_reason": "REFUTED_BY_VALID_FORWARD_CI_AND_COST_ROBUSTNESS_FAIL"
+    },
+    "INCONCLUSIVE": {
+      "qualification_status": "NOT_QUALIFIED",
+      "qualification_reason": "EXACT_PRESERVED_INCONCLUSIVE_REASON"
+    },
+    "all_simultaneous_material_reasons_preserved": true,
+    "fixed_primary_reason_precedence": true
+  },
+  "provenance": {
+    "old_e1_oos": "EXPOSED_CONTAMINATED_NON_CONFIRMATORY",
+    "old_e1_oos_independent_confirmation_eligible": false,
+    "prior_exposure_state": "CONTAMINATED",
+    "search_universe_status": "PARTIAL_SEARCH_UNIVERSE",
+    "n_trials": null,
+    "multiplicity_relevant_to_cc05": true,
+    "confirmatory_route": "NEW_FORWARD_DATA_ONLY",
+    "mandatory_support_limitations": [
+      "PRIOR_SEARCH_UNIVERSE_PARTIAL",
+      "N_TRIALS_UNKNOWN",
+      "ALPHA_NOT_MULTIPLICITY_CORRECTED",
+      "HYPOTHESIS_ORIGIN_NOT_PRISTINE"
+    ],
+    "invent_numeric_multiplicity_correction": false
+  },
+  "decision_record_semantics": {
+    "required_fields": [
+      "QUALIFICATION_CELL_IDENTITY",
+      "STRATEGY_VERSION_IDENTITY",
+      "DECISIVE_EVIDENCE_REFS",
+      "EVIDENCE_SCOPE",
+      "EVIDENCE_VERDICT",
+      "QUALIFICATION_STATUS",
+      "QUALIFICATION_REASON",
+      "DECISION",
+      "DECISION_AUTHORITY",
+      "DECIDED_AT",
+      "APPLICABLE_POLICY_VERSION",
+      "SUPERSESSION_INVALIDATION_RELATION"
+    ],
+    "supersession_invalidation_relation": "DERIVED_FROM_IMMUTABLE_RECORD_LINEAGE_NOT_PERFORMANCE_RESULT",
+    "human_promotion_authority_preserved": true,
+    "evidence_producer_self_promotion": false
+  },
+  "no_free_material_parameter_decision_check": {
+    "cell_identity": "FROZEN",
+    "strategy_version_identity": "FROZEN",
+    "claim_class": "FROZEN",
+    "estimand": "FROZEN",
+    "h0_h1": "FROZEN",
+    "delta_min": "FROZEN",
+    "design_alternative_semantics": "FROZEN",
+    "cost_scope": "FROZEN",
+    "f2_s4": "FROZEN",
+    "data_family_admissibility": "CLOSED",
+    "pit_route": "CLOSED",
+    "mcepr_route": "CLOSED",
+    "prior_exposure": "FROZEN",
+    "search_universe": "FROZEN",
+    "multiplicity_semantics": "FROZEN",
+    "owner_routing": "CLOSED",
+    "rvo_binding": "FROZEN",
+    "p1_binding": "FROZEN",
+    "smf_routing": "FROZEN",
+    "m04": "FROZEN",
+    "m05": "FROZEN",
+    "m06": "FROZEN",
+    "m07": "FROZEN",
+    "m08": "FROZEN",
+    "m09": "FROZEN_ROUTING",
+    "m10": "FROZEN_NOT_APPLICABLE",
+    "m11": "FROZEN_ROUTING",
+    "sample_adequacy": "FROZEN",
+    "dependence": "FROZEN",
+    "nonstationarity": "FROZEN",
+    "influence": "FROZEN",
+    "attrition": "FROZEN",
+    "economic_cost": "FROZEN",
+    "support_mapping": "FROZEN",
+    "refute_mapping": "FROZEN",
+    "inconclusive_mapping": "FROZEN",
+    "evidence_precedence": "FROZEN",
+    "multi_failure_behavior": "FROZEN",
+    "qualification_status_mapping": "FROZEN",
+    "qualification_reason_mapping": "FROZEN",
+    "decision_record_required_fields": "FROZEN",
+    "information_order_firewall": "FROZEN",
+    "post_result_discretion": "ZERO",
+    "new_material_parameter_found": false,
+    "new_material_decision_found": false
+  },
+  "timing_attestation": {
+    "b8_qualification_occurs_before_b12_opening": true,
+    "b8_qualification_occurs_before_forward_observation": true,
+    "b8_qualification_occurs_before_oos_consumption": true,
+    "b8_qualification_occurs_before_real_ao_e0_execution": true,
+    "new_ao_e0_performance_data_read": false,
+    "new_ao_e0_performance_data_calculated": false,
+    "new_ao_e0_performance_data_materialized": false,
+    "new_ao_e0_performance_data_used": false
+  },
+  "state": {
+    "b8": "NOT_CLOSED_PENDING_DISTINCT_HUMAN_ADOPTION",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "b8_human_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}

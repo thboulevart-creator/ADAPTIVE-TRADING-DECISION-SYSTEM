@@ -1,0 +1,72 @@
+{
+  "schema": "ATDS_AO_E0_B8_02_R2_CLOSURE_REQUALIFICATION_RECEIPT_V0_2",
+  "control_id": "AO-E0-B8-02-R2",
+  "verdict": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "b8_closure_candidate": "QUALIFIED_FOR_HUMAN_ADOPTION",
+  "candidate": {
+    "candidate_blob": "01af88e4d9dd760e2f6ed7f4534afb77652d7db7",
+    "rebreak_checker_blob": "f7579987cea2acbf01204048fdac9c253a592c4d",
+    "adversarial_tests_blob": "2a1ef0121a47aa524cd3697eec205da634952c9a"
+  },
+  "prior_blockers": {
+    "b8_01_blob": "9d36a5cbaf7f7b270a5ea73ee9b4edff3ddeb73d",
+    "b8_02_blob": "821d0b033e6bb993e64832d2fa0c2e84de24872e",
+    "b8_02_r1_blob": "475d4433cd8587dd36dc19274c7fad03ca39d830",
+    "all_historical_immutable": true,
+    "all_prospectively_remediated": true
+  },
+  "bindings": {
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "strategy_version_identity": "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687",
+    "m06_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "smf_material_configuration_adoption_blob": "240d715aa7b2ae79dff474a4cc4f80854416c9c7",
+    "dr01_human_adoption_blob": "848e59ac0ef8e56d16322a17bd3f55a0b6e87e45",
+    "dr01_decision_table_blob": "1126cf429dc064104bdfe0615cea0a96b95b540e"
+  },
+  "qualification": {
+    "all_required_canonical_blobs_match": true,
+    "m04_frozen": true,
+    "m05_frozen": true,
+    "m06_frozen": true,
+    "m07_frozen": true,
+    "m08_frozen": true,
+    "m09_routing_frozen": true,
+    "m10_applicability_frozen": true,
+    "m11_routing_frozen": true,
+    "dr01_human_adopted_binding_frozen": true,
+    "support_mapping_deterministic": true,
+    "refute_mapping_deterministic": true,
+    "inconclusive_mapping_deterministic": true,
+    "multi_failure_precedence_deterministic": true,
+    "qualification_status_mapping_deterministic": true,
+    "qualification_reason_mapping_deterministic": true,
+    "decision_record_semantics_sufficient": true,
+    "new_forward_data_only_frozen": true,
+    "new_material_parameter_found": false,
+    "new_material_decision_found": false,
+    "post_result_discretion": "ZERO",
+    "new_ao_e0_performance_data_consumed": false,
+    "independent_local_replay": "PASS",
+    "independent_local_checks_passed": 48,
+    "independent_local_checks_total": 48,
+    "ci_pass_claimed": false
+  },
+  "state": {
+    "b8": "NOT_CLOSED_PENDING_DISTINCT_HUMAN_ADOPTION",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "b8_human_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
