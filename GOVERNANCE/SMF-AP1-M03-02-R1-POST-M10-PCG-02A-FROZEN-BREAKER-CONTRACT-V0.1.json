@@ -1,0 +1,156 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_02A_FROZEN_BREAKER_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02A",
+  "status": "FROZEN_BEFORE_ANY_REAL_PCG_EXECUTION",
+  "minimum_required_breaker_count": 24,
+  "breaker_count": 32,
+  "breakers": [
+    [
+      "PCG02A-B01",
+      "EXACT_PCG01_RUNTIME_IDENTITY"
+    ],
+    [
+      "PCG02A-B02",
+      "EXACT_PCG01_REFERENCE_IDENTITY"
+    ],
+    [
+      "PCG02A-B03",
+      "EXACT_PCG01_BREAKER_IDENTITY"
+    ],
+    [
+      "PCG02A-B04",
+      "EXACT_DC00_FINAL_RECEIPT_IDENTITY"
+    ],
+    [
+      "PCG02A-B05",
+      "EXACT_DC00_FINAL_CLOSURE_IDENTITY"
+    ],
+    [
+      "PCG02A-B06",
+      "ONE_EXACT_CLAIM_UNIT_ONLY"
+    ],
+    [
+      "PCG02A-B07",
+      "EXACT_M10_STATUS_REQUIRED"
+    ],
+    [
+      "PCG02A-B08",
+      "EXACT_DOWNSTREAM_CLAIM_ID_REQUIRED"
+    ],
+    [
+      "PCG02A-B09",
+      "EXACT_DOWNSTREAM_ANALYSIS_ID_REQUIRED"
+    ],
+    [
+      "PCG02A-B10",
+      "EXACT_TEMPORAL_SCOPE_REQUIRED"
+    ],
+    [
+      "PCG02A-B11",
+      "EXPLICIT_REQUESTED_ROUTES_REQUIRED"
+    ],
+    [
+      "PCG02A-B12",
+      "EMPTY_ROUTE_SET_IS_EXPLICIT_AND_PRESERVES_DC00_NONE_SELECTION"
+    ],
+    [
+      "PCG02A-B13",
+      "NO_SILENT_ROUTE_PRIORITY"
+    ],
+    [
+      "PCG02A-B14",
+      "ROUTE_A_ABSENT_MEANS_NO_JUSTIFICATION_REF"
+    ],
+    [
+      "PCG02A-B15",
+      "ROUTE_B_ABSENT_MEANS_NO_CONDITIONING_SPEC_REF"
+    ],
+    [
+      "PCG02A-B16",
+      "ROUTE_C_ABSENT_MEANS_NO_ROBUST_METHOD_PREREG_REF"
+    ],
+    [
+      "PCG02A-B17",
+      "AUTHORITY_REQUESTS_MUST_BE_EMPTY"
+    ],
+    [
+      "PCG02A-B18",
+      "REAL_DATA_DEPENDENCY_MUST_BE_FALSE"
+    ],
+    [
+      "PCG02A-B19",
+      "EVIDENCE_STATE_MUST_PRESERVE_EXPOSED_NON_PRISTINE"
+    ],
+    [
+      "PCG02A-B20",
+      "ADMISSIBILITY_BASIS_MUST_EQUAL_CLAIM_UNIT"
+    ],
+    [
+      "PCG02A-B21",
+      "NO_REAL_PCG_RUNTIME_CALL"
+    ],
+    [
+      "PCG02A-B22",
+      "NO_REAL_PCG_REFERENCE_CALL"
+    ],
+    [
+      "PCG02A-B23",
+      "NO_REAL_PCG_RESULT"
+    ],
+    [
+      "PCG02A-B24",
+      "NO_METHOD_ACTIVATION"
+    ],
+    [
+      "PCG02A-B25",
+      "NO_METHOD_EXECUTION"
+    ],
+    [
+      "PCG02A-B26",
+      "NO_OOS_CONSUMPTION"
+    ],
+    [
+      "PCG02A-B27",
+      "NO_TRADING_AUTHORITY"
+    ],
+    [
+      "PCG02A-B28",
+      "NO_CAPITAL_AUTHORITY"
+    ],
+    [
+      "PCG02A-B29",
+      "PACKET_FROZEN_BEFORE_PCG02B"
+    ],
+    [
+      "PCG02A-B30",
+      "EXPECTED_GATE_RESULT_NOT_PREREGISTERED"
+    ],
+    [
+      "PCG02A-B31",
+      "NO_NUMERICAL_ESTIMATION"
+    ],
+    [
+      "PCG02A-B32",
+      "NO_MARKET_DATA_READ"
+    ]
+  ],
+  "pcg01_bindings": {
+    "runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "dc00_bindings": {
+    "final_receipt_blob": "7c1d9474fc35e08e07c1b4481113e35d354715bc",
+    "final_closure_blob": "a17c4863c464357744beaeeba2f5ee156e2f2d2d",
+    "downstream_claim_contract_blob": "2e3336e44aa09efc4b44f6eed7d5bee680287c11",
+    "estimand_contract_blob": "f7c1c06dfb799073d586d63aa319ac9ed92f1edd",
+    "analysis_intent_contract_blob": "23e20dc28fa7eec3f7646acb7392a00a7f7d7623"
+  },
+  "runtime_execution_authorized": false,
+  "reference_execution_authorized": false,
+  "real_data_read_authorized": false,
+  "statistical_method_activation_authorized": false,
+  "statistical_method_execution_authorized": false,
+  "pcg_result_authorized": false,
+  "force": false
+}

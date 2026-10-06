@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_02A_FIRST_REAL_APPLICATION_PACKET_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-02A",
+  "application_id": "POST_M10-PCG02A-APP01-TICKCOUNT-P50-POOLED-2022-2025",
+  "status": "FROZEN_CANDIDATE_PENDING_STATIC_QUALIFICATION",
+  "source_dc00": {
+    "final_receipt_blob": "7c1d9474fc35e08e07c1b4481113e35d354715bc",
+    "final_closure_blob": "a17c4863c464357744beaeeba2f5ee156e2f2d2d",
+    "downstream_claim_contract_blob": "2e3336e44aa09efc4b44f6eed7d5bee680287c11",
+    "estimand_contract_blob": "f7c1c06dfb799073d586d63aa319ac9ed92f1edd",
+    "analysis_intent_contract_blob": "23e20dc28fa7eec3f7646acb7392a00a7f7d7623"
+  },
+  "pcg01_bindings": {
+    "runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "m10_context": {
+    "claim_unit": "tick_count p50",
+    "claim_unit_status": "MATERIAL_TEMPORAL_VARIATION"
+  },
+  "runtime_packet": {
+    "case_id": "POST_M10-PCG02A-APP01-TICKCOUNT-P50-POOLED-2022-2025",
+    "claim_unit": "tick_count p50",
+    "downstream_claim_id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "downstream_analysis_id": "POST_M10-DA01-POOLED-TICKCOUNT-P50-REFERENCE-CONSTRUCTION",
+    "requested_temporal_scope": "UTC_YEAR:2022|UTC_YEAR:2023|UTC_YEAR:2024|UTC_YEAR:2025",
+    "pooling_requested": true,
+    "conditioning_requested": false,
+    "preregistered_robust_method_requested": false,
+    "requested_routes": [],
+    "pooling_justification_ref": null,
+    "pooling_justification_status": "JUSTIFICATION_ABSENT",
+    "pooling_justification_reason_code": "NONE",
+    "temporal_conditioning_spec_ref": null,
+    "temporal_conditioning_spec_status": "SPEC_ABSENT",
+    "robust_method_preregistration_ref": null,
+    "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+    "robust_method_fields": {},
+    "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+    "authority_requests": [],
+    "real_data_dependency_requested": false,
+    "admissibility_basis_claim_unit": "tick_count p50"
+  },
+  "provenance": {
+    "claim_unit": "CANONICAL_FACT",
+    "claim_unit_status": "CANONICAL_FACT",
+    "downstream_claim_id": "HUMAN_DECISION_FROZEN_BY_DC00",
+    "downstream_analysis_id": "HUMAN_DECISION_FROZEN_BY_DC00",
+    "requested_temporal_scope": "CANONICAL_FACT_PLUS_DC00_HUMAN_SCOPE_FREEZE",
+    "pooling_requested": "HUMAN_DECISION_FROZEN_BY_DC00",
+    "requested_routes": "DERIVED_GOVERNANCE_INPUT_FROM_DC00_ROUTE_SELECTION_NONE",
+    "evidence_state_request": "DERIVED_GOVERNANCE_INPUT",
+    "authority_requests": "DERIVED_GOVERNANCE_INPUT",
+    "real_data_dependency_requested": "DERIVED_GOVERNANCE_INPUT"
+  },
+  "authority_ceiling": {
+    "pcg_runtime_execution": false,
+    "pcg_reference_execution": false,
+    "pcg_result_creation": false,
+    "real_data_read": false,
+    "statistical_method_activation": false,
+    "statistical_method_execution": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
