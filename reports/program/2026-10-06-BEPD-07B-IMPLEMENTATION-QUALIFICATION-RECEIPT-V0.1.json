@@ -1,0 +1,79 @@
+{
+  "schema": "ATDS_BEPD_07B_IMPLEMENTATION_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-07B",
+  "status": "IMPLEMENTATION_QUALIFIED_PRE_RESULT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "implementation_commit": "39f5a2d6aef44c29782933077a1f5a75c8c41d05",
+  "implementation_tree": "f0aa728ddd5f37b82c320bda01c4a63b3a850514",
+  "bindings": {
+    "human_authorization_blob": "95a02c85b15f2d8e73bc4412ed6de4bf80888480",
+    "bepd07a_final_adjudication_blob": "5b8a8c9538363f8878acfa47c75db420438582be",
+    "bepd07a_contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+    "bepd07a_breaker_blob": "42f2a720a0904c83c45a507cfa340af30ba73ae5",
+    "bepd07a_freeze_blob": "10fa2fc9011dded1567a054efb31fbabfa6dab8a",
+    "bepd07a_qualification_receipt_blob": "36fd2571cf5fe22d3ec0d404c6f50dbceab2b25f",
+    "bepd07a_qualification_report_blob": "e48a5d8ad342ad057d3509935bf8daab86534cd8",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "ap0_transform_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "bepd02_build_engine_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8",
+    "rvo08_ap0_resource_contract_blob": "23cef7d6dcc6ca0b4e3c72bd8f3af4e91b1d6ca3",
+    "data02_ap0_read_only_admission_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "runner_blob": "b5613b97671690bc4f2e66b9df92039e8ba90c24",
+    "independent_reference_blob": "92dc2154dd54f3dec692a7728d40021c8eaa5f4b",
+    "executable_breaker_blob": "1a323010dbc03a79220e4e4f44541589329445d0",
+    "synthetic_tests_blob": "9639fd2db18e15850493dfe7785d842facdb0210",
+    "qualification_workflow_blob": "e28c829d9f7edc36c4dc80c193fc0e8691b73f21"
+  },
+  "executable_qualification": {
+    "workflow_run_id": 37475909654,
+    "job_id": 112311122289,
+    "conclusion": "SUCCESS",
+    "frozen_bindings": "PASS",
+    "compile": "PASS",
+    "synthetic_tests": "34 / 34 PASS",
+    "executable_equivalent_breaker": "40 / 40 PASS",
+    "real_ap0_path_scan": "NOT_EXECUTED",
+    "real_excursion_statistics": "NOT_CALCULATED",
+    "real_excursion_distribution_exposure": "NO"
+  },
+  "correction_lineage": [
+    {
+      "run_id": 37475146032,
+      "status": "FAIL_CLOSED_PRE_RESULT",
+      "reason": "missing bisect import surfaced by synthetic tests",
+      "real_ap0_read": false
+    },
+    {
+      "run_id": 37475463603,
+      "status": "FAIL_CLOSED_PRE_RESULT",
+      "reason": "literal newline serialization defect surfaced by compile gate",
+      "real_ap0_read": false
+    },
+    {
+      "run_id": 37475689061,
+      "status": "FAIL_CLOSED_PRE_RESULT",
+      "reason": "independent implementation lacked explicit Type-7 identity marker",
+      "real_ap0_read": false
+    },
+    {
+      "run_id": 37475909654,
+      "status": "PASS",
+      "reason": "all pre-result qualification gates passed",
+      "real_ap0_read": false
+    }
+  ],
+  "ap0_identity": {
+    "dataset_id": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "file_count": 61,
+    "row_count": 1709180,
+    "file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a"
+  },
+  "qualification_meaning": "Implementation, path-window semantics, behavioral excursion formulas, numerical surface, and frozen failure-mode protections are qualified before any real AP0 path scan.",
+  "real_execution_authorized_by_user": true,
+  "real_execution_condition": "EXACT_REAL_EXECUTION_FREEZE_MUST_BE_PERSISTED_BEFORE_FIRST_REAL_AP0_READ",
+  "result_human_adopted": false,
+  "next_action": "PERSIST_EXACT_REAL_EXECUTION_FREEZE_THEN_PERFORM_ONE_FIRST_REAL_GLOBAL_BEHAVIORAL_EXCURSION_EXECUTION"
+}
