@@ -1,0 +1,57 @@
+{
+  "schema": "ATDS_BEPD_08B_IMPLEMENTATION_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-08B",
+  "status": "IMPLEMENTATION_QUALIFIED_PRE_RESULT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "candidate_commit": "5134353abeba25c23cac050c8bc2b39703e77bf6",
+  "candidate_tree": "13742b8376aefd7f65dde679647e93ffda104797",
+  "bindings": {
+    "human_authorization_blob": "9c0160f194719b51a85a8d17773e427d883daa8c",
+    "bepd08a_final_adjudication_blob": "553fedc2b538a90750839b6fce8edb9619a4dcb7",
+    "bepd08a_contract_blob": "4cfcb983ad64f31b443534d70991f8ddcb11ff8f",
+    "bepd08a_breaker_blob": "4d6ada0758a883ab639c93a6caf388e1e11b6d99",
+    "bepd08a_freeze_blob": "1b816f5ab7031e40add1d2c515167d5fb1147843",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd05a_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05b_result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "bepd05b_final_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147",
+    "runner_blob": "cb4c1a513015ef81f6f910f1c1345aa95c84b15a",
+    "independent_reference_blob": "464f5a9e85937e2b95643489b672988b45b2f0c2",
+    "executable_breaker_blob": "54b95f224c673f3023036e2be00dba7627f324f2",
+    "synthetic_tests_blob": "e19777312b42db05f2c2a6f77f487679b6f9fc71",
+    "workflow_blob": "458d9858eb4dacd06fe3aa17ad68ff09efe87224"
+  },
+  "executable_evidence": {
+    "workflow_run_id": 37490393186,
+    "job_id": 112361274934,
+    "conclusion": "SUCCESS",
+    "frozen_bindings": "PASS",
+    "compile": "PASS",
+    "synthetic_tests": "29 / 29 PASS",
+    "executable_equivalent_breaker": "27 / 27 PASS",
+    "real_result_exposure": "NO",
+    "real_event_ledger_d_close_aggregation": "NOT_EXECUTED"
+  },
+  "frozen_behavior": {
+    "source_field": "close_displacement",
+    "transformation": "abs(close_displacement)",
+    "population_n": 472,
+    "filtering": "NONE",
+    "unit": "USTECH_PRICE_UNITS_AS_PERSISTED",
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN"
+  },
+  "authority": {
+    "one_real_execution": "NOT_YET_ACTIVE_UNTIL_EXACT_REAL_EXECUTION_FREEZE_PERSISTED",
+    "sign_conditional_decomposition": false,
+    "subgroups": false,
+    "threshold_search": false,
+    "oos": false,
+    "prediction": false,
+    "edge": false,
+    "trading": false
+  },
+  "next_action": "PERSIST EXACT REAL EXECUTION FREEZE BEFORE FIRST REAL EVENT_LEDGER AGGREGATION"
+}
