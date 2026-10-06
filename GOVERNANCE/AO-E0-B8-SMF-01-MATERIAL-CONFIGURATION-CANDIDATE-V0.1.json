@@ -1,0 +1,115 @@
+{
+  "schema": "ATDS_AO_E0_B8_SMF_01_MATERIAL_CONFIGURATION_CANDIDATE_V0_1",
+  "control_id": "AO-E0-B8-SMF-01",
+  "status": "CANDIDATE_NOT_HUMAN_ADOPTED",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "bindings": {
+    "b8_02_blocker_blob": "821d0b033e6bb993e64832d2fa0c2e84de24872e",
+    "b8_02_qualification_receipt_blob": "2867b3753d53ddc26732850f41e77e9cb3ab310c",
+    "smf_activation_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "smf_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf_dependence_inference_runtime_blob": "fce7998167745659cb0fd5d03a8de14946b0394d",
+    "smf_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "smf_evidence_governance_runtime_blob": "7ba33f9f9ce8dda49abdd1a7dff7a1b1cc0a0222",
+    "m06_02_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "m06_02_human_adoption_receipt_blob": "ca44e6ce58314e8168d6f48fb7831fc03b789b9e",
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "delta_min": 5.0,
+    "minimum_required_cost_robustness_node": "F2_S4",
+    "m06_final_required_n": 58927
+  },
+  "m04": {
+    "state": "CANDIDATE_PREDECLARED_CONFIGURATION",
+    "acf_estimator": "ADJUSTED",
+    "acf_estimator_rationale": "Corrects the pair-count attenuation across positive lags while remaining within the qualified runtime surface; this is a diagnostic choice and does not assert model validity.",
+    "lags_policy": {
+      "type": "FULLY_DETERMINISTIC_PREDECLARED_SELECTION_RULE",
+      "rule": "L = min(n - 1, ceil(n^(1/3))); lags = [1,2,...,L]",
+      "n_source": "FUTURE_CLOSED_TRADE_OUTCOME_COUNT_ONLY",
+      "performance_values_used_for_selection": false,
+      "at_n_58927": {
+        "max_lag": 39,
+        "lag_count": 39
+      }
+    },
+    "absolute_threshold": 0.05,
+    "absolute_threshold_rationale": "Pre-result material-dependence policy threshold. As a scale heuristic only, rho=0.05 corresponds to about 1.105 variance inflation under a simple AR(1) approximation; AR(1) is not assumed or claimed.",
+    "structural_flags_independent_evidence": true,
+    "low_acf_ne_independence_proven": true
+  },
+  "m05": {
+    "state": "CANDIDATE_PREDECLARED_CONFIGURATION",
+    "scheme_policy": "MOVING_BLOCK_ONLY_FOR_AO_E0_WHEN_M05_EXECUTES",
+    "scheme_policy_rationale": "Avoids any post-result IID-vs-block resampling choice and remains valid under the already-frozen rule that IID requires separately explicit justification.",
+    "interval_method": "PERCENTILE",
+    "interval_method_rationale": "Direct bootstrap quantile interval on the mean with no post-result method selection.",
+    "confidence_level": 0.99,
+    "confidence_level_rationale": "Independent AO-E0 uncertainty policy for a confirmatory economic-qualification claim; numerically equal to M06 confidence but not inherited from M06.",
+    "confidence_silent_inheritance_from_m06": false,
+    "replications": 50000,
+    "replications_rationale": "At 99% confidence this gives an expected 250 bootstrap replicates in each 0.5% tail, balancing deterministic tail resolution against the current pure-Python runtime cost.",
+    "seed": 21449402,
+    "seed_derivation": "sha256('AO-E0-B8-SMF-01/M05/V0.1')[0:8] modulo (2^31-1)",
+    "seed_role": "REPRODUCIBILITY_ONLY",
+    "moving_block_length_policy": {
+      "type": "FULLY_DETERMINISTIC_PREDECLARED_SELECTION_RULE",
+      "rule": "block_length = min(n, 1 + max(M04_LAGS(n)))",
+      "performance_values_used_for_selection": false,
+      "at_n_58927": 40
+    },
+    "unresolved_nonstationarity": "BLOCK_GLOBAL_RESAMPLING",
+    "iid_route": "NOT_USED_BY_THIS_AO_E0_CANDIDATE"
+  },
+  "m07": {
+    "state": "CANDIDATE_PREDECLARED_CONFIGURATION",
+    "materiality_abs_delta": 5.0,
+    "rationale": "M07 evaluates change in the same mean-PnL units as the AO-E0 economic claim. A leave-one-dependence-unit-out shift equal to the already-frozen 5.0-unit economic materiality scale is therefore treated as materially concentrated evidence. This is a separate M07 policy decision, not automatic inheritance.",
+    "automatic_outlier_deletion": false,
+    "sign_reversal_is_separate_signal": true
+  },
+  "m08": {
+    "state": "CANDIDATE_PREDECLARED_CONFIGURATION",
+    "max_inclusion_rate_gap": 0.05,
+    "rationale": "A pre-result absolute 5-percentage-point inclusion-rate gap across declared strata is treated as material sample-selection asymmetry for this qualification-critical claim. It is a policy threshold, not a statistical significance threshold and not proof of causal bias.",
+    "observed_gap_used_as_threshold_source": false
+  },
+  "cross_method": {
+    "same_numeric_value_ne_same_semantic_role": true,
+    "m06_confidence_ne_automatic_m05_confidence": true,
+    "delta_min_ne_automatic_m07_threshold": true,
+    "synthetic_fixture_threshold_ne_ao_e0_policy_threshold": true,
+    "data_dependent_by_predeclared_rule_ne_post_hoc_tuning": true,
+    "no_future_performance_used": true,
+    "no_forward_data_consumed": true
+  },
+  "m06_non_modification": {
+    "sample_adequacy_mode": "PRECISION_AND_POWER",
+    "confidence_level": 0.99,
+    "alpha": 0.01,
+    "target_power": 0.90,
+    "power_effect_size": 5.0,
+    "alternative": "GREATER",
+    "final_required_n": 58927,
+    "modified_by_smf_01": false
+  },
+  "state": {
+    "m04_m05_m07_m08_configuration": "NOT_HUMAN_ADOPTED",
+    "b8": "BLOCKED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "human_adoption": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
