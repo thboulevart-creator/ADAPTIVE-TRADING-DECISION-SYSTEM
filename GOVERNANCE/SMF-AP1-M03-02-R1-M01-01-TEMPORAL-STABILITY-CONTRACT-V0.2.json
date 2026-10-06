@@ -310,10 +310,11 @@
     "original_canonical_artifact": {
       "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.1.json",
       "git_blob": "b7dc3ea554a74d6044e989b8017d4795ab4d9778",
-      "sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6"
+      "git_blob_sha256": "c60acbcb30222018dd6363da148113b5e6decf2df035168eecfa2c95e3f2ca60",
+      "windows_crlf_projection_sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6"
     },
     "pre_persistence_local_identity": {
-      "sha256": "37d1b18348982ba8a5981e33a31afd5baf7d76ddc32f47acb7b17b102517a26a",
+      "windows_local_sha256_before_second_reserialization": "37d1b18348982ba8a5981e33a31afd5baf7d76ddc32f47acb7b17b102517a26a",
       "canonical_persisted": false
     },
     "identity_change_cause": {
@@ -342,6 +343,13 @@
     },
     "human_materiality_adjudication_sha256": "e0cac00398f515424f9f6db902ce242928a30811212540aded12937f058b7ec3",
     "m10_authorized": false,
-    "m10_executed": false
+    "m10_executed": false,
+    "identity_transport_correction": {
+      "finding": "The previously reported SHA-256 values for V0.1 and the human adjudication were Windows CRLF checkout projections, not SHA-256 values of canonical Git blob bytes.",
+      "human_adjudication_git_blob": "a9382bc08f354e9142ccd55308f46c86da3f1af3",
+      "human_adjudication_git_blob_sha256": "91fb37bca8e25d1133e4d3859ba10c9f1e227a34390ee359175f5a72d3933b2f",
+      "human_adjudication_declared_windows_crlf_projection_sha256": "e0cac00398f515424f9f6db902ce242928a30811212540aded12937f058b7ec3",
+      "policy": "Protect Git blob identity, canonical blob SHA-256, and historical CRLF projection SHA-256 separately."
+    }
   }
 }

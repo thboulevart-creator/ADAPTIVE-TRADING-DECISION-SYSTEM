@@ -1,6 +1,6 @@
 {
   "schema": "ATDS_SMF_AP1_M03_02_R1_M01_01_CR1_CORRECTION_RECORD_V0_1",
-  "status": "CR1_PREQUALIFICATION_RECORD",
+  "status": "CR1_TRANSPORT_IDENTITY_CORRECTED_PREQUALIFICATION_RECORD",
   "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
   "branch": "integration/system-v1",
   "authorized_scope": "M01_CANONICAL_IDENTITY_AND_ENCODING_CORRECTION_ONLY",
@@ -11,7 +11,6 @@
   },
   "forensic_reproduction": {
     "pre_persistence_local_sha256": "37d1b18348982ba8a5981e33a31afd5baf7d76ddc32f47acb7b17b102517a26a",
-    "post_second_reserialization_sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6",
     "reproduction_result": "EXACT",
     "why_identity_changed": "The initial contract was hashed, then deserialized and reserialized a second time after three metadata fields were added.",
     "top_level_fields_added": [
@@ -20,24 +19,28 @@
       "m10_execution_readiness"
     ],
     "additional_representation_defect": "The second decoding/reserialization cycle mojibaked UTF-8 arrow characters in primary_contrasts.",
-    "scientific_semantics_changed_by_added_fields": false
+    "scientific_semantics_changed_by_added_fields": false,
+    "post_second_reserialization_windows_crlf_projection_sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6"
   },
   "original_canonical_contract": {
     "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.1.json",
     "git_blob": "b7dc3ea554a74d6044e989b8017d4795ab4d9778",
-    "sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6",
+    "git_blob_sha256": "c60acbcb30222018dd6363da148113b5e6decf2df035168eecfa2c95e3f2ca60",
+    "windows_crlf_projection_sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6",
     "history_action": "PRESERVE_UNCHANGED"
   },
   "corrected_contract": {
     "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.2.json",
-    "sha256": "0a1dadf41605107f940846d651444e189956f87e81953d28f81ab824b1d5a68f",
-    "git_blob_precommit": "8ba1385a51ebb8744ee3599cf357a5b56d7037db",
-    "serialization_policy": "FINALIZE_BYTES_THEN_HASH_NO_POST_HASH_MUTATION",
+    "git_blob_precommit": "2293c665a2d30c520056c7814aec6a9dc79d68d1",
+    "git_blob_sha256": "90e8be1de734a633030c76eafaac0de2a95048e143584ec522a45b868f565010",
+    "serialization_policy": "FINALIZE_CANONICAL_LF_BYTES_THEN_HASH_NO_POST_HASH_MUTATION",
     "encoding_policy": "ASCII_ONLY_FOR_BINDING_TEMPORAL_TRANSITION_TOKENS"
   },
   "human_materiality_adjudication": {
     "path": "GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-HUMAN-MATERIALITY-ADJUDICATION-V0.1.json",
-    "sha256": "e0cac00398f515424f9f6db902ce242928a30811212540aded12937f058b7ec3",
+    "git_blob": "a9382bc08f354e9142ccd55308f46c86da3f1af3",
+    "git_blob_sha256": "91fb37bca8e25d1133e4d3859ba10c9f1e227a34390ee359175f5a72d3933b2f",
+    "declared_windows_crlf_projection_sha256": "e0cac00398f515424f9f6db902ce242928a30811212540aded12937f058b7ec3",
     "mutation_authorized": false
   },
   "normative_temporal_transitions": [
