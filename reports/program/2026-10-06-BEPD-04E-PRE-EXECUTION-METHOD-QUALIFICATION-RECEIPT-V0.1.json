@@ -1,0 +1,112 @@
+{
+  "schema": "ATDS_BEPD_04E_PRE_EXECUTION_METHOD_QUALIFICATION_RECEIPT_V0_1",
+  "status": "PRE_EXECUTION_METHOD_QUALIFIED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent_head": "f433eff2845b3bc6093ae045c712fcfcf2ac8291",
+  "authority_scope": "SYNTHETIC_PRE_EXECUTION_ONLY",
+  "upstream_bindings": {
+    "bepd04d_claim_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "bepd04d_m09_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e",
+    "bepd04d_dependence_blob": "c26c6c10894efe5ed068c1a429353b69074435d5",
+    "bepd04d_gate_blob": "fedb12d532f1e68ee9405d05931a2a0d22672983",
+    "bepd04d_method_matrix_blob": "84e5e5de64d749579501df8da61969790281421f",
+    "bepd04d_blocker_register_blob": "e1dd20be134cfa3074253687d2215ad1027e1849",
+    "bepd04d_qualification_receipt_blob": "358bb108ced5315e9d5685dcdddaf16b4da61528",
+    "bepd04d_qualification_report_blob": "01158a24cdc76f1c1bf459868c40183e63d34b2a",
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "occurrence_m05_record_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "smf03_dependence_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87"
+  },
+  "bepd04e_bindings": {
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "method_contract_blob": "5b06ee0c863c90af085a55fe145afd6d51c31497",
+    "synthetic_fixture_blob": "eedaa71da7296fcce06be8beb75a7424be5bc28e",
+    "test_surface_blob": "2750f1154279095f7ed39075b538fe568bcf9cde",
+    "red_receipt_blob": "87273f14623825951c2439e46e765c1fcc4cfd32",
+    "runtime_blob": "61a996562fe18e0e2efd6f16db27a48738e60421",
+    "reference_runtime_blob": "e4ad2b642265889455e33f23ead3c5b57c1a7eae",
+    "breaker_blob": "eda63bf26230a2b48eb75bb655e64e766b66c1a3",
+    "parameter_packet_blob": "e88900779eab989e5bfa3265d217485023dab4bb",
+    "activation_candidate_blob": "b740312275bff3d6910c2e0fd1a69a24d96df1cb",
+    "rebreak_workflow_r1_blob": "c9376a787adbe7772cd0bc79e9dc3a094426831d",
+    "rebreak_receipt_blob": "aa90b05b37a1500b73efd62987729c5ac5549c1f"
+  },
+  "qualification_evidence": {
+    "frozen_contract": "PASS",
+    "frozen_synthetic_fixtures": "PASS",
+    "expected_red": "PASS",
+    "synthetic_green": "13/13 PASS",
+    "independent_reference_parity": "PASS",
+    "adversarial_breaker": "26/26 HARD_FAIL PASS",
+    "deterministic_replay": "PASS",
+    "persisted_head_rebreak": "PASS",
+    "rebreak_workflow_run_id": 37427449620,
+    "rebreak_job_id": 112150230405
+  },
+  "calendar_qualification": {
+    "status": "QUALIFIED",
+    "complete_target_weeks": 259,
+    "event_bearing_weeks": 230,
+    "zero_event_weeks": 29,
+    "strict_week_spacing_days": 7,
+    "response_values_inspected": false
+  },
+  "method_qualification": {
+    "ratio_of_sums_moving_block_runtime": "SYNTHETICALLY_QUALIFIED",
+    "independent_reference_parity": "PASS",
+    "interval_methods": [
+      "PERCENTILE",
+      "BASIC"
+    ],
+    "individual_event_iid_bootstrap": "FORBIDDEN",
+    "naive_binomial_ci": "FORBIDDEN",
+    "zero_event_weeks": "PRESERVED"
+  },
+  "nonstationarity_gate": {
+    "support_runtime": "SYNTHETIC_FAIL_CLOSED_QUALIFIED",
+    "m10_mechanism": "SYNTHETICALLY_QUALIFIED",
+    "m04_response_representation": "BLOCKED_BY_REPRESENTATION_CONSTRAINT",
+    "consequence": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED cannot be issued under the current BEPD-04D two-diagnostic gate without a separately authorized amendment or valid M04 representation",
+    "real_gate_result": "NOT_EXPOSED"
+  },
+  "material_parameters": {
+    "packet": "READY_FOR_HUMAN_DECISION",
+    "human_adoption": "PENDING",
+    "recommendations_binding": false
+  },
+  "response_specific_m05": {
+    "activation_candidate": "PREPARED",
+    "activation_state": "NOT_ACTIVATED",
+    "real_execution_authorized": false,
+    "occurrence_m05_reuse": "FORBIDDEN"
+  },
+  "blocker_resolution": {
+    "B04D-B01": "OPEN_EXPOSED_NOT_PRISTINE",
+    "B04D-B02": "OPEN_FRESH_OOS_ABSENT_FOR_CONFIRMATORY",
+    "B04D-B03": "CANDIDATE_PREPARED_HUMAN_ACTIVATION_PENDING",
+    "B04D-B04": "OPEN_REAL_NONSTATIONARITY_GATE_NOT_EXECUTED",
+    "B04D-B05": "PARAMETER_PACKET_READY_HUMAN_ADOPTION_PENDING",
+    "B04D-B06": "CLOSED_COMPLETE_WEEK_CALENDAR_QUALIFIED",
+    "B04D-B07": "CLOSED_RATIO_OF_SUMS_MOVING_BLOCK_RUNTIME_SYNTHETICALLY_QUALIFIED",
+    "B04D-B08": "OPEN_REAL_RESPONSE_DIAGNOSTICS_NOT_AUTHORIZED",
+    "B04E-G01": "OPEN_M04_RESPONSE_REPRESENTATION_BLOCKS_CURRENT_GATE_CLEARANCE"
+  },
+  "authority_boundary": {
+    "bepd04c": "UNCHANGED_HUMAN_ADOPTED_CLOSED",
+    "bepd04d": "READINESS_QUALIFIED_EXPLORATORY_ONLY",
+    "new_real_response_aggregate_exposed": false,
+    "real_nonstationarity_diagnostic_executed": false,
+    "real_bootstrap_executed": false,
+    "real_confidence_interval_calculated": false,
+    "generalization_established": false,
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction_authorized": false,
+    "edge_authorized": false,
+    "trading_authority": "NONE"
+  },
+  "verdict": "PRE_EXECUTION_METHOD_QUALIFIED",
+  "next_step": "HUMAN_ADJUDICATION_OF_MATERIAL_PARAMETERS_AND_METHOD_ACTIVATION_BOUNDARY_INCLUDING_M04_GATE_BLOCK",
+  "next_frontier_opened": false
+}
