@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA_01_PROSPECTIVE_FORWARD_INSTANCE_FORMATION_CONTRACT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01",
+  "status": "PROSPECTIVE_FORMATION_RULE_CANDIDATE",
+  "purpose": "Define the exact future NEW_FORWARD_DATA_ONLY instance formation rule without reading performance.",
+  "bindings": {
+    "b8_human_closure_commit": "1187721e46bb2e751521a05fcb07782d3432de5d",
+    "b8_human_closure_commit_time_utc": "2026-10-06T09:22:55Z",
+    "b8_human_closure_blob": "8740bf6255286c3c8d896b6b334d10b78c1899f7",
+    "b8_human_closure_receipt": "083a461a3e278e28b11b1c63d7460745441daa12",
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "strategy_version_identity": "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687",
+    "claim_class": "CC05_ECONOMIC_NET_PROFITABILITY",
+    "cost_scope": "F2_S4",
+    "m06_final_required_n": 58927,
+    "dt01a_blob": "66759f93ad019e18fd00c871bd1737293070b1a8",
+    "dt01b_blob": "b312981ae8cba905c50db657ba0217addf296548"
+  },
+  "data_family": {
+    "raw_source_family": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+    "ap0_family": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "h1_family": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+    "new_forward_instance_must_have_distinct_manifest": true,
+    "historical_manifest_reuse_as_forward_instance": false
+  },
+  "temporal_rule": {
+    "cutover_anchor": "B8_HUMAN_CLOSURE_COMMIT_TIME",
+    "cutover_utc": "2026-10-06T09:22:55Z",
+    "first_full_post_cutover_h1_start_utc": "2026-10-06T10:00:00Z",
+    "first_forward_signal_decision_time_utc": "2026-10-06T11:00:00Z",
+    "evidence_inclusion_rule": "decision_time_utc >= 2026-10-06T11:00:00Z",
+    "pre_cutover_warmup": "UP_TO_20_COMPLETED_ADMISSIBLE_H1_ALLOWED_FOR_SIGNAL_LOOKBACK_ONLY",
+    "warmup_performance_inclusion": false,
+    "same_bar_execution": "FORBIDDEN",
+    "execution_search_start": "SIGNAL_H1_END_MS_INCLUSIVE"
+  },
+  "terminal_rule": {
+    "end_rule": "FIRST_DECISION_BOUNDARY_AT_OR_AFTER_CUMULATIVE_ADMISSIBLE_CLOSED_FORWARD_TRADES_REACHES_58927",
+    "performance_values_may_determine_end": false,
+    "trade_count_only_readiness_check_permitted": true,
+    "optional_stopping_on_pnl_or_ci": false,
+    "if_sample_count_below_58927": "WAIT_NOT_READY_NO_PERFORMANCE_OBSERVATION"
+  },
+  "instance_identity_rule": {
+    "materialization_requires": [
+      "raw_forward_manifest_sha256",
+      "raw_forward_inventory_digest",
+      "ap0_forward_manifest_sha256",
+      "h1_forward_stream_sha256",
+      "exact_first_evidence_decision_time",
+      "exact_terminal_decision_time",
+      "exact_closed_trade_count",
+      "non_overlap_attestation"
+    ],
+    "instance_digest_algorithm": "SHA-256",
+    "instance_digest_input": "CANONICAL_JSON_OF_EXACT_MATERIALIZED_FIELDS",
+    "instance_digest_available_now": false
+  },
+  "non_overlap": {
+    "old_e1_oos_independent_confirmation_eligible": false,
+    "old_e1_oos_max_boundary": "2026-05-24T23:59:59.963Z",
+    "forward_evidence_start": "2026-10-06T11:00:00Z",
+    "temporal_non_overlap_by_rule": true,
+    "research_freeze_precedes_forward_evidence_start": true
+  },
+  "authority": {
+    "b12_open": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "performance_observation": false,
+    "pnl_observation": false,
+    "real_ao_e0_execution": false
+  },
+  "force": false
+}

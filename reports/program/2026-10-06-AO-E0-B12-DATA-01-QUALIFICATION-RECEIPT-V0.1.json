@@ -1,0 +1,33 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA_01_QUALIFICATION_RECEIPT_V0_1",
+  "control_id":"AO-E0-B12-DATA-01",
+  "verdict":"WAIT_NOT_READY_INSTANCE_NOT_YET_MATERIALIZABLE",
+  "prospective_formation_rule":"QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "exact_forward_instance":"NOT_YET_AVAILABLE",
+  "cutover":{
+    "b8_closure_commit":"1187721e46bb2e751521a05fcb07782d3432de5d",
+    "b8_closure_time_utc":"2026-10-06T09:22:55Z",
+    "first_full_post_cutover_h1_start_utc":"2026-10-06T10:00:00Z",
+    "first_forward_evidence_decision_time_utc":"2026-10-06T11:00:00Z"
+  },
+  "terminal_rule":{
+    "required_closed_trades":58927,
+    "performance_based_stopping":false,
+    "state_before_required_n":"WAIT_NOT_READY_NO_PERFORMANCE_OBSERVATION"
+  },
+  "checks":{
+    "temporal_non_overlap_by_rule":true,
+    "research_freeze_precedes_forward_evidence":true,
+    "historical_manifest_reuse_forbidden":true,
+    "concrete_instance_digest_available":false,
+    "performance_consumed":false
+  },
+  "state":{"b8":"CLOSED","b12":"CLOSED"},
+  "authority":{
+    "forward_data_observation":false,
+    "oos_consumption":false,
+    "real_performance_observation":false,
+    "real_ao_e0_execution":false
+  },
+  "force":false
+}
