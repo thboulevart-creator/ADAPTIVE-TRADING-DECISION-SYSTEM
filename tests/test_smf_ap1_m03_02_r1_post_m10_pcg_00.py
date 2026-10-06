@@ -132,9 +132,9 @@ def test_18_traceability_covers_every_frozen_breaker():
     assert b_ids <= mapped
 
 def test_19_no_runtime_or_real_result_artifact_created_for_pcg_00():
-    assert not list((ROOT/"tools").glob("*pcg*"))
-    assert not list((ROOT/"artifacts").glob("*pcg*"))
-    assert not list((ROOT/"artifacts").glob("*PCG*"))
+    assert not list((ROOT/"tools").glob("*pcg_00*"))
+    assert not list((ROOT/"artifacts").glob("*pcg_00*"))
+    assert not list((ROOT/"artifacts").glob("*PCG-00*"))
 
 def test_20_no_pass_fail_only_or_forbidden_scientific_promotion():
     t=load(TABLE)

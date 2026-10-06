@@ -1,11 +1,15 @@
-name: SMF Post-M10 PCG-00 Documentary Qualification
+name: SMF Post-M10 PCG-01 Synthetic Qualification
 
 on:
   push:
     branches: [integration/system-v1]
     paths:
-      - 'GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-PCG-00-*.json'
-      - 'reports/program/*POST-M10-PCG-00*'
+      - 'tools/smf_ap1_m03_02_r1_post_m10_pcg_01*.py'
+      - 'tests/test_smf_ap1_m03_02_r1_post_m10_pcg_01.py'
+      - 'tests/fixtures/smf_ap1_m03_02_r1_post_m10_pcg_01_synthetic_cases_v0_1.json'
+      - 'GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-PCG-01-*.json'
+      - 'reports/program/*POST-M10-PCG-01*'
+      - '.github/workflows/smf-ap1-m03-02-r1-post-m10-pcg-01-qualification.yml'
       - 'tests/test_smf_ap1_m03_02_r1_post_m10_pcg_00.py'
       - '.github/workflows/smf-ap1-m03-02-r1-post-m10-pcg-00-qualification.yml'
   workflow_dispatch:
@@ -34,7 +38,9 @@ jobs:
           python-version: '3.12.14'
       - name: Install qualification packages
         run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
-      - name: PCG-00 documentary and static qualification
+      - name: PCG-01 targeted synthetic qualification
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_post_m10_pcg_01.py
+      - name: PCG-00 regression
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_post_m10_pcg_00.py
       - name: Post-M10 method-necessity regression
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_post_m10_method_necessity.py
@@ -42,15 +48,22 @@ jobs:
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_m10_01.py
       - name: M10-00 regression
         run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_m10_00.py
-      - name: Assert no PCG-00 runtime or real-result surface during PCG-00
+      - name: Assert no real PCG result or real-data surface
         run: |
           python - <<'PY'
           from pathlib import Path
           root=Path('.')
-          assert not list((root/'tools').glob('*pcg_00*'))
-          assert not list((root/'tools').glob('*PCG-00*'))
-          assert not list((root/'artifacts').glob('*pcg_00*'))
-          assert not list((root/'artifacts').glob('*PCG-00*'))
+          art=root/'artifacts'
+          if art.exists():
+              assert not list(art.glob('*pcg_01*'))
+              assert not list(art.glob('*PCG-01*'))
+          for path in [
+              root/'tools'/'smf_ap1_m03_02_r1_post_m10_pcg_01.py',
+              root/'tools'/'smf_ap1_m03_02_r1_post_m10_pcg_01_reference.py',
+          ]:
+              src=path.read_text(encoding='utf-8').lower()
+              for forbidden in ('m03-r1-real','m10_real_result','atds-control','oos data path'):
+                  assert forbidden not in src
           PY
       - name: Clean worktree
         if: always()

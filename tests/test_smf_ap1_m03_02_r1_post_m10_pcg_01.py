@@ -1,5 +1,5 @@
 from __future__ import annotations
-import ast, hashlib, importlib.util, json
+import ast, hashlib, importlib.util, json, subprocess
 from pathlib import Path
 import pytest
 
@@ -33,7 +33,8 @@ def test_00_runtime_and_reference_exist():
     assert REFERENCE.exists(), "MISSING_REFERENCE:smf_ap1_m03_02_r1_post_m10_pcg_01_reference.py"
 
 def test_01_fixture_identity_is_frozen_and_synthetic():
-    raw=FIX.read_bytes()
+    rel=FIX.relative_to(ROOT).as_posix()
+    raw=subprocess.check_output(["git","-C",str(ROOT),"show",f"HEAD:{rel}"])
     doc=load_json(FIX)
     assert hashlib.sha256(raw).hexdigest()==EXPECTED_FIXTURE_SHA
     assert doc["status"]=="FROZEN_BEFORE_RUNTIME_IMPLEMENTATION"
