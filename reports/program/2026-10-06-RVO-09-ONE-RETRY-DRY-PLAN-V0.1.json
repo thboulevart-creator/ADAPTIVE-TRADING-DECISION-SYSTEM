@@ -1,0 +1,25 @@
+{
+  "authority": {
+    "capital": false,
+    "execution": false,
+    "operational": false,
+    "scientific": false,
+    "trading": false
+  },
+  "candidate_retry_budget": 1,
+  "command_digest": "3aa008dec602c1f900cf853f3d9df8d6cadfde7b2238300d9d99dc61234ff6b0",
+  "execution_authority": false,
+  "historical_invocation_count": 1,
+  "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+  "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+  "p1_dry_plan_digest": "85f3f8595ffc64efaf725b2cfdcdcf56e4c91d491d42c58134035a05411b7179",
+  "p1_dry_plan_id": "QRPP-85f3f8595ffc64efaf725b2cfdcdcf56",
+  "retry_authorized": false,
+  "retry_output_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-09\\AP1-RETRY-CC02-a0becd65.json",
+  "retry_plan_digest": "28338cb1cca6d8e2db51364cf30fa309d8147f9aac257239ea4f37b74824b90f",
+  "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+  "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+  "schema": "ATDS_RVO_09_ONE_RETRY_DRY_EXECUTION_PLAN_V0_1",
+  "status": "ONE_RETRY_DRY_PLAN_CANDIDATE",
+  "would_be_invocation_ordinal": 2
+}

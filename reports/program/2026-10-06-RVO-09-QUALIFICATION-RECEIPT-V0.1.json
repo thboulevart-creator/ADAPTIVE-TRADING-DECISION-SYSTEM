@@ -1,0 +1,391 @@
+{
+  "ap0": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "manifest_declared_files": 61,
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "parquet_content_opened": false,
+    "parquet_file_count": 61
+  },
+  "authority": {
+    "capital": false,
+    "execution": false,
+    "operational": false,
+    "retry": false,
+    "scientific": false,
+    "trading": false
+  },
+  "bindings": {
+    "data_binding": {
+      "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "capital_authority": false,
+      "data_owner_evidence_digest": "d11f6c39fcf9f31336ecc34027abc99c79a9f881d8203a78d6c7ac47c0b3af3b",
+      "data_owner_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+      "dataset_file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+      "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "file_count": 61,
+      "native_data_status": "PASS_REAL_DATA_ADMISSION",
+      "operational_authority": false,
+      "p1_binding_status": "P1_DATA_EVIDENCE_ACCEPTED_FOR_PLAN_BINDING",
+      "p1_data_evidence_binding_digest": "fcad5b5935300a666e634315c29988de809324a8ce7f5adc366da004372cac84",
+      "p1_data_evidence_binding_id": "P1DE-fcad5b5935300a666e634315c29988de",
+      "result_exposed": false,
+      "schema_identity": "5c5f5302891567b62024c718d4e7700b766d1ace8f3e40f7a0a29cee6b93bf88",
+      "scientific_authority": false,
+      "source_identity": "SOURCE_B_USTECH_PRICE_CORE_V0_1",
+      "temporal_status": "NOT_APPLICABLE_WITH_EXPLICIT_BASIS",
+      "trading_authority": false,
+      "transformer_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+      "usage_envelope_id": "DATA01_CC02_AP1_RETROSPECTIVE_V0_1"
+    },
+    "invocation_profile": {
+      "child_argv_schema_json": "{\"child_argv\":[\"{producer_path}\",\"--ap0-root\",\"{ap0_root_transport}\",\"--ap0-manifest\",\"{ap0_manifest_transport}\",\"--output\",\"{output_transport}\"],\"output_path_identity_authority\":false,\"producer_path_identity_authority\":false,\"python_flags\":[\"-E\",\"-P\"],\"shell\":false,\"structured_arguments\":true}",
+      "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+      "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+      "output_transport_identity_authority": false,
+      "producer_code_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+      "producer_id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "producer_protocol": "P1_12C_AP1_CLAIM_SCOPED_V1",
+      "result_exposed": false,
+      "sandbox_runner_blob": "54dfb6422eaff8a0da63c94d70eabc3de1a86caf",
+      "shell": false
+    },
+    "p1_dry_plan": {
+      "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "ap0_manifest_transport": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1\\AP0-MANIFEST.json",
+      "ap0_root_transport": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "audit_id": "MAU-8a8765b8a19c1c318445ee363c91ce7e",
+      "capital_authority": false,
+      "dataset_file_set_digest": "1ff14ab4fea11c2480088a322f5bec23ea183de14cbc65ee6c684c7ea185062a",
+      "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "execution_authority": false,
+      "execution_binding_id": "EEB-05a2c5fa741372f04903b81186e3ad61",
+      "expected_output_contract": "ATDS_AP1_CANONICAL_JSON_OUTPUT_V1",
+      "expected_output_schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "expected_output_status": "AP1_COMPLETE",
+      "experiment_execution_input_id": "QEI-f0e9332e9cee0dd2726136899ff8a0ef",
+      "experiment_spec_id": "EXS-37ace07e7e01943f634fe7760888f13a",
+      "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+      "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+      "maximum_output_bytes": 33554432,
+      "native_data_status": "PASS_REAL_DATA_ADMISSION",
+      "operational_authority": false,
+      "output_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-09\\AP1-RETRY-CC02-a0becd65.json",
+      "p1_data_evidence_binding_digest": "fcad5b5935300a666e634315c29988de809324a8ce7f5adc366da004372cac84",
+      "p1_data_evidence_binding_id": "P1DE-fcad5b5935300a666e634315c29988de",
+      "producer_code_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+      "producer_id": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "producer_path_transport": "C:\\Users\\Boulevart\\ATDS-WORKTREES\\G05-01\\tools\\ap1_intraday_spread_census.py",
+      "real_producer_execution_plan_digest": "85f3f8595ffc64efaf725b2cfdcdcf56e4c91d491d42c58134035a05411b7179",
+      "real_producer_execution_plan_id": "QRPP-85f3f8595ffc64efaf725b2cfdcdcf56",
+      "request_id": "FUR-9c8f0dcc07c713b447e5fbeeddcb8186",
+      "result_exposed": false,
+      "revision_id": "REV-8e335e3ad4e2a439ef94bd4f17ac6e25",
+      "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+      "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+      "scientific_authority": false,
+      "scope_id": "MAS-498649934f6f7200e2996a1c254667c2",
+      "semantic_parameter_digest": "162c5fcaed5b5e61687415fd0bc5e9b2063514bd073593cecabe7c699596b003",
+      "semantic_parameters_json": "{\"claim_scope\":\"CC02_DESCRIPTIVE_MARKET_BEHAVIOR\",\"intraday_timezone\":\"America/New_York\",\"oos_consumption\":false,\"percentile_method\":\"linear\",\"producer_configuration\":\"CODE_FROZEN_BY_EXACT_GIT_BLOB\",\"semantic_limit\":\"RETROSPECTIVE_DESCRIPTIVE_ONLY\"}",
+      "trading_authority": false
+    },
+    "runtime_lock": {
+      "architecture": "x64",
+      "execution_authority": false,
+      "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+      "material_environment_json": "{\"PYTHONDONTWRITEBYTECODE\":\"1\",\"PYTHONHASHSEED\":\"0\"}",
+      "numpy_metadata_sha256": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+      "numpy_record_sha256": "5135e045b7bc7d8f2ef83e2bd9c618840f46ebd09d8590c819bbcdeb32cfe41e",
+      "numpy_version": "2.5.3",
+      "platform": "Windows",
+      "pyarrow_metadata_sha256": "12ed8d0988a6f7153fec923ee47b7fc1d6134463a86b1b89fa36f24c250163ff",
+      "pyarrow_record_sha256": "a6cc5dcd5681d231959f61ccc1b57cb13dc1690f0819ed7bfd66ebd575e0db24",
+      "pyarrow_version": "25.0.1",
+      "python_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+      "python_version": "3.13.14",
+      "result_exposed": false,
+      "runtime_evidence_source_ref": "e4e275e8590e3bead9123969c068b036c6c4e1d8",
+      "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+      "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+      "schema": "P1_12C_REAL_PRODUCER_RUNTIME_LOCK_V1",
+      "timeout_seconds": 3600,
+      "timezone_name": "America/New_York",
+      "tzdata_metadata_sha256": "511c019df477939fe7f4c38e32ad74a570c4ebb05b13fd2fffd0f0f2dbe6f7b1",
+      "tzdata_record_sha256": "8f9f4ae062c3c9af93f22cff46986c4735d15d1306a413df291d5b67301db0eb",
+      "tzdata_version": "2026.3"
+    },
+    "smf_activation": {
+      "activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+      "activation_reason": "AP1 declares empirical percentile summaries for tick_count, minute_range, and per-minute spread_mean",
+      "activation_rule": "M03 required before any empirical quantile result for the exact AP1 descriptive claim",
+      "activation_state": "ACTIVATED",
+      "assumption_set_ref": "assumptions:CENSUS_NO_IID_NO_INFERENCE",
+      "claim_definition_ref": "claim:CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "dependency_refs": [
+        "SMF-01:M03",
+        "SMF-02:PRE_RESULT_ACTIVATION",
+        "DATA-02:ccfccda676abfe7e02082a331557ffed14e1f32b",
+        "P1-21:49142e1928cf32ec10ed9a4809388a782559ad42",
+        "AP1:9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+      ],
+      "failure_mode_ref": "EMPIRICAL_DISTRIBUTION_QUANTILE_DEFINITION_AND_PROCEDURE_IDENTITY",
+      "method_family_ref": "M03",
+      "parameter_selection_policy": {
+        "empty_bucket_rule": "NO_NUMERICAL_RESULT",
+        "population_semantics": {
+          "iid_claim": false,
+          "inference_claim": false,
+          "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+          "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET",
+          "stochastic_sample_claim": false
+        },
+        "probabilities": {
+          "minute_range": [
+            0.5,
+            0.9,
+            0.95,
+            0.99
+          ],
+          "spread_mean": [
+            0.5,
+            0.9,
+            0.95,
+            0.99
+          ],
+          "tick_count": [
+            0.5,
+            0.9,
+            0.99
+          ]
+        },
+        "quantile_definition": "linear interpolation with h=(n-1)*p",
+        "tail_extrapolation": "FORBIDDEN"
+      },
+      "validity_scope_ref": "scope:RETROSPECTIVE_DESCRIPTIVE_ONLY:NO_INFERENCE"
+    },
+    "smf_dry_plan": {
+      "activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+      "authority": {
+        "capital": false,
+        "execution": false,
+        "operational": false,
+        "scientific": false,
+        "trading": false
+      },
+      "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+      "companion_id": "ATDS_SMF_AP1_M03_COMPANION_V0_1",
+      "g05_materialized": false,
+      "identities": {
+        "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+        "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+        "data02_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+        "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+        "p121_receipt_blob": "49142e1928cf32ec10ed9a4809388a782559ad42",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4"
+      },
+      "metric_probabilities": {
+        "minute_range": [
+          0.5,
+          0.9,
+          0.95,
+          0.99
+        ],
+        "spread_mean": [
+          0.5,
+          0.9,
+          0.95,
+          0.99
+        ],
+        "tick_count": [
+          0.5,
+          0.9,
+          0.99
+        ]
+      },
+      "plan_digest": "sha256:b2670b0fe4502b0a8027b5b7304e8886cfb033160f254250f00c8ca98f39d750",
+      "population_semantics": {
+        "iid_claim": false,
+        "inference_claim": false,
+        "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+        "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET",
+        "stochastic_sample_claim": false
+      },
+      "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+      "result_minted": false,
+      "schema": "ATDS_SMF_AP1_M03_01_EXECUTION_PLAN_V0_1",
+      "status": "M03_BINDING_PLAN_READY",
+      "transport_paths_excluded_from_identity": true
+    }
+  },
+  "empirical": {
+    "ap1_executed": false,
+    "m03_executed": false,
+    "new_empirical_result": false,
+    "oos_consumed": false,
+    "parquet_statistical_open": false
+  },
+  "freeze": {
+    "ap1_executed": false,
+    "authority": {
+      "capital": false,
+      "execution": false,
+      "operational": false,
+      "scientific": false,
+      "trading": false
+    },
+    "branch": "integration/system-v1",
+    "command_digest": "3aa008dec602c1f900cf853f3d9df8d6cadfde7b2238300d9d99dc61234ff6b0",
+    "data_binding_digest": "fcad5b5935300a666e634315c29988de809324a8ce7f5adc366da004372cac84",
+    "data_binding_id": "P1DE-fcad5b5935300a666e634315c29988de",
+    "freeze_digest": "9c4e77111e5cad42fef1e9863127a12deb3a0860adf87e8e58a1c737fb8ef349",
+    "gaps": {
+      "G01": "PRE_RETRY_REQUALIFIED_CLOSED",
+      "G02": "PRE_RETRY_REQUALIFIED_CLOSED",
+      "G03": "PRE_RETRY_REQUALIFIED_CLOSED",
+      "G04": "PRE_RETRY_REQUALIFIED_CLOSED",
+      "G05": "PRE_RETRY_REQUALIFIED_CLOSED"
+    },
+    "head": "a0becd6584dc9c7819f667708689478328c27189",
+    "historical_invocation_count": 1,
+    "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "m03_executed": false,
+    "old_ap1_output_exists": false,
+    "owner_blobs": {
+      "reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+      "reports/program/2026-10-05-G05-01-QUALIFICATION-RECEIPT-V0.1.json": "60a17b59aa03a41d517ee887c565d314a3d92ce5",
+      "reports/program/2026-10-05-RVO-07-QUALIFICATION-RECEIPT-V0.1.json": "828851954c12745021c7463befb9761e5eaa51bc",
+      "reports/program/2026-10-05-SMF-AP1-M03-01-QUALIFICATION-RECEIPT-V0.1.json": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+      "reports/program/2026-10-06-RVO-08F-QUALIFICATION-RECEIPT-V0.1.json": "ad0ba1edc06fac447123b8082442857c9f5f6b4e",
+      "src/p1_12c_qualified_producer_execution.py": "87d2ef49c0b70b956ada19443f5ba693cfb5b242",
+      "src/smf_ap1_m03_binding.py": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+      "tools/ap1_intraday_spread_census.py": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+      "tools/p1_12c_sandbox_runner.py": "78aa1615a093c241774fdea1018b69f47728ecb6",
+      "tools/smf_ap1_m03_companion.py": "7ec9ef71c8682abc4c8f9561518f84268c00ed11"
+    },
+    "p1_dry_plan_digest": "85f3f8595ffc64efaf725b2cfdcdcf56e4c91d491d42c58134035a05411b7179",
+    "p1_dry_plan_id": "QRPP-85f3f8595ffc64efaf725b2cfdcdcf56",
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "retry_authorized": false,
+    "retry_output_exists": false,
+    "retry_plan_digest": "28338cb1cca6d8e2db51364cf30fa309d8147f9aac257239ea4f37b74824b90f",
+    "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "rvo08f_receipt_status": "RVO_08F_QUALIFIED_CLOSED",
+    "schema": "ATDS_RVO_09_PRE_RETRY_FREEZE_V0_1",
+    "smf_activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+    "smf_dry_plan_digest": "sha256:b2670b0fe4502b0a8027b5b7304e8886cfb033160f254250f00c8ca98f39d750",
+    "status": "PRE_RETRY_FROZEN",
+    "tree": "690418679e877438723f3e536eab317a86d78676",
+    "workspace_digest": "16d6cee57a0c125182ff51453a5c4d7f7e6809e732aafd0b16a67cebf6bc1203",
+    "workspace_id": "RVO09WS-16d6cee57a0c125182ff51453a5c4d7f"
+  },
+  "gaps": {
+    "G01": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G02": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G03": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G04": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G05": "PRE_RETRY_REQUALIFIED_CLOSED"
+  },
+  "history": {
+    "canonical_ledger_blob": "733af27f754fcddbaa53bf53eed7e3575de00747",
+    "invocation_count": 1,
+    "local_ledger_sha256": "714311480be2c1f5f153336419075f81efba0c1747857dd1c29ddd2228f2c4a7",
+    "old_output_exists": false,
+    "state": "STARTED"
+  },
+  "output_probe": {
+    "directory_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-09\\probe",
+    "probe_removed": true,
+    "write_probe": "PASS"
+  },
+  "readiness": "PRE_RETRY_READINESS_GO",
+  "retry_plan": {
+    "authority": {
+      "capital": false,
+      "execution": false,
+      "operational": false,
+      "scientific": false,
+      "trading": false
+    },
+    "candidate_retry_budget": 1,
+    "command_digest": "3aa008dec602c1f900cf853f3d9df8d6cadfde7b2238300d9d99dc61234ff6b0",
+    "execution_authority": false,
+    "historical_invocation_count": 1,
+    "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "p1_dry_plan_digest": "85f3f8595ffc64efaf725b2cfdcdcf56e4c91d491d42c58134035a05411b7179",
+    "p1_dry_plan_id": "QRPP-85f3f8595ffc64efaf725b2cfdcdcf56",
+    "retry_authorized": false,
+    "retry_output_transport": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-09\\AP1-RETRY-CC02-a0becd65.json",
+    "retry_plan_digest": "28338cb1cca6d8e2db51364cf30fa309d8147f9aac257239ea4f37b74824b90f",
+    "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "schema": "ATDS_RVO_09_ONE_RETRY_DRY_EXECUTION_PLAN_V0_1",
+    "status": "ONE_RETRY_DRY_PLAN_CANDIDATE",
+    "would_be_invocation_ordinal": 2
+  },
+  "runtime_observation": {
+    "architecture": "AMD64",
+    "dependencies": {
+      "numpy": {
+        "metadata_sha256": "451a9b8028000588e66b0b415587b6aef0bbc51a96d8e8a0cba0dc23acf64f99",
+        "record_sha256": "5135e045b7bc7d8f2ef83e2bd9c618840f46ebd09d8590c819bbcdeb32cfe41e",
+        "version": "2.5.3"
+      },
+      "pyarrow": {
+        "metadata_sha256": "12ed8d0988a6f7153fec923ee47b7fc1d6134463a86b1b89fa36f24c250163ff",
+        "record_sha256": "a6cc5dcd5681d231959f61ccc1b57cb13dc1690f0819ed7bfd66ebd575e0db24",
+        "version": "25.0.1"
+      },
+      "tzdata": {
+        "metadata_sha256": "511c019df477939fe7f4c38e32ad74a570c4ebb05b13fd2fffd0f0f2dbe6f7b1",
+        "record_sha256": "8f9f4ae062c3c9af93f22cff46986c4735d15d1306a413df291d5b67301db0eb",
+        "version": "2026.3"
+      }
+    },
+    "material_environment": {
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONHASHSEED": "0"
+    },
+    "platform": "Windows",
+    "python_real_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "python_version": "3.13.14",
+    "timezone_name": "America/New_York",
+    "timezone_probe": "PASS"
+  },
+  "sandbox": {
+    "dependencies": {
+      "output_exists": true,
+      "returncode": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "dll": {
+      "output_exists": false,
+      "returncode": 1,
+      "stderr_sha256": "9dc8668a625ba694dae84264c569f77f6c8c0179f9efdafabf2309a317311ee1"
+    },
+    "network": {
+      "output_exists": false,
+      "returncode": 1,
+      "stderr_sha256": "392ce5dbcd4e37e18b7b9ed976066dce8425c234d1531e547e16dcb7fc53914a"
+    },
+    "subprocess": {
+      "output_exists": false,
+      "returncode": 1,
+      "stderr_sha256": "a65e34b79c64131b156dd71b3c045cec109c5b6ab7d48bdf5a53cbd480408833"
+    }
+  },
+  "schema": "ATDS_RVO_09_PRE_RETRY_REQUALIFICATION_V0_1",
+  "status": "RVO_09_QUALIFIED",
+  "verdict": "GO",
+  "workspace": {
+    "clean": true,
+    "detached": true,
+    "head": "a0becd6584dc9c7819f667708689478328c27189",
+    "main_checkout_clean": true,
+    "tree": "690418679e877438723f3e536eab317a86d78676",
+    "workspace_digest": "16d6cee57a0c125182ff51453a5c4d7f7e6809e732aafd0b16a67cebf6bc1203",
+    "workspace_id": "RVO09WS-16d6cee57a0c125182ff51453a5c4d7f"
+  }
+}
