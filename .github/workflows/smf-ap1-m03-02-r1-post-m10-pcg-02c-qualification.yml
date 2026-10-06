@@ -1,0 +1,55 @@
+name: SMF Post-M10 PCG-02C Human Adjudication Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-PCG-02C-*'
+      - 'reports/program/*POST-M10-PCG-02C*'
+      - 'tests/test_smf_ap1_m03_02_r1_post_m10_pcg_02c_adjudication.py'
+      - '.github/workflows/smf-ap1-m03-02-r1-post-m10-pcg-02c-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+      - name: PCG-02C documentary/static qualification
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_post_m10_pcg_02c_adjudication.py
+      - name: PCG-02B persisted-result integrity regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_post_m10_pcg_02b_result_integrity.py
+      - name: Assert no PCG-02C runtime or data artifact surface
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          root=Path('.')
+          assert not list((root/'tools').glob('*pcg_02c*'))
+          assert not list((root/'artifacts').glob('*pcg_02c*'))
+          assert not list((root/'artifacts').glob('*PCG-02C*'))
+          PY
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          git clean -fd
+          test -z "$(git status --porcelain)"
