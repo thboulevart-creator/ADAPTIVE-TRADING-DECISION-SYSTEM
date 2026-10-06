@@ -1,0 +1,146 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_01_FINAL_READINESS_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-01",
+  "status": "IMPLEMENTATION_QUALIFIED_READY_FOR_SEPARATE_HUMAN_REAL_APPLICATION_DECISION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "test_first": {
+    "frozen_red_head": "57b296e72bcdae5ff51bab98cf75f6fe04055c55",
+    "fixture_sha256": "12f8ec564b86a8db91df48b497a409871dbb719b31b8f96f949325ef31462b4c",
+    "fixture_case_count": 32,
+    "frozen_breaker_count": 46,
+    "expected_red": "CONFIRMED_BEFORE_RUNTIME_IMPLEMENTATION"
+  },
+  "implementation_candidate": {
+    "head": "4610a84d66097070617c0802b44d25978d2f444f",
+    "tree": "fea2f3f9176b1bf48e621110032257509a8e38f5"
+  },
+  "pcg00_bindings": {
+    "contract_blob": "8e6e888f8330e40d792b43650c32b09a8dc6a281",
+    "decision_table_blob": "da9bb3a7436072795fced2d171cae8df23591279",
+    "breaker_contract_blob": "c52eca89c45fd68e83c506925626a3c389b5d4a2",
+    "traceability_blob": "364baff4a603c9be69f29742ba2647477742974f",
+    "final_receipt_blob": "769fcc81f4b365b4a54152042be31a2dd1ce9412",
+    "final_closure_blob": "4433648fb71684695513eddb2c60c4eddae41b6a"
+  },
+  "implementation_artifacts": {
+    "runtime": {
+      "blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+      "sha256": "e1739e0445a21214630ba8c4862f3fed082bf5e0968ae9119ec1fc73bd6c9fe2"
+    },
+    "independent_reference": {
+      "blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+      "sha256": "642ce390413035c6e3487e42c6bd08e22a35c3693d480ed3eab0ec797188e2f4"
+    },
+    "pcg01_breaker_contract": {
+      "blob": "82362c52e52da84d251faeaa12d943d3c236b8b5",
+      "sha256": "6a86426889e411e49384f6a2b5dea3b95c6ac211d57b7ea92bb263409a819db7"
+    },
+    "synthetic_fixture": {
+      "blob": "4695450cbeb13b695de649e84b853967b07334c7",
+      "sha256": "12f8ec564b86a8db91df48b497a409871dbb719b31b8f96f949325ef31462b4c",
+      "cases": 32
+    },
+    "targeted_test": {
+      "blob": "4d1e347d287e43f8d843b0ce1886300c0aa0e01e",
+      "sha256": "fbd4b2d983ca44d0da6bb37285264edcf8ea4d5b30780820b921351f8839521b"
+    },
+    "workflow": {
+      "blob": "09ca1ead3bce424c06c182776509451d454b5f90",
+      "sha256": "333d11f74e2f3a51a2c8803ccb0ef0eeba05afeb50eba2f6e8b8570c44c1f705"
+    }
+  },
+  "qualification": {
+    "targeted_pcg01": "16/16 PASS",
+    "required_regression": "85/85 PASS",
+    "reference_parity": "PASS_ON_ALL_32_FROZEN_SYNTHETIC_CASES",
+    "deterministic_replay": "PASS",
+    "authority_boundaries": "PASS",
+    "no_real_data_dependency": "PASS",
+    "no_real_pcg_result": "PASS",
+    "pcg01_ci": {
+      "run_id": 37492336970,
+      "job_id": 112367983196,
+      "conclusion": "success"
+    },
+    "pcg00_regression_ci": {
+      "run_id": 37492336845,
+      "job_id": 112367983394,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37492337394,
+      "job_id": 112367984864,
+      "conclusion": "success"
+    }
+  },
+  "qualification_corrections": {
+    "fixture_identity": {
+      "finding": "WINDOWS_CRLF_CHECKOUT_DIFFERS_FROM_CANONICAL_GIT_BLOB_BYTES",
+      "disposition": "HASH_CANONICAL_GIT_BLOB_BYTES",
+      "frozen_fixture_changed": false,
+      "expected_states_changed": false
+    },
+    "hard_block_ordering": {
+      "finding": "FIRST_RUNTIME_INDEXED_REQUESTED_ROUTE_BEFORE_HARD_BLOCK_PRECEDENCE",
+      "disposition": "APPLY_HARD_BLOCK_BEFORE_ROUTE_STATE_INDEXING",
+      "frozen_fixture_changed": false,
+      "pcg00_semantics_changed": false
+    },
+    "pcg00_lifecycle_scope": {
+      "finding": "PCG00_HISTORICAL_TEST_AND_CI_GLOB_FORBADE_ALL_FUTURE_PCG_RUNTIME_FILES",
+      "disposition": "SCOPE_HISTORICAL_NO_RUNTIME_ASSERTION_TO_PCG00_NAMESPACE",
+      "pcg00_binding_invariant_preserved": "NO_EXECUTABLE_PCG_RUNTIME_DURING_PCG00"
+    }
+  },
+  "multiple_routes": {
+    "permitted": true,
+    "silent_priority": false,
+    "all_qualified_routes_preserved": true,
+    "any_qualified_route_overall": "ADMISSIBLE",
+    "all_pending_or_invalid_overall": "NOT_ADMISSIBLE_YET",
+    "hard_block_precedence": "BLOCKED"
+  },
+  "verdict": {
+    "POST_M10_PCG_IMPLEMENTATION": "QUALIFIED",
+    "POST_M10_PCG_REFERENCE_PARITY": "PASS",
+    "POST_M10_PCG_SYNTHETIC_QUALIFICATION": "PASS",
+    "POST_M10_PCG_DETERMINISM": "QUALIFIED",
+    "POST_M10_PCG_AUTHORITY_BOUNDARIES": "QUALIFIED",
+    "POST_M10_PCG_REAL_APPLICATION_READINESS": "READY_FOR_SEPARATE_HUMAN_DECISION",
+    "POST_M10_PCG_REAL_EXECUTION": false,
+    "POST_M10_PCG_REAL_RESULT": "NONE",
+    "REAL_DATA_READ": false,
+    "NEW_STATISTICAL_METHOD_EXECUTED": false,
+    "NEW_MARKET_RESULT": false,
+    "OOS_CONSUMPTION": false
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "trading": false,
+    "capital": false
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4_run_id": 37492336975,
+    "p0_4_conclusion": "failure",
+    "p0_6_run_id": 37492336861,
+    "p0_6_conclusion": "failure",
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_PCG01_PASS_EVIDENCE"
+  },
+  "next_frontier": {
+    "id": "POST_M10_PCG-02",
+    "scope": "REAL_GOVERNANCE_GATE_ACTIVATION_PLUS_FIRST_CLAIM_SCOPED_APPLICATION",
+    "separate_human_authorization_required": true,
+    "opened": false,
+    "executed": false
+  },
+  "stop": true,
+  "force": false
+}

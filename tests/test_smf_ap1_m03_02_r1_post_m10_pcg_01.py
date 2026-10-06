@@ -192,3 +192,29 @@ def test_15_canonical_serializer_is_stable_and_ascii():
     raw=r.canonical_json_bytes(r.evaluate(by["D17_MULTI_A_B_VALID"]["packet"]))
     raw.decode("ascii")
     assert raw.endswith(b"\n")
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-POST-M10-PCG-01-FINAL-READINESS-RECEIPT-V0.1.json"
+
+def test_16_final_receipt_closes_pcg01_and_keeps_pcg02_closed():
+    r=load_json(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert v["POST_M10_PCG_IMPLEMENTATION"]=="QUALIFIED"
+    assert v["POST_M10_PCG_REFERENCE_PARITY"]=="PASS"
+    assert v["POST_M10_PCG_SYNTHETIC_QUALIFICATION"]=="PASS"
+    assert v["POST_M10_PCG_DETERMINISM"]=="QUALIFIED"
+    assert v["POST_M10_PCG_AUTHORITY_BOUNDARIES"]=="QUALIFIED"
+    assert v["POST_M10_PCG_REAL_APPLICATION_READINESS"]=="READY_FOR_SEPARATE_HUMAN_DECISION"
+    assert v["POST_M10_PCG_REAL_EXECUTION"] is False
+    assert v["POST_M10_PCG_REAL_RESULT"]=="NONE"
+    assert v["REAL_DATA_READ"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert v["OOS_CONSUMPTION"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]=={"trading":False,"capital":False}
+    assert r["next_frontier"]["id"]=="POST_M10_PCG-02"
+    assert r["next_frontier"]["separate_human_authorization_required"] is True
+    assert r["next_frontier"]["opened"] is False
+    assert r["next_frontier"]["executed"] is False
+    assert r["stop"] is True
