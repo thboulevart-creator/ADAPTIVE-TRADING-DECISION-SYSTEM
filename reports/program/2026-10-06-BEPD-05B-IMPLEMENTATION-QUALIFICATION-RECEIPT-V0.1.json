@@ -1,0 +1,38 @@
+{
+  "schema": "ATDS_BEPD_05B_IMPLEMENTATION_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-05B",
+  "status": "IMPLEMENTATION_QUALIFIED_PRE_RESULT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "implementation_commit": "d6751e6abf5c16d7d7beb9849043ea6fe8313e53",
+  "implementation_tree": "20a9197f2019002f87501bb417c58aaf9148d32f",
+  "bindings": {
+    "human_authorization_blob": "b04ac2acd72d2fe768fdded0efebfc25351a2790",
+    "runner_blob": "476f6ff06ee94dc1496e692beabe7480202fd518",
+    "independent_reference_blob": "07f74f050ea64eeb88a2af5f9cead453cef3e707",
+    "executable_breaker_blob": "d5f6eff686b9e2f76e33476b3f246a933c8378f2",
+    "tests_blob": "538606b2bbd03a7ca6a92fc61e24ae22c0103c11",
+    "implementation_workflow_blob": "280ca750c238fa3a648225928f1b0a571b4cc01a",
+    "real_execution_workflow_blob": "e0ba59c1bbb9fcf5986438a3de2274a9be37cacf",
+    "bepd05a_final_adjudication_blob": "024c7d23210b9c62604b3c6d2379746c1ac736a4",
+    "bepd05a_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05a_breaker_blob": "c39802f70d83dc249d23fe240b61169bf20ac757",
+    "bepd05a_freeze_blob": "30d438ef1daad9acaad170c002d7d5d8426acec4",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+  },
+  "executable_qualification": {
+    "workflow_run_id": 37451401675,
+    "job_id": 112228576176,
+    "conclusion": "SUCCESS",
+    "frozen_bindings": "PASS",
+    "compile": "PASS",
+    "synthetic_tests": "9 / 9 PASS",
+    "executable_equivalent_breaker": "41 / 41 PASS",
+    "real_result_exposure": "NO",
+    "real_close_displacement_aggregation": "NOT_EXECUTED"
+  },
+  "qualification_meaning": "implementation, numerical conventions, and frozen failure-mode protections are qualified before first real aggregation; no real close_displacement aggregate result has yet been produced",
+  "real_execution_authority_basis": "USER BEPD-05B AUTHORIZATION, CONDITIONAL ON THIS QUALIFICATION",
+  "human_result_adoption": false,
+  "next_action": "CREATE EXACT REAL EXECUTION FREEZE THEN PERFORM ONE AUTHORIZED REAL GLOBAL AGGREGATION"
+}
