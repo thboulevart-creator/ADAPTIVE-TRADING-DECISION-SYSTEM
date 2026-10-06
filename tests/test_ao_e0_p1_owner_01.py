@@ -73,7 +73,8 @@ def build_owner_case(tmp_path: Path):
 
 
 def test_owner_contract_and_p121_foundation():
-    assert owner.CONTRACT=="P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_1"
+    assert owner.V01_CONTRACT_ID=="P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_1"
+    assert owner.CONTRACT=="P1_12C_AO_E0_CC05_NATIVE_EXECUTION_OWNER_V0_2"
     assert owner.P1_21_FOUNDATION_CONTRACT=="P1_12C_REAL_QUALIFIED_PRODUCER_CAPABILITY_V1"
     assert owner.P1_21_FOUNDATION_BLOB=="9d304202d44c8917cf640fd0b4114169968e511e"
     assert owner.PRODUCER_BLOB=="981794fedbfd8c9fdac69ba4751540e63a2e5289"
