@@ -1,0 +1,48 @@
+name: BEPD-08D implementation qualification
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - GOVERNANCE/BEPD-08D-HUMAN-AUTHORIZATION-2026-10-06.md
+      - tools/bepd_08d_internal_external_distance.py
+      - tools/bepd_08d_independent_reference.py
+      - tools/bepd_08c_executable_breaker.py
+      - tests/test_bepd_08d_internal_external_distance.py
+      - .github/workflows/bepd-08d-implementation-qualification.yml
+permissions: {contents: read}
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Verify frozen upstream identities
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08C-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "0cc7d4f812525bd3c4dab29490613b70f8600514"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08C-INTERNAL-EXTERNAL-TARGET-WEEK-CLOSE-DISTANCE-DECOMPOSITION-CONTRACT-V0.1.json)" = "dc767d77b8f0c8cf89f6d87e9a4cd2401dd0b42e"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08C-FROZEN-PRE-RESULT-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "13ad7dba0d4e83036ea1f40b47f1a0a8d1f40bb8"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-08C-PRE-RESULT-FREEZE-V0.1.json)" = "e4d6ebb35147f8cb884dbe569197236ed34251da"
+          test "$(git rev-parse HEAD:artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl)" = "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          echo "BEPD08D_FROZEN_BINDINGS_PASS"
+      - name: Compile
+        run: python -m py_compile tools/bepd_08d_internal_external_distance.py tools/bepd_08d_independent_reference.py tools/bepd_08c_executable_breaker.py
+      - name: Synthetic tests
+        run: python -m unittest -v tests/test_bepd_08d_internal_external_distance.py
+      - name: Frozen breaker
+        run: python tools/bepd_08c_executable_breaker.py --mode pre-result
+      - name: Assert no real result exposure
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find artifacts reports -type f \( -iname '*BEPD-08D*RESULT*' -o -path '*bepd08d*' \) 2>/dev/null | grep -q .; then
+            echo "Unexpected BEPD-08D real result before qualification"; exit 1
+          fi
+          echo "REAL_INTERNAL_DISTRIBUTION=NOT_EXPOSED"
+          echo "REAL_EXTERNAL_DISTRIBUTION=NOT_EXPOSED"
+          echo "REAL_CONDITIONAL_AGGREGATION=NOT_EXECUTED"
+      - name: Terminal marker
+        run: echo "BEPD08D_IMPLEMENTATION_QUALIFICATION_PASS"
