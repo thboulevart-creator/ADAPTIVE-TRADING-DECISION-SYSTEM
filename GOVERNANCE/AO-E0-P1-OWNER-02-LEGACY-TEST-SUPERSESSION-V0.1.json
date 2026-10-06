@@ -1,0 +1,12 @@
+{
+  "schema":"ATDS_AO_E0_P1_OWNER_02_LEGACY_TEST_SUPERSESSION_V0_1",
+  "control_id":"AO-E0-P1-OWNER-02",
+  "authorized_delta":"OWNER CONTRACT VERSION V0.1 -> V0.2",
+  "legacy_test_file":"tests/test_ao_e0_p1_owner_01.py",
+  "legacy_test_blob":"18cd6028467f5eef9aa015f25e333e99b1868262",
+  "change":"test_owner_contract_and_p121_foundation now preserves V0.1 identity as V01_CONTRACT_ID and expects current CONTRACT V0.2",
+  "all_other_legacy_test_semantics":"PRESERVED",
+  "p1_12d_modified":false,
+  "producer_modified":false,
+  "force":false
+}
