@@ -1,0 +1,239 @@
+{
+  "schema": "ATDS_BEPD_07A_FROZEN_PRE_RESULT_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-07A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "865ecff12455f861b98159bd941685a4468ee3f4",
+    "path_geometry_contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+    "bepd00_design_blob": "e4317da4e93a0dc652f84c38fafb794c825bef9f",
+    "bepd01d_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd06b_final_adjudication_blob": "539282a1ab6740b4dbbbfa774d780b7eff08f386",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap0_transform_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "bepd02_build_engine_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8"
+  },
+  "breaker_scope": "POST_SWEEP_PATH_GEOMETRY_BEHAVIORAL_EXCURSION_SEMANTICS_AND_PRE_RESULT_PROTOCOL_ONLY",
+  "adversarial_cases": [
+    {
+      "case_id": "BEPD07A-B01",
+      "mutation": "wrong BEPD-00 design identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B02",
+      "mutation": "wrong BEPD-01D ledger schema identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B03",
+      "mutation": "wrong BEPD-02 EVENT_LEDGER identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B04",
+      "mutation": "wrong BEPD-06B final adjudication identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B05",
+      "mutation": "wrong AP0 adjudication identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B06",
+      "mutation": "wrong AP0 manifest SHA-256",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B07",
+      "mutation": "wrong AP0 transformation implementation identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B08",
+      "mutation": "wrong BEPD-02 historical build engine identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B09",
+      "mutation": "base population not exactly all 472 qualified events",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B10",
+      "mutation": "conditioning on same_week_reintegration",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B11",
+      "mutation": "dropping no-reintegration events",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B12",
+      "mutation": "using level_price_mid as primary excursion anchor",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B13",
+      "mutation": "using any anchor other than take_h1_close_mid",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B14",
+      "mutation": "including sweep-confirming H1 internal path",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B15",
+      "mutation": "path starts before or at take_h1_close_utc",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B16",
+      "mutation": "path endpoint depends on reintegration outcome",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B17",
+      "mutation": "path ends at reintegration_h1_close_utc",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B18",
+      "mutation": "fixed horizon selected post-hoc",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B19",
+      "mutation": "target-week end reconstructed with wrong timezone or wrong Sunday 18:00 NY semantics",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B20",
+      "mutation": "empty post-sweep path mapped to zero/null-as-zero/artificial path",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B21",
+      "mutation": "bid-only extrema substituted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B22",
+      "mutation": "ask-only extrema substituted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B23",
+      "mutation": "mid_close substituted for mid_high/mid_low extrema",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B24",
+      "mutation": "H1 high/low reconstruction substituted for AP0 minute extrema",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B25",
+      "mutation": "HIGH/LOW reintegrative direction inversion",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B26",
+      "mutation": "reintegrative/external semantic inversion",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B27",
+      "mutation": "negative excursion output accepted",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B28",
+      "mutation": "gap interpolation or backfill introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B29",
+      "mutation": "forward fill across gaps introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B30",
+      "mutation": "unobserved path laundered into observed flat path",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B31",
+      "mutation": "observed extrema laundered into true continuous-market extrema",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B32",
+      "mutation": "mid price laundered into execution price",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B33",
+      "mutation": "behavioral MFE/MAE laundered into trade MFE/MAE",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B34",
+      "mutation": "subgroup analysis introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B35",
+      "mutation": "joint MFE/MAE ratio or other derived joint metric introduced",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B36",
+      "mutation": "post-hoc excursion threshold selected",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B37",
+      "mutation": "EVENT treated as IID observation",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B38",
+      "mutation": "target_week_id or sweep_cluster_id dependence erased",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B39",
+      "mutation": "excursion distribution laundered into prediction/causation/edge/strategy/PnL/trading authority",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD07A-B40",
+      "mutation": "real excursion statistic or ECDF calculated under BEPD-07A authority",
+      "expected": "HARD_FAIL"
+    }
+  ],
+  "qualification_rule": {
+    "required_case_count": 40,
+    "all_cases_must_be_present": true,
+    "all_expected_outcomes": "HARD_FAIL",
+    "any_missing_or_weakened_case": "FAIL",
+    "any_binding_mismatch": "FAIL",
+    "any_real_excursion_result_exposure": "FAIL",
+    "pass_meaning": "Path geometry and excursion semantics are protected before real path analytics; PASS does not validate any real excursion distribution."
+  },
+  "execution_state": {
+    "real_path_scanner": "NOT_AUTHORIZED_IN_BEPD07A",
+    "real_excursion_distribution": "NOT_AUTHORIZED_IN_BEPD07A",
+    "event_level_derived_path_ledger": "NOT_AUTHORIZED_IN_BEPD07A"
+  },
+  "stop_boundary": "STOP_BEFORE_ANY_REAL_EXCURSION_EXECUTION"
+}

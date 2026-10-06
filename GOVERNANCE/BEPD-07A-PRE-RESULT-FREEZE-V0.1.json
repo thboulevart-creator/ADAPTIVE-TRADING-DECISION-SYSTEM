@@ -1,0 +1,99 @@
+{
+  "schema": "ATDS_BEPD_07A_PRE_RESULT_FREEZE_V0_1",
+  "status": "FROZEN_PRE_RESULT_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control_id": "BEPD-07A",
+  "version": "V0.1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "865ecff12455f861b98159bd941685a4468ee3f4",
+    "path_geometry_contract_blob": "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6",
+    "frozen_adversarial_breaker_blob": "42f2a720a0904c83c45a507cfa340af30ba73ae5",
+    "bepd00_design_blob": "e4317da4e93a0dc652f84c38fafb794c825bef9f",
+    "bepd01d_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd06b_final_adjudication_blob": "539282a1ab6740b4dbbbfa774d780b7eff08f386",
+    "ap0_adjudication_blob": "94bba3315e3569993623b8cd2a2bf4264f4ab6f8",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "ap0_transform_blob": "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f",
+    "bepd02_build_engine_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8"
+  },
+  "freeze_scope": {
+    "population_n": 472,
+    "filtering": "NONE",
+    "anchor": "take_h1_close_mid",
+    "event_confirmation_time": "take_h1_close_utc",
+    "path_start": "FIRST_QUALIFIED_AP0_MINUTE_STRICTLY_AFTER_take_h1_close_utc",
+    "path_end": "END_OF_SAME_CANONICAL_TARGET_WEEK",
+    "session_week_start": "SUNDAY_18:00_America/New_York",
+    "interval": "[target_week_start_utc,target_week_end_utc)",
+    "allowed_extrema_primitives": [
+      "mid_high",
+      "mid_low"
+    ],
+    "metrics": [
+      "MAX_REINTEGRATIVE_EXCURSION",
+      "MAX_EXTERNAL_EXCURSION"
+    ],
+    "gap_semantics": "OBSERVED_ONLY_NO_FILL_NO_INTERPOLATION",
+    "subgroups": "NONE",
+    "joint_metrics": "NONE",
+    "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+    "price_surface": "MID_DESCRIPTIVE_ONLY"
+  },
+  "formulas": {
+    "HIGH_MAX_REINTEGRATIVE_EXCURSION": "max(0, take_h1_close_mid - min(mid_low in path))",
+    "LOW_MAX_REINTEGRATIVE_EXCURSION": "max(0, max(mid_high in path) - take_h1_close_mid)",
+    "HIGH_MAX_EXTERNAL_EXCURSION": "max(0, max(mid_high in path) - take_h1_close_mid)",
+    "LOW_MAX_EXTERNAL_EXCURSION": "max(0, take_h1_close_mid - min(mid_low in path))"
+  },
+  "aggregation_surface": {
+    "per_metric": [
+      "N",
+      "MINIMUM",
+      "MAXIMUM",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "ZERO_COUNT",
+      "ZERO_FRACTION",
+      "EMPIRICAL_CDF"
+    ],
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "p50_equals_median": true,
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "canonical_scalar_output": "18_DECIMAL_ROUND_HALF_EVEN"
+  },
+  "freeze_meaning": "Path geometry, directional excursion semantics, gap treatment and future aggregate surface are frozen before any new real excursion exposure. Historical EVENT_LEDGER and AP0 corpus are already exposed.",
+  "real_excursion_statistics_calculated": false,
+  "real_excursion_distribution_exposed": false,
+  "real_path_scan_executed": false,
+  "event_level_derived_path_ledger_persisted": false,
+  "authority": {
+    "real_excursion_execution": false,
+    "real_excursion_distribution_exposure": false,
+    "event_level_path_ledger": false,
+    "subgroup_analysis": false,
+    "joint_excursion_analysis": false,
+    "survival_analysis": false,
+    "occurrence_x_response": false,
+    "oos_consumption": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "terminal_requirement": "QUALIFY_CONTRACTUAL_SURFACE_THEN_STOP_FOR_HUMAN_ADJUDICATION"
+}
