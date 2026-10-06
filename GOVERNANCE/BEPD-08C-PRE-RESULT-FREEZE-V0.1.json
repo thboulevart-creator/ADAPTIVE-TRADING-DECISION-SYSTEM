@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_BEPD_08C_PRE_RESULT_FREEZE_V0_1",
+  "status": "FROZEN_PRE_RESULT_CANDIDATE",
+  "control_id": "BEPD-08C",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "c47d2cc172b2f624037d333a0282dc1e8760421f",
+    "decomposition_contract_blob": "dc767d77b8f0c8cf89f6d87e9a4cd2401dd0b42e",
+    "frozen_breaker_blob": "13ad7dba0d4e83036ea1f40b47f1a0a8d1f40bb8",
+    "bepd08b_final_human_adjudication_blob": "73ff0141c2e879ae0b3c51444d5a0af95359ba6f",
+    "bepd08b_canonical_d_close_result_blob": "ed6e9088e06e80c21fcb6314add93268c9bc307a",
+    "bepd08a_final_human_adjudication_blob": "553fedc2b538a90750839b6fce8edb9619a4dcb7",
+    "bepd08a_absolute_distance_contract_blob": "4cfcb983ad64f31b443534d70991f8ddcb11ff8f",
+    "bepd05a_close_displacement_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05b_signed_close_displacement_result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+  },
+  "frozen_partition": {
+    "internal_rule": "close_displacement > 0",
+    "external_rule": "close_displacement < 0",
+    "exact_level_rule": "close_displacement == 0",
+    "internal_n": 207,
+    "external_n": 265,
+    "exact_level_n": 0,
+    "total_n": 472,
+    "same_week_reintegration_not_used": true,
+    "reintegration_h1_close_utc_not_used": true,
+    "high_low_not_used": true
+  },
+  "frozen_distances": {
+    "d_close": "abs(close_displacement)",
+    "d_internal": "D_CLOSE conditional on close_displacement > 0",
+    "d_external": "D_CLOSE conditional on close_displacement < 0",
+    "unit": "USTECH_PRICE_UNITS_AS_PERSISTED",
+    "nonnegative_required": true
+  },
+  "frozen_future_surface": {
+    "outputs": [
+      "N",
+      "MINIMUM",
+      "MAXIMUM",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "ZERO_COUNT",
+      "ZERO_FRACTION",
+      "EMPIRICAL_CDF"
+    ],
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "p50_equals_median": true,
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN"
+  },
+  "authority_state": {
+    "real_internal_distance_result": "NOT_PRODUCED",
+    "real_external_distance_result": "NOT_PRODUCED",
+    "real_conditional_execution_authority": "NONE",
+    "comparative_test_authority": "NONE",
+    "subgroup_authority": "NONE",
+    "threshold_authority": "NONE",
+    "oos_authority": "NONE",
+    "trading_authority": "NONE"
+  },
+  "terminal_requirement": "QUALIFY_CONTRACT_POPULATION_INVARIANTS_AND_BREAKER_THEN_STOP_FOR_HUMAN_ADJUDICATION"
+}

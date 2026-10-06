@@ -1,0 +1,185 @@
+{
+  "schema": "ATDS_BEPD_08C_INTERNAL_EXTERNAL_TARGET_WEEK_CLOSE_DISTANCE_DECOMPOSITION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_CONTRACT_CANDIDATE",
+  "control_id": "BEPD-08C",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "c47d2cc172b2f624037d333a0282dc1e8760421f",
+    "bepd08b_final_human_adjudication_blob": "73ff0141c2e879ae0b3c51444d5a0af95359ba6f",
+    "bepd08b_canonical_d_close_result_blob": "ed6e9088e06e80c21fcb6314add93268c9bc307a",
+    "bepd08a_final_human_adjudication_blob": "553fedc2b538a90750839b6fce8edb9619a4dcb7",
+    "bepd08a_absolute_distance_contract_blob": "4cfcb983ad64f31b443534d70991f8ddcb11ff8f",
+    "bepd05a_close_displacement_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05b_signed_close_displacement_result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "bepd05b_final_human_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+  },
+  "objective": "DEFINE_AND_FREEZE_CLOSE_SIDE_INTERNAL_EXTERNAL_PARTITION_AND_DUAL_D_CLOSE_AGGREGATION_BEFORE_ANY_REAL_CONDITIONAL_DISTRIBUTION",
+  "close_side_semantics": {
+    "source_field": "close_displacement",
+    "internal_rule": "close_displacement > 0",
+    "internal_semantic": "TARGET_WEEK_CLOSE_ON_REINTEGRATED_INTERNAL_SIDE_OF_SWEPT_WEEKLY_REFERENCE_LEVEL",
+    "external_rule": "close_displacement < 0",
+    "external_semantic": "TARGET_WEEK_CLOSE_ON_EXTERNAL_SIDE_BEYOND_SWEPT_WEEKLY_REFERENCE_LEVEL",
+    "exact_level_rule": "close_displacement == 0",
+    "exact_level_semantic": "TARGET_WEEK_CLOSE_EQUALS_SWEPT_WEEKLY_REFERENCE_LEVEL",
+    "exact_level_assignment_to_internal": false,
+    "exact_level_assignment_to_external": false
+  },
+  "critical_non_equivalence": {
+    "same_week_reintegration_role": "PATH_EVENT_HISTORY_PROPERTY",
+    "close_side_role": "TARGET_WEEK_TERMINAL_CLOSE_POSITION_RELATIVE_TO_SWEPT_LEVEL",
+    "same_week_reintegration_equals_close_side": false,
+    "same_week_reintegration_allowed_for_partition": false,
+    "reintegration_h1_close_utc_allowed_for_partition": false,
+    "high_low_allowed_for_partition": false
+  },
+  "distance_semantics": {
+    "d_close": "abs(close_displacement)",
+    "d_internal": "D_CLOSE conditional on close_displacement > 0",
+    "d_external": "D_CLOSE conditional on close_displacement < 0",
+    "nonnegative_required": true,
+    "signed_values_as_conditional_distance": "FORBIDDEN"
+  },
+  "population_invariants": {
+    "total_n": 472,
+    "internal_n": 207,
+    "external_n": 265,
+    "exact_level_n": 0,
+    "internal_fraction": "207/472",
+    "internal_decimal": "0.438559322033898305",
+    "external_fraction": "265/472",
+    "external_decimal": "0.561440677966101695",
+    "exact_partition_reconciliation": "207 + 265 + 0 = 472",
+    "mutually_exclusive": true,
+    "collectively_exhaustive_including_exact_level": true,
+    "each_event_id_exactly_one_close_side_class": true
+  },
+  "source_policy": {
+    "classification_source": "BEPD-02 EVENT_LEDGER.close_displacement",
+    "distance_source": "abs(BEPD-02 EVENT_LEDGER.close_displacement)",
+    "persisted_field_only": true,
+    "market_reconstruction": false,
+    "target_week_close_reconstruction": false,
+    "level_price_reconstruction": false,
+    "ap0_read": false,
+    "h1_read": false
+  },
+  "future_dual_aggregation": {
+    "populations": [
+      "INTERNAL",
+      "EXTERNAL"
+    ],
+    "internal_expected_n": 207,
+    "external_expected_n": 265,
+    "outputs": [
+      "N",
+      "MINIMUM",
+      "MAXIMUM",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "ZERO_COUNT",
+      "ZERO_FRACTION",
+      "EMPIRICAL_CDF"
+    ],
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "p50_equals_median": true,
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN",
+    "unit": "USTECH_PRICE_UNITS_AS_PERSISTED"
+  },
+  "outcome_conditioning_boundary": {
+    "close_side": "OUTCOME_CONDITIONING_VARIABLE",
+    "close_side_known_at_initial_sweep": false,
+    "close_side_is_ex_ante_predictor": false,
+    "future_internal_external_distributions_are_descriptive_only": true
+  },
+  "comparative_claim_boundary": {
+    "comparison_test_authorized": false,
+    "difference_of_means": false,
+    "difference_of_medians": false,
+    "ratio": false,
+    "effect_size": false,
+    "statistical_significance": false,
+    "confidence_interval": false,
+    "bootstrap": false,
+    "permutation_test": false
+  },
+  "subgroup_boundary": {
+    "authorized_cross_products": [],
+    "forbidden": [
+      "HIGH_LOW",
+      "same_week_reintegration",
+      "TAKE_DAY",
+      "LEVEL_AGE",
+      "YEAR",
+      "MONTH",
+      "VOLATILITY",
+      "REGIME",
+      "TIME_TO_REINTEGRATION",
+      "MAX_REINTEGRATIVE_EXCURSION",
+      "MAX_EXTERNAL_EXCURSION",
+      "SWEEP_CLUSTER_SIZE",
+      "OTHER_CONTEXT"
+    ]
+  },
+  "threshold_boundary": {
+    "threshold_search": false,
+    "best_internal_distance": false,
+    "best_external_distance": false,
+    "optimal_target": false,
+    "optimal_stop": false,
+    "high_probability_distance": false
+  },
+  "dependence_boundary": {
+    "event_is_iid_observation": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "iid_inference_activated": false
+  },
+  "evidence_status": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "analysis_status": "EXPLORATORY_ONLY",
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "authority": {
+    "semantics_design": true,
+    "population_partition_design": true,
+    "dual_aggregation_contract_design": true,
+    "breaker_design": true,
+    "pre_result_freeze": true,
+    "real_internal_distance_distribution": false,
+    "real_external_distance_distribution": false,
+    "real_conditional_aggregation": false,
+    "comparative_test": false,
+    "threshold_search": false,
+    "oos_consumption": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "stop_boundary": "STOP_AFTER_BEPD08C_QUALIFICATION_FOR_HUMAN_ADJUDICATION"
+}
