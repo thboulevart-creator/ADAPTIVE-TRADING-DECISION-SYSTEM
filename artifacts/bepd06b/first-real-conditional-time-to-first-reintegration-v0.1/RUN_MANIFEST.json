@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_06B_RUN_MANIFEST_V0_1",
+  "run_id": "e1b62cd9dc9dcd9ac6ee0003c07dbd6b20acf9ce815cb0954644a789e32afa58",
+  "input_path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+  "input_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "input_sha256": "301a621b97fea14a72540d4c2c6da78eb742cc44c5009e44ad98e9f678ca4731",
+  "result_path": "/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json",
+  "result_sha256": "a3d1ff81f5667844bb64d455426344ec44a6bff350404bffae09b53e5c268bf6",
+  "runner_blob": "3b75b0ed75529b5a055b23234cc61bdae5976e76",
+  "contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+  "breaker_blob": "02a64983b4ce75b0f798f1b9639bf8d1a4c41605",
+  "freeze_blob": "6cb6b5bac0848d8b24f035a1527216bf71843bbd",
+  "base_n": 472,
+  "reintegration_true_n": 370,
+  "reintegration_false_n": 102,
+  "event_level_derived_timing_ledger_persisted": false
+}

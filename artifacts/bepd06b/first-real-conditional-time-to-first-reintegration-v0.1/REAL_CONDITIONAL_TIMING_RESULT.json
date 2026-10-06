@@ -1,0 +1,488 @@
+{
+  "schema": "ATDS_BEPD_06B_FIRST_REAL_CONDITIONAL_TIME_TO_FIRST_REINTEGRATION_RESULT_V0_1",
+  "control_id": "BEPD-06B",
+  "run_id": "e1b62cd9dc9dcd9ac6ee0003c07dbd6b20acf9ce815cb0954644a789e32afa58",
+  "scope": "CONDITIONAL_ON_SAME_WEEK_REINTEGRATION_TRUE",
+  "evidence_status": "EXPOSED_EXPLORATORY_ONLY",
+  "historical_corpus": "ALREADY_EXPOSED",
+  "generalization": "NOT_ESTABLISHED",
+  "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+  "prediction": false,
+  "causation": "NOT_ESTABLISHED",
+  "edge": false,
+  "strategy_validation": false,
+  "trading_authority": "NONE",
+  "population": {
+    "base_n": 472,
+    "reintegration_true_n": 370,
+    "no_reintegration_within_target_week_n": 102,
+    "timing_population_n": 370,
+    "condition": "same_week_reintegration == true",
+    "no_reintegration_semantic": "TIME_TO_REINTEGRATION_NOT_OBSERVED_WITHIN_TARGET_WEEK",
+    "no_reintegration_duration_assigned": false,
+    "subgroups": []
+  },
+  "timing_contract": {
+    "t0_field": "take_h1_close_utc",
+    "t1_field": "reintegration_h1_close_utc",
+    "required_ordering": "T1 > T0",
+    "duration": "(T1 - T0) / 1 hour",
+    "clock": "UTC_ELAPSED_HOURS",
+    "trading_hours_interpretation": false,
+    "observed_market_hours_interpretation": false,
+    "time_in_position_interpretation": false
+  },
+  "dependence": {
+    "event_is_iid_observation": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "iid_standard_error": "FORBIDDEN",
+    "iid_confidence_interval": "FORBIDDEN",
+    "iid_bootstrap": "FORBIDDEN"
+  },
+  "survival": {
+    "kaplan_meier": "NOT_ACTIVATED",
+    "survival_function": "NOT_ACTIVATED",
+    "hazard_function": "NOT_ACTIVATED",
+    "censoring_model": "NOT_ACTIVATED"
+  },
+  "numerical_contract": {
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "p50_equals_median": true,
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED"
+  },
+  "bindings": {
+    "source_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd06a_contract_blob": "a15278a9491e75096585ab576b548b965ee6a0e6",
+    "bepd06a_breaker_blob": "02a64983b4ce75b0f798f1b9639bf8d1a4c41605",
+    "bepd06a_freeze_blob": "6cb6b5bac0848d8b24f035a1527216bf71843bbd",
+    "runner_blob": "3b75b0ed75529b5a055b23234cc61bdae5976e76",
+    "base_n": 472,
+    "reintegration_true_n": 370,
+    "reintegration_false_n": 102,
+    "condition": "same_week_reintegration == true",
+    "t0": "take_h1_close_utc",
+    "t1": "reintegration_h1_close_utc",
+    "clock": "UTC_ELAPSED_HOURS",
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED"
+  },
+  "core": {
+    "BASE_N": 472,
+    "REINTEGRATION_TRUE_N": 370,
+    "NO_REINTEGRATION_WITHIN_TARGET_WEEK_N": 102,
+    "N_TIMING": 370,
+    "MINIMUM_ELAPSED_UTC_HOURS": "1.000000000000000000",
+    "MAXIMUM_ELAPSED_UTC_HOURS": "104.000000000000000000",
+    "MEAN": "10.972972972972972973",
+    "MEDIAN": "3.000000000000000000",
+    "P01": "1.000000000000000000",
+    "P05": "1.000000000000000000",
+    "P10": "1.000000000000000000",
+    "P25": "1.000000000000000000",
+    "P50": "3.000000000000000000",
+    "P75": "14.000000000000000000",
+    "P90": "28.000000000000000000",
+    "P95": "50.000000000000000000",
+    "P99": "76.620000000000000000",
+    "EMPIRICAL_CDF": [
+      {
+        "support_value": "1",
+        "support_count": 118,
+        "cumulative_count": 118,
+        "cumulative_fraction": "59/185",
+        "cumulative_decimal": "0.318918918918918919"
+      },
+      {
+        "support_value": "2",
+        "support_count": 49,
+        "cumulative_count": 167,
+        "cumulative_fraction": "167/370",
+        "cumulative_decimal": "0.451351351351351351"
+      },
+      {
+        "support_value": "3",
+        "support_count": 28,
+        "cumulative_count": 195,
+        "cumulative_fraction": "39/74",
+        "cumulative_decimal": "0.527027027027027027"
+      },
+      {
+        "support_value": "4",
+        "support_count": 18,
+        "cumulative_count": 213,
+        "cumulative_fraction": "213/370",
+        "cumulative_decimal": "0.575675675675675676"
+      },
+      {
+        "support_value": "5",
+        "support_count": 19,
+        "cumulative_count": 232,
+        "cumulative_fraction": "116/185",
+        "cumulative_decimal": "0.627027027027027027"
+      },
+      {
+        "support_value": "6",
+        "support_count": 6,
+        "cumulative_count": 238,
+        "cumulative_fraction": "119/185",
+        "cumulative_decimal": "0.643243243243243243"
+      },
+      {
+        "support_value": "7",
+        "support_count": 10,
+        "cumulative_count": 248,
+        "cumulative_fraction": "124/185",
+        "cumulative_decimal": "0.670270270270270270"
+      },
+      {
+        "support_value": "8",
+        "support_count": 4,
+        "cumulative_count": 252,
+        "cumulative_fraction": "126/185",
+        "cumulative_decimal": "0.681081081081081081"
+      },
+      {
+        "support_value": "9",
+        "support_count": 1,
+        "cumulative_count": 253,
+        "cumulative_fraction": "253/370",
+        "cumulative_decimal": "0.683783783783783784"
+      },
+      {
+        "support_value": "10",
+        "support_count": 4,
+        "cumulative_count": 257,
+        "cumulative_fraction": "257/370",
+        "cumulative_decimal": "0.694594594594594595"
+      },
+      {
+        "support_value": "11",
+        "support_count": 6,
+        "cumulative_count": 263,
+        "cumulative_fraction": "263/370",
+        "cumulative_decimal": "0.710810810810810811"
+      },
+      {
+        "support_value": "12",
+        "support_count": 5,
+        "cumulative_count": 268,
+        "cumulative_fraction": "134/185",
+        "cumulative_decimal": "0.724324324324324324"
+      },
+      {
+        "support_value": "13",
+        "support_count": 2,
+        "cumulative_count": 270,
+        "cumulative_fraction": "27/37",
+        "cumulative_decimal": "0.729729729729729730"
+      },
+      {
+        "support_value": "14",
+        "support_count": 8,
+        "cumulative_count": 278,
+        "cumulative_fraction": "139/185",
+        "cumulative_decimal": "0.751351351351351351"
+      },
+      {
+        "support_value": "15",
+        "support_count": 6,
+        "cumulative_count": 284,
+        "cumulative_fraction": "142/185",
+        "cumulative_decimal": "0.767567567567567568"
+      },
+      {
+        "support_value": "16",
+        "support_count": 9,
+        "cumulative_count": 293,
+        "cumulative_fraction": "293/370",
+        "cumulative_decimal": "0.791891891891891892"
+      },
+      {
+        "support_value": "17",
+        "support_count": 4,
+        "cumulative_count": 297,
+        "cumulative_fraction": "297/370",
+        "cumulative_decimal": "0.802702702702702703"
+      },
+      {
+        "support_value": "18",
+        "support_count": 4,
+        "cumulative_count": 301,
+        "cumulative_fraction": "301/370",
+        "cumulative_decimal": "0.813513513513513514"
+      },
+      {
+        "support_value": "19",
+        "support_count": 7,
+        "cumulative_count": 308,
+        "cumulative_fraction": "154/185",
+        "cumulative_decimal": "0.832432432432432432"
+      },
+      {
+        "support_value": "20",
+        "support_count": 4,
+        "cumulative_count": 312,
+        "cumulative_fraction": "156/185",
+        "cumulative_decimal": "0.843243243243243243"
+      },
+      {
+        "support_value": "21",
+        "support_count": 4,
+        "cumulative_count": 316,
+        "cumulative_fraction": "158/185",
+        "cumulative_decimal": "0.854054054054054054"
+      },
+      {
+        "support_value": "22",
+        "support_count": 3,
+        "cumulative_count": 319,
+        "cumulative_fraction": "319/370",
+        "cumulative_decimal": "0.862162162162162162"
+      },
+      {
+        "support_value": "23",
+        "support_count": 2,
+        "cumulative_count": 321,
+        "cumulative_fraction": "321/370",
+        "cumulative_decimal": "0.867567567567567568"
+      },
+      {
+        "support_value": "24",
+        "support_count": 3,
+        "cumulative_count": 324,
+        "cumulative_fraction": "162/185",
+        "cumulative_decimal": "0.875675675675675676"
+      },
+      {
+        "support_value": "25",
+        "support_count": 4,
+        "cumulative_count": 328,
+        "cumulative_fraction": "164/185",
+        "cumulative_decimal": "0.886486486486486486"
+      },
+      {
+        "support_value": "26",
+        "support_count": 1,
+        "cumulative_count": 329,
+        "cumulative_fraction": "329/370",
+        "cumulative_decimal": "0.889189189189189189"
+      },
+      {
+        "support_value": "27",
+        "support_count": 2,
+        "cumulative_count": 331,
+        "cumulative_fraction": "331/370",
+        "cumulative_decimal": "0.894594594594594595"
+      },
+      {
+        "support_value": "28",
+        "support_count": 3,
+        "cumulative_count": 334,
+        "cumulative_fraction": "167/185",
+        "cumulative_decimal": "0.902702702702702703"
+      },
+      {
+        "support_value": "29",
+        "support_count": 1,
+        "cumulative_count": 335,
+        "cumulative_fraction": "67/74",
+        "cumulative_decimal": "0.905405405405405405"
+      },
+      {
+        "support_value": "32",
+        "support_count": 1,
+        "cumulative_count": 336,
+        "cumulative_fraction": "168/185",
+        "cumulative_decimal": "0.908108108108108108"
+      },
+      {
+        "support_value": "33",
+        "support_count": 1,
+        "cumulative_count": 337,
+        "cumulative_fraction": "337/370",
+        "cumulative_decimal": "0.910810810810810811"
+      },
+      {
+        "support_value": "38",
+        "support_count": 1,
+        "cumulative_count": 338,
+        "cumulative_fraction": "169/185",
+        "cumulative_decimal": "0.913513513513513514"
+      },
+      {
+        "support_value": "39",
+        "support_count": 2,
+        "cumulative_count": 340,
+        "cumulative_fraction": "34/37",
+        "cumulative_decimal": "0.918918918918918919"
+      },
+      {
+        "support_value": "40",
+        "support_count": 1,
+        "cumulative_count": 341,
+        "cumulative_fraction": "341/370",
+        "cumulative_decimal": "0.921621621621621622"
+      },
+      {
+        "support_value": "41",
+        "support_count": 1,
+        "cumulative_count": 342,
+        "cumulative_fraction": "171/185",
+        "cumulative_decimal": "0.924324324324324324"
+      },
+      {
+        "support_value": "43",
+        "support_count": 1,
+        "cumulative_count": 343,
+        "cumulative_fraction": "343/370",
+        "cumulative_decimal": "0.927027027027027027"
+      },
+      {
+        "support_value": "44",
+        "support_count": 1,
+        "cumulative_count": 344,
+        "cumulative_fraction": "172/185",
+        "cumulative_decimal": "0.929729729729729730"
+      },
+      {
+        "support_value": "45",
+        "support_count": 1,
+        "cumulative_count": 345,
+        "cumulative_fraction": "69/74",
+        "cumulative_decimal": "0.932432432432432432"
+      },
+      {
+        "support_value": "46",
+        "support_count": 1,
+        "cumulative_count": 346,
+        "cumulative_fraction": "173/185",
+        "cumulative_decimal": "0.935135135135135135"
+      },
+      {
+        "support_value": "47",
+        "support_count": 1,
+        "cumulative_count": 347,
+        "cumulative_fraction": "347/370",
+        "cumulative_decimal": "0.937837837837837838"
+      },
+      {
+        "support_value": "49",
+        "support_count": 3,
+        "cumulative_count": 350,
+        "cumulative_fraction": "35/37",
+        "cumulative_decimal": "0.945945945945945946"
+      },
+      {
+        "support_value": "50",
+        "support_count": 3,
+        "cumulative_count": 353,
+        "cumulative_fraction": "353/370",
+        "cumulative_decimal": "0.954054054054054054"
+      },
+      {
+        "support_value": "51",
+        "support_count": 1,
+        "cumulative_count": 354,
+        "cumulative_fraction": "177/185",
+        "cumulative_decimal": "0.956756756756756757"
+      },
+      {
+        "support_value": "53",
+        "support_count": 1,
+        "cumulative_count": 355,
+        "cumulative_fraction": "71/74",
+        "cumulative_decimal": "0.959459459459459459"
+      },
+      {
+        "support_value": "54",
+        "support_count": 1,
+        "cumulative_count": 356,
+        "cumulative_fraction": "178/185",
+        "cumulative_decimal": "0.962162162162162162"
+      },
+      {
+        "support_value": "58",
+        "support_count": 1,
+        "cumulative_count": 357,
+        "cumulative_fraction": "357/370",
+        "cumulative_decimal": "0.964864864864864865"
+      },
+      {
+        "support_value": "61",
+        "support_count": 1,
+        "cumulative_count": 358,
+        "cumulative_fraction": "179/185",
+        "cumulative_decimal": "0.967567567567567568"
+      },
+      {
+        "support_value": "68",
+        "support_count": 2,
+        "cumulative_count": 360,
+        "cumulative_fraction": "36/37",
+        "cumulative_decimal": "0.972972972972972973"
+      },
+      {
+        "support_value": "71",
+        "support_count": 1,
+        "cumulative_count": 361,
+        "cumulative_fraction": "361/370",
+        "cumulative_decimal": "0.975675675675675676"
+      },
+      {
+        "support_value": "72",
+        "support_count": 2,
+        "cumulative_count": 363,
+        "cumulative_fraction": "363/370",
+        "cumulative_decimal": "0.981081081081081081"
+      },
+      {
+        "support_value": "73",
+        "support_count": 2,
+        "cumulative_count": 365,
+        "cumulative_fraction": "73/74",
+        "cumulative_decimal": "0.986486486486486486"
+      },
+      {
+        "support_value": "76",
+        "support_count": 1,
+        "cumulative_count": 366,
+        "cumulative_fraction": "183/185",
+        "cumulative_decimal": "0.989189189189189189"
+      },
+      {
+        "support_value": "78",
+        "support_count": 1,
+        "cumulative_count": 367,
+        "cumulative_fraction": "367/370",
+        "cumulative_decimal": "0.991891891891891892"
+      },
+      {
+        "support_value": "84",
+        "support_count": 1,
+        "cumulative_count": 368,
+        "cumulative_fraction": "184/185",
+        "cumulative_decimal": "0.994594594594594595"
+      },
+      {
+        "support_value": "94",
+        "support_count": 1,
+        "cumulative_count": 369,
+        "cumulative_fraction": "369/370",
+        "cumulative_decimal": "0.997297297297297297"
+      },
+      {
+        "support_value": "104",
+        "support_count": 1,
+        "cumulative_count": 370,
+        "cumulative_fraction": "1",
+        "cumulative_decimal": "1.000000000000000000"
+      }
+    ]
+  },
+  "event_level_derived_timing_ledger_persisted": false,
+  "forbidden_analytics_executed": false
+}
