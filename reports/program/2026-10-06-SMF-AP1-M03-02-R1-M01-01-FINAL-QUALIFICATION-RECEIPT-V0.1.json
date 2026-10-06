@@ -1,0 +1,110 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M01_01_FINAL_QUALIFICATION_RECEIPT_V0_1",
+  "status": "M01_TEMPORAL_STABILITY_CLAIM_ESTIMAND_FROZEN",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "10554e4cc5bdf3ba5b9eae36c1cd06b2362f8f63",
+    "tree": "f69ceb5d1c4754060afee03a5c7caadf9192dcae"
+  },
+  "source_blocking_state": {
+    "candidate_blob": "31b9e85998d19f019bf08abff250987cf02a0e76",
+    "materiality_decision_packet_blob": "3d6f48958c230addabe5e51f90662f5da5e18797",
+    "blocking_receipt_blob": "0497255c426c2b0999471f51529cb5fb172d1abc"
+  },
+  "frozen_artifacts": {
+    "human_materiality_adjudication_blob": "a9382bc08f354e9142ccd55308f46c86da3f1af3",
+    "human_materiality_adjudication_sha256": "e0cac00398f515424f9f6db902ce242928a30811212540aded12937f058b7ec3",
+    "temporal_stability_contract_blob": "b7dc3ea554a74d6044e989b8017d4795ab4d9778",
+    "temporal_stability_contract_sha256": "a3def5bb5867ca4f0fa28c41cfbbecd99a7d1d4dfbd231e6ba7137429f2e1fa6",
+    "tests_blob": "2b125e171b2eaf208e3fb82d68deb9b4e1f370cb",
+    "workflow_blob": "53a07bc422def9671074c10d75e88cead7afde6d"
+  },
+  "materiality_boundary": {
+    "effect_scale": "SYMMETRIC_RELATIVE_CHANGE",
+    "formula": "R[m,p,a,b] = 2 * abs(q[m,p,b] - q[m,p,a]) / (abs(q[m,p,b]) + abs(q[m,p,a]))",
+    "zero_denominator": "UNDEFINED_BLOCKED",
+    "threshold_scope": "COMMON_TO_ALL_11_CLAIM_UNITS",
+    "threshold": 0.2,
+    "claim_unit_rule": "ANY_ADJACENT_MATERIAL_SHIFT",
+    "decision_precedence": [
+      "IF_ANY_REQUIRED_CONTRAST_UNDEFINED_OR_BLOCKED => BLOCKED",
+      "ELSE_IF_ANY_ADJACENT_R_GTE_0_20 => MATERIAL_TEMPORAL_VARIATION",
+      "ELSE => NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"
+    ],
+    "global_cross_metric_pass_fail": "FORBIDDEN",
+    "status": "HUMAN_ADOPTED_AND_FROZEN"
+  },
+  "claim_frame": {
+    "claim_origin": "EXPLORATORY_RESULT_DERIVED",
+    "primary_analysis": "COMPLETE_YEARS_ONLY",
+    "complete_years": [
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "partial_years_context_only": [
+      2021,
+      2026
+    ],
+    "claim_units": 11,
+    "adjacent_transitions": [
+      "2022->2023",
+      "2023->2024",
+      "2024->2025"
+    ],
+    "primary_adjacent_contrasts": 33,
+    "same_corpus_m10_maximum_semantics": "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE"
+  },
+  "qualification": {
+    "local_m01_tests": "5 PASS",
+    "local_si01_ef01_regression": "8 PASS",
+    "github_run_id": 37457041489,
+    "github_job_id": 112247078483,
+    "github_conclusion": "success",
+    "protected_identities": "PASS",
+    "no_m10_execution_surface": "PASS",
+    "clean_worktree": "PASS"
+  },
+  "readiness": {
+    "m01_freeze": "FROZEN",
+    "unresolved_material_parameters": 0,
+    "m01_prerequisite_status": "COMPLETE",
+    "m10_execution_readiness": "M01_PREREQUISITE_COMPLETE_BUT_SEPARATE_HUMAN_AUTHORIZATION_REQUIRED"
+  },
+  "downstream_authority": {
+    "M10": false,
+    "M04": false,
+    "M05": false,
+    "M08": false,
+    "M09": false,
+    "M11": false,
+    "new_M03": false,
+    "new_AP1": false,
+    "backtest": false,
+    "new_OOS": false,
+    "paper": false,
+    "live": false,
+    "capital": false
+  },
+  "not_established": [
+    "STATISTICAL_SIGNIFICANCE",
+    "FORMAL_NONSTATIONARITY",
+    "STRUCTURAL_BREAK",
+    "REGIME_CAUSE",
+    "GENERALIZATION",
+    "PREDICTIVE_EDGE",
+    "ECONOMIC_EDGE",
+    "PROFITABILITY",
+    "VALIDATED_STRATEGY",
+    "TRADING_SIGNAL",
+    "TRADING_AUTHORITY",
+    "CAPITAL_AUTHORITY"
+  ],
+  "next_frontier": {
+    "name": "SEPARATE HUMAN AUTHORIZATION FOR M10 READINESS / ACTIVATION",
+    "automatic_open": false
+  },
+  "stop": true
+}
