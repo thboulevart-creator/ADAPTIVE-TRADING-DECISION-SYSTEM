@@ -1,0 +1,167 @@
+{
+  "schema": "ATDS_BEPD_08A_FROZEN_PRE_RESULT_ADVERSARIAL_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_BREAKER_CANDIDATE",
+  "control_id": "BEPD-08A",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "3d2c82f005bda2db7d7a718b92421c84b773f82f",
+    "contract_blob": "4cfcb983ad64f31b443534d70991f8ddcb11ff8f",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd05a_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05b_result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "bepd05b_final_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147",
+    "bepd07b_final_adjudication_blob": "9023fe36e80030978f116c58e58fd5664e19be20"
+  },
+  "adversarial_cases": [
+    {
+      "case_id": "BEPD08A-B01",
+      "mutation": "wrong EVENT_LEDGER identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B02",
+      "mutation": "wrong BEPD-05A contract identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B03",
+      "mutation": "wrong BEPD-05B adopted-result identity",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B04",
+      "mutation": "market reconstruction instead of persisted close_displacement",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B05",
+      "mutation": "using target_week_close_mid only",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B06",
+      "mutation": "using level_price_mid only",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B07",
+      "mutation": "failing to apply absolute value",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B08",
+      "mutation": "retaining signed values in D_CLOSE",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B09",
+      "mutation": "negative D_CLOSE output",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B10",
+      "mutation": "dropping negative close_displacement rows",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B11",
+      "mutation": "dropping positive close_displacement rows",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B12",
+      "mutation": "dropping no-reintegration rows",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B13",
+      "mutation": "filtering by HIGH / LOW",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B14",
+      "mutation": "filtering by sign",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B15",
+      "mutation": "internal/external subgrouping",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B16",
+      "mutation": "post-hoc threshold selection",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B17",
+      "mutation": "rounding-to-zero laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B18",
+      "mutation": "broker-points laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B19",
+      "mutation": "ticks laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B20",
+      "mutation": "PnL laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B21",
+      "mutation": "IID laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B22",
+      "mutation": "distance distribution → prediction laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B23",
+      "mutation": "distance distribution → edge laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B24",
+      "mutation": "distance distribution → TP laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B25",
+      "mutation": "distance distribution → SL laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B26",
+      "mutation": "distance distribution → strategy validation laundering",
+      "expected": "HARD_FAIL"
+    },
+    {
+      "case_id": "BEPD08A-B27",
+      "mutation": "distance distribution → trading authority laundering",
+      "expected": "HARD_FAIL"
+    }
+  ],
+  "qualification_rule": {
+    "required_case_count": 27,
+    "all_cases_present": true,
+    "all_expected_outcomes": "HARD_FAIL",
+    "any_missing_or_weakened_case": "FAIL",
+    "any_binding_mismatch": "FAIL",
+    "any_real_distance_distribution_exposure": "FAIL"
+  },
+  "execution_boundary": {
+    "real_d_close_aggregation": "NOT_AUTHORIZED",
+    "real_distance_distribution": "NOT_AUTHORIZED",
+    "sign_conditional_distribution": "NOT_AUTHORIZED"
+  }
+}

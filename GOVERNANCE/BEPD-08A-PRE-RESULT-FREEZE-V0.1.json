@@ -1,0 +1,80 @@
+{
+  "schema": "ATDS_BEPD_08A_PRE_RESULT_FREEZE_V0_1",
+  "status": "FROZEN_PRE_RESULT_CANDIDATE",
+  "control_id": "BEPD-08A",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "3d2c82f005bda2db7d7a718b92421c84b773f82f",
+    "absolute_distance_contract_blob": "4cfcb983ad64f31b443534d70991f8ddcb11ff8f",
+    "frozen_breaker_blob": "4d6ada0758a883ab639c93a6caf388e1e11b6d99",
+    "bepd01d_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd05a_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05b_result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "bepd05b_final_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147",
+    "bepd07b_final_adjudication_blob": "9023fe36e80030978f116c58e58fd5664e19be20"
+  },
+  "frozen_semantics": {
+    "source_field": "close_displacement",
+    "transformation": "abs(close_displacement)",
+    "exact_equivalence": "abs(target_week_close_mid - level_price_mid)",
+    "expected_population_n": 472,
+    "filtering": "NONE",
+    "weighting": "ONE_EQUAL_WEIGHT_PER_QUALIFIED_EVENT",
+    "unit": "USTECH_PRICE_UNITS_AS_PERSISTED",
+    "nonnegative_required": true,
+    "market_reconstruction": "FORBIDDEN",
+    "ap0_read": "FORBIDDEN",
+    "h1_reconstruction": "FORBIDDEN",
+    "weekly_price_reconstruction": "FORBIDDEN"
+  },
+  "frozen_future_surface": {
+    "outputs": [
+      "N",
+      "MINIMUM",
+      "MAXIMUM",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "ZERO_COUNT",
+      "ZERO_FRACTION",
+      "EMPIRICAL_CDF"
+    ],
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "p50_equals_median": true,
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN"
+  },
+  "authority_state": {
+    "sign_conditional_authority": "NONE",
+    "subgroup_authority": "NONE",
+    "threshold_authority": "NONE",
+    "oos_authority": "NONE",
+    "prediction_authority": "NONE",
+    "trading_authority": "NONE",
+    "real_absolute_distance_execution": false,
+    "real_absolute_distance_result_produced": false
+  },
+  "evidence_status": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "analysis_status": "EXPLORATORY_ONLY",
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "terminal_requirement": "QUALIFY_CONTRACT_AND_BREAKER_THEN_STOP_FOR_HUMAN_ADJUDICATION"
+}

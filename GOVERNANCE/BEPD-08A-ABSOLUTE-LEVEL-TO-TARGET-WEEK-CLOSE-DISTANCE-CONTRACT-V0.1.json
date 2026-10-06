@@ -1,0 +1,178 @@
+{
+  "schema": "ATDS_BEPD_08A_ABSOLUTE_LEVEL_TO_TARGET_WEEK_CLOSE_DISTANCE_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_RESULT_CONTRACT_CANDIDATE",
+  "control_id": "BEPD-08A",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "bindings": {
+    "human_authorization_blob": "3d2c82f005bda2db7d7a718b92421c84b773f82f",
+    "bepd01d_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "bepd05a_close_displacement_contract_blob": "0a580920ce47885d2bd3277b879b2b888b8d4354",
+    "bepd05b_real_global_close_displacement_result_blob": "1280156ca949fc48f00e50240aa09cdae11ba4d7",
+    "bepd05b_final_human_adjudication_blob": "811b8e9f58d33cc35c45f714ea99e696d589b147",
+    "bepd07b_final_human_adjudication_blob": "9023fe36e80030978f116c58e58fd5664e19be20"
+  },
+  "objective": "DEFINE_QUALIFY_AND_FREEZE_ABSOLUTE_LEVEL_TO_TARGET_WEEK_CLOSE_DISTANCE_BEFORE_ANY_NEW_REAL_DISTRIBUTION_EXPOSURE",
+  "primary_estimand": {
+    "name": "D_CLOSE",
+    "canonical_formula": "abs(close_displacement)",
+    "exact_equivalence": "abs(target_week_close_mid - level_price_mid)",
+    "required_nonnegative": true,
+    "semantic": "DISTANCE_FROM_FIXED_SWEPT_WEEKLY_LEVEL_TO_TARGET_WEEK_CLOSE",
+    "direction_information_removed": true,
+    "not_equal_to_signed_close_displacement": true
+  },
+  "source_policy": {
+    "source": "BEPD-02 EVENT_LEDGER.close_displacement",
+    "policy": "PERSISTED_FIELD_ONLY",
+    "market_data_reconstruction": "FORBIDDEN",
+    "ap0_read": "FORBIDDEN",
+    "h1_reconstruction": "FORBIDDEN",
+    "weekly_price_reconstruction": "FORBIDDEN",
+    "transformation": "DETERMINISTIC_PURE_ABSOLUTE_VALUE"
+  },
+  "population": {
+    "expected_n": 472,
+    "unit": "ONE_QUALIFIED_LEVEL_SWEEP_EVENT",
+    "filtering": "NONE",
+    "weighting": "ONE_EQUAL_WEIGHT_PER_QUALIFIED_EVENT",
+    "no_reintegration_rows": "RETAIN",
+    "positive_signed_rows": "RETAIN",
+    "negative_signed_rows": "RETAIN",
+    "zero_signed_rows": "RETAIN"
+  },
+  "unit_semantics": {
+    "canonical_unit": "USTECH_PRICE_UNITS_AS_PERSISTED",
+    "human_description": "PRICE_DISTANCE",
+    "forbidden_conversions": [
+      "BROKER_POINTS",
+      "TICKS",
+      "PIPS",
+      "MONEY",
+      "PNL",
+      "RISK_MULTIPLE"
+    ]
+  },
+  "sign_semantics_preserved": {
+    "positive_signed_close_displacement": "TARGET_WEEK_CLOSE_ON_REINTEGRATED_INTERNAL_SIDE",
+    "negative_signed_close_displacement": "TARGET_WEEK_CLOSE_ON_EXTERNAL_SIDE",
+    "d_close_ignores_direction": true
+  },
+  "first_real_global_aggregation_surface": {
+    "outputs": [
+      "N",
+      "MINIMUM",
+      "MAXIMUM",
+      "MEAN",
+      "MEDIAN",
+      "P01",
+      "P05",
+      "P10",
+      "P25",
+      "P50",
+      "P75",
+      "P90",
+      "P95",
+      "P99",
+      "ZERO_COUNT",
+      "ZERO_FRACTION",
+      "EMPIRICAL_CDF"
+    ],
+    "expected_n": 472,
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "p50_equals_median": true,
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN",
+    "ecdf_terminal_count": 472,
+    "ecdf_terminal_fraction": "1"
+  },
+  "zero_semantics": {
+    "meaning": "target_week_close_mid == level_price_mid_under_persisted_value",
+    "forbidden_creation": [
+      "ROUNDING",
+      "MISSING_DATA",
+      "IMPUTATION",
+      "THRESHOLDING",
+      "BUCKETING"
+    ]
+  },
+  "sign_conditional_boundary": {
+    "internal_side_distance_distribution": "NOT_AUTHORIZED",
+    "external_side_distance_distribution": "NOT_AUTHORIZED",
+    "sign_conditional_decomposition": "NOT_AUTHORIZED"
+  },
+  "subgroup_boundary": {
+    "authorized_subgroups": [],
+    "forbidden": [
+      "HIGH_LOW",
+      "SAME_WEEK_REINTEGRATION_TRUE_FALSE",
+      "LEVEL_AGE",
+      "TAKE_DAY",
+      "MONTH_YEAR",
+      "VOLATILITY",
+      "REGIME",
+      "TIME_TO_REINTEGRATION",
+      "MAX_REINTEGRATIVE_EXCURSION",
+      "MAX_EXTERNAL_EXCURSION",
+      "SWEEP_CLUSTER_SIZE",
+      "OTHER_CONTEXT"
+    ]
+  },
+  "threshold_boundary": {
+    "posthoc_threshold_selection": "FORBIDDEN",
+    "examples_forbidden": [
+      "50",
+      "100",
+      "200",
+      "500"
+    ],
+    "probability_at_threshold_requires": "PRE_REGISTERED_X_OR_EXPLICITLY_DESCRIPTIVE_USE"
+  },
+  "dependence_boundary": {
+    "event_is_iid_observation": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "iid_standard_error": "NOT_ACTIVATED",
+    "iid_confidence_interval": "NOT_ACTIVATED",
+    "iid_bootstrap": "NOT_ACTIVATED"
+  },
+  "evidence_status": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "analysis_status": "EXPLORATORY_ONLY",
+    "generalization": "NOT_ESTABLISHED",
+    "confirmatory_generalization": "FRESH_OOS_EVIDENCE_REQUIRED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "authority": {
+    "semantics_design": true,
+    "aggregation_contract_design": true,
+    "pre_result_freeze": true,
+    "breaker_design": true,
+    "real_d_close_distribution": false,
+    "real_absolute_distance_aggregation": false,
+    "sign_conditional_decomposition": false,
+    "subgroup_analysis": false,
+    "threshold_search": false,
+    "timing_x_distance": false,
+    "excursion_x_distance": false,
+    "occurrence_x_response": false,
+    "oos_consumption": false,
+    "prediction": false,
+    "causation": false,
+    "edge": false,
+    "strategy": false,
+    "tp_sl_calibration": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "stop_boundary": "STOP_AFTER_BEPD08A_QUALIFICATION_FOR_HUMAN_ADJUDICATION"
+}
