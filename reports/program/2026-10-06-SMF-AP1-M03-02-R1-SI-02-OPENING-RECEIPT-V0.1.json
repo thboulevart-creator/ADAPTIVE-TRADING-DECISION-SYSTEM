@@ -1,0 +1,48 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_SI_02_OPENING_RECEIPT_V0_1",
+  "status": "AWAITING_HUMAN_DECISIONS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "fresh_preflight_parent": {
+    "head": "ccab8711f85acb7e1a40f156a19a974c54a4ca85",
+    "tree": "587abf7ad833a6c216ca585dd09be9e0b69c7f99"
+  },
+  "authorization_reference": {
+    "head": "737b3ddccfd84bae0898d60f6e74e50191dfc2f7",
+    "tree": "90621185bb822078f522567cea89872112eb21f6"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "changed_scopes": [
+      "AO-E0-B12",
+      "BEPD-CES"
+    ],
+    "si01_package_unchanged": true
+  },
+  "package": {
+    "candidate_set_blob": "8f85f301380d192e7a8bbc225e39d080d76d78ac",
+    "final_receipt_blob": "f5eeae8b3806bd2aff0fb16d30d1ea139f5c6d89",
+    "si01_status": "QUALIFIED_FOR_HUMAN_SCIENTIFIC_ADJUDICATION"
+  },
+  "human_decisions": {
+    "SI01-C01": "PENDING",
+    "SI01-C02": "PENDING",
+    "SI01-C03": "PENDING",
+    "SI01-C04": "PENDING",
+    "SI01-C05": "PENDING"
+  },
+  "non_binding_recommendations": {
+    "SI01-C01": "ADOPT",
+    "SI01-C02": "ADOPT",
+    "SI01-C03": "ADOPT",
+    "SI01-C04": "AMEND",
+    "SI01-C05": "ADOPT"
+  },
+  "c04_recommended_amendment": {
+    "name": "UTC_YEAR_DISTRIBUTIONAL_VARIATION_CANDIDATE",
+    "statement": "Within the admitted 2021-05-25 through 2026-05-24 corpus, the predeclared UTC_YEAR bucket distributions differ descriptively across years for minute_range, tick_count, and spread_mean. The 2025-2026 spread_mean central quantiles differ sharply from earlier year buckets while p99 remains near prior-year levels. This is a retrospective descriptive variation candidate only; formal temporal instability, nonstationarity, structural break, cause, persistence, and generalization remain untested."
+  },
+  "downstream_method_authority": false,
+  "findings_adopted": 0,
+  "stop_reason": "Distinct human decisions are required before SI-02 can be closed."
+}
