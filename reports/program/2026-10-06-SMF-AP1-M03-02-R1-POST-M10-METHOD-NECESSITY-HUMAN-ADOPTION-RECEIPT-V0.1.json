@@ -1,0 +1,74 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_METHOD_NECESSITY_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "status": "HUMAN_ADOPTED_BINDING_CLOSED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "adopted_analysis": {
+    "head": "d40124f450548b6f8d8ff1da90d43f5d4a1059e3",
+    "tree": "8421d6bf821751bcf23add349547cd213b5700fa",
+    "mode": "READ_ONLY",
+    "drift_since_m10_01": "NON_MATERIAL_TO_M10_SCIENTIFIC_SEMANTICS"
+  },
+  "persistence_parent": {
+    "head": "fb0d3e3aa7bc37684d499d7ba653f79cb3e6d810",
+    "tree": "ec0a9994baeff21c49b21a4e24c35e850816bea5",
+    "drift_scope": ["AO-E0-B12-DATA-01-SR-01", "BEPD-07B"],
+    "classification": "NON_MATERIAL_TO_POST_M10_ADJUDICATION"
+  },
+  "decision": {
+    "post_m10_method_necessity": "RESOLVED",
+    "immediate_additional_statistical_method": "NONE",
+    "minimum_required_next_control": "POST_M10_TEMPORAL_POOLING_AND_CONDITIONING_GATE",
+    "new_statistical_method": "NONE"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "pooling_rule": {
+    "material_claim_units": 8,
+    "unconditional_pooling_across_2022_2025": "NOT_ALLOWED_BY_DEFAULT",
+    "admissible_routes": [
+      "EXPLICITLY_JUSTIFY_TEMPORAL_POOLING",
+      "CONDITION_OR_STRATIFY_BY_TIME",
+      "PREREGISTER_A_METHOD_EXPLICITLY_ROBUST_TO_THE_OBSERVED_TEMPORAL_VARIATION"
+    ],
+    "otherwise": "BLOCKED"
+  },
+  "non_material_claim_units": {
+    "claim_units": ["spread_mean p90", "spread_mean p95", "spread_mean p99"],
+    "status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED",
+    "forbidden_promotions": ["STABILITY_PROVEN", "STATIONARITY_PROVEN", "UNCONDITIONAL_POOLING_VALIDATED"]
+  },
+  "scientific_boundaries": {
+    "formal_nonstationarity": "NOT_ESTABLISHED",
+    "change_point": "NOT_ESTABLISHED",
+    "structural_break": "NOT_ESTABLISHED",
+    "regime_causation": "NOT_ESTABLISHED",
+    "evidence_state": "EXPOSED",
+    "same_corpus_confirmatory_status": "CONTAMINATED_OR_NON_PRISTINE",
+    "pristine_reset": "FORBIDDEN"
+  },
+  "m05": {
+    "global_resampling_across_2022_2025": "BLOCKED_PENDING_TEMPORAL_JUSTIFICATION"
+  },
+  "authority": {
+    "new_statistical_method_execution": false,
+    "real_data_read": false,
+    "new_market_result": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "POST_M10_TEMPORAL_POOLING_AND_CONDITIONING_GATE",
+    "scope": "DESIGN_FREEZE_ONLY",
+    "separate_human_authorization_required": true,
+    "automatic_execution": false
+  },
+  "stop": true,
+  "force": false
+}
