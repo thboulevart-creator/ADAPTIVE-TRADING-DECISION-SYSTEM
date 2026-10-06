@@ -155,8 +155,7 @@ def test_owner02_frozen_breakers(case_id,tmp_path):
         qei,profile,runtime=base_case(tmp_path)
         data,temporal=owner.expected_bindings()
         spl=owner.qualify_ao_e0_plan(qei,profile=profile,runtime_lock=runtime,data_binding=data,temporal_binding=temporal)
-        fake=owner.QualifiedAOE0ConsumptionToken if hasattr(owner,"QualifiedAOE0ConsumptionToken") else object
-        assert_block(lambda: owner.attest_real_ao_e0_result(spl,fake(),qei,terminal_package_digest="c"*64),"REAL_PLAN")
+        assert_block(lambda: owner.attest_real_ao_e0_result(spl,object(),qei,terminal_package_digest="c"*64),"REAL_PLAN")
     elif case_id=="OWNER02-21":
         qei,_,_,plan=real_plan(tmp_path)
         out={"schema":owner.OUTPUT_SCHEMA,"status":owner.OUTPUT_STATUS,"producer_id":owner.PRODUCER_ID,"cell_identity":owner.CELL_IDENTITY,"claim_class":owner.CLAIM_CLASS,"parameter_digest":owner.SEMANTIC_PARAMETER_DIGEST,"records_digest":"ab"*32,"synthetic_qualification":True}
@@ -179,8 +178,7 @@ def test_owner02_frozen_breakers(case_id,tmp_path):
         with pytest.raises(TypeError,match="unknown/structural"): ext.normalize_ao_e0_execution(sub,qei)
     elif case_id=="OWNER02-25":
         qei,_,_,plan=real_plan(tmp_path)
-        dummy=owner.QualifiedAOE0ConsumptionToken if hasattr(owner,"QualifiedAOE0ConsumptionToken") else object
-        assert_block(lambda: owner.attest_real_ao_e0_result(plan,dummy(),qei,terminal_package_digest="c"*64),"CONSUMPTION")
+        assert_block(lambda: owner.attest_real_ao_e0_result(plan,object(),qei,terminal_package_digest="c"*64),"CONSUMPTION")
     elif case_id=="OWNER02-26":
         qei,_,_,plan,token=consumed(tmp_path)
         assert_block(lambda: owner.attest_ao_e0_first_performance_read(plan,qei),"FIRST_READ")
