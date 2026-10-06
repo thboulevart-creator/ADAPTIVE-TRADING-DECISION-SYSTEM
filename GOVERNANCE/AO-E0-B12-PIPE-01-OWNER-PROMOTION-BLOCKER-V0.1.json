@@ -1,0 +1,22 @@
+{
+  "schema":"ATDS_AO_E0_B12_PIPE_01_OWNER_PROMOTION_BLOCKER_V0_1",
+  "control_id":"AO-E0-B12-PIPE-01",
+  "controller_candidate":"QUALIFIABLE_ADDITIVELY",
+  "real_owner_promotion":"BLOCKED",
+  "exact_blocker":"BLOCKED_B12_PIPE_REAL_OWNER_PROMOTION_REQUIRES_B11_REBIND",
+  "reason":"B11 is closed against exact owner_blob 524ee6... and p1_12d_extension_blob fec520.... A real-OOS-capable path cannot replace or bypass those identities without a separately governed B11 owner rebind/compatibility qualification.",
+  "b11_closure_receipt":"4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+  "current_owner_blob":"524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+  "current_p1_12d_extension_blob":"fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+  "current_owner_execution_scope":"SYNTHETIC_ONLY_NO_REAL_AO_E0_NO_OOS",
+  "forbidden_shortcuts":[
+    "CALL_PRIVATE_OWNER_ATTESTATION_API_FROM_EXTERNAL_CONTROLLER",
+    "STRUCTURAL_DUCK_TYPING_AS_NATIVE_RESULT",
+    "DIGEST_ONLY_OWNER_LAUNDERING",
+    "BYPASS_P1_12D_EXACT_TYPE_CHECK",
+    "SILENTLY_MODIFY_B11_BOUND_OWNER"
+  ],
+  "required_next_governance":"AO-E0-B11-R2 REAL-OOS OWNER REBIND / COMPATIBILITY QUALIFICATION",
+  "state":{"b8":"CLOSED","b12":"CLOSED"},
+  "force":false
+}

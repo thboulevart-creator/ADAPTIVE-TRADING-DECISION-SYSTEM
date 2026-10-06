@@ -1,0 +1,35 @@
+name: AO-E0 B12 PIPE-01 Controller Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/AO-E0-B12-PIPE-01-CONSUMPTION-CONTROLLER-CANDIDATE-V0.1.json'
+      - 'GOVERNANCE/AO-E0-B12-PIPE-01-OWNER-PROMOTION-BLOCKER-V0.1.json'
+      - 'src/ao_e0_b12_consumption_controller.py'
+      - 'tests/test_ao_e0_b12_consumption_controller.py'
+      - '.github/workflows/ao-e0-b12-pipe-01-controller-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile controller
+        run: python -m py_compile src/ao_e0_b12_consumption_controller.py
+      - name: Run deterministic controller tests
+        run: python -m unittest tests/test_ao_e0_b12_consumption_controller.py -v
+      - name: Verify protected owner blobs were not edited by PIPE-01 commit
+        shell: bash
+        run: |
+          test "$(git rev-parse HEAD^:src/p1_12c_ao_e0_native_owner.py)" = "$(git rev-parse HEAD:src/p1_12c_ao_e0_native_owner.py)"
+          test "$(git rev-parse HEAD^:src/p1_12d_ao_e0_extension.py)" = "$(git rev-parse HEAD:src/p1_12d_ao_e0_extension.py)"
+          test "$(git rev-parse HEAD^:tools/ao_e0_cc05_e1_producer.py)" = "$(git rev-parse HEAD:tools/ao_e0_cc05_e1_producer.py)"
