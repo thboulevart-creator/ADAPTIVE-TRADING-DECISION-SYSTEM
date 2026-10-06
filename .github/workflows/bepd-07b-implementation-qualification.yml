@@ -1,0 +1,78 @@
+name: BEPD-07B implementation qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - GOVERNANCE/BEPD-07B-HUMAN-AUTHORIZATION-2026-10-06.md
+      - tools/bepd_07b_behavioral_excursion.py
+      - tools/bepd_07b_independent_reference.py
+      - tools/bepd_07a_executable_breaker.py
+      - tests/test_bepd_07b_behavioral_excursion.py
+      - .github/workflows/bepd-07b-implementation-qualification.yml
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen upstream identities without real AP0 read
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-07A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "5b8a8c9538363f8878acfa47c75db420438582be"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-07A-SAME-WEEK-POST-SWEEP-PATH-GEOMETRY-CONTRACT-V0.1.json)" = "d7b3aeed923a91e0e2aac530a952978c1f8fa5d6"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-07A-FROZEN-PRE-RESULT-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "42f2a720a0904c83c45a507cfa340af30ba73ae5"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-07A-PRE-RESULT-FREEZE-V0.1.json)" = "10fa2fc9011dded1567a054efb31fbabfa6dab8a"
+          test "$(git rev-parse HEAD:artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl)" = "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          test "$(git rev-parse HEAD:reports/program/2026-09-25-AP0-USTECH-PROFILE-MINUTE-CORE-ADJUDICATION.md)" = "94bba3315e3569993623b8cd2a2bf4264f4ab6f8"
+          test "$(git rev-parse HEAD:tools/ap0_ustech_profile_minute_core.py)" = "42fcb38809a1cc0365cd4027fae5154e1d6d3b4f"
+          test "$(git rev-parse HEAD:tools/bepd_02_historical_weekly_liquidity_ledger_build_v0_1.py)" = "99279c2bf252105744a18eb721f2fefe9ef883e8"
+          test "$(git rev-parse HEAD:GOVERNANCE/RVO-08-AP0-RESOURCE-CONTRACT-V0.1.json)" = "23cef7d6dcc6ca0b4e3c72bd8f3af4e91b1d6ca3"
+          test "$(git rev-parse HEAD:reports/program/2026-10-04-DATA-02-REAL-AP0-READ-ONLY-ADMISSION-RECEIPT-V0.1.json)" = "ccfccda676abfe7e02082a331557ffed14e1f32b"
+          echo "BEPD07B_FROZEN_BINDINGS_PASS"
+
+      - name: Compile implementation
+        run: |
+          python -m py_compile             tools/bepd_07b_behavioral_excursion.py             tools/bepd_07b_independent_reference.py             tools/bepd_07a_executable_breaker.py
+          echo "BEPD07B_COMPILE_PASS"
+
+      - name: Run synthetic behavioral excursion tests only
+        run: |
+          python -m unittest -v tests/test_bepd_07b_behavioral_excursion.py
+          echo "BEPD07B_SYNTHETIC_TESTS_PASS"
+
+      - name: Run executable-equivalent 40-case BEPD-07A breaker pre-result
+        run: |
+          python tools/bepd_07a_executable_breaker.py             --runner tools/bepd_07b_behavioral_excursion.py             --independent tools/bepd_07b_independent_reference.py             --mode pre-result
+
+      - name: Assert no real BEPD-07B result exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -d artifacts/bepd07b; then
+            echo "Unexpected BEPD-07B artifact directory before implementation qualification"
+            exit 1
+          fi
+          echo "REAL_AP0_PATH_SCAN=NOT_EXECUTED"
+          echo "REAL_EXCURSION_STATISTICS=NOT_CALCULATED"
+          echo "REAL_EXCURSION_DISTRIBUTION_EXPOSURE=NO"
+
+      - name: Qualification terminal marker
+        run: |
+          echo "BEPD07B_IMPLEMENTATION_QUALIFICATION_PASS"
+          echo "REAL_RESULT=NOT_EXECUTED"
+          echo "RESULT_HUMAN_ADOPTED=NO"
