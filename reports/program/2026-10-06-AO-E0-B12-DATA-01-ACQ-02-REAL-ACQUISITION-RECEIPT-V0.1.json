@@ -1,0 +1,63 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA01_ACQ02_REAL_ACQUISITION_RECEIPT_V0_1",
+  "control_id":"AO-E0-B12-DATA-01-ACQ-02",
+  "terminal_state":"QUALIFIED_ROLLING_DATA01_CANDIDATE",
+  "readiness_state":"WAIT_TERMINAL_COUNT_AUTHORITY",
+  "synthetic_qualification":{
+    "head":"3cd881e8d186aceac33c304e7ecc1c63db683f65",
+    "run_id":37511214170,
+    "job_id":112432533199,
+    "conclusion":"SUCCESS",
+    "tests":"55/55 PASS",
+    "adopted_bindings_exact":"PASS",
+    "test_harness_first_replay":"54 PASS / 1 FIXTURE FAIL",
+    "test_harness_final_replay":"55/55 PASS"
+  },
+  "real_collection":{
+    "coverage_start_utc":"2026-10-05T14:00:00Z",
+    "coverage_end_exclusive_utc":"2026-10-06T18:00:00Z",
+    "ledger_events":28,
+    "warmup_objects":20,
+    "forward_evidence_objects":8,
+    "sealed_new_objects_first_run":28,
+    "network_objects_first_run":5,
+    "cache_reuse_objects_first_run":23,
+    "idempotent_replay_objects_second_run":28,
+    "new_objects_second_run":0,
+    "total_raw_bytes":10696493,
+    "total_ticks":436749,
+    "warmup_ticks":285444,
+    "forward_ticks":151305,
+    "raw_forward_inventory_digest":"d00751359cebef620f15a2dca388c9ad68364a6c0d5f0263858c9798a1411e2f",
+    "raw_forward_manifest_sha256":"f53c20041691945eb06dba48123b822543cd285199540f874035a1ab94cadc14",
+    "ap0_row_count":1575,
+    "ap0_forward_manifest_sha256":"64d272f4fb13e17217c4e1083f2bf47e3cdb7b2e8e2be039b9f890cd5febabc9",
+    "h1_row_count":26,
+    "h1_first_boundary_utc":"2026-10-05T14:00:00Z",
+    "h1_last_boundary_utc":"2026-10-06T17:00:00Z",
+    "h1_forward_stream_sha256":"86e878c105aa3242659f07ac20a2e6c8001af20b3fae44e0e8df1b4488b043ea"
+  },
+  "local_integrity":{
+    "ledger_sha256":"c88470579a33c36658460dd4bfd7f415930eb86f70da379a72d75dffb001b8dc",
+    "raw_manifest_file_sha256":"37937e1a1d95df7a1f8affe7a1f1d0840973e16b9df6b91905d97fb249319af0",
+    "ap0_manifest_file_sha256":"2be49e949b17e85052270a8d9ee0e593ae3b34a3417453252d6240fcfefb0154",
+    "h1_manifest_file_sha256":"80d8d59839fc1aad56b8518429168b29855a9f320d42dd555d317ddc6680ca13",
+    "readiness_file_sha256":"f4e4326dbf6d49f2e6a7d3d58f1cbce038021ab4eb4340323796adb07310b69b",
+    "ap0_payload_sha256":"4bc1e5843c2cfb0b589563cf691495c76772b88f11a4c3295153c811bc5d99dc",
+    "h1_payload_sha256":"c314978e25b70b6b4e97727a0d21b89ae02806b016144e5e6bb8df00c67a765f"
+  },
+  "authority":{
+    "b12":"CLOSED",
+    "performance_bearing_read":false,
+    "performance_observed":false,
+    "oos_consumption":false,
+    "real_ao_e0_execution":false,
+    "real_smf_execution":false,
+    "strategy_qualified_claim":false,
+    "trading":false,
+    "broker_execution":false,
+    "capital_deployment":false
+  },
+  "exact_forward_instance":"NOT_YET_AVAILABLE",
+  "force":false
+}

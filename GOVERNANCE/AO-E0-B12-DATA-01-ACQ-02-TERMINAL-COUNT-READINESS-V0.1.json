@@ -1,0 +1,20 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA01_ACQ02_TERMINAL_COUNT_READINESS_ANALYSIS_V0_1",
+  "control_id":"AO-E0-B12-DATA-01-ACQ-02",
+  "verdict":"WAIT_TERMINAL_COUNT_AUTHORITY",
+  "reason":"The exact closed-trade count and terminal decision boundary depend on MOMENTUM_V1 signal/target-position transitions. ACQ-02 expressly forbids forward strategy-signal calculation and real execution. Therefore ACQ-02 cannot lawfully derive exact_closed_trade_count.",
+  "evidence":{
+    "acq01_existing_state":"BLOCKED_FINAL_INSTANCE_REQUIRES_SEPARATE_COUNT_ONLY_READINESS_CONTRACT",
+    "momentum_runner_signal_formula_location":"tools/e1_05_minimal_momentum_runner.py",
+    "momentum_runner_produces_target_position":true,
+    "closed_trade_count_is_not_raw_ap0_h1_metadata":true
+  },
+  "permitted_state":{
+    "rolling_candidate":true,
+    "exact_forward_instance":"NOT_YET_AVAILABLE",
+    "data01_instance_state":"WAIT_NOT_READY",
+    "b12":"CLOSED"
+  },
+  "next_required_frontier":"AO-E0-B12-DATA-01-TC-01 — NON-PERFORMANCE CLOSED-TRADE COUNT / TERMINAL-BOUNDARY AUTHORITY QUALIFICATION",
+  "force":false
+}

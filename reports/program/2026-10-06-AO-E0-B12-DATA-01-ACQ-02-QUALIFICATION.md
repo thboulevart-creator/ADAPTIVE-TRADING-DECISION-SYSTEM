@@ -1,0 +1,189 @@
+# AO-E0-B12-DATA-01-ACQ-02 — BLIND FORWARD ACQUISITION / ROLLING READINESS
+
+RESULT =
+QUALIFIED_ROLLING_DATA01_CANDIDATE
+
+READINESS_STATE =
+WAIT_TERMINAL_COUNT_AUTHORITY
+
+EXACT_FORWARD_INSTANCE =
+NOT_YET_AVAILABLE
+
+## Synthetic qualification
+
+HEAD =
+3cd881e8d186aceac33c304e7ecc1c63db683f65
+
+RUN =
+37511214170
+
+JOB =
+112432533199
+
+CONCLUSION =
+SUCCESS
+
+TESTS =
+55 / 55 PASS
+
+ADOPTED SR-01 A BINDINGS =
+EXACT
+
+The first local replay was 54 PASS / 1 FAIL due solely to an invalid conflict fixture that triggered ASK_LT_BID before SOURCE_OBJECT_MUTATION. The fixture was corrected without changing the ACQ-02 runtime. Final local and CI replay: 55/55 PASS.
+
+## Real blind collection
+
+COVERAGE =
+2026-10-05T14:00:00Z
+→
+2026-10-06T18:00:00Z exclusive
+
+LEDGER EVENTS =
+28
+
+WARMUP OBJECTS =
+20
+
+FORWARD EVIDENCE OBJECTS =
+8
+
+FIRST RUN =
+28 newly sealed
+23 transport-cache reuse
+5 network retrievals
+
+SECOND IDENTICAL RUN =
+0 newly sealed
+28 reproducibility-only replays
+0 network retrievals
+
+The replay preserved all rolling identities exactly.
+
+## Raw identity
+
+TOTAL RAW BYTES =
+10696493
+
+TOTAL STRUCTURAL TICKS =
+436749
+
+WARMUP TICKS =
+285444
+
+FORWARD TICKS =
+151305
+
+RAW INVENTORY DIGEST =
+d00751359cebef620f15a2dca388c9ad68364a6c0d5f0263858c9798a1411e2f
+
+RAW MANIFEST SHA256 =
+f53c20041691945eb06dba48123b822543cd285199540f874035a1ab94cadc14
+
+## AP0
+
+AP0 ROW COUNT =
+1575
+
+AP0 FORWARD MANIFEST SHA256 =
+64d272f4fb13e17217c4e1083f2bf47e3cdb7b2e8e2be039b9f890cd5febabc9
+
+FORWARD_FILL =
+FALSE
+
+RETURNS_CALCULATED =
+FALSE
+
+STRATEGY_CALCULATED =
+FALSE
+
+PNL_CALCULATED =
+FALSE
+
+## H1
+
+H1 ROW COUNT =
+26
+
+H1 FIRST BOUNDARY =
+2026-10-05T14:00:00Z
+
+H1 LAST BOUNDARY =
+2026-10-06T17:00:00Z
+
+H1 STREAM SHA256 =
+86e878c105aa3242659f07ac20a2e6c8001af20b3fae44e0e8df1b4488b043ea
+
+No strategy signal was calculated.
+
+## Terminal-count boundary
+
+The exact closed-trade count cannot be derived from raw/AP0/H1 metadata alone.
+
+MOMENTUM_V1 closed-trade formation depends on the momentum signal and target-position transitions in the qualified E1-05 strategy runner.
+
+ACQ-02 explicitly forbids forward strategy-signal calculation.
+
+Therefore:
+
+exact_closed_trade_count =
+NOT_AUTHORIZED_IN_ACQ02
+
+exact_terminal_decision_time =
+NOT_YET_AVAILABLE
+
+READINESS_STATE =
+WAIT_TERMINAL_COUNT_AUTHORITY
+
+The system does not infer a count, run the strategy, or open B12 merely to determine whether N=58927 has been reached.
+
+## Authority firewall
+
+B12 =
+CLOSED
+
+PERFORMANCE_BEARING_READ =
+FALSE
+
+OOS_CONSUMPTION =
+FALSE
+
+REAL_FORWARD_PERFORMANCE_OBSERVATION =
+FALSE
+
+REAL_AO_E0_EXECUTION =
+FALSE
+
+REAL_SMF_EXECUTION =
+FALSE
+
+STRATEGY_QUALIFIED =
+NO CLAIM
+
+TRADING =
+NOT_AUTHORIZED
+
+BROKER_EXECUTION =
+NOT_AUTHORIZED
+
+CAPITAL_DEPLOYMENT =
+NOT_AUTHORIZED
+
+## Terminal adjudication
+
+ACQ02 =
+QUALIFIED_ROLLING_DATA01_CANDIDATE
+
+DATA01_INSTANCE_STATE =
+WAIT_NOT_READY
+
+EXACT_FORWARD_INSTANCE =
+NOT_YET_AVAILABLE
+
+STOP =
+TERMINAL ACQ-02 OUTCOME REACHED
+
+NEXT FRONTIER =
+AO-E0-B12-DATA-01-TC-01 — NON-PERFORMANCE CLOSED-TRADE COUNT / TERMINAL-BOUNDARY AUTHORITY QUALIFICATION
+
+FORCE =
+FALSE
