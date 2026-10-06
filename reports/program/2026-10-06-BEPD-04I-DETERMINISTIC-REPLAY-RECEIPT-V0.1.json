@@ -1,0 +1,18 @@
+{
+  "block_length": 13,
+  "confidence_level": "0.99",
+  "interval_lower_replay": "PASS",
+  "interval_method": "PERCENTILE",
+  "interval_upper_replay": "PASS",
+  "interval_width_replay": "PASS",
+  "point_estimate_replay": "PASS",
+  "replicate_maximum_replay": "PASS",
+  "replicate_minimum_replay": "PASS",
+  "replicate_sequence_digest_replay": "PASS",
+  "replications": 200000,
+  "result_sha256_replay": "PASS",
+  "schema": "ATDS_BEPD_04I_DETERMINISTIC_REPLAY_RECEIPT_V0_1",
+  "seed": 40420261006,
+  "sorted_distribution_digest_replay": "PASS",
+  "status": "PASS"
+}
