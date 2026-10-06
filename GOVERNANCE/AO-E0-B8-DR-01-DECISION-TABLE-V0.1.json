@@ -1,0 +1,54 @@
+{
+  "schema": "ATDS_AO_E0_B8_DR_01_DECISION_TABLE_V0_1",
+  "control_id": "AO-E0-B8-DR-01",
+  "rows": [
+    {"priority":10,"condition":"confirmatory_route != NEW_FORWARD_DATA_ONLY","verdict":"INCONCLUSIVE","reason":"PROVENANCE_ROUTE_INVALID"},
+    {"priority":11,"condition":"prior_exposure_state != CONTAMINATED OR search_universe_status != PARTIAL_SEARCH_UNIVERSE OR n_trials != null","verdict":"INCONCLUSIVE","reason":"PROVENANCE_BINDING_MISMATCH"},
+    {"priority":20,"condition":"sample_n < 58927","verdict":"INCONCLUSIVE","reason":"INSUFFICIENT_SAMPLE"},
+    {"priority":30,"condition":"stationarity_status != RESOLVED_FOR_RESAMPLING","verdict":"INCONCLUSIVE","reason":"NONSTATIONARITY_UNRESOLVED"},
+    {"priority":40,"condition":"M05 interval unavailable or invalid","verdict":"INCONCLUSIVE","reason":"INFERENCE_BLOCKED"},
+    {"priority":50,"condition":"M07 sign_reversal == true","verdict":"INCONCLUSIVE","reason":"SIGN_REVERSAL"},
+    {"priority":60,"condition":"M07 material_influence == true","verdict":"INCONCLUSIVE","reason":"MATERIAL_INFLUENCE"},
+    {"priority":70,"condition":"M08 material_selection_asymmetry == true","verdict":"INCONCLUSIVE","reason":"MATERIAL_SELECTION_ASYMMETRY"},
+    {"priority":80,"condition":"F2_S4 == COST_ROBUSTNESS_INCONCLUSIVE","verdict":"INCONCLUSIVE","reason":"COST_ROBUSTNESS_INCONCLUSIVE"},
+    {"priority":90,"condition":"M05 CI overlaps 5.0","verdict":"INCONCLUSIVE","reason":"CI_OVERLAPS_MATERIALITY_BOUNDARY"},
+    {"priority":100,"condition":"M05 SUPPORT and F2_S4 FAIL","verdict":"INCONCLUSIVE","reason":"EVIDENCE_CONFLICT_M05_SUPPORT_VS_COST_ROBUSTNESS_FAIL"},
+    {"priority":101,"condition":"M05 REFUTE and F2_S4 PASS","verdict":"INCONCLUSIVE","reason":"EVIDENCE_CONFLICT_M05_REFUTE_VS_COST_ROBUSTNESS_PASS"},
+    {"priority":110,"condition":"M05 REFUTE and F2_S4 FAIL and no higher-priority blocker","verdict":"REFUTE","reason":"REFUTED_BY_VALID_FORWARD_CI_AND_COST_ROBUSTNESS_FAIL"},
+    {"priority":120,"condition":"M05 SUPPORT and F2_S4 PASS and no higher-priority blocker","verdict":"SUPPORT","reason":"SUPPORTED_NEW_FORWARD_CC05_WITH_PARTIAL_PRIOR_SEARCH_UNIVERSE"}
+  ],
+  "m05_interval_classification": {
+    "SUPPORT":"lower > 5.0",
+    "REFUTE":"upper <= 5.0",
+    "INCONCLUSIVE":"otherwise"
+  },
+  "support_mandatory_conditions": [
+    "sample_n >= 58927",
+    "stationarity_status == RESOLVED_FOR_RESAMPLING",
+    "valid M05 interval",
+    "M05 lower > 5.0",
+    "F2_S4 == COST_ROBUSTNESS_PASS",
+    "M07 material_influence == false",
+    "M07 sign_reversal == false",
+    "M08 material_selection_asymmetry == false",
+    "confirmatory_route == NEW_FORWARD_DATA_ONLY",
+    "prior_exposure_state == CONTAMINATED",
+    "search_universe_status == PARTIAL_SEARCH_UNIVERSE",
+    "n_trials == null"
+  ],
+  "support_limitations": [
+    "PRIOR_SEARCH_UNIVERSE_PARTIAL",
+    "N_TRIALS_UNKNOWN",
+    "ALPHA_NOT_MULTIPLICITY_CORRECTED",
+    "HYPOTHESIS_ORIGIN_NOT_PRISTINE"
+  ],
+  "refute_required_conditions": [
+    "all validity gates clean",
+    "sample_n >= 58927",
+    "valid M05 interval",
+    "M05 upper <= 5.0",
+    "F2_S4 == COST_ROBUSTNESS_FAIL"
+  ],
+  "inconclusive_is_not_refuted": true,
+  "inconclusive_is_not_qualified": true
+}

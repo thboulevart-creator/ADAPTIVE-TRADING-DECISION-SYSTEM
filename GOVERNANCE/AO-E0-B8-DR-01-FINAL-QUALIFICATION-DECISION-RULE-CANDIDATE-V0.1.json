@@ -1,0 +1,153 @@
+{
+  "schema": "ATDS_AO_E0_B8_DR_01_FINAL_QUALIFICATION_DECISION_RULE_CANDIDATE_V0_1",
+  "control_id": "AO-E0-B8-DR-01",
+  "status": "CANDIDATE_NOT_HUMAN_ADOPTED",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "bindings": {
+    "r1_blocker_blob": "475d4433cd8587dd36dc19274c7fad03ca39d830",
+    "r1_qualification_receipt_blob": "90f25f2bcd34b3384470ce1dc69a90e26864c18d",
+    "ao_contract_blob": "0b07b8bfe44b5007d46b580c5bef131f2ab9a273",
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "strategy_version_identity": "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687",
+    "m06_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "smf01_adoption_blob": "240d715aa7b2ae79dff474a4cc4f80854416c9c7",
+    "b9_closure_receipt_blob": "1fe264aaf0770b3549004877550114e9c4c34331",
+    "b11_closure_receipt_blob": "4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b"
+  },
+  "frozen_inputs": {
+    "delta_min": 5.0,
+    "h0": "theta_AO_E0 <= 5.0",
+    "h1": "theta_AO_E0 > 5.0",
+    "minimum_required_cost_robustness_node": "F2_S4",
+    "m06_final_required_n": 58927,
+    "prior_exposure_state": "CONTAMINATED",
+    "search_universe_status": "PARTIAL_SEARCH_UNIVERSE",
+    "n_trials": null,
+    "confirmatory_route": "NEW_FORWARD_DATA_ONLY"
+  },
+  "vocabulary": {
+    "evidence_verdict": ["SUPPORT", "REFUTE", "INCONCLUSIVE"],
+    "qualification_status": ["QUALIFIED", "NOT_QUALIFIED"],
+    "decision": "PENDING_HUMAN_PROMOTION",
+    "decision_authority": "NONE"
+  },
+  "m05_mapping": {
+    "ci_lower_gt_5": "SUPPORT_SIGNAL",
+    "ci_upper_lte_5": "REFUTE_SIGNAL",
+    "otherwise": "INCONCLUSIVE_SIGNAL",
+    "point_estimate_gt_5_is_support": false
+  },
+  "m06_mapping": {
+    "n_lt_58927": "INCONCLUSIVE / INSUFFICIENT_SAMPLE",
+    "n_gte_58927": "SAMPLE_ADEQUACY_GATE_PASS_ONLY",
+    "n_gte_58927_implies_support": false,
+    "n_gte_58927_implies_qualified": false
+  },
+  "m07_mapping": {
+    "material_influence_true": "INCONCLUSIVE / MATERIAL_INFLUENCE",
+    "sign_reversal_true": "INCONCLUSIVE / SIGN_REVERSAL",
+    "automatic_outlier_deletion": false
+  },
+  "m08_mapping": {
+    "material_selection_asymmetry_true": "INCONCLUSIVE / MATERIAL_SELECTION_ASYMMETRY",
+    "causal_bias_claim": false
+  },
+  "nonstationarity_mapping": {
+    "resolved_for_resampling": "CONTINUE",
+    "otherwise": "INCONCLUSIVE / NONSTATIONARITY_UNRESOLVED"
+  },
+  "f2_s4_mapping": {
+    "COST_ROBUSTNESS_PASS": "ALIGNABLE_WITH_SUPPORT",
+    "COST_ROBUSTNESS_FAIL": "NOT_ALONE_SUFFICIENT_FOR_REFUTE_BECAUSE_SOURCE_STATE_CONFLATES_REFUTED_OR_NOT_SUPPORTED",
+    "COST_ROBUSTNESS_INCONCLUSIVE": "INCONCLUSIVE / COST_ROBUSTNESS_INCONCLUSIVE"
+  },
+  "m05_f2_combination": {
+    "M05_SUPPORT__F2_PASS": "SUPPORT",
+    "M05_SUPPORT__F2_FAIL": "INCONCLUSIVE / EVIDENCE_CONFLICT_M05_SUPPORT_VS_COST_ROBUSTNESS_FAIL",
+    "M05_REFUTE__F2_FAIL": "REFUTE",
+    "M05_REFUTE__F2_PASS": "INCONCLUSIVE / EVIDENCE_CONFLICT_M05_REFUTE_VS_COST_ROBUSTNESS_PASS",
+    "M05_INCONCLUSIVE__ANY_F2": "INCONCLUSIVE",
+    "ANY_M05__F2_INCONCLUSIVE": "INCONCLUSIVE"
+  },
+  "multiplicity_provenance_mapping": {
+    "bound_state": "CONTAMINATED / PARTIAL_SEARCH_UNIVERSE / n_trials=null",
+    "treatment_under_new_forward_only_route": "QUALIFICATION_LIMITATION_NOT_TERMINAL_GATE",
+    "rationale": "The future evidence slice is new and the hypothesis/decision rule is frozen before observation. Prior search exposure remains mandatory provenance context, but an unknown historical search universe is not converted into an invented numeric correction.",
+    "mandatory_limitations": [
+      "PRIOR_SEARCH_UNIVERSE_PARTIAL",
+      "N_TRIALS_UNKNOWN",
+      "ALPHA_NOT_MULTIPLICITY_CORRECTED",
+      "HYPOTHESIS_ORIGIN_NOT_PRISTINE"
+    ],
+    "relabel_as_pristine": false,
+    "invent_n_trials": false
+  },
+  "precedence": [
+    "PROVENANCE_ROUTE_OR_BINDING_MISMATCH -> INCONCLUSIVE",
+    "INSUFFICIENT_SAMPLE -> INCONCLUSIVE",
+    "NONSTATIONARITY_UNRESOLVED -> INCONCLUSIVE",
+    "M05_INFERENCE_BLOCKED -> INCONCLUSIVE",
+    "SIGN_REVERSAL -> INCONCLUSIVE",
+    "MATERIAL_INFLUENCE -> INCONCLUSIVE",
+    "MATERIAL_SELECTION_ASYMMETRY -> INCONCLUSIVE",
+    "COST_ROBUSTNESS_INCONCLUSIVE -> INCONCLUSIVE",
+    "M05_F2_CONFLICT -> INCONCLUSIVE",
+    "DIRECT_VALID_M05_REFUTE + F2_FAIL -> REFUTE",
+    "M05_SUPPORT + F2_PASS + ALL_MANDATORY_GATES_CLEAN -> SUPPORT"
+  ],
+  "qualification_mapping": {
+    "SUPPORT": {
+      "qualification_status": "QUALIFIED",
+      "qualification_reason": "SUPPORTED_NEW_FORWARD_CC05_WITH_PARTIAL_PRIOR_SEARCH_UNIVERSE"
+    },
+    "REFUTE": {
+      "qualification_status": "NOT_QUALIFIED",
+      "qualification_reason": "REFUTED_BY_VALID_FORWARD_CI_AND_COST_ROBUSTNESS_FAIL"
+    },
+    "INCONCLUSIVE": {
+      "qualification_status": "NOT_QUALIFIED",
+      "qualification_reason": "EXACT_PRIMARY_INCONCLUSIVE_REASON_WITH_ALL_REASONS_PRESERVED"
+    }
+  },
+  "multi_failure_rule": {
+    "all_material_reasons_preserved": true,
+    "primary_reason_selected_by_fixed_predeclared_precedence": true,
+    "favorable_diagnostic_can_override_hard_blocker": false
+  },
+  "decision_record_required_fields": [
+    "QUALIFICATION_CELL_IDENTITY",
+    "STRATEGY_VERSION_IDENTITY",
+    "DECISIVE_EVIDENCE_REFS",
+    "EVIDENCE_SCOPE",
+    "EVIDENCE_VERDICT",
+    "QUALIFICATION_STATUS",
+    "QUALIFICATION_REASON",
+    "DECISION",
+    "DECISION_AUTHORITY",
+    "DECIDED_AT",
+    "APPLICABLE_POLICY_VERSION",
+    "SUPERSESSION_INVALIDATION_RELATION"
+  ],
+  "new_numeric_thresholds_introduced": false,
+  "state": {
+    "dr01_rule": "NOT_HUMAN_ADOPTED",
+    "b8": "BLOCKED",
+    "b12": "CLOSED",
+    "ao_e0_b8_02_rerun": false
+  },
+  "authority": {
+    "human_adoption": false,
+    "b8_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
