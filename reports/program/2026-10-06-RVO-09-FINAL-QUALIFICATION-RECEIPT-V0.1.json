@@ -1,0 +1,117 @@
+{
+  "schema": "ATDS_RVO_09_FINAL_QUALIFICATION_RECEIPT_V0_1",
+  "status": "RVO_09_QUALIFIED_CLOSED",
+  "verdict": "GO",
+  "readiness": "PRE_RETRY_READINESS_GO",
+  "retry_authorized": false,
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "bda61a9608dcab8c174df65e8e42f7c80e1b9868",
+    "tree": "f1fc6d633c4e001da7777a3b6760cc1612b11289"
+  },
+  "qualification_parent": {
+    "head": "a0becd6584dc9c7819f667708689478328c27189",
+    "tree": "690418679e877438723f3e536eab317a86d78676"
+  },
+  "evidence_head": {
+    "head": "784b72caa201ec61cf9b45cac4c6e9fa1bb12e98",
+    "tree": "f876cabe083c840dfc166efb032e4f983840ebcc"
+  },
+  "drift": {
+    "classification": "NON_MATERIAL",
+    "scope": "BEPD-04D_PLUS_AO-E0-B8-M06-01",
+    "reconciliation_blob": "94e8812fc8aa0d2e8bcd4ee1c271aae39279f74d"
+  },
+  "exact_artifacts": {
+    "contract_blob": "5084b76884c680f0be61fd68eddb228e50330a55",
+    "runtime_blob": "956bfee237a8c1812e649a9f77bb6e62ad3ec881",
+    "tests_blob": "f22227bb47c128dd074fbd186906eb55ad349900",
+    "workflow_blob": "ae1c1ce7bf0b07973d7d1fe9a9bcff23faa93cd5",
+    "pre_retry_freeze_blob": "ebf5ba9af9b74c6e8d1d032b268d4ec60c9198f4",
+    "one_retry_dry_plan_blob": "e186373d554ac243bc09c7b39624a1926d90f957",
+    "live_qualification_receipt_blob": "3fefc15d36c8d13922409b73f86189c22d730563",
+    "qualification_report_blob": "3c8a0e0d1c72b1da6290b559284277a9c503f271"
+  },
+  "gaps": {
+    "G01": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G02": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G03": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G04": "PRE_RETRY_REQUALIFIED_CLOSED",
+    "G05": "PRE_RETRY_REQUALIFIED_CLOSED"
+  },
+  "invocation_profile": {
+    "id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "python_flags": ["-E", "-P"]
+  },
+  "runtime_lock": {
+    "id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "timeout_seconds": 3600
+  },
+  "workspace": {
+    "id": "RVO09WS-16d6cee57a0c125182ff51453a5c4d7f",
+    "digest": "16d6cee57a0c125182ff51453a5c4d7f7e6809e732aafd0b16a67cebf6bc1203"
+  },
+  "p1_dry_plan": {
+    "id": "QRPP-85f3f8595ffc64efaf725b2cfdcdcf56",
+    "digest": "85f3f8595ffc64efaf725b2cfdcdcf56e4c91d491d42c58134035a05411b7179"
+  },
+  "pre_retry_freeze": {
+    "freeze_digest": "9c4e77111e5cad42fef1e9863127a12deb3a0860adf87e8e58a1c737fb8ef349",
+    "file_sha256": "23dde3b18b5578ed2ecbc47adb29b2fcd43ee0aac0b67b028876b02f3f7534a7"
+  },
+  "one_retry_dry_plan": {
+    "digest": "28338cb1cca6d8e2db51364cf30fa309d8147f9aac257239ea4f37b74824b90f",
+    "file_sha256": "8740426790360cfba1a1a4df28a87646f34ebf7d974f9844da66746cea78157f",
+    "candidate_retry_budget": 1,
+    "would_be_invocation_ordinal": 2,
+    "retry_authorized": false
+  },
+  "live_qualification": {
+    "receipt_sha256": "867d413fece49e0be432234f0c68139c0ae051c871779886b96558d59133ae53",
+    "ap1_executed": false,
+    "m03_executed": false,
+    "new_empirical_result": false,
+    "parquet_statistical_open": false
+  },
+  "regressions": {
+    "rvo09_contract_tests": "7_PASS",
+    "rvo08f": "8_PASS",
+    "p121_breakers": "29_PASS",
+    "p121_positive": "18_PASS",
+    "rvo08": "5_PASS",
+    "rvo07_breakers": "35_PASS",
+    "rvo07_positive": "20_PASS",
+    "g05_breakers": "30_PASS",
+    "g05_positive": "19_PASS",
+    "smf_breakers": "28_PASS",
+    "smf_positive": "25_PASS",
+    "data02_breakers": "32_PASS"
+  },
+  "persisted_head_rebreak": {
+    "head": "784b72caa201ec61cf9b45cac4c6e9fa1bb12e98",
+    "tree": "f876cabe083c840dfc166efb032e4f983840ebcc",
+    "local": "PASS",
+    "github_run_id": 37425116369,
+    "github_job_id": 112142913018,
+    "github_conclusion": "success"
+  },
+  "historical_one_shot": {
+    "invocation_count": 1,
+    "old_ap1_output_exists": false,
+    "retry_output_exists": false,
+    "ledger_reset": false
+  },
+  "authority": {
+    "retry": false,
+    "execution": false,
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": "SEPARATE_SINGLE_AP1_RETRY_AUTHORIZATION_REQUIRED",
+  "stop": true
+}
