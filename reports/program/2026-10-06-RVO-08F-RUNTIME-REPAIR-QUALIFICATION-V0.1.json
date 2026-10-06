@@ -1,0 +1,97 @@
+{
+  "schema": "ATDS_RVO_08F_RUNTIME_REPAIR_QUALIFICATION_V0_1",
+  "status": "SYNTHETICALLY_QUALIFIED_NON_AP1",
+  "root_cause_status": "ROOT_CAUSE_PROVEN",
+  "repair": {
+    "python_flags": [
+      "-E",
+      "-P"
+    ],
+    "removed_flag": "-I",
+    "sandbox_allowlist": {
+      "ctypes.dlopen": [
+        "kernel32",
+        "user32",
+        "tzres.dll"
+      ],
+      "ctypes.dlsym": [
+        [
+          "kernel32",
+          "GetLastError"
+        ],
+        [
+          "user32",
+          "LoadStringW"
+        ]
+      ],
+      "socket": [
+        "socket.gethostname"
+      ]
+    },
+    "still_blocked": [
+      "subprocess.Popen",
+      "socket.__new__",
+      "socket.connect",
+      "arbitrary ctypes.dlopen",
+      "unauthorized ctypes.dlsym",
+      "os.exec*",
+      "os.spawn*",
+      "os.posix_spawn*"
+    ]
+  },
+  "exact_blobs": {
+    "p1_12c_source": "87d2ef49c0b70b956ada19443f5ba693cfb5b242",
+    "p1_12c_runner": "78aa1615a093c241774fdea1018b69f47728ecb6",
+    "ap1_producer_unchanged": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "repair_tests": "9b19b692cebdec8d237341d0dd2fd3bea58492de",
+    "test_first_red_receipt": "eba2f79ed5454c7b11b93cc96f725f7c523dcc97"
+  },
+  "test_first": {
+    "red": {
+      "head": "cc5012a70490a7bcf6b1b4b8f7a4809c27e3b1a4",
+      "failed": 3,
+      "passed": 5
+    },
+    "green_checkpoint": {
+      "head": "d163dbf4abaa482f83e9170e64eade275ee2b9af",
+      "rvo08f_repair_passed": 8,
+      "p121_breakers_passed": 29,
+      "p121_positive_passed": 18
+    },
+    "fresh_resumption_head": {
+      "head": "695f4eb4232e4b80e19221b9b5f8270875068457",
+      "tree": "c4a66ffaa82f9c336760917ca6fcb0ba05763b06",
+      "rvo08f_repair_passed": 8,
+      "p121_breakers_passed": 29,
+      "p121_positive_passed": 18
+    }
+  },
+  "fresh_regressions": {
+    "rvo08_controller": "5_PASS",
+    "rvo07_breakers": "35_PASS",
+    "rvo07_positive": "20_PASS",
+    "g05_breakers": "30_PASS",
+    "g05_positive": "19_PASS",
+    "smf_ap1_m03_breakers": "28_PASS",
+    "smf_ap1_m03_positive": "25_PASS",
+    "data02_breakers": "32_PASS"
+  },
+  "repaired_derived_identities": {
+    "invocation_profile_id": "P1_12C_AP1_CLAIM_SCOPED_V1",
+    "invocation_profile_digest": "7487a1ffc0adab8c60bd36caf196130402908367c676bb03ca9abe36b56c6d9c",
+    "runtime_lock_id": "RPRL-25a96a47d1a1e1677374974e9fe7c8db",
+    "runtime_lock_digest": "25a96a47d1a1e1677374974e9fe7c8dbd8e3abb37a0f3a1e0566ebd1d88fb306",
+    "synthetic_plan_id": "QRPP-2ac33559a1e042362ef42940576c9f61",
+    "synthetic_plan_digest": "2ac33559a1e042362ef42940576c9f61175fd07047b0c04c5872ba33ed562bd6"
+  },
+  "semantics": {
+    "old_rvo08_freeze_reusable": false,
+    "old_runtime_lock_reusable": false,
+    "repair_is_execution_authority": false,
+    "retry_authorized": false,
+    "producer_identity_changed": false,
+    "data02_semantics_changed": false,
+    "smf_semantics_changed": false,
+    "one_shot_history_changed": false
+  }
+}

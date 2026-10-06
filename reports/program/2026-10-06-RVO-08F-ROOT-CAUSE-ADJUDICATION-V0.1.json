@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_RVO_08F_ROOT_CAUSE_ADJUDICATION_V0_1",
+  "status": "ROOT_CAUSE_PROVEN",
+  "target_failure": {
+    "rvo08_status": "BLOCKED_AFTER_SINGLE_AP1_EXECUTION_FAILURE",
+    "invocation_count": 1,
+    "exit_code": 1,
+    "timeout_observed": false,
+    "ap1_output": "NOT_MINTED",
+    "stderr_sha256": "3e7806beb5bb6c78a8d5128c9eb871223e14fc1b42e03e64f778ad9070aaf567"
+  },
+  "root_cause": {
+    "class": "P1_12C_PYTHON_ISOLATION_REMOVED_RUNTIME_DEPENDENCIES",
+    "statement": "The P1.12C child command used Python -I. On the qualified Windows Store runtime, -I removed the user-site containing tzdata, NumPy and PyArrow. AP1 evaluates ZoneInfo('America/New_York') at module import before main(), so missing tzdata raises ZoneInfoNotFoundError before AP1 can mint any output, yielding exit code 1 with no output file.",
+    "causal_chain": [
+      "P1.12C command includes -I",
+      "-I disables user-site on the qualified Windows runtime",
+      "tzdata is unavailable under that isolated path",
+      "AP1 top-level NY = ZoneInfo('America/New_York') executes before main()",
+      "ZoneInfoNotFoundError is raised before AP1 block()/output logic",
+      "child exits 1",
+      "AP1 output remains absent"
+    ]
+  },
+  "discriminating_evidence": {
+    "forensic_probe_sha256": "163866499b69606b661843f8c36c6f8ad22728d15890d7351ab86ce5024078bd",
+    "zoneinfo_discriminant_sha256": "e0abfaaa8752e7eb0b810280cbd3bef724d3f3c0c4178f66222ae108598ba29a",
+    "candidate_flags_probe_sha256": "0d774263ee18b8fbe881b3cf57700a66e1b19c4675bdb9bd10e40a4956789ca1",
+    "audit_events_v2_sha256": "ee18eb50b9ab032a6524a2a7415cfe549c569d23805c8a808d455f5312241b54",
+    "candidate_sandbox_v2_sha256": "ff5d73e3b8718dd4b2d21139d06da626c4fb864d5bca8c110e5f0554304384e3",
+    "canonical_runner_synthetic_qualification_sha256": "7ab3f91276c69c626ecf98e30a2d2896e0c3ac1bbcffc8deca529fe0ce9b519e"
+  },
+  "failure_modes": {
+    "FM01_WINDOWSAPP_PATH_ACCESS_DENIED": "REFUTED_AS_ROOT_CAUSE",
+    "FM02_ISOLATION_HIDES_DEPENDENCIES": "PROVEN_CAUSAL",
+    "FM03_RUNNER_PRE_PRODUCER_FAILURE": "REFUTED",
+    "FM04_SANDBOX_BLOCKS_RUNTIME_NATIVE_EVENTS": "LATENT_SECONDARY_BLOCKER_DISCOVERED_NOT_ORIGINAL_ROOT_CAUSE",
+    "FM05_AP1_STATIC_SYNTAX_IMPORT_DECLARATION_DEFECT": "REFUTED",
+    "FM06_OUTPUT_PARENT_NOT_WRITABLE": "REFUTED",
+    "FM07_STDERR_TEXT_NOT_PERSISTED": "PROVEN_EVIDENCE_CAPTURE_DEFECT_NOT_EXECUTION_ROOT_CAUSE",
+    "FM08_FREEZE_GIT_PERSISTENCE_DEFECT_CAUSED_CHILD_FAILURE": "REFUTED_CAUSALLY",
+    "FM09_FAILURE_ONLY_IN_AP1_DATA_MANIFEST_WORK": "REFUTED_BY_PRE_MAIN_FAILURE",
+    "FM10_CAUSE_OUTSIDE_OBSERVABLE_SURFACE": "CLOSED"
+  },
+  "boundaries": {
+    "real_ap1_reinvoked": false,
+    "ap0_real_consumed": false,
+    "m03_real_executed": false,
+    "scientific_finding": false,
+    "retry_authorized": false
+  }
+}
