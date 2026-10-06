@@ -1,0 +1,421 @@
+# BEPD-04G — FIRST REAL M10 TEMPORAL-STABILITY + AMENDED NONSTATIONARITY GATE EXECUTION V0.1
+
+**Date:** 2026-10-06  
+**Repository:** `thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM`  
+**Branch:** `integration/system-v1`  
+**Report parent HEAD:** `be48007c192f687fa60079f25152230e0761acf4`  
+**Report parent TREE:** `eb347c4339e8df5161ae49258de440c7c5b97a63`  
+**Technical status:** REAL_GATE_EXECUTION_QUALIFIED  
+**Substantive result status:** NOT HUMAN_ADOPTED
+
+## 1. Scope
+
+BEPD-04G executed exactly the authorized first real:
+
+```text
+M10 TEMPORAL-STABILITY
++
+AMENDED RESPONSE NONSTATIONARITY GATE
+```
+
+on the already exposed historical fixed corpus.
+
+The phase remained:
+
+```text
+EXPLORATORY_ONLY
+```
+
+No M05 activation, moving-block bootstrap, confidence interval, prediction, edge or trading authority was executed or created.
+
+## 2. Canonical identities
+
+```text
+PRE-RESULT EXECUTION FREEZE =
+98698c29e2df5ad5e99190311cd06f4e3096ba93
+
+REAL M10 RESULT =
+49cc9c7ad48599b7a4f98e677b1479e6b01e2e8d
+
+REAL AMENDED GATE RESULT =
+8c61124263a1bb3d074f35596e95e3b2beabead9
+
+RUN MANIFEST =
+d0ea25bc1b211b785fe4abe0998be803969f9a4d
+
+FIRST REAL EXECUTION RECORD =
+9fd8b4af6b1d435d864af37891938e1395bdf2a6
+
+INDEPENDENT RECOMPUTATION RECEIPT =
+ded8f1016bb40fb0ae09ad901d5d9dd21768997a
+
+PERSISTED-HEAD REBREAK RECEIPT =
+d840080e2054968ebd5b61bea9ce8c568bd06d0d
+
+QUALIFICATION RECEIPT =
+c8bb82b1f94cee548d6fbb6e7114c8096f48982e
+```
+
+## 3. First real execution identity
+
+```text
+WORKFLOW RUN =
+37432755552
+
+EXECUTION HEAD =
+353e12990b4a80cbc1fa86c4b97d783592432711
+
+EXECUTION TREE =
+a7a328aa22ee9b6e83bc003738c882f10750314f
+
+BEPD-04G RUN_ID =
+24b5b1bd226cc4f5fd2ca3cc5aafd5c9d32597e1d32d5a3fe78ff85b4948984c
+
+RESULT SHA256 =
+d6b73304cab527d1a5afaf6fb759d296f17214a23839ae457b5aabc31445773c
+```
+
+## 4. Real M10 results
+
+```text
+T1
+2021-06-07 → 2022-05-30
+n = 90
+reintegration_true = 72
+response_mean = 0.800000000000000000
+
+T2
+2022-06-06 → 2023-05-29
+n = 95
+reintegration_true = 73
+response_mean = 0.768421052631578947
+
+T3
+2023-06-05 → 2024-05-27
+n = 97
+reintegration_true = 73
+response_mean = 0.752577319587628866
+
+T4
+2024-06-03 → 2025-05-26
+n = 104
+reintegration_true = 79
+response_mean = 0.759615384615384615
+
+T5
+2025-06-02 → 2026-05-18
+n = 86
+reintegration_true = 73
+response_mean = 0.848837209302325581
+```
+
+All five strata satisfy:
+
+```text
+n >= 30
+```
+
+Therefore:
+
+```text
+SAMPLE ADEQUACY =
+PASS
+```
+
+## 5. Real spread
+
+```text
+MINIMUM STRATUM RESPONSE MEAN =
+0.752577319587628866
+
+MAXIMUM STRATUM RESPONSE MEAN =
+0.848837209302325581
+
+MAXIMUM RESPONSE-MEAN SPREAD =
+0.096259889714696715
+
+ADOPTED THRESHOLD =
+0.10
+```
+
+Thus:
+
+```text
+0.096259889714696715 <= 0.10
+```
+
+## 6. First real amended gate result
+
+The binding gate therefore returned:
+
+```text
+NONSTATIONARITY_NOT_MATERIALLY_DETECTED
+```
+
+with:
+
+```text
+REASON =
+M10_WITHIN_ADOPTED_TOLERANCE
+
+STRUCTURAL VALIDATION =
+PASS
+
+SAMPLE ADEQUACY =
+PASS
+
+M04 =
+NOT_APPLICABLE_BY_REPRESENTATION
+
+M04 EXECUTED =
+NO
+```
+
+## 7. Semantics of the result
+
+This result means only:
+
+```text
+No material temporal instability was detected
+under the exact prospectively adopted M10 rule
+on this exposed historical fixed corpus,
+with all structural requirements satisfied.
+```
+
+It does not establish:
+
+```text
+stationarity proven
+IID proven
+absence of regime changes
+future invariance
+generalization
+prediction
+edge
+strategy validity
+```
+
+## 8. Independent recomputation
+
+The independent recomputation returned:
+
+```text
+EVENT COUNT RECONCILIATION =
+PASS
+
+TRUE COUNT RECONCILIATION =
+PASS
+
+RESPONSE MEAN RECONCILIATION =
+PASS
+
+MINIMUM MEAN RECONCILIATION =
+PASS
+
+MAXIMUM MEAN RECONCILIATION =
+PASS
+
+SPREAD RECONCILIATION =
+PASS
+
+SAMPLE ADEQUACY RECONCILIATION =
+PASS
+
+GATE STATE RECONCILIATION =
+PASS
+```
+
+It introduced:
+
+```text
+NEW ESTIMAND =
+NO
+
+THRESHOLD CHANGE =
+NO
+
+STRATUM CHANGE =
+NO
+
+SUBGROUP INSPECTION =
+NO
+```
+
+## 9. Persisted-head rebreak
+
+Canonical rebreak:
+
+```text
+WORKFLOW RUN =
+37433076655
+
+HEAD =
+b2d84e931123ce63d86391e0985b37dc2fb8cd28
+
+TREE =
+1f19ba22364595f7149c3f8567c1551bfce93e72
+
+PERSISTED IDENTITIES =
+PASS
+
+DETERMINISTIC REPLAY =
+PASS
+
+INDEPENDENT RECOMPUTATION =
+PASS
+
+BEPD-04F BREAKER =
+32 / 32 HARD_FAIL PASS
+```
+
+The rebreak reproduced:
+
+```text
+REAL GATE STATE =
+NONSTATIONARITY_NOT_MATERIALLY_DETECTED
+
+MAXIMUM RESPONSE-MEAN SPREAD =
+0.096259889714696715
+```
+
+## 10. M05 remains closed
+
+```text
+RESPONSE-SPECIFIC M05 =
+NOT ACTIVATED
+
+REAL BOOTSTRAP =
+NOT EXECUTED
+
+REAL CONFIDENCE INTERVAL =
+NOT CALCULATED
+```
+
+A favorable gate result does not activate M05.
+
+## 11. M09 and confirmatory boundary
+
+```text
+M09 =
+EXPOSED
+
+EVIDENCE STATUS =
+EXPLORATORY_ONLY
+
+CONFIRMATORY GENERALIZATION =
+FRESH OOS EVIDENCE REQUIRED
+```
+
+## 12. Technical qualification
+
+```text
+EXACT SOURCE IDENTITIES =
+PASS
+
+PRE-RESULT FREEZE =
+PASS
+
+EXACT M10 STRATA =
+PASS
+
+n = 30 THRESHOLD =
+PASS
+
+spread = 0.10 THRESHOLD =
+PASS
+
+STRUCTURAL INVARIANTS =
+PASS
+
+INDEPENDENT RECOMPUTATION =
+PASS
+
+DETERMINISTIC REPLAY =
+PASS
+
+BEPD-04F BREAKER =
+PASS
+
+FORBIDDEN OUTPUT SURFACE =
+PASS
+
+PERSISTED-HEAD REBREAK =
+PASS
+```
+
+Therefore:
+
+```text
+BEPD-04G =
+REAL_GATE_EXECUTION_QUALIFIED
+```
+
+## 13. Human-adoption boundary
+
+Technical qualification does not imply human adoption.
+
+```text
+BEPD-04G REAL GATE RESULT =
+NOT HUMAN_ADOPTED
+```
+
+The next human decision must adjudicate:
+
+```text
+ACCEPT GATE RESULT AS CANONICAL
+
+or
+
+REJECT GATE RESULT
+
+or
+
+REQUIRE FURTHER QUALIFICATION
+```
+
+No M05 activation or bootstrap is opened by this qualification.
+
+## 14. Final state
+
+```text
+BEPD-04G =
+REAL_GATE_EXECUTION_QUALIFIED
+
+REAL M10 =
+EXECUTED
+
+REAL AMENDED NONSTATIONARITY GATE =
+EXECUTED
+
+REAL GATE RESULT =
+NONSTATIONARITY_NOT_MATERIALLY_DETECTED
+
+REAL GATE RESULT HUMAN ADOPTION =
+NO
+
+M04 =
+NOT_APPLICABLE_BY_REPRESENTATION
+
+RESPONSE-SPECIFIC M05 =
+NOT ACTIVATED
+
+REAL BOOTSTRAP =
+NOT EXECUTED
+
+REAL CONFIDENCE INTERVAL =
+NOT CALCULATED
+
+GENERALIZATION =
+NOT ESTABLISHED
+
+CONFIRMATORY GENERALIZATION =
+FRESH OOS EVIDENCE REQUIRED
+
+TRADING AUTHORITY =
+NONE
+
+NEXT STEP =
+HUMAN ADJUDICATION OF REAL GATE RESULT
+
+STOP.
+```
