@@ -1,0 +1,12 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA01_SR01_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id":"AO-E0-B12-DATA-01-SR-01",
+  "human_authorization_sha256":"0617c082f3fcf25b96c027ea0ea5801bf52efa382e32606832884bf7106c7c3a",
+  "decision_rule":"A_FIRST_THEN_B_IF_A_FAILS",
+  "automatic_b_open_on_a_rejection":true,
+  "automatic_b_adoption":false,
+  "october_forward_acquisition_authorized":false,
+  "b12_open_authorized":false,
+  "performance_bearing_read_authorized":false,
+  "force":false
+}
