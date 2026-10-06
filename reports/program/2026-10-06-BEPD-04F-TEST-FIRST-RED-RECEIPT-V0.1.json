@@ -1,0 +1,13 @@
+{
+  "schema": "ATDS_BEPD_04F_TEST_FIRST_RED_RECEIPT_V0_1",
+  "status": "EXPECTED_RED_CONFIRMED",
+  "frozen_surface": {
+    "amendment_contract_blob": "38d9e3f45f51ef0f208f8a42a886a525b51be609",
+    "fixture_blob": "007d61ac6cbafad763cdbf411f8c141efb7fb56a",
+    "test_blob": "32853600294410e412d7feee8e4dd0737f243c5c"
+  },
+  "expected_failure_marker": "BEPD04F_RUNTIME_ABSENT_EXPECTED_RED",
+  "runtime_path": "tools/bepd_04f_response_nonstationarity_gate_v0_1.py",
+  "runtime_present": false,
+  "real_response_values_accessed": false
+}
