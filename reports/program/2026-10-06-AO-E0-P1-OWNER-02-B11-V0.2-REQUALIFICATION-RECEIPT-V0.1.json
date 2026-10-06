@@ -1,0 +1,48 @@
+{
+  "schema":"ATDS_AO_E0_OWNER02_B11_V02_REQUALIFICATION_RECEIPT_V0_1",
+  "control_id":"AO-E0-P1-OWNER-02-B11-V0.2",
+  "verdict":"B11_V02_CAPABILITY_QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "owner02_blob":"57191ab2892e571807a8ed3f53fd0569de1f739e",
+  "historical_b11":{
+    "v01_closure_receipt":"4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+    "b11_r2_blocker":"6b5efdc1f74adf6f551315f5bb565fa12ad72e89",
+    "b11_r2_receipt":"56f13cdadb625776f67d29a7b8bdc575afd6041c",
+    "rewritten":false
+  },
+  "qualification":{
+    "contract_blob":"28c2c11ebfe8ac0cd44212d5219e2f13a6aeea21",
+    "tests_blob":"183a3ae53e66094469ceb2ca1c1b3165ab6d285e",
+    "workflow_blob":"f17a7d35e61f8b7731f927e4d2e8c1114ae1851f",
+    "run_id":37460739090,
+    "job_id":112259376232,
+    "conclusion":"SUCCESS",
+    "b11_v02_tests":"12/12 PASS",
+    "owner02_plus_legacy_regression":"61/61 PASS",
+    "pipe01_regression":"23/23 PASS",
+    "protected_surface_exactness":"PASS"
+  },
+  "protected":{
+    "p1_12d_blob":"fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "producer_blob":"981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "modified":false
+  },
+  "state":{
+    "b11_v01":"HISTORICAL_CLOSED_FOR_V01_SYNTHETIC_PRE_EXECUTION_PATH",
+    "b11_r2":"HISTORICAL_BLOCKED_UNDER_PROTECTED_OWNER_CONSTRAINT",
+    "b11_v02_capability":"QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+    "b12":"CLOSED",
+    "exact_forward_instance":"NOT_YET_AVAILABLE",
+    "data01_instance_state":"WAIT_NOT_READY"
+  },
+  "authority":{
+    "owner02_human_adopted":false,
+    "real_oos_authority":false,
+    "forward_data_observation":false,
+    "oos_consumption":false,
+    "real_execution":false,
+    "scientific_authority":false,
+    "trading":false,
+    "capital":false
+  },
+  "force":false
+}
