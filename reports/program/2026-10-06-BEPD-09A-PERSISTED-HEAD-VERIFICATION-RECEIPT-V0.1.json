@@ -1,0 +1,40 @@
+{
+  "schema": "ATDS_BEPD_09A_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09A",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "verified_head": "d65c48e4c6bd727567f800146684b3901543ff08",
+  "verified_tree": "72dbcb9e02fe844ed417689f1ff5f1ab2810c444",
+  "verified_blobs": {
+    "GOVERNANCE/BEPD-09A-HUMAN-AUTHORIZATION-2026-10-06.md": "7324ceafdc66c9fa9e21d2f6d8e455ab85c07e14",
+    "GOVERNANCE/BEPD-09A-EX-ANTE-DECISION-TIME-INFORMATION-AND-CANDIDATE-CLAIM-SELECTION-GATE-V0.1.json": "a3a3dd9fae1548de2b5ee6bf76536e68820ba932",
+    "GOVERNANCE/BEPD-09A-FROZEN-DOCUMENTARY-BREAKER-CONTRACT-V0.1.json": "d5cc742bb4cd256dde6f9a9988caece3a687b54e",
+    "reports/program/2026-10-06-BEPD-09A-DESIGN-V0.1.md": "a5dead3f42e2ce0521a168bfa9905f9a0a83c18d",
+    "reports/program/2026-10-06-BEPD-09A-DOCUMENTARY-PROGRAMMATIC-QUALIFICATION-RECEIPT-V0.1.json": "cff9cdc47e59be1e6c77a05bbcd3661bba99a810",
+    "reports/program/2026-10-06-BEPD-09A-DOCUMENTARY-PROGRAMMATIC-QUALIFICATION-V0.1.md": "59609d27a6c1943dfef71cd1631a236c364e9c15"
+  },
+  "checks": {
+    "all_bepd09a_package_blob_identities_exact": "PASS",
+    "documentary_programmatic_qualification_33_of_33": "PASS",
+    "documentary_breaker_28_of_28_present": "PASS",
+    "t0_take_h1_close_utc": "PASS",
+    "post_t0_predictor_leakage_blocked": "PASS",
+    "real_event_ledger_rows_read_by_bepd09a": false,
+    "real_result_recomputation": false,
+    "final_claim_selected": false,
+    "claim_testing_authorized": false,
+    "oos_read_authorized": false,
+    "threshold_search_authorized": false,
+    "tp_sl_authorized": false,
+    "trading_authority": "NONE"
+  },
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "bepd09a_status": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_09A_DESIGN_PACKAGE_ONLY",
+  "next_scientific_frontier_opened": false
+}
