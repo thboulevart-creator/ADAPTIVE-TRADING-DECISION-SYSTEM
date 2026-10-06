@@ -1,0 +1,71 @@
+{
+  "schema": "ATDS_AO_E0_B8_M06_02_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-M06-02",
+  "decision": "ADOPT",
+  "status": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "adopted_candidate": {
+    "candidate_contract_blob": "95a2e41c1e004e3b4461631060d8b12380983caa",
+    "qualification_report_blob": "96b387bf0ec8f10e0bf73f5ebeea3cd67e00d7ea",
+    "qualification_receipt_blob": "ae9814024b4174f55f928e4d24649a45c342a41b",
+    "human_decision_packet_blob": "48982ee6c19d17a90506922262cd31d851e002aa",
+    "human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e"
+  },
+  "parameters": {
+    "sample_adequacy_mode": "PRECISION_AND_POWER",
+    "combination_rule": "FINAL_REQUIRED_N = MAX(PRECISION_REQUIRED_N, POWER_REQUIRED_N)",
+    "model_ref": "NORMAL_MEAN_KNOWN_SIGMA",
+    "planning_stddev": 336.4106561689863,
+    "planning_stddev_epistemic_class": "EXPOSED_E1_PLANNING_PROXY_ONLY",
+    "precision_half_width": 5.0,
+    "confidence_level": 0.99,
+    "precision_required_n": 30036,
+    "power_effect_size": 5.0,
+    "power_effect_source": "PREDECLARED",
+    "power_effect_semantics": "MINIMUM_DESIGN_EXCESS_ABOVE_FROZEN_H0_BOUNDARY",
+    "design_alternative_theta": 10.0,
+    "alpha": 0.01,
+    "target_power": 0.90,
+    "alternative": "GREATER",
+    "power_max_n": 58927,
+    "power_required_n": 58927,
+    "final_required_n": 58927
+  },
+  "economic_claim": {
+    "h0": "theta_AO_E0 <= 5.0",
+    "h1": "theta_AO_E0 > 5.0",
+    "design_alternative_theta_is_new_economic_threshold": false
+  },
+  "epistemic_firewalls": {
+    "statistical_significance_equals_economic_relevance": false,
+    "minimum_effect_of_interest_equals_observed_effect": false,
+    "planning_sigma_equals_confirmatory_sigma": false,
+    "required_n_equals_strategy_qualification": false,
+    "power_target_met_equals_edge_generalizable": false,
+    "precision_target_met_equals_live_profitability": false,
+    "known_sigma_model_equals_population_sigma_proven_known": false,
+    "nominal_required_n_equals_effective_independent_n": false,
+    "alpha_0_01_equals_multiplicity_correction": false
+  },
+  "dependence": {
+    "m04_remains_required": true,
+    "future_assumption_failure_must_propagate": true
+  },
+  "state": {
+    "b8": "BLOCKED",
+    "b8_detail": "M06_HUMAN_ADOPTION_PERSISTENCE_COMPLETED_REMAINING_B8_REQUIREMENTS_NOT_EVALUATED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "ao_e0_execution_authorized": false,
+    "forward_data_observation_authorized": false,
+    "real_performance_observation_authorized": false,
+    "b8_closure_authorized": false,
+    "b12_open_authorized": false,
+    "strategy_rerun_authorized": false,
+    "parameter_optimization_authorized": false,
+    "real_smf_execution_authorized": false,
+    "trading_authorized": false,
+    "capital_deployment_authorized": false
+  },
+  "force": false
+}
