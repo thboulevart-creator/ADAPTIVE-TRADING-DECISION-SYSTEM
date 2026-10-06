@@ -1,0 +1,140 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_M10_01_FINAL_EXECUTION_RECEIPT_V0_1",
+  "status": "M10_REAL_EXECUTION_QUALIFIED_PENDING_HUMAN_ADJUDICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "technical_qualification_head": {
+    "head": "4fde9601adb981a900fbd76a99f0fcc79ec7382b",
+    "tree": "fdf60f2d3383f31511d785d7bca91ffe15e5c47b",
+    "worktree": "CLEAN"
+  },
+  "pre_execution": {
+    "authorization_reference_head": "30a345063edb56c53ec592bd487b2873f243be78",
+    "authorization_reference_tree": "118c6aba31ec5e5d672df969dbb57c630f78e1a7",
+    "execution_parent_head": "4eee70d51ab3e804d396f78e52bffdc8e85b03b8",
+    "execution_parent_tree": "a823d0ccbaa305529f7c6c9e8904a4595566afd8",
+    "drift_classification": "NON_MATERIAL_TO_M10_01",
+    "changed_scope": "BEPD-07B"
+  },
+  "procedure_identities": {
+    "m10_00_contract_blob": "d9217071091656bd2a8bd7588d8dbbd9eb9ab00d",
+    "m10_00_activation_blob": "51c3b386a070ef84fd28abc53b3105323591f3ce",
+    "m10_00_breaker_blob": "9659f0ac80562d188bbf38018566186f4d6162be",
+    "m10_runtime_blob": "c1765a56d6c861522db02af6200b7072ce621799",
+    "m10_reference_blob": "2ddc0f69425d0a8349eb43b26f956f4159b76d93",
+    "m10_01_plan_blob": "573c1faa5588dbf95548f77d9eb33afae0210a85",
+    "m01_contract_blob": "2293c665a2d30c520056c7814aec6a9dc79d68d1"
+  },
+  "real_input": {
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "identity_match": true
+  },
+  "real_output": {
+    "canonical_sha256": "af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9",
+    "git_blob": "7ffae5858752ef914d5e45a0551d896a58639d9c",
+    "reference_git_blob": "7ffae5858752ef914d5e45a0551d896a58639d9c",
+    "windows_crlf_projection_sha256": "dd8a81adfe2a5f117659526fedb23788e1f4bf9940d7bc0ba3a496b8867c5620",
+    "run_manifest_blob": "a451f9a778dbdf8ace44b0911a8cc09908b7197f",
+    "reference_parity_blob": "c06316316de52d104c474cd97fb4719d084ab14b",
+    "execution_record_blob": "42430d81edf42b9b66288dddcc995a80538c4703",
+    "technical_report_blob": "086d6b482bf98639d5c43e28bd655116836ea601"
+  },
+  "execution_counts": {
+    "runtime_execution_count": 1,
+    "independent_reference_execution_count": 1,
+    "claim_units": 11,
+    "contrasts": 33,
+    "blocked_claim_units": 0,
+    "material_claim_units": 8,
+    "no_material_variation_claim_units": 3,
+    "blocked_contrasts": 0,
+    "material_contrasts": 20,
+    "non_material_contrasts": 13
+  },
+  "claim_unit_results": [
+    {"metric": "tick_count", "probability": 0.5, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "tick_count", "probability": 0.9, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "tick_count", "probability": 0.99, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "minute_range", "probability": 0.5, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "minute_range", "probability": 0.9, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "minute_range", "probability": 0.95, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "minute_range", "probability": 0.99, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "spread_mean", "probability": 0.5, "status": "MATERIAL_TEMPORAL_VARIATION"},
+    {"metric": "spread_mean", "probability": 0.9, "status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"},
+    {"metric": "spread_mean", "probability": 0.95, "status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"},
+    {"metric": "spread_mean", "probability": 0.99, "status": "NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"}
+  ],
+  "reference_parity": {
+    "status": "PASS",
+    "exact_object_equality": true,
+    "exact_canonical_byte_equality": true,
+    "runtime_result_sha256": "af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9",
+    "reference_result_sha256": "af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9"
+  },
+  "qualification": {
+    "local_combined_rebreak": "56/56 PASS",
+    "m10_01_targeted": "15/15 PASS",
+    "m10_00": "21/21 PASS",
+    "m01_cr1": "7/7 PASS",
+    "m01": "5/5 PASS",
+    "si01": "4/4 PASS",
+    "ef01": "4/4 PASS",
+    "m10_01_github_run_id": 37479117016,
+    "m10_01_github_job_id": 112322284328,
+    "m10_01_github_conclusion": "success",
+    "transport_run_id": 37479116646,
+    "transport_job_id": 112322283220,
+    "transport_conclusion": "success",
+    "m10_00_requalified_run_id": 37479461007,
+    "m10_00_requalified_job_id": 112323473719,
+    "m10_00_requalified_conclusion": "success"
+  },
+  "preserved_failures_and_corrections": {
+    "m10_00_first_post_result_run": {
+      "run_id": 37479116940,
+      "job_id": 112322284381,
+      "conclusion": "failure",
+      "cause": "HISTORICAL_M10_00_HARNESS_GLOB_INCORRECTLY_FORBADE_ALL_FUTURE_M10_ARTIFACTS",
+      "disposition": "SCOPED_TO_M10_00_NAMESPACE_WITHOUT_WEAKENING_HISTORICAL_PRE_RESULT_INVARIANT"
+    },
+    "output_transport_identity": {
+      "finding": "WINDOWS_CRLF_CHECKOUT_SHA256_DIFFERS_FROM_CANONICAL_GIT_BLOB_SHA256",
+      "canonical_sha256": "af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9",
+      "windows_crlf_projection_sha256": "dd8a81adfe2a5f117659526fedb23788e1f4bf9940d7bc0ba3a496b8867c5620",
+      "scientific_semantics_changed": false
+    }
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4_run_id": 37479116930,
+    "p0_4_conclusion": "failure",
+    "p0_6_run_id": 37479116884,
+    "p0_6_conclusion": "failure",
+    "failing_surface": "evidence/berd02/gha_run_35533153289/bodies/*.bi5",
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_M10_01_PASS_EVIDENCE"
+  },
+  "epistemic_limit": "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE",
+  "global_cross_metric_verdict": "FORBIDDEN",
+  "verdict": {
+    "M10_REAL_EXECUTION": "QUALIFIED",
+    "M10_REAL_REFERENCE_PARITY": "PASS",
+    "M10_RESULT_INTEGRITY": "QUALIFIED",
+    "M10_RESULT_EXPOSED": true,
+    "M10_SCIENTIFIC_ADJUDICATION": "PENDING_HUMAN_DECISION"
+  },
+  "methods": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": "CLOSED_PENDING_SEPARATE_HUMAN_DECISION",
+  "automatic_open": false,
+  "stop": true
+}

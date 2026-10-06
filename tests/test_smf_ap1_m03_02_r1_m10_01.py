@@ -128,3 +128,27 @@ def test_14_result_exposure_and_closed_next_authority():
 def test_15_no_unauthorized_artifact_surface():
     names={p.name for p in ART.iterdir()}
     assert names=={"REAL_M10_RESULT.json","REAL_M10_REFERENCE_RESULT.json","REAL_REFERENCE_PARITY.json","RUN_MANIFEST.json"}
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-06-SMF-AP1-M03-02-R1-M10-01-FINAL-EXECUTION-RECEIPT-V0.1.json"
+
+def test_16_final_execution_receipt_preserves_result_and_closes_next_frontier():
+    r=load(FINAL_RECEIPT)
+    assert r["real_input"]["sha256"]==EXPECTED_INPUT_SHA
+    assert r["real_output"]["canonical_sha256"]==EXPECTED_OUTPUT_SHA
+    assert r["real_output"]["git_blob"]=="7ffae5858752ef914d5e45a0551d896a58639d9c"
+    assert r["reference_parity"]["status"]=="PASS"
+    assert r["execution_counts"]["claim_units"]==11
+    assert r["execution_counts"]["contrasts"]==33
+    assert r["execution_counts"]["blocked_claim_units"]==0
+    assert r["execution_counts"]["material_claim_units"]==8
+    assert r["execution_counts"]["no_material_variation_claim_units"]==3
+    assert r["verdict"]["M10_REAL_EXECUTION"]=="QUALIFIED"
+    assert r["verdict"]["M10_RESULT_INTEGRITY"]=="QUALIFIED"
+    assert r["verdict"]["M10_RESULT_EXPOSED"] is True
+    assert r["verdict"]["M10_SCIENTIFIC_ADJUDICATION"]=="PENDING_HUMAN_DECISION"
+    assert r["methods"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]=={"trading":False,"capital":False}
+    assert r["next_frontier"]=="CLOSED_PENDING_SEPARATE_HUMAN_DECISION"
+    assert r["automatic_open"] is False
+    assert r["stop"] is True
