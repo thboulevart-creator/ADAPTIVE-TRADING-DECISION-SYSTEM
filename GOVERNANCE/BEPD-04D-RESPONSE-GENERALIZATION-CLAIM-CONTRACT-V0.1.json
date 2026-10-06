@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_BEPD_04D_RESPONSE_GENERALIZATION_CLAIM_CONTRACT_V0_1",
+  "status": "FROZEN_READINESS_CLAIM",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "bda61a9608dcab8c174df65e8e42f7c80e1b9868",
+    "tree": "f1fc6d633c4e001da7777a3b6760cc1612b11289"
+  },
+  "bindings": {
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_run_manifest_blob": "23c1fc0e044d7461f382d59895bb9b930481b896",
+    "smf03_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "occurrence_scoped_m05_record_blob": "53d33074038fa9d971b4672b1d981589da020a1e"
+  },
+  "canonical_historical_fact": {
+    "total_event_count": 472,
+    "reintegration_true_count": 370,
+    "reintegration_false_count": 102,
+    "historical_fixed_corpus_share": "0.783898305084745763",
+    "use": "REFERENCE_ONLY_NO_RECOMPUTATION"
+  },
+  "claim": {
+    "id": "SAME_WEEK_REINTEGRATION_RESPONSE_GENERALIZATION_UNCERTAINTY",
+    "target": "generalization uncertainty for same_week_reintegration conditional on an already-observed qualified Weekly sweep",
+    "historical_population_unit": "one qualified LEVEL_SWEEP_EVENT / one EVENT_LEDGER row",
+    "historical_outcome": "same_week_reintegration",
+    "estimand_if_future_method_is_authorized": "event-weighted conditional response proportion over the target population represented by qualified sweep events",
+    "fixed_corpus_description_is_not_generalization": true,
+    "generalization_is_not_future_prediction": true,
+    "trading_claim": false
+  },
+  "boundaries": {
+    "occurrence_m05_reuse": "FORBIDDEN",
+    "response_specific_m05_activation": "NOT_AUTHORIZED_IN_BEPD_04D",
+    "new_real_response_analysis": false,
+    "bootstrap": false,
+    "confidence_interval": false,
+    "subgroup_inspection": false,
+    "time_to_reintegration": false,
+    "occurrence_x_response": false
+  }
+}
