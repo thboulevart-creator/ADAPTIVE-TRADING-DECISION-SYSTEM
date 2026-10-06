@@ -1,0 +1,249 @@
+name: BEPD-04I First Real M05 Bootstrap
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - .github/workflows/bepd-04i-first-real-m05-bootstrap.yml
+
+permissions:
+  contents: read
+
+jobs:
+  first-real-m05:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact triggering HEAD
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Verify frozen identities and one-shot boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          check_blob() {
+            path="$1"; expected="$2"; actual="$(git rev-parse "HEAD:$path")"
+            test "$actual" = "$expected" || { echo "BEPD04I_BINDING_FAIL:$path:$actual:$expected"; exit 1; }
+          }
+          check_blob "GOVERNANCE/BEPD-04I-PRE-RESULT-REAL-BOOTSTRAP-EXECUTION-FREEZE-V0.1.json" "7e8b38648e0d55109068597099cdad3b4355cd4e"
+          check_blob "GOVERNANCE/BEPD-04H-RESPONSE-SPECIFIC-M05-EXPLORATORY-ACTIVATION-2026-10-06.md" "7f2fd16d7cc636e8d3e3cb23f618deb55407bcf1"
+          check_blob "GOVERNANCE/BEPD-04G-HUMAN-ADJUDICATION-REAL-GATE-RESULT-2026-10-06.md" "47c1cbb109381929840cf66cd04c0695be81e4c1"
+          check_blob "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl" "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          check_blob "GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json" "26385eb2547892df4b87206ad59fc2ba07721354"
+          check_blob "tools/bepd_04e_response_generalization_v0_1.py" "61a996562fe18e0e2efd6f16db27a48738e60421"
+          check_blob "tools/bepd_04e_response_generalization_reference_v0_1.py" "e4ad2b642265889455e33f23ead3c5b57c1a7eae"
+          check_blob "breakers/bepd_04e_response_generalization_breaker_v0_1.py" "eda63bf26230a2b48eb75bb655e64e766b66c1a3"
+          check_blob "tools/bepd_04i_real_m05_bootstrap_v0_1.py" "214177ae7a1e68f87d83076673c968f721076b29"
+          check_blob "breakers/bepd_04i_real_m05_bootstrap_breaker_v0_1.py" "7987de3da5b14c96acfbe9e51d788640d04f08aa"
+          test ! -e "artifacts/bepd04i/first-real-m05-bootstrap-v0.1/REAL_M05_BOOTSTRAP_RESULT.json"
+          echo "BEPD04I_PRE_RESULT_IDENTITIES_PASS"
+
+      - name: Run BEPD-04I fail-closed breaker
+        shell: bash
+        run: |
+          set -euo pipefail
+          python breakers/bepd_04i_real_m05_bootstrap_breaker_v0_1.py
+
+      - name: Execute canonical real M05 bootstrap and independent recomputation
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p bepd04i-real
+          python - <<'PY'
+          import hashlib,json,os,random,subprocess
+          from pathlib import Path
+          from tools.bepd_04i_real_m05_bootstrap_v0_1 import execute_primary,distribution_evidence,EXPECTED_BINDINGS
+          from tools.bepd_04e_response_generalization_reference_v0_1 import reference_moving_block_ratio_ci,reference_week_counts
+
+          ROOT=Path(".")
+          cal_obj=json.loads((ROOT/"GOVERNANCE/BEPD-04E-COMPLETE-WEEK-CALENDAR-BINDING-V0.1.json").read_text())
+          calendar=[x["target_week_id"] for x in cal_obj["calendar"]]
+          events=[json.loads(x) for x in (ROOT/"artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl").read_text().splitlines() if x.strip()]
+          assert len(calendar)==259
+          assert calendar[0]=="2021-06-07" and calendar[-1]=="2026-05-18"
+          assert cal_obj["invariants"]["zero_event_week_count"]==29
+          assert len(events)==472
+          assert sum(1 for e in events if e["same_week_reintegration"] is True)==370
+
+          cfg={
+            "method":"M05","scheme":"MOVING_BLOCK","statistic":"RATIO_OF_SUMS",
+            "replications":200000,"block_length":13,"seed":40420261006,
+            "confidence_level":0.99,"interval_method":"PERCENTILE","execution_scope":"EXPLORATORY_ONLY",
+            "response_subgroup":None,"sensitivity_analysis":False,"alternative_response":False,
+            "alternative_horizon":False,"occurrence_x_response":False,"time_to_reintegration":False,
+            "prediction_claim":False,"edge_claim":False,"strategy_claim":False,"trading_authority":"NONE",
+            "post_result_parameter_selection":False,"competing_canonical_execution":False
+          }
+
+          primary=execute_primary(calendar,events,cfg,EXPECTED_BINDINGS)
+          evidence=distribution_evidence(calendar,events)
+          independent=reference_moving_block_ratio_ci(
+              calendar,events,block_length=13,replications=200000,seed=40420261006,
+              confidence_level=0.99,interval_method="PERCENTILE"
+          )
+          assert primary["replications"]==200000
+          assert primary["block_length"]==13
+          assert primary["seed"]==40420261006
+          assert primary["confidence_level"]==0.99
+          assert primary["interval_method"]=="PERCENTILE"
+          assert primary["point_estimate"]==independent["point_estimate"]
+          assert primary["lower"]==independent["lower"]
+          assert primary["upper"]==independent["upper"]
+          assert evidence["replications"]==200000
+
+          def f(x): return format(float(x),".17g")
+          point=f(primary["point_estimate"]); lower=f(primary["lower"]); upper=f(primary["upper"])
+          width=f(primary["upper"]-primary["lower"])
+          minimum=f(evidence["minimum_replicate_statistic"]); maximum=f(evidence["maximum_replicate_statistic"])
+
+          result={
+            "schema":"ATDS_BEPD_04I_REAL_M05_BOOTSTRAP_RESULT_V0_1",
+            "scope":"EXPLORATORY_RESAMPLING_UNCERTAINTY_ON_EXPOSED_HISTORICAL_FIXED_CORPUS",
+            "claim":"generalization uncertainty for same_week_reintegration conditional on an already-observed qualified Weekly sweep",
+            "method":"M05",
+            "scheme":"MOVING_BLOCK",
+            "statistic":"RATIO_OF_SUMS",
+            "calendar_week_count":259,
+            "historical_event_count":472,
+            "historical_success_count":370,
+            "historical_point_estimate":point,
+            "bootstrap_replications":200000,
+            "block_length_complete_target_weeks":13,
+            "seed":40420261006,
+            "confidence_level":"0.99",
+            "interval_method":"PERCENTILE",
+            "lower_quantile":"0.005",
+            "upper_quantile":"0.995",
+            "percentile_lower_bound":lower,
+            "percentile_upper_bound":upper,
+            "interval_width":width,
+            "minimum_replicate_statistic":minimum,
+            "maximum_replicate_statistic":maximum,
+            "replicate_sequence_digest_sha256":evidence["sequence_digest_sha256"],
+            "sorted_distribution_digest_sha256":evidence["sorted_distribution_digest_sha256"],
+            "individual_event_iid_resampling":False,
+            "zero_event_weeks_preserved":True,
+            "target_week_cluster_integrity_preserved":True,
+            "sweep_cluster_integrity_preserved":True,
+            "result_human_adopted":False,
+            "generalization_established":False,
+            "confirmatory_generalization":"FRESH_OOS_EVIDENCE_REQUIRED",
+            "prediction":False,
+            "edge":False,
+            "trading_authority":"NONE"
+          }
+
+          independent_receipt={
+            "schema":"ATDS_BEPD_04I_INDEPENDENT_RECOMPUTATION_RECEIPT_V0_1",
+            "status":"PASS",
+            "implementation":"bepd_04e_response_generalization_reference_v0_1.py",
+            "point_estimate":f(independent["point_estimate"]),
+            "percentile_lower_bound":f(independent["lower"]),
+            "percentile_upper_bound":f(independent["upper"]),
+            "point_estimate_parity":"PASS",
+            "interval_lower_parity":"PASS",
+            "interval_upper_parity":"PASS",
+            "same_event_ledger":True,
+            "same_complete_week_calendar":True,
+            "same_block_length":True,
+            "same_replications":True,
+            "same_seed":True,
+            "same_confidence":True,
+            "same_percentile_method":True,
+            "new_estimand_introduced":False,
+            "subgroup_inspected":False,
+            "sensitivity_analysis":False
+          }
+
+          canonical=json.dumps(result,sort_keys=True,separators=(",",":"))
+          result_sha=hashlib.sha256(canonical.encode()).hexdigest()
+          identity_seed=json.dumps({
+            "freeze_blob":"7e8b38648e0d55109068597099cdad3b4355cd4e",
+            "event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "calendar_blob":"26385eb2547892df4b87206ad59fc2ba07721354",
+            "runtime_blob":"61a996562fe18e0e2efd6f16db27a48738e60421",
+            "activation_blob":"7f2fd16d7cc636e8d3e3cb23f618deb55407bcf1",
+            "result_sha256":result_sha
+          },sort_keys=True,separators=(",",":"))
+          run_id=hashlib.sha256(identity_seed.encode()).hexdigest()
+          head=subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip()
+          tree=subprocess.check_output(["git","rev-parse","HEAD^{tree}"],text=True).strip()
+
+          record={
+            "schema":"ATDS_BEPD_04I_FIRST_REAL_M05_BOOTSTRAP_EXECUTION_RECORD_V0_1",
+            "status":"EXECUTED_ONCE",
+            "execution_head":head,
+            "execution_tree":tree,
+            "workflow_run_id":int(os.environ["GITHUB_RUN_ID"]),
+            "freeze_blob":"7e8b38648e0d55109068597099cdad3b4355cd4e",
+            "result_sha256":result_sha,
+            "bepd04i_run_id":run_id,
+            "real_m05_execution":"EXECUTED_ONCE",
+            "real_bootstrap_replications":200000,
+            "result_human_adopted":False,
+            "generalization_established":False,
+            "trading_authority":"NONE"
+          }
+          manifest={
+            "schema":"ATDS_BEPD_04I_RUN_MANIFEST_V0_1",
+            "bepd04i_run_id":run_id,
+            "repository":"thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+            "branch":"integration/system-v1",
+            "execution_head":head,
+            "execution_tree":tree,
+            "pre_result_freeze_blob":"7e8b38648e0d55109068597099cdad3b4355cd4e",
+            "bepd04h_activation_blob":"7f2fd16d7cc636e8d3e3cb23f618deb55407bcf1",
+            "bepd04g_adjudication_blob":"47c1cbb109381929840cf66cd04c0695be81e4c1",
+            "event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "calendar_blob":"26385eb2547892df4b87206ad59fc2ba07721354",
+            "runtime_blob":"61a996562fe18e0e2efd6f16db27a48738e60421",
+            "reference_blob":"e4ad2b642265889455e33f23ead3c5b57c1a7eae",
+            "harness_blob":"214177ae7a1e68f87d83076673c968f721076b29",
+            "breaker_blob":"7987de3da5b14c96acfbe9e51d788640d04f08aa",
+            "evidence_status":"EXPOSED_EXPLORATORY_ONLY",
+            "result_human_adopted":False
+          }
+
+          out=Path("bepd04i-real")
+          (out/"REAL_M05_BOOTSTRAP_RESULT.json").write_text(json.dumps(result,indent=2,sort_keys=True)+"\n")
+          (out/"INDEPENDENT_RECOMPUTATION_RECEIPT.json").write_text(json.dumps(independent_receipt,indent=2,sort_keys=True)+"\n")
+          (out/"FIRST_REAL_M05_BOOTSTRAP_EXECUTION_RECORD.json").write_text(json.dumps(record,indent=2,sort_keys=True)+"\n")
+          (out/"RUN_MANIFEST.json").write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n")
+          print("BEPD04I_FIRST_REAL_BOOTSTRAP_COMPLETE")
+          print("BEPD04I_POINT_ESTIMATE="+point)
+          print("BEPD04I_LOWER_99="+lower)
+          print("BEPD04I_UPPER_99="+upper)
+          print("BEPD04I_INTERVAL_WIDTH="+width)
+          print("BEPD04I_PRIMARY_REFERENCE_PARITY_PASS")
+          PY
+
+      - name: Verify result scope and forbidden outputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          r=json.loads(Path("bepd04i-real/REAL_M05_BOOTSTRAP_RESULT.json").read_text())
+          assert r["bootstrap_replications"]==200000
+          assert r["block_length_complete_target_weeks"]==13
+          assert r["seed"]==40420261006
+          assert r["confidence_level"]=="0.99"
+          assert r["interval_method"]=="PERCENTILE"
+          assert r["result_human_adopted"] is False
+          assert r["generalization_established"] is False
+          assert r["prediction"] is False
+          assert r["edge"] is False
+          assert r["trading_authority"]=="NONE"
+          print("BEPD04I_AUTHORITY_BOUNDARY_PASS")
+          PY
+
+      - name: Upload first-real package
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd04i-first-real
+          path: bepd04i-real/*.json
+          if-no-files-found: error
+          retention-days: 30
