@@ -1,0 +1,36 @@
+{
+    "schema":  "ATDS_SMF_AP1_M03_02_R1_M01_01_BLOCKING_RECEIPT_V0_1",
+    "status":  "M01_BLOCKED_PENDING_HUMAN_PARAMETER_ADJUDICATION",
+    "preflight_parent":  {
+                             "head":  "d6345ef7d6c263f564cfcfbfc18db2061fa70680",
+                             "tree":  "3c053d6eeec68414d3c90f3e2b16b71e2c2635ad"
+                         },
+    "drift":  {
+                  "classification":  "NON_MATERIAL",
+                  "changed_scopes":  [
+                                         "AO-E0-B12",
+                                         "BEPD-05B",
+                                         "BEPD-05B-FINAL-HUMAN-ADJUDICATION"
+                                     ],
+                  "protected_m01_sources_unchanged":  true
+              },
+    "si02":  {
+                 "receipt_blob":  "2bc978d69aaeb34100d321a77b3a94f53208c321",
+                 "closure_blob":  "1c267b2955dc6fb8855022025d7a8ae85e9bbd4d"
+             },
+    "candidate_status":  "TEMPORAL_STABILITY_M01_CONTRACT_CANDIDATE",
+    "data_compatibility":  "PASS",
+    "claim_origin":  "EXPLORATORY_RESULT_DERIVED",
+    "primary_claim_units":  11,
+    "primary_adjacent_contrasts":  33,
+    "materiality_boundary":  "UNRESOLVED",
+    "unresolved_parameters":  [
+                                  "MATERIALITY_EFFECT_SCALE_OR_NORMALIZATION",
+                                  "MATERIALITY_THRESHOLD_VALUE_OR_VALUES",
+                                  "MATERIALITY_DECISION_RULE_PER_CLAIM_UNIT"
+                              ],
+    "freeze_status":  "NOT_FROZEN",
+    "m10_execution_readiness":  "BLOCKED_PENDING_HUMAN_MATERIALITY_DECISION",
+    "downstream_methods_authorized":  false,
+    "stop":  true
+}

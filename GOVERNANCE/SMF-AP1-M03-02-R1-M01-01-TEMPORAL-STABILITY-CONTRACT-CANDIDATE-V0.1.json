@@ -1,0 +1,294 @@
+{
+    "schema":  "ATDS_SMF_AP1_M03_02_R1_M01_01_TEMPORAL_STABILITY_CONTRACT_CANDIDATE_V0_1",
+    "status":  "M01_BLOCKED_PENDING_HUMAN_PARAMETER_ADJUDICATION",
+    "repository":  "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch":  "integration/system-v1",
+    "preflight_parent":  {
+                             "head":  "d6345ef7d6c263f564cfcfbfc18db2061fa70680",
+                             "tree":  "3c053d6eeec68414d3c90f3e2b16b71e2c2635ad"
+                         },
+    "authorization_reference":  {
+                                    "head":  "8adeaa5d96db6de388ea64f52c6dbf9f0047586f",
+                                    "tree":  "08751f76d961f8089317ab4411d4db03b6010890"
+                                },
+    "drift":  {
+                  "classification":  "NON_MATERIAL",
+                  "changed_scopes":  [
+                                         "AO-E0-B12",
+                                         "BEPD-05B",
+                                         "BEPD-05B-FINAL-HUMAN-ADJUDICATION"
+                                     ],
+                  "protected_m01_sources_unchanged":  true
+              },
+    "provenance":  {
+                       "claim_origin":  "EXPLORATORY_RESULT_DERIVED",
+                       "si02_receipt_blob":  "2bc978d69aaeb34100d321a77b3a94f53208c321",
+                       "si02_closure_blob":  "1c267b2955dc6fb8855022025d7a8ae85e9bbd4d",
+                       "si01_candidate_set_blob":  "8f85f301380d192e7a8bbc225e39d080d76d78ac",
+                       "si01_final_receipt_blob":  "f5eeae8b3806bd2aff0fb16d30d1ea139f5c6d89",
+                       "ef01_receipt_blob":  "234a5af6bc79adc2e74b7ceb83319132cab478d4",
+                       "data02_receipt_blob":  "ccfccda676abfe7e02082a331557ffed14e1f32b",
+                       "m03_output_sha256":  "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+                       "adopted_source_finding":  "UTC_YEAR_DISTRIBUTIONAL_VARIATION_CANDIDATE"
+                   },
+    "epistemic_limits":  {
+                             "retroactive_confirmatory_preregistration":  false,
+                             "same_corpus_m10_maximum_semantics":  "EXPLORATORY_DIAGNOSTIC_TEMPORAL_STABILITY_EVIDENCE",
+                             "pristine_confirmation_requires_distinct_future_authority":  true
+                         },
+    "exact_question":  "Within the admitted historical corpus, are the empirical distributions of tick_count, minute_range, and spread_mean temporally stable across the predeclared UTC_YEAR partitions, or is there evidence of temporal distributional variation that is material under a rule frozen before M10 execution?",
+    "population":  {
+                       "observational_unit":  "ONE_ADMITTED_AP0_MINUTE",
+                       "dataset":  "USTECH_PROFILE_MINUTE_CORE_V0_1",
+                       "coverage_utc":  {
+                                            "start":  "2021-05-25T00:00:00Z",
+                                            "end":  "2026-05-24T23:59:00Z"
+                                        },
+                       "admitted_minutes":  1709180,
+                       "primary_complete_year_buckets":  [
+                                                             "UTC_YEAR:2022",
+                                                             "UTC_YEAR:2023",
+                                                             "UTC_YEAR:2024",
+                                                             "UTC_YEAR:2025"
+                                                         ],
+                       "partial_year_buckets":  [
+                                                    "UTC_YEAR:2021",
+                                                    "UTC_YEAR:2026"
+                                                ],
+                       "primary_analysis":  "COMPLETE_YEARS_ONLY",
+                       "partial_year_role":  "SENSITIVITY_DESCRIPTIVE_CONTEXT_ONLY",
+                       "year_n":  {
+                                      "UTC_YEAR:2021":  209795,
+                                      "UTC_YEAR:2022":  342580,
+                                      "UTC_YEAR:2023":  340877,
+                                      "UTC_YEAR:2024":  342214,
+                                      "UTC_YEAR:2025":  340554,
+                                      "UTC_YEAR:2026":  133160
+                                  }
+                   },
+    "metrics_and_probabilities":  {
+                                      "tick_count":  [
+                                                         0.5,
+                                                         0.9,
+                                                         0.99
+                                                     ],
+                                      "minute_range":  [
+                                                           0.5,
+                                                           0.9,
+                                                           0.95,
+                                                           0.99
+                                                       ],
+                                      "spread_mean":  [
+                                                          0.5,
+                                                          0.9,
+                                                          0.95,
+                                                          0.99
+                                                      ]
+                                  },
+    "quantile_definition":  {
+                                "procedure":  "linear interpolation",
+                                "h":  "(n - 1) * p",
+                                "tail_extrapolation":  "FORBIDDEN"
+                            },
+    "primary_estimands":  {
+                              "definition":  "q[m,p,y] = population empirical quantile of metric m within complete UTC_YEAR bucket y",
+                              "year_set":  [
+                                               2022,
+                                               2023,
+                                               2024,
+                                               2025
+                                           ],
+                              "temporal_vector":  "Q[m,p] = (q[m,p,2022], q[m,p,2023], q[m,p,2024], q[m,p,2025])",
+                              "claim_units":  11,
+                              "global_pass_forbidden":  true
+                          },
+    "primary_contrasts":  {
+                              "type":  "ADJACENT_COMPLETE_YEAR_DIFFERENCE",
+                              "definition":  "D[m,p,aâ†’b] = q[m,p,b] - q[m,p,a]",
+                              "transitions":  [
+                                                  "2022â†’2023",
+                                                  "2023â†’2024",
+                                                  "2024â†’2025"
+                                              ],
+                              "total_contrasts":  33,
+                              "posthoc_extrema_search":  "EXPLORATORY_ONLY"
+                          },
+    "strict_semantics":  {
+                             "null":  "For each (m,p), q[m,p,2022] = q[m,p,2023] = q[m,p,2024] = q[m,p,2025].",
+                             "alternative":  "For each (m,p), not all four complete-year quantiles are equal.",
+                             "role":  "DIAGNOSTIC_STRICT_EQUALITY_QUESTION_ONLY",
+                             "materiality_decision_rule":  false
+                         },
+    "materiality_boundary":  {
+                                 "status":  "UNRESOLVED",
+                                 "reason":  "No human-adopted metric/estimand-specific materiality threshold or normalized materiality rule exists in the binding upstream evidence. Selecting one from exposed M03 contrasts would be post-hoc threshold optimization.",
+                                 "m10_execution_readiness":  "BLOCKED_PENDING_HUMAN_MATERIALITY_DECISION"
+                             },
+    "multiplicity":  {
+                         "exists":  true,
+                         "exploratory_source_discovery":  true,
+                         "claim_units":  11,
+                         "adjacent_contrasts":  33,
+                         "no_single_extreme_contrast_confirmatory":  true
+                     },
+    "assumptions":  [
+                        {
+                            "id":  "AS-01",
+                            "statement":  "M03 result identity and DATA-02 corpus identity remain exact.",
+                            "status":  "REQUIRED"
+                        },
+                        {
+                            "id":  "AS-02",
+                            "statement":  "UTC_YEAR assignment is the temporal partition semantics.",
+                            "status":  "FROZEN"
+                        },
+                        {
+                            "id":  "AS-03",
+                            "statement":  "Complete years 2022-2025 form the primary comparison frame.",
+                            "status":  "FROZEN"
+                        },
+                        {
+                            "id":  "AS-04",
+                            "statement":  "2021 and 2026 are partial-year sensitivity/context only.",
+                            "status":  "FROZEN"
+                        },
+                        {
+                            "id":  "AS-05",
+                            "statement":  "No IID assumption is made by M01.",
+                            "status":  "FROZEN"
+                        },
+                        {
+                            "id":  "AS-06",
+                            "statement":  "Quantile definitions and probabilities remain exactly those of qualified M03.",
+                            "status":  "FROZEN"
+                        },
+                        {
+                            "id":  "AS-07",
+                            "statement":  "Measurement/data-regime equivalence across years is not assumed proven.",
+                            "status":  "CARRIED_FORWARD"
+                        },
+                        {
+                            "id":  "AS-08",
+                            "statement":  "Calendar-composition equivalence across years is not assumed proven.",
+                            "status":  "CARRIED_FORWARD"
+                        },
+                        {
+                            "id":  "AS-09",
+                            "statement":  "The corpus has already been exposed; same-corpus M10 cannot be pristine confirmation.",
+                            "status":  "FROZEN"
+                        },
+                        {
+                            "id":  "AS-10",
+                            "statement":  "Materiality must be human-adopted before M10 execution readiness.",
+                            "status":  "BLOCKING"
+                        }
+                    ],
+    "failure_modes":  [
+                          {
+                              "id":  "FM-01",
+                              "name":  "PARTIAL_YEAR_COMPOSITION",
+                              "disposition":  "PROTECTED_BY_COMPLETE_YEARS_PRIMARY_AND_PARTIAL_YEAR_SENSITIVITY"
+                          },
+                          {
+                              "id":  "FM-02",
+                              "name":  "SERIAL_DEPENDENCE",
+                              "disposition":  "CARRIED_FORWARD; M04/M05 dependency if inferential uncertainty is required"
+                          },
+                          {
+                              "id":  "FM-03",
+                              "name":  "UNEQUAL_YEAR_SAMPLE_SIZE",
+                              "disposition":  "CARRIED_FORWARD; exact n retained; affects uncertainty not empirical quantile definition"
+                          },
+                          {
+                              "id":  "FM-04",
+                              "name":  "MULTIPLE_METRICS_MULTIPLE_QUANTILES",
+                              "disposition":  "CARRIED_FORWARD; multiplicity exists; M11 dependency for inferential promotion"
+                          },
+                          {
+                              "id":  "FM-05",
+                              "name":  "POST_HOC_CONTRAST_SELECTION",
+                              "disposition":  "PROTECTED_BY_ADJACENT_CONTRAST_FREEZE; all other searches exploratory"
+                          },
+                          {
+                              "id":  "FM-06",
+                              "name":  "DATA_MEASUREMENT_REGIME_CHANGE",
+                              "disposition":  "CARRIED_FORWARD; blocks causal/regime explanation if unresolved"
+                          },
+                          {
+                              "id":  "FM-07",
+                              "name":  "CALENDAR_COMPOSITION_CONFOUNDING",
+                              "disposition":  "CARRIED_FORWARD; blocks causal/regime interpretation if unresolved"
+                          },
+                          {
+                              "id":  "FM-08",
+                              "name":  "CURRENT_CORPUS_RESULT_EXPOSURE",
+                              "disposition":  "BLOCKS_PRISTINE_CONFIRMATION; M09 required for future confirmation"
+                          },
+                          {
+                              "id":  "FM-09",
+                              "name":  "GENERALIZATION_BEYOND_HISTORICAL_FRAME",
+                              "disposition":  "BLOCKED; M09/future pristine evidence required"
+                          },
+                          {
+                              "id":  "FM-10",
+                              "name":  "TRIVIAL_EFFECT_VS_MATERIAL_EFFECT",
+                              "disposition":  "BLOCKS_M01_FREEZE_AND_M10_READINESS_PENDING_HUMAN_MATERIALITY_BOUNDARY"
+                          }
+                      ],
+    "dependency_map":  {
+                           "M04":  {
+                                       "need":  "CONDITIONAL",
+                                       "reason":  "dependence/overlap gate before dependence-sensitive inferential claims",
+                                       "authorized":  false
+                                   },
+                           "M05":  {
+                                       "need":  "CONDITIONAL_ON_M04",
+                                       "reason":  "dependence-aware resampling CI if uncertainty intervals are required",
+                                       "authorized":  false
+                                   },
+                           "M08":  {
+                                       "need":  "CONDITIONAL",
+                                       "reason":  "selection/attrition if target-population claims depend on unsupported or changing support",
+                                       "authorized":  false
+                                   },
+                           "M09":  {
+                                       "need":  "REQUIRED_FOR_CONFIRMATORY_GENERALIZATION",
+                                       "reason":  "current corpus is exposed",
+                                       "authorized":  false
+                                   },
+                           "M10":  {
+                                       "need":  "TARGET_METHOD_AFTER_COMPLETE_M01_FREEZE",
+                                       "reason":  "temporal/regime stability failure mode",
+                                       "authorized":  false
+                                   },
+                           "M11":  {
+                                       "need":  "CONDITIONAL_FOR_INFERENTIAL_PROMOTION",
+                                       "reason":  "11 claim units / 33 adjacent contrasts and exploratory origin",
+                                       "authorized":  false
+                                   }
+                       },
+    "data_compatibility":  {
+                               "six_utc_year_buckets_present":  true,
+                               "four_complete_year_buckets_present":  true,
+                               "two_partial_year_buckets_present":  true,
+                               "all_primary_complete_year_buckets_nonempty":  true,
+                               "exact_metrics_present":  true,
+                               "exact_quantiles_present":  true,
+                               "exact_n_recorded":  true,
+                               "m03_identity_match":  true,
+                               "status":  "PASS"
+                           },
+    "unresolved_material_parameters":  [
+                                           "MATERIALITY_EFFECT_SCALE_OR_NORMALIZATION",
+                                           "MATERIALITY_THRESHOLD_VALUE_OR_VALUES",
+                                           "MATERIALITY_DECISION_RULE_PER_CLAIM_UNIT"
+                                       ],
+    "freeze_status":  "NOT_FROZEN",
+    "m10_authorized":  false,
+    "m10_executed":  false,
+    "authority":  {
+                      "scientific_method_execution":  false,
+                      "trading":  false,
+                      "capital":  false
+                  }
+}
