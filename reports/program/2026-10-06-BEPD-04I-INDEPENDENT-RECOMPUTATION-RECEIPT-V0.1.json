@@ -1,0 +1,21 @@
+{
+  "implementation": "bepd_04e_response_generalization_reference_v0_1.py",
+  "interval_lower_parity": "PASS",
+  "interval_upper_parity": "PASS",
+  "new_estimand_introduced": false,
+  "percentile_lower_bound": "0.72631567604355718",
+  "percentile_upper_bound": "0.8438177874186551",
+  "point_estimate": "0.78389830508474578",
+  "point_estimate_parity": "PASS",
+  "same_block_length": true,
+  "same_complete_week_calendar": true,
+  "same_confidence": true,
+  "same_event_ledger": true,
+  "same_percentile_method": true,
+  "same_replications": true,
+  "same_seed": true,
+  "schema": "ATDS_BEPD_04I_INDEPENDENT_RECOMPUTATION_RECEIPT_V0_1",
+  "sensitivity_analysis": false,
+  "status": "PASS",
+  "subgroup_inspected": false
+}
