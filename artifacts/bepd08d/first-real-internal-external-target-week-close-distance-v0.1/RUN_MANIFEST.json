@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_08D_RUN_MANIFEST_V0_1",
+  "run_id": "d775f7a1df26fdcda1201dfd747f593fc861c9c743927ea87f8b159022c30080",
+  "input_path": "artifacts\\bepd02\\real-historical-weekly-liquidity-ledger-v0.1\\EVENT_LEDGER.jsonl",
+  "input_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "input_sha256": "6458a3fa8fc309e87138ac86af549a3b53f5939822e7436daa8a3104986b45e0",
+  "output_path": "C:\\Users\\Boulevart\\ATDS-TMP\\BEPD-08D-EXECUTION\\REAL_INTERNAL_EXTERNAL_RESULT.json",
+  "output_sha256": "e75b67418e90a7b2b1974f8acf669ce3056f306dd7a9c225f600ff0c678eff73",
+  "runner_blob": "c1374ae27822c19cc39f1fbdb7d51b7fc8632705",
+  "partition": {
+    "TOTAL": 472,
+    "INTERNAL": 207,
+    "EXTERNAL": 265,
+    "EXACT_LEVEL": 0
+  },
+  "result_exposure": "FIRST_REAL_DUAL_CONDITIONAL_DISTRIBUTIONS"
+}

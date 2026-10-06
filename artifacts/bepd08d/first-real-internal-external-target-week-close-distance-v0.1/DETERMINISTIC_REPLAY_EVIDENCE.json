@@ -1,0 +1,31 @@
+{
+  "schema": "ATDS_BEPD_08D_DETERMINISTIC_REPLAY_EVIDENCE_V0_1",
+  "control_id": "BEPD-08D",
+  "status": "PASS",
+  "real_execution_freeze_blob": "3b67978ef181fddc7d7e014aa2333ffc2459a5c3",
+  "runner_blob": "c1374ae27822c19cc39f1fbdb7d51b7fc8632705",
+  "canonical_runtime_result_sha256": "e75b67418e90a7b2b1974f8acf669ce3056f306dd7a9c225f600ff0c678eff73",
+  "replay_runtime_result_sha256": "e75b67418e90a7b2b1974f8acf669ce3056f306dd7a9c225f600ff0c678eff73",
+  "canonical_object_parity": "EXACT_PASS",
+  "independent_internal_distribution_parity": "EXACT_PASS",
+  "independent_external_distribution_parity": "EXACT_PASS",
+  "partition_invariants": {
+    "canonical": {
+      "TOTAL_N": 472,
+      "INTERNAL_N": 207,
+      "EXTERNAL_N": 265,
+      "EXACT_LEVEL_N": 0,
+      "OVERLAPPING_MEMBERSHIP": 0,
+      "UNCLASSIFIED_EVENTS": 0
+    },
+    "independent": {
+      "TOTAL_N": 472,
+      "INTERNAL_N": 207,
+      "EXTERNAL_N": 265,
+      "EXACT_LEVEL_N": 0
+    }
+  },
+  "parity_scope_note": "An initial extra-contract full partition-object equality assertion failed only because the canonical metadata envelope contains OVERLAPPING_MEMBERSHIP and UNCLASSIFIED_EVENTS fields that the independent envelope omits. No distribution value diverged. Contract-scoped exact parity for both full distributions is PASS; partition counts are independently exact. No scientific re-execution was performed.",
+  "replay_semantic": "REPRODUCIBILITY_EVIDENCE_ONLY",
+  "replay_is_new_independent_evidence": false
+}

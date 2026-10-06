@@ -1,0 +1,3360 @@
+{
+  "schema": "ATDS_BEPD_08D_INDEPENDENT_REFERENCE_V0_1",
+  "implementation": "INDEPENDENT_NO_IMPORT_FROM_CANONICAL_RUNNER",
+  "partition": {
+    "TOTAL_N": 472,
+    "INTERNAL_N": 207,
+    "EXTERNAL_N": 265,
+    "EXACT_LEVEL_N": 0
+  },
+  "INTERNAL": {
+    "N": 207,
+    "MINIMUM": "2.525000000000000000",
+    "MAXIMUM": "2108.889500000000000000",
+    "MEAN": "353.764521739130434783",
+    "MEDIAN": "258.328000000000000000",
+    "P01": "6.473730000000000000",
+    "P05": "16.630700000000000000",
+    "P10": "34.989900000000000000",
+    "P25": "93.174250000000000000",
+    "P50": "258.328000000000000000",
+    "P75": "497.082500000000000000",
+    "P90": "749.394800000000000000",
+    "P95": "1078.830800000000000000",
+    "P99": "1650.280380000000000000",
+    "ZERO_COUNT": 0,
+    "ZERO_FRACTION": {
+      "fraction": "0",
+      "decimal": "0.000000000000000000"
+    },
+    "EMPIRICAL_CDF": [
+      {
+        "support_value": "2.525",
+        "support_count": 1,
+        "cumulative_count": 1,
+        "cumulative_fraction": "1/207",
+        "cumulative_decimal": "0.004830917874396135"
+      },
+      {
+        "support_value": "5.06",
+        "support_count": 1,
+        "cumulative_count": 2,
+        "cumulative_fraction": "2/207",
+        "cumulative_decimal": "0.009661835748792271"
+      },
+      {
+        "support_value": "6.4035",
+        "support_count": 1,
+        "cumulative_count": 3,
+        "cumulative_fraction": "1/69",
+        "cumulative_decimal": "0.014492753623188406"
+      },
+      {
+        "support_value": "7.574",
+        "support_count": 1,
+        "cumulative_count": 4,
+        "cumulative_fraction": "4/207",
+        "cumulative_decimal": "0.019323671497584541"
+      },
+      {
+        "support_value": "10.205",
+        "support_count": 1,
+        "cumulative_count": 5,
+        "cumulative_fraction": "5/207",
+        "cumulative_decimal": "0.024154589371980676"
+      },
+      {
+        "support_value": "10.6575",
+        "support_count": 1,
+        "cumulative_count": 6,
+        "cumulative_fraction": "2/69",
+        "cumulative_decimal": "0.028985507246376812"
+      },
+      {
+        "support_value": "11.68",
+        "support_count": 1,
+        "cumulative_count": 7,
+        "cumulative_fraction": "7/207",
+        "cumulative_decimal": "0.033816425120772947"
+      },
+      {
+        "support_value": "12.311",
+        "support_count": 1,
+        "cumulative_count": 8,
+        "cumulative_fraction": "8/207",
+        "cumulative_decimal": "0.038647342995169082"
+      },
+      {
+        "support_value": "13.73",
+        "support_count": 1,
+        "cumulative_count": 9,
+        "cumulative_fraction": "1/23",
+        "cumulative_decimal": "0.043478260869565217"
+      },
+      {
+        "support_value": "15.124",
+        "support_count": 1,
+        "cumulative_count": 10,
+        "cumulative_fraction": "10/207",
+        "cumulative_decimal": "0.048309178743961353"
+      },
+      {
+        "support_value": "16.001",
+        "support_count": 1,
+        "cumulative_count": 11,
+        "cumulative_fraction": "11/207",
+        "cumulative_decimal": "0.053140096618357488"
+      },
+      {
+        "support_value": "18.1",
+        "support_count": 1,
+        "cumulative_count": 12,
+        "cumulative_fraction": "4/69",
+        "cumulative_decimal": "0.057971014492753623"
+      },
+      {
+        "support_value": "20.045",
+        "support_count": 1,
+        "cumulative_count": 13,
+        "cumulative_fraction": "13/207",
+        "cumulative_decimal": "0.062801932367149758"
+      },
+      {
+        "support_value": "24.0935",
+        "support_count": 1,
+        "cumulative_count": 14,
+        "cumulative_fraction": "14/207",
+        "cumulative_decimal": "0.067632850241545894"
+      },
+      {
+        "support_value": "24.477",
+        "support_count": 1,
+        "cumulative_count": 15,
+        "cumulative_fraction": "5/69",
+        "cumulative_decimal": "0.072463768115942029"
+      },
+      {
+        "support_value": "29.6275",
+        "support_count": 1,
+        "cumulative_count": 16,
+        "cumulative_fraction": "16/207",
+        "cumulative_decimal": "0.077294685990338164"
+      },
+      {
+        "support_value": "29.83",
+        "support_count": 1,
+        "cumulative_count": 17,
+        "cumulative_fraction": "17/207",
+        "cumulative_decimal": "0.082125603864734300"
+      },
+      {
+        "support_value": "30.7705",
+        "support_count": 1,
+        "cumulative_count": 18,
+        "cumulative_fraction": "2/23",
+        "cumulative_decimal": "0.086956521739130435"
+      },
+      {
+        "support_value": "31.1835",
+        "support_count": 1,
+        "cumulative_count": 19,
+        "cumulative_fraction": "19/207",
+        "cumulative_decimal": "0.091787439613526570"
+      },
+      {
+        "support_value": "32.53",
+        "support_count": 1,
+        "cumulative_count": 20,
+        "cumulative_fraction": "20/207",
+        "cumulative_decimal": "0.096618357487922705"
+      },
+      {
+        "support_value": "32.85",
+        "support_count": 1,
+        "cumulative_count": 21,
+        "cumulative_fraction": "7/69",
+        "cumulative_decimal": "0.101449275362318841"
+      },
+      {
+        "support_value": "36.4165",
+        "support_count": 1,
+        "cumulative_count": 22,
+        "cumulative_fraction": "22/207",
+        "cumulative_decimal": "0.106280193236714976"
+      },
+      {
+        "support_value": "37.505",
+        "support_count": 1,
+        "cumulative_count": 23,
+        "cumulative_fraction": "1/9",
+        "cumulative_decimal": "0.111111111111111111"
+      },
+      {
+        "support_value": "38.444",
+        "support_count": 1,
+        "cumulative_count": 24,
+        "cumulative_fraction": "8/69",
+        "cumulative_decimal": "0.115942028985507246"
+      },
+      {
+        "support_value": "39.765",
+        "support_count": 1,
+        "cumulative_count": 25,
+        "cumulative_fraction": "25/207",
+        "cumulative_decimal": "0.120772946859903382"
+      },
+      {
+        "support_value": "40.106",
+        "support_count": 1,
+        "cumulative_count": 26,
+        "cumulative_fraction": "26/207",
+        "cumulative_decimal": "0.125603864734299517"
+      },
+      {
+        "support_value": "40.3",
+        "support_count": 1,
+        "cumulative_count": 27,
+        "cumulative_fraction": "3/23",
+        "cumulative_decimal": "0.130434782608695652"
+      },
+      {
+        "support_value": "40.49",
+        "support_count": 1,
+        "cumulative_count": 28,
+        "cumulative_fraction": "28/207",
+        "cumulative_decimal": "0.135265700483091787"
+      },
+      {
+        "support_value": "41.225",
+        "support_count": 1,
+        "cumulative_count": 29,
+        "cumulative_fraction": "29/207",
+        "cumulative_decimal": "0.140096618357487923"
+      },
+      {
+        "support_value": "41.245",
+        "support_count": 1,
+        "cumulative_count": 30,
+        "cumulative_fraction": "10/69",
+        "cumulative_decimal": "0.144927536231884058"
+      },
+      {
+        "support_value": "44.181",
+        "support_count": 1,
+        "cumulative_count": 31,
+        "cumulative_fraction": "31/207",
+        "cumulative_decimal": "0.149758454106280193"
+      },
+      {
+        "support_value": "44.53",
+        "support_count": 1,
+        "cumulative_count": 32,
+        "cumulative_fraction": "32/207",
+        "cumulative_decimal": "0.154589371980676329"
+      },
+      {
+        "support_value": "45.395",
+        "support_count": 1,
+        "cumulative_count": 33,
+        "cumulative_fraction": "11/69",
+        "cumulative_decimal": "0.159420289855072464"
+      },
+      {
+        "support_value": "63.59",
+        "support_count": 1,
+        "cumulative_count": 34,
+        "cumulative_fraction": "34/207",
+        "cumulative_decimal": "0.164251207729468599"
+      },
+      {
+        "support_value": "65.062",
+        "support_count": 1,
+        "cumulative_count": 35,
+        "cumulative_fraction": "35/207",
+        "cumulative_decimal": "0.169082125603864734"
+      },
+      {
+        "support_value": "65.281",
+        "support_count": 1,
+        "cumulative_count": 36,
+        "cumulative_fraction": "4/23",
+        "cumulative_decimal": "0.173913043478260870"
+      },
+      {
+        "support_value": "67.0",
+        "support_count": 1,
+        "cumulative_count": 37,
+        "cumulative_fraction": "37/207",
+        "cumulative_decimal": "0.178743961352657005"
+      },
+      {
+        "support_value": "68.81",
+        "support_count": 1,
+        "cumulative_count": 38,
+        "cumulative_fraction": "38/207",
+        "cumulative_decimal": "0.183574879227053140"
+      },
+      {
+        "support_value": "70.255",
+        "support_count": 1,
+        "cumulative_count": 39,
+        "cumulative_fraction": "13/69",
+        "cumulative_decimal": "0.188405797101449275"
+      },
+      {
+        "support_value": "70.65",
+        "support_count": 1,
+        "cumulative_count": 40,
+        "cumulative_fraction": "40/207",
+        "cumulative_decimal": "0.193236714975845411"
+      },
+      {
+        "support_value": "73.08",
+        "support_count": 1,
+        "cumulative_count": 41,
+        "cumulative_fraction": "41/207",
+        "cumulative_decimal": "0.198067632850241546"
+      },
+      {
+        "support_value": "74.3385",
+        "support_count": 1,
+        "cumulative_count": 42,
+        "cumulative_fraction": "14/69",
+        "cumulative_decimal": "0.202898550724637681"
+      },
+      {
+        "support_value": "74.344",
+        "support_count": 1,
+        "cumulative_count": 43,
+        "cumulative_fraction": "43/207",
+        "cumulative_decimal": "0.207729468599033816"
+      },
+      {
+        "support_value": "75.248",
+        "support_count": 1,
+        "cumulative_count": 44,
+        "cumulative_fraction": "44/207",
+        "cumulative_decimal": "0.212560386473429952"
+      },
+      {
+        "support_value": "75.68",
+        "support_count": 1,
+        "cumulative_count": 45,
+        "cumulative_fraction": "5/23",
+        "cumulative_decimal": "0.217391304347826087"
+      },
+      {
+        "support_value": "77.44",
+        "support_count": 1,
+        "cumulative_count": 46,
+        "cumulative_fraction": "2/9",
+        "cumulative_decimal": "0.222222222222222222"
+      },
+      {
+        "support_value": "83.055",
+        "support_count": 1,
+        "cumulative_count": 47,
+        "cumulative_fraction": "47/207",
+        "cumulative_decimal": "0.227053140096618357"
+      },
+      {
+        "support_value": "83.629",
+        "support_count": 1,
+        "cumulative_count": 48,
+        "cumulative_fraction": "16/69",
+        "cumulative_decimal": "0.231884057971014493"
+      },
+      {
+        "support_value": "87.984",
+        "support_count": 1,
+        "cumulative_count": 49,
+        "cumulative_fraction": "49/207",
+        "cumulative_decimal": "0.236714975845410628"
+      },
+      {
+        "support_value": "88.1",
+        "support_count": 1,
+        "cumulative_count": 50,
+        "cumulative_fraction": "50/207",
+        "cumulative_decimal": "0.241545893719806763"
+      },
+      {
+        "support_value": "90.59",
+        "support_count": 1,
+        "cumulative_count": 51,
+        "cumulative_fraction": "17/69",
+        "cumulative_decimal": "0.246376811594202899"
+      },
+      {
+        "support_value": "92.855",
+        "support_count": 1,
+        "cumulative_count": 52,
+        "cumulative_fraction": "52/207",
+        "cumulative_decimal": "0.251207729468599034"
+      },
+      {
+        "support_value": "93.4935",
+        "support_count": 1,
+        "cumulative_count": 53,
+        "cumulative_fraction": "53/207",
+        "cumulative_decimal": "0.256038647342995169"
+      },
+      {
+        "support_value": "101.835",
+        "support_count": 1,
+        "cumulative_count": 54,
+        "cumulative_fraction": "6/23",
+        "cumulative_decimal": "0.260869565217391304"
+      },
+      {
+        "support_value": "101.8885",
+        "support_count": 1,
+        "cumulative_count": 55,
+        "cumulative_fraction": "55/207",
+        "cumulative_decimal": "0.265700483091787440"
+      },
+      {
+        "support_value": "104.0335",
+        "support_count": 1,
+        "cumulative_count": 56,
+        "cumulative_fraction": "56/207",
+        "cumulative_decimal": "0.270531400966183575"
+      },
+      {
+        "support_value": "106.459",
+        "support_count": 1,
+        "cumulative_count": 57,
+        "cumulative_fraction": "19/69",
+        "cumulative_decimal": "0.275362318840579710"
+      },
+      {
+        "support_value": "111.583",
+        "support_count": 1,
+        "cumulative_count": 58,
+        "cumulative_fraction": "58/207",
+        "cumulative_decimal": "0.280193236714975845"
+      },
+      {
+        "support_value": "114.9",
+        "support_count": 1,
+        "cumulative_count": 59,
+        "cumulative_fraction": "59/207",
+        "cumulative_decimal": "0.285024154589371981"
+      },
+      {
+        "support_value": "115.42",
+        "support_count": 1,
+        "cumulative_count": 60,
+        "cumulative_fraction": "20/69",
+        "cumulative_decimal": "0.289855072463768116"
+      },
+      {
+        "support_value": "116.02",
+        "support_count": 1,
+        "cumulative_count": 61,
+        "cumulative_fraction": "61/207",
+        "cumulative_decimal": "0.294685990338164251"
+      },
+      {
+        "support_value": "116.8",
+        "support_count": 1,
+        "cumulative_count": 62,
+        "cumulative_fraction": "62/207",
+        "cumulative_decimal": "0.299516908212560386"
+      },
+      {
+        "support_value": "120.654",
+        "support_count": 1,
+        "cumulative_count": 63,
+        "cumulative_fraction": "7/23",
+        "cumulative_decimal": "0.304347826086956522"
+      },
+      {
+        "support_value": "122.912",
+        "support_count": 1,
+        "cumulative_count": 64,
+        "cumulative_fraction": "64/207",
+        "cumulative_decimal": "0.309178743961352657"
+      },
+      {
+        "support_value": "124.215",
+        "support_count": 1,
+        "cumulative_count": 65,
+        "cumulative_fraction": "65/207",
+        "cumulative_decimal": "0.314009661835748792"
+      },
+      {
+        "support_value": "124.711",
+        "support_count": 1,
+        "cumulative_count": 66,
+        "cumulative_fraction": "22/69",
+        "cumulative_decimal": "0.318840579710144928"
+      },
+      {
+        "support_value": "125.02",
+        "support_count": 1,
+        "cumulative_count": 67,
+        "cumulative_fraction": "67/207",
+        "cumulative_decimal": "0.323671497584541063"
+      },
+      {
+        "support_value": "132.971",
+        "support_count": 1,
+        "cumulative_count": 68,
+        "cumulative_fraction": "68/207",
+        "cumulative_decimal": "0.328502415458937198"
+      },
+      {
+        "support_value": "135.825",
+        "support_count": 1,
+        "cumulative_count": 69,
+        "cumulative_fraction": "1/3",
+        "cumulative_decimal": "0.333333333333333333"
+      },
+      {
+        "support_value": "135.92",
+        "support_count": 1,
+        "cumulative_count": 70,
+        "cumulative_fraction": "70/207",
+        "cumulative_decimal": "0.338164251207729469"
+      },
+      {
+        "support_value": "144.63",
+        "support_count": 1,
+        "cumulative_count": 71,
+        "cumulative_fraction": "71/207",
+        "cumulative_decimal": "0.342995169082125604"
+      },
+      {
+        "support_value": "144.774",
+        "support_count": 1,
+        "cumulative_count": 72,
+        "cumulative_fraction": "8/23",
+        "cumulative_decimal": "0.347826086956521739"
+      },
+      {
+        "support_value": "147.726",
+        "support_count": 1,
+        "cumulative_count": 73,
+        "cumulative_fraction": "73/207",
+        "cumulative_decimal": "0.352657004830917874"
+      },
+      {
+        "support_value": "151.056",
+        "support_count": 1,
+        "cumulative_count": 74,
+        "cumulative_fraction": "74/207",
+        "cumulative_decimal": "0.357487922705314010"
+      },
+      {
+        "support_value": "154.925",
+        "support_count": 1,
+        "cumulative_count": 75,
+        "cumulative_fraction": "25/69",
+        "cumulative_decimal": "0.362318840579710145"
+      },
+      {
+        "support_value": "155.3165",
+        "support_count": 1,
+        "cumulative_count": 76,
+        "cumulative_fraction": "76/207",
+        "cumulative_decimal": "0.367149758454106280"
+      },
+      {
+        "support_value": "156.8545",
+        "support_count": 1,
+        "cumulative_count": 77,
+        "cumulative_fraction": "77/207",
+        "cumulative_decimal": "0.371980676328502415"
+      },
+      {
+        "support_value": "159.4895",
+        "support_count": 1,
+        "cumulative_count": 78,
+        "cumulative_fraction": "26/69",
+        "cumulative_decimal": "0.376811594202898551"
+      },
+      {
+        "support_value": "161.266",
+        "support_count": 1,
+        "cumulative_count": 79,
+        "cumulative_fraction": "79/207",
+        "cumulative_decimal": "0.381642512077294686"
+      },
+      {
+        "support_value": "161.315",
+        "support_count": 1,
+        "cumulative_count": 80,
+        "cumulative_fraction": "80/207",
+        "cumulative_decimal": "0.386473429951690821"
+      },
+      {
+        "support_value": "167.205",
+        "support_count": 1,
+        "cumulative_count": 81,
+        "cumulative_fraction": "9/23",
+        "cumulative_decimal": "0.391304347826086957"
+      },
+      {
+        "support_value": "168.1735",
+        "support_count": 1,
+        "cumulative_count": 82,
+        "cumulative_fraction": "82/207",
+        "cumulative_decimal": "0.396135265700483092"
+      },
+      {
+        "support_value": "177.329",
+        "support_count": 1,
+        "cumulative_count": 83,
+        "cumulative_fraction": "83/207",
+        "cumulative_decimal": "0.400966183574879227"
+      },
+      {
+        "support_value": "180.2",
+        "support_count": 1,
+        "cumulative_count": 84,
+        "cumulative_fraction": "28/69",
+        "cumulative_decimal": "0.405797101449275362"
+      },
+      {
+        "support_value": "185.994",
+        "support_count": 1,
+        "cumulative_count": 85,
+        "cumulative_fraction": "85/207",
+        "cumulative_decimal": "0.410628019323671498"
+      },
+      {
+        "support_value": "192.085",
+        "support_count": 1,
+        "cumulative_count": 86,
+        "cumulative_fraction": "86/207",
+        "cumulative_decimal": "0.415458937198067633"
+      },
+      {
+        "support_value": "196.8545",
+        "support_count": 1,
+        "cumulative_count": 87,
+        "cumulative_fraction": "29/69",
+        "cumulative_decimal": "0.420289855072463768"
+      },
+      {
+        "support_value": "199.25",
+        "support_count": 1,
+        "cumulative_count": 88,
+        "cumulative_fraction": "88/207",
+        "cumulative_decimal": "0.425120772946859903"
+      },
+      {
+        "support_value": "200.335",
+        "support_count": 1,
+        "cumulative_count": 89,
+        "cumulative_fraction": "89/207",
+        "cumulative_decimal": "0.429951690821256039"
+      },
+      {
+        "support_value": "214.4055",
+        "support_count": 1,
+        "cumulative_count": 90,
+        "cumulative_fraction": "10/23",
+        "cumulative_decimal": "0.434782608695652174"
+      },
+      {
+        "support_value": "216.995",
+        "support_count": 1,
+        "cumulative_count": 91,
+        "cumulative_fraction": "91/207",
+        "cumulative_decimal": "0.439613526570048309"
+      },
+      {
+        "support_value": "220.977",
+        "support_count": 1,
+        "cumulative_count": 92,
+        "cumulative_fraction": "4/9",
+        "cumulative_decimal": "0.444444444444444444"
+      },
+      {
+        "support_value": "225.911",
+        "support_count": 1,
+        "cumulative_count": 93,
+        "cumulative_fraction": "31/69",
+        "cumulative_decimal": "0.449275362318840580"
+      },
+      {
+        "support_value": "231.665",
+        "support_count": 1,
+        "cumulative_count": 94,
+        "cumulative_fraction": "94/207",
+        "cumulative_decimal": "0.454106280193236715"
+      },
+      {
+        "support_value": "232.495",
+        "support_count": 1,
+        "cumulative_count": 95,
+        "cumulative_fraction": "95/207",
+        "cumulative_decimal": "0.458937198067632850"
+      },
+      {
+        "support_value": "240.283",
+        "support_count": 1,
+        "cumulative_count": 96,
+        "cumulative_fraction": "32/69",
+        "cumulative_decimal": "0.463768115942028986"
+      },
+      {
+        "support_value": "240.675",
+        "support_count": 1,
+        "cumulative_count": 97,
+        "cumulative_fraction": "97/207",
+        "cumulative_decimal": "0.468599033816425121"
+      },
+      {
+        "support_value": "240.775",
+        "support_count": 1,
+        "cumulative_count": 98,
+        "cumulative_fraction": "98/207",
+        "cumulative_decimal": "0.473429951690821256"
+      },
+      {
+        "support_value": "243.431",
+        "support_count": 1,
+        "cumulative_count": 99,
+        "cumulative_fraction": "11/23",
+        "cumulative_decimal": "0.478260869565217391"
+      },
+      {
+        "support_value": "245.805",
+        "support_count": 1,
+        "cumulative_count": 100,
+        "cumulative_fraction": "100/207",
+        "cumulative_decimal": "0.483091787439613527"
+      },
+      {
+        "support_value": "246.125",
+        "support_count": 1,
+        "cumulative_count": 101,
+        "cumulative_fraction": "101/207",
+        "cumulative_decimal": "0.487922705314009662"
+      },
+      {
+        "support_value": "250.0055",
+        "support_count": 1,
+        "cumulative_count": 102,
+        "cumulative_fraction": "34/69",
+        "cumulative_decimal": "0.492753623188405797"
+      },
+      {
+        "support_value": "254.615",
+        "support_count": 1,
+        "cumulative_count": 103,
+        "cumulative_fraction": "103/207",
+        "cumulative_decimal": "0.497584541062801932"
+      },
+      {
+        "support_value": "258.328",
+        "support_count": 1,
+        "cumulative_count": 104,
+        "cumulative_fraction": "104/207",
+        "cumulative_decimal": "0.502415458937198068"
+      },
+      {
+        "support_value": "264.225",
+        "support_count": 1,
+        "cumulative_count": 105,
+        "cumulative_fraction": "35/69",
+        "cumulative_decimal": "0.507246376811594203"
+      },
+      {
+        "support_value": "278.245",
+        "support_count": 1,
+        "cumulative_count": 106,
+        "cumulative_fraction": "106/207",
+        "cumulative_decimal": "0.512077294685990338"
+      },
+      {
+        "support_value": "284.7665",
+        "support_count": 1,
+        "cumulative_count": 107,
+        "cumulative_fraction": "107/207",
+        "cumulative_decimal": "0.516908212560386473"
+      },
+      {
+        "support_value": "288.245",
+        "support_count": 1,
+        "cumulative_count": 108,
+        "cumulative_fraction": "12/23",
+        "cumulative_decimal": "0.521739130434782609"
+      },
+      {
+        "support_value": "291.025",
+        "support_count": 1,
+        "cumulative_count": 109,
+        "cumulative_fraction": "109/207",
+        "cumulative_decimal": "0.526570048309178744"
+      },
+      {
+        "support_value": "292.25",
+        "support_count": 1,
+        "cumulative_count": 110,
+        "cumulative_fraction": "110/207",
+        "cumulative_decimal": "0.531400966183574879"
+      },
+      {
+        "support_value": "292.415",
+        "support_count": 1,
+        "cumulative_count": 111,
+        "cumulative_fraction": "37/69",
+        "cumulative_decimal": "0.536231884057971014"
+      },
+      {
+        "support_value": "295.649",
+        "support_count": 1,
+        "cumulative_count": 112,
+        "cumulative_fraction": "112/207",
+        "cumulative_decimal": "0.541062801932367150"
+      },
+      {
+        "support_value": "297.069",
+        "support_count": 1,
+        "cumulative_count": 113,
+        "cumulative_fraction": "113/207",
+        "cumulative_decimal": "0.545893719806763285"
+      },
+      {
+        "support_value": "298.1155",
+        "support_count": 1,
+        "cumulative_count": 114,
+        "cumulative_fraction": "38/69",
+        "cumulative_decimal": "0.550724637681159420"
+      },
+      {
+        "support_value": "298.816",
+        "support_count": 1,
+        "cumulative_count": 115,
+        "cumulative_fraction": "5/9",
+        "cumulative_decimal": "0.555555555555555556"
+      },
+      {
+        "support_value": "301.1165",
+        "support_count": 1,
+        "cumulative_count": 116,
+        "cumulative_fraction": "116/207",
+        "cumulative_decimal": "0.560386473429951691"
+      },
+      {
+        "support_value": "301.5285",
+        "support_count": 1,
+        "cumulative_count": 117,
+        "cumulative_fraction": "13/23",
+        "cumulative_decimal": "0.565217391304347826"
+      },
+      {
+        "support_value": "303.435",
+        "support_count": 1,
+        "cumulative_count": 118,
+        "cumulative_fraction": "118/207",
+        "cumulative_decimal": "0.570048309178743961"
+      },
+      {
+        "support_value": "304.663",
+        "support_count": 1,
+        "cumulative_count": 119,
+        "cumulative_fraction": "119/207",
+        "cumulative_decimal": "0.574879227053140097"
+      },
+      {
+        "support_value": "307.1815",
+        "support_count": 1,
+        "cumulative_count": 120,
+        "cumulative_fraction": "40/69",
+        "cumulative_decimal": "0.579710144927536232"
+      },
+      {
+        "support_value": "308.01",
+        "support_count": 1,
+        "cumulative_count": 121,
+        "cumulative_fraction": "121/207",
+        "cumulative_decimal": "0.584541062801932367"
+      },
+      {
+        "support_value": "311.842",
+        "support_count": 1,
+        "cumulative_count": 122,
+        "cumulative_fraction": "122/207",
+        "cumulative_decimal": "0.589371980676328502"
+      },
+      {
+        "support_value": "319.996",
+        "support_count": 1,
+        "cumulative_count": 123,
+        "cumulative_fraction": "41/69",
+        "cumulative_decimal": "0.594202898550724638"
+      },
+      {
+        "support_value": "321.728",
+        "support_count": 1,
+        "cumulative_count": 124,
+        "cumulative_fraction": "124/207",
+        "cumulative_decimal": "0.599033816425120773"
+      },
+      {
+        "support_value": "322.106",
+        "support_count": 1,
+        "cumulative_count": 125,
+        "cumulative_fraction": "125/207",
+        "cumulative_decimal": "0.603864734299516908"
+      },
+      {
+        "support_value": "329.104",
+        "support_count": 1,
+        "cumulative_count": 126,
+        "cumulative_fraction": "14/23",
+        "cumulative_decimal": "0.608695652173913043"
+      },
+      {
+        "support_value": "330.43",
+        "support_count": 1,
+        "cumulative_count": 127,
+        "cumulative_fraction": "127/207",
+        "cumulative_decimal": "0.613526570048309179"
+      },
+      {
+        "support_value": "330.625",
+        "support_count": 1,
+        "cumulative_count": 128,
+        "cumulative_fraction": "128/207",
+        "cumulative_decimal": "0.618357487922705314"
+      },
+      {
+        "support_value": "333.044",
+        "support_count": 1,
+        "cumulative_count": 129,
+        "cumulative_fraction": "43/69",
+        "cumulative_decimal": "0.623188405797101449"
+      },
+      {
+        "support_value": "339.125",
+        "support_count": 1,
+        "cumulative_count": 130,
+        "cumulative_fraction": "130/207",
+        "cumulative_decimal": "0.628019323671497585"
+      },
+      {
+        "support_value": "344.3995",
+        "support_count": 1,
+        "cumulative_count": 131,
+        "cumulative_fraction": "131/207",
+        "cumulative_decimal": "0.632850241545893720"
+      },
+      {
+        "support_value": "347.8495",
+        "support_count": 1,
+        "cumulative_count": 132,
+        "cumulative_fraction": "44/69",
+        "cumulative_decimal": "0.637681159420289855"
+      },
+      {
+        "support_value": "347.868",
+        "support_count": 1,
+        "cumulative_count": 133,
+        "cumulative_fraction": "133/207",
+        "cumulative_decimal": "0.642512077294685990"
+      },
+      {
+        "support_value": "355.365",
+        "support_count": 1,
+        "cumulative_count": 134,
+        "cumulative_fraction": "134/207",
+        "cumulative_decimal": "0.647342995169082126"
+      },
+      {
+        "support_value": "356.32",
+        "support_count": 1,
+        "cumulative_count": 135,
+        "cumulative_fraction": "15/23",
+        "cumulative_decimal": "0.652173913043478261"
+      },
+      {
+        "support_value": "360.398",
+        "support_count": 1,
+        "cumulative_count": 136,
+        "cumulative_fraction": "136/207",
+        "cumulative_decimal": "0.657004830917874396"
+      },
+      {
+        "support_value": "361.455",
+        "support_count": 1,
+        "cumulative_count": 137,
+        "cumulative_fraction": "137/207",
+        "cumulative_decimal": "0.661835748792270531"
+      },
+      {
+        "support_value": "376.69",
+        "support_count": 1,
+        "cumulative_count": 138,
+        "cumulative_fraction": "2/3",
+        "cumulative_decimal": "0.666666666666666667"
+      },
+      {
+        "support_value": "389.6995",
+        "support_count": 1,
+        "cumulative_count": 139,
+        "cumulative_fraction": "139/207",
+        "cumulative_decimal": "0.671497584541062802"
+      },
+      {
+        "support_value": "396.26",
+        "support_count": 1,
+        "cumulative_count": 140,
+        "cumulative_fraction": "140/207",
+        "cumulative_decimal": "0.676328502415458937"
+      },
+      {
+        "support_value": "398.675",
+        "support_count": 1,
+        "cumulative_count": 141,
+        "cumulative_fraction": "47/69",
+        "cumulative_decimal": "0.681159420289855072"
+      },
+      {
+        "support_value": "413.067",
+        "support_count": 1,
+        "cumulative_count": 142,
+        "cumulative_fraction": "142/207",
+        "cumulative_decimal": "0.685990338164251208"
+      },
+      {
+        "support_value": "419.7685",
+        "support_count": 1,
+        "cumulative_count": 143,
+        "cumulative_fraction": "143/207",
+        "cumulative_decimal": "0.690821256038647343"
+      },
+      {
+        "support_value": "430.77",
+        "support_count": 1,
+        "cumulative_count": 144,
+        "cumulative_fraction": "16/23",
+        "cumulative_decimal": "0.695652173913043478"
+      },
+      {
+        "support_value": "433.3455",
+        "support_count": 1,
+        "cumulative_count": 145,
+        "cumulative_fraction": "145/207",
+        "cumulative_decimal": "0.700483091787439614"
+      },
+      {
+        "support_value": "436.756",
+        "support_count": 1,
+        "cumulative_count": 146,
+        "cumulative_fraction": "146/207",
+        "cumulative_decimal": "0.705314009661835749"
+      },
+      {
+        "support_value": "439.225",
+        "support_count": 1,
+        "cumulative_count": 147,
+        "cumulative_fraction": "49/69",
+        "cumulative_decimal": "0.710144927536231884"
+      },
+      {
+        "support_value": "444.768",
+        "support_count": 1,
+        "cumulative_count": 148,
+        "cumulative_fraction": "148/207",
+        "cumulative_decimal": "0.714975845410628019"
+      },
+      {
+        "support_value": "445.995",
+        "support_count": 1,
+        "cumulative_count": 149,
+        "cumulative_fraction": "149/207",
+        "cumulative_decimal": "0.719806763285024155"
+      },
+      {
+        "support_value": "446.2945",
+        "support_count": 1,
+        "cumulative_count": 150,
+        "cumulative_fraction": "50/69",
+        "cumulative_decimal": "0.724637681159420290"
+      },
+      {
+        "support_value": "473.975",
+        "support_count": 1,
+        "cumulative_count": 151,
+        "cumulative_fraction": "151/207",
+        "cumulative_decimal": "0.729468599033816425"
+      },
+      {
+        "support_value": "480.965",
+        "support_count": 1,
+        "cumulative_count": 152,
+        "cumulative_fraction": "152/207",
+        "cumulative_decimal": "0.734299516908212560"
+      },
+      {
+        "support_value": "487.634",
+        "support_count": 1,
+        "cumulative_count": 153,
+        "cumulative_fraction": "17/23",
+        "cumulative_decimal": "0.739130434782608696"
+      },
+      {
+        "support_value": "488.635",
+        "support_count": 1,
+        "cumulative_count": 154,
+        "cumulative_fraction": "154/207",
+        "cumulative_decimal": "0.743961352657004831"
+      },
+      {
+        "support_value": "492.675",
+        "support_count": 1,
+        "cumulative_count": 155,
+        "cumulative_fraction": "155/207",
+        "cumulative_decimal": "0.748792270531400966"
+      },
+      {
+        "support_value": "501.49",
+        "support_count": 1,
+        "cumulative_count": 156,
+        "cumulative_fraction": "52/69",
+        "cumulative_decimal": "0.753623188405797101"
+      },
+      {
+        "support_value": "501.766",
+        "support_count": 1,
+        "cumulative_count": 157,
+        "cumulative_fraction": "157/207",
+        "cumulative_decimal": "0.758454106280193237"
+      },
+      {
+        "support_value": "508.14",
+        "support_count": 1,
+        "cumulative_count": 158,
+        "cumulative_fraction": "158/207",
+        "cumulative_decimal": "0.763285024154589372"
+      },
+      {
+        "support_value": "508.42",
+        "support_count": 1,
+        "cumulative_count": 159,
+        "cumulative_fraction": "53/69",
+        "cumulative_decimal": "0.768115942028985507"
+      },
+      {
+        "support_value": "511.7245",
+        "support_count": 1,
+        "cumulative_count": 160,
+        "cumulative_fraction": "160/207",
+        "cumulative_decimal": "0.772946859903381643"
+      },
+      {
+        "support_value": "515.7335",
+        "support_count": 1,
+        "cumulative_count": 161,
+        "cumulative_fraction": "7/9",
+        "cumulative_decimal": "0.777777777777777778"
+      },
+      {
+        "support_value": "526.5325",
+        "support_count": 1,
+        "cumulative_count": 162,
+        "cumulative_fraction": "18/23",
+        "cumulative_decimal": "0.782608695652173913"
+      },
+      {
+        "support_value": "532.0555",
+        "support_count": 1,
+        "cumulative_count": 163,
+        "cumulative_fraction": "163/207",
+        "cumulative_decimal": "0.787439613526570048"
+      },
+      {
+        "support_value": "537.705",
+        "support_count": 1,
+        "cumulative_count": 164,
+        "cumulative_fraction": "164/207",
+        "cumulative_decimal": "0.792270531400966184"
+      },
+      {
+        "support_value": "553.985",
+        "support_count": 1,
+        "cumulative_count": 165,
+        "cumulative_fraction": "55/69",
+        "cumulative_decimal": "0.797101449275362319"
+      },
+      {
+        "support_value": "554.588",
+        "support_count": 1,
+        "cumulative_count": 166,
+        "cumulative_fraction": "166/207",
+        "cumulative_decimal": "0.801932367149758454"
+      },
+      {
+        "support_value": "558.798",
+        "support_count": 1,
+        "cumulative_count": 167,
+        "cumulative_fraction": "167/207",
+        "cumulative_decimal": "0.806763285024154589"
+      },
+      {
+        "support_value": "560.065",
+        "support_count": 1,
+        "cumulative_count": 168,
+        "cumulative_fraction": "56/69",
+        "cumulative_decimal": "0.811594202898550725"
+      },
+      {
+        "support_value": "577.999",
+        "support_count": 1,
+        "cumulative_count": 169,
+        "cumulative_fraction": "169/207",
+        "cumulative_decimal": "0.816425120772946860"
+      },
+      {
+        "support_value": "579.579",
+        "support_count": 1,
+        "cumulative_count": 170,
+        "cumulative_fraction": "170/207",
+        "cumulative_decimal": "0.821256038647342995"
+      },
+      {
+        "support_value": "587.025",
+        "support_count": 1,
+        "cumulative_count": 171,
+        "cumulative_fraction": "19/23",
+        "cumulative_decimal": "0.826086956521739130"
+      },
+      {
+        "support_value": "587.816",
+        "support_count": 1,
+        "cumulative_count": 172,
+        "cumulative_fraction": "172/207",
+        "cumulative_decimal": "0.830917874396135266"
+      },
+      {
+        "support_value": "599.1385",
+        "support_count": 1,
+        "cumulative_count": 173,
+        "cumulative_fraction": "173/207",
+        "cumulative_decimal": "0.835748792270531401"
+      },
+      {
+        "support_value": "602.485",
+        "support_count": 1,
+        "cumulative_count": 174,
+        "cumulative_fraction": "58/69",
+        "cumulative_decimal": "0.840579710144927536"
+      },
+      {
+        "support_value": "635.163",
+        "support_count": 1,
+        "cumulative_count": 175,
+        "cumulative_fraction": "175/207",
+        "cumulative_decimal": "0.845410628019323671"
+      },
+      {
+        "support_value": "650.849",
+        "support_count": 1,
+        "cumulative_count": 176,
+        "cumulative_fraction": "176/207",
+        "cumulative_decimal": "0.850241545893719807"
+      },
+      {
+        "support_value": "671.5495",
+        "support_count": 1,
+        "cumulative_count": 177,
+        "cumulative_fraction": "59/69",
+        "cumulative_decimal": "0.855072463768115942"
+      },
+      {
+        "support_value": "696.0215",
+        "support_count": 1,
+        "cumulative_count": 178,
+        "cumulative_fraction": "178/207",
+        "cumulative_decimal": "0.859903381642512077"
+      },
+      {
+        "support_value": "712.774",
+        "support_count": 1,
+        "cumulative_count": 179,
+        "cumulative_fraction": "179/207",
+        "cumulative_decimal": "0.864734299516908213"
+      },
+      {
+        "support_value": "723.097",
+        "support_count": 1,
+        "cumulative_count": 180,
+        "cumulative_fraction": "20/23",
+        "cumulative_decimal": "0.869565217391304348"
+      },
+      {
+        "support_value": "728.855",
+        "support_count": 1,
+        "cumulative_count": 181,
+        "cumulative_fraction": "181/207",
+        "cumulative_decimal": "0.874396135265700483"
+      },
+      {
+        "support_value": "728.9495",
+        "support_count": 1,
+        "cumulative_count": 182,
+        "cumulative_fraction": "182/207",
+        "cumulative_decimal": "0.879227053140096618"
+      },
+      {
+        "support_value": "744.775",
+        "support_count": 1,
+        "cumulative_count": 183,
+        "cumulative_fraction": "61/69",
+        "cumulative_decimal": "0.884057971014492754"
+      },
+      {
+        "support_value": "747.5685",
+        "support_count": 1,
+        "cumulative_count": 184,
+        "cumulative_fraction": "8/9",
+        "cumulative_decimal": "0.888888888888888889"
+      },
+      {
+        "support_value": "747.66",
+        "support_count": 1,
+        "cumulative_count": 185,
+        "cumulative_fraction": "185/207",
+        "cumulative_decimal": "0.893719806763285024"
+      },
+      {
+        "support_value": "747.91",
+        "support_count": 1,
+        "cumulative_count": 186,
+        "cumulative_fraction": "62/69",
+        "cumulative_decimal": "0.898550724637681159"
+      },
+      {
+        "support_value": "751.622",
+        "support_count": 1,
+        "cumulative_count": 187,
+        "cumulative_fraction": "187/207",
+        "cumulative_decimal": "0.903381642512077295"
+      },
+      {
+        "support_value": "768.965",
+        "support_count": 1,
+        "cumulative_count": 188,
+        "cumulative_fraction": "188/207",
+        "cumulative_decimal": "0.908212560386473430"
+      },
+      {
+        "support_value": "784.895",
+        "support_count": 1,
+        "cumulative_count": 189,
+        "cumulative_fraction": "21/23",
+        "cumulative_decimal": "0.913043478260869565"
+      },
+      {
+        "support_value": "785.1",
+        "support_count": 1,
+        "cumulative_count": 190,
+        "cumulative_fraction": "190/207",
+        "cumulative_decimal": "0.917874396135265700"
+      },
+      {
+        "support_value": "819.576",
+        "support_count": 1,
+        "cumulative_count": 191,
+        "cumulative_fraction": "191/207",
+        "cumulative_decimal": "0.922705314009661836"
+      },
+      {
+        "support_value": "894.44",
+        "support_count": 1,
+        "cumulative_count": 192,
+        "cumulative_fraction": "64/69",
+        "cumulative_decimal": "0.927536231884057971"
+      },
+      {
+        "support_value": "902.42",
+        "support_count": 1,
+        "cumulative_count": 193,
+        "cumulative_fraction": "193/207",
+        "cumulative_decimal": "0.932367149758454106"
+      },
+      {
+        "support_value": "948.772",
+        "support_count": 1,
+        "cumulative_count": 194,
+        "cumulative_fraction": "194/207",
+        "cumulative_decimal": "0.937198067632850242"
+      },
+      {
+        "support_value": "1053.9515",
+        "support_count": 1,
+        "cumulative_count": 195,
+        "cumulative_fraction": "65/69",
+        "cumulative_decimal": "0.942028985507246377"
+      },
+      {
+        "support_value": "1077.3825",
+        "support_count": 1,
+        "cumulative_count": 196,
+        "cumulative_fraction": "196/207",
+        "cumulative_decimal": "0.946859903381642512"
+      },
+      {
+        "support_value": "1079.4515",
+        "support_count": 1,
+        "cumulative_count": 197,
+        "cumulative_fraction": "197/207",
+        "cumulative_decimal": "0.951690821256038647"
+      },
+      {
+        "support_value": "1099.0625",
+        "support_count": 1,
+        "cumulative_count": 198,
+        "cumulative_fraction": "22/23",
+        "cumulative_decimal": "0.956521739130434783"
+      },
+      {
+        "support_value": "1316.955",
+        "support_count": 1,
+        "cumulative_count": 199,
+        "cumulative_fraction": "199/207",
+        "cumulative_decimal": "0.961352657004830918"
+      },
+      {
+        "support_value": "1366.4005",
+        "support_count": 1,
+        "cumulative_count": 200,
+        "cumulative_fraction": "200/207",
+        "cumulative_decimal": "0.966183574879227053"
+      },
+      {
+        "support_value": "1385.523",
+        "support_count": 1,
+        "cumulative_count": 201,
+        "cumulative_fraction": "67/69",
+        "cumulative_decimal": "0.971014492753623188"
+      },
+      {
+        "support_value": "1388.665",
+        "support_count": 1,
+        "cumulative_count": 202,
+        "cumulative_fraction": "202/207",
+        "cumulative_decimal": "0.975845410628019324"
+      },
+      {
+        "support_value": "1432.8945",
+        "support_count": 1,
+        "cumulative_count": 203,
+        "cumulative_fraction": "203/207",
+        "cumulative_decimal": "0.980676328502415459"
+      },
+      {
+        "support_value": "1455.44",
+        "support_count": 1,
+        "cumulative_count": 204,
+        "cumulative_fraction": "68/69",
+        "cumulative_decimal": "0.985507246376811594"
+      },
+      {
+        "support_value": "1662.717",
+        "support_count": 1,
+        "cumulative_count": 205,
+        "cumulative_fraction": "205/207",
+        "cumulative_decimal": "0.990338164251207729"
+      },
+      {
+        "support_value": "1699.0055",
+        "support_count": 1,
+        "cumulative_count": 206,
+        "cumulative_fraction": "206/207",
+        "cumulative_decimal": "0.995169082125603865"
+      },
+      {
+        "support_value": "2108.8895",
+        "support_count": 1,
+        "cumulative_count": 207,
+        "cumulative_fraction": "1",
+        "cumulative_decimal": "1.000000000000000000"
+      }
+    ]
+  },
+  "EXTERNAL": {
+    "N": 265,
+    "MINIMUM": "2.590000000000000000",
+    "MAXIMUM": "1847.299000000000000000",
+    "MEAN": "297.310892452830188679",
+    "MEDIAN": "219.595000000000000000",
+    "P01": "3.944680000000000000",
+    "P05": "19.240900000000000000",
+    "P10": "40.957200000000000000",
+    "P25": "107.095000000000000000",
+    "P50": "219.595000000000000000",
+    "P75": "382.669000000000000000",
+    "P90": "616.205400000000000000",
+    "P95": "831.923100000000000000",
+    "P99": "1479.008380000000000000",
+    "ZERO_COUNT": 0,
+    "ZERO_FRACTION": {
+      "fraction": "0",
+      "decimal": "0.000000000000000000"
+    },
+    "EMPIRICAL_CDF": [
+      {
+        "support_value": "2.59",
+        "support_count": 1,
+        "cumulative_count": 1,
+        "cumulative_fraction": "1/265",
+        "cumulative_decimal": "0.003773584905660377"
+      },
+      {
+        "support_value": "3.065",
+        "support_count": 1,
+        "cumulative_count": 2,
+        "cumulative_fraction": "2/265",
+        "cumulative_decimal": "0.007547169811320755"
+      },
+      {
+        "support_value": "3.865",
+        "support_count": 1,
+        "cumulative_count": 3,
+        "cumulative_fraction": "3/265",
+        "cumulative_decimal": "0.011320754716981132"
+      },
+      {
+        "support_value": "3.9895",
+        "support_count": 1,
+        "cumulative_count": 4,
+        "cumulative_fraction": "4/265",
+        "cumulative_decimal": "0.015094339622641509"
+      },
+      {
+        "support_value": "4.591",
+        "support_count": 1,
+        "cumulative_count": 5,
+        "cumulative_fraction": "1/53",
+        "cumulative_decimal": "0.018867924528301887"
+      },
+      {
+        "support_value": "6.365",
+        "support_count": 1,
+        "cumulative_count": 6,
+        "cumulative_fraction": "6/265",
+        "cumulative_decimal": "0.022641509433962264"
+      },
+      {
+        "support_value": "8.6615",
+        "support_count": 1,
+        "cumulative_count": 7,
+        "cumulative_fraction": "7/265",
+        "cumulative_decimal": "0.026415094339622642"
+      },
+      {
+        "support_value": "12.37",
+        "support_count": 1,
+        "cumulative_count": 8,
+        "cumulative_fraction": "8/265",
+        "cumulative_decimal": "0.030188679245283019"
+      },
+      {
+        "support_value": "13.145",
+        "support_count": 1,
+        "cumulative_count": 9,
+        "cumulative_fraction": "9/265",
+        "cumulative_decimal": "0.033962264150943396"
+      },
+      {
+        "support_value": "13.7",
+        "support_count": 1,
+        "cumulative_count": 10,
+        "cumulative_fraction": "2/53",
+        "cumulative_decimal": "0.037735849056603774"
+      },
+      {
+        "support_value": "15.165",
+        "support_count": 1,
+        "cumulative_count": 11,
+        "cumulative_fraction": "11/265",
+        "cumulative_decimal": "0.041509433962264151"
+      },
+      {
+        "support_value": "16.482",
+        "support_count": 1,
+        "cumulative_count": 12,
+        "cumulative_fraction": "12/265",
+        "cumulative_decimal": "0.045283018867924528"
+      },
+      {
+        "support_value": "17.184",
+        "support_count": 1,
+        "cumulative_count": 13,
+        "cumulative_fraction": "13/265",
+        "cumulative_decimal": "0.049056603773584906"
+      },
+      {
+        "support_value": "18.276",
+        "support_count": 1,
+        "cumulative_count": 14,
+        "cumulative_fraction": "14/265",
+        "cumulative_decimal": "0.052830188679245283"
+      },
+      {
+        "support_value": "23.1005",
+        "support_count": 1,
+        "cumulative_count": 15,
+        "cumulative_fraction": "3/53",
+        "cumulative_decimal": "0.056603773584905660"
+      },
+      {
+        "support_value": "23.18",
+        "support_count": 1,
+        "cumulative_count": 16,
+        "cumulative_fraction": "16/265",
+        "cumulative_decimal": "0.060377358490566038"
+      },
+      {
+        "support_value": "23.35",
+        "support_count": 1,
+        "cumulative_count": 17,
+        "cumulative_fraction": "17/265",
+        "cumulative_decimal": "0.064150943396226415"
+      },
+      {
+        "support_value": "24.575",
+        "support_count": 1,
+        "cumulative_count": 18,
+        "cumulative_fraction": "18/265",
+        "cumulative_decimal": "0.067924528301886792"
+      },
+      {
+        "support_value": "27.13",
+        "support_count": 1,
+        "cumulative_count": 19,
+        "cumulative_fraction": "19/265",
+        "cumulative_decimal": "0.071698113207547170"
+      },
+      {
+        "support_value": "27.511",
+        "support_count": 1,
+        "cumulative_count": 20,
+        "cumulative_fraction": "4/53",
+        "cumulative_decimal": "0.075471698113207547"
+      },
+      {
+        "support_value": "28.415",
+        "support_count": 1,
+        "cumulative_count": 21,
+        "cumulative_fraction": "21/265",
+        "cumulative_decimal": "0.079245283018867925"
+      },
+      {
+        "support_value": "31.566",
+        "support_count": 1,
+        "cumulative_count": 22,
+        "cumulative_fraction": "22/265",
+        "cumulative_decimal": "0.083018867924528302"
+      },
+      {
+        "support_value": "31.86",
+        "support_count": 1,
+        "cumulative_count": 23,
+        "cumulative_fraction": "23/265",
+        "cumulative_decimal": "0.086792452830188679"
+      },
+      {
+        "support_value": "34.999",
+        "support_count": 1,
+        "cumulative_count": 24,
+        "cumulative_fraction": "24/265",
+        "cumulative_decimal": "0.090566037735849057"
+      },
+      {
+        "support_value": "39.144",
+        "support_count": 1,
+        "cumulative_count": 25,
+        "cumulative_fraction": "5/53",
+        "cumulative_decimal": "0.094339622641509434"
+      },
+      {
+        "support_value": "39.474",
+        "support_count": 1,
+        "cumulative_count": 26,
+        "cumulative_fraction": "26/265",
+        "cumulative_decimal": "0.098113207547169811"
+      },
+      {
+        "support_value": "40.855",
+        "support_count": 1,
+        "cumulative_count": 27,
+        "cumulative_fraction": "27/265",
+        "cumulative_decimal": "0.101886792452830189"
+      },
+      {
+        "support_value": "41.1105",
+        "support_count": 1,
+        "cumulative_count": 28,
+        "cumulative_fraction": "28/265",
+        "cumulative_decimal": "0.105660377358490566"
+      },
+      {
+        "support_value": "41.275",
+        "support_count": 1,
+        "cumulative_count": 29,
+        "cumulative_fraction": "29/265",
+        "cumulative_decimal": "0.109433962264150943"
+      },
+      {
+        "support_value": "42.0015",
+        "support_count": 1,
+        "cumulative_count": 30,
+        "cumulative_fraction": "6/53",
+        "cumulative_decimal": "0.113207547169811321"
+      },
+      {
+        "support_value": "44.465",
+        "support_count": 1,
+        "cumulative_count": 31,
+        "cumulative_fraction": "31/265",
+        "cumulative_decimal": "0.116981132075471698"
+      },
+      {
+        "support_value": "45.8225",
+        "support_count": 1,
+        "cumulative_count": 32,
+        "cumulative_fraction": "32/265",
+        "cumulative_decimal": "0.120754716981132075"
+      },
+      {
+        "support_value": "46.43",
+        "support_count": 1,
+        "cumulative_count": 33,
+        "cumulative_fraction": "33/265",
+        "cumulative_decimal": "0.124528301886792453"
+      },
+      {
+        "support_value": "47.57",
+        "support_count": 1,
+        "cumulative_count": 34,
+        "cumulative_fraction": "34/265",
+        "cumulative_decimal": "0.128301886792452830"
+      },
+      {
+        "support_value": "50.469",
+        "support_count": 1,
+        "cumulative_count": 35,
+        "cumulative_fraction": "7/53",
+        "cumulative_decimal": "0.132075471698113208"
+      },
+      {
+        "support_value": "52.5",
+        "support_count": 1,
+        "cumulative_count": 36,
+        "cumulative_fraction": "36/265",
+        "cumulative_decimal": "0.135849056603773585"
+      },
+      {
+        "support_value": "53.2065",
+        "support_count": 1,
+        "cumulative_count": 37,
+        "cumulative_fraction": "37/265",
+        "cumulative_decimal": "0.139622641509433962"
+      },
+      {
+        "support_value": "53.48",
+        "support_count": 1,
+        "cumulative_count": 38,
+        "cumulative_fraction": "38/265",
+        "cumulative_decimal": "0.143396226415094340"
+      },
+      {
+        "support_value": "53.98",
+        "support_count": 1,
+        "cumulative_count": 39,
+        "cumulative_fraction": "39/265",
+        "cumulative_decimal": "0.147169811320754717"
+      },
+      {
+        "support_value": "55.755",
+        "support_count": 1,
+        "cumulative_count": 40,
+        "cumulative_fraction": "8/53",
+        "cumulative_decimal": "0.150943396226415094"
+      },
+      {
+        "support_value": "59.2775",
+        "support_count": 1,
+        "cumulative_count": 41,
+        "cumulative_fraction": "41/265",
+        "cumulative_decimal": "0.154716981132075472"
+      },
+      {
+        "support_value": "59.8605",
+        "support_count": 1,
+        "cumulative_count": 42,
+        "cumulative_fraction": "42/265",
+        "cumulative_decimal": "0.158490566037735849"
+      },
+      {
+        "support_value": "60.6795",
+        "support_count": 1,
+        "cumulative_count": 43,
+        "cumulative_fraction": "43/265",
+        "cumulative_decimal": "0.162264150943396226"
+      },
+      {
+        "support_value": "61.7555",
+        "support_count": 1,
+        "cumulative_count": 44,
+        "cumulative_fraction": "44/265",
+        "cumulative_decimal": "0.166037735849056604"
+      },
+      {
+        "support_value": "64.1",
+        "support_count": 1,
+        "cumulative_count": 45,
+        "cumulative_fraction": "9/53",
+        "cumulative_decimal": "0.169811320754716981"
+      },
+      {
+        "support_value": "66.295",
+        "support_count": 1,
+        "cumulative_count": 46,
+        "cumulative_fraction": "46/265",
+        "cumulative_decimal": "0.173584905660377358"
+      },
+      {
+        "support_value": "68.4495",
+        "support_count": 1,
+        "cumulative_count": 47,
+        "cumulative_fraction": "47/265",
+        "cumulative_decimal": "0.177358490566037736"
+      },
+      {
+        "support_value": "70.5105",
+        "support_count": 1,
+        "cumulative_count": 48,
+        "cumulative_fraction": "48/265",
+        "cumulative_decimal": "0.181132075471698113"
+      },
+      {
+        "support_value": "70.7625",
+        "support_count": 1,
+        "cumulative_count": 49,
+        "cumulative_fraction": "49/265",
+        "cumulative_decimal": "0.184905660377358491"
+      },
+      {
+        "support_value": "74.755",
+        "support_count": 1,
+        "cumulative_count": 50,
+        "cumulative_fraction": "10/53",
+        "cumulative_decimal": "0.188679245283018868"
+      },
+      {
+        "support_value": "75.394",
+        "support_count": 1,
+        "cumulative_count": 51,
+        "cumulative_fraction": "51/265",
+        "cumulative_decimal": "0.192452830188679245"
+      },
+      {
+        "support_value": "77.11",
+        "support_count": 1,
+        "cumulative_count": 52,
+        "cumulative_fraction": "52/265",
+        "cumulative_decimal": "0.196226415094339623"
+      },
+      {
+        "support_value": "77.611",
+        "support_count": 1,
+        "cumulative_count": 53,
+        "cumulative_fraction": "1/5",
+        "cumulative_decimal": "0.200000000000000000"
+      },
+      {
+        "support_value": "78.2355",
+        "support_count": 1,
+        "cumulative_count": 54,
+        "cumulative_fraction": "54/265",
+        "cumulative_decimal": "0.203773584905660377"
+      },
+      {
+        "support_value": "82.99",
+        "support_count": 1,
+        "cumulative_count": 55,
+        "cumulative_fraction": "11/53",
+        "cumulative_decimal": "0.207547169811320755"
+      },
+      {
+        "support_value": "83.012",
+        "support_count": 1,
+        "cumulative_count": 56,
+        "cumulative_fraction": "56/265",
+        "cumulative_decimal": "0.211320754716981132"
+      },
+      {
+        "support_value": "83.361",
+        "support_count": 1,
+        "cumulative_count": 57,
+        "cumulative_fraction": "57/265",
+        "cumulative_decimal": "0.215094339622641509"
+      },
+      {
+        "support_value": "85.056",
+        "support_count": 1,
+        "cumulative_count": 58,
+        "cumulative_fraction": "58/265",
+        "cumulative_decimal": "0.218867924528301887"
+      },
+      {
+        "support_value": "88.47",
+        "support_count": 1,
+        "cumulative_count": 59,
+        "cumulative_fraction": "59/265",
+        "cumulative_decimal": "0.222641509433962264"
+      },
+      {
+        "support_value": "90.4665",
+        "support_count": 1,
+        "cumulative_count": 60,
+        "cumulative_fraction": "12/53",
+        "cumulative_decimal": "0.226415094339622642"
+      },
+      {
+        "support_value": "93.685",
+        "support_count": 1,
+        "cumulative_count": 61,
+        "cumulative_fraction": "61/265",
+        "cumulative_decimal": "0.230188679245283019"
+      },
+      {
+        "support_value": "98.76",
+        "support_count": 1,
+        "cumulative_count": 62,
+        "cumulative_fraction": "62/265",
+        "cumulative_decimal": "0.233962264150943396"
+      },
+      {
+        "support_value": "101.58",
+        "support_count": 1,
+        "cumulative_count": 63,
+        "cumulative_fraction": "63/265",
+        "cumulative_decimal": "0.237735849056603774"
+      },
+      {
+        "support_value": "101.865",
+        "support_count": 1,
+        "cumulative_count": 64,
+        "cumulative_fraction": "64/265",
+        "cumulative_decimal": "0.241509433962264151"
+      },
+      {
+        "support_value": "104.816",
+        "support_count": 1,
+        "cumulative_count": 65,
+        "cumulative_fraction": "13/53",
+        "cumulative_decimal": "0.245283018867924528"
+      },
+      {
+        "support_value": "105.155",
+        "support_count": 1,
+        "cumulative_count": 66,
+        "cumulative_fraction": "66/265",
+        "cumulative_decimal": "0.249056603773584906"
+      },
+      {
+        "support_value": "107.095",
+        "support_count": 1,
+        "cumulative_count": 67,
+        "cumulative_fraction": "67/265",
+        "cumulative_decimal": "0.252830188679245283"
+      },
+      {
+        "support_value": "108.71",
+        "support_count": 1,
+        "cumulative_count": 68,
+        "cumulative_fraction": "68/265",
+        "cumulative_decimal": "0.256603773584905660"
+      },
+      {
+        "support_value": "108.941",
+        "support_count": 1,
+        "cumulative_count": 69,
+        "cumulative_fraction": "69/265",
+        "cumulative_decimal": "0.260377358490566038"
+      },
+      {
+        "support_value": "109.495",
+        "support_count": 1,
+        "cumulative_count": 70,
+        "cumulative_fraction": "14/53",
+        "cumulative_decimal": "0.264150943396226415"
+      },
+      {
+        "support_value": "112.33",
+        "support_count": 1,
+        "cumulative_count": 71,
+        "cumulative_fraction": "71/265",
+        "cumulative_decimal": "0.267924528301886792"
+      },
+      {
+        "support_value": "115.205",
+        "support_count": 1,
+        "cumulative_count": 72,
+        "cumulative_fraction": "72/265",
+        "cumulative_decimal": "0.271698113207547170"
+      },
+      {
+        "support_value": "116.984",
+        "support_count": 1,
+        "cumulative_count": 73,
+        "cumulative_fraction": "73/265",
+        "cumulative_decimal": "0.275471698113207547"
+      },
+      {
+        "support_value": "118.21",
+        "support_count": 1,
+        "cumulative_count": 74,
+        "cumulative_fraction": "74/265",
+        "cumulative_decimal": "0.279245283018867925"
+      },
+      {
+        "support_value": "120.477",
+        "support_count": 1,
+        "cumulative_count": 75,
+        "cumulative_fraction": "15/53",
+        "cumulative_decimal": "0.283018867924528302"
+      },
+      {
+        "support_value": "120.56",
+        "support_count": 1,
+        "cumulative_count": 76,
+        "cumulative_fraction": "76/265",
+        "cumulative_decimal": "0.286792452830188679"
+      },
+      {
+        "support_value": "120.7115",
+        "support_count": 1,
+        "cumulative_count": 77,
+        "cumulative_fraction": "77/265",
+        "cumulative_decimal": "0.290566037735849057"
+      },
+      {
+        "support_value": "122.59",
+        "support_count": 1,
+        "cumulative_count": 78,
+        "cumulative_fraction": "78/265",
+        "cumulative_decimal": "0.294339622641509434"
+      },
+      {
+        "support_value": "123.806",
+        "support_count": 1,
+        "cumulative_count": 79,
+        "cumulative_fraction": "79/265",
+        "cumulative_decimal": "0.298113207547169811"
+      },
+      {
+        "support_value": "124.0325",
+        "support_count": 1,
+        "cumulative_count": 80,
+        "cumulative_fraction": "16/53",
+        "cumulative_decimal": "0.301886792452830189"
+      },
+      {
+        "support_value": "128.185",
+        "support_count": 1,
+        "cumulative_count": 81,
+        "cumulative_fraction": "81/265",
+        "cumulative_decimal": "0.305660377358490566"
+      },
+      {
+        "support_value": "129.0385",
+        "support_count": 1,
+        "cumulative_count": 82,
+        "cumulative_fraction": "82/265",
+        "cumulative_decimal": "0.309433962264150943"
+      },
+      {
+        "support_value": "129.27",
+        "support_count": 1,
+        "cumulative_count": 83,
+        "cumulative_fraction": "83/265",
+        "cumulative_decimal": "0.313207547169811321"
+      },
+      {
+        "support_value": "131.3825",
+        "support_count": 1,
+        "cumulative_count": 84,
+        "cumulative_fraction": "84/265",
+        "cumulative_decimal": "0.316981132075471698"
+      },
+      {
+        "support_value": "131.883",
+        "support_count": 1,
+        "cumulative_count": 85,
+        "cumulative_fraction": "17/53",
+        "cumulative_decimal": "0.320754716981132075"
+      },
+      {
+        "support_value": "132.491",
+        "support_count": 1,
+        "cumulative_count": 86,
+        "cumulative_fraction": "86/265",
+        "cumulative_decimal": "0.324528301886792453"
+      },
+      {
+        "support_value": "136.685",
+        "support_count": 1,
+        "cumulative_count": 87,
+        "cumulative_fraction": "87/265",
+        "cumulative_decimal": "0.328301886792452830"
+      },
+      {
+        "support_value": "138.15",
+        "support_count": 1,
+        "cumulative_count": 88,
+        "cumulative_fraction": "88/265",
+        "cumulative_decimal": "0.332075471698113208"
+      },
+      {
+        "support_value": "139.491",
+        "support_count": 1,
+        "cumulative_count": 89,
+        "cumulative_fraction": "89/265",
+        "cumulative_decimal": "0.335849056603773585"
+      },
+      {
+        "support_value": "141.168",
+        "support_count": 1,
+        "cumulative_count": 90,
+        "cumulative_fraction": "18/53",
+        "cumulative_decimal": "0.339622641509433962"
+      },
+      {
+        "support_value": "142.2045",
+        "support_count": 1,
+        "cumulative_count": 91,
+        "cumulative_fraction": "91/265",
+        "cumulative_decimal": "0.343396226415094340"
+      },
+      {
+        "support_value": "142.306",
+        "support_count": 1,
+        "cumulative_count": 92,
+        "cumulative_fraction": "92/265",
+        "cumulative_decimal": "0.347169811320754717"
+      },
+      {
+        "support_value": "145.209",
+        "support_count": 1,
+        "cumulative_count": 93,
+        "cumulative_fraction": "93/265",
+        "cumulative_decimal": "0.350943396226415094"
+      },
+      {
+        "support_value": "145.485",
+        "support_count": 1,
+        "cumulative_count": 94,
+        "cumulative_fraction": "94/265",
+        "cumulative_decimal": "0.354716981132075472"
+      },
+      {
+        "support_value": "145.6335",
+        "support_count": 1,
+        "cumulative_count": 95,
+        "cumulative_fraction": "19/53",
+        "cumulative_decimal": "0.358490566037735849"
+      },
+      {
+        "support_value": "146.557",
+        "support_count": 1,
+        "cumulative_count": 96,
+        "cumulative_fraction": "96/265",
+        "cumulative_decimal": "0.362264150943396226"
+      },
+      {
+        "support_value": "147.7705",
+        "support_count": 1,
+        "cumulative_count": 97,
+        "cumulative_fraction": "97/265",
+        "cumulative_decimal": "0.366037735849056604"
+      },
+      {
+        "support_value": "147.9685",
+        "support_count": 1,
+        "cumulative_count": 98,
+        "cumulative_fraction": "98/265",
+        "cumulative_decimal": "0.369811320754716981"
+      },
+      {
+        "support_value": "151.856",
+        "support_count": 1,
+        "cumulative_count": 99,
+        "cumulative_fraction": "99/265",
+        "cumulative_decimal": "0.373584905660377358"
+      },
+      {
+        "support_value": "152.814",
+        "support_count": 1,
+        "cumulative_count": 100,
+        "cumulative_fraction": "20/53",
+        "cumulative_decimal": "0.377358490566037736"
+      },
+      {
+        "support_value": "158.1515",
+        "support_count": 1,
+        "cumulative_count": 101,
+        "cumulative_fraction": "101/265",
+        "cumulative_decimal": "0.381132075471698113"
+      },
+      {
+        "support_value": "160.446",
+        "support_count": 1,
+        "cumulative_count": 102,
+        "cumulative_fraction": "102/265",
+        "cumulative_decimal": "0.384905660377358491"
+      },
+      {
+        "support_value": "160.84",
+        "support_count": 1,
+        "cumulative_count": 103,
+        "cumulative_fraction": "103/265",
+        "cumulative_decimal": "0.388679245283018868"
+      },
+      {
+        "support_value": "162.195",
+        "support_count": 1,
+        "cumulative_count": 104,
+        "cumulative_fraction": "104/265",
+        "cumulative_decimal": "0.392452830188679245"
+      },
+      {
+        "support_value": "164.3275",
+        "support_count": 1,
+        "cumulative_count": 105,
+        "cumulative_fraction": "21/53",
+        "cumulative_decimal": "0.396226415094339623"
+      },
+      {
+        "support_value": "165.5065",
+        "support_count": 1,
+        "cumulative_count": 106,
+        "cumulative_fraction": "2/5",
+        "cumulative_decimal": "0.400000000000000000"
+      },
+      {
+        "support_value": "165.92",
+        "support_count": 1,
+        "cumulative_count": 107,
+        "cumulative_fraction": "107/265",
+        "cumulative_decimal": "0.403773584905660377"
+      },
+      {
+        "support_value": "166.485",
+        "support_count": 1,
+        "cumulative_count": 108,
+        "cumulative_fraction": "108/265",
+        "cumulative_decimal": "0.407547169811320755"
+      },
+      {
+        "support_value": "170.465",
+        "support_count": 1,
+        "cumulative_count": 109,
+        "cumulative_fraction": "109/265",
+        "cumulative_decimal": "0.411320754716981132"
+      },
+      {
+        "support_value": "175.02",
+        "support_count": 1,
+        "cumulative_count": 110,
+        "cumulative_fraction": "22/53",
+        "cumulative_decimal": "0.415094339622641509"
+      },
+      {
+        "support_value": "182.8945",
+        "support_count": 1,
+        "cumulative_count": 111,
+        "cumulative_fraction": "111/265",
+        "cumulative_decimal": "0.418867924528301887"
+      },
+      {
+        "support_value": "186.376",
+        "support_count": 1,
+        "cumulative_count": 112,
+        "cumulative_fraction": "112/265",
+        "cumulative_decimal": "0.422641509433962264"
+      },
+      {
+        "support_value": "187.885",
+        "support_count": 1,
+        "cumulative_count": 113,
+        "cumulative_fraction": "113/265",
+        "cumulative_decimal": "0.426415094339622642"
+      },
+      {
+        "support_value": "191.6285",
+        "support_count": 1,
+        "cumulative_count": 114,
+        "cumulative_fraction": "114/265",
+        "cumulative_decimal": "0.430188679245283019"
+      },
+      {
+        "support_value": "192.439",
+        "support_count": 1,
+        "cumulative_count": 115,
+        "cumulative_fraction": "23/53",
+        "cumulative_decimal": "0.433962264150943396"
+      },
+      {
+        "support_value": "193.405",
+        "support_count": 1,
+        "cumulative_count": 116,
+        "cumulative_fraction": "116/265",
+        "cumulative_decimal": "0.437735849056603774"
+      },
+      {
+        "support_value": "194.956",
+        "support_count": 1,
+        "cumulative_count": 117,
+        "cumulative_fraction": "117/265",
+        "cumulative_decimal": "0.441509433962264151"
+      },
+      {
+        "support_value": "195.34",
+        "support_count": 1,
+        "cumulative_count": 118,
+        "cumulative_fraction": "118/265",
+        "cumulative_decimal": "0.445283018867924528"
+      },
+      {
+        "support_value": "196.275",
+        "support_count": 1,
+        "cumulative_count": 119,
+        "cumulative_fraction": "119/265",
+        "cumulative_decimal": "0.449056603773584906"
+      },
+      {
+        "support_value": "196.6",
+        "support_count": 1,
+        "cumulative_count": 120,
+        "cumulative_fraction": "24/53",
+        "cumulative_decimal": "0.452830188679245283"
+      },
+      {
+        "support_value": "197.555",
+        "support_count": 1,
+        "cumulative_count": 121,
+        "cumulative_fraction": "121/265",
+        "cumulative_decimal": "0.456603773584905660"
+      },
+      {
+        "support_value": "200.34",
+        "support_count": 1,
+        "cumulative_count": 122,
+        "cumulative_fraction": "122/265",
+        "cumulative_decimal": "0.460377358490566038"
+      },
+      {
+        "support_value": "200.8285",
+        "support_count": 1,
+        "cumulative_count": 123,
+        "cumulative_fraction": "123/265",
+        "cumulative_decimal": "0.464150943396226415"
+      },
+      {
+        "support_value": "202.415",
+        "support_count": 1,
+        "cumulative_count": 124,
+        "cumulative_fraction": "124/265",
+        "cumulative_decimal": "0.467924528301886792"
+      },
+      {
+        "support_value": "206.335",
+        "support_count": 1,
+        "cumulative_count": 125,
+        "cumulative_fraction": "25/53",
+        "cumulative_decimal": "0.471698113207547170"
+      },
+      {
+        "support_value": "209.679",
+        "support_count": 1,
+        "cumulative_count": 126,
+        "cumulative_fraction": "126/265",
+        "cumulative_decimal": "0.475471698113207547"
+      },
+      {
+        "support_value": "210.328",
+        "support_count": 1,
+        "cumulative_count": 127,
+        "cumulative_fraction": "127/265",
+        "cumulative_decimal": "0.479245283018867925"
+      },
+      {
+        "support_value": "214.91",
+        "support_count": 1,
+        "cumulative_count": 128,
+        "cumulative_fraction": "128/265",
+        "cumulative_decimal": "0.483018867924528302"
+      },
+      {
+        "support_value": "214.925",
+        "support_count": 1,
+        "cumulative_count": 129,
+        "cumulative_fraction": "129/265",
+        "cumulative_decimal": "0.486792452830188679"
+      },
+      {
+        "support_value": "216.207",
+        "support_count": 1,
+        "cumulative_count": 130,
+        "cumulative_fraction": "26/53",
+        "cumulative_decimal": "0.490566037735849057"
+      },
+      {
+        "support_value": "218.131",
+        "support_count": 1,
+        "cumulative_count": 131,
+        "cumulative_fraction": "131/265",
+        "cumulative_decimal": "0.494339622641509434"
+      },
+      {
+        "support_value": "218.1835",
+        "support_count": 1,
+        "cumulative_count": 132,
+        "cumulative_fraction": "132/265",
+        "cumulative_decimal": "0.498113207547169811"
+      },
+      {
+        "support_value": "219.595",
+        "support_count": 1,
+        "cumulative_count": 133,
+        "cumulative_fraction": "133/265",
+        "cumulative_decimal": "0.501886792452830189"
+      },
+      {
+        "support_value": "219.96",
+        "support_count": 1,
+        "cumulative_count": 134,
+        "cumulative_fraction": "134/265",
+        "cumulative_decimal": "0.505660377358490566"
+      },
+      {
+        "support_value": "220.86",
+        "support_count": 1,
+        "cumulative_count": 135,
+        "cumulative_fraction": "27/53",
+        "cumulative_decimal": "0.509433962264150943"
+      },
+      {
+        "support_value": "224.315",
+        "support_count": 1,
+        "cumulative_count": 136,
+        "cumulative_fraction": "136/265",
+        "cumulative_decimal": "0.513207547169811321"
+      },
+      {
+        "support_value": "224.8215",
+        "support_count": 1,
+        "cumulative_count": 137,
+        "cumulative_fraction": "137/265",
+        "cumulative_decimal": "0.516981132075471698"
+      },
+      {
+        "support_value": "224.935",
+        "support_count": 1,
+        "cumulative_count": 138,
+        "cumulative_fraction": "138/265",
+        "cumulative_decimal": "0.520754716981132075"
+      },
+      {
+        "support_value": "227.1765",
+        "support_count": 1,
+        "cumulative_count": 139,
+        "cumulative_fraction": "139/265",
+        "cumulative_decimal": "0.524528301886792453"
+      },
+      {
+        "support_value": "227.33",
+        "support_count": 1,
+        "cumulative_count": 140,
+        "cumulative_fraction": "28/53",
+        "cumulative_decimal": "0.528301886792452830"
+      },
+      {
+        "support_value": "233.766",
+        "support_count": 1,
+        "cumulative_count": 141,
+        "cumulative_fraction": "141/265",
+        "cumulative_decimal": "0.532075471698113208"
+      },
+      {
+        "support_value": "235.365",
+        "support_count": 1,
+        "cumulative_count": 142,
+        "cumulative_fraction": "142/265",
+        "cumulative_decimal": "0.535849056603773585"
+      },
+      {
+        "support_value": "236.465",
+        "support_count": 1,
+        "cumulative_count": 143,
+        "cumulative_fraction": "143/265",
+        "cumulative_decimal": "0.539622641509433962"
+      },
+      {
+        "support_value": "237.0945",
+        "support_count": 1,
+        "cumulative_count": 144,
+        "cumulative_fraction": "144/265",
+        "cumulative_decimal": "0.543396226415094340"
+      },
+      {
+        "support_value": "242.085",
+        "support_count": 1,
+        "cumulative_count": 145,
+        "cumulative_fraction": "29/53",
+        "cumulative_decimal": "0.547169811320754717"
+      },
+      {
+        "support_value": "243.11",
+        "support_count": 1,
+        "cumulative_count": 146,
+        "cumulative_fraction": "146/265",
+        "cumulative_decimal": "0.550943396226415094"
+      },
+      {
+        "support_value": "243.622",
+        "support_count": 1,
+        "cumulative_count": 147,
+        "cumulative_fraction": "147/265",
+        "cumulative_decimal": "0.554716981132075472"
+      },
+      {
+        "support_value": "244.315",
+        "support_count": 1,
+        "cumulative_count": 148,
+        "cumulative_fraction": "148/265",
+        "cumulative_decimal": "0.558490566037735849"
+      },
+      {
+        "support_value": "249.63",
+        "support_count": 1,
+        "cumulative_count": 149,
+        "cumulative_fraction": "149/265",
+        "cumulative_decimal": "0.562264150943396226"
+      },
+      {
+        "support_value": "251.76",
+        "support_count": 1,
+        "cumulative_count": 150,
+        "cumulative_fraction": "30/53",
+        "cumulative_decimal": "0.566037735849056604"
+      },
+      {
+        "support_value": "256.0035",
+        "support_count": 1,
+        "cumulative_count": 151,
+        "cumulative_fraction": "151/265",
+        "cumulative_decimal": "0.569811320754716981"
+      },
+      {
+        "support_value": "257.31",
+        "support_count": 1,
+        "cumulative_count": 152,
+        "cumulative_fraction": "152/265",
+        "cumulative_decimal": "0.573584905660377358"
+      },
+      {
+        "support_value": "258.99",
+        "support_count": 1,
+        "cumulative_count": 153,
+        "cumulative_fraction": "153/265",
+        "cumulative_decimal": "0.577358490566037736"
+      },
+      {
+        "support_value": "260.805",
+        "support_count": 1,
+        "cumulative_count": 154,
+        "cumulative_fraction": "154/265",
+        "cumulative_decimal": "0.581132075471698113"
+      },
+      {
+        "support_value": "263.6895",
+        "support_count": 1,
+        "cumulative_count": 155,
+        "cumulative_fraction": "31/53",
+        "cumulative_decimal": "0.584905660377358491"
+      },
+      {
+        "support_value": "264.15",
+        "support_count": 1,
+        "cumulative_count": 156,
+        "cumulative_fraction": "156/265",
+        "cumulative_decimal": "0.588679245283018868"
+      },
+      {
+        "support_value": "266.385",
+        "support_count": 1,
+        "cumulative_count": 157,
+        "cumulative_fraction": "157/265",
+        "cumulative_decimal": "0.592452830188679245"
+      },
+      {
+        "support_value": "266.785",
+        "support_count": 1,
+        "cumulative_count": 158,
+        "cumulative_fraction": "158/265",
+        "cumulative_decimal": "0.596226415094339623"
+      },
+      {
+        "support_value": "270.76",
+        "support_count": 1,
+        "cumulative_count": 159,
+        "cumulative_fraction": "3/5",
+        "cumulative_decimal": "0.600000000000000000"
+      },
+      {
+        "support_value": "275.6625",
+        "support_count": 1,
+        "cumulative_count": 160,
+        "cumulative_fraction": "32/53",
+        "cumulative_decimal": "0.603773584905660377"
+      },
+      {
+        "support_value": "275.85",
+        "support_count": 1,
+        "cumulative_count": 161,
+        "cumulative_fraction": "161/265",
+        "cumulative_decimal": "0.607547169811320755"
+      },
+      {
+        "support_value": "280.1725",
+        "support_count": 1,
+        "cumulative_count": 162,
+        "cumulative_fraction": "162/265",
+        "cumulative_decimal": "0.611320754716981132"
+      },
+      {
+        "support_value": "280.185",
+        "support_count": 1,
+        "cumulative_count": 163,
+        "cumulative_fraction": "163/265",
+        "cumulative_decimal": "0.615094339622641509"
+      },
+      {
+        "support_value": "280.6145",
+        "support_count": 1,
+        "cumulative_count": 164,
+        "cumulative_fraction": "164/265",
+        "cumulative_decimal": "0.618867924528301887"
+      },
+      {
+        "support_value": "285.175",
+        "support_count": 1,
+        "cumulative_count": 165,
+        "cumulative_fraction": "33/53",
+        "cumulative_decimal": "0.622641509433962264"
+      },
+      {
+        "support_value": "286.1395",
+        "support_count": 1,
+        "cumulative_count": 166,
+        "cumulative_fraction": "166/265",
+        "cumulative_decimal": "0.626415094339622642"
+      },
+      {
+        "support_value": "286.455",
+        "support_count": 1,
+        "cumulative_count": 167,
+        "cumulative_fraction": "167/265",
+        "cumulative_decimal": "0.630188679245283019"
+      },
+      {
+        "support_value": "287.02",
+        "support_count": 1,
+        "cumulative_count": 168,
+        "cumulative_fraction": "168/265",
+        "cumulative_decimal": "0.633962264150943396"
+      },
+      {
+        "support_value": "287.3565",
+        "support_count": 1,
+        "cumulative_count": 169,
+        "cumulative_fraction": "169/265",
+        "cumulative_decimal": "0.637735849056603774"
+      },
+      {
+        "support_value": "287.391",
+        "support_count": 1,
+        "cumulative_count": 170,
+        "cumulative_fraction": "34/53",
+        "cumulative_decimal": "0.641509433962264151"
+      },
+      {
+        "support_value": "290.135",
+        "support_count": 1,
+        "cumulative_count": 171,
+        "cumulative_fraction": "171/265",
+        "cumulative_decimal": "0.645283018867924528"
+      },
+      {
+        "support_value": "290.8335",
+        "support_count": 1,
+        "cumulative_count": 172,
+        "cumulative_fraction": "172/265",
+        "cumulative_decimal": "0.649056603773584906"
+      },
+      {
+        "support_value": "293.493",
+        "support_count": 1,
+        "cumulative_count": 173,
+        "cumulative_fraction": "173/265",
+        "cumulative_decimal": "0.652830188679245283"
+      },
+      {
+        "support_value": "294.52",
+        "support_count": 1,
+        "cumulative_count": 174,
+        "cumulative_fraction": "174/265",
+        "cumulative_decimal": "0.656603773584905660"
+      },
+      {
+        "support_value": "294.571",
+        "support_count": 1,
+        "cumulative_count": 175,
+        "cumulative_fraction": "35/53",
+        "cumulative_decimal": "0.660377358490566038"
+      },
+      {
+        "support_value": "294.945",
+        "support_count": 1,
+        "cumulative_count": 176,
+        "cumulative_fraction": "176/265",
+        "cumulative_decimal": "0.664150943396226415"
+      },
+      {
+        "support_value": "300.1565",
+        "support_count": 1,
+        "cumulative_count": 177,
+        "cumulative_fraction": "177/265",
+        "cumulative_decimal": "0.667924528301886792"
+      },
+      {
+        "support_value": "302.58",
+        "support_count": 1,
+        "cumulative_count": 178,
+        "cumulative_fraction": "178/265",
+        "cumulative_decimal": "0.671698113207547170"
+      },
+      {
+        "support_value": "302.915",
+        "support_count": 1,
+        "cumulative_count": 179,
+        "cumulative_fraction": "179/265",
+        "cumulative_decimal": "0.675471698113207547"
+      },
+      {
+        "support_value": "303.975",
+        "support_count": 1,
+        "cumulative_count": 180,
+        "cumulative_fraction": "36/53",
+        "cumulative_decimal": "0.679245283018867925"
+      },
+      {
+        "support_value": "306.99",
+        "support_count": 1,
+        "cumulative_count": 181,
+        "cumulative_fraction": "181/265",
+        "cumulative_decimal": "0.683018867924528302"
+      },
+      {
+        "support_value": "313.34",
+        "support_count": 1,
+        "cumulative_count": 182,
+        "cumulative_fraction": "182/265",
+        "cumulative_decimal": "0.686792452830188679"
+      },
+      {
+        "support_value": "316.234",
+        "support_count": 1,
+        "cumulative_count": 183,
+        "cumulative_fraction": "183/265",
+        "cumulative_decimal": "0.690566037735849057"
+      },
+      {
+        "support_value": "317.605",
+        "support_count": 1,
+        "cumulative_count": 184,
+        "cumulative_fraction": "184/265",
+        "cumulative_decimal": "0.694339622641509434"
+      },
+      {
+        "support_value": "323.34",
+        "support_count": 1,
+        "cumulative_count": 185,
+        "cumulative_fraction": "37/53",
+        "cumulative_decimal": "0.698113207547169811"
+      },
+      {
+        "support_value": "326.034",
+        "support_count": 1,
+        "cumulative_count": 186,
+        "cumulative_fraction": "186/265",
+        "cumulative_decimal": "0.701886792452830189"
+      },
+      {
+        "support_value": "331.701",
+        "support_count": 1,
+        "cumulative_count": 187,
+        "cumulative_fraction": "187/265",
+        "cumulative_decimal": "0.705660377358490566"
+      },
+      {
+        "support_value": "341.5995",
+        "support_count": 1,
+        "cumulative_count": 188,
+        "cumulative_fraction": "188/265",
+        "cumulative_decimal": "0.709433962264150943"
+      },
+      {
+        "support_value": "343.666",
+        "support_count": 1,
+        "cumulative_count": 189,
+        "cumulative_fraction": "189/265",
+        "cumulative_decimal": "0.713207547169811321"
+      },
+      {
+        "support_value": "350.691",
+        "support_count": 1,
+        "cumulative_count": 190,
+        "cumulative_fraction": "38/53",
+        "cumulative_decimal": "0.716981132075471698"
+      },
+      {
+        "support_value": "353.1735",
+        "support_count": 1,
+        "cumulative_count": 191,
+        "cumulative_fraction": "191/265",
+        "cumulative_decimal": "0.720754716981132075"
+      },
+      {
+        "support_value": "355.905",
+        "support_count": 1,
+        "cumulative_count": 192,
+        "cumulative_fraction": "192/265",
+        "cumulative_decimal": "0.724528301886792453"
+      },
+      {
+        "support_value": "356.6055",
+        "support_count": 1,
+        "cumulative_count": 193,
+        "cumulative_fraction": "193/265",
+        "cumulative_decimal": "0.728301886792452830"
+      },
+      {
+        "support_value": "358.7635",
+        "support_count": 1,
+        "cumulative_count": 194,
+        "cumulative_fraction": "194/265",
+        "cumulative_decimal": "0.732075471698113208"
+      },
+      {
+        "support_value": "361.424",
+        "support_count": 1,
+        "cumulative_count": 195,
+        "cumulative_fraction": "39/53",
+        "cumulative_decimal": "0.735849056603773585"
+      },
+      {
+        "support_value": "363.523",
+        "support_count": 1,
+        "cumulative_count": 196,
+        "cumulative_fraction": "196/265",
+        "cumulative_decimal": "0.739622641509433962"
+      },
+      {
+        "support_value": "364.376",
+        "support_count": 1,
+        "cumulative_count": 197,
+        "cumulative_fraction": "197/265",
+        "cumulative_decimal": "0.743396226415094340"
+      },
+      {
+        "support_value": "367.2505",
+        "support_count": 1,
+        "cumulative_count": 198,
+        "cumulative_fraction": "198/265",
+        "cumulative_decimal": "0.747169811320754717"
+      },
+      {
+        "support_value": "382.669",
+        "support_count": 1,
+        "cumulative_count": 199,
+        "cumulative_fraction": "199/265",
+        "cumulative_decimal": "0.750943396226415094"
+      },
+      {
+        "support_value": "385.425",
+        "support_count": 1,
+        "cumulative_count": 200,
+        "cumulative_fraction": "40/53",
+        "cumulative_decimal": "0.754716981132075472"
+      },
+      {
+        "support_value": "386.59",
+        "support_count": 1,
+        "cumulative_count": 201,
+        "cumulative_fraction": "201/265",
+        "cumulative_decimal": "0.758490566037735849"
+      },
+      {
+        "support_value": "393.0",
+        "support_count": 1,
+        "cumulative_count": 202,
+        "cumulative_fraction": "202/265",
+        "cumulative_decimal": "0.762264150943396226"
+      },
+      {
+        "support_value": "404.85",
+        "support_count": 1,
+        "cumulative_count": 203,
+        "cumulative_fraction": "203/265",
+        "cumulative_decimal": "0.766037735849056604"
+      },
+      {
+        "support_value": "418.07",
+        "support_count": 1,
+        "cumulative_count": 204,
+        "cumulative_fraction": "204/265",
+        "cumulative_decimal": "0.769811320754716981"
+      },
+      {
+        "support_value": "419.075",
+        "support_count": 1,
+        "cumulative_count": 205,
+        "cumulative_fraction": "41/53",
+        "cumulative_decimal": "0.773584905660377358"
+      },
+      {
+        "support_value": "420.5885",
+        "support_count": 1,
+        "cumulative_count": 206,
+        "cumulative_fraction": "206/265",
+        "cumulative_decimal": "0.777358490566037736"
+      },
+      {
+        "support_value": "420.75",
+        "support_count": 1,
+        "cumulative_count": 207,
+        "cumulative_fraction": "207/265",
+        "cumulative_decimal": "0.781132075471698113"
+      },
+      {
+        "support_value": "422.76",
+        "support_count": 1,
+        "cumulative_count": 208,
+        "cumulative_fraction": "208/265",
+        "cumulative_decimal": "0.784905660377358491"
+      },
+      {
+        "support_value": "427.09",
+        "support_count": 1,
+        "cumulative_count": 209,
+        "cumulative_fraction": "209/265",
+        "cumulative_decimal": "0.788679245283018868"
+      },
+      {
+        "support_value": "429.815",
+        "support_count": 1,
+        "cumulative_count": 210,
+        "cumulative_fraction": "42/53",
+        "cumulative_decimal": "0.792452830188679245"
+      },
+      {
+        "support_value": "432.1",
+        "support_count": 1,
+        "cumulative_count": 211,
+        "cumulative_fraction": "211/265",
+        "cumulative_decimal": "0.796226415094339623"
+      },
+      {
+        "support_value": "433.69",
+        "support_count": 1,
+        "cumulative_count": 212,
+        "cumulative_fraction": "4/5",
+        "cumulative_decimal": "0.800000000000000000"
+      },
+      {
+        "support_value": "441.03",
+        "support_count": 1,
+        "cumulative_count": 213,
+        "cumulative_fraction": "213/265",
+        "cumulative_decimal": "0.803773584905660377"
+      },
+      {
+        "support_value": "443.485",
+        "support_count": 1,
+        "cumulative_count": 214,
+        "cumulative_fraction": "214/265",
+        "cumulative_decimal": "0.807547169811320755"
+      },
+      {
+        "support_value": "444.12",
+        "support_count": 1,
+        "cumulative_count": 215,
+        "cumulative_fraction": "43/53",
+        "cumulative_decimal": "0.811320754716981132"
+      },
+      {
+        "support_value": "449.63",
+        "support_count": 1,
+        "cumulative_count": 216,
+        "cumulative_fraction": "216/265",
+        "cumulative_decimal": "0.815094339622641509"
+      },
+      {
+        "support_value": "450.3895",
+        "support_count": 1,
+        "cumulative_count": 217,
+        "cumulative_fraction": "217/265",
+        "cumulative_decimal": "0.818867924528301887"
+      },
+      {
+        "support_value": "450.995",
+        "support_count": 1,
+        "cumulative_count": 218,
+        "cumulative_fraction": "218/265",
+        "cumulative_decimal": "0.822641509433962264"
+      },
+      {
+        "support_value": "461.0265",
+        "support_count": 1,
+        "cumulative_count": 219,
+        "cumulative_fraction": "219/265",
+        "cumulative_decimal": "0.826415094339622642"
+      },
+      {
+        "support_value": "461.8625",
+        "support_count": 1,
+        "cumulative_count": 220,
+        "cumulative_fraction": "44/53",
+        "cumulative_decimal": "0.830188679245283019"
+      },
+      {
+        "support_value": "469.761",
+        "support_count": 1,
+        "cumulative_count": 221,
+        "cumulative_fraction": "221/265",
+        "cumulative_decimal": "0.833962264150943396"
+      },
+      {
+        "support_value": "473.155",
+        "support_count": 1,
+        "cumulative_count": 222,
+        "cumulative_fraction": "222/265",
+        "cumulative_decimal": "0.837735849056603774"
+      },
+      {
+        "support_value": "474.81",
+        "support_count": 1,
+        "cumulative_count": 223,
+        "cumulative_fraction": "223/265",
+        "cumulative_decimal": "0.841509433962264151"
+      },
+      {
+        "support_value": "475.0615",
+        "support_count": 1,
+        "cumulative_count": 224,
+        "cumulative_fraction": "224/265",
+        "cumulative_decimal": "0.845283018867924528"
+      },
+      {
+        "support_value": "483.3715",
+        "support_count": 1,
+        "cumulative_count": 225,
+        "cumulative_fraction": "45/53",
+        "cumulative_decimal": "0.849056603773584906"
+      },
+      {
+        "support_value": "489.65",
+        "support_count": 1,
+        "cumulative_count": 226,
+        "cumulative_fraction": "226/265",
+        "cumulative_decimal": "0.852830188679245283"
+      },
+      {
+        "support_value": "505.945",
+        "support_count": 1,
+        "cumulative_count": 227,
+        "cumulative_fraction": "227/265",
+        "cumulative_decimal": "0.856603773584905660"
+      },
+      {
+        "support_value": "519.961",
+        "support_count": 1,
+        "cumulative_count": 228,
+        "cumulative_fraction": "228/265",
+        "cumulative_decimal": "0.860377358490566038"
+      },
+      {
+        "support_value": "538.7845",
+        "support_count": 1,
+        "cumulative_count": 229,
+        "cumulative_fraction": "229/265",
+        "cumulative_decimal": "0.864150943396226415"
+      },
+      {
+        "support_value": "541.51",
+        "support_count": 1,
+        "cumulative_count": 230,
+        "cumulative_fraction": "46/53",
+        "cumulative_decimal": "0.867924528301886792"
+      },
+      {
+        "support_value": "547.9885",
+        "support_count": 1,
+        "cumulative_count": 231,
+        "cumulative_fraction": "231/265",
+        "cumulative_decimal": "0.871698113207547170"
+      },
+      {
+        "support_value": "552.49",
+        "support_count": 1,
+        "cumulative_count": 232,
+        "cumulative_fraction": "232/265",
+        "cumulative_decimal": "0.875471698113207547"
+      },
+      {
+        "support_value": "555.882",
+        "support_count": 1,
+        "cumulative_count": 233,
+        "cumulative_fraction": "233/265",
+        "cumulative_decimal": "0.879245283018867925"
+      },
+      {
+        "support_value": "556.655",
+        "support_count": 1,
+        "cumulative_count": 234,
+        "cumulative_fraction": "234/265",
+        "cumulative_decimal": "0.883018867924528302"
+      },
+      {
+        "support_value": "583.135",
+        "support_count": 1,
+        "cumulative_count": 235,
+        "cumulative_fraction": "47/53",
+        "cumulative_decimal": "0.886792452830188679"
+      },
+      {
+        "support_value": "594.4885",
+        "support_count": 1,
+        "cumulative_count": 236,
+        "cumulative_fraction": "236/265",
+        "cumulative_decimal": "0.890566037735849057"
+      },
+      {
+        "support_value": "611.661",
+        "support_count": 1,
+        "cumulative_count": 237,
+        "cumulative_fraction": "237/265",
+        "cumulative_decimal": "0.894339622641509434"
+      },
+      {
+        "support_value": "611.766",
+        "support_count": 1,
+        "cumulative_count": 238,
+        "cumulative_fraction": "238/265",
+        "cumulative_decimal": "0.898113207547169811"
+      },
+      {
+        "support_value": "619.165",
+        "support_count": 1,
+        "cumulative_count": 239,
+        "cumulative_fraction": "239/265",
+        "cumulative_decimal": "0.901886792452830189"
+      },
+      {
+        "support_value": "637.4805",
+        "support_count": 1,
+        "cumulative_count": 240,
+        "cumulative_fraction": "48/53",
+        "cumulative_decimal": "0.905660377358490566"
+      },
+      {
+        "support_value": "654.078",
+        "support_count": 1,
+        "cumulative_count": 241,
+        "cumulative_fraction": "241/265",
+        "cumulative_decimal": "0.909433962264150943"
+      },
+      {
+        "support_value": "662.0555",
+        "support_count": 1,
+        "cumulative_count": 242,
+        "cumulative_fraction": "242/265",
+        "cumulative_decimal": "0.913207547169811321"
+      },
+      {
+        "support_value": "667.7655",
+        "support_count": 1,
+        "cumulative_count": 243,
+        "cumulative_fraction": "243/265",
+        "cumulative_decimal": "0.916981132075471698"
+      },
+      {
+        "support_value": "714.02",
+        "support_count": 1,
+        "cumulative_count": 244,
+        "cumulative_fraction": "244/265",
+        "cumulative_decimal": "0.920754716981132075"
+      },
+      {
+        "support_value": "725.618",
+        "support_count": 1,
+        "cumulative_count": 245,
+        "cumulative_fraction": "49/53",
+        "cumulative_decimal": "0.924528301886792453"
+      },
+      {
+        "support_value": "728.18",
+        "support_count": 1,
+        "cumulative_count": 246,
+        "cumulative_fraction": "246/265",
+        "cumulative_decimal": "0.928301886792452830"
+      },
+      {
+        "support_value": "734.216",
+        "support_count": 1,
+        "cumulative_count": 247,
+        "cumulative_fraction": "247/265",
+        "cumulative_decimal": "0.932075471698113208"
+      },
+      {
+        "support_value": "745.3495",
+        "support_count": 1,
+        "cumulative_count": 248,
+        "cumulative_fraction": "248/265",
+        "cumulative_decimal": "0.935849056603773585"
+      },
+      {
+        "support_value": "763.2715",
+        "support_count": 1,
+        "cumulative_count": 249,
+        "cumulative_fraction": "249/265",
+        "cumulative_decimal": "0.939622641509433962"
+      },
+      {
+        "support_value": "772.456",
+        "support_count": 1,
+        "cumulative_count": 250,
+        "cumulative_fraction": "50/53",
+        "cumulative_decimal": "0.943396226415094340"
+      },
+      {
+        "support_value": "826.5675",
+        "support_count": 1,
+        "cumulative_count": 251,
+        "cumulative_fraction": "251/265",
+        "cumulative_decimal": "0.947169811320754717"
+      },
+      {
+        "support_value": "833.262",
+        "support_count": 1,
+        "cumulative_count": 252,
+        "cumulative_fraction": "252/265",
+        "cumulative_decimal": "0.950943396226415094"
+      },
+      {
+        "support_value": "950.5005",
+        "support_count": 1,
+        "cumulative_count": 253,
+        "cumulative_fraction": "253/265",
+        "cumulative_decimal": "0.954716981132075472"
+      },
+      {
+        "support_value": "965.823",
+        "support_count": 1,
+        "cumulative_count": 254,
+        "cumulative_fraction": "254/265",
+        "cumulative_decimal": "0.958490566037735849"
+      },
+      {
+        "support_value": "973.1625",
+        "support_count": 1,
+        "cumulative_count": 255,
+        "cumulative_fraction": "51/53",
+        "cumulative_decimal": "0.962264150943396226"
+      },
+      {
+        "support_value": "1078.3395",
+        "support_count": 1,
+        "cumulative_count": 256,
+        "cumulative_fraction": "256/265",
+        "cumulative_decimal": "0.966037735849056604"
+      },
+      {
+        "support_value": "1166.2895",
+        "support_count": 1,
+        "cumulative_count": 257,
+        "cumulative_fraction": "257/265",
+        "cumulative_decimal": "0.969811320754716981"
+      },
+      {
+        "support_value": "1297.6535",
+        "support_count": 1,
+        "cumulative_count": 258,
+        "cumulative_fraction": "258/265",
+        "cumulative_decimal": "0.973584905660377358"
+      },
+      {
+        "support_value": "1309.282",
+        "support_count": 1,
+        "cumulative_count": 259,
+        "cumulative_fraction": "259/265",
+        "cumulative_decimal": "0.977358490566037736"
+      },
+      {
+        "support_value": "1440.489",
+        "support_count": 1,
+        "cumulative_count": 260,
+        "cumulative_fraction": "52/53",
+        "cumulative_decimal": "0.981132075471698113"
+      },
+      {
+        "support_value": "1452.3525",
+        "support_count": 1,
+        "cumulative_count": 261,
+        "cumulative_fraction": "261/265",
+        "cumulative_decimal": "0.984905660377358491"
+      },
+      {
+        "support_value": "1472.107",
+        "support_count": 1,
+        "cumulative_count": 262,
+        "cumulative_fraction": "262/265",
+        "cumulative_decimal": "0.988679245283018868"
+      },
+      {
+        "support_value": "1491.2775",
+        "support_count": 1,
+        "cumulative_count": 263,
+        "cumulative_fraction": "263/265",
+        "cumulative_decimal": "0.992452830188679245"
+      },
+      {
+        "support_value": "1732.4155",
+        "support_count": 1,
+        "cumulative_count": 264,
+        "cumulative_fraction": "264/265",
+        "cumulative_decimal": "0.996226415094339623"
+      },
+      {
+        "support_value": "1847.299",
+        "support_count": 1,
+        "cumulative_count": 265,
+        "cumulative_fraction": "1",
+        "cumulative_decimal": "1.000000000000000000"
+      }
+    ]
+  }
+}
