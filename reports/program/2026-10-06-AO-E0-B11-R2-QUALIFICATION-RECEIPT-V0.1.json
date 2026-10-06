@@ -1,0 +1,62 @@
+{
+  "schema":"ATDS_AO_E0_B11_R2_COMPATIBILITY_QUALIFICATION_RECEIPT_V0_1",
+  "control_id":"AO-E0-B11-R2",
+  "verdict":"BLOCKED",
+  "architectural_answer":"NO",
+  "primary_blocker":"BLOCKED_PROTECTED_OWNER_OR_P1_12D_MUTATION_REQUIRED",
+  "secondary_blockers":[
+    "BLOCKED_ATTESTATION_INCOMPATIBLE_WITH_PROTECTED_OWNER",
+    "BLOCKED_EXACT_TYPE_COMPATIBILITY_REQUIRES_PROTECTED_CHANGE"
+  ],
+  "qualification":{
+    "compatibility_contract_blob":"2a8070744eeb71c6a4ddd1461d368a615d9e832f",
+    "frozen_breaker_contract_blob":"0f284543b942a2f15cfd91b2349d0339ab073f8f",
+    "final_breaker_tests_blob":"87b03271627a080f2d4a0d518794dc0794dbdde7",
+    "harness_correction_blob":"51385b0edee7314f6e191109e1b75baaaf04f145",
+    "final_run_id":37456143098,
+    "final_job_id":112244121980,
+    "final_conclusion":"SUCCESS",
+    "frozen_breakers":"35/35 PASS",
+    "existing_owner_rebreak":"12/12 PASS",
+    "pipe01_rebreak":"23/23 PASS",
+    "protected_blob_invariance":"PASS"
+  },
+  "protected":{
+    "owner_blob":"524ee6afe0fe2fb49459f70ca4f6612a3bcf2739",
+    "p1_12d_extension_blob":"fec520916ca07ee6fe7e6029b4ca611519c39bc2",
+    "producer_blob":"981794fedbfd8c9fdac69ba4751540e63a2e5289",
+    "modified":false
+  },
+  "dependencies":{
+    "data01_human_adoption_receipt":"290065c68a7d37a43d9c80e326575d9eddcfd088",
+    "pipe01_human_adoption_receipt":"4ac1555b846ecd205ed1ad682d1fa165e38a9a3d",
+    "b8_human_closure_blob":"8740bf6255286c3c8d896b6b334d10b78c1899f7",
+    "dr01_human_adoption_blob":"848e59ac0ef8e56d16322a17bd3f55a0b6e87e45"
+  },
+  "state":{
+    "current_b11":"CLOSED_FOR_SYNTHETIC_PRE_EXECUTION_OWNER_PATH",
+    "b12":"CLOSED",
+    "exact_forward_instance":"NOT_YET_AVAILABLE",
+    "data01_instance_state":"WAIT_NOT_READY"
+  },
+  "performance_consumption":{
+    "forward_data_read":false,
+    "oos_consumption":false,
+    "pnl_observed":false,
+    "expectancy_observed":false,
+    "ci_observed":false,
+    "qualification_result_observed":false,
+    "real_ao_e0_output":false
+  },
+  "authority":{
+    "real_oos_capability_promoted":false,
+    "real_oos_authority":false,
+    "real_execution":false,
+    "scientific_authority":false,
+    "trading":false,
+    "broker_execution":false,
+    "capital":false
+  },
+  "required_next_governance":"SEPARATE_PROTECTED_OWNER_OR_P1_12D_REAL_OOS_REDESIGN_AUTHORIZATION",
+  "force":false
+}
