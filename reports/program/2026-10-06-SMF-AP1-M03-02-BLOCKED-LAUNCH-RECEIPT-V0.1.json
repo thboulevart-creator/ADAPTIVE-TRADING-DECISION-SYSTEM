@@ -1,0 +1,104 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_BLOCKED_LAUNCH_RECEIPT_V0_1",
+  "status": "BLOCKED",
+  "stage": "SMF-AP1-M03-02 — FIRST REAL AP1 RESULT METHOD EXECUTION + SCIENTIFIC INTERPRETATION V0.1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "bdd21131c3bf91c78026d700e6cf897d7c144524",
+    "tree": "1ad7736407c5ccd497ee9fa2dfa89fefc58e9d73"
+  },
+  "authorization_reference": {
+    "head": "25a81e7b98b58fb757eb4e92428c9433c609d970",
+    "tree": "fc53aa42ee4e4b9342d2b36a21108d3b27a592df"
+  },
+  "preflight": {
+    "status": "PASS",
+    "initial_drift": "NONE",
+    "later_drift": {
+      "classification": "NON_MATERIAL",
+      "changed_scopes": [
+        "AO-E0-B8-02-R1",
+        "BEPD-04G",
+        "BEPD-04H"
+      ],
+      "protected_owners_unchanged": true
+    }
+  },
+  "source_ap1": {
+    "status": "AP1_COMPLETE",
+    "schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "bytes": 179955,
+    "sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "rvo10_final_receipt_blob": "81cf1ea950ce041ac4ae623882af095f548358a1",
+    "rvo10_execution_receipt_blob": "c03bc976f340fb04ed5eab39659faae3a0a8a35f",
+    "producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+  },
+  "data02": {
+    "receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce"
+  },
+  "m03": {
+    "m03_01_receipt_blob": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "executor_tests_blob": "b59ca906a4e4aa75c586b0d24559be181575ffd6"
+  },
+  "pre_result_freeze": {
+    "code_parent_head": "58038db65c44e66683b26d48ef36aabd10f3d73c",
+    "code_parent_tree": "5eb44980529574cfed355f418212102059891e97",
+    "persistence_head": "af4a7d2940fde08b4fc2f84da1eba8b2d75293a2",
+    "persistence_tree": "b19a2e3486ef2b4276b933c3caa8ec35a7c3cecf",
+    "freeze_digest": "sha256:b956cbe85c578b3e617e4886964c20bef15c8e34700ce5bc79776baa358c8b40",
+    "freeze_sha256": "588e3503e9ec4ff95db0414cf13d1cfbf03164d43dcb684ad41ce07fb0feaf7c",
+    "freeze_blob": "957b3071967a4896aa84e7ec2a34f3467da0493f",
+    "plan_id": "M03P-52c634d9a7861b5942cb68a5fe814aa2",
+    "plan_digest": "sha256:52c634d9a7861b5942cb68a5fe814aa2c91bd5f3d7d8eaf04b94cbe9d532f784",
+    "plan_blob": "2f4b2647540b4342ff4df458def896dc9eba4989",
+    "byte_exact_persisted_before_launch": true
+  },
+  "launch": {
+    "launcher_invocation_count": 1,
+    "m03_method_execution_count": 0,
+    "automatic_retry": false,
+    "started_at": "2026-10-06T08:27:18.6242794Z",
+    "ended_at": "2026-10-06T08:29:14.5528656Z",
+    "process_exit_code": "UNKNOWN_NOT_CAPTURED_BY_ASYNC_WRAPPER",
+    "launch_status": "FAILED_BEFORE_MODULE_IMPORT",
+    "blocker": "MODULE_SEARCH_PATH_REMOVED_BY_PYTHON_P_FLAG_FOR_MODULE_LAUNCH",
+    "exact_stderr": "C:\\Users\\Boulevart\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe: Error while finding module specification for 'tools.smf_ap1_m03_02_real_execution' (ModuleNotFoundError: No module named 'tools')",
+    "stdout_bytes": 0,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_bytes": 249,
+    "stderr_sha256": "7fbf674c8defea8adc6c0ec46b89a9905101f1cbb8ce67ef7779b29573ed38aa",
+    "local_ledger_sha256": "99ceca4e45c9eb7aed2e24f90d61f2736ccdb703d94b56995d2aca99cf57ee25"
+  },
+  "result": {
+    "m03_output_minted": false,
+    "output_path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02\\M03-REAL-58038db6.json",
+    "parity_status": "NOT_RUN",
+    "scientific_interpretation_status": "NOT_RUN"
+  },
+  "regressions": {
+    "owner_regressions": "NOT_RUN_DUE_TO_MATERIAL_LAUNCH_BLOCKER",
+    "persisted_head_rebreak": "NOT_RUN_DUE_TO_MATERIAL_LAUNCH_BLOCKER"
+  },
+  "boundaries": {
+    "ap1_reexecuted": false,
+    "third_ap1_invocation": false,
+    "real_m03_method_executed": false,
+    "backtest": false,
+    "new_oos": false,
+    "paper": false,
+    "broker_live": false,
+    "capital": false,
+    "scientific_finding": false,
+    "strategy_validated": false
+  },
+  "next_frontier": "SEPARATE_HUMAN_AUTHORIZATION_REQUIRED_FOR_M03_LAUNCH_TRANSPORT_CORRECTION_REFREEZE_AND_SINGLE_RETRY",
+  "stop": true
+}
