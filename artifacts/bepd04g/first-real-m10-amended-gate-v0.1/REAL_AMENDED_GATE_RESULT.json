@@ -1,0 +1,17 @@
+{
+  "adopted_spread_threshold": "0.10",
+  "generalization_proven": false,
+  "iid_proven": false,
+  "insufficient_strata": [],
+  "m04_executed": false,
+  "m04_status": "NOT_APPLICABLE_BY_REPRESENTATION",
+  "maximum_response_mean_spread": "0.096259889714696715",
+  "reason_code": "M10_WITHIN_ADOPTED_TOLERANCE",
+  "response_specific_m05_activation": "NOT_ACTIVATED",
+  "sample_adequacy": "PASS",
+  "schema": "ATDS_BEPD_04G_FIRST_REAL_AMENDED_NONSTATIONARITY_GATE_RESULT_V0_1",
+  "scope": "EXPLORATORY_ONLY",
+  "state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED",
+  "stationarity_proven": false,
+  "structural_validation_status": "PASS"
+}
