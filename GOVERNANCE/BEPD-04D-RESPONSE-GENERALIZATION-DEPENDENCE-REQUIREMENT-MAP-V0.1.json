@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_BEPD_04D_RESPONSE_GENERALIZATION_DEPENDENCE_REQUIREMENT_MAP_V0_1",
+  "status": "FROZEN_READINESS_REQUIREMENTS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "c61e16ee2e6085b43a9660e58279c5c9a96a6f8c",
+    "tree": "2fbd340a26f28e40d46ed1157bc50fdc70212ee4"
+  },
+  "bindings": {
+    "bepd04c_human_adjudication_blob": "6008e441d241dc185087208c6d9977501df52813",
+    "bepd04c_result_blob": "947714ebf0f0882baf7501eff8fc0ad47291331c",
+    "bepd04c_run_manifest_blob": "23c1fc0e044d7461f382d59895bb9b930481b896",
+    "smf03_dependence_inference_contract_blob": "618171fd013f7f9cfe39f233048e650fc276b729",
+    "smf03_evidence_governance_contract_blob": "67014f4fb753e3165cacc0ae59a49b522e84fa87",
+    "occurrence_scoped_m05_record_blob": "53d33074038fa9d971b4672b1d981589da020a1e",
+    "bepd04d_claim_contract_blob": "1f3e2cd2366315ed4198249864abcc84db35a9db",
+    "m09_classification_blob": "726b1f93a75fb4a1fbccab4668a509d18c3f9d8e"
+  },
+  "structural_facts": {
+    "event_iid_assumption": "FORBIDDEN",
+    "event_grain": "ONE_ROW_PER_CONSUMED_LEVEL",
+    "within_target_week_dependence": true,
+    "sweep_cluster_id_role": "all level events in one target week share a sweep cluster",
+    "target_week_id_role": "primary temporal/dependence ordering unit",
+    "level_id_role": "event provenance key; consumed level contributes at most one EVENT_LEDGER event",
+    "temporal_order": "ascending complete target-week calendar order"
+  },
+  "candidate_future_resampling_design": {
+    "outer_ordering_unit": "COMPLETE_TARGET_WEEK_CALENDAR",
+    "block_unit": "CONTIGUOUS_COMPLETE_TARGET_WEEKS",
+    "cluster_contents": "zero or more qualified EVENT_LEDGER rows belonging to each target_week_id",
+    "empty_weeks": "must remain representable so calendar spacing is not collapsed",
+    "statistic": "ratio of sums: total same_week_reintegration=true events divided by total qualified sweep events in sampled week blocks",
+    "preserve_all_events_within_selected_week": true,
+    "preserve_sweep_cluster_integrity": true,
+    "preserve_calendar_order_within_blocks": true,
+    "individual_event_resampling": false
+  },
+  "forbidden": [
+    "IID bootstrap of EVENT_LEDGER rows",
+    "naive binomial confidence interval",
+    "automatic IID assumption",
+    "resampling that splits target_week_id or sweep_cluster_id",
+    "compressing event-bearing weeks into an adjacency sequence that erases empty calendar weeks without separate qualification"
+  ],
+  "unresolved_requirements": [
+    "exact complete target-week calendar identity for future execution",
+    "human-adjudicated block length",
+    "response-specific ratio-of-sums moving-block executable qualification"
+  ]
+}
