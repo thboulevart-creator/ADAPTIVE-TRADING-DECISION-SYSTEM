@@ -1,0 +1,125 @@
+{
+  "schema": "ATDS_AO_E0_B8_02_R1_FINAL_FORWARD_ONLY_PREREGISTRATION_CLOSURE_BLOCKER_V0_1",
+  "control_id": "AO-E0-B8-02-R1",
+  "verdict": "BLOCKED",
+  "b8_closure_candidate": "BLOCKED",
+  "exact_new_blocker": "BLOCKED_B8_FINAL_QUALIFICATION_DECISION_RULE_NOT_PREREGISTERED",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "resolved_prior_blockers": {
+    "m06_planning_dispersion_and_sample_adequacy": true,
+    "m04_m05_m07_m08_material_configuration": true
+  },
+  "canonical_bindings": {
+    "ao_contract_blob": "0b07b8bfe44b5007d46b580c5bef131f2ab9a273",
+    "cell_adoption_blob": "615681aa586ef92a34d0fa1757ceed8972404319",
+    "cell_identity": "sha256:38610ff2afd70998a7fa3e522575faf697ec3159e00829c2b2bbd5da45c52054",
+    "strategy_version_identity": "sha256:0927e983046ef99a01d2a5c165d18ba5d501f69fb863875f72303b95f69b9687",
+    "b4_freeze_blob": "8cf494fcfffe0575d3e2a0fe887e2f524a3eb304",
+    "b6_b10_closure_receipt": "fad20f527393b85b6d06b998c89a3543a18be46a",
+    "b7_closure_receipt": "efb0fe2c6aced6421fb9b6c2af9161632fec744a",
+    "b9_closure_receipt": "1fe264aaf0770b3549004877550114e9c4c34331",
+    "b11_closure_receipt": "4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b",
+    "exec04_adoption_blob": "248a92965b74bf812f9245eccbedbca17f606270",
+    "exec05_adoption_blob": "1f3ca6ca549cd491f2b591cac395f24a208c1a64",
+    "smf_activation_matrix_blob": "38c6949ccd38790299505ccece22a9d9794b73a0",
+    "m06_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "m06_adoption_receipt": "ca44e6ce58314e8168d6f48fb7831fc03b789b9e",
+    "smf01_adoption_blob": "240d715aa7b2ae79dff474a4cc4f80854416c9c7",
+    "smf01_adoption_receipt": "49530455fa74112c761933a6c773f125e65b0fe4",
+    "historical_b8_02_blocker": "821d0b033e6bb993e64832d2fa0c2e84de24872e"
+  },
+  "already_frozen": {
+    "estimand": "mean all-in net realized unit PnL per closed OOS trade at F2_S4",
+    "delta_min": 5.0,
+    "h0": "theta_AO_E0 <= 5.0",
+    "h1": "theta_AO_E0 > 5.0",
+    "minimum_required_cost_robustness_node": "F2_S4",
+    "m06_final_required_n": 58927,
+    "m04_configuration": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "m05_configuration": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "m07_configuration": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "m08_configuration": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "confirmatory_route": "NEW_FORWARD_DATA_ONLY",
+    "old_e1_oos_independent_confirmation_eligible": false,
+    "prior_exposure_state": "CONTAMINATED",
+    "search_universe_status": "PARTIAL_SEARCH_UNIVERSE",
+    "n_trials": null
+  },
+  "missing_pre_result_decision_rule": {
+    "qualification_vocabulary": {
+      "status": "NOT_EXACTLY_FROZEN",
+      "evidence": "AO contract states final qualification vocabulary is not frozen"
+    },
+    "primary_statistical_support_mapping": {
+      "status": "UNFROZEN",
+      "missing_rule": "exact mapping from M05 interval / theta boundary to SUPPORT, REFUTE, or INCONCLUSIVE"
+    },
+    "sample_adequacy_mapping": {
+      "status": "UNFROZEN",
+      "missing_rule": "exact treatment when n is below, equal to, or above M06 required_n=58927 in the final evidence state"
+    },
+    "m07_influence_mapping": {
+      "status": "UNFROZEN",
+      "missing_rule": "whether material influence or sign reversal blocks SUPPORT, causes INCONCLUSIVE, or is diagnostic only"
+    },
+    "m08_attrition_mapping": {
+      "status": "UNFROZEN",
+      "missing_rule": "whether material selection asymmetry blocks SUPPORT, causes INCONCLUSIVE, or is diagnostic only"
+    },
+    "nonstationarity_mapping": {
+      "status": "PARTIALLY_ROUTED_BUT_FINAL_DECISION_MAPPING_UNFROZEN",
+      "missing_rule": "exact final evidence/qualification state when global resampling is blocked by unresolved nonstationarity"
+    },
+    "cost_robustness_combination_rule": {
+      "status": "PARTIALLY_FROZEN",
+      "known": "F2_S4_SUPPORTED=PASS; REFUTED_OR_NOT_SUPPORTED=FAIL; INCONCLUSIVE=INCONCLUSIVE",
+      "missing_rule": "exact combination with statistical, influence, attrition, and provenance evidence into one AO-E0 decision"
+    },
+    "multiplicity_provenance_mapping": {
+      "status": "UNFROZEN_FINAL_EFFECT",
+      "known": "PARTIAL_SEARCH_UNIVERSE, n_trials=null, multiplicity relevant",
+      "missing_rule": "exact effect of partial/unknown multiplicity on SUPPORT versus INCONCLUSIVE versus qualification status"
+    },
+    "final_combination_rule": {
+      "status": "UNFROZEN",
+      "missing_rule": "deterministic precedence/combination table for all required evidence states and mapping to QUALIFICATION_STATUS and QUALIFICATION_REASON"
+    }
+  },
+  "why_material": [
+    "different post-result choices can produce different SUPPORT/REFUTE/INCONCLUSIVE outcomes from the same frozen numerical evidence",
+    "different post-result choices can produce different QUALIFIED/NOT_QUALIFIED outcomes from the same evidence",
+    "therefore the missing rule is part of the AO-E0 decision rule protected by B8"
+  ],
+  "not_invented": [
+    "M05 confidence-interval support boundary",
+    "M06 insufficiency disposition",
+    "M07 veto/advisory semantics",
+    "M08 veto/advisory semantics",
+    "multiplicity disposition",
+    "final evidence precedence",
+    "qualification-status mapping"
+  ],
+  "required_remediation": [
+    "preregister and qualify a deterministic AO-E0 final qualification decision rule before any new performance observation",
+    "human-adopt that rule separately",
+    "then rerun AO-E0-B8-02 again under fresh canonical state"
+  ],
+  "state": {
+    "b8": "BLOCKED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "b8_human_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "strategy_rerun": false,
+    "parameter_optimization": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}

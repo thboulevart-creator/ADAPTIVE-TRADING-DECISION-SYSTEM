@@ -1,0 +1,55 @@
+{
+  "schema": "ATDS_AO_E0_B8_02_R1_CLOSURE_REQUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B8-02-R1",
+  "verdict": "BLOCKED",
+  "b8_closure_candidate": "BLOCKED",
+  "exact_new_blocker": "BLOCKED_B8_FINAL_QUALIFICATION_DECISION_RULE_NOT_PREREGISTERED",
+  "decisive_evidence": {
+    "blocker_blob": "475d4433cd8587dd36dc19274c7fad03ca39d830",
+    "ao_contract_blob": "0b07b8bfe44b5007d46b580c5bef131f2ab9a273",
+    "m06_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "smf01_human_adoption_blob": "240d715aa7b2ae79dff474a4cc4f80854416c9c7",
+    "b9_closure_receipt": "1fe264aaf0770b3549004877550114e9c4c34331",
+    "b11_closure_receipt": "4a105b3dcfd49dd8dc50668b4a89bc2e57e5821b"
+  },
+  "checks": {
+    "strategy_cell_identity_frozen": true,
+    "strategy_version_identity_frozen": true,
+    "estimand_frozen": true,
+    "delta_min_frozen": true,
+    "cost_scope_frozen": true,
+    "data_admissibility_closed": true,
+    "mcepr_route_closed": true,
+    "prior_exposure_preserved": true,
+    "owner_routing_closed": true,
+    "m04_configuration_frozen": true,
+    "m05_configuration_frozen": true,
+    "m06_configuration_frozen": true,
+    "m07_configuration_frozen": true,
+    "m08_configuration_frozen": true,
+    "m09_routing_frozen": true,
+    "m10_applicability_frozen": true,
+    "m11_routing_frozen": true,
+    "forward_only_route_frozen": true,
+    "final_support_refute_inconclusive_mapping_frozen": false,
+    "final_qualification_status_mapping_frozen": false,
+    "no_future_performance_observed": true,
+    "no_parameter_invented": true
+  },
+  "state": {
+    "b8": "BLOCKED",
+    "b12": "CLOSED"
+  },
+  "authority": {
+    "b8_closure": false,
+    "b12_open": false,
+    "ao_e0_execution": false,
+    "forward_data_observation": false,
+    "oos_consumption": false,
+    "real_performance_observation": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
