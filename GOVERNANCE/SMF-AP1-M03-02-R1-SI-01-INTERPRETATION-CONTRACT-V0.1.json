@@ -1,0 +1,71 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_SI_01_INTERPRETATION_CONTRACT_V0_1",
+  "status": "HUMAN_AUTHORIZATION_BOUND_INTERPRETATION_FRAME",
+  "mission": "Interpret only the existing qualified M03 result within retrospective descriptive empirical frame-bound scope.",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_reference": {
+    "head": "817e98a3b9c6ab25ff63968abc35e1d13fe48e76",
+    "tree": "063650ceeed6705da557586e0153db82479cb602"
+  },
+  "source_identities": {
+    "ef01_receipt_blob": "234a5af6bc79adc2e74b7ceb83319132cab478d4",
+    "m03_output_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "m03_output_bytes": 1390634,
+    "ap1_output_sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "r1_plan_blob": "6849e42aef724fa7643fc70715a206632024bd54",
+    "r1_freeze_blob": "7a8d5bab32d2317ab55006151bac99c936e473ed",
+    "m03_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "m03_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+  },
+  "required_scope": [
+    "RETROSPECTIVE",
+    "DESCRIPTIVE",
+    "EMPIRICAL",
+    "FRAME_BOUND"
+  ],
+  "output_sections": [
+    "DIRECT_EXECUTION_FACTS",
+    "DESCRIPTIVE_EMPIRICAL_OBSERVATIONS",
+    "SCIENTIFIC_INTERPRETATION_CANDIDATES",
+    "CLAIMS_NOT_SUPPORTED_STILL_UNKNOWN"
+  ],
+  "exploratory_rule": "Any post-observation scan for extrema/ranking/largest contrasts must set EXPLORATORY_SEARCH=true and is not confirmatory.",
+  "maximum_output": "SCIENTIFIC_INTERPRETATION_CANDIDATE_SET",
+  "admissible_verdicts": [
+    "QUALIFIED_FOR_HUMAN_SCIENTIFIC_ADJUDICATION",
+    "BLOCKED",
+    "FAIL"
+  ],
+  "forbidden_claims": [
+    "CAUSALITY",
+    "PREDICTIVE_POWER",
+    "GENERALIZATION",
+    "STATISTICAL_SIGNIFICANCE",
+    "ECONOMIC_EDGE",
+    "PROFITABILITY",
+    "VALIDATED_STRATEGY",
+    "TRADING_SIGNAL",
+    "TRADING_AUTHORITY",
+    "CAPITAL_AUTHORITY"
+  ],
+  "forbidden_actions": [
+    "REAL_M03_EXECUTION",
+    "M03_RETRY",
+    "DATA02_RECALCULATION",
+    "AP1_EXECUTION",
+    "OTHER_SMF_METHOD_EXECUTION",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL"
+  ],
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "note": "This file materializes the interpretation boundaries already frozen by the distinct human authorization; it does not create new authority."
+}

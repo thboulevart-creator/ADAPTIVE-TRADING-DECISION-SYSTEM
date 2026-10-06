@@ -1,0 +1,761 @@
+{
+  "authority": {
+    "capital": false,
+    "operational": false,
+    "scientific": false,
+    "trading": false
+  },
+  "inventory": {
+    "coverage": {
+      "GLOBAL": {
+        "bucket_count": 1,
+        "metrics": {
+          "minute_range": {
+            "empty_buckets": 0,
+            "max_n": 1709180,
+            "min_n": 1709180,
+            "nonempty_buckets": 1,
+            "sum_n": 1709180
+          },
+          "spread_mean": {
+            "empty_buckets": 0,
+            "max_n": 1709180,
+            "min_n": 1709180,
+            "nonempty_buckets": 1,
+            "sum_n": 1709180
+          },
+          "tick_count": {
+            "empty_buckets": 0,
+            "max_n": 1709180,
+            "min_n": 1709180,
+            "nonempty_buckets": 1,
+            "sum_n": 1709180
+          }
+        }
+      },
+      "NEW_YORK_HOUR": {
+        "bucket_count": 24,
+        "metrics": {
+          "minute_range": {
+            "empty_buckets": 1,
+            "max_n": 77382,
+            "min_n": 18662,
+            "nonempty_buckets": 23,
+            "sum_n": 1709180
+          },
+          "spread_mean": {
+            "empty_buckets": 1,
+            "max_n": 77382,
+            "min_n": 18662,
+            "nonempty_buckets": 23,
+            "sum_n": 1709180
+          },
+          "tick_count": {
+            "empty_buckets": 1,
+            "max_n": 77382,
+            "min_n": 18662,
+            "nonempty_buckets": 23,
+            "sum_n": 1709180
+          }
+        }
+      },
+      "NEW_YORK_WEEKDAY": {
+        "bucket_count": 7,
+        "metrics": {
+          "minute_range": {
+            "empty_buckets": 1,
+            "max_n": 345956,
+            "min_n": 91732,
+            "nonempty_buckets": 6,
+            "sum_n": 1709180
+          },
+          "spread_mean": {
+            "empty_buckets": 1,
+            "max_n": 345956,
+            "min_n": 91732,
+            "nonempty_buckets": 6,
+            "sum_n": 1709180
+          },
+          "tick_count": {
+            "empty_buckets": 1,
+            "max_n": 345956,
+            "min_n": 91732,
+            "nonempty_buckets": 6,
+            "sum_n": 1709180
+          }
+        }
+      },
+      "NEW_YORK_WEEKDAY_HOUR": {
+        "bucket_count": 168,
+        "metrics": {
+          "minute_range": {
+            "empty_buckets": 53,
+            "max_n": 15600,
+            "min_n": 3465,
+            "nonempty_buckets": 115,
+            "sum_n": 1709180
+          },
+          "spread_mean": {
+            "empty_buckets": 53,
+            "max_n": 15600,
+            "min_n": 3465,
+            "nonempty_buckets": 115,
+            "sum_n": 1709180
+          },
+          "tick_count": {
+            "empty_buckets": 53,
+            "max_n": 15600,
+            "min_n": 3465,
+            "nonempty_buckets": 115,
+            "sum_n": 1709180
+          }
+        }
+      },
+      "UTC_HOUR": {
+        "bucket_count": 24,
+        "metrics": {
+          "minute_range": {
+            "empty_buckets": 0,
+            "max_n": 77391,
+            "min_n": 6263,
+            "nonempty_buckets": 24,
+            "sum_n": 1709180
+          },
+          "spread_mean": {
+            "empty_buckets": 0,
+            "max_n": 77391,
+            "min_n": 6263,
+            "nonempty_buckets": 24,
+            "sum_n": 1709180
+          },
+          "tick_count": {
+            "empty_buckets": 0,
+            "max_n": 77391,
+            "min_n": 6263,
+            "nonempty_buckets": 24,
+            "sum_n": 1709180
+          }
+        }
+      },
+      "UTC_YEAR": {
+        "bucket_count": 6,
+        "metrics": {
+          "minute_range": {
+            "empty_buckets": 0,
+            "max_n": 342580,
+            "min_n": 133160,
+            "nonempty_buckets": 6,
+            "sum_n": 1709180
+          },
+          "spread_mean": {
+            "empty_buckets": 0,
+            "max_n": 342580,
+            "min_n": 133160,
+            "nonempty_buckets": 6,
+            "sum_n": 1709180
+          },
+          "tick_count": {
+            "empty_buckets": 0,
+            "max_n": 342580,
+            "min_n": 133160,
+            "nonempty_buckets": 6,
+            "sum_n": 1709180
+          }
+        }
+      }
+    },
+    "empty_bucket_ids": [
+      "NEW_YORK_HOUR:17",
+      "NEW_YORK_WEEKDAY:5",
+      "NEW_YORK_WEEKDAY_HOUR:0:17",
+      "NEW_YORK_WEEKDAY_HOUR:1:17",
+      "NEW_YORK_WEEKDAY_HOUR:2:17",
+      "NEW_YORK_WEEKDAY_HOUR:3:17",
+      "NEW_YORK_WEEKDAY_HOUR:4:17",
+      "NEW_YORK_WEEKDAY_HOUR:4:18",
+      "NEW_YORK_WEEKDAY_HOUR:4:19",
+      "NEW_YORK_WEEKDAY_HOUR:4:20",
+      "NEW_YORK_WEEKDAY_HOUR:4:21",
+      "NEW_YORK_WEEKDAY_HOUR:4:22",
+      "NEW_YORK_WEEKDAY_HOUR:4:23",
+      "NEW_YORK_WEEKDAY_HOUR:5:00",
+      "NEW_YORK_WEEKDAY_HOUR:5:01",
+      "NEW_YORK_WEEKDAY_HOUR:5:02",
+      "NEW_YORK_WEEKDAY_HOUR:5:03",
+      "NEW_YORK_WEEKDAY_HOUR:5:04",
+      "NEW_YORK_WEEKDAY_HOUR:5:05",
+      "NEW_YORK_WEEKDAY_HOUR:5:06",
+      "NEW_YORK_WEEKDAY_HOUR:5:07",
+      "NEW_YORK_WEEKDAY_HOUR:5:08",
+      "NEW_YORK_WEEKDAY_HOUR:5:09",
+      "NEW_YORK_WEEKDAY_HOUR:5:10",
+      "NEW_YORK_WEEKDAY_HOUR:5:11",
+      "NEW_YORK_WEEKDAY_HOUR:5:12",
+      "NEW_YORK_WEEKDAY_HOUR:5:13",
+      "NEW_YORK_WEEKDAY_HOUR:5:14",
+      "NEW_YORK_WEEKDAY_HOUR:5:15",
+      "NEW_YORK_WEEKDAY_HOUR:5:16",
+      "NEW_YORK_WEEKDAY_HOUR:5:17",
+      "NEW_YORK_WEEKDAY_HOUR:5:18",
+      "NEW_YORK_WEEKDAY_HOUR:5:19",
+      "NEW_YORK_WEEKDAY_HOUR:5:20",
+      "NEW_YORK_WEEKDAY_HOUR:5:21",
+      "NEW_YORK_WEEKDAY_HOUR:5:22",
+      "NEW_YORK_WEEKDAY_HOUR:5:23",
+      "NEW_YORK_WEEKDAY_HOUR:6:00",
+      "NEW_YORK_WEEKDAY_HOUR:6:01",
+      "NEW_YORK_WEEKDAY_HOUR:6:02",
+      "NEW_YORK_WEEKDAY_HOUR:6:03",
+      "NEW_YORK_WEEKDAY_HOUR:6:04",
+      "NEW_YORK_WEEKDAY_HOUR:6:05",
+      "NEW_YORK_WEEKDAY_HOUR:6:06",
+      "NEW_YORK_WEEKDAY_HOUR:6:07",
+      "NEW_YORK_WEEKDAY_HOUR:6:08",
+      "NEW_YORK_WEEKDAY_HOUR:6:09",
+      "NEW_YORK_WEEKDAY_HOUR:6:10",
+      "NEW_YORK_WEEKDAY_HOUR:6:11",
+      "NEW_YORK_WEEKDAY_HOUR:6:12",
+      "NEW_YORK_WEEKDAY_HOUR:6:13",
+      "NEW_YORK_WEEKDAY_HOUR:6:14",
+      "NEW_YORK_WEEKDAY_HOUR:6:15",
+      "NEW_YORK_WEEKDAY_HOUR:6:16",
+      "NEW_YORK_WEEKDAY_HOUR:6:17"
+    ],
+    "families": {
+      "GLOBAL": 1,
+      "NEW_YORK_HOUR": 24,
+      "NEW_YORK_WEEKDAY": 7,
+      "NEW_YORK_WEEKDAY_HOUR": 168,
+      "UTC_HOUR": 24,
+      "UTC_YEAR": 6
+    },
+    "total_buckets": 230,
+    "weekday_index_semantics": "Python datetime.weekday(): 0=Monday ... 6=Sunday"
+  },
+  "method": {
+    "activation_digest": "sha256:d6a47dae26cc333200cf47ac98a1ed06378a368664c3fa9d31d88b76573fef36",
+    "family": "M03",
+    "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles"
+  },
+  "parity": {
+    "fail_count": 0,
+    "max_abs_diff": 0.0,
+    "not_comparable_count": 165,
+    "not_comparable_explanation": "55 empty time buckets x 3 metrics = 165 metric-level NOT_COMPARABLE entries",
+    "overall": "PASS",
+    "pass_count": 1925
+  },
+  "schema": "ATDS_SMF_AP1_M03_02_R1_SI_01_DIRECT_FACTS_V0_1",
+  "selected_exact_bucket_facts": {
+    "GLOBAL": {
+      "minute_range": {
+        "n": 1709180,
+        "quantiles": {
+          "0.5": 4.740000000001601,
+          "0.9": 14.248999999998158,
+          "0.95": 19.23399999999674,
+          "0.99": 33.311210000001516
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 1709180,
+        "quantiles": {
+          "0.5": 3.342459677419323,
+          "0.9": 3.4313584905660015,
+          "0.95": 3.4380044289244105,
+          "0.99": 3.450097186834026
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 1709180,
+        "quantiles": {
+          "0.5": 184.0,
+          "0.9": 443.0,
+          "0.99": 621.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_HOUR:00": {
+      "minute_range": {
+        "n": 77339,
+        "quantiles": {
+          "0.5": 2.138999999999214,
+          "0.9": 5.75,
+          "0.95": 7.885999999998785,
+          "0.99": 14.7756000000025
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 77339,
+        "quantiles": {
+          "0.5": 3.374644444444554,
+          "0.9": 3.4369844696969003,
+          "0.95": 3.4442959090910095,
+          "0.99": 3.4583589142859563
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 77339,
+        "quantiles": {
+          "0.5": 79.0,
+          "0.9": 179.0,
+          "0.99": 305.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_HOUR:09": {
+      "minute_range": {
+        "n": 77210,
+        "quantiles": {
+          "0.5": 10.349000000001979,
+          "0.9": 26.928349999999792,
+          "0.95": 34.05450000000401,
+          "0.99": 51.752690000002396
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 77210,
+        "quantiles": {
+          "0.5": 1.428941865761615,
+          "0.9": 3.426315095431043,
+          "0.95": 3.432624802631673,
+          "0.99": 3.4413747499999587
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 77210,
+        "quantiles": {
+          "0.5": 345.0,
+          "0.9": 614.0,
+          "0.99": 693.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_HOUR:10": {
+      "minute_range": {
+        "n": 77169,
+        "quantiles": {
+          "0.5": 12.665000000000873,
+          "0.9": 26.25859999999993,
+          "0.95": 32.55860000000097,
+          "0.99": 49.373800000000315
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 77169,
+        "quantiles": {
+          "0.5": 1.3493234567901158,
+          "0.9": 1.4311090909091604,
+          "0.95": 1.434639840581973,
+          "0.99": 1.4412726826414932
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 77169,
+        "quantiles": {
+          "0.5": 455.0,
+          "0.9": 598.0,
+          "0.99": 673.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_HOUR:17": {
+      "minute_range": {
+        "n": 0,
+        "quantiles": {
+          "0.5": null,
+          "0.9": null,
+          "0.95": null,
+          "0.99": null
+        },
+        "status": "EMPTY_NO_NUMERICAL_RESULT"
+      },
+      "spread_mean": {
+        "n": 0,
+        "quantiles": {
+          "0.5": null,
+          "0.9": null,
+          "0.95": null,
+          "0.99": null
+        },
+        "status": "EMPTY_NO_NUMERICAL_RESULT"
+      },
+      "tick_count": {
+        "n": 0,
+        "quantiles": {
+          "0.5": null,
+          "0.9": null,
+          "0.99": null
+        },
+        "status": "EMPTY_NO_NUMERICAL_RESULT"
+      }
+    },
+    "NEW_YORK_HOUR:18": {
+      "minute_range": {
+        "n": 75504,
+        "quantiles": {
+          "0.5": 2.9200000000000728,
+          "0.9": 9.099999999998545,
+          "0.95": 12.804849999999705,
+          "0.99": 24.14496999999867
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 75504,
+        "quantiles": {
+          "0.5": 3.3782105263159012,
+          "0.9": 3.440048432055631,
+          "0.95": 3.4472941176471497,
+          "0.99": 3.4654611405831792
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 75504,
+        "quantiles": {
+          "0.5": 75.0,
+          "0.9": 176.0,
+          "0.99": 319.97000000000116
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_HOUR:23": {
+      "minute_range": {
+        "n": 77291,
+        "quantiles": {
+          "0.5": 2.224999999998545,
+          "0.9": 5.955999999998312,
+          "0.95": 8.110249999999724,
+          "0.99": 14.250299999999715
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 77291,
+        "quantiles": {
+          "0.5": 3.374718749999971,
+          "0.9": 3.4365657894737334,
+          "0.95": 3.443469047619155,
+          "0.99": 3.4573499534881416
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 77291,
+        "quantiles": {
+          "0.5": 86.0,
+          "0.9": 191.0,
+          "0.99": 313.1000000000058
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_WEEKDAY:4": {
+      "minute_range": {
+        "n": 247183,
+        "quantiles": {
+          "0.5": 5.925000000001091,
+          "0.9": 16.771000000003188,
+          "0.95": 22.197799999996995,
+          "0.99": 37.16957999999929
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 247183,
+        "quantiles": {
+          "0.5": 3.210111111111045,
+          "0.9": 3.428477550220512,
+          "0.95": 3.4353762819318803,
+          "0.99": 3.446163249882773
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 247183,
+        "quantiles": {
+          "0.5": 236.0,
+          "0.9": 483.0,
+          "0.99": 637.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "NEW_YORK_WEEKDAY:5": {
+      "minute_range": {
+        "n": 0,
+        "quantiles": {
+          "0.5": null,
+          "0.9": null,
+          "0.95": null,
+          "0.99": null
+        },
+        "status": "EMPTY_NO_NUMERICAL_RESULT"
+      },
+      "spread_mean": {
+        "n": 0,
+        "quantiles": {
+          "0.5": null,
+          "0.9": null,
+          "0.95": null,
+          "0.99": null
+        },
+        "status": "EMPTY_NO_NUMERICAL_RESULT"
+      },
+      "tick_count": {
+        "n": 0,
+        "quantiles": {
+          "0.5": null,
+          "0.9": null,
+          "0.99": null
+        },
+        "status": "EMPTY_NO_NUMERICAL_RESULT"
+      }
+    },
+    "NEW_YORK_WEEKDAY:6": {
+      "minute_range": {
+        "n": 91732,
+        "quantiles": {
+          "0.5": 3.2670000000034634,
+          "0.9": 9.48394999999728,
+          "0.95": 13.0,
+          "0.99": 23.903604999999125
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 91732,
+        "quantiles": {
+          "0.5": 3.3713786227545164,
+          "0.9": 3.4370362987012384,
+          "0.95": 3.4434204117567404,
+          "0.99": 3.459354093220406
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 91732,
+        "quantiles": {
+          "0.5": 114.0,
+          "0.9": 248.0,
+          "0.99": 385.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "UTC_YEAR:2021": {
+      "minute_range": {
+        "n": 209795,
+        "quantiles": {
+          "0.5": 3.1750000000010914,
+          "0.9": 9.385000000000218,
+          "0.95": 12.605000000001382,
+          "0.99": 21.719999999997743
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 209795,
+        "quantiles": {
+          "0.5": 3.345500000000129,
+          "0.9": 3.3790312500001507,
+          "0.95": 3.388219791666746,
+          "0.99": 3.4097704680459167
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 209795,
+        "quantiles": {
+          "0.5": 177.0,
+          "0.9": 461.0,
+          "0.99": 620.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "UTC_YEAR:2022": {
+      "minute_range": {
+        "n": 342580,
+        "quantiles": {
+          "0.5": 5.720000000001164,
+          "0.9": 15.720000000001164,
+          "0.95": 20.660200000001577,
+          "0.99": 34.260210000000285
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 342580,
+        "quantiles": {
+          "0.5": 3.326161188936817,
+          "0.9": 3.373209525203804,
+          "0.95": 3.383740208429874,
+          "0.99": 3.420260869565178
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 342580,
+        "quantiles": {
+          "0.5": 270.0,
+          "0.9": 554.0,
+          "0.99": 669.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "UTC_YEAR:2023": {
+      "minute_range": {
+        "n": 340877,
+        "quantiles": {
+          "0.5": 3.4650000000001455,
+          "0.9": 10.1200000000008,
+          "0.95": 13.359999999999127,
+          "0.99": 22.024999999999636
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 340877,
+        "quantiles": {
+          "0.5": 3.357409090909104,
+          "0.9": 3.3994193548386384,
+          "0.95": 3.428412698412666,
+          "0.99": 3.4479322033897892
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 340877,
+        "quantiles": {
+          "0.5": 170.0,
+          "0.9": 460.0,
+          "0.99": 606.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "UTC_YEAR:2024": {
+      "minute_range": {
+        "n": 342214,
+        "quantiles": {
+          "0.5": 4.3215000000018335,
+          "0.9": 12.810499999999593,
+          "0.95": 17.079175000003296,
+          "0.99": 28.6217850000009
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 342214,
+        "quantiles": {
+          "0.5": 3.4206326530610918,
+          "0.9": 3.44074187139482,
+          "0.95": 3.4458957298475257,
+          "0.99": 3.4568210064934863
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 342214,
+        "quantiles": {
+          "0.5": 112.0,
+          "0.9": 283.0,
+          "0.99": 381.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "UTC_YEAR:2025": {
+      "minute_range": {
+        "n": 340554,
+        "quantiles": {
+          "0.5": 5.771500000000742,
+          "0.9": 17.544000000001688,
+          "0.95": 24.048500000000786,
+          "0.99": 42.100469999998616
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 340554,
+        "quantiles": {
+          "0.5": 1.434590363134381,
+          "0.9": 3.436285714285684,
+          "0.95": 3.4410722456492326,
+          "0.99": 3.4518364843194527
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 340554,
+        "quantiles": {
+          "0.5": 161.0,
+          "0.9": 355.0,
+          "0.99": 503.0
+        },
+        "status": "NONEMPTY"
+      }
+    },
+    "UTC_YEAR:2026": {
+      "minute_range": {
+        "n": 133160,
+        "quantiles": {
+          "0.5": 8.217000000000553,
+          "0.9": 20.36449999999968,
+          "0.95": 26.25169999999848,
+          "0.99": 42.760115000002486
+        },
+        "status": "NONEMPTY"
+      },
+      "spread_mean": {
+        "n": 133160,
+        "quantiles": {
+          "0.5": 1.120975719391394,
+          "0.9": 1.1370274025975757,
+          "0.95": 1.2295197780786318,
+          "0.99": 3.4301723473400973
+        },
+        "status": "NONEMPTY"
+      },
+      "tick_count": {
+        "n": 133160,
+        "quantiles": {
+          "0.5": 256.0,
+          "0.9": 444.0,
+          "0.99": 545.0
+        },
+        "status": "NONEMPTY"
+      }
+    }
+  },
+  "source": {
+    "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "coverage_utc": {
+      "first_minute": "2021-05-25T00:00:00Z",
+      "last_minute": "2026-05-24T23:59:00Z",
+      "minute_rows": 1709180
+    },
+    "output_bytes": 1390634,
+    "output_schema": "ATDS_SMF_AP1_M03_02_REAL_EXECUTION_V0_1",
+    "output_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "output_status": "M03_REAL_EXECUTION_COMPLETE",
+    "semantics": "RETROSPECTIVE_DESCRIPTIVE_ONLY"
+  },
+  "status": "DIRECT_FACT_EXTRACTION_ONLY"
+}
