@@ -162,8 +162,8 @@ def test_14_structural_duck_typing_blocks(tmp_path):
 def test_15_private_attestation_laundering_is_not_public_path():
     assert hasattr(owner,"_attest_result")
     assert not hasattr(owner,"attest_real_ao_e0_result")
-    public=[n for n in dir(owner) if not n.startswith("_") and "attest" in n.lower() and "result" in n.lower()]
-    assert public==["attest_synthetic_ao_e0_result"]
+    public_factories=[n for n in dir(owner) if not n.startswith("_") and n.startswith("attest_") and "result" in n.lower()]
+    assert public_factories==["attest_synthetic_ao_e0_result"]
 
 # B11R2-16
 def test_16_digest_only_substitution_blocks(tmp_path):

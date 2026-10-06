@@ -1,0 +1,15 @@
+{
+  "schema":"ATDS_AO_E0_B11_R2_BREAKER_HARNESS_CORRECTION_V0_1",
+  "control_id":"AO-E0-B11-R2",
+  "failed_run_id":37455958516,
+  "failed_job_id":112243506318,
+  "classification":"BREAKER_TEST_NAME_FILTER_TOO_BROAD",
+  "observed":"34/35 PASS; test 15 included public verifier is_factory_attested_ao_e0_execution_result in attestor list",
+  "exact_correction":"restrict public real-result factory discovery to names beginning with attest_",
+  "scientific_semantics_changed":false,
+  "breaker_contract_changed":false,
+  "protected_owner_changed":false,
+  "p1_12d_changed":false,
+  "producer_changed":false,
+  "force":false
+}
