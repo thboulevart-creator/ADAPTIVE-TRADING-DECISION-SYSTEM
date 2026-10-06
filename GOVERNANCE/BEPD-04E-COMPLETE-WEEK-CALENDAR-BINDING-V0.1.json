@@ -1,0 +1,1333 @@
+{
+  "schema": "ATDS_BEPD_04E_COMPLETE_WEEK_CALENDAR_BINDING_V0_1",
+  "status": "QUALIFIED_STRUCTURAL_BINDING_NO_RESPONSE_VALUES_USED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "parent": {
+    "head": "27e1f79c4d63a8b561f46671aaf9f232ebd30eba",
+    "tree": "4d183844248dd96427cf86cca761043d1d3212b6"
+  },
+  "source": {
+    "path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/LEVEL_WEEK_OPPORTUNITY.jsonl",
+    "git_blob": "0e97fb3b45bf8510b8531bb733cc155467a2ce49",
+    "run_id": "68d858ffcb6cde1941cd16b73ad0590ef4ae9a9528fb3a2c82099fca5a33a821",
+    "permitted_fields_used": [
+      "target_week_id",
+      "swept_this_week",
+      "event_id"
+    ],
+    "forbidden_response_fields_used": []
+  },
+  "invariants": {
+    "unique_complete_target_week_count": 259,
+    "first_target_week_id": "2021-06-07",
+    "last_target_week_id": "2026-05-18",
+    "strictly_ascending": true,
+    "exact_spacing_days": 7,
+    "event_bearing_week_count": 230,
+    "zero_event_week_count": 29,
+    "response_values_inspected": false
+  },
+  "calendar": [
+    {
+      "ordinal": 1,
+      "target_week_id": "2021-06-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 2,
+      "target_week_id": "2021-06-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 3,
+      "target_week_id": "2021-06-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 4,
+      "target_week_id": "2021-06-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 5,
+      "target_week_id": "2021-07-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 6,
+      "target_week_id": "2021-07-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 7,
+      "target_week_id": "2021-07-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 8,
+      "target_week_id": "2021-07-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 9,
+      "target_week_id": "2021-08-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 10,
+      "target_week_id": "2021-08-09",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 11,
+      "target_week_id": "2021-08-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 12,
+      "target_week_id": "2021-08-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 13,
+      "target_week_id": "2021-08-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 14,
+      "target_week_id": "2021-09-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 15,
+      "target_week_id": "2021-09-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 16,
+      "target_week_id": "2021-09-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 17,
+      "target_week_id": "2021-09-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 18,
+      "target_week_id": "2021-10-04",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 19,
+      "target_week_id": "2021-10-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 20,
+      "target_week_id": "2021-10-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 21,
+      "target_week_id": "2021-10-25",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 22,
+      "target_week_id": "2021-11-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 23,
+      "target_week_id": "2021-11-08",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 24,
+      "target_week_id": "2021-11-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 25,
+      "target_week_id": "2021-11-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 26,
+      "target_week_id": "2021-11-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 27,
+      "target_week_id": "2021-12-06",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 28,
+      "target_week_id": "2021-12-13",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 29,
+      "target_week_id": "2021-12-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 30,
+      "target_week_id": "2021-12-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 31,
+      "target_week_id": "2022-01-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 32,
+      "target_week_id": "2022-01-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 33,
+      "target_week_id": "2022-01-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 34,
+      "target_week_id": "2022-01-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 35,
+      "target_week_id": "2022-01-31",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 36,
+      "target_week_id": "2022-02-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 37,
+      "target_week_id": "2022-02-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 38,
+      "target_week_id": "2022-02-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 39,
+      "target_week_id": "2022-02-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 40,
+      "target_week_id": "2022-03-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 41,
+      "target_week_id": "2022-03-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 42,
+      "target_week_id": "2022-03-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 43,
+      "target_week_id": "2022-03-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 44,
+      "target_week_id": "2022-04-04",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 45,
+      "target_week_id": "2022-04-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 46,
+      "target_week_id": "2022-04-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 47,
+      "target_week_id": "2022-04-25",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 48,
+      "target_week_id": "2022-05-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 49,
+      "target_week_id": "2022-05-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 50,
+      "target_week_id": "2022-05-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 51,
+      "target_week_id": "2022-05-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 52,
+      "target_week_id": "2022-05-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 53,
+      "target_week_id": "2022-06-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 54,
+      "target_week_id": "2022-06-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 55,
+      "target_week_id": "2022-06-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 56,
+      "target_week_id": "2022-06-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 57,
+      "target_week_id": "2022-07-04",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 58,
+      "target_week_id": "2022-07-11",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 59,
+      "target_week_id": "2022-07-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 60,
+      "target_week_id": "2022-07-25",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 61,
+      "target_week_id": "2022-08-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 62,
+      "target_week_id": "2022-08-08",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 63,
+      "target_week_id": "2022-08-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 64,
+      "target_week_id": "2022-08-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 65,
+      "target_week_id": "2022-08-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 66,
+      "target_week_id": "2022-09-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 67,
+      "target_week_id": "2022-09-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 68,
+      "target_week_id": "2022-09-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 69,
+      "target_week_id": "2022-09-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 70,
+      "target_week_id": "2022-10-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 71,
+      "target_week_id": "2022-10-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 72,
+      "target_week_id": "2022-10-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 73,
+      "target_week_id": "2022-10-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 74,
+      "target_week_id": "2022-10-31",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 75,
+      "target_week_id": "2022-11-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 76,
+      "target_week_id": "2022-11-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 77,
+      "target_week_id": "2022-11-21",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 78,
+      "target_week_id": "2022-11-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 79,
+      "target_week_id": "2022-12-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 80,
+      "target_week_id": "2022-12-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 81,
+      "target_week_id": "2022-12-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 82,
+      "target_week_id": "2022-12-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 83,
+      "target_week_id": "2023-01-02",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 84,
+      "target_week_id": "2023-01-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 85,
+      "target_week_id": "2023-01-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 86,
+      "target_week_id": "2023-01-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 87,
+      "target_week_id": "2023-01-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 88,
+      "target_week_id": "2023-02-06",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 89,
+      "target_week_id": "2023-02-13",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 90,
+      "target_week_id": "2023-02-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 91,
+      "target_week_id": "2023-02-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 92,
+      "target_week_id": "2023-03-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 93,
+      "target_week_id": "2023-03-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 94,
+      "target_week_id": "2023-03-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 95,
+      "target_week_id": "2023-03-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 96,
+      "target_week_id": "2023-04-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 97,
+      "target_week_id": "2023-04-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 98,
+      "target_week_id": "2023-04-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 99,
+      "target_week_id": "2023-04-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 100,
+      "target_week_id": "2023-05-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 101,
+      "target_week_id": "2023-05-08",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 102,
+      "target_week_id": "2023-05-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 103,
+      "target_week_id": "2023-05-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 104,
+      "target_week_id": "2023-05-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 105,
+      "target_week_id": "2023-06-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 106,
+      "target_week_id": "2023-06-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 107,
+      "target_week_id": "2023-06-19",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 108,
+      "target_week_id": "2023-06-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 109,
+      "target_week_id": "2023-07-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 110,
+      "target_week_id": "2023-07-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 111,
+      "target_week_id": "2023-07-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 112,
+      "target_week_id": "2023-07-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 113,
+      "target_week_id": "2023-07-31",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 114,
+      "target_week_id": "2023-08-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 115,
+      "target_week_id": "2023-08-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 116,
+      "target_week_id": "2023-08-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 117,
+      "target_week_id": "2023-08-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 118,
+      "target_week_id": "2023-09-04",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 119,
+      "target_week_id": "2023-09-11",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 120,
+      "target_week_id": "2023-09-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 121,
+      "target_week_id": "2023-09-25",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 122,
+      "target_week_id": "2023-10-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 123,
+      "target_week_id": "2023-10-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 124,
+      "target_week_id": "2023-10-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 125,
+      "target_week_id": "2023-10-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 126,
+      "target_week_id": "2023-10-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 127,
+      "target_week_id": "2023-11-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 128,
+      "target_week_id": "2023-11-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 129,
+      "target_week_id": "2023-11-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 130,
+      "target_week_id": "2023-11-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 131,
+      "target_week_id": "2023-12-04",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 132,
+      "target_week_id": "2023-12-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 133,
+      "target_week_id": "2023-12-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 134,
+      "target_week_id": "2023-12-25",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 135,
+      "target_week_id": "2024-01-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 136,
+      "target_week_id": "2024-01-08",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 137,
+      "target_week_id": "2024-01-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 138,
+      "target_week_id": "2024-01-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 139,
+      "target_week_id": "2024-01-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 140,
+      "target_week_id": "2024-02-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 141,
+      "target_week_id": "2024-02-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 142,
+      "target_week_id": "2024-02-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 143,
+      "target_week_id": "2024-02-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 144,
+      "target_week_id": "2024-03-04",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 145,
+      "target_week_id": "2024-03-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 146,
+      "target_week_id": "2024-03-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 147,
+      "target_week_id": "2024-03-25",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 148,
+      "target_week_id": "2024-04-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 149,
+      "target_week_id": "2024-04-08",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 150,
+      "target_week_id": "2024-04-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 151,
+      "target_week_id": "2024-04-22",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 152,
+      "target_week_id": "2024-04-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 153,
+      "target_week_id": "2024-05-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 154,
+      "target_week_id": "2024-05-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 155,
+      "target_week_id": "2024-05-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 156,
+      "target_week_id": "2024-05-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 157,
+      "target_week_id": "2024-06-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 158,
+      "target_week_id": "2024-06-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 159,
+      "target_week_id": "2024-06-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 160,
+      "target_week_id": "2024-06-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 161,
+      "target_week_id": "2024-07-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 162,
+      "target_week_id": "2024-07-08",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 163,
+      "target_week_id": "2024-07-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 164,
+      "target_week_id": "2024-07-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 165,
+      "target_week_id": "2024-07-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 166,
+      "target_week_id": "2024-08-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 167,
+      "target_week_id": "2024-08-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 168,
+      "target_week_id": "2024-08-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 169,
+      "target_week_id": "2024-08-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 170,
+      "target_week_id": "2024-09-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 171,
+      "target_week_id": "2024-09-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 172,
+      "target_week_id": "2024-09-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 173,
+      "target_week_id": "2024-09-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 174,
+      "target_week_id": "2024-09-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 175,
+      "target_week_id": "2024-10-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 176,
+      "target_week_id": "2024-10-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 177,
+      "target_week_id": "2024-10-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 178,
+      "target_week_id": "2024-10-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 179,
+      "target_week_id": "2024-11-04",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 180,
+      "target_week_id": "2024-11-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 181,
+      "target_week_id": "2024-11-18",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 182,
+      "target_week_id": "2024-11-25",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 183,
+      "target_week_id": "2024-12-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 184,
+      "target_week_id": "2024-12-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 185,
+      "target_week_id": "2024-12-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 186,
+      "target_week_id": "2024-12-23",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 187,
+      "target_week_id": "2024-12-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 188,
+      "target_week_id": "2025-01-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 189,
+      "target_week_id": "2025-01-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 190,
+      "target_week_id": "2025-01-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 191,
+      "target_week_id": "2025-01-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 192,
+      "target_week_id": "2025-02-03",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 193,
+      "target_week_id": "2025-02-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 194,
+      "target_week_id": "2025-02-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 195,
+      "target_week_id": "2025-02-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 196,
+      "target_week_id": "2025-03-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 197,
+      "target_week_id": "2025-03-10",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 198,
+      "target_week_id": "2025-03-17",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 199,
+      "target_week_id": "2025-03-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 200,
+      "target_week_id": "2025-03-31",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 201,
+      "target_week_id": "2025-04-07",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 202,
+      "target_week_id": "2025-04-14",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 203,
+      "target_week_id": "2025-04-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 204,
+      "target_week_id": "2025-04-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 205,
+      "target_week_id": "2025-05-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 206,
+      "target_week_id": "2025-05-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 207,
+      "target_week_id": "2025-05-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 208,
+      "target_week_id": "2025-05-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 209,
+      "target_week_id": "2025-06-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 210,
+      "target_week_id": "2025-06-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 211,
+      "target_week_id": "2025-06-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 212,
+      "target_week_id": "2025-06-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 213,
+      "target_week_id": "2025-06-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 214,
+      "target_week_id": "2025-07-07",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 215,
+      "target_week_id": "2025-07-14",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 216,
+      "target_week_id": "2025-07-21",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 217,
+      "target_week_id": "2025-07-28",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 218,
+      "target_week_id": "2025-08-04",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 219,
+      "target_week_id": "2025-08-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 220,
+      "target_week_id": "2025-08-18",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 221,
+      "target_week_id": "2025-08-25",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 222,
+      "target_week_id": "2025-09-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 223,
+      "target_week_id": "2025-09-08",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 224,
+      "target_week_id": "2025-09-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 225,
+      "target_week_id": "2025-09-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 226,
+      "target_week_id": "2025-09-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 227,
+      "target_week_id": "2025-10-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 228,
+      "target_week_id": "2025-10-13",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 229,
+      "target_week_id": "2025-10-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 230,
+      "target_week_id": "2025-10-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 231,
+      "target_week_id": "2025-11-03",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 232,
+      "target_week_id": "2025-11-10",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 233,
+      "target_week_id": "2025-11-17",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 234,
+      "target_week_id": "2025-11-24",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 235,
+      "target_week_id": "2025-12-01",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 236,
+      "target_week_id": "2025-12-08",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 237,
+      "target_week_id": "2025-12-15",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 238,
+      "target_week_id": "2025-12-22",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 239,
+      "target_week_id": "2025-12-29",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 240,
+      "target_week_id": "2026-01-05",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 241,
+      "target_week_id": "2026-01-12",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 242,
+      "target_week_id": "2026-01-19",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 243,
+      "target_week_id": "2026-01-26",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 244,
+      "target_week_id": "2026-02-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 245,
+      "target_week_id": "2026-02-09",
+      "event_bearing": false
+    },
+    {
+      "ordinal": 246,
+      "target_week_id": "2026-02-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 247,
+      "target_week_id": "2026-02-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 248,
+      "target_week_id": "2026-03-02",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 249,
+      "target_week_id": "2026-03-09",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 250,
+      "target_week_id": "2026-03-16",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 251,
+      "target_week_id": "2026-03-23",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 252,
+      "target_week_id": "2026-03-30",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 253,
+      "target_week_id": "2026-04-06",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 254,
+      "target_week_id": "2026-04-13",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 255,
+      "target_week_id": "2026-04-20",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 256,
+      "target_week_id": "2026-04-27",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 257,
+      "target_week_id": "2026-05-04",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 258,
+      "target_week_id": "2026-05-11",
+      "event_bearing": true
+    },
+    {
+      "ordinal": 259,
+      "target_week_id": "2026-05-18",
+      "event_bearing": false
+    }
+  ],
+  "semantics": {
+    "event_bearing": "structural presence only; no event count or response outcome value is encoded",
+    "zero_event_weeks": "preserved as calendar positions for future block construction",
+    "resampling_order": "complete target-week calendar order"
+  }
+}
