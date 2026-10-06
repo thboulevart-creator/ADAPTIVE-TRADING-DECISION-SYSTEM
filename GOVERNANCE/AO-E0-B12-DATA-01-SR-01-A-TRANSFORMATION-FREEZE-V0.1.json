@@ -1,0 +1,46 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA01_SR01_A_TRANSFORMATION_FREEZE_V0_1",
+  "control_id":"AO-E0-B12-DATA-01-SR-01",
+  "phase":"A2_CANDIDATE_TRANSFORMATION_FREEZE",
+  "transformation_id":"DUKASCOPY_CANONICAL_DECODE_IDENTITY_V0_1",
+  "transformation_version":"V0.1",
+  "input_schema":"DUKASCOPY_JETTA_TICK_AFTER_CANONICAL_0_001_DECODE",
+  "output_schema":"SOURCE_B_PRICE_CORE_MILLI_PRICE",
+  "exact_algorithm":"RETURN_INPUT_INTEGER_MILLI_PRICE_UNCHANGED",
+  "exact_numeric_semantics":"SIGNED_INTEGER_MILLI_PRICE",
+  "rounding_mode":null,
+  "precision":"0.001 price unit exact integer",
+  "epsilon":0,
+  "row_removal":0,
+  "source_provenance":{
+    "provider":"DUKASCOPY",
+    "transport":"JETTA_DUKASCOPY_TICKS_API",
+    "instrument":"USATECH.IDX-USD",
+    "reference_lineage":"CarlosSilva1/ustech-ticks"
+  },
+  "discovery":{
+    "window_start_utc":"2026-05-18T00:00:00Z",
+    "window_end_utc":"2026-05-21T23:59:59.999Z",
+    "rows":1698188,
+    "timestamp_mismatch_count":0,
+    "bid_mismatch_count":0,
+    "ask_mismatch_count":0,
+    "evidence_sha256":"402888067d132f1ece44cd7cb8ba4caf839b86052e9601cdb30efe0dbfb64078"
+  },
+  "code_blob":"e60fd260642f1a3dfb88b7cce4b6c4f5defc3131",
+  "test_blob":"54837800f16f60b56328ddc818d0f9e2b2b01c1d",
+  "properties":{
+    "deterministic":true,
+    "time_invariant":true,
+    "strategy_independent":true,
+    "performance_independent":true,
+    "row_specific_lookup":false,
+    "post_hoc_tolerance":false,
+    "dropped_quotes":false,
+    "interpolation":false,
+    "future_data_used":false
+  },
+  "validation_detail_observed_before_freeze":false,
+  "transformation_change_during_validation":"FORBIDDEN",
+  "force":false
+}
