@@ -1,0 +1,93 @@
+{
+  "schema": "ATDS_BEPD_09A_DOCUMENTARY_PROGRAMMATIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09A",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-06",
+  "qualified_immutable_commit": "374ab2c04401eecb2b8f3319022df924ca889a8e",
+  "qualified_tree": "df4937f4934edec87a34449b27454d07453b44fb",
+  "bindings": {
+    "human_authorization_blob": "7324ceafdc66c9fa9e21d2f6d8e455ab85c07e14",
+    "design_contract_blob": "a3a3dd9fae1548de2b5ee6bf76536e68820ba932",
+    "documentary_breaker_blob": "d5cc742bb4cd256dde6f9a9988caece3a687b54e",
+    "design_report_blob": "a5dead3f42e2ce0521a168bfa9905f9a0a83c18d",
+    "bepd08d_final_human_adjudication_blob": "227ee01f330fc5c10ad29422cab69ac8a6461de4"
+  },
+  "qualification_method": {
+    "type": "IMMUTABLE_GITHUB_READBACK_PLUS_PROGRAMMATIC_ASSERTIONS",
+    "real_event_ledger_rows_read": false,
+    "real_result_recomputation": false,
+    "statistical_test": false,
+    "model_fit": false,
+    "oos_read": false,
+    "note": "Programmatic assertions were executed against exact persisted BEPD-09A JSON/Markdown blobs read back from the immutable design commit."
+  },
+  "checks": {
+    "contract_blob_exact": "PASS",
+    "breaker_blob_exact": "PASS",
+    "authorization_blob_exact": "PASS",
+    "design_report_blob_exact": "PASS",
+    "t0_exact": "PASS",
+    "row_presence_not_availability": "PASS",
+    "all_variable_entries_typed": "PASS",
+    "forbidden_post_t0_fields_not_predictors": "PASS",
+    "cluster_final_size_blocked": "PASS",
+    "holiday_requires_binding": "PASS",
+    "derived_feature_all_inputs_t0": "PASS",
+    "outcome_feature_selection_forbidden": "PASS",
+    "dependence_preserved": "PASS",
+    "historical_corpus_exposed": "PASS",
+    "real_rows_not_used": "PASS",
+    "claim_not_selected": "PASS",
+    "claim_testing_not_authorized": "PASS",
+    "candidate_ranks_exact": "PASS",
+    "c1_reintegration": "PASS",
+    "c1_observation_window_caveat": "PASS",
+    "c2_close_side_is_response": "PASS",
+    "c3_dclose_is_response": "PASS",
+    "c4_survival_deferred": "PASS",
+    "oos_closed": "PASS",
+    "threshold_closed": "PASS",
+    "trading_closed": "PASS",
+    "stop_requires_human": "PASS",
+    "breaker_count_exact": "PASS",
+    "breaker_binds_contract": "PASS",
+    "breaker_requires_no_real_rows": "PASS",
+    "breaker_blocks_auto_selection": "PASS",
+    "breaker_blocks_oos": "PASS",
+    "breaker_blocks_trading": "PASS"
+  },
+  "totals": {
+    "checks": 33,
+    "pass": 33,
+    "fail": 0
+  },
+  "breaker_hard_fail_cases": {
+    "expected": 28,
+    "observed": 28,
+    "status": "PASS"
+  },
+  "candidate_gate": {
+    "final_claim_selected": false,
+    "claim_testing_authorized": false,
+    "preferred_candidate": "C1",
+    "preferred_candidate_status": "RANKED_ONLY_NOT_SELECTED"
+  },
+  "evidence_state": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "real_rows_used_by_bepd09a": false,
+    "generalization": "NOT_ESTABLISHED",
+    "prediction": false,
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "verdict": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_action": "PERSISTED_HEAD_VERIFICATION_THEN_HUMAN_ADJUDICATION_ONLY"
+}
