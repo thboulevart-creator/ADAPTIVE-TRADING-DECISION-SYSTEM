@@ -1,0 +1,32 @@
+name: AO-E0 DATA-01 ACQ-02 Synthetic Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/AO-E0-B12-DATA-01-ACQ-02-*.json'
+      - 'tools/ao_e0_b12_data01_acq02.py'
+      - 'tests/test_ao_e0_b12_data01_acq02.py'
+      - '.github/workflows/ao-e0-b12-data01-acq02-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest
+      - name: ACQ-02 synthetic qualification
+        run: python -m pytest tests/test_ao_e0_b12_data01_acq02.py -q
+      - name: Exact adopted bindings
+        shell: bash
+        run: |
+          test "$(git hash-object GOVERNANCE/AO-E0-B12-DATA-01-SR-01-A-HUMAN-ADOPTION-2026-10-06.md)" = "0b6ad8ca0a1117d570f43f82bc370a7a6e51bb6a"
+          test "$(git hash-object reports/program/2026-10-06-AO-E0-B12-DATA-01-SR-01-A-HUMAN-ADOPTION-RECEIPT-V0.1.json)" = "5983939eb322b4a946c63deebd58da9bb6bbfcda"
+          test "$(git hash-object GOVERNANCE/AO-E0-B12-DATA-01-SR-01-A-TRANSFORMATION-FREEZE-V0.1.json)" = "4012c9d101ce2ced09b0efb2914c55385d591fba"

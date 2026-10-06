@@ -1,0 +1,12 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ02_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-ACQ-02",
+  "human_authorization_sha256": "898f78be0494b66e727e2f8d891a798557775430e063694811c29f233b0929ec",
+  "authorization_lines": 1250,
+  "source_semantic_relation": "HUMAN_ADOPTED",
+  "blind_forward_acquisition": "AUTHORIZED_AFTER_SYNTHETIC_IMPLEMENTATION_QUALIFICATION",
+  "b12": "CLOSED",
+  "performance_bearing_read": "FORBIDDEN",
+  "new_external_cost": false,
+  "force": false
+}

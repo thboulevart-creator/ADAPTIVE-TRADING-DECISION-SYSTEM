@@ -1,0 +1,14 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_ACQ02_TEST_HARNESS_CORRECTION_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-ACQ-02",
+  "first_replay": "54 PASS / 1 FAIL",
+  "classification": "TEST_FIXTURE_CONSTRUCTION_DEFECT",
+  "defect": "Conflict fixture changed bid above ask and therefore correctly hit ASK_LT_BID before SOURCE_OBJECT_MUTATION.",
+  "correction": "Use different but still valid raw bytes for same sealed interval.",
+  "owner_runtime_changed": false,
+  "final_local_replay": "55/55 PASS",
+  "real_forward_acquisition_started": false,
+  "b12": "CLOSED",
+  "performance_observed": false,
+  "force": false
+}
