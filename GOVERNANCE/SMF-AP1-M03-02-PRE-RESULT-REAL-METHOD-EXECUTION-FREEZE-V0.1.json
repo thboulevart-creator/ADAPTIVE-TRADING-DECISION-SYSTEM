@@ -1,0 +1,146 @@
+{
+  "ap1_source_result_exposed": true,
+  "authority": {
+    "capital": false,
+    "operational": false,
+    "scientific": false,
+    "trading": false
+  },
+  "code_parent_head": "58038db65c44e66683b26d48ef36aabd10f3d73c",
+  "code_parent_tree": "5eb44980529574cfed355f418212102059891e97",
+  "execution_plan_digest": "sha256:52c634d9a7861b5942cb68a5fe814aa2c91bd5f3d7d8eaf04b94cbe9d532f784",
+  "execution_plan_id": "M03P-52c634d9a7861b5942cb68a5fe814aa2",
+  "forbidden": [
+    "AP1_REEXECUTION",
+    "THIRD_AP1_INVOCATION",
+    "BACKTEST",
+    "NEW_OOS",
+    "PAPER",
+    "BROKER_LIVE",
+    "CAPITAL",
+    "AUTOMATIC_FINDING_PROMOTION"
+  ],
+  "freeze_digest": "sha256:b956cbe85c578b3e617e4886964c20bef15c8e34700ce5bc79776baa358c8b40",
+  "identities": {
+    "ap1_producer_blob": "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a",
+    "data02_receipt_blob": "ccfccda676abfe7e02082a331557ffed14e1f32b",
+    "execution_contract_blob": "a209b6984b5843c1c2b6577522ccb26ae2366215",
+    "executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "executor_tests_blob": "b59ca906a4e4aa75c586b0d24559be181575ffd6",
+    "m03_01_receipt_blob": "b7bf4f20d24aebafb9ff6c6e9029330afb9c0921",
+    "m03_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "m03_companion_blob": "7ec9ef71c8682abc4c8f9561518f84268c00ed11",
+    "rvo10_execution_receipt_blob": "c03bc976f340fb04ed5eab39659faae3a0a8a35f",
+    "rvo10_final_receipt_blob": "81cf1ea950ce041ac4ae623882af095f548358a1",
+    "smf01_blob": "2856b9aa8df7be964d0ee8f20d7332494e599549",
+    "smf02_blob": "ffd02a3957a1b823379cc57bdeb04c48e34eeff6",
+    "smf03_adjudication_blob": "eca159da397a8e22bd0b244a282b590f06b6df67",
+    "smf03_contract_blob": "5b71a409f135e42de5805b12afbd518a152b32a5",
+    "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4"
+  },
+  "m03_result_exposed": false,
+  "method": {
+    "empty_bucket_rule": "EMPTY_NO_NUMERICAL_RESULT",
+    "family": "M03",
+    "nonfinite_rule": "BLOCK",
+    "probabilities": {
+      "minute_range": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "spread_mean": [
+        0.5,
+        0.9,
+        0.95,
+        0.99
+      ],
+      "tick_count": [
+        0.5,
+        0.9,
+        0.99
+      ]
+    },
+    "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "quantile_definition": "linear interpolation with h=(n-1)*p",
+    "tail_extrapolation": "FORBIDDEN"
+  },
+  "output": {
+    "maximum_bytes": 33554432,
+    "must_not_preexist": true,
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02\\M03-REAL-58038db6.json"
+  },
+  "parity": {
+    "comparison": "ABS_DIFF <= 8 * IEEE754_DOUBLE_EPSILON * max(1, abs(AP1), abs(M03))",
+    "double_epsilon": 2.220446049250313e-16,
+    "factor": 8,
+    "fail_action": "STOP_BLOCK_SCIENTIFIC_INTERPRETATION"
+  },
+  "reconstruction": {
+    "bucket_families": [
+      "GLOBAL",
+      "UTC_HOUR",
+      "NEW_YORK_HOUR",
+      "NEW_YORK_WEEKDAY",
+      "NEW_YORK_WEEKDAY_HOUR",
+      "UTC_YEAR"
+    ],
+    "derived_metrics": {
+      "minute_range": "mid_high - mid_low"
+    },
+    "metrics": [
+      "tick_count",
+      "minute_range",
+      "spread_mean"
+    ],
+    "no_new_bucket": true,
+    "no_new_metric": true,
+    "no_subsample_selection": true,
+    "raw_vectors_persisted": false,
+    "read_columns": [
+      "minute_start_ms_utc",
+      "tick_count",
+      "mid_high",
+      "mid_low",
+      "spread_mean"
+    ]
+  },
+  "runtime": {
+    "america_new_york": "PASS",
+    "installed_binary_sha256": "ad169f4cb4bfb78c7a5c030a4529c19d6643276778e33994c93e145b6191c3ec",
+    "numpy_version": "2.5.3",
+    "pyarrow_version": "25.0.1",
+    "python_flags": [
+      "-E",
+      "-P"
+    ],
+    "python_version": "3.13.14",
+    "resolved_sys_executable": "C:\\Users\\Boulevart\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\\python.exe",
+    "transport_command": "python",
+    "transport_path": "C:\\Users\\Boulevart\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+    "tzdata_version": "2026.3"
+  },
+  "schema": "ATDS_SMF_AP1_M03_02_PRE_RESULT_REAL_METHOD_EXECUTION_FREEZE_V0_1",
+  "scientific_interpretation_exposed": false,
+  "source_ap1": {
+    "bytes": 179955,
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\RVO-10\\AP1-RETRY-CC02-740defe3.json",
+    "schema": "ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+    "sha256": "db8963bb1bd1fa5b76a9a435fcb9b2d24781f92df0c5e53b6664bafe6235076b",
+    "status": "AP1_COMPLETE"
+  },
+  "source_data02": {
+    "ap0_manifest": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1\\AP0-MANIFEST.json",
+    "ap0_root": "C:\\Users\\Boulevart\\Documents\\ATDS-DERIVED\\USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "expected_files": 61,
+    "iid_claim": false,
+    "inference_claim": false,
+    "manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+    "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET"
+  },
+  "status": "PRE_RESULT_REAL_M03_EXECUTION_FROZEN"
+}
