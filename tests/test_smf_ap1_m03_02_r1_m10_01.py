@@ -1,5 +1,5 @@
 from __future__ import annotations
-import hashlib, json, pathlib
+import hashlib, json, pathlib, subprocess
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 ART=ROOT/"artifacts"/"smf_ap1_m03_02_r1_m10_01"
@@ -14,14 +14,17 @@ EXPECTED_REFERENCE_BLOB="2ddc0f69425d0a8349eb43b26f956f4159b76d93"
 EXPECTED_M01_BLOB="2293c665a2d30c520056c7814aec6a9dc79d68d1"
 
 def load(p): return json.loads(p.read_text(encoding="ascii"))
-def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
+def git_sha(p):
+    rel=p.relative_to(ROOT).as_posix()
+    b=subprocess.check_output(["git","-C",str(ROOT),"show",f"HEAD:{rel}"])
+    return hashlib.sha256(b).hexdigest()
 def claim_map(r): return {(x["metric"],x["probability"]):x for x in r["claim_units"]}
 
 def test_01_exact_input_and_output_identities():
     m=load(MANIFEST)
     assert m["input"]["sha256"]==EXPECTED_INPUT_SHA
     assert m["execution"]["real_result_sha256"]==EXPECTED_OUTPUT_SHA
-    assert sha(RESULT)==EXPECTED_OUTPUT_SHA
+    assert git_sha(RESULT)==EXPECTED_OUTPUT_SHA
 
 def test_02_exact_procedure_identities():
     m=load(MANIFEST)
@@ -95,7 +98,7 @@ def test_10_reference_parity_exact():
     assert p["runtime_result_sha256"]==EXPECTED_OUTPUT_SHA
     assert p["reference_result_sha256"]==EXPECTED_OUTPUT_SHA
     assert RESULT.read_bytes()==REFERENCE.read_bytes()
-    assert sha(REFERENCE)==EXPECTED_OUTPUT_SHA
+    assert git_sha(REFERENCE)==EXPECTED_OUTPUT_SHA
 
 def test_11_no_global_verdict():
     r=load(RESULT)

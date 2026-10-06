@@ -139,3 +139,23 @@ Post-correction combined local regression:
 ```text
 56 / 56 PASS
 ```
+
+## Cross-platform output identity correction
+
+The first rebased persisted-head test compared the Windows checkout bytes directly and observed:
+
+```text
+WINDOWS CRLF WORKTREE SHA256 =
+dd8a81adfe2a5f117659526fedb23788e1f4bf9940d7bc0ba3a496b8867c5620
+```
+
+The deterministic execution output and canonical Git blob bytes remain:
+
+```text
+CANONICAL REAL OUTPUT SHA256 =
+af136e218e31066d9eac756bae9b5a683d01948ed92aaa58b8a9c1101f1946c9
+```
+
+The test was corrected to hash exact Git blob bytes rather than the platform-specific checkout projection.
+
+Scientific values, statuses, runtime/reference parity and output semantics are unchanged.
