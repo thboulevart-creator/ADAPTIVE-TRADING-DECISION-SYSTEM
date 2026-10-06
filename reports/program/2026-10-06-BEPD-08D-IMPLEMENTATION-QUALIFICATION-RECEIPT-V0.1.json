@@ -1,0 +1,60 @@
+{
+  "schema": "ATDS_BEPD_08D_IMPLEMENTATION_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-08D",
+  "status": "IMPLEMENTATION_QUALIFIED_PRE_RESULT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "candidate_commit": "57de69cb739f3edd4b5cddb7571ae960d4e18150",
+  "candidate_tree": "379c6166e172c546d45f7aa60d757efb65a74eb8",
+  "bindings": {
+    "human_authorization_blob": "f9194cb8d049a30600af3e69bd615a26a294101a",
+    "bepd08c_final_adjudication_blob": "0cc7d4f812525bd3c4dab29490613b70f8600514",
+    "bepd08c_contract_blob": "dc767d77b8f0c8cf89f6d87e9a4cd2401dd0b42e",
+    "bepd08c_breaker_blob": "13ad7dba0d4e83036ea1f40b47f1a0a8d1f40bb8",
+    "bepd08c_freeze_blob": "e4d6ebb35147f8cb884dbe569197236ed34251da",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "runner_blob": "c1374ae27822c19cc39f1fbdb7d51b7fc8632705",
+    "independent_reference_blob": "8a89e07386cdfc311fbeef57425363f2905c5769",
+    "executable_breaker_blob": "3d55a5ce4b81eac5526650a452d07ff5eb50bbb6",
+    "synthetic_tests_blob": "30a50f3264a49fc7a88ce7712bc1110e3d9cfbed",
+    "workflow_blob": "0b674dc9cc3f0068d306d1d84ad00f126ab27c81"
+  },
+  "executable_evidence": {
+    "workflow_run_id": 37514861778,
+    "job_id": 112445059919,
+    "conclusion": "SUCCESS",
+    "frozen_bindings": "PASS",
+    "compile": "PASS",
+    "synthetic_tests": "19 / 19 PASS",
+    "executable_equivalent_breaker": "32 / 32 PASS",
+    "real_internal_distribution": "NOT_EXPOSED",
+    "real_external_distribution": "NOT_EXPOSED",
+    "real_conditional_aggregation": "NOT_EXECUTED"
+  },
+  "frozen_behavior": {
+    "source_field": "close_displacement",
+    "internal_rule": "close_displacement > 0",
+    "external_rule": "close_displacement < 0",
+    "exact_level_rule": "close_displacement == 0",
+    "total_n": 472,
+    "internal_n": 207,
+    "external_n": 265,
+    "exact_level_n": 0,
+    "distance": "abs(close_displacement)",
+    "unit": "USTECH_PRICE_UNITS_AS_PERSISTED",
+    "quantile_method": "HYNDMAN_FAN_TYPE_7",
+    "ecdf": "EXACT_UNSMOOTHED_UNBINNED",
+    "scalar_output": "18_DECIMAL_ROUND_HALF_EVEN"
+  },
+  "authority": {
+    "one_first_real_dual_execution": "NOT_YET_ACTIVE_UNTIL_EXACT_REAL_EXECUTION_FREEZE_PERSISTED",
+    "comparative_test": false,
+    "subgroups": false,
+    "threshold_search": false,
+    "oos": false,
+    "prediction": false,
+    "edge": false,
+    "trading": false
+  },
+  "next_action": "PERSIST EXACT REAL EXECUTION FREEZE BEFORE FIRST REAL DUAL CONDITIONAL AGGREGATION"
+}
