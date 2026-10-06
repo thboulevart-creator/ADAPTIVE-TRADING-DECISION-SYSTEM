@@ -1,0 +1,196 @@
+name: BEPD-06B first real conditional timing distribution
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - GOVERNANCE/BEPD-06B-REAL-EXECUTION-FREEZE-V0.1.json
+
+permissions:
+  contents: read
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify execution freeze bindings
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, subprocess
+          f=json.load(open("GOVERNANCE/BEPD-06B-REAL-EXECUTION-FREEZE-V0.1.json",encoding="utf-8"))
+          checks={
+            "human_authorization_blob":("GOVERNANCE/BEPD-06B-HUMAN-AUTHORIZATION-2026-10-06.md",f["bindings"]["human_authorization_blob"]),
+            "runner_blob":("tools/bepd_06b_conditional_time_to_reintegration.py",f["bindings"]["runner_blob"]),
+            "independent_reference_blob":("tools/bepd_06b_independent_reference.py",f["bindings"]["independent_reference_blob"]),
+            "executable_breaker_blob":("tools/bepd_06a_executable_breaker.py",f["bindings"]["executable_breaker_blob"]),
+            "tests_blob":("tests/test_bepd_06b_conditional_time_to_reintegration.py",f["bindings"]["tests_blob"]),
+            "implementation_qualification_receipt_blob":("reports/program/2026-10-06-BEPD-06B-IMPLEMENTATION-QUALIFICATION-RECEIPT-V0.1.json",f["bindings"]["implementation_qualification_receipt_blob"]),
+            "event_ledger_blob":("artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",f["bindings"]["event_ledger_blob"]),
+          }
+          for label,(path,expected) in checks.items():
+            observed=subprocess.check_output(["git","rev-parse",f"HEAD:{path}"],text=True).strip()
+            if observed != expected:
+              raise SystemExit(f"{label} mismatch: {observed} != {expected}")
+          print("BEPD06B_REAL_EXECUTION_FREEZE_BINDINGS_PASS")
+          PY
+
+      - name: Run executable breaker real preflight
+        run: |
+          python tools/bepd_06a_executable_breaker.py             --runner tools/bepd_06b_conditional_time_to_reintegration.py             --mode real-preflight
+
+      - name: Execute first real canonical conditional timing distribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/bepd06b
+          RUNNER_BLOB="$(git rev-parse HEAD:tools/bepd_06b_conditional_time_to_reintegration.py)"
+          python tools/bepd_06b_conditional_time_to_reintegration.py             --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl             --output /tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json             --manifest /tmp/bepd06b/RUN_MANIFEST.json             --expected-base-n 472             --expected-true-n 370             --expected-false-n 102             --source-blob 0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2             --contract-blob a15278a9491e75096585ab576b548b965ee6a0e6             --breaker-blob 02a64983b4ce75b0f798f1b9639bf8d1a4c41605             --freeze-blob 6cb6b5bac0848d8b24f035a1527216bf71843bbd             --runner-blob "$RUNNER_BLOB"
+          echo "BEPD06B_FIRST_REAL_TIMING_EXECUTION_EXECUTED"
+
+      - name: Independent recomputation
+        run: |
+          python tools/bepd_06b_independent_reference.py             --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl             --output /tmp/bepd06b/INDEPENDENT_REFERENCE.json
+
+      - name: Compare independent reference exact parity
+        run: |
+          python - <<'PY'
+          import json
+          a=json.load(open("/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json"))
+          b=json.load(open("/tmp/bepd06b/INDEPENDENT_REFERENCE.json"))
+          if a["core"] != b["core"]:
+              raise SystemExit("BEPD06B_INDEPENDENT_RECOMPUTATION_MISMATCH")
+          print("BEPD06B_INDEPENDENT_RECOMPUTATION_EXACT_PARITY_PASS")
+          PY
+
+      - name: Deterministic replay
+        shell: bash
+        run: |
+          set -euo pipefail
+          RUNNER_BLOB="$(git rev-parse HEAD:tools/bepd_06b_conditional_time_to_reintegration.py)"
+          python tools/bepd_06b_conditional_time_to_reintegration.py             --input artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl             --output /tmp/bepd06b/REPLAY_RESULT.json             --manifest /tmp/bepd06b/REPLAY_MANIFEST.json             --expected-base-n 472             --expected-true-n 370             --expected-false-n 102             --source-blob 0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2             --contract-blob a15278a9491e75096585ab576b548b965ee6a0e6             --breaker-blob 02a64983b4ce75b0f798f1b9639bf8d1a4c41605             --freeze-blob 6cb6b5bac0848d8b24f035a1527216bf71843bbd             --runner-blob "$RUNNER_BLOB"
+          cmp /tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json /tmp/bepd06b/REPLAY_RESULT.json
+          echo "BEPD06B_DETERMINISTIC_REPLAY_EXACT_PARITY_PASS"
+
+      - name: Validate mandatory invariants
+        run: |
+          python - <<'PY'
+          import json
+          r=json.load(open("/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json"))
+          c=r["core"]
+          assert c["BASE_N"] == 472
+          assert c["REINTEGRATION_TRUE_N"] == 370
+          assert c["NO_REINTEGRATION_WITHIN_TARGET_WEEK_N"] == 102
+          assert c["N_TIMING"] == 370
+          assert c["P50"] == c["MEDIAN"]
+          assert c["EMPIRICAL_CDF"][-1]["cumulative_count"] == 370
+          assert c["EMPIRICAL_CDF"][-1]["cumulative_fraction"] == "1"
+          assert r["population"]["no_reintegration_duration_assigned"] is False
+          assert r["population"]["subgroups"] == []
+          assert r["survival"]["kaplan_meier"] == "NOT_ACTIVATED"
+          assert r["event_level_derived_timing_ledger_persisted"] is False
+          assert r["forbidden_analytics_executed"] is False
+          assert r["evidence_status"] == "EXPOSED_EXPLORATORY_ONLY"
+          assert r["generalization"] == "NOT_ESTABLISHED"
+          assert r["prediction"] is False
+          assert r["edge"] is False
+          assert r["trading_authority"] == "NONE"
+          print("BEPD06B_REAL_RESULT_INVARIANTS_PASS")
+          PY
+
+      - name: Build technical execution receipt
+        shell: bash
+        run: |
+          python - <<'PY'
+          import hashlib,json,subprocess
+          def sha(path):
+              h=hashlib.sha256()
+              with open(path,"rb") as f:
+                  for chunk in iter(lambda:f.read(1048576),b""): h.update(chunk)
+              return h.hexdigest()
+          r=json.load(open("/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json"))
+          c=r["core"]
+          receipt={
+            "schema":"ATDS_BEPD_06B_REAL_EXECUTION_TECHNICAL_RECEIPT_V0_1",
+            "status":"REAL_CONDITIONAL_TIMING_DISTRIBUTION_TECHNICALLY_QUALIFIED",
+            "head":subprocess.check_output(["git","rev-parse","HEAD"],text=True).strip(),
+            "runner_blob":subprocess.check_output(["git","rev-parse","HEAD:tools/bepd_06b_conditional_time_to_reintegration.py"],text=True).strip(),
+            "source_event_ledger_blob":"0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+            "result_sha256":sha("/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json"),
+            "run_manifest_sha256":sha("/tmp/bepd06b/RUN_MANIFEST.json"),
+            "independent_reference_sha256":sha("/tmp/bepd06b/INDEPENDENT_REFERENCE.json"),
+            "replay_result_sha256":sha("/tmp/bepd06b/REPLAY_RESULT.json"),
+            "independent_recomputation":"EXACT_PARITY_PASS",
+            "deterministic_replay":"EXACT_PARITY_PASS",
+            "base_n":c["BASE_N"],
+            "reintegration_true_n":c["REINTEGRATION_TRUE_N"],
+            "reintegration_false_n":c["NO_REINTEGRATION_WITHIN_TARGET_WEEK_N"],
+            "n_timing":c["N_TIMING"],
+            "p50_equals_median":c["P50"] == c["MEDIAN"],
+            "ecdf_terminal_count":c["EMPIRICAL_CDF"][-1]["cumulative_count"],
+            "ecdf_terminal_fraction":c["EMPIRICAL_CDF"][-1]["cumulative_fraction"],
+            "survival_frontier_opened":False,
+            "subgroup_frontier_opened":False,
+            "mfe_mae_frontier_opened":False,
+            "human_adopted":False
+          }
+          open("/tmp/bepd06b/TECHNICAL_RECEIPT.json","w").write(json.dumps(receipt,indent=2)+"\n")
+          PY
+
+      - name: Emit bounded result summary
+        run: |
+          python - <<'PY'
+          import json
+          c=json.load(open("/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json"))["core"]
+          keys=["BASE_N","REINTEGRATION_TRUE_N","NO_REINTEGRATION_WITHIN_TARGET_WEEK_N","N_TIMING",
+                "MINIMUM_ELAPSED_UTC_HOURS","MAXIMUM_ELAPSED_UTC_HOURS","MEAN","MEDIAN",
+                "P01","P05","P10","P25","P50","P75","P90","P95","P99"]
+          print("BEPD06B_RESULT_SUMMARY_JSON="+json.dumps({k:c[k] for k in keys},separators=(",",":")))
+          PY
+
+      - name: Emit result files as chunked base64 for canonical persistence
+        shell: bash
+        run: |
+          set -euo pipefail
+          for spec in             "RESULT:/tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json"             "MANIFEST:/tmp/bepd06b/RUN_MANIFEST.json"             "INDEPENDENT:/tmp/bepd06b/INDEPENDENT_REFERENCE.json"             "TECHNICAL_RECEIPT:/tmp/bepd06b/TECHNICAL_RECEIPT.json"; do
+            label="${spec%%:*}"
+            file="${spec#*:}"
+            echo "BEPD06B_${label}_B64_BEGIN"
+            base64 -w0 "$file" | fold -w 60000
+            echo
+            echo "BEPD06B_${label}_B64_END"
+          done
+
+      - name: Upload qualification package
+        uses: actions/upload-artifact@v4
+        with:
+          name: bepd06b-first-real-conditional-timing
+          path: |
+            /tmp/bepd06b/REAL_CONDITIONAL_TIMING_RESULT.json
+            /tmp/bepd06b/RUN_MANIFEST.json
+            /tmp/bepd06b/INDEPENDENT_REFERENCE.json
+            /tmp/bepd06b/REPLAY_RESULT.json
+            /tmp/bepd06b/REPLAY_MANIFEST.json
+            /tmp/bepd06b/TECHNICAL_RECEIPT.json
+          if-no-files-found: error
+
+      - name: Terminal marker
+        run: |
+          echo "BEPD06B_REAL_CONDITIONAL_TIME_TO_FIRST_REINTEGRATION_DISTRIBUTION_QUALIFIED"
+          echo "RESULT_HUMAN_ADOPTED=NO"
+          echo "SURVIVAL_FRONTIER=NOT_OPENED"
+          echo "SUBGROUP_FRONTIER=NOT_OPENED"
+          echo "MFE_MAE_FRONTIER=NOT_OPENED"
+          echo "NEXT_SCIENTIFIC_FRONTIER=NOT_AUTOMATICALLY_OPENED"

@@ -1,0 +1,70 @@
+name: BEPD-06B implementation qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - GOVERNANCE/BEPD-06B-HUMAN-AUTHORIZATION-2026-10-06.md
+      - tools/bepd_06b_conditional_time_to_reintegration.py
+      - tools/bepd_06b_independent_reference.py
+      - tools/bepd_06a_executable_breaker.py
+      - tests/test_bepd_06b_conditional_time_to_reintegration.py
+      - .github/workflows/bepd-06b-implementation-qualification.yml
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen upstream identities without result calculation
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-06A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "86d67aa938c8b6871528f085e76e9a82632fa53b"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-06A-CONDITIONAL-TIME-TO-FIRST-REINTEGRATION-CONTRACT-V0.1.json)" = "a15278a9491e75096585ab576b548b965ee6a0e6"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-06A-FROZEN-PRE-RESULT-ADVERSARIAL-BREAKER-CONTRACT-V0.1.json)" = "02a64983b4ce75b0f798f1b9639bf8d1a4c41605"
+          test "$(git rev-parse HEAD:GOVERNANCE/BEPD-06A-PRE-RESULT-FREEZE-V0.1.json)" = "6cb6b5bac0848d8b24f035a1527216bf71843bbd"
+          test "$(git rev-parse HEAD:artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl)" = "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+          echo "BEPD06B_FROZEN_BINDINGS_PASS"
+
+      - name: Compile implementation
+        run: |
+          python -m py_compile             tools/bepd_06b_conditional_time_to_reintegration.py             tools/bepd_06b_independent_reference.py             tools/bepd_06a_executable_breaker.py
+          echo "BEPD06B_COMPILE_PASS"
+
+      - name: Run synthetic timing tests only
+        run: |
+          python -m unittest -v tests/test_bepd_06b_conditional_time_to_reintegration.py
+          echo "BEPD06B_SYNTHETIC_TESTS_PASS"
+
+      - name: Run executable-equivalent 42-case breaker pre-result
+        run: |
+          python tools/bepd_06a_executable_breaker.py             --runner tools/bepd_06b_conditional_time_to_reintegration.py             --mode pre-result
+
+      - name: Assert no BEPD-06B real result exists
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find artifacts reports -type f \( -iname '*BEPD-06B*RESULT*' -o -path '*bepd06b*' \) 2>/dev/null | grep -q .; then
+            echo "Unexpected BEPD-06B real result before implementation qualification"
+            exit 1
+          fi
+          echo "BEPD06B_REAL_TIMING_DISTRIBUTION_EXPOSURE=NO"
+
+      - name: Qualification terminal marker
+        run: |
+          echo "BEPD06B_IMPLEMENTATION_QUALIFICATION_PASS"
+          echo "REAL_TIMING_DISTRIBUTION=NOT_EXECUTED"
