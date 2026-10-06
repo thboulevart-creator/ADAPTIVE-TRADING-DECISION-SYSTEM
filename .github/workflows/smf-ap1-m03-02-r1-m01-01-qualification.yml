@@ -1,0 +1,67 @@
+name: SMF AP1 M03-02 R1 M01-01 Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-*'
+      - 'reports/program/*SMF-AP1-M03-02-R1-M01-01*'
+      - 'tests/test_smf_ap1_m03_02_r1_m01_01.py'
+      - '.github/workflows/smf-ap1-m03-02-r1-m01-01-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+      - name: M01-01 freeze qualification
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_m01_01.py
+      - name: SI-01 regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_si01.py
+      - name: EF-01 regression
+        run: python -m pytest -q tests/test_smf_ap1_m03_02_r1_ef01.py
+      - name: Static protected identities
+        run: |
+          test "$(git hash-object reports/program/2026-10-06-SMF-AP1-M03-02-R1-SI-02-FINAL-HUMAN-ADJUDICATION-RECEIPT-V0.1.json)" = "2bc978d69aaeb34100d321a77b3a94f53208c321"
+          test "$(git hash-object GOVERNANCE/SMF-AP1-M03-02-R1-SI-02-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-06.md)" = "1c267b2955dc6fb8855022025d7a8ae85e9bbd4d"
+          test "$(git hash-object src/smf_ap1_m03_binding.py)" = "f4c0295625f8b360effbd27a8d616d9644ea2a5e"
+          test "$(git hash-object tools/smf03_core_foundation.py)" = "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb"
+          test "$(git hash-object tools/ap1_intraday_spread_census.py)" = "9f613063fb8a190a1ff6f2f8b12c97c4ed97712a"
+      - name: Assert no M10 execution surface opened
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("GOVERNANCE/SMF-AP1-M03-02-R1-M01-01-TEMPORAL-STABILITY-CONTRACT-V0.1.json")
+          j=json.loads(p.read_text())
+          assert j["m10_authorized"] is False
+          assert j["m10_executed"] is False
+          assert j["authority"]["scientific_method_execution"] is False
+          PY
+      - name: Clean worktree
+        if: always()
+        run: |
+          git status --porcelain
+          git diff --exit-code
+          git clean -fd
+          test -z "$(git status --porcelain)"

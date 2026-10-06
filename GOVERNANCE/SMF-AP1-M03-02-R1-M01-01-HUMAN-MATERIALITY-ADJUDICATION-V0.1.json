@@ -1,0 +1,68 @@
+{
+    "schema":  "ATDS_SMF_AP1_M03_02_R1_M01_01_HUMAN_MATERIALITY_ADJUDICATION_V0_1",
+    "status":  "HUMAN_ADOPTED",
+    "effect_scale":  {
+                         "selected_option":  "B",
+                         "name":  "SYMMETRIC_RELATIVE_CHANGE",
+                         "formula":  "R[m,p,a,b] = 2 * abs(q[m,p,b] - q[m,p,a]) / (abs(q[m,p,b]) + abs(q[m,p,a]))",
+                         "zero_denominator":  "UNDEFINED_BLOCKED"
+                     },
+    "threshold":  {
+                      "scope":  "COMMON_TO_ALL_11_CLAIM_UNITS",
+                      "value":  0.2,
+                      "material_if":  "R \u003e= 0.20",
+                      "below_materiality_if":  "R \u003c 0.20",
+                      "origin":  "HUMAN_ADOPTED_NOT_DERIVED_FROM_EXPOSED_M03_CONTRASTS"
+                  },
+    "claim_unit_rule":  {
+                            "selected_rule":  "A",
+                            "name":  "ANY_ADJACENT_MATERIAL_SHIFT",
+                            "transitions":  [
+                                                "2022-\u003e2023",
+                                                "2023-\u003e2024",
+                                                "2024-\u003e2025"
+                                            ],
+                            "precedence":  [
+                                               "IF_ANY_REQUIRED_CONTRAST_UNDEFINED_OR_BLOCKED =\u003e CLAIM_UNIT_BLOCKED",
+                                               "ELSE_IF_AT_LEAST_ONE_DEFINED_CONTRAST_R_GTE_0_20 =\u003e MATERIAL_TEMPORAL_VARIATION",
+                                               "ELSE =\u003e NO_MATERIAL_TEMPORAL_VARIATION_DETECTED"
+                                           ],
+                            "global_cross_metric_pass_fail":  "FORBIDDEN"
+                        },
+    "epistemic_scope":  [
+                            "RETROSPECTIVE",
+                            "DESCRIPTIVE",
+                            "EMPIRICAL",
+                            "FRAME_BOUND"
+                        ],
+    "not_established":  [
+                            "STATISTICAL_SIGNIFICANCE",
+                            "FORMAL_NONSTATIONARITY",
+                            "STRUCTURAL_BREAK",
+                            "REGIME_CAUSE",
+                            "GENERALIZATION",
+                            "PREDICTIVE_EDGE",
+                            "ECONOMIC_EDGE",
+                            "PROFITABILITY",
+                            "VALIDATED_STRATEGY",
+                            "TRADING_SIGNAL",
+                            "TRADING_AUTHORITY",
+                            "CAPITAL_AUTHORITY"
+                        ],
+    "resume_authority":  "INCORPORATE_BOUNDARY_FREEZE_QUALIFY_PERSIST_REBREAK_FINAL_RECEIPT_STOP",
+    "downstream_authority":  {
+                                 "M10":  false,
+                                 "M04":  false,
+                                 "M05":  false,
+                                 "M08":  false,
+                                 "M09":  false,
+                                 "M11":  false,
+                                 "new_M03":  false,
+                                 "new_AP1":  false,
+                                 "backtest":  false,
+                                 "new_OOS":  false,
+                                 "paper":  false,
+                                 "live":  false,
+                                 "capital":  false
+                             }
+}
