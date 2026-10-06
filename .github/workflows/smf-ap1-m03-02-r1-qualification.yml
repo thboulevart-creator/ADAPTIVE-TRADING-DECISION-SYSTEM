@@ -54,5 +54,6 @@ jobs:
       - name: Clean worktree
         if: always()
         run: |
+          rm -rf .pytest_cache
           git diff --exit-code
           test -z "$(git status --porcelain)"
