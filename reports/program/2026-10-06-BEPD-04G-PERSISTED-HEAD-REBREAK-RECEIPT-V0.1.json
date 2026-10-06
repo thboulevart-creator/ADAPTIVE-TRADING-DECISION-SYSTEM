@@ -1,0 +1,18 @@
+{
+  "bepd04f_breaker": "32/32 HARD_FAIL PASS",
+  "deterministic_replay": "PASS",
+  "head": "b2d84e931123ce63d86391e0985b37dc2fb8cd28",
+  "independent_recomputation": "PASS",
+  "m04_status": "NOT_APPLICABLE_BY_REPRESENTATION",
+  "maximum_response_mean_spread": "0.096259889714696715",
+  "persisted_identities": "PASS",
+  "real_bootstrap_executed": false,
+  "real_confidence_interval_calculated": false,
+  "real_gate_state": "NONSTATIONARITY_NOT_MATERIALLY_DETECTED",
+  "response_specific_m05_activation": "NOT_ACTIVATED",
+  "result_human_adopted": false,
+  "schema": "ATDS_BEPD_04G_PERSISTED_HEAD_REBREAK_RECEIPT_V0_1",
+  "status": "PASS",
+  "tree": "1f19ba22364595f7149c3f8567c1551bfce93e72",
+  "workflow_run_id": 37433076655
+}
