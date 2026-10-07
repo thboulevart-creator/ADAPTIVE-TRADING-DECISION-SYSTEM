@@ -1,0 +1,95 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_02_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-02",
+  "status": "AUTHORIZED_SYNTHETIC_IMPLEMENTATION_ONLY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_source": {
+    "type": "USER_PRONOUNCED_TEXT",
+    "date": "2026-10-07",
+    "sha256": "d334212f784f7ebcbc1dfe63f580cb452c5dd7e94a2d25afaee73f0f23c08ef3"
+  },
+  "fresh_preflight": {
+    "observed_head": "21abc19ad30574fb37f0bbc7285b42646fb25070",
+    "observed_tree": "7d4a0f53ee34be4ad393e72ffc75e57826eb40a9",
+    "drift_from_last_authorization_reference": "NON_MATERIAL_TO_DRE_02",
+    "drift_scope": [
+      "AO-E0-B12-DATA-01-TC-02"
+    ]
+  },
+  "exact_dre01_bindings": {
+    "human_authorization_receipt_blob": "cb7b39ba9cdfd08b366368fa33cc4d2d28eb2e02",
+    "data_payload_binding_blob": "efd7ba2e1f822a0bc1e4b444bb1cac33117ae12f",
+    "execution_contract_blob": "26889ea08b1bb4e4aebac953ed37e4c4425446bf",
+    "cr1_correction_record_blob": "3f44dd44002c9e12abb490a260e861c228468ed4",
+    "authoritative_output_schema_v0_2_blob": "8f3224b7aff804b1e9ce3776e552f8b2d60ae40d",
+    "frozen_breaker_contract_blob": "ba80d33d36fef04a556d9c4e596d46eb9cfdf90e",
+    "requirements_traceability_blob": "442e810db71ebe6a174ca100c96ee730cdf109d9",
+    "authoritative_pre_execution_freeze_v0_2_blob": "e016282bc06d132a54a094318ab0ecd0fc3e12ef",
+    "final_readiness_receipt_blob": "5aa56285612645f02698d8cf82e78fc9abc0f307",
+    "final_closure_blob": "2c47dc88e833c624bf7895f11c6ec942636194b5"
+  },
+  "authorized": [
+    "PRIMARY_EXTRACTOR_IMPLEMENTATION",
+    "INDEPENDENT_REFERENCE_IMPLEMENTATION",
+    "SYNTHETIC_FIXTURE_CONSTRUCTION",
+    "RED_FIRST_SYNTHETIC_QUALIFICATION",
+    "ADVERSARIAL_SYNTHETIC_QUALIFICATION",
+    "DETERMINISM_QUALIFICATION",
+    "PRIMARY_REFERENCE_EXACT_PARITY",
+    "REFERENCE_INDEPENDENCE_STATIC_QUALIFICATION",
+    "BREAKER_COVERAGE_69_OF_69",
+    "CANONICAL_PERSISTENCE",
+    "FINAL_SYNTHETIC_QUALIFICATION_CLOSURE"
+  ],
+  "forbidden": [
+    "REAL_M03_PAYLOAD_READ",
+    "REAL_M03_PAYLOAD_HASH_RECOMPUTATION",
+    "RAW_AP0_READ",
+    "M03_REEXECUTION",
+    "REAL_PRIMARY_EXECUTION",
+    "REAL_REFERENCE_EXECUTION",
+    "R_2022_EXTRACTION",
+    "R_2023_EXTRACTION",
+    "R_2024_EXTRACTION",
+    "R_2025_EXTRACTION",
+    "REAL_NUMERICAL_RESULT",
+    "METHOD_ACTIVATION",
+    "METHOD_EXECUTION",
+    "OOS_CONSUMPTION",
+    "TRADING_AUTHORITY",
+    "CAPITAL_AUTHORITY"
+  ],
+  "authority": {
+    "implementation": true,
+    "synthetic_execution": true,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "real_primary_execution": false,
+    "real_reference_execution": false,
+    "real_numerical_estimation": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "real_execution_budget": {
+    "primary_remaining": 1,
+    "reference_remaining": 1,
+    "retry_remaining": 0,
+    "consumed_primary": 0,
+    "consumed_reference": 0,
+    "consumed_retry": 0
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+    "status": "CLOSED",
+    "real_source_read": false,
+    "real_execution": false,
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "automatic_execution": false
+  },
+  "force": false
+}
