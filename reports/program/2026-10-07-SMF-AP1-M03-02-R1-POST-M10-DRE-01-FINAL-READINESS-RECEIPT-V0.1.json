@@ -1,0 +1,136 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_FINAL_READINESS_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "status": "QUALIFIED_DESIGN_FREEZE_EXECUTION_CLOSED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "a0ff0a832aeff4677ccca99f16b17ac09fb1b20e",
+    "tree": "c3b760d1444be3505cdbf5cab5f5ffee483108d8"
+  },
+  "frozen_artifacts": {
+    "human_authorization_receipt_blob": "cb7b39ba9cdfd08b366368fa33cc4d2d28eb2e02",
+    "data_payload_binding_blob": "efd7ba2e1f822a0bc1e4b444bb1cac33117ae12f",
+    "execution_contract_blob": "26889ea08b1bb4e4aebac953ed37e4c4425446bf",
+    "output_schema_v0_1_blob": "3a58e3a41a8cf9f68994bd165edd4a98f0cec161",
+    "cr1_correction_record_blob": "3f44dd44002c9e12abb490a260e861c228468ed4",
+    "output_schema_v0_2_blob": "8f3224b7aff804b1e9ce3776e552f8b2d60ae40d",
+    "breaker_contract_blob": "ba80d33d36fef04a556d9c4e596d46eb9cfdf90e",
+    "traceability_blob": "442e810db71ebe6a174ca100c96ee730cdf109d9",
+    "pre_execution_freeze_v0_1_blob": "19d5d5fd01baf577853cc7086d426da1448387dc",
+    "pre_execution_freeze_v0_2_blob": "e016282bc06d132a54a094318ab0ecd0fc3e12ef",
+    "static_test_blob": "1072ed25721f17799e0935103b3df94449cc925c",
+    "documentary_qualification_blob": "93cad70bed84ade3f0f18630bd2a4972ee6345ec"
+  },
+  "authoritative_versions": {
+    "output_schema": "V0.2",
+    "pre_execution_freeze": "V0.2",
+    "correction": "DRE-01-CR1"
+  },
+  "source_binding": {
+    "sole_future_numerical_source_path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "required_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "raw_ap0_read": false,
+    "m03_reexecution": false
+  },
+  "frozen_scientific_design": {
+    "claim_unit": "tick_count p50",
+    "claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "operation": "EXTRACT_EXISTING_M03_P50_WITHOUT_RECOMPUTATION",
+    "ordered_components": [
+      "R_2022",
+      "R_2023",
+      "R_2024",
+      "R_2025"
+    ],
+    "ordered_buckets": [
+      "UTC_YEAR:2022",
+      "UTC_YEAR:2023",
+      "UTC_YEAR:2024",
+      "UTC_YEAR:2025"
+    ],
+    "cross_year_aggregation": false,
+    "partial_vector": false,
+    "imputation": false
+  },
+  "deterministic_contract": {
+    "primary_reference_object_parity": "EXACT_REQUIRED",
+    "primary_reference_canonical_byte_parity": "EXACT_REQUIRED",
+    "primary_execution_budget": 1,
+    "independent_reference_execution_budget": 1,
+    "retry_budget": 0,
+    "scientific_result_wall_clock": false,
+    "randomness": "NONE"
+  },
+  "qualification": {
+    "canonical_git_upstream_identity_rebreak": "23/23 EXACT",
+    "semantic_rebreak": "32/32 PASS",
+    "frozen_breaker_definition": "69/69",
+    "traceability_coverage": "69/69",
+    "canonical_transport_ci": {
+      "run_id": 37650751483,
+      "job_id": 112893130044,
+      "conclusion": "success",
+      "head": "a0ff0a832aeff4677ccca99f16b17ac09fb1b20e"
+    },
+    "dedicated_dre01_workflow": "NOT_REQUIRED_FOR_THIS_DOCUMENTARY_FREEZE_AND_NOT_CLAIMED",
+    "static_test_file_persisted": true,
+    "static_test_ci_execution": "NOT_CLAIMED",
+    "global_repository_green": "NOT_CLAIMED",
+    "inherited_out_of_scope_ci_debt": [
+      "P0.4",
+      "P0.6"
+    ]
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "design_freeze": true,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "primary_execution": false,
+    "independent_reference_execution": false,
+    "numerical_estimation": false,
+    "method_activation": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "execution_state": {
+    "execution_authorized": false,
+    "R_2022": "NOT_EXTRACTED",
+    "R_2023": "NOT_EXTRACTED",
+    "R_2024": "NOT_EXTRACTED",
+    "R_2025": "NOT_EXTRACTED",
+    "automatic_open": false,
+    "automatic_execution": false,
+    "separate_human_execution_authorization_required": true
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-DRE-02",
+    "scope": "IMPLEMENTATION_AND_SYNTHETIC_QUALIFICATION_OF_FROZEN_DRE01_EXTRACTOR_PRIMARY_AND_INDEPENDENT_REFERENCE_ONLY",
+    "real_source_payload_read": false,
+    "real_execution": false,
+    "separate_human_authorization_required": true,
+    "automatic_open": false
+  },
+  "stop": true,
+  "force": false
+}
