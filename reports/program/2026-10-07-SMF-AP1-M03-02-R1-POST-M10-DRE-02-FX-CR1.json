@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_02_FX_CR1_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-02",
+  "correction_id": "DRE-02-FX-CR1",
+  "classification": "SYNTHETIC_FIXTURE_DIGEST_ENCODING_CORRECTION_ONLY",
+  "detected_by": "CANONICAL_SYNTHETIC_QUALIFICATION",
+  "defect": "Integer-valued synthetic JSON numbers were persisted without decimal points, changing the canonical M03 result_digest bytes relative to the preregistered synthetic digest literals.",
+  "semantic_effect": "NONE",
+  "runtime_effect": "NONE",
+  "real_data_effect": "NONE",
+  "source_binding_effect": "NONE",
+  "red_first_effect": "NONE_IMPORT_GATE_REMAINS_VALID",
+  "corrected_valid_fixture_blob": "8e40cefa689d61381e170fddb990521f24d8bad3",
+  "corrected_expected_success_blob": "735f20b8ce1d1c499d6c9cbcef4585435a0c68a8",
+  "real_source_access": false,
+  "real_values_observed": false,
+  "force": false
+}
