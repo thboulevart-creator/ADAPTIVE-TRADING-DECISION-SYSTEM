@@ -1,0 +1,19 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA01_TC01_COUNT_ONLY_CONTRACT_V0_2",
+  "status":"APPLICATION_CANDIDATE",
+  "historical_v0_1_immutable":true,
+  "role":"DESCRIPTIVE_COUNT_TRACKER_ONLY",
+  "reference_planning_n":58927,
+  "terminal_authority":false,
+  "evidence_start_ms":1791284400000,
+  "evidence_end_exclusive_ms":1822820400000,
+  "allowed_output":[
+    "cumulative_closed_trade_count",
+    "reference_planning_n_reached",
+    "bound_input_identity_digest",
+    "count_trace_digest"
+  ],
+  "real_tc01_forward_read":false,
+  "b12":"CLOSED",
+  "force":false
+}
