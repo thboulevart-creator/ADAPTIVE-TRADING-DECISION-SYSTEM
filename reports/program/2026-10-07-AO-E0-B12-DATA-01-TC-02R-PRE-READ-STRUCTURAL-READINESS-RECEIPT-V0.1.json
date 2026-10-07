@@ -1,0 +1,84 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_TC02R_PRE_READ_STRUCTURAL_READINESS_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-TC-02R",
+  "date": "2026-10-07",
+  "purpose": "Prove that the available real forward structural corpus can exercise at least one Momentum-V1 decision boundary before consuming the single authorized TC-02 real structural read.",
+  "authorization_basis": "Explicit human instruction to execute the previously defined TC-02R pre-read structural readiness top-up method.",
+  "preflight": {
+    "observed_head_at_open": "8c57f094a12857795a53fc6c7b0790e7fd300ae1",
+    "persistence_parent_head": "ba28ffe19de9ff152f8df1b5161fc31870c5ceda",
+    "drift_since_open": "BEPD-09C_DOCUMENT_ONLY",
+    "drift_material_to_tc02r": false
+  },
+  "baseline_recovery": {
+    "method": "REPRODUCIBILITY_RECOVERY_OF_THE_ALREADY_SEALED_ACQ02_WINDOW",
+    "original_window_end_exclusive_utc": "2026-10-06T18:00:00Z",
+    "reproduced_exactly": true,
+    "raw_inventory_digest": "d00751359cebef620f15a2dca388c9ad68364a6c0d5f0263858c9798a1411e2f",
+    "raw_manifest_sha256": "f53c20041691945eb06dba48123b822543cd285199540f874035a1ab94cadc14",
+    "ap0_manifest_sha256": "64d272f4fb13e17217c4e1083f2bf47e3cdb7b2e8e2be039b9f890cd5febabc9",
+    "h1_stream_sha256": "86e878c105aa3242659f07ac20a2e6c8001af20b3fae44e0e8df1b4488b043ea",
+    "h1_rows": 26,
+    "max_continuity_ordinal": 19,
+    "structural_decision_capability": false
+  },
+  "top_up_01": {
+    "end_exclusive_utc": "2026-10-06T19:00:00Z",
+    "new_objects": 1,
+    "replayed_objects": 28,
+    "network_objects": 1,
+    "h1_rows": 27,
+    "first_reached_ordinal_20": true,
+    "first_candidate_h1_start_utc": "2026-10-06T18:00:00Z",
+    "first_candidate_decision_utc": "2026-10-06T19:00:00Z",
+    "raw_coverage_end_exclusive_utc": "2026-10-06T19:00:00Z",
+    "structural_decision_capability": false,
+    "reason": "DECISION_BOUNDARY_EQUALS_RAW_COVERAGE_END_EXCLUSIVE"
+  },
+  "top_up_02": {
+    "end_exclusive_utc": "2026-10-06T20:00:00Z",
+    "new_objects": 1,
+    "replayed_objects": 29,
+    "network_objects": 1,
+    "forward_evidence_objects": 10,
+    "h1_rows": 28,
+    "raw_inventory_digest": "504b910a05d8a6420175b016253547faa83bf126099d75ed813f4da6fdfbac0c",
+    "raw_manifest_sha256": "b2fecce7fd607885e6874e27b0afe9dd91ae14f052ef327b1f430c64773d14af",
+    "ap0_manifest_sha256": "9c7d54026a08856485ef1ff59bcea40a358737dfbf1cd30e2c5c05353ab01de6",
+    "h1_stream_sha256": "2fcbad3719c3825101f8159ec707c694700c5f14cb7be62c3a2e1f1c9129211c",
+    "first_candidate_h1_start_utc": "2026-10-06T18:00:00Z",
+    "first_candidate_continuity_ordinal": 20,
+    "first_candidate_decision_utc": "2026-10-06T19:00:00Z",
+    "post_decision_raw_object": {
+      "interval_start_utc": "2026-10-06T19:00:00Z",
+      "interval_end_utc": "2026-10-06T20:00:00Z",
+      "row_count": 18649,
+      "sha256": "85f4b96595b55021098de7bb39a0860e88328f16a257df73ffbdd2b403a34624",
+      "size_bytes": 454486
+    },
+    "structural_decision_capability": true
+  },
+  "method_firewall": {
+    "momentum_signal_calculated": false,
+    "target_position_calculated": false,
+    "tc01_counter_executed": false,
+    "tc02_real_read_executed": false,
+    "trade_count_observed": false,
+    "price_output_exposed": false,
+    "pnl_output_exposed": false,
+    "performance_bearing_read": false,
+    "dr01_invoked": false,
+    "m04_m05_real_forward_inference": false,
+    "b12": "CLOSED"
+  },
+  "verdict": {
+    "tc02r_pre_read_structural_readiness": "PASS",
+    "structural_decision_capability": "PROVEN",
+    "top_up_budget_consumed_hours": 2,
+    "additional_top_up_required": false,
+    "tc02_read_token": "UNUSED",
+    "tc02_execution": "NOT_EXECUTED"
+  },
+  "next_boundary": "HUMAN_DECISION_OR_EXISTING_TC02_AUTHORITY_CHECK_BEFORE_CONSUMING_THE_SINGLE_REAL_TC02_READ",
+  "force": false
+}
