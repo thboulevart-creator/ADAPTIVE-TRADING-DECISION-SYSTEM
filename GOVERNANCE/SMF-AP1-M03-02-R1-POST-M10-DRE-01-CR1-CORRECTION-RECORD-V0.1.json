@@ -1,0 +1,33 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_CR1_CORRECTION_RECORD_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "correction_id": "DRE-01-CR1",
+  "classification": "IDENTITY_ENCODING_CORRECTION_ONLY",
+  "detected_before_final_qualification": true,
+  "affected_artifact": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-DRE-01-OUTPUT-SCHEMA-V0.1.json",
+    "blob": "3a58e3a41a8cf9f68994bd165edd4a98f0cec161"
+  },
+  "defect": {
+    "field": "success_object.fixed_values.estimand_id",
+    "erroneous_value": "POST-M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "canonical_value": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES"
+  },
+  "evidence_of_canonical_identity": {
+    "dc01_estimand_contract_blob": "ac4021a1e16d04493897aa90b7236c3f9107d962",
+    "execution_contract_blob": "26889ea08b1bb4e4aebac953ed37e4c4425446bf",
+    "traceability_blob": "442e810db71ebe6a174ca100c96ee730cdf109d9"
+  },
+  "semantic_effect": "NONE",
+  "algorithm_effect": "NONE",
+  "source_binding_effect": "NONE",
+  "breaker_weakening": false,
+  "execution_authority_created": false,
+  "remedy": [
+    "CREATE_OUTPUT_SCHEMA_V0_2_WITH_CANONICAL_ESTIMAND_ID",
+    "SUPERSEDE_OUTPUT_SCHEMA_V0_1_FOR_ALL_FUTURE_EXECUTION",
+    "CREATE_PRE_EXECUTION_FREEZE_V0_2_BINDING_OUTPUT_SCHEMA_V0_2",
+    "STRENGTHEN_STATIC_TEST_TO_ASSERT_EXACT_ESTIMAND_ID"
+  ],
+  "force": false
+}
