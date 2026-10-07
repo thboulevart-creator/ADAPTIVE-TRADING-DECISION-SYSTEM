@@ -1,0 +1,39 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-F1",
+  "status": "PASS",
+  "date": "2026-10-07",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "22b3c26af99774c68d8f5835073137183eda4c0d",
+  "verified_tree": "71ec955da043fbaa018852bd2d229c2c093782ce",
+  "canonical_readback": "10 / 10 PASS",
+  "workflow_run_id": 37682409449,
+  "workflow_job_id": 113001549160,
+  "workflow_artifact_id": 11510670238,
+  "workflow_artifact_digest_sha256": "613aa683be87ae694ca0a59735ac873ca881bfad4a93d7eba6ac69d7602b8515",
+  "forensic_status": "FORENSICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "root_cause": {
+    "classification": "D",
+    "label": "SOLVER_TERMINATION_OPTIMIZER_LIMITATION",
+    "evidence_grade": "PROVEN"
+  },
+  "failed_fit": {
+    "fold": 1,
+    "model": "BASELINE"
+  },
+  "candidate_repair": {
+    "class": "R2",
+    "feasibility": "POTENTIALLY_ADMISSIBLE"
+  },
+  "boundaries": {
+    "c1_rerun": false,
+    "scientific_result": "NONE",
+    "repair_applied": false,
+    "new_historical_execution": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_09D_F1_ROOT_CAUSE_AND_REPAIR_ADMISSIBILITY",
+  "stop": true
+}
