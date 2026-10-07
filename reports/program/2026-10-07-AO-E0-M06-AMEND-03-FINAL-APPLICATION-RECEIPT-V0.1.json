@@ -1,0 +1,57 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_03_FINAL_APPLICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-M06-AMEND-03",
+  "status": "APPLICATION_COMPLETE_QUALIFIED_AND_REBROKEN",
+  "application_head": "4f12442a736a8f65456e28d85678175210e57e4e",
+  "application_tree": "3b5de46b0b39fd73e2ed3ffe961a382f3f3fbf53",
+  "implemented": {
+    "m06_v0_2": "PASS",
+    "data01_v0_2": "PASS",
+    "dr01_v0_2": "PASS",
+    "tc01_v0_2": "PASS"
+  },
+  "adopted_semantics": {
+    "evidence_start_utc": "2026-10-06T11:00:00Z",
+    "evidence_end_exclusive_utc": "2027-10-06T11:00:00Z",
+    "reference_planning_n": 58927,
+    "reference_planning_n_is_terminal_authority": false,
+    "tc01_role": "DESCRIPTIVE_COUNT_TRACKER_ONLY",
+    "tc01_terminal_authority": false,
+    "n_lt_58927": "PLANNING_TARGET_NOT_REACHED_LIMITATION_ONLY",
+    "new_arbitrary_minimum_n": null,
+    "inconclusive_is_valid_terminal_outcome": true,
+    "same_experiment_result_driven_extension": false
+  },
+  "qualification": {
+    "canonical_ci_run_id": 37633808780,
+    "canonical_ci_job_id": 112834643867,
+    "canonical_ci": "SUCCESS",
+    "tests": "197/197 PASS",
+    "v0_1_immutability": "PASS",
+    "firewall": "PASS"
+  },
+  "repository_global_ci": {
+    "all_green": false,
+    "p0_4_run_id": 37633808678,
+    "p0_4": "FAILURE",
+    "p0_6_run_id": 37633808746,
+    "p0_6": "FAILURE",
+    "cause": "PRE_EXISTING_BERD02_BI5_FILES_DETECTED_BY_BROAD_HISTORICAL_GUARDS",
+    "relabelled_as_pass": false
+  },
+  "authority": {
+    "first_real_tc01_forward_read": "NOT_EXECUTED_NOT_AUTHORIZED",
+    "pipe01_first_performance_read": "NOT_EXECUTED_NOT_AUTHORIZED",
+    "b12": "CLOSED",
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "strategy_qualified": "NO_CLAIM",
+    "trading": "NOT_AUTHORIZED",
+    "broker_execution": "NOT_AUTHORIZED",
+    "capital_deployment": "NOT_AUTHORIZED"
+  },
+  "force": false,
+  "stop": "REACHED"
+}
