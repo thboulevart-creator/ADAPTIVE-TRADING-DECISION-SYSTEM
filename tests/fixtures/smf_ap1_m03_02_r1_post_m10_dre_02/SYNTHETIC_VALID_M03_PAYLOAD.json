@@ -1,0 +1,206 @@
+{
+  "authority": {
+    "scientific": false,
+    "operational": false,
+    "trading": false,
+    "capital": false
+  },
+  "bucket_evidence": {
+    "UTC_YEAR:2021": {
+      "tick_count": {
+        "activation_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000008",
+        "authority": {
+          "scientific": false,
+          "operational": false,
+          "trading": false,
+          "capital": false
+        },
+        "bucket_id": "UTC_YEAR:2021",
+        "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+        "ecdf_digest": "sha256:00000000000000000000000000000000000000000000000000000000000000d0",
+        "metric": "tick_count",
+        "n": 99,
+        "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+        "quantiles": {
+          "0.5": 10,
+          "0.9": 18,
+          "0.99": 25
+        },
+        "result_digest": "sha256:df0a646351363854cd2ffe7e5b43ba96c94ba15bc91c118e837a33639d5260fc",
+        "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "sorted_values_digest": "sha256:000000000000000000000000000000000000000000000000000000000000006c",
+        "tail_extrapolation": "FORBIDDEN"
+      }
+    },
+    "UTC_YEAR:2022": {
+      "tick_count": {
+        "activation_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+        "authority": {
+          "scientific": false,
+          "operational": false,
+          "trading": false,
+          "capital": false
+        },
+        "bucket_id": "UTC_YEAR:2022",
+        "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+        "ecdf_digest": "sha256:00000000000000000000000000000000000000000000000000000000000000c9",
+        "metric": "tick_count",
+        "n": 101,
+        "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+        "quantiles": {
+          "0.5": 12.5,
+          "0.9": 20,
+          "0.99": 28
+        },
+        "result_digest": "sha256:0d7be53eb51fee7eb6ed00a958df48375597624dafe79c51d5caf0b03a333b7a",
+        "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000065",
+        "tail_extrapolation": "FORBIDDEN"
+      }
+    },
+    "UTC_YEAR:2023": {
+      "tick_count": {
+        "activation_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000002",
+        "authority": {
+          "scientific": false,
+          "operational": false,
+          "trading": false,
+          "capital": false
+        },
+        "bucket_id": "UTC_YEAR:2023",
+        "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+        "ecdf_digest": "sha256:00000000000000000000000000000000000000000000000000000000000000ca",
+        "metric": "tick_count",
+        "n": 102,
+        "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+        "quantiles": {
+          "0.5": 13.75,
+          "0.9": 21,
+          "0.99": 29
+        },
+        "result_digest": "sha256:a55282426890b896c0113b1016884faa7bd152dadd13afed7b94d07f8fae8c19",
+        "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000066",
+        "tail_extrapolation": "FORBIDDEN"
+      }
+    },
+    "UTC_YEAR:2024": {
+      "tick_count": {
+        "activation_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000003",
+        "authority": {
+          "scientific": false,
+          "operational": false,
+          "trading": false,
+          "capital": false
+        },
+        "bucket_id": "UTC_YEAR:2024",
+        "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+        "ecdf_digest": "sha256:00000000000000000000000000000000000000000000000000000000000000cb",
+        "metric": "tick_count",
+        "n": 103,
+        "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+        "quantiles": {
+          "0.5": 15,
+          "0.9": 22,
+          "0.99": 30
+        },
+        "result_digest": "sha256:bad6bcb8b3693450901b153bb3495e6f183b908cee918cde4f8524be891d015b",
+        "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000067",
+        "tail_extrapolation": "FORBIDDEN"
+      }
+    },
+    "UTC_YEAR:2025": {
+      "tick_count": {
+        "activation_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000004",
+        "authority": {
+          "scientific": false,
+          "operational": false,
+          "trading": false,
+          "capital": false
+        },
+        "bucket_id": "UTC_YEAR:2025",
+        "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+        "ecdf_digest": "sha256:00000000000000000000000000000000000000000000000000000000000000cc",
+        "metric": "tick_count",
+        "n": 104,
+        "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+        "quantiles": {
+          "0.5": 16.25,
+          "0.9": 23,
+          "0.99": 31
+        },
+        "result_digest": "sha256:d437d27b7869eaaa53f6a5a696032bb8d962b002b05bffc5ee6d66b0eee4f3c4",
+        "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000068",
+        "tail_extrapolation": "FORBIDDEN"
+      }
+    },
+    "UTC_YEAR:2026": {
+      "tick_count": {
+        "activation_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000009",
+        "authority": {
+          "scientific": false,
+          "operational": false,
+          "trading": false,
+          "capital": false
+        },
+        "bucket_id": "UTC_YEAR:2026",
+        "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+        "ecdf_digest": "sha256:00000000000000000000000000000000000000000000000000000000000000d1",
+        "metric": "tick_count",
+        "n": 5,
+        "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+        "quantiles": {
+          "0.5": 99,
+          "0.9": 100,
+          "0.99": 101
+        },
+        "result_digest": "sha256:ae75ae242f0b8b35780cc43440f888153cb89f1a61dfe2449d81925a65915cee",
+        "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+        "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+        "sorted_values_digest": "sha256:000000000000000000000000000000000000000000000000000000000000006d",
+        "tail_extrapolation": "FORBIDDEN"
+      }
+    }
+  },
+  "claim_scope_id": "CC02_DESCRIPTIVE_MARKET_BEHAVIOR:RETROSPECTIVE_DESCRIPTIVE_ONLY:ATDS_AP1_INTRADAY_SPREAD_CENSUS_V0_1",
+  "execution": {
+    "ended_at": "SYNTHETIC_ONLY",
+    "started_at": "SYNTHETIC_ONLY"
+  },
+  "method": {
+    "activation_digest": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "empty_bucket_rule": "EMPTY_NO_NUMERICAL_RESULT",
+    "family": "M03",
+    "metric_probabilities": {
+      "tick_count": [
+        0.5,
+        0.9,
+        0.99
+      ]
+    },
+    "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "tail_extrapolation": "FORBIDDEN"
+  },
+  "parity": {
+    "overall": "SYNTHETIC_ONLY"
+  },
+  "result_semantics": "M03_METHOD_EXECUTION_RESULT_ONLY",
+  "schema": "ATDS_SMF_AP1_M03_02_REAL_EXECUTION_V0_1",
+  "semantics": "RETROSPECTIVE_DESCRIPTIVE_ONLY",
+  "source_data02": {
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "expected_files": 61,
+    "minute_rows": 1709180
+  },
+  "status": "M03_REAL_EXECUTION_COMPLETE",
+  "synthetic_classification": "SYNTHETIC_ONLY_NO_MARKET_MEANING"
+}
