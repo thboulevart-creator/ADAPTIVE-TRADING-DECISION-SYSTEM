@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_FAILURE_IDENTITY_BINDING_RECEIPT_V0_1",
+  "status": "PASS",
+  "failure": "MODEL_NONCONVERGENCE",
+  "original_execution_commit": "27af573ab3aff47c79753f656484212ace2ae932",
+  "workflow_run_id": 37675309127,
+  "workflow_job_id": 112977169167,
+  "real_rows_read": 472,
+  "primary_valid_result": "NONE",
+  "reference_run": "NOT_EXECUTED",
+  "parity": "NOT_ASSESSABLE",
+  "valid_real_c1_result_exposed": false,
+  "first_real_execution_attempt": "CONSUMED",
+  "scientific_state_change": false,
+  "repair_applied": false,
+  "rerun_performed": false
+}

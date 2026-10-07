@@ -1,0 +1,41 @@
+name: BEPD-09D-F1 Bounded Nonconvergence Forensics
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/BEPD-09D-F1-HUMAN-AUTHORIZATION-2026-10-07.json'
+      - 'tools/bepd09d_f1_forensic.py'
+      - '.github/workflows/bepd-09d-f1-forensics.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  forensic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install frozen numerical environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+      - name: Run bounded forensic diagnostic
+        env:
+          PYTHONPATH: tools
+        run: python tools/bepd09d_f1_forensic.py
+      - name: Preserve forensic receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEPD-09D-F1-forensics
+          path: artifacts/bepd09d-f1-forensics/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,24 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_HUMAN_AUTHORIZATION_RECORD_V0_1",
+  "control_id": "BEPD-09D-F1",
+  "date": "2026-10-07",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "c219671b8a86433bbcea0020d40d2dbc1bc91fb0d215323c9effdba14ddeba3c",
+  "source_authorization_bytes": 13690,
+  "authority": {
+    "forensic_only": true,
+    "c1_rerun": false,
+    "scientific_result": false,
+    "model_change": false,
+    "feature_change": false,
+    "fold_change": false,
+    "tolerance_change": false,
+    "solver_replacement_for_scientific_result": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "maximum_verdict": "FORENSICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "automatic_repair_authority": false,
+  "automatic_rerun_authority": false
+}
