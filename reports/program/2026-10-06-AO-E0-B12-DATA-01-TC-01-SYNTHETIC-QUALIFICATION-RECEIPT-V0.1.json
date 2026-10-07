@@ -1,0 +1,64 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_TC01_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-TC-01",
+  "qualification_scope": "COUNT_ONLY_SYNTHETIC_AND_DOCUMENTARY_ONLY",
+  "verdict": "QUALIFIED",
+  "qualified_head": "3fc29fd691ccee43fdb808ae017484f6adcb41f1",
+  "qualified_tree": "98d3238e1e3b5f4e14c05babafc9691791c11407",
+  "parent_head": "247b74977c5e6b1d907865ea501d900c7c8cc0b7",
+  "bindings": {
+    "workflow_blob": "80160530bfd9558c31ab383fca90a3e64af1eb13",
+    "contract_blob": "ac6541b43f71a3dd0415a8d0d9a6efb12b8364c9",
+    "breaker_blob": "b5d7d458c55727ab7cfa865a682a0f6a6341242f",
+    "m06_review_blob": "0b438b9a3f861c2019507b199acb56bbd7c61e0d",
+    "human_authorization_receipt_blob": "0cf80b73e067c4760656df1518005583da153e30",
+    "tests_blob": "82d04047f80395a9ad4f0b3f28721de9f5d0a6ce",
+    "primary_runtime_blob": "3ebdcdaf1182c34a60ab41531b41a9221952aabd",
+    "independent_reference_blob": "23707bdd8845ad3ee5798d49959fcb6ae1b9e810"
+  },
+  "canonical_ci": {
+    "workflow": "AO-E0 DATA-01 TC-01 Synthetic Qualification",
+    "run_id": 37521141490,
+    "job_id": 112466526335,
+    "conclusion": "SUCCESS",
+    "tc01_tests": "44/44 PASS",
+    "e1_04_regression": "22/22 PASS",
+    "e1_05_regression": "33/33 PASS",
+    "total_tests": "99/99 PASS",
+    "authority_firewall": "PASS",
+    "clean_worktree": "PASS"
+  },
+  "parity": {
+    "primary_reference_implementation_separate": true,
+    "primary_does_not_import_reference": true,
+    "reference_does_not_import_primary": true,
+    "synthetic_semantic_output_parity": "PASS",
+    "threshold_boundary_parity": "PASS"
+  },
+  "repository_wide_ci_observation": {
+    "all_green": false,
+    "p0_4_run_id": 37521141249,
+    "p0_4_conclusion": "FAILURE",
+    "p0_6_run_id": 37521141278,
+    "p0_6_conclusion": "FAILURE",
+    "failure_cause": "LEGACY_BERD02_BI5_FILES_DETECTED_BY_BROAD_HISTORICAL_GUARD",
+    "offending_files_present_in_parent_247b7497": true,
+    "candidate_introduced_offending_files": false,
+    "effect_on_tc01_claim_scoped_qualification": "RECORDED_SEPARATELY_NOT_RELABELED_AS_PASS"
+  },
+  "authority": {
+    "real_tc01_forward_read": false,
+    "b12_open": false,
+    "pipe01_first_performance_read": false,
+    "oos_performance_consumption": false,
+    "real_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "strategy_qualified": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "stop": "HUMAN_DECISION_REQUIRED_BEFORE_ANY_REAL_TC01_FORWARD_READ",
+  "force": false
+}
