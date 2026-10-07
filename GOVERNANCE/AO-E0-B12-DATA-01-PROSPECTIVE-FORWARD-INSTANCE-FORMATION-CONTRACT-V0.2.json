@@ -1,0 +1,18 @@
+{
+  "schema":"ATDS_AO_E0_B12_DATA_01_PROSPECTIVE_FORWARD_INSTANCE_FORMATION_CONTRACT_V0_2",
+  "status":"APPLICATION_CANDIDATE",
+  "historical_v0_1_immutable":true,
+  "evidence_start_utc":"2026-10-06T11:00:00Z",
+  "evidence_end_exclusive_utc":"2027-10-06T11:00:00Z",
+  "window":"[2026-10-06T11:00:00Z,2027-10-06T11:00:00Z)",
+  "terminal_rule":"FIXED_CALENDAR_END_ONLY",
+  "closed_trade_count_may_determine_end":false,
+  "reference_planning_n_may_determine_end":false,
+  "result_driven_extension":false,
+  "data_gap_extension":false,
+  "post_end_data_in_same_instance":false,
+  "reference_planning_n":58927,
+  "real_forward_read":false,
+  "b12":"CLOSED",
+  "force":false
+}
