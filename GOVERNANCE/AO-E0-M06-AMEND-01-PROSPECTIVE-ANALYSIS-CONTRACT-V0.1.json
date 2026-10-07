@@ -1,0 +1,89 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_01_PROSPECTIVE_ANALYSIS_CONTRACT_V0_1",
+  "control_id": "AO-E0-M06-AMEND-01",
+  "status": "HUMAN_AUTHORIZED_ANALYSIS_ONLY",
+  "date": "2026-10-07",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "design_preflight_reference": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "cf367c3f2fc377f0a1e136dcf1439b3998cdab43",
+    "tree": "061e387948ff7a244d4e43da28719e7f2fe9fcbf",
+    "concurrent_drift_since_13c33944": "BEPD_09B_ONLY_NON_MATERIAL",
+    "canonical_persistence_parent_must_be_bound_in_final_receipt": true,
+    "material_drift_requires_fail_closed": true
+  },
+  "bindings": {
+    "m06_candidate_blob": "95a2e41c1e004e3b4461631060d8b12380983caa",
+    "m06_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "m06_qualification_blob": "96b387bf0ec8f10e0bf73f5ebeea3cd67e00d7ea",
+    "m06_planning_dispersion_contract_blob": "1425225b49349160129c503f4459d6d3f4b618ad",
+    "smf01_qualification_blob": "14274c0c04b1220268146d621e1c6ca0cd4d7fd6",
+    "dr01_qualification_blob": "b26a7233333861caa2c2bd3f7b3d13adc484cb19",
+    "data01_formation_contract_blob": "7ebb5dc87434776d49966fdfbaba4006d44478ad",
+    "m06_tr01_operational_coherence_blob": "3935a31f5629c41f8a4f503b26a7914c0d747bde"
+  },
+  "frozen_inputs": {
+    "estimand": "mean all-in net realized unit PnL per closed OOS/forward trade at F2_S4",
+    "delta_min": 5.0,
+    "h0": "theta_AO_E0 <= 5.0",
+    "h1": "theta_AO_E0 > 5.0",
+    "planning_sigma": 336.4106561689863,
+    "planning_sigma_class": "EXPOSED_E1_PLANNING_PROXY_ONLY",
+    "precision_half_width": 5.0,
+    "confidence_level": 0.99,
+    "precision_required_n": 30036,
+    "power_effect_size": 5.0,
+    "design_alternative_theta": 10.0,
+    "alpha": 0.01,
+    "target_power": 0.90,
+    "power_required_n": 58927,
+    "final_required_n": 58927,
+    "sample_unit": "CLOSED_TRADE"
+  },
+  "questions": [
+    "IS_58927_ARITHMETICALLY_CORRECT_UNDER_FROZEN_MODEL",
+    "IS_CLOSED_TRADE_THE_CORRECT_UNIT_FOR_THE_CURRENT_ESTIMAND",
+    "WAS_DEPENDENCE_IGNORED",
+    "IS_58927_AN_EFFECTIVE_INDEPENDENT_N_CLAIM",
+    "IS_THE_TERMINAL_RULE_TRANSLATION_OPERATIONALLY_COHERENT",
+    "CAN_ALPHA_POWER_RELAXATION_ALONE_REMEDY_FEASIBILITY",
+    "WOULD_H1_SAMPLE_UNIT_SUBSTITUTION_PRESERVE_THE_CLAIM",
+    "WHAT_IS_THE_MINIMAL_PROSPECTIVE_AMENDMENT_FAMILY"
+  ],
+  "allowed_exposed_planning_proxy": {
+    "source": "E1_REAL_003_FULL_SAMPLE",
+    "closed_trade_count": 650,
+    "window_start_utc": "2021-05-25T00:00:00.309Z",
+    "window_end_utc": "2026-05-24T23:59:59.963Z",
+    "use": "STRUCTURAL_ACTIVITY_RATE_FEASIBILITY_PROXY_ONLY",
+    "performance_values_for_route_selection": false,
+    "confirmatory_use": false
+  },
+  "candidate_routes": [
+    "R0_KEEP_58927_AS_MANDATORY_TERMINAL_COUNT",
+    "R1_RELAX_ALPHA_POWER_OR_PRECISION_FOR_CONVENIENCE",
+    "R2_REPLACE_CLOSED_TRADE_UNIT_WITH_H1_DECISION_UNIT",
+    "R3_CHANGE_ESTIMAND_OR_STRATEGY_INFORMATION_UNIT",
+    "R4_DECOUPLE_PLANNING_N_FROM_FIXED_NONPERFORMANCE_CONFIRMATORY_HORIZON"
+  ],
+  "authority": {
+    "analysis": true,
+    "synthetic_recomputation": true,
+    "documentary_qualification": true,
+    "m06_parameter_change": false,
+    "data01_terminal_rule_change": false,
+    "dr01_rule_change": false,
+    "real_tc01_forward_read": false,
+    "b12_open": false,
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "strategy_optimization": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "force": false
+}
