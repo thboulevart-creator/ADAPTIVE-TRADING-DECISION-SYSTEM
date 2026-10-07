@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_BEPD_09B_R1_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09B-R1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "verified_head": "a49426b0f544b36c2f75d52df17575b90063076d",
+  "verified_tree": "54c950e417dd804cd64db259910978cc0658e660",
+  "verified_blobs": {
+    "GOVERNANCE/BEPD-09B-R1-HUMAN-ADJUDICATION-2026-10-07.md": "8d82e737ad2e4373fd04d78f764ead99770733e8",
+    "GOVERNANCE/BEPD-09B-R1-EXPOSURE-CONTROL-FUNCTIONAL-FORM-AMENDMENT-V0.1.json": "96816b5b04fd41ab392357e496d50fab37007aba",
+    "GOVERNANCE/BEPD-09B-R1-SYNTHETIC-EXPOSURE-BASIS-FIXTURE-V0.1.json": "88ce8d0477196cff3064a68800eb295c284fc483",
+    "GOVERNANCE/BEPD-09B-R1-FROZEN-BREAKER-CONTRACT-V0.1.json": "8f74d43a0f094c93b27a59158e1f6064337ff6b8",
+    "reports/program/2026-10-07-BEPD-09B-R1-DESIGN-V0.1.md": "d26fbd935b7315bbfcf3cdf65021b1c7e92149f6",
+    "reports/program/2026-10-07-BEPD-09B-R1-DOCUMENTARY-PROGRAMMATIC-SYNTHETIC-QUALIFICATION-RECEIPT-V0.1.json": "a5653028a2999cd89d11a05f05f9f4fd026f68d8",
+    "reports/program/2026-10-07-BEPD-09B-R1-DOCUMENTARY-PROGRAMMATIC-SYNTHETIC-QUALIFICATION-V0.1.md": "f06a4e335a4a47cedc276ecc0f7506f16e1487b8"
+  },
+  "checks": {
+    "all_r1_blob_identities_exact": "PASS",
+    "qualification_63_of_63": "PASS",
+    "hard_fail_breakers_47_of_47": "PASS",
+    "dst_167_168_169_synthetic_cases": "PASS",
+    "exposure_fraction_cases_5_of_5": "PASS",
+    "spline_basis_cases_4_of_4": "PASS",
+    "bepd09b_v0_1_non_exposure_elements_preserved": "PASS",
+    "baseline_context_exposure_basis_parity": "EXACT",
+    "context_feature_count": 4,
+    "forward_blocks": 6,
+    "forward_folds": 5,
+    "event_iid": false,
+    "real_event_ledger_rows_read": false,
+    "real_c1_model_fit": false,
+    "real_result_exposed": false,
+    "oos_read": false,
+    "trading_authority": "NONE"
+  },
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "bepd09b_r1_status": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_09B_R1_ONLY",
+  "real_c1_execution_opened": false
+}
