@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_01_TECHNICAL_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-M06-AMEND-01",
+  "qualification_scope": "PROSPECTIVE_ROOT_CAUSE_AND_ROUTE_SELECTION_ONLY",
+  "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "qualified_head": "5ec1be45aeb6107bec553dd42d034f8410d0cc53",
+  "qualified_tree": "6127fc94091e53d99ae20e43c00c3d1ae258437f",
+  "parent_head": "102df0277f9219612880843e1907ab3e98a0d743",
+  "bindings": {
+    "workflow_blob": "53f6181dce5cb7bdf07e0271ef845d82f577449f",
+    "human_authorization_blob": "15bbcaef1ccac37ba6cf53cb619224670163c135",
+    "analysis_contract_blob": "45b7ba9795351b789a606261d32cafe9b9df3bc6",
+    "human_decision_packet_blob": "ba80cd9c515bc3f9e8a62a1d30635be9422ca41d",
+    "root_cause_report_blob": "b531d6e08effd0cb01b930a92be29eb40758b497",
+    "tests_blob": "d9325cdb587208155b61a7e03626ef3b682ee00f",
+    "analysis_runtime_blob": "84a3113c82be25a4720b0bcf645db1953a116f15"
+  },
+  "canonical_ci": {
+    "workflow": "AO-E0 M06-AMEND-01 Prospective Analysis",
+    "run_id": 37617899840,
+    "job_id": 112780614739,
+    "conclusion": "SUCCESS",
+    "m06_amend_01_tests": "28/28 PASS",
+    "frozen_m06_regression": "17/17 PASS",
+    "total": "45/45 PASS",
+    "frozen_source_blobs_unchanged": "PASS",
+    "authority_firewall": "PASS"
+  },
+  "findings": {
+    "arithmetic_defect": false,
+    "wrong_sample_unit_for_current_estimand": false,
+    "dependence_omitted": false,
+    "primary_root_cause": "NOMINAL_PLANNING_N_TRANSLATED_INTO_MANDATORY_TERMINAL_COUNT",
+    "deeper_information_rate_constraint": "LOW_EFFECT_TO_DISPERSION_RATIO_PLUS_LOW_CLOSED_TRADE_ARRIVAL_RATE",
+    "recommended_route": "R4_DECOUPLE_PLANNING_N_FROM_FIXED_NONPERFORMANCE_CONFIRMATORY_HORIZON"
+  },
+  "feasibility": {
+    "absolute_24x7_lower_bound_years_36525": 6.722222222222222,
+    "exposed_structural_closed_trades": 650,
+    "exposed_window_years_36525": 4.999315526339139,
+    "exposed_structural_closed_trades_per_year": 130.01779875173776,
+    "years_to_58927_at_same_exposed_activity_rate": 453.22256310859444,
+    "baseline_95_80_required_n": 27988,
+    "baseline_95_80_years_at_same_exposed_activity_rate": 215.26283530950738,
+    "proxy_class": "EXPOSED_STRUCTURAL_ACTIVITY_RATE_FEASIBILITY_PROXY_ONLY"
+  },
+  "repository_wide_ci_observation": {
+    "all_green": false,
+    "p0_4_run_id": 37617899472,
+    "p0_4_conclusion": "FAILURE",
+    "p0_6_run_id": 37617899426,
+    "p0_6_conclusion": "FAILURE",
+    "failure_cause": "PRE_EXISTING_BERD02_BI5_FILES_DETECTED_BY_BROAD_HISTORICAL_GUARDS",
+    "effect_on_m06_amend_01_scoped_qualification": "RECORDED_SEPARATELY_NOT_RELABELED_AS_PASS"
+  },
+  "authority": {
+    "adopt_r4": false,
+    "open_m06_amend_02": false,
+    "select_exact_horizon": false,
+    "m06_parameter_change": false,
+    "data01_terminal_rule_change": false,
+    "dr01_rule_change": false,
+    "real_tc01_forward_read": false,
+    "b12_open": false,
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "stop": "HUMAN_DECISION_REQUIRED",
+  "force": false
+}
