@@ -1,0 +1,97 @@
+{
+  "schema": "ATDS_BEPD_09C_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09C",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "qualified_immutable_commit": "bb716dad71a8e73f4ec75b4238c1254586c36488",
+  "qualified_tree": "60606a844c8012560dd28435ec25bbb41564a2b2",
+  "bindings": {
+    "human_authorization_blob": "4d657c06404480d8d1e2ff25165e24febd68f4b8",
+    "implementation_contract_blob": "d3c6a4c4d400a8766f58a63211af8d0655be61e6",
+    "executable_breaker_contract_blob": "00d6c9cb4a0fa62ea4fdf98917c3bccf72e6d494",
+    "primary_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "independent_reference_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "synthetic_fixture_generator_blob": "9c2c4a8bfcbdcd3225c13650463a29fa649104d9",
+    "automated_test_suite_blob": "720b03599a790ff367c448ab916f5d1f9f8eef37",
+    "workflow_blob": "3ff9b25d72cfa1095cc706907b4f741ad221312b",
+    "bepd09b_r1_final_closure_blob": "b104681e6cda77d726b72c62905ec1820f840553"
+  },
+  "execution_environment": {
+    "python": "3.12 contract",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "timezone": "America/New_York via system zoneinfo"
+  },
+  "synthetic_fixture": {
+    "calendar_weeks": 120,
+    "synthetic_event_rows": 466,
+    "empty_calendar_weeks": 7,
+    "real_data_used": false,
+    "dst_week_hours_covered": [
+      167,
+      168,
+      169
+    ],
+    "forward_folds_covered": 5
+  },
+  "automated_tests": {
+    "total": 44,
+    "pass": 44,
+    "fail": 0,
+    "result": "PASS",
+    "includes_negative_breaker_execution": true,
+    "includes_primary_reference_parity": true,
+    "includes_deterministic_replay": true
+  },
+  "primary_reference_parity": {
+    "frozen_floating_absolute_tolerance": 0.00002,
+    "frozen_structural_and_design_matrix_absolute_tolerance": 1e-12,
+    "max_probability_abs_difference": 0.000009252156032868442,
+    "max_weekly_metric_abs_difference": 0.000015179080629867947,
+    "max_aggregate_metric_abs_difference": 6.393542788529771e-7,
+    "max_design_matrix_abs_difference": 0,
+    "max_standardization_abs_difference": 0,
+    "max_exposure_fraction_abs_difference": 0,
+    "max_spline_basis_abs_difference": 0,
+    "verdict": "PASS"
+  },
+  "deterministic_replay": {
+    "primary_identity": "17bf889af41aad3d60bb15b017b2b0bb038468f4c3b2e8b6f3c98818a5f3d7bb",
+    "independent_reference_identity": "0dac5f5f569a8494221b051de7fff39d699c83fa2f13da7450a19b1ff7e5a1e9",
+    "primary_repeat_identity_exact": true,
+    "reference_repeat_identity_exact": true
+  },
+  "qualification_process_notes": {
+    "pre_persistence_numerical_implementation_refinement": "An initial synthetic primary solver path failed closed on convergence. Before canonical persistence and without real data access, only the numerical optimizer implementation was revised to the frozen Newton-CG route with explicit complete-separation fail-closed detection. The scientific protocol was not changed.",
+    "parity_tolerance_frozen_before_canonical_persistence": true,
+    "github_actions_execution_claimed": false,
+    "canonical_blob_readback_8_of_8": "PASS"
+  },
+  "hard_boundaries": {
+    "real_event_ledger_rows_read": false,
+    "real_c1_row_ingestion": false,
+    "real_c1_model_fit": false,
+    "real_logloss_result": false,
+    "real_brier_result": false,
+    "real_fold_result": false,
+    "real_response_distribution": false,
+    "fresh_oos_read": false,
+    "trading_authority": "NONE"
+  },
+  "scientific_status": {
+    "c1_scientifically_validated": false,
+    "c1_historically_validated": false,
+    "prediction_validated": false,
+    "generalization_established": false,
+    "edge_established": false,
+    "strategy_validated": false
+  },
+  "concurrent_drift_before_qualification_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "verdict": "SYNTHETICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_action": "PERSISTED_HEAD_VERIFICATION_THEN_HUMAN_ADJUDICATION_ONLY"
+}
