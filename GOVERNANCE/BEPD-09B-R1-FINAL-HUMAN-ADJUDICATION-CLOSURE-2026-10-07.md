@@ -1,0 +1,413 @@
+# BEPD-09B-R1 — FINAL HUMAN ADJUDICATION / CLOSURE — 2026-10-07
+
+## Fresh pre-mutation verification
+
+```text
+REPOSITORY =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+BRANCH =
+integration/system-v1
+
+FRESH PRE-MUTATION HEAD =
+29c70163114c42bd5a52b2ec83a497e50522bcf2
+
+FRESH PRE-MUTATION TREE =
+10b646f43a352cc46c619552525ae792e7bd463a
+
+CONCURRENT DRIFT CLASSIFICATION =
+NONE
+
+force =
+false
+```
+
+These identities are observational pre-mutation references only.
+
+## Human adjudication
+
+```text
+HUMAN ADJUDICATION =
+ADOPT
+```
+
+The human principal adopts the qualified package:
+
+`BEPD-09B-R1 — EXPOSURE-CONTROL FUNCTIONAL-FORM TARGETED AMENDMENT + REQUALIFICATION V0.1`
+
+This adoption applies only to the amended and requalified C1 preregistration package.
+
+## Exact adopted R1 identities
+
+```text
+R1 HUMAN ADJUDICATION / AUTHORIZATION =
+8d82e737ad2e4373fd04d78f764ead99770733e8
+
+R1 CONTRACT =
+96816b5b04fd41ab392357e496d50fab37007aba
+
+R1 SYNTHETIC EXPOSURE-BASIS FIXTURE =
+88ce8d0477196cff3064a68800eb295c284fc483
+
+R1 FROZEN BREAKER =
+8f74d43a0f094c93b27a59158e1f6064337ff6b8
+
+R1 DESIGN REPORT =
+d26fbd935b7315bbfcf3cdf65021b1c7e92149f6
+
+R1 QUALIFICATION RECEIPT =
+a5653028a2999cd89d11a05f05f9f4fd026f68d8
+
+R1 QUALIFICATION REPORT =
+f06a4e335a4a47cedc276ecc0f7506f16e1487b8
+
+R1 PERSISTED-HEAD VERIFICATION RECEIPT =
+5437b250a03365888c0a2d859c99354a16bbc32e
+```
+
+## Qualification accepted
+
+```text
+PROGRAMMATIC CHECKS =
+63 / 63 PASS
+
+HARD-FAIL BREAKERS =
+47 / 47 PRESENT
+
+REAL EVENT_LEDGER ROWS READ =
+NO
+
+REAL C1 MODEL FIT =
+NO
+
+REAL LOGLOSS RESULT =
+NO
+
+REAL BRIER RESULT =
+NO
+
+OOS READ =
+NO
+```
+
+## C1 preregistration adopted
+
+```text
+C1 =
+T0-AVAILABLE CONTEXT
+→
+SAME-WEEK REINTEGRATION
+
+T0 =
+take_h1_close_utc
+
+RESPONSE =
+same_week_reintegration
+```
+
+Frozen scientific question:
+
+```text
+DOES FIXED T0-AVAILABLE CONTEXT
+ADD OUT-OF-FORWARD PREDICTIVE INFORMATION
+ABOUT SAME-WEEK REINTEGRATION
+BEYOND THE INFORMATION CONTAINED
+IN REMAINING EXPOSURE TIME?
+```
+
+## Exposure control adopted
+
+```text
+TARGET_WEEK_DURATION_HOURS =
+(target_week_end_utc - target_week_start_utc) / 3600
+
+REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END =
+(target_week_end_utc - take_h1_close_utc) / 3600
+
+EXPOSURE_FRACTION =
+REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END
+/
+TARGET_WEEK_DURATION_HOURS
+```
+
+Validity:
+
+```text
+0 < EXPOSURE_FRACTION <= 1
+```
+
+Week boundaries remain the canonical Sunday 18:00 America/New_York boundaries converted to UTC.
+
+The synthetic DST mechanism evidence is adopted:
+
+```text
+167 HOURS =
+PASS
+
+168 HOURS =
+PASS
+
+169 HOURS =
+PASS
+```
+
+## Final fixed exposure basis adopted
+
+```text
+KNOT VECTOR =
+[0.00, 0.25, 0.50, 0.75, 1.00]
+
+EXPOSURE BASIS =
+FIXED RESTRICTED / NATURAL CUBIC SPLINE
+
+ORDERED BASIS COLUMNS =
+B0
+B1
+B2
+B3
+```
+
+The exact mathematical definition persisted in the R1 contract is binding.
+
+The knots are:
+
+```text
+OUTCOME-BLIND
+FIXED
+NOT TUNABLE
+NOT CROSS-VALIDATED
+NOT RESPONSE-DERIVED
+NOT POST-HOC MOVABLE
+```
+
+## Final baseline model
+
+```text
+BASELINE_R1 =
+INTERCEPT
++ B0
++ B1
++ B2
++ B3
+```
+
+The baseline contains exposure information only.
+
+## Final context model
+
+```text
+CONTEXT_R1 =
+IDENTICAL BASELINE_R1 EXPOSURE BASIS
++ SIDE_HIGH_INDICATOR
++ STANDARDIZED LEVEL_AGE_WEEKS
++ STANDARDIZED ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START
++ STANDARDIZED SWEEP_OVERSHOOT_RELATIVE
+```
+
+The exposure basis must be identical between baseline and context models.
+
+The only allowed difference is the addition of the four frozen T0 context features.
+
+## Frozen context surface
+
+```text
+SIDE_HIGH_INDICATOR
+LEVEL_AGE_WEEKS
+ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START
+SWEEP_OVERSHOOT_RELATIVE
+```
+
+No fifth predictor is authorized.
+
+Forbidden:
+
+```text
+FEATURE SEARCH
+FEATURE SELECTION
+INTERACTION SEARCH
+NONLINEAR CONTEXT SEARCH
+SUBGROUP SEARCH
+COEFFICIENT SIGN HUNTING
+FEATURE IMPORTANCE SEARCH
+ALTERNATIVE MODEL SEARCH
+HYPERPARAMETER TUNING
+```
+
+## Forward design adopted
+
+```text
+6 CONTIGUOUS COMPLETE-CALENDAR BLOCKS
+5 EXPANDING-WINDOW FORWARD TEST FOLDS
+
+TRAIN B1       → TEST B2
+TRAIN B1-B2    → TEST B3
+TRAIN B1-B3    → TEST B4
+TRAIN B1-B4    → TEST B5
+TRAIN B1-B5    → TEST B6
+```
+
+Binding invariants:
+
+```text
+NO RANDOM SHUFFLE
+NO TARGET_WEEK SPLIT
+NO SWEEP_CLUSTER SPLIT
+PRESERVE EMPTY CALENDAR WEEKS
+NO ADAPTIVE REPARTITION
+```
+
+## Dependence adopted
+
+```text
+EVENT IS IID =
+FALSE
+
+DEPENDENCE KEYS =
+target_week_id
+sweep_cluster_id
+```
+
+Event-level IID inference remains forbidden.
+
+## Estimands adopted
+
+Primary:
+
+```text
+WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT
+
+PRIMARY DELTA =
+BASELINE_R1_AGGREGATE_LOGLOSS
+-
+CONTEXT_R1_AGGREGATE_LOGLOSS
+```
+
+Secondary:
+
+```text
+WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT
+
+SECONDARY DELTA =
+BASELINE_R1_AGGREGATE_BRIER
+-
+CONTEXT_R1_AGGREGATE_BRIER
+```
+
+```text
+DELTA > 0
+!=
+AUTOMATIC C1 VALIDATION
+```
+
+No automatic success threshold or automatic claim promotion exists.
+
+## Evidence boundary adopted
+
+```text
+HISTORICAL CORPUS =
+ALREADY EXPOSED
+
+ANY FUTURE HISTORICAL C1 EXECUTION =
+EXPLORATORY_ONLY
+
+HISTORICAL FORWARD EVALUATION =
+NOT CONFIRMATORY OOS
+
+FRESH UNEXPOSED OOS =
+REQUIRED FOR FUTURE CONFIRMATORY GENERALIZATION
+
+GENERALIZATION =
+NOT_ESTABLISHED
+
+EDGE =
+NO
+
+STRATEGY VALIDATION =
+NO
+
+TRADING AUTHORITY =
+NONE
+```
+
+## Final R1 status
+
+```text
+BEPD-09B-R1 =
+HUMAN_ADOPTED
+
+C1 PREREGISTRATION =
+ADOPTED / FROZEN
+
+EXPOSURE CONTROL =
+ADOPTED / FROZEN
+
+NONLINEAR EXPOSURE BASIS =
+ADOPTED / FROZEN
+
+CONTEXT SURFACE =
+ADOPTED / FROZEN
+
+FORWARD DESIGN =
+ADOPTED / FROZEN
+
+DEPENDENCE =
+ADOPTED / FROZEN
+
+ESTIMANDS =
+ADOPTED / FROZEN
+
+ANTI-LEAKAGE BOUNDARY =
+ADOPTED / FROZEN
+
+STATUS =
+QUALIFIED / HUMAN_ADOPTED / CLOSED
+```
+
+## No real execution authority
+
+This adoption does not authorize:
+
+```text
+REAL EVENT_LEDGER C1 ANALYSIS
+REAL C1 MODEL FIT
+REAL LOGLOSS RESULT
+REAL BRIER RESULT
+P-VALUE
+CONFIDENCE INTERVAL
+BOOTSTRAP
+PERMUTATION TEST
+FRESH OOS READ
+THRESHOLD SEARCH
+TP / SL
+BACKTEST
+PNL
+PAPER TRADING
+BROKER EXECUTION
+LIVE TRADING
+CAPITAL DEPLOYMENT
+
+TRADING AUTHORITY =
+NONE
+```
+
+## Next frontier remains closed
+
+No executable C1 implementation is opened automatically.
+
+A future phase may only be opened by a separate human decision and must initially remain:
+
+```text
+IMPLEMENTATION_ONLY
++
+SYNTHETIC_QUALIFICATION_ONLY
+
+REAL EVENT_LEDGER READ =
+NO
+
+REAL C1 RESULT =
+NONE
+```
+
+```text
+STOP
+```
