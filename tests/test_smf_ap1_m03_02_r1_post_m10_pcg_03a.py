@@ -250,3 +250,50 @@ def test_29_pcg03b_remains_closed():
     assert n["automatic_execution"] is False
     assert n["opened"] is False
     assert n["executed"] is False
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-07-SMF-AP1-M03-02-R1-POST-M10-PCG-03A-FINAL-READINESS-RECEIPT-V0.1.json"
+FINAL_CLOSURE=ROOT/"reports"/"program"/"2026-10-07-SMF-AP1-M03-02-R1-POST-M10-PCG-03A-FINAL-CLOSURE.md"
+
+def test_30_final_receipt_preserves_route_b_readiness_without_execution():
+    r=load(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert r["status"]=="QUALIFIED_PACKET_AND_PRE_EXECUTION_FREEZE_READY_FOR_SEPARATE_PCG_03B_DECISION"
+    assert v["POST_M10_PCG_03A"]=="QUALIFIED"
+    assert v["ROUTE_B_APPLICATION_PACKET"]=="FROZEN"
+    assert v["ROUTE_B_APPLICATION_PACKET_INTEGRITY"]=="QUALIFIED"
+    assert v["PRE_EXECUTION_FREEZE"]=="QUALIFIED_AND_FROZEN"
+    assert v["FIRST_ROUTE_B_REAL_GATE_READINESS"]=="READY_FOR_SEPARATE_HUMAN_DECISION"
+    assert v["REQUESTED_ROUTE"]=="B"
+    assert v["TEMPORAL_CONDITIONING_SPEC_STATUS"]=="SPEC_QUALIFIED_AND_FROZEN"
+    assert v["ROUTE_B_ADMISSIBLE"]=="NOT_YET_ESTABLISHED"
+    assert v["EXPECTED_GATE_RESULT"]=="NOT_PREREGISTERED"
+    assert v["PCG_REAL_RUNTIME_EXECUTION"] is False
+    assert v["PCG_REAL_REFERENCE_EXECUTION"] is False
+    assert v["PCG_REAL_RESULT"]=="NONE"
+    assert v["REAL_DATA_READ"] is False
+    assert v["NUMERICAL_ESTIMATION"] is False
+    assert v["CONDITIONING_EXECUTION"] is False
+    assert v["YEAR_STRATIFIED_ESTIMATION"] is False
+    assert v["NEW_STATISTICAL_METHOD_ACTIVATED"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert v["OOS_CONSUMPTION"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]=={"trading":False,"capital":False}
+    assert r["next_frontier"]["id"]=="SMF-AP1-M03-02-R1-POST-M10-PCG-03B"
+    assert r["next_frontier"]["separate_human_authorization_required"] is True
+    assert r["next_frontier"]["automatic_open"] is False
+    assert r["next_frontier"]["automatic_execution"] is False
+    assert r["next_frontier"]["opened"] is False
+    assert r["stop"] is True
+
+def test_31_final_closure_stops_before_pcg03b():
+    t=FINAL_CLOSURE.read_text(encoding="utf-8")
+    assert "SMF-AP1-M03-02-R1-POST-M10-PCG-03B =\nCLOSED" in t
+    assert "SEPARATE_HUMAN_AUTHORIZATION_REQUIRED =\nTRUE" in t
+    assert "PCG_REAL_RUNTIME_EXECUTION =\nFALSE" in t
+    assert "PCG_REAL_REFERENCE_EXECUTION =\nFALSE" in t
+    assert "PCG_REAL_RESULT =\nNONE" in t
+    assert "ROUTE_B_ADMISSIBLE =\nNOT_YET_ESTABLISHED" in t
+    assert t.rstrip().endswith("STOP.")
