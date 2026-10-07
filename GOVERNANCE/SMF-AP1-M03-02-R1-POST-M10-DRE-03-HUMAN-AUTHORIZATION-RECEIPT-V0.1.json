@@ -1,0 +1,34 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_03_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+  "status": "AUTHORIZED_BOUNDED_SINGLE_REAL_EXECUTION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorization_source": {
+    "type": "USER_UPLOADED_AUTHORIZATION_TEXT",
+    "file_name": "Texte collé(20261007-193038).txt",
+    "sha256": "657c2106b0db048cbc1b6df09e368b36e913b9708bcbc3759b61eb7a7af7ddd2"
+  },
+  "pre_authorization_head": "b225001d3b7b8769d93c9e795cb17dbb29f3c708",
+  "pre_authorization_tree": "e56d9a039ee8f48820c5118227b6faea2c558522",
+  "exact_budgets": {
+    "real_source_file_read_count": 1,
+    "primary_real_execution_count": 1,
+    "independent_reference_real_execution_count": 1,
+    "retry_count": 0
+  },
+  "authority": {
+    "real_source_read": true,
+    "primary_real_execution": true,
+    "independent_reference_real_execution": true,
+    "technical_result_persistence": true,
+    "human_scientific_adoption": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "automatic_downstream_action": false,
+  "force": false
+}
