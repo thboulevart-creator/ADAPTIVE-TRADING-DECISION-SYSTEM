@@ -1,0 +1,67 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_TC02_PERSISTED_HEAD_REBREAK_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-TC-02",
+  "date": "2026-10-07",
+  "real_execution_head": "26ca59b2470b0a4f010c08e63cd61674b8c6990d",
+  "qualified_corrected_head": "21abc19ad30574fb37f0bbc7285b42646fb25070",
+  "qualified_corrected_tree": "7d4a0f53ee34be4ad393e72ffc75e57826eb40a9",
+  "qualification": {
+    "workflow": "AO-E0 DATA-01 TC-02 Real Structural Qualification",
+    "run_id": 37658136979,
+    "job_id": 112918452320,
+    "conclusion": "SUCCESS",
+    "persisted_evidence_tests": "20/20 PASS",
+    "authority_firewall_step": "PASS",
+    "clean_worktree_step": "PASS"
+  },
+  "real_read": {
+    "read_count": 1,
+    "tc02_read_token": "CONSUMED",
+    "primary_closed_trade_count": 0,
+    "reference_closed_trade_count": 0,
+    "primary_reference_parity": "PASS",
+    "reference_planning_n_reached": false,
+    "reference_planning_n": 58927,
+    "reference_planning_n_is_terminal_authority": false,
+    "bound_input_identity_digest": "22dd2beb5f7f69c26c6c3fdb38f93542f8c445e1095d64335ff9562404706457",
+    "count_trace_digest": "d93cacc9ab7407b51a9587e42467f6081bc850e71c7fead7afc8a1b57a64ca21"
+  },
+  "evidence_blobs": {
+    "real_input_manifest": "6b36f6d87f7cc137987a2c7583b723ec61bc7750",
+    "primary_result": "f5147580f5aa188fe31d4f249c1c27bd9abee487",
+    "reference_result": "5bbb6693d87b96c0952da3c5afd0027524b8f3c9",
+    "primary_reference_parity": "24f1963aa0306972ced7762b98b0e500f79b302c",
+    "authority_firewall": "c364e7802f9cfc0db7649f4e4d45c278ecfff4ef",
+    "real_execution_receipt": "544dd14e6cd5ae8aac053af6abaf1e978e11514d",
+    "technical_qualification": "18a2d5faf9536a8082832858334166560e4eeee2",
+    "evidence_hashes": "ae85be3baa61678ea12b8bd6c90cfbf8ae09d7bf"
+  },
+  "separate_ci_state": {
+    "tc02_claim_scoped_ci": "SUCCESS",
+    "repository_global_ci": "NOT_ALL_GREEN",
+    "p0_4_run_id": 37658136928,
+    "p0_4": "FAILURE_PRE_EXISTING_BERD02_BI5",
+    "p0_6_run_id": 37658136934,
+    "p0_6": "FAILURE_PRE_EXISTING_BERD02_BI5",
+    "data01_documentary_run_id": 37658136985,
+    "data01_documentary": "FAILURE_HISTORICAL_DELTA_GUARD",
+    "data01_documentary_first_blocking_path": ".github/workflows/ao-e0-b11-r2-frozen-breakers.yml",
+    "failures_relabelled_as_pass": false
+  },
+  "firewall": {
+    "performance_bearing_read": false,
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "dr01_invoked": false,
+    "m04_m05_real_forward_inference": false,
+    "pipe01_first_performance_read": false,
+    "b12": "CLOSED",
+    "strategy_qualified": "NO_CLAIM",
+    "trading": "NOT_AUTHORIZED",
+    "broker_execution": "NOT_AUTHORIZED",
+    "capital_deployment": "NOT_AUTHORIZED",
+    "force": false
+  },
+  "verdict": "TC02_REAL_STRUCTURAL_PATH_QUALIFIED",
+  "stop": "HUMAN_DECISION_REQUIRED"
+}
