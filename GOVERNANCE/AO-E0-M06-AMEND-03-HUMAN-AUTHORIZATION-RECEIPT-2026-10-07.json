@@ -1,0 +1,13 @@
+{
+  "schema":"ATDS_AO_E0_M06_AMEND_03_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "decision":"M06_AMEND_02_HUMAN_ADOPTED_AND_M06_AMEND_03_AUTHORIZED",
+  "qualified_parent_head":"9d6b398f3aa5568df1e372bee7fe6822a5c9ac92",
+  "application_parent_head":"cd2ea9d40f7fcf14c3547384a03e00820ed5982c",
+  "horizon":"[2026-10-06T11:00:00Z,2027-10-06T11:00:00Z)",
+  "reference_planning_n":58927,
+  "scope":"EXACT_V0_2_APPLICATION_PLUS_REGRESSION_PLUS_PERSISTED_HEAD_REBREAK",
+  "real_tc01_forward_read":false,
+  "b12":"CLOSED",
+  "force":false,
+  "stop":"BEFORE_ANY_REAL_FORWARD_READ"
+}
