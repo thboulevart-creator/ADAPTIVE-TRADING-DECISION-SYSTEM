@@ -1,0 +1,198 @@
+# SMF-AP1-M03-02-R1-POST-M10-PCG-03B — REAL EXECUTION TECHNICAL QUALIFICATION V0.1
+
+Status: REAL_EXECUTION_COMPLETE / LOCAL_RESULT_INTEGRITY_PASS / CANONICAL_CI_PENDING
+
+## Authorized execution
+
+Exactly one primary PCG runtime execution and exactly one independent reference execution were performed on the immutable PCG-03A Route-B application packet.
+
+No retry was performed.
+
+## Execution parent
+
+HEAD =
+9d6b398f3aa5568df1e372bee7fe6822a5c9ac92
+
+TREE =
+d49a48b90d0587caedef24321e13a80523e7035c
+
+DRIFT_FROM_AUTHORIZATION_REFERENCE =
+NON_MATERIAL_TO_PCG_03B
+
+DRIFT_SCOPE =
+BEPD-09B-R1
+AO-E0-M06-AMEND-02
+
+## Frozen bindings
+
+PCG-03A FINAL READINESS RECEIPT BLOB =
+ac8610c8c89eb2ea7598fee59cc27cf8d1fca947
+
+PCG-03A FINAL CLOSURE BLOB =
+e22557226ce2922ce0031fa685846cf09bf1d3fc
+
+PACKET BLOB =
+349e0ea3e98ad24a9d179f06ffeeaea11c36f425
+
+PACKET SHA256 =
+56d3a58c0e236590ebcb13caed0fe98d38fb2bde860b2024b084eceb2351f4b1
+
+PRE-EXECUTION FREEZE BLOB =
+5fd6e7937674990d718d328ee4b823b86a09e62e
+
+PRE-EXECUTION FREEZE SHA256 =
+c07f9dd77042e9bdbf989333203c99ba4898a4ddb316e1c5d332a80ecd7cf92e
+
+TCS01 SPEC BLOB =
+b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5
+
+RUNTIME BLOB =
+2b4b96b755293c47efa89522e5509bda4f0c9c73
+
+REFERENCE BLOB =
+6567e3d7325bfa769e10bc5bf1497b6aa416e3ce
+
+BREAKER BLOB =
+82362c52e52da84d251faeaa12d943d3c236b8b5
+
+## Execution counts
+
+PRIMARY_REAL_GATE_EXECUTION_COUNT =
+1
+
+INDEPENDENT_REFERENCE_EXECUTION_COUNT =
+1
+
+RETRY_COUNT =
+0
+
+## Exact technical result
+
+INPUT_CLASSIFICATION =
+MATERIAL_TEMPORAL_VARIATION
+
+SELECTED_ROUTE =
+B
+
+GATE_STATE =
+[ADMISSIBLE_BY_ROUTE_B]
+
+ROUTE_STATES =
+{"B":"ADMISSIBLE_BY_ROUTE_B"}
+
+DECISION_REASON =
+ADMISSIBLE_BY_ONE_OR_MORE_QUALIFIED_ROUTES
+
+BLOCK_REASON =
+NONE
+
+QUALIFYING_ROUTES =
+[B]
+
+OVERALL_GATE_ADMISSIBILITY =
+ADMISSIBLE
+
+AUTHORITY_CREATED =
+NONE
+
+METHOD_STATE =
+M04 CLOSED
+M05 CLOSED
+M08 CLOSED
+M09 CLOSED
+M11 CLOSED
+
+REAL_DATA_READ =
+FALSE
+
+## Independent parity
+
+PRIMARY RESULT SHA256 =
+687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f
+
+REFERENCE RESULT SHA256 =
+687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f
+
+PRIMARY_REFERENCE_SEMANTIC_PARITY =
+EXACT
+
+PRIMARY_REFERENCE_CANONICAL_BYTE_PARITY =
+EXACT
+
+PARITY SHA256 =
+5c56332fdee66a2879418f9ca023690983bbb974d9d84b8d21e546da00b1a96a
+
+RUN MANIFEST SHA256 =
+0084d4b338e0967cffd605860f4f725319783ad0dcd7bf74e907ecc1d4279803
+
+## Interpretation boundary
+
+The result is classified only as:
+
+CLAIM_SCOPED_GOVERNANCE_GATE_RESULT
+
+The exact claim-scoped YEAR_STRATA conditioning design satisfies the frozen PCG Route-B governance admissibility conditions.
+
+This does NOT establish that:
+- R_2022, R_2023, R_2024, or R_2025 is known;
+- the year-specific references are stable;
+- the years form market regimes;
+- conditioning improves performance;
+- conditioning is predictive;
+- the strategy has edge;
+- a statistical or market finding has been produced.
+
+## Epistemic state
+
+EVIDENCE_STATE =
+EXPOSED
+
+CLAIM_PROVENANCE =
+RESULT_AWARE
+
+SAME_CORPUS_CONFIRMATORY_STATUS =
+NON_PRISTINE
+
+RESET_TO_PRISTINE =
+FORBIDDEN
+
+## Downstream authority
+
+PCG_03B_HUMAN_ADJUDICATION =
+PENDING
+
+CONDITIONING_EXECUTION =
+FALSE
+
+YEAR_STRATIFIED_ESTIMATION =
+FALSE
+
+NUMERICAL_ESTIMATION =
+FALSE
+
+NEW_STATISTICAL_METHOD_ACTIVATED =
+FALSE
+
+NEW_STATISTICAL_METHOD_EXECUTED =
+FALSE
+
+NEW_MARKET_RESULT =
+FALSE
+
+OOS_CONSUMPTION =
+FALSE
+
+TRADING_AUTHORITY =
+FALSE
+
+CAPITAL_AUTHORITY =
+FALSE
+
+LOCAL RESULT-INTEGRITY + REQUIRED STATIC REGRESSION =
+151 / 151 PASS
+
+The local qualification is static with respect to the real PCG-03B packet and does not replay either authorized real call.
+
+Canonical persistence, canonical CI, persisted-head static rebreak, final execution receipt, and final technical closure remain pending.
+
+No post-result test may replay either authorized real gate call.

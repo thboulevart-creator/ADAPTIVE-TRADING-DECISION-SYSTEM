@@ -1,0 +1,124 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03B_REAL_EXECUTION_RECORD_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03B",
+  "status": "REAL_EXECUTION_COMPLETE_PENDING_CANONICAL_PERSISTENCE_AND_CI",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "execution_parent": {
+    "head": "9d6b398f3aa5568df1e372bee7fe6822a5c9ac92",
+    "tree": "d49a48b90d0587caedef24321e13a80523e7035c",
+    "drift_from_authorization_reference": "NON_MATERIAL_TO_PCG_03B",
+    "drift_scope": [
+      "BEPD-09B-R1",
+      "AO-E0-M06-AMEND-02"
+    ]
+  },
+  "application_id": "POST_M10-PCG03A-APP01-TICKCOUNT-P50-YEAR-STRATA-2022-2025",
+  "bindings": {
+    "pcg03a_final_readiness_receipt_blob": "ac8610c8c89eb2ea7598fee59cc27cf8d1fca947",
+    "pcg03a_final_closure_blob": "e22557226ce2922ce0031fa685846cf09bf1d3fc",
+    "packet_blob": "349e0ea3e98ad24a9d179f06ffeeaea11c36f425",
+    "packet_sha256": "56d3a58c0e236590ebcb13caed0fe98d38fb2bde860b2024b084eceb2351f4b1",
+    "pre_execution_freeze_blob": "5fd6e7937674990d718d328ee4b823b86a09e62e",
+    "pre_execution_freeze_sha256": "c07f9dd77042e9bdbf989333203c99ba4898a4ddb316e1c5d332a80ecd7cf92e",
+    "dc01_final_readiness_receipt_blob": "3538cc0af1067f8387c415db08a3b8ee8c5e3ccb",
+    "dc01_final_closure_blob": "08c196054f1937ee0a903928017995dc7aaa7798",
+    "tcs01_spec_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "pcg01_runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "pcg01_reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "pcg01_breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "execution_counts": {
+    "primary_real_gate_execution": 1,
+    "independent_reference_execution": 1,
+    "retry_count": 0
+  },
+  "result_hashes": {
+    "primary_result_sha256": "687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f",
+    "reference_result_sha256": "687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f",
+    "parity_sha256": "5c56332fdee66a2879418f9ca023690983bbb974d9d84b8d21e546da00b1a96a",
+    "run_manifest_sha256": "0084d4b338e0967cffd605860f4f725319783ad0dcd7bf74e907ecc1d4279803"
+  },
+  "exact_result": {
+    "input_classification": "MATERIAL_TEMPORAL_VARIATION",
+    "selected_route": "B",
+    "gate_state": [
+      "ADMISSIBLE_BY_ROUTE_B"
+    ],
+    "route_states": {
+      "B": "ADMISSIBLE_BY_ROUTE_B"
+    },
+    "decision_reason": "ADMISSIBLE_BY_ONE_OR_MORE_QUALIFIED_ROUTES",
+    "block_reason": null,
+    "qualifying_routes": [
+      "B"
+    ],
+    "overall_gate_admissibility": "ADMISSIBLE",
+    "authority_created": "NONE"
+  },
+  "parity": {
+    "semantic": "EXACT",
+    "canonical_bytes": "EXACT"
+  },
+  "semantic_classification": "CLAIM_SCOPED_GOVERNANCE_GATE_RESULT",
+  "permitted_interpretation": "THE EXACT CLAIM-SCOPED YEAR_STRATA CONDITIONING DESIGN SATISFIES THE FROZEN PCG ROUTE-B GOVERNANCE ADMISSIBILITY CONDITIONS",
+  "prohibited_interpretations": [
+    "STATISTICAL_RESULT",
+    "MARKET_RESULT",
+    "YEAR_STRATIFIED_ESTIMATE",
+    "SCIENTIFIC_FINDING",
+    "STATIONARITY_FINDING",
+    "NONSTATIONARITY_FINDING",
+    "CHANGE_POINT_FINDING",
+    "REGIME_FINDING",
+    "GENERALIZATION",
+    "PREDICTIVE_VALIDATION",
+    "ECONOMIC_EDGE",
+    "PROFITABILITY",
+    "STRATEGY_VALIDATION",
+    "TRADING_AUTHORITY",
+    "CAPITAL_AUTHORITY"
+  ],
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "downstream_state": {
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "new_statistical_method_activated": false,
+    "new_statistical_method_executed": false,
+    "new_market_result": false,
+    "oos_consumption": false,
+    "pooling_authority": false,
+    "conditioning_execution_authority": false,
+    "year_stratified_estimation_authority": false,
+    "method_authority": false,
+    "method_execution_authority": false,
+    "oos_authority": false,
+    "trading_authority": false,
+    "capital_authority": false
+  },
+  "human_adjudication": "PENDING",
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03C",
+    "scope": "FIRST_REAL_ROUTE_B_GOVERNANCE_GATE_RESULT_HUMAN_ADJUDICATION",
+    "separate_human_decision_required": true,
+    "automatic_adoption": false,
+    "automatic_downstream_action": false,
+    "opened": false
+  },
+  "stop": true,
+  "force": false
+}
