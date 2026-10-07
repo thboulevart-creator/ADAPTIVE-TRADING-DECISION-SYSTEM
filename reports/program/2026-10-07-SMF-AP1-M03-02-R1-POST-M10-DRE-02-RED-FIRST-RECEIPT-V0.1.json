@@ -1,0 +1,31 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_02_RED_FIRST_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-02",
+  "status": "RED_CONFIRMED_BEFORE_CANONICAL_RUNTIME_PERSISTENCE",
+  "preregistration": {
+    "test_blob": "794c43606b4d7740c909864542a7128ebda65b62",
+    "valid_fixture_blob": "cb14e7f3915ed3df81e57560a4d735c76aec8c7c",
+    "expected_success_blob": "dee745480e735c4907cfb8a9a50f2f417853aa93",
+    "fixture_manifest_blob": "7a8781e422550c7d56f6695b0eb2f2856728a61a",
+    "breaker_coverage_matrix_blob": "93e3baa7cbdae1d884830c6dca9c55448f28835d",
+    "runtime_primary_present": false,
+    "runtime_reference_present": false
+  },
+  "isolated_red_trial": {
+    "mode": "PRE_IMPLEMENTATION_IMPORT_GATE",
+    "observed_error": "ModuleNotFoundError: No module named 'tools.smf_ap1_m03_02_r1_post_m10_dre_02'",
+    "pytest_exit_code": 2,
+    "collection_errors": 1,
+    "semantic_meaning": "PREREGISTERED_SYNTHETIC_TEST_SURFACE_CANNOT_PASS_WITHOUT_IMPLEMENTATION"
+  },
+  "real_source_access": false,
+  "raw_ap0_access": false,
+  "real_values_observed": false,
+  "real_execution_budget_consumed": {
+    "primary": 0,
+    "reference": 0,
+    "retry": 0
+  },
+  "next_allowed_action": "PERSIST_PRIMARY_AND_INDEPENDENT_REFERENCE_IMPLEMENTATIONS_THEN_RUN_SYNTHETIC_QUALIFICATION",
+  "force": false
+}
