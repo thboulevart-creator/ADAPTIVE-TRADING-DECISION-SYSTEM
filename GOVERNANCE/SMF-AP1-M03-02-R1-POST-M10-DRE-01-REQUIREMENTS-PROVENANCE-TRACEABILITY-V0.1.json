@@ -1,0 +1,213 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_REQUIREMENTS_PROVENANCE_TRACEABILITY_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "status": "FROZEN_DESIGN_ONLY",
+  "provenance_labels": [
+    "CANONICAL_FACT",
+    "HUMAN_DECISION",
+    "DERIVED_DESIGN_DECISION"
+  ],
+  "material_fields": {
+    "claim_unit": {
+      "value": "tick_count p50",
+      "provenance": "CANONICAL_FACT"
+    },
+    "conditioned_claim_id": {
+      "value": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "provenance": "CANONICAL_FACT/HUMAN_ADOPTED"
+    },
+    "estimand_id": {
+      "value": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "provenance": "CANONICAL_FACT"
+    },
+    "analysis_id": {
+      "value": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+      "provenance": "CANONICAL_FACT"
+    },
+    "tcs01": {
+      "value": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+      "provenance": "CANONICAL_FACT/HUMAN_ADOPTED"
+    },
+    "route_b": {
+      "value": "HUMAN_ADOPTED",
+      "provenance": "HUMAN_DECISION"
+    },
+    "source_payload_sha256": {
+      "value": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+      "provenance": "CANONICAL_FACT"
+    },
+    "dataset_identity": {
+      "value": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "provenance": "CANONICAL_FACT"
+    },
+    "ap0_manifest_sha256": {
+      "value": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "provenance": "CANONICAL_FACT"
+    },
+    "procedure_ref": {
+      "value": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+      "provenance": "CANONICAL_FACT"
+    },
+    "quantile_definition": {
+      "value": "linear interpolation with h=(n-1)*p",
+      "provenance": "CANONICAL_FACT"
+    },
+    "execution_mode": {
+      "value": "EXTRACT_EXISTING_P50_ONLY",
+      "provenance": "DERIVED_DESIGN_DECISION"
+    },
+    "raw_ap0_read": {
+      "value": false,
+      "provenance": "HUMAN_DECISION/DERIVED_DESIGN_DECISION"
+    },
+    "p50_recomputation": {
+      "value": false,
+      "provenance": "DERIVED_DESIGN_DECISION"
+    },
+    "future_execution_budget": {
+      "value": "ONE_PRIMARY_ONE_REFERENCE_ZERO_RETRY",
+      "provenance": "DERIVED_DESIGN_DECISION"
+    },
+    "same_corpus_confirmatory_status": {
+      "value": "NON_PRISTINE",
+      "provenance": "CANONICAL_FACT"
+    }
+  },
+  "source_artifacts": {
+    "pcg03c_human_adoption_receipt_blob": "032db75ddfdb94d1184c9a8656dc60b10530b24d",
+    "pcg03c_final_closure_blob": "04727845aeed557c27c41af609f44111b4cde307",
+    "dc01_conditioned_claim_blob": "57a85a5aa7b32e9d0bf63aa75d37974a8eca6649",
+    "dc01_estimand_blob": "ac4021a1e16d04493897aa90b7236c3f9107d962",
+    "tcs01_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "m03_real_execution_plan_blob": "6849e42aef724fa7643fc70715a206632024bd54",
+    "m03_executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "m03_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4"
+  },
+  "requirement_map": [
+    {
+      "requirement": "EXACT_GOVERNANCE_SCOPE",
+      "breakers": [
+        "DRE01-B03",
+        "DRE01-B04",
+        "DRE01-B05",
+        "DRE01-B06",
+        "DRE01-B07",
+        "DRE01-B08",
+        "DRE01-B09",
+        "DRE01-B10",
+        "DRE01-B11",
+        "DRE01-B12",
+        "DRE01-B13"
+      ]
+    },
+    {
+      "requirement": "EXACT_SOURCE_BINDING",
+      "breakers": [
+        "DRE01-B14",
+        "DRE01-B15",
+        "DRE01-B16",
+        "DRE01-B17",
+        "DRE01-B18",
+        "DRE01-B19",
+        "DRE01-B20",
+        "DRE01-B21",
+        "DRE01-B22",
+        "DRE01-B23",
+        "DRE01-B24",
+        "DRE01-B25"
+      ]
+    },
+    {
+      "requirement": "EXACT_M03_PROCEDURE_IDENTITY",
+      "breakers": [
+        "DRE01-B26",
+        "DRE01-B27",
+        "DRE01-B28",
+        "DRE01-B29",
+        "DRE01-B30",
+        "DRE01-B31",
+        "DRE01-B32",
+        "DRE01-B33"
+      ]
+    },
+    {
+      "requirement": "EXACT_YEAR_STRATA",
+      "breakers": [
+        "DRE01-B34",
+        "DRE01-B35",
+        "DRE01-B36",
+        "DRE01-B37",
+        "DRE01-B38",
+        "DRE01-B39",
+        "DRE01-B40"
+      ]
+    },
+    {
+      "requirement": "EXACT_P50_EXTRACTION",
+      "breakers": [
+        "DRE01-B41",
+        "DRE01-B42",
+        "DRE01-B43",
+        "DRE01-B44",
+        "DRE01-B45",
+        "DRE01-B46",
+        "DRE01-B47",
+        "DRE01-B48",
+        "DRE01-B49",
+        "DRE01-B50",
+        "DRE01-B51",
+        "DRE01-B52",
+        "DRE01-B53",
+        "DRE01-B54"
+      ]
+    },
+    {
+      "requirement": "FAIL_CLOSED_VECTOR",
+      "breakers": [
+        "DRE01-B55",
+        "DRE01-B56",
+        "DRE01-B57",
+        "DRE01-B58"
+      ]
+    },
+    {
+      "requirement": "DETERMINISM_AND_PARITY",
+      "breakers": [
+        "DRE01-B59",
+        "DRE01-B60",
+        "DRE01-B61",
+        "DRE01-B62",
+        "DRE01-B63",
+        "DRE01-B64",
+        "DRE01-B65"
+      ]
+    },
+    {
+      "requirement": "EPISTEMIC_METHOD_AUTHORITY_BOUNDARY",
+      "breakers": [
+        "DRE01-B66",
+        "DRE01-B67",
+        "DRE01-B68",
+        "DRE01-B69"
+      ]
+    },
+    {
+      "requirement": "CONTROL_IDENTITY",
+      "breakers": [
+        "DRE01-B01",
+        "DRE01-B02"
+      ]
+    }
+  ],
+  "authority": {
+    "design_freeze": true,
+    "execution": false,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
