@@ -1,0 +1,137 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_FINAL_READINESS_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "QUALIFIED_AND_FROZEN_READY_FOR_SEPARATE_ROUTE_B_PCG_APPLICATION_DECISION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "design_persisted_identity": {
+    "head": "daab30eb8b1d46588af89d7a5f0256ea2fac42b6",
+    "tree": "5a14dadb0c88c8601d597f3a6bce7ea54625ee3d"
+  },
+  "artifacts": {
+    "conditioned_claim_contract_blob": "57a85a5aa7b32e9d0bf63aa75d37974a8eca6649",
+    "conditioned_estimand_contract_blob": "ac4021a1e16d04493897aa90b7236c3f9107d962",
+    "year_strata_spec_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "analysis_intent_blob": "960704a7ce6a83592d8840544737fa70a39da3a9",
+    "breaker_contract_blob": "6f5fdd01eeb533a20382a3bc44cfd396b21ce34d",
+    "traceability_blob": "740d80de62a6ebfa5bfac964dd86753fa452dcad",
+    "qualification_report_blob": "7eeeb16836864d8e1c9e228583b7370947fa439c",
+    "test_blob": "46ada1fec6f785bbd54ccc1451915e5f804388de",
+    "workflow_blob": "875d92b01da3ff8804e407c6eac57c4b13bd17f3"
+  },
+  "frozen_scientific_identity": {
+    "claim_unit": "tick_count p50",
+    "m10_status": "MATERIAL_TEMPORAL_VARIATION",
+    "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "conditioning_type": "YEAR_STRATA",
+    "strata": [
+      "UTC_YEAR:2022",
+      "UTC_YEAR:2023",
+      "UTC_YEAR:2024",
+      "UTC_YEAR:2025"
+    ]
+  },
+  "temporal_boundaries": [
+    {
+      "stratum": "UTC_YEAR:2022",
+      "interval": "[2022-01-01T00:00:00Z,2023-01-01T00:00:00Z)"
+    },
+    {
+      "stratum": "UTC_YEAR:2023",
+      "interval": "[2023-01-01T00:00:00Z,2024-01-01T00:00:00Z)"
+    },
+    {
+      "stratum": "UTC_YEAR:2024",
+      "interval": "[2024-01-01T00:00:00Z,2025-01-01T00:00:00Z)"
+    },
+    {
+      "stratum": "UTC_YEAR:2025",
+      "interval": "[2025-01-01T00:00:00Z,2026-01-01T00:00:00Z)"
+    }
+  ],
+  "qualification": {
+    "local_static_and_required_regression": "94/94 PASS",
+    "canonical_dc01_ci": {
+      "run_id": 37617326589,
+      "job_id": 112778724749,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37617326537,
+      "job_id": 112778724669,
+      "conclusion": "success"
+    }
+  },
+  "verdict": {
+    "POST_M10_DC_01": "QUALIFIED",
+    "CONDITIONED_DOWNSTREAM_CLAIM": "FROZEN",
+    "CONDITIONED_ESTIMAND": "FROZEN",
+    "YEAR_STRATA_CONDITIONING_SPEC": "QUALIFIED_AND_FROZEN",
+    "ROUTE_B_ADMISSIBLE": "NOT_YET_ESTABLISHED",
+    "CONDITIONING_EXECUTION": false,
+    "YEAR_STRATIFIED_ESTIMATION": false,
+    "REAL_DATA_READ": false,
+    "NUMERICAL_ESTIMATION": false,
+    "PCG_REAL_EXECUTION": false,
+    "NEW_STATISTICAL_METHOD_ACTIVATED": false,
+    "NEW_STATISTICAL_METHOD_EXECUTED": false,
+    "NEW_MARKET_RESULT": false,
+    "OOS_CONSUMPTION": false
+  },
+  "old_pooled_claim": {
+    "id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "status": "PRESERVED_AS_BLOCKED",
+    "semantic_rewrite": "FORBIDDEN"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "pooling": false,
+    "conditioning_spec_design": true,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4": {
+      "run_id": 37617326475,
+      "conclusion": "failure"
+    },
+    "p0_6": {
+      "run_id": 37617326565,
+      "conclusion": "failure"
+    },
+    "classification": "INHERITED_OUT_OF_SCOPE_NOT_USED_AS_DC01_PASS_EVIDENCE"
+  },
+  "next_frontier": {
+    "id": "NOT_YET_ASSIGNED",
+    "scope": "NEW_CLAIM_SCOPED_PCG_ROUTE_B_APPLICATION_USING_POST_M10_TCS01",
+    "exact_question": "IS THIS EXACT CLAIM-SCOPED YEAR_STRATA CONDITIONING SPEC ADMISSIBLE BY ROUTE B?",
+    "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "automatic_execution": false,
+    "opened": false
+  },
+  "stop": true,
+  "force": false
+}

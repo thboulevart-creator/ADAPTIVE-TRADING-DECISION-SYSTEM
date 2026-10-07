@@ -226,3 +226,46 @@ def test_25_next_pcg_route_b_application_remains_closed():
     i=load(INTENT)["next_gate_application"]
     assert i["separate_human_authorization_required"] is True
     assert i["open"] is False
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-07-SMF-AP1-M03-02-R1-POST-M10-DC-01-FINAL-READINESS-RECEIPT-V0.1.json"
+FINAL_CLOSURE=ROOT/"reports"/"program"/"2026-10-07-SMF-AP1-M03-02-R1-POST-M10-DC-01-FINAL-CLOSURE.md"
+
+def test_26_final_receipt_preserves_dc01_authority_ceiling():
+    r=load(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert r["status"]=="QUALIFIED_AND_FROZEN_READY_FOR_SEPARATE_ROUTE_B_PCG_APPLICATION_DECISION"
+    assert v["POST_M10_DC_01"]=="QUALIFIED"
+    assert v["CONDITIONED_DOWNSTREAM_CLAIM"]=="FROZEN"
+    assert v["CONDITIONED_ESTIMAND"]=="FROZEN"
+    assert v["YEAR_STRATA_CONDITIONING_SPEC"]=="QUALIFIED_AND_FROZEN"
+    assert v["ROUTE_B_ADMISSIBLE"]=="NOT_YET_ESTABLISHED"
+    assert v["CONDITIONING_EXECUTION"] is False
+    assert v["YEAR_STRATIFIED_ESTIMATION"] is False
+    assert v["REAL_DATA_READ"] is False
+    assert v["NUMERICAL_ESTIMATION"] is False
+    assert v["PCG_REAL_EXECUTION"] is False
+    assert v["NEW_STATISTICAL_METHOD_ACTIVATED"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert v["OOS_CONSUMPTION"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert r["authority"]["conditioning_spec_design"] is True
+    assert all(val is False for key,val in r["authority"].items() if key!="conditioning_spec_design")
+    assert r["next_frontier"]["id"]=="NOT_YET_ASSIGNED"
+    assert r["next_frontier"]["separate_human_authorization_required"] is True
+    assert r["next_frontier"]["automatic_open"] is False
+    assert r["next_frontier"]["automatic_execution"] is False
+    assert r["next_frontier"]["opened"] is False
+    assert r["stop"] is True
+
+def test_27_final_closure_stops_before_route_b_gate_or_estimation():
+    t=FINAL_CLOSURE.read_text(encoding="utf-8")
+    assert "YEAR_STRATA_CONDITIONING_SPEC =\nQUALIFIED_AND_FROZEN" in t
+    assert "ROUTE_B_ADMISSIBLE =\nNOT_YET_ESTABLISHED" in t
+    assert "NEXT_PCG_ROUTE_B_APPLICATION =\nCLOSED" in t
+    assert "SEPARATE_HUMAN_AUTHORIZATION =\nREQUIRED" in t
+    assert "REAL_DATA_READ =\nFALSE" in t
+    assert "NUMERICAL_ESTIMATION =\nFALSE" in t
+    assert "PCG_REAL_EXECUTION =\nFALSE" in t
+    assert t.rstrip().endswith("STOP.")
