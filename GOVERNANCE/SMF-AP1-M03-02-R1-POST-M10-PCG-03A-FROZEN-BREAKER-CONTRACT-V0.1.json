@@ -1,0 +1,196 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03A_FROZEN_BREAKER_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03A",
+  "status": "FROZEN_CANDIDATE_PENDING_STATIC_QUALIFICATION",
+  "minimum_required_breaker_count": 42,
+  "breaker_count": 42,
+  "breakers": [
+    [
+      "PCG03A-B01",
+      "EXACT_DC01_FINAL_RECEIPT_IDENTITY"
+    ],
+    [
+      "PCG03A-B02",
+      "EXACT_DC01_FINAL_CLOSURE_IDENTITY"
+    ],
+    [
+      "PCG03A-B03",
+      "EXACT_TCS01_SPEC_BLOB"
+    ],
+    [
+      "PCG03A-B04",
+      "EXACT_PCG01_RUNTIME_BLOB"
+    ],
+    [
+      "PCG03A-B05",
+      "EXACT_PCG01_REFERENCE_BLOB"
+    ],
+    [
+      "PCG03A-B06",
+      "EXACT_PCG01_BREAKER_BLOB"
+    ],
+    [
+      "PCG03A-B07",
+      "EXACT_CLAIM_UNIT"
+    ],
+    [
+      "PCG03A-B08",
+      "EXACT_DOWNSTREAM_CLAIM_ID"
+    ],
+    [
+      "PCG03A-B09",
+      "EXACT_DOWNSTREAM_ANALYSIS_ID"
+    ],
+    [
+      "PCG03A-B10",
+      "EXACT_TEMPORAL_SCOPE"
+    ],
+    [
+      "PCG03A-B11",
+      "POOLING_REQUESTED_FALSE"
+    ],
+    [
+      "PCG03A-B12",
+      "CONDITIONING_REQUESTED_TRUE"
+    ],
+    [
+      "PCG03A-B13",
+      "PREREGISTERED_ROBUST_METHOD_REQUESTED_FALSE"
+    ],
+    [
+      "PCG03A-B14",
+      "REQUESTED_ROUTES_B_ONLY"
+    ],
+    [
+      "PCG03A-B15",
+      "NO_ROUTE_A"
+    ],
+    [
+      "PCG03A-B16",
+      "NO_ROUTE_C"
+    ],
+    [
+      "PCG03A-B17",
+      "TEMPORAL_CONDITIONING_SPEC_STATUS_QUALIFIED_AND_FROZEN"
+    ],
+    [
+      "PCG03A-B18",
+      "TEMPORAL_CONDITIONING_SPEC_REF_EXACT_DC01_SPEC_IDENTITY"
+    ],
+    [
+      "PCG03A-B19",
+      "EVIDENCE_STATE_PRESERVE_EXPOSED_NON_PRISTINE"
+    ],
+    [
+      "PCG03A-B20",
+      "AUTHORITY_REQUESTS_EMPTY"
+    ],
+    [
+      "PCG03A-B21",
+      "REAL_DATA_DEPENDENCY_FALSE"
+    ],
+    [
+      "PCG03A-B22",
+      "ADMISSIBILITY_BASIS_TICK_COUNT_P50"
+    ],
+    [
+      "PCG03A-B23",
+      "OLD_POOLED_CLAIM_REMAINS_BLOCKED"
+    ],
+    [
+      "PCG03A-B24",
+      "NO_OLD_CLAIM_SEMANTIC_REWRITE"
+    ],
+    [
+      "PCG03A-B25",
+      "NO_SPEC_MUTATION"
+    ],
+    [
+      "PCG03A-B26",
+      "NO_REAL_DATA_READ"
+    ],
+    [
+      "PCG03A-B27",
+      "NO_NUMERICAL_ESTIMATION"
+    ],
+    [
+      "PCG03A-B28",
+      "NO_CONDITIONING_EXECUTION"
+    ],
+    [
+      "PCG03A-B29",
+      "NO_YEAR_STRATIFIED_ESTIMATION"
+    ],
+    [
+      "PCG03A-B30",
+      "NO_PRIMARY_PCG_EXECUTION"
+    ],
+    [
+      "PCG03A-B31",
+      "NO_REFERENCE_PCG_EXECUTION"
+    ],
+    [
+      "PCG03A-B32",
+      "NO_PCG_RESULT"
+    ],
+    [
+      "PCG03A-B33",
+      "EXPECTED_GATE_RESULT_NOT_PREREGISTERED"
+    ],
+    [
+      "PCG03A-B34",
+      "NO_METHOD_ACTIVATION"
+    ],
+    [
+      "PCG03A-B35",
+      "NO_METHOD_EXECUTION"
+    ],
+    [
+      "PCG03A-B36",
+      "M04_M05_M08_M09_M11_REMAIN_CLOSED"
+    ],
+    [
+      "PCG03A-B37",
+      "NO_OOS_CONSUMPTION"
+    ],
+    [
+      "PCG03A-B38",
+      "NO_TRADING_AUTHORITY"
+    ],
+    [
+      "PCG03A-B39",
+      "NO_CAPITAL_AUTHORITY"
+    ],
+    [
+      "PCG03A-B40",
+      "PACKET_IMMUTABLE_AFTER_FREEZE"
+    ],
+    [
+      "PCG03A-B41",
+      "PRE_EXECUTION_FREEZE_REQUIRED"
+    ],
+    [
+      "PCG03A-B42",
+      "PCG03B_REQUIRES_SEPARATE_HUMAN_AUTHORIZATION"
+    ]
+  ],
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "route_b_admissible": "NOT_YET_ESTABLISHED",
+  "runtime_execution_authorized": false,
+  "reference_execution_authorized": false,
+  "real_data_read_authorized": false,
+  "conditioning_execution_authorized": false,
+  "year_stratified_estimation_authorized": false,
+  "statistical_method_activation_authorized": false,
+  "statistical_method_execution_authorized": false,
+  "oos_consumption_authorized": false,
+  "trading_authority": false,
+  "capital_authority": false,
+  "force": false
+}

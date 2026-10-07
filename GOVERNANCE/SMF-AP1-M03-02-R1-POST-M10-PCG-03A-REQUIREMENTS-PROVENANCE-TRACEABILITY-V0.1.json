@@ -1,0 +1,148 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03A_REQUIREMENTS_PROVENANCE_TRACEABILITY_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03A",
+  "status": "FROZEN_CANDIDATE_PENDING_STATIC_QUALIFICATION",
+  "provenance_labels": [
+    "CANONICAL_FACT",
+    "HUMAN_DECISION",
+    "DERIVED_GOVERNANCE_INPUT"
+  ],
+  "material_fields": {
+    "claim_unit": {
+      "value": "tick_count p50",
+      "provenance": "CANONICAL_FACT"
+    },
+    "downstream_claim_id": {
+      "value": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "provenance": "HUMAN_DECISION"
+    },
+    "downstream_analysis_id": {
+      "value": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+      "provenance": "HUMAN_DECISION"
+    },
+    "temporal_scope": {
+      "value": "UTC_YEAR:2022|UTC_YEAR:2023|UTC_YEAR:2024|UTC_YEAR:2025",
+      "provenance": "CANONICAL_FACT"
+    },
+    "conditioning_requested": {
+      "value": true,
+      "provenance": "HUMAN_DECISION"
+    },
+    "requested_routes": {
+      "value": [
+        "B"
+      ],
+      "provenance": "HUMAN_DECISION"
+    },
+    "temporal_conditioning_spec_ref": {
+      "value": "GIT_BLOB:b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+      "provenance": "CANONICAL_FACT"
+    },
+    "temporal_conditioning_spec_status": {
+      "value": "SPEC_QUALIFIED_AND_FROZEN",
+      "provenance": "CANONICAL_FACT"
+    },
+    "evidence_state_request": {
+      "value": "PRESERVE_EXPOSED_NON_PRISTINE",
+      "provenance": "DERIVED_GOVERNANCE_INPUT"
+    },
+    "authority_requests": {
+      "value": [],
+      "provenance": "DERIVED_GOVERNANCE_INPUT"
+    },
+    "real_data_dependency_requested": {
+      "value": false,
+      "provenance": "DERIVED_GOVERNANCE_INPUT"
+    }
+  },
+  "requirement_map": [
+    {
+      "requirement": "EXACT_DC01_BINDINGS",
+      "breakers": [
+        "PCG03A-B01",
+        "PCG03A-B02",
+        "PCG03A-B03"
+      ]
+    },
+    {
+      "requirement": "EXACT_PCG01_BINDINGS",
+      "breakers": [
+        "PCG03A-B04",
+        "PCG03A-B05",
+        "PCG03A-B06"
+      ]
+    },
+    {
+      "requirement": "EXACT_CLAIM_SCOPE",
+      "breakers": [
+        "PCG03A-B07",
+        "PCG03A-B08",
+        "PCG03A-B09",
+        "PCG03A-B10"
+      ]
+    },
+    {
+      "requirement": "EXACT_ROUTE_B_REQUEST",
+      "breakers": [
+        "PCG03A-B11",
+        "PCG03A-B12",
+        "PCG03A-B13",
+        "PCG03A-B14",
+        "PCG03A-B15",
+        "PCG03A-B16",
+        "PCG03A-B17",
+        "PCG03A-B18"
+      ]
+    },
+    {
+      "requirement": "EPISTEMIC_AND_AUTHORITY_BOUNDARY",
+      "breakers": [
+        "PCG03A-B19",
+        "PCG03A-B20",
+        "PCG03A-B21",
+        "PCG03A-B22"
+      ]
+    },
+    {
+      "requirement": "OLD_CLAIM_AND_SPEC_PRESERVATION",
+      "breakers": [
+        "PCG03A-B23",
+        "PCG03A-B24",
+        "PCG03A-B25"
+      ]
+    },
+    {
+      "requirement": "NO_EXECUTION_OR_RESULT",
+      "breakers": [
+        "PCG03A-B26",
+        "PCG03A-B27",
+        "PCG03A-B28",
+        "PCG03A-B29",
+        "PCG03A-B30",
+        "PCG03A-B31",
+        "PCG03A-B32",
+        "PCG03A-B33"
+      ]
+    },
+    {
+      "requirement": "METHOD_AND_AUTHORITY_BOUNDARY",
+      "breakers": [
+        "PCG03A-B34",
+        "PCG03A-B35",
+        "PCG03A-B36",
+        "PCG03A-B37",
+        "PCG03A-B38",
+        "PCG03A-B39"
+      ]
+    },
+    {
+      "requirement": "FREEZE_AND_NEXT_FRONTIER",
+      "breakers": [
+        "PCG03A-B40",
+        "PCG03A-B41",
+        "PCG03A-B42"
+      ]
+    }
+  ],
+  "force": false
+}

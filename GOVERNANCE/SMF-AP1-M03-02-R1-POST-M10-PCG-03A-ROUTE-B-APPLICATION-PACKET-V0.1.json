@@ -1,0 +1,96 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03A_ROUTE_B_APPLICATION_PACKET_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03A",
+  "application_id": "POST_M10-PCG03A-APP01-TICKCOUNT-P50-YEAR-STRATA-2022-2025",
+  "status": "FROZEN_CANDIDATE_PENDING_STATIC_QUALIFICATION",
+  "preflight_parent": {
+    "head": "ac96c2dd29a28f05ff9c3073932974327ea8e5c6",
+    "tree": "035d7e09725d5b24b8532f7853b15c194e3c06f6",
+    "drift_from_last_observed": "NON_MATERIAL_TO_PCG_03A",
+    "drift_scope": [
+      "BEPD-09B-R1",
+      "AO-E0-M06-AMEND-01"
+    ]
+  },
+  "dc01_bindings": {
+    "final_readiness_receipt_blob": "3538cc0af1067f8387c415db08a3b8ee8c5e3ccb",
+    "final_closure_blob": "08c196054f1937ee0a903928017995dc7aaa7798",
+    "conditioned_claim_contract_blob": "57a85a5aa7b32e9d0bf63aa75d37974a8eca6649",
+    "conditioned_estimand_contract_blob": "ac4021a1e16d04493897aa90b7236c3f9107d962",
+    "year_strata_spec_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "analysis_intent_blob": "960704a7ce6a83592d8840544737fa70a39da3a9",
+    "breaker_contract_blob": "6f5fdd01eeb533a20382a3bc44cfd396b21ce34d",
+    "traceability_blob": "740d80de62a6ebfa5bfac964dd86753fa452dcad"
+  },
+  "pcg01_bindings": {
+    "runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "temporal_conditioning_spec": {
+    "id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "git_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "conditioning_type": "YEAR_STRATA",
+    "status": "SPEC_QUALIFIED_AND_FROZEN"
+  },
+  "old_pooled_claim": {
+    "id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "status": "PRESERVED_AS_BLOCKED",
+    "semantic_rewrite": "FORBIDDEN"
+  },
+  "runtime_packet": {
+    "case_id": "POST_M10-PCG03A-APP01-TICKCOUNT-P50-YEAR-STRATA-2022-2025",
+    "claim_unit": "tick_count p50",
+    "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "requested_temporal_scope": "UTC_YEAR:2022|UTC_YEAR:2023|UTC_YEAR:2024|UTC_YEAR:2025",
+    "pooling_requested": false,
+    "conditioning_requested": true,
+    "preregistered_robust_method_requested": false,
+    "requested_routes": [
+      "B"
+    ],
+    "pooling_justification_ref": null,
+    "pooling_justification_status": "JUSTIFICATION_ABSENT",
+    "pooling_justification_reason_code": "NONE",
+    "temporal_conditioning_spec_ref": "GIT_BLOB:b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN",
+    "robust_method_preregistration_ref": null,
+    "robust_method_preregistration_status": "METHOD_PREREG_ABSENT_OR_INCOMPLETE",
+    "robust_method_fields": {},
+    "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+    "authority_requests": [],
+    "real_data_dependency_requested": false,
+    "admissibility_basis_claim_unit": "tick_count p50"
+  },
+  "provenance": {
+    "claim_unit": "CANONICAL_FACT",
+    "downstream_claim_id": "HUMAN_DECISION_FROZEN_BY_DC01",
+    "downstream_analysis_id": "HUMAN_DECISION_FROZEN_BY_DC01",
+    "temporal_scope": "CANONICAL_FACT_PLUS_DC01_HUMAN_FREEZE",
+    "conditioning_requested": "HUMAN_DECISION_DERIVED_FROM_PCG02C_AND_DC01",
+    "requested_routes": "HUMAN_DECISION_DERIVED_FROM_PCG02C",
+    "temporal_conditioning_spec_ref": "CANONICAL_FACT_FROM_DC01",
+    "temporal_conditioning_spec_status": "CANONICAL_FACT_FROM_DC01",
+    "evidence_state_request": "DERIVED_GOVERNANCE_INPUT",
+    "authority_requests": "DERIVED_GOVERNANCE_INPUT",
+    "real_data_dependency_requested": "DERIVED_GOVERNANCE_INPUT"
+  },
+  "expected_gate_result": "NOT_PREREGISTERED",
+  "route_b_admissible": "NOT_YET_ESTABLISHED",
+  "authority_ceiling": {
+    "pcg_real_runtime_execution": false,
+    "pcg_real_reference_execution": false,
+    "pcg_real_result_creation": false,
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "statistical_method_activation": false,
+    "statistical_method_execution": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
