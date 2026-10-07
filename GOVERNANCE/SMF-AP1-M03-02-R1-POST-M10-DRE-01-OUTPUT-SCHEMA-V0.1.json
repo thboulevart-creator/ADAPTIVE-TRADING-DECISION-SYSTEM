@@ -1,0 +1,129 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_OUTPUT_SCHEMA_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "status": "FROZEN_DESIGN_ONLY",
+  "result_schema_id": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_YEAR_STRATIFIED_REFERENCE_VECTOR_V0_1",
+  "success_object": {
+    "required_top_level_keys": [
+      "schema",
+      "status",
+      "control_id",
+      "claim_unit",
+      "claim_id",
+      "estimand_id",
+      "analysis_id",
+      "conditioning_spec_id",
+      "source",
+      "components",
+      "vector_order",
+      "relation_between_components",
+      "aggregation",
+      "epistemic_state",
+      "authority",
+      "result_semantics"
+    ],
+    "fixed_values": {
+      "status": "DRE01_COMPLETE",
+      "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+      "claim_unit": "tick_count p50",
+      "claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "estimand_id": "POST-M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+      "conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+      "relation_between_components": "A_CONDITIONED_REFERENCE_VECTOR",
+      "aggregation": "NONE",
+      "result_semantics": "DESCRIPTIVE_YEAR_CONDITIONED_REFERENCE_VECTOR"
+    },
+    "source_fields": {
+      "m03_payload_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+      "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+      "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+      "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+      "quantile_definition": "linear interpolation with h=(n-1)*p"
+    },
+    "components": {
+      "type": "ARRAY_EXACT_LENGTH_4",
+      "order": [
+        "R_2022",
+        "R_2023",
+        "R_2024",
+        "R_2025"
+      ],
+      "item_required_keys": [
+        "id",
+        "stratum",
+        "metric",
+        "probability",
+        "n",
+        "value",
+        "source_result_digest"
+      ],
+      "fixed_metric": "tick_count",
+      "fixed_probability": 0.5,
+      "component_strata": {
+        "R_2022": "UTC_YEAR:2022",
+        "R_2023": "UTC_YEAR:2023",
+        "R_2024": "UTC_YEAR:2024",
+        "R_2025": "UTC_YEAR:2025"
+      },
+      "n_type": "POSITIVE_INTEGER",
+      "value_type": "FINITE_JSON_NUMBER_NON_BOOLEAN",
+      "source_result_digest_type": "NONEMPTY_STRING"
+    },
+    "vector_order": [
+      "R_2022",
+      "R_2023",
+      "R_2024",
+      "R_2025"
+    ],
+    "forbidden_fields": [
+      "global_reference",
+      "pooled_reference",
+      "mean_of_year_references",
+      "weighted_mean_of_year_references",
+      "median_of_year_medians",
+      "trend",
+      "change_point",
+      "regime",
+      "signal",
+      "strategy_verdict",
+      "trading_action",
+      "capital_action"
+    ],
+    "scientific_result_timestamp": false
+  },
+  "blocked_object": {
+    "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_BLOCKED_RESULT_V0_1",
+    "status": "DRE01_BLOCKED",
+    "required_keys": [
+      "schema",
+      "status",
+      "control_id",
+      "reason_codes",
+      "authority"
+    ],
+    "numerical_components": "FORBIDDEN",
+    "partial_values": "FORBIDDEN",
+    "reason_codes_order": "LEXICOGRAPHIC_SORTED_UNIQUE"
+  },
+  "canonicalization": {
+    "ensure_ascii": true,
+    "sort_keys": true,
+    "separators": [
+      ",",
+      ":"
+    ],
+    "allow_nan": false,
+    "encoding": "UTF-8",
+    "terminal_newline": true
+  },
+  "authority_object": {
+    "authority_created": "NONE",
+    "trading": false,
+    "capital": false,
+    "oos": false,
+    "method": false,
+    "method_execution": false
+  },
+  "force": false
+}
