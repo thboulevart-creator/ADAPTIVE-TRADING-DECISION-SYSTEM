@@ -1,0 +1,102 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_DATA_PAYLOAD_BINDING_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "status": "FROZEN_DESIGN_ONLY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "scientific_scope": {
+    "claim_unit": "tick_count p50",
+    "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025"
+  },
+  "governance_bindings": {
+    "pcg03c_human_adoption_receipt_blob": "032db75ddfdb94d1184c9a8656dc60b10530b24d",
+    "pcg03c_final_closure_blob": "04727845aeed557c27c41af609f44111b4cde307",
+    "dc01_final_readiness_receipt_blob": "3538cc0af1067f8387c415db08a3b8ee8c5e3ccb",
+    "dc01_final_closure_blob": "08c196054f1937ee0a903928017995dc7aaa7798",
+    "conditioned_claim_contract_blob": "57a85a5aa7b32e9d0bf63aa75d37974a8eca6649",
+    "conditioned_estimand_contract_blob": "ac4021a1e16d04493897aa90b7236c3f9107d962",
+    "tcs01_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5"
+  },
+  "frozen_real_source_payload": {
+    "role": "SOLE_FUTURE_NUMERICAL_SOURCE",
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "required_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "expected_schema": "ATDS_SMF_AP1_M03_02_REAL_EXECUTION_V0_1",
+    "expected_status": "M03_REAL_EXECUTION_COMPLETE",
+    "transport_path_is_identity": false,
+    "content_sha256_is_identity": true,
+    "read_authorized_under_dre01_design_freeze": false
+  },
+  "source_lineage": {
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "expected_ap0_files": 61,
+    "expected_ap0_minutes": 1709180,
+    "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+    "population_scope": "CENSUS_OF_ALL_ADMITTED_AP0_MINUTES_IN_EACH_PREDECLARED_AP1_BUCKET",
+    "iid_claim": false,
+    "inference_claim": false,
+    "raw_ap0_read_in_future_dre_execution": false,
+    "lineage_only": true
+  },
+  "m03_procedure_bindings": {
+    "m03_real_execution_plan_blob": "6849e42aef724fa7643fc70715a206632024bd54",
+    "m03_executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "m03_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "quantile_definition": "linear interpolation with h=(n-1)*p",
+    "tail_extrapolation": "FORBIDDEN",
+    "metric": "tick_count",
+    "source_probabilities": [
+      0.5,
+      0.9,
+      0.99
+    ],
+    "required_probability": 0.5
+  },
+  "extraction_bindings": {
+    "bucket_root": "bucket_evidence",
+    "ordered_bucket_ids": [
+      "UTC_YEAR:2022",
+      "UTC_YEAR:2023",
+      "UTC_YEAR:2024",
+      "UTC_YEAR:2025"
+    ],
+    "metric_key": "tick_count",
+    "quantiles_key": "quantiles",
+    "p50_key": "0.5",
+    "n_key": "n",
+    "component_map": {
+      "UTC_YEAR:2022": "R_2022",
+      "UTC_YEAR:2023": "R_2023",
+      "UTC_YEAR:2024": "R_2024",
+      "UTC_YEAR:2025": "R_2025"
+    }
+  },
+  "forbidden_sources": [
+    "RAW_AP0_PARQUET",
+    "NEW_AP0_MANIFEST",
+    "REEXECUTED_M03_PAYLOAD",
+    "M10_PAIRWISE_CONTRAST_RECONSTRUCTION",
+    "AP1_DIRECT_PERCENTILE_RECONSTRUCTION",
+    "ANY_UNBOUND_ALTERNATE_PAYLOAD"
+  ],
+  "missing_source_behavior": "BLOCK_WHOLE_EXECUTION",
+  "alternate_source_fallback": false,
+  "source_substitution": false,
+  "authority": {
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "m03_reexecution": false,
+    "estimation_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
