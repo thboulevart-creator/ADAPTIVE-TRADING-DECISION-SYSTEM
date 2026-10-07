@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_03_PERSISTED_HEAD_REBREAK_V0_1",
+  "control_id": "AO-E0-M06-AMEND-03",
+  "date": "2026-10-07",
+  "qualified_application_head": "4f12442a736a8f65456e28d85678175210e57e4e",
+  "qualified_application_tree": "3b5de46b0b39fd73e2ed3ffe961a382f3f3fbf53",
+  "parent_head": "7d6970c71b77b0dce6b475015c35a52101635887",
+  "commit_count_from_parent": 1,
+  "changed_files": 13,
+  "canonical_ci": {
+    "workflow": "AO-E0 M06-AMEND-03 Application Qualification",
+    "run_id": 37633808780,
+    "job_id": 112834643867,
+    "conclusion": "SUCCESS",
+    "m06_amend_03_application": "30/30 PASS",
+    "m06_v0_1_regression": "17/17 PASS",
+    "dr01_v0_1_regression": "22/22 PASS",
+    "tc01_v0_1_regression": "44/44 PASS",
+    "m06_amend_02_regression": "40/40 PASS",
+    "b12_controller_regression": "23/23 PASS",
+    "owner02_b11_regression": "21/21 PASS",
+    "total": "197/197 PASS"
+  },
+  "historical_v0_1_blobs": {
+    "m06": "95a2e41c1e004e3b4461631060d8b12380983caa",
+    "data01": "7ebb5dc87434776d49966fdfbaba4006d44478ad",
+    "dr01": "7b08d0af9cb733be186ddc2f4fa6ca22768284fd",
+    "tc01": "ac6541b43f71a3dd0415a8d0d9a6efb12b8364c9",
+    "immutability": "PASS"
+  },
+  "v0_2_blobs": {
+    "m06": "eabb5fb48f8cccb14d51fafb125c5b906da1761d",
+    "data01": "3ad012886be330f1fc6af964bfb6b1cd8ce55290",
+    "dr01": "2c245a21e72e4ed75e807e088d717ff71f17732c",
+    "tc01": "22771d1e050ff08da05edaf69c801565f4666142"
+  },
+  "application_verdict": "PASS",
+  "v0_2_future_forward_surface": "BINDING_AFTER_THIS_REBREAK",
+  "real_tc01_forward_read": false,
+  "pipe01_first_performance_read": false,
+  "b12": "CLOSED",
+  "oos_performance_consumption": false,
+  "real_forward_performance_observation": false,
+  "force": false
+}
