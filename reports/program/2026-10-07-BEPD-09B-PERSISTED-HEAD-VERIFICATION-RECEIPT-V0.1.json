@@ -1,0 +1,43 @@
+{
+  "schema": "ATDS_BEPD_09B_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09B",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "verified_head": "f808b8cd0519f6e9cf2c19bfe4747ef2f61335b9",
+  "verified_tree": "fccc1a75a99cb74042c99856ce0a0b7d08422a4a",
+  "verified_blobs": {
+    "GOVERNANCE/BEPD-09B-C1-CLAIM-SELECTION-HUMAN-AUTHORIZATION-2026-10-07.md": "4f37fb6160f7f86aedcf3e283d0551af65ad3642",
+    "GOVERNANCE/BEPD-09B-C1-CLAIM-PREREGISTRATION-EXPOSURE-TIME-CONTROL-CONTRACT-V0.1.json": "718075c18982c95a8f95c1672b66b679613b2d60",
+    "GOVERNANCE/BEPD-09B-FROZEN-PREREGISTRATION-BREAKER-CONTRACT-V0.1.json": "8b962a527044a43bd7e5c477bf1c14bde7d3b723",
+    "reports/program/2026-10-07-BEPD-09B-PREREGISTRATION-DESIGN-V0.1.md": "57d8a10cd0f281839bfce99dda948602f135fbb3",
+    "reports/program/2026-10-07-BEPD-09B-DOCUMENTARY-PROGRAMMATIC-QUALIFICATION-RECEIPT-V0.1.json": "a2a1e871d3ee66438e07e9da8aa9836e417d5935",
+    "reports/program/2026-10-07-BEPD-09B-DOCUMENTARY-PROGRAMMATIC-QUALIFICATION-V0.1.md": "2d59c8efb2a9676ab07f81bc0505e9d536f66fe0"
+  },
+  "checks": {
+    "all_package_blob_identities_exact": "PASS",
+    "qualification_53_of_53": "PASS",
+    "hard_fail_breakers_41_of_41": "PASS",
+    "c1_selected_for_preregistration_only": "PASS",
+    "t0_take_h1_close_utc": "PASS",
+    "response_same_week_reintegration": "PASS",
+    "exposure_control_frozen": "PASS",
+    "context_feature_count_4": "PASS",
+    "forward_folds_5": "PASS",
+    "event_iid": false,
+    "real_event_ledger_rows_read": false,
+    "c1_real_analysis": false,
+    "model_fit": false,
+    "statistical_test": false,
+    "oos_read": false,
+    "trading_authority": "NONE"
+  },
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "bepd09b_status": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_09B_PREREGISTRATION_PACKAGE_ONLY",
+  "real_c1_execution_opened": false
+}
