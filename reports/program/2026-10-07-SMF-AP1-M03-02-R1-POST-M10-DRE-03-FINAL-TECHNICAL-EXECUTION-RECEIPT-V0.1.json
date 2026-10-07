@@ -1,0 +1,100 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_03_FINAL_TECHNICAL_EXECUTION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+  "status": "REAL_EXECUTION_TECHNICALLY_QUALIFIED_PENDING_HUMAN_SCIENTIFIC_ADJUDICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "canonical_parent": {
+    "head": "a3425339662572aeac6d5b25b8fc37b7cb919f85",
+    "tree": "8c722c268428f182a9e213835355a1b2a732012e"
+  },
+  "evidence_blobs": {
+    "human_authorization_receipt": "8726046c813eaba3bbd6865da6c8797925dc1dce",
+    "environment_manifest": "0803241e965820275fbd52793150a78d7ce31031",
+    "source_identity_receipt": "4d18fa897481cc0b8409977bf0f28c10800da946",
+    "primary_result": "e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a",
+    "reference_result": "e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a",
+    "parity": "fedd751f235f5514c6f12abb4775ee7cce71df39",
+    "execution_receipt": "92e6ead36c66d02fc3b8f53b122c4afade609fe1",
+    "result_integrity_test": "eedefce178f094ca30b49e663bf8ed64011cd2b3",
+    "result_integrity_workflow": "65e61ae6073a35bd2e32732c3ed523fd3086d273",
+    "cr1_persistence_correction": "806cb32696ba9eaba100fe65896f58425ae7fc57"
+  },
+  "execution": {
+    "real_source_identity": "EXACT_MATCH",
+    "source_read_count": 1,
+    "source_copy_count": 0,
+    "alternate_source_read_count": 0,
+    "raw_ap0_read_count": 0,
+    "m03_reexecution_count": 0,
+    "primary_real_execution_count": 1,
+    "reference_real_execution_count": 1,
+    "retry_count": 0,
+    "primary_result_sha256": "d965cec1a01c7d130a49974b481abf43b874835be999460df93becbb452d556f",
+    "reference_result_sha256": "d965cec1a01c7d130a49974b481abf43b874835be999460df93becbb452d556f",
+    "semantic_parity": "EXACT",
+    "canonical_byte_parity": "EXACT",
+    "sha256_parity": "EXACT"
+  },
+  "canonical_ci": {
+    "initial_result_integrity_run": {
+      "run_id": 37675974558,
+      "job_id": 112979449875,
+      "conclusion": "failure",
+      "cause": "PERSISTED_RESULT_TERMINAL_NEWLINE_MISSING"
+    },
+    "corrected_result_integrity_run": {
+      "run_id": 37676192881,
+      "job_id": 112980207923,
+      "conclusion": "success"
+    },
+    "correction_classification": "DRE-03-CR1_CANONICAL_TERMINAL_NEWLINE_PERSISTENCE_CORRECTION_ONLY",
+    "real_execution_repeated": false
+  },
+  "scientific_state": {
+    "year_stratified_reference_vector": "TECHNICALLY_QUALIFIED",
+    "R_2022": "MATERIALIZED",
+    "R_2023": "MATERIALIZED",
+    "R_2024": "MATERIALIZED",
+    "R_2025": "MATERIALIZED",
+    "human_scientific_adoption": "NOT_YET_PRONOUNCED"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "descriptive_result": "TECHNICAL_EVIDENCE_ONLY_PENDING_HUMAN_ADJUDICATION",
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "remaining_real_budget": {
+    "source_reads": 0,
+    "primary_executions": 0,
+    "reference_executions": 0,
+    "retries": 0
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-DRE-04",
+    "scope": "REAL_YEAR_STRATIFIED_DESCRIPTIVE_REFERENCE_VECTOR_HUMAN_ADJUDICATION",
+    "status": "CLOSED",
+    "human_adoption": "NOT_YET_PRONOUNCED",
+    "automatic_open": false,
+    "automatic_action": false,
+    "separate_human_decision_required": true
+  },
+  "stop": true,
+  "force": false
+}
