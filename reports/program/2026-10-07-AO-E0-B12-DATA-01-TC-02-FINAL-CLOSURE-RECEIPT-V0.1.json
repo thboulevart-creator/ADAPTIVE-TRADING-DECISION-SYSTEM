@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_TC02_FINAL_CLOSURE_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-TC-02",
+  "date": "2026-10-07",
+  "status": "CLOSED_AFTER_ONE_REAL_STRUCTURAL_READ",
+  "execution": {
+    "real_execution_head": "26ca59b2470b0a4f010c08e63cd61674b8c6990d",
+    "corrected_evidence_head": "21abc19ad30574fb37f0bbc7285b42646fb25070",
+    "persisted_head_rebreak_head": "fa3e18df86fa9f8ec6d3ea52cfb762d47c76bd1b",
+    "persisted_head_rebreak_tree": "6813e8a48531f87a87249deeb46870269a8666bf",
+    "persisted_head_rebreak_blob": "88b67e88d58598c7f0e62c181bb68685725e7f9e",
+    "real_read_count": 1,
+    "tc02_read_token": "CONSUMED"
+  },
+  "result": {
+    "primary_closed_trade_count": 0,
+    "reference_closed_trade_count": 0,
+    "primary_reference_parity": "PASS",
+    "reference_planning_n": 58927,
+    "reference_planning_n_reached": false,
+    "reference_planning_n_is_terminal_authority": false,
+    "bound_input_identity_digest": "22dd2beb5f7f69c26c6c3fdb38f93542f8c445e1095d64335ff9562404706457",
+    "count_trace_digest": "d93cacc9ab7407b51a9587e42467f6081bc850e71c7fead7afc8a1b57a64ca21"
+  },
+  "qualification": {
+    "primary_canonical_run_id": 37658136979,
+    "primary_canonical_job_id": 112918452320,
+    "primary_canonical_conclusion": "SUCCESS",
+    "primary_persisted_evidence_tests": "20/20 PASS",
+    "rebreak_verification_run_id": 37658311314,
+    "rebreak_verification_job_id": 112919044698,
+    "rebreak_verification_conclusion": "SUCCESS",
+    "authority_firewall": "PASS",
+    "output_surface": "COUNT_ONLY",
+    "no_real_data_replay_during_ci": true
+  },
+  "separate_ci_state": {
+    "tc02_claim_scoped_ci": "SUCCESS",
+    "repository_global_ci": "NOT_ALL_GREEN",
+    "p0_4_run_id": 37658136928,
+    "p0_4": "FAILURE_PRE_EXISTING_BERD02_BI5",
+    "p0_6_run_id": 37658136934,
+    "p0_6": "FAILURE_PRE_EXISTING_BERD02_BI5",
+    "data01_documentary_run_id": 37658136985,
+    "data01_documentary": "FAILURE_HISTORICAL_DELTA_GUARD",
+    "failures_relabelled_as_pass": false
+  },
+  "scientific_interpretation": {
+    "closed_trade_count_zero_is_performance_claim": false,
+    "support": "NO_CLAIM",
+    "refute": "NO_CLAIM",
+    "economic_edge": "NO_CLAIM",
+    "strategy_qualified": "NO_CLAIM"
+  },
+  "firewall": {
+    "performance_bearing_read": false,
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "dr01_invoked": false,
+    "m04_m05_real_forward_inference": false,
+    "pipe01_first_performance_read": false,
+    "b12": "CLOSED",
+    "trading": "NOT_AUTHORIZED",
+    "broker_execution": "NOT_AUTHORIZED",
+    "capital_deployment": "NOT_AUTHORIZED",
+    "force": false
+  },
+  "stop": "HUMAN_DECISION_REQUIRED"
+}
