@@ -1,0 +1,72 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_02_TECHNICAL_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-M06-AMEND-02",
+  "qualification_scope": "FIXED_HORIZON_DESIGN_PREREGISTRATION_SYNTHETIC_DOCUMENTARY_ONLY",
+  "verdict": "QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "qualified_head": "29c70163114c42bd5a52b2ec83a497e50522bcf2",
+  "qualified_tree": "10b646f43a352cc46c619552525ae792e7bd463a",
+  "parent_head": "50a1602c92ae6cdb1924d7aa9150696b15ce0e2a",
+  "bindings": {
+    "workflow_blob": "e3ee6f9a4c7742c105b3addac5190a02efa24136",
+    "semantic_diffs_blob": "e0c1f47db071c14cf0e712a64676a8d6ee4b7d03",
+    "fixed_horizon_contract_blob": "7fcfb4758b6366550aa3c15f15266c8560a2091e",
+    "frozen_breakers_blob": "591b953669e3f6d785c584de2812580a99b13195",
+    "human_authorization_receipt_blob": "52d590562eec75f2b845eb203e74573f1e8fc4d9",
+    "design_report_blob": "563ae790f2fd81c3be14ad8153a42b8286571ea9",
+    "pre_ci_human_decision_packet_blob": "505840b7d245746e95cb8e9aeae97d4712893f19",
+    "tests_blob": "e0216300c5615d2a256cd8d366f439b03ed8dae1",
+    "primary_runtime_blob": "3ba4247a8f750f238948910623b96dd7559f4edb",
+    "independent_reference_blob": "750196de6dc779ef92847ec3c3a969f5cc4e7269"
+  },
+  "canonical_ci": {
+    "workflow": "AO-E0 M06-AMEND-02 Fixed Horizon Qualification",
+    "run_id": 37620817257,
+    "job_id": 112790339419,
+    "conclusion": "SUCCESS",
+    "m06_amend_02_tests": "40/40 PASS",
+    "frozen_m06_regression": "17/17 PASS",
+    "frozen_tc01_regression": "44/44 PASS",
+    "total": "101/101 PASS",
+    "governed_source_blobs_unchanged": "PASS",
+    "authority_firewall": "PASS"
+  },
+  "qualified_candidate": {
+    "horizon_type": "FIXED_365D_UTC_CALENDAR_HORIZON",
+    "evidence_start_utc": "2026-10-06T11:00:00Z",
+    "evidence_end_exclusive_utc": "2027-10-06T11:00:00Z",
+    "duration_days": 365,
+    "reference_planning_n": 58927,
+    "m06_role_change": "CANDIDATE_ONLY_REFERENCE_PLANNING_N",
+    "data01_terminal_change": "CANDIDATE_ONLY_FIXED_CALENDAR_END",
+    "dr01_n_lt_58927_change": "CANDIDATE_ONLY_PLANNING_LIMITATION_NOT_AUTOMATIC_BLOCKER",
+    "tc01_role_change": "CANDIDATE_ONLY_DESCRIPTIVE_COUNT_TRACKER"
+  },
+  "repository_wide_ci_observation": {
+    "all_green": false,
+    "p0_4_run_id": 37620816964,
+    "p0_4_conclusion": "FAILURE",
+    "p0_6_run_id": 37620817242,
+    "p0_6_conclusion": "FAILURE",
+    "failure_cause": "PRE_EXISTING_BERD02_BI5_FILES_DETECTED_BY_BROAD_HISTORICAL_GUARDS",
+    "effect_on_scoped_qualification": "RECORDED_SEPARATELY_NOT_RELABELED_AS_PASS"
+  },
+  "authority": {
+    "candidate_human_adoption": false,
+    "actual_amendment_application": false,
+    "m06_change": false,
+    "data01_change": false,
+    "dr01_change": false,
+    "tc01_real_authority_change": false,
+    "real_tc01_forward_read": false,
+    "b12_open": false,
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "stop": "HUMAN_DECISION_REQUIRED_BEFORE_ANY_AMENDMENT_APPLICATION_OR_REAL_FORWARD_READ",
+  "force": false
+}
