@@ -1,0 +1,13 @@
+{
+  "schema": "ATDS_BEPD_09D_REAL_EXECUTION_ENVIRONMENT_RECEIPT_V0_1",
+  "status": "PASS",
+  "python": "3.12.15",
+  "implementation": "CPython",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "zoneinfo_key": "America/New_York",
+  "floating_absolute_tolerance": 0.00002,
+  "structural_design_matrix_absolute_tolerance": 1e-12,
+  "real_data_read_at_receipt_creation": false
+}

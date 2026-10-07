@@ -1,0 +1,25 @@
+{
+  "schema": "ATDS_BEPD_09D_FAILURE_RECEIPT_V0_1",
+  "status": "STOPPED_FAIL_CLOSED",
+  "failure_point": "PRIMARY_MODEL_FIT",
+  "breaker": "MODEL_NONCONVERGENCE",
+  "originating_exception": "bepd09d_primary.BreakerError: MODEL_NONCONVERGENCE",
+  "primary_runtime_location": "tools/bepd09c_runtime.py:fit_logistic -> run_protocol",
+  "real_read_started": true,
+  "whether_any_real_result_was_exposed": false,
+  "whether_primary_executed": true,
+  "whether_reference_executed": false,
+  "whether_parity_was_assessable": false,
+  "discretionary_rerun_authorized": false,
+  "retry_policy_evaluation": {
+    "no_valid_result_exposed": true,
+    "no_scientific_state_changed": true,
+    "no_input_changed": true,
+    "no_model_changed": true,
+    "no_code_changed": true,
+    "no_tolerance_changed": true,
+    "exact_same_run_expected_to_repeat_same_deterministic_nonconvergence": true,
+    "recommended_retry_without_change": false
+  },
+  "trading_authority": "NONE"
+}

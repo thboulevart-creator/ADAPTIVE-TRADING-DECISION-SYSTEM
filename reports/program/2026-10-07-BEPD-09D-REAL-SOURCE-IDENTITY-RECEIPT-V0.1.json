@@ -1,0 +1,10 @@
+{
+  "schema": "ATDS_BEPD_09D_REAL_SOURCE_IDENTITY_RECEIPT_V0_1",
+  "status": "PASS",
+  "path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+  "git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "sha256": "301a621b97fea14a72540d4c2c6da78eb742cc44c5009e44ad98e9f678ca4731",
+  "row_count": 472,
+  "declared_size_bytes": 754544,
+  "evidence_class": "EXPLORATORY_ONLY"
+}

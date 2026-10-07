@@ -1,0 +1,21 @@
+{
+  "schema": "ATDS_BEPD_09D_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "RECORDED",
+  "workflow_run_id": 37675309127,
+  "workflow_job_id": 112977169167,
+  "workflow_attempt": 1,
+  "head_sha": "27af573ab3aff47c79753f656484212ace2ae932",
+  "workflow_name": "BEPD-09D First Real Historical C1 Execution",
+  "workflow_conclusion": "failure",
+  "artifact_id": 11506227470,
+  "artifact_name": "BEPD-09D-real-execution",
+  "artifact_size_bytes": 3572,
+  "artifact_digest_sha256": "4207c020255bfd95044dd549161a6d6180d39bc9c305ab8b0206687acef06ca9",
+  "artifact_files": [
+    "01_FRESH_REAL_EXECUTION_PREFLIGHT_RECEIPT.json",
+    "02_REAL_EXECUTION_ENVIRONMENT_RECEIPT.json",
+    "03_REAL_SOURCE_IDENTITY_RECEIPT.json",
+    "10_FAILURE_RECEIPT.json"
+  ],
+  "rerun_performed": false
+}

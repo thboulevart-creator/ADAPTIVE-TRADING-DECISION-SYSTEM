@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_TECHNICAL_QUALIFICATION_RECEIPT_V0_1",
+  "status": "FAIL_CLOSED",
+  "verdict": "REAL_HISTORICAL_EXPLORATORY_C1_EXECUTION_STOPPED_ON_FROZEN_MODEL_NONCONVERGENCE",
+  "source_identity": "PASS",
+  "environment": "PASS",
+  "admissibility_before_fit": "PASS",
+  "primary_run": "FAIL_CLOSED_MODEL_NONCONVERGENCE",
+  "primary_valid_result": "NONE",
+  "reference_run": "NOT_EXECUTED",
+  "primary_reference_parity": "NOT_ASSESSABLE",
+  "result_surface_exposed": "NO_VALID_C1_RESULT",
+  "evidence_class": "EXPLORATORY_ONLY",
+  "c1_automatic_adoption": false,
+  "c1_automatic_rejection": false,
+  "generalization_established": false,
+  "edge_established": false,
+  "strategy_validated": false,
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "next": "HUMAN_ADJUDICATION_OF_BEPD_09D_TECHNICAL_FAILURE",
+  "stop": true
+}

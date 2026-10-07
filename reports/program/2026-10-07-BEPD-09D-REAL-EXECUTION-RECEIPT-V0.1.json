@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_REAL_EXECUTION_RECEIPT_V0_1",
+  "status": "STOPPED_FAIL_CLOSED",
+  "workflow_run_id": 37675309127,
+  "workflow_job_id": 112977169167,
+  "workflow_attempt": 1,
+  "execution_commit": "27af573ab3aff47c79753f656484212ace2ae932",
+  "workflow_conclusion": "failure",
+  "environment_gate": "PASS",
+  "source_identity_gate": "PASS",
+  "real_row_count_read": 472,
+  "primary_run": "STARTED_AND_STOPPED_ON_MODEL_NONCONVERGENCE",
+  "primary_valid_result": "NONE",
+  "reference_run": "NOT_EXECUTED",
+  "parity": "NOT_ASSESSABLE",
+  "valid_real_c1_result_exposed": false,
+  "execution_pair_completed": false,
+  "evidence_class": "EXPLORATORY_ONLY",
+  "discretionary_rerun_authorized": false,
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "stop": true
+}
