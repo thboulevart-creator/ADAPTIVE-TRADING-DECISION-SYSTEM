@@ -1,0 +1,44 @@
+{
+  "schema": "ATDS_BEPD_09C_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09C",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "verified_qualification_head": "84294f7b030550096d9ab3bb6a5b2a652b5b66be",
+  "verified_qualification_tree": "dd81e8b931e6c2c6fbb5b7e3cca67cee46f0c8bd",
+  "verified_blobs": {
+    "GOVERNANCE/BEPD-09C-HUMAN-AUTHORIZATION-2026-10-07.md": "4d657c06404480d8d1e2ff25165e24febd68f4b8",
+    "GOVERNANCE/BEPD-09C-IMPLEMENTATION-CONTRACT-V0.1.json": "d3c6a4c4d400a8766f58a63211af8d0655be61e6",
+    "GOVERNANCE/BEPD-09C-EXECUTABLE-BREAKER-CONTRACT-V0.1.json": "00d6c9cb4a0fa62ea4fdf98917c3bccf72e6d494",
+    "tools/bepd09c_runtime.py": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "tools/bepd09c_reference.py": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "tools/bepd09c_synthetic_fixture.py": "9c2c4a8bfcbdcd3225c13650463a29fa649104d9",
+    "tests/test_bepd09c_runtime.py": "720b03599a790ff367c448ab916f5d1f9f8eef37",
+    ".github/workflows/bepd-09c-synthetic-qualification.yml": "3ff9b25d72cfa1095cc706907b4f741ad221312b",
+    "reports/program/2026-10-07-BEPD-09C-SYNTHETIC-QUALIFICATION-RECEIPT-V0.1.json": "85f7feaeb0a79aae6ccde9ddb7b784a44758bb7a",
+    "reports/program/2026-10-07-BEPD-09C-SYNTHETIC-QUALIFICATION-V0.1.md": "9d8c46aaf6cc7e83197674911bd4dae2fa5bc3de"
+  },
+  "checks": {
+    "canonical_package_blob_identities": "10 / 10 PASS",
+    "synthetic_qualification": "44 / 44 PASS",
+    "executable_breaker_contract_expected_hard_fail_count": 44,
+    "primary_reference_parity": "PASS",
+    "deterministic_replay": "PASS",
+    "implementation_contract_frozen": "PASS",
+    "real_event_ledger_rows_read": false,
+    "real_c1_row_ingestion": false,
+    "real_c1_model_fit": false,
+    "real_c1_result": false,
+    "fresh_oos_read": false,
+    "trading_authority": "NONE"
+  },
+  "qualification_verdict": "SYNTHETICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_09C_PACKAGE_ONLY",
+  "real_historical_c1_execution_opened": false,
+  "stop": true
+}
