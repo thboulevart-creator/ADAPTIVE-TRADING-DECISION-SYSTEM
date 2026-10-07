@@ -1,0 +1,26 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_03_CR1_PERSISTENCE_CORRECTION_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+  "correction_id": "DRE-03-CR1",
+  "classification": "CANONICAL_TERMINAL_NEWLINE_PERSISTENCE_CORRECTION_ONLY",
+  "detected_by": "POST_PERSISTENCE_STATIC_CI",
+  "original_persisted_primary_blob": "6ed3646aa1a1d5895edd0797234a52fe94469ac3",
+  "original_persisted_reference_blob": "6ed3646aa1a1d5895edd0797234a52fe94469ac3",
+  "corrected_primary_blob": "e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a",
+  "corrected_reference_blob": "e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a",
+  "canonical_result_sha256": "d965cec1a01c7d130a49974b481abf43b874835be999460df93becbb452d556f",
+  "content_semantics_changed": false,
+  "numerical_values_changed": false,
+  "source_read_repeated": false,
+  "primary_real_execution_repeated": false,
+  "reference_real_execution_repeated": false,
+  "retry_count_change": 0,
+  "correction_detail": "RESTORED_SINGLE_TERMINAL_NEWLINE_REQUIRED_BY_FROZEN_CANONICAL_JSON_CONTRACT",
+  "validation": {
+    "targeted_ci_run_id": 37676192881,
+    "targeted_ci_job_id": 112980207923,
+    "conclusion": "success"
+  },
+  "authority_created": "NONE",
+  "force": false
+}
