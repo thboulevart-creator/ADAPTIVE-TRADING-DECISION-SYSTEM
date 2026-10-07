@@ -1,0 +1,309 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_FROZEN_BREAKER_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "status": "FROZEN_DESIGN_ONLY",
+  "minimum_required_breaker_count": 69,
+  "breaker_count": 69,
+  "breakers": [
+    [
+      "DRE01-B01",
+      "EXACT_CONTROL_ID"
+    ],
+    [
+      "DRE01-B02",
+      "UNIQUE_IDENTIFIER_NO_COLLISION"
+    ],
+    [
+      "DRE01-B03",
+      "EXACT_CLAIM_UNIT_TICK_COUNT_P50"
+    ],
+    [
+      "DRE01-B04",
+      "EXACT_CONDITIONED_CLAIM_ID"
+    ],
+    [
+      "DRE01-B05",
+      "EXACT_CONDITIONED_ESTIMAND_ID"
+    ],
+    [
+      "DRE01-B06",
+      "EXACT_DOWNSTREAM_ANALYSIS_ID"
+    ],
+    [
+      "DRE01-B07",
+      "EXACT_TCS01_ID"
+    ],
+    [
+      "DRE01-B08",
+      "PCG03C_HUMAN_ADOPTION_RECEIPT_EXACT"
+    ],
+    [
+      "DRE01-B09",
+      "PCG03C_FINAL_CLOSURE_EXACT"
+    ],
+    [
+      "DRE01-B10",
+      "ROUTE_B_HUMAN_ADOPTED"
+    ],
+    [
+      "DRE01-B11",
+      "TCS01_QUALIFIED_AND_FROZEN"
+    ],
+    [
+      "DRE01-B12",
+      "OLD_POOLED_CLAIM_REMAINS_BLOCKED"
+    ],
+    [
+      "DRE01-B13",
+      "ROUTE_A_REMAINS_NOT_SELECTED"
+    ],
+    [
+      "DRE01-B14",
+      "EXACT_REAL_M03_SOURCE_PATH"
+    ],
+    [
+      "DRE01-B15",
+      "EXACT_REAL_M03_SHA256"
+    ],
+    [
+      "DRE01-B16",
+      "EXACT_M03_SOURCE_SCHEMA"
+    ],
+    [
+      "DRE01-B17",
+      "EXACT_M03_SOURCE_STATUS"
+    ],
+    [
+      "DRE01-B18",
+      "EXACT_DATASET_IDENTITY"
+    ],
+    [
+      "DRE01-B19",
+      "EXACT_AP0_MANIFEST_SHA256"
+    ],
+    [
+      "DRE01-B20",
+      "EXACT_AP0_FILE_COUNT_LINEAGE"
+    ],
+    [
+      "DRE01-B21",
+      "EXACT_AP0_MINUTE_COUNT_LINEAGE"
+    ],
+    [
+      "DRE01-B22",
+      "NO_RAW_AP0_READ"
+    ],
+    [
+      "DRE01-B23",
+      "NO_NEW_AP0_MANIFEST"
+    ],
+    [
+      "DRE01-B24",
+      "NO_M03_REEXECUTION"
+    ],
+    [
+      "DRE01-B25",
+      "NO_ALTERNATE_SOURCE_PAYLOAD"
+    ],
+    [
+      "DRE01-B26",
+      "EXACT_M03_EXECUTION_PLAN_BLOB"
+    ],
+    [
+      "DRE01-B27",
+      "EXACT_M03_EXECUTOR_BLOB"
+    ],
+    [
+      "DRE01-B28",
+      "EXACT_M03_BINDING_BLOB"
+    ],
+    [
+      "DRE01-B29",
+      "EXACT_SMF_CORE_BLOB"
+    ],
+    [
+      "DRE01-B30",
+      "EXACT_SMF_REFERENCE_BLOB"
+    ],
+    [
+      "DRE01-B31",
+      "EXACT_M03_PROCEDURE_REF"
+    ],
+    [
+      "DRE01-B32",
+      "EXACT_QUANTILE_DEFINITION"
+    ],
+    [
+      "DRE01-B33",
+      "TAIL_EXTRAPOLATION_FORBIDDEN"
+    ],
+    [
+      "DRE01-B34",
+      "EXACTLY_FOUR_ORDERED_YEAR_STRATA"
+    ],
+    [
+      "DRE01-B35",
+      "EXACT_YEAR_BUCKET_IDS_2022_2023_2024_2025"
+    ],
+    [
+      "DRE01-B36",
+      "UTC_HALF_OPEN_BOUNDARIES_PRESERVED"
+    ],
+    [
+      "DRE01-B37",
+      "UTC_2021_AND_2026_EXCLUDED"
+    ],
+    [
+      "DRE01-B38",
+      "NO_TIMESTAMP_RECODING_IN_DRE"
+    ],
+    [
+      "DRE01-B39",
+      "NO_DYNAMIC_GROUPING"
+    ],
+    [
+      "DRE01-B40",
+      "NO_STRATUM_MERGING_OR_OVERLAP"
+    ],
+    [
+      "DRE01-B41",
+      "TICK_COUNT_ONLY"
+    ],
+    [
+      "DRE01-B42",
+      "P50_KEY_EXACTLY_0_5"
+    ],
+    [
+      "DRE01-B43",
+      "NO_P50_RECOMPUTATION"
+    ],
+    [
+      "DRE01-B44",
+      "NO_SECOND_INTERPOLATION"
+    ],
+    [
+      "DRE01-B45",
+      "NO_ROUNDING_CAST_NORMALIZATION_OR_TRANSFORM"
+    ],
+    [
+      "DRE01-B46",
+      "EXACT_BUCKET_RESULT_SCHEMA"
+    ],
+    [
+      "DRE01-B47",
+      "BUCKET_ID_MUST_MATCH_EXPECTED_STRATUM"
+    ],
+    [
+      "DRE01-B48",
+      "N_MUST_BE_POSITIVE_INTEGER"
+    ],
+    [
+      "DRE01-B49",
+      "REQUIRED_TICK_COUNT_QUANTILE_KEYS_PRESENT"
+    ],
+    [
+      "DRE01-B50",
+      "P50_FINITE_NUMERIC_NON_BOOLEAN"
+    ],
+    [
+      "DRE01-B51",
+      "BUCKET_PROCEDURE_REF_EXACT"
+    ],
+    [
+      "DRE01-B52",
+      "BUCKET_CORE_BLOB_EXACT"
+    ],
+    [
+      "DRE01-B53",
+      "BUCKET_TAIL_RULE_EXACT"
+    ],
+    [
+      "DRE01-B54",
+      "BUCKET_RESULT_DIGEST_INTEGRITY_IF_DEFINED"
+    ],
+    [
+      "DRE01-B55",
+      "ANY_INVALID_COMPONENT_BLOCKS_WHOLE_EXECUTION"
+    ],
+    [
+      "DRE01-B56",
+      "NO_PARTIAL_VECTOR"
+    ],
+    [
+      "DRE01-B57",
+      "NO_IMPUTATION_OR_CROSS_YEAR_BORROWING"
+    ],
+    [
+      "DRE01-B58",
+      "NO_CROSS_YEAR_AGGREGATION"
+    ],
+    [
+      "DRE01-B59",
+      "FIXED_VECTOR_ORDER"
+    ],
+    [
+      "DRE01-B60",
+      "CANONICAL_JSON_DETERMINISM"
+    ],
+    [
+      "DRE01-B61",
+      "NO_WALL_CLOCK_IN_SCIENTIFIC_RESULT"
+    ],
+    [
+      "DRE01-B62",
+      "NO_RANDOM_LOCALE_TIMEZONE_OR_FS_ORDER_DEPENDENCE"
+    ],
+    [
+      "DRE01-B63",
+      "PRIMARY_REFERENCE_EXACT_OBJECT_PARITY_REQUIRED"
+    ],
+    [
+      "DRE01-B64",
+      "PRIMARY_REFERENCE_EXACT_CANONICAL_BYTE_PARITY_REQUIRED"
+    ],
+    [
+      "DRE01-B65",
+      "FUTURE_EXECUTION_BUDGET_ONE_PRIMARY_ONE_REFERENCE_ZERO_RETRY"
+    ],
+    [
+      "DRE01-B66",
+      "EXPOSED_RESULT_AWARE_NON_PRISTINE_PRESERVED"
+    ],
+    [
+      "DRE01-B67",
+      "M04_M05_M08_M09_M11_REMAIN_CLOSED"
+    ],
+    [
+      "DRE01-B68",
+      "NO_OOS_TRADING_OR_CAPITAL_AUTHORITY"
+    ],
+    [
+      "DRE01-B69",
+      "DESIGN_FREEZE_DOES_NOT_AUTHORIZE_EXECUTION"
+    ]
+  ],
+  "fail_closed": true,
+  "whole_execution_block_on_any_material_breaker": true,
+  "partial_numerical_result_forbidden": true,
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority_ceiling": {
+    "design_freeze": true,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "primary_execution": false,
+    "independent_reference_execution": false,
+    "numerical_estimation": false,
+    "method_activation": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}
