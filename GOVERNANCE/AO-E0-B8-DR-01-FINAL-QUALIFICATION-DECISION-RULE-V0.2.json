@@ -1,0 +1,19 @@
+{
+  "schema":"ATDS_AO_E0_B8_DR_01_FINAL_QUALIFICATION_DECISION_RULE_V0_2",
+  "status":"APPLICATION_CANDIDATE",
+  "historical_v0_1_immutable":true,
+  "before_fixed_horizon_end":"WAIT_NOT_READY",
+  "at_fixed_horizon_end":"RUN_EXISTING_VALIDITY_AND_INFERENCE_GATES",
+  "reference_planning_n":58927,
+  "n_lt_58927":"PLANNING_TARGET_NOT_REACHED_LIMITATION_ONLY",
+  "n_gte_58927":"PLANNING_TARGET_REACHED_ONLY",
+  "n_lt_58927_is_automatic_blocker":false,
+  "new_arbitrary_minimum_n":null,
+  "analyzability_source":"EXISTING_M04_M05_RUNTIME_PRECONDITIONS",
+  "support_path_preserved":true,
+  "refute_path_preserved":true,
+  "inconclusive_is_valid_terminal_outcome":true,
+  "same_experiment_result_driven_extension":false,
+  "b12":"CLOSED",
+  "force":false
+}
