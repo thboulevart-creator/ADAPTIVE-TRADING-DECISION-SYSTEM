@@ -1,0 +1,421 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_02_BREAKER_COVERAGE_MATRIX_V0_1",
+  "breaker_count": 69,
+  "covered_breaker_count": 69,
+  "rows": [
+    {
+      "breaker_id": "DRE01-B01",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_frozen_identities"
+    },
+    {
+      "breaker_id": "DRE01-B02",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_no_identifier_collision"
+    },
+    {
+      "breaker_id": "DRE01-B03",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B04",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B05",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B06",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B07",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B08",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_frozen_identities"
+    },
+    {
+      "breaker_id": "DRE01-B09",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_frozen_identities"
+    },
+    {
+      "breaker_id": "DRE01-B10",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B11",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B12",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_old_pooling_remains_closed"
+    },
+    {
+      "breaker_id": "DRE01-B13",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_old_pooling_remains_closed"
+    },
+    {
+      "breaker_id": "DRE01-B14",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_real_source_path_not_read"
+    },
+    {
+      "breaker_id": "DRE01-B15",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_source_sha_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B16",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_source_schema_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B17",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_source_status_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B18",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_dataset_identity_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B19",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_manifest_identity_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B20",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_file_count_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B21",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_minute_count_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B22",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_raw_ap0_or_quantile_recompute_symbols"
+    },
+    {
+      "breaker_id": "DRE01-B23",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_raw_ap0_or_quantile_recompute_symbols"
+    },
+    {
+      "breaker_id": "DRE01-B24",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_raw_ap0_or_quantile_recompute_symbols"
+    },
+    {
+      "breaker_id": "DRE01-B25",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_source_sha_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B26",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_frozen_identities"
+    },
+    {
+      "breaker_id": "DRE01-B27",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_frozen_identities"
+    },
+    {
+      "breaker_id": "DRE01-B28",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_static_frozen_identities"
+    },
+    {
+      "breaker_id": "DRE01-B29",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_core_blob_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B30",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_reference_is_independent"
+    },
+    {
+      "breaker_id": "DRE01-B31",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_procedure_ref_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B32",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_raw_ap0_or_quantile_recompute_symbols"
+    },
+    {
+      "breaker_id": "DRE01-B33",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_tail_rule_violation_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B34",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_valid_fixture_green_and_extras_ignored"
+    },
+    {
+      "breaker_id": "DRE01-B35",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_valid_fixture_green_and_extras_ignored"
+    },
+    {
+      "breaker_id": "DRE01-B36",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_timestamp_rebucketing"
+    },
+    {
+      "breaker_id": "DRE01-B37",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_valid_fixture_green_and_extras_ignored"
+    },
+    {
+      "breaker_id": "DRE01-B38",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_timestamp_rebucketing"
+    },
+    {
+      "breaker_id": "DRE01-B39",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_dynamic_bucket_discovery"
+    },
+    {
+      "breaker_id": "DRE01-B40",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_dynamic_bucket_discovery"
+    },
+    {
+      "breaker_id": "DRE01-B41",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_metric_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B42",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_missing_p50_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B43",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_raw_ap0_or_quantile_recompute_symbols"
+    },
+    {
+      "breaker_id": "DRE01-B44",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_raw_ap0_or_quantile_recompute_symbols"
+    },
+    {
+      "breaker_id": "DRE01-B45",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_round_cast_transform"
+    },
+    {
+      "breaker_id": "DRE01-B46",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_bucket_schema_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B47",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_bucket_id_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B48",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_invalid_n_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B49",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_missing_quantiles_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B50",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_invalid_p50_values_block"
+    },
+    {
+      "breaker_id": "DRE01-B51",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_procedure_ref_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B52",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_wrong_core_blob_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B53",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_tail_rule_violation_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B54",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_result_digest_mismatch_blocks"
+    },
+    {
+      "breaker_id": "DRE01-B55",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_all_material_failures_are_atomic_blocked"
+    },
+    {
+      "breaker_id": "DRE01-B56",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_all_material_failures_are_atomic_blocked"
+    },
+    {
+      "breaker_id": "DRE01-B57",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_imputation_borrowing_or_aggregation"
+    },
+    {
+      "breaker_id": "DRE01-B58",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_imputation_borrowing_or_aggregation"
+    },
+    {
+      "breaker_id": "DRE01-B59",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B60",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_determinism_repeated_runs"
+    },
+    {
+      "breaker_id": "DRE01-B61",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_scientific_wall_clock"
+    },
+    {
+      "breaker_id": "DRE01-B62",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_no_random_locale_timezone_fs_dependency"
+    },
+    {
+      "breaker_id": "DRE01-B63",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_primary_reference_parity_all_cases"
+    },
+    {
+      "breaker_id": "DRE01-B64",
+      "coverage_type": "EXECUTABLE",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_primary_reference_parity_all_cases"
+    },
+    {
+      "breaker_id": "DRE01-B65",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_real_budget_unconsumed"
+    },
+    {
+      "breaker_id": "DRE01-B66",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B67",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_methods_remain_closed_in_qualification_contract"
+    },
+    {
+      "breaker_id": "DRE01-B68",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_success_schema_exact"
+    },
+    {
+      "breaker_id": "DRE01-B69",
+      "coverage_type": "STATIC",
+      "expected": "PASS_OR_FAIL_CLOSED_AS_APPLICABLE",
+      "test_id": "test_real_budget_unconsumed"
+    }
+  ]
+}
