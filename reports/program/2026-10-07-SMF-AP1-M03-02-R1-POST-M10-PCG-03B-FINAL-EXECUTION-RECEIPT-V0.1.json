@@ -1,0 +1,131 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03B_FINAL_EXECUTION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03B",
+  "status": "TECHNICALLY_QUALIFIED_RESULT_PERSISTED_HUMAN_ADJUDICATION_PENDING",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "execution_persisted_identity": {
+    "head": "56030df00e6f1493ad8ea333ed53070c163f23a2",
+    "tree": "9337c154695daa05ce34f28ff0efb457588aae34"
+  },
+  "bindings": {
+    "pcg03a_final_readiness_receipt_blob": "ac8610c8c89eb2ea7598fee59cc27cf8d1fca947",
+    "pcg03a_final_closure_blob": "e22557226ce2922ce0031fa685846cf09bf1d3fc",
+    "packet_blob": "349e0ea3e98ad24a9d179f06ffeeaea11c36f425",
+    "packet_sha256": "56d3a58c0e236590ebcb13caed0fe98d38fb2bde860b2024b084eceb2351f4b1",
+    "pre_execution_freeze_blob": "5fd6e7937674990d718d328ee4b823b86a09e62e",
+    "pre_execution_freeze_sha256": "c07f9dd77042e9bdbf989333203c99ba4898a4ddb316e1c5d332a80ecd7cf92e",
+    "dc01_final_readiness_receipt_blob": "3538cc0af1067f8387c415db08a3b8ee8c5e3ccb",
+    "dc01_final_closure_blob": "08c196054f1937ee0a903928017995dc7aaa7798",
+    "tcs01_spec_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "pcg01_runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "pcg01_reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "pcg01_breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "result_artifacts": {
+    "primary_result_blob": "b3a9ee10f6c0289e54391a368447a1f80d73ca48",
+    "reference_result_blob": "b3a9ee10f6c0289e54391a368447a1f80d73ca48",
+    "parity_blob": "881791e3a4b33c2fee9e252ab7736595de688ec4",
+    "manifest_blob": "2ad1641f11f5ea7ccbda9739db8041a9ce69068b",
+    "execution_record_blob": "25de57270bea54e8a941c2927e2f6ebcdfcb330e",
+    "technical_qualification_report_blob": "2ffc5eaa07128c427bd4f52c26ace78aa62602f3",
+    "result_integrity_test_blob": "20b876bd4a695ad4b283b798991b00701b4da54f",
+    "workflow_blob": "42f5062ab8d47c51e7127d2badbf0b158f1a7c1d"
+  },
+  "hashes": {
+    "primary_result_sha256": "687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f",
+    "reference_result_sha256": "687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f",
+    "parity_sha256": "5c56332fdee66a2879418f9ca023690983bbb974d9d84b8d21e546da00b1a96a",
+    "run_manifest_sha256": "0084d4b338e0967cffd605860f4f725319783ad0dcd7bf74e907ecc1d4279803"
+  },
+  "execution_counts": {
+    "primary_real_gate_execution": 1,
+    "independent_reference_execution": 1,
+    "retry_count": 0
+  },
+  "exact_gate_result": {
+    "input_classification": "MATERIAL_TEMPORAL_VARIATION",
+    "selected_route": "B",
+    "gate_state": [
+      "ADMISSIBLE_BY_ROUTE_B"
+    ],
+    "route_states": {
+      "B": "ADMISSIBLE_BY_ROUTE_B"
+    },
+    "decision_reason": "ADMISSIBLE_BY_ONE_OR_MORE_QUALIFIED_ROUTES",
+    "block_reason": null,
+    "qualifying_routes": [
+      "B"
+    ],
+    "overall_gate_admissibility": "ADMISSIBLE",
+    "authority_created": "NONE"
+  },
+  "qualification": {
+    "local_result_integrity_and_required_static_regression": "151/151 PASS",
+    "canonical_pcg03b_ci": {
+      "run_id": 37628331983,
+      "job_id": 112815787911,
+      "conclusion": "success"
+    },
+    "transport_ci": {
+      "run_id": 37628331720,
+      "job_id": 112815787424,
+      "conclusion": "success"
+    }
+  },
+  "verdict": {
+    "POST_M10_PCG_03B_EXECUTION": "QUALIFIED",
+    "POST_M10_PCG_03B_PRIMARY_EXECUTION": "PASS",
+    "POST_M10_PCG_03B_REFERENCE_EXECUTION": "PASS",
+    "POST_M10_PCG_03B_REFERENCE_PARITY": "PASS",
+    "POST_M10_PCG_03B_RESULT_INTEGRITY": "QUALIFIED",
+    "POST_M10_PCG_03B_GATE_RESULT": "PERSISTED",
+    "PCG_03B_HUMAN_ADJUDICATION": "PENDING",
+    "REAL_DATA_READ": false,
+    "NUMERICAL_ESTIMATION": false,
+    "CONDITIONING_EXECUTION": false,
+    "YEAR_STRATIFIED_ESTIMATION": false,
+    "NEW_STATISTICAL_METHOD_ACTIVATED": false,
+    "NEW_STATISTICAL_METHOD_EXECUTED": false,
+    "NEW_MARKET_RESULT": false,
+    "OOS_CONSUMPTION": false
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "pooling": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03C",
+    "scope": "FIRST_REAL_ROUTE_B_GOVERNANCE_GATE_RESULT_HUMAN_ADJUDICATION",
+    "separate_human_decision_required": true,
+    "automatic_adoption": false,
+    "automatic_downstream_action": false,
+    "opened": false
+  },
+  "inherited_out_of_scope_ci_debt": {
+    "global_repository_green": "NOT_CLAIMED",
+    "p0_4": "INHERITED_OUT_OF_SCOPE",
+    "p0_6": "INHERITED_OUT_OF_SCOPE"
+  },
+  "stop": true,
+  "force": false
+}

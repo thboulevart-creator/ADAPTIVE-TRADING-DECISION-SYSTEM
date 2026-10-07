@@ -193,3 +193,46 @@ def test_24_result_integrity_test_cannot_execute_gate():
 
 def test_25_record_stop_is_true():
     assert load(RECORD)["stop"] is True
+
+
+FINAL_RECEIPT=ROOT/"reports"/"program"/"2026-10-07-SMF-AP1-M03-02-R1-POST-M10-PCG-03B-FINAL-EXECUTION-RECEIPT-V0.1.json"
+FINAL_CLOSURE=ROOT/"reports"/"program"/"2026-10-07-SMF-AP1-M03-02-R1-POST-M10-PCG-03B-FINAL-TECHNICAL-CLOSURE.md"
+
+def test_26_final_receipt_preserves_pending_human_adjudication_and_closed_pcg03c():
+    r=load(FINAL_RECEIPT)
+    v=r["verdict"]
+    assert r["status"]=="TECHNICALLY_QUALIFIED_RESULT_PERSISTED_HUMAN_ADJUDICATION_PENDING"
+    assert v["POST_M10_PCG_03B_EXECUTION"]=="QUALIFIED"
+    assert v["POST_M10_PCG_03B_PRIMARY_EXECUTION"]=="PASS"
+    assert v["POST_M10_PCG_03B_REFERENCE_EXECUTION"]=="PASS"
+    assert v["POST_M10_PCG_03B_REFERENCE_PARITY"]=="PASS"
+    assert v["POST_M10_PCG_03B_RESULT_INTEGRITY"]=="QUALIFIED"
+    assert v["POST_M10_PCG_03B_GATE_RESULT"]=="PERSISTED"
+    assert v["PCG_03B_HUMAN_ADJUDICATION"]=="PENDING"
+    assert v["REAL_DATA_READ"] is False
+    assert v["NUMERICAL_ESTIMATION"] is False
+    assert v["CONDITIONING_EXECUTION"] is False
+    assert v["YEAR_STRATIFIED_ESTIMATION"] is False
+    assert v["NEW_STATISTICAL_METHOD_ACTIVATED"] is False
+    assert v["NEW_STATISTICAL_METHOD_EXECUTED"] is False
+    assert v["NEW_MARKET_RESULT"] is False
+    assert v["OOS_CONSUMPTION"] is False
+    assert r["method_state"]=={"M04":"CLOSED","M05":"CLOSED","M08":"CLOSED","M09":"CLOSED","M11":"CLOSED"}
+    assert all(x is False for x in r["authority"].values())
+    assert r["next_frontier"]["id"]=="SMF-AP1-M03-02-R1-POST-M10-PCG-03C"
+    assert r["next_frontier"]["separate_human_decision_required"] is True
+    assert r["next_frontier"]["automatic_adoption"] is False
+    assert r["next_frontier"]["automatic_downstream_action"] is False
+    assert r["next_frontier"]["opened"] is False
+    assert r["stop"] is True
+
+def test_27_final_closure_stops_before_human_adjudication_or_estimation():
+    t=FINAL_CLOSURE.read_text(encoding="utf-8")
+    assert "PCG_03B_HUMAN_ADJUDICATION =\nPENDING" in t
+    assert "SMF-AP1-M03-02-R1-POST-M10-PCG-03C =\nCLOSED" in t
+    assert "SEPARATE_HUMAN_DECISION_REQUIRED =\nTRUE" in t
+    assert "AUTOMATIC_ADOPTION =\nFALSE" in t
+    assert "AUTOMATIC_DOWNSTREAM_ACTION =\nFALSE" in t
+    assert "CONDITIONING_EXECUTION =\nFALSE" in t
+    assert "YEAR_STRATIFIED_ESTIMATION =\nFALSE" in t
+    assert t.rstrip().endswith("STOP.")
