@@ -1,0 +1,19 @@
+{
+  "b12": "CLOSED",
+  "force": false,
+  "input_manifest_digest": "89574e7c130849baf6643c019bb9581b5f8ffd972b7953955daa24c2b3646c9b",
+  "performance_bearing_read": false,
+  "primary_output_keys": [
+    "bound_input_identity_digest",
+    "count_trace_digest",
+    "cumulative_closed_trade_count",
+    "reference_planning_n_reached"
+  ],
+  "primary_reference_parity": "PASS",
+  "real_read_count": 1,
+  "reference_planning_n": 58927,
+  "reference_planning_n_is_terminal_authority": false,
+  "schema": "ATDS_TC02_REAL_EXECUTION_RECEIPT_V0_1",
+  "status": "REAL_STRUCTURAL_READ_EXECUTED_ONCE",
+  "tc02_read_token": "CONSUMED"
+}

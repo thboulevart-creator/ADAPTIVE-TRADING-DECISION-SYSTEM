@@ -1,0 +1,26 @@
+{
+  "ap0_forward_manifest_sha256": "9c7d54026a08856485ef1ff59bcea40a358737dfbf1cd30e2c5c05353ab01de6",
+  "b12": "CLOSED",
+  "canonical_head": "b0e4a87d1d357bbcee5d2bbb9a8ccee29ec34d58",
+  "evidence_start_utc": "2026-10-06T11:00:00Z",
+  "first_decision_capable_boundary_utc": "2026-10-06T19:00:00Z",
+  "h1_forward_stream_sha256": "2fcbad3719c3825101f8159ec707c694700c5f14cb7be62c3a2e1f1c9129211c",
+  "h1_identity": "USTECH_E1_H1_MID_CLOSE_GAP_AWARE_V0_1",
+  "h1_rows_supplied": 27,
+  "initial_position": 0,
+  "input_manifest_digest": "89574e7c130849baf6643c019bb9581b5f8ffd972b7953955daa24c2b3646c9b",
+  "max_supplied_continuity_ordinal": 20,
+  "performance_bearing_read": false,
+  "raw_forward_inventory_digest": "504b910a05d8a6420175b016253547faa83bf126099d75ed813f4da6fdfbac0c",
+  "raw_forward_manifest_sha256": "b2fecce7fd607885e6874e27b0afe9dd91ae14f052ef327b1f430c64773d14af",
+  "raw_ticks_supplied": 473533,
+  "read_class": "REAL_FORWARD_STRUCTURAL_COUNT_ONLY",
+  "schema": "ATDS_TC02_REAL_INPUT_MANIFEST_V0_1",
+  "snapshot_end_exclusive_utc": "2026-10-06T20:00:00Z",
+  "v0_2_blobs": {
+    "data01": "3ad012886be330f1fc6af964bfb6b1cd8ce55290",
+    "dr01": "2c245a21e72e4ed75e807e088d717ff71f17732c",
+    "m06": "eabb5fb48f8cccb14d51fafb125c5b906da1761d",
+    "tc01": "22771d1e050ff08da05edaf69c801565f4666142"
+  }
+}

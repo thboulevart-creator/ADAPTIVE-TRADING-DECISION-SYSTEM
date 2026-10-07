@@ -1,0 +1,9 @@
+{
+  "count_parity": true,
+  "pass": true,
+  "primary_closed_trade_count": 0,
+  "primary_reference_planning_n_reached": false,
+  "reference_closed_trade_count": 0,
+  "reference_n_status_parity": true,
+  "reference_reference_planning_n_reached": false
+}

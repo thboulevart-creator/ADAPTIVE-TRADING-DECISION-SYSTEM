@@ -1,0 +1,13 @@
+{
+  "b12": "CLOSED",
+  "fixed_window_enforcement": "PASS",
+  "input_binding": "PASS",
+  "no_dr01_inference": "PASS",
+  "no_performance_exposure": "PASS",
+  "output_surface": "COUNT_ONLY",
+  "primary_reference_parity": "PASS",
+  "schema": "ATDS_TC02_TECHNICAL_QUALIFICATION_V0_1",
+  "stop": "HUMAN_DECISION_REQUIRED",
+  "strategy_qualified": "NO_CLAIM",
+  "tc02_real_structural_read": "PASS"
+}

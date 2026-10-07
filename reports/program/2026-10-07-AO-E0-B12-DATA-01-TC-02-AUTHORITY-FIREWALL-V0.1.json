@@ -1,0 +1,18 @@
+{
+  "b12": "CLOSED",
+  "broker_execution": "NOT_AUTHORIZED",
+  "capital_deployment": "NOT_AUTHORIZED",
+  "dr01_invoked": false,
+  "expectancy_exposed": false,
+  "force": false,
+  "m04_m05_real_forward_inference": false,
+  "oos_performance_consumption": false,
+  "performance_bearing_read": false,
+  "pipe01_first_performance_read": false,
+  "pnl_output_exposed": false,
+  "price_output_exposed": false,
+  "real_forward_performance_observation": false,
+  "returns_exposed": false,
+  "schema": "ATDS_TC02_AUTHORITY_FIREWALL_RECEIPT_V0_1",
+  "trading": "NOT_AUTHORIZED"
+}
