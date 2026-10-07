@@ -1,0 +1,176 @@
+# BEPD-09B-R1 — DOCUMENTARY / PROGRAMMATIC SYNTHETIC REQUALIFICATION V0.1
+
+## Verdict
+
+```text
+BEPD-09B-R1 =
+QUALIFIED_FOR_HUMAN_ADJUDICATION
+
+PROGRAMMATIC CHECKS =
+63 / 63 PASS
+
+HARD-FAIL BREAKERS =
+47 / 47 PRESENT
+```
+
+## Execution boundary
+
+```text
+REAL EVENT_LEDGER ROWS READ =
+NO
+
+REAL C1 MODEL FIT =
+NO
+
+REAL LOGLOSS RESULT =
+NO
+
+REAL BRIER RESULT =
+NO
+
+P-VALUE / CI / BOOTSTRAP / PERMUTATION =
+NO
+
+OOS READ =
+NO
+```
+
+## Exact qualified state
+
+```text
+IMMUTABLE R1 DESIGN COMMIT =
+d82ec257e560ff0d81c30aaa32388816e4b5ccd7
+
+R1 DESIGN TREE =
+9e32134f89399c1449e2b91b27c79a8c97bdcddc
+
+HUMAN ADJUDICATION =
+8d82e737ad2e4373fd04d78f764ead99770733e8
+
+R1 CONTRACT =
+96816b5b04fd41ab392357e496d50fab37007aba
+
+SYNTHETIC FIXTURE =
+88ce8d0477196cff3064a68800eb295c284fc483
+
+R1 BREAKER =
+8f74d43a0f094c93b27a59158e1f6064337ff6b8
+
+R1 DESIGN REPORT =
+d26fbd935b7315bbfcf3cdf65021b1c7e92149f6
+```
+
+## Synthetic mechanism evidence
+
+```text
+NORMAL WEEK =
+168 HOURS / PASS
+
+SPRING DST WEEK =
+167 HOURS / PASS
+
+FALL DST WEEK =
+169 HOURS / PASS
+
+EXPOSURE FRACTION CASES =
+5 / 5 PASS
+
+EXACT SPLINE BASIS CASES =
+4 / 4 PASS
+```
+
+The frozen knot vector is:
+
+```text
+[0.00, 0.25, 0.50, 0.75, 1.00]
+```
+
+The exact restricted/natural cubic basis is frozen and outcome-blind.
+
+No knot selection, model search, interaction search or context-feature search is permitted.
+
+## Baseline/context parity
+
+```text
+BASELINE_R1 EXPOSURE BASIS =
+B0 + B1 + B2 + B3
+
+CONTEXT_R1 EXPOSURE BASIS =
+B0 + B1 + B2 + B3
+
+PARITY =
+EXACT
+```
+
+The models differ only by the four already-frozen T0 context features.
+
+## Preserved scientific boundaries
+
+```text
+C1 =
+PRESERVED
+
+T0 =
+take_h1_close_utc
+
+RESPONSE =
+same_week_reintegration
+
+CONTEXT FEATURES =
+4 / UNCHANGED
+
+FORWARD BLOCKS =
+6 / UNCHANGED
+
+FORWARD FOLDS =
+5 / UNCHANGED
+
+EVENT IID =
+FALSE
+
+PRIMARY ESTIMAND =
+UNCHANGED
+
+SECONDARY ESTIMAND =
+UNCHANGED
+```
+
+## Evidence status
+
+```text
+HISTORICAL CORPUS =
+ALREADY EXPOSED
+
+FUTURE HISTORICAL C1 EXECUTION =
+EXPLORATORY_ONLY
+
+HISTORICAL FORWARD TEST =
+NOT CONFIRMATORY OOS
+
+FRESH OOS =
+CLOSED
+
+PREDICTION VALIDATED =
+NO
+
+GENERALIZATION =
+NOT_ESTABLISHED
+
+EDGE =
+NO
+
+TRADING AUTHORITY =
+NONE
+```
+
+## Next
+
+Persisted-head verification only.
+
+Then:
+
+```text
+STOP FOR HUMAN ADJUDICATION OF BEPD-09B-R1
+```
+
+No real C1 execution is opened by this qualification.

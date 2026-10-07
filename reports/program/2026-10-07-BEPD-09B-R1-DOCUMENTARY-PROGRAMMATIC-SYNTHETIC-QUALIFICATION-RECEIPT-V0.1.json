@@ -1,0 +1,86 @@
+{
+  "schema": "ATDS_BEPD_09B_R1_DOCUMENTARY_PROGRAMMATIC_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09B-R1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "qualified_immutable_commit": "d82ec257e560ff0d81c30aaa32388816e4b5ccd7",
+  "qualified_tree": "9e32134f89399c1449e2b91b27c79a8c97bdcddc",
+  "bindings": {
+    "human_adjudication_blob": "8d82e737ad2e4373fd04d78f764ead99770733e8",
+    "r1_contract_blob": "96816b5b04fd41ab392357e496d50fab37007aba",
+    "synthetic_fixture_blob": "88ce8d0477196cff3064a68800eb295c284fc483",
+    "r1_breaker_blob": "8f74d43a0f094c93b27a59158e1f6064337ff6b8",
+    "r1_design_report_blob": "d26fbd935b7315bbfcf3cdf65021b1c7e92149f6",
+    "bepd09b_v0_1_contract_blob": "718075c18982c95a8f95c1672b66b679613b2d60",
+    "bepd09b_v0_1_qualification_receipt_blob": "a2a1e871d3ee66438e07e9da8aa9836e417d5935"
+  },
+  "qualification_method": {
+    "type": "IMMUTABLE_GITHUB_READBACK_PLUS_PROGRAMMATIC_SYNTHETIC_ASSERTIONS",
+    "synthetic_only": true,
+    "real_event_ledger_rows_read": false,
+    "real_c1_model_fit": false,
+    "real_logloss_result": false,
+    "real_brier_result": false,
+    "statistical_inference": false,
+    "oos_read": false
+  },
+  "totals": {
+    "checks": 63,
+    "pass": 63,
+    "fail": 0,
+    "breaker_hard_fail_expected": 47,
+    "breaker_hard_fail_observed": 47
+  },
+  "synthetic_evidence": {
+    "normal_week_duration_hours": 168,
+    "spring_dst_week_duration_hours": 167,
+    "fall_dst_week_duration_hours": 169,
+    "exposure_fraction_cases": "5/5 PASS",
+    "exact_basis_cases": "4/4 PASS",
+    "invalid_fraction_cases": "4/4 DECLARED FAIL_CLOSED"
+  },
+  "qualified_amendment": {
+    "c1_preserved": true,
+    "t0": "take_h1_close_utc",
+    "response": "same_week_reintegration",
+    "exposure_fraction": "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END / TARGET_WEEK_DURATION_HOURS",
+    "knot_vector": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "exposure_basis_columns": [
+      "B0",
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "basis_standardization": "NONE",
+    "baseline_context_exposure_basis_parity": "EXACT",
+    "context_feature_count": 4,
+    "forward_blocks": 6,
+    "forward_folds": 5,
+    "primary_estimand": "WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT",
+    "secondary_estimand": "WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT"
+  },
+  "evidence_boundary": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "future_historical_c1_execution": "EXPLORATORY_ONLY",
+    "historical_forward_test": "NOT_CONFIRMATORY_OOS",
+    "fresh_oos_authorized": false,
+    "prediction_validated": false,
+    "generalization": "NOT_ESTABLISHED",
+    "edge": false,
+    "trading_authority": "NONE"
+  },
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "verdict": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_action": "PERSISTED_HEAD_VERIFICATION_THEN_HUMAN_ADJUDICATION_ONLY"
+}
