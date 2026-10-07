@@ -1,0 +1,189 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03C_HUMAN_ADJUDICATION_RECORD_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03C",
+  "status": "HUMAN_ADJUDICATION_PRONOUNCED_PENDING_DOCUMENTARY_QUALIFICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_bindings": {
+    "pcg03b_final_execution_receipt_blob": "e8b8af3253d1a4b8ca8f9de12daeb2bafdf6535c",
+    "pcg03b_final_technical_closure_blob": "a35f6044da104bc9b5dd27b96e22e85aa655b120",
+    "primary_result_blob": "b3a9ee10f6c0289e54391a368447a1f80d73ca48",
+    "reference_result_blob": "b3a9ee10f6c0289e54391a368447a1f80d73ca48",
+    "parity_blob": "881791e3a4b33c2fee9e252ab7736595de688ec4",
+    "primary_result_sha256": "687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f",
+    "reference_result_sha256": "687e721aceead052f186df735284005a2dd4e692ba111007f00774dafa3f0f2f"
+  },
+  "technical_evidence_adoption": {
+    "POST_M10_PCG_03B_EXECUTION": "HUMAN_ACCEPTED_AS_TECHNICALLY_QUALIFIED",
+    "POST_M10_PCG_03B_PRIMARY_EXECUTION": "PASS",
+    "POST_M10_PCG_03B_REFERENCE_EXECUTION": "PASS",
+    "POST_M10_PCG_03B_REFERENCE_PARITY": "PASS",
+    "POST_M10_PCG_03B_RESULT_INTEGRITY": "QUALIFIED",
+    "primary_real_gate_execution_count": 1,
+    "independent_reference_execution_count": 1,
+    "retry_count": 0,
+    "primary_reference_semantic_parity": "EXACT",
+    "primary_reference_canonical_byte_parity": "EXACT"
+  },
+  "adopted_gate_result": {
+    "claim_unit": "tick_count p50",
+    "input_classification": "MATERIAL_TEMPORAL_VARIATION",
+    "selected_route": "B",
+    "gate_state": [
+      "ADMISSIBLE_BY_ROUTE_B"
+    ],
+    "route_states": {
+      "B": "ADMISSIBLE_BY_ROUTE_B"
+    },
+    "decision_reason": "ADMISSIBLE_BY_ONE_OR_MORE_QUALIFIED_ROUTES",
+    "block_reason": null,
+    "qualifying_routes": [
+      "B"
+    ],
+    "overall_gate_admissibility": "ADMISSIBLE",
+    "authority_created": "NONE",
+    "PCG_03B_GATE_RESULT": "HUMAN_ADOPTED"
+  },
+  "route_b_adjudication": {
+    "ROUTE_B_ADMISSIBILITY": "HUMAN_ADOPTED",
+    "exact_scope": {
+      "claim_unit": "tick_count p50",
+      "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+      "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+      "conditioning_type": "YEAR_STRATA",
+      "strata": [
+        "UTC_YEAR:2022",
+        "UTC_YEAR:2023",
+        "UTC_YEAR:2024",
+        "UTC_YEAR:2025"
+      ]
+    },
+    "automatic_cross_scope_propagation": false
+  },
+  "admissibility_semantics": {
+    "exclusive_meaning": "THE EXACT CLAIM-SCOPED YEAR_STRATA CONDITIONING DESIGN SATISFIES THE FROZEN PCG ROUTE-B GOVERNANCE ADMISSIBILITY CONDITIONS",
+    "result_class": "CLAIM_SCOPED_GOVERNANCE_GATE_RESULT",
+    "prohibited_promotions": [
+      "YEAR_SPECIFIC_REFERENCE_VALUES",
+      "TEMPORAL_STABILITY",
+      "TEMPORAL_INSTABILITY",
+      "FORMAL_NONSTATIONARITY",
+      "STATIONARITY",
+      "CHANGE_POINT",
+      "STRUCTURAL_BREAK",
+      "MARKET_REGIME",
+      "REGIME_CAUSATION",
+      "PREDICTIVE_VALUE",
+      "GENERALIZATION",
+      "ECONOMIC_EDGE",
+      "PROFITABILITY",
+      "STRATEGY_VALIDITY",
+      "TRADING_EDGE"
+    ]
+  },
+  "original_pooled_claim": {
+    "id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "status": "PRESERVED_AS_BLOCKED",
+    "semantic_rewrite": "FORBIDDEN",
+    "route_a": "NOT_SELECTED",
+    "unconditional_2022_2025_pooling": "NOT_AUTHORIZED"
+  },
+  "conditioned_claim": {
+    "id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "governance_admissibility": "ADMISSIBLE_BY_ROUTE_B",
+    "claim_governance_admissible": true,
+    "scientific_execution": "NOT_EXECUTED",
+    "numerical_result": "NONE",
+    "claim_empirically_estimated": false
+  },
+  "conditioning_spec": {
+    "id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "status": "QUALIFIED_AND_FROZEN",
+    "route_b_admissibility": "HUMAN_ADOPTED",
+    "mutation_authorized": false
+  },
+  "estimands": {
+    "R_2022": {
+      "definition": "p50(tick_count | UTC_YEAR = 2022)",
+      "value": "NOT_ESTIMATED"
+    },
+    "R_2023": {
+      "definition": "p50(tick_count | UTC_YEAR = 2023)",
+      "value": "NOT_ESTIMATED"
+    },
+    "R_2024": {
+      "definition": "p50(tick_count | UTC_YEAR = 2024)",
+      "value": "NOT_ESTIMATED"
+    },
+    "R_2025": {
+      "definition": "p50(tick_count | UTC_YEAR = 2025)",
+      "value": "NOT_ESTIMATED"
+    },
+    "relation": "A_CONDITIONED_REFERENCE_VECTOR",
+    "forbidden_aggregations": [
+      "MEAN_OF_YEAR_REFERENCES",
+      "WEIGHTED_MEAN_OF_YEAR_REFERENCES",
+      "MEDIAN_OF_YEAR_MEDIANS",
+      "POOLED_RECOMPOSITION",
+      "GLOBAL_2022_2025_REFERENCE"
+    ]
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "ROUTE_B_GOVERNANCE_ADMISSIBILITY": "HUMAN_ADOPTED",
+    "pooling": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "real_data_read": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "execution_state": {
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "new_statistical_method_activated": false,
+    "new_statistical_method_executed": false,
+    "new_market_result": false,
+    "oos_consumption": false
+  },
+  "human_closure": {
+    "POST_M10_PCG_03C": "HUMAN_ADOPTED",
+    "PCG_03B_TECHNICAL_RESULT": "HUMAN_ADOPTED",
+    "PCG_03B_GATE_RESULT": "HUMAN_ADOPTED",
+    "ROUTE_B_ADMISSIBILITY": "HUMAN_ADOPTED",
+    "CONDITIONED_DOWNSTREAM_CLAIM": "GOVERNANCE_ADMISSIBLE",
+    "YEAR_STRATA_CONDITIONING_SPEC": "QUALIFIED_AND_FROZEN",
+    "SELECTED_ROUTE": "B",
+    "OLD_POOLED_CLAIM": "PRESERVED_AS_BLOCKED",
+    "AUTOMATIC_DOWNSTREAM_ACTION": false
+  },
+  "next_frontier": {
+    "type": "YEAR_STRATIFIED_DESCRIPTIVE_ESTIMATION_DESIGN_FREEZE",
+    "exact_id": "NOT_YET_ASSIGNED",
+    "next_real_estimation_execution": "CLOSED",
+    "real_data_read": false,
+    "year_stratified_estimation": false,
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "automatic_execution": false
+  },
+  "force": false
+}
