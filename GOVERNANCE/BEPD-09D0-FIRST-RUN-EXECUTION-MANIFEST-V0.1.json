@@ -1,0 +1,31 @@
+{
+  "schema": "ATDS_BEPD_09D0_FIRST_REAL_C1_EXECUTION_MANIFEST_V0_1",
+  "status": "FROZEN_NOT_AUTHORIZED_TO_EXECUTE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "evidence_class": "EXPLORATORY_ONLY",
+  "bindings": {
+    "bepd09b_r1_closure_blob": "b104681e6cda77d726b72c62905ec1820f840553",
+    "bepd09c_closure_blob": "c643cad3093888fd9e88b84b3b3071a7a96ba6b8",
+    "event_ledger_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "event_ledger_declared_sha256": "301a621b97fea14a72540d4c2c6da78eb742cc44c5009e44ad98e9f678ca4731",
+    "run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "source_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "primary_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "independent_reference_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "implementation_contract_blob": "d3c6a4c4d400a8766f58a63211af8d0655be61e6",
+    "executable_breaker_contract_blob": "00d6c9cb4a0fa62ea4fdf98917c3bccf72e6d494",
+    "synthetic_qualification_receipt_blob": "85f7feaeb0a79aae6ccde9ddb7b784a44758bb7a",
+    "persisted_head_verification_blob": "c7638249ce342a8d1d49e200517f8da8f02c4f84"
+  },
+  "frozen_calendar_partition": "BEPD-09D0 259-week B1-B6 manifest",
+  "model_family": "UNREGULARIZED_BINARY_LOGISTIC_REGRESSION",
+  "floating_primary_reference_absolute_tolerance": 0.00002,
+  "structural_design_matrix_absolute_tolerance": 1e-12,
+  "first_execution_pair": "ONE_PRIMARY_RUN_PLUS_ONE_INDEPENDENT_REFERENCE_RUN_ON_EXACT_SAME_FROZEN_INPUT",
+  "automatic_scientific_verdict": false,
+  "real_execution_authorized": false,
+  "post_execution_stop": true,
+  "trading_authority": "NONE"
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "ATDS_BEPD_09D0_CALENDAR_RECONCILIATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "issue": "BEPD-02 build has 260 complete session weeks starting 2021-05-31; the qualified C1 target calendar has 259 weeks starting 2021-06-07.",
+  "structural_evidence": {
+    "bepd02_run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "bepd02_builder_blob": "99279c2bf252105744a18eb721f2fefe9ef883e8",
+    "ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "c1_calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "builder_initial_active_set": "EMPTY",
+    "builder_target_processing_guard": "index > 0",
+    "builder_new_level_creation_order": "new HIGH/LOW levels are created only after target-week opportunity/event processing",
+    "schema_exclusion": "levels created at end of the same target week",
+    "bepd02_complete_week_count": 260,
+    "bepd02_first_complete_week": "2021-05-31",
+    "c1_target_week_count": 259,
+    "c1_first_target_week": "2021-06-07"
+  },
+  "conclusion": "2021-05-31 is the first corpus-born source-level formation week and is intentionally not a C1 target-evaluation week because no corpus-born level can be active at its start.",
+  "c1_calendar": "259-WEEK BEPD-04E BINDING",
+  "response_values_read": false,
+  "model_results_read": false,
+  "adaptive_calendar_change": false,
+  "verdict": "PASS"
+}

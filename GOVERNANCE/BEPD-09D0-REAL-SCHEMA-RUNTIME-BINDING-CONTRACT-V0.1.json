@@ -1,0 +1,97 @@
+{
+  "schema": "ATDS_BEPD_09D0_REAL_SCHEMA_RUNTIME_BINDING_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_REAL_READ",
+  "source_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+  "primary_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "fields": [
+    {
+      "runtime_field": "event_id",
+      "source_field": "event_id",
+      "source_type": "sha256",
+      "source_semantic": "deterministic identity from level_id+take_h1_close_utc",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "target_week_id",
+      "source_field": "target_week_id",
+      "source_type": "date",
+      "source_semantic": "complete session week in which level is consumed",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "sweep_cluster_id",
+      "source_field": "sweep_cluster_id",
+      "source_type": "sha256",
+      "source_semantic": "shared identity for all consumed levels in one target week",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "side",
+      "source_field": "side",
+      "source_type": "enum[HIGH,LOW]",
+      "source_semantic": "copied from level",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "level_price_mid",
+      "source_field": "level_price_mid",
+      "source_type": "float64",
+      "source_semantic": "copied from level",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "take_h1_close_mid",
+      "source_field": "take_h1_close_mid",
+      "source_type": "float64",
+      "source_semantic": "qualified observed H1 close",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "take_h1_close_utc",
+      "source_field": "take_h1_close_utc",
+      "source_type": "timestamp_utc",
+      "source_semantic": "bucket terminal time represented by observed HH:59 minute",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "level_age_weeks",
+      "source_field": "level_age_weeks",
+      "source_type": "int64",
+      "source_semantic": "age at consumption",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "active_level_count_at_target_week_start",
+      "source_field": "active_level_count_at_target_week_start",
+      "source_type": "int64",
+      "source_semantic": "denominator support / opportunity context",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    },
+    {
+      "runtime_field": "same_week_reintegration",
+      "source_field": "same_week_reintegration",
+      "source_type": "bool",
+      "source_semantic": "false retained as valid outcome",
+      "mapping": "DIRECT_IDENTITY",
+      "transformation": "NONE"
+    }
+  ],
+  "frozen_derived_values": {
+    "SIDE_HIGH_INDICATOR": "1 iff side == HIGH, else 0",
+    "SWEEP_OVERSHOOT_RELATIVE": "abs(take_h1_close_mid-level_price_mid)/abs(level_price_mid)",
+    "EXPOSURE_FRACTION": "derived by frozen BEPD-09C runtime from target_week_id + take_h1_close_utc",
+    "SPLINE_BASIS": "derived by frozen BEPD-09C runtime from EXPOSURE_FRACTION"
+  },
+  "no_real_row_used_to_establish_binding": true,
+  "ambiguous_mapping": "FAIL_CLOSED",
+  "unauthorized_transformation": "FAIL_CLOSED"
+}

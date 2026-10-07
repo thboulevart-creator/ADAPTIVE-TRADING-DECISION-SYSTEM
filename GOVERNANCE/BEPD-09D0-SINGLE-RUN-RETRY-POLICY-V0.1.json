@@ -1,0 +1,29 @@
+{
+  "schema": "ATDS_BEPD_09D0_SINGLE_RUN_RETRY_POLICY_V0_1",
+  "status": "FROZEN_PRE_REAL_READ",
+  "first_authorized_execution_pair": {
+    "primary_runs": 1,
+    "independent_reference_runs": 1,
+    "exact_same_frozen_input": true,
+    "governed_as_one_execution_pair": true
+  },
+  "result_exposure": "IRREVERSIBLE_AFTER_EITHER_PATH_EXPOSES_A_REAL_RESULT",
+  "discretionary_rerun": "FORBIDDEN",
+  "forbidden_retry_reasons": [
+    "NEGATIVE_RESULT",
+    "SMALL_DELTA",
+    "WRONG_SIGN",
+    "REFERENCE_DISAGREEMENT",
+    "DISAPPOINTING_PERFORMANCE"
+  ],
+  "breaker_or_infrastructure_failure": "STOP",
+  "retry_without_new_human_decision_requires_all": [
+    "NO_RESULT_EXPOSED",
+    "NO_SCIENTIFIC_STATE_CHANGED",
+    "NO_INPUT_CHANGED",
+    "NO_MODEL_CHANGED",
+    "NO_CODE_CHANGED",
+    "NO_TOLERANCE_CHANGED"
+  ],
+  "otherwise": "NEW_HUMAN_DECISION_REQUIRED"
+}

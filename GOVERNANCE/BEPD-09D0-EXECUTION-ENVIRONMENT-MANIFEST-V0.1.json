@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D0_EXECUTION_ENVIRONMENT_MANIFEST_V0_1",
+  "status": "FROZEN_REQUIREMENT_PRE_REAL_READ",
+  "binding_source": "GOVERNANCE/BEPD-09C-IMPLEMENTATION-CONTRACT-V0.1.json",
+  "binding_blob": "d3c6a4c4d400a8766f58a63211af8d0655be61e6",
+  "required_environment": {
+    "python_family": "CPython",
+    "python_version": "3.12.x",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "timezone_key": "America/New_York",
+    "timezone_provider": "system zoneinfo"
+  },
+  "execution_preflight_must_record": [
+    "exact_python_patch",
+    "platform",
+    "numpy_version",
+    "scipy_version",
+    "zoneinfo_key"
+  ],
+  "mismatch_policy": "FAIL_CLOSED_UNLESS_SEPARATELY_PREQUALIFIED_EQUIVALENCE_EXISTS",
+  "dependency_upgrade_during_bepd09d": "FORBIDDEN"
+}
