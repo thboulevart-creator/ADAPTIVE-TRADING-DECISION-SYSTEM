@@ -1,0 +1,287 @@
+{
+  "schema": "ATDS_BEPD_09B_C1_SAME_WEEK_REINTEGRATION_CLAIM_PREREGISTRATION_EXPOSURE_TIME_CONTROL_V0_1",
+  "control_id": "BEPD-09B",
+  "version": "V0.1",
+  "status": "FROZEN_PRE_RESULT_PREREGISTRATION_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "bindings": {
+    "human_authorization_blob": "4f37fb6160f7f86aedcf3e283d0551af65ad3642",
+    "bepd09a_final_human_adjudication_blob": "5ed041e76e72ec1f334379945396c44ec00e4e7a",
+    "bepd09a_design_contract_blob": "a3a3dd9fae1548de2b5ee6bf76536e68820ba932",
+    "bepd04a_response_semantics_contract_blob": "796bcaec05eb36234074ba4ea871afcd6f784915",
+    "bepd04d_dependence_requirement_map_blob": "c26c6c10894efe5ed068c1a429353b69074435d5",
+    "bepd04e_pre_execution_method_contract_blob": "5b06ee0c863c90af085a55fe145afd6d51c31497",
+    "complete_week_calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "bepd01d_ledger_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185",
+    "bepd02_event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+  },
+  "claim_selection": {
+    "selected_claim": "C1",
+    "selected": true,
+    "prior_rank": 1,
+    "selection_semantic": "NEXT_CLAIM_TO_PREREGISTER_NOT_A_RESULT",
+    "c2_selected": false,
+    "c3_selected": false,
+    "c4_selected": false
+  },
+  "exact_claim": {
+    "question": "Does a fixed prespecified T0-available context set add out-of-forward predictive information about same_week_reintegration beyond the information contained in remaining calendar exposure time alone?",
+    "response": "same_week_reintegration",
+    "response_type": "BOOLEAN",
+    "target_unit": "ONE_QUALIFIED_LEVEL_SWEEP_EVENT",
+    "interpretation": "INCREMENTAL_PREDICTIVE_INFORMATION_CONDITIONAL_ON_EXPOSURE_CONTROL",
+    "causal_claim": false,
+    "trading_claim": false
+  },
+  "response_semantics": {
+    "source_field": "same_week_reintegration",
+    "source_policy": "USE_ALREADY_QUALIFIED_PERSISTED_FIELD_ONLY_IN_ANY_LATER_SEPARATELY_AUTHORIZED_EXECUTION",
+    "true_semantic": "at least one strictly later qualifying H1 close reintegrated the swept Weekly level before end of the same qualified target week",
+    "false_semantic": "no qualifying strict reintegration observed among eligible qualifying H1 closes before target-week end",
+    "false_does_not_mean": [
+      "PRICE_NEVER_REINTEGRATES",
+      "FAILED_TRADE",
+      "LOSS",
+      "INVALID_SWEEP"
+    ],
+    "recompute_from_market_data": false
+  },
+  "decision_time": {
+    "t0_field": "take_h1_close_utc",
+    "semantic": "FIRST_QUALIFYING_H1_CLOSE_AT_WHICH_THE_LEVEL_SWEEP_EVENT_CANONICALLY_EXISTS",
+    "predictor_information_cutoff": "<= T0",
+    "post_t0_predictor_input": "FORBIDDEN"
+  },
+  "exposure_control": {
+    "name": "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END",
+    "formula": "(target_week_end_utc - take_h1_close_utc) / 3600 seconds",
+    "target_week_end_source": "BOUND_COMPLETE_TARGET_WEEK_CALENDAR_WITH_SUNDAY_18_00_AMERICA_NEW_YORK_BOUNDARY",
+    "timezone_semantic": "construct target-week end in America/New_York then convert to UTC; DST handled by timezone rules",
+    "availability": "DETERMINISTIC_AND_KNOWN_AT_T0",
+    "role": "MANDATORY_EXPOSURE_CONTROL_NOT_CONTEXT_SIGNAL",
+    "actual_future_h1_count_as_control": "FORBIDDEN",
+    "post_t0_gap_adjusted_exposure": "FORBIDDEN",
+    "reason": "future observed H1 availability/gaps would use post-T0 information",
+    "validity": [
+      "finite",
+      "strictly_positive"
+    ]
+  },
+  "claim_scoped_predictor_surface": {
+    "baseline_model_inputs": [
+      "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END"
+    ],
+    "context_model_additional_inputs": [
+      "SIDE_HIGH_INDICATOR",
+      "LEVEL_AGE_WEEKS",
+      "ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START",
+      "SWEEP_OVERSHOOT_RELATIVE"
+    ],
+    "definitions": {
+      "SIDE_HIGH_INDICATOR": "1 if side == HIGH; 0 if side == LOW",
+      "LEVEL_AGE_WEEKS": "EVENT_LEDGER.level_age_weeks",
+      "ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START": "EVENT_LEDGER.active_level_count_at_target_week_start",
+      "SWEEP_OVERSHOOT_RELATIVE": "abs(take_h1_close_mid - level_price_mid) / abs(level_price_mid)"
+    },
+    "source_fields_all_available_at_or_before_t0": true,
+    "level_price_mid_zero": "FAIL_CLOSED",
+    "raw_fields_not_predictors": [
+      "source_week_id",
+      "target_week_id",
+      "take_h1_bucket_start_utc",
+      "take_h1_close_utc",
+      "level_price_mid",
+      "take_h1_close_mid",
+      "event_id",
+      "level_id",
+      "sweep_cluster_id"
+    ],
+    "reason_raw_dates_prices_excluded": "avoid calendar-identity and raw-price-level proxying; retain only predeclared claim-scoped contextual features",
+    "additional_features": "FORBIDDEN",
+    "interactions": "FORBIDDEN",
+    "nonlinear_basis_search": "FORBIDDEN",
+    "outcome_driven_feature_selection": "FORBIDDEN"
+  },
+  "future_exploratory_method": {
+    "status": "PREREGISTERED_METHOD_FOR_SEPARATE_FUTURE_AUTHORIZATION_ONLY",
+    "model_family": "UNREGULARIZED_BINARY_LOGISTIC_REGRESSION",
+    "baseline_model": "intercept + standardized REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END",
+    "context_model": "baseline + SIDE_HIGH_INDICATOR + standardized LEVEL_AGE_WEEKS + standardized ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START + standardized SWEEP_OVERSHOOT_RELATIVE",
+    "standardization": {
+      "continuous_inputs": [
+        "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END",
+        "LEVEL_AGE_WEEKS",
+        "ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START",
+        "SWEEP_OVERSHOOT_RELATIVE"
+      ],
+      "rule": "FIT MEAN AND SAMPLE STANDARD DEVIATION ON TRAINING FOLD ONLY; APPLY UNCHANGED TO TEST FOLD",
+      "response_used": false,
+      "zero_or_nonfinite_training_sd": "FAIL_CLOSED"
+    },
+    "regularization": "NONE",
+    "hyperparameter_tuning": "NONE",
+    "variable_selection": "NONE",
+    "interactions": "NONE",
+    "post_result_model_change": "FORBIDDEN",
+    "coefficient_interpretation": "NOT_PRIMARY_RESULT",
+    "separation_or_nonconvergence": "FAIL_CLOSED_NO_FALLBACK_MODEL"
+  },
+  "forward_partition": {
+    "calendar_source": "BOUND_COMPLETE_TARGET_WEEK_CALENDAR",
+    "preserve_empty_calendar_weeks": true,
+    "ordering": "ASCENDING_COMPLETE_TARGET_WEEK_CALENDAR_ORDER",
+    "partition": "SIX_CONTIGUOUS_CALENDAR_BLOCKS_WITH_WEEK_COUNTS_DIFFERING_BY_AT_MOST_ONE; EARLIER BLOCKS RECEIVE ANY REMAINDER",
+    "evaluation_folds": [
+      "FOLD_1: TRAIN BLOCK_1; TEST BLOCK_2",
+      "FOLD_2: TRAIN BLOCKS_1_2; TEST BLOCK_3",
+      "FOLD_3: TRAIN BLOCKS_1_3; TEST BLOCK_4",
+      "FOLD_4: TRAIN BLOCKS_1_4; TEST BLOCK_5",
+      "FOLD_5: TRAIN BLOCKS_1_5; TEST BLOCK_6"
+    ],
+    "future_data_used_to_train_past": false,
+    "target_week_split_across_folds": false,
+    "sweep_cluster_split_across_folds": false,
+    "random_shuffle": false,
+    "fold_definition_outcome_blind": true,
+    "minimum_calendar_blocks": 6,
+    "inadmissible_conditions": [
+      "ANY_TEST_BLOCK_HAS_ZERO_QUALIFIED_EVENTS",
+      "ANY_TRAINING_FOLD_HAS_ONLY_ONE_RESPONSE_CLASS",
+      "ANY_TRAINING_CONTINUOUS_PREDICTOR_HAS_ZERO_OR_NONFINITE_STANDARD_DEVIATION",
+      "MODEL_NONCONVERGENCE_OR_PERFECT_SEPARATION"
+    ],
+    "inadmissible_action": "FAIL_CLOSED_WHOLE_EXECUTION_NO_ADAPTIVE_REPARTITION"
+  },
+  "exact_estimand": {
+    "primary_name": "WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT",
+    "per_event_logloss": "-[y*ln(p)+(1-y)*ln(1-p)]",
+    "probability_clip_for_scoring": "[1e-15, 1-1e-15]",
+    "per_week_loss": "mean event logloss among qualified events in that event-bearing target week",
+    "aggregate_loss": "mean per-week loss across all event-bearing held-out target weeks across the five forward folds",
+    "delta": "BASELINE_AGGREGATE_LOGLOSS - CONTEXT_AGGREGATE_LOGLOSS",
+    "better_direction": "POSITIVE",
+    "interpretation": "incremental predictive information from fixed T0 context beyond exposure-only baseline on the exposed historical corpus",
+    "secondary_name": "WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT",
+    "per_event_brier": "(y-p)^2",
+    "secondary_delta": "BASELINE_AGGREGATE_BRIER - CONTEXT_AGGREGATE_BRIER",
+    "event_weighted_metrics": "DIAGNOSTIC_ONLY",
+    "automatic_success_threshold": "NONE",
+    "automatic_claim_promotion": false
+  },
+  "dependence_handling": {
+    "event_is_iid": false,
+    "primary_dependence_unit": "target_week_id",
+    "sweep_cluster_integrity": "PRESERVED_WITHIN_TARGET_WEEK",
+    "same_target_week_events": "NEVER_SPLIT_ACROSS_TRAIN_TEST",
+    "temporal_order": "PRESERVED",
+    "statistical_inference_from_event_iid": "FORBIDDEN",
+    "note": "week-balanced held-out scoring reduces dominance by multi-event weeks but does not create confirmatory independence"
+  },
+  "missingness_inadmissibility": {
+    "row_dropping": "FORBIDDEN",
+    "imputation": "FORBIDDEN",
+    "predictor_missing": "FAIL_CLOSED",
+    "response_missing": "FAIL_CLOSED",
+    "invalid_side": "FAIL_CLOSED",
+    "nonfinite_numeric": "FAIL_CLOSED",
+    "nonpositive_remaining_exposure": "FAIL_CLOSED",
+    "zero_level_price_for_relative_overshoot": "FAIL_CLOSED",
+    "duplicate_event_id": "FAIL_CLOSED",
+    "target_week_calendar_mismatch": "FAIL_CLOSED",
+    "cluster_week_mismatch": "FAIL_CLOSED"
+  },
+  "multiplicity_feature_selection": {
+    "context_feature_count": 4,
+    "feature_set": "FROZEN",
+    "candidate_model_count": 2,
+    "models": [
+      "EXPOSURE_ONLY_BASELINE",
+      "EXPOSURE_PLUS_FIXED_CONTEXT"
+    ],
+    "subgroup_search": "FORBIDDEN",
+    "feature_importance_search": "FORBIDDEN",
+    "coefficient_sign_hunting": "FORBIDDEN",
+    "threshold_search": "FORBIDDEN",
+    "classification_cutoff_search": "FORBIDDEN",
+    "alternative_model_family_search": "FORBIDDEN",
+    "auc_primary_or_secondary": "FORBIDDEN",
+    "posthoc_interaction_search": "FORBIDDEN"
+  },
+  "exact_future_result_surface": {
+    "allowed": [
+      "SOURCE_IDENTITY_AND_BINDING_CHECKS",
+      "ADMISSIBILITY_COUNTS_AND_FAIL_CLOSED_STATUS",
+      "DETERMINISTIC_CALENDAR_BLOCK_BOUNDARIES",
+      "TRAIN_AND_TEST_EVENT_COUNTS_PER_FOLD",
+      "TRAIN_RESPONSE_CLASS_COUNTS_PER_FOLD",
+      "MODEL_CONVERGENCE_STATUS_PER_FOLD",
+      "WEEK_BALANCED_BASELINE_LOGLOSS_PER_FOLD",
+      "WEEK_BALANCED_CONTEXT_LOGLOSS_PER_FOLD",
+      "WEEK_BALANCED_LOGLOSS_DELTA_PER_FOLD",
+      "WEEK_BALANCED_BASELINE_BRIER_PER_FOLD",
+      "WEEK_BALANCED_CONTEXT_BRIER_PER_FOLD",
+      "WEEK_BALANCED_BRIER_DELTA_PER_FOLD",
+      "AGGREGATE_WEEK_BALANCED_BASELINE_LOGLOSS",
+      "AGGREGATE_WEEK_BALANCED_CONTEXT_LOGLOSS",
+      "PRIMARY_LOGLOSS_IMPROVEMENT_DELTA",
+      "AGGREGATE_WEEK_BALANCED_BASELINE_BRIER",
+      "AGGREGATE_WEEK_BALANCED_CONTEXT_BRIER",
+      "SECONDARY_BRIER_IMPROVEMENT_DELTA",
+      "EVENT_WEIGHTED_LOGLOSS_AND_BRIER_DIAGNOSTICS",
+      "DETERMINISTIC_REPLAY_IDENTITY",
+      "INDEPENDENT_REFERENCE_PARITY"
+    ],
+    "forbidden": [
+      "P_VALUE",
+      "CONFIDENCE_INTERVAL",
+      "BOOTSTRAP_INTERVAL",
+      "PERMUTATION_P_VALUE",
+      "FEATURE_IMPORTANCE",
+      "COEFFICIENT_RANKING",
+      "SUBGROUP_RESULTS",
+      "AUC",
+      "CLASSIFICATION_ACCURACY_AT_SELECTED_THRESHOLD",
+      "OPTIMAL_THRESHOLD",
+      "TP",
+      "SL",
+      "PNL",
+      "TRADING_SIGNAL"
+    ],
+    "automatic_verdict": "NONE_HUMAN_ADJUDICATION_REQUIRED"
+  },
+  "evidence_boundary": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "first_future_historical_execution_if_separately_authorized": "EXPLORATORY_ONLY",
+    "historical_forward_scoring_is_confirmatory_oos": false,
+    "confirmatory_generalization": "REQUIRES_SEPARATELY_PREREGISTERED_FRESH_UNEXPOSED_OOS",
+    "current_oos_consumption_authorized": false,
+    "prediction_validated": false,
+    "generalization": "NOT_ESTABLISHED",
+    "causation": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "current_authority": {
+    "design": true,
+    "preregistration": true,
+    "real_event_ledger_analysis": false,
+    "c1_real_test": false,
+    "model_training": false,
+    "p_value": false,
+    "confidence_interval": false,
+    "bootstrap": false,
+    "permutation_test": false,
+    "oos_read": false,
+    "threshold_optimization": false,
+    "tp_sl": false,
+    "backtest": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_action": "DOCUMENTARY_PROGRAMMATIC_QUALIFICATION_THEN_HUMAN_ADJUDICATION_ONLY",
+  "stop_boundary": "STOP_AFTER_BEPD09B_DESIGN_QUALIFICATION_AND_PERSISTED_HEAD_VERIFICATION"
+}
