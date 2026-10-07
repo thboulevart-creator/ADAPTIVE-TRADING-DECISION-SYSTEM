@@ -1,0 +1,94 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03C_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03C",
+  "status": "HUMAN_ADJUDICATION_CANONICALLY_PERSISTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_state": {
+    "pcg03b_final_execution_receipt_blob": "e8b8af3253d1a4b8ca8f9de12daeb2bafdf6535c",
+    "pcg03b_final_technical_closure_blob": "a35f6044da104bc9b5dd27b96e22e85aa655b120",
+    "primary_result_blob": "b3a9ee10f6c0289e54391a368447a1f80d73ca48",
+    "reference_result_blob": "b3a9ee10f6c0289e54391a368447a1f80d73ca48",
+    "parity_blob": "881791e3a4b33c2fee9e252ab7736595de688ec4"
+  },
+  "pcg03c_artifacts": {
+    "human_adjudication_blob": "a6a480a3a684499a402292a0a3a59e442a98219f",
+    "documentary_qualification_blob": "8411a4567e1b3362b5aafd8b0ac45bc0357be42c",
+    "static_test_blob": "a4007d03e0e714d0849284a0266ba7349b8887c0"
+  },
+  "qualification": {
+    "local_documentary_static_and_required_regression": "178/178 PASS",
+    "canonical_object_rebreak": {
+      "head": "7020103763071dc5359d335be6e33c5e55ed421a",
+      "tree": "cf35f5d183f8a27e5654f62a5cd421a551bb924b",
+      "checks": "30/30 PASS"
+    },
+    "canonical_transport_ci": [
+      {
+        "head": "30f04b0d8a7b289e41e4de95f963423aea4865af",
+        "run_id": 37634371634,
+        "conclusion": "success"
+      },
+      {
+        "head": "8b8a9293376c18b0512e05caf21c8e21439d1b9d",
+        "run_id": 37634440531,
+        "conclusion": "success"
+      }
+    ],
+    "dedicated_pcg03c_workflow": "NOT_CREATED_PLATFORM_SECURITY_BOUNDARY",
+    "dedicated_workflow_pass_claimed": false,
+    "global_repository_green": "NOT_CLAIMED",
+    "inherited_out_of_scope_ci_debt": [
+      "P0.4",
+      "P0.6"
+    ]
+  },
+  "adopted_state": {
+    "POST_M10_PCG_03C": "HUMAN_ADJUDICATION_CANONICALLY_PERSISTED",
+    "PCG_03B_TECHNICAL_RESULT": "HUMAN_ADOPTED",
+    "PCG_03B_GATE_RESULT": "HUMAN_ADOPTED",
+    "ROUTE_B_ADMISSIBILITY": "HUMAN_ADOPTED",
+    "CONDITIONED_DOWNSTREAM_CLAIM": "GOVERNANCE_ADMISSIBLE",
+    "YEAR_STRATA_CONDITIONING_SPEC": "QUALIFIED_AND_FROZEN",
+    "SELECTED_ROUTE": "B"
+  },
+  "estimator_state": {
+    "R_2022": "NOT_ESTIMATED",
+    "R_2023": "NOT_ESTIMATED",
+    "R_2024": "NOT_ESTIMATED",
+    "R_2025": "NOT_ESTIMATED"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "execution_authority": {
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "type": "YEAR_STRATIFIED_DESCRIPTIVE_ESTIMATION_DESIGN_FREEZE",
+    "exact_id": "NOT_YET_ASSIGNED",
+    "execution_closed": true,
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "automatic_execution": false
+  },
+  "stop": true,
+  "force": false
+}
