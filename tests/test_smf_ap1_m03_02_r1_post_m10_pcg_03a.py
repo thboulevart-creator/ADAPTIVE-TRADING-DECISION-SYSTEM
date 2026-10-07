@@ -205,3 +205,48 @@ def test_24_runtime_packet_has_no_governance_metadata():
     assert "dc01_bindings" not in rp
     assert "pcg01_bindings" not in rp
     assert "authority_ceiling" not in rp
+
+
+FREEZE=GOV/"SMF-AP1-M03-02-R1-POST-M10-PCG-03A-PRE-EXECUTION-FREEZE-V0.1.json"
+
+def test_25_pre_execution_freeze_binds_exact_packet_identity():
+    f=load(FREEZE)
+    p=f["packet_identity"]
+    assert p["git_blob"]=="349e0ea3e98ad24a9d179f06ffeeaea11c36f425"
+    assert p["sha256"]=="56d3a58c0e236590ebcb13caed0fe98d38fb2bde860b2024b084eceb2351f4b1"
+    assert p["persisted_head"]=="0fe3a977e529577ceb5a4d8e4df1a44777d22984"
+    assert p["persisted_tree"]=="c29fdc88edfe2b43fae6a061ca041d5bc3bf40fd"
+
+def test_26_pre_execution_freeze_binds_exact_dc01_and_pcg01():
+    f=load(FREEZE)
+    assert f["dc01_bindings"]["final_readiness_receipt_blob"]==EXPECTED["dc01_receipt"]
+    assert f["dc01_bindings"]["final_closure_blob"]==EXPECTED["dc01_closure"]
+    assert f["dc01_bindings"]["temporal_conditioning_spec_blob"]==EXPECTED["tcs01"]
+    assert f["pcg01_execution_bindings"]=={
+      "runtime_blob":EXPECTED["runtime"],
+      "reference_blob":EXPECTED["reference"],
+      "breaker_blob":EXPECTED["pcg01_breaker"],
+    }
+
+def test_27_pre_execution_freeze_preserves_route_b_input_only():
+    s=load(FREEZE)["frozen_application_summary"]
+    assert s["pooling_requested"] is False
+    assert s["conditioning_requested"] is True
+    assert s["preregistered_robust_method_requested"] is False
+    assert s["requested_routes"]==["B"]
+    assert s["temporal_conditioning_spec_status"]=="SPEC_QUALIFIED_AND_FROZEN"
+
+def test_28_pre_execution_freeze_has_no_expected_result_or_execution_authority():
+    f=load(FREEZE)
+    assert f["expected_gate_result"]=="NOT_PREREGISTERED"
+    assert f["route_b_admissible"]=="NOT_YET_ESTABLISHED"
+    assert all(v is False for v in f["authority_ceiling"].values())
+
+def test_29_pcg03b_remains_closed():
+    n=load(FREEZE)["next_frontier"]
+    assert n["id"]=="SMF-AP1-M03-02-R1-POST-M10-PCG-03B"
+    assert n["separate_human_authorization_required"] is True
+    assert n["automatic_open"] is False
+    assert n["automatic_execution"] is False
+    assert n["opened"] is False
+    assert n["executed"] is False

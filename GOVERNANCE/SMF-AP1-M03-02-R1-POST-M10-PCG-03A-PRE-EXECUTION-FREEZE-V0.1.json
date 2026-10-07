@@ -1,0 +1,68 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_PCG_03A_PRE_EXECUTION_FREEZE_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03A",
+  "application_id": "POST_M10-PCG03A-APP01-TICKCOUNT-P50-YEAR-STRATA-2022-2025",
+  "status": "FROZEN_BEFORE_ANY_ROUTE_B_REAL_PCG_EXECUTION",
+  "packet_identity": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-PCG-03A-ROUTE-B-APPLICATION-PACKET-V0.1.json",
+    "git_blob": "349e0ea3e98ad24a9d179f06ffeeaea11c36f425",
+    "sha256": "56d3a58c0e236590ebcb13caed0fe98d38fb2bde860b2024b084eceb2351f4b1",
+    "persisted_head": "0fe3a977e529577ceb5a4d8e4df1a44777d22984",
+    "persisted_tree": "c29fdc88edfe2b43fae6a061ca041d5bc3bf40fd"
+  },
+  "dc01_bindings": {
+    "final_readiness_receipt_blob": "3538cc0af1067f8387c415db08a3b8ee8c5e3ccb",
+    "final_closure_blob": "08c196054f1937ee0a903928017995dc7aaa7798",
+    "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "temporal_conditioning_spec_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5"
+  },
+  "pcg01_execution_bindings": {
+    "runtime_blob": "2b4b96b755293c47efa89522e5509bda4f0c9c73",
+    "reference_blob": "6567e3d7325bfa769e10bc5bf1497b6aa416e3ce",
+    "breaker_blob": "82362c52e52da84d251faeaa12d943d3c236b8b5"
+  },
+  "frozen_application_summary": {
+    "claim_unit": "tick_count p50",
+    "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "requested_temporal_scope": "UTC_YEAR:2022|UTC_YEAR:2023|UTC_YEAR:2024|UTC_YEAR:2025",
+    "pooling_requested": false,
+    "conditioning_requested": true,
+    "preregistered_robust_method_requested": false,
+    "requested_routes": [
+      "B"
+    ],
+    "temporal_conditioning_spec_ref": "GIT_BLOB:b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5",
+    "temporal_conditioning_spec_status": "SPEC_QUALIFIED_AND_FROZEN",
+    "evidence_state_request": "PRESERVE_EXPOSED_NON_PRISTINE",
+    "authority_requests": [],
+    "real_data_dependency_requested": false,
+    "admissibility_basis_claim_unit": "tick_count p50"
+  },
+  "expected_gate_result": "NOT_PREREGISTERED",
+  "route_b_admissible": "NOT_YET_ESTABLISHED",
+  "authority_ceiling": {
+    "pcg_real_runtime_execution": false,
+    "pcg_real_reference_execution": false,
+    "pcg_real_result_creation": false,
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "statistical_method_activation": false,
+    "statistical_method_execution": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-PCG-03B",
+    "scope": "FIRST_REAL_ROUTE_B_CLAIM_SCOPED_GOVERNANCE_GATE_EXECUTION_PLUS_INDEPENDENT_REFERENCE_PARITY",
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "automatic_execution": false,
+    "opened": false,
+    "executed": false
+  },
+  "force": false
+}
