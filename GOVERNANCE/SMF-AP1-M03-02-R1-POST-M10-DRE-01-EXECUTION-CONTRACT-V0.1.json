@@ -1,0 +1,216 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_EXECUTION_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "title": "YEAR_STRATIFIED_DESCRIPTIVE_REFERENCE_EXTRACTION_EXECUTION_CONTRACT",
+  "status": "FROZEN_DESIGN_ONLY",
+  "purpose": "MATERIALIZE_THE_FOUR_COMPONENT_YEAR_CONDITIONED_REFERENCE_VECTOR_FROM_THE_ALREADY_FROZEN_REAL_M03_PAYLOAD_WITHOUT_READING_RAW_AP0_OR_RECOMPUTING_ANY_QUANTILE",
+  "execution_class": "DETERMINISTIC_EXTRACTION_OF_PRECOMPUTED_DESCRIPTIVE_QUANTILES",
+  "scientific_scope": {
+    "claim_unit": "tick_count p50",
+    "claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+    "selected_route": "B",
+    "route_b_admissibility": "HUMAN_ADOPTED"
+  },
+  "design_principle": {
+    "minimality": "REUSE_ALREADY_COMPUTED_M03_YEAR_BUCKET_QUANTILES",
+    "no_raw_recomputation": true,
+    "no_new_statistical_method": true,
+    "no_new_quantile_algorithm": true,
+    "no_cross_year_aggregation": true
+  },
+  "strata_implementation": {
+    "implementation_mode": "EXACT_FROZEN_M03_BUCKET_ID_SELECTION",
+    "source_membership_was_created_by": "M03_UTC_YEAR_BUCKETING_FROM_ADMITTED_AP0_MINUTE_UTC_TIMESTAMP",
+    "dre01_recomputes_timestamp_membership": false,
+    "ordered_strata": [
+      {
+        "id": "UTC_YEAR:2022",
+        "component": "R_2022",
+        "start_utc": "2022-01-01T00:00:00Z",
+        "end_utc": "2023-01-01T00:00:00Z",
+        "interval": "[START,END)"
+      },
+      {
+        "id": "UTC_YEAR:2023",
+        "component": "R_2023",
+        "start_utc": "2023-01-01T00:00:00Z",
+        "end_utc": "2024-01-01T00:00:00Z",
+        "interval": "[START,END)"
+      },
+      {
+        "id": "UTC_YEAR:2024",
+        "component": "R_2024",
+        "start_utc": "2024-01-01T00:00:00Z",
+        "end_utc": "2025-01-01T00:00:00Z",
+        "interval": "[START,END)"
+      },
+      {
+        "id": "UTC_YEAR:2025",
+        "component": "R_2025",
+        "start_utc": "2025-01-01T00:00:00Z",
+        "end_utc": "2026-01-01T00:00:00Z",
+        "interval": "[START,END)"
+      }
+    ],
+    "excluded_partial_years": [
+      "UTC_YEAR:2021",
+      "UTC_YEAR:2026"
+    ],
+    "dynamic_grouping": false,
+    "timezone_reassignment": false,
+    "stratum_merge": false,
+    "overlap_allowed": false,
+    "cross_year_duplication_allowed": false
+  },
+  "p50_procedure": {
+    "target_metric": "tick_count",
+    "target_probability": 0.5,
+    "source_quantile_key": "0.5",
+    "source_quantile_definition": "linear interpolation with h=(n-1)*p",
+    "source_procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "source_tail_extrapolation": "FORBIDDEN",
+    "future_dre_operation": "EXTRACT_EXISTING_P50_ONLY",
+    "recompute_quantile_from_observations": false,
+    "interpolate_again": false,
+    "round_value": false,
+    "integer_cast": false,
+    "normalize_value": false,
+    "transform_value": false
+  },
+  "exact_algorithm": [
+    "VERIFY_FRESH_GOVERNED_BRANCH_AND_PRE_EXECUTION_FREEZE",
+    "VERIFY_EXACT_SOURCE_PAYLOAD_SHA256",
+    "PARSE_SOURCE_JSON",
+    "VERIFY_SOURCE_SCHEMA_AND_STATUS",
+    "VERIFY_SOURCE_DATASET_AND_AP0_LINEAGE",
+    "VERIFY_SOURCE_M03_PROCEDURE_IDENTITIES",
+    "FOR_EACH_ORDERED_STRATUM_2022_2023_2024_2025_LOCATE_EXACT_BUCKET_ID",
+    "VERIFY_BUCKET_TICK_COUNT_COMPACT_RESULT_IDENTITY",
+    "VERIFY_BUCKET_ID_EQUALS_EXPECTED_STRATUM",
+    "VERIFY_POSITIVE_INTEGER_N",
+    "VERIFY_EXACT_REQUIRED_QUANTILE_KEY_0_5_EXISTS",
+    "VERIFY_P50_IS_FINITE_NUMERIC_AND_NOT_BOOLEAN",
+    "VERIFY_BUCKET_PROCEDURE_REF_CORE_BLOB_AND_TAIL_RULE",
+    "VERIFY_BUCKET_RESULT_DIGEST_IF_PRESENT_AND_DEFINED_BY_FROZEN_M03_SCHEMA",
+    "COPY_P50_VALUE_WITHOUT_RECOMPUTATION_OR_TRANSFORMATION",
+    "ASSEMBLE_ORDERED_R_2022_R_2023_R_2024_R_2025_VECTOR",
+    "CANONICALIZE_OUTPUT",
+    "INDEPENDENT_REFERENCE_MUST_REPRODUCE_EXACT_OBJECT_AND_CANONICAL_BYTES",
+    "STOP_WITHOUT_ANY_CROSS_YEAR_AGGREGATION_OR_INTERPRETIVE_PROMOTION"
+  ],
+  "validation_rules": {
+    "source_schema": "ATDS_SMF_AP1_M03_02_REAL_EXECUTION_V0_1",
+    "source_status": "M03_REAL_EXECUTION_COMPLETE",
+    "required_source_dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "required_ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "required_bucket_result_schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
+    "required_metric": "tick_count",
+    "required_quantile_keys": [
+      "0.5",
+      "0.9",
+      "0.99"
+    ],
+    "required_probability_key": "0.5",
+    "require_positive_n": true,
+    "finite_numeric_required": true,
+    "boolean_numeric_forbidden": true,
+    "null_p50_forbidden": true,
+    "nan_forbidden": true,
+    "infinity_forbidden": true
+  },
+  "fail_closed_behavior": {
+    "any_required_component_invalid": "BLOCK_WHOLE_EXECUTION",
+    "partial_vector_output": "FORBIDDEN",
+    "imputation": "FORBIDDEN",
+    "adjacent_year_borrowing": "FORBIDDEN",
+    "alternate_source_fallback": "FORBIDDEN",
+    "silent_schema_adaptation": "FORBIDDEN",
+    "silent_probability_key_conversion": "FORBIDDEN",
+    "silent_rounding": "FORBIDDEN",
+    "retry_after_result_exposure": "FORBIDDEN_UNLESS_SEPARATELY_HUMAN_AUTHORIZED"
+  },
+  "determinism": {
+    "canonical_json": {
+      "ensure_ascii": true,
+      "sort_keys": true,
+      "separators": [
+        ",",
+        ":"
+      ],
+      "allow_nan": false,
+      "encoding": "UTF-8",
+      "terminal_newline": true
+    },
+    "fixed_component_order": [
+      "R_2022",
+      "R_2023",
+      "R_2024",
+      "R_2025"
+    ],
+    "random_state": "NONE",
+    "wall_clock_in_scientific_result": false,
+    "locale_dependency": false,
+    "timezone_conversion_during_dre": false,
+    "filesystem_iteration_dependency": false,
+    "concurrency_dependency": false,
+    "floating_point_operation_on_p50": "NONE_EXCEPT_JSON_PARSE_AND_SERIALIZE",
+    "primary_reference_object_parity": "EXACT_REQUIRED",
+    "primary_reference_canonical_byte_parity": "EXACT_REQUIRED"
+  },
+  "future_execution_budget": {
+    "primary_execution_count": 1,
+    "independent_reference_execution_count": 1,
+    "retry_count": 0,
+    "automatic_retry": false
+  },
+  "result_semantics": {
+    "success_class": "DESCRIPTIVE_YEAR_CONDITIONED_REFERENCE_VECTOR",
+    "maximum_interpretation": "EXPOSED_RESULT_AWARE_NON_PRISTINE_DESCRIPTIVE_REFERENCE_MATERIALIZATION",
+    "not_established": [
+      "STATIONARITY",
+      "NONSTATIONARITY",
+      "CHANGE_POINT",
+      "STRUCTURAL_BREAK",
+      "MARKET_REGIME",
+      "REGIME_CAUSATION",
+      "PREDICTIVE_VALUE",
+      "GENERALIZATION",
+      "ECONOMIC_EDGE",
+      "PROFITABILITY",
+      "STRATEGY_VALIDITY",
+      "TRADING_EDGE"
+    ]
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "design_freeze": true,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "extraction_execution": false,
+    "independent_reference_execution": false,
+    "year_stratified_estimation": false,
+    "method_activation": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "separate_human_execution_authorization_required": true,
+  "automatic_execution": false,
+  "force": false
+}
