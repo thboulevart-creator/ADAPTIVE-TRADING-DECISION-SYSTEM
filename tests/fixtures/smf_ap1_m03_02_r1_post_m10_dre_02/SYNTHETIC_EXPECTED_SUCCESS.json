@@ -17,7 +17,7 @@
       "metric": "tick_count",
       "n": 101,
       "probability": 0.5,
-      "source_result_digest": "sha256:0d7be53eb51fee7eb6ed00a958df48375597624dafe79c51d5caf0b03a333b7a",
+      "source_result_digest": "sha256:4c164f86fdc2ddfee6b3a0ae1e1eac6d87efc620ea32cf175a5ecb62a32cfbf7",
       "stratum": "UTC_YEAR:2022",
       "value": 12.5
     },
@@ -26,7 +26,7 @@
       "metric": "tick_count",
       "n": 102,
       "probability": 0.5,
-      "source_result_digest": "sha256:a55282426890b896c0113b1016884faa7bd152dadd13afed7b94d07f8fae8c19",
+      "source_result_digest": "sha256:5214051611fecf9abaf4ff3be8945698864f72133675a4cf414ecc9df63f5f4f",
       "stratum": "UTC_YEAR:2023",
       "value": 13.75
     },
@@ -35,7 +35,7 @@
       "metric": "tick_count",
       "n": 103,
       "probability": 0.5,
-      "source_result_digest": "sha256:bad6bcb8b3693450901b153bb3495e6f183b908cee918cde4f8524be891d015b",
+      "source_result_digest": "sha256:836dae1effbe49232c28361c12780be610ccb22fec42f3da293f7778fe8c253c",
       "stratum": "UTC_YEAR:2024",
       "value": 15
     },
@@ -44,7 +44,7 @@
       "metric": "tick_count",
       "n": 104,
       "probability": 0.5,
-      "source_result_digest": "sha256:d437d27b7869eaaa53f6a5a696032bb8d962b002b05bffc5ee6d66b0eee4f3c4",
+      "source_result_digest": "sha256:b3faadeb6092d789cb1a09e865a2ace9d41a61e4ceb8335eebb0c2105bbfe5e4",
       "stratum": "UTC_YEAR:2025",
       "value": 16.25
     }
