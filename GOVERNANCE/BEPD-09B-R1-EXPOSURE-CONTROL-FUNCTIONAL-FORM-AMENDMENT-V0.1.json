@@ -1,0 +1,175 @@
+{
+  "schema": "ATDS_BEPD_09B_R1_EXPOSURE_CONTROL_FUNCTIONAL_FORM_TARGETED_AMENDMENT_V0_1",
+  "control_id": "BEPD-09B-R1",
+  "status": "FROZEN_PRE_RESULT_TARGETED_AMENDMENT_CANDIDATE",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "bindings": {
+    "human_adjudication_blob": "8d82e737ad2e4373fd04d78f764ead99770733e8",
+    "bepd09b_v0_1_contract_blob": "718075c18982c95a8f95c1672b66b679613b2d60",
+    "bepd09b_v0_1_breaker_blob": "8b962a527044a43bd7e5c477bf1c14bde7d3b723",
+    "bepd09b_v0_1_qualification_receipt_blob": "a2a1e871d3ee66438e07e9da8aa9836e417d5935",
+    "bepd09b_v0_1_persisted_head_verification_blob": "fb4b3e6c41c923320350a96c3e44fc66509203b4",
+    "bepd09a_final_human_adjudication_blob": "5ed041e76e72ec1f334379945396c44ec00e4e7a",
+    "complete_week_calendar_binding_blob": "26385eb2547892df4b87206ad59fc2ba07721354"
+  },
+  "scope": {
+    "amendment_only": "EXPOSURE_CONTROL_FUNCTIONAL_FORM",
+    "all_other_bepd09b_v0_1_frozen_elements_preserved": true,
+    "real_data_read": false,
+    "model_fit": false,
+    "real_result_exposure": false
+  },
+  "c1_preserved": {
+    "selected_claim": "C1",
+    "t0": "take_h1_close_utc",
+    "response": "same_week_reintegration",
+    "exact_question": "Does fixed T0-available context add out-of-forward predictive information about same_week_reintegration beyond remaining exposure time?"
+  },
+  "exposure_definition": {
+    "remaining_calendar_hours_formula": "(target_week_end_utc - take_h1_close_utc) / 3600 seconds",
+    "target_week_duration_hours_formula": "(target_week_end_utc - target_week_start_utc) / 3600 seconds",
+    "exposure_fraction_formula": "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END / TARGET_WEEK_DURATION_HOURS",
+    "week_boundaries": "Sunday 18:00 America/New_York local boundaries from bound complete-week calendar semantics, then converted to UTC",
+    "dst_aware": true,
+    "valid_range": "0 < EXPOSURE_FRACTION <= 1",
+    "nonfinite": "FAIL_CLOSED",
+    "nonpositive": "FAIL_CLOSED",
+    "above_one": "FAIL_CLOSED",
+    "actual_future_h1_count": "FORBIDDEN",
+    "future_gap_adjustment": "FORBIDDEN",
+    "future_market_availability_adjustment": "FORBIDDEN"
+  },
+  "fixed_exposure_basis": {
+    "family": "RESTRICTED_CUBIC_SPLINE_EQUIVALENT_TO_NATURAL_CUBIC_SPLINE",
+    "input": "EXPOSURE_FRACTION",
+    "boundary_knots": [
+      0,
+      1
+    ],
+    "internal_knots": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "full_knot_vector": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "outcome_blind": true,
+    "tuning": false,
+    "cross_validation_for_knots": false,
+    "response_based_knots": false,
+    "alternative_basis_search": false,
+    "positive_cube": "P(x,k) = max(x-k,0)^3",
+    "exact_basis_definition": {
+      "notation": "t1=0, t2=0.25, t3=0.50, t4=0.75, t5=1",
+      "linear_basis": "B0(x) = x",
+      "nonlinear_basis": "For j in {1,2,3}: Bj(x) = P(x,tj) - P(x,t4)*(t5-tj)/(t5-t4) + P(x,t5)*(t4-tj)/(t5-t4)",
+      "ordered_model_columns": [
+        "B0",
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "intercept_separate": true,
+      "extra_scaling": "NONE",
+      "exposure_basis_standardization": "NONE"
+    },
+    "natural_tail_constraint": "The restricted cubic construction is linear beyond the boundary knots by definition.",
+    "basis_column_count": 4
+  },
+  "amended_models": {
+    "family": "UNREGULARIZED_BINARY_LOGISTIC_REGRESSION",
+    "baseline_r1": "intercept + B0(EXPOSURE_FRACTION) + B1(EXPOSURE_FRACTION) + B2(EXPOSURE_FRACTION) + B3(EXPOSURE_FRACTION)",
+    "context_r1": "baseline_r1 + SIDE_HIGH_INDICATOR + standardized LEVEL_AGE_WEEKS + standardized ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START + standardized SWEEP_OVERSHOOT_RELATIVE",
+    "exposure_basis_identical_between_models": true,
+    "context_features": [
+      "SIDE_HIGH_INDICATOR",
+      "LEVEL_AGE_WEEKS",
+      "ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START",
+      "SWEEP_OVERSHOOT_RELATIVE"
+    ],
+    "fifth_context_feature": "FORBIDDEN",
+    "context_continuous_standardization": "TRAINING_FOLD_MEAN_AND_SAMPLE_SD_ONLY; APPLY UNCHANGED TO TEST",
+    "side_standardization": "NONE",
+    "exposure_basis_standardization": "NONE",
+    "regularization": "NONE",
+    "hyperparameter_tuning": "NONE",
+    "interaction_search": "FORBIDDEN",
+    "nonlinear_context_search": "FORBIDDEN",
+    "feature_selection": "FORBIDDEN",
+    "alternative_model_search": "FORBIDDEN",
+    "nonconvergence_or_separation": "FAIL_CLOSED_NO_FALLBACK_MODEL"
+  },
+  "preserved_forward_partition": {
+    "blocks": 6,
+    "block_type": "CONTIGUOUS_COMPLETE_CALENDAR",
+    "folds": [
+      "TRAIN B1 -> TEST B2",
+      "TRAIN B1-B2 -> TEST B3",
+      "TRAIN B1-B3 -> TEST B4",
+      "TRAIN B1-B4 -> TEST B5",
+      "TRAIN B1-B5 -> TEST B6"
+    ],
+    "preserve_empty_calendar_weeks": true,
+    "random_shuffle": false,
+    "target_week_split": false,
+    "sweep_cluster_split": false,
+    "adaptive_repartition": false
+  },
+  "preserved_estimands": {
+    "primary": "WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT",
+    "primary_delta": "BASELINE_R1_AGGREGATE_LOGLOSS - CONTEXT_R1_AGGREGATE_LOGLOSS",
+    "positive_direction": "BETTER_CONTEXT_HELD_OUT_LOGLOSS",
+    "secondary": "WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT",
+    "secondary_delta": "BASELINE_R1_AGGREGATE_BRIER - CONTEXT_R1_AGGREGATE_BRIER",
+    "automatic_success_threshold": "NONE",
+    "automatic_c1_validation": false
+  },
+  "preserved_dependence": {
+    "event_is_iid": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "event_level_iid_inference": "FORBIDDEN"
+  },
+  "preserved_evidence_boundary": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "any_future_historical_c1_execution": "EXPLORATORY_ONLY",
+    "historical_forward_test": "NOT_CONFIRMATORY_OOS",
+    "fresh_unexposed_oos": "REQUIRED_FOR_FUTURE_CONFIRMATORY_GENERALIZATION",
+    "current_oos_read": false,
+    "prediction_validated": false,
+    "generalization": "NOT_ESTABLISHED",
+    "edge": false,
+    "trading_authority": "NONE"
+  },
+  "preserved_result_surface": "EXACTLY_BEPD_09B_V0_1_RESULT_SURFACE_WITH_BASELINE_CONTEXT_LABELS_INTERPRETED_AS_R1_MODELS",
+  "current_authority": {
+    "design": true,
+    "preregistration": true,
+    "synthetic_fixture_qualification": true,
+    "real_event_ledger_read": false,
+    "c1_real_model_fit": false,
+    "real_logloss_result": false,
+    "real_brier_result": false,
+    "p_value": false,
+    "confidence_interval": false,
+    "bootstrap": false,
+    "permutation_test": false,
+    "oos_read": false,
+    "threshold_search": false,
+    "tp_sl": false,
+    "backtest": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "stop_boundary": "STOP_AFTER_BEPD09B_R1_QUALIFICATION_AND_PERSISTED_HEAD_VERIFICATION_FOR_HUMAN_ADJUDICATION"
+}
