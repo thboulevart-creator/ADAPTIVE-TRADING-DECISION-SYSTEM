@@ -1,0 +1,74 @@
+{
+  "schema": "ATDS_BEPD_09B_DOCUMENTARY_PROGRAMMATIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09B",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "qualified_immutable_commit": "2a85c4c9e90ba098e8cd2c6c6af94c495b567de3",
+  "qualified_tree": "ca7569ecb6ee4d98ac3d358ed294c6e21ac2fda4",
+  "bindings": {
+    "human_authorization_blob": "4f37fb6160f7f86aedcf3e283d0551af65ad3642",
+    "preregistration_contract_blob": "718075c18982c95a8f95c1672b66b679613b2d60",
+    "breaker_contract_blob": "8b962a527044a43bd7e5c477bf1c14bde7d3b723",
+    "design_report_blob": "57d8a10cd0f281839bfce99dda948602f135fbb3",
+    "bepd09a_final_human_adjudication_blob": "5ed041e76e72ec1f334379945396c44ec00e4e7a"
+  },
+  "method": {
+    "type": "IMMUTABLE_GITHUB_READBACK_PLUS_PROGRAMMATIC_ASSERTIONS",
+    "real_event_ledger_rows_read": false,
+    "real_c1_analysis": false,
+    "model_fit": false,
+    "statistical_test": false,
+    "p_value": false,
+    "confidence_interval": false,
+    "bootstrap": false,
+    "permutation_test": false,
+    "oos_read": false
+  },
+  "totals": {
+    "checks": 53,
+    "pass": 53,
+    "fail": 0,
+    "breaker_hard_fail_expected": 41,
+    "breaker_hard_fail_observed": 41
+  },
+  "qualified_design": {
+    "selected_claim": "C1",
+    "t0": "take_h1_close_utc",
+    "response": "same_week_reintegration",
+    "exposure_control": "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END",
+    "context_features": [
+      "SIDE_HIGH_INDICATOR",
+      "LEVEL_AGE_WEEKS",
+      "ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START",
+      "SWEEP_OVERSHOOT_RELATIVE"
+    ],
+    "model_comparison": [
+      "EXPOSURE_ONLY_BASELINE",
+      "EXPOSURE_PLUS_FIXED_CONTEXT"
+    ],
+    "forward_evaluation": "SIX_CONTIGUOUS_CALENDAR_BLOCKS / FIVE EXPANDING-WINDOW TEST FOLDS",
+    "primary_estimand": "WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT",
+    "secondary_estimand": "WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT",
+    "automatic_success_threshold": "NONE",
+    "automatic_claim_promotion": false
+  },
+  "evidence_boundary": {
+    "historical_corpus": "ALREADY_EXPOSED",
+    "later_historical_execution_if_authorized": "EXPLORATORY_ONLY",
+    "confirmatory_oos": false,
+    "fresh_oos_authorized": false,
+    "prediction_validated": false,
+    "generalization": "NOT_ESTABLISHED",
+    "edge": false,
+    "strategy_validation": false,
+    "trading_authority": "NONE"
+  },
+  "concurrent_drift_before_receipt_persistence": {
+    "classification": "NONE",
+    "files": []
+  },
+  "verdict": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_action": "PERSISTED_HEAD_VERIFICATION_THEN_HUMAN_ADJUDICATION_ONLY"
+}

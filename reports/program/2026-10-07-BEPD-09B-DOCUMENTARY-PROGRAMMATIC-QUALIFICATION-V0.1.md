@@ -1,0 +1,180 @@
+# BEPD-09B — DOCUMENTARY / PROGRAMMATIC QUALIFICATION V0.1
+
+## Verdict
+
+```text
+BEPD-09B PREREGISTRATION PACKAGE =
+QUALIFIED_FOR_HUMAN_ADJUDICATION
+
+CHECKS =
+53 / 53 PASS
+
+HARD-FAIL BREAKERS =
+41 / 41 PRESENT
+```
+
+No real scientific execution occurred.
+
+```text
+REAL EVENT_LEDGER ROWS READ =
+NO
+
+C1 REAL ANALYSIS =
+NO
+
+MODEL FIT =
+NO
+
+STATISTICAL TEST =
+NO
+
+P-VALUE =
+NO
+
+CONFIDENCE INTERVAL =
+NO
+
+BOOTSTRAP =
+NO
+
+PERMUTATION TEST =
+NO
+
+OOS READ =
+NO
+```
+
+## Qualified package
+
+```text
+IMMUTABLE DESIGN COMMIT =
+2a85c4c9e90ba098e8cd2c6c6af94c495b567de3
+
+DESIGN TREE =
+ca7569ecb6ee4d98ac3d358ed294c6e21ac2fda4
+
+HUMAN AUTHORIZATION =
+4f37fb6160f7f86aedcf3e283d0551af65ad3642
+
+PREREGISTRATION CONTRACT =
+718075c18982c95a8f95c1672b66b679613b2d60
+
+FROZEN BREAKER =
+8b962a527044a43bd7e5c477bf1c14bde7d3b723
+
+DESIGN REPORT =
+57d8a10cd0f281839bfce99dda948602f135fbb3
+```
+
+## Scientific object frozen
+
+```text
+CLAIM =
+C1
+
+T0 =
+take_h1_close_utc
+
+RESPONSE =
+same_week_reintegration
+
+QUESTION =
+DOES FIXED T0 CONTEXT ADD
+OUT-OF-FORWARD PREDICTIVE INFORMATION
+BEYOND REMAINING EXPOSURE TIME ALONE?
+```
+
+Mandatory exposure control:
+
+```text
+REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END
+```
+
+Exactly four additional context features are frozen:
+
+```text
+SIDE_HIGH_INDICATOR
+LEVEL_AGE_WEEKS
+ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START
+SWEEP_OVERSHOOT_RELATIVE
+```
+
+No feature search, interaction search or model-family search is authorized.
+
+## Future method frozen but not executable
+
+```text
+BASELINE MODEL =
+EXPOSURE-ONLY LOGISTIC
+
+CONTEXT MODEL =
+EXPOSURE
++ FIXED FOUR-FEATURE CONTEXT
+
+CALENDAR PARTITION =
+6 CONTIGUOUS BLOCKS
+
+FORWARD TEST FOLDS =
+5
+
+RANDOM SHUFFLE =
+NO
+
+TARGET-WEEK SPLIT =
+NO
+
+SWEEP-CLUSTER SPLIT =
+NO
+```
+
+Primary estimand:
+
+```text
+WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT
+```
+
+Secondary:
+
+```text
+WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT
+```
+
+No automatic success threshold or automatic promotion is defined.
+
+## Evidence boundary
+
+```text
+HISTORICAL CORPUS =
+ALREADY EXPOSED
+
+ANY LATER HISTORICAL C1 EXECUTION =
+EXPLORATORY_ONLY
+
+CONFIRMATORY OOS =
+NO
+
+FRESH OOS AUTHORITY =
+NONE
+
+PREDICTION VALIDATED =
+NO
+
+GENERALIZATION =
+NOT_ESTABLISHED
+
+EDGE =
+NO
+
+TRADING AUTHORITY =
+NONE
+```
+
+## Next
+
+Persisted-head verification only, then separate human adjudication.
+
+No real C1 execution may occur before that decision.
+
+```text
+STOP AFTER PERSISTED-HEAD VERIFICATION
+```
