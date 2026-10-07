@@ -1,0 +1,18 @@
+{
+  "schema":"ATDS_AO_E0_B8_M06_02_SAMPLE_ADEQUACY_PREREGISTRATION_V0_2",
+  "status":"APPLICATION_CANDIDATE",
+  "historical_v0_1_immutable":true,
+  "reference_planning_n":58927,
+  "precision_reference_n":30036,
+  "power_reference_n":58927,
+  "reference_planning_n_is_terminal_authority":false,
+  "reference_planning_n_shortfall_authorizes_extension":false,
+  "m04_required":true,
+  "m05_required":true,
+  "new_arbitrary_minimum_n":null,
+  "evidence_start_utc":"2026-10-06T11:00:00Z",
+  "evidence_end_exclusive_utc":"2027-10-06T11:00:00Z",
+  "real_forward_read":false,
+  "b12":"CLOSED",
+  "force":false
+}
