@@ -1,0 +1,133 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_02_FIXED_HORIZON_CONTRACT_CANDIDATE_V0_1",
+  "control_id": "AO-E0-M06-AMEND-02",
+  "status": "CANDIDATE_NOT_HUMAN_ADOPTED",
+  "scope": "MOMENTUM_V1 / USTECH / H1 / CC05_ECONOMIC_NET_PROFITABILITY",
+  "bindings": {
+    "m06_amend_01_technical_qualification_head": "37391765b673aac1fc4e5c22864e65f1b459ff96",
+    "m06_amend_01_technical_qualification_tree": "84e2b8eb42f63d61d549471fc642c90f06586255",
+    "m06_candidate_blob": "95a2e41c1e004e3b4461631060d8b12380983caa",
+    "m06_human_adoption_blob": "cb2c259de09bf283f7d08a106414944197705d3e",
+    "data01_formation_contract_blob": "7ebb5dc87434776d49966fdfbaba4006d44478ad",
+    "tc01_contract_blob": "ac6541b43f71a3dd0415a8d0d9a6efb12b8364c9",
+    "reference_planning_n": 58927
+  },
+  "horizon": {
+    "type": "FIXED_365D_UTC_CALENDAR_HORIZON",
+    "evidence_start_utc": "2026-10-06T11:00:00Z",
+    "evidence_end_exclusive_utc": "2027-10-06T11:00:00Z",
+    "duration_seconds": 31536000,
+    "duration_hours": 8760,
+    "duration_days": 365,
+    "decision_time_inclusion": "START_INCLUSIVE_END_EXCLUSIVE",
+    "terminal_authority": "FIXED_CALENDAR_END_ONLY",
+    "performance_values_may_determine_end": false,
+    "closed_trade_count_may_determine_end": false,
+    "reference_planning_n_may_determine_end": false,
+    "result_driven_extension": false,
+    "precision_driven_extension": false,
+    "power_driven_extension": false,
+    "near_significance_extension": false
+  },
+  "selection_rationale": {
+    "primary": "MINIMUM_FIXED_HORIZON_SPANNING_ONE_COMPLETE_ANNUAL_CALENDAR_CYCLE",
+    "annual_cycle_reason": [
+      "SEASONAL_MARKET_CALENDAR_COVERAGE",
+      "BOTH_NEW_YORK_DST_STATES_OCCUR_WITHIN_WINDOW",
+      "QUARTER_END_AND_YEAR_END_COVERAGE",
+      "NO_PERFORMANCE_INPUT_REQUIRED"
+    ],
+    "shorter_90d_180d": "REJECTED_DO_NOT_SPAN_COMPLETE_ANNUAL_CYCLE",
+    "longer_730d": "NOT_SELECTED_DOUBLES_LATENCY_WITHOUT_RESOLVING_REFERENCE_N_GAP",
+    "exposed_structural_activity_proxy_used": true,
+    "exposed_structural_activity_proxy_is_performance": false,
+    "expected_closed_trades_at_proxy_rate_for_365d": 129.92880641857434,
+    "expected_closed_trades_at_proxy_rate_is_forecast": false,
+    "expected_closed_trades_at_proxy_rate_role": "FEASIBILITY_ILLUSTRATION_ONLY"
+  },
+  "m06_semantics_candidate": {
+    "final_required_n_current": 58927,
+    "future_role_of_58927": "REFERENCE_PLANNING_N",
+    "mandatory_terminal_authority": false,
+    "planning_precision_target_n": 30036,
+    "planning_power_target_n": 58927,
+    "at_horizon_report": [
+      "ACTUAL_CLOSED_TRADE_COUNT",
+      "REFERENCE_PLANNING_N",
+      "REFERENCE_PLANNING_N_REACHED",
+      "PLANNING_MODEL_PRECISION_HALF_WIDTH_AT_ACTUAL_N",
+      "PLANNING_MODEL_POWER_AT_ACTUAL_N",
+      "M04_M05_VALIDITY_STATUS"
+    ],
+    "observed_forward_variance_used_for_horizon_selection": false,
+    "planning_shortfall_auto_support": false,
+    "planning_shortfall_auto_refute": false,
+    "planning_shortfall_auto_extension": false
+  },
+  "data01_semantics_candidate": {
+    "old_terminal_rule": "FIRST_DECISION_BOUNDARY_AT_OR_AFTER_CUMULATIVE_ADMISSIBLE_CLOSED_FORWARD_TRADES_REACHES_58927",
+    "new_terminal_rule": "FIXED_EVIDENCE_WINDOW_[2026-10-06T11:00:00Z,2027-10-06T11:00:00Z)",
+    "post_end_data_in_current_instance": "FORBIDDEN",
+    "missing_or_incomplete_data": "NO_EXTENSION_CLASSIFY_VALIDITY_OR_DATA_COMPLETENESS_LIMITATION",
+    "instance_materialization_at_or_after_end": true,
+    "performance_based_optional_stopping": false
+  },
+  "dr01_semantics_candidate": {
+    "remove_rule": "N_LT_58927_AUTOMATIC_INCONCLUSIVE_INSUFFICIENT_SAMPLE",
+    "replacement": "FIXED_HORIZON_REACHED_IS_THE_ACQUISITION_COMPLETION_GATE",
+    "n_lt_58927": "PLANNING_TARGET_NOT_REACHED_LIMITATION_ONLY",
+    "n_ge_58927": "PLANNING_TARGET_REACHED_ONLY_NOT_SUPPORT",
+    "minimum_analyzability": "EXISTING_M04_M05_RUNTIME_PRECONDITIONS_ONLY_NO_NEW_NUMERIC_THRESHOLD",
+    "if_inference_not_analyzable": "INCONCLUSIVE_INFERENCE_NOT_ANALYZABLE",
+    "if_validity_gate_blocks": "INCONCLUSIVE_WITH_EXISTING_REASON",
+    "valid_m05_f2_support_or_refute_paths": "PRESERVED",
+    "fixed_horizon_nondecisive": "INCONCLUSIVE",
+    "post_result_extension": "FORBIDDEN"
+  },
+  "tc01_semantics_candidate": {
+    "synthetic_qualification": "PRESERVED",
+    "future_role": "DESCRIPTIVE_COUNT_TRACKER_ONLY",
+    "terminal_authority": false,
+    "required_v0_2_output_semantics": [
+      "cumulative_closed_trade_count",
+      "reference_planning_n_reached",
+      "bound_input_identity_digest",
+      "count_trace_digest"
+    ],
+    "deprecated_as_authority": [
+      "terminal_threshold_reached",
+      "exact_terminal_decision_time_if_reached"
+    ],
+    "real_tc01_read_authorized_now": false
+  },
+  "no_optional_stopping": {
+    "unfavorable_result_authorizes_extension": false,
+    "insufficient_precision_authorizes_extension": false,
+    "n_below_reference_planning_n_authorizes_extension": false,
+    "near_significance_authorizes_extension": false,
+    "support_refute_direction_authorizes_extension": false,
+    "extension_of_same_experiment_after_result_read": false,
+    "new_future_experiment_requires_new_prospective_governance": true
+  },
+  "authority": {
+    "design": true,
+    "preregistration": true,
+    "synthetic_qualification": true,
+    "documentary_qualification": true,
+    "actual_amendment_application": false,
+    "m06_change": false,
+    "data01_change": false,
+    "dr01_change": false,
+    "tc01_real_authority_change": false,
+    "real_tc01_forward_read": false,
+    "b12_open": false,
+    "oos_performance_consumption": false,
+    "real_forward_performance_observation": false,
+    "real_ao_e0_execution": false,
+    "real_smf_execution": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital_deployment": false
+  },
+  "force": false
+}

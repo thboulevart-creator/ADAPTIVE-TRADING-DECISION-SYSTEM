@@ -1,0 +1,68 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_02_EXACT_SEMANTIC_DIFFS_CANDIDATE_V0_1",
+  "control_id": "AO-E0-M06-AMEND-02",
+  "status": "CANDIDATE_NOT_APPLIED",
+  "m06": {
+    "old": {
+      "final_required_n": 58927,
+      "role": "MANDATORY_SAMPLE_ADEQUACY_GATE_AND_DOWNSTREAM_TERMINAL_COUNT_SOURCE"
+    },
+    "candidate_new": {
+      "reference_planning_n": 58927,
+      "role": "REFERENCE_PLANNING_TARGET_ONLY",
+      "mandatory_stopping_authority": false,
+      "at_horizon_reporting": [
+        "actual_closed_trade_count",
+        "reference_planning_n_reached",
+        "planning_model_precision_half_width_at_actual_n",
+        "planning_model_power_at_actual_n"
+      ]
+    }
+  },
+  "data01": {
+    "old": {
+      "end_rule": "FIRST_DECISION_BOUNDARY_AT_OR_AFTER_CUMULATIVE_ADMISSIBLE_CLOSED_FORWARD_TRADES_REACHES_58927",
+      "if_sample_count_below_58927": "WAIT_NOT_READY_NO_PERFORMANCE_OBSERVATION"
+    },
+    "candidate_new": {
+      "evidence_window": "[2026-10-06T11:00:00Z,2027-10-06T11:00:00Z)",
+      "end_rule": "FIXED_CALENDAR_END_EXCLUSIVE",
+      "count_does_not_control_end": true,
+      "data_after_end_for_same_instance": false,
+      "data_gap_does_not_extend_end": true
+    }
+  },
+  "dr01": {
+    "old": {
+      "n_lt_58927": "INCONCLUSIVE_INSUFFICIENT_SAMPLE",
+      "n_ge_58927": "SAMPLE_ADEQUACY_GATE_PASS_ONLY"
+    },
+    "candidate_new": {
+      "before_fixed_horizon_end": "WAIT_NOT_READY",
+      "at_fixed_horizon_end": "RUN_EXISTING_VALIDITY_AND_INFERENCE_GATES",
+      "n_lt_58927": "PLANNING_TARGET_NOT_REACHED_LIMITATION_ONLY",
+      "n_ge_58927": "PLANNING_TARGET_REACHED_LIMITATION_CLEARED_ONLY",
+      "inference_analyzability": "EXISTING_M04_M05_PRECONDITIONS",
+      "valid_support_refute_paths": "PRESERVED",
+      "nondecisive": "INCONCLUSIVE",
+      "extension_after_result": "FORBIDDEN"
+    }
+  },
+  "tc01": {
+    "old": {
+      "purpose": "COUNT_ADMISSIBLE_CLOSED_FORWARD_TRADES_AND_DETERMINE_TERMINAL_DECISION_BOUNDARY",
+      "terminal_threshold_field": "terminal_threshold_reached",
+      "terminal_time_field": "exact_terminal_decision_time_if_reached"
+    },
+    "candidate_new": {
+      "purpose": "DESCRIPTIVE_COUNT_TRACKER_ONLY",
+      "terminal_authority": false,
+      "reference_field": "reference_planning_n_reached",
+      "terminal_time_field": null,
+      "count_output_preserved": true,
+      "identity_digests_preserved": true
+    }
+  },
+  "application_status": "NOT_AUTHORIZED",
+  "force": false
+}

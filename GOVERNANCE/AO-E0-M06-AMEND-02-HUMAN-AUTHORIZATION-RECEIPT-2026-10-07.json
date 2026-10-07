@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_AO_E0_M06_AMEND_02_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-M06-AMEND-02",
+  "date": "2026-10-07",
+  "source_human_decision_sha256": "edea232f1dc969dccf4fec4f8414a458ad86bc7e91f7e0e8612cd625ee36cea5",
+  "m06_amend_01": "HUMAN_ADOPTED",
+  "r4": "ADOPT_FOR_DESIGN_ONLY",
+  "open_m06_amend_02": "AUTHORIZED",
+  "authorized_scope": [
+    "DESIGN",
+    "PREREGISTRATION",
+    "SYNTHETIC_QUALIFICATION",
+    "DOCUMENTARY_QUALIFICATION",
+    "EXACT_PROPOSED_HORIZON",
+    "NONPERFORMANCE_HORIZON_PROVENANCE",
+    "M06_DATA01_DR01_TC01_SEMANTIC_DIFFS",
+    "OPTIONAL_STOPPING_BREAKERS",
+    "RESULT_DRIVEN_EXTENSION_BREAKERS",
+    "INCONCLUSIVE_PATH_TESTS",
+    "DEPENDENCE_PRESERVATION_TESTS",
+    "INDEPENDENT_SYNTHETIC_REPLAY"
+  ],
+  "not_authorized": {
+    "m06_change": true,
+    "data01_change": true,
+    "dr01_change": true,
+    "tc01_real_authority_change": true,
+    "actual_amendment_application": true,
+    "real_tc01_forward_read": true,
+    "pipe01_first_performance_read": true,
+    "oos_performance_consumption": true,
+    "real_forward_performance_observation": true,
+    "b12_open": true,
+    "real_ao_e0_execution": true,
+    "real_smf_execution": true,
+    "trading": true,
+    "broker_execution": true,
+    "capital_deployment": true
+  },
+  "frozen_state": {
+    "m06": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "final_required_n": 58927,
+    "data01_terminal_rule": "UNCHANGED",
+    "dr01": "UNCHANGED",
+    "tc01_real_authority": false,
+    "b12": "CLOSED"
+  },
+  "force": false,
+  "stop": "AFTER_M06_AMEND_02_DESIGN_PREREGISTRATION_SYNTHETIC_DOCUMENTARY_QUALIFICATION_AND_HUMAN_DECISION_PACKET"
+}

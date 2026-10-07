@@ -1,0 +1,67 @@
+name: AO-E0 M06-AMEND-02 Fixed Horizon Qualification
+
+on:
+  push:
+    branches: [integration/system-v1]
+    paths:
+      - 'GOVERNANCE/AO-E0-M06-AMEND-02-*'
+      - 'tools/ao_e0_m06_amend_02_fixed_horizon.py'
+      - 'tools/ao_e0_m06_amend_02_reference.py'
+      - 'tests/test_ao_e0_m06_amend_02.py'
+      - 'reports/program/2026-10-07-AO-E0-M06-AMEND-02-*'
+      - '.github/workflows/ao-e0-m06-amend-02-qualification.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: '1'
+  PYTHONHASHSEED: '0'
+  TZ: UTC
+  LANG: C.UTF-8
+  LC_ALL: C.UTF-8
+
+jobs:
+  qualify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install qualification packages
+        run: python -m pip install --disable-pip-version-check --no-deps -r requirements/qualification.lock.txt
+      - name: M06-AMEND-02 synthetic qualification
+        run: python -m pytest -q tests/test_ao_e0_m06_amend_02.py
+      - name: Frozen M06 regression
+        run: python -m pytest -q tests/test_ao_e0_b8_m06_02.py
+      - name: Frozen TC-01 regression
+        run: python -m pytest -q tests/test_ao_e0_b12_data01_tc01.py
+      - name: Prove governed surfaces unchanged
+        run: |
+          test "$(git rev-parse HEAD:GOVERNANCE/AO-E0-B8-M06-02-SAMPLE-ADEQUACY-PREREGISTRATION-CANDIDATE-V0.1.json)" = "95a2e41c1e004e3b4461631060d8b12380983caa"
+          test "$(git rev-parse HEAD:GOVERNANCE/AO-E0-B8-M06-02-PARAMETER-PREREGISTRATION-HUMAN-ADOPTION-2026-10-06.md)" = "cb2c259de09bf283f7d08a106414944197705d3e"
+          test "$(git rev-parse HEAD:GOVERNANCE/AO-E0-B12-DATA-01-PROSPECTIVE-FORWARD-INSTANCE-FORMATION-CONTRACT-V0.1.json)" = "7ebb5dc87434776d49966fdfbaba4006d44478ad"
+          test "$(git rev-parse HEAD:GOVERNANCE/AO-E0-B12-DATA-01-TC-01-COUNT-ONLY-CONTRACT-V0.1.json)" = "ac6541b43f71a3dd0415a8d0d9a6efb12b8364c9"
+      - name: Authority firewall
+        run: |
+          python - <<'PY'
+          import json
+          c=json.load(open('GOVERNANCE/AO-E0-M06-AMEND-02-FIXED-HORIZON-CONTRACT-CANDIDATE-V0.1.json'))
+          a=c['authority']
+          forbidden=['actual_amendment_application','m06_change','data01_change','dr01_change','tc01_real_authority_change','real_tc01_forward_read','b12_open','oos_performance_consumption','real_forward_performance_observation','real_ao_e0_execution','real_smf_execution','trading','broker_execution','capital_deployment']
+          assert all(a[k] is False for k in forbidden)
+          assert c['horizon']['performance_values_may_determine_end'] is False
+          assert c['horizon']['reference_planning_n_may_determine_end'] is False
+          PY
+      - name: Clean worktree
+        if: always()
+        run: |
+          git diff --exit-code
+          git clean -fd
+          test -z "$(git status --porcelain)"
