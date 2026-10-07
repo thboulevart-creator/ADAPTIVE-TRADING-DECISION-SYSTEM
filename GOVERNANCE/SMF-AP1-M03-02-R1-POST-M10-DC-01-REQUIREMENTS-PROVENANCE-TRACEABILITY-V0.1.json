@@ -1,0 +1,179 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_REQUIREMENTS_PROVENANCE_TRACEABILITY_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "provenance_labels": [
+    "CANONICAL_FACT",
+    "HUMAN_DECISION",
+    "DERIVED_GOVERNANCE_INPUT"
+  ],
+  "material_fields": {
+    "claim_unit": {
+      "value": "tick_count p50",
+      "provenance": "CANONICAL_FACT"
+    },
+    "m10_status": {
+      "value": "MATERIAL_TEMPORAL_VARIATION",
+      "provenance": "CANONICAL_FACT"
+    },
+    "complete_year_set": {
+      "value": [
+        "UTC_YEAR:2022",
+        "UTC_YEAR:2023",
+        "UTC_YEAR:2024",
+        "UTC_YEAR:2025"
+      ],
+      "provenance": "CANONICAL_FACT"
+    },
+    "old_pooled_claim_blocked": {
+      "value": true,
+      "provenance": "CANONICAL_FACT/HUMAN_ADOPTED_GOVERNANCE_RESULT"
+    },
+    "route_b_preferred_direction": {
+      "value": true,
+      "provenance": "HUMAN_DECISION"
+    },
+    "downstream_claim_id": {
+      "value": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "provenance": "HUMAN_DECISION"
+    },
+    "estimand_id": {
+      "value": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+      "provenance": "HUMAN_DECISION"
+    },
+    "downstream_analysis_id": {
+      "value": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+      "provenance": "HUMAN_DECISION"
+    },
+    "temporal_conditioning_spec_id": {
+      "value": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+      "provenance": "HUMAN_DECISION"
+    },
+    "year_strata_spec_type": {
+      "value": "YEAR_STRATA",
+      "provenance": "HUMAN_DECISION"
+    },
+    "utc_temporal_boundaries": {
+      "value": "CALENDAR_UTC_YEAR_HALF_OPEN_INTERVALS",
+      "provenance": "DERIVED_GOVERNANCE_INPUT"
+    },
+    "non_pristine_status": {
+      "value": "NON_PRISTINE",
+      "provenance": "DERIVED_GOVERNANCE_INPUT"
+    },
+    "route_b_admissible": {
+      "value": "NOT_YET_ESTABLISHED",
+      "provenance": "DERIVED_GOVERNANCE_INPUT"
+    }
+  },
+  "requirement_map": [
+    {
+      "requirement": "OLD_POOLED_CLAIM_PRESERVATION",
+      "breakers": [
+        "DC01-B03",
+        "DC01-B04"
+      ]
+    },
+    {
+      "requirement": "DISTINCT_NEW_SCIENTIFIC_IDENTITIES",
+      "breakers": [
+        "DC01-B05",
+        "DC01-B06",
+        "DC01-B07"
+      ]
+    },
+    {
+      "requirement": "EXACT_YEAR_STRATA_DESIGN",
+      "breakers": [
+        "DC01-B08",
+        "DC01-B09",
+        "DC01-B10",
+        "DC01-B11",
+        "DC01-B12",
+        "DC01-B13",
+        "DC01-B14"
+      ]
+    },
+    {
+      "requirement": "PARTIAL_YEAR_BOUNDARY",
+      "breakers": [
+        "DC01-B15",
+        "DC01-B16",
+        "DC01-B17"
+      ]
+    },
+    {
+      "requirement": "MISSING_DATA_FAIL_CLOSED",
+      "breakers": [
+        "DC01-B18",
+        "DC01-B19"
+      ]
+    },
+    {
+      "requirement": "NO_CROSS_YEAR_AGGREGATION",
+      "breakers": [
+        "DC01-B20",
+        "DC01-B21",
+        "DC01-B22"
+      ]
+    },
+    {
+      "requirement": "NO_EXECUTION",
+      "breakers": [
+        "DC01-B23",
+        "DC01-B24",
+        "DC01-B25",
+        "DC01-B26"
+      ]
+    },
+    {
+      "requirement": "ROUTE_B_NOT_YET_ADMISSIBLE",
+      "breakers": [
+        "DC01-B27",
+        "DC01-B28"
+      ]
+    },
+    {
+      "requirement": "EPISTEMIC_BOUNDARY",
+      "breakers": [
+        "DC01-B29",
+        "DC01-B30",
+        "DC01-B31",
+        "DC01-B32",
+        "DC01-B33",
+        "DC01-B34"
+      ]
+    },
+    {
+      "requirement": "METHOD_BOUNDARY",
+      "breakers": [
+        "DC01-B35",
+        "DC01-B36",
+        "DC01-B37"
+      ]
+    },
+    {
+      "requirement": "AUTHORITY_BOUNDARY",
+      "breakers": [
+        "DC01-B38",
+        "DC01-B39",
+        "DC01-B40"
+      ]
+    },
+    {
+      "requirement": "NO_SCOPE_PROPAGATION_AND_NEXT_GATE_CLOSED",
+      "breakers": [
+        "DC01-B41",
+        "DC01-B42"
+      ]
+    },
+    {
+      "requirement": "EXACT_CLAIM_INPUT",
+      "breakers": [
+        "DC01-B01",
+        "DC01-B02"
+      ]
+    }
+  ],
+  "force": false
+}

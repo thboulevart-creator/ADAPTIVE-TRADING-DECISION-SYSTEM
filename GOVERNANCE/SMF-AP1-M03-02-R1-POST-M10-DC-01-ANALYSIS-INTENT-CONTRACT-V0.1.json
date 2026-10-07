@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_ANALYSIS_INTENT_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+  "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+  "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+  "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+  "description": "A FUTURE DESCRIPTIVE ANALYSIS THAT WOULD ESTIMATE ONE tick_count p50 REFERENCE PER PREDECLARED COMPLETE UTC YEAR STRATUM FOR 2022, 2023, 2024 AND 2025, WITHOUT UNCONDITIONAL CROSS-YEAR POOLING.",
+  "intended_output": [
+    "R_2022",
+    "R_2023",
+    "R_2024",
+    "R_2025"
+  ],
+  "conditioning_type": "YEAR_STRATA",
+  "requested_temporal_scope": [
+    "UTC_YEAR:2022",
+    "UTC_YEAR:2023",
+    "UTC_YEAR:2024",
+    "UTC_YEAR:2025"
+  ],
+  "route_b_status": {
+    "preferred_next_design_direction": true,
+    "temporal_conditioning_spec_exists": true,
+    "temporal_conditioning_spec_frozen_candidate": true,
+    "route_b_admissible": "NOT_YET_ESTABLISHED"
+  },
+  "execution_state": {
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "pcg_real_execution": false,
+    "method_activation": false,
+    "method_execution": false,
+    "oos_consumption": false
+  },
+  "old_pooled_claim": {
+    "id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "status": "PRESERVED_AS_BLOCKED",
+    "semantic_rewrite": "FORBIDDEN"
+  },
+  "next_gate_application": {
+    "purpose": "ASK_IF_EXACT_CLAIM_SCOPED_YEAR_STRATA_SPEC_IS_ADMISSIBLE_BY_ROUTE_B",
+    "separate_human_authorization_required": true,
+    "open": false
+  },
+  "force": false
+}

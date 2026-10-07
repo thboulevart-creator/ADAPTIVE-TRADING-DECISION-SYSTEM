@@ -1,0 +1,200 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_FROZEN_BREAKER_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "minimum_required_breaker_count": 42,
+  "breaker_count": 42,
+  "breakers": [
+    [
+      "DC01-B01",
+      "EXACT_CLAIM_UNIT_TICK_COUNT_P50"
+    ],
+    [
+      "DC01-B02",
+      "M10_STATUS_MATERIAL_TEMPORAL_VARIATION"
+    ],
+    [
+      "DC01-B03",
+      "OLD_POOLED_CLAIM_REMAINS_BLOCKED"
+    ],
+    [
+      "DC01-B04",
+      "NO_SEMANTIC_REWRITE_OF_OLD_CLAIM"
+    ],
+    [
+      "DC01-B05",
+      "NEW_CONDITIONED_CLAIM_HAS_DISTINCT_IDENTITY"
+    ],
+    [
+      "DC01-B06",
+      "NEW_CONDITIONED_ESTIMAND_HAS_DISTINCT_IDENTITY"
+    ],
+    [
+      "DC01-B07",
+      "EXACT_DOWNSTREAM_ANALYSIS_ID"
+    ],
+    [
+      "DC01-B08",
+      "CONDITIONING_TYPE_YEAR_STRATA"
+    ],
+    [
+      "DC01-B09",
+      "EXACTLY_FOUR_STRATA"
+    ],
+    [
+      "DC01-B10",
+      "STRATA_UTC_YEARS_2022_2023_2024_2025"
+    ],
+    [
+      "DC01-B11",
+      "UTC_START_INCLUSIVE"
+    ],
+    [
+      "DC01-B12",
+      "UTC_END_EXCLUSIVE"
+    ],
+    [
+      "DC01-B13",
+      "ONE_MINUTE_AT_MOST_ONE_STRATUM"
+    ],
+    [
+      "DC01-B14",
+      "NO_CROSS_YEAR_OVERLAP"
+    ],
+    [
+      "DC01-B15",
+      "UTC_YEAR_2021_EXCLUDED"
+    ],
+    [
+      "DC01-B16",
+      "UTC_YEAR_2026_EXCLUDED"
+    ],
+    [
+      "DC01-B17",
+      "NO_PARTIAL_YEAR_SUBSTITUTION"
+    ],
+    [
+      "DC01-B18",
+      "NO_IMPUTATION"
+    ],
+    [
+      "DC01-B19",
+      "NO_CROSS_YEAR_BORROWING"
+    ],
+    [
+      "DC01-B20",
+      "NO_POOLED_RECOMPOSITION"
+    ],
+    [
+      "DC01-B21",
+      "NO_MEAN_OF_YEAR_REFERENCES"
+    ],
+    [
+      "DC01-B22",
+      "NO_WEIGHTED_AGGREGATION"
+    ],
+    [
+      "DC01-B23",
+      "NO_NUMERICAL_ESTIMATION"
+    ],
+    [
+      "DC01-B24",
+      "NO_REAL_DATA_READ"
+    ],
+    [
+      "DC01-B25",
+      "NO_CONDITIONING_EXECUTION"
+    ],
+    [
+      "DC01-B26",
+      "NO_PCG_REAL_EXECUTION"
+    ],
+    [
+      "DC01-B27",
+      "ROUTE_B_ADMISSIBLE_NOT_YET_ESTABLISHED"
+    ],
+    [
+      "DC01-B28",
+      "YEAR_STRATA_SPEC_FROZEN_BEFORE_ANY_DOWNSTREAM_RESULT"
+    ],
+    [
+      "DC01-B29",
+      "EXPOSED_STATE_PRESERVED"
+    ],
+    [
+      "DC01-B30",
+      "NON_PRISTINE_STATE_PRESERVED"
+    ],
+    [
+      "DC01-B31",
+      "NO_RESET_TO_PRISTINE"
+    ],
+    [
+      "DC01-B32",
+      "NO_STABILITY_PROMOTION"
+    ],
+    [
+      "DC01-B33",
+      "NO_NONSTATIONARITY_PROMOTION"
+    ],
+    [
+      "DC01-B34",
+      "NO_REGIME_PROMOTION"
+    ],
+    [
+      "DC01-B35",
+      "NO_METHOD_ACTIVATION"
+    ],
+    [
+      "DC01-B36",
+      "NO_METHOD_EXECUTION"
+    ],
+    [
+      "DC01-B37",
+      "M04_M05_M08_M09_M11_REMAIN_CLOSED"
+    ],
+    [
+      "DC01-B38",
+      "NO_OOS_CONSUMPTION"
+    ],
+    [
+      "DC01-B39",
+      "NO_TRADING_AUTHORITY"
+    ],
+    [
+      "DC01-B40",
+      "NO_CAPITAL_AUTHORITY"
+    ],
+    [
+      "DC01-B41",
+      "NO_AUTOMATIC_CROSS_CLAIM_PROPAGATION"
+    ],
+    [
+      "DC01-B42",
+      "NEXT_PCG_APPLICATION_REQUIRES_SEPARATE_HUMAN_AUTHORIZATION"
+    ]
+  ],
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "global_m05_resampling_across_2022_2025": "BLOCKED_PENDING_TEMPORAL_JUSTIFICATION",
+  "authority_ceiling": {
+    "pooling": false,
+    "conditioning_spec_design": true,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "runtime_authorized": false,
+  "real_data_read_authorized": false,
+  "pcg_real_execution_authorized": false,
+  "force": false
+}

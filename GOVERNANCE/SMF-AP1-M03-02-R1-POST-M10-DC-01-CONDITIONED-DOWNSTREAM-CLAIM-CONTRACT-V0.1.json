@@ -1,0 +1,65 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_CONDITIONED_DOWNSTREAM_CLAIM_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "preflight_parent": {
+    "head": "cf367c3f2fc377f0a1e136dcf1439b3998cdab43",
+    "tree": "061e387948ff7a244d4e43da28719e7f2fe9fcbf",
+    "drift_from_checkpoint": "NON_MATERIAL_TO_DC_01",
+    "drift_scope": [
+      "BEPD-09B",
+      "AO-E0-B12-DATA-01/TC-01"
+    ]
+  },
+  "pcg02c_bindings": {
+    "human_adjudication_blob": "2534e5d710e0242060c98d4e3f32beabbc01d16b",
+    "human_adoption_receipt_blob": "9efe330d11f09671e71a79978026e33f105794bf",
+    "final_closure_blob": "09a8c552b6613de1d1c9849e487bba75a3580498"
+  },
+  "prior_pooled_claim": {
+    "downstream_claim_id": "POST_M10-DC01-TICKCOUNT-P50-POOLED-HISTORICAL-REFERENCE",
+    "downstream_analysis_id": "POST_M10-DA01-POOLED-TICKCOUNT-P50-REFERENCE-CONSTRUCTION",
+    "status": "PRESERVED_AS_BLOCKED",
+    "semantic_rewrite": "FORBIDDEN"
+  },
+  "claim_unit": "tick_count p50",
+  "m10_status": "MATERIAL_TEMPORAL_VARIATION",
+  "downstream_claim": {
+    "id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "exact_question_en": "CAN DISTINCT YEAR-CONDITIONED DESCRIPTIVE REFERENCES FOR MEDIAN MINUTE-LEVEL tick_count BE DEFINED FOR COMPLETE UTC YEARS 2022, 2023, 2024 AND 2025 WITHOUT COLLAPSING THE OBSERVED TEMPORAL VARIATION INTO ONE UNCONDITIONAL POOLED REFERENCE?",
+    "exact_question_fr": "Peut-on définir une référence descriptive distincte du tick_count p50 pour chacune des années UTC complètes 2022, 2023, 2024 et 2025, sans fusionner leur variation temporelle observée dans une référence pooled unique ?",
+    "claim_class": "DESCRIPTIVE_TEMPORALLY_CONDITIONED",
+    "claim_origin": "POST_M10_RESULT_AWARE_DOWNSTREAM_DESIGN",
+    "answer_at_dc01": "NOT_ESTABLISHED"
+  },
+  "excluded_claim_classes": [
+    "CONFIRMATORY",
+    "PREDICTIVE",
+    "CAUSAL",
+    "PROFITABILITY",
+    "STRATEGY_VALIDATION",
+    "TRADING_SIGNAL"
+  ],
+  "epistemic_status": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "authority": {
+    "conditioning_spec_design": true,
+    "real_data_read": false,
+    "numerical_estimation": false,
+    "conditioning_execution": false,
+    "year_stratified_estimation": false,
+    "pcg_real_execution": false,
+    "statistical_method_activation": false,
+    "statistical_method_execution": false,
+    "oos_consumption": false,
+    "trading": false,
+    "capital": false
+  },
+  "force": false
+}

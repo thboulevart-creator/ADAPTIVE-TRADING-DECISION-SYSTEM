@@ -1,0 +1,54 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_CONDITIONED_ESTIMAND_CONTRACT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+  "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+  "conceptual_estimand": "A FOUR-COMPONENT YEAR-CONDITIONED DESCRIPTIVE REFERENCE VECTOR FOR MEDIAN MINUTE-LEVEL tick_count",
+  "metric": "tick_count",
+  "probability": "p50",
+  "observational_unit": "ONE_ADMITTED_AP0_MINUTE",
+  "components": [
+    {
+      "id": "R_2022",
+      "symbolic_definition": "p50(tick_count | UTC_YEAR = 2022)",
+      "value": "NOT_ESTIMATED"
+    },
+    {
+      "id": "R_2023",
+      "symbolic_definition": "p50(tick_count | UTC_YEAR = 2023)",
+      "value": "NOT_ESTIMATED"
+    },
+    {
+      "id": "R_2024",
+      "symbolic_definition": "p50(tick_count | UTC_YEAR = 2024)",
+      "value": "NOT_ESTIMATED"
+    },
+    {
+      "id": "R_2025",
+      "symbolic_definition": "p50(tick_count | UTC_YEAR = 2025)",
+      "value": "NOT_ESTIMATED"
+    }
+  ],
+  "relation_between_components": "A_CONDITIONED_REFERENCE_VECTOR",
+  "forbidden_aggregations": [
+    "MEAN_OF_YEAR_REFERENCES",
+    "WEIGHTED_MEAN_OF_YEAR_REFERENCES",
+    "MEDIAN_OF_YEAR_MEDIANS",
+    "POOLED_RECOMPOSITION",
+    "GLOBAL_2022_2025_REFERENCE"
+  ],
+  "later_comparison_semantics": {
+    "allowed_future_question": "COMPARE_YEAR_SPECIFIC_REFERENCES_ONLY_UNDER_SEPARATE_AUTHORIZATION",
+    "not_implicitly": [
+      "CHANGE_POINT_TEST",
+      "TREND_TEST",
+      "REGIME_DETECTOR",
+      "NONSTATIONARITY_TEST",
+      "PREDICTIVE_SIGNAL"
+    ]
+  },
+  "numerical_estimation": false,
+  "real_data_read": false,
+  "force": false
+}

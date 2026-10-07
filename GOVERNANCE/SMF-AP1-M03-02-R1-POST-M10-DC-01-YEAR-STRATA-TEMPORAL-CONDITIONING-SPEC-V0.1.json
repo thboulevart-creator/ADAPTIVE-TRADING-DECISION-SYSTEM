@@ -1,0 +1,89 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DC_01_YEAR_STRATA_TEMPORAL_CONDITIONING_SPEC_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DC-01",
+  "status": "FROZEN_CANDIDATE_PENDING_DOCUMENTARY_QUALIFICATION",
+  "temporal_conditioning_spec_id": "POST_M10-TCS01-TICKCOUNT-P50-UTC-YEAR-STRATA-2022-2025",
+  "spec_type": "YEAR_STRATA",
+  "route_mapping": {
+    "pcg_route": "B",
+    "semantics": "CONDITION_OR_STRATIFY_BY_TIME"
+  },
+  "scope": {
+    "claim_unit": "tick_count p50",
+    "downstream_claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "downstream_analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "temporal_scope": [
+      "UTC_YEAR:2022",
+      "UTC_YEAR:2023",
+      "UTC_YEAR:2024",
+      "UTC_YEAR:2025"
+    ]
+  },
+  "strata": [
+    {
+      "id": "UTC_YEAR:2022",
+      "start_utc": "2022-01-01T00:00:00Z",
+      "start_inclusive": true,
+      "end_utc": "2023-01-01T00:00:00Z",
+      "end_exclusive": true
+    },
+    {
+      "id": "UTC_YEAR:2023",
+      "start_utc": "2023-01-01T00:00:00Z",
+      "start_inclusive": true,
+      "end_utc": "2024-01-01T00:00:00Z",
+      "end_exclusive": true
+    },
+    {
+      "id": "UTC_YEAR:2024",
+      "start_utc": "2024-01-01T00:00:00Z",
+      "start_inclusive": true,
+      "end_utc": "2025-01-01T00:00:00Z",
+      "end_exclusive": true
+    },
+    {
+      "id": "UTC_YEAR:2025",
+      "start_utc": "2025-01-01T00:00:00Z",
+      "start_inclusive": true,
+      "end_utc": "2026-01-01T00:00:00Z",
+      "end_exclusive": true
+    }
+  ],
+  "timezone": "UTC",
+  "membership_source": "ADMITTED_AP0_MINUTE_UTC_TIMESTAMP",
+  "membership_rule": "EACH_ADMITTED_MINUTE_MUST_BELONG_TO_EXACTLY_ONE_YEAR_STRATUM_OR_TO_NONE",
+  "constraints": {
+    "cross_year_duplication": false,
+    "cross_year_overlap": false,
+    "minute_in_multiple_strata": false,
+    "timezone_based_reassignment": false,
+    "dynamic_grouping": false,
+    "stratum_merging": false
+  },
+  "outside_scope": {
+    "UTC_YEAR:2021": "EXCLUDED_PARTIAL_YEAR",
+    "UTC_YEAR:2026": "EXCLUDED_PARTIAL_YEAR"
+  },
+  "complete_year_status_source": "CANONICAL_EXISTING_GOVERNANCE_EVIDENCE",
+  "real_completeness_recomputation": false,
+  "future_completeness_failure_rule": {
+    "affected_stratum": "BLOCKED",
+    "imputation": false,
+    "borrowing_from_adjacent_year": false,
+    "silent_reweighting": false
+  },
+  "missing_observation_policy": "NO_IMPUTATION_BY_DC_01",
+  "forbidden_missing_data_operations": [
+    "FORWARD_FILL",
+    "BACKWARD_FILL",
+    "CROSS_YEAR_IMPUTATION",
+    "SYNTHETIC_MINUTE_CREATION",
+    "YEAR_LEVEL_VALUE_SUBSTITUTION"
+  ],
+  "route_b_admissible": "NOT_YET_ESTABLISHED",
+  "conditioning_execution": false,
+  "year_stratified_estimation": false,
+  "real_data_read": false,
+  "automatic_cross_claim_propagation": false,
+  "force": false
+}
