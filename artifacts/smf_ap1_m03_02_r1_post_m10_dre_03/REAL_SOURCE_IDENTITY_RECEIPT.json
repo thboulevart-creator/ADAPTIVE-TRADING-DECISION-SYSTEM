@@ -1,0 +1,16 @@
+{
+  "alternate_source_read_count": 0,
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+  "exact_match": true,
+  "expected_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+  "m03_reexecution_count": 0,
+  "observed_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+  "raw_ap0_read_count": 0,
+  "real_source_has_been_exposed": true,
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_03_REAL_SOURCE_IDENTITY_RECEIPT_V0_1",
+  "source_copy_count": 0,
+  "source_path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+  "source_read_count": 1,
+  "source_size_bytes": 1390634,
+  "timestamp_utc": "2026-10-07T19:34:56.978332Z"
+}
