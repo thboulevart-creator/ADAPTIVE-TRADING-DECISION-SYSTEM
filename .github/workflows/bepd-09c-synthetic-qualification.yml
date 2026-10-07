@@ -1,0 +1,22 @@
+name: BEPD-09C Synthetic Qualification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'tools/bepd09c_*.py'
+      - 'tests/test_bepd09c_runtime.py'
+      - 'GOVERNANCE/BEPD-09C-*.json'
+      - 'GOVERNANCE/BEPD-09C-*.md'
+
+jobs:
+  synthetic-qualification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install numpy==2.3.5 scipy==1.17.0
+      - run: PYTHONPATH=tools python -m unittest tests/test_bepd09c_runtime.py -v

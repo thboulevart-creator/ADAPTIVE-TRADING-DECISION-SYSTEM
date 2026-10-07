@@ -1,0 +1,149 @@
+{
+  "schema": "ATDS_BEPD_09C_C1_EXECUTABLE_IMPLEMENTATION_CONTRACT_V0_1",
+  "control_id": "BEPD-09C",
+  "version": "V0.1",
+  "status": "FROZEN_PRE_REAL_EXECUTION_IMPLEMENTATION_CONTRACT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "date": "2026-10-07",
+  "force": false,
+  "bindings": {
+    "bepd09b_r1_final_adjudication_blob": "b104681e6cda77d726b72c62905ec1820f840553",
+    "bepd09b_r1_contract_blob": "96816b5b04fd41ab392357e496d50fab37007aba",
+    "bepd09b_r1_breaker_blob": "8f74d43a0f094c93b27a59158e1f6064337ff6b8",
+    "bepd09b_r1_qualification_receipt_blob": "a5653028a2999cd89d11a05f05f9f4fd026f68d8",
+    "bepd09b_r1_persisted_head_verification_blob": "5437b250a03365888c0a2d859c99354a16bbc32e"
+  },
+  "scientific_specification": {
+    "claim": "C1",
+    "t0": "take_h1_close_utc",
+    "response": "same_week_reintegration",
+    "context_features": [
+      "SIDE_HIGH_INDICATOR",
+      "LEVEL_AGE_WEEKS",
+      "ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START",
+      "SWEEP_OVERSHOOT_RELATIVE"
+    ],
+    "exposure_fraction": "REMAINING_CALENDAR_HOURS_TO_TARGET_WEEK_END / TARGET_WEEK_DURATION_HOURS",
+    "knot_vector": [
+      0,
+      0.25,
+      0.5,
+      0.75,
+      1
+    ],
+    "basis_columns": [
+      "B0",
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "baseline": "INTERCEPT + B0 + B1 + B2 + B3",
+    "context": "BASELINE_R1 + SIDE_HIGH_INDICATOR + STANDARDIZED LEVEL_AGE_WEEKS + STANDARDIZED ACTIVE_LEVEL_COUNT_AT_TARGET_WEEK_START + STANDARDIZED SWEEP_OVERSHOOT_RELATIVE",
+    "forward_blocks": 6,
+    "forward_folds": 5,
+    "event_is_iid": false,
+    "dependence_keys": [
+      "target_week_id",
+      "sweep_cluster_id"
+    ],
+    "primary_estimand": "WEEK_BALANCED_OUT_OF_FORWARD_LOGLOSS_IMPROVEMENT",
+    "secondary_estimand": "WEEK_BALANCED_OUT_OF_FORWARD_BRIER_IMPROVEMENT",
+    "automatic_verdict": "NONE_HUMAN_ADJUDICATION_REQUIRED"
+  },
+  "implementation": {
+    "primary_path": "tools/bepd09c_runtime.py",
+    "reference_path": "tools/bepd09c_reference.py",
+    "synthetic_fixture_path": "tools/bepd09c_synthetic_fixture.py",
+    "test_path": "tests/test_bepd09c_runtime.py",
+    "primary_optimizer": "SCIPY_NEWTON_CG_WITH_EXACT_SCORE_AND_HESSIAN",
+    "reference_optimizer": "SCIPY_ROOT_HYBR_ON_SCORE_EQUATIONS",
+    "complete_separation_detector": "SCIPY_LINPROG_HIGHS_FEASIBILITY",
+    "regularization": "NONE",
+    "feature_selection": "NONE",
+    "hyperparameter_search": "NONE",
+    "external_spline_library": "NONE"
+  },
+  "environment_contract": {
+    "python": "3.12",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "timezone_database": "SYSTEM_ZONEINFO_AMERICA_NEW_YORK"
+  },
+  "parity": {
+    "floating_absolute_tolerance": 2e-05,
+    "structural_and_design_matrix_absolute_tolerance": 1e-12,
+    "structural_identifiers": "EXACT",
+    "reason": "independent optimizer paths on an ill-conditioned fixed spline basis; observed synthetic maximum weekly metric difference 1.5179080629867947e-05 before persistence"
+  },
+  "synthetic_fixture": {
+    "generator": "DETERMINISTIC",
+    "calendar_weeks": 120,
+    "event_rows": 466,
+    "empty_weeks": 7,
+    "covers_dst_hours": [
+      167,
+      168,
+      169
+    ],
+    "contains_multi_event_weeks": true,
+    "contains_multi_event_clusters": true,
+    "contains_all_five_forward_folds": true,
+    "real_data_used": false
+  },
+  "result_surface": {
+    "allowed": [
+      "SOURCE_IDENTITY_CHECKS",
+      "ADMISSIBILITY_STATUS",
+      "CALENDAR_BLOCK_BOUNDARIES",
+      "TRAIN_TEST_COUNTS_PER_FOLD",
+      "TRAIN_RESPONSE_CLASS_COUNTS",
+      "CONVERGENCE_STATUS",
+      "BASELINE_LOGLOSS_PER_FOLD",
+      "CONTEXT_LOGLOSS_PER_FOLD",
+      "LOGLOSS_DELTA_PER_FOLD",
+      "BASELINE_BRIER_PER_FOLD",
+      "CONTEXT_BRIER_PER_FOLD",
+      "BRIER_DELTA_PER_FOLD",
+      "AGGREGATE_WEEK_BALANCED_LOGLOSS",
+      "PRIMARY_DELTA",
+      "AGGREGATE_WEEK_BALANCED_BRIER",
+      "SECONDARY_DELTA",
+      "EVENT_WEIGHTED_DIAGNOSTICS",
+      "DETERMINISTIC_REPLAY_IDENTITY",
+      "INDEPENDENT_REFERENCE_PARITY"
+    ],
+    "forbidden": [
+      "P_VALUE",
+      "CONFIDENCE_INTERVAL",
+      "BOOTSTRAP_INTERVAL",
+      "PERMUTATION_P_VALUE",
+      "FEATURE_IMPORTANCE",
+      "COEFFICIENT_RANKING",
+      "SUBGROUP_RESULT",
+      "AUC",
+      "OPTIMAL_THRESHOLD",
+      "CLASSIFICATION_CUTOFF_SEARCH",
+      "TP",
+      "SL",
+      "PNL",
+      "TRADING_SIGNAL"
+    ]
+  },
+  "authority": {
+    "implementation": true,
+    "synthetic_execution": true,
+    "negative_breaker_execution": true,
+    "real_event_ledger_read": false,
+    "real_c1_fit": false,
+    "real_c1_result": false,
+    "fresh_oos_read": false,
+    "tp_sl": false,
+    "backtest": false,
+    "pnl": false,
+    "trading": false,
+    "capital": false
+  },
+  "qualification_maximum": "SYNTHETICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "stop_boundary": "STOP_AFTER_SYNTHETIC_QUALIFICATION_AND_PERSISTED_HEAD_VERIFICATION"
+}
