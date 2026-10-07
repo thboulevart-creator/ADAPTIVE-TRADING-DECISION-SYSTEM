@@ -1,0 +1,13 @@
+{
+  "canonical_byte_parity": "EXACT",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+  "primary_result_sha256": "d965cec1a01c7d130a49974b481abf43b874835be999460df93becbb452d556f",
+  "primary_runtime_blob": "adf8b5bd885c4e8fc2b06c5d33e1df8638e8c28f",
+  "primary_status": "DRE01_COMPLETE",
+  "reference_result_sha256": "d965cec1a01c7d130a49974b481abf43b874835be999460df93becbb452d556f",
+  "reference_runtime_blob": "cb9fc6e54d40f1d59257f345cfae2648423883a7",
+  "reference_status": "DRE01_COMPLETE",
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_03_REAL_REFERENCE_PARITY_V0_1",
+  "semantic_object_parity": "EXACT",
+  "sha256_parity": "EXACT"
+}
