@@ -1,0 +1,134 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_02_FINAL_READINESS_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-02",
+  "status": "SYNTHETICALLY_QUALIFIED_REAL_EXECUTION_CLOSED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "qualification_parent": {
+    "head": "b275291c81e1616865e60e5a618b7942caa0df5e",
+    "tree": "194954fb49cc5a966dae7236926af03cdc2b0b40"
+  },
+  "exact_artifacts": {
+    "human_authorization_receipt_blob": "9892116d70bb7411756c61f1ba595a7b68129c64",
+    "red_first_receipt_blob": "3d60ff6c437de30d01bc8c3be669a386758e1915",
+    "fx_cr1_blob": "16795392cfd692dfbe5e6b30e0556f3659b9f117",
+    "primary_extractor_blob": "adf8b5bd885c4e8fc2b06c5d33e1df8638e8c28f",
+    "independent_reference_blob": "cb9fc6e54d40f1d59257f345cfae2648423883a7",
+    "synthetic_test_blob": "794c43606b4d7740c909864542a7128ebda65b62",
+    "valid_fixture_blob": "8e40cefa689d61381e170fddb990521f24d8bad3",
+    "expected_success_blob": "735f20b8ce1d1c499d6c9cbcef4585435a0c68a8",
+    "fixture_manifest_blob": "7a8781e422550c7d56f6695b0eb2f2856728a61a",
+    "breaker_coverage_matrix_blob": "93e3baa7cbdae1d884830c6dca9c55448f28835d",
+    "targeted_ci_workflow_blob": "5f42ae41705055d35e21503a90bf2cd3e005aa57",
+    "synthetic_qualification_report_blob": "34da0c25d4d6df5aac3602220c5adfb97a116bf8"
+  },
+  "qualification": {
+    "red_first": "PASS",
+    "canonical_synthetic_suite": "56/56 PASS",
+    "primary_extractor": "QUALIFIED",
+    "independent_reference": "QUALIFIED",
+    "reference_independence": "QUALIFIED",
+    "breaker_coverage": "69/69 PASS",
+    "determinism": "QUALIFIED",
+    "primary_reference_semantic_parity": "EXACT",
+    "primary_reference_canonical_byte_parity": "EXACT",
+    "output_schema_v0_2": "PASS",
+    "no_real_source_read": "PASS",
+    "no_real_values_exposed": "PASS",
+    "targeted_ci": [
+      {
+        "run_id": 37660020254,
+        "job_id": 112924849127,
+        "head": "555e2fcc8c705fd03c1d3902f4c690eb75b1f673",
+        "conclusion": "success"
+      },
+      {
+        "run_id": 37660287631,
+        "job_id": 112925758309,
+        "head": "b275291c81e1616865e60e5a618b7942caa0df5e",
+        "conclusion": "success"
+      }
+    ],
+    "transport_ci": {
+      "run_id": 37660287629,
+      "job_id": 112925758666,
+      "head": "b275291c81e1616865e60e5a618b7942caa0df5e",
+      "conclusion": "success"
+    },
+    "global_repository_green": "NOT_CLAIMED",
+    "inherited_out_of_scope_ci_debt": [
+      "P0.4",
+      "P0.6"
+    ]
+  },
+  "maximum_verdict": {
+    "POST_M10_DRE_02": "SYNTHETICALLY_QUALIFIED",
+    "PRIMARY_EXTRACTOR": "QUALIFIED",
+    "INDEPENDENT_REFERENCE": "QUALIFIED",
+    "REFERENCE_INDEPENDENCE": "QUALIFIED",
+    "FROZEN_DRE01_CONTRACT_IMPLEMENTATION": "QUALIFIED",
+    "BREAKER_COVERAGE": "69/69",
+    "PRIMARY_REFERENCE_SEMANTIC_PARITY": "EXACT",
+    "PRIMARY_REFERENCE_CANONICAL_BYTE_PARITY": "EXACT",
+    "DETERMINISM": "QUALIFIED"
+  },
+  "real_execution_budget": {
+    "primary_remaining": 1,
+    "reference_remaining": 1,
+    "retry_remaining": 0,
+    "consumed_primary": 0,
+    "consumed_reference": 0,
+    "consumed_retry": 0
+  },
+  "real_state": {
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "real_primary_execution": false,
+    "real_reference_execution": false,
+    "R_2022": "NOT_EXTRACTED",
+    "R_2023": "NOT_EXTRACTED",
+    "R_2024": "NOT_EXTRACTED",
+    "R_2025": "NOT_EXTRACTED",
+    "real_numerical_result": "NONE"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "implementation": true,
+    "synthetic_execution": true,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "real_primary_execution": false,
+    "real_reference_execution": false,
+    "real_numerical_estimation": false,
+    "year_stratified_real_extraction": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "next_frontier": {
+    "id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+    "status": "CLOSED",
+    "scope": "FIRST_REAL_YEAR_STRATIFIED_DESCRIPTIVE_REFERENCE_EXTRACTION_READINESS_EXECUTION_AUTHORIZATION",
+    "real_source_read": false,
+    "real_execution": false,
+    "separate_human_authorization_required": true,
+    "automatic_open": false,
+    "automatic_execution": false
+  },
+  "stop": true,
+  "force": false
+}
