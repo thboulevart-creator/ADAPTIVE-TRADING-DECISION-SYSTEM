@@ -23,7 +23,9 @@ def j(path: Path):
     return json.loads(path.read_text(encoding="utf-8"))
 
 def sha256_file(path: Path):
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    rel = path.relative_to(ROOT).as_posix()
+    raw = subprocess.check_output(["git", "-C", str(ROOT), "show", f"HEAD:{rel}"])
+    return hashlib.sha256(raw).hexdigest()
 
 def git_blob(path: str):
     return subprocess.check_output(
