@@ -26,7 +26,7 @@
           "0.9": 18,
           "0.99": 25
         },
-        "result_digest": "sha256:df0a646351363854cd2ffe7e5b43ba96c94ba15bc91c118e837a33639d5260fc",
+        "result_digest": "sha256:74f73aac256f0a6e97cb7d0b431119aa1b6a525000f2dc37f78e4f9b72bc4bda",
         "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
         "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
         "sorted_values_digest": "sha256:000000000000000000000000000000000000000000000000000000000000006c",
@@ -53,7 +53,7 @@
           "0.9": 20,
           "0.99": 28
         },
-        "result_digest": "sha256:0d7be53eb51fee7eb6ed00a958df48375597624dafe79c51d5caf0b03a333b7a",
+        "result_digest": "sha256:4c164f86fdc2ddfee6b3a0ae1e1eac6d87efc620ea32cf175a5ecb62a32cfbf7",
         "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
         "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
         "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000065",
@@ -80,7 +80,7 @@
           "0.9": 21,
           "0.99": 29
         },
-        "result_digest": "sha256:a55282426890b896c0113b1016884faa7bd152dadd13afed7b94d07f8fae8c19",
+        "result_digest": "sha256:5214051611fecf9abaf4ff3be8945698864f72133675a4cf414ecc9df63f5f4f",
         "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
         "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
         "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000066",
@@ -107,7 +107,7 @@
           "0.9": 22,
           "0.99": 30
         },
-        "result_digest": "sha256:bad6bcb8b3693450901b153bb3495e6f183b908cee918cde4f8524be891d015b",
+        "result_digest": "sha256:836dae1effbe49232c28361c12780be610ccb22fec42f3da293f7778fe8c253c",
         "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
         "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
         "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000067",
@@ -134,7 +134,7 @@
           "0.9": 23,
           "0.99": 31
         },
-        "result_digest": "sha256:d437d27b7869eaaa53f6a5a696032bb8d962b002b05bffc5ee6d66b0eee4f3c4",
+        "result_digest": "sha256:b3faadeb6092d789cb1a09e865a2ace9d41a61e4ceb8335eebb0c2105bbfe5e4",
         "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
         "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
         "sorted_values_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000068",
@@ -161,7 +161,7 @@
           "0.9": 100,
           "0.99": 101
         },
-        "result_digest": "sha256:ae75ae242f0b8b35780cc43440f888153cb89f1a61dfe2449d81925a65915cee",
+        "result_digest": "sha256:8fc2414ea4e1733c0eeee9ebc9a1f0622f076ed2e3688775f9968d9949a3be79",
         "schema": "ATDS_SMF_AP1_M03_01_COMPACT_RESULT_EVIDENCE_V0_1",
         "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
         "sorted_values_digest": "sha256:000000000000000000000000000000000000000000000000000000000000006d",
