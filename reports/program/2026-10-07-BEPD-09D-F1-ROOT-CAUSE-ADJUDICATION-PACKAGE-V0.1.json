@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_ROOT_CAUSE_ADJUDICATION_PACKAGE_V0_1",
+  "status": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "failed_fit": {
+    "fold": 1,
+    "model": "BASELINE"
+  },
+  "original_failure": {
+    "method": "Newton-CG",
+    "max_iter": 100,
+    "success": false,
+    "status": 1,
+    "message": "Warning: Maximum number of iterations has been exceeded."
+  },
+  "excluded_as_primary_root_cause": {
+    "perfect_separation": "NO",
+    "rank_deficiency": "NO",
+    "nonfinite_state": "NO",
+    "one_class_training_fold": "NO"
+  },
+  "observed_conditioning": {
+    "design_condition_number": 8967.613768032941,
+    "hessian_condition_number": 79668239.40037043,
+    "status": "OBSERVED_AND_CONSISTENT_WITH_SLOW_CONVERGENCE"
+  },
+  "counterfactual_evidence": {
+    "same_newton_cg_only_max_iter_raised_to_5000": {
+      "success": true,
+      "iterations": 410
+    },
+    "independent_root_hybr_score_equation": {
+      "success": true,
+      "score_inf": 4.083400284571326e-13
+    }
+  },
+  "root_cause": {
+    "classification": "D",
+    "label": "SOLVER_TERMINATION_OPTIMIZER_LIMITATION",
+    "evidence_grade": "PROVEN",
+    "statement": "The frozen Newton-CG run stopped because MAX_ITER=100 was insufficient for the fold-1 baseline fit. The same objective, zero initialization and tolerance converge when only the iteration ceiling is relaxed, and an independent score-equation solver also converges."
+  },
+  "candidate_repair": {
+    "class": "R2",
+    "label": "SOLVER_OPTIMIZER_BEHAVIOR_CHANGE",
+    "feasibility": "POTENTIALLY_ADMISSIBLE",
+    "automatic_authority": false
+  },
+  "scientific_result": "NONE",
+  "repair_applied": false,
+  "rerun_authorized": false,
+  "trading_authority": "NONE"
+}

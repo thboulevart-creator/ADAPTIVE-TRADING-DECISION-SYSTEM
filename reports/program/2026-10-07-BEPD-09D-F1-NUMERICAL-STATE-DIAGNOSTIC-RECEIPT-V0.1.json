@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_NUMERICAL_STATE_DIAGNOSTIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "fold": 1,
+  "model": "BASELINE",
+  "train_event_count": 79,
+  "class_counts": {
+    "0": 15,
+    "1": 64
+  },
+  "standardization": {
+    "active": {
+      "mean": 11.113924050632912,
+      "sample_sd": 2.726824685591762
+    },
+    "age": {
+      "mean": 4.658227848101266,
+      "sample_sd": 8.416842205759261
+    },
+    "overshoot": {
+      "mean": 0.0022904798681183504,
+      "sample_sd": 0.00218933449969748
+    }
+  },
+  "original_solver": {
+    "method": "Newton-CG",
+    "max_iter": 100,
+    "xtol": 1e-10,
+    "success": false,
+    "status": 1,
+    "message": "Warning: Maximum number of iterations has been exceeded.",
+    "nit": 100,
+    "nfev": 114,
+    "gradient_inf": 0.000008096475294490368,
+    "coefficients": [
+      -26.791425845941845,
+      92.33855906182475,
+      -164.5648793527046,
+      199.04802915397323,
+      189.30772631121005
+    ],
+    "linear_predictor_min": -3.621560683036062,
+    "linear_predictor_max": 3.559347948306069,
+    "probability_min": 0.02604445733937786,
+    "probability_max": 0.9723300400630234,
+    "saturated_probability_count_1e12": 0,
+    "finite": true
+  }
+}

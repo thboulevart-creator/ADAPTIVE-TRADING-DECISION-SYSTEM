@@ -1,0 +1,53 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_FORENSIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-F1",
+  "status": "PASS",
+  "date": "2026-10-07",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "preparation_commit": "f21a5427239e6fe31155e80bb238ffe301ecaf78",
+  "workflow_run_id": 37682409449,
+  "workflow_job_id": 113001549160,
+  "bindings": {
+    "human_authorization_blob": "c938512c84737c029b3db6dd493728f3874df1a8",
+    "fresh_preflight_blob": "3adc7fc383779a06db305931304707fc1a28eaa5",
+    "failure_identity_binding_blob": "7cdc9a248fa35bc56a4d124826c0868994f20449",
+    "failed_fold_receipt_blob": "94e8c2ecefc1df5818fe2223764a586094a55a8c",
+    "numerical_state_receipt_blob": "6473d483cb9921b144ad6836c1c3a83b80d50bbe",
+    "conditioning_receipt_blob": "de5fafcf34a30c52c773334efe279839d5e032a0",
+    "solver_termination_receipt_blob": "57d98d4da7d06591557fd4382ea2acbee2cffed6",
+    "workflow_evidence_blob": "51706d7a6a216f6bdced224bd538901eef92d736",
+    "root_cause_package_blob": "ed4656f9f06a4f57d94b7b84ff175830b918128a"
+  },
+  "findings": {
+    "failure_reproduced": true,
+    "failed_fold": 1,
+    "failed_model": "BASELINE",
+    "perfect_separation": false,
+    "full_column_rank": true,
+    "finite_state": true,
+    "original_newton_cg_hit_iteration_ceiling": true,
+    "extended_same_newton_cg_converged": true,
+    "independent_score_solver_converged": true,
+    "root_cause_classification": "D",
+    "root_cause_evidence_grade": "PROVEN",
+    "candidate_repair_class": "R2",
+    "repair_feasibility": "POTENTIALLY_ADMISSIBLE"
+  },
+  "scientific_boundaries": {
+    "test_predictions_computed": false,
+    "logloss_computed": false,
+    "brier_computed": false,
+    "c1_rerun": false,
+    "scientific_result": "NONE",
+    "repair_applied": false,
+    "new_historical_execution": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "verdict": "FORENSICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "automatic_repair_authority": false,
+  "automatic_rerun_authority": false,
+  "next": "HUMAN_ADJUDICATION_OF_BEPD_09D_F1_ROOT_CAUSE_AND_REPAIR_ADMISSIBILITY",
+  "stop": true
+}

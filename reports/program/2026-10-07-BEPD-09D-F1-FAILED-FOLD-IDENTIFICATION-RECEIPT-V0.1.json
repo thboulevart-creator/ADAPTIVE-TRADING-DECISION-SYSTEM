@@ -1,0 +1,21 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_FAILED_FOLD_IDENTIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "failed_fold": 1,
+  "failed_model": "BASELINE",
+  "fit_sequence": [
+    {
+      "fold": 1,
+      "model": "BASELINE",
+      "success": false
+    }
+  ],
+  "train_event_count": 79,
+  "test_event_count_not_scored": 76,
+  "train_response_class_counts": {
+    "0": 15,
+    "1": 64
+  },
+  "test_predictions_computed": false,
+  "scientific_metrics_computed": false
+}

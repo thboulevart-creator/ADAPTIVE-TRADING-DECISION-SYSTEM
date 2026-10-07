@@ -1,0 +1,39 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_SOLVER_TERMINATION_FORENSIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "fold": 1,
+  "model": "BASELINE",
+  "original_frozen_solver": {
+    "method": "Newton-CG",
+    "max_iter": 100,
+    "xtol": 1e-10,
+    "success": false,
+    "status": 1,
+    "message": "Warning: Maximum number of iterations has been exceeded.",
+    "nit": 100,
+    "gradient_inf": 0.000008096475294490368
+  },
+  "counterfactual_diagnostics": {
+    "newton_cg_5000": {
+      "forensic_only": true,
+      "non_scientific": true,
+      "non_admissible_as_c1_result": true,
+      "success": true,
+      "message": "Optimization terminated successfully.",
+      "nit": 410,
+      "gradient_inf": 9.256062659295308e-7
+    },
+    "root_hybr_score_equation": {
+      "forensic_only": true,
+      "non_scientific": true,
+      "non_admissible_as_c1_result": true,
+      "success": true,
+      "message": "The solution converged.",
+      "nfev": 25,
+      "score_inf": 4.083400284571326e-13
+    }
+  },
+  "test_predictions_computed": false,
+  "logloss_computed": false,
+  "brier_computed": false
+}

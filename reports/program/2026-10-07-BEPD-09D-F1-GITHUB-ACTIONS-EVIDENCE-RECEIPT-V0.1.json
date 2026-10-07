@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_F1_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "PASS",
+  "workflow_run_id": 37682409449,
+  "workflow_job_id": 113001549160,
+  "head_sha": "f21a5427239e6fe31155e80bb238ffe301ecaf78",
+  "workflow_name": "BEPD-09D-F1 Bounded Nonconvergence Forensics",
+  "workflow_conclusion": "success",
+  "artifact_id": 11510670238,
+  "artifact_name": "BEPD-09D-F1-forensics",
+  "artifact_size_bytes": 4059,
+  "artifact_digest_sha256": "613aa683be87ae694ca0a59735ac873ca881bfad4a93d7eba6ac69d7602b8515",
+  "forensic_files": [
+    "03_FAILED_FOLD_IDENTIFICATION_RECEIPT.json",
+    "04_NUMERICAL_STATE_DIAGNOSTIC_RECEIPT.json",
+    "05_DESIGN_MATRIX_CONDITIONING_RECEIPT.json",
+    "06_SOLVER_TERMINATION_FORENSIC_RECEIPT.json",
+    "07_FORENSIC_RAW_PACKAGE.json"
+  ],
+  "c1_rerun": false,
+  "scientific_result": "NONE",
+  "repair_applied": false
+}
