@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_03_REAL_EXECUTION_ENVIRONMENT_MANIFEST_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-03",
+  "status": "PRE_REAL_READ_FROZEN",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "head": "f7baaf793f44deda76c52b51dbac230dcdfad8c8",
+  "tree": "ff496f3ef0ec5f92a1ccef62d703cc285db186c7",
+  "execution_environment": {
+    "operating_system": "Microsoft Windows NT 10.0.22631.0",
+    "python_version": "3.13.14",
+    "execution_host_identifier": "DESKTOP-49BN9M3",
+    "local_worktree_head_observed": "098d16e28feef2acf188d9d94064d896a79c6d51",
+    "local_worktree_tree_observed": "e0527833809651d6f1051b7a67e6ab01714df53e",
+    "local_worktree_status": "CLEAN_BUT_STALE_NOT_CANONICAL",
+    "canonical_code_source": "GITHUB_BLOBS"
+  },
+  "bindings": {
+    "primary_runtime_blob": "adf8b5bd885c4e8fc2b06c5d33e1df8638e8c28f",
+    "reference_runtime_blob": "cb9fc6e54d40f1d59257f345cfae2648423883a7",
+    "dre01_contract_blob": "26889ea08b1bb4e4aebac953ed37e4c4425446bf",
+    "dre01_schema_v0_2_blob": "8f3224b7aff804b1e9ce3776e552f8b2d60ae40d",
+    "dre01_breaker_blob": "ba80d33d36fef04a556d9c4e596d46eb9cfdf90e",
+    "dre01_freeze_v0_2_blob": "e016282bc06d132a54a094318ab0ecd0fc3e12ef",
+    "dre02_final_receipt_blob": "f444d005f2be67cdabed58b5bb6ec3c5f046f945",
+    "dre02_final_closure_blob": "0e6217e69089d74ce52266c81413e89873fa3587"
+  },
+  "real_source": {
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "expected_sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "read_budget": 1,
+    "source_copy_budget": 0,
+    "alternate_source_read_budget": 0,
+    "raw_ap0_read_budget": 0,
+    "m03_reexecution_budget": 0
+  },
+  "execution_budget": {
+    "primary_real_execution": 1,
+    "independent_reference_real_execution": 1,
+    "retry": 0
+  },
+  "human_scientific_adoption": "NOT_YET_PRONOUNCED",
+  "automatic_downstream_action": false,
+  "force": false
+}
