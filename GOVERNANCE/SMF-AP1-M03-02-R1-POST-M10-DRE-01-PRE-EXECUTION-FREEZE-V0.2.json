@@ -1,0 +1,164 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_PRE_EXECUTION_FREEZE_V0_2",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-01",
+  "status": "FROZEN_NOT_EXECUTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "supersedes": {
+    "path": "GOVERNANCE/SMF-AP1-M03-02-R1-POST-M10-DRE-01-PRE-EXECUTION-FREEZE-V0.1.json",
+    "blob": "19d5d5fd01baf577853cc7086d426da1448387dc",
+    "reason": "DRE-01-CR1_OUTPUT_SCHEMA_IDENTITY_CORRECTION"
+  },
+  "correction_record_blob": "3f44dd44002c9e12abb490a260e861c228468ed4",
+  "freeze_parent": {
+    "head": "39f2222113d495731916bdfe9a9d6edffe1fbac1",
+    "tree": "badc30f78c1b551acabe19d9176ed5728e0af52c"
+  },
+  "frozen_design_blobs": {
+    "human_authorization_receipt": "cb7b39ba9cdfd08b366368fa33cc4d2d28eb2e02",
+    "data_payload_binding": "efd7ba2e1f822a0bc1e4b444bb1cac33117ae12f",
+    "execution_contract": "26889ea08b1bb4e4aebac953ed37e4c4425446bf",
+    "output_schema": "8f3224b7aff804b1e9ce3776e552f8b2d60ae40d",
+    "breaker_contract": "ba80d33d36fef04a556d9c4e596d46eb9cfdf90e",
+    "requirements_provenance_traceability": "442e810db71ebe6a174ca100c96ee730cdf109d9"
+  },
+  "upstream_governance_bindings": {
+    "pcg03c_human_adoption_receipt_blob": "032db75ddfdb94d1184c9a8656dc60b10530b24d",
+    "pcg03c_final_closure_blob": "04727845aeed557c27c41af609f44111b4cde307",
+    "dc01_final_readiness_receipt_blob": "3538cc0af1067f8387c415db08a3b8ee8c5e3ccb",
+    "dc01_final_closure_blob": "08c196054f1937ee0a903928017995dc7aaa7798",
+    "conditioned_claim_contract_blob": "57a85a5aa7b32e9d0bf63aa75d37974a8eca6649",
+    "conditioned_estimand_contract_blob": "ac4021a1e16d04493897aa90b7236c3f9107d962",
+    "tcs01_blob": "b9d79720b7e0e1732ddf0b5d1ca50f9b9e07f7d5"
+  },
+  "frozen_source": {
+    "path": "C:\\Users\\Boulevart\\ATDS-CONTROL\\SMF-AP1-M03-02-R1\\M03-R1-REAL-e73a24ca.json",
+    "sha256": "7d4369cdfab545f0edb94b93ad9d1d1070e6afa35a1000376af55d9c10943a9e",
+    "expected_schema": "ATDS_SMF_AP1_M03_02_REAL_EXECUTION_V0_1",
+    "expected_status": "M03_REAL_EXECUTION_COMPLETE",
+    "dataset_identity": "USTECH_PROFILE_MINUTE_CORE_V0_1",
+    "ap0_manifest_sha256": "62cccc5bbcb6dde00d5a1bd69616ba1fe7794839055d668772b3d367f826a5ce",
+    "m03_real_execution_plan_blob": "6849e42aef724fa7643fc70715a206632024bd54",
+    "m03_executor_blob": "63b7cb779fd1e8cf5eaa175f17a3ce6f7a76e81f",
+    "m03_binding_blob": "f4c0295625f8b360effbd27a8d616d9644ea2a5e",
+    "smf_core_blob": "b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb",
+    "smf_reference_blob": "00131e4369c15cf5efdbc3a6523b57e77b91b2f4",
+    "procedure_ref": "gitblob:b67d63bbbc4f93be3fe1e7327c1f1f1cc440ebeb#ecdf_quantiles",
+    "quantile_definition": "linear interpolation with h=(n-1)*p",
+    "tail_extrapolation": "FORBIDDEN"
+  },
+  "frozen_extraction": {
+    "ordered_components": [
+      {
+        "id": "R_2022",
+        "bucket_id": "UTC_YEAR:2022",
+        "metric": "tick_count",
+        "probability_key": "0.5"
+      },
+      {
+        "id": "R_2023",
+        "bucket_id": "UTC_YEAR:2023",
+        "metric": "tick_count",
+        "probability_key": "0.5"
+      },
+      {
+        "id": "R_2024",
+        "bucket_id": "UTC_YEAR:2024",
+        "metric": "tick_count",
+        "probability_key": "0.5"
+      },
+      {
+        "id": "R_2025",
+        "bucket_id": "UTC_YEAR:2025",
+        "metric": "tick_count",
+        "probability_key": "0.5"
+      }
+    ],
+    "operation": "EXTRACT_EXISTING_M03_P50_WITHOUT_RECOMPUTATION",
+    "whole_vector_atomic": true,
+    "partial_vector": false,
+    "cross_year_aggregation": false,
+    "imputation": false
+  },
+  "frozen_output": {
+    "output_schema_blob": "8f3224b7aff804b1e9ce3776e552f8b2d60ae40d",
+    "result_schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_01_YEAR_STRATIFIED_REFERENCE_VECTOR_V0_1",
+    "claim_id": "POST_M10-DC02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "estimand_id": "POST_M10-E02-TICKCOUNT-P50-YEAR-STRATIFIED-HISTORICAL-REFERENCES",
+    "analysis_id": "POST_M10-DA02-TICKCOUNT-P50-YEAR-STRATIFIED-REFERENCE-CONSTRUCTION",
+    "vector_order": [
+      "R_2022",
+      "R_2023",
+      "R_2024",
+      "R_2025"
+    ],
+    "canonical_json": {
+      "ensure_ascii": true,
+      "sort_keys": true,
+      "separators": [
+        ",",
+        ":"
+      ],
+      "allow_nan": false,
+      "encoding": "UTF-8",
+      "terminal_newline": true
+    },
+    "wall_clock_in_scientific_result": false
+  },
+  "future_execution_budget": {
+    "execution_id": "POST_M10-DRE01-EXEC01-TICKCOUNT-P50-YEAR-STRATA-2022-2025",
+    "primary_execution_count": 1,
+    "independent_reference_execution_count": 1,
+    "retry_count": 0,
+    "automatic_retry": false
+  },
+  "required_pre_execution_checks": [
+    "FRESH_REMOTE_HEAD_TREE",
+    "CLEAN_WORKTREE_OR_EQUIVALENT_CANONICAL_STATE",
+    "NO_MATERIAL_DRIFT_TO_DRE01_PCG03C_DC01_TCS01_M03_SMF_SEMANTICS",
+    "EXACT_DRE01_DESIGN_BLOBS",
+    "EXACT_M03_SOURCE_SHA256",
+    "EXACT_UPSTREAM_GOVERNANCE_BLOBS",
+    "SEPARATE_HUMAN_EXECUTION_AUTHORIZATION_PRESENT"
+  ],
+  "design_freeze_effect": {
+    "design_fields_mutable_without_new_human_decision": false,
+    "source_substitution": false,
+    "algorithm_substitution": false,
+    "output_schema_substitution": false,
+    "breaker_weakening": false,
+    "future_execution_automatic": false
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "design_freeze": true,
+    "real_source_payload_read": false,
+    "raw_ap0_read": false,
+    "primary_execution": false,
+    "independent_reference_execution": false,
+    "numerical_estimation": false,
+    "method_activation": false,
+    "method_execution": false,
+    "oos": false,
+    "trading": false,
+    "capital": false
+  },
+  "execution_authorized": false,
+  "separate_human_execution_authorization_required": true,
+  "automatic_open": false,
+  "automatic_execution": false,
+  "stop": true,
+  "force": false
+}
