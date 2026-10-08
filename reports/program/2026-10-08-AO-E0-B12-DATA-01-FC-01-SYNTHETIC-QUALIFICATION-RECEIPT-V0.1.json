@@ -1,0 +1,93 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC-01",
+  "date": "2026-10-08",
+  "qualification_scope": "SYNTHETIC_ONLY_NO_REAL_COLLECTION",
+  "verdict": "PASS",
+  "status": "SYNTHETICALLY_QUALIFIED_CANDIDATE_FOR_HUMAN_ADOPTION",
+  "authorization": {
+    "source": "HUMAN AUTHORIZATION — AO-E0-B12-DATA-01-FC-01 SYNTHETIC QUALIFICATION V0.1",
+    "authorized_parent_head": "7a87805f77c4732a5040736fbf46b38bb3ebda16",
+    "authorized_parent_tree": "2e6bc06ede60d9fe69f548df7778e392f92e17a1",
+    "force": false
+  },
+  "fresh_remote_prequalification": {
+    "head": "32f1434c565b3705cc96a0e16de5b5051d96b0b0",
+    "tree": "112aefa3488a636b25a6f10536bb444095b15e54",
+    "drift_from_authorized_parent": "ONE_BEPD_HUMAN_CLOSURE_COMMIT_ONLY",
+    "drift_material_to_fc01": false
+  },
+  "canonical_bindings": {
+    "contract_blob": "5dcde7830edf34dc3f77ba234a2cb803cd792df2",
+    "human_authorization_blob": "f175be263f287a7316f213ffdbfe6c1b6d6cb4ca",
+    "runtime_blob": "3417f6b602964bfa5b9027e6dfc5016bf3329a08",
+    "tests_blob": "23e816cad3f11beb69e68e0687a752e8503a1804",
+    "workflow_blob": "df32b20d9341124f57eab377c6cbffbd206727fb",
+    "m06_v02_blob": "eabb5fb48f8cccb14d51fafb125c5b906da1761d",
+    "formation_v02_blob": "3ad012886be330f1fc6af964bfb6b1cd8ce55290",
+    "dr01_v02_blob": "2c245a21e72e4ed75e807e088d717ff71f17732c",
+    "tc01_v02_blob": "22771d1e050ff08da05edaf69c801565f4666142",
+    "tc02_final_closure_blob": "8621bb632ef5ea2dd42e16d9b036eeb8b00f4e14",
+    "all_exact": true
+  },
+  "execution": {
+    "mode": "LOCAL_EQUIVALENT_SYNTHETIC_EXECUTION",
+    "device": "DESKTOP-49BN9M3",
+    "execution_worktree_head": "a762650aae6a8355208ab6eb3045c9bc3ece7ba2",
+    "execution_worktree_tree": "af5d7e5c8fd5e14a3495220455f0890c20581233",
+    "execution_worktree_clean_before": true,
+    "execution_worktree_clean_after": true,
+    "qualified_surface_byte_exact_to_fresh_remote": true,
+    "python": "3.13.14",
+    "pytest": "9.1.1"
+  },
+  "tests": {
+    "fc01": "18/18 PASS",
+    "acq02_regression": "55/55 PASS",
+    "combined": "73/73 PASS",
+    "static_bindings": "PASS",
+    "prohibited_runtime_dependencies": "ABSENT",
+    "authority_firewall": "PASS",
+    "fixed_horizon_and_cadence": "PASS",
+    "clean_worktree": "PASS"
+  },
+  "qualified_semantics": {
+    "fixed_horizon": "PASS",
+    "post_horizon_collection_blocked": true,
+    "future_of_clock_collection_blocked": true,
+    "append_only_integrity": "PASS",
+    "source_object_mutation_blocked": true,
+    "missing_interval_blocked": true,
+    "same_boundary_replay_idempotent": true,
+    "deterministic_replay": "PASS",
+    "structural_chain": "RAW_TO_AP0_TO_H1_SYNTHETICALLY_QUALIFIED",
+    "health_surface_non_performance": true,
+    "cadence_binding": "PASS"
+  },
+  "real_data_firewall": {
+    "real_fc01_collection_cycle": false,
+    "real_provider_fetch": false,
+    "real_dukascopy_forward_request": false,
+    "real_forward_market_data_access": false,
+    "real_forward_object_download": false,
+    "real_network_market_request": false
+  },
+  "authority": {
+    "fc01_synthetic_qualification": true,
+    "real_collection": false,
+    "real_data": false,
+    "b12_open": false,
+    "oos_performance_consumption": false,
+    "performance": false,
+    "scientific": false,
+    "strategy": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital": false
+  },
+  "scientific_lane": "STOP",
+  "real_collection": "NOT_STARTED",
+  "next": "HUMAN_ADJUDICATION_OF_FC01_SYNTHETIC_QUALIFICATION",
+  "automatic_downstream_action": false,
+  "stop": true
+}
