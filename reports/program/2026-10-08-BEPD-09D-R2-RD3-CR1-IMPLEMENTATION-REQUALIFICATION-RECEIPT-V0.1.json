@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_IMPLEMENTATION_REQUALIFICATION_RECEIPT_V0_1",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "verdict": "NOT_SYNTHETICALLY_REQUALIFIED",
+  "reason": "SINGLE_AUTHORIZED_GREEN_REPLAY_FAILED_ON_UNCHANGED_HARNESS_INTERFACE_ASSUMPTION",
+  "mechanical_correction": "EXACT",
+  "import_surface": "PASS",
+  "single_green_replay": "FAIL",
+  "candidate_b_controlled_implementation": "NOT_QUALIFIED_FOR_HUMAN_ADOPTION",
+  "implementation_human_adopted": false,
+  "real_training_requalification": "NOT_AUTHORIZED",
+  "c1_retry": "NOT_AUTHORIZED",
+  "scientific_result": "NONE",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "stop": true
+}

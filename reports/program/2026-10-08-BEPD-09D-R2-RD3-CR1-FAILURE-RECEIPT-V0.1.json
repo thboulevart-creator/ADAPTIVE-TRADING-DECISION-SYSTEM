@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_FAILURE_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD3-CR1",
+  "date": "2026-10-08",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "correction_commit": "f95c5a9595ba72306bb31a0c94d1bc8cb7330c10",
+  "corrected_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "mechanical_correction": {
+    "exact": true,
+    "import_base_added": true,
+    "sig_rebound_to_base": true,
+    "score_rebound_to_base": true,
+    "tau_change": false,
+    "solver_change": false,
+    "science_change": false,
+    "protocol_change": false
+  },
+  "import_surface_qualification": "PASS",
+  "single_green_replay": "FAIL",
+  "failure_stage": "UNCHANGED_GREEN_LEGACY_NON_REGRESSION_ALIAS_IDENTITY_CHECK",
+  "exact_error": {
+    "type": "AttributeError",
+    "message": "module 'bepd09d_r2_runtime' has no attribute '_sig'",
+    "location": "tools/bepd09d_r2_rd3_synthetic_regression.py:197",
+    "failing_expression": "controlled._sig is legacy._sig"
+  },
+  "classification": "UNCHANGED_GREEN_HARNESS_INTERFACE_ASSUMPTION_DEFECT",
+  "interpretation": {
+    "corrected_controlled_runtime_import_failed": false,
+    "tau_contract_defect": false,
+    "acceptance_contract_defect": false,
+    "solver_defect": false,
+    "scientific_model_defect": false,
+    "data_defect": false,
+    "green_harness_still_assumes_private_helper_is_reexported_by_legacy_runtime": true
+  },
+  "qualification_reached": false,
+  "contract_parity_final_verdict": "NOT_REACHED",
+  "breaker_regression_final_verdict": "NOT_REACHED",
+  "determinism_final_verdict": "NOT_REACHED",
+  "legacy_non_regression_final_verdict": "NOT_REACHED",
+  "reference_role_invariance_final_verdict": "NOT_REACHED",
+  "implementation_human_adopted": false,
+  "real_requalification_authorized": false,
+  "c1_retry_authorized": false,
+  "real_data_used": false,
+  "fold3_replay": false,
+  "second_patch_applied": false,
+  "second_rerun_performed": false,
+  "next_required_action": "NEW_HUMAN_DECISION",
+  "stop": true
+}

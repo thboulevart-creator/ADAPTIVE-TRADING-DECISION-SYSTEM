@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_IMPORT_SURFACE_QUALIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "corrected_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "observations": {
+    "controlled_runtime_import": "PASS",
+    "evidence": "UNCHANGED_GREEN_SCRIPT_IMPORTED_CONTROLLED_RUNTIME_AND_ADVANCED_TO_LINE_197",
+    "controlled_sig_binding_source": "_base._sig",
+    "controlled_score_binding_source": "_base._score",
+    "source_sig_present": true,
+    "source_score_present": true,
+    "corrected_binding_matches_authorized_manifest": true
+  },
+  "real_data_used": false,
+  "fold3_replay": false
+}
