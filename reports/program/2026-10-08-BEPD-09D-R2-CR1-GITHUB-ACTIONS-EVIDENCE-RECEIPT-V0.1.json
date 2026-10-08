@@ -1,0 +1,22 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "RECORDED",
+  "authoritative_cr1_workflow_run_id": 37763613534,
+  "authoritative_cr1_workflow_job_id": 113265764989,
+  "head_sha": "d9af2eefcab0e5a65dd64bc4236d38d9a3967af0",
+  "workflow_name": "BEPD-09D-R2-CR1 Same Pre-Retry Requalification",
+  "workflow_conclusion": "failure",
+  "artifact_id": 11543168395,
+  "artifact_name": "BEPD-09D-R2-CR1-pre-retry",
+  "artifact_size_bytes": 1298,
+  "artifact_digest_sha256": "c98321a999a164f64a90a32143f6f73d284fcc56cba11434ecd41b1ccdc225d8",
+  "artifact_files": [
+    "07_CR1_INTERFACE_IDENTITY_RECEIPT.json",
+    "08_CR1_SYNTHETIC_REQUALIFICATION_RECEIPT.json",
+    "99_CR1_FAILURE_RECEIPT.json"
+  ],
+  "legacy_r2_workflow_auto_triggered": true,
+  "legacy_r2_workflow_run_id": 37763613493,
+  "legacy_r2_workflow_authority": "NON_AUTHORITATIVE_FOR_CR1_VERDICT",
+  "rerun_performed": false
+}

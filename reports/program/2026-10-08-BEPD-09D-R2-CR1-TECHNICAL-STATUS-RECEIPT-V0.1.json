@@ -1,0 +1,40 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_TECHNICAL_STATUS_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-CR1",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "date": "2026-10-08",
+  "preparation_commit": "d9af2eefcab0e5a65dd64bc4236d38d9a3967af0",
+  "preparation_tree": "bd3960ef048a84e54eb282cbac95c406a768bc92",
+  "correction": {
+    "stats_alias_identity": "PASS",
+    "mats_alias_identity": "PASS",
+    "corrected_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+    "max_iter": 5000,
+    "fit_tol": 1e-10
+  },
+  "synthetic_requalification": "PASS_44_OF_44_TWICE",
+  "deterministic_synthetic_replay": "PASS",
+  "real_training_qualification": "BLOCKED_ON_PRIMARY_MODEL_NONCONVERGENCE",
+  "exact_failed_fold": "NOT_PROVEN_BY_CURRENT_PERSISTED_EVIDENCE",
+  "exact_failed_model": "NOT_PROVEN_BY_CURRENT_PERSISTED_EVIDENCE",
+  "primary_training_fit_completion_count": "NOT_PROVEN_BY_CURRENT_PERSISTED_EVIDENCE",
+  "reference_training_fit_completion_count": "NOT_PROVEN_BY_CURRENT_PERSISTED_EVIDENCE",
+  "training_consistency": "NOT_COMPLETED",
+  "scientific_boundaries": {
+    "test_predictions": false,
+    "test_scoring": false,
+    "logloss": false,
+    "brier": false,
+    "scientific_result": "NONE",
+    "c1_retry": "NOT_AUTHORIZED",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "verdicts": {
+    "bepd_09d_r2_cr1": "BLOCKED_FAIL_CLOSED",
+    "bepd_09d_r2": "NOT_PRE_RETRY_READY"
+  },
+  "recursive_correction_authorized": false,
+  "next_required_action": "HUMAN_DECISION_ON_BOUNDED_FORENSIC_DIAGNOSIS_OF_CR1_REAL_TRAINING_NONCONVERGENCE",
+  "stop": true
+}

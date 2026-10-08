@@ -1,0 +1,27 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_SYNTHETIC_REQUALIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "expected_tests": 44,
+  "run_1": {
+    "tests_run": 44,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "primary_replay_1": "63da7f382fcef5abee3f54458fcf4715a2ff7ea8855648b7796c622e87aacef3",
+    "primary_replay_2": "63da7f382fcef5abee3f54458fcf4715a2ff7ea8855648b7796c622e87aacef3",
+    "reference_replay_1": "13882582b8f573cbee046176e8948e3fe7fb38f192263c741daa6970d253c4a3",
+    "reference_replay_2": "13882582b8f573cbee046176e8948e3fe7fb38f192263c741daa6970d253c4a3"
+  },
+  "run_2": {
+    "tests_run": 44,
+    "failures": 0,
+    "errors": 0,
+    "successful": true,
+    "primary_replay_1": "63da7f382fcef5abee3f54458fcf4715a2ff7ea8855648b7796c622e87aacef3",
+    "primary_replay_2": "63da7f382fcef5abee3f54458fcf4715a2ff7ea8855648b7796c622e87aacef3",
+    "reference_replay_1": "13882582b8f573cbee046176e8948e3fe7fb38f192263c741daa6970d253c4a3",
+    "reference_replay_2": "13882582b8f573cbee046176e8948e3fe7fb38f192263c741daa6970d253c4a3"
+  },
+  "deterministic_replay": "PASS",
+  "scientific_result": "NONE"
+}

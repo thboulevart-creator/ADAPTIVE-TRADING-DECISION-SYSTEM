@@ -1,0 +1,9 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_INTERFACE_IDENTITY_RECEIPT_V0_1",
+  "status": "PASS",
+  "corrected_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "stats_identity": true,
+  "mats_identity": true,
+  "max_iter": 5000,
+  "fit_tol": 1e-10
+}
