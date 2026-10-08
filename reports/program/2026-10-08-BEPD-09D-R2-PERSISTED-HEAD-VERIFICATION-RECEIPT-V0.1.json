@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2",
+  "status": "PASS",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "e6ffe93892b644241d461631110187edb0e8d9e2",
+  "verified_tree": "0d5e93b972713b948a43647a94507587256de7a4",
+  "canonical_readback": "12 / 12 PASS",
+  "artifacts": {
+    "human_authorization": "c66331cb82f622b318f1b9838ed45fd879da4448",
+    "fresh_preflight": "f2151cd1f913cdd887dc37f4f15eae026e8ba2c7",
+    "amendment_contract": "0f3a351326c195312c0845de8a86fb177443c800",
+    "source_diff": "7f986e5110711d88655fbf0c01a8d5afe693f0f3",
+    "r2_runtime": "58a68c6ad8ecb7db2a1294ad90d26f4f01c9de85",
+    "breaker_contract": "fd432cd75ecfe2a3252d2aaefb2b8e49c3f0f043",
+    "qualification_harness": "bf30012d901b89d2264ce13c59c62ccdf6a9c5cb",
+    "workflow": "1a400f314fcd19b32fc9f60d661d02cbf8e9a164",
+    "synthetic_requalification": "04527c2c2b61e640560220973e60c6f4fc1c2879",
+    "failure_receipt": "349d81a29c0f40577c46ce0348ec0e65a9a022ca",
+    "workflow_evidence": "e30f380087806e86aad42e5beb1636e2d57e26fd",
+    "technical_status": "86b62a1202b0aae1b1c1e75a21c2cb95c373f74c"
+  },
+  "qualification_state": {
+    "synthetic_requalification": "44 / 44 PASS TWICE",
+    "deterministic_replay": "PASS",
+    "real_training_primary_fits_executed": 0,
+    "real_training_reference_fits_executed": 0,
+    "training_consistency": "NOT_EXECUTED",
+    "failure_stage": "REAL_TRAINING_ONLY_AUDIT_PRE_FIT",
+    "failure_classification": "QUALIFICATION_HARNESS_INTERFACE_DEFECT",
+    "failure_error": "module 'bepd09d_r2_runtime' has no attribute '_stats'"
+  },
+  "scientific_boundaries": {
+    "test_predictions_computed": false,
+    "test_scoring_computed": false,
+    "logloss_computed": false,
+    "brier_computed": false,
+    "scientific_result": "NONE",
+    "c1_retry_authorized": false,
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "verdict": "BEPD_09D_R2_BLOCKED_FAIL_CLOSED_PERSISTED",
+  "recursive_repair_authorized": false,
+  "next_required_action": "HUMAN_DECISION_ON_BOUNDED_R2_IMPLEMENTATION_INTERFACE_CORRECTION",
+  "stop": true
+}
