@@ -1,0 +1,14 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F2_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "PASS",
+  "workflow_run_id": 37781077204,
+  "workflow_job_id": 113324027626,
+  "head_sha": "df262f6d213aa91c9b21932dc90ffbd31b9fc2dd",
+  "workflow_name": "BEPD-09D-R2-CR1-F2 Precision-Loss Forensics",
+  "workflow_conclusion": "success",
+  "artifact_id": 11552146180,
+  "artifact_name": "BEPD-09D-R2-CR1-F2-forensics",
+  "artifact_size_bytes": 8922,
+  "artifact_digest_sha256": "43b2675948c5eea6f7c576082f2cc12f8e38fe85629930107550f1a834cc331b",
+  "rerun_performed": false
+}

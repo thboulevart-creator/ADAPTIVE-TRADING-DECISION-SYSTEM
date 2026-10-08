@@ -1,0 +1,40 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F2_CROSS_PHASE_RECONCILIATION_RECEIPT_V0_1",
+  "status": "PASS_WITH_NON_BLOCKING_DISCREPANCY",
+  "comparison": "F1_CANONICAL_NEWTON_STATE_VS_F2_DETERMINISTIC_REPLAY",
+  "f1": {
+    "receipt_blob": "1aabe9794024d4a34a4bff71a20e01c350241209",
+    "status": 2,
+    "message_class": "PRECISION_LOSS",
+    "iteration_count": 19,
+    "function_evaluation_count": 27,
+    "gradient_evaluation_count": 27,
+    "objective_value": 102.7756007010668,
+    "score_inf_norm": 1.6346640596687223e-8
+  },
+  "f2": {
+    "problem_identity_sha256": "a456ec1ada35d3ca2e0c736d6ad4b773df89747f01209f5d72c0efeae63a64a2",
+    "status": 2,
+    "message_class": "PRECISION_LOSS",
+    "iteration_count": 20,
+    "function_evaluation_count": 28,
+    "gradient_evaluation_count": 28,
+    "hessian_evaluation_count": 21,
+    "objective_value": 102.7756007010668,
+    "score_inf_norm": 6.384288511046554e-9,
+    "internal_replays_identical": true,
+    "callback_non_interference": "PASS"
+  },
+  "conclusions": {
+    "precision_loss_mechanism_class_reproduced": true,
+    "exact_termination_state_reproduced_across_phases": false,
+    "objective_value_same_to_recorded_precision": true,
+    "cross_phase_iteration_delta": 1,
+    "cross_phase_function_evaluation_delta": 1,
+    "causal_interpretation": "NOT_PROVEN",
+    "effect_on_f2_verdict": "SUPPORTS_CONSERVATIVE_PL_G_NOT_PROVEN"
+  },
+  "no_additional_run_performed": true,
+  "repair_authorized": false,
+  "c1_retry_authorized": false
+}
