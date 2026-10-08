@@ -1,0 +1,27 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_SOURCE_DIFF_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "r2_runtime_blob": "58a68c6ad8ecb7db2a1294ad90d26f4f01c9de85",
+  "implementation_form": "DELEGATING_OVERLAY",
+  "base_runtime_mutated": false,
+  "exact_functional_change": {
+    "parameter": "MAX_ITER",
+    "from": 100,
+    "to": 5000
+  },
+  "delegated_unchanged_surfaces": [
+    "OBJECTIVE",
+    "GRADIENT",
+    "HESSIAN",
+    "ZERO_INITIALIZATION",
+    "MODEL",
+    "FEATURES",
+    "STANDARDIZATION",
+    "CALENDAR",
+    "FOLDS",
+    "SCORING_LOGIC"
+  ],
+  "additional_scientific_logic": false,
+  "prohibited_behavior_added": false
+}

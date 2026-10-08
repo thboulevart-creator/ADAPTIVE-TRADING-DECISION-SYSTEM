@@ -1,0 +1,31 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_HUMAN_AUTHORIZATION_RECORD_V0_1",
+  "control_id": "BEPD-09D-R2",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "f033dcd9788f62b8427df40b21f3978558b8288c9d41b9bd63a8cae659788629",
+  "source_authorization_bytes": 14474,
+  "authority": {
+    "repair_class": "R2",
+    "selected_change": "MAX_ITER_100_TO_5000",
+    "primary_solver": "Newton-CG",
+    "xtol": 1e-10,
+    "zero_initialization": true,
+    "objective_unchanged": true,
+    "gradient_unchanged": true,
+    "hessian_unchanged": true,
+    "model_unchanged": true,
+    "synthetic_requalification": true,
+    "real_training_only_primary_fits": 10,
+    "real_training_only_reference_fits": 10,
+    "test_predictions": false,
+    "test_scoring": false,
+    "logloss": false,
+    "brier": false,
+    "c1_rerun": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "maximum_verdict": "SOLVER_TERMINATION_BEHAVIOR_AMENDMENT_QUALIFIED_AND_PRE_RETRY_READY_FOR_HUMAN_ADJUDICATION"
+}
