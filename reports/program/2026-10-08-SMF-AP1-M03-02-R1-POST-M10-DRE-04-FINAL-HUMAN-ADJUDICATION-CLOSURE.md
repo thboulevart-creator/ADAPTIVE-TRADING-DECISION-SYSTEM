@@ -1,0 +1,165 @@
+# SMF-AP1-M03-02-R1-POST-M10-DRE-04 — FINAL HUMAN ADJUDICATION CLOSURE
+
+Status: HUMAN_ADOPTED_DESCRIPTIVE_ONLY
+
+## Canonical parent
+
+AUTHORIZED_PARENT_HEAD =
+bad6c433c92c3c17fa85e166dc1fe126cc78f614
+
+AUTHORIZED_PARENT_TREE =
+e5d0ac5a96accdf45b900a18c145a6aa1e13a8e7
+
+## Canonical technical basis
+
+DRE-03 FINAL TECHNICAL CLOSURE BLOB =
+8cc2db1f9771fd963b661e87fdbd0044ca277550
+
+FINAL TECHNICAL EXECUTION RECEIPT BLOB =
+c5d6be5e3cf8a0c026ccb889ae7c1851135d345d
+
+REAL PRIMARY RESULT BLOB =
+e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a
+
+REAL REFERENCE RESULT BLOB =
+e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a
+
+REAL REFERENCE PARITY BLOB =
+fedd751f235f5514c6f12abb4775ee7cce71df39
+
+DRE-04 HUMAN ADOPTION RECEIPT BLOB =
+bf1ebf1d5ed4839171c57c5cc5255b6fb9677a3d
+
+## Human verdict
+
+DRE-04 HUMAN VERDICT =
+ADOPT
+
+ADOPTION_SCOPE =
+REAL_DESCRIPTIVE_YEAR_CONDITIONED_REFERENCE_VECTOR_ONLY
+
+HUMAN_SCIENTIFIC_ADOPTION =
+ADOPTED_WITH_DESCRIPTIVE_CEILING
+
+DESCRIPTIVE_RESULT_AUTHORITY =
+HUMAN_ADOPTED_DESCRIPTIVE_EVIDENCE
+
+## Adopted vector
+
+R_2022 =
+270.0
+
+R_2023 =
+170.0
+
+R_2024 =
+112.0
+
+R_2025 =
+161.0
+
+This establishes OBSERVED_DESCRIPTIVE_CROSS_STRATUM_VARIATION within the exposed governed corpus only.
+
+## Scientific ceiling
+
+The adopted descriptive vector does not establish trend, stationarity, nonstationarity, a change point, a structural break, a market regime, regime transition or causation, temporal dependence, persistence, predictive value, future generalization, economic edge, profitability, strategy validity, or trading edge.
+
+DESCRIPTIVE_DIFFERENCE != STATISTICAL_NONSTATIONARITY
+
+DESCRIPTIVE_SEQUENCE != TREND
+
+YEAR_CONDITIONING != REGIME_IDENTIFICATION
+
+OBSERVED_VARIATION != CAUSATION
+
+HISTORICAL_REFERENCE != FUTURE_GENERALIZATION
+
+## Epistemic state
+
+EVIDENCE_STATE =
+EXPOSED
+
+CLAIM_PROVENANCE =
+RESULT_AWARE
+
+SAME_CORPUS_CONFIRMATORY_STATUS =
+NON_PRISTINE
+
+RESET_TO_PRISTINE =
+FORBIDDEN
+
+## Method state
+
+M04 = CLOSED
+M05 = CLOSED
+M08 = CLOSED
+M09 = CLOSED
+M11 = CLOSED
+
+## Execution and authority boundaries
+
+REAL_SOURCE_READ_BUDGET_REMAINING =
+0
+
+PRIMARY_REAL_EXECUTION_BUDGET_REMAINING =
+0
+
+REFERENCE_REAL_EXECUTION_BUDGET_REMAINING =
+0
+
+REAL_RETRY_BUDGET_REMAINING =
+0
+
+METHOD_AUTHORITY =
+FALSE
+
+METHOD_EXECUTION_AUTHORITY =
+FALSE
+
+OOS_AUTHORITY =
+FALSE
+
+STRATEGY_AUTHORITY =
+FALSE
+
+TRADING_AUTHORITY =
+FALSE
+
+CAPITAL_AUTHORITY =
+FALSE
+
+No real source reread, primary or reference rerun, retry, new real execution, new OOS access, new statistical analysis, strategy action, trading action, or capital action is authorized.
+
+## BEPD isolation
+
+BEPD-09D-F1 is neither modified nor adjudicated by this closure.
+
+## Closure
+
+SMF-AP1-M03-02-R1-POST-M10-DRE-04 =
+HUMAN_ADOPTED
+
+DRE-04 =
+HUMAN_ADOPTED_DESCRIPTIVE_ONLY
+
+ADOPTED_OBJECT =
+REAL_YEAR_STRATIFIED_DESCRIPTIVE_REFERENCE_VECTOR
+
+SCIENTIFIC_SCOPE =
+DESCRIPTIVE_ONLY
+
+SCIENTIFIC_CEILING_PRESERVED =
+TRUE
+
+NEXT_SCIENTIFIC_FRONTIER =
+CLOSED
+
+AUTOMATIC_DOWNSTREAM_ACTION =
+FALSE
+
+No downstream canonical identifier is created or opened by this operation.
+
+STOP =
+TRUE
+
+STOP.

@@ -1,0 +1,104 @@
+{
+  "schema": "ATDS_SMF_AP1_M03_02_R1_POST_M10_DRE_04_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "SMF-AP1-M03-02-R1-POST-M10-DRE-04",
+  "date": "2026-10-08",
+  "status": "HUMAN_ADOPTED_DESCRIPTIVE_ONLY",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "force": false,
+  "authorized_parent": {
+    "head": "bad6c433c92c3c17fa85e166dc1fe126cc78f614",
+    "tree": "e5d0ac5a96accdf45b900a18c145a6aa1e13a8e7"
+  },
+  "prior_checkpoint": {
+    "head": "af69e736e743af7431bfaf8e62fff5cc452ca491",
+    "tree": "09011a35b01351674c882c4a59f16ad8c6190c4c",
+    "drift_commits": 3,
+    "drift_scope": "BEPD-09D-F1_ONLY",
+    "dre03_material_drift": "NONE_OBSERVED"
+  },
+  "technical_basis": {
+    "dre03_final_technical_closure_blob": "8cc2db1f9771fd963b661e87fdbd0044ca277550",
+    "dre03_final_technical_execution_receipt_blob": "c5d6be5e3cf8a0c026ccb889ae7c1851135d345d",
+    "real_primary_result_blob": "e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a",
+    "real_reference_result_blob": "e4eb75d019bdd442a5ab29c845b6b2fbc03edd3a",
+    "real_reference_parity_blob": "fedd751f235f5514c6f12abb4775ee7cce71df39",
+    "result_sha256": "d965cec1a01c7d130a49974b481abf43b874835be999460df93becbb452d556f"
+  },
+  "human_verdict": {
+    "verdict": "ADOPT",
+    "adoption_scope": "REAL_DESCRIPTIVE_YEAR_CONDITIONED_REFERENCE_VECTOR_ONLY",
+    "human_scientific_adoption": "ADOPTED_WITH_DESCRIPTIVE_CEILING",
+    "descriptive_result_authority": "HUMAN_ADOPTED_DESCRIPTIVE_EVIDENCE"
+  },
+  "adopted_vector": {
+    "R_2022": 270.0,
+    "R_2023": 170.0,
+    "R_2024": 112.0,
+    "R_2025": 161.0
+  },
+  "sample_counts": {
+    "UTC_YEAR:2022": 342580,
+    "UTC_YEAR:2023": 340877,
+    "UTC_YEAR:2024": 342214,
+    "UTC_YEAR:2025": 340554
+  },
+  "estimand": "tick_count p50",
+  "conditioning": "UTC_YEAR",
+  "adopted_claim": "Within the exposed governed corpus, under the frozen DRE procedure and conditioning, the observed year-conditioned tick_count p50 reference vector for UTC years 2022-2025 is [270.0, 170.0, 112.0, 161.0].",
+  "descriptive_classification": "OBSERVED_DESCRIPTIVE_CROSS_STRATUM_VARIATION",
+  "scientific_ceiling": {
+    "trend": false,
+    "stationarity": false,
+    "nonstationarity": false,
+    "change_point": false,
+    "structural_break": false,
+    "market_regime": false,
+    "regime_transition": false,
+    "regime_causation": false,
+    "temporal_dependence": false,
+    "persistence": false,
+    "predictive_value": false,
+    "future_generalization": false,
+    "economic_edge": false,
+    "profitability": false,
+    "strategy_validity": false,
+    "trading_edge": false
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "authority": {
+    "descriptive_result": "HUMAN_ADOPTED_DESCRIPTIVE_EVIDENCE",
+    "inferential": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "strategy": false,
+    "trading": false,
+    "capital": false
+  },
+  "remaining_real_budget": {
+    "source_reads": 0,
+    "primary_executions": 0,
+    "reference_executions": 0,
+    "retries": 0
+  },
+  "next_scientific_frontier": {
+    "status": "CLOSED",
+    "automatic_downstream_action": false,
+    "downstream_identifier_created": false
+  },
+  "bepd_09d_f1_interference": false,
+  "stop": true
+}
