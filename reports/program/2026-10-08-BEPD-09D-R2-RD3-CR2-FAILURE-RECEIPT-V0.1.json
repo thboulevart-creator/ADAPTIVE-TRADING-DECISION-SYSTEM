@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR2_FAILURE_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD3-CR2",
+  "date": "2026-10-08",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "correction_commit": "13f403bcae07c9190249dae6facbf44754712528",
+  "corrected_harness_blob": "5afa0a0d67af1aa180883b6822912ac12a4481f4",
+  "controlled_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "workflow_blob": "a799a727b44437fd84ed4524a545e69af1ec6663",
+  "harness_correction": {
+    "exact": true,
+    "source_import_added": true,
+    "sig_assertion_retargeted": true,
+    "score_assertion_retargeted": true,
+    "candidate_runtime_changed": false,
+    "workflow_changed": false,
+    "tau_change": false,
+    "solver_change": false,
+    "science_change": false,
+    "protocol_change": false
+  },
+  "static_post_correction_qualification": "PASS",
+  "single_green_replay": "FAIL",
+  "failure_stage": "LEGACY_NON_REGRESSION_OBJECTIVE_PARITY_CHECK",
+  "exact_error": {
+    "type": "AttributeError",
+    "message": "module 'bepd09d_r2_runtime' has no attribute '_ll'",
+    "location": "tools/bepd09d_r2_rd3_synthetic_regression.py:205",
+    "failing_expression": "objective_parity=abs(controlled.objective(Xa,ya,b) - (-legacy._ll(Xa,ya,b))) <= 1e-12"
+  },
+  "classification": "GREEN_HARNESS_PRIVATE_HELPER_INTERFACE_ASSUMPTION_DEFECT",
+  "read_only_inventory": {
+    "remaining_private_legacy_references": [
+      "legacy._stats",
+      "legacy._mats",
+      "legacy._ll"
+    ],
+    "known_valid_explicit_reexports": [
+      "legacy._stats",
+      "legacy._mats"
+    ],
+    "observed_invalid_reference": "legacy._ll"
+  },
+  "interpretation": {
+    "candidate_runtime_defect": false,
+    "tau_contract_defect": false,
+    "acceptance_contract_defect": false,
+    "solver_defect": false,
+    "scientific_model_defect": false,
+    "data_defect": false,
+    "harness_private_helper_reference_defect": true
+  },
+  "qualification_reached": false,
+  "green_synthetic_regression_final_verdict": "NOT_REACHED",
+  "contract_parity_final_verdict": "NOT_REACHED",
+  "breaker_regression_final_verdict": "NOT_REACHED",
+  "determinism_final_verdict": "NOT_REACHED",
+  "legacy_non_regression_final_verdict": "NOT_REACHED",
+  "reference_role_invariance_final_verdict": "NOT_REACHED",
+  "implementation_human_adopted": false,
+  "real_requalification_authorized": false,
+  "c1_retry_authorized": false,
+  "real_data_used": false,
+  "fold3_replay": false,
+  "additional_patch_applied": false,
+  "additional_rerun_performed": false,
+  "next_required_action": "NEW_HUMAN_DECISION",
+  "stop": true
+}
