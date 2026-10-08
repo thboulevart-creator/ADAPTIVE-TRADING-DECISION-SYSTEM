@@ -1,0 +1,459 @@
+# BEPD-09D-R2-CR1-F1 — FINAL HUMAN ADJUDICATION / CANONICAL CLOSURE — 2026-10-08
+
+## Human decision
+
+```text
+HUMAN ADJUDICATION =
+ADOPT
+```
+
+The human principal definitively adopts and closes:
+
+`BEPD-09D-R2-CR1-F1 — REAL TRAINING NONCONVERGENCE BOUNDED FORENSIC DIAGNOSTIC V0.1`
+
+## Governed scope
+
+```text
+REPOSITORY =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+BRANCH =
+integration/system-v1
+
+GITHUB =
+SOURCE_CANONIQUE
+
+FORCE =
+FALSE
+
+SOURCE HUMAN DECISION SHA256 =
+eab8f8744b8450bc181e914d1cd217f5a41c463f7d38489f51cc83771a9fbf78
+
+SOURCE HUMAN DECISION BYTES =
+12049
+```
+
+## Adopted canonical qualification basis
+
+```text
+FORENSIC QUALIFICATION COMMIT =
+bf44afd50998306428efee41f5aec25ffea88666
+
+FORENSIC QUALIFICATION TREE =
+0d84d90005d00c4d62631bdfe0ded28d6c92ebdf
+
+FINAL VERIFIED HEAD =
+7a87805f77c4732a5040736fbf46b38bb3ebda16
+
+FINAL VERIFIED TREE =
+2e6bc06ede60d9fe69f548df7778e392f92e17a1
+
+PERSISTED-HEAD VERIFICATION BLOB =
+3f5262e764c2976d46dd90d91c91a38e0f5f24c0
+```
+
+## Forensic qualification adopted
+
+```text
+BEPD-09D-R2-CR1-F1 =
+FORENSICALLY_QUALIFIED
+/
+HUMAN_ADOPTED
+/
+CLOSED
+
+FORENSIC QUALIFICATION =
+ACCEPTED
+```
+
+## Failed fit adopted
+
+```text
+FAILED FIT SEQUENCE INDEX =
+5
+
+FAILED FOLD =
+3
+
+FAILED MODEL =
+BASELINE
+
+TRAIN EVENT COUNT =
+237
+
+TRAIN RESPONSE CLASS 0 =
+51
+
+TRAIN RESPONSE CLASS 1 =
+186
+```
+
+The preceding governed sequence is adopted as:
+
+```text
+FIT 1 =
+FOLD 1 BASELINE / CONVERGED
+
+FIT 2 =
+FOLD 1 CONTEXT / CONVERGED
+
+FIT 3 =
+FOLD 2 BASELINE / CONVERGED
+
+FIT 4 =
+FOLD 2 CONTEXT / CONVERGED
+
+FIT 5 =
+FOLD 3 BASELINE / MODEL_NONCONVERGENCE
+```
+
+## Frozen Newton-CG failure state adopted
+
+```text
+SOLVER =
+Newton-CG
+
+MAX_ITER =
+5000
+
+XTOL =
+1e-10
+
+INITIALIZATION =
+ZERO VECTOR
+
+SUCCESS =
+FALSE
+
+STATUS =
+2
+
+ITERATIONS =
+19
+
+FUNCTION EVALUATIONS =
+27
+
+GRADIENT EVALUATIONS =
+27
+
+TERMINATION MESSAGE =
+DESIRED ERROR NOT NECESSARILY ACHIEVED
+DUE TO PRECISION LOSS
+
+SCORE INF NORM =
+1.6346640596687223e-08
+
+OBJECTIVE VALUE =
+102.7756007010668
+```
+
+This is explicitly not adopted as a MAX_ITER ceiling failure:
+
+```text
+MAX_ITER CEILING REACHED =
+NO
+```
+
+No further increase of MAX_ITER is authorized by this closure.
+
+## Design and conditioning state adopted
+
+```text
+DESIGN MATRIX SHAPE =
+237 x 5
+
+MATRIX RANK =
+5 / 5
+
+FULL COLUMN RANK =
+YES
+
+CONDITION NUMBER =
+6691.863743136879
+
+HESSIAN MIN EIGENVALUE =
+1.7942891256242092e-06
+
+HESSIAN MAX EIGENVALUE =
+49.82756507278688
+
+HESSIAN CONDITION NUMBER =
+27770086.97233623
+```
+
+Conditioning is adopted as observed, but not as a proven root cause.
+
+## Structural exclusions adopted
+
+```text
+PERFECT SEPARATION =
+NO
+
+ONE-CLASS TRAINING FAILURE =
+NO
+
+RANK DEFICIENCY =
+NO
+
+DESIGN MATRIX FINITE =
+YES
+
+RESPONSE FINITE =
+YES
+
+INITIAL VECTOR FINITE =
+YES
+
+FINAL VECTOR FINITE =
+YES
+
+OBJECTIVE FINITE =
+YES
+
+GRADIENT FINITE =
+YES
+
+HESSIAN FINITE =
+YES
+```
+
+## Reference-solver forensic evidence adopted
+
+```text
+REFERENCE SOLVER =
+ROOT-HYBR SCORE EQUATION
+
+SUCCESS =
+TRUE
+
+FUNCTION EVALUATIONS =
+25
+
+SCORE INF NORM =
+2.799982468104645e-13
+
+FINITE SOLUTION =
+YES
+
+FORENSIC_ONLY =
+YES
+
+NON_SCIENTIFIC =
+YES
+
+ADMISSIBLE_AS_C1_RESULT =
+NO
+```
+
+This establishes that a finite stationary solution is numerically accessible for the same training problem. It does not authorize replacement of Newton-CG.
+
+## Root-cause adjudication adopted
+
+```text
+ROOT_CAUSE_CLASSIFICATION =
+H
+
+ROOT_CAUSE_LABEL =
+ROOT_CAUSE_NOT_PROVEN
+
+ROOT_CAUSE_EVIDENCE_GRADE =
+NOT_PROVEN
+
+SAME ROOT CAUSE AS ORIGINAL F1 =
+NOT_PROVEN
+
+FUTURE REPAIR CLASS =
+NOT_DETERMINED
+```
+
+The uncertainty itself is adopted. No unsupported causal interpretation is permitted.
+
+## R2 / CR1 state
+
+```text
+BEPD-09D-R2 =
+NOT PRE-RETRY READY
+
+CR1 INTERFACE CORRECTION =
+VALID
+
+INTERFACE DEFECT =
+CLOSED
+
+CR1 PRE-RETRY QUALIFICATION =
+NOT PASSED
+```
+
+The interface correction remains distinct from the numerical nonconvergence observed at Fold 3 / Baseline.
+
+## Scientific boundaries
+
+```text
+TEST PREDICTIONS COMPUTED =
+NO
+
+TEST SCORING COMPUTED =
+NO
+
+OUT-OF-FORWARD RESULT =
+NONE
+
+LOGLOSS =
+NONE
+
+BRIER =
+NONE
+
+PRIMARY DELTA =
+NONE
+
+SECONDARY DELTA =
+NONE
+
+SCIENTIFIC RESULT =
+NONE
+
+C1 VALIDATED =
+NO
+
+C1 REJECTED =
+NO
+
+GENERALIZATION =
+NOT_ESTABLISHED
+
+EDGE =
+NO
+
+STRATEGY VALIDATION =
+NO
+```
+
+## No repair authority
+
+This closure does not authorize:
+
+```text
+MAX_ITER CHANGE
+XTOL CHANGE
+SOLVER CHANGE
+SOLVER REPLACEMENT
+INITIALIZATION CHANGE
+OBJECTIVE CHANGE
+GRADIENT CHANGE
+HESSIAN CHANGE
+REGULARIZATION
+FIRTH
+L1
+L2
+ELASTIC NET
+FEATURE CHANGE
+SPLINE CHANGE
+FOLD CHANGE
+DATA CHANGE
+MODEL CHANGE
+```
+
+## No retry authority
+
+```text
+BEPD-09D RETRY =
+CLOSED
+
+C1 RETRY =
+NOT AUTHORIZED
+
+FRESH OOS =
+CLOSED
+
+TRADING AUTHORITY =
+NONE
+```
+
+The first real C1 execution attempt remains consumed and the real corpus remains exposed.
+
+## Final adopted status
+
+```text
+BEPD-09D-R2-CR1-F1 =
+FORENSICALLY_QUALIFIED
+/
+HUMAN_ADOPTED
+/
+CLOSED
+
+FAILED FIT =
+PROVEN
+
+FAILED FOLD =
+3 / ADOPTED
+
+FAILED MODEL =
+BASELINE / ADOPTED
+
+NEWTON-CG FAILURE STATE =
+ADOPTED
+
+REFERENCE-SOLVER FORENSIC EVIDENCE =
+ADOPTED
+
+ROOT_CAUSE =
+NOT_PROVEN / ADOPTED
+
+SAME ROOT CAUSE AS ORIGINAL F1 =
+NOT_PROVEN / ADOPTED
+
+FUTURE REPAIR CLASS =
+NOT_DETERMINED / ADOPTED
+```
+
+## Next frontier
+
+After canonical closure, the recommended next frontier is a separate bounded investigation of the exact Newton-CG precision-loss mechanism on:
+
+```text
+FOLD =
+3
+
+MODEL =
+BASELINE
+
+STATUS =
+2
+
+SIGNAL =
+PRECISION LOSS
+```
+
+This designation is not an authorization.
+
+Until separate human authorization:
+
+```text
+NEW FORENSIC PHASE =
+CLOSED
+
+NEW REPAIR =
+CLOSED
+
+BEPD-09D-R2 =
+NOT PRE-RETRY READY
+
+C1 RETRY =
+NO
+
+FRESH OOS =
+NO
+
+TRADING AUTHORITY =
+NONE
+```
+
+## Stop
+
+After exact canonical persistence and verification of this closure:
+
+```text
+STOP
+```
