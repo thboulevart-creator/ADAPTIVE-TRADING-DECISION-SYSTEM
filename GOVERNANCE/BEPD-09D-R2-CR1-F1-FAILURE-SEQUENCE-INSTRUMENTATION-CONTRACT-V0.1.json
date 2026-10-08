@@ -1,0 +1,28 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_FAILURE_SEQUENCE_INSTRUMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_EXECUTION",
+  "fit_sequence": [
+    "FOLD_1_BASELINE",
+    "FOLD_1_CONTEXT",
+    "FOLD_2_BASELINE",
+    "FOLD_2_CONTEXT",
+    "FOLD_3_BASELINE",
+    "FOLD_3_CONTEXT",
+    "FOLD_4_BASELINE",
+    "FOLD_4_CONTEXT",
+    "FOLD_5_BASELINE",
+    "FOLD_5_CONTEXT"
+  ],
+  "pre_fit_fields": [
+    "FIT_SEQUENCE_INDEX",
+    "FOLD",
+    "MODEL",
+    "TRAIN_EVENT_COUNT",
+    "TRAIN_RESPONSE_CLASS_COUNTS",
+    "DESIGN_MATRIX_SHAPE",
+    "DESIGN_MATRIX_RANK"
+  ],
+  "stop_on_first_model_nonconvergence": true,
+  "test_predictions": false,
+  "test_scoring": false
+}

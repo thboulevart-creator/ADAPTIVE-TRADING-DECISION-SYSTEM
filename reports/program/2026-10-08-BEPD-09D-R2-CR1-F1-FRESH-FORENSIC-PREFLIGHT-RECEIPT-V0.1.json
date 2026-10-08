@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_FRESH_FORENSIC_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "c1718dfd007acf1fb73e34495db581e3d5741e2f",
+  "observed_tree": "834e5e63f46a20ea120d693edf7f6459403983fe",
+  "concurrent_drift": "NONE",
+  "identities": {
+    "f1_closure": "67133fc7b978dbef68f021066ffb3970fea51543",
+    "source_runtime": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "reference_runtime": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "r2_cr1_overlay": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+    "calendar_partition": "7d950d957611cf209d811c788ff10abded30d011",
+    "cr1_failure_receipt": "3a08cf99c95ac2a4afcbae5a877ed0d13aeaebc0",
+    "cr1_technical_status": "e7479ecc038a7879572d6dfe67d4e03471703721",
+    "cr1_persisted_head_verification": "60df007666327772209f320818b3228485f3d548",
+    "event_ledger": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+  },
+  "scientific_result_authorized": false,
+  "repair_authorized": false,
+  "c1_retry_authorized": false
+}
