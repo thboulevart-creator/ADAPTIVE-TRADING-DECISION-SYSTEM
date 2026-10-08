@@ -1,0 +1,94 @@
+{
+  "schema": "ATDS_POST_DRE04_DECISION_RELEVANCE_AND_SCIENTIFIC_NECESSITY_REVIEW_V0_1_HUMAN_ADOPTION_RECEIPT",
+  "control_id": "POST_DRE04_DECISION_RELEVANCE_AND_SCIENTIFIC_NECESSITY_REVIEW_V0.1",
+  "date": "2026-10-08",
+  "status": "HUMAN_ADOPTED",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "force": false,
+  "authorized_parent": {
+    "head": "9f46ce0933fd67ef5db948ae149c3f492540d51d",
+    "tree": "498009fc51779e583f3632a9c6cc19a54e8fccd5"
+  },
+  "canonical_basis": {
+    "dre04_human_adoption_receipt_blob": "bf1ebf1d5ed4839171c57c5cc5255b6fb9677a3d",
+    "dre04_final_human_adjudication_closure_blob": "57cc386d91040b8010ef1f1590df160c4adac25c",
+    "post_m10_method_necessity_human_adjudication_blob": "aeed65dd6853392168aa97432ebadb1f9ea48e46"
+  },
+  "human_decision": {
+    "decision": "ADOPT",
+    "post_dre04_decision_relevance_review": "HUMAN_ADOPTED",
+    "final_verdict": "STOP_SCIENTIFIC_LANE"
+  },
+  "verdict_semantics": {
+    "concrete_unresolved_decision_requiring_more_science": "NONE_IDENTIFIED",
+    "new_claim": "NONE",
+    "new_method": "NONE",
+    "new_execution": "NONE",
+    "pristine_confirmation_required": "FALSE_AT_CURRENT_FRONTIER",
+    "no_current_decision_justifies_more_science": true,
+    "all_scientific_questions_resolved": false,
+    "future_scientific_work_permanently_forbidden": false
+  },
+  "dre04_preservation": {
+    "status": "HUMAN_ADOPTED_DESCRIPTIVE_ONLY",
+    "descriptive_result_authority": "HUMAN_ADOPTED_DESCRIPTIVE_EVIDENCE",
+    "scientific_scope": "DESCRIPTIVE_ONLY",
+    "R_2022": 270.0,
+    "R_2023": 170.0,
+    "R_2024": 112.0,
+    "R_2025": 161.0
+  },
+  "method_state": {
+    "M04": "CLOSED",
+    "M05": "CLOSED",
+    "M08": "CLOSED",
+    "M09": "CLOSED",
+    "M11": "CLOSED"
+  },
+  "epistemic_state": {
+    "evidence_state": "EXPOSED",
+    "claim_provenance": "RESULT_AWARE",
+    "same_corpus_confirmatory_status": "NON_PRISTINE",
+    "reset_to_pristine": "FORBIDDEN"
+  },
+  "oos_pristine_state": {
+    "pristine_confirmation_required": "FALSE_AT_CURRENT_FRONTIER",
+    "oos_open": false,
+    "oos_read": false,
+    "oos_consumed": false,
+    "new_data_acquisition": false
+  },
+  "authority": {
+    "new_claim": false,
+    "inferential": false,
+    "method": false,
+    "method_execution": false,
+    "oos": false,
+    "regime": false,
+    "predictive": false,
+    "strategy": false,
+    "trading": false,
+    "capital": false
+  },
+  "future_reopening_rule": {
+    "required_chain": [
+      "DECISION",
+      "MISSING_INFORMATION",
+      "REQUIRED_CLAIM"
+    ],
+    "concrete_downstream_decision": "REQUIRED",
+    "missing_information": "REQUIRED",
+    "decision_sensitivity": "MATERIAL",
+    "existing_evidence": "INSUFFICIENT",
+    "required_claim": "NON_REDUNDANT"
+  },
+  "bepd_isolation": {
+    "modification": false,
+    "adjudication": "NONE",
+    "authority_change": "NONE"
+  },
+  "automatic_downstream_action": false,
+  "new_downstream_identifier": "NONE",
+  "stop": true
+}
