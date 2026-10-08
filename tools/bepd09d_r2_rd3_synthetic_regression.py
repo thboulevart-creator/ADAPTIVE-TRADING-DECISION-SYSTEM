@@ -208,7 +208,7 @@ h=1e-6
 fdg=np.zeros_like(b)
 for j in range(len(b)):
     e=np.zeros_like(b); e[j]=h
-    fdg[j]=((-legacy._ll(Xa,ya,b+e))-(-legacy._ll(Xa,ya,b-e)))/(2*h)
+    fdg[j]=((-source._ll(Xa,ya,b+e))-(-source._ll(Xa,ya,b-e)))/(2*h)
 gradient_parity=bool(np.max(np.abs(fdg-controlled.gradient(Xa,ya,b)))<=1e-7)
 
 fdH=np.zeros((len(b),len(b)))

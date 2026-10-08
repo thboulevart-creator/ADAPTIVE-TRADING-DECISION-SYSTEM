@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_GRADIENT_PARITY_INTERFACE_DIAGNOSTIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "observations": {
+    "source._ll": "PRESENT",
+    "legacy._ll": "ABSENT",
+    "objective_parity": "USES_SOURCE_LL",
+    "gradient_parity_plus": "USES_LEGACY_LL",
+    "gradient_parity_minus": "USES_LEGACY_LL",
+    "controlled._sig": "source._sig",
+    "controlled._score": "source._score",
+    "controlled._stats": "legacy._stats",
+    "controlled._mats": "legacy._mats"
+  },
+  "classification": "GREEN_HARNESS_PRIVATE_HELPER_INTERFACE_ASSUMPTION_DEFECT",
+  "authorized_references_to_change": 2,
+  "authorized_symbol": "_ll",
+  "authorized_check": "gradient_parity_only"
+}
