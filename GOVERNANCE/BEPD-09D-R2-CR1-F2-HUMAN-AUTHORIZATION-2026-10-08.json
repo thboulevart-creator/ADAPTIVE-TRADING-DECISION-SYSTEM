@@ -1,0 +1,32 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F2_HUMAN_AUTHORIZATION_RECORD_V0_1",
+  "control_id": "BEPD-09D-R2-CR1-F2",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "1e2dfb243e7146e720441dc1fb9525838a5fc3fd44747b733a512ab6f23c777d",
+  "source_authorization_bytes": 14076,
+  "authority": {
+    "exact_fold": 3,
+    "exact_model": "BASELINE",
+    "forensic_only": true,
+    "numerical_mechanism_diagnostic": true,
+    "scientific_result": false,
+    "repair": false,
+    "retry": false,
+    "solver": "Newton-CG",
+    "max_iter": 5000,
+    "xtol": 1e-10,
+    "initialization": "ZERO_VECTOR",
+    "data_unchanged": true,
+    "model_unchanged": true,
+    "test_predictions": false,
+    "test_scoring": false,
+    "logloss": false,
+    "brier": false,
+    "c1_retry": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "maximum_verdict": "FORENSICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION"
+}

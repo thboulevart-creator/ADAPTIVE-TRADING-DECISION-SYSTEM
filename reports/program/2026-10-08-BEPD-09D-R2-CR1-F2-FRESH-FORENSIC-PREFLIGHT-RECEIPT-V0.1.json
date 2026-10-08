@@ -1,0 +1,35 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F2_FRESH_FORENSIC_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "bb8f93cb6b502a143c8475e1e97b6e88b4faf4b0",
+  "observed_tree": "e908ec84dcb2f9b3443b43b68ff31773dc161b93",
+  "drift_from_f1_closure_head": {
+    "base": "32f1434c565b3705cc96a0e16de5b5051d96b0b0",
+    "observed_head": "bb8f93cb6b502a143c8475e1e97b6e88b4faf4b0",
+    "classification": "NON_MATERIAL_TO_BEPD_09D_R2_CR1_F2",
+    "changed_paths": [
+      "reports/program/2026-10-08-AO-E0-B12-DATA-01-FC-01-SYNTHETIC-QUALIFICATION-RECEIPT-V0.1.json",
+      "reports/program/2026-10-08-AO-E0-B12-DATA-01-FC-01-SYNTHETIC-QUALIFICATION-V0.1.md"
+    ]
+  },
+  "identities": {
+    "f1_closure": "a7360bb1db335861db8c15c1d09278bac6eb62aa",
+    "failed_fit_receipt": "f6bbfa7ef5d4b37ccb489df34e728714872393ee",
+    "newton_state_receipt": "1aabe9794024d4a34a4bff71a20e01c350241209",
+    "conditioning_receipt": "097f346938ac27bb314a22656f9eb72a2db74e2b",
+    "reference_solver_receipt": "b30d01babf36a1b23cfc0892e50ecf8985ddbe48",
+    "root_cause_package": "6b65a9a8c0cf547d2dc9916b4bd585e9eb6f085f",
+    "f1_persisted_head_verification": "3f5262e764c2976d46dd90d91c91a38e0f5f24c0",
+    "r2_overlay": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+    "source_runtime": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "reference_runtime": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "calendar_partition": "7d950d957611cf209d811c788ff10abded30d011",
+    "event_ledger": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2"
+  },
+  "existing_f2_surface": false,
+  "repair_authorized": false,
+  "c1_retry_authorized": false,
+  "scientific_result_authorized": false
+}

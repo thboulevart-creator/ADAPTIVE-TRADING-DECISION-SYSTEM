@@ -1,0 +1,67 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F2_PRECISION_LOSS_DIAGNOSTIC_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_EXECUTION",
+  "exact_surface": {
+    "fold": 3,
+    "model": "BASELINE",
+    "training_rows": 237
+  },
+  "frozen_solver": {
+    "solver": "Newton-CG",
+    "max_iter": 5000,
+    "xtol": 1e-10,
+    "initialization": "ZERO_VECTOR"
+  },
+  "frozen_science": [
+    "DATA",
+    "DESIGN_MATRIX",
+    "RESPONSE_VECTOR",
+    "MODEL",
+    "OBJECTIVE",
+    "GRADIENT",
+    "HESSIAN"
+  ],
+  "reproducibility": {
+    "uninstrumented_runs": 2,
+    "instrumented_runs": 1,
+    "require_status": 2,
+    "require_message_class": "PRECISION_LOSS",
+    "require_identical_iterations": true,
+    "vector_max_abs_tolerance": 1e-12,
+    "objective_abs_tolerance": 1e-12,
+    "score_inf_abs_tolerance": 1e-12
+  },
+  "stationarity_classification": {
+    "practically_stationary_score_inf_lte": 1e-10,
+    "near_stationary_score_inf_lte": 1e-7,
+    "otherwise": "MATERIALLY_NON_STATIONARY"
+  },
+  "derivative_checks": {
+    "points": [
+      "ZERO_INITIALIZATION",
+      "NEWTON_CG_FINAL",
+      "ROOT_HYBR_SOLUTION"
+    ],
+    "gradient_method": "FIVE_POINT_CENTRAL_FINITE_DIFFERENCE_OF_OBJECTIVE",
+    "hessian_method": "FIVE_POINT_CENTRAL_FINITE_DIFFERENCE_OF_ANALYTIC_GRADIENT",
+    "step_rule": "EPSILON_POW_1_5_TIMES_MAX_1_ABS_XJ",
+    "normalized_gradient_error_lte": 5e-7,
+    "normalized_hessian_error_lte": 5e-7
+  },
+  "geometry": {
+    "inspect_at": [
+      "NEWTON_CG_FINAL",
+      "ROOT_HYBR_SOLUTION"
+    ],
+    "positive_definite_eigenvalue_floor": 0,
+    "near_singular_relative_eigenvalue_ratio_lte": 1e-8,
+    "large_condition_number_gte": 10000000
+  },
+  "allowed_reference": "ROOT_HYBR_SCORE_EQUATION_ONLY",
+  "scipy_mechanism_source_introspection": true,
+  "counterfactual_grid_search": false,
+  "changed_solver_runs": false,
+  "changed_tolerance_runs": false,
+  "changed_scaling_runs": false,
+  "scientific_output": false
+}
