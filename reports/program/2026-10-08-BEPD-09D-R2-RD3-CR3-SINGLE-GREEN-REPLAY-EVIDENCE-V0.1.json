@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR3_SINGLE_GREEN_REPLAY_EVIDENCE_V0_1",
+  "status": "FAILURE_OBSERVED",
+  "replay_count_authorized": 1,
+  "replay_count_observed": 1,
+  "workflow_run_id": 37827608071,
+  "workflow_job_id": 113484378863,
+  "head_sha": "1265f36f2d369ce6f4d26f5180e3bbef39b2880f",
+  "workflow_name": "BEPD-09D-R2-RD3 GREEN Synthetic Qualification",
+  "workflow_conclusion": "failure",
+  "failed_step": "Run RD3 synthetic regression qualification",
+  "process_exit_code": 1,
+  "artifact_uploaded": false,
+  "rerun_performed": false,
+  "additional_rerun_authorized": false,
+  "real_data_used": false
+}
