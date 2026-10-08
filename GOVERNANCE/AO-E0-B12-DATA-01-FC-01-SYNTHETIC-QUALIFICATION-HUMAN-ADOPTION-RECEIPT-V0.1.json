@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_SYNTHETIC_QUALIFICATION_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC-01",
+  "date": "2026-10-08",
+  "human_decision": "ADOPT",
+  "fc01_synthetic_qualification": "HUMAN_ADOPTED",
+  "fc01_synthetic_capability": "HUMAN_ADOPTED_BINDING_FROZEN",
+  "technical_verdict": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "force": false,
+  "authorized_parent": {
+    "head": "fd39018b6d9b0886b19855f1fd620749af2589f7",
+    "tree": "8bec3152d42b6c48c1353bf4883b5ea2145daf70"
+  },
+  "qualification_evidence": {
+    "receipt_blob": "a7e663365f481b5c5c6d0ab70f994ab83bd7cf33",
+    "report_blob": "ac3d0c9c81644b7f9fab37673bce2614582e03c1",
+    "fc01_tests": "18/18 PASS",
+    "acq02_primitive_regression": "55/55 PASS",
+    "total": "73/73 PASS",
+    "static_bindings": "PASS",
+    "prohibited_runtime_dependencies": "ABSENT",
+    "authority_firewall": "PASS",
+    "fixed_horizon_and_cadence": "PASS",
+    "clean_worktree": "PASS"
+  },
+  "canonical_bindings": {
+    "collection_contract_blob": "5dcde7830edf34dc3f77ba234a2cb803cd792df2",
+    "human_authorization_blob": "f175be263f287a7316f213ffdbfe6c1b6d6cb4ca",
+    "runtime_blob": "3417f6b602964bfa5b9027e6dfc5016bf3329a08",
+    "tests_blob": "23e816cad3f11beb69e68e0687a752e8503a1804",
+    "workflow_blob": "df32b20d9341124f57eab377c6cbffbd206727fb"
+  },
+  "adopted_semantics": {
+    "mode": "BLIND_FIXED_HORIZON_FORWARD_COLLECTION",
+    "evidence_start_utc": "2026-10-06T11:00:00Z",
+    "evidence_end_exclusive_utc": "2027-10-06T11:00:00Z",
+    "collection": "DAILY_WITH_AUTOMATIC_CATCH_UP",
+    "structural_materialization": "EACH_SUCCESSFUL_DAILY_CYCLE",
+    "deterministic_full_replay": "FIRST_CYCLE_AND_AT_LEAST_EVERY_7_DAYS"
+  },
+  "state": {
+    "real_fc01_collection": "NOT_STARTED",
+    "real_collection_authority": false,
+    "b12": "CLOSED",
+    "performance_bearing_read": false,
+    "oos_performance_consumption": false,
+    "scientific_lane": "STOP",
+    "strategy_qualified_claim": false,
+    "trading_authority": false,
+    "capital_authority": false
+  },
+  "authority_ceiling": {
+    "fc01_synthetic_capability_authority": "HUMAN_ADOPTED_BINDING_FROZEN",
+    "real_collection": false,
+    "real_data": false,
+    "oos": false,
+    "performance": false,
+    "scientific": false,
+    "strategy": false,
+    "trading": false,
+    "broker_execution": false,
+    "capital": false
+  },
+  "next": "SEPARATE_HUMAN_DECISION_ON_REAL_FC01_COLLECTION_ACTIVATION",
+  "automatic_downstream_action": false,
+  "stop": true
+}
