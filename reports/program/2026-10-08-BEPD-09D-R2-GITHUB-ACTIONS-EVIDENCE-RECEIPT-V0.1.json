@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "RECORDED",
+  "workflow_run_id": 37760776829,
+  "workflow_job_id": 113256359303,
+  "head_sha": "e0283bd28b3869148f4b8ae54bc8f4e88cba4b11",
+  "workflow_name": "BEPD-09D-R2 Pre-Retry Requalification",
+  "workflow_conclusion": "failure",
+  "artifact_id": 11542570748,
+  "artifact_name": "BEPD-09D-R2-pre-retry",
+  "artifact_size_bytes": 862,
+  "artifact_digest_sha256": "4b73d5ce022f1c3f59f530b2a539fd5477f04778aa34ba2ce7133f600de188ec",
+  "artifact_files": [
+    "07_SYNTHETIC_REQUALIFICATION_RECEIPT.json",
+    "99_R2_FAILURE_RECEIPT.json"
+  ],
+  "rerun_performed": false
+}
