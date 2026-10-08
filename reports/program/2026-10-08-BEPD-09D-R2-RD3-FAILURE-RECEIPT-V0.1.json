@@ -1,0 +1,38 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_FAILURE_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD3",
+  "date": "2026-10-08",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "stage": "GREEN_SYNTHETIC_REGRESSION_IMPORT",
+  "classification": "CONTROLLED_IMPLEMENTATION_INTERFACE_DEFECT",
+  "implementation_blob": "4bd4f241f8ae773bf0acff3aae975ae567505e1e",
+  "implementation_commit": "f7d3d1866ba298551ca703f65adb54a0e0693854",
+  "exact_error": {
+    "type": "AttributeError",
+    "message": "module 'bepd09d_r2_runtime' has no attribute '_sig'",
+    "location": "tools/bepd09d_r2_rd3_candidate_b_runtime.py:39",
+    "failing_expression": "_sig = legacy._sig"
+  },
+  "root_cause_scope": {
+    "scientific_model_defect": false,
+    "tau_contract_defect": false,
+    "acceptance_contract_defect": false,
+    "solver_defect": false,
+    "data_defect": false,
+    "implementation_interface_defect": true,
+    "explanation": "bepd09d_r2_runtime.py does not explicitly re-export the private _sig helper; wildcard import from bepd09c_runtime does not import underscore-prefixed names."
+  },
+  "execution_boundary": {
+    "green_test_body_entered": false,
+    "real_data_used": false,
+    "real_training_fit": false,
+    "fold3_replay": false,
+    "real_reference_fit": false,
+    "c1_retry": false,
+    "scientific_result": "NONE"
+  },
+  "repair_applied": false,
+  "rerun_performed": false,
+  "next_required_action": "SEPARATE_HUMAN_AUTHORIZATION_FOR_PURELY_MECHANICAL_INTERFACE_CORRECTION_OR_REJECTION",
+  "stop": true
+}

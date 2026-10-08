@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_GREEN_GITHUB_ACTIONS_FAILURE_EVIDENCE_V0_1",
+  "status": "FAILURE_OBSERVED",
+  "workflow_run_id": 37817242223,
+  "workflow_job_id": 113448887946,
+  "head_sha": "f7d3d1866ba298551ca703f65adb54a0e0693854",
+  "workflow_name": "BEPD-09D-R2-RD3 GREEN Synthetic Qualification",
+  "workflow_conclusion": "failure",
+  "python_version": "3.12.15",
+  "failed_step": "Run RD3 synthetic regression qualification",
+  "process_exit_code": 1,
+  "artifact_uploaded": false,
+  "artifact_failure_reason": "No files were found because import failed before receipt directory materialization.",
+  "exact_error": "AttributeError: module 'bepd09d_r2_runtime' has no attribute '_sig'",
+  "repair_applied": false,
+  "rerun_performed": false
+}
