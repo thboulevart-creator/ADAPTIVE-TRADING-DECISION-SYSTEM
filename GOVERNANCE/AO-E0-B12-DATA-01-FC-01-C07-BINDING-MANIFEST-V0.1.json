@@ -1,0 +1,55 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_C07_BINDING_MANIFEST_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC-01-C07",
+  "authorized_parent_head": "5252c861e60cd85f96f52beaf4cab7f978460648",
+  "authorized_parent_tree": "7de14f9091e975982ead57cab5253243c10098e5",
+  "source_human_authorization_sha256": "9f94eff3ce8184fc9afdb2cbc40208c2fec22316df8646b104b2b609bc341d8c",
+  "bindings": {
+    "collection_contract": {
+      "blob": "5dcde7830edf34dc3f77ba234a2cb803cd792df2",
+      "changed": false
+    },
+    "runtime": {
+      "prior_blob": "3417f6b602964bfa5b9027e6dfc5016bf3329a08",
+      "candidate_blob": "d8c8d501fae538ebc684d569a8233e7c57038de9",
+      "changed": true
+    },
+    "tests": {
+      "prior_blob": "23e816cad3f11beb69e68e0687a752e8503a1804",
+      "candidate_blob": "dc933aff14c23222a99d9e10f429f28e121526e8",
+      "changed": true
+    },
+    "workflow": {
+      "blob": "df32b20d9341124f57eab377c6cbffbd206727fb",
+      "changed": false
+    },
+    "human_adoption_receipt": {
+      "blob": "5948207e6c221cc3a3955bbfedac3daf52ec041c",
+      "changed": false
+    }
+  },
+  "semantic_freeze": {
+    "http_200_only_data_success": true,
+    "http_202_as_success": false,
+    "target_end_rule": "UNCHANGED",
+    "fixed_horizon": "UNCHANGED",
+    "warmup_start": "UNCHANGED",
+    "forward_raw_start": "UNCHANGED",
+    "evidence_start": "UNCHANGED",
+    "retry_delays": "UNCHANGED_[0,2,4,8,16]",
+    "max_attempts": "UNCHANGED_5",
+    "cache_success_policy": "UNCHANGED",
+    "raw_sealing_policy": "UNCHANGED",
+    "ledger_append_policy": "UNCHANGED",
+    "ap0_materialization": "UNCHANGED",
+    "h1_materialization": "UNCHANGED"
+  },
+  "authority_firewall": {
+    "real_provider_request": false,
+    "real_market_data_request": false,
+    "real_fc01_retry": false,
+    "second_cycle": false,
+    "b12": "CLOSED",
+    "performance_bearing_read": false
+  }
+}

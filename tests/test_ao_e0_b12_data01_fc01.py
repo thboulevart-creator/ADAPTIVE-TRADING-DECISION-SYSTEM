@@ -243,3 +243,281 @@ def test_18_fixed_horizon_reached_only_at_exact_end():
     after = F.target_end_for(datetime(2027, 10, 6, 11, 1, tzinfo=timezone.utc))
     assert before == datetime(2027, 10, 6, 10, tzinfo=timezone.utc)
     assert after == F.FIXED_END
+
+# ---------------------------------------------------------------------------
+# C07 — NON-200 FORENSIC OBSERVABILITY ENVELOPE
+# Test-first fixtures authorized by the human C07 selection.
+# These tests are strictly synthetic: urllib.request.urlopen is always mocked.
+# ---------------------------------------------------------------------------
+
+import hashlib
+import io
+import socket
+import urllib.error
+
+
+class _C07Response:
+    def __init__(self, status: int, body: bytes = b"", headers: dict | None = None):
+        self.status = status
+        self._stream = io.BytesIO(body)
+        self.headers = headers or {}
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc, tb):
+        return False
+
+    def read(self, amount: int = -1):
+        return self._stream.read(amount)
+
+
+def _c07_http_error(status: int, body: bytes = b"", headers: dict | None = None):
+    return urllib.error.HTTPError(
+        url="https://jetta.invalid/synthetic",
+        code=status,
+        msg=f"synthetic HTTP {status}",
+        hdrs=headers or {},
+        fp=io.BytesIO(body),
+    )
+
+
+def _c07_install(monkeypatch, outcomes):
+    queue = list(outcomes)
+    calls = []
+
+    def fake_urlopen(req, timeout=30):
+        calls.append((req, timeout))
+        assert queue, "synthetic outcome queue exhausted"
+        outcome = queue.pop(0)
+        if isinstance(outcome, BaseException):
+            raise outcome
+        return outcome
+
+    monkeypatch.setattr(F.urllib.request, "urlopen", fake_urlopen)
+    monkeypatch.setattr(F.time, "sleep", lambda _: None)
+    return calls
+
+
+def test_c07_01_http200_success_path_exact(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    payload = raw_hour(dt)
+    calls = _c07_install(
+        monkeypatch,
+        [_C07Response(200, payload, {"Content-Type": "application/json"})],
+    )
+
+    out = F.get_raw_fc01(tmp_path, dt)
+
+    assert out == (payload, "NETWORK", 1)
+    assert len(calls) == 1
+    assert (tmp_path / F.cache_name(dt)).read_bytes() == payload
+
+
+def test_c07_02_http202_empty_body_attempt_trace_exact(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    _c07_install(monkeypatch, [_C07Response(202)] * 5)
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    exc = caught.value
+    assert exc.transport_failure_class == "HTTP_202"
+    assert len(exc.attempts) == 5
+    assert [a["attempt_index"] for a in exc.attempts] == [1, 2, 3, 4, 5]
+    assert [a["http_status"] for a in exc.attempts] == [202] * 5
+    assert [a["retry_decision"] for a in exc.attempts] == [
+        "RETRY", "RETRY", "RETRY", "RETRY", "TERMINAL"
+    ]
+    assert [a["next_retry_delay_seconds"] for a in exc.attempts] == [2, 4, 8, 16, None]
+    assert not (tmp_path / F.cache_name(dt)).exists()
+
+
+def test_c07_03_http202_json_body_headers_allowlisted_and_location_redacted(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    body = b'{"status":"pending","job":"abc"}'
+    headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": str(len(body)),
+        "Retry-After": "120",
+        "Location": "https://example.test/jobs/42?token=secret#frag",
+        "Date": "Thu, 08 Oct 2026 14:18:49 GMT",
+        "Cache-Control": "no-store",
+        "X-Secret": "must-not-persist",
+    }
+    _c07_install(monkeypatch, [_C07Response(202, body, headers)] * 5)
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    a = caught.value.attempts[0]
+    assert a["body_capture_status"] == "COMPLETE"
+    assert a["response_body_byte_length"] == len(body)
+    assert a["captured_body_byte_length"] == len(body)
+    assert a["response_body_sha256"] == hashlib.sha256(body).hexdigest()
+    assert a["response_body_prefix_sha256"] is None
+    assert a["response_body_preview"] == body.decode("utf-8")
+    assert a["allowed_response_headers"]["retry-after"] == "120"
+    assert a["allowed_response_headers"]["location"] == "https://example.test/jobs/42"
+    assert "x-secret" not in a["allowed_response_headers"]
+
+
+def test_c07_04_http202_html_body_bounded_text_preview(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    body = b"<html><body>pending</body></html>"
+    _c07_install(
+        monkeypatch,
+        [_C07Response(202, body, {"Content-Type": "text/html; charset=utf-8"})] * 5,
+    )
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    assert caught.value.attempts[0]["response_body_preview"] == body.decode("utf-8")
+
+
+@pytest.mark.parametrize(
+    ("status", "expected_class", "expected_attempts"),
+    [
+        (429, "HTTP_429", 5),
+        (404, "HTTP_4XX_NONRETRYABLE", 1),
+        (500, "HTTP_5XX_RETRYABLE", 5),
+        (503, "HTTP_5XX_RETRYABLE", 5),
+    ],
+)
+def test_c07_05_http_error_classes_preserve_retry_semantics(
+    tmp_path, monkeypatch, status, expected_class, expected_attempts
+):
+    dt = F.WARMUP_START
+    outcomes = [
+        _c07_http_error(status, b'{"error":"synthetic"}', {"Content-Type": "application/json"})
+        for _ in range(expected_attempts)
+    ]
+    _c07_install(monkeypatch, outcomes)
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    exc = caught.value
+    assert exc.transport_failure_class == expected_class
+    assert len(exc.attempts) == expected_attempts
+    assert all(a["http_status"] == status for a in exc.attempts)
+    assert exc.attempts[-1]["retry_decision"] == "TERMINAL"
+    assert not (tmp_path / F.cache_name(dt)).exists()
+
+
+def test_c07_06_timeout_classification_and_trace(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    _c07_install(monkeypatch, [socket.timeout("synthetic timeout")] * 5)
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    exc = caught.value
+    assert exc.transport_failure_class == "READ_TIMEOUT"
+    assert len(exc.attempts) == 5
+    assert all(a["http_status"] is None for a in exc.attempts)
+    assert all(a["exception_class"] for a in exc.attempts)
+
+
+def test_c07_07_dns_error_classification_and_trace(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    outcomes = [
+        urllib.error.URLError(socket.gaierror(-2, "synthetic dns failure"))
+        for _ in range(5)
+    ]
+    _c07_install(monkeypatch, outcomes)
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    exc = caught.value
+    assert exc.transport_failure_class == "DNS_FAILURE"
+    assert len(exc.attempts) == 5
+    assert all(a["http_status"] is None for a in exc.attempts)
+
+
+def test_c07_08_malformed_utf8_has_no_preview(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    body = b"\xff\xfe\xfa"
+    _c07_install(
+        monkeypatch,
+        [_C07Response(202, body, {"Content-Type": "application/json"})] * 5,
+    )
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    a = caught.value.attempts[0]
+    assert a["body_capture_status"] == "COMPLETE"
+    assert a["response_body_preview"] is None
+    assert a["response_body_sha256"] == hashlib.sha256(body).hexdigest()
+
+
+def test_c07_09_oversized_body_is_hard_bounded_and_digest_not_misrepresented(tmp_path, monkeypatch):
+    dt = F.WARMUP_START
+    body = b"x" * (F.MAX_ERROR_BODY_READ_BYTES + 8192)
+    headers = {
+        "Content-Type": "text/plain",
+        "Content-Length": str(len(body)),
+    }
+    _c07_install(monkeypatch, [_C07Response(202, body, headers)] * 5)
+
+    with pytest.raises(F.FC01TransportBlocked) as caught:
+        F.get_raw_fc01(tmp_path, dt)
+
+    a = caught.value.attempts[0]
+    assert a["body_capture_status"] == "TRUNCATED_AT_HARD_LIMIT"
+    assert a["response_body_byte_length"] == len(body)
+    assert a["captured_body_byte_length"] == F.MAX_ERROR_BODY_READ_BYTES
+    assert a["response_body_sha256"] is None
+    assert a["response_body_prefix_sha256"] == hashlib.sha256(
+        body[: F.MAX_ERROR_BODY_READ_BYTES]
+    ).hexdigest()
+    assert len(a["response_body_preview"].encode("utf-8")) <= F.MAX_TEXT_PREVIEW_BYTES
+
+
+def test_c07_10_failure_receipt_v02_is_nonperformance_and_noncontaminating(tmp_path, monkeypatch):
+    now = datetime(2026, 10, 6, 12, 30, tzinfo=timezone.utc)
+    _c07_install(monkeypatch, [_C07Response(202)] * 5)
+
+    def network_fetcher(cache: Path, dt: datetime):
+        return F.get_raw_fc01(cache, dt)
+
+    with pytest.raises(F.FC01TransportBlocked):
+        F.collect_cycle(tmp_path, now_utc=now, fetcher=network_fetcher)
+
+    receipts = list((tmp_path / "evidence" / "errors").glob("*.json"))
+    assert len(receipts) == 1
+    x = json.loads(receipts[0].read_text(encoding="utf-8"))
+    assert x["schema"] == "ATDS_AO_E0_B12_DATA01_FC01_FAILURE_V0_2"
+    assert x["transport_failure_class"] == "HTTP_202"
+    assert x["attempt_count"] == 5
+    assert [a["http_status"] for a in x["attempts"]] == [202] * 5
+    assert x["b12"] == "CLOSED"
+    assert x["performance_bearing_read"] is False
+
+    encoded = json.dumps(x).lower()
+    for token in F.FORBIDDEN_HEALTH_KEYS:
+        assert token not in encoded
+
+    ledger = tmp_path / "ledger" / "events.jsonl"
+    assert not ledger.exists()
+    assert not list((tmp_path / "raw").glob("*.json"))
+    assert not list((tmp_path / "ap0").glob("*"))
+    assert not list((tmp_path / "h1").glob("*"))
+
+
+def test_c07_11_failure_receipt_collision_stays_fail_closed(tmp_path):
+    p = tmp_path / "receipt.json"
+    F._write_json_atomic(p, {"schema": "A"})
+    with pytest.raises(F.FC01Blocked, match="RECEIPT_IDENTITY_COLLISION"):
+        F._write_json_atomic(p, {"schema": "B"})
+
+
+def test_c07_12_no_real_network_fixture_guard(monkeypatch, tmp_path):
+    dt = F.WARMUP_START
+    calls = _c07_install(monkeypatch, [_C07Response(200, raw_hour(dt))])
+    F.get_raw_fc01(tmp_path, dt)
+    assert len(calls) == 1
+    assert calls[0][1] == 30

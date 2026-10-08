@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import socket
+import ssl
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -35,6 +39,75 @@ HOUR = timedelta(hours=1)
 REPLAY_INTERVAL = timedelta(days=7)
 DEFAULT_ROOT = Path(r"C:\Users\Boulevart\ATDS-DATA\DATA01-FC01")
 
+MAX_ERROR_BODY_READ_BYTES = 65536
+MAX_TEXT_PREVIEW_BYTES = 2048
+MAX_EXCEPTION_TEXT_CHARS = 2048
+C07_HEADER_ALLOWLIST = {
+    "date",
+    "content-type",
+    "content-length",
+    "retry-after",
+    "location",
+    "cache-control",
+}
+C07_TEXTUAL_MEDIA_TYPES = {
+    "application/json",
+    "application/problem+json",
+    "application/xml",
+    "application/problem+xml",
+}
+C07_STRATEGY_FORBIDDEN_TOKENS = {
+    "momentum_signal",
+    "target_position",
+    "recommended_trade",
+    "long_short_recommendation",
+    "execution_recommendation",
+    "strategy_qualification",
+    "economic_edge",
+}
+C07_PERFORMANCE_FORBIDDEN_TOKENS = {
+    "trade_count",
+    "closed_trade_count",
+    "pnl",
+    "gross_pnl",
+    "net_pnl",
+    "returns",
+    "expectancy",
+    "win_rate",
+    "loss_rate",
+    "profit_factor",
+    "sharpe",
+    "sortino",
+    "drawdown",
+    "mae",
+    "mfe",
+    "individual_trade_outcomes",
+    "entry_price",
+    "exit_price",
+    "average_winner",
+    "average_loser",
+    "forward_effect_size",
+    "forward_variance",
+    "confidence_interval",
+    "p_value",
+    "bootstrap_inference",
+    "support",
+    "refute",
+}
+C07_BREAKERS = {
+    "BLOCKED_NON_200_PROMOTED_AS_MARKET_DATA",
+    "BLOCKED_ERROR_BODY_WRITTEN_TO_SUCCESS_CACHE",
+    "BLOCKED_ERROR_BODY_SEALED_TO_RAW_LEDGER",
+    "BLOCKED_UNBOUNDED_ERROR_BODY_CAPTURE",
+    "BLOCKED_NON_ALLOWLISTED_HEADER_PERSISTENCE",
+    "BLOCKED_MISSING_ATTEMPT_INDEX",
+    "BLOCKED_MISSING_STATUS_TRACE",
+    "BLOCKED_FAILURE_RECEIPT_IDENTITY_COLLISION",
+    "BLOCKED_PERFORMANCE_FIELD_LEAK",
+    "BLOCKED_STRATEGY_FIELD_LEAK",
+    "BLOCKED_B12_OPENING",
+}
+
 FORBIDDEN_HEALTH_KEYS = {
     "trade_count", "closed_trade_count", "pnl", "gross_pnl", "net_pnl",
     "returns", "expectancy", "win_rate", "loss_rate", "profit_factor",
@@ -51,6 +124,13 @@ FORBIDDEN_HEALTH_KEYS = {
 
 class FC01Blocked(RuntimeError):
     pass
+
+
+class FC01TransportBlocked(FC01Blocked):
+    def __init__(self, message: str, *, attempts: list[dict], transport_failure_class: str):
+        super().__init__(message)
+        self.attempts = attempts
+        self.transport_failure_class = transport_failure_class
 
 
 def _iso(dt: datetime) -> str:
@@ -80,34 +160,265 @@ def cache_name(dt: datetime) -> str:
     return f"ticks%2FUSATECH.IDX-USD%2F{dt.year}%2F{dt.month}%2F{dt.day}%2F{dt.hour}.json"
 
 
+def _redact_location(value: str) -> str:
+    try:
+        parts = urllib.parse.urlsplit(value)
+        if parts.scheme or parts.netloc:
+            return urllib.parse.urlunsplit((parts.scheme, parts.netloc, parts.path, "", ""))
+        return parts.path
+    except Exception:
+        return ""
+
+
+def _allowed_headers(headers) -> dict[str, str]:
+    if headers is None:
+        return {}
+    try:
+        items = headers.items()
+    except Exception:
+        return {}
+    out = {}
+    for key, value in items:
+        name = str(key).strip().lower()
+        if name not in C07_HEADER_ALLOWLIST:
+            continue
+        text = str(value)
+        if name == "location":
+            text = _redact_location(text)
+        out[name] = text[:4096]
+    return dict(sorted(out.items()))
+
+
+def _parse_content_length(headers: dict[str, str]) -> int | None:
+    raw = headers.get("content-length")
+    if raw is None:
+        return None
+    try:
+        value = int(raw)
+    except Exception:
+        return None
+    return value if value >= 0 else None
+
+
+def _safe_text_preview(raw: bytes, content_type: str | None) -> str | None:
+    if not content_type:
+        return None
+    media_type = content_type.split(";", 1)[0].strip().lower()
+    if not (media_type.startswith("text/") or media_type in C07_TEXTUAL_MEDIA_TYPES):
+        return None
+    preview_bytes = raw[:MAX_TEXT_PREVIEW_BYTES]
+    try:
+        preview = preview_bytes.decode("utf-8", errors="strict")
+    except UnicodeDecodeError:
+        return None
+    lowered = preview.lower()
+    if any(token in lowered for token in FORBIDDEN_HEALTH_KEYS):
+        return None
+    return preview
+
+
+def _capture_non200_body(stream, headers: dict[str, str]) -> dict:
+    declared_length = _parse_content_length(headers)
+    if declared_length is not None and declared_length > MAX_ERROR_BODY_READ_BYTES:
+        captured = stream.read(MAX_ERROR_BODY_READ_BYTES)
+        truncated = True
+    else:
+        candidate = stream.read(MAX_ERROR_BODY_READ_BYTES + 1)
+        truncated = len(candidate) > MAX_ERROR_BODY_READ_BYTES
+        captured = candidate[:MAX_ERROR_BODY_READ_BYTES]
+
+    if truncated:
+        body_length = declared_length
+        body_sha = None
+        prefix_sha = hashlib.sha256(captured).hexdigest()
+        capture_status = "TRUNCATED_AT_HARD_LIMIT"
+    else:
+        body_length = len(captured)
+        body_sha = hashlib.sha256(captured).hexdigest()
+        prefix_sha = None
+        capture_status = "COMPLETE"
+
+    return {
+        "body_capture_status": capture_status,
+        "response_body_byte_length": body_length,
+        "captured_body_byte_length": len(captured),
+        "response_body_sha256": body_sha,
+        "response_body_prefix_sha256": prefix_sha,
+        "response_body_preview": _safe_text_preview(captured, headers.get("content-type")),
+    }
+
+
+def _http_failure_class(status: int) -> str:
+    if status == 202:
+        return "HTTP_202"
+    if status == 429:
+        return "HTTP_429"
+    if 400 <= status <= 499:
+        return "HTTP_4XX_NONRETRYABLE"
+    if status in (500, 502, 503, 504):
+        return "HTTP_5XX_RETRYABLE"
+    return "HTTP_STATUS_OTHER"
+
+
+def _exception_failure_class(exc: Exception) -> str:
+    if isinstance(exc, urllib.error.HTTPError):
+        return _http_failure_class(int(exc.code))
+    if isinstance(exc, (socket.timeout, TimeoutError)):
+        return "READ_TIMEOUT"
+    if isinstance(exc, urllib.error.URLError):
+        reason = exc.reason
+        if isinstance(reason, socket.gaierror):
+            return "DNS_FAILURE"
+        if isinstance(reason, ssl.SSLError):
+            return "TLS_FAILURE"
+        if isinstance(reason, (socket.timeout, TimeoutError)):
+            return "CONNECT_TIMEOUT"
+    if isinstance(exc, ssl.SSLError):
+        return "TLS_FAILURE"
+    return "UNKNOWN_TRANSPORT_FAILURE"
+
+
+def _bounded_exception_text(exc: Exception) -> str | None:
+    text = str(exc)[:MAX_EXCEPTION_TEXT_CHARS]
+    lowered = text.lower()
+    if any(token in lowered for token in FORBIDDEN_HEALTH_KEYS):
+        return None
+    return text
+
+
+def _new_attempt_base(dt: datetime, attempt_index: int) -> dict:
+    return {
+        "attempt_index": attempt_index,
+        "request_interval_start_utc": _iso(dt),
+        "request_interval_end_utc": _iso(dt + HOUR),
+        "request_url_identity": url_for(dt),
+        "result_class": None,
+        "http_status": None,
+        "exception_class": None,
+        "exception_text": None,
+        "allowed_response_headers": {},
+        "body_capture_status": None,
+        "response_body_byte_length": None,
+        "captured_body_byte_length": 0,
+        "response_body_sha256": None,
+        "response_body_prefix_sha256": None,
+        "response_body_preview": None,
+        "retry_decision": None,
+        "next_retry_delay_seconds": None,
+    }
+
+
+def _validate_attempt_trace(attempts: list[dict]) -> None:
+    for expected, attempt in enumerate(attempts, start=1):
+        if attempt.get("attempt_index") != expected:
+            raise FC01Blocked("BLOCKED_MISSING_ATTEMPT_INDEX")
+        result_class = attempt.get("result_class")
+        if result_class == "HTTP_STATUS_FAILURE" and attempt.get("http_status") is None:
+            raise FC01Blocked("BLOCKED_MISSING_STATUS_TRACE")
+        headers = attempt.get("allowed_response_headers", {})
+        if any(str(k).lower() not in C07_HEADER_ALLOWLIST for k in headers):
+            raise FC01Blocked("BLOCKED_NON_ALLOWLISTED_HEADER_PERSISTENCE")
+        if int(attempt.get("captured_body_byte_length", 0)) > MAX_ERROR_BODY_READ_BYTES:
+            raise FC01Blocked("BLOCKED_UNBOUNDED_ERROR_BODY_CAPTURE")
+
+
+def _validate_failed_interval_noncontamination(root: Path, cache: Path, dt: datetime) -> None:
+    if (cache / cache_name(dt)).exists():
+        raise FC01Blocked("BLOCKED_ERROR_BODY_WRITTEN_TO_SUCCESS_CACHE")
+    ledger = read_ledger(root)
+    start = _iso(dt)
+    stop = _iso(dt + HOUR)
+    if any(
+        row.get("interval_start_utc") == start and row.get("interval_end_utc") == stop
+        for row in ledger
+    ):
+        raise FC01Blocked("BLOCKED_ERROR_BODY_SEALED_TO_RAW_LEDGER")
+
+
 def get_raw_fc01(cache: Path, dt: datetime) -> tuple[bytes, str, int]:
     cache.mkdir(parents=True, exist_ok=True)
     p = cache / cache_name(dt)
     if p.exists():
         return p.read_bytes(), "CACHE_REUSE", 0
 
+    delays = (0, 2, 4, 8, 16)
     last = None
-    attempts = 0
-    for delay in (0, 2, 4, 8, 16):
+    traces: list[dict] = []
+    transport_failure_class = "UNKNOWN_TRANSPORT_FAILURE"
+
+    for attempt_index, delay in enumerate(delays, start=1):
         if delay:
             time.sleep(delay)
-        attempts += 1
+
         req = urllib.request.Request(
             url_for(dt),
             headers={"User-Agent": UA, "Accept": "application/json"},
         )
+        attempt = _new_attempt_base(dt, attempt_index)
+
         try:
             with urllib.request.urlopen(req, timeout=30) as response:
                 if response.status != 200:
-                    raise RuntimeError(f"HTTP_{response.status}")
-                raw = response.read()
-            p.write_bytes(raw)
-            return raw, "NETWORK", attempts
+                    status = int(response.status)
+                    headers = _allowed_headers(getattr(response, "headers", None))
+                    attempt.update(
+                        {
+                            "result_class": "HTTP_STATUS_FAILURE",
+                            "http_status": status,
+                            "allowed_response_headers": headers,
+                            **_capture_non200_body(response, headers),
+                        }
+                    )
+                    last = RuntimeError(f"HTTP_{status}")
+                    transport_failure_class = _http_failure_class(status)
+                    retryable = True
+                    attempt["exception_class"] = last.__class__.__name__
+                    attempt["exception_text"] = _bounded_exception_text(last)
+                else:
+                    raw = response.read()
+                    p.write_bytes(raw)
+                    return raw, "NETWORK", attempt_index
+
         except Exception as exc:
             last = exc
-            if isinstance(exc, urllib.error.HTTPError) and exc.code not in (429, 500, 502, 503, 504):
-                break
-    raise FC01Blocked(f"BLOCKED_FORWARD_TRANSPORT_UNAVAILABLE {_iso(dt)} {last}")
+            status = int(exc.code) if isinstance(exc, urllib.error.HTTPError) else None
+            attempt["result_class"] = "HTTP_STATUS_FAILURE" if status is not None else "TRANSPORT_EXCEPTION"
+            attempt["http_status"] = status
+            attempt["exception_class"] = exc.__class__.__name__
+            attempt["exception_text"] = _bounded_exception_text(exc)
+            transport_failure_class = _exception_failure_class(exc)
+
+            if isinstance(exc, urllib.error.HTTPError):
+                headers = _allowed_headers(getattr(exc, "headers", None))
+                attempt["allowed_response_headers"] = headers
+                try:
+                    attempt.update(_capture_non200_body(exc, headers))
+                except Exception:
+                    attempt["body_capture_status"] = "BODY_CAPTURE_FAILED"
+                retryable = exc.code in (429, 500, 502, 503, 504)
+            else:
+                retryable = True
+
+        is_last = attempt_index == len(delays)
+        if retryable and not is_last:
+            attempt["retry_decision"] = "RETRY"
+            attempt["next_retry_delay_seconds"] = delays[attempt_index]
+        else:
+            attempt["retry_decision"] = "TERMINAL"
+            attempt["next_retry_delay_seconds"] = None
+
+        traces.append(attempt)
+        _validate_attempt_trace(traces)
+
+        if not retryable:
+            break
+
+    message = f"BLOCKED_FORWARD_TRANSPORT_UNAVAILABLE {_iso(dt)} {last}"
+    raise FC01TransportBlocked(
+        message,
+        attempts=traces,
+        transport_failure_class=transport_failure_class,
+    )
 
 
 def _expected_intervals(end: datetime) -> list[tuple[str, str]]:
@@ -255,14 +566,33 @@ def collect_cycle(
                 retry_count += attempts - 1
             dt += HOUR
     except Exception as exc:
+        attempts = list(exc.attempts) if isinstance(exc, FC01TransportBlocked) else []
+        _validate_attempt_trace(attempts)
+        if isinstance(exc, FC01TransportBlocked):
+            _validate_failed_interval_noncontamination(root, cache, dt)
         failure = {
-            "schema": "ATDS_AO_E0_B12_DATA01_FC01_FAILURE_V0_1",
+            "schema": "ATDS_AO_E0_B12_DATA01_FC01_FAILURE_V0_2",
             "target_end_exclusive_utc": _iso(target_end),
             "failed_interval_start_utc": _iso(dt),
+            "transport_failure_class": (
+                exc.transport_failure_class
+                if isinstance(exc, FC01TransportBlocked)
+                else "UNKNOWN_TRANSPORT_FAILURE"
+            ),
+            "attempt_count": len(attempts),
+            "attempts": attempts,
+            "terminal_reason": str(exc),
             "reason": str(exc),
             "b12": "CLOSED",
             "performance_bearing_read": False,
         }
+        serialized = json.dumps(failure, sort_keys=True).lower()
+        if any(token in serialized for token in C07_STRATEGY_FORBIDDEN_TOKENS):
+            raise FC01Blocked("BLOCKED_STRATEGY_FIELD_LEAK") from exc
+        if any(token in serialized for token in C07_PERFORMANCE_FORBIDDEN_TOKENS):
+            raise FC01Blocked("BLOCKED_PERFORMANCE_FIELD_LEAK") from exc
+        if failure["b12"] != "CLOSED":
+            raise FC01Blocked("BLOCKED_B12_OPENING") from exc
         stamp = now_utc.strftime("%Y%m%dT%H%M%SZ")
         _write_json_atomic(root / "evidence" / "errors" / f"{stamp}.json", failure)
         raise

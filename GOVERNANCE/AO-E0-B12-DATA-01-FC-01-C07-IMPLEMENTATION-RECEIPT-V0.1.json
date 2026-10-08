@@ -1,0 +1,67 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_C07_IMPLEMENTATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC-01-C07",
+  "repair": "C07_NON_200_FORENSIC_OBSERVABILITY_ENVELOPE",
+  "human_selected_repair": "C07",
+  "source_human_authorization_sha256": "9f94eff3ce8184fc9afdb2cbc40208c2fec22316df8646b104b2b609bc341d8c",
+  "authorized_parent": {
+    "head": "5252c861e60cd85f96f52beaf4cab7f978460648",
+    "tree": "7de14f9091e975982ead57cab5253243c10098e5"
+  },
+  "frozen_input_blobs": {
+    "contract": "5dcde7830edf34dc3f77ba234a2cb803cd792df2",
+    "runtime": "3417f6b602964bfa5b9027e6dfc5016bf3329a08",
+    "tests": "23e816cad3f11beb69e68e0687a752e8503a1804",
+    "workflow": "df32b20d9341124f57eab377c6cbffbd206727fb",
+    "human_adoption": "5948207e6c221cc3a3955bbfedac3daf52ec041c"
+  },
+  "candidate_output_blobs": {
+    "contract": "5dcde7830edf34dc3f77ba234a2cb803cd792df2",
+    "runtime": "d8c8d501fae538ebc684d569a8233e7c57038de9",
+    "tests": "dc933aff14c23222a99d9e10f429f28e121526e8",
+    "workflow": "df32b20d9341124f57eab377c6cbffbd206727fb"
+  },
+  "implementation": {
+    "transport_attempt_trace": true,
+    "header_allowlist": [
+      "date",
+      "content-type",
+      "content-length",
+      "retry-after",
+      "location",
+      "cache-control"
+    ],
+    "location_query_redacted": true,
+    "location_fragment_redacted": true,
+    "max_error_body_read_bytes": 65536,
+    "max_text_preview_bytes": 2048,
+    "failure_receipt_schema": "ATDS_AO_E0_B12_DATA01_FC01_FAILURE_V0_2",
+    "http_200_only_data_success": true,
+    "http_202_as_success": false,
+    "retry_delays_seconds": [
+      0,
+      2,
+      4,
+      8,
+      16
+    ],
+    "max_attempts": 5,
+    "success_path_semantics_changed": false,
+    "collection_contract_changed": false,
+    "workflow_changed": false
+  },
+  "authority": {
+    "real_provider_request": false,
+    "real_collection_cycle": false,
+    "real_fc01_retry": false,
+    "second_cycle": false,
+    "b12": "CLOSED",
+    "performance_bearing_read": false,
+    "scientific_lane": "STOP",
+    "strategy_execution": false,
+    "trading_authority": false,
+    "capital_authority": false,
+    "force": false
+  },
+  "status": "IMPLEMENTED_CANDIDATE"
+}

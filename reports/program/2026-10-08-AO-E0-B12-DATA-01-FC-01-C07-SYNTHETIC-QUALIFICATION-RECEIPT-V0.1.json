@@ -1,0 +1,107 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_C07_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC-01-C07",
+  "source_human_authorization_sha256": "9f94eff3ce8184fc9afdb2cbc40208c2fec22316df8646b104b2b609bc341d8c",
+  "authorized_parent": {
+    "head": "5252c861e60cd85f96f52beaf4cab7f978460648",
+    "tree": "7de14f9091e975982ead57cab5253243c10098e5"
+  },
+  "test_first": {
+    "red_state_proven": true,
+    "red_command": "python -m pytest -q tests/test_ao_e0_b12_data01_fc01.py -k c07",
+    "red_result": {
+      "failed": 12,
+      "passed": 3,
+      "deselected": 18,
+      "exit_code": 1
+    },
+    "red_primary_blockers": [
+      "FC01TransportBlocked absent",
+      "MAX_ERROR_BODY_READ_BYTES absent"
+    ]
+  },
+  "green": {
+    "new_c07_tests": {
+      "passed": 15,
+      "failed": 0
+    },
+    "fc01_suite": {
+      "passed": 33,
+      "failed": 0
+    },
+    "acq02_primitive_regression": {
+      "passed": 55,
+      "failed": 0
+    },
+    "combined": {
+      "passed": 88,
+      "failed": 0
+    },
+    "historical_baseline": {
+      "passed": 73,
+      "failed": 0
+    }
+  },
+  "success_path_parity": {
+    "verdict": "EXACT",
+    "comparison": "PRIOR_RUNTIME_HEAD_VS_C07_CANDIDATE_FIXED_SYNTHETIC_CYCLE",
+    "tree_digest": "e482262bb9010c1d852e2c304e8009adb8523c1544ea571a437bc22a45f06c3f",
+    "file_count": 29
+  },
+  "synthetic_fixture_coverage": [
+    "HTTP_200_JSON_SUCCESS",
+    "HTTP_202_EMPTY_BODY",
+    "HTTP_202_JSON_BODY",
+    "HTTP_202_HTML_BODY",
+    "HTTP_202_WITH_RETRY_AFTER",
+    "HTTP_202_WITH_LOCATION",
+    "HTTP_429",
+    "HTTP_404",
+    "HTTP_500",
+    "HTTP_503",
+    "TIMEOUT",
+    "DNS_ERROR",
+    "MALFORMED_BODY",
+    "OVERSIZED_ERROR_BODY"
+  ],
+  "breakers": {
+    "BLOCKED_NON_200_PROMOTED_AS_MARKET_DATA": "PASS_BY_NONCONTAMINATION_FIXTURE",
+    "BLOCKED_ERROR_BODY_WRITTEN_TO_SUCCESS_CACHE": "PASS",
+    "BLOCKED_ERROR_BODY_SEALED_TO_RAW_LEDGER": "PASS",
+    "BLOCKED_UNBOUNDED_ERROR_BODY_CAPTURE": "PASS",
+    "BLOCKED_NON_ALLOWLISTED_HEADER_PERSISTENCE": "PASS",
+    "BLOCKED_MISSING_ATTEMPT_INDEX": "PASS",
+    "BLOCKED_MISSING_STATUS_TRACE": "PASS",
+    "BLOCKED_FAILURE_RECEIPT_IDENTITY_COLLISION": "PASS",
+    "BLOCKED_PERFORMANCE_FIELD_LEAK": "PASS",
+    "BLOCKED_STRATEGY_FIELD_LEAK": "PASS",
+    "BLOCKED_B12_OPENING": "PASS_STATIC_EXECUTABLE_PRESENT"
+  },
+  "static_checks": {
+    "fc01_contract_binding": "PASS",
+    "authority_firewall": "PASS",
+    "prohibited_runtime_dependencies": "ABSENT",
+    "fixed_horizon_and_cadence": "PASS",
+    "non_200_success_promotion": "ABSENT",
+    "real_network_call_in_tests": "ABSENT"
+  },
+  "noncontamination": {
+    "non_200_raw_promotion": 0,
+    "non_200_ledger_append": 0,
+    "non_200_ap0_contamination": 0,
+    "non_200_h1_contamination": 0
+  },
+  "bindings": {
+    "contract": "5dcde7830edf34dc3f77ba234a2cb803cd792df2",
+    "runtime": "d8c8d501fae538ebc684d569a8233e7c57038de9",
+    "tests": "dc933aff14c23222a99d9e10f429f28e121526e8",
+    "workflow": "df32b20d9341124f57eab377c6cbffbd206727fb"
+  },
+  "technical_verdict": "PASS",
+  "candidate_status": "SYNTHETICALLY_QUALIFIED_CANDIDATE_FOR_HUMAN_ADJUDICATION",
+  "real_provider_request": false,
+  "real_fc01_retry": false,
+  "b12": "CLOSED",
+  "performance_bearing_read": false,
+  "force": false
+}
