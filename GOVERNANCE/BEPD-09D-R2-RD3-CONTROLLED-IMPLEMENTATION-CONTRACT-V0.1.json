@@ -1,0 +1,42 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CONTROLLED_IMPLEMENTATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION",
+  "implementation_surface": "SEPARATE_CANDIDATE_RUNTIME_OVERLAY",
+  "governed_real_execution_path_activation": false,
+  "source_runtime_unchanged": true,
+  "r2_runtime_unchanged": true,
+  "primary_solver": {
+    "solver": "Newton-CG",
+    "max_iter": 5000,
+    "xtol": 1e-10,
+    "initialization": "ZERO_VECTOR",
+    "line_search": "UNCHANGED_SCIPY_NEWTON_CG"
+  },
+  "candidate_b": {
+    "tau_contract_blob": "bd89123221cdf2f9dc852a5aadfed1186eab3d4f",
+    "numerical_acceptance_contract_blob": "ccb519aad05cf0739b54ee50e0521a85a5374f13",
+    "breaker_contract_blob": "028b7fbba56b2bb4f9abd44c5ff075b9bdb80d9a",
+    "candidate_contract_blob": "0e87aa62433218b44f8ddaf64351ed0beccd93a3"
+  },
+  "frozen_science": [
+    "MODEL",
+    "LIKELIHOOD",
+    "ESTIMAND",
+    "FEATURES",
+    "STANDARDIZATION",
+    "EXPOSURE",
+    "SPLINE_BASIS",
+    "CALENDAR",
+    "FOLDS",
+    "RESPONSE",
+    "DATA_BINDING",
+    "OBJECTIVE",
+    "GRADIENT",
+    "HESSIAN",
+    "SEPARATION_DETECTOR"
+  ],
+  "only_functional_delta": "FIT_ACCEPTANCE_SEMANTICS",
+  "reference_role": "INDEPENDENT_NUMERICAL_CONSISTENCY_CHECK_ONLY_NOT_FALLBACK_NOT_RESULT_PRODUCER",
+  "real_data_execution": false,
+  "fold3_counterfactual": false
+}

@@ -1,0 +1,26 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_AUTHORIZED_DELTA_MANIFEST_V0_1",
+  "status": "FROZEN_PRE_IMPLEMENTATION",
+  "allowed_new_paths": [
+    "tools/bepd09d_r2_rd3_candidate_b_runtime.py",
+    "tools/bepd09d_r2_rd3_red_test.py",
+    "tools/bepd09d_r2_rd3_synthetic_regression.py",
+    ".github/workflows/bepd-09d-r2-rd3-red.yml",
+    ".github/workflows/bepd-09d-r2-rd3-green.yml",
+    "GOVERNANCE/BEPD-09D-R2-RD3-*",
+    "reports/program/2026-10-08-BEPD-09D-R2-RD3-*"
+  ],
+  "prohibited_modifications": [
+    "tools/bepd09c_runtime.py",
+    "tools/bepd09d_r2_runtime.py",
+    "tools/bepd09c_reference.py",
+    "REAL_DATA_BINDINGS",
+    "SCIENTIFIC_MODEL"
+  ],
+  "functional_delta": {
+    "from": "LEGACY_FIT_VALIDITY_REQUIRES_OPTIMIZER_SUCCESS",
+    "to": "CANDIDATE_B_MATHEMATICAL_ACCEPTANCE_CONTRACT"
+  },
+  "runtime_activation": false,
+  "real_data_execution": false
+}

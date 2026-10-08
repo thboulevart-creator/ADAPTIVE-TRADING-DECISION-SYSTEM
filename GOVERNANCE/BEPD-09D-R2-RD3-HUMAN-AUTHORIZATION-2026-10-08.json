@@ -1,0 +1,30 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_HUMAN_AUTHORIZATION_RECORD_V0_1",
+  "control_id": "BEPD-09D-R2-RD3",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "297875dc4680519255d69a5c0333d556a3897f7c8f949209fd44469bba290210",
+  "source_authorization_bytes": 14199,
+  "source_authorization_lines": 1122,
+  "authority": {
+    "controlled_candidate_b_implementation": true,
+    "test_first_red_green": true,
+    "full_synthetic_regression": true,
+    "contract_parity": true,
+    "breaker_regression": true,
+    "determinism": true,
+    "legacy_non_regression": true,
+    "reference_role_invariance": true,
+    "implementation_qualification": true,
+    "real_data_model_execution": false,
+    "real_training_fit": false,
+    "real_fold3_replay": false,
+    "real_reference_fit": false,
+    "real_training_requalification": false,
+    "c1_retry": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "maximum_machine_verdict": "CANDIDATE_B_IMPLEMENTATION_SYNTHETICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION"
+}

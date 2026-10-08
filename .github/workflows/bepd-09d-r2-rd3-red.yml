@@ -1,0 +1,41 @@
+name: BEPD-09D-R2-RD3 RED Test
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/BEPD-09D-R2-RD3-HUMAN-AUTHORIZATION-2026-10-08.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD3-CONTROLLED-IMPLEMENTATION-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD3-AUTHORIZED-DELTA-MANIFEST-V0.1.json'
+      - 'tools/bepd09d_r2_rd3_red_test.py'
+      - '.github/workflows/bepd-09d-r2-rd3-red.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  red:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install frozen numerical environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+      - name: Execute required RED against current R2 runtime
+        env:
+          PYTHONPATH: tools
+        run: python tools/bepd09d_r2_rd3_red_test.py
+      - name: Preserve RED receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEPD-09D-R2-RD3-red
+          path: artifacts/bepd09d-r2-rd3-red/
+          if-no-files-found: error
+          retention-days: 30

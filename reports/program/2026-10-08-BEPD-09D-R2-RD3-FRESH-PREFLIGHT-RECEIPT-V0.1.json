@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_FRESH_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "749340067b7635dbadf82ab6a3baf11d2b88592e",
+  "observed_tree": "186132d122017ac2f229347043afe30f45c45318",
+  "concurrent_drift": "NONE",
+  "rd2_closure_blob": "a00653c89bc42ec10030fe1745c54c7d73e6f101",
+  "tau_contract_blob": "bd89123221cdf2f9dc852a5aadfed1186eab3d4f",
+  "acceptance_contract_blob": "ccb519aad05cf0739b54ee50e0521a85a5374f13",
+  "breaker_contract_blob": "028b7fbba56b2bb4f9abd44c5ff075b9bdb80d9a",
+  "candidate_b_qualification_blob": "6f776300046662b9c226e5a8d7b3a44ed365c417",
+  "rd2_persisted_head_verification_blob": "ad90407e9c7fe4a27f3cadd6565bbb56476ac70b",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "r2_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "candidate_b_contract_blob": "0e87aa62433218b44f8ddaf64351ed0beccd93a3",
+  "real_data_read_or_execution": false
+}
