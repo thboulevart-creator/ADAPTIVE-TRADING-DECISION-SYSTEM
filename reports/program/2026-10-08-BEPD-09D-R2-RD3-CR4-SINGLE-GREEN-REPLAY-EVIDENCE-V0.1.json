@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_SINGLE_GREEN_REPLAY_EVIDENCE_V0_1",
+  "status": "PASS",
+  "replay_count_authorized": 1,
+  "replay_count_observed": 1,
+  "workflow_run_id": 37833324903,
+  "workflow_job_id": 113503971060,
+  "head_sha": "2fa86d498977ab0f2da6f0222acba567c873d54f",
+  "workflow_name": "BEPD-09D-R2-RD3 GREEN Synthetic Qualification",
+  "workflow_conclusion": "success",
+  "python_version": "3.12.15",
+  "artifact_id": 11573994430,
+  "artifact_name": "BEPD-09D-R2-RD3-green",
+  "artifact_size_bytes": 5266,
+  "artifact_digest_sha256": "3936b8a70202b5a2bb351b4c39d0532b9b8bb3081ecb9945bed4f64f511cb0f6",
+  "rerun_performed": false,
+  "real_data_used": false
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_CONTRACT_PARITY_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "298b6b1657112be62f114d6ec2e6a67152373e5af5bc083f516709010ae4ce1a",
+  "fixture_count": 23,
+  "all_exact_receipt_parity": true,
+  "same_tau_score_all": true,
+  "same_gates_all": true,
+  "same_verdict_all": true,
+  "candidate_b_adopted_contract_blob": "0e87aa62433218b44f8ddaf64351ed0beccd93a3"
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_LEGACY_NON_REGRESSION_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "e4140dddc15c3ba0a7719db6cea7bd7682287f264e9a00ac66240136117517e7",
+  "objective_parity": true,
+  "gradient_parity": true,
+  "hessian_parity": true,
+  "separation_detector_parity": true,
+  "alias_identity_checks_all": true,
+  "reference_role_not_activated": true,
+  "only_functional_delta": "FIT_ACCEPTANCE_SEMANTICS",
+  "frozen_blobs": {
+    "source_runtime": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "r2_runtime": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+    "reference_runtime": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "candidate_contract": "0e87aa62433218b44f8ddaf64351ed0beccd93a3"
+  },
+  "real_data_used": false
+}

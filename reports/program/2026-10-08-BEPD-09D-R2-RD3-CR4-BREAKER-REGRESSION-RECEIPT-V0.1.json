@@ -1,0 +1,7 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_BREAKER_REGRESSION_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "0e9d9d1b5126443e7bcb0382215c92220ec0ba311cf2cbe22629190f3677c97e",
+  "breaker_case_count": 16,
+  "all_fail_closed": true
+}

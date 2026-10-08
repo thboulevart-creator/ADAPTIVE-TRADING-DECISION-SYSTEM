@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_GREEN_SYNTHETIC_REGRESSION_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "663517b3ca72d4d9af8f0c564df79268f1e92aff3f1e3e3df0f12645b73061b6",
+  "registered_case_count": 23,
+  "registered_cases_passed": 23,
+  "actual_controlled_newton_cg_synthetic_fit": {
+    "verdict": "ACCEPT",
+    "optimizer_success": true,
+    "optimizer_status": 0,
+    "score_inf_norm": 3.1086244689504383e-15,
+    "score_scale": 4,
+    "tau_relative": 1.4901161193847656e-8,
+    "tau_score": 5.960464477539063e-8,
+    "receipt_identity": "a949daa6462af290a7d862f6aed88d651c950b5c3a2fc07f58d4c4dc7ff9aaad"
+  },
+  "real_data_used": false,
+  "fold3_replay": false
+}

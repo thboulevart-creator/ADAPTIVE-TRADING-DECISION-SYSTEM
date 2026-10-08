@@ -1,0 +1,13 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR4_DETERMINISM_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "ff2060dd3a0719285a8b5f727674e092ae09cbb4aefa90fc0f5c08c3b5a97fea",
+  "replay_1_identity": "4456238559c4071c05b6a7822ad21317b67033757ea6ceea2e75b785e4e675a4",
+  "replay_2_identity": "4456238559c4071c05b6a7822ad21317b67033757ea6ceea2e75b785e4e675a4",
+  "same_tau_score": true,
+  "same_diagnostics": true,
+  "same_individual_gates": true,
+  "same_final_verdict": true,
+  "same_receipt_identity": true,
+  "actual_fit_parameters_exact_replay": true
+}
