@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR2_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD3-CR2",
+  "date": "2026-10-08",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "a11a83752eacc3b03b5351a32855834ac7c8733e",
+  "verified_tree": "363dee381abc1ffe38e92d0d31169a477694d4dc",
+  "canonical_readback": "15 / 15 PASS",
+  "correction": {
+    "commit": "13f403bcae07c9190249dae6facbf44754712528",
+    "corrected_harness_blob": "5afa0a0d67af1aa180883b6822912ac12a4481f4",
+    "controlled_runtime_blob_unchanged": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+    "workflow_blob_unchanged": "a799a727b44437fd84ed4524a545e69af1ec6663",
+    "authorized_delta_only": true,
+    "tau_change": false,
+    "solver_change": false,
+    "model_change": false,
+    "science_change": false,
+    "protocol_change": false
+  },
+  "single_green_replay": {
+    "run_id": 37822313460,
+    "job_id": 113466195431,
+    "observed_count": 1,
+    "conclusion": "failure",
+    "failed_at": "LEGACY_NON_REGRESSION_OBJECTIVE_PARITY_CHECK",
+    "exact_error": "AttributeError: module 'bepd09d_r2_runtime' has no attribute '_ll'",
+    "artifact_uploaded": false
+  },
+  "final_rd3_cr2_status": "BLOCKED_FAIL_CLOSED",
+  "synthetically_requalified": false,
+  "additional_patch_applied": false,
+  "additional_rerun_performed": false,
+  "workflow_runs_on_failure_persistence_head": 0,
+  "boundaries": {
+    "real_data": false,
+    "real_training_fit": false,
+    "fold3_replay": false,
+    "real_reference_fit": false,
+    "real_requalification": false,
+    "c1_retry": false,
+    "scientific_result": "NONE",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "next_required_action": "NEW_HUMAN_DECISION",
+  "stop": true
+}
