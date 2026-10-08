@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_RED_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "PASS",
+  "workflow_run_id": 37816692527,
+  "workflow_job_id": 113447023578,
+  "head_sha": "fcbf7e021d368f0f853fecafabcac357ddba5124",
+  "workflow_name": "BEPD-09D-R2-RD3 RED Test",
+  "workflow_conclusion": "success",
+  "python_version": "3.12.15",
+  "artifact_id": 11567497007,
+  "artifact_name": "BEPD-09D-R2-RD3-red",
+  "artifact_size_bytes": 777,
+  "artifact_digest_sha256": "da2ad780b3994581e03a6871e195947d6442e107dbf0e5da516254fafd8f18c2",
+  "rerun_performed": false,
+  "implementation_present": false,
+  "real_data_used": false
+}

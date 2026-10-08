@@ -1,0 +1,43 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_RED_TEST_RECEIPT_V0_1",
+  "status": "PASS",
+  "surface": "CURRENT_R2_RUNTIME_SYNTHETIC_ONLY",
+  "current_runtime_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "candidate_contract_blob": "0e87aa62433218b44f8ddaf64351ed0beccd93a3",
+  "cases": [
+    {
+      "name": "LEGACY_REJECTS_MATHEMATICALLY_VALID_SUCCESS_FALSE",
+      "candidate_b_expected": "ACCEPT",
+      "candidate_b_observed": "ACCEPT",
+      "legacy_observed": {
+        "kind": "RAISE",
+        "type": "BreakerError",
+        "message": "MODEL_NONCONVERGENCE"
+      },
+      "red_demonstrated": true,
+      "score_inf_norm": 3.1086244689504383e-15,
+      "tau_score": 5.960464477539063e-8
+    },
+    {
+      "name": "LEGACY_ACCEPTS_SUCCESS_TRUE_THAT_FAILS_MATHEMATICAL_CONTRACT",
+      "candidate_b_expected": "REJECT",
+      "candidate_b_observed": "REJECT",
+      "legacy_observed": {
+        "kind": "RETURN",
+        "parameters": [
+          0,
+          0
+        ]
+      },
+      "red_demonstrated": true,
+      "score_inf_norm": 1,
+      "tau_score": 5.960464477539063e-8
+    }
+  ],
+  "real_data_used": false,
+  "fold3_replay": false,
+  "implementation_present": false,
+  "stop_after_red": true,
+  "source_artifact_file_sha256": "aca743b4c6865347cad48a97e80beef4217ce8354cbdb79e303ca659460c3c2e"
+}

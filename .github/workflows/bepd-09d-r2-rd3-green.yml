@@ -1,0 +1,42 @@
+name: BEPD-09D-R2-RD3 GREEN Synthetic Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'reports/program/2026-10-08-BEPD-09D-R2-RD3-RED-TEST-RECEIPT-V0.1.json'
+      - 'tools/bepd09d_r2_rd3_candidate_b_runtime.py'
+      - 'tools/bepd09d_r2_rd3_synthetic_regression.py'
+      - '.github/workflows/bepd-09d-r2-rd3-green.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  green:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install frozen numerical environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+      - name: Run RD3 synthetic regression qualification
+        env:
+          PYTHONPATH: tools
+        run: python tools/bepd09d_r2_rd3_synthetic_regression.py
+      - name: Preserve RD3 GREEN receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEPD-09D-R2-RD3-green
+          path: artifacts/bepd09d-r2-rd3-green/
+          if-no-files-found: error
+          retention-days: 30
