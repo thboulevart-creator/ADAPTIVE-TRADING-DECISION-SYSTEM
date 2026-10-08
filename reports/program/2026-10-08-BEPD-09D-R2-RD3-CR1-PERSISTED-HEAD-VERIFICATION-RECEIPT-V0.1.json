@@ -1,0 +1,48 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD3-CR1",
+  "date": "2026-10-08",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "032cdc9709e287eef48194046cf19bf186323a0a",
+  "verified_tree": "0ec4196e8628eb5f8fe2006e6437ce60f00f8f59",
+  "canonical_readback": "15 / 15 PASS",
+  "correction": {
+    "commit": "f95c5a9595ba72306bb31a0c94d1bc8cb7330c10",
+    "corrected_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+    "authorized_delta_only": true,
+    "tau_change": false,
+    "solver_change": false,
+    "science_change": false,
+    "protocol_change": false
+  },
+  "import_surface": "PASS",
+  "single_green_replay": {
+    "run_id": 37819618970,
+    "job_id": 113456987651,
+    "observed_count": 1,
+    "conclusion": "failure",
+    "failed_at": "UNCHANGED_GREEN_LEGACY_NON_REGRESSION_ALIAS_IDENTITY_CHECK",
+    "exact_error": "AttributeError: module 'bepd09d_r2_runtime' has no attribute '_sig'",
+    "artifact_uploaded": false
+  },
+  "final_rd3_cr1_status": "BLOCKED_FAIL_CLOSED",
+  "synthetically_requalified": false,
+  "second_patch_applied": false,
+  "second_rerun_performed": false,
+  "post_failure_head_workflow_runs": 0,
+  "boundaries": {
+    "real_data": false,
+    "real_training_fit": false,
+    "fold3_replay": false,
+    "real_reference_fit": false,
+    "real_requalification": false,
+    "c1_retry": false,
+    "scientific_result": "NONE",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "next_required_action": "NEW_HUMAN_DECISION",
+  "stop": true
+}
