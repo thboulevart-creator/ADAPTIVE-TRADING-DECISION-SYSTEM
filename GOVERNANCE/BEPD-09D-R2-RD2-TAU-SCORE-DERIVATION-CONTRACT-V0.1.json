@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_TAU_SCORE_DERIVATION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_SYNTHETIC_QUALIFICATION",
+  "purpose": "SOLVER_INDEPENDENT_SCALE_NORMALIZED_STATIONARITY_THRESHOLD",
+  "derivation_independent_of_f2_observed_residual": true,
+  "prohibited_inputs": [
+    "F2_OBSERVED_SCORE_INF_NORM",
+    "C1_PERFORMANCE",
+    "TEST_PERFORMANCE",
+    "LOGLOSS",
+    "BRIER",
+    "PRIMARY_DELTA",
+    "SECONDARY_DELTA",
+    "PNL"
+  ],
+  "numeric_basis": {
+    "floating_type": "IEEE_754_BINARY64",
+    "epsilon": 2.220446049250313e-16,
+    "tau_relative_formula": "sqrt(epsilon)",
+    "tau_relative": 1.4901161193847656e-8
+  },
+  "score_scale": {
+    "formula": "max(1.0, max_j sum_i abs(X[i,j]))",
+    "interpretation": "maximum absolute column-sum scale of the design matrix; deterministic from fit input only"
+  },
+  "tau_score": {
+    "formula": "TAU_RELATIVE * SCORE_SCALE",
+    "comparison": "SCORE_INF_NORM <= TAU_SCORE",
+    "implicit_extra_tolerance": "NONE",
+    "boundary_semantics": {
+      "below": "ACCEPT_IF_ALL_OTHER_GATES_PASS",
+      "equal": "ACCEPT_IF_ALL_OTHER_GATES_PASS",
+      "above": "REJECT"
+    }
+  },
+  "rationale": [
+    "The logistic score component is a column-weighted sum of residual terms bounded by design-column absolute sums.",
+    "Normalizing score infinity norm by max(1, max absolute column sum) gives a dimensionless stationarity measure.",
+    "sqrt(binary64 epsilon) is fixed by machine precision and is chosen before any new real execution.",
+    "The rule is independent of optimizer success/status/message and does not use the observed F2 residual as a target."
+  ],
+  "tau_grid_search": false,
+  "tau_tuning_on_real_fits": false,
+  "real_fit_execution": false
+}

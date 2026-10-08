@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_FRESH_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "3f1eaf36a7ad9d0dd2bcdcf9d4d9634a76c845b6",
+  "observed_tree": "0139a5141333b4b1aaa8dc978102ef010fdd7bf5",
+  "concurrent_drift": "NONE",
+  "existing_rd2_surface": false,
+  "rd1_recommendation_blob": "3860950ad2be8a6f4d3d01b1d0a9991367dd875a",
+  "rd1_qualification_blob": "e87920aaf0a9dd97418247a944ad4439be1837ef",
+  "rd1_persisted_head_verification_blob": "8de1ae11e6bf15e41ccd4dfacff945fd391df9ed",
+  "rd1_recommended_candidate": "B",
+  "rd1_candidate_b_score": 34,
+  "rd1_top_margin": 4,
+  "rd1_required_margin": 3,
+  "real_data_authorized": false,
+  "runtime_implementation_authorized": false
+}

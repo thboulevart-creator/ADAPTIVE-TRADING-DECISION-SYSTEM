@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_CANDIDATE_B_HUMAN_SELECTION_RECORD_V0_1",
+  "control_id": "BEPD-09D-R2-RD2",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "d5ceb3100ec40fc4ecacde5c02b8eafbaaa4d9dfad6d0ee7c37faaf990ad2445",
+  "source_authorization_bytes": 13174,
+  "source_authorization_lines": 983,
+  "human_selection": "CANDIDATE_B",
+  "candidate_name": "SOLVER_INDEPENDENT_STATIONARITY_ACCEPTANCE_CONTRACT",
+  "status": "SELECTED_FOR_CONTRACT_PREREGISTRATION",
+  "implementation_authorized": false,
+  "real_training_requalification_authorized": false,
+  "c1_retry_authorized": false,
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE"
+}

@@ -1,0 +1,38 @@
+name: BEPD-09D-R2-RD2 Candidate B Synthetic Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/BEPD-09D-R2-RD2-CANDIDATE-B-HUMAN-SELECTION-2026-10-08.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD2-TAU-SCORE-DERIVATION-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD2-NUMERICAL-ACCEPTANCE-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD2-BREAKER-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD2-SYNTHETIC-TEST-PLAN-V0.1.json'
+      - 'tools/bepd09d_r2_rd2_candidate_b_contract.py'
+      - 'tools/bepd09d_r2_rd2_synthetic_qualifier.py'
+      - '.github/workflows/bepd-09d-r2-rd2-candidate-b.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run Candidate B synthetic qualification
+        run: python tools/bepd09d_r2_rd2_synthetic_qualifier.py
+      - name: Preserve RD2 receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEPD-09D-R2-RD2-candidate-b
+          path: artifacts/bepd09d-r2-rd2-candidate-b/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,27 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_BREAKER_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_SYNTHETIC_QUALIFICATION",
+  "action": "REJECT_OR_BLOCK_FAIL_CLOSED",
+  "breakers": [
+    "NONFINITE_INPUT",
+    "NONFINITE_PARAMETERS",
+    "NONFINITE_OBJECTIVE",
+    "NONFINITE_SCORE",
+    "NONFINITE_DERIVATIVES",
+    "RANK_DEFICIENCY",
+    "PERFECT_SEPARATION",
+    "ONE_CLASS_SAMPLE",
+    "SCORE_GT_TAU_SCORE",
+    "MISSING_TAU_SCORE",
+    "TAU_SCORE_IDENTITY_MISMATCH",
+    "UNREGISTERED_ACCEPTANCE_STATE",
+    "UNEXPECTED_SOLVER",
+    "UNEXPECTED_MODEL",
+    "UNEXPECTED_FEATURE_SET",
+    "UNEXPECTED_DATA_BINDING"
+  ],
+  "recursive_patch_authorized": false,
+  "relax_tau_authorized": false,
+  "solver_change_authorized": false,
+  "real_data_authorized": false
+}

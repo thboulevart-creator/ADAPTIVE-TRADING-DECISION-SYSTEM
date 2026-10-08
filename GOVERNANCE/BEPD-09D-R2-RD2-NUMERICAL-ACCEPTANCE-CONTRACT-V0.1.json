@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_NUMERICAL_ACCEPTANCE_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_SYNTHETIC_QUALIFICATION",
+  "selected_candidate": "B",
+  "solver": "Newton-CG",
+  "frozen_numerics": {
+    "max_iter": 5000,
+    "xtol": 1e-10,
+    "initialization": "ZERO_VECTOR"
+  },
+  "expected_bindings": {
+    "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "r2_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+    "reference_runtime_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "calendar_partition_blob": "7d950d957611cf209d811c788ff10abded30d011",
+    "model_id": "BEPD09B_R1_C1_UNREGULARIZED_BINARY_LOGISTIC",
+    "feature_contract_id": "BEPD09B_R1_FROZEN_EXPOSURE_SPLINE_PLUS_CONTEXT",
+    "tau_derivation_contract_blob": "bd89123221cdf2f9dc852a5aadfed1186eab3d4f"
+  },
+  "required_gates": [
+    "FINITE_INPUT",
+    "FINITE_PARAMETERS",
+    "FINITE_OBJECTIVE",
+    "FINITE_SCORE",
+    "FINITE_DERIVATIVES",
+    "FULL_REQUIRED_DESIGN_RANK",
+    "NO_PERFECT_SEPARATION",
+    "NOT_ONE_CLASS",
+    "SCORE_INF_NORM_LTE_TAU_SCORE",
+    "EXPECTED_SOLVER",
+    "EXPECTED_MODEL",
+    "EXPECTED_FEATURE_SET",
+    "EXPECTED_DATA_BINDING",
+    "EXPECTED_TAU_DERIVATION_CONTRACT"
+  ],
+  "optimizer_metadata": {
+    "success": "NON_BINDING_DIAGNOSTIC",
+    "status": "NON_BINDING_DIAGNOSTIC",
+    "message": "NON_BINDING_DIAGNOSTIC",
+    "must_be_persisted_for_audit": true
+  },
+  "decision_rules": {
+    "all_required_gates_pass": "ACCEPT",
+    "any_required_gate_fails": "REJECT",
+    "unknown_or_unregistered_state": "FAIL_CLOSED"
+  },
+  "scientific_model_unchanged": true,
+  "likelihood_unchanged": true,
+  "objective_unchanged": true,
+  "gradient_unchanged": true,
+  "hessian_unchanged": true,
+  "feature_set_unchanged": true,
+  "data_binding_unchanged": true,
+  "reference_solver_role": "INDEPENDENT_NUMERICAL_CONSISTENCY_CHECK_ONLY_NOT_FALLBACK_NOT_RESULT_PRODUCER",
+  "implementation_into_governed_runtime": false,
+  "real_data_read_or_execution": false
+}
