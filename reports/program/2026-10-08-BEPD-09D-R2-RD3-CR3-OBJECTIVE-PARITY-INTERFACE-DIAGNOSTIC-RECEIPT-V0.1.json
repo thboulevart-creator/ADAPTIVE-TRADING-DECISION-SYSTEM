@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR3_OBJECTIVE_PARITY_INTERFACE_DIAGNOSTIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "observations": {
+    "source._ll": "PRESENT",
+    "legacy._ll": "ABSENT",
+    "harness.objective_parity.reference": "legacy._ll",
+    "harness.controlled._sig": "source._sig",
+    "harness.controlled._score": "source._score",
+    "harness.controlled._stats": "legacy._stats",
+    "harness.controlled._mats": "legacy._mats",
+    "remaining_legacy._ll_outside_objective_parity": 2
+  },
+  "classification": "GREEN_HARNESS_PRIVATE_HELPER_INTERFACE_ASSUMPTION_DEFECT",
+  "authorized_symbol_to_correct": "_ll_AT_OBJECTIVE_PARITY_ONLY",
+  "read_only_inventory_performed": true,
+  "other_private_helper_references_not_authorized_for_change": true,
+  "candidate_runtime_defect": false,
+  "tau_defect": false,
+  "solver_defect": false,
+  "science_defect": false,
+  "data_defect": false
+}

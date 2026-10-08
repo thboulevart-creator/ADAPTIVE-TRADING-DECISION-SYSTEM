@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR3_FRESH_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "d059e1e4b4b816165ba5da406a498afb902547cc",
+  "observed_tree": "414db4a805a157b35f82fb696e40ea8a7b541253",
+  "concurrent_drift": "NONE",
+  "cr2_persisted_head_verification_blob": "c0a78173da50d3df7bde46af12d5fa190a7585a3",
+  "controlled_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "green_harness_blob": "5afa0a0d67af1aa180883b6822912ac12a4481f4",
+  "green_workflow_blob": "a799a727b44437fd84ed4524a545e69af1ec6663",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "r2_runtime_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "reference_runtime_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+  "candidate_contract_blob": "0e87aa62433218b44f8ddaf64351ed0beccd93a3"
+}

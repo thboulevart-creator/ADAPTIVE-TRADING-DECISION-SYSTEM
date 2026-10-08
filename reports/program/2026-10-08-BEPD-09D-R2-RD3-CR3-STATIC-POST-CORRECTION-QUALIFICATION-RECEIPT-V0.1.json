@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR3_STATIC_POST_CORRECTION_QUALIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "corrected_harness_blob": "799a8842dd937b3790730603e62c4b6b1fccd489",
+  "checks": {
+    "objective_parity_uses_source_ll": true,
+    "source_sig_unchanged": true,
+    "source_score_unchanged": true,
+    "legacy_stats_unchanged": true,
+    "legacy_mats_unchanged": true,
+    "candidate_runtime_blob_unchanged": true,
+    "workflow_blob_unchanged": true,
+    "only_authorized_delta": true
+  },
+  "candidate_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "workflow_blob": "a799a727b44437fd84ed4524a545e69af1ec6663",
+  "real_data_used": false
+}

@@ -202,7 +202,7 @@ if not all(alias_checks.values()):
     raise RuntimeError("LEGACY_HELPER_IDENTITY_DRIFT")
 
 Xa=np.asarray(X,float); ya=np.asarray(y,float); b=np.array([0.2,-0.1])
-objective_parity=abs(controlled.objective(Xa,ya,b) - (-legacy._ll(Xa,ya,b))) <= 1e-12
+objective_parity=abs(controlled.objective(Xa,ya,b) - (-source._ll(Xa,ya,b))) <= 1e-12
 
 h=1e-6
 fdg=np.zeros_like(b)
