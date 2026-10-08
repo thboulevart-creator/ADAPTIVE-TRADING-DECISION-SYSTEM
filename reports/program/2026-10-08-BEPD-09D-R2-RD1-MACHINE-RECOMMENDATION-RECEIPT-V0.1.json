@@ -1,0 +1,20 @@
+{
+  "candidate_B_semantic_fixtures": [
+    {"expected": true, "name": "SUCCESS_TRUE_VALID", "observed": true, "status": "PASS"},
+    {"expected": true, "name": "SUCCESS_FALSE_BUT_VALID", "observed": true, "status": "PASS"},
+    {"expected": false, "name": "RESIDUAL_ABOVE_TAU", "observed": false, "status": "PASS"},
+    {"expected": false, "name": "NONFINITE", "observed": false, "status": "PASS"},
+    {"expected": false, "name": "SEPARATION", "observed": false, "status": "PASS"},
+    {"expected": false, "name": "RANK_DEFICIENT", "observed": false, "status": "PASS"}
+  ],
+  "candidate_B_tau_score": "NOT_DETERMINED",
+  "eligible": {"A": true, "B": true, "C": true, "D": true, "E": false, "F": true},
+  "eligible_ranked": ["B", "A", "C", "D", "F"],
+  "recommended_candidate": "B",
+  "repair_adopted": false,
+  "repair_implemented": false,
+  "schema": "ATDS_BEPD_09D_R2_RD1_MACHINE_RECOMMENDATION_RECEIPT_V0_1",
+  "scores": {"A": 30, "B": 34, "C": 29, "D": 29, "E": 20, "F": 28},
+  "status": "PASS",
+  "top_margin": 4
+}

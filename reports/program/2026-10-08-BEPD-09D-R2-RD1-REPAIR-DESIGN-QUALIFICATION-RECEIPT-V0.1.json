@@ -1,0 +1,19 @@
+{
+  "bepd_09d_r2": "NOT_PRE_RETRY_READY",
+  "c1_retry": "NOT_AUTHORIZED",
+  "fresh_oos": "CLOSED",
+  "new_real_training_fits": false,
+  "new_reference_fits": false,
+  "new_test_fits": false,
+  "next": "HUMAN_SELECTION_OR_REJECTION_OF_REPAIR_CANDIDATE",
+  "recommendation_is_not_adoption": true,
+  "recommended_candidate": "B",
+  "repair_implementation": false,
+  "repair_selection": "NONE",
+  "schema": "ATDS_BEPD_09D_R2_RD1_REPAIR_DESIGN_QUALIFICATION_RECEIPT_V0_1",
+  "scientific_result": "NONE",
+  "status": "PASS",
+  "stop": true,
+  "trading_authority": "NONE",
+  "verdict": "REPAIR_DESIGN_QUALIFIED_FOR_HUMAN_SELECTION"
+}
