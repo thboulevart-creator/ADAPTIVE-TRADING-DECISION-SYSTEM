@@ -1,0 +1,78 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-CR1-F1",
+  "status": "PASS",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "bf44afd50998306428efee41f5aec25ffea88666",
+  "verified_tree": "0d84d90005d00c4d62631bdfe0ded28d6c92ebdf",
+  "canonical_readback": "14 / 14 PASS",
+  "workflow": {
+    "run_id": 37764800879,
+    "job_id": 113269700585,
+    "artifact_id": 11544011787,
+    "artifact_digest_sha256": "8911dc52751b8506cb246a4cb39eb481ad412772c20458af9129fcda902d2a79",
+    "conclusion": "success"
+  },
+  "forensic_findings": {
+    "failed_fit_sequence_index": 5,
+    "failed_fold": 3,
+    "failed_model": "BASELINE",
+    "train_event_count": 237,
+    "train_response_class_counts": {
+      "0": 51,
+      "1": 186
+    },
+    "newton_cg": {
+      "max_iter": 5000,
+      "xtol": 1e-10,
+      "success": false,
+      "status": 2,
+      "message": "Warning: Desired error not necessarily achieved due to precision loss.",
+      "iteration_count": 19,
+      "score_inf_norm": 1.6346640596687223e-8
+    },
+    "design": {
+      "shape": [
+        237,
+        5
+      ],
+      "rank": 5,
+      "full_column_rank": true,
+      "condition_number": 6691.863743136879,
+      "hessian_condition_number": 27770086.97233623
+    },
+    "perfect_separation": false,
+    "one_class_failure": false,
+    "all_forensic_states_finite": true,
+    "reference_solver": {
+      "solver": "ROOT_HYBR_SCORE_EQUATION",
+      "success": true,
+      "function_evaluation_count": 25,
+      "score_inf_norm": 2.799982468104645e-13,
+      "finite_solution": true
+    },
+    "root_cause": {
+      "classification": "H",
+      "label": "ROOT_CAUSE_NOT_PROVEN",
+      "evidence_grade": "NOT_PROVEN",
+      "same_root_cause_as_original_f1": "NOT_PROVEN",
+      "future_repair_class": "NOT_DETERMINED"
+    }
+  },
+  "scientific_boundaries": {
+    "test_predictions_computed": false,
+    "test_scoring_computed": false,
+    "logloss_computed": false,
+    "brier_computed": false,
+    "scientific_result": "NONE",
+    "repair_applied": false,
+    "c1_retry_authorized": false,
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "verdict": "FORENSICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "next_required_action": "HUMAN_ADJUDICATION_OF_BEPD_09D_R2_CR1_F1",
+  "stop": true
+}
