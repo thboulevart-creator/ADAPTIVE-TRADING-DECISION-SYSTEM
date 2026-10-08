@@ -1,0 +1,21 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR2_GREEN_HARNESS_INTERFACE_DIAGNOSTIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "observations": {
+    "bepd09c_runtime._sig": "PRESENT",
+    "bepd09c_runtime._score": "PRESENT",
+    "bepd09d_r2_runtime._sig": "ABSENT",
+    "bepd09d_r2_runtime._score": "ABSENT",
+    "controlled._sig": "BOUND_TO_BEPD09C_RUNTIME_SIG",
+    "controlled._score": "BOUND_TO_BEPD09C_RUNTIME_SCORE",
+    "green_harness_sig_assertion": "TARGETS_LEGACY_SIG",
+    "green_harness_score_assertion": "TARGETS_LEGACY_SCORE"
+  },
+  "classification": "UNCHANGED_GREEN_HARNESS_INTERFACE_ASSUMPTION_DEFECT",
+  "candidate_runtime_defect": false,
+  "tau_defect": false,
+  "acceptance_contract_defect": false,
+  "solver_defect": false,
+  "science_defect": false,
+  "data_defect": false
+}

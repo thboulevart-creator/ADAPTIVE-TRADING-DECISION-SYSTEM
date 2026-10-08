@@ -8,6 +8,7 @@ import numpy as np
 from scipy.optimize import linprog
 
 import bepd09d_r2_runtime as legacy
+import bepd09c_runtime as source
 import bepd09d_r2_rd2_candidate_b_contract as adopted
 import bepd09d_r2_rd3_candidate_b_runtime as controlled
 
@@ -194,8 +195,8 @@ alias_checks={
  "spline_basis":controlled.spline_basis is legacy.spline_basis,
  "_stats":controlled._stats is legacy._stats,
  "_mats":controlled._mats is legacy._mats,
- "_sig":controlled._sig is legacy._sig,
- "_score":controlled._score is legacy._score,
+ "_sig":controlled._sig is source._sig,
+ "_score":controlled._score is source._score,
 }
 if not all(alias_checks.values()):
     raise RuntimeError("LEGACY_HELPER_IDENTITY_DRIFT")

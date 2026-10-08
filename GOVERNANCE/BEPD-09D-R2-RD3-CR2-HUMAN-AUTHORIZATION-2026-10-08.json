@@ -1,0 +1,30 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR2_HUMAN_AUTHORIZATION_RECORD_V0_1",
+  "control_id": "BEPD-09D-R2-RD3-CR2",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "de43510998aa3c24c2f4f059631315e6f5636673ea71de3000c677776022c6c6",
+  "source_authorization_bytes": 15790,
+  "source_authorization_lines": 1242,
+  "authority": {
+    "correction_class": "PURE_MECHANICAL_GREEN_HARNESS_INTERFACE_ASSERTION_CORRECTION",
+    "modify_candidate_runtime": false,
+    "modify_green_harness": true,
+    "modify_workflow": false,
+    "single_green_replay": 1,
+    "tau_change": false,
+    "solver_change": false,
+    "model_change": false,
+    "science_change": false,
+    "protocol_change": false,
+    "real_data": false,
+    "real_training_fit": false,
+    "fold3_replay": false,
+    "real_reference_fit": false,
+    "real_requalification": false,
+    "c1_retry": false,
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  }
+}

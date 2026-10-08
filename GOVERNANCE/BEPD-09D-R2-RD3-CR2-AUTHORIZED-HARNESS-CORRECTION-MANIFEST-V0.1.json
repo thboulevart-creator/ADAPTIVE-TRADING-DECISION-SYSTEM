@@ -1,0 +1,18 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR2_AUTHORIZED_HARNESS_CORRECTION_MANIFEST_V0_1",
+  "status": "FROZEN",
+  "target_path": "tools/bepd09d_r2_rd3_synthetic_regression.py",
+  "prior_blob": "fb3cc3295192a1ba1240ee6b10d8a9eb96304dee",
+  "corrected_blob": "5afa0a0d67af1aa180883b6822912ac12a4481f4",
+  "exact_authorized_delta": [
+    "ADD: import bepd09c_runtime as source",
+    "REPLACE: controlled._sig is legacy._sig -> controlled._sig is source._sig",
+    "REPLACE: controlled._score is legacy._score -> controlled._score is source._score"
+  ],
+  "controlled_runtime_blob_must_remain": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "workflow_blob_must_remain": "a799a727b44437fd84ed4524a545e69af1ec6663",
+  "tau_change": false,
+  "solver_change": false,
+  "science_change": false,
+  "protocol_change": false
+}
