@@ -1,0 +1,119 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_CANDIDATE_DECISION_MATRIX_V0_1",
+  "status": "FROZEN_PRE_QUALIFICATION",
+  "scoring_note": "3=STRONG, 2=ACCEPTABLE_OR_CONDITIONAL, 1=WEAK, 0=UNACCEPTABLE. D8-D11 are favorable-direction scores.",
+  "mandatory_gates": [
+    "D1>=2",
+    "D3>=2",
+    "D4>=2",
+    "D5>=2",
+    "D8>=2",
+    "D12>=2"
+  ],
+  "candidates": {
+    "A": {
+      "name": "STRICT_SCIPY_SUCCESS_CONTRACT",
+      "scores": {
+        "D1": 3,
+        "D2": 1,
+        "D3": 3,
+        "D4": 3,
+        "D5": 3,
+        "D6": 1,
+        "D7": 3,
+        "D8": 3,
+        "D9": 3,
+        "D10": 3,
+        "D11": 1,
+        "D12": 3
+      }
+    },
+    "B": {
+      "name": "SOLVER_INDEPENDENT_STATIONARITY_ACCEPTANCE_CONTRACT",
+      "scores": {
+        "D1": 3,
+        "D2": 3,
+        "D3": 3,
+        "D4": 3,
+        "D5": 3,
+        "D6": 3,
+        "D7": 3,
+        "D8": 3,
+        "D9": 3,
+        "D10": 2,
+        "D11": 2,
+        "D12": 3
+      }
+    },
+    "C": {
+      "name": "ROOT_HYBR_PRIMARY_SCORE_EQUATION_SOLVER",
+      "scores": {
+        "D1": 3,
+        "D2": 3,
+        "D3": 3,
+        "D4": 3,
+        "D5": 3,
+        "D6": 1,
+        "D7": 1,
+        "D8": 3,
+        "D9": 2,
+        "D10": 2,
+        "D11": 2,
+        "D12": 3
+      }
+    },
+    "D": {
+      "name": "NEWTON_CG_PRIMARY_PLUS_INDEPENDENT_SCORE_EQUATION_VALIDATION",
+      "scores": {
+        "D1": 3,
+        "D2": 3,
+        "D3": 3,
+        "D4": 3,
+        "D5": 3,
+        "D6": 2,
+        "D7": 1,
+        "D8": 2,
+        "D9": 2,
+        "D10": 2,
+        "D11": 2,
+        "D12": 3
+      }
+    },
+    "E": {
+      "name": "CONTROLLED_SOLVER_FALLBACK",
+      "scores": {
+        "D1": 3,
+        "D2": 3,
+        "D3": 2,
+        "D4": 2,
+        "D5": 2,
+        "D6": 1,
+        "D7": 1,
+        "D8": 1,
+        "D9": 1,
+        "D10": 1,
+        "D11": 1,
+        "D12": 2
+      }
+    },
+    "F": {
+      "name": "EXACT_REPARAMETERIZATION_NUMERICAL_PRECONDITIONING",
+      "scores": {
+        "D1": 2,
+        "D2": 3,
+        "D3": 3,
+        "D4": 2,
+        "D5": 3,
+        "D6": 3,
+        "D7": 3,
+        "D8": 3,
+        "D9": 1,
+        "D10": 1,
+        "D11": 1,
+        "D12": 3
+      }
+    }
+  },
+  "recommendation_not_yet_applied": true,
+  "repair_adopted": false
+}

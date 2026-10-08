@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_SCIENTIFIC_INVARIANCE_ANALYSIS_V0_1",
+  "status": "QUALIFIED_DESIGN_ANALYSIS",
+  "evidence_basis": {
+    "f2_derivative_defect": "RULED_OUT",
+    "f2_objective_gradient_inconsistency": "RULED_OUT",
+    "f2_precision_loss_root_cause": "NOT_PROVEN",
+    "scientific_result_observed": "NONE"
+  },
+  "candidates": {
+    "A": {
+      "estimand_unchanged": true,
+      "likelihood_unchanged": true,
+      "model_unchanged": true,
+      "acceptance_semantics_changed": false,
+      "invariance_grade": "PROVEN"
+    },
+    "B": {
+      "estimand_unchanged": true,
+      "likelihood_unchanged": true,
+      "model_unchanged": true,
+      "acceptance_semantics_changed": true,
+      "invariance_grade": "CONDITIONAL",
+      "condition": "Residual threshold and all acceptance gates must be preregistered independently of F2 observed residual."
+    },
+    "C": {
+      "estimand_unchanged": true,
+      "likelihood_unchanged": true,
+      "model_unchanged": true,
+      "acceptance_semantics_changed": "REQUIRES_NEW_PRIMARY_SOLVER_CONTRACT",
+      "invariance_grade": "CONDITIONAL"
+    },
+    "D": {
+      "estimand_unchanged": true,
+      "likelihood_unchanged": true,
+      "model_unchanged": true,
+      "acceptance_semantics_changed": true,
+      "invariance_grade": "CONDITIONAL"
+    },
+    "E": {
+      "estimand_unchanged": "INTENDED",
+      "likelihood_unchanged": "INTENDED",
+      "model_unchanged": true,
+      "acceptance_semantics_changed": true,
+      "invariance_grade": "NOT_PROVEN",
+      "reason": "Path-dependent solver selection can change accepted numerical endpoint."
+    },
+    "F": {
+      "estimand_unchanged": "PROVABLE",
+      "likelihood_unchanged": "PROVABLE",
+      "model_unchanged": true,
+      "acceptance_semantics_changed": false,
+      "invariance_grade": "CONDITIONAL",
+      "condition": "Exact invertibility and prediction identity must be proven before implementation."
+    }
+  },
+  "scientific_model_amendment_authorized": false
+}

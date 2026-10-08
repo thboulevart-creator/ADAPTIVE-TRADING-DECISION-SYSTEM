@@ -1,0 +1,60 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_CANDIDATE_TAXONOMY_V0_1",
+  "candidates": {
+    "A": {
+      "name": "STRICT_SCIPY_SUCCESS_CONTRACT",
+      "repair_class": "NUMERICAL_CONTRACT_CHANGE_NONE_CONTROL",
+      "scientifically_neutral": "PROVEN",
+      "requires_reregistration": "NO",
+      "description": "Retain optimizer.success == TRUE as required validity condition."
+    },
+    "B": {
+      "name": "SOLVER_INDEPENDENT_STATIONARITY_ACCEPTANCE_CONTRACT",
+      "repair_class": "NUMERICAL_CONTRACT_CHANGE",
+      "scientifically_neutral": "CONDITIONAL_ON_EX_ANTE_RESIDUAL_THRESHOLD_AND_UNCHANGED_ESTIMAND",
+      "requires_reregistration": "NUMERICAL_CONTRACT_ONLY",
+      "description": "Validity determined by finite solution/objective/score, no separation, required rank and preregistered score residual threshold, independent of optimizer.success."
+    },
+    "C": {
+      "name": "ROOT_HYBR_PRIMARY_SCORE_EQUATION_SOLVER",
+      "repair_class": "SOLVER_IMPLEMENTATION_CHANGE",
+      "scientifically_neutral": "PROVABLE_IF_SAME_SCORE_EQUATIONS_AND_ACCEPTANCE_CONTRACT",
+      "requires_reregistration": "EXECUTION_CONTRACT",
+      "description": "Replace Newton-CG primary solve with root-hybr on unchanged score equations."
+    },
+    "D": {
+      "name": "NEWTON_CG_PRIMARY_PLUS_INDEPENDENT_SCORE_EQUATION_VALIDATION",
+      "repair_class": "EXECUTION_ARCHITECTURE_CHANGE",
+      "scientifically_neutral": "CONDITIONAL_ON_VALIDATION_NOT_CREATING_POST_HOC_SELECTION",
+      "requires_reregistration": "EXECUTION_CONTRACT",
+      "description": "Newton-CG produces candidate; independent stationarity validator accepts/rejects without becoming fallback producer."
+    },
+    "E": {
+      "name": "CONTROLLED_SOLVER_FALLBACK",
+      "repair_class": "EXECUTION_ARCHITECTURE_CHANGE",
+      "scientifically_neutral": "NOT_PROVEN_DUE_TO_PATH_DEPENDENCE",
+      "requires_reregistration": "YES",
+      "description": "Attempt root-hybr after Newton-CG failure."
+    },
+    "F": {
+      "name": "EXACT_REPARAMETERIZATION_NUMERICAL_PRECONDITIONING",
+      "repair_class": "EXACT_REPARAMETERIZATION",
+      "scientifically_neutral": "CONDITIONAL_ON_EXACT_INVERTIBILITY_AND_PREDICTION_INVARIANCE_PROOF",
+      "requires_reregistration": "EXECUTION_CONTRACT",
+      "description": "Exact invertible numerical transformation with inverse mapping and no model/information change."
+    }
+  },
+  "excluded_normal_repairs": [
+    "INCREASE_MAX_ITER_AGAIN",
+    "RELAX_XTOL_UNTIL_PASS",
+    "TRY_MANY_SOLVERS_KEEP_WINNER",
+    "POST_HOC_INITIALIZATION_CHANGE",
+    "DROP_FEATURES",
+    "CHANGE_SPLINE",
+    "REGULARIZE_MODEL",
+    "FIRTH",
+    "L1",
+    "L2",
+    "ELASTIC_NET"
+  ]
+}

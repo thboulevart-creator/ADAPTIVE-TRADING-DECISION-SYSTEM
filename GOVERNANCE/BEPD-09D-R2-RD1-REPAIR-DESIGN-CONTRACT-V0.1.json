@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_REPAIR_DESIGN_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_QUALIFICATION",
+  "candidates": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F"
+  ],
+  "dimensions": {
+    "D1": "SCIENTIFIC_INVARIANCE",
+    "D2": "NUMERICAL_ROBUSTNESS",
+    "D3": "DETERMINISM",
+    "D4": "AUDITABILITY",
+    "D5": "FAIL_CLOSED_CLARITY",
+    "D6": "SOLVER_INDEPENDENCE",
+    "D7": "REFERENCE_INDEPENDENCE",
+    "D8": "LOW_POST_HOC_FLEXIBILITY_RISK",
+    "D9": "LOW_IMPLEMENTATION_COMPLEXITY",
+    "D10": "LOW_SYNTHETIC_REGRESSION_BURDEN",
+    "D11": "LOW_REAL_TRAINING_REQUALIFICATION_BURDEN",
+    "D12": "FRESH_OOS_COMPATIBILITY"
+  },
+  "ordinal_scale": {
+    "0": "UNACCEPTABLE",
+    "1": "WEAK",
+    "2": "ACCEPTABLE_OR_CONDITIONAL",
+    "3": "STRONG"
+  },
+  "mandatory_gates": {
+    "D1_min": 2,
+    "D3_min": 2,
+    "D4_min": 2,
+    "D5_min": 2,
+    "D8_min": 2,
+    "D12_min": 2
+  },
+  "recommendation_rule": {
+    "eligible_requires_all_mandatory_gates": true,
+    "rank_by_sum_D1_to_D12": true,
+    "unique_top_required": true,
+    "minimum_margin_over_second_place": 3,
+    "otherwise": "NOT_DETERMINED"
+  },
+  "no_performance_based_selection": true,
+  "score_threshold_selection": "FORBIDDEN_IN_RD1",
+  "candidate_B_threshold": "NOT_DETERMINED",
+  "new_real_fits": false,
+  "repair_implementation": false
+}

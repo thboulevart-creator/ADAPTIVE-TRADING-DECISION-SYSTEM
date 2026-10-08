@@ -1,0 +1,15 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_FRESH_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "5fb3985b15b3b51a887dda426d143f5089929d3a",
+  "observed_tree": "89eb32c16f919112c01d95760640300c522b65d3",
+  "concurrent_drift": "NONE",
+  "existing_rd1_surface": false,
+  "f2_closure_blob": "9eb91cab767c8d558c1a7e6640df67b3202904f6",
+  "critical_f2_package_readback": "8 / 8 PASS",
+  "repair_authorized": false,
+  "c1_retry_authorized": false,
+  "new_real_fit_authorized": false
+}

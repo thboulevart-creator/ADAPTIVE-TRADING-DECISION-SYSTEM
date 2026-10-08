@@ -1,0 +1,35 @@
+name: BEPD-09D-R2-RD1 Repair Design Qualification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/BEPD-09D-R2-RD1-HUMAN-AUTHORIZATION-2026-10-08.json'
+      - 'GOVERNANCE/BEPD-09D-R2-RD1-REPAIR-DESIGN-CONTRACT-V0.1.json'
+      - 'reports/program/2026-10-08-BEPD-09D-R2-RD1-CANDIDATE-DECISION-MATRIX-V0.1.json'
+      - 'tools/bepd09d_r2_rd1_design_qualifier.py'
+      - '.github/workflows/bepd-09d-r2-rd1-design.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate RD1 design
+        run: python tools/bepd09d_r2_rd1_design_qualifier.py
+      - name: Preserve RD1 receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEPD-09D-R2-RD1-design
+          path: artifacts/bepd09d-r2-rd1-design/
+          if-no-files-found: error
+          retention-days: 30

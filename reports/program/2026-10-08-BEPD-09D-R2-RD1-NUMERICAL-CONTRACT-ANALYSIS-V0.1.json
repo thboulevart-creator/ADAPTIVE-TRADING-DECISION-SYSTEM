@@ -1,0 +1,30 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_NUMERICAL_CONTRACT_ANALYSIS_V0_1",
+  "status": "QUALIFIED_DESIGN_ANALYSIS",
+  "current_contract": {
+    "solver": "Newton-CG",
+    "max_iter": 5000,
+    "xtol": 1e-10,
+    "validity_requires_optimizer_success": true,
+    "state": "UNDER_ARCHITECTURAL_REVIEW"
+  },
+  "candidate_B_contract_skeleton": {
+    "finite_solution": true,
+    "finite_objective": true,
+    "finite_score": true,
+    "no_perfect_separation": true,
+    "full_required_design_rank": true,
+    "score_inf_norm_lte": "TAU_SCORE_PRE_REGISTERED",
+    "optimizer_success": "NON_BINDING_DIAGNOSTIC",
+    "optimizer_message": "NON_BINDING_DIAGNOSTIC",
+    "tau_score_status": "NOT_DETERMINED_IN_RD1",
+    "tau_score_must_not_be_chosen_to_accept_F2_observed_residual": true
+  },
+  "candidate_D_contract_skeleton": {
+    "primary_candidate_source": "NEWTON_CG",
+    "validity_decider": "SOLVER_INDEPENDENT_ACCEPTANCE_CONTRACT",
+    "independent_score_equation_solver_role": "DIAGNOSTIC_VALIDATOR_NOT_FALLBACK_PRODUCER",
+    "threshold_status": "NOT_DETERMINED_IN_RD1"
+  },
+  "no_real_execution": true
+}

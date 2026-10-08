@@ -1,0 +1,28 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_HUMAN_AUTHORIZATION_RECORD_V0_1",
+  "control_id": "BEPD-09D-R2-RD1",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_authorization_sha256": "0c69d91b9142622166bbcfdf081de07bd9cf8a2c9b13134418f4375b7382a6c4",
+  "source_authorization_bytes": 13711,
+  "source_authorization_lines": 1005,
+  "authority": {
+    "repair_design": true,
+    "architectural_comparison": true,
+    "pre_implementation_admissibility_analysis": true,
+    "repair_selection": false,
+    "repair_implementation": false,
+    "new_real_training_fits": false,
+    "new_reference_fits": false,
+    "new_test_fits": false,
+    "solver_change": false,
+    "max_iter_change": false,
+    "xtol_change": false,
+    "model_change": false,
+    "c1_retry": false,
+    "fresh_oos": false,
+    "trading_authority": "NONE"
+  },
+  "maximum_machine_verdict": "REPAIR_DESIGN_QUALIFIED_FOR_HUMAN_SELECTION"
+}

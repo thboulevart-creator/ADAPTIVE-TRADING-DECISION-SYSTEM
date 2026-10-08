@@ -1,0 +1,39 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD1_POST_HOC_FLEXIBILITY_RISK_ANALYSIS_V0_1",
+  "status": "QUALIFIED_DESIGN_ANALYSIS",
+  "risks": {
+    "A": {
+      "grade": "LOW",
+      "reason": "Single pre-existing solver-success rule; low discretion but observed brittleness."
+    },
+    "B": {
+      "grade": "LOW_IF_PREREGISTERED",
+      "reason": "Single mathematical acceptance contract; main risk is post-hoc residual threshold selection, explicitly forbidden."
+    },
+    "C": {
+      "grade": "LOW_TO_MEDIUM",
+      "reason": "Single solver if adopted, but changes implementation and consumes current independent reference role."
+    },
+    "D": {
+      "grade": "MEDIUM",
+      "reason": "Two numerical mechanisms require strict role separation to avoid discretionary acceptance."
+    },
+    "E": {
+      "grade": "HIGH",
+      "reason": "Path-dependent fallback creates solver-selection flexibility and multiple failure semantics."
+    },
+    "F": {
+      "grade": "LOW_TO_MEDIUM",
+      "reason": "Exact mapping can be auditable but creates implementation degrees of freedom unless transformation is uniquely specified."
+    }
+  },
+  "forbidden_selection_inputs": [
+    "C1_LOGLOSS",
+    "C1_BRIER",
+    "PRIMARY_DELTA",
+    "SECONDARY_DELTA",
+    "TEST_FOLD_PERFORMANCE",
+    "TRADING_PERFORMANCE",
+    "PNL"
+  ]
+}
