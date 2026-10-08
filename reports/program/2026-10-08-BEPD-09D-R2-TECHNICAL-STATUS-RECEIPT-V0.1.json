@@ -1,0 +1,30 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_TECHNICAL_STATUS_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2",
+  "status": "BLOCKED_FAIL_CLOSED",
+  "date": "2026-10-08",
+  "preparation_commit": "e0283bd28b3869148f4b8ae54bc8f4e88cba4b11",
+  "preparation_tree": "ecf0792be4daaa97c5f7fcf72b5899b7cf75585b",
+  "amendment": {
+    "max_iter_from": 100,
+    "max_iter_to": 5000,
+    "xtol": 1e-10,
+    "runtime_blob": "58a68c6ad8ecb7db2a1294ad90d26f4f01c9de85"
+  },
+  "synthetic_requalification": "PASS_44_OF_44_TWICE",
+  "real_training_primary": "NOT_EXECUTED",
+  "real_training_reference": "NOT_EXECUTED",
+  "training_consistency": "NOT_EXECUTED",
+  "failure_point": "QUALIFICATION_HARNESS_INTERFACE_BEFORE_FIRST_REAL_TRAINING_FIT",
+  "failure_cause": "R2 overlay did not expose underscore-prefixed source helpers required by the qualification harness.",
+  "scientific_result": "NONE",
+  "test_predictions": false,
+  "logloss": false,
+  "brier": false,
+  "c1_retry": "NOT_AUTHORIZED",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "recursive_repair_authority": false,
+  "next_required_action": "HUMAN_DECISION_ON_BOUNDED_R2_IMPLEMENTATION_INTERFACE_CORRECTION",
+  "stop": true
+}
