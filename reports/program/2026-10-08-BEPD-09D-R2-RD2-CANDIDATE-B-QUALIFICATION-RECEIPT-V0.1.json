@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_CANDIDATE_B_QUALIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "029fdaf9edc37eae560fd7a17f10a810a23c028c7e56c076386de9489359ca84",
+  "verdict": "PREREGISTERED_AND_SYNTHETICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "candidate": "B",
+  "tau_score_derivation": "PREREGISTERED_INDEPENDENT_OF_F2_OBSERVED_RESIDUAL",
+  "tau_relative": 1.4901161193847656e-8,
+  "tau_formula": "TAU_RELATIVE * max(1, max_j sum_i abs(X[i,j]))",
+  "red_tests": "PASS",
+  "green_synthetic_cases": 23,
+  "green_synthetic_qualification": "PASS",
+  "determinism": "PASS",
+  "reference_role_invariance": "PASS",
+  "implementation_authorized": false,
+  "real_training_requalification_authorized": false,
+  "c1_retry_authorized": false,
+  "scientific_result": "NONE",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "next": "HUMAN_ADJUDICATION_OF_PREREGISTERED_AND_SYNTHETICALLY_QUALIFIED_CANDIDATE_B_CONTRACT",
+  "stop": true
+}

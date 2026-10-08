@@ -1,0 +1,47 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_GREEN_SYNTHETIC_QUALIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "2902bcab3174fbc59c6d8b13ca3fb5ab4fc4c83c0bd298b190870a805e83eae9",
+  "case_count": 23,
+  "all_registered_cases_pass": true,
+  "covered_cases": [
+    "VALID_STATIONARY_FIT",
+    "OPTIMIZER_SUCCESS_TRUE_CONTRACT_PASS",
+    "OPTIMIZER_SUCCESS_FALSE_CONTRACT_PASS",
+    "OPTIMIZER_SUCCESS_TRUE_SCORE_ABOVE_TAU",
+    "OPTIMIZER_SUCCESS_FALSE_SCORE_ABOVE_TAU",
+    "NONFINITE_SOLUTION",
+    "NONFINITE_OBJECTIVE",
+    "NONFINITE_SCORE",
+    "NONFINITE_DERIVATIVES",
+    "RANK_DEFICIENCY",
+    "PERFECT_SEPARATION",
+    "ONE_CLASS_FAILURE",
+    "BOUNDARY_SCORE_JUST_BELOW_TAU",
+    "BOUNDARY_SCORE_EXACTLY_AT_TAU",
+    "BOUNDARY_SCORE_JUST_ABOVE_TAU",
+    "MISSING_TAU_SCORE_IDENTITY",
+    "TAU_SCORE_IDENTITY_MISMATCH",
+    "UNKNOWN_STATE",
+    "UNEXPECTED_SOLVER",
+    "UNEXPECTED_MODEL",
+    "UNEXPECTED_FEATURE_SET",
+    "UNEXPECTED_DATA_BINDING",
+    "NONFINITE_INPUT"
+  ],
+  "tau_derivation": {
+    "float64_epsilon": 2.220446049250313e-16,
+    "tau_relative": 1.4901161193847656e-8,
+    "formula": "sqrt(epsilon) * max(1, max_j sum_i abs(X[i,j]))",
+    "synthetic_score_scale": 4,
+    "synthetic_tau_score": 5.960464477539063e-8,
+    "synthetic_tau_is_not_global_real_threshold": true
+  },
+  "boundary_semantics": {
+    "just_below": "ACCEPT",
+    "exactly_at": "ACCEPT",
+    "just_above": "REJECT"
+  },
+  "optimizer_success_binding": "NON_BINDING_DIAGNOSTIC",
+  "real_data_used": false
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_REFERENCE_ROLE_INVARIANCE_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "5f2b97f62290be0e27720bfde90829eb36d048c882137f0a83957790d1fa5019",
+  "reference_solver_role": "INDEPENDENT_NUMERICAL_CONSISTENCY_CHECK_ONLY_NOT_FALLBACK_NOT_RESULT_PRODUCER",
+  "acceptance_gates_identical": true,
+  "tau_score_identical": true,
+  "verdict_a": "ACCEPT",
+  "verdict_b": "ACCEPT",
+  "reference_metadata_can_change_receipt_audit_identity_without_changing_acceptance": true,
+  "real_reference_fit_executed": false
+}

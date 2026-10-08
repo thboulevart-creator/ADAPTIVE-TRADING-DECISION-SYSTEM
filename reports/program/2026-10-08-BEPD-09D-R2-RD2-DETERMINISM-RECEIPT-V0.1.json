@@ -1,0 +1,11 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_DETERMINISM_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "b0d064609dae064a34c0e5347d96cbb25131a47b845b6139c5d443ce4a82cd8b",
+  "replay_1_identity": "3a17cf4eadb3ba4dc2bfd3503d0d020baa778f8d593765052122d0865c3382ea",
+  "replay_2_identity": "3a17cf4eadb3ba4dc2bfd3503d0d020baa778f8d593765052122d0865c3382ea",
+  "same_receipt_identities": true,
+  "same_fit_candidate_input": true,
+  "same_numerical_diagnostics": true,
+  "same_accept_reject_verdicts": true
+}

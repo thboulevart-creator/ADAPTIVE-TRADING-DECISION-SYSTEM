@@ -1,0 +1,23 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_RED_TEST_RECEIPT_V0_1",
+  "status": "PASS",
+  "source_artifact_file_sha256": "9f2cac8b59efd68de5453c9aa65c42322a4e8d58cf6f661b65bf0fe6e7d6fc9c",
+  "legacy_contract": "OPTIMIZER_SUCCESS_ONLY",
+  "cases": [
+    {
+      "name": "LEGACY_REJECTS_VALID_SUCCESS_FALSE",
+      "legacy_observed": "REJECT",
+      "new_spec_expected": "ACCEPT",
+      "red_demonstrated": true,
+      "status": "PASS"
+    },
+    {
+      "name": "LEGACY_ACCEPTS_INVALID_SUCCESS_TRUE_ABOVE_TAU",
+      "legacy_observed": "ACCEPT",
+      "new_spec_expected": "REJECT",
+      "red_demonstrated": true,
+      "status": "PASS"
+    }
+  ],
+  "real_data_used": false
+}
