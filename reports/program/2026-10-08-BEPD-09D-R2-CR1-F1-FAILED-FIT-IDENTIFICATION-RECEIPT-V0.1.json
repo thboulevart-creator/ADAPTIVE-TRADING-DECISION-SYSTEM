@@ -1,0 +1,96 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_FAILED_FIT_IDENTIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "fit_sequence": [
+    {
+      "fit_sequence_index": 1,
+      "fold": 1,
+      "model": "BASELINE",
+      "train_event_count": 79,
+      "train_response_class_counts": {
+        "0": 15,
+        "1": 64
+      },
+      "design_matrix_shape": [
+        79,
+        5
+      ],
+      "design_matrix_rank": 5,
+      "status": "CONVERGED"
+    },
+    {
+      "fit_sequence_index": 2,
+      "fold": 1,
+      "model": "CONTEXT",
+      "train_event_count": 79,
+      "train_response_class_counts": {
+        "0": 15,
+        "1": 64
+      },
+      "design_matrix_shape": [
+        79,
+        9
+      ],
+      "design_matrix_rank": 9,
+      "status": "CONVERGED"
+    },
+    {
+      "fit_sequence_index": 3,
+      "fold": 2,
+      "model": "BASELINE",
+      "train_event_count": 155,
+      "train_response_class_counts": {
+        "0": 36,
+        "1": 119
+      },
+      "design_matrix_shape": [
+        155,
+        5
+      ],
+      "design_matrix_rank": 5,
+      "status": "CONVERGED"
+    },
+    {
+      "fit_sequence_index": 4,
+      "fold": 2,
+      "model": "CONTEXT",
+      "train_event_count": 155,
+      "train_response_class_counts": {
+        "0": 36,
+        "1": 119
+      },
+      "design_matrix_shape": [
+        155,
+        9
+      ],
+      "design_matrix_rank": 9,
+      "status": "CONVERGED"
+    },
+    {
+      "fit_sequence_index": 5,
+      "fold": 3,
+      "model": "BASELINE",
+      "train_event_count": 237,
+      "train_response_class_counts": {
+        "0": 51,
+        "1": 186
+      },
+      "design_matrix_shape": [
+        237,
+        5
+      ],
+      "design_matrix_rank": 5,
+      "status": "MODEL_NONCONVERGENCE"
+    }
+  ],
+  "failed_fit_sequence_index": 5,
+  "failed_fold": 3,
+  "failed_model": "BASELINE",
+  "train_event_count": 237,
+  "train_response_class_counts": {
+    "0": 51,
+    "1": 186
+  },
+  "test_predictions_computed": false,
+  "test_scoring_computed": false
+}

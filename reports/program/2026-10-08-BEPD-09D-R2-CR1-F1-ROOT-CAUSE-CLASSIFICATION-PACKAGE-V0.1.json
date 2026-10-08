@@ -1,0 +1,17 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_ROOT_CAUSE_CLASSIFICATION_PACKAGE_V0_1",
+  "status": "QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "failed_fold": 3,
+  "failed_model": "BASELINE",
+  "root_cause": {
+    "classification": "H",
+    "label": "ROOT_CAUSE_NOT_PROVEN",
+    "evidence_grade": "NOT_PROVEN",
+    "same_root_cause_as_original_f1": "NOT_PROVEN",
+    "future_repair_class": "NOT_DETERMINED"
+  },
+  "repair_applied": false,
+  "c1_retry_authorized": false,
+  "scientific_result": "NONE",
+  "trading_authority": "NONE"
+}

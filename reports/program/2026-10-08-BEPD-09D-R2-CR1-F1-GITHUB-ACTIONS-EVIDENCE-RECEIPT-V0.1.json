@@ -1,0 +1,14 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_GITHUB_ACTIONS_EVIDENCE_RECEIPT_V0_1",
+  "status": "PASS",
+  "workflow_run_id": 37764800879,
+  "workflow_job_id": 113269700585,
+  "head_sha": "2d674540bff93e8fda9ffd8587e03bfb3a8eff28",
+  "workflow_name": "BEPD-09D-R2-CR1-F1 Bounded Training Nonconvergence Forensics",
+  "workflow_conclusion": "success",
+  "artifact_id": 11544011787,
+  "artifact_name": "BEPD-09D-R2-CR1-F1-forensics",
+  "artifact_size_bytes": 3978,
+  "artifact_digest_sha256": "8911dc52751b8506cb246a4cb39eb481ad412772c20458af9129fcda902d2a79",
+  "rerun_performed": false
+}

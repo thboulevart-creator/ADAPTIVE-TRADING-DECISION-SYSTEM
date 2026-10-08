@@ -1,0 +1,32 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_DESIGN_MATRIX_CONDITIONING_RECEIPT_V0_1",
+  "status": "PASS",
+  "fold": 3,
+  "model": "BASELINE",
+  "design_matrix_shape": [
+    237,
+    5
+  ],
+  "matrix_rank": 5,
+  "full_column_rank": true,
+  "singular_values": [
+    20.712760942122298,
+    4.881164692367811,
+    0.6845603648772839,
+    0.049554673336607256,
+    0.0030952155837549945
+  ],
+  "condition_number": 6691.863743136879,
+  "hessian_min_eigenvalue": 0.0000017942891256242092,
+  "hessian_max_eigenvalue": 49.82756507278688,
+  "hessian_condition_number": 27770086.97233623,
+  "finiteness": {
+    "design_matrix": true,
+    "response": true,
+    "initial_vector": true,
+    "final_vector": true,
+    "objective": true,
+    "gradient": true,
+    "hessian": true
+  }
+}

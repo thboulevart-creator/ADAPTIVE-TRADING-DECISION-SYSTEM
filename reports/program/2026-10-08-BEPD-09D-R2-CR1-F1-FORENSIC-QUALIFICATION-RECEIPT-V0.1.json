@@ -1,0 +1,22 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_FORENSIC_QUALIFICATION_RECEIPT_V0_1",
+  "status": "PASS",
+  "verdict": "FORENSICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+  "failed_fit_identified_exactly": true,
+  "failed_fold": 3,
+  "failed_model": "BASELINE",
+  "root_cause_classification": "H",
+  "root_cause_evidence_grade": "NOT_PROVEN",
+  "same_root_cause_as_original_f1": "NOT_PROVEN",
+  "test_predictions_computed": false,
+  "test_scoring_computed": false,
+  "logloss_computed": false,
+  "brier_computed": false,
+  "scientific_result": "NONE",
+  "repair_applied": false,
+  "c1_retry_authorized": false,
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "next": "HUMAN_ADJUDICATION_OF_BEPD_09D_R2_CR1_F1",
+  "stop": true
+}

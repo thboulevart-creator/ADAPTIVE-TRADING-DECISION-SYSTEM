@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_NEWTON_CG_STATE_RECEIPT_V0_1",
+  "status": "PASS",
+  "fold": 3,
+  "model": "BASELINE",
+  "solver": "Newton-CG",
+  "max_iter": 5000,
+  "xtol": 1e-10,
+  "initialization": "ZERO_VECTOR",
+  "success": false,
+  "status_code": 2,
+  "solver_status": 2,
+  "message": "Warning: Desired error not necessarily achieved due to precision loss.",
+  "iteration_count": 19,
+  "function_evaluation_count": 27,
+  "gradient_evaluation_count": 27,
+  "score_inf_norm": 1.6346640596687223e-8,
+  "objective_value": 102.7756007010668,
+  "coefficient_finiteness": true,
+  "linear_predictor_min": -0.9104162022802278,
+  "linear_predictor_max": 2.5371828833076893,
+  "probability_min": 0.2869146769385584,
+  "probability_max": 0.9267077163906955,
+  "saturation_count_1e_12": 0,
+  "design_matrix_shape": [
+    237,
+    5
+  ],
+  "matrix_rank": 5,
+  "full_column_rank": true,
+  "singular_values": [
+    20.712760942122298,
+    4.881164692367811,
+    0.6845603648772839,
+    0.049554673336607256,
+    0.0030952155837549945
+  ],
+  "condition_number": 6691.863743136879,
+  "hessian_min_eigenvalue": 0.0000017942891256242092,
+  "hessian_max_eigenvalue": 49.82756507278688,
+  "hessian_condition_number": 27770086.97233623,
+  "perfect_separation": false,
+  "finiteness": {
+    "design_matrix": true,
+    "response": true,
+    "initial_vector": true,
+    "final_vector": true,
+    "objective": true,
+    "gradient": true,
+    "hessian": true
+  }
+}

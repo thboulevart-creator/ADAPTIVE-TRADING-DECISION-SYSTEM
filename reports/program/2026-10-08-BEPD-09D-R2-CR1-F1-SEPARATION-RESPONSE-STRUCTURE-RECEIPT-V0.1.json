@@ -1,0 +1,10 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_SEPARATION_RESPONSE_STRUCTURE_RECEIPT_V0_1",
+  "status": "PASS",
+  "fold": 3,
+  "model": "BASELINE",
+  "class_0_count": 51,
+  "class_1_count": 186,
+  "one_class_failure": false,
+  "perfect_separation": false
+}

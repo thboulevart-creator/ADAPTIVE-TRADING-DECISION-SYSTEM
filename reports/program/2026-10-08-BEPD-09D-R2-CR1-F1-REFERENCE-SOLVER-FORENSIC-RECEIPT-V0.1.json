@@ -1,0 +1,15 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_F1_REFERENCE_SOLVER_FORENSIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "fold": 3,
+  "model": "BASELINE",
+  "solver": "ROOT_HYBR_SCORE_EQUATION",
+  "forensic_only": true,
+  "non_scientific": true,
+  "non_admissible_as_c1_result": true,
+  "success": true,
+  "message": "The solution converged.",
+  "function_evaluation_count": 25,
+  "score_inf_norm": 2.799982468104645e-13,
+  "finite_solution": true
+}
