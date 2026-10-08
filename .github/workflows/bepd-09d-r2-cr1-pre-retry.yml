@@ -1,0 +1,44 @@
+name: BEPD-09D-R2-CR1 Same Pre-Retry Requalification
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'GOVERNANCE/BEPD-09D-R2-CR1-HUMAN-AUTHORIZATION-2026-10-08.json'
+      - 'GOVERNANCE/BEPD-09D-R2-CR1-INTERFACE-CORRECTION-CONTRACT-V0.1.json'
+      - 'GOVERNANCE/BEPD-09D-R2-CR1-BREAKER-CONTRACT-V0.1.json'
+      - 'tools/bepd09d_r2_runtime.py'
+      - 'tools/bepd09d_r2_cr1_qualification.py'
+      - '.github/workflows/bepd-09d-r2-cr1-pre-retry.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  qualify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install frozen numerical environment
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+      - name: Run CR1 same pre-retry qualification
+        env:
+          PYTHONPATH: tools
+        run: python tools/bepd09d_r2_cr1_qualification.py
+      - name: Preserve CR1 receipts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: BEPD-09D-R2-CR1-pre-retry
+          path: artifacts/bepd09d-r2-cr1-pre-retry/
+          if-no-files-found: error
+          retention-days: 30

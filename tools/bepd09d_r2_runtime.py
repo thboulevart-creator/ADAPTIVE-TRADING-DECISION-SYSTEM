@@ -10,6 +10,9 @@ MAX_ITER = 5000
 FIT_TOL = _base.FIT_TOL
 _ORIGINAL_FIT_LOGISTIC = _base.fit_logistic
 
+_stats = _base._stats
+_mats = _base._mats
+
 def fit_logistic(X, y, max_iter=MAX_ITER, tol=FIT_TOL):
     return _ORIGINAL_FIT_LOGISTIC(X, y, max_iter=max_iter, tol=tol)
 

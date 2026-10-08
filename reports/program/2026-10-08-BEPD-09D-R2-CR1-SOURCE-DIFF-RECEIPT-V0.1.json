@@ -1,0 +1,15 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_SOURCE_DIFF_RECEIPT_V0_1",
+  "status": "PASS_PRE_EXECUTION",
+  "parent_overlay_blob": "58a68c6ad8ecb7db2a1294ad90d26f4f01c9de85",
+  "corrected_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "authorized_functional_diff": [
+    "_stats = _base._stats",
+    "_mats = _base._mats"
+  ],
+  "additional_functional_diff": [],
+  "source_runtime_mutated": false,
+  "reference_runtime_mutated": false,
+  "max_iter_unchanged_at_5000": true,
+  "fit_tol_unchanged_at_1e_10": true
+}

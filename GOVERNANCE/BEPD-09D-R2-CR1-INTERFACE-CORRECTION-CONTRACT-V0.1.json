@@ -1,0 +1,24 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_INTERFACE_CORRECTION_CONTRACT_V0_1",
+  "status": "FROZEN_PRE_EXECUTION",
+  "previous_overlay_blob": "58a68c6ad8ecb7db2a1294ad90d26f4f01c9de85",
+  "corrected_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "exact_authorized_additions": [
+    "_stats = _base._stats",
+    "_mats = _base._mats"
+  ],
+  "wrapper_logic_added": false,
+  "value_transformation_added": false,
+  "argument_modification_added": false,
+  "new_default_added": false,
+  "fallback_added": false,
+  "alternative_implementation_added": false,
+  "max_iter": 5000,
+  "xtol": 1e-10,
+  "primary_solver": "Newton-CG",
+  "scientific_logic": "UNCHANGED",
+  "model_logic": "UNCHANGED",
+  "data_logic": "UNCHANGED",
+  "fold_logic": "UNCHANGED"
+}

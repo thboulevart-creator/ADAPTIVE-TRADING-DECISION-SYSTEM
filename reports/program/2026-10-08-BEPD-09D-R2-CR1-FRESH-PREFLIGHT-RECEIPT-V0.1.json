@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_CR1_FRESH_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "9f46ce0933fd67ef5db948ae149c3f492540d51d",
+  "observed_tree": "498009fc51779e583f3632a9c6cc19a54e8fccd5",
+  "concurrent_drift": "NONE",
+  "f1_closure_blob": "67133fc7b978dbef68f021066ffb3970fea51543",
+  "r2_failure_receipt_blob": "349d81a29c0f40577c46ce0348ec0e65a9a022ca",
+  "r2_persisted_head_verification_blob": "a70196dc028af891779f65aac418c2af14731683",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "reference_runtime_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+  "previous_r2_overlay_blob": "58a68c6ad8ecb7db2a1294ad90d26f4f01c9de85",
+  "corrected_r2_overlay_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "event_ledger_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+  "partition_blob": "7d950d957611cf209d811c788ff10abded30d011",
+  "scientific_result_authorized": false,
+  "c1_retry_authorized": false
+}
