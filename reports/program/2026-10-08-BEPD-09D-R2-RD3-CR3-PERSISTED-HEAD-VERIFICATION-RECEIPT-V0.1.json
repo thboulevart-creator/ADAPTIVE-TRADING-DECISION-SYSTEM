@@ -1,0 +1,45 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR3_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD3-CR3",
+  "date": "2026-10-08",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "d8107a7ae2fc4d845128f552a0217e5ea1270d02",
+  "verified_tree": "043f01faea27315374deceb7f733f316f41502d5",
+  "canonical_readback": "15 / 15 PASS",
+  "correction": {
+    "commit": "1265f36f2d369ce6f4d26f5180e3bbef39b2880f",
+    "corrected_harness_blob": "799a8842dd937b3790730603e62c4b6b1fccd489",
+    "controlled_runtime_blob_unchanged": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+    "workflow_blob_unchanged": "a799a727b44437fd84ed4524a545e69af1ec6663",
+    "objective_parity_change_only": true
+  },
+  "single_green_replay": {
+    "run_id": 37827608071,
+    "job_id": 113484378863,
+    "observed_count": 1,
+    "conclusion": "failure",
+    "failed_at": "GRADIENT_PARITY_FINITE_DIFFERENCE_CHECK",
+    "exact_error": "AttributeError: module 'bepd09d_r2_runtime' has no attribute '_ll'",
+    "artifact_uploaded": false
+  },
+  "final_rd3_cr3_status": "BLOCKED_FAIL_CLOSED",
+  "synthetically_requalified": false,
+  "additional_patch_applied": false,
+  "additional_rerun_performed": false,
+  "workflow_runs_on_failure_persistence_head": 0,
+  "boundaries": {
+    "real_data": false,
+    "real_training_fit": false,
+    "fold3_replay": false,
+    "real_reference_fit": false,
+    "real_requalification": false,
+    "c1_retry": false,
+    "scientific_result": "NONE",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "next_required_action": "NEW_HUMAN_DECISION",
+  "stop": true
+}
