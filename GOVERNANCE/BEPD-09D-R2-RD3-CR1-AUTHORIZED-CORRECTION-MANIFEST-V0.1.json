@@ -1,0 +1,22 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_AUTHORIZED_CORRECTION_MANIFEST_V0_1",
+  "status": "FROZEN",
+  "target_path": "tools/bepd09d_r2_rd3_candidate_b_runtime.py",
+  "prior_blob": "4bd4f241f8ae773bf0acff3aae975ae567505e1e",
+  "corrected_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "authorized_functional_delta": [
+    "ADD: import bepd09c_runtime as _base",
+    "REPLACE: _sig = legacy._sig -> _sig = _base._sig",
+    "REPLACE: _score = legacy._score -> _score = _base._score"
+  ],
+  "unchanged_bindings": [
+    "_stats = legacy._stats",
+    "_mats = legacy._mats"
+  ],
+  "green_harness_blob_must_remain": "fb3cc3295192a1ba1240ee6b10d8a9eb96304dee",
+  "green_workflow_blob_must_remain": "a799a727b44437fd84ed4524a545e69af1ec6663",
+  "tau_change": false,
+  "solver_change": false,
+  "science_change": false,
+  "protocol_change": false
+}

@@ -8,6 +8,7 @@ import numpy as np
 from scipy.optimize import linprog, minimize
 
 import bepd09d_r2_runtime as legacy
+import bepd09c_runtime as _base
 import bepd09d_r2_rd2_candidate_b_contract as contract
 
 SOURCE_RUNTIME_BLOB = "72645c3201d3d454d4d5402a0e2191e1195c68a6"
@@ -36,8 +37,8 @@ exposure_values = legacy.exposure_values
 spline_basis = legacy.spline_basis
 _stats = legacy._stats
 _mats = legacy._mats
-_sig = legacy._sig
-_score = legacy._score
+_sig = _base._sig
+_score = _base._score
 
 class CandidateBImplementationError(RuntimeError):
     pass

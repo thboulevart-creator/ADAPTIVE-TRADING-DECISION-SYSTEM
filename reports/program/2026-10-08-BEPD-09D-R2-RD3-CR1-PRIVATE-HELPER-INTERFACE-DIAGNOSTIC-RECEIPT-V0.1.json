@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_PRIVATE_HELPER_INTERFACE_DIAGNOSTIC_RECEIPT_V0_1",
+  "status": "PASS",
+  "observations": {
+    "bepd09c_runtime._sig": "PRESENT",
+    "bepd09c_runtime._score": "PRESENT",
+    "bepd09d_r2_runtime._sig": "ABSENT",
+    "bepd09d_r2_runtime._score": "ABSENT",
+    "rd3_overlay_sig_binding": "legacy._sig",
+    "rd3_overlay_score_binding": "legacy._score"
+  },
+  "mechanism": "PRIVATE_NAMES_NOT_REEXPORTED_THROUGH_WILDCARD_IMPORT",
+  "classification": "PURE_MECHANICAL_INTERFACE_BINDING_DEFECT",
+  "scientific_defect": false,
+  "tau_defect": false,
+  "acceptance_contract_defect": false,
+  "solver_defect": false,
+  "data_defect": false
+}

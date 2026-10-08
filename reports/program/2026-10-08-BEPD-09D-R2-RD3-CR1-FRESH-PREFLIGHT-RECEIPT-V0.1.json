@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD3_CR1_FRESH_PREFLIGHT_RECEIPT_V0_1",
+  "status": "PASS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "eadd3410361a5ef59c82acaa010847278e7d33ed",
+  "observed_tree": "65d182a8d75c67841d3406e1619e6b9443ef8acd",
+  "concurrent_drift": "NONE",
+  "rd2_closure_blob": "a00653c89bc42ec10030fe1745c54c7d73e6f101",
+  "rd3_red_receipt_blob": "2838709ced7ee8ee8df47f807ebf92b4876ae644",
+  "rd3_failure_receipt_blob": "b23554cd2e0c60e872ee604eb54063d6e880e468",
+  "rd3_actions_failure_evidence_blob": "16b33e4a3a507b2f8b81c6e331474ae9db888165",
+  "rd3_controlled_runtime_blob": "4bd4f241f8ae773bf0acff3aae975ae567505e1e",
+  "source_runtime_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+  "r2_runtime_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+  "reference_runtime_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+  "adopted_candidate_contract_blob": "0e87aa62433218b44f8ddaf64351ed0beccd93a3",
+  "green_harness_blob": "fb3cc3295192a1ba1240ee6b10d8a9eb96304dee",
+  "green_workflow_blob": "a799a727b44437fd84ed4524a545e69af1ec6663"
+}
