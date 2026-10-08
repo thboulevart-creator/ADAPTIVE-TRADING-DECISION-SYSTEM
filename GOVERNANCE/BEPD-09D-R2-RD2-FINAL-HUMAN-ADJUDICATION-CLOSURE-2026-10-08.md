@@ -1,0 +1,958 @@
+J’adjudique définitivement :
+
+`BEPD-09D-R2-RD2 — CANDIDATE B SOLVER-INDEPENDENT STATIONARITY ACCEPTANCE CONTRACT`
+
+comme suit :
+
+```text
+HUMAN ADJUDICATION =
+ADOPT
+```
+
+sur le dépôt gouverné :
+
+```text
+REPOSITORY =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+BRANCH =
+integration/system-v1
+
+GITHUB =
+SOURCE_CANONIQUE
+
+FORCE =
+FALSE
+```
+
+## 1. CANONICAL QUALIFICATION BASIS
+
+La présente adjudication porte exclusivement sur le package RD2 preregistré, synthétiquement qualifié et persisté dont l’état canonique est :
+
+```text
+RD2 PREREGISTRATION COMMIT =
+ec1ef118a82b65dd895086def1aa3c1c177fbde9
+
+RD2 QUALIFICATION COMMIT =
+c4457fbf9ba3be7ac7c53429c4c1ef3c1657dc57
+
+RD2 QUALIFICATION TREE =
+a961b72105c92c34a5ab5a0f02affa372b5f87da
+
+FINAL VERIFIED HEAD =
+5252c861e60cd85f96f52beaf4cab7f978460648
+
+FINAL VERIFIED TREE =
+7de14f9091e975982ead57cab5253243c10098e5
+
+PERSISTED-HEAD VERIFICATION BLOB =
+ad90407e9c7fe4a27f3cadd6565bbb56476ac70b
+
+CANONICAL READBACK =
+15 / 15 PASS
+```
+
+## 2. CANDIDATE SELECTION ADOPTED
+
+J’adopte définitivement :
+
+```text
+SELECTED CANDIDATE =
+B
+
+CANDIDATE B =
+SOLVER-INDEPENDENT
+STATIONARITY ACCEPTANCE CONTRACT
+```
+
+avec statut :
+
+```text
+CANDIDATE B SELECTION =
+HUMAN_ADOPTED
+```
+
+## 3. CONTRACT PURPOSE ADOPTED
+
+J’adopte le principe selon lequel :
+
+```text
+MATHEMATICAL FIT VALIDITY
+```
+
+doit être distinct de :
+
+```text
+SCIPY OPTIMIZER
+SUCCESS FLAG
+```
+
+Par conséquent :
+
+```text
+optimizer.success =
+NON_BINDING DIAGNOSTIC
+
+optimizer.status =
+NON_BINDING DIAGNOSTIC
+
+optimizer.message =
+NON_BINDING DIAGNOSTIC
+```
+
+Ces métadonnées restent obligatoirement persistées pour audit mais ne constituent plus, à elles seules, la condition de validité numérique du fit.
+
+## 4. TAU DERIVATION ADOPTED
+
+J’adopte la dérivation preregistrée :
+
+```text
+FLOAT64_EPSILON =
+2.220446049250313e-16
+
+TAU_RELATIVE =
+sqrt(FLOAT64_EPSILON)
+
+TAU_RELATIVE =
+1.4901161193847656e-08
+```
+
+avec :
+
+```text
+SCORE_SCALE(X) =
+max(
+    1,
+    max_j Σ_i |X[i,j]|
+)
+```
+
+et :
+
+```text
+TAU_SCORE(X) =
+TAU_RELATIVE
+×
+SCORE_SCALE(X)
+```
+
+Cette dérivation devient la définition canonique de `TAU_SCORE` pour le contrat Candidate B.
+
+## 5. INDEPENDENCE OF TAU_SCORE ADOPTED
+
+J’adopte comme propriété essentielle :
+
+```text
+TAU_SCORE DERIVATION =
+INDEPENDENT
+OF F2 OBSERVED RESIDUAL
+```
+
+La valeur observée antérieurement :
+
+```text
+F2 SCORE INF NORM =
+6.384288511046554e-09
+```
+
+n’a pas été utilisée comme cible de calibration ou de sélection du seuil.
+
+Il demeure interdit de :
+
+```text
+TUNE TAU ON REAL FITS
+
+GRID SEARCH TAU
+
+RELAX TAU AFTER FAILURE
+
+SELECT TAU TO ACCEPT
+A KNOWN REAL CASE
+```
+
+## 6. IMPORTANT TAU INTERPRETATION
+
+J’adopte explicitement que :
+
+```text
+5.960464477539063e-08
+```
+
+observé pendant la qualification synthétique n’est pas :
+
+```text
+GLOBAL REAL TAU_SCORE
+```
+
+Cette valeur correspond uniquement au fixture synthétique pour lequel :
+
+```text
+SCORE_SCALE =
+4
+```
+
+Le contrat réel reste :
+
+```text
+TAU_SCORE =
+FUNCTION OF X
+```
+
+selon la formule preregistrée.
+
+## 7. ACCEPTANCE GATES ADOPTED
+
+J’adopte les gates obligatoires :
+
+```text
+FINITE INPUT
+
+FINITE PARAMETERS
+
+FINITE OBJECTIVE
+
+FINITE SCORE
+
+FINITE DERIVATIVES
+
+FULL REQUIRED DESIGN RANK
+
+NO PERFECT SEPARATION
+
+NOT ONE-CLASS
+
+SCORE_INF_NORM <= TAU_SCORE
+
+EXPECTED SOLVER
+
+EXPECTED MODEL
+
+EXPECTED FEATURE SET
+
+EXPECTED DATA BINDING
+
+EXPECTED TAU DERIVATION CONTRACT
+```
+
+## 8. TOTAL DECISION RULE ADOPTED
+
+Le contrat devient :
+
+```text
+ALL REQUIRED GATES PASS
+=
+ACCEPT
+
+ANY REQUIRED GATE FAILS
+=
+REJECT
+
+UNKNOWN OR
+UNREGISTERED STATE
+=
+FAIL_CLOSED
+```
+
+## 9. SCORE BOUNDARY SEMANTICS ADOPTED
+
+J’adopte exactement :
+
+```text
+SCORE_INF_NORM < TAU_SCORE
+=
+PASS SCORE GATE
+
+SCORE_INF_NORM = TAU_SCORE
+=
+PASS SCORE GATE
+
+SCORE_INF_NORM > TAU_SCORE
+=
+REJECT
+```
+
+avec :
+
+```text
+IMPLICIT ADDITIONAL TOLERANCE =
+NONE
+```
+
+## 10. OPTIMIZER SUCCESS SEMANTICS ADOPTED
+
+J’adopte :
+
+```text
+optimizer.success = TRUE
++
+MATHEMATICAL CONTRACT FAILS
+=
+REJECT
+```
+
+et :
+
+```text
+optimizer.success = FALSE
++
+ALL MATHEMATICAL GATES PASS
+=
+ACCEPT
+```
+
+Ainsi :
+
+```text
+optimizer.success =
+NEITHER NECESSARY
+NOR SUFFICIENT
+ON ITS OWN
+```
+
+## 11. BREAKERS ADOPTED
+
+J’adopte les breakers preregistrés :
+
+```text
+NONFINITE INPUT
+
+NONFINITE PARAMETERS
+
+NONFINITE OBJECTIVE
+
+NONFINITE SCORE
+
+NONFINITE DERIVATIVES
+
+RANK DEFICIENCY
+
+PERFECT SEPARATION
+
+ONE-CLASS SAMPLE
+
+SCORE > TAU_SCORE
+
+MISSING TAU_SCORE
+
+TAU_SCORE IDENTITY MISMATCH
+
+UNREGISTERED ACCEPTANCE STATE
+
+UNEXPECTED SOLVER
+
+UNEXPECTED MODEL
+
+UNEXPECTED FEATURE SET
+
+UNEXPECTED DATA BINDING
+```
+
+avec comportement :
+
+```text
+FAIL CLOSED
+```
+
+## 12. SCIENTIFIC INVARIANCE
+
+J’adopte que Candidate B constitue à cette frontière :
+
+```text
+NUMERICAL ACCEPTANCE
+CONTRACT CHANGE
+```
+
+et non :
+
+```text
+SCIENTIFIC MODEL CHANGE
+```
+
+Restent inchangés :
+
+```text
+MODEL
+
+LIKELIHOOD
+
+OBJECTIVE
+
+GRADIENT
+
+HESSIAN
+
+FEATURES
+
+STANDARDIZATION
+
+EXPOSURE
+
+SPLINE BASIS
+
+CALENDAR
+
+FOLDS
+
+DATA
+
+RESPONSE
+
+ESTIMAND
+```
+
+## 13. NUMERICAL PARAMETERS REMAIN FROZEN
+
+J’adopte le maintien exact de :
+
+```text
+SOLVER =
+Newton-CG
+
+MAX_ITER =
+5000
+
+XTOL =
+1e-10
+
+INITIALIZATION =
+ZERO VECTOR
+```
+
+Cette adjudication n’autorise aucune modification de ces paramètres.
+
+## 14. NO SOLVER REPLACEMENT
+
+Cette adoption n’autorise pas :
+
+```text
+ROOT-HYBR AS PRIMARY
+
+ROOT-HYBR AS FALLBACK
+
+OTHER SOLVER
+
+SOLVER CASCADE
+```
+
+La réparation adoptée concerne :
+
+```text
+FIT ACCEPTANCE SEMANTICS
+```
+
+et non le solveur primaire.
+
+## 15. REFERENCE ROLE ADOPTED
+
+J’adopte :
+
+```text
+REFERENCE SOLVER ROLE =
+INDEPENDENT NUMERICAL
+CONSISTENCY CHECK ONLY
+```
+
+avec :
+
+```text
+REFERENCE SOLVER =
+NOT FALLBACK
+
+REFERENCE SOLVER =
+NOT RESULT PRODUCER
+```
+
+## 16. RED QUALIFICATION ADOPTED
+
+J’adopte le résultat RED :
+
+```text
+RED TESTS =
+PASS
+```
+
+démontrant notamment que le contrat legacy :
+
+```text
+optimizer.success ONLY
+```
+
+peut :
+
+```text
+REJECT
+A MATHEMATICALLY VALID
+success = FALSE CASE
+```
+
+et :
+
+```text
+ACCEPT
+A success = TRUE CASE
+THAT FAILS
+THE MATHEMATICAL CONTRACT
+```
+
+## 17. GREEN SYNTHETIC QUALIFICATION ADOPTED
+
+J’adopte :
+
+```text
+GREEN SYNTHETIC
+QUALIFICATION =
+PASS
+
+REGISTERED CASES =
+23 / 23 PASS
+```
+
+incluant notamment :
+
+```text
+VALID FIT
+
+SUCCESS TRUE / CONTRACT PASS
+
+SUCCESS FALSE / CONTRACT PASS
+
+SUCCESS TRUE / SCORE ABOVE TAU
+
+SUCCESS FALSE / SCORE ABOVE TAU
+
+NONFINITE SOLUTION
+
+NONFINITE OBJECTIVE
+
+NONFINITE SCORE
+
+NONFINITE DERIVATIVES
+
+RANK DEFICIENCY
+
+PERFECT SEPARATION
+
+ONE-CLASS
+
+SCORE BELOW TAU
+
+SCORE EXACTLY AT TAU
+
+SCORE ABOVE TAU
+
+TAU IDENTITY FAILURE
+
+UNKNOWN STATE
+
+UNEXPECTED SOLVER
+
+UNEXPECTED MODEL
+
+UNEXPECTED FEATURE SET
+
+UNEXPECTED DATA BINDING
+
+NONFINITE INPUT
+```
+
+## 18. DETERMINISM ADOPTED
+
+J’adopte :
+
+```text
+DETERMINISM =
+PASS
+```
+
+avec :
+
+```text
+SAME SYNTHETIC INPUT
+→
+SAME NUMERICAL DIAGNOSTICS
+→
+SAME ACCEPT / REJECT VERDICT
+→
+SAME RECEIPT IDENTITY
+```
+
+sur les replays qualifiés.
+
+## 19. REFERENCE-ROLE INVARIANCE ADOPTED
+
+J’adopte :
+
+```text
+REFERENCE ROLE INVARIANCE =
+PASS
+```
+
+Le changement des métadonnées diagnostiques du solveur référence ne modifie pas :
+
+```text
+ACCEPTANCE GATES
+
+TAU_SCORE
+
+FINAL ACCEPT / REJECT VERDICT
+```
+
+## 20. FINAL CONTRACT STATUS
+
+En conséquence :
+
+```text
+CANDIDATE B CONTRACT =
+PREREGISTERED
+/
+SYNTHETICALLY_QUALIFIED
+/
+HUMAN_ADOPTED
+```
+
+## 21. NO IMPLEMENTATION AUTHORITY
+
+Cette adjudication ne constitue pas une autorisation de modifier :
+
+```text
+tools/bepd09d_r2_runtime.py
+
+tools/bepd09c_runtime.py
+
+OR ANY OTHER
+GOVERNED REAL EXECUTION RUNTIME
+```
+
+Donc :
+
+```text
+RUNTIME IMPLEMENTATION =
+NOT AUTHORIZED
+```
+
+## 22. NO REAL TRAINING REQUALIFICATION
+
+```text
+REAL TRAINING-ONLY
+REQUALIFICATION =
+NOT AUTHORIZED
+```
+
+Aucun :
+
+```text
+REAL FOLD 1
+
+REAL FOLD 2
+
+REAL FOLD 3
+
+REAL FOLD 4
+
+REAL FOLD 5
+```
+
+ne doit être rejoué sous cette adjudication.
+
+## 23. NO REAL REFERENCE FIT
+
+```text
+NEW REAL REFERENCE FIT =
+NOT AUTHORIZED
+```
+
+## 24. R2 STATUS
+
+J’adopte le maintien :
+
+```text
+BEPD-09D-R2 =
+NOT PRE-RETRY READY
+```
+
+L’adoption du contrat B ne promeut pas automatiquement R2.
+
+## 25. C1 RETRY
+
+```text
+BEPD-09D RETRY =
+CLOSED
+
+C1 RETRY =
+NOT AUTHORIZED
+```
+
+## 26. SCIENTIFIC BOUNDARY
+
+```text
+TEST PREDICTIONS =
+NO
+
+TEST SCORING =
+NO
+
+LOGLOSS =
+NO
+
+BRIER =
+NO
+
+PRIMARY DELTA =
+NONE
+
+SECONDARY DELTA =
+NONE
+
+SCIENTIFIC RESULT =
+NONE
+```
+
+Par conséquent :
+
+```text
+C1 VALIDATED =
+NO
+
+C1 REJECTED =
+NO
+
+GENERALIZATION =
+NOT_ESTABLISHED
+```
+
+## 27. FRESH OOS
+
+```text
+FRESH OOS =
+CLOSED
+
+CONFIRMATORY C1 =
+NO
+```
+
+## 28. TRADING BOUNDARY
+
+```text
+TRADING AUTHORITY =
+NONE
+```
+
+Aucun :
+
+```text
+BACKTEST
+
+PNL
+
+TP / SL
+
+SIZING
+
+PORTFOLIO ALLOCATION
+
+PAPER TRADING
+
+BROKER EXECUTION
+
+LIVE TRADING
+
+CAPITAL DEPLOYMENT
+```
+
+n’est autorisé.
+
+## 29. FINAL RD2 STATUS
+
+J’adopte :
+
+```text
+BEPD-09D-R2-RD2 =
+PREREGISTERED
+/
+SYNTHETICALLY_QUALIFIED
+/
+HUMAN_ADOPTED
+/
+CLOSED
+```
+
+avec :
+
+```text
+CANDIDATE B =
+ADOPTED
+
+TAU DERIVATION =
+ADOPTED
+
+NUMERICAL ACCEPTANCE CONTRACT =
+ADOPTED
+
+BREAKERS =
+ADOPTED
+
+RED TESTS =
+PASS / ADOPTED
+
+GREEN SYNTHETIC QUALIFICATION =
+23 / 23 PASS / ADOPTED
+
+DETERMINISM =
+PASS / ADOPTED
+
+REFERENCE ROLE INVARIANCE =
+PASS / ADOPTED
+```
+
+## 30. AUTHORIZED CANONICAL CLOSURE
+
+J’autorise exclusivement la persistance canonique de :
+
+```text
+BEPD-09D-R2-RD2
+FINAL HUMAN ADJUDICATION
+/
+CANONICAL CLOSURE
+```
+
+Avant toute mutation :
+
+```text
+VERIFY REPOSITORY
+
+VERIFY BRANCH
+
+FETCH FRESH HEAD
+
+VERIFY FRESH TREE
+
+VERIFY EXACT RD2 PACKAGE
+
+VERIFY EXACT TAU CONTRACT
+
+VERIFY EXACT ACCEPTANCE CONTRACT
+
+VERIFY EXACT QUALIFICATION RECEIPTS
+
+VERIFY PERSISTED-HEAD RECEIPT
+
+CLASSIFY CONCURRENT DRIFT
+```
+
+Tout drift BEPD matériel non résolu :
+
+```text
+FAIL CLOSED
+```
+
+Toute mutation :
+
+```text
+force =
+false
+```
+
+Après persistence :
+
+```text
+VERIFY CLOSURE BLOB
+
+VERIFY CLOSURE COMMIT
+
+VERIFY CLOSURE TREE
+
+VERIFY AUTHORIZED DELTA ONLY
+
+VERIFY FINAL BRANCH HEAD
+```
+
+puis :
+
+```text
+STOP
+```
+
+## 31. NEXT FRONTIER
+
+Après clôture canonique de RD2, la prochaine frontière pourra exclusivement porter sur une **autorisation d’implémentation séparée** du contrat B dans une surface runtime candidate contrôlée.
+
+Cette future phase devra encore séparer :
+
+```text
+IMPLEMENTATION
+```
+
+de :
+
+```text
+REAL TRAINING
+REQUALIFICATION
+```
+
+Je n’autorise donc pas automatiquement les deux dans une même décision.
+
+La séquence recommandée restera :
+
+```text
+1.
+IMPLEMENT CANDIDATE B
+IN A CONTROLLED RUNTIME SURFACE
+
+2.
+SYNTHETIC REGRESSION
+AGAINST THE ADOPTED CONTRACT
+
+3.
+HUMAN ADJUDICATION
+OF THE IMPLEMENTATION
+
+4.
+ONLY THEN CONSIDER
+REAL TRAINING-ONLY
+REQUALIFICATION
+```
+
+Cette section constitue uniquement la prochaine frontière proposée.
+
+Elle n’est pas une autorisation d’exécution.
+
+## 32. FINAL HUMAN DECISION
+
+La décision finale est :
+
+```text
+ADOPT
+CANDIDATE B CONTRACT
+```
+
+avec :
+
+```text
+CANDIDATE B =
+HUMAN_ADOPTED
+
+RUNTIME IMPLEMENTATION =
+NOT AUTHORIZED
+
+REAL TRAINING
+REQUALIFICATION =
+NOT AUTHORIZED
+
+C1 RETRY =
+NOT AUTHORIZED
+
+FRESH OOS =
+CLOSED
+
+TRADING AUTHORITY =
+NONE
+```
+
+et :
+
+```text
+BEPD-09D-R2-RD2 =
+HUMAN_ADOPTED
+/
+CLOSED
+```
