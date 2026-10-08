@@ -1,0 +1,40 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD2_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD2",
+  "status": "PASS",
+  "date": "2026-10-08",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_head": "c4457fbf9ba3be7ac7c53429c4c1ef3c1657dc57",
+  "verified_tree": "a961b72105c92c34a5ab5a0f02affa372b5f87da",
+  "canonical_readback": "15 / 15 PASS",
+  "workflow": {
+    "run_id": 37813168766,
+    "job_id": 113434954849,
+    "conclusion": "success",
+    "artifact_id": 11565184716,
+    "artifact_digest_sha256": "facd659bd708253583e2e35108cd8286e66e0a20b718056d180c38553fa521ce"
+  },
+  "candidate_b": {
+    "human_selection": "SELECTED",
+    "status": "PREREGISTERED_AND_SYNTHETICALLY_QUALIFIED_FOR_HUMAN_ADJUDICATION",
+    "tau_relative": 1.4901161193847656e-8,
+    "tau_formula": "sqrt(float64_epsilon) * max(1, max_j sum_i abs(X[i,j]))",
+    "tau_derivation_independent_of_f2_observed_residual": true,
+    "green_synthetic_cases": "23 / 23 PASS",
+    "red_tests": "PASS",
+    "determinism": "PASS",
+    "reference_role_invariance": "PASS"
+  },
+  "boundaries": {
+    "implementation_authorized": false,
+    "real_training_requalification_authorized": false,
+    "c1_retry_authorized": false,
+    "scientific_result": "NONE",
+    "bepd_09d_r2": "NOT_PRE_RETRY_READY",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "next_required_action": "HUMAN_ADJUDICATION_OF_PREREGISTERED_AND_SYNTHETICALLY_QUALIFIED_CANDIDATE_B_CONTRACT",
+  "stop": true
+}
