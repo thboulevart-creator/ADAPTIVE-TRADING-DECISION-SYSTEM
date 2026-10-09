@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF02_READ_A_REAL_EXECUTION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02",
+  "run": "READ_A",
+  "authorized_head": "5ed4d74ec1aab2fd7e215eabeb995faadfc72625",
+  "authorized_tree": "032e78bc8188a3ec172e19a7dfd98dd67ff48c81",
+  "requalified_parent_head": "d6e953889e3816201d750c7c95cea861202c6698",
+  "requalified_parent_tree": "35f849b3fc05efa8c56b89ad0ec87908cf2bac58",
+  "concurrent_drift_scope": "BEPD_RD6_03A_DOCUMENTARY_ONLY",
+  "fc01_jf01_jf02_material_drift": false,
+  "sdk_version": "3.6.51",
+  "instrument_identity": "USATECH.IDX/USD",
+  "interval": {
+    "start_utc": "2026-10-08T08:00:00.000Z",
+    "end_exclusive_utc": "2026-10-08T09:00:00.000Z",
+    "jforex_from_ms": 1791446400000,
+    "jforex_to_ms_inclusive": 1791449999999
+  },
+  "execution": {
+    "process_exit_code": 1,
+    "read_a_status": "FAIL_CLOSED",
+    "connect_status": "NOT_PROVEN",
+    "final_payload_present": false,
+    "partial_payload_observed_during_execution": true,
+    "partial_payload_present_after_execution": false,
+    "tick_count": null,
+    "first_ms": null,
+    "last_ms": null,
+    "byte_count": null,
+    "payload_sha256": null,
+    "boundary_validity": "NOT_PROVEN",
+    "source_ordering": "NOT_PROVEN",
+    "field_domain_validity": "NOT_PROVEN",
+    "real_tick_reader_compatibility": "NOT_PROVEN",
+    "real_dataset_admissibility": "NOT_PROVEN"
+  },
+  "classification": {
+    "jforex_credential_validity": "NOT_PROVEN",
+    "real_jforex_connectivity": "NOT_PROVEN",
+    "real_usatech_history_access": "NOT_PROVEN",
+    "real_field_parity_read_a": "NOT_PROVEN",
+    "real_deterministic_replay": "NOT_EVALUATED",
+    "demo_historical_access": "NOT_PROVEN",
+    "near_current_history_maturity": "NOT_EVALUATED",
+    "failure_mechanism": "UNRESOLVED",
+    "repair_selection": "NONE",
+    "transport_cutover": "NOT_AUTHORIZED"
+  },
+  "budget_accounting": {
+    "demo_login_attempts_consumed": 1,
+    "authenticated_demo_session_success_proven": 0,
+    "real_history_read_attempt_budget_consumed": 1,
+    "read_b_consumed": 0,
+    "automatic_retries": 0,
+    "accounting_policy": "CONSERVATIVE_FAIL_CLOSED"
+  },
+  "integrity": {
+    "data01_file_count_before": 143,
+    "data01_file_count_after": 143,
+    "data01_mutation": false,
+    "secret_disclosure_by_runner": false,
+    "persistent_user_or_machine_environment_secret": false,
+    "read_b_executed": false
+  },
+  "next": "HUMAN_ADJUDICATION_OF_READ_A_FAIL_CLOSED",
+  "read_b": "FORBIDDEN",
+  "stop": true,
+  "force": false
+}
