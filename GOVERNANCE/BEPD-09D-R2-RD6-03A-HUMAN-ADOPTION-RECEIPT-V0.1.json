@@ -1,0 +1,146 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_03A_HUMAN_ADOPTION_CLOSURE_RECEIPT_V0_1",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_of_truth": "GITHUB",
+  "decision": "ADOPT_WITH_AMENDMENTS",
+  "authorization_origin": "EXPLICIT_HUMAN_DECISION_AND_BOUNDED_CR2_CHAT_APPROVAL",
+  "human_cryptographic_signature": "NOT_PROVIDED",
+  "human_decision": {
+    "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+    "git_blob": "fad19720c33f58f9163f1ac91859277605eba970",
+    "source_filename": "Texte collé(20261009-192222).txt",
+    "line_count": 675,
+    "material_change": false,
+    "normalization": "UTF8 LF_NEWLINES_ONLY; no scientific/decision text changes"
+  },
+  "checkpoints": {
+    "rd6_03a_documentary_execution": {
+      "head": "d6e953889e3816201d750c7c95cea861202c6698",
+      "tree": "35f849b3fc05efa8c56b89ad0ec87908cf2bac58"
+    },
+    "previous_closure_expected": {
+      "head": "b6d0897427bd68443c8aa7f1b69493616c834e8e",
+      "tree": "fac941bfd05be787d1000baa13df2cc7f74dcd76"
+    },
+    "cr1_requalified_then_drifted": {
+      "head": "07e2fb4f4196e438b3f5607a795511b2a2bfc1df",
+      "tree": "d15de35ac8469a0d2aee4743a8c6c4109b89c162"
+    },
+    "cr2_requalified_publication_parent": {
+      "head": "4244b1d10d93b3fc068c7d7600836809577c2377",
+      "tree": "6e63c932b532983473fafd2a41e6bb432d0fba07"
+    },
+    "cr2_drift": {
+      "from": "07e2fb4f4196e438b3f5607a795511b2a2bfc1df",
+      "to": "4244b1d10d93b3fc068c7d7600836809577c2377",
+      "commits": 1,
+      "added": 1,
+      "modified": 0,
+      "deleted": 0,
+      "added_path": "GOVERNANCE/E1-TD-03C-JF02-READ-A-R1-HUMAN-AUTHORIZATION-RECEIPT-V0.1.json",
+      "authority_adoption": "NONE"
+    }
+  },
+  "adopted_documentary_evidence": [
+    {
+      "id": "A",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-A-TRUSTED-VIEW-PRODUCER-CONTRACT-V0.1.md",
+      "git_blob": "e1f2ee757e2e6373e27c0f29366f67cbc54019c0"
+    },
+    {
+      "id": "B",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-B-TRUST-BOUNDARY-CAPABILITY-MATRIX-V0.1.md",
+      "git_blob": "bf1131159b9d844359d8e5448c723358a7dbafa3"
+    },
+    {
+      "id": "C",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-C-CANONICAL-SIGNED-VIEW-MANIFEST-SCHEMA-V0.1.json",
+      "git_blob": "cafbe617b2793117cb214eb1b8d42800e4f6a01c"
+    },
+    {
+      "id": "D",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-D-SYNTHETIC-FIXTURE-SPECIFICATION-V0.1.md",
+      "git_blob": "1268df29f12b87d1ea27933444b82030fbe202f2"
+    },
+    {
+      "id": "E",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-E-PREREGISTERED-RED-TEST-MATRIX-V0.1.json",
+      "git_blob": "7558e6166888c94eca7069a08d095dfda18fd190"
+    },
+    {
+      "id": "F",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-F-FROZEN-BREAKER-NEGATIVE-ORACLE-MATRIX-V0.1.json",
+      "git_blob": "38863439059d1a2f45aa4c877245613cd48fdc51"
+    },
+    {
+      "id": "G",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-G-IMPLEMENTATION-READINESS-HUMAN-ADJUDICATION-PACKAGE-V0.1.md",
+      "git_blob": "e2c38f4153ef18afb0bcd88aa8e41fbf58fbf731"
+    },
+    {
+      "id": "ASSESSMENT_RECEIPT",
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD6-03A-DOCUMENTARY-PREREGISTRATION-ASSESSMENT-RECEIPT-V0.1.json",
+      "git_blob": "1d4321957e327ebcb3065b8e3861e67d96b70af5"
+    }
+  ],
+  "human_amendments": [
+    "A_TRUST_ARCHITECTURE_DOCUMENTARY_ONLY",
+    "B_CRYPTOGRAPHY_CANDIDATE_NOT_PROVEN",
+    "C_FROZEN_SCIENCE",
+    "D_RED_GREEN_AUTHORITY_SPLIT",
+    "E_OS_ISOLATION_AND_OUTPUTS_UNQUALIFIED",
+    "F_MATERIAL_CHOICES_H_MAT_01_TO_07_OPEN",
+    "G_RD3_AND_P0_FAILURES_PRESERVED"
+  ],
+  "adopted_scope": "DOCUMENTARY_CONTRACT_AND_TEST_PREREGISTRATION_ONLY",
+  "metrics": {
+    "manifest_required_fields": 30,
+    "red_tests_preregistered": 37,
+    "rd6_02_nt_mapped": 24,
+    "derived_cases": 13,
+    "in_scope_rd6_03": 23,
+    "cross_lane": 11,
+    "reserved_rd6_04": 3,
+    "breaker_candidates": 26
+  },
+  "operational_status": {
+    "red_tests_executed": 0,
+    "green_tests_executed": 0,
+    "synthetic_implementation": "NOT_PERFORMED",
+    "real_ledger_read": "FORBIDDEN",
+    "real_input_materializer": "BLOCKED",
+    "real_primary_fit": "FORBIDDEN",
+    "real_reference_fit": "FORBIDDEN",
+    "test_scoring": "FORBIDDEN",
+    "trading_authority": "NONE",
+    "cryptographic_qualification": "NOT_PERFORMED",
+    "production_signer_authority": "NONE",
+    "os_isolation": "NOT_ASSESSABLE",
+    "external_independent_review": "NOT_COMPLETED",
+    "rd3_exception_masking": "FAIL_UNRESOLVED",
+    "rd3_lp_status_handling": "FAIL_UNRESOLVED",
+    "rd5_synthetic_prior": "29_OF_29_PASS_HISTORICAL_ONLY",
+    "p0_4": "FAIL_UNRESOLVED",
+    "p0_6": "FAIL_UNRESOLVED",
+    "real_training_readiness": "BLOCKED",
+    "rd6_03b": "NOT_AUTHORIZED",
+    "rd6_04": "NOT_AUTHORIZED"
+  },
+  "governance_publication": {
+    "new_files_exactly": 2,
+    "modified_files": 0,
+    "deleted_files": 0,
+    "force": false,
+    "expected_sha": "4244b1d10d93b3fc068c7d7600836809577c2377",
+    "human_decision_content_unchanged": true,
+    "one_atomic_commit": true,
+    "post_commit_readback_required": true,
+    "automatic_retry": false,
+    "next_stage": false,
+    "stop": true
+  },
+  "final_human_status": "RD6_03A_HUMAN_ADOPTED_WITH_AMENDMENTS_DOCUMENTARY_SCOPE_ONLY",
+  "git_closure_status": "CLOSED_IF_AND_ONLY_IF_ATOMIC_PUBLICATION_AND_READBACK_PASS"
+}
