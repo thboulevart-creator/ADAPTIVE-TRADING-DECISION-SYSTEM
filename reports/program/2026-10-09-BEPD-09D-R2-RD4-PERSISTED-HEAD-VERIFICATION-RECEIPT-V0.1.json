@@ -1,0 +1,51 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD4_PERSISTED_HEAD_VERIFICATION_RECEIPT_V0_1",
+  "date": "2026-10-09",
+  "control_id": "BEPD-09D-R2-RD4",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "verified_documentary_commit": "b8d14cad46149a5078bde7cd63b3e178d834f311",
+  "verified_documentary_tree": "8982b7bfc974e0d0c1eeeed7ad246dcf69fe2132",
+  "verified_documentary_parent": "5ae2bb0fd80d529e921def8ebcace860df8447eb",
+  "documentary_commit_single_fast_forward": true,
+  "documentary_commit_new_path_count": 7,
+  "documentary_commit_changed_existing_paths": 0,
+  "checks": {
+    "fresh_branch_head": "PASS",
+    "fresh_branch_tree": "PASS",
+    "single_parent_identity": "PASS",
+    "diff_exactly_seven_authorized_documentary_new_files": "PASS",
+    "git_blob_identity_readback": "12/12 PASS",
+    "candidate_runtime_unchanged": "PASS",
+    "candidate_synthetic_harness_unchanged": "PASS",
+    "candidate_green_workflow_unchanged": "PASS",
+    "rd3_human_closure_unchanged": "PASS",
+    "rd3_human_adoption_receipt_unchanged": "PASS"
+  },
+  "new_documentary_blobs": {
+    "GOVERNANCE/BEPD-09D-R2-RD4-CANDIDATE-B-BREAKER-AND-OUTPUT-CONTRACT-V0.1.json": "f91e70bd8858bc009b2c0ad4a91fc3eafe1a3b90",
+    "GOVERNANCE/BEPD-09D-R2-RD4-EXPOSURE-AND-BUDGET-PROPOSAL-V0.1.json": "f1558182a2b4591fc602371bd6a63c423914186b",
+    "GOVERNANCE/BEPD-09D-R2-RD4-IDENTITY-AND-FOLD-BINDING-MANIFEST-V0.1.json": "31a09ffad4e02f115befece3280c30c068752104",
+    "GOVERNANCE/BEPD-09D-R2-RD4-READINESS-AND-STATIC-QUALIFICATION-PLAN-V0.1.md": "f79f06c299319469da3e17b42cccf1b730dcf348",
+    "GOVERNANCE/BEPD-09D-R2-RD4-TRAINING-ONLY-DESIGN-V0.1.md": "4934a13dab44791052ae1f267012f69f72fbcbb0",
+    "reports/program/2026-10-09-BEPD-09D-R2-RD4-DOCUMENTARY-ASSESSMENT-V0.1.md": "0ce3ec2ba0a58406a037bf37608415407705ac78",
+    "reports/program/2026-10-09-BEPD-09D-R2-RD4-STATIC-QUALIFICATION-RECEIPT-V0.1.json": "047d110289b65e4ff910745164b0d10a967a06be"
+  },
+  "documentary_quality_gate_totals": {
+    "pass": 10,
+    "fail": 1,
+    "blocked": 7
+  },
+  "readiness": "BLOCKED",
+  "rd4_human_adjudication": "PENDING",
+  "adapter_implementation": "NOT_AUTHORIZED",
+  "new_real_row_read": false,
+  "new_real_training_fit": false,
+  "new_real_reference_fit": false,
+  "workflow_execution_by_this_RD4_workflow": "NONE",
+  "scientific_result": "NONE",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "reason_for_new_readback_commit": "Persistence-of-observed-readback after the first documentary commit, not a new scientific or technical qualification",
+  "stop": true
+}
