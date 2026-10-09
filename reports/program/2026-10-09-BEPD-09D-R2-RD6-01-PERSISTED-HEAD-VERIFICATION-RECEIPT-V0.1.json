@@ -1,0 +1,51 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_01_PERSISTED_HEAD_READBACK_V0_1",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "4b826d3a805dfd7555089453232e4cba2cb86eb1",
+  "authorized_parent_tree": "8fffd69faf361a2107ecd8b9d7205065d18fbc16",
+  "verified_evidence_commit": "df9a0e8e3ef76383193e7725b0cec55d2837f8a5",
+  "verified_evidence_tree": "faec2ac585ebbf0e4f601d6f8414104a1bf7a097",
+  "verified_parent": "4b826d3a805dfd7555089453232e4cba2cb86eb1",
+  "verification": {
+    "fresh_head": "PASS",
+    "fresh_tree": "PASS",
+    "git_commit_parent": "PASS",
+    "added_new_RD6_01_docs": 8,
+    "existing_files_modified": 0,
+    "docs_and_critical_git_blob_identities": "15/15 PASS",
+    "new_workflows_observed_at_check": 0
+  },
+  "evidence_pack": {
+    "A": "feda3d6ba4099f4d2112356682c0f58057485213",
+    "B": "a7ea483e9d0e6908c9b45cd36a0cb01f5d1280f9",
+    "C": "5f73e8df811131d7bbc2b6e2d9448b751b447263",
+    "D": "a7fbd8e7b163a99e25256e5b1c4e0e8e8edbde53",
+    "E": "9e9bf9bfb46bdb38e706d3a929ac794cbda2019e",
+    "F": "f6f514a0340d18089d6e6204836747d7eb65c3f3",
+    "G": "25ac7a3f9c3d9d41d24055cc849a985e90fa5e0f",
+    "STATIC_ASSESSMENT": "0f318f241210c60c1fbea8e430ca95b79c485b87"
+  },
+  "gates": {
+    "PASS": 6,
+    "FAIL": 3,
+    "BLOCKED": 7,
+    "NOT_ASSESSABLE": 2
+  },
+  "max_machine_verdict": "DOCUMENTARILY_DESIGNED_AND_STATICALLY_ASSESSED_FOR_HUMAN_ADJUDICATION_WITH_BLOCKERS",
+  "human_adjudication": "PENDING",
+  "rd5_status": "HUMAN_ADOPTED_WITH_AMENDMENTS_SYNTHETIC_SCOPE_ONLY",
+  "p0_4": "FAIL_UNRESOLVED",
+  "p0_6": "FAIL_UNRESOLVED",
+  "real_input_materialization": "NOT_AUTHORIZED",
+  "real_event_row_read": "FORBIDDEN",
+  "real_training_fit": "FORBIDDEN",
+  "real_reference_fit": "FORBIDDEN",
+  "real_execution_budget": "NOT_ADOPTED",
+  "real_numerical_parity": "NOT_ADOPTED",
+  "test_scoring": "FORBIDDEN",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "stop": true
+}
