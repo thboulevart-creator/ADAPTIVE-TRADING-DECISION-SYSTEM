@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_READ_A_FAIL_CLOSED_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02",
+  "run_label": "READ_A",
+  "status": "FAIL_CLOSED",
+  "acquisition_started_utc": "2026-10-09T19:02:58.7418877Z",
+  "acquisition_finished_utc": "2026-10-09T19:04:01.8273549Z",
+  "authentication": "PASS",
+  "environment": "DEMO",
+  "sdk_dependency": "DDS2-jClient-JForex:3.6.51",
+  "api_implementation_version": "2.13.99",
+  "instrument": "USATECH.IDX/USD",
+  "interval": {
+    "from_ms": 1759327200000,
+    "to_ms_inclusive": 1759330799999,
+    "start_utc": "2025-10-01T14:00:00.000Z",
+    "end_exclusive_utc": "2025-10-01T15:00:00.000Z"
+  },
+  "instrument_subscription": "PASS",
+  "history_request_attempts": 1,
+  "automatic_retries": 0,
+  "ticks_delivered": 0,
+  "canonical_payload_exists": false,
+  "canonical_payload_sha256": null,
+  "observed_provider_transport_failure": {
+    "component": "CurvesJsonProtocolHandler",
+    "message_class": "READ_TIMEOUT",
+    "exception_class": "java.net.SocketTimeoutException",
+    "evidence_interpretation": "HISTORY_NETWORK_TIMEOUT_PROVEN"
+  },
+  "original_terminal_breaker": "BLOCKED_JF02_EMPTY_RESPONSE",
+  "corrected_adjudication": "ORIGINAL_BREAKER_TOO_WEAK_FOR_OBSERVED_TRANSPORT_FAILURE",
+  "empty_market_interval_proven": false,
+  "raw_provider_object_claim": false,
+  "source_b_equivalence_claim": false,
+  "strategy_read": false,
+  "pnl_read": false,
+  "performance_read": false,
+  "trading": false,
+  "capital": false,
+  "credentials": {
+    "password_persisted": false,
+    "account_identifier_was_present_in_provider_debug_log": true,
+    "full_provider_debug_log_persisted_to_github": false,
+    "local_provider_debug_log_purged": true
+  },
+  "retry_authorized": false,
+  "stop": true
+}

@@ -144,51 +144,56 @@ public final class JF02HistoryRead {
                 return;
             }
 
-            context.getHistory().readTicks(
-                    instrument,
-                    FROM_MS,
-                    TO_MS,
-                    new LoadingDataListener() {
-                        @Override
-                        public void newTick(Instrument inst, long time, double ask, double bid, double askVol, double bidVol) {
-                            if (terminal.get()) return;
-                            try {
-                                acceptTick(inst, time, ask, bid, askVol, bidVol);
-                            } catch (Exception e) {
-                                fail("BLOCKED_JF02_TICK_VALIDATION:" + e.getMessage());
-                            }
-                        }
+            try {
+                java.util.List<ITick> ticks = context.getHistory().getTicks(
+                        instrument,
+                        FROM_MS,
+                        TO_MS
+                );
 
-                        @Override
-                        public void newBar(Instrument instrument, Period period, OfferSide side, long time,
-                                           double open, double close, double low, double high, double vol) {
-                            fail("BLOCKED_JF02_UNEXPECTED_BAR");
-                        }
-                    },
-                    new LoadingProgressListener() {
-                        @Override
-                        public void dataLoaded(long start, long end, long currentPosition, String information) { }
+                if (ticks == null) {
+                    fail("BLOCKED_JF02_HISTORY_LOAD_NULL");
+                    return;
+                }
+                if (ticks.isEmpty()) {
+                    fail("BLOCKED_JF02_EMPTY_RESPONSE");
+                    return;
+                }
 
-                        @Override
-                        public void loadingFinished(boolean allDataLoaded, long start, long end, long currentPosition) {
-                            if (terminal.get()) return;
-                            if (!allDataLoaded) {
-                                fail("BLOCKED_JF02_REQUEST_NOT_COMPLETED");
-                                return;
-                            }
-                            if (tickCount == 0) {
-                                fail("BLOCKED_JF02_EMPTY_RESPONSE");
-                                return;
-                            }
-                            finishSuccess();
-                        }
+                for (ITick tick : ticks) {
+                    if (terminal.get()) return;
+                    acceptTick(
+                            instrument,
+                            tick.getTime(),
+                            tick.getAsk(),
+                            tick.getBid(),
+                            tick.getAskVolume(),
+                            tick.getBidVolume()
+                    );
+                }
+                finishSuccess();
+            } catch (JFException e) {
+                fail(classifyHistoryFailure(e));
+            } catch (IOException e) {
+                fail("BLOCKED_JF02_OUTPUT_WRITE");
+            } catch (RuntimeException e) {
+                fail("BLOCKED_JF02_HISTORY_RUNTIME_FAILURE");
+            }
+        }
 
-                        @Override
-                        public boolean stopJob() {
-                            return terminal.get();
-                        }
-                    }
-            );
+        private static String classifyHistoryFailure(Throwable error) {
+            Throwable cursor = error;
+            while (cursor != null) {
+                if (cursor instanceof java.net.SocketTimeoutException) {
+                    return "BLOCKED_JF02_HISTORY_NETWORK_TIMEOUT";
+                }
+                String message = cursor.getMessage();
+                if (message != null && message.toLowerCase(Locale.ROOT).contains("timed out")) {
+                    return "BLOCKED_JF02_HISTORY_NETWORK_TIMEOUT";
+                }
+                cursor = cursor.getCause();
+            }
+            return "BLOCKED_JF02_HISTORY_LOAD_FAILURE";
         }
 
         private synchronized void acceptTick(Instrument instrument, long time, double ask, double bid,

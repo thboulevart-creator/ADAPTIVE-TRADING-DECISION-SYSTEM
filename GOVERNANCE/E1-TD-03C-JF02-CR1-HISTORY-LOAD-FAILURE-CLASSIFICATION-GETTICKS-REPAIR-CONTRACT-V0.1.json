@@ -1,0 +1,53 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_CR1_CONTRACT_V0_1",
+  "control_id": "E1-TD-03C-JF02-CR1",
+  "title": "HISTORY-LOAD FAILURE CLASSIFICATION + SYNCHRONOUS GETTICKS REPAIR V0.1",
+  "status": "AUTHORIZED_IMPLEMENTATION_NO_REAL_READ",
+  "authority_basis": "Human validated the proposed CR1 direction after failed READ_A.",
+  "parent_head": "b6d0897427bd68443c8aa7f1b69493616c834e8e",
+  "parent_tree": "fac941bfd05be787d1000baa13df2cc7f74dcd76",
+  "failed_read_a": {
+    "run_label": "READ_A",
+    "attempted": true,
+    "authenticated_demo_session": true,
+    "instrument_subscription": "PASS_USATECH.IDX/USD",
+    "valid_ticks_received": 0,
+    "valid_payload_produced": false,
+    "automatic_retries": 0,
+    "observed_transport_failure": "CurvesJsonProtocolHandler Read timed out / SocketTimeoutException",
+    "original_terminal_breaker": "BLOCKED_JF02_EMPTY_RESPONSE",
+    "corrected_interpretation": "HISTORY_NETWORK_TIMEOUT_PROVEN; EMPTY_MARKET_INTERVAL_NOT_PROVEN"
+  },
+  "authorized_delta": {
+    "replace_async_readTicks_with_sync_getTicks": true,
+    "preserve_instrument": "USATECH.IDX/USD",
+    "preserve_interval_start_utc": "2025-10-01T14:00:00.000Z",
+    "preserve_interval_end_exclusive_utc": "2025-10-01T15:00:00.000Z",
+    "preserve_from_ms": 1759327200000,
+    "preserve_to_ms_inclusive": 1759330799999,
+    "preserve_canonical_serialization": true,
+    "add_history_failure_classification": true,
+    "sanitize_local_provider_logs": true,
+    "synthetic_tests": true,
+    "compile": true,
+    "evidence_persistence": true
+  },
+  "forbidden": {
+    "real_jforex_login": true,
+    "real_history_request": true,
+    "read_a_retry": true,
+    "read_b": true,
+    "different_interval": true,
+    "different_instrument": true,
+    "prospective_window": true,
+    "strategy": true,
+    "pnl": true,
+    "performance": true,
+    "trading": true,
+    "capital": true,
+    "aws_request": true,
+    "datafeed_request": true
+  },
+  "next_gate": "SEPARATE_HUMAN_AUTHORIZATION_FOR_JF02_READ_A_R1",
+  "stop_after_green": true
+}

@@ -1,0 +1,24 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_CR1_BREAKER_AMENDMENT_V0_1",
+  "control_id": "E1-TD-03C-JF02-CR1",
+  "base_breaker_matrix": "GOVERNANCE/E1-TD-03C-JF02-FROZEN-BREAKER-MATRIX-V0.1.json",
+  "mutation_of_base": false,
+  "reason": "READ_A exposed a transport timeout that the original terminal EMPTY_RESPONSE breaker could not distinguish from a valid zero-tick response.",
+  "added_breakers": [
+    "BLOCKED_JF02_HISTORY_NETWORK_TIMEOUT",
+    "BLOCKED_JF02_HISTORY_LOAD_FAILURE",
+    "BLOCKED_JF02_HISTORY_LOAD_NULL",
+    "BLOCKED_JF02_HISTORY_RUNTIME_FAILURE",
+    "BLOCKED_JF02_OUTPUT_WRITE"
+  ],
+  "semantics": {
+    "BLOCKED_JF02_HISTORY_NETWORK_TIMEOUT": "A timeout is found in the JFException cause chain or message; do not classify as empty market interval.",
+    "BLOCKED_JF02_HISTORY_LOAD_FAILURE": "Synchronous getTicks throws JFException without timeout evidence.",
+    "BLOCKED_JF02_HISTORY_LOAD_NULL": "Synchronous getTicks unexpectedly returns null.",
+    "BLOCKED_JF02_HISTORY_RUNTIME_FAILURE": "Unexpected runtime failure while processing the synchronous history response.",
+    "BLOCKED_JF02_OUTPUT_WRITE": "Canonical payload write failed."
+  },
+  "preserved_breaker": "BLOCKED_JF02_EMPTY_RESPONSE",
+  "empty_response_semantics": "Only a successful synchronous getTicks return with an empty List<ITick>; no transport failure claim.",
+  "retry_authority": "NONE"
+}
