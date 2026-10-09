@@ -1,0 +1,58 @@
+{
+  "schema": "ATDS_BEPD09D_R2_RD5_CONTROLLED_ADAPTER_PREREG_V01",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "expected_parent_head": "be08ea7284a6734a942cd618efa2b1db61e40c45",
+  "expected_parent_tree": "3fcaa00e263263cfff924c9252e8791c800984ec",
+  "force": false,
+  "rd4_closure_blob": "2122aac53d03370df9f76a0ddae880fd9bf6dcaa",
+  "rd4_receipt_blob": "6a8e913db3f250d6c8b16489a85dc66faf43a90a",
+  "candidate_runtime_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+  "test_first": true,
+  "synthetic_provenance": "RD5_SYNTHETIC_GENERATED_IN_PROCESS",
+  "partition": {
+    "total_weeks": 259,
+    "blocks": [
+      44,
+      43,
+      43,
+      43,
+      43,
+      43
+    ],
+    "fold_train_week_counts": [
+      44,
+      87,
+      130,
+      173,
+      216
+    ],
+    "fold_test_weeks_each": 43
+  },
+  "frozen_sci": "C1_UNREGULARIZED_BINARY_LOGISTIC_EXPOSURE_SPLINE_CONTEXT",
+  "intended_entry_point": "execute_synthetic_fold(fold_id,rows,provenance,perform_fit,contract_identity)",
+  "structural_binder": "candidate.validate_rows(scoped_rows,frozen_259_week_calendar); candidate._stats(train_only); candidate._mats(train_only,s)",
+  "run_protocol": "FORBIDDEN",
+  "reference_as_fallback": "FORBIDDEN",
+  "real_ledger_directory": "OUTSIDE_WORKFLOW_SPARSE_CHECKOUT",
+  "block_on_candidate_hidden_lp_failure": true,
+  "fail_closed_logic": "ANY_UNKNOWN_OR_EXTERNAL_PRECHECK_FAIL_OR_INTERNAL_DETECTOR_EXCEPTION_MUST_ABORT",
+  "protected_default_paths": [
+    "tools/bepd09d_r2_rd3_candidate_b_runtime.py",
+    "tools/bepd09c_runtime.py",
+    "tools/bepd09c_reference.py",
+    "tools/bepd09d_real_execution_harness.py"
+  ],
+  "allowed_new_implementation_paths": [
+    "tools/bepd09d_r2_rd5_training_only_adapter.py",
+    "tools/bepd09d_r2_rd5_synthetic_fixture.py",
+    "tests/test_bepd09d_r2_rd5_*.py",
+    ".github/workflows/bepd-09d-r2-rd5-red.yml",
+    ".github/workflows/bepd-09d-r2-rd5-green.yml"
+  ],
+  "freeze_explicit": "REFERENCE_COEFFICIENT_OR_OBJECTIVE_PARITY_TOLERANCE_NOT_ADOPTED",
+  "qualification_max": "SYNTHETIC_ONLY_FOR_HUMAN_ADJUDICATION",
+  "real_readiness": "BLOCKED",
+  "automatic_adoption": false
+}

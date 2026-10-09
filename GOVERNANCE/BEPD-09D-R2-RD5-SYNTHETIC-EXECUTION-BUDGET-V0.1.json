@@ -1,0 +1,19 @@
+{
+  "schema": "ATDS_BEPD09D_R2_RD5_FROZEN_SYNTHETIC_BUDGET_V01",
+  "frozen_before_red": true,
+  "real_data_reads": 0,
+  "real_primary_fits": 0,
+  "real_reference_fits": 0,
+  "red_runs_max": 1,
+  "green_runs_max": 1,
+  "synthetic_primary_fits_max": 8,
+  "synthetic_reference_fits_max": 2,
+  "red_runner_timeout_minutes": 8,
+  "green_runner_timeout_minutes": 10,
+  "new_external_spending_authorized": false,
+  "retries": 0,
+  "reruns": 0,
+  "fail_behavior": "STOP_NO_AUTOMATIC_REPAIR",
+  "no_model_optimization_budget_for_real_use": true,
+  "nonclaim": "NO_REAL_FIT_NO_C1_PERFORMANCE"
+}
