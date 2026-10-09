@@ -1,0 +1,86 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_CONTRACT_V0_1",
+  "control_id": "E1-TD-03C-JF02",
+  "title": "CONTROLLED JFOREX HISTORY-EVIDENCE QUALIFICATION V0.1",
+  "status": "PREREGISTERED_PRE_REAL_DATA",
+  "purpose": "Qualify an AWS-independent official Dukascopy provider-history evidence model without claiming S3 raw-object equivalence.",
+  "canonical_parent": {
+    "head": "060108684cdddb938780ef8426340e574a44fe65",
+    "tree": "b2d51aeec641d0cea3f63c7ba826b973fc05811e"
+  },
+  "separation_from_fc01": {
+    "fc01_role": "operational historical transport qualification",
+    "jf02_role": "SECURE_THE_FUTURE provider-history evidence substitute qualification",
+    "shared_primitive_only": true,
+    "imported_fc01_claims": false
+  },
+  "provider": {
+    "name": "Dukascopy Bank SA",
+    "transport": "JFOREX_SDK_IHISTORY_READTICKS",
+    "official_documentation_first": true
+  },
+  "frozen_request": {
+    "instrument_atds": "USATECH.IDX-USD",
+    "instrument_jforex": "USATECH.IDX/USD",
+    "environment": "DEMO",
+    "start_utc": "2025-10-01T14:00:00.000Z",
+    "end_exclusive_utc": "2025-10-01T15:00:00.000Z",
+    "jforex_from_ms": 1759327200000,
+    "jforex_to_ms_inclusive": 1759330799999,
+    "reason": "historical interval predating the prospective window; qualification-only",
+    "automatic_request_retries": 0
+  },
+  "canonicalization": {
+    "dependency_control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+    "dependency_transformation_id": "DUKASCOPY_JFOREX_CANONICAL_TICK_ADAPTER_V0_1",
+    "dependency_implementation_sha256": "e3802d78a384ead201aa62453be6a806389c2301bf6803b19d5e50fcbccb964b",
+    "format": "CSV",
+    "encoding": "UTF-8",
+    "bom": false,
+    "line_ending": "LF",
+    "header": "timestamp,askPrice,bidPrice,askVolume,bidVolume",
+    "source_order_preserved": true,
+    "sorting": false,
+    "deduplication": false,
+    "repair": false,
+    "evidence_binding": "SHA256(canonical_request_manifest || NUL || canonical_payload)"
+  },
+  "qualification_budget": {
+    "jforex_history_read_a": 1,
+    "jforex_history_read_b": 1,
+    "dukascopy_historical_export_matching_interval": 1,
+    "aws_requests": 0,
+    "datafeed_requests": 0,
+    "trading_orders": 0
+  },
+  "required_parity": [
+    "tick_count",
+    "timestamps",
+    "bid",
+    "ask",
+    "ask_volume",
+    "bid_volume",
+    "order",
+    "boundaries"
+  ],
+  "forbidden": [
+    "PROSPECTIVE_TD01_WINDOW",
+    "RAW_PROVIDER_OBJECT_EQUIVALENCE_CLAIM",
+    "SOURCE_B_EQUIVALENCE_CLAIM",
+    "STRATEGY_OPTIMIZATION",
+    "PNL",
+    "PERFORMANCE_EVALUATION",
+    "TRADING",
+    "CAPITAL",
+    "AWS_REQUEST",
+    "DATAFEED_REQUEST"
+  ],
+  "adoption_rule": {
+    "repeat_jforex_byte_identity_required": true,
+    "cross_interface_exact_parity_required": true,
+    "api_version_bound": true,
+    "provider_environment_bound": true,
+    "no_silent_repair": true,
+    "stop_after_parity_evidence": true
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_PRE_REAL_DATA_FREEZE_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02",
+  "status": "PASS_PRE_REAL_DATA_FREEZE",
+  "parent_head": "060108684cdddb938780ef8426340e574a44fe65",
+  "parent_tree": "b2d51aeec641d0cea3f63c7ba826b973fc05811e",
+  "frozen_interval": {
+    "instrument": "USATECH.IDX/USD",
+    "start_utc": "2025-10-01T14:00:00.000Z",
+    "end_exclusive_utc": "2025-10-01T15:00:00.000Z",
+    "prospective_window_used": false
+  },
+  "shared_technical_dependency": {
+    "control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+    "transformation_id": "DUKASCOPY_JFOREX_CANONICAL_TICK_ADAPTER_V0_1",
+    "implementation_sha256": "e3802d78a384ead201aa62453be6a806389c2301bf6803b19d5e50fcbccb964b",
+    "imported_claims": false
+  },
+  "jf02_artifacts": {
+    "evidence_tool_sha256": "f01f9b2dfd2f636f9c5745b612c8df615a60dbc5f91c98fe2f9123f9738557c4",
+    "tests_sha256": "65ee81661090a33176ff0075e9b5aec896c6625d56badd4734882b50fef3972a",
+    "contract_sha256": "11562deca7d15bfaf43736b83188d2cea8b9d370414dd1c72a44bee193af9e2c",
+    "breaker_matrix_sha256": "9f75f2f4e66c6a9c190cfd91b0800d465f15d9d1abe0d3026b7e505ce353de40"
+  },
+  "synthetic_qualification": {
+    "command": "python -m pytest -q tests/test_e1_td_03c_jf02_evidence.py",
+    "tests_passed": 12,
+    "tests_failed": 0,
+    "result": "PASS"
+  },
+  "real_activity": {
+    "jforex_login": false,
+    "jforex_history_requests": 0,
+    "dukascopy_export_downloads": 0,
+    "aws_requests": 0,
+    "datafeed_requests": 0,
+    "market_data_bytes": 0,
+    "trading": false,
+    "capital": false
+  },
+  "next_gate": "JFOREX_RUNTIME_ENABLEMENT_AND_HUMAN_CREDENTIAL_SETUP",
+  "stop_before_market_data": true
+}
