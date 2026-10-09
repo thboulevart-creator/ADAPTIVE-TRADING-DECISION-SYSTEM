@@ -1,0 +1,117 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD5_HUMAN_ADOPTION_AND_CLOSURE_RECEIPT_V0_1",
+  "date": "2026-10-09",
+  "control_id": "BEPD-09D-R2-RD5",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_of_truth": "GITHUB",
+  "authority": "EXPLICIT_HUMAN_DECISION_CURRENT_CONVERSATION",
+  "cryptographic_human_signature": "NOT_PROVIDED",
+  "decision": "ADOPT_WITH_AMENDMENTS",
+  "scope": "SYNTHETICALLY_QUALIFIED_ADAPTER_ONLY",
+  "authorized_parent_head": "a98bc374fe059480881f883d0554b65f98eb5ab9",
+  "authorized_parent_tree": "0bc60a6af4d6ad439026a5007531be313c42db2e",
+  "force": false,
+  "expected_sha_required": true,
+  "fresh_parent_verified_prior_to_persistence": true,
+  "decision_document": {
+    "path": "GOVERNANCE/BEPD-09D-R2-RD5-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+    "git_blob": "32137259fbd29008071528107cd4f86560ad3890"
+  },
+  "machine_evidence": {
+    "red": {
+      "run_id": 37920071131,
+      "attempts": 1,
+      "conclusion": "failure",
+      "expected_reason": "MISSING_ADAPTER_MODULE",
+      "red_full_matrix_executed": false
+    },
+    "green": {
+      "run_id": 37920547662,
+      "attempts": 1,
+      "conclusion": "success",
+      "test_cases": 29,
+      "passed": 29,
+      "failed": 0
+    },
+    "determinism_test": "PASS",
+    "masked_internal_lp_failure_breaker_test": "PASS",
+    "qualification_receipt": {
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD5-RED-GREEN-QUALIFICATION-RECEIPT-V0.1.json",
+      "git_blob": "9958ca050aba6d5bb22bda8207cf389906873073"
+    },
+    "readback_receipt": {
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD5-PERSISTED-HEAD-VERIFICATION-RECEIPT-V0.1.json",
+      "git_blob": "9092a64676529fcbb252c9a79f8c5be1093870e0"
+    },
+    "existing_file_modifications": 0
+  },
+  "frozen_protected_blobs": {
+    "rd4_closure": "2122aac53d03370df9f76a0ddae880fd9bf6dcaa",
+    "rd4_adoption_receipt": "6a8e913db3f250d6c8b16489a85dc66faf43a90a",
+    "candidate_b_rd3_runtime": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+    "rd5_adapter": "bfbf586914c852047123c3a4cd1b2fa6a7dc4daa",
+    "rd5_synthetic_fixture": "c6d8b0e678270e379e758052c40be23355bc3800",
+    "rd5_green_workflow": "42e4184efd795ec9c0da54acb45e5f92b8797e39",
+    "rd5_red_workflow": "3044f70e28027c43f18052398d2670974e191500"
+  },
+  "amendments": {
+    "A": {
+      "name": "SYNTHETIC_SCOPE_ONLY",
+      "decision": "ADOPT_FOR_TESTED_SYNTHETIC_INPUTS_ONLY",
+      "real_folds_convergence_inferred": false
+    },
+    "B": {
+      "name": "SEPARATION_DETECTOR_HARDENING",
+      "decision": "SYNTHETIC_BREAKER_EVIDENCE_ADOPTED",
+      "python_tracing_independent_review": "REQUIRED",
+      "rd3_runtime_modification": "FORBIDDEN"
+    },
+    "C": {
+      "name": "TRUSTED_REAL_INPUT_BOUNDARY",
+      "decision": "REQUIRES_SEPARATELY_DESIGNED_AND_QUALIFIED_REAL_MATERIALIZER",
+      "synthetic_marker_cryptographically_trusted": false
+    },
+    "D": {
+      "name": "NUMERICAL_REFERENCE_PARITY",
+      "decision": "SYNTHETIC_STATIONARITY_ONLY",
+      "new_real_parity_tolerance": "NOT_ADOPTED"
+    },
+    "E": {
+      "name": "EXTERNAL_TIER_A_FAILURES",
+      "P0_4": "FAIL_UNRESOLVED",
+      "P0_6": "FAIL_UNRESOLVED",
+      "global_repo_regression": "NOT_PASS",
+      "P0_modifications_authorized": false
+    },
+    "F": {
+      "name": "EXECUTION_BUDGET",
+      "real_execution_budget": "NOT_ADOPTED",
+      "inferred_real_fit_authority": 0
+    }
+  },
+  "status": {
+    "rd5": "HUMAN_ADOPTED_WITH_AMENDMENTS_SYNTHETIC_SCOPE_ONLY",
+    "rd5_real_input_materializer": "BLOCKED",
+    "rd5_real_training_readiness": "BLOCKED",
+    "real_fold3_replay": "NOT_AUTHORIZED",
+    "real_reference_parity": "NOT_ADOPTED",
+    "real_data_row_read": "NOT_AUTHORIZED",
+    "real_training_fit": "NOT_AUTHORIZED",
+    "c1_retry": "NOT_AUTHORIZED",
+    "scientific_c1_result": "NONE",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE",
+    "automatic_next_stage": "FORBIDDEN"
+  },
+  "next_frontier": "TRUSTED_TRAINING_INPUT_BOUNDARY_PLUS_INDEPENDENT_ADAPTER_ADVERSARIAL_REVIEW_PLUS_REFERENCE_PARITY_PREREGISTRATION_PLUS_REAL_RESOURCE_BUDGET_DESIGN",
+  "next_frontier_status": "NOT_AUTHORIZED",
+  "closure": {
+    "type": "HUMAN_ADJUDICATION_GOVERNANCE_ONLY",
+    "atomic_publication": true,
+    "readback_required": true,
+    "verify_two_new_files_only": true,
+    "existing_paths_unchanged": true,
+    "stop": true
+  }
+}
