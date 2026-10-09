@@ -1,0 +1,596 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_03A_F_FROZEN_BREAKER_AND_NEGATIVE_ORACLE_MATRIX_V01",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "baseline_head": "5ed4d74ec1aab2fd7e215eabeb995faadfc72625",
+  "rd6_02_prospective_negative_cases": "NT-01_TO_NT-24",
+  "rd6_03a_test_matrix_blob": "7558e6166888c94eca7069a08d095dfda18fd190",
+  "breaker_count": 26,
+  "exit_code_contract": "Documentary candidate 40..65 assigned uniquely, no executable binding; will require distinct human adoption before implementation",
+  "system_error_exit_code": 99,
+  "ordinary_success_exit_code": 0,
+  "unrecognized_error": "Exit/deny 99, never successful admission; no fallback",
+  "one_or_more_failed": "DENY_AND_STOP",
+  "error_precedence": "G0 > G1 > G2 > G3 > G4 > G5 > G6 > G7; within a gate choose lowest BR number; no risk of revealing reason to untrusted caller",
+  "atomicity": "Unknown rollback/nonce durability BLOCKED; fail closed; no re-use of admission",
+  "breakers": [
+    {
+      "breaker_id": "BR-01",
+      "code": "UNAUTHORIZED_SOURCE_ACCESS",
+      "stable_exit_code": 40,
+      "trigger": "Any attempt to open real monolithic ledger, disallowed file, cache or temp, even only for digest",
+      "gate": "G0_OWNER_AND_PROCESS_CAPABILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-03",
+        "RD6-03A-RED-34"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G0_OWNER_AND_PROCESS_CAPABILITY with code UNAUTHORIZED_SOURCE_ACCESS before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-02",
+      "code": "UNAUTHENTICATED_PRODUCER",
+      "stable_exit_code": 41,
+      "trigger": "Producer origin only string marker, no authentic signer/delegation, or mismatched asserted identity",
+      "gate": "G2_MANIFEST_SIGNATURE",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-01",
+        "RD6-03A-RED-21"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G2_MANIFEST_SIGNATURE with code UNAUTHENTICATED_PRODUCER before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-03",
+      "code": "INVALID_SIGNATURE",
+      "stable_exit_code": 42,
+      "trigger": "Ed25519 signed domain payload signature fails verification or signed message mutated",
+      "gate": "G2_MANIFEST_SIGNATURE",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-06",
+        "RD6-03A-RED-36"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G2_MANIFEST_SIGNATURE with code INVALID_SIGNATURE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-04",
+      "code": "UNKNOWN_SIGNER",
+      "stable_exit_code": 43,
+      "trigger": "Signer not bound to trusted synthetic public key and scope",
+      "gate": "G2_MANIFEST_SIGNATURE",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-25"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G2_MANIFEST_SIGNATURE with code UNKNOWN_SIGNER before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-05",
+      "code": "SOURCE_IDENTITY_MISMATCH",
+      "stable_exit_code": 44,
+      "trigger": "Frozen canonical Git source ID/declared provenance differs from human authority binding",
+      "gate": "G1_SOURCE_SCIENTIFIC_IDENTITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G1_SOURCE_SCIENTIFIC_IDENTITY with code SOURCE_IDENTITY_MISMATCH before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-06",
+      "code": "SCIENTIFIC_CONTRACT_MISMATCH",
+      "stable_exit_code": 45,
+      "trigger": "Frozen RD2/RD3/RD5/feature/response/folds/calendar/TAU identity mismatches",
+      "gate": "G1_SOURCE_SCIENTIFIC_IDENTITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-17",
+        "RD6-03A-RED-19",
+        "RD6-03A-RED-22"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G1_SOURCE_SCIENTIFIC_IDENTITY with code SCIENTIFIC_CONTRACT_MISMATCH before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-07",
+      "code": "FOLD_SCOPE_MISMATCH",
+      "stable_exit_code": 46,
+      "trigger": "Train block/week sequence not equal exact B1..Bf for the nominated fold",
+      "gate": "G3_FOLD_AND_RECEIVER",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-04",
+        "RD6-03A-RED-05"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G3_FOLD_AND_RECEIVER with code FOLD_SCOPE_MISMATCH before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-08",
+      "code": "CURRENT_TEST_WEEK_EXPOSURE",
+      "stable_exit_code": 47,
+      "trigger": "Current B(f+1) week or response appears in scoped input, or upstream physical scope cannot exclude it",
+      "gate": "G5_VIEW_ADMISSIBILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-02"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G5_VIEW_ADMISSIBILITY with code CURRENT_TEST_WEEK_EXPOSURE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-09",
+      "code": "FUTURE_WEEK_EXPOSURE",
+      "stable_exit_code": 48,
+      "trigger": "Row belongs to future block B(f+2) or later (or target week outside frozen 259-week calendar)",
+      "gate": "G5_VIEW_ADMISSIBILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G5_VIEW_ADMISSIBILITY with code FUTURE_WEEK_EXPOSURE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-10",
+      "code": "DUPLICATE_EVENT",
+      "stable_exit_code": 49,
+      "trigger": "Event ID repeated anywhere in the admitted view",
+      "gate": "G5_VIEW_ADMISSIBILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-29"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G5_VIEW_ADMISSIBILITY with code DUPLICATE_EVENT before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-11",
+      "code": "CLUSTER_BOUNDARY_VIOLATION",
+      "stable_exit_code": 50,
+      "trigger": "Sweep cluster reappears in inadmissible week or crosses forbidden boundary",
+      "gate": "G5_VIEW_ADMISSIBILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-30"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G5_VIEW_ADMISSIBILITY with code CLUSTER_BOUNDARY_VIOLATION before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-12",
+      "code": "NONCE_REPLAY",
+      "stable_exit_code": 51,
+      "trigger": "Nonce reused for same signer receiver fold under atomic admission store",
+      "gate": "G3_NONCE_ATOMIC",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-27"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G3_NONCE_ATOMIC with code NONCE_REPLAY before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-13",
+      "code": "EXPIRED_VIEW",
+      "stable_exit_code": 52,
+      "trigger": "Signed expiration passed, not-yet-valid, invalid UTC timestamp, or clock unknown",
+      "gate": "G3_FOLD_AND_RECEIVER",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-26"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G3_FOLD_AND_RECEIVER with code EXPIRED_VIEW before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-14",
+      "code": "VIEW_DIGEST_MISMATCH",
+      "stable_exit_code": 53,
+      "trigger": "Immutable received byte length/hash disagrees with signed view or view ID",
+      "gate": "G4_CONTENT_INTEGRITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-28"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G4_CONTENT_INTEGRITY with code VIEW_DIGEST_MISMATCH before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-15",
+      "code": "INVALID_CANONICAL_SERIALIZATION",
+      "stable_exit_code": 54,
+      "trigger": "Manifest/view JSON duplicate keys, non-JCS, invalid UTF8, nonfinite, unexpected fields or ordering",
+      "gate": "G4_CONTENT_INTEGRITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-32"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G4_CONTENT_INTEGRITY with code INVALID_CANONICAL_SERIALIZATION before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-16",
+      "code": "UNAUTHORIZED_PROCESS_CAPABILITY",
+      "stable_exit_code": 55,
+      "trigger": "Worker, importer or consumer has unauthorized filesystem/FD/process/network capabilities",
+      "gate": "G0_OWNER_AND_PROCESS_CAPABILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-11",
+        "RD6-03A-RED-18",
+        "RD6-03A-RED-33",
+        "RD6-03A-RED-35"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G0_OWNER_AND_PROCESS_CAPABILITY with code UNAUTHORIZED_PROCESS_CAPABILITY before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-17",
+      "code": "UNCONTROLLED_OUTPUT_FIELD",
+      "stable_exit_code": 56,
+      "trigger": "Top-level or nested unauthorized field in user-facing outputs",
+      "gate": "G7_REDACTED_EXPORT",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-16",
+        "RD6-03A-RED-31"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G7_REDACTED_EXPORT with code UNCONTROLLED_OUTPUT_FIELD before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-18",
+      "code": "NESTED_DIAGNOSTIC_LEAKAGE",
+      "stable_exit_code": 57,
+      "trigger": "Nested path/raw row/optimizer message/traceback/unbounded diagnostic leaked or schema unverified",
+      "gate": "G7_REDACTED_EXPORT",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-15",
+        "RD6-03A-RED-23",
+        "RD6-03A-RED-37"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G7_REDACTED_EXPORT with code NESTED_DIAGNOSTIC_LEAKAGE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-19",
+      "code": "UNVERIFIED_DEPENDENCY",
+      "stable_exit_code": 58,
+      "trigger": "Import graph, git blob, module origin or process image unpinned/changed; global fitter monkeypatched",
+      "gate": "G0_OWNER_AND_PROCESS_CAPABILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-10",
+        "RD6-03A-RED-12",
+        "RD6-03A-RED-13",
+        "RD6-03A-RED-14"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G0_OWNER_AND_PROCESS_CAPABILITY with code UNVERIFIED_DEPENDENCY before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-20",
+      "code": "INDETERMINATE_SECURITY_STATE",
+      "stable_exit_code": 59,
+      "trigger": "Any security subcheck error, unknown LP status, inconclusive proof or unhandled exception",
+      "gate": "G0_ANY_GATE",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [
+        "RD6-03A-RED-07",
+        "RD6-03A-RED-08",
+        "RD6-03A-RED-09",
+        "RD6-03A-RED-20",
+        "RD6-03A-RED-24"
+      ],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G0_ANY_GATE with code INDETERMINATE_SECURITY_STATE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-21",
+      "code": "UNAUTHORIZED_RECEIVER",
+      "stable_exit_code": 60,
+      "trigger": "Signed receiver identifier mismatches actual authorized receiver",
+      "gate": "G3_FOLD_AND_RECEIVER",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G3_FOLD_AND_RECEIVER with code UNAUTHORIZED_RECEIVER before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-22",
+      "code": "REVOKED_OR_EXPIRED_SIGNER",
+      "stable_exit_code": 61,
+      "trigger": "Signer key revoked/expired, key-rotation mismatch or signer role not permitted",
+      "gate": "G2_MANIFEST_SIGNATURE",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G2_MANIFEST_SIGNATURE with code REVOKED_OR_EXPIRED_SIGNER before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-23",
+      "code": "NON_ATOMIC_NONCE_STATE",
+      "stable_exit_code": 62,
+      "trigger": "Nonces not reserved atomically or store recovery ambiguity",
+      "gate": "G3_NONCE_ATOMIC",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G3_NONCE_ATOMIC with code NON_ATOMIC_NONCE_STATE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-24",
+      "code": "VIEW_SIZE_OR_ROW_BUDGET_BREACH",
+      "stable_exit_code": 63,
+      "trigger": "View length or row count exceeds separately adopted bounds, or bounds missing",
+      "gate": "G4_CONTENT_INTEGRITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G4_CONTENT_INTEGRITY with code VIEW_SIZE_OR_ROW_BUDGET_BREACH before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-25",
+      "code": "UNVERIFIED_REAL_ORIGIN",
+      "stable_exit_code": 64,
+      "trigger": "Real physical source origin cannot be independently attested from accepted scope",
+      "gate": "G0_OWNER_AND_PROCESS_CAPABILITY",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G0_OWNER_AND_PROCESS_CAPABILITY with code UNVERIFIED_REAL_ORIGIN before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    },
+    {
+      "breaker_id": "BR-26",
+      "code": "UNTRUSTED_TIME_SOURCE",
+      "stable_exit_code": 65,
+      "trigger": "Unavailable/non-monotonic/unauthenticated clock invalidates issue/expiry decision",
+      "gate": "G3_FOLD_AND_RECEIVER",
+      "expected_evidence": "Future bounded synthetic negative-case ID and exact Git blob + canonical fixture hash + controlled stop-code with zero-side-effect counters; never raw rows, paths, keys, coefficients or predictions",
+      "related_preregistered_test_ids": [],
+      "red_oracle": "Before handler implementation, a separately authorized isolated synthetic RED test must fail a genuine STOP assertion; not executed RD6-03A. For code outside RD6-03, BLOCKED until independent owner authorization.",
+      "green_oracle": "After future separately authorized implementation, stop at G3_FOLD_AND_RECEIVER with code UNTRUSTED_TIME_SOURCE before consumer can view unadmitted bytes; no forbidden downstream effect; deterministic replay, no fallback.",
+      "forbidden_side_effects": [
+        "NO_REAL_SOURCE_ACCESS",
+        "NO_TRAIN_OR_REFERENCE_FIT",
+        "NO_TEST_SCORING",
+        "NO_NETWORK_OR_NEW_COST",
+        "NO_RAW_PUBLIC_OUTPUT",
+        "NO_AUTOMATIC_RETRY"
+      ],
+      "status": "CANDIDATE_NOT_EXECUTED"
+    }
+  ],
+  "human_adoption": "PENDING",
+  "executions": 0
+}

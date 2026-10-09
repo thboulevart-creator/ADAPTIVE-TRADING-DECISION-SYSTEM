@@ -1,0 +1,106 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_03A_DOCUMENTARY_PREREGISTRATION_ASSESSMENT_RECEIPT_V0_1",
+  "date": "2026-10-09",
+  "repo": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_of_truth": "GITHUB",
+  "authorized_head": "5ed4d74ec1aab2fd7e215eabeb995faadfc72625",
+  "authorized_tree": "032e78bc8188a3ec172e19a7dfd98dd67ff48c81",
+  "scope": "DOCUMENTARY_CONTRACT_TEST_FIRST_PREREGISTRATION_ONLY",
+  "human_authorization": "AUTHORIZE_DOCUMENTARY_CONTRACT_AND_TEST_FIRST_PREREGISTRATION_ONLY",
+  "preflight": {
+    "head_tree_match": true,
+    "reference_blobs_checked": 11,
+    "reference_blobs_match": 11,
+    "mandatory_binding_blobs_checked": 9,
+    "mandatory_binding_blobs_match": 9,
+    "governance_rd6_03a_path_collisions": 0,
+    "report_rd6_03a_path_collisions": 0
+  },
+  "deliverables": [
+    {
+      "id": "A",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-A-TRUSTED-VIEW-PRODUCER-CONTRACT-V0.1.md",
+      "git_blob": "e1f2ee757e2e6373e27c0f29366f67cbc54019c0"
+    },
+    {
+      "id": "B",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-B-TRUST-BOUNDARY-CAPABILITY-MATRIX-V0.1.md",
+      "git_blob": "bf1131159b9d844359d8e5448c723358a7dbafa3"
+    },
+    {
+      "id": "C",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-C-CANONICAL-SIGNED-VIEW-MANIFEST-SCHEMA-V0.1.json",
+      "git_blob": "cafbe617b2793117cb214eb1b8d42800e4f6a01c"
+    },
+    {
+      "id": "D",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-D-SYNTHETIC-FIXTURE-SPECIFICATION-V0.1.md",
+      "git_blob": "1268df29f12b87d1ea27933444b82030fbe202f2"
+    },
+    {
+      "id": "E",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-E-PREREGISTERED-RED-TEST-MATRIX-V0.1.json",
+      "git_blob": "7558e6166888c94eca7069a08d095dfda18fd190"
+    },
+    {
+      "id": "F",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-F-FROZEN-BREAKER-NEGATIVE-ORACLE-MATRIX-V0.1.json",
+      "git_blob": "38863439059d1a2f45aa4c877245613cd48fdc51"
+    },
+    {
+      "id": "G",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-G-IMPLEMENTATION-READINESS-HUMAN-ADJUDICATION-PACKAGE-V0.1.md",
+      "git_blob": "e2c38f4153ef18afb0bcd88aa8e41fbf58fbf731"
+    }
+  ],
+  "preregistration": {
+    "required_manifest_fields": 30,
+    "future_test_cases": 37,
+    "existing_RD6_02_case_ids_mapped": 24,
+    "derived_adversarial_cases": 13,
+    "in_scope_rd6_03_cases": 23,
+    "cross_lane_rd3_and_other_cases": 11,
+    "reserved_rd6_04_cases": 3,
+    "defined_breaker_codes": 26,
+    "breakers_qualified_executable": false,
+    "signature_format": "CANDIDATE_ONLY",
+    "signed_view_implemented": false
+  },
+  "actual_operations": {
+    "source_code_modified": false,
+    "code_files_created": 0,
+    "test_files_created": 0,
+    "synthetic_tests_executed": 0,
+    "red_tests_executed": 0,
+    "green_tests_executed": 0,
+    "real_data_read": 0,
+    "real_materializer_runs": 0,
+    "real_primary_fits": 0,
+    "real_reference_fits": 0,
+    "test_scoring": 0,
+    "workflow_execution": 0,
+    "external_reviewer_contacted": false,
+    "external_spend_authorized": false
+  },
+  "unresolved": {
+    "real_physical_input_boundary": "BLOCKED",
+    "real_input_materializer": "BLOCKED",
+    "production_signer_provenance": "NOT_ASSESSABLE",
+    "os_isolation": "NOT_ASSESSABLE",
+    "rd3_sep_exception": "FAIL_UNRESOLVED",
+    "rd3_lp_status": "FAIL_UNRESOLVED",
+    "p0_4": "FAIL_UNRESOLVED",
+    "p0_6": "FAIL_UNRESOLVED",
+    "external_review": "NOT_COMPLETED",
+    "numerical_reference_parity": "NOT_ADOPTED"
+  },
+  "machine_verdict": "CONTRACT_AND_RED_TEST_PREREGISTRATION_PREPARED_FOR_HUMAN_ADJUDICATION",
+  "human_adoption": "PENDING",
+  "rd6_03b": "NOT_AUTHORIZED",
+  "rd6_04": "NOT_AUTHORIZED",
+  "force": false,
+  "expected_sha_required": true,
+  "post_persisted_head_check": "REQUIRED",
+  "stop": true
+}

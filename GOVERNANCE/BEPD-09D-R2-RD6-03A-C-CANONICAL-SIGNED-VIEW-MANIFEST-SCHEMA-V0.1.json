@@ -1,0 +1,254 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_03A_C_CANONICAL_SIGNED_VIEW_MANIFEST_SCHEMA_V01",
+  "date": "2026-10-09",
+  "authority": "DOCUMENTARY_PREREGISTRATION_ONLY",
+  "adoption": "PENDING",
+  "implementation": "NOT_PERFORMED",
+  "real_key_authority": "NONE",
+  "status": "SYNTHETIC_CRYPTOGRAPHIC_FORMAT_CANDIDATE_NOT_REAL_ATTESTATION",
+  "envelope_rules": {
+    "encoding": "UTF-8 JSON; RFC8785 JSON Canonicalization Scheme (JCS) for unsigned manifest, strict integer/finite numbers only",
+    "duplicate_object_keys": "REJECT during JSON parse before canonicalization, including nested; no silent last-key-wins",
+    "unknown_fields": "REJECT recursively",
+    "unicode": "JCS-preserved Unicode, prohibit unpaired surrogates, producer_identity/signer_id ASCII regex ^[A-Za-z0-9_.:-]{1,128}$",
+    "timestamp": "UTC RFC3339 exact YYYY-MM-DDTHH:MM:SSZ, no timezone offset/fractional seconds for synthetic candidate; clock mismatch/expiry fail closed",
+    "float_semantics": "FORBID floats in manifest (use integer counters, string digests and names). View payload future numeric values must be finite and use exact frozen RD5 semantics; no numeric gate invented",
+    "signed_domain": {
+      "value": "ATDS/RD6-03A/TRAIN_VIEW_MANIFEST/V1\\u0000",
+      "wire_encoding": "UTF8; '\\u0000' denotes one 0x00 byte in the signing domain, not two literal backslash+u characters"
+    },
+    "serialization_algorithm": "JCS(unsigned_manifest), where unsigned_manifest removes only 'signature' and 'signed_payload_digest' and is otherwise an exact frozen field set; view_id and audit_receipt_id must be independently determined, not self-hashes",
+    "signature_algorithm": "Ed25519 RFC8032 candidate: sign UTF8(domain)+JCS(unsigned_manifest). signature value = RFC4648 base64url(no padding) of 64 bytes. signed_payload_digest SHA256 of same bytes, non-authoritative without signature",
+    "digest_algorithm": "SHA-256 of exact view byte stream; lower-case hex 64; no reserialization after signing before compare",
+    "trust_root": "Only synthetic pinned independent public key in future tests, never production credentials; reject unknown, expired, revoked, wrong-role signers; key id SHA256(raw32byte_pubkey) lowercase",
+    "nonce": "192-bit synthetic test vector generated deterministically and distinctly per scenario for repeatability; production entropy requirement remains unqualified; receiver+fold+signer+nonce single-use atomically reserved",
+    "anti_replay": "Single-use persistent ledger keyed by trust_root_id, signer_id, receiver_identity, fold_id and nonce; atomic replay protection must fail closed under concurrency; deletion/retry protocol BLOCKED until synthetic qualification",
+    "ordering": "authenticate header signature and permissions first; then bounded view bytes and rows; no downstream consumer receives unvalidated bytes",
+    "output_surface": "only controlled categorical stop code, IDs, count and digests after recursively validated allowlist; never raw errors, X/y, coefficients, paths, predictions",
+    "real_trust_attestation": "NOT_ESTABLISHED: signature alone cannot assert filesystem read constraints, legitimate historical owner, or data governance"
+  },
+  "manifest_fields": [
+    {
+      "name": "schema_version",
+      "type": "string",
+      "required": true,
+      "rule": "exact 'ATDS_RD6_03A_TRAIN_VIEW_MANIFEST_V0_1'"
+    },
+    {
+      "name": "view_id",
+      "type": "string",
+      "required": true,
+      "rule": "64 lowercase hex derived from canonical unsigned payload excluding view_id, signature and audit_receipt_id; avoid self-reference"
+    },
+    {
+      "name": "view_format",
+      "type": "string",
+      "required": true,
+      "rule": "exact 'JCS_JSON_LINES_SYNTHETIC_V0_1' candidate, not real implementation"
+    },
+    {
+      "name": "producer_identity",
+      "type": "string",
+      "required": true,
+      "rule": "registered synthetic producer identifier, <=128 ASCII safe chars"
+    },
+    {
+      "name": "producer_authority_id",
+      "type": "string",
+      "required": true,
+      "rule": "future signed human authorization ID; synthetic names are never real authority"
+    },
+    {
+      "name": "signer_id",
+      "type": "string",
+      "required": true,
+      "rule": "exact trust-store signer binding"
+    },
+    {
+      "name": "signature_algorithm",
+      "type": "string",
+      "required": true,
+      "rule": "ED25519_RFC8032_CANDIDATE, not authorized real cryptography"
+    },
+    {
+      "name": "trust_root_id",
+      "type": "string",
+      "required": true,
+      "rule": "synthetic fixture trust root exact key identifier"
+    },
+    {
+      "name": "canonical_source_identity",
+      "type": "object",
+      "required": true,
+      "rule": "metadata-only immutable Git blob, declared digest, parent repo and governed data authority; no source bytes"
+    },
+    {
+      "name": "source_access_scope",
+      "type": "object",
+      "required": true,
+      "rule": "exact role, allowed synthetic origin, explicit DENY real ledger/test, max bytes/paths and expiry"
+    },
+    {
+      "name": "scientific_contract_identities",
+      "type": "object",
+      "required": true,
+      "rule": "RD2/RD3/RD5 Git blobs + frozen week calendar, feature, response and TAU, no loose names"
+    },
+    {
+      "name": "fold_id",
+      "type": "integer",
+      "required": true,
+      "rule": "1..5, type integer not boolean"
+    },
+    {
+      "name": "ordered_train_block_ids",
+      "type": "array<string>",
+      "required": true,
+      "rule": "exact ['B1'..'Bf']"
+    },
+    {
+      "name": "ordered_train_week_ids",
+      "type": "array<string>",
+      "required": true,
+      "rule": "exact canonical 44/87/130/173/216 target Mondays; no test"
+    },
+    {
+      "name": "current_test_week_denylist_digest",
+      "type": "string",
+      "required": true,
+      "rule": "64 lowercase SHA256 hex of canonical public list of B(f+1) target week IDs only; no responses"
+    },
+    {
+      "name": "train_row_count",
+      "type": "integer",
+      "required": true,
+      "rule": "positive within explicit future budget, exact match to view bytes"
+    },
+    {
+      "name": "train_class_counts",
+      "type": "object",
+      "required": true,
+      "rule": "exact keys '0','1', integer >=0, sum equals count"
+    },
+    {
+      "name": "event_id_uniqueness_rule",
+      "type": "string",
+      "required": true,
+      "rule": "exact 'GLOBAL_UNIQUE_WITHIN_ADMITTED_VIEW'"
+    },
+    {
+      "name": "cluster_boundary_rule",
+      "type": "string",
+      "required": true,
+      "rule": "exact 'NO_CLUSTER_CROSSES_UNAUTHORIZED_TRAIN_WEEK'"
+    },
+    {
+      "name": "view_byte_length",
+      "type": "integer",
+      "required": true,
+      "rule": "positive, bounded by future human resource limit, not invented"
+    },
+    {
+      "name": "view_content_digest",
+      "type": "string",
+      "required": true,
+      "rule": "SHA256 lowercase hex over immutable exact serialized view bytes"
+    },
+    {
+      "name": "canonical_serialization_id",
+      "type": "string",
+      "required": true,
+      "rule": "exact 'RFC8785_JCS_UTF8_NODUPKEYS_FINITE_ONLY' for manifest candidate; row encoding separately specified"
+    },
+    {
+      "name": "receiver_identity",
+      "type": "string",
+      "required": true,
+      "rule": "exact consumer identity bound to grant"
+    },
+    {
+      "name": "view_nonce",
+      "type": "string",
+      "required": true,
+      "rule": "base64url no padding of 24 random bytes, deterministic fixture nonce source allowed only synthetic"
+    },
+    {
+      "name": "anti_replay_policy",
+      "type": "string",
+      "required": true,
+      "rule": "exact 'ATOMIC_SINGLE_USE_RECEIVER_FOLD_SIGNER_NONCE' candidate"
+    },
+    {
+      "name": "expiration_policy",
+      "type": "object",
+      "required": true,
+      "rule": "issue and expire UTC instants with nonnegative TTL bounded by separately chosen human limit"
+    },
+    {
+      "name": "audit_receipt_id",
+      "type": "string",
+      "required": true,
+      "rule": "distinct controlled reference, <=128 safe chars"
+    },
+    {
+      "name": "producer_access_attestation",
+      "type": "object",
+      "required": true,
+      "rule": "identity of producer binary/process/FS deny controls; unverified real values forbidden"
+    },
+    {
+      "name": "signed_payload_digest",
+      "type": "string",
+      "required": true,
+      "rule": "SHA256 of domain-separated signed payload bytes"
+    },
+    {
+      "name": "signature",
+      "type": "string",
+      "required": true,
+      "rule": "base64url no padding 64-byte Ed25519 signature over fixed domain + canonical unsigned payload"
+    }
+  ],
+  "payload_candidate": {
+    "byte_stream": "Synthetic-only canonical UTF8 JSONL with exactly one RFC8785-JCS row-object per line, LF newline; strict 10 frozen fixture fields; RFC8785 finite numbers; fixed ordered rows (target_week_id,event_id); forbid duplicate JSON keys and trailing data",
+    "prohibit": "real historical source, current-fold test events, extra raw metadata, performance/test scores, model coefficients",
+    "format_interoperability": "JCS JSONL candidate pending human approval; adjust only by separate adjudication before executable implementation"
+  },
+  "binding_invariants": {
+    "week0": "2021-06-07",
+    "week_last": "2026-05-18",
+    "weeks_total": 259,
+    "block_sizes": [
+      44,
+      43,
+      43,
+      43,
+      43,
+      43
+    ],
+    "fold_train_week_counts": [
+      44,
+      87,
+      130,
+      173,
+      216
+    ],
+    "fold_test_week_count": 43,
+    "fixture_code_git_blob": "c6d8b0e678270e379e758052c40be23355bc3800",
+    "adapter_git_blob": "bfbf586914c852047123c3a4cd1b2fa6a7dc4daa",
+    "candidate_b_git_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+    "physical_source_metadata_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "real_source_bytes_read": "NO",
+    "no_real_input_admission": true
+  },
+  "unresolved_material_choices": [
+    "Production signer custody/hardware trust roots",
+    "Production clock skew, exact TTL and expiry policy",
+    "Actual per-worker OS ACL/mount/FD attestation",
+    "Atomic anti-replay state mechanism and failure recovery",
+    "Operational source owner authority and real source exposure",
+    "Synthetic algorithm interoperability and human adoption prior to RD6-03B"
+  ],
+  "one_of_fail": "STOP",
+  "fallback": "FORBIDDEN"
+}
