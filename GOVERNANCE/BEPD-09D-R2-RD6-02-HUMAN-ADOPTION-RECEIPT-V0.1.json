@@ -1,0 +1,131 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_02_HUMAN_ADJUDICATION_AND_CLOSURE_RECEIPT_V0_1",
+  "date": "2026-10-09",
+  "control": "BEPD-09D-R2-RD6-02",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_of_truth": "GITHUB",
+  "authority": "EXPLICIT_HUMAN_DECISION_CURRENT_CONVERSATION",
+  "cryptographic_human_signature": "NOT_PROVIDED",
+  "decision": "ADOPT_WITH_AMENDMENTS",
+  "scope": "DOCUMENTARY_AND_INTERNAL_STATIC_ONLY",
+  "authorized_parent_head": "fb3242c5d013acfc8e97d710df654175541b1f5e",
+  "authorized_parent_tree": "7351d42677459cf2606f19bcad5bff346e709645",
+  "expected_sha_required": true,
+  "force": false,
+  "fail_closed": true,
+  "preflight": {
+    "fresh_head_and_tree": "PASS",
+    "protected_blobs_checked": 18,
+    "protected_blobs_matched": 18,
+    "new_path_collisions": 0,
+    "material_drift": "NONE"
+  },
+  "decision_document": {
+    "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+    "git_blob": "9719665d20a0e85e00e1fdd64648e978b4a40058"
+  },
+  "qualified_source_evidence": {
+    "A": "051a9acb84c7a85334cbe19b9a3966c5ee36a38a",
+    "B": "d313493d19d6c141209e20660ae3325a52e80edd",
+    "C": "52122140c25d1e175b55119f7edfc29cdc509a18",
+    "D": "275930625443ce7ec7c90912f936b0baff18b755",
+    "E": "9fd5d9a27d90d8f16516aee8a714a96300881174",
+    "F": "4f5f9b07717f22465dc1b634a7f9c24b92aa514e",
+    "G": "a93943422d575620fe78e9630592df88208a502e",
+    "assessment_receipt": "618f51a52168a0019804446c6ae92e6915e55cde",
+    "readback_receipt": "2d1f5eae446f020767f771062352cba939d908f6"
+  },
+  "adjudicated_evidence": {
+    "findings": 14,
+    "PASS": 2,
+    "FAIL": 2,
+    "BLOCKED": 9,
+    "NOT_ASSESSABLE": 1,
+    "prospective_negative_tests": 24,
+    "new_tests_executed": 0,
+    "proposed_remediations": 14,
+    "remediations_applied": 0,
+    "rd5_green": "29_OF_29_PASS_SYNTHETIC_SCOPE_ONLY"
+  },
+  "human_amendments": {
+    "A": {
+      "external_independent_review": "NOT_ASSESSABLE",
+      "external_security_certification": "NONE",
+      "independent_reviewer_handoff": "SPECIFICATION_ONLY",
+      "external_transmission": "NOT_AUTHORIZED",
+      "external_spending": "NOT_AUTHORIZED"
+    },
+    "B": {
+      "RD3_EXCEPTION_MASKING": "FAIL_UNRESOLVED",
+      "RD3_LP_STATUS_HANDLING": "FAIL_UNRESOLVED",
+      "RD3_SOURCE_MODIFICATION": "NOT_AUTHORIZED",
+      "future_remediation": "SEPARATE_HUMAN_GRANT_REQUIRED"
+    },
+    "C": {
+      "trust_boundary_threat_model": "DOCUMENTARILY_ADOPTED",
+      "synthetic_provenance_marker": "NOT_A_REAL_ORIGIN_PROOF",
+      "real_ledger_read": "FORBIDDEN",
+      "real_view_materialization": "FORBIDDEN",
+      "real_input_admission": "BLOCKED"
+    },
+    "D": {
+      "RD5_GREEN": "29_OF_29_PASS_PRESERVED_SYNTHETIC_ONLY",
+      "tracing_real_security": "BLOCKED",
+      "process_isolation": "BLOCKED",
+      "recursive_output_security": "BLOCKED"
+    },
+    "E": {
+      "science": "C1_FOLDS_FEATURES_RESPONSE_OBJECTIVE_GRADIENT_HESSIAN_PRIMARY_SOLVER_TAU_FROZEN",
+      "reference_parity_metric": "NOT_ADOPTED",
+      "reference_parity_tolerance": "NOT_ADOPTED",
+      "reference_role": "INDEPENDENT_CONTROL_ONLY_NO_FALLBACK"
+    },
+    "F": {
+      "P0_4": "FAIL_UNRESOLVED",
+      "P0_6": "FAIL_UNRESOLVED",
+      "global_regression": "NOT_PASS",
+      "real_primary_fits_authorized": 0,
+      "real_reference_fits_authorized": 0,
+      "real_data_reads_authorized": 0,
+      "retries_authorized": 0,
+      "external_spend": "NOT_AUTHORIZED"
+    },
+    "G": {
+      "future_adversarial_negative_tests": "CANDIDATE_ONLY_NOT_EXECUTED",
+      "independent_future_human_grants": [
+        "EXTERNAL_REVIEW",
+        "TRUSTED_VIEW_SYNTHETIC_QUALIFICATION",
+        "REFERENCE_PARITY_SYNTHETIC_QUALIFICATION",
+        "REAL_PHYSICAL_READ_IF_ANY",
+        "EXACT_REAL_EXECUTION_BUDGET"
+      ],
+      "cross_authority_inference": "FORBIDDEN"
+    }
+  },
+  "final_state": {
+    "RD6_02": "HUMAN_ADOPTED_WITH_AMENDMENTS_DOCUMENTARY_AND_STATIC_SCOPE_ONLY",
+    "RD6_01": "HUMAN_ADOPTED_WITH_AMENDMENTS_DOCUMENTARY_SCOPE_ONLY",
+    "RD5": "HUMAN_ADOPTED_WITH_AMENDMENTS_SYNTHETIC_SCOPE_ONLY",
+    "independent_external_review": "NOT_COMPLETED",
+    "real_training_readiness": "BLOCKED",
+    "real_input_materializer": "BLOCKED",
+    "real_primary_and_reference_fits": "FORBIDDEN",
+    "C1_retry": "FORBIDDEN",
+    "test_scoring": "FORBIDDEN",
+    "scientific_C1_result": "NONE",
+    "fresh_OOS": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "closure": {
+    "authorized_delta": "EXACTLY_TWO_NEW_GOVERNANCE_DOCUMENTS",
+    "existing_files_changed": 0,
+    "workflow_execution": "FORBIDDEN",
+    "new_numerical_experiment": "FORBIDDEN",
+    "real_data_access": "FORBIDDEN",
+    "new_source_remediation": "FORBIDDEN",
+    "readback_required": true,
+    "automatic_next_stage": "FORBIDDEN",
+    "STOP": true
+  }
+}
