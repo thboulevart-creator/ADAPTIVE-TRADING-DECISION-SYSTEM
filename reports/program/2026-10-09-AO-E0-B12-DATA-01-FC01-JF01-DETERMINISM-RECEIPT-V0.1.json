@@ -1,0 +1,12 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF01_DETERMINISM_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+  "same_synthetic_sequence_runs": 2,
+  "byte_identical_canonical_payload": true,
+  "sha256_identical": true,
+  "source_order_preserved": true,
+  "system_clock_in_payload": false,
+  "random_uuid_in_payload": false,
+  "locale_dependent_formatting": false,
+  "result": "PASS"
+}

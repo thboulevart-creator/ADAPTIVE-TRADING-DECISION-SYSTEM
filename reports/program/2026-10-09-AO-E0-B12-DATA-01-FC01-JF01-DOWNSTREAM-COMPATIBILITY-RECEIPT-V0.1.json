@@ -1,0 +1,15 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF01_DOWNSTREAM_COMPATIBILITY_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+  "tick_reader_compatibility": "PASS",
+  "dataset_admissibility": "PASS",
+  "consumer_changes": 0,
+  "current_fc01_regression": {
+    "command": "python -m pytest -q tests/test_ao_e0_b12_data01_fc01.py",
+    "result": "PASS",
+    "tests_passed": 33,
+    "tests_failed": 0
+  },
+  "target_schema": "timestamp,askPrice,bidPrice,askVolume,bidVolume",
+  "existing_fc01_mutation": false
+}

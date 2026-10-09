@@ -1,0 +1,21 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF01_BREAKER_MATRIX_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+  "breakers": [
+    "BLOCKED_JF01_NULL_INSTRUMENT",
+    "BLOCKED_JF01_IDENTITY_MISMATCH",
+    "BLOCKED_JF01_INTERVAL_LEAK",
+    "BLOCKED_JF01_SOURCE_ORDERING",
+    "BLOCKED_JF01_NONFINITE_VALUE",
+    "BLOCKED_JF01_NEGATIVE_VOLUME",
+    "BLOCKED_JF01_ASK_BELOW_BID",
+    "BLOCKED_JF01_SCHEMA_DRIFT",
+    "BLOCKED_JF01_INTERVAL_NOT_UTC",
+    "BLOCKED_JF01_INTERVAL_NOT_ONE_HOUR"
+  ],
+  "preregistered_required_breakers_covered": true,
+  "silent_filtering": false,
+  "sorting": false,
+  "deduplication": false,
+  "repair": false
+}

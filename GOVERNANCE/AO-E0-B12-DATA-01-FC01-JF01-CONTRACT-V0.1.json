@@ -1,0 +1,65 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF01_CONTRACT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+  "status": "SYNTHETIC_QUALIFIED_PENDING_HUMAN_ADJUDICATION",
+  "canonical_parent": {
+    "head": "fb3242c5d013acfc8e97d710df654175541b1f5e",
+    "tree": "7351d42677459cf2606f19bcad5bff346e709645"
+  },
+  "source": {
+    "provider": "DUKASCOPY",
+    "current_transport": "JETTA_DUKASCOPY_TICKS_API",
+    "candidate_transport": "JFOREX_SDK_IHISTORY",
+    "provider_substitution": false,
+    "transport_substitution": true
+  },
+  "instrument_binding": {
+    "atds": "USATECH.IDX-USD",
+    "jforex": "USATECH.IDX/USD",
+    "binding_method": "Instrument.fromString(\"USATECH.IDX/USD\")",
+    "null_breaker": "BLOCKED_JF01_NULL_INSTRUMENT",
+    "mismatch_breaker": "BLOCKED_JF01_IDENTITY_MISMATCH"
+  },
+  "interval_translation": {
+    "fc01": "[HOUR_START,HOUR_END)",
+    "jforex": "[FROM,TO] inclusive",
+    "from": "HOUR_START_MS",
+    "to": "HOUR_END_MS-1",
+    "fixed_real_qualification_interval": [
+      "2026-10-08T08:00:00.000Z",
+      "2026-10-08T09:00:00.000Z"
+    ]
+  },
+  "field_mapping": {
+    "tick.getTime()": "timestamp",
+    "tick.getAsk()": "askPrice",
+    "tick.getBid()": "bidPrice",
+    "tick.getAskVolume()": "askVolume",
+    "tick.getBidVolume()": "bidVolume"
+  },
+  "canonical_serialization": {
+    "format": "CSV",
+    "encoding": "UTF-8",
+    "bom": false,
+    "line_ending": "LF",
+    "header": "timestamp,askPrice,bidPrice,askVolume,bidVolume",
+    "timestamp": "YYYY-MM-DDTHH:MM:SS.SSSZ",
+    "numeric_model": "JAVA_BIGDECIMAL_VALUEOF_DOUBLE_TO_PLAIN_STRING_EQUIVALENT",
+    "source_order_preserved": true,
+    "deduplication": false,
+    "sorting": false
+  },
+  "transformation_id": "DUKASCOPY_JFOREX_CANONICAL_TICK_ADAPTER_V0_1",
+  "implementation_sha256": "e3802d78a384ead201aa62453be6a806389c2301bf6803b19d5e50fcbccb964b",
+  "tests_sha256": "13961140018ba150ed48ba1b02109e0f69b6445da544d6d6e553596cbe6c3bd1",
+  "authority": {
+    "real_jforex_request": false,
+    "dukas_login": false,
+    "data01_mutation": false,
+    "existing_fc01_mutation": false,
+    "performance_read": false,
+    "trading": false,
+    "capital": false,
+    "force": false
+  }
+}
