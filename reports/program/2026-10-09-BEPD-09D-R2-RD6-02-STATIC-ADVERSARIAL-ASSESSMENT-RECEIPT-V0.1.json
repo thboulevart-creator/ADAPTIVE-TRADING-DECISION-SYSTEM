@@ -1,0 +1,125 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_02_DOCUMENTARY_STATIC_ADVERSARIAL_ASSESSMENT_RECEIPT_V01",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "control": "BEPD-09D-R2-RD6-02",
+  "human_authorization": "AUTHORIZE_DOCUMENTARY_AND_READ_ONLY_REVIEW",
+  "authorized_parent_head": "8b14b3f2be26487e74f946c1a48044ab03595f2e",
+  "authorized_parent_tree": "c4a7643a849de607e3a99d78b6d155e59b345a73",
+  "force": false,
+  "expected_sha_required": true,
+  "preflight": {
+    "head_tree_match": true,
+    "critical_protected_blobs_checked": 12,
+    "critical_protected_blobs_matched": 12,
+    "material_drift": "NONE"
+  },
+  "scope": {
+    "static_git_reads": true,
+    "synthetic_test_executions_new": 0,
+    "real_ledger_row_reads_new": 0,
+    "real_training_fits_new": 0,
+    "real_reference_fits_new": 0,
+    "real_input_materializer_implemented": false,
+    "existing_source_edits": 0,
+    "existing_workflow_edits": 0,
+    "external_reviewer_contacted": false,
+    "external_review_completed": false,
+    "third_party_material_sent": false,
+    "new_external_spend_authorized": false
+  },
+  "evidence_class": "INTERNAL_STATIC_SOURCE_EVIDENCE_PLUS_PRIOR_RD5_SYNTHETIC_EXECUTABLE_EVIDENCE_ONLY",
+  "prior_synthetic_evidence": {
+    "RD5_GREEN_RUN": 37920547662,
+    "RD5_GREEN": "29/29 PASS WITHIN_SYNTHETIC_SCOPE_ONLY",
+    "RD5_RED_RUN": 37920071131
+  },
+  "package": [
+    {
+      "id": "A",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-A-FROZEN-REVIEW-SOURCE-MANIFEST-V0.1.json",
+      "git_blob": "051a9acb84c7a85334cbe19b9a3966c5ee36a38a"
+    },
+    {
+      "id": "B",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-B-ADVERSARIAL-CODE-FINDINGS-V0.1.json",
+      "git_blob": "d313493d19d6c141209e20660ae3325a52e80edd"
+    },
+    {
+      "id": "C",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-C-TRUST-BOUNDARY-THREAT-MODEL-V0.1.md",
+      "git_blob": "52122140c25d1e175b55119f7edfc29cdc509a18"
+    },
+    {
+      "id": "D",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-D-INDEPENDENT-REVIEW-HANDOFF-PACKAGE-V0.1.md",
+      "git_blob": "275930625443ce7ec7c90912f936b0baff18b755"
+    },
+    {
+      "id": "E",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-E-REQUIRED-NEGATIVE-TEST-SPECIFICATIONS-V0.1.json",
+      "git_blob": "9fd5d9a27d90d8f16516aee8a714a96300881174"
+    },
+    {
+      "id": "F",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-F-RISK-AND-REMEDIATION-REGISTER-V0.1.json",
+      "git_blob": "4f5f9b07717f22465dc1b634a7f9c24b92aa514e"
+    },
+    {
+      "id": "G",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-02-G-HUMAN-ADJUDICATION-PACKAGE-V0.1.md",
+      "git_blob": "a93943422d575620fe78e9630592df88208a502e"
+    }
+  ],
+  "internal_review": {
+    "findings": 14,
+    "counts": {
+      "PASS": 2,
+      "FAIL": 2,
+      "BLOCKED": 9,
+      "NOT_ASSESSABLE": 1
+    },
+    "prospective_negative_tests": 24,
+    "executed_negative_tests_under_RD6_02": 0,
+    "risks_and_remediations_proposed": 14,
+    "remediations_applied": 0,
+    "source_defects": [
+      "RD3_SEPARATION_EXCEPTION_SWALLOWED",
+      "RD3_LP_STATUS_SUCCESS_BOOLEAN"
+    ],
+    "high_risk_unresolved": [
+      "TRUSTED_PROVENANCE",
+      "PHYSICAL_REAL_DATA_BOUNDARY",
+      "SYS_SETTRACE_THREAD_NATIVE_MONKEYPATCH",
+      "IMPORT_GLOBAL_MUTATION",
+      "NESTED_OUTPUT_SCHEMA",
+      "LEGACY_FULL_LEDGER_READ",
+      "REFERENCE_TEST_SCORING_PATH"
+    ]
+  },
+  "external_independent_review": "NOT_ASSESSABLE",
+  "external_reviewer_identity": "NONE",
+  "independent_external_signature": "NONE",
+  "tier_A": {
+    "P0_4": "FAIL_UNRESOLVED",
+    "P0_6": "FAIL_UNRESOLVED",
+    "global_repository_regression": "NOT_PASS"
+  },
+  "decision": {
+    "machine_verdict": "STATIC_ADVERSARIAL_REVIEW_PREPARED_AND_EVIDENCE_ASSESSED_FOR_HUMAN_ADJUDICATION_WITH_BLOCKERS",
+    "human_adoption": "PENDING",
+    "recommended": "ADOPT_WITH_AMENDMENTS_DOCUMENTARY_ONLY",
+    "real_runtime_readiness": "BLOCKED",
+    "real_training_authority": "NONE",
+    "real_parity_tolerance": "NOT_ADOPTED",
+    "real_resource_budget": "NOT_ADOPTED",
+    "c1_retry": "FORBIDDEN",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "publication_authority": "NEW_DOCUMENTARY_RD6_02_PATHS_ONLY",
+  "readback_required": true,
+  "stop": true,
+  "automatic_next_stage": "FORBIDDEN"
+}

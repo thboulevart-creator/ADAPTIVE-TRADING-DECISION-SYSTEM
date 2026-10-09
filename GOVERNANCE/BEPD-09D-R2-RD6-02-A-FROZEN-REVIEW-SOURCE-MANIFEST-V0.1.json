@@ -1,0 +1,146 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_02_A_FROZEN_REVIEW_SOURCE_MANIFEST_V01",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "8b14b3f2be26487e74f946c1a48044ab03595f2e",
+  "authorized_parent_tree": "c4a7643a849de607e3a99d78b6d155e59b345a73",
+  "authority": "AUTHORIZE_DOCUMENTARY_AND_READ_ONLY_REVIEW",
+  "fresh_preflight": {
+    "head_match": true,
+    "tree_match": true,
+    "mandatory_critical_blob_checks": 12,
+    "passed": 12,
+    "failed": 0
+  },
+  "reviewer_kind": "INTERNAL_ASSISTANT_STATIC_SOURCE_ANALYSIS_NOT_INDEPENDENT_EXTERNAL_REVIEW",
+  "evidence_classes": [
+    "STATIC_SOURCE_EVIDENCE",
+    "EXISTING_SYNTHETIC_EXECUTION_EVIDENCE",
+    "INDEPENDENT_EXTERNAL_EVIDENCE_NOT_PRESENT"
+  ],
+  "source_manifest": [
+    {
+      "role": "RD6_01_HUMAN_CLOSURE",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+      "git_blob": "3c5fa4c655f5e015e7d4660828162a8c9ab0dcca",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD6_01_HUMAN_RECEIPT",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+      "git_blob": "9f67433045014e58bf93617b11694feefb6de817",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD6_01_ADVERSARIAL_PACKAGE",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-B-INDEPENDENT-ADVERSARIAL-REVIEW-PACKAGE-V0.1.md",
+      "git_blob": "a7ea483e9d0e6908c9b45cd36a0cb01f5d1280f9",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD6_01_BREAKERS",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-E-BREAKER-AND-DEPENDENCY-MATRIX-V0.1.json",
+      "git_blob": "9e9bf9bfb46bdb38e706d3a929ac794cbda2019e",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD6_01_ASSESSMENT",
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD6-01-DOCUMENTARY-STATIC-ASSESSMENT-RECEIPT-V0.1.json",
+      "git_blob": "0f318f241210c60c1fbea8e430ca95b79c485b87",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD5_HUMAN_ADOPTION",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD5-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+      "git_blob": "cf3bb96620fe65622cdbdaa9b8f9fb37aacab519",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD5_SYNTHETIC_ADAPTER",
+      "path": "tools/bepd09d_r2_rd5_training_only_adapter.py",
+      "git_blob": "bfbf586914c852047123c3a4cd1b2fa6a7dc4daa",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD5_TESTS",
+      "path": "tests/test_bepd09d_r2_rd5_adapter.py",
+      "git_blob": "6d6374e701e1572d9ee597add238973223e555ea",
+      "identity": "FROM_GITHUB_SOURCE_READ_IN_RD6_02_NOT_PART_OF_INITIAL_12_PREFLIGHT"
+    },
+    {
+      "role": "RD3_CANDIDATE_B",
+      "path": "tools/bepd09d_r2_rd3_candidate_b_runtime.py",
+      "git_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "RD2_OVERLAY",
+      "path": "tools/bepd09d_r2_runtime.py",
+      "git_blob": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+      "identity": "FROM_GITHUB_SOURCE_READ_IN_RD6_02_NOT_PART_OF_INITIAL_12_PREFLIGHT"
+    },
+    {
+      "role": "RD2_ACCEPTANCE",
+      "path": "GOVERNANCE/BEPD-09D-R2-RD2-NUMERICAL-ACCEPTANCE-CONTRACT-V0.1.json",
+      "git_blob": "ccb519aad05cf0739b54ee50e0521a85a5374f13",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "LEGACY_C1_RUNTIME",
+      "path": "tools/bepd09c_runtime.py",
+      "git_blob": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "LEGACY_REFERENCE",
+      "path": "tools/bepd09c_reference.py",
+      "git_blob": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    },
+    {
+      "role": "LEGACY_REAL_HARNESS",
+      "path": "tools/bepd09d_real_execution_harness.py",
+      "git_blob": "bc16016c593f89ec56ab65c9b8f0d6758d59cbe1",
+      "identity": "FROZEN_AND_OR_PREFLIGHT_VERIFIED"
+    }
+  ],
+  "historical_actions": {
+    "rd5_red": {
+      "run_id": 37920071131,
+      "status": "EXPECTED_FAILURE_MISSING_MODULE",
+      "attempts": 1
+    },
+    "rd5_green": {
+      "run_id": 37920547662,
+      "status": "PASS_29_29_SYNTHETIC_ONLY",
+      "attempts": 1
+    },
+    "P0_4": {
+      "run_id": 37920071070,
+      "status": "FAIL_UNRESOLVED"
+    },
+    "P0_6": {
+      "run_id": 37920071103,
+      "status": "FAIL_UNRESOLVED"
+    }
+  },
+  "forbidden_surfaces": [
+    "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+    "real data files",
+    "real rows",
+    "real training/test matrices",
+    "test scoring",
+    "model fit",
+    "new workflows",
+    "source edits",
+    "independent review misrepresentation"
+  ],
+  "no_live_data_read": true,
+  "no_new_numerical_execution": true,
+  "no_new_external_review": true,
+  "no_external_send": true,
+  "receipts_nature": "STATIC_ONLY",
+  "human_adjudication": "PENDING",
+  "status": "FROZEN_REVIEW_CORPUS_ESTABLISHED"
+}

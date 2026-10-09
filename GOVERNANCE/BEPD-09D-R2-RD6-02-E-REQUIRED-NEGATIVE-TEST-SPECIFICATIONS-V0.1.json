@@ -1,0 +1,238 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_02_E_PROSPECTIVE_NEGATIVE_TEST_SPECIFICATIONS_V01",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "8b14b3f2be26487e74f946c1a48044ab03595f2e",
+  "scope": "DESIGN_ONLY_NO_SYNTHETIC_EXECUTION",
+  "test_count": 24,
+  "executed": 0,
+  "passed": 0,
+  "failed": 0,
+  "required_human_authority_for_execution": "SEPARATE_SYNTHETIC_TEST_AUTHORIZATION",
+  "allowed_inputs_for_future_tests": "GENERATED_SYNTHETIC_FIXTURES_ONLY_WITH_SEPARATE_GRANT",
+  "real_source_read": "FORBIDDEN",
+  "real_fit": "FORBIDDEN",
+  "independent_external_review": "NOT_EXECUTED",
+  "cases": [
+    {
+      "id": "NT-01",
+      "title": "FORGED_PROVENANCE",
+      "scenario": "RD5 marker supplied by untrusted caller with arbitrary rows",
+      "expected_behavior": "Must reject real admission even with exact synthetic marker; independent authenticated producer required",
+      "related_finding": "AR-03",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-02",
+      "title": "CURRENT_TEST_ROW_IN_TRAIN_VIEW",
+      "scenario": "Current fold B(f+1) row labelled as train input",
+      "expected_behavior": "Reject before model read and prove upstream does not physically read forbidden test labels",
+      "related_finding": "AR-03",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-03",
+      "title": "PHYSICAL_FULL_SOURCE_READ",
+      "scenario": "Proposed producer hashes/filters complete monolithic real ledger",
+      "expected_behavior": "No authority => denied filesystem read, no full source mount, auditable deny",
+      "related_finding": "AR-07",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-04",
+      "title": "CROSS_FOLD_OLD_TEST_IN_LATER_TRAIN",
+      "scenario": "B2 row used as F2 train but not F1 train",
+      "expected_behavior": "F2 admissible only according to frozen schedule; F1 STOP",
+      "related_finding": "AR-09",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-05",
+      "title": "SWAPPED_FOLD_OR_CLUSTER",
+      "scenario": "Replay valid-looking signed train view for wrong fold or cluster",
+      "expected_behavior": "Signature, fold, nonce and cluster membership mismatch => STOP",
+      "related_finding": "AR-11",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-06",
+      "title": "INVALID_PRODUCER_ATTESTATION",
+      "scenario": "Tampered manifest byte digest or forged key id",
+      "expected_behavior": "Reject before opening purported train view; not merely SHA string equality",
+      "related_finding": "AR-11",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-07",
+      "title": "LP_UNKNOWN_STATUS_PRIMARY",
+      "scenario": "linprog returns status=4 and success=False without Python exception",
+      "expected_behavior": "STOP, never map False to no separation",
+      "related_finding": "AR-02",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-08",
+      "title": "LP_UNKNOWN_STATUS_REFERENCE",
+      "scenario": "Reference linprog returns status unknown/non-raising",
+      "expected_behavior": "STOP without reference solve or fallback",
+      "related_finding": "AR-08",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-09",
+      "title": "CATCH_INTERNAL_LP_EXCEPTION",
+      "scenario": "Internal perfect_separation exception caught in build_packet",
+      "expected_behavior": "Global verdict STOP even if build_packet reports no perfect separation",
+      "related_finding": "AR-01",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-10",
+      "title": "TRACER_CODE_OBJECT_SWITCH",
+      "scenario": "Candidate detector monkeypatched to alternative Python function object",
+      "expected_behavior": "Fail closed on source/function identity mismatch; do not rely only on old frame code",
+      "related_finding": "AR-04",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-11",
+      "title": "TRACER_THREAD_OR_NATIVE",
+      "scenario": "LP invoked in thread/native process without trace events",
+      "expected_behavior": "Independent status checks must detect/deny; isolate worker and stop on unknown",
+      "related_finding": "AR-04",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-12",
+      "title": "EXISTING_DEBUGGER_TRACE",
+      "scenario": "An existing tracing callback installed",
+      "expected_behavior": "No unsafe trace replacement; deterministic STOP or separately approved composition",
+      "related_finding": "AR-04",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-13",
+      "title": "TRACE_RESTORE_ON_EXCEPTION",
+      "scenario": "Candidate raises inside trace scope",
+      "expected_behavior": "Original tracing state restored; no leaked tracing hooks; STOP",
+      "related_finding": "AR-04",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-14",
+      "title": "IMPORT_ORDER_SHARED_STATE",
+      "scenario": "Change candidate/legacy import sequence in controlled isolated interpreter",
+      "expected_behavior": "Detect base.fit_logistic monkeypatch, forbid shared mutable production process",
+      "related_finding": "AR-05",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-15",
+      "title": "NESTED_OPTIMIZER_MESSAGE_PAYLOAD",
+      "scenario": "Malicious paths/Unicode/encoded row fragments in optimizer_message",
+      "expected_behavior": "Recursive allowlist and redacted size-limited error code, no payload persistence",
+      "related_finding": "AR-06",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-16",
+      "title": "NESTED_RECEIPT_SCHEMA_MUTATION",
+      "scenario": "Additional keys inside mathematical gates, optimizer metadata, identity dict",
+      "expected_behavior": "Reject even if top-level key set remains exact",
+      "related_finding": "AR-06",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-17",
+      "title": "FROZEN_NUMERIC_SCIENCE",
+      "scenario": "Modify objective/features/TAU/solver while source Git identifiers appear expected",
+      "expected_behavior": "Independent exact source+import+feature identity gate STOP; no scientific drift",
+      "related_finding": "AR-14",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-18",
+      "title": "REFERENCE_TEST_SCORING_PATH",
+      "scenario": "Call run_reference or run_protocol through future train-only wrapper",
+      "expected_behavior": "Never available; reject before executing test predictions/logloss/brier",
+      "related_finding": "AR-08",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-19",
+      "title": "UNADOPTED_DELTA_J_THRESHOLD",
+      "scenario": "Candidate 1e-8 threshold passed to real comparison",
+      "expected_behavior": "Block until separate human adoption + synthetic calibration",
+      "related_finding": "AR-13",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-20",
+      "title": "RESOURCE_RETRY_OMISSION",
+      "scenario": "F1 primary failure then attempt F2 or automatically retry",
+      "expected_behavior": "STOP and 0 further fits; audit all attempted and consumed resources",
+      "related_finding": "AR-14",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-21",
+      "title": "EXTERNAL_REVIEW_FALSE_AUTHORITY",
+      "scenario": "Self-review or unsigned external report claims PASS",
+      "expected_behavior": "Must classify NOT_ASSESSABLE; verifier requires external identity/conflict statement",
+      "related_finding": "AR-12",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-22",
+      "title": "TIER_A_FAILURE_RELABELLING",
+      "scenario": "Local RD5 GREEN reported as global repository P0 PASS",
+      "expected_behavior": "Reject inconsistent governance claims; preserve P0 FAIL",
+      "related_finding": "AR-14",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-23",
+      "title": "EXCEPTION_TRACEBACK_PATHS",
+      "scenario": "Unexpected optimizer error persists tracebacks/raw paths through error handler",
+      "expected_behavior": "Controlled stop reason only, no file paths or dataset rows",
+      "related_finding": "AR-06",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    },
+    {
+      "id": "NT-24",
+      "title": "UNKNOWN_OBJECTIVE_OR_HESSIAN",
+      "scenario": "Nonfinite derivative and optimizer.success true",
+      "expected_behavior": "Objective/score/Hessian/math gates reject; no optimizer.success override",
+      "related_finding": "AR-01",
+      "review_method": "FUTURE_TEST_FIRST_SYNTHETIC_OR_INDEPENDENT_STATIC_PROOF_ONLY",
+      "status": "NOT_EXECUTED_PENDING_SEPARATE_AUTHORIZATION"
+    }
+  ],
+  "gating_rule": "ONE_UNQUALIFIED_BREAKER=BLOCKED; FAIL_CLOSED; NO_AUTOMATIC_REPAIR",
+  "human_adjudication": "PENDING",
+  "next_stage": "NOT_AUTHORIZED"
+}
