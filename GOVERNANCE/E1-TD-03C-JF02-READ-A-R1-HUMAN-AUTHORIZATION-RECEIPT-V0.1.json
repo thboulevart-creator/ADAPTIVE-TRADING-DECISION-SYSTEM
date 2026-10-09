@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_READ_A_R1_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-READ-A-R1",
+  "decision": "HUMAN_AUTHORIZED",
+  "authority_source": "User explicitly adopted the recommended single controlled real history retry.",
+  "authorized_parent_head": "07e2fb4f4196e438b3f5607a795511b2a2bfc1df",
+  "authorized_parent_tree": "d15de35ac8469a0d2aee4743a8c6c4109b89c162",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "fixed_request": {
+    "environment": "DEMO",
+    "instrument": "USATECH.IDX/USD",
+    "start_utc": "2025-10-01T14:00:00.000Z",
+    "end_exclusive_utc": "2025-10-01T15:00:00.000Z",
+    "jforex_from_ms": 1759327200000,
+    "jforex_to_ms_inclusive": 1759330799999,
+    "method": "IHistory.getTicks(...)"
+  },
+  "budget": {
+    "jforex_demo_login_max": 1,
+    "read_a_r1_max": 1,
+    "automatic_retries": 0,
+    "read_b": 0
+  },
+  "authorized_outputs": [
+    "ONE_CANONICAL_PAYLOAD_IF_SUCCESS",
+    "ONE_SHA256",
+    "ONE_EXECUTION_RECEIPT",
+    "FAIL_CLOSED_EVIDENCE_PERSISTENCE"
+  ],
+  "forbidden": [
+    "READ_B",
+    "DIFFERENT_INTERVAL",
+    "DIFFERENT_INSTRUMENT",
+    "PROSPECTIVE_WINDOW",
+    "HISTORICAL_DATA_EXPORT",
+    "AWS_REQUEST",
+    "DATAFEED_REQUEST",
+    "SOURCE_B_EQUIVALENCE",
+    "RAW_PROVIDER_OBJECT_EQUIVALENCE",
+    "STRATEGY",
+    "PNL",
+    "PERFORMANCE",
+    "TRADING",
+    "ORDERS",
+    "CAPITAL"
+  ],
+  "stop_after_read_a_r1": true
+}
