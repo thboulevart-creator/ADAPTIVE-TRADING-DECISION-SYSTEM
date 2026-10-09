@@ -1,0 +1,149 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_01_HUMAN_ADJUDICATION_AND_CLOSURE_RECEIPT_V0_1",
+  "date": "2026-10-09",
+  "control_id": "BEPD-09D-R2-RD6-01",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "source_of_truth": "GITHUB",
+  "authority": "EXPLICIT_HUMAN_DECISION_CURRENT_CONVERSATION",
+  "cryptographic_human_signature": "NOT_PROVIDED",
+  "decision": "ADOPT_WITH_AMENDMENTS",
+  "adoption_scope": "RD6_01_DOCUMENTARY_DESIGN_AND_STATIC_FINDINGS_ONLY",
+  "authorized_parent_head": "cce397a5631920afeb3dedb776c4b67cf92b710f",
+  "authorized_parent_tree": "6a01f063a497528e5321f09f65c51531c40084a7",
+  "expected_sha": "cce397a5631920afeb3dedb776c4b67cf92b710f",
+  "force": false,
+  "fail_closed": true,
+  "preflight": {
+    "head_tree_match": true,
+    "protected_blob_checks_pass": 15,
+    "protected_blob_checks_failed": 0,
+    "material_drift": "NONE",
+    "new_path_collisions": 0
+  },
+  "decision_document": {
+    "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+    "blob": "3c5fa4c655f5e015e7d4660828162a8c9ab0dcca"
+  },
+  "evidence": {
+    "gate_counts": {
+      "PASS": 6,
+      "FAIL": 3,
+      "BLOCKED": 7,
+      "NOT_ASSESSABLE": 2,
+      "TOTAL": 18
+    },
+    "machine_assessment": {
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD6-01-DOCUMENTARY-STATIC-ASSESSMENT-RECEIPT-V0.1.json",
+      "blob": "0f318f241210c60c1fbea8e430ca95b79c485b87"
+    },
+    "pre_adoption_readback": {
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD6-01-PERSISTED-HEAD-VERIFICATION-RECEIPT-V0.1.json",
+      "blob": "dd8e0d3a50ade383b3cdb8bb73c02d616e513d83"
+    },
+    "A": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-A-TRUSTED-INPUT-ARCHITECTURE-V0.1.md",
+      "blob": "feda3d6ba4099f4d2112356682c0f58057485213"
+    },
+    "B": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-B-INDEPENDENT-ADVERSARIAL-REVIEW-PACKAGE-V0.1.md",
+      "blob": "a7ea483e9d0e6908c9b45cd36a0cb01f5d1280f9"
+    },
+    "C": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-C-NUMERICAL-PARITY-PREREGISTRATION-CANDIDATE-V0.1.md",
+      "blob": "5f73e8df811131d7bbc2b6e2d9448b751b447263"
+    },
+    "D": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-D-REAL-EXECUTION-RESOURCE-BUDGET-CANDIDATE-V0.1.md",
+      "blob": "a7fbd8e7b163a99e25256e5b1c4e0e8e8edbde53"
+    },
+    "E": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-E-BREAKER-AND-DEPENDENCY-MATRIX-V0.1.json",
+      "blob": "9e9bf9bfb46bdb38e706d3a929ac794cbda2019e"
+    },
+    "F": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-F-STATIC-READINESS-ASSESSMENT-V0.1.md",
+      "blob": "f6f514a0340d18089d6e6204836747d7eb65c3f3"
+    },
+    "G": {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-G-HUMAN-ADJUDICATION-PACKAGE-V0.1.md",
+      "blob": "25ac7a3f9c3d9d41d24055cc849a985e90fa5e0f"
+    }
+  },
+  "human_amendments": {
+    "A": {
+      "name": "TRUSTED_TRAINING_INPUT",
+      "decision": "DESIGN_PRINCIPLE_ONLY",
+      "real_ledger_physical_read": "NOT_AUTHORIZED",
+      "real_view_materialization": "NOT_AUTHORIZED",
+      "current_fold_test_response_exposure": "FORBIDDEN"
+    },
+    "B": {
+      "name": "INDEPENDENT_ADVERSARIAL_REVIEW",
+      "decision": "REVIEW_PACKAGE_ADOPTED_AS_SPECIFICATION",
+      "external_review": "NOT_COMPLETED",
+      "sys_settrace_and_candidate_b_and_import_and_output_gaps": "OPEN"
+    },
+    "C": {
+      "name": "NUMERICAL_REFERENCE_PARITY",
+      "primary_contract": "FROZEN",
+      "delta_j": "NOT_ADOPTED",
+      "candidate_threshold_1e_8": "NOT_ADOPTED",
+      "reference_fallback": "FORBIDDEN"
+    },
+    "D": {
+      "name": "REAL_EXECUTION_RESOURCE_BUDGET",
+      "decision": "DESIGN_PROPOSAL_ONLY",
+      "real_primary_fits": 0,
+      "real_reference_fits": 0,
+      "real_data_reads": 0,
+      "retries": 0,
+      "new_spending": "NOT_AUTHORIZED"
+    },
+    "E": {
+      "name": "EXISTING_FAILURES",
+      "legacy_harness": "UNSUITABLE_FOR_TRAINING_ONLY",
+      "rd3_exception_masking": "UNRESOLVED",
+      "P0_4": "FAIL_UNRESOLVED",
+      "P0_6": "FAIL_UNRESOLVED",
+      "global_regression": "NOT_PASS"
+    },
+    "F": {
+      "name": "SCIENTIFIC_AND_AUTHORITY_ISOLATION",
+      "future_human_grants": [
+        "INDEPENDENT_REVIEW",
+        "TRUSTED_INPUT_SYNTHETIC_QUALIFICATION",
+        "REFERENCE_PARITY_GATE",
+        "REAL_PHYSICAL_EXPOSURE_IF_ANY",
+        "REAL_FIT_BUDGET"
+      ],
+      "cross_authorization_inference": "FORBIDDEN"
+    }
+  },
+  "state": {
+    "rd6_01": "HUMAN_ADOPTED_WITH_AMENDMENTS_DOCUMENTARY_SCOPE_ONLY",
+    "rd6_01_executable_qualification": "NOT_PERFORMED",
+    "rd6_01_real_readiness": "BLOCKED",
+    "rd5": "HUMAN_ADOPTED_WITH_AMENDMENTS_SYNTHETIC_SCOPE_ONLY",
+    "real_input_materializer": "BLOCKED",
+    "real_training_fit": "FORBIDDEN",
+    "real_reference_fit": "FORBIDDEN",
+    "real_fold3_replay": "FORBIDDEN",
+    "c1_retry": "FORBIDDEN",
+    "test_scoring": "FORBIDDEN",
+    "scientific_c1_result": "NONE",
+    "fresh_oos": "CLOSED",
+    "trading_authority": "NONE"
+  },
+  "closure": {
+    "authorized_persistence": "TWO_NEW_GOVERNANCE_DOCS_ONLY",
+    "single_atomic_commit": true,
+    "expected_sha_required": true,
+    "force": false,
+    "post_persistence_readback": "REQUIRED",
+    "automatic_next_stage": "FORBIDDEN",
+    "stop": true
+  },
+  "next_frontier": "INDEPENDENT_CODE_AND_TRUST_REVIEW_PLUS_TRUSTED_INPUT_SYNTHETIC_QUALIFICATION_PLUS_NUMERICAL_PARITY_GATE_QUALIFICATION",
+  "next_frontier_status": "NOT_AUTHORIZED"
+}
