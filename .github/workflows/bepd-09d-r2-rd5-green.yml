@@ -1,0 +1,34 @@
+name: BEPD-09D-R2-RD5 GREEN Synthetic Qualification
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - 'tools/bepd09d_r2_rd5_training_only_adapter.py'
+      - '.github/workflows/bepd-09d-r2-rd5-green.yml'
+permissions:
+  contents: read
+jobs:
+  green:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+          sparse-checkout: |
+            tools
+            tests
+            GOVERNANCE
+          sparse-checkout-cone-mode: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install exact frozen numerical environment
+        run: python -m pip install numpy==2.3.5 scipy==1.17.0
+      - name: Run frozen RD5 synthetic-only GREEN 29-case matrix
+        env:
+          PYTHONPATH: tools
+          PYTHONDONTWRITEBYTECODE: '1'
+          PYTHONHASHSEED: '0'
+        run: python -m unittest discover -s tests -p 'test_bepd09d_r2_rd5_*.py' -v
