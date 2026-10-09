@@ -1,0 +1,126 @@
+{
+  "control_id": "BEPD-09D-R2-RD4",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "5ae2bb0fd80d529e921def8ebcace860df8447eb",
+  "authorized_parent_tree": "0ec38a3a56053ff3fb0da9f06640351491a1dc9f",
+  "force": false,
+  "status": "PREREGISTRATION_CANDIDATE_NOT_HUMAN_ADOPTED",
+  "real_data_read": false,
+  "real_fit": false,
+  "schema": "ATDS_BEPD_09D_R2_RD4_IDENTITY_AND_FOLD_BINDING_MANIFEST_V0_1",
+  "component": "A",
+  "authority": "HUMAN_AUTHORIZATION_RD4_DOCUMENTARY_STATIC_ONLY",
+  "frozen_blobs": {
+    "rd3_closure": "5bbe5298996d2930fef529e2c6e75ec7952ca861",
+    "rd3_adoption_receipt": "e8173ca2ba462224df8294683cd9616a4a96143b",
+    "candidate_b_runtime": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+    "rd3_green_harness": "91ea381874c04608e88c056c86bddc30ba1e33ad",
+    "rd3_green_workflow": "a799a727b44437fd84ed4524a545e69af1ec6663",
+    "rd2_numerical_acceptance_contract": "ccb519aad05cf0739b54ee50e0521a85a5374f13",
+    "rd2_tau_contract": "bd89123221cdf2f9dc852a5aadfed1186eab3d4f",
+    "rd2_breaker_contract": "028b7fbba56b2bb4f9abd44c5ff075b9bdb80d9a",
+    "rd2_candidate_contract": "0e87aa62433218b44f8ddaf64351ed0beccd93a3",
+    "c1_primary_runtime": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "c1_reference_runtime": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "r2_overlay": "209b3b5b804da4da9ee6751f2a15a32df0e3e4b1",
+    "c1_real_harness": "bc16016c593f89ec56ab65c9b8f0d6758d59cbe1",
+    "c1_calendar_partition": "7d950d957611cf209d811c788ff10abded30d011",
+    "c1_calendar_binding": "26385eb2547892df4b87206ad59fc2ba07721354",
+    "c1_real_input_identity": "780dd4cfd518becf8a7127675feb42fbd75ffabd",
+    "ledger_git_blob": "0d15e3bc8dc9393e53923bb91d7c74d30d1cf0b2",
+    "run_manifest_blob": "ccd5e31e1aeeadb4cceee24a8b8cd5eb0f8cf6d5",
+    "source_schema_blob": "85f5cdda60397fce59efc1e5d36c1128cf9cc185"
+  },
+  "ledger": {
+    "path": "artifacts/bepd02/real-historical-weekly-liquidity-ledger-v0.1/EVENT_LEDGER.jsonl",
+    "declared_sha256": "301a621b97fea14a72540d4c2c6da78eb742cc44c5009e44ad98e9f678ca4731",
+    "declared_rows": 472,
+    "declared_size_bytes": 754544,
+    "rows_read_in_RD4": false,
+    "declared_not_recomputed": true
+  },
+  "calendar": {
+    "source_run_manifest_complete_week_count": 260,
+    "source_manifest_first": "2021-05-31",
+    "source_manifest_last": "2026-05-18",
+    "c1_count": 259,
+    "c1_first": "2021-06-07",
+    "c1_last": "2026-05-18",
+    "c1_partition_counts": [
+      44,
+      43,
+      43,
+      43,
+      43,
+      43
+    ],
+    "first_source_week_excluded": "2021-05-31",
+    "source_vs_c1_resolution": "EXACT_DOCUMENTARY_BOUNDARY_AND_CARDINALITY_RECONCILIATION_NOT_FULL_SOURCE_CONTENT_VERIFICATION",
+    "binding_259_259_week_ids_equal_partition": true,
+    "partition_259_week_ids_equal_derived_7_DAY_SEQUENCE": true,
+    "source_260_week_identifiers_directly_inspected": false,
+    "response_values_inspected": false
+  },
+  "folds": [
+    {
+      "fold": 1,
+      "train": [
+        "B1"
+      ],
+      "test": "B2",
+      "train_weeks": 44,
+      "test_weeks": 43
+    },
+    {
+      "fold": 2,
+      "train": [
+        "B1",
+        "B2"
+      ],
+      "test": "B3",
+      "train_weeks": 87,
+      "test_weeks": 43
+    },
+    {
+      "fold": 3,
+      "train": [
+        "B1",
+        "B2",
+        "B3"
+      ],
+      "test": "B4",
+      "train_weeks": 130,
+      "test_weeks": 43
+    },
+    {
+      "fold": 4,
+      "train": [
+        "B1",
+        "B2",
+        "B3",
+        "B4"
+      ],
+      "test": "B5",
+      "train_weeks": 173,
+      "test_weeks": 43
+    },
+    {
+      "fold": 5,
+      "train": [
+        "B1",
+        "B2",
+        "B3",
+        "B4",
+        "B5"
+      ],
+      "test": "B6",
+      "train_weeks": 216,
+      "test_weeks": 43
+    }
+  ],
+  "training_scope_semantics": "FOLD_RELATIVE_TEST_ISOLATION; earlier test blocks may legitimately become later training blocks; never consume current fold test response during current fold training",
+  "data_view_gate": "BLOCKED_UNTIL_BOUNDED_READER_ADAPTOR_DESIGNED_AND_SEPARATELY_AUTHORIZED",
+  "scientific_scope": "EXPLORATORY_ONLY"
+}

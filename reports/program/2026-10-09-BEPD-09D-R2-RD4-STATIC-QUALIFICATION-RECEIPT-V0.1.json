@@ -1,0 +1,186 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD4_STATIC_DOCUMENTARY_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD4",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "5ae2bb0fd80d529e921def8ebcace860df8447eb",
+  "authorized_parent_tree": "0ec38a3a56053ff3fb0da9f06640351491a1dc9f",
+  "execution_kind": "READ_ONLY_STATIC_ANALYSIS_OF_GITHUB_METADATA_CODE_AND_GOVERNANCE_CONTRACTS",
+  "source_authorization": "USER_PASTED_RD4_HUMAN_AUTHORIZATION_CURRENT_CONVERSATION_NOT_CRYPTOGRAPHICALLY_SIGNED",
+  "inputs_read": [
+    "FROZEN_GOVERNANCE_CONTRACTS",
+    "FROZEN_CALENDAR_PARTITION",
+    "FROZEN_CALENDAR_BINDING",
+    "FROZEN_SOURCE_RUN_IDENTITY_MANIFEST",
+    "SOURCE_CODE_STATIC_TEXT"
+  ],
+  "inputs_not_read": [
+    "REAL_EVENT_LEDGER_ROWS",
+    "REAL_TEST_RESPONSES",
+    "FULL_REAL_RUN_ROW_CONTENT"
+  ],
+  "programs_not_executed": [
+    "MODEL_TRAINING",
+    "SYNTHETIC_FIT",
+    "GITHUB_ACTIONS_WORKFLOW",
+    "REAL_REFERENCE_FIT",
+    "RUN_PROTOCOL"
+  ],
+  "documentary_components": [
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD4-IDENTITY-AND-FOLD-BINDING-MANIFEST-V0.1.json",
+      "git_blob": "31a09ffad4e02f115befece3280c30c068752104"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD4-TRAINING-ONLY-DESIGN-V0.1.md",
+      "git_blob": "4934a13dab44791052ae1f267012f69f72fbcbb0"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD4-CANDIDATE-B-BREAKER-AND-OUTPUT-CONTRACT-V0.1.json",
+      "git_blob": "f91e70bd8858bc009b2c0ad4a91fc3eafe1a3b90"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD4-EXPOSURE-AND-BUDGET-PROPOSAL-V0.1.json",
+      "git_blob": "f1558182a2b4591fc602371bd6a63c423914186b"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD4-READINESS-AND-STATIC-QUALIFICATION-PLAN-V0.1.md",
+      "git_blob": "f79f06c299319469da3e17b42cccf1b730dcf348"
+    }
+  ],
+  "gates": [
+    {
+      "id": "G01",
+      "name": "CANONICAL_PARENT_IDENTITY",
+      "status": "PASS",
+      "evidence": "Branch HEAD/TREE from fresh GitHub branch read matched authorized checkpoint"
+    },
+    {
+      "id": "G02",
+      "name": "RD2_RD3_ADOPTION_AND_FROZEN_IDENTITY",
+      "status": "PASS",
+      "evidence": "Read-only governed contract and RD3 final closure identities verified"
+    },
+    {
+      "id": "G03",
+      "name": "CALENDAR_C1_259_SEQUENCE_AND_BINDING",
+      "status": "PASS",
+      "evidence": "Exact 259/259 ISO week ids identical in frozen C1 manifest and BEPD-04E calendar binding, with seven-day increments"
+    },
+    {
+      "id": "G04",
+      "name": "260_VS_259_DOCUMENTARY_RECONCILIATION",
+      "status": "PASS",
+      "evidence": "Run manifest declares 260 complete weeks 2021-05-31..2026-05-18; C1 starts 2021-06-07, exactly 259, first week excluded; source full 260-ID content not inspected"
+    },
+    {
+      "id": "G05",
+      "name": "FOLD_METADATA_MAP",
+      "status": "PASS",
+      "evidence": "Five cumulative training folds 44,87,130,173,216 weeks; per-fold test 43 weeks; no overlap within any fold by block identity"
+    },
+    {
+      "id": "G06",
+      "name": "CANDIDATE_B_NUMERICAL_CONTRACT_DESIGN",
+      "status": "PASS",
+      "evidence": "Fixed solver, tau formula and mathematical gates bound to frozen RD2 contract"
+    },
+    {
+      "id": "G07",
+      "name": "LEGACY_RUN_PROTOCOL_TRAINING_ONLY_COMPATIBILITY",
+      "status": "FAIL",
+      "evidence": "Current run_protocol creates test designs, predictions and logloss/Brier; not eligible for training-only use"
+    },
+    {
+      "id": "G08",
+      "name": "TRAINING_SCOPED_ADAPTER_AVAILABLE",
+      "status": "BLOCKED",
+      "evidence": "Candidate-B run_protocol None; bounded adapter not implemented or authorized"
+    },
+    {
+      "id": "G09",
+      "name": "STRICT_FOLD_INPUT_ISOLATION",
+      "status": "BLOCKED",
+      "evidence": "Legacy harness reads entire ledger; no trusted bounded materializer; physical vs logical read boundary requires human adjudication"
+    },
+    {
+      "id": "G10",
+      "name": "FAIL_CLOSED_UNKNOWN_SEPARATION_DETECTOR",
+      "status": "BLOCKED",
+      "evidence": "Candidate build_packet catches separation LP errors as False; future separate guard/test-first needed"
+    },
+    {
+      "id": "G11",
+      "name": "REFERENCE_PARITY_ON_TRAINING_NUMERICS",
+      "status": "BLOCKED",
+      "evidence": "Existing 2e-5 tolerance applies to predictions/metrics, not training score/parameter comparison; cannot silently reuse"
+    },
+    {
+      "id": "G12",
+      "name": "PREDEFINED_EXACT_TIME_COST_AND_ATTEMPT_BUDGET",
+      "status": "BLOCKED",
+      "evidence": "10 primary+10 reference upper bound proposed; no exact resource limit or human adoption"
+    },
+    {
+      "id": "G13",
+      "name": "SYNTHETIC_ADAPTER_REGRESSION_AND_NEGATIVE_BREAKERS",
+      "status": "BLOCKED",
+      "evidence": "No adapter implementation, tests, or workflows permitted in RD4"
+    },
+    {
+      "id": "G14",
+      "name": "PRIOR_REAL_EXPOSURE_REGISTERED",
+      "status": "PASS",
+      "evidence": "Existing canonical failure receipt records 472 rows read and nonconvergent primary, no valid scientific C1 result; no rerun"
+    },
+    {
+      "id": "G15",
+      "name": "PROSPECTIVE_OUTPUT_WHITELIST_DOCUMENTED",
+      "status": "PASS",
+      "evidence": "Only numeric training diagnostics proposed; no test metrics/coefficients/raw data; must be synthetically enforced later"
+    },
+    {
+      "id": "G16",
+      "name": "EXPOSURE_LEAKAGE_CONTROL",
+      "status": "PASS",
+      "evidence": "Fold-local boundary documented; prior test block can become later training block; past Fold3 diagnostic is known and non-calibrating"
+    },
+    {
+      "id": "G17",
+      "name": "REAL_EXECUTION_AUTHORITY",
+      "status": "BLOCKED",
+      "evidence": "Explicitly absent in current human authorization and prior adoption; no fits or source reads"
+    },
+    {
+      "id": "G18",
+      "name": "RD4_DOCUMENTARY_PACKET_A_TO_H",
+      "status": "PASS",
+      "evidence": "Candidate docs staged as immutable Git blobs; publication/readback not yet assessed at receipt creation"
+    }
+  ],
+  "result_counts": {
+    "pass": 10,
+    "fail": 1,
+    "blocked": 7,
+    "not_assessable": 0
+  },
+  "current_legacy_path_fit_for_training_only": false,
+  "rd4_design_documentary_completion": true,
+  "rd4_real_readiness": "BLOCKED",
+  "human_adjudication": "PENDING",
+  "real_execution": "NOT_AUTHORIZED",
+  "scientific_result": "NONE",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "maximum_machine_verdict": "DOCUMENTARILY_PREREGISTERED_AND_STATICALLY_ASSESSED_FOR_HUMAN_ADJUDICATION_WITH_BLOCKERS",
+  "non_claims": [
+    "NO_EXECUTABLE_QUALIFICATION",
+    "NO_ADAPTER_IMPLEMENTATION",
+    "NO_FULL_SOURCE_260_WEEK_DATA_VALIDATION",
+    "NO_REAL_FOLD3_ACCEPTANCE_RESULT",
+    "NO_REFERENCE_PARITY_VALIDATION",
+    "NO_REAL_TRAINING_READINESS"
+  ],
+  "stop": true
+}

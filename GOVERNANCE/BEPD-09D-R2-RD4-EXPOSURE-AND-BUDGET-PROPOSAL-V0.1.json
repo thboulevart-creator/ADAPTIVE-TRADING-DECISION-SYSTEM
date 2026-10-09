@@ -1,0 +1,67 @@
+{
+  "control_id": "BEPD-09D-R2-RD4",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "5ae2bb0fd80d529e921def8ebcace860df8447eb",
+  "authorized_parent_tree": "0ec38a3a56053ff3fb0da9f06640351491a1dc9f",
+  "force": false,
+  "status": "PREREGISTRATION_CANDIDATE_NOT_HUMAN_ADOPTED",
+  "real_data_read": false,
+  "real_fit": false,
+  "schema": "ATDS_BEPD_09D_R2_RD4_EXPOSURE_AND_BUDGET_PROPOSAL_V0_1",
+  "components": [
+    "F",
+    "G"
+  ],
+  "historical_exposure": {
+    "prior_real_execution_run": 37675309127,
+    "prior_execution_status": "STOPPED_FAIL_CLOSED",
+    "prior_real_rows_read_as_recorded": 472,
+    "prior_primary_fit": "STARTED_THEN_MODEL_NONCONVERGENCE",
+    "prior_reference_fit": "NOT_EXECUTED",
+    "prior_valid_scientific_result_exposed": false,
+    "prior_training_numeric_forensics_already_known": true,
+    "prior_fold3_problem_known": true,
+    "prior_model_diagnostics_must_not_be_USED_TO_TUNE_NEW_TAU": true,
+    "prior_exploratory_evidence_cannot_be_MINTED_AS_FRESH_CONFIRMATORY_OOS": true,
+    "source_file_read_again_in_RD4": false
+  },
+  "proposed_future_execution_budget_NOT_ADOPTED": {
+    "unit": "FOLD_X_MODEL_ROLE",
+    "five_folds": true,
+    "roles": [
+      "BASELINE",
+      "CONTEXT"
+    ],
+    "upper_bound_primary_fits": 10,
+    "upper_bound_reference_fits": 10,
+    "upper_bound_total_fits": 20,
+    "order": "FOLD_ASCENDING; BASELINE_THEN_CONTEXT; PRIMARY_THEN_REFERENCE_ONLY_IF_REAUTHORIZED_AND_FROZEN",
+    "actual_authorized_primary_fits": 0,
+    "actual_authorized_reference_fits": 0,
+    "time_limit": "NOT_PREREGISTERED_YET",
+    "cost_cap": "NOT_PREREGISTERED_YET; NO_SPENDING_AUTHORITY",
+    "retry_budget": 0,
+    "partial_result_stop": "ON_FIRST_BREAKER_NO_SKIP_FORWARD",
+    "single_attempt_policy": "PROPOSED_SEPARATE_HUMAN_DECISION_REQUIRED",
+    "reference_same_training_input_proposal": true,
+    "needs_prior_exact_fit_event_count_identity": true
+  },
+  "human_material_choices": [
+    "PHYSICAL_BYTES_READ_VS_FOLD_LOGICAL_EXPOSURE_BOUNDARY",
+    "SCOPED_TRAIN_VIEW_TRUST_BOUNDARY",
+    "REFERENCE_TRAINING_CONSISTENCY_METRIC_AND_TOLERANCE",
+    "EXACT_FIT_EXECUTION_ORDER_AND_ABORT_POLICY",
+    "TIME_AND_COMPUTE_BUDGET",
+    "LEAKAGE_REGISTER_AND_PREVIOUS_FOLD3_KNOWLEDGE"
+  ],
+  "prohibited_adaptations": [
+    "TUNE_TAU_FROM_EXISTING_FOLD3_NUMERIC_STATE",
+    "CHANGE_SOLVER_AFTER_OBSERVATION",
+    "RETRY_WITH_NEW_THRESHOLDS",
+    "SAMPLE_SELECTION_OR_FOLD_REPARTITION",
+    "EXPOSE_TEST_METRICS"
+  ],
+  "status_of_resource_budget": "PROPOSED_NOT_APPROVED"
+}
