@@ -1,0 +1,61 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD5_PERSISTED_HEAD_VERIFICATION_RECEIPT_V01",
+  "date": "2026-10-09",
+  "control": "BEPD-09D-R2-RD5",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "be08ea7284a6734a942cd618efa2b1db61e40c45",
+  "red_commit": "49b024af6c5f94a4242b4ebfe196a8bab7dc084c",
+  "green_commit": "22f65720b6f18d49d77899d4effd6aafce0e48d7",
+  "verified_evidence_commit": "24bb0b078504ff1fa229475f61fa97e12117e3b6",
+  "verified_evidence_tree": "e1abb3740dbb0e2d6a9b79307ba7c88d94c2c1b2",
+  "verified_evidence_parent": "22f65720b6f18d49d77899d4effd6aafce0e48d7",
+  "readback_checks": {
+    "branch_HEAD": "PASS",
+    "branch_TREE": "PASS",
+    "evidence_commit_single_parent": "PASS",
+    "authorized_start_to_evidence_delta_added_only": "PASS",
+    "authorized_RD5_new_file_count": 11,
+    "preexisting_file_modifications": 0,
+    "selected_git_blob_identities": "7/7 PASS",
+    "real_training_rows_read": false,
+    "real_model_fit": false
+  },
+  "actions": {
+    "red": {
+      "run": 37920071131,
+      "job": 113785606211,
+      "attempt": 1,
+      "conclusion": "failure",
+      "expectation": "MISSING_ADAPTER_MODULE"
+    },
+    "green": {
+      "run": 37920547662,
+      "job": 113787146183,
+      "attempt": 1,
+      "conclusion": "success",
+      "tests_passed": "29/29"
+    },
+    "P0_4": {
+      "run": 37920071070,
+      "conclusion": "failure",
+      "source": "OLD_BI5_ANCESTRY_DIFF"
+    },
+    "P0_6": {
+      "run": 37920071103,
+      "conclusion": "failure",
+      "source": "OLD_BI5_ANCESTRY_DIFF"
+    },
+    "evidence_commit_new_workflows_at_check": 0
+  },
+  "interpretation": "RD5_SYNTHETIC_ONLY_VERIFIED_WITH_EXTERNAL_HISTORICAL_TIER_A_FAILURES",
+  "rd5_human_adoption": "PENDING",
+  "rd5_real_readiness": "BLOCKED",
+  "new_real_data_materialization": "FORBIDDEN",
+  "new_real_training_fit": "FORBIDDEN",
+  "c1_retry": "NOT_AUTHORIZED",
+  "fresh_oos": "CLOSED",
+  "trading_authority": "NONE",
+  "no_ref_run_after_green": true,
+  "stop": true
+}
