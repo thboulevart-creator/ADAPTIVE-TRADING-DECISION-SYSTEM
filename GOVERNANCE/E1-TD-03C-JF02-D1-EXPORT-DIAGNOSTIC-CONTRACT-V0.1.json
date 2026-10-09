@@ -1,0 +1,52 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D1_EXPORT_DIAGNOSTIC_CONTRACT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D1",
+  "status": "PREREGISTERED_PRE_EXPORT",
+  "authority_commit": "3c213577a8a2d5a870234abbd6440b12b56a8081",
+  "provider": "Dukascopy Bank SA",
+  "delivery_path": "OFFICIAL_WEB_HISTORICAL_DATA_EXPORT",
+  "exact_request": {
+    "instrument": "USATECH.IDX/USD",
+    "granularity": "TICK",
+    "timezone": "UTC",
+    "interval_semantics": "[START,END_EXCLUSIVE)",
+    "start_utc": "2025-10-01T14:00:00.000Z",
+    "end_exclusive_utc": "2025-10-01T15:00:00.000Z",
+    "maximum_exports": 1
+  },
+  "accepted_fields": [
+    "timestamp",
+    "bid",
+    "ask",
+    "bid_volume",
+    "ask_volume"
+  ],
+  "diagnostic_only": true,
+  "required_observations": [
+    "FILE_IDENTITY_SHA256",
+    "BYTE_COUNT",
+    "ROW_COUNT_OR_TICK_COUNT",
+    "FIRST_TIMESTAMP_IF_ANY",
+    "LAST_TIMESTAMP_IF_ANY",
+    "BOUNDARY_COMPLIANCE",
+    "BID_ASK_PRESENCE",
+    "VOLUME_PRESENCE"
+  ],
+  "prohibited_transformations": [
+    "SORT",
+    "DEDUPLICATE",
+    "INTERPOLATE",
+    "FORWARD_FILL",
+    "REPAIR",
+    "RESAMPLE",
+    "STRATEGY_CALCULATION",
+    "PNL_CALCULATION",
+    "PERFORMANCE_ANALYSIS"
+  ],
+  "decision_rule": {
+    "ticks_present": "JFOREX_GETTICKS_ZERO_VS_EXPORT_NONZERO_DISCREPANCY",
+    "zero_ticks": "EXACT_INTERVAL_ZERO_AVAILABILITY_SUPPORTED_BY_SECOND_OFFICIAL_INTERFACE",
+    "malformed_or_ambiguous_export": "INCONCLUSIVE_FAIL_CLOSED"
+  },
+  "stop": true
+}
