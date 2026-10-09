@@ -1,0 +1,49 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D1_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D1",
+  "title": "EXACT-INTERVAL CROSS-INTERFACE DATA EXISTENCE DIAGNOSTIC V0.1",
+  "decision": "HUMAN_AUTHORIZED",
+  "authority_source": "User accepted the recommended JF02-D1 exact-interval Historical Data Export diagnostic.",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "7084618806129144084c868a55bf31cad24cf53c",
+  "authorized_parent_tree": "fdc21c9d8894013f4bc460d8c272df86a3841fc5",
+  "provider": "DUKASCOPY_BANK_SA",
+  "official_path": "DUKASCOPY_HISTORICAL_DATA_EXPORT",
+  "fixed_request": {
+    "instrument": "USATECH.IDX/USD",
+    "granularity": "TICK",
+    "start_utc": "2025-10-01T14:00:00.000Z",
+    "end_exclusive_utc": "2025-10-01T15:00:00.000Z",
+    "purpose": "Determine whether the exact frozen interval contains provider historical ticks."
+  },
+  "budget": {
+    "historical_export_max": 1,
+    "jforex_sdk_reads": 0,
+    "aws_requests": 0,
+    "datafeed_requests": 0
+  },
+  "forbidden": [
+    "READ_A_RETRY",
+    "READ_B",
+    "DIFFERENT_INTERVAL",
+    "DIFFERENT_INSTRUMENT",
+    "PROSPECTIVE_WINDOW",
+    "AWS_REQUEST",
+    "DATAFEED_REQUEST",
+    "SOURCE_B_EQUIVALENCE",
+    "RAW_PROVIDER_OBJECT_EQUIVALENCE",
+    "STRATEGY",
+    "PNL",
+    "PERFORMANCE",
+    "TRADING",
+    "ORDERS",
+    "CAPITAL"
+  ],
+  "interpretation_rule": {
+    "export_has_ticks": "JFOREX_DELIVERY_PATH_DISCREPANCY_CANDIDATE",
+    "export_zero_ticks": "EXACT_INTERVAL_DATA_AVAILABILITY_ISSUE_CANDIDATE",
+    "no_automatic_repair": true
+  },
+  "stop_after_export_diagnostic": true
+}
