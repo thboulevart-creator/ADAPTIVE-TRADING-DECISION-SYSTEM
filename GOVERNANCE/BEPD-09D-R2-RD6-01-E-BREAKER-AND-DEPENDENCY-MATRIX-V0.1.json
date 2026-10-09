@@ -1,0 +1,326 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_01_BREAKER_AND_DEPENDENCY_MATRIX_V01",
+  "date": "2026-10-09",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "4b826d3a805dfd7555089453232e4cba2cb86eb1",
+  "authorized_parent_tree": "8fffd69faf361a2107ecd8b9d7205065d18fbc16",
+  "scope": "STATIC_DOCUMENTARY_ONLY",
+  "real_data_read": false,
+  "real_fit": false,
+  "real_materializer_implemented": false,
+  "external_review_performed": false,
+  "real_parity_metric_adopted": false,
+  "resource_budget_adopted": false,
+  "gate_counts": {
+    "PASS": 6,
+    "FAIL": 3,
+    "BLOCKED": 7,
+    "NOT_ASSESSABLE": 2
+  },
+  "gates": [
+    {
+      "id": "I01",
+      "name": "FRESH_PARENT_HEAD_TREE_AND_CRITICAL_BLOBS",
+      "status": "PASS",
+      "evidence": "Git branch expected 4b826d3a... / tree 8fffd69...; 14 of 14 identity blobs matched; pre-persistence rebreak required"
+    },
+    {
+      "id": "I02",
+      "name": "RD2_RD5_HUMAN_AUTHORITY_AND_SYNTHETIC_EVIDENCE",
+      "status": "PASS",
+      "evidence": "RD5 adoption with amendments blob cf3bb966...; RD5 GREEN 29/29 verified via frozen receipt"
+    },
+    {
+      "id": "I03",
+      "name": "FROZEN_C1_CALENDAR_AND_FOLD_BINDING_METADATA",
+      "status": "PASS",
+      "evidence": "Documentary 259/259 calendar and folds 44,87,130,173,216 training weeks; no real row checks"
+    },
+    {
+      "id": "I04",
+      "name": "FROZEN_NUMERICAL_IDENTITIES",
+      "status": "PASS",
+      "evidence": "RD2 Candidate B 14 required gates, Newton-CG maxiter 5000 xtol 1e-10 and TAU identity static only"
+    },
+    {
+      "id": "I05",
+      "name": "RD6_01_NEW_REAL_ROW_READ_OR_FIT",
+      "status": "PASS",
+      "evidence": "NO NEW ROW ACCESS OR NUMERICAL FIT performed in this RD6-01 phase; scope statement only"
+    },
+    {
+      "id": "I06",
+      "name": "RD6_01_DOCUMENT_ONLY_PERMISSION_BOUNDARY",
+      "status": "PASS",
+      "evidence": "Required output restricted to new GOVERNANCE and reports/program RD6-01 documents; no execution mutation"
+    },
+    {
+      "id": "I07",
+      "name": "LEGACY_HARNESS_FULL_LEDGER_PHYSICAL_READ",
+      "status": "FAIL",
+      "evidence": "tools/bepd09d_real_execution_harness.py:361 read_bytes(); cannot reuse unchanged"
+    },
+    {
+      "id": "I08",
+      "name": "CANDIDATE_B_MASKS_SEPARATION_EXCEPTION",
+      "status": "FAIL",
+      "evidence": "tools/bepd09d_r2_rd3_candidate_b_runtime.py:127-133 catches Exception then sep=False; RD5 synthetic hardening does not alter underlying source"
+    },
+    {
+      "id": "I09",
+      "name": "GLOBAL_TIER_A_REGRESSION",
+      "status": "FAIL",
+      "evidence": "Existing P0.4 run 37920071070 and P0.6 run 37920071103 failed on historical .bi5 scope rule"
+    },
+    {
+      "id": "I10",
+      "name": "TRUSTED_OWNER_PRODUCER_AND_PHYSICAL_READ_AUTHORITY",
+      "status": "BLOCKED",
+      "evidence": "No authenticated producer or authority for a new ledger scan or real train view"
+    },
+    {
+      "id": "I11",
+      "name": "IMMUTABLE_TRAIN_VIEW_CRYPTOGRAPHIC_ORIGIN",
+      "status": "BLOCKED",
+      "evidence": "No signed view manifest/key/capability or verified materializer; synthetic marker insufficient"
+    },
+    {
+      "id": "I12",
+      "name": "CURRENT_FOLD_REAL_TEST_RESPONSE_ISOLATION",
+      "status": "BLOCKED",
+      "evidence": "No real system-level filesystem/mount/producer attestations or training-only view"
+    },
+    {
+      "id": "I13",
+      "name": "INDEPENDENT_SYS_SETTRACE_AND_LP_SECURITY_REVIEW",
+      "status": "BLOCKED",
+      "evidence": "Synthetic injected exception passes; no independent review of thread/native/bypass behavior"
+    },
+    {
+      "id": "I14",
+      "name": "RECURSIVE_OUTPUT_ALLOWLIST_AND_LOG_REDACTION",
+      "status": "BLOCKED",
+      "evidence": "RD5 top-level serializer only; nested optimizer message schema and leakage not fully qualified"
+    },
+    {
+      "id": "I15",
+      "name": "REAL_REFERENCE_PARITY_METRIC_THRESHOLD_GATE",
+      "status": "BLOCKED",
+      "evidence": "Reference wrapper and independent acceptance threshold not qualified; objective-gap 1e-8 is proposal only"
+    },
+    {
+      "id": "I16",
+      "name": "REAL_RESOURCE_SINGLE_ATTEMPT_BUDGET",
+      "status": "BLOCKED",
+      "evidence": "20 fits / resource numbers / marginal cost remain suggestions not adopted"
+    },
+    {
+      "id": "I17",
+      "name": "INDEPENDENT_EXTERNAL_ADVERSARIAL_REVIEW_RECEIPT",
+      "status": "NOT_ASSESSABLE",
+      "evidence": "No external reviewer provided signed independent evidence"
+    },
+    {
+      "id": "I18",
+      "name": "EMPIRICAL_REAL_TRAINING_READINESS",
+      "status": "NOT_ASSESSABLE",
+      "evidence": "Real view, real fit and real reference forbidden and unperformed"
+    }
+  ],
+  "proposed_future_breakers": [
+    {
+      "id": "B01",
+      "name": "HEAD_TREE_BLOB_MISMATCH",
+      "action": "STOP_BEFORE_ANY_READ_OR_WRITE",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B02",
+      "name": "MATERIAL_DRIFT_OR_UNEXPECTED_DELTA",
+      "action": "STOP_FORCE_FALSE",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B03",
+      "name": "UNAUTHENTICATED_LEDGER_OWNER_OR_PRODUCER",
+      "action": "STOP_NO_REAL_BYTES",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B04",
+      "name": "UNAUTHORIZED_FULL_LEDGER_BYTE_SCAN",
+      "action": "STOP_NO_REAL_BYTES",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B05",
+      "name": "MISSING_SIGNED_FOLD_SCOPED_VIEW",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B06",
+      "name": "CURRENT_FOLD_TEST_WEEK_OR_RESPONSE_EXPOSURE",
+      "action": "STOP_REPORT_NO_DATA_LEAK",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B07",
+      "name": "CROSS_FOLD_CLUSTER_OR_WEEK_OVERLAP",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B08",
+      "name": "FUTURE_TEST_BLOCK_TREATED_AS_CURRENT_TRAIN",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B09",
+      "name": "WRONG_CALENDAR_OR_260_VS_259_WEEK_IDENTITY",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B10",
+      "name": "SOURCE_SCHEMA_OR_DIGEST_MISMATCH",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B11",
+      "name": "PROVENANCE_MARKER_ONLY_WITHOUT_ATTESTATION",
+      "action": "STOP_NO_REAL_ADMISSION",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B12",
+      "name": "MISSING_SINGLE_USE_NONCE_OR_MOUNT_DENIAL",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B13",
+      "name": "SYNTHETIC_ADAPTER_DIRECTLY_CALLED_WITH_REAL_ROWS",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B14",
+      "name": "UNKNOWN_LP_STATUS_EXCEPTION_OR_MASKED_CALL",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B15",
+      "name": "RANK_DEFICIENT_OR_ONE_CLASS_OR_SEPARATION",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B16",
+      "name": "TRACE_BYPASS_OR_THREAD_UNATTESTED",
+      "action": "STOP_NO_REAL_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B17",
+      "name": "IMPORT_SIDE_EFFECT_OR_GLOBAL_MUTATION",
+      "action": "STOP_NO_REAL_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B18",
+      "name": "NONFINITE_OBJECTIVE_GRADIENT_HESSIAN",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B19",
+      "name": "UNKNOWN_REFERENCE_GATE_OR_CROSS_PARITY_THRESHOLD",
+      "action": "STOP_NO_REFERENCE",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B20",
+      "name": "UNAUTHORIZED_TAU_SOLVER_FEATURE_CHANGE",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B21",
+      "name": "UNAPPROVED_FIT_TIME_COST_QUOTA",
+      "action": "STOP_NO_FIT",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B22",
+      "name": "SINGLE_ATTEMPT_RETRY_OR_SKIP_FOLD_ATTEMPT",
+      "action": "STOP_NO_RETRY",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B23",
+      "name": "OUTPUT_NESTED_RAW_OR_PARAMETER_LEAK",
+      "action": "STOP_REDACT_AND_QUARANTINE",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B24",
+      "name": "TEST_PREDICTION_LOGLOSS_BRIER_PNL_SIGNAL",
+      "action": "STOP_NO_SCIENCE",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    },
+    {
+      "id": "B25",
+      "name": "EXTERNAL_TIER_A_FAIL_MISREPORTED_AS_PASS",
+      "action": "STOP_GOVERNANCE",
+      "status": "PREREGISTERED_DOCUMENTARY_CANDIDATE_NOT_EXECUTABLY_QUALIFIED"
+    }
+  ],
+  "dependent_surfaces": [
+    {
+      "name": "RD2_NUMERICAL_CONTRACT",
+      "sha": "ccb519aad05cf0739b54ee50e0521a85a5374f13",
+      "state": "FROZEN"
+    },
+    {
+      "name": "RD3_CANDIDATE_RUNTIME",
+      "sha": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69",
+      "state": "FROZEN"
+    },
+    {
+      "name": "RD4_HUMAN_CLOSURE",
+      "sha": "2122aac53d03370df9f76a0ddae880fd9bf6dcaa",
+      "state": "FROZEN"
+    },
+    {
+      "name": "RD5_HUMAN_ADOPTION",
+      "sha": "cf3bb96620fe65622cdbdaa9b8f9fb37aacab519",
+      "state": "FROZEN_SYNTHETIC_SCOPE_ONLY"
+    },
+    {
+      "name": "RD5_ADAPTER",
+      "sha": "bfbf586914c852047123c3a4cd1b2fa6a7dc4daa",
+      "state": "FROZEN"
+    },
+    {
+      "name": "P0_4",
+      "run": 37920071070,
+      "state": "FAIL_UNRESOLVED"
+    },
+    {
+      "name": "P0_6",
+      "run": 37920071103,
+      "state": "FAIL_UNRESOLVED"
+    }
+  ],
+  "machine_max": "DOCUMENTARILY_DESIGNED_AND_STATICALLY_ASSESSED_FOR_HUMAN_ADJUDICATION_WITH_BLOCKERS",
+  "human_adjudication": "PENDING",
+  "real_readiness": "BLOCKED",
+  "real_execution": "FORBIDDEN",
+  "trading_authority": "NONE",
+  "automatic_next_stage": false
+}

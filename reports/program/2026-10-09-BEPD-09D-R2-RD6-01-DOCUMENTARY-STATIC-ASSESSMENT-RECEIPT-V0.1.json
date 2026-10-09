@@ -1,0 +1,89 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_01_DOCUMENTARY_STATIC_ASSESSMENT_RECEIPT_V01",
+  "date": "2026-10-09",
+  "control_id": "BEPD-09D-R2-RD6-01",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "4b826d3a805dfd7555089453232e4cba2cb86eb1",
+  "authorized_parent_tree": "8fffd69faf361a2107ecd8b9d7205065d18fbc16",
+  "source_of_truth": "GITHUB",
+  "force": false,
+  "expected_sha_required": true,
+  "authority": "HUMAN_AUTHORIZATION_DOCUMENTARY_AND_STATIC_ONLY_CURRENT_CONVERSATION",
+  "protected_source_identity_readback": {
+    "checks": 14,
+    "passed": 14,
+    "failed": 0
+  },
+  "scope": {
+    "real_data_row_reads": 0,
+    "real_input_materializers_implemented": 0,
+    "real_primary_fits": 0,
+    "real_reference_fits": 0,
+    "workflow_launches": 0,
+    "external_spending_authority": false,
+    "existing_files_modified": 0,
+    "synthetic_executable_tests_run": 0,
+    "independent_external_review_completed": false
+  },
+  "package_artifacts": [
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-A-TRUSTED-INPUT-ARCHITECTURE-V0.1.md",
+      "git_blob": "feda3d6ba4099f4d2112356682c0f58057485213"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-B-INDEPENDENT-ADVERSARIAL-REVIEW-PACKAGE-V0.1.md",
+      "git_blob": "a7ea483e9d0e6908c9b45cd36a0cb01f5d1280f9"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-C-NUMERICAL-PARITY-PREREGISTRATION-CANDIDATE-V0.1.md",
+      "git_blob": "5f73e8df811131d7bbc2b6e2d9448b751b447263"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-D-REAL-EXECUTION-RESOURCE-BUDGET-CANDIDATE-V0.1.md",
+      "git_blob": "a7fbd8e7b163a99e25256e5b1c4e0e8e8edbde53"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-E-BREAKER-AND-DEPENDENCY-MATRIX-V0.1.json",
+      "git_blob": "9e9bf9bfb46bdb38e706d3a929ac794cbda2019e"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-F-STATIC-READINESS-ASSESSMENT-V0.1.md",
+      "git_blob": "f6f514a0340d18089d6e6204836747d7eb65c3f3"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-01-G-HUMAN-ADJUDICATION-PACKAGE-V0.1.md",
+      "git_blob": "25ac7a3f9c3d9d41d24055cc849a985e90fa5e0f"
+    }
+  ],
+  "machine_evidence": {
+    "gate_counts": {
+      "PASS": 6,
+      "FAIL": 3,
+      "BLOCKED": 7,
+      "NOT_ASSESSABLE": 2
+    },
+    "breaker_candidates": 25,
+    "static_review_only": true,
+    "legacy_full_ledger_physical_read": "FAIL_FOR_TRAINING_ONLY",
+    "rd3_separation_detector_swallowed_exception": "FAIL_UNCHANGED",
+    "p0_4": "FAIL_UNRESOLVED",
+    "p0_6": "FAIL_UNRESOLVED",
+    "rd5_green": "29/29_ADOPTED_SYNTHETIC_ONLY",
+    "real_materializer": "BLOCKED",
+    "independent_external_review": "NOT_ASSESSABLE",
+    "reference_real_parity": "NOT_ADOPTED",
+    "real_execution_budget": "NOT_ADOPTED"
+  },
+  "maximum_machine_verdict": "DOCUMENTARILY_DESIGNED_AND_STATICALLY_ASSESSED_FOR_HUMAN_ADJUDICATION_WITH_BLOCKERS",
+  "human_adjudication": "PENDING",
+  "real_readiness": "BLOCKED",
+  "real_training_fit": "FORBIDDEN",
+  "real_reference_fit": "FORBIDDEN",
+  "test_scoring": "FORBIDDEN",
+  "fresh_oos": "CLOSED",
+  "scientific_c1_result": "NONE",
+  "trading_authority": "NONE",
+  "automatic_next_stage": "FORBIDDEN",
+  "post_readback_stop": true
+}
