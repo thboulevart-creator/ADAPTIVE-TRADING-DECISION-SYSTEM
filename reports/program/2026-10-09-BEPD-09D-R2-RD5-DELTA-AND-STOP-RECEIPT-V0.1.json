@@ -1,0 +1,33 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD5_DELTA_AND_STOP_RECEIPT_V01",
+  "date": "2026-10-09",
+  "scope": "SYNTHETIC_EXECUTABLE_ADAPTER_ONLY",
+  "pre_green_head": "49b024af6c5f94a4242b4ebfe196a8bab7dc084c",
+  "green_head": "22f65720b6f18d49d77899d4effd6aafce0e48d7",
+  "green_tree": "43c47d137e6ad4b54951c34315e51c82f7304c1d",
+  "added_exact_paths": [
+    ".github/workflows/bepd-09d-r2-rd5-red.yml",
+    ".github/workflows/bepd-09d-r2-rd5-green.yml",
+    "GOVERNANCE/BEPD-09D-R2-RD5-ADAPTER-PREREGISTRATION-CONTRACT-V0.1.json",
+    "GOVERNANCE/BEPD-09D-R2-RD5-SYNTHETIC-EXECUTION-BUDGET-V0.1.json",
+    "GOVERNANCE/BEPD-09D-R2-RD5-TEST-FIRST-RED-MATRIX-V0.1.json",
+    "tests/test_bepd09d_r2_rd5_adapter.py",
+    "tools/bepd09d_r2_rd5_synthetic_fixture.py",
+    "tools/bepd09d_r2_rd5_training_only_adapter.py"
+  ],
+  "pre_existing_files_modified": 0,
+  "protected_source_code_git_blobs": {
+    "tools/bepd09c_runtime.py": "72645c3201d3d454d4d5402a0e2191e1195c68a6",
+    "tools/bepd09c_reference.py": "2c8a82405082ce3f820b580017a96af77e74b0e4",
+    "tools/bepd09d_real_execution_harness.py": "bc16016c593f89ec56ab65c9b8f0d6758d59cbe1",
+    "tools/bepd09d_r2_rd3_candidate_b_runtime.py": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69"
+  },
+  "status": "PASS_BOUNDED_STATIC_DIFF_ONLY",
+  "post_write_back_and_human_gate": "REQUIRED",
+  "external_tier_a": "FAIL_UNRELATED_NOT_REPAIRED",
+  "no_real_data_reads": true,
+  "no_real_fits": true,
+  "no_real_reference": true,
+  "rd5_human_adjudication": "PENDING",
+  "stop": true
+}
