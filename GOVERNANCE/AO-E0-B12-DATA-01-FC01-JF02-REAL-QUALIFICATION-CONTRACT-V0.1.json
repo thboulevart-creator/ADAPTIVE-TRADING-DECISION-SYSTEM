@@ -1,0 +1,72 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF02_REAL_QUALIFICATION_CONTRACT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02",
+  "status": "PREREGISTERED_PRE_REAL_READY_BLOCKED_PENDING_DEMO_CREDENTIALS",
+  "canonical_parent": {
+    "head": "b0f0ef618f4f8c007c0b2bdc0b9b390c4c8b2506",
+    "tree": "935b7cb50d78f456e5bc4c0a78e3efa22f2277c8"
+  },
+  "dependency": {
+    "jf01_control_id": "AO-E0-B12-DATA-01-FC01-JF01",
+    "transformation_id": "DUKASCOPY_JFOREX_CANONICAL_TICK_ADAPTER_V0_1",
+    "jf01_runtime_blob": "af84c59eeb818be6343e2ccf5b28caef912cbb27",
+    "jf01_tests_blob": "4e4891fa52337957be260cde430d039680e3a330",
+    "jf01_contract_blob": "6fcd86e1a85ba955b2705d72112b64b21306f43c"
+  },
+  "runtime_reuse": {
+    "java": "Eclipse Temurin JDK 8u504-b01",
+    "maven": "3.10.0",
+    "jforex_sdk": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.51",
+    "jforex_sdk_jar_sha256": "daf2d98cded0a8ff85276965f0c10eb01692acff7949a5898ab295708e2c26c2",
+    "cross_lane_reuse_scope": "TOOLCHAIN_DEPENDENCIES_LOCAL_RUNTIME_ONLY"
+  },
+  "request": {
+    "environment": "DEMO",
+    "instrument_atds": "USATECH.IDX-USD",
+    "instrument_jforex": "USATECH.IDX/USD",
+    "start_utc": "2026-10-08T08:00:00.000Z",
+    "end_exclusive_utc": "2026-10-08T09:00:00.000Z",
+    "jforex_from_ms": 1791446400000,
+    "jforex_to_ms_inclusive": 1791449999999,
+    "read_a_max": 1,
+    "read_b_max": 1,
+    "automatic_retries": 0
+  },
+  "timeouts": {
+    "connect_seconds": 30,
+    "history_read_seconds": 180
+  },
+  "canonicalization": {
+    "encoding": "UTF-8",
+    "bom": false,
+    "line_ending": "LF",
+    "header": "timestamp,askPrice,bidPrice,askVolume,bidVolume",
+    "numeric_serialization": "BigDecimal.valueOf(double).toPlainString()",
+    "source_order_preserved": true,
+    "sorting": false,
+    "deduplication": false,
+    "repair": false
+  },
+  "implementation": {
+    "pom_sha256": "985bb81485c46710f85cbfe02db2d86fb35e9645cb2e354cba93f3b86972c774",
+    "java_source_sha256": "b3df9cead399efb95cfb346d1318e35f70763e9583f5dc8ed3641759ec6b5190",
+    "python_validator_sha256": "7de49f35b38e29932985aad58364af9845f80e3b27ecdc525ecd40adb30fb91e",
+    "tests_sha256": "1048532242eafbc10246a146701941c8ebd6b6cb9ab5baab8808867b9aa3a1ba",
+    "built_jar_sha256": "a014d4d3a97a71bbb31d427399480121eef0a9358145af9d27bf04486a883a29"
+  },
+  "authority": {
+    "demo_login": true,
+    "real_history_reads_max": 2,
+    "fixed_interval_only": true,
+    "live_login": false,
+    "trading": false,
+    "orders": false,
+    "data01_mutation": false,
+    "fc01_cutover": false,
+    "performance": false,
+    "capital": false,
+    "aws": false,
+    "jetta_retry": false,
+    "force": false
+  }
+}

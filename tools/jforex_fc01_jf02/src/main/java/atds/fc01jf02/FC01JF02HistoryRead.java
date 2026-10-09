@@ -1,0 +1,248 @@
+package atds.fc01jf02;
+
+import com.dukascopy.api.*;
+import com.dukascopy.api.system.ClientFactory;
+import com.dukascopy.api.system.IClient;
+import com.dukascopy.api.system.ISystemListener;
+
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+public final class FC01JF02HistoryRead {
+    private static final String JNLP_URL = "http://platform.dukascopy.com/demo_3/jforex_3.jnlp";
+    private static final String INSTRUMENT_TEXT = "USATECH.IDX/USD";
+    private static final long FROM_MS = 1791446400000L;
+    private static final long TO_MS = 1791449999999L;
+    private static final DateTimeFormatter TS =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.ROOT)
+                    .withZone(ZoneOffset.UTC);
+
+    public static void main(String[] args) throws Exception {
+        String user = System.getenv("JFOREX_USER");
+        String password = System.getenv("JFOREX_PASSWORD");
+        String outputText = System.getenv("FC01_JF02_OUTPUT");
+        String runLabel = System.getenv("FC01_JF02_RUN_LABEL");
+
+        if (user == null || user.isEmpty() || password == null || password.isEmpty()) {
+            System.err.println("FC01_JF02_CREDENTIALS_MISSING");
+            System.exit(10);
+        }
+        if (outputText == null || outputText.isEmpty()) {
+            System.err.println("FC01_JF02_OUTPUT_MISSING");
+            System.exit(11);
+        }
+        if (!"READ_A".equals(runLabel) && !"READ_B".equals(runLabel)) {
+            System.err.println("FC01_JF02_RUN_LABEL_INVALID");
+            System.exit(12);
+        }
+
+        Path output = Paths.get(outputText).toAbsolutePath();
+        Files.createDirectories(output.getParent());
+
+        final CountDownLatch done = new CountDownLatch(1);
+        final Collector strategy = new Collector(output, done);
+        final IClient client = ClientFactory.getDefaultInstance();
+
+        client.setSystemListener(new ISystemListener() {
+            @Override public void onStart(long processId) { }
+            @Override public void onStop(long processId) { }
+            @Override public void onConnect() { }
+            @Override public void onDisconnect() { }
+        });
+
+        System.out.println("FC01_JF02_SDK_DEPENDENCY=3.6.51");
+        System.out.println("FC01_JF02_RUN_LABEL=" + runLabel);
+        System.out.println("FC01_JF02_INSTRUMENT=" + INSTRUMENT_TEXT);
+        System.out.println("FC01_JF02_FROM_MS=" + FROM_MS);
+        System.out.println("FC01_JF02_TO_MS_INCLUSIVE=" + TO_MS);
+
+        client.connect(JNLP_URL, user, password);
+        long deadline = System.currentTimeMillis() + 30000L;
+        while (!client.isConnected() && System.currentTimeMillis() < deadline) {
+            Thread.sleep(250L);
+        }
+        if (!client.isConnected()) {
+            System.err.println("FC01_JF02_CONNECT_FAILED");
+            System.exit(20);
+        }
+
+        client.startStrategy(strategy);
+
+        if (!done.await(180, TimeUnit.SECONDS)) {
+            System.err.println("FC01_JF02_TIMEOUT");
+            client.disconnect();
+            System.exit(21);
+        }
+
+        client.disconnect();
+        if (!strategy.success) {
+            System.err.println("FC01_JF02_FAILED=" + strategy.failure);
+            System.exit(22);
+        }
+
+        System.out.println("FC01_JF02_SUCCESS");
+        System.out.println("FC01_JF02_TICK_COUNT=" + strategy.tickCount);
+        System.out.println("FC01_JF02_FIRST_MS=" + strategy.firstMs);
+        System.out.println("FC01_JF02_LAST_MS=" + strategy.lastMs);
+    }
+
+    private static final class Collector implements IStrategy {
+        private final Path output;
+        private final Path partial;
+        private final CountDownLatch done;
+        private final AtomicBoolean terminal = new AtomicBoolean(false);
+        private volatile boolean success = false;
+        private volatile String failure = "UNSET";
+        private volatile long tickCount = 0;
+        private volatile long firstMs = -1;
+        private volatile long lastMs = -1;
+        private BufferedWriter writer;
+        private IContext context;
+
+        Collector(Path output, CountDownLatch done) {
+            this.output = output;
+            this.partial = Paths.get(output.toString() + ".partial");
+            this.done = done;
+        }
+
+        @Override
+        public void onStart(IContext context) throws JFException {
+            this.context = context;
+            final Instrument instrument = Instrument.fromString(INSTRUMENT_TEXT);
+            if (instrument == null || !INSTRUMENT_TEXT.equals(instrument.toString())) {
+                fail("BLOCKED_FC01_JF02_INSTRUMENT");
+                return;
+            }
+
+            context.setSubscribedInstruments(Collections.singleton(instrument), true);
+
+            try {
+                Files.deleteIfExists(partial);
+                writer = Files.newBufferedWriter(partial, StandardCharsets.UTF_8,
+                        StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE);
+                writer.write("timestamp,askPrice,bidPrice,askVolume,bidVolume\n");
+            } catch (IOException e) {
+                fail("BLOCKED_FC01_JF02_OUTPUT_OPEN");
+                return;
+            }
+
+            context.getHistory().readTicks(
+                    instrument, FROM_MS, TO_MS,
+                    new LoadingDataListener() {
+                        @Override
+                        public void newTick(Instrument inst, long time, double ask, double bid,
+                                            double askVol, double bidVol) {
+                            if (terminal.get()) return;
+                            try {
+                                acceptTick(inst, time, ask, bid, askVol, bidVol);
+                            } catch (Exception e) {
+                                fail("BLOCKED_FC01_JF02_TICK_VALIDATION:" + e.getMessage());
+                            }
+                        }
+
+                        @Override
+                        public void newBar(Instrument instrument, Period period, OfferSide side, long time,
+                                           double open, double close, double low, double high, double vol) {
+                            fail("BLOCKED_FC01_JF02_UNEXPECTED_BAR");
+                        }
+                    },
+                    new LoadingProgressListener() {
+                        @Override public void dataLoaded(long start, long end, long currentPosition, String information) { }
+
+                        @Override
+                        public void loadingFinished(boolean allDataLoaded, long start, long end, long currentPosition) {
+                            if (terminal.get()) return;
+                            if (!allDataLoaded) {
+                                fail("BLOCKED_FC01_JF02_REQUEST_NOT_COMPLETED");
+                                return;
+                            }
+                            if (tickCount == 0) {
+                                fail("BLOCKED_FC01_JF02_EMPTY_RESPONSE");
+                                return;
+                            }
+                            finishSuccess();
+                        }
+
+                        @Override public boolean stopJob() { return terminal.get(); }
+                    }
+            );
+        }
+
+        private synchronized void acceptTick(Instrument instrument, long time, double ask, double bid,
+                                             double askVol, double bidVol) throws IOException {
+            if (!INSTRUMENT_TEXT.equals(instrument.toString())) throw new IllegalStateException("WRONG_INSTRUMENT");
+            if (time < FROM_MS || time > TO_MS) throw new IllegalStateException("INTERVAL_LEAK");
+            if (lastMs >= 0 && time < lastMs) throw new IllegalStateException("SOURCE_ORDERING");
+            if (!Double.isFinite(ask) || !Double.isFinite(bid)
+                    || !Double.isFinite(askVol) || !Double.isFinite(bidVol)) {
+                throw new IllegalStateException("NONFINITE");
+            }
+            if (ask <= 0.0 || bid <= 0.0 || ask < bid) throw new IllegalStateException("PRICE_INVARIANT");
+            if (askVol < 0.0 || bidVol < 0.0) throw new IllegalStateException("NEGATIVE_VOLUME");
+
+            if (tickCount == 0) firstMs = time;
+            lastMs = time;
+            tickCount++;
+
+            writer.write(TS.format(Instant.ofEpochMilli(time)));
+            writer.write(',');
+            writer.write(BigDecimal.valueOf(ask).toPlainString());
+            writer.write(',');
+            writer.write(BigDecimal.valueOf(bid).toPlainString());
+            writer.write(',');
+            writer.write(BigDecimal.valueOf(askVol).toPlainString());
+            writer.write(',');
+            writer.write(BigDecimal.valueOf(bidVol).toPlainString());
+            writer.write('\n');
+        }
+
+        private synchronized void finishSuccess() {
+            if (!terminal.compareAndSet(false, true)) return;
+            try {
+                writer.flush();
+                writer.close();
+                Files.move(partial, output, StandardCopyOption.REPLACE_EXISTING);
+                success = true;
+                failure = "NONE";
+            } catch (IOException e) {
+                success = false;
+                failure = "BLOCKED_FC01_JF02_OUTPUT_FINALIZE";
+                try { Files.deleteIfExists(partial); } catch (IOException ignored) { }
+            } finally {
+                done.countDown();
+                if (context != null) context.stop();
+            }
+        }
+
+        private synchronized void fail(String reason) {
+            if (!terminal.compareAndSet(false, true)) return;
+            success = false;
+            failure = reason;
+            try {
+                if (writer != null) writer.close();
+                Files.deleteIfExists(partial);
+            } catch (IOException ignored) { }
+            done.countDown();
+            if (context != null) {
+                try { context.stop(); } catch (Exception ignored) { }
+            }
+        }
+
+        @Override public void onTick(Instrument instrument, ITick tick) { }
+        @Override public void onBar(Instrument instrument, Period period, IBar askBar, IBar bidBar) { }
+        @Override public void onMessage(IMessage message) { }
+        @Override public void onAccount(IAccount account) { }
+        @Override public void onStop() { }
+    }
+}

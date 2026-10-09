@@ -1,0 +1,25 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF02_HEAD_REQUALIFICATION_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02",
+  "original_execution_parent": {
+    "head": "b0f0ef618f4f8c007c0b2bdc0b9b390c4c8b2506",
+    "tree": "935b7cb50d78f456e5bc4c0a78e3efa22f2277c8"
+  },
+  "requalified_parent": {
+    "head": "cb5b7cbf3706c9fc244a5f023b14e99cc7c44e8d",
+    "tree": "f268b8a5480165d99ec9f5064e397ece4f46d54f"
+  },
+  "concurrent_drift_scope": [
+    "GOVERNANCE/BEPD-09D-R2-RD6-02-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+    "GOVERNANCE/BEPD-09D-R2-RD6-02-HUMAN-ADOPTION-RECEIPT-V0.1.json"
+  ],
+  "fc01_jf01_material_drift": false,
+  "protected_bindings_exact": true,
+  "combined_regression_after_rebind": "55/55 PASS",
+  "jforex_user_present": false,
+  "jforex_password_present": false,
+  "real_jforex_requests": 0,
+  "data01_mutation": false,
+  "force": false,
+  "verdict": "PASS_NON_MATERIAL_REBIND"
+}

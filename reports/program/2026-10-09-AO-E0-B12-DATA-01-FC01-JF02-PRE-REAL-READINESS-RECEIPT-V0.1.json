@@ -1,0 +1,37 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF02_PRE_REAL_READINESS_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02",
+  "status": "PASS_PRE_REAL_STATIC_GATE",
+  "parent_head": "b0f0ef618f4f8c007c0b2bdc0b9b390c4c8b2506",
+  "parent_tree": "935b7cb50d78f456e5bc4c0a78e3efa22f2277c8",
+  "static_gate": {
+    "java_runtime_ready": true,
+    "maven_runtime_ready": true,
+    "jforex_sdk_identity_exact": true,
+    "collector_build": "PASS",
+    "tests": "55/55 PASS",
+    "no_trading_logic": true,
+    "no_order_submission": true,
+    "credentials_not_persisted": true,
+    "interval_binding_exact": true,
+    "instrument_binding_exact": true
+  },
+  "sdk_jar_sha256": "daf2d98cded0a8ff85276965f0c10eb01692acff7949a5898ab295708e2c26c2",
+  "collector_jar_sha256": "a014d4d3a97a71bbb31d427399480121eef0a9358145af9d27bf04486a883a29",
+  "fixed_interval": {
+    "from_ms": 1791446400000,
+    "to_ms_inclusive": 1791449999999
+  },
+  "data01": {
+    "file_count": 143,
+    "mutation": false
+  },
+  "real_activity": {
+    "demo_login": false,
+    "history_reads": 0,
+    "market_data_bytes": 0,
+    "read_a": "NOT_EXECUTED",
+    "read_b": "FORBIDDEN_UNTIL_READ_A_PASS"
+  },
+  "next_gate": "LOCAL_DEMO_CREDENTIAL_CAPABILITY"
+}
