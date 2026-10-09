@@ -1,0 +1,47 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_RUNTIME_READINESS_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02",
+  "status": "PASS_RUNTIME_READY_PRE_LOGIN",
+  "parent_head": "da319db3d7a9de09da4e28d7d5613d92af6bc512",
+  "parent_tree": "11cd07ae234f3abd4092f980d9ac7e09cf6ee172",
+  "runtime": {
+    "java": {
+      "distribution": "Eclipse Temurin JDK 8u504-b01",
+      "version": "1.8.0_504",
+      "archive_sha256": "ea43d46ede95b51e44a12c66711706cddc762e0a766c54bccea18954e902b2aa",
+      "isolated_path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\jdk8\\jdk8u504-b01"
+    },
+    "maven": {
+      "version": "3.10.0",
+      "archive_sha512": "22d31676d5b92ed53308c19ecded3245d0efd0cddfec51ec7bab62f4f13ad70ddddceff8e62940e0e8e2421f3cde8106737f4becec0aa034ffeff2a754e88337",
+      "isolated_path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\maven\\apache-maven-3.10.0"
+    },
+    "jforex_sdk": {
+      "artifact": "com.dukascopy.dds2:DDS2-jClient-JForex:3.6.51",
+      "jar_sha256": "daf2d98cded0a8ff85276965f0c10eb01692acff7949a5898ab295708e2c26c2",
+      "source": "Dukascopy public Maven repository"
+    }
+  },
+  "collector": {
+    "pom_sha256": "faf2322df11821d7dc60a79de1612268f3d163231d44638e24486e2d19b7ba7f",
+    "java_source_sha256": "b75576a48c04feb9008e64824ca1083f362468734666031bb6bb4ecafb0dbb84",
+    "built_jar_sha256": "53b028226865e13e8bf41d421f3bc1aacb0d3d0c643d640ca57428b32ea5fcb2",
+    "build_command": "mvn -q -DskipTests package",
+    "build_result": "PASS",
+    "credentials_transport": "LOCAL_ENV_ONLY",
+    "credentials_persisted_in_repo": false,
+    "trading_logic_present": false,
+    "order_submission_present": false
+  },
+  "real_activity": {
+    "jforex_login": false,
+    "jforex_history_requests": 0,
+    "dukascopy_export_downloads": 0,
+    "aws_requests": 0,
+    "market_data_bytes": 0,
+    "trading": false,
+    "capital": false
+  },
+  "next_gate": "HUMAN_JFOREX_DEMO_CREDENTIAL_CAPABILITY_THEN_READ_A",
+  "stop": true
+}
