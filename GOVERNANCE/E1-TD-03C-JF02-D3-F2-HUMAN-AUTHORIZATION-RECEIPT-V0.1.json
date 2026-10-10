@@ -1,0 +1,72 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "decision": "AUTHORIZE_D3_F2_CONNECTION_ONLY_STATE_OBSERVABILITY_CONTROL",
+  "status": "HUMAN_AUTHORIZED",
+  "source_human_authorization": {
+    "uploaded_file_sha256": "17b564731ff269b86f2da9267aa1fa6136b58866528350b91799ee911ebc09b7",
+    "uploaded_file_bytes": 12868,
+    "uploaded_file_lines": 827
+  },
+  "canonical_parent": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "43cf0f3f534e26b43c084621eec71dc602cde4c5",
+    "tree": "0b7d69592a3d650f9e4f7994b4c88c58a65d0022",
+    "force": false,
+    "fresh_match": true
+  },
+  "frozen_runtime": {
+    "sdk": "DDS2-jClient-JForex 3.6.51",
+    "api_implementation": "2.13.99",
+    "account_mode": "DEMO",
+    "jnlp_endpoint": "http://platform.dukascopy.com/demo_3/jforex_3.jnlp"
+  },
+  "budgets": {
+    "login": 1,
+    "connect": 1,
+    "reconnect": 0,
+    "retry": 0,
+    "disconnect": 1
+  },
+  "observation": {
+    "post_connect_return_window_ms": 120000,
+    "sample_interval_ms": 1000,
+    "primary_threshold_ms": 30000,
+    "disconnect_observation_ms": 10000
+  },
+  "isolated_cache": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-f2-cache-v0.1",
+  "real_program_policy": {
+    "dedicated_connection_only_program": true,
+    "allowed_provider_facing_methods": [
+      "ClientFactory.getDefaultInstance",
+      "IClient.setCacheDirectory",
+      "IClient.setSystemListener",
+      "IClient.connect",
+      "IClient.isConnected",
+      "IClient.disconnect"
+    ],
+    "forbidden": [
+      "startStrategy",
+      "IStrategy",
+      "IHistory",
+      "getHistory",
+      "getTicks",
+      "readTicks",
+      "setSubscribedInstruments",
+      "market_data_subscription",
+      "order_api",
+      "trading"
+    ]
+  },
+  "test_first_required": true,
+  "real_execution_only_after_all_pre_real_gates_pass": true,
+  "privacy": {
+    "credentials_local_interactive_only": true,
+    "password_persistence": false,
+    "account_identifier_persistence": false,
+    "session_token_persistence": false,
+    "raw_provider_log_github_persistence": false
+  },
+  "stop": "HUMAN_ADJUDICATION_OF_D3_F2_RESULT"
+}
