@@ -1,0 +1,68 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "decision": "ADOPT_D3_F2_CONNECTED_WITHIN_ORIGINAL_BOUND_WITH_D3_ROOT_CAUSE_STILL_NOT_PROVEN",
+  "status": "HUMAN_ADOPTED_AND_CLOSED",
+  "closure_file": "GOVERNANCE/E1-TD-03C-JF02-D3-F2-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+  "closure_commit": "0427ff38f89bda686505962979bb12441f3dae4c",
+  "canonical_after_closure": {
+    "head": "0427ff38f89bda686505962979bb12441f3dae4c",
+    "tree": "dbcfacda8f5b8385cc34f7c82581af0f94118490"
+  },
+  "supporting_evidence": {
+    "pre_real_qualification_commit": "58756f0fc176368abdf9ed65377dd23182ba5fb7",
+    "real_execution_evidence_commit": "9866d88a5a6a275fd3e25d05258be898fe3817cd",
+    "result_assessment_commit": "2b956fa61fba9b9ff1bd393056097b3375684e45",
+    "adjudication_package_commit": "f22f8072bd5cafab6a282a58670d1b71f56f8cfb"
+  },
+  "adopted_result": {
+    "f2_real_execution": "COMPLETED",
+    "connect_exception_thrown": false,
+    "connect_call_duration_ms": 4950,
+    "onconnect_observed": true,
+    "first_connected_elapsed_ms": 1001,
+    "f2_result": "CONNECTED_WITHIN_ORIGINAL_BOUND",
+    "authorized_case": "CASE_C"
+  },
+  "adopted_interpretation": {
+    "client_fully_ready_within_30_seconds": true,
+    "f1_c09_30_second_deadline_too_short": "WEAKENED",
+    "d3_failure_transience": "SUPPORTED",
+    "d3_root_cause": "NOT_PROVEN",
+    "f1_c05_persistent_static_sdk_or_session_failure": "WEAKENED",
+    "f1_c05_transient_d3_initialization_stall": "PLAUSIBLE",
+    "f1_c11_connection_observability_defect": "REMAINS_SUPPORTED",
+    "global_jforex_defect": "NOT_PROVEN",
+    "cache_causality": "NOT_PROVEN"
+  },
+  "firewalls": {
+    "start_strategy": false,
+    "history_request": false,
+    "getticks": false,
+    "market_data_request": false,
+    "unexpected_market_data_files": 0,
+    "baseline_cache_unchanged": true,
+    "d3_cache_unchanged": true
+  },
+  "termination_note": {
+    "intentional_disconnect": "INVOKED_ONCE",
+    "ondisconnect_observed_within_10_seconds": false,
+    "f2_main_reached": "F2_DONE_TRUE",
+    "residual_jvm_after_f2_done": "OBSERVED",
+    "residual_process_termination": "LOCAL_STOP_ENFORCEMENT_ONLY",
+    "second_login": false,
+    "second_connect": false,
+    "retry": false,
+    "classification": "NON_BLOCKING"
+  },
+  "budgets": {
+    "login": "1/1_CONSUMED",
+    "connect": "1/1_CONSUMED",
+    "reconnect": 0,
+    "retry": 0,
+    "second_execution": "FORBIDDEN"
+  },
+  "next_candidate": "E1-TD-03C-JF02-D3-F2-A1 — POST-F2 JFOREX PATH NECESSITY / VALUE-OF-INFORMATION ADJUDICATION V0.1",
+  "d3_f2_a1_authorized": false,
+  "stop": true
+}
