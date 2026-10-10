@@ -1,0 +1,212 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D2_FORENSIC_EVIDENCE_AND_CAUSE_MATRIX_V0_1",
+  "control_id": "E1-TD-03C-JF02-D2",
+  "frozen_question": "Why did JForex IHistory.getTicks return 0 ticks for USATECH.IDX/USD on 2025-10-01T14:00:00Z..15:00:00Z when the official Dukascopy Historical Data Export returned 22,985 BID ticks for the same interval?",
+  "key_observations": [
+    {
+      "id": "E01",
+      "claim": "Dukascopy historical data exist for the frozen interval.",
+      "source_type": "HUMAN_ADOPTED_D1_EVIDENCE",
+      "observation": "Official Historical Data Export contained 22,985 BID tick rows from 14:00:00 through 14:59:59 UTC; 0 rows outside interval.",
+      "support_level": "PROVEN"
+    },
+    {
+      "id": "E02",
+      "claim": "Initial JForex READ_A encountered provider/cache transport timeout.",
+      "source_type": "LOCAL_EXECUTION_LOG_AND_RECEIPT",
+      "observation": "CurvesJsonProtocolHandler Read timed out / SocketTimeoutException; no valid ticks or payload.",
+      "support_level": "PROVEN"
+    },
+    {
+      "id": "E03",
+      "claim": "Exact local cache chunk exists and is zero bytes.",
+      "source_type": "LOCAL_FILESYSTEM_METADATA",
+      "observation": "C:\\Users\\Boulevart\\AppData\\Local\\JForex\\.cache\\USATECHIDXUSD\\2025\\09\\01\\14h_ticks.bi5 size=0, sha256=e3b0c442..., created/modified 2026-10-09T19:04:00.1702694Z.",
+      "support_level": "PROVEN"
+    },
+    {
+      "id": "E04",
+      "claim": "Zero-byte chunk creation temporally coincides with the initial timeout.",
+      "source_type": "LOCAL_FILESYSTEM_AND_RUN_TIMESTAMPS",
+      "observation": "Initial READ_A ran 19:02:58.741Z..19:04:01.827Z; zero-byte chunk created at 19:04:00.170Z.",
+      "support_level": "PROVEN"
+    },
+    {
+      "id": "E05",
+      "claim": "READ_A-R1 later returned zero ticks without changing the zero-byte chunk.",
+      "source_type": "LOCAL_RUN_RECEIPT_AND_FILESYSTEM_METADATA",
+      "observation": "READ_A-R1 ran 20:23:45.445Z..20:24:03.817Z and ended BLOCKED_JF02_EMPTY_RESPONSE; cache chunk retained original 19:04:00.170Z modified time and size 0.",
+      "support_level": "PROVEN"
+    },
+    {
+      "id": "E06",
+      "claim": "Official JForex 2.13.99 semantics say getTicks blocks until data are loaded from server into local cache, then read into collection.",
+      "source_type": "OFFICIAL_DUKASCOPY_JAVADOC",
+      "observation": "IHistory.getTicks documented as synchronous server-to-local-cache load followed by read; JFException on loading error.",
+      "support_level": "PROVEN_DOCUMENTARY"
+    },
+    {
+      "id": "E07",
+      "claim": "DEMO historical data are expected to come from LIVE history.",
+      "source_type": "OFFICIAL_DUKASCOPY_DOCUMENTATION",
+      "observation": "Dukascopy states DEMO real-time ticks differ from LIVE, but historical data on DEMO are returned from LIVE environment.",
+      "support_level": "PROVEN_DOCUMENTARY"
+    },
+    {
+      "id": "E08",
+      "claim": "Subscription race is materially weakened.",
+      "source_type": "OFFICIAL_JAVADOC_AND_LOCAL_LOG",
+      "observation": "Collector used setSubscribedInstruments(..., true); official docs say true waits for subscription. Log showed SUBSCRIBED INSTRUMENTS: [USATECH.IDX/USD].",
+      "support_level": "PROVEN_DOCUMENTARY_PLUS_OBSERVED"
+    },
+    {
+      "id": "E09",
+      "claim": "Runtime dependency versions are internally coherent.",
+      "source_type": "LOCAL_DEPENDENCY_METADATA",
+      "observation": "DDS2-jClient-JForex 3.6.51 resolved JForex-API 2.13.99; runtime reported API implementation version 2.13.99.",
+      "support_level": "PROVEN"
+    },
+    {
+      "id": "E10",
+      "claim": "getTicks call path uses JForex cache stack.",
+      "source_type": "STATIC_BYTECODE_INSPECTION",
+      "observation": "History.getTicks -> HistoryData.getTicksSecured -> IFeedDataProvider.loadTicksDataSynched -> LoadDataAction -> CurvesDataLoader.loadInCache -> LocalCacheManager.readData.",
+      "support_level": "PROVEN_STATIC"
+    }
+  ],
+  "candidate_causes": [
+    {
+      "id": "C01",
+      "cause": "INCORRECT_INSTRUMENT_BINDING",
+      "classification": "REJECTED",
+      "basis": "Instrument resolved/subscribed as USATECH.IDX/USD; exact cache path USATECHIDXUSD created; D1 used same provider instrument."
+    },
+    {
+      "id": "C02",
+      "cause": "INSTRUMENT_NOT_HISTORICALLY_AVAILABLE_THROUGH_JFOREX_SDK",
+      "classification": "WEAKLY_SUPPORTED",
+      "basis": "No instrument-specific official guarantee located; however SDK accepted/subscribed symbol and attempted exact history chunk load."
+    },
+    {
+      "id": "C03",
+      "cause": "DEMO_HISTORY_PATH_LIMITATION",
+      "classification": "REJECTED",
+      "basis": "Official Dukascopy documentation states DEMO historical data come from LIVE environment."
+    },
+    {
+      "id": "C04",
+      "cause": "SDK_VERSION_COMPATIBILITY_OR_REGRESSION",
+      "classification": "PLAUSIBLE",
+      "basis": "A software defect cannot be excluded, but no direct version-specific failure evidence found."
+    },
+    {
+      "id": "C05",
+      "cause": "API_IMPLEMENTATION_VERSION_MISMATCH",
+      "classification": "REJECTED",
+      "basis": "Resolved API dependency and observed runtime implementation both 2.13.99."
+    },
+    {
+      "id": "C06",
+      "cause": "HISTORY_CACHE_INITIALIZATION_FAILURE",
+      "classification": "SUPPORTED",
+      "basis": "Initial timeout created the exact requested chunk as zero bytes; subsequent call produced empty response."
+    },
+    {
+      "id": "C07",
+      "cause": "CACHE_PATH_CACHE_STATE_DEPENDENCY",
+      "classification": "SUPPORTED",
+      "basis": "Persistent zero-byte exact-hour cache file survived into READ_A-R1; static call path proves getTicks relies on disk cache stack."
+    },
+    {
+      "id": "C08",
+      "cause": "SUBSCRIPTION_INITIALIZATION_RACE_OR_PREREQUISITE",
+      "classification": "REJECTED",
+      "basis": "Blocking subscription requested and observed as subscribed before history access."
+    },
+    {
+      "id": "C09",
+      "cause": "GETTICKS_CONTRACT_OR_BOUNDARY_SEMANTIC_MISUSE",
+      "classification": "REJECTED",
+      "basis": "Official from/to semantics are inclusive; collector used [start,end-exclusive) by setting to=end_ms-1, and D1 proves data throughout that hour."
+    },
+    {
+      "id": "C10",
+      "cause": "CFD_INDEX_SPECIFIC_HISTORY_BEHAVIOR",
+      "classification": "WEAKLY_SUPPORTED",
+      "basis": "No direct evidence of index-specific restriction; remains possible but secondary."
+    },
+    {
+      "id": "C11",
+      "cause": "TRANSIENT_PROVIDER_HISTORY_SERVICE_FAILURE",
+      "classification": "SUPPORTED",
+      "basis": "Initial read directly observed a network timeout in CurvesJsonProtocolHandler; likely upstream trigger of bad cache state."
+    },
+    {
+      "id": "C12",
+      "cause": "LOCAL_RUNTIME_JNLP_ENVIRONMENT_MISMATCH",
+      "classification": "REJECTED",
+      "basis": "Official demo JNLP/SDK connected successfully; dependency versions coherent; no mismatch evidence found."
+    },
+    {
+      "id": "C13",
+      "cause": "UNDOCUMENTED_PROVIDER_BEHAVIOR",
+      "classification": "PLAUSIBLE",
+      "basis": "Cannot exclude undocumented server/cache semantics around failed chunks."
+    },
+    {
+      "id": "C14",
+      "cause": "COLLECTOR_IMPLEMENTATION_DEFECT",
+      "classification": "REJECTED",
+      "basis": "Static inspection shows official getTicks path, correct instrument binding, blocking subscription, and correct frozen interval; failure reproduces inside provider cache layer."
+    },
+    {
+      "id": "C15",
+      "cause": "OTHER_ROOT_CAUSE",
+      "classification": "UNRESOLVED",
+      "basis": "Residual category retained by design."
+    }
+  ],
+  "most_supported_root_cause": {
+    "decision": "SUPPORTED_BUT_NOT_PROVEN",
+    "primary": "C07_CACHE_PATH_CACHE_STATE_DEPENDENCY",
+    "coupled_trigger": "C11_TRANSIENT_PROVIDER_HISTORY_SERVICE_FAILURE",
+    "detailed_hypothesis": "The initial provider/cache download timed out and left the exact 14h tick chunk as a persistent zero-byte file. The later synchronous getTicks request traversed the JForex disk-cache path and returned an empty tick collection without refreshing that zero-byte chunk.",
+    "why_not_proven": "D2 forbids cache mutation/configuration mutation and any new history request, so no controlled cache-neutral counterfactual was executed."
+  },
+  "excluded_or_rejected": [
+    "C01",
+    "C03",
+    "C05",
+    "C08",
+    "C09",
+    "C12",
+    "C14"
+  ],
+  "unresolved_or_residual": [
+    "C02",
+    "C04",
+    "C10",
+    "C13",
+    "C15"
+  ],
+  "repair_necessity": {
+    "repair_required_before_jforex_path_can_be_qualified": true,
+    "repair_selected": false,
+    "reason": "Current JForex evidence path can silently yield zero ticks for an interval proven non-empty; fail-closed qualification cannot proceed without a controlled cache-state test."
+  },
+  "minimum_next_experiment": {
+    "candidate_id": "E1-TD-03C-JF02-D3",
+    "title": "CACHE-NEUTRAL CONTROLLED CAUSAL TEST V0.1",
+    "proposed_only": true,
+    "authority_required": true,
+    "design": [
+      "Preserve existing cache untouched.",
+      "Use IClient.setCacheDirectory(...) to a fresh isolated empty directory before connect.",
+      "Same DEMO account mode, same SDK/API versions, same instrument, same frozen historical interval.",
+      "One getTicks request only; zero automatic retries.",
+      "If fresh-cache result is nonzero while stale-cache result remains zero, causal support for C07 becomes strong enough for separate human adjudication.",
+      "No strategy, PnL, performance, prospective data, AWS, datafeed or trading."
+    ]
+  },
+  "stop": true
+}
