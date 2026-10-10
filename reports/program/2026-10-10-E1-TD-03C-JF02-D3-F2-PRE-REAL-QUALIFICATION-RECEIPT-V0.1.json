@@ -1,0 +1,85 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_PRE_REAL_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "status": "PRE_REAL_QUALIFIED",
+  "canonical_identity": {
+    "head": "e4900e2ee25388b4b20c1df80de7b56ab70d424f",
+    "tree": "27c2d610a42e1aec26dd24d5ab97fc23d48dee1b",
+    "force": false
+  },
+  "authority": {
+    "human_authorization_receipt_commit": "6ff49077cb70701220cea45588b65c3a42dc5ca8",
+    "contract_blob": "9264636157f94227f5e92eb0dc627e74f3826e03",
+    "breaker_blob": "7e5cb0d82e5e9d8c9d577bfacf868578ff0cf600"
+  },
+  "implementation": {
+    "java_blob": "40239514cfda9ea850e10db2551637a4a02991ec",
+    "pom_blob": "6127013f8d7d48098ca7d9b872827d943ce88330",
+    "test_blob": "ba01ab13a7913dcaa964a8829aafc37c81b03f3b",
+    "compiled_class_sha256": "c297e3005aebf4152d966eb8b6cf7098d693008e900cee046002da00303fe5af",
+    "dedicated_connection_only_module": true
+  },
+  "red": {
+    "evidence_blob": "3af36106c7c2e43d30436a5ce26e1a612276430b",
+    "total": 12,
+    "passed": 4,
+    "failed_expected": 8,
+    "non_target_failures": 0,
+    "status": "EXPECTED_FAILURES_OBSERVED"
+  },
+  "green": {
+    "command": "python -m pytest -q tests/test_e1_td_03c_jf02_d3_f2.py",
+    "total": 12,
+    "passed": 12,
+    "failed": 0,
+    "exit_code": 0,
+    "status": "PASS"
+  },
+  "build": {
+    "mode": "OFFLINE",
+    "java_home": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\jdk8\\jdk8u504-b01",
+    "maven": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\maven\\apache-maven-3.10.0\\bin\\mvn.cmd",
+    "command": "mvn -o -q -f tools/jforex_jf02_f2/pom.xml -DskipTests compile",
+    "exit_code": 0,
+    "status": "PASS"
+  },
+  "structural_guards": {
+    "exactly_one_connect_call_site": true,
+    "reconnect_absent": true,
+    "retry_absent": true,
+    "start_strategy_absent": true,
+    "istrategy_absent": true,
+    "ihistory_absent": true,
+    "gethistory_absent": true,
+    "getticks_absent": true,
+    "readticks_absent": true,
+    "instrument_subscription_absent": true,
+    "trading_order_api_absent": true,
+    "observation_window_ms": 120000,
+    "sample_interval_ms": 1000,
+    "primary_threshold_ms": 30000,
+    "event_callbacks_timestamped": true,
+    "connect_exception_class_captured": true,
+    "credential_persistence": false
+  },
+  "pre_real_cache_state": {
+    "f2_cache_exists": false,
+    "baseline_exact_hour_size_bytes": 0,
+    "baseline_exact_hour_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "d3_cache_manifest_file_count": 6,
+    "d3_cache_manifest_sha256": "c2ac5e2b0aea8ffb847645f078dd1b75546f46cd4e4cc48e1850f0b77f6971bb"
+  },
+  "real_budget": {
+    "login_remaining": 1,
+    "connect_remaining": 1,
+    "reconnect_remaining": 0,
+    "retry_remaining": 0,
+    "disconnect_remaining": 1
+  },
+  "real_execution_authorized_after_this_receipt": true,
+  "real_execution_performed": false,
+  "strategy_started": false,
+  "history_request": false,
+  "market_data_request": false,
+  "stop_rule": "STOP_AFTER_SINGLE_F2_CONNECTION_STATE_RESULT"
+}
