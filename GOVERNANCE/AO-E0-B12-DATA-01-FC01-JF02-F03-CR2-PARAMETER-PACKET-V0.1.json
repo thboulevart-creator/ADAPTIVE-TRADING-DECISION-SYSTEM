@@ -1,0 +1,172 @@
+{
+  "schema": "ATDS_F03_CR2_PARAMETER_PACKET_V0_1",
+  "control": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2",
+  "stage": "P0_PRE_EXECUTION_FREEZE",
+  "authority_ref_head": "576e367beac8f968e40007baab129d10b0b562ac",
+  "authority_ref_tree": "e7affee2c4ccbb809f95fc4354be51a9813751b9",
+  "decision_class": "SYNTHETIC_LAB_ONLY",
+  "operational_adoption": false,
+  "bindings": {
+    "instrument": "USATECH.IDX/USD",
+    "from_ms": 1791446400000,
+    "to_ms_inclusive": 1791449999999,
+    "environment": "DEMO_NOT_CONNECTED",
+    "csv_header": "timestamp,askPrice,bidPrice,askVolume,bidVolume"
+  },
+  "runtime": {
+    "worker_runtime": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\jdk8\\jdk8u504-b01\\bin\\java.exe",
+    "worker_entrypoint": "atds.fc01_f03_cr2.SyntheticHistoryWorker (never provider)",
+    "worker_jar": "JForex-API-2.13.99.jar cached in local Maven, compilation only",
+    "supervisor_runtime": "native C# .NET Framework 4 compiled offline to isolated lab directory",
+    "supervisor_entrypoint": "F03CR2Supervisor.exe with absolute worker java exe, classpath, scenario, lab root",
+    "worker_no_credentials": true,
+    "network_requests": 0
+  },
+  "memory": {
+    "job_memory_limit_bytes": 268435456,
+    "jvm_max_heap_bytes": 134217728,
+    "startup": "CREATE_SUSPENDED then SetInformationJobObject(JOB_OBJECT_LIMIT_JOB_MEMORY|JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE), QueryInformationJobObject verify, AssignProcessToJobObject then ResumeThread",
+    "process_tree_policy": "Job object, no BREAKAWAY_OK, kill-on-close, explicit TerminateJobObject on timeout; no unowned child process",
+    "test_allocation_request_bytes": 402653184,
+    "rationale": "256 MiB job cap allows a Java 8 synthetic worker with 128 MiB Xmx plus native JVM overhead, while 384 MiB request exceeds cap; synthetic test configuration, not FC01 sizing",
+    "peak_job_metric": "UNRESOLVED_FROM_CR1; separate meter to qualify without assuming peak<=job limit on failed allocation"
+  },
+  "timeout": {
+    "hard_timeout_ms": 2000,
+    "termination_grace_ms": 1500,
+    "worker_cancel": "TerminateJobObject; WaitForSingleObject confirmation",
+    "rationale": "two-second deterministic synthetic wait vs 20-second hang; no provider read"
+  },
+  "publication": {
+    "partial_directory": "same synthetic NTFS test directory as final, created per test under %TEMP%",
+    "final_directory": "same synthetic NTFS test directory, never a DATA01 or FC01 real output",
+    "filesystem_type": "NTFS required",
+    "publication_owner": "supervisor only after worker termination and verified payload hash",
+    "atomic_primitive": "CreateHardLinkW(final,partial,NULL), atomic no-replace same NTFS; no fallback",
+    "collision_policy": "No target overwrite under any condition, failure receipt; concurrent writer only one success",
+    "cleanup_policy": "on failure after verified worker stopped: delete only the test-specific partial; if deletion fails BLOCKED_PARTIAL_CLEANUP; preserve preexisting final",
+    "payload_identity": "SHA256 and exact-byte-length verifier before and after publish, no sort or repair",
+    "rationale": "hardlink same-volume naming atomically creates final name or fails if final name exists"
+  },
+  "expected_result_matrix": [
+    [
+      "valid",
+      "PUBLISH_SUCCESS",
+      "final present, partial absent, bytes hash match"
+    ],
+    [
+      "empty",
+      "BLOCKED_EMPTY",
+      "final absent"
+    ],
+    [
+      "null",
+      "BLOCKED_HISTORY_LOAD_NULL",
+      "final absent"
+    ],
+    [
+      "invalid_price",
+      "BLOCKED_TICK_VALIDATION",
+      "final absent"
+    ],
+    [
+      "out_of_order",
+      "BLOCKED_SOURCE_ORDERING",
+      "final absent"
+    ],
+    [
+      "hang",
+      "BLOCKED_TIMEOUT",
+      "worker killed, final absent, partial absent"
+    ],
+    [
+      "oom",
+      "BLOCKED_MEMORY",
+      "worker nonzero, final absent"
+    ],
+    [
+      "preexisting_final",
+      "BLOCKED_COLLISION",
+      "sentinel final unchanged"
+    ],
+    [
+      "concurrent_publish",
+      "ONE_SUCCESS",
+      "all other publishers fail no replace"
+    ],
+    [
+      "write_failure",
+      "BLOCKED_OUTPUT_WRITE",
+      "final absent, cleanup"
+    ],
+    [
+      "supervisor_crash",
+      "NOT_PROVEN_UNTIL_EXECUTED",
+      "no automatic adoption"
+    ],
+    [
+      "child_process_hang",
+      "NOT_PROVEN_UNTIL_EXECUTED",
+      "no breakaway"
+    ]
+  ],
+  "test_fixture_identities": [
+    {
+      "name": "valid",
+      "synthetic_ticks": [
+        {
+          "time": 1791446400001,
+          "ask": 25000.5,
+          "bid": 25000,
+          "askVol": 1.25,
+          "bidVol": 1.5
+        }
+      ]
+    },
+    {
+      "name": "invalid_price",
+      "synthetic_ticks": [
+        {
+          "time": 1791446400001,
+          "ask": 24999,
+          "bid": 25000,
+          "askVol": 1.25,
+          "bidVol": 1.5
+        }
+      ]
+    },
+    {
+      "name": "out_of_order",
+      "synthetic_ticks": [
+        {
+          "time": 1791446400002,
+          "ask": 25000.5,
+          "bid": 25000,
+          "askVol": 1.25,
+          "bidVol": 1.5
+        },
+        {
+          "time": 1791446400001,
+          "ask": 25000.5,
+          "bid": 25000,
+          "askVol": 1.25,
+          "bidVol": 1.5
+        }
+      ]
+    }
+  ],
+  "firewall": {
+    "provider_requests": 0,
+    "provider_login": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "fc01_canonical_source_mutation": false,
+    "e1_source_mutation": false,
+    "data01_mutation": false,
+    "scientific_lane": "STOP",
+    "trading": false,
+    "capital": false,
+    "force": false
+  }
+}
