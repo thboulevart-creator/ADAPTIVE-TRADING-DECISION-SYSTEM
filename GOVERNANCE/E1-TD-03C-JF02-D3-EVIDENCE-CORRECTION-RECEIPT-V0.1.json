@@ -1,0 +1,40 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_EVIDENCE_CORRECTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3",
+  "status": "HUMAN_ADJUDICATED_CORRECTION",
+  "closure_commit": "5dce0fc0afdd78a5b4c87500a64004b53c633098",
+  "original_local_meta": {
+    "path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-evidence\\d3.local-meta.json",
+    "size_bytes": 4002,
+    "sha256": "bc5ead7f2d7736287b732abc5116212d75fadf8a019003bf45d46bb3171f89ea",
+    "preserved_immutable": true,
+    "original_field": {
+      "real_getticks_budget_consumed": 1
+    }
+  },
+  "sanitized_console": {
+    "path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-evidence\\d3.sanitized-console.txt",
+    "size_bytes": 332,
+    "sha256": "e14c5ad0b7acef4165c2735ccf5807bc9f12ad122c0c4c7f1bab7faccd63f5b1",
+    "terminal_observation": "JF02_CONNECT_FAILED"
+  },
+  "adjudicated_correction": {
+    "real_getticks_budget_consumed": 0,
+    "strategy_started": false,
+    "getticks_called": false,
+    "historical_data_request_executed": false,
+    "market_data_bytes_acquired": 0
+  },
+  "rationale": "JF02_CONNECT_FAILED occurred before client.startStrategy(...), therefore the collector never reached IHistory.getTicks(...).",
+  "authority_effect": {
+    "real_connection_attempt_consumed": "1/1",
+    "real_getticks_request_consumed": "0/1",
+    "d3_authority": "CLOSED",
+    "retry_under_d3": "FORBIDDEN",
+    "second_execution": "FORBIDDEN"
+  },
+  "mutation_policy": {
+    "original_local_meta_modified": false,
+    "correction_by_separate_receipt": true
+  }
+}
