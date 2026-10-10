@@ -75,7 +75,7 @@ def test_d3_does_not_add_trading_or_order_paths():
     s = source()
     forbidden = [
         ".submitOrder(", "getEngine().submitOrder", "IEngine.OrderCommand",
-        "getOrders(", ".close(", ".mergeOrders("
+        "context.getEngine()", "IOrder", ".mergeOrders("
     ]
     assert all(token not in s for token in forbidden)
 
