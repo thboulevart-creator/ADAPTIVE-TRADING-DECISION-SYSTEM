@@ -1,0 +1,92 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_CONNECTION_ONLY_STATE_OBSERVABILITY_CONTRACT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "status": "FROZEN_PRE_REAL",
+  "authority_commit": "6ff49077cb70701220cea45588b65c3a42dc5ca8",
+  "scientific_question": "Observe one JForex DEMO connection attempt with 120000 ms post-connect-return state observability, without starting a strategy or requesting historical/market data.",
+  "frozen_runtime": {
+    "sdk": "DDS2-jClient-JForex 3.6.51",
+    "api_implementation": "2.13.99",
+    "account_mode": "DEMO",
+    "jnlp_endpoint": "http://platform.dukascopy.com/demo_3/jforex_3.jnlp"
+  },
+  "budgets": {
+    "login": 1,
+    "connect": 1,
+    "reconnect": 0,
+    "retry": 0,
+    "disconnect": 1
+  },
+  "observation": {
+    "post_connect_return_window_ms": 120000,
+    "sample_interval_ms": 1000,
+    "primary_threshold_ms": 30000,
+    "disconnect_observation_ms": 10000
+  },
+  "cache": {
+    "f2": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-f2-cache-v0.1",
+    "baseline": "C:\\Users\\Boulevart\\AppData\\Local\\JForex\\.cache",
+    "d3": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-d3-cache-v0.1",
+    "f2_must_not_exist_before_real": true,
+    "baseline_and_d3_read_only": true
+  },
+  "implementation": {
+    "module": "tools/jforex_jf02_f2",
+    "main_class": "atds.jf02.JF02ConnectionProbe",
+    "dedicated_connection_only_program": true,
+    "allowed_operational_calls": [
+      "ClientFactory.getDefaultInstance",
+      "setCacheDirectory",
+      "setSystemListener",
+      "connect",
+      "isConnected",
+      "disconnect"
+    ]
+  },
+  "structurally_forbidden": [
+    "startStrategy",
+    "IStrategy",
+    "IHistory",
+    "getHistory",
+    "getTicks",
+    "readTicks",
+    "setSubscribedInstruments",
+    "submitOrder",
+    "getEngine",
+    "market data subscription"
+  ],
+  "required_events": [
+    "CONNECT_CALL_START_UTC",
+    "CONNECT_CALL_RETURN_UTC",
+    "CONNECT_CALL_DURATION_MS",
+    "CONNECT_EXCEPTION_THROWN",
+    "CONNECT_EXCEPTION_CLASS",
+    "CONNECT_EXCEPTION_CATEGORY",
+    "ONCONNECT_OBSERVED",
+    "ONCONNECT_UTC",
+    "ONDISCONNECT_OBSERVED",
+    "ONDISCONNECT_UTC",
+    "ISCONNECTED_SAMPLES"
+  ],
+  "pre_real_gates": [
+    "CONTRACT_PRESENT",
+    "BREAKER_MATRIX_PRESENT",
+    "SYNTHETIC_RED_OBSERVED",
+    "MINIMAL_CONNECTION_ONLY_IMPLEMENTATION",
+    "SYNTHETIC_GREEN",
+    "OFFLINE_COMPILE",
+    "PRE_REAL_QUALIFICATION_RECEIPT"
+  ],
+  "real_execution": {
+    "allowed_only_after_pre_real_pass": true,
+    "login_once": true,
+    "connect_once": true,
+    "reconnect": false,
+    "retry": false,
+    "start_strategy": false,
+    "history_request": false,
+    "market_data_request": false,
+    "getticks": false
+  },
+  "stop": "HUMAN_ADJUDICATION_OF_D3_F2_RESULT"
+}
