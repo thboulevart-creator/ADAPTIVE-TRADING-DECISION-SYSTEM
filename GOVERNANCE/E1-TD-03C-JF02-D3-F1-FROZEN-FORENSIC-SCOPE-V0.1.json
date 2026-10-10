@@ -1,0 +1,43 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F1_FROZEN_FORENSIC_SCOPE_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F1",
+  "purpose": "Determine the most strongly supported explanation for JF02_CONNECT_FAILED using existing evidence and static/documentary research only.",
+  "network_firewall": {
+    "new_jforex_login": false,
+    "new_jforex_connect": false,
+    "new_jforex_history_request": false,
+    "getticks": false,
+    "read_a": false,
+    "read_b": false,
+    "d3_retry": false,
+    "active_http_probe": false,
+    "ping": false,
+    "dns_probe": false,
+    "tls_probe": false,
+    "historical_export": false,
+    "aws": false,
+    "datafeed": false,
+    "new_market_data_bytes": false
+  },
+  "mutation_firewall": {
+    "cache_mutation": false,
+    "configuration_change": false,
+    "java_change": false,
+    "sdk_change": false,
+    "jnlp_change": false,
+    "proxy_change": false,
+    "dns_change": false,
+    "certificate_store_change": false,
+    "firewall_change": false,
+    "collector_change": false,
+    "launcher_change": false,
+    "repair": false
+  },
+  "privacy": {
+    "reproduce_account_identifier": false,
+    "read_or_persist_password": false,
+    "commit_raw_provider_logs": false,
+    "sanitized_findings_only": true
+  },
+  "stop": "HUMAN_ADJUDICATION_OF_D3_F1_FINDINGS"
+}
