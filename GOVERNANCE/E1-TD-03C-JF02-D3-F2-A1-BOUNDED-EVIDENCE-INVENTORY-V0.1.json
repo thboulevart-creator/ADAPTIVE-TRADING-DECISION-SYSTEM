@@ -1,0 +1,80 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_A1_BOUNDED_EVIDENCE_INVENTORY_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2-A1",
+  "evidence": [
+    {
+      "id": "A1-E01",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-D1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+      "blob": "739f290420e052495d485adf3d25a00675d9f24d",
+      "role": "D1 exact-interval existence and cross-interface discrepancy"
+    },
+    {
+      "id": "A1-E02",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-D2-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+      "blob": "6d978664f2796a05ad9445be7a2585aefc91ce6b",
+      "role": "D2 cache/history forensic"
+    },
+    {
+      "id": "A1-E03",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-D3-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+      "blob": "faf9c148a7b048fda89984a168bd3d833a439627",
+      "role": "D3 fresh-cache causal test inconclusive before history request"
+    },
+    {
+      "id": "A1-E04",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-D3-F1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+      "blob": "7114da6eab4a65a5ea36ca96b594a7ff0e34193c",
+      "role": "F1 connection forensic"
+    },
+    {
+      "id": "A1-E05",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-D3-F2-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+      "blob": "269a1caf98dbb317d83a1cd230be6d9ec168b423",
+      "role": "F2 connection-only controlled observation"
+    },
+    {
+      "id": "A1-E06",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-D3-F2-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+      "blob": "b0817babc98dd2a932cf2c010483aa2cb384e0f9",
+      "role": "F2 adopted current state"
+    },
+    {
+      "id": "A1-E07",
+      "path": "GOVERNANCE/E1-TD-03C-JF02-CONTROLLED-JFOREX-HISTORY-EVIDENCE-QUALIFICATION-CONTRACT-V0.1.json",
+      "blob": "c52cf82f35b3af5c40c481fa8921b77b80515276",
+      "role": "JF02 adoption rule and evidence limits"
+    },
+    {
+      "id": "A1-E08",
+      "path": "GOVERNANCE/E1-TD-03C-SOURCE-CONTINUITY-ASSURANCE-CONTRACT-V0.1.json",
+      "blob": "7e80efc32f50e6d9f5545edce5a1c9b2f2c96fde",
+      "role": "Lane-B raw-object/source-continuity requirements"
+    },
+    {
+      "id": "A1-E09",
+      "path": "GOVERNANCE/E1-TD-03C-EVENT-0002-S3-REQUEST-PREREGISTRATION-V0.1.json",
+      "blob": "04ac356046d57b168596dc9381b9cfd523439bdd",
+      "role": "S3 raw-object event preregistration and unverified key"
+    },
+    {
+      "id": "A1-E10",
+      "path": "reports/program/2026-10-03-E1-TD-03C-R2-S3-REQUESTER-PAYS-ACQUISITION-READINESS.md",
+      "blob": "4c75ab2313f5ecab8afecd9397591fab08b3c796",
+      "role": "AWS Requester-Pays readiness and raw-object path"
+    },
+    {
+      "id": "A1-E11",
+      "path": "GOVERNANCE/E1-TD-03C-R2A-REQUESTER-PAYS-ENABLEMENT-METADATA-PROBE-V0.1.json",
+      "blob": "743271aac89b265cc233f662c83d2e3a17a19fa9",
+      "role": "R2A metadata probe blocked before S3 calls"
+    },
+    {
+      "id": "A1-E12",
+      "path": "reports/program/2026-10-03-E1-TD-03C-R2A-REQUESTER-PAYS-ENABLEMENT-METADATA-PROBE.md",
+      "blob": "a2c745509a4de9a943de39df39e47c84bcacdf20",
+      "role": "R2A documentary assessment"
+    }
+  ],
+  "bounded_scope": "EXISTING_REPOSITORY_DOCUMENTARY_AND_STATIC_EVIDENCE_ONLY",
+  "omitted_evidence_policy": "No new provider, AWS, market-data or web acquisition was performed."
+}
