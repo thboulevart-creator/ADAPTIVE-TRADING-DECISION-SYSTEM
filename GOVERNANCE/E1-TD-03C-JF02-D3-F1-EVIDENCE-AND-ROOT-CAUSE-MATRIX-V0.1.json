@@ -1,0 +1,228 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F1_EVIDENCE_AND_ROOT_CAUSE_MATRIX_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F1",
+  "result": "QUALIFIED_READ_ONLY_FORENSIC",
+  "evidence_inventory": [
+    {
+      "id": "F1-E01",
+      "source_type": "LOCAL_D3_META",
+      "identity": {
+        "sha256": "bc5ead7f2d7736287b732abc5116212d75fadf8a019003bf45d46bb3171f89ea",
+        "bytes": 4002
+      },
+      "observation": "D3 ran 2026-10-10T09:56:07.7667636Z to 09:56:47.0988505Z; process_exit_code=1; output absent; returned_tick_count=null; baseline unchanged; D3 result INCONCLUSIVE_FAIL_CLOSED.",
+      "support": "PROVEN"
+    },
+    {
+      "id": "F1-E02",
+      "source_type": "LOCAL_SANITIZED_CONSOLE",
+      "identity": {
+        "sha256": "e14c5ad0b7acef4165c2735ccf5807bc9f12ad122c0c4c7f1bab7faccd63f5b1",
+        "bytes": 332
+      },
+      "observation": "Terminal marker JF02_CONNECT_FAILED after exact D3 cache/runtime/request identity lines; no JF02_SUCCESS, tick count, history failure or strategy-start evidence.",
+      "support": "PROVEN"
+    },
+    {
+      "id": "F1-E03",
+      "source_type": "STATIC_COLLECTOR_SOURCE",
+      "observation": "Collector calls client.connect(...), then polls client.isConnected() for a hard 30-second deadline. JF02_CONNECT_FAILED is printed only if the client is still not connected at that deadline. Strategy starts only after this gate.",
+      "support": "PROVEN_STATIC"
+    },
+    {
+      "id": "F1-E04",
+      "source_type": "OFFICIAL_JFOREX_JAVADOC_2_13_99",
+      "source_url": "https://www.dukascopy.com/client/javadoc3/com/dukascopy/api/system/IClient.html",
+      "observation": "connect(username,password) documents JFAuthenticationException for authentication error and JFVersionException for blocked version; isConnected means authenticated, authorized and transport connected.",
+      "support": "PROVEN_DOCUMENTARY"
+    },
+    {
+      "id": "F1-E05",
+      "source_type": "STATIC_SDK_BYTECODE",
+      "observation": "DCClientImpl.connect performs getAuthServers -> authenticate -> TransportClient.connect -> connectToHistoryServer before returning. No thrown connect exception reached the launcher because JF02_CONNECT_FAILED was emitted after connect returned.",
+      "support": "PROVEN_STATIC"
+    },
+    {
+      "id": "F1-E06",
+      "source_type": "STATIC_SDK_BYTECODE",
+      "observation": "DCClientImpl.isConnected returns true only when transportClient exists, transportClient.isOnline()==true, and internal initialized==true. initialized becomes true when account-info initialization completes, then fireConnected() calls ISystemListener.onConnect().",
+      "support": "PROVEN_STATIC"
+    },
+    {
+      "id": "F1-E07",
+      "source_type": "GOVERNED_PRIOR_READ_A_RECEIPT",
+      "source_path": "reports/program/2026-10-09-E1-TD-03C-JF02-READ-A-FAIL-CLOSED-RECEIPT-V0.1.json",
+      "observation": "Same SDK 3.6.51 / API 2.13.99 previously achieved authentication PASS and instrument subscription PASS; failure occurred later in historical loading.",
+      "support": "PROVEN"
+    },
+    {
+      "id": "F1-E08",
+      "source_type": "LOCAL_LOG_INVENTORY",
+      "observation": "No additional JForex/Dukascopy log file was found in the user profile and no Java/Application Error event was found in the D3 time window. Raw provider diagnostics therefore cannot distinguish transport-online from initialized=false.",
+      "support": "PROVEN_ABSENCE_WITHIN_SEARCH_SCOPE"
+    },
+    {
+      "id": "F1-E09",
+      "source_type": "LOCAL_NETWORK_CONFIGURATION",
+      "observation": "Windows user proxy disabled; no HTTP/HTTPS proxy environment variables present; no Java/JForex application-specific firewall filter found. Firewall profiles are enabled with no explicit Java/JForex app rule observed.",
+      "support": "PROVEN_CONFIGURATION_SNAPSHOT"
+    },
+    {
+      "id": "F1-E10",
+      "source_type": "D3_CACHE_METADATA",
+      "observation": "Fresh D3 cache initialized only lock/version metadata; no USATECH exact-hour history cache object was created. Baseline cache remained unchanged.",
+      "support": "PROVEN"
+    },
+    {
+      "id": "F1-E11",
+      "source_type": "OFFICIAL_DUKASCOPY_SDK_GUIDE",
+      "source_url": "https://www.dukascopy.com/wiki/en/development/get-started-api/use-jforex-sdk/sdk-client/",
+      "observation": "Official example treats connect/disconnect through ISystemListener.onConnect/onDisconnect and uses repeated connection-state handling rather than defining a provider-level 30-second connection-failure threshold.",
+      "support": "PROVEN_DOCUMENTARY"
+    }
+  ],
+  "timeline": [
+    {
+      "time_utc": "2026-10-10T09:56:07.7667636Z",
+      "event": "D3 launcher acquisition window begins."
+    },
+    {
+      "time_utc": "2026-10-10T09:56:11.0609753Z",
+      "event": "D3 isolated-cache version metadata observed."
+    },
+    {
+      "time_utc": "2026-10-10T09:56:15.82Z",
+      "event": "Additional isolated-cache lock/version metadata observed."
+    },
+    {
+      "time_utc": "UNRECORDED",
+      "event": "client.connect(...) returned without propagating JFAuthenticationException/JFVersionException/other exception to main; exact return timestamp not instrumented."
+    },
+    {
+      "time_utc": "UNRECORDED_30_SECONDS_AFTER_CONNECT_RETURN",
+      "event": "Collector's fixed connection deadline expires with client.isConnected()==false."
+    },
+    {
+      "time_utc": "2026-10-10T09:56:47.0988505Z",
+      "event": "Run finishes after JF02_CONNECT_FAILED; no strategy/getTicks/output."
+    }
+  ],
+  "call_path_analysis": {
+    "collector": "ClientFactory.getDefaultInstance -> setCacheDirectory -> client.connect -> poll isConnected up to 30s -> only then startStrategy",
+    "sdk_connect": "getAuthServers -> authenticate -> TransportClient.connect -> connectToHistoryServer -> return",
+    "sdk_connected_predicate": "transportClient != null AND transportClient.isOnline() AND initialized",
+    "initialization_completion": "account-info processing sets initialized=true and fireConnected invokes ISystemListener.onConnect",
+    "diagnostic_gap": "D3 ISystemListener callbacks were empty and the launcher preserved only lines beginning JF02_/BLOCKED_D3_, so no transport-vs-initialization state distinction was retained."
+  },
+  "candidate_matrix": [
+    {
+      "id": "F1-C01",
+      "cause": "CREDENTIAL_OR_AUTHENTICATION_REJECTION",
+      "classification": "REJECTED",
+      "basis": "For this attempt, connect returned normally and the collector reached its post-connect polling loop. Explicit authentication rejection is documented to throw JFAuthenticationException."
+    },
+    {
+      "id": "F1-C02",
+      "cause": "DUKASCOPY_ENDPOINT_OR_BOOTSTRAP_UNREACHABLE",
+      "classification": "WEAKLY_SUPPORTED",
+      "basis": "Initial JNLP/auth bootstrap necessarily progressed far enough for connect to return without exception; later service endpoint reachability is not observable."
+    },
+    {
+      "id": "F1-C03",
+      "cause": "DNS_TCP_TLS_HTTP_TRANSPORT_FAILURE",
+      "classification": "PLAUSIBLE",
+      "basis": "Later transport path could have failed or stalled, but no exception/log survived to identify DNS/TCP/TLS/HTTP as the cause."
+    },
+    {
+      "id": "F1-C04",
+      "cause": "TRANSIENT_PROVIDER_CONNECTION_FAILURE",
+      "classification": "PLAUSIBLE",
+      "basis": "Consistent with a one-off failure, but no provider diagnostic proves it."
+    },
+    {
+      "id": "F1-C05",
+      "cause": "JFOREX_SDK_BOOTSTRAP_OR_SESSION_INITIALIZATION_FAILURE",
+      "classification": "SUPPORTED",
+      "basis": "connect returned, while isConnected remained false; static implementation shows full readiness additionally requires transport online plus initialized=true."
+    },
+    {
+      "id": "F1-C06",
+      "cause": "JAVA_TLS_OR_RUNTIME_COMPATIBILITY_FAILURE",
+      "classification": "WEAKLY_SUPPORTED",
+      "basis": "Same Java/JForex stack previously authenticated and subscribed successfully; no Java/Application Error event observed."
+    },
+    {
+      "id": "F1-C07",
+      "cause": "JNLP_SDK_VERSION_COMPATIBILITY_FAILURE",
+      "classification": "REJECTED",
+      "basis": "No JFVersionException was propagated and SDK/API stack previously connected successfully."
+    },
+    {
+      "id": "F1-C08",
+      "cause": "LOCAL_PROXY_FIREWALL_OR_NETWORK_CONFIGURATION_INTERFERENCE",
+      "classification": "WEAKLY_SUPPORTED",
+      "basis": "No active user proxy, proxy environment variables, or Java/JForex app-specific firewall rule was observed; broader network interference cannot be excluded."
+    },
+    {
+      "id": "F1-C09",
+      "cause": "COLLECTOR_30_SECOND_CONNECTION_DEADLINE_TOO_SHORT",
+      "classification": "PLAUSIBLE",
+      "basis": "The terminal failure is collector-defined at 30s, not a provider-defined failure state. No evidence shows whether readiness would have occurred after the cutoff."
+    },
+    {
+      "id": "F1-C10",
+      "cause": "D3_ISOLATED_CACHE_INITIALIZATION_INTERFERENCE",
+      "classification": "WEAKLY_SUPPORTED",
+      "basis": "Fresh cache initialization produced normal lock/version metadata and no historical object; no evidence links it to connection non-readiness."
+    },
+    {
+      "id": "F1-C11",
+      "cause": "COLLECTOR_IMPLEMENTATION_DEFECT_IN_CONNECTION_PHASE",
+      "classification": "SUPPORTED",
+      "basis": "The collector collapses transport-online and initialized state into one isConnected boolean, uses empty system-listener callbacks, and emits only JF02_CONNECT_FAILED, preventing cause discrimination."
+    },
+    {
+      "id": "F1-C12",
+      "cause": "UNDOCUMENTED_PROVIDER_BEHAVIOR",
+      "classification": "PLAUSIBLE",
+      "basis": "Cannot be excluded in absence of provider diagnostic logs."
+    },
+    {
+      "id": "F1-C13",
+      "cause": "OTHER_ROOT_CAUSE",
+      "classification": "UNRESOLVED",
+      "basis": "Residual category retained."
+    }
+  ],
+  "most_supported_explanation": {
+    "connection_failure_root_cause": "SUPPORTED_BUT_NOT_PROVEN",
+    "explanation": "The JForex client completed the synchronous bootstrap/authentication portion without an explicit exception but did not reach the SDK's full connected predicate (transport online + session initialized) before the collector's 30-second deadline. Existing evidence cannot distinguish delayed initialization from a later transport/provider failure.",
+    "strongest_candidates": [
+      "F1-C05",
+      "F1-C11"
+    ],
+    "timing_candidate": "F1-C09",
+    "explicit_auth_rejection": "REJECTED_FOR_THIS_ATTEMPT",
+    "unique_root_cause_proven": false
+  },
+  "necessity_assessment": {
+    "another_real_connection_experiment_scientifically_necessary": true,
+    "reason": "A connection-only observability experiment is required to distinguish authentication/version exceptions, transport state, initialization completion and deadline effects before returning to any getTicks causal test."
+  },
+  "minimum_next_experiment": {
+    "candidate_id": "E1-TD-03C-JF02-D3-F2",
+    "title": "CONNECTION-ONLY STATE-OBSERVABILITY CONTROL V0.1",
+    "proposed_only": true,
+    "separately_authorized": true,
+    "constraints": [
+      "One DEMO login and one connect attempt only; zero reconnect/retry.",
+      "No strategy start, no getTicks, no historical request, no market-data acquisition.",
+      "Record connect() call duration and exact exception class if thrown.",
+      "Record ISystemListener onConnect/onDisconnect timestamps.",
+      "Observe isConnected at bounded intervals for a preregistered longer window (recommended 120 seconds) without reconnecting.",
+      "Use a separately authorized fresh isolated cache; do not touch baseline or D3 cache.",
+      "Stop after connection state classification."
+    ]
+  },
+  "stop": true
+}
