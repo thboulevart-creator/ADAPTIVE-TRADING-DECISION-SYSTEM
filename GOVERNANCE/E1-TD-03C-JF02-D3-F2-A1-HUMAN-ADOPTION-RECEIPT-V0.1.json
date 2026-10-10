@@ -1,0 +1,75 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_A1_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2-A1",
+  "decision": "ADOPT_A1_OPTION_A_STOP_JFOREX_AS_AWS_SUBSTITUTE_AND_RETAIN_DORMANT_SECONDARY_VALIDATION_ROLE",
+  "status": "HUMAN_ADOPTED_AND_CLOSED",
+  "closure_file": "GOVERNANCE/E1-TD-03C-JF02-D3-F2-A1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+  "closure_commit": "44b9ce40311f89bdff8e327ae57666fe3157d225",
+  "canonical_before_closure": {
+    "observed_head": "3ca1a27ad1af0f99b7af75eeb19a759af303a2c3",
+    "observed_tree": "3f1017db633d9bd20ee48eee2273a5ab0be0cb74",
+    "concurrent_drift": "FC01_ONLY_NON_MATERIAL_FOR_D3_F2_A1"
+  },
+  "canonical_after_closure": {
+    "head": "44b9ce40311f89bdff8e327ae57666fe3157d225",
+    "tree": "17bf92e07bedcece8569b3a018dcae91c22e5417"
+  },
+  "supporting_artifacts": {
+    "a1_identity_commit": "b7f05c43179feffb373395c3961480eeddaf14f0",
+    "a1_inventory_commit": "a70637117f949b293b5c8619505d5bfcda6eea9e",
+    "a1_voi_matrix_commit": "e582638c54f632b002d1b032801ee3c9221ea46b",
+    "a1_assessment_commit": "070f9301a67f92f271c9ff14859911cefa15bf8b",
+    "a1_human_adjudication_package_commit": "afae0c0d6345a13bc1ae4d0e68503b9635049d4a"
+  },
+  "adopted_result": {
+    "primary_option": "OPTION_A_STOP_JFOREX_AS_AWS_SUBSTITUTE_NOW",
+    "one_more_jforex_history_experiment_necessary_now": false,
+    "decision_theoretic_voi_for_current_aws_substitute_decision": "ZERO",
+    "jforex_as_aws_substitute": "STOP",
+    "jforex_history_path": "NOT_CURRENTLY_QUALIFIED",
+    "jforex_secondary_validation_role": "RETAIN_DORMANT_OPTIONAL_PATH",
+    "aws_criticality": "UNCHANGED",
+    "aws_demotion": "NOT_AUTHORIZED",
+    "aws_path": "FROZEN_EXTERNAL_DEPENDENCY",
+    "s3_prefix": "UNVERIFIED",
+    "s3_candidate_key": "UNVERIFIED",
+    "event_0002_executable": false
+  },
+  "counterfactual_action_invariance": {
+    "H1_NONZERO_TICKS": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "H2_ZERO_TICKS": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "H3_HISTORY_NETWORK_TIMEOUT": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "H4_OTHER_HISTORY_LOAD_FAILURE": "STOP_JFOREX_AS_AWS_SUBSTITUTE"
+  },
+  "closure_consequence": {
+    "jf02_aws_substitute_work": "CLOSED",
+    "next_jf02_real_experiment": "NONE",
+    "unresolved_d1_d2_d3_f1_f2_causal_details": "ACCEPTED_AS_NON_BLOCKING_FOR_AWS_SUBSTITUTE_DECISION",
+    "no_execution_for_completion_sake": true
+  },
+  "execution_audit": {
+    "new_login": false,
+    "new_connect": false,
+    "new_getticks": false,
+    "new_history_request": false,
+    "new_hde_export": false,
+    "new_aws_request": false,
+    "new_datafeed_request": false,
+    "new_market_data_bytes": false,
+    "cache_mutation": false,
+    "code_repair": false,
+    "launcher_execution": false,
+    "strategy_start": false,
+    "backtest": false,
+    "trading": false,
+    "capital": false
+  },
+  "future_aws_boundary": {
+    "eligible_only_if": "AWS_CREDENTIAL_CAPABILITY_AVAILABLE_AND_AWS_PATH_EXPLICITLY_REACTIVATED",
+    "next_candidate": "E1-TD-03C-R2A — REQUESTER-PAYS METADATA-PROBE RESUMPTION",
+    "requires_separate_human_authority": true,
+    "getobject_automatic": false
+  },
+  "next": "NO_JF02_REAL_EXECUTION",
+  "stop": true
+}
