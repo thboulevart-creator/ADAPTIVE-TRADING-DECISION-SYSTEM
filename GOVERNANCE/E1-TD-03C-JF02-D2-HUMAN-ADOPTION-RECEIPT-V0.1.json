@@ -1,0 +1,48 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D2_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D2",
+  "decision": "ADOPT_D2_FINDINGS_WITH_ROOT_CAUSE_SUPPORTED_BUT_NOT_PROVEN",
+  "status": "HUMAN_ADOPTED_AND_CLOSED",
+  "closure_file": "GOVERNANCE/E1-TD-03C-JF02-D2-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+  "closure_commit": "ddd782d61928e308864ea8c11108f054841c8b76",
+  "canonical_before_persistence": {
+    "head": "39531238b6782cafb9f5df931516366cc6f82489",
+    "tree": "27a14eedc7652a5dc3f5de5e022466f94700d3b8",
+    "drift_from_human_observed_head": "FC01_ONLY_NON_MATERIAL_FOR_E1_TD_03C_JF02_D2"
+  },
+  "canonical_after_closure": {
+    "head": "ddd782d61928e308864ea8c11108f054841c8b76",
+    "tree": "aa639b098b020a5fe9d1a76a7ad1f23f6fb66937"
+  },
+  "adopted_findings": {
+    "root_cause": "SUPPORTED_BUT_NOT_PROVEN",
+    "most_supported_cause": "C07_CACHE_PATH_CACHE_STATE_DEPENDENCY",
+    "coupled_trigger": "C11_TRANSIENT_PROVIDER_HISTORY_SERVICE_FAILURE",
+    "zero_byte_cache_chunk": "PROVEN",
+    "getticks_disk_cache_call_path": "PROVEN_STATIC",
+    "d1_interval_data_existence": "PROVEN",
+    "official_dukascopy_tick_count": 22985,
+    "jforex_getticks_tick_count": 0,
+    "jforex_path_qualified": false,
+    "aws_can_be_demoted": false
+  },
+  "causality_boundary": {
+    "cache_causality": "SUPPORTED_BUT_NOT_PROVEN",
+    "sdk_3_6_51_root_cause": "NOT_PROVEN",
+    "api_2_13_99_root_cause": "NOT_PROVEN",
+    "demo_mode_root_cause": "REJECTED_AS_CURRENT_PRIMARY_EXPLANATION",
+    "provider_global_failure": "NOT_PROVEN",
+    "jforex_global_defect": "NOT_PROVEN"
+  },
+  "repair_status": {
+    "repair_implemented": false,
+    "cache_mutated": false,
+    "cache_purged": false,
+    "sdk_changed": false,
+    "configuration_changed": false,
+    "new_market_data_request_during_d2": false
+  },
+  "next_candidate": "E1-TD-03C-JF02-D3 — CACHE-NEUTRAL CONTROLLED CAUSAL TEST V0.1",
+  "d3_authorized": false,
+  "stop": true
+}
