@@ -1,0 +1,87 @@
+{
+  "schema": "ATDS_AO_E0_B12_DATA01_FC01_JF02_F03_P1_RED_EVIDENCE_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03",
+  "phase": "P1_TEST_FIRST_RED",
+  "status": "EXPECTED_RED_OBSERVED_NOT_GREEN",
+  "authority": "Human F03 V0.1 authorization, conversation 2026-10-10",
+  "canonical_pre_red": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "b21206da258cad912d0c77e45df76682d9ceda35",
+    "tree": "c06d7c68291e5c21a9183ca570bdf0669f41593e",
+    "critical_blobs_checked": 12,
+    "critical_blob_mismatches": 0,
+    "drift": "NON_MATERIAL_E1_D2_DOCUMENTARY_ONLY"
+  },
+  "artifacts": {
+    "test_file": "tests/test_ao_e0_b12_data01_fc01_jf02_f03.py",
+    "test_sha256": "d3dfc25f4f6108cdc910544142eb009eb63e547bb6295c3986d4d5df6f079cfc",
+    "collector_blob_unchanged": "44ccaeafdd22cede207fef6038e5c747ff5d1454"
+  },
+  "test_command": "py -3.12 -m pytest -q --tb=line -p no:cacheprovider tests/test_ao_e0_b12_data01_fc01_jf02_f03.py",
+  "environment": {
+    "python": "3.12",
+    "pytest": "8.4.2",
+    "java": "Temurin JDK8u504-b01",
+    "java_api_jar": "JForex-API:2.13.99",
+    "sdk": "DDS2-jClient-JForex:3.6.51",
+    "mode": "OFFLINE_ONLY",
+    "provider_login": false,
+    "provider_history_request": false,
+    "real_market_payload": false
+  },
+  "harness": "Java reflection and dynamic proxies for IContext/IHistory/ITick; no ClientFactory invocation; isolated pytest temporary directories",
+  "early_trial": "First run had 13 errors from missing local JForex-API jar in harness classpath; not counted as qualified RED. Corrected harness classpath offline before final run.",
+  "final_red": {
+    "exit_code": 1,
+    "collected": 20,
+    "passed": 9,
+    "failed": 11,
+    "errors": 0,
+    "missing_dependencies": 0,
+    "expected_failures": [
+      "HISTORY_LOAD_NULL misclassified as EMPTY_RESPONSE",
+      "NETWORK_TIMEOUT not fail-closed and leaves partial",
+      "WRAPPED_NETWORK_TIMEOUT not classified and leaves partial",
+      "TIMEOUT_DURING_LOADING not classified and leaves partial",
+      "GENERIC_HISTORY_FAILURE not classified and leaves partial",
+      "OUTPUT_WRITE misclassified as OUTPUT_FINALIZE",
+      "EXISTING_FINAL overwritten in collision instead of fail-closed",
+      "ATOMIC_MOVE not used",
+      "IHistory.getTicks not yet used",
+      "OUTPUT_WRITE breaker absent",
+      "bounded-resource and timeout mechanism not explicitly specified"
+    ],
+    "preserved_baseline_passes": [
+      "valid output simulation",
+      "empty response original breaker",
+      "price validation",
+      "negative volume validation",
+      "interval leak validation",
+      "source ordering validation",
+      "no late publication after abort",
+      "canonical serialization and source-order structural invariant",
+      "terminal state/cancellation guard structural invariant"
+    ]
+  },
+  "limitations": [
+    "P1 RED is not F03 GREEN or synthetic qualification",
+    "No real JForex connectivity or provider data access tested",
+    "Source-level static checks do not prove operating-system atomicity or bounded memory",
+    "No unattended 180-second hang or OOM test executed",
+    "Specific F03_MAX_HISTORY_TICKS and F03_HISTORY_TIMEOUT tokens in a RED guard are provisional candidate contract names; use evidence-driven design review before GREEN; do not relax acceptance silently",
+    "No independent per-tick instrument identity beyond request-scoped instrument proven",
+    "No performance-bearing read"
+  ],
+  "prohibited": {
+    "b12": "CLOSED",
+    "fc01_cutover": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "trading": false,
+    "capital": false
+  },
+  "next": "P2 minimal implementation and synthetic GREEN subject to fresh HEAD/TREE/blobs and resource/timeout feasibility",
+  "f03_result": "NOT_EVALUATED",
+  "stop_after_phase": "P1_RED"
+}
