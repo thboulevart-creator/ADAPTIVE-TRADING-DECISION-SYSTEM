@@ -1,0 +1,160 @@
+# HUMAN ADJUDICATION PACKAGE —
+# E1-TD-03C-JF02-D3-F2-A1
+# POST-F2 JFOREX PATH NECESSITY / VALUE-OF-INFORMATION ADJUDICATION V0.1
+
+RECOMMENDED_HUMAN_DECISION =
+ADOPT_A1_OPTION_A_STOP_JFOREX_AS_AWS_SUBSTITUTE_AND_RETAIN_DORMANT_SECONDARY_VALIDATION_ROLE
+
+## 1. A1 result
+
+```
+A1 =
+QUALIFIED_DOCUMENTARY_VALUE_OF_INFORMATION_ADJUDICATION
+
+PRIMARY_OPTION =
+OPTION_A_STOP_JFOREX_AS_AWS_SUBSTITUTE_NOW
+
+ONE_MORE_JFOREX_HISTORY_EXPERIMENT_NECESSARY_NOW =
+NO
+
+DECISION_THEORETIC_VOI_FOR_CURRENT_AWS_SUBSTITUTE_DECISION =
+ZERO
+```
+
+## 2. Counterfactual result
+
+Adopt that all preregistered outcomes lead to the same AWS-substitute action:
+
+```
+H1_NONZERO_TICKS ->
+STOP_JFOREX_AS_AWS_SUBSTITUTE
+
+H2_ZERO_TICKS ->
+STOP_JFOREX_AS_AWS_SUBSTITUTE
+
+H3_HISTORY_NETWORK_TIMEOUT ->
+STOP_JFOREX_AS_AWS_SUBSTITUTE
+
+H4_OTHER_HISTORY_LOAD_FAILURE ->
+STOP_JFOREX_AS_AWS_SUBSTITUTE
+```
+
+The outcomes may change causal understanding or future non-AWS utility, but not the current AWS-substitute decision.
+
+## 3. H1 limitation
+
+Even the strongest outcome, nonzero fresh-cache ticks, would establish only:
+
+```
+JFOREX_HISTORY_DELIVERY_OPERATIONAL_ONCE = TRUE
+```
+
+It would leave unresolved:
+
+```
+REPEAT_JFOREX_BYTE_IDENTITY
+EXACT_CROSS_INTERFACE_PARITY
+RAW_PROVIDER_OBJECT_IDENTITY
+BI5_OBJECT_IDENTITY
+S3_KEY_OBJECT_IDENTITY
+SOURCE_B_EQUIVALENCE
+AWS_RAW_OBJECT_SUBSTITUTION
+```
+
+The original JF02 contract would still require further repeatability and parity evidence.
+
+Therefore one additional history read is not a bounded final experiment.
+
+## 4. AWS path
+
+```
+AWS_CRITICALITY =
+UNCHANGED
+
+AWS_DEMOTION =
+NOT_AUTHORIZED
+
+AWS_PATH =
+FROZEN_EXTERNAL_DEPENDENCY
+
+S3_PREFIX =
+UNVERIFIED
+
+S3_CANDIDATE_KEY =
+UNVERIFIED
+
+EVENT_0002_EXECUTABLE =
+FALSE
+```
+
+No AWS action is authorized by A1.
+
+## 5. JForex future role
+
+Adopt:
+
+```
+JFOREX_AS_AWS_SUBSTITUTE =
+STOP
+
+JFOREX_AS_OFFICIAL_HISTORY_INTERFACE =
+NOT_CURRENTLY_QUALIFIED
+
+JFOREX_SECONDARY_VALIDATION_ROLE =
+RETAIN_DORMANT_OPTIONAL_PATH
+```
+
+This does not prohibit a future JForex experiment if a new concrete decision requires that evidence class.
+
+It does prohibit continuing JF02 merely to resolve every remaining causal uncertainty or obtain a PASS.
+
+## 6. JF02 closure consequence
+
+Recommended:
+
+```
+JF02_AWS_SUBSTITUTE_WORK =
+CLOSED
+
+NEXT_JF02_REAL_EXPERIMENT =
+NONE
+
+D1_D2_D3_F1_F2_UNRESOLVED_CAUSAL_DETAILS =
+ACCEPTED_AS_NON_BLOCKING_FOR_AWS_SUBSTITUTE_DECISION
+```
+
+## 7. Future AWS boundary
+
+If the AWS path is later unfrozen and credential capability becomes available, the minimum legitimate boundary remains a separately authorized R2A metadata-probe resumption.
+
+No `GetObject` follows automatically.
+
+## 8. A1 execution audit
+
+```
+NEW_LOGIN = FALSE
+NEW_CONNECT = FALSE
+NEW_GETTICKS = FALSE
+NEW_HISTORY_REQUEST = FALSE
+NEW_HDE_EXPORT = FALSE
+NEW_AWS_REQUEST = FALSE
+NEW_DATAFEED_REQUEST = FALSE
+NEW_MARKET_DATA_BYTES = FALSE
+CACHE_MUTATION = FALSE
+CODE_REPAIR = FALSE
+LAUNCHER_EXECUTION = FALSE
+STRATEGY_START = FALSE
+BACKTEST = FALSE
+TRADING = FALSE
+CAPITAL = FALSE
+```
+
+## 9. STOP
+
+```
+NEXT =
+HUMAN_ADJUDICATION_OF_D3_F2_A1
+
+STOP =
+TRUE
+```
