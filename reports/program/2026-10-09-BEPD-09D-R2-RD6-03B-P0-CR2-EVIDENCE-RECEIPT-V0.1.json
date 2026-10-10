@@ -1,0 +1,132 @@
+{
+  "schema": "ATDS_BEPD_09D_R2_RD6_03B_P0_CR2_EVIDENCE_RECEIPT_V0_1",
+  "date": "2026-10-10",
+  "control": "BEPD-09D-R2-RD6-03B-P0-CR2_V0.2",
+  "human_authorization": "AUTHORIZE_BOUNDED_READ_ONLY_REQUALIFICATION_AND_ISOLATION_READINESS",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent": {
+    "head": "360827feb2cb660a8614f0ef35e33ee012017a7d",
+    "tree": "529209ff0dc86b548a12b7fab9146006802e6b82"
+  },
+  "prior_observed_head": "543214b05f72ed9fb72fc165a9ed89b73e67fef5",
+  "concurrent_delta": {
+    "ahead": 1,
+    "added": [
+      "reports/program/2026-10-09-E1-TD-03C-JF02-END-OF-DAY-CHECKPOINT.md"
+    ],
+    "modified": [],
+    "deleted": []
+  },
+  "governance_doc": {
+    "path": "GOVERNANCE/BEPD-09D-R2-RD6-03B-P0-CR2-LAB-SELECTION-AND-DEPENDENCY-READINESS-V0.1.md",
+    "git_blob": "b524a87b1b125fa675b5f09befe59a082fcf5103"
+  },
+  "protected_evidence": {
+    "pass": 15,
+    "checked": 15,
+    "static_only": true
+  },
+  "original_RD6_03B_paths": {
+    "total": 8,
+    "collision_count": 0,
+    "created": 0
+  },
+  "device_status": {
+    "device_label": "DESKTOP-49BN9M3",
+    "online_device_id": "26b387da-b291-4e23-ac94-6b49cec05e1c",
+    "other_device_id": "fee0d805-3594-4239-925d-0d80cc344847",
+    "online_check": "ONLINE",
+    "earlier_offline_check": "BOTH_OFFLINE"
+  },
+  "windows_host": {
+    "product_label": "Windows 10 Pro N",
+    "build": "22631",
+    "windows_sandbox_executable_present": true,
+    "windows_sandbox_feature": "NOT_ASSESSABLE_ELEVATION_REQUIRED",
+    "hypervisor_present": true,
+    "vmcompute_service": "Running",
+    "docker_desktop_executable_detected": false,
+    "docker_command_detected": false,
+    "wsl_command_detected": true,
+    "isolated_lab_selected": null,
+    "os_isolation_qualified": false
+  },
+  "python_default": {
+    "python_version": "3.14.7",
+    "pip_version": "26.2.1",
+    "python_command_present": true,
+    "py_launcher_present": true,
+    "rfc8785_distribution_detected": false,
+    "cryptography_distribution_detected": false,
+    "rfc8785_pip_offline_cache_detected": false,
+    "scope": "DEFAULT_PY_LAUNCHER_ONLY",
+    "non_default_python_envs_inspected": false,
+    "ed25519_rfc8032_qualification": "NOT_PERFORMED",
+    "rfc8785_jcs_qualification": "NOT_PERFORMED",
+    "downloads": 0,
+    "installations": 0
+  },
+  "p0_gates": {
+    "P0_REPOSITORY_AND_HEAD": "PASS_WITH_EVIDENCE_AT_AUTHORIZED_PREFLIGHT",
+    "P1_PROTECTED_SOURCE_IDENTITIES": "PASS_WITH_EVIDENCE_15_OF_15",
+    "P2_EXACT_NEW_FILE_SCOPE": "PASS_WITH_EVIDENCE_STATIC_UNOCCUPIED_8_OF_8",
+    "P3_SYNTHETIC_DATA_ORIGIN": "NOT_ASSESSABLE",
+    "P4_NO_REAL_LEDGER_MOUNT": "NOT_ASSESSABLE",
+    "P5_NO_REAL_DATA_PATH_ACCESS": "NOT_ASSESSABLE",
+    "P6_NO_PRODUCTION_CREDENTIALS": "NOT_ASSESSABLE",
+    "P7_NETWORK_EGRESS_DENIAL": "NOT_ASSESSABLE",
+    "P8_RESOURCE_BUDGET": "PASS_WITH_LIMITATIONS_NO_COMPLETE_DURATION_ATTESTATION",
+    "P9_TEST_ORACLES_FROZEN": "PASS_WITH_EVIDENCE_BLOB_IDENTITY_ONLY",
+    "P10_CRYPTOGRAPHIC_DEPENDENCY_READINESS": "BLOCKED_UNVERIFIED_HOST_DEPENDENCIES"
+  },
+  "budget": {
+    "max_host_profiles": 2,
+    "profiles_inspected_static": 2,
+    "profiles_started": 0,
+    "max_diagnostic_invocations": 12,
+    "connector_device_status_queries": 2,
+    "host_process_invocations": 6,
+    "total_conservative_invocations": 8,
+    "host_process_invocations_with_quoting_error": 2,
+    "max_single_diagnostic_seconds": 10,
+    "max_total_diagnostic_seconds": 90,
+    "cumulative_host_runtime_attestation": "NOT_AVAILABLE",
+    "max_synthetic_sentinels": 4,
+    "synthetic_sentinels_created": 0,
+    "offline_package_installs": 0,
+    "network_downloads": 0,
+    "external_spending": 0,
+    "privilege_escalations": 0,
+    "red_tests": 0,
+    "green_tests": 0,
+    "real_model_fits": 0,
+    "real_ledger_reads_by_this_operation": 0,
+    "real_credential_content_reads_by_this_operation": 0,
+    "github_executable_modifications": 0,
+    "automatic_retries": 0
+  },
+  "verdict": "BLOCKED_WITH_EVIDENCE",
+  "reason_codes": [
+    "WINDOWS_SANDBOX_FEATURE_CANNOT_BE_ATTESTED_WITHOUT_ELEVATION",
+    "DOCKER_NOT_DETECTED_IN_SCOPED_INVENTORY",
+    "RFC8785_AND_ED25519_NOT_QUALIFIED_ON_WINDOWS_PYTHON",
+    "REAL_FILESYSTEM_NETWORK_CREDENTIAL_ISOLATION_NOT_DEMONSTRATED"
+  ],
+  "selected_environment": "NONE",
+  "human_adoption_of_readiness": "PENDING",
+  "rd6_03b_execution": "SUSPENDED",
+  "rd6_03b_red_green": "NOT_AUTHORIZED_BY_CR2",
+  "rd6_04": "NOT_AUTHORIZED",
+  "real_training_readiness": "BLOCKED",
+  "github_publication": {
+    "new_documents_expected": 2,
+    "existing_files_modified_allowed": 0,
+    "expected_sha": "360827feb2cb660a8614f0ef35e33ee012017a7d",
+    "force": false,
+    "automatic_rebind": false,
+    "automatic_retry": false,
+    "post_publication_readback_required": true,
+    "stop": true
+  }
+}
