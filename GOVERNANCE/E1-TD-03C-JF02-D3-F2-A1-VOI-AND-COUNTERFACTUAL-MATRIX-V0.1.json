@@ -1,0 +1,198 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_A1_VOI_AND_COUNTERFACTUAL_MATRIX_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2-A1",
+  "scoring_scale": {
+    "0": "NONE_NO_DECISION_RELEVANT_INFORMATION",
+    "1": "LOW",
+    "2": "MODERATE",
+    "3": "HIGH"
+  },
+  "governing_synthesis": {
+    "d1": "Official Dukascopy HDE contains 22985 BID tick rows for the fixed interval while JForex getTicks returned 0; exact cross-interface discrepancy proven.",
+    "d2": "Zero-byte cache chunk and disk-cache call path proven; cache-state explanation supported but not causally proven.",
+    "d3": "Fresh-cache causal test never reached history request because connection failed; no cache causality test occurred.",
+    "f1": "D3 connection failure was not an explicit provider rejection; 30-second collector observability was insufficient to isolate connection stage.",
+    "f2": "Same SDK/API/DEMO stack reached full connection within original 30-second bound; transient/state-dependent D3 failure supported, unique cause not proven."
+  },
+  "unresolved_questions": [
+    "Would IHistory.getTicks return nonzero ticks on one fresh-cache, successfully connected attempt for the same fixed interval?",
+    "If nonzero, is the JForex canonical payload repeatable byte-for-byte across independent reads?",
+    "Can JForex output achieve exact cross-interface parity for timestamps, bid, ask, volumes, order and boundaries?",
+    "What exact cause produced the original zero-tick result?",
+    "Can any non-S3 path satisfy the Lane-B raw/provider-object identity and integrity claims required to demote AWS criticality?"
+  ],
+  "counterfactuals": [
+    {
+      "id": "H1",
+      "outcome": "FRESH_CACHE_GETTICKS_RETURNS_NONZERO_TICKS",
+      "newly_proven": [
+        "One fresh-cache JForex history attempt can operationally deliver nonzero ticks for the fixed interval.",
+        "Permanent inability of this SDK/API/DEMO stack to deliver any history for the interval would be rejected."
+      ],
+      "remains_unproven": [
+        "Repeat JForex byte identity.",
+        "Exact cross-interface parity.",
+        "Existing D1 HDE is insufficient for exact parity because it is BID-only and observed at second precision.",
+        "Raw provider-object identity / BI5 object identity.",
+        "S3 key/object identity.",
+        "Source-B equivalence.",
+        "AWS raw-object substitution."
+      ],
+      "aws_criticality_change": "NONE",
+      "another_repeatability_test_required_under_original_jf02_contract": true,
+      "additional_exact_cross_interface_parity_evidence_required": true,
+      "primary_path_decision_change": "NONE_FOR_AWS_SUBSTITUTE",
+      "non_aws_utility_change": "STRENGTHENS_JFOREX_AS_OPTIONAL_OFFICIAL_HISTORY_INTERFACE"
+    },
+    {
+      "id": "H2",
+      "outcome": "FRESH_CACHE_GETTICKS_RETURNS_ZERO_TICKS",
+      "newly_proven": [
+        "Zero-tick behavior can recur despite fresh cache and a separately demonstrated viable connection path."
+      ],
+      "causal_effect": [
+        "Pure stale-zero-byte-cache explanation would be materially weakened.",
+        "A deeper JForex history-delivery/session/provider-specific issue would be strengthened."
+      ],
+      "aws_criticality_change": "NONE",
+      "primary_path_decision_change": "NONE_FOR_AWS_SUBSTITUTE",
+      "information_value": "MODERATE_CAUSAL_NARROWING_BUT_LOW_DECISION_VALUE"
+    },
+    {
+      "id": "H3",
+      "outcome": "HISTORY_NETWORK_TIMEOUT",
+      "newly_proven": [
+        "The initial READ_A timeout class can recur."
+      ],
+      "recurrence_of_existing_failure_class": true,
+      "aws_criticality_change": "NONE",
+      "primary_path_decision_change": "NONE_FOR_AWS_SUBSTITUTE",
+      "information_value": "LOW"
+    },
+    {
+      "id": "H4",
+      "outcome": "OTHER_HISTORY_LOAD_FAILURE",
+      "newly_proven": [
+        "A more specific history-load failure class may become observable if an exact exception is produced."
+      ],
+      "limitation": "Unless deterministic and path-closing, exact classification narrows mechanism but cannot satisfy raw-object substitution requirements.",
+      "aws_criticality_change": "NONE",
+      "primary_path_decision_change": "NONE_FOR_AWS_SUBSTITUTE",
+      "information_value": "LOW_TO_MODERATE_CAUSAL_ONLY"
+    }
+  ],
+  "voi_tests": [
+    {
+      "id": "VOI-01",
+      "name": "DECISION_REVERSIBILITY",
+      "score_for_current_aws_substitute_decision": 0,
+      "finding": "No H1-H4 outcome changes the decision that JForex cannot by one API history experiment establish the raw-object claims required by the current Lane-B/AWS evidence model."
+    },
+    {
+      "id": "VOI-02",
+      "name": "FAIL_INFORMATION_VALUE",
+      "score": 1,
+      "finding": "H2/H3/H4 mostly reproduce or refine already represented failure classes; they do not alter AWS substitution."
+    },
+    {
+      "id": "VOI-03",
+      "name": "SUCCESS_INFORMATION_VALUE",
+      "score_non_aws_interface": 2,
+      "score_aws_substitute": 0,
+      "finding": "H1 would establish one-attempt operational JForex history delivery, but not repeatability, exact parity, raw-object identity or AWS substitution."
+    },
+    {
+      "id": "VOI-04",
+      "name": "PATH_DECISION_IMPACT",
+      "score_aws_substitute": 0,
+      "score_secondary_validation": 1,
+      "finding": "AWS-substitute action is invariant. Secondary-interface confidence could change, but there is no current governed need requiring that decision now."
+    },
+    {
+      "id": "VOI-05",
+      "name": "UNIQUE_INFORMATION",
+      "score_scientific_novelty": 2,
+      "score_current_decision_relevance": 1,
+      "finding": "Fresh-cache history behavior remains scientifically unresolved, but the unresolved fact is not necessary to decide the AWS-substitute path."
+    },
+    {
+      "id": "VOI-06",
+      "name": "SUBSTITUTE_RELEVANCE",
+      "score": 0,
+      "finding": "JForex returns a canonicalized API representation, not the S3 raw object identity required by the current Lane-B model."
+    },
+    {
+      "id": "VOI-07",
+      "name": "FUTURE_UTILITY_OUTSIDE_AWS_SUBSTITUTION",
+      "score": 2,
+      "finding": "JForex retains plausible value as an official Dukascopy content interface, secondary cross-interface check and non-raw validation channel; that future utility does not require another experiment now."
+    }
+  ],
+  "decision_theoretic_result": {
+    "current_decision": "WHETHER_TO_CONTINUE_JFOREX_AS_AWS_SUBSTITUTE",
+    "action_under_H1": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "action_under_H2": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "action_under_H3": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "action_under_H4": "STOP_JFOREX_AS_AWS_SUBSTITUTE",
+    "action_invariant_across_all_preregistered_outcomes": true,
+    "decision_theoretic_voi_for_current_decision": 0,
+    "one_more_real_history_experiment_necessary_now": false
+  },
+  "aws_substitution_relevance": {
+    "jf02_contract_purpose": "AWS-independent official Dukascopy provider-history evidence model without claiming S3 raw-object equivalence.",
+    "lane_b_requires_raw_object_integrity": true,
+    "successful_getticks_can_prove_s3_raw_object_identity": false,
+    "successful_getticks_can_verify_s3_key_identity": false,
+    "successful_getticks_can_establish_bi5_binary_identity": false,
+    "successful_getticks_can_establish_source_b_equivalence": false,
+    "aws_criticality_demotable_from_one_getticks": false
+  },
+  "jforex_non_aws_future_utility": {
+    "official_dukascopy_content_interface": "RETAIN_POTENTIAL",
+    "cross_interface_validation": "RETAIN_POTENTIAL",
+    "future_data_validation": "RETAIN_POTENTIAL",
+    "non_raw_evidence_channel": "RETAIN_POTENTIAL",
+    "current_operational_history_qualification": "NOT_QUALIFIED",
+    "active_additional_jf02_execution_now": "NOT_NECESSARY"
+  },
+  "exact_decision_change_map": {
+    "H1": {
+      "jforex_history_path": "NO_TO_OPERATIONAL_ONCE_NOT_QUALIFIED",
+      "aws_substitute": "NO_CHANGE_STOP",
+      "aws_criticality": "NO_CHANGE",
+      "secondary_validation": "STRENGTHEN"
+    },
+    "H2": {
+      "jforex_history_path": "WEAKEN_FURTHER",
+      "aws_substitute": "NO_CHANGE_STOP",
+      "aws_criticality": "NO_CHANGE",
+      "secondary_validation": "WEAKEN"
+    },
+    "H3": {
+      "jforex_history_path": "WEAKEN_RELIABILITY",
+      "aws_substitute": "NO_CHANGE_STOP",
+      "aws_criticality": "NO_CHANGE",
+      "secondary_validation": "WEAKEN"
+    },
+    "H4": {
+      "jforex_history_path": "CAUSE_DEPENDENT_BUT_NOT_QUALIFIED",
+      "aws_substitute": "NO_CHANGE_STOP",
+      "aws_criticality": "NO_CHANGE",
+      "secondary_validation": "CAUSE_DEPENDENT"
+    }
+  },
+  "recommendation": {
+    "primary_option": "OPTION_A_STOP_JFOREX_AS_AWS_SUBSTITUTE_NOW",
+    "secondary_disposition": "RETAIN_JFOREX_AS_DORMANT_OPTIONAL_SECONDARY_VALIDATION_PATH",
+    "one_final_history_experiment_proposal": false,
+    "reason": "The current AWS-substitute decision is invariant across H1-H4, while even H1 would trigger additional repeatability/parity work and still could not establish raw-object identity."
+  },
+  "post_adoption_boundary": {
+    "jf02_aws_substitute_path": "CLOSE",
+    "jforex_secondary_validation_role": "RETAIN_DORMANT_NO_EXECUTION",
+    "aws_path": "REMAINS_FROZEN_EXTERNAL_DEPENDENCY",
+    "next_jf02_real_experiment": "NONE",
+    "aws_r2a_resume_condition": "SEPARATE_HUMAN_REACTIVATION_ONLY_IF_CREDENTIAL_CAPABILITY_EXISTS_AND_AWS_PATH_IS_UNFROZEN"
+  },
+  "stop": true
+}
