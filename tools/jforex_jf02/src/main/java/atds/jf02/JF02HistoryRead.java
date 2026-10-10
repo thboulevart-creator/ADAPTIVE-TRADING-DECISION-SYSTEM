@@ -22,6 +22,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public final class JF02HistoryRead {
     private static final String JNLP_URL = "http://platform.dukascopy.com/demo_3/jforex_3.jnlp";
     private static final String INSTRUMENT_TEXT = "USATECH.IDX/USD";
+    private static final String D3_CACHE_PATH_TEXT = "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-d3-cache-v0.1";
+    private static final String BASELINE_CACHE_PATH_TEXT = "C:\\Users\\Boulevart\\AppData\\Local\\JForex\\.cache";
     private static final long FROM_MS = 1759327200000L;
     private static final long TO_MS = 1759330799999L;
     private static final DateTimeFormatter TS =
@@ -42,9 +44,23 @@ public final class JF02HistoryRead {
             System.err.println("JF02_OUTPUT_MISSING");
             System.exit(11);
         }
-        if (!"READ_A".equals(runLabel) && !"READ_B".equals(runLabel)) {
+        final boolean d3Run = "D3".equals(runLabel);
+        if (!"READ_A".equals(runLabel) && !"READ_B".equals(runLabel) && !d3Run) {
             System.err.println("JF02_RUN_LABEL_INVALID");
             System.exit(12);
+        }
+
+        final Path d3Cache = Paths.get(D3_CACHE_PATH_TEXT).toAbsolutePath().normalize();
+        final Path baselineCache = Paths.get(BASELINE_CACHE_PATH_TEXT).toAbsolutePath().normalize();
+        if (d3Run) {
+            if (d3Cache.equals(baselineCache)) {
+                System.err.println("BLOCKED_D3_BASELINE_CACHE_FORBIDDEN");
+                System.exit(13);
+            }
+            if (Files.exists(d3Cache)) {
+                System.err.println("BLOCKED_D3_CACHE_NOT_FRESH");
+                System.exit(14);
+            }
         }
 
         Path output = Paths.get(outputText).toAbsolutePath();
@@ -53,6 +69,12 @@ public final class JF02HistoryRead {
         final CountDownLatch done = new CountDownLatch(1);
         final Collector strategy = new Collector(output, done);
         final IClient client = ClientFactory.getDefaultInstance();
+
+        if (d3Run) {
+            client.setCacheDirectory(d3Cache.toFile());
+            System.out.println("JF02_D3_CACHE_PATH=" + d3Cache);
+            System.out.println("JF02_D3_CACHE_FRESH_BEFORE=true");
+        }
 
         client.setSystemListener(new ISystemListener() {
             @Override public void onStart(long processId) { }
@@ -66,6 +88,7 @@ public final class JF02HistoryRead {
         System.out.println("JF02_SDK_DEPENDENCY=3.6.51");
         System.out.println("JF02_API_IMPLEMENTATION_VERSION=" + (apiVersion == null ? "UNAVAILABLE" : apiVersion));
         System.out.println("JF02_RUN_LABEL=" + runLabel);
+        System.out.println("JF02_ACCOUNT_MODE=DEMO");
         System.out.println("JF02_INSTRUMENT=" + INSTRUMENT_TEXT);
         System.out.println("JF02_FROM_MS=" + FROM_MS);
         System.out.println("JF02_TO_MS_INCLUSIVE=" + TO_MS);
