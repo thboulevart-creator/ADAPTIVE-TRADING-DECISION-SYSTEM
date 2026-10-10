@@ -1,0 +1,79 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_PRE_REAL_QUALIFICATION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3",
+  "status": "PRE_REAL_QUALIFIED",
+  "canonical_identity": {
+    "head": "74371c51b8b49ff01fb92e121f1a2a3f8bfc445d",
+    "tree": "d939bd858a04d0a776cc6ab34ee860cc8cb6ea89",
+    "force": false
+  },
+  "authority": {
+    "authorization_commit": "0de40ddca88525d3c341d46dea11debe3684f301",
+    "contract_blob": "8a94e20b88cbd175e90e16a25967708847994883",
+    "breaker_blob": "9d23d241b1cb8b98f7614a35c8ce2eea84c9a8ad"
+  },
+  "implementation": {
+    "java_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b",
+    "d3_test_blob": "91b272f809c17814049094d14f680059d60ee876",
+    "compiled_class_sha256": "4fcec3fb50f27e160bbd3ca9c31d9d732ac5655138753ee7f49f1d63a5c71ec7",
+    "mechanism": "IClient.setCacheDirectory",
+    "binding_order": "BEFORE_CLIENT_CONNECT",
+    "exact_cache_path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-d3-cache-v0.1"
+  },
+  "red": {
+    "evidence_blob": "111b79a5dd2f6145d251242ebf4451dca385fcef",
+    "total": 12,
+    "passed": 7,
+    "expected_failed": 5,
+    "non_target_failures": 0,
+    "status": "EXPECTED_FAILURES_OBSERVED"
+  },
+  "green": {
+    "command": "python -m pytest -q tests/test_e1_td_03c_jf02_d3.py tests/test_e1_td_03c_jf02_cr1.py",
+    "total": 18,
+    "passed": 18,
+    "failed": 0,
+    "exit_code": 0,
+    "status": "PASS"
+  },
+  "build": {
+    "first_attempt": "BLOCKED_ENVIRONMENT_JAVA_HOME_UNSET",
+    "first_attempt_interpretation": "NON_CODE_FAILURE",
+    "qualified_attempt": {
+      "java_home": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\jdk8\\jdk8u504-b01",
+      "maven": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jforex-runtime-v0.1\\maven\\apache-maven-3.10.0\\bin\\mvn.cmd",
+      "mode": "OFFLINE",
+      "command": "mvn -o -q -f tools/jforex_jf02/pom.xml -DskipTests compile",
+      "exit_code": 0,
+      "status": "PASS"
+    }
+  },
+  "pre_real_cache_state": {
+    "isolated_cache_path_exists": false,
+    "baseline_exact_hour_size_bytes": 0,
+    "baseline_exact_hour_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "baseline_mutated": false
+  },
+  "real_budget": {
+    "login_remaining": 1,
+    "getticks_remaining": 1,
+    "automatic_retries": 0
+  },
+  "prohibited_remaining": {
+    "second_getticks": true,
+    "read_a_retry": true,
+    "read_b": true,
+    "different_interval": true,
+    "different_instrument": true,
+    "live_account": true,
+    "historical_export": true,
+    "aws": true,
+    "legacy_datafeed": true,
+    "strategy_pnl_performance": true,
+    "trading_orders_capital": true
+  },
+  "real_execution_authorized_after_this_receipt": true,
+  "real_execution_performed": false,
+  "new_market_data_bytes": false,
+  "stop_rule": "STOP_AFTER_SINGLE_D3_REAL_RESULT"
+}
