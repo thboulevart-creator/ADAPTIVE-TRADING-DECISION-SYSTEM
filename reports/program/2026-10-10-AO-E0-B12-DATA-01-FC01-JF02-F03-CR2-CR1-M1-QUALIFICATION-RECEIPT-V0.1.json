@@ -1,0 +1,91 @@
+{
+    "schema":  "ATDS_F03_CR2_CR1_M1_FINAL_QUALIFICATION_RECEIPT_V0_1",
+    "phase":  "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M1",
+    "authority":  "HUMAN_ADOPTED",
+    "terminal_decision":  "ROOT_CAUSE_NOT_PROVEN",
+    "head_pre_execution":  "724340048e83a2d588828eb4c096cfffc49616f7",
+    "tree_pre_execution":  "e51b0070046bb496bb388b773a3d9869d4d002eb",
+    "reference_head":  "94bd5f75ecc9763d093de9eca19ae58bccbf7d1e",
+    "reference_tree":  "7114710e1b3856703d9a37ee51400671e8c0670f",
+    "branch":  "integration/system-v1",
+    "drift":  "TWO_BEPD_DOCUMENTARY_FILES_VERIFIED_AND_FF_NONDESTRUCTIVE",
+    "static_forensic":  "PASS_REPRODUCIBLE_SYNTHETIC_OBSERVATION",
+    "quantification":  {
+                           "experiment_budget_used":  4,
+                           "experiment_budget_max":  8,
+                           "denied_96_mib_runs":  2,
+                           "positive_512_mib_runs":  2,
+                           "both_denied_win32":  1455,
+                           "both_denied_exit":  42,
+                           "positive_controls_exit":  0,
+                           "observed_failed_commit_bytes":  16777216,
+                           "peak_delta_bytes":  16809984,
+                           "unexplained_remainder_bytes":  32768,
+                           "current_job_committed_change_on_denial":  0,
+                           "private_usage_change_on_denial":  0
+                       },
+    "memory_gate":  {
+                        "kernel_internal_root_cause":  "NOT_PROVEN",
+                        "transient_failed_commit_peak_counter_hypothesis":  "STRONGLY_SUPPORTED",
+                        "independent_process_memory_unchanged":  "PROVEN_IN_BOUNDED_TEST",
+                        "job_memory_current_unchanged":  "PROVEN_IN_BOUNDED_TEST",
+                        "limit_enforcement":  "PASS_SYNTHETIC",
+                        "gate_blocker":  "OPEN"
+                    },
+    "offline_tests":  {
+                          "forensic_evidence_replay_pass":  13,
+                          "forensic_evidence_replay_exit":  0,
+                          "combined_pytest_pass":  116,
+                          "combined_pytest_fail":  0,
+                          "combined_pytest_exit":  0,
+                          "original_CR2_CR1_base_pass":  103,
+                          "fc01_maven_offline_exit":  0
+                      },
+    "source_integrity":  {
+                             "fc01_java_blob":  "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+                             "e1_java_blob":  "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b",
+                             "frozen_cr2_runtime_sources_mutated":  false,
+                             "new_instrument_executable_committed":  false,
+                             "new_instrument_source_persistence":  "BASE64_SNAPSHOT_IN_EVIDENCE_ONLY"
+                         },
+    "artifact_manifest":  [
+                              {
+                                  "path":  "GOVERNANCE/AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M1-PREEXECUTION-FREEZE-V0.1.json",
+                                  "sha256":  "1c5b2f63542087d02aea54514f36b92f043a3485c935e6c1086a72fe384d9730",
+                                  "bytes":  3876
+                              },
+                              {
+                                  "path":  "tests/test_fc01_f03_cr2_cr1_m1.py",
+                                  "sha256":  "09d5721928e4737c21055743c413ce216aed927cf1178757315d8714b21be9e7",
+                                  "bytes":  5256
+                              },
+                              {
+                                  "path":  "reports/program/2026-10-10-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M1-FORENSIC-EVIDENCE-V0.1.json",
+                                  "sha256":  "c39de93149ba71ddd0ca3c76e012861a38af1d736640070bd16da0fec48a479c",
+                                  "bytes":  41829
+                              },
+                              {
+                                  "path":  "reports/program/2026-10-10-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M1-CAUSAL-FORENSIC-ASSESSMENT-V0.1.md",
+                                  "sha256":  "a299fcce5476b00f6878bf78d258e995e62f7d139736391cf79b7102efa49623",
+                                  "bytes":  7190
+                              }
+                          ],
+    "artifact_count_including_this_receipt":  5,
+    "final_head_tree":  "REQUIRES_POST_PERSISTENCE_REMOTE_READBACK; NOT_SELF_REFERENTIAL",
+    "firewall":  {
+                     "provider_requests":  0,
+                     "jforex_login":  0,
+                     "real_history_reads":  0,
+                     "read_a_retry":  false,
+                     "read_b":  false,
+                     "b12":  "CLOSED",
+                     "fc01_source_mutation":  false,
+                     "e1_source_mutation":  false,
+                     "data01_mutation":  false,
+                     "trading":  false,
+                     "capital":  false,
+                     "force":  false
+                 },
+    "next":  "Separate human decision on defining authoritative current-commit guard vs non-authoritative peak diagnostics; no automatic runtime change",
+    "stop":  "STOP_AFTER_F03_CR2_CR1_M1_APPLIED"
+}

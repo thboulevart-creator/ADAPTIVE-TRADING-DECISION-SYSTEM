@@ -1,0 +1,102 @@
+{
+  "schema": "ATDS_F03_CR2_CR1_M1_PREEXECUTION_FREEZE_V0_1",
+  "authority": "HUMAN_AUTHORIZED",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M1",
+  "reference": {
+    "authorized_head": "94bd5f75ecc9763d093de9eca19ae58bccbf7d1e",
+    "authorized_tree": "7114710e1b3856703d9a37ee51400671e8c0670f",
+    "post_drft_head": "724340048e83a2d588828eb4c096cfffc49616f7",
+    "post_drift_tree": "e51b0070046bb496bb388b773a3d9869d4d002eb",
+    "drift": "two BEPD documentary additions, nonmaterial"
+  },
+  "experiment_scope": {
+    "runner": "C# .NET Framework x64, compiler pre-installed, Win32 P/Invoke",
+    "worker": "same experimental executable in --worker mode, native VirtualAlloc MEM_COMMIT|MEM_RESERVE; no JForex",
+    "filesystem": "%TEMP% NTFS, isolated fresh GUID subfolder",
+    "native_allocation_step_bytes": 16777216,
+    "max_positive_allocation_bytes": 201326592,
+    "memory_ceilings_bytes": [
+      100663296,
+      536870912
+    ],
+    "allocation_order": [
+      "96MiB_primary",
+      "512MiB_positive_control",
+      "96MiB_replay",
+      "512MiB_replay"
+    ],
+    "planned_process_executions": 4,
+    "hard_max_process_executions": 8,
+    "preplanned_replays": 2,
+    "no_posthoc_extra_runs_without_separate_freeze": true,
+    "per_worker_event_ack_deadline_ms": 20000,
+    "supervisor_event_deadline_ms": 25000,
+    "termination_grace_ms": 3000,
+    "measurement_times": [
+      "T0_BEFORE_JOB_CONFIGURATION",
+      "T1_AFTER_LIMIT_READBACK",
+      "T2_AFTER_PROCESS_ASSIGNMENT",
+      "T3_WORKER_READY_BEFORE_ALLOC",
+      "T4_AFTER_EACH_SUCCESSFUL_ALLOCATION",
+      "T5_AFTER_DENIED_ALLOCATION_IF_ANY",
+      "T6_BEFORE_PROCESS_TERMINATION",
+      "T7_AFTER_PROCESS_TERMINATION"
+    ],
+    "expected_results": [
+      {
+        "label": "96MiB_primary",
+        "required": "at least one successful 16MiB increment and eventual refusal before 192MiB",
+        "exit_code": 42
+      },
+      {
+        "label": "512MiB_positive_control",
+        "required": "12 successful 16MiB increments = 192MiB",
+        "exit_code": 0
+      },
+      {
+        "label": "96MiB_replay",
+        "required": "same result class with independent new job and process",
+        "exit_code": 42
+      },
+      {
+        "label": "512MiB_replay",
+        "required": "same result class with independent new job and process",
+        "exit_code": 0
+      }
+    ],
+    "counter_paths": [
+      "QueryInformationJobObject class9 ExtendedLimitInfo: JobMemoryLimit, PeakJobMemoryUsed",
+      "QueryInformationJobObject class28 MemoryUsageInformation: JobMemory, PeakJobMemoryUsed",
+      "GetProcessMemoryInfo process PrivateUsage, WorkingSetSize",
+      "System.Diagnostics.Process PrivateMemorySize64, WorkingSet64",
+      "VirtualAlloc return + last-error + requested bytes"
+    ],
+    "precision": {
+      "bytes_are_integer": true,
+      "tolerance_for_peak_delta_bytes": 16777216,
+      "sampling_100ms_or_sync_at_allocation_steps": true,
+      "no_imputation": true
+    },
+    "primary_discrimination": [
+      "H1: peak counter includes attempted failed commit whereas current JobMemory and process PrivateUsage remain below cap",
+      "H2: P/Invoke struct layout/field offset defect",
+      "H3: process or job committed memory actually exceeds cap",
+      "H4: temporal/race mismatch (reading after termination)",
+      "H5: hidden extra processes or initial job membership"
+    ],
+    "decision": "ROOT_CAUSE_PROVEN requires quantitative evidence supporting one mechanism plus rejection of material alternatives; otherwise NOT_PROVEN"
+  },
+  "firewall": {
+    "provider_requests": 0,
+    "jforex_login": 0,
+    "network_requests": 0,
+    "real_history_reads": 0,
+    "fc01_source_mutation": false,
+    "cr2_source_mutation": false,
+    "data01_mutation": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false
+  }
+}
