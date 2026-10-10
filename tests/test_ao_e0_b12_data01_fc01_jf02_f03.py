@@ -91,6 +91,22 @@ public final class F03Probe {
                         invoked = "getTicks";
                         if ("null".equals(scenario)) return null;
                         if ("empty".equals(scenario)) return Collections.emptyList();
+                        if ("output_write".equals(scenario)) {
+                            Field wf = c.getDeclaredField("writer");
+                            wf.setAccessible(true);
+                            BufferedWriter original = (BufferedWriter)wf.get(collector);
+                            original.close();
+                            wf.set(collector, new BufferedWriter(new Writer() {
+                                public void write(char[] b,int s,int len) throws IOException { throw new IOException("SYNTHETIC_WRITE_FAIL"); }
+                                public void flush() throws IOException { throw new IOException("SYNTHETIC_WRITE_FAIL"); }
+                                public void close() {}
+                            }, 1));
+                        }
+                        if ("late_publish".equals(scenario)) {
+                            Method fail = c.getDeclaredMethod("fail",String.class);
+                            fail.setAccessible(true);
+                            fail.invoke(collector,"TEST_ABORT");
+                        }
                         if ("timeout".equals(scenario)) throw new JFException("Read timed out");
                         if ("timeout_during_load".equals(scenario)) {
                             Thread.sleep(80L);
