@@ -1,0 +1,162 @@
+{
+  "schema": "ATDS_M2_R1_PRE_EXECUTION_FREEZE_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1",
+  "human_authorization": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "governing_policy_adoption_exact_decision_lines": "# HUMAN ADJUDICATION — F03-CR2-CR1-M2 V0.1\n## FINAL POLICY ADOPTION\nDECISION = ADOPT_MEMORY_SAFETY_SIGNAL_HIERARCHY WITH_MANDATORY_RUNTIME_QUALIFICATION\nSTATUS = HUMAN_ADOPTED_FOR_SEPARATE_QUALIFICATION\nPRIMARY_CONTROL = OS_ENFORCED_JOB_COMMIT_LIMIT\nSECONDARY_OBSERVATION = CURRENT_JOB_COMMITTED_MEMORY\nFAILURE_CONTROL = ALLOCATION_DENIAL_AND_VERIFIED_TERMINATION\nDIAGNOSTIC_ONLY = PEAK_JOB_MEMORY_USED\nWINDOWS_INTERNAL_ROOT_CAUSE = NOT_PROVEN\nF03_CR2 = BLOCKED\nF03_CR2_CR1 = BLOCKED\nREAL_FC01_MEMORY_SAFETY = NOT_QUALIFIED\nRUNTIME_IMPLEMENTATION_AUTHORIZATION = FALSE\nGITHUB_MUTATION = FALSE\nREAD_A_RETRY = FALSE\nREAD_B = FALSE\nB12 = CLOSED\nFORCE = FALSE\nFAIL_CLOSED = TRUE\n",
+  "policy_provenance": "human adjudication in conversation: F03-CR2-CR1-M2 FINAL POLICY ADOPTION; exact decision semantics transcribed; full earlier long-form policy was in user-shared file, not itself GitHub-adopted",
+  "reference_head": "43cf0f3f534e26b43c084621eec71dc602cde4c5",
+  "preflight_head": "e15bf453f44098c1dd990ebeb891583efdc85052",
+  "preflight_tree": "506d98d888f3dd0fee3d216e336a64d29f72bead",
+  "drift": "4 E1 D3 F2 docs and test, found nonmaterial to FC01/E1",
+  "limits": {
+    "synthetic_job_memory_limit_bytes": 268435456,
+    "synthetic_java_xmx_bytes": 134217728,
+    "hard_timeout_ms": 2000,
+    "grace_ms": 1500,
+    "test_root": "new isolated folder under %TEMP%, NTFS, no real output",
+    "max_supervised_worker_launches": 24,
+    "planned_direct_worker_launches": 13,
+    "regression_workers": "tracked and reported separately, cannot be used to bypass max",
+    "compiler": "preinstalled C# .NET 4 x64, cached Java 8 SDK and jar only",
+    "network": 0
+  },
+  "jobs": {
+    "flags": "JOB_OBJECT_LIMIT_JOB_MEMORY | JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE",
+    "startup": "CREATE_SUSPENDED -> SET_JOB_LIMIT -> READBACK -> ASSIGN_BEFORE_RESUME -> START",
+    "identity": "exact Job readback + supervisor receipt, win32-backed"
+  },
+  "observation": {
+    "current_commit": "QueryInformationJobObject(28) JobMemory",
+    "diagnostic_peak": "QueryInformationJobObject(9|28) PeakJobMemoryUsed",
+    "private_memory": "GetProcessMemoryInfo optional corroboration",
+    "sampling": "event bound and exit; no assumption of continuous visibility"
+  },
+  "scenarios": {
+    "MS-01": {
+      "kind": "policy",
+      "input": "normal",
+      "expected": "CONTINUE_ELIGIBLE"
+    },
+    "MS-02": {
+      "kind": "policy",
+      "input": "limit_missing",
+      "expected": "BLOCKED_JOB_LIMIT"
+    },
+    "MS-03": {
+      "kind": "policy",
+      "input": "limit_mismatch",
+      "expected": "BLOCKED_JOB_LIMIT"
+    },
+    "MS-04": {
+      "kind": "policy",
+      "input": "job_assign_failure",
+      "expected": "BLOCKED_JOB_ASSIGNMENT"
+    },
+    "MS-05": {
+      "kind": "windows",
+      "input": "child_hang",
+      "expected": "BLOCKED_TIMEOUT"
+    },
+    "MS-06": {
+      "kind": "policy+windows",
+      "input": "valid",
+      "expected": "CONTINUE_ELIGIBLE"
+    },
+    "MS-07": {
+      "kind": "windows",
+      "input": "oom",
+      "expected": "BLOCKED_MEMORY"
+    },
+    "MS-08": {
+      "kind": "policy",
+      "input": "java_oom_injection",
+      "expected": "MEMORY_FAILURE"
+    },
+    "MS-09": {
+      "kind": "policy",
+      "input": "unavailable_commit",
+      "expected": "BLOCKED_OBSERVABILITY"
+    },
+    "MS-10": {
+      "kind": "policy",
+      "input": "commit_above_limit",
+      "expected": "BLOCKED_LIMIT_INTEGRITY"
+    },
+    "MS-11": {
+      "kind": "policy+windows",
+      "input": "denied_peak_above",
+      "expected": "MEMORY_FAILURE"
+    },
+    "MS-12": {
+      "kind": "policy",
+      "input": "unexplained_peak",
+      "expected": "BLOCKED_UNEXPLAINED_MEMORY_ANOMALY"
+    },
+    "MS-13": {
+      "kind": "windows",
+      "input": "hang",
+      "expected": "BLOCKED_TIMEOUT"
+    },
+    "MS-14": {
+      "kind": "policy",
+      "input": "termination_unknown",
+      "expected": "BLOCKED_TERMINATION_NOT_PROVEN"
+    },
+    "MS-15": {
+      "kind": "policy+windows",
+      "input": "escaped_descendant",
+      "expected": "BLOCKED_PROCESS_TREE"
+    },
+    "MS-16": {
+      "kind": "policy",
+      "input": "late_publication_after_failure",
+      "expected": "CRITICAL_FAIL"
+    },
+    "MS-17": {
+      "kind": "windows",
+      "input": "preexisting+concurrent",
+      "expected": "BLOCKED_COLLISION / ONE_WINNER"
+    },
+    "MS-18": {
+      "kind": "policy",
+      "input": "recovery_failure",
+      "expected": "BLOCKED_RECOVERY"
+    },
+    "MS-19": {
+      "kind": "windows",
+      "input": "supervisor_crash_recovery",
+      "expected": "ORPHAN_RECOVERED"
+    },
+    "MS-20": {
+      "kind": "windows",
+      "input": "valid_replay",
+      "expected": "DETERMINISTIC"
+    }
+  },
+  "planned_worker_tests": [
+    "valid replay A",
+    "valid replay B",
+    "oom",
+    "hang",
+    "child_hang",
+    "preexisting final",
+    "supervisor crash + recovery",
+    "concurrent publisher 1",
+    "concurrent publisher 2",
+    "concurrent publisher 3",
+    "concurrent publisher 4",
+    "concurrent publisher 5",
+    "concurrent publisher 6"
+  ],
+  "termination": "TerminateJobObject and positive confirmation of worker+child",
+  "publication": "CreateHardLinkW no replace with sentinel and 6 publisher race",
+  "failure_policy": "no final success after any memory or termination failure; telemetry missing/mismatch => fail closed",
+  "outcomes": {
+    "qualification": "PASS_SYNTHETIC_POLICY_QUALIFICATION or FAIL/BLOCKED/INCONCLUSIVE",
+    "existing_F03_CR2": "BLOCKED",
+    "existing_F03_CR2_CR1": "BLOCKED",
+    "peak_internal_root_cause": "NOT_PROVEN",
+    "real_provider": "FORBIDDEN"
+  },
+  "stop": "STOP_AFTER_F03_CR2_CR1_M2_R1"
+}
