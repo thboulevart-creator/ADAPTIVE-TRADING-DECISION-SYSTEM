@@ -1,0 +1,87 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_BREAKER_MATRIX_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "frozen": true,
+  "breakers": [
+    {
+      "id": "F2-B01",
+      "condition": "F2 cache path already exists",
+      "result": "BLOCKED_F2_CACHE_NOT_FRESH"
+    },
+    {
+      "id": "F2-B02",
+      "condition": "selected cache equals baseline or D3 cache",
+      "result": "BLOCKED_F2_PROTECTED_CACHE_SELECTED"
+    },
+    {
+      "id": "F2-B03",
+      "condition": "more than one connect call reachable",
+      "result": "BLOCKED_F2_CONNECT_BUDGET"
+    },
+    {
+      "id": "F2-B04",
+      "condition": "reconnect/retry path reachable",
+      "result": "BLOCKED_F2_RETRY_OR_RECONNECT"
+    },
+    {
+      "id": "F2-B05",
+      "condition": "startStrategy/IStrategy reachable",
+      "result": "BLOCKED_F2_STRATEGY_PATH"
+    },
+    {
+      "id": "F2-B06",
+      "condition": "IHistory/getHistory/getTicks/readTicks reachable",
+      "result": "BLOCKED_F2_HISTORY_PATH"
+    },
+    {
+      "id": "F2-B07",
+      "condition": "instrument or market-data subscription reachable",
+      "result": "BLOCKED_F2_MARKET_DATA_PATH"
+    },
+    {
+      "id": "F2-B08",
+      "condition": "order/trading API reachable",
+      "result": "BLOCKED_F2_TRADING_PATH"
+    },
+    {
+      "id": "F2-B09",
+      "condition": "observation window differs from 120000 ms",
+      "result": "BLOCKED_F2_WINDOW_DRIFT"
+    },
+    {
+      "id": "F2-B10",
+      "condition": "sample interval differs from 1000 ms",
+      "result": "BLOCKED_F2_SAMPLE_DRIFT"
+    },
+    {
+      "id": "F2-B11",
+      "condition": "primary threshold differs from 30000 ms",
+      "result": "BLOCKED_F2_PRIMARY_THRESHOLD_DRIFT"
+    },
+    {
+      "id": "F2-B12",
+      "condition": "connect exception class not captured",
+      "result": "BLOCKED_F2_EXCEPTION_OBSERVABILITY"
+    },
+    {
+      "id": "F2-B13",
+      "condition": "onConnect/onDisconnect timestamps not captured",
+      "result": "BLOCKED_F2_EVENT_OBSERVABILITY"
+    },
+    {
+      "id": "F2-B14",
+      "condition": "credentials/account/session identifiers persisted",
+      "result": "BLOCKED_F2_PRIVACY"
+    },
+    {
+      "id": "F2-B15",
+      "condition": "real execution before all pre-real gates pass",
+      "result": "BLOCKED_F2_PRE_REAL_NOT_QUALIFIED"
+    },
+    {
+      "id": "F2-B16",
+      "condition": "unexpected historical/market-data cache object appears",
+      "result": "BLOCKED_F2_UNEXPECTED_MARKET_DATA_SIDE_EFFECT"
+    }
+  ]
+}
