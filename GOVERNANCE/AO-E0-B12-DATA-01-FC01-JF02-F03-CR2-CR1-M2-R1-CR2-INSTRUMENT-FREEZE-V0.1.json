@@ -1,0 +1,19 @@
+{
+    "schema":  "M2_R1_CR2_INSTRUMENT_FREEZE_V0_1",
+    "head":  "52ba45d6590fc51aacb356e6cb14fb30b8da69d8",
+    "tree":  "f9c2a8b846d3893c5004771bbc98f92e1e51531f",
+    "campaign":  "M2R1CR2_20261010_CAP01",
+    "max_campaign_launches":  13,
+    "regression_worker_launches":  0,
+    "source_sha256":  {
+                          "GOVERNANCE/AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-PREEXECUTION-FREEZE-V0.1.json":  "8ec1f7ea940da2a397620dbe0312966bfdf6fa38aee98ab8fc2fa1a349729033",
+                          "tests/test_fc01_f03_cr2_cr1_m2_r1_cr2.py":  "fc1c8082e012602fe042bcd01992524ec525936e41d130298351b2f160d6ee79",
+                          "tools/fc01_f03_cr2/m2_r1_cr2/receipt_contract.py":  "e4eb904c00c0911248eb811d48af88a14ab74e6392ec840c453ff97f03072383",
+                          "tools/fc01_f03_cr2/m2_r1_cr2/F03CR2SupervisorCR2.cs":  "4505a3a838100d123cd167f22c869acb2299e1bcba7553bdf4979e6fb24e4d4c",
+                          "tools/fc01_f03_cr2/m2_r1_cr2/build_supervisor.py":  "ebd92f7782a316a359b9dcbdd4d670189a492c8c88e56666802185031ab2c5bb",
+                          "tools/fc01_f03_cr2/m2_r1_cr2/run_single_campaign.py":  "be290931a7aa637cd1d6121bc3551653214c978885f9956f115d4f917656ff84"
+                      },
+    "status":  "FROZEN_BEFORE_FIRST_CR2_WORKER",
+    "network":  false,
+    "force":  false
+}

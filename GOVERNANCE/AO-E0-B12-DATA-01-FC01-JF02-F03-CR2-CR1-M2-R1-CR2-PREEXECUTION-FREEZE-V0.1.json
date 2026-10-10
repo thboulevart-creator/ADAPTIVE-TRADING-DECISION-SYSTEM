@@ -1,0 +1,126 @@
+{
+  "schema": "ATDS_M2_R1_CR2_PREEXECUTION_FREEZE_V0_1",
+  "human_authorization": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2",
+  "canonical": {
+    "repo": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "reference_head": "52ba45d6590fc51aacb356e6cb14fb30b8da69d8",
+    "reference_tree": "f9c2a8b846d3893c5004771bbc98f92e1e51531f",
+    "protected_fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "protected_e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b",
+    "cr1_evidence_sha256": "8b579f3a2b9dca130e8d58629c33cad85385e31715c0e181f9d60083b53faacc"
+  },
+  "campaign_id": "M2R1CR2_20261010_CAP01",
+  "campaign_budget": 13,
+  "campaign_runs": [
+    {
+      "id": "normal_A",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "normal_B",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "java_oom",
+      "mode": "oom",
+      "launch_cost": 1
+    },
+    {
+      "id": "timeout",
+      "mode": "hang",
+      "launch_cost": 1
+    },
+    {
+      "id": "child_confined",
+      "mode": "child_hang",
+      "launch_cost": 1
+    },
+    {
+      "id": "sentinel",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "supervisor_crash",
+      "mode": "pause_after_partial",
+      "launch_cost": 1
+    },
+    {
+      "id": "race_0",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "race_1",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "race_2",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "race_3",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "race_4",
+      "mode": "valid",
+      "launch_cost": 1
+    },
+    {
+      "id": "race_5",
+      "mode": "valid",
+      "launch_cost": 1
+    }
+  ],
+  "retry": false,
+  "regression_budget": {
+    "worker_launches": 0,
+    "condition": "Only non-worker cross-lane tests allowed. Runtime-spawning regression tests excluded and reported NOT_RERUN; their coverage cannot be claimed PASS."
+  },
+  "limits": {
+    "job_memory_bytes": 268435456,
+    "worker_jvm_xmx_bytes": 134217728,
+    "timeout_ms": 2000,
+    "grace_ms": 1500,
+    "offline_compiler": true,
+    "fs": "NTFS",
+    "evidence_lab": "%TEMP%/ATDS_M2_R1_CR2_CAMPAIGN_CAP01"
+  },
+  "evidence": {
+    "supervisor_stdout": true,
+    "supervisor_stderr": true,
+    "jvm_stdout": true,
+    "jvm_stderr": true,
+    "worker_pid_plus_start_time": true,
+    "supervisor_pid_plus_start_time": true,
+    "job_commit_current": true,
+    "peak_diagnostic_only": true,
+    "final_sha_conditional": true,
+    "process_tree_termination": true,
+    "no_late_publish": true,
+    "no_overwrite": true,
+    "crash_recovery": true,
+    "readback_and_hash": true,
+    "precreated_handles_allowlist": true
+  },
+  "firewall": {
+    "provider_requests": 0,
+    "jforex_login": 0,
+    "jforex_connect": 0,
+    "real_history_reads": 0,
+    "source_mutation": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false
+  },
+  "terminal": "ALL_P0_TO_P5_PASS_ELSE_BLOCKED"
+}
