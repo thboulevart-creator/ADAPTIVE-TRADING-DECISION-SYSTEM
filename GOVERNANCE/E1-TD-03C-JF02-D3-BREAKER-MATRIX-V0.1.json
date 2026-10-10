@@ -1,0 +1,82 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_BREAKER_MATRIX_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3",
+  "frozen": true,
+  "breakers": [
+    {
+      "id": "D3-B01",
+      "condition": "run_label != D3 for D3 cache path",
+      "result": "BLOCKED_D3_RUN_LABEL_INVALID"
+    },
+    {
+      "id": "D3-B02",
+      "condition": "isolated cache path differs from exact authorized path",
+      "result": "BLOCKED_D3_CACHE_PATH_INVALID"
+    },
+    {
+      "id": "D3-B03",
+      "condition": "isolated cache path already exists",
+      "result": "BLOCKED_D3_CACHE_NOT_FRESH"
+    },
+    {
+      "id": "D3-B04",
+      "condition": "selected cache equals baseline cache",
+      "result": "BLOCKED_D3_BASELINE_CACHE_FORBIDDEN"
+    },
+    {
+      "id": "D3-B05",
+      "condition": "cache binding occurs after connect",
+      "result": "BLOCKED_D3_CACHE_BINDING_ORDER"
+    },
+    {
+      "id": "D3-B06",
+      "condition": "instrument differs",
+      "result": "BLOCKED_JF02_WRONG_INSTRUMENT"
+    },
+    {
+      "id": "D3-B07",
+      "condition": "from/to differs",
+      "result": "BLOCKED_D3_INTERVAL_DRIFT"
+    },
+    {
+      "id": "D3-B08",
+      "condition": "account mode differs from DEMO",
+      "result": "BLOCKED_D3_ACCOUNT_MODE_DRIFT"
+    },
+    {
+      "id": "D3-B09",
+      "condition": "more than one getTicks call reachable",
+      "result": "BLOCKED_D3_GETTICKS_BUDGET"
+    },
+    {
+      "id": "D3-B10",
+      "condition": "automatic retry reachable",
+      "result": "BLOCKED_D3_RETRY_FORBIDDEN"
+    },
+    {
+      "id": "D3-B11",
+      "condition": "trading/order API introduced",
+      "result": "BLOCKED_D3_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "D3-B12",
+      "condition": "strategy/PnL/performance path introduced",
+      "result": "BLOCKED_D3_AUTHORITY_EXPANSION"
+    },
+    {
+      "id": "D3-B13",
+      "condition": "baseline cache metadata changes",
+      "result": "BLOCKED_D3_BASELINE_CACHE_MUTATED"
+    },
+    {
+      "id": "D3-B14",
+      "condition": "real execution before all pre-real gates PASS",
+      "result": "BLOCKED_D3_PRE_REAL_NOT_QUALIFIED"
+    },
+    {
+      "id": "D3-B15",
+      "condition": "second real login or second real getTicks attempted",
+      "result": "BLOCKED_D3_REAL_BUDGET_EXHAUSTED"
+    }
+  ]
+}
