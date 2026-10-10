@@ -1,0 +1,110 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_REAL_EXECUTION_EVIDENCE_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "status": "REAL_EXECUTION_COMPLETED_STOP_APPLIED",
+  "canonical_execution_head": "58756f0fc176368abdf9ed65377dd23182ba5fb7",
+  "local_evidence": {
+    "meta": {
+      "path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-evidence\\f2.local-meta.json",
+      "size_bytes": 4513,
+      "sha256": "c15919fe3cc67ecb6f310cf517870872d66e5f3ee47953861249ba59af02325e"
+    },
+    "sanitized_console": {
+      "path": "C:\\Users\\Boulevart\\ATDS-TOOLS\\jf02-evidence\\f2.sanitized-console.txt",
+      "size_bytes": 854,
+      "sha256": "1c3b477b87ed2312e1b8ba47d44e13ab23f544f71d311e67cc877ef0cfe9f04a"
+    }
+  },
+  "frozen_runtime": {
+    "sdk": "3.6.51",
+    "api_implementation": "2.13.99",
+    "account_mode": "DEMO",
+    "observation_window_ms": 120000,
+    "sample_interval_ms": 1000,
+    "primary_threshold_ms": 30000
+  },
+  "connection_observation": {
+    "connect_call_start_utc": "2026-10-10T14:55:14.528Z",
+    "connect_exception_thrown": false,
+    "connect_call_return_utc": "2026-10-10T14:55:19.479Z",
+    "connect_call_duration_ms": 4950,
+    "isconnected_samples": [
+      {
+        "elapsed_ms": 0,
+        "boolean_state": false
+      },
+      {
+        "elapsed_ms": 1001,
+        "boolean_state": true
+      }
+    ],
+    "onconnect_observed": true,
+    "onconnect_utc": "2026-10-10T14:55:20.360Z",
+    "first_connected_elapsed_ms": 1001,
+    "ondisconnect_observed_before_intentional": false,
+    "ondisconnect_observed_after_intentional_within_10000ms": false
+  },
+  "result": {
+    "reported": "CONNECTED_WITHIN_ORIGINAL_BOUND",
+    "effective": "CONNECTED_WITHIN_ORIGINAL_BOUND",
+    "authorization_case": "CASE_C_FULL_CONNECTION_WITHIN_30_SECONDS"
+  },
+  "provider_action_budgets": {
+    "login_consumed": "1/1",
+    "connect_consumed": "1/1",
+    "reconnect_count": 0,
+    "retry_count": 0,
+    "disconnect_invoked_once": true,
+    "second_login_authorized": false,
+    "second_connect_authorized": false
+  },
+  "forbidden_paths": {
+    "start_strategy": false,
+    "history_request": false,
+    "getticks": false,
+    "market_data_request": false,
+    "unexpected_market_data_files_count": 0
+  },
+  "cache_integrity": {
+    "baseline_exact_unchanged": true,
+    "baseline_exact_size_before": 0,
+    "baseline_exact_size_after": 0,
+    "baseline_exact_sha256_before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "baseline_exact_sha256_after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "baseline_metadata_unchanged": true,
+    "d3_content_unchanged": true,
+    "d3_metadata_unchanged": true,
+    "f2_cache_inventory": [
+      {
+        "relative_path": "pr_version.txt",
+        "bytes": 1
+      },
+      {
+        "relative_path": "pragcache.lck",
+        "bytes": 0
+      },
+      {
+        "relative_path": "version.txt",
+        "bytes": 1
+      }
+    ]
+  },
+  "termination_note": {
+    "classification": "NON_BLOCKING_LOCAL_PROCESS_TERMINATION_NOTE",
+    "observation": "After F2_DONE=true and the authorized client.disconnect() call, onDisconnect was not observed within the 10-second window and residual Maven/JVM processes remained alive.",
+    "cleanup": "Residual F2 Java process was terminated locally after provider-facing F2 actions had ended, solely to enforce STOP and allow the parent launcher to finalize its local receipt.",
+    "new_login": false,
+    "new_connect": false,
+    "reconnect": false,
+    "retry": false,
+    "new_market_data": false,
+    "scientific_effect": "NONE_ON_CASE_C_CONNECTION_RESULT"
+  },
+  "privacy": {
+    "credentials_persisted": false,
+    "account_identifier_persisted": false,
+    "raw_provider_console_persisted": false,
+    "sanitized_console_only": true
+  },
+  "stop": true
+}
