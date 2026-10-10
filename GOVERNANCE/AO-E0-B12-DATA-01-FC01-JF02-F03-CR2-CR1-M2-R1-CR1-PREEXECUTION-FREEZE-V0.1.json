@@ -1,0 +1,127 @@
+{
+  "schema": "ATDS_F03_M2_R1_CR1_CAPTURE_FREEZE_V0_1",
+  "authority": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "control": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR1",
+  "reference": {
+    "head": "c5e0f7362837b6e171e1aaf849dec703fc320380",
+    "tree": "3beec0d88a38e8b607239b0399ce3e2230041121",
+    "m2r1_evidence_sha256": "cd763aae28f7f24ac2abbd932a56e1ddf818be601298de1000258d5d5b4b3654",
+    "m2_source_sha256": "1d624e33090e70223662af21b6a8927d7d56264fb6e3eaaed5ff47308134363e",
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b"
+  },
+  "campaign_id": "M2R1CR1_20261010_CAP01",
+  "scenario_runs": [
+    {
+      "id": "normal_A",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "normal_B",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "java_oom",
+      "mode": "oom",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "timeout",
+      "mode": "hang",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "child_confined",
+      "mode": "child_hang",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "sentinel",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "supervisor_crash",
+      "mode": "pause_after_partial",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "race_0",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "race_1",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "race_2",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "race_3",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "race_4",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    },
+    {
+      "id": "race_5",
+      "mode": "valid",
+      "worker_launch_cost": 1
+    }
+  ],
+  "max_worker_launches": 24,
+  "planned_worker_launches": 13,
+  "allowed_additional_launches": 0,
+  "strict_one_campaign": true,
+  "limits": {
+    "job_memory_bytes": 268435456,
+    "java_heap_bytes": 134217728,
+    "supervisor_timeout_ms": 2000,
+    "termination_grace_ms": 1500,
+    "files_root": "%TEMP%/ATDS_M2_R1_CR1_CAMPAIGN_CAP01",
+    "allowed_network_requests": 0
+  },
+  "capture": {
+    "raw_stdout": true,
+    "raw_stderr": true,
+    "disk_files_precreated_before_spawn": true,
+    "per_run_receipts": true,
+    "pid_plus_start_filetime": true,
+    "raw_job_current_peak": true,
+    "exit_codes": true,
+    "termination_evidence": true,
+    "descendant_and_recovery_proof": true,
+    "hash_every_file_and_readback": true,
+    "errors_fail_closed": true,
+    "no_retrospective_fabrication": true,
+    "do_not_overwrite_receipts": true
+  },
+  "scope": {
+    "new_experimental": "tools/fc01_f03_cr2/m2_r1_cr1",
+    "new_tests": "tests/test_fc01_f03_cr2_cr1_m2_r1_cr1*.py",
+    "historic_sources_mutation": false,
+    "provider_requests": 0,
+    "b12": "CLOSED",
+    "force": false
+  },
+  "expected": {
+    "normal_A": "PUBLISHED",
+    "normal_B": "PUBLISHED",
+    "java_oom": "BLOCKED_MEMORY",
+    "timeout": "BLOCKED_TIMEOUT",
+    "child_confined": "BLOCKED_TIMEOUT",
+    "sentinel": "BLOCKED_COLLISION",
+    "supervisor_crash": "ORPHAN_RECOVERED",
+    "race": "ONE_PUBLISHED_FIVE_COLLISIONS"
+  },
+  "decision": "PASS_SYNTHETIC_EVIDENCE_REQUALIFIED only if all receipts evidence-complete and all mandatory gates pass; else BLOCKED"
+}

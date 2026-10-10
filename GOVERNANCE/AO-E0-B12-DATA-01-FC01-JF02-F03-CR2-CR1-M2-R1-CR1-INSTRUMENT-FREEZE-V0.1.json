@@ -1,0 +1,16 @@
+{
+    "head":  "c5e0f7362837b6e171e1aaf849dec703fc320380",
+    "tree":  "3beec0d88a38e8b607239b0399ce3e2230041121",
+    "source_hashes":  {
+                          "GOVERNANCE/AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR1-PREEXECUTION-FREEZE-V0.1.json":  "cfc779f3f02da75f3ee74ff9432aac216dcca5b6a97960669c14b316bf09b86f",
+                          "tools/fc01_f03_cr2/m2_r1_cr1/run_single_campaign.py":  "2fe90285fa17ce74e029218fd41ab9261378f3d93048fafd6e5374384849a0cf",
+                          "tests/test_fc01_f03_cr2_cr1_m2_r1_cr1.py":  "5220c1feea13f53d6f00b0f8a06594764695613ede9d61b025fbd300661bc62b",
+                          "tools/fc01_f03_cr2/m2_r1_cr1/F03CR2SupervisorCR1.cs":  "797ea1719efd044b51311eee7b298a9b2a80fa1b2ccb54ac244f3808832057da",
+                          "tools/fc01_f03_cr2/m2_r1_cr1/receipt_capture.py":  "605f807aacd1e54149fbbf7accecbde99477144ae204910c9b162f2593d53857"
+                      },
+    "runtime_platform":  "Windows64_NTFS",
+    "worker_budget":  13,
+    "max":  24,
+    "campaign":  "M2R1CR1_20261010_CAP01",
+    "utc":  "2026-10-10T15:36:16.6434668Z"
+}
