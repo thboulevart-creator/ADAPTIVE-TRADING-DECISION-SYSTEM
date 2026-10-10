@@ -1,0 +1,69 @@
+{
+  "schema": "ATDS_F03_CR2_CR1_R2_TARGETED_TEST_FREEZE_V0_1",
+  "authority": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1",
+  "baseline_head": "2ab0975dfab3ec2124f506edba611d8f65bddfdf",
+  "baseline_tree": "2ac05e80e27c62a4736a08acb4fcc4749aea914b",
+  "frozen_cr2_packet_sha256": "f74bbaec8ad148c65599207053e9e91f0f6dc858b755b7908530dd1518416fc9",
+  "memory_target": {
+    "independent_pinvoke_structure_layout": "size EXT=144, BASIC=64, IO=48, JOB_LIMIT_OFFSET=120, PEAK_JOB_OFFSET=136",
+    "allocation_limit_bytes": 100663296,
+    "positive_control_bytes": 536870912,
+    "denial_win32": 1455,
+    "root_cause_status": "NOT_PROVEN_UNTIL_CAUSAL_EXPERIMENT",
+    "crit": "Classes 9 and 28 consistent does not explain peak > configured; accept BLOCKED if unexplained"
+  },
+  "orphan_target": {
+    "root": "test-created %TEMP% NTFS directory only",
+    "run_id": "cr2_<32 lowercase hexadecimal GUID>",
+    "manifest": "run.manifest",
+    "manifest_required_fields": [
+      "RUN_ID",
+      "RUN_DIR",
+      "SUPERVISOR_PID",
+      "WORKER_PID",
+      "WORKER_START_TICKS",
+      "FINAL_PATH",
+      "EXPECTED_SHA256"
+    ],
+    "integrity": "SHA256 of LF-joined sorted-or-exact-order body, stored MANIFEST_SHA256; reject mismatch",
+    "allowed_cleanup_files": [
+      "run.manifest",
+      "worker.partial",
+      "worker.status",
+      "child.started",
+      "child.started.finished"
+    ],
+    "rules": [
+      "lab and run path canonical within %TEMP%",
+      "no reparse point",
+      "never delete final",
+      "PID handle must be absent or terminated; unknown status => deny",
+      "if active worker deny",
+      "foreign artifacts deny",
+      "exclusive per-run mutex",
+      "repeated invocation returns NO_ORPHAN",
+      "cleanup denial returns BLOCKED and preserves manifest"
+    ],
+    "cases": [
+      "orphan_after_crash",
+      "active_worker",
+      "foreign_artifact",
+      "valid_final_preserved",
+      "repeat_recovery",
+      "concurrent_recovery",
+      "cleanup_denied",
+      "tampered_manifest",
+      "recovery_wrong_root"
+    ]
+  },
+  "firewall": {
+    "provider_requests": 0,
+    "fc01_source_mutation": false,
+    "e1_source_mutation": false,
+    "b12": "CLOSED",
+    "read_a_retry": false,
+    "read_b": false,
+    "force": false
+  },
+  "note": "F03-CR2-CR1 test freeze is separate; no material mutation to existing F03-CR2 packet"
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "ATDS_F03_CR2_CR1_FORENSIC_MATRIX_V0_1",
+  "control": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1",
+  "authority": "EXPLICITLY_HUMAN_ADOPTED",
+  "reference": {
+    "head": "2ab0975dfab3ec2124f506edba611d8f65bddfdf",
+    "tree": "2ac05e80e27c62a4736a08acb4fcc4749aea914b",
+    "previous_cr2": "BLOCKED",
+    "frozen_packet_sha256": "f74bbaec8ad148c65599207053e9e91f0f6dc858b755b7908530dd1518416fc9"
+  },
+  "memory_accounting": {
+    "root_cause": "NOT_PROVEN",
+    "PInvoke_layout": "PASS_STRUCTURE_LAYOUT_64_48_144_BYTES_OFFSETS_120_136",
+    "layout_audit_exit_code": 0,
+    "limit_enforcement": "PASS_SYNTHETIC_96MiB_DENIED_512MiB_SUCCEEDED",
+    "independent_job_query": {
+      "cap_96_bytes": 100663296,
+      "worker_marker": "DENIED_AT_MB=96;COMMITTED_MB=80;WIN32=1455",
+      "worker_exit": 42,
+      "class9_peak_bytes": 115691520,
+      "class28_peak_bytes": 115691520,
+      "class28_current_after_worker_exit_bytes": 61440,
+      "cap_512_bytes": 536870912,
+      "control_marker": "ALLOCATED_MB=192",
+      "control_worker_exit": 0,
+      "class9_control_peak_bytes": 216580096,
+      "class28_control_peak_bytes": 216580096
+    },
+    "measurement_consistency": "NOT_PROVEN_APPARENT_PEAK_EXCEEDS_JOB_MEMORY_LIMIT",
+    "limitations": [
+      "Classes 9 and 28 independently return the same peak, but they are Windows counters derived from the same kernel state",
+      "The higher peak was reproducible after failed commit; an exact kernel causal explanation is not proven",
+      "Current JobMemory after process exit is not a measurement of the instantaneous maximum",
+      "The synthetic denial is evidence of enforcement, not of successful real JForex loading"
+    ]
+  },
+  "orphan_recovery": {
+    "targeted_red": {
+      "expected_failures": 9,
+      "passes": 1,
+      "errors": 0,
+      "exit_code": 1
+    },
+    "targeted_green": {
+      "passes": 11,
+      "failures": 0,
+      "exit_code": 0
+    },
+    "status": "PASS_SYNTHETIC_BOUNDED_SCOPE_ONLY",
+    "proofs": [
+      "Independent .NET 4 recovery executable re-invoked after forcibly killing real synthetic supervisor",
+      "Synthetic Java worker Job Object termination before recovery, no final file published",
+      "Reject active worker PID and unknown PID status",
+      "Reject foreign artifacts and tampered manifest",
+      "Preserve final.csv preexisting final",
+      "Concurrent recovery protected by per-run named mutex",
+      "Repeated recovery returns NO_ORPHAN",
+      "Read-only partial triggers BLOCKED_CLEANUP_DENIED",
+      "Live supervisor tests preserve original green behavior"
+    ],
+    "gaps": [
+      "A manifest SHA256 without an authentication key detects corruption but does not establish authenticity against an adversary",
+      "Worker start tick field in the synthetic manifest is 0; no stable process birth identity validation was proven",
+      "Zero pending digest cleanup is scoped to known private partial and never authorized for publication",
+      "Crash/power-loss durability, adversarial filesystem races and all reparse/ACL conditions remain unqualified"
+    ]
+  },
+  "regressions": {
+    "new_targeted": 11,
+    "existing_cr2": 19,
+    "cross_lane": 73,
+    "total_pass": 103,
+    "failed": 0,
+    "pytest_exit": 0,
+    "offline_maven_fc01_exit": 0,
+    "provider_calls": 0
+  },
+  "verdict": "BLOCKED",
+  "reason": "MEMORY_ACCOUNTING_ROOT_CAUSE_NOT_PROVEN",
+  "firewall": {
+    "fc01_mutation": false,
+    "e1_mutation": false,
+    "data01_mutation": false,
+    "provider_requests": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false
+  }
+}
