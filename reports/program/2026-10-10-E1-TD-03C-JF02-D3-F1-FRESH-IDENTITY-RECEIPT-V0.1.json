@@ -1,0 +1,11 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F1_FRESH_CANONICAL_IDENTITY_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "observed_head": "2ab0975dfab3ec2124f506edba611d8f65bddfdf",
+  "observed_tree": "2ac05e80e27c62a4736a08acb4fcc4749aea914b",
+  "authority_commit": "2ab0975dfab3ec2124f506edba611d8f65bddfdf",
+  "force": false,
+  "material_drift_after_authorization": "NONE_OBSERVED_BEFORE_FORENSIC_PERSISTENCE"
+}
