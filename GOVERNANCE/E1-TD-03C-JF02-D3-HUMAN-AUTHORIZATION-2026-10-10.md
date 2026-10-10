@@ -1,0 +1,580 @@
+# HUMAN AUTHORIZATION —
+# E1-TD-03C-JF02-D3
+# CACHE-NEUTRAL CONTROLLED CAUSAL TEST V0.1
+
+DECISION =
+AUTHORIZE_D3_CACHE_NEUTRAL_CONTROLLED_CAUSAL_TEST
+
+## 1. CANONICAL REPOSITORY IDENTITY
+
+REPOSITORY =
+thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM
+
+BRANCH =
+integration/system-v1
+
+AUTHORIZED_PARENT_HEAD =
+bda8f67992149072daa3e39d8b217ce4515ee045
+
+AUTHORIZED_PARENT_TREE =
+755c70293efcf6b1ea750dbdba78f0b3ff67f716
+
+FORCE =
+FALSE
+
+Any mutation or real execution MUST first perform a fresh:
+
+- repository verification;
+- branch verification;
+- HEAD verification;
+- TREE verification;
+- E1-TD-03C-JF02 surface-drift verification.
+
+Any material concurrent drift affecting D3 SHALL BLOCK execution
+pending separate human adjudication.
+
+---
+
+## 2. GOVERNING PRIOR STATE
+
+D1 =
+HUMAN_ADOPTED_AND_CLOSED
+
+D2 =
+HUMAN_ADOPTED_AND_CLOSED
+
+D2 HUMAN ADOPTION RECEIPT COMMIT =
+bda8f67992149072daa3e39d8b217ce4515ee045
+
+D1_INTERVAL_DATA_EXISTENCE =
+PROVEN
+
+OFFICIAL_DUKASCOPY_HISTORICAL_EXPORT_TICKS =
+22985 BID TICKS
+
+JFOREX_READ_A_INITIAL =
+FAILED_HISTORY_LOAD_NETWORK_TIMEOUT
+
+JFOREX_READ_A_R1 =
+ZERO_TICKS
+
+MOST_SUPPORTED_D2_CAUSE =
+C07_CACHE_PATH_CACHE_STATE_DEPENDENCY
+
+COUPLED_TRIGGER =
+C11_TRANSIENT_PROVIDER_HISTORY_SERVICE_FAILURE
+
+CACHE_CAUSALITY =
+SUPPORTED_BUT_NOT_PROVEN
+
+JFOREX_PATH_QUALIFIED =
+NO
+
+AWS_CAN_BE_DEMOTED =
+NOT_YET
+
+---
+
+## 3. D3 SCIENTIFIC QUESTION
+
+CONTROL =
+E1-TD-03C-JF02-D3
+
+TITLE =
+CACHE-NEUTRAL CONTROLLED CAUSAL TEST V0.1
+
+EXCLUSIVE QUESTION =
+
+WHEN THE SAME JFOREX HISTORY REQUEST IS EXECUTED
+WITH A FRESH ISOLATED CACHE DIRECTORY,
+WHILE ALL PRACTICALLY CONTROLLABLE REQUEST VARIABLES
+ARE HELD CONSTANT,
+DOES IHistory.getTicks(...) RETURN HISTORICAL TICKS?
+
+The test is specifically designed to evaluate:
+
+C07 =
+CACHE_PATH_CACHE_STATE_DEPENDENCY
+
+It SHALL NOT be used to test:
+
+- strategy quality;
+- PnL;
+- performance;
+- Source-B equivalence;
+- AWS/S3 equivalence;
+- raw BI5 equivalence;
+- execution quality;
+- trading capability.
+
+---
+
+## 4. FROZEN REQUEST
+
+PROVIDER =
+DUKASCOPY_BANK_SA
+
+DELIVERY_PATH =
+JFOREX_SDK
+
+SDK =
+DDS2-jClient-JForex 3.6.51
+
+API_IMPLEMENTATION =
+2.13.99
+
+ACCOUNT_MODE =
+DEMO
+
+INSTRUMENT =
+USATECH.IDX/USD
+
+METHOD =
+IHistory.getTicks(...)
+
+FROM_MS =
+1759327200000
+
+TO_MS_INCLUSIVE =
+1759330799999
+
+INTERVAL =
+[2025-10-01T14:00:00.000Z,
+ 2025-10-01T15:00:00.000Z)
+
+AUTOMATIC_RETRIES =
+0
+
+REAL_GETTICKS_BUDGET =
+1
+
+REAL_LOGIN_BUDGET =
+1
+
+---
+
+## 5. SOLE EXPERIMENTAL INTERVENTION
+
+SOLE INTENDED INTERVENTION =
+
+JFOREX_CACHE_DIRECTORY
+
+BASELINE CACHE =
+C:\Users\Boulevart\AppData\Local\JForex\.cache
+
+BASELINE CACHE STATUS =
+PRESERVE_UNTOUCHED
+
+D3 ISOLATED CACHE CANDIDATE =
+C:\Users\Boulevart\ATDS-TOOLS\jf02-d3-cache-v0.1
+
+D3_CACHE_PRECONDITION =
+PATH_MUST_NOT_EXIST_BEFORE_TEST
+
+IF D3 CACHE PATH ALREADY EXISTS:
+
+DO_NOT_DELETE
+DO_NOT_CLEAN
+DO_NOT_REUSE
+
+RESULT =
+BLOCKED_D3_CACHE_NOT_FRESH
+
+STOP =
+TRUE
+
+No silent replacement path is authorized.
+
+---
+
+## 6. BASELINE CACHE PROTECTION
+
+The existing JForex cache is forensic evidence.
+
+The following existing object SHALL remain untouched:
+
+C:\Users\Boulevart\AppData\Local\JForex\.cache\
+USATECHIDXUSD\2025\09\01\14h_ticks.bi5
+
+OBSERVED SIZE =
+0 BYTES
+
+OBSERVED SHA256 =
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+
+FORBIDDEN:
+
+DELETE_BASELINE_CACHE =
+TRUE
+
+PURGE_BASELINE_CACHE =
+TRUE
+
+RENAME_BASELINE_CACHE =
+TRUE
+
+MOVE_BASELINE_CACHE =
+TRUE
+
+WRITE_BASELINE_CACHE =
+TRUE
+
+TRUNCATE_BASELINE_CACHE =
+TRUE
+
+REPAIR_BASELINE_CACHE =
+TRUE
+
+MODIFY_BASELINE_CACHE_PERMISSIONS =
+TRUE
+
+The baseline cache may be inspected read-only for metadata
+and identity verification.
+
+---
+
+## 7. MINIMAL IMPLEMENTATION AUTHORITY
+
+A minimal implementation change is authorized exclusively
+to route the JForex SDK to the isolated D3 cache.
+
+AUTHORIZED MECHANISM =
+
+IClient.setCacheDirectory(...)
+
+The implementation MUST occur before the JForex connection
+and before any historical-data request.
+
+AUTHORIZED CHANGE SURFACE =
+ONLY_THE_MINIMUM_REQUIRED_FOR_D3_CACHE_BINDING
+
+The implementation MAY:
+
+- accept the exact isolated cache path through a bounded
+  D3-specific configuration surface;
+- validate that the cache directory does not pre-exist;
+- call IClient.setCacheDirectory(...) before connect;
+- record the selected cache path in sanitized evidence;
+- fail closed if the cache path is not fresh;
+- add synthetic/offline tests for this exact behavior.
+
+The implementation MUST NOT alter:
+
+- instrument binding;
+- timestamps;
+- SDK version;
+- API version;
+- authentication mode;
+- getTicks semantics;
+- canonical tick serialization;
+- evidence hashing semantics;
+- strategy logic;
+- Source-B logic;
+- AWS logic;
+- retry policy.
+
+---
+
+## 8. TEST-FIRST REQUIREMENT
+
+Before any real JForex login or history read:
+
+D3 CONTRACT =
+REQUIRED
+
+D3 BREAKER MATRIX =
+REQUIRED
+
+SYNTHETIC RED =
+REQUIRED
+
+MINIMAL IMPLEMENTATION =
+REQUIRED
+
+SYNTHETIC GREEN =
+REQUIRED
+
+BUILD / COMPILE =
+REQUIRED
+
+PRE-REAL QUALIFICATION RECEIPT =
+REQUIRED
+
+The pre-real tests MUST demonstrate at minimum:
+
+1. absent cache path is accepted;
+2. existing cache path blocks;
+3. baseline cache path cannot be selected;
+4. cache directory binding occurs before connect;
+5. exactly one history call is possible;
+6. automatic retry remains zero;
+7. instrument remains USATECH.IDX/USD;
+8. interval remains exactly frozen;
+9. account mode remains DEMO;
+10. no strategy/PnL/trading path becomes reachable.
+
+Failure of any pre-real gate SHALL BLOCK the real D3 read.
+
+---
+
+## 9. REAL EXECUTION AUTHORITY
+
+Only after all pre-real gates PASS:
+
+NEW_JFOREX_LOGIN =
+AUTHORIZED_ONCE
+
+NEW_JFOREX_GETTICKS_REQUEST =
+AUTHORIZED_ONCE
+
+NEW_MARKET_DATA_BYTES =
+AUTHORIZED_ONLY_AS_DIRECT_RESULT_OF_THIS_ONE_GETTICKS
+
+CACHE_TARGET =
+D3_ISOLATED_CACHE_ONLY
+
+AUTOMATIC_RETRY =
+FORBIDDEN
+
+SECOND_GETTICKS =
+FORBIDDEN
+
+READ_A_RETRY =
+FORBIDDEN
+
+READ_B =
+FORBIDDEN
+
+DIFFERENT_INTERVAL =
+FORBIDDEN
+
+DIFFERENT_INSTRUMENT =
+FORBIDDEN
+
+SECOND_CACHE =
+FORBIDDEN
+
+LIVE_ACCOUNT =
+FORBIDDEN
+
+NEW_HISTORICAL_DATA_EXPORT =
+FORBIDDEN
+
+AWS_REQUEST =
+FORBIDDEN
+
+LEGACY_DATAFEED_REQUEST =
+FORBIDDEN
+
+---
+
+## 10. REQUIRED REAL EVIDENCE
+
+For the single authorized D3 execution, record:
+
+RUN_ID
+SDK_VERSION
+API_IMPLEMENTATION_VERSION
+ACCOUNT_MODE
+INSTRUMENT
+FROM_MS
+TO_MS_INCLUSIVE
+CACHE_PATH
+CACHE_PATH_FRESH_BEFORE_RUN
+BASELINE_CACHE_SHA256_BEFORE
+BASELINE_CACHE_SIZE_BEFORE
+PROCESS_EXIT_CODE
+JFEXCEPTION_STATUS
+TIMEOUT_STATUS
+RETURNED_TICK_COUNT
+OUTPUT_EXISTS
+CANONICAL_OUTPUT_SHA256 IF OUTPUT EXISTS
+FIRST_TICK_TIMESTAMP IF TICKS > 0
+LAST_TICK_TIMESTAMP IF TICKS > 0
+D3_CACHE_FILE_INVENTORY_AFTER METADATA_ONLY
+D3_EXACT_HOUR_CACHE_FILE_SIZE_AFTER IF CREATED
+D3_EXACT_HOUR_CACHE_FILE_SHA256_AFTER IF CREATED
+BASELINE_CACHE_SHA256_AFTER
+BASELINE_CACHE_SIZE_AFTER
+BASELINE_CACHE_UNCHANGED
+
+No secret or credential may be persisted.
+
+---
+
+## 11. D3 RESULT CLASSIFICATION
+
+### CASE A — FRESH CACHE RETURNS TICKS
+
+IF:
+RETURNED_TICK_COUNT > 0
+
+AND:
+BASELINE_CACHE_UNCHANGED = TRUE
+
+THEN:
+
+D3_RESULT =
+FRESH_CACHE_NONZERO
+
+C07_CACHE_PATH_CACHE_STATE_DEPENDENCY =
+SUPPORTED_BY_CONTROLLED_INTERVENTION
+
+CACHE_CAUSALITY =
+STRONGLY_SUPPORTED
+
+The result MUST NOT automatically be promoted to:
+
+ROOT_CAUSE =
+PROVEN
+
+because the historical baseline and D3 execution occur
+at different wall-clock times and provider/network state
+cannot be held perfectly constant.
+
+A separate human adjudication is required.
+
+---
+
+### CASE B — FRESH CACHE RETURNS ZERO TICKS
+
+IF:
+RETURNED_TICK_COUNT = 0
+
+AND:
+NO JFEXCEPTION
+
+THEN:
+
+D3_RESULT =
+FRESH_CACHE_ZERO
+
+C07_CACHE_PATH_CACHE_STATE_DEPENDENCY =
+WEAKENED
+
+CACHE_ONLY_EXPLANATION =
+NOT_SUPPORTED_BY_D3
+
+ROOT_CAUSE =
+UNRESOLVED
+
+No automatic second test is authorized.
+
+---
+
+### CASE C — HISTORY NETWORK TIMEOUT
+
+IF:
+NETWORK_TIMEOUT =
+TRUE
+
+THEN:
+
+D3_RESULT =
+INCONCLUSIVE_TRANSIENT_HISTORY_FAILURE
+
+C07 =
+NOT_FALSIFIED
+
+C11 =
+SUPPORTED_BY_REPEAT_FAILURE
+
+No automatic retry is authorized.
+
+---
+
+### CASE D — OTHER JFEXCEPTION / FAILURE
+
+THEN:
+
+D3_RESULT =
+INCONCLUSIVE_FAIL_CLOSED
+
+No automatic interpretation beyond observed evidence
+is authorized.
+
+---
+
+## 12. CLAIM FIREWALL
+
+D3 MUST NOT by itself claim:
+
+JFOREX_PATH_FULLY_QUALIFIED = TRUE
+AWS_UNNECESSARY = TRUE
+AWS_EQUIVALENT_TO_JFOREX = TRUE
+SOURCE_B_EQUIVALENT_TO_JFOREX = TRUE
+RAW_BI5_EQUIVALENCE = TRUE
+JFOREX_GLOBAL_DEFECT = TRUE
+SDK_3_6_51_GLOBAL_BUG = TRUE
+DEMO_LIVE_EQUIVALENCE = TRUE
+STRATEGY_QUALIFICATION = TRUE
+PERFORMANCE_QUALIFICATION = TRUE
+
+Any such claim requires separate evidence and
+separate human authority.
+
+---
+
+## 13. SECURITY / PRIVACY
+
+CREDENTIALS =
+LOCAL_INTERACTIVE_ONLY
+
+PASSWORD_PERSISTENCE =
+FORBIDDEN
+
+ACCOUNT_IDENTIFIER_PERSISTENCE =
+FORBIDDEN_EXCEPT_IF_ALREADY_PRESENT_IN_LOCAL_PROVIDER_LOGS
+
+FULL_PROVIDER_LOG_GITHUB_PERSISTENCE =
+FORBIDDEN
+
+SANITIZED_CONSOLE_EVIDENCE =
+AUTHORIZED
+
+If provider logs contain account identifiers or secrets:
+
+DO_NOT_COMMIT
+DO_NOT_COPY_INTO_GOVERNANCE_ARTIFACTS
+SANITIZE_OR_KEEP_LOCAL_ONLY
+
+---
+
+## 14. STRATEGY / CAPITAL FIREWALL
+
+PROSPECTIVE_DATA_READ = FALSE
+SOURCE_B_READ = FALSE
+STRATEGY_READ = FALSE
+PNL_READ = FALSE
+PERFORMANCE_READ = FALSE
+BACKTEST = FALSE
+TRADING = FALSE
+ORDER_SUBMISSION = FALSE
+ORDER_MODIFICATION = FALSE
+ORDER_CANCELLATION = FALSE
+CAPITAL = FALSE
+
+---
+
+## 15. STOP RULE
+
+D3 AUTHORITY ENDS IMMEDIATELY AFTER:
+
+- one qualified isolated-cache execution; OR
+- any pre-real blocker; OR
+- any real execution failure; OR
+- the single getTicks result.
+
+NO AUTOMATIC RETRY.
+NO AUTOMATIC REPAIR.
+NO CACHE PURGE.
+NO SECOND EXPERIMENT.
+NO AWS FOLLOW-UP.
+NO READ_B.
+NO STRATEGY OR PERFORMANCE WORK.
+
+NEXT =
+HUMAN_ADJUDICATION_OF_D3_RESULT
+
+STOP =
+TRUE
