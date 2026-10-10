@@ -1,0 +1,67 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D1_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D1",
+  "decision": "ADOPT_D1_RESULT_AND_CLOSE_EXACT_INTERVAL_DATA_EXISTENCE_DIAGNOSTIC",
+  "status": "HUMAN_ADOPTED_CLOSED",
+  "closure_file": "GOVERNANCE/E1-TD-03C-JF02-D1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+  "closure_commit": "d08d580c6fe7bd503cc33245b39d2a4639bfa818",
+  "canonical_after_closure": {
+    "head": "d08d580c6fe7bd503cc33245b39d2a4639bfa818",
+    "tree": "d320bb75d1a94eeb68990b0d12e889d6953d93bb"
+  },
+  "governed_request": {
+    "provider": "DUKASCOPY_BANK_SA",
+    "delivery_path": "DUKASCOPY_HISTORICAL_DATA_EXPORT",
+    "instrument": "USATECH.IDX/USD",
+    "side": "BID",
+    "granularity": "TICK",
+    "timezone": "UTC",
+    "interval_start_utc": "2025-10-01T14:00:00.000Z",
+    "interval_end_exclusive_utc": "2025-10-01T15:00:00.000Z"
+  },
+  "adopted_evidence": {
+    "source_filename": "USATECH.IDX-USD_1Tick_BID_2025-10-01_14_00-14_00_Etc_UTC.csv",
+    "file_size_bytes": 1574913,
+    "file_sha256": "52947e472eb56f8997854c5fa62087a5b8e5d37801a7e09a6ca53f925def3939",
+    "observed_tick_rows": 22985,
+    "first_timestamp": "2025-10-01T14:00:00+00:00",
+    "last_timestamp": "2025-10-01T14:59:59+00:00",
+    "rows_outside_frozen_interval": 0
+  },
+  "adopted_findings": {
+    "d1_data_existence": "PROVEN",
+    "exact_interval_empty": "REJECTED",
+    "official_dukascopy_web_export_tick_count": 22985,
+    "jforex_getticks_tick_count": 0,
+    "exact_request_cross_interface_output_discrepancy": "PROVEN_FOR_THIS_FIXED_REQUEST",
+    "jforex_delivery_path_discrepancy": "PROVEN_FOR_THIS_FIXED_REQUEST",
+    "root_cause": "UNRESOLVED",
+    "jforex_path_qualified": false,
+    "aws_can_be_demoted_from_critical_dependency": false
+  },
+  "boundaries": {
+    "full_jforex_tick_level_parity": false,
+    "ask_acquired": false,
+    "raw_provider_object_identity": false,
+    "raw_bi5_object_equivalence_claimed": false,
+    "source_b_equivalence_claimed": false,
+    "strategy_use_authorized": false,
+    "pnl_read_authorized": false,
+    "performance_read_authorized": false,
+    "trading_authorized": false,
+    "capital_authorized": false
+  },
+  "budgets_and_closure": {
+    "read_a": "CONSUMED_FAILED_NETWORK_TIMEOUT",
+    "read_a_r1": "CONSUMED_ZERO_TICKS",
+    "additional_read_a": "CLOSED",
+    "read_b": "CLOSED",
+    "d1_export": "1/1_CONSUMED",
+    "d1": "CLOSED"
+  },
+  "next_candidate": "E1-TD-03C-JF02-D2 — JFOREX ZERO-TICK DELIVERY-PATH ROOT-CAUSE FORENSIC V0.1",
+  "d2_authorized": false,
+  "repair_selected": "NONE",
+  "new_market_data_exposure_authorized": false,
+  "stop": true
+}
