@@ -1,0 +1,53 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F1_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F1",
+  "decision": "ADOPT_D3_F1_FINDINGS_WITH_CONNECTION_ROOT_CAUSE_SUPPORTED_BUT_NOT_PROVEN",
+  "status": "HUMAN_ADOPTED_AND_CLOSED",
+  "closure_file": "GOVERNANCE/E1-TD-03C-JF02-D3-F1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+  "closure_commit": "0e990829a84c23bad1f5ad72c37af07babdc2419",
+  "canonical_before_closure": {
+    "observed_head": "54e27c1277b3ef9ba38e65aa5c1c7b2ac28428a3",
+    "observed_tree": "e88df330d1e01bba5509474bc11eef1b87820288",
+    "drift_from_user_observed_head": "FC01_ONLY_NON_MATERIAL_FOR_D3_F1"
+  },
+  "canonical_after_closure": {
+    "head": "0e990829a84c23bad1f5ad72c37af07babdc2419",
+    "tree": "1a1e0554ea20e21c07c24007c03d2c483e68c9be"
+  },
+  "adopted_findings": {
+    "connection_failure_root_cause": "SUPPORTED_BUT_NOT_PROVEN",
+    "provider_explicit_connection_rejection": "NOT_PROVEN",
+    "explicit_credential_authentication_rejection": "REJECTED_FOR_THIS_ATTEMPT",
+    "client_fully_ready_within_30_seconds": false,
+    "most_supported_stage": "JFOREX_TRANSPORT_OR_SESSION_INITIALIZATION_NOT_COMPLETE_WITHIN_BOUND",
+    "connection_phase_diagnostic_resolution": "INSUFFICIENT_TO_ISOLATE_ROOT_CAUSE",
+    "permanent_sdk_api_incompatibility": "REJECTED_AS_CURRENT_PRIMARY_EXPLANATION",
+    "global_jforex_defect": "NOT_PROVEN"
+  },
+  "candidate_classification": {
+    "F1-C01": "REJECTED",
+    "F1-C02": "WEAKLY_SUPPORTED",
+    "F1-C03": "PLAUSIBLE",
+    "F1-C04": "PLAUSIBLE",
+    "F1-C05": "SUPPORTED",
+    "F1-C06": "WEAKLY_SUPPORTED",
+    "F1-C07": "REJECTED",
+    "F1-C08": "WEAKLY_SUPPORTED",
+    "F1-C09": "PLAUSIBLE",
+    "F1-C10": "WEAKLY_SUPPORTED",
+    "F1-C11": "SUPPORTED",
+    "F1-C12": "PLAUSIBLE",
+    "F1-C13": "UNRESOLVED"
+  },
+  "f1_activity": {
+    "new_real_test": false,
+    "login": false,
+    "connection": false,
+    "getticks": false,
+    "market_data_bytes": 0,
+    "cache_mutation": false
+  },
+  "next_candidate": "E1-TD-03C-JF02-D3-F2 — CONNECTION-ONLY STATE-OBSERVABILITY CONTROL V0.1",
+  "d3_f2_authorized": false,
+  "stop": true
+}
