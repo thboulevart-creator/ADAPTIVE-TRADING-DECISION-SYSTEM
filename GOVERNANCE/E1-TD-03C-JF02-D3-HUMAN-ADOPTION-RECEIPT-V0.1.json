@@ -1,0 +1,50 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_HUMAN_ADOPTION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3",
+  "decision": "ADOPT_D3_AS_INCONCLUSIVE_FAIL_CLOSED_BEFORE_HISTORY_REQUEST",
+  "status": "HUMAN_ADOPTED_INCONCLUSIVE_AND_CLOSED",
+  "closure_file": "GOVERNANCE/E1-TD-03C-JF02-D3-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+  "closure_commit": "5dce0fc0afdd78a5b4c87500a64004b53c633098",
+  "evidence_correction_receipt": "GOVERNANCE/E1-TD-03C-JF02-D3-EVIDENCE-CORRECTION-RECEIPT-V0.1.json",
+  "evidence_correction_commit": "7a162853f9a1376da5529892f1aa4a479c1713da",
+  "canonical_before_adoption_receipt": {
+    "head": "7a162853f9a1376da5529892f1aa4a479c1713da",
+    "tree": "4b2d8dc6df427956fb29c02c7fc3d819551c8dc4"
+  },
+  "adopted_result": {
+    "d3_pre_real": "QUALIFIED",
+    "d3_real_execution": "ATTEMPTED_ONCE",
+    "connection_result": "JF02_CONNECT_FAILED",
+    "strategy_started": false,
+    "getticks_called": false,
+    "historical_data_request_executed": false,
+    "market_data_bytes_acquired": 0,
+    "d3_result": "INCONCLUSIVE_FAIL_CLOSED"
+  },
+  "cache_evidence": {
+    "d3_cache_was_fresh_before_attempt": true,
+    "d3_exact_hour_cache_object_created": false,
+    "baseline_cache_unchanged": true,
+    "baseline_cache_size_after": 0,
+    "baseline_cache_sha256_after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "causal_interpretation": {
+    "c07_cache_path_cache_state_dependency": "SUPPORTED_BUT_NOT_PROVEN",
+    "d3_tested_c07_causally": false,
+    "cache_causality": "UNRESOLVED_BY_D3",
+    "c11_transient_provider_history_service_failure": "NOT_STRENGTHENED_BY_D3",
+    "connection_failure_root_cause": "UNRESOLVED"
+  },
+  "budgets": {
+    "real_connection_attempt": "1/1_CONSUMED",
+    "real_getticks_request": "0/1_CONSUMED"
+  },
+  "authority": {
+    "d3": "CLOSED",
+    "retry_under_current_d3": "FORBIDDEN",
+    "second_execution": "FORBIDDEN"
+  },
+  "next_candidate": "E1-TD-03C-JF02-D3-F1 — CONNECTION-FAILURE READ-ONLY FORENSIC V0.1",
+  "d3_f1_authorized": false,
+  "stop": true
+}
