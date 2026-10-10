@@ -1,0 +1,234 @@
+{
+  "schema": "ATDS_F03_M2_R1_CR2_CR1_P0_BLOCKED_STATIC_AUDIT_EVIDENCE_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1",
+  "human_adjudication": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "terminal_status": "BLOCKED",
+  "terminal_reason": "P0_BLOCKED_NEEDS_SEPARATE_CORRECTION",
+  "scope": "READ_ONLY_STATIC_AUDIT_AND_DOCUMENTARY_PERSISTENCE",
+  "initial_reference": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "3ca1a27ad1af0f99b7af75eeb19a759af303a2c3",
+    "tree": "3f1017db633d9bd20ee48eee2273a5ab0be0cb74"
+  },
+  "concurrent_observed": {
+    "head": "fe25ef8aa75250f1bd72e8ec64187245f9bcc651",
+    "tree": "005229c948fc5552027a9a2ddf78465cd8427703",
+    "ahead_commits": 2,
+    "paths": [
+      "GOVERNANCE/E1-TD-03C-JF02-D3-F2-A1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+      "GOVERNANCE/E1-TD-03C-JF02-D3-F2-A1-HUMAN-ADOPTION-RECEIPT-V0.1.json"
+    ],
+    "classification": "NONMATERIAL_DOCUMENTARY_DIFF_FOR_CR2_CR1",
+    "qualified_remote_checkout_fast_forward_performed": false
+  },
+  "immutable_sources": [
+    {
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2/run_single_campaign.py",
+      "sha256": "be290931a7aa637cd1d6121bc3551653214c978885f9956f115d4f917656ff84"
+    },
+    {
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2/receipt_contract.py",
+      "sha256": "e4eb904c00c0911248eb811d48af88a14ab74e6392ec840c453ff97f03072383"
+    },
+    {
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2/F03CR2SupervisorCR2.cs",
+      "sha256": "4505a3a838100d123cd167f22c869acb2299e1bcba7553bdf4979e6fb24e4d4c"
+    },
+    {
+      "path": "tools/fc01_f03_cr2/F03CR2Recovery.cs",
+      "sha256": "d3c824830411b00988e2fde52d3de574612a0cc4566d8c9d0b91eaa37a9f6b72"
+    },
+    {
+      "path": "reports/program/2026-10-10-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-BLOCKED-EVIDENCE-V0.1.json",
+      "sha256": "607a0f2b2585a148940efe28fceee322c54146d2be593f77fb9e81964f4ac6a2"
+    }
+  ],
+  "protected_git_blobs": {
+    "FC01": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "E1": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b"
+  },
+  "blockers": [
+    {
+      "id": "P0-B01",
+      "kind": "INDEPENDENT_PROCESS_TREE_EVIDENCE",
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2/run_single_campaign.py",
+      "lines": [
+        120,
+        123,
+        136
+      ],
+      "reason": "For non-child scenarios tree_term is simply bool(worker_term). A True/TRUE fix would falsely treat one Boolean as two independent observations.",
+      "scope": "OUTSIDE_STRICT_BOOLEAN_NORMALIZATION"
+    },
+    {
+      "id": "P0-B02",
+      "kind": "CRASH_PROCESS_START_IDENTITY",
+      "path": "tools/fc01_f03_cr2/F03CR2Recovery.cs",
+      "lines": [
+        24,
+        26,
+        57,
+        66,
+        124,
+        128
+      ],
+      "related": [
+        {
+          "path": "tools/fc01_f03_cr2/m2_r1_cr2/F03CR2SupervisorCR2.cs",
+          "line": 124
+        },
+        {
+          "path": "tools/fc01_f03_cr2/m2_r1_cr2/run_single_campaign.py",
+          "lines": [
+            120,
+            121,
+            205,
+            223
+          ]
+        }
+      ],
+      "reason": "WORKER_START_TICKS=0 in manifest, recovery verifies PID and signaled/absent state but not matching start identity; ORPHAN_RECOVERED receipt is used as worker termination status.",
+      "scope": "OUTSIDE_STRICT_BOOLEAN_NORMALIZATION"
+    },
+    {
+      "id": "P0-B03",
+      "kind": "DESCENDANT_IDENTITY_PROVENANCE",
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2/run_single_campaign.py",
+      "lines": [
+        108,
+        110,
+        137,
+        138,
+        158
+      ],
+      "related": [
+        {
+          "path": "tools/fc01_f03_cr2/m2_r1_cr2/receipt_contract.py",
+          "line": 57
+        }
+      ],
+      "reason": "Child start identity defaults to zero if missing and is not rejected by validator, which only checks descendant list nonempty.",
+      "scope": "OUTSIDE_STRICT_BOOLEAN_NORMALIZATION"
+    },
+    {
+      "id": "P0-B04",
+      "kind": "INDEPENDENT_NO_OVERWRITE_SENTINEL_HASH",
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2/run_single_campaign.py",
+      "lines": [
+        62,
+        64,
+        104,
+        127,
+        164
+      ],
+      "reason": "Post-execution final digest also passed as expected digest; no independent before-run frozen sentinel SHA comparison.",
+      "scope": "OUTSIDE_STRICT_BOOLEAN_NORMALIZATION"
+    }
+  ],
+  "audit_cases": [
+    {
+      "scenarios": [
+        "normal_A",
+        "normal_B"
+      ],
+      "count": 2,
+      "material_blockers": [
+        "P0-B01"
+      ]
+    },
+    {
+      "scenarios": [
+        "java_oom"
+      ],
+      "count": 1,
+      "material_blockers": [
+        "P0-B01"
+      ]
+    },
+    {
+      "scenarios": [
+        "timeout"
+      ],
+      "count": 1,
+      "material_blockers": [
+        "P0-B01"
+      ],
+      "in_scope_known_defect": "True vs TRUE"
+    },
+    {
+      "scenarios": [
+        "child_confined"
+      ],
+      "count": 1,
+      "material_blockers": [
+        "P0-B03"
+      ]
+    },
+    {
+      "scenarios": [
+        "sentinel"
+      ],
+      "count": 1,
+      "material_blockers": [
+        "P0-B04"
+      ]
+    },
+    {
+      "scenarios": [
+        "supervisor_crash"
+      ],
+      "count": 1,
+      "material_blockers": [
+        "P0-B02"
+      ]
+    },
+    {
+      "scenarios": [
+        "race_0",
+        "race_1",
+        "race_2",
+        "race_3",
+        "race_4",
+        "race_5"
+      ],
+      "count": 6,
+      "material_blockers": [
+        "P0-B01"
+      ],
+      "common_business_destination": "race_shared"
+    }
+  ],
+  "summary": {
+    "scenarios_total": 13,
+    "scenarios_statically_admissible_all": false,
+    "extra_material_blockers": 4,
+    "red_tests_new_control": 0,
+    "green_tests_new_control": 0,
+    "cr2_cr1_new_worker_launches": 0,
+    "cr2_cr1_worker_budget_max": 13,
+    "new_runtime_mutations": 0,
+    "source_changes": 0,
+    "regressions_executed": 0,
+    "regression_budget_not_set": true
+  },
+  "documents": [
+    {
+      "path": "reports/program/2026-10-10-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-P0-BLOCKED-ASSESSMENT-V0.1.md",
+      "sha256": "e27cc64de73f4280eb1febba61b8f16b444fff6a1a72a4e7382d6d8caaafd26a"
+    }
+  ],
+  "firewall": {
+    "provider_requests": 0,
+    "jforex_login": 0,
+    "jforex_connect": 0,
+    "real_history_reads": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false,
+    "fail_closed": true
+  },
+  "next": "REQUIRES_SEPARATE_HUMAN_AUTHORIZATION_FOR_P0_B01_TO_P0_B04_AND_OPTIONAL_STRICT_BOOLEAN_NORMALIZATION",
+  "stop": "STOP_AFTER_F03_CR2_CR1_M2_R1_CR2_CR1_APPLIED"
+}
