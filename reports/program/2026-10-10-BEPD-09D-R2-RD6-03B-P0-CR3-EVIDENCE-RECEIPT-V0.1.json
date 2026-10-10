@@ -1,0 +1,218 @@
+{
+  "schema_version": "ATDS_BEPD09D_R2_RD6_03B_P0_CR3_R1_DOCUMENTARY_EVIDENCE_RECEIPT_V0_1",
+  "control_id": "BEPD-09D-R2-RD6-03B-P0-CR3-R1",
+  "authorization_id": "HUMAN_AUTHORIZATION_BEPD-09D-R2-RD6-03B-P0-CR3-R1_V0.1",
+  "original_execution_authorization": "HUMAN_AUTHORIZATION_BEPD-09D-R2-RD6-03B-P0-CR3_V0.1",
+  "date": "2026-10-10",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "authorized_parent_head": "e29768459414ef28dc1099590c1dd9e518c71b14",
+  "authorized_parent_tree": "d8ef2bfb90a0a4705b56de578eb14534c9d41eda",
+  "original_CR3_head": "416e6e6cee24e8297c855ed5ac68bf7e4154c188",
+  "original_CR3_tree": "ba018026a8edbe59b68053256bb7abc437146b52",
+  "concurrent_drift_identity": {
+    "ahead": 2,
+    "behind": 0,
+    "classification": "NON_MATERIAL_FOR_CR3_DOCUMENTARY_PERSISTENCE_ONLY",
+    "files": [
+      {
+        "path": "GOVERNANCE/E1-TD-03C-JF02-D1-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-10.md",
+        "status": "added"
+      },
+      {
+        "path": "GOVERNANCE/E1-TD-03C-JF02-D1-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+        "status": "added"
+      }
+    ],
+    "existing_files_modified": 0,
+    "cross_lane_authority": "NONE"
+  },
+  "protected_blob_identities": [
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03B-P0-CR2-LAB-SELECTION-AND-DEPENDENCY-READINESS-V0.1.md",
+      "git_blob": "b524a87b1b125fa675b5f09befe59a082fcf5103"
+    },
+    {
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD6-03B-P0-CR2-EVIDENCE-RECEIPT-V0.1.json",
+      "git_blob": "cbc59442bdf1d912b4594a4211723b21484a2a82"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-FINAL-HUMAN-ADJUDICATION-CLOSURE-2026-10-09.md",
+      "git_blob": "fad19720c33f58f9163f1ac91859277605eba970"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+      "git_blob": "b087a557f02f76db5efebbf0b5a84ae3a65ffa08"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-MAT-01-FINAL-HUMAN-MATERIAL-ADJUDICATION-V0.1.md",
+      "git_blob": "92a37a92cc8f881bcc28613bb18aa2b89c77d218"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-MAT-01-HUMAN-ADOPTION-RECEIPT-V0.1.json",
+      "git_blob": "081087fd7479b9b197012b1c653457c8187c1249"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-A-TRUSTED-VIEW-PRODUCER-CONTRACT-V0.1.md",
+      "git_blob": "e1f2ee757e2e6373e27c0f29366f67cbc54019c0"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-B-TRUST-BOUNDARY-CAPABILITY-MATRIX-V0.1.md",
+      "git_blob": "bf1131159b9d844359d8e5448c723358a7dbafa3"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-C-CANONICAL-SIGNED-VIEW-MANIFEST-SCHEMA-V0.1.json",
+      "git_blob": "cafbe617b2793117cb214eb1b8d42800e4f6a01c"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-D-SYNTHETIC-FIXTURE-SPECIFICATION-V0.1.md",
+      "git_blob": "1268df29f12b87d1ea27933444b82030fbe202f2"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-E-PREREGISTERED-RED-TEST-MATRIX-V0.1.json",
+      "git_blob": "7558e6166888c94eca7069a08d095dfda18fd190"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-F-FROZEN-BREAKER-NEGATIVE-ORACLE-MATRIX-V0.1.json",
+      "git_blob": "38863439059d1a2f45aa4c877245613cd48fdc51"
+    },
+    {
+      "path": "GOVERNANCE/BEPD-09D-R2-RD6-03A-G-IMPLEMENTATION-READINESS-HUMAN-ADJUDICATION-PACKAGE-V0.1.md",
+      "git_blob": "e2c38f4153ef18afb0bcd88aa8e41fbf58fbf731"
+    },
+    {
+      "path": "reports/program/2026-10-09-BEPD-09D-R2-RD6-03A-DOCUMENTARY-PREREGISTRATION-ASSESSMENT-RECEIPT-V0.1.json",
+      "git_blob": "1d4321957e327ebcb3065b8e3861e67d96b70af5"
+    },
+    {
+      "path": "tools/bepd09d_r2_rd5_synthetic_fixture.py",
+      "git_blob": "c6d8b0e678270e379e758052c40be23355bc3800"
+    },
+    {
+      "path": "tools/bepd09d_r2_rd5_training_only_adapter.py",
+      "git_blob": "bfbf586914c852047123c3a4cd1b2fa6a7dc4daa"
+    },
+    {
+      "path": "tools/bepd09d_r2_rd3_candidate_b_runtime.py",
+      "git_blob": "38588b0a0b9c5b4cb9fcee0c7d524e63d5039c69"
+    }
+  ],
+  "protected_verified_preflight": {
+    "matched": 17,
+    "total": 17
+  },
+  "governance_document": {
+    "path": "GOVERNANCE/BEPD-09D-R2-RD6-03B-P0-CR3-WINDOWS-SANDBOX-AND-RFC8785-READINESS-V0.1.md",
+    "git_blob": "20934878a13dfce240b6a17c04a9cd5403f3c14e"
+  },
+  "windows_sandbox_readiness": {
+    "host": "DESKTOP-49BN9M3",
+    "executable_present_from_CR2": true,
+    "CR3_feature_query_attempted": true,
+    "feature_query_exception": "COMException",
+    "feature_state": "UNKNOWN",
+    "readiness": "NOT_ASSESSABLE",
+    "hypervisor_previously_observed": true,
+    "config": "SPECIFICATION_ONLY_NOT_DEPLOYED",
+    "sandbox_launches": 0,
+    "feature_activations": 0,
+    "reboots": 0,
+    "OS_identity": {
+      "product_label": "Windows 10 Pro N",
+      "display_version": "23H2",
+      "build": "22631",
+      "note": "registry values, not certification of Windows edition"
+    }
+  },
+  "rfc8785_package_identity": {
+    "name": "rfc8785",
+    "version": "0.1.4",
+    "wheel": "rfc8785-0.1.4-py3-none-any.whl",
+    "source": "PyPI",
+    "requires_python": ">=3.8",
+    "bytes": 9240,
+    "declared_base_runtime_dependencies": 0
+  },
+  "rfc8785_official_sha256": "520d690b448ecf0703691c76e1a34a24ddcd4fc5bc41d589cb7c58ec651bcd48",
+  "rfc8785_downloaded_sha256": "520d690b448ecf0703691c76e1a34a24ddcd4fc5bc41d589cb7c58ec651bcd48",
+  "static_verification_results": {
+    "metadata_identity": "PASS",
+    "wheel_byte_sha_match": "PASS",
+    "wheel_byte_length_match": "PASS",
+    "ZIP_entry_count": 7,
+    "unsafe_archive_paths": 0,
+    "native_executables_detected": 0,
+    "dist_info_metadata": "PRESENT",
+    "dist_info_record": "PRESENT",
+    "wheel_tag": "py3-none-any",
+    "wheel_inner_RECORD_digest_independent_verification": "NOT_PERFORMED",
+    "first_ZIP_class_load_attempt": "FAILED_NOT_COUNTED_AS_PASS",
+    "subsequent_ZIP_inventory": "PASS",
+    "dist_info_metadata_read": "PASS",
+    "functional_rfc8785_test": "NOT_EXECUTED",
+    "RFC8785_compliance": "NOT_QUALIFIED",
+    "ed25519_integration": "NOT_QUALIFIED",
+    "supply_chain_independent_attestation": "NOT_ESTABLISHED"
+  },
+  "execution_budget_receipt": {
+    "source": "CR3 historical execution, consolidated read-only under R1",
+    "windows_feature_read_only_queries": 1,
+    "pypi_metadata_requests": 1,
+    "wheel_downloads": 1,
+    "static_artifact_inspection_attempts": 3,
+    "CR3_host_process_invocations": 6,
+    "observed_command_body_elapsed_ms": [
+      153,
+      327,
+      460,
+      171,
+      111,
+      96
+    ],
+    "full_host_process_duration_attested": false,
+    "aggregate_wall_clock_attested": false,
+    "sandbox_launches": 0,
+    "window_feature_activations": 0,
+    "host_reboots": 0,
+    "dependency_installations": 0,
+    "real_ledger_reads": 0,
+    "real_model_fits": 0,
+    "red_invocations": 0,
+    "green_invocations": 0,
+    "external_spending": 0,
+    "R1_new_windows_diagnostics": 0,
+    "R1_new_pypi_metadata_requests": 0,
+    "R1_new_wheel_downloads": 0,
+    "R1_new_package_installations": 0,
+    "R1_new_sandbox_executions": 0
+  },
+  "prohibition_compliance": {
+    "GitHub_source_modifications_allowed": 0,
+    "GitHub_source_modifications_executed": 0,
+    "GitHub_workflow_modifications": 0,
+    "real_data_access": "FORBIDDEN",
+    "red_green_execution": "FORBIDDEN",
+    "R1_new_downloads": "FORBIDDEN",
+    "windows_feature_activations": "FORBIDDEN",
+    "automatic_rebind": false,
+    "force": false,
+    "expected_sha": "e29768459414ef28dc1099590c1dd9e518c71b14",
+    "publication_delta_exactly_two_new_documents": true,
+    "automatic_retry": false,
+    "post_persist_readback_required": true
+  },
+  "final_verdict": "PARTIAL_EVIDENCE_OBTAINED_FULL_P0_BLOCKED",
+  "full_P0_readiness": "BLOCKED",
+  "rd6_03b_implementation": "SUSPENDED",
+  "rd6_03b_red": "NOT_STARTED",
+  "rd6_03b_green": "NOT_STARTED",
+  "rd6_04": "NOT_AUTHORIZED",
+  "real_training_readiness": "BLOCKED",
+  "human_adoption_CR3_results": "PENDING",
+  "next_human_frontier": [
+    "READ_ONLY_ADMINISTRATIVE_WINDOWS_SANDBOX_FEATURE_VERIFICATION_SEPARATE_AUTHORIZATION",
+    "RFC8785_PUBLIC_REFERENCE_VECTOR_FUNCTIONAL_QUALIFICATION_IN_SEPARATELY_AUTHORIZED_ISOLATED_ENVIRONMENT"
+  ],
+  "stop": "MANDATORY",
+  "automatic_next_stage": "FORBIDDEN"
+}
