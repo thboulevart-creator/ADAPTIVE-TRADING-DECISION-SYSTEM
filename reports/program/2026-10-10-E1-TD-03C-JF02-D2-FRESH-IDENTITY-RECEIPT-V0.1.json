@@ -1,0 +1,10 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D2_FRESH_CANONICAL_IDENTITY_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D2",
+  "observed_head": "e29768459414ef28dc1099590c1dd9e518c71b14",
+  "observed_tree": "d8ef2bfb90a0a4705b56de578eb14534c9d41eda",
+  "branch": "integration/system-v1",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "surface_drift": "NONE_OBSERVED_BEFORE_D2_DOCUMENTARY_PERSISTENCE",
+  "force": false
+}
