@@ -1,0 +1,39 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D2_HUMAN_AUTHORIZATION_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D2",
+  "decision": "AUTHORIZE_D2_READ_ONLY_ROOT_CAUSE_FORENSIC",
+  "authorized_parent_head": "e29768459414ef28dc1099590c1dd9e518c71b14",
+  "authorized_parent_tree": "d8ef2bfb90a0a4705b56de578eb14534c9d41eda",
+  "force": false,
+  "market_data_firewall": {
+    "new_jforex_login": false,
+    "new_jforex_history_request": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "new_historical_export": false,
+    "aws_request": false,
+    "datafeed_request": false,
+    "new_market_data_bytes": false,
+    "strategy_read": false,
+    "pnl_read": false,
+    "performance_read": false,
+    "backtest": false,
+    "trading": false,
+    "orders": false,
+    "capital": false
+  },
+  "repair_boundary": {
+    "repair_implementation": false,
+    "code_mutation": false,
+    "configuration_mutation": false,
+    "cache_mutation": false,
+    "cache_purge": false,
+    "sdk_upgrade": false,
+    "sdk_downgrade": false,
+    "jnlp_change": false,
+    "instrument_change": false,
+    "interval_change": false,
+    "account_mode_change": false
+  },
+  "stop_after_human_adjudication_package": true
+}
