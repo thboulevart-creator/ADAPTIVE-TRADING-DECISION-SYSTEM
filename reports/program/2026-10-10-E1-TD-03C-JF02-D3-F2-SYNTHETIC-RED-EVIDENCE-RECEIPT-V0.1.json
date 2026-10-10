@@ -1,0 +1,20 @@
+{
+  "schema": "ATDS_E1_TD_03C_JF02_D3_F2_SYNTHETIC_RED_EVIDENCE_RECEIPT_V0_1",
+  "control_id": "E1-TD-03C-JF02-D3-F2",
+  "status": "EXPECTED_FAILURES_OBSERVED",
+  "command": "python -m pytest -q tests/test_e1_td_03c_jf02_d3_f2.py",
+  "observed": {
+    "total": 12,
+    "passed": 4,
+    "failed": 8,
+    "exit_code": 1
+  },
+  "expected_failure_basis": "Dedicated F2 module and JF02ConnectionProbe did not yet exist.",
+  "non_target_failures": [],
+  "real_login": false,
+  "real_connect": false,
+  "strategy_started": false,
+  "history_request": false,
+  "market_data_request": false,
+  "stop_before_real": true
+}
