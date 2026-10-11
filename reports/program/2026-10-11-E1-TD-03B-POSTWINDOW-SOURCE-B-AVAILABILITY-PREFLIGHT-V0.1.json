@@ -1,0 +1,80 @@
+{
+  "schema": "ATDS_E1_TD_03B_POSTWINDOW_SOURCE_B_AVAILABILITY_PREFLIGHT_V0_1",
+  "control_id": "E1-TD-03B",
+  "date": "2026-10-11",
+  "mode": "PUBLIC_METADATA_ONLY",
+  "status": "WAITING_SOURCE_CONTINUATION",
+  "canonical_identity": {
+    "head": "d188b0262b18f2b1f841fed9d4557a0b37db0c2e",
+    "tree": "a3993ac52e44bd5474df386767dc1c15097a8c5a",
+    "force": false,
+    "concurrent_drift_since_a1": "FC01_ONLY_NON_MATERIAL_FOR_E1_TD_03B"
+  },
+  "authority_contract": {
+    "path": "GOVERNANCE/E1-TD-03B-FIRST-REAL-COLLECTION-AUTHORITY-CONTRACT-V0.1.json",
+    "blob": "7ea58d02387d67e7360356a10c0eaed441d0b2f4"
+  },
+  "protected_bindings_verified": {
+    "e1_td_03_contract_blob": "c66c36bb5f01cb0a13e22eb9210abfdac74b35d3",
+    "e1_td_03_adoption_blob": "0573472825af96938bab260c8d0b78431350c6ea",
+    "e1_td_03a_contract_blob": "c6ed450ae0c6b36ae2412cc367261504980d5b43",
+    "e1_td_03a_breaker_blob": "59593f273c45276f4af8e410ab05768ee730d6a6",
+    "e1_td_03a_runtime_blob": "a90903320a168a845b2b72bafba15b8d8abb2950",
+    "e1_td_03a_qualification_report_blob": "3aadd66499c844fb7eb3a63592ea92b801f6d049"
+  },
+  "prospective_scope": {
+    "dataset_id": "SOURCE_B_USTECH_TD01_PROSPECTIVE_20261001_20271001_V0_1",
+    "publisher_dataset": "CarlosSilva1/ustech-ticks",
+    "window_start_utc": "2026-10-01T00:00:00Z",
+    "window_end_utc": "2027-10-01T00:00:00Z",
+    "source_policy": "SOURCE_B_CONTINUATION_OR_BLOCK"
+  },
+  "public_metadata_observations": {
+    "provider": "Hugging Face",
+    "repository": "CarlosSilva1/ustech-ticks",
+    "observed_repository_revision_label": "30996ad",
+    "observed_total_file_size": "3.94 GB",
+    "observed_rows": 376003618,
+    "declared_period_start": "2021-05-25",
+    "declared_period_end": "2026-05-24",
+    "partitioning": "Hive-style year/month",
+    "top_level_years_observed": [
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
+    ],
+    "latest_observed_tick_timestamp": "2026-05-24T23:59:59.963Z",
+    "eligible_object_intersecting_prospective_window_identified": false,
+    "evidence_boundary": "No claim is made that no unpublished, hidden, or not-yet-indexed provider object exists; only that none is identified in current public provider metadata."
+  },
+  "event_gate": {
+    "not_before_reached": true,
+    "eligible_prospective_source_object_identified": false,
+    "first_real_acquisition_request_started": false,
+    "first_governed_collection_event_consumed": false,
+    "events_consumed": 0,
+    "events_authorized": 1,
+    "one_shot_execution_authority_instance_created": false,
+    "reason": "No eligible provider-defined object intersecting [2026-10-01, 2027-10-01) was identified."
+  },
+  "execution_audit": {
+    "market_data_bytes_downloaded": 0,
+    "parquet_objects_downloaded": 0,
+    "collector_executed": false,
+    "strategy_or_performance_inspection": false,
+    "h1_build": false,
+    "pnl_observed": false,
+    "backtest": false
+  },
+  "adjudication": {
+    "preflight_result": "WAITING_SOURCE_CONTINUATION",
+    "collection_event_status": "NOT_STARTED",
+    "event_budget": "0/1_CONSUMED",
+    "next_permitted_action": "READ_ONLY_SOURCE_B_AVAILABILITY_PREFLIGHT_AT_A_LATER_TIME",
+    "real_collection_authorized_now": false
+  },
+  "stop": true
+}
