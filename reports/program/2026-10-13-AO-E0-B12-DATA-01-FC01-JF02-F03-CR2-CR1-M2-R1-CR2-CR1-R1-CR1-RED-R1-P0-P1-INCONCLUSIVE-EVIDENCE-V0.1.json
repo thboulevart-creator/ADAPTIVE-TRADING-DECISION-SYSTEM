@@ -1,0 +1,123 @@
+{
+  "schema": "ATDS_R1_CR1_RED_R1_P0_P1_FORENSIC_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1",
+  "human_authorized": true,
+  "terminal_decision": "INCONCLUSIVE",
+  "p0": "PASS_WITH_QUALIFIED_DOCUMENTARY_DRIFT",
+  "p1_execution": "PERMITTED",
+  "p1_collection": "PASS",
+  "p1_result": "MIXED_NOT_FULLY_BEHAVIORALLY_QUALIFIED",
+  "cases_count": 12,
+  "passed": 1,
+  "failed": 11,
+  "errors": 0,
+  "pytest_exit_code": 1,
+  "sources": [
+    {
+      "path": "tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py",
+      "sha256": "65cb60153e6a7458adce0373ad51d95e84c3c4fb84ca19e2843dceb8a8944282"
+    },
+    {
+      "path": "tools/fc01_f03_cr2/m2_r1_cr2_cr1_r1_cr1/member_evidence.py",
+      "sha256": "6260021b5e1259677413c341587de92d71168e96ce2d2abc5b51446434fa2c85",
+      "class": "SYNTHETIC_HISTORICAL_BEHAVIOR_ADAPTER_NOT_GREEN"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-P1-RAW-TEST-OUTPUT-V0.1.txt",
+      "sha256": "ff894570b917f7ad5c0af88239878bf564200fe378a6933cc90bdf3b98538d3f"
+    },
+    {
+      "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-P1-JUNIT-V0.1.xml",
+      "sha256": "882783cf85c4ebb7f65e6ae24a6e00546fe11bef05c2584bf47d4db8da2b8589"
+    }
+  ],
+  "governance_reference": {
+    "branch": "integration/system-v1",
+    "remote_pre_persist_head": "cafa5b3887b9bbc0b03ee839f2b4b41097f41856",
+    "remote_pre_persist_tree": "e34d11b15cbe8c6b30cd9e59dc2e9084b896f5ea",
+    "local_pre_ff_head": "3931de13d7976047c8fbe3716b403569c78e2c98",
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b"
+  },
+  "cases": [
+    {
+      "id": "JM-01",
+      "assertion_result": "PASS",
+      "reason": "Le worker principal unique est reconnu par le contrat historique."
+    },
+    {
+      "id": "JM-02",
+      "assertion_result": "RED_FAILED",
+      "reason": "Parenté vérifiée dans le fixture, mais le contrat historique bloque le deuxième membre faute de classification."
+    },
+    {
+      "id": "JM-03",
+      "assertion_result": "RED_FAILED",
+      "reason": "Le membre inconnu est refusé, mais sans le motif contractuel UNCLASSIFIED_JOB_MEMBER attendu."
+    },
+    {
+      "id": "JM-04",
+      "assertion_result": "RED_FAILED",
+      "reason": "L'identité de création invalide conduit à un refus, mais sous un motif historique différent."
+    },
+    {
+      "id": "JM-05",
+      "assertion_result": "RED_FAILED",
+      "reason": "Une identité de démarrage différente après terminaison est acceptée par le contrat historique synthétique."
+    },
+    {
+      "id": "JM-06",
+      "assertion_result": "RED_FAILED",
+      "reason": "L'affirmation d'absence contradictoire est bloquée, mais sans le motif spécifique attendu."
+    },
+    {
+      "id": "JM-07",
+      "assertion_result": "RED_FAILED",
+      "reason": "Le membre non terminé est bloqué, mais sans le motif spécifique attendu."
+    },
+    {
+      "id": "JM-08",
+      "assertion_result": "RED_FAILED",
+      "reason": "Un compteur de membres contradictoire est accepté par l'adaptateur historique."
+    },
+    {
+      "id": "JM-09",
+      "assertion_result": "RED_FAILED",
+      "reason": "L'absence est acceptée, mais le niveau et le libellé de preuve exigés ne sont pas produits."
+    },
+    {
+      "id": "JM-10",
+      "assertion_result": "RED_FAILED",
+      "reason": "Les membres parent/enfant du fixture ne sont pas classifiés comme descendant vérifié."
+    },
+    {
+      "id": "JM-11",
+      "assertion_result": "RED_FAILED",
+      "reason": "L'absence de provenance des observations brutes n'est pas refusée par le contrat historique synthétique."
+    },
+    {
+      "id": "JM-12",
+      "assertion_result": "RED_FAILED",
+      "reason": "Un membre distinct avec filiation extérieure vérifiée n'est pas classé : faux blocage."
+    }
+  ],
+  "safety": {
+    "new_windows_workers": 0,
+    "historical_campaign_workers_consumed": 4,
+    "historical_campaign_workers_max": 13,
+    "production_mutation": false,
+    "p2_green_authorized": false,
+    "provider_requests": 0,
+    "jforex_connect": 0,
+    "real_data_reads": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false,
+    "fail_closed": true
+  },
+  "stop": "APPLIED",
+  "next": "SEPARATE_HUMAN_TEST_ORACLE_SEMANTICS_ADJUDICATION"
+}
