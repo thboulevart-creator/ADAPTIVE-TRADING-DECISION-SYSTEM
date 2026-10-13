@@ -1,0 +1,161 @@
+{
+  "schema": "ATDS_R1_CR1_WER04_STATIC_FORENSIC_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-04",
+  "human_decision": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "decision": "REQUIRES_TARGETED_CORRECTION",
+  "canonical": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head_at_p0": "a5a6351a5cb664c1f36c3b4ee4f84c3f56a0b78d",
+    "tree_at_p0": "e5c5fd95917a50349c4e351c01bfcd7b42293a0f",
+    "tracked_changes_at_p0": 0,
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b"
+  },
+  "frozen_sha256": {
+    "wer03_terminal": "101a3e760cb6704e6786885c15d5642003df89f404bc632e641123571663ea11",
+    "wer02_candidate": "a73cc58b7b21a0c29130f07aab1173ed18a5c6947f6049036e954fd98ab447d4",
+    "green_r1": "8092c558370130acd9eb16b1c3d1cfed209ff0b8b6f7e78f6a02354c2fc7f0e1",
+    "red_cr2_oracle": "2335423d1afe32bb9985a8a58331e3bd69ccdb811ac222cdfc197e47f3801aee",
+    "red_cr2_test": "cb58f8f36cb7a88ffa21ca7bbd027fa945990f582e83663313077bb43338d980"
+  },
+  "p0": {
+    "status": "PASS",
+    "canonical_aligned": true,
+    "protected_unchanged": true,
+    "wer04_target_collisions": 0
+  },
+  "p1": {
+    "status": "PERMISSION_DESIGN_BOUNDED_NOT_ACTIVATED",
+    "host": "Windows 11 Professionnel N 10.0.22631",
+    "admin_elevated": false,
+    "performance_log_users": false,
+    "etw_provider_registered": true,
+    "permission_to_start_kernel_trace": "NOT_QUALIFIED",
+    "options": {
+      "A": "CURRENT_HOST_NOT_QUALIFIED",
+      "B": "DEDICATED_ISOLATED_WINDOWS_GUEST_CONDITIONALLY_PREFERRED",
+      "C": "BLOCKED_IF_GUEST_PERMISSIONS_OR_CAPTURE_SCOPE_UNRESOLVED"
+    }
+  },
+  "p2": {
+    "status": "PARENT_BINDING_DESIGN_CONDITIONAL",
+    "current_etw_event_one_v0_has_child_filetime": true,
+    "has_parent_filetime": false,
+    "required": "RETAINED_PARENT_HANDLE_PLUS_VERIFIED_PARENT_PID_AND_CREATION_FILETIME_BEFORE_CHILD_EVENT_OR_STRONG_EVENT_TIME_CORRELATION",
+    "reported_parent_is_actual_creator": "NOT_ESTABLISHED",
+    "provider_start_key_support": "TO_BE_FROZEN_AND_QUALIFIED",
+    "real_parent_identity_evidence": "NOT_ACQUIRED"
+  },
+  "p3": {
+    "status": "CAPTURE_SCOPE_DESIGN_CONDITIONALLY_SELECTED",
+    "selection": "ISOLATED_GUEST_PREFERRED_OVER_UNQUALIFIED_PROVIDER_SIDE_PID_FILTER",
+    "sandbox_feature_install_state": 1,
+    "hypervisor_present": true,
+    "processor_virtualization_firmware_enabled": false,
+    "processor_slat_reported": false,
+    "practical_sandbox_launchability": "NOT_VERIFIED",
+    "guest_kernel_trace_still_sees_guest_os_processes": true,
+    "unrelated_event_scope": "NOT_PROVEN",
+    "network_disabled_configuration": "PROPOSED_NOT_EXECUTED"
+  },
+  "p4": {
+    "status": "CONTINUITY_DESIGN_CONDITIONAL",
+    "observer_independent_of_supervisor": true,
+    "observer_started_before_worker": "CONTRACT_REQUIRED_NOT_PROVEN",
+    "session_coverage": "NOT_PROVEN",
+    "etw_events_lost_and_buffers_lost": "CONTRACT_REQUIRED_NOT_OBSERVED",
+    "full_job_inventory_and_member_exit": "NOT_PROVEN",
+    "crash_continuity": "NOT_PROVEN"
+  },
+  "p5": {
+    "status": "STATIC_REQUALIFICATION_PASS_WITH_MATERIAL_GAPS",
+    "frozen_existing_synthetic_tests": {
+      "tests": 47,
+      "passed": 47,
+      "failed": 0,
+      "errors": 0,
+      "exit_code": 0
+    },
+    "wer04_new_executable_adversarial_tests": 0,
+    "documentary_case_count": 12,
+    "documentary_case_status": "DOCUMENTARY_COMPLETED_NOT_NEWLY_EXECUTED",
+    "adversarial_unqualified_real_cases": [
+      "actual ETW permission",
+      "real parent/initiator semantics",
+      "actual provider-side capture filtering",
+      "unrelated process acquisition",
+      "ETW loss and buffer continuity",
+      "observer-survives-supervisor-crash"
+    ]
+  },
+  "p6": {
+    "status": "PENDING_VERIFIED_GITHUB_PERSISTENCE",
+    "evidence": [
+      {
+        "path": "GOVERNANCE/AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-04-COLLECTOR-PERMISSION-LINEAGE-SCOPE-CONTINUITY-V0.1.md",
+        "sha256": "eb608a233ece41dcced67a718e2c145261c79267bdd51b059f65e1c7b66b145a"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-04-P5-ADVERSARIAL-STATIC-MATRIX-V0.1.json",
+        "sha256": "ae48a40540ac9f10a889c3bf74cec4c7da5bdf182c55e72ba768414b47bf331a"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-04-P5-EXISTING-SYNTHETIC-REQUALIFICATION-RAW-V0.1.txt",
+        "sha256": "e968f9adb6bdb91650262f5000a8c131a3c40a1ef72455eb2097b5eab467ad7f"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-04-P5-EXISTING-SYNTHETIC-REQUALIFICATION-JUNIT-V0.1.xml",
+        "sha256": "30c6735fa429ba2e2a53ffe973e3d093dce4d5a125955136f836230cfe9e2837"
+      }
+    ]
+  },
+  "material_blockers": [
+    "host kernel ETW permissions not established; no authorized guest runtime proof",
+    "parent creation FILETIME/event correlation only a design, not measured",
+    "actual source-level scoping or guest-side privacy admission unproven",
+    "event loss and crash continuity, complete members and exit proof unproven"
+  ],
+  "historical": {
+    "campaign": "R1RECOVERY_20261011_CAMPAIGN_A",
+    "status": "BLOCKED",
+    "workers_spent": 4,
+    "budget": 13,
+    "mutated": false,
+    "replay": false,
+    "wer01_files_still_local_only": true
+  },
+  "firewall": {
+    "etw_capture": false,
+    "vm_launched": false,
+    "real_probe": false,
+    "windows_workers": 0,
+    "regression_workers": 0,
+    "supervisor_execution": false,
+    "real_windows_event_evidence": "NOT_ACQUIRED",
+    "fc01_memory_safety": "NOT_QUALIFIED",
+    "fc01_mutation": false,
+    "e1_mutation": false,
+    "m2_mutation": false,
+    "wer03_mutation": false,
+    "wer02_mutation": false,
+    "green_mutation": false,
+    "red_mutation": false,
+    "provider_requests": 0,
+    "jforex_login": 0,
+    "jforex_connect": 0,
+    "real_history_read": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "trading": false,
+    "orders": false,
+    "capital": false,
+    "dependency_network_fetch": 0,
+    "privilege_escalation": false,
+    "force": false,
+    "fail_closed": true
+  },
+  "stop": "APPLY_AFTER_P6",
+  "next": "SEPARATE_HUMAN_ADJUDICATION_FOR_ISOLATED_GUEST_CAPABILITY_PRIVILEGE_PARENT_BINDING_AND_CAPTURE_SCOPE_QUALIFICATION"
+}

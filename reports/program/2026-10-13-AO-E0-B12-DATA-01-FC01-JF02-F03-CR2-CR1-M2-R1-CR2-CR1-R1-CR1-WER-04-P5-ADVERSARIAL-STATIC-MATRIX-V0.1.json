@@ -1,0 +1,126 @@
+{
+  "schema": "ATDS_WER04_STATIC_ADVERSARIAL_MATRIX_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-04",
+  "security_scope": "NO_REAL_WINDOWS_ETW_OR_WORKER",
+  "expected_vs_observed_distinction": "Cases are documentary adjudications, not new executable test runs. Existing WER02 test names are mapped but are not independent Windows proof.",
+  "cases": [
+    {
+      "case_id": "ADV-01",
+      "scenario": "ETW registered but no session permission",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "STATIC_FACT_PLUS_DESIGN",
+      "observed_support": "Non-elevated host, not in Performance Log Users; provider registered only",
+      "remaining_gap": "REAL_PERMISSION_NOT_TESTED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-02",
+      "scenario": "Parent PID but no parent FILETIME",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "PRIOR_SYNTHETIC_TEST",
+      "observed_support": "WER02 IT02 parent_start_verified=False blocks; Windows event 1 v0 lacks parent creation FILETIME",
+      "remaining_gap": "REAL_PARENT_BINDING_NOT_TESTED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-03",
+      "scenario": "PID recycled with changed start FILETIME",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "PRIOR_SYNTHETIC_TEST",
+      "observed_support": "WER02 AD02 and IT01 identity mismatch",
+      "remaining_gap": "REAL_PID_REUSE_NOT_TESTED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-04",
+      "scenario": "Parent event delivered late or out of scope",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "PRIOR_SYNTHETIC_PARTIAL",
+      "observed_support": "WER02 IT02 event outside coverage and AD04 out-of-order events; ingestion-latency gate not executed",
+      "remaining_gap": "LATE_DELIVERY_PATH_NOT_TESTED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-05",
+      "scenario": "Reported parent differs from actual initiator",
+      "expected_fail_closed": "BLOCKED_FOR_UNPROVEN_CREATOR",
+      "evidence_class": "STATIC_DESIGN_ONLY",
+      "observed_support": "PROC_THREAD_ATTRIBUTE_PARENT_PROCESS allows selected reported parent; semantics distinguish reported parent vs initiating creator",
+      "remaining_gap": "REAL_CREATOR_NOT_PROVEN",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-06",
+      "scenario": "Filtering only after event ingestion",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "STATIC_DESIGN_ONLY",
+      "observed_support": "Post-consumer filtering cannot prove data excluded at provider source",
+      "remaining_gap": "PROVIDER_FILTER_NOT_QUALIFIED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-07",
+      "scenario": "Unrelated process observed",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "STATIC_DESIGN_ONLY",
+      "observed_support": "Guest-wide kernel trace may collect incidental OS processes even in isolated Sandbox",
+      "remaining_gap": "CAPTURE_SCOPE_NOT_PROVEN",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-08",
+      "scenario": "EventsLost or BuffersLost nonzero",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "PRIOR_SYNTHETIC_PARTIAL",
+      "observed_support": "WER02 IT02 dropped_events=1 blocks; explicit buffers-lost telemetry not covered",
+      "remaining_gap": "ACTUAL_ETW_LOSS_NOT_TESTED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-09",
+      "scenario": "Observer started after worker",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "STATIC_DESIGN_ONLY",
+      "observed_support": "Need pre-launch acknowledgement plus full observer/session coverage; no real timing measured",
+      "remaining_gap": "OBSERVER_ORDER_NOT_PROVEN",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-10",
+      "scenario": "Supervisor crashes",
+      "expected_fail_closed": "BLOCKED_UNTIL_INDEPENDENT_CONTINUITY",
+      "evidence_class": "STATIC_DESIGN_ONLY",
+      "observed_support": "Independent observer outlives supervisor with complete Job handle and capture lifetime",
+      "remaining_gap": "CRASH_PROBE_NOT_AUTHORIZED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-11",
+      "scenario": "Retained member handle lost",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "PRIOR_SYNTHETIC_TEST",
+      "observed_support": "WER02 IT04 handle_retained=False blocks",
+      "remaining_gap": "REAL_HANDLE_LIFETIME_NOT_TESTED",
+      "new_real_proof_acquired": false
+    },
+    {
+      "case_id": "ADV-12",
+      "scenario": "Absence claimed without full coverage",
+      "expected_fail_closed": "BLOCKED",
+      "evidence_class": "PRIOR_SYNTHETIC_TEST",
+      "observed_support": "WER02 IT05 continuous=False and absent membership block",
+      "remaining_gap": "REAL_ABSENCE_NOT_PROVEN",
+      "new_real_proof_acquired": false
+    }
+  ],
+  "new_wer04_executable_tests_run": 0,
+  "existing_wer02_frozen_regression": {
+    "tests": 47,
+    "passed": 47,
+    "errors": 0,
+    "raw_sha256": "e968f9adb6bdb91650262f5000a8c131a3c40a1ef72455eb2097b5eab467ad7f",
+    "junit_sha256": "30c6735fa429ba2e2a53ffe973e3d093dce4d5a125955136f836230cfe9e2837"
+  },
+  "status": "DOCUMENTARY_ADVERSARIAL_MATRIX_COMPLETE_WITH_UNTESTED_GAPS",
+  "real_collection_proven": false
+}
