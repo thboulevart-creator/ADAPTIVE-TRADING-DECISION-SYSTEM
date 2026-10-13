@@ -1,0 +1,171 @@
+{
+  "schema": "ATDS_R1_CR1_RED_R1_CR2_SYNTHETIC_RED_TERMINAL_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-CR2",
+  "decision": "PASS_RED_BEHAVIORALLY_QUALIFIED",
+  "evidence_scope": "SYNTHETIC_ORACLE_ONLY",
+  "adoption": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "p0": {
+    "status": "PASS",
+    "branch": "integration/system-v1",
+    "head": "400d008b2ec8624c4811e27f8bb70f3e3fc5b0c9",
+    "tree": "5a02180fde7684b80f7462b7ee348e678ae2232b",
+    "tracked_changes_before": 0,
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b",
+    "frozen_original_test_sha256": "65cb60153e6a7458adce0373ad51d95e84c3c4fb84ca19e2843dceb8a8944282",
+    "frozen_original_adapter_sha256": "6260021b5e1259677413c341587de92d71168e96ce2d2abc5b51446434fa2c85"
+  },
+  "p1": {
+    "status": "PASS",
+    "new_test_oracles": 12,
+    "original_tests_edited": 0,
+    "original_adapter_edited": 0
+  },
+  "p2": {
+    "status": "PASS_RED_BEHAVIORALLY_QUALIFIED",
+    "meaning": "Tests pass because they independently confirm and classify preserved legacy deficiencies, not because runtime behavior is fixed",
+    "pytest_exit_code": 0,
+    "pytest_tests": 12,
+    "pytest_passed": 12,
+    "pytest_failed": 0,
+    "pytest_errors": 0,
+    "case_matrix_count": 12,
+    "legacy_status_pass": 5,
+    "legacy_status_blocked": 7,
+    "evidence_class": "LEGACY_ADAPTER",
+    "fixture_class": "SYNTHETIC_CONTRACT",
+    "new_windows_evidence": false,
+    "cases": [
+      {
+        "test_id": "JM01",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "PASS",
+        "gap_class": "EXISTING_POSITIVE_CONTROL"
+      },
+      {
+        "test_id": "JM02",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "SYNTHETIC_FALSE_BLOCK"
+      },
+      {
+        "test_id": "JM03",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "REASON_SPECIFICITY"
+      },
+      {
+        "test_id": "JM04",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "CROSS_FIELD_CONSISTENCY"
+      },
+      {
+        "test_id": "JM05",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "PASS",
+        "gap_class": "INPUT_TRANSPORT_OMISSION"
+      },
+      {
+        "test_id": "JM06",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "REASON_AND_TRANSPORT"
+      },
+      {
+        "test_id": "JM07",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "REASON_SPECIFICITY"
+      },
+      {
+        "test_id": "JM08",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "PASS",
+        "gap_class": "INPUT_TRANSPORT_OMISSION"
+      },
+      {
+        "test_id": "JM09",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "PASS",
+        "gap_class": "ABSENCE_PROOF_SEMANTICS"
+      },
+      {
+        "test_id": "JM10",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "SYNTHETIC_FALSE_BLOCK"
+      },
+      {
+        "test_id": "JM11",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "PASS",
+        "gap_class": "INPUT_TRANSPORT_OMISSION"
+      },
+      {
+        "test_id": "JM12",
+        "oracle_validation": "PASS_GAP_CAPTURED",
+        "legacy_status": "BLOCKED",
+        "gap_class": "SYNTHETIC_FALSE_BLOCK"
+      }
+    ]
+  },
+  "p3": {
+    "status": "PREPARED_FOR_HASH_GATED_PERSISTENCE",
+    "evidence": [
+      {
+        "key": "test",
+        "path": "tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_red_r1_cr2.py",
+        "sha256": "cb58f8f36cb7a88ffa21ca7bbd027fa945990f582e83663313077bb43338d980"
+      },
+      {
+        "key": "oracle",
+        "path": "tools/fc01_f03_cr2/m2_r1_cr2_cr1_r1_cr1/red_r1_cr2_oracle.py",
+        "sha256": "2335423d1afe32bb9985a8a58331e3bd69ccdb811ac222cdfc197e47f3801aee"
+      },
+      {
+        "key": "capture",
+        "path": "tools/fc01_f03_cr2/m2_r1_cr2_cr1_r1_cr1/red_r1_cr2_capture.py",
+        "sha256": "fee4394d1dd510e0c32b8c12f84354b1af191c62d5aa0633b90a4c6b700e548b"
+      },
+      {
+        "key": "raw",
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-CR2-P2-RAW-PYTEST-V0.1.txt",
+        "sha256": "d6a8eb2e1d0aa18f1e82ad1e69493710ad477ff16194d73eb1db1fd9c79ce7ca"
+      },
+      {
+        "key": "junit",
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-CR2-P2-JUNIT-V0.1.xml",
+        "sha256": "e160ca4ec2fb0df6e00e15de37e92f668fecefbb4c19f3b0bfe023ecdd90cc14"
+      },
+      {
+        "key": "matrix",
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-CR2-P2-CASE-MATRIX-V0.1.json",
+        "sha256": "c8595dcb979e3847f41f45cd4fc71f147c8fdb7c67c377794caddc1a6272430a"
+      }
+    ]
+  },
+  "safety": {
+    "new_synthetic_windows_workers": 0,
+    "regression_windows_workers": 0,
+    "jforex_connections": 0,
+    "provider_requests": 0,
+    "real_history_reads": 0,
+    "fc01_mutated": false,
+    "e1_mutated": false,
+    "m2_mutated": false,
+    "historical_receipts_mutated": false,
+    "green_implementation": false,
+    "windows_campaign": false,
+    "trading": false,
+    "orders": false,
+    "capital": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false,
+    "fail_closed": true,
+    "stop": "MANDATORY"
+  },
+  "next": "SEPARATE_HUMAN_AUTHORIZATION_FOR_GREEN_CORRECTION_WITH_INDEPENDENT_WINDOWS_PREPARATION"
+}

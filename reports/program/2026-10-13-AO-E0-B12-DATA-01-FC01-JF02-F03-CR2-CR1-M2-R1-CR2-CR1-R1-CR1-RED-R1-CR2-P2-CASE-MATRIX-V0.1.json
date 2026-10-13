@@ -1,0 +1,232 @@
+﻿{
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-RED-R1-CR2",
+  "evidence_class": "LEGACY_ADAPTER",
+  "frozen_sources": {
+    "historical_adapter_sha256": "6260021b5e1259677413c341587de92d71168e96ce2d2abc5b51446434fa2c85",
+    "original_test_sha256": "65cb60153e6a7458adce0373ad51d95e84c3c4fb84ca19e2843dceb8a8944282"
+  },
+  "green_implementation": false,
+  "independent_windows_evidence": false,
+  "input_class": "SYNTHETIC_CONTRACT",
+  "oracle_sha256": "2335423d1afe32bb9985a8a58331e3bd69ccdb811ac222cdfc197e47f3801aee",
+  "schema": "ATDS_R1_CR1_RED_R1_CR2_SYNTHETIC_CASE_MATRIX_V0_1",
+  "test_cases": [
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "PASS",
+      "gap_class": "EXISTING_POSITIVE_CONTROL",
+      "gap_id": "NONE",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER"
+      },
+      "observed_descendant_absence_proven": true,
+      "observed_legacy_status": "PASS",
+      "observed_violations": [],
+      "test_id": "JM01"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "SYNTHETIC_FALSE_BLOCK",
+      "gap_id": "NO_INDEPENDENT_DESCENDANT_CLASSIFICATION",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "NOT_PROVEN",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER",
+        "600": "UNCLASSIFIED_MEMBER"
+      },
+      "observed_descendant_absence_proven": false,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "DESCENDANT_ABSENCE_UNPROVEN"
+      ],
+      "test_id": "JM02"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "REASON_SPECIFICITY",
+      "gap_id": "UNCLASSIFIED_JOB_MEMBER_NOT_REPORTED",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "NOT_PROVEN",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER",
+        "600": "UNCLASSIFIED_MEMBER"
+      },
+      "observed_descendant_absence_proven": false,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "DESCENDANT_ABSENCE_UNPROVEN"
+      ],
+      "test_id": "JM03"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "CROSS_FIELD_CONSISTENCY",
+      "gap_id": "INVALID_IDENTITY_WITH_FAVORABLE_ABSENCE",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "UNCLASSIFIED_MEMBER"
+      },
+      "observed_descendant_absence_proven": true,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE",
+        "WORKER_MISSING_FROM_JOB_BEFORE_LIST"
+      ],
+      "test_id": "JM04"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "PASS",
+      "gap_class": "INPUT_TRANSPORT_OMISSION",
+      "gap_id": "POST_START_IDENTITY_IGNORED",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER"
+      },
+      "observed_descendant_absence_proven": true,
+      "observed_legacy_status": "PASS",
+      "observed_violations": [],
+      "test_id": "JM05"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "REASON_AND_TRANSPORT",
+      "gap_id": "CLAIMED_ABSENCE_NOT_BOUND_TO_PROVEN_LINEAGE",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "NOT_PROVEN",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER",
+        "600": "UNCLASSIFIED_MEMBER"
+      },
+      "observed_descendant_absence_proven": false,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "DESCENDANT_ABSENCE_UNPROVEN"
+      ],
+      "test_id": "JM06"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "REASON_SPECIFICITY",
+      "gap_id": "NORMALIZED_TERMINATION_REASON_MISSING",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER"
+      },
+      "observed_descendant_absence_proven": false,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN",
+        "JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE",
+        "MEMBERSHIP_IDENTITY_UNRECONCILED",
+        "MEMBERSHIP_NOT_RECONCILED",
+        "WORKER_EXIT_NOT_VERIFIED"
+      ],
+      "test_id": "JM07"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "PASS",
+      "gap_class": "INPUT_TRANSPORT_OMISSION",
+      "gap_id": "JOB_MEMBER_COUNT_IGNORED",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER"
+      },
+      "observed_descendant_absence_proven": true,
+      "observed_legacy_status": "PASS",
+      "observed_violations": [],
+      "test_id": "JM08"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "PASS",
+      "gap_class": "ABSENCE_PROOF_SEMANTICS",
+      "gap_id": "ENUMERATED_EMPTY_ONLY",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER"
+      },
+      "observed_descendant_absence_proven": true,
+      "observed_legacy_status": "PASS",
+      "observed_violations": [],
+      "test_id": "JM09"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "SYNTHETIC_FALSE_BLOCK",
+      "gap_id": "TERMINATED_DESCENDANT_UNCLASSIFIED",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "NOT_PROVEN",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER",
+        "600": "UNCLASSIFIED_MEMBER"
+      },
+      "observed_descendant_absence_proven": false,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "DESCENDANT_ABSENCE_UNPROVEN"
+      ],
+      "test_id": "JM10"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "PASS",
+      "gap_class": "INPUT_TRANSPORT_OMISSION",
+      "gap_id": "RAW_PROVENANCE_IGNORED",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "ENUMERATED_EMPTY",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER"
+      },
+      "observed_descendant_absence_proven": true,
+      "observed_legacy_status": "PASS",
+      "observed_violations": [],
+      "test_id": "JM11"
+    },
+    {
+      "evidence_class": "LEGACY_ADAPTER",
+      "expected_legacy_status": "BLOCKED",
+      "gap_class": "SYNTHETIC_FALSE_BLOCK",
+      "gap_id": "EXTERNAL_LINEAGE_NOT_CLASSIFIED",
+      "independent_windows_evidence": false,
+      "input_class": "SYNTHETIC_CONTRACT",
+      "observed_absence_evidence": "NOT_PROVEN",
+      "observed_classifications": {
+        "500": "PRIMARY_WORKER",
+        "700": "UNCLASSIFIED_MEMBER"
+      },
+      "observed_descendant_absence_proven": false,
+      "observed_legacy_status": "BLOCKED",
+      "observed_violations": [
+        "DESCENDANT_ABSENCE_UNPROVEN"
+      ],
+      "test_id": "JM12"
+    }
+  ]
+}
+
