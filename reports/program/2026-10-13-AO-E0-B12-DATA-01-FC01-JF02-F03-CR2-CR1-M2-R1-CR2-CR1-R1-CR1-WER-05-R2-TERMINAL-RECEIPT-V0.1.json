@@ -1,0 +1,90 @@
+{
+  "schema": "ATDS_R1_CR1_WER05_R2_V0_1_TERMINAL_RECEIPT",
+  "human_authority": "EXPLICITLY_ADOPTED_BOUNDED_R2",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "adopted_head": "5d42f59b753dc9dc068a5ef26fe33b8c629782e9",
+  "source_code_commit": "39c0685e92a99dceb04fd529d087a719615ec69a",
+  "source_code_tree": "46e8e9580d0c5a6bfe74b66307600b943f2a371b",
+  "terminal": "REQUIRES_TARGETED_CORRECTION",
+  "stop": "APPLIED",
+  "memory": {
+    "observation_utc": "2026-10-13T14:04:54.4108033Z",
+    "physical_available_gib": 1.92,
+    "perf_available_gib": 1.8,
+    "committed_gib": 28.99,
+    "commit_limit_gib": 33.34,
+    "commit_headroom_gib": 4.34,
+    "required_min_physical_gib": 6,
+    "required_min_commit_headroom_gib": 6,
+    "spaced_triad_since_workload_change": "NOT_RUN_NO_USER_WORKLOAD_CHANGE",
+    "edge_processes": 42,
+    "edge_private_committed_gib": 11.3,
+    "private_commit_is_not_guaranteed_recoverable_ram": true,
+    "guest_memory_mib": 4096,
+    "memory_gate": "FAIL"
+  },
+  "control": {
+    "host_os_build": "22631",
+    "wsb_cli_available": false,
+    "hcsdiag_read_only_success": true,
+    "baseline_hcs_id": "fb568601-3fab-442c-b602-9bbc54ea64c1",
+    "baseline_owner": "CmService",
+    "baseline_state": "SavedAsTemplate",
+    "baseline_modified": false,
+    "real_unique_guest_binding": "NOT_PROVEN",
+    "real_privileged_stop": "NOT_PROVEN",
+    "watchdog_independent": "DESIGNED_ONLY",
+    "watchdog_operational": "NOT_IMPLEMENTED",
+    "real_teardown_300_seconds": "NOT_PROVEN"
+  },
+  "synthetic": {
+    "model_file": "tools/wer05_r2/wer05_r2_safety_oracle.py",
+    "model_blob": "65ded460c2033b99be8ac8936e6d811eb5a879e3",
+    "test_file": "tools/wer05_r2/test_wer05_r2_safety_oracle.py",
+    "test_blob": "07c4037074a3246c13f8c349b4e4a76c3ec363ae",
+    "candidate_is_pure_no_os_api": true,
+    "model_side_python_tests_passed": 20,
+    "windows_published_source_tests_passed": 20,
+    "windows_execution_mode": "ephemeral_python_-B_stdin_no_repository_files",
+    "independent_live_supervisor_proven": false
+  },
+  "local": {
+    "branch": "integration/system-v1",
+    "head": "9ed38d72580635d9a63eff76cf6196123be2d8a1",
+    "tree": "2cc1e7c78bc493be9ade9277a4acc3699dc646e1",
+    "tracked_diff_clean": true,
+    "untracked_entries_preserved": 88,
+    "git_sync_performed": false
+  },
+  "firewall": {
+    "sandbox_boot_attempts": 0,
+    "active_supervisor_executions": 0,
+    "etw_session_starts": 0,
+    "real_etw_capture": false,
+    "atds_workers": 0,
+    "process_terminations": 0,
+    "host_setting_mutations": 0,
+    "host_reboots": 0,
+    "privilege_escalations": 0,
+    "preexisting_vm_mutations": 0,
+    "historical_evidence_mutations": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "trading": false,
+    "orders": false,
+    "capital": false,
+    "force": false,
+    "fail_closed": true
+  },
+  "blockers": [
+    "PHYSICAL_AND_COMMIT_MEMORY_BELOW_6_GIB",
+    "REAL_HOST_LOCAL_TARGETED_GUEST_TEARDOWN_NOT_PROVEN"
+  ],
+  "next": "SEPARATE_HUMAN_ADJUDICATION_MEMORY_VOLUNTARY_RELEASE_PLUS_CAPABILITY_PATH",
+  "documents": [
+    "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-05-R2-QUALIFICATION-REPORT-V0.1.md",
+    "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-05-R2-TERMINAL-RECEIPT-V0.1.json"
+  ]
+}
