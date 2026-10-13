@@ -1,0 +1,212 @@
+{
+  "schema": "ATDS_R1_CR1_GREEN_R1_SYNTHETIC_TERMINAL_RECEIPT_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1",
+  "human_authority": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "canonical": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head_at_p0": "6873a98c510f6b7650b0221711c5fb8844c1dfef",
+    "tree_at_p0": "f147156083780d5a0e807497144eafa9e03dda2d",
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b"
+  },
+  "decision": "PASS_SYNTHETIC_GREEN_QUALIFIED",
+  "evidence_class": "SYNTHETIC_CONTRACT",
+  "independent_windows_evidence": false,
+  "production_qualification": false,
+  "p0": "PASS",
+  "p1": {
+    "status": "QUALIFIED",
+    "legacy_initial_red": {
+      "tests": 44,
+      "failed": 44,
+      "errors": 0,
+      "exit_code": 1
+    },
+    "frozen_test_sha256": "15e93467e251987991210e0e9f2dabcab08d82b27a5e59cdd6f7d5d893353b9f",
+    "green_implementation_pre_test_freeze": false
+  },
+  "p2": {
+    "status": "PASS",
+    "source_sha256": "8092c558370130acd9eb16b1c3d1cfed209ff0b8b6f7e78f6a02354c2fc7f0e1",
+    "isolated_path": "tools/fc01_f03_cr2/m2_r1_cr2_cr1_r1_cr1/green_r1/validator.py",
+    "independent_adversarial_initial": {
+      "tests": 12,
+      "failed": 8,
+      "passed": 4,
+      "errors": 0
+    },
+    "mutations_to_historical_files": 0
+  },
+  "p3": {
+    "status": "PASS",
+    "tests_green": 56,
+    "tests_green_passed": 56,
+    "tests_green_failed": 0,
+    "tests_green_errors": 0,
+    "mandatory_jm": [
+      {
+        "case_id": "JM-01",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-02",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-03",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-04",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-05",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-06",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-07",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-08",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-09",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-10",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-11",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      },
+      {
+        "case_id": "JM-12",
+        "status": "PASS_AS_EXPECTED_SYNTHETIC",
+        "independent_windows_evidence": false
+      }
+    ],
+    "adversarial_independent": 12,
+    "red_cr2_regression": {
+      "tests": 12,
+      "passed": 12,
+      "failed": 0,
+      "errors": 0
+    },
+    "original_red_regression": {
+      "tests": 12,
+      "passed": 1,
+      "failed": 11,
+      "errors": 0,
+      "status": "EXPECTED_UNCHANGED"
+    },
+    "external_windows_evidence": false
+  },
+  "p4": {
+    "status": "FORENSIC_ARTIFACTS_FROZEN_FOR_HASH_GATED_PUBLICATION",
+    "evidence": [
+      {
+        "path": "tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py",
+        "sha256": "15e93467e251987991210e0e9f2dabcab08d82b27a5e59cdd6f7d5d893353b9f"
+      },
+      {
+        "path": "tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py",
+        "sha256": "744486cd60e5965e4929fee4019caaa40f6b1fd20d528a18d36075e13ba81e95"
+      },
+      {
+        "path": "tools/fc01_f03_cr2/m2_r1_cr2_cr1_r1_cr1/green_r1/validator.py",
+        "sha256": "8092c558370130acd9eb16b1c3d1cfed209ff0b8b6f7e78f6a02354c2fc7f0e1"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P1-TEST-FIRST-FREEZE-V0.1.json",
+        "sha256": "1de7eab1c594b99979ac1310b28f4f133d4c271c74a6f776f133b938bbae5399"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P1-TEST-FIRST-RED-RAW-V0.1.txt",
+        "sha256": "ab5919366d7961965235b88e264c9a22d50c8e0e96502f01124c4ca2bd996f84"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P1-TEST-FIRST-RED-JUNIT-V0.1.xml",
+        "sha256": "835c8f85769dc567fcea1954ea4bb3a5f409f8ff717396eccf474d8ab48543a7"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-ADVERSARIAL-INITIAL-RED-RAW-V0.1.txt",
+        "sha256": "73c55f7d8c1e7e2a3e2e343553d66ab300ca4dad7776d19f58af2b0b9c1b9bbf"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-ADVERSARIAL-INITIAL-RED-JUNIT-V0.1.xml",
+        "sha256": "758c5a31dc91a7301fc90590d2a22cc16bfb55b58dc4944f1e1a9de77619f589"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-GREEN-RAW-V0.1.txt",
+        "sha256": "b0ae3484d53a38bb4ba6c5b6b3000fea144c9142c7a35a5d10d5c70c70965618"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-GREEN-JUNIT-V0.1.xml",
+        "sha256": "f6e1afddea0aa0c21c307e85e2c6ab6de32817d3dabbf89fce3c9b43f2ce7ab3"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-RED-CR2-NONREGRESSION-RAW-V0.1.txt",
+        "sha256": "24b87ebb54224e95eb439459c790fe53f2c1a4bbd050d7ce0a8ebe39009d7984"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-RED-CR2-NONREGRESSION-JUNIT-V0.1.xml",
+        "sha256": "fa8a82fabe1f1a5409823991a094ce33cbdbcbbf6bdb780d67514e5add33fec7"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-ORIGINAL-RED-REGRESSION-RAW-V0.1.txt",
+        "sha256": "6b3cc7f356dadc9537162fd913dbe2fd7e79ef079653a148fd0c08d64e3ce555"
+      },
+      {
+        "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-ORIGINAL-RED-REGRESSION-JUNIT-V0.1.xml",
+        "sha256": "e5be6345ba14a7bd4faf1d050adf656a2223bdff06109fb2306a8826030161b0"
+      }
+    ]
+  },
+  "safety": {
+    "historical_campaign": "R1RECOVERY_20261011_CAMPAIGN_A",
+    "historical_campaign_status": "BLOCKED",
+    "historical_campaign_workers_spent": 4,
+    "new_windows_workers": 0,
+    "regression_workers": 0,
+    "provider_requests": 0,
+    "jforex_login": 0,
+    "jforex_connect": 0,
+    "real_history_read": 0,
+    "fc01_source_mutation": false,
+    "e1_source_mutation": false,
+    "m2_policy_mutation": false,
+    "existing_red_tests_mutation": false,
+    "old_windows_supervisor_mutation": false,
+    "historical_receipt_mutation": false,
+    "b12": "CLOSED",
+    "read_a_retry": false,
+    "read_b": false,
+    "windows_campaign": "FORBIDDEN",
+    "fc01_real_memory_safety": "NOT_QUALIFIED",
+    "force": false,
+    "fail_closed": true
+  },
+  "stop_after_successful_p4": "MANDATORY",
+  "next": "SEPARATE_HUMAN_ADJUDICATION_FOR_WINDOWS_EVIDENCE_READINESS"
+}

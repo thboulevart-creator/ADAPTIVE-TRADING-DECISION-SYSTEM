@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="44" skipped="0" tests="44" time="0.667" timestamp="2026-10-13T10:46:42.648981+02:00" hostname="DESKTOP-49BN9M3"><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM01_valid_single_primary_worker" time="0.037"><failure message="AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'&#10;  &#10;  - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS&#10;  + ENUMERATED_EMPTY">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:46: in test_JM01_valid_single_primary_worker
+    assert r["absence_evidence"]=="ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS"
+E   AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'
+E     
+E     - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS
+E     + ENUMERATED_EMPTY</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM02_verified_synthetic_descendant" time="0.004"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:49: in test_JM02_verified_synthetic_descendant
+    _,r=status("JM02","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM03_unknown_member_reason" time="0.004"><failure message="AssertionError: ('JM03', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:54: in test_JM03_unknown_member_reason
+    _,r=status("JM03","BLOCKED",reason="UNCLASSIFIED_JOB_MEMBER")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM03', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM04_invalid_creation_identity_cannot_imply_absence" time="0.004"><failure message="AssertionError: ('JM04', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})&#10;assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:59: in test_JM04_invalid_creation_identity_cannot_imply_absence
+    _,r=status("JM04","BLOCKED",reason="MEMBER_IDENTITY_INVALID")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM04', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM05_post_start_must_match_pre_start" time="0.004"><failure message="AssertionError: ('JM05', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:63: in test_JM05_post_start_must_match_pre_start
+    status("JM05","BLOCKED",reason="MEMBER_START_IDENTITY_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM05', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM06_declared_absence_contradicts_verified_synthetic_descendant" time="0.004"><failure message="AssertionError: ('JM06', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'CONTRADICTORY_DESCENDANT_ABSENCE' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:66: in test_JM06_declared_absence_contradicts_verified_synthetic_descendant
+    status("JM06","BLOCKED",reason="CONTRADICTORY_DESCENDANT_ABSENCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM06', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'CONTRADICTORY_DESCENDANT_ABSENCE' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM07_member_exit_must_be_verified" time="0.004"><failure message="AssertionError: ('JM07', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})&#10;assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:69: in test_JM07_member_exit_must_be_verified
+    _,r=status("JM07","BLOCKED",reason="MEMBER_TERMINATION_NOT_VERIFIED")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM07', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM08_count_must_match_inventory" time="0.004"><failure message="AssertionError: ('JM08', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:73: in test_JM08_count_must_match_inventory
+    status("JM08","BLOCKED",reason="JOB_MEMBER_COUNT_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM08', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM09_absence_requires_complete_classification_and_provenance" time="0.003"><failure message="AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'&#10;  &#10;  - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS&#10;  + ENUMERATED_EMPTY">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:77: in test_JM09_absence_requires_complete_classification_and_provenance
+    assert r["absence_evidence"]=="ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS"
+E   AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'
+E     
+E     - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS
+E     + ENUMERATED_EMPTY</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM10_all_descendant_exits_verified" time="0.004"><failure message="AssertionError: ('JM10', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:83: in test_JM10_all_descendant_exits_verified
+    _,r=status("JM10","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM10', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM11_member_raw_provenance_required" time="0.004"><failure message="AssertionError: ('JM11', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:88: in test_JM11_member_raw_provenance_required
+    status("JM11","BLOCKED",reason="MEMBER_RAW_PROVENANCE_MISSING")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM11', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_JM12_other_verified_job_member_and_unverified_variant" time="0.003"><failure message="AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:91: in test_JM12_other_verified_job_member_and_unverified_variant
+    _,r=status("JM12","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_IDENTITY_INVALID0]" time="0.004"><failure message="AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'True': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'MEMBER_IDENTITY_INVALID' in ['DESCENDANT_ABSENCE_UNPROVEN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_EXIT_NOT_VERIFIED', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'True': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['DESCENDANT_ABSENCE_UNPROVEN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_EXIT_NOT_VERIFIED', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_IDENTITY_INVALID1]" time="0.004"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})&#10;assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_START_IDENTITY_MISMATCH0]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_START_IDENTITY_MISMATCH1]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_JOB_MEMBERSHIP_UNVERIFIED]" time="0.004"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_RAW_PROVENANCE_INVALID]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-UNCLASSIFIED_JOB_MEMBER0]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-UNCLASSIFIED_JOB_MEMBER1]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_TERMINATION_NOT_VERIFIED0]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})&#10;assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_TERMINATION_NOT_VERIFIED1]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_TERMINATION_NOT_VERIFIED2]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-MEMBER_TERMINATION_NOT_VERIFIED3]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-JOB_POST_QUERY_NOT_VERIFIED]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'JOB_POST_QUERY_NOT_VERIFIED' in ['CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_closed_by_supervisor_death', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_kill_on_close_readback', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_member_retained_handle_exit_verified', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_known_job_membership_complete']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'JOB_POST_QUERY_NOT_VERIFIED' in ['CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_closed_by_supervisor_death', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_kill_on_close_readback', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_member_retained_handle_exit_verified', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_known_job_membership_complete']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-TERMINATION_ACTION_MISSING]" time="0.003"><failure message="assert True is False">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:137: in test_ADV_FAIL_CLOSED
+    assert r["descendant_absence_proven"] is False
+E   assert True is False</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-CONTRADICTORY_GLOBAL_STATUS]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-UNAUTHORIZED_EVIDENCE_CLASS]" time="0.004"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-CONTRADICTORY_DESCENDANT_ABSENCE_PROOF]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-CONTRADICTORY_DESCENDANT_CREATED]" time="0.004"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-DESCENDANT_IDENTITY_MISMATCH]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-DESCENDANT_MARKER_UNVERIFIED]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})&#10;assert 'DESCENDANT_MARKER_UNVERIFIED' in ['DESCENDANT_PID_OR_START_INVALID']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'DESCENDANT_MARKER_UNVERIFIED' in ['DESCENDANT_PID_OR_START_INVALID']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-add_extra_member-DUPLICATE_JOB_MEMBER_IDENTITY]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})&#10;assert 'DUPLICATE_JOB_MEMBER_IDENTITY' in ['DESCENDANT_ABSENCE_UNPROVEN', 'DUPLICATE_JOB_MEMBERS']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'DUPLICATE_JOB_MEMBER_IDENTITY' in ['DESCENDANT_ABSENCE_UNPROVEN', 'DUPLICATE_JOB_MEMBERS']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM01-&lt;lambda&gt;-JOB_MEMBER_COUNT_MISMATCH]" time="0.003"><failure message="AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM02-&lt;lambda&gt;-CONTRADICTORY_DESCENDANT_CREATED]" time="0.003"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'CONTRADICTORY_DESCENDANT_CREATED' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'CONTRADICTORY_DESCENDANT_CREATED' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM02-&lt;lambda&gt;-DESCENDANT_IDENTITY_MISMATCH]" time="0.003"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'DESCENDANT_IDENTITY_MISMATCH' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'DESCENDANT_IDENTITY_MISMATCH' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM02-&lt;lambda&gt;-UNCLASSIFIED_JOB_MEMBER0]" time="0.003"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM02-&lt;lambda&gt;-UNCLASSIFIED_JOB_MEMBER1]" time="0.003"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM02-&lt;lambda&gt;-MEMBER_RAW_PROVENANCE_MISSING]" time="0.003"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'MEMBER_RAW_PROVENANCE_MISSING' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_RAW_PROVENANCE_MISSING' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM12-&lt;lambda&gt;-UNCLASSIFIED_JOB_MEMBER0]" time="0.003"><failure message="AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_FAIL_CLOSED[JM12-&lt;lambda&gt;-UNCLASSIFIED_JOB_MEMBER1]" time="0.003"><failure message="AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_verified_synthetic_lineage_not_windows_proof" time="0.003"><failure message="AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:140: in test_ADV_verified_synthetic_lineage_not_windows_proof
+    _,r=status("JM02","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_unverified_reparenting_never_favorable" time="0.003"><failure message="AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:146: in test_ADV_unverified_reparenting_never_favorable
+    _,r=status("JM12","BLOCKED",lambda x:x["members_before"][1].update(parent_pid=500,parent_start=901,external_lineage_proven=False),
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract" name="test_ADV_cross_field_proof_does_not_mask_invalid_member" time="0.003"><failure message="AssertionError: ('JM04', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})&#10;assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:151: in test_ADV_cross_field_proof_does_not_mask_invalid_member
+    _,r=status("JM04","BLOCKED",reason="MEMBER_IDENTITY_INVALID")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM04', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']</failure></testcase></testsuite></testsuites>

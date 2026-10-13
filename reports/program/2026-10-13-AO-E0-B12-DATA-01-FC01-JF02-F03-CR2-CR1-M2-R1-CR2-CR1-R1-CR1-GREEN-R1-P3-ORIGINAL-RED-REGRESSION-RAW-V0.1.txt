@@ -1,0 +1,138 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\Boulevart\AppData\Local\Python\pythoncore-3.12-64\python.exe
+rootdir: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM
+collecting ... collected 12 items
+
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM01_single_primary_worker PASSED [  8%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM02_two_members_parent_bound_descendant FAILED [ 16%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM03_unknown_second_member_blocks FAILED [ 25%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM04_invalid_member_creation_identity_blocks FAILED [ 33%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM05_PID_reuse_different_post_identity_blocks FAILED [ 41%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM06_absence_claim_contradicted_by_child_blocks FAILED [ 50%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM07_member_active_after_termination_blocks FAILED [ 58%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM08_inconsistent_job_member_count_blocks FAILED [ 66%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM09_independently_observed_single_member_absence FAILED [ 75%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM10_all_identified_descendants_terminated FAILED [ 83%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM11_missing_raw_source_provenance_blocks FAILED [ 91%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM12_other_member_requires_independent_parent_lineage FAILED [100%]
+
+================================== FAILURES ===================================
+________________ test_JM02_two_members_parent_bound_descendant ________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:55: in test_JM02_two_members_parent_bound_descendant
+    v=assert_pass(x)
+      ^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:38: in assert_pass
+    v=run(obs);assert v["status"]=="PASS",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+___________________ test_JM03_unknown_second_member_blocks ____________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:63: in test_JM03_unknown_second_member_blocks
+    assert_blocked(x,"UNCLASSIFIED_JOB_MEMBER")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+______________ test_JM04_invalid_member_creation_identity_blocks ______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:67: in test_JM04_invalid_member_creation_identity_blocks
+    assert_blocked(x,"MEMBER_IDENTITY_INVALID")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...}
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']
+_____________ test_JM05_PID_reuse_different_post_identity_blocks ______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:71: in test_JM05_PID_reuse_different_post_identity_blocks
+    assert_blocked(x,"MEMBER_START_IDENTITY_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:43: in assert_blocked
+    v=run(obs);assert v["status"]=="BLOCKED",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____________ test_JM06_absence_claim_contradicted_by_child_blocks _____________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:77: in test_JM06_absence_claim_contradicted_by_child_blocks
+    assert_blocked(x,"CONTRADICTORY_DESCENDANT_ABSENCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'CONTRADICTORY_DESCENDANT_ABSENCE' in ['DESCENDANT_ABSENCE_UNPROVEN']
+______________ test_JM07_member_active_after_termination_blocks _______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:82: in test_JM07_member_active_after_termination_blocks
+    assert_blocked(x,"MEMBER_TERMINATION_NOT_VERIFIED")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...}
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']
+_______________ test_JM08_inconsistent_job_member_count_blocks ________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:86: in test_JM08_inconsistent_job_member_count_blocks
+    assert_blocked(x,"JOB_MEMBER_COUNT_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:43: in assert_blocked
+    v=run(obs);assert v["status"]=="BLOCKED",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+___________ test_JM09_independently_observed_single_member_absence ____________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:90: in test_JM09_independently_observed_single_member_absence
+    assert v["absence_evidence"]=="ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS"
+E   AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'
+E     
+E     - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS
+E     + ENUMERATED_EMPTY
+_______________ test_JM10_all_identified_descendants_terminated _______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:95: in test_JM10_all_identified_descendants_terminated
+    v=assert_pass(x)
+      ^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:38: in assert_pass
+    v=run(obs);assert v["status"]=="PASS",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+_______________ test_JM11_missing_raw_source_provenance_blocks ________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:100: in test_JM11_missing_raw_source_provenance_blocks
+    assert_blocked(x,"MEMBER_RAW_PROVENANCE_MISSING")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:43: in assert_blocked
+    v=run(obs);assert v["status"]=="BLOCKED",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_________ test_JM12_other_member_requires_independent_parent_lineage __________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:105: in test_JM12_other_member_requires_independent_parent_lineage
+    v=assert_pass(x)
+      ^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:38: in assert_pass
+    v=run(obs);assert v["status"]=="PASS",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+- generated xml file: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\reports\program\2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-ORIGINAL-RED-REGRESSION-JUNIT-V0.1.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM02_two_members_parent_bound_descendant
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM03_unknown_second_member_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM04_invalid_member_creation_identity_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM05_PID_reuse_different_post_identity_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM06_absence_claim_contradicted_by_child_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM07_member_active_after_termination_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM08_inconsistent_job_member_count_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM09_independently_observed_single_member_absence
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM10_all_identified_descendants_terminated
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM11_missing_raw_source_provenance_blocks
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py::test_JM12_other_member_requires_independent_parent_lineage
+======================== 11 failed, 1 passed in 0.25s =========================
+

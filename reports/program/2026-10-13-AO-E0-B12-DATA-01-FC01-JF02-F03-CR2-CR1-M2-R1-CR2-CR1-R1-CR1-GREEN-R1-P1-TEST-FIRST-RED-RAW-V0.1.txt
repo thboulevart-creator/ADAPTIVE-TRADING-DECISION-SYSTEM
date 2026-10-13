@@ -1,0 +1,497 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\Boulevart\AppData\Local\Python\pythoncore-3.12-64\python.exe
+rootdir: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM
+collecting ... collected 44 items
+
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM01_valid_single_primary_worker FAILED [  2%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM02_verified_synthetic_descendant FAILED [  4%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM03_unknown_member_reason FAILED [  6%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM04_invalid_creation_identity_cannot_imply_absence FAILED [  9%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM05_post_start_must_match_pre_start FAILED [ 11%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM06_declared_absence_contradicts_verified_synthetic_descendant FAILED [ 13%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM07_member_exit_must_be_verified FAILED [ 15%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM08_count_must_match_inventory FAILED [ 18%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM09_absence_requires_complete_classification_and_provenance FAILED [ 20%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM10_all_descendant_exits_verified FAILED [ 22%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM11_member_raw_provenance_required FAILED [ 25%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM12_other_verified_job_member_and_unverified_variant FAILED [ 27%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_IDENTITY_INVALID0] FAILED [ 29%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_IDENTITY_INVALID1] FAILED [ 31%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_START_IDENTITY_MISMATCH0] FAILED [ 34%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_START_IDENTITY_MISMATCH1] FAILED [ 36%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_JOB_MEMBERSHIP_UNVERIFIED] FAILED [ 38%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_RAW_PROVENANCE_INVALID] FAILED [ 40%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-UNCLASSIFIED_JOB_MEMBER0] FAILED [ 43%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-UNCLASSIFIED_JOB_MEMBER1] FAILED [ 45%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED0] FAILED [ 47%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED1] FAILED [ 50%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED2] FAILED [ 52%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED3] FAILED [ 54%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-JOB_POST_QUERY_NOT_VERIFIED] FAILED [ 56%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-TERMINATION_ACTION_MISSING] FAILED [ 59%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_GLOBAL_STATUS] FAILED [ 61%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-UNAUTHORIZED_EVIDENCE_CLASS] FAILED [ 63%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_DESCENDANT_ABSENCE_PROOF] FAILED [ 65%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_DESCENDANT_CREATED] FAILED [ 68%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-DESCENDANT_IDENTITY_MISMATCH] FAILED [ 70%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-DESCENDANT_MARKER_UNVERIFIED] FAILED [ 72%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-add_extra_member-DUPLICATE_JOB_MEMBER_IDENTITY] FAILED [ 75%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-JOB_MEMBER_COUNT_MISMATCH] FAILED [ 77%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-CONTRADICTORY_DESCENDANT_CREATED] FAILED [ 79%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-DESCENDANT_IDENTITY_MISMATCH] FAILED [ 81%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-UNCLASSIFIED_JOB_MEMBER0] FAILED [ 84%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-UNCLASSIFIED_JOB_MEMBER1] FAILED [ 86%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-MEMBER_RAW_PROVENANCE_MISSING] FAILED [ 88%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM12-<lambda>-UNCLASSIFIED_JOB_MEMBER0] FAILED [ 90%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM12-<lambda>-UNCLASSIFIED_JOB_MEMBER1] FAILED [ 93%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_verified_synthetic_lineage_not_windows_proof FAILED [ 95%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_unverified_reparenting_never_favorable FAILED [ 97%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_cross_field_proof_does_not_mask_invalid_member FAILED [100%]
+
+================================== FAILURES ===================================
+____________________ test_JM01_valid_single_primary_worker ____________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:46: in test_JM01_valid_single_primary_worker
+    assert r["absence_evidence"]=="ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS"
+E   AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'
+E     
+E     - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS
+E     + ENUMERATED_EMPTY
+___________________ test_JM02_verified_synthetic_descendant ___________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:49: in test_JM02_verified_synthetic_descendant
+    _,r=status("JM02","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+_______________________ test_JM03_unknown_member_reason _______________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:54: in test_JM03_unknown_member_reason
+    _,r=status("JM03","BLOCKED",reason="UNCLASSIFIED_JOB_MEMBER")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM03', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+__________ test_JM04_invalid_creation_identity_cannot_imply_absence ___________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:59: in test_JM04_invalid_creation_identity_cannot_imply_absence
+    _,r=status("JM04","BLOCKED",reason="MEMBER_IDENTITY_INVALID")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM04', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']
+__________________ test_JM05_post_start_must_match_pre_start __________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:63: in test_JM05_post_start_must_match_pre_start
+    status("JM05","BLOCKED",reason="MEMBER_START_IDENTITY_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM05', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_JM06_declared_absence_contradicts_verified_synthetic_descendant _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:66: in test_JM06_declared_absence_contradicts_verified_synthetic_descendant
+    status("JM06","BLOCKED",reason="CONTRADICTORY_DESCENDANT_ABSENCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM06', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'CONTRADICTORY_DESCENDANT_ABSENCE' in ['DESCENDANT_ABSENCE_UNPROVEN']
+___________________ test_JM07_member_exit_must_be_verified ____________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:69: in test_JM07_member_exit_must_be_verified
+    _,r=status("JM07","BLOCKED",reason="MEMBER_TERMINATION_NOT_VERIFIED")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM07', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']
+____________________ test_JM08_count_must_match_inventory _____________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:73: in test_JM08_count_must_match_inventory
+    status("JM08","BLOCKED",reason="JOB_MEMBER_COUNT_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM08', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+______ test_JM09_absence_requires_complete_classification_and_provenance ______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:77: in test_JM09_absence_requires_complete_classification_and_provenance
+    assert r["absence_evidence"]=="ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS"
+E   AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'
+E     
+E     - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS
+E     + ENUMERATED_EMPTY
+___________________ test_JM10_all_descendant_exits_verified ___________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:83: in test_JM10_all_descendant_exits_verified
+    _,r=status("JM10","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM10', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+__________________ test_JM11_member_raw_provenance_required ___________________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:88: in test_JM11_member_raw_provenance_required
+    status("JM11","BLOCKED",reason="MEMBER_RAW_PROVENANCE_MISSING")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM11', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_________ test_JM12_other_verified_job_member_and_unverified_variant __________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:91: in test_JM12_other_verified_job_member_and_unverified_variant
+    _,r=status("JM12","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+________ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_IDENTITY_INVALID0] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'True': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['DESCENDANT_ABSENCE_UNPROVEN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_EXIT_NOT_VERIFIED', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']
+________ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_IDENTITY_INVALID1] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']
+_____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_START_IDENTITY_MISMATCH0] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_START_IDENTITY_MISMATCH1] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_JOB_MEMBERSHIP_UNVERIFIED] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+______ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_RAW_PROVENANCE_INVALID] ______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+________ test_ADV_FAIL_CLOSED[JM01-<lambda>-UNCLASSIFIED_JOB_MEMBER0] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+________ test_ADV_FAIL_CLOSED[JM01-<lambda>-UNCLASSIFIED_JOB_MEMBER1] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED0] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']
+____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED1] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE']
+____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED2] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE']
+____ test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED3] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN']
+_______ test_ADV_FAIL_CLOSED[JM01-<lambda>-JOB_POST_QUERY_NOT_VERIFIED] _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'JOB_POST_QUERY_NOT_VERIFIED' in ['CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_closed_by_supervisor_death', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_kill_on_close_readback', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_job_member_retained_handle_exit_verified', 'CRASH_POST_JOB_DESTROY_EVIDENCE_MISSING_known_job_membership_complete']
+_______ test_ADV_FAIL_CLOSED[JM01-<lambda>-TERMINATION_ACTION_MISSING] ________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:137: in test_ADV_FAIL_CLOSED
+    assert r["descendant_absence_proven"] is False
+E   assert True is False
+_______ test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_GLOBAL_STATUS] _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_______ test_ADV_FAIL_CLOSED[JM01-<lambda>-UNAUTHORIZED_EVIDENCE_CLASS] _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_DESCENDANT_ABSENCE_PROOF] __
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_DESCENDANT_CREATED] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+______ test_ADV_FAIL_CLOSED[JM01-<lambda>-DESCENDANT_IDENTITY_MISMATCH] _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+______ test_ADV_FAIL_CLOSED[JM01-<lambda>-DESCENDANT_MARKER_UNVERIFIED] _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'DESCENDANT_MARKER_UNVERIFIED' in ['DESCENDANT_PID_OR_START_INVALID']
+__ test_ADV_FAIL_CLOSED[JM01-add_extra_member-DUPLICATE_JOB_MEMBER_IDENTITY] __
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...})
+E   assert 'DUPLICATE_JOB_MEMBER_IDENTITY' in ['DESCENDANT_ABSENCE_UNPROVEN', 'DUPLICATE_JOB_MEMBERS']
+________ test_ADV_FAIL_CLOSED[JM01-<lambda>-JOB_MEMBER_COUNT_MISMATCH] ________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM01', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...})
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_ADV_FAIL_CLOSED[JM02-<lambda>-CONTRADICTORY_DESCENDANT_CREATED] _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'CONTRADICTORY_DESCENDANT_CREATED' in ['DESCENDANT_ABSENCE_UNPROVEN']
+______ test_ADV_FAIL_CLOSED[JM02-<lambda>-DESCENDANT_IDENTITY_MISMATCH] _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'DESCENDANT_IDENTITY_MISMATCH' in ['DESCENDANT_ABSENCE_UNPROVEN']
+________ test_ADV_FAIL_CLOSED[JM02-<lambda>-UNCLASSIFIED_JOB_MEMBER0] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+________ test_ADV_FAIL_CLOSED[JM02-<lambda>-UNCLASSIFIED_JOB_MEMBER1] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+______ test_ADV_FAIL_CLOSED[JM02-<lambda>-MEMBER_RAW_PROVENANCE_MISSING] ______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'MEMBER_RAW_PROVENANCE_MISSING' in ['DESCENDANT_ABSENCE_UNPROVEN']
+________ test_ADV_FAIL_CLOSED[JM12-<lambda>-UNCLASSIFIED_JOB_MEMBER0] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+________ test_ADV_FAIL_CLOSED[JM12-<lambda>-UNCLASSIFIED_JOB_MEMBER1] _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:136: in test_ADV_FAIL_CLOSED
+    _,r=status(case,"BLOCKED",change=change,reason=reason)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+____________ test_ADV_verified_synthetic_lineage_not_windows_proof ____________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:140: in test_ADV_verified_synthetic_lineage_not_windows_proof
+    _,r=status("JM02","PASS")
+        ^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:37: in status
+    assert result["status"]==expected,(case,result)
+E   AssertionError: ('JM02', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED
+_______________ test_ADV_unverified_reparenting_never_favorable _______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:146: in test_ADV_unverified_reparenting_never_favorable
+    _,r=status("JM12","BLOCKED",lambda x:x["members_before"][1].update(parent_pid=500,parent_start=901,external_lineage_proven=False),
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM12', {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...})
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']
+___________ test_ADV_cross_field_proof_does_not_mask_invalid_member ___________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:151: in test_ADV_cross_field_proof_does_not_mask_invalid_member
+    _,r=status("JM04","BLOCKED",reason="MEMBER_IDENTITY_INVALID")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py:39: in status
+    assert reason in result["violations"],(case,result)
+E   AssertionError: ('JM04', {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...})
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']
+- generated xml file: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\reports\program\2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P1-TEST-FIRST-RED-JUNIT-V0.1.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM01_valid_single_primary_worker
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM02_verified_synthetic_descendant
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM03_unknown_member_reason
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM04_invalid_creation_identity_cannot_imply_absence
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM05_post_start_must_match_pre_start
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM06_declared_absence_contradicts_verified_synthetic_descendant
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM07_member_exit_must_be_verified
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM08_count_must_match_inventory
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM09_absence_requires_complete_classification_and_provenance
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM10_all_descendant_exits_verified
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM11_member_raw_provenance_required
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_JM12_other_verified_job_member_and_unverified_variant
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_IDENTITY_INVALID0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_IDENTITY_INVALID1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_START_IDENTITY_MISMATCH0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_START_IDENTITY_MISMATCH1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_JOB_MEMBERSHIP_UNVERIFIED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_RAW_PROVENANCE_INVALID]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-UNCLASSIFIED_JOB_MEMBER0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-UNCLASSIFIED_JOB_MEMBER1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED2]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-MEMBER_TERMINATION_NOT_VERIFIED3]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-JOB_POST_QUERY_NOT_VERIFIED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-TERMINATION_ACTION_MISSING]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_GLOBAL_STATUS]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-UNAUTHORIZED_EVIDENCE_CLASS]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_DESCENDANT_ABSENCE_PROOF]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-CONTRADICTORY_DESCENDANT_CREATED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-DESCENDANT_IDENTITY_MISMATCH]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-DESCENDANT_MARKER_UNVERIFIED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-add_extra_member-DUPLICATE_JOB_MEMBER_IDENTITY]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM01-<lambda>-JOB_MEMBER_COUNT_MISMATCH]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-CONTRADICTORY_DESCENDANT_CREATED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-DESCENDANT_IDENTITY_MISMATCH]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-UNCLASSIFIED_JOB_MEMBER0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-UNCLASSIFIED_JOB_MEMBER1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM02-<lambda>-MEMBER_RAW_PROVENANCE_MISSING]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM12-<lambda>-UNCLASSIFIED_JOB_MEMBER0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_FAIL_CLOSED[JM12-<lambda>-UNCLASSIFIED_JOB_MEMBER1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_verified_synthetic_lineage_not_windows_proof
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_unverified_reparenting_never_favorable
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py::test_ADV_cross_field_proof_does_not_mask_invalid_member
+============================= 44 failed in 0.73s ==============================
+

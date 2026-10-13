@@ -1,0 +1,43 @@
+{
+  "schema": "ATDS_FC01_R1_CR1_GREEN_R1_TEST_FIRST_FREEZE_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1",
+  "phase": "P1_TEST_FIRST_BEFORE_GREEN_IMPLEMENTATION",
+  "pre_green_implementation_exists": false,
+  "baseline_head": "6873a98c510f6b7650b0221711c5fb8844c1dfef",
+  "baseline_tree": "f147156083780d5a0e807497144eafa9e03dda2d",
+  "baseline_frozen_red_cr2_sha256": {
+    "test": "cb58f8f36cb7a88ffa21ca7bbd027fa945990f582e83663313077bb43338d980",
+    "oracle": "2335423d1afe32bb9985a8a58331e3bd69ccdb811ac222cdfc197e47f3801aee"
+  },
+  "green_test_first_source": {
+    "path": "tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_contract.py",
+    "sha256": "15e93467e251987991210e0e9f2dabcab08d82b27a5e59cdd6f7d5d893353b9f"
+  },
+  "observed_red": {
+    "run_class": "SYNTHETIC_LEGACY_ADAPTER",
+    "pytest_exit_code": 1,
+    "tests": 44,
+    "failures": 44,
+    "errors": 0,
+    "raw": {
+      "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P1-TEST-FIRST-RED-RAW-V0.1.txt",
+      "sha256": "ab5919366d7961965235b88e264c9a22d50c8e0e96502f01124c4ca2bd996f84"
+    },
+    "junit": {
+      "path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P1-TEST-FIRST-RED-JUNIT-V0.1.xml",
+      "sha256": "835c8f85769dc567fcea1954ea4bb3a5f409f8ff717396eccf474d8ab48543a7"
+    }
+  },
+  "qualifications": [
+    "12 required JM oracles run",
+    "32 additional adversarial/metadata oracles run",
+    "No import or collection failure",
+    "Pre-green test source frozen",
+    "No worker, no provider, no Windows evidence"
+  ],
+  "status": "QUALIFIED_TEST_FIRST_SYNTHETIC_RED",
+  "green_authority": "ISOLATED_SYNTHETIC_ONLY",
+  "workers": 0,
+  "force": false,
+  "fail_closed": true
+}

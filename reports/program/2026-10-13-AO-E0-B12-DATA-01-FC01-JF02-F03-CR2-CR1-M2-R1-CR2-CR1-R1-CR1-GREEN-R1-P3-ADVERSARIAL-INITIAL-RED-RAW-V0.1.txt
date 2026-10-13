@@ -1,0 +1,39 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\Boulevart\AppData\Local\Python\pythoncore-3.12-64\python.exe
+rootdir: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM
+collecting ... collected 12 items
+
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A01_post_creation_mismatch_invalidates_individual_exit_proof FAILED [  8%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A02_invalid_member_creation_prevents_favorable_exit_proof FAILED [ 16%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A03_missing_raw_provenance_is_not_complete_individual_exit_proof FAILED [ 25%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A04_duplicate_identical_identity_is_not_complete_member_inventory FAILED [ 33%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A05_unobserved_worker_list_is_blocking PASSED [ 41%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A06_non_boolean_explicit_child_marker_is_blocking FAILED [ 50%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A07_non_boolean_absence_claim_is_blocking FAILED [ 58%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A08_positive_descendant_and_false_created_assertion_conflict PASSED [ 66%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A09_other_member_cannot_hide_mismatched_worker_parent_start FAILED [ 75%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A10_transitive_descendant_with_bound_parent_identity_is_classified FAILED [ 83%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A11_provenance_tags_never_promote_synthetic_to_windows PASSED [ 91%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A12_inconsistent_global_pass_claim_cannot_override_real_blocker PASSED [100%]
+
+================================== FAILURES ===================================
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:29: assert True is False
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:34: assert True is False
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:39: assert True is False
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:47: assert True is False
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:20: AssertionError: {'absence_evidence': 'ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:20: AssertionError: {'absence_evidence': 'ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:20: AssertionError: {'absence_evidence': 'ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'OTHER_IDENTIFIED_JOB_MEMBER'}, 'descendant_absence_proven': True, ...}
+C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py:77: AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'VERIFIED_DESCENDANT', '650': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+- generated xml file: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\reports\program\2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-GREEN-R1-P3-ADVERSARIAL-INITIAL-RED-JUNIT-V0.1.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A01_post_creation_mismatch_invalidates_individual_exit_proof
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A02_invalid_member_creation_prevents_favorable_exit_proof
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A03_missing_raw_provenance_is_not_complete_individual_exit_proof
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A04_duplicate_identical_identity_is_not_complete_member_inventory
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A06_non_boolean_explicit_child_marker_is_blocking
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A07_non_boolean_absence_claim_is_blocking
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A09_other_member_cannot_hide_mismatched_worker_parent_start
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_green_r1_independent.py::test_A10_transitive_descendant_with_bound_parent_identity_is_classified
+========================= 8 failed, 4 passed in 0.24s =========================
+
