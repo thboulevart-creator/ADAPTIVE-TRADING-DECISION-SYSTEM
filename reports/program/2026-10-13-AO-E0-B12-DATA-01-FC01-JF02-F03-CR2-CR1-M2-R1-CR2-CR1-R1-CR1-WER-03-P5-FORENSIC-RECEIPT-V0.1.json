@@ -1,0 +1,236 @@
+{
+  "schema": "ATDS_WER03_STATIC_READINESS_FORENSIC_V0_1",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03",
+  "human_decision": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "canonical": {
+    "repo": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head_at_p0": "f4f0404eeb3d470cc7d8a8acf32a5a44af873069",
+    "tree_at_p0": "49c7954f8921a3d34ee771f88f78f29160139831",
+    "tracked_diff": 0,
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b"
+  },
+  "frozen": {
+    "wer02_candidate_sha256": "a73cc58b7b21a0c29130f07aab1173ed18a5c6947f6049036e954fd98ab447d4",
+    "wer02_receipt_sha256": "e54c611adb20c34774bd085733b3c732716f426b1b044ce20f4f5c8ccb66dc36",
+    "green_sha256": "8092c558370130acd9eb16b1c3d1cfed209ff0b8b6f7e78f6a02354c2fc7f0e1",
+    "red_oracle_sha256": "2335423d1afe32bb9985a8a58331e3bd69ccdb811ac222cdfc197e47f3801aee",
+    "red_test_sha256": "cb58f8f36cb7a88ffa21ca7bbd027fa945990f582e83663313077bb43338d980",
+    "wer01_local_only_sha256": [
+      "aea1848a8ebb916ab3915b848aae712a22f7c2ccf50e7aeed1726590fc0e1a4f",
+      "00a558df1efc33d3f4fa4d701300fc82bc22c0e29a198d1898cac81322761a10",
+      "521715e0e4255a383a81813c36675fca76e376ffbe43e7593f42f1a34d8ae01c"
+    ]
+  },
+  "p0": "PASS",
+  "p1": {
+    "status": "STATIC_CAPABILITIES_INVENTORIED_LIMITED",
+    "windows": "Windows 11 Professionnel N 10.0.22631",
+    "arch": "x64",
+    "powershell": "5.1.22621.6133",
+    "elevated_admin_token": false,
+    "available_tools": [
+      "logman.exe",
+      "wevtutil.exe",
+      "tracerpt.exe",
+      "wpr.exe"
+    ],
+    "missing_tool": "xperf.exe",
+    "available_dlls": [
+      "advapi32.dll",
+      "kernel32.dll",
+      "tdh.dll"
+    ],
+    "provider_name": "Microsoft-Windows-Kernel-Process",
+    "provider_guid": "22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716",
+    "event_metadata_count": 41,
+    "inspected_event": "ID 1 version 0",
+    "event_fields": [
+      "ProcessID",
+      "CreateTime",
+      "ParentProcessID",
+      "SessionID",
+      "ImageName"
+    ],
+    "parent_creation_filetime_available_in_inspected_event": false,
+    "real_etw_permissions": "NOT_PROVEN",
+    "matrix": [
+      {
+        "id": "RC-01",
+        "name": "Immutable process identity",
+        "api": "GetProcessTimes, retained process handle",
+        "observed": "Windows DLL available; historical source uses FILETIME; no live member observation",
+        "gap": "PID + creation FILETIME lifetime/handle binding not proven",
+        "readiness": "REQUIRES_TARGETED_INSTRUMENTATION"
+      },
+      {
+        "id": "RC-02",
+        "name": "Independent parent-child lineage",
+        "api": "ETW process-start event, independently bound parent creation FILETIME",
+        "observed": "Kernel-Process provider GUID 22fb2cd6-0e7b-422b-a0c7-2fad1fd0e716; 41 metadata entries. Event 1 v0 ProcessID, CreateTime, ParentProcessID, SessionID, ImageName",
+        "gap": "ParentProcessID is not parent creation FILETIME; timing, loss, privileges and privacy scope unresolved",
+        "readiness": "INSUFFICIENT_EVIDENCE_DESIGN"
+      },
+      {
+        "id": "RC-03",
+        "name": "Specific Job membership",
+        "api": "QueryInformationJobObject and IsProcessInJob with non-null specific Job HANDLE",
+        "observed": "Existing experimental Windows source local-only, not executed",
+        "gap": "Exact Job identity, buffer completeness and normal/crash full inventory unproved",
+        "readiness": "REQUIRES_TARGETED_INSTRUMENTATION"
+      },
+      {
+        "id": "RC-04",
+        "name": "Per-member exit verification",
+        "api": "Retained HANDLE, WaitForSingleObject, GetExitCodeProcess, GetProcessTimes",
+        "observed": "Static Windows APIs documented but not run",
+        "gap": "Crash-independent all-member handles/exits unqualified",
+        "readiness": "REQUIRES_TARGETED_INSTRUMENTATION"
+      },
+      {
+        "id": "RC-05",
+        "name": "Authenticity, integrity and continuity",
+        "api": "Observer identity, raw ETW records and TRACE_LOGFILE_HEADER EventsLost/BuffersLost",
+        "observed": "Only synthetic hashes and local metadata available",
+        "gap": "Event/session completeness, observer crash, filtering scope and authenticity unqualified",
+        "readiness": "INSUFFICIENT_EVIDENCE_DESIGN"
+      }
+    ]
+  },
+  "p2": {
+    "status": "INSUFFICIENT_EVIDENCE_DESIGN",
+    "blocking_gaps": [
+      "trace session permission unproved",
+      "parent creation FILETIME cannot be inferred from ParentProcessID",
+      "provider-side third-party-event filtering unproved",
+      "event loss and crash/Job continuity unproved"
+    ],
+    "microsoft_references": [
+      [
+        "ETW Process schema",
+        "https://learn.microsoft.com/en-us/windows/win32/etw/process-v2-typegroup1"
+      ],
+      [
+        "SystemTraceProvider sessions",
+        "https://learn.microsoft.com/en-us/windows/win32/etw/configuring-and-starting-a-systemtraceprovider-session"
+      ],
+      [
+        "ETW trace security",
+        "https://learn.microsoft.com/en-us/windows/win32/api/evntcons/nf-evntcons-eventaccesscontrol"
+      ],
+      [
+        "ETW loss counters",
+        "https://learn.microsoft.com/en-us/windows/desktop/ETW/trace-logfile-header"
+      ],
+      [
+        "IsProcessInJob",
+        "https://learn.microsoft.com/en-us/windows/win32/api/jobapi/nf-jobapi-isprocessinjob"
+      ],
+      [
+        "QueryInformationJobObject",
+        "https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject"
+      ],
+      [
+        "GetProcessTimes",
+        "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-getprocesstimes"
+      ],
+      [
+        "ETW provider filtering",
+        "https://learn.microsoft.com/fr-fr/windows/win32/api/evntrace/nf-evntrace-enabletraceex2"
+      ]
+    ]
+  },
+  "p3": {
+    "status": "FUTURE_PROBE_PROTOCOL_DRAFT_COMPLETE_NOT_EXECUTABLE",
+    "probe": {
+      "status": "DRAFT_ONLY_NOT_EXECUTABLE",
+      "environment": "Disposable isolated Windows VM or Sandbox; explicitly verified authorized process scope",
+      "purpose": "Single controlled process creation plus independent parent identity, exact Job membership, per-member exit",
+      "suggested_future_budget_not_activated": {
+        "worker_launches": 1,
+        "launcher_processes": 1,
+        "collector_processes": 1,
+        "descendants": 0,
+        "job_objects": 1,
+        "regression_workers": 0,
+        "maximum_seconds": 15,
+        "maximum_event_records": 1000
+      },
+      "actual_authorized_now": {
+        "windows_workers": 0,
+        "etw_sessions": 0,
+        "real_windows_probes": 0
+      },
+      "prerequisites": [
+        "exact unique probe ID and source/binary SHA-256 freeze",
+        "fixed event provider ID + version + event-time semantics",
+        "demonstrated parent PID and parent FILETIME link, robust under reuse and races",
+        "rights checked without escalation",
+        "provider-side scoping proven or isolation of all potentially observed processes",
+        "observer life cycle, ETW EventsLost/BuffersLost and pre-session gaps fail closed",
+        "specific Job handle, exhaustive members and retained per-member exits including crash",
+        "exact budgets of launcher, collector, worker, descendants and cleanup",
+        "persistent pre-launch ledger and immutable raw receipts"
+      ],
+      "stop_conditions": [
+        "missing or delayed event",
+        "PID reused without bound creation FILETIME",
+        "ETW event or buffer loss",
+        "unrelated process captured",
+        "unverified member",
+        "wrong Job",
+        "observer failure",
+        "handle loss",
+        "timeout, volume or process count exceeded",
+        "inconsistent receipt"
+      ]
+    }
+  },
+  "p4": {
+    "status": "PASS_STATIC_SYNTHETIC_REQUALIFICATION",
+    "tests": 47,
+    "passed": 47,
+    "failed": 0,
+    "collection_errors": 0,
+    "pytest_exit": 0,
+    "raw_path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-P4-STATIC-SYNTHETIC-RAW-V0.1.txt",
+    "raw_sha256": "569758b88bb4f40b142b2149b5f50afc26df0e3425dde200d67cba52ffc83cb5",
+    "junit_path": "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-P4-STATIC-SYNTHETIC-JUNIT-V0.1.xml",
+    "junit_sha256": "7e9578ef861084634853c67a8a26df357b152c8aad4ba5bcab4ebe8a7e22872d"
+  },
+  "p5": {
+    "status": "PENDING_GITHUB_VERIFICATION",
+    "authorized_document_paths": [
+      "GOVERNANCE/AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-REAL-WINDOWS-EVIDENCE-READINESS-V0.1.md",
+      "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-P5-FORENSIC-REPORT-V0.1.md",
+      "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-P5-FORENSIC-RECEIPT-V0.1.json",
+      "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-P4-STATIC-SYNTHETIC-RAW-V0.1.txt",
+      "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-03-P4-STATIC-SYNTHETIC-JUNIT-V0.1.xml"
+    ]
+  },
+  "terminal_verdict": "REQUIRES_TARGETED_CORRECTION",
+  "safety": {
+    "windows_workers": 0,
+    "regression_workers": 0,
+    "real_etw_capture": 0,
+    "windows_probes": 0,
+    "job_object_execution": 0,
+    "supervisor_execution": 0,
+    "history_mutation": false,
+    "existing_source_mutation": false,
+    "fc01_cutover": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "provider_requests": 0,
+    "jforex_connections": 0,
+    "trading": false,
+    "orders": false,
+    "capital": false,
+    "force": false,
+    "fail_closed": true,
+    "stop": "MANDATORY"
+  },
+  "next": "SEPARATE_HUMAN_ADJUDICATION_TO_QUALIFY_COLLECTOR_PERMISSION_PARENT_START_CORRELATION_SCOPED_CAPTURE_AND_CRASH_CONTINUITY"
+}
