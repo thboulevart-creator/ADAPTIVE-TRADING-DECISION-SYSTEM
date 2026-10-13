@@ -1,0 +1,121 @@
+{
+  "schema": "ATDS_R1_CR1_WER05_V0_1_TERMINAL_RECEIPT",
+  "control_id": "AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-05",
+  "human_authority": "HUMAN_ADOPTED_AND_EXECUTION_AUTHORIZED",
+  "terminal": "BLOCKED",
+  "stop_reason": "HOST_MEMORY_READINESS_NOT_QUALIFIED_FOR_4096_MIB_SANDBOX",
+  "p0": {
+    "status": "PASS",
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "head": "047dbf8a5224653269ced987cf071defd3b9fd0e",
+    "tree": "467fcbce26051973e1afc0b3de836d0c3737bbab",
+    "tracked_diff_count": 0,
+    "fc01_blob": "44ccaeafdd22cede207fef6038e5c747ff5d1454",
+    "e1_blob": "2dcacfde5fdf9b39ce0c9647c4413f2d2fc67a0b",
+    "frozen_sha256": {
+      "wer04_terminal": "e9db43f602c4e80dad3b251155970ea60cc16c18961f92de1426977919f3c1d7",
+      "wer03_terminal": "101a3e760cb6704e6786885c15d5642003df89f404bc632e641123571663ea11",
+      "wer02_candidate": "a73cc58b7b21a0c29130f07aab1173ed18a5c6947f6049036e954fd98ab447d4",
+      "green_r1": "8092c558370130acd9eb16b1c3d1cfed209ff0b8b6f7e78f6a02354c2fc7f0e1",
+      "red_oracle": "2335423d1afe32bb9985a8a58331e3bd69ccdb811ac222cdfc197e47f3801aee",
+      "red_test": "cb58f8f36cb7a88ffa21ca7bbd027fa945990f582e83663313077bb43338d980"
+    },
+    "local_wer01_evidence_unchanged": [
+      "aea1848a8ebb916ab3915b848aae712a22f7c2ccf50e7aeed1726590fc0e1a4f",
+      "00a558df1efc33d3f4fa4d701300fc82bc22c0e29a198d1898cac81322761a10",
+      "521715e0e4255a383a81813c36675fca76e376ffbe43e7593f42f1a34d8ae01c"
+    ],
+    "historical_terminal_sha256": "1bf6a39f71a6d418d6f1e84724947f32443bb3ce0816ce8471f695ed1f308236",
+    "document_collision_count_at_start": 0
+  },
+  "p1": {
+    "status": "BLOCKED_RESOURCE_READINESS",
+    "host_os": "Windows 11 Professionnel N",
+    "build": "22631",
+    "feature_name": "Containers-DisposableClientVM",
+    "feature_install_state": 1,
+    "hypervisor_present": true,
+    "cpu_reported_virtualization_firmware_enabled": false,
+    "cpu_reported_slat": false,
+    "total_visible_memory_bytes": 16954851328,
+    "sandbox_target_memory_mib": 4096,
+    "sandbox_target_memory_bytes": 4294967296,
+    "free_physical_memory_samples_bytes": [
+      1283297280,
+      1011859456,
+      988262400
+    ],
+    "last_free_below_required_bytes": true,
+    "c_disk_free_bytes": 79810048000,
+    "host_admin_elevated": false,
+    "windows_sandbox_exe_exists": true,
+    "windows_sandbox_client_exe_exists": true,
+    "initial_sandbox_processes": 0,
+    "guest_interactive_control_readiness": "NOT_FORENSICALLY_QUALIFIED",
+    "resource_verdict": "AVAILABLE_MEMORY_NOT_QUALIFIED_FOR_SINGLE_SAFE_4096_MIB_BOOT",
+    "note": "These figures are observed host memory, not proof that Windows Sandbox could never boot. Fail closed before one-shot launch because sufficient headroom was not demonstrated."
+  },
+  "p2": {
+    "status": "NOT_STARTED_DUE_P1_GATE",
+    "wsb_config_created": false,
+    "wsb_config_sha256": null
+  },
+  "p3": {
+    "status": "NOT_STARTED_DUE_P1_GATE",
+    "sandbox_boot_budget_max": 1,
+    "sandbox_launch_attempts": 0,
+    "budget_spent": 0,
+    "active_or_guest_probe_count": 0,
+    "clean_shutdown": "NOT_APPLICABLE_NO_SANDBOX_STARTED"
+  },
+  "p4": {
+    "status": "NOT_STARTED_NO_GUEST",
+    "real_etw_session_starts": 0,
+    "guest_permissions": "NOT_OBSERVED"
+  },
+  "p5": {
+    "status": "NOT_STARTED_NO_GUEST",
+    "parent_filetime_binding": "NOT_PROVEN",
+    "guest_capture_scope": "NOT_PROVEN"
+  },
+  "p6": {
+    "status": "NOT_STARTED_DUE_FAIL_CLOSED_P1",
+    "new_synthetic_tests": 0,
+    "previous_wer04_tests": "HISTORICAL_47_OF_47_ONLY_NOT_RERUN"
+  },
+  "p7": {
+    "status": "LOCAL_FORENSIC_DOCUMENTS_CREATED_GITHUB_PENDING_VERIFICATION",
+    "scope": "WER05_REPORTS_ONLY"
+  },
+  "historical": {
+    "campaign": "R1RECOVERY_20261011_CAMPAIGN_A",
+    "status": "BLOCKED",
+    "consumed_workers": "4/13",
+    "replay": false,
+    "mutation": false
+  },
+  "firewall": {
+    "sandbox_boot_attempts": 0,
+    "real_etw_capture": false,
+    "etw_session_starts": 0,
+    "atds_workers": 0,
+    "regression_workers": 0,
+    "supervisor_executions": 0,
+    "host_privilege_escalation": false,
+    "security_policy_mutation": false,
+    "host_reboot": false,
+    "network_dependency_fetches": 0,
+    "provider_requests": 0,
+    "jforex_connect": 0,
+    "real_history_read": 0,
+    "fc01_cutover": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "force": false,
+    "fail_closed": true
+  },
+  "next": "SEPARATE_HUMAN_ADJUDICATION_FOR_NONDESTRUCTIVE_HOST_MEMORY_HEADROOM_AND_INTERACTIVE_GUEST_CONTROL_READINESS",
+  "stop": "APPLIED"
+}
