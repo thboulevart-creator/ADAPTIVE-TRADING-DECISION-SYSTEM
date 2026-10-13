@@ -1,0 +1,404 @@
+﻿FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF                                      [100%]
+================================== FAILURES ===================================
+______________ test_IT01_valid_exact_FILETIME_and_bound_identity ______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:76: in test_IT01_valid_exact_FILETIME_and_bound_identity
+    assert r.get("worker_identity")==WORKER
+E   AssertionError: assert None == {'creation_filetime': '134361969930150189', 'pid': 111}
+E    +  where None = <built-in method get of dict object at 0x000002E5D8677440>('worker_identity')
+E    +    where <built-in method get of dict object at 0x000002E5D8677440> = {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}.get
+_ test_IT01_rejects_invalid_immutable_identity[<lambda>-PID_REUSE_OR_IDENTITY_MISMATCH] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:85: in test_IT01_rejects_invalid_immutable_identity
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_IT01_rejects_invalid_immutable_identity[<lambda>-LOSSY_FILETIME] ____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:85: in test_IT01_rejects_invalid_immutable_identity
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT01_rejects_invalid_immutable_identity[<lambda>-INVALID_PROCESS_IDENTITY0] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:85: in test_IT01_rejects_invalid_immutable_identity
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT01_rejects_invalid_immutable_identity[<lambda>-INVALID_PROCESS_IDENTITY1] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:85: in test_IT01_rejects_invalid_immutable_identity
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-PARENT_IDENTITY_UNVERIFIED] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-PARENT_LINEAGE_NOT_BOUND] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_COVERAGE_INCOMPLETE0] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_COVERAGE_INCOMPLETE1] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_SEQUENCE_GAP] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_TIME_OUTSIDE_COVERAGE] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_SOURCE_UNQUALIFIED0] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_SOURCE_UNQUALIFIED1] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-JOB_MEMBER_START_EVENT_MISSING] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:99: in test_IT02_lineage_must_have_continuous_correlated_events
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+__ test_IT03_exact_specific_job_inventory[<lambda>-JOB_INVENTORY_INCOMPLETE] __
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:110: in test_IT03_exact_specific_job_inventory
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT03_exact_specific_job_inventory[<lambda>-JOB_MEMBER_COUNT_MISMATCH] __
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:110: in test_IT03_exact_specific_job_inventory
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+____ test_IT03_exact_specific_job_inventory[<lambda>-MEMBERSHIP_WRONG_JOB] ____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:110: in test_IT03_exact_specific_job_inventory
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT03_exact_specific_job_inventory[<lambda>-JOB_MEMBERSHIP_UNVERIFIED] __
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:110: in test_IT03_exact_specific_job_inventory
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT03_exact_specific_job_inventory[<lambda>-JOB_MEMBER_START_EVENT_MISSING] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:110: in test_IT03_exact_specific_job_inventory
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT03_exact_specific_job_inventory[<lambda>-DUPLICATE_JOB_MEMBER_IDENTITY] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:110: in test_IT03_exact_specific_job_inventory
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED0] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:120: in test_IT04_requires_all_member_exit_evidence
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED1] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:120: in test_IT04_requires_all_member_exit_evidence
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED2] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:120: in test_IT04_requires_all_member_exit_evidence
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT04_requires_all_member_exit_evidence[<lambda>-RAW_PROVENANCE_MISSING] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:120: in test_IT04_requires_all_member_exit_evidence
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED3] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:120: in test_IT04_requires_all_member_exit_evidence
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RECEIPT_CONTRADICTION0] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:131: in test_IT05_receipt_consistency_and_no_windows_promotion
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RECEIPT_CONTRADICTION1] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:131: in test_IT05_receipt_consistency_and_no_windows_promotion
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RECEIPT_CONTRADICTION2] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:131: in test_IT05_receipt_consistency_and_no_windows_promotion
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RAW_DIGEST_MISMATCH] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:131: in test_IT05_receipt_consistency_and_no_windows_promotion
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-UNAUTHORIZED_WINDOWS_PROVENANCE0] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:131: in test_IT05_receipt_consistency_and_no_windows_promotion
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_ test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-UNAUTHORIZED_WINDOWS_PROVENANCE1] _
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:131: in test_IT05_receipt_consistency_and_no_windows_promotion
+    p=base();change(p);expect(p,"BLOCKED",reason)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_________ test_IT02_transitive_descendant_from_synthetic_event_chain __________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:147: in test_IT02_transitive_descendant_from_synthetic_event_chain
+    assert r.get("verified_descendant_count")==2
+E   AssertionError: assert None == 2
+E    +  where None = <built-in method get of dict object at 0x000002E5DA68F000>('verified_descendant_count')
+E    +    where <built-in method get of dict object at 0x000002E5DA68F000> = {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}.get
+______ test_IT05_absence_proof_requires_complete_empty_descendant_chain _______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:152: in test_IT05_absence_proof_requires_complete_empty_descendant_chain
+    assert r.get("descendant_absence_proven") is True
+E   AssertionError: assert None is True
+E    +  where None = <built-in method get of dict object at 0x000002E5DA671500>('descendant_absence_proven')
+E    +    where <built-in method get of dict object at 0x000002E5DA671500> = {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}.get
+_____ test_IT05_missing_coverage_blocks_absence_despite_favorable_receipt _____
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:157: in test_IT05_missing_coverage_blocks_absence_despite_favorable_receipt
+    expect(p,"BLOCKED","EVENT_COVERAGE_INCOMPLETE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:67: in expect
+    assert r["status"]==status,r
+E   AssertionError: {'evidence_class': 'SYNTHETIC_CONTRACT', 'independent_windows_evidence': False, 'status': 'PASS', 'violations': []}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+__________ test_IT05_working_fixture_never_becomes_windows_evidence ___________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py:162: in test_IT05_working_fixture_never_becomes_windows_evidence
+    assert r["production_qualification"] is False
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'production_qualification'
+- generated xml file: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\reports\program\2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-02-P3-TEST-FIRST-SYNTHETIC-RED-JUNIT-V0.1.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT01_valid_exact_FILETIME_and_bound_identity
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT01_rejects_invalid_immutable_identity[<lambda>-PID_REUSE_OR_IDENTITY_MISMATCH]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT01_rejects_invalid_immutable_identity[<lambda>-LOSSY_FILETIME]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT01_rejects_invalid_immutable_identity[<lambda>-INVALID_PROCESS_IDENTITY0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT01_rejects_invalid_immutable_identity[<lambda>-INVALID_PROCESS_IDENTITY1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-PARENT_IDENTITY_UNVERIFIED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-PARENT_LINEAGE_NOT_BOUND]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_COVERAGE_INCOMPLETE0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_COVERAGE_INCOMPLETE1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_SEQUENCE_GAP]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_TIME_OUTSIDE_COVERAGE]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_SOURCE_UNQUALIFIED0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-EVENT_SOURCE_UNQUALIFIED1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_lineage_must_have_continuous_correlated_events[<lambda>-JOB_MEMBER_START_EVENT_MISSING]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT03_exact_specific_job_inventory[<lambda>-JOB_INVENTORY_INCOMPLETE]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT03_exact_specific_job_inventory[<lambda>-JOB_MEMBER_COUNT_MISMATCH]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT03_exact_specific_job_inventory[<lambda>-MEMBERSHIP_WRONG_JOB]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT03_exact_specific_job_inventory[<lambda>-JOB_MEMBERSHIP_UNVERIFIED]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT03_exact_specific_job_inventory[<lambda>-JOB_MEMBER_START_EVENT_MISSING]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT03_exact_specific_job_inventory[<lambda>-DUPLICATE_JOB_MEMBER_IDENTITY]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED2]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT04_requires_all_member_exit_evidence[<lambda>-RAW_PROVENANCE_MISSING]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT04_requires_all_member_exit_evidence[<lambda>-MEMBER_EXIT_UNVERIFIED3]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RECEIPT_CONTRADICTION0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RECEIPT_CONTRADICTION1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RECEIPT_CONTRADICTION2]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-RAW_DIGEST_MISMATCH]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-UNAUTHORIZED_WINDOWS_PROVENANCE0]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_receipt_consistency_and_no_windows_promotion[<lambda>-UNAUTHORIZED_WINDOWS_PROVENANCE1]
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT02_transitive_descendant_from_synthetic_event_chain
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_absence_proof_requires_complete_empty_descendant_chain
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_missing_coverage_blocks_absence_despite_favorable_receipt
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_contract.py::test_IT05_working_fixture_never_becomes_windows_evidence
+35 failed in 0.66s
+

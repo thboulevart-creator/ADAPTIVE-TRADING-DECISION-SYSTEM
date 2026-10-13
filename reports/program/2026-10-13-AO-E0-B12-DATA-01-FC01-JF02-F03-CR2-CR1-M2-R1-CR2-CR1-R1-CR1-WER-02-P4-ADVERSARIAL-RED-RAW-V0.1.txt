@@ -1,0 +1,86 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.12.10, pytest-8.4.2, pluggy-1.6.0 -- C:\Users\Boulevart\AppData\Local\Python\pythoncore-3.12-64\python.exe
+rootdir: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM
+collecting ... collected 12 items
+
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD01_extra_unaccounted_start_event_must_block FAILED [  8%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD02_recycled_PID_across_start_event_stream_must_block FAILED [ 16%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD03_claimed_global_PASS_cannot_hide_negative_member_evidence FAILED [ 25%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD04_event_timestamp_out_of_order_must_fail_closed FAILED [ 33%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD05_extra_nested_windows_provenance_claim_rejected FAILED [ 41%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD06_missing_primary_worker_event_blocks PASSED [ 50%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD07_a_good_synthetic_fixture_remains_green PASSED [ 58%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD08_mixed_integer_and_string_exact_filetime_canonicalized PASSED [ 66%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD09_scientific_notation_filetime_rejected PASSED [ 75%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD10_exit_observation_unavailable_requires_blocking PASSED [ 83%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD11_windows_kind_at_event_stream_boundary_forbidden FAILED [ 91%]
+tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD12_missing_process_creation_correlator_not_accepted PASSED [100%]
+
+================================== FAILURES ===================================
+_____________ test_AD01_extra_unaccounted_start_event_must_block ______________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:35: in test_AD01_extra_unaccounted_start_event_must_block
+    check(p,"UNACCOUNTED_PROCESS_START_EVENT")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_________ test_AD02_recycled_PID_across_start_event_stream_must_block _________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:44: in test_AD02_recycled_PID_across_start_event_stream_must_block
+    check(p,"PID_REUSE_OR_IDENTITY_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+_____ test_AD03_claimed_global_PASS_cannot_hide_negative_member_evidence ______
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:49: in test_AD03_claimed_global_PASS_cannot_hide_negative_member_evidence
+    check(p,"RECEIPT_CONTRADICTION")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:24: in check
+    assert violation in r["violations"],r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'RECEIPT_CONTRADICTION' in ['RAW_PROVENANCE_MISSING']
+___________ test_AD04_event_timestamp_out_of_order_must_fail_closed ___________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:55: in test_AD04_event_timestamp_out_of_order_must_fail_closed
+    check(p,"EVENT_CAUSAL_ORDER_INVALID")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+__________ test_AD05_extra_nested_windows_provenance_claim_rejected ___________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:60: in test_AD05_extra_nested_windows_provenance_claim_rejected
+    check(p,"UNAUTHORIZED_WINDOWS_PROVENANCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+__________ test_AD11_windows_kind_at_event_stream_boundary_forbidden __________
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:98: in test_AD11_windows_kind_at_event_stream_boundary_forbidden
+    check(p,"UNAUTHORIZED_WINDOWS_PROVENANCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS
+- generated xml file: C:\Users\Boulevart\Documents\ADAPTIVE-TRADING-DECISION-SYSTEM\reports\program\2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-02-P4-ADVERSARIAL-RED-JUNIT-V0.1.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD01_extra_unaccounted_start_event_must_block
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD02_recycled_PID_across_start_event_stream_must_block
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD03_claimed_global_PASS_cannot_hide_negative_member_evidence
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD04_event_timestamp_out_of_order_must_fail_closed
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD05_extra_nested_windows_provenance_claim_rejected
+FAILED tests/test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py::test_AD11_windows_kind_at_event_stream_boundary_forbidden
+========================= 6 failed, 6 passed in 0.28s =========================
+

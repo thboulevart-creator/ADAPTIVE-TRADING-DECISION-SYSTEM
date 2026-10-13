@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="11" skipped="0" tests="12" time="0.249" timestamp="2026-10-13T11:46:39.987166+02:00" hostname="DESKTOP-49BN9M3"><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM01_single_primary_worker" time="0.007" /><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM02_two_members_parent_bound_descendant" time="0.002"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:55: in test_JM02_two_members_parent_bound_descendant
+    v=assert_pass(x)
+      ^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:38: in assert_pass
+    v=run(obs);assert v["status"]=="PASS",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM03_unknown_second_member_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}&#10;assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:63: in test_JM03_unknown_second_member_blocks
+    assert_blocked(x,"UNCLASSIFIED_JOB_MEMBER")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'UNCLASSIFIED_JOB_MEMBER' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM04_invalid_member_creation_identity_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...}&#10;assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:67: in test_JM04_invalid_member_creation_identity_blocks
+    assert_blocked(x,"MEMBER_IDENTITY_INVALID")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': True, ...}
+E   assert 'MEMBER_IDENTITY_INVALID' in ['JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'WORKER_MISSING_FROM_JOB_BEFORE_LIST']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM05_PID_reuse_different_post_identity_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:71: in test_JM05_PID_reuse_different_post_identity_blocks
+    assert_blocked(x,"MEMBER_START_IDENTITY_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:43: in assert_blocked
+    v=run(obs);assert v["status"]=="BLOCKED",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM06_absence_claim_contradicted_by_child_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}&#10;assert 'CONTRADICTORY_DESCENDANT_ABSENCE' in ['DESCENDANT_ABSENCE_UNPROVEN']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:77: in test_JM06_absence_claim_contradicted_by_child_blocks
+    assert_blocked(x,"CONTRADICTORY_DESCENDANT_ABSENCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'CONTRADICTORY_DESCENDANT_ABSENCE' in ['DESCENDANT_ABSENCE_UNPROVEN']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM07_member_active_after_termination_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...}&#10;assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:82: in test_JM07_member_active_after_termination_blocks
+    assert_blocked(x,"MEMBER_TERMINATION_NOT_VERIFIED")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:44: in assert_blocked
+    assert reason in v["violations"],v
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': False, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': False, ...}
+E   assert 'MEMBER_TERMINATION_NOT_VERIFIED' in ['JOB_MEMBERS_STILL_ACTIVE_OR_UNKNOWN', 'JOB_MEMBER_EXIT_IDENTITY_INCOMPLETE', 'MEMBERSHIP_IDENTITY_UNRECONCILED', 'MEMBERSHIP_NOT_RECONCILED', 'WORKER_EXIT_NOT_VERIFIED']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM08_inconsistent_job_member_count_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:86: in test_JM08_inconsistent_job_member_count_blocks
+    assert_blocked(x,"JOB_MEMBER_COUNT_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:43: in assert_blocked
+    v=run(obs);assert v["status"]=="BLOCKED",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM09_independently_observed_single_member_absence" time="0.002"><failure message="AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'&#10;  &#10;  - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS&#10;  + ENUMERATED_EMPTY">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:90: in test_JM09_independently_observed_single_member_absence
+    assert v["absence_evidence"]=="ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS"
+E   AssertionError: assert 'ENUMERATED_EMPTY' == 'ENUMERATED_M...O_DESCENDANTS'
+E     
+E     - ENUMERATED_MEMBERS_ALL_CLASSIFIED_NO_DESCENDANTS
+E     + ENUMERATED_EMPTY</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM10_all_identified_descendants_terminated" time="0.003"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:95: in test_JM10_all_identified_descendants_terminated
+    v=assert_pass(x)
+      ^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:38: in assert_pass
+    v=run(obs);assert v["status"]=="PASS",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '600': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM11_missing_raw_source_provenance_blocks" time="0.002"><failure message="AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:100: in test_JM11_missing_raw_source_provenance_blocks
+    assert_blocked(x,"MEMBER_RAW_PROVENANCE_MISSING")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:43: in assert_blocked
+    v=run(obs);assert v["status"]=="BLOCKED",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'ENUMERATED_EMPTY', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER'}, 'descendant_absence_proven': True, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1" name="test_JM12_other_member_requires_independent_parent_lineage" time="0.002"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}&#10;assert 'BLOCKED' == 'PASS'&#10;  &#10;  - PASS&#10;  + BLOCKED">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:105: in test_JM12_other_member_requires_independent_parent_lineage
+    v=assert_pass(x)
+      ^^^^^^^^^^^^^^
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1.py:38: in assert_pass
+    v=run(obs);assert v["status"]=="PASS",v
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'500': 'PRIMARY_WORKER', '700': 'UNCLASSIFIED_MEMBER'}, 'descendant_absence_proven': False, ...}
+E   assert 'BLOCKED' == 'PASS'
+E     
+E     - PASS
+E     + BLOCKED</failure></testcase></testsuite></testsuites>

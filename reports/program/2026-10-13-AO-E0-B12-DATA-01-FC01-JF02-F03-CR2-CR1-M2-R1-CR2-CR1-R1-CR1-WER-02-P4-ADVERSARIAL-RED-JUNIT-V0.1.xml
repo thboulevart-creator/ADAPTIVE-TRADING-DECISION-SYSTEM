@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="6" skipped="0" tests="12" time="0.194" timestamp="2026-10-13T11:44:19.008913+02:00" hostname="DESKTOP-49BN9M3"><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD01_extra_unaccounted_start_event_must_block" time="0.001"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:35: in test_AD01_extra_unaccounted_start_event_must_block
+    check(p,"UNACCOUNTED_PROCESS_START_EVENT")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD02_recycled_PID_across_start_event_stream_must_block" time="0.001"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:44: in test_AD02_recycled_PID_across_start_event_stream_must_block
+    check(p,"PID_REUSE_OR_IDENTITY_MISMATCH")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD03_claimed_global_PASS_cannot_hide_negative_member_evidence" time="0.001"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}&#10;assert 'RECEIPT_CONTRADICTION' in ['RAW_PROVENANCE_MISSING']">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:49: in test_AD03_claimed_global_PASS_cannot_hide_negative_member_evidence
+    check(p,"RECEIPT_CONTRADICTION")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:24: in check
+    assert violation in r["violations"],r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': False, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'RECEIPT_CONTRADICTION' in ['RAW_PROVENANCE_MISSING']</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD04_event_timestamp_out_of_order_must_fail_closed" time="0.001"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:55: in test_AD04_event_timestamp_out_of_order_must_fail_closed
+    check(p,"EVENT_CAUSAL_ORDER_INVALID")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD05_extra_nested_windows_provenance_claim_rejected" time="0.001"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:60: in test_AD05_extra_nested_windows_provenance_claim_rejected
+    check(p,"UNAUTHORIZED_WINDOWS_PROVENANCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD06_missing_primary_worker_event_blocks" time="0.001" /><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD07_a_good_synthetic_fixture_remains_green" time="0.001" /><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD08_mixed_integer_and_string_exact_filetime_canonicalized" time="0.001" /><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD09_scientific_notation_filetime_rejected" time="0.001" /><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD10_exit_observation_unavailable_requires_blocking" time="0.001" /><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD11_windows_kind_at_event_stream_boundary_forbidden" time="0.001"><failure message="AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}&#10;assert 'PASS' == 'BLOCKED'&#10;  &#10;  - BLOCKED&#10;  + PASS">tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:98: in test_AD11_windows_kind_at_event_stream_boundary_forbidden
+    check(p,"UNAUTHORIZED_WINDOWS_PROVENANCE")
+tests\test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial.py:23: in check
+    assert r["status"]=="BLOCKED",r
+E   AssertionError: {'absence_evidence': 'NOT_PROVEN', 'all_member_exits_verified': True, 'classifications': {'111': 'PRIMARY_WORKER', '222': 'VERIFIED_DESCENDANT'}, 'collector_implemented': False, ...}
+E   assert 'PASS' == 'BLOCKED'
+E     
+E     - BLOCKED
+E     + PASS</failure></testcase><testcase classname="tests.test_fc01_f03_cr2_cr1_m2_r1_cr2_cr1_r1_cr1_wer_02_adversarial" name="test_AD12_missing_process_creation_correlator_not_accepted" time="0.001" /></testsuite></testsuites>
