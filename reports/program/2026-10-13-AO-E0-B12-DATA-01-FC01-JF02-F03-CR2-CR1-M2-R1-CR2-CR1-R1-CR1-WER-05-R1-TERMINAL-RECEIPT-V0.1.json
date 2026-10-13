@@ -1,0 +1,119 @@
+{
+  "schema": "ATDS_R1_CR1_WER05_R1_V0_1_TERMINAL_RECEIPT",
+  "control_id": "R1-CR1-WER-05-R1",
+  "human_authority": "EXPLICITLY_ADOPTED_READ_ONLY_2026-10-13",
+  "terminal": "REQUIRES_TARGETED_CORRECTION",
+  "stop": "APPLIED",
+  "source": {
+    "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+    "branch": "integration/system-v1",
+    "pre_persistence_head": "9ed38d72580635d9a63eff76cf6196123be2d8a1",
+    "pre_persistence_tree": "2cc1e7c78bc493be9ade9277a4acc3699dc646e1",
+    "local_head_matched": true,
+    "local_tree_matched": true,
+    "tracked_diff_empty": true,
+    "untracked_entries_preserved": 88,
+    "new_files_only": [
+      "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-05-R1-QUALIFICATION-REPORT-V0.1.md",
+      "reports/program/2026-10-13-AO-E0-B12-DATA-01-FC01-JF02-F03-CR2-CR1-M2-R1-CR2-CR1-R1-CR1-WER-05-R1-TERMINAL-RECEIPT-V0.1.json"
+    ]
+  },
+  "memory": {
+    "sample_time_utc": [
+      "2026-10-13T12:32:46.7828354Z",
+      "2026-10-13T12:33:17.2196510Z",
+      "2026-10-13T12:33:47.6616571Z"
+    ],
+    "os_free_physical_bytes": [
+      2032979968,
+      1544822784,
+      1697075200
+    ],
+    "perf_available_mib": [
+      1688,
+      1450,
+      1621
+    ],
+    "committed_bytes": [
+      30052876288,
+      30428815360,
+      30214057984
+    ],
+    "commit_limit_bytes": 35796262912,
+    "commit_headroom_bytes": [
+      5743386624,
+      5367447552,
+      5582204928
+    ],
+    "page_reads_per_sec": [
+      517,
+      15,
+      0
+    ],
+    "pages_per_sec": [
+      7967,
+      59,
+      0
+    ],
+    "page_writes_per_sec": [
+      0,
+      0,
+      0
+    ],
+    "minimum_host_available_bytes": 6442450944,
+    "minimum_commit_headroom_bytes": 6442450944,
+    "guest_memory_contract_mib": 4096,
+    "available_gate": "FAIL_3_OF_3",
+    "commit_gate": "FAIL_3_OF_3",
+    "host_memory_stability": "NOT_QUALIFIED_FOR_LAUNCH"
+  },
+  "guest_control": {
+    "os_build": "22631",
+    "admin_elevated": false,
+    "windows_sandbox_executable_present": true,
+    "windows_sandbox_client_present": true,
+    "wsb_cli_present": false,
+    "hcsdiag_list_raw_exit_code": 0,
+    "preexisting_hcs_system": {
+      "id": "fb568601-3fab-442c-b602-9bbc54ea64c1",
+      "system_type": "VirtualMachine",
+      "owner": "CmService",
+      "state": "SavedAsTemplate",
+      "protected": true
+    },
+    "host_sandbox_processes_observed": 0,
+    "hyperv_compute_admin_log_enabled": true,
+    "hyperv_worker_admin_log_enabled": true,
+    "independent_watchdog": "NOT_TESTED",
+    "real_guest_identity": "NOT_PROVEN",
+    "guest_shutdown_control": "NOT_PROVEN",
+    "teardown_independent_proof": "NOT_ACQUIRED",
+    "direct_guest_desktop_control": "NOT_ESTABLISHED"
+  },
+  "firewall": {
+    "sandbox_boot_attempts": 0,
+    "wsb_config_created": false,
+    "supervisor_executions": 0,
+    "etw_session_starts": 0,
+    "real_etw_capture": false,
+    "atds_workers": 0,
+    "regression_workers": 0,
+    "host_privilege_escalation": false,
+    "host_reboot": false,
+    "host_settings_mutated": false,
+    "processes_terminated": 0,
+    "preexisting_vm_modified": false,
+    "historical_evidence_mutated": false,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "trading": false,
+    "orders": false,
+    "capital": false,
+    "force": false,
+    "fail_closed": true
+  },
+  "breaker": "CONTROLLED_TEARDOWN_NOT_JUSTIFIED_AND_MEMORY_THRESHOLD_FAILURE",
+  "next": "SEPARATE_HUMAN_ADJUDICATION_FOR_TARGETED_MEMORY_AND_AUTONOMOUS_TEARDOWN_CORRECTION",
+  "publication_method": "TWO_NEW_FILES_SINGLE_COMMIT_GIT_REF_LEASE_EXPECTED_HEAD_FORCE_FALSE"
+}
