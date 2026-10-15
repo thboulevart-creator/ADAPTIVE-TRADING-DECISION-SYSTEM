@@ -1,0 +1,113 @@
+name: WER-05-ALT-05-R2B Targeted Known-Process Job Observer One-Shot
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/wer-05-alt-05-r2b-targeted-native-observer-one-shot.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wer-05-alt-05-r2b-v0-1-single-trial
+  cancel-in-progress: false
+
+jobs:
+  targeted-native-observer:
+    if: ${{ github.event.head_commit.message == 'WER-05-ALT-05-R2B-V0.1 ONE-SHOT AUTHORIZED KNOWN-PROCESS TRIAL' && github.run_attempt == 1 }}
+    runs-on: windows-2025
+    timeout-minutes: 5
+    steps:
+      - name: Checkout authorized commit without persisted credentials
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          lfs: false
+          submodules: false
+          fetch-depth: 1
+      - name: Compile canonical sources and run one bounded known-process trial
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:GITHUB_RUN_ATTEMPT -ne '1') { throw 'RETRY_FORBIDDEN' }
+          if ($env:GITHUB_REF -ne 'refs/heads/integration/system-v1') { throw 'BRANCH_MISMATCH' }
+          if ($env:GITHUB_SHA -ne ((git rev-parse HEAD) -join '').Trim()) { throw 'HEAD_MISMATCH' }
+          $os = Get-CimInstance Win32_OperatingSystem
+          if ($os.BuildNumber -ne '26100') { throw 'OS_BUILD_MISMATCH' }
+          if ($env:ImageVersion -ne '20261007.264.1') { throw 'RUNNER_IMAGE_VERSION_MISMATCH' }
+          $required = [ordered]@{
+            'NATIVE_PROBE_V0.1.c' = '0331cea835288b6911f908e88c41a2983bf4cda97b5be574bfdab1686162dd31'
+            'INERT_WORKER_V0.1.c' = '04a5a8db1f11312bf9cb96db367309b05f5e8dd261135a7b4b2764b431d42038'
+            'KERNEL32_IMPORTS.def' = '03a6364144b80dfffc328011d2576bc5e228f9feffe4adc8c8f016cf1e783fd4'
+          }
+          $root = Join-Path $env:RUNNER_TEMP 'ATDS_R2B_V01_CANONICAL'
+          if (Test-Path -LiteralPath $root) { throw 'TEMP_COLLISION' }
+          New-Item -ItemType Directory -Path $root | Out-Null
+          $git = (Get-Command git.exe -ErrorAction Stop).Source
+          $paths = @($required.Keys | ForEach-Object { 'tools/wer05_alt05_r2a/' + $_ })
+          & $git -c core.autocrlf=false -c core.eol=lf checkout-index -f ('--prefix=' + $root + [IO.Path]::DirectorySeparatorChar) -- $paths
+          if ($LASTEXITCODE -ne 0) { throw 'CANONICAL_EXPORT_FAILED' }
+          $src = Join-Path $root 'tools/wer05_alt05_r2a'
+          foreach ($name in $required.Keys) {
+            $path = Join-Path $src $name
+            if (!(Test-Path -LiteralPath $path -PathType Leaf)) { throw ('SOURCE_MISSING:' + $name) }
+            $actual = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($actual -ne $required[$name]) { throw ('SOURCE_HASH_MISMATCH:' + $name) }
+          }
+          $clang = (Get-Command clang.exe -ErrorAction Stop).Source
+          $link = (Get-Command lld-link.exe -ErrorAction Stop).Source
+          $clang_version = ((& $clang --version | Select-Object -First 1) -join '').Trim()
+          $link_version = ((& $link --version | Select-Object -First 1) -join '').Trim()
+          if ($clang_version -ne 'clang version 20.1.8') { throw 'CLANG_VERSION_MISMATCH' }
+          if ($link_version -ne 'LLD 20.1.8') { throw 'LINKER_VERSION_MISMATCH' }
+          $build = Join-Path $env:RUNNER_TEMP 'ATDS_R2B_V01_COMPILE_AND_RUN'
+          if (Test-Path -LiteralPath $build) { throw 'BUILD_TEMP_COLLISION' }
+          New-Item -ItemType Directory -Path $build | Out-Null
+          Push-Location $build
+          try {
+            $def = '/def:' + (Join-Path $src 'KERNEL32_IMPORTS.def')
+            & $link /dll /noentry /machine:x64 $def /implib:KERNEL32.lib /Brepro 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'IMPORT_LIBRARY_LINK_FAILED' }
+            & $clang --target=x86_64-pc-windows-msvc -c -O2 -ffreestanding -fno-builtin -fno-stack-protector -Wall -Wextra (Join-Path $src 'NATIVE_PROBE_V0.1.c') -o native.obj 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'NATIVE_COMPILATION_FAILED' }
+            & $link /out:ATDS_ALT05_NATIVE_PROBE_V0.1.exe /subsystem:console /entry:mainCRTStartup /nodefaultlib /machine:x64 /fixed /Brepro native.obj KERNEL32.lib 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'NATIVE_LINK_FAILED' }
+            & $clang --target=x86_64-pc-windows-msvc -c -O2 -ffreestanding -fno-builtin -fno-stack-protector -Wall -Wextra (Join-Path $src 'INERT_WORKER_V0.1.c') -o inert.obj 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'WORKER_COMPILATION_FAILED' }
+            & $link /out:ATDS_ALT05_INERT_WORKER_V0.1.exe /subsystem:console /entry:mainCRTStartup /nodefaultlib /machine:x64 /fixed /Brepro inert.obj 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'WORKER_LINK_FAILED' }
+            $probe = Join-Path $build 'ATDS_ALT05_NATIVE_PROBE_V0.1.exe'
+            $worker = Join-Path $build 'ATDS_ALT05_INERT_WORKER_V0.1.exe'
+            if ((Get-FileHash -LiteralPath $probe -Algorithm SHA256).Hash.ToLowerInvariant() -ne '16ef22ac183d8a9514fe57f31fbb17621fa6daedc84311b9ab305a63b37bdda8') { throw 'PROBE_BINARY_IDENTITY_MISMATCH' }
+            if ((Get-FileHash -LiteralPath $worker -Algorithm SHA256).Hash.ToLowerInvariant() -ne 'ed5d34555e4c831d94a427e877fb208a8c55843ef1673f8b44418e16fa65da9d') { throw 'WORKER_BINARY_IDENTITY_MISMATCH' }
+            # This is the sole authorized launch of an experimental binary.
+            # The native controller is source-bounded to one observer, one suspended inert worker and one Job Object.
+            $output = @(& $probe --controller 2>&1 | ForEach-Object { "$_" })
+            $exit = $LASTEXITCODE
+            if ($exit -ne 0) { throw 'TARGETED_TRIAL_BLOCKED' }
+            if ($output.Count -ne 1 -or $output[0].Trim() -ne 'ALT05_TARGETED_HANDLE_PROBE=PASS') { throw 'UNEXPECTED_NATIVE_OUTPUT' }
+            $receipt = [ordered]@{
+              schema = 'ATDS_WER05_ALT05_R2B_V0_1_KNOWN_PROCESS_TRIAL'
+              verdict = 'KNOWN_PROCESS_HANDLE_JOB_TRIAL_PASS_NOT_FULL_WER_EVIDENCE'
+              run_id = $env:GITHUB_RUN_ID
+              attempt = $env:GITHUB_RUN_ATTEMPT
+              commit = $env:GITHUB_SHA
+              observed_utc = (Get-Date).ToUniversalTime().ToString('o')
+              windows_build = $os.BuildNumber
+              clang_version = $clang_version
+              linker_version = $link_version
+              compiled_probe_sha256 = (Get-FileHash -LiteralPath $probe -Algorithm SHA256).Hash.ToLowerInvariant()
+              compiled_worker_sha256 = (Get-FileHash -LiteralPath $worker -Algorithm SHA256).Hash.ToLowerInvariant()
+              observer_controller_worker_receipt = $output[0].Trim()
+              experimental_etw_sessions = 0
+              experimental_business_workers = 0
+              unknown_descendants_qualified = $false
+              simultaneous_crash_continuity_qualified = $false
+            }
+            $receipt | ConvertTo-Json -Compress -Depth 3 | Write-Output
+          } finally {
+            Pop-Location
+          }
