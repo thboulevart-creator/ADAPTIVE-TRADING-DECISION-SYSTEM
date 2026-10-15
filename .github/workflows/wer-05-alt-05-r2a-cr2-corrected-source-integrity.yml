@@ -1,0 +1,106 @@
+name: WER-05-ALT-05-R2A-CR2 Corrected Source Integrity Candidate
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/wer-05-alt-05-r2a-cr2-corrected-source-integrity.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wer-05-alt-05-r2a-cr2-one-shot-source-integrity
+  cancel-in-progress: false
+
+jobs:
+  source-build-readiness:
+    if: ${{ github.event.head_commit.message == 'WER-05-ALT-05-R2A-CR2-V0.1 ONE-SHOT AUTHORIZED SOURCE-INTEGRITY PREFLIGHT' }}
+    runs-on: windows-2025
+    timeout-minutes: 5
+    steps:
+      - name: Checkout authorized commit without saved credential
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          lfs: false
+          submodules: false
+          fetch-depth: 1
+      - name: Canonical LF source export and compile-only verification
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:GITHUB_RUN_ATTEMPT -ne '1') { throw 'RETRY_FORBIDDEN' }
+          if ($env:GITHUB_REF -ne 'refs/heads/integration/system-v1') { throw 'BRANCH_MISMATCH' }
+          if ($env:GITHUB_SHA -ne (git rev-parse HEAD)) { throw 'HEAD_MISMATCH' }
+          $os = Get-CimInstance Win32_OperatingSystem
+          if ($os.BuildNumber -ne '26100') { throw 'OS_BUILD_MISMATCH' }
+          $required = [ordered]@{
+            'NATIVE_PROBE_V0.1.c' = '0331cea835288b6911f908e88c41a2983bf4cda97b5be574bfdab1686162dd31'
+            'INERT_WORKER_V0.1.c' = '04a5a8db1f11312bf9cb96db367309b05f5e8dd261135a7b4b2764b431d42038'
+            'KERNEL32_IMPORTS.def' = '03a6364144b80dfffc328011d2576bc5e228f9feffe4adc8c8f016cf1e783fd4'
+          }
+          $root = Join-Path $env:RUNNER_TEMP 'ATDS_R2A_CR2_CANONICAL'
+          if (Test-Path -LiteralPath $root) { throw 'TEMP_COLLISION' }
+          New-Item -ItemType Directory -Path $root | Out-Null
+          $git = (Get-Command git.exe -ErrorAction Stop).Source
+          $relative = @($required.Keys | ForEach-Object { 'tools/wer05_alt05_r2a/' + $_ })
+          $prefix = $root + [IO.Path]::DirectorySeparatorChar
+          & $git -c core.autocrlf=false -c core.eol=lf checkout-index -f ('--prefix=' + $prefix) -- $relative
+          if ($LASTEXITCODE -ne 0) { throw 'CANONICAL_EXPORT_FAILED' }
+          $src = Join-Path $root 'tools/wer05_alt05_r2a'
+          $status = @()
+          foreach ($name in $required.Keys) {
+            $original = Join-Path $env:GITHUB_WORKSPACE ('tools/wer05_alt05_r2a/' + $name)
+            $canonical = Join-Path $src $name
+            if (!(Test-Path -LiteralPath $canonical -PathType Leaf)) { throw ('CANONICAL_SOURCE_MISSING:' + $name) }
+            if (!(Test-Path -LiteralPath $original -PathType Leaf)) { throw ('CHECKOUT_SOURCE_MISSING:' + $name) }
+            $chash = (Get-FileHash -LiteralPath $canonical -Algorithm SHA256).Hash.ToLowerInvariant()
+            $whash = (Get-FileHash -LiteralPath $original -Algorithm SHA256).Hash.ToLowerInvariant()
+            if ($chash -ne $required[$name]) { throw ('CANONICAL_SOURCE_HASH_MISMATCH:' + $name) }
+            $status += [ordered]@{ file=$name; canonical_sha256=$chash; checkout_sha256=$whash; checkout_identical=($chash -eq $whash) }
+          }
+          $clang = (Get-Command clang.exe -ErrorAction Stop).Source
+          $link = (Get-Command lld-link.exe -ErrorAction Stop).Source
+          $llvmVersion = ((& $clang --version | Select-Object -First 1) -join '')
+          $linkVersion = ((& $link --version | Select-Object -First 1) -join '')
+          $tmp = Join-Path $env:RUNNER_TEMP 'ATDS_R2A_CR2_COMPILE_ONLY'
+          if (Test-Path -LiteralPath $tmp) { throw 'COMPILATION_TEMP_COLLISION' }
+          New-Item -ItemType Directory -Path $tmp | Out-Null
+          Push-Location $tmp
+          try {
+            $def = '/def:' + (Join-Path $src 'KERNEL32_IMPORTS.def')
+            & $link /dll /noentry /machine:x64 $def /implib:KERNEL32.lib /Brepro 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'IMPORT_LIBRARY_LINK_FAILED' }
+            & $clang --target=x86_64-pc-windows-msvc -c -O2 -ffreestanding -fno-builtin -fno-stack-protector -Wall -Wextra (Join-Path $src 'NATIVE_PROBE_V0.1.c') -o native.obj 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'NATIVE_COMPILATION_FAILED' }
+            & $link /out:ATDS_ALT05_NATIVE_PROBE_V0.1.exe /subsystem:console /entry:mainCRTStartup /nodefaultlib /machine:x64 /fixed /Brepro native.obj KERNEL32.lib 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'NATIVE_LINK_FAILED' }
+            & $clang --target=x86_64-pc-windows-msvc -c -O2 -ffreestanding -fno-builtin -fno-stack-protector -Wall -Wextra (Join-Path $src 'INERT_WORKER_V0.1.c') -o inert.obj 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'WORKER_COMPILATION_FAILED' }
+            & $link /out:ATDS_ALT05_INERT_WORKER_V0.1.exe /subsystem:console /entry:mainCRTStartup /nodefaultlib /machine:x64 /fixed /Brepro inert.obj 2>&1 | Out-Null
+            if ($LASTEXITCODE -ne 0) { throw 'WORKER_LINK_FAILED' }
+            $result = [ordered]@{
+              schema = 'ATDS_WER05_ALT05_R2A_CR2_COMPILE_ONLY_CANDIDATE_V0_1'
+              verdict = 'SOURCE_INTEGRITY_AND_COMPILATION_PASS_NOT_NATIVE_QUALIFICATION'
+              commit = $env:GITHUB_SHA
+              run_id = $env:GITHUB_RUN_ID
+              attempt = $env:GITHUB_RUN_ATTEMPT
+              observed_utc = (Get-Date).ToUniversalTime().ToString('o')
+              windows_build = $os.BuildNumber
+              llvm_version = $llvmVersion
+              linker_version = $linkVersion
+              source_integrity = $status
+              compiled_probe_sha256 = (Get-FileHash -LiteralPath './ATDS_ALT05_NATIVE_PROBE_V0.1.exe' -Algorithm SHA256).Hash.ToLowerInvariant()
+              compiled_inert_sha256 = (Get-FileHash -LiteralPath './ATDS_ALT05_INERT_WORKER_V0.1.exe' -Algorithm SHA256).Hash.ToLowerInvariant()
+              compiled_but_not_executed = $true
+              etw_sessions = 0
+              experimental_job_objects = 0
+              experimental_workers_executed = 0
+            }
+            $result | ConvertTo-Json -Compress -Depth 4 | Write-Output
+          } finally {
+            Pop-Location
+          }
