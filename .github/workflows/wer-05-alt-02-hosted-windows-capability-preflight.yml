@@ -1,0 +1,103 @@
+name: WER-05-ALT-02 Hosted Windows Capability Preflight V0.1
+
+on:
+  push:
+    branches:
+      - integration/system-v1
+    paths:
+      - '.github/workflows/wer-05-alt-02-hosted-windows-capability-preflight.yml'
+
+permissions: {}
+
+concurrency:
+  group: wer-05-alt-02-v0-1-single-capability-job
+  cancel-in-progress: false
+
+jobs:
+  capability:
+    if: ${{ github.event.head_commit.message == 'WER-05-ALT-02-V0.1 ONE-SHOT AUTHORIZED CAPABILITY PREFLIGHT' }}
+    runs-on: windows-2025
+    timeout-minutes: 5
+    steps:
+      - name: Read-only Windows capability inventory
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          if ($env:GITHUB_REF -ne 'refs/heads/integration/system-v1') {
+            throw 'ALT02_BRANCH_MISMATCH'
+          }
+          if ($env:GITHUB_RUN_ATTEMPT -ne '1') {
+            throw 'ALT02_RETRY_FORBIDDEN'
+          }
+          $os = Get-CimInstance -ClassName Win32_OperatingSystem
+          $computer = Get-CimInstance -ClassName Win32_ComputerSystem
+          $identity = [Security.Principal.WindowsIdentity]::GetCurrent()
+          $principal = [Security.Principal.WindowsPrincipal]::new($identity)
+          $admin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+          $perfSid = [Security.Principal.SecurityIdentifier]::new('S-1-5-32-559')
+          $perfLogs = $principal.IsInRole($perfSid)
+          $dlls = [ordered]@{}
+          foreach ($dll in @('kernel32.dll', 'advapi32.dll', 'tdh.dll')) {
+            $dlls[$dll] = [bool](Test-Path -LiteralPath (Join-Path $env:SystemRoot "System32/$dll") -PathType Leaf)
+          }
+          $commands = [ordered]@{}
+          foreach ($command in @('logman.exe', 'wevtutil.exe', 'tracerpt.exe')) {
+            $commands[$command] = [bool](Get-Command -Name $command -ErrorAction SilentlyContinue)
+          }
+          $exports = [ordered]@{}
+          [IntPtr]$library = [IntPtr]::Zero
+          $loaded = [System.Runtime.InteropServices.NativeLibrary]::TryLoad('kernel32.dll', [ref]$library)
+          try {
+            foreach ($symbol in @('GetProcessTimes', 'QueryInformationJobObject', 'IsProcessInJob')) {
+              [IntPtr]$address = [IntPtr]::Zero
+              $exports[$symbol] = [bool]($loaded -and [System.Runtime.InteropServices.NativeLibrary]::TryGetExport($library, $symbol, [ref]$address))
+            }
+          } finally {
+            if ($loaded) { [System.Runtime.InteropServices.NativeLibrary]::Free($library) }
+          }
+          # Query provider registration metadata only. Do not start or configure an ETW session.
+          $PSNativeCommandUseErrorActionPreference = $false
+          & logman.exe query providers 'Microsoft-Windows-Kernel-Process' *> $null
+          $kernelProviderRegistered = ($LASTEXITCODE -eq 0)
+          $interfacesComplete = (($admin -or $perfLogs) -and $kernelProviderRegistered)
+          foreach ($v in $dlls.Values) { $interfacesComplete = $interfacesComplete -and $v }
+          foreach ($v in $commands.Values) { $interfacesComplete = $interfacesComplete -and $v }
+          foreach ($v in $exports.Values) { $interfacesComplete = $interfacesComplete -and $v }
+          $result = [ordered]@{
+            schema = 'ATDS_WER05_ALT02_CAPABILITY_PREFLIGHT_V0_1'
+            run_id = $env:GITHUB_RUN_ID
+            run_attempt = $env:GITHUB_RUN_ATTEMPT
+            commit_sha = $env:GITHUB_SHA
+            run_ref = $env:GITHUB_REF
+            observed_at_utc = (Get-Date).ToUniversalTime().ToString('o')
+            runner_image_version = $env:ImageVersion
+            windows_version = [string]$os.Version
+            windows_build = [string]$os.BuildNumber
+            architecture = [string]$os.OSArchitecture
+            powershell_version = [string]$PSVersionTable.PSVersion
+            total_physical_memory_gib = [math]::Round([double]$computer.TotalPhysicalMemory / 1GB, 2)
+            logical_processors = [int]$computer.NumberOfLogicalProcessors
+            administrator_token = [bool]$admin
+            performance_log_users = [bool]$perfLogs
+            dll_file_present = $dlls
+            utilities_available = $commands
+            exported_functions = $exports
+            kernel_process_provider_registered = [bool]$kernelProviderRegistered
+            etw_permission_tested = $false
+            etw_session_started = $false
+            atds_worker_started = $false
+            capability_verdict = $(if ($interfacesComplete) { 'METADATA_COMPLETE' } else { 'METADATA_WITH_GAPS' })
+          }
+          $json = $result | ConvertTo-Json -Compress -Depth 6
+          Write-Output $json
+          $summary = @(
+            '### WER-05-ALT-02 — Metadata-only Windows preflight',
+            "- Run ID: $($result.run_id)",
+            "- Commit: $($result.commit_sha)",
+            "- Windows: $($result.windows_version) / build $($result.windows_build)",
+            "- Capability metadata: $($result.capability_verdict)",
+            '- ETW capture: NOT EXECUTED',
+            '- ATDS workers: NOT EXECUTED',
+            '- Real process/job testing: NOT EXECUTED'
+          ) -join "`n"
+          Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Value $summary
