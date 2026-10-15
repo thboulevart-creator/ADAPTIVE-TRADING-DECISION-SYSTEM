@@ -1,0 +1,3 @@
+# MT5 source-discovery environment
+# Pinned direct dependency for the official MetaTrader 5 Python integration.
+MetaTrader5==5.0.6180
