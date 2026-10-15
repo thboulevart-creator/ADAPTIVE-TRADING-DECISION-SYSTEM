@@ -1,0 +1,100 @@
+{
+  "schema": "ATDS_WER05_ALT02_V0_1_TERMINAL_RECEIPT",
+  "control_id": "WER-05-ALT-02",
+  "human_authority": "EXPLICITLY_ADOPTED_SINGLE_HOSTED_WINDOWS_METADATA_PREFLIGHT",
+  "repository": "thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM",
+  "branch": "integration/system-v1",
+  "initial_head": "8650034a82fbb8a5f3be7769f1ad7cd3c4d61f6d",
+  "initial_tree": "1aed2c12c7d0f64df11f1d2118b5f4e8f4404950",
+  "workflow_path": ".github/workflows/wer-05-alt-02-hosted-windows-capability-preflight.yml",
+  "workflow_git_blob": "5cf5796ebc00b6daa44dba0117403649766bba21",
+  "execution_head": "2d91a97b9fd1b6b6fbbe465ac708e399e0bddebf",
+  "execution_tree": "ec74473ae6de8510d5b37092041d1107dc04a8d9",
+  "run_id": 38707799690,
+  "job_id": 116331438391,
+  "run_attempt": 1,
+  "trigger": "push",
+  "runner": "windows-2025",
+  "job_status": "completed",
+  "job_conclusion": "success",
+  "job_count": 1,
+  "run_count_at_sha_observed": 1,
+  "observation_utc": "2026-10-15T08:44:19.5881924Z",
+  "actual_runner_metadata": {
+    "image_version": "20260925.250.1",
+    "windows_version": "10.0.26100",
+    "build": "26100",
+    "architecture": "64-bit",
+    "powershell": "7.6.6",
+    "ram_gib": 15.99,
+    "logical_processors": 4,
+    "admin_token": true,
+    "performance_log_users": false,
+    "dll_file_present": {
+      "kernel32.dll": true,
+      "advapi32.dll": true,
+      "tdh.dll": true
+    },
+    "utilities_available": {
+      "logman.exe": true,
+      "wevtutil.exe": true,
+      "tracerpt.exe": true
+    },
+    "exported_functions": {
+      "GetProcessTimes": true,
+      "QueryInformationJobObject": true,
+      "IsProcessInJob": true
+    },
+    "kernel_process_provider_registered": true,
+    "metadata_verdict": "METADATA_COMPLETE"
+  },
+  "static_trigger_audit": {
+    "existing_workflows_inspected": 185,
+    "push_workflows": 184,
+    "branch_relevant_push": 180,
+    "other_workflows_matching_alt02_added_path": 0,
+    "push_workflows_unfiltered_on_branch": 0,
+    "workflow_run_detected": 0,
+    "future_evidence_paths_matching": 0
+  },
+  "terminal": "HOSTED_WINDOWS_CAPABILITY_PREFLIGHT_PASS",
+  "scope": "PRELIMINARY_METADATA_ONLY",
+  "not_proven": [
+    "KERNEL_ETW_SESSION_PRIVILEGE",
+    "PROVIDER_SOURCE_FILTER_PRIVACY",
+    "INDEPENDENT_PID_FILETIME_PARENT_LINEAGE",
+    "SPECIFIC_JOB_MEMBERSHIP",
+    "INDEPENDENT_CRASH_AND_EXIT_WITNESS",
+    "HOSTED_RUNNER_TO_WINDOWS_11_EQUIVALENCE",
+    "GUEST_TEARDOWN"
+  ],
+  "firewall": {
+    "etw_sessions_started_by_alt02": 0,
+    "real_etw_capture": false,
+    "atds_workers": 0,
+    "job_object_created_by_alt02": 0,
+    "sandbox_launches": 0,
+    "nested_vm_creations": 0,
+    "experimental_process_terminations": 0,
+    "privilege_escalations": 0,
+    "host_configuration_mutations": 0,
+    "main_branch_mutations": 0,
+    "historical_evidence_mutations": 0,
+    "auto_retries": 0,
+    "read_a_retry": false,
+    "read_b": false,
+    "b12": "CLOSED",
+    "trading": false,
+    "orders": false,
+    "capital": false,
+    "force": false,
+    "fail_closed": true,
+    "stop": "APPLIED"
+  },
+  "next": "SEPARATE_HUMAN_ADJUDICATION_FOR_HOSTED_WINDOWS_REAL_PERMISSION_AND_PRIVACY_SCOPE_GATE",
+  "run_url": "https://github.com/thboulevart-creator/ADAPTIVE-TRADING-DECISION-SYSTEM/actions/runs/38707799690",
+  "new_files": [
+    "reports/program/2026-10-15-WER-05-ALT-02-QUALIFICATION-REPORT-V0.1.md",
+    "reports/program/2026-10-15-WER-05-ALT-02-TERMINAL-RECEIPT-V0.1.json"
+  ]
+}
