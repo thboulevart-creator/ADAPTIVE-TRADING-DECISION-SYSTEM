@@ -1,0 +1,227 @@
+{
+  "schema_version": "ATDS_EA_OBSERVATION_V0_1",
+  "batch_id": "SYNTHETIC-001",
+  "synthetic": true,
+  "authority": {
+    "trading": false,
+    "capital": false,
+    "real_data": false
+  },
+  "requested_claim": "DESCRIPTIVE",
+  "ea_registry": [
+    {
+      "ea_id": "SYNTH_MA",
+      "binary_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "config_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "ownership": "SYNTHETIC"
+    }
+  ],
+  "run_manifest": [
+    {
+      "run_id": "RUN-1",
+      "ea_id": "SYNTH_MA",
+      "source_id": "SRC-1",
+      "mode": "SYNTHETIC",
+      "account_scope": "SYNTHETIC-ACC-1",
+      "position_mode": "HEDGING",
+      "account_currency": "USD",
+      "market_symbol": "SYNTH-NAS",
+      "ea_isolated": true,
+      "attested_binding": true,
+      "equity_coverage": "FINAL_ONLY",
+      "config_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "cost_conversion_status": "COMPLETE"
+    }
+  ],
+  "source_manifest": [
+    {
+      "source_id": "SRC-1",
+      "kind": "SYNTHETIC",
+      "synthetic": true,
+      "sha256": "5aed05ce07b9a5f3a029e3d7d57e8467456fe279f04d967da633f06032741a5b",
+      "record_count": 6,
+      "raw_records": [
+        {
+          "ref": "bind-1",
+          "tag": "EA_BINDING"
+        },
+        {
+          "ref": "order-1",
+          "tag": "ORDER",
+          "values": {
+            "native_order_id": "1001",
+            "order_state": "FILLED",
+            "source_seq": 1,
+            "timestamp_raw": "2026-01-01T10:00:00Z",
+            "timestamp_utc": "2026-01-01T10:00:00Z"
+          }
+        },
+        {
+          "ref": "deal-1",
+          "tag": "DEAL",
+          "values": {
+            "native_deal_id": "2001",
+            "native_order_id": "1001",
+            "native_position_id": "3001",
+            "symbol": "SYNTH-NAS",
+            "side": "BUY",
+            "entry_type": "IN",
+            "volume": "0.10",
+            "price": "100.00",
+            "profit": "0.00",
+            "commission": "-0.20",
+            "swap": "0.00",
+            "fee": "0.00",
+            "source_seq": 2,
+            "timestamp_raw": "2026-01-01T10:01:00Z",
+            "timestamp_utc": "2026-01-01T10:01:00Z"
+          }
+        },
+        {
+          "ref": "acct-1",
+          "tag": "ACCOUNT_SNAPSHOT",
+          "values": {
+            "balance": "1000.00",
+            "equity": "1004.00",
+            "margin_used": "50.00",
+            "margin_free": "954.00",
+            "account_currency": "USD",
+            "timestamp_raw": "2026-01-01T10:02:00Z",
+            "timestamp_utc": "2026-01-01T10:02:00Z"
+          }
+        },
+        {
+          "ref": "pos-1",
+          "tag": "POSITION_SNAPSHOT",
+          "values": {
+            "native_position_id": "3001",
+            "symbol": "SYNTH-NAS",
+            "side": "BUY",
+            "volume": "0.10",
+            "floating_pnl": "4.00",
+            "timestamp_raw": "2026-01-01T10:02:00Z",
+            "timestamp_utc": "2026-01-01T10:02:00Z"
+          }
+        },
+        {
+          "ref": "ctx-1",
+          "tag": "CONTEXT",
+          "values": {
+            "available_at_utc": "2026-01-01T09:59:00Z",
+            "decision_at_utc": "2026-01-01T10:00:00Z",
+            "use_for_decision": true
+          }
+        }
+      ],
+      "completeness": {
+        "orders": "COMPLETE",
+        "deals": "COMPLETE",
+        "positions": "PARTIAL",
+        "account": "PARTIAL",
+        "market": "PARTIAL"
+      }
+    }
+  ],
+  "trade_events": [
+    {
+      "event_id": "E-ORDER-1",
+      "run_id": "RUN-1",
+      "source_id": "SRC-1",
+      "source_record_ref": "order-1",
+      "source_seq": 1,
+      "event_type": "ORDER",
+      "timestamp_raw": "2026-01-01T10:00:00Z",
+      "timestamp_utc": "2026-01-01T10:00:00Z",
+      "time_precision": "SECONDS",
+      "timezone_status": "KNOWN_OFFSET",
+      "observation_class": "OBSERVED_DIRECT",
+      "native_order_id": "1001",
+      "order_state": "FILLED",
+      "ea_attribution": {
+        "status": "EXACT",
+        "ea_id": "SYNTH_MA",
+        "binding_evidence_ref": "bind-1"
+      }
+    },
+    {
+      "event_id": "E-DEAL-1",
+      "run_id": "RUN-1",
+      "source_id": "SRC-1",
+      "source_record_ref": "deal-1",
+      "source_seq": 2,
+      "event_type": "DEAL",
+      "timestamp_raw": "2026-01-01T10:01:00Z",
+      "timestamp_utc": "2026-01-01T10:01:00Z",
+      "time_precision": "SECONDS",
+      "timezone_status": "KNOWN_OFFSET",
+      "observation_class": "OBSERVED_DIRECT",
+      "native_deal_id": "2001",
+      "native_order_id": "1001",
+      "native_position_id": "3001",
+      "symbol": "SYNTH-NAS",
+      "side": "BUY",
+      "entry_type": "IN",
+      "volume": "0.10",
+      "price": "100.00",
+      "profit": "0.00",
+      "commission": "-0.20",
+      "swap": "0.00",
+      "fee": "0.00",
+      "ea_attribution": {
+        "status": "EXACT",
+        "ea_id": "SYNTH_MA",
+        "binding_evidence_ref": "bind-1"
+      }
+    }
+  ],
+  "position_snapshots": [
+    {
+      "snapshot_id": "POS-SNAP-1",
+      "run_id": "RUN-1",
+      "source_id": "SRC-1",
+      "source_record_ref": "pos-1",
+      "timestamp_raw": "2026-01-01T10:02:00Z",
+      "timestamp_utc": "2026-01-01T10:02:00Z",
+      "time_precision": "SECONDS",
+      "timezone_status": "KNOWN_OFFSET",
+      "native_position_id": "3001",
+      "symbol": "SYNTH-NAS",
+      "side": "BUY",
+      "volume": "0.10",
+      "floating_pnl": "4.00",
+      "attribution": {
+        "status": "EXACT",
+        "ea_id": "SYNTH_MA",
+        "binding_evidence_ref": "bind-1"
+      }
+    }
+  ],
+  "account_snapshots": [
+    {
+      "snapshot_id": "ACC-SNAP-1",
+      "run_id": "RUN-1",
+      "source_id": "SRC-1",
+      "source_record_ref": "acct-1",
+      "timestamp_raw": "2026-01-01T10:02:00Z",
+      "timestamp_utc": "2026-01-01T10:02:00Z",
+      "time_precision": "SECONDS",
+      "timezone_status": "KNOWN_OFFSET",
+      "balance": "1000.00",
+      "equity": "1004.00",
+      "margin_used": "50.00",
+      "margin_free": "954.00",
+      "account_currency": "USD"
+    }
+  ],
+  "market_context_refs": [
+    {
+      "context_id": "CTX-1",
+      "run_id": "RUN-1",
+      "source_id": "SRC-1",
+      "source_record_ref": "ctx-1",
+      "available_at_utc": "2026-01-01T09:59:00Z",
+      "decision_at_utc": "2026-01-01T10:00:00Z",
+      "use_for_decision": true
+    }
+  ]
+}
