@@ -1,0 +1,80 @@
+{
+  "schema_version": "ATDS_EA03_P2_I1_MOCK_FIXTURE_V0_1",
+  "synthetic": true,
+  "authority": {"trading": false, "capital": false, "real_data": false, "network": false},
+  "collections": {
+    "ea_registry": [
+      {
+        "ea_id": "MOCK-EA-01",
+        "ownership": "SYNTHETIC",
+        "binary_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "synthetic": true
+      }
+    ],
+    "run_manifest": [
+      {
+        "run_id": "MOCK-RUN-01",
+        "ea_id": "MOCK-EA-01",
+        "account_scope": "MOCK-ACCOUNT-01",
+        "position_mode": "HEDGING",
+        "mode": "SYNTHETIC",
+        "synthetic": true
+      }
+    ],
+    "orders": [
+      {
+        "record_id": "MOCK-ORDER-01",
+        "run_id": "MOCK-RUN-01",
+        "native_order_id": "1001",
+        "event_time_utc": "2026-01-01T10:00:00Z",
+        "state": "FILLED",
+        "synthetic": true
+      }
+    ],
+    "deals": [
+      {
+        "record_id": "MOCK-DEAL-01",
+        "run_id": "MOCK-RUN-01",
+        "native_deal_id": "2001",
+        "native_order_id": "1001",
+        "native_position_id": "3001",
+        "volume": "0.10",
+        "profit": "0.00",
+        "commission": null,
+        "synthetic": true
+      }
+    ],
+    "positions": [
+      {
+        "record_id": "MOCK-POSITION-01",
+        "run_id": "MOCK-RUN-01",
+        "native_position_id": "3001",
+        "side": "BUY",
+        "volume": "0.10",
+        "floating_pnl": "-12.50",
+        "synthetic": true
+      }
+    ],
+    "account_snapshots": [
+      {
+        "record_id": "MOCK-ACCOUNT-SNAPSHOT-01",
+        "run_id": "MOCK-RUN-01",
+        "account_scope": "MOCK-ACCOUNT-01",
+        "currency": "USD",
+        "balance": "1000.00",
+        "equity": "987.50",
+        "margin_used": "80.00",
+        "synthetic": true
+      }
+    ],
+    "market_context": [
+      {
+        "record_id": "MOCK-CONTEXT-01",
+        "run_id": "MOCK-RUN-01",
+        "available_at_utc": "2026-01-01T09:59:00Z",
+        "decision_at_utc": "2026-01-01T10:00:00Z",
+        "synthetic": true
+      }
+    ]
+  }
+}
